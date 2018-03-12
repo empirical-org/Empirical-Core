@@ -1,8 +1,8 @@
-import React from 'react'
+import * as React from 'react'
 
 const PremiumFeatures = () =>
 <div id="features">
-  <h2>School Dashboard</h2>
+  <h2>School dashboard</h2>
   <p>Quill Premium for Schools provides you with:</p>
   <div className="features-list">
     <div className="feature">

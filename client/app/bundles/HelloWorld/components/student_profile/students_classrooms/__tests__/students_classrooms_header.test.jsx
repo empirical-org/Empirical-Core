@@ -2,119 +2,77 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 
 import StudentsClassroomsHeader from '../students_classrooms_header';
+import StudentsClassroom from '../students_classroom';
+import StudentsClassroomsDropdown from '../students_classrooms_dropdown';
 
-const twoClassrooms = [{id: 1, teacher: 'Mr. Novas', name: 'Class'},
-{id: 2, teacher: 'Mr. McKendrick', name: 'Other Class'}]
 
 const fiveClassrooms = [
   {id: 1, teacher: 'Mr. Novas', name: 'Class'},
   {id: 2, teacher: 'Mr. McKendrick', name: 'Other Class'},
-  {id: 2, teacher: 'Mr. Gault', name: 'Other Other Class'},
-  {id: 2, teacher: 'Mr. Thameen', name: 'Other Other Other Class'},
-  {id: 2, teacher: 'Ms. Monk', name: 'Other Other Other Other Class'},
-  {id: 2, teacher: 'Ms. Friedberg', name: 'Other Other Other Other Other Class'},
+  {id: 3, teacher: 'Mr. Gault', name: 'Other Other Class'},
+  {id: 4, teacher: 'Mr. Thameen', name: 'Other Other Other Class'},
+  {id: 5, teacher: 'Ms. Monk', name: 'Other Other Other Other Class'},
 ]
 
-describe('StudentsClassroomsHeader component', () => {
+describe('StudentsClassroomsHeader', () => {
 
-  it('should render classroom name and teacher for every classroom on state change', () => {
+  it('renders the number of specified classroom tabs', () => {
     const wrapper = shallow(
-      <StudentsClassroomsHeader />
+      <StudentsClassroomsHeader
+        classrooms={fiveClassrooms}
+        numberOfClassroomTabs={3}
+      />
     );
-    expect(wrapper.find('.classroom-box').exists()).toBe(false);
-    wrapper.setState({classrooms: twoClassrooms,
-      defaultClassroomNumber: 5
+
+    expect(wrapper.find(StudentsClassroom).length).toBe(3);
+  });
+
+  it('passes correct props to the rendered classroom tabs', () => {
+    const handleClick = () => {};
+    const wrapper = shallow(
+      <StudentsClassroomsHeader
+        classrooms={fiveClassrooms}
+        numberOfClassroomTabs={3}
+        handleClick={handleClick}
+        selectedClassroomId={5}
+      />
+    );
+
+    expect(wrapper.find(StudentsClassroom).first().props()).toEqual({
+      classroom: fiveClassrooms[0],
+      handleClick: handleClick,
+      selectedClassroomId: 5,
     });
-    expect(wrapper.find('.classroom-box').length).toBe(2);
-    expect(wrapper.find('.classroom-box').at(0).text()).toMatch('Mr. Novas');
-    expect(wrapper.find('.classroom-box').at(1).text()).toMatch('Mr. McKendrick');
-    expect(wrapper.find('.classroom-box').at(0).text()).toMatch('Class');
-    expect(wrapper.find('.classroom-box').at(1).text()).toMatch('Other Class');
   });
 
-  it('should render active class for selected classroom in props', () => {
+  it('passes the excess classrooms to the dropdown', () => {
     const wrapper = shallow(
       <StudentsClassroomsHeader
-        currentClassroomId={1}
+        classrooms={fiveClassrooms}
+        numberOfClassroomTabs={3}
       />
     );
-    wrapper.setState({classrooms: twoClassrooms});
-    expect(wrapper.find('.classroom-box').at(0).props().className).toMatch('active');
-    expect(wrapper.find('.classroom-box').at(1).props().className).not.toMatch('active');
+
+    const dropdown = wrapper.find(StudentsClassroomsDropdown)
+    expect(dropdown.props().classroomList.length).toBe(2);
   });
 
-  it('should handle onclick events with fetchData prop', () => {
-    const mockFetchData = jest.fn();
-    const wrapper = mount(
+  it('passes correct props to the classrooms in the dropdown', () => {
+    const handleClick = () => {};
+    const wrapper = shallow(
       <StudentsClassroomsHeader
-        currentClassroomId={1}
-        fetchData={mockFetchData}
+        classrooms={fiveClassrooms}
+        numberOfClassroomTabs={3}
+        handleClick={handleClick}
+        selectedClassroomId={5}
       />
     );
-    wrapper.setState({classrooms: [
-      {id: 1, teacher: 'Mr. Novas', name: 'Class'}
-    ]});
-    wrapper.find('.classroom-box').at(0).simulate('click');
-    expect(mockFetchData.mock.calls.length).toBe(1);
-    expect(mockFetchData.mock.calls[0][0]).toBe(1);
+
+    const dropdown = wrapper.find(StudentsClassroomsDropdown);
+    expect(dropdown.props().classroomList[0].props.children.props).toEqual({
+      classroom: fiveClassrooms[3],
+      handleClick: handleClick,
+      selectedClassroomId: 5,
+    });
   });
-
-  describe('dropdown', () => {
-      const wrapper = shallow(
-        <StudentsClassroomsHeader
-          currentClassroomId={1}
-        />
-      );
-
-      it('does not render if there are fewer classrooms than the defaultClassroomNumber', () => {
-        wrapper.setState({classrooms: twoClassrooms,
-        defaultClassroomNumber: 3});
-        expect(wrapper.find('.dropdown-tab')).toHaveLength(0)
-      })
-
-      it('does not render if there are equal classrooms to the defaultClassroomNumber', () => {
-        wrapper.setState({classrooms: twoClassrooms,
-        defaultClassroomNumber: 2});
-        expect(wrapper.find('.dropdown-tab')).toHaveLength(0)
-      })
-
-      describe ('if there are more classrooms than the defaultClassroomNumber', () => {
-
-        it('renders if there are more classrooms than the defaultClassroomNumber', () => {
-          wrapper.setState({ classrooms: fiveClassrooms, defaultClassroomNumber: 3});
-          expect(wrapper.find('.dropdown-tab')).toHaveLength(1)
-        })
-
-        it('will display the number of hidden classes', () => {
-          wrapper.setState({ classrooms: fiveClassrooms, defaultClassroomNumber: 3});
-          const numberOfHiddenClasses = wrapper.state('classrooms').length - wrapper.state('defaultClassroomNumber')
-          expect(wrapper.find('.dropdown-tab').text()).toEqual(`${numberOfHiddenClasses} More Classes`)
-        })
-
-        it('will toggle the dropdown on click', () => {
-          wrapper.setState({ classrooms: fiveClassrooms, defaultClassroomNumber: 3});
-          wrapper.find('.dropdown-tab').simulate('click')
-          expect(wrapper.state('showDropdownBoxes')).toBe(true)
-        })
-
-        it('will toggle the dropdown on click', () => {
-          wrapper.setState({ classrooms: fiveClassrooms, defaultClassroomNumber: 3, showDropdownBoxes: true});
-          wrapper.find('.dropdown-tab').simulate('click')
-          expect(wrapper.state('showDropdownBoxes')).toBe(false)
-        })
-
-        it('will render no dropdown items if closed', () => {
-          wrapper.setState({ classrooms: fiveClassrooms, defaultClassroomNumber: 3});
-          expect(wrapper.find('.dropdown-classrooms').find('li')).toHaveLength(0)
-        })
-
-        it('will render as many dropdown items as hidden classes if open', () => {
-          wrapper.setState({ classrooms: fiveClassrooms, defaultClassroomNumber: 3, showDropdownBoxes: true});
-          const numberOfHiddenClasses = wrapper.state('classrooms').length - wrapper.state('defaultClassroomNumber')
-          expect(wrapper.find('.dropdown-classrooms').find('li')).toHaveLength(numberOfHiddenClasses)
-        })
-
-      })
-    })
-
 });
