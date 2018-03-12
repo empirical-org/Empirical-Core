@@ -1,0 +1,12 @@
+<div class='container'>
+  <article class='simple-rounded-box cms-container'>
+    <div>
+      <% @images.each do |i|%>
+        <div>
+          <p><%= i.file.url %></p>
+          <img src="<%= i.file.url %>" style="max-width:500px"></img>
+        </div>
+      <% end %>
+    </div>
+  </article>
+</div>
