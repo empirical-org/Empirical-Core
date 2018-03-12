@@ -22,11 +22,8 @@
 
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <%= render partial: 'typekit' unless Rails.env.test? %>
-    <%= javascript_pack_tag('vendor') %>
     <%= javascript_pack_tag(@js_file || 'home') %>
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
     <%= stylesheet_pack_tag('home') %>
-    <%= stylesheet_pack_tag('app') %>
     <%= csrf_meta_tags %>
     <%= render partial: 'application/head_embed_codes' %>
   </head>
