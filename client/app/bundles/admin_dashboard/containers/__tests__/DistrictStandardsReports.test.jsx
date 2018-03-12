@@ -1,8 +1,13 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import ReactDOM from 'react-dom';
+import { mount, shallow } from 'enzyme';
+//import { MemoryRouter } from 'react-router';
 import { createMockStore } from 'redux-test-utils';
-
+// DistrictStandardsReportsProgressReport
+import AdminDashboardRouter from 'bundles/admin_dashboard/containers/AdminDashboardRouter.jsx';
 import DistrictStandardsReports from 'bundles/admin_dashboard/containers/DistrictStandardsReports.jsx';
+//import DistrictStandardsReportsProgressReports from 'bundles/admin_dashboard/containers/DistrictStandardsReports.jsx'
+//import DistrictStandardsReportsProgressReports from 'bundles/HelloWorld/components/progress_reports/district_standards_reports_progress_report.jsx'
 
 describe('DistrictStandardsReports', () => {
 
@@ -68,5 +73,18 @@ describe('DistrictStandardsReports', () => {
       ]
     ]);
   });
+
+  /*
+  it('invalid path should redirect to 404', () => {
+    console.log(MemoryRouter);
+    const wrapper = mount(
+      <MemoryRouter initialEntries={[ '/random' ]}>
+        <AdminDashboardRouter/>
+      </MemoryRouter>
+    );
+    expect(1+1).toEqual(2);
+    //expect(wrapper.find(DistrictStandardsReportsProgressReport)).toHaveLength(0);
+  });
+  */
 
 });
