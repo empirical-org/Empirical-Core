@@ -7,9 +7,7 @@ class UpdateSalesmachineAccountStage
 
   def update
     return false unless valid_stage?
-
-    sales_account.data = updated_data
-    result = sales_account.save!
+    result = update_sales_account!
 
     if result
       @client.account({ account_uid: school.id, params: sales_account.data })
@@ -19,6 +17,11 @@ class UpdateSalesmachineAccountStage
   end
 
   private
+
+  def update_sales_account!
+    sales_account.data = updated_data
+    sales_account.save!
+  end
 
   def updated_data
     new_data.merge(sales_account.data.compact)
