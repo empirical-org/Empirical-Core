@@ -2,6 +2,10 @@
   max-width: 950px;
   margin: auto;
   padding-top: 22px;
+  .fa-credit-card {
+    padding-right: 5px;
+    font-size: 13px;
+  }
 
   .refund-policy p {
     color: #1e1e1e;
@@ -63,7 +67,7 @@
 
   .subscription-status {
     background-color: #fff;
-    padding-top: 8px;
+    padding-top: 15px;
     color: #3b3b3b;
     padding-bottom: 0px;
     strong {
@@ -155,7 +159,9 @@
       padding: 20px 30px;
       background-color: white;
       .meta-section {
-        border-bottom: 1px solid #d8d8d8;
+        &:not(:last-of-type) {
+          border-bottom: 1px solid #d8d8d8;
+        }
         padding: 25px 0px 0px 0px;
         &.payment {
           padding-bottom: 20px;

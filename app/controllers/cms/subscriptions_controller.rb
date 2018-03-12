@@ -1,4 +1,7 @@
 class Cms::SubscriptionsController < Cms::CmsController
+  before_action :set_subscription, except: [:index, :create]
+  before_action :get_subscription_data, only: [:edit]
+
 
   def show
   end
@@ -13,6 +16,10 @@ class Cms::SubscriptionsController < Cms::CmsController
     render json: @subscription
   end
 
+  def edit
+    # everything set in erb file
+  end
+
   def update
     @subscription = Subscription.find(params[:id])
     @subscription.update(subscription_params)
@@ -22,11 +29,12 @@ class Cms::SubscriptionsController < Cms::CmsController
   def destroy
   end
 
-  # def get_user
-  #   @user = User.find params[:user_id]
-  # end
 
   private
+
+  def set_subscription
+    @subscription = Subscription.find(params[:id])
+  end
 
   def subscription_params
     params.require(:subscription).permit([

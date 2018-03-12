@@ -59,7 +59,7 @@ class SubscriptionsController < ApplicationController
     @subscriptions = current_user.subscriptions
     @premium_credits = current_user.credit_transactions
     subscription_status
-    @school_subscription_types = Subscription::SCHOOL_SUBSCRIPTIONS_TYPES
+    @school_subscription_types = Subscription::OFFICIAL_SCHOOL_TYPES
     @last_four = current_user&.last_four
     @trial_types = Subscription::TRIAL_TYPES
     if @subscription_status
