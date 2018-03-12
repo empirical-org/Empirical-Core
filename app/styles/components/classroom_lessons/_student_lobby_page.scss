@@ -7,7 +7,7 @@
     height: 100%;
     width: 40%;
     background-color: #fafafa;
-    padding: 40px 60px;
+    padding: 40px 48px;
     position: absolute;
     right: 0px;
     .presence-header {
@@ -35,21 +35,25 @@
         font-weight: bold;
       }
       .online {
-        height: 15px;
-        width: 15px;
-        border-radius: 15px;
         background-color: #82bf3c;
       }
       .offline {
+        background-color: #ff4441;
+      }
+      .online, .offline {
+        padding-left: 15px;
+        margin-left: 5px;
         height: 15px;
         width: 15px;
         border-radius: 15px;
-        background-color: #ff4441;
       }
 
     }
     @media (max-width: 900px) {
       padding: 40px 20px;
+    }
+    &.projector-presence {
+      padding: 40px 70px 40px 40px;
     }
   }
   .projector-view {
