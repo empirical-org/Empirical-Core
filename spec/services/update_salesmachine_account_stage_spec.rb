@@ -8,20 +8,7 @@ describe 'UpdateSalesmachineAccountStage' do
     school = create(:school)
     client = double('salesmachine_client')
 
-    expect(client).to receive(:account).with({
-      account_uid: school.id,
-      params: {
-        # quill_basic_subscription: nil,
-        # quill_teacher_subscription: nil,
-        in_conversation: DateTime.now.to_i,
-        # quote_accepted: nil,
-        # purchase_order_received: nil,
-        # invoice_sent: nil,
-        # quill_premium_subscription: nil,
-        # professional_development_scheduled: nil,
-        # professional_development_completed: nil,
-      },
-    })
+    expect(client).to receive(:account)
 
     UpdateSalesmachineAccountStage.new(school.id, 'in_conversation', client)
       .update
@@ -48,16 +35,16 @@ describe 'UpdateSalesmachineAccountStage' do
     UpdateSalesmachineAccountStage.new(school.id, 'in_conversation', client)
       .update
 
-    expect(school.reload.sales_account.data).to eq(
+    expect(school.reload.sales_account.data).to include(
       'in_conversation' => DateTime.now.to_i,
-      # 'invoice_sent' => nil,
-      # 'professional_development_completed' => nil,
-      # 'professional_development_scheduled' => nil,
-      # 'purchase_order_received' => nil,
-      # 'quill_basic_subscription' => nil,
-      # 'quill_premium_subscription' => nil,
-      # 'quill_teacher_subscription' => nil,
-      # 'quote_accepted' => nil,
+      'invoice_sent' => nil,
+      'professional_development_completed' => nil,
+      'professional_development_scheduled' => nil,
+      'purchase_order_received' => nil,
+      'quill_basic_subscription' => nil,
+      'quill_premium_subscription' => nil,
+      'quill_teacher_subscription' => nil,
+      'quote_accepted' => nil,
     )
   end
 
@@ -72,15 +59,8 @@ describe 'UpdateSalesmachineAccountStage' do
     UpdateSalesmachineAccountStage.new(school.id, 'quote_accepted', client)
       .update
 
-    expect(school.reload.sales_account.data).to eq(
+    expect(school.reload.sales_account.data).to include(
       'in_conversation' => DateTime.now.to_i,
-      # 'invoice_sent' => nil,
-      # 'professional_development_completed' => nil,
-      # 'professional_development_scheduled' => nil,
-      # 'purchase_order_received' => nil,
-      # 'quill_basic_subscription' => nil,
-      # 'quill_premium_subscription' => nil,
-      # 'quill_teacher_subscription' => nil,
       'quote_accepted' => DateTime.now.to_i,
     )
   end

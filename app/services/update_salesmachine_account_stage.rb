@@ -8,7 +8,7 @@ class UpdateSalesmachineAccountStage
   def update
     return false unless valid_stage?
 
-    sales_account.data.merge!(@stage => DateTime.now.to_i)
+    sales_account.data = updated_data
     result = sales_account.save!
 
     if result
@@ -16,6 +16,24 @@ class UpdateSalesmachineAccountStage
     end
 
     result
+  end
+
+  private
+
+  def updated_data
+    new_data.merge(sales_account.data.compact)
+  end
+
+  def default_data
+    @default_data ||= Hash.new.tap do |hash|
+      valid_stages.each do |stage|
+        hash[stage] = nil
+      end
+    end
+  end
+
+  def new_data
+    default_data.merge(@stage => DateTime.now.to_i)
   end
 
   def valid_stages
