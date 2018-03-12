@@ -10,6 +10,27 @@ describe TeachersController, type: :controller do
     session[:user_id] = teacher.id
   end
 
+  describe '#admin_dashboard' do
+    it 'render admin dashboard' do
+      get :admin_dashboard
+      expect(response).to redirect_to profile_path
+    end
+    it 'render admin dashboard' do
+      user = create(:user)
+      user.schools_admins.create
+      session[:user_id] = user.id
+      get :admin_dashboard  
+      expect(response).to render_template('admin')
+    end
+  end
+
+  describe '#current_user_json' do
+    it 'render current user json' do
+      get :current_user_json
+      expect(response.body).to  eq teacher.to_json
+    end
+  end
+
   describe '#classrooms_i_teach_with_students' do
 
     it 'returns the classrooms with students of the current user' do
