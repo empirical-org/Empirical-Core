@@ -186,17 +186,25 @@
   cursor: pointer;
 }
 
-.right-button.keep-right {
-  right: 1%;
+@media (min-width: 1750px) {
+  .right-button {
+    right: 10%;
+  }
+  .left-button {
+    left: 10%;
+  }
 }
 
-@media (min-width: 1440px) {
+@media (max-width: 1749px) {
   .left-button {
     left: 10%;
   }
 
   .right-button {
     right: 10%;
+    &.keep-right {
+      right: 3%;
+    }
   }
 }
 
@@ -207,6 +215,9 @@
 
   .right-button {
     right: 5%;
+    &.keep-right {
+      right: 0.5%;
+    }
   }
 }
 
@@ -217,6 +228,9 @@
 
   .right-button {
     right: 2%;
+    &.keep-right {
+      right: 0.5%;
+    }
   }
 }
 
