@@ -58,7 +58,7 @@ class Subscription < ActiveRecord::Base
   ALL_OFFICIAL_TYPES = OFFICIAL_PAID_TYPES.dup.concat(OFFICIAL_FREE_TYPES)
   TRIAL_TYPES = ['Teacher Trial', 'trial']
   SCHOOL_RENEWAL_PRICE = 90000
-  
+
   TYPES_HASH = {
     trial: TRIAL_TYPES,
     teacher: OFFICIAL_TEACHER_TYPES,
@@ -217,8 +217,6 @@ class Subscription < ActiveRecord::Base
   end
 
   protected
-
-
 
   def charge_user_for_teacher_premium
     if purchaser && purchaser.stripe_customer_id
