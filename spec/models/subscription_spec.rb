@@ -23,7 +23,7 @@ describe Subscription, type: :model do
   describe 'the subscription type consts' do
     it "the official school and offical teacher types contain the same values as all offical types" do
       types_by_role = Subscription::OFFICIAL_SCHOOL_TYPES.dup.concat(Subscription::OFFICIAL_TEACHER_TYPES)
-      expect(types_by_role).to match_array(Subscription:ALL_OFFICIAL_TYPES)
+      expect(types_by_role).to match_array(Subscription::ALL_OFFICIAL_TYPES)
     end
   end
 
