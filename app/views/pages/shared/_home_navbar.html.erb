@@ -1,64 +1,43 @@
-<% if current_user&.teacher? %>
-  <div id="application_nav_bar">
-    <nav class="navbar home-page-navbar npr other-pages-navbar" role="navigation">
-      <%= render 'application/sub_header' %>
-  	</nav>
+<nav class="q-navbar-home">
+  <div>
+    <a href=<%= root_path %>>
+      <%=image_tag "home-header-logo.png", class: "logo-img-new" %>
+    </a>
   </div>
-<% else %>
-  <nav class="q-navbar-home">
-    <div>
-      <a href=<%= root_path %>>
-        <%=image_tag "home-header-logo.png", class: "logo-img-new" %>
-      </a>
-    </div>
-    <div class="home-nav-right wide">
-       <!-- tools does not yet have a route set up -->
-      <a href="/tools/connect" class="text-white">Tools</a>
-      <a href="/activities/packs" class="text-white">Resources</a>
-      <a href="/mission" class="text-white">Our Story</a>
-      <a href="https://community.quill.org/donate/" target="_blank" class="text-white">Donate</a>
-      <%- if current_user.nil? %>
-        <a href="/session/new" class="text-white">Login</a>
-        <a href="/account/new" class="q-button text-white">Sign Up</a>
-      <% else %>
-        <%- if current_user.role == 'teacher' %>
-          <%- if request.path.include?('teachers') %>
-            <%= link_to "My Dashboard", profile_path, class: "sign-up-btn" %>
-          <%- else %>
-            <%= link_to "My Dashboard", profile_path, class: "sign-up-btn white-fill" %>
-          <%- end %>
-          <%= link_to "Logout", '/session', class: "text-white"%>
-        <%- end %>
-      <% end %>
-    </div>
+  <div class="home-nav-right wide">
+    <a href="/tools/connect" class="text-white">Tools</a>
+    <a href="/activities/packs" class="text-white">Resources</a>
+    <a href="/mission" class="text-white">Our Story</a>
+    <a href="https://community.quill.org/donate/" target="_blank" class="text-white">Donate</a>
+    <%- if current_user.nil? %>
+      <a href="/session/new" class="text-white">Login</a>
+      <a href="/account/new" class="sign-up-button text-white">Sign Up</a>
+    <% else %>
+      <%= link_to "Logout", '/session', class: "text-white"%>
+    <% end %>
+  </div>
 
-    <nav class="home-nav-dropdown" role="home-custom-dropdown">
-      <input class="home-nav-checkbox" type="checkbox" id="button-nav">
-      <label for="button-nav" onclick=""></label>
-      <ul>
+  <nav class="home-nav-dropdown" role="home-custom-dropdown">
+    <input class="home-nav-checkbox" type="checkbox" id="button-nav">
+    <label for="button-nav" onclick=""></label>
+    <ul>
+      <li>
+        <a href="/tools/connect" class="text-white">Tools</a>
+      </li>
+      <li>
+        <a href="/activities/packs" class="text-white">Resources</a>
+      </li>
+      <li>
+        <a href="/mission" class="text-white">Our Story</a>
+      </li>
+      <%- if current_user.nil? %>
         <li>
-          <a href="/tools/connect" class="text-white">Tools</a>
+          <a href="/session/new" class="text-white">Login</a>
         </li>
         <li>
-          <a href="/activities/packs" class="text-white">Resources</a>
+          <a href="/account/new" class="q-button text-white">Sign Up</a>
         </li>
-        <li>
-          <a href="/mission" class="text-white">Our Story</a>
-        </li>
-        <%- if current_user.nil? %>
-          <li>
-            <a href="/session/new" class="text-white">Login</a>
-          </li>
-          <li>
-            <a href="/account/new" class="q-button text-white">Sign Up</a>
-          </li>
-        <% else %>
-          <%- if current_user.role == 'teacher' %>
-            <li><%= link_to "Profile", profile_path, class: "q-button text-white" %></li>
-            <li><%= link_to "Logout", '/session', class: "text-white"%></li>
-          <%- end %>
-        <% end %>
-      </ul>
-    </nav>
+      <% end %>
+    </ul>
   </nav>
-<% end %>
+</nav>
