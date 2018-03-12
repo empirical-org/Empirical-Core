@@ -215,3 +215,10 @@
     right: 2%;
   }
 }
+
+@media (max-width: 910px) {
+  .left-button, .right-button {
+    display: none;
+  }
+
+}
