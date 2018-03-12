@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 const SubnavTabs = () => {
   return(
@@ -17,7 +17,7 @@ const SubnavTabs = () => {
           </li>
           <li>
             <a href="/teachers/admin_dashboard/district_concept_reports">
-              School Concept Reports 
+              School Concept Reports
             </a>
           </li>
         </ul>
