@@ -13,7 +13,7 @@ function updateObject(oldObject, newObject) {
   return Object.assign({}, oldObject, newObject);
 }
 
-export default function district_standards_reports(state = initialState, action) {
+export default function districtStandardsReports(state = initialState, action) {
   switch(action && action.type) {
     case 'SWITCH_SCHOOL':
       return updateObject(state, {
