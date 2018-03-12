@@ -195,7 +195,7 @@
   }
 }
 
-@media (max-width: 1749px) {
+@media (max-width: 1749px) and (min-width: 1440px) {
   .left-button {
     left: 10%;
   }
@@ -208,7 +208,7 @@
   }
 }
 
-@media (max-width: 1440px) {
+@media (max-width: 1440px) and (min-width: 1101px) {
   .left-button {
     left: 5%;
   }
@@ -218,6 +218,18 @@
     &.keep-right {
       right: 0.5%;
     }
+  }
+}
+
+@media (max-width: 1440px) and (min-width: 1360px) {
+  .right-button.keep-right {
+    right: 2%;
+  }
+}
+
+@media (max-width: 1359px) and (min-width: 1101px) {
+  .right-button.keep-right {
+    right: 1%;
   }
 }
 
