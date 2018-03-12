@@ -33,17 +33,17 @@ TODO:
     client/app/bundles/admin_dashboard/containers/DistrictStandardsReports.jsx
     or can it be kept around in a non-working state until issue #3972 and #3971
     are complete?~
-  - Add test to confirm necessary react-routes exist (moving to own issue)
+  - Add test to confirm necessary react-routes exist (moving to own issue #3991)
   - Add test that confirms the existence of all expected and used top level
     keys.  Below, DistrictStandardsReports is expected to be
-    district_standards_reports by callers. (moving to own issue)
+    district_standards_reports by callers. (moving to own issue #3992)
     * ![malformed_reducer.png]
-  - Reducer names should not be snake cased client/app/bundles/HelloWorld/startup/AdminDashboardAppClient.jsx (moving to own issue)
-    * This issue is put on hold until the issue above is resolved
+  - Reducer names should not be snake cased client/app/bundles/HelloWorld/startup/AdminDashboardAppClient.jsx (moving to own issue #3993)
+    * This issue is put on hold until the issue above (#3992) is resolved
     * Partial fix made - the files themselves export as title case, but the keys
       on the reducer are still snake.  Since the reducer keys are called in many
       files, tests should be written before making the full fix to avoid breaks.
-  - Refactor repetivive logic (moving to own issue)
+  - Refactor repetivive logic (moving to own issue #3994)
     * tests could have mocks or stubs instead of repetitive in-line json
     * table logic seems repetitive, but needs triage to decide if this is true
 
