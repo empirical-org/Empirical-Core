@@ -50,7 +50,7 @@ client/node_modules/*
 app/assets/webpack/app-bundle.js
 app/assets/webpack/server-bundle.js
 app/assets/webpack/vendor-bundle.js
-public/weback/*
+public/webpack/*
 
 # Byebug command history file
 .byebug_history
