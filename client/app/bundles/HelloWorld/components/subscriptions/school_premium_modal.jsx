@@ -40,7 +40,7 @@ export default class extends React.Component {
               <i className="fa fa-file" />
               <p>
                 <span>Quote Purchaser:</span>
-              Quote purchase: Click on <i>Email Me a Quote</i> and forward the quote to your school’s purchaser.
+              Click on <i>Email Me a Quote</i> and forward the quote to your school’s purchaser.
             </p>
             </div>
           </div>
