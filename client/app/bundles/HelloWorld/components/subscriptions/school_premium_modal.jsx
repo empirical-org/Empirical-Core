@@ -12,7 +12,7 @@ export default class extends React.Component {
     return (
       <Modal {...this.props} show={this.props.show} onHide={this.props.hideModal} dialogClassName="school-premium-modal" restoreFocus>
         <Modal.Body>
-          <img className="pull-right react-bootstrap-close" onClick={this.props.hideModal} src={`${process.env.CDN_URL}/images/shared/close_x.svg`} alt="close-modal" />
+          <img className="pull-right react-bootstrap-close" onClick={this.props.hideModal} src={`${process.env.CDN_URL}/images/icons/CloseIcon.svg`} alt="close-modal" />
           <div className="pricing-info text-center">
             <div className="current-year">
               <h1>Quill School Premium</h1>
@@ -35,7 +35,7 @@ export default class extends React.Component {
             </p>
             <p>
               <span>Quote Purchaser:</span>
-              Quote purchase: Click on <i>Email Me A Quote</i> and forward the quote to your school’s purchaser.
+              Quote purchase: Click on <i>Email Me a Quote</i> and forward the quote to your school’s purchaser.
             </p>
           </div>
         </Modal.Body>
