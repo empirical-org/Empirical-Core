@@ -268,7 +268,7 @@ export default class extends React.Component {
     acceptedFiles.forEach(file => {
       const data = new FormData()
       data.append('file', file)
-      fetch(`${process.env.DEFAULT_URL}/cms/images/save_image`, {
+      fetch(`${process.env.DEFAULT_URL}/cms/images`, {
         method: 'POST',
         mode: 'cors',
         credentials: 'include',
