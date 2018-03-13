@@ -74,6 +74,7 @@
     "underscore.string": "^3.3.4",
     "url-loader": "^0.5.7",
     "webpack": "^3.8.1",
+    "webpack-manifest-plugin": "^2.0.0-rc.2",
     "webpack-merge": "^4.1.2"
   },
   "devDependencies": {
@@ -109,8 +110,7 @@
     "redux-test-utils": "^0.2.2",
     "ts-jest": "^22.4.1",
     "typescript": "^2.7.2",
-    "webpack-dev-server": "^2.9.4",
-    "webpack-manifest-plugin": "^2.0.0-rc.2"
+    "webpack-dev-server": "^2.9.4"
   },
   "browser": {
     "fs": false
