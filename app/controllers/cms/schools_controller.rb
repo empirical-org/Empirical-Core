@@ -27,10 +27,10 @@ class Cms::SchoolsController < Cms::CmsController
   # This allows staff members to drill down on a specific school, including
   # viewing an index of teachers at this school.
   def show
-    @subscription = @school.subscription
+    @subscription = @school&.subscription
     @school_subscription_info = {
-      'School Premium Type' => @school.subscription&.account_type,
-      'Expiration' => @school.subscription&.expiration&.strftime('%b %d, %Y')
+      'School Premium Type' => @school&.subscription&.account_type,
+      'Expiration' => @school&.subscription&.expiration&.strftime('%b %d, %Y')
     }
     @school = {
       'Name' => @school.name,
@@ -68,7 +68,7 @@ class Cms::SchoolsController < Cms::CmsController
   end
 
   def edit_subscription
-    @subscription = @school.subscription
+    @subscription = @school&.subscription
   end
 
   def new_subscription

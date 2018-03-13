@@ -33,7 +33,7 @@ class Subscription < ActiveRecord::Base
         'Teacher Sponsored Free',
         'Teacher Trial']
 
-  SCHOOL_SUBSCRIPTIONS_TYPES = ['School District Paid',
+  OFFICIAL_SCHOOL_TYPES = ['School District Paid',
         'School NYC Paid',
         'School Strategic Paid',
         'School Paid',
@@ -43,6 +43,14 @@ class Subscription < ActiveRecord::Base
         'School Sponsored Free',
         'School Strategic Free']
 
+  OFFICIAL_TEACHER_TYPES = [
+        'Teacher Paid',
+        'Premium Credit',
+        'Teacher Contributor Free',
+        'Teacher Sponsored Free',
+        'Teacher Trial'
+  ]
+
   # TODO: ultimately these should be cleaned up so we just have OFFICIAL_TYPES but until then, we keep them here
   GRANDFATHERED_PAID_TYPES = ['paid', 'school', 'premium', 'school', 'School']
   GRANDFATHERED_FREE_TYPES = ['trial']
@@ -51,6 +59,12 @@ class Subscription < ActiveRecord::Base
   ALL_OFFICIAL_TYPES = OFFICIAL_PAID_TYPES.dup.concat(OFFICIAL_FREE_TYPES)
   TRIAL_TYPES = ['Teacher Trial', 'trial']
   SCHOOL_RENEWAL_PRICE = 90000
+
+  TYPES_HASH = {
+    trial: TRIAL_TYPES,
+    teacher: OFFICIAL_TEACHER_TYPES,
+    school: OFFICIAL_SCHOOL_TYPES
+  }
 
   # 2/27 - for now every school is 90000 cents, whether they are renewing or re-signing up.
   SCHOOL_FIRST_PURCHASE_PRICE = SCHOOL_RENEWAL_PRICE
@@ -204,8 +218,6 @@ class Subscription < ActiveRecord::Base
   end
 
   protected
-
-
 
   def charge_user_for_teacher_premium
     if purchaser && purchaser.stripe_customer_id

@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import TeacherLink from 'bundles/admin_dashboard/components/teacher_link';
 
 const TeacherLinks = ({ links, isValid }) => {
