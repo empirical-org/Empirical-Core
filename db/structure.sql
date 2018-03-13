@@ -3451,7 +3451,7 @@ CREATE INDEX index_subscriptions_on_de_activated_date ON subscriptions USING btr
 -- Name: index_subscriptions_on_purchaser_email; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_subscriptions_on_purchaser_email ON subscriptions USING btree (purchaser_email);
+CREATE INDEX index_subscriptions_on_purchaser_email ON subscriptions USING btree (purchaser_email);
 
 
 --
@@ -4339,6 +4339,8 @@ INSERT INTO schema_migrations (version) VALUES ('20180301064334');
 INSERT INTO schema_migrations (version) VALUES ('20180301211956');
 
 INSERT INTO schema_migrations (version) VALUES ('20180307212219');
+
+INSERT INTO schema_migrations (version) VALUES ('20180308203054');
 
 INSERT INTO schema_migrations (version) VALUES ('20180312180605');
 
