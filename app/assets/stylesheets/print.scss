@@ -2,7 +2,7 @@
   a[href]:after {
     content: none !important;
   }
-  .bg-quillgreen, .tab-subnavigation-wrapper, .premium-banner-container, #premium-banner, .navigate-back, footer, .csv-and-how-we-grade, .caret, .green-arrow, .csv-link{
+  .bg-quillgreen, .tab-subnavigation-wrapper, .premium-banner-container, #premium-banner, .navigate-back, footer, .csv-and-how-we-grade, .caret, .green-arrow, .csv-link, .dropdown-content {
     display: none;
   }
   .activity-image:first-child {
@@ -15,4 +15,5 @@
   table, .ReactTable{
       page-break-inside: avoid;
   }
+
 }
