@@ -1431,6 +1431,39 @@ ALTER SEQUENCE rules_misseds_id_seq OWNED BY rules_misseds.id;
 
 
 --
+-- Name: sales_accounts; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE sales_accounts (
+    id integer NOT NULL,
+    school_id integer,
+    data jsonb DEFAULT '{}'::jsonb,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: sales_accounts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE sales_accounts_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: sales_accounts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE sales_accounts_id_seq OWNED BY sales_accounts.id;
+
+
+--
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -2282,6 +2315,13 @@ ALTER TABLE ONLY rules_misseds ALTER COLUMN id SET DEFAULT nextval('rules_missed
 
 
 --
+-- Name: sales_accounts id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY sales_accounts ALTER COLUMN id SET DEFAULT nextval('sales_accounts_id_seq'::regclass);
+
+
+--
 -- Name: school_subscriptions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -2695,6 +2735,14 @@ ALTER TABLE ONLY referrer_users
 
 ALTER TABLE ONLY rules_misseds
     ADD CONSTRAINT rules_misseds_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: sales_accounts sales_accounts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY sales_accounts
+    ADD CONSTRAINT sales_accounts_pkey PRIMARY KEY (id);
 
 
 --
@@ -3274,6 +3322,13 @@ CREATE UNIQUE INDEX index_referrer_users_on_user_id ON referrer_users USING btre
 
 
 --
+-- Name: index_sales_accounts_on_school_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_sales_accounts_on_school_id ON sales_accounts USING btree (school_id);
+
+
+--
 -- Name: index_school_subscriptions_on_school_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -3396,7 +3451,7 @@ CREATE INDEX index_subscriptions_on_de_activated_date ON subscriptions USING btr
 -- Name: index_subscriptions_on_purchaser_email; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_subscriptions_on_purchaser_email ON subscriptions USING btree (purchaser_email);
+CREATE INDEX index_subscriptions_on_purchaser_email ON subscriptions USING btree (purchaser_email);
 
 
 --
@@ -3741,6 +3796,14 @@ CREATE TRIGGER tsvectorupdate BEFORE INSERT OR UPDATE ON blog_posts FOR EACH ROW
 
 ALTER TABLE ONLY units
     ADD CONSTRAINT fk_rails_0b3b28b65f FOREIGN KEY (unit_template_id) REFERENCES unit_templates(id);
+
+
+--
+-- Name: sales_accounts fk_rails_3edb0acfb0; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY sales_accounts
+    ADD CONSTRAINT fk_rails_3edb0acfb0 FOREIGN KEY (school_id) REFERENCES schools(id);
 
 
 --
@@ -4276,4 +4339,8 @@ INSERT INTO schema_migrations (version) VALUES ('20180301064334');
 INSERT INTO schema_migrations (version) VALUES ('20180301211956');
 
 INSERT INTO schema_migrations (version) VALUES ('20180307212219');
+
+INSERT INTO schema_migrations (version) VALUES ('20180308203054');
+
+INSERT INTO schema_migrations (version) VALUES ('20180312180605');
 

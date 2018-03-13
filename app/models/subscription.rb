@@ -3,6 +3,7 @@ require 'new_relic/agent'
 
 class Subscription < ActiveRecord::Base
   has_many :user_subscriptions
+  has_many :users, through: :user_subscriptions
   has_many :school_subscriptions
   has_many :credit_transactions, as: :source
   has_many :users, through: :user_subscriptions
