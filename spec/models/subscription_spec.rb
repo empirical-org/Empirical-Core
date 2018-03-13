@@ -20,6 +20,13 @@ describe Subscription, type: :model do
     end
   end
 
+  describe 'the subscription type consts' do
+    it "the official school and offical teacher types contain the same values as all offical types" do
+      types_by_role = Subscription::OFFICIAL_SCHOOL_TYPES.dup.concat(Subscription::OFFICIAL_TEACHER_TYPES)
+      expect(types_by_role).to match_array(Subscription::ALL_OFFICIAL_TYPES)
+    end
+  end
+
   describe '#credit_user_and_de_activate' do
     let!(:user) { create(:user) }
     let!(:subscription) { create(:subscription, expiration: Date.new(2018,4,6), purchaser: user) }
@@ -208,21 +215,21 @@ describe Subscription, type: :model do
     end
   end
 
-  describe "#self.school_or_user_has_ever_paid" do
+  describe "#self.school_or_user_has_ever_paid?" do
     let!(:subscription) { create(:subscription) }
     let!(:user) { create(:user) }
     let!(:user_subscription) { create(:user_subscription, subscription: subscription, user: user) }
     it "responds with true if school or user has ever had anything in the ALL_PAID_TYPES_LIST" do
       Subscription::ALL_PAID_TYPES.each do |type|
         subscription.update(account_type: type)
-        expect(Subscription.school_or_user_has_ever_paid(user)).to be
+        expect(Subscription.school_or_user_has_ever_paid?(user)).to be
       end
     end
 
     it "responds with false if school or user has only had things in the ALL_FREE_TYPES_LIST" do
       Subscription::ALL_FREE_TYPES.each do |type|
         subscription.update(account_type: type)
-        expect(Subscription.school_or_user_has_ever_paid(user)).not_to be
+        expect(Subscription.school_or_user_has_ever_paid?(user)).not_to be
       end
     end
   end

@@ -24,32 +24,17 @@ const teacherPremiumCopy = (
 export default class extends React.Component {
 
   handleExpired(content, remainingDays) {
-    let statusOnClickEvent,
-      buttonCopy;
-    if (remainingDays < 0) {
+    if (remainingDays < 1) {
       content.boxColor = '#ff4542';
       content.status = <h2><i className="fa fa-exclamation-triangle" />{`Your ${this.props.subscriptionType} Premium subscription has expired`}</h2>;
-      if (this.props.subscriptionType === 'School') {
-        buttonCopy = 'Renew School Subscription';
-        if (this.props.userIsContact) {
-          statusOnClickEvent = this.props.showPurchaseModal;
-        } else {
-          statusOnClickEvent = () => alert('i will need to be something for when a school user is not the contact');
-        }
-      } else {
-        statusOnClickEvent = this.props.showPurchaseModal;
-        buttonCopy = 'Renew Subscription';
-      }
       content.pCopy = (
         <span>
           <strong>Your {this.props.subscriptionType} Premium subscription has expired and you are back to Quill Basic.</strong>
           {quillBasicCopy}
         </span>);
-      content.buttonOrDate = <button onClick={statusOnClickEvent} className="renew-subscription q-button bg-orange text-white cta-button">{buttonCopy}</button>;
+      content.buttonOrDate = <button onClick={this.props.showPurchaseModal} className="renew-subscription q-button bg-orange text-white cta-button">Renew Subscription</button>;
     }
   }
-
-  checkIfExpired() {}
 
   getContent() {
     const content = {};

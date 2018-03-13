@@ -7,26 +7,24 @@ export default React.createClass({
 
   renderExpirationDate() {
     if (this.props.subscription.expiration) {
-      return `Expires: ${this.transformDate(this.props.subscription.expiration)}`
-    } else {
-      return 'No expiration date set.'
+      return `Expires: ${this.transformDate(this.props.subscription.expiration)}`;
     }
+    return 'No expiration date set.';
   },
 
   transformDate(dateString) {
     if (dateString) {
       let year,
-      month,
-      day,
-      newString;
+        month,
+        day,
+        newString;
       year = dateString.slice(0, 4);
       month = dateString.slice(5, 7);
       day = dateString.slice(8, 10);
       newString = `${month}/${day}/${year}`;
       return newString;
-    } else {
-      return ''
     }
+    return '';
   },
 
   subscriptionType() {
@@ -45,16 +43,16 @@ export default React.createClass({
       subscriptionDetails;
     if (['free', 'locked', 'none'].includes(this.subscriptionType())) {
       getPremium = (
-          <a href="/premium" target="_new">
-            <button className="form-button get-premium">Get Premium</button>
-          </a>);
+        <a href="/subscriptions" target="_new">
+          <button className="form-button get-premium">Get Premium</button>
+        </a>);
       subscriptionDetails = null;
     } else {
       getPremium = null;
       subscriptionDetails = (
         <span className="gray-text">
           <div className="row">
-              {this.renderExpirationDate()}
+            {this.renderExpirationDate()}
           </div>
         </span>
         );

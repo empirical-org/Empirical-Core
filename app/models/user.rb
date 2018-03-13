@@ -17,6 +17,9 @@ class User < ActiveRecord::Base
   has_many :credit_transactions
   has_many :invitations, foreign_key: 'inviter_id'
   has_many :objectives, through: :checkboxes
+  has_many :user_subscriptions
+  has_many :subscriptions, through: :user_subscriptions
+  has_many :activity_sessions
   has_one :schools_users
   has_one :school, through: :schools_users
   has_many :schools_i_coordinate, class_name: 'School', foreign_key: 'coordinator_id'
