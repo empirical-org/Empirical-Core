@@ -72,6 +72,24 @@ COMMENT ON EXTENSION pg_trgm IS 'text similarity measurement and index searching
 
 SET search_path = public, pg_catalog;
 
+--
+-- Name: blog_posts_search_trigger(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION blog_posts_search_trigger() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+      begin
+        new.tsv :=
+          setweight(to_tsvector(COALESCE(new.title, '')), 'A') ||
+          setweight(to_tsvector(COALESCE(new.body, '')), 'B') ||
+          setweight(to_tsvector(COALESCE(new.subtitle, '')), 'B') ||
+          setweight(to_tsvector(COALESCE(new.topic, '')), 'C');
+        return new;
+      end
+      $$;
+
+
 SET default_tablespace = '';
 
 SET default_with_oids = false;
@@ -435,6 +453,40 @@ ALTER SEQUENCE authors_id_seq OWNED BY authors.id;
 
 
 --
+-- Name: blog_post_user_ratings; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE blog_post_user_ratings (
+    id integer NOT NULL,
+    blog_post_id integer,
+    user_id integer,
+    rating integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: blog_post_user_ratings_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE blog_post_user_ratings_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: blog_post_user_ratings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE blog_post_user_ratings_id_seq OWNED BY blog_post_user_ratings.id;
+
+
+--
 -- Name: blog_posts; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -451,6 +503,8 @@ CREATE TABLE blog_posts (
     author_id integer,
     preview_card_content text NOT NULL,
     slug character varying,
+    premium boolean DEFAULT false,
+    tsv tsvector,
     published_at timestamp without time zone,
     external_link character varying,
     center_images boolean,
@@ -1377,6 +1431,39 @@ ALTER SEQUENCE rules_misseds_id_seq OWNED BY rules_misseds.id;
 
 
 --
+-- Name: sales_accounts; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE sales_accounts (
+    id integer NOT NULL,
+    school_id integer,
+    data jsonb DEFAULT '{}'::jsonb,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: sales_accounts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE sales_accounts_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: sales_accounts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE sales_accounts_id_seq OWNED BY sales_accounts.id;
+
+
+--
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1652,7 +1739,7 @@ CREATE TABLE subscriptions (
     updated_at timestamp without time zone,
     account_type character varying,
     purchaser_email character varying,
-    start_date date DEFAULT '2018-03-08 00:00:00'::timestamp without time zone,
+    start_date date,
     subscription_type_id integer,
     purchaser_id integer,
     recurring boolean DEFAULT false,
@@ -2032,6 +2119,13 @@ ALTER TABLE ONLY authors ALTER COLUMN id SET DEFAULT nextval('authors_id_seq'::r
 
 
 --
+-- Name: blog_post_user_ratings id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY blog_post_user_ratings ALTER COLUMN id SET DEFAULT nextval('blog_post_user_ratings_id_seq'::regclass);
+
+
+--
 -- Name: blog_posts id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -2218,6 +2312,13 @@ ALTER TABLE ONLY referrer_users ALTER COLUMN id SET DEFAULT nextval('referrer_us
 --
 
 ALTER TABLE ONLY rules_misseds ALTER COLUMN id SET DEFAULT nextval('rules_misseds_id_seq'::regclass);
+
+
+--
+-- Name: sales_accounts id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY sales_accounts ALTER COLUMN id SET DEFAULT nextval('sales_accounts_id_seq'::regclass);
 
 
 --
@@ -2410,6 +2511,14 @@ ALTER TABLE ONLY announcements
 
 ALTER TABLE ONLY authors
     ADD CONSTRAINT authors_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: blog_post_user_ratings blog_post_user_ratings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY blog_post_user_ratings
+    ADD CONSTRAINT blog_post_user_ratings_pkey PRIMARY KEY (id);
 
 
 --
@@ -2626,6 +2735,14 @@ ALTER TABLE ONLY referrer_users
 
 ALTER TABLE ONLY rules_misseds
     ADD CONSTRAINT rules_misseds_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: sales_accounts sales_accounts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY sales_accounts
+    ADD CONSTRAINT sales_accounts_pkey PRIMARY KEY (id);
 
 
 --
@@ -2848,20 +2965,6 @@ CREATE INDEX index_activity_sessions_on_pairing_id ON activity_sessions USING bt
 
 
 --
--- Name: index_activity_sessions_on_started_at; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_activity_sessions_on_started_at ON activity_sessions USING btree (started_at);
-
-
---
--- Name: index_activity_sessions_on_state; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_activity_sessions_on_state ON activity_sessions USING btree (state);
-
-
---
 -- Name: index_activity_sessions_on_uid; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2901,6 +3004,13 @@ CREATE INDEX index_admin_accounts_teachers_on_admin_account_id ON admin_accounts
 --
 
 CREATE INDEX index_admin_accounts_teachers_on_teacher_id ON admin_accounts_teachers USING btree (teacher_id);
+
+
+--
+-- Name: index_announcements_on_start_and_end; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_announcements_on_start_and_end ON announcements USING btree (start, "end" DESC);
 
 
 --
@@ -3034,6 +3144,20 @@ CREATE INDEX index_classrooms_teachers_on_user_id ON classrooms_teachers USING b
 --
 
 CREATE INDEX index_comments_on_ancestry ON comments USING btree (ancestry);
+
+
+--
+-- Name: index_concept_results_on_activity_classification_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_concept_results_on_activity_classification_id ON concept_results USING btree (activity_classification_id);
+
+
+--
+-- Name: index_concept_results_on_activity_session_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_concept_results_on_activity_session_id ON concept_results USING btree (activity_session_id);
 
 
 --
@@ -3198,6 +3322,13 @@ CREATE UNIQUE INDEX index_referrer_users_on_user_id ON referrer_users USING btre
 
 
 --
+-- Name: index_sales_accounts_on_school_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_sales_accounts_on_school_id ON sales_accounts USING btree (school_id);
+
+
+--
 -- Name: index_school_subscriptions_on_school_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -3320,7 +3451,7 @@ CREATE INDEX index_subscriptions_on_de_activated_date ON subscriptions USING btr
 -- Name: index_subscriptions_on_purchaser_email; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_subscriptions_on_purchaser_email ON subscriptions USING btree (purchaser_email);
+CREATE INDEX index_subscriptions_on_purchaser_email ON subscriptions USING btree (purchaser_email);
 
 
 --
@@ -3499,6 +3630,13 @@ CREATE INDEX name_idx ON users USING gin (name gin_trgm_ops);
 
 
 --
+-- Name: tsv_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX tsv_idx ON blog_posts USING gin (tsv);
+
+
+--
 -- Name: unique_classroom_and_user_ids_on_classrooms_teachers; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -3646,11 +3784,26 @@ CREATE INDEX uta ON activities_unit_templates USING btree (unit_template_id, act
 
 
 --
+-- Name: blog_posts tsvectorupdate; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER tsvectorupdate BEFORE INSERT OR UPDATE ON blog_posts FOR EACH ROW EXECUTE PROCEDURE blog_posts_search_trigger();
+
+
+--
 -- Name: units fk_rails_0b3b28b65f; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY units
     ADD CONSTRAINT fk_rails_0b3b28b65f FOREIGN KEY (unit_template_id) REFERENCES unit_templates(id);
+
+
+--
+-- Name: sales_accounts fk_rails_3edb0acfb0; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY sales_accounts
+    ADD CONSTRAINT fk_rails_3edb0acfb0 FOREIGN KEY (school_id) REFERENCES schools(id);
 
 
 --
@@ -4115,6 +4268,8 @@ INSERT INTO schema_migrations (version) VALUES ('20180119162847');
 
 INSERT INTO schema_migrations (version) VALUES ('20180122184126');
 
+INSERT INTO schema_migrations (version) VALUES ('20180123151650');
+
 INSERT INTO schema_migrations (version) VALUES ('20180126191518');
 
 INSERT INTO schema_migrations (version) VALUES ('20180126203911');
@@ -4182,4 +4337,10 @@ INSERT INTO schema_migrations (version) VALUES ('20180228171538');
 INSERT INTO schema_migrations (version) VALUES ('20180301064334');
 
 INSERT INTO schema_migrations (version) VALUES ('20180301211956');
+
+INSERT INTO schema_migrations (version) VALUES ('20180307212219');
+
+INSERT INTO schema_migrations (version) VALUES ('20180308203054');
+
+INSERT INTO schema_migrations (version) VALUES ('20180312180605');
 

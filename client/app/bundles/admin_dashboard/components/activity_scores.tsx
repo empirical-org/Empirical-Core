@@ -1,9 +1,29 @@
-import React from 'react';
+import * as React from 'react';
 import ActivityScoresTable from 'bundles/admin_dashboard/components/activity_scores_table';
 import ItemDropdown from 'bundles/admin_dashboard/components/item_dropdown';
 import CSVDownloadForProgressReport from 'bundles/HelloWorld/components/progress_reports/csv_download_for_progress_report';
 
-const ActivityScores = ({
+interface ActivityScoresProps {
+  csvData: Object[];
+  schoolNames: Item[];
+  switchSchool(selectedItem: Item): void;
+  selectedSchool: string;
+  teacherNames: Item[];
+  switchTeacher(selectedItem: Item): void;
+  selectedTeacher: string;
+  classroomNames: Item[];
+  switchClassroom(selectedItem: Item): void;
+  selectedClassroom: string,
+  filteredClassroomsData: Object[];
+}
+
+interface Item {
+  id: string;
+  name: string;
+}
+
+
+const ActivityScores: React.SFC<ActivityScoresProps> = ({
   csvData,
   schoolNames,
   switchSchool,
@@ -41,19 +61,16 @@ const ActivityScores = ({
           items={schoolNames}
           callback={switchSchool}
           selectedItem={selectedSchool}
-          dropdownId='as-school-select-dropdown'
         />
         <ItemDropdown
           items={teacherNames}
           callback={switchTeacher}
           selectedItem={selectedTeacher}
-          dropdownId='as-teacher-select-dropdown'
         />
         <ItemDropdown
           items={classroomNames}
           callback={switchClassroom}
           selectedItem={selectedClassroom}
-          dropdownId='as-classroom-select-dropdown'
         />
       </div>
       <ActivityScoresTable data={filteredClassroomsData} />
