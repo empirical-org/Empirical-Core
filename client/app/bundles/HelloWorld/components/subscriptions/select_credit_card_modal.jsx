@@ -1,5 +1,6 @@
 import React from 'react';
 import request from 'request';
+import capitalize from 'underscore.string/capitalize';
 import Modal from 'react-bootstrap/lib/Modal';
 import EnterOrUpdateStripeCard from '../modules/stripe/enter_or_update_card.js';
 import getAuthToken from '../modules/get_auth_token';
@@ -60,7 +61,7 @@ export default class extends React.Component {
     }
     return ([
       <button key="extant" onClick={this.toggleExtantCard} className={`extant-card ${this.state.extantCardSelected ? 'selected' : ''}`}>Credit Card ending with {this.state.lastFour}</button>,
-      <button key="change" onClick={this.toggleChangeCard} className={this.state.extantCardSelected ? 'selected' : ''}>Use a Different Card</button>
+      <button key="change" onClick={this.toggleChangeCard} className={`different-card ${this.state.extantCardSelected ? 'selected' : ''}`}><i className="fa fa-credit-card" />Use a Different Card</button>
     ]);
   }
 
@@ -83,7 +84,7 @@ export default class extends React.Component {
         <Modal.Body>
           <img className="pull-right react-bootstrap-close" onClick={this.hideModal} src={`${process.env.CDN_URL}/images/shared/close_x.svg`} alt="close-modal" />
           <div className="pricing-info text-center">
-            <h1>Quill {this.props.type} Premium</h1>
+            <h1>Quill {capitalize(this.props.type)} Premium</h1>
             <span>${this.props.price} for one-year subscription</span>
           </div>
           {this.h2IfPaymentInfo()}

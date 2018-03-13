@@ -115,7 +115,7 @@ export default class extends React.Component {
     // <button className="q-button bg-quillblue text-white">Download Quote</button>
     return (
       <div>
-        <button onClick={this.props.showPurchaseModal} className="q-button bg-orange text-white">Renew School Premium</button>
+        <button onClick={this.props.showPurchaseModal} className="q-button bg-orange text-white">Renew Subscription</button>
       </div>
     );
   }

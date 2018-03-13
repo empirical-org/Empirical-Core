@@ -12,7 +12,6 @@ import Pagination from './pagination/pagination';
 import SelectedActivities from './selected_activities/selected_activities';
 import LoadingIndicator from '../../../shared/loading_indicator.jsx';
 import getParameterByName from '../../../modules/get_parameter_by_name';
-import naturalCmp from 'underscore.string/naturalCmp';
 
 const resultsPerPage = 25;
 const showAllId = 'showAllId';
@@ -250,6 +249,8 @@ export default React.createClass({
           selectedActivities={this.props.selectedActivities}
           toggleActivitySelection={this.props.toggleActivitySelection}
           unitName={this.props.unitName}
+          sortable={this.props.sortable}
+          sortCallback={this.props.sortCallback}
         />
       </section>
     );
