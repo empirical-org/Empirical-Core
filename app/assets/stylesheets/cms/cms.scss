@@ -266,7 +266,7 @@
   width: 20px !important;
   display: inline-block !important;
 }
-.create-new-author-link {
+.link {
   margin-top: 5px;
   margin-left: 5px;
   color: $quillgreen;
@@ -280,7 +280,7 @@
 }
 
 .gallery-item {
-  width: 48%;
+  width: 46%;
   background-color: #ffffff;
   margin-bottom: 20px;
   border-radius: 5px;
@@ -312,4 +312,9 @@
   top: 5px;
   right: 5px;
   font-size: 20px;
+}
+
+.warning {
+  color: #c51916;
+  margin: 18px;
 }
