@@ -212,6 +212,7 @@
       font-size: 24px;
       margin-bottom: 12px;
       font-weight: 800;
+      margin-left: 18px;
     }
 
     span {
@@ -281,6 +282,11 @@
       padding-right: 15px;
     }
   }
+  .react-bootstrap-close {
+    height: 17px;
+    height: 14px;
+    padding-right: 14px;
+  }
   .modal-content {
     min-height: 620px;
     background-color: #fafafa;
@@ -312,7 +318,6 @@
     font-weight: 600;
     line-height: 1.83;
     margin-bottom: 30px;
-    padding-left: 15px;
   }
   .current-year {
     color: #3b3b3b;
@@ -322,12 +327,12 @@
       width: 288px;
       border-bottom: solid 1px #d8d8d8;
       position: absolute;
-      top: 120px;
-      left: 147px;
+      top: 101px;
+      left: 87px;
     }
   }
   .not-the-purchaser-section {
-        padding: 15 15px;
+        padding: 15 30px;
     border-top: 1px solid #e9e9e9;
     text-align: left;
     font-size: 16px;
@@ -337,6 +342,7 @@
       padding-right:5px;
     }
     h3 {
+      padding: 0;
       font-size: 20px;
     }
     p {
