@@ -2,12 +2,14 @@
 @import '../../../../app/assets/stylesheets/variables.scss';
 @import '../../../../app/assets/stylesheets/pages/home.scss';
 @import '../../../../app/assets/stylesheets/bootstrap.scss';
+@import '../../../../app/assets/stylesheets/shared/tabs.scss';
 @import './navbar.scss';
 @import '/notification_bar.scss';
 @import './typography.scss';
 @import './tool-section.scss';
 @import './schools-section.scss';
 @import './teacher-stories.scss';
+
 
 body {
   background-color: $white;
