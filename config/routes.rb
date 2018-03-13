@@ -402,6 +402,7 @@ EmpiricalGrammar::Application.routes.draw do
         get :new_subscription
         get :new_admin
         post :add_admin_by_email
+        post :complete_sales_stage
       end
     end
 

@@ -64,13 +64,20 @@
         </tr>
       </thead>
       <tbody>
-        <% SalesAccount::STAGES.each do |stage| %>
+        <% @stages.each do |stage, time| %>
           <tr>
             <td>
               <%= stage.titleize %>
             </td>
             <td>
-              <%= link_to('Mark Completed', '#') %>
+              <% if time.nil? %>
+                <%= link_to('Mark Completed',
+                  complete_sales_stage_cms_school_path(params[:id], stage: stage),
+                  method: :post
+                ) %>
+              <% else %>
+                <%= Time.at(time).strftime('%b %d, %Y') %>
+              <% end %>
             </td>
           </tr>
         <% end %>
