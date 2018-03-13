@@ -9,15 +9,6 @@ Type: Date
 
 Example: 2016-09-01
 
-
-#### account_limit
-This formerly represented the amount of students a teacher with premium could have. It is no longer in use and should be deprecated.
-
-Type: Fixnum
-
-Example: 250000
-
-
 #### account_type
 
 This is a descriptor of the type of premium account they have. Please use strings from the array in Subscriptions::ALL_OFFICIAL_TYPES. There are other types that have been in use, but they should not be used in new subscriptions. Ultimately, this should be moved to its own database table.
@@ -28,7 +19,7 @@ Example: Teacher Paid
 
 
 #### purchaser_email
-This is a human readable identifier of the purchaser so that the sales team does not need to go off of the user id, and so that they can add purchaser's emails if theya re not in the system.
+This is a human readable identifier of the purchaser so that the sales team does not need to go off of the user id, and so that they can add purchaser's emails if they are not in the system.
 
 Type: String
 
