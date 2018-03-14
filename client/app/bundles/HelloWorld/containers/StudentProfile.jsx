@@ -85,6 +85,14 @@ class StudentProfile extends React.Component {
     } = this.props;
 
     if (!loading) {
+      const nextActivity = nextActivitySession ? (<NextActivity
+        loading={loading}
+        hasActivities={scores.length > 0}
+        name={nextActivitySession.name}
+        caId={nextActivitySession.ca_id}
+        activityClassificationId={nextActivitySession.activity_classification_id}
+        maxPercentage={nextActivitySession.max_percentage}
+      />) : null
       return (
         <div id="student-profile">
           <StudentsClassroomsHeader
@@ -101,14 +109,7 @@ class StudentProfile extends React.Component {
             classroomName={student.classroom.name}
             teacherName={student.classroom.teacher.name}
           />
-          <NextActivity
-            loading={loading}
-            hasActivities={scores.length > 0}
-            name={nextActivitySession.name}
-            caId={nextActivitySession.ca_id}
-            activityClassificationId={nextActivitySession.activity_classification_id}
-            maxPercentage={nextActivitySession.max_percentage}
-          />
+          {nextActivity}
           <StudentProfileUnits
             data={scores}
             loading={loading}
