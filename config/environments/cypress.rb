@@ -17,6 +17,9 @@ EmpiricalGrammar::Application.configure do
 
   config.action_controller.asset_host
 
+  # Disable request forgery protection in test environment.
+  config.action_controller.allow_forgery_protection = false
+
   # Raise an error in development when an invalid parameter is passed.
   config.action_controller.action_on_unpermitted_parameters = :raise
 
@@ -45,9 +48,6 @@ EmpiricalGrammar::Application.configure do
   # number of complex assets.
   config.assets.debug = true
 
-  config.action_controller.allow_forgery_protection = false
-
-
   config.sass.line_comments = true
   config.sass.line_numbers = true
   config.sass.debug_info = true
@@ -56,14 +56,6 @@ EmpiricalGrammar::Application.configure do
 
   # Image Uploads (see paperclip gem)
   Paperclip.options[:command_path] = "/usr/local/bin/"
-
-
-  config.after_initialize do
-    Bullet.enable = true
-    Bullet.console = true
-    Bullet.rails_logger = true
-    Bullet.add_footer = true
-  end
 
   if ENV['REDISCLOUD_URL']
     config.action_controller.perform_caching = true
