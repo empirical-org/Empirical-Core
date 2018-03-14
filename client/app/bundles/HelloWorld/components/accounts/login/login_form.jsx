@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import ReactOnRails from 'react-on-rails';
 import request from 'request';
 import PasswordInfo from './password_info.jsx';
+import getAuthToken from '../../modules/get_auth_token'
 
 class LoginFormApp extends Component {
   constructor() {
@@ -47,7 +47,7 @@ class LoginFormApp extends Component {
     request({
       url: `${process.env.DEFAULT_URL}/session/login_through_ajax`,
       method: 'POST',
-      json: { user: this.state, authenticity_token: ReactOnRails.authenticityToken(), },
+      json: { user: this.state, authenticity_token: getAuthToken(), },
     },
     (err, httpResponse, body) => {
       if (httpResponse.statusCode === 200 && body.redirect) {
