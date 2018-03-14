@@ -280,7 +280,7 @@ describe Subscription, type: :model do
       it 'adds 30 days to trial accounts' do
         attributes = { account_limit: 1002, account_type: 'Teacher Trial' }
         new_sub = Subscription.create_with_user_join(user.id, attributes)
-        expect(new_sub.expiration).to eq(Date.today + 30)
+        expect(new_sub.expiration).to eq(Date.today + 31)
       end
 
       it 'adds at least a year (or more, depending on promotions) to other accounts' do

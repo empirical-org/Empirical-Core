@@ -42,7 +42,7 @@ export default class extends React.Component {
       return this.editCreditCardElement();
     } else if (subStat && subStat.payment_method === 'Credit Card') {
       return <span>Credit Card</span>;
-    } else if (this.props.subscriptionType === 'School Sponsored') {
+    } else if (this.props.subscriptionType === 'School Sponsored' || this.props.subscriptionType === 'Trial') {
       return <span>No Payment Method on File</span>;
     } else if (subStat && (!subStat.payment_method || subStat.payment_method === 'School Invoice')) {
       return <span>School Invoice</span>;
