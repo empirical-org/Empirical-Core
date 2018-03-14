@@ -1,8 +1,4 @@
 {
-  "name": "react_on_rails",
-  "version": "2.0.0-rc.2",
-  "description": "example of server rendering",
-  "main": "server.js",
   "engines": {
     "node": "7.5.0",
     "npm": "3.9.5"
@@ -32,21 +28,12 @@
     "jest:coverage": "cd client && npm run jest:coverage",
     "jest:silent": "cd client && npm run jest:silent"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/shakacode/react_on_rails.git"
-  },
   "keywords": [
     "react",
     "rails",
     "server",
     "rendering"
   ],
-  "author": "justin808",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/shakacode/react_on_rails/issues"
-  },
   "dependencies": {
     "gitbook-plugin-rss": "git+https://git@github.com/ddmck/gitbook-plugin-rss.git",
     "istanbul-lib-instrument": "^1.9.1",
