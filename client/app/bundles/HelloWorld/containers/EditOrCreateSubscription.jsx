@@ -95,7 +95,7 @@ export default class extends React.Component {
   }
 
   purchaserFromSchool() {
-    if (this.props.schoolsUsers) {
+    if (this.props.schoolsUsers && this.props.schoolsUsers.length > 1) {
       return (
         <div key={`purchaser-from-school ${this.state.subscription.purchaser_id}`}>
           <label>Purchaser From School</label>
