@@ -67,6 +67,17 @@ const ActivityScoresTable = ({ data }) => {
   if (data && data.length) {
     return (<div key={`${data.length}-length-for-activities-scores-by-classroom`}>
       <ReactTable data={data}
+        getTrProps={(state, rowInfo, column, instance) => {
+          return {
+            onClick: (e) => {
+              const path = '/teachers/progress_reports/' +
+                'student_overview' +
+                '?classroom_id=' + rowInfo.original.classroom_id +
+                '&student_id=' + rowInfo.original.student_id;
+              window.location.assign(path);
+            }
+          };
+        }}
         columns={columns}
         showPagination={true}
         defaultSorted={[{id: 'last_active', desc: true}]}
@@ -75,7 +86,7 @@ const ActivityScoresTable = ({ data }) => {
         showPageSizeOptions={false}
         defaultPageSize={100}
         minRows={1}
-        className='progress-report has-green-arrow'/>
+        className='progress-report activity-scores-table has-green-arrow'/>
       </div>)
   } else {
     return <EmptyStateForReport/>

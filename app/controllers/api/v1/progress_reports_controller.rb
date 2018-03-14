@@ -1,6 +1,6 @@
 class Api::V1::ProgressReportsController < Api::ApiController
   include QuillAuthentication
-  before_action :authorize_classroom_and_student_teacher_relationship!, only: [:student_overview_data]
+  before_action :authorize!, only: :student_overview_data
 
   def activities_scores_by_classroom_data
     classroom_ids = current_user.classrooms_i_teach.map(&:id)
@@ -48,10 +48,29 @@ class Api::V1::ProgressReportsController < Api::ApiController
 
   private
 
+  def authorize!
+    return if current_user.admin? && authorize_admin
+
+    authorize_classroom_and_student_teacher_relationship
+  end
+
+  def authorize_admin
+    teacher_ids = Classroom.find(params[:classroom_id].to_i).teachers.pluck(:id)
+    teachers = User.joins(administered_schools: :schools_users)
+      .where('schools_users.user_id = ?', teacher_ids)
+      .where(id: current_user.id)
+
+    return teachers.count > 0
+  end
+
   def authorize_classroom_and_student_teacher_relationship!
-    classroom_teacher!(params[:classroom_id].to_i)
-    if !StudentsClassrooms.find_by(classroom_id: params[:classroom_id].to_i, student_id: params[:student_id].to_i)
-      auth_failed
-    end
+    classroom_id = params[:classroom_id].to_i
+    student_id   = params[:student_id].to_i
+    student_classrooms = StudentsClassrooms.find_by(
+      classroom_id: classroom_id,
+      student_id: student_id
+    )
+    classroom_teacher!(classroom_id)
+    auth_failed unless student_classrooms
   end
 end
