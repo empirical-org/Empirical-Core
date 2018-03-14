@@ -35,6 +35,7 @@
     "rendering"
   ],
   "dependencies": {
+    "faker": "^4.1.0",
     "gitbook-plugin-rss": "git+https://git@github.com/ddmck/gitbook-plugin-rss.git",
     "istanbul-lib-instrument": "^1.9.1",
     "react-csv": "^1.0.8",
