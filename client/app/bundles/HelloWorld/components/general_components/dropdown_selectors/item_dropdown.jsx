@@ -44,7 +44,7 @@ export default React.createClass({
 	render: function() {
 		const title = this.state.selectedItem.name || this.state.selectedItem
 		return (
-			<DropdownButton disabled={!this.props.items.length} bsStyle='default' title={title} class='select-item-dropdown' onSelect={this.handleSelect}>
+			<DropdownButton disabled={!this.props.items.length} bsStyle='default' title={title} className='select-item-dropdown' onSelect={this.handleSelect}>
 				{this.items()}
 			</DropdownButton>
 		);

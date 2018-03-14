@@ -1,9 +1,13 @@
-import React from 'react';
+import * as React from 'react';
 import ReactTable from 'react-table';
 import EmptyStateForReport from 'bundles/HelloWorld/components/progress_reports/empty_state_for_report';
-import moment from 'moment';
+import * as moment from 'moment';
 import 'react-table/react-table.css';
 import { sortByLastName, sortFromSQLTimeStamp } from 'modules/sortingMethods';
+
+interface ActivityScoresTableProps {
+  data: Array<Object>;
+}
 
 const ActivityScoresTable = ({ data }) => {
   let columns = [

@@ -1,9 +1,9 @@
 import React from 'react';
-import ActivityScoresTable from 'bundles/admin_dashboard/components/activity_scores_table';
+import StandardsReportsTable from 'bundles/admin_dashboard/components/standards_reports_table';
 import ItemDropdown from 'bundles/admin_dashboard/components/item_dropdown';
 import CSVDownloadForProgressReport from 'bundles/HelloWorld/components/progress_reports/csv_download_for_progress_report';
 
-const ActivityScores = ({
+const StandardsReports = ({
   csvData,
   schoolNames,
   switchSchool,
@@ -14,18 +14,17 @@ const ActivityScores = ({
   classroomNames,
   switchClassroom,
   selectedClassroom,
-  filteredClassroomsData,
+  filteredStandardsReportsData,
 }) => {
   return (
-    <div className="activities-scores-by-classroom progress-reports-2018">
+    <div className="standards-reports-by-classroom progress-reports-2018">
       <div className="meta-overview flex-row space-between">
         <div className="header-and-info">
           <h1>
-            Activity Scores
+            School Standards Reports 
           </h1>
           <p>
-            View the overall average score for each student in an active
-            classroom.
+           View concept mastery for a school or district at large
           </p>
         </div>
         <div className="csv-and-how-we-grade">
@@ -37,28 +36,10 @@ const ActivityScores = ({
         </div>
       </div>
       <div className="dropdown-container">
-        <ItemDropdown
-          items={schoolNames}
-          callback={switchSchool}
-          selectedItem={selectedSchool}
-          dropdownId='as-school-select-dropdown'
-        />
-        <ItemDropdown
-          items={teacherNames}
-          callback={switchTeacher}
-          selectedItem={selectedTeacher}
-          dropdownId='as-teacher-select-dropdown'
-        />
-        <ItemDropdown
-          items={classroomNames}
-          callback={switchClassroom}
-          selectedItem={selectedClassroom}
-          dropdownId='as-classroom-select-dropdown'
-        />
       </div>
-      <ActivityScoresTable data={filteredClassroomsData} />
+      <StandardsReportsTable data={filteredStandardsReportsData} />
     </div>
   );
 };
 
-export default ActivityScores;
+export default StandardsReports;

@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 10.0
--- Dumped by pg_dump version 10.0
+-- Dumped from database version 10.1
+-- Dumped by pg_dump version 10.1
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -501,7 +501,7 @@ CREATE TABLE blog_posts (
     topic character varying,
     draft boolean DEFAULT true,
     author_id integer,
-    preview_card_content text,
+    preview_card_content text NOT NULL,
     slug character varying,
     premium boolean DEFAULT false,
     tsv tsvector,
@@ -644,14 +644,14 @@ CREATE TABLE classrooms (
     id integer NOT NULL,
     name character varying(255),
     code character varying(255),
+    teacher_id integer,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     clever_id character varying(255),
     grade character varying(255),
     visible boolean DEFAULT true NOT NULL,
     google_classroom_id bigint,
-    grade_level integer,
-    teacher_id integer
+    grade_level integer
 );
 
 
@@ -685,7 +685,7 @@ CREATE TABLE classrooms_teachers (
     role character varying NOT NULL,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    CONSTRAINT check_role_is_valid CHECK ((((role)::text = ANY ((ARRAY['owner'::character varying, 'coteacher'::character varying])::text[])) AND (role IS NOT NULL)))
+    CONSTRAINT check_role_is_valid CHECK ((((role)::text = ANY (ARRAY[('owner'::character varying)::text, ('coteacher'::character varying)::text])) AND (role IS NOT NULL)))
 );
 
 
@@ -694,7 +694,6 @@ CREATE TABLE classrooms_teachers (
 --
 
 CREATE SEQUENCE classrooms_teachers_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -829,7 +828,6 @@ CREATE TABLE coteacher_classroom_invitations (
 --
 
 CREATE SEQUENCE coteacher_classroom_invitations_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1075,7 +1073,6 @@ CREATE TABLE invitations (
 --
 
 CREATE SEQUENCE invitations_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1340,7 +1337,8 @@ CREATE TABLE referrals_users (
     user_id integer NOT NULL,
     referred_user_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    activated boolean DEFAULT false
 );
 
 
@@ -1430,6 +1428,39 @@ CREATE SEQUENCE rules_misseds_id_seq
 --
 
 ALTER SEQUENCE rules_misseds_id_seq OWNED BY rules_misseds.id;
+
+
+--
+-- Name: sales_accounts; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE sales_accounts (
+    id integer NOT NULL,
+    school_id integer,
+    data jsonb DEFAULT '{}'::jsonb,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: sales_accounts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE sales_accounts_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: sales_accounts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE sales_accounts_id_seq OWNED BY sales_accounts.id;
 
 
 --
@@ -1994,8 +2025,7 @@ CREATE TABLE users (
     google_id character varying,
     last_sign_in timestamp without time zone,
     last_active timestamp without time zone,
-    stripe_customer_id character varying,
-    CONSTRAINT check_role_is_valid CHECK ((((role)::text = ANY ((ARRAY['temporary'::character varying, 'staff'::character varying, 'admin'::character varying, 'student'::character varying, 'teacher'::character varying, 'user'::character varying])::text[])) AND (role IS NOT NULL)))
+    stripe_customer_id character varying
 );
 
 
@@ -2282,6 +2312,13 @@ ALTER TABLE ONLY referrer_users ALTER COLUMN id SET DEFAULT nextval('referrer_us
 --
 
 ALTER TABLE ONLY rules_misseds ALTER COLUMN id SET DEFAULT nextval('rules_misseds_id_seq'::regclass);
+
+
+--
+-- Name: sales_accounts id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY sales_accounts ALTER COLUMN id SET DEFAULT nextval('sales_accounts_id_seq'::regclass);
 
 
 --
@@ -2701,6 +2738,14 @@ ALTER TABLE ONLY rules_misseds
 
 
 --
+-- Name: sales_accounts sales_accounts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY sales_accounts
+    ADD CONSTRAINT sales_accounts_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: school_subscriptions school_subscriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2920,20 +2965,6 @@ CREATE INDEX index_activity_sessions_on_pairing_id ON activity_sessions USING bt
 
 
 --
--- Name: index_activity_sessions_on_started_at; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_activity_sessions_on_started_at ON activity_sessions USING btree (started_at);
-
-
---
--- Name: index_activity_sessions_on_state; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_activity_sessions_on_state ON activity_sessions USING btree (state);
-
-
---
 -- Name: index_activity_sessions_on_uid; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -3081,6 +3112,13 @@ CREATE INDEX index_classrooms_on_grade_level ON classrooms USING btree (grade_le
 
 
 --
+-- Name: index_classrooms_on_teacher_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_classrooms_on_teacher_id ON classrooms USING btree (teacher_id);
+
+
+--
 -- Name: index_classrooms_teachers_on_classroom_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -3120,6 +3158,13 @@ CREATE INDEX index_concept_results_on_activity_classification_id ON concept_resu
 --
 
 CREATE INDEX index_concept_results_on_activity_session_id ON concept_results USING btree (activity_session_id);
+
+
+--
+-- Name: index_concept_results_on_question_type; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_concept_results_on_question_type ON concept_results USING btree (question_type);
 
 
 --
@@ -3242,6 +3287,13 @@ CREATE UNIQUE INDEX index_oauth_applications_on_uid ON oauth_applications USING 
 
 
 --
+-- Name: index_referrals_users_on_activated; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_referrals_users_on_activated ON referrals_users USING btree (activated);
+
+
+--
 -- Name: index_referrals_users_on_referred_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -3267,6 +3319,13 @@ CREATE UNIQUE INDEX index_referrer_users_on_referral_code ON referrer_users USIN
 --
 
 CREATE UNIQUE INDEX index_referrer_users_on_user_id ON referrer_users USING btree (user_id);
+
+
+--
+-- Name: index_sales_accounts_on_school_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_sales_accounts_on_school_id ON sales_accounts USING btree (school_id);
 
 
 --
@@ -3392,7 +3451,7 @@ CREATE INDEX index_subscriptions_on_de_activated_date ON subscriptions USING btr
 -- Name: index_subscriptions_on_purchaser_email; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_subscriptions_on_purchaser_email ON subscriptions USING btree (purchaser_email);
+CREATE INDEX index_subscriptions_on_purchaser_email ON subscriptions USING btree (purchaser_email);
 
 
 --
@@ -3737,6 +3796,14 @@ CREATE TRIGGER tsvectorupdate BEFORE INSERT OR UPDATE ON blog_posts FOR EACH ROW
 
 ALTER TABLE ONLY units
     ADD CONSTRAINT fk_rails_0b3b28b65f FOREIGN KEY (unit_template_id) REFERENCES unit_templates(id);
+
+
+--
+-- Name: sales_accounts fk_rails_3edb0acfb0; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY sales_accounts
+    ADD CONSTRAINT fk_rails_3edb0acfb0 FOREIGN KEY (school_id) REFERENCES schools(id);
 
 
 --
@@ -4171,8 +4238,6 @@ INSERT INTO schema_migrations (version) VALUES ('20171106201721');
 
 INSERT INTO schema_migrations (version) VALUES ('20171106203046');
 
-INSERT INTO schema_migrations (version) VALUES ('20171108201608');
-
 INSERT INTO schema_migrations (version) VALUES ('20171128154249');
 
 INSERT INTO schema_migrations (version) VALUES ('20171128192444');
@@ -4197,15 +4262,13 @@ INSERT INTO schema_migrations (version) VALUES ('20180102151559');
 
 INSERT INTO schema_migrations (version) VALUES ('20180110221301');
 
-INSERT INTO schema_migrations (version) VALUES ('20180111170306');
-
-INSERT INTO schema_migrations (version) VALUES ('20180111220811');
-
 INSERT INTO schema_migrations (version) VALUES ('20180119152409');
 
 INSERT INTO schema_migrations (version) VALUES ('20180119162847');
 
 INSERT INTO schema_migrations (version) VALUES ('20180122184126');
+
+INSERT INTO schema_migrations (version) VALUES ('20180123151650');
 
 INSERT INTO schema_migrations (version) VALUES ('20180126191518');
 
@@ -4276,4 +4339,8 @@ INSERT INTO schema_migrations (version) VALUES ('20180301064334');
 INSERT INTO schema_migrations (version) VALUES ('20180301211956');
 
 INSERT INTO schema_migrations (version) VALUES ('20180307212219');
+
+INSERT INTO schema_migrations (version) VALUES ('20180308203054');
+
+INSERT INTO schema_migrations (version) VALUES ('20180312180605');
 

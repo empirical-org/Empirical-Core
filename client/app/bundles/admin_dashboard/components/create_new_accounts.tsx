@@ -1,7 +1,7 @@
-import React from 'react'
+import * as React from 'react'
 import DropdownMenu from 'bundles/HelloWorld/components/progress_reports/dropdown_filter'
 
-export default class CreateNewAccounts extends React.Component {
+class CreateNewAccounts extends React.Component<any, any> {
   constructor(props) {
     super(props)
 
@@ -113,3 +113,5 @@ export default class CreateNewAccounts extends React.Component {
     </div>
   }
 }
+
+export default CreateNewAccounts;

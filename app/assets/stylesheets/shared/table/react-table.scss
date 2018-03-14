@@ -3,6 +3,10 @@
     border: none;
   }
 
+  .-loading {
+    display: none;
+  }
+
   &.progress-report, &.unit-template-profile-activities {
     border: none;
     max-width: 950px;
@@ -17,12 +21,26 @@
       height: 40px;
 
       .-pagination {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
         background: #fafafa;
         border-top: none;
         border: 1px solid rgba(0, 0, 0, 0.1);
         -webkit-box-shadow: none;
                 box-shadow: none;
         padding: 8px;
+
+        .-pageInfo {
+          display: inline-flex;
+          align-items: center;
+          input {
+            margin-left: 10px;
+          }
+          .-totalPages {
+            margin-left: 3px;
+          }
+        }
       }
     }
 
