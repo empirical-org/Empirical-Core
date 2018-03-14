@@ -10,5 +10,4 @@ ReactOnRails.configure do |config|
   config.logging_on_server = true
   config.prerender = false
   config.trace = Rails.env.development?
-  config.skip_display_none = false
 end

@@ -317,14 +317,13 @@
   .current-year {
     color: #3b3b3b;
     margin-bottom: 20px;
-    padding-top: 15px;
     &:after {
       content: '';
       width: 288px;
       border-bottom: solid 1px #d8d8d8;
       position: absolute;
-      top: 118px;
-      left: 84px;
+      top: 120px;
+      left: 147px;
     }
   }
   .not-the-purchaser-section {

@@ -92,6 +92,7 @@ gem 'active_link_to'
 
 # METRICS
 gem 'analytics-ruby', '~> 2.0.0', :require => 'segment/analytics'
+gem 'salesmachine-ruby', '~> 1.0.0'
 
 # API
 gem "active_model_serializers", '~> 0.9.0'
@@ -124,7 +125,6 @@ gem 'rack-affiliates', '~> 0.4.0'
 
 # DEPLOYMENT
 gem 'sentry-raven', '>= 0.12.2'
-gem 'asset_sync'
 gem 'rack-heartbeat'
 
 # INTEGRATIONS
