@@ -22,6 +22,7 @@
 
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <%= render partial: 'typekit' unless Rails.env.test? %>
+    <%= javascript_pack_tag('vendor') %>
     <%= javascript_pack_tag(@js_file || 'home') %>
     <%= stylesheet_pack_tag('home') %>
     <%= csrf_meta_tags %>
