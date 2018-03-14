@@ -20,6 +20,13 @@ describe Subscription, type: :model do
     end
   end
 
+  describe 'the subscription type consts' do
+    it "the official school and offical teacher types contain the same values as all offical types" do
+      types_by_role = Subscription::OFFICIAL_SCHOOL_TYPES.dup.concat(Subscription::OFFICIAL_TEACHER_TYPES)
+      expect(types_by_role).to match_array(Subscription::ALL_OFFICIAL_TYPES)
+    end
+  end
+
   describe '#credit_user_and_de_activate' do
     let!(:user) { create(:user) }
     let!(:subscription) { create(:subscription, expiration: Date.new(2018,4,6), purchaser: user) }

@@ -193,11 +193,13 @@
       display: block;
       padding: 18px 0;
       a {
-        padding: 4px 11px 2px;
+        height: 25px;
+        padding: 0px 11px;
         margin: 0 2px;
         font-weight: 600;
         position: relative;
-        display: block;
+        display: flex;
+        align-items: center;
         line-height: 20px;
         color: $white;
         font-size: 14px;
@@ -217,7 +219,7 @@
         //Instead of the line below you could use @includeborder-radius($radius, $vertical-radius)
         border-radius: 4px;
         margin-left: 5px;
-        padding: 4px 9px 2px;
+        padding: 0px 9px;
         &:hover {
           background: $white_20;
           color: $white;

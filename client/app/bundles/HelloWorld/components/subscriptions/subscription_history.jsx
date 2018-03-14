@@ -23,14 +23,18 @@ export default class extends React.Component {
           </tr>
         );
       }
+      const tds = [
+        <td key={`${sub.id}-1-row`}>{moment(sub.created_at).format('MMMM Do, YYYY')}</td>,
+        <td key={`${sub.id}-2-row`}>{sub.account_type}</td>,
+        <td key={`${sub.id}-3-row`}>{this.paymentContent(sub)}</td>,
+        <td key={`${sub.id}-4-row`}>{`${duration} ${pluralize('month', duration)}`}</td>,
+        <td key={`${sub.id}-5-row`}>{`${startD.format('MM/DD/YY')} - ${endD.format('MM/DD/YY')}`}</td>
+      ];
+      if (this.props.view === 'subscriptionHistory') {
+        tds.push(<td key={`${sub.id}-6-row`}><a href={`${process.env.DEFAULT_URL}/cms/subscriptions/${sub.id}/edit`}>Edit Subscription</a></td>);
+      }
       rows.push(
-        <tr key={`${sub.id}-subscription-table`}>
-          <td>{moment(sub.created_at).format('MMMM Do, YYYY')}</td>
-          <td>{sub.account_type}</td>
-          <td>{this.paymentContent(sub)}</td>
-          <td>{`${duration} ${pluralize('month', duration)}`}</td>
-          <td>{`${startD.format('MM/DD/YY')} - ${endD.format('MM/DD/YY')}`}</td>
-        </tr>
+        <tr key={`${sub.id}-subscription-table`}>{tds}</tr>
       );
     });
     return rows;
@@ -47,6 +51,14 @@ export default class extends React.Component {
     return '--';
   }
 
+  tableHeaders() {
+    const tableHeaders = ['Purchase Date', 'Subscription', 'Payment', 'Length', 'Start & End Date'];
+    if (this.props.view === 'subscriptionHistory') {
+      tableHeaders.push('Edit Link');
+    }
+    return tableHeaders.map((content, i) => <th key={`${i}-table-header`}>{content}</th>);
+  }
+
   content() {
     const subscriptionHistoryRows = this.subscriptionHistoryRows();
     if (subscriptionHistoryRows.length > 0) {
@@ -54,11 +66,7 @@ export default class extends React.Component {
         <table>
           <tbody>
             <tr>
-              <th>Purchase Date</th>
-              <th>Subscription</th>
-              <th>Payment</th>
-              <th>Length</th>
-              <th>Start & End Date</th>
+              {this.tableHeaders()}
             </tr>
             {subscriptionHistoryRows}
           </tbody>

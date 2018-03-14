@@ -42,7 +42,7 @@ const ConceptReportsTable = ({ data }) => {
       Header: 'Success Rate',
       accessor: 'percentage',
       resizable: false,
-      Cell: row => Number(row.original.percentage),
+      Cell: row => row.original.percentage + '%',
     }
   ];
 
