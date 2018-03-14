@@ -1,4 +1,3 @@
-// @import '../../../../app/assets/stylesheets/variables.scss';
 $tool-grey: #f8f9f9;
 
 .tool-header {
@@ -333,14 +332,6 @@ $tool-grey: #f8f9f9;
                     background-color: $quillgreen;
                 }
             }
-        }
-
-        .left {
-            background: url("../../../../public/images/carousel/chevron_left.svg") no-repeat center;
-        }
-
-        .right {
-            background: url("../../../../public/images/carousel/chevron_right.svg") no-repeat center;
         }
 
         .carousel-control {
