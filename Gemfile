@@ -125,7 +125,6 @@ gem 'rack-affiliates', '~> 0.4.0'
 
 # DEPLOYMENT
 gem 'sentry-raven', '>= 0.12.2'
-gem 'asset_sync'
 gem 'rack-heartbeat'
 
 # INTEGRATIONS
