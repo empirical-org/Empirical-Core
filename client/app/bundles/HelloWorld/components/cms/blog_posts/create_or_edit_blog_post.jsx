@@ -268,7 +268,7 @@ export default class extends React.Component {
     acceptedFiles.forEach(file => {
       const data = new FormData()
       data.append('file', file)
-      fetch(`${process.env.DEFAULT_URL}/cms/images/save_image`, {
+      fetch(`${process.env.DEFAULT_URL}/cms/images`, {
         method: 'POST',
         mode: 'cors',
         credentials: 'include',
@@ -577,7 +577,7 @@ export default class extends React.Component {
             <div>
               <label>Author:</label>
               <ItemDropdown items={[nullAuthor].concat(this.props.authors)} callback={this.handleAuthorChange} selectedItem={this.props.authors.find(a => a.id === this.state.author_id) || nullAuthor} />
-              <a className="create-new-author-link" href="/cms/authors/new" target="_blank">Create New Author</a>
+              <a className="link" href="/cms/authors/new" target="_blank">Create New Author</a>
             </div>
             <div>
               <label>Topic:</label>
@@ -600,8 +600,9 @@ export default class extends React.Component {
           <div>
             <label>Click the square below or drag an image into it to upload an image:</label>
             <Dropzone onDrop={this.onDrop}/>
-            <label>Here is the link to your uploaded image:</label>
-            <input value={this.state.uploadedImageLink}/>
+            <label style={{marginTop: '10px'}}>Here is the link to your uploaded image:</label>
+            <input style={{marginBottom: '0px'}} value={this.state.uploadedImageLink}/>
+            <a className="link" style={{marginBottom: '10px'}} href="/cms/images" target="_blank">All Uploaded Images</a>
           </div>
 
           <div className="side-by-side">

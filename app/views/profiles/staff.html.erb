@@ -1,0 +1,93 @@
+<div class="container">
+  <div id="staff_panel">
+    <article class="simple-rounded-box">
+      <table class="table">
+      <thead><tr><th>Staff Console</th></tr></thead>
+      <tbody>
+      <tr><td><%= link_to 'Rails Admin - Master CMS (Beta)', '/staff/user' %></td></tr>
+      <tr><td><%= link_to 'User Manager', cms_users_path %></td></tr>
+      <tr><td><%= link_to 'School Manager', cms_schools_path %></td></tr>
+      <tr><td><%= link_to 'Partnerships Page', 'https://sites.google.com/a/quill.org/quill-partnerships/teachers' %></td></tr>
+      </tbody>
+      </table>
+    </article>
+
+    <article class="simple-rounded-box">
+      <table class="table">
+      <thead><tr><th>Teacher Fixes</th></tr></thead>
+      <tbody>
+      <tr><td><%= link_to "Index", 'teacher_fix' %></td></tr>
+      </tbody>
+      </table>
+    </article>
+
+    <article class="simple-rounded-box">
+      <table class="table">
+      <thead><tr><th>Project Board</th></tr></thead>
+      <tbody>
+      <tr><td><%= link_to 'Github Project Board', 'https://github.com/orgs/empirical-org/projects/1' %></td></tr>
+      <tr><td><%= link_to 'Quill New Ideas', 'https://www.quill.org/ideas' %></td></tr>
+      </tbody>
+      </table>
+    </article>
+
+    <article class="simple-rounded-box">
+      <table class="table">
+      <thead><tr><th>Teacher Resources</th></tr></thead>
+      <tbody>
+      <tr><td><%= link_to 'All Posts', cms_blog_posts_path %></td></tr>
+      <tr><td><%= link_to 'Manage Announcements', cms_announcements_path %></td></tr>
+      <tr><td><%= link_to 'Manage Uploaded Images', cms_images_path %></td></tr>
+    </tbody>
+      </table>
+    </article>
+
+    <article class="simple-rounded-box">
+      <table class="table">
+      <thead><tr><th>Activity Management System</th></tr></thead>
+      <tbody>
+      <tr><td><%= link_to 'Activities Editor', cms_activity_classifications_path %></td></tr>
+      <tr><td><%= link_to "Activity Packs Editor", cms_unit_templates_path %></td></tr>
+      <tr><td><%= link_to "Activity Packs Categories Editor", cms_unit_template_categories_path %></td></tr>
+      <tr><td><%= link_to "Authors Editor", cms_authors_path %></td></tr>
+    </tbody>
+      </table>
+    </article>
+
+    <article class="simple-rounded-box">
+      <table class="table">
+      <thead><tr><th>Concept Management System</th></tr></thead>
+      <tbody>
+      <tr><td><%= link_to 'Quill Rules Manager', ActivityClassification.find(1).module_url.sub('play/pf', 'cms') %></td></tr>
+      <tr><td><%= link_to 'Sections Manager (Standard Level)', cms_sections_path %></td></tr>
+      <tr><td><%= link_to "Topic Categories Manager", cms_topic_categories_path %></td></tr>
+      <tr><td><%= link_to 'Topics Manager (Standard)', cms_topics_path %></td></tr>
+      <tr><td><%= link_to "Concepts Manager (Create level 2 & 1 here)", cms_concepts_path %></td></tr>
+      <tr><td><%= link_to "Activity Category Manager", cms_activity_categories_path %></td></tr>
+    </tbody>
+      </table>
+    </article>
+
+    <article class="simple-rounded-box">
+      <table class="table">
+      <thead><tr><th>Data Dashboards</th></tr></thead>
+      <tbody>
+      <tr><td><%= link_to "LMS Performance", "https://community.quill.org/teams/quill-lms/performance/" %></td></tr>
+      <tr><td><%= link_to "External: Daily Usage", "https://quill.geckoboard.com/edit/dashboards/138770" %></td></tr>
+      <tr><td><%= link_to "Internal: Tracking", "https://quill.geckoboard.com/edit/dashboards/170032" %></td></tr>
+      <tr><td><%= link_to "Memory/Response Time Stats", "https://log2viz.herokuapp.com/app/empirical-grammar  " %></td></tr>
+    </tbody>
+      </table>
+    </article>
+
+    <article class="simple-rounded-box">
+      <table class="table">
+      <thead><tr><th>Bug Reporting</th></tr></thead>
+      <tbody>
+      <tr><td><%= link_to 'Bug Report Form', 'https://docs.google.com/document/d/1nBPI2qXQp_uOZamqctwi8UQoO4pBzWcanfD4dCu4RQ0/copy', target: "_blank  " %></td></tr>
+    </tbody>
+      </table>
+    </article>
+
+  </div>
+</div>
