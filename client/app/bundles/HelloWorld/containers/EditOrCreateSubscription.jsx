@@ -48,9 +48,9 @@ export default class extends React.Component {
   }
 
   getMatchingUserFromSchoolsUsersById(newSub, e) {
-    const matchingSchoolUser = this.props.schoolsUsers && this.props.schoolsUsers.find(u => u.id === e.target.value);
+    const matchingSchoolUser = this.props.schoolsUsers && this.props.schoolsUsers.find(u => u.id === e);
     if (matchingSchoolUser) {
-      new_sub.purchaser_email = matchingSchoolUser.email;
+      newSub.purchaser_email = matchingSchoolUser.email;
     }
   }
 
@@ -88,20 +88,21 @@ export default class extends React.Component {
 
   changePurchaserId(e) {
     const newSub = Object.assign({}, this.state.subscription);
-    this.getMatchingUserFromSchoolsUsersById(newSub, e);
-    newSub.purchaser_id = e;
+    this.getMatchingUserFromSchoolsUsersById(newSub, e.id);
+
+    newSub.purchaser_id = e.id;
     this.setState({ subscription: newSub, });
   }
 
   purchaserFromSchool() {
-    if (this.props.schoolsUsers) {
+    if (this.props.schoolsUsers && this.props.schoolsUsers.length > 1) {
       return (
-        <div>
+        <div key={`purchaser-from-school ${this.state.subscription.purchaser_id}`}>
           <label>Purchaser From School</label>
           <ItemDropdown
-            items={this.props.schoolsUsers}
-            callBack={this.changePurchaserId}
-            selectedItem={this.state.subscription.purchaser_id || ''}
+            items={[{ name: 'None', id: '', }].concat(this.props.schoolsUsers)}
+            callback={this.changePurchaserId}
+            selectedItem={this.props.schoolsUsers.find(u => u.id === this.state.subscription.purchaser_id)}
           />
         </div>
       );
@@ -206,6 +207,7 @@ export default class extends React.Component {
         <h2>Purchaser Information</h2>
         {this.purchaserFromSchool()}
         <label>Purchaser Email</label>
+        <p>If the purchaser is not in the school and you see a school dropdown, select 'None' and put in the purchasers email.</p>
         <input type="text" value={this.state.subscription.purchaser_email} onChange={this.changePurchaserEmail} />
         <br />
         {this.changeToPurchaserInfo()}
