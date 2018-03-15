@@ -1,5 +1,5 @@
 import React from 'react';
-
+/* THIS FILE MAY BE AN UNUSED DUPLICATE */
 const SubnavTabs = () => {
   return(
     <div className="tab-subnavigation-wrapper class-subnav">
@@ -13,6 +13,9 @@ const SubnavTabs = () => {
           </li>
           <li>
             <a href="/teachers/admin_dashboard/district_concept_reports">District Concept Reports</a>
+          </li>
+          <li>
+            <a href="/teachers/admin_dashboard/district_standards_reports">District Standards Reports</a>
           </li>
         </ul>
       </div>

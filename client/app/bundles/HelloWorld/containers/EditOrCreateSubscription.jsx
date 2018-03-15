@@ -1,6 +1,7 @@
 import React from 'react';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
+import _ from 'lodash';
 import request from 'request';
 import ItemDropdown from '../components/general_components/dropdown_selectors/item_dropdown.jsx';
 import getAuthToken from '../components/modules/get_auth_token';
@@ -47,10 +48,9 @@ export default class extends React.Component {
   }
 
   getMatchingUserFromSchoolsUsersById(newSub, e) {
-    debugger;
-    const matchingSchoolUser = this.props.schoolsUsers && this.props.schoolsUsers.find(u => u.id === e.target.value);
+    const matchingSchoolUser = this.props.schoolsUsers && this.props.schoolsUsers.find(u => u.id === e);
     if (matchingSchoolUser) {
-      new_sub.purchaser_email = matchingSchoolUser.email;
+      newSub.purchaser_email = matchingSchoolUser.email;
     }
   }
 
@@ -88,20 +88,21 @@ export default class extends React.Component {
 
   changePurchaserId(e) {
     const newSub = Object.assign({}, this.state.subscription);
-    this.getMatchingUserFromSchoolsUsersById(newSub, e);
-    newSub.purchaser_id = e;
+    this.getMatchingUserFromSchoolsUsersById(newSub, e.id);
+
+    newSub.purchaser_id = e.id;
     this.setState({ subscription: newSub, });
   }
 
   purchaserFromSchool() {
-    if (this.props.schoolsUsers) {
+    if (this.props.schoolsUsers && this.props.schoolsUsers.length > 1) {
       return (
-        <div>
+        <div key={`purchaser-from-school ${this.state.subscription.purchaser_id}`}>
           <label>Purchaser From School</label>
           <ItemDropdown
-            items={this.props.schoolsUsers}
-            callBack={this.changePurchaserId}
-            selectedItem={this.state.subscription.purchaser_id || ''}
+            items={[{ name: 'None', id: '', }].concat(this.props.schoolsUsers)}
+            callback={this.changePurchaserId}
+            selectedItem={this.props.schoolsUsers.find(u => u.id === this.state.subscription.purchaser_id)}
           />
         </div>
       );
@@ -180,15 +181,15 @@ export default class extends React.Component {
   }
 
   render() {
-    const schoolOrUser = this.props.school || this.props.user;
+    const schoolOrUser = this.props.school || this.props.user || null;
     const submitAction = this.props.school ? this.submitConfirmation : this.submit;
     return (
       <div className="cms-subscription">
-        <h1>{this.props.view} Subscription: {schoolOrUser.name}</h1>
+        <h1>{this.props.view === 'edit' ? 'Edit' : 'New'} Subscription: {_.get(schoolOrUser, 'name')}</h1>
         <h2>Subscription Information</h2>
         <label>Premium Status</label>
         <ItemDropdown
-          items={this.props.userPremiumTypes}
+          items={this.props.premiumTypes}
           callback={this.changeAccountType}
           selectedItem={this.state.subscription.account_type || ''}
         />
@@ -206,11 +207,12 @@ export default class extends React.Component {
         <h2>Purchaser Information</h2>
         {this.purchaserFromSchool()}
         <label>Purchaser Email</label>
+        <p>If the purchaser is not in the school and you see a school dropdown, select 'None' and put in the purchasers email.</p>
         <input type="text" value={this.state.subscription.purchaser_email} onChange={this.changePurchaserEmail} />
         <br />
         {this.changeToPurchaserInfo()}
         {this.recurringIfCreditCard()}
-        <h2>Period</h2>
+        <h2>Period {this.props.view === 'edit' ? <span className="warning text-red">-- These should not be edited without good reason!</span> : null}</h2>
         <label>Start Date</label>
         <p>
           If this is a Teacher Subscription and no subscription already exists, the start date is set to today. If the subscription is being renewed, the start date is the day the old subscription ends.

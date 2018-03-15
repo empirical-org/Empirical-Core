@@ -1,6 +1,6 @@
 class Cms::UsersController < Cms::CmsController
   before_filter :signed_in!
-  before_action :set_user, only: [:show, :show_json, :update, :destroy, :edit_subscription, :new_subscription]
+  before_action :set_user, only: [:show, :edit, :show_json, :update, :destroy, :edit_subscription, :new_subscription]
   before_action :set_search_inputs, only: [:index, :search]
   before_action :get_subscription_data, only: [:new_subscription, :edit_subscription]
 
@@ -25,7 +25,7 @@ class Cms::UsersController < Cms::CmsController
   end
 
   def show
-    @subscription = @user.subscription
+    # everything is set as props from @user in the view
   end
 
   def show_json
@@ -64,7 +64,7 @@ class Cms::UsersController < Cms::CmsController
   end
 
   def edit
-    @user = User.find(params[:id])
+    # everything is set as props from @user in the view
   end
 
   def edit_subscription

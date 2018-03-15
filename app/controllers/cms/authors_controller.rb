@@ -1,7 +1,12 @@
 class Cms::AuthorsController < Cms::CmsController
   def index
     @authors = Author.all
-    render json: @authors
+    respond_to do |format|
+      format.html
+      format.json do
+        render json: @authors
+      end
+    end
   end
 
   def new
