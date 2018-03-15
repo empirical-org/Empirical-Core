@@ -1,12 +1,18 @@
 import * as React from 'react';
 import StudentOverview from 'bundles/HelloWorld/components/progress_reports/student_overview';
+import { Link } from 'react-router';
 
 
 const ActivityScoresStudentOverview = ({ location }) => {
-  const previousLocation="/teachers/admin_dashboard/district_activity_scores";
+  const previous = '/teachers/admin_dashboard/district_activity_scores';
+  const imageSrc = 'https://assets.quill.org/images/icons/chevron-dark-green.svg';
 
   return (
-    <StudentOverview location={location} previousLocation={previousLocation} />
+    <StudentOverview location={location} >
+      <Link to={previous} className='navigate-back'>
+        <img src={imageSrc} alt=""/> Back to Activity Scores
+      </Link>
+    </StudentOverview>
   );
 };
 
