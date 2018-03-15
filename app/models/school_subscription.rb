@@ -8,7 +8,7 @@ class SchoolSubscription < ActiveRecord::Base
   def update_schools_users
     if self.school && self.school.users
       self.school.users.each do |u|
-        UserSubscription.create_user_sub_from_school_sub(u.id, self.subscription_id)
+        UserSubscription.create_user_sub_from_school_sub_if_they_do_not_have_that_school_sub(u.id, self.subscription_id)
       end
     end
   end

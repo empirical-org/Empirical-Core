@@ -266,9 +266,55 @@
   width: 20px !important;
   display: inline-block !important;
 }
-.create-new-author-link {
+.link {
   margin-top: 5px;
   margin-left: 5px;
   color: $quillgreen;
   display: block;
+}
+
+.cms-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.gallery-item {
+  width: 46%;
+  background-color: #ffffff;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 10px 20px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 300px;
+  img {
+    max-width: 100%;
+  }
+  p {
+    margin-bottom: 10px;
+    display: flex;
+    a {
+      font-size: 12px;
+    }
+    span {
+      margin-right: 10px;
+    }
+  }
+}
+
+.trash-link {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  font-size: 20px;
+}
+
+.warning {
+  color: #c51916;
+  margin: 18px;
 }

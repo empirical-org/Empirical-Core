@@ -1,0 +1,18 @@
+<div class='container'>
+  <article class='simple-rounded-box cms-container'>
+    <h3>Uploaded Images Gallery</h3>
+    <p class="warning"><strong>Note:</strong> Deleting an image will remove it from both AWS and our database, and break links anywhere that it is being used. Before you delete an image, please be sure that it is not being used in any existing blog posts.</p>
+    <div class="cms-gallery">
+      <% @images.each do |i|%>
+        <div class="gallery-item">
+          <p><span>Link:</span> <a target="_blank" href="<%= i.file.url %>"><%= i.file.url %></a></p>
+          <a target="_blank" href="<%= i.file.url %>"><img src="<%= i.file.url %>"></img></a>
+          <%= link_to "/cms/images/#{i.id}", method: 'delete', class: 'trash-link' do %>
+            <i class="fa fa-icon fa-trash"></i>
+          <% end %>
+          </span>
+        </div>
+      <% end %>
+    </div>
+  </article>
+</div>
