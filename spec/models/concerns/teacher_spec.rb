@@ -290,7 +290,7 @@ describe User, type: :model do
         it 'does nothing to the teachers personal subscription' do
           expect(queens_teacher.subscription).to eq(teacher_subscription)
           queens_school_sub.destroy
-          queens_teacher.updated_school(queens_school)
+          queens_teacher.updated_school(queens_school.id)
           expect(queens_teacher.subscription).to eq(teacher_subscription)
         end
       end
@@ -302,19 +302,19 @@ describe User, type: :model do
 
           it "deletes the teacher's user_sub when the teachers changes school" do
             expect(queens_teacher_2_user_sub).to be
-            queens_teacher_2.updated_school(brooklyn_school)
+            queens_teacher_2.updated_school(brooklyn_school.id)
             expect(UserSubscription.find_by(id: queens_teacher_2_user_sub.id)).not_to be
           end
 
           it "updates the teacher's subscription when the teacher changes school" do
             expect(queens_teacher_2.subscription).to eq(queens_subscription)
-            queens_teacher_2.updated_school(brooklyn_school)
+            queens_teacher_2.updated_school(brooklyn_school.id)
             expect(queens_teacher_2.reload.subscription).to eq(brooklyn_subscription)
           end
 
           it "the school subscription becomes the teacher's subscription if they had teacher premium" do
             expect(teacher.subscription).to eq(user_sub.subscription)
-            teacher.updated_school(brooklyn_school)
+            teacher.updated_school(brooklyn_school.id)
             expect(teacher.reload.subscription).to eq(brooklyn_subscription)
           end
         end
@@ -322,7 +322,7 @@ describe User, type: :model do
         describe 'and the user does not have a subscription' do
           it 'the user gets the school subscription' do
             queens_teacher_2.user_subscriptions.destroy
-            queens_teacher_2.updated_school(brooklyn_school)
+            queens_teacher_2.updated_school(brooklyn_school.id)
             expect(queens_teacher_2.reload.subscription).to eq(brooklyn_school.subscription)
           end
         end
