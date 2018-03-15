@@ -1,13 +1,11 @@
 import React from 'react';
+import capitalize from 'underscore.string/capitalize';
 import Modal from 'react-bootstrap/lib/Modal';
 
 export default class extends React.Component {
 
   constructor(props) {
     super(props);
-    // this.state = {
-
-    // };
   }
 
   render() {

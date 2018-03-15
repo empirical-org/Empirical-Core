@@ -1,32 +1,29 @@
-/* eslint no-var: 0, no-console: 0 */
+const webpack = require('webpack');
+const WebpackDevServer = require('webpack-dev-server');
 
-// This file is used by the npm script:
-// "hot-assets": "babel-node server-rails-hot.js"
-//
-// This is what creates the hot assets so that you can edit assets, JavaScript and Sass,
-// referenced in your webpack config, and the page updated without you needing to reload
-// the page.
-//
-// Steps
-// 1. Update your application.html.erb or equivalent to use the env_javascript_include_tag
-//    and env_stylesheet_link_tag helpers.
-// 2. Make sure you have a hot-assets target in your client/package.json
-// 3. Start up `forman start -f Procfile.hot` to start both Rails and the hot reload server.
+const webpackConfig = require('./webpack.client.rails.hot.config');
 
-import webpack from 'webpack';
-import WebpackDevServer from 'webpack-dev-server';
+const { resolve } = require('path');
 
-import webpackConfig from './webpack.client.rails.hot.config';
+const webpackConfigLoader = require('react-on-rails/webpackConfigLoader');
 
-const hotRailsPort = process.env.HOT_RAILS_PORT || 3500;
+const configPath = resolve('..', 'config');
+const { output, settings } = webpackConfigLoader(configPath);
+
+const hotReloadingUrl = output.publicPathWithHost;
+const hotReloadingPort = settings.dev_server.port;
+const hotReloadingHostname = settings.dev_server.host;
 
 const compiler = webpack(webpackConfig);
 
 const devServer = new WebpackDevServer(compiler, {
-  contentBase: `http://localhost:${hotRailsPort}`,
-  publicPath: webpackConfig.output.publicPath,
+  proxy: { '*': `http://${hotReloadingHostname}:${hotReloadingPort}` },
+  publicPath: output.publicPathWithHost,
+  headers: {
+    'Access-Control-Allow-Origin': '*',
+  },
+  disableHostCheck: true,
   hot: true,
-  headers: { "Access-Control-Allow-Origin": "*" },
   inline: true,
   historyApiFallback: true,
   quiet: false,
@@ -41,7 +38,13 @@ const devServer = new WebpackDevServer(compiler, {
   },
 });
 
-devServer.listen(hotRailsPort, 'localhost', (err) => {
+devServer.listen(hotReloadingPort, hotReloadingHostname, err => {
   if (err) console.error(err);
-  console.log(`=> 🔥  Webpack development server is running on port ${hotRailsPort}`);
+  console.log(
+    `=> 🔥  Webpack development server is running on port ${hotReloadingUrl}`,
+  );
+});
+
+compiler.plugin('done', () => {
+  process.stdout.write('Webpack: Done!');
 });

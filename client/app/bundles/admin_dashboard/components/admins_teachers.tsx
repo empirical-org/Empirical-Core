@@ -1,8 +1,16 @@
-import React from 'react';
+import * as React from 'react';
 import TeacherLinks from 'bundles/admin_dashboard/components/teacher_links';
 import ReactTable from 'react-table';
 
-const AdminsTeachers = ({ data, isValid }) => {
+interface AdminsTeachersProps {
+  data: Array<Object>;
+  isValid: boolean;
+}
+
+const AdminsTeachers: React.SFC<AdminsTeachersProps> = ({
+  data,
+  isValid
+}) => {
   const teacherColumns = [
     {
       Header: 'Name',
