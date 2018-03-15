@@ -21,8 +21,11 @@ export default class extends React.Component {
 
   componentDidMount() {
     const that = this;
-    const classroomId = getParameterByName('classroom_id', window.location.href)
-    const studentId = getParameterByName('student_id', window.location.href)
+    const { query } = this.props.location;
+    const classroomId = query.classroom_id ||
+      getParameterByName('classroom_id', window.location.href)
+    const studentId = query.student_id ||
+      getParameterByName('student_id', window.location.href)
     request.get({
       url: `${process.env.DEFAULT_URL}/api/v1/progress_reports/student_overview_data/${studentId}/${classroomId}`
     }, (e, r, body) => {
@@ -141,6 +144,9 @@ export default class extends React.Component {
 
   render() {
     let errors
+    let imageSrc = 'https://assets.quill.org/images/icons/chevron-dark-green.svg';
+    let previousLocation = this.props.previousLocation ||
+      '/teachers/progress_reports/activities_scores_by_classroom';
     if (this.state.errors) {
       errors = <div className='errors'>{this.state.errors}</div>
     }
@@ -149,9 +155,15 @@ export default class extends React.Component {
     }
     return (
       <div id='student-overview'>
-        <a href="/teachers/progress_reports/activities_scores_by_classroom" className='navigate-back'><img src="https://assets.quill.org/images/icons/chevron-dark-green.svg" alt=""/>Back to Activity Scores</a>
+        <a href={previousLocation} className='navigate-back'>
+          <img src={imageSrc} alt=""/> Back to Activity Scores
+        </a>
         {this.studentOverviewSection()}
-        <StudentOveriewTable reportData={this.state.reportData} studentId={this.state.studentData.id} calculateCountAndAverage={this.calculateCountAndAverage}/>
+        <StudentOveriewTable
+          reportData={this.state.reportData}
+          studentId={this.state.studentData.id}
+          calculateCountAndAverage={this.calculateCountAndAverage}
+        />
       </div>
     )
   }

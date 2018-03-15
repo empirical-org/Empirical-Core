@@ -4,6 +4,7 @@ import EmptyStateForReport from 'bundles/HelloWorld/components/progress_reports/
 import * as moment from 'moment';
 import 'react-table/react-table.css';
 import { sortByLastName, sortFromSQLTimeStamp } from 'modules/sortingMethods';
+import { Link } from 'react-router'
 
 interface ActivityScoresTableProps {
   data: Array<Object>;
@@ -17,7 +18,16 @@ const ActivityScoresTable = ({ data }) => {
       resizable: false,
       minWidth: 120,
       sortMethod: sortByLastName,
-      Cell: row => row.original.students_name,
+      Cell: (row) => {
+        const classroomId = row.original.classroom_id;
+        const studentId = row.original.student_id;
+        const to = {
+          pathname: '/teachers/admin_dashboard/district_activity_scores/student_overview',
+          search: `?classroom_id=${classroomId}&student_id=${studentId}`
+        }
+
+        return <Link to={to}>{row.original.students_name}</Link>;
+      },
     }, {
       Header: "Completed",
       accessor: 'activity_count',
@@ -67,17 +77,6 @@ const ActivityScoresTable = ({ data }) => {
   if (data && data.length) {
     return (<div key={`${data.length}-length-for-activities-scores-by-classroom`}>
       <ReactTable data={data}
-        getTrProps={(state, rowInfo, column, instance) => {
-          return {
-            onClick: (e) => {
-              const path = '/teachers/progress_reports/' +
-                'student_overview' +
-                '?classroom_id=' + rowInfo.original.classroom_id +
-                '&student_id=' + rowInfo.original.student_id;
-              window.location.assign(path);
-            }
-          };
-        }}
         columns={columns}
         showPagination={true}
         defaultSorted={[{id: 'last_active', desc: true}]}
