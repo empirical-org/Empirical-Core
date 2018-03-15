@@ -11,12 +11,14 @@ import notLessonsOrDiagnostic from '../../../../modules/activity_classifications
 export default class extends React.Component {
 
   constructor() {
-    super()
+    super();
     this.state = {
       loading: true,
       errors: false
-    }
-    this.calculateCountAndAverage = this.calculateCountAndAverage.bind(this)
+    };
+    this.calculateCountAndAverage = this.calculateCountAndAverage.bind(this);
+    this.defaultBackButton = this.defaultBackButton.bind(this);
+    this.backButton = this.backButton.bind(this);
   }
 
   componentDidMount() {
@@ -41,6 +43,28 @@ export default class extends React.Component {
         <div className='yellow-text'>{yellowContent}</div>
       </td>
     )
+  }
+
+  defaultBackButton() {
+    let imageSrc = 'https://assets.quill.org/images/icons/chevron-dark-green.svg';
+    let previousLocation = this.props.previousLocation ||
+      '/teachers/progress_reports/activities_scores_by_classroom';
+
+    return (
+      <a href={previousLocation} className='navigate-back'>
+        <img src={imageSrc} alt=""/> Back to Activity Scores
+      </a>
+    );
+  }
+
+  backButton() {
+    let { children } = this.props;
+
+    if (children) {
+      return children;
+    }
+
+    return this.defaultBackButton();
   }
 
   calculateCountAndAverage() {
@@ -112,7 +136,6 @@ export default class extends React.Component {
 				newRow["Average Score"] = countAndAverage.average
         csvReportData.push(newRow)
       });
-      // downloadReportOrLoadingIndicator = <CSVDownloadForProgressReport data={this.state.reportData} keysToOmit={keysToOmit} valuesToChange={valuesToChange} headers={headers}/>
       downloadReportOrLoadingIndicator = <CSVDownloadForProgressReport data={csvReportData} preserveCasing={'t'}/>
     } else {
       downloadReportOrLoadingIndicator = <LoadingSpinner/>
@@ -144,9 +167,6 @@ export default class extends React.Component {
 
   render() {
     let errors
-    let imageSrc = 'https://assets.quill.org/images/icons/chevron-dark-green.svg';
-    let previousLocation = this.props.previousLocation ||
-      '/teachers/progress_reports/activities_scores_by_classroom';
     if (this.state.errors) {
       errors = <div className='errors'>{this.state.errors}</div>
     }
@@ -155,9 +175,7 @@ export default class extends React.Component {
     }
     return (
       <div id='student-overview'>
-        <a href={previousLocation} className='navigate-back'>
-          <img src={imageSrc} alt=""/> Back to Activity Scores
-        </a>
+        {this.backButton()}
         {this.studentOverviewSection()}
         <StudentOveriewTable
           reportData={this.state.reportData}
