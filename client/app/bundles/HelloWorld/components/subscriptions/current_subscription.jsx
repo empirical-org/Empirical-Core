@@ -269,7 +269,7 @@ export default class extends React.Component {
       <div className={metaRowClassName}>
         <div className="meta-section">
           <h3>CURRENT SUBSCRIPTION</h3>
-          <TitleAndContent title={'Plan'} content={'Quill Basic Subscription'} />
+          <TitleAndContent title={'Plan'} content={'Quill Basic - Free'} />
         </div>
         {this.paymentMethod()}
         {this.nextPlan()}
