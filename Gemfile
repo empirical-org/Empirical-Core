@@ -157,7 +157,7 @@ group :test, :development do
   gem 'pry-stack_explorer'
   gem 'pry-coolline'
   gem 'pry-rescue'
-  gem "rspec-rails"
+  gem "rspec-rails", '~> 3.7.2'
   gem 'fuubar', '~> 2.0.0.rc1'
   gem "timecop"
   gem "factory_bot", require: false
