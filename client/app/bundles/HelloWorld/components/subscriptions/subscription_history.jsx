@@ -75,7 +75,7 @@ export default class extends React.Component {
     return (
       <div className="empty-state flex-row justify-content">
         <h3>You have not yet started a Quill Premium Subscription</h3>
-        <span>Purchase Quill Premium or apply credits to get access to Premium reports.</span>
+        <p>Purchase Quill Premium or apply credits to get access to Premium reports.</p>
       </div>
     );
   }
