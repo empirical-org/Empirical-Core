@@ -4,11 +4,23 @@ We use [Cypress.io](https://www.cypress.io/) as an integration testing framework
 
 ## Running the Tests
 
-In order to run the tests, you need to start the server using the command `foreman start -f Procfile.cypress`. Once the server is running, open Cypress using `npm run cypress:open`.
+- add cypress to the `config/database.yml` file with the following code:
+
+```
+cypress:
+  adapter: postgresql
+  encoding: unicode
+  database: emp_gr_test
+  host:     localhost
+```
+
+ - start the server using the command `foreman start -f Procfile.cypress`
+
+ - open Cypress using `npm run cypress:open`.
 
 ## The Cypress Environment
 
-The Cypress environment is identical to the development environment, except that it will ignore CSRF issues (`config.action_controller.allow_forgery_protection = false` in the environment file) and is hooked up the test database instead of the development database. This means that *web requests that may fail token-based authentication must be QAed separately in the development environment.*
+The Cypress environment is identical to the development environment, except that it will ignore CSRF issues (`config.action_controller.allow_forgery_protection = false` in the environment file). This means that *web requests that may fail token-based authentication must be QAed separately in the development environment.*
 
 ## Test Data
 
