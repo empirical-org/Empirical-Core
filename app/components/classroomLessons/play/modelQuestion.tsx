@@ -12,6 +12,7 @@ interface ModelQuestionProps {
   data: QuestionData,
   model?: string|null,
   prompt?: string|null,
+  projector: boolean
 }
 
 interface ModelQuestionState {}
@@ -88,9 +89,19 @@ class ModelQuestion extends Component<ModelQuestionProps, ModelQuestionState> {
     }
   }
 
+  renderProjectorHeader() {
+    if (this.props.projector) {
+      return <div className="projector-header-section">
+        <div className="students-watch-teacher tag">Students Watch Teacher</div>
+      </div>
+    }
+  }
+
+
   render() {
     return (
       <div className="student-model-wrapper">
+        {this.renderProjectorHeader()}
         {this.renderQuestionOrHTML()}
         {this.renderTeacherModel()}
       </div>

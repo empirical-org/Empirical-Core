@@ -156,6 +156,8 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
     }
   }
 
+
+
   studentEnrolledInClass(student: string|null) {
     return student && this.props.classroomSessions.data.students ? !!this.props.classroomSessions.data.students[student] : false
   }
@@ -195,7 +197,8 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
     const selected_submissions = data.selected_submissions && data.selected_submissions[data.current_slide] ? data.selected_submissions[data.current_slide] : null;
     const selected_submission_order = data.selected_submission_order && data.selected_submission_order[data.current_slide] ? data.selected_submission_order[data.current_slide] : null;
     const projector = this.state.projector
-    const props = { mode, submissions, selected_submissions, selected_submission_order, projector};
+    const studentCount = data.students && Object.keys(data.students) ? Object.keys(data.students).length : 0
+    const props = { mode, submissions, selected_submissions, selected_submission_order, projector, studentCount};
     let slide
     switch (current.type) {
       case 'CL-LB':
@@ -205,7 +208,7 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
         slide = <CLStudentStatic key={data.current_slide} data={current.data} />
         break
       case 'CL-MD':
-        slide = <CLStudentModelQuestion key={data.current_slide} data={current.data} model={model} prompt={prompt}/>
+        slide = <CLStudentModelQuestion key={data.current_slide} data={current.data} model={model} prompt={prompt} projector={projector}/>
         break
       case 'CL-SA':
         slide = <CLStudentSingleAnswer key={data.current_slide} data={current.data} handleStudentSubmission={this.handleStudentSubmission} {...props} />
@@ -243,6 +246,41 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
     const classroom_activity_id: string|null = getParameterByName('classroom_activity_id');
     if (classroom_activity_id) {
       easyJoinLessonAddName(classroom_activity_id, this.state.easyDemoName)
+    }
+  }
+
+  renderLeftButton() {
+    if (getParameterByName('projector') && this.props.classroomSessions.data.current_slide !== '0') {
+      const ca_id: string|null = getParameterByName('classroom_activity_id');
+      const sessionData: ClassroomLessonSession = this.props.classroomSessions.data;
+      const editionData: CustomizeIntf.EditionQuestions = this.props.customize.editionQuestions;
+      const imageSrc = this.state.leftHover ? 'http://assets.quill.org/images/icons/left-button-hover.svg' : 'http://assets.quill.org/images/icons/left-button.svg'
+      return <img
+        className="left-button"
+        src={imageSrc}
+        onMouseOver={() => this.setState({leftHover: true})}
+        onMouseOut={() => this.setState({leftHover: false})}
+        onClick={() => this.props.dispatch(goToPreviousSlide(ca_id, sessionData, editionData))}
+      />
+    }
+
+  }
+
+  renderRightButton() {
+    const currentSlide = Number(this.props.classroomSessions.data.current_slide)
+    if (getParameterByName('projector') && currentSlide !== this.props.classroomLesson.data.questions.length - 1) {
+      const ca_id: string|null = getParameterByName('classroom_activity_id');
+      const sessionData: ClassroomLessonSession = this.props.classroomSessions.data;
+      const editionData: CustomizeIntf.EditionQuestions = this.props.customize.editionQuestions;
+      const className: string = currentSlide === 0 ? 'right-button keep-right' : 'right-button'
+      const imageSrc = this.state.rightHover ? 'http://assets.quill.org/images/icons/right-button-hover.svg' : 'http://assets.quill.org/images/icons/right-button.svg'
+      return <img
+      className={className}
+      src={imageSrc}
+      onMouseOver={() => this.setState({rightHover: true})}
+      onMouseOut={() => this.setState({rightHover: false})}
+      onClick={() => this.props.dispatch(goToNextSlide(ca_id, sessionData, editionData))}
+    />
     }
   }
 
@@ -290,6 +328,7 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
              <div>
               <WakeLock />
               {absentTeacher || watchTeacher}
+              {this.renderLeftButton()}
                 <div className="play-lesson-container">
                   <div className="main-content">
                    <div className="main-content-wrapper">
@@ -297,6 +336,7 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
                    </div>
                  </div>
                </div>
+              {this.renderRightButton()}
              </div>
            );
          }
