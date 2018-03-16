@@ -1,7 +1,6 @@
 .feedback-row {
   display: flex;
   align-items: center;
-  margin-top: 33px;
   img {
     max-width: 22px;
     margin-right: 8px;
@@ -21,6 +20,8 @@
     font-family: $family-monospace;
     margin-bottom: 0;
     font-size: 20px;
+    color: #5a5a5a;
+    line-height: 1.45;
   }
   &.admin-feedback-row {
     margin-top: 5px;
@@ -297,6 +298,10 @@ progress[value]::-webkit-progress-value {
 
 .student-feedback-container {
   position: relative;
+  background-color: #e5e5e5;
+  padding: 13 20 16 20;
+  margin-top: 20px;
+  border-radius: 2px;
 }
 
 .connect-text-area {
