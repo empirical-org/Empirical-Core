@@ -19,7 +19,8 @@ import {
 } from '../../actions/customize'
 
 import {
-  setEditionId
+  setEditionId,
+  setTeacherModels
 } from '../../actions/classroomSessions'
 
 class CustomizeEdition extends React.Component<any, any> {
@@ -43,6 +44,7 @@ class CustomizeEdition extends React.Component<any, any> {
     this.updateSampleQuestion = this.updateSampleQuestion.bind(this)
     this.closeEditModal = this.closeEditModal.bind(this)
     this.goToSuccessPage = this.goToSuccessPage.bind(this)
+    this.afterPublishing = this.afterPublishing.bind(this)
   }
 
   componentWillMount() {
@@ -142,8 +144,14 @@ class CustomizeEdition extends React.Component<any, any> {
     })
     this.setState({incompleteQuestions: incompleteQuestions})
     if (incompleteQuestions.length === 0 && this.state.editionMetadata.name) {
-      this.props.dispatch(publishEdition(this.props.params.editionID, this.state.editionMetadata, this.state.editionQuestions, this.goToSuccessPage))
+      this.props.dispatch(publishEdition(this.props.params.editionID, this.state.editionMetadata, this.state.editionQuestions, this.afterPublishing))
     }
+  }
+
+  afterPublishing() {
+    const classroomActivityId = getParameterByName('classroom_activity_id')
+    setTeacherModels(classroomActivityId, this.props.params.editionID)
+    this.goToSuccessPage()
   }
 
   goToSuccessPage() {

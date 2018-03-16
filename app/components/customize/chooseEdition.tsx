@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import _ from 'lodash'
+import * as _ from 'lodash'
 import {
   createNewEdition,
   saveEditionName,
-  archiveEdition
+  archiveEdition,
+  deleteEdition
 } from '../../actions/customize'
 import {
   setEditionId
@@ -34,6 +35,7 @@ class ChooseEdition extends React.Component<any, any> {
     this.saveNameAndGoToCustomize = this.saveNameAndGoToCustomize.bind(this)
     this.selectAction = this.selectAction.bind(this)
     this.hideSignupModal = this.hideSignupModal.bind(this)
+    this.deleteNewEdition = this.deleteNewEdition.bind(this)
   }
 
   makeNewEdition(editionUid:string|null) {
@@ -43,6 +45,11 @@ class ChooseEdition extends React.Component<any, any> {
     } else {
       this.setState({showSignupModal: true})
     }
+  }
+
+  deleteNewEdition() {
+    deleteEdition(this.state.newEditionUid)
+    this.setState({showNamingModal: false})
   }
 
   hideSignupModal() {
@@ -132,9 +139,9 @@ class ChooseEdition extends React.Component<any, any> {
 
   renderExplanation() {
     if (this.state.selectState) {
-      return <p className="explanation">By clicking <span>“Customize Edition”</span>, you will be able to make a copy of the edition so that you can customize it with your own content. You can update your own editions at any time by clicking on <span>“Edit Edition”</span>. If you decide to customize a lesson now, your launched lesson will be paused until you publish your new edition.</p>
+      return <p className="explanation">By clicking <span>“Customize”</span> and then selecting <span>“Make Copy,”</span> you will be able to customize the lesson with your own content. You can update your own editions at any time by clicking on <span>“Customize”</span> and then selecting <span>“Edit Edition”</span>. If you decide to customize a lesson now, your launched lesson will be paused until you publish your new edition.</p>
     } else {
-      return <p className="explanation">By clicking <span>"Customize Edition"</span>, you will create a copy of the edition that you can customize it with your own content. You can update your own editions at any time by clicking on <span>"Edit Edition"</span>.</p>
+      return <p className="explanation">By clicking <span>“Customize”</span> and then selecting <span>“Make Copy,”</span> you will be able to customize the lesson with your own content. You can update your own editions at any time by clicking on <span>“Customize”</span> and then selecting <span>“Edit Edition”</span>.</p>
     }
   }
 
@@ -145,12 +152,14 @@ class ChooseEdition extends React.Component<any, any> {
               saveNameAndGoToCustomize={this.saveNameAndGoToCustomize}
               updateName={this.updateName}
               buttonClassName={buttonClassName}
+              deleteNewEdition={this.deleteNewEdition}
               />
     }
   }
 
   renderEditions() {
     const {editions, user_id} = this.props.customize
+    const sessionEditionId:string|undefined = this.props.classroomSessions.data ? this.props.classroomSessions.data.edition_id : undefined
     if (Object.keys(editions).length > 0) {
       const quillEditions:Array<JSX.Element>  = []
       const myEditions:Array<JSX.Element> = []
@@ -169,6 +178,7 @@ class ChooseEdition extends React.Component<any, any> {
               creator='user'
               selectAction={this.selectAction}
               selectState={this.state.selectState}
+              selectedEdition={sessionEditionId === e}
               />
             myEditions.push(editionRow)
           } else if (String(edition.user_id) === 'quill-staff') {
@@ -179,6 +189,7 @@ class ChooseEdition extends React.Component<any, any> {
               creator='quill'
               selectAction={this.selectAction}
               selectState={this.state.selectState}
+              selectedEdition={sessionEditionId === e}
             />
             quillEditions.push(editionRow)
           } else {
@@ -189,6 +200,7 @@ class ChooseEdition extends React.Component<any, any> {
               creator='coteacher'
               selectAction={this.selectAction}
               selectState={this.state.selectState}
+              selectedEdition={sessionEditionId === e}
             />
             coteacherEditions.push(editionRow)
           }
@@ -249,7 +261,8 @@ class ChooseEdition extends React.Component<any, any> {
 function select(state) {
   return {
     customize: state.customize,
-    classroomLesson: state.classroomLesson
+    classroomLesson: state.classroomLesson,
+    classroomSessions: state.classroomSessions
   }
 }
 

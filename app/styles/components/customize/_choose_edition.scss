@@ -45,6 +45,9 @@
     font-size: 14px;
     text-align: left;
     color: #969696;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
     .span {
       font-weight: 600;
     }
@@ -52,9 +55,11 @@
   .name {
     text-align: left;
     margin-bottom: 5px;
-    display: flex;
     align-items: center;
     justify-content: space-between;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
   }
   .quill-editions {
     padding-bottom: 7px;
@@ -62,7 +67,29 @@
   .my-editions {
     padding-bottom: 7px;
   }
+  .edition-container {
+    position: relative;
+    @media (max-width: 1075px) {
+      .in-progress {
+        display: none;
+      }
+    }
+  }
+  .in-progress {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    right: -110px;
+    min-width: 94px;
+    color: #82bf3c;
+    top: 28px;
+    i {
+      font-size: 12px;
+      margin-right: 2px;
+    }
+  }
   .edition {
+    position: relative;
     height: 80px;
     border-radius: 3px;
     background-color: #ffffff;
@@ -73,41 +100,63 @@
     padding: 10px 20px;
     justify-content: space-between;
     margin-bottom: 20px;
+    &.selected {
+      border: solid 1px #a8e067;
+    }
+    .name-section {
+      display: flex;
+      align-items: center;
+    }
     .locked-unit {
       border-radius: 14px;
-      border: solid 1px #3b3b3b;
-      padding: 5px 10px;
+      border: solid 1px #666666;
+      color: #666666;
+      padding: 0px 10px;
       position: relative;
       margin-left: 17px;
       display: flex;
       align-items: center;
-      justify: center;
+      justify-content: center;
       font-size: 14px;
-      img {
+      white-space: nowrap;
+      i {
         margin-right: 8px;
         margin-left: 3px;
         position: relative;
+        font-size: 15px;
+        top: 1px;
       }
     }
     .text {
       font-size: 18px;
       font-weight: 600;
       color: #3b3b3b;
+      max-width: 60%;
+      @media (max-width: 830px) {
+        max-width: 50%;
+      }
     }
     .action {
       display: flex;
     }
-    .select-button {
+    .select-button, .resume-button {
       width: 115px;
       height: 40px;
-      border: none;
       border-radius: 3px;
-      background-color: #00c2a2;
       font-size: 16px;
       font-weight: bold;
       margin-left: 10px;
-      color: #ffffff;
       cursor: pointer;
+    }
+    .select-button {
+      border: none;
+      background-color: #00c2a2;
+      color: #ffffff;
+    }
+    .resume-button {
+      background-color: #ffffff;
+      border: solid 1px #00c2a2;
+      color: #00c2a2;
     }
     .customize-dropdown {
       position: relative;

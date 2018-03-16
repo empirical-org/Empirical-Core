@@ -47,7 +47,9 @@ export function startListeningToEditionMetadata() {
 export function getEditionQuestions(editionID:string) {
   return function (dispatch, getState) {
     editionQuestionsRef.child(editionID).on('value', (snapshot) => {
-      dispatch(setEditionQuestions(snapshot.val()))
+      if (snapshot.val()) {
+        dispatch(setEditionQuestions(snapshot.val()))
+      }
     });
   };
 }
@@ -117,6 +119,11 @@ export function archiveEdition(editionUID:string) {
       flagRef.set(newFlags)
     }
   })
+}
+
+export function deleteEdition(editionUID:string) {
+  editionMetadataRef.child(editionUID).remove()
+  editionQuestionsRef.child(editionUID).remove()
 }
 
 export function setWorkingEditionQuestions(questions:CustomizeIntf.EditionQuestions) {
