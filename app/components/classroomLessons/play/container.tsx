@@ -28,7 +28,7 @@ import {
 import {
  getEditionQuestions
 } from '../../../actions/customize';
-import { getParameterByName } from 'libs/getParameterByName';
+import { getParameterByName } from '../../../libs/getParameterByName';
 import {
   ClassroomLessonSessions,
   ClassroomLessonSession,
@@ -37,7 +37,7 @@ import {
 import {
   ClassroomLesson
 } from '../../../interfaces/classroomLessons';
-import * as CustomizeIntf from 'interfaces/customize'
+import * as CustomizeIntf from '../../../interfaces/customize'
 import {
   scriptTagStrip
 } from '../shared/scriptTagStrip';
@@ -199,7 +199,7 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
     let slide
     switch (current.type) {
       case 'CL-LB':
-        slide = <CLStudentLobby key={data.current_slide} data={data} title={lessonData.title}/>
+        slide = <CLStudentLobby key={data.current_slide} data={data} title={lessonData.title} projector={projector}/>
         break
       case 'CL-ST':
         slide = <CLStudentStatic key={data.current_slide} data={current.data} />

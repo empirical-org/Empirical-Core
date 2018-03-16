@@ -1,10 +1,10 @@
 declare function require(name:string);
 import * as React from 'react';
-import _ from 'lodash'
+import * as _ from 'lodash'
 import { firebase } from '../../../libs/firebase';
 import {
 QuestionData,
-} from 'interfaces/classroomLessons'
+} from '../../../interfaces/classroomLessons'
 import {
 ClassroomLessonSession,
 SelectedSubmissionsForQuestion,
@@ -14,7 +14,7 @@ import TextEditor from '../shared/textEditor';
 import SubmitButton from './submitButton'
 import FeedbackRow from './feedbackRow'
 import numberToWord from '../../../libs/numberToWord'
-import { getParameterByName } from 'libs/getParameterByName';
+import { getParameterByName } from '../../../libs/getParameterByName';
 const icon = require('../../../img/question_icon.svg')
 
 interface ListBlankProps {
@@ -23,6 +23,7 @@ interface ListBlankProps {
   handleStudentSubmission?: Function;
   selected_submissions?: SelectedSubmissionsForQuestion|null;
   submissions?: QuestionSubmissionsList|null;
+  selected_submission_order?: Array<string> | null;
   projector?: boolean|null
 }
 interface ListBlankState {
@@ -116,21 +117,26 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
   }
 
   renderClassAnswersList() {
-    const { selected_submissions, submissions, } = this.props;
-    if (selected_submissions && Object.keys(selected_submissions).length > 0) {
-      const selected = Object.keys(selected_submissions).map((key, index) => {
-        const text = submissions ? submissions[key].data : null
-        return (
-          <li key={`li-${index}`}>
-          <span className='li-number'>{index + 1}</span> {text}
-          </li>);
-        });
-        return (
-          <ul className="class-answer-list">
-          {selected}
-          </ul>
-        );
+    const { selected_submissions, submissions, selected_submission_order, data} = this.props;
+    const selected = selected_submission_order ? selected_submission_order.map((key, index) => {
+    let text
+    if (submissions && submissions[key] && submissions[key].data) {
+      text = submissions[key].data
+    } else if (key === 'correct' && data.play && data.play.sampleCorrectAnswer){
+      text = data.play.sampleCorrectAnswer
+    } else {
+      text = ''
     }
+      return (
+        <li key={`li-${index}`}>
+        <span className='li-number'>{index + 1}</span> {text}
+        </li>);
+      }) : <span/>
+    return (
+      <ul className="class-answer-list">
+      {selected}
+      </ul>
+    );
   }
 
 

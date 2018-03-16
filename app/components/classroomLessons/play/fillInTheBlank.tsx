@@ -3,10 +3,10 @@ import * as React from 'react'
 import { firebase } from '../../../libs/firebase';
 import _ from 'underscore'
 import { QuestionData } from '../../../interfaces/classroomLessons'
-import Cues from 'components/renderForQuestions/cues';
+import Cues from '../../../components/renderForQuestions/cues';
 import TextEditor from '../../renderForQuestions/renderTextEditor';
-import WarningDialogue from 'components/fillInBlank/warningDialogue'
-import { getParameterByName } from 'libs/getParameterByName';
+import WarningDialogue from '../../../components/fillInBlank/warningDialogue'
+import { getParameterByName } from '../../../libs/getParameterByName';
 import {
   QuestionSubmissionsList,
   SelectedSubmissionsForQuestion
@@ -226,9 +226,16 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
   }
 
   renderClassAnswersList() {
-    const { selected_submissions, submissions, selected_submission_order} = this.props;
+    const { selected_submissions, submissions, selected_submission_order, data} = this.props;
     const selected = selected_submission_order ? selected_submission_order.map((key, index) => {
-      const html = submissions && submissions[key] ? submissions[key].data : "";
+      let html
+      if (submissions && submissions[key] && submissions[key].data) {
+        html = submissions[key].data
+      } else if (key === 'correct' && data.play && data.play.sampleCorrectAnswer){
+        html = data.play.sampleCorrectAnswer
+      } else {
+        html = ''
+      }
       return (
         <li key={index}>
           <span className="answer-number">{index + 1}</span><div style={{display: 'inline'}} dangerouslySetInnerHTML={{__html: html}} />

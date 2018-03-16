@@ -5,8 +5,8 @@ import {
 } from '../interfaces'
 import {
   ClassroomLesson
-} from 'interfaces/classroomLessons'
-import * as CustomizeIntf from 'interfaces/customize'
+} from '../../../interfaces/classroomLessons'
+import * as CustomizeIntf from '../../../interfaces/customize'
 
 interface StaticProps {
   data: ClassroomLessonSession,

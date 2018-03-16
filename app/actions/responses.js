@@ -24,7 +24,6 @@ export function updateData(questionId, responses) {
 }
 
 function responsesForQuestionRef(questionId) {
-  alert("This is being called kejnfkwjenfk");
   return responsesRef.orderByChild('questionUID').equalTo(questionId);
 }
 
@@ -310,7 +309,6 @@ export function getResponsesWithCallback(questionID, callback) {
 }
 
 export function listenToResponsesWithCallback(questionID, callback) {
-  alert("sdafsefsefsfef")
   responsesForQuestionRef(questionID).on('value', (snapshot) => {
     callback(snapshot.val());
     console.log('Listened to responses for ', questionID);
@@ -318,7 +316,6 @@ export function listenToResponsesWithCallback(questionID, callback) {
 }
 
 function gradedResponsesForQuestionRef(questionId) {
-  alert("This is being called sjfbsjhebfjs");
   return responsesRef.orderByChild('gradeIndex').equalTo(`human${questionId}`);
 }
 
@@ -371,7 +368,6 @@ export function getGradedResponsesWithoutCallback(questionID) {
 }
 
 export function findResponseByText(text, questionUID, cb) {
-  alert("This is being called askjenfalkwjenf");
   responsesRef.orderByChild('text').equalTo(text).once('value', (snapshot) => {
     const response = _.findWhere(hashToCollection(snapshot.val()), { questionUID, });
     cb(response);

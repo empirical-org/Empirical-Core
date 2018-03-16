@@ -34,6 +34,7 @@ const initialState = {
     numberOfResponses: 0,
     sorting: 'count',
     ascending: false,
+    excludeMisspellings: false,
     stringFilter: '',
     responsePageNumber: 1,
     requestCount: 0,
@@ -46,8 +47,9 @@ const initialState = {
       },
       filters: {
         author: [],
-        status: []
-      }
+        status: [],
+      },
+      excludeMisspellings: false,
     }
   },
 }
@@ -55,8 +57,9 @@ const initialState = {
 function getFormattedFilterData(state) {
   return {
     filters: getFilters(state),
-    sort: getSort(state)
-  }
+    sort: getSort(state),
+    excludeMisspellings: state.excludeMisspellings,
+  };
 }
 
 function mapStatus() {
@@ -123,6 +126,11 @@ export default function (currentState, action) {
         newState.sorting = action.field;
       }
       newState.formattedFilterData = getFormattedFilterData(newState)
+      return newState;
+    case C.TOGGLE_EXCLUDE_MISSPELLINGS:
+      newState = _.cloneDeep(currentState);
+      newState.excludeMisspellings = !newState.excludeMisspellings;
+      newState.formattedFilterData = getFormattedFilterData(newState);
       return newState;
     case C.RESET_ALL_FIELDS:
       newState = _.cloneDeep(currentState);

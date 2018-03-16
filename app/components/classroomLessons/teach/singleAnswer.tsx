@@ -5,9 +5,9 @@ import {
 } from '../interfaces'
 import {
   ClassroomLesson
-} from 'interfaces/classroomLessons'
+} from '../../../interfaces/classroomLessons'
 import { textEditorInputNotEmpty } from '../shared/textEditorClean'
-import * as CustomizeIntf from 'interfaces/customize'
+import * as CustomizeIntf from '../../../interfaces/customize'
 
 interface SingleAnswerProps {
   data: ClassroomLessonSession,
@@ -93,6 +93,7 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
           slideType={this.props.editionData.questions[this.props.data.current_slide].type}
           savePrompt={this.props.savePrompt}
           clearSelectedSubmissionOrder={this.props.clearSelectedSubmissionOrder}
+          sampleCorrectAnswer={this.props.editionData.questions[this.props.data.current_slide].data.play.sampleCorrectAnswer}
         />
 
       </div>

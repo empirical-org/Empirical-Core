@@ -27,14 +27,17 @@ import 'styles/style.scss';
 import Raven from 'raven-js';
 import quillNormalizer from './libs/quillNormalizer'
 
-Raven
+if (process.env.NODE_ENV === 'production') {
+  Raven
   .config(
     'https://528794315c61463db7d5181ebc1d51b9@sentry.io/210579',
-  {
-    environment: process.env.NODE_ENV || 'development',
-  }
+    {
+      environment: process.env.NODE_ENV,
+    }
   )
   .install();
+}
+
 
 BackOff();
 const hashhistory = createHashHistory({ queryKey: false, });

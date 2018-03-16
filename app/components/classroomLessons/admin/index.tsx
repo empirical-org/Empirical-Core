@@ -86,7 +86,7 @@ class ClassLessonsIndex extends Component<any, any> {
     if (this.props.classroomLessons.hasreceiveddata) {
       return (
         <div className="add-new-lesson-form">
-          <h5 className="title is-5">Create a new lesson</h5>
+          <h5 className="title is-5">Create a New lesson</h5>
           <p className="control has-addons">
             <input
               className="input is-expanded"

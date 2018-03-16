@@ -2,12 +2,15 @@ import _ from 'lodash';
 
 export function embedKeys(hash) {
   return _.mapValues(hash, (val, key) => {
-    val.key = key;
-    return val;
+    if (val) {
+      val.key = key;
+      return val;
+    }
   });
 }
 
 export function hashToCollection(hash) {
   const wEmbeddedKeys = embedKeys(hash);
-  return _.values(wEmbeddedKeys);
+  const array = _.values(wEmbeddedKeys);
+  return _.compact(array)
 }

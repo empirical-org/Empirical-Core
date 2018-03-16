@@ -7,7 +7,7 @@ import activeComponent from 'react-router-active-component';
 import fillInTheBlankActions from '../../actions/fillInBlank';
 const NavLink = activeComponent('li');
 
-class ClassName extends Component {
+class FillInBlankQuestion extends Component {
   constructor() {
     super();
     this.getQuestion = this.getQuestion.bind(this);
@@ -15,7 +15,7 @@ class ClassName extends Component {
 
   getQuestion() {
     const { questionID, } = this.props.params;
-    return this.props.fillInBlank.data[questionID];
+    return this.props.fillInBlank ? this.props.fillInBlank.data[questionID] : null;
   }
 
   isLoading() {
@@ -24,13 +24,14 @@ class ClassName extends Component {
   }
 
   render() {
-    const { questionID, } = this.props.params;
+    const { questionID} = this.props.params;
     if (this.isLoading()) {
       return (<p>Loading...</p>);
     } else if (this.getQuestion()) {
       const activeLink = this.props.massEdit.numSelectedResponses > 1
       ? <NavLink activeClassName="is-active" to={`/admin/fill-in-the-blanks/${questionID}/mass-edit`}>Mass Edit ({this.props.massEdit.numSelectedResponses})</NavLink>
       : <li style={{color: "#a2a1a1"}}>Mass Edit ({this.props.massEdit.numSelectedResponses})</li>
+      const data = this.props.fillInBlank.data
       return (
         <div>
           <div style={{display: 'flex', justifyContent: 'space-between'}}>
@@ -74,4 +75,4 @@ function select(props) {
   };
 }
 
-export default connect(select)(ClassName);
+export default connect(select)(FillInBlankQuestion);

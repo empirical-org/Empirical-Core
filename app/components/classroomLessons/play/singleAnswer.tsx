@@ -1,10 +1,10 @@
 declare function require(name:string);
 import React, { Component } from 'react';
-import Cues from 'components/renderForQuestions/cues';
-import RenderSentenceFragments from 'components/renderForQuestions/sentenceFragments';
+import Cues from '../../../components/renderForQuestions/cues';
+import RenderSentenceFragments from '../../../components/renderForQuestions/sentenceFragments';
 import FeedbackRow from './feedbackRow'
 import TextEditor from '../../renderForQuestions/renderTextEditor';
-import { getParameterByName } from 'libs/getParameterByName';
+import { getParameterByName } from '../../../libs/getParameterByName';
 import { firebase } from '../../../libs/firebase';
 import {
   QuestionSubmissionsList,
@@ -98,9 +98,16 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
   }
 
   renderClassAnswersList() {
-    const { selected_submissions, submissions, selected_submission_order} = this.props;
+    const { selected_submissions, submissions, selected_submission_order, data} = this.props;
     const selected = selected_submission_order ? selected_submission_order.map((key, index) => {
-      const text = submissions && submissions[key] ? submissions[key].data : "";
+      let text
+      if (submissions && submissions[key] && submissions[key].data) {
+        text = submissions[key].data
+      } else if (key === 'correct' && data.play && data.play.sampleCorrectAnswer){
+        text = data.play.sampleCorrectAnswer
+      } else {
+        text = ''
+      }
       return (
         <li key={index}>
           <span className="answer-number">{index + 1}</span>{text}

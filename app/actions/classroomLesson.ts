@@ -6,7 +6,7 @@ const reviewsRef = rootRef.child('reviews');
 const editionMetadataRef = rootRef.child('lesson_edition_metadata');
 const editionQuestionsRef = rootRef.child('lesson_edition_questions');
 import _ from 'lodash'
-import * as IntF from 'components/classroomLessons/interfaces';
+import * as IntF from '../components/classroomLessons/interfaces';
 import * as CustomizeIntF from 'app/interfaces/customize'
 
 import lessonBoilerplate from '../components/classroomLessons/shared/classroomLessonBoilerplate'
@@ -19,7 +19,7 @@ export function getClassLessonFromFirebase(classroomLessonUid: string) {
     console.log("Fetching")
     classroomLessonsRef.child(classroomLessonUid).on('value', (snapshot) => {
       console.log("Fetched")
-      if (snapshot.val()) {
+      if (snapshot && snapshot.val()) {
         dispatch(updateClassroomLesson(snapshot.val()));
         dispatch(setLessonId(classroomLessonUid))
       } else {
@@ -46,7 +46,7 @@ export function setLessonId(id:string) {
 export function listenForClassroomLessonsFromFirebase() {
   return function (dispatch) {
     classroomLessonsRef.on('value', (snapshot) => {
-      if (snapshot.val()) {
+      if (snapshot && snapshot.val()) {
         dispatch(updateClassroomLessons(snapshot.val()))
       } else {
         dispatch({type: C.NO_LESSONS})
@@ -58,7 +58,7 @@ export function listenForClassroomLessonsFromFirebase() {
 export function listenForClassroomLessonsReviewsFromFirebase() {
   return function (dispatch) {
     reviewsRef.on('value', (snapshot) => {
-      if (snapshot.val()) {
+      if (snapshot && snapshot.val()) {
         dispatch(updateClassroomLessonsReviews(snapshot.val()))
       }
     })
@@ -128,9 +128,11 @@ export function deleteScriptItem(editionID, slideID, scriptItemID, script) {
 export function addLesson(lessonName, cb) {
   const newLesson = lessonBoilerplate(lessonName)
   const newLessonKey = classroomLessonsRef.push().key
-  classroomLessonsRef.child(newLessonKey).set(newLesson)
-  if (cb) {
-    cb(newLessonKey)
+  if (newLessonKey) {
+    classroomLessonsRef.child(newLessonKey).set(newLesson)
+    if (cb) {
+      cb(newLessonKey)
+    }  
   }
 }
 

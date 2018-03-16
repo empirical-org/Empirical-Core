@@ -28,7 +28,7 @@ export default function (camelObj, convertCR = true) {
     const crs = _.values(snakeObj.concept_results);
     const newHash = {};
     _.each(crs, (val) => {
-      if (val.conceptUID.length > 0) {
+      if (val.conceptUID && val.conceptUID.length > 0) {
         newHash[val.conceptUID] = val.correct;
       }
     });

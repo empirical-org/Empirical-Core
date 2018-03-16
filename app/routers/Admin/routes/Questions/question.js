@@ -1,10 +1,10 @@
-import Question from 'components/questions/question.jsx';
+import Question from 'components/questions/question';
 import ResponsesRoute from 'routers/Admin/routes/Shared/responses';
 import MassEditRoute from 'routers/Admin/routes/Shared/massEdit';
 import FocusPointsRoute from 'routers/Admin/routes/Shared/focusPoints';
 import IncorrectSequenceRoute from 'routers/Admin/routes/Shared/incorrectSequences';
 import ChooseModelContainer from 'components/questions/chooseModelContainer.jsx';
-import TestQuestionContainer from 'components/questions/testQuestion.jsx';
+import TestQuestionContainer from 'components/questions/testQuestion';
 import AnswerVisualizer from 'components/misc/answerVisualizer.jsx';
 
 const chooseModel = {

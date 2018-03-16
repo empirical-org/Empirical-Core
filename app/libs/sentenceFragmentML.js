@@ -139,7 +139,7 @@ export default class POSMatcher {
     }
 
     const mlMatch = this.checkMLMatch(userSubmission, returnValue, utl);
-    
+
   }
 
   checkExactMatch(userSubmission) {
@@ -407,6 +407,7 @@ export default class POSMatcher {
       .then((parsedBody) => {
           // POST succeeded...
         console.log("Hi", parsedBody["text"], typeof(parsedBody));
+        // what is this doing???
         if (JSON.parse(parsedBody).text > 0.5) {
           console.log("In here!")
           returnValue.response = Object.assign({}, returnValue.response, {

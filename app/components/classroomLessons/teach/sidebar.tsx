@@ -1,7 +1,7 @@
 declare function require(name:string);
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { getParameterByName } from 'libs/getParameterByName';
+import { getParameterByName } from '../../../libs/getParameterByName';
 import {
   updateCurrentSlide,
   updateSlideInFirebase
@@ -19,8 +19,8 @@ import {
 } from '../interfaces';
 import {
   ClassroomLesson
-} from 'interfaces/classroomLessons';
-import * as CustomizeIntf from 'interfaces/customize'
+} from '../../../interfaces/classroomLessons';
+import * as CustomizeIntf from '../../../interfaces/customize'
 const studentIcon = require('../../../img/student_icon.svg')
 
 class Sidebar extends React.Component<any, any> {

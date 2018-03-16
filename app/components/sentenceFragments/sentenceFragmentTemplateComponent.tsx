@@ -1,9 +1,10 @@
-import React from 'react';
+declare function require(name:string);
+import * as React from 'react';
 import { connect } from 'react-redux';
 import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
-import _ from 'underscore';
-import ReactTransition from 'react-addons-css-transition-group';
-import POSMatcher from '../../libs/sentenceFragment.js';
+import * as _ from 'underscore';
+import * as ReactTransition from 'react-addons-css-transition-group';
+import {checkSentenceFragment, Response } from 'quill-marking-logic'
 import { hashToCollection } from '../../libs/hashToCollection.js';
 import {
   submitResponse,
@@ -13,9 +14,9 @@ import {
 } from '../../actions/responses';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 import ConceptExplanation from '../feedback/conceptExplanation.jsx';
-import icon from '../../img/question_icon.svg';
+const icon = require('../../img/question_icon.svg');
 
-const PlaySentenceFragment = React.createClass({
+const PlaySentenceFragment = React.createClass<any, any>({
   getInitialState() {
     return {
       response: this.props.question.prompt,
@@ -96,7 +97,7 @@ const PlaySentenceFragment = React.createClass({
   },
 
   handleChange(e) {
-    this.setState({ 
+    this.setState({
       response: e,
       editing: true,
     });
@@ -108,16 +109,17 @@ const PlaySentenceFragment = React.createClass({
       const { attempts, } = this.props.question;
       this.setState({ checkAnswerEnabled: false, }, () => {
         const { prompt, wordCountChange, ignoreCaseAndPunc, incorrectSequences } = this.getQuestion();
+        const responses = hashToCollection(this.getResponses())
         const fields = {
-          prompt,
-          responses: hashToCollection(this.getResponses()),
-          questionUID: key,
+          question_uid: key,
+          response: this.state.response,
+          responses,
           wordCountChange,
           ignoreCaseAndPunc,
-          incorrectSequences,
-        };
-        const responseMatcher = new POSMatcher(fields);
-        const matched = responseMatcher.checkMatch(this.state.response);
+          prompt,
+          incorrectSequences
+        }
+        const matched = {response: checkSentenceFragment(fields)}
         updateResponseResource(matched, key, attempts, this.props.dispatch, );
         this.props.updateAttempts(matched);
         this.setState({ checkAnswerEnabled: true, });
@@ -127,7 +129,7 @@ const PlaySentenceFragment = React.createClass({
   },
 
   getNegativeConceptResultsForResponse(conceptResults) {
-    return _.reject(hashToCollection(conceptResults), cr => cr.correct);
+    return hashToCollection(conceptResults).filter(cr => !cr.correct);
   },
 
   getNegativeConceptResultForResponse(conceptResults) {
@@ -137,10 +139,10 @@ const PlaySentenceFragment = React.createClass({
 
   renderConceptExplanation() {
     if (!this.showNextQuestionButton()) {
-      const latestAttempt = getLatestAttempt(this.props.question.attempts);
-      if (latestAttempt) {
-        if (latestAttempt.found && !latestAttempt.response.optimal && latestAttempt.response.conceptResults) {
-          const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.response.conceptResults);
+      const latestAttempt:{response: Response}|undefined = getLatestAttempt(this.props.question.attempts);
+      if (latestAttempt && latestAttempt.response) {
+        if (!latestAttempt.response.optimal && latestAttempt.response.concept_results) {
+          const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.response.concept_results);
           if (conceptID) {
             const data = this.props.conceptsFeedback.data[conceptID.conceptUID];
             if (data) {
@@ -251,7 +253,7 @@ const PlaySentenceFragment = React.createClass({
   },
 });
 
-const getLatestAttempt = function (attempts = []) {
+function getLatestAttempt(attempts:Array<{response: Response}> = []):{response: Response}|undefined {
   const lastIndex = attempts.length - 1;
   return attempts[lastIndex];
 };

@@ -23,6 +23,7 @@ class AdminFillInTheList extends React.Component<AdminFillInTheListProps, any>{
     this.handleCuesChange = this.handleCuesChange.bind(this)
     this.handleNBlanks = this.handleNBlanks.bind(this)
     this.handleBlankLabelChange = this.handleBlankLabelChange.bind(this)
+    this.handleSampleCorrectAnswerChange = this.handleSampleCorrectAnswerChange.bind(this)
     this.save = this.save.bind(this)
   }
 
@@ -88,6 +89,12 @@ class AdminFillInTheList extends React.Component<AdminFillInTheListProps, any>{
       this.setState({question: newVals})
   }
 
+  handleSampleCorrectAnswerChange(e) {
+    const newVals = {...this.state.question}
+    _.set(newVals, 'play.sampleCorrectAnswer', e.target.value)
+    this.setState({question: newVals})
+  }
+
   save() {
     this.props.save(this.state.question)
   }
@@ -134,6 +141,12 @@ class AdminFillInTheList extends React.Component<AdminFillInTheListProps, any>{
           <label className="label">Number of Blanks</label>
           <div className="control">
             <input value={this.state.question.play.nBlanks} onChange={this.handleNBlanks} className="input" type="text" placeholder="Text input"/>
+          </div>
+        </div>
+        <div className="field">
+          <label className="label">Sample correct answer (Optional)</label>
+          <div className="control">
+            <input value={this.state.question.play.sampleCorrectAnswer} onChange={this.handleSampleCorrectAnswerChange} className="input" type="text" placeholder="Text input"/>
           </div>
         </div>
         <button className="button is-primary" style={{marginTop: 10}} onClick={this.save}>Save Changes</button>

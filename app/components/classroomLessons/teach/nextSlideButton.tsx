@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getParameterByName } from 'libs/getParameterByName';
+import { getParameterByName } from '../../../libs/getParameterByName';
 import { goToNextSlide } from '../../../actions/classroomSessions';
 import {
   ClassroomLessonSession,
 } from '../interfaces'
 import {
   ClassroomLesson
-} from 'interfaces/classroomLessons'
+} from '../../../interfaces/classroomLessons'
 
 class NextSlideButton extends Component<any, any> {
   constructor(props) {
