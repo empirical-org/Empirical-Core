@@ -48,8 +48,8 @@ import {
 } from '../interfaces';
 import {
   ClassroomLesson
-} from '../../../interfaces/classroomLessons'
-import * as CustomizeIntf from '../../../interfaces/customize'
+} from 'interfaces/classroomLessons'
+import * as CustomizeIntf from 'interfaces/customize'
 import {firebaseAuth} from '../../../actions/users'
 
 

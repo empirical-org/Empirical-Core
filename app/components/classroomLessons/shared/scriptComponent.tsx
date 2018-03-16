@@ -172,7 +172,9 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
   retryQuestionForStudent(student) {
     const submissions: Submissions = this.props.submissions;
     const current_slide: string = this.props.current_slide;
-    if (submissions && submissions[current_slide] && submissions[current_slide][student]) {
+    if (submissions && submissions[current_slide] && Object.keys(submissions[current_slide]).length === 1){
+      this.retryQuestion()
+    } else if (submissions && submissions[current_slide] && submissions[current_slide][student]) {
       this.props.clearStudentSubmission(current_slide, student)
     }
   }

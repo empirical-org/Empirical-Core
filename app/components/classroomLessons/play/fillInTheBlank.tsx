@@ -141,7 +141,7 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
     const wordArray:Array<JSX.Element> = []
     words.forEach((word, i) => {
       let html = `${word}&nbsp;`
-      wordArray.push(<div key={`${word}`} dangerouslySetInnerHTML={{__html: html}}/>)
+      wordArray.push(<div key={`${word}${i}`} dangerouslySetInnerHTML={{__html: html}}/>)
     })
     return wordArray
   }

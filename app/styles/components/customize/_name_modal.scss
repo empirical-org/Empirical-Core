@@ -11,7 +11,7 @@
   }
   .name-modal {
     width: 551px;
-    height: 555px;
+    height: 565px;
     border-radius: 6px;
     background-color: #ffffff;
     position: fixed;
@@ -23,11 +23,18 @@
     align-items: center;
     text-align: center;
     z-index: 100;
-    img {
+    .exit {
+      right: 12px;
+      top: 12px;
+      position: absolute;
+      cursor: pointer;
+    }
+    .illustration {
       margin: 45px 0px 0px;
     }
-    span {
-      font-weight: bold;
+    .cancel {
+      margin-top: 10px;
+      cursor: pointer;
     }
     h1 {
       font-size: 20px;
