@@ -17,7 +17,7 @@ import {
   removeSelectedSubmissionOrder,
   hideSignupModal
 } from '../../../actions/classroomSessions';
-import Spinner from 'components/shared/spinner'
+import Spinner from '../../../components/shared/spinner'
 import CLLobby from './lobby';
 import CLStatic from './static';
 import CLSingleAnswer from './singleAnswer';
@@ -26,7 +26,7 @@ import PreviewModal from './previewModal'
 import TimeoutModal from './timeoutModal'
 import CongratulationsModal from './congratulationsModal'
 import SignupModal from './signupModal'
-import { getParameterByName } from 'libs/getParameterByName';
+import { getParameterByName } from '../../../libs/getParameterByName';
 import {
   SelectedSubmissions,
   SelectedSubmissionsForQuestion,
@@ -35,8 +35,8 @@ import {
 import {
   ClassroomLesson,
   ScriptItem
-} from 'interfaces/classroomLessons';
-import * as CustomizeIntf from 'interfaces/customize'
+} from '../../../interfaces/classroomLessons';
+import * as CustomizeIntf from '../../../interfaces/customize'
 import {generate} from '../../../libs/conceptResults/classroomLessons.js';
 
 class CurrentSlide extends React.Component<any, any> {

@@ -8,7 +8,7 @@ import {
 import {
   saveEditionScriptItem,
   deleteScriptItem
-} from 'actions/classroomLesson'
+} from '../../../actions/classroomLesson'
 import { getEditionQuestions } from '../../../actions/customize'
 
 import * as IntF from '../interfaces';

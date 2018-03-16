@@ -32,7 +32,7 @@ import {
   getResponsesWithCallback,
   getGradedResponsesWithCallback
 } from '../../actions/responses.js';
-const {Response} = require('quill-marking-logic/dist/src/interfaces/index.d.ts')
+import {Response} from 'quill-marking-logic'
 
 const feedbackStrings = C.FEEDBACK_STRINGS;
 

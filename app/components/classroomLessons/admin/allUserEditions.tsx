@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import { connect } from 'react-redux';
 import _ from 'lodash'
 import {hashToCollection} from '../../../libs/hashToCollection'
-import * as CustomizeIntf from 'interfaces/customize'
+import * as CustomizeIntf from '../../../interfaces/customize'
 
 class AllUserEditions extends Component<any, any> {
   constructor(props){

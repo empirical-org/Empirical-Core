@@ -4,18 +4,18 @@ const WakeLock: any = require('react-wakelock').default;
 import {
   startListeningToSession,
   startListeningToSessionWithoutCurrentSlide,
-} from 'actions/classroomSessions';
+} from '../../../actions/classroomSessions';
 import {
   getClassLessonFromFirebase
-} from 'actions/classroomLesson';
-import { getParameterByName } from 'libs/getParameterByName';
+} from '../../../actions/classroomLesson';
+import { getParameterByName } from '../../../libs/getParameterByName';
 import {
   ClassroomLessonSessions,
   ClassroomLessonSession,
 } from '../interfaces';
 import {
   ClassroomLesson
-} from 'interfaces/classroomLessons'
+} from '../../../interfaces/classroomLessons'
 import {generate} from '../../../libs/conceptResults/classroomLessons.js';
 
 

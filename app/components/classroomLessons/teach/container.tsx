@@ -23,20 +23,20 @@ import {
   registerTeacherPresence,
   loadStudentNames,
   startLesson
-} from 'actions/classroomSessions';
+} from '../../../actions/classroomSessions';
 import {
   getClassLessonFromFirebase,
   clearClassroomLessonFromStore
-} from 'actions/classroomLesson';
+} from '../../../actions/classroomLesson';
 import {
   getCurrentUserAndCoteachersFromLMS,
   getEditionsForUserIds,
   getEditionQuestions,
   clearEditionQuestions
-} from 'actions/customize'
+} from '../../../actions/customize'
 import MainContentContainer from './mainContentContainer';
 import CLStudentSingleAnswer from '../play/singleAnswer';
-import { getParameterByName } from 'libs/getParameterByName';
+import { getParameterByName } from '../../../libs/getParameterByName';
 import Sidebar from './sidebar';
 import ErrorPage from '../shared/errorPage';
 import {

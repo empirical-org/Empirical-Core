@@ -1,7 +1,7 @@
 declare function require(name:string);
 import React, { Component } from 'react';
-import Cues from 'components/renderForQuestions/cues';
-import RenderSentenceFragments from 'components/renderForQuestions/sentenceFragments';
+import Cues from '../../../components/renderForQuestions/cues';
+import RenderSentenceFragments from '../../../components/renderForQuestions/sentenceFragments';
 import {
   QuestionData
 } from '../../../interfaces/classroomLessons';
