@@ -1,11 +1,12 @@
-import pos from 'pos';
+// import pos from 'pos';
 import _ from 'underscore';
 
 export function getPartsOfSpeech (input) {
   try {
-    const words = new pos.Lexer().lex(input);
-    const tagger = new pos.Tagger();
-    return tagger.tag(words);
+    // const words = new pos.Lexer().lex(input);
+    // const tagger = new pos.Tagger();
+    // return tagger.tag(words);
+    return null
   }
   catch (e) {
     return undefined

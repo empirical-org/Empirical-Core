@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import PlayFillInTheBlankQuestion from './playFillInTheBlankQuestion.jsx';
+import PlayFillInTheBlankQuestion from './playFillInTheBlankQuestion';
 import { clearData, loadData, nextQuestion, submitResponse, updateName, updateCurrentQuestion, resumePreviousSession } from '../../actions/diagnostics.js';
 
 class TestQuestion extends Component {
   constructor() {
     super();
-    this.reset = this.reset.bind(this);
     this.state = {
       responsesForGrading: [],
       allResponses: [],
       key: 0,
     };
+
+    this.setResponse = this.setResponse.bind(this)
+    this.reset = this.reset.bind(this);
   }
 
   componentDidMount() {
@@ -46,13 +48,30 @@ class TestQuestion extends Component {
     return this.props.fillInBlank.data[this.props.params.questionID];
   }
 
+  renderGrading() {
+    if (this.state.gradedResponse) {
+      const {author, feedback} = this.state.gradedResponse.response
+      return <div style={{marginTop: '30px'}}>
+        <p>Author: {author}</p>
+        <p>Feedback: {feedback}</p>
+      </div>
+    }
+  }
+
+  setResponse(response) {
+    this.setState({gradedResponse: response})
+  }
+
   render() {
     if (this.props.playDiagnostic.currentQuestion) {
       const question = this.props.playDiagnostic.currentQuestion.data;
       console.log(question);
       return (
-        <div className="test-question-container">
-          <PlayFillInTheBlankQuestion key={this.state.key} question={question} prefill={false} nextQuestion={this.reset} dispatch={this.props.dispatch} />
+        <div>
+          <div className="test-question-container">
+            <PlayFillInTheBlankQuestion key={this.state.key} question={question} prefill={false} nextQuestion={this.reset} dispatch={this.props.dispatch} setResponse={this.setResponse}/>
+          </div>
+          {this.renderGrading()}
         </div>
       );
     } else {

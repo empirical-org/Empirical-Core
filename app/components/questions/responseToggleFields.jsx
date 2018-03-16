@@ -54,6 +54,9 @@ export default React.createClass({
         <div style={{ margin: '10 0 0 0', display: 'flex', flexWrap: 'wrap', }}>
           {this.props.labels.map((label, i) => this.renderToggleField(label, i))}
         </div>
+        <div>
+          <input type='checkbox' checked={this.props.excludeMisspellings} onClick={() => this.props.toggleExcludeMisspellings()}/> <label>Exclude Misspellings?</label>
+        </div>
       </div>
     );
   },

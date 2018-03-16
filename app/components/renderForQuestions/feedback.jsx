@@ -19,7 +19,7 @@ export default React.createClass({
             <p>{data.sentence}</p>
           </div>
         )
-      } else if (latestAttempt.found && latestAttempt.response.feedback !== undefined) {
+      } else if (latestAttempt.response.feedback !== undefined) {
         return (
           <div className="feedback-row student-feedback-inner-container" key={key}>
             <img className="revise" src={revise}/>

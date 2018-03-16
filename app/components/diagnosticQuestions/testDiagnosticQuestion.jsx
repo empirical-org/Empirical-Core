@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import PlayLessonQuestion from '../studentLessons/question';
+import PlayDiagnosticQuestion from '../diagnostics/sentenceCombining';
 import { clearData, loadData, nextQuestion, submitResponse, updateName, updateCurrentQuestion, resumePreviousSession } from '../../actions.js';
 
 class TestQuestion extends Component {
   constructor() {
     super();
-    this.reset = this.reset.bind(this);
     this.state = {
       responsesForGrading: [],
       allResponses: [],
       key: 0,
     };
+
+    this.reset = this.reset.bind(this);
+    this.setResponse = this.setResponse.bind(this)
   }
 
   componentDidMount() {
@@ -35,6 +37,10 @@ class TestQuestion extends Component {
     ];
   }
 
+  setResponse(response) {
+    this.setState({gradedResponse: response})
+  }
+
   startActivity(name = 'Triangle') {
     const action = loadData(this.questionsForLesson());
     this.props.dispatch(action);
@@ -46,13 +52,25 @@ class TestQuestion extends Component {
     return this.props.questions.data[this.props.params.questionID];
   }
 
+  renderGrading() {
+    if (this.state.gradedResponse) {
+      const {author, feedback} = this.state.gradedResponse.response
+      return <div style={{marginTop: '30px'}}>
+        <p>Author: {author}</p>
+        <p>Feedback: {feedback}</p>
+      </div>
+    }
+  }
+
   render() {
     if (this.props.playLesson.currentQuestion) {
       const { question, } = this.props.playLesson.currentQuestion;
-      console.log(question);
       return (
-        <div className="test-question-container">
-          <PlayLessonQuestion key={this.state.key} question={question} prefill={false} nextQuestion={this.reset} dispatch={this.props.dispatch} />
+        <div>
+          <div className="test-question-container">
+            <PlayDiagnosticQuestion key={this.state.key} question={question} prefill={false} nextQuestion={this.reset} dispatch={this.props.dispatch} setResponse={this.setResponse}/>
+          </div>
+          {this.renderGrading()}
         </div>
       );
     } else {

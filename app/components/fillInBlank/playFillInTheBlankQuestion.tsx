@@ -1,8 +1,10 @@
-import React, { Component } from 'react';
+declare function require(name:string);
+import * as React from 'react';
 import { connect } from 'react-redux';
-import _ from 'underscore';
+import * as  _ from 'underscore';
+const qml = require('quill-marking-logic')
+const checkFillInTheBlankQuestion = qml.checkFillInTheBlankQuestion
 import { getGradedResponsesWithCallback } from '../../actions/responses.js';
-import Grader from '../../libs/fillInBlank.js';
 import { hashToCollection } from '../../libs/hashToCollection';
 import { submitResponse, } from '../../actions/diagnostics.js';
 import submitQuestionResponse from '../renderForQuestions/submitResponse.js';
@@ -40,7 +42,7 @@ const styles = {
   },
 };
 
-export class PlayFillInTheBlankQuestion extends Component {
+export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
   constructor(props) {
     super(props);
     this.checkAnswer = this.checkAnswer.bind(this);
@@ -81,7 +83,7 @@ export class PlayFillInTheBlankQuestion extends Component {
   }
 
   generateInputs(promptArray) {
-    const inputs = [];
+    const inputs:Array<string> = [];
     for (let i = 0; i < promptArray.length - 2; i++) {
       inputs.push('');
     }
@@ -132,7 +134,7 @@ export class PlayFillInTheBlankQuestion extends Component {
   }
 
   renderWarning(i) {
-    const warningStyle = {
+    const warningStyle:any = {
       border: '1px #ff3730 solid',
       color: '#ff3730',
       fontSize: '14px',
@@ -145,10 +147,10 @@ export class PlayFillInTheBlankQuestion extends Component {
       zIndex: '100',
       padding: '2px 7px',
     };
-    const body = document.getElementsByTagName('body')[0].getBoundingClientRect();
-    const rectangle = document.getElementById(`input${i}`).getBoundingClientRect();
-    let chevyStyle = this.chevyStyleLeft();
-    if (rectangle.left > (body.width / 2)) {
+    const body:ClientRect|null = document.getElementsByTagName('body')[0].getBoundingClientRect();
+    const rectangle:ClientRect|null = document.getElementById(`input${i}`) && document.getElementById(`input${i}`).getBoundingClientRect();
+    let chevyStyle:any = this.chevyStyleLeft();
+    if (rectangle && body && rectangle.left > (body.width / 2)) {
       warningStyle.right = '-73px';
       chevyStyle = this.chevyStyleRight();
     }
@@ -176,7 +178,7 @@ export class PlayFillInTheBlankQuestion extends Component {
     };
   }
 
-  chevyStyleLeft() {
+  chevyStyleLeft():object {
     return {
       float: 'left',
       marginLeft: '20px',
@@ -186,7 +188,7 @@ export class PlayFillInTheBlankQuestion extends Component {
   }
 
   renderInput(i) {
-    let styling = styles.input;
+    let styling:any = styles.input;
     let warning;
     if (this.state.inputErrors.has(i)) {
       warning = this.renderWarning(i);
@@ -217,7 +219,7 @@ export class PlayFillInTheBlankQuestion extends Component {
     if (this.state.splitPrompt) {
       const { splitPrompt, } = this.state;
       const l = splitPrompt.length;
-      const splitPromptWithInput = [];
+      const splitPromptWithInput:Array<JSX.Element> = [];
       splitPrompt.forEach((section, i) => {
         if (i !== l - 1) {
           splitPromptWithInput.push(this.renderText(section, i));
@@ -244,19 +246,22 @@ export class PlayFillInTheBlankQuestion extends Component {
         }
       }
       const zippedAnswer = this.zipInputsAndText();
-      const fields = {
-        prompt: this.getQuestion().prompt,
-        responses: hashToCollection(this.state.responses),
-        questionUID: this.getQuestion().key,
-      };
-      const newQuestion = new Grader(fields);
-      const response = newQuestion.checkMatch(zippedAnswer);
+      const questionUID = this.getQuestion().key
+      const responses = hashToCollection(this.state.responses)
+      const response = {response: checkFillInTheBlankQuestion(questionUID, zippedAnswer, responses)}
+      this.setResponse(response);
       this.updateResponseResource(response);
       this.submitResponse(response);
       this.setState({
         response: '',
       });
       this.props.nextQuestion();
+    }
+  }
+
+  setResponse(response) {
+    if (this.props.setResponse) {
+      this.props.setResponse(response)
     }
   }
 

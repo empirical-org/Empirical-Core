@@ -9,8 +9,5 @@
         "allowJs": true,            // allow a partial TypeScript and JavaScript codebase
         "lib": ["ES2017", "DOM"],            //
         "allowSyntheticDefaultImports": true // Allow import React from 'react'
-    },
-    "include": [
-        "./src/"
-    ]
+    }
 }
