@@ -1,0 +1,16 @@
+<a
+  class="tooltip-link"
+  href="<%= link %>"
+  onmouseover="document.getElementById('<%=image_id%>').src = '<%=hover_image_src%>'"
+  onmouseout="document.getElementById('<%=image_id%>').src = '<%=image_src%>'"
+>
+  <% if image_src %>
+    <img id="<%= image_id %>" src="<%= image_src %>"></img>
+  <% elsif fa_class %>
+    <i class="<%= fa_class %>"></i>
+  <% end %>
+  <div>
+    <h3><%= text %></h3>
+    <p><%= subtext %></p>
+  </div>
+</a>
