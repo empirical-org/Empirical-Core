@@ -3,9 +3,8 @@ declare function require(name:string);
 import * as React from 'react';
 const { EditorState, ContentState, convertToRaw } = require('draft-js')
 const Editor = require('draft-js-plugins-editor').default
-const convertFromHTML = require('draft-convert').convertFromHTML
+const {convertFromHTML, convertToHTML} = require('draft-convert')
 const DraftPasteProcessor = require('draft-js/lib/DraftPasteProcessor').default
-const stateToHTML = require('draft-js-export-html').stateToHTML
 const createRichButtonsPlugin = require('draft-js-richbuttons-plugin').default
 
 class MultipleTextEditor extends React.Component<any, any> {
@@ -29,26 +28,22 @@ class MultipleTextEditor extends React.Component<any, any> {
     if (nextProps.text !== this.props.text) {
       if (nextProps.text === nextProps.lessonPrompt || nextProps.text === '') {
         this.setState({
-          text: EditorState.createWithContent(ContentState.createFromBlockArray(convertFromHTML(nextProps.text || ''))),
+          text: EditorState.createWithContent(convertFromHTML(nextProps.text || '')),
         });
       }
     }
     if (nextProps.boilerplate !== this.props.boilerplate) {
-      this.setState({ text: EditorState.createWithContent(ContentState.createFromBlockArray(convertFromHTML(nextProps.boilerplate))), },
+      this.setState({ text: EditorState.createWithContent(convertFromHTML(nextProps.boilerplate)), },
       () => {
-        this.props.handleTextChange(stateToHTML(this.state.text.getCurrentContent()));
+        this.props.handleTextChange(convertToHTML(this.state.text.getCurrentContent()));
       }
     );
     }
   }
 
-  getState() {
-    return EditorState.createWithContent(ContentState.createFromBlockArray(convertFromHTML(this.props.text || '')));
-  }
-
   handleTextChange(e) {
     this.setState({ text: e, }, () => {
-      this.props.handleTextChange(stateToHTML(this.state.text.getCurrentContent()));
+      this.props.handleTextChange(convertToHTML(this.state.text.getCurrentContent()).replace(/<p><\/p>/g, '<br/>').replace(/&nbsp;/g, '<br/>'));
     });
   }
 
