@@ -93,6 +93,7 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
           slideType={this.props.editionData.questions[this.props.data.current_slide].type}
           savePrompt={this.props.savePrompt}
           clearSelectedSubmissionOrder={this.props.clearSelectedSubmissionOrder}
+          sampleCorrectAnswer={this.props.editionData.questions[this.props.data.current_slide].data.play.sampleCorrectAnswer}
         />
 
       </div>

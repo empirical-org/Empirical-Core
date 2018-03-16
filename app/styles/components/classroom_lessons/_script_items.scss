@@ -25,8 +25,25 @@
     color: #969696;
     padding: 30px 90px;
   }
+  .sample-correct-answer {
+    min-height: 70px;
+    padding: 12px 18px;
+    display: flex;
+    border-top: 1px solid #a8e067;
+    border-bottom: 1px solid #a8e067;
+    align-items: center;
+    span:first-of-type {
+      font-size: 14px;
+      font-weight: 600;
+      color: #82bf3c;
+      margin-right: 37px;
+    }
+    span:last-of-type {
+      max-width: 410px;
+    }
+  }
   .student-submission-item-table {
-    padding: 15px 20px;
+    padding: 15px 0px;
 
     .answer-number-container {
       width: 23px;
@@ -52,6 +69,7 @@
           text-align: left;
           color: #c0c0c0;
           &:nth-of-type(1) {
+            padding-left: 20px;
             width: 20%;
           }
           &:nth-of-type(2) {
@@ -67,6 +85,7 @@
             width: 14%;
           }
           &:nth-of-type(7) {
+            padding-rightt: 20px;
             width: 11%;
           }
           &:nth-of-type(4), &:nth-of-type(5), &:nth-of-type(7) {
@@ -109,7 +128,13 @@
           td {
             vertical-align: middle;
             padding: 10px 0px;
-            &:nth-of-type(4), &:nth-of-type(5) {
+            &:nth-of-type(1) {
+              padding-left: 20px;
+            }
+            &:nth-of-type(7) {
+              padding-right: 20px;
+            }
+            &:nth-of-type(5) {
               text-align: center;
             }
             input {
@@ -123,6 +148,17 @@
           }
           .retry-question-cell {
             text-align: center;
+          }
+          &.sample-correct-answer-row {
+            border-top: 1px solid #a8e067;
+            border-bottom: 1px solid #a8e067;
+            td:first-of-type {
+              color: #a8e067;
+              font-weight: 600;
+            }
+            td:nth-of-type(4) {
+              text-align: center;
+            }
           }
          }
         tr:last-child {

@@ -280,23 +280,55 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     return this.state.sortDirection === 'desc' ? sortedRows : sortedRows.reverse()
   }
 
+  renderCorrectAnswerRow() {
+    const selected_submissions: SelectedSubmissions = this.props.selected_submissions;
+    const selected_submission_order = this.props.selected_submission_order
+    const current_slide: string = this.props.current_slide;
+    const checked: boolean = selected_submissions && selected_submissions[current_slide] ? selected_submissions[current_slide]['correct'] : false
+    const checkbox = this.determineCheckbox(checked)
+    const studentNumber: number | null = checked === true && selected_submission_order && selected_submission_order[current_slide] ? selected_submission_order[current_slide].indexOf('correct') + 1 : null
+    const studentNumberClassName: string = checked === true ? 'answer-number' : ''
+
+    return <tr className="sample-correct-answer-row">
+          <td colSpan={2}><div>Sample Correct Response</div></td>
+          <td><span dangerouslySetInnerHTML={{__html: this.props.sampleCorrectAnswer}}/></td>
+          <td/>
+          <td>
+            <input
+              id={'correct'}
+              name={'correct'}
+              type="checkbox"
+              defaultChecked={checked}
+            />
+            <label htmlFor={'correct'} onClick={(e) => { this.props.toggleSelected(e, current_slide, 'correct'); }}>
+              {checkbox}
+            </label>
+          </td>
+          <td><span className={`answer-number-container ${studentNumberClassName}`}>{studentNumber}</span></td>
+          <td/>
+
+    </tr>
+  }
+
   renderReview(index: number) {
-    const { selected_submissions, submissions, current_slide, students, presence } = this.props;
+    const { selected_submissions, submissions, current_slide, students, presence, sampleCorrectAnswer } = this.props;
     const numStudents: number = presence ? Object.keys(presence).length : 0;
+    const correctAnswerRow = sampleCorrectAnswer ? this.renderCorrectAnswerRow() : <span/>
     if (submissions && submissions[current_slide]) {
       const numAnswers: number = Object.keys(submissions[current_slide]).length;
 
       return (
         <li className="student-submission-item" key={index}>
           <div className="student-submission-item-header">
-            <strong>{numAnswers} of {numStudents}</strong> Students have answered.
+            <strong>{numAnswers} of {numStudents}</strong> students have responded.
             {this.renderShowRemainingStudentsButton()}
           </div>
           <div className="student-submission-item-table">
-            <table >
+            <table>
               {this.renderTableHeaders()}
               <tbody>
-                {this.renderStudentRows()}
+              {correctAnswerRow}
+              {this.renderStudentRows()}
               </tbody>
             </table>
           </div>
@@ -311,6 +343,14 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
       );
     } else {
       return this.renderNoSubmissionsTable(numStudents, index)
+    }
+  }
+
+  renderSampleCorrectAnswer() {
+    if (this.props.sampleCorrectAnswer) {
+      return <div className="sample-correct-answer"><span>Sample Correct Response</span><span dangerouslySetInnerHTML={{__html: this.props.sampleCorrectAnswer}}/></div>
+    } else {
+      return <span/>
     }
   }
 
@@ -438,15 +478,21 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
   }
 
   renderNoSubmissionsTable(numStudents: number, index: number) {
+    let content
+    if (this.props.sampleCorrectAnswer) {
+      content = this.renderSampleCorrectAnswer()
+    } else {
+      content = <div className="no-student-submissions">
+        Once students answer, anonymously discuss their work by selecting answers and then projecting them. You can use the step-by-step guide below to lead a discussion.
+      </div>
+    }
     return <li className="student-submission-item" key={index}>
 
         <div className="student-submission-item-header">
-          <strong>0 of {numStudents}</strong> Students have answered.
+          <strong>0 of {numStudents}</strong> students have responded.
         </div>
 
-        <div className="no-student-submissions">
-          Once students answer, anonymously discuss their work by selecting answers and then projecting them. You can use the step-by-step guide below to lead a discussion.
-        </div>
+        {content}
 
         <div className="student-submission-item-footer">
           {this.renderDisplayButton()}
