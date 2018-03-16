@@ -11,6 +11,14 @@
   max-height: 77px;
 }
 
+.navbar {
+  display: flex;
+  align-items: center;
+  height: 59px;
+  background-color: #00c2a2;
+  margin-top: 0px;
+}
+
 .home-nav-right {
   font-weight: 600;
   font-size: 16px;
@@ -28,7 +36,6 @@ nav.q-navbar-home {
   max-width: 1165px;
   width: 100%;
   margin: 0 auto;
-  height: 90px;
   display: flex;
   justify-content: space-between;
   align-content: center;
@@ -40,7 +47,7 @@ nav.q-navbar-home {
   }
 
   .home-nav-right {
-    max-width: 475px;
+    max-width: 600px;
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -141,7 +148,7 @@ nav.q-navbar-home {
       display: none;
     }
   }
-  @media screen and (max-width: 550px) {
+  @media screen and (max-width: 650px) {
     height: 60px;
 
     .home-nav-right.wide {
@@ -398,6 +405,7 @@ nav.q-navbar-home {
     color: #fff;
   }
   .navbar-tooltip {
+    z-index: 100;
     display: none;
     position: absolute;
     width: 248px;
@@ -406,9 +414,10 @@ nav.q-navbar-home {
     box-shadow: 0 1px 5px 0 #dadada;
     flex-direction: column;
     top: 52px;
-    left: -66px;
+    left: 50%;
+    transform: translateX(-50%);
     padding: 10px 0px;
-    i {
+    .fa-caret-up {
       color: white;
       position: absolute;
       top: -11px;
@@ -418,13 +427,18 @@ nav.q-navbar-home {
       padding: 13px 25px;
       display: flex;
       align-items: flex-start;
-      img {
-        width: 30px;
+      .image-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 30px;
         height: 30px;
         margin-right: 15px;
         border-radius: 3px;
-        background-color: #ffffff;
         box-shadow: 0 1px 2px 0 #e4e4e4;
+        i, svg {
+          color:  #00947b;
+        }
       }
       h3 {
         font-size: 16px;
@@ -441,7 +455,7 @@ nav.q-navbar-home {
       }
       &:hover {
         text-decoration: none;
-        h3, p {
+        h3, p, i, svg {
           color: #00c2a2;
         }
       }
