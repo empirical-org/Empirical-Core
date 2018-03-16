@@ -1,0 +1,50 @@
+<div id="our-story" class="navbar-tooltip-trigger" tabindex="1">
+  <span>Our Story</span>
+  <div class="navbar-tooltip">
+    <i class="fa fa-caret-up"></i>
+    <%= render 'navbar/tooltip_link',
+      text: 'About Us',
+      subtext: "Learn about Quill's mission",
+      image_src: '',
+      hover_image_src: '',
+      image_id: 'research-img',
+      link: '/mission'
+    %>
+    <%= render 'navbar/tooltip_link',
+      text: 'Impact',
+      subtext: "Learn about Quill's reach",
+      image_src: '',
+      hover_image_src: '',
+      image_id: 'research-img',
+      link: '/impact'
+    %>
+    <%= render 'navbar/tooltip_link',
+      text: 'Announcements',
+      subtext: "See what's new with Quill",
+      image_src: '',
+      hover_image_src: '',
+      image_id: 'announcements-img',
+      link: '/teacher_resources/topics/announcements'
+    %>
+    <%= render 'navbar/tooltip_link',
+      text: 'In the Press',
+      subtext: 'Read articles that feature Quill',
+      fa_class: 'fas fa-newspaper',
+      link: '/press'
+    %>
+    <%= render 'navbar/tooltip_link',
+      text: 'Team',
+      subtext: 'Learn about our team',
+      fa_class: 'fas fa-users',
+      link: '/team'
+    %>
+    <%= render 'navbar/tooltip_link',
+      text: 'Donate',
+      subtext: "Contribute to Quill's mission",
+      image_src: '',
+      hover_image_src: '',
+      image_id: 'research-img',
+      link: '/donate'
+    %>
+  </div>
+</div>
