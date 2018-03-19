@@ -1430,6 +1430,107 @@ ALTER SEQUENCE rules_misseds_id_seq OWNED BY rules_misseds.id;
 
 
 --
+-- Name: sales_contacts; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE sales_contacts (
+    id integer NOT NULL,
+    user_id integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: sales_contacts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE sales_contacts_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: sales_contacts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE sales_contacts_id_seq OWNED BY sales_contacts.id;
+
+
+--
+-- Name: sales_stage_types; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE sales_stage_types (
+    id integer NOT NULL,
+    description text,
+    name text,
+    "order" character varying,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: sales_stage_types_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE sales_stage_types_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: sales_stage_types_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE sales_stage_types_id_seq OWNED BY sales_stage_types.id;
+
+
+--
+-- Name: sales_stages; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE sales_stages (
+    id integer NOT NULL,
+    user_id integer,
+    sales_stage_type_id integer,
+    sales_contact_id integer,
+    completed_at timestamp without time zone,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: sales_stages_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE sales_stages_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: sales_stages_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE sales_stages_id_seq OWNED BY sales_stages.id;
+
+
+--
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -2281,6 +2382,27 @@ ALTER TABLE ONLY rules_misseds ALTER COLUMN id SET DEFAULT nextval('rules_missed
 
 
 --
+-- Name: sales_contacts id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY sales_contacts ALTER COLUMN id SET DEFAULT nextval('sales_contacts_id_seq'::regclass);
+
+
+--
+-- Name: sales_stage_types id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY sales_stage_types ALTER COLUMN id SET DEFAULT nextval('sales_stage_types_id_seq'::regclass);
+
+
+--
+-- Name: sales_stages id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY sales_stages ALTER COLUMN id SET DEFAULT nextval('sales_stages_id_seq'::regclass);
+
+
+--
 -- Name: school_subscriptions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -2694,6 +2816,30 @@ ALTER TABLE ONLY referrer_users
 
 ALTER TABLE ONLY rules_misseds
     ADD CONSTRAINT rules_misseds_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: sales_contacts sales_contacts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY sales_contacts
+    ADD CONSTRAINT sales_contacts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: sales_stage_types sales_stage_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY sales_stage_types
+    ADD CONSTRAINT sales_stage_types_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: sales_stages sales_stages_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY sales_stages
+    ADD CONSTRAINT sales_stages_pkey PRIMARY KEY (id);
 
 
 --
@@ -3280,6 +3426,34 @@ CREATE UNIQUE INDEX index_referrer_users_on_user_id ON referrer_users USING btre
 
 
 --
+-- Name: index_sales_contacts_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_sales_contacts_on_user_id ON sales_contacts USING btree (user_id);
+
+
+--
+-- Name: index_sales_stages_on_sales_contact_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_sales_stages_on_sales_contact_id ON sales_stages USING btree (sales_contact_id);
+
+
+--
+-- Name: index_sales_stages_on_sales_stage_type_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_sales_stages_on_sales_stage_type_id ON sales_stages USING btree (sales_stage_type_id);
+
+
+--
+-- Name: index_sales_stages_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_sales_stages_on_user_id ON sales_stages USING btree (user_id);
+
+
+--
 -- Name: index_school_subscriptions_on_school_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -3750,11 +3924,43 @@ ALTER TABLE ONLY units
 
 
 --
+-- Name: sales_stages fk_rails_41082adef9; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY sales_stages
+    ADD CONSTRAINT fk_rails_41082adef9 FOREIGN KEY (sales_contact_id) REFERENCES sales_contacts(id);
+
+
+--
+-- Name: sales_stages fk_rails_a8025d2621; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY sales_stages
+    ADD CONSTRAINT fk_rails_a8025d2621 FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
 -- Name: concept_results fk_rails_cebe4a6023; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY concept_results
     ADD CONSTRAINT fk_rails_cebe4a6023 FOREIGN KEY (activity_classification_id) REFERENCES activity_classifications(id);
+
+
+--
+-- Name: sales_contacts fk_rails_d6738e130a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY sales_contacts
+    ADD CONSTRAINT fk_rails_d6738e130a FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
+-- Name: sales_stages fk_rails_e5da9d6c2d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY sales_stages
+    ADD CONSTRAINT fk_rails_e5da9d6c2d FOREIGN KEY (sales_stage_type_id) REFERENCES sales_stage_types(id);
 
 
 --
@@ -4286,4 +4492,12 @@ INSERT INTO schema_migrations (version) VALUES ('20180308203054');
 INSERT INTO schema_migrations (version) VALUES ('20180312180605');
 
 INSERT INTO schema_migrations (version) VALUES ('20180319133511');
+
+INSERT INTO schema_migrations (version) VALUES ('20180319145514');
+
+INSERT INTO schema_migrations (version) VALUES ('20180319145837');
+
+INSERT INTO schema_migrations (version) VALUES ('20180319145946');
+
+INSERT INTO schema_migrations (version) VALUES ('20180319165718');
 
