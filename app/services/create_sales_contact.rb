@@ -5,7 +5,7 @@ class CreateSalesContact
   end
 
   def create
-    if @user.teacher?
+    if can_create_sales_contact?
       create_stages
       true
     else
@@ -14,6 +14,10 @@ class CreateSalesContact
   end
 
   private
+
+  def can_create_sales_contact?
+    @user.teacher? && @user.sales_contact.nil?
+  end
 
   def sales_contact
     @sales_contact ||= SalesContact.find_or_create_by(user: @user)

@@ -17,6 +17,7 @@ describe 'SalesStageTypesFactory' do
     expect(type).to have_attributes(
       name: 'Basic Subscription',
       order: '1',
+      trigger: 'auto'
     )
   end
 
@@ -28,6 +29,7 @@ describe 'SalesStageTypesFactory' do
     expect(type).to have_attributes(
       name: 'Teacher Premium',
       order: '2',
+      trigger: 'auto'
     )
   end
 
@@ -39,6 +41,7 @@ describe 'SalesStageTypesFactory' do
     expect(type).to have_attributes(
       name: 'In Conversation: Teacher Responds',
       order: '3.1',
+      trigger: 'auto'
     )
   end
 
@@ -50,6 +53,7 @@ describe 'SalesStageTypesFactory' do
     expect(type).to have_attributes(
       name: 'In Conversation: Call Missed',
       order: '3.2',
+      trigger: 'user'
     )
   end
 
@@ -61,6 +65,7 @@ describe 'SalesStageTypesFactory' do
     expect(type).to have_attributes(
       name: 'In Conversation: Interested',
       order: '3.3',
+      trigger: 'user'
     )
   end
 
@@ -72,6 +77,7 @@ describe 'SalesStageTypesFactory' do
     expect(type).to have_attributes(
       name: 'Quote Requested',
       order: '4',
+      trigger: 'user'
     )
   end
 
@@ -83,6 +89,7 @@ describe 'SalesStageTypesFactory' do
     expect(type).to have_attributes(
       name: 'Purchase Order Received',
       order: '5.1',
+      trigger: 'user'
     )
   end
 
@@ -94,6 +101,7 @@ describe 'SalesStageTypesFactory' do
     expect(type).to have_attributes(
       name: 'Invoice Sent',
       order: '5.2',
+      trigger: 'auto'
     )
   end
 
@@ -105,6 +113,7 @@ describe 'SalesStageTypesFactory' do
     expect(type).to have_attributes(
       name: 'School Premium: Needs PD',
       order: '6.1',
+      trigger: 'auto'
     )
   end
 
@@ -116,6 +125,7 @@ describe 'SalesStageTypesFactory' do
     expect(type).to have_attributes(
       name: 'School Premium: PD Scheduled',
       order: '6.2',
+      trigger: 'user'
     )
   end
 
@@ -127,6 +137,7 @@ describe 'SalesStageTypesFactory' do
     expect(type).to have_attributes(
       name: 'School Premium: PD Delivered',
       order: '6.3',
+      trigger: 'user'
     )
   end
 
@@ -138,6 +149,7 @@ describe 'SalesStageTypesFactory' do
     expect(type).to have_attributes(
       name: 'Not Interested In School Premium',
       order: '7',
+      trigger: 'user'
     )
   end
 end
