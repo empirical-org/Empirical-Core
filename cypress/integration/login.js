@@ -1,22 +1,52 @@
 describe('Login page', function() {
+
+  before(function() {
+    cy.exec('RAILS_ENV=cypress rake add_cypress_test_data:add_users', {failOnNonZeroExit: false})
+  })
+
   it('loads', function() {
-    cy.visit('//session/new')
+    cy.visit('/session/new')
   })
 
-  it('logs me in', function() {
+  describe('correct info', function() {
+    it('lets me enter my info', function() {
+      cy.get('input[name="user[email]"]')
+      .type('teacher')
+      .should('have.value', 'teacher')
 
-    cy.get('input[name="user[email]"]')
-    .type('emilia@quill.org')
-    .should('have.value', 'emilia@quill.org')
+      cy.get('input[name="user[password]"]')
+      .type(`password{enter}`)
 
-    cy.get('input[name="user[password]"]')
-    .type(`Emilia29{enter}`)
-    // .should('have.value', `Emilia29`)
-
-    // cy.contains('Login').click()
-    cy.url().should('include', 'profile')
+    })
+    it('brings me to a different page', function() {
+      cy.url().should('not.include', 'session')
+    })
 
   })
 
+  describe('incorrect info', function() {
+    it('lets me enter my info', function() {
+      cy.visit('/session/new')
+      cy.get('input[name="user[email]"]')
+      .type('student')
+      .should('have.value', 'student')
+
+      cy.get('input[name="user[password]"]')
+      .type(`notmypassword{enter}`)
+    })
+
+    it('shows an error', function() {
+      cy.contains('Incorrect username/email or password')
+    })
+
+  })
+
+  describe('testing cypress login command', function() {
+    it('logs me in', function() {
+      cy.visit('/session/new')
+      cy.login('teacher', 'password')
+      cy.visit('/profile')
+    })
+  })
 
 })

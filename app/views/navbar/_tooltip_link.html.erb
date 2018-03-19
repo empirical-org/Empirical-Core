@@ -1,0 +1,37 @@
+<% image_id ||= nil%>
+<% image_src ||= nil%>
+<% hover_image_src ||= nil %>
+
+<a
+  class="tooltip-link"
+  id="tooltip"
+  href="<%= link %>"
+  onmouseover="mouseOver('<%=image_id%>', '<%=hover_image_src%>')"
+  onmouseout="mouseOut('<%=image_id%>', '<%=image_src%>')"
+>
+  <div class="image-container">
+    <% if image_src %>
+      <img id="<%= image_id %>" src="<%= image_src %>"></img>
+    <% elsif fa_class %>
+      <i class="<%= fa_class %>"></i>
+    <% end %>
+  </div>
+  <div>
+    <h3><%= text %></h3>
+    <p><%= subtext %></p>
+  </div>
+</a>
+
+<script>
+  mouseOver = function(imageId, hoverImageSrc) {
+    if (imageId) {
+      document.getElementById(`${imageId}`).src = `${hoverImageSrc}`
+    }
+  }
+
+  mouseOut = function(imageId, imageSrc) {
+    if (imageId) {
+      document.getElementById(`${imageId}`).src = `${imageSrc}`
+    }
+  }
+</script>

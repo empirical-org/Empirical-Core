@@ -5,10 +5,10 @@
     </a>
   </div>
   <div class="home-nav-right wide">
-    <a href="/tools/connect" class="text-white">Tools</a>
-    <a href="/activities/packs" class="text-white">Resources</a>
-    <a href="/mission" class="text-white">Our Story</a>
-    <a href="https://community.quill.org/donate/" target="_blank" class="text-white">Donate</a>
+    <%= render 'navbar/learning_tools' %>
+    <%= render 'navbar/explore_curriculum' %>
+    <%= render 'navbar/using_quill' %>
+    <%= render 'navbar/our_story' %>
     <%- if current_user.nil? %>
       <a href="/session/new" class="text-white">Login</a>
       <a href="/account/new" class="sign-up-button text-white">Sign Up</a>
