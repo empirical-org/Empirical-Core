@@ -1,5 +1,4 @@
 class School < ActiveRecord::Base
-  has_one :sales_account
   has_many :school_subscription
   has_many :subscriptions, through: :school_subscription
   has_many :schools_users,  class_name: 'SchoolsUsers'
