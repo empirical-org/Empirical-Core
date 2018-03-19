@@ -37,7 +37,6 @@ class Cms::SchoolsController < Cms::CmsController
       'School Premium Type' => @school&.subscription&.account_type,
       'Expiration' => @school&.subscription&.expiration&.strftime('%b %d, %Y')
     }
-    @stages = sales_account_stages
     @school = {
       'Name' => @school.name,
       'City' => @school.city || @school.mail_city,
@@ -125,14 +124,6 @@ class Cms::SchoolsController < Cms::CmsController
   end
 
   private
-
-  def sales_account_stages
-    if @school.sales_account
-      @school.sales_account.stages
-    else
-      SalesAccount::DEFAULT_STAGES_DATA
-    end
-  end
 
   def set_school
     @school = School.find params[:id]
