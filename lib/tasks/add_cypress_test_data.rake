@@ -11,9 +11,9 @@ namespace :add_cypress_test_data do
   end
 
   def add_users
-    User.find_or_initialize_by(role: 'staff', username: 'staff').update(password: 'password', name: 'Ryan Novas', email: 'r@gmail.com').save
-    User.find_or_initialize_by(role: 'teacher', username: 'teacher').update(password: 'password', name: 'Emilia Friedberg', email: 'e@gmail.com').save
-    User.find_or_initialize_by(role: 'student', username: 'student').update(password: 'password', name: 'Jenny Price').save
+    User.find_or_initialize_by(role: 'staff', username: 'staff').update(password: 'password', name: 'Ryan Novas', email: 'r@gmail.com')
+    User.find_or_initialize_by(role: 'teacher', username: 'teacher').update(password: 'password', name: 'Emilia Friedberg', email: 'e@gmail.com')
+    User.find_or_initialize_by(role: 'student', username: 'student').update(password: 'password', name: 'Jenny Price')
   end
 
   def add_school
