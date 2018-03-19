@@ -8,30 +8,30 @@ describe('Navbar', function() {
     describe('Learning Tools item', function() {
       it ('should make the tooltip appear on focus', function() {
         cy.get('#learning-tools').click()
-        cy.get('.navbar-tooltip').should('be.visible')
+        cy.get('#learning-tools').find('.navbar-tooltip').should('be.visible')
       })
       describe('Learning Tools tooltip', function() {
         beforeEach(function() {
           cy.get('#learning-tools').click()
         })
         it('has a link to the Connect tool page', function() {
-          cy.contains('Quill Connect').click({force: true})
+          cy.get('#learning-tools').contains('Quill Connect').click({force: true})
           cy.url().should('include', 'tools/connect')
         })
         it('has a link to the Lessons tool page', function() {
-          cy.contains('Quill Lessons').click({force: true})
+          cy.get('#learning-tools').contains('Quill Lessons').click({force: true})
           cy.url().should('include', 'tools/lessons')
         })
         it('has a link to the Diagnostic tool page', function() {
-          cy.contains('Quill Diagnostic').click({force: true})
+          cy.get('#learning-tools').contains('Quill Diagnostic').click({force: true})
           cy.url().should('include', 'tools/diagnostic')
         })
         it('has a link to the Proofreader tool page', function() {
-          cy.contains('Quill Proofreader').click({force: true})
+          cy.get('#learning-tools').contains('Quill Proofreader').click({force: true})
           cy.url().should('include', 'tools/proofreader')
         })
         it('has a link to the Grammar tool page', function() {
-          cy.contains('Quill Grammar').click({force: true})
+          cy.get('#learning-tools').contains('Quill Grammar').click({force: true})
           cy.url().should('include', 'tools/grammar')
         })
 
@@ -41,22 +41,22 @@ describe('Navbar', function() {
     describe('Explore Curriculum item', function() {
       it ('should make the tooltip appear on focus', function() {
         cy.get('#explore-curriculum').click()
-        cy.get('.navbar-tooltip').should('be.visible')
+        cy.get('#explore-curriculum').find('.navbar-tooltip').should('be.visible')
       })
       describe('Explore Curriculum tooltip', function() {
         beforeEach(function() {
           cy.get('#explore-curriculum').click()
         })
-        it('has a link to the Featured Activites page', function() {
-          cy.contains('Featured Activites').click()
+        it('has a link to the Featured Activities page', function() {
+          cy.get('#explore-curriculum').contains('Featured Activities').click({force: true})
           cy.url().should('include', '/activities/packs')
         })
         it('has a link to the Standards page', function() {
-          cy.contains('ELA Standards').click()
+          cy.get('#explore-curriculum').contains('ELA Standards').click({force: true})
           cy.url().should('include', '/activities/section/7')
         })
         it('has a link to the Pedagogy page', function() {
-          cy.contains('Our Pedagogy')
+          cy.get('#explore-curriculum').contains('Our Pedagogy')
           // TODO: add link once we have one
         })
 
@@ -66,38 +66,34 @@ describe('Navbar', function() {
     describe('Using Quill item', function() {
       it ('should make the tooltip appear on focus', function() {
         cy.get('#using-quill').click()
-        cy.get('.navbar-tooltip').should('be.visible')
+        cy.get('#using-quill').find('.navbar-tooltip').should('be.visible')
       })
       describe('Using Quill tooltip', function() {
         beforeEach(function() {
           cy.get('#using-quill').click()
         })
         it('has a link to the All Articles page', function() {
-          cy.contains('All Articles').click()
+          cy.get('#using-quill').contains('All Articles').click({force: true})
           cy.url().should('include', '/teacher_resources')
         })
         it('has a link to the Getting Started page', function() {
-          cy.contains('Getting Started').click()
+          cy.get('#using-quill').contains('Getting Started').click({force: true})
           cy.url().should('include', '/teacher_resources/topics/getting_started')
         })
         it('has a link to the Case Studies Page page', function() {
-          cy.contains('Case Studies').click()
+          cy.get('#using-quill').contains('Case Studies').click({force: true})
           cy.url().should('include', '/teacher_resources/topics/case_studies')
         })
         it('has a link to the Writing Instruction Research page', function() {
-          cy.contains('Writing Instruction Research').click()
+          cy.get('#using-quill').contains('Writing Instruction Research').click({force: true})
           cy.url().should('include', '/teacher_resources/topics/education_research')
         })
         it('has a link to the FAQ page', function() {
-          cy.contains('FAQ').click()
-          cy.url().should('include', '/faq')
-        })
-        it('has a link to the FAQ page', function() {
-          cy.contains('FAQ').click()
+          cy.get('#using-quill').contains('FAQ').click({force: true})
           cy.url().should('include', '/faq')
         })
         it('has a link to the premium page', function() {
-          cy.contains('premium').click()
+          cy.get('#using-quill').contains('Premium').click({force: true})
           cy.url().should('include', '/premium')
         })
 
