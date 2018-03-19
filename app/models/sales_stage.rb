@@ -14,7 +14,7 @@ class SalesStage < ActiveRecord::Base
     sales_stage_type.description
   end
 
-  def action
-    "Automatic"
+  def trigger
+    sales_stage_type.trigger
   end
 end

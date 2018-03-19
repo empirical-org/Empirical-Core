@@ -28,10 +28,10 @@
                 <%= stage.description %>
               </td>
               <td>
-                <%= stage.completed_at || '--' %>
+                <%= format_date(stage.completed_at) %>
               </td>
               <td>
-                <%= stage.action %>
+                <%= action_column(stage) %>
               </td>
             </tr>
           <% end %>

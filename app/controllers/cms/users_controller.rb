@@ -1,6 +1,6 @@
 class Cms::UsersController < Cms::CmsController
   before_filter :signed_in!
-  before_action :set_user, only: [:show, :edit, :show_json, :update, :destroy, :edit_subscription, :new_subscription]
+  before_action :set_user, only: [:show, :edit, :show_json, :update, :destroy, :edit_subscription, :new_subscription, :complete_sales_stage]
   before_action :set_search_inputs, only: [:index, :search]
   before_action :get_subscription_data, only: [:new_subscription, :edit_subscription]
 
@@ -93,10 +93,23 @@ class Cms::UsersController < Cms::CmsController
     @user.destroy
   end
 
+  def complete_sales_stage
+    stage = @user.sales_contact.stages.find_by_id(params[:sales_stage_id])
+
+    if stage.completed_at.nil? && stage.update(completed_at: Time.now)
+      flash[:success] = 'Stage marked completed'
+    else
+      flash[:error] = 'Something went wrong'
+    end
+    redirect_to cms_user_path(@user.id)
+  end
+
+
 protected
 
   def set_user
-    @user = User.find params[:id]
+    @user = User.includes(sales_contact: { stages: :sales_stage_type })
+      .find(params[:id])
   end
 
   def user_params
