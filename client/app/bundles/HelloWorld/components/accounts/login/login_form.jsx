@@ -44,6 +44,7 @@ class LoginFormApp extends Component {
   }
 
   handleSubmit(e) {
+    e.preventDefault();
     request({
       url: `${process.env.DEFAULT_URL}/session/login_through_ajax`,
       method: 'POST',
@@ -60,7 +61,6 @@ class LoginFormApp extends Component {
         this.setState({ lastUpdate: new Date(), message: (body.message || message), });
       }
     });
-    e.preventDefault();
   }
 
   render() {

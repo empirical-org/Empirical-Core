@@ -1,0 +1,44 @@
+<div id="using-quill" class="navbar-tooltip-trigger" tabindex="1">
+  <span>Using Quill</span>
+  <div class="navbar-tooltip">
+    <i class="fa fa-caret-up"></i>
+    <%= render 'navbar/tooltip_link',
+      text: 'All Articles',
+      subtext: 'View all of Quill’s instructional resources',
+      fa_class: 'fa fa-icon fa-folder-open',
+      link: '/teacher_resources'
+    %>
+    <%= render 'navbar/tooltip_link',
+      text: 'Getting Started',
+      subtext: 'Set up your classroom on Quill with guides videos, and presentations',
+      fa_class: 'fa fa-icon fa-clipboard',
+      link: '/teacher_resources/topics/getting_started'
+    %>
+    <%= render 'navbar/tooltip_link',
+      text: 'Case Studies',
+      subtext: 'Read success stories about Quill in the class',
+      fa_class: 'fa fa-icon fa-file-alt',
+      link: '/teacher_resources/topics/case_studies'
+    %>
+    <%= render 'navbar/tooltip_link',
+      text: 'Writing Instruction Research',
+      subtext: 'Read and download handpicked materials to teach writing',
+      image_src: '',
+      hover_image_src: '',
+      image_id: 'research-img',
+      link: '/teacher_resources/topics/education_research'
+    %>
+    <%= render 'navbar/tooltip_link',
+      text: 'FAQ',
+      subtext: 'Answers for common question about Quill',
+      fa_class: 'fa fa-icon fa-question',
+      link: '/faq'
+    %>
+    <%= render 'navbar/tooltip_link',
+      text: 'Premium',
+      subtext: 'Save time grading and gain actionable insights with Quill Premium',
+      fa_class: 'fa fa-icon fa-star',
+      link: '/premium'
+    %>
+  </div>
+</div>
