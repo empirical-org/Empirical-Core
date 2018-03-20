@@ -53,9 +53,7 @@ describe('Navbar', function() {
             cy.url().should('include', '/activities/packs')
           })
           it('has a link to the Standards page', function() {
-            cy.exec('RAILS_ENV=cypress rake add_cypress_test_data:add_sections', {failOnNonZeroExit: false})
-            cy.get('#explore-curriculum').contains('ELA Standards').click({force: true})
-            cy.url().should('include', '/activities/section/7')
+            cy.get('#explore-curriculum').contains('ELA Standards').should('have.attr', 'href').should('match', /\/activities\/section\/7/)
           })
           // it('has a link to the Pedagogy page', function() {
           //   cy.get('#explore-curriculum').contains('Our Pedagogy')
@@ -156,7 +154,7 @@ describe('Navbar', function() {
 
     describe('as a logged in teacher', function() {
       before(function() {
-        cy.exec('RAILS_ENV=cypress rake add_cypress_test_data:add_users', {failOnNonZeroExit: false})
+        cy.exec('RAILS_ENV=cypress rake find_or_create_cypress_test_data:find_or_create_teacher', {failOnNonZeroExit: false})
         cy.login('teacher', 'password')
       })
       describe('Learning Tools item', function() {
