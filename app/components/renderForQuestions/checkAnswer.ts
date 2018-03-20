@@ -1,8 +1,10 @@
 declare function require(name:string);
 import { hashToCollection } from '../../libs/hashToCollection';
 import * as _ from 'underscore'
-const qml = require('quill-marking-logic')
-const {checkSentenceCombining, checkDiagnosticQuestion} = qml
+// const qml = require('quill-marking-logic')
+// const {checkSentenceCombining, checkDiagnosticQuestion} = qml
+import {checkSentenceCombining, checkDiagnosticQuestion} from 'quill-marking-logic'
+
 
 export default function checkAnswer(question, response, responses, mode='default') {
   const fields = {
