@@ -17,6 +17,9 @@
   height: 59px;
   background-color: #00c2a2;
   margin-top: 0px;
+  .container {
+    width: 100%;
+  }
 }
 
 .home-nav-right {
@@ -36,7 +39,6 @@
     background: $white;
     display: inline-block;
     height: 32px;
-    margin: 0 25px 0 13px;
     position: relative;
     top: 2px;
     width: 1px;
@@ -61,7 +63,7 @@
   }
   ul {
     padding: 0px;
-    top: 29px;
+    top: 26px;
     width: 100%;
     position: absolute;
     list-style: none;
@@ -77,6 +79,11 @@
         color: #fff;
         display: block;
       }
+      &:last-of-type {
+        border-bottom: none;
+        border-bottom-left-radius: 6px;
+        border-bottom-right-radius: 6px;
+      }
     }
   }
   &.dropdown-closed {
@@ -85,7 +92,7 @@
       content: "\f078";
       font-family: "FontAwesome";
     }
-    ul {
+    .options {
       display: none;
     }
   }
@@ -168,9 +175,8 @@ nav.q-navbar-home {
       width: 100%;
       list-style:none;
       position: absolute;
-      top: 30px;
+      top: 59px;
       left: 0;
-      background-color: $quillgreen;
       z-index: 2;
 
       > li {
@@ -183,11 +189,6 @@ nav.q-navbar-home {
 
         &:hover {
           color: #3b3b3b;
-          box-shadow:
-            0 .05em .25em 0 rgba(0, 0, 0, .35),
-            inset 0 0 0 2em rgba(0, 0, 0, .3)
-          ;
-
         }
         &:active {
           border-top: none;
@@ -209,12 +210,12 @@ nav.q-navbar-home {
       // }
     }
   }
-  @media screen and (min-width: 551px) {
+  @media screen and (min-width: 995px) {
     nav.home-nav-dropdown[role="home-custom-dropdown"] {
       display: none;
     }
   }
-  @media screen and (max-width: 650px) {
+  @media screen and (max-width: 995px) {
     height: 60px;
 
     .home-nav-right.wide {
@@ -252,13 +253,13 @@ nav.q-navbar-home {
       label:after {
         position: absolute;
         right: 10%;
-        top: -19px;
+        top: -12px;
         content: "\2261";
         color: $white;
         font-size: 4em;
         @media only screen and (max-width : 419px) {
           font-size: 3em;
-          top: -8px;
+          top: 0px;
         }
       }
 
@@ -272,14 +273,6 @@ nav.q-navbar-home {
         > li {
           width: calc(100% - 30px);
           text-align:left;
-
-          &:after {
-            position:absolute;
-            color: $white;
-            right:.25em;
-            content:"\203A";
-            font: bold 1.4em sans-serif;
-          }
         }
       }
     }
@@ -386,11 +379,6 @@ nav.q-navbar-home {
 
         &:hover {
           color: #3b3b3b;
-          box-shadow:
-            0 .05em .25em 0 rgba(0, 0, 0, .35),
-            inset 0 0 0 2em rgba(0, 0, 0, .3)
-          ;
-
         }
         &:active {
           border-top: none;
@@ -432,7 +420,7 @@ nav.q-navbar-home {
       label:after {
         position: absolute;
         right: 25px;
-        top: -19px;
+        top: -12px;
         content: "\2261";
         color: $white;
         font-size: 4em;
@@ -449,12 +437,6 @@ nav.q-navbar-home {
           width: calc(100% - 19px);
           text-align:left;
 
-          &:after {
-            position:absolute;
-            right:.25em;
-            content:"\203A";
-            font: bold 1.4em sans-serif;
-          }
         }
       }
     }
@@ -540,6 +522,45 @@ nav.q-navbar-home {
     outline: none;
     .navbar-tooltip {
       display: flex;
+    }
+  }
+}
+
+.home-navbar-list {
+  background-color: #3b3b3b;
+  margin-bottom: 0;
+  float: right;
+  list-style-type: none;
+  li {
+    float: left;
+    position: relative;
+    display: block;
+    padding: 18px 0;
+    a {
+      height: 25px;
+      padding: 0px 11px;
+      margin: 0 2px;
+      font-weight: 600;
+      position: relative;
+      display: flex;
+      align-items: center;
+      line-height: 20px;
+      color: $white;
+      font-size: 14px;
+      border: 1px solid transparent;
+      //Instead of the line below you could use @includeborder-radius($radius, $vertical-radius)
+      border-radius: 4px;
+      //Instead of the line below you could use @includetransition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
+      transition: 0.1s ease-out;
+      -moz-transition: 0.1s ease-out;
+      -webkit-transition: 0.1s ease-out;
+      &:hover {
+        text-decoration: none;
+      }
+    }
+    &:hover a {
+      background-color: $white;
+      color: $quillgreen;
     }
   }
 }
