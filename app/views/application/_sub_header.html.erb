@@ -17,11 +17,11 @@
 		<% if !current_user %>
 	    <%= render 'navbar/learning_tools' %>
 	    <%= render 'navbar/explore_curriculum' %>
-	    <%= render 'navbar/using_quill' %>
+	    <%= render 'navbar/teacher_center' %>
 	    <%= render 'navbar/our_story' %>
 		<% elsif current_user.role != 'student' %>
 			<%= render 'navbar/learning_tools' %>
-			<%= render 'navbar/using_quill' %>
+			<%= render 'navbar/teacher_center' %>
 		<% end %>
 
 		<%- if current_user.nil? %>
