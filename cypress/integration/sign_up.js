@@ -127,7 +127,7 @@ describe('Sign Up page', function() {
       .type('password')
       .should('have.value', 'password')
 
-      cy.get('.sign-up-button').click()
+      cy.get('.new-user-account').get('.sign-up-button').click()
     })
 
     it('shows me an error after I submit a non-unique username', function() {
