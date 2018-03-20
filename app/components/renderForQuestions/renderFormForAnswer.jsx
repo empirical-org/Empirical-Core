@@ -5,6 +5,12 @@ import TextEditor from './renderTextEditor.jsx';
 import Modal from '../modal/modal.jsx';
 import _ from 'underscore';
 import EndState from './renderEndState.jsx';
+import getAnswerState from './answerState';
+
+const getLatestAttempt = (attempts = []) => {
+  const lastIndex = attempts.length - 1;
+  return attempts[lastIndex];
+};
 
 export default React.createClass({
 
@@ -40,8 +46,7 @@ export default React.createClass({
       feedback = this.props.feedback;
     if (this.props.finished) {
       button = this.props.nextQuestionButton;
-      const answeredCorrectly = !!(_.find(this.props.question.attempts, attempt => attempt.found && attempt.response.optimal && attempt.response.author === undefined && attempt.author === undefined // if it has an author, there was an error
-      ));
+      const answeredCorrectly = getAnswerState(getLatestAttempt(this.props.attempts))
       feedback = <EndState questionID={this.props.questionID} question={this.props.question} answeredNonMultipleChoiceCorrectly={answeredCorrectly} multipleChoiceCorrect={this.props.multipleChoiceCorrect} key={`-${this.props.questionID}`} responses={this.props.responses} />;
     } else if (this.props.nextQuestionButton) { // if you're going to next, it is the end state
       button = this.props.nextQuestionButton;
@@ -102,12 +107,3 @@ export default React.createClass({
     );
   },
 });
-
-const getLatestAttempt = function (attempts = []) {
-  const lastIndex = attempts.length - 1;
-  return attempts[lastIndex];
-};
-
-// <div className="control">
-//   <Textarea className={this.props.textAreaClass} ref="response" onFocus={handleFocus} defaultValue={this.props.initialValue} placeholder="Type your answer here. Rememeber, your answer should be just one sentence." onChange={this.props.handleChange}></Textarea>
-// </div>
