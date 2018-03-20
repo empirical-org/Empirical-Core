@@ -1,14 +1,16 @@
-class CreateSalesContact
+class SalesContactCreator
   def initialize(user_id, stage_types_factory = nil)
     @user                = User.find(user_id)
     @stage_types_factory = stage_types_factory || SalesStageTypesFactory
   end
 
   def create
-    if can_create_sales_contact?
-      create_stages
+    return false unless can_create_sales_contact?
+
+    begin
+      ActiveRecord::Base.transaction { create_stages }
       true
-    else
+    rescue ActiveRecord::StatementInvalid
       false
     end
   end
@@ -16,11 +18,11 @@ class CreateSalesContact
   private
 
   def can_create_sales_contact?
-    @user.teacher? && @user.sales_contact.nil?
+    @user.teacher?
   end
 
   def sales_contact
-    @sales_contact ||= SalesContact.find_or_create_by(user: @user)
+    @sales_contact ||= SalesContact.find_or_create_by!(user: @user)
   end
 
   def stage_types
@@ -29,7 +31,7 @@ class CreateSalesContact
 
   def create_stages
     stage_types.each do |stage_type|
-      SalesStage.find_or_create_by(
+      SalesStage.find_or_create_by!(
         sales_stage_type: stage_type,
         sales_contact: sales_contact
       )
