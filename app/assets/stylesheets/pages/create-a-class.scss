@@ -106,3 +106,45 @@
     }
 }
 }
+
+@media (max-width: 767px) {
+  .create-a-class-page {
+    .create-a-class {
+      width: 95%;
+      margin: auto;
+      padding-bottom: 54px;
+      background-color: #f6f3f3;
+      #new-google-classroom {
+        padding-top: 25%;
+        padding-left: 0%;
+        padding-bottom: 5%;
+        text-align: center;
+        img {
+          height: 33px;
+          width: 33px;
+          float: right;
+          margin-right: 10px;
+          margin-top: -7px;
+        }
+        button {
+          margin-top: 42px;
+          width: 272px;
+          font-size: 16px;
+          padding: 8px 19px;
+        }
+      }
+      #regenerate-class-code {
+        margin-left: 1%;
+        color:  #027360;
+        cursor: pointer;
+        margin-bottom: 50px;
+        max-width: 188px;
+        width: 100%;
+        text-align: center;
+        i {
+          margin-right: 8px;
+        }
+      }
+    }
+  }
+}
