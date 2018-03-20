@@ -11,7 +11,7 @@ import {
 import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
 import RenderQuestionCues from '../renderForQuestions/cues.jsx';
 import RenderSentenceFragments from '../renderForQuestions/sentenceFragments.jsx';
-import RenderFeedback from '../renderForQuestions/feedback.jsx';
+import RenderFeedback from '../renderForQuestions/feedback';
 import getResponse from '../renderForQuestions/checkAnswer';
 import submitQuestionResponse from '../renderForQuestions/submitResponse.js';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';

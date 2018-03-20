@@ -36,6 +36,21 @@
   display: none;
 }
 
+.feedback-flash-enter {
+  opacity: 0.01;
+}
+.feedback-flash-enter.feedback-flash-enter-active {
+  opacity: 1;
+  transition: opacity 0.5s ease-in;
+
+}
+.feedback-flash-leave {
+  display: none;
+}
+.feedback-flash-leave.feedback-flash-leave-active {
+  display: none;
+}
+
 
 
 .spinner-container {

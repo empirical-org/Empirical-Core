@@ -1,6 +1,6 @@
 .feedback-row {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   img {
     max-width: 22px;
     margin-right: 8px;
@@ -302,6 +302,26 @@ progress[value]::-webkit-progress-value {
   padding: 13 20 16 20;
   margin-top: 20px;
   border-radius: 2px;
+
+  &.success {
+    background-color: #d3e7bd;
+    padding: 13 17 16 20;
+    border-left: 3px solid #82bf3c;
+
+    p {
+      color: #457818;
+    }
+  }
+
+  &.revise {
+    background-color: #ffe4b7;
+    padding: 13 17 16 20;
+    border-left: 3px solid #f5ba5b;
+
+    p {
+      color: #875a12;
+    }
+  }
 }
 
 .connect-text-area {

@@ -16,7 +16,7 @@ var C = require('../../constants').default;
 import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
 import RenderQuestionCues from '../renderForQuestions/cues.jsx';
 import RenderSentenceFragments from '../renderForQuestions/sentenceFragments.jsx';
-import RenderFeedback from '../renderForQuestions/feedback.jsx';
+import RenderFeedback from '../renderForQuestions/feedback';
 import generateFeedbackString from '../renderForQuestions/generateFeedbackString.js';
 import getResponse from '../renderForQuestions/checkAnswer';
 import handleFocus from '../renderForQuestions/handleFocus.js';
