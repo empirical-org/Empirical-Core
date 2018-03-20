@@ -74,8 +74,8 @@ describe('Navbar', function() {
           beforeEach(function() {
             cy.get('#teacher-center').click({force: true})
           })
-          it('has a link to the All Articles page', function() {
-            cy.get('#teacher-center').contains('All Articles').click({force: true})
+          it('has a link to the All Resources page', function() {
+            cy.get('#teacher-center').contains('All Resources').click({force: true})
             cy.url().should('include', '/teacher_resources')
           })
           it('has a link to the Getting Started page', function() {
@@ -156,6 +156,7 @@ describe('Navbar', function() {
 
     describe('as a logged in teacher', function() {
       before(function() {
+        cy.exec('RAILS_ENV=cypress rake add_cypress_test_data:add_users', {failOnNonZeroExit: false})
         cy.login('teacher', 'password')
       })
       describe('Learning Tools item', function() {
@@ -191,12 +192,6 @@ describe('Navbar', function() {
         })
       })
 
-      describe('Explore Curriculum item', function() {
-        it ('should make the tooltip appear on focus', function() {
-          cy.get('#explore-curriculum').click({force: true})
-          // cy.get('#explore-curriculum').get('.navbar-tooltip').should('be.visible')
-        })
-
       describe('Teacher Center item', function() {
         it ('should make the tooltip appear on focus', function() {
           cy.get('#teacher-center').click({force: true})
@@ -206,8 +201,8 @@ describe('Navbar', function() {
           beforeEach(function() {
             cy.get('#teacher-center').click({force: true})
           })
-          it('has a link to the All Articles page', function() {
-            cy.get('#teacher-center').contains('All Articles').click({force: true})
+          it('has a link to the All Resources page', function() {
+            cy.get('#teacher-center').contains('All Resources').click({force: true})
             cy.url().should('include', '/teacher_resources')
           })
           it('has a link to the Getting Started page', function() {
@@ -267,4 +262,3 @@ describe('Navbar', function() {
     })
 
   })
-})
