@@ -37,6 +37,29 @@ describe 'SyncSalesmachineContact' do
     )
   end
 
+  it 'presents sales stage data if sales contact is avaliable' do
+    teacher = create(:user, role: 'teacher')
+    client = double('salesmachine_client')
+    SalesContactCreator.new(teacher.id).create
+
+    teacher_data = SyncSalesmachineContact.new(teacher.id, client).params
+
+    expect(teacher_data).to include(
+      :"1_basic_subscription" => nil,
+      :"2_teacher_premium" => nil,
+      :"3_1_in_conversation_teacher_responds" => nil,
+      :"3_2_in_conversation_call_missed" => nil,
+      :"3_3_in_conversation_interested" => nil,
+      :"4_quote_requested" => nil,
+      :"5_1_purchase_order_received" => nil,
+      :"5_2_invoice_sent" => nil,
+      :"6_1_school_premium_needs_pd" => nil,
+      :"6_2_school_premium_pd_scheduled" => nil,
+      :"6_3_school_premium_pd_delivered" => nil,
+      :"7_not_interested_in_school_premium" => nil,
+    )
+  end
+
   it 'presents account uid' do
     school = create(:school)
     teacher = create(:user, role: 'teacher')

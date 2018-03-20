@@ -6,6 +6,9 @@ class SyncSalesmachineContact
 
   def sync
     @client.contact({ contact_uid: @teacher_id, params: params })
+    if stages_params.present?
+      @client.account({ account_uid: teacher.school.id, params: stages_params })
+    end
   end
 
   def params
@@ -22,10 +25,26 @@ class SyncSalesmachineContact
       number_of_completed_activities_per_student: activities_per_student,
       frl: free_lunches,
       teacher_link: teacher_link,
-    }
+    }.merge(stages_params)
   end
 
   private
+
+  def stages_params
+    if teacher.sales_contact.present?
+      serialize_stages
+    else
+      {}
+    end
+  end
+
+  def serialize_stages
+    Hash.new.tap do |hash|
+      teacher.sales_contact.stages.each do |stage|
+        hash[stage.name.parameterize.underscore.to_sym] = stage.completed_at
+      end
+    end
+  end
 
   def teacher_link
     "https://www.quill.org/cms/users/#{teacher.id}/sign_in"
