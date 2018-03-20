@@ -15,6 +15,14 @@ module Cms::UsersHelper
     )
   end
 
+  def completed_by(user)
+    if user.present?
+      user.name
+    else
+      '--'
+    end
+  end
+
   def action_column(stage)
     return 'Completed' if stage.completed_at.present?
 
