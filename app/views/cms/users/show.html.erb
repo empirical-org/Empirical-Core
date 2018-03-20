@@ -15,6 +15,7 @@
             <td>Stage</td>
             <td>Description</td>
             <td>Completed</td>
+            <td>Staff</td>
             <td>Action</td>
           </tr>
         </thead>
@@ -29,6 +30,9 @@
               </td>
               <td>
                 <%= format_date(stage.completed_at) %>
+              </td>
+              <td>
+                <%= completed_by(stage.user) %>
               </td>
               <td>
                 <%= action_column(stage) %>

@@ -96,7 +96,7 @@ class Cms::UsersController < Cms::CmsController
   def complete_sales_stage
     stage = @user.sales_contact.stages.find_by_id(params[:sales_stage_id])
 
-    if stage.completed_at.nil? && stage.update(completed_at: Time.now)
+    if stage.completed_at.nil? && stage.update(completed_at: Time.now, user: current_user)
       flash[:success] = 'Stage marked completed'
     else
       flash[:error] = 'Something went wrong'
@@ -108,7 +108,9 @@ class Cms::UsersController < Cms::CmsController
 protected
 
   def set_user
-    @user = User.includes(sales_contact: { stages: :sales_stage_type })
+    @user = User
+      .includes(sales_contact: { stages: :sales_stage_type })
+      .order('sales_stage_types.order ASC')
       .find(params[:id])
   end
 
