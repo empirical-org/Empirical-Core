@@ -5,7 +5,7 @@
 		</a>
 	</div>
 
-  <div class="home-nav-right wide">
+		<div class='home-nav-right wide'>
 
 		<% if !current_user %>
 	    <%= render 'navbar/learning_tools' %>
@@ -19,29 +19,26 @@
  		<% end %>
 
 		<%- if current_user.nil? %>
-		<a href="/session/new" class="text-white">Login</a>
-		<a href="/account/new" class="sign-up-button text-white">Sign Up</a>
+		<a href="/session/new" class="text-white nav-element">Login</a>
+		<a href="/account/new" class="sign-up-button text-white nav-element">Sign Up</a>
 		<%- elsif current_user.role == 'teacher' %>
-			<div class='navigation-vertical-rule hide-on-mobile'></div>
-			<div id="nav-user-dropdown" class="dropdown-closed hide-on-mobile">
+			<div class='navigation-vertical-rule hide-on-mobile nav-element'></div>
+			<div id="nav-user-dropdown" class="dropdown-closed hide-on-mobile nav-element">
 				<%= link_to raw("<i class='fa fa-book'></i>#{current_user.name}"), '#', onClick: "toggleDropdown()", class: 'user-dropdown-button' %>
-				<ul>
-					<li><%= link_to 'My Dashboard', dashboard_teachers_classrooms_path %></li>
-					<li><%= link_to 'My Account', teachers_my_account_path %></li>
-					<li><%= link_to 'Support', 'https://support.quill.org' %></li>
-					<li><%= link_to 'Logout', '/session' %></li>
-				</ul>
+				<div>
+					<i class="fa fa-caret-up"></i>
+					<%= link_to raw("<i class='fa fa-book'></i>My Dashboard"), dashboard_teachers_classrooms_path %>
+					<%= link_to raw("<i class='fa fa-cog'></i>My Account"), teachers_my_account_path %>
+					<%= link_to raw("<i class='fa fa-comments'></i>Support"), 'https://support.quill.org' %>
+					<%= link_to raw("<i class='fa fa-sign-out'></i>Logout"), '/session' %>
+				</div>
 			</div>
-			<li class='hide-on-desktop'><%= link_to 'My Dashboard', dashboard_teachers_classrooms_path %></li>
-			<li class='hide-on-desktop'><%= link_to 'My Account', teachers_my_account_path %></li>
-			<li class='hide-on-desktop'><%= link_to 'Support', 'https://support.quill.org' %></li>
-			<li class='hide-on-desktop'><%= link_to 'Logout', '/session' %></li>
 		<%- elsif current_user.role == 'student' %>
-			<li><%= link_to raw("<i class='fa fa-fw fa-plus-circle' aria-hidden='true'></i>  Join a Class"), add_classroom_students_classrooms_path %></li>
-			<li><%= link_to raw("<i class='fa fa-fw fa-cog' aria-hidden='true'></i>  Account Settings"), account_settings_path %></li>
-			<li><%= link_to "Logout", '/session' %></li>
+			<%= link_to raw("<i class='fa fa-fw fa-plus-circle' aria-hidden='true'></i>  Join a Class"), add_classroom_students_classrooms_path, class: "text-white nav-element" %>
+			<%= link_to raw("<i class='fa fa-fw fa-cog' aria-hidden='true'></i>  Account Settings"), account_settings_path, class: "text-white nav-element" %>
+			<%= link_to "Logout", '/session' , class: "text-white nav-element"%>
 		<% else %>
-		<%= link_to "Logout", '/session', class: "text-white"%>
+		<%= link_to "Logout", '/session', class: "text-white nav-element"%>
 		<% end %>
   </div>
 
