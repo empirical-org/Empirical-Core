@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 describe 'SalesStageTypesFactory' do
-
   it 'does not create duplicate stage types' do
     SalesStageTypesFactory.new.build
     SalesStageTypesFactory.new.build
