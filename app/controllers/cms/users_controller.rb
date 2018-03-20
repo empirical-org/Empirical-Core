@@ -109,7 +109,7 @@ protected
 
   def set_user
     @user = User
-      .includes(sales_contact: { stages: :sales_stage_type })
+      .includes(sales_contact: { stages: [:user, :sales_stage_type] })
       .order('sales_stage_types.order ASC')
       .find(params[:id])
   end
