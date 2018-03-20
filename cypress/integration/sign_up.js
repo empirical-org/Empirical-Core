@@ -3,7 +3,7 @@ const faker = require('faker');
 describe('Sign Up page', function() {
 
   before(function() {
-    cy.exec('RAILS_ENV=cypress rake add_cypress_test_data:add_school', {failOnNonZeroExit: false})
+    cy.exec('RAILS_ENV=cypress rake find_or_create_cypress_test_data:find_or_create_school', {failOnNonZeroExit: false})
     cy.visit('/account/new')
   })
 
@@ -49,7 +49,12 @@ describe('Sign Up page', function() {
     })
 
     it ('populates options for the schools in that zipcode', function() {
-      cy.get('select').select('1')
+      cy.get('select').select('Cool Bushwick School')
+      // const children = getSelect.children();
+      // console.log(children);
+      // children.contains('Bushwick')
+      // getSelect.select(children[children.length - 1].value)
+      // cy.get('select').select(cy.get('select').children()[cy.get('select').children().length - 1].value)
     })
 
     it ('has a Confirm School button', function() {
@@ -98,6 +103,10 @@ describe('Sign Up page', function() {
   })
 
   describe('I am a student with a non-unique username', function() {
+    before(()=>{
+      cy.exec('RAILS_ENV=cypress rake find_or_create_cypress_test_data:find_or_create_student', {failOnNonZeroExit: false})
+    })
+    
     it ('clicking student takes me to a sign up form', function() {
       cy.visit('/account/new')
       cy.contains('Student').click()
@@ -105,7 +114,6 @@ describe('Sign Up page', function() {
       const firstName = faker.name.firstName()
       const lastName = faker.name.lastName()
       const email = faker.internet.email()
-      const username = faker.internet.userName()
 
       cy.get('#first_name')
       .type(firstName)
