@@ -2,20 +2,51 @@ require 'factory_bot_rails'
 include FactoryBot::Syntax::Methods
 
 namespace :find_or_create_cypress_test_data do
-  task :find_or_create_users => :environment do
+
+  task :find_or_create_users, [:wipe_database] => :environment do |t, args|
+    # args.with_defaults(wipe_database: true)
+    # if args.wipe_database
+    wipe_db
+    # end
     find_or_create_users
   end
 
-  task :find_or_create_teacher => :environment do
+  task :find_or_create_teacher, [:wipe_database] => :environment do |t, args|
+    # args.with_defaults(wipe_database: true)
+    # if args.wipe_database
+    wipe_db
+    # end
     find_or_create_teacher
   end
 
-  task :find_or_create_teacher_with_school_premium => :environment do
+  task :find_or_create_student, [:wipe_database] => :environment do |t, args|
+    # args.with_defaults(wipe_database: true)
+    # if args.wipe_database
+    wipe_db
+    # end
+    find_or_create_student
+  end
+
+  task :find_or_create_teacher_with_school_premium, [:wipe_database] => :environment do |t, args|
+    # args.with_defaults(wipe_database: true)
+    # if args.wipe_database
+    wipe_db
+    # end
     find_or_create_teacher_with_school_premium
   end
 
-  task :find_or_create_school => :environment do
+  task :find_or_create_school, [:wipe_database] => :environment do |t, args|
+    # args.with_defaults(wipe_database: true)
+    # if args.wipe_database
+    wipe_db
+    # end
     find_or_create_school
+  end
+
+  def wipe_db
+    tables = ActiveRecord::Base.connection.tables
+    tables.delete 'schema_migrations'
+    tables.each { |t| ActiveRecord::Base.connection.execute("TRUNCATE #{t} CASCADE") }
   end
 
   def find_or_create_staff

@@ -33,7 +33,7 @@ describe('Subscription page', function() {
     })
   })
 
-  describe('when I have School Quill Premium', ()=>{
+  describe('when I have School Quill Premium that is not recurring', ()=>{
     before(()=>{
       cy.exec('RAILS_ENV=cypress rake find_or_create_cypress_test_data:find_or_create_teacher_with_school_premium', {failOnNonZeroExit: false})
       cy.login('teacher', 'password')
@@ -41,26 +41,41 @@ describe('Subscription page', function() {
     })
     describe('the top panel', () => {
       it('states my premium type in the h2', ()=> {
-        cy.get('.subscription-status h2').contains('Quill Basic')
-      })
-
-      it('has a link to learn more about premium', ()=> {
-        cy.get('.subscription-status a').contains('Learn More About Quill Premium')
+        cy.get('.subscription-status h2').contains('School Premium')
       })
 
       it('has a paragraph with the appropriate copy', () => {
-        cy.get('p').contains('Quill Basic provides access to all of Quill\'s content. To access Quill Premium, you can purchase an individual teacher subscription or a school subscription. Teachers can earn free credits for Teacher Premium by sharing Quill and creating content.')
+        cy.get('p').contains('With Quill School Premium, you will have access to all of Quill’s free reports as well as additional advanced reporting. You will also be able to view and print reports of your students’ progress. Our advanced reports support concept, Common Core, and overall progress analysis. Here’s more information about your School Premium features.')
       })
     })
 
     describe('the subscription information panel', ()=>{
 
       it('has my subscription status', ()=>{
-        cy.get('.current-subscription-information').contains('Quill Basic')
+        cy.get('.current-subscription-information').contains('School Paid')
       })
 
-      it('has a link to learn more about premium', ()=> {
-        cy.get('.sub-button-row').contains('Learn More About Quill Premium')
+      it('defaults to a school invoice if there is no payment method', ()=> {
+        cy.get('.current-subscription-information').contains('School Invoice')
+      })
+
+      it('has a row for a purchaser', ()=> {
+        cy.get('.current-subscription-information').contains('Purchaser')
+      })
+
+      it('has a row for a next subscription', ()=> {
+        cy.get('.current-subscription-information').contains('NEXT SUBSCRIPTION')
+      })
+
+      it('says my next plan is Quill Basic', ()=> {
+        cy.get('.current-subscription-information').contains('Next Plan')
+        cy.get('.current-subscription-information').contains('Quill Basic')
+      })
+    })
+
+    describe('the premium subscription history', ()=>{
+      it('mentions my School Paid subscription', ()=>{
+        cy.get('.subscription-history td').contains('School Paid')
       })
     })
   })
