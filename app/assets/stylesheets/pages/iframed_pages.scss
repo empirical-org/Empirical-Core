@@ -74,3 +74,13 @@ border: none;
   border: none;
   position: relative;
 }
+
+@media (max-width: 767px) {
+  #map-iframe {
+    margin-left: 3%;
+    width: 94%;
+    height: 95%;
+    border: none;
+    position: relative;
+  }
+}
