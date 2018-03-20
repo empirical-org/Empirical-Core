@@ -28,7 +28,7 @@ While we may want to use randomized seeding for our test database as our Cypress
 
  - When the value of the test data does not need to reflect something in the database (ie, for sign up), we use the `faker` npm package to generate data.
 
- - When we need to use data that does exist in our database, we create it when necessary through rake tasks that live in `lib/tasks/add_cypress_test_data.rake`.
+ - When we need to use data that does exist in our database, we create it when necessary through rake tasks that live in `lib/tasks/find_or_create_cypress_test_data.rake`.
 
 ## Writing the Tests
 

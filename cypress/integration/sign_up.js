@@ -3,7 +3,7 @@ const faker = require('faker');
 describe('Sign Up page', function() {
 
   before(function() {
-    cy.exec('RAILS_ENV=cypress rake add_cypress_test_data:add_school', {failOnNonZeroExit: false})
+    cy.exec('RAILS_ENV=cypress rake find_or_create_cypress_test_data:find_or_create_school', {failOnNonZeroExit: false})
     cy.visit('/account/new')
   })
 
