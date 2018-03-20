@@ -61,45 +61,57 @@
       text-decoration: none;
     }
   }
-  ul {
-    padding: 0px;
-    top: 26px;
+  div {
+    padding: 0;
+    top: 48px;
     width: 100%;
+    border-radius: 2px;
+    background-color: #ffffff;
+    box-shadow: 0 1px 2px 0 #c0c0c0;
     position: absolute;
     list-style: none;
-    left: 0px;
-    li {
-      background: #009f7d;
-      border-bottom: 1px solid #027360;
-      border-radius: 0;
-      font-size: 12px;
-      padding: 6px;
-      a {
-        width: 100%;
-        color: #fff;
-        display: block;
+    left: 0;
+    .fa-caret-up {
+      position: absolute;
+      top: -10px;
+      color: white;
+      right: 17px;
       }
-      &:last-of-type {
-        border-bottom: none;
-        border-bottom-left-radius: 6px;
-        border-bottom-right-radius: 6px;
-      }
+  }
+  a {
+    border-radius: 0;
+    font-size: 14px;
+    padding: 6px 12px;
+    width: 100%;
+    color: #027360;
+    display: block;
+    font-weight: 600px;
+    i, img {
+      margin-right: 12px;
+    }
+    &:hover {
+      color: #00c2a2;
+      text-decoration: none;
+    }
+    &:last-of-type {
+      padding: 8px 12px;
+      border-top: solid 1px #e9e9e9;
     }
   }
   &.dropdown-closed {
     .user-dropdown-button::after {
       margin-left: 10px;
-      content: "\f078";
+      content: "\f077";
       font-family: "FontAwesome";
     }
-    .options {
+    div {
       display: none;
     }
   }
   &.dropdown-open {
     .user-dropdown-button::after {
       margin-left: 10px;
-      content: "\f077";
+      content: "\f078";
       font-family: "FontAwesome";
     }
   }
@@ -120,11 +132,15 @@ nav.q-navbar-home {
   }
 
   .home-nav-right {
-    max-width: 600px;
+    max-width: 700px;
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
+
+    .nav-element, .navbar-tooltip-trigger {
+      margin-left: 20px;
+    }
 
     &.narrow {
       display: none;
@@ -456,7 +472,7 @@ nav.q-navbar-home {
     z-index: 100;
     display: none;
     position: absolute;
-    width: 248px;
+    width: 300px;
     border-radius: 5px;
     background-color: #ffffff;
     box-shadow: 0 1px 5px 0 #dadada;
@@ -468,8 +484,8 @@ nav.q-navbar-home {
     .fa-caret-up {
       color: white;
       position: absolute;
-      top: -11px;
-      right: 120px;
+      top: -10px;
+      right: 150px;
     }
     .tooltip-link {
       padding: 13px 25px;
