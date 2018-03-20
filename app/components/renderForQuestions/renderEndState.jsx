@@ -74,9 +74,6 @@ const EndState = React.createClass({
           </div>
           <div className="top-answer-list-item-text" dangerouslySetInnerHTML={{__html: this.findDiffs(response.text)}}>
           </div>
-          <div className="top-answer-list-item-score">
-          {(Math.floor(response.count*100/sum)) + "%"}
-          </div>
         </li>
       )
     })
