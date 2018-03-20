@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="10px" height="12px" viewBox="0 0 10 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49.1 (51147) - http://www.bohemiancoding.com/sketch -->
+    <title>Combined Shape</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="95.0091387%" x2="50%" y2="4.22247299%" id="linearGradient-1">
+            <stop stop-color="#00C2A2" offset="0%"></stop>
+            <stop stop-color="#01A58A" offset="67.6029624%"></stop>
+            <stop stop-color="#00947B" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="00-Homepage" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="00_13-Nav-Bar---Dashboard-Dropdown" transform="translate(-983.000000, -74.000000)" fill="url(#linearGradient-1)">
+            <path d="M983,74 L992,74 C992.552285,74 993,74.4477153 993,75 L993,85 C993,85.5522847 992.552285,86 992,86 L983,86 L983,74 Z M985,75 L985,80 L986.5,79 L988,80 L988,75 L985,75 Z M985,83 L985,84 L991,84 L991,83 L985,83 Z" id="Combined-Shape"></path>
+        </g>
+    </g>
+</svg>
