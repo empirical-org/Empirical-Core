@@ -11,7 +11,6 @@ class Feedback extends React.Component<any, any> {
   }
 
   getFeedbackType(data?): string {
-    console.log("feedback type")
     if (data) {
       const latestAttempt = getLatestAttempt(data.question.attempts);
       if (latestAttempt) {
@@ -40,7 +39,6 @@ class Feedback extends React.Component<any, any> {
   }
 
   getFeedbackClassName(data): string {
-    console.log("feedback class")
     let returnVal;
     switch (this.getFeedbackType(data)) {
       case "revise-unmatched":
@@ -57,12 +55,10 @@ class Feedback extends React.Component<any, any> {
       default: 
         returnVal = "default"
     }
-    console.log("classname = ", returnVal)
     return returnVal
   }
 
   getIconClassName(data): string {
-    console.log("icon type")
     let returnVal;
     switch (this.getFeedbackType(data)) {
       case "revise-unmatched":
@@ -85,7 +81,6 @@ class Feedback extends React.Component<any, any> {
   }
 
   getFeedbackIcon(data): string {
-    console.log("feedback icon")
     let returnVal;
     switch (this.getFeedbackType(data)) {
       case "revise-unmatched":
@@ -108,7 +103,6 @@ class Feedback extends React.Component<any, any> {
   } 
 
   getFeedbackCopy(data): string {
-    console.log("feedback copy")
     const latestAttempt = getLatestAttempt(data.question.attempts);
     let returnVal;
     switch (this.getFeedbackType(data)) {
@@ -152,9 +146,6 @@ class Feedback extends React.Component<any, any> {
   }
 
   render() {
-    console.log("rendering");
-    console.log("Data: ", this.props)
-    console.log("Type: ", this.getFeedbackType(this.props))
     const activeClass = "student-feedback-container " + (this.props ? this.getFeedbackClassName(this.props) : "");
     return (
       <div className={activeClass}>
