@@ -114,15 +114,6 @@ class Cms::SchoolsController < Cms::CmsController
     end
   end
 
-  def complete_sales_stage
-    if UpdateSalesmachineAccountStage.new(@school.id, params[:stage]).update
-      flash[:success] = "Stage marked completed"
-    else
-      flash[:error] = "Something went wrong"
-    end
-    redirect_to cms_school_path(@school.id)
-  end
-
   private
 
   def set_school
