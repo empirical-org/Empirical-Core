@@ -154,6 +154,7 @@ nav.q-navbar-home {
 
     .nav-element, .navbar-tooltip-trigger {
       margin-left: 20px;
+      padding: 20px 0px;
     }
 
     &.narrow {
@@ -478,7 +479,6 @@ nav.q-navbar-home {
 .navbar-tooltip-trigger {
   cursor: pointer;
   position: relative;
-  padding: 20px 0px;
   span {
     color: #fff;
   }
