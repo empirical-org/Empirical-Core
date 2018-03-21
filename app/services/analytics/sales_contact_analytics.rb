@@ -2,12 +2,12 @@ class SalesContactAnalytics
   def initialize(user_id, event, client = nil, stage_seeds = nil)
     @user_id     = user_id
     @event       = event
-    @client      = client || $smclient
+    @client      = client || SegmentAnalytics.new
     @stage_seeds = stage_seeds || SalesStageTypesFactory::STAGE_TYPE_SEEDS
   end
 
   def track
-    if events.include? @event
+    if valid_events.include? @event
       track_event
     else
       false
@@ -18,9 +18,9 @@ class SalesContactAnalytics
 
   def track_event
     @client.track(
-      contact_uid: user.id,
+      user_id: user.id,
       event: @event,
-      params: {
+      properties: {
         account_uid: user.school.id,
         display_name: @event.titleize
       }
@@ -31,7 +31,7 @@ class SalesContactAnalytics
     @user ||= User.find(@user_id)
   end
 
-  def events
+  def valid_events
     @events ||= @stage_seeds.map { |seed| seed[:name].parameterize.underscore }
   end
 end
