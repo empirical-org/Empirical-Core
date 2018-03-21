@@ -154,7 +154,9 @@ nav.q-navbar-home {
 
     .nav-element, .navbar-tooltip-trigger {
       margin-left: 20px;
-      padding: 20px 0px;
+      &:not(.sign-up-button) {
+        padding: 20px 0px;
+      }
     }
 
     &.narrow {
@@ -472,8 +474,6 @@ nav.q-navbar-home {
       }
     }
   }
-
-
 }
 
 .navbar-tooltip-trigger {
