@@ -117,7 +117,7 @@ describe('Anonymous Navbar', function() {
       })
       it('has a link to the Announcements page', function() {
         cy.get('#our-story').contains('Announcements').click({force: true})
-        cy.url().should('include', '/teacher_resources/topic/announcements')
+        cy.url().should('include', '/announcements')
       })
       it('has a link to the In the Press page', function() {
         cy.get('#our-story').contains('In the Press').click({force: true})
