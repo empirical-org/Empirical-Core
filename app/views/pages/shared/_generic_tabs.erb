@@ -2,8 +2,8 @@
   <ul class='desktop-nav-list'>
     <%  @tabs.each do |tab| -%>
       <li
-        id=<%= tab[:id] || nil %>
-        class=<%= tab[:name] == @active_tab ? 'active' : nil %>
+        id="<%= tab[:id] || '' %>"
+        class="<%= tab[:name] == @active_tab ? 'active' : '' %>"
       >
         <%= link_to tab[:name], root_url + tab[:url] %>
       </li>

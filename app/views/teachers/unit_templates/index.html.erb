@@ -1,6 +1,6 @@
 <!-- this is the public facing index, for signed-in-teacher facing index, see lesson planner -->
-<% @active_tab = 'Topics' %>
-<%= render partial: 'pages/shared/discover_tabs', active_tab: @active_tab %>
+<% @active_tab = 'Featured Activities' %>
+<%= render partial: 'pages/shared/explore_curriculum_navbar', active_tab: @active_tab %>
 
 <div class="page-content-wrapper">
   <div class="tab-pane" id="public-activity-packs" data-authenticated=<%=@is_teacher%>>

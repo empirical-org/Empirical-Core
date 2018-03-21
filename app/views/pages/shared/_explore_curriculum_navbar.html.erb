@@ -1,0 +1,21 @@
+<div class="subnav">
+  <div class="container">
+  <% tabs = [
+    {name: 'Featured Activities', url: 'activities/packs'},
+    {name: 'ELA Standards', url: 'activities/section/7'},
+  ]
+    @tabs = tabs
+    @mobile = false
+  %>
+
+  <div class="full-screen">
+    <%= render partial: "pages/shared/generic_tabs", locals: { tabs: @tabs, active_tab: @active_tab, mobile: @mobile } %>
+  </div>
+
+
+  <div class="small-screen">
+    <%= render partial: "pages/shared/generic_tabs", locals: { tabs: @tabs, active_tab:  @active_tab, mobile: @mobile} %>
+  </div>
+
+  </div>
+</div>

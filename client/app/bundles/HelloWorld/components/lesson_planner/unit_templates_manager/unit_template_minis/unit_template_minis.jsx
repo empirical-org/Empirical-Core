@@ -3,7 +3,6 @@
  import React from 'react'
  import { Link } from 'react-router'
  import UnitTemplateMini from './unit_template_mini/unit_template_mini'
- import ListFilterOptions from '../../../shared/list_filter_options/list_filter_options'
  import RowsCreator from '../../../modules/rows_creator'
  import _ from 'underscore'
  import _l from 'lodash'
@@ -78,23 +77,6 @@
     return <div className="flex-row space-between small-screen-unit-templates-container" key={index}>{cols}</div>;
   },
 
-  listFilterOptions: function () {
-    if (this.props.data.grade) {
-      return
-    }
-    else {
-      return (
-            <ListFilterOptions
-                    key='listFilterOptions'
-                    userLoggedIn={this.userLoggedIn()}
-                    options={this.props.data.categories || []}
-                    selectedId={this.props.data.selectedCategoryId}
-                    // select={this.props.actions.filterByCategory}
-                    />
-      );
-    }
-  },
-
   userLoggedIn: function () {
     return this.props.signedInTeacher
   },
@@ -102,38 +84,12 @@
   userNotLoggedIn: function () {
     return !this.userLoggedIn();
   },
-  renderTopLevelNav: function () {
-    return this.listFilterOptions();
-  },
 
-  renderListFilterOptionsIfLoggedIn: function(){
-    if (this.userLoggedIn()) {
-      return (
-        <div className='row'>
-          {this.listFilterOptions()}
-        </div>
-      )
-    }
-  },
-
-  stateSpecificComponents: function () {
-    const components = [];
-    if (this.userNotLoggedIn()) {
-      components.push(this.renderTopLevelNav())
-    }
-    return (
-      <div>
-        {components.concat(this.alwaysRender())}
-      </div>
-    )
-  },
-
-  alwaysRender: function () {
+  render: function () {
     return (<div key='always-display' className='unit-template-minis'>
       <div className="container">
         <div className='row'>
           <div className='col-xs-12'>
-              {this.renderListFilterOptionsIfLoggedIn()}
               {this.generateShowAllGradesView()}
             <div className='row'>
             {this.generateUnitTemplateViews()}
@@ -144,10 +100,5 @@
           </div>
         </div>
       </div>
-    </div>)
-  },
-
-  render: function () {
-    return this.stateSpecificComponents()
-  }
+    </div>)  }
 });
