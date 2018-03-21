@@ -167,6 +167,15 @@ namespace :find_or_create_cypress_test_data do
     subscription = find_or_create_subscription('Teacher Paid', true, Date.today + 365, teacher.id)
     UserSubscription.find_or_create_by(subscription: subscription, user: teacher)
   end
+  
+  def find_or_create_teacher_with_subscription_they_purchased_and_stripe_id
+    teacher = find_or_create_teacher
+    # TODO: find a better way to do this -- this is a fake 'real' customer id from the *test* data base.
+    teacher.update(stripe_customer_id: 'cus_CN6VaNY6yd8R5M')
+    teacher.subscriptions.destroy_all
+    subscription = find_or_create_subscription('Teacher Paid', true, Date.today + 365, teacher.id)
+    UserSubscription.find_or_create_by(subscription: subscription, user: teacher)
+  end
 
 
   def find_or_create_users

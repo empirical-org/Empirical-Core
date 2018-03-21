@@ -440,7 +440,7 @@ describe('Subscription page', function() {
   
   describe('when I am not the purchaser of the account', ()=>{
     before(()=>{
-      cy.exec('RAILS_ENV=cypress rake find_or_create_cypress_test_data:find_or_create_teacher_with_school_subscription', {failOnNonZeroExit: false})
+      cy.exec('RAILS_ENV=cypress rake find_or_create_cypress_test_data:find_or_create_teacher_with_subscription_they_purchased', {failOnNonZeroExit: false})
       cy.login('teacher', 'password')
       // beforeEach(function() {
       //   Cypress.Cookies.preserveOnce("_quill_session")
