@@ -13,7 +13,6 @@ export default class extends React.Component {
     };
   }
 
-
   filterArticlesBy(filter) {
     this.setState({ articleFilter: filter });
   }

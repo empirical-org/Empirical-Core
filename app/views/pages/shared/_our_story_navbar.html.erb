@@ -1,0 +1,25 @@
+<div class="subnav">
+  <div class="container">
+  <% tabs = [
+    {name: 'About Us', url: 'mission'},
+    {name: 'Impact', url: 'impact'},
+    {name: 'Announcements', url: '/teacher_resources/topic/announcements'},
+    {name: 'In the Press', url: '/teacher_resources/topic/press'},
+    {name: 'Team', url: 'team'},
+    {name: 'Donate', url: 'donate'}
+  ]
+    @tabs = tabs
+    @mobile = false
+  %>
+
+  <div class="full-screen">
+    <%= render partial: "pages/shared/generic_tabs", locals: { tabs: @tabs, active_tab: @active_tab, mobile: @mobile } %>
+  </div>
+
+
+  <div class="small-screen">
+    <%= render partial: "pages/shared/generic_tabs", locals: { tabs: @tabs, active_tab:  @active_tab, mobile: @mobile} %>
+  </div>
+
+  </div>
+</div>
