@@ -240,12 +240,12 @@ nav.q-navbar-home {
       // }
     }
   }
-  @media screen and (min-width: 995px) {
+  @media screen and (min-width: 896px) {
     nav.home-nav-dropdown[role="home-custom-dropdown"] {
       display: none;
     }
   }
-  @media screen and (max-width: 995px) {
+  @media screen and (max-width: 895px) {
     height: 60px;
 
     .home-nav-right.wide {
