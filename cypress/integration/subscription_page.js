@@ -378,7 +378,7 @@ describe('Subscription page', function() {
         })
 
         it('i can close credit card modal by clicking X', function() {
-          cy.get('.react-bootstrap-close').click()
+          cy.get('.__cypress-highlight').click()
           cy.get('.modal-body').should("not.exist")
         });
 
@@ -438,13 +438,13 @@ describe('Subscription page', function() {
     });
   })
   
-  describe.only('when I am not the purchaser of the account', ()=>{
+  describe('when I am not the purchaser of the account', ()=>{
     before(()=>{
       cy.exec('RAILS_ENV=cypress rake find_or_create_cypress_test_data:find_or_create_teacher_with_school_subscription', {failOnNonZeroExit: false})
       cy.login('teacher', 'password')
-      beforeEach(function() {
-        Cypress.Cookies.preserveOnce("_quill_session")
-      })
+      // beforeEach(function() {
+      //   Cypress.Cookies.preserveOnce("_quill_session")
+      // })
       cy.visit('/subscriptions')
     })
 
