@@ -32,11 +32,9 @@ describe 'SalesContactUpdater' do
   it 'informs external CMS of an update' do
     user           = create(:user, role: 'teacher')
     notifier       = double('cms_notifier')
-    notifier_class = double('cms_notifier_class', new: notifier)
 
-    expect(notifier_class).to receive(:new).with(user.id, 'Basic Subscription')
-    expect(notifier).to receive(:track)
+    expect(notifier).to receive(:perform_async).with(user.id, 'Basic Subscription')
 
-    SalesContactUpdater.new(user.id, 'Basic Subscription', nil, notifier_class).update
+    SalesContactUpdater.new(user.id, 'Basic Subscription', nil, notifier).update
   end
 end
