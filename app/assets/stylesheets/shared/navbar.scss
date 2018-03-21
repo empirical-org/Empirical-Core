@@ -340,10 +340,6 @@ nav.q-navbar-home {
     padding: 0px;
     white-space: nowrap;
     &.active {
-      a {
-        margin-top: -3px;
-        font-weight: 600;
-      }
       &:after {
         content: "";
         width: 100%;

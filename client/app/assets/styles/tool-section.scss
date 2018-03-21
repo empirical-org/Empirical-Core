@@ -257,6 +257,43 @@ $tool-grey: #f8f9f9;
   li {
     background-color: white;
     border-right: none !important;
+    border: 3px solid white;
+    &.active {
+      font-weight: 600;
+    }
+    &:hover {
+      border-bottom: 3px solid #e9e9e9;
+    }
+    &#lessons.active {
+      border-bottom: 3px solid #bd0c7e;
+      a {
+        color: #bd0c7e;
+      }
+    }
+    &#connect.active {
+      border-bottom: 3px solid #ea9a1a;
+      a {
+        color: #ea9a1a;
+      }
+    }
+    &#diagnostic.active {
+      border-bottom: 3px solid #ff3d3d;
+      a {
+        color: #ff3d3d;
+      }
+    }
+    &#grammar.active {
+      border-bottom: 3px solid #9c2bde;
+      a {
+        color: #9c2bde;
+      }
+    }
+    &#proofreader.active {
+      border-bottom: 3px solid #348fdf;
+      a {
+        color: #348fdf;
+      }
+    }
   }
   .q-nav-bar {
     margin: auto;

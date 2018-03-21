@@ -2,23 +2,28 @@
   <% @tabs = [
       {
         name: 'Quill Lessons',
-        url: 'tools/lessons'
+        url: 'tools/lessons',
+        id: 'lessons'
       },
       {
         name: 'Quill Connect',
-        url: 'tools/connect'
+        url: 'tools/connect',
+        id: 'connect'
       },
       {
         name: 'Quill Diagnostic',
-        url: 'tools/diagnostic'
+        url: 'tools/diagnostic',
+        id: 'diagnostic'
       },
       {
         name: 'Quill Proofreader',
-        url: 'tools/proofreader'
+        url: 'tools/proofreader',
+        id: 'proofreader'
       },
       {
         name: 'Quill Grammar',
-        url: 'tools/grammar'
+        url: 'tools/grammar',
+        id: 'grammar'
       }
     ]
     @mobile = false
@@ -30,7 +35,34 @@
 
   <%
     @active_tab = @active_tab.split.last
-    @mobile = true
+    @tabs = [
+        {
+          name: 'Lessons',
+          url: 'tools/lessons',
+          id: 'lessons'
+        },
+        {
+          name: 'Connect',
+          url: 'tools/connect',
+          id: 'connect'
+        },
+        {
+          name: 'Diagnostic',
+          url: 'tools/diagnostic',
+          id: 'diagnostic'
+        },
+        {
+          name: 'Proofreader',
+          url: 'tools/proofreader',
+          id: 'proofreader'
+        },
+        {
+          name: 'Grammar',
+          url: 'tools/grammar',
+          id: 'grammar'
+        }
+      ]
+      @mobile = false
   %>
 
   <div class="small-screen">
