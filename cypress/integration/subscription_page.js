@@ -145,15 +145,12 @@ describe('Subscription page', function() {
     })
   })
 
-  describe.only('when I have School Quill Premium that is expired', ()=>{
+  describe('when I have School Quill Premium that is expired', ()=>{
     const level = 'School'
     const premiumType = `${level} Premium`
     before(()=>{
-      // cy.exec('RAILS_ENV=cypress rake find_or_create_cypress_test_data:find_or_create_teacher_with_expired_school_premium', {failOnNonZeroExit: false})
+      cy.exec('RAILS_ENV=cypress rake find_or_create_cypress_test_data:find_or_create_teacher_with_expired_school_premium', {failOnNonZeroExit: false})
       cy.login('teacher', 'password')
-      beforeEach(function() {
-        Cypress.Cookies.preserveOnce("_quill_session")
-      })
       cy.visit('/subscriptions')
     })
     describe('the top panel', () => {
@@ -180,6 +177,28 @@ describe('Subscription page', function() {
           it('has the premium type', function() {
             cy.get('.modal h1').contains(premiumType)
           });
+
+          describe('the cta section', ()=>{
+            it('has a link to email a quote that goes to the wuffoo form', function() {
+              cy.get('a.q-button').contains('Email Me a Quote').should('have.attr', 'href').should('match', /quill-premium-quote/)
+            });
+
+            describe('the button to purchase by credit card', ()=>{
+              it('opens the select credit card modal when clicked', function() {
+                cy.get('.cta-section > .flex-row > button.q-button').click()
+                cy.get('.select-credit-card-modal')
+              });
+
+            })
+          })
+
+          describe('i can close the modal by', ()=>{
+            it('clicking X', function() {
+              cy.get('.pull-right').click()
+              cy.get('.modal-body').should("not.exist")
+            });
+          })
+
         })
       })
 
@@ -331,58 +350,109 @@ describe('Subscription page', function() {
     })
   })
 
-  // describe.only('when I have School Quill Premium that is recurring and will expire in less than a month', ()=>{
-  //   before(()=>{
-  //     cy.exec('RAILS_ENV=cypress rake find_or_create_cypress_test_data:find_or_create_teacher_with_expiring_school_premium', {failOnNonZeroExit: false})
-  //     cy.login('teacher', 'password')
-  //     cy.visit('/subscriptions')
-  //   })
-  //   describe('the top panel', () => {
-  //     it('states my premium type in the h2', ()=> {
-  //       cy.get('.subscription-status h2').contains('School Premium')
-  //     })
-  //
-  //     it('has a paragraph with the appropriate copy', () => {
-  //       cy.get('p').contains('With Quill School Premium, you will have access to all of Quill’s free reports as well as additional advanced reporting. You will also be able to view and print reports of your students’ progress. Our advanced reports support concept, Common Core, and overall progress analysis. Here’s more information about your School Premium features.')
-  //     })
-  //   })
-  //
-  //   describe('the subscription information panel', ()=>{
-  //
-  //     it('has my subscription status', ()=>{
-  //       cy.get('.current-subscription-information').contains('School Paid')
-  //     })
-  //
-  //     it('defaults to a school invoice if there is no payment method', ()=> {
-  //       cy.get('.current-subscription-information').contains('School Invoice')
-  //     })
-  //
-  //     it('has a row for a purchaser', ()=> {
-  //       cy.get('.current-subscription-information').contains('Purchaser')
-  //     })
-  //
-  //     it('has a row for a next subscription', ()=> {
-  //       cy.get('.current-subscription-information').contains('NEXT SUBSCRIPTION')
-  //     })
-  //
-  //     it('says my next plan is Quill Premium', ()=> {
-  //       cy.get('.current-subscription-information').contains('Next Plan')
-  //       cy.get('.current-subscription-information').contains('School Premium')
-  //     })
-  //   })
-  //
-  //   describe('the next plan alert', ()=>{
-  //     it('states that my premium will renew', ()=>{
-  //       cy.get('.next-plan-alert').contains('Your Subscription will be renewed on')
-  //     })
-  //   })
-  //
-  //   describe('the premium subscription history', ()=>{
-  //     it('mentions my School Paid subscription', ()=>{
-  //       cy.get('.subscription-history td').contains('School Paid')
-  //     })
-  //   })
-  // })
+  describe('when I have Teacher Quill Premium that is expired', ()=>{
+    const level = 'Teacher'
+    const premiumType = `${level} Premium`
+    before(()=>{
+      cy.exec('RAILS_ENV=cypress rake find_or_create_cypress_test_data:find_or_create_teacher_with_expired_teacher_premium', {failOnNonZeroExit: false})
+      cy.login('teacher', 'password')
+      // beforeEach(function() {
+      //   Cypress.Cookies.preserveOnce("_quill_session")
+      // })
+      cy.visit('/subscriptions')
+    })
+    describe('the top panel', () => {
+      it('states my premium type in the h2', ()=> {
+        cy.get('.subscription-status h2').contains(premiumType)
+      })
+
+      it('mentions that it was expired in the h2', ()=> {
+        cy.get('.subscription-status h2').contains('expired')
+      })
+
+      describe('the button to renew subscription', ()=> {
+
+        it('opens the credit card modal when I click it', ()=>{
+          cy.get('.subscription-status').find('.renew-subscription').click()
+          cy.get('.select-credit-card-modal')
+        })
+
+        it('i can close credit card modal by clicking X', function() {
+          cy.get('.react-bootstrap-close').click()
+          cy.get('.modal-body').should("not.exist")
+        });
+
+      })
+
+
+      it('has a paragraph stating I am back to Quill basic', () => {
+        cy.get('p').contains(`${premiumType} subscription has expired and you are back to Quill Basic.`)
+      })
+    })
+
+    describe('the subscription information panel', ()=>{
+
+      it('has my subscription status', ()=>{
+        cy.get('.current-subscription-information').contains(`${level} Paid`)
+      })
+
+      it('defaults to a school invoice if there is no payment method', ()=> {
+        cy.get('.current-subscription-information').contains('School Invoice')
+      })
+
+      it('has a row for a purchaser', ()=> {
+        cy.get('.current-subscription-information').contains('Purchaser')
+      })
+
+      it('has a row for a next subscription', ()=> {
+        cy.get('.current-subscription-information').contains('NEXT SUBSCRIPTION')
+      })
+
+      it('has a button to renew Renew Subscription', ()=> {
+        cy.get('.current-subscription-information').contains('Renew Subscription')
+      })
+    })
+
+    describe('the next plan alert', ()=>{
+      it('should not exist', ()=>{
+        cy.get('.next-plan-alert').should("not.exist")
+      })
+    })
+
+    describe('the premium subscription history', ()=>{
+      it('mentions my School Paid subscription', ()=>{
+        cy.get('.subscription-history td').contains(`${level} Paid`)
+      })
+    })
+  })
+
+  describe('when I am the purchaser of the account', ()=>{
+    before(()=>{
+      cy.exec('RAILS_ENV=cypress rake find_or_create_cypress_test_data:find_or_create_teacher_with_subscription_they_purchased', {failOnNonZeroExit: false})
+      cy.login('teacher', 'password')
+      cy.visit('/subscriptions')
+    })
+
+    it('shows my name', function() {
+      cy.get('.flex-row > :nth-child(1) > :nth-child(2) > :nth-child(2)').contains('Emilia Friedberg')
+    });
+  })
+  
+  describe.only('when I am not the purchaser of the account', ()=>{
+    before(()=>{
+      cy.exec('RAILS_ENV=cypress rake find_or_create_cypress_test_data:find_or_create_teacher_with_school_subscription', {failOnNonZeroExit: false})
+      cy.login('teacher', 'password')
+      beforeEach(function() {
+        Cypress.Cookies.preserveOnce("_quill_session")
+      })
+      cy.visit('/subscriptions')
+    })
+
+    it('does not shows my name', function() {
+      cy.get('.flex-row > :nth-child(1) > :nth-child(2) > :nth-child(2)').should('be.empty')
+    })
+  })
+
 
 
 
