@@ -35,6 +35,38 @@ namespace :find_or_create_cypress_test_data do
     find_or_create_teacher_with_school_premium
   end
 
+  task :find_or_create_teacher_with_recurring_school_premium, [:wipe_database] => :environment do |t, args|
+    # args.with_defaults(wipe_database: true)
+    # if args.wipe_database
+    wipe_db
+    # end
+    find_or_create_teacher_with_recurring_school_premium
+  end
+
+  task :find_or_create_teacher_with_teacher_premium, [:wipe_database] => :environment do |t, args|
+    # args.with_defaults(wipe_database: true)
+    # if args.wipe_database
+    wipe_db
+    # end
+    find_or_create_teacher_with_teacher_premium
+  end
+
+  task :find_or_create_teacher_with_recurring_teacher_premium, [:wipe_database] => :environment do |t, args|
+    # args.with_defaults(wipe_database: true)
+    # if args.wipe_database
+    wipe_db
+    # end
+    find_or_create_teacher_with_recurring_teacher_premium
+  end
+
+  task :find_or_create_teacher_with_expiring_school_premium, [:wipe_database] => :environment do |t, args|
+    # args.with_defaults(wipe_database: true)
+    # if args.wipe_database
+    wipe_db
+    # end
+    find_or_create_teacher_with_expiring_school_premium
+  end
+
   task :find_or_create_school, [:wipe_database] => :environment do |t, args|
     # args.with_defaults(wipe_database: true)
     # if args.wipe_database
@@ -67,13 +99,42 @@ namespace :find_or_create_cypress_test_data do
     user
   end
 
-  def find_or_create_subscription subscription_type
-    Subscription.find_or_create_by(account_type: subscription_type, expiration: Date.today + 365, start_date: Date.yesterday, account_limit: 1000)
+  def find_or_create_subscription subscription_type, recurring=false, expiration=(Date.today+ 365)
+    Subscription.find_or_create_by(account_type: subscription_type, recurring: recurring, expiration: expiration, start_date: Date.yesterday, account_limit: 1000)
   end
 
   def find_or_create_teacher_with_school_premium
     teacher = find_or_create_teacher
+    teacher.subscriptions.destroy_all
     subscription = find_or_create_subscription('School Paid')
+    UserSubscription.find_or_create_by(subscription: subscription, user: teacher)
+  end
+
+  def find_or_create_teacher_with_recurring_school_premium
+    teacher = find_or_create_teacher
+    teacher.subscriptions.destroy_all
+    subscription = find_or_create_subscription('School Paid', true)
+    UserSubscription.find_or_create_by(subscription: subscription, user: teacher)
+  end
+
+  def find_or_create_teacher_with_teacher_premium
+    teacher = find_or_create_teacher
+    teacher.subscriptions.destroy_all
+    subscription = find_or_create_subscription('Teacher Paid')
+    UserSubscription.find_or_create_by(subscription: subscription, user: teacher)
+  end
+
+  def find_or_create_teacher_with_recurring_teacher_premium
+    teacher = find_or_create_teacher
+    teacher.subscriptions.destroy_all
+    subscription = find_or_create_subscription('Teacher Paid', true)
+    UserSubscription.find_or_create_by(subscription: subscription, user: teacher)
+  end
+
+  def find_or_create_teacher_with_expiring_school_premium
+    teacher = find_or_create_teacher
+    teacher.subscriptions.destroy_all
+    subscription = find_or_create_subscription('School Paid', true, (Date.today + 10.days))
     UserSubscription.find_or_create_by(subscription: subscription, user: teacher)
   end
 
