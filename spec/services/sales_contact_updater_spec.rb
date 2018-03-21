@@ -33,7 +33,7 @@ describe 'SalesContactUpdater' do
     user           = create(:user, role: 'teacher')
     notifier       = double('cms_notifier')
 
-    expect(notifier).to receive(:perform_async).with(user.id, 'Basic Subscription')
+    expect(notifier).to receive(:perform_async).with(user.id, 'basic_subscription')
 
     SalesContactUpdater.new(user.id, 'Basic Subscription', nil, notifier).update
   end
