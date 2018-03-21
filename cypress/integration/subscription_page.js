@@ -146,36 +146,53 @@ describe('Subscription page', function() {
   })
 
   describe.only('when I have School Quill Premium that is expired', ()=>{
+    const level = 'School'
+    const premiumType = `${level} Premium`
     before(()=>{
-      cy.exec('RAILS_ENV=cypress rake find_or_create_cypress_test_data:find_or_create_teacher_with_expired_school_premium', {failOnNonZeroExit: false})
+      // cy.exec('RAILS_ENV=cypress rake find_or_create_cypress_test_data:find_or_create_teacher_with_expired_school_premium', {failOnNonZeroExit: false})
       cy.login('teacher', 'password')
+      beforeEach(function() {
+        Cypress.Cookies.preserveOnce("_quill_session")
+      })
       cy.visit('/subscriptions')
     })
     describe('the top panel', () => {
       it('states my premium type in the h2', ()=> {
-        cy.get('.subscription-status h2').contains('School Premium')
+        cy.get('.subscription-status h2').contains(premiumType)
       })
 
       it('mentions that it was expired in the h2', ()=> {
-        cy.get('.subscription-status h2').contains('Expiredd')
+        cy.get('.subscription-status h2').contains('expired')
       })
 
-      describe('the button to renew Quill Premium', ()=> {
+      describe('the button to renew subscription', ()=> {
         it('exists', ()=> {
           cy.get('.renew-subscription')
+        })
+
+
+        it('opens a modal when clicked', ()=>{
+          cy.get('.renew-subscription').click()
+          cy.get('.modal-body')
+        })
+
+        describe('the modal it opens', ()=> {
+          it('has the premium type', function() {
+            cy.get('.modal h1').contains(premiumType)
+          });
         })
       })
 
 
-      it('has a paragraph with the appropriate copy', () => {
-        cy.get('p').contains('With Quill School Premium, you will have access to all of Quill’s free reports as well as additional advanced reporting. You will also be able to view and print reports of your students’ progress. Our advanced reports support concept, Common Core, and overall progress analysis. Here’s more information about your School Premium features.')
+      it('has a paragraph stating I am back to Quill basic', () => {
+        cy.get('p').contains(`${premiumType} subscription has expired and you are back to Quill Basic.`)
       })
     })
 
     describe('the subscription information panel', ()=>{
 
       it('has my subscription status', ()=>{
-        cy.get('.current-subscription-information').contains('School Paid')
+        cy.get('.current-subscription-information').contains(`${level} Paid`)
       })
 
       it('defaults to a school invoice if there is no payment method', ()=> {
@@ -190,15 +207,14 @@ describe('Subscription page', function() {
         cy.get('.current-subscription-information').contains('NEXT SUBSCRIPTION')
       })
 
-      it('says my next plan is Quill Premium', ()=> {
-        cy.get('.current-subscription-information').contains('Next Plan')
-        cy.get('.current-subscription-information').contains('School Premium')
+      it('has a button to renew Renew Subscription', ()=> {
+        cy.get('.current-subscription-information').contains('Renew Subscription')
       })
     })
 
     describe('the next plan alert', ()=>{
-      it('states that my premium will renew', ()=>{
-        cy.get('.next-plan-alert').contains('Your Subscription will be renewed on')
+      it('should not exist', ()=>{
+        cy.get('.next-plan-alert').should("not.exist")
       })
     })
 
