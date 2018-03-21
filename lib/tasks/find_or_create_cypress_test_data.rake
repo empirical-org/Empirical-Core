@@ -67,6 +67,22 @@ namespace :find_or_create_cypress_test_data do
     find_or_create_teacher_with_expired_school_premium
   end
 
+  task :find_or_create_teacher_with_expired_teacher_premium, [:wipe_database] => :environment do |t, args|
+    # args.with_defaults(wipe_database: true)
+    # if args.wipe_database
+    wipe_db
+    # end
+    find_or_create_teacher_with_expired_teacher_premium
+  end
+
+  task :find_or_create_teacher_with_subscription_they_purchased, [:wipe_database] => :environment do |t, args|
+    # args.with_defaults(wipe_database: true)
+    # if args.wipe_database
+    wipe_db
+    # end
+    find_or_create_teacher_with_subscription_they_purchased
+  end
+
   task :find_or_create_school, [:wipe_database] => :environment do |t, args|
     # args.with_defaults(wipe_database: true)
     # if args.wipe_database
@@ -99,8 +115,8 @@ namespace :find_or_create_cypress_test_data do
     user
   end
 
-  def find_or_create_subscription subscription_type, recurring=false, expiration=(Date.today+ 365)
-    Subscription.find_or_create_by(account_type: subscription_type, recurring: recurring, expiration: expiration, start_date: Date.yesterday, account_limit: 1000)
+  def find_or_create_subscription subscription_type, recurring=false, expiration=(Date.today+ 365), purchaser_id=nil
+    Subscription.find_or_create_by(account_type: subscription_type, recurring: recurring, expiration: expiration, start_date: Date.yesterday, account_limit: 1000, purchaser_id: purchaser_id)
   end
 
   def find_or_create_teacher_with_school_premium
@@ -135,6 +151,20 @@ namespace :find_or_create_cypress_test_data do
     teacher = find_or_create_teacher
     teacher.subscriptions.destroy_all
     subscription = find_or_create_subscription('School Paid', true, Date.today)
+    UserSubscription.find_or_create_by(subscription: subscription, user: teacher)
+  end
+
+  def find_or_create_teacher_with_expired_teacher_premium
+    teacher = find_or_create_teacher
+    teacher.subscriptions.destroy_all
+    subscription = find_or_create_subscription('Teacher Paid', true, Date.today)
+    UserSubscription.find_or_create_by(subscription: subscription, user: teacher)
+  end
+
+  def find_or_create_teacher_with_subscription_they_purchased
+    teacher = find_or_create_teacher
+    teacher.subscriptions.destroy_all
+    subscription = find_or_create_subscription('Teacher Paid', true, Date.today + 365, teacher.id)
     UserSubscription.find_or_create_by(subscription: subscription, user: teacher)
   end
 
