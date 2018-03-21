@@ -5,9 +5,9 @@ class SyncSalesmachineContact
   end
 
   def sync
-    @client.contact({ contact_uid: @teacher_id, params: params })
-    if stages_params.present?
-      @client.account({ account_uid: teacher.school.id, params: stages_params })
+    @client.contact(contact_uid: @teacher_id, params: params)
+    if sales_stage_params.present?
+      @client.account(account_uid: account_uid, params: sales_stage_params)
     end
   end
 
@@ -25,12 +25,12 @@ class SyncSalesmachineContact
       number_of_completed_activities_per_student: activities_per_student,
       frl: free_lunches,
       teacher_link: teacher_link,
-    }.merge(stages_params)
+    }.merge(sales_stage_params)
   end
 
   private
 
-  def stages_params
+  def sales_stage_params
     if teacher.sales_contact.present?
       serialize_stages
     else

@@ -8,9 +8,9 @@ describe 'SalesContactAnalytics' do
     school.users << user
 
     expect(client).to receive(:track).with(
-      contact_uid: user.id,
+      user_id: user.id,
       event: 'basic_subscription',
-      params: {
+      properties: {
         account_uid: school.id,
         display_name: 'Basic Subscription',
       }
