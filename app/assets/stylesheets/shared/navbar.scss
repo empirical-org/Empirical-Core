@@ -551,7 +551,7 @@ nav.q-navbar-home {
       }
     }
   }
-  &:hover, &:focus {
+  &:hover:not(.unhoverable), &:focus {
     outline: none;
     span {
       color: #7cfbdf;

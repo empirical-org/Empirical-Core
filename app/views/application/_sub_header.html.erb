@@ -25,7 +25,7 @@
 		</a>
 	</div>
 
-		<div class='home-nav-right wide'>
+		<div class='home-nav-right wide' >
 
 		<% if !current_user %>
 	    <%= render 'navbar/learning_tools', active_tab: active_tab %>
@@ -122,4 +122,34 @@
 			dropdown.classList.add('dropdown-closed');
 		}
 	}
+
+	const tooltipTriggers = document.getElementsByClassName("navbar-tooltip-trigger")
+
+	for (let i = 0; i < tooltipTriggers.length; i++) {
+	    tooltipTriggers[i].addEventListener("focus", addUnhoverable)
+			tooltipTriggers[i].addEventListener("blur", removeUnhoverable)
+			tooltipTriggers[i].addEventListener("click", handleClick)
+	}
+
+	function addUnhoverable() {
+		for (let i = 0; i < tooltipTriggers.length; i++) {
+				tooltipTriggers[i].classList.add('unhoverable')
+		}
+	}
+
+	function removeUnhoverable() {
+		for (let i = 0; i < tooltipTriggers.length; i++) {
+				tooltipTriggers[i].classList.remove('unhoverable')
+		}
+	}
+
+	function handleClick(e) {
+		if (e.currentTarget.classList.contains('focused')) {
+			e.currentTarget.blur()
+			e.currentTarget.classList.remove('focused')
+		} else {
+			e.currentTarget.classList.add('focused')
+		}
+	}
+
 </script>
