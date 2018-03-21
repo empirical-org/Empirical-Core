@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'SyncSalesmachineAccount' do
+describe 'SerializeSalesAccount' do
   let(:school) do
     create(:school,
       name: 'Kool School',
@@ -17,20 +17,17 @@ describe 'SyncSalesmachineAccount' do
     )
   end
 
-  it 'passes school data to the sales machine client' do
-    client = double('sale_machine_client')
+  it 'includes the account_uid' do
+    school_data = SerializeSalesAccount.new(school.id).params
 
-    expect(client).to receive(:account)
-
-    SyncSalesmachineAccount.new(school.id, client).sync
+    expect(school_data).to include(account_uid: school.id)
   end
 
-  it 'generates basic school data' do
-    client = double('sale_machine_client')
+  it 'generates basic school params' do
 
-    school_data = SyncSalesmachineAccount.new(school.id, client).params
+    school_data = SerializeSalesAccount.new(school.id).params
 
-    expect(school_data).to include(
+    expect(school_data[:params]).to include(
       name: 'Kool School',
       city: 'New York',
       state: 'NY',
@@ -60,11 +57,10 @@ describe 'SyncSalesmachineAccount' do
       subscription: school_subscription,
       school: school,
     )
-    client = double('sale_machine_client')
 
-    school_data = SyncSalesmachineAccount.new(school.id, client).params
+    school_data = SerializeSalesAccount.new(school.id).params
 
-    expect(school_data).to include(
+    expect(school_data[:params]).to include(
       school_subscription: 'SUPER SAVER PREMIUM',
     )
   end
@@ -80,11 +76,10 @@ describe 'SyncSalesmachineAccount' do
     )
     school.users << teacher_with_subscription
     school.users << create(:user, role: 'teacher')
-    client = double('sale_machine_client')
 
-    school_data = SyncSalesmachineAccount.new(school.id, client).params
+    school_data = SerializeSalesAccount.new(school.id).params
 
-    expect(school_data).to include(
+    expect(school_data[:params]).to include(
       employee_count: 2,
       paid_teacher_subscriptions: 1,
       active_students: 0,
@@ -98,11 +93,10 @@ describe 'SyncSalesmachineAccount' do
     create(:activity_session, user: active_student, state: 'finished')
     school.users << active_student
     school.users << create(:user, role: 'student')
-    client = double('sale_machine_client')
 
-    school_data = SyncSalesmachineAccount.new(school.id, client).params
+    school_data = SerializeSalesAccount.new(school.id).params
 
-    expect(school_data).to include(
+    expect(school_data[:params]).to include(
       employee_count: 0,
       active_students: 1,
       activities_finished: 2,
