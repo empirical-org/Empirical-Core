@@ -482,6 +482,16 @@ nav.q-navbar-home {
   span {
     color: #fff;
   }
+  &#learning-tools {
+    .navbar-tooltip {
+      width: 248px;
+    }
+  }
+  &#our-story {
+    .navbar-tooltip {
+      width: 261px;
+    }
+  }
   .navbar-tooltip {
     z-index: 100;
     display: none;
@@ -499,7 +509,9 @@ nav.q-navbar-home {
       color: white;
       position: absolute;
       top: -10px;
-      right: 150px;
+      left: 50%;
+      -webkit-transform: translateX(-50%);
+      transform: translateX(-50%);
     }
     .tooltip-link {
       padding: 13px 25px;
@@ -542,16 +554,15 @@ nav.q-navbar-home {
   &:hover, &:focus {
     outline: none;
     span {
-      color: #3adfbb;
+      color: #7cfbdf;
     }
     .navbar-tooltip {
       display: flex;
     }
   }
-  &:focus {
-    outline: none;
-    .navbar-tooltip {
-      display: flex;
+  &.active {
+    span {
+      color: #7cfbdf;
     }
   }
 }

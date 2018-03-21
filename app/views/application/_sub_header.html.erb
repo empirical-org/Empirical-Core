@@ -1,9 +1,21 @@
 <% current_path = request.env['PATH_INFO'] %>
 
-<% if current_path.include?('teachers') || current_path.include?('premium') || current_path.include?('teacher_resources') || current_path.include?('faq') %>
+<% if ['teachers', 'premium', 'teacher_resources', 'faq'].any? { |str| current_path.include?(str) } %>
 	<% user_dropdown_class = 'on-dashboard' %>
 <% else %>
 	<% user_dropdown_class = 'not-on-dashboard' %>
+<% end %>
+
+<% if current_path.include?('tools') %>
+	<% active_tab = 'Learning Tools' %>
+<% elsif ['announcements', 'mission', 'impact', 'press', 'team'].any? { |str| current_path.include?(str)} %>
+	<% active_tab = 'Our Story' %>
+<% elsif current_path.include?('activities') %>
+	<% active_tab = 'Explore Curriculum' %>
+<% elsif ['teacher_resources', 'faq', 'premium'].any? { |str| current_path.include?(str)} %>
+	<% active_tab = 'Teacher Center' %>
+<% else %>
+	<% active_tab = '' %>
 <% end %>
 
 <nav class="q-navbar-home">
@@ -16,14 +28,14 @@
 		<div class='home-nav-right wide'>
 
 		<% if !current_user %>
-	    <%= render 'navbar/learning_tools' %>
-	    <%= render 'navbar/explore_curriculum' %>
-	    <%= render 'navbar/teacher_center' %>
-	    <%= render 'navbar/our_story' %>
+	    <%= render 'navbar/learning_tools', active_tab: active_tab %>
+	    <%= render 'navbar/explore_curriculum', active_tab: active_tab %>
+	    <%= render 'navbar/teacher_center', active_tab: active_tab %>
+	    <%= render 'navbar/our_story', active_tab: active_tab %>
 		<% elsif current_user.role != 'student' %>
-			<%= render 'navbar/learning_tools' %>
-			<%= render 'navbar/teacher_center' %>
-			<%= render 'navbar/quill_support' %>
+			<%= render 'navbar/learning_tools', active_tab: active_tab  %>
+			<%= render 'navbar/teacher_center', active_tab: active_tab  %>
+			<%= render 'navbar/quill_support', active_tab: active_tab  %>
  		<% end %>
 
 		<%- if current_user.nil? %>
