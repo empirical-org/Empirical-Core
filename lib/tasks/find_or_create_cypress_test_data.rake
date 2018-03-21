@@ -59,12 +59,12 @@ namespace :find_or_create_cypress_test_data do
     find_or_create_teacher_with_recurring_teacher_premium
   end
 
-  task :find_or_create_teacher_with_expiring_school_premium, [:wipe_database] => :environment do |t, args|
+  task :find_or_create_teacher_with_expired_school_premium, [:wipe_database] => :environment do |t, args|
     # args.with_defaults(wipe_database: true)
     # if args.wipe_database
     wipe_db
     # end
-    find_or_create_teacher_with_expiring_school_premium
+    find_or_create_teacher_with_expired_school_premium
   end
 
   task :find_or_create_school, [:wipe_database] => :environment do |t, args|
@@ -131,10 +131,10 @@ namespace :find_or_create_cypress_test_data do
     UserSubscription.find_or_create_by(subscription: subscription, user: teacher)
   end
 
-  def find_or_create_teacher_with_expiring_school_premium
+  def find_or_create_teacher_with_expired_school_premium
     teacher = find_or_create_teacher
     teacher.subscriptions.destroy_all
-    subscription = find_or_create_subscription('School Paid', true, (Date.today + 10.days))
+    subscription = find_or_create_subscription('School Paid', true, Date.today)
     UserSubscription.find_or_create_by(subscription: subscription, user: teacher)
   end
 

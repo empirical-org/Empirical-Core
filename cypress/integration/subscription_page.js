@@ -145,6 +145,70 @@ describe('Subscription page', function() {
     })
   })
 
+  describe.only('when I have School Quill Premium that is expired', ()=>{
+    before(()=>{
+      cy.exec('RAILS_ENV=cypress rake find_or_create_cypress_test_data:find_or_create_teacher_with_expired_school_premium', {failOnNonZeroExit: false})
+      cy.login('teacher', 'password')
+      cy.visit('/subscriptions')
+    })
+    describe('the top panel', () => {
+      it('states my premium type in the h2', ()=> {
+        cy.get('.subscription-status h2').contains('School Premium')
+      })
+
+      it('mentions that it was expired in the h2', ()=> {
+        cy.get('.subscription-status h2').contains('Expiredd')
+      })
+
+      describe('the button to renew Quill Premium', ()=> {
+        it('exists', ()=> {
+          cy.get('.renew-subscription')
+        })
+      })
+
+
+      it('has a paragraph with the appropriate copy', () => {
+        cy.get('p').contains('With Quill School Premium, you will have access to all of Quill’s free reports as well as additional advanced reporting. You will also be able to view and print reports of your students’ progress. Our advanced reports support concept, Common Core, and overall progress analysis. Here’s more information about your School Premium features.')
+      })
+    })
+
+    describe('the subscription information panel', ()=>{
+
+      it('has my subscription status', ()=>{
+        cy.get('.current-subscription-information').contains('School Paid')
+      })
+
+      it('defaults to a school invoice if there is no payment method', ()=> {
+        cy.get('.current-subscription-information').contains('School Invoice')
+      })
+
+      it('has a row for a purchaser', ()=> {
+        cy.get('.current-subscription-information').contains('Purchaser')
+      })
+
+      it('has a row for a next subscription', ()=> {
+        cy.get('.current-subscription-information').contains('NEXT SUBSCRIPTION')
+      })
+
+      it('says my next plan is Quill Premium', ()=> {
+        cy.get('.current-subscription-information').contains('Next Plan')
+        cy.get('.current-subscription-information').contains('School Premium')
+      })
+    })
+
+    describe('the next plan alert', ()=>{
+      it('states that my premium will renew', ()=>{
+        cy.get('.next-plan-alert').contains('Your Subscription will be renewed on')
+      })
+    })
+
+    describe('the premium subscription history', ()=>{
+      it('mentions my School Paid subscription', ()=>{
+        cy.get('.subscription-history td').contains('School Paid')
+      })
+    })
+  })
+
   describe('when I have Teacher Quill Premium that is not recurring', ()=>{
     before(()=>{
       cy.exec('RAILS_ENV=cypress rake find_or_create_cypress_test_data:find_or_create_teacher_with_teacher_premium', {failOnNonZeroExit: false})
