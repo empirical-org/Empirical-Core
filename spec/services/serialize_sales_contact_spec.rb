@@ -1,15 +1,13 @@
 require 'rails_helper'
 
-describe 'SyncSalesmachineContact' do
-  it 'passes teacher data to the sales machine client' do
+describe 'SerializeSalesContact' do
+  it 'includes the contact_uid in the data' do
     teacher = create(:user, role: 'teacher')
-    client = double('sale_machine_client')
 
-    expect(client).to receive(:contact)
+    teacher_data = SerializeSalesContact.new(teacher.id).contact_data
 
-    SyncSalesmachineContact.new(teacher.id, client).sync
+    expect(teacher_data).to include(contact_uid: teacher.id)
   end
-
 
   it 'presents teacher data' do
     teacher = create(:user,
@@ -17,11 +15,10 @@ describe 'SyncSalesmachineContact' do
       role: 'teacher',
       email: 'teach@teaching.edu',
     )
-    client = double('salesmachine_client')
 
-    teacher_data = SyncSalesmachineContact.new(teacher.id, client).params
+    teacher_data = SerializeSalesContact.new(teacher.id).contact_data
 
-    expect(teacher_data).to include(
+    expect(teacher_data[:params]).to include(
       email: 'teach@teaching.edu',
       name: 'Pops Mcgee',
       account_uid: nil,
@@ -39,12 +36,33 @@ describe 'SyncSalesmachineContact' do
 
   it 'presents sales stage data if sales contact is avaliable' do
     teacher = create(:user, role: 'teacher')
-    client = double('salesmachine_client')
     SalesContactCreator.new(teacher.id).create
 
-    teacher_data = SyncSalesmachineContact.new(teacher.id, client).params
+    teacher_data = SerializeSalesContact.new(teacher.id).contact_data
 
-    expect(teacher_data).to include(
+    expect(teacher_data[:params]).to include(
+      :"1_basic_subscription" => nil,
+      :"2_teacher_premium" => nil,
+      :"3_1_in_conversation_teacher_responds" => nil,
+      :"3_2_in_conversation_call_missed" => nil,
+      :"3_3_in_conversation_interested" => nil,
+      :"4_quote_requested" => nil,
+      :"5_1_purchase_order_received" => nil,
+      :"5_2_invoice_sent" => nil,
+      :"6_1_school_premium_needs_pd" => nil,
+      :"6_2_school_premium_pd_scheduled" => nil,
+      :"6_3_school_premium_pd_delivered" => nil,
+      :"7_not_interested_in_school_premium" => nil,
+    )
+  end
+
+  it 'presents account data if avaliable' do
+    teacher = create(:user, role: 'teacher')
+    SalesContactCreator.new(teacher.id).create
+
+    school_data = SerializeSalesContact.new(teacher.id).account_data
+
+    expect(school_data[:params]).to include(
       :"1_basic_subscription" => nil,
       :"2_teacher_premium" => nil,
       :"3_1_in_conversation_teacher_responds" => nil,
@@ -64,33 +82,30 @@ describe 'SyncSalesmachineContact' do
     school = create(:school)
     teacher = create(:user, role: 'teacher')
     school.users << teacher
-    client = double('salesmachine_client')
 
-    teacher_data = SyncSalesmachineContact.new(teacher.id, client).params
+    teacher_data = SerializeSalesContact.new(teacher.id).contact_data
 
-    expect(teacher_data).to include(account_uid: school.id)
+    expect(teacher_data[:params]).to include(account_uid: school.id)
   end
 
   it 'presents admin status' do
     school = create(:school)
     teacher = create(:user, role: 'teacher')
-    client = double('salesmachine_client')
     create(:schools_admins, school: school, user: teacher)
 
-    teacher_data = SyncSalesmachineContact.new(teacher.id, client).params
+    teacher_data = SerializeSalesContact.new(teacher.id).contact_data
 
-    expect(teacher_data).to include(admin: true)
+    expect(teacher_data[:params]).to include(admin: true)
   end
 
   it 'presents premium status' do
     subscription = create(:subscription, account_type: 'SUPER DUPER SUB')
     teacher = create(:user, role: 'teacher')
-    client = double('salesmachine_client')
     create(:user_subscription, subscription: subscription, user: teacher)
 
-    teacher_data = SyncSalesmachineContact.new(teacher.id, client).params
+    teacher_data = SerializeSalesContact.new(teacher.id).contact_data
 
-    expect(teacher_data).to include(
+    expect(teacher_data[:params]).to include(
       premium_status: 'SUPER DUPER SUB',
       premium_expiry_date: subscription.expiration,
     )
@@ -102,11 +117,10 @@ describe 'SyncSalesmachineContact' do
     student = create(:user, role: 'student')
     create(:classrooms_teacher, user: teacher, classroom: classroom)
     create(:students_classrooms, student: student, classroom: classroom)
-    client = double('salesmachine_client')
 
-    teacher_data = SyncSalesmachineContact.new(teacher.id, client).params
+    teacher_data = SerializeSalesContact.new(teacher.id).contact_data
 
-    expect(teacher_data).to include(
+    expect(teacher_data[:params]).to include(
       number_of_students: 1,
       number_of_completed_activities: 0,
       number_of_completed_activities_per_student: 0,
@@ -129,12 +143,11 @@ describe 'SyncSalesmachineContact' do
       classroom_activity: classroom_activity,
       state: 'started',
     )
-    client = double('salesmachine_client')
 
 
-    teacher_data = SyncSalesmachineContact.new(teacher.id, client).params
+    teacher_data = SerializeSalesContact.new(teacher.id).contact_data
 
-    expect(teacher_data).to include(
+    expect(teacher_data[:params]).to include(
       number_of_students: 1,
       number_of_completed_activities: 1,
       number_of_completed_activities_per_student: 1,
@@ -145,20 +158,18 @@ describe 'SyncSalesmachineContact' do
     school = create(:school, free_lunches: 50)
     teacher = create(:user, role: 'teacher')
     school.users << teacher
-    client = double('salesmachine_client')
 
-    teacher_data = SyncSalesmachineContact.new(teacher.id, client).params
+    teacher_data = SerializeSalesContact.new(teacher.id).contact_data
 
-    expect(teacher_data).to include(frl: 50)
+    expect(teacher_data[:params]).to include(frl: 50)
   end
 
   it 'presents teacher link' do
     teacher = create(:user, role: 'teacher')
-    client = double('salesmachine_client')
 
-    teacher_data = SyncSalesmachineContact.new(teacher.id, client).params
+    teacher_data = SerializeSalesContact.new(teacher.id).contact_data
 
-    expect(teacher_data).to include(
+    expect(teacher_data[:params]).to include(
       teacher_link: "https://www.quill.org/cms/users/#{teacher.id}/sign_in"
     )
   end
