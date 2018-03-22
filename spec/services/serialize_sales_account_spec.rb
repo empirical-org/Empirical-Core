@@ -18,14 +18,14 @@ describe 'SerializeSalesAccount' do
   end
 
   it 'includes the account_uid' do
-    school_data = SerializeSalesAccount.new(school.id).params
+    school_data = SerializeSalesAccount.new(school.id).data
 
     expect(school_data).to include(account_uid: school.id)
   end
 
   it 'generates basic school params' do
 
-    school_data = SerializeSalesAccount.new(school.id).params
+    school_data = SerializeSalesAccount.new(school.id).data
 
     expect(school_data[:params]).to include(
       name: 'Kool School',
@@ -58,7 +58,7 @@ describe 'SerializeSalesAccount' do
       school: school,
     )
 
-    school_data = SerializeSalesAccount.new(school.id).params
+    school_data = SerializeSalesAccount.new(school.id).data
 
     expect(school_data[:params]).to include(
       school_subscription: 'SUPER SAVER PREMIUM',
@@ -77,7 +77,7 @@ describe 'SerializeSalesAccount' do
     school.users << teacher_with_subscription
     school.users << create(:user, role: 'teacher')
 
-    school_data = SerializeSalesAccount.new(school.id).params
+    school_data = SerializeSalesAccount.new(school.id).data
 
     expect(school_data[:params]).to include(
       employee_count: 2,
@@ -94,7 +94,7 @@ describe 'SerializeSalesAccount' do
     school.users << active_student
     school.users << create(:user, role: 'student')
 
-    school_data = SerializeSalesAccount.new(school.id).params
+    school_data = SerializeSalesAccount.new(school.id).data
 
     expect(school_data[:params]).to include(
       employee_count: 0,

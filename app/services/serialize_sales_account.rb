@@ -1,10 +1,10 @@
 class SerializeSalesAccount
 
-  def initialize(school_id, client = $smclient)
+  def initialize(school_id)
     @school_id = school_id
   end
 
-  def params
+  def data
     { account_uid: school.id,
       params: {
         name: school.name,
