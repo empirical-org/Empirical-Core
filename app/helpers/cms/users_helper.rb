@@ -10,7 +10,7 @@ module Cms::UsersHelper
   def complete_sales_stage_link(stage)
     link_to(
       'Mark Complete',
-      complete_sales_stage_cms_user_path(sales_stage_id: stage.id),
+      complete_sales_stage_cms_user_path(stage_number: stage.number),
       { method: :post, data: { confirm: 'Mark stage as completed?' } }
     )
   end

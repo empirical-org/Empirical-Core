@@ -18,4 +18,8 @@ class SalesStage < ActiveRecord::Base
   def trigger
     sales_stage_type.trigger
   end
+
+  def number
+    sales_stage_type.order
+  end
 end
