@@ -24,10 +24,16 @@
 // -- This is will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
-Cypress.Commands.add("login", (emailOrUsername, password) => {
+Cypress.Commands.add('login', (emailOrUsername, password) => {
   cy.request({
-    url: `/session/login_through_ajax`,
+    url: '/session/login_through_ajax',
     method: 'POST',
     json: { user: {email: emailOrUsername, password: password} },
+  })
+})
+Cypress.Commands.add('logout', () => {
+  cy.request({
+    url: '/session',
+    method: 'get',
   })
 })
