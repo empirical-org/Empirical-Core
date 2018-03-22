@@ -195,7 +195,7 @@ describe('Subscription page', function() {
           describe('i can close the modal by', ()=>{
             it('clicking X', function() {
               cy.get('.pull-right').click()
-              cy.get('.modal-body').should("not.exist")
+              cy.get('.modal-body').should('not.exist')
             });
           })
 
@@ -233,7 +233,7 @@ describe('Subscription page', function() {
 
     describe('the next plan alert', ()=>{
       it('should not exist', ()=>{
-        cy.get('.next-plan-alert').should("not.exist")
+        cy.get('.next-plan-alert').should('not.exist')
       })
     })
 
@@ -378,8 +378,8 @@ describe('Subscription page', function() {
         })
 
         it('i can close credit card modal by clicking X', function() {
-          cy.get('.__cypress-highlight').click()
-          cy.get('.modal-body').should("not.exist")
+          cy.get('.pull-right').click()
+          cy.get('.modal-body').should('not.exist')
         });
 
       })
@@ -415,7 +415,7 @@ describe('Subscription page', function() {
 
     describe('the next plan alert', ()=>{
       it('should not exist', ()=>{
-        cy.get('.next-plan-alert').should("not.exist")
+        cy.get('.next-plan-alert').should('not.exist')
       })
     })
 
@@ -437,7 +437,7 @@ describe('Subscription page', function() {
       cy.get('.flex-row > :nth-child(1) > :nth-child(2) > :nth-child(2)').contains('Emilia Friedberg')
     });
   })
-  
+
   describe('when I am not the purchaser of the account', ()=>{
     before(()=>{
       cy.exec('RAILS_ENV=cypress rake find_or_create_cypress_test_data:find_or_create_teacher_with_subscription_they_purchased', {failOnNonZeroExit: false})
