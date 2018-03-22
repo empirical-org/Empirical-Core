@@ -48,6 +48,11 @@ namespace :find_or_create_cypress_test_data do
     find_or_create_sections
   end
 
+  task :find_or_create_teacher_with_classroom, [:wipe_database] => :environment do |t, args|
+    wipe_db
+    find_or_create_teacher_with_classroom
+  end
+
   def wipe_db
     tables = ActiveRecord::Base.connection.tables
     tables.delete 'schema_migrations'
@@ -108,6 +113,22 @@ namespace :find_or_create_cypress_test_data do
       create(:grade_11_section)
       create(:grade_12_section)
       create(:university_section)
+    end
+  end
+
+  def find_or_create_teacher_with_classroom
+    teacher = find_or_create_teacher
+    if teacher.classrooms_i_teach.none?
+      classroom = find_or_create_classroom
+      ClassroomTeacher.find_or_create_by(teacher: teacher, classroom: classroom)
+    end
+  end
+
+  def find_or_create_classroom
+    if Classroom.last
+      Classroom.last
+    else
+      create(:classroom)
     end
   end
 

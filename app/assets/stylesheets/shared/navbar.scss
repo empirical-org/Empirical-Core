@@ -14,7 +14,7 @@
 .navbar {
   display: flex;
   align-items: center;
-  height: 59px;
+  height: 70px;
   background-color: #00c2a2;
   margin-top: 0px;
   border-radius: 0px;
@@ -488,6 +488,13 @@ nav.q-navbar-home {
     .navbar-tooltip {
       width: 261px;
     }
+  &#teacher-center {
+    .navbar-tooltip {
+      .tooltip-link {
+        padding: 13px 20px 13px 25px;
+      }
+    }
+  }
   }
   .navbar-tooltip {
     z-index: 100;
@@ -525,6 +532,9 @@ nav.q-navbar-home {
         box-shadow: 0 1px 2px 0 #e4e4e4;
         i, svg {
           color:  #00947b;
+        }
+        .fa-question {
+          font-size: 20px;
         }
       }
       h3 {
