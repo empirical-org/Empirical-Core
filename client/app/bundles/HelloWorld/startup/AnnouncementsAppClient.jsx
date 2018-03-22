@@ -12,8 +12,9 @@ export default (props) => {
           <p>See what's new with Quill</p>
         </div>
         <form className='width-422' action={`${process.env.DEFAULT_URL}/teacher_resources/search`}>
-        <input type='text' placeholder='Search for posts' name='query'/>
-      </form>
+          <input type='text' placeholder='Search for posts' name='query'/>
+          <i className="fa fa-icon fa-search"/>
+        </form>
       </div>
       <div id="preview-card-container">
         {blogPosts}

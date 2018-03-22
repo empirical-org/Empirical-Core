@@ -19,8 +19,17 @@
   form {
     max-width: 322px;
     width: 100%;
+    position: relative;
+  }
+  .fa-search {
+    color: #666666;
+    position: absolute;
+    left: 10px;
+    top: 12px;
+    font-size: 16px;
   }
   input {
     width: 100%;
+    padding: 9px 12px 9px 30px;
   }
 }
