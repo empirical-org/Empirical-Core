@@ -6,6 +6,7 @@ class SerializeSalesContact
   def data
     {
       contact_uid: teacher.id,
+      method: 'contact',
       params: {
         email: teacher.email,
         name: teacher.name,
