@@ -1,4 +1,4 @@
-describe('Premium Page', () => {
+describe.only('Premium Page', () => {
 
   describe('suscriptions', ()=>{
     before(() =>{
@@ -61,6 +61,20 @@ describe('Premium Page', () => {
         cy.get('#premium-pricing-guide')
       })
 
+
+      describe('school premium', ()=>{
+
+        it('has a link to you can book me', ()=>{
+          cy.get('.pricing-mini > a').should('have.attr', 'href').should('match', /youcanbook/)
+        })
+
+        it('has a purchase button that opens a modal when clicked',()=>{
+          cy.get('.btn.purple')
+          .click().get('.school-premium-modal').get('.pull-right').click()
+        })
+
+      })
+
       describe('teacher premium', ()=>{
         it('does not have a Free Trial', ()=>{
           cy.get('.empty-blue').should('not.exist')
@@ -68,6 +82,8 @@ describe('Premium Page', () => {
 
         it('has a Buy Now button that opens up a modal', ()=>{
           cy.get('#purchase-btn').click()
+          cy.get('.select-credit-card-modal')
+          cy.get('.pull-right').click()
         })
       })
 
