@@ -14,21 +14,15 @@ export default React.createClass({
     }
   },
 
-  getInitialState() {
-    return {
-      isUserSignedIn: ($('#user-logged-in').data().signedIn === true),
-    };
-  },
-
   beginTrialButton() {
-    if (this.props.userIsEligibleForTrial || !this.state.isUserSignedIn) {
+    if (this.props.userIsEligibleForTrial || !this.props.userIsSignedIn) {
       return <button type="button" className="btn btn-default mini-btn empty-blue" onClick={this.beginTrial}>Free Trial</button>;
     }
   },
 
   beginTrial() {
-    if (!this.state.isUserSignedIn === true) {
-      alert('You must be logged in to begin a free trial.');
+    if (!this.props.userIsSignedIn === true) {
+      alert('You must be logged in to activate Premium.');
     } else {
       $.post('/subscriptions', {
         subscription: {
@@ -47,10 +41,10 @@ export default React.createClass({
   },
 
   purchaseButton() {
-    if (this.state.isUserSignedIn === true) {
+    if (this.props.userIsSignedIn === true) {
       return <button type="button" id="purchase-btn" data-toggle="modal" onClick={this.charge} className="btn btn-default mini-btn blue">Buy Now</button>;
     }
-    return <button type="button" id="purchase-btn" onClick={() => alert('You must be logged in to purchase Quill Premium.')} className="btn btn-default mini-btn blue">Buy Now</button>;
+    return <button type="button" id="purchase-btn" onClick={() => alert('You must be logged in to activate Premium.')} className="btn btn-default mini-btn blue">Buy Now</button>;
   },
 
   render() {
