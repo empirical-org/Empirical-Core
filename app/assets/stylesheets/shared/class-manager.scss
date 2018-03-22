@@ -75,8 +75,20 @@
       margin: 0;
     }
   }
+}
 
-
-
-
+@media (max-width: 767px) {
+  .edit-students{
+    width: 95%;
+    padding-bottom: 5%;
+    #static-name-and-grade{
+      margin-bottom: 2%;
+    }
+    .name-and-download{
+      button{
+        background-color: white;
+      }
+      margin-bottom: 2%;
+    }
+  }
 }
