@@ -26,14 +26,6 @@ class SerializeSalesContact
 
   private
 
-  def serialize_stages
-    Hash.new.tap do |hash|
-      teacher.sales_contact.stages.each do |stage|
-        hash[stage.name.parameterize.underscore.to_sym] = stage.completed_at
-      end
-    end
-  end
-
   def teacher_link
     "https://www.quill.org/cms/users/#{teacher.id}/sign_in"
   end
