@@ -47,7 +47,7 @@ export default React.createClass({
           </ul>
         </section>
         <button type="button" onClick={onClickEvent} className="btn btn-default mini-btn purple">Purchase</button>
-        <a href="https://quillpdemo.youcanbook.me/" target="_blank"><button type="button" className="btn btn-default mini-btn empty-purple">Schedule Demo</button></a>
+        <a href="https://quillpremium.youcanbook.me" target="_blank"><button type="button" className="btn btn-default mini-btn empty-purple">Schedule Demo</button></a>
       </div>
     );
   },
