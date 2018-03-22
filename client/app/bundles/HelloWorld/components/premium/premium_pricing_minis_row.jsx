@@ -14,6 +14,7 @@ export default class extends React.Component {
       showPurchaseModal: false,
       subscriptionType: null,
       subscriptionStatus: null,
+      userIsSignedIn: !!Number(document.getElementById('current-user-id').getAttribute('content')),
     };
     this.showPremiumConfirmationModal = this.showPremiumConfirmationModal.bind(this);
     this.showPurchaseModal = this.showPurchaseModal.bind(this);
@@ -60,11 +61,13 @@ export default class extends React.Component {
             {...this.props}
             showPurchaseModal={this.showPurchaseModal}
             hidePurchaseModal={this.hidePurchaseModal}
+            userIsSignedIn={this.state.userIsSignedIn}
           />
         </div>
         <div className="col-md-4">
           <SchoolPricingMini
             {...this.props}
+            userIsSignedIn={this.state.userIsSignedIn}
             showPurchaseModal={this.showPurchaseModalForSchoolPurchase}
             hidePurchaseModal={this.hidePurchaseModal}
           />
