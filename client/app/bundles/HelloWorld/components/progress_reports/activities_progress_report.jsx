@@ -79,6 +79,10 @@ export default React.createClass({
     });
   },
 
+  canViewReport: function() {
+    return this.props.premiumStatus === 'paid' || this.props.premiumStatus === 'trial'
+  },
+
   columnDefinitions: function() {
     // Student, Date, Activity, Score, Standard, Tool
     return [
@@ -215,11 +219,11 @@ export default React.createClass({
 
 
   nonPremiumBlur: function() {
-    return this.props.premiumStatus == 'paid' ? '' : 'non-premium-blur';
+    return this.canViewReport() ? '' : 'non-premium-blur';
   },
 
   downloadReport: function() {
-    if(this.props.premiumStatus == 'paid') {
+    if(this.canViewReport()) {
       return window.open('/teachers/progress_reports/activity_sessions.csv');
     }
     alert('Downloadable reports are a Premium feature. You can visit Quill.org/premium to upgrade now!');
