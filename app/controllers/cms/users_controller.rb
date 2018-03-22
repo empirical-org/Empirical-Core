@@ -94,9 +94,10 @@ class Cms::UsersController < Cms::CmsController
   end
 
   def complete_sales_stage
-    stage = @user.sales_contact.stages.find_by_id(params[:sales_stage_id])
+    success = SalesContactUpdater
+      .new(@user.id, params[:stage_number], current_user).update
 
-    if stage.completed_at.nil? && stage.update(completed_at: Time.now, user: current_user)
+    if success == true
       flash[:success] = 'Stage marked completed'
     else
       flash[:error] = 'Something went wrong'
