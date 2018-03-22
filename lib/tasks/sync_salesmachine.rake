@@ -11,7 +11,7 @@ task :sync_salesmachine => :environment do
       school_ids << school.id
 
       if school_ids.length == 100
-        SyncSalesContactWorker.perform_async(school_ids)
+        SyncSalesAccountWorker.perform_async(school_ids)
         school_ids = []
       end
     end
