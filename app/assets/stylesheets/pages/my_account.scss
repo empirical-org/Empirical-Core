@@ -146,3 +146,86 @@
     }
   }
 }
+
+// @media (max-width: 767px) {
+//   #my-account {
+//     .form-row {
+//       display: flex;
+//       align-items: center;
+//       &.email-row {
+//         position: relative;
+//       }
+//       .form-button {
+//         margin-left: 4%;
+//       }
+//     }
+//     .form-label {
+//       width: 110% !important;
+//     }
+//     .form-input {
+//       input {
+//         margin-left: -125%;
+//         width: 225%;
+//         height: 40px;
+//         border-radius: 3px;
+//         background-color: #ffffff;
+//         border: solid 1px #e9e9e9;
+//         &.inactive {
+//           width: 100%;
+//           background-color: #F7F5F5;
+//           border: dashed 1px #969696;
+//         }
+//       }
+//     }
+//   }
+// }
+
+@media (max-width: 767px) {
+  #my-account {
+    span {
+      div {
+        div {
+          a {
+            margin-left: 29% !important;
+          }
+        }
+      }
+    }
+    div {
+      div {
+        div {
+          button {
+            margin-left: 29% !important;
+          }
+        }
+      }
+    }
+    .form-row {
+      display: grid;
+      grid-template-areas: 20% 80%;
+      &.email-row {
+      }
+      .form-button {
+        margin-left: 25px;
+      }
+    }
+    .form-label {
+      width: 150px;
+    }
+    .form-input {
+      input {
+        margin-top: 2%;
+        margin-bottom: 2%;
+        width: 100%;
+        height: 40px;
+        border-radius: 3px;
+        background-color: #ffffff;
+        border: solid 1px #e9e9e9;
+        &.inactive {
+          background-color: #F7F5F5;
+          border: dashed 1px #969696;
+        }
+      }
+    }
+  }
+}
