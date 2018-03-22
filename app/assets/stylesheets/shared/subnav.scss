@@ -90,4 +90,13 @@
         display: none;
       }
   }
+  &.teacher-center-navbar {
+    @media (max-width: 860px) and (min-width: 800px) {
+      .q-nav-bar a {
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+    }
+
+  }
 }
