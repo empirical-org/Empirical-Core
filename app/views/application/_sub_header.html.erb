@@ -1,6 +1,6 @@
 <% current_path = request.env['PATH_INFO'] %>
 
-<% if ['teachers', 'premium', 'teacher_resources', 'faq'].any? { |str| current_path.include?(str) } %>
+<% if current_path.include?('teachers') %>
 	<% user_dropdown_class = 'on-dashboard' %>
 <% else %>
 	<% user_dropdown_class = 'not-on-dashboard' %>

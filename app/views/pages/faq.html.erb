@@ -1,9 +1,5 @@
-<% if current_user %>
-  <%= render partial: 'teachers/shared/scorebook_tabs' %>
-<% else %>
-  <% @active_tab = 'FAQ' %>
-  <%= render partial: 'pages/shared/discover_tabs', active_tab: @active_tab %>
-<% end %>
+<% @active_tab = 'FAQ' %>
+<%= render partial: 'pages/shared/teacher_center_navbar', active_tab: @active_tab %>
 
 <div class="container pages-container pages-faq">
 

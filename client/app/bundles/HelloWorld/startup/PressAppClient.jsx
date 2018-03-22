@@ -2,9 +2,12 @@ import React from 'react';
 import PreviewCard from '../components/shared/preview_card.jsx';
 
 export default (props) => {
-  const blogPosts = props.blogPosts ? props.blogPosts.map(article =>
+  const content = props.blogPosts.length > 0 ? props.blogPosts.map(article =>
     <PreviewCard content={article.preview_card_content} link={`/teacher_resources/${article.slug}`} />
-  ) : null
+  ) : <div style={{fontSize: '30px', display: 'flex', justifyContent: 'center', height: '60vh', alignItems: 'center', flexDirection: 'column', fontWeight: 'bold'}}>
+        Coming Soon!
+        <img style={{marginTop: '20px'}} src="https://assets.quill.org/images/illustrations/empty-state-premium-reports.svg"/>
+      </div>
     return <div className="announcements-page">
       <div className="header-section">
         <div className="text">
@@ -17,7 +20,7 @@ export default (props) => {
         </form>
       </div>
       <div id="preview-card-container">
-        {blogPosts}
+        {content}
       </div>
     </div>
 
