@@ -4,7 +4,7 @@ describe 'SerializeSalesContact' do
   it 'includes the contact_uid in the data' do
     teacher = create(:user, role: 'teacher')
 
-    teacher_data = SerializeSalesContact.new(teacher.id).contact_data
+    teacher_data = SerializeSalesContact.new(teacher.id).data
 
     expect(teacher_data).to include(contact_uid: teacher.id)
   end
@@ -16,7 +16,7 @@ describe 'SerializeSalesContact' do
       email: 'teach@teaching.edu',
     )
 
-    teacher_data = SerializeSalesContact.new(teacher.id).contact_data
+    teacher_data = SerializeSalesContact.new(teacher.id).data
 
     expect(teacher_data[:params]).to include(
       email: 'teach@teaching.edu',
@@ -34,56 +34,12 @@ describe 'SerializeSalesContact' do
     )
   end
 
-  it 'presents sales stage data if sales contact is avaliable' do
-    teacher = create(:user, role: 'teacher')
-    SalesContactCreator.new(teacher.id).create
-
-    teacher_data = SerializeSalesContact.new(teacher.id).contact_data
-
-    expect(teacher_data[:params]).to include(
-      :"1_basic_subscription" => nil,
-      :"2_teacher_premium" => nil,
-      :"3_1_in_conversation_teacher_responds" => nil,
-      :"3_2_in_conversation_call_missed" => nil,
-      :"3_3_in_conversation_interested" => nil,
-      :"4_quote_requested" => nil,
-      :"5_1_purchase_order_received" => nil,
-      :"5_2_invoice_sent" => nil,
-      :"6_1_school_premium_needs_pd" => nil,
-      :"6_2_school_premium_pd_scheduled" => nil,
-      :"6_3_school_premium_pd_delivered" => nil,
-      :"7_not_interested_in_school_premium" => nil,
-    )
-  end
-
-  it 'presents account data if avaliable' do
-    teacher = create(:user, role: 'teacher')
-    SalesContactCreator.new(teacher.id).create
-
-    school_data = SerializeSalesContact.new(teacher.id).account_data
-
-    expect(school_data[:params]).to include(
-      :"1_basic_subscription" => nil,
-      :"2_teacher_premium" => nil,
-      :"3_1_in_conversation_teacher_responds" => nil,
-      :"3_2_in_conversation_call_missed" => nil,
-      :"3_3_in_conversation_interested" => nil,
-      :"4_quote_requested" => nil,
-      :"5_1_purchase_order_received" => nil,
-      :"5_2_invoice_sent" => nil,
-      :"6_1_school_premium_needs_pd" => nil,
-      :"6_2_school_premium_pd_scheduled" => nil,
-      :"6_3_school_premium_pd_delivered" => nil,
-      :"7_not_interested_in_school_premium" => nil,
-    )
-  end
-
   it 'presents account uid' do
     school = create(:school)
     teacher = create(:user, role: 'teacher')
     school.users << teacher
 
-    teacher_data = SerializeSalesContact.new(teacher.id).contact_data
+    teacher_data = SerializeSalesContact.new(teacher.id).data
 
     expect(teacher_data[:params]).to include(account_uid: school.id)
   end
@@ -93,7 +49,7 @@ describe 'SerializeSalesContact' do
     teacher = create(:user, role: 'teacher')
     create(:schools_admins, school: school, user: teacher)
 
-    teacher_data = SerializeSalesContact.new(teacher.id).contact_data
+    teacher_data = SerializeSalesContact.new(teacher.id).data
 
     expect(teacher_data[:params]).to include(admin: true)
   end
@@ -103,7 +59,7 @@ describe 'SerializeSalesContact' do
     teacher = create(:user, role: 'teacher')
     create(:user_subscription, subscription: subscription, user: teacher)
 
-    teacher_data = SerializeSalesContact.new(teacher.id).contact_data
+    teacher_data = SerializeSalesContact.new(teacher.id).data
 
     expect(teacher_data[:params]).to include(
       premium_status: 'SUPER DUPER SUB',
@@ -118,7 +74,7 @@ describe 'SerializeSalesContact' do
     create(:classrooms_teacher, user: teacher, classroom: classroom)
     create(:students_classrooms, student: student, classroom: classroom)
 
-    teacher_data = SerializeSalesContact.new(teacher.id).contact_data
+    teacher_data = SerializeSalesContact.new(teacher.id).data
 
     expect(teacher_data[:params]).to include(
       number_of_students: 1,
@@ -145,7 +101,7 @@ describe 'SerializeSalesContact' do
     )
 
 
-    teacher_data = SerializeSalesContact.new(teacher.id).contact_data
+    teacher_data = SerializeSalesContact.new(teacher.id).data
 
     expect(teacher_data[:params]).to include(
       number_of_students: 1,
@@ -159,7 +115,7 @@ describe 'SerializeSalesContact' do
     teacher = create(:user, role: 'teacher')
     school.users << teacher
 
-    teacher_data = SerializeSalesContact.new(teacher.id).contact_data
+    teacher_data = SerializeSalesContact.new(teacher.id).data
 
     expect(teacher_data[:params]).to include(frl: 50)
   end
@@ -167,7 +123,7 @@ describe 'SerializeSalesContact' do
   it 'presents teacher link' do
     teacher = create(:user, role: 'teacher')
 
-    teacher_data = SerializeSalesContact.new(teacher.id).contact_data
+    teacher_data = SerializeSalesContact.new(teacher.id).data
 
     expect(teacher_data[:params]).to include(
       teacher_link: "https://www.quill.org/cms/users/#{teacher.id}/sign_in"

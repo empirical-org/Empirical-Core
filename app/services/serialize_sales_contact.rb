@@ -3,7 +3,7 @@ class SerializeSalesContact
     @teacher_id = teacher_id
   end
 
-  def contact_data
+  def data
     {
       contact_uid: teacher.id,
       params: {
@@ -19,25 +19,11 @@ class SerializeSalesContact
         number_of_completed_activities_per_student: activities_per_student,
         frl: free_lunches,
         teacher_link: teacher_link,
-      }.merge(sales_stage_params)
+      }
     }
   end
 
-  def account_data
-    if sales_stage_params.present?
-      { account_uid: account_uid, params: sales_stage_params }
-    end
-  end
-
   private
-
-  def sales_stage_params
-    if teacher.sales_contact.present?
-      serialize_stages
-    else
-      {}
-    end
-  end
 
   def serialize_stages
     Hash.new.tap do |hash|

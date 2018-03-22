@@ -6,16 +6,15 @@ task :sync_salesmachine => :environment do
     .joins(:users)
     .where('users.role = ?', 'teacher')
     .find_each do |school|
-      SyncSalesmachineAccountWorker.perform_async(school.id)
-
-      puts "school_id: #{school.id}"
-
-      school.users.teacher.each do |teacher|
-        SyncSalesmachineContactWorker.perform_async(teacher.id)
-
-        puts " -- teacher_id: #{teacher.id}"
-      end
+      puts "School.id = #{school.id}"
+      data = SerializeSalesAccount.new(school.id).data
+      $smclient.account(data)
     end
 
-  puts "Done"
+  User.joins(:school).where('users.role = ?', 'teacher')
+    .find_each do |teacher|
+      puts "User.id = #{teacher.id}"
+      data = SerializeSalesContact.new(teacher.id).data
+      $smclient.contact(data)
+    end
 end
