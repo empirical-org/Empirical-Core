@@ -5,7 +5,9 @@ class SerializeSalesAccount
   end
 
   def data
-    { account_uid: school.id,
+    {
+      account_uid: school.id,
+      method: 'account',
       params: {
         name: school.name,
         city: school.mail_city,

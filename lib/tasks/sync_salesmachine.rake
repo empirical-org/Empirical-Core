@@ -2,19 +2,28 @@ desc "Sync teacher and school attributes with salesmachine"
 task :sync_salesmachine => :environment do
   puts "Queueing sync workers:"
 
+  school_ids = []
+
   School.distinct
     .joins(:users)
     .where('users.role = ?', 'teacher')
     .find_each do |school|
-      puts "School.id = #{school.id}"
-      data = SerializeSalesAccount.new(school.id).data
-      $smclient.account(data)
+      school_ids << school.id
+
+      if school_ids.length == 100
+        SyncSalesContactWorker.perform_async(school_ids)
+        school_ids = []
+      end
     end
 
-  User.joins(:school).where('users.role = ?', 'teacher')
-    .find_each do |teacher|
-      puts "User.id = #{teacher.id}"
-      data = SerializeSalesContact.new(teacher.id).data
-      $smclient.contact(data)
+  teacher_ids = []
+
+  User.joins(:school).where('users.role = ?', 'teacher').find_each do |teacher|
+    teacher_ids << teacher.id
+
+    if teacher_ids.length == 100
+      SyncSalesContactWorker.perform_async(teacher_ids)
+      teacher_ids = []
     end
+  end
 end
