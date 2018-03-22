@@ -130,6 +130,9 @@ gem 'rack-heartbeat'
 # INTEGRATIONS
 gem 'clever-ruby', '~> 0.13.2'
 
+gem "factory_bot", require: false
+gem "factory_bot_rails", require: false
+
 group :production, :staging do
   gem 'rails_12factor'
   gem 'lograge' # for making logs more dense
@@ -160,8 +163,6 @@ group :test, :development do
   gem "rspec-rails"
   gem 'fuubar', '~> 2.0.0.rc1'
   gem "timecop"
-  gem "factory_bot", require: false
-  gem "factory_bot_rails", require: false
   gem "database_cleaner"
   gem 'byebug', '8.2.1' # getting errors on mac yosemite when trying to install 8.2.2
   gem 'guard'
