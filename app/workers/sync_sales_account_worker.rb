@@ -5,7 +5,7 @@ class SyncSalesAccountWorker
     data = []
 
     school_ids.each do |school_id|
-      data << SerializeAccountContact.new(school_id).data
+      data << SerializeSalesAccount.new(school_id).data
     end
 
     SalesmachineClient.batch(data)
