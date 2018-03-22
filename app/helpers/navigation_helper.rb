@@ -26,10 +26,6 @@ module NavigationHelper
     action_name == 'scorebook'
   end
 
-  def teacher_resources_page_should_be_active?
-    controller.class == BlogPostsController || action_name == 'faq'
-  end
-
   def admin_page_should_be_active?
     action_name == 'admin_dashboard'
   end
@@ -50,7 +46,7 @@ module NavigationHelper
       "Premium  <i class='fa fa-star'></i> Trial Expired"
     when nil
       "Try Premium <i class='fa fa-star'></i>"
-    when 'none' 
+    when 'none'
       "Try Premium <i class='fa fa-star'></i>"
     end
   end
