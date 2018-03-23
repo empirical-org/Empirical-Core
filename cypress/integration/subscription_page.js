@@ -3,7 +3,7 @@ describe('Subscription page', function() {
 
   describe('when I have Quill Basic', ()=>{
     before(function() {
-      cy.exec('RAILS_ENV=cypress rake find_or_create_cypress_test_data:find_or_create_teacher', {failOnNonZeroExit: false})
+      cy.exec('RAILS_ENV=cypress spring rake find_or_create_cypress_test_data:find_or_create_teacher', {failOnNonZeroExit: false})
       cy.login('teacher', 'password')
       cy.visit('/subscriptions')
     })
@@ -41,7 +41,7 @@ describe('Subscription page', function() {
 
   describe('when I have School Quill Premium that is not recurring', ()=>{
     before(()=>{
-      cy.exec('RAILS_ENV=cypress rake find_or_create_cypress_test_data:find_or_create_teacher_with_school_premium', {failOnNonZeroExit: false})
+      cy.exec('RAILS_ENV=cypress spring rake find_or_create_cypress_test_data:find_or_create_teacher_with_school_premium', {failOnNonZeroExit: false})
       cy.login('teacher', 'password')
       cy.visit('/subscriptions')
     })
@@ -94,7 +94,7 @@ describe('Subscription page', function() {
 
   describe('when I have School Quill Premium that is recurring', ()=>{
     before(()=>{
-      cy.exec('RAILS_ENV=cypress rake find_or_create_cypress_test_data:find_or_create_teacher_with_recurring_school_premium', {failOnNonZeroExit: false})
+      cy.exec('RAILS_ENV=cypress spring rake find_or_create_cypress_test_data:find_or_create_teacher_with_recurring_school_premium', {failOnNonZeroExit: false})
       cy.login('teacher', 'password')
       cy.visit('/subscriptions')
     })
@@ -149,7 +149,7 @@ describe('Subscription page', function() {
     const level = 'School'
     const premiumType = `${level} Premium`
     before(()=>{
-      cy.exec('RAILS_ENV=cypress rake find_or_create_cypress_test_data:find_or_create_teacher_with_expired_school_premium', {failOnNonZeroExit: false})
+      cy.exec('RAILS_ENV=cypress spring rake find_or_create_cypress_test_data:find_or_create_teacher_with_expired_school_premium', {failOnNonZeroExit: false})
       cy.login('teacher', 'password')
       cy.visit('/subscriptions')
     })
@@ -246,7 +246,7 @@ describe('Subscription page', function() {
 
   describe('when I have Teacher Quill Premium that is not recurring', ()=>{
     before(()=>{
-      cy.exec('RAILS_ENV=cypress rake find_or_create_cypress_test_data:find_or_create_teacher_with_teacher_premium', {failOnNonZeroExit: false})
+      cy.exec('RAILS_ENV=cypress spring rake find_or_create_cypress_test_data:find_or_create_teacher_with_teacher_premium', {failOnNonZeroExit: false})
       cy.login('teacher', 'password')
       cy.visit('/subscriptions')
     })
@@ -299,7 +299,7 @@ describe('Subscription page', function() {
 
   describe('when I have Teacher Quill Premium that is recurring', ()=>{
     before(()=>{
-      cy.exec('RAILS_ENV=cypress rake find_or_create_cypress_test_data:find_or_create_teacher_with_recurring_teacher_premium', {failOnNonZeroExit: false})
+      cy.exec('RAILS_ENV=cypress spring rake find_or_create_cypress_test_data:find_or_create_teacher_with_recurring_teacher_premium', {failOnNonZeroExit: false})
       cy.login('teacher', 'password')
       cy.visit('/subscriptions')
     })
@@ -354,7 +354,7 @@ describe('Subscription page', function() {
     const level = 'Teacher'
     const premiumType = `${level} Premium`
     before(()=>{
-      cy.exec('RAILS_ENV=cypress rake find_or_create_cypress_test_data:find_or_create_teacher_with_expired_teacher_premium', {failOnNonZeroExit: false})
+      cy.exec('RAILS_ENV=cypress spring rake find_or_create_cypress_test_data:find_or_create_teacher_with_expired_teacher_premium', {failOnNonZeroExit: false})
       cy.login('teacher', 'password')
       // beforeEach(function() {
       //   Cypress.Cookies.preserveOnce("_quill_session")
@@ -428,7 +428,7 @@ describe('Subscription page', function() {
 
   describe('when I am the purchaser of the account', ()=>{
     before(()=>{
-      cy.exec('RAILS_ENV=cypress rake find_or_create_cypress_test_data:find_or_create_teacher_with_subscription_they_purchased', {failOnNonZeroExit: false})
+      cy.exec('RAILS_ENV=cypress spring rake find_or_create_cypress_test_data:find_or_create_teacher_with_subscription_they_purchased', {failOnNonZeroExit: false})
       cy.login('teacher', 'password')
       cy.visit('/subscriptions')
     })
@@ -440,7 +440,7 @@ describe('Subscription page', function() {
 
   describe('when I am not the purchaser of the account', ()=>{
     before(()=>{
-      cy.exec('RAILS_ENV=cypress rake find_or_create_cypress_test_data:find_or_create_teacher_with_school_premium', {failOnNonZeroExit: false})
+      cy.exec('RAILS_ENV=cypress spring rake find_or_create_cypress_test_data:find_or_create_teacher_with_school_premium', {failOnNonZeroExit: false})
       cy.login('teacher', 'password')
       // beforeEach(function() {
       //   Cypress.Cookies.preserveOnce("_quill_session")

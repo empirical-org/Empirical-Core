@@ -89,7 +89,7 @@ describe('Premium Page', () => {
     describe('when I am logged in', () => {
 
       before(() => {
-        cy.exec('RAILS_ENV=cypress rake find_or_create_cypress_test_data:find_or_create_teacher_with_stripe_id', {
+        cy.exec('RAILS_ENV=cypress spring rake find_or_create_cypress_test_data:find_or_create_teacher_with_stripe_id', {
           failOnNonZeroExit: false
         })
         cy.login('teacher', 'password')
@@ -184,7 +184,7 @@ describe('Premium Page', () => {
       describe('when I have school premium', () => {
 
         before(() => {
-          cy.exec('RAILS_ENV=cypress rake find_or_create_cypress_test_data:find_or_create_teacher_with_school_premium', {
+          cy.exec('RAILS_ENV=cypress spring rake find_or_create_cypress_test_data:find_or_create_teacher_with_school_premium', {
             failOnNonZeroExit: false
           })
           cy.login('teacher', 'password')
