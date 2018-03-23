@@ -2,8 +2,10 @@
 
 <% if current_path.include?('teachers') %>
 	<% user_dropdown_class = 'on-dashboard' %>
+	<% user_dropdown_img = 'https://assets.quill.org/images/navbar/navbar-dashboard-solid.svg' %>
 <% else %>
 	<% user_dropdown_class = 'not-on-dashboard' %>
+	<% user_dropdown_img = 'https://assets.quill.org/images/navbar/navbar-dashboard-white.svg' %>
 <% end %>
 
 <% if current_path.include?('tools') %>
@@ -44,12 +46,16 @@
 		<%- elsif current_user.role == 'teacher' %>
 			<div class='navigation-vertical-rule hide-on-mobile nav-element'></div>
 			<div id="nav-user-dropdown" class="dropdown-closed hide-on-mobile nav-element <%= user_dropdown_class %>">
-				<%= link_to raw("<i class='fa fa-book'></i>#{current_user.name}"), '#', onClick: "toggleDropdown()", class: 'user-dropdown-button' %>
+				<%= link_to raw("<img src='#{user_dropdown_img}'></img>#{current_user.name}"), '#', onClick: "toggleDropdown()", class: 'user-dropdown-button' %>
 				<div>
 					<i class="fa fa-caret-up"></i>
-					<%= link_to raw("<i class='fa fa-book'></i>My Dashboard"), dashboard_teachers_classrooms_path %>
+					<%= link_to raw("<img id='dashboard-img' src='https://assets.quill.org/images/navbar/navbar-dashboard-gradient.svg'></img>My Dashboard"),
+						dashboard_teachers_classrooms_path,
+						onmouseover: "mouseOver('dashboard-img', 'https://assets.quill.org/images/navbar/navbar-dashboard-solid.svg')",
+						onmouseout: "mouseOut('dashboard-img', 'https://assets.quill.org/images/navbar/navbar-dashboard-gradient.svg')"
+ 					%>
 					<%= link_to raw("<i class='fa fa-cog'></i>My Account"), teachers_my_account_path %>
-					<%= link_to raw("<i class='fa fa-comments'></i>Support"), 'https://support.quill.org' %>
+					<%= link_to raw("<i class='fa fa-comments'></i>Support"), 'https://support.quill.org', target: "_blank"  %>
 					<%= link_to raw("<i class='fa fa-sign-out'></i>Logout"), '/session' %>
 				</div>
 			</div>
@@ -149,6 +155,18 @@
 			e.currentTarget.classList.remove('focused')
 		} else {
 			e.currentTarget.classList.add('focused')
+		}
+	}
+
+	mouseOver = function(imageId, hoverImageSrc) {
+		if (imageId) {
+			document.getElementById(`${imageId}`).src = `${hoverImageSrc}`
+		}
+	}
+
+	mouseOut = function(imageId, imageSrc) {
+		if (imageId) {
+			document.getElementById(`${imageId}`).src = `${imageSrc}`
 		}
 	}
 

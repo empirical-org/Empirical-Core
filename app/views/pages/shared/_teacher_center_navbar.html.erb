@@ -1,7 +1,7 @@
 <div class="subnav teacher-center-navbar">
   <div class="container">
   <% tabs = [
-    {name: 'All Resourcs', url: 'teacher_resources'},
+    {name: 'All Resources', url: 'teacher_resources'},
     {name: 'Getting Started', url: 'teacher_resources/topic/getting_started'},
     {name: 'Case Studies', url: 'teacher_resources/topic/case_studies'},
     {name: 'Writing Instruction Research', url: 'teacher_resources/topic/education_research'},
@@ -25,7 +25,7 @@
     {name: 'Premium', url: 'premium'},
   ]
   @tabs = tabs
-  if @active_tab == 'All Resourcs'
+  if @active_tab == 'All Resources'
     @active_tab = 'All'
   elsif @active_tab == 'Writing Instruction Research'
     @active_tab = 'Research'

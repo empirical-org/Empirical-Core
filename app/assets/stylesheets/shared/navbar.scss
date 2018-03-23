@@ -69,7 +69,7 @@
     display: flex;
     padding: 0px 12px;
     font-size: 14px;
-    .fa-book {
+    img {
       margin-right: 8px;
     }
     &:focus, &:hover {
@@ -86,6 +86,7 @@
     list-style: none;
     left: 0;
     background-color: #ffffff;
+    z-index: 100;
     .fa-caret-up {
       color: white;
       position: absolute;
@@ -116,7 +117,7 @@
   &.dropdown-closed {
     .user-dropdown-button::after {
       margin-left: 10px;
-      content: "\f077";
+      content: "\f078";
       font-family: "FontAwesome";
     }
     div {
@@ -126,7 +127,7 @@
   &.dropdown-open {
     .user-dropdown-button::after {
       margin-left: 10px;
-      content: "\f078";
+      content: "\f077";
       font-family: "FontAwesome";
     }
   }
@@ -488,13 +489,13 @@ nav.q-navbar-home {
     .navbar-tooltip {
       width: 261px;
     }
+  }
   &#teacher-center {
     .navbar-tooltip {
       .tooltip-link {
         padding: 13px 20px 13px 25px;
       }
     }
-  }
   }
   .navbar-tooltip {
     z-index: 100;
@@ -545,10 +546,10 @@ nav.q-navbar-home {
         margin-bottom: 6px;
       }
       p {
-        font-size: 12px;
+        font-size: 13px;
         color: #949494;
         margin-bottom: 0px;
-        font-weight: 400px;
+        font-weight: 300;
       }
       &:hover {
         text-decoration: none;

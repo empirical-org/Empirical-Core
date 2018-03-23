@@ -1,5 +1,5 @@
-<%= render partial: 'pages/shared/pages_tabs' %>
-<%= render partial: 'pages/shared/impact_subtabs'%>
+<% @active_tab = 'Impact' %>
+<%= render partial: 'pages/shared/our_story_navbar', active_tab: @active_tab %>
 
 <div class="pages-stats">
   <div class="container pages-container">

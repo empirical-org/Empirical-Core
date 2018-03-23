@@ -11,7 +11,7 @@ describe('Our Story Navbar', function() {
 
   it('has a link to the Impact page', function() {
     cy.get('.q-nav-bar > .desktop-nav-list').contains('Impact').click({force: true})
-    cy.url().should('include', '/impact')
+    cy.url().should('include', '/stats')
   })
 
   it('has a link to the Announcements page', function() {
