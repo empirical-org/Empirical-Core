@@ -17,7 +17,7 @@ describe('Teacher Dashboard Subnav', function() {
 
   it('has a link to the Impact page', function() {
     cy.get('#teacher-nav-tabs').contains('Impact').click({force: true})
-    cy.url().should('include', '/impact')
+    cy.url().should('include', '/stats')
   })
 
   it('has a link to the Announcements page', function() {

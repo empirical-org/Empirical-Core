@@ -264,6 +264,9 @@ section.q-hero {
   height: 530px;
   background-image: url(../../../../public/images/homepage/homepage_pattern.png);
   background-position: center center;
+  .navbar {
+    background-color: initial;
+  }
   .header {
     .q-h1 {
       margin-bottom: 0px;

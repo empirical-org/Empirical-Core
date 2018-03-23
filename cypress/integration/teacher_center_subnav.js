@@ -5,7 +5,7 @@ describe('Teacher Center Navbar', function() {
   })
 
   it('has a link to the Featured Activities page', function() {
-    cy.get('.q-nav-bar > .desktop-nav-list').contains('All Resourcs').click({force: true})
+    cy.get('.q-nav-bar > .desktop-nav-list').contains('All Resources').click({force: true})
     cy.url().should('include', '/teacher_resources')
   })
 
