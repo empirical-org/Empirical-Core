@@ -1,13 +1,20 @@
 class SyncSalesContactWorker
   include Sidekiq::Worker
 
-  def perform(teacher_ids)
+  def perform(redis_key)
+    ids = $redis.lrange(redis_key, 0, 99)
+
+    return if ids.blank?
+
     data = []
+    ids.each { |id| data << SerializeSalesContact.new(id).data }
+    response = SalesmachineClient.batch(data)
 
-    teacher_ids.each do |teacher_id|
-      data << SerializeSalesContact.new(teacher_id).data
+    if response.success?
+      $redis.ltrim(redis_key, 100, -1)
+      SyncSalesContactWorker.perform_async(redis_key)
+    else
+      raise response.status.to_s
     end
-
-    SalesmachineClient.batch(data)
   end
 end
