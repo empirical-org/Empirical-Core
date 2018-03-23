@@ -142,14 +142,10 @@ group :development do
   gem 'binding_of_caller', platforms: [:mri_21]
   gem 'foreman'
   gem "letter_opener"
-  gem 'livingstyleguide'
-end
-
-group :development, :cypress do
   gem 'spring'
   gem 'spring-commands-rspec'
+  gem 'livingstyleguide'
 end
-
 
 gem "awesome_print"
 
