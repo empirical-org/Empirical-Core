@@ -15,7 +15,7 @@ class SalesmachineClient
   end
 
   def batch(data)
-    handle_response { make_request(data) }
+    make_request(data)
   end
 
   def make_request(data)
@@ -29,15 +29,5 @@ class SalesmachineClient
 
   def auth_header_value
     "Basic #{Base64.encode64(@api_key + ":")}"
-  end
-
-  def handle_response(&block)
-    response = block.call
-
-    if response.success?
-      true
-    else
-      raise "#{response.status}"
-    end
   end
 end
