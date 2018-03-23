@@ -116,6 +116,10 @@ gem 'therubyracer', require: false
 gem 'uglifier',     require: false
 gem 'kaminari'
 
+# FACTORY BOT (because Cypress needs it not to scoped to test)
+gem "factory_bot", require: false
+gem "factory_bot_rails", require: false
+
 
 # MIDDLEWARE
 gem 'rack-cache', '~> 1.6.1', require: 'rack/cache'
@@ -160,8 +164,6 @@ group :test, :development do
   gem "rspec-rails"
   gem 'fuubar', '~> 2.0.0.rc1'
   gem "timecop"
-  gem "factory_bot", require: false
-  gem "factory_bot_rails", require: false
   gem "database_cleaner"
   gem 'byebug', '8.2.1' # getting errors on mac yosemite when trying to install 8.2.2
   gem 'guard'
