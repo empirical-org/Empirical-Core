@@ -3,7 +3,7 @@ describe('Credit Card Modal', () => {
 
   describe('when I open the modal without a credit card associated with my account', ()=>{
     before(() =>{
-      cy.exec('RAILS_ENV=cypress rake find_or_create_cypress_test_data:find_or_create_teacher', {failOnNonZeroExit: false})
+      cy.exec('RAILS_ENV=cypress spring rake find_or_create_cypress_test_data:find_or_create_teacher', {failOnNonZeroExit: false})
       cy.login('teacher', 'password')
       cy.visit('/premium')
       cy.get('#purchase-btn').click()
@@ -23,7 +23,7 @@ describe('Credit Card Modal', () => {
 
   describe('when I open the modal with a credit card associated with my account', ()=>{
     before(()=>{
-      cy.exec('RAILS_ENV=cypress rake find_or_create_cypress_test_data:find_or_create_teacher_with_stripe_id', {failOnNonZeroExit: false})
+      cy.exec('RAILS_ENV=cypress spring rake find_or_create_cypress_test_data:find_or_create_teacher_with_stripe_id', {failOnNonZeroExit: false})
       cy.login('teacher', 'password')
       beforeEach(() => {
         Cypress.Cookies.preserveOnce('_quill_session')
