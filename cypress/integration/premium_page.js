@@ -1,4 +1,4 @@
-describe.only('Premium Page', () => {
+describe('Premium Page', () => {
 
   const teacherActivePremiumCopy = 'You have an active subscription and cannot buy premium now. If your subscription is a school subscription, you may buy Premium when it expires. If your subscription is a teacher one, please turn on recurring payments and we will renew it automatically when your subscription ends.'
   const schoolActivePremiumCopy = 'You have an active subscription and cannot buy premium now. You may buy a new Premium subscription when your current subscription expires.'
@@ -80,7 +80,7 @@ describe.only('Premium Page', () => {
           cy.on('window:alert', stub)
           cy.get('.btn.purple')
             .click().then(() => {
-              expect(stub.getCall(0)).to.be.calledWith('You must be logged in to purchase Quill Premium.')
+              expect(stub.getCall(0)).to.be.calledWith('You must be logged in to activate Premium.')
             })
         })
       })
