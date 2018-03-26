@@ -9,6 +9,10 @@ EmpiricalGrammar::Application.routes.draw do
 
   mount Sidekiq::Web => '/sidekiq', constraints: StaffConstraint.new
 
+  if Rails.env.test?
+    resources :factories, only: :create
+  end
+
   resources :admins, only: [:show], format: 'json' do
     resources :teachers, only: [:index, :create]
   end

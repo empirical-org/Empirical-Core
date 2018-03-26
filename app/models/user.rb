@@ -47,7 +47,7 @@ class User < ActiveRecord::Base
   validates :name,                  presence: true,
                                     format:       {without: /\t/, message: 'cannot contain tabs'}
 
-  validates_with FullnameValidator
+  validates_with ::FullnameValidator
 
   validates :password,              presence:     { if: :requires_password? }
 
