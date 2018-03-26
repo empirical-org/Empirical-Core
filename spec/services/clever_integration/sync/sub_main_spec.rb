@@ -9,7 +9,7 @@ describe 'CleverIntegration::Sync::SubMain' do
   }
 
   let!(:district_response) {
-    Response = Struct.new(:teachers)
+    response = Struct.new(:teachers)
     teachers = [
       {
         id: 'teacher_id_1',
@@ -22,8 +22,7 @@ describe 'CleverIntegration::Sync::SubMain' do
       }
 
     ]
-    x = Response.new(teachers)
-    x
+    response.new(teachers)
   }
 
   let!(:requesters2) {

@@ -18,11 +18,11 @@ describe UserSubscription, type: :model do
   context 'validates' do
     describe 'presence of' do
       it 'subscription_id' do
-        expect { user_sub.update!(user_id: nil) }.to raise_error
+        expect { user_sub.update!(user_id: nil) }.to raise_error(ActiveRecord::RecordInvalid)
       end
 
       it 'user_id' do
-        expect { user_sub.update!(subscription_id: nil) }.to raise_error
+        expect { user_sub.update!(subscription_id: nil) }.to raise_error(ActiveRecord::RecordInvalid)
       end
     end
   end
@@ -51,6 +51,25 @@ describe UserSubscription, type: :model do
 
       it 'should send the premium email' do
         expect { user_subscription.send_premium_emails }.to change(PremiumSchoolSubscriptionEmailWorker.jobs, :size).by(1)
+      end
+    end
+  end
+
+  context '#self.create_user_sub_from_school_sub_if_they_do_not_have_that_school_sub' do
+    let!(:user) { create(:user, email: 'test@quill.org') }
+    let!(:subscription) { create(:subscription) }
+    let!(:user_subscription) { create(:user_subscription, user: user, subscription: subscription) }
+    describe 'when the user does have the passed subscription' do
+      it "does call #self.create_user_sub_from_school_sub" do
+        expect(UserSubscription).not_to receive(:create_user_sub_from_school_sub)
+        UserSubscription.create_user_sub_from_school_sub_if_they_do_not_have_that_school_sub(user.id, subscription.id)
+      end
+    end
+    describe 'when the user does have the passed subscription' do
+      it "does call #self.create_user_sub_from_school_sub" do
+        expect(UserSubscription).to receive(:create_user_sub_from_school_sub)
+        user_subscription.destroy
+        UserSubscription.create_user_sub_from_school_sub_if_they_do_not_have_that_school_sub(user.id, subscription.id)
       end
     end
   end
