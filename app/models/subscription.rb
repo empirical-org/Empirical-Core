@@ -11,7 +11,6 @@ class Subscription < ActiveRecord::Base
   belongs_to :purchaser, class_name: "User"
   belongs_to :subscription_type
   validates :expiration, presence: true
-  validates :account_limit, presence: true
   after_commit :check_if_purchaser_email_is_in_database
   after_initialize :set_null_start_date_to_today
 
@@ -145,12 +144,12 @@ class Subscription < ActiveRecord::Base
 
   def self.new_teacher_premium_sub(user)
     expiration = school_or_user_has_ever_paid?(user) ? (Date.today + 1.year) : promotional_dates[:expiration]
-    self.new(expiration: expiration, start_date: Date.today, account_type: 'Teacher Paid', recurring: true, account_limit: 1000, purchaser_id: user.id)
+    self.new(expiration: expiration, start_date: Date.today, account_type: 'Teacher Paid', recurring: true, purchaser_id: user.id)
   end
 
   def self.new_school_premium_sub(school, user)
     expiration = school_or_user_has_ever_paid?(school) ? (Date.today + 1.year) : promotional_dates[:expiration]
-    self.new(expiration: expiration, start_date: Date.today, account_type: 'School Paid', recurring: true, account_limit: 1000, purchaser_id: user.id)
+    self.new(expiration: expiration, start_date: Date.today, account_type: 'School Paid', recurring: true, purchaser_id: user.id)
   end
 
   def self.give_teacher_premium_if_charge_succeeds(user)
@@ -276,7 +275,6 @@ class Subscription < ActiveRecord::Base
     # since we're constantizing the type, need to make sure it is capitalized if not already
     school_or_user = type.constantize.find school_or_user_id
     # get school or user object
-    attributes[:account_limit] ||= 1000
     if !attributes[:expiration]
       # if there is no expiration, either give them a trial one or a premium one
       # TODO: 'subscription type spot'

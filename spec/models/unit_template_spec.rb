@@ -47,7 +47,7 @@ describe UnitTemplate, redis: :true, type: :model do
     let(:category) { create(:unit_template_category) }
     let(:author) { create(:author) }
     let(:unit_template1) { create(:unit_template, author: author, unit_template_category: category, activities: []) }
-    let(:json) { 
+    let(:json) {
       {
         activites: [],
         activity_info: nil,
@@ -97,7 +97,7 @@ describe UnitTemplate, redis: :true, type: :model do
   describe '#around_save callback' do
 
     before(:each) do
-      $redis.flushdb
+      $redis.redis.flushdb
       $redis.multi{
         $redis.set('beta_unit_templates', 'a')
         $redis.set('production_unit_templates', 'a')
