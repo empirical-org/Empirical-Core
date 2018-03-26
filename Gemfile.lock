@@ -768,7 +768,7 @@ DEPENDENCIES
   redis-rack-cache
   redis-rails
   responders
-  rspec-rails
+  rspec-rails (~> 3.7.2)
   rspec-redis_helper
   rspec-retry
   rubyzip

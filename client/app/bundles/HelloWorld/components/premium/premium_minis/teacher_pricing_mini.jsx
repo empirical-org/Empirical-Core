@@ -26,7 +26,6 @@ export default React.createClass({
     } else {
       $.post('/subscriptions', {
         subscription: {
-          account_limit: 1000,
           account_type: 'Teacher Trial',
           authenticity_token: $('meta[name=csrf-token]').attr('content'),
         },

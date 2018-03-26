@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Link } from 'react-router';
 
 const SubnavTabs = () => {
   return(
@@ -6,24 +7,24 @@ const SubnavTabs = () => {
       <div className="container">
         <ul>
           <li>
-            <a href="/teachers/admin_dashboard">
+            <Link to="/teachers/admin_dashboard">
               Admin Dashboard
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="/teachers/admin_dashboard/district_activity_scores">
+            <Link to="/teachers/admin_dashboard/district_activity_scores">
               Activity Scores
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="/teachers/admin_dashboard/district_concept_reports">
-              Concept Reports 
-            </a>
+            <Link to="/teachers/admin_dashboard/district_concept_reports">
+              Concept Reports
+            </Link>
           </li>
           <li>
-            <a href="/teachers/admin_dashboard/district_standards_reports">
-             Standards Reports 
-            </a>
+            <Link to="/teachers/admin_dashboard/district_standards_reports">
+             Standards Reports
+            </Link>
           </li>
         </ul>
       </div>
