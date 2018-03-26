@@ -37,7 +37,7 @@ describe Unit, type: :model do
         let!(:non_uniq_unit) {Unit.new(name: unit.name, user: teacher, visible: true)}
 
         it "when visibile == true it must be unique" do
-          expect{non_uniq_unit.save!}.to raise_error
+          expect{non_uniq_unit.save!}.to raise_error(ActiveRecord::RecordInvalid)
         end
 
         it "unless visibility == false" do
@@ -106,7 +106,7 @@ describe Unit, type: :model do
     end
 
   end
-  
+
   describe '#email_lesson_plan' do
     let(:user) { create(:user, email: 'test@quill.org') }
     let(:activity) { create(:activity) }
