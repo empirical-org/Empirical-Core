@@ -12,31 +12,32 @@ describe('Teacher Dashboard Subnav', function() {
 
   it('has a link to the Home page', function() {
     cy.get('#teacher-nav-tabs').contains('Home').click({force: true})
-    cy.url().should('include', '/mission')
+    cy.url().should('include', '/teachers/classrooms/dashboard')
   })
 
-  it('has a link to the Impact page', function() {
-    cy.get('#teacher-nav-tabs').contains('Impact').click({force: true})
-    cy.url().should('include', '/stats')
+  it('has a link to the Classes page', function() {
+    cy.get('#teacher-nav-tabs').contains('Classes').click({force: true})
+    cy.url().should('include', '/teachers/classrooms')
   })
 
-  it('has a link to the Announcements page', function() {
-    cy.get('#teacher-nav-tabs').contains('Announcements').click({force: true})
-    cy.url().should('include', '/announcements')
+  it('has a link to the Assign Activity page', function() {
+    cy.get('#teacher-nav-tabs').contains('Assign Activity').click({force: true})
+    cy.url().should('include', '/teachers/classrooms/assign_activities')
   })
 
-  it('has a link to the In the Press page', function() {
-    cy.get('#teacher-nav-tabs').contains('In the Press').click({force: true})
-    cy.url().should('include', '/press')
+  it('has a link to the My Activities page', function() {
+    cy.get('#teacher-nav-tabs').contains('My Activities').click({force: true})
+    cy.url().should('include', '/teachers/classrooms/activity_planner')
   })
 
-  it('has a link to the Team page', function() {
-    cy.get('#teacher-nav-tabs').contains('Team').click({force: true})
-    cy.url().should('include', '/team')
+  it('has a link to the Student Reports page', function() {
+    cy.get('#teacher-nav-tabs').contains('Student Reports').click({force: true})
+    cy.url().should('include', '/teachers/progress_reports/landing_page')
   })
 
-  it('has a link to the Donate page', function() {
-    cy.get('#teacher-nav-tabs').contains('Donate').should('have.attr', 'href').should('match', /donate/)
+  it('has a link to the Premium page', function() {
+    cy.get('#teacher-nav-tabs').contains('Premium').click({force: true})
+    cy.url().should('include', '/premium')
   })
 
 })

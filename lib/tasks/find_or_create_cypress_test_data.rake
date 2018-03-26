@@ -120,15 +120,15 @@ namespace :find_or_create_cypress_test_data do
     teacher = find_or_create_teacher
     if teacher.classrooms_i_teach.none?
       classroom = find_or_create_classroom
-      ClassroomTeacher.find_or_create_by(teacher: teacher, classroom: classroom)
+      ClassroomsTeacher.find_or_create_by(user: teacher, classroom: classroom, role: 'owner')
     end
   end
 
   def find_or_create_classroom
-    if Classroom.last
-      Classroom.last
+    if Classroom.find_by(name: 'Best Classroom Ever')
+      Classroom.find_by(name: 'Best Classroom Ever')
     else
-      create(:classroom)
+      create(:classroom, name: 'Best Classroom Ever')
     end
   end
 
