@@ -100,6 +100,7 @@
   },
   "dependencies": {
     "actioncable": "^5.1.1",
+    "animejs": "^2.2.0",
     "babel-polyfill": "^6.23.0",
     "caniuse-db": "^1.0.30000693",
     "diff": "^3.2.0",
@@ -139,6 +140,7 @@
     "react-selectize": "^2.1.0",
     "react-simple-pie-chart": "^0.4.1",
     "react-sortable": "^1.2.0",
+    "react-transition-group": "^2.2.1",
     "react-wakelock": "0.0.4",
     "redux-persist": "^4.8.1",
     "request": "^2.72.0",

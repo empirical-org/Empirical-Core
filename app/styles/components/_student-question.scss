@@ -8,6 +8,10 @@
       margin-top: 3px;
     }
 
+    &.success {
+      margin-top: 5px;
+    }
+
     &.revise {
       margin-top: 5px;
     }
@@ -303,6 +307,19 @@ progress[value]::-webkit-progress-value {
   margin-top: 20px;
   border-radius: 2px;
 
+  p {
+    animation: fadein 1s 1;
+
+    @keyframes fadein {
+      0%  {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+  }
+
   &.success {
     background-color: #d3e7bd;
     padding: 13 17 16 20;
@@ -311,12 +328,39 @@ progress[value]::-webkit-progress-value {
     p {
       color: #457818;
     }
+
+    animation: successpulse 1s 1; 
+
+    @keyframes successpulse {
+      0%  {
+        background-color: #d3e7bd;
+      }
+      50% {
+        background-color: #c0e09c; 
+      }
+      100% {
+        background-color: #d3e7bd;
+      }
+    }
   }
 
   &.revise {
     background-color: #ffe4b7;
     padding: 13 17 16 20;
     border-left: 3px solid #f5ba5b;
+    animation: revisepulse 1s 1; 
+
+    @keyframes revisepulse {
+      0%  {
+        background-color: #ffe4b7;
+      }
+      50% {
+        background-color: #f5ba5b; 
+      }
+      100% {
+        background-color: #ffe4b7;
+      }
+    }
 
     p {
       color: #875a12;

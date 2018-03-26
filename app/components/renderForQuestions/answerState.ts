@@ -5,7 +5,7 @@ interface Attempt {
 }
 
 function getAnswerState(attempt): boolean {
-  return (attempt.found && attempt.response.optimal && attempt.response.author === undefined && attempt.author === undefined)
+  return (attempt.response.optimal && attempt.response.author === undefined && attempt.author === undefined)
 }
 
 export default getAnswerState;

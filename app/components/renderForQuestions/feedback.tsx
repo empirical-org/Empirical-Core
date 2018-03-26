@@ -1,14 +1,93 @@
-import React from 'react'
-import _ from 'underscore'
-import icon from '../../img/question_icon.svg'
-import revise from '../../img/revise_orange_icon.svg'
-import multiple from '../../img/multiple_choice_icon.svg'
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import React from 'react';
+import ReactDOM from 'react-dom'
+import _ from 'underscore';
+import icon from '../../img/question_icon.svg';
+import revise from '../../img/revise_orange_icon.svg';
+import multiple from '../../img/multiple_choice_icon.svg';
+import success  from '../../img/check-mark.svg';
+import TransitionGroup from 'react-transition-group/TransitionGroup'
+import anime from 'animejs'
+import getAnswerState from './answerState';
+import {Response} from 'quill-marking-logic';
+
+// let currentAnimation
+
+// const clearCurrentAnimation = () => {
+//   // not sure if this does anything/is necessary?
+//   if (currentAnimation) currentAnimation.pause()
+// }
+
+// const animateIn = (gridContainer) => {
+//   console.log("Animate in")
+//   clearCurrentAnimation()
+//   const cards = gridContainer.querySelectorAll('.student-feedback-container')
+//   currentAnimation = anime.timeline()
+//   .add({
+//     targets: cards,
+//     opacity: 0,
+//     duration: 1
+//   })
+//   .add({
+//     targets: gridContainer,
+//     translateX: [-1000, 0],
+//     opacity: [0, 1],
+//     duration: 400
+//   })
+//   .add({
+//     targets: cards,
+//     duration: 800,
+//     opacity: [0, 1],
+//     translateY: [-30, 0],
+//     delay: function (el, i, l) {
+//       return i * 100
+//     }
+//   })
+// }
+
+// const animateOut = (gridContainer, callback) => {
+//   console.log("Animate out")
+//   clearCurrentAnimation()
+
+//   const cards = gridContainer.querySelectorAll('.student-feedback-container')
+//   currentAnimation = anime.timeline()
+//   .add({
+//     targets: cards,
+//     duration: 700,
+//     opacity: [1, 0],
+//     translateY: -30,
+//     delay: function (el, i, l) {
+//       return i * 100
+//     }
+//   })
+//   .add({
+//     targets: gridContainer,
+//     translateX: 1000,
+//     opacity: [1, 0],
+//     duration: 1000,
+//     complete: callback,
+//     offset: '-=200'
+//   })
+// }
 
 class Feedback extends React.Component<any, any> {
   constructor(props){
     super(props)
   }
+
+  // componentDidAppear() {
+  //   console.log("Appeared")
+  //   animateIn(ReactDOM.findDOMNode(this))
+  // }
+
+  // componentDidEnter() {
+  //   console.log("Entered")
+  //   animateIn(ReactDOM.findDOMNode(this))
+  // }
+
+  // componentWillLeave(callback) {
+  //   console.log("Left")
+  //   animateOut(ReactDOM.findDOMNode(this), callback)
+  // }
 
   getFeedbackType(data?): string {
     if (data) {
@@ -17,7 +96,9 @@ class Feedback extends React.Component<any, any> {
         if (data.override) {
           return "override"
         } else if (latestAttempt.response.feedback !== undefined) {
-          return "revise-matched"
+          const state = getAnswerState(latestAttempt);
+          console.log("state: ", state, latestAttempt);
+          return state ? 'correct-matched' : 'revise-matched'
         } else {
           return "revise-unmatched"
         }
@@ -45,6 +126,9 @@ class Feedback extends React.Component<any, any> {
       case "revise-matched":
         returnVal = "revise"
         break;
+      case "correct-matched":
+        returnVal = "success"
+        break;
       case "override":
       case "instructions":
       case "getQuestion-instructions":
@@ -64,6 +148,9 @@ class Feedback extends React.Component<any, any> {
       case "revise-unmatched":
       case "revise-matched":
         returnVal = "revise"
+        break;
+      case "correct-matched":
+        returnVal = "success"
         break;
       case "override":
         returnVal = "multiple"
@@ -85,21 +172,24 @@ class Feedback extends React.Component<any, any> {
     switch (this.getFeedbackType(data)) {
       case "revise-unmatched":
       case "revise-matched":
-        returnVal = revise
+        returnVal = revise;
+        break;
+      case "correct-matched":
+        returnVal = success;
         break;
       case "override":
-        returnVal = multiple
+        returnVal = multiple;
         break;
       case "instructions":
       case "getQuestion-instructions":
       case "default-with-cues":
       case "default":
-        returnVal = icon
+        returnVal = icon;
         break;
       default: 
-        returnVal = icon
+        returnVal = icon;
     }
-    return returnVal
+    return returnVal;
   } 
 
   getFeedbackCopy(data): string {
@@ -110,6 +200,7 @@ class Feedback extends React.Component<any, any> {
         returnVal = (<p>{data.sentence}</p>);
         break;
       case "revise-matched":
+      case "correct-matched":
         returnVal = data.renderFeedbackStatements(latestAttempt);
         break;
       case "override":
@@ -147,14 +238,10 @@ class Feedback extends React.Component<any, any> {
 
   render() {
     const activeClass = "student-feedback-container " + (this.props ? this.getFeedbackClassName(this.props) : "");
+    const key:number = this.props ? this.props.question.attempts.length : 0;
     return (
-      <div className={activeClass}>
-        <ReactCSSTransitionGroup
-          transitionName="feedback-flash"
-          transitionEnterTimeout={500}
-        >
-          {this.renderFeedback()}
-        </ReactCSSTransitionGroup>
+      <div className={activeClass} key={key}>
+        {this.renderFeedback()}
       </div>
     )
   }
