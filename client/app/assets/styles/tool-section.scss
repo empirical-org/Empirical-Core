@@ -84,11 +84,27 @@ $tool-grey: #f8f9f9;
     .video-section {
       background-image: url("../../../../public/images/homepage/proofreader_pattern.png");
     }
+    .learn-more-button:hover {
+      background-color: #fff;
+      color: #358fe0;
+    }
+    .icon-button:hover {
+      background-color: #6cb3ed;
+      color: #ffffff;
+    }
   }
 
   .diagnostic-tool {
     .video-section {
       background-image: url("../../../../public/images/homepage/diagnostic_pattern.png");
+    }
+    .learn-more-button:hover {
+      background-color: #fff;
+      color: #e8522c;
+    }
+    .icon-button:hover {
+      color: #ffffff;
+      background-color: #ff6473;
     }
   }
 
@@ -96,17 +112,41 @@ $tool-grey: #f8f9f9;
     .video-section {
       background-image: url("../../../../public/images/homepage/connect_pattern.png");
     }
+    .learn-more-button:hover {
+      background-color: #fff;
+      color: #f8a724;
+    }
+    .icon-button:hover {
+      color: #ffffff;
+      background-color: #f9b95c;
+    }
   }
 
   .grammar-tool {
     .video-section {
       background-image: url("../../../../public/images/homepage/grammar_pattern.png");
     }
+    .learn-more-button:hover {
+      background-color: #fff;
+      color: #9c2bde;
+    }
+    .icon-button:hover {
+      color: #ffffff;
+      background-color: #c96cf0;
+    }
   }
 
   .lessons-tool {
     .video-section {
       background-image: url('http://assets.quill.org/images/homepage/lessonspatternhomepage.png')
+    }
+    .learn-more-button:hover {
+      background-color: #fff;
+      color: #a51070;
+    }
+    .icon-button:hover {
+      color: #ffffff;
+      background-color: #e358ab;
     }
   }
 
