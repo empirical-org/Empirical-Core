@@ -4,6 +4,7 @@ import EmptyStateForReport from 'bundles/HelloWorld/components/progress_reports/
 import * as moment from 'moment';
 import 'react-table/react-table.css';
 import { sortByLastName, sortFromSQLTimeStamp } from 'modules/sortingMethods';
+import { Link } from 'react-router';
 
 interface ActivityScoresTableProps {
   data: Array<Object>;
@@ -17,7 +18,16 @@ const ActivityScoresTable = ({ data }) => {
       resizable: false,
       minWidth: 120,
       sortMethod: sortByLastName,
-      Cell: row => row.original.students_name,
+      Cell: (row) => {
+        const classroomId = row.original.classroom_id;
+        const studentId = row.original.student_id;
+        const to = {
+          pathname: '/teachers/admin_dashboard/district_activity_scores/student_overview',
+          search: `?classroom_id=${classroomId}&student_id=${studentId}`
+        }
+
+        return <Link to={to}>{row.original.students_name}</Link>;
+      },
     }, {
       Header: "Completed",
       accessor: 'activity_count',
@@ -75,7 +85,7 @@ const ActivityScoresTable = ({ data }) => {
         showPageSizeOptions={false}
         defaultPageSize={100}
         minRows={1}
-        className='progress-report has-green-arrow'/>
+        className='progress-report activity-scores-table has-green-arrow'/>
       </div>)
   } else {
     return <EmptyStateForReport/>
