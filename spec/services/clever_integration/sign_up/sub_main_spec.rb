@@ -4,7 +4,6 @@ describe 'CleverIntegration::SignUp::SubMain' do
 
   include_context 'clever'
 
-
   def subject
     CleverIntegration::SignUp::SubMain.run(auth_hash, requesters)
   end
@@ -123,17 +122,6 @@ describe 'CleverIntegration::SignUp::SubMain' do
         subject
         expect(classroom.owner).to eq(teacher)
       end
-
-      # it 'creates students for teachers classrooms' do
-      #   subject
-      #   expect(student).to be_present
-      # end
-      #
-      # it 'associates students to teachers classrooms' do
-      #   subject
-      #   expect(student.classrooms).to include(classroom)
-      # end
-
     end
   end
 end

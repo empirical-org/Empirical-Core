@@ -199,7 +199,7 @@ describe Activity, type: :model, redis: :true do
     let!(:cache_activity) { create(:activity, :production) }
 
     it 'sets the default_activity_search for the cache' do
-      $redis.flushdb
+      $redis.redis.flushdb
       Activity.set_activity_search_cache
       expect(JSON.parse($redis.get('default_activity_search'))['activities'].first['uid']).to eq(cache_activity.uid)
     end
@@ -231,7 +231,7 @@ describe Activity, type: :model, redis: :true do
     end
   end
 
-  describe 'user scope' do    
+  describe 'user scope' do
     it 'should return the correct scope for the correct flag' do
       expect(Activity.user_scope('alpha')).to eq(Activity.alpha_user)
       expect(Activity.user_scope('beta')).to eq(Activity.beta_user)
