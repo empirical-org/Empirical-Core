@@ -1,34 +1,33 @@
-class SyncSalesmachineAccount
+class SerializeSalesAccount
 
-  def initialize(school_id, client = $smclient)
+  def initialize(school_id)
     @school_id = school_id
-    @client    = client
   end
 
-  def sync
-    @client.account(account_uid: school.id, params: params)
-  end
-
-  def params
+  def data
     {
-      name: school.name,
-      city: school.mail_city,
-      state: school.mail_state,
-      zipcode: school.mail_zipcode,
-      district: school.leanm,
-      phone: school.phone,
-      charter: school.charter,
-      frl: school.free_lunches,
-      ppin: school.ppin,
-      nces_id: school.nces_id,
-      school_subscription: school_subscription,
-      school_type: school.ulocal_to_school_type,
-      employee_count: employee_count,
-      paid_teacher_subscriptions: paid_teacher_subscriptions,
-      active_students: active_students,
-      buying_stage: 'green field',
-      activities_finished: activities_finished,
-      school_link: school_link,
+      account_uid: school.id,
+      method: 'account',
+      params: {
+        name: school.name,
+        city: school.mail_city,
+        state: school.mail_state,
+        zipcode: school.mail_zipcode,
+        district: school.leanm,
+        phone: school.phone,
+        charter: school.charter,
+        frl: school.free_lunches,
+        ppin: school.ppin,
+        nces_id: school.nces_id,
+        school_subscription: school_subscription,
+        school_type: school.ulocal_to_school_type,
+        employee_count: employee_count,
+        paid_teacher_subscriptions: paid_teacher_subscriptions,
+        active_students: active_students,
+        buying_stage: 'green field',
+        activities_finished: activities_finished,
+        school_link: school_link,
+      }
     }
   end
 
