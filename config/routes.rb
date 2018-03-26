@@ -100,6 +100,7 @@ EmpiricalGrammar::Application.routes.draw do
   put 'make_teacher' => 'students#make_teacher'
   get 'teachers/admin_dashboard' => 'teachers#admin_dashboard'
   get 'teachers/admin_dashboard/district_activity_scores' => 'teachers#admin_dashboard'
+  get 'teachers/admin_dashboard/district_activity_scores/student_overview' => 'teachers#admin_dashboard'
   get 'teachers/admin_dashboard/district_concept_reports' => 'teachers#admin_dashboard'
   get 'teachers/admin_dashboard/district_standards_reports' => 'teachers#admin_dashboard'
   put 'teachers/update_current_user' => 'teachers#update_current_user'
@@ -387,6 +388,7 @@ EmpiricalGrammar::Application.routes.draw do
         get :sign_in
         get :edit_subscription
         get :new_subscription
+        post :complete_sales_stage
       end
       put 'make_admin/:school_id', to: 'users#make_admin', as: :make_admin
       put 'remove_admin/:school_id', to: 'users#remove_admin', as: :remove_admin

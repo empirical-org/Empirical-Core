@@ -26,7 +26,8 @@
     "jest:update": "cd client && npm run jest -- -u",
     "jest:watch": "cd client && npm run jest:watch",
     "jest:coverage": "cd client && npm run jest:coverage",
-    "jest:silent": "cd client && npm run jest:silent"
+    "jest:silent": "cd client && npm run jest:silent",
+    "cypress:open": "cypress open"
   },
   "keywords": [
     "react",
@@ -35,6 +36,7 @@
     "rendering"
   ],
   "dependencies": {
+    "faker": "^4.1.0",
     "gitbook-plugin-rss": "git+https://git@github.com/ddmck/gitbook-plugin-rss.git",
     "istanbul-lib-instrument": "^1.9.1",
     "react-csv": "^1.0.8",
@@ -46,6 +48,7 @@
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
+    "cypress": "^2.1.0",
     "eslint": "^4.6.1",
     "eslint-config-airbnb": "^15.1.0",
     "eslint-plugin-import": "^2.7.0",
