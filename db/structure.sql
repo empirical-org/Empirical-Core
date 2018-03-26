@@ -1337,7 +1337,8 @@ CREATE TABLE referrals_users (
     user_id integer NOT NULL,
     referred_user_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    activated boolean DEFAULT false
 );
 
 
@@ -1430,23 +1431,22 @@ ALTER SEQUENCE rules_misseds_id_seq OWNED BY rules_misseds.id;
 
 
 --
--- Name: sales_accounts; Type: TABLE; Schema: public; Owner: -
+-- Name: sales_contacts; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE sales_accounts (
+CREATE TABLE sales_contacts (
     id integer NOT NULL,
-    school_id integer,
-    data jsonb DEFAULT '{}'::jsonb,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    user_id integer NOT NULL,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
 );
 
 
 --
--- Name: sales_accounts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: sales_contacts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE sales_accounts_id_seq
+CREATE SEQUENCE sales_contacts_id_seq
     AS integer
     START WITH 1
     INCREMENT BY 1
@@ -1456,10 +1456,80 @@ CREATE SEQUENCE sales_accounts_id_seq
 
 
 --
--- Name: sales_accounts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: sales_contacts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE sales_accounts_id_seq OWNED BY sales_accounts.id;
+ALTER SEQUENCE sales_contacts_id_seq OWNED BY sales_contacts.id;
+
+
+--
+-- Name: sales_stage_types; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE sales_stage_types (
+    id integer NOT NULL,
+    description text,
+    name text NOT NULL,
+    "order" character varying NOT NULL,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    trigger integer
+);
+
+
+--
+-- Name: sales_stage_types_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE sales_stage_types_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: sales_stage_types_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE sales_stage_types_id_seq OWNED BY sales_stage_types.id;
+
+
+--
+-- Name: sales_stages; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE sales_stages (
+    id integer NOT NULL,
+    user_id integer,
+    sales_stage_type_id integer NOT NULL,
+    sales_contact_id integer NOT NULL,
+    completed_at timestamp without time zone,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: sales_stages_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE sales_stages_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: sales_stages_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE sales_stages_id_seq OWNED BY sales_stages.id;
 
 
 --
@@ -1733,7 +1803,6 @@ ALTER SEQUENCE subscription_types_id_seq OWNED BY subscription_types.id;
 CREATE TABLE subscriptions (
     id integer NOT NULL,
     expiration date,
-    account_limit integer,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     account_type character varying,
@@ -1937,65 +2006,6 @@ ALTER SEQUENCE units_id_seq OWNED BY units.id;
 
 
 --
--- Name: users; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE users (
-    id integer NOT NULL,
-    name character varying(255),
-    email character varying(255),
-    password_digest character varying(255),
-    role character varying(255) DEFAULT 'user'::character varying,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    classcode character varying(255),
-    active boolean DEFAULT false,
-    username character varying(255),
-    token character varying(255),
-    ip_address inet,
-    clever_id character varying(255),
-    signed_up_with_google boolean DEFAULT false,
-    send_newsletter boolean DEFAULT false,
-    flag character varying,
-    google_id character varying,
-    last_sign_in timestamp without time zone,
-    last_active timestamp without time zone,
-    stripe_customer_id character varying
-);
-
-
---
--- Name: untitled_materialized_view; Type: MATERIALIZED VIEW; Schema: public; Owner: -
---
-
-CREATE MATERIALIZED VIEW untitled_materialized_view AS
- SELECT ((sum(a.total_students) / sum(b.total_students)) * (( SELECT count(DISTINCT s.id) AS students
-           FROM ((((((users t
-             LEFT JOIN ip_locations ON ((ip_locations.user_id = t.id)))
-             LEFT JOIN classrooms ON ((t.id = classrooms.teacher_id)))
-             LEFT JOIN users s ON (((classrooms.code)::text = (s.classcode)::text)))
-             LEFT JOIN activity_sessions ON ((s.id = activity_sessions.user_id)))
-             LEFT JOIN schools_users ON ((t.id = schools_users.user_id)))
-             LEFT JOIN schools ON ((schools_users.school_id = schools.id)))
-          WHERE (((activity_sessions.state)::text = 'finished'::text) AND (activity_sessions.completed_at < date_trunc('DAY'::text, (('now'::text)::date - '1 year'::interval))) AND ((ip_locations.country IS NULL) OR ((ip_locations.country)::text = 'United States'::text)))))::numeric)
-   FROM ( SELECT count(DISTINCT students.id) AS total_students
-           FROM ((((schools s
-             JOIN schools_users ON ((schools_users.school_id = s.id)))
-             JOIN users teacher ON ((schools_users.user_id = teacher.id)))
-             JOIN classrooms ON ((teacher.id = classrooms.teacher_id)))
-             JOIN users students ON (((students.classcode)::text = (classrooms.code)::text)))
-          WHERE ((schools_users.school_id IS NOT NULL) AND (s.free_lunches >= 40))) a,
-    ( SELECT count(DISTINCT students.id) AS total_students
-           FROM ((((schools s
-             JOIN schools_users ON ((schools_users.school_id = s.id)))
-             JOIN users teacher ON ((schools_users.user_id = teacher.id)))
-             JOIN classrooms ON ((teacher.id = classrooms.teacher_id)))
-             JOIN users students ON (((students.classcode)::text = (classrooms.code)::text)))
-          WHERE (schools_users.school_id IS NOT NULL)) b
-  WITH NO DATA;
-
-
---
 -- Name: user_milestones; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -2057,6 +2067,34 @@ CREATE SEQUENCE user_subscriptions_id_seq
 --
 
 ALTER SEQUENCE user_subscriptions_id_seq OWNED BY user_subscriptions.id;
+
+
+--
+-- Name: users; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE users (
+    id integer NOT NULL,
+    name character varying(255),
+    email character varying(255),
+    password_digest character varying(255),
+    role character varying(255) DEFAULT 'user'::character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    classcode character varying(255),
+    active boolean DEFAULT false,
+    username character varying(255),
+    token character varying(255),
+    ip_address inet,
+    clever_id character varying(255),
+    signed_up_with_google boolean DEFAULT false,
+    send_newsletter boolean DEFAULT false,
+    flag character varying,
+    google_id character varying,
+    last_sign_in timestamp without time zone,
+    last_active timestamp without time zone,
+    stripe_customer_id character varying
+);
 
 
 --
@@ -2345,10 +2383,24 @@ ALTER TABLE ONLY rules_misseds ALTER COLUMN id SET DEFAULT nextval('rules_missed
 
 
 --
--- Name: sales_accounts id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: sales_contacts id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY sales_accounts ALTER COLUMN id SET DEFAULT nextval('sales_accounts_id_seq'::regclass);
+ALTER TABLE ONLY sales_contacts ALTER COLUMN id SET DEFAULT nextval('sales_contacts_id_seq'::regclass);
+
+
+--
+-- Name: sales_stage_types id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY sales_stage_types ALTER COLUMN id SET DEFAULT nextval('sales_stage_types_id_seq'::regclass);
+
+
+--
+-- Name: sales_stages id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY sales_stages ALTER COLUMN id SET DEFAULT nextval('sales_stages_id_seq'::regclass);
 
 
 --
@@ -2768,11 +2820,27 @@ ALTER TABLE ONLY rules_misseds
 
 
 --
--- Name: sales_accounts sales_accounts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: sales_contacts sales_contacts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY sales_accounts
-    ADD CONSTRAINT sales_accounts_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY sales_contacts
+    ADD CONSTRAINT sales_contacts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: sales_stage_types sales_stage_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY sales_stage_types
+    ADD CONSTRAINT sales_stage_types_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: sales_stages sales_stages_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY sales_stages
+    ADD CONSTRAINT sales_stages_pkey PRIMARY KEY (id);
 
 
 --
@@ -2992,20 +3060,6 @@ CREATE INDEX index_activity_sessions_on_completed_at ON activity_sessions USING 
 --
 
 CREATE INDEX index_activity_sessions_on_pairing_id ON activity_sessions USING btree (pairing_id);
-
-
---
--- Name: index_activity_sessions_on_started_at; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_activity_sessions_on_started_at ON activity_sessions USING btree (started_at);
-
-
---
--- Name: index_activity_sessions_on_state; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_activity_sessions_on_state ON activity_sessions USING btree (state);
 
 
 --
@@ -3331,6 +3385,13 @@ CREATE UNIQUE INDEX index_oauth_applications_on_uid ON oauth_applications USING 
 
 
 --
+-- Name: index_referrals_users_on_activated; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_referrals_users_on_activated ON referrals_users USING btree (activated);
+
+
+--
 -- Name: index_referrals_users_on_referred_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -3359,10 +3420,38 @@ CREATE UNIQUE INDEX index_referrer_users_on_user_id ON referrer_users USING btre
 
 
 --
--- Name: index_sales_accounts_on_school_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_sales_contacts_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_sales_accounts_on_school_id ON sales_accounts USING btree (school_id);
+CREATE INDEX index_sales_contacts_on_user_id ON sales_contacts USING btree (user_id);
+
+
+--
+-- Name: index_sales_stage_types_on_name_and_order; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_sales_stage_types_on_name_and_order ON sales_stage_types USING btree (name, "order");
+
+
+--
+-- Name: index_sales_stages_on_sales_contact_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_sales_stages_on_sales_contact_id ON sales_stages USING btree (sales_contact_id);
+
+
+--
+-- Name: index_sales_stages_on_sales_stage_type_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_sales_stages_on_sales_stage_type_id ON sales_stages USING btree (sales_stage_type_id);
+
+
+--
+-- Name: index_sales_stages_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_sales_stages_on_user_id ON sales_stages USING btree (user_id);
 
 
 --
@@ -3836,11 +3925,19 @@ ALTER TABLE ONLY units
 
 
 --
--- Name: sales_accounts fk_rails_3edb0acfb0; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: sales_stages fk_rails_41082adef9; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY sales_accounts
-    ADD CONSTRAINT fk_rails_3edb0acfb0 FOREIGN KEY (school_id) REFERENCES schools(id);
+ALTER TABLE ONLY sales_stages
+    ADD CONSTRAINT fk_rails_41082adef9 FOREIGN KEY (sales_contact_id) REFERENCES sales_contacts(id);
+
+
+--
+-- Name: sales_stages fk_rails_a8025d2621; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY sales_stages
+    ADD CONSTRAINT fk_rails_a8025d2621 FOREIGN KEY (user_id) REFERENCES users(id);
 
 
 --
@@ -3849,6 +3946,22 @@ ALTER TABLE ONLY sales_accounts
 
 ALTER TABLE ONLY concept_results
     ADD CONSTRAINT fk_rails_cebe4a6023 FOREIGN KEY (activity_classification_id) REFERENCES activity_classifications(id);
+
+
+--
+-- Name: sales_contacts fk_rails_d6738e130a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY sales_contacts
+    ADD CONSTRAINT fk_rails_d6738e130a FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
+-- Name: sales_stages fk_rails_e5da9d6c2d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY sales_stages
+    ADD CONSTRAINT fk_rails_e5da9d6c2d FOREIGN KEY (sales_stage_type_id) REFERENCES sales_stage_types(id);
 
 
 --
@@ -4305,6 +4418,8 @@ INSERT INTO schema_migrations (version) VALUES ('20180119162847');
 
 INSERT INTO schema_migrations (version) VALUES ('20180122184126');
 
+INSERT INTO schema_migrations (version) VALUES ('20180123151650');
+
 INSERT INTO schema_migrations (version) VALUES ('20180126191518');
 
 INSERT INTO schema_migrations (version) VALUES ('20180126203911');
@@ -4363,8 +4478,6 @@ INSERT INTO schema_migrations (version) VALUES ('20180222160302');
 
 INSERT INTO schema_migrations (version) VALUES ('20180222190628');
 
-INSERT INTO schema_migrations (version) VALUES ('20180226173947');
-
 INSERT INTO schema_migrations (version) VALUES ('20180227193833');
 
 INSERT INTO schema_migrations (version) VALUES ('20180227215931');
@@ -4380,4 +4493,26 @@ INSERT INTO schema_migrations (version) VALUES ('20180307212219');
 INSERT INTO schema_migrations (version) VALUES ('20180308203054');
 
 INSERT INTO schema_migrations (version) VALUES ('20180312180605');
+
+INSERT INTO schema_migrations (version) VALUES ('20180312204645');
+
+INSERT INTO schema_migrations (version) VALUES ('20180319133511');
+
+INSERT INTO schema_migrations (version) VALUES ('20180319145514');
+
+INSERT INTO schema_migrations (version) VALUES ('20180319145837');
+
+INSERT INTO schema_migrations (version) VALUES ('20180319145946');
+
+INSERT INTO schema_migrations (version) VALUES ('20180319165718');
+
+INSERT INTO schema_migrations (version) VALUES ('20180319192659');
+
+INSERT INTO schema_migrations (version) VALUES ('20180319195339');
+
+INSERT INTO schema_migrations (version) VALUES ('20180319200940');
+
+INSERT INTO schema_migrations (version) VALUES ('20180319201128');
+
+INSERT INTO schema_migrations (version) VALUES ('20180319201311');
 

@@ -67,6 +67,8 @@ export default class extends React.Component {
       case 'Trial':
         content.pCopy = teacherPremiumCopy;
         image = 'teacher_premium_icon.png';
+        content.status = <h2>{'You have a Teacher Premium subscription'}<img src={`https://assets.quill.org/images/shared/${image}`} alt={`${subscriptionType}`} /></h2>;
+        content.boxColor = '#348fdf';
         break;
       case 'School':
         content.pCopy = schoolPremiumCopy;
