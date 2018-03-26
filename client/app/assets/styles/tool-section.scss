@@ -387,6 +387,9 @@ $tool-grey: #f8f9f9;
     font-size: 36px;
     margin-top: 0px;
     margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   .description {
     margin: auto;
