@@ -1,27 +1,26 @@
-class SyncSalesmachineContact
-  def initialize(teacher_id, client = $smclient)
+class SerializeSalesContact
+  def initialize(teacher_id)
     @teacher_id = teacher_id
-    @client = client
   end
 
-  def sync
-    @client.contact({ contact_uid: @teacher_id, params: params })
-  end
-
-  def params
+  def data
     {
-      email: teacher.email,
-      name: teacher.name,
-      account_uid: account_uid,
-      signed_up: teacher.created_at.to_i,
-      admin: teacher.admin?,
-      premium_status: premium_status,
-      premium_expiry_date: premium_expiration_date,
-      number_of_students: number_of_students,
-      number_of_completed_activities: number_of_completed_activities,
-      number_of_completed_activities_per_student: activities_per_student,
-      frl: free_lunches,
-      teacher_link: teacher_link,
+      contact_uid: teacher.id,
+      method: 'contact',
+      params: {
+        email: teacher.email,
+        name: teacher.name,
+        account_uid: account_uid,
+        signed_up: teacher.created_at.to_i,
+        admin: teacher.admin?,
+        premium_status: premium_status,
+        premium_expiry_date: premium_expiration_date,
+        number_of_students: number_of_students,
+        number_of_completed_activities: number_of_completed_activities,
+        number_of_completed_activities_per_student: activities_per_student,
+        frl: free_lunches,
+        teacher_link: teacher_link,
+      }
     }
   end
 

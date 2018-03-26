@@ -2,7 +2,12 @@ class Cms::SchoolsController < Cms::CmsController
   before_filter :signed_in!
 
   before_action :text_search_inputs, only: [:index, :search]
-  before_action :set_school, only: [:new_subscription, :edit_subscription, :show]
+  before_action :set_school, only: [
+    :new_subscription,
+    :edit_subscription,
+    :show,
+    :complete_sales_stage,
+  ]
   before_action :get_subscription_data, only: [:new_subscription, :edit_subscription]
 
   SCHOOLS_PER_PAGE = 10.0
