@@ -19,10 +19,10 @@
 
   <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
   <%= render partial: 'typekit' unless Rails.env.test? %>
-  <%= stylesheet_pack_tag('app') %>
-  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_pack_tag('vendor') %>
   <%= javascript_pack_tag(@js_file || 'app') %>
+  <%= stylesheet_pack_tag('app') %>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
   <meta id='current-user-flag' property="flag" content=<%= current_user&.flag%> />
   <meta id='current-user-id' property="id" content=<%= current_user&.id%> />

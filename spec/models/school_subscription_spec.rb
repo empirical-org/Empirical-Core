@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 describe SchoolSubscription, type: :model do
+  let!(:school_sub) {create(:school_subscription)}
+
   it { should validate_presence_of(:school_id) }
   it { should validate_presence_of(:subscription_id) }
 
@@ -9,16 +11,11 @@ describe SchoolSubscription, type: :model do
   it { is_expected.to callback(:update_schools_users).after(:commit) }
   it { is_expected.to callback(:send_premium_emails).after(:create) }
 
-    describe "presence of" do
-      it "school_id" do
-        expect{school_sub.update!(school_id: nil)}.to raise_error
-      end
+  describe "presence of" do
+    it "school_id" do
+      expect{school_sub.update!(school_id: nil)}.to raise_error(ActiveRecord::RecordInvalid)
     end
-
-
-
-let!(:school_sub) {create(:school_subscription)}
-
+  end
 
   context '#update_schools_users' do
     let(:user) { create(:user) }

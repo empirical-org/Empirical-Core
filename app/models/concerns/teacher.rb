@@ -293,7 +293,7 @@ module Teacher
     school = School.find(school_id)
     if school && school.subscription
       # then we let the user subscription handle everything else
-      UserSubscription.create_user_sub_from_school_sub(self.id, school.subscription.id)
+      UserSubscription.create_user_sub_from_school_sub_if_they_do_not_have_that_school_sub(self.id, school.subscription.id)
     end
   end
 
