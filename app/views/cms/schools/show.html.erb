@@ -55,28 +55,6 @@
       <p><%= v || 'N/A' %></p>
     <% end %>
     <br /><br />
-    <h2>Sales Account Stage</h2>
-    <table class='cms-results-table'>
-      <thead>
-        <tr>
-          <td>Stage</td>
-          <td>Completed</td>
-        </tr>
-      </thead>
-      <tbody>
-        <% SalesAccount::STAGES.each do |stage| %>
-          <tr>
-            <td>
-              <%= stage.titleize %>
-            </td>
-            <td>
-              <%= link_to('Mark Completed', '#') %>
-            </td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-    <br /><br />
     <h2>All Admins</h2>
     <% if @admins.any? %>
       <table class='cms-results-table'>
