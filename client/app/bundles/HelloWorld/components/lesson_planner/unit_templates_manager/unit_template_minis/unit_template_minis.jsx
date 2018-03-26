@@ -3,6 +3,7 @@
  import React from 'react'
  import { Link } from 'react-router'
  import UnitTemplateMini from './unit_template_mini/unit_template_mini'
+ import ListFilterOptions from '../../../shared/list_filter_options/list_filter_options'
  import RowsCreator from '../../../modules/rows_creator'
  import _ from 'underscore'
  import _l from 'lodash'
@@ -65,6 +66,14 @@
     }
   },
 
+  renderListFilterOptions: function(){
+    return (
+      <div className='row'>
+        {this.listFilterOptions()}
+      </div>
+    )
+},
+
   colView: function (data, index) {
     return (
       <div className={`small-screen-unit-template-container`} key={index}>
@@ -75,6 +84,22 @@
 
   rowView: function (cols, index) {
     return <div className="flex-row space-between small-screen-unit-templates-container" key={index}>{cols}</div>;
+  },
+
+  listFilterOptions: function () {
+    if (this.props.data.grade) {
+      return
+    }
+    else {
+      return (
+            <ListFilterOptions
+                    key='listFilterOptions'
+                    userLoggedIn={this.userLoggedIn()}
+                    options={this.props.data.categories || []}
+                    selectedId={this.props.data.selectedCategoryId}
+                    />
+      );
+    }
   },
 
   userLoggedIn: function () {
@@ -90,6 +115,7 @@
       <div className="container">
         <div className='row'>
           <div className='col-xs-12'>
+              {this.renderListFilterOptions()}
               {this.generateShowAllGradesView()}
             <div className='row'>
             {this.generateUnitTemplateViews()}
