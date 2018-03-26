@@ -36,7 +36,7 @@ export default class extends React.Component {
   }
 
   hidePurchaseModal() {
-    this.setState({ showPurchaseModal: false, });
+    this.setState({ showPurchaseModal: false, subscriptionType: null, });
   }
 
   showPurchaseModalForSchoolPurchase() {
