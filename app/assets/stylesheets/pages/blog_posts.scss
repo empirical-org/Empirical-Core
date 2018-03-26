@@ -61,6 +61,9 @@ body {
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
+  @media (min-width: 991px) {
+    justify-content: space-between;
+  }
 
   a:hover {
     text-decoration: none;
@@ -68,56 +71,6 @@ body {
 }
 
 #knowledge-center {
-  header {
-    background: linear-gradient(#3cb79e, rgba(66, 142, 123, 0.87)) #3cb79e;
-    color: $white;
-    margin-left: -100%;
-    margin-right: -100%;
-    text-align: center;
-    padding: 40px 20px 20px;
-
-    h1 {
-      font-size: 30px;
-      font-weight: 700;
-      margin-bottom: 10px;
-    }
-
-    h2 {
-      font-size: 16px;
-    }
-
-    h3 {
-      color: #00c2a2;
-      font-size: 14px;
-      font-weight: 600;
-      margin-bottom: 6px;
-
-      a {
-        color: $white;
-      }
-    }
-
-    .width-422 {
-      margin: 24px auto 0;
-      text-align: left;
-      width: 422px;
-    }
-
-    input {
-      background: url('https://assets.quill.org/images/icons/diagnostic-forest-green.svg') no-repeat white;
-      background-position: 11px;
-      border: none;
-      display: block;
-      margin-bottom: 18px;
-      padding: 12px 12px 12px 43px;
-      width: 100%;
-    }
-
-    #most-read-post {
-      color: #00c2a2;
-    }
-  }
-
   nav {
     margin: 35px auto;
     font-weight: 600;
@@ -154,6 +107,9 @@ body {
   section {
     border-bottom: none;
     margin-bottom: 0;
+    &:first-of-type {
+      padding-top: 0px;
+    }
 
     .meta {
       align-items: center;
@@ -162,19 +118,25 @@ body {
 
       h1 {
         font-size: 20px;
-        font-weight: 700;
+        font-weight: 600;
+      	color: #666666;
         margin-right: 15px;
+        flex: 2;
       }
 
       h2 {
         font-size: 16px;
         color: #c0c0c0;
         flex-grow: 1;
+        margin-right: 14px;
+        display: flex;
+        justify-content: flex-end;
       }
 
       a {
         color: $quillforestgreen;
         font-size: 14px;
+        margin-bottom: -2px;
       }
     }
 
@@ -307,7 +269,7 @@ a.all-blog-posts-back-button {
   background: #ffffff;
 
 
-  div p img { 
+  div p img {
     max-width: 100%;
   }
 
