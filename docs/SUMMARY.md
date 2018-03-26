@@ -44,3 +44,4 @@
   * [Activities Endpoints](apis/activities_endpoints.md)
   * [Classroom Activity Endpoints](apis/classroom_activity_endpoints.md)
   * [Users Endpoints](apis/users_endpoints.md)
+* [Cypress Tests](cypress/index.md)
