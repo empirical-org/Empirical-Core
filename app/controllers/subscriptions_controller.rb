@@ -19,10 +19,6 @@ class SubscriptionsController < ApplicationController
   end
 
   def create
-    if (['Teacher Trial', 'Teacher Sponsored Free', 'Teacher Sponsored Free'].include? subscription_params[:account_type]) && current_user.eligible_for_trial?
-      params[:expiration] = Date.today + 30
-      PremiumAnalyticsWorker.perform_async(current_user.id, subscription_params[:account_type])
-    end
     attributes = subscription_params
     attributes[:purchaser_id] ||= current_user.id
     attributes.delete(:authenticity_token)
@@ -93,7 +89,7 @@ class SubscriptionsController < ApplicationController
   end
 
   def subscription_params
-    params.require(:subscription).permit( :id, :purchaser_id, :expiration, :account_type, :account_limit, :authenticity_token, :recurring)
+    params.require(:subscription).permit( :id, :purchaser_id, :expiration, :account_type, :authenticity_token, :recurring)
   end
 
 
