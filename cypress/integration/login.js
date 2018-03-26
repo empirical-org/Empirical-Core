@@ -1,7 +1,7 @@
 describe('Login page', function() {
 
   before(function() {
-    cy.exec('RAILS_ENV=cypress rake add_cypress_test_data:add_users', {failOnNonZeroExit: false})
+    cy.exec('RAILS_ENV=cypress spring rake find_or_create_cypress_test_data:find_or_create_users', {failOnNonZeroExit: false})
   })
 
   it('loads', function() {
@@ -15,7 +15,7 @@ describe('Login page', function() {
       .should('have.value', 'teacher')
 
       cy.get('input[name="user[password]"]')
-      .type(`password{enter}`)
+      .type('password{enter}')
 
     })
     it('brings me to a different page', function() {
@@ -32,7 +32,7 @@ describe('Login page', function() {
       .should('have.value', 'student')
 
       cy.get('input[name="user[password]"]')
-      .type(`notmypassword{enter}`)
+      .type('notmypassword{enter}')
     })
 
     it('shows an error', function() {
