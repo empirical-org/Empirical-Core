@@ -1,5 +1,6 @@
 describe('Home page', function() {
   beforeEach(function() {
+    cy.logout();
     cy.visit('/')
   })
 
