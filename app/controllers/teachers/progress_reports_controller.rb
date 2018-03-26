@@ -1,6 +1,5 @@
 class Teachers::ProgressReportsController < ApplicationController
   before_action :authorize!, except: [:demo, :admin_demo]
-  # before_action :handle_expired_trial, except: :demo
   before_action :set_vary_header, if: -> { request.xhr? || request.format == :json }
   layout 'progress_reports'
 
@@ -65,13 +64,7 @@ class Teachers::ProgressReportsController < ApplicationController
     render 'student_overview'
   end
 
-
-
   private
-
-  # def handle_expired_trial
-  #   render :trial_expired if (current_user.premium_state == 'locked')
-  # end
 
   def authorize!
     return if current_user.try(:teacher?)

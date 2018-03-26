@@ -4,7 +4,7 @@ import $ from 'jquery';
 export default React.createClass({
 
   beginTrial() {
-    $.post('/subscriptions', { subscription: { account_limit: 1000, account_type: 'Teacher Trial', }, })
+    $.post('/subscriptions', { subscription: { account_type: 'Teacher Trial', }, })
       .success(() => { window.location.assign('/'); });
   },
 

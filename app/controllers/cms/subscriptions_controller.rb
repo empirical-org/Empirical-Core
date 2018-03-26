@@ -40,7 +40,6 @@ class Cms::SubscriptionsController < Cms::CmsController
     params.require(:subscription).permit([
      :id,
      :expiration,
-     :account_limit,
      :created_at,
      :updated_at,
      :account_type,

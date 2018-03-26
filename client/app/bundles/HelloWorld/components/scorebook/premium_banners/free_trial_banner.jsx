@@ -9,7 +9,7 @@ export default React.createClass({
   },
 
   beginTrial() {
-    $.post('/subscriptions', { subscription: { account_limit: 1000, account_type: 'trial', }, })
+    $.post('/subscriptions', { subscription: { account_type: 'trial', }, })
     .success(this.setState({ trial_started: true, }));
   },
 

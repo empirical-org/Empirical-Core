@@ -30,7 +30,7 @@ module Demo::AdminReportDemoCreator
     teachers << admin_teacher
 
     # Upgrade everyone to premium
-    subscription_id = Subscription.create!(purchaser_id: admin_teacher.id, account_type: 'Demo Premium', expiration: Date.today + 100.years, account_limit: 1000).id
+    subscription_id = Subscription.create!(purchaser_id: admin_teacher.id, account_type: 'Demo Premium', expiration: Date.today + 100.years).id
     teachers.each do |teacher|
       UserSubscription.create!(user_id: teacher.id, subscription_id: subscription_id)
     end
