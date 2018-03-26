@@ -34,6 +34,10 @@
     display: flex;
     border-radius: 6px;
     border: white 1px solid;
+    &:hover {
+      color: #00c2a2;
+      background-color: #ffffff;
+    }
   }
 }
 
