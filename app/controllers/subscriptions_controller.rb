@@ -93,7 +93,7 @@ class SubscriptionsController < ApplicationController
   end
 
   def subscription_params
-    params.require(:subscription).permit( :id, :purchaser_id, :expiration, :account_type, :account_limit, :authenticity_token, :recurring)
+    params.require(:subscription).permit( :id, :purchaser_id, :expiration, :account_type, :authenticity_token, :recurring)
   end
 
 
