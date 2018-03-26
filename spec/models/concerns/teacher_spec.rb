@@ -252,7 +252,7 @@ describe User, type: :model do
       context 'user has an associated subscription' do
         context 'that has expired' do
           # for some reason Rspec was setting expiration as today if I set it at Date.yesterday, so had to minus 1 from yesterday
-          let!(:subscription) { create(:subscription, account_limit: 1, expiration: Date.yesterday - 1, account_type: 'Teacher Paid') }
+          let!(:subscription) { create(:subscription, expiration: Date.yesterday - 1, account_type: 'Teacher Paid') }
           let!(:user_subscription) { create(:user_subscription, user_id: teacher.id, subscription: subscription) }
           it 'returns false' do
             expect(teacher.is_premium?).to be false
@@ -260,7 +260,7 @@ describe User, type: :model do
         end
 
         context 'that has not expired' do
-          let!(:subscription) { create(:subscription, account_limit: 1, expiration: Date.tomorrow, account_type: 'Teacher Trial') }
+          let!(:subscription) { create(:subscription, expiration: Date.tomorrow, account_type: 'Teacher Trial') }
           let!(:user_subscription) { create(:user_subscription, user_id: teacher.id, subscription: subscription) }
           let!(:student1) { create(:user, role: 'student', classrooms: [classroom]) }
 
@@ -331,7 +331,7 @@ describe User, type: :model do
 
     describe '#premium_state' do
       context 'user has or had a subscription' do
-        let!(:subscription) { create(:subscription, account_limit: 1, expiration: Date.today + 1, account_type: 'Teacher Trial') }
+        let!(:subscription) { create(:subscription, expiration: Date.today + 1, account_type: 'Teacher Trial') }
         let!(:user_subscription) { create(:user_subscription, user_id: teacher.id, subscription: subscription) }
         context 'user is on a valid trial' do
           it "returns 'trial'" do
