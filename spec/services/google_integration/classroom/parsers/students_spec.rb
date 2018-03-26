@@ -18,15 +18,14 @@ describe 'GoogleIntegration::Classroom::Parsers::Students' do
                   "emailAddress":"test1_s1@gedu.demo.rockerz.xyz"
                 }
             }
-          
+
 
     x = JSON.parse(x.to_json)
   }
 
   let!(:response) {
-    Response = Struct.new(:body)
-    r = Response.new(body)
-    r
+    response = Struct.new(:body)
+    response.new(body)
   }
 
   let!(:expected_result) {

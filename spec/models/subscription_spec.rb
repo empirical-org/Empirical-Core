@@ -266,32 +266,31 @@ describe Subscription, type: :model do
 
   describe 'create_with_user_join' do
   let!(:user) { create(:user) }
-  let(:old_sub) { Subscription.create_with_user_join(user.id, expiration: Date.yesterday, account_limit: 1002, account_type: 'Teacher Paid') }
+  let(:old_sub) { Subscription.create_with_user_join(user.id, expiration: Date.yesterday, account_type: 'Teacher Paid') }
 
     it 'creates a subscription based off of the passed attributes' do
-      attributes = { expiration: Date.yesterday, account_limit: 1002, account_type: 'Teacher Paid' }
+      attributes = { expiration: Date.yesterday, account_type: 'Teacher Paid' }
       new_sub = Subscription.create_with_user_join(user.id, attributes)
-      expect(new_sub.account_limit).to eq(1002)
       expect(new_sub.account_type).to eq('Teacher Paid')
       expect(new_sub.expiration).to eq(Date.yesterday)
     end
 
     context 'when the expiration is missing' do
       it 'adds 30 days to trial accounts' do
-        attributes = { account_limit: 1002, account_type: 'Teacher Trial' }
+        attributes = { account_type: 'Teacher Trial' }
         new_sub = Subscription.create_with_user_join(user.id, attributes)
         expect(new_sub.expiration).to eq(Date.today + 31)
       end
 
       it 'adds at least a year (or more, depending on promotions) to other accounts' do
-        attributes = { account_limit: 1002, account_type: 'Teacher Paid' }
+        attributes = { account_type: 'Teacher Paid' }
         new_sub = Subscription.create_with_user_join(user.id, attributes)
         expect(new_sub.expiration).to be >= (Date.today + 365)
       end
     end
 
     it 'makes a matching UserSubscription join' do
-      attributes = { expiration: Date.yesterday, account_limit: 1000, account_type: 'Teacher Paid' }
+      attributes = { expiration: Date.yesterday, account_type: 'Teacher Paid' }
       new_sub = Subscription.create_with_user_join(user.id, attributes)
       join = new_sub.user_subscriptions.first
       expect([join.user_id, join.subscription_id]).to eq([user.id, new_sub.id])
