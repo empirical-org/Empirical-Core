@@ -100,6 +100,7 @@ EmpiricalGrammar::Application.routes.draw do
   put 'make_teacher' => 'students#make_teacher'
   get 'teachers/admin_dashboard' => 'teachers#admin_dashboard'
   get 'teachers/admin_dashboard/district_activity_scores' => 'teachers#admin_dashboard'
+  get 'teachers/admin_dashboard/district_activity_scores/student_overview' => 'teachers#admin_dashboard'
   get 'teachers/admin_dashboard/district_concept_reports' => 'teachers#admin_dashboard'
   get 'teachers/admin_dashboard/district_standards_reports' => 'teachers#admin_dashboard'
   put 'teachers/update_current_user' => 'teachers#update_current_user'
