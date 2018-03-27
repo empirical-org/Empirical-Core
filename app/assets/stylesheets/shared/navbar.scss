@@ -75,7 +75,7 @@
     padding: 0px 12px;
     font-size: 14px;
     img {
-      margin-right: 8px;
+      margin-right: 12px;
     }
     &:focus, &:hover {
       text-decoration: none;
@@ -103,15 +103,25 @@
       font-size: 14px;
       padding: 6px 12px;
       width: 100%;
-      display: block;
+      display: flex;
       font-weight: 600px;
       color: #027360;
-      i, img {
-        margin-right: 12px;
+      .image-container {
+        display: flex;
+        width: 22px;
+      }
+      .hover {
+        display: none;
       }
       &:hover {
         text-decoration: none;
         color: #00c2a2;
+        .static {
+          display: none;
+        }
+        .hover {
+          display: inline;
+        }
       }
       &:last-of-type {
         padding: 8px 12px;
@@ -543,8 +553,8 @@ nav.q-navbar-home {
         i, svg {
           color:  #00947b;
         }
-        .fa-question {
-          font-size: 20px;
+        .hover {
+          display: none;
         }
       }
       h3 {
@@ -564,6 +574,12 @@ nav.q-navbar-home {
         text-decoration: none;
         h3, p, i, svg {
           color: #00c2a2;
+        }
+        .static {
+          display: none;
+        }
+        .hover {
+          display: flex;
         }
       }
     }
