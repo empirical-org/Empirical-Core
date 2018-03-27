@@ -308,7 +308,7 @@ progress[value]::-webkit-progress-value {
   border-radius: 2px;
 
   p {
-    animation: fadein 1s 1;
+    animation: fadein 0.8s 1;
 
     @keyframes fadein {
       0%  {
@@ -329,7 +329,7 @@ progress[value]::-webkit-progress-value {
       color: #457818;
     }
 
-    animation: successpulse 1s 1; 
+    animation: successpulse 0.8s 1; 
 
     @keyframes successpulse {
       0%  {
@@ -348,7 +348,7 @@ progress[value]::-webkit-progress-value {
     background-color: #ffe4b7;
     padding: 13 17 16 20;
     border-left: 3px solid #f5ba5b;
-    animation: revisepulse 1s 1; 
+    animation: revisepulse 0.8s 1; 
 
     @keyframes revisepulse {
       0%  {
