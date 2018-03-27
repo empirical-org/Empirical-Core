@@ -42,7 +42,7 @@ export default class extends React.Component {
       return this.editCreditCardElement();
     } else if (subStat && subStat.payment_method === 'Credit Card') {
       return <span>Credit Card</span>;
-    } else if (this.props.subscriptionType === 'School Sponsored') {
+    } else if (this.props.subscriptionType === 'School Sponsored' || this.props.subscriptionType === 'Trial') {
       return <span>No Payment Method on File</span>;
     } else if (subStat && (!subStat.payment_method || subStat.payment_method === 'School Invoice')) {
       return <span>School Invoice</span>;
@@ -242,7 +242,6 @@ export default class extends React.Component {
   content() {
     const currSub = this.props.subscriptionStatus;
     const metaRowClassName = 'sub-meta-info';
-    const buttonRowClassName = 'sub-button-row';
     if (currSub) {
       return ({ metaRows: (
         <div className={metaRowClassName}>
@@ -270,16 +269,16 @@ export default class extends React.Component {
       <div className={metaRowClassName}>
         <div className="meta-section">
           <h3>CURRENT SUBSCRIPTION</h3>
-          <TitleAndContent title={'Plan'} content={'Quill Basic Subscription'} />
+          <TitleAndContent title={'Plan'} content={'Quill Basic - Free'} />
         </div>
         {this.paymentMethod()}
         {this.nextPlan()}
       </div>
     ),
       cta: (
-        <div className={buttonRowClassName}>
+        <div className="sub-button-row">
           <a href="/premium" className="q-button button cta-button bg-orange text-white">Learn More About Quill Premium</a>
-          <a target="_blank" href="https://assets.quill.org/documents/quill_premium.pdf" className="q-button button cta-button bg-quillblue text-white">Download Premium PDF</a>
+          <a target="_blank" rel="noopener noreferrer" href="https://assets.quill.org/documents/quill_premium.pdf" className="q-button button cta-button bg-quillblue text-white"><i className="fa fa-file-pdf-o" />Download Premium PDF</a>
         </div>
     ), });
   }
