@@ -12,7 +12,7 @@
 
   ul.lesson-multiple-choice {
     list-style: none;
-    margin: 30px -15px 0;
+    margin: 30px 0 0 0;
     width: 100%;
     li {
       display: block;
@@ -20,12 +20,11 @@
       margin-bottom: 18px;
       text-align: left;
       a.button.lesson-multiple-choice-button {
-        border-radius: 6px;
-        background-color: #ffffff;
-        border: solid 1px #737373;
-        padding: 0 15px;
+        border-radius: 2px;
+        background-color: #f7f7f7;
+        border: solid 2px #f7f7f7;
+        padding: 10px 15px;
         font-family: $family-sans-serif;
-        padding: 10px;
         min-height: 40px;
         white-space: normal;
         height: inherit;
@@ -33,7 +32,12 @@
         display: block;
         width: 100%;
         text-align: left;
-        color: black;
+        color: #464646;
+
+        &:hover {
+          border: solid 2px darken(#f7f7f7, 2%);
+          background-color: darken(#f7f7f7, 2%);
+        }
 
         &.correctly-selected {
           border: solid 2px $green;
