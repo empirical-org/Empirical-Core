@@ -60,7 +60,7 @@ const ItemDropdown: React.SFC<ItemDropdownProps> = ({
       disabled={!items.length}
       bsStyle='default'
       title={selectedItem}
-      id='select-item-dropdown'
+      className='select-item-dropdown'
       onSelect={handleSelect}
     >
       {dropdownItems()}

@@ -20,6 +20,7 @@
   * [Emails](features/emails.md)
   * [Dashboard Cards](features/dashboard_cards.md)
   * [Customizing Lessons](features/lessons_customization.md)
+  * [Subscription Logic and Wireframes](features/subscription_logic.md)
   * [Referral Program](features/referral_program.md)
   * [School Activity Score Reports](features/school_activity_score_reports.md)
   * [Blog Posts](features/blog_posts.md)
@@ -44,3 +45,4 @@
   * [Activities Endpoints](apis/activities_endpoints.md)
   * [Classroom Activity Endpoints](apis/classroom_activity_endpoints.md)
   * [Users Endpoints](apis/users_endpoints.md)
+* [Cypress Tests](cypress/index.md)

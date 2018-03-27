@@ -9,7 +9,9 @@ export default React.createClass({
     if (this.props.userBelongsToSchoolThatHasPaid) {
       savingsCopy = 'Renew Now And Receive 50% Off!';
     }
-    if (!this.props.userIsEligibleForNewSubscription) {
+    if (!this.props.userIsSignedIn) {
+      onClickEvent = () => alert('You must be logged in to activate Premium.');
+    } else if (!this.props.userIsEligibleForNewSubscription) {
       onClickEvent = () => alert('You have an active subscription and cannot buy premium now. You may buy a new Premium subscription when your current subscription expires.');
     }
     return (

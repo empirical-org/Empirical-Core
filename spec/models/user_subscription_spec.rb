@@ -18,11 +18,11 @@ describe UserSubscription, type: :model do
   context 'validates' do
     describe 'presence of' do
       it 'subscription_id' do
-        expect { user_sub.update!(user_id: nil) }.to raise_error
+        expect { user_sub.update!(user_id: nil) }.to raise_error(ActiveRecord::RecordInvalid)
       end
 
       it 'user_id' do
-        expect { user_sub.update!(subscription_id: nil) }.to raise_error
+        expect { user_sub.update!(subscription_id: nil) }.to raise_error(ActiveRecord::RecordInvalid)
       end
     end
   end

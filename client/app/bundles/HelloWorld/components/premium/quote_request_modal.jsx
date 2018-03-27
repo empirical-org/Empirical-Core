@@ -18,7 +18,7 @@ export default React.createClass({
     if (this.state.isUserSignedIn === true) {
       this.charge();
     } else {
-      alert('You must be logged in to purchase Quill Premium.');
+      alert('You must be logged in to activate Quill Premium.');
     }
   },
 
