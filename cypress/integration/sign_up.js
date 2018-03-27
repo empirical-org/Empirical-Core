@@ -3,7 +3,7 @@ const faker = require('faker');
 describe('Sign Up page', function() {
 
   before(function() {
-    cy.exec('RAILS_ENV=cypress rake find_or_create_cypress_test_data:find_or_create_school', {failOnNonZeroExit: false})
+    cy.exec('RAILS_ENV=cypress spring rake find_or_create_cypress_test_data:find_or_create_school', {failOnNonZeroExit: false})
     cy.visit('/account/new')
   })
 
@@ -104,7 +104,7 @@ describe('Sign Up page', function() {
 
   describe('I am a student with a non-unique username', function() {
     before(()=>{
-      cy.exec('RAILS_ENV=cypress rake find_or_create_cypress_test_data:find_or_create_student', {failOnNonZeroExit: false})
+      cy.exec('RAILS_ENV=cypress spring rake find_or_create_cypress_test_data:find_or_create_student', {failOnNonZeroExit: false})
     })
     
     it ('clicking student takes me to a sign up form', function() {

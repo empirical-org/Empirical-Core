@@ -19,6 +19,14 @@ namespace :find_or_create_cypress_test_data do
     find_or_create_teacher
   end
 
+  task :find_or_create_teacher_with_stripe_id, [:wipe_database] => :environment do |t, args|
+    # args.with_defaults(wipe_database: true)
+    # if args.wipe_database
+    wipe_db
+    # end
+    find_or_create_teacher_with_stripe_id
+  end
+
   task :find_or_create_student, [:wipe_database] => :environment do |t, args|
     # args.with_defaults(wipe_database: true)
     # if args.wipe_database
@@ -33,6 +41,54 @@ namespace :find_or_create_cypress_test_data do
     wipe_db
     # end
     find_or_create_teacher_with_school_premium
+  end
+
+  task :find_or_create_teacher_with_recurring_school_premium, [:wipe_database] => :environment do |t, args|
+    # args.with_defaults(wipe_database: true)
+    # if args.wipe_database
+    wipe_db
+    # end
+    find_or_create_teacher_with_recurring_school_premium
+  end
+
+  task :find_or_create_teacher_with_teacher_premium, [:wipe_database] => :environment do |t, args|
+    # args.with_defaults(wipe_database: true)
+    # if args.wipe_database
+    wipe_db
+    # end
+    find_or_create_teacher_with_teacher_premium
+  end
+
+  task :find_or_create_teacher_with_recurring_teacher_premium, [:wipe_database] => :environment do |t, args|
+    # args.with_defaults(wipe_database: true)
+    # if args.wipe_database
+    wipe_db
+    # end
+    find_or_create_teacher_with_recurring_teacher_premium
+  end
+
+  task :find_or_create_teacher_with_expired_school_premium, [:wipe_database] => :environment do |t, args|
+    # args.with_defaults(wipe_database: true)
+    # if args.wipe_database
+    wipe_db
+    # end
+    find_or_create_teacher_with_expired_school_premium
+  end
+
+  task :find_or_create_teacher_with_expired_teacher_premium, [:wipe_database] => :environment do |t, args|
+    # args.with_defaults(wipe_database: true)
+    # if args.wipe_database
+    wipe_db
+    # end
+    find_or_create_teacher_with_expired_teacher_premium
+  end
+
+  task :find_or_create_teacher_with_subscription_they_purchased, [:wipe_database] => :environment do |t, args|
+    # args.with_defaults(wipe_database: true)
+    # if args.wipe_database
+    wipe_db
+    # end
+    find_or_create_teacher_with_subscription_they_purchased
   end
 
   task :find_or_create_school, [:wipe_database] => :environment do |t, args|
@@ -77,14 +133,70 @@ namespace :find_or_create_cypress_test_data do
     user
   end
 
-  def find_or_create_subscription subscription_type
-    Subscription.find_or_create_by(account_type: subscription_type, expiration: Date.today + 365, start_date: Date.yesterday, account_limit: 1000)
+  def find_or_create_subscription subscription_type, recurring=false, expiration=(Date.today+ 365), purchaser_id=nil
+    Subscription.find_or_create_by(account_type: subscription_type, recurring: recurring, expiration: expiration, start_date: Date.yesterday, account_limit: 1000, purchaser_id: purchaser_id)
   end
 
   def find_or_create_teacher_with_school_premium
     teacher = find_or_create_teacher
+    teacher.subscriptions.destroy_all
     subscription = find_or_create_subscription('School Paid')
     UserSubscription.find_or_create_by(subscription: subscription, user: teacher)
+  end
+
+  def find_or_create_teacher_with_recurring_school_premium
+    teacher = find_or_create_teacher
+    teacher.subscriptions.destroy_all
+    subscription = find_or_create_subscription('School Paid', true)
+    UserSubscription.find_or_create_by(subscription: subscription, user: teacher)
+  end
+
+  def find_or_create_teacher_with_teacher_premium
+    teacher = find_or_create_teacher
+    teacher.subscriptions.destroy_all
+    subscription = find_or_create_subscription('Teacher Paid')
+    UserSubscription.find_or_create_by(subscription: subscription, user: teacher)
+  end
+
+  def find_or_create_teacher_with_recurring_teacher_premium
+    teacher = find_or_create_teacher
+    teacher.subscriptions.destroy_all
+    subscription = find_or_create_subscription('Teacher Paid', true)
+    UserSubscription.find_or_create_by(subscription: subscription, user: teacher)
+  end
+
+  def find_or_create_teacher_with_expired_school_premium
+    teacher = find_or_create_teacher
+    teacher.subscriptions.destroy_all
+    subscription = find_or_create_subscription('School Paid', true, Date.today)
+    UserSubscription.find_or_create_by(subscription: subscription, user: teacher)
+  end
+
+  def find_or_create_teacher_with_expired_teacher_premium
+    teacher = find_or_create_teacher
+    teacher.subscriptions.destroy_all
+    subscription = find_or_create_subscription('Teacher Paid', true, Date.today)
+    UserSubscription.find_or_create_by(subscription: subscription, user: teacher)
+  end
+
+  def find_or_create_teacher_with_subscription_they_purchased
+    teacher = find_or_create_teacher
+    teacher.subscriptions.destroy_all
+    subscription = find_or_create_subscription('Teacher Paid', true, Date.today + 365, teacher.id)
+    UserSubscription.find_or_create_by(subscription: subscription, user: teacher)
+  end
+
+  def find_or_create_teacher_with_subscription_they_purchased_and_stripe_id
+    teacher = find_or_create_teacher_with_stripe_id
+    teacher.subscriptions.destroy_all
+    subscription = find_or_create_subscription('Teacher Paid', true, Date.today + 365, teacher.id)
+    UserSubscription.find_or_create_by(subscription: subscription, user: teacher)
+  end
+
+  def find_or_create_teacher_with_stripe_id
+    teacher = find_or_create_teacher
+    # TODO: find a better way to do this -- this is a fake 'real' customer id from the *test* data base.
+    teacher.update(stripe_customer_id: 'cus_CN6VaNY6yd8R5M')
   end
 
 

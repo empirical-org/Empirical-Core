@@ -1,7 +1,7 @@
 describe('Login page', function() {
 
   before(function() {
-    cy.exec('RAILS_ENV=cypress rake find_or_create_cypress_test_data:find_or_create_users', {failOnNonZeroExit: false})
+    cy.exec('RAILS_ENV=cypress spring rake find_or_create_cypress_test_data:find_or_create_users', {failOnNonZeroExit: false})
   })
 
   it('loads', function() {
