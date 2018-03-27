@@ -1,4 +1,11 @@
 {
+  "name": "Empirical-Core",
+  "description": "Empirical Core",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/empirical-org/Empirical-Core.git"
+  },
+  "license": "AGPL-3.0",
   "engines": {
     "node": "7.5.0",
     "npm": "3.9.5"
