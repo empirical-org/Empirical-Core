@@ -2,6 +2,14 @@
   max-width: 950px;
   margin: auto;
   padding-top: 22px;
+  .q-button.cta-button {
+    font-size: 14px;
+    height: 40px;
+    padding: 10px 16px;
+    margin-top: none;
+    margin-top: 0;
+    margin-right: 30px;
+  }
   .fa-credit-card {
     padding-right: 5px;
     font-size: 13px;
@@ -78,7 +86,7 @@
       padding-right: 15px;
     }
     img {
-      height: 26px;
+      height: 27px;
       padding-left: 15px;
     }
     .box {
@@ -93,13 +101,6 @@
       .green-link {
         padding-right: 5px;
       }
-    }
-
-    .q-button {
-      font-size: 14px;
-    	height: 36px;
-      margin-top: none;
-      margin-right: 30px;
     }
 
     h2 {
@@ -125,17 +126,18 @@
 
   .subscription-history {
     min-height: 174px;
-    padding-bottom: 53px;
     .empty-state {
       border: solid 1px #e9e9e9;
       font-size: 14px;
       flex-direction: column;
       align-items: center;
+      justify-content: center;
       min-height: 174px;
-      justify-content: space-evenly;
       padding: 41px;
       color: #666;
-
+      p {
+        margin-top: 5px;
+      }
       h3 {
         font-size: 16px;
         font-weight: 600;
@@ -145,7 +147,8 @@
   }
 
   section {
-    padding-top: 42px;
+    padding-bottom: 0;
+    padding-top: 40px;
     border-bottom: none;
   }
 
@@ -159,10 +162,13 @@
       padding: 20px 30px;
       background-color: white;
       .meta-section {
+        padding-top: 0px;
         &:not(:last-of-type) {
           border-bottom: 1px solid #d8d8d8;
         }
-        padding: 25px 0px 0px 0px;
+        &:not(:first-of-type) {
+          padding-top: 25px;
+        }
         &.payment {
           padding-bottom: 20px;
         }
@@ -176,6 +182,7 @@
         color: #c0c0c0;
         margin-bottom: 25px;
         font-weight: 700;
+        character-spacing: 0.5px;
       }
 
 
@@ -193,13 +200,14 @@
     .sub-button-row {
       padding-left: 30px;
       background-color: white;
+      .q-button {
+        margin-bottom: 30px;
+      }
+      i {
+        padding-right: 7px;
+      }
     }
 
-    .q-button {
-      margin-right: 20px;
-      margin-bottom: 30px;
-      font-size: 14px;
-    }
   }
 
   .green-link {

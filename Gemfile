@@ -116,6 +116,10 @@ gem 'therubyracer', require: false
 gem 'uglifier',     require: false
 gem 'kaminari'
 
+# FACTORY BOT (because Cypress needs it not to scoped to test)
+gem "factory_bot", require: false
+gem "factory_bot_rails", require: false
+
 
 # MIDDLEWARE
 gem 'rack-cache', '~> 1.6.1', require: 'rack/cache'
