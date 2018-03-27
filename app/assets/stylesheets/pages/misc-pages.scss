@@ -93,7 +93,7 @@
 		top: 40px;
 	}
 	h4 {
-		margin-bottom: 10px;
+		margin-bottom: 25px;
     font-size: 18px;
     font-weight: bold;
     padding-bottom: 10px;
@@ -114,10 +114,16 @@
 		align-items: flex-start;
 		justify-content: space-between;
 		margin-bottom: 30px;
+		&:last-of-type {
+			margin-bottom: 50px;
+		}
 	}
 	.name-and-description {
     flex: 3;
     margin-right: 20px;
+	}
+	.activity-description {
+		color: #666666;
 	}
 	@media (max-width: 500px) {
 		.activity {
