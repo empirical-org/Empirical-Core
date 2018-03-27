@@ -39,3 +39,4 @@ addons:
 env:
   FOG_DIRECTORY=empirical-core-travis-test
   PROGRESS_REPORT_FOG_DIRECTORY=empirical-progress-report-travis-test
+after_failure: "cat /home/travis/.npm/_logs/*debug.log"
