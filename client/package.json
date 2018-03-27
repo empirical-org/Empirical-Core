@@ -12,6 +12,7 @@
   },
   "main": "js/app.js",
   "dependencies": {
+    "@types/react": "^16.1.0",
     "autoprefixer": "^6.3.5",
     "babel-core": "^6.7.4",
     "babel-eslint": "^6.1.2",
