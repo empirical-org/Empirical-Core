@@ -19,6 +19,10 @@
     &.multiple {
       margin-top: 4px;
     }
+
+    &.continue {
+      margin-top: 7px;
+    }
   }
   p {
     font-family: $family-monospace;
@@ -153,8 +157,8 @@
 }
 
 .end-state-container {
-  margin-top: 20px;
   display: flex;
+  flex-direction: column;
   align-items: flex-start;
   img {
     margin-right: 8px;
@@ -164,6 +168,8 @@
   .top-answer-text {
     width: 100%;
     font-family: $family-monospace;
+    margin-top: 15px;
+    padding-left: 15px;
 
     .top-answer-title {
       color: #464646;
@@ -303,10 +309,10 @@ progress[value]::-webkit-progress-value {
 .student-feedback-container {
   position: relative;
   background-color: #e5e5e5;
-  padding: 13 20 16 20;
+  padding: 13px 20px 16px 20px;
   margin-top: 20px;
   border-radius: 2px;
-
+  width: 100%;
   p {
     animation: fadein 0.8s 1;
 

@@ -3,6 +3,7 @@ import icon from '../../../img/question_icon.svg';
 import revise from '../../../img/revise_orange_icon.svg';
 import multiple from '../../../img/multiple_choice_icon.svg';
 import success  from '../../../img/check-mark.svg';
+import arrow from '../../../img/correct_icon.svg';
 
 function getIconClassName(feedbackType: string): string {
   let returnVal;
@@ -16,6 +17,9 @@ function getIconClassName(feedbackType: string): string {
       break;
     case 'override':
       returnVal = 'multiple';
+      break;
+    case "continue":
+      returnVal = 'continue';
       break;
     case 'instructions':
     case 'getQuestion-instructions':
@@ -41,6 +45,9 @@ function getFeedbackIcon(feedbackType: string): string {
       break;
     case "override":
       returnVal = multiple;
+      break;
+    case "continue":
+      returnVal = arrow;
       break;
     case "instructions":
     case "getQuestion-instructions":
