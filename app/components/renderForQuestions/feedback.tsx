@@ -7,6 +7,7 @@ import multiple from '../../img/multiple_choice_icon.svg';
 import success  from '../../img/check-mark.svg';
 import getAnswerState from './answerState';
 import {Response} from 'quill-marking-logic';
+import StatelessFeedback from './components/feedback';
 
 class Feedback extends React.Component<any, any> {
   constructor(props){
@@ -43,79 +44,6 @@ class Feedback extends React.Component<any, any> {
     return "default"
   }
 
-  getFeedbackClassName(data): string {
-    let returnVal;
-    switch (this.getFeedbackType(data)) {
-      case "revise-unmatched":
-      case "revise-matched":
-        returnVal = "revise"
-        break;
-      case "correct-matched":
-        returnVal = "success"
-        break;
-      case "override":
-      case "instructions":
-      case "getQuestion-instructions":
-      case "default-with-cues":
-      case "default":
-        returnVal = "default"
-        break;
-      default: 
-        returnVal = "default"
-    }
-    return returnVal
-  }
-
-  getIconClassName(data): string {
-    let returnVal;
-    switch (this.getFeedbackType(data)) {
-      case "revise-unmatched":
-      case "revise-matched":
-        returnVal = "revise"
-        break;
-      case "correct-matched":
-        returnVal = "success"
-        break;
-      case "override":
-        returnVal = "multiple"
-        break;
-      case "instructions":
-      case "getQuestion-instructions":
-      case "default-with-cues":
-      case "default":
-        returnVal = "info"
-        break;
-      default: 
-        returnVal = "info"
-    }
-    return returnVal
-  }
-
-  getFeedbackIcon(data): string {
-    let returnVal;
-    switch (this.getFeedbackType(data)) {
-      case "revise-unmatched":
-      case "revise-matched":
-        returnVal = revise;
-        break;
-      case "correct-matched":
-        returnVal = success;
-        break;
-      case "override":
-        returnVal = multiple;
-        break;
-      case "instructions":
-      case "getQuestion-instructions":
-      case "default-with-cues":
-      case "default":
-        returnVal = icon;
-        break;
-      default: 
-        returnVal = icon;
-    }
-    return returnVal;
-  } 
-
   getFeedbackCopy(data): string {
     const latestAttempt = getLatestAttempt(data.question.attempts);
     let returnVal;
@@ -146,27 +74,16 @@ class Feedback extends React.Component<any, any> {
         returnVal = (<p>Combine the sentences into one sentence.</p>)
     }
     return returnVal
-  } 
-
-  renderFeedback(): JSX.Element {
-    const data = this.props;
-    const latestAttempt = getLatestAttempt(data.question.attempts);
-    const key:number = data.question.attempts.length;
-    return (
-      <div className={`feedback-row student-feedback-inner-container`} key={key}>
-        <img className={this.getIconClassName(data)} src={this.getFeedbackIcon(data)}/>
-        {this.getFeedbackCopy(data)}
-      </div>
-    )
   }
 
   render() {
-    const activeClass = "student-feedback-container " + (this.props ? this.getFeedbackClassName(this.props) : "");
     const key:number = this.props ? this.props.question.attempts.length : 0;
     return (
-      <div className={activeClass} key={key}>
-        {this.renderFeedback()}
-      </div>
+      <StatelessFeedback 
+        key={key}
+        feedbackType={this.getFeedbackType(this.props)}
+        feedback={this.getFeedbackCopy(this.props)}
+      />
     )
   }
 }

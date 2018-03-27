@@ -1,5 +1,6 @@
 import React from 'react';
 import _ from 'underscore';
+import Feedback from '../renderForQuestions/components/feedback';
 
 export default React.createClass({
   getInitialState() {
@@ -75,9 +76,11 @@ export default React.createClass({
       <section className="student-container">
         <div className="content multiple-choice-content">
           {this.props.prompt}
-          <p className="multiple-choice-prompt">
-             Select a strong answer. There may be more than one.
-          </p>
+          <Feedback
+            key="multiple-choice"
+            feedbackType="override"
+            feedback={(<p>Select a strong answer. There may be more than one.</p>)}
+          />
           {this.renderOptions()}
         </div>
       </section>
