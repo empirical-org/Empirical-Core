@@ -8,7 +8,7 @@ export default class extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      articleFilter: window.location.pathname.includes('topic') ? 'all' : 'topic',
+      articleFilter: window.location.pathname.includes('topic') || props.query ? 'all' : 'topic',
       loading: true,
       blogPostsSortedByMostRead: [...this.props.blogPosts].sort((a, b) => (a.read_count < b.read_count) ? 1 : ((b.read_count < a.read_count) ? -1 : 0))
     };
@@ -33,16 +33,18 @@ export default class extends React.Component {
   renderPreviewCardsByTopic() {
     let sections = [];
     const articlesByTopic = _.groupBy(this.props.blogPosts, "topic");
-    for(let topic in articlesByTopic) {
-      var articlesInThisTopic = articlesByTopic[topic];
-      sections.push(<TopicSection
+    this.props.topics.forEach(topic => {
+      const articlesInThisTopic = articlesByTopic[topic];
+      if (articlesInThisTopic) {
+        sections.push(<TopicSection
           key={topic}
           title={topic}
           articles={articlesInThisTopic.sort(a => a.order_number)}
           articleCount={articlesInThisTopic.length}
         />
       );
-    }
+      }
+  })
     return sections;
   }
 
@@ -87,13 +89,6 @@ export default class extends React.Component {
     if(!currentPageIsTopicPage && !currentPageIsSearchPage) {
       return (
         <span/>
-        // <nav>
-        //   <ul>
-        //     <li className={this.state.articleFilter === 'all' ? 'active' : null} onClick={() => this.filterArticlesBy('all')}>All Resources</li>
-        //     <li className={this.state.articleFilter === 'topic' ? 'active' : null} onClick={() => this.filterArticlesBy('topic')}>Topics</li>
-        //     <li className={this.state.articleFilter === 'popularity' ? 'active' : null} onClick={() => this.filterArticlesBy('popularity')}>Most Read</li>
-        //   </ul>
-        // </nav>
       )
     } else if(currentPageIsTopicPage) {
       return (
@@ -135,7 +130,7 @@ export default class extends React.Component {
     } else {
       return (
         <div id="knowledge-center">
-          <HeaderSection title="Teacher Center" subtitle="Everything you need to know about Quill’s pedgagogy and use in the classroom"/>
+          <HeaderSection title="Teacher Center" subtitle="Everything you need to know about Quill’s pedgagogy and use in the classroom" query={this.props.query}/>
         {this.renderNavAndSectionHeader()}
         {this.renderAnnouncement()}
         {this.renderBasedOnArticleFilter()}

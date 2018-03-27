@@ -166,6 +166,10 @@ nav.q-navbar-home {
       }
     }
 
+    .nav-element:not(.sign-up-button):hover {
+      color: #7cfbdf;
+    }
+
     &.narrow {
       display: none;
     }
@@ -509,7 +513,7 @@ nav.q-navbar-home {
     width: 300px;
     border-radius: 5px;
     background-color: #ffffff;
-    box-shadow: 0 1px 5px 0 #dadada;
+    box-shadow: 0 1px 5px 0 #c0c0c0;
     flex-direction: column;
     top: 52px;
     left: 50%;

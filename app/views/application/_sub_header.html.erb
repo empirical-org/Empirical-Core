@@ -51,12 +51,25 @@
 					<i class="fa fa-caret-up"></i>
 					<%= link_to raw("<img id='dashboard-img' src='https://assets.quill.org/images/navbar/navbar-dashboard-gradient.svg'></img>My Dashboard"),
 						dashboard_teachers_classrooms_path,
-						onmouseover: "mouseOver('dashboard-img', 'https://assets.quill.org/images/navbar/navbar-dashboard-solid.svg')",
-						onmouseout: "mouseOut('dashboard-img', 'https://assets.quill.org/images/navbar/navbar-dashboard-gradient.svg')"
+						onmouseover: "changeImageOnMouseOver('dashboard-img', 'https://assets.quill.org/images/navbar/navbar-dashboard-solid.svg')",
+						onmouseout: "changeImageOnMouseOut('dashboard-img', 'https://assets.quill.org/images/navbar/navbar-dashboard-gradient.svg')"
  					%>
-					<%= link_to raw("<i class='fa fa-cog'></i>My Account"), teachers_my_account_path %>
-					<%= link_to raw("<i class='fa fa-comments'></i>Support"), 'https://support.quill.org', target: "_blank"  %>
-					<%= link_to raw("<i class='fa fa-sign-out'></i>Logout"), '/session' %>
+					<%= link_to raw("<img id='account-img' src='https://assets.quill.org/images/navbar/navbar-account-gradient.svg'></img>My Account"),
+						teachers_my_account_path,
+						onmouseover: "changeImageOnMouseOver('account-img', 'https://assets.quill.org/images/navbar/navbar-account-solid.svg')",
+						onmouseout: "changeImageOnMouseOut('account-img', 'https://assets.quill.org/images/navbar/navbar-account-gradient.svg')"
+					%>
+					<%= link_to raw("<img id='support-img' src='https://assets.quill.org/images/navbar/navbar-support-gradient.svg'></img>Support"),
+						'https://support.quill.org',
+						target: "_blank",
+						onmouseover: "changeImageOnMouseOver('support-img', 'https://assets.quill.org/images/navbar/navbar-support-solid.svg')",
+						onmouseout: "changeImageOnMouseOut('support-img', 'https://assets.quill.org/images/navbar/navbar-support-gradient.svg')"
+					%>
+					<%= link_to raw("<img id='logout-img' src='https://assets.quill.org/images/navbar/navbar-logout-gradient.svg'></img>Logout"),
+						'/session',
+						onmouseover: "changeImageOnMouseOver('logout-img', 'https://assets.quill.org/images/navbar/navbar-logout-solid.svg')",
+						onmouseout: "changeImageOnMouseOut('logout-img', 'https://assets.quill.org/images/navbar/navbar-logout-gradient.svg')"
+					%>
 				</div>
 			</div>
 		<%- elsif current_user.role == 'student' %>
@@ -129,6 +142,16 @@
 		}
 	}
 
+	document.addEventListener("click", closeDropdownIfOpen)
+
+	function closeDropdownIfOpen(e) {
+		const dropdown = document.querySelector('#nav-user-dropdown');
+		if (e.target.classList.value !== 'user-dropdown-button' && dropdown && dropdown.classList.contains('dropdown-open')) {
+				dropdown.classList.remove('dropdown-open');
+				dropdown.classList.add('dropdown-closed');
+		}
+	}
+
 	const tooltipTriggers = document.getElementsByClassName("navbar-tooltip-trigger")
 
 	for (let i = 0; i < tooltipTriggers.length; i++) {
@@ -158,13 +181,13 @@
 		}
 	}
 
-	mouseOver = function(imageId, hoverImageSrc) {
+	changeImageOnMouseOver = function(imageId, hoverImageSrc) {
 		if (imageId) {
 			document.getElementById(`${imageId}`).src = `${hoverImageSrc}`
 		}
 	}
 
-	mouseOut = function(imageId, imageSrc) {
+	changeImageOnMouseOut = function(imageId, imageSrc) {
 		if (imageId) {
 			document.getElementById(`${imageId}`).src = `${imageSrc}`
 		}
