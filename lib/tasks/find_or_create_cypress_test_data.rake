@@ -124,7 +124,7 @@ namespace :find_or_create_cypress_test_data do
   end
 
   def find_or_create_subscription subscription_type, recurring=false, expiration=(Date.today+ 365), purchaser_id=nil
-    Subscription.find_or_create_by(account_type: subscription_type, recurring: recurring, expiration: expiration, start_date: Date.yesterday, account_limit: 1000, purchaser_id: purchaser_id)
+    Subscription.find_or_create_by(account_type: subscription_type, recurring: recurring, expiration: expiration, start_date: Date.yesterday, purchaser_id: purchaser_id)
   end
 
   def find_or_create_teacher_with_school_premium
