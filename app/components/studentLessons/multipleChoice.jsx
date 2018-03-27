@@ -1,79 +1,76 @@
-import React from 'react'
-import _ from 'underscore'
+import React from 'react';
+import _ from 'underscore';
 
 export default React.createClass({
-  getInitialState: function (){
+  getInitialState() {
     return {
-      selected: undefined
+      selected: undefined,
+    };
+  },
+
+  selectAnswer(key) {
+    if (!this.state.selected) {
+      this.setState({ selected: key, },
+        () => {
+          setTimeout(() => {
+            this.next();
+          }, 1000);
+        });
     }
   },
 
-  selectAnswer: function (key) {
+  getSelectedAnswer() {
+    return _.find(this.props.answers, answer => answer.key === this.state.selected);
+  },
+
+  next() {
+    this.props.next();
+  },
+
+  buttonClasses(answer) {
     if (!this.state.selected) {
-      this.setState({selected: key},
-        () => {setTimeout(() => {
-          this.next()
-        }, 1000)
-      })
-    }
-  },
-
-  getSelectedAnswer: function () {
-    return _.find(this.props.answers, (answer) => {
-      return answer.key === this.state.selected
-    })
-  },
-
-  next: function () {
-    
-    this.props.next()
-  },
-
-  buttonClasses: function(answer) {
-    if (!this.state.selected) {
-      return " is-outlined"
+      return ' is-outlined';
     }
 
     if (this.state.selected === answer.key) {
       if (answer.optimal) {
-        return " correctly-selected"
+        return ' correctly-selected';
       }
-      return " incorrectly-selected"
+      return ' incorrectly-selected';
     }
-    return " "
+    return ' ';
   },
 
-  renderOptions: function () {
-    const components = this.props.answers.map((answer) => {
-      return (
-        <li key={answer.key}>
-          <a
-            className={"button lesson-multiple-choice-button" + this.buttonClasses(answer)}
-            onClick={this.selectAnswer.bind(null, answer.key)}>
-            {answer.text}
-          </a>
-        </li>
-      )
-    })
+  renderOptions() {
+    const components = this.props.answers.map(answer => (
+      <li key={answer.key}>
+        <a
+          className={`button lesson-multiple-choice-button${this.buttonClasses(answer)}`}
+          onClick={this.selectAnswer.bind(null, answer.key)}
+        >
+          {answer.text}
+        </a>
+      </li>
+    ));
     return (
       <ul className="lesson-multiple-choice">
         {components}
       </ul>
-    )
+    );
   },
 
-  renderContinueButton: function () {
+  renderContinueButton() {
     if (this.state.selected) {
-      const buttonClass = this.getSelectedAnswer().optimal ? " is-primary" : " is-warning"
+      const buttonClass = this.getSelectedAnswer().optimal ? ' is-primary' : ' is-warning';
       return (
         <h4 className="title is-5">
-          <button className={"button is-large" + buttonClass} onClick={this.next}>Continue </button>
+          <button className={`button is-large${buttonClass}`} onClick={this.next}>Continue </button>
         </h4>
-      )
+      );
     }
   },
 
-  render: function () {
+  render() {
     return (
       <section className="student-container">
         <div className="content multiple-choice-content">
@@ -84,6 +81,6 @@ export default React.createClass({
           {this.renderOptions()}
         </div>
       </section>
-    )
-  }
-})
+    );
+  },
+});
