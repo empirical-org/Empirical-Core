@@ -5,7 +5,8 @@ import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
 import * as _ from 'underscore';
 import * as ReactTransition from 'react-addons-css-transition-group';
 import {checkSentenceFragment, Response } from 'quill-marking-logic'
-
+import Feedback from '../renderForQuestions/feedback';
+import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
 import { hashToCollection } from '../../libs/hashToCollection.js';
 import {
   submitResponse,
@@ -199,6 +200,10 @@ const PlaySentenceFragment = React.createClass<any, any>({
     }
   },
 
+  renderFeedbackStatements(attempt) {
+    return <RenderQuestionFeedback attempt={attempt} getErrorsForAttempt={this.getErrorsForAttempt} getQuestion={this.getQuestion} />;
+  },
+
   renderPlaySentenceFragmentMode() {
     const fragment = this.props.question;
     const button = this.renderButton();
@@ -216,10 +221,13 @@ const PlaySentenceFragment = React.createClass<any, any>({
     // dangerously set some html in here
     return (
       <div className="container">
-        <div className="feedback-row">
-          <img className="info" src={icon} />
-          <p>{instructions}</p>
-        </div>
+        <Feedback
+          question={this.props.question}
+          sentence={instructions}
+          responses={this.getResponses()}
+          getQuestion={this.getQuestion}
+          renderFeedbackStatements={this.renderFeedbackStatements}
+        />
         <TextEditor
           value={this.state.response}
           handleChange={this.handleChange}

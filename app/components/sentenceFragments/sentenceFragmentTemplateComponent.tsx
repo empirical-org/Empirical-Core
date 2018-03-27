@@ -14,6 +14,7 @@ import {
 } from '../../actions/responses';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 import ConceptExplanation from '../feedback/conceptExplanation.jsx';
+import Feedback from '../renderForQuestions/feedback';
 const icon = require('../../img/question_icon.svg');
 
 const PlaySentenceFragment = React.createClass<any, any>({
@@ -193,6 +194,10 @@ const PlaySentenceFragment = React.createClass<any, any>({
     }
   },
 
+  renderFeedbackStatements(attempt) {
+    return <RenderQuestionFeedback attempt={attempt} getErrorsForAttempt={this.getErrorsForAttempt} getQuestion={this.getQuestion} />;
+  },
+
   renderPlaySentenceFragmentMode() {
     const fragment = this.props.question;
     const button = this.renderButton();
@@ -210,10 +215,17 @@ const PlaySentenceFragment = React.createClass<any, any>({
     // dangerously set some html in here
     return (
       <div className="container">
-        <div className="feedback-row">
+        {/* <div className="feedback-row">
           <img className="info" src={icon} />
           <p>{instructions}</p>
-        </div>
+        </div> */}
+        <Feedback
+          question={this.props.question}
+          sentence={instructions}
+          responses={this.getResponses()}
+          getQuestion={this.getQuestion}
+          renderFeedbackStatements={this.renderFeedbackStatements}
+        />
         <TextEditor
           value={this.state.response}
           handleChange={this.handleChange}
