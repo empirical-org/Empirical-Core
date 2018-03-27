@@ -13,7 +13,7 @@ describe 'SalesContactUpdater' do
       .where('sales_stage_types.name = ?', 'Basic Subscription')
       .first
 
-    expect(stage).to have_attributes(completed_at: Time.now)
+    expect(stage.completed_at).to be_within(1.second).of Time.now
   end
 
   it 'adds a reference to the current user to the updated sales stage' do
