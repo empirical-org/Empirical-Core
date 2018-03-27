@@ -20,7 +20,7 @@ export default class extends React.Component {
       case 'Writing Instruction Research':
         return <img src="https://assets.quill.org/images/teacher_center/research-gray.svg" />
       case 'Press':
-        return <img src="https://assets.quill.org/images/teacher_center/press-gray.svg" />
+        return <img src="https://assets.quill.org/images/teacher_center/inthepress-gray.svg" />
       default:
         return ''
     }

@@ -119,6 +119,11 @@ body {
       	color: #666666;
         margin-right: 15px;
         flex: 2;
+        display: flex;
+        align-items: flex-end;
+        img {
+          margin-right: 10px;
+        }
       }
 
       h2 {
