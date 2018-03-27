@@ -35,11 +35,7 @@
           <div class="activity">
             <div class="name-and-description">
               <div class="name"><%= activity.name %></div>
-              <div class="activity-description">
-                <i>
-                  <%= activity.description&.html_safe %>
-                </i>
-              </div>
+              <div class="activity-description"><%= activity.description&.html_safe %></div>
             </div>
             <div class="activity-link"><%= link_to "View Activity", anonymous_activity_sessions_path(activity_id: activity.id), class: 'green-link' %></div>
           </div>
