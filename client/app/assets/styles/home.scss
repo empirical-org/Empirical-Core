@@ -78,7 +78,6 @@ a {
 }
 
 a.q-button {
-  border: solid 1px;
   border-radius: 6px;
   cursor: pointer;
   display: inline-block;
@@ -95,6 +94,12 @@ a.q-button {
     font-weight: 600;
     height: 40px;
     margin-right: 10px;
+  }
+  &.learn-more-button {
+    border: 1px solid white;
+    &:hover {
+      border: none;
+    }
   }
   &.cta-button {
     // padding-left: 33px;
@@ -288,7 +293,7 @@ section.q-hero {
   }
   .text-quillgreen:hover {
     color: #ffffff;
-    background-color: initial;
+    background-color: #00DFB1;
   }
 }
 

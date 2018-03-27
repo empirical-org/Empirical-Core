@@ -1,5 +1,28 @@
 $tool-grey: #f8f9f9;
 
+.q-button.bg-white {
+  &.text-orange:hover, &.text-connect-yellow:hover {
+    color: #ffffff;
+    background-color: #f9b95c;
+  }
+  &.text-red:hover, &.text-darkred:hover {
+    color: #ffffff;
+    background-color: #ff6473;
+  }
+  &.text-lessonspurple:hover {
+    color: #ffffff;
+    background-color: #e358ab;
+  }
+  &.text-purple:hover {
+    color: #ffffff;
+    background-color: #c96cf0;
+  }
+  &.text-blue:hover, &.text-quillblue:hover {
+    background-color: #6cb3ed;
+    color: #ffffff;
+  }
+}
+
 .tool-header {
   background-color: $quillgreen;
   .q-nav-bar {
@@ -90,11 +113,8 @@ $tool-grey: #f8f9f9;
       background-color: #fff;
       color: #358fe0;
     }
-    .icon-button:hover {
-      background-color: #6cb3ed;
-      color: #ffffff;
-    }
   }
+
 
   .diagnostic-tool {
     .video-section {
@@ -103,10 +123,6 @@ $tool-grey: #f8f9f9;
     .learn-more-button:hover {
       background-color: #fff;
       color: #e8522c;
-    }
-    .icon-button:hover {
-      color: #ffffff;
-      background-color: #ff6473;
     }
   }
 
@@ -118,10 +134,6 @@ $tool-grey: #f8f9f9;
       background-color: #fff;
       color: #f8a724;
     }
-    .icon-button:hover {
-      color: #ffffff;
-      background-color: #f9b95c;
-    }
   }
 
   .grammar-tool {
@@ -132,10 +144,6 @@ $tool-grey: #f8f9f9;
       background-color: #fff;
       color: #9c2bde;
     }
-    .icon-button:hover {
-      color: #ffffff;
-      background-color: #c96cf0;
-    }
   }
 
   .lessons-tool {
@@ -145,10 +153,6 @@ $tool-grey: #f8f9f9;
     .learn-more-button:hover {
       background-color: #fff;
       color: #a51070;
-    }
-    .icon-button:hover {
-      color: #ffffff;
-      background-color: #e358ab;
     }
   }
 
