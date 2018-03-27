@@ -5,89 +5,13 @@ import icon from '../../img/question_icon.svg';
 import revise from '../../img/revise_orange_icon.svg';
 import multiple from '../../img/multiple_choice_icon.svg';
 import success  from '../../img/check-mark.svg';
-import TransitionGroup from 'react-transition-group/TransitionGroup'
-import anime from 'animejs'
 import getAnswerState from './answerState';
 import {Response} from 'quill-marking-logic';
-
-// let currentAnimation
-
-// const clearCurrentAnimation = () => {
-//   // not sure if this does anything/is necessary?
-//   if (currentAnimation) currentAnimation.pause()
-// }
-
-// const animateIn = (gridContainer) => {
-//   console.log("Animate in")
-//   clearCurrentAnimation()
-//   const cards = gridContainer.querySelectorAll('.student-feedback-container')
-//   currentAnimation = anime.timeline()
-//   .add({
-//     targets: cards,
-//     opacity: 0,
-//     duration: 1
-//   })
-//   .add({
-//     targets: gridContainer,
-//     translateX: [-1000, 0],
-//     opacity: [0, 1],
-//     duration: 400
-//   })
-//   .add({
-//     targets: cards,
-//     duration: 800,
-//     opacity: [0, 1],
-//     translateY: [-30, 0],
-//     delay: function (el, i, l) {
-//       return i * 100
-//     }
-//   })
-// }
-
-// const animateOut = (gridContainer, callback) => {
-//   console.log("Animate out")
-//   clearCurrentAnimation()
-
-//   const cards = gridContainer.querySelectorAll('.student-feedback-container')
-//   currentAnimation = anime.timeline()
-//   .add({
-//     targets: cards,
-//     duration: 700,
-//     opacity: [1, 0],
-//     translateY: -30,
-//     delay: function (el, i, l) {
-//       return i * 100
-//     }
-//   })
-//   .add({
-//     targets: gridContainer,
-//     translateX: 1000,
-//     opacity: [1, 0],
-//     duration: 1000,
-//     complete: callback,
-//     offset: '-=200'
-//   })
-// }
 
 class Feedback extends React.Component<any, any> {
   constructor(props){
     super(props)
   }
-
-  // componentDidAppear() {
-  //   console.log("Appeared")
-  //   animateIn(ReactDOM.findDOMNode(this))
-  // }
-
-  // componentDidEnter() {
-  //   console.log("Entered")
-  //   animateIn(ReactDOM.findDOMNode(this))
-  // }
-
-  // componentWillLeave(callback) {
-  //   console.log("Left")
-  //   animateOut(ReactDOM.findDOMNode(this), callback)
-  // }
 
   getFeedbackType(data?): string {
     if (data) {
