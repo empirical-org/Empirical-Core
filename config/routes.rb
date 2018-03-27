@@ -9,7 +9,7 @@ EmpiricalGrammar::Application.routes.draw do
 
   mount Sidekiq::Web => '/sidekiq', constraints: StaffConstraint.new
 
-  if Rails.env.test?
+  if Rails.env.test? || Rails.env == 'cypress'
     resources :factories, only: :create
   end
 
