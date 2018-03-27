@@ -5,19 +5,25 @@
     <%= render 'navbar/tooltip_link',
       text: 'All Resources',
       subtext: 'View all of Quill’s instructional resources',
-      fa_class: 'fa fa-icon fa-folder-open',
+      hover_image_src: 'https://assets.quill.org/images/navbar/navbar-resources-solid.svg',
+      image_src: 'https://assets.quill.org/images/navbar/navbar-resources-gradient.svg',
+      image_id: 'resources-img',
       link: '/teacher_resources'
     %>
     <%= render 'navbar/tooltip_link',
       text: 'Getting Started',
       subtext: 'Set up your classroom on Quill with guides, videos, and presentations',
-      fa_class: 'fa fa-icon fa-clipboard',
+      hover_image_src: 'https://assets.quill.org/images/navbar/navbar-gettingstarted-solid.svg',
+      image_src: 'https://assets.quill.org/images/navbar/navbar-gettingstarted-gradient.svg',
+      image_id: 'gettingstarted-img',
       link: '/teacher_resources/topic/getting_started'
     %>
     <%= render 'navbar/tooltip_link',
       text: 'Case Studies',
       subtext: 'Read success stories about Quill in the class',
-      fa_class: 'fa fa-icon fa-file',
+      hover_image_src: 'https://assets.quill.org/images/navbar/navbar-casestudy-solid.svg',
+      image_src: 'https://assets.quill.org/images/navbar/navbar-casestudy-gradient.svg',
+      image_id: 'casestudy-img',
       link: '/teacher_resources/topic/case_studies'
     %>
     <%= render 'navbar/tooltip_link',
@@ -31,13 +37,17 @@
     <%= render 'navbar/tooltip_link',
       text: 'FAQ',
       subtext: 'Answers for common questions about Quill',
-      fa_class: 'fa fa-icon fa-question',
+      hover_image_src: 'https://assets.quill.org/images/navbar/navbar-faq-solid.svg',
+      image_src: 'https://assets.quill.org/images/navbar/navbar-faq-gradient.svg',
+      image_id: 'faq-img',
       link: '/faq'
     %>
     <%= render 'navbar/tooltip_link',
       text: 'Premium',
       subtext: 'Save time grading and gain actionable insights with Quill Premium',
-      fa_class: 'fa fa-icon fa-star',
+      hover_image_src: 'https://assets.quill.org/images/navbar/navbar-premium-solid.svg',
+      image_src: 'https://assets.quill.org/images/navbar/navbar-premium-gradient.svg',
+      image_id: 'premium-img',
       link: '/premium'
     %>
   </div>
