@@ -21,7 +21,7 @@ describe('Teacher Center Navbar', function() {
 
   it('has a link to the Writing Instruction Research page', function() {
     cy.get('.q-nav-bar > .desktop-nav-list').contains('Writing Instruction Research').click({force: true})
-    cy.url().should('include', '/teacher_resources/topic/education_research')
+    cy.url().should('include', '/teacher_resources/topic/writing_instruction_research')
   })
 
   it('has a link to the FAQ page', function() {

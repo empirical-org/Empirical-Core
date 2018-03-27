@@ -59,11 +59,8 @@ body {
 
 #preview-card-container {
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-start;
   flex-wrap: wrap;
-  @media (min-width: 991px) {
-    justify-content: space-between;
-  }
 
   a:hover {
     text-decoration: none;
@@ -171,7 +168,6 @@ body {
   height: 360px;
   width: 300px;
   margin: 0 0 20px;
-
   div:first-of-type:not(.video-holder), .video-holder + .preview-card-body {
     display: flex;
     flex-direction: column;
@@ -245,6 +241,9 @@ body {
 
 a.preview-card-link {
   text-decoration: none;
+  &:not(:last-of-type) {
+    margin-right: 25px;
+  }
 }
 
 a.all-blog-posts-back-button {
@@ -489,5 +488,8 @@ a.all-blog-posts-back-button {
   border-radius: 6px;
   &:hover {
     box-shadow: 0 0 2px 3px #e3e3e3;
+    h3 {
+      color: #00c2a2;
+    }
   }
 }
