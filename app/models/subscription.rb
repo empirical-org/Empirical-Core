@@ -253,7 +253,7 @@ class Subscription < ActiveRecord::Base
   end
 
   def self.set_trial_expiration_and_start_date
-    {expiration: Date.today + 31, start_date: Date.today}
+    {expiration: Date.today + 30, start_date: Date.today}
   end
 
   def report_to_new_relic(e)
