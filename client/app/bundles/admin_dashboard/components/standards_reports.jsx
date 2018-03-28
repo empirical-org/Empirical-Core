@@ -1,6 +1,6 @@
 import React from 'react';
-import StandardsReportsTable from 'bundles/admin_dashboard/components/standards_reports_table';
-import ItemDropdown from 'bundles/admin_dashboard/components/item_dropdown';
+import StandardsReportsTable from './standards_reports_table';
+import ItemDropdown from './item_dropdown';
 import CSVDownloadForProgressReport from 'bundles/HelloWorld/components/progress_reports/csv_download_for_progress_report';
 
 const StandardsReports = ({
@@ -15,8 +15,7 @@ const StandardsReports = ({
   switchClassroom,
   selectedClassroom,
   filteredStandardsReportsData,
-}) => {
-  return (
+}) => (
     <div className="standards-reports-by-classroom progress-reports-2018">
       <div className="meta-overview flex-row space-between">
         <div className="header-and-info">
@@ -40,6 +39,5 @@ const StandardsReports = ({
       <StandardsReportsTable data={filteredStandardsReportsData} />
     </div>
   );
-};
 
 export default StandardsReports;
