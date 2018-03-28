@@ -1,6 +1,6 @@
 import React from 'react';
-import ConceptReportsTable from 'bundles/admin_dashboard/components/concept_reports_table';
-import ItemDropdown from 'bundles/admin_dashboard/components/item_dropdown';
+import ConceptReportsTable from './concept_reports_table';
+import ItemDropdown from './item_dropdown';
 import CSVDownloadForProgressReport from 'bundles/HelloWorld/components/progress_reports/csv_download_for_progress_report';
 
 const ConceptReports = ({
@@ -15,8 +15,7 @@ const ConceptReports = ({
   switchClassroom,
   selectedClassroom,
   filteredConceptReportsData,
-}) => {
-  return (
+}) => (
     <div className="concept-reports-by-classroom progress-reports-2018">
       <div className="meta-overview flex-row space-between">
         <div className="header-and-info">
@@ -58,6 +57,5 @@ const ConceptReports = ({
       <ConceptReportsTable data={filteredConceptReportsData} />
     </div>
   );
-};
 
 export default ConceptReports;

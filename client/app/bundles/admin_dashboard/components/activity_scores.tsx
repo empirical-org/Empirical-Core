@@ -1,6 +1,6 @@
 import * as React from 'react';
-import ActivityScoresTable from 'bundles/admin_dashboard/components/activity_scores_table';
-import ItemDropdown from 'bundles/admin_dashboard/components/item_dropdown';
+import ActivityScoresTable from './activity_scores_table';
+import ItemDropdown from './item_dropdown';
 import CSVDownloadForProgressReport from 'bundles/HelloWorld/components/progress_reports/csv_download_for_progress_report';
 
 interface ActivityScoresProps {
