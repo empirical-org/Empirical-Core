@@ -44,7 +44,7 @@ const basePlugins = [new webpack.DefinePlugin({
   }),
   new webpack.optimize.CommonsChunkPlugin({
     name: 'vendor',
-    filename: 'vendor-bundle.js',
+    filename: 'vendor-bundle-[chunkhash].js',
     minChunks: Infinity,
   }),
   new ManifestPlugin({
