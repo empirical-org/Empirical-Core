@@ -1,6 +1,6 @@
 import * as React from 'react';
 import ReactTable from 'react-table';
-import EmptyStateForReport from 'bundles/HelloWorld/components/progress_reports/empty_state_for_report';
+import EmptyStateForReport from '../../HelloWorld/components/progress_reports/empty_state_for_report';
 import * as moment from 'moment';
 import 'react-table/react-table.css';
 import { sortByLastName, sortFromSQLTimeStamp } from 'modules/sortingMethods';
