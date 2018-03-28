@@ -2,10 +2,9 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { createMockStore } from 'redux-test-utils';
 
-import DistrictConceptReports from 'bundles/admin_dashboard/containers/DistrictConceptReports.jsx';
+import DistrictConceptReports from '../DistrictConceptReports.jsx';
 
 describe('DistrictConceptReports', () => {
-
   it('renders report for all students', () => {
     const classroom = {
       classroom_name: 'Professor Trelawney - Divination',
@@ -69,11 +68,10 @@ describe('DistrictConceptReports', () => {
         'Springfield Elementary',
         '12',
         '20',
-        '37',
+        '37'
       ]
     ]);
   });
-
 
   it('filters the report', () => {
     const classrooms = [
@@ -145,7 +143,7 @@ describe('DistrictConceptReports', () => {
       }
     ];
     const state = {
-      district_concept_reports:{
+      district_concept_reports: {
         loading: false,
         errors: false,
         selectedClassroom: "Mrs. Crabtree's Afternoon Bus",
@@ -160,19 +158,19 @@ describe('DistrictConceptReports', () => {
     expect(wrapper.prop('schoolNames')).toEqual([
       'All Schools',
       'Bel-Air Academy',
-      'South Park Elementary',
+      'South Park Elementary'
     ]);
 
     expect(wrapper.prop('teacherNames')).toEqual([
       'All Teachers',
       'Mr. Garrison',
-      'Mrs. Crabtree',
+      'Mrs. Crabtree'
     ]);
 
     expect(wrapper.prop('classroomNames')).toEqual([
       'All Classrooms',
       "Mrs. Crabtree's Morning Bus",
-      "Mrs. Crabtree's Afternoon Bus",
+      "Mrs. Crabtree's Afternoon Bus"
     ]);
   });
 });
