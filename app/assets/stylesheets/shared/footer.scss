@@ -1,6 +1,6 @@
 .footer-white {
   background-color: #fff;
-  padding: 44px 69px 140px;
+  padding: 44px 69px 80px;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -20,6 +20,7 @@
     width: 100%;
   }
   .top-half {
+    align-items: flex-end;
     padding-bottom: 70px;
     border-bottom: solid 1px #c0c0c0;
   }

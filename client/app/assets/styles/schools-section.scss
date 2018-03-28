@@ -221,6 +221,9 @@
         }
       }
     }
+    @media (max-width: 620px) {
+      flex-direction: column;
+    }
 
   }
 
@@ -245,6 +248,7 @@
       > img {
         flex: 1 1 auto;
         overflow-y: auto;
+        margin-right: 25px;
       }
     }
   }
