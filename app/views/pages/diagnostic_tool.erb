@@ -243,4 +243,8 @@
 
 </div>
 
-<%= render partial: 'pages/shared/footer' %>
+<% if current_user %>
+  <%= render partial: 'footer' %>
+<% else %>
+  <%= render partial: 'pages/shared/footer' %>
+<% end %>
