@@ -21,7 +21,7 @@ class SalesContactAnalytics
       user_id: user.id,
       event: @event,
       properties: {
-        account_uid: user.school.id,
+        account_uid: account_uid,
         display_name: @event.titleize
       }
     )
@@ -29,6 +29,12 @@ class SalesContactAnalytics
 
   def user
     @user ||= User.find(@user_id)
+  end
+
+  def account_uid
+    if user.present? && user.school.present?
+      user.school.id
+    end
   end
 
   def valid_events
