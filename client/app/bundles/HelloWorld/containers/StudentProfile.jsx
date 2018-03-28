@@ -59,7 +59,7 @@ class StudentProfile extends React.Component {
     if (student) {
       const classroomId = student.classroom.id;
 
-      if (process.env.NODE_ENV === 'development') {
+      if (process.env.RAILS_ENV === 'development') {
         Pusher.logToConsole = true;
       }
       const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
@@ -92,7 +92,7 @@ class StudentProfile extends React.Component {
         caId={nextActivitySession.ca_id}
         activityClassificationId={nextActivitySession.activity_classification_id}
         maxPercentage={nextActivitySession.max_percentage}
-      />) : null
+      />) : null;
       return (
         <div id="student-profile">
           <StudentsClassroomsHeader
@@ -123,9 +123,9 @@ class StudentProfile extends React.Component {
 const mapStateToProps = state => state;
 const mapDispatchToProps = dispatch => ({
   fetchStudentProfile: classroomId => dispatch(fetchStudentProfile(classroomId)),
-  updateNumberOfClassroomTabs: (screenWidth) => dispatch(updateNumberOfClassroomTabs(screenWidth)),
+  updateNumberOfClassroomTabs: screenWidth => dispatch(updateNumberOfClassroomTabs(screenWidth)),
   fetchStudentsClassrooms: () => dispatch(fetchStudentsClassrooms()),
-  handleClassroomClick: (classroomId) => dispatch(handleClassroomClick(classroomId)),
+  handleClassroomClick: classroomId => dispatch(handleClassroomClick(classroomId)),
   hideDropdown: () => dispatch(hideDropdown()),
   toggleDropdown: () => dispatch(toggleDropdown()),
 });
