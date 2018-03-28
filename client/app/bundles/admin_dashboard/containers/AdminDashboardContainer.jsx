@@ -1,8 +1,7 @@
-import React from 'react'
-import SubnavTabs from 'bundles/admin_dashboard/components/subnav_tabs';
+import React from 'react';
+import SubnavTabs from '../components/subnav_tabs.tsx';
 
-const AdminDashboardContainer = (props) => {
-  return (
+const AdminDashboardContainer = (props) => (
     <div className="tab-content">
       <div className="tab-pane active" id="class-manager">
         <SubnavTabs />
@@ -12,6 +11,5 @@ const AdminDashboardContainer = (props) => {
       </div>
     </div>
   );
- };
 
 export default AdminDashboardContainer;

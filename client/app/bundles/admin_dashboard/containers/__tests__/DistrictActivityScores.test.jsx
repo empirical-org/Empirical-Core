@@ -2,10 +2,9 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { createMockStore } from 'redux-test-utils';
 
-import DistrictActivityScores from 'bundles/admin_dashboard/containers/DistrictActivityScores.jsx';
+import DistrictActivityScores from '../DistrictActivityScores.jsx';
 
 describe('DistrictActivityScores', () => {
-
   it('renders report for all students', () => {
     const classroom = {
       classroom_name: 'Learnin 101',
@@ -68,7 +67,6 @@ describe('DistrictActivityScores', () => {
       ]
     ]);
   });
-
 
   it('filters the report', () => {
     const classrooms = [
@@ -155,19 +153,19 @@ describe('DistrictActivityScores', () => {
     expect(wrapper.prop('schoolNames')).toEqual([
       'All Schools',
       'School of Hard Knocks',
-      'Kool School',
+      'Kool School'
     ]);
 
     expect(wrapper.prop('teacherNames')).toEqual([
       'All Teachers',
       'Mr. Smith',
-      'Ms. Applebee',
+      'Ms. Applebee'
     ]);
 
     expect(wrapper.prop('classroomNames')).toEqual([
       'All Classrooms',
       'What what',
-      'Yeah Learning!',
+      'Yeah Learning!'
     ]);
   });
 });
