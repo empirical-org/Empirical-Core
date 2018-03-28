@@ -1,13 +1,13 @@
 import React from 'react';
-import LoadingSpinner from 'bundles/HelloWorld/components/shared/loading_indicator';
-import StandardsReports from 'bundles/admin_dashboard/components/standards_reports';
+import { connect } from 'react-redux';
+import LoadingSpinner from '../../HelloWorld/components/shared/loading_indicator';
+import StandardsReports from '../components/standards_reports';
 import {
   switchClassroom,
   switchSchool,
   switchTeacher,
   getDistrictStandardsReports,
-} from 'actions/district_standards_reports';
-import { connect } from 'react-redux';
+} from '../../../actions/district_standards_reports';
 
 class DistrictStandardsReports extends React.Component {
   componentDidMount() {
@@ -27,44 +27,44 @@ class DistrictStandardsReports extends React.Component {
 
 function getClassroomNames(classrooms, selectedSchool, selectTeacher) {
   let filtered = filterBySchool(classrooms, selectedSchool);
-  filtered = filterByTeacher(filtered, selectTeacher)
-  let names = filtered.map(row => row.classroom_name);
+  filtered = filterByTeacher(filtered, selectTeacher);
+  const names = filtered.map(row => row.classroom_name);
   return ['All Classrooms', ...new Set(names)];
 }
 
 function getSchoolNames(classrooms) {
-  let names = classrooms.map(row => row.school_name);
+  const names = classrooms.map(row => row.school_name);
   return ['All Schools', ...new Set(names)];
 }
 
 function getTeacherNames(classrooms, selectedSchool) {
-  let filtered = filterBySchool(classrooms, selectedSchool);
-  let names = filtered.map(row => row.teacher_name);
+  const filtered = filterBySchool(classrooms, selectedSchool);
+  const names = filtered.map(row => row.teacher_name);
   return ['All Teachers', ...new Set(names)];
 }
 
 function formatDataForCSV(data) {
-  const csvData = []
+  const csvData = [];
   const csvHeader = [
     'Standard Level',
     'Standard Name',
     'Students',
     'Proficient',
-    'Activities',
+    'Activities'
   ];
-  const csvRow = (row) => [
-    row['section_name'],
-    row['name'],
-    row['total_student_count'],
-    row['proficient_count'],
-    row['total_activity_count'],
+  const csvRow = row => [
+    row.section_name,
+    row.name,
+    row.total_student_count,
+    row.proficient_count,
+    row.total_activity_count
   ];
 
   csvData.push(csvHeader);
   data.forEach(row => csvData.push(csvRow(row)));
 
   return csvData;
-};
+}
 
 function filterBySchool(classrooms, selected) {
   if (selected !== 'All Schools') {
@@ -97,26 +97,26 @@ function filterClassrooms(
   selectedClassroom
 ) {
   let filtered = filterBySchool(classrooms, selectedSchool);
-  filtered     = filterByTeacher(filtered, selectedTeacher);
-  filtered     = filterByClass(filtered, selectedClassroom);
+  filtered = filterByTeacher(filtered, selectedTeacher);
+  filtered = filterByClass(filtered, selectedClassroom);
 
   return filtered;
 }
 
 const mapStateToProps = (state) => {
-  let filteredStandardsReportsData = filterClassrooms(
+  const filteredStandardsReportsData = filterClassrooms(
     state.district_standards_reports.standardsReportsData,
     state.district_standards_reports.selectedSchool,
     state.district_standards_reports.selectedTeacher,
     state.district_standards_reports.selectedClassroom
   );
 
-  let teacherNames = getTeacherNames(
+  const teacherNames = getTeacherNames(
     state.district_standards_reports.standardsReportsData,
     state.district_standards_reports.selectedSchool
   );
 
-  let classroomNames = getClassroomNames(
+  const classroomNames = getClassroomNames(
     state.district_standards_reports.standardsReportsData,
     state.district_standards_reports.selectedSchool,
     state.district_standards_reports.selectedTeacher,
@@ -134,15 +134,13 @@ const mapStateToProps = (state) => {
     classroomNames,
     teacherNames,
     schoolNames: getSchoolNames(state.district_standards_reports.standardsReportsData),
-  }
-};
-const mapDispatchToProps = (dispatch) => {
-  return {
-    switchSchool: school => dispatch(switchSchool(school)),
-    switchClassroom: classroom => dispatch(switchClassroom(classroom)),
-    switchTeacher: teacher => dispatch(switchTeacher(teacher)),
-    getDistrictStandardsReports: () => dispatch(getDistrictStandardsReports()),
   };
 };
+const mapDispatchToProps = dispatch => ({
+  switchSchool: school => dispatch(switchSchool(school)),
+  switchClassroom: classroom => dispatch(switchClassroom(classroom)),
+  switchTeacher: teacher => dispatch(switchTeacher(teacher)),
+  getDistrictStandardsReports: () => dispatch(getDistrictStandardsReports()),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(DistrictStandardsReports);
