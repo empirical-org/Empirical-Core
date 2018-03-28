@@ -4,7 +4,7 @@ const autoprefixer = require('autoprefixer');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
-const devBuild = process.env.NODE_ENV !== 'production';
+const devBuild = process.env.RAILS_ENV !== 'production';
 const firebaseApiKey = process.env.FIREBASE_API_KEY;
 const firebaseDatabaseUrl = process.env.FIREBASE_DATABASE_URL;
 const pusherKey = process.env.PUSHER_KEY;
@@ -19,7 +19,7 @@ const nodeEnv = devBuild ? 'development' : 'production';
 
 const basePlugins = [new webpack.DefinePlugin({
   'process.env': {
-    NODE_ENV: JSON.stringify(nodeEnv),
+    RAILS_ENV: JSON.stringify(nodeEnv),
     FIREBASE_API_KEY: JSON.stringify(firebaseApiKey),
     FIREBASE_DATABASE_URL: JSON.stringify(firebaseDatabaseUrl),
     PUSHER_KEY: JSON.stringify(pusherKey),
@@ -56,7 +56,7 @@ const plugins = () => {
   if (nodeEnv === 'development') {
     return basePlugins;
   }
-  // basePlugins.splice(1, 0, new webpack.optimize.UglifyJsPlugin());
+  basePlugins.splice(1, 0, new UglifyJSPlugin());
   return basePlugins;
 };
 
