@@ -14,7 +14,7 @@ const webpackConfigLoader = require('react-on-rails/webpackConfigLoader');
 const configPath = resolve('..', 'config');
 const { output } = webpackConfigLoader(configPath);
 
-const devBuild = process.env.NODE_ENV !== 'production';
+const devBuild = process.env.RAILS_ENV !== 'production';
 
 if (devBuild) {
   console.log('Webpack dev build for Rails'); // eslint-disable-line no-console

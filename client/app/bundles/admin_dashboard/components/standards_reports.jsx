@@ -1,7 +1,7 @@
 import React from 'react';
-import StandardsReportsTable from 'bundles/admin_dashboard/components/standards_reports_table';
-import ItemDropdown from 'bundles/admin_dashboard/components/item_dropdown';
-import CSVDownloadForProgressReport from 'bundles/HelloWorld/components/progress_reports/csv_download_for_progress_report';
+import StandardsReportsTable from './standards_reports_table';
+import ItemDropdown from './item_dropdown.tsx';
+import CSVDownloadForProgressReport from '../../HelloWorld/components/progress_reports/csv_download_for_progress_report';
 
 const StandardsReports = ({
   csvData,
@@ -15,13 +15,12 @@ const StandardsReports = ({
   switchClassroom,
   selectedClassroom,
   filteredStandardsReportsData,
-}) => {
-  return (
-    <div className="standards-reports-by-classroom progress-reports-2018">
+}) => (
+  <div className="standards-reports-by-classroom progress-reports-2018">
       <div className="meta-overview flex-row space-between">
         <div className="header-and-info">
           <h1>
-            School Standards Reports 
+            School Standards Reports
           </h1>
           <p>
            View concept mastery for a school or district at large
@@ -35,11 +34,9 @@ const StandardsReports = ({
           </a>
         </div>
       </div>
-      <div className="dropdown-container">
-      </div>
+      <div className="dropdown-container" />
       <StandardsReportsTable data={filteredStandardsReportsData} />
     </div>
   );
-};
 
 export default StandardsReports;
