@@ -14,7 +14,7 @@ class ChargesController < ApplicationController
     new_sub = Subscription.give_teacher_premium_if_charge_succeeds(current_user)
 
     if new_sub.present?
-      SalesContactUpdater.new(purchaser.id, '2').update
+      SalesContactUpdater.new(new_sub.purchaser_id, '2').update
     end
 
     render json: {new_subscription: new_sub}
