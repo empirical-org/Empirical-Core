@@ -41,6 +41,7 @@ describe('Credit Card Modal', () => {
       cy.get('.button').click()
       cy.get('.premium-confirmation')
     })
+    
   })
 
 
