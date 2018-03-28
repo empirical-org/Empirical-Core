@@ -1,6 +1,7 @@
 import * as React from 'react'
 import DropdownButton from 'react-bootstrap/lib/DropdownButton';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
+import _ from 'underscore';
 
 interface ItemDropdownProps {
   items: Array<Item>;
@@ -42,7 +43,7 @@ const ItemDropdown: React.SFC<ItemDropdownProps> = ({
   };
 
   const findItemByIdOrName = (idOrName) => {
-    return items.find((c) => {
+    return _.find(items, (c) => {
       if (!c.id) {
         return c === idOrName;
       }
