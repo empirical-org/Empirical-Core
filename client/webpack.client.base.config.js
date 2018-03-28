@@ -56,7 +56,7 @@ const plugins = () => {
   if (nodeEnv === 'development') {
     return basePlugins;
   }
-  basePlugins.splice(1, 0, new webpack.optimize.UglifyJsPlugin());
+  // basePlugins.splice(1, 0, new webpack.optimize.UglifyJsPlugin());
   return basePlugins;
 };
 
