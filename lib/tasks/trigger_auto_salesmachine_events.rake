@@ -1,7 +1,7 @@
 desc "Trigger segment events for automatic sales events"
 task :trigger_auto_sales_events => :environment do
   User.joins(:school).where('users.role = ?', 'teacher').find_each do |teacher|
-    SalesContactUpdater.new(teacher.id, '1').update
+    SalesContactUpdaterWorker.perform_async(teacher.id, '1')
   end
 
   User.joins(:school, :subscription)
@@ -24,11 +24,11 @@ task :trigger_auto_sales_events => :environment do
       ]
 
       if teacher_premuim.include? teacher.subscription.account_type
-        SalesContactUpdater.new(teacher.id, '2').update
+        SalesContactUpdaterWorker.perform_async(teacher.id, '2')
       end
 
       if school_premuim.include? teacher.subscription.account_type
-        SalesContactUpdater.new(teacher.id, '6.1')
+        SalesContactUpdaterWorker.perform_async(teacher.id, '6.1')
     end
   end
 end
