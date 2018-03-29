@@ -328,6 +328,15 @@ class PagesController < ApplicationController
   def tutorials
   end
 
+  def press
+    @blog_posts = BlogPost.where(draft: false, topic: 'Press')
+  end
+
+  def announcements
+    @blog_posts = BlogPost.where(draft: false, topic: 'Announcements')
+  end
+
+
   private
 
   def determine_layout
@@ -359,4 +368,5 @@ class PagesController < ApplicationController
     list_response.each{|list| list["cards"] = HTTParty.get("https://api.trello.com/1/lists/#{list["id"]}/cards/?fields=name,url")}
     list_response
   end
+
 end
