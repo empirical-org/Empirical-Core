@@ -10,7 +10,7 @@ describe('Teacher Dashboard Subnav', function() {
   })
 
   beforeEach(function() {
-    Cypress.Cookies.preserveOnce("_quill_session")
+    Cypress.Cookies.preserveOnce('_quill_session')
   })
 
   it('has a link to the Home page', function() {
@@ -23,8 +23,8 @@ describe('Teacher Dashboard Subnav', function() {
     cy.url().should('include', '/teachers/classrooms')
   })
 
-  it('has a link to the Assign Activity page', function() {
-    cy.get('#teacher-nav-tabs').contains('Assign Activity').click({force: true})
+  it('has a link to the Assign Activities page', function() {
+    cy.get('#teacher-nav-tabs').contains('Assign Activities').click({force: true})
     cy.url().should('include', '/teachers/classrooms/assign_activities')
   })
 
