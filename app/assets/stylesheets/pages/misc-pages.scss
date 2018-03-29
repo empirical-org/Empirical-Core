@@ -124,6 +124,8 @@
 	}
 	.activity-description {
 		color: #666666;
+		max-width: 600px;
+		width: 100%;
 	}
 	@media (max-width: 500px) {
 		.activity {
