@@ -8,6 +8,7 @@ const BlogPostRow = props => {
     <td>{props.createdAt}</td>
     <td>{props.updatedAt}</td>
     <td>{props.rating}</td>
+    <td>{props.views}</td>
     <td><a className="button" href={props.editLink}>Edit</a></td>
     <td><a className="button" href={props.previewLink}>Preview</a></td>
     <td><a className="button" href={props.deleteLink}>Delete</a></td>
