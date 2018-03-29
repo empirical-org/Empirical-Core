@@ -1,5 +1,7 @@
 describe('Subscription page', function() {
-
+  after(() => {
+    cy.logout()
+  })
 
   describe('when I have Quill Basic', ()=>{
     before(function() {

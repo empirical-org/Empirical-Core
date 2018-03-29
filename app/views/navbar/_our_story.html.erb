@@ -1,0 +1,50 @@
+<div id="our-story" class="navbar-tooltip-trigger <%= active_tab == 'Our Story' ? 'active' : '' %>" tabindex="1">
+  <span>Our Story</span>
+  <div class="navbar-tooltip">
+    <i class="fa fa-caret-up"></i>
+    <%= render 'navbar/tooltip_link',
+      text: 'About Us',
+      subtext: "Learn about Quill's mission",
+      hover_image_src: 'https://assets.quill.org/images/navbar/navbar-aboutus-solid.svg',
+      image_src: 'https://assets.quill.org/images/navbar/navbar-aboutus-gradient.svg',
+      image_id: 'aboutus-img',
+      link: '/mission'
+    %>
+    <%= render 'navbar/tooltip_link',
+      text: 'Impact',
+      subtext: "Learn about Quill's reach",
+      hover_image_src: 'https://assets.quill.org/images/navbar/navbar-impact-solid.svg',
+      image_src: 'https://assets.quill.org/images/navbar/navbar-impact-gradient.svg',
+      image_id: 'impact-img',
+      link: '/impact'
+    %>
+    <%= render 'navbar/tooltip_link',
+      text: 'Announcements',
+      subtext: "See what's new with Quill",
+      hover_image_src: 'https://assets.quill.org/images/navbar/navbar-announcements-solid.svg',
+      image_src: 'https://assets.quill.org/images/navbar/navbar-announcements-gradient.svg',
+      image_id: 'announcements-img',
+      link: '/announcements'
+    %>
+    <%= render 'navbar/tooltip_link',
+      text: 'In the Press',
+      subtext: 'Read articles that feature Quill',
+      fa_class: 'fa fa-icon fa-newspaper-o',
+      link: '/press'
+    %>
+    <%= render 'navbar/tooltip_link',
+      text: 'Team',
+      subtext: 'Learn about our team',
+      fa_class: 'fa fa-icon fa-users',
+      link: '/team'
+    %>
+    <%= render 'navbar/tooltip_link',
+      text: 'Donate',
+      subtext: "Contribute to Quill's mission",
+      hover_image_src: 'https://assets.quill.org/images/navbar/navbar-donate-solid.svg',
+      image_src: 'https://assets.quill.org/images/navbar/navbar-donate-gradient.svg',
+      image_id: 'donate-img',
+      link: '/donate'
+    %>
+  </div>
+</div>
