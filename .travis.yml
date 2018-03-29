@@ -3,6 +3,7 @@ sudo: false
 cache:
   bundler: true
   directories:
+    - node_modules
     - client/node_modules
 rvm:
   - 2.3.1
