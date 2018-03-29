@@ -1,59 +1,68 @@
-<% if @tool == ('connect' || 'diagnostic') %>
-  <div class="tools-tabs tools-anchor-nav">
-    <% @tabs = [
-      {name: 'Overview', url: "tools/#{@tool}#overview"},
-      {name: 'How It Works', url: "tools/#{@tool}#how-it-works"},
-      {name: 'Walkthrough', url: "tools/#{@tool}#walkthrough"},
-      {name: 'Testimonial', url: "tools/#{@tool}#testimonial"}
+<div class="subnav tools-navbar">
+  <% @tabs = [
+      {
+        name: 'Quill Connect',
+        url: 'tools/connect',
+        id: 'connect'
+      },
+      {
+        name: 'Quill Lessons',
+        url: 'tools/lessons',
+        id: 'lessons'
+      },
+      {
+        name: 'Quill Diagnostic',
+        url: 'tools/diagnostic',
+        id: 'diagnostic'
+      },
+      {
+        name: 'Quill Proofreader',
+        url: 'tools/proofreader',
+        id: 'proofreader'
+      },
+      {
+        name: 'Quill Grammar',
+        url: 'tools/grammar',
+        id: 'grammar'
+      }
+    ]
+    @mobile = false
+  %>
+
+  <div class="full-screen">
+    <%= render partial: "pages/shared/generic_tabs", locals: { tabs: @tabs, active_tab: @active_tab, mobile: @mobile } %>
+  </div>
+
+  <%
+    @active_tab = @active_tab.split.last
+    @tabs = [
+        {
+          name: 'Connect',
+          url: 'tools/connect',
+          id: 'connect'
+        },
+        {
+          name: 'Lessons',
+          url: 'tools/lessons',
+          id: 'lessons'
+        },
+        {
+          name: 'Diagnostic',
+          url: 'tools/diagnostic',
+          id: 'diagnostic'
+        },
+        {
+          name: 'Proofreader',
+          url: 'tools/proofreader',
+          id: 'proofreader'
+        },
+        {
+          name: 'Grammar',
+          url: 'tools/grammar',
+          id: 'grammar'
+        }
       ]
       @mobile = false
-    %>
-
-    <div class="full-screen">
-      <%= render partial: "pages/shared/generic_tabs", locals: { tabs: @tabs, active_tab: @active_tab, mobile: @mobile } %>
-    </div>
-
-    <% @tabs = [
-      {name: 'Overview', url: "tools/#{@tool}#overview"},
-      {name: 'How It Works', url: "tools/#{@tool}#how-it-works-mobile"},
-      {name: 'Walkthrough', url: "tools/#{@tool}#walkthrough"},
-      {name: 'Testimonial', url: "tools/#{@tool}#testimonial"}
-      ]
-      @active_tab = @active_tab.split.last
-      @mobile = true
-    %>
-
-    <div class="small-screen">
-      <%= render partial: "pages/shared/generic_tabs", locals: { tabs: @tabs, active_tab:  @active_tab, mobile: @mobile} %>
-    </div>
-
-  </div>
-<% elsif @tool == 'lessons' %>
-<div class="tools-tabs tools-anchor-nav">
-  <% @tabs = [
-    {name: 'Overview', url: "tools/#{@tool}#overview"},
-    {name: 'How It Works', url: "tools/#{@tool}#how-it-works"},
-    {name: 'Walkthrough', url: "tools/#{@tool}#walkthrough"},
-    {name: 'Testimonial', url: "tools/#{@tool}#testimonial"},
-    {name: 'Best Practices', url: "tools/#{@tool}#q-and-a"}
-    ]
-    @mobile = false
-  %>
-
-  <div class="full-screen">
-    <%= render partial: "pages/shared/generic_tabs", locals: { tabs: @tabs, active_tab: @active_tab, mobile: @mobile } %>
-  </div>
-
-  <%
-    @tabs = [
-    {name: 'Overview', url: "tools/#{@tool}#overview"},
-    {name: 'How It Works', url: "tools/#{@tool}#how-it-works-mobile"},
-    {name: 'Walkthrough', url: "tools/#{@tool}#walkthrough"},
-    {name: 'Testimonial', url: "tools/#{@tool}#testimonial"},
-    {name: 'Q & A', url: "tools/#{@tool}#q-and-a"}
-    ]
-    @active_tab = @active_tab.split.last
-    @mobile = true
   %>
 
   <div class="small-screen">
@@ -61,30 +70,3 @@
   </div>
 
 </div>
-
-<% else %>
-<div class="tools-tabs tools-anchor-nav">
-  <% @tabs = [
-    {name: 'Overview', url: "tools/#{@tool}#overview"},
-    {name: 'Walkthrough', url: "tools/#{@tool}#walkthrough"},
-    {name: 'Testimonial', url: "tools/#{@tool}#testimonial"}
-    ]
-    @mobile = false
-  %>
-
-  <div class="full-screen">
-    <%= render partial: "pages/shared/generic_tabs", locals: { tabs: @tabs, active_tab: @active_tab, mobile: @mobile } %>
-  </div>
-
-  <%
-    @active_tab = @active_tab.split.last
-    @mobile = true
-  %>
-
-  <div class="small-screen">
-    <%= render partial: "pages/shared/generic_tabs", locals: { tabs: @tabs, active_tab:  @active_tab, mobile: @mobile} %>
-  </div>
-
-</div>
-
-<% end %>

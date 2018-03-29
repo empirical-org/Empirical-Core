@@ -3,7 +3,9 @@
 @import '../../../../app/assets/stylesheets/pages/home.scss';
 @import '../../../../app/assets/stylesheets/bootstrap.scss';
 @import '../../../../app/assets/stylesheets/shared/tabs.scss';
-@import './navbar.scss';
+@import '../../../../app/assets/stylesheets/shared/navbar.scss';
+@import '../../../../app/assets/stylesheets/shared/subnav.scss';
+@import '../../../../app/assets/stylesheets/shared/footer.scss';
 @import '/notification_bar.scss';
 @import './typography.scss';
 @import './tool-section.scss';
@@ -18,19 +20,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: "adelle-sans", "Helvetica", "Arial", sans-serif;
-}
-
-.home-nav-right {
-  font-weight: 600;
-  font-size: 16px;
-  .sign-up-button {
-    height: 30px;
-    padding: 0px 13px;
-    align-items: center;
-    display: flex;
-    border-radius: 6px;
-    border: white 1px solid;
-  }
 }
 
 .q-h1, .q-h2 {
@@ -85,16 +74,11 @@ p.feature-heading {
   }
 }
 
-.navbar {
-  margin-top: 0;
-}
-
 a {
   text-decoration: none;
 }
 
 a.q-button {
-  border: solid 1px;
   border-radius: 6px;
   cursor: pointer;
   display: inline-block;
@@ -111,6 +95,12 @@ a.q-button {
     font-weight: 600;
     height: 40px;
     margin-right: 10px;
+  }
+  &.learn-more-button {
+    border: 1px solid white;
+    &:hover {
+      border: none;
+    }
   }
   &.cta-button {
     // padding-left: 33px;
@@ -280,6 +270,9 @@ section.q-hero {
   height: 530px;
   background-image: url(../../../../public/images/homepage/homepage_pattern.png);
   background-position: center center;
+  .navbar {
+    background-color: initial;
+  }
   .header {
     .q-h1 {
       margin-bottom: 0px;
@@ -291,213 +284,6 @@ section.q-hero {
   }
 }
 
-nav.q-navbar-home {
-  max-width: 1165px;
-  width: 100%;
-  margin: 0 auto;
-  height: 90px;
-  display: flex;
-  justify-content: space-between;
-  align-content: center;
-  position:relative;
-
-  .logo-img-new {
-    margin-top: 20px;
-    height: 35px;
-  }
-
-  .home-nav-right {
-    max-width: 475px;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    &.narrow {
-      display: none;
-    }
-
-    .sign-up-btn {
-      border: 1px solid $white;
-      //Instead of the line below you could use @includeborder-radius($radius, $vertical-radius)
-      border-radius: 4px;
-      padding: 4px 9px 2px;
-      background-color: $white;
-      color: $quillgreen;
-    }
-  }
-
-  /* Advanced Checkbox Hack */
-  // body { -webkit-animation: bugfix infinite 1s; }
-  @-webkit-keyframes bugfix { from {padding:0;} to {padding:0;} }
-
-  input.home-nav-checkbox[type=checkbox] {
-    position: absolute;
-    box-sizing:border-box;
-    top: -9999px;
-    left: -9999px;
-  }
-
-  label {
-    display:none;
-    cursor: pointer;
-    user-select:none;
-  }
-
-
-  /* custom-dropdown */
-  nav.home-nav-dropdown[role="home-custom-dropdown"] {
-    width: 100%;
-
-    a,
-    label {
-      text-decoration:none;
-      font: 1.2em sans-serif;
-      transition: color .3s ease-in-out;
-    }
-
-    ul {
-      padding: 0;
-      // margin: 0 auto;
-      width: 100%;
-      list-style:none;
-      position: absolute;
-      top: 30px;
-      left: 0;
-      background-color: $quillgreen;
-      z-index: 2;
-
-      > li {
-        float:left;
-        padding: .55em 15px;
-        // margin: 0 auto;
-        width:19%;
-        text-align:center;
-        cursor: pointer;
-
-        &:hover {
-          color: #3b3b3b;
-          box-shadow:
-            0 .05em .25em 0 rgba(0, 0, 0, .35),
-            inset 0 0 0 2em rgba(0, 0, 0, .3)
-          ;
-
-        }
-        &:active {
-          border-top: none;
-        }
-      }
-    }
-  }
-
-
-
-
-  /* small screens */
-
-  @media only screen and (max-width: 865px) {
-    a.q-button {
-      // &.cta-button, &.icon-button {
-        padding-left: 0px;
-        padding-right: 0px;
-      // }
-    }
-  }
-  @media screen and (min-width: 551px) {
-    nav.home-nav-dropdown[role="home-custom-dropdown"] {
-      display: none;
-    }
-  }
-  @media screen and (max-width: 550px) {
-    height: 60px;
-
-    .home-nav-right.wide {
-      display: none;
-    }
-
-    .logo-img-new {
-      margin-top: 7px;
-      height: 35px;
-    }
-
-    .desktop-nav-list {
-      display: none;
-    }
-    nav.home-nav-dropdown[role="home-custom-dropdown"] {
-      ul {
-        display:none;
-        // height:100%;
-        padding-bottom: 5px;
-        -webkit-box-shadow: 0px 10px 15px 5px rgba(0,0,0,0.2);
-        -moz-box-shadow: 0px 10px 15px 5px rgba(0,0,0,0.2);
-        box-shadow: 0px 10px 15px 5px rgba(0,0,0,0.2);
-      }
-
-      label {
-        position:relative;
-        display:block;
-        width:100%;
-        min-height:2.25em;
-        padding:.45em;
-        font-size:1.1em;
-        margin:0;
-      }
-
-      label:after {
-        position: absolute;
-        right: 10%;
-        top: -19px;
-        content: "\2261";
-        color: $white;
-        font-size: 4em;
-        @media only screen and (max-width : 419px) {
-          font-size: 3em;
-          top: -8px;
-        }
-      }
-
-      input.home-nav-checkbox[type=checkbox]:checked ~ label:after {
-        color: $white;
-      }
-
-      input.home-nav-checkbox[type=checkbox]:checked ~ ul {
-        display:block;
-
-        > li {
-          width: calc(100% - 30px);
-          text-align:left;
-
-          &:after {
-            position:absolute;
-            color: $white;
-            right:.25em;
-            content:"\203A";
-            font: bold 1.4em sans-serif;
-          }
-        }
-      }
-    }
-  }
-  @media only screen and (max-width : 1165px) {
-    padding: 0 15px;
-    width: calc(100% - 30px);
-  }
-
-  // @media only screen and (max-width : 500px) {
-  //   // display: block;
-  //   .home-nav-right.narrow {
-  //     display: block;
-  //   }
-  //
-  //
-  //
-  // }
-
-  @media only screen and (max-width : 419px) {
-
-  }
-}
-
 .q-hero-text {
   /* bring your own prefixes */
   text-align: center;
@@ -505,6 +291,10 @@ nav.q-navbar-home {
     font-size: 20px;
     max-width: 460px;
     margin: auto;
+  }
+  .text-quillgreen:hover {
+    color: #ffffff;
+    background-color: #00DFB1;
   }
 }
 
