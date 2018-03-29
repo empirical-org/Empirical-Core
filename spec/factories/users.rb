@@ -19,6 +19,12 @@ FactoryBot.define do
     factory :teacher do
       role 'teacher'
 
+      factory :teacher_with_one_classroom do
+        after(:create) do |teacher|
+          create(:classrooms_teacher, user_id: teacher.id)
+        end
+      end
+
       factory :teacher_with_a_couple_classrooms_with_one_student_each do
         after(:create) do |teacher|
           classrooms = create_pair(:classroom_with_one_student, :with_no_teacher)
