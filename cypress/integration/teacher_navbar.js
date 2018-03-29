@@ -1,4 +1,7 @@
 describe('Teacher Navbar', function() {
+  after(() => {
+    cy.logout()
+  })
 
   before(function() {
     cy.exec('RAILS_ENV=cypress rake find_or_create_cypress_test_data:find_or_create_teacher', {failOnNonZeroExit: false})
