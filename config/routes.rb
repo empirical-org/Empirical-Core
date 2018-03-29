@@ -9,6 +9,12 @@ EmpiricalGrammar::Application.routes.draw do
 
   mount Sidekiq::Web => '/sidekiq', constraints: StaffConstraint.new
 
+  if Rails.env.test? || Rails.env == 'cypress'
+    resources :factories, only: :create do
+      delete 'destroy_all', on: :collection
+    end
+  end
+
   resources :admins, only: [:show], format: 'json' do
     resources :teachers, only: [:index, :create]
   end
