@@ -27,7 +27,7 @@ describe('Explore All Activities page', function() {
       traits: ['production']
     })
     cy.factoryBotCreate({
-      factory: 'teacher_with_one_classroom',
+      factory: 'teacher_with_a_couple_classrooms_with_a_couple_students_each',
       password: 'password',
       email: 'someone@gmail.com'
     }).then(() => {
@@ -95,6 +95,54 @@ describe('Explore All Activities page', function() {
     it('lets me continue if I select an activity and then press Continue', function() {
       cy.get(':nth-child(2) > :nth-child(4) > .css-label').click()
       cy.contains('Continue').click()
+    })
+  })
+
+  describe('stage 2', function() {
+    it('lets me name the activty pack', function() {
+      cy.get('#unit_name').type('Whomst')
+    })
+
+    it('displays a block for each of my classrooms', function() {
+      cy.get('.panel-group').should('have.length', 2)
+    })
+
+    it('displays an error if I try to assign the activity pack without selecting who to assign it to', function() {
+      cy.get('#assign')
+      cy.contains('Please select students')
+    })
+
+    it('allows me to select an entire classroom', function() {
+      cy.get(':nth-child(3) > :nth-child(1) > .panel-heading > .title > div > .css-label').click()
+      cy.get(':nth-child(3) > :nth-child(1) > .panel-heading > .title > div > .css-checkbox').should('have.value', 'on')
+    })
+
+    it('allows me to unselect an entire classroom', function() {
+      cy.get(':nth-child(3) > :nth-child(1) > .panel-heading > .title > div > .css-label').click()
+      cy.get(':nth-child(3) > :nth-child(1) > .panel-heading > .title > div > .css-checkbox').should('have.value', 'off')
+    })
+
+    it('allows me to click on a classroom to see all the students', function() {
+      cy.get(':nth-child(4) > :nth-child(1) > .panel-heading > .title > .toggle-button > .panel-select-by-student').click()
+      cy.get('.student-panel-body')
+    })
+
+    it('allows me to select individual students', function() {
+      cy.get(':nth-child(4) > :nth-child(1) > .panel > .panel-collapse > :nth-child(1) > .panel-body > :nth-child(1) > .css-label').click()
+    })
+
+    it('allows me to unselect individual students', function() {
+      cy.get(':nth-child(4) > :nth-child(1) > .panel > .panel-collapse > :nth-child(1) > .panel-body > :nth-child(1) > .css-label').click()
+    })
+
+    it('allows me to select a due date for an activity', function() {
+      cy.get('.react-datepicker__input-container > input').click()
+      cy.get('[aria-label="day-31"]').click()
+    })
+
+    it('lets me assign the activity pack if there are selected students', function() {
+      cy.get(':nth-child(4) > :nth-child(1) > .panel > .panel-collapse > :nth-child(1) > .panel-body > :nth-child(1) > .css-label').click()
+      // cy.get('#assign').click()
     })
   })
 

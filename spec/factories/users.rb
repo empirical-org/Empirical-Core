@@ -25,6 +25,15 @@ FactoryBot.define do
         end
       end
 
+      factory :teacher_with_a_couple_classrooms_with_a_couple_students_each do
+        after(:create) do |teacher|
+          classrooms = create_pair(:classroom_with_a_couple_students, :with_no_teacher)
+          classrooms.each do |classroom|
+            create(:classrooms_teacher, user_id: teacher.id, classroom: classroom, role: 'owner')
+          end
+        end
+      end
+
       factory :teacher_with_a_couple_classrooms_with_one_student_each do
         after(:create) do |teacher|
           classrooms = create_pair(:classroom_with_one_student, :with_no_teacher)
