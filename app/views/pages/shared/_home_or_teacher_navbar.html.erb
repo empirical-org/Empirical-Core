@@ -1,9 +1,0 @@
-<% if current_user&.teacher? %>
-  <div id="application_nav_bar">
-    <nav class="navbar home-page-navbar npr other-pages-navbar" role="navigation">
-      <%= render 'application/sub_header' %>
-  	</nav>
-  </div>
-<% else %>
-  <%= render 'pages/shared/home_navbar' %>
-<% end %>

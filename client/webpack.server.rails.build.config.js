@@ -2,12 +2,14 @@
 
 const webpack = require('webpack');
 const path = require('path');
-const { resolve } = require('path');
-const devBuild = process.env.NODE_ENV !== 'production';
+const { resolve, } = require('path');
+
+const devBuild = process.env.RAILS_ENV !== 'production';
 const nodeEnv = devBuild ? 'development' : 'production';
 const webpackConfigLoader = require('react-on-rails/webpackConfigLoader');
+
 const configPath = resolve('..', 'config');
-const { output } = webpackConfigLoader(configPath);
+const { output, } = webpackConfigLoader(configPath);
 
 module.exports = {
 
@@ -31,14 +33,14 @@ module.exports = {
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: JSON.stringify(nodeEnv),
+        RAILS_ENV: JSON.stringify(nodeEnv),
       },
     }),
     new webpack.LoaderOptionsPlugin({
       test: /\.scss$/,
       options: {
         sassResources: ['./app/assets/styles/app-variables.scss'],
-      }
+      },
     })
   ],
   module: {

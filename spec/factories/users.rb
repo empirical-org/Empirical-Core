@@ -1,3 +1,5 @@
+require 'Faker'
+
 FactoryBot.define do
   factory :user do
     name       { "#{Faker::Name.unique.first_name} #{Faker::Name.last_name}" }

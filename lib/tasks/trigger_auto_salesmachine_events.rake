@@ -1,34 +1,33 @@
 desc "Trigger segment events for automatic sales events"
 task :trigger_auto_sales_events => :environment do
   User.joins(:school).where('users.role = ?', 'teacher').find_each do |teacher|
-    SalesContactUpdater.new(teacher.id, '1').update
+    SalesContactUpdaterWorker.perform_async(teacher.id, '1')
   end
 
-  User.joins(:school, :subscription)
-    .where('users.role = ?', 'teacher')
-    .find_each do |teacher|
 
-      teacher_premuim = [
-        'Teacher Paid',
-        'Premium Credit',
-        'paid',
-      ]
+  Subscription.joins(:purchaser).find_each do |subscription|
 
-      school_premuim  = [
-        'School NYC Paid',
-        'School Strategic Paid',
-        'School Paid',
-        'Purchase Missing School',
-        'school',
-        'School',
-      ]
+    teacher_premuim = [
+      'Teacher Paid',
+      'Premium Credit',
+      'paid',
+    ]
 
-      if teacher_premuim.include? teacher.subscription.account_type
-        SalesContactUpdater.new(teacher.id, '2').update
-      end
+    school_premuim  = [
+      'School NYC Paid',
+      'School Strategic Paid',
+      'School Paid',
+      'Purchase Missing School',
+      'school',
+      'School',
+    ]
 
-      if school_premuim.include? teacher.subscription.account_type
-        SalesContactUpdater.new(teacher.id, '6.1')
+    if teacher_premuim.include? subscription.account_type
+      SalesContactUpdaterWorker.perform_async(subscription.purchaser_id, '2')
+    end
+
+    if school_premuim.include? subscription.account_type
+      SalesContactUpdaterWorker.perform_async(subscription.purchaser_id, '6.1')
     end
   end
 end

@@ -1,13 +1,12 @@
 import React from 'react';
-import _ from 'underscore';
-import AdminsTeachers from 'bundles/admin_dashboard/components/admins_teachers';
-import PremiumFeatures from 'bundles/admin_dashboard/components/premium_features';
-import CreateNewAccounts from 'bundles/admin_dashboard/components/create_new_accounts';
-import LoadingSpinner from 'bundles/HelloWorld/components/shared/loading_indicator';
-import QuestionsAndAnswers from 'bundles/HelloWorld/containers/QuestionsAndAnswers';
-import pluralize from 'pluralize';
 import request from 'request';
-import getAuthToken from 'bundles/HelloWorld/components/modules/get_auth_token';
+import AdminsTeachers from '../components/admins_teachers.tsx';
+import PremiumFeatures from '../components/premium_features.tsx';
+import CreateNewAccounts from '../components/create_new_accounts.tsx';
+import LoadingSpinner from '../../HelloWorld/components/shared/loading_indicator';
+import QuestionsAndAnswers from '../../HelloWorld/containers/QuestionsAndAnswers';
+
+import getAuthToken from '../../HelloWorld/components/modules/get_auth_token';
 
 export default React.createClass({
   propTypes: {
@@ -31,7 +30,7 @@ export default React.createClass({
   },
 
   componentDidMount() {
-    this.getData()
+    this.getData();
   },
 
   getData() {
@@ -46,21 +45,21 @@ export default React.createClass({
   },
 
   addTeacherAccount(data) {
-    const that = this
-    that.setState({message: '', error: ''})
-    data.authenticity_token = getAuthToken()
+    const that = this;
+    that.setState({ message: '', error: '', });
+    data.authenticity_token = getAuthToken();
     request.post(`${process.env.DEFAULT_URL}/admins/${that.props.id}/teachers`, {
-      json: data
+      json: data,
     },
     (e, r, response) => {
       if (response.error) {
-        that.setState({error: response.error})
-      } else if (r.statusCode === 200){
-        that.setState({message: response.message}, () => that.getData())
+        that.setState({ error: response.error, });
+      } else if (r.statusCode === 200) {
+        that.setState({ message: response.message, }, () => that.getData());
       } else {
-        console.log(response)
+        console.log(response);
       }
-    })
+    });
   },
 
   render() {
@@ -68,7 +67,7 @@ export default React.createClass({
       return (
         <div >
           <div className="sub-container">
-            <PremiumFeatures/>
+            <PremiumFeatures />
             <AdminsTeachers
               isValid={!!this.state.model.valid_subscription}
               data={this.state.model.teachers}
@@ -80,7 +79,7 @@ export default React.createClass({
               message={this.state.message}
             />
             <QuestionsAndAnswers
-              questionsAndAnswersFile='admin'
+              questionsAndAnswersFile="admin"
               supportLink="https://support.quill.org/quill-premium"
             />
           </div>

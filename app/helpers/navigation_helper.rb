@@ -26,20 +26,12 @@ module NavigationHelper
     action_name == 'scorebook'
   end
 
-  def teacher_resources_page_should_be_active?
-    controller.class == BlogPostsController || action_name == 'faq'
-  end
-
   def admin_page_should_be_active?
     action_name == 'admin_dashboard'
   end
 
   def premium_page_should_be_active?
-
-  end
-
-  def premium_page_should_display?
-    !current_user.is_premium? || current_user.premium_state == 'trial'
+    # action_name == 'premium'
   end
 
   def premium_tab_copy
@@ -50,13 +42,14 @@ module NavigationHelper
       "Premium  <i class='fa fa-star'></i> Trial Expired"
     when nil
       "Try Premium <i class='fa fa-star'></i>"
-    when 'none' 
+    when 'none'
       "Try Premium <i class='fa fa-star'></i>"
     end
   end
 
+
   # NOTE: subnavs for other pages are handled on the front end with React.
   def should_render_subnav?
-    home_page_should_be_active? || classes_page_should_be_active? || student_reports_page_should_be_active? || teacher_resources_page_should_be_active?
+    home_page_should_be_active? || classes_page_should_be_active? || student_reports_page_should_be_active?
   end
 end
