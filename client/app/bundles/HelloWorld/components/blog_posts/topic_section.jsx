@@ -9,11 +9,28 @@ export default class extends React.Component {
     )
   }
 
+  topicIcon() {
+    switch (this.props.title) {
+      case 'Getting Started':
+        return <img src="https://assets.quill.org/images/teacher_center/gettingstarted-gray.svg" />
+      case 'Announcements':
+        return <img src="https://assets.quill.org/images/teacher_center/announcement-gray.svg" />
+      case 'Case Studies':
+        return <img src="https://assets.quill.org/images/teacher_center/casestudies-gray.svg" />
+      case 'Writing Instruction Research':
+        return <img src="https://assets.quill.org/images/teacher_center/research-gray.svg" />
+      case 'Press':
+        return <img src="https://assets.quill.org/images/teacher_center/inthepress-gray.svg" />
+      default:
+        return ''
+    }
+  }
+
   render() {
     return (
       <section>
         <div className='meta'>
-          <h1>{this.props.title}</h1>
+          <h1>{this.topicIcon()}{this.props.title}</h1>
           <h2>{this.props.articleCount} {pluralize('article', this.props.articleCount)}</h2>
           <a href={`/teacher_resources/topic/${this.props.title.toLowerCase().replace(/\s/g, '_')}`}>Show All</a>
         </div>

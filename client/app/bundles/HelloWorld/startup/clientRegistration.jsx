@@ -31,6 +31,8 @@ import EditStudentApp from './EditStudentAppClient';
 import SelectSchoolApp from './SelectSchoolAppClient';
 import SubscriptionApp from './SubscriptionAppClient';
 import BlogPostsApp from './BlogPostsAppClient'
+import PressApp from './PressAppClient'
+import AnnouncementsApp from './AnnouncementsAppClient'
 
 require('../../../assets/styles/home.scss');
 
@@ -67,5 +69,7 @@ ReactOnRails.register({ TeacherGuideApp,
   EditStudentApp,
   SelectSchoolApp,
   SubscriptionApp,
-  BlogPostsApp
+  BlogPostsApp,
+  PressApp,
+  AnnouncementsApp
 });
