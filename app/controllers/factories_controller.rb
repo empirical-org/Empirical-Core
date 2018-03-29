@@ -10,6 +10,10 @@ class FactoriesController < ApplicationController
     render json: FactoryBot.create(factory, *traits, attributes).to_json
   end
 
+  def create_list
+    render json: FactoryBot.create_list(factory, number, *traits, attributes).to_json
+  end
+
   def destroy_all
     unless Rails.env.production? || Rails.env.development?
       DatabaseCleaner.clean_with(:truncation)
@@ -33,7 +37,11 @@ class FactoriesController < ApplicationController
   end
 
   def attributes
-    params.except(:factory, :traits, :controller, :action).symbolize_keys
+    params.except(:factory, :traits, :controller, :action, :number).symbolize_keys
+  end
+
+  def number
+    params[:number].to_i
   end
 
   def show_errors(exception)
