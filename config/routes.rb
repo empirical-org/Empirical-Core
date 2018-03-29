@@ -11,6 +11,7 @@ EmpiricalGrammar::Application.routes.draw do
 
   if Rails.env.test? || Rails.env == 'cypress'
     resources :factories, only: :create do
+      post 'create_list', on: :collection
       delete 'destroy_all', on: :collection
     end
   end
