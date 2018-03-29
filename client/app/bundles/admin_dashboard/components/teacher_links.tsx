@@ -1,5 +1,5 @@
 import * as React from 'react';
-import TeacherLink from 'bundles/admin_dashboard/components/teacher_link';
+import TeacherLink from './teacher_link';
 
 const TeacherLinks = ({ links, isValid }) => {
   let teacherLinks = links.map((link) => {

@@ -1,16 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { mount, shallow } from 'enzyme';
-//import { MemoryRouter } from 'react-router';
+// import { MemoryRouter } from 'react-router';
 import { createMockStore } from 'redux-test-utils';
 // DistrictStandardsReportsProgressReport
-import AdminDashboardRouter from 'bundles/admin_dashboard/containers/AdminDashboardRouter.jsx';
-import DistrictStandardsReports from 'bundles/admin_dashboard/containers/DistrictStandardsReports.jsx';
-//import DistrictStandardsReportsProgressReports from 'bundles/admin_dashboard/containers/DistrictStandardsReports.jsx'
-//import DistrictStandardsReportsProgressReports from 'bundles/HelloWorld/components/progress_reports/district_standards_reports_progress_report.jsx'
+import AdminDashboardRouter from '../AdminDashboardRouter.jsx';
+import DistrictStandardsReports from '../DistrictStandardsReports.jsx';
+// import DistrictStandardsReportsProgressReports from 'bundles/admin_dashboard/containers/DistrictStandardsReports.jsx'
+// import DistrictStandardsReportsProgressReports from 'bundles/HelloWorld/components/progress_reports/district_standards_reports_progress_report.jsx'
 
 describe('DistrictStandardsReports', () => {
-
   it('renders report for all students', () => {
     const classroom = {
       section_name: '1st Grade CCSS',
@@ -69,7 +68,7 @@ describe('DistrictStandardsReports', () => {
         '1.1b How to tell a cactus from a cow',
         60,
         29,
-        2,
+        2
       ]
     ]);
   });
@@ -86,5 +85,4 @@ describe('DistrictStandardsReports', () => {
     //expect(wrapper.find(DistrictStandardsReportsProgressReport)).toHaveLength(0);
   });
   */
-
 });

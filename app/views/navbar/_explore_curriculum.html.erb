@@ -1,0 +1,29 @@
+<div id="explore-curriculum" class="navbar-tooltip-trigger <%= active_tab == 'Explore Curriculum' ? 'active' : '' %>" tabindex="1">
+  <span>Explore Curriculum</span>
+  <div class="navbar-tooltip">
+    <i class="fa fa-caret-up"></i>
+    <%= render 'navbar/tooltip_link',
+      text: 'Featured Activities',
+      subtext: 'Explore featured activity packs that are created by our teachers',
+      fa_class: 'fa fa-icon fa-book',
+      link: '/activities/packs',
+      image_id: nil
+    %>
+    <%= render 'navbar/tooltip_link',
+      text: 'ELA Standards',
+      subtext: 'See a list of ELA standards upon which we base our activities ',
+      hover_image_src: 'https://assets.quill.org/images/navbar/navbar-common-solid.svg',
+      image_src: 'https://assets.quill.org/images/navbar/navbar-common-gradient.svg',
+      image_id: 'standards-img',
+      link: '/activities/section/7'
+    %>
+    <!-- <%= render 'navbar/tooltip_link',
+      text: 'Our Pedagogy',
+      subtext: 'Read about our evidence-based approach to writing instruction',
+      hover_image_src: 'https://assets.quill.org/images/navbar/navbar-pedagogy-solid.svg',
+      image_src: 'https://assets.quill.org/images/navbar/navbar-pedagogy-gradient.svg',
+      image_id: 'pedagogy-img',
+      link: ''
+    %> -->
+  </div>
+</div>

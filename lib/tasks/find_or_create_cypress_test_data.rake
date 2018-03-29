@@ -99,6 +99,16 @@ namespace :find_or_create_cypress_test_data do
     find_or_create_school
   end
 
+  task :find_or_create_sections, [:wipe_database] => :environment do |t, args|
+    wipe_db
+    find_or_create_sections
+  end
+
+  task :find_or_create_teacher_with_classroom, [:wipe_database] => :environment do |t, args|
+    wipe_db
+    find_or_create_teacher_with_classroom
+  end
+
   def wipe_db
     tables = ActiveRecord::Base.connection.tables
     tables.delete 'schema_migrations'
@@ -198,6 +208,40 @@ namespace :find_or_create_cypress_test_data do
 
   def find_or_create_school
     School.find_or_create_by(name: 'Cool Bushwick School', zipcode: 11221)
+  end
+
+  def find_or_create_sections
+    if Section.all.none?
+      create(:grade_1_section)
+      create(:grade_2_section)
+      create(:grade_3_section)
+      create(:grade_4_section)
+      create(:grade_5_section)
+      create(:grade_6_section)
+      create(:grade_7_section)
+      create(:grade_8_section)
+      create(:grade_9_section)
+      create(:grade_10_section)
+      create(:grade_11_section)
+      create(:grade_12_section)
+      create(:university_section)
+    end
+  end
+
+  def find_or_create_teacher_with_classroom
+    teacher = find_or_create_teacher
+    if teacher.classrooms_i_teach.none?
+      classroom = find_or_create_classroom
+      ClassroomsTeacher.find_or_create_by(user: teacher, classroom: classroom, role: 'owner')
+    end
+  end
+
+  def find_or_create_classroom
+    if Classroom.find_by(name: 'Best Classroom Ever')
+      Classroom.find_by(name: 'Best Classroom Ever')
+    else
+      create(:classroom, name: 'Best Classroom Ever')
+    end
   end
 
 end

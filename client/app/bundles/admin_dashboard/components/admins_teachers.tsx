@@ -1,5 +1,5 @@
 import * as React from 'react';
-import TeacherLinks from 'bundles/admin_dashboard/components/teacher_links';
+import TeacherLinks from './teacher_links';
 import ReactTable from 'react-table';
 
 interface AdminsTeachersProps {

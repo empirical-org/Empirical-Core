@@ -17,7 +17,11 @@
     <!-- This is a placeholder for ReactOnRails to know where to render the store props for
      client side hydration -->
 <%= redux_store_hydration_data %>
-    <%= render partial: 'footer', media: 'all', 'data-turbolinks-track' => true %>
+    <% if current_user %>
+      <%= render partial: 'footer', media: 'all', 'data-turbolinks-track' => true %>
+    <% else %>
+      <%= render partial: 'pages/shared/footer' %>
+    <% end %>
 
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
