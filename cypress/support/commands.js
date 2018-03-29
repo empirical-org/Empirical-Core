@@ -57,6 +57,28 @@ Cypress.Commands.add('factoryBotCreate', (args) => {
     body
   })
 })
+
+Cypress.Commands.add('factoryBotCreateList', (args) => {
+  let factory = args.factory
+  let traits  = args.traits
+  delete args.factory
+  delete args.traits
+
+  let body = Object.assign(args, { factory })
+
+  if (traits) {
+    body.traits = traits
+  }
+
+  cy.request({
+    url: '/factories/create_list',
+    method: 'post',
+    form: true,
+    failOnStatusCode: true,
+    body
+  })
+})
+
 Cypress.Commands.add('cleanDatabase', () => {
   cy.request({
     url: '/factories/destroy_all',
@@ -64,4 +86,3 @@ Cypress.Commands.add('cleanDatabase', () => {
     failOnStatusCode: true,
   })
 })
-
