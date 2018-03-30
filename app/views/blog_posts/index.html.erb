@@ -1,4 +1,14 @@
-<%= render partial: 'teachers/shared/scorebook_tabs' if current_user %>
+<% current_path = request.env['PATH_INFO'] %>
+<% if current_path.include?('getting_started') %>
+  <% @active_tab = 'Getting Started'%>
+<% elsif current_path.include?('case_studies') %>
+  <% @active_tab = 'Case Studies'%>
+<% elsif current_path.include?('writing_instruction_research') %>
+  <% @active_tab = 'Writing Instruction Research'%>
+<% else %>
+  <% @active_tab = 'All Resources'%>
+<% end %>
+<%= render partial: 'pages/shared/teacher_center_navbar', active_tab: @active_tab %>
 <div class="container">
-  <%= react_component('BlogPostsApp', props: {route: 'index', blogPosts: @blog_posts, announcement: @announcement, query: @query}) %>
+  <%= react_component('BlogPostsApp', props: {route: 'index', blogPosts: @blog_posts, announcement: @announcement, query: @query, topics: @topics}) %>
 </div>

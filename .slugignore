@@ -4,3 +4,6 @@
 /cypress
 /test
 /spec
+/cypress
+cypress/*
+cypress

@@ -3,6 +3,7 @@ class BlogPostsController < ApplicationController
 
   def index
     @blog_posts = BlogPost.where(draft: false)
+    @topics = BlogPost::TOPICS
   end
 
   def show

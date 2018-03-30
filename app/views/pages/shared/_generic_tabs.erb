@@ -1,7 +1,10 @@
 <div class="q-nav-bar">
   <ul class='desktop-nav-list'>
     <%  @tabs.each do |tab| -%>
-      <li class=<%= tab[:name] == @active_tab ? 'active' : nil%> >
+      <li
+        id="<%= tab[:id] || '' %>"
+        class="<%= tab[:name] == @active_tab ? 'active' : '' %>"
+      >
         <%= link_to tab[:name], root_url + tab[:url] %>
       </li>
     <%end-%>

@@ -5,12 +5,12 @@ class SerializeSalesContact
 
   def data
     {
-      contact_uid: teacher.id,
+      contact_uid: teacher.id.to_s,
       method: 'contact',
       params: {
         email: teacher.email,
         name: teacher.name,
-        account_uid: account_uid,
+        account_uid: account_uid.to_s,
         signed_up: teacher.created_at.to_i,
         admin: teacher.admin?,
         premium_status: premium_status,
