@@ -1,27 +1,41 @@
 <footer class='footer-white'>
-	<div class="wrapper">
-		<ul class="footer-contacts">
-			<li>hello@quill.org</li>
-			<li>1 (646) 442-1095</li>
-			<li><a href="http://support.quill.org">Support</a></li>
-			<li><%= link_to "Terms","#{root_path}tos" %></li>
-			<li><%= link_to "Privacy", "#{root_path}privacy" %></li>
-		</ul>
 
-		<img src=<%= "#{ENV['CDN_URL']}/images/shared/footer-line.png" %> class="footer-line"></img>
+	<div class="footer-content">
+		<div class="top-half">
+			<div class="logo-and-text">
+				<a href="/"><img src="https://assets.quill.org/images/logos/quill-gray-logo-footer.svg"></img></a>
 
-		<ul class="footer-social">
-			<li><a href="https://twitter.com/Quill_org"><i class="fa fa-twitter"></i></a></li>
-			<li><a href="https://facebook.com/quill.org"><i class="fa fa-facebook"></i></a></li>
-			<li><a href="https://www.youtube.com/channel/UCG9mgvktG6vxp7XoYEJTiaw"><i class="fa fa-youtube-play"></i></a></li>
-			<li><a href="http://instagram.com/quill_org/"><i class="fa fa-instagram"></i></a></li>
-			<li><a href="https://github.com/empirical-org/Empirical-Core/issues"><i class="fa fa-github-alt"></i></a></li>
-		</ul>
+				<a class="footer-copy" href="http://community.quill.org/">Quill is a free literacy tool powered by an open source, non-profit community of educators and developers.</a>
+			</div>
 
-		<p class="footer-copy"><a href="http://community.quill.org/">Quill is a free literacy tool powered by an open source,<br>non-profit community of educators and developers.</a></p>
+			<form action="/teacher_resources/search">
+				<p>Search our Teacher Center</p>
+				<div class="input">
+					<input class="text" type='text' placeholder='Search for posts' name='query'></input>
+					<i class="fa fa-icon fa-search"></i>
+					<input class="search" type="submit" value="Search"></input>
+				</div>
+			</form>
+		</div>
 
-		<div class="footer-new-logo-wrapper">
-			<%= link_to "", root_path %>
+		<div class="bottom-half">
+			<ul class="footer-contacts">
+				<li><a href="mailto:hello@quill.org">hello@quill.org</a></li></li>
+				<li>1 (646) 442 1095</li>
+				<li><%= link_to "Our Story","#{root_path}mission" %></li>
+				<li><a href="http://support.quill.org">Support</a></li>
+				<li><%= link_to "Terms","#{root_path}tos" %></li>
+				<li><%= link_to "Privacy", "#{root_path}privacy" %></li>
+			</ul>
+
+			<ul class="footer-social">
+				<li><a href="https://twitter.com/Quill_org"><i class="fa fa-twitter"></i></a></li>
+				<li><a href="https://www.youtube.com/channel/UCG9mgvktG6vxp7XoYEJTiaw"><i class="fa fa-youtube-play"></i></a></li>
+				<li><a href="https://facebook.com/quill.org"><i class="fa fa-facebook"></i></a></li>
+				<li><a href="http://instagram.com/quill_org/"><i class="fa fa-instagram"></i></a></li>
+				<li><a href="https://github.com/empirical-org/Empirical-Core/issues"><i class="fa fa-github-alt"></i></a></li>
+			</ul>
+
 		</div>
 	</div>
 

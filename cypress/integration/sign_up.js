@@ -36,7 +36,7 @@ describe('Sign Up page', function() {
       .type('TheTr1@l')
       .should('have.value', 'TheTr1@l')
 
-      cy.get('.sign-up-button').click()
+      cy.get('.new-teacher-account > .sign-up-button').click()
 
     })
 
@@ -93,7 +93,7 @@ describe('Sign Up page', function() {
       .type('password')
       .should('have.value', 'password')
 
-      cy.get('.sign-up-button').click()
+      cy.get('.new-student-account > .sign-up-button').click()
     })
 
     it('brings me to a different page', function() {
@@ -135,7 +135,7 @@ describe('Sign Up page', function() {
       .type('password')
       .should('have.value', 'password')
 
-      cy.get('.sign-up-button').click()
+      cy.get('.new-student-account > .sign-up-button').click()
     })
 
     it('shows me an error after I submit a non-unique username', function() {

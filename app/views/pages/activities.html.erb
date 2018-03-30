@@ -1,55 +1,45 @@
-<% @active_tab = 'Standards' %>
-<%= render partial: 'pages/shared/discover_tabs', active_tab: @active_tab  %>
-<%= render partial: 'pages/shared/activities_subtabs'%>
+<% @active_tab = 'ELA Standards' %>
+<%= render partial: 'pages/shared/explore_curriculum_navbar', active_tab: @active_tab  %>
 
-<div class="container pages-container pages-activities">
+<div class="container pages-activities">
 
-  <div class="row">
-    <div class="col-xs-12">
-      <p>
-          We've built over 150 activities directly from the Common Core State Standards.
-          We are a nonprofit organization, and all of our activities will always be made freely available.
-          Each of our activities takes approximately 10-15 minutes. Teachers using Quill in a 1:1 classroom tend to assign Quill activities as a warm up exercise at the beginning of a class.
-      </p>
-    </div>
-  </div>
+  <h1>ELA Standards</h1>
+  <p>
+      We've built over 150 activities directly from the Common Core State Standards.
+      We are a nonprofit organization, and all of our activities will always be made freely available.
+      Each of our activities takes approximately 10-15 minutes. Teachers using Quill in a 1:1 classroom tend to assign Quill activities as a warm up exercise at the beginning of a class.
+  </p>
 
-  <div class="row">
-    <div class="col-xs-12 col-sm-4">
-      <div class="button-select">
-        <div class="button select-mixin select-gray button-select button-select-wrapper" type='button' data-toggle='dropdown'>
-          <%= @section.name %>
-          <i class="fa fa-caret-down"></i>
-        </div>
-        <ul class="dropdown-menu" role='menu'>
-          <% Section.all.sort_by(&:position).each do |section| %>
-            <li><%= link_to section.name, url_for(section_id: section.id) %></li>
-          <% end %>
-        </ul>
+  <div class="dropdown-container">
+    <div>
+      <div class="button select-mixin select-gray button-select button-select-wrapper" type='button' data-toggle='dropdown'>
+        <%= @section.name %>
+        <i class="fa fa-caret-down"></i>
       </div>
+      <ul class="dropdown-menu" role='menu'>
+        <% Section.all.sort_by(&:position).each do |section| %>
+          <li><%= link_to section.name, url_for(section_id: section.id) %></li>
+        <% end %>
+      </ul>
     </div>
   </div>
 
 
   <% @topics.each do |topic, activities| %>
-    <div class="row">
-      <div class="col-xs-12">
+    <div class="topic">
+      <div>
         <h4><%=topic.name%></h4>
       </div>
 
         <% activities.order('activities.name ASC').each do |activity| %>
-          <div>
-            <div class="col-xs-12 col-md-10"><%= activity.name %></div>
-            <div class="col-xs-12 col-md-2"><%= link_to "View Activity", anonymous_activity_sessions_path(activity_id: activity.id), class: 'green-link' %></div>
+          <div class="activity">
+            <div class="name-and-description">
+              <div class="name"><%= activity.name %></div>
+              <div class="activity-description"><%= activity.description&.html_safe %></div>
+            </div>
+            <div class="activity-link"><%= link_to "View Activity", anonymous_activity_sessions_path(activity_id: activity.id), class: 'green-link', target: '_blank' %></div>
           </div>
 
-          <div class="activity-description">
-            <div class="col-xs-12">
-              <i>
-                <%= activity.description&.html_safe %>
-              </i>
-            </div>
-          </div>
         <% end %>
     </div>
   <% end %>

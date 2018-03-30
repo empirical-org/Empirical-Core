@@ -134,6 +134,9 @@ gem 'rack-heartbeat'
 # INTEGRATIONS
 gem 'clever-ruby', '~> 0.13.2'
 
+gem "factory_bot", require: false
+gem "factory_bot_rails", require: false
+
 group :production, :staging do
   gem 'rails_12factor'
   gem 'lograge' # for making logs more dense
@@ -174,6 +177,9 @@ group :test, :development do
   gem 'rspec-retry'
   gem 'rspec-redis_helper'
   gem 'brakeman'
+end
+
+group :test, :development, :cypress do
   gem 'faker'
 end
 

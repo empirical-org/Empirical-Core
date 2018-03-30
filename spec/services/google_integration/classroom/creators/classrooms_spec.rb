@@ -40,7 +40,7 @@ describe 'GoogleIntegration::Classroom::Creators::Classrooms' do
       [{name: 'class2', google_classroom_id: 2}]
     }
 
-    it 'produces 1 classroom' do
+    xit 'produces 1 classroom' do
       pending("Syncing Google classrooms needs extra state management")
       expect(subject(teacher, courses)).to eq(expected)
     end
