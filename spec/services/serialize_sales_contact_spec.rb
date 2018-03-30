@@ -6,7 +6,7 @@ describe 'SerializeSalesContact' do
 
     teacher_data = SerializeSalesContact.new(teacher.id).data
 
-    expect(teacher_data).to include(contact_uid: teacher.id)
+    expect(teacher_data).to include(contact_uid: teacher.id.to_s)
   end
 
   it 'presents teacher data' do
@@ -21,7 +21,7 @@ describe 'SerializeSalesContact' do
     expect(teacher_data[:params]).to include(
       email: 'teach@teaching.edu',
       name: 'Pops Mcgee',
-      account_uid: nil,
+      account_uid: '',
       signed_up: teacher.created_at.to_i,
       admin: false,
       premium_status: 'NA',
@@ -41,7 +41,7 @@ describe 'SerializeSalesContact' do
 
     teacher_data = SerializeSalesContact.new(teacher.id).data
 
-    expect(teacher_data[:params]).to include(account_uid: school.id)
+    expect(teacher_data[:params]).to include(account_uid: school.id.to_s)
   end
 
   it 'presents admin status' do
