@@ -20,7 +20,7 @@ describe 'SerializeSalesAccount' do
   it 'includes the account_uid' do
     school_data = SerializeSalesAccount.new(school.id).data
 
-    expect(school_data).to include(account_uid: school.id)
+    expect(school_data).to include(account_uid: school.id.to_s)
   end
 
   it 'generates basic school params' do
