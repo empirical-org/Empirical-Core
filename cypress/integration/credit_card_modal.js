@@ -1,5 +1,7 @@
 describe('Credit Card Modal', () => {
-
+  after(() => {
+    cy.logout()
+  })
 
   describe('when I open the modal without a credit card associated with my account', ()=>{
     before(() =>{

@@ -4,6 +4,10 @@ describe('Login page', function() {
     cy.exec('RAILS_ENV=cypress spring rake find_or_create_cypress_test_data:find_or_create_users', {failOnNonZeroExit: false})
   })
 
+  after(() => {
+    cy.logout()
+  })
+
   it('loads', function() {
     cy.visit('/session/new')
   })

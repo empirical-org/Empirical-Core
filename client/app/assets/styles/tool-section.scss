@@ -1,5 +1,28 @@
 $tool-grey: #f8f9f9;
 
+.q-button.bg-white {
+  &.text-orange:hover, &.text-connect-yellow:hover {
+    color: #ffffff;
+    background-color: #f9b95c;
+  }
+  &.text-red:hover, &.text-darkred:hover {
+    color: #ffffff;
+    background-color: #ff6473;
+  }
+  &.text-lessonspurple:hover {
+    color: #ffffff;
+    background-color: #e358ab;
+  }
+  &.text-purple:hover {
+    color: #ffffff;
+    background-color: #c96cf0;
+  }
+  &.text-blue:hover, &.text-quillblue:hover {
+    background-color: #6cb3ed;
+    color: #ffffff;
+  }
+}
+
 .tool-header {
   background-color: $quillgreen;
   .q-nav-bar {
@@ -15,6 +38,8 @@ $tool-grey: #f8f9f9;
     margin-bottom: 10px;
     margin-top: 0;
     color: $white;
+    display: flex;
+    align-items: center;
   }
 
   .info-section {
@@ -84,11 +109,20 @@ $tool-grey: #f8f9f9;
     .video-section {
       background-image: url("../../../../public/images/homepage/proofreader_pattern.png");
     }
+    .learn-more-button:hover {
+      background-color: #fff;
+      color: #358fe0;
+    }
   }
+
 
   .diagnostic-tool {
     .video-section {
       background-image: url("../../../../public/images/homepage/diagnostic_pattern.png");
+    }
+    .learn-more-button:hover {
+      background-color: #fff;
+      color: #e8522c;
     }
   }
 
@@ -96,17 +130,29 @@ $tool-grey: #f8f9f9;
     .video-section {
       background-image: url("../../../../public/images/homepage/connect_pattern.png");
     }
+    .learn-more-button:hover {
+      background-color: #fff;
+      color: #f8a724;
+    }
   }
 
   .grammar-tool {
     .video-section {
       background-image: url("../../../../public/images/homepage/grammar_pattern.png");
     }
+    .learn-more-button:hover {
+      background-color: #fff;
+      color: #9c2bde;
+    }
   }
 
   .lessons-tool {
     .video-section {
       background-image: url('http://assets.quill.org/images/homepage/lessonspatternhomepage.png')
+    }
+    .learn-more-button:hover {
+      background-color: #fff;
+      color: #a51070;
     }
   }
 
@@ -252,18 +298,6 @@ $tool-grey: #f8f9f9;
     }
 }
 
-.tools-anchor-nav {
-  background-color: white;
-  li {
-    background-color: white;
-    border-right: none !important;
-  }
-  .q-nav-bar {
-    margin: auto;
-    max-width: 1165px;
-  }
-}
-
 .tool-carousel {
     padding-top: 55px;
 
@@ -357,6 +391,9 @@ $tool-grey: #f8f9f9;
     font-size: 36px;
     margin-top: 0px;
     margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   .description {
     margin: auto;
@@ -586,49 +623,6 @@ $tool-grey: #f8f9f9;
     }
     .learn-more-button {
       margin-right: 0px;
-    }
-}
-
-.tools-tabs {
-  .q-nav-bar ul.desktop-nav-list {
-    margin-bottom: 0px;
-  }
-    li {
-      &.active {
-        border-bottom: none;
-      }
-      a:hover {
-        text-decoration: underline;
-      }
-    }
-    .small-screen {
-        display: none;
-    }
-    @media (max-width: 800px) {
-        .small-screen {
-            display: block;
-
-            .q-nav-bar .desktop-nav-list {
-              display: flex;
-              flex-wrap: nowrap;
-              max-width: 100%;
-
-              li {
-                flex-grow: 1;
-                text-align: center;
-                a {
-                  padding-left: 0;
-                  padding-right: 0;
-                  font-size: 13px !important;
-                }
-
-              }
-
-            }
-        }
-        .full-screen {
-          display: none;
-        }
     }
 }
 

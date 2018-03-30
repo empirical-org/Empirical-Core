@@ -1,18 +1,18 @@
 import React from 'react';
 import TopicSection from './topic_section.jsx';
 import PreviewCard from '../shared/preview_card.jsx';
+import HeaderSection from './header_section'
 import _ from 'underscore';
 
 export default class extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      articleFilter: 'all',
+      articleFilter: window.location.pathname.includes('topic') || props.query ? 'all' : 'topic',
       loading: true,
       blogPostsSortedByMostRead: [...this.props.blogPosts].sort((a, b) => (a.read_count < b.read_count) ? 1 : ((b.read_count < a.read_count) ? -1 : 0))
     };
   }
-
 
   filterArticlesBy(filter) {
     this.setState({ articleFilter: filter });
@@ -33,16 +33,18 @@ export default class extends React.Component {
   renderPreviewCardsByTopic() {
     let sections = [];
     const articlesByTopic = _.groupBy(this.props.blogPosts, "topic");
-    for(let topic in articlesByTopic) {
-      var articlesInThisTopic = articlesByTopic[topic];
-      sections.push(<TopicSection
+    this.props.topics.forEach(topic => {
+      const articlesInThisTopic = articlesByTopic[topic];
+      if (articlesInThisTopic) {
+        sections.push(<TopicSection
           key={topic}
           title={topic}
           articles={articlesInThisTopic.sort(a => a.order_number)}
           articleCount={articlesInThisTopic.length}
         />
       );
-    }
+      }
+  })
     return sections;
   }
 
@@ -86,13 +88,7 @@ export default class extends React.Component {
     const currentPageIsSearchPage = window.location.pathname.includes('search');
     if(!currentPageIsTopicPage && !currentPageIsSearchPage) {
       return (
-        <nav>
-          <ul>
-            <li className={this.state.articleFilter === 'all' ? 'active' : null} onClick={() => this.filterArticlesBy('all')}>All Articles</li>
-            <li className={this.state.articleFilter === 'topic' ? 'active' : null} onClick={() => this.filterArticlesBy('topic')}>Topics</li>
-            <li className={this.state.articleFilter === 'popularity' ? 'active' : null} onClick={() => this.filterArticlesBy('popularity')}>Most Read</li>
-          </ul>
-        </nav>
+        <span/>
       )
     } else if(currentPageIsTopicPage) {
       return (
@@ -124,7 +120,7 @@ export default class extends React.Component {
   }
 
   render() {
-    if (this.props.blogPosts.length === 0) {
+    if (this.props.blogPosts.length === 0 && !this.props.query) {
       return <div className="container">
         <div style={{fontSize: '40px', display: 'flex', justifyContent: 'center', height: '60vh', alignItems: 'center', flexDirection: 'column', fontWeight: 'bold'}}>
           Coming Soon!
@@ -134,17 +130,7 @@ export default class extends React.Component {
     } else {
       return (
         <div id="knowledge-center">
-          <header>
-            <div className='container'>
-              <h1>Knowledge Center</h1>
-              <h2>Everything you need to know about Quill's pedgagogy and use in the classroom</h2>
-              <form className='width-422' action={`${process.env.DEFAULT_URL}/teacher_resources/search`}>
-              <input type='text' placeholder='Search for posts' name='query' defaultValue={this.props.query ? this.props.query : null} />
-              {window.location.pathname.includes('search') ? null : <h3 className='most-read-post'>Most Read Post:</h3>}
-              {this.renderMostReadPost()}
-            </form>
-          </div>
-        </header>
+          <HeaderSection title="Teacher Center" subtitle="Everything you need to know about Quill’s pedgagogy and use in the classroom" query={this.props.query}/>
         {this.renderNavAndSectionHeader()}
         {this.renderAnnouncement()}
         {this.renderBasedOnArticleFilter()}
