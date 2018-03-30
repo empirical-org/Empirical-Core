@@ -177,6 +177,9 @@ group :test, :development do
   gem 'rspec-retry'
   gem 'rspec-redis_helper'
   gem 'brakeman'
+end
+
+group :test, :development, :cypress do
   gem 'faker'
 end
 
