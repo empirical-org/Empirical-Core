@@ -1,5 +1,9 @@
 # Heres a comment
 *.psd
 *.pdf
+/cypress
 /test
 /spec
+/cypress
+cypress/*
+cypress

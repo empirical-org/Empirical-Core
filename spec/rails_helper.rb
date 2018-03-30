@@ -22,6 +22,13 @@ VCR.configure do |c|
   c.allow_http_connections_when_no_cassette = true
 end
 
+Shoulda::Matchers.configure do |config|
+  config.integrate do |with|
+    with.test_framework :rspec
+    with.library :rails
+  end
+end
+
 
 Capybara.configure do |config|
   # Use a high(er) timeout for JS-based UI -- e.g., React.js

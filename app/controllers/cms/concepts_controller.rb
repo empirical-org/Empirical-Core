@@ -1,6 +1,4 @@
-class Cms::ConceptsController < ApplicationController
-  before_filter :staff!
-
+class Cms::ConceptsController < Cms::CmsController
   def index
   end
 

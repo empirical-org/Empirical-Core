@@ -132,6 +132,8 @@ class ActivitySearchWrapper
         description: 'Lead Group Lessons',
         key: 'lessons'
       }
+    else
+      h = {}
     end
     h[:id] = classification_id
     h

@@ -1,5 +1,5 @@
 import React from 'react';
-import StaticDisplaySubscription from '../components/accounts/subscriptions/static_display_subscription';
+import MySubscription from '../components/subscriptions/my_subscription.jsx';
 import SelectSchool from '../components/accounts/school/select_school';
 import $ from 'jquery';
 import LoadingSpinner from '../components/shared/loading_indicator.jsx';
@@ -25,11 +25,6 @@ export default React.createClass({
       password: null,
       loading: true,
       errors: {},
-      subscription: {
-        id: null,
-        expiration: '2016-01-01',
-        account_limit: null,
-      },
     });
   },
 
@@ -57,18 +52,6 @@ export default React.createClass({
 			// couldnt get react to re-render the default value of zipcode based on state change so have to use the below
       $('input.zip-input').val(school.zipcode);
     }
-    let subscription;
-    if (data.subscription) {
-      subscription = data.subscription;
-    } else {
-      subscription = {
-        id: null,
-        expiration: '2016-01-01',
-        account_limit: null,
-        account_type: 'none',
-        subscriptionType: 'none',
-      };
-    }
     this.setState({
       id: data.id,
       name: data.name,
@@ -80,7 +63,6 @@ export default React.createClass({
       selectedSchool: schoolData,
       originalSelectedSchoolId,
       schoolOptionsDoNotApply: (originalSelectedSchoolId == null),
-      subscription,
       loading: false,
     });
   },
@@ -184,34 +166,35 @@ export default React.createClass({
   },
 
   renderEmail() {
-    let message, inputField;
+    let message,
+      inputField;
     if (this.state.googleId || this.state.signedUpWithGoogle) {
-      inputField = <input className="inactive" ref="email" value={this.state.email} readOnly />
-      message = this.renderGoogleClassroomWarning()
+      inputField = <input className="inactive" ref="email" value={this.state.email} readOnly />;
+      message = this.renderGoogleClassroomWarning();
     } else {
-      inputField = <input ref="email" onChange={this.updateEmail} value={this.state.email} />
+      inputField = <input ref="email" onChange={this.updateEmail} value={this.state.email} />;
     }
-    return <div className="form-row email-row">
+    return (<div className="form-row email-row">
       <div className="form-label">Email</div>
       <div className="form-input">
         {inputField}
       </div>
       {message}
-    </div>;
+    </div>);
   },
 
   renderGoogleClassroomWarning() {
-    return <div className="google-classroom-warning">
-      <i className="fa fa-icon fa-lightbulb-o"/>
+    return (<div className="google-classroom-warning">
+      <i className="fa fa-icon fa-lightbulb-o" />
       <p>Your email is locked because it is connected to Google Classroom. If you need to change it, please contact us at <a href="mailto:support@quill.org">support@quill.org</a>.</p>
-    </div>
+    </div>);
   },
 
   renderErrors() {
     if (this.state.errors) {
       return Object.keys(this.state.errors).map((e, i) =>
         <span key={i} className="error">{e} {this.state.errors[e]}.&nbsp;</span>
-      )
+      );
     }
   },
 
@@ -222,8 +205,7 @@ export default React.createClass({
     const selectRole = (<div>
       <p>Are you a student and not a teacher?</p>
       <p className="switch-account-type" onClick={() => this.updateRole('student')}>Switch your account to a student account.</p>
-    </div>)
-    const subscription = <StaticDisplaySubscription subscription={this.state.subscription} />;
+    </div>);
 
     return (
       <div className="container" id="my-account">
@@ -240,7 +222,6 @@ export default React.createClass({
 
           {this.renderEmail()}
 
-
           <div className="form-row">
             <div className="form-label">
   						Password
@@ -252,12 +233,11 @@ export default React.createClass({
 
           <SelectSchool errors={this.state.errors.school} selectedSchool={this.state.selectedSchool} schoolOptions={this.state.schoolOptions} requestSchools={this.requestSchools} updateSchool={this.updateSchool} />
 
-          {subscription}
         </div>
 
         <div className="form-row">
-            {this.saveButton()}
-            {this.renderErrors()}
+          {this.saveButton()}
+          {this.renderErrors()}
         </div>
 
         <div className="form-row">
@@ -265,8 +245,9 @@ export default React.createClass({
 						Delete Account
 					</div>
         </div>
-        <br/>
+        <br />
         {selectRole}
+        <MySubscription subscription={this.props.subscriptionProps.subscription} accountTypes={this.props.subscriptionProps.accountTypes} />
       </div>
     );
   },

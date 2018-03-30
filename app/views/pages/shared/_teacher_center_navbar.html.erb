@@ -1,0 +1,39 @@
+<div class="subnav teacher-center-navbar">
+  <div class="container">
+  <% tabs = [
+    {name: 'All Resources', url: 'teacher_resources'},
+    {name: 'Getting Started', url: 'teacher_resources/topic/getting_started'},
+    {name: 'Case Studies', url: 'teacher_resources/topic/case_studies'},
+    {name: 'Writing Instruction Research', url: 'teacher_resources/topic/writing_instruction_research'},
+    {name: 'FAQ', url: 'faq'},
+    {name: 'Premium', url: 'premium'},
+  ]
+    @tabs = tabs
+    @mobile = false
+  %>
+
+  <div class="full-screen">
+    <%= render partial: "pages/shared/generic_tabs", locals: { tabs: @tabs, active_tab: @active_tab, mobile: @mobile } %>
+  </div>
+
+  <% tabs = [
+    {name: 'All', url: 'teacher_resources'},
+    {name: 'Getting Started', url: 'teacher_resources/topic/getting_started'},
+    {name: 'Case Studies', url: 'teacher_resources/topic/case_studies'},
+    {name: 'Research', url: 'teacher_resources/topic/writing_instruction_research'},
+    {name: 'FAQ', url: 'faq'},
+    {name: 'Premium', url: 'premium'},
+  ]
+  @tabs = tabs
+  if @active_tab == 'All Resources'
+    @active_tab = 'All'
+  elsif @active_tab == 'Writing Instruction Research'
+    @active_tab = 'Research'
+  end
+  %>
+  <div class="small-screen">
+    <%= render partial: "pages/shared/generic_tabs", locals: { tabs: @tabs, active_tab:  @active_tab, mobile: @mobile} %>
+  </div>
+
+  </div>
+</div>

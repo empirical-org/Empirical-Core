@@ -1,30 +1,30 @@
-'use strict';
 
-import React from 'react'
-import ExportCsvModal from './export_csv_modal.jsx'
-import request from 'request'
-import auth_token from '../modules/get_auth_token.js'
-import Pusher from 'pusher-js'
-import ButtonLoadingIndicator from '../shared/button_loading_indicator.jsx'
+
+import React from 'react';
+import ExportCsvModal from './export_csv_modal.jsx';
+import request from 'request';
+import auth_token from '../modules/get_auth_token.js';
+import Pusher from 'pusher-js';
+import ButtonLoadingIndicator from '../shared/button_loading_indicator.jsx';
 
 export default React.createClass({
-    propTypes: {
-        exportType: React.PropTypes.string.isRequired,
-        filters: React.PropTypes.object.isRequired,
-        reportUrl: React.PropTypes.string.isRequired,
-        teacher: React.PropTypes.object.isRequired,
-        disabled: React.PropTypes.bool
+  propTypes: {
+      exportType: React.PropTypes.string.isRequired,
+      filters: React.PropTypes.object.isRequired,
+      reportUrl: React.PropTypes.string.isRequired,
+      teacher: React.PropTypes.object.isRequired,
+      disabled: React.PropTypes.bool,
     },
 
-    getDefaultProps: function() {
+  getDefaultProps() {
       return {requestUrl: `${process.env.DEFAULT_URL}/teachers/progress_reports/csv_exports`}
     },
 
-    getInitialState: function() {
+  getInitialState() {
       return {csvUrl: undefined, waitingForCsv: false}
     },
 
-    createExport: function() {
+  createExport() {
         if (this.props.disabled) {
             alert('CSV Exports are a Quill Premium Feature! Upgrade to Premium for reports, diagnostics, and more.')
         } else {
@@ -52,9 +52,9 @@ export default React.createClass({
             }
         },
 
-        initializePusher: function() {
+  initializePusher() {
           this.setState({waitingForCsv: true})
-          if (process.env.NODE_ENV === 'development') {
+          if (process.env.RAILS_ENV === 'development') {
             Pusher.logToConsole = true;
           }
           const pusher = new Pusher(process.env.PUSHER_KEY, {encrypted: true});
@@ -67,11 +67,11 @@ export default React.createClass({
           });
         },
 
-        csvReceived: function(data, teacherId) {
+  csvReceived(data, teacherId) {
           this.setState({waitingForCsv: false, csvUrl: data.message})
         },
 
-        render: function() {
+  render() {
           let content
           const s = this.state
           if (s.csvUrl) {
@@ -92,5 +92,5 @@ export default React.createClass({
                         onClick={!s.csvUrl && !s.waitingForCsv ? this.createExport : null}>{content}</a>
                 </div>
             );
-        }
-    });
+        },
+});

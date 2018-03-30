@@ -1,6 +1,5 @@
-class Cms::AnnouncementsController < ApplicationController
+class Cms::AnnouncementsController < Cms::CmsController
   before_filter :signed_in!
-  before_filter :staff!
 
   def index
     @announcements = Announcement.all

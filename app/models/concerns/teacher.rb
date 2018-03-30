@@ -11,6 +11,9 @@ module Teacher
     has_many :units
     has_one :user_subscription
     has_one :subscription, through: :user_subscription
+    has_one :referrer_user
+    has_many :referrals_users
+    has_one :referrals_user, class_name: 'ReferralsUser', foreign_key: :referred_user_id
   end
 
   class << self
@@ -281,29 +284,16 @@ module Teacher
   end
 
   def updated_school(school_id)
-    new_school_sub = SchoolSubscription.find_by_school_id(school_id)
-    current_sub = self.subscription
-    if current_sub&.school_subscriptions&.any?
-      # then they already belonged to a subscription through a school, which we destroy
-      self.user_subscription.destroy
+    if self.subscription && self.subscription.school_subscriptions.any?
+      # then they were previously in a school with a subscription, so we destroy the relationship
+      UserSubscription.find_by(user_id: self.id, subscription_id: self.subscription.id).destroy
+    elsif self&.subscription&.account_type == "Purchase Missing School"
+      SchoolSubscription.create(school_id: school_id, subscription_id: self.subscription.id)
     end
-    if new_school_sub
-      if current_sub
-        current_is_school = current_sub&.school_subscriptions.any?
-        if current_is_school
-          # we don't care about their old school -- give them the new school sub
-          new_sub_id = new_school_sub.subscription.id
-        else
-          # give them the better of their personal sub or the school sub
-          new_sub_id = later_expiration_date(new_school_sub.subscription, current_sub).id
-        end
-      else
-        # they get the new sub by default
-        new_sub_id = new_school_sub.subscription.id
-      end
-    end
-    if new_sub_id
-      UserSubscription.update_or_create(self.id, new_sub_id)
+    school = School.find(school_id)
+    if school && school.subscription
+      # then we let the user subscription handle everything else
+      UserSubscription.create_user_sub_from_school_sub_if_they_do_not_have_that_school_sub(self.id, school.subscription.id)
     end
   end
 
@@ -342,7 +332,7 @@ module Teacher
 
   def trial_days_remaining
     valid_subscription =   subscription && subscription.expiration > Date.today
-    if valid_subscription && (subscription.is_not_paid?)
+    if valid_subscription && (subscription.is_trial?)
       (subscription.expiration - Date.today).to_i
     else
       nil
@@ -356,16 +346,11 @@ module Teacher
   end
 
   def premium_state
-    # the beta period is obsolete -- but may break things by removing it
     if subscription
-      if !is_beta_period_over?
-        "beta"
-      elsif is_premium?
-        ## returns 'trial' or 'paid'
-        subscription.trial_or_paid
-      elsif subscription_is_expired?
-        "locked"
-      end
+      subscription.account_type == 'Teacher Trial' ? 'trial' : 'paid'
+    elsif self.subscriptions.exists?
+      # then they have an expired or 'locked' sub
+      'locked'
     else
       'none'
     end
@@ -373,10 +358,6 @@ module Teacher
 
   def is_beta_period_over?
     Date.today >= TRIAL_START_DATE
-  end
-
-  def later_expiration_date(sub_1, sub_2)
-    sub_1.expiration > sub_2.expiration ? sub_1 : sub_2
   end
 
   def finished_diagnostic_unit_ids
@@ -469,6 +450,30 @@ module Teacher
       WHERE classrooms_teachers.user_id = #{self.id}
       ORDER BY units.name ASC;
     ").to_a
+  end
+
+  def referrer_code
+    self.referrer_user.referral_code
+  end
+
+  def referral_code
+    self.referrer_user.referral_code
+  end
+
+  def referrals
+    self.referrals_users.count
+  end
+
+  def teaches_student?(student_id)
+    ActiveRecord::Base.connection.execute("
+      SELECT 1
+      FROM users
+      JOIN students_classrooms
+        ON users.id = students_classrooms.student_id
+      JOIN classrooms_teachers
+        ON students_classrooms.classroom_id = classrooms_teachers.classroom_id
+        AND classrooms_teachers.user_id = #{self.id}
+    ").to_a.any?
   end
 
   private

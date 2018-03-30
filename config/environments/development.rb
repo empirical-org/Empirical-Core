@@ -15,6 +15,8 @@ EmpiricalGrammar::Application.configure do
   config.action_dispatch.show_detailed_exceptions = false
   config.action_controller.perform_caching = false
 
+  config.action_controller.asset_host
+
   # Raise an error in development when an invalid parameter is passed.
   config.action_controller.action_on_unpermitted_parameters = :raise
 

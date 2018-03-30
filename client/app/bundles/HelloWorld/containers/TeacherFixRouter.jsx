@@ -10,6 +10,8 @@ import MergeTeacherAccounts from '../components/teacher_fix/merge_teacher_accoun
 import MoveStudent from '../components/teacher_fix/move_student.jsx'
 import GoogleUnsync from '../components/teacher_fix/google_unsync'
 import MergeTwoSchools from '../components/teacher_fix/merge_two_schools'
+import MergeTwoClassrooms from '../components/teacher_fix/merge_two_classrooms'
+import DeleteLastActivitySession from '../components/teacher_fix/delete_last_activity_session'
 
 export default React.createClass({
 	render: function() {
@@ -24,6 +26,8 @@ export default React.createClass({
 				<Route path="/teacher_fix/move_student" component={MoveStudent}/>
 				<Route path="/teacher_fix/google_unsync" component={GoogleUnsync}/>
 				<Route path="/teacher_fix/merge_two_schools" component={MergeTwoSchools}/>
+				<Route path="/teacher_fix/merge_two_classrooms" component={MergeTwoClassrooms}/>
+				<Route path="/teacher_fix/delete_last_activity_session" component={DeleteLastActivitySession}/>
 			</Router>
 		);
 	}

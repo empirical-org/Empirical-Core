@@ -1,8 +1,14 @@
-class Cms::SchoolsController < ApplicationController
+class Cms::SchoolsController < Cms::CmsController
   before_filter :signed_in!
-  before_filter :staff!
 
   before_action :text_search_inputs, only: [:index, :search]
+  before_action :set_school, only: [
+    :new_subscription,
+    :edit_subscription,
+    :show,
+    :complete_sales_stage,
+  ]
+  before_action :get_subscription_data, only: [:new_subscription, :edit_subscription]
 
   SCHOOLS_PER_PAGE = 10.0
 
@@ -26,20 +32,20 @@ class Cms::SchoolsController < ApplicationController
   # This allows staff members to drill down on a specific school, including
   # viewing an index of teachers at this school.
   def show
-    @school_info = School.includes(:subscription).find(params[:id])
+    @subscription = @school&.subscription
     @school_subscription_info = {
-      'School Premium Type' => @school_info.subscription&.account_type,
-      'Expiration' => @school_info.subscription&.expiration&.strftime('%b %d, %Y')
+      'School Premium Type' => @school&.subscription&.account_type,
+      'Expiration' => @school&.subscription&.expiration&.strftime('%b %d, %Y')
     }
-    @school_info = {
-      'Name' => @school_info.name,
-      'City' => @school_info.city || @school_info.mail_city,
-      'State' => @school_info.state || @school_info.mail_state,
-      'ZIP' => @school_info.zipcode || @school_info.mail_zipcode,
-      'District' => @school_info.leanm,
-      'Free and Reduced Price Lunch' => "#{@school_info.free_lunches}%",
-      'NCES ID' => @school_info.nces_id,
-      'PPIN' => @school_info.ppin
+    @school = {
+      'Name' => @school.name,
+      'City' => @school.city || @school.mail_city,
+      'State' => @school.state || @school.mail_state,
+      'ZIP' => @school.zipcode || @school.mail_zipcode,
+      'District' => @school.leanm,
+      'Free and Reduced Price Lunch' => "#{@school.free_lunches}%",
+      'NCES ID' => @school.nces_id,
+      'PPIN' => @school.ppin
     }
     @teacher_data = teacher_search_query_for_school(params[:id])
     @admins = SchoolsAdmins.includes(:user).where(school_id: params[:id].to_i).map do |admin|
@@ -67,39 +73,14 @@ class Cms::SchoolsController < ApplicationController
   end
 
   def edit_subscription
-    @school = School.includes(:subscription).find(params[:id])
-    @school_premium_types = Subscription.account_types
-
-    if @school.subscription
-      # If this school already has a subscription, we want the expiration date
-      # to reflect the expiration date of that subscription.
-      @expiration_date = @school.subscription.expiration
-      @account_type = @school.subscription.account_type
-    else
-      # If this school does not already have a subscription, we want the
-      # default expiration date to be one year from today.
-      @expiration_date = Date.today + 1.years
-      @account_type = nil
-    end
+    @subscription = @school&.subscription
   end
 
-  def update_subscription
-    school = School.find(subscription_params[:id])
-    subscription = school.subscription
-    unless subscription
-      subscription = Subscription.new
-      subscription.expiration = Date.parse("#{subscription_params[:expiration_date]['day']}-#{subscription_params[:expiration_date]['month']}-#{subscription_params[:expiration_date]['year']}")
-      subscription.account_type = subscription_params[:premium_status]
-      subscription.account_limit = 1000 # This is a default value and should be deprecated.
-      success = (subscription.save && school.subscription = subscription)
-    else
-      subscription.expiration = Date.parse("#{subscription_params[:expiration_date]['day']}-#{subscription_params[:expiration_date]['month']}-#{subscription_params[:expiration_date]['year']}")
-      subscription.account_type = subscription_params[:premium_status]
-      success = subscription.save
-    end
-    return redirect_to cms_school_path(subscription_params[:id]) if success
-    render :edit_subscription
+  def new_subscription
+    @subscription = Subscription.new
   end
+
+
 
   # This allows staff members to create a new school.
   def new
@@ -134,6 +115,11 @@ class Cms::SchoolsController < ApplicationController
   end
 
   private
+
+  def set_school
+    @school = School.find params[:id]
+  end
+
   def text_search_inputs
     # These are the text input fields, but they are not all of the fields in the form.
     @text_search_inputs = ['school_name', 'school_city', 'school_state', 'school_zip', 'district_name']

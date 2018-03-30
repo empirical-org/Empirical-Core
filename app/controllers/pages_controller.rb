@@ -319,10 +319,23 @@ class PagesController < ApplicationController
 
   # for link to premium within 'about' (discover) pages
   def premium
+    @user_is_eligible_for_new_subscription= current_user&.eligible_for_new_subscription?
+    @user_is_eligible_for_trial = current_user&.subscriptions&.none?
+    @user_belongs_to_school_that_has_paid = current_user&.school ? Subscription.school_or_user_has_ever_paid?(current_user&.school) : false
+    @last_four = current_user&.last_four
   end
 
   def tutorials
   end
+
+  def press
+    @blog_posts = BlogPost.where(draft: false, topic: 'Press')
+  end
+
+  def announcements
+    @blog_posts = BlogPost.where(draft: false, topic: 'Announcements')
+  end
+
 
   private
 
@@ -351,10 +364,9 @@ class PagesController < ApplicationController
     end
   end
 
-  private
-
   def add_cards(list_response)
     list_response.each{|list| list["cards"] = HTTParty.get("https://api.trello.com/1/lists/#{list["id"]}/cards/?fields=name,url")}
     list_response
   end
+
 end

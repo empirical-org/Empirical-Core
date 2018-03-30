@@ -195,7 +195,6 @@ describe User, type: :model do
       let!(:coteacher_classroom_invitation_2) {create(:coteacher_classroom_invitation, invitation_id: pending_coteacher_invitation_2.id)}
 
       context '#handle_negative_classrooms_from_update_coteachers' do
-
         it "deletes only the passed classrooms from invitations, leaving other ones unaffected" do
           expect(CoteacherClassroomInvitation.exists?(id: coteacher_classroom_invitation.id)).to be
           expect(CoteacherClassroomInvitation.exists?(id: coteacher_classroom_invitation_2.id)).to be
@@ -217,15 +216,14 @@ describe User, type: :model do
 
         it "adds new invitations to classrooms the teacher has not been invited to" do
           new_classroom = create(:classroom)
-          old_invitation_count = CoteacherClassroomInvitation.all.count
-          teacher.handle_positive_classrooms_from_update_coteachers([new_classroom.id], new_classroom.owner.id)
-          expect(CoteacherClassroomInvitation.all.count - old_invitation_count).to eq(1)
+
+          expect { teacher.handle_positive_classrooms_from_update_coteachers([new_classroom.id], new_classroom.owner.id) }
+            .to change(CoteacherClassroomInvitation, :count).by(1)
         end
 
         it "does not create additional invitations to classrooms the teacher has been invited to" do
-          old_invitation_count = CoteacherClassroomInvitation.all.count
-          teacher.handle_positive_classrooms_from_update_coteachers([co_taught_classroom.id], student.id)
-          expect(CoteacherClassroomInvitation.all.count - old_invitation_count).to eq(0)
+          expect { teacher.handle_positive_classrooms_from_update_coteachers([co_taught_classroom.id], student.id) }
+            .not_to change(CoteacherClassroomInvitation, :count)
         end
       end
 
@@ -254,7 +252,7 @@ describe User, type: :model do
       context 'user has an associated subscription' do
         context 'that has expired' do
           # for some reason Rspec was setting expiration as today if I set it at Date.yesterday, so had to minus 1 from yesterday
-          let!(:subscription) { create(:subscription, account_limit: 1, expiration: Date.yesterday - 1, account_type: 'Teacher Paid') }
+          let!(:subscription) { create(:subscription, expiration: Date.yesterday - 1, account_type: 'Teacher Paid') }
           let!(:user_subscription) { create(:user_subscription, user_id: teacher.id, subscription: subscription) }
           it 'returns false' do
             expect(teacher.is_premium?).to be false
@@ -262,7 +260,7 @@ describe User, type: :model do
         end
 
         context 'that has not expired' do
-          let!(:subscription) { create(:subscription, account_limit: 1, expiration: Date.tomorrow, account_type: 'Teacher Trial') }
+          let!(:subscription) { create(:subscription, expiration: Date.tomorrow, account_type: 'Teacher Trial') }
           let!(:user_subscription) { create(:user_subscription, user_id: teacher.id, subscription: subscription) }
           let!(:student1) { create(:user, role: 'student', classrooms: [classroom]) }
 
@@ -291,40 +289,40 @@ describe User, type: :model do
       context 'when the school has no subscription' do
         it 'does nothing to the teachers personal subscription' do
           expect(queens_teacher.subscription).to eq(teacher_subscription)
-          queens_teacher.updated_school(queens_school)
+          queens_school_sub.destroy
+          queens_teacher.updated_school(queens_school.id)
           expect(queens_teacher.subscription).to eq(teacher_subscription)
         end
       end
 
       context 'when the school has a subscription' do
         describe 'and the teacher has a subscription' do
-          it "overwrites the teacher's if the teacher's is from a different school" do
+
+          let!(:user_sub) {create(:user_subscription, subscription: create(:subscription), user: teacher)}
+
+          it "deletes the teacher's user_sub when the teachers changes school" do
+            expect(queens_teacher_2_user_sub).to be
+            queens_teacher_2.updated_school(brooklyn_school.id)
+            expect(UserSubscription.find_by(id: queens_teacher_2_user_sub.id)).not_to be
+          end
+
+          it "updates the teacher's subscription when the teacher changes school" do
             expect(queens_teacher_2.subscription).to eq(queens_subscription)
-            queens_teacher_2.updated_school(brooklyn_school)
+            queens_teacher_2.updated_school(brooklyn_school.id)
             expect(queens_teacher_2.reload.subscription).to eq(brooklyn_subscription)
           end
 
-          context 'that is their own subscription' do
-            it 'lets the teacher keep their subscription if it has a later expiration date' do
-              teacher_subscription.update(expiration: Date.tomorrow)
-              brooklyn_subscription.update(expiration: Date.yesterday)
-              queens_teacher.updated_school(brooklyn_school)
-              expect(queens_teacher.subscription).to eq(teacher_subscription)
-            end
-
-            it 'gives them the new school subscription if has a later expiration date' do
-              teacher_subscription.update(expiration: Date.yesterday)
-              brooklyn_subscription.update(expiration: Date.tomorrow)
-              queens_teacher.updated_school(brooklyn_school)
-              expect(queens_teacher.subscription).to eq(teacher_subscription)
-            end
+          it "the school subscription becomes the teacher's subscription if they had teacher premium" do
+            expect(teacher.subscription).to eq(user_sub.subscription)
+            teacher.updated_school(brooklyn_school.id)
+            expect(teacher.reload.subscription).to eq(brooklyn_subscription)
           end
         end
 
         describe 'and the user does not have a subscription' do
           it 'the user gets the school subscription' do
-            queens_teacher_2.user_subscription.destroy
-            queens_teacher_2.updated_school(brooklyn_school)
+            queens_teacher_2.user_subscriptions.destroy
+            queens_teacher_2.updated_school(brooklyn_school.id)
             expect(queens_teacher_2.reload.subscription).to eq(brooklyn_school.subscription)
           end
         end
@@ -333,7 +331,7 @@ describe User, type: :model do
 
     describe '#premium_state' do
       context 'user has or had a subscription' do
-        let!(:subscription) { create(:subscription, account_limit: 1, expiration: Date.today + 1, account_type: 'Teacher Trial') }
+        let!(:subscription) { create(:subscription, expiration: Date.today + 1, account_type: 'Teacher Trial') }
         let!(:user_subscription) { create(:user_subscription, user_id: teacher.id, subscription: subscription) }
         context 'user is on a valid trial' do
           it "returns 'trial'" do
@@ -442,6 +440,49 @@ describe User, type: :model do
         random_teacher = create(:teacher)
         expect(random_teacher.affiliated_with_unit(unit.id)).to_not be
       end
+    end
+
+    describe '#referrer_code' do
+      let!(:referral_code) { teacher.referrer_user.referral_code }
+      it 'returns the appropriate referral code' do
+        expect(teacher.referrer_code).to be(referral_code)
+      end
+    end
+
+    describe '#referral_code' do
+      let!(:referral_code) { teacher.referrer_user.referral_code }
+      it 'returns the appropriate referral code' do
+        expect(teacher.referral_code).to be(referral_code)
+      end
+    end
+
+    describe '#referrals' do
+      it 'returns a count of referrals' do
+        expect(teacher.referrals).to be(0)
+        create(:referrals_user, user_id: teacher.id)
+        expect(teacher.referrals).to be(1)
+        create(:referrals_user, user_id: teacher.id)
+        expect(teacher.referrals).to be(2)
+      end
+    end
+  end
+
+  describe '#teaches_student?' do
+    let(:teacher) { create(:teacher_with_a_couple_classrooms_with_one_student_each) }
+    let(:student_id) { teacher.classrooms_i_own.first.students.first.id }
+    let(:coteacher) { create(:coteacher_classrooms_teacher, classroom: teacher.classrooms_i_own.first).teacher }
+    let(:other_teacher) { create(:teacher) }
+
+    it 'should return true if the user teaches this student' do
+      expect(teacher.teaches_student?(student_id)).to be(true)
+    end
+
+    it 'should return true if the user coteaches this student' do
+      expect(coteacher.teaches_student?(student_id)).to be(true)
+    end
+
+    it 'should return false if the user does not teach this student' do
+      expect(other_teacher.teaches_student?(student_id)).to be(false)
     end
   end
 end
