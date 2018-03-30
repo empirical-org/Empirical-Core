@@ -107,19 +107,14 @@ describe('Explore All Activities page', function() {
       cy.get('.panel-group').should('have.length', 2)
     })
 
-    it('displays an error if I try to assign the activity pack without selecting who to assign it to', function() {
-      cy.get('#assign')
-      cy.contains('Please select students')
-    })
-
     it('allows me to select an entire classroom', function() {
       cy.get(':nth-child(3) > :nth-child(1) > .panel-heading > .title > div > .css-label').click()
-      cy.get(':nth-child(3) > :nth-child(1) > .panel-heading > .title > div > .css-checkbox').should('have.value', 'on')
+      cy.get(':nth-child(3) > :nth-child(1) > .panel-heading > .title > div > .css-label > span').contains('All 2 will be assigned')
     })
 
     it('allows me to unselect an entire classroom', function() {
       cy.get(':nth-child(3) > :nth-child(1) > .panel-heading > .title > div > .css-label').click()
-      cy.get(':nth-child(3) > :nth-child(1) > .panel-heading > .title > div > .css-checkbox').should('have.value', 'off')
+      cy.get(':nth-child(3) > :nth-child(1) > .panel-heading > .title > div > .css-label > span').contains('0 students will be assigned')
     })
 
     it('allows me to click on a classroom to see all the students', function() {
@@ -129,10 +124,12 @@ describe('Explore All Activities page', function() {
 
     it('allows me to select individual students', function() {
       cy.get(':nth-child(4) > :nth-child(1) > .panel > .panel-collapse > :nth-child(1) > .panel-body > :nth-child(1) > .css-label').click()
+      cy.get(':nth-child(4) > :nth-child(1) > .panel-heading > .title > div > .css-label > span').contains('1 out of 2 students will be assigned')
     })
 
     it('allows me to unselect individual students', function() {
       cy.get(':nth-child(4) > :nth-child(1) > .panel > .panel-collapse > :nth-child(1) > .panel-body > :nth-child(1) > .css-label').click()
+      cy.get(':nth-child(4) > :nth-child(1) > .panel-heading > .title > div > .css-label > span').contains('0 students will be assigned')
     })
 
     it('allows me to select a due date for an activity', function() {
@@ -140,9 +137,21 @@ describe('Explore All Activities page', function() {
       cy.get('[aria-label="day-31"]').click()
     })
 
-    it('lets me assign the activity pack if there are selected students', function() {
+    it('displays an error if I try to assign the activity pack without selecting who to assign it to', function() {
+      cy.get('#assign')
+      cy.contains('Please select students')
+    })
+
+    it('displays an error if I try to assign the activity pack without a name', function() {
       cy.get(':nth-child(4) > :nth-child(1) > .panel > .panel-collapse > :nth-child(1) > .panel-body > :nth-child(1) > .css-label').click()
-      // cy.get('#assign').click()
+      cy.get('#unit_name').clear()
+      cy.contains('Please provide a name for your activity pack.')
+    })
+
+    it('lets me assign the activity pack if there are selected students and a name and redirects me to My Activities', function() {
+      cy.get('#unit_name').type('Whomst')
+      cy.get('#assign').click()
+      cy.url().should('include', '/teachers/classrooms/activity_planner')
     })
   })
 
