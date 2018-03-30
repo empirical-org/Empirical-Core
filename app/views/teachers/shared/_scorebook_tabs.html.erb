@@ -17,7 +17,7 @@
       </li>
 
       <li class="<%= 'active' if assign_activity_page_should_be_active? %>">
-        <%= link_to raw("Assign<span class='hide-on-mobile'> Activity</span>"), assign_activities_teachers_classrooms_path %>
+        <%= link_to raw("Assign<span class='hide-on-mobile'> Activities</span>"), assign_activities_teachers_classrooms_path %>
       </li>
 
       <li class="<%= 'active' if my_activities_page_should_be_active? %>">
@@ -28,13 +28,11 @@
         <%= link_to raw("<span class='hide-on-mobile'>Student </span>Reports"), teachers_progress_reports_landing_page_path %>
       </li>
 
-      <li class="<%= 'active' if teacher_resources_page_should_be_active? %>">
-        <%= link_to raw("<span class='hide-on-mobile'>Teacher </span>Resources"), blog_posts_path %>
-      </li>
-
-      <li class="premium-tab <%= 'active' if premium_page_should_be_active? %>">
-        <%= link_to raw("<span class='hide-on-mobile'>#{premium_tab_copy}</span><span class='hide-on-desktop'>Premium</span>"), premium_path %>
-      </li>
+      <% unless current_user.premium_state === 'paid' %>
+        <li class="premium-tab <%= 'active' if premium_page_should_be_active? %>">
+          <%= link_to raw("<span class='hide-on-mobile'>#{premium_tab_copy}</span><span class='hide-on-desktop'>Premium</span>"), premium_path %>
+        </li>
+      <% end %>
 
     </ul>
   </div>
@@ -49,6 +47,7 @@
             <li><%= active_link_to 'Overview', dashboard_teachers_classrooms_path %></li>
           <% end %>
           <li><%= active_link_to 'My Account', teachers_my_account_path %></li>
+          <li><%= active_link_to 'My Subscriptions', subscriptions_path %></li>
           <li><%= active_link_to 'Teacher Guide', teachers_teacher_guide_path %></li>
         <% end %>
 
@@ -70,16 +69,6 @@
           <li><%= active_link_to raw('Data Export  <i class="fa fa-star"></i>'), teachers_progress_reports_activity_sessions_path %></li>
         <% end %>
 
-        <% if teacher_resources_page_should_be_active? %>
-          <li><%= active_link_to 'Overview', blog_posts_path, active: :exact %></li>
-          <% if false # TODO: remove this when we launch front end of knowlege center %>
-            <% BlogPost::TOPIC_SLUGS.each do |topic_slug| %>
-              <li><%= active_link_to "#{topic_slug.gsub('-', ' ').titleize}", "/teacher_resources/topic/#{topic_slug}", active: ((@blog_post ? @blog_post.topic_slug == topic_slug : false) || request.path == "/teacher_resources/topic/#{topic_slug}") %></li>
-            <% end %>
-          <% end %>
-          <li><%= active_link_to 'FAQ', '/faq' %></li>
-          <li><%= link_to raw('Support<i class="fa fa-external-link"></i>'), 'https://support.quill.org' %></li>
-        <% end %>
       </ul>
     </div>
   </div>

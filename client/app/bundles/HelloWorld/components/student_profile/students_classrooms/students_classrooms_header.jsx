@@ -14,7 +14,7 @@ const StudentsClassroomsHeader = ({
   const classroomTabs = [];
   const classroomList = [];
 
-  if (classrooms) {
+  if (classrooms && classrooms.length > 0) {
     classrooms.forEach((classroom, index) => {
       if (index < numberOfClassroomTabs) {
         classroomTabs.push(<StudentsClassroom
@@ -52,6 +52,8 @@ const StudentsClassroomsHeader = ({
         </div>
       </div>
     );
+  } else {
+    return null;
   }
 };
 

@@ -13,9 +13,8 @@ describe 'CleverIntegration::Importers::School' do
   }
 
   let!(:teacher_requester) {
-
-    Response = Struct.new(:school)
-    response = Response.new(school_response)
+    response_struct = Struct.new(:school)
+    response = response_struct.new(school_response)
 
     lambda do |clever_id, district_token|
       response

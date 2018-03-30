@@ -61,17 +61,11 @@ module EmpiricalGrammar
     config.action_dispatch.perform_deep_munge = false
 
     config.middleware.use Rack::Attack
+    config.middleware.use Rack::Affiliates, { param: 'champion' }
 
-    config.middleware.insert_before 0, Rack::Cors do
+    config.middleware.insert_before 0, "Rack::Cors" do
       allow do
-        # localhost dev...
-        origins 'http://localhost:3001'
-
-        resource '/api/*', headers: :any, methods: [:get, :post, :patch, :put]
-      end
-
-      allow do
-        origins '*'
+        origins 'quill.org', /https:\/\/(.)*.quill.org/, /localhost:.*/, /127.0.0.1:.*/
         resource '/api/*', headers: :any, methods: [:get, :post, :patch, :put]
       end
     end

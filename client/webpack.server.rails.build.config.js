@@ -2,9 +2,14 @@
 
 const webpack = require('webpack');
 const path = require('path');
+const { resolve, } = require('path');
 
-const devBuild = process.env.NODE_ENV !== 'production';
+const devBuild = process.env.RAILS_ENV !== 'production';
 const nodeEnv = devBuild ? 'development' : 'production';
+const webpackConfigLoader = require('react-on-rails/webpackConfigLoader');
+
+const configPath = resolve('..', 'config');
+const { output, } = webpackConfigLoader(configPath);
 
 module.exports = {
 
@@ -16,10 +21,11 @@ module.exports = {
   ],
   output: {
     filename: 'server-bundle.js',
-    path: '../app/assets/webpack',
+    publicPath: output.publicPath,
+    path: output.path,
   },
   resolve: {
-    extensions: ['', '.js', '.jsx'],
+    extensions: ['.tx', '.txs', '.js', '.jsx'],
     alias: {
       libs: path.join(process.cwd(), 'app', 'libs'),
     },
@@ -27,30 +33,42 @@ module.exports = {
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: JSON.stringify(nodeEnv),
+        RAILS_ENV: JSON.stringify(nodeEnv),
+      },
+    }),
+    new webpack.LoaderOptionsPlugin({
+      test: /\.scss$/,
+      options: {
+        sassResources: ['./app/assets/styles/app-variables.scss'],
       },
     })
   ],
   module: {
     loaders: [
-      { test: /\.jsx?$/, loader: 'babel-loader', exclude: /node_modules/, },
+      {
+        test: /\.tsx?$/,
+        loader: 'awesome-typescript-loader',
+        exclude: /node_modules/,
+      },
+      {
+        test: /\.jsx?$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/,
+      },
       {
         test: /\.css$/,
         loaders: [
-          'css'
+          'css-loader'
         ],
       },
       {
         test: /\.scss$/,
         loaders: [
-          'css',
-          'sass',
-          'sass-resources'
+          'css-loader',
+          'sass-loader',
+          'sass-resources-loader'
         ],
       }
     ],
   },
-
-  sassResources: ['./app/assets/styles/app-variables.scss'],
-
 };

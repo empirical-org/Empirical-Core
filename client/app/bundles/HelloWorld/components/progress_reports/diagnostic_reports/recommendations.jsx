@@ -41,7 +41,7 @@ export default React.createClass({
   },
 
   setAssignedToFalseAfterFiveSeconds() {
-    setTimeout(() => this.setState({assigned: false}), 5000)
+    setTimeout(() => this.setState({ assigned: false, }), 5000);
   },
 
   getRecommendationData(classroomId, activityId) {
@@ -78,17 +78,17 @@ export default React.createClass({
         students: allAssignedStudents,
       };
     });
-    const lessonsRecommendations = this.state.lessonsRecommendations.map(recommendation => {
-      if(previouslyAssignedLessonsRecommendations.includes(recommendation.activity_pack_id)) {
-        return Object.assign({}, recommendation, {status: 'assigned'})
+    const lessonsRecommendations = this.state.lessonsRecommendations.map((recommendation) => {
+      if (previouslyAssignedLessonsRecommendations.includes(recommendation.activity_pack_id)) {
+        return Object.assign({}, recommendation, { status: 'assigned', });
       } else {
         return recommendation;
       }
     });
     if (assigned) {
-      this.setState({ selections, assigned: assigned, assigning: false}, this.setAssignedToFalseAfterFiveSeconds);
+      this.setState({ selections, assigned, assigning: false, }, this.setAssignedToFalseAfterFiveSeconds);
     } else {
-      this.setState({ selections, lessonsRecommendations })
+      this.setState({ selections, lessonsRecommendations, });
     }
   },
 
@@ -129,9 +129,9 @@ export default React.createClass({
       })
 			.done(() => { this.initializePusher(); })
 			.fail(() => {
-        alert('We had trouble processing your request. Please check your network connection and try again.');
-        this.setState({ assigning: false, });
-      });
+  alert('We had trouble processing your request. Please check your network connection and try again.');
+  this.setState({ assigning: false, });
+});
     });
   },
 
@@ -146,7 +146,7 @@ export default React.createClass({
         }
       ],
     }));
-    return {selections: selectionsArr}
+    return { selections: selectionsArr ,};
   },
 
   assignToWholeClass(unitTemplateId) {
@@ -156,7 +156,7 @@ export default React.createClass({
       url: '/teachers/progress_reports/assign_selected_packs/',
       dataType: 'json',
       contentType: 'application/json',
-      data: JSON.stringify({ authenticity_token: authToken(), whole_class: true, unit_template_id: unitTemplateId, classroom_id: this.props.params.classroomId}),
+      data: JSON.stringify({ authenticity_token: authToken(), whole_class: true, unit_template_id: unitTemplateId, classroom_id: this.props.params.classroomId, }),
     })
     .done(() => {
       this.initializePusher(unitTemplateId);
@@ -168,7 +168,7 @@ export default React.createClass({
   },
 
   initializePusher(unitTemplateId) {
-    if (process.env.NODE_ENV === 'development') {
+    if (process.env.RAILS_ENV === 'development') {
       Pusher.logToConsole = true;
     }
     const params = this.props.params;

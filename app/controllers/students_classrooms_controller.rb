@@ -24,18 +24,19 @@ class StudentsClassroomsController < ApplicationController
     end
 
     def hide
-      sc = StudentsClassrooms.find(params[:id])
+      sc = current_user.students_classrooms.find(params[:id])
       sc.update(visible: false)
       render json: sc
     end
 
     def unhide
-      sc = StudentsClassrooms.unscoped.find(params[:id])
+      sc = StudentsClassrooms.unscoped.find_by(student_id: current_user.id, id: params[:id], visible: false)
       sc.update(visible: true)
       render json: sc
     end
 
     def teacher_hide
+      classroom_teacher!(params[:classroom_id])
       row = StudentsClassrooms.find_by(student_id: params[:student_id], classroom_id: params[:classroom_id])
       row.update(visible: false)
       redirect_to teachers_classrooms_path

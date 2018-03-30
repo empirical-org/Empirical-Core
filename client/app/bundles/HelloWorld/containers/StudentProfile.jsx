@@ -59,7 +59,7 @@ class StudentProfile extends React.Component {
     if (student) {
       const classroomId = student.classroom.id;
 
-      if (process.env.NODE_ENV === 'development') {
+      if (process.env.RAILS_ENV === 'development') {
         Pusher.logToConsole = true;
       }
       const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
@@ -85,6 +85,14 @@ class StudentProfile extends React.Component {
     } = this.props;
 
     if (!loading) {
+      const nextActivity = nextActivitySession ? (<NextActivity
+        loading={loading}
+        hasActivities={scores.length > 0}
+        name={nextActivitySession.name}
+        caId={nextActivitySession.ca_id}
+        activityClassificationId={nextActivitySession.activity_classification_id}
+        maxPercentage={nextActivitySession.max_percentage}
+      />) : null;
       return (
         <div id="student-profile">
           <StudentsClassroomsHeader
@@ -101,14 +109,7 @@ class StudentProfile extends React.Component {
             classroomName={student.classroom.name}
             teacherName={student.classroom.teacher.name}
           />
-          <NextActivity
-            loading={loading}
-            hasActivities={scores.length > 0}
-            name={nextActivitySession.name}
-            caId={nextActivitySession.ca_id}
-            activityClassificationId={nextActivitySession.activity_classification_id}
-            maxPercentage={nextActivitySession.max_percentage}
-          />
+          {nextActivity}
           <StudentProfileUnits
             data={scores}
             loading={loading}
@@ -122,9 +123,9 @@ class StudentProfile extends React.Component {
 const mapStateToProps = state => state;
 const mapDispatchToProps = dispatch => ({
   fetchStudentProfile: classroomId => dispatch(fetchStudentProfile(classroomId)),
-  updateNumberOfClassroomTabs: (screenWidth) => dispatch(updateNumberOfClassroomTabs(screenWidth)),
+  updateNumberOfClassroomTabs: screenWidth => dispatch(updateNumberOfClassroomTabs(screenWidth)),
   fetchStudentsClassrooms: () => dispatch(fetchStudentsClassrooms()),
-  handleClassroomClick: (classroomId) => dispatch(handleClassroomClick(classroomId)),
+  handleClassroomClick: classroomId => dispatch(handleClassroomClick(classroomId)),
   hideDropdown: () => dispatch(hideDropdown()),
   toggleDropdown: () => dispatch(toggleDropdown()),
 });

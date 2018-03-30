@@ -22,5 +22,7 @@ A subscription can be created from:
 1. A user starting a trial (only if they've never had a subscription.)
 2. A user purchasing an individual Teacher Premium account through Stripe.
 3. A user purchasing an individual Teacher Premium account through PO, in which case someone from the sales team upgrades them through the CMS dashboard.
+6. A user purchases with Stripe and has recurring checked -- in this case, a new subscription will begin each year and the purchaser will be billed.
 4. A school purchasing a School Premium account through Stripe, in which case all teachers in the school are upgraded (if they pass the upgrade check as mentioned in Users Subscriptions Through School Section).
 5. A school purchases a School Premium Account through PO, and the sales team upgrades the school through the CMS, which in term upgrades all teachers.
+6. A school purchases with Stripe and has recurring checked -- in this case, a new subscription will begin each year and the purchaser will be billed.

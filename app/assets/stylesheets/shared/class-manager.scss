@@ -13,9 +13,15 @@
       cursor: pointer;
       color: #027360;
     }
+    #submit-button {
+      display: none;
+      margin-right: 72px;
+    }
+    #classroom-grade {
+      background-color: white;
+    }
     #edit-classroom-row {
       display: none;
-      padding-top: 10px;
     }
     .name-and-editing-info {
       padding-top: 20px;
@@ -39,6 +45,14 @@
     .container {
       padding-top: 10px;
     }
+    .dropdown-toggle {
+      font-weight: normal;
+      border: 1px solid #cecece;
+      width: 179px;
+      text-align: left;
+      color: black;
+      padding-left: 10px;
+    }
     .dropdown-menu {
       a {
         text-overflow: ellipsis;
@@ -46,8 +60,10 @@
       }
     }
     .name-and-download {
+      align-items: center;
       button {
         border: 1px solid black;
+        height: 40px;
       }
     }
     .spinner {

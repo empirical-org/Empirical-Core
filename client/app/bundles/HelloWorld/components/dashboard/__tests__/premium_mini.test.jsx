@@ -16,10 +16,9 @@ describe('PremiumMini component', () => {
   });
 
   it('should post to subscriptions on button click', () => {
-    const wrapper = shallow(<PremiumMini />);
+    const wrapper = shallow(<PremiumMini userIsEligibleForTrial />);
     wrapper.find('button').simulate('click');
     expect($.post.mock.calls[0][0]).toBe('/subscriptions');
-    expect($.post.mock.calls[0][1].account_limit).toBe(1000);
-    expect($.post.mock.calls[0][1].account_type).toBe('Teacher Trial');
+    expect($.post.mock.calls[0][1].subscription.account_type).toBe('Teacher Trial');
   });
 });

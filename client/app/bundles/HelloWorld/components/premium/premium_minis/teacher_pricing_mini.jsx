@@ -1,32 +1,37 @@
 import React from 'react';
 import PleaseLoginModal from '../please_login_modal.jsx';
-import Stripe from '../../modules/stripe.jsx';
+import Stripe from '../../modules/stripe/charge.js';
 
 export default React.createClass({
 
     // TODO: make route for free trial that depends on if they are signed in or not, add stripe integration to free trial
 
   charge() {
-    new Stripe(8000, '$80 Teacher Premium');
+    if (this.props.userIsEligibleForNewSubscription) {
+      this.props.showPurchaseModal();
+    } else {
+      alert('You have an active subscription and cannot buy premium now. If your subscription is a school subscription, you may buy Premium when it expires. If your subscription is a teacher one, please turn on recurring payments and we will renew it automatically when your subscription ends.');
+    }
   },
 
-  getInitialState() {
-    return {
-      isUserSignedIn: ($('#user-logged-in').data().signedIn === true),
-    };
+  beginTrialButton() {
+    if (this.props.userIsEligibleForTrial || !this.props.userIsSignedIn) {
+      return <button type="button" className="btn btn-default mini-btn empty-blue" onClick={this.beginTrial}>Free Trial</button>;
+    }
   },
 
   beginTrial() {
-    if (this.state.isUserSignedIn === true) {
+    if (!this.props.userIsSignedIn === true) {
+      alert('You must be logged in to activate Premium.');
+    } else {
       $.post('/subscriptions', {
-        account_limit: 1000,
-        account_type: 'Teacher Trial',
-        authenticity_token: $('meta[name=csrf-token]').attr('content'),
+        subscription: {
+          account_type: 'Teacher Trial',
+          authenticity_token: $('meta[name=csrf-token]').attr('content'),
+        },
       }).success(() => {
         window.location.assign('/teachers/classrooms/scorebook');
       });
-    } else {
-      alert('You must be logged in to begin your free trial.');
     }
   },
 
@@ -35,10 +40,10 @@ export default React.createClass({
   },
 
   purchaseButton() {
-    if (this.state.isUserSignedIn === true) {
+    if (this.props.userIsSignedIn === true) {
       return <button type="button" id="purchase-btn" data-toggle="modal" onClick={this.charge} className="btn btn-default mini-btn blue">Buy Now</button>;
     }
-    return <button type="button" id="purchase-btn" onClick={() => alert('You must be logged in to purchase Quill Premium.')} className="btn btn-default mini-btn blue">Buy Now</button>;
+    return <button type="button" id="purchase-btn" onClick={() => alert('You must be logged in to activate Premium.')} className="btn btn-default mini-btn blue">Buy Now</button>;
   },
 
   render() {
@@ -65,7 +70,7 @@ export default React.createClass({
         </section>
         <div className="row">
           {this.purchaseButton()}
-          <button type="button" className="btn btn-default mini-btn empty-blue" onClick={this.beginTrial}>Free Trial</button>
+          {this.beginTrialButton()}
           <PleaseLoginModal ref="pleaseLoginModal" />
         </div>
       </div>

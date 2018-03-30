@@ -1,139 +1,364 @@
 .google-classroom-modal {
-    text-align: center;
-    .fa-exclamation-triangle {
-      color: #ff4542;
-      padding-right: 0.5em
+  text-align: center;
+
+  .fa-exclamation-triangle {
+    color: #ff4542;
+    padding-right: 0.5em;
+  }
+
+  .fa-check {
+    color: #82bf3c;
+    padding-right: 0.5em;
+  }
+
+  .modal-content {
+    max-width: 522px;
+    margin: auto;
+    height: auto;
+  }
+
+  .modal-body {
+    padding: 40px 51px;
+    position: relative;
+    max-width: 520px;
+
+    .react-bootstrap-close {
+      position: absolute;
+      right: 12px;
+      top: 12px;
+      height: 39px;
     }
-    .fa-check {
-      color: #82bf3c;
-      padding-right: 0.5em
+  }
+
+  .q-h2 {
+    font-size: 24px;
+    font-weight: 500;
+    margin-bottom: 9px;
+
+    &:after {
+      content: ' ';
+      display: block;
+      width: 87px;
+      margin: 17px auto 20px;
+      border-top: solid 1px #ebebeb;
     }
-    .modal-content {
-      max-width: 522px;
+  }
+
+  p {
+    font-size: 18px;
+    margin-bottom: 22px;
+  }
+
+  form {
+    min-height: 30px;
+    width: 418px;
+
+    input[type=text] {
+      border: 1px solid #737373;
+      max-width: 264px;
+      width: 100%;
+      float: left;
+    }
+
+    input[type=submit] {
+      margin-left: 10px;
+      font-weight: 600;
+      max-width: 144px;
+      width: 100%;
+      float: right;
+    }
+    @media (max-width: 525px) {
+      input[type=text] {
+        float: none;
+        margin-bottom: 20px;
+      }
+
+      input[type=submit] {
+        margin-left: 0;
+        float: none;
+      }
+    }
+  }
+
+  a.q-button.cta-button {
+    border: none;
+    font-size: 16px;
+    height: 40px;
+    max-width: 280px;
+    width: 100%;
+    padding: 10px 10px 8px;
+
+    &:hover {
+      color: white;
+      text-decoration: none;
+    }
+    @media (max-width: 525px) {
+      margin-top: 20px;
+    }
+  }
+
+  .error {
+    font-size: 12px;
+    height: 37px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    color: #ff4542;
+
+    i {
+      padding-right: 3.5px;
+    }
+  }
+}
+
+.archive-warning,
+.sync-success {
+  .subheader {
+    color: #737373;
+    font-size: 18px;
+    margin-bottom: 30px;
+  }
+
+  button {
+    &.close-modal {
+      border-radius: 6px;
+      border: solid 1px #737373;
+      padding: 9px 34px;
+      width: 126px;
+      height: 40px;
+    }
+
+    &.sync-classrooms {
+      width: 196px;
+      height: 40px;
+    }
+
+    &.back-to-profile {
+      width: 180px;
+    }
+  }
+
+  .button-wrapper {
+    padding-top: L 18px;
+    max-width: 336px;
+    margin: 33px auto auto;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+  }
+}
+
+.time-left-in-days {
+  color: #c0c0c0;
+}
+
+
+
+.select-credit-card-modal, .premium-confirmation, .school-premium-modal {
+  .modal-content {
+    border-radius: 12px;
+  }
+  width: 467px;
+  font-size: 16px;
+  text-align: center;
+  color: #333;
+  button:not(.q-button) {
+    display: block;
+    margin: auto;
+    border-radius: 3px;
+  	border: dashed 1px #c0c0c0;
+    font-weight: 600;
+    color: #666666;
+    width: 350px;
+    height: 55px;
+    margin-bottom: 20px;
+    &.enter-credit-card {
+      margin-top: 40%;
+    }
+    &.extant-card {
+      box-shadow: 0 1px 2px 0 #e9e9e9;
+      border: solid 1px #e9e9e9;
+      color: #027360;
+      font-size: 14px;
+      &:active {
+        box-shadow: inset 0 0 6px 0 rgba(0, 0, 0, 0.7);
+      }
+      &.selected, &:hover {
+        color: #00c2a2;
+        border: solid 1px #00c2a2;
+      }
+    }
+  }
+
+  h2 {
+    font-size: 18px;
+    margin-bottom: 32px;
+  }
+
+  .pricing-info {
+    border-bottom: 1px solid #e9e9e9;
+    padding-bottom: 27px;
+
+    h1 {
+      font-size: 24px;
+      margin-bottom: 12px;
+      font-weight: 800;
+      margin-left: 18px;
+    }
+
+    span {
+      font-size: 16px;
+    }
+  }
+}
+
+.select-credit-card-modal {
+  .modal-body {
+    padding: 1px;
+  }
+  h1 {
+     margin-top: 30px;
+  }
+  .fa-credit-card {
+    padding-right: 6px;
+    font-size: 13px;
+  }
+  .different-card {
+    &:hover {
+      box-shadow: inset 0 0 6px 0 rgba(0, 0, 0, 0.7);
+    }
+  }
+  .modal-content {
+    max-height: 476px;
+  }
+  h2 {
+    margin: 39 0px;
+  }
+}
+.premium-confirmation {
+  text-align: center;
+  .modal-content {
+    background-image: url("https://assets.quill.org/images/illustrations/teacher-premium-modal.png");
+    background-repeat: no-repeat;
+    max-height: 628px;
+    max-width: 500px;
+    width: 100%;
+  }
+  h1 {
+    margin-top: 229px;
+    font-size: 24px;
+    margin-bottom: 12px;
+    font-weight: 600;
+  }
+  h2 {
+    font-size: 18px;
+  }
+  p {
+    font-size: 16px;
+    margin-bottom: 40px;
+	  line-height: 1.75;
+  }
+  a.cta-button {
+    padding: 12px 36px;
+    font-size: 14px;
+    margin-bottom: 40px;
+  }
+}
+
+
+.school-premium-modal {
+  .modal-body {
+    padding: 15px 0;
+    .img {
+      padding-right: 15px;
+    }
+  }
+  .fa {
+    padding-right: 15px;
+font-size: 14px;
+color: #875a12;
+  }
+  .react-bootstrap-close {
+    height: 17px;
+    height: 14px;
+    padding-right: 14px;
+  }
+  .modal-content {
+    min-height: 620px;
+    background-color: #fafafa;
+  }
+  .pricing-info {
+    padding-top: 33px;
+    color: #666;
+    padding: 15px 15px;
+  }
+  .cta-section {
+        padding: 28px 15px;
+        background-color: #fff;
+        .q-button {
+          font-size: 14px;
+          font-weight: 700;
+          padding: 10px 25px;
+          height: 40px;
+          margin-top: 0;
+          border: none;
+        }
+    .flex-row {
+      width: 367px;
       margin: auto;
-      height: auto;
+      padding-bottom: 23px;
     }
-    .modal-body {
-      padding: 40px 51px;
+  }
+  h3 {
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.83;
+    margin-bottom: 30px;
+  }
+  .current-year {
+    color: #3b3b3b;
+    margin-bottom: 20px;
+    &:after {
+      content: '';
+      width: 288px;
+      border-bottom: solid 1px #d8d8d8;
+      position: absolute;
+      top: 101px;
+      left: 87px;
+    }
+  }
+  .not-the-purchaser-section {
+        padding: 15 27px;
+    border-top: 1px solid #e9e9e9;
+    text-align: left;
+    font-size: 16px;
+    .flex-row {
+      max-width: 381px;
+    }
+    h3, span {
+      color: #875a12;
+      font-weight: 700;
+      padding-right:5px;
+    }
+    h3 {
+      padding-left: 30px;
+      font-size: 20px;
+    }
+    p {
+      max-width: 350px;
       position: relative;
-      max-width: 520px;
-      .react-bootstrap-close {
-        position: absolute;
-        right: 12px;
-        top: 12px;
-        height: 39px;
-      }
+      top: -6px;
+      margin-bottom: 14px;
     }
-   .q-h2 {
-     font-size: 24px;
-     font-weight: 500;
-     margin-bottom: 9px;
-     &:after {
-       content: ' ';
-       display: block;
-       width: 87px;
-       margin: 17px auto 20px;
-       border-top: solid 1px #ebebeb;
-     }
-   }
-   p {
-     font-size: 18px;
-     margin-bottom: 22px;
-   }
-   form {
-     min-height: 30px;
-     width: 418px;
-     input[type=text] {
-       border: 1px solid #737373;
-       max-width: 264px;
-       width: 100%;
-       float: left;
-     }
-     input[type=submit] {
-       margin-left: 10px;
-       font-weight: 600;
-       max-width: 144px;
-       width: 100%;
-       float: right;
-     }
-     @media (max-width: 525px) {
-       input[type=text] {
-         float: none;
-         margin-bottom: 20px;
-       }
-       input[type=submit] {
-         margin-left: 0;
-         float: none;
-       }
-     }
-   }
-   a.q-button.cta-button {
-       border: none;
-       font-size: 16px;
-       height: 40px;
-       max-width: 280px;
-       width: 100%;
-       padding: 10px 10px 8px;
-       &:hover {
-         color: white;
-         text-decoration: none;
-       }
-      @media (max-width: 525px) {
-        margin-top: 20px
-      }
-     }
-     .error {
-       font-size: 12px;
-       height: 37px;
-       display: -webkit-box;
-       display: -ms-flexbox;
-       display: flex;
-       -webkit-box-pack: center;
-           -ms-flex-pack: center;
-               justify-content: center;
-       -webkit-box-align: center;
-           -ms-flex-align: center;
-               align-items: center;
-       color: #ff4542;
-       i {
-         padding-right: 3.5px;
-       }
-     }
-   }
-
-   .archive-warning, .sync-success {
-     .subheader {
-       color: #737373;
-       font-size: 18px;
-       margin-bottom: 30px;
-     }
-     button {
-       &.close-modal {
-         border-radius: 6px;
-         border: solid 1px #737373;
-         padding: 9px 34px;
-         width: 126px;
-         height: 40px;
-       }
-       &.sync-classrooms {
-         width: 196px;
-         height: 40px;
-       }
-       &.back-to-profile {
-         width: 180px;
-       }
-     }
-     .button-wrapper {
-       padding-top:L 18px;
-       max-width: 336px;
-       margin: auto;
-       margin-top: 33px;
-       display: -webkit-box;
-       display: -ms-flexbox;
-       display: flex;
-       -webkit-box-pack: justify;
-           -ms-flex-pack: justify;
-               justify-content: space-between;
-     }
-
-   }
+    padding-bottom: 30px;
+  }
+}
