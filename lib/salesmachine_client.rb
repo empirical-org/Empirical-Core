@@ -1,9 +1,14 @@
 class SalesmachineClient
 
   BATCH_ENDPOINT = '/v1/batch'
+  EVENT_ENDPOINT = '/v1/track/event'
 
   def self.batch(data)
     new.batch(data)
+  end
+
+  def self.event(data)
+    new.event(data)
   end
 
   def initialize(api_key = nil)
@@ -15,12 +20,16 @@ class SalesmachineClient
   end
 
   def batch(data)
-    make_request(data)
+    make_request(BATCH_ENDPOINT, data)
   end
 
-  def make_request(data)
+  def event(data)
+    make_request(EVENT_ENDPOINT, data)
+  end
+
+  def make_request(path, data)
     client.post do |request|
-      request.url(BATCH_ENDPOINT)
+      request.url(path)
       request.headers['Authorization'] = auth_header_value
       request.headers['Content-Type'] = 'application/json'
       request.body = data.to_json
