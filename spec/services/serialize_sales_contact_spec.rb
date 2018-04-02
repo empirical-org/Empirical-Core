@@ -65,11 +65,12 @@ describe 'SerializeSalesContact' do
     SalesContactUpdater.new(teacher.id, '1', nil, notifier).update
     account_data = SerializeSalesContact.new(teacher.id).account_data
 
-    expect(account_data).to include(
-      account_uid: school.id.to_s,
+    expect(account_data).to include(account_uid:
+      school.id.to_s,
       method: 'account',
-      params: { basic_subscription: Time.now }
     )
+    expect(account_data[:params][:basic_subscription]).to be_within(1.second)
+      .of(Time.now)
   end
 
   it 'presents account uid' do
@@ -137,7 +138,6 @@ describe 'SerializeSalesContact' do
       classroom_activity: classroom_activity,
       state: 'started',
     )
-
 
     teacher_data = SerializeSalesContact.new(teacher.id).data
 
