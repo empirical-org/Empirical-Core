@@ -16,8 +16,6 @@ class School < ActiveRecord::Base
   end
 
   def ulocal_to_school_type
-    puts "Getting locale"
-    puts ulocal
     data = {
       "11": "City, Large",
       "12": "City, Mid-size",
