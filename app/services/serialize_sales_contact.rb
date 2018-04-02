@@ -20,31 +20,29 @@ class SerializeSalesContact
         number_of_completed_activities_per_student: activities_per_student,
         frl: free_lunches,
         teacher_link: teacher_link,
-      }.merge(sales_stage_data)
+      }.merge(account_data_params)
     }
   end
 
   def account_data
-    unless account_uid.blank? || account_params.blank?
+    unless account_uid.blank? || account_data_params.blank?
       {
         account_uid: account_uid.to_s,
         method: 'account',
-        params: account_params
+        params: account_data_params
       }
     end
   end
 
   private
 
-  def account_params
-    @account_params ||= sales_stage_data.reject { |key, value| value.nil? }
-  end
-
-  def sales_stage_data
-    @sales_stage_data ||= Hash.new.tap do |hash|
+  def account_data_params
+    @account_data_params ||= Hash.new.tap do |hash|
       if teacher.sales_contact.present?
         teacher.sales_contact.stages.each do |stage|
-          hash[stage.name_param.to_sym] = stage.completed_at
+          unless stage.completed_at.nil?
+            hash[stage.name_param.to_sym] = stage.completed_at
+          end
         end
       end
     end
