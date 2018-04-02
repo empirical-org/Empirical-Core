@@ -37,7 +37,7 @@ describe 'SerializeSalesContact' do
     )
   end
 
-  it 'presents sales stage timestamps if available' do
+  it 'presents sales stage timestamps' do
     teacher = create(:user, role: 'teacher')
     notifier = double('notifier', perform_async: nil)
     SalesContactUpdater.new(teacher.id, '1', nil, notifier).update
@@ -56,6 +56,31 @@ describe 'SerializeSalesContact' do
       school_premium_pd_scheduled: nil,
       school_premium_pd_delivered: nil,
       not_interested_in_school_premium: nil,
+    )
+  end
+
+  it 'does not present account data if not available' do
+    school = create(:school)
+    teacher = create(:user, role: 'teacher')
+    school.users << teacher
+    SalesContactCreator.new(teacher.id).create
+    account_data = SerializeSalesContact.new(teacher.id).account_data
+
+    expect(account_data).to be nil
+  end
+
+  it 'presents account data if available' do
+    school = create(:school)
+    teacher = create(:user, role: 'teacher')
+    school.users << teacher
+    notifier = double('notifier', perform_async: nil)
+    SalesContactUpdater.new(teacher.id, '1', nil, notifier).update
+    account_data = SerializeSalesContact.new(teacher.id).account_data
+
+    expect(account_data).to include(
+      account_uid: school.id.to_s,
+      method: 'account',
+      params: { basic_subscription: Time.now }
     )
   end
 

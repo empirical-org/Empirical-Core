@@ -24,10 +24,24 @@ class SerializeSalesContact
     }
   end
 
+  def account_data
+    unless account_uid.blank? || account_params.blank?
+      {
+        account_uid: account_uid.to_s,
+        method: 'account',
+        params: account_params
+      }
+    end
+  end
+
   private
 
+  def account_params
+    @account_params ||= sales_stage_data.reject { |key, value| value.nil? }
+  end
+
   def sales_stage_data
-    Hash.new.tap do |hash|
+    @sales_stage_data ||= Hash.new.tap do |hash|
       if teacher.sales_contact.present?
         teacher.sales_contact.stages.each do |stage|
           hash[stage.name_param.to_sym] = stage.completed_at
