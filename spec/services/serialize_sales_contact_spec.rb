@@ -1,6 +1,9 @@
 require 'rails_helper'
 
 describe 'SerializeSalesContact' do
+  before { Timecop.freeze }
+  after { Timecop.return }
+
   it 'includes the contact_uid in the data' do
     teacher = create(:user, role: 'teacher')
 
@@ -31,6 +34,28 @@ describe 'SerializeSalesContact' do
       number_of_completed_activities_per_student: 0,
       frl: 0,
       teacher_link: "https://www.quill.org/cms/users/#{teacher.id}/sign_in",
+    )
+  end
+
+  it 'presents sales stage timestamps if available' do
+    teacher = create(:user, role: 'teacher')
+    notifier = double('notifier', perform_async: nil)
+    SalesContactUpdater.new(teacher.id, '1', nil, notifier).update
+    teacher_data = SerializeSalesContact.new(teacher.id).data
+
+    expect(teacher_data[:params]).to include(
+      basic_subscription: Time.now,
+      teacher_premium: nil,
+      in_conversation_teacher_responds: nil,
+      in_conversation_call_missed: nil,
+      in_conversation_interested: nil,
+      quote_requested: nil,
+      purchase_order_received: nil,
+      invoice_sent: nil,
+      school_premium_needs_pd: nil,
+      school_premium_pd_scheduled: nil,
+      school_premium_pd_delivered: nil,
+      not_interested_in_school_premium: nil,
     )
   end
 

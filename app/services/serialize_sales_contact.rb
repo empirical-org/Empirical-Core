@@ -20,11 +20,21 @@ class SerializeSalesContact
         number_of_completed_activities_per_student: activities_per_student,
         frl: free_lunches,
         teacher_link: teacher_link,
-      }
+      }.merge(sales_stage_data)
     }
   end
 
   private
+
+  def sales_stage_data
+    Hash.new.tap do |hash|
+      if teacher.sales_contact.present?
+        teacher.sales_contact.stages.each do |stage|
+          hash[stage.name_param.to_sym] = stage.completed_at
+        end
+      end
+    end
+  end
 
   def teacher_link
     "https://www.quill.org/cms/users/#{teacher.id}/sign_in"
