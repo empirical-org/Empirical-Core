@@ -134,7 +134,7 @@ describe('Explore All Activities page', function() {
 
     it('allows me to select a due date for an activity', function() {
       cy.get('.react-datepicker__input-container > input').click()
-      cy.get('[aria-label="day-31"]').click()
+      cy.get('[aria-label="day-28"]').click()
     })
 
     it('displays an error if I try to assign the activity pack without selecting who to assign it to', function() {
