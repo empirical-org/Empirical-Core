@@ -41,7 +41,7 @@ describe ProgressReports::ActivitySessionSerializer, type: :serializer do
     it 'includes fields pre-formatted for display' do
       expect(parsed_session['display_completed_at']).to eq('01/01/2015')
       expect(parsed_session['display_score']).to eq('25%')
-      expect(parsed_session['standard']).to eq(topic.try(:name_prefix))
+      expect(parsed_session['standard']).to eq(activity_session.activity.topic.try(:name_prefix))
     end
 
     context 'when the activity session is missing relevant info' do
