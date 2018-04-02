@@ -194,6 +194,7 @@ group :test do
   gem 'simplecov'
   gem 'simplecov-json', require: false
   gem 'codecov'
+  gem "fakeredis", "~> 0.7.0"
   # gem 'test_after_commit'
 end
 

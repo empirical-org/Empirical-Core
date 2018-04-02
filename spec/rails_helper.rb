@@ -9,6 +9,7 @@ require 'database_cleaner'
 require 'byebug'
 require 'vcr'
 require 'sidekiq/testing'
+require 'fakeredis'
 
 # Use a fake Sidekiq for Travis (Redis not available)
 Sidekiq::Testing.fake!
