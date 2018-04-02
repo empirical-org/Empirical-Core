@@ -309,7 +309,7 @@ renderLessonPlanTooltip() {
       endRow = styles.endRow
     }
     return (
-      <div className="row" style={this.props.activityReport ? Object.assign({}, styles.row, {cursor: 'pointer'}) : styles.row} onClick={this.props.activityReport ? this.urlForReport : null}>
+      <div className="row activity" style={this.props.activityReport ? Object.assign({}, styles.row, {cursor: 'pointer'}) : styles.row} onClick={this.props.activityReport ? this.urlForReport : null}>
         {this.renderModal()}
         <div className="starting-row">
           <div className="cell">
