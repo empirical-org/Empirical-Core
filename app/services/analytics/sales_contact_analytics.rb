@@ -2,7 +2,7 @@ class SalesContactAnalytics
   def initialize(user_id, event, client = nil, stage_seeds = nil)
     @user_id     = user_id
     @event       = event
-    @client      = client || SegmentAnalytics.new
+    @client      = client || SalesmachineClient
     @stage_seeds = stage_seeds || SalesStageTypesFactory::STAGE_TYPE_SEEDS
   end
 
@@ -17,14 +17,28 @@ class SalesContactAnalytics
   private
 
   def track_event
-    @client.track(
-      user_id: user.id,
-      event: @event,
-      properties: {
-        account_uid: account_uid,
+    handle_response { @client.event(event_data) }
+  end
+
+  def event_data
+    {
+      contact_uid: user.id.to_s,
+      event_uid: @event,
+      params: {
+        account_uid: account_uid.to_s,
         display_name: @event.titleize
       }
-    )
+    }
+  end
+
+  def handle_response(&block)
+    response = block.call
+
+    if response.success?
+      true
+    else
+      raise response.status.to_s
+    end
   end
 
   def user
