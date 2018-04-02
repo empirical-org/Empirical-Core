@@ -43,20 +43,8 @@ describe 'SerializeSalesContact' do
     SalesContactUpdater.new(teacher.id, '1', nil, notifier).update
     teacher_data = SerializeSalesContact.new(teacher.id).data
 
-    expect(teacher_data[:params]).to include(
-      basic_subscription: Time.now,
-      teacher_premium: nil,
-      in_conversation_teacher_responds: nil,
-      in_conversation_call_missed: nil,
-      in_conversation_interested: nil,
-      quote_requested: nil,
-      purchase_order_received: nil,
-      invoice_sent: nil,
-      school_premium_needs_pd: nil,
-      school_premium_pd_scheduled: nil,
-      school_premium_pd_delivered: nil,
-      not_interested_in_school_premium: nil,
-    )
+    expect(teacher_data[:params][:basic_subscription])
+      .to be_within(1.second).of(Time.now)
   end
 
   it 'does not present account data if not available' do
