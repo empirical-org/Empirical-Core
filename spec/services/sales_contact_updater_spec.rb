@@ -30,8 +30,8 @@ describe 'SalesContactUpdater' do
   end
 
   it 'informs external CMS of an update' do
-    user           = create(:user, role: 'teacher')
-    notifier       = double('cms_notifier')
+    user     = create(:user, role: 'teacher')
+    notifier = double('cms_notifier')
 
     expect(notifier).to receive(:perform_async).with(user.id, 'basic_subscription')
 
