@@ -78,7 +78,7 @@ class SerializeSalesContact
 
   def number_of_completed_activities
     @number_of_completed_activities ||= begin
-      Unit.joins(classroom_activities: :activity_sessions)
+      ClassroomsTeacher.joins(classroom: :activity_sessions)
         .where(user_id: @teacher_id)
         .where('activity_sessions.state = ?', 'finished')
         .count
