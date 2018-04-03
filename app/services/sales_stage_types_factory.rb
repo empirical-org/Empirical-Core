@@ -16,7 +16,13 @@ class SalesStageTypesFactory
     {
       name: 'In Conversation: Teacher Responds',
       order: '3.1',
-      description: 'Teacher schedules a sales call (YouCanBook.me) or responds to sales email (Hiver Gmail Label).',
+      description: 'Teacher responds to sales email (Hiver Gmail Label).',
+      trigger: 'auto'
+    },
+    {
+      name: 'In Conversation: Call Scheduled',
+      order: '3.1.1',
+      description: 'Teacher schedules a sales call (YouCanBook.me)',
       trigger: 'auto'
     },
     {
