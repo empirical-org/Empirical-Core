@@ -3,7 +3,7 @@ import Classroom from './classroom.jsx';
 import EditStudentsButton from './EditStudentsButton.jsx';
 import getParameterByName from '../../../modules/get_parameter_by_name.js';
 
-export default class extends React.Component {
+export default class ClassroomsWithStudents extends React.Component {
 
   constructor() {
     super();
@@ -22,7 +22,7 @@ export default class extends React.Component {
       if (classy.edited) {
         const class_data = { id: classy.id, };
         if (classy.allSelected) {
-          class_data.student_ids = null;
+          class_data.student_ids = classy.students.map(s => s.id);
           class_data.assign_on_join = true;
         } else {
           const student_ids_arr = [];
