@@ -21,6 +21,8 @@ class SerializeSalesContact
         number_of_completed_activities_per_student: activities_per_student,
         frl: free_lunches,
         teacher_link: teacher_link,
+        city: city,
+        state: state,
       }.merge(account_data_params)
     }
   end
@@ -109,6 +111,14 @@ class SerializeSalesContact
 
   def school
     teacher.school.name if teacher.school.present?
+  end
+
+  def city
+    teacher.school.city if teacher.school.present?
+  end
+
+  def state
+    teacher.school.state if teacher.school.present?
   end
 
   def teacher
