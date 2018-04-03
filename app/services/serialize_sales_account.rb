@@ -34,7 +34,11 @@ class SerializeSalesAccount
   private
 
   def activities_per_student
-    activities_finished.to_f / active_students.to_f
+    if active_students > 0
+      (activities_finished.to_f / active_students.to_f).round(2)
+    else
+      0
+    end
   end
 
   def active_students
