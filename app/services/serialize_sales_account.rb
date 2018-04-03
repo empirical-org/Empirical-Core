@@ -25,6 +25,7 @@ class SerializeSalesAccount
         paid_teacher_subscriptions: paid_teacher_subscriptions,
         active_students: active_students,
         activities_finished: activities_finished,
+        activities_per_student: activities_per_student,
         school_link: school_link,
       }
     }
@@ -32,20 +33,26 @@ class SerializeSalesAccount
 
   private
 
+  def activities_per_student
+    activities_finished.to_f / active_students.to_f
+  end
+
   def active_students
-    ClassroomsTeacher.joins(user: :school, classroom: :activity_sessions)
-      .where('schools.id = ?', @school_id)
-      .where('activity_sessions.state = ?', 'finished')
-      .group('activity_sessions.user_id')
-      .count
-      .length
+    @active_students ||= ClassroomsTeacher
+      .joins(user: :school, classroom: :activity_sessions)
+        .where('schools.id = ?', @school_id)
+        .where('activity_sessions.state = ?', 'finished')
+        .group('activity_sessions.user_id')
+        .count
+        .length
   end
 
   def activities_finished
-    ClassroomsTeacher.joins(user: :school, classroom: :activity_sessions)
-      .where('schools.id = ?', @school_id)
-      .where('activity_sessions.state = ?', 'finished')
-      .count
+    @activities_finished ||= ClassroomsTeacher
+      .joins(user: :school, classroom: :activity_sessions)
+        .where('schools.id = ?', @school_id)
+        .where('activity_sessions.state = ?', 'finished')
+        .count
   end
 
   def school_subscription
