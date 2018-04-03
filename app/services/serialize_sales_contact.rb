@@ -10,6 +10,7 @@ class SerializeSalesContact
       params: {
         email: teacher.email,
         name: teacher.name,
+        school: school,
         account_uid: account_uid.to_s,
         signed_up: teacher.created_at.to_i,
         admin: teacher.admin?,
@@ -104,6 +105,10 @@ class SerializeSalesContact
 
   def account_uid
     teacher.school.id if teacher.school.present?
+  end
+
+  def school
+    teacher.school.name if teacher.school.present?
   end
 
   def teacher

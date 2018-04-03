@@ -13,18 +13,21 @@ describe 'SerializeSalesContact' do
   end
 
   it 'presents teacher data' do
+    school = create(:school, name: 'Kool Skool', free_lunches: 13)
     teacher = create(:user,
       name: 'Pops McGee',
       role: 'teacher',
       email: 'teach@teaching.edu',
     )
+    school.users << teacher
 
     teacher_data = SerializeSalesContact.new(teacher.id).data
 
     expect(teacher_data[:params]).to include(
       email: 'teach@teaching.edu',
       name: 'Pops Mcgee',
-      account_uid: '',
+      school: 'Kool Skool',
+      account_uid: school.id.to_s,
       signed_up: teacher.created_at.to_i,
       admin: false,
       premium_status: 'NA',
@@ -32,7 +35,7 @@ describe 'SerializeSalesContact' do
       number_of_students: 0,
       number_of_completed_activities: 0,
       number_of_completed_activities_per_student: 0,
-      frl: 0,
+      frl: 13,
       teacher_link: "https://www.quill.org/cms/users/#{teacher.id}/sign_in",
     )
   end
@@ -71,16 +74,6 @@ describe 'SerializeSalesContact' do
     )
     expect(account_data[:params][:basic_subscription]).to be_within(1.second)
       .of(Time.now)
-  end
-
-  it 'presents account uid' do
-    school = create(:school)
-    teacher = create(:user, role: 'teacher')
-    school.users << teacher
-
-    teacher_data = SerializeSalesContact.new(teacher.id).data
-
-    expect(teacher_data[:params]).to include(account_uid: school.id.to_s)
   end
 
   it 'presents admin status' do
