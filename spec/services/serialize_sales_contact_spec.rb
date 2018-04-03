@@ -118,19 +118,22 @@ describe 'SerializeSalesContact' do
   end
 
   it 'presents activity data' do
+    school = create(:school)
     teacher = create(:user, role: 'teacher')
+    school.users << teacher
     classroom = create(:classroom)
-    unit = create(:unit, user: teacher)
-    classroom_activity = create(:classroom_activity, unit: unit)
+    classroom_activity = create(:classroom_activity, classroom: classroom)
     student = create(:user, role: 'student')
     create(:classrooms_teacher, user: teacher, classroom: classroom)
     create(:students_classrooms, student: student, classroom: classroom)
     create(:activity_session,
       classroom_activity: classroom_activity,
+      user: student,
       state: 'finished',
     )
     create(:activity_session,
       classroom_activity: classroom_activity,
+      user: student,
       state: 'started',
     )
 
