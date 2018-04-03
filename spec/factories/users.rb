@@ -23,6 +23,12 @@ FactoryBot.define do
         end
       end
 
+      factory :co_teacher_with_one_classroom do
+        after(:create) do |teacher|
+          create(:classrooms_teacher, user_id: teacher.id, role: 'coteacher')
+        end
+      end
+
       factory :teacher_with_a_couple_classrooms_with_a_couple_students_each do
         after(:create) do |teacher|
           classrooms = create_pair(:classroom_with_a_couple_students, :with_no_teacher)

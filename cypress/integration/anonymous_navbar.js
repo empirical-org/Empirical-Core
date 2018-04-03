@@ -1,6 +1,7 @@
 describe('Anonymous Navbar', function() {
 
   before( function() {
+    cy.logout();
     cy.visit('/')
   })
 
