@@ -1,6 +1,9 @@
 require 'rails_helper'
 
 describe 'SerializeSalesContact' do
+  before { Timecop.freeze }
+  after { Timecop.return }
+
   it 'includes the contact_uid in the data' do
     teacher = create(:user, role: 'teacher')
 
@@ -10,18 +13,21 @@ describe 'SerializeSalesContact' do
   end
 
   it 'presents teacher data' do
+    school = create(:school, name: 'Kool Skool', free_lunches: 13)
     teacher = create(:user,
       name: 'Pops McGee',
       role: 'teacher',
       email: 'teach@teaching.edu',
     )
+    school.users << teacher
 
     teacher_data = SerializeSalesContact.new(teacher.id).data
 
     expect(teacher_data[:params]).to include(
       email: 'teach@teaching.edu',
       name: 'Pops Mcgee',
-      account_uid: '',
+      school: 'Kool Skool',
+      account_uid: school.id.to_s,
       signed_up: teacher.created_at.to_i,
       admin: false,
       premium_status: 'NA',
@@ -29,19 +35,47 @@ describe 'SerializeSalesContact' do
       number_of_students: 0,
       number_of_completed_activities: 0,
       number_of_completed_activities_per_student: 0,
-      frl: 0,
+      frl: 13,
       teacher_link: "https://www.quill.org/cms/users/#{teacher.id}/sign_in",
+      city: school.city,
+      state: school.state,
     )
   end
 
-  it 'presents account uid' do
+  it 'presents sales stage timestamps' do
+    teacher = create(:user, role: 'teacher')
+    notifier = double('notifier', perform_async: nil)
+    SalesContactUpdater.new(teacher.id, '1', nil, notifier).update
+    teacher_data = SerializeSalesContact.new(teacher.id).data
+
+    expect(teacher_data[:params][:basic_subscription])
+      .to be_within(1.second).of(Time.now)
+  end
+
+  it 'does not present account data if not available' do
     school = create(:school)
     teacher = create(:user, role: 'teacher')
     school.users << teacher
+    SalesContactCreator.new(teacher.id).create
+    account_data = SerializeSalesContact.new(teacher.id).account_data
 
-    teacher_data = SerializeSalesContact.new(teacher.id).data
+    expect(account_data).to be nil
+  end
 
-    expect(teacher_data[:params]).to include(account_uid: school.id.to_s)
+  it 'presents account data if available' do
+    school = create(:school)
+    teacher = create(:user, role: 'teacher')
+    school.users << teacher
+    notifier = double('notifier', perform_async: nil)
+    SalesContactUpdater.new(teacher.id, '1', nil, notifier).update
+    account_data = SerializeSalesContact.new(teacher.id).account_data
+
+    expect(account_data).to include(account_uid:
+      school.id.to_s,
+      method: 'account',
+    )
+    expect(account_data[:params][:basic_subscription]).to be_within(1.second)
+      .of(Time.now)
   end
 
   it 'presents admin status' do
@@ -84,22 +118,24 @@ describe 'SerializeSalesContact' do
   end
 
   it 'presents activity data' do
+    school = create(:school)
     teacher = create(:user, role: 'teacher')
+    school.users << teacher
     classroom = create(:classroom)
-    unit = create(:unit, user: teacher)
-    classroom_activity = create(:classroom_activity, unit: unit)
+    classroom_activity = create(:classroom_activity, classroom: classroom)
     student = create(:user, role: 'student')
     create(:classrooms_teacher, user: teacher, classroom: classroom)
     create(:students_classrooms, student: student, classroom: classroom)
     create(:activity_session,
       classroom_activity: classroom_activity,
+      user: student,
       state: 'finished',
     )
     create(:activity_session,
       classroom_activity: classroom_activity,
+      user: student,
       state: 'started',
     )
-
 
     teacher_data = SerializeSalesContact.new(teacher.id).data
 
