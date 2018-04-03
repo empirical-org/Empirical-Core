@@ -37,6 +37,8 @@ describe 'SerializeSalesContact' do
       number_of_completed_activities_per_student: 0,
       frl: 13,
       teacher_link: "https://www.quill.org/cms/users/#{teacher.id}/sign_in",
+      city: school.city,
+      state: school.state,
     )
   end
 
