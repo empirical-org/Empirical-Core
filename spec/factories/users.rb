@@ -75,23 +75,23 @@ FactoryBot.define do
           unit3 = create(:unit, user_id: teacher.id, name: 'Unit C')
 
           activities = create_list(:activity, 9, :production)
-          classrooms_teachers = create_pair(:classrooms_teacher, user_id: teacher.id)
-          classrooms_teachers.each do |ct|
+          classrooms = create_pair(:classroom, :with_no_teacher)
+          classrooms.each do |c|
+            create(:classrooms_teacher, classroom_id: c.id, user_id: teacher.id)
             students = create_list(:student, 3)
             activities.each_with_index do |a, i|
               if i < 3
-                create(:classroom_activity, unit: unit1, classroom: ct.classroom, assigned_student_ids: students.map { |s| s[:id]}, activity: a)
+                create(:classroom_activity, unit: unit1, classroom: c, assigned_student_ids: students.map { |s| s[:id]}, activity: a)
               elsif i < 6
-                create(:classroom_activity, unit: unit2, classroom: ct.classroom, assigned_student_ids: students.map { |s| s[:id]}, activity: a)
+                create(:classroom_activity, unit: unit2, classroom: c, assigned_student_ids: students.map { |s| s[:id]}, activity: a)
               else
-                create(:classroom_activity, unit: unit3, classroom: ct.classroom, assigned_student_ids: students.map { |s| s[:id]}, activity: a)
+                create(:classroom_activity, unit: unit3, classroom: c, assigned_student_ids: students.map { |s| s[:id]}, activity: a)
               end
             end
             students.each do |s|
-              create(:students_classrooms, student: s, classroom: ct.classroom)
+              create(:students_classrooms, student: s, classroom: c)
             end
           end
-
         end
       end
 

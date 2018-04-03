@@ -12,7 +12,7 @@ const fillInName = (name)=>{
     .type(className || name)
 }
 
-describe.only('Create Classroom', function() {
+describe('Create Classroom', function() {
 
   before( function() {
     cy.cleanDatabase()
