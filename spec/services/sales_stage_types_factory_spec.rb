@@ -5,7 +5,7 @@ describe 'SalesStageTypesFactory' do
     SalesStageTypesFactory.new.build
     SalesStageTypesFactory.new.build
 
-    expect(SalesStageType.count).to eq(12)
+    expect(SalesStageType.count).to eq(13)
   end
 
   it 'creates "Basic Subscription" type' do
