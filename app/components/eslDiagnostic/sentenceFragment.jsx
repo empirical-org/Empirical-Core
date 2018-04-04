@@ -18,6 +18,7 @@ import updateResponseResource from '../renderForQuestions/updateResponseResource
 import { hashToCollection } from '../../libs/hashToCollection.js';
 import translations from '../../libs/translations/index.js';
 import translationMap from '../../libs/translations/ellQuestionMapper.js';
+import Feedback from '../renderForQuestions/components/feedback';
 
 const key = ''; // enables this component to be used by both play/sentence-fragments and play/diagnostic
 
@@ -30,14 +31,23 @@ const PlaySentenceFragment = React.createClass({
     };
   },
 
+  componentDidMount() {
+    getGradedResponsesWithCallback(
+      this.getQuestion().key,
+      (data) => {
+        this.setState({ responses: data, });
+      }
+    );
+  },
+
   getInstructionText() {
     const textKey = translationMap[this.getQuestion().key];
-    let text = `<p>${translations.english[textKey]}</p>`;
+    let text = translations.english[textKey];
     if (this.props.language !== 'english') {
       const textClass = this.props.language === 'arabic' ? 'right-to-left' : '';
-      text += `<br/><br/><p class="${textClass}">${translations[this.props.language][textKey]}</p>`;
+      text += `<br/><br/><span class="${textClass}">${translations[this.props.language][textKey]}</span>`;
     }
-    return text;
+    return (<p dangerouslySetInnerHTML={{ __html: text, }} />);
   },
 
   getChoiceHTML() {
@@ -46,15 +56,6 @@ const PlaySentenceFragment = React.createClass({
       text += `<br/><br/>${translations[this.props.language]['sentence-fragment-complete-vs-incomplete-button-choice-instructions']}`;
     }
     return text;
-  },
-
-  componentDidMount() {
-    getGradedResponsesWithCallback(
-      this.getQuestion().key,
-      (data) => {
-        this.setState({ responses: data, });
-      }
-    );
   },
 
   choosingSentenceOrFragment() {
@@ -167,10 +168,10 @@ const PlaySentenceFragment = React.createClass({
 
     if (!this.choosingSentenceOrFragment()) {
       const component = (
-        <div className="feedback-row">
-          <img className="info" src={icon} style={{ marginTop: 3, }} />
-          <div dangerouslySetInnerHTML={{ __html: this.getInstructionText(), }} />
-        </div>
+        <Feedback
+          feedbackType="instructions"
+          feedback={this.getInstructionText()}
+        />
       );
 
       return (
