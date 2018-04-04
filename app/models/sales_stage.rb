@@ -11,6 +11,10 @@ class SalesStage < ActiveRecord::Base
     "#{sales_stage_type.order}. #{sales_stage_type.name}"
   end
 
+  def name_param
+    sales_stage_type.name_param
+  end
+
   def description
     sales_stage_type.description
   end
