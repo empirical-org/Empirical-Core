@@ -62,7 +62,6 @@ describe('Premium Page', () => {
     })
   }
 
-
   describe('subscriptions', () => {
     describe('when I am not logged in', () => {
       before(() => {
@@ -128,8 +127,6 @@ describe('Premium Page', () => {
 
       })
 
-
-
       describe('when I have a trial', () => {
         // keep this below the free trial activation so that we can build our way through the various states
         before(() => {
@@ -169,9 +166,8 @@ describe('Premium Page', () => {
             cy.reload()
           })
         })
-
-
       })
+
       describe('when I have a teacher premium', () => {
         // keep this below the trial so that we can build our way through the various states
 
@@ -217,10 +213,4 @@ describe('Premium Page', () => {
       })
     })
   })
-
-
-
-
-
-
 })
