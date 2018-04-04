@@ -5,13 +5,22 @@ describe('Assigning unit templates flow', () => {
       factory: 'diagnostic_activity',
       name: 'Sentence Structure Diagnostic',
       id: 413
-    }).then((activity) => {
-      console.log('activity', activity.body)
+    }).then(() => {
       cy.factoryBotCreate({
         factory: 'unit_template',
         id: 20,
         name: 'Sentence Structure Diagnostic'
-        // activities: activity.body
+      })
+    })
+    cy.factoryBotCreate({
+      factory: 'diagnostic_activity',
+      name: 'ELL Diagnostic',
+      id: 447
+    }).then(() => {
+      cy.factoryBotCreate({
+        factory: 'unit_template',
+        id: 34,
+        name: 'ELL Diagnostic'
       })
     })
     cy.factoryBotCreate({
@@ -93,18 +102,11 @@ describe('Assigning unit templates flow', () => {
   })
 
   describe('choosing the ell diagnostic', function() {
-    it('clicking the ell diagnostic\'s mini takes me to stage 1', function() {
+    it('clicking the ell diagnostic\'s mini', function() {
       cy.visit('/teachers/classrooms/assign_activities/assign-a-diagnostic')
       cy.get('.assignment-type-mini').contains('ELL Diagnostic').click()
-      cy.url().should('include', '/diagnostic/447/stage/1')
     })
-    it('which shows a modal with four slides', function() {
-      cy.get('.diagnostic-overview-modal').contains('Next').click()
-      cy.get('.diagnostic-overview-modal').contains('Next').click()
-      cy.get('.diagnostic-overview-modal').contains('Next').click()
-      cy.get('.diagnostic-overview-modal').contains('Next').click()
-    })
-    it('and take me to stage 2, which shows a page with the option to either preview or assign the diagnostic', function() {
+    it('takes me to stage 2, which shows a page with the option to either preview or assign the diagnostic', function() {
       cy.url().should('include', '/diagnostic/447/stage/2')
       cy.contains('Preview the Diagnostic').parent().should('have.attr', 'href').should('include', 'activity_sessions/anonymous?activity_id=447')
     })
@@ -149,7 +151,7 @@ describe('Assigning unit templates flow', () => {
     })
     it('where the sentence structure diagnostic is assigned', function() {
       cy.get('.activities-unit').should('have.length', 2)
-      cy.get('.activities-unit').last().find('.unit-header-row').contains('Sentence Structure Diagnostic')
+      cy.get('.activities-unit').last().find('.unit-header-row').contains('ELL Diagnostic')
     })
   })
 
