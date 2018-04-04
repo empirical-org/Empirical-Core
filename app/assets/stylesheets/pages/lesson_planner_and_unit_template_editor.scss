@@ -79,12 +79,16 @@
     }
   }
   .error-message-and-button {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
+    display: inline-block;
     position: relative;
     width: 100%;
     padding-bottom: 30px;
+    .error-message {
+      position: absolute;
+      float: left;
+      top: 10px;
+      right: 125px;
+    }
     .visible-error-message {
       color: red;
       i {

@@ -58,7 +58,6 @@
     margin-right: 15px;
     text-overflow: ellipsis;
     width: 220px;
-    position: relative;
     &:focus {
       outline: none;
     }
@@ -82,10 +81,11 @@
       outline: none;
     }
   }
-  .button-select .act-search-filter-fav {
-    position: absolute;
-    right: 10px;
-    bottom: 10px;
+  .act-search-filter-fav {
+    left: 100%;
+    margin-left: -22px;
+    position: relative;
+    top: -26px;
   }
   img {
     padding-left: 8px;
