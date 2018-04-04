@@ -15,6 +15,7 @@ import translationMap from '../../libs/translations/ellQuestionMapper.js';
 import WarningDialogue from './warningDialogue.jsx'
 import Prompt from './prompt.jsx'
 import Instructions from './instructions.jsx'
+import Feedback from '../renderForQuestions/components/feedback'
 
 const styles = {
   container: {
@@ -74,13 +75,13 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
 
   getInstructionText() {
     const textKey = translationMap[this.getQuestion().key];
-    let text = `<p>${translations.english[textKey]}</p>`;
+    let text = translations.english[textKey];
     if (this.props.language && this.props.language !== 'english') {
       const textClass = this.props.language === 'arabic' ? 'right-to-left' : '';
-      text += `<br/><br/><p class="${textClass}">${translations[this.props.language][textKey]}</p>`;
+      text += `<br/><br/><span class="${textClass}">${translations[this.props.language][textKey]}</span>`;
     }
-    return text;
-  }
+    return (<p dangerouslySetInnerHTML={{ __html: text, }} />);
+  },
 
   generateInputs(promptArray) {
     const inputs:Array<string> = [];
@@ -320,12 +321,12 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
                 customText={this.customText()}
                 displayArrowAndText={true}
               />
-              <Instructions html={this.getInstructionText()} />
+              <Feedback feedbackType="instructions" feedback={this.getInstructionText()} />
             </div>
           </div>
           {this.renderMedia()}
         </div>
-        <div className="question-button-group button-group">
+        <div style={{marginTop: 20}} className="question-button-group button-group">
           {button}
         </div>
       </div>
