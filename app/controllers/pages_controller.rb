@@ -109,33 +109,6 @@ class PagesController < ApplicationController
         ]
       },
       {
-        title: 'Technical Questions',
-        faqs: [
-          {
-            question: "What are Quill's technical requirements?",
-            answer: "<p>Quill is built in HTML5, so it runs on all tablets, smartphones and modern browsers. Quill runs in Firefox, Chrome, Safari, and Internet Explorer 9, 10, and 11. Quill recommends that students have access to keyboards so that they can type their responses.</p>"
-          },
-          {
-            question: "Can Quill be used on smartphones and tablets?",
-            answer: "
-              <p>Yes, Quill works on iPhones, Android devices and all tablets including Kindles. Students can start and finish their independent practice on any of these devices and they can follow along with your slides in the group mode.</p>
-              <br />
-              <p><span>Recommendation:</span> If students are using Quill on a tablet, for better typing we recommend using a keyboard with the tablet. We have seen that students perform better and type faster with a keyboard rather than a touchscreen.</p>
-              <br />
-              <p><em>Coming soon:</em> We are currently working on a mobile app that will allow students to do their homework or independent practice on their phone while offline and share their score with their teachers when they are back online.</p>
-            "
-          },
-          {
-            question: "What technologies is Quill built off of?",
-            answer: "<p>The Quill LMS is built in Ruby on Rails. Our newer tools, including Quill Diagnostic and Quill Connect, were written in React.js, while Quill Grammar and Quill Proofreader were written in Angular.js. We make use of additional libraries and tools as needed, including Redux, TypeScript, Redis, Firebase, and Elasticsearch.</p>"
-          },
-          {
-            question: "How can I get started with Quill?",
-            answer: "<p>Teachers create teacher accounts and students create student accounts by clicking <a href='http://www.quill.org/account/new'>here</a>. Teachers are given a class code for each class. Students join their teacher's class by plugging in their teacher's class code. Teachers may also manually create accounts for their students. If you have a Google Classroom account, you can sign up with Google and import your students. For more information about getting started, please visit our <a href='https://www.quill.org/teacher_resources'>Teacher Resources</a> page. You can also download our <a href='https://d1yxac6hjodhgc.cloudfront.net/wp-content/uploads/2015/11/Quill-Getting-Started-Guide-for-Teachers.pdf'>Getting Started Guide for Teachers.</a></p>"
-          },
-        ]
-      },
-      {
         title: 'Implementation Questions',
         faqs: [
           {
@@ -217,6 +190,52 @@ class PagesController < ApplicationController
             question: "How can Quill be used with tools for accessibility?",
             answer: "<p>Quill fully integrates with many extensions such as <a href='https://chrome.google.com/webstore/detail/read-aloud-a-text-to-spee/hdhinadidafjejdhmfkjgnolgimiaplp?hl=en'>ReadAloud</a> and <a href='https://chrome.google.com/webstore/detail/opendyslexic/cdnapgfjopgaggbmfgbiinmmbdcglnam?hl=en'>Open Dyslexic</a>. You can view a list of all the extensions that Quill works with <a href='https://support.quill.org/research-and-pedagogy/differentiation/free-extensions-for-students-with-modifications-iep-ell'>here</a>.</p>"
           }
+        ]
+      },
+      {
+        title: 'Technical Questions',
+        faqs: [
+          {
+            question: "Why aren't activities loading?",
+            answer: "<p>If you’re having trouble accessing Quill’s activities, your school is likely encountering some firewall issues when trying to access activities on Quill.org.</p>
+                    <br />
+                  <p>Firewall issues will generally need to be dealt with by your IT Department. We've written a brief text you can send them below. If it does not resolve your issues, please let us know.</p>
+                  <br />
+                  <blockquote>
+                    <p>Hello,</p>
+                    <br />
+                    <p>Quill uses various subdomains, and Firebase to store data, so please whitelist *.quill.org as well as *.firebaseio.com.As of August 2016, Google has issued a new SSL certificate for all apps hosted by Firebase, causing issues with firewalls like FortiGate. AwesomeTable discovered this issue, and we've copied their explanation and solution below:The issue appears to be linked to the number of SANs in the certificate, which is almost a thousand. We don't know if Google is going to change something here.If you are a Fortinet user, you can enable/check \"Inspect All Ports\" in Policy & Objects > Policy > SSL/SSH Inspection > [your policy]. Explanation: when \"Inspect All Ports\" is DISABLED (you're scanning specific ports), the FortiGate's proxyworker process is doing the SSL Inspection. The proxyworker isn't able to handle all of those SANs. However, if \"Inspect All Ports\" is ENABLED, SSL Inspection gets offloaded to the IPS Module, which is able to handle that number of SANs just fine.Another solution is to write firewall rules to allow traffic with no certificate inspection for cdn.firebase.com (151.101.44.249), firebase.com and quill.org.You can test Firebase access here https://www.firebase.com/test.html</p>
+                    <br />
+                    <p>Thank you,</p>
+                    <br />
+                    <p>The Quill Engineering Team</p>
+                  </blockquote>
+                  <br />
+                  <p>Credit to AwesomeTable for discovering the source of this complication.</p>
+            "
+          },
+          {
+            question: "What are Quill's technical requirements?",
+            answer: "<p>Quill is built in HTML5, so it runs on all tablets, smartphones and modern browsers. Quill runs in Firefox, Chrome, Safari, and Internet Explorer 9, 10, and 11. Quill recommends that students have access to keyboards so that they can type their responses.</p>"
+          },
+          {
+            question: "Can Quill be used on smartphones and tablets?",
+            answer: "
+              <p>Yes, Quill works on iPhones, Android devices and all tablets including Kindles. Students can start and finish their independent practice on any of these devices and they can follow along with your slides in the group mode.</p>
+              <br />
+              <p><span>Recommendation:</span> If students are using Quill on a tablet, for better typing we recommend using a keyboard with the tablet. We have seen that students perform better and type faster with a keyboard rather than a touchscreen.</p>
+              <br />
+              <p><em>Coming soon:</em> We are currently working on a mobile app that will allow students to do their homework or independent practice on their phone while offline and share their score with their teachers when they are back online.</p>
+            "
+          },
+          {
+            question: "What technologies is Quill built off of?",
+            answer: "<p>The Quill LMS is built in Ruby on Rails. Our newer tools, including Quill Diagnostic and Quill Connect, were written in React.js, while Quill Grammar and Quill Proofreader were written in Angular.js. We make use of additional libraries and tools as needed, including Redux, TypeScript, Redis, Firebase, and Elasticsearch.</p>"
+          },
+          {
+            question: "How can I get started with Quill?",
+            answer: "<p>Teachers create teacher accounts and students create student accounts by clicking <a href='http://www.quill.org/account/new'>here</a>. Teachers are given a class code for each class. Students join their teacher's class by plugging in their teacher's class code. Teachers may also manually create accounts for their students. If you have a Google Classroom account, you can sign up with Google and import your students. For more information about getting started, please visit our <a href='https://www.quill.org/teacher_resources'>Teacher Resources</a> page. You can also download our <a href='https://d1yxac6hjodhgc.cloudfront.net/wp-content/uploads/2015/11/Quill-Getting-Started-Guide-for-Teachers.pdf'>Getting Started Guide for Teachers.</a></p>"
+          },
         ]
       },
       {
