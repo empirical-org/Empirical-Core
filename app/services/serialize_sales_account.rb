@@ -10,9 +10,9 @@ class SerializeSalesAccount
       method: 'account',
       params: {
         name: school.name,
-        city: school.mail_city,
-        state: school.mail_state,
-        zipcode: school.mail_zipcode,
+        city: school.city,
+        state: school.state,
+        zipcode: school.zipcode,
         district: school.leanm,
         phone: school.phone,
         charter: school.charter,
@@ -24,8 +24,8 @@ class SerializeSalesAccount
         employee_count: employee_count,
         paid_teacher_subscriptions: paid_teacher_subscriptions,
         active_students: active_students,
-        buying_stage: 'green field',
         activities_finished: activities_finished,
+        activities_per_student: activities_per_student,
         school_link: school_link,
       }
     }
@@ -33,21 +33,30 @@ class SerializeSalesAccount
 
   private
 
+  def activities_per_student
+    if active_students > 0
+      (activities_finished.to_f / active_students.to_f).round(2)
+    else
+      0
+    end
+  end
+
   def active_students
-    User.joins(:school, :activity_sessions)
-      .where(role: 'student')
-      .where('schools.id = ?', @school_id)
-      .where('activity_sessions.state = ?', 'finished')
-      .distinct
-      .count
+    @active_students ||= ClassroomsTeacher
+      .joins(user: :school, classroom: :activity_sessions)
+        .where('schools.id = ?', @school_id)
+        .where('activity_sessions.state = ?', 'finished')
+        .group('activity_sessions.user_id')
+        .count
+        .length
   end
 
   def activities_finished
-    School.joins(users: :activity_sessions)
-      .where(id: @school_id)
-      .where('users.role = ?', 'student')
-      .where('activity_sessions.state = ?', 'finished')
-      .count
+    @activities_finished ||= ClassroomsTeacher
+      .joins(user: :school, classroom: :activity_sessions)
+        .where('schools.id = ?', @school_id)
+        .where('activity_sessions.state = ?', 'finished')
+        .count
   end
 
   def school_subscription
