@@ -5,8 +5,6 @@ import _ from 'underscore';
 import { submitResponse, } from '../../actions/diagnostics.js';
 import ReactTransition from 'react-addons-css-transition-group';
 
-const C = require('../../constants').default;
-
 import { getGradedResponsesWithCallback } from '../../actions/responses.js';
 import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
 import RenderQuestionCues from '../renderForQuestions/cues.jsx';
@@ -20,6 +18,9 @@ import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
 import translations from '../../libs/translations/index.js';
 import translationMap from '../../libs/translations/ellQuestionMapper.js';
 import Error from '../shared/error.jsx';
+import Feedback from '../renderForQuestions/components/feedback';
+
+const C = require('../../constants').default;
 
 const PlayDiagnosticQuestion = React.createClass({
   getInitialState() {
@@ -59,12 +60,12 @@ const PlayDiagnosticQuestion = React.createClass({
 
   getInstructionText() {
     const textKey = translationMap[this.getQuestion().key];
-    let text = `<p>${translations.english[textKey]}</p>`;
-    if (this.props.language !== 'english') {
+    let text = translations.english[textKey];
+    if (this.props.language && this.props.language !== 'english') {
       const textClass = this.props.language === 'arabic' ? 'right-to-left' : '';
-      text += `<br/><br/><p class="${textClass}">${translations[this.props.language][textKey]}</p>`;
+      text += `<br/><br/><span class="${textClass}">${translations[this.props.language][textKey]}</span>`;
     }
-    return text;
+    return (<p dangerouslySetInnerHTML={{ __html: text, }} />);
   },
 
   getResponses() {
@@ -222,10 +223,10 @@ const PlayDiagnosticQuestion = React.createClass({
             <div style={fullPageInstructions}>
               {this.renderSentenceFragments()}
               {this.renderCues()}
-              <div className="feedback-row">
-                <img src={icon} style={{ marginTop: 3, alignSelf: 'flex-start', }} />
-                <div style={fullPageInstructions} dangerouslySetInnerHTML={{ __html: this.getInstructionText(), }} />
-              </div>
+              <Feedback
+                feedbackType="instructions"
+                feedback={this.getInstructionText()}
+              />
             </div>
             {this.renderMedia()}
           </div>

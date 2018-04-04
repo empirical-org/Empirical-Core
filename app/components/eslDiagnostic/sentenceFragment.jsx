@@ -43,7 +43,7 @@ const PlaySentenceFragment = React.createClass({
   getInstructionText() {
     const textKey = translationMap[this.getQuestion().key];
     let text = translations.english[textKey];
-    if (this.props.language !== 'english') {
+    if (this.props.language && this.props.language !== 'english') {
       const textClass = this.props.language === 'arabic' ? 'right-to-left' : '';
       text += `<br/><br/><span class="${textClass}">${translations[this.props.language][textKey]}</span>`;
     }
@@ -128,7 +128,7 @@ const PlaySentenceFragment = React.createClass({
         };
         const responseMatcher = new POSMatcher(fields);
         const matched = responseMatcher.checkMatch(this.state.response);
-        updateResponseResource(matched, key, attempts, this.props.dispatch, );
+        updateResponseResource(matched, key, attempts, this.props.dispatch,);
         this.props.updateAttempts(matched);
         this.setState({ checkAnswerEnabled: true, });
         this.handleAttemptSubmission();
