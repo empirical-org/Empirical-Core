@@ -99,8 +99,8 @@ export default React.createClass({
         <div className="button-select activity-filter-button-wrapper">
           <button type="button" className="select-mixin select-gray button-select button-select-wrapper" data-toggle="dropdown">
             {this.getFilterHeader()}
-            <i className="fa fa-caret-down act-search-filter-fav" />
           </button>
+          <i className="fa fa-caret-down act-search-filter-fav" />
           <ul className="dropdown-menu" role="menu">
             {this.getDisplayedFilterOptions()}
           </ul>

@@ -32,7 +32,6 @@ module EmpiricalGrammar
       #{config.root}/app/controllers/concerns
       #{config.root}/lib
       #{config.root}/app/uploaders
-      #{config.root}/app/services
       #{config.root}/app/services/analytics
       #{config.root}/app/queries/scorebook
     )

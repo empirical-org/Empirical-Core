@@ -32,7 +32,7 @@ exports[`ActivitySearchAndSelect component should render 1`] = `
           "selected": null,
         },
         Object {
-          "alias": "Filter By Level",
+          "alias": "Filter by Level",
           "field": "section",
           "options": Array [],
           "selected": null,
