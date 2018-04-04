@@ -82,6 +82,10 @@ describe('Manage Classrooms', function() {
         })
       })
 
+      it('has a link to edit students in the classroom row', ()=>{
+        cy.get('.manage-class').first().should('have.attr', 'href').and('contain', 'students')
+      })
+
       itShowsMeMyClassrooms()
 
       describe('the active classroom section', ()=> {
