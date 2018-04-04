@@ -1,5 +1,3 @@
-const faker = require('faker');
-
 const showsClassrooms = () => cy.get('tbody > :nth-child(1) > :nth-child(1)')
 
 const itShowsMeMyClassrooms= () => {
