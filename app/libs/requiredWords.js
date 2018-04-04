@@ -50,19 +50,18 @@ const posConceptResults = {
 };
 
 export function getCommonWords(sentences) {
-  const words = _.map(sentences, sentence => normalizeString(sentence).split(' '));
+  const words = _.map(sentences, (sentence) => normalizeString(sentence).split(' '));
   return _.intersection(...words);
 }
 
 export function getCommonWordsWithImportantPOS(sentences) {
   const allCommonWords = getCommonWords(sentences);
   return _.reject(allCommonWords, (word) => {
-    if (getPartsOfSpeechWordsWithTags(word)[0]) {
+    if (getPartsOfSpeechWordsWithTags(word) && getPartsOfSpeechWordsWithTags(word)[0]) {
       const tag = getPartsOfSpeechWordsWithTags(word)[0][1];
       return !posTranslations[tag];
-    } else {
-      return true;
     }
+    return true;
   });
 }
 
@@ -87,7 +86,7 @@ function _getCaseSensitiveWord(word, optimalSentence) {
 export function getFeedbackForWord(word, sentences, isSentenceFragment) {
   // const tag = getPOSForWord(word).toLowerCase();
   if (isSentenceFragment) {
-    return `<p>Revise your work. Use all the words from the prompt, and make it complete by adding to it.</p>`;
+    return '<p>Revise your work. Use all the words from the prompt, and make it complete by adding to it.</p>';
   }
   const caseSensitiveWord = _getCaseSensitiveWord(word, sentences[0]);
   return `<p>Revise your sentence to include the word <em>${caseSensitiveWord}</em>. You may have misspelled it.</p>`;

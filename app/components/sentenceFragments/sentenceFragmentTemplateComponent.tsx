@@ -15,6 +15,7 @@ import {
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 import ConceptExplanation from '../feedback/conceptExplanation.jsx';
 import Feedback from '../renderForQuestions/feedback';
+import StatelessFeedback from '../renderForQuestions/components/feedback'
 const icon = require('../../img/question_icon.svg');
 
 const PlaySentenceFragment = React.createClass<any, any>({
@@ -169,8 +170,10 @@ const PlaySentenceFragment = React.createClass<any, any>({
     return (
       <div className="container">
         <div className="feedback-row">
-          <img className="info" src={icon} />
-          <p>Is this a complete or an incomplete sentence?</p>
+          <StatelessFeedback 
+            feedbackType="default"
+            feedback={(<p>Is this a complete or an incomplete sentence?</p>)}
+          />
         </div>
         {this.renderSentenceOrFragmentButtons()}
       </div>

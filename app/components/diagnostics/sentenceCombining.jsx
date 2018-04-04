@@ -3,21 +3,21 @@ import icon from '../../img/question_icon.svg';
 import _ from 'underscore';
 import { submitResponse, clearResponses } from '../../actions/diagnostics.js';
 import ReactTransition from 'react-addons-css-transition-group';
-const C = require('../../constants').default;
 import {
   getGradedResponsesWithCallback
 } from '../../actions/responses.js';
-
 import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
 import RenderQuestionCues from '../renderForQuestions/cues.jsx';
 import RenderSentenceFragments from '../renderForQuestions/sentenceFragments.jsx';
-import RenderFeedback from '../renderForQuestions/feedback';
+import Feedback from '../renderForQuestions/components/feedback';
 import getResponse from '../renderForQuestions/checkAnswer';
 import submitQuestionResponse from '../renderForQuestions/submitResponse.js';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 import submitPathway from '../renderForQuestions/submitPathway.js';
 import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
 import Error from '../shared/error.jsx';
+
+const C = require('../../constants').default;
 
 const PlayDiagnosticQuestion = React.createClass({
   getInitialState() {
@@ -86,14 +86,6 @@ const PlayDiagnosticQuestion = React.createClass({
     return `${newCues.splice(0, newCues.length - 1).join(', ')} or ${newCues.pop()}.`;
   },
 
-  renderFeedback() {
-    return (<RenderFeedback
-      question={this.props.question} renderFeedbackStatements={this.renderFeedbackStatements}
-      sentence="We have not seen this sentence before. Could you please try writing it in another way?"
-      getQuestion={this.getQuestion} listCuesAsString={this.listCuesAsString}
-    />);
-  },
-
   getErrorsForAttempt(attempt) {
     return _.pick(attempt, ...C.ERROR_TYPES);
   },
@@ -103,10 +95,10 @@ const PlayDiagnosticQuestion = React.createClass({
   },
 
   renderCues() {
-    return <RenderQuestionCues
+    return (<RenderQuestionCues
       getQuestion={this.getQuestion}
       displayArrowAndText={true}
-    />;
+    />);
   },
 
   updateResponseResource(response) {
@@ -119,7 +111,7 @@ const PlayDiagnosticQuestion = React.createClass({
 
   setResponse(response) {
     if (this.props.setResponse) {
-      this.props.setResponse(response)
+      this.props.setResponse(response);
     }
   },
 
@@ -128,7 +120,7 @@ const PlayDiagnosticQuestion = React.createClass({
       this.removePrefilledUnderscores();
       const response = getResponse(this.getQuestion(), this.state.response, this.getResponses(), this.props.marking || 'diagnostic');
       this.updateResponseResource(response);
-      this.setResponse(response)
+      this.setResponse(response);
       if (response.response && response.response.author === 'Missing Details Hint') {
         this.setState({
           editing: false,
@@ -186,9 +178,9 @@ const PlayDiagnosticQuestion = React.createClass({
   renderNextQuestionButton(correct) {
     if (correct) {
       return (<button className="button is-outlined is-success" onClick={this.nextQuestion}>Next</button>);
-    } else {
+    } 
       return (<button className="button is-outlined is-warning" onClick={this.nextQuestion}>Next</button>);
-    }
+    
   },
 
   render() {
@@ -201,8 +193,11 @@ const PlayDiagnosticQuestion = React.createClass({
           {this.renderSentenceFragments()}
           {this.renderCues()}
           <div className="feedback-row">
-            <img src={icon} />
-            <p>{instructions}</p>
+          <Feedback
+            key={questionID}
+            feedbackType="default"
+            feedback={(<p>{instructions}</p>)}
+          />
           </div>
           <ReactTransition transitionName={'text-editor'} transitionAppear transitionLeaveTimeout={500} transitionAppearTimeout={500} transitionEnterTimeout={500}>
             <TextEditor
@@ -221,9 +216,9 @@ const PlayDiagnosticQuestion = React.createClass({
           </ReactTransition>
         </div>
       );
-    } else {
+    } 
       return (<p>Loading...</p>);
-    }
+    
   },
 });
 
