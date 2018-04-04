@@ -43,7 +43,6 @@ describe 'SerializeSalesAccount' do
       employee_count: 0,
       paid_teacher_subscriptions: 0,
       active_students: 0,
-      buying_stage: 'green field',
       activities_finished: 0,
       school_link: "https://www.quill.org/cms/schools/#{school.id}",
     )
@@ -89,15 +88,27 @@ describe 'SerializeSalesAccount' do
 
   it 'generates student data' do
     active_student = create(:user, role: 'student')
-    create(:activity_session, user: active_student, state: 'finished')
-    create(:activity_session, user: active_student, state: 'finished')
+    teacher = create(:user, role: 'teacher')
+    classroom = create(:classroom)
+    classroom_activity = create(:classroom_activity, classroom: classroom)
+    create(:classrooms_teacher, user: teacher, classroom: classroom)
+    create(:activity_session,
+      user: active_student,
+      classroom_activity: classroom_activity,
+      state: 'finished'
+    )
+    create(:activity_session,
+      user: active_student,
+      classroom_activity: classroom_activity,
+      state: 'finished'
+    )
     school.users << active_student
+    school.users << teacher
     school.users << create(:user, role: 'student')
 
     school_data = SerializeSalesAccount.new(school.id).data
 
     expect(school_data[:params]).to include(
-      employee_count: 0,
       active_students: 1,
       activities_finished: 2,
     )
