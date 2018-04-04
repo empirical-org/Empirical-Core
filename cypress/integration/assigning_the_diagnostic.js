@@ -38,7 +38,7 @@ describe('Assigning unit templates flow', () => {
   })
 
   after(function() {
-    // cy.logout()
+    cy.logout()
   })
 
   describe('choosing the sentence structure diagnostic', function() {
@@ -84,8 +84,25 @@ describe('Assigning unit templates flow', () => {
       cy.get('.panel-group').last().find('.student-panel-body .css-label').first().click()
       cy.get('.panel-group').last().contains('0 students will be assigned')
     })
+    it('and I can open the add a class modal', function() {
+      cy.get('#add-a-class-button').click()
+    })
+    it('and fill out the form to add a class', function() {
+      cy.get('#class-name').type('New Class')
+      cy.get('#select-grade').click()
+      cy.get('.dropdown-menu > :nth-child(5) > a').click()
+      cy.contains('Create a Class').click()
+    })
+    it('and see my new class', function() {
+      // cy.get('.panel-group').contains('New Class')
+      cy.get('.panel-group').should('have.length', 3)
+    })
+    it('and open the modal and close it without adding a class', function() {
+      cy.get('#add-a-class-button').click()
+      cy.get('.react-bootstrap-close').click()
+    })
     it('and assign selected students', function() {
-      cy.get('.panel-group').last().find('.css-label').first().click()
+      cy.get('.panel-group').first().find('.css-label').first().click()
       cy.contains('Save & Assign').click()
     })
     it('which takes me to the success page', function() {
@@ -125,21 +142,21 @@ describe('Assigning unit templates flow', () => {
       cy.get('.panel-group').first().contains('0 students will be assigned')
     })
     it('and click select by student to see all the students in a class', function() {
-      cy.get('.panel-group').last().contains('Select by Student').click()
+      cy.get('.panel-group').eq(1).contains('Select by Student').click()
       cy.get('.student-panel-body')
     })
     it('and select a student', function() {
-      cy.get('.panel-group').last().contains('0 students will be assigned')
-      cy.get('.panel-group').last().find('.student-panel-body .css-label').first().click()
-      cy.get('.panel-group').last().contains('1 out of 2 students will be assigned')
+      cy.get('.panel-group').eq(1).contains('0 students will be assigned')
+      cy.get('.panel-group').eq(1).find('.student-panel-body .css-label').first().click()
+      cy.get('.panel-group').eq(1).contains('1 out of 2 students will be assigned')
     })
     it('and unselect a student', function() {
-      cy.get('.panel-group').last().contains('1 out of 2 students will be assigned')
-      cy.get('.panel-group').last().find('.student-panel-body .css-label').first().click()
-      cy.get('.panel-group').last().contains('0 students will be assigned')
+      cy.get('.panel-group').eq(1).contains('1 out of 2 students will be assigned')
+      cy.get('.panel-group').eq(1).find('.student-panel-body .css-label').first().click()
+      cy.get('.panel-group').eq(1).contains('0 students will be assigned')
     })
     it('and assign selected students', function() {
-      cy.get('.panel-group').last().find('.css-label').first().click()
+      cy.get('.panel-group').eq(1).find('.css-label').first().click()
       cy.contains('Save & Assign').click()
     })
     it('which takes me to the success page', function() {
