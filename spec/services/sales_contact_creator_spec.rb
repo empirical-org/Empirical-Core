@@ -30,7 +30,7 @@ describe 'SalesContactCreator' do
 
     SalesContactCreator.new(user.id).create
 
-    expect(user.reload.sales_contact.stages.length).to eq(12)
+    expect(user.reload.sales_contact.stages.length).to eq(13)
   end
 
   it 'does not create duplicate sales stages for a sales contact' do
@@ -39,6 +39,6 @@ describe 'SalesContactCreator' do
     SalesContactCreator.new(user.id).create
     SalesContactCreator.new(user.id).create
 
-    expect(user.reload.sales_contact.stages.length).to eq(12)
+    expect(user.reload.sales_contact.stages.length).to eq(13)
   end
 end
