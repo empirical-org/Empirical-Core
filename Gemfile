@@ -77,7 +77,7 @@ gem 'addressable'
 # QUEUE/CACHE
 gem 'sidekiq'
 gem 'sidekiq-retries', require: false
-gem 'redis', "3.3.5"
+gem 'redis', '3.3.5'
 gem 'redis-namespace'
 gem 'redis-rails'
 gem 'redis-rack-cache'
@@ -95,7 +95,7 @@ gem 'analytics-ruby', '~> 2.0.0', :require => 'segment/analytics'
 gem 'salesmachine-ruby', '~> 1.0.0'
 
 # API
-gem "active_model_serializers", '~> 0.9.0'
+gem 'active_model_serializers', '~> 0.9.0'
 
 # UI HELPERS
 gem 'sass'
@@ -108,8 +108,8 @@ gem 'slim-rails'
 gem 'haml-rails'
 
 gem 'es5-shim-rails'
-gem "react_on_rails", "~> 10.1.3"
-gem "webpacker", "~> 3.0.0"
+gem 'react_on_rails', '~> 10.1.3'
+gem 'webpacker', '~> 3.0.0'
 
 # ASSET/UI
 gem 'therubyracer', require: false
@@ -117,9 +117,8 @@ gem 'uglifier',     require: false
 gem 'kaminari'
 
 # FACTORY BOT (because Cypress needs it not to scoped to test)
-gem "factory_bot", require: false
-gem "factory_bot_rails", require: false
-
+gem 'factory_bot', require: false
+gem 'factory_bot_rails', require: false
 
 # MIDDLEWARE
 gem 'rack-cache', '~> 1.6.1', require: 'rack/cache'
@@ -134,13 +133,10 @@ gem 'rack-heartbeat'
 # INTEGRATIONS
 gem 'clever-ruby', '~> 0.13.2'
 
-gem "factory_bot", require: false
-gem "factory_bot_rails", require: false
-
 group :production, :staging do
   gem 'rails_12factor'
   gem 'lograge' # for making logs more dense
-  # gem "rack-timeout"
+  # gem 'rack-timeout'
 end
 
 group :development do
@@ -148,26 +144,27 @@ group :development do
   gem 'better_errors'
   gem 'binding_of_caller', platforms: [:mri_21]
   gem 'foreman'
-  gem "letter_opener"
+  gem 'letter_opener'
   gem 'spring'
   gem 'spring-commands-rspec'
   gem 'livingstyleguide'
 end
 
-gem "awesome_print"
+gem 'awesome_print'
 
 group :test, :development do
-  gem "quiet_assets"
+  gem 'quiet_assets'
+  gem 'parallel_tests', '~> 2.21.3'
   gem 'pry'
   gem 'pry-rails'
   gem 'pry-remote'
   gem 'pry-stack_explorer'
   gem 'pry-coolline'
   gem 'pry-rescue'
-  gem "rspec-rails", '~> 3.7.2'
+  gem 'rspec-rails', '~> 3.7.2'
   gem 'fuubar', '~> 2.0.0.rc1'
-  gem "timecop"
-  gem "database_cleaner"
+  gem 'timecop'
+  gem 'database_cleaner'
   gem 'byebug', '8.2.1' # getting errors on mac yosemite when trying to install 8.2.2
   gem 'guard'
   gem 'guard-rspec'
@@ -188,14 +185,13 @@ group :test do
   gem 'shoulda-callback-matchers', '~> 1.1.1'
   gem 'capybara'
   gem 'poltergeist'
-  gem "vcr"
-  gem "webmock"
-  gem "codeclimate-test-reporter", require: nil
+  gem 'vcr'
+  gem 'webmock'
+  gem 'codeclimate-test-reporter', require: nil
   gem 'simplecov'
   gem 'simplecov-json', require: false
   gem 'codecov'
-  gem "fakeredis", "~> 0.7.0"
-  # gem 'test_after_commit'
+  gem 'fakeredis', '~> 0.7.0'
 end
 
 # Memory profiling
