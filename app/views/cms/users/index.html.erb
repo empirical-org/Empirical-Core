@@ -34,29 +34,8 @@
       <% end %>
     </div>
 
-    <table class='cms-results-table'>
-      <thead>
-        <tr>
-          <% # THIS ORDER MATCHES ORDER OF ATTRIBUTES IN USERS_CONTROLLER. %>
-          <% ['Name', 'Email', 'Role', 'Premium', 'Last Sign In', 'School', 'Edit', 'Details', 'Sign In'].each do |td| %>
-            <td><%= td %></td>
-          <% end %>
-        </tr>
-      </thead>
-      <tbody>
-        <% @user_search_query_results.each do |user| %>
-          <tr>
-            <% %w(name email role subscription last_sign_in).each do |attribute| %>
-              <td><%= user[attribute] || 'N/A' %></td>
-            <% end %>
-            <td><%= user['school'] ? (link_to user['school'], cms_school_path(user['school_id'])) : 'N/A' %></td>
-            <td><%= link_to 'Edit', edit_cms_user_path(user.values.last) %></td>
-            <td><%= link_to 'Details', cms_user_path(user.values.last) %></td>
-            <td><%= link_to 'Sign in', sign_in_cms_user_path(user.values.last), method: :put %></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
+    <%= react_component('CmsIndexTableApp', props: {userSearchQueryResults: @user_search_query_results, somethingElse: 'something else'}) %>
+
     <div class='cms-pagination-container'>
       <% (1..@number_of_pages).to_a.each do |page| %>
         <%= link_to page, '#!', onclick: "submitForm(#{page})", class: "cms-pagination #{ page == @user_search_query['page'].to_i ? 'cms-pagination-current' : nil}" %>
