@@ -63,6 +63,7 @@ export default class BlogPostTable extends React.Component {
         <th>Created</th>
         <th>Updated</th>
         <th>Rating</th>
+        <th>Views</th>
         <th></th>
         <th></th>
         <th></th>
@@ -77,6 +78,7 @@ export default class BlogPostTable extends React.Component {
       createdAt={moment(blogPost.created_at).format('MM-DD-YY')}
       updatedAt={moment(blogPost.updated_at).format('MM-DD-YY')}
       rating={blogPost.rating}
+      views={blogPost.read_count}
       editLink={`/cms/blog_posts/${blogPost.id}/edit`}
       previewLink={blogPost.external_link ? blogPost.external_link : `/teacher_resources/${blogPost.slug}`}
       deleteLink={`/cms/blog_posts/${blogPost.id}/delete`}
