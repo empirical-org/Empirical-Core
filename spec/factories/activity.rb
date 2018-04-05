@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :activity do
-    name                    { "#{Faker::Color.color_name} #{Faker::Book.genre} Activity".titleize }
+    sequence(:name)         { |n| "#{Faker::Color.color_name} #{Faker::Book.genre} Activity #{n}" }
     description             { "This is the description for the '#{name}' activity." }
     uid                     { SecureRandom.urlsafe_base64 }
     topic                   { create(:topic) }

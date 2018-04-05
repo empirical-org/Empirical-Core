@@ -1,5 +1,4 @@
 require 'factory_bot_rails'
-require 'database_cleaner'
 require 'faker'
 
 class FactoriesController < ApplicationController
