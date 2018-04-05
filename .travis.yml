@@ -9,7 +9,7 @@ rvm:
   - 2.3.1
 script:
   - npm run build:test
-  - bundle exec rake parallel:spec -n 2 --only-group $TEST_GROUP
+  - bundle exec rake parallel:spec
   - bash <(curl -s https://codecov.io/bash) -cF rspec -f coverage/coverage.json
   - npm run jest:coverage
   - bash <(curl -s https://codecov.io/bash) -cF jest
@@ -24,8 +24,7 @@ before_script:
   - sudo cp /etc/postgresql/{9.6,10}/main/pg_hba.conf
   - sudo service postgresql restart
   - cp config/database.yml.travis config/database.yml
--  - bundle exec rake db:create
--  - bundle exec rake db:structure:load
+  - bundle exec rake parallel:setup
   - nvm install 7.5.0
   - npm install  # Make use of 'postinstall' to run 'cd ./client npm install'
 addons:
