@@ -344,6 +344,9 @@ GEM
       cocaine (~> 0.5.5)
       mime-types
       mimemagic (~> 0.3.0)
+    parallel (1.12.1)
+    parallel_tests (2.21.3)
+      parallel
     parslet (1.8.1)
     pdf-core (0.7.0)
     pdf-inspector (1.3.0)
@@ -733,6 +736,7 @@ DEPENDENCIES
   omniauth-clever
   omniauth-google-oauth2
   paperclip
+  parallel_tests (~> 2.21.3)
   parslet
   pdf-core
   pdf-inspector
