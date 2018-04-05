@@ -14,7 +14,7 @@ export default React.createClass({
       diagnosticName = 'ELL'
       diagnosticActivityId = 447
     } else if (this.props.params.activityId == 413) {
-      diagnosticName = 'sentence structure'
+      diagnosticName = 'Sentence Structure'
       diagnosticActivityId = 413
     }
     if (this.props.params.stage === '1'){
