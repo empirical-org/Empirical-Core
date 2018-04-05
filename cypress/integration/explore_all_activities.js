@@ -99,7 +99,7 @@ describe('Explore All Activities page', function() {
   })
 
   describe('stage 2', function() {
-    it('lets me name the activity pack', function() {
+    it('lets me name the activty pack', function() {
       cy.get('#unit_name').type('Whomst')
     })
 
