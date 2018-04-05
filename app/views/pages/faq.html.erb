@@ -26,10 +26,10 @@
       <h2><%= section[:title] %></h2>
       <section class='faq-accordion'>
         <% section[:faqs].each do |faq| %>
-          <div class='question'>
+          <div class='question' onClick="toggleAccordion(event)">
             <div class='question-meta'>
               <h3><%= faq[:question] %></h3>
-              <a onClick="toggleAccordion(event)">Expand</a>
+              <a>Expand</a>
             </div>
             <div class='question-answer'>
               <%= raw(faq[:answer]) %>
@@ -47,13 +47,14 @@
 <script>
   function toggleAccordion(e) {
     e.preventDefault();
-    var display = 'block';
-    var text = 'Collapse';
-    if(e.target.innerText === 'Collapse') {
+    let display = 'block';
+    let text = 'Collapse';
+    const expandOrCollapseLink = e.currentTarget.getElementsByClassName("question-meta")[0].getElementsByTagName('a')[0]
+    if(expandOrCollapseLink.innerText === 'Collapse') {
       display = 'none';
       text = 'Expand';
     }
     e.target.parentElement.nextElementSibling.style.display = display;
-    e.target.innerText = text;
+    expandOrCollapseLink.innerText = text;
   }
 </script>

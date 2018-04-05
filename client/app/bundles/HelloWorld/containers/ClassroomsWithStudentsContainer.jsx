@@ -78,12 +78,20 @@ export default class extends React.Component {
     const newState = Object.assign({}, this.state);
     const classIndex = this.findTargetClassIndex(classy.id);
     const classroom = newState.classrooms[classIndex];
-    classroom.edited = true;
-    classroom.allSelected = !classroom.allSelected;
-    classroom.noneSelected = !classroom.allSelected;
-    classroom.students.forEach(stud => stud.isSelected = classroom.allSelected);
-    newState.classroomsChanged = true;
-    newState.studentsChanged = this.studentsChanged(newState.classrooms);
+    if (this.state.newUnit && classroom.allSelected) {
+      // if the classroom is currently allSelected, it has been unselected, so if the unit is new it has not been edited
+      delete classroom.edited
+      delete classroom.allSelected
+      delete classroom.noneSelected
+      classroom.students.forEach(stud => stud.isSelected = false)
+    } else {
+      classroom.allSelected = !classroom.allSelected;
+      classroom.noneSelected = !classroom.allSelected;
+      classroom.students.forEach(stud => stud.isSelected = classroom.allSelected);
+      classroom.edited = this.classroomUpdated(classroom)
+    }
+    newState.studentsChanged = !!this.studentsChanged(newState.classrooms);
+    newState.classroomsChanged = !!newState.classrooms.find(c => this.classroomUpdated(c))
     this.setState(newState);
   }
 
