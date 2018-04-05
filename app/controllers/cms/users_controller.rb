@@ -4,7 +4,7 @@ class Cms::UsersController < Cms::CmsController
   before_action :set_search_inputs, only: [:index, :search]
   before_action :get_subscription_data, only: [:new_subscription, :edit_subscription]
 
-  USERS_PER_PAGE = 10.0
+  USERS_PER_PAGE = 30.0
 
   def index
     @user_search_query = {}
