@@ -19,7 +19,8 @@ class FactoriesController < ApplicationController
       tables = ActiveRecord::Base.connection.tables
       tables.delete 'schema_migrations'
       tables.each do |table|
-        ActiveRecord::Base.connection.execute("TRUNCATE #{table} CASCADE")
+        table_name = ActionController::Base.helpers.sanitize(table)
+        ActiveRecord::Base.connection.execute("TRUNCATE #{table_name} CASCADE")
       end
       render json: {}, status: 204
     else
