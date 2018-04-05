@@ -26,7 +26,6 @@ before_script:
   - cp config/database.yml.travis config/database.yml
   - bundle exec rake parallel:create
   - bundle exec rake parallel:load_structure
-  - bundle exec rake parallel:prepare
   - nvm install 7.5.0
   - npm install  # Make use of 'postinstall' to run 'cd ./client npm install'
 addons:
