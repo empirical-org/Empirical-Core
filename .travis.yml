@@ -32,3 +32,5 @@ addons:
 env:
   global:
     - PGPORT=5433
+    - PROGRESS_REPORT_FOG_DIRECTORY=empirical-progress-report-travis-test
+    - FOG_DIRECTORY=empirical-core-travis-test
