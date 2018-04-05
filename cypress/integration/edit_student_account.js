@@ -1,6 +1,6 @@
 const faker = require('faker');
 
-describe.only('Edit Student Account', ()=> {
+describe('Edit Student Account', ()=> {
   before( function() {
     cy.logout()
     cy.cleanDatabase()
