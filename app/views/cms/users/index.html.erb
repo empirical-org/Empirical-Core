@@ -34,7 +34,7 @@
       <% end %>
     </div>
 
-    <%= react_component('CmsIndexTableApp', props: {userSearchQueryResults: @user_search_query_results, somethingElse: 'something else'}) %>
+    <%= react_component('CmsIndexTableApp', props: {queryResults: @user_search_query_results, page: 'users'}) %>
 
     <div class='cms-pagination-container'>
       <% (1..@number_of_pages).to_a.each do |page| %>

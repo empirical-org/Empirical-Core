@@ -10,7 +10,7 @@ class Cms::SchoolsController < Cms::CmsController
   ]
   before_action :get_subscription_data, only: [:new_subscription, :edit_subscription]
 
-  SCHOOLS_PER_PAGE = 10.0
+  SCHOOLS_PER_PAGE = 30.0
 
   # This allows staff members to view and search through schools.
   def index
@@ -142,12 +142,12 @@ class Cms::SchoolsController < Cms::CmsController
     #     district_name: 'district name',
     #     school_city: 'school city',
     #     school_state: 'school state',
-    #     school_zip: 'school zip',
-    #     frl: '% FRL',
-    #     number_teachers: '# teachers',
+    #     school_zip: Number(school zip),
+    #     frl: Number(frl),
+    #     number_teachers: Number(# of teachers),
     #     premium_status: 'premium status',
-    #     number_admins: '# admins',
-    #     id: #,
+    #     number_admins: Number(# of admins),
+    #     id: '#',
     #   }
     # ]
 
@@ -160,7 +160,7 @@ class Cms::SchoolsController < Cms::CmsController
         COALESCE(schools.city, schools.mail_city) AS school_city,
         COALESCE(schools.state, schools.mail_state) AS school_state,
         COALESCE(schools.zipcode, schools.mail_zipcode) AS school_zip,
-        schools.free_lunches || '%' AS frl,
+        schools.free_lunches AS frl,
         COUNT(DISTINCT schools_users.id) AS number_teachers,
         subscriptions.account_type AS premium_status,
         COUNT(DISTINCT schools_admins.id) AS number_admins,
@@ -174,7 +174,13 @@ class Cms::SchoolsController < Cms::CmsController
       GROUP BY schools.name, schools.leanm, schools.city, schools.state, schools.zipcode, schools.free_lunches, subscriptions.account_type, schools.id
       #{having_string}
       #{pagination_query_string}
-    ").to_a
+    ").to_a.map do |school|
+      school['school_zip'] = school['school_zip'].to_i
+      school['number_teachers'] = school['number_teachers'].to_i
+      school['number_admins'] = school['number_admins'].to_i
+      school['frl'] = school['frl'].to_i
+      school
+    end
   end
 
   def having_string

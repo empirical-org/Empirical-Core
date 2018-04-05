@@ -34,26 +34,7 @@
       <% end %>
     </div>
 
-    <table class='cms-results-table'>
-      <thead>
-        <tr>
-          <% # THIS ORDER MATCHES ORDER OF ATTRIBUTES IN SCHOOLS_CONTROLLER. %>
-          <% %w(School District City State ZIP FRL Teachers Premium? Admins Edit).each do |td| %>
-            <td><%= td %></td>
-          <% end %>
-        </tr>
-      </thead>
-      <tbody>
-        <% @school_search_query_results.each do |school| %>
-          <tr>
-            <% %w(school_name district_name school_city school_state school_zip frl number_teachers premium_status number_admins).each do |attribute| %>
-              <td><%= school[attribute] || 'N/A' %></td>
-            <% end %>
-            <td><%= link_to 'Edit', cms_school_path(school['id']) %></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
+    <%= react_component('CmsIndexTableApp', props: {queryResults: @school_search_query_results, page: 'schools'}) %>
     <div class='cms-pagination-container'>
       <% (1..@number_of_pages).to_a.each do |page| %>
         <%= link_to page, '#!', onclick: "submitForm(#{page})", class: "cms-pagination #{ page == @school_search_query['page'].to_i ? 'cms-pagination-current' : nil}" %>
