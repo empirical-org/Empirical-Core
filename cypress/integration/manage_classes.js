@@ -1,11 +1,16 @@
 const showsClassrooms = () => cy.get('tbody > :nth-child(1) > :nth-child(1)')
 const faker = require('faker');
-const _ = require('lodash');
 
 const itShowsMeMyClassrooms= () => {
   it('shows me my classrooms', ()=>{
     showsClassrooms()
   })
+}
+
+const selectClassroom = () => {
+  cy.get('.Select-arrow-zone').click()
+  cy.get('div[role=\'option\']').last().click()
+  cy.get('.Select-value-icon').should('exist')
 }
 
 describe('Manage Classrooms', function() {
@@ -145,19 +150,17 @@ describe('Manage Classrooms', function() {
 
       })
 
-      describe.only('the coteachers section', ()=> {
+      describe('the coteachers section', ()=> {
         const coteacherEmail = faker.internet.email();
 
 
-        it('is empty when I have no coteachers', ()=> {
+        it('is does not exist when I have no coteachers', ()=> {
           cy.get('#my-coteachers').should('not.exist')
         })
 
         describe('invite a coteacher form section', ()=> {
           it('allows me to select from the classrooms I own', ()=>{
-            cy.get('.Select-arrow-zone').click()
-            cy.get('div[role=\'option\']').last().click()
-            cy.get('.Select-value-icon').should('exist')
+            selectClassroom()
           })
 
           it('allows me to enter an email of a coteacher', ()=> {
@@ -171,8 +174,11 @@ describe('Manage Classrooms', function() {
                 const stub = cy.stub()
                 cy.on('window:alert', stub)
                 cy.get('.button-green').click()
-                expect(stub.getCall(0)).not.to.exist
+                  .then(()=>{
+                    expect(stub.getCall(0)).not.to.exist
+                  })
               })
+
 
               it('shows that the coteacher was invited', ()=> {
                 cy.get('.coteacher-invite-status').contains('Co-Teacher Invited!')
@@ -180,7 +186,7 @@ describe('Manage Classrooms', function() {
 
               describe('My Co-Teachers List', ()=>{
                 it('shows the email of the teacher I just added', ()=>{
-                  cy.get('.pending_coteachers_row').contains(_.lowerFirst(coteacherEmail))
+                  cy.get('.pending_coteachers_row').contains(coteacherEmail.toLowerCase())
                 })
 
                 it('marks the status as pending', ()=> {
@@ -189,18 +195,50 @@ describe('Manage Classrooms', function() {
               })
             })
 
+            describe('it gives me an alert when I leave', ()=>{
+              // TODO: figure out why the stubs are not getting called in this one
+              // it('the email blank', ()=>{
+              //   const stub = cy.stub()
+              //   cy.on('window:alert', stub)
+              //   selectClassroom()
+              //   cy.get('.button-green')
+              //     .click()
+              //     // cy.wait(500)
+              //     // .then(()=>{
+              //       expect(stub.getCall(1)).to.be.calledWith('email')
+              //     // })
+              // })
+              // it('the email invalid', ()=>{
+              //   const stub = cy.stub()
+              //   cy.on('window:alert', stub)
+              //   selectClassroom()
+              //   cy.get('.button-green')
+              //     .click()
+              //     // cy.wait(500)
+              //     // .then(()=>{
+              //       expect(stub.getCall(1)).to.be.calledWith('email')
+              //     // })
+              // })
+              // it('the classrooms empty', ()=>{
+              //   const stub = cy.stub()
+              //   cy.on('window:alert', stub)
+              //   cy.get('.button-green')
+              //     .click()
+              //     // cy.wait(500)
+              //     // .then(()=>{
+              //       expect(stub.getCall(1)).to.be.calledWith('email')
+              //     // })
+              // })
+            })
           })
-
-
-
-
-
-
-
-
-
+        })
+        it('exists when I have a coteacher', ()=>{
+          cy.get('#my-coteachers').should('exist')
         })
 
+        describe('when I want to withdraw a coteacher invitation', ()=>{
+          it('allows me to do so')
+        })
 
       })
 
