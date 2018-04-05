@@ -16,19 +16,19 @@ script:
   - bundle exec brakeman -z
   - bundle exec teaspoon
 before_script:
-  # Get psql v10.1
-  - sudo service postgresql stop
-  - sudo apt-get remove -q 'postgresql-*'
-  - sudo apt-get update -q
-  - sudo apt-get install -q postgresql-10 postgresql-client-10
-  - sudo cp /etc/postgresql/{9.6,10}/main/pg_hba.conf
-  - sudo service postgresql restart
   - cp config/database.yml.travis config/database.yml
   - bundle exec rake parallel:create
   - bundle exec rake parallel:load_structure
   - nvm install 7.5.0
   - npm install  # Make use of 'postinstall' to run 'cd ./client npm install'
 addons:
-  postgresql: "9.6"
+  postgresql: "10"
+  apt:
+    packages:
+      - postgresql-10
+      - postgresql-client-10
   code_climate:
     repo_token: 284c330b001fc405fe9b1c8a013ebaed90e6f81b0318b2e3d0df66559dd0eb3e
+env:
+  global:
+    - PGPORT=5433
