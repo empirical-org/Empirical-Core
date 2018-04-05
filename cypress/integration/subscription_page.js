@@ -5,9 +5,18 @@ describe('Subscription page', function() {
 
   describe('when I have Quill Basic', ()=>{
     before(function() {
-      cy.exec('RAILS_ENV=cypress spring rake find_or_create_cypress_test_data:find_or_create_teacher', {failOnNonZeroExit: false})
-      cy.login('teacher', 'password')
-      cy.visit('/subscriptions')
+      cy.cleanDatabase()
+      cy.factoryBotCreate({
+        factory: 'teacher',
+        password: 'password',
+        username: 'teacher'
+      }).then(() => {
+        cy.login('teacher', 'password')
+        cy.visit('/subscriptions')
+      })
+      beforeEach(() => {
+        Cypress.Cookies.preserveOnce('_quill_session')
+      })
     })
     describe('the top panel', () => {
       it('states my premium type in the h2', ()=> {
@@ -42,10 +51,30 @@ describe('Subscription page', function() {
   })
 
   describe('when I have School Quill Premium that is not recurring', ()=>{
-    before(()=>{
-      cy.exec('RAILS_ENV=cypress spring rake find_or_create_cypress_test_data:find_or_create_teacher_with_school_premium', {failOnNonZeroExit: false})
-      cy.login('teacher', 'password')
-      cy.visit('/subscriptions')
+    before(() => {
+      cy.cleanDatabase()
+      cy.factoryBotCreate({
+        factory: 'teacher',
+        password: 'password',
+        username: 'teacher',
+        id: 1
+      }).then(() => {
+        cy.factoryBotCreate({
+          factory: 'subscription',
+          account_type: 'School Paid',
+          payment_method: 'Credit Card',
+          id: 1
+        }).then((sub) => {
+          console.log('sub', sub.body)
+          cy.factoryBotCreate({
+            factory: 'user_subscription',
+            user_id: 1,
+            subscription_id: 1
+          })
+        })
+        cy.login('teacher', 'password')
+        cy.visit('/subscriptions')
+      })
     })
     describe('the top panel', () => {
       it('states my premium type in the h2', ()=> {
@@ -95,10 +124,29 @@ describe('Subscription page', function() {
   })
 
   describe('when I have School Quill Premium that is recurring', ()=>{
-    before(()=>{
-      cy.exec('RAILS_ENV=cypress spring rake find_or_create_cypress_test_data:find_or_create_teacher_with_recurring_school_premium', {failOnNonZeroExit: false})
-      cy.login('teacher', 'password')
-      cy.visit('/subscriptions')
+    before(() => {
+      cy.cleanDatabase()
+      cy.factoryBotCreate({
+        factory: 'teacher',
+        password: 'password',
+        username: 'teacher',
+        id: 1
+      }).then(() => {
+        cy.factoryBotCreate({
+          factory: 'subscription',
+          account_type: 'School Paid',
+          id: 1,
+          recurring: true
+        }).then(() => {
+          cy.factoryBotCreate({
+            factory: 'user_subscription',
+            user_id: 1,
+            subscription_id: 1
+          })
+        })
+        cy.login('teacher', 'password')
+        cy.visit('/subscriptions')
+      })
     })
     describe('the top panel', () => {
       it('states my premium type in the h2', ()=> {
@@ -150,10 +198,29 @@ describe('Subscription page', function() {
   describe('when I have School Quill Premium that is expired', ()=>{
     const level = 'School'
     const premiumType = `${level} Premium`
-    before(()=>{
-      cy.exec('RAILS_ENV=cypress spring rake find_or_create_cypress_test_data:find_or_create_teacher_with_expired_school_premium', {failOnNonZeroExit: false})
-      cy.login('teacher', 'password')
-      cy.visit('/subscriptions')
+    before(() => {
+      cy.cleanDatabase()
+      cy.factoryBotCreate({
+        factory: 'teacher',
+        password: 'password',
+        username: 'teacher',
+        id: 1
+      }).then(() => {
+        cy.factoryBotCreate({
+          factory: 'subscription',
+          account_type: 'School Paid',
+          id: 1,
+          expiration: new Date()
+        }).then(() => {
+          cy.factoryBotCreate({
+            factory: 'user_subscription',
+            user_id: 1,
+            subscription_id: 1
+          })
+        })
+        cy.login('teacher', 'password')
+        cy.visit('/subscriptions')
+      })
     })
     describe('the top panel', () => {
       it('states my premium type in the h2', ()=> {
@@ -247,10 +314,28 @@ describe('Subscription page', function() {
   })
 
   describe('when I have Teacher Quill Premium that is not recurring', ()=>{
-    before(()=>{
-      cy.exec('RAILS_ENV=cypress spring rake find_or_create_cypress_test_data:find_or_create_teacher_with_teacher_premium', {failOnNonZeroExit: false})
-      cy.login('teacher', 'password')
-      cy.visit('/subscriptions')
+    before(() => {
+      cy.cleanDatabase()
+      cy.factoryBotCreate({
+        factory: 'teacher',
+        password: 'password',
+        username: 'teacher',
+        id: 1
+      }).then(() => {
+        cy.factoryBotCreate({
+          factory: 'subscription',
+          account_type: 'Teacher Paid',
+          id: 1
+        }).then(() => {
+          cy.factoryBotCreate({
+            factory: 'user_subscription',
+            user_id: 1,
+            subscription_id: 1
+          })
+        })
+        cy.login('teacher', 'password')
+        cy.visit('/subscriptions')
+      })
     })
     describe('the top panel', () => {
       it('states my premium type in the h2', ()=> {
@@ -300,10 +385,29 @@ describe('Subscription page', function() {
   })
 
   describe('when I have Teacher Quill Premium that is recurring', ()=>{
-    before(()=>{
-      cy.exec('RAILS_ENV=cypress spring rake find_or_create_cypress_test_data:find_or_create_teacher_with_recurring_teacher_premium', {failOnNonZeroExit: false})
-      cy.login('teacher', 'password')
-      cy.visit('/subscriptions')
+    before(() => {
+      cy.cleanDatabase()
+      cy.factoryBotCreate({
+        factory: 'teacher',
+        password: 'password',
+        username: 'teacher',
+        id: 1
+      }).then(() => {
+        cy.factoryBotCreate({
+          factory: 'subscription',
+          account_type: 'Teacher Paid',
+          recurring: true,
+          id: 1
+        }).then(() => {
+          cy.factoryBotCreate({
+            factory: 'user_subscription',
+            user_id: 1,
+            subscription_id: 1
+          })
+        })
+        cy.login('teacher', 'password')
+        cy.visit('/subscriptions')
+      })
     })
     describe('the top panel', () => {
       it('states my premium type in the h2', ()=> {
@@ -355,13 +459,29 @@ describe('Subscription page', function() {
   describe('when I have Teacher Quill Premium that is expired', ()=>{
     const level = 'Teacher'
     const premiumType = `${level} Premium`
-    before(()=>{
-      cy.exec('RAILS_ENV=cypress spring rake find_or_create_cypress_test_data:find_or_create_teacher_with_expired_teacher_premium', {failOnNonZeroExit: false})
-      cy.login('teacher', 'password')
-      // beforeEach(function() {
-      //   Cypress.Cookies.preserveOnce("_quill_session")
-      // })
-      cy.visit('/subscriptions')
+    before(() => {
+      cy.cleanDatabase()
+      cy.factoryBotCreate({
+        factory: 'teacher',
+        password: 'password',
+        username: 'teacher',
+        id: 1
+      }).then(() => {
+        cy.factoryBotCreate({
+          factory: 'subscription',
+          account_type: 'Teacher Paid',
+          expiration: new Date(),
+          id: 1
+        }).then(() => {
+          cy.factoryBotCreate({
+            factory: 'user_subscription',
+            user_id: 1,
+            subscription_id: 1
+          })
+        })
+        cy.login('teacher', 'password')
+        cy.visit('/subscriptions')
+      })
     })
     describe('the top panel', () => {
       it('states my premium type in the h2', ()=> {
@@ -429,10 +549,30 @@ describe('Subscription page', function() {
   })
 
   describe('when I am the purchaser of the account', ()=>{
-    before(()=>{
-      cy.exec('RAILS_ENV=cypress spring rake find_or_create_cypress_test_data:find_or_create_teacher_with_subscription_they_purchased', {failOnNonZeroExit: false})
-      cy.login('teacher', 'password')
-      cy.visit('/subscriptions')
+    before(() => {
+      cy.cleanDatabase()
+      cy.factoryBotCreate({
+        factory: 'teacher',
+        password: 'password',
+        username: 'teacher',
+        name: 'Emilia Friedberg',
+        id: 1
+      }).then(() => {
+        cy.factoryBotCreate({
+          factory: 'subscription',
+          account_type: 'School Paid',
+          purchaser_id: 1,
+          id: 1
+        }).then(() => {
+          cy.factoryBotCreate({
+            factory: 'user_subscription',
+            user_id: 1,
+            subscription_id: 1
+          })
+        })
+        cy.login('teacher', 'password')
+        cy.visit('/subscriptions')
+      })
     })
 
     it('shows my name', function() {
@@ -441,21 +581,32 @@ describe('Subscription page', function() {
   })
 
   describe('when I am not the purchaser of the account', ()=>{
-    before(()=>{
-      cy.exec('RAILS_ENV=cypress spring rake find_or_create_cypress_test_data:find_or_create_teacher_with_school_premium', {failOnNonZeroExit: false})
-      cy.login('teacher', 'password')
-      // beforeEach(function() {
-      //   Cypress.Cookies.preserveOnce("_quill_session")
-      // })
-      cy.visit('/subscriptions')
+    before(() => {
+      cy.cleanDatabase()
+      cy.factoryBotCreate({
+        factory: 'teacher',
+        password: 'password',
+        username: 'teacher',
+        id: 1
+      }).then(() => {
+        cy.factoryBotCreate({
+          factory: 'subscription',
+          account_type: 'School Paid',
+          id: 1
+        }).then(() => {
+          cy.factoryBotCreate({
+            factory: 'user_subscription',
+            user_id: 1,
+            subscription_id: 1
+          })
+        })
+        cy.login('teacher', 'password')
+        cy.visit('/subscriptions')
+      })
     })
 
     it('does not show my name', function() {
       cy.get('.flex-row > :nth-child(1) > :nth-child(2) > :nth-child(2)').should('be.empty')
     })
   })
-
-
-
-
 })
