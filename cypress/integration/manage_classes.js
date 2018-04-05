@@ -1,4 +1,6 @@
 const showsClassrooms = () => cy.get('tbody > :nth-child(1) > :nth-child(1)')
+const faker = require('faker');
+const _ = require('lodash');
 
 const itShowsMeMyClassrooms= () => {
   it('shows me my classrooms', ()=>{
@@ -143,9 +145,69 @@ describe('Manage Classrooms', function() {
 
       })
 
+      describe.only('the coteachers section', ()=> {
+        const coteacherEmail = faker.internet.email();
+
+
+        it('is empty when I have no coteachers', ()=> {
+          cy.get('#my-coteachers').should('not.exist')
+        })
+
+        describe('invite a coteacher form section', ()=> {
+          it('allows me to select from the classrooms I own', ()=>{
+            cy.get('.Select-arrow-zone').click()
+            cy.get('div[role=\'option\']').last().click()
+            cy.get('.Select-value-icon').should('exist')
+          })
+
+          it('allows me to enter an email of a coteacher', ()=> {
+            cy.get(':nth-child(1) > input').type(coteacherEmail)
+          })
+
+          describe('after I click save', ()=>{
+
+            describe('when a valid email and classroom have been entered/selected', ()=> {
+              it('does not give me an alert', ()=>{
+                const stub = cy.stub()
+                cy.on('window:alert', stub)
+                cy.get('.button-green').click()
+                expect(stub.getCall(0)).not.to.exist
+              })
+
+              it('shows that the coteacher was invited', ()=> {
+                cy.get('.coteacher-invite-status').contains('Co-Teacher Invited!')
+              })
+
+              describe('My Co-Teachers List', ()=>{
+                it('shows the email of the teacher I just added', ()=>{
+                  cy.get('.pending_coteachers_row').contains(_.lowerFirst(coteacherEmail))
+                })
+
+                it('marks the status as pending', ()=> {
+                    cy.get('.pending_coteachers_row').contains('Pending')
+                })
+              })
+            })
+
+          })
+
+
+
+
+
+
+
+
+
+        })
+
+
+      })
+
 
 
     })
 
   })
+
 })
