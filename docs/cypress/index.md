@@ -24,15 +24,11 @@ The Cypress environment is identical to the development environment, except that
 
 ## Test Data
 
-There are three means of creating test data that are currently employed in our Cypress suite:
+There are two means of creating test data that are currently employed in our Cypress suite:
 
 1. When the value of the test data does not need to reflect something in the database (ie, for sign up), we use the `faker` npm package to generate data.
 
-2. When we need to use data that comes from a database, we can create the data we need by sending requests to the factories controller through the Cypress commands factoryBotCreate and factoryBotCreateList. See the Commands section below for more detail on these commands.
-
-The third option, below, was used when we were first implementing Cypress, but has since been replaced by the factories controller and should no longer be used. In fact, we should rewrite these tests to use the factories controller instead.
-
- 3. When we need to use data that does exist in our database, we create it when necessary through rake tasks that live in `lib/tasks/find_or_create_cypress_test_data.rake`.
+2. When we need to use data that comes from a database, we can create the data we need by sending requests to the factories controller through the Cypress commands factoryBotCreate and factoryBotCreateList. See the Commands section below for more detail.
 
 ## Writing the Tests
 

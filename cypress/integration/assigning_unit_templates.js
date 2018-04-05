@@ -2,7 +2,7 @@ describe('Assigning unit templates flow', () => {
   before(function() {
     cy.cleanDatabase()
     cy.factoryBotCreateList({
-      factory: 'unit_template',
+      factory: 'unit_template_with_activities',
       number: 5
     })
     cy.factoryBotCreate({
