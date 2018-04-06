@@ -12,27 +12,29 @@ jobs:
         bundler: true
       rvm:
         - 2.3.1
-      script:
-        # setup rspec
+      before_script:
         - cp config/database.yml.travis config/database.yml
         - bundle exec rake parallel:create
         - bundle exec rake parallel:load_structure
-        # run rspec
+      script:
         - bundle exec rake parallel:spec
-        - bash <(curl -s https://codecov.io/bash) -cF rspec -f coverage/coverage.json
         - bundle exec brakeman -z
+      after_script:
+        - sudo service postgresql stop 10
+        - bash <(curl -s https://codecov.io/bash) -cF rspec -f coverage/coverage.json
     - stage: frontend
       language: node_js
       node_js:
         - 7.5.0
       cache:
-        bundler: true
         directories:
           - node_modules
           - client/node_modules
-      script:
+      before_script:
         - npm run build:test
+      script:
         - npm run jest:coverage
+      after_script:
         - bash <(curl -s https://codecov.io/bash) -cF jest
 addons:
   code_climate:
