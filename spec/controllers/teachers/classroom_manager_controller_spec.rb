@@ -22,8 +22,6 @@ describe Teachers::ClassroomManagerController, type: :controller do
       session[:user_id] = teacher.id
       get :archived_classroom_manager_data
 
-      save_mock_data(response)
-
       expect(response.body).to eq({
         active: active_classrooms,
         active_classrooms_i_own: teacher.classrooms_i_own.map{|c| {label: c[:name], value: c[:id]}},
