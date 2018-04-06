@@ -15,8 +15,6 @@ script:
   # run rspec
   - bundle exec rake parallel:spec
   - bash <(curl -s https://codecov.io/bash) -cF rspec -f coverage/coverage.json
-  # run teaspoon for rails assest pipeline served js
-  - bundle exec teaspoon
   # stop postgresql db to save resources
   - sudo service postgresql stop 10
   # run rails security static analysis
