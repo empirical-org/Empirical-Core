@@ -1,13 +1,4 @@
-language: ruby
 sudo: false
-cache:
-  bundler: true
-  directories:
-    - node_modules
-    - client/node_modules
-rvm:
-  - 2.3.1
-
 jobs:
   include:
     addons:
@@ -16,6 +7,10 @@ jobs:
         packages:
           - postgresql-10
           - postgresql-client-10
+    cache:
+      bundler: true
+    rvm:
+      - 2.3.1
     - script:
       # setup rspec
       - cp config/database.yml.travis config/database.yml
@@ -25,15 +20,16 @@ jobs:
       - bundle exec rake parallel:spec
       - bash <(curl -s https://codecov.io/bash) -cF rspec -f coverage/coverage.json
       - bundle exec brakeman -z
+    language: node_js
+    node_js:
+      - 7.5.0
+    cache:
+      bundler: true
+      directories:
+        - node_modules
+        - client/node_modules
     - script:
-      # stop postgresql db to save resources
-      - sudo service postgresql stop 10
-      # run rails security static analysis
-      # setup jest
-      - nvm install
-      - npm install
       - npm run build:test
-      # run jest
       - npm run jest:coverage
       - bash <(curl -s https://codecov.io/bash) -cF jest
 addons:
