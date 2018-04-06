@@ -10,6 +10,7 @@ rvm:
 script:
   - npm run build:test
   - bundle exec rake parallel:spec[1]
+  - sudo /etc/init.d/postgresql stop
   - bash <(curl -s https://codecov.io/bash) -cF rspec -f coverage/coverage.json
   - npm run jest:coverage
   - bash <(curl -s https://codecov.io/bash) -cF jest
