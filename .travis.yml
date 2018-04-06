@@ -1,42 +1,37 @@
+language: ruby
 sudo: false
-jobs:
-  include:
-    - stage: backend
-      addons:
-        postgresql: "10"
-        apt:
-          packages:
-            - postgresql-10
-            - postgresql-client-10
-      cache:
-        bundler: true
-      rvm:
-        - 2.3.1
-      before_script:
-        - cp config/database.yml.travis config/database.yml
-        - bundle exec rake parallel:create
-        - bundle exec rake parallel:load_structure
-      script:
-        - bundle exec rake parallel:spec
-        - bundle exec brakeman -z
-      after_script:
-        - sudo service postgresql stop 10
-        - bash <(curl -s https://codecov.io/bash) -cF rspec -f coverage/coverage.json
-    - stage: frontend
-      language: node_js
-      node_js:
-        - 7.5.0
-      cache:
-        directories:
-          - node_modules
-          - client/node_modules
-      before_script:
-        - npm run build:test
-      script:
-        - npm run jest:coverage
-      after_script:
-        - bash <(curl -s https://codecov.io/bash) -cF jest
+cache:
+  bundler: true
+  directories:
+    - node_modules
+    - client/node_modules
+rvm:
+  - 2.3.1
+script:
+  # setup rspec
+  - cp config/database.yml.travis config/database.yml
+  - bundle exec rake parallel:create
+  - bundle exec rake parallel:load_structure
+  # run rspec
+  - bundle exec rake parallel:spec
+  - bash <(curl -s https://codecov.io/bash) -cF rspec -f coverage/coverage.json
+  # stop postgresql db to save resources
+  - sudo service postgresql stop 10
+  # run rails security static analysis
+  - bundle exec brakeman -z
+  # setup jest
+  - nvm install
+  - npm install
+  - npm run build:test
+  # run jest
+  - npm run jest:coverage
+  - bash <(curl -s https://codecov.io/bash) -cF jest
 addons:
+  postgresql: "10"
+  apt:
+    packages:
+      - postgresql-10
+      - postgresql-client-10
   code_climate:
     repo_token: 284c330b001fc405fe9b1c8a013ebaed90e6f81b0318b2e3d0df66559dd0eb3e
 env:
