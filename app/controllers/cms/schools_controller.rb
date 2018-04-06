@@ -22,11 +22,11 @@ class Cms::SchoolsController < Cms::CmsController
   end
 
   def search
-    @school_search_query = school_query_params
-    @school_search_query_results = school_query(school_query_params)
-    @school_search_query_results = @school_search_query_results ? @school_search_query_results : []
-    @number_of_pages = (number_of_schools_matched / SCHOOLS_PER_PAGE).ceil
-    render :index
+    school_search_query = school_query_params
+    school_search_query_results = school_query(school_query_params)
+    school_search_query_results = school_search_query_results ? school_search_query_results : []
+    number_of_pages = (number_of_schools_matched / SCHOOLS_PER_PAGE).ceil
+    render json: {numberOfPages: number_of_pages, schoolSearchQueryResults: school_search_query_results}
   end
 
   # This allows staff members to drill down on a specific school, including
@@ -127,7 +127,7 @@ class Cms::SchoolsController < Cms::CmsController
   end
 
   def all_search_inputs
-    @text_search_inputs.map(&:to_sym) + [:page, :search_schools_with_zero_teachers, :premium_status => []]
+    @text_search_inputs.map(&:to_sym) + [:sort, :sort_direction, :page, :search_schools_with_zero_teachers, :premium_status => []]
   end
 
   def school_query_params
@@ -173,6 +173,7 @@ class Cms::SchoolsController < Cms::CmsController
       #{where_query_string_builder}
       GROUP BY schools.name, schools.leanm, schools.city, schools.state, schools.zipcode, schools.free_lunches, subscriptions.account_type, schools.id
       #{having_string}
+      #{order_by_query_string}
       #{pagination_query_string}
     ").to_a.map do |school|
       school['school_zip'] = school['school_zip'].to_i
@@ -187,7 +188,9 @@ class Cms::SchoolsController < Cms::CmsController
     # We have to use HAVING here instead of including this in the WHERE query
     # builder because we're doing an aggregation here. This will merely filter
     # the results at the end.
-    'HAVING COUNT(schools_users.*) != 0' unless school_query_params[:search_schools_with_zero_teachers]
+    if !school_query_params[:search_schools_with_zero_teachers] || school_query_params[:search_schools_with_zero_teachers] == 'false'
+      'HAVING COUNT(schools_users.*) != 0'
+    end
   end
 
   def where_query_string_builder
@@ -250,6 +253,16 @@ class Cms::SchoolsController < Cms::CmsController
         GROUP BY schools.id
         #{having_string}) as subquery
     ").to_a[0]['count'].to_i
+  end
+
+  def order_by_query_string
+    sort = school_query_params[:sort]
+    sort_direction = school_query_params[:sort_direction]
+    if sort && sort_direction && sort != 'undefined' && sort_direction != 'undefined'
+      "ORDER BY #{sort} #{sort_direction}"
+    else
+      "ORDER BY number_teachers DESC"
+    end
   end
 
   def edit_or_add_school_params

@@ -1,50 +1,11 @@
 <div class='container'>
   <article class='simple-rounded-box cms-container'>
-    <div class='cms-container-meta'>
-      <div class='cms-container-meta-left'>
-        <h1>School Directory</h1>
-        <%= link_to 'Add New School', new_cms_school_path, class: 'btn button-green'  %>
-      </div>
-      <%= form_tag search_cms_schools_path, class: 'cms-form' do %>
-        <div class='cms-meta-middle'>
-          <% @text_search_inputs.each do |attribute| %>
-            <div class='cms-form-row'>
-              <%= label_tag attribute, "#{attribute.gsub('_', ' ').titleize}" %>
-              <%= text_field_tag attribute, @school_search_query[attribute] ? @school_search_query[attribute] : '' %>
-            </div>
-          <% end %>
-        </div>
-
-        <div class='cms-meta-right'>
-          <div class='cms-form-row'>
-            <%= label_tag 'premium_status', 'Premium Status' %>
-            <%= select_tag 'premium_status', options_for_select(@school_premium_types, @school_search_query['premium_status'] ? @school_search_query['premium_status'] : []), multiple: true %>
-          </div>
-
-          <div class='cms-form-row cms-checkbox-row'>
-            <%= label_tag 'search_schools_with_zero_teachers', 'Include Schools with 0 Teachers' %>
-            <%= check_box_tag 'search_schools_with_zero_teachers', @school_search_query['search_schools_with_zero_teachers'], @school_search_query['search_schools_with_zero_teachers'] ? 'checked' : nil %>
-          </div>
-
-          <div class='cms-submit-row'>
-            <%= hidden_field_tag 'page', 1 %>
-            <%= submit_tag 'Search' %>
-          </div>
-        </div>
-      <% end %>
+    <div style="margin-bottom:20px">
+      <h1 style="margin-bottom:20px">School Directory</h1>
+      <%= link_to 'Add New School', new_cms_school_path, class: 'btn button-green'  %>
     </div>
-
-    <%= react_component('CmsIndexTableApp', props: {queryResults: @school_search_query_results, page: 'schools'}) %>
-    <div class='cms-pagination-container'>
-      <% (1..@number_of_pages).to_a.each do |page| %>
-        <%= link_to page, '#!', onclick: "submitForm(#{page})", class: "cms-pagination #{ page == @school_search_query['page'].to_i ? 'cms-pagination-current' : nil}" %>
-      <% end %>
+    <div class='cms-container-meta'>
+      <%= react_component('CmsSchoolIndexApp', props: {queryResults: @school_search_query_results, query: @school_search_query, schoolPremiumTypes: @school_premium_types}) %>
     </div>
   </article>
 </div>
-<script>
-  function submitForm(page) {
-    document.getElementById('page').value = page;
-    document.getElementsByClassName('cms-form')[0].submit();
-  }
-</script>
