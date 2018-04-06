@@ -8,20 +8,19 @@ cache:
 rvm:
   - 2.3.1
 script:
-  - npm run build:test
-  - bundle exec rake parallel:spec[1]
-  - sudo /etc/init.d/postgresql stop
+  - cp config/database.yml.travis config/database.yml
+  - bundle exec rake parallel:create[1]
+  - bundle exec rake parallel:load_structure
+  - bundle exec rake parallel:spec
   - bash <(curl -s https://codecov.io/bash) -cF rspec -f coverage/coverage.json
+  - bundle exec teaspoon
+  - sudo /etc/init.d/postgresql stop
+  - nvm install 7.5.0
+  - npm install
+  - npm run build:test
   - npm run jest:coverage
   - bash <(curl -s https://codecov.io/bash) -cF jest
   - bundle exec brakeman -z
-  - bundle exec teaspoon
-before_script:
-  - cp config/database.yml.travis config/database.yml
-  - bundle exec rake parallel:create[1]
-  - bundle exec rake parallel:load_structure[1]
-  - nvm install 7.5.0
-  - npm install  # Make use of 'postinstall' to run 'cd ./client npm install'
 addons:
   postgresql: "10"
   apt:
