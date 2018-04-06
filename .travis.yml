@@ -1,7 +1,7 @@
 sudo: false
 jobs:
   include:
-    - # ruby tests
+    - stage: backend
       addons:
         postgresql: "10"
         apt:
@@ -21,7 +21,7 @@ jobs:
         - bundle exec rake parallel:spec
         - bash <(curl -s https://codecov.io/bash) -cF rspec -f coverage/coverage.json
         - bundle exec brakeman -z
-    - # javascript tests
+    - stage: frontend
       language: node_js
       node_js:
         - 7.5.0
