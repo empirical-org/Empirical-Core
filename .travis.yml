@@ -2,38 +2,38 @@ sudo: false
 jobs:
   include:
     - # ruby tests
-    addons:
-      postgresql: "10"
-      apt:
-        packages:
-          - postgresql-10
-          - postgresql-client-10
-    cache:
-      bundler: true
-    rvm:
-      - 2.3.1
-    script:
-      # setup rspec
-      - cp config/database.yml.travis config/database.yml
-      - bundle exec rake parallel:create
-      - bundle exec rake parallel:load_structure
-      # run rspec
-      - bundle exec rake parallel:spec
-      - bash <(curl -s https://codecov.io/bash) -cF rspec -f coverage/coverage.json
-      - bundle exec brakeman -z
+      addons:
+        postgresql: "10"
+        apt:
+          packages:
+            - postgresql-10
+            - postgresql-client-10
+      cache:
+        bundler: true
+      rvm:
+        - 2.3.1
+      script:
+        # setup rspec
+        - cp config/database.yml.travis config/database.yml
+        - bundle exec rake parallel:create
+        - bundle exec rake parallel:load_structure
+        # run rspec
+        - bundle exec rake parallel:spec
+        - bash <(curl -s https://codecov.io/bash) -cF rspec -f coverage/coverage.json
+        - bundle exec brakeman -z
     - # javascript tests
-    language: node_js
-    node_js:
-      - 7.5.0
-    cache:
-      bundler: true
-      directories:
-        - node_modules
-        - client/node_modules
-    script:
-      - npm run build:test
-      - npm run jest:coverage
-      - bash <(curl -s https://codecov.io/bash) -cF jest
+      language: node_js
+      node_js:
+        - 7.5.0
+      cache:
+        bundler: true
+        directories:
+          - node_modules
+          - client/node_modules
+      script:
+        - npm run build:test
+        - npm run jest:coverage
+        - bash <(curl -s https://codecov.io/bash) -cF jest
 addons:
   code_climate:
     repo_token: 284c330b001fc405fe9b1c8a013ebaed90e6f81b0318b2e3d0df66559dd0eb3e
