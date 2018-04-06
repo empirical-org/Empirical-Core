@@ -55,6 +55,7 @@ Dir[Rails.root.join("spec/shared/**/*.rb")].each {|f| require f}
 ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
+  config.include MockDataHelper
   config.include SanitizationHelper
   config.include SessionHelper
   config.include FactoryBot::Syntax::Methods
