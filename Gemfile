@@ -170,7 +170,6 @@ group :test, :development do
   gem 'guard-rspec'
   gem 'guard-shell'
   gem 'terminal-notifier-guard'
-  gem 'teaspoon-mocha'
   gem 'rspec-retry'
   gem 'rspec-redis_helper'
   gem 'brakeman'

@@ -634,10 +634,6 @@ GEM
       therubyracer
     stripe (3.3.2)
       faraday (~> 0.9)
-    teaspoon (1.1.5)
-      railties (>= 3.2.5, < 6)
-    teaspoon-mocha (2.3.3)
-      teaspoon (>= 1.0.0)
     temple (0.8.0)
     terminal-notifier-guard (1.7.0)
     therubyracer (0.12.3)
@@ -798,7 +794,6 @@ DEPENDENCIES
   spring-commands-rspec
   sqreen
   stripe
-  teaspoon-mocha
   terminal-notifier-guard
   therubyracer
   time_difference
