@@ -8,19 +8,26 @@ cache:
 rvm:
   - 2.3.1
 script:
+  # setup rspec
   - cp config/database.yml.travis config/database.yml
-  - bundle exec rake parallel:create[1]
+  - bundle exec rake parallel:create
   - bundle exec rake parallel:load_structure
+  # run rspec
   - bundle exec rake parallel:spec
   - bash <(curl -s https://codecov.io/bash) -cF rspec -f coverage/coverage.json
+  # run teaspoon for rails assest pipeline served js
   - bundle exec teaspoon
-  - sudo /etc/init.d/postgresql stop
-  - nvm install 7.5.0
+  # stop postgresql db to save resources
+  - sudo service postgresql stop 10
+  # run rails security static analysis
+  - bundle exec brakeman -z
+  # setup jest
+  - nvm install
   - npm install
   - npm run build:test
+  # run jest
   - npm run jest:coverage
   - bash <(curl -s https://codecov.io/bash) -cF jest
-  - bundle exec brakeman -z
 addons:
   postgresql: "10"
   apt:
