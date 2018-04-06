@@ -33,7 +33,8 @@ import SubscriptionApp from './SubscriptionAppClient';
 import BlogPostsApp from './BlogPostsAppClient'
 import PressApp from './PressAppClient'
 import AnnouncementsApp from './AnnouncementsAppClient'
-import CmsIndexTableApp from './CmsIndexTableAppClient'
+import CmsUserIndexApp from './CmsUserIndexAppClient'
+import CmsSchoolIndexApp from './CmsSchoolIndexAppClient'
 
 require('../../../assets/styles/home.scss');
 
@@ -73,5 +74,6 @@ ReactOnRails.register({ TeacherGuideApp,
   BlogPostsApp,
   PressApp,
   AnnouncementsApp,
-  CmsIndexTableApp
+  CmsUserIndexApp,
+  CmsSchoolIndexApp
 });
