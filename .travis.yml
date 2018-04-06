@@ -1,6 +1,7 @@
 sudo: false
 jobs:
   include:
+    - # ruby tests
     addons:
       postgresql: "10"
       apt:
@@ -11,7 +12,7 @@ jobs:
       bundler: true
     rvm:
       - 2.3.1
-    - script:
+    script:
       # setup rspec
       - cp config/database.yml.travis config/database.yml
       - bundle exec rake parallel:create
@@ -20,6 +21,7 @@ jobs:
       - bundle exec rake parallel:spec
       - bash <(curl -s https://codecov.io/bash) -cF rspec -f coverage/coverage.json
       - bundle exec brakeman -z
+    - # javascript tests
     language: node_js
     node_js:
       - 7.5.0
@@ -28,7 +30,7 @@ jobs:
       directories:
         - node_modules
         - client/node_modules
-    - script:
+    script:
       - npm run build:test
       - npm run jest:coverage
       - bash <(curl -s https://codecov.io/bash) -cF jest
