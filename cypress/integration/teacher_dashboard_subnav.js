@@ -1,12 +1,18 @@
 describe('Teacher Dashboard Subnav', function() {
-  after(() => {
-    cy.logout()
+  before(function() {
+    cy.cleanDatabase()
+    cy.factoryBotCreate({
+      factory: 'teacher_with_one_classroom',
+      password: 'password',
+      username: 'teacher'
+    }).then(() => {
+      cy.login('teacher', 'password')
+      cy.visit('/')
+    })
   })
 
-  before(function() {
-    cy.exec('RAILS_ENV=cypress rake find_or_create_cypress_test_data:find_or_create_teacher_with_classroom', {failOnNonZeroExit: false})
-    cy.login('e@gmail.com', 'password')
-    cy.visit('/')
+  after(() => {
+    cy.logout()
   })
 
   beforeEach(function() {
