@@ -149,101 +149,116 @@ describe('Manage Classrooms', function() {
         })
 
       })
+    })
 
-      describe('the coteachers section', ()=> {
-        const coteacherEmail = faker.internet.email();
-
-
-        it('is does not exist when I have no coteachers', ()=> {
-          cy.get('#my-coteachers').should('not.exist')
-        })
-
-        describe('invite a coteacher form section', ()=> {
-          it('allows me to select from the classrooms I own', ()=>{
-            selectClassroom()
-          })
-
-          it('allows me to enter an email of a coteacher', ()=> {
-            cy.get(':nth-child(1) > input').type(coteacherEmail)
-          })
-
-          describe('after I click save', ()=>{
-
-            describe('when a valid email and classroom have been entered/selected', ()=> {
-              it('does not give me an alert', ()=>{
-                const stub = cy.stub()
-                cy.on('window:alert', stub)
-                cy.get('.button-green').click()
-                  .then(()=>{
-                    expect(stub.getCall(0)).not.to.exist
-                  })
-              })
+  })
 
 
-              it('shows that the coteacher was invited', ()=> {
-                cy.get('.coteacher-invite-status').contains('Co-Teacher Invited!')
-              })
+  describe('the coteachers section', ()=> {
+    before( function() {
+      cy.logout()
+      cy.cleanDatabase()
+      cy.factoryBotCreate({
+        factory: 'teacher',
+        password: 'password',
+        traits: ['with_classrooms_students_and_activities'],
+        email: 'someone@gmail.com'
+      }).then(() => {
+        cy.login('someone@gmail.com', 'password')
+        cy.visit('teachers/classrooms')
+      })
+    })
+    const coteacherEmail = faker.internet.email();
 
-              describe('My Co-Teachers List', ()=>{
-                it('shows the email of the teacher I just added', ()=>{
-                  cy.get('.pending_coteachers_row').contains(coteacherEmail.toLowerCase())
-                })
 
-                it('marks the status as pending', ()=> {
-                    cy.get('.pending_coteachers_row').contains('Pending')
-                })
-              })
-            })
+    it('is does not exist when I have no coteachers', ()=> {
+      cy.get('#my-coteachers').should('not.exist')
+    })
 
-            describe('it gives me an alert when I leave', ()=>{
-              // TODO: figure out why the stubs are not getting called in this one
-              // it('the email blank', ()=>{
-              //   const stub = cy.stub()
-              //   cy.on('window:alert', stub)
-              //   selectClassroom()
-              //   cy.get('.button-green')
-              //     .click()
-              //     // cy.wait(500)
-              //     // .then(()=>{
-              //       expect(stub.getCall(1)).to.be.calledWith('email')
-              //     // })
-              // })
-              // it('the email invalid', ()=>{
-              //   const stub = cy.stub()
-              //   cy.on('window:alert', stub)
-              //   selectClassroom()
-              //   cy.get('.button-green')
-              //     .click()
-              //     // cy.wait(500)
-              //     // .then(()=>{
-              //       expect(stub.getCall(1)).to.be.calledWith('email')
-              //     // })
-              // })
-              // it('the classrooms empty', ()=>{
-              //   const stub = cy.stub()
-              //   cy.on('window:alert', stub)
-              //   cy.get('.button-green')
-              //     .click()
-              //     // cy.wait(500)
-              //     // .then(()=>{
-              //       expect(stub.getCall(1)).to.be.calledWith('email')
-              //     // })
-              // })
-            })
-          })
-        })
-        it('exists when I have a coteacher', ()=>{
-          cy.get('#my-coteachers').should('exist')
-        })
-
-        describe('when I want to withdraw a coteacher invitation', ()=>{
-          it('allows me to do so')
-        })
-
+    describe('invite a coteacher form section', ()=> {
+      it('allows me to select from the classrooms I own', ()=>{
+        selectClassroom()
       })
 
+      it('allows me to enter an email of a coteacher', ()=> {
+        cy.get(':nth-child(1) > input').type(coteacherEmail)
+      })
+
+      describe('after I click save', ()=>{
+
+        describe('when a valid email and classroom have been entered/selected', ()=> {
+          it('does not give me an alert', ()=>{
+            const stub = cy.stub()
+            cy.on('window:alert', stub)
+            cy.get('.button-green').click()
+              .then(()=>{
+                expect(stub.getCall(0)).not.to.exist
+              })
+          })
 
 
+          it('shows that the coteacher was invited', ()=> {
+            cy.get('.coteacher-invite-status').contains('Co-Teacher Invited!')
+          })
+
+          describe('My Co-Teachers List', ()=>{
+            it('shows the email of the teacher I just added', ()=>{
+              cy.get('.pending_coteachers_row').contains(coteacherEmail.toLowerCase())
+            })
+
+            it('marks the status as pending', ()=> {
+                cy.get('.pending_coteachers_row').contains('Pending')
+            })
+          })
+        })
+
+        // describe('it gives me an alert when I leave', ()=>{
+        //   // TODO: figure out why the stubs are not getting called in this one
+        //   // it('the email blank', ()=>{
+        //   //   const stub = cy.stub()
+        //   //   cy.on('window:alert', stub)
+        //   //   selectClassroom()
+        //   //   cy.get('.button-green')
+        //   //     .click()
+        //   //     // cy.wait(500)
+        //   //     // .then(()=>{
+        //   //       expect(stub.getCall(1)).to.be.calledWith('email')
+        //   //     // })
+        //   // })
+        //   // it('the email invalid', ()=>{
+        //   //   const stub = cy.stub()
+        //   //   cy.on('window:alert', stub)
+        //   //   selectClassroom()
+        //   //   cy.get('.button-green')
+        //   //     .click()
+        //   //     // cy.wait(500)
+        //   //     // .then(()=>{
+        //   //       expect(stub.getCall(1)).to.be.calledWith('email')
+        //   //     // })
+        //   // })
+        //   // it('the classrooms empty', ()=>{
+        //   //   const stub = cy.stub()
+        //   //   cy.on('window:alert', stub)
+        //   //   cy.get('.button-green')
+        //   //     .click()
+        //   //     // cy.wait(500)
+        //   //     // .then(()=>{
+        //   //       expect(stub.getCall(1)).to.be.calledWith('email')
+        //   //     // })
+        //   // })
+        // })
+      })
+    })
+
+    describe('when I do have a coteacher', ()=> {
+      it('exists', ()=>{
+        cy.get('#my-coteachers').should('exist')
+      })
+    })
+
+
+    describe('when I want to withdraw a coteacher invitation', ()=>{
+      it('allows me to do so')
     })
 
   })
