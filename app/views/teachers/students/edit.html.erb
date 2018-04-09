@@ -37,7 +37,7 @@
 													<%= f.text_field :password, value: @student.last_name %>
 												<%- else %>
 													<input disabled type='password' class='inactive edit-password-field' value='<%= @student.last_name %>'>
-													<a onClick='toggleEditPasswordField()' class='edit-password-link'>Edit Password</a>
+													<a onClick='toggleEditPasswordField()' class='edit-password-link'>Reset Password to Last Name</a>
 												<% end %>
 											</div>
 										</div>
@@ -75,15 +75,16 @@
 	function toggleEditPasswordField() {
 		const editPasswordLink = document.getElementsByClassName('edit-password-link')[0];
 		const passwordInputField = document.querySelector('.edit-password-field');
-		if(editPasswordLink.innerText == 'Edit Password') {
+		if(editPasswordLink.innerText == 'Reset Password to Last Name') {
 			editPasswordLink.innerText = 'Cancel';
 			passwordInputField.type = 'text';
 			passwordInputField.name = 'user[password]';
 			passwordInputField.id = 'user_password';
 			passwordInputField.classList = ['edit-password-field'];
 			passwordInputField.removeAttribute('disabled');
+			passwordInputField.setAttribute('readonly');
 		} else {
-			editPasswordLink.innerText = 'Edit Password';
+			editPasswordLink.innerText = 'Reset Password to Last Name';
 			passwordInputField.type = 'password';
 			passwordInputField.removeAttribute('name');
 			passwordInputField.removeAttribute('id');
