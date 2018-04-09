@@ -1,4 +1,3 @@
-require 'spec_helper'
 require 'rails_helper'
 require 'setup_concepts'
 require 'download_concepts'
@@ -17,8 +16,8 @@ describe 'Downloading the concepts' do
   it "should have an attribute concepts" do
     expect(@setup.concepts.class).to eq(Array)
   end
-  
-  before(:each) do 
+
+  before(:each) do
     VCR.use_cassette('fetching concepts') do
       @response = @setup.fetch_concepts()
     end
@@ -80,7 +79,7 @@ describe "Creating the concepts" do
       expect(Concept.find_by_name("Greece").parent).to eq(Concept.find_by_name("Capitalization"))
     end
   end
-  
+
   context "when there is a child, parent and grandparent concept" do
     before(:each) do
       @grandparent = {"id"=>3, "name"=>"Alphabet", "uid"=>"BRTGfOy7FGG4LB49eIxJQf", "parent_id"=>nil, "level"=>1}

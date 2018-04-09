@@ -72,7 +72,3 @@ module EmpiricalGrammar
     end
   end
 end
-
-Raven.configure do |config|
-  config.environments = %W(staging production) # Do not enable in development or test environments
-end
