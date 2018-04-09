@@ -89,7 +89,7 @@ export default  React.createClass({
     return (
       <span>
             <a href={href}>
-              <button onClick className="button-green add-students pull-right">
+              <button className="button-green add-students pull-right">
                 {text} <i className="fa fa-long-arrow-right"></i>
               </button>
             </a>

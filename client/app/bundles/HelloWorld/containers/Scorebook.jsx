@@ -86,14 +86,26 @@ export default React.createClass({
   },
 
   setStateFromLocalStorage(callback) {
+    let state = {}
+    const storedSelectedClassroomId = window.localStorage.getItem('scorebookSelectedClassroomId')
     const storedDateFilterName = window.localStorage.getItem('scorebookDateFilterName')
     const dateFilterName = !storedDateFilterName || storedDateFilterName === 'null' ? null : storedDateFilterName
+    const selectedClassroomId = !storedSelectedClassroomId || storedSelectedClassroomId === 'null' ? null : storedSelectedClassroomId
+    if (selectedClassroomId) {
+      const selectedClassroom = this.state.classrooms.find(c => c.id === selectedClassroomId)
+      if (selectedClassroom) {
+        state.selectedClassroom = selectedClassroom
+      }
+    }
     if (dateFilterName) {
       const beginDate = this.DATE_RANGE_FILTER_OPTIONS.find(o => o.title === dateFilterName).beginDate
       window.localStorage.setItem('scorebookBeginDate', beginDate);
-      this.setState({beginDate, dateFilterName}, callback)
+      state.beginDate = beginDate
+      state.dateFilterName = dateFilterName
+      this.setState(state, callback)
     } else {
-      this.setState({beginDate: this.convertStoredDateToMoment(window.localStorage.getItem('scorebookBeginDate'))}, callback)
+      state.beginDate = this.convertStoredDateToMoment(window.localStorage.getItem('scorebookBeginDate'))
+      this.setState(state, callback)
     }
   },
 
@@ -203,6 +215,7 @@ export default React.createClass({
   },
 
   selectClassroom(option) {
+    window.localStorage.setItem('scorebookSelectedClassroomId', option.id)
     this.getUpdatedUnits(option.value);
     this.setState({
       scores: new Map(),

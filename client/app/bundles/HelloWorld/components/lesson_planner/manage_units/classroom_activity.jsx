@@ -241,7 +241,7 @@ renderLessonPlanTooltip() {
     }
     // it is stupid that we are passing this in some of this components use create_activity_sessions
     //  but don't have time to deprecate it right now
-    return this.props.data.activity.classification.green_image_class
+    return this.props.data.activity && this.props.data.activity.classification ? this.props.data.activity.classification.green_image_class : ''
   },
 
   lessonCompletedOrLaunch() {
@@ -309,7 +309,7 @@ renderLessonPlanTooltip() {
       endRow = styles.endRow
     }
     return (
-      <div className="row" style={this.props.activityReport ? Object.assign({}, styles.row, {cursor: 'pointer'}) : styles.row} onClick={this.props.activityReport ? this.urlForReport : null}>
+      <div className="row activity" style={this.props.activityReport ? Object.assign({}, styles.row, {cursor: 'pointer'}) : styles.row} onClick={this.props.activityReport ? this.urlForReport : null}>
         {this.renderModal()}
         <div className="starting-row">
           <div className="cell">
