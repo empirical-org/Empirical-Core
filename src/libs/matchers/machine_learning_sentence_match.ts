@@ -4,7 +4,7 @@ import {Response, PartialResponse, ConceptResult, WordCountChange} from '../../i
 import {feedbackStrings} from '../constants/feedback_strings'
 import {conceptResultTemplate} from '../helpers/concept_result_template'
 
-export function machineLearningSentenceMatch(response: string, link: string):Promise<boolean> {
+export function machineLearningSentenceMatch(response: string, link: string): Promise<any> {
   const options = {
     method: 'POST',
     body: JSON.stringify({text: response}),
@@ -12,28 +12,28 @@ export function machineLearningSentenceMatch(response: string, link: string):Pro
     // credentials: 'include',
     headers: { "Content-Type": "application/json" }
   };
-  const url = `${link}/fragments/is_sentence`
+  const url = `${link}/sentence_or_not`;
   const matched = fetch(url, options)
-      .then(response => response.json())
-      .then(parsedResponse => parsedResponse.text > 0.5)
-  return matched
+    .then(response => response.json())
+    .then((parsedResponse) => {
+      if (parsedResponse.primary_error) {
+        return parsedResponse;
+      }
+    });
+  return matched;
 }
 
-export async function machineLearningSentenceChecker(responseString: string, responses:Array<Response>, link:string, matcherFunction:Function=machineLearningSentenceMatch):Promise<PartialResponse|undefined> {
-  const matched:Boolean = await matcherFunction(responseString, link);
-  return machineLearningSentenceResponseBuilder(responses, matched)
+export async function machineLearningSentenceChecker(responseString: string, responses: Array<Response>, link: string, matcherFunction: Function = machineLearningSentenceMatch): Promise<PartialResponse|undefined> {
+  const matched: any = await matcherFunction(responseString, link);
+  return matched.match ? machineLearningSentenceResponseBuilder(responses, matched) : undefined;
 }
 
-export function machineLearningSentenceResponseBuilder(responses: Array<Response>, matched:Boolean): PartialResponse {
-  const res:PartialResponse = {
-    author: 'Parts of Speech',
+export function machineLearningSentenceResponseBuilder(responses: Array<Response>, match: any): PartialResponse {
+  const res: PartialResponse = {
+    author: match.primary_error,
     parent_id: getTopOptimalResponse(responses).id,
-    optimal: matched
+    optimal: false,
+    feedback: match.human_readable
   }
-  if (matched) {
-    res.feedback = "That's a strong sentence!"
-  } else {
-    res.feedback = "Revise your work. A complete sentence must have an action word and a person or thing doing the action."
-  }
-  return res
+  return res;
 }

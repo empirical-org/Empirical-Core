@@ -16,7 +16,7 @@ describe('The checking a sentence fragment', () => {
     ignoreCaseAndPunc: false,
     incorrectSequences,
     prompt: 'Bats have wings they can fly.'
-  }
+  };
 
   describe('first matchers - original sentence', () => {
     it('should be able to find an exact match', () => {
@@ -24,7 +24,7 @@ describe('The checking a sentence fragment', () => {
         ...initialFields,
         question_uid: responses[0].question_uid,
         wordCountChange: {min: 1, max: 4}
-      }
+      };
       const matchedResponse = checkSentenceFragment(fields);
       assert.equal(matchedResponse.id, responses[0].id);
     });
@@ -34,7 +34,7 @@ describe('The checking a sentence fragment', () => {
       const fields = {
         ...initialFields,
         response: 'So bats have wings and they can fly.',
-      }
+      };
       const matchedResponse = checkSentenceFragment(fields);
       assert.equal(matchedResponse.feedback, incorrectSequences[0].feedback);
     });
@@ -43,7 +43,7 @@ describe('The checking a sentence fragment', () => {
       const fields = {
         ...initialFields,
         response: 'Bats have wings, which means that they can fly very far.',
-      }
+      };
       const matchedResponse = checkSentenceFragment(fields);
       assert.equal(matchedResponse.feedback, 'Revise your work. Add one to three words to the prompt to make the sentence complete.');
     })
@@ -52,7 +52,7 @@ describe('The checking a sentence fragment', () => {
       const fields = {
         ...initialFields,
         response: "bats have wings, so they can fly.",
-      }
+      };
       const matchedResponse = checkSentenceFragment(fields);
       assert.equal(matchedResponse.feedback, feedbackStrings.caseError);
     });
@@ -61,7 +61,7 @@ describe('The checking a sentence fragment', () => {
       const fields = {
         ...initialFields,
         response: "Bats have wings so they can fly far",
-      }
+      };
       const matchedResponse = checkSentenceFragment(fields);
       assert.equal(matchedResponse.feedback, feedbackStrings.punctuationError);
     });
@@ -76,7 +76,7 @@ describe('The checking a sentence fragment', () => {
       const fields = {
         ...initialFields,
         response: "Bats have wings so they can fly far .",
-      }
+      };
       const matchedResponse = checkSentenceFragment(fields);
       assert.equal(matchedResponse.feedback, spacingBeforePunctuation("Bats have wings so they can fly far .").feedback);
     });
@@ -85,32 +85,9 @@ describe('The checking a sentence fragment', () => {
       const fields = {
         ...initialFields,
         response: "Bats have wings,so they can fly far.",
-      }
+      };
       const matchedResponse = checkSentenceFragment(fields);
       assert.equal(matchedResponse.feedback, feedbackStrings.spacingAfterCommaError);
     });
-    //
-    it('should be able to find a parts of speech match', () => {
-      const responseString =  "Bats have wings, so they can fly quickly."
-      const fields = {
-        ...initialFields,
-        response: responseString,
-      }
-      const matchedResponse = checkSentenceFragment(fields);
-      assert.equal(matchedResponse.feedback, partsOfSpeechChecker(responseString, responses).feedback);
-    });
-
-    // it('should be able to find an ml match', () => {
-    //   const responseString =  "They have really Bats fly wings so."
-    //   const fields = {
-    //     ...initialFields,
-    //     response: responseString,
-    //     checkML: true,
-    //     mlURL: 'http://localhost:3100'
-    //   }
-    //   const matchedResponse = checkSentenceFragment(fields);
-    //   assert.equal(matchedResponse.feedback, "That's a strong sentence!");
-    // });
-
   });
-})
+});

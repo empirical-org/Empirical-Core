@@ -13,7 +13,7 @@ import {punctuationAndCaseInsensitiveChecker} from '../matchers/punctuation_and_
 import {spacingBeforePunctuationChecker} from '../matchers/spacing_before_punctuation_match'
 import {spacingAfterCommaChecker} from '../matchers/spacing_after_comma_match'
 import {requiredWordsChecker} from '../matchers/required_words_match'
-import {partsOfSpeechChecker} from '../matchers/parts_of_speech_match'
+import {spacyPOSSentenceChecker} from '../matchers/spacy_pos_match'
 import {machineLearningSentenceChecker} from '../matchers/machine_learning_sentence_match'
 
 export function checkSentenceFragment(hash:{
@@ -42,7 +42,8 @@ export function checkSentenceFragment(hash:{
     ignoreCaseAndPunc: hash.ignoreCaseAndPunc,
     prompt: hash.prompt,
     mlUrl: hash.mlUrl,
-    checkML: hash.checkML
+    checkML: hash.checkML,
+    question_uid: hash.question_uid
   }
 
   const firstPass = checkForMatches(data, firstPassMatchers)
@@ -71,7 +72,7 @@ function* firstPassMatchers(data, spellCorrected=false) {
     yield spacingAfterCommaChecker(submission, responses)
     yield requiredWordsChecker(submission, responses)
   }
-  yield partsOfSpeechChecker(submission, responses)
+  yield spacyPOSSentenceChecker(submission, data.question_uid, mlUrl)
   if (checkML) {
     yield machineLearningSentenceChecker(submission, responses, mlUrl)
   }

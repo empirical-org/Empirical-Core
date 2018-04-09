@@ -26,22 +26,29 @@ const savedResponses: Array<Response> = [
 ]
 
 function returnsTrue() {
-  return Promise.resolve(true)
+  return Promise.resolve({
+    human_readable: "You made an error.",
+    match: true,
+    primary_error: "Boop",
+  })
 }
 
 function returnsFalse() {
-  return Promise.resolve(false)
+  return Promise.resolve({
+    human_readable: undefined,
+    match: undefined,
+    primary_error: undefined,
+  })
 }
 
 describe('The machineLearningSentenceMatchChecker function', () => {
 
-    it('should return a partialResponse object if the matcher returns true', async () => {
+    it('should return a partialResponse object if the matcher returns a response', async () => {
       const responseString = "My goofy dog took a short nap.";
         const returnValue = await machineLearningSentenceChecker(responseString, savedResponses, 'http://localhost:3100', returnsTrue)
-        assert.equal(returnValue.author, 'Parts of Speech');
-        assert.equal(returnValue.feedback, "That's a strong sentence!");
-        assert.equal(returnValue.optimal, true);
-        assert.equal(returnValue.concept_results, getTopOptimalResponse(savedResponses).concept_results);
+        assert.equal(returnValue.author, 'Boop');
+        assert.equal(returnValue.feedback, "You made an error.");
+        assert.equal(returnValue.optimal, false);
         assert.equal(returnValue.parent_id, getTopOptimalResponse(savedResponses).id);
 
     });
@@ -49,11 +56,7 @@ describe('The machineLearningSentenceMatchChecker function', () => {
     it('should return a partialResponse object if the matcher returns false', async () => {
         const responseString = 'My grumpy dog took a nap.';
         const returnValue = await machineLearningSentenceChecker(responseString, savedResponses, 'http://localhost:3100', returnsFalse)
-        assert.equal(returnValue.author, 'Parts of Speech');
-        assert.equal(returnValue.feedback, "Revise your work. A complete sentence must have an action word and a person or thing doing the action.");
-        assert.equal(returnValue.optimal, false);
-        assert.equal(returnValue.concept_results, getTopOptimalResponse(savedResponses).concept_results);
-        assert.equal(returnValue.parent_id, getTopOptimalResponse(savedResponses).id);
+        assert.equal(returnValue, undefined);
     });
 
-})
+});
