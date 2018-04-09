@@ -20,174 +20,176 @@
 	<% active_tab = '' %>
 <% end %>
 
-<nav class="q-navbar-home">
-	<div class="navbar-header">
-		<a class="navbar-brand" href=<%= root_path %>>
-			<img src="/images/quill_header_logo.svg" alt="Quill Logo">
-		</a>
-	</div>
+	<% cache "navbar-#{current_user&.id}-#{user_dropdown_class}" do %>
+	<nav class="q-navbar-home">
+		<div class="navbar-header">
+			<a class="navbar-brand" href=<%= root_path %>>
+				<img src="/images/quill_header_logo.svg" alt="Quill Logo">
+			</a>
+		</div>
 
-		<div class='home-nav-right wide' >
+			<div class='home-nav-right wide' >
 
-		<% if !current_user %>
-	    <%= render 'navbar/learning_tools', active_tab: active_tab %>
-	    <%= render 'navbar/explore_curriculum', active_tab: active_tab %>
-	    <%= render 'navbar/teacher_center', active_tab: active_tab %>
-	    <%= render 'navbar/our_story', active_tab: active_tab %>
-		<% elsif current_user.role != 'student' %>
-			<%= render 'navbar/learning_tools', active_tab: active_tab  %>
-			<%= render 'navbar/teacher_center', active_tab: active_tab  %>
-			<%= render 'navbar/quill_support', active_tab: active_tab  %>
- 		<% end %>
+			<% if !current_user %>
+		    <%= render 'navbar/learning_tools', active_tab: active_tab %>
+		    <%= render 'navbar/explore_curriculum', active_tab: active_tab %>
+		    <%= render 'navbar/teacher_center', active_tab: active_tab %>
+		    <%= render 'navbar/our_story', active_tab: active_tab %>
+			<% elsif current_user.role != 'student' %>
+				<%= render 'navbar/learning_tools', active_tab: active_tab  %>
+				<%= render 'navbar/teacher_center', active_tab: active_tab  %>
+				<%= render 'navbar/quill_support', active_tab: active_tab  %>
+	 		<% end %>
 
-		<%- if current_user.nil? %>
-		<a href="/session/new" class="text-white nav-element">Login</a>
-		<a href="/account/new" class="sign-up-button text-white nav-element">Sign Up</a>
-		<%- elsif current_user.role == 'teacher' %>
-			<div class='navigation-vertical-rule hide-on-mobile nav-element'></div>
-			<div id="nav-user-dropdown" class="dropdown-closed hide-on-mobile nav-element <%= user_dropdown_class %>">
-				<%= link_to raw("<img src='#{user_dropdown_img}'></img>#{current_user.name}"), '#', onClick: "toggleDropdown()", class: 'user-dropdown-button' %>
-				<div>
-					<i class="fa fa-caret-up"></i>
-					<%= link_to raw(
-						"<span class='image-container'><img class='static' src='https://assets.quill.org/images/navbar/navbar-dashboard-gradient.svg'></img>
-						<img class='hover' src='https://assets.quill.org/images/navbar/navbar-dashboard-solid.svg'></img></span>
-						My Dashboard"
-					),
-						dashboard_teachers_classrooms_path
- 					%>
-					<%= link_to raw(
-						"<span class='image-container'><img class='static' src='https://assets.quill.org/images/navbar/navbar-account-gradient-1.svg'></img>
-						<img class='hover' src='https://assets.quill.org/images/navbar/navbar-account-solid-1.svg'></img></span>
-						My Account"
-					),
-						teachers_my_account_path
-					%>
-					<%= link_to raw(
-						"<span class='image-container'><img class='static' src='https://assets.quill.org/images/navbar/navbar-support-gradient-1.svg'></img>
-						<img class='hover' src='https://assets.quill.org/images/navbar/navbar-support-solid-1.svg'></img></span>
-						Support"
-					),
-						'https://support.quill.org',
-						target: "_blank"
-					%>
-					<%= link_to raw(
-						"<span class='image-container'><img class='static' src='https://assets.quill.org/images/navbar/navbar-logout-gradient-1.svg'></img>
-						<img class='hover' src='https://assets.quill.org/images/navbar/navbar-logout-solid-1.svg'></img></span>
-						Logout"
-					),
-						'/session',
-						onmouseover: "changeImageOnMouseOver('logout-img', 'https://assets.quill.org/images/navbar/navbar-logout-solid.svg')",
-						onmouseout: "changeImageOnMouseOut('logout-img', 'https://assets.quill.org/images/navbar/navbar-logout-gradient.svg')"
-					%>
+			<%- if current_user.nil? %>
+			<a href="/session/new" class="text-white nav-element">Login</a>
+			<a href="/account/new" class="sign-up-button text-white nav-element">Sign Up</a>
+			<%- elsif current_user.role == 'teacher' %>
+				<div class='navigation-vertical-rule hide-on-mobile nav-element'></div>
+				<div id="nav-user-dropdown" class="dropdown-closed hide-on-mobile nav-element <%= user_dropdown_class %>">
+					<%= link_to raw("<img src='#{user_dropdown_img}'></img>#{current_user.name}"), '#', onClick: "toggleDropdown()", class: 'user-dropdown-button' %>
+					<div>
+						<i class="fa fa-caret-up"></i>
+						<%= link_to raw(
+							"<span class='image-container'><img class='static' src='https://assets.quill.org/images/navbar/navbar-dashboard-gradient.svg'></img>
+							<img class='hover' src='https://assets.quill.org/images/navbar/navbar-dashboard-solid.svg'></img></span>
+							My Dashboard"
+						),
+							dashboard_teachers_classrooms_path
+	 					%>
+						<%= link_to raw(
+							"<span class='image-container'><img class='static' src='https://assets.quill.org/images/navbar/navbar-account-gradient-1.svg'></img>
+							<img class='hover' src='https://assets.quill.org/images/navbar/navbar-account-solid-1.svg'></img></span>
+							My Account"
+						),
+							teachers_my_account_path
+						%>
+						<%= link_to raw(
+							"<span class='image-container'><img class='static' src='https://assets.quill.org/images/navbar/navbar-support-gradient-1.svg'></img>
+							<img class='hover' src='https://assets.quill.org/images/navbar/navbar-support-solid-1.svg'></img></span>
+							Support"
+						),
+							'https://support.quill.org',
+							target: "_blank"
+						%>
+						<%= link_to raw(
+							"<span class='image-container'><img class='static' src='https://assets.quill.org/images/navbar/navbar-logout-gradient-1.svg'></img>
+							<img class='hover' src='https://assets.quill.org/images/navbar/navbar-logout-solid-1.svg'></img></span>
+							Logout"
+						),
+							'/session',
+							onmouseover: "changeImageOnMouseOver('logout-img', 'https://assets.quill.org/images/navbar/navbar-logout-solid.svg')",
+							onmouseout: "changeImageOnMouseOut('logout-img', 'https://assets.quill.org/images/navbar/navbar-logout-gradient.svg')"
+						%>
+					</div>
 				</div>
-			</div>
-		<%- elsif current_user.role == 'student' %>
-			<%= link_to raw("<i class='fa fa-fw fa-plus-circle' aria-hidden='true'></i>  Join a Class"), add_classroom_students_classrooms_path, class: "text-white nav-element" %>
-			<%= link_to raw("<i class='fa fa-fw fa-cog' aria-hidden='true'></i>  Account Settings"), account_settings_path, class: "text-white nav-element" %>
-			<%= link_to "Logout", '/session' , class: "text-white nav-element"%>
-		<% else %>
-		<%= link_to "Logout", '/session', class: "text-white nav-element"%>
-		<% end %>
-  </div>
-
-  <nav class="home-nav-dropdown" role="home-custom-dropdown">
-    <input class="home-nav-checkbox" type="checkbox" id="button-nav">
-    <label for="button-nav" onclick=""></label>
-    <ul class="home-navbar-list">
-			<% if current_user.nil? %>
-	      <li>
-	        <a href="/tools/connect" class="text-white">Learning Tools</a>
-	      </li>
-	      <li>
-	        <a href="/activities/packs" class="text-white">Explore Curriculum</a>
-	      </li>
-				<li>
-					<a href='/teacher_resources' class="text-white">Teacher Center</a>
-				</li>
-	      <li>
-	        <a href="/mission" class="text-white">Our Story</a>
-	      </li>
-	      <li>
-	        <a href="/session/new" class="text-white">Login</a>
-	      </li>
-	      <li>
-	        <a href="/account/new" class="text-white">Sign Up</a>
-	      </li>
+			<%- elsif current_user.role == 'student' %>
+				<%= link_to raw("<i class='fa fa-fw fa-plus-circle' aria-hidden='true'></i>  Join a Class"), add_classroom_students_classrooms_path, class: "text-white nav-element" %>
+				<%= link_to raw("<i class='fa fa-fw fa-cog' aria-hidden='true'></i>  Account Settings"), account_settings_path, class: "text-white nav-element" %>
+				<%= link_to "Logout", '/session' , class: "text-white nav-element"%>
 			<% else %>
-				<li>
-					<a href="/tools/connect" class="text-white">Learning Tools</a>
-				</li>
-				<li>
-					<a href="/teacher_resources" class="text-white">Teacher Center</a>
-				</li>
-				<li>
-					<a href="https://support.quill.org/" class="text-white">Quill Support</a>
-				</li>
-			<% if current_user.teacher? %>
-				<li>
-					<a href="/teachers/classrooms/dashboard" class="text-white">My Dashboard</a>
-				</li>
-				<li>
-					<a href="/teachers/my_account" class="text-white">My Account</a>
-				</li>
+			<%= link_to "Logout", '/session', class: "text-white nav-element"%>
 			<% end %>
-				<li>
-					<a href="/session" class="text-white">Logout</a>
-				</li>
-      <% end %>
-    </ul>
-  </nav>
-</nav>
+	  </div>
 
-<script>
-	function toggleDropdown() {
-		const dropdown = document.querySelector('#nav-user-dropdown');
-		if(dropdown.classList.contains('dropdown-closed')) {
-			dropdown.classList.remove('dropdown-closed');
-			dropdown.classList.add('dropdown-open');
-		} else {
-			dropdown.classList.remove('dropdown-open');
-			dropdown.classList.add('dropdown-closed');
-		}
-	}
+	  <nav class="home-nav-dropdown" role="home-custom-dropdown">
+	    <input class="home-nav-checkbox" type="checkbox" id="button-nav">
+	    <label for="button-nav" onclick=""></label>
+	    <ul class="home-navbar-list">
+				<% if current_user.nil? %>
+		      <li>
+		        <a href="/tools/connect" class="text-white">Learning Tools</a>
+		      </li>
+		      <li>
+		        <a href="/activities/packs" class="text-white">Explore Curriculum</a>
+		      </li>
+					<li>
+						<a href='/teacher_resources' class="text-white">Teacher Center</a>
+					</li>
+		      <li>
+		        <a href="/mission" class="text-white">Our Story</a>
+		      </li>
+		      <li>
+		        <a href="/session/new" class="text-white">Login</a>
+		      </li>
+		      <li>
+		        <a href="/account/new" class="text-white">Sign Up</a>
+		      </li>
+				<% else %>
+					<li>
+						<a href="/tools/connect" class="text-white">Learning Tools</a>
+					</li>
+					<li>
+						<a href="/teacher_resources" class="text-white">Teacher Center</a>
+					</li>
+					<li>
+						<a href="https://support.quill.org/" class="text-white">Quill Support</a>
+					</li>
+				<% if current_user.teacher? %>
+					<li>
+						<a href="/teachers/classrooms/dashboard" class="text-white">My Dashboard</a>
+					</li>
+					<li>
+						<a href="/teachers/my_account" class="text-white">My Account</a>
+					</li>
+				<% end %>
+					<li>
+						<a href="/session" class="text-white">Logout</a>
+					</li>
+	      <% end %>
+	    </ul>
+	  </nav>
+	</nav>
 
-	document.addEventListener("click", closeDropdownIfOpen)
-
-	function closeDropdownIfOpen(e) {
-		const dropdown = document.querySelector('#nav-user-dropdown');
-		if (e.target.classList.value !== 'user-dropdown-button' && dropdown && dropdown.classList.contains('dropdown-open')) {
+	<script>
+		function toggleDropdown() {
+			const dropdown = document.querySelector('#nav-user-dropdown');
+			if(dropdown.classList.contains('dropdown-closed')) {
+				dropdown.classList.remove('dropdown-closed');
+				dropdown.classList.add('dropdown-open');
+			} else {
 				dropdown.classList.remove('dropdown-open');
 				dropdown.classList.add('dropdown-closed');
+			}
 		}
-	}
 
-	const tooltipTriggers = document.getElementsByClassName("navbar-tooltip-trigger")
+		document.addEventListener("click", closeDropdownIfOpen)
 
-	for (let i = 0; i < tooltipTriggers.length; i++) {
-	    tooltipTriggers[i].addEventListener("focus", addUnhoverable)
-			tooltipTriggers[i].addEventListener("blur", removeUnhoverable)
-			tooltipTriggers[i].addEventListener("click", handleClick)
-	}
+		function closeDropdownIfOpen(e) {
+			const dropdown = document.querySelector('#nav-user-dropdown');
+			if (e.target.classList.value !== 'user-dropdown-button' && dropdown && dropdown.classList.contains('dropdown-open')) {
+					dropdown.classList.remove('dropdown-open');
+					dropdown.classList.add('dropdown-closed');
+			}
+		}
 
-	function addUnhoverable() {
+		const tooltipTriggers = document.getElementsByClassName("navbar-tooltip-trigger")
+
 		for (let i = 0; i < tooltipTriggers.length; i++) {
-				tooltipTriggers[i].classList.add('unhoverable')
+		    tooltipTriggers[i].addEventListener("focus", addUnhoverable)
+				tooltipTriggers[i].addEventListener("blur", removeUnhoverable)
+				tooltipTriggers[i].addEventListener("click", handleClick)
 		}
-	}
 
-	function removeUnhoverable() {
-		for (let i = 0; i < tooltipTriggers.length; i++) {
-				tooltipTriggers[i].classList.remove('unhoverable')
+		function addUnhoverable() {
+			for (let i = 0; i < tooltipTriggers.length; i++) {
+					tooltipTriggers[i].classList.add('unhoverable')
+			}
 		}
-	}
 
-	function handleClick(e) {
-		if (e.currentTarget.classList.contains('focused')) {
-			e.currentTarget.blur()
-			e.currentTarget.classList.remove('focused')
-		} else {
-			e.currentTarget.classList.add('focused')
+		function removeUnhoverable() {
+			for (let i = 0; i < tooltipTriggers.length; i++) {
+					tooltipTriggers[i].classList.remove('unhoverable')
+			}
 		}
-	}
-</script>
+
+		function handleClick(e) {
+			if (e.currentTarget.classList.contains('focused')) {
+				e.currentTarget.blur()
+				e.currentTarget.classList.remove('focused')
+			} else {
+				e.currentTarget.classList.add('focused')
+			}
+		}
+	</script>
+<% end %>
