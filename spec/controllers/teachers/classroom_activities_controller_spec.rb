@@ -1,4 +1,3 @@
-require 'spec_helper'
 require 'rails_helper'
 
 describe Teachers::ClassroomActivitiesController, type: :controller do
