@@ -26,3 +26,16 @@
       letter-spacing: 1px;
     }
 }
+
+.dropdown-toggle.btn.btn-default {
+  font-weight: normal;
+  border-radius: 6px;
+  color: #000000;
+  padding: 0px 14px;
+  height: 40px;
+  min-width: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: solid 1px #cecece;
+}
