@@ -93,9 +93,9 @@ export default class CmsUserIndex extends React.Component {
     ];
   }
 
-  setSort(state) {
-    const sort = state.sorted[0].id
-    const sort_direction = state.sorted[0].desc ? 'desc' : 'asc'
+  setSort(newSorted) {
+    const sort = newSorted[0].id
+    const sort_direction = newSorted[0].desc ? 'desc' : 'asc'
     if (sort !== this.state.query.sort || sort_direction !== this.state.query.sort_direction) {
       const newState = { ...this.state}
       newState.query.sort = sort
