@@ -2,6 +2,7 @@ import React from 'react';
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
 import getAuthToken from '../components/modules/get_auth_token';
+import LoadingIndicator from '../components/shared/loading_indicator'
 
 export default class CmsSchoolIndex extends React.Component {
   constructor(props) {
@@ -10,13 +11,15 @@ export default class CmsSchoolIndex extends React.Component {
     this.state = {
       columns: this.getColumns(),
       data: props.queryResults,
-      query: props.query
+      query: props.query,
+      loading: false
     }
 
     this.setSort = this.setSort.bind(this)
     this.search = this.search.bind(this)
     this.updatePage = this.updatePage.bind(this)
     this.updateCheckbox = this.updateCheckbox.bind(this)
+    this.submitPageForm = this.submitPageForm.bind(this)
   }
 
   getColumns() {
@@ -25,18 +28,18 @@ export default class CmsSchoolIndex extends React.Component {
           Header: 'Name',
           accessor: 'school_name',
           resizable: false,
-          minWidth: 150,
+          minWidth: 140,
           Cell: row => row.original.school_name
         }, {
           Header: "District",
           accessor: 'district_name',
           resizable: false,
-          minWidth: 150,
+          minWidth: 140,
           Cell: row => row.original.district_name
         }, {
           Header: "City",
           accessor: 'school_city',
-          minWidth: 150,
+          minWidth: 140,
           resizable: false,
           Cell: row => row.original.school_city
         }, {
@@ -87,14 +90,15 @@ export default class CmsSchoolIndex extends React.Component {
       ];
   }
 
-  setSort(reactTableState) {
-    const sort = reactTableState.sorted[0].id
-    const sort_direction = reactTableState.sorted[0].desc ? 'desc' : 'asc'
-    const newState = { ...this.state}
-    debugger;
-    newState.query.sort = sort
-    newState.query.sort_direction = sort_direction
-    this.setState(newState, this.search)
+  setSort(newSorted) {
+    const sort = newSorted[0].id
+    const sort_direction = newSorted[0].desc ? 'desc' : 'asc'
+    if (sort !== this.state.query.sort || sort_direction !== this.state.query.sort_direction) {
+      const newState = { ...this.state}
+      newState.query.sort = sort
+      newState.query.sort_direction = sort_direction
+      this.setState(newState, this.search)
+    }
   }
 
   updateField(e, key) {
@@ -116,6 +120,10 @@ export default class CmsSchoolIndex extends React.Component {
     this.setState(newState, this.search)
   }
 
+  submitPageForm(e) {
+    this.updatePage(e.target.page.value)
+  }
+
   renderPremiumStatusSelect() {
     const options = this.props.schoolPremiumTypes.map(o => <option value={o}>{o}</option>)
     return <select multiple={true} onChange={(e) => this.updateField(e, 'premium_status')}>
@@ -124,16 +132,19 @@ export default class CmsSchoolIndex extends React.Component {
   }
 
   renderPageSelector() {
-    const options = []
-    const limiter = this.state.numberOfPages > 20 ? 20 : this.state.numberOfPages
-    for (let i = 1; i <= limiter ; i++) {
-      const className = this.state.query.page === i ? 'cms-pagination-current' : ''
-      options.push(<a onClick={() => this.updatePage(i)} className={`cms-pagination ${className}`}>{i}</a>)
-    }
-    return options
+    const currentPage = this.state.query.page || 1
+    const totalPages = this.state.numberOfPages || 1
+    return <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+      <a onClick={() => this.updatePage(1)}>First</a>
+      <form onSubmit={this.submitPageForm}>
+        <input defaultValue={currentPage} name='page'/><span>of {totalPages}</span>
+      </form>
+      <a onClick={() => this.updatePage(totalPages)}>Last</a>
+    </div>
   }
 
   search() {
+    this.setState({loading: true})
     const link = `${process.env.DEFAULT_URL}/cms/schools/search`
     const data = new FormData();
     Object.keys(this.state.query).forEach((k) => {
@@ -153,10 +164,36 @@ export default class CmsSchoolIndex extends React.Component {
       }
       return response.json();
     }).then((response) => {
-      this.setState({ data: response.schoolSearchQueryResults, numberOfPages: response.numberOfPages })
+      this.setState({ data: response.schoolSearchQueryResults, numberOfPages: response.numberOfPages, loading: false })
     }).catch((error) => {
       console.log('error', error)
     })
+  }
+
+  renderTableOrLoading() {
+    if (this.state.loading) {
+      return <LoadingIndicator/>
+    } else {
+      const sort = this.state.query.sort ? this.state.query.sort : 'number_teachers'
+      const sortDescending = this.state.query.sort_direction ? this.state.query.sort_direction === 'desc' : true
+      return (<div>
+        <ReactTable data={this.state.data}
+        columns={this.state.columns}
+        showPagination={false}
+        defaultSorted={[{id: sort, desc: sortDescending}]}
+        showPaginationTop={false}
+        showPaginationBottom={false}
+        showPageSizeOptions={false}
+        defaultPageSize={100}
+        minRows={1}
+        className='progress-report activity-scores-table'
+        onSortedChange={this.setSort}
+      />
+      <div className='cms-pagination-container'>
+        {this.renderPageSelector()}
+      </div>
+    </div>)
+    }
   }
 
   render() {
@@ -212,21 +249,7 @@ export default class CmsSchoolIndex extends React.Component {
             </div>
           </div>
       </div>
-      <ReactTable data={this.state.data}
-        columns={this.state.columns}
-        showPagination={true}
-        defaultSorted={[{id: 'number_teachers', desc: true}]}
-        showPaginationTop={false}
-        showPaginationBottom={false}
-        showPageSizeOptions={false}
-        defaultPageSize={100}
-        minRows={1}
-        className='progress-report activity-scores-table'
-        onFetchData={this.setSort}
-      />
-      <div className='cms-pagination-container'>
-        {this.renderPageSelector()}
-      </div>
+      {this.renderTableOrLoading()}
       </div>)
     }
   }
