@@ -170,11 +170,11 @@ class Cms::SchoolsController < Cms::CmsController
       LEFT JOIN schools_admins ON schools_admins.school_id = schools.id
       LEFT JOIN school_subscriptions ON school_subscriptions.school_id = schools.id
       LEFT JOIN subscriptions ON subscriptions.id = school_subscriptions.subscription_id
-      #{where_query_string_builder}
+      #{ActiveRecord::Base.sanitize(where_query_string_builder)}
       GROUP BY schools.name, schools.leanm, schools.city, schools.state, schools.zipcode, schools.free_lunches, subscriptions.account_type, schools.id
-      #{having_string}
-      #{order_by_query_string}
-      #{pagination_query_string}
+      #{ActiveRecord::Base.sanitize(having_string)}
+      #{ActiveRecord::Base.sanitize(order_by_query_string)}
+      #{ActiveRecord::Base.sanitize(pagination_query_string)}
     ").to_a.map do |school|
       school['school_zip'] = school['school_zip'].to_i
       school['number_teachers'] = school['number_teachers'].to_i
