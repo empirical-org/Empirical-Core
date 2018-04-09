@@ -7,7 +7,7 @@ class Cms::UsersController < Cms::CmsController
   USERS_PER_PAGE = 30.0
 
   def index
-    @user_search_query = {}
+    @user_search_query = {sort: 'last_sign_in', sort_direction: 'desc'}
     @user_search_query_results = user_query(user_query_params)
     @number_of_pages = 0
   end
