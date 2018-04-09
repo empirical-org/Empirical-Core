@@ -130,7 +130,12 @@ export default class extends React.Component {
     } else {
       return (
         <div id="knowledge-center">
-          <HeaderSection title="Teacher Center" subtitle="Everything you need to know about Quill’s pedgagogy and use in the classroom" query={this.props.query}/>
+          <HeaderSection
+            title="Teacher Center"
+            subtitle="Everything you need to know about Quill’s pedgagogy and use in the classroom"
+            query={this.props.query}
+            showCancelSearchButton={!!window.location.href.includes('search')}
+          />
         {this.renderNavAndSectionHeader()}
         {this.renderAnnouncement()}
         {this.renderBasedOnArticleFilter()}

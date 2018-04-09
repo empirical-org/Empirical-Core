@@ -14,9 +14,9 @@ describe('Teacher Center Navbar', function() {
     cy.url().should('include', '/teacher_resources/topic/getting_started')
   })
 
-  it('has a link to the Case Studies page', function() {
-    cy.get('.q-nav-bar > .desktop-nav-list').contains('Case Studies').click({force: true})
-    cy.url().should('include', '/teacher_resources/topic/case_studies')
+  it('has a link to the Teacher Stories page', function() {
+    cy.get('.q-nav-bar > .desktop-nav-list').contains('Teacher Stories').click({force: true})
+    cy.url().should('include', '/teacher_resources/topic/teacher_stories')
   })
 
   it('has a link to the Writing Instruction Research page', function() {
