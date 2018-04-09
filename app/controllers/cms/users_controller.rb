@@ -158,9 +158,9 @@ protected
       LEFT JOIN schools ON schools_users.school_id = schools.id
       LEFT JOIN user_subscriptions ON users.id = user_subscriptions.user_id
       LEFT JOIN subscriptions ON user_subscriptions.subscription_id = subscriptions.id
-      #{where_query_string_builder}
-      #{order_by_query_string}
-      #{pagination_query_string}
+      #{ActiveRecord::Base.sanitize(where_query_string_builder)}
+      #{ActiveRecord::Base.sanitize(order_by_query_string)}
+      #{ActiveRecord::Base.sanitize(pagination_query_string)}
     ").to_a
   end
 
