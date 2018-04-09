@@ -3,6 +3,7 @@ import ReactTable from 'react-table';
 import 'react-table/react-table.css';
 import { sortByLastName, sortFromSQLTimeStamp } from 'modules/sortingMethods';
 import getAuthToken from '../components/modules/get_auth_token';
+import LoadingIndicator from '../components/shared/loading_indicator'
 
 export default class CmsUserIndex extends React.Component {
   constructor(props) {
@@ -11,12 +12,14 @@ export default class CmsUserIndex extends React.Component {
     this.state = {
       columns: this.getColumns(),
       data: props.queryResults,
-      query: props.query
+      query: props.query,
+      loading: false
     }
 
     this.setSort = this.setSort.bind(this)
     this.search = this.search.bind(this)
     this.updatePage = this.updatePage.bind(this)
+    this.submitPageForm = this.submitPageForm.bind(this)
   }
 
   getColumns() {
@@ -93,10 +96,12 @@ export default class CmsUserIndex extends React.Component {
   setSort(state) {
     const sort = state.sorted[0].id
     const sort_direction = state.sorted[0].desc ? 'desc' : 'asc'
-    const newState = { ...this.state}
-    newState.query.sort = sort
-    newState.query.sort_direction = sort_direction
-    this.setState(newState, this.search)
+    if (sort !== this.state.query.sort || sort_direction !== this.state.query.sort_direction) {
+      const newState = { ...this.state}
+      newState.query.sort = sort
+      newState.query.sort_direction = sort_direction
+      this.setState(newState, this.search)
+    }
   }
 
   updateField(e, key) {
@@ -133,17 +138,24 @@ export default class CmsUserIndex extends React.Component {
     </select>
   }
 
+  submitPageForm(e) {
+    this.updatePage(e.target.page.value)
+  }
+
   renderPageSelector() {
-    const options = []
-    const limiter = this.state.numberOfPages > 20 ? 20 : this.state.numberOfPages
-    for (let i = 1; i <= limiter ; i++) {
-      const className = this.state.query.page === i ? 'cms-pagination-current' : ''
-      options.push(<a onClick={() => this.updatePage(i)} className={`cms-pagination ${className}`}>{i}</a>)
-    }
-    return options
+    const currentPage = this.state.query.page || 1
+    const totalPages = this.state.numberOfPages || 1
+    return <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+      <a onClick={() => this.updatePage(1)}>First</a>
+      <form onSubmit={this.submitPageForm}>
+        <input defaultValue={currentPage} name='page'/><span>of {totalPages}</span>
+      </form>
+      <a onClick={() => this.updatePage(totalPages)}>Last</a>
+    </div>
   }
 
   search() {
+    this.setState({loading: true})
     const link = `${process.env.DEFAULT_URL}/cms/users/search`
     const data = new FormData();
     Object.keys(this.state.query).forEach((k) => {
@@ -163,10 +175,36 @@ export default class CmsUserIndex extends React.Component {
       }
       return response.json();
     }).then((response) => {
-      this.setState({ data: response.userSearchQueryResults, numberOfPages: response.numberOfPages })
+      this.setState({ data: response.userSearchQueryResults, numberOfPages: response.numberOfPages, loading: false })
     }).catch((error) => {
       console.log('error', error)
     })
+  }
+
+  renderTableOrLoading() {
+    if (this.state.loading) {
+      return <LoadingIndicator/>
+    }
+    const sort = this.state.query.sort ? this.state.query.sort : 'last_sign_in'
+    const sortDescending = this.state.query.sort_direction ? this.state.query.sort_direction === 'desc' : true
+    return (<div>
+      <ReactTable data={this.state.data}
+      columns={this.state.columns}
+      showPagination={false}
+      defaultSorted={[{id: sort, desc: sortDescending}]}
+      showPaginationTop={false}
+      showPaginationBottom={false}
+      showPageSizeOptions={false}
+      defaultPageSize={100}
+      minRows={1}
+      className='progress-report activity-scores-table'
+      onSortedChange={this.setSort}
+    />
+      <div className='cms-pagination-container'>
+        {this.renderPageSelector()}
+      </div>
+    </div>)
+
   }
 
   render() {
@@ -215,24 +253,10 @@ export default class CmsUserIndex extends React.Component {
               <input onClick={this.search} type="submit" value="Submit" />
             </div>
           </div>
+        </div>
+        {this.renderTableOrLoading()}
       </div>
-      <ReactTable data={this.state.data}
-        columns={this.state.columns}
-        showPagination={true}
-        defaultSorted={[{id: this.props.context === 'schools' ? 'number_teachers' : 'last_sign_in', desc: true}]}
-        showPaginationTop={false}
-        showPaginationBottom={false}
-        showPageSizeOptions={false}
-        defaultPageSize={100}
-        minRows={1}
-        pages={this.state.numberOfPages}
-        className='progress-report activity-scores-table'
-        onFetchData={this.setSort}
-      />
-      <div className='cms-pagination-container'>
-        {this.renderPageSelector()}
-      </div>
-      </div>)
+      )
     }
   }
 }
