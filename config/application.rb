@@ -32,6 +32,7 @@ module EmpiricalGrammar
       #{config.root}/app/controllers/concerns
       #{config.root}/lib
       #{config.root}/app/uploaders
+      #{config.root}/app/services
       #{config.root}/app/services/analytics
       #{config.root}/app/queries/scorebook
     )
@@ -70,8 +71,4 @@ module EmpiricalGrammar
       end
     end
   end
-end
-
-Raven.configure do |config|
-  config.environments = %W(staging production) # Do not enable in development or test environments
 end

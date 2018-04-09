@@ -8,7 +8,7 @@ export default function () {
     },
     {
       field: 'section',
-      alias: 'Filter by Level',
+      alias: 'Filter By Level',
       options: [],
       selected: null,
 

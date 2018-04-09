@@ -1,7 +1,17 @@
 describe('Login page', function() {
 
   before(function() {
-    cy.exec('RAILS_ENV=cypress spring rake find_or_create_cypress_test_data:find_or_create_users', {failOnNonZeroExit: false})
+    cy.cleanDatabase()
+    cy.factoryBotCreate({
+      factory: 'teacher',
+      password: 'password',
+      username: 'teacher'
+    })
+    cy.factoryBotCreate({
+      factory: 'student',
+      password: 'password',
+      username: 'student'
+    })
   })
 
   after(() => {
