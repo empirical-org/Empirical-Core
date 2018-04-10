@@ -16,10 +16,9 @@ export function spacyPOSSentenceMatch(response: string, question_uid: string, li
     headers: { "Content-Type": "application/json" }
   };
   const url = `${link}/get_pos_match`;
-  const matched = fetch(url, options)
+  return fetch(url, options)
       .then(response => response.json())
-      .then(parsedResponse => parsedResponse.match)
-  return matched;
+      .then(parsedResponse => parsedResponse.match);
 }
 
 export async function spacyPOSSentenceChecker(responseString: string, question_uid: string, link:string, matcherFunction:Function=spacyPOSSentenceMatch):Promise<PartialResponse|undefined> {

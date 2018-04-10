@@ -13,14 +13,13 @@ export function machineLearningSentenceMatch(response: string, link: string): Pr
     headers: { "Content-Type": "application/json" }
   };
   const url = `${link}/sentence_or_not`;
-  const matched = fetch(url, options)
+  return fetch(url, options)
     .then(response => response.json())
     .then((parsedResponse) => {
       if (parsedResponse.primary_error) {
         return parsedResponse;
       }
     });
-  return matched;
 }
 
 export async function machineLearningSentenceChecker(responseString: string, responses: Array<Response>, link: string, matcherFunction: Function = machineLearningSentenceMatch): Promise<PartialResponse|undefined> {
