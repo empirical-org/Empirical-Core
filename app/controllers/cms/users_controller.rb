@@ -123,7 +123,7 @@ protected
   end
 
   def user_query_params
-    params.permit(@text_search_inputs.map(&:to_sym) + default_params + [:page, :user_role, :sort, :sort_direction, :user_premium_status => []])
+    params.permit(@text_search_inputs.map(&:to_sym) + default_params + [:page, :user_role, :sort, :sort_direction, :user_premium_status])
   end
 
   def user_query(params)
@@ -186,22 +186,25 @@ protected
     # User IP: users.ip_address
     # School name: schools.name
     # Premium status: subscriptions.account_type
+    sanitized_fuzzy_param_value = ActiveRecord::Base.sanitize('%' + param_value + '%')
     sanitized_param_value = ActiveRecord::Base.sanitize(param_value)
+    # sanitized_and_joined_param_value = ActiveRecord::Base.sanitize(param_value.join('\',\''))
+
     case param
     when 'user_name'
-      "users.name ILIKE '%#{(sanitized_param_value)}%'"
+      "users.name ILIKE #{(sanitized_fuzzy_param_value)}"
     when 'user_role'
-      "users.role = '#{(sanitized_param_value)}'"
+      "users.role = #{(sanitized_param_value)}"
     when 'user_username'
-      "users.username ILIKE '%#{(sanitized_param_value)}%'"
+      "users.username ILIKE #{(sanitized_fuzzy_param_value)}"
     when 'user_email'
-      "users.email ILIKE '%#{(sanitized_param_value)}%'"
+      "users.email ILIKE #{(sanitized_fuzzy_param_value)}"
     when 'user_ip'
-      "users.ip_address = '#{(sanitized_param_value)}'"
+      "users.ip_address = #{(sanitized_param_value)}"
     when 'school_name'
-      "schools.name ILIKE '%#{(sanitized_param_value)}%'"
+      "schools.name ILIKE #{(sanitized_fuzzy_param_value)}"
     when 'user_premium_status'
-      "subscriptions.account_type IN ('#{sanitized_param_value.join('\',\'')}')"
+      "subscriptions.account_type IN (#{sanitized_param_value})"
     else
       nil
     end
@@ -216,9 +219,7 @@ protected
     sort = user_query_params[:sort]
     sort_direction = user_query_params[:sort_direction]
     if sort && sort_direction && sort != 'undefined' && sort_direction != 'undefined'
-      sanitized_sort = ActiveRecord::Base.sanitize(sort)
-      sanitized_sort_direction = ActiveRecord::Base.sanitize(sort_direction)
-      "ORDER BY #{sanitized_sort} #{sanitized_sort_direction}"
+      "ORDER BY #{sort} #{sort_direction}"
     else
       "ORDER BY last_sign_in DESC"
     end
