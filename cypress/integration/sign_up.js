@@ -2,11 +2,24 @@ const faker = require('faker');
 
 describe('Sign Up page', function() {
 
-  before(function() {
-    cy.exec('RAILS_ENV=cypress spring rake find_or_create_cypress_test_data:find_or_create_school', {failOnNonZeroExit: false})
-    cy.visit('/account/new')
+  after(function() {
+    cy.logout()
   })
 
+  before(function() {
+    cy.cleanDatabase()
+    cy.factoryBotCreate({
+      factory: 'school',
+      name: 'Cool Bushwick School',
+      zipcode: 11221
+    }).then(() => {
+      cy.visit('/account/new')
+    })
+  })
+
+  beforeEach(() => {
+    Cypress.Cookies.preserveOnce('_quill_session')
+  })
   it('shows two options', function() {
     cy.contains('Educator')
     cy.contains('Student')
@@ -50,11 +63,6 @@ describe('Sign Up page', function() {
 
     it ('populates options for the schools in that zipcode', function() {
       cy.get('select').select('Cool Bushwick School')
-      // const children = getSelect.children();
-      // console.log(children);
-      // children.contains('Bushwick')
-      // getSelect.select(children[children.length - 1].value)
-      // cy.get('select').select(cy.get('select').children()[cy.get('select').children().length - 1].value)
     })
 
     it ('has a Confirm School button', function() {
@@ -102,13 +110,21 @@ describe('Sign Up page', function() {
 
   })
 
-  describe('I am a student with a non-unique username', function() {
-    before(()=>{
-      cy.exec('RAILS_ENV=cypress spring rake find_or_create_cypress_test_data:find_or_create_student', {failOnNonZeroExit: false})
+  describe('I am a student with a non-unique usernsame', function() {
+    before(function() {
+      cy.cleanDatabase()
+      cy.factoryBotCreate({
+        factory: 'student',
+        username: 'student',
+      }).then(() => {
+        cy.visit('/account/new')
+      })
+      beforeEach(() => {
+        Cypress.Cookies.preserveOnce('_quill_session')
+      })
     })
-    
+
     it ('clicking student takes me to a sign up form', function() {
-      cy.visit('/account/new')
       cy.contains('Student').click()
 
       const firstName = faker.name.firstName()

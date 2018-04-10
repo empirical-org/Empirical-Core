@@ -1,12 +1,18 @@
 describe('Teacher Navbar', function() {
-  after(() => {
-    cy.logout()
+  before(function() {
+    cy.cleanDatabase()
+    cy.factoryBotCreate({
+      factory: 'teacher_with_one_classroom',
+      password: 'password',
+      username: 'teacher'
+    }).then(() => {
+      cy.login('teacher', 'password')
+      cy.visit('/')
+    })
   })
 
-  before(function() {
-    cy.exec('RAILS_ENV=cypress rake find_or_create_cypress_test_data:find_or_create_teacher', {failOnNonZeroExit: false})
-    cy.login('teacher', 'password')
-    cy.visit('/')
+  after(() => {
+    cy.logout()
   })
 
   beforeEach(function() {
@@ -30,9 +36,9 @@ describe('Teacher Navbar', function() {
         cy.get('#teacher-center').contains('Getting Started').click({force: true})
         cy.url().should('include', '/teacher_resources/topic/getting_started')
       })
-      it('has a link to the Case Studies Page page', function() {
-        cy.get('#teacher-center').contains('Case Studies').click({force: true})
-        cy.url().should('include', '/teacher_resources/topic/case_studies')
+      it('has a link to the Teacher Stories Page page', function() {
+        cy.get('#teacher-center').contains('Teacher Stories').click({force: true})
+        cy.url().should('include', '/teacher_resources/topic/teacher_stories')
       })
       it('has a link to the Writing Instruction Research page', function() {
         cy.get('#teacher-center').contains('Writing Instruction Research').click({force: true})

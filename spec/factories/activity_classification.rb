@@ -1,7 +1,12 @@
 FactoryBot.define do
   factory :activity_classification, aliases: [:classification] do
     sequence(:id)  { |n| 100 + n } # prevent id collisions by starting ids at 100
-    sequence(:key) { |n| "key#{n}" }
+    sequence(:key) do |n|
+      loop do
+        possible_key = "key#{n}"
+        break possible_key unless ActivityClassification.exists?(key: possible_key)
+      end
+    end
     app_name       { key }
     name           { "Quill #{key.titleize}" }
     module_url     { Faker::Internet.url }
