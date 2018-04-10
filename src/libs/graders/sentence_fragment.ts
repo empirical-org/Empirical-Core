@@ -49,13 +49,12 @@ export function checkSentenceFragment(hash:{
     return Object.assign(responseTemplate, firstPass)
   }
 
-  responseTemplate.gradeIndex = `unmarked${hash.question_uid}`
   return responseTemplate;
 }
 
 function* firstPassMatchers(data, spellCorrected=false) {
   const {response, responses, incorrectSequences, ignoreCaseAndPunc, wordCountChange, prompt, checkML, mlUrl} = data;
-  const submission =  response
+  const submission =  response;
 
   yield exactMatch(submission, responses)
   yield incorrectSequenceChecker(submission, incorrectSequences, responses)
