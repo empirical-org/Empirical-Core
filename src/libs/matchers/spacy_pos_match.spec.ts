@@ -103,7 +103,6 @@ describe('The machineLearningSentenceMatchChecker function', () => {
         assert.equal(returnValue.feedback, "<p>You added an action. Good work! Now make the action word singular so it works with just <em>one</em> scientist.</p>");
         assert.equal(returnValue.optimal, false);
         assert.equal(returnValue.parent_id, 1646707);
-
     });
 
     it('should return a partialResponse object if the matcher returns false', async () => {
