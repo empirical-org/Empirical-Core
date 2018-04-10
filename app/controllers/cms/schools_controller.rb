@@ -216,20 +216,23 @@ class Cms::SchoolsController < Cms::CmsController
     # School zip: schools.zipcode or schools.mail_zipcode
     # District name: schools.leanm
     # Premium status: subscriptions.account_type
+    sanitized_fuzzy_param_value = ActiveRecord::Base.sanitize('%' + param_value + '%')
     sanitized_param_value = ActiveRecord::Base.sanitize(param_value)
+    sanitized_and_joined_param_value = ActiveRecord::Base.sanitize(param_value.join('\',\''))
+
     case param
     when 'school_name'
-      "schools.name ILIKE '%#{(sanitized_param_value)}%'"
+      "schools.name ILIKE #{sanitized_fuzzy_param_value}"
     when 'school_city'
-      "(schools.city ILIKE '%#{(sanitized_param_value)}%' OR schools.mail_city ILIKE '%#{(sanitized_param_value)}%')"
+      "(schools.city ILIKE #{sanitized_fuzzy_param_value} OR schools.mail_city ILIKE #{sanitized_fuzzy_param_value}"
     when 'school_state'
-      "(UPPER(schools.state) = UPPER('#{sanitized_param_value}') OR UPPER(schools.mail_state) = UPPER('#{sanitized_param_value}'))"
+      "(UPPER(schools.state) = UPPER(#{sanitized_param_value}) OR UPPER(schools.mail_state) = UPPER(#{sanitized_param_value}))"
     when 'school_zip'
-      "(schools.zipcode = '#{sanitized_param_value}' OR schools.mail_zipcode = '#{sanitized_param_value}')"
+      "(schools.zipcode = #{sanitized_param_value} OR schools.mail_zipcode = #{sanitized_param_value})"
     when 'district_name'
-      "schools.leanm ILIKE '%#{(sanitized_param_value)}%'"
+      "schools.leanm ILIKE #{sanitized_fuzzy_param_value}"
     when 'premium_status'
-      "subscriptions.account_type IN ('#{sanitized_param_value.join('\',\'')}')"
+      "subscriptions.account_type IN (sanitized_and_joined_param_value)"
     else
       nil
     end

@@ -20,6 +20,7 @@ export default class CmsUserIndex extends React.Component {
     this.search = this.search.bind(this)
     this.updatePage = this.updatePage.bind(this)
     this.submitPageForm = this.submitPageForm.bind(this)
+    this.updatePremiumStatus = this.updatePremiumStatus.bind(this)
   }
 
   getColumns() {
@@ -111,10 +112,15 @@ export default class CmsUserIndex extends React.Component {
     this.setState(newState)
   }
 
-  updateUserRole(e) {
-    const selectedOptions = e.target.options.filter(o => o.selected)
+  updatePremiumStatus(e) {
+    const selectedOptions = []
+    Array.from(e.target.options).forEach(o => {
+      if (o.selected) {
+        selectedOptions.push(o.value)
+      }
+    })
     const newState = { ...this.state }
-    newState.query.user_role = selectedOptions
+    newState.query.user_premium_status = selectedOptions
     this.setState(newState)
   }
 
@@ -126,14 +132,14 @@ export default class CmsUserIndex extends React.Component {
 
   renderPremiumStatusSelect() {
     const options = this.props.schoolPremiumTypes.map(o => <option value={o}>{o}</option>)
-    return <select multiple={true} onChange={(e) => this.updateField(e, 'user_premium_status')}>
+    return <select multiple={true} onChange={this.updatePremiumStatus}>
       {options}
     </select>
   }
 
   renderUserRoleSelect() {
     const options = [<option value></option>].concat(this.props.userRoleTypes.map(o => <option value={o}>{o}</option>))
-    return <select onChange={this.updateUserRole}>
+    return <select onChange={e => this.updateField(e, 'user_role')}>
       {options}
     </select>
   }
@@ -184,79 +190,80 @@ export default class CmsUserIndex extends React.Component {
   renderTableOrLoading() {
     if (this.state.loading) {
       return <LoadingIndicator/>
+    } else if (this.state.data && this.state.data.length) {
+      const sort = this.state.query.sort ? this.state.query.sort : 'last_sign_in'
+      const sortDescending = this.state.query.sort_direction ? this.state.query.sort_direction === 'desc' : true
+      return (<div>
+        <ReactTable data={this.state.data}
+          columns={this.state.columns}
+          showPagination={false}
+          defaultSorted={[{id: sort, desc: sortDescending}]}
+          showPaginationTop={false}
+          showPaginationBottom={false}
+          showPageSizeOptions={false}
+          defaultPageSize={100}
+          minRows={1}
+          className='progress-report activity-scores-table'
+          onSortedChange={this.setSort}
+        />
+        <div className='cms-pagination-container'>
+          {this.renderPageSelector()}
+        </div>
+      </div>)
+    } else {
+      return <p>No records found.</p>
     }
-    const sort = this.state.query.sort ? this.state.query.sort : 'last_sign_in'
-    const sortDescending = this.state.query.sort_direction ? this.state.query.sort_direction === 'desc' : true
-    return (<div>
-      <ReactTable data={this.state.data}
-      columns={this.state.columns}
-      showPagination={false}
-      defaultSorted={[{id: sort, desc: sortDescending}]}
-      showPaginationTop={false}
-      showPaginationBottom={false}
-      showPageSizeOptions={false}
-      defaultPageSize={100}
-      minRows={1}
-      className='progress-report activity-scores-table'
-      onSortedChange={this.setSort}
-    />
-      <div className='cms-pagination-container'>
-        {this.renderPageSelector()}
-      </div>
-    </div>)
 
   }
 
   render() {
-    if (this.state.data && this.state.data.length) {
-      return (<div>
-        <div className='cms-form'>
-          <div className='cms-meta-middle'>
-            <div className='cms-form-row'>
-              <label>Name</label>
-              <input id='user_name' name='user_name' value={this.state.query.user_name} onChange={e => this.updateField(e, 'user_name')}/>
-            </div>
-
-            <div className='cms-form-row'>
-              <label>Username</label>
-              <input id='user_username' name='user_username' value={this.state.query.user_username} onChange={e => this.updateField(e, 'user_username')}/>
-            </div>
-
-              <div className='cms-form-row'>
-              <label>Email</label>
-              <input id='user_email' name='user_email' value={this.state.query.user_email} onChange={e => this.updateField(e, 'user_email')}/>
-            </div>
-
-              <div className='cms-form-row'>
-              <label>Ip</label>
-              <input id='user_ip' name='user_ip' value={this.state.query.user_ip} onChange={e => this.updateField(e, 'user_ip')}/>
-            </div>
-
-            <div className='cms-form-row'>
-              <label>School Name</label>
-              <input id='school_name' name='school_name' value={this.state.query.school_name} onChange={e => this.updateField(e, 'school_name')}/>
-            </div>
+    return (<div>
+      <div className='cms-form'>
+        <div className='cms-meta-middle'>
+          <div className='cms-form-row'>
+            <label>Name</label>
+            <input id='user_name' name='user_name' value={this.state.query.user_name} onChange={e => this.updateField(e, 'user_name')}/>
           </div>
 
-          <div className='cms-meta-right'>
-            <div className='cms-form-row'>
-              <label>Premium Status</label>
-              {this.renderPremiumStatusSelect()}
-            </div>
+          <div className='cms-form-row'>
+            <label>Username</label>
+            <input id='user_username' name='user_username' value={this.state.query.user_username} onChange={e => this.updateField(e, 'user_username')}/>
+          </div>
 
             <div className='cms-form-row'>
-              <label>Role</label>
-              {this.renderUserRoleSelect()}
-            </div>
+            <label>Email</label>
+            <input id='user_email' name='user_email' value={this.state.query.user_email} onChange={e => this.updateField(e, 'user_email')}/>
+          </div>
 
-            <div className='cms-submit-row'>
-              <input onClick={this.search} type="submit" value="Submit" />
-            </div>
+            <div className='cms-form-row'>
+            <label>Ip</label>
+            <input id='user_ip' name='user_ip' value={this.state.query.user_ip} onChange={e => this.updateField(e, 'user_ip')}/>
+          </div>
+
+          <div className='cms-form-row'>
+            <label>School Name</label>
+            <input id='school_name' name='school_name' value={this.state.query.school_name} onChange={e => this.updateField(e, 'school_name')}/>
           </div>
         </div>
-        {this.renderTableOrLoading()}
+
+        <div className='cms-meta-right'>
+          <div className='cms-form-row'>
+            <label>Premium Status</label>
+            {this.renderPremiumStatusSelect()}
+          </div>
+
+          <div className='cms-form-row'>
+            <label>Role</label>
+            {this.renderUserRoleSelect()}
+          </div>
+
+          <div className='cms-submit-row'>
+            <input onClick={this.search} type="submit" value="Submit" />
+          </div>
+        </div>
       </div>
-      )
-    }
+      {this.renderTableOrLoading()}
+    </div>
+    )
   }
 }
