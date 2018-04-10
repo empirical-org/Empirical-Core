@@ -108,6 +108,7 @@ describe('The machineLearningSentenceMatchChecker function', () => {
     it('should return a partialResponse object if the matcher returns false', async () => {
         const responseString = 'My grumpy dog took a nap.';
         const returnValue = await spacyPOSSentenceChecker(responseString, "-KX7RNIvRs5HN9oD-vA2", 'http://localhost:3100', returnsFalse)
+        console.log("return value:  ", returnValue)
         assert.equal(returnValue, undefined);
     });
 

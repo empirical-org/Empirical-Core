@@ -4,7 +4,7 @@ import {Response, PartialResponse, ConceptResult, WordCountChange} from '../../i
 import {feedbackStrings} from '../constants/feedback_strings'
 import {conceptResultTemplate} from '../helpers/concept_result_template'
 
-export function spacyPOSSentenceMatch(response: string, question_uid: string, link: string): Promise<any> {
+export async function spacyPOSSentenceMatch(response: string, question_uid: string, link: string): Promise<any> {
   const options = {
     method: 'POST',
     body: JSON.stringify({
@@ -16,7 +16,7 @@ export function spacyPOSSentenceMatch(response: string, question_uid: string, li
     headers: { "Content-Type": "application/json" }
   };
   const url = `${link}/get_pos_match`;
-  return fetch(url, options)
+  return await fetch(url, options)
       .then(response => response.json())
       .then(parsedResponse => parsedResponse.match);
 }
