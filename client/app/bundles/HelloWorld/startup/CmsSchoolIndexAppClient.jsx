@@ -248,8 +248,8 @@ export default class CmsSchoolIndex extends React.Component {
               <input onClick={this.search} type="submit" value="Submit" />
             </div>
           </div>
-      </div>
-      {this.renderTableOrLoading()}
+        </div>
+        {this.renderTableOrLoading()}
       </div>)
     }
   }
