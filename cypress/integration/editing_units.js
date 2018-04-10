@@ -148,7 +148,7 @@ describe('Editing Units', function() {
   })
 
   after(function() {
-    // cy.logout()
+    cy.logout()
   })
 
 })
