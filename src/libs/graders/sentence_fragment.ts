@@ -30,10 +30,8 @@ export function checkSentenceFragment(hash:{
   const responseTemplate = {
     text: hash.response,
     question_uid: hash.question_uid,
-    gradeIndex: `nonhuman${hash.question_uid}`,
-    count: 1,
-    optimal: false
-  }
+    count: 1
+  };
   const data = {
     response: hash.response,
     responses: _.sortBy(hash.responses, r => r.count).reverse(),
@@ -52,7 +50,7 @@ export function checkSentenceFragment(hash:{
   }
 
   responseTemplate.gradeIndex = `unmarked${hash.question_uid}`
-  return responseTemplate
+  return responseTemplate;
 }
 
 function* firstPassMatchers(data, spellCorrected=false) {
