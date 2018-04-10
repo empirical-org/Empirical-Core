@@ -127,7 +127,7 @@ class Cms::SchoolsController < Cms::CmsController
   end
 
   def all_search_inputs
-    @text_search_inputs.map(&:to_sym) + [:sort, :sort_direction, :page, :search_schools_with_zero_teachers, :premium_status => []]
+    @text_search_inputs.map(&:to_sym) + [:sort, :sort_direction, :page, :search_schools_with_zero_teachers, :premium_status]
   end
 
   def school_query_params
@@ -218,7 +218,6 @@ class Cms::SchoolsController < Cms::CmsController
     # Premium status: subscriptions.account_type
     sanitized_fuzzy_param_value = ActiveRecord::Base.sanitize('%' + param_value + '%')
     sanitized_param_value = ActiveRecord::Base.sanitize(param_value)
-    sanitized_and_joined_param_value = ActiveRecord::Base.sanitize(param_value.join('\',\''))
 
     case param
     when 'school_name'
@@ -232,7 +231,7 @@ class Cms::SchoolsController < Cms::CmsController
     when 'district_name'
       "schools.leanm ILIKE #{sanitized_fuzzy_param_value}"
     when 'premium_status'
-      "subscriptions.account_type IN (sanitized_and_joined_param_value)"
+      "subscriptions.account_type IN (#{sanitized_param_value})"
     else
       nil
     end
