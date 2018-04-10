@@ -143,6 +143,7 @@ protected
 
     # NOTE: IF YOU CHANGE THIS QUERY'S CONDITIONS, PLEASE BE SURE TO
     # ADJUST THE PAGINATION QUERY STRING AS WELL.
+    #
     ActiveRecord::Base.connection.execute("
       SELECT
       	users.name AS name,
@@ -158,10 +159,11 @@ protected
       LEFT JOIN schools ON schools_users.school_id = schools.id
       LEFT JOIN user_subscriptions ON users.id = user_subscriptions.user_id
       LEFT JOIN subscriptions ON user_subscriptions.subscription_id = subscriptions.id
-      #{ActiveRecord::Base.sanitize(where_query_string_builder)}
-      #{ActiveRecord::Base.sanitize(order_by_query_string)}
-      #{ActiveRecord::Base.sanitize(pagination_query_string)}
+      #{where_query_string_builder}
+      #{order_by_query_string}
+      #{pagination_query_string}
     ").to_a
+
   end
 
   def where_query_string_builder
@@ -184,21 +186,22 @@ protected
     # User IP: users.ip_address
     # School name: schools.name
     # Premium status: subscriptions.account_type
+    sanitized_param_value = ActiveRecord::Base.sanitize(param_value)
     case param
     when 'user_name'
-      "users.name ILIKE '%#{(param_value)}%'"
+      "users.name ILIKE '%#{(sanitized_param_value)}%'"
     when 'user_role'
-      "users.role = '#{(param_value)}'"
+      "users.role = '#{(sanitized_param_value)}'"
     when 'user_username'
-      "users.username ILIKE '%#{(param_value)}%'"
+      "users.username ILIKE '%#{(sanitized_param_value)}%'"
     when 'user_email'
-      "users.email ILIKE '%#{(param_value)}%'"
+      "users.email ILIKE '%#{(sanitized_param_value)}%'"
     when 'user_ip'
-      "users.ip_address = '#{(param_value)}'"
+      "users.ip_address = '#{(sanitized_param_value)}'"
     when 'school_name'
-      "schools.name ILIKE '%#{(param_value)}%'"
+      "schools.name ILIKE '%#{(sanitized_param_value)}%'"
     when 'user_premium_status'
-      "subscriptions.account_type IN ('#{param_value.join('\',\'')}')"
+      "subscriptions.account_type IN ('#{sanitized_param_value.join('\',\'')}')"
     else
       nil
     end
@@ -213,7 +216,9 @@ protected
     sort = user_query_params[:sort]
     sort_direction = user_query_params[:sort_direction]
     if sort && sort_direction && sort != 'undefined' && sort_direction != 'undefined'
-      "ORDER BY #{sort} #{sort_direction}"
+      sanitized_sort = ActiveRecord::Base.sanitize(sort)
+      sanitized_sort_direction = ActiveRecord::Base.sanitize(sort_direction)
+      "ORDER BY #{sanitized_sort} #{sanitized_sort_direction}"
     else
       "ORDER BY last_sign_in DESC"
     end
