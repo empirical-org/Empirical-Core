@@ -32,5 +32,11 @@ FactoryBot.define do
       fte_classroom_teacher { Faker::Number.number(100) }
       ppin { "A#{Faker::Number.unique.number(7)}" }
     end
+
+    factory :school_with_three_teachers do
+      after(:create) do |school|
+        activities = create_list(:schools_users, 3, school: school)
+      end
+    end
   end
 end

@@ -170,11 +170,11 @@ class Cms::SchoolsController < Cms::CmsController
       LEFT JOIN schools_admins ON schools_admins.school_id = schools.id
       LEFT JOIN school_subscriptions ON school_subscriptions.school_id = schools.id
       LEFT JOIN subscriptions ON subscriptions.id = school_subscriptions.subscription_id
-      #{ActiveRecord::Base.sanitize(where_query_string_builder)}
+      #{where_query_string_builder}
       GROUP BY schools.name, schools.leanm, schools.city, schools.state, schools.zipcode, schools.free_lunches, subscriptions.account_type, schools.id
-      #{ActiveRecord::Base.sanitize(having_string)}
-      #{ActiveRecord::Base.sanitize(order_by_query_string)}
-      #{ActiveRecord::Base.sanitize(pagination_query_string)}
+      #{having_string}
+      #{order_by_query_string}
+      #{pagination_query_string}
     ").to_a.map do |school|
       school['school_zip'] = school['school_zip'].to_i
       school['number_teachers'] = school['number_teachers'].to_i
@@ -216,19 +216,20 @@ class Cms::SchoolsController < Cms::CmsController
     # School zip: schools.zipcode or schools.mail_zipcode
     # District name: schools.leanm
     # Premium status: subscriptions.account_type
+    sanitized_param_value = ActiveRecord::Base.sanitize(param_value)
     case param
     when 'school_name'
-      "schools.name ILIKE '%#{(param_value)}%'"
+      "schools.name ILIKE '%#{(sanitized_param_value)}%'"
     when 'school_city'
-      "(schools.city ILIKE '%#{(param_value)}%' OR schools.mail_city ILIKE '%#{(param_value)}%')"
+      "(schools.city ILIKE '%#{(sanitized_param_value)}%' OR schools.mail_city ILIKE '%#{(sanitized_param_value)}%')"
     when 'school_state'
-      "(UPPER(schools.state) = UPPER('#{param_value}') OR UPPER(schools.mail_state) = UPPER('#{param_value}'))"
+      "(UPPER(schools.state) = UPPER('#{sanitized_param_value}') OR UPPER(schools.mail_state) = UPPER('#{sanitized_param_value}'))"
     when 'school_zip'
-      "(schools.zipcode = '#{param_value}' OR schools.mail_zipcode = '#{param_value}')"
+      "(schools.zipcode = '#{sanitized_param_value}' OR schools.mail_zipcode = '#{sanitized_param_value}')"
     when 'district_name'
-      "schools.leanm ILIKE '%#{(param_value)}%'"
+      "schools.leanm ILIKE '%#{(sanitized_param_value)}%'"
     when 'premium_status'
-      "subscriptions.account_type IN ('#{param_value.join('\',\'')}')"
+      "subscriptions.account_type IN ('#{sanitized_param_value.join('\',\'')}')"
     else
       nil
     end
