@@ -116,21 +116,24 @@ const PlaySentenceFragment = React.createClass<any, any>({
           question_uid: key,
           response: this.state.response,
           checkML: true,
-          mlUrl: process.env.QUILL_CMS,
+          mlUrl: 'https://nlp.quill.org',
           responses,
           wordCountChange,
           ignoreCaseAndPunc,
           prompt,
           incorrectSequences
         }
-        const matched = {response: checkSentenceFragment(fields)}
-        console.log(typeof(matched), typeof(matched) === 'object')
-        if (typeof(matched) === 'object') {
-          updateResponseResource(matched, key, attempts, this.props.dispatch, );
-          this.props.updateAttempts(matched);
-          this.setState({ checkAnswerEnabled: true, });
-          this.props.handleAttemptSubmission();
-        }
+        checkSentenceFragment(fields).then((resp) => {
+          const matched = {response: resp}
+          console.log(typeof(matched), typeof(matched) === 'object')
+          if (typeof(matched) === 'object') {
+            updateResponseResource(matched, key, attempts, this.props.dispatch, );
+            this.props.updateAttempts(matched);
+            this.setState({ checkAnswerEnabled: true, });
+            this.props.handleAttemptSubmission();
+          }
+        })
+        
       });
     }
   },

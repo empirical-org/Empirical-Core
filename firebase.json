@@ -6,8 +6,8 @@
       "**/.*",
       "**/node_modules/**"
     ]
-  },
-  "database": {
-    "rules": "database.rules.json"
   }
+  // "database": {
+  //   "rules": "database.rules.json"
+  // }
 }

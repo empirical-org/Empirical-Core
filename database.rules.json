@@ -13,12 +13,7 @@
         ".write": true,
         ".read": "auth.token.staff === true",
         "$classroom_lesson_session_id": {
-          ".read": "root.child('v2/classroom_lesson_sessions/'+$classroom_lesson_session_id+'/teacher_ids/'+auth.uid).exists()
-                    || data.child('preview').val() === true
-                    || root.child('v2/classroom_lesson_sessions/'+$classroom_lesson_session_id+'/student_ids/'+auth.uid).exists()
-                    || !data.exists()
-                    || !root.child('v2/classroom_lesson_sessions/'+$classroom_lesson_session_id+'/teacher_ids/').exists()
-                    || auth.token.staff === true"
+          ".read": "root.child('v2/classroom_lesson_sessions/'+$classroom_lesson_session_id+'/teacher_ids/'+auth.uid).exists() || data.child('preview').val() === true || root.child('v2/classroom_lesson_sessions/'+$classroom_lesson_session_id+'/student_ids/'+auth.uid).exists() || !data.exists() || !root.child('v2/classroom_lesson_sessions/'+$classroom_lesson_session_id+'/teacher_ids/').exists() || auth.token.staff === true"
         }
       },
       "classroom_lessons": {
