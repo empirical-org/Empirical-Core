@@ -44,6 +44,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
         LEFT JOIN activity_sessions ON classroom_activities.id = activity_sessions.classroom_activity_id
         WHERE classroom_activities.unit_id = #{ActiveRecord::Base.sanitize(unit_id)}
           AND classroom_activities.activity_id = #{ActiveRecord::Base.sanitize(activity_id)}
+          AND classroom_activities.visible = TRUE
           AND activity_sessions.is_final_score = TRUE
         ORDER BY activity_sessions.updated_at DESC
         LIMIT 1;").to_a
