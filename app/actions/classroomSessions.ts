@@ -18,82 +18,59 @@ import {
  ClassroomLesson
 } from '../interfaces/classroomLessons';
 import * as CustomizeIntf from '../interfaces/customize'
+import uuid from 'uuid/v4';
+import openSocket from 'socket.io-client';
 
+const socket = openSocket('http://localhost:8000');
 
 export function startListeningToSession(classroom_activity_id: string) {
-  return function (dispatch) {
-    let initialized = false
-    setTimeout(() => {
-      if (!initialized) {
-        // if the snapshot cannot be read within 60 seconds, it is probably not being authenticated by firebase
+  return function(dispatch) {
+    socket.on(`classroomLessonSession:${classroom_activity_id}`, (data) => {
+      if (data) {
+        dispatch(updateSession(data));
+      } else {
         dispatch({type: C.NO_CLASSROOM_ACTIVITY, data: classroom_activity_id})
       }
-    }, 6000)
-    classroomSessionsRef.child(classroom_activity_id).on('value', (snapshot) => {
-      if (snapshot && snapshot.val()) {
-        dispatch(updateSession(snapshot.val()));
+    });
+    socket.emit('subscribeToClassroomLessonSession', classroom_activity_id);
+  };
+}
+
+export function startLesson(classroomActivityId: string, callback?: Function) {
+  socket.emit('createOrUpdateClassroomLessonSession', classroomActivityId);
+  if (callback) {
+    callback();
+  }
+}
+
+export function toggleOnlyShowHeaders() {
+  return function (dispatch)
+    dispatch({type: C.TOGGLE_HEADERS})
+  }
+}
+
+export function startListeningToSessionWithoutCurrentSlide(
+  classroom_activity_id: string,
+  lesson_id: string
+) {
+  return function (dispatch) {
+    socket.on(`classroomLessonSession:${classroom_activity_id}`, (session) => {
+      if (session) {
+        delete session.current_slide
+        dispatch(updateClassroomSessionWithoutCurrentSlide(session));
+        dispatch(getInitialData(
+          classroom_activity_id,
+          lesson_id,
+          initialized,
+          session.preview
+        ))
         initialized = true
       } else {
         dispatch({type: C.NO_CLASSROOM_ACTIVITY, data: classroom_activity_id})
       }
     });
-  };
-}
-
-export function startLesson(classroom_activity_id: string, callback?: Function) {
-  const sessionRef = classroomSessionsRef.child(classroom_activity_id)
-  sessionRef.once('value', (snapshot) => {
-      const session = snapshot.val()
-      fetch(`${process.env.EMPIRICAL_BASE_URL}/api/v1/classroom_activities/${classroom_activity_id}/classroom_teacher_and_coteacher_ids`, {
-        method: "GET",
-        mode: "cors",
-        credentials: 'include',
-      }).then(response => {
-        if (!response.ok) {
-          console.log(response.statusText)
-        } else {
-          return response.json()
-        }
-      }).then(response => {
-        response ? session.teacher_ids = response.teacher_ids : undefined
-        session.current_slide = session && session.current_slide ? session.current_slide : 0
-        session.startTime = session && session.startTime ? session.startTime : firebase.database.ServerValue.TIMESTAMP
-        sessionRef.set({...session})
-        if (callback) {
-          callback()
-        }
-      })
-    }
-  )
-}
-
-export function toggleOnlyShowHeaders() {
-  return function (dispatch) {
-    dispatch({type: C.TOGGLE_HEADERS})
+    socket.emit('subscribeToClassroomLessonSession', classroom_activity_id);
   }
-}
-
-export function startListeningToSessionWithoutCurrentSlide(classroom_activity_id: string, lesson_id: string) {
-  return function (dispatch) {
-    let initialized = false
-    setTimeout(() => {
-      if (!initialized) {
-        // if the snapshot cannot be read within 60 seconds, it is probably not being authenticated by firebase
-        dispatch({type: C.NO_CLASSROOM_ACTIVITY, data: classroom_activity_id})
-      }
-    }, 6000)
-    classroomSessionsRef.child(classroom_activity_id).on('value', (snapshot) => {
-      if (snapshot && snapshot.val()) {
-        const payload = snapshot.val()
-        delete payload.current_slide
-        dispatch(updateClassroomSessionWithoutCurrentSlide(payload));
-        dispatch(getInitialData(classroom_activity_id, lesson_id, initialized, payload.preview))
-        initialized = true
-      } else {
-        dispatch({type: C.NO_CLASSROOM_ACTIVITY, data: classroom_activity_id})
-      }
-    })
-  };
 }
 
 export function updateClassroomSessionWithoutCurrentSlide(data) {
@@ -132,13 +109,14 @@ export function getPreviewData(ca_id: string, lesson_id: string) {
 
 export function startListeningToCurrentSlide(classroom_activity_id: string) {
   return function (dispatch) {
-    classroomSessionsRef.child(`${classroom_activity_id}/current_slide`).on('value', (snapshot) => {
-      if (snapshot && snapshot.val()) {
-        console.log('listening to current slide ', snapshot.val())
-        dispatch(updateSlideInStore(snapshot.val()));
+    socket.on(`currentSlide:${classroom_activity_id}`, (slide) => {
+      if (slide) {
+        console.log('listening to current slide ', slide);
+        dispatch(updateSlideInStore(slide));
       }
     });
-  };
+    socket.emit('subscribeToCurrentSlide', classroom_activity_id);
+  }
 }
 
 export function updateSession(data: object): {type: string; data: any;} {
@@ -525,14 +503,42 @@ export function loadSupportingInfo(lesson_id: string, classroom_activity_id: str
   };
 }
 
+// export function createPreviewSession(edition_id?:string) {
+//   let previewSession
+//   if (edition_id) {
+//     previewSession = classroomSessionsRef.push({ 'students': {'student': 'James Joyce'}, 'current_slide': '0', 'public': true, 'preview': true, 'edition_id': edition_id})
+//   } else {
+//     previewSession = classroomSessionsRef.push({ 'students': {'student': 'James Joyce'}, 'current_slide': '0', 'public': true, 'preview': true})
+//   }
+//   return previewSession.key
+// }
+
 export function createPreviewSession(edition_id?:string) {
-  let previewSession
+  const classroomActivityId = uuid();
+  let previewSession;
+
   if (edition_id) {
-    previewSession = classroomSessionsRef.push({ 'students': {'student': 'James Joyce'}, 'current_slide': '0', 'public': true, 'preview': true, 'edition_id': edition_id})
+    previewSession = {
+      'students': { 'student': 'James Joyce' },
+      'current_slide': '0',
+      'public': true,
+      'preview': true,
+      'edition_id': edition_id,
+      'id': classroomActivityId,
+    }
   } else {
-    previewSession = classroomSessionsRef.push({ 'students': {'student': 'James Joyce'}, 'current_slide': '0', 'public': true, 'preview': true})
+    previewSession = {
+      'students': { 'student': 'James Joyce' },
+      'current_slide': '0',
+      'public': true,
+      'preview': true,
+      'id': classroomActivityId,
+    }
   }
-  return previewSession.key
+
+  socket.emit('createPreviewSession', previewSession)
+
+  return classroomActivityId;
 }
 
 export function saveReview(activity_id:string, classroom_activity_id:string, value:number) {
