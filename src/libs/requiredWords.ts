@@ -1,7 +1,7 @@
 import * as _ from 'underscore';
-import {
-  getPartsOfSpeechWordsWithTags
-} from './partsOfSpeechTagging';
+// import {
+//   getPartsOfSpeechWordsWithTags
+// } from './partsOfSpeechTagging';
 import {Response, FeedbackObject} from '../interfaces/index'
 
 const posTranslations = {
@@ -57,25 +57,13 @@ export function getCommonWords(sentences: Array<string>):Array<string> {
 
 export function getCommonWordsWithImportantPOS(sentences: Array<string>):Array<string> {
   const allCommonWords = getCommonWords(sentences);
-  return _.reject(allCommonWords, (word) => {
-    if (getPartsOfSpeechWordsWithTags(word)[0]) {
-      const tag = getPartsOfSpeechWordsWithTags(word)[0][1];
-      return !posTranslations[tag];
-    } else {
-      return true;
-    }
-  });
+  return allCommonWords;
 }
 
 export function getMissingWords(userString: string, sentences: Array<string>):Array<string> {
   const commonWords = getCommonWordsWithImportantPOS(sentences);
   const wordsFromUser = normalizeString(userString).split(' ');
   return _.reject(commonWords, commonWord => _.contains(wordsFromUser, commonWord));
-}
-
-export function getPOSForWord(word: string):string {
-  const tag = getPartsOfSpeechWordsWithTags(word)[0][1];
-  return posTranslations[tag];
 }
 
 function _getCaseSensitiveWord(word: string, optimalSentence: string):string {
@@ -86,7 +74,6 @@ function _getCaseSensitiveWord(word: string, optimalSentence: string):string {
 }
 
 export function getFeedbackForWord(word: string, sentences:Array<string>, isSentenceFragment:Boolean):string {
-  // const tag = getPOSForWord(word).toLowerCase();
   if (isSentenceFragment) {
     return `<p>Revise your work. Use all the words from the prompt, and make it complete by adding to it.</p>`;
   }

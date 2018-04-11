@@ -2,7 +2,6 @@ import {responses, incorrectSequences} from '../../../test/data/batswings'
 import { assert } from 'chai';
 import {checkSentenceFragment} from './sentence_fragment'
 // import {checkSentenceFragment} from '../../../dist/lib'
-import {partsOfSpeechChecker} from '../matchers/parts_of_speech_match'
 import {Response} from '../../interfaces';
 import { feedbackStrings } from '../constants/feedback_strings';
 import {spacingBeforePunctuation} from '../algorithms/spacingBeforePunctuation'
@@ -26,7 +25,9 @@ describe('The checking a sentence fragment', () => {
         wordCountChange: {min: 1, max: 4}
       };
       const matchedResponse = checkSentenceFragment(fields);
-      assert.equal(matchedResponse.id, responses[0].id);
+      matchedResponse.then(resp => {
+        assert.equal(resp.id, responses[0].id);
+      })
     });
 
     it('should be able to find an incorrect sequence match', () => {
@@ -36,7 +37,9 @@ describe('The checking a sentence fragment', () => {
         response: 'So bats have wings and they can fly.',
       };
       const matchedResponse = checkSentenceFragment(fields);
-      assert.equal(matchedResponse.feedback, incorrectSequences[0].feedback);
+      matchedResponse.then(resp => {
+        assert.equal(resp.feedback, incorrectSequences[0].feedback);
+      })
     });
     //
     it('should be able to find a length match', () => {
@@ -45,7 +48,9 @@ describe('The checking a sentence fragment', () => {
         response: 'Bats have wings, which means that they can fly very far.',
       };
       const matchedResponse = checkSentenceFragment(fields);
-      assert.equal(matchedResponse.feedback, 'Revise your work. Add one to three words to the prompt to make the sentence complete.');
+      matchedResponse.then(resp => {
+        assert.equal(resp.feedback, 'Revise your work. Add one to three words to the prompt to make the sentence complete.');
+      })
     })
 
     it('should be able to find a case insensitive match', () => {
@@ -54,7 +59,9 @@ describe('The checking a sentence fragment', () => {
         response: "bats have wings, so they can fly.",
       };
       const matchedResponse = checkSentenceFragment(fields);
-      assert.equal(matchedResponse.feedback, feedbackStrings.caseError);
+      matchedResponse.then(resp => {
+        assert.equal(resp.feedback, feedbackStrings.caseError);
+      })
     });
 
     it('should be able to find a punctuation insensitive match', () => {
@@ -63,7 +70,9 @@ describe('The checking a sentence fragment', () => {
         response: "Bats have wings so they can fly far",
       };
       const matchedResponse = checkSentenceFragment(fields);
-      assert.equal(matchedResponse.feedback, feedbackStrings.punctuationError);
+      matchedResponse.then(resp => {
+        assert.equal(resp.feedback, feedbackStrings.punctuationError);
+      })
     });
 
     it('should be able to find a punctuation and case insensitive match', () => {
@@ -78,7 +87,9 @@ describe('The checking a sentence fragment', () => {
         response: "Bats have wings so they can fly far .",
       };
       const matchedResponse = checkSentenceFragment(fields);
-      assert.equal(matchedResponse.feedback, spacingBeforePunctuation("Bats have wings so they can fly far .").feedback);
+      matchedResponse.then(resp => {
+        assert.equal(resp.feedback, spacingBeforePunctuation("Bats have wings so they can fly far .").feedback);
+      });
     });
 
     it('should be able to find a spacing after comma match', () => {
@@ -87,7 +98,9 @@ describe('The checking a sentence fragment', () => {
         response: "Bats have wings,so they can fly far.",
       };
       const matchedResponse = checkSentenceFragment(fields);
-      assert.equal(matchedResponse.feedback, feedbackStrings.spacingAfterCommaError);
+      matchedResponse.then(resp => {
+        assert.equal(resp.feedback, feedbackStrings.spacingAfterCommaError);
+      });
     });
   });
 });

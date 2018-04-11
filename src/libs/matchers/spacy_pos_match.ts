@@ -4,7 +4,7 @@ import {Response, PartialResponse, ConceptResult, WordCountChange} from '../../i
 import {feedbackStrings} from '../constants/feedback_strings'
 import {conceptResultTemplate} from '../helpers/concept_result_template'
 
-export async function spacyPOSSentenceMatch(response: string, question_uid: string, link: string): Promise<any> {
+export function spacyPOSSentenceMatch(response: string, question_uid: string, link: string): Promise<any> {
   const options = {
     method: 'POST',
     body: JSON.stringify({
@@ -16,17 +16,20 @@ export async function spacyPOSSentenceMatch(response: string, question_uid: stri
     headers: { "Content-Type": "application/json" }
   };
   const url = `${link}/get_pos_match`;
-  return await fetch(url, options)
-      .then(response => response.json())
-      .then(parsedResponse => parsedResponse.match);
+  return fetch(url, options)
+    .then((response) => response.json())
+    .then(json => json.match);
 }
 
-export async function spacyPOSSentenceChecker(responseString: string, question_uid: string, link:string, matcherFunction:Function=spacyPOSSentenceMatch):Promise<PartialResponse|undefined> {
-  const match: any = await matcherFunction(responseString, question_uid, link);
-  return match ? spacyPOSSentenceResponseBuilder(match) : undefined;
+export async function spacyPOSSentenceChecker(responseString: string, question_uid: string, link: string, matcherFunction: Function=spacyPOSSentenceMatch): Promise<PartialResponse|undefined> {
+  const match = await matcherFunction(responseString, question_uid, link);
+  const val = match ? spacyPOSSentenceResponseBuilder(match) : undefined;
+  if (val) {
+    return val;
+  }
 }
 
-export function spacyPOSSentenceResponseBuilder(match:any): PartialResponse {
+export function spacyPOSSentenceResponseBuilder(match: Response): PartialResponse {
   const res: PartialResponse = {
     author: 'Parts of Speech',
     parent_id: match.id,

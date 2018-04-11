@@ -9,4 +9,4 @@ export declare function checkSentenceFragment(hash: {
     prompt: string;
     checkML?: Boolean;
     mlUrl?: string;
-}): Response;
+}): Promise<Response>;

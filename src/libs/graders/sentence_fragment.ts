@@ -16,7 +16,7 @@ import {requiredWordsChecker} from '../matchers/required_words_match'
 import {spacyPOSSentenceChecker} from '../matchers/spacy_pos_match'
 import {machineLearningSentenceChecker} from '../matchers/machine_learning_sentence_match'
 
-export function checkSentenceFragment(hash:{
+export async function checkSentenceFragment(hash:{
   question_uid: string,
   response: string,
   responses: Array<Response>,
@@ -26,7 +26,7 @@ export function checkSentenceFragment(hash:{
   prompt: string,
   checkML?: Boolean,
   mlUrl?: string
-}): Response {
+}): Promise<Response> {
   const responseTemplate = {
     text: hash.response,
     question_uid: hash.question_uid,
@@ -49,7 +49,17 @@ export function checkSentenceFragment(hash:{
     return Object.assign(responseTemplate, firstPass)
   }
 
-  return responseTemplate;
+  const spacyPOS = await spacyPOSSentenceChecker(data.response, data.question_uid, data.mlUrl)
+
+  // if (checkML) {
+  //   yield machineLearningSentenceChecker(submission, responses, mlUrl)
+  // }
+
+  if (spacyPOS) {
+    return Object.assign(responseTemplate, spacyPOS)
+  } else {
+    return responseTemplate;
+  }
 }
 
 function* firstPassMatchers(data, spellCorrected=false) {
@@ -69,10 +79,11 @@ function* firstPassMatchers(data, spellCorrected=false) {
     yield spacingAfterCommaChecker(submission, responses)
     yield requiredWordsChecker(submission, responses)
   }
-  yield spacyPOSSentenceChecker(submission, data.question_uid, mlUrl)
-  if (checkML) {
-    yield machineLearningSentenceChecker(submission, responses, mlUrl)
-  }
+  
+
+}
+
+function* asyncMatchers(data, spellCorrected=false, generator) {
 
 }
 
@@ -81,12 +92,12 @@ function checkForMatches(data, matchingFunction: Function) {
   let next = gen.next();
   while (true) {
     if (next.value || next.done) {
-      break
+      break;
     }
-    next = gen.next()
+    next = gen.next();
   }
   if (next.value) {
-    return next.value
+    return next.value;
   }
 
 }
