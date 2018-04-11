@@ -1,0 +1,17 @@
+{
+  "name": "quill-connect-db",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "nodemon": "^1.11.0",
+    "rethinkdb": "^2.3.3",
+    "socket.io": "^2.0.3"
+  }
+}
