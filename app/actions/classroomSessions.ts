@@ -259,14 +259,34 @@ export function removeWatchTeacherState(classroom_activity_id: string): void {
   watchTeacherRef.remove();
 }
 
-export function registerTeacherPresence(classroom_activity_id: string | null): void {
-  const absentTeacherRef = classroomSessionsRef.child(`${classroom_activity_id}/absentTeacherState`);
-  firebase.database().ref('.info/connected').on('value', (snapshot) => {
-    if (snapshot && snapshot.val() === true) {
-      absentTeacherRef.onDisconnect().set(true);
-      absentTeacherRef.set(false);
-    }
+export function registerTeacherPresence(classroomActivityId: string | null): void {
+  // const absentTeacherRef = classroomSessionsRef.child(`${classroom_activity_id}/absentTeacherState`);
+  // firebase.database().ref('.info/connected').on('value', (snapshot) => {
+  //   if (snapshot && snapshot.val() === true) {
+  //     absentTeacherRef.onDisconnect().set(true);
+  //     absentTeacherRef.set(false);
+  //   }
+  // });
+  console.log('connected')
+
+  socket.on('connect', () => {
+    socket.emit('updateClassroomLessonSession', {
+      id: classroomActivityId,
+      absentTeacherState: false
+    });
   });
+  socket.on('disconnect', () => {
+    socket.emit('updateClassroomLessonSession', {
+      id: classroomActivityId,
+      absentTeacherState: true
+    });
+  }));
+  socket.on('connect_error', () => {
+    socket.emit('updateClassroomLessonSession', {
+      id: classroomActivityId,
+      absentTeacherState: true
+    });
+  }));
 }
 
 export function showSignupModal() {
@@ -502,16 +522,6 @@ export function loadSupportingInfo(lesson_id: string, classroom_activity_id: str
     });
   };
 }
-
-// export function createPreviewSession(edition_id?:string) {
-//   let previewSession
-//   if (edition_id) {
-//     previewSession = classroomSessionsRef.push({ 'students': {'student': 'James Joyce'}, 'current_slide': '0', 'public': true, 'preview': true, 'edition_id': edition_id})
-//   } else {
-//     previewSession = classroomSessionsRef.push({ 'students': {'student': 'James Joyce'}, 'current_slide': '0', 'public': true, 'preview': true})
-//   }
-//   return previewSession.key
-// }
 
 export function createPreviewSession(edition_id?:string) {
   const classroomActivityId = uuid();
