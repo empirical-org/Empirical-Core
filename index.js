@@ -35,6 +35,12 @@ function subscribeToCurrentSlide({
   });
 }
 
+function updateClassroomLessonSession({ connection, session }) {
+  r.table('classroom_lesson_sessions')
+  .insert(session, { conflict: 'update' })
+  .run(connection);
+}
+
 function createOrUpdateClassroomLessonSession({
   connection,
   classroomActivityId
@@ -77,6 +83,12 @@ r.connect({
   db: 'quill_lessons'
 }).then((connection) => {
   io.on('connection', (client) => {
+    client.on('teacherConnect', (classroomActivityId) => {
+
+    });
+
+    client.on('disconnect', )
+
     client.on('subscribeToClassroomLessonSession', (classroomLessonSessionId) => {
       subscribeToClassroomLessonSession({
         connection,
@@ -100,6 +112,13 @@ r.connect({
       });
     });
 
+    client.on('updateClassroomLessonSession', (session) => {
+      updateClassroomLessonSession({
+        session,
+        connection
+      });
+    });
+
     client.on('createOrUpdateClassroomLessonSession', (classroomActivityId) => {
       createOrUpdateClassroomLessonSession({
         connection,
@@ -111,4 +130,3 @@ r.connect({
 
 io.listen(8000);
 console.log('listening on port ', 8000);
-
