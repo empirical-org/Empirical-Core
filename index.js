@@ -11,9 +11,12 @@ function subscribeToClassroomLessonSession({
 }) {
   r.table('classroom_lesson_sessions')
   .get(classroomLessonSessionId)
-  .run(connection)
-  .then((classroomLessonSession) => {
-    client.emit(`classroomLessonSession:${classroomLessonSessionId}`,classroomLessonSession);
+  .changes({ includeInitial: true })
+  .run(connection, (err, cursor) => {
+    cursor.each((err, document) => {
+      let session = document.new_val;
+      client.emit(`classroomLessonSession:${session.id}`, session)
+    });
   });
 }
 
@@ -112,6 +115,26 @@ function disconnect({
   delete currentConnections[client.id];
 }
 
+function setSlideStartTime({
+  classroomActivityId,
+  questionId,
+  connection,
+}) {
+  let session = { id: classroomActivityId, timestamps: {} };
+
+  r.table('classroom_lesson_sessions')
+  .get(classroomActivityId)('submissions')(questionId.toString())
+  .changes({ includeInitial: true })
+  .run(connection)
+  .catch(() => {
+    session['timestamps'][questionId.toString()] = new Date();
+    updateClassroomLessonSession({
+      session,
+      connection,
+    });
+  });
+}
+
 r.connect({
   host: 'localhost',
   port: 28015,
@@ -130,8 +153,8 @@ r.connect({
 
     client.on('disconnect', () => {
       disconnect({
-        client,
         connection,
+        client,
       })
     });
 
@@ -146,7 +169,7 @@ r.connect({
     client.on('createPreviewSession', (previewSessionData) => {
       createPreviewSession({
         connection,
-        previewSessionData
+        previewSessionData,
       });
     });
 
@@ -169,6 +192,14 @@ r.connect({
       createOrUpdateClassroomLessonSession({
         connection,
         classroomActivityId
+      });
+    });
+
+    client.on('setSlideStartTime', (classroomActivityId, questionId) => {
+      setSlideStartTime({
+        connection,
+        classroomActivityId,
+        questionId,
       });
     });
   });
