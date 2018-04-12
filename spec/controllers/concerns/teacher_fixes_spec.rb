@@ -20,6 +20,72 @@ describe TeacherFixes do
   let! (:started) {create(:activity_session, user_id: student1.id, classroom_activity_id: classroom_activity3.id, started_at: Time.now)}
   let! (:completed_earlier) {create(:activity_session, user_id: student1.id, classroom_activity_id: classroom_activity4.id, completed_at: Time.now - 5, state: 'finished', percentage: 0.7)}
   let! (:completed_later) {create(:activity_session, user_id: student1.id, classroom_activity_id: classroom_activity4.id, completed_at: Time.now, state: 'finished', percentage: 0.7)}
+  let! (:classroom_activity_with_activity_sessions_1) {create(:classroom_activity_with_activity_sessions)}
+  let! (:classroom_activity_with_activity_sessions_2) {create(:classroom_activity_with_activity_sessions)}
+
+  describe '#merge_activity_sessions_between_two_classroom_activities' do
+    it 'moves all activity sessions from the first classroom activity to the second' do
+      old_ca_1_activity_session_ids = classroom_activity_with_activity_sessions_1.activity_sessions.ids
+      expect(old_ca_1_activity_session_ids).not_to be_empty
+      old_ca_2_activity_session_ids = classroom_activity_with_activity_sessions_2.activity_sessions.ids
+      TeacherFixes::merge_activity_sessions_between_two_classroom_activities(classroom_activity_with_activity_sessions_1.reload, classroom_activity_with_activity_sessions_2.reload)
+      new_ca_1_activity_session_ids = classroom_activity_with_activity_sessions_1.reload.activity_sessions.ids
+      new_ca_2_activity_session_ids = classroom_activity_with_activity_sessions_2.reload.activity_sessions.ids
+      expect(new_ca_1_activity_session_ids).to be_empty
+      expect(new_ca_2_activity_session_ids).to match_array(old_ca_2_activity_session_ids.concat(old_ca_1_activity_session_ids))
+    end
+  end
+
+  describe '#merge_two_classroom_activities' do
+    let (:student_a) {create(:student)}
+    let (:student_b) {create(:student)}
+    let! (:classroom_with_classroom_activities) {create(:classroom_with_classroom_activities, students: [student_a, student_b])}
+    let (:activity_session_1) {create(:activity_session, classroom_activity: classroom_with_classroom_activities.classroom_activities.first, user_id: student_a.id)}
+    let (:activity_session_2) {create(:activity_session, classroom_activity: classroom_with_classroom_activities.classroom_activities.last, user_id: student_b.id)}
+
+    def ca_1
+      classroom_with_classroom_activities.classroom_activities.first
+    end
+
+    def ca_2
+      classroom_with_classroom_activities.classroom_activities.last
+    end
+
+    def prep
+      ca_1.update(assigned_student_ids: [student_a.id])
+      ca_2.update(assigned_student_ids: [student_b.id])
+      activity_session_1
+      activity_session_2
+    end
+
+    # before do
+    #   TeacherFixes.any_instance.stub(:merge_activity_sessions_between_two_classroom_activities).and_return('idgaf')
+    # end
+
+
+    it 'moves all assigned students from the first activity to the second' do
+      prep
+      expect(ca_1.assigned_student_ids).not_to be_empty
+      all_assigned_students = ca_1.assigned_student_ids.push(ca_2.assigned_student_ids).flatten.uniq
+      TeacherFixes::merge_two_classroom_activities(ca_1.reload, ca_2.reload)
+      expect(ca_2.reload.assigned_student_ids).to eq(all_assigned_students)
+    end
+
+    it 'deletes the firt classroom activity' do
+      prep
+      expect(ca_1).to be
+      old_ca_1_id = ca_1.id
+      TeacherFixes::merge_two_classroom_activities(ca_1.reload, ca_2.reload)
+      expect(ClassroomActivity.find_by_id(old_ca_1_id)).not_to be
+    end
+
+    # it 'calls #self.merge_activity_sessions_between_two_classroom_activities' do
+    #   prep
+    #   TeacherFixes.should receive(:merge_activity_sessions_between_two_classroom_activities).with(ca_1, ca_2).and_return('idgaf')
+    #   TeacherFixes::merge_two_classroom_activities(ca_1.reload, ca_2.reload)
+    #   # expect_any_instance_of(TeacherFixes).to receive(:merge_activity_sessions_between_two_classroom_activities).with(ca_1.reload, ca_2.reload)
+    # end
+  end
 
   describe "#hide_extra_activity_sessions" do
     context "there is an activity session with a final score" do

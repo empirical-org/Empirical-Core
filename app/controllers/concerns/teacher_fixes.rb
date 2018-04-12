@@ -34,6 +34,33 @@ module TeacherFixes
       AND A.classroom_id = B.classroom_id").to_a.any?
   end
 
+  def self.merge_two_units(unit_1, unit_2)
+    # move all additional information from unit_1 into unit_2
+    # and then delete unit_1
+    unit_1.classroom_activities.each do |ca_1|
+      ca_2 = ClassroomActivity.find_by(unit_id: unit_2.id, activity_id: ca_1.id, classroom_id: ca_1.classroom_id)
+      if ca_2
+        merge_two_classroom_activities(ca_1, ca_2)
+      else
+        ca_1.update(unit_id: unit_2.id)
+      end
+    end
+    unit_1.destroy
+  end
+
+  def self.merge_two_classroom_activities(ca_1, ca_2)
+    # add all assigned students from ca_1 to ca_2
+    all_assigned_students = ca_1.assigned_student_ids.push(ca_2.assigned_student_ids).flatten.uniq
+    ca_2.update(assigned_student_ids: all_assigned_students)
+    # update ca_1 activity sessions to belong to ca_2
+    self.merge_activity_sessions_between_two_classroom_activities(ca_1, ca_2)
+    ca_1.destroy
+  end
+
+  def self.merge_activity_sessions_between_two_classroom_activities(ca_1, ca_2)
+    ca_1.activity_sessions.each{|act_sesh| act_sesh.update(classroom_activity_id: ca_2.id)}
+  end
+
   def self.move_activity_sessions(user, classroom_1, classroom_2)
     classroom_1_id = classroom_1.id
     classroom_2_id = classroom_2.id
