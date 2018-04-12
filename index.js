@@ -2,6 +2,8 @@ const r = require('rethinkdb');
 const io = require('socket.io')();
 const fetch = require('node-fetch');
 
+let currentConnections = {};
+
 function subscribeToClassroomLessonSession({
   connection,
   client,
@@ -77,17 +79,61 @@ function createOrUpdateClassroomLessonSession({
   });
 }
 
+function teacherConnected({
+  classroomActivityId,
+  connection,
+  client,
+}) {
+  let session = { id: classroomActivityId, absentTeacherState: false };
+  currentConnections[client.id].role = 'teacher';
+  currentConnections[client.id].classroomActivityId = classroomActivityId;
+
+  updateClassroomLessonSession({
+    connection,
+    session,
+  });
+}
+
+function disconnect({
+  client,
+  connection,
+}) {
+  if (currentConnections[client.id].role === 'teacher') {
+    let session = {
+      id: currentConnections[client.id].classroomActivityId,
+      absentTeacherState: true
+    };
+
+    updateClassroomLessonSession({
+      connection,
+      session,
+    });
+  }
+  delete currentConnections[client.id];
+}
+
 r.connect({
   host: 'localhost',
   port: 28015,
   db: 'quill_lessons'
 }).then((connection) => {
   io.on('connection', (client) => {
-    client.on('teacherConnect', (classroomActivityId) => {
+    currentConnections[client.id] = { socket: client, role: null };
 
+    client.on('teacherConnected', (classroomActivityId) => {
+      teacherConnected({
+        connection,
+        classroomActivityId,
+        client,
+      })
     });
 
-    client.on('disconnect', )
+    client.on('disconnect', () => {
+      disconnect({
+        client,
+        connection,
+      })
+    });
 
     client.on('subscribeToClassroomLessonSession', (classroomLessonSessionId) => {
       subscribeToClassroomLessonSession({
