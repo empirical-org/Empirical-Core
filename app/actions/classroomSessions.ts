@@ -260,33 +260,7 @@ export function removeWatchTeacherState(classroom_activity_id: string): void {
 }
 
 export function registerTeacherPresence(classroomActivityId: string | null): void {
-  // const absentTeacherRef = classroomSessionsRef.child(`${classroom_activity_id}/absentTeacherState`);
-  // firebase.database().ref('.info/connected').on('value', (snapshot) => {
-  //   if (snapshot && snapshot.val() === true) {
-  //     absentTeacherRef.onDisconnect().set(true);
-  //     absentTeacherRef.set(false);
-  //   }
-  // });
-  console.log('connected')
-
-  socket.on('connect', () => {
-    socket.emit('updateClassroomLessonSession', {
-      id: classroomActivityId,
-      absentTeacherState: false
-    });
-  });
-  socket.on('disconnect', () => {
-    socket.emit('updateClassroomLessonSession', {
-      id: classroomActivityId,
-      absentTeacherState: true
-    });
-  }));
-  socket.on('connect_error', () => {
-    socket.emit('updateClassroomLessonSession', {
-      id: classroomActivityId,
-      absentTeacherState: true
-    });
-  }));
+  socket.emit('teacherConnected', classroomActivityId)
 }
 
 export function showSignupModal() {
