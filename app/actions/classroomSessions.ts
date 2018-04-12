@@ -54,6 +54,8 @@ export function startListeningToSessionWithoutCurrentSlide(
   lesson_id: string
 ) {
   return function (dispatch) {
+    let initialized = false;
+
     socket.on(`classroomLessonSession:${classroom_activity_id}`, (session) => {
       if (session) {
         delete session.current_slide
@@ -107,15 +109,15 @@ export function getPreviewData(ca_id: string, lesson_id: string) {
   }
 }
 
-export function startListeningToCurrentSlide(classroom_activity_id: string) {
+export function startListeningToCurrentSlide(classroomActivityId: string) {
   return function (dispatch) {
-    socket.on(`currentSlide:${classroom_activity_id}`, (slide) => {
+    socket.on(`currentSlide:${classroomActivityId}`, (slide) => {
       if (slide) {
         console.log('listening to current slide ', slide);
         dispatch(updateSlideInStore(slide));
       }
     });
-    socket.emit('subscribeToCurrentSlide', classroom_activity_id);
+    socket.emit('subscribeToCurrentSlide', classroomActivityId);
   }
 }
 
@@ -172,10 +174,15 @@ export function updateCurrentSlide(classroom_activity_id: string, question_id: s
   }
 }
 
-export function updateSlideInFirebase(classroom_activity_id: string , question_id: string ) {
-  const currentSlideRef = classroomSessionsRef.child(`${classroom_activity_id}/current_slide`);
-  currentSlideRef.set(question_id);
-  setSlideStartTime(classroom_activity_id, question_id)
+export function updateSlideInFirebase(
+  classroomActivityId: string,
+  questionId: string
+ ) {
+  socket.emit('updateClassroomLessonSession', {
+    id: classroomActivityId,
+    current_slide: questionId,
+  });
+  setSlideStartTime(classroomActivityId, questionId)
 }
 
 export function updateSlideInStore(slideId: string) {
@@ -356,15 +363,9 @@ export function addSupportingInfo(classroom_activity_id: string, supportingInfo:
   supportingInfoRef.set(supportingInfo)
 }
 
-export function setSlideStartTime(classroom_activity_id: string, question_id: string): void {
-  const timestampRef = classroomSessionsRef.child(`${classroom_activity_id}/timestamps/${question_id}`);
-  const submissionRef = classroomSessionsRef.child(`${classroom_activity_id}/submissions/${question_id}`)
-  // update timestamp if the teacher clicks on a slide and there are no submissions yet
-  submissionRef.on('value', (snapshot) => {
-    if (snapshot && snapshot.val() === null) {
-      timestampRef.set(firebase.database.ServerValue.TIMESTAMP)
-    }
-  });
+export function setSlideStartTime(classroomActivityId: string, questionId: string): void {
+
+  socket.emit('setSlideStartTime', classroomActivityId, questionId);
 }
 
 export function setEditionId(classroom_activity_id: string, editionId: string|null, callback?: Function): void {
