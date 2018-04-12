@@ -1,7 +1,12 @@
 const r = require('rethinkdb');
 const io = require('socket.io')();
+const fetch = require('node-fetch');
 
-function subscribeToClassroomLessonSession({ connection, client, classroomLessonSessionId }) {
+function subscribeToClassroomLessonSession({
+  connection,
+  client,
+  classroomLessonSessionId
+}) {
   r.table('classroom_lesson_sessions')
   .get(classroomLessonSessionId)
   .run(connection)
@@ -16,7 +21,11 @@ function createPreviewSession({ connection, previewSessionData }) {
   .run(connection)
 }
 
-function subscribeToCurrentSlide({ connection, client, classroomActivityId }) {
+function subscribeToCurrentSlide({
+  connection,
+  client,
+  classroomActivityId
+}) {
   r.table('classroom_lesson_sessions')
   .get(classroomActivityId)
   .getField('current_slide')
@@ -26,17 +35,20 @@ function subscribeToCurrentSlide({ connection, client, classroomActivityId }) {
   });
 }
 
-function createOrUpdateClassroomLessonSession({ connection, classroomActivityId }) {
-  const uri = process.env.EMPIRICAL_BASE_URL +
+function createOrUpdateClassroomLessonSession({
+  connection,
+  classroomActivityId
+}) {
+  const url = process.env.EMPIRICAL_BASE_URL +
     '/api/v1/classroom_activities/' +
-    classroom_activity_id +
+    classroomActivityId +
     '/classroom_teacher_and_coteacher_ids'
 
   r.table('classroom_lesson_sessions')
   .get(classroomActivityId)
   .run(connection)
   .then((session) => {
-    fetch(uri, {
+    fetch(url, {
       method: "GET",
       mode: "cors",
       credentials: 'include',
@@ -47,10 +59,10 @@ function createOrUpdateClassroomLessonSession({ connection, classroomActivityId 
         return response.json()
       }
     }).then(response => {
-      response ? session.teacher_ids = response.teacher_ids : undefined
-      session.current_slide = session && session.current_slide ? session.current_slide : 0
-      session.startTime = session && session.startTime ? session.startTime : Time.now
-      session.id = session && session.id ? session.id : classroomActivityId
+      response ? session.teacher_ids = response.teacher_ids : undefined;
+      session.current_slide = session && session.current_slide ? session.current_slide : 0;
+      session.startTime = session && session.startTime ? session.startTime : new Date();
+      session.id = session && session.id ? session.id : classroomActivityId;
 
       r.table('classroom_lesson_sessions')
       .insert(session, { conflict: 'replace' })
@@ -66,7 +78,6 @@ r.connect({
 }).then((connection) => {
   io.on('connection', (client) => {
     client.on('subscribeToClassroomLessonSession', (classroomLessonSessionId) => {
-      console.log('subscribeToClassroomLessonSession');
       subscribeToClassroomLessonSession({
         connection,
         client,
@@ -75,7 +86,6 @@ r.connect({
     });
 
     client.on('createPreviewSession', (previewSessionData) => {
-      console.log('createPreviewSession');
       createPreviewSession({
         connection,
         previewSessionData
@@ -86,6 +96,13 @@ r.connect({
       subscribeToCurrentSlide({
         connection,
         client,
+        classroomActivityId
+      });
+    });
+
+    client.on('createOrUpdateClassroomLessonSession', (classroomActivityId) => {
+      createOrUpdateClassroomLessonSession({
+        connection,
         classroomActivityId
       });
     });
