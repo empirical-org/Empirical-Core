@@ -58,11 +58,6 @@ describe TeacherFixes do
       activity_session_2
     end
 
-    # before do
-    #   TeacherFixes.any_instance.stub(:merge_activity_sessions_between_two_classroom_activities).and_return('idgaf')
-    # end
-
-
     it 'moves all assigned students from the first activity to the second' do
       prep
       expect(ca_1.assigned_student_ids).not_to be_empty
@@ -79,12 +74,11 @@ describe TeacherFixes do
       expect(ClassroomActivity.find_by_id(old_ca_1_id)).not_to be
     end
 
-    # it 'calls #self.merge_activity_sessions_between_two_classroom_activities' do
-    #   prep
-    #   TeacherFixes.should receive(:merge_activity_sessions_between_two_classroom_activities).with(ca_1, ca_2).and_return('idgaf')
-    #   TeacherFixes::merge_two_classroom_activities(ca_1.reload, ca_2.reload)
-    #   # expect_any_instance_of(TeacherFixes).to receive(:merge_activity_sessions_between_two_classroom_activities).with(ca_1.reload, ca_2.reload)
-    # end
+    it 'calls #self.merge_activity_sessions_between_two_classroom_activities' do
+      prep
+      TeacherFixes.should receive(:merge_activity_sessions_between_two_classroom_activities).with(ca_1, ca_2)
+      TeacherFixes::merge_two_classroom_activities(ca_1.reload, ca_2.reload)
+    end
   end
 
   describe "#hide_extra_activity_sessions" do
