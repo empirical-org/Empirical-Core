@@ -11,7 +11,8 @@ describe('Edit Student Account', ()=> {
       email: 'someone@gmail.com'
     }).then(() => {
       cy.login('someone@gmail.com', 'password')
-      cy.visit('teachers/classrooms/1/students')
+      cy.visit('teachers/classrooms/')
+      cy.get(':nth-child(1) > :nth-child(7) > .manage-class').click({force: true})
       cy.get('tbody > :nth-child(1) > :nth-child(4) > a').click()
     })
   })
