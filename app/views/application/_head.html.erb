@@ -22,10 +22,10 @@
   <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/fontawesome.js" integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG23c" crossorigin="anonymous"></script> -->
 
   <%= render partial: 'typekit' unless Rails.env.test? %>
-  <%= javascript_pack_tag('vendor') %>
-  <%= javascript_pack_tag(@js_file || 'app') %>
   <%= stylesheet_pack_tag('app') %>
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_pack_tag('vendor') %>
+  <%= javascript_pack_tag(@js_file || 'app') %>
   <%= csrf_meta_tags %>
   <meta id='current-user-flag' property="flag" content=<%= current_user&.flag%> />
   <meta id='current-user-id' property="id" content=<%= current_user&.id%> />
