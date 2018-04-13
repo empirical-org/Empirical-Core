@@ -37,12 +37,12 @@ module TeacherFixes
   def self.merge_two_units(unit_1, unit_2)
     # move all additional information from unit_1 into unit_2
     # and then delete unit_1
-    unit_1.classroom_activities.each do |ca_1|
-      ca_2 = ClassroomActivity.find_by(unit_id: unit_2.id, activity_id: ca_1.id, classroom_id: ca_1.classroom_id)
+    ClassroomActivity.where(unit_id: unit_1.id).each do |ca_1|
+      ca_2 = ClassroomActivity.find_by(unit_id: unit_2.id, activity_id: ca_1.activity_id, classroom_id: ca_1.classroom_id)
       if ca_2
-        merge_two_classroom_activities(ca_1, ca_2)
+        self.merge_two_classroom_activities(ca_1, ca_2)
       else
-        ca_1.update(unit_id: unit_2.id)
+        ca_1.update!(unit_id: unit_2.id)
       end
     end
     unit_1.destroy
