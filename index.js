@@ -194,6 +194,75 @@ function addStudent({
   });
 }
 
+function saveStudentSubmission({
+  classroomActivityId,
+  connection,
+  questionId,
+  studentId,
+  submission,
+}) {
+  let session = {
+    id: classroomActivityId,
+    submissions: {}
+  };
+  session['submissions'][questionId] = {};
+  session['submissions'][questionId][studentId] = submission;
+
+  updateClassroomLessonSession({
+    session,
+    connection,
+  });
+}
+
+function removeStudentSubmission({
+  classroomActivityId,
+  connection,
+  questionId,
+  studentId,
+}) {
+  r.table('classroom_lesson_sessions')
+  .get(classroomActivityId).replace(r.row.without({
+    submissions: { [questionId]: { [studentId]: true } }
+  }))
+  .run(connection)
+}
+
+function removeMode({
+  connection,
+  classroomActivityId,
+  questionId,
+}) {
+  r.table('classroom_lesson_sessions')
+  .get(classroomActivityId).replace(r.row.without({
+    modes: { [questionId]: true }
+  }))
+  .run(connection)
+}
+
+function clearAllSelectedSubmissions({
+  connection,
+  classroomActivityId,
+  questionId,
+}) {
+  r.table('classroom_lesson_sessions')
+  .get(classroomActivityId).replace(r.row.without({
+    selected_submissions: { [questionId]: true }
+  }))
+  .run(connection)
+}
+
+function clearAllSubmissions({
+  connection,
+  classroomActivityId,
+  questionId,
+}) {
+  r.table('classroom_lesson_sessions')
+  .get(classroomActivityId).replace(r.row.without({
+    submissions: { [questionId]: true }
+  }))
+  .run(connection)
+}
+
 r.connect({
   host: 'localhost',
   port: 28015,
@@ -279,6 +348,49 @@ r.connect({
         studentName,
       });
     });
+
+    client.on('saveStudentSubmission', (classroomActivityId, questionId, studentId, submission) => {
+      saveStudentSubmission({
+        classroomActivityId,
+        connection,
+        questionId,
+        studentId,
+        submission,
+      });
+    });
+
+    client.on('removeStudentSubmission', (classroomActivityId, questionId, studentId) => {
+      removeStudentSubmission({
+        classroomActivityId,
+        connection,
+        questionId,
+        studentId,
+      });
+    });
+
+    client.on('removeMode', (classroomActivityId, questionId) => {
+      removeMode({
+        connection,
+        classroomActivityId,
+        questionId,
+      });
+    })
+
+    client.on('clearAllSelectedSubmissions', (classroomActivityId, questionId) => {
+      clearAllSelectedSubmissions({
+        connection,
+        classroomActivityId,
+        questionId,
+      });
+    })
+
+    client.on('clearAllSubmissions', (classroomActivityId, questionId) => {
+      clearAllSubmissions({
+        connection,
+        classroomActivityId,
+        questionId,
+      });
+    })
   });
 });
 
