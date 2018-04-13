@@ -9,7 +9,6 @@ import {
   startListeningToCurrentSlide,
   goToNextSlide,
   goToPreviousSlide,
-  updateCurrentSlide,
   saveSelectedStudentSubmission,
   removeSelectedStudentSubmission,
   setMode,

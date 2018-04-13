@@ -135,14 +135,8 @@ export function redirectAssignedStudents(classroom_activity_id: string, followUp
   followUpUrlRef.set(followUpUrl)
 }
 
-export function registerPresence(classroom_activity_id: string, student_id: string): void {
-  const presenceRef = classroomSessionsRef.child(`${classroom_activity_id}/presence/${student_id}`);
-  firebase.database().ref('.info/connected').on('value', (snapshot) => {
-    if (snapshot && snapshot.val() === true) {
-      presenceRef.onDisconnect().set(false);
-      presenceRef.set(true);
-    }
-  });
+export function registerPresence(classroomActivityId: string, studentId: string): void {
+  socket.emit('registerPresence', classroomActivityId, studentId)
 }
 
 export function goToNextSlide(classroom_activity_id: string, state: ClassroomLessonSession, lesson: ClassroomLesson|CustomizeIntf.EditionQuestions) {
@@ -423,17 +417,14 @@ export function setPrompt(classroom_activity_id: string, question_id: string, pr
   promptRef.set(prompt);
 }
 
-export function easyJoinLessonAddName(classroom_activity_id: string, studentName: string): void {
-  const nameRef: string = studentName.replace(/\s/g, '').toLowerCase()
-  const newStudentsRef = classroomSessionsRef.child(`${classroom_activity_id}/students/${nameRef}`);
-  newStudentsRef.set(studentName, (error) => {
-    if (error) {
-      console.log("Data could not be saved." + error);
-    } else {
-      window.location.replace(window.location.href + `&student=${nameRef}`)
-      window.location.reload()
+export function easyJoinLessonAddName(classroomActivityId: string, studentName: string): void {
+  socket.emit('addStudent', classroomActivityId, studentName)
+  socket.on(`studentAdded:${classroomActivityId}`, (addedStudentName, nameRef) => {
+    if (addedStudentName === studentName) {
+      window.location.replace(window.location.href + `&student=${nameRef}`);
+      window.location.reload();
     }
-  })
+  });
 }
 
 export function loadStudentNames(classroom_activity_id: string, baseUrl: string|undefined) {
