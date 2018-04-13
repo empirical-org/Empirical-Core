@@ -36,9 +36,12 @@ describe TeacherFixes do
           expect(new_ca_1_activity_session_ids).to be_empty
           expect(new_ca_2_activity_session_ids).to match_array(old_ca_2_activity_session_ids.concat(old_ca_1_activity_session_ids))
         end
+
+        # it 'hides the first passed classroom activity' do
+        #   TeacherFixes::merge_activity_sessions_between_two_classroom_activities(classroom_activity_with_activity_sessions_1.reload, classroom_activity_with_activity_sessions_2.reload)
+        #   expect(classroom_activity_with_activity_sessions_1.reload.visible).not_to be
+        # end
       end
-
-
 
       describe "#hide_extra_activity_sessions" do
         context "there is an activity session with a final score" do
@@ -196,9 +199,14 @@ describe TeacherFixes do
       end
 
       describe 'the first unit passed' do
-        it 'is deleted' do
-          TeacherFixes::merge_two_units(unit_1, unit_2)
-          expect(Unit.find_by_id(unit_1.id)).not_to be
+        # it 'is no longer visible' do
+        #   TeacherFixes::merge_two_units(unit_1, unit_2)
+        #   expect(unit_1.reload.visible).not_to be
+        # end
+
+        it 'has no classroom activities' do
+            TeacherFixes::merge_two_units(unit_1, unit_2)
+            expect(unit_1.reload.classroom_activities).to be_empty
         end
       end
 
@@ -217,7 +225,6 @@ describe TeacherFixes do
 
       it "changes first unit's Classroom Activities' unit_ids to unit_two if they have a different activity_id than classroom_activities in unit two" do
         expect(ca_1.unit_id).not_to eq(unit_2.id)
-        # Unit.where.not(unit_id: [unit_1.id, unit_2.id]).destroy_all
         ca_1.update(activity_id: ca_2.activity_id + 1)
         TeacherFixes::merge_two_units(unit_1, unit_2)
         expect(ca_1.reload.unit_id).to eq(unit_2.id)
@@ -235,14 +242,6 @@ describe TeacherFixes do
         all_assigned_students = ca_1.assigned_student_ids.push(ca_2.assigned_student_ids).flatten.uniq
         TeacherFixes::merge_two_classroom_activities(ca_1.reload, ca_2.reload)
         expect(ca_2.reload.assigned_student_ids).to eq(all_assigned_students)
-      end
-
-      it 'deletes the firt classroom activity' do
-        prep
-        expect(ca_1).to be
-        old_ca_1_id = ca_1.id
-        TeacherFixes::merge_two_classroom_activities(ca_1.reload, ca_2.reload)
-        expect(ClassroomActivity.find_by_id(old_ca_1_id)).not_to be
       end
 
       it 'calls #self.merge_activity_sessions_between_two_classroom_activities' do
