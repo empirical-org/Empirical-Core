@@ -112,7 +112,39 @@ function disconnect({
       session,
     });
   }
+
+  if (currentConnections[client.id].role === 'student') {
+    let session = {
+      id: currentConnections[client.id].classroomActivityId,
+      presence: {}
+    };
+    session['presence'][currentConnections[client.id].studentId] = false
+
+    updateClassroomLessonSession({
+      connection,
+      session,
+    });
+  }
+
   delete currentConnections[client.id];
+}
+
+function registerPresence({
+  connection,
+  classroomActivityId,
+  studentId,
+  client,
+}) {
+  let session = { id: classroomActivityId, presence: {} }
+  currentConnections[client.id].role = 'student';
+  currentConnections[client.id].studentId = studentId;
+  currentConnections[client.id].classroomActivityId = classroomActivityId;
+  session.presence[studentId] = true;
+
+  updateClassroomLessonSession({
+    session,
+    connection,
+  });
 }
 
 function setSlideStartTime({
@@ -132,6 +164,33 @@ function setSlideStartTime({
       session,
       connection,
     });
+  });
+}
+
+function addStudent({
+  connection,
+  client,
+  classroomActivityId,
+  studentName,
+}) {
+  const nameRef = studentName.replace(/\s/g, '').toLowerCase()
+
+  r.table('classroom_lesson_sessions')
+  .get(classroomActivityId)
+  .update((classroomActivity) => {
+    let students = {};
+
+    if (!classroomActivity.students) {
+      students = { students: {} };
+    } else {
+      students = { students: classroomActivity['students'] };
+    }
+    students['students'][nameRef] = studentName;
+    return students;
+  })
+  .run(connection)
+  .then(() => {
+    client.emit(`studentAdded:${classroomActivityId}`, studentName, nameRef)
   });
 }
 
@@ -200,6 +259,24 @@ r.connect({
         connection,
         classroomActivityId,
         questionId,
+      });
+    });
+
+    client.on('registerPresence', (classroomActivityId, studentId) => {
+      registerPresence({
+        connection,
+        client,
+        classroomActivityId,
+        studentId,
+      })
+    });
+
+    client.on('addStudent', (classroomActivityId, studentName) => {
+      addStudent({
+        connection,
+        client,
+        classroomActivityId,
+        studentName,
       });
     });
   });
