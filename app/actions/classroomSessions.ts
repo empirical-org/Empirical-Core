@@ -186,19 +186,27 @@ export function updateSlideInStore(slideId: string) {
   }
 }
 
-export function saveStudentSubmission(classroom_activity_id: string, question_id: string, student_id: string, submission: {data: any, timestamp: string}): void {
-  const submissionRef = classroomSessionsRef.child(`${classroom_activity_id}/submissions/${question_id}/${student_id}`);
-  submissionRef.set(submission);
+export function saveStudentSubmission(classroomActivityId: string, questionId: string, studentId: string, submission: {data: any, timestamp: string}): void {
+  socket.emit('saveStudentSubmission',
+    classroomActivityId,
+    questionId,
+    studentId,
+    submission,
+  );
+
 }
 
-export function removeStudentSubmission(classroom_activity_id: string, question_id: string, student_id: string): void {
-  const submissionRef = classroomSessionsRef.child(`${classroom_activity_id}/submissions/${question_id}/${student_id}`);
-  submissionRef.remove();
+export function removeStudentSubmission(classroomActivityId: string, questionId: string, studentId: string): void {
+
+  socket.emit('removeStudentSubmission',
+    classroomActivityId,
+    questionId,
+    studentId
+  )
 }
 
-export function clearAllSubmissions(classroom_activity_id: string, question_id: string): void {
-  const submissionRef = classroomSessionsRef.child(`${classroom_activity_id}/submissions/${question_id}`);
-  submissionRef.remove()
+export function clearAllSubmissions(classroomActivityId: string, question_id: string): void {
+  socket.emit('clearAllSubmissions', classroomActivityId, question_id)
 }
 
 export function removeSelectedSubmissionOrder(classroom_activity_id: string, question_id: string): void {
@@ -235,9 +243,8 @@ export function updateStudentSubmissionOrder(classroom_activity_id: string, ques
   })
 }
 
-export function clearAllSelectedSubmissions(classroom_activity_id: string, question_id: string): void {
-  const selectedSubmissionRef = classroomSessionsRef.child(`${classroom_activity_id}/selected_submissions/${question_id}`);
-  selectedSubmissionRef.remove()
+export function clearAllSelectedSubmissions(classroomActivityId: string, questionId: string): void {
+  socket.on('clearAllSelectedSubmissions', (classroomActivityId, questionId))
 }
 
 export function setMode(classroom_activity_id: string, question_id: string, mode): void {
@@ -245,9 +252,8 @@ export function setMode(classroom_activity_id: string, question_id: string, mode
   modeRef.set(mode);
 }
 
-export function removeMode(classroom_activity_id: string, question_id: string): void {
-  const modeRef = classroomSessionsRef.child(`${classroom_activity_id}/modes/${question_id}`);
-  modeRef.remove();
+export function removeMode(classroomActivityId: string, questionId: string): void {
+  socket.on('removeMode', classroomActivityId, questionId)
 }
 
 export function setWatchTeacherState(classroom_activity_id: string | null): void {
