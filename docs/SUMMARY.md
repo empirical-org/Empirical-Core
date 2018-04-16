@@ -30,7 +30,6 @@
   * [Subscription Tables](/subscription/subscriptions.md)
   * [Recurring Subscriptions](/features/recurring_subscriptions.md)
   * [Stripe Payments](/features/stripe_payments.md)
-  * [Subscription Cypress Tests](/cypress/subscription_tests.md)
 * [Quill Tools](tools/index.md)
   * [Quill Proofreader](tools/proofreader.md)
   * [Quill Grammar](tools/grammar.md)
