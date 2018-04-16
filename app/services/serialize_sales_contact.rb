@@ -21,6 +21,7 @@ class SerializeSalesContact
         number_of_completed_activities_per_student: activities_per_student,
         frl: free_lunches,
         teacher_link: teacher_link,
+        edit_teacher_link: edit_teacher_link,
         city: city,
         state: state,
       }.merge(account_data_params)
@@ -39,6 +40,8 @@ class SerializeSalesContact
 
   private
 
+  BASE_USER_URL = "https://www.quill.org/cms/users"
+
   def account_data_params
     @account_data_params ||= Hash.new.tap do |hash|
       if teacher.sales_contact.present?
@@ -52,7 +55,11 @@ class SerializeSalesContact
   end
 
   def teacher_link
-    "https://www.quill.org/cms/users/#{teacher.id}/sign_in"
+    "#{BASE_USER_URL}/#{teacher.id}/sign_in"
+  end
+
+  def edit_teacher_link
+    "#{BASE_USER_URL}/#{teacher.id}/edit"
   end
 
   def free_lunches
