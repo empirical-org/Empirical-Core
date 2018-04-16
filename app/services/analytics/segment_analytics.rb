@@ -75,20 +75,18 @@ class SegmentAnalytics
     backend.identify(identify_params(user))
   end
 
-
-
   private
-
 
   def anonymous_uid
     SecureRandom.urlsafe_base64
   end
 
   def integration_rules(user)
-    intercom = (user.role == 'teacher')
+    should_send_data = (user.role == 'teacher')
     integrations = {
      all: true,
-     Intercom: intercom
+     Intercom: should_send_data,
+     Salesmachine: should_send_data
     }
     integrations
   end
@@ -105,5 +103,4 @@ class SegmentAnalytics
   def user_traits(user)
     SegmentAnalyticsUserSerializer.new(user).as_json(root: false)
   end
-
 end
