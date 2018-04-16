@@ -1,1 +1,1 @@
-# Subscription
+# Subscriptions
