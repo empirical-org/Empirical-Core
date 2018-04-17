@@ -214,33 +214,16 @@ export function removeSelectedSubmissionOrder(classroom_activity_id: string, que
   submissionOrderRef.remove()
 }
 
-export function saveSelectedStudentSubmission(classroom_activity_id: string, question_id: string, student_id: string): void {
-  const selectedSubmissionRef = classroomSessionsRef.child(`${classroom_activity_id}/selected_submissions/${question_id}/${student_id}`);
-  selectedSubmissionRef.set(true);
+export function saveSelectedStudentSubmission(classroomActivityId: string, questionId: string, studentId: string): void {
+  socket.emit('saveSelectedStudentSubmission', classroomActivityId, questionId, studentId)
 }
 
-export function removeSelectedStudentSubmission(classroom_activity_id: string, question_id: string, student_id: string): void {
-  const selectedSubmissionRef = classroomSessionsRef.child(`${classroom_activity_id}/selected_submissions/${question_id}/${student_id}`);
-  selectedSubmissionRef.remove();
+export function removeSelectedStudentSubmission(classroomActivityId: string, questionId: string, studentId: string): void {
+  socket.emit('removeSelectedStudentSubmission', classroomActivityId, questionId, studentId)
 }
 
-export function updateStudentSubmissionOrder(classroom_activity_id: string, question_id: string, student_id: string): void {
-  const selectedSubmissionOrderRef = classroomSessionsRef.child(`${classroom_activity_id}/selected_submission_order/${question_id}`);
-  selectedSubmissionOrderRef.once('value', (snapshot) => {
-    const currentArray = snapshot.val()
-    if (currentArray) {
-      if (currentArray.includes(student_id)) {
-        const index = currentArray.indexOf(student_id)
-        currentArray.splice(index, 1)
-        selectedSubmissionOrderRef.set(currentArray)
-      } else {
-        currentArray.push(student_id)
-        selectedSubmissionOrderRef.set(currentArray)
-      }
-    } else {
-      selectedSubmissionOrderRef.set([student_id])
-    }
-  })
+export function updateStudentSubmissionOrder(classroomActivityId: string, questionId: string, studentId: string): void {
+  socket.emit('updateStudentSubmissionOrder', classroomActivityId, questionId, studentId)
 }
 
 export function clearAllSelectedSubmissions(classroomActivityId: string, questionId: string): void {
