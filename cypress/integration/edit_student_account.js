@@ -76,7 +76,7 @@ describe('Edit Student Account', ()=> {
     })
 
     it('brings me back to my classroom page', ()=> {
-      cy.url().should('contain', 'teachers/classrooms/1/students')
+      cy.get('.edit-students').should('exist')
     })
 
     // TODO: this is not persisting
