@@ -190,6 +190,9 @@ group :test do
   gem 'simplecov'
   gem 'simplecov-json', require: false
   gem 'codecov'
+end
+
+group :test, :cypress do
   gem 'fakeredis', '~> 0.7.0'
 end
 

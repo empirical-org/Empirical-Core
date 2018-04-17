@@ -1,5 +1,5 @@
 # Run Rails without hot reloading (static assets).
-rails: REACT_ON_RAILS_ENV=cypress RAILS_ENV=cypress rails s -b 0.0.0.0
+rails: REACT_ON_RAILS_ENV=cypress RAILS_ENV=cypress bundle exec rails s -b 0.0.0.0
 
 worker: RAILS_ENV=cypress bundle exec sidekiq -c 5 -v 
 
@@ -8,9 +8,3 @@ rails-client-assets: sh -c 'npm run build:dev:client'
 
 # Build server assets, watching for changes. Remove if not server rendering.
 rails-server-assets: sh -c 'npm run build:dev:server'
-
-redis-sidekiq: redis-server --port 6379
-
-redis-testing: redis-server --port 6378
-
-redis-caching: redis-server --port 7654

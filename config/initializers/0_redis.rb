@@ -1,8 +1,11 @@
-if Rails.env.test?
-  namespace = 'test'
-  ENV["REDISCLOUD_URL"] = 'redis://localhost:6378/0'
+if Rails.env.test? || Rails.env.cypress? 
+   require "fakeredis"
+   require "redis/namespace"
+   instance = Redis.new
+   namespace = 'test'
+   $redis = Redis::Namespace.new(namespace, :redis => instance)
 else
+  instance = Redis.new(url: ENV["REDISCLOUD_URL"])
   namespace = ENV["REDISCLOUD_NAMESPACE"]
+  $redis = Redis::Namespace.new(namespace, :redis => instance)
 end
-
-$redis = Redis::Namespace.new(namespace, :redis => Redis.new(url: ENV["REDISCLOUD_URL"]))

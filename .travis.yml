@@ -16,7 +16,7 @@ script:
   - bundle exec rake parallel:spec
   - bash <(curl -s https://codecov.io/bash) -cF rspec -f coverage/coverage.json
   # stop postgresql db to save resources
-  - sudo service postgresql stop 10
+  # - sudo service postgresql stop 10
   # run rails security static analysis
   - bundle exec brakeman -z
   # setup jest
@@ -26,6 +26,12 @@ script:
   # run jest
   - npm run jest:coverage
   - bash <(curl -s https://codecov.io/bash) -cF jest
+  # run cypress
+  - gem install foreman
+  - npm install -g wait-on
+  - foreman start -f Procfile.cypress &
+  - wait-on localhost:3000
+  - $(npm bin)/cypress run --record --key 7ddcbb08-83a3-47d5-bddb-6e01dae86d27
 addons:
   postgresql: "10"
   apt:
