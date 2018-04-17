@@ -263,6 +263,99 @@ function clearAllSubmissions({
   .run(connection)
 }
 
+function saveSelectedStudentSubmission({
+  classroomActivityId,
+  questionId,
+  studentId,
+  connection,
+}) {
+  r.table('classroom_lesson_sessions')
+  .get(classroomActivityId)
+  .update({
+    selected_submissions: {
+      [questionId]: {
+        [studentId]: true
+      }
+    }
+  })
+  .run(connection)
+}
+
+function updateStudentSubmissionOrder({
+  classroomActivityId,
+  questionId,
+  studentId,
+  connection,
+}) {
+  r.table('classroom_lesson_sessions')
+  .get(classroomActivityId)
+  .hasFields({
+    selected_submission_order: {
+      [questionId]: [
+        { [studentId]: true }
+      ]
+    }
+  })
+  .run(connection)
+  .then((result) => {
+    if (result) {
+      r.table('classroom_lesson_sessions')
+      .update({
+        selected_submission_order: {
+          [questionId]: [
+            { [studentId]: true }
+          ]
+        }
+      })
+      .run(connection)
+    } else {
+      r.table('classroom_lesson_sessions')
+      .hasFields({
+        selected_submission_order: {
+          [questionId]: true
+        }
+      })
+      .run(connection)
+      .then((result) => {
+        if (result) {
+          r.table('classroom_lesson_sessions')
+          .update({
+            selected_submission_order: {
+              [questionId]: [
+                { [studentId]: true }
+              ]
+            }
+          })
+          .run(connection)
+        } else {
+          r.table('classroom_lesson_sessions')
+          .get(classroomActivityId)('selected_submission_order')(questionId)
+          .append({ [studentId]: true })
+          .run(connection)
+        }
+      })
+    }
+  })
+}
+
+function removeSelectedStudentSubmission({
+  classroomActivityId,
+  questionId,
+  studentId,
+  connection,
+}) {
+  r.table('classroom_lesson_sessions')
+  .get(classroomActivityId)
+  .replace(r.row.without({
+    selected_submissions: {
+      [questionId]: {
+        [studentId]: true
+      }
+    }
+  }))
+  .run(connection)
+}
+
 r.connect({
   host: 'localhost',
   port: 28015,
@@ -389,6 +482,33 @@ r.connect({
         connection,
         classroomActivityId,
         questionId,
+      });
+    })
+
+    client.on('saveSelectedStudentSubmission', (classroomActivityId, questionId, studentId) => {
+      saveSelectedStudentSubmission({
+        classroomActivityId,
+        questionId,
+        studentId,
+        connection,
+      });
+    })
+
+    client.on('updateStudentSubmissionOrder', (classroomActivityId, questionId, studentId) => {
+      updateStudentSubmissionOrder({
+        classroomActivityId,
+        questionId,
+        studentId,
+        connection,
+      });
+    })
+
+    client.on('removeSelectedStudentSubmission', (classroomActivityId, questionId, studentId) => {
+      removeSelectedStudentSubmission({
+        classroomActivityId,
+        questionId,
+        studentId,
+        connection,
       });
     })
   });
