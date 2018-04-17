@@ -26,6 +26,10 @@ script:
   # run jest
   - npm run jest:coverage
   - bash <(curl -s https://codecov.io/bash) -cF jest
+  # run cypress
+  - foreman start -f Procfile.cypress &
+  - wait-on localhost:3000
+  - $(npm bin)/cypress run --record --key 7ddcbb08-83a3-47d5-bddb-6e01dae86d27
 addons:
   postgresql: "10"
   apt:
