@@ -1,8 +1,8 @@
 import React from 'react';
-import { EditorState, ContentState, convertFromHTML, convertToRaw } from 'draft-js';
+import { EditorState } from 'draft-js';
+import { convertFromHTML, convertToHTML } from 'draft-convert'
 import Editor from 'draft-js-plugins-editor';
 import DraftPasteProcessor from 'draft-js/lib/DraftPasteProcessor';
-import { stateToHTML } from 'draft-js-export-html';
 import createRichButtonsPlugin from 'draft-js-richbuttons-plugin';
 const richButtonsPlugin = createRichButtonsPlugin();
 const {
@@ -15,27 +15,27 @@ const {
 export default React.createClass({
   getInitialState() {
     return {
-      text: EditorState.createWithContent(ContentState.createFromBlockArray(convertFromHTML(this.props.text || ''))),
+      text: EditorState.createWithContent(convertFromHTML(this.props.text || '')),
     };
   },
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.boilerplate !== this.props.boilerplate) {
-      this.setState({ text: EditorState.createWithContent(ContentState.createFromBlockArray(convertFromHTML(nextProps.boilerplate))), },
+      this.setState({ text: EditorState.createWithContent(convertFromHTML(nextProps.boilerplate)), },
       () => {
-        this.props.handleTextChange(stateToHTML(this.state.text.getCurrentContent()));
+        this.props.handleTextChange(convertToHTML(this.state.text.getCurrentContent()));
       }
     );
     }
   },
 
   getState() {
-    return EditorState.createWithContent(ContentState.createFromBlockArray(convertFromHTML(this.props.text || '')));
+    return EditorState.createWithContent(convertFromHTML(this.props.text || ''));
   },
 
   handleTextChange(e) {
     this.setState({ text: e, }, () => {
-      this.props.handleTextChange(stateToHTML(this.state.text.getCurrentContent()));
+      this.props.handleTextChange(convertToHTML(this.state.text.getCurrentContent()));
     });
   },
 
