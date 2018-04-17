@@ -24,7 +24,7 @@ class NewFocusPointsContainer extends Component {
   submitFocusPointForm(data) {
     delete data.conceptResults.null;
     data.order = _.keys(this.getFocusPoints()).length + 1;
-    this.props.dispatch(this.state.actionFile.submitNewFocusPoint(this.props.params.questionID, data));
+    this.state.actionFile.submitNewFocusPoint(this.props.params.questionID, data);
     window.history.back();
   }
 
