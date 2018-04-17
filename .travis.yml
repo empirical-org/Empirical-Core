@@ -27,6 +27,7 @@ script:
   - npm run jest:coverage
   - bash <(curl -s https://codecov.io/bash) -cF jest
   # run cypress
+  - npm install -g wait-on
   - foreman start -f Procfile.cypress &
   - wait-on localhost:3000
   - $(npm bin)/cypress run --record --key 7ddcbb08-83a3-47d5-bddb-6e01dae86d27
