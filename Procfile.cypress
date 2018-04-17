@@ -8,9 +8,3 @@ rails-client-assets: sh -c 'npm run build:dev:client'
 
 # Build server assets, watching for changes. Remove if not server rendering.
 rails-server-assets: sh -c 'npm run build:dev:server'
-
-# redis-sidekiq: redis-server --port 6379
-
-# redis-testing: redis-server --port 6378
-
-# redis-caching: redis-server --port 7654
