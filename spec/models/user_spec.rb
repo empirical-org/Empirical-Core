@@ -46,6 +46,18 @@ describe User, type: :model do
   let(:user) { build(:user) }
   let!(:user_with_original_email) { build(:user, email: 'fake@example.com') }
 
+  describe 'the flags validation' do
+    it 'does not raise an error when the flags are in the VALID_FLAGS array' do
+      User::VALID_FLAGS.each do |flag|
+        expect{ user.update(flags: user.flags.push(flag))}.not_to raise_error(:flags)
+      end
+    end
+
+    it 'raises an error if the flag is not in the array' do
+      expect {user.update(Faker::Beer.name)}.to raise_error()
+    end
+  end
+
   describe '#last_four' do
     it "returns nil if a user does not have a stripe_customer_id" do
       expect(user.last_four).to eq(nil)

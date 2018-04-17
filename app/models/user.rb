@@ -69,10 +69,13 @@ class User < ActiveRecord::Base
   validates :flag,                  inclusion: { in: %w(alpha beta production),
                                     message: "%{value} is not a valid flag" }, :allow_nil => true
 
+  validate :validate_flags
+
 
   ROLES      = %w(student teacher temporary user admin staff)
   SAFE_ROLES = %w(student teacher temporary)
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
+  VALID_FLAGS = %w(alpha beta production auditor)
 
   default_scope -> { where('users.role != ?', 'temporary') }
 
@@ -475,6 +478,14 @@ class User < ActiveRecord::Base
   end
 
 private
+  def validate_flags
+    # ensures there are no items in the flags array that are not in the VALID_FLAGS const
+    invalid_flags = flags - VALID_FLAGS
+    if invalid_flags.any?
+       errors.add(:flags, "invalid flag(s) #{invalid_flags.to_s}")
+    end
+  end
+
   def validate_username_and_email
     # change_field will return the field (username or email) that is changing
     change_field = detect_username_or_email_updated
