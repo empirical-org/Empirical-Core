@@ -56,15 +56,6 @@ const actions = {
       });
     };
   },
-  submitEditedFocusPoint(sfid, data, fpid) {
-    return function (dispatch, getState) {
-      sentenceFragmentsRef.child(`${sfid}/focusPoints/${fpid}`).update(data, (error) => {
-        if (error) {
-          alert(`Submission failed! ${error}`);
-        }
-      });
-    };
-  },
   submitNewIncorrectSequence(sfid, data) {
     return (dispatch, getState) => {
       sentenceFragmentsRef.child(`${sfid}/incorrectSequences`).push(data, (error) => {
@@ -74,18 +65,18 @@ const actions = {
       });
     };
   },
-  submitEditedIncorrectSequence(sfid, data, seqid) {
+  submitEditedIncorrectSequence(sfid, data, sesfid) {
     return (dispatch, getState) => {
-      sentenceFragmentsRef.child(`${sfid}/incorrectSequences/${seqid}`).update(data, (error) => {
+      sentenceFragmentsRef.child(`${sfid}/incorrectSequences/${sesfid}`).update(data, (error) => {
         if (error) {
           alert(`Submission failed! ${error}`);
         }
       });
     };
   },
-  deleteIncorrectSequence(sfid, seqid) {
+  deleteIncorrectSequence(sfid, sesfid) {
     return (dispatch, getState) => {
-      sentenceFragmentsRef.child(`${sfid}/incorrectSequences/${seqid}`).remove((error) => {
+      sentenceFragmentsRef.child(`${sfid}/incorrectSequences/${sesfid}`).remove((error) => {
         if (error) {
           alert(`Delete failed! ${error}`);
         }
@@ -114,10 +105,40 @@ const actions = {
     };
   },
   submitNewFocusPoint(sfid, data) {
-    return function (dispatch, getState) {
+    return (dispatch, getState) => {
       sentenceFragmentsRef.child(`${sfid}/focusPoints`).push(data, (error) => {
         if (error) {
           alert(`Submission failed! ${error}`);
+        }
+      });
+    };
+  },
+
+  submitEditedFocusPoint(sfid, data, fpid) {
+    return (dispatch, getState) => {
+      sentenceFragmentsRef.child(`${sfid}/focusPoints/${fpid}`).update(data, (error) => {
+        if (error) {
+          alert(`Submission failed! ${error}`);
+        }
+      });
+    };
+  },
+
+  submitBatchEditedFocusPoint(sfid, data) {
+    return (dispatch, getState) => {
+      sentenceFragmentsRef.child(`${sfid}/focusPoints/`).set(data, (error) => {
+        if (error) {
+          alert(`Submission failed! ${error}`);
+        }
+      });
+    };
+  },
+
+  deleteFocusPoint(sfid, fpid) {
+    return (dispatch, getState) => {
+      sentenceFragmentsRef.child(`${sfid}/focusPoints/${fpid}`).remove((error) => {
+        if (error) {
+          alert(`Delete failed! ${error}`);
         }
       });
     };

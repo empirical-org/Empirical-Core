@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'underscore';
 import questionActions from '../../actions/questions.js';
+import sentenceFragmentActions from '../../actions/sentenceFragments.js';
 import { hashToCollection } from '../../libs/hashToCollection';
 import SortableList from '../questions/sortableList/sortableList.jsx';
 
@@ -11,11 +12,16 @@ export class FocusPointsContainer extends Component {
     this.deleteFocusPoint = this.deleteFocusPoint.bind(this);
     this.sortCallback = this.sortCallback.bind(this);
     this.updatefpOrder = this.updatefpOrder.bind(this);
-    this.state = { fpOrderedIds: null, };
+
+    const questionType = window.location.href.includes('sentence-fragments') ? 'sentenceFragments' : 'questions'
+    const questionTypeLink = questionType === 'sentenceFragments' ? 'sentence-fragments' : 'questions'
+    const actionFile = questionType === 'sentenceFragments' ? sentenceFragmentActions : questionActions
+
+    this.state = { fpOrderedIds: null, questionType, actionFile, questionTypeLink };
   }
 
   getQuestion() {
-    return this.props.questions.data[this.props.params.questionID];
+    return this.props[this.state.questionType].data[this.props.params.questionID];
   }
 
   getFocusPoints() {
@@ -24,7 +30,7 @@ export class FocusPointsContainer extends Component {
 
   deleteFocusPoint(focusPointID) {
     if (confirm('⚠️ Are you sure you want to delete this? 😱')) {
-      this.props.dispatch(questionActions.deleteFocusPoint(this.props.params.questionID, focusPointID));
+      this.props.dispatch(this.state.actionFile.deleteFocusPoint(this.props.params.questionID, focusPointID));
     }
   }
 
@@ -32,7 +38,7 @@ export class FocusPointsContainer extends Component {
     if (confirm('⚠️ Are you sure you want to delete this? 😱')) {
       const data = this.getFocusPoints()[focusPointKey];
       delete data.conceptResults[conceptResultKey];
-      this.props.dispatch(questionActions.submitEditedFocusPoint(this.props.params.questionID, data, focusPointKey));
+      this.props.dispatch(this.state.actionFile.submitEditedFocusPoint(this.props.params.questionID, data, focusPointKey));
     }
   }
 
@@ -76,7 +82,7 @@ export class FocusPointsContainer extends Component {
               {this.renderConceptResults(fp.conceptResults, fp.key)}
             </div>
             <footer className="card-footer">
-              <a href={`/#/admin/questions/${this.props.params.questionID}/focus-points/${fp.key}/edit`} className="card-footer-item">Edit</a>
+              <a href={`/#/admin/${this.state.questionTypeLink}/${this.props.params.questionID}/focus-points/${fp.key}/edit`} className="card-footer-item">Edit</a>
               <a onClick={() => this.deleteFocusPoint(fp.key)} className="card-footer-item">Delete</a>
             </footer>
           </div>
@@ -102,7 +108,7 @@ export class FocusPointsContainer extends Component {
         fp.order = index + 1;
         newFp[id] = fp;
       });
-      this.props.dispatch(questionActions.submitBatchEditedFocusPoint(this.props.params.questionID, newFp));
+      this.props.dispatch(this.state.actionFile.submitBatchEditedFocusPoint(this.props.params.questionID, newFp));
       alert('saved!');
     } else {
       alert('no changes to focus points have been made');
@@ -120,7 +126,7 @@ export class FocusPointsContainer extends Component {
       <div>
         <div className="has-top-margin">
           <h1 className="title is-3" style={{ display: 'inline-block', }}>Focus Points</h1>
-          <a className="button is-outlined is-primary" style={{ float: 'right', }} href={`/#/admin/questions/${this.props.params.questionID}/focus-points/new`}>Add Focus Point</a>
+          <a className="button is-outlined is-primary" style={{ float: 'right', }} href={`/#/admin/${this.state.questionTypeLink}/${this.props.params.questionID}/focus-points/new`}>Add Focus Point</a>
           {this.renderfPButton()}
         </div>
         {this.renderFocusPointsList()}
@@ -131,9 +137,17 @@ export class FocusPointsContainer extends Component {
 }
 
 function select(props) {
-  return {
-    questions: props.questions,
-  };
+  let mapState
+  if (window.location.href.includes('sentence-fragments')) {
+    mapState = {
+      sentenceFragments: props.sentenceFragments
+    };
+  } else {
+    mapState = {
+      questions: props.questions
+    };
+  }
+  return mapState
 }
 
 export default connect(select)(FocusPointsContainer);
