@@ -1,6 +1,6 @@
 {
-  "presets": ["react", "es2015"],
-  "plugins": ["transform-object-rest-spread", "syntax-dynamic-import"],
+  "presets": ["react", "es2015", "es2017"],
+  "plugins": ["transform-object-rest-spread", "syntax-dynamic-import", "transform-runtime"],
   "env": {
     "test": {
       "plugins": ["transform-es2015-modules-commonjs", "dynamic-import-node"]
