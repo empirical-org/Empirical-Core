@@ -1,6 +1,6 @@
 # Subscriptions
 
-There are three susbscription tables:
+There are three subscription tables:
 
 1. Subscriptions - Contains the metadata about a subscription
 2. School Subscriptions - Joins the school and a subscription
