@@ -250,6 +250,13 @@ function clearAllSelectedSubmissions({
     selected_submissions: { [questionId]: true }
   }))
   .run(connection)
+  .then(() => {
+    r.table('classroom_lesson_sessions')
+    .get(classroomActivityId).replace(r.row.without({
+      selected_submission_order: { [questionId]: true }
+    }))
+    .run(connection)
+  })
 }
 
 function clearAllSubmissions({
@@ -262,6 +269,12 @@ function clearAllSubmissions({
     submissions: { [questionId]: true }
   }))
   .run(connection)
+
+  clearAllSelectedSubmissions({
+    connection,
+    classroomActivityId,
+    questionId,
+  })
 }
 
 function saveSelectedStudentSubmission({
