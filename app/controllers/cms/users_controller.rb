@@ -3,6 +3,7 @@ class Cms::UsersController < Cms::CmsController
   before_action :set_user, only: [:show, :edit, :show_json, :update, :destroy, :edit_subscription, :new_subscription, :complete_sales_stage]
   before_action :set_search_inputs, only: [:index, :search]
   before_action :get_subscription_data, only: [:new_subscription, :edit_subscription]
+  before_action :filter_zeroes_from_checkboxes, only: [:update]
 
   USERS_PER_PAGE = 30.0
 
