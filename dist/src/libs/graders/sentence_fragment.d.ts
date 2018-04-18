@@ -1,4 +1,4 @@
-import { Response, IncorrectSequence } from '../../interfaces';
+import { Response, IncorrectSequence, FocusPoint } from '../../interfaces';
 export declare function checkSentenceFragment(hash: {
     question_uid: string;
     response: string;
@@ -6,6 +6,7 @@ export declare function checkSentenceFragment(hash: {
     wordCountChange?: Object;
     ignoreCaseAndPunc?: Boolean;
     incorrectSequences?: Array<IncorrectSequence>;
+    focusPoints?: Array<FocusPoint>;
     prompt: string;
     checkML?: Boolean;
     mlUrl?: string;
