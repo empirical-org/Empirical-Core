@@ -110,7 +110,7 @@ const PlaySentenceFragment = React.createClass<any, any>({
       const key = this.props.currentKey;
       const { attempts, } = this.props.question;
       this.setState({ checkAnswerEnabled: false, }, () => {
-        const { prompt, wordCountChange, ignoreCaseAndPunc, incorrectSequences } = this.getQuestion();
+        const { prompt, wordCountChange, ignoreCaseAndPunc, incorrectSequences, focusPoints } = this.getQuestion();
         const responses = hashToCollection(this.getResponses())
         const fields = {
           question_uid: key,
@@ -120,6 +120,7 @@ const PlaySentenceFragment = React.createClass<any, any>({
           ignoreCaseAndPunc,
           prompt,
           incorrectSequences,
+          focusPoints,
           mlUrl: 'https://nlp.quill.org'
         }
         checkSentenceFragment(fields).then((resp) => {
@@ -176,7 +177,7 @@ const PlaySentenceFragment = React.createClass<any, any>({
     return (
       <div className="container">
         <div className="feedback-row">
-          <StatelessFeedback 
+          <StatelessFeedback
             feedbackType="default"
             feedback={(<p>Is this a complete or an incomplete sentence?</p>)}
           />
