@@ -394,14 +394,12 @@ export function updateNoStudentError(student: string | null) {
   };
 }
 
-export function setModel(classroom_activity_id: string, question_id: string, model): void {
-  const modelRef = classroomSessionsRef.child(`${classroom_activity_id}/models/${question_id}`);
-  modelRef.set(model);
+export function setModel(classroomActivityId: string, questionId: string, model): void {
+  socket.emit('setModel', classroomActivityId, questionId, model)
 }
 
-export function setPrompt(classroom_activity_id: string, question_id: string, prompt): void {
-  const promptRef = classroomSessionsRef.child(`${classroom_activity_id}/prompts/${question_id}`);
-  promptRef.set(prompt);
+export function setPrompt(classroomActivityId: string, questionId: string, prompt): void {
+  socket.emit('setPrompt', classroomActivityId, questionId, prompt)
 }
 
 export function easyJoinLessonAddName(classroomActivityId: string, studentName: string): void {
