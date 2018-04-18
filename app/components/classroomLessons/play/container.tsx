@@ -23,7 +23,7 @@ import ProjectorModal from './projectorModal'
 import ErrorPage from '../shared/errorPage'
 import FlaggedStudentCompletedPage from './flaggedStudentCompleted'
 import {
-  getClassLessonFromFirebase
+  getClassLesson
  } from '../../../actions/classroomLesson';
 import {
  getEditionQuestions
@@ -86,7 +86,7 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
         this.props.dispatch(getEditionQuestions(nextProps.classroomSessions.data.edition_id))
       }
       if (!nextProps.classroomLesson.hasreceiveddata) {
-        this.props.dispatch(getClassLessonFromFirebase(lessonId));
+        this.props.dispatch(getClassLesson(lessonId));
       }
       if (nextProps.classroomSessions.data.edition_id !== this.props.classroomSessions.data.edition_id) {
         this.props.dispatch(getEditionQuestions(nextProps.classroomSessions.data.edition_id))

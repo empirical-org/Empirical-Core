@@ -3,7 +3,7 @@ import NavBar from '../navbar/navbar';
 import * as _ from 'lodash'
 import { connect } from 'react-redux';
 import {
-  getClassLessonFromFirebase
+  getClassLesson
 } from '../../actions/classroomLesson'
 import {
   startListeningToSession
@@ -38,7 +38,7 @@ class Customize extends React.Component<customizeProps> {
     props.dispatch(firebaseAuth())
 
     if (props.params.lessonID) {
-      props.dispatch(getClassLessonFromFirebase(props.params.lessonID))
+      props.dispatch(getClassLesson(props.params.lessonID))
     }
 
     const ca_id: string|null = getParameterByName('classroom_activity_id')

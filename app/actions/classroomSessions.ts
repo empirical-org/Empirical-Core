@@ -44,7 +44,7 @@ export function startLesson(classroomActivityId: string, callback?: Function) {
 }
 
 export function toggleOnlyShowHeaders() {
-  return function (dispatch)
+  return function (dispatch) {
     dispatch({type: C.TOGGLE_HEADERS})
   }
 }

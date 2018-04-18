@@ -13,19 +13,23 @@ import lessonBoilerplate from '../components/classroomLessons/shared/classroomLe
 import lessonSlideBoilerplates from '../components/classroomLessons/shared/lessonSlideBoilerplates'
 import scriptItemBoilerplates from '../components/classroomLessons/shared/scriptItemBoilerplates'
 
-export function getClassLessonFromFirebase(classroomLessonUid: string) {
+import uuid from 'uuid/v4';
+import openSocket from 'socket.io-client';
+
+const socket = openSocket('http://localhost:8000');
+
+export function getClassLesson(classroomLessonUid: string) {
   console.log('getting a lesson')
   return function (dispatch) {
-    console.log("Fetching")
-    classroomLessonsRef.child(classroomLessonUid).on('value', (snapshot) => {
-      console.log("Fetched")
-      if (snapshot && snapshot.val()) {
-        dispatch(updateClassroomLesson(snapshot.val()));
-        dispatch(setLessonId(classroomLessonUid))
+    socket.on(`classroomLesson:${classroomLessonUid}`, (lesson) => {
+      if (lesson) {
+          dispatch(updateClassroomLesson(lesson));
+          dispatch(setLessonId(classroomLessonUid))
       } else {
         dispatch({type: C.NO_LESSON_ID, data: classroomLessonUid})
       }
     });
+    socket.emit('subscribeToClassroomLesson', classroomLessonUid);
   };
 }
 
@@ -43,16 +47,19 @@ export function setLessonId(id:string) {
   }
 }
 
-export function listenForClassroomLessonsFromFirebase() {
+export function listenForClassroomLessons() {
+  console.log('getting classroom lessons')
   return function (dispatch) {
-    classroomLessonsRef.on('value', (snapshot) => {
-      if (snapshot && snapshot.val()) {
-        dispatch(updateClassroomLessons(snapshot.val()))
+    socket.on('classroomLessons', (classroomLessons) => {
+      debugger;
+      if (classroomLessons) {
+        dispatch(updateClassroomLessons(classroomLessons))
       } else {
         dispatch({type: C.NO_LESSONS})
       }
-    })
-  }
+    });
+    socket.emit('subscribeToClassroomLessons');
+  };
 }
 
 export function listenForClassroomLessonsReviewsFromFirebase() {
@@ -132,7 +139,7 @@ export function addLesson(lessonName, cb) {
     classroomLessonsRef.child(newLessonKey).set(newLesson)
     if (cb) {
       cb(newLessonKey)
-    }  
+    }
   }
 }
 
