@@ -32,6 +32,12 @@
       <% end -%>
     </div>
     <div class='cms-form-row'>
+      <% @valid_flags.each do |flag| -%>
+        <%= f.label flag.to_sym %>
+        <%=check_box('user', "flags", {multiple: true, checked: @user.flags.include?(flag) || nil}, flag.to_sym, )%>
+      <% end -%>
+    </div>
+    <div class='cms-form-row'>
       <%= f.label :classcode %>
       <%= f.text_field :classcode, autocomplete: 'off' %>
     </div>
