@@ -281,15 +281,8 @@ export function unpinActivityOnSaveAndExit(classroom_activity_id) {
     });
 }
 
-export function toggleStudentFlag(classroomActivityId: string|null, student_id: string): void {
-  const flaggedStudentRef = classroomSessionsRef.child(`${classroomActivityId}/flaggedStudents/${student_id}`)
-  flaggedStudentRef.once('value', (snapshot) => {
-    if(snapshot.val()){
-      flaggedStudentRef.remove()
-    } else {
-      flaggedStudentRef.set(true)
-    }
-  })
+export function toggleStudentFlag(classroomActivityId: string|null, studentId: string): void {
+  socket.emit('toggleStudentFlag', classroomActivityId, studentId)
 }
 
 export function getClassroomAndTeacherNameFromServer(classroom_activity_id: string|null, baseUrl: string|undefined) {
