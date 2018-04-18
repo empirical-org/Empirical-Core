@@ -68,9 +68,6 @@ class User < ActiveRecord::Base
                                     format:       {without: /\s/, message: 'cannot contain spaces', if: :validate_username?},
                                     on: :create
 
-  validates :flag,                  inclusion: { in: %w(alpha beta production),
-                                    message: "%{value} is not a valid flag" }, :allow_nil => true
-
   validate :validate_flags
 
 
