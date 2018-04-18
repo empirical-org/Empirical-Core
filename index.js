@@ -233,7 +233,8 @@ function removeMode({
   questionId,
 }) {
   r.table('classroom_lesson_sessions')
-  .get(classroomActivityId).replace(r.row.without({
+  .get(classroomActivityId)
+  .replace(r.row.without({
     modes: { [questionId]: true }
   }))
   .run(connection)
@@ -291,49 +292,48 @@ function updateStudentSubmissionOrder({
   .get(classroomActivityId)
   .hasFields({
     selected_submission_order: {
-      [questionId]: [
-        { [studentId]: true }
-      ]
+      [questionId]: true
     }
   })
   .run(connection)
   .then((result) => {
     if (result) {
       r.table('classroom_lesson_sessions')
-      .update({
-        selected_submission_order: {
-          [questionId]: [
-            { [studentId]: true }
-          ]
-        }
-      })
-      .run(connection)
-    } else {
-      r.table('classroom_lesson_sessions')
-      .hasFields({
-        selected_submission_order: {
-          [questionId]: true
-        }
-      })
+      .get(classroomActivityId)('selected_submission_order')(questionId)
+      .contains(studentId)
       .run(connection)
       .then((result) => {
-        if (result) {
+        if (!result) {
           r.table('classroom_lesson_sessions')
+          .get(classroomActivityId)
           .update({
             selected_submission_order: {
-              [questionId]: [
-                { [studentId]: true }
-              ]
+              [questionId]: r.row('selected_submission_order')(questionId)
+                .append(studentId)
             }
           })
           .run(connection)
         } else {
           r.table('classroom_lesson_sessions')
-          .get(classroomActivityId)('selected_submission_order')(questionId)
-          .append({ [studentId]: true })
+          .get(classroomActivityId)
+          .update({
+            selected_submission_order: {
+              [questionId]: r.row('selected_submission_order')(questionId)
+                .filter((item) => item.ne(studentId))
+            }
+          })
           .run(connection)
         }
       })
+    } else {
+      r.table('classroom_lesson_sessions')
+      .get(classroomActivityId)
+      .update({
+        selected_submission_order: {
+          [questionId]: [studentId]
+        }
+      })
+      .run(connection)
     }
   })
 }
@@ -353,6 +353,22 @@ function removeSelectedStudentSubmission({
       }
     }
   }))
+  .run(connection)
+}
+
+function setMode({
+  classroomActivityId,
+  questionId,
+  mode,
+  connection,
+}) {
+  r.table('classroom_lesson_sessions')
+  .get(classroomActivityId)
+  .update({
+    modes: {
+      [questionId]: mode
+    }
+  })
   .run(connection)
 }
 
@@ -510,6 +526,15 @@ r.connect({
         studentId,
         connection,
       });
+    })
+
+    client.on('setMode', (classroomActivityId, questionId, mode) => {
+      setMode({
+        classroomActivityId,
+        questionId,
+        mode,
+        connection
+      })
     })
   });
 });
