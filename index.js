@@ -385,6 +385,38 @@ function setMode({
   .run(connection)
 }
 
+function setModel({
+  classroomActivityId,
+  questionId,
+  model,
+  connection,
+}) {
+  r.table('classroom_lesson_sessions')
+  .get(classroomActivityId)
+  .update({
+    models: {
+      [questionId]: model
+    }
+  })
+  .run(connection)
+}
+
+function setPrompt({
+  classroomActivityId,
+  questionId,
+  prompt,
+  connection,
+}) {
+  r.table('classroom_lesson_sessions')
+  .get(classroomActivityId)
+  .update({
+    prompts: {
+      [questionId]: prompt
+    }
+  })
+  .run(connection)
+}
+
 r.connect({
   host: 'localhost',
   port: 28015,
@@ -546,8 +578,26 @@ r.connect({
         classroomActivityId,
         questionId,
         mode,
-        connection
-      })
+        connection,
+      });
+    })
+
+    client.on('setModel', (classroomActivityId, questionId, model) => {
+      setModel({
+        classroomActivityId,
+        questionId,
+        model,
+        connection,
+      });
+    })
+
+    client.on('setPrompt', (classroomActivityId, questionId, prompt) => {
+      setPrompt({
+        classroomActivityId,
+        questionId,
+        prompt,
+        connection,
+      });
     })
   });
 });
