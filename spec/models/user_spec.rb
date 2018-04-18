@@ -46,16 +46,35 @@ describe User, type: :model do
   let(:user) { build(:user) }
   let!(:user_with_original_email) { build(:user, email: 'fake@example.com') }
 
-  describe 'the flags validation' do
-    it 'does not raise an error when the flags are in the VALID_FLAGS array' do
-      User::VALID_FLAGS.each do |flag|
-        expect{ user.update(flags: user.flags.push(flag))}.not_to raise_error(:flags)
+  describe 'flags' do
+
+    describe 'validations' do
+      it 'does not raise an error when the flags are in the VALID_FLAGS array' do
+        User::VALID_FLAGS.each do |flag|
+          expect{ user.update(flags: user.flags.push(flag))}.not_to raise_error(:flags)
+        end
+      end
+
+      it 'raises an error if the flag is not in the array' do
+        expect {user.update(Faker::Beer.name)}.to raise_error()
       end
     end
 
-    it 'raises an error if the flag is not in the array' do
-      expect {user.update(Faker::Beer.name)}.to raise_error()
+    describe '#testing_flag' do
+      it "returns nil if the user does not have a flag from the User::TESTING_FLAGS array" do
+        user.update(flags: [User::PERMISSIONS_FLAGS.first])
+        expect(user.testing_flag).to eq(nil)
+      end
+      it "returns nil if the user does any flags" do
+        expect(user.testing_flag).to eq(nil)
+      end
+      it "returns a flag from the User::TESTING_FLAGS array if the user does have one" do
+        sample_testing_flag = User::TESTING_FLAGS.first
+        user.update(flags: [sample_testing_flag])
+        expect(user.testing_flag).to eq(sample_testing_flag)
+      end
     end
+
   end
 
   describe '#last_four' do
