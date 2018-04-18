@@ -39,7 +39,6 @@ describe User, type: :model do
   #it { should validate_uniqueness_of(:username).on(:create) }
 
   it { should validate_presence_of(:username).on(:create) }
-  it { should validate_inclusion_of(:flag).in_array(%w{alpha beta production}) }
 
   it { should have_secure_password }
 
@@ -1129,35 +1128,6 @@ describe User, type: :model do
 
     context 'when behaves like teacher' do
       it_behaves_like 'teacher'
-    end
-  end
-
-  describe 'flag' do
-    let(:user) { build(:user) }
-
-    it 'can equal production' do
-      user.update(flag: 'production')
-      expect(user).to be_valid
-    end
-
-    it 'can equal beta' do
-      user.update(flag: 'beta')
-      expect(user).to be_valid
-    end
-
-    it 'can equal alpha' do
-      user.update(flag: 'alpha')
-      expect(user).to be_valid
-    end
-
-    it 'can equal nil' do
-      user.update(flag: nil)
-      expect(user).to be_valid
-    end
-
-    it 'cannot equal anything other than alpha, beta, production or nil' do
-      user.update(flag: 'sunglasses')
-      expect(user).to_not be_valid
     end
   end
 
