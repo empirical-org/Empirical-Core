@@ -230,13 +230,12 @@ export function clearAllSelectedSubmissions(classroomActivityId: string, questio
   socket.on('clearAllSelectedSubmissions', (classroomActivityId, questionId))
 }
 
-export function setMode(classroom_activity_id: string, question_id: string, mode): void {
-  const modeRef = classroomSessionsRef.child(`${classroom_activity_id}/modes/${question_id}`);
-  modeRef.set(mode);
+export function setMode(classroomActivityId: string, questionId: string, mode): void {
+  socket.emit('setMode', classroomActivityId, questionId, mode)
 }
 
 export function removeMode(classroomActivityId: string, questionId: string): void {
-  socket.on('removeMode', classroomActivityId, questionId)
+  socket.emit('removeMode', classroomActivityId, questionId)
 }
 
 export function setWatchTeacherState(classroom_activity_id: string | null): void {
