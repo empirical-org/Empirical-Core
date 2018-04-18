@@ -3,7 +3,6 @@ import C from '../constants';
 import rootRef, { firebase } from '../libs/firebase';
 import * as request from 'request'
 const classroomSessionsRef = rootRef.child('classroom_lesson_sessions');
-const classroomLessonsRef = rootRef.child('classroom_lessons');
 const editionQuestionsRef = rootRef.child('lesson_edition_questions');
 const reviewsRef = rootRef.child('reviews')
 import {
@@ -227,7 +226,7 @@ export function updateStudentSubmissionOrder(classroomActivityId: string, questi
 }
 
 export function clearAllSelectedSubmissions(classroomActivityId: string, questionId: string): void {
-  socket.on('clearAllSelectedSubmissions', (classroomActivityId, questionId))
+  socket.emit('clearAllSelectedSubmissions', (classroomActivityId, questionId))
 }
 
 export function setMode(classroomActivityId: string, questionId: string, mode): void {
