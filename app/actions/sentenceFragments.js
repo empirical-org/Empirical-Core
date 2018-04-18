@@ -110,9 +110,9 @@ function submitNewSentenceFragment(content, response) {
         dispatch(submitResponse(response));
         const focusPoints = content.prompt.split(' ').map((w) => {
           const word = w.replace(/[^\w]|_/g, '')
-          return { text: word, feedback: `Try again. You may be missing the word "${word}".` }
+          const caseModifiedWord = word.toLowerCase() !== word ? word.toLowerCase() : word.charAt(0).toUpperCase() + word.slice(1)
+          return { text: `${word}|||${caseModifiedWord}`, feedback: `Try again. You may be missing the word "${word.toLowerCase()}".` }
         })
-        console.log('focusPoints', focusPoints)
         focusPoints.forEach(fp => submitNewFocusPoint(newRef.key, fp))
         dispatch({ type: C.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
         const action = push(`/admin/sentence-fragments/${newRef.key}`);
