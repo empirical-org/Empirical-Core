@@ -3,6 +3,7 @@ class Cms::UsersController < Cms::CmsController
   before_action :set_user, only: [:show, :edit, :show_json, :update, :destroy, :edit_subscription, :new_subscription, :complete_sales_stage]
   before_action :set_search_inputs, only: [:index, :search]
   before_action :get_subscription_data, only: [:new_subscription, :edit_subscription]
+  before_action :filter_zeroes_from_checkboxes, only: [:update]
 
   USERS_PER_PAGE = 30.0
 
@@ -64,7 +65,7 @@ class Cms::UsersController < Cms::CmsController
   end
 
   def edit
-    # everything is set as props from @user in the view
+    @valid_flags = User::VALID_FLAGS
   end
 
   def edit_subscription
@@ -80,6 +81,7 @@ class Cms::UsersController < Cms::CmsController
       redirect_to cms_users_path, notice: 'User was successfully updated.'
     else
       flash[:error] = 'Did not save.'
+      @valid_flags = User::VALID_FLAGS
       render action: 'edit'
     end
   end
@@ -118,7 +120,7 @@ protected
   def user_params
     params[:user][:flag] = nil unless ['alpha', 'beta'].include? params[:user][:flag]
     params.require(:user).permit([:name, :email, :username, :role,
-      :flag, :classcode, :password, :password_confirmation] + default_params
+      :flag, :classcode, :password, :password_confirmation, :flags =>[]] + default_params
     )
   end
 
@@ -243,6 +245,11 @@ protected
     @school_premium_types = Subscription.account_types
     @user_role_types = User.select('DISTINCT role').map { |r| r.role }
     @all_search_inputs = @text_search_inputs + ['user_premium_status', 'user_role', 'page']
+  end
+
+  def filter_zeroes_from_checkboxes
+    # checkboxes pass back '0' when unchecked -- we only want the attributes that are checked
+    params[:user][:flags] = user_params[:flags] - ["0"]
   end
 
   def subscription_params
