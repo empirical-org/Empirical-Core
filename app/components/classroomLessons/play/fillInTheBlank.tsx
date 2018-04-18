@@ -13,6 +13,7 @@ import {
 } from '../interfaces';
 import promptSplitter from '../shared/promptSplitter'
 import htmlStrip from '../shared/htmlStrip'
+import Feedback from '../../renderForQuestions/components/feedback'
 const icon = require('../../../img/question_icon.svg')
 
 interface fillInTheBlankProps {
@@ -156,14 +157,15 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
   renderInstructions() {
     if (this.props.mode !== 'PROJECT') {
       if (this.state.submitted) {
-        return (<div className="feedback-row">
-          <p><i className="fa fa-check-circle" aria-hidden="true" />Great Work! Please wait as your teacher reviews your answer...</p>
-        </div>);
+        return (<Feedback 
+          feedbackType="correct-matched"
+          feedback={(<p>Great Work! Please wait as your teacher reviews your answer...</p>)}
+        />);
       } else if (this.props.data.play.instructions) {
-        return (<div className="feedback-row">
-          <img src={icon} />
-          <p>{this.props.data.play.instructions}</p>
-        </div>);
+        return (<Feedback 
+          feedbackType="default"
+          feedback={(<p dangerouslySetInnerHTML={{__html: this.props.data.play.instructions}}></p>)}
+        />);
       }
     }
   }
@@ -283,7 +285,9 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
         <div>
           {this.renderPrompt(this.getPromptElements())}
           {this.renderCues()}
-          {this.renderInstructions()}
+          <div style={{marginBottom: 20}}>
+            {this.renderInstructions()}
+          </div>
           {this.renderSubmitButton()}
         </div>
         )

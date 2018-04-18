@@ -12,6 +12,7 @@
     "lint:fix": "eslint app/app.jsx --fix",
     "build:prod": "rm -r dist/; QUILL_CMS=https://cms.quill.org NODE_ENV=production EMPIRICAL_BASE_URL=https://www.quill.org webpack --optimize-minimize; open ./dist/index.html",
     "deploy:prod": "./production.sh",
+    "deploy:lessons": "./deploy_lessons.sh",
     "deploy:staging": "./staging.sh",
     "test:singular": "mocha --compilers js:babel-register $FILE --watch --reporter dot",
     "jest": "jest",

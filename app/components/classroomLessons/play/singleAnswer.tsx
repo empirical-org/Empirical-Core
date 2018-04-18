@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import Cues from '../../../components/renderForQuestions/cues';
 import RenderSentenceFragments from '../../../components/renderForQuestions/sentenceFragments';
 import FeedbackRow from './feedbackRow'
+import Feedback from '../../renderForQuestions/components/feedback'
 import TextEditor from '../../renderForQuestions/renderTextEditor';
 import { getParameterByName } from '../../../libs/getParameterByName';
 import { firebase } from '../../../libs/firebase';
@@ -145,10 +146,10 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
       if (this.state.submitted) {
         return (<FeedbackRow/>);
       } else if (this.props.data.play.instructions) {
-        return (<div className="feedback-row">
-          <img src={icon} />
-          <p>{this.props.data.play.instructions}</p>
-        </div>);
+        return (<Feedback 
+          feedbackType="default"
+          feedback={(<p dangerouslySetInnerHTML={{__html: this.props.data.play.instructions}}></p>)}
+        />);
       }
     }
   }

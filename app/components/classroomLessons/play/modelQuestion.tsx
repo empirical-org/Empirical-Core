@@ -6,6 +6,7 @@ import {
   QuestionData
 } from '../../../interfaces/classroomLessons';
 import { textEditorInputNotEmpty } from '../shared/textEditorClean'
+import Feedback from '../../renderForQuestions/components/feedback'
 const icon = require('../../../img/question_icon.svg')
 
 interface ModelQuestionProps {
@@ -24,10 +25,10 @@ class ModelQuestion extends Component<ModelQuestionProps, ModelQuestionState> {
 
   renderInstructions() {
     if (this.props.data.play.instructions) {
-      return (<div className="feedback-row">
-        <img src={icon} />
-        <p>{this.props.data.play.instructions}</p>
-      </div>);
+      return (<Feedback 
+        feedbackType="default"
+        feedback={(<p dangerouslySetInnerHTML={{__html: this.props.data.play.instructions}}></p>)}
+      />);
     }
   }
 
