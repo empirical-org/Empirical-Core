@@ -372,6 +372,47 @@ function setMode({
   .run(connection)
 }
 
+function subscribeToClassroomLesson({
+  connection,
+  client,
+  classroomLessonUID
+}) {
+  r.table('classroom_lessons')
+  .get(classroomLessonUID)
+  .changes({ includeInitial: true })
+  .run(connection, (err, cursor) => {
+    cursor.each((err, document) => {
+      let lesson = document.new_val;
+      client.emit(`classroomLesson:${lesson.id}`, lesson)
+    });
+  });
+}
+
+function subscribeToClassroomLessons({
+  connection,
+  client,
+  classroomLessonUID
+}) {
+  r.table('classroom_lessons')
+  .changes({ includeInitial: true })
+  .run(connection, (err, cursor) => {
+    const classroomLessons = {}
+    cursor.toArray((err, results) => {
+      if (err) throw err
+      emitClassroomLessons(results)
+    } )
+    // cursor.each(function(err, document) {
+    //   if (err) throw err
+    //   classroomLessons[document.new_val.id] = document.new_val
+    // }, emitClassroomLessons(classroomLessons));
+  });
+}
+
+function emitClassroomLessons(classroomLessons) {
+  console.log('here i am')
+  console.log(classroomLessons)
+}
+
 r.connect({
   host: 'localhost',
   port: 28015,
@@ -536,6 +577,22 @@ r.connect({
         connection
       })
     })
+
+    client.on('subscribeToClassroomLesson', (classroomLessonUID) => {
+      subscribeToClassroomLesson({
+        classroomLessonUID,
+        connection,
+        client
+      })
+    })
+
+    client.on('subscribeToClassroomLessons', () => {
+      subscribeToClassroomLessons({
+        connection,
+        client
+      })
+    })
+
   });
 });
 
