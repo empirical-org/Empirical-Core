@@ -417,6 +417,42 @@ function setPrompt({
   .run(connection)
 }
 
+function toggleStudentFlag({
+  classroomActivityId,
+  studentId,
+  connection,
+}) {
+  r.table('classroom_lesson_sessions')
+  .get(classroomActivityId)
+  .hasFields({
+    flaggedStudents: {
+      [studentId]: true
+    }
+  })
+  .run(connection)
+  .then((result) => {
+    if (result) {
+      r.table('classroom_lesson_sessions')
+      .get(classroomActivityId)
+      .replace(r.row.without({
+        flaggedStudents: {
+          [studentId]: true
+        }
+      }))
+      .run(connection)
+    } else {
+      r.table('classroom_lesson_sessions')
+      .get(classroomActivityId)
+      .update({
+        flaggedStudents: {
+          [studentId]: true
+        }
+      })
+      .run(connection)
+    }
+  })
+}
+
 r.connect({
   host: 'localhost',
   port: 28015,
@@ -598,6 +634,14 @@ r.connect({
         prompt,
         connection,
       });
+    })
+
+    client.on('toggleStudentFlag', (classroomActivityId, studentId) => {
+      toggleStudentFlag({
+        classroomActivityId,
+        studentId,
+        connection,
+      })
     })
   });
 });
