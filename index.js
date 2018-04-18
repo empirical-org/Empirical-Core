@@ -250,12 +250,11 @@ function clearAllSelectedSubmissions({
     selected_submissions: { [questionId]: true }
   }))
   .run(connection)
-  .then(() => {
-    r.table('classroom_lesson_sessions')
-    .get(classroomActivityId).replace(r.row.without({
-      selected_submission_order: { [questionId]: true }
-    }))
-    .run(connection)
+
+  removeSelectedSubmissionOrder({
+    connection,
+    classroomActivityId,
+    questionId,
   })
 }
 
@@ -269,12 +268,6 @@ function clearAllSubmissions({
     submissions: { [questionId]: true }
   }))
   .run(connection)
-
-  clearAllSelectedSubmissions({
-    connection,
-    classroomActivityId,
-    questionId,
-  })
 }
 
 function saveSelectedStudentSubmission({
@@ -343,12 +336,29 @@ function updateStudentSubmissionOrder({
       .get(classroomActivityId)
       .update({
         selected_submission_order: {
-          [questionId]: [studentId]
+          [questionId]: [
+            studentId
+          ]
         }
       })
       .run(connection)
     }
   })
+}
+
+function removeSelectedSubmissionOrder({
+  classroomActivityId,
+  questionId,
+  connection,
+}) {
+  r.table('classroom_lesson_sessions')
+  .get(classroomActivityId)
+  .replace(r.row.without({
+    selected_submission_order: {
+      [questionId]: true
+    }
+  }))
+  .run(connection)
 }
 
 function removeSelectedStudentSubmission({
@@ -367,6 +377,18 @@ function removeSelectedStudentSubmission({
     }
   }))
   .run(connection)
+  .then(() => {
+    r.table('classroom_lesson_sessions')
+    .get(classroomActivityId)
+    .replace(r.row.without({
+      selected_submission_order: {
+        [questionId]: [
+          studentId
+        ]
+      }
+    }))
+    .run(connection)
+  })
 }
 
 function setMode({
@@ -641,7 +663,7 @@ r.connect({
         classroomActivityId,
         studentId,
         connection,
-      })
+      });
     })
   });
 });
