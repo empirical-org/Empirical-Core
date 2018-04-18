@@ -208,11 +208,6 @@ export function clearAllSubmissions(classroomActivityId: string, question_id: st
   socket.emit('clearAllSubmissions', classroomActivityId, question_id)
 }
 
-export function removeSelectedSubmissionOrder(classroom_activity_id: string, question_id: string): void {
-  const submissionOrderRef = classroomSessionsRef.child(`${classroom_activity_id}/selected_submission_order/${question_id}`);
-  submissionOrderRef.remove()
-}
-
 export function saveSelectedStudentSubmission(classroomActivityId: string, questionId: string, studentId: string): void {
   socket.emit('saveSelectedStudentSubmission', classroomActivityId, questionId, studentId)
 }
@@ -226,7 +221,7 @@ export function updateStudentSubmissionOrder(classroomActivityId: string, questi
 }
 
 export function clearAllSelectedSubmissions(classroomActivityId: string, questionId: string): void {
-  socket.emit('clearAllSelectedSubmissions', (classroomActivityId, questionId))
+  socket.emit('clearAllSelectedSubmissions', classroomActivityId, questionId)
 }
 
 export function setMode(classroomActivityId: string, questionId: string, mode): void {

@@ -84,9 +84,6 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     this.setState( {
       projecting: nextProps.modes && (nextProps.modes[nextProps.current_slide] === "PROJECT") ? true : false
     })
-    if (this.props.clearSelectedSubmissionOrder && !nextProps.selected_submissions) {
-      this.props.clearSelectedSubmissionOrder(this.props.current_slide)
-    }
     if (this.props.current_slide !== nextProps.current_slide) {
       const models = nextProps.models;
       const current = nextProps.current_slide;
@@ -233,7 +230,6 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
 
   clearSelectedSubmissions() {
     this.props.clearAllSelectedSubmissions(this.props.current_slide)
-    this.props.clearSelectedSubmissionOrder(this.props.current_slide)
   }
 
   clearAllSubmissions() {
