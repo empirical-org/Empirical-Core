@@ -396,15 +396,21 @@ function subscribeToClassroomLessons({
   r.table('classroom_lessons')
   .changes({ includeInitial: true })
   .run(connection, (err, cursor) => {
-    const classroomLessons = {}
-    cursor.toArray((err, results) => {
-      if (err) throw err
-      emitClassroomLessons(results)
-    } )
-    // cursor.each(function(err, document) {
-    //   if (err) throw err
-    //   classroomLessons[document.new_val.id] = document.new_val
-    // }, emitClassroomLessons(classroomLessons));
+    r.table('classroom_lessons').count().run(connection, (err, val) => {
+      const numberOfLessons = val
+      let classroomLessons = {}
+      let lessonCount = 0
+      cursor.each(function(err, document) {
+        if (err) throw err
+        classroomLessons[document.new_val.id] = document.new_val
+        lessonCount++
+        console.log('lessonCount', lessonCount)
+        console.log('numberOfLessons', numberOfLessons)
+        if (lessonCount === numberOfLessons) {
+          client.emit('classroomLessons', classroomLessons)
+        }
+      });
+    })
   });
 }
 
