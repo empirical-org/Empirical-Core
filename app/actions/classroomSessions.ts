@@ -232,14 +232,12 @@ export function removeMode(classroomActivityId: string, questionId: string): voi
   socket.emit('removeMode', classroomActivityId, questionId)
 }
 
-export function setWatchTeacherState(classroom_activity_id: string | null): void {
-  const watchTeacherRef = classroomSessionsRef.child(`${classroom_activity_id}/watchTeacherState`);
-  watchTeacherRef.set(true);
+export function setWatchTeacherState(classroomActivityId: string | null): void {
+  socket.emit('setWatchTeacherState', classroomActivityId)
 }
 
-export function removeWatchTeacherState(classroom_activity_id: string): void {
-  const watchTeacherRef = classroomSessionsRef.child(`${classroom_activity_id}/watchTeacherState`);
-  watchTeacherRef.remove();
+export function removeWatchTeacherState(classroomActivityId: string): void {
+  socket.emit('removeWatchTeacherState', classroomActivityId)
 }
 
 export function registerTeacherPresence(classroomActivityId: string | null): void {
