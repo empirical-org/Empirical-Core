@@ -7,7 +7,8 @@
   }
 </script>
 <div class='cms-form'>
-  <%= form_for [:cms, @user] do |f| %>
+  <% url =  @with_school ? "/cms/users/create_with_school/#{@school.id}" : 'cms/users' %>
+  <%= form_for @user, url: url do |f| %>
     <div class='cms-form-row'>
       <%= f.label :name %>
       <%= f.text_field :name, autocomplete: 'off' %>
