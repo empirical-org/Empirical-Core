@@ -51,7 +51,6 @@ export function listenForClassroomLessons() {
   console.log('getting classroom lessons')
   return function (dispatch) {
     socket.on('classroomLessons', (classroomLessons) => {
-      debugger;
       if (classroomLessons) {
         dispatch(updateClassroomLessons(classroomLessons))
       } else {
@@ -133,10 +132,11 @@ export function deleteScriptItem(editionID, slideID, scriptItemID, script) {
 }
 
 export function addLesson(lessonName, cb) {
-  const newLesson = lessonBoilerplate(lessonName)
-  const newLessonKey = classroomLessonsRef.push().key
+  const newLesson:IntF.ClassroomLesson = lessonBoilerplate(lessonName)
+  const newLessonKey = uuid();
+  newLesson.id = newLessonKey
   if (newLessonKey) {
-    classroomLessonsRef.child(newLessonKey).set(newLesson)
+    socket.emit('addClassroomLesson', newLesson)
     if (cb) {
       cb(newLessonKey)
     }
