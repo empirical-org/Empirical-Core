@@ -4,6 +4,7 @@ import MassEditRoute from 'routers/Admin/routes/Shared/massEdit';
 import TestSentenceFragmentContainer from 'components/sentenceFragments/testSentenceFragmentContainer.jsx';
 import ChooseModelContainer from 'components/sentenceFragments/chooseModelContainer.jsx';
 import SentenceFragmentIncorrectSequenceRoute from 'routers/Admin/routes/Shared/sentenceFragmentIncorrectSequences';
+import FocusPointsRoute from 'routers/Admin/routes/Shared/focusPoints.js';
 
 const testSentenceFragment = {
   path: 'test',
@@ -26,6 +27,7 @@ export default {
     MassEditRoute,
     testSentenceFragment,
     chooseModel,
-    SentenceFragmentIncorrectSequenceRoute
+    SentenceFragmentIncorrectSequenceRoute,
+    FocusPointsRoute
   ],
 };

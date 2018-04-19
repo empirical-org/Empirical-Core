@@ -75,13 +75,11 @@ function submitNewQuestion(content, response) {
 }
 
 function submitNewFocusPoint(qid, data) {
-  return (dispatch, getState) => {
-    questionsRef.child(`${qid}/focusPoints`).push(data, (error) => {
-      if (error) {
-        alert(`Submission failed! ${error}`);
-      }
-    });
-  };
+  questionsRef.child(`${qid}/focusPoints`).push(data, (error) => {
+    if (error) {
+      alert(`Submission failed! ${error}`);
+    }
+  });
 }
 
 function submitEditedFocusPoint(qid, data, fpid) {

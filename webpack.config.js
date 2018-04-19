@@ -49,10 +49,10 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(env || 'development'),
       'process.env.EMPIRICAL_BASE_URL': JSON.stringify(process.env.EMPIRICAL_BASE_URL || 'http://localhost:3000'),
-      'process.env.QUILL_CMS': JSON.stringify(process.env.QUILL_CMS || 'http://localhost:3100'),
+      'process.env.QUILL_CMS': JSON.stringify(process.env.QUILL_CMS || 'https://cms.quill.org'),
       'process.env.PUSHER_KEY': JSON.stringify(process.env.PUSHER_KEY || 'a253169073ce7474f0ce'),
       'process.env.OAUTH_CLIENT_ID': JSON.stringify(process.env.OAUTH_CLIENT_ID || 'd0932924044cf2f2e2c2df64a2e8d5e78eadfc8dff8687060b6856d4a62dd5d9'),
-      'process.env.FIREBASE_APP_NAME': JSON.stringify(process.env.FIREBASE_APP_NAME || 'quillconnectstaging')
+      'process.env.FIREBASE_APP_NAME': JSON.stringify(process.env.FIREBASE_APP_NAME || 'quillconnectstaging'),
     }),
     // new BundleAnalyzerPlugin(), // For visualizing package size
     new webpack.optimize.CommonsChunkPlugin({ name: 'vendor', }),
@@ -68,16 +68,15 @@ module.exports = {
       inject: 'body',
       chunks: ['polyfills', 'vendor', 'javascript'],
       chunksSortMode: (chunk1, chunk2) => {
-        var orders = [ 'vendor', 'polyfills', 'javascript'];
-        var order1 = orders.indexOf(chunk1.names[0]);
-        var order2 = orders.indexOf(chunk2.names[0]);
+        let orders = ['vendor', 'polyfills', 'javascript'];
+        let order1 = orders.indexOf(chunk1.names[0]);
+        let order2 = orders.indexOf(chunk2.names[0]);
         if (order1 > order2) {
           return 1;
         } else if (order1 < order2) {
           return -1;
-        } else {
-          return 0;
         }
+        return 0;
       },
     })
   ],

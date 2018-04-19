@@ -48,7 +48,7 @@ export default React.createClass({
   handleChange(stateKey, e) {
     const obj = {};
     let value = e.target.value;
-    if (stateKey == 'itemText') {
+    if (stateKey === 'itemText') {
       value = `${Array.from(document.getElementsByClassName('focus-point-text')).map(i => i.value).filter(val => val !== '').join('|||')}|||`;
     }
     obj[stateKey] = value;

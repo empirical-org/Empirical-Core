@@ -110,7 +110,7 @@ const PlaySentenceFragment = React.createClass<any, any>({
       const key = this.props.currentKey;
       const { attempts, } = this.props.question;
       this.setState({ checkAnswerEnabled: false, }, () => {
-        const { prompt, wordCountChange, ignoreCaseAndPunc, incorrectSequences } = this.getQuestion();
+        const { prompt, wordCountChange, ignoreCaseAndPunc, incorrectSequences, focusPoints } = this.getQuestion();
         const responses = hashToCollection(this.getResponses())
         const fields = {
           question_uid: key,
@@ -119,13 +119,20 @@ const PlaySentenceFragment = React.createClass<any, any>({
           wordCountChange,
           ignoreCaseAndPunc,
           prompt,
-          incorrectSequences
+          incorrectSequences,
+          focusPoints,
+          mlUrl: 'https://nlp.quill.org'
         }
-        const matched = {response: checkSentenceFragment(fields)}
-        updateResponseResource(matched, key, attempts, this.props.dispatch, );
-        this.props.updateAttempts(matched);
-        this.setState({ checkAnswerEnabled: true, });
-        this.props.handleAttemptSubmission();
+        checkSentenceFragment(fields).then((resp) => {
+          const matched = {response: resp}
+          console.log(typeof(matched), typeof(matched) === 'object')
+          if (typeof(matched) === 'object') {
+            updateResponseResource(matched, key, attempts, this.props.dispatch, );
+            this.props.updateAttempts(matched);
+            this.setState({ checkAnswerEnabled: true, });
+            this.props.handleAttemptSubmission();
+          }
+        })
       });
     }
   },
@@ -170,7 +177,7 @@ const PlaySentenceFragment = React.createClass<any, any>({
     return (
       <div className="container">
         <div className="feedback-row">
-          <StatelessFeedback 
+          <StatelessFeedback
             feedbackType="default"
             feedback={(<p>Is this a complete or an incomplete sentence?</p>)}
           />
