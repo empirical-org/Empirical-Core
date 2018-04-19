@@ -192,7 +192,8 @@ export function updateClassroomLessonDetails(classroomLessonID, classroomLesson)
 }
 
 export function updateEditionDetails(editionID, edition) {
-  editionMetadataRef.child(editionID).set(edition)
+  edition.id = editionID
+  socket.emit('updateEditionMetadata', edition)
 }
 
 export function clearClassroomLessonFromStore() {

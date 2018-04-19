@@ -6,6 +6,8 @@ const classroomLessonsRef = rootRef.child('classroom_lessons');
 import C from '../constants';
 import * as CustomizeIntf from '../interfaces/customize'
 import lessonSlideBoilerplates from '../components/classroomLessons/shared/lessonSlideBoilerplates'
+import openSocket from 'socket.io-client';
+const socket = openSocket('http://localhost:8000');
 
 export function getCurrentUserAndCoteachersFromLMS() {
   return function(dispatch) {
@@ -28,29 +30,30 @@ export function getCurrentUserAndCoteachersFromLMS() {
   }
 }
 
-export function getEditionsForUserIds(userIds:Array<Number>, lessonID:string) {
+export function getEditionMetadataForUserIds(userIds:Array<Number>, lessonID:string) {
   return function (dispatch, getState) {
-    editionMetadataRef.orderByChild("lesson_id").equalTo(lessonID).on('value', (snapshot) => {
-      dispatch(filterEditionsByUserIds(userIds, snapshot.val()))
-    });
+    socket.on(`editionMetadataForLesson:${lessonID}`, (editions) => {
+      dispatch(filterEditionsByUserIds(userIds, editions))
+    })
+    socket.emit('getAllEditionMetadataForLesson', lessonID)
   };
 }
 
 export function startListeningToEditionMetadata() {
   return function (dispatch, getState) {
-    editionMetadataRef.on('value', (snapshot) => {
-      dispatch(setEditionMetadata(snapshot.val()))
-    });
+    socket.on(`editionMetadata`, (editions) => {
+      dispatch(setEditionMetadata(editions))
+    })
+    socket.emit('getAllEditionMetadata')
   };
 }
 
 export function getEditionQuestions(editionID:string) {
   return function (dispatch, getState) {
-    editionQuestionsRef.child(editionID).on('value', (snapshot) => {
-      if (snapshot.val()) {
-        dispatch(setEditionQuestions(snapshot.val()))
-      }
-    });
+    socket.on(`editionQuestionsForEdition:${editionID}`, (questions) => {
+      dispatch(setEditionQuestions(questions))
+    })
+    socket.emit('getEditionQuestions', editionID)
   };
 }
 

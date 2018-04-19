@@ -357,7 +357,9 @@ export function setTeacherModels(classroom_activity_id: string, editionId: strin
   const editionQuestionsArrayRef = editionQuestionsRef.child(`${editionId}/questions`)
   const sessionPromptsRef = classroomSessionsRef.child(`${classroom_activity_id}/prompts`)
   const sessionModelsRef = classroomSessionsRef.child(`${classroom_activity_id}/models`)
+  // get the questions for the edition
   editionQuestionsArrayRef.once('value', (questionsSnap) => {
+  // get the prompts for the session (one for each model)
     sessionPromptsRef.once('value', (promptsSnap) => {
       const questions = questionsSnap.val()
       const prompts = promptsSnap.val()

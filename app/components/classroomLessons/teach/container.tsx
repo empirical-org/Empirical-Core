@@ -29,7 +29,7 @@ import {
 } from '../../../actions/classroomLesson';
 import {
   getCurrentUserAndCoteachersFromLMS,
-  getEditionsForUserIds,
+  getEditionMetadataForUserIds,
   getEditionQuestions,
   clearEditionQuestions
 } from '../../../actions/customize'
@@ -78,7 +78,7 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
   componentWillReceiveProps(nextProps) {
     const lessonId: string = nextProps.params.lessonID
     if (!nextProps.customize.user_id && Object.keys(nextProps.customize.editions).length === 0) {
-      this.props.dispatch(getEditionsForUserIds([], lessonId))
+      this.props.dispatch(getEditionMetadataForUserIds([], lessonId))
     }
     if (nextProps.classroomSessions.hasreceiveddata) {
       if (!nextProps.classroomSessions.data.edition_id && Object.keys(this.props.customize.editionQuestions).length === 0) {
@@ -100,7 +100,7 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
         user_ids = nextProps.customize.coteachers.map(c => Number(c.id))
       }
       user_ids.push(nextProps.customize.user_id)
-      this.props.dispatch(getEditionsForUserIds(user_ids, lessonId))
+      this.props.dispatch(getEditionMetadataForUserIds(user_ids, lessonId))
     }
   }
 
