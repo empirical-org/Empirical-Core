@@ -144,7 +144,7 @@ class ShowClassroomLesson extends Component<any, any> {
     }
 
   render() {
-    if (this.props.classroomLessons.hasreceiveddata) {
+    if (this.props.classroomLessons.hasreceiveddata && this.classroomLesson()) {
       const classroomLessonID = this.props.params.classroomLessonID
       return (
         <div className="admin-classroom-lessons-container">

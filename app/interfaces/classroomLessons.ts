@@ -3,7 +3,8 @@ export interface ClassroomLesson {
   lesson?: string|number;
   topic?: string;
   unit?: string;
-  questions: Questions
+  questions?: Questions;
+  id?: string;
 }
 
 export interface Questions {

@@ -24,7 +24,7 @@ import {
   startLesson
 } from '../../../actions/classroomSessions';
 import {
-  getClassLessonFromFirebase,
+  getClassLesson,
   clearClassroomLessonFromStore
 } from '../../../actions/classroomLesson';
 import {
@@ -88,7 +88,7 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
         this.props.dispatch(getEditionQuestions(nextProps.classroomSessions.data.edition_id))
       }
       if (!nextProps.classroomLesson.hasreceiveddata) {
-        this.props.dispatch(getClassLessonFromFirebase(lessonId));
+        this.props.dispatch(getClassLesson(lessonId));
       }
       if (nextProps.classroomSessions.data.edition_id !== this.props.classroomSessions.data.edition_id && nextProps.classroomSessions.data.edition_id) {
         this.props.dispatch(getEditionQuestions(nextProps.classroomSessions.data.edition_id))
