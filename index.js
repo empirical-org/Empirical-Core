@@ -253,6 +253,12 @@ function clearAllSelectedSubmissions({
     selected_submissions: { [questionId]: true }
   }))
   .run(connection)
+
+  removeSelectedSubmissionOrder({
+    connection,
+    classroomActivityId,
+    questionId,
+  })
 }
 
 function clearAllSubmissions({
@@ -333,12 +339,29 @@ function updateStudentSubmissionOrder({
       .get(classroomActivityId)
       .update({
         selected_submission_order: {
-          [questionId]: [studentId]
+          [questionId]: [
+            studentId
+          ]
         }
       })
       .run(connection)
     }
   })
+}
+
+function removeSelectedSubmissionOrder({
+  classroomActivityId,
+  questionId,
+  connection,
+}) {
+  r.table('classroom_lesson_sessions')
+  .get(classroomActivityId)
+  .replace(r.row.without({
+    selected_submission_order: {
+      [questionId]: true
+    }
+  }))
+  .run(connection)
 }
 
 function removeSelectedStudentSubmission({
@@ -357,6 +380,18 @@ function removeSelectedStudentSubmission({
     }
   }))
   .run(connection)
+  .then(() => {
+    r.table('classroom_lesson_sessions')
+    .get(classroomActivityId)
+    .replace(r.row.without({
+      selected_submission_order: {
+        [questionId]: [
+          studentId
+        ]
+      }
+    }))
+    .run(connection)
+  })
 }
 
 function setMode({
@@ -373,6 +408,180 @@ function setMode({
     }
   })
   .run(connection)
+}
+
+function setModel({
+  classroomActivityId,
+  questionId,
+  model,
+  connection,
+}) {
+  r.table('classroom_lesson_sessions')
+  .get(classroomActivityId)
+  .update({
+    models: {
+      [questionId]: model
+    }
+  })
+  .run(connection)
+}
+
+function setPrompt({
+  classroomActivityId,
+  questionId,
+  prompt,
+  connection,
+}) {
+  r.table('classroom_lesson_sessions')
+  .get(classroomActivityId)
+  .update({
+    prompts: {
+      [questionId]: prompt
+    }
+  })
+  .run(connection)
+}
+
+function toggleStudentFlag({
+  classroomActivityId,
+  studentId,
+  connection,
+}) {
+  r.table('classroom_lesson_sessions')
+  .get(classroomActivityId)
+  .hasFields({
+    flaggedStudents: {
+      [studentId]: true
+    }
+  })
+  .run(connection)
+  .then((result) => {
+    if (result) {
+      r.table('classroom_lesson_sessions')
+      .get(classroomActivityId)
+      .replace(r.row.without({
+        flaggedStudents: {
+          [studentId]: true
+        }
+      }))
+      .run(connection)
+    } else {
+      r.table('classroom_lesson_sessions')
+      .get(classroomActivityId)
+      .update({
+        flaggedStudents: {
+          [studentId]: true
+        }
+      })
+      .run(connection)
+    }
+  })
+}
+
+function setWatchTeacherState({
+  classroomActivityId,
+  connection,
+}) {
+  r.table('classroom_lesson_sessions')
+  .get(classroomActivityId)
+  .update({
+    watchTeacherState: true
+  })
+  .run(connection)
+}
+
+function removeWatchTeacherState({
+  classroomActivityId,
+  connection,
+}) {
+  r.table('classroom_lesson_sessions')
+  .get(classroomActivityId)
+  .replace(r.row.without('watchTeacherState'))
+  .run(connection)
+}
+
+function addStudents({
+  classroomActivityId,
+  activitySessions,
+  studentIds,
+  connection,
+}) {
+  r.table('classroom_lesson_sessions')
+  .get(classroomActivityId)
+  .update({ ...activitySessions, student_ids: studentIds })
+  .run(connection)
+}
+
+function redirectAssignedStudents({
+  classroomActivityId,
+  followUpOption,
+  followUpUrl,
+  connection,
+}) {
+  r.table('classroom_lesson_sessions')
+  .get(classroomActivityId)
+  .update({ followUpOption, followUpUrl })
+  .run(connection)
+}
+
+function setClassroomName({
+  classroomActivityId,
+  classroomName,
+  connection,
+}) {
+  r.table('classroom_lesson_sessions')
+  .get(classroomActivityId)
+  .update({ classroom_name: classroomName })
+  .run(connection)
+}
+
+function setTeacherName({
+  classroomActivityId,
+  teacherName,
+  connection,
+}) {
+  r.table('classroom_lesson_sessions')
+  .get(classroomActivityId)
+  .update({ teacher_name: teacherName })
+  .run(connection)
+}
+
+function addFollowUpName({
+  classroomActivityId,
+  followUpActivityName,
+  connection,
+}) {
+  r.table('classroom_lesson_sessions')
+  .get(classroomActivityId)
+  .update({ followUpActivityName })
+  .run(connection)
+}
+
+function addSupportingInfo({
+  classroomActivityId,
+  supportingInfo,
+  connection,
+}) {
+  r.table('classroom_lesson_sessions')
+  .get(classroomActivityId)
+  .update({ supportingInfo })
+  .run(connection)
+}
+
+function saveReview({
+  classroomActivityId,
+  activityId,
+  value,
+  connection,
+}) {
+  r.table('reviews')
+  .set({
+    id: classroomActivityId,
+    activity_id: activityId,
+    classroom_activity_id: classroomActivityId,
+    timestamp: new Date(),
+    value: value,
+  })
 }
 
 function subscribeToClassroomLesson({
@@ -435,6 +644,69 @@ function deleteClassroomLesson({
   .get(classroomLessonID)
   .delete()
   .run(connection)
+}
+
+function setTeacherModels({
+  classroomActivityId,
+  editionId,
+  connection,
+}) {
+  r.table('lesson_edition_questions')
+  .get(editionId)
+  .do((edition) => {
+    if (edition === 'null') {
+      return edition.getField('questions');
+    } else {
+      return null;
+    }
+  })
+  .run(connection)
+  .then((questions) => {
+    r.table('classroom_lesson_sessions')
+    .get(classroomActivityId)
+    .do((session) => {
+      if (session === 'null') {
+        return session.getField('prompts')
+      } else {
+        return null;
+      }
+    })
+    .run(connection)
+    .then((prompts) => {
+      if (questions && prompts) {
+        Object.keys(prompts).forEach(key => {
+          let canUpdate = questions[key] &&
+              questions[key].data &&
+              questions[key].data.play &&
+              questions[key].data.play.prompt;
+
+          if (canUpdate) {
+            let shouldUpdate = prompts[key] !== questions[key].data.play.prompt;
+
+            if (shouldUpdate) {
+              r.table('classroom_lesson_sessions')
+              .get(classroomActivityId)
+              .update({
+                prompts: {
+                  [key]: questions[key].data.play.prompt
+                }
+              })
+              .run(connection)
+
+              r.table('classroom_lesson_sessions')
+              .get(classroomActivityId)
+              .replace(r.row.without({
+                models: {
+                  [key]: true
+                }
+              }))
+              .run(connection)
+            }
+          }
+        })
+      }
+    })
+  })
 }
 
 function getAllClassroomLessonReviews({
@@ -705,7 +977,106 @@ r.connect({
         classroomActivityId,
         questionId,
         mode,
-        connection
+        connection,
+      });
+    })
+
+    client.on('setModel', (classroomActivityId, questionId, model) => {
+      setModel({
+        classroomActivityId,
+        questionId,
+        model,
+        connection,
+      });
+    })
+
+    client.on('setPrompt', (classroomActivityId, questionId, prompt) => {
+      setPrompt({
+        classroomActivityId,
+        questionId,
+        prompt,
+        connection,
+      });
+    })
+
+    client.on('toggleStudentFlag', (classroomActivityId, studentId) => {
+      toggleStudentFlag({
+        classroomActivityId,
+        studentId,
+        connection,
+      });
+    })
+
+    client.on('setWatchTeacherState', (classroomActivityId) => {
+      setWatchTeacherState({
+        classroomActivityId,
+        connection,
+      });
+    })
+
+    client.on('removeWatchTeacherState', (classroomActivityId) => {
+      removeWatchTeacherState({
+        classroomActivityId,
+        connection,
+      });
+    })
+
+    client.on('addStudents', (classroomActivityId, activitySessions, studentIds) => {
+      addStudents({
+        classroomActivityId,
+        activitySessions,
+        studentIds,
+        connection,
+      });
+    })
+
+    client.on('redirectAssignedStudents', (classroomActivityId, followUpOption, followUpUrl) => {
+      redirectAssignedStudents({
+        classroomActivityId,
+        followUpOption,
+        followUpUrl,
+        connection,
+      });
+    })
+
+    client.on('setClassroomName', (classroomActivityId, classroomName) => {
+      setClassroomName({
+        classroomActivityId,
+        classroomName,
+        connection,
+      });
+    })
+
+    client.on('setTeacherName', (classroomActivityId, teacherName) => {
+      setTeacherName({
+        classroomActivityId,
+        teacherName,
+        connection,
+      });
+    })
+
+    client.on('addFollowUpName', (classroomActivityId, followUpActivityName) => {
+      addFollowUpName({
+        classroomActivityId,
+        followUpActivityName,
+        connection,
+      });
+    })
+
+    client.on('addSupportingInfo', (classroomActivityId, supportingInfo) => {
+      addSupportingInfo({
+        classroomActivityId,
+        supportingInfo,
+        connection,
+      });
+    })
+
+    client.on('saveReview', (classroomActivityId, activityId, value) => {
+      saveReview({
+        classroomActivityId,
+        activityId,
+        value,
+        connection,
       })
     })
 
@@ -738,6 +1109,13 @@ r.connect({
         classroomLessonID
       })
     })
+
+    client.on('setTeacherModels', (classroomActivityId, editionId) => {
+      setTeacherModels({
+        classroomActivityId,
+        editionId,
+        connection,
+      });
 
     client.on('getAllClassroomLessonReviews', () => {
       getAllClassroomLessonReviews({
