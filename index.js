@@ -475,6 +475,28 @@ function toggleStudentFlag({
   })
 }
 
+function setWatchTeacherState({
+  classroomActivityId,
+  connection,
+}) {
+  r.table('classroom_lesson_sessions')
+  .get(classroomActivityId)
+  .update({
+    watchTeacherState: true
+  })
+  .run(connection)
+}
+
+function removeWatchTeacherState({
+  classroomActivityId,
+  connection,
+}) {
+  r.table('classroom_lesson_sessions')
+  .get(classroomActivityId)
+  .replace(r.row.without('watchTeacherState'))
+  .run(connection)
+}
+
 r.connect({
   host: 'localhost',
   port: 28015,
@@ -662,6 +684,20 @@ r.connect({
       toggleStudentFlag({
         classroomActivityId,
         studentId,
+        connection,
+      });
+    })
+
+    client.on('setWatchTeacherState', (classroomActivityId) => {
+      setWatchTeacherState({
+        classroomActivityId,
+        connection,
+      });
+    })
+
+    client.on('removeWatchTeacherState', (classroomActivityId) => {
+      removeWatchTeacherState({
+        classroomActivityId,
         connection,
       });
     })
