@@ -561,7 +561,24 @@ function addSupportingInfo({
 }) {
   r.table('classroom_lesson_sessions')
   .get(classroomActivityId)
-  .update({ followUpActivityName })
+  .update({ supportingInfo })
+  .run(connection)
+}
+
+function saveReview({
+  classroomActivityId,
+  activityId,
+  value,
+  connection,
+}) {
+  r.table('reviews')
+  .set({
+    id: classroomActivityId,
+    activity_id: activityId,
+    classroom_activity_id: classroomActivityId,
+    timestamp: new Date(),
+    value,
+  })
   .run(connection)
 }
 
@@ -816,6 +833,15 @@ r.connect({
       addSupportingInfo({
         classroomActivityId,
         supportingInfo,
+        connection,
+      });
+    })
+
+    client.on('saveReview', (classroomActivityId, activityId, value) => {
+      saveReview({
+        classroomActivityId,
+        activityId,
+        value,
         connection,
       })
     })
