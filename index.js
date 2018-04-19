@@ -388,13 +388,13 @@ function subscribeToClassroomLesson({
   });
 }
 
-function subscribeToClassroomLessons({
+function getAllClassroomLessons({
   connection,
   client,
   classroomLessonUID
 }) {
   r.table('classroom_lessons')
-  .changes({ includeInitial: true })
+  // .changes({ includeInitial: true })
   .run(connection, (err, cursor) => {
     r.table('classroom_lessons').count().run(connection, (err, val) => {
       const numberOfLessons = val
@@ -402,7 +402,7 @@ function subscribeToClassroomLessons({
       let lessonCount = 0
       cursor.each(function(err, document) {
         if (err) throw err
-        classroomLessons[document.new_val.id] = document.new_val
+        classroomLessons[document.id] = document
         lessonCount++
         if (lessonCount === numberOfLessons) {
           client.emit('classroomLessons', classroomLessons)
@@ -412,12 +412,27 @@ function subscribeToClassroomLessons({
   });
 }
 
-function addClassroomLesson({
+function createOrUpdateClassroomLesson({
   connection,
-  classroomLesson
+  classroomLesson,
+  client
 }) {
   r.table('classroom_lessons')
-  .insert(classroomLesson)
+  .insert(classroomLesson, { conflict: 'update' })
+  .run(connection, function(err, document) {
+    if (err) throw err
+    client.emit(`createdOrUpdatedClassroomLesson:${classroomLesson.id}`, true)
+    getAllClassroomLessons({connection, client})
+  })
+}
+
+function deleteClassroomLesson({
+  connection,
+  classroomLessonID
+}) {
+  r.table('classroom_lessons')
+  .get(classroomLessonID)
+  .delete()
   .run(connection)
 }
 
@@ -477,7 +492,8 @@ r.connect({
     client.on('createOrUpdateClassroomLessonSession', (classroomActivityId) => {
       createOrUpdateClassroomLessonSession({
         connection,
-        classroomActivityId
+        classroomActivityId,
+        client
       });
     });
 
@@ -594,17 +610,25 @@ r.connect({
       })
     })
 
-    client.on('subscribeToClassroomLessons', () => {
-      subscribeToClassroomLessons({
+    client.on('getAllClassroomLessons', () => {
+      getAllClassroomLessons({
         connection,
         client
       })
     })
 
-    client.on('addClassroomLesson', (classroomLesson) => {
-      addClassroomLesson({
+    client.on('createOrUpdateClassroomLesson', (classroomLesson) => {
+      createOrUpdateClassroomLesson({
         connection,
-        classroomLesson
+        classroomLesson,
+        client
+      })
+    })
+
+    client.on('deleteClassroomLesson', (classroomLessonID) => {
+      deleteClassroomLesson({
+        connection,
+        classroomLessonID
       })
     })
 
