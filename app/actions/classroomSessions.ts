@@ -470,9 +470,7 @@ export function createPreviewSession(edition_id?:string) {
   return classroomActivityId;
 }
 
-<<<<<<<
 export function saveReview(activity_id:string, classroom_activity_id:string, value:number) {
-  // const reviewRef = reviewsRef.child(classroom_activity_id)
   const review = {
     id: classroom_activity_id,
     activity_id: activity_id,
@@ -480,9 +478,4 @@ export function saveReview(activity_id:string, classroom_activity_id:string, val
     classroom_activity_id: classroom_activity_id,
   }
   socket.emit('createOrUpdateReview', review)
-  // reviewRef.set(review)
-=======
-export function saveReview(activityId:string, classroomActivityId:string, value:number) {
-  socket.emit('saveReview', classroomActivityId, activityId, value)
->>>>>>>
 }
