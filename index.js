@@ -469,6 +469,80 @@ function createOrUpdateReview({
   .run(connection)
 }
 
+function getAllEditionMetadata({
+  client,
+  connection
+}) {
+  r.table('lesson_edition_metadata')
+  .run(connection, (err, cursor) => {
+    r.table('lesson_edition_metadata').count().run(connection, (err, val) => {
+      const numberOfEditions = val
+      let editions = {}
+      let editionCount = 0
+      cursor.each(function(err, document) {
+        if (err) throw err
+        editions[document.id] = document
+        editionCount++
+        if (editionCount === numberOfEditions) {
+          client.emit('editionMetadata', editions)
+        }
+      });
+    })
+
+  })
+}
+
+function getAllEditionMetadataForLesson({
+  client,
+  connection,
+  lessonID
+}) {
+  if (lessonID) {
+    r.table('lesson_edition_metadata')
+    .filter(r.row("lesson_id").eq(lessonID))
+    .run(connection, (err, cursor) => {
+      r.table('lesson_edition_metadata').filter(r.row("lesson_id").eq(lessonID)).count().run(connection, (err, val) => {
+        const numberOfEditions = val
+        let editions = {}
+        let editionCount = 0
+        cursor.each(function(err, document) {
+          if (err) throw err
+          editions[document.id] = document
+          editionCount++
+          if (editionCount === numberOfEditions) {
+            client.emit(`editionMetadataForLesson:${lessonID}`, editions)
+          }
+        });
+      })
+    })
+  }
+}
+
+function getEditionQuestions({
+  editionID,
+  connection,
+  client
+}) {
+  r.table('lesson_edition_questions')
+  .get(editionID)
+  .changes({ includeInitial: true })
+  .run(connection, (err, cursor) => {
+    cursor.each((err, document) => {
+      let edition = document.new_val;
+      client.emit(`getEditionQuestionsForEdition:${edition.id}`, edition)
+    });
+  });
+}
+
+function updateEditionMetadata({
+  connection,
+  editionMetadata
+}) {
+  r.table('lesson_edition_metadata')
+  .insert(editionMetadata, { conflict: 'update' })
+  .run(connection)
+}
+
 r.connect({
   host: 'localhost',
   port: 28015,
@@ -676,6 +750,36 @@ r.connect({
       getAllClassroomLessonReviews({
         connection,
         review
+      })
+    })
+
+    client.on('getAllEditionMetadata', () => {
+      getAllEditionMetadata({
+        connection,
+        client
+      })
+    })
+
+    client.on('getAllEditionMetadataForLesson', (lessonID) => {
+      getAllEditionMetadataForLesson({
+        connection,
+        client,
+        lessonID
+      })
+    })
+
+    client.on('getEditionQuestions', (editionID) => {
+      getEditionQuestions({
+        connection,
+        client,
+        editionID
+      })
+    })
+
+    client.on('updateEditionMetadata', (editionMetadata) => {
+      updateEditionMetadata({
+        connection,
+        editionMetadata
       })
     })
 
