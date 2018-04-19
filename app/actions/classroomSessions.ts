@@ -127,11 +127,12 @@ export function updateSession(data: object): {type: string; data: any;} {
   };
 }
 
-export function redirectAssignedStudents(classroom_activity_id: string, followUpOption: string, followUpUrl: string) {
-  const followUpOptionRef = classroomSessionsRef.child(`${classroom_activity_id}/followUpOption`)
-  const followUpUrlRef = classroomSessionsRef.child(`${classroom_activity_id}/followUpUrl`)
-  followUpOptionRef.set(followUpOption)
-  followUpUrlRef.set(followUpUrl)
+export function redirectAssignedStudents(classroomActivityId: string, followUpOption: string, followUpUrl: string) {
+  socket.emit('redirectAssignedStudents',
+    classroomActivityId,
+    followUpOption,
+    followUpUrl,
+  )
 }
 
 export function registerPresence(classroomActivityId: string, studentId: string): void {
