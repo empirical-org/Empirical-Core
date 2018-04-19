@@ -577,7 +577,7 @@ function saveReview({
     activity_id: activityId,
     classroom_activity_id: classroomActivityId,
     timestamp: new Date(),
-    value,
+    value: value,
   })
 
 function subscribeToClassroomLesson({
@@ -602,7 +602,6 @@ function getAllClassroomLessons({
   classroomLessonUID
 }) {
   r.table('classroom_lessons')
-  // .changes({ includeInitial: true })
   .run(connection, (err, cursor) => {
     r.table('classroom_lessons').count().run(connection, (err, val) => {
       const numberOfLessons = val
