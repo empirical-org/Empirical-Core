@@ -327,9 +327,8 @@ export function addFollowUpName(classroomActivityId: string, followUpActivityNam
   socket.emit('addFollowUpName', classroomActivityId, followUpActivityName)
 }
 
-export function addSupportingInfo(classroom_activity_id: string, supportingInfo: string|null): void {
-  const supportingInfoRef = classroomSessionsRef.child(`${classroom_activity_id}/supportingInfo`);
-  supportingInfoRef.set(supportingInfo)
+export function addSupportingInfo(classroomActivityId: string, supportingInfo: string|null): void {
+  socket.emit('addSupportingInfo', classroomActivityId, supportingInfo)
 }
 
 export function setSlideStartTime(classroomActivityId: string, questionId: string): void {
