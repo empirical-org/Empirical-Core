@@ -497,6 +497,25 @@ function removeWatchTeacherState({
   .run(connection)
 }
 
+function addStudents({
+  classroomActivityId,
+  activitySessions,
+  studentIds,
+  connection,
+}) {
+  r.table('classroom_lesson_sessions')
+  .get(classroomActivityId)
+  .set(activitySessions, { conflict: 'update' })
+  .run(connection)
+
+  r.table('classroom_lesson_sessions')
+  .get(classroomActivityId)
+  .update({
+    student_ids: studentIds
+  })
+  .run(connection)
+}
+
 r.connect({
   host: 'localhost',
   port: 28015,
@@ -698,6 +717,15 @@ r.connect({
     client.on('removeWatchTeacherState', (classroomActivityId) => {
       removeWatchTeacherState({
         classroomActivityId,
+        connection,
+      });
+    })
+
+    client.on('addStudents', (classroomActivityId, activitySessions, studentIds) => {
+      addStudents({
+        classroomActivityId,
+        activitySessions,
+        studentIds,
         connection,
       });
     })
