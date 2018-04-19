@@ -1,7 +1,6 @@
 declare function require(name:string);
 import  C from '../constants';
 import rootRef, { firebase } from '../libs/firebase';
-const classroomLessonsRef = rootRef.child('classroom_lessons');
 const reviewsRef = rootRef.child('reviews');
 const editionMetadataRef = rootRef.child('lesson_edition_metadata');
 const editionQuestionsRef = rootRef.child('lesson_edition_questions');
@@ -57,7 +56,7 @@ export function listenForClassroomLessons() {
         dispatch({type: C.NO_LESSONS})
       }
     });
-    socket.emit('subscribeToClassroomLessons');
+    socket.emit('getAllClassroomLessons');
   };
 }
 
@@ -136,11 +135,16 @@ export function addLesson(lessonName, cb) {
   const newLessonKey = uuid();
   newLesson.id = newLessonKey
   if (newLessonKey) {
-    socket.emit('addClassroomLesson', newLesson)
-    if (cb) {
-      cb(newLessonKey)
-    }
+    socket.emit('createOrUpdateClassroomLesson', newLesson)
   }
+
+  socket.on(`createdOrUpdatedClassroomLesson:${newLessonKey}`, (lessonUpdated) => {
+    if (lessonUpdated) {
+      if (cb) {
+        cb(newLessonKey)
+      }
+    }
+  })
 }
 
 export function saveEditionSlide(editionID, slideID, slideData, cb) {
@@ -162,7 +166,7 @@ export function saveEditionScriptItem(editionID, slideID, scriptItemID, scriptIt
 }
 
 export function deleteLesson(classroomLessonID) {
-  classroomLessonsRef.child(classroomLessonID).remove();
+  socket.emit('deleteClassroomLesson', classroomLessonID)
 }
 
 export function deleteEdition(editionID) {
@@ -183,7 +187,8 @@ export function updateEditionSlides(editionID, slides) {
 }
 
 export function updateClassroomLessonDetails(classroomLessonID, classroomLesson) {
-  classroomLessonsRef.child(classroomLessonID).set(classroomLesson)
+  classroomLesson.id = classroomLessonID
+  socket.emit('createOrUpdateClassroomLesson', classroomLesson)
 }
 
 export function updateEditionDetails(editionID, edition) {
