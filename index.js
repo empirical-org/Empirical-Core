@@ -543,6 +543,17 @@ function setTeacherName({
   .run(connection)
 }
 
+function addFollowUpName({
+  classroomActivityId,
+  followUpActivityName,
+  connection,
+}) {
+  r.table('classroom_lesson_sessions')
+  .get(classroomActivityId)
+  .update({ followUpActivityName })
+  .run(connection)
+}
+
 r.connect({
   host: 'localhost',
   port: 28015,
@@ -780,6 +791,14 @@ r.connect({
         teacherName,
         connection,
       });
+    })
+
+    client.on('addFollowUpName', (classroomActivityId, followUpActivityName) => {
+      addFollowUpName({
+        classroomActivityId,
+        followUpActivityName,
+        connection,
+      })
     })
   });
 });
