@@ -11,12 +11,15 @@
   <%= form_for @user, url: url do |f| %>
     <div class='cms-form-row'>
       <%= f.label :name %>
+      <span>First and Last</span>
       <%= f.text_field :name, autocomplete: 'off' %>
     </div>
     <div class='cms-form-row'>
       <%= f.label :email %>
-      <%= f.text_field :email, autocomplete: 'off', readonly: true %>
-      <a href='#!' onclick="unlockField('user_email')">Edit</a>
+      <%= f.text_field :email, autocomplete: 'off', readonly: !@with_school %>
+      <% if !@with_school %>
+        <a href='#!' onclick="unlockField('user_email')">Edit</a>
+      <%end%>
     </div>
     <div class='cms-form-row'>
       <%= f.label :username %>
@@ -38,13 +41,17 @@
     </div>
     <div class='cms-form-row'>
       <%= f.label :password %>
-      <%= f.password_field :password, autocomplete: 'new-password', readonly: true %>
-      <a href='#!' onclick="unlockField('user_password')">Edit</a>
+      <%= f.password_field :password, autocomplete: 'new-password', readonly: !@with_school %>
+      <% if !@with_school %>
+        <a href='#!' onclick="unlockField('user_password')">Edit</a>
+      <%end%>
     </div>
     <div class='cms-form-row'>
       <%= f.label :password_confirmation %>
-      <%= f.password_field :password_confirmation, autocomplete: 'new-password', readonly: true %>
-      <a href='#!' onclick="unlockField('user_password_confirmation')">Edit</a>
+      <%= f.password_field :password_confirmation, autocomplete: 'new-password', readonly: !@with_school %>
+      <% if !@with_school %>
+        <a href='#!' onclick="unlockField('user_password_confirmation')">Edit</a>
+      <%end%>
     </div>
     <div class='cms-submit-row'>
       <%= f.submit 'Save', class: 'button-green' %>
