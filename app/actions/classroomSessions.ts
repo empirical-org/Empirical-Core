@@ -299,14 +299,12 @@ export function getClassroomAndTeacherNameFromServer(classroom_activity_id: stri
   }
 }
 
-function _setClassroomName(classroomName: string, classroom_activity_id: string|null) {
-  const classroomNameRef = classroomSessionsRef.child(`${classroom_activity_id}/classroom_name`);
-  classroomNameRef.set(classroomName)
+function _setClassroomName(classroomName: string, classroomActivityId: string|null) {
+  socket.emit('setClassroomName', classroomActivityId, classroomName)
 }
 
-function _setTeacherName(teacherName: string, classroom_activity_id: string|null) {
-  const teacherNameRef = classroomSessionsRef.child(`${classroom_activity_id}/teacher_name`);
-  teacherNameRef.set(teacherName)
+function _setTeacherName(teacherName: string, classroomActivityId: string|null) {
+  socket.emit('setTeacherName', classroomActivityId, teacherName)
 }
 
 function _setClassroomAndTeacherName(names: TeacherAndClassroomName, classroom_activity_id: string|null): void {
