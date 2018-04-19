@@ -505,14 +505,19 @@ function addStudents({
 }) {
   r.table('classroom_lesson_sessions')
   .get(classroomActivityId)
-  .set(activitySessions, { conflict: 'update' })
+  .update({ ...activitySessions, student_ids: studentIds })
   .run(connection)
+}
 
+function redirectAssignedStudents({
+  classroomActivityId,
+  followUpOption,
+  followUpUrl,
+  connection,
+}) {
   r.table('classroom_lesson_sessions')
   .get(classroomActivityId)
-  .update({
-    student_ids: studentIds
-  })
+  .update({ followUpOption, followUpUrl })
   .run(connection)
 }
 
@@ -726,6 +731,15 @@ r.connect({
         classroomActivityId,
         activitySessions,
         studentIds,
+        connection,
+      });
+    })
+
+    client.on('redirectAssignedStudents', (classroomActivityId, followUpOption, followUpUrl) => {
+      redirectAssignedStudents({
+        classroomActivityId,
+        followUpOption,
+        followUpUrl,
         connection,
       });
     })
