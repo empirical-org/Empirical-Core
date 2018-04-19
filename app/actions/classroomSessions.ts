@@ -3,7 +3,6 @@ import C from '../constants';
 import rootRef, { firebase } from '../libs/firebase';
 import * as request from 'request'
 const classroomSessionsRef = rootRef.child('classroom_lesson_sessions');
-const classroomLessonsRef = rootRef.child('classroom_lessons');
 const editionQuestionsRef = rootRef.child('lesson_edition_questions');
 const reviewsRef = rootRef.child('reviews')
 import {
@@ -128,11 +127,12 @@ export function updateSession(data: object): {type: string; data: any;} {
   };
 }
 
-export function redirectAssignedStudents(classroom_activity_id: string, followUpOption: string, followUpUrl: string) {
-  const followUpOptionRef = classroomSessionsRef.child(`${classroom_activity_id}/followUpOption`)
-  const followUpUrlRef = classroomSessionsRef.child(`${classroom_activity_id}/followUpUrl`)
-  followUpOptionRef.set(followUpOption)
-  followUpUrlRef.set(followUpUrl)
+export function redirectAssignedStudents(classroomActivityId: string, followUpOption: string, followUpUrl: string) {
+  socket.emit('redirectAssignedStudents',
+    classroomActivityId,
+    followUpOption,
+    followUpUrl,
+  )
 }
 
 export function registerPresence(classroomActivityId: string, studentId: string): void {
@@ -209,11 +209,6 @@ export function clearAllSubmissions(classroomActivityId: string, question_id: st
   socket.emit('clearAllSubmissions', classroomActivityId, question_id)
 }
 
-export function removeSelectedSubmissionOrder(classroom_activity_id: string, question_id: string): void {
-  const submissionOrderRef = classroomSessionsRef.child(`${classroom_activity_id}/selected_submission_order/${question_id}`);
-  submissionOrderRef.remove()
-}
-
 export function saveSelectedStudentSubmission(classroomActivityId: string, questionId: string, studentId: string): void {
   socket.emit('saveSelectedStudentSubmission', classroomActivityId, questionId, studentId)
 }
@@ -227,7 +222,7 @@ export function updateStudentSubmissionOrder(classroomActivityId: string, questi
 }
 
 export function clearAllSelectedSubmissions(classroomActivityId: string, questionId: string): void {
-  socket.on('clearAllSelectedSubmissions', (classroomActivityId, questionId))
+  socket.emit('clearAllSelectedSubmissions', classroomActivityId, questionId)
 }
 
 export function setMode(classroomActivityId: string, questionId: string, mode): void {
@@ -238,14 +233,12 @@ export function removeMode(classroomActivityId: string, questionId: string): voi
   socket.emit('removeMode', classroomActivityId, questionId)
 }
 
-export function setWatchTeacherState(classroom_activity_id: string | null): void {
-  const watchTeacherRef = classroomSessionsRef.child(`${classroom_activity_id}/watchTeacherState`);
-  watchTeacherRef.set(true);
+export function setWatchTeacherState(classroomActivityId: string | null): void {
+  socket.emit('setWatchTeacherState', classroomActivityId)
 }
 
-export function removeWatchTeacherState(classroom_activity_id: string): void {
-  const watchTeacherRef = classroomSessionsRef.child(`${classroom_activity_id}/watchTeacherState`);
-  watchTeacherRef.remove();
+export function removeWatchTeacherState(classroomActivityId: string): void {
+  socket.emit('removeWatchTeacherState', classroomActivityId)
 }
 
 export function registerTeacherPresence(classroomActivityId: string | null): void {
@@ -282,15 +275,8 @@ export function unpinActivityOnSaveAndExit(classroom_activity_id) {
     });
 }
 
-export function toggleStudentFlag(classroomActivityId: string|null, student_id: string): void {
-  const flaggedStudentRef = classroomSessionsRef.child(`${classroomActivityId}/flaggedStudents/${student_id}`)
-  flaggedStudentRef.once('value', (snapshot) => {
-    if(snapshot.val()){
-      flaggedStudentRef.remove()
-    } else {
-      flaggedStudentRef.set(true)
-    }
-  })
+export function toggleStudentFlag(classroomActivityId: string|null, studentId: string): void {
+  socket.emit('toggleStudentFlag', classroomActivityId, studentId)
 }
 
 export function getClassroomAndTeacherNameFromServer(classroom_activity_id: string|null, baseUrl: string|undefined) {
@@ -313,14 +299,12 @@ export function getClassroomAndTeacherNameFromServer(classroom_activity_id: stri
   }
 }
 
-function _setClassroomName(classroomName: string, classroom_activity_id: string|null) {
-  const classroomNameRef = classroomSessionsRef.child(`${classroom_activity_id}/classroom_name`);
-  classroomNameRef.set(classroomName)
+function _setClassroomName(classroomName: string, classroomActivityId: string|null) {
+  socket.emit('setClassroomName', classroomActivityId, classroomName)
 }
 
-function _setTeacherName(teacherName: string, classroom_activity_id: string|null) {
-  const teacherNameRef = classroomSessionsRef.child(`${classroom_activity_id}/teacher_name`);
-  teacherNameRef.set(teacherName)
+function _setTeacherName(teacherName: string, classroomActivityId: string|null) {
+  socket.emit('setTeacherName', classroomActivityId, teacherName)
 }
 
 function _setClassroomAndTeacherName(names: TeacherAndClassroomName, classroom_activity_id: string|null): void {
@@ -328,21 +312,23 @@ function _setClassroomAndTeacherName(names: TeacherAndClassroomName, classroom_a
   _setTeacherName(names.teacher, classroom_activity_id)
 }
 
-export function addStudents(classroom_activity_id: string, studentObj): void {
-  const studentsRef = classroomSessionsRef.child(`${classroom_activity_id}/students`);
-  studentsRef.set(studentObj.activity_sessions_and_names)
-  const studentIdsRef = classroomSessionsRef.child(`${classroom_activity_id}/student_ids`);
-  studentIdsRef.set(studentObj.student_ids)
+export function addStudents(classroomActivityId: string, studentObj): void {
+  let studentIds = studentObj.student_ids;
+  let activitySessions = studentObj.activity_sessions_and_names;
+
+  socket.emit('addStudents',
+    classroomActivityId,
+    activitySessions,
+    studentIds,
+  )
 }
 
-export function addFollowUpName(classroom_activity_id: string, followUpActivityName: string|null): void {
-  const followUpRef = classroomSessionsRef.child(`${classroom_activity_id}/followUpActivityName`);
-  followUpRef.set(followUpActivityName)
+export function addFollowUpName(classroomActivityId: string, followUpActivityName: string|null): void {
+  socket.emit('addFollowUpName', classroomActivityId, followUpActivityName)
 }
 
-export function addSupportingInfo(classroom_activity_id: string, supportingInfo: string|null): void {
-  const supportingInfoRef = classroomSessionsRef.child(`${classroom_activity_id}/supportingInfo`);
-  supportingInfoRef.set(supportingInfo)
+export function addSupportingInfo(classroomActivityId: string, supportingInfo: string|null): void {
+  socket.emit('addSupportingInfo', classroomActivityId, supportingInfo)
 }
 
 export function setSlideStartTime(classroomActivityId: string, questionId: string): void {
@@ -395,14 +381,12 @@ export function updateNoStudentError(student: string | null) {
   };
 }
 
-export function setModel(classroom_activity_id: string, question_id: string, model): void {
-  const modelRef = classroomSessionsRef.child(`${classroom_activity_id}/models/${question_id}`);
-  modelRef.set(model);
+export function setModel(classroomActivityId: string, questionId: string, model): void {
+  socket.emit('setModel', classroomActivityId, questionId, model)
 }
 
-export function setPrompt(classroom_activity_id: string, question_id: string, prompt): void {
-  const promptRef = classroomSessionsRef.child(`${classroom_activity_id}/prompts/${question_id}`);
-  promptRef.set(prompt);
+export function setPrompt(classroomActivityId: string, questionId: string, prompt): void {
+  socket.emit('setPrompt', classroomActivityId, questionId, prompt)
 }
 
 export function easyJoinLessonAddName(classroomActivityId: string, studentName: string): void {
