@@ -10,7 +10,7 @@ import {
 } from '../../../actions/customize'
 import {
   listenForClassroomLessons,
-  listenForClassroomLessonsReviewsFromFirebase
+  listenForClassroomLessonReviews
 } from '../../../actions/classroomLesson';
 
 class ClassLessonsIndex extends Component<any, any> {
@@ -26,7 +26,7 @@ class ClassLessonsIndex extends Component<any, any> {
     this.changeNewLessonName = this.changeNewLessonName.bind(this)
     this.goToNewLesson = this.goToNewLesson.bind(this)
     props.dispatch(listenForClassroomLessons());
-    props.dispatch(listenForClassroomLessonsReviewsFromFirebase())
+    props.dispatch(listenForClassroomLessonReviews())
     props.dispatch(startListeningToEditionMetadata())
   }
 

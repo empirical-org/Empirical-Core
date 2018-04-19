@@ -490,12 +490,13 @@ export function createPreviewSession(edition_id?:string) {
 }
 
 export function saveReview(activity_id:string, classroom_activity_id:string, value:number) {
-  const reviewRef = reviewsRef.child(classroom_activity_id)
+  // const reviewRef = reviewsRef.child(classroom_activity_id)
   const review = {
+    id: classroom_activity_id,
     activity_id: activity_id,
     value: value,
     classroom_activity_id: classroom_activity_id,
-    timestamp: firebase.database.ServerValue.TIMESTAMP
   }
-  reviewRef.set(review)
+  socket.emit('createOrUpdateReview', review)
+  // reviewRef.set(review)
 }

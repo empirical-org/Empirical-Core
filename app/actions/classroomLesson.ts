@@ -1,7 +1,6 @@
 declare function require(name:string);
 import  C from '../constants';
 import rootRef, { firebase } from '../libs/firebase';
-const reviewsRef = rootRef.child('reviews');
 const editionMetadataRef = rootRef.child('lesson_edition_metadata');
 const editionQuestionsRef = rootRef.child('lesson_edition_questions');
 import _ from 'lodash'
@@ -60,14 +59,15 @@ export function listenForClassroomLessons() {
   };
 }
 
-export function listenForClassroomLessonsReviewsFromFirebase() {
+export function listenForClassroomLessonReviews() {
   return function (dispatch) {
-    reviewsRef.on('value', (snapshot) => {
-      if (snapshot && snapshot.val()) {
-        dispatch(updateClassroomLessonsReviews(snapshot.val()))
+    socket.on('classroomLessonReviews', (reviews) => {
+      if (reviews) {
+        dispatch(updateClassroomLessonsReviews(reviews))
       }
-    })
-  }
+    });
+    socket.emit('getAllClassroomLessonReviews');
+  };
 }
 
 export function updateClassroomLessons(data) {
