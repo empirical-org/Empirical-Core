@@ -10,6 +10,7 @@ class Cms::UsersController < Cms::CmsController
   def index
     @user_search_query = {sort: 'last_sign_in', sort_direction: 'desc'}
     @user_search_query_results = user_query(user_query_params)
+    @user_flags = User::VALID_FLAGS
     @number_of_pages = 0
   end
 
@@ -123,7 +124,7 @@ protected
   end
 
   def user_query_params
-    params.permit(@text_search_inputs.map(&:to_sym) + default_params + [:page, :user_role, :sort, :sort_direction, :user_premium_status])
+    params.permit(@text_search_inputs.map(&:to_sym) + default_params + [:page, :user_role, :user_flag, :sort, :sort_direction, :user_premium_status])
   end
 
   def user_query(params)
@@ -185,6 +186,7 @@ protected
     # User email: users.email
     # User IP: users.ip_address
     # School name: schools.name
+    # User flag: user.flags
     # Premium status: subscriptions.account_type
     sanitized_fuzzy_param_value = ActiveRecord::Base.sanitize('%' + param_value + '%')
     sanitized_param_value = ActiveRecord::Base.sanitize(param_value)
@@ -199,6 +201,8 @@ protected
       "users.username ILIKE #{(sanitized_fuzzy_param_value)}"
     when 'user_email'
       "users.email ILIKE #{(sanitized_fuzzy_param_value)}"
+    when 'user_flag'
+      "#{(sanitized_param_value)} = ANY (users.flags::text[])"
     when 'user_ip'
       "users.ip_address = #{(sanitized_param_value)}"
     when 'school_name'
@@ -242,7 +246,7 @@ protected
     @text_search_inputs = ['user_name', 'user_username', 'user_email', 'user_ip', 'school_name']
     @school_premium_types = Subscription.account_types
     @user_role_types = User.select('DISTINCT role').map { |r| r.role }
-    @all_search_inputs = @text_search_inputs + ['user_premium_status', 'user_role', 'page']
+    @all_search_inputs = @text_search_inputs + ['user_premium_status', 'user_role', 'page', 'user_flag']
   end
 
   def filter_zeroes_from_checkboxes
