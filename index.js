@@ -14,8 +14,11 @@ function subscribeToClassroomLessonSession({
   .changes({ includeInitial: true })
   .run(connection, (err, cursor) => {
     cursor.each((err, document) => {
+      if (err) throw err
       let session = document.new_val;
-      client.emit(`classroomLessonSession:${session.id}`, session)
+      if (session) {
+        client.emit(`classroomLessonSession:${session.id}`, session)
+      }
     });
   });
 }
@@ -391,10 +394,8 @@ function subscribeToClassroomLesson({
 function getAllClassroomLessons({
   connection,
   client,
-  classroomLessonUID
 }) {
   r.table('classroom_lessons')
-  // .changes({ includeInitial: true })
   .run(connection, (err, cursor) => {
     r.table('classroom_lessons').count().run(connection, (err, val) => {
       const numberOfLessons = val
@@ -433,6 +434,38 @@ function deleteClassroomLesson({
   r.table('classroom_lessons')
   .get(classroomLessonID)
   .delete()
+  .run(connection)
+}
+
+function getAllClassroomLessonReviews({
+  connection,
+  client,
+}) {
+  r.table('reviews')
+  .run(connection, (err, cursor) => {
+    r.table('reviews').count().run(connection, (err, val) => {
+      const numberOfReviews = val
+      let reviews = {}
+      let reviewCount = 0
+      cursor.each(function(err, document) {
+        if (err) throw err
+        reviews[document.id] = document
+        reviewCount++
+        if (reviewCount === numberOfReviews) {
+          client.emit('classroomLessonReviews', reviews)
+        }
+      });
+    })
+  });
+}
+
+function createOrUpdateReview({
+  connection,
+  review
+}) {
+  review.timestamp = new Date()
+  r.table('reviews')
+  .insert(review, { conflict: 'update' })
   .run(connection)
 }
 
@@ -629,6 +662,20 @@ r.connect({
       deleteClassroomLesson({
         connection,
         classroomLessonID
+      })
+    })
+
+    client.on('getAllClassroomLessonReviews', () => {
+      getAllClassroomLessonReviews({
+        connection,
+        client
+      })
+    })
+
+    client.on('createOrUpdateReview', (review) => {
+      getAllClassroomLessonReviews({
+        connection,
+        review
       })
     })
 
