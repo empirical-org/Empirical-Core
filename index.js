@@ -579,6 +579,7 @@ function saveReview({
     timestamp: new Date(),
     value: value,
   })
+}
 
 function subscribeToClassroomLesson({
   connection,
@@ -641,6 +642,69 @@ function deleteClassroomLesson({
   .get(classroomLessonID)
   .delete()
   .run(connection)
+}
+
+function setTeacherModels({
+  classroomActivityId,
+  editionId,
+  connection,
+}) {
+  r.table('lesson_edition_questions')
+  .get(editionId)
+  .do((edition) => {
+    if (edition === 'null') {
+      return edition.getField('questions');
+    } else {
+      return null;
+    }
+  })
+  .run(connection)
+  .then((questions) => {
+    r.table('classroom_lesson_sessions')
+    .get(classroomActivityId)
+    .do((session) => {
+      if (session === 'null') {
+        return session.getField('prompts')
+      } else {
+        return null;
+      }
+    })
+    .run(connection)
+    .then((prompts) => {
+      if (questions && prompts) {
+        Object.keys(prompts).forEach(key => {
+          let canUpdate = questions[key] &&
+              questions[key].data &&
+              questions[key].data.play &&
+              questions[key].data.play.prompt;
+
+          if (canUpdate) {
+            let shouldUpdate = prompts[key] !== questions[key].data.play.prompt;
+
+            if (shouldUpdate) {
+              r.table('classroom_lesson_sessions')
+              .get(classroomActivityId)
+              .update({
+                prompts: {
+                  [key]: questions[key].data.play.prompt
+                }
+              })
+              .run(connection)
+
+              r.table('classroom_lesson_sessions')
+              .get(classroomActivityId)
+              .replace(r.row.without({
+                models: {
+                  [key]: true
+                }
+              }))
+              .run(connection)
+            }
+          }
+        })
+      }
+    })
+  })
 }
 
 r.connect({
@@ -936,6 +1000,14 @@ r.connect({
         connection,
         classroomLessonID
       })
+    })
+
+    client.on('setTeacherModels', (classroomActivityId, editionId) => {
+      setTeacherModels({
+        classroomActivityId,
+        editionId,
+        connection,
+      });
     })
 
   });
