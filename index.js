@@ -404,8 +404,6 @@ function subscribeToClassroomLessons({
         if (err) throw err
         classroomLessons[document.new_val.id] = document.new_val
         lessonCount++
-        console.log('lessonCount', lessonCount)
-        console.log('numberOfLessons', numberOfLessons)
         if (lessonCount === numberOfLessons) {
           client.emit('classroomLessons', classroomLessons)
         }
@@ -414,9 +412,13 @@ function subscribeToClassroomLessons({
   });
 }
 
-function emitClassroomLessons(classroomLessons) {
-  console.log('here i am')
-  console.log(classroomLessons)
+function addClassroomLesson({
+  connection,
+  classroomLesson
+}) {
+  r.table('classroom_lessons')
+  .insert(classroomLesson)
+  .run(connection)
 }
 
 r.connect({
@@ -596,6 +598,13 @@ r.connect({
       subscribeToClassroomLessons({
         connection,
         client
+      })
+    })
+
+    client.on('addClassroomLesson', (classroomLesson) => {
+      addClassroomLesson({
+        connection,
+        classroomLesson
       })
     })
 
