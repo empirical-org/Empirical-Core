@@ -313,11 +313,15 @@ function _setClassroomAndTeacherName(names: TeacherAndClassroomName, classroom_a
   _setTeacherName(names.teacher, classroom_activity_id)
 }
 
-export function addStudents(classroom_activity_id: string, studentObj): void {
-  const studentsRef = classroomSessionsRef.child(`${classroom_activity_id}/students`);
-  studentsRef.set(studentObj.activity_sessions_and_names)
-  const studentIdsRef = classroomSessionsRef.child(`${classroom_activity_id}/student_ids`);
-  studentIdsRef.set(studentObj.student_ids)
+export function addStudents(classroomActivityId: string, studentObj): void {
+  let studentIds = studentObj.student_ids;
+  let activitySessions = studentObj.activity_sessions_and_names;
+
+  socket.emit('addStudents',
+    classroomActivityId,
+    activitySessions,
+    studentIds,
+  )
 }
 
 export function addFollowUpName(classroom_activity_id: string, followUpActivityName: string|null): void {
