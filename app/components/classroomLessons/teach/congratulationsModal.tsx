@@ -32,7 +32,7 @@ export default class CongratulationsModal extends React.Component<{closeModal: a
     return <div className="feedback-response">
       <p>Thank you!</p>
       {text}
-      <a href="https://goo.gl/forms/jOnHqHOInBnNDvig1" target="_blank">Share Your Feedback</a>
+      <a href="https://goo.gl/forms/n5xkhRBMg8V4v0Fj1" target="_blank">Share Your Feedback</a>
     </div>
   }
 

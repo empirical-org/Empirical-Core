@@ -215,7 +215,7 @@ export function deleteResponse(qid, rid) {
 }
 
 export function setUpdatedResponse(rid, content) {
-  alert("This is being called");
+  alert('This is being called');
   return (dispatch) => {
     responsesRef.child(rid).set(content, (error) => {
       if (error) {
@@ -228,7 +228,7 @@ export function setUpdatedResponse(rid, content) {
 }
 
 export function incrementFirstAttemptCount(rid) {
-  alert("This is being called");
+  alert('This is being called');
   return (dispatch) => {
     responsesRef.child(`${rid}/firstAttemptCount`).transaction(currentCount => currentCount + 1, (error) => {
       if (error) {
@@ -241,7 +241,7 @@ export function incrementFirstAttemptCount(rid) {
 }
 
 export function incrementResponseCount(qid, rid, prid, isFirstAttempt) {
-  alert("This is being called");
+  alert('This is being called');
   return (dispatch) => {
     const responseRef = responsesRef.child(rid);
     responseRef.child('/count').transaction(currentCount => currentCount + 1, (error) => {
@@ -264,7 +264,7 @@ export function incrementResponseCount(qid, rid, prid, isFirstAttempt) {
 }
 
 export function incrementChildResponseCount(rid) {
-  alert("This is being called");
+  alert('This is being called');
   return (dispatch) => {
     responsesRef.child(`${rid}/childCount`).transaction(currentCount => currentCount + 1, (error) => {
       if (error) {
@@ -277,7 +277,7 @@ export function incrementChildResponseCount(rid) {
 }
 
 export function removeLinkToParentID(rid) {
-  alert("This is being called");
+  alert('This is being called');
   return (dispatch) => {
     responsesRef.child(`${rid}/parentID`).remove((error) => {
       if (error) {
