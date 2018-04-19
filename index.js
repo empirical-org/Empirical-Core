@@ -521,6 +521,28 @@ function redirectAssignedStudents({
   .run(connection)
 }
 
+function setClassroomName({
+  classroomActivityId,
+  classroomName,
+  connection,
+}) {
+  r.table('classroom_lesson_sessions')
+  .get(classroomActivityId)
+  .update({ classroom_name: classroomName })
+  .run(connection)
+}
+
+function setTeacherName({
+  classroomActivityId,
+  teacherName,
+  connection,
+}) {
+  r.table('classroom_lesson_sessions')
+  .get(classroomActivityId)
+  .update({ teacher_name: teacherName })
+  .run(connection)
+}
+
 r.connect({
   host: 'localhost',
   port: 28015,
@@ -740,6 +762,22 @@ r.connect({
         classroomActivityId,
         followUpOption,
         followUpUrl,
+        connection,
+      });
+    })
+
+    client.on('setClassroomName', (classroomActivityId, classroomName) => {
+      setClassroomName({
+        classroomActivityId,
+        classroomName,
+        connection,
+      });
+    })
+
+    client.on('setTeacherName', (classroomActivityId, teacherName) => {
+      setTeacherName({
+        classroomActivityId,
+        teacherName,
         connection,
       });
     })
