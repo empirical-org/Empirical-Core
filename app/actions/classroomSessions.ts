@@ -4,7 +4,6 @@ import rootRef, { firebase } from '../libs/firebase';
 import * as request from 'request'
 const classroomSessionsRef = rootRef.child('classroom_lesson_sessions');
 const editionQuestionsRef = rootRef.child('lesson_edition_questions');
-const reviewsRef = rootRef.child('reviews')
 import {
   ClassroomLessonSessions,
   ClassroomLessonSession,
@@ -353,28 +352,8 @@ export function setEditionId(classroom_activity_id: string, editionId: string|nu
   }
 }
 
-export function setTeacherModels(classroom_activity_id: string, editionId: string) {
-  const editionQuestionsArrayRef = editionQuestionsRef.child(`${editionId}/questions`)
-  const sessionPromptsRef = classroomSessionsRef.child(`${classroom_activity_id}/prompts`)
-  const sessionModelsRef = classroomSessionsRef.child(`${classroom_activity_id}/models`)
-  // get the questions for the edition
-  editionQuestionsArrayRef.once('value', (questionsSnap) => {
-  // get the prompts for the session (one for each model)
-    sessionPromptsRef.once('value', (promptsSnap) => {
-      const questions = questionsSnap.val()
-      const prompts = promptsSnap.val()
-      if (questions && prompts) {
-        Object.keys(prompts).forEach(key => {
-          if (questions[key] && questions[key].data && questions[key].data.play && questions[key].data.play.prompt) {
-            if (prompts[key] !== questions[key].data.play.prompt) {
-              sessionPromptsRef.child(key).set(questions[key].data.play.prompt)
-              sessionModelsRef.child(key).remove()
-            }
-          }
-        })
-      }
-    })
-  })
+export function setTeacherModels(classroomActivityId: string, editionId: string) {
+  socket.emit('setTeacherModels', classroomActivityId, editionId)
 }
 
 export function updateNoStudentError(student: string | null) {
@@ -491,6 +470,7 @@ export function createPreviewSession(edition_id?:string) {
   return classroomActivityId;
 }
 
+<<<<<<<
 export function saveReview(activity_id:string, classroom_activity_id:string, value:number) {
   // const reviewRef = reviewsRef.child(classroom_activity_id)
   const review = {
@@ -501,4 +481,8 @@ export function saveReview(activity_id:string, classroom_activity_id:string, val
   }
   socket.emit('createOrUpdateReview', review)
   // reviewRef.set(review)
+=======
+export function saveReview(activityId:string, classroomActivityId:string, value:number) {
+  socket.emit('saveReview', classroomActivityId, activityId, value)
+>>>>>>>
 }
