@@ -4,7 +4,6 @@ import rootRef, { firebase } from '../libs/firebase';
 import * as request from 'request'
 const classroomSessionsRef = rootRef.child('classroom_lesson_sessions');
 const editionQuestionsRef = rootRef.child('lesson_edition_questions');
-const reviewsRef = rootRef.child('reviews')
 import {
   ClassroomLessonSessions,
   ClassroomLessonSession,
@@ -489,13 +488,6 @@ export function createPreviewSession(edition_id?:string) {
   return classroomActivityId;
 }
 
-export function saveReview(activity_id:string, classroom_activity_id:string, value:number) {
-  const reviewRef = reviewsRef.child(classroom_activity_id)
-  const review = {
-    activity_id: activity_id,
-    value: value,
-    classroom_activity_id: classroom_activity_id,
-    timestamp: firebase.database.ServerValue.TIMESTAMP
-  }
-  reviewRef.set(review)
+export function saveReview(activityId:string, classroomActivityId:string, value:number) {
+  socket.emit('saveReview', classroomActivityId, activityId, value)
 }
