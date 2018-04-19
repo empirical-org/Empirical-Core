@@ -554,6 +554,17 @@ function addFollowUpName({
   .run(connection)
 }
 
+function addSupportingInfo({
+  classroomActivityId,
+  supportingInfo,
+  connection,
+}) {
+  r.table('classroom_lesson_sessions')
+  .get(classroomActivityId)
+  .update({ followUpActivityName })
+  .run(connection)
+}
+
 r.connect({
   host: 'localhost',
   port: 28015,
@@ -797,6 +808,14 @@ r.connect({
       addFollowUpName({
         classroomActivityId,
         followUpActivityName,
+        connection,
+      });
+    })
+
+    client.on('addSupportingInfo', (classroomActivityId, supportingInfo) => {
+      addSupportingInfo({
+        classroomActivityId,
+        supportingInfo,
         connection,
       })
     })
