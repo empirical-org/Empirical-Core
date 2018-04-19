@@ -94,6 +94,10 @@ class User < ActiveRecord::Base
     self.flags.detect{|f| TESTING_FLAGS.include?(f)}
   end
 
+  def auditor?
+    self.flags.include?('auditor')
+  end
+
   def redeem_credit
     balance = credit_transactions.sum(:amount)
     if balance > 0

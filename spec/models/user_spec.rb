@@ -74,6 +74,17 @@ describe User, type: :model do
       end
     end
 
+    describe '#auditor?' do
+      it 'returns true when the user has an auditor flag' do
+        user.update(flags: ['auditor'])
+        expect(user.auditor?).to eq(true)
+      end
+
+      it 'returns false when the user does not have an auditor flag' do
+        expect(user.auditor?).to eq(false)
+      end
+    end
+
   end
 
   describe '#last_four' do
