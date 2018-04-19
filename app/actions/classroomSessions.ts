@@ -323,9 +323,8 @@ export function addStudents(classroomActivityId: string, studentObj): void {
   )
 }
 
-export function addFollowUpName(classroom_activity_id: string, followUpActivityName: string|null): void {
-  const followUpRef = classroomSessionsRef.child(`${classroom_activity_id}/followUpActivityName`);
-  followUpRef.set(followUpActivityName)
+export function addFollowUpName(classroomActivityId: string, followUpActivityName: string|null): void {
+  socket.emit('addFollowUpName', classroomActivityId, followUpActivityName)
 }
 
 export function addSupportingInfo(classroom_activity_id: string, supportingInfo: string|null): void {
