@@ -820,6 +820,204 @@ function updateEditionMetadata({
   .run(connection)
 }
 
+function setEditionId({
+  classroomActivityId,
+  editionId,
+  connection,
+  client,
+}) {
+  r.table('classroom_lessons')
+  .get(classroomActivityId)
+  .getField('edition_id')
+  .run(connection)
+  .then((currentEditionId) => {
+    if (currentEditionId !== editionId) {
+      setTeacherModels({
+        classroomActivityId,
+        editionId,
+        connection,
+      })
+
+      r.table('classroom_lessons')
+      .get(classroomActivityId)
+      .update({ edition_id: editionId })
+      .run(connection)
+    } else {
+      r.table('classroom_lessons')
+      .get(classroomActivityId)
+      .replace(r.row.without('edition_id'))
+      .run(connection)
+    }
+  })
+
+  client.emit(`editionIdSet:${classroomActivityId}`)
+}
+
+function deleteEdition({
+  editionId,
+  connection,
+}) {
+  r.table('lesson_edition_metadata')
+  .get(editionId)
+  .delete()
+  .run(connection)
+
+  r.table('lesson_edition_questions')
+  .get(editionId)
+  .delete()
+  .run(connection)
+}
+
+function updateEditionSlides({
+  editionId,
+  slides,
+  connection,
+}) {
+  r.table('lesson_edition_questions')
+  .get(editionId)
+  .update({ questions: slides })
+  .run(connection)
+}
+
+function updateSlideScriptItems({
+  editionId,
+  slideId,
+  scriptItems,
+  connection,
+}) {
+  r.table('lesson_edition_questions')
+  .get(editionId)
+  .update({
+    questions: {
+      [slideId]: {
+        data: {
+          teach: {
+            script: scriptItems
+          }
+        }
+      }
+    }
+  })
+  .run(connection)
+}
+
+function saveEditionSlide({
+  editionId,
+  slideId,
+  slideData,
+  connection,
+  client,
+}) {
+  r.table('lesson_edition_questions')
+  .get(editionId)
+  .update({
+    questions: {
+      [slideId]: {
+        data: slideData
+      }
+    }
+  })
+  .run(connection, () => {
+    client.emit(`editionSlideSaved:${editionId}`)
+  })
+}
+
+function saveEditionScriptItem({
+  editionId,
+  slideId,
+  scriptItemId,
+  scriptItem,
+  connection,
+  client,
+}) {
+  r.table('lesson_edition_questions')
+  .get(editionId)
+  .update({
+    questions: {
+      [slideId]: {
+        data: {
+          teach: {
+            script: {
+              [scriptItemId]: scriptItem
+            }
+          }
+        }
+      }
+    }
+  })
+  .run(connection, () => {
+    client.emit(`editionScriptItemSaved:${editionId}`)
+  })
+}
+
+function deleteScriptItem({
+  editionId,
+  slideId,
+  newScript,
+  connection,
+  client,
+}) {
+  r.table('lesson_edition_questions')
+  .get(editionId)
+  .update({
+    questions: {
+      [slideId]: {
+        data: {
+          teach: {
+            script: newScript
+          }
+        }
+      }
+    }
+  })
+  .run(connection, () => {
+    client.emit(`scriptItemDeleted:${editionId}`)
+  })
+}
+
+function addScriptItem({
+  editionId,
+  slideId,
+  slide,
+  connection,
+}) {
+  r.table('lesson_edition_questions')
+  .get(editionId)
+  .update({
+    questions: {
+      [slideId]: slide
+    }
+  })
+  .run(connection)
+}
+
+function deleteEditionSlide({
+  editionId,
+  slides,
+  connection,
+}) {
+  r.table('lesson_edition_questions')
+  .get(editionId)
+  .update({
+    questions: slides
+  })
+  .run(connection)
+}
+
+function addSlide({
+  editionId,
+  newEdition,
+  connection,
+  client,
+}) {
+  r.table('lesson_edition_questions')
+  .get(editionId)
+  .set(newEdition)
+  .run(connection, () => {
+    client.emit(`slideAdded:${editionId}`)
+  })
+}
+
 function updateEditionQuestions({
   connection,
   editionQuestions
@@ -1218,13 +1416,6 @@ r.connect({
       })
     })
 
-    client.on('setTeacherModels', (classroomActivityId, editionId) => {
-      setTeacherModels({
-        classroomActivityId,
-        editionId,
-        connection,
-      });
-
     client.on('getAllClassroomLessonReviews', () => {
       getAllClassroomLessonReviews({
         connection,
@@ -1272,6 +1463,85 @@ r.connect({
       })
     })
 
+    client.on('setEditionId', (classroomActivityId, editionId) => {
+      setEditionId({
+        classroomActivityId,
+        editionId,
+        connection,
+        client,
+      });
+    })
+
+    client.on('deleteEdition', (editionId) => {
+      deleteEdition({
+        editionId,
+        connection,
+      })
+    })
+
+    client.on('updateEditionSlides', (editionId, slides) => {
+      updateEditionSlides({
+        editionId,
+        slides,
+        connection,
+      });
+    })
+
+    client.on('updateSlideScriptItems', (editionId, slideId, scriptItems) => {
+      updateSlideScriptItems({
+        editionId,
+        slideId,
+        scriptItems,
+        connection,
+      });
+    })
+
+    client.on('saveEditionSlide', (editionId, slideId, slideData) => {
+      saveEditionSlide({
+        editionId,
+        slideId,
+        slideData,
+        connection,
+        client,
+      });
+    })
+
+    client.on('saveEditionScriptItem', (editionId, slideId, scriptItemId,scriptItem) => {
+      saveEditionScriptItem({
+        editionId,
+        slideId,
+        scriptItemId,
+        scriptItem,
+        connection,
+        client,
+      });
+    })
+
+    client.on('deleteScriptItem', (editionId, slideId, script) => {
+      deleteScriptItem({
+        editionId,
+        slideId,
+        script,
+        connection,
+      });
+    })
+
+    client.on('deleteEditionSlide', (editionId, slides) => {
+      deleteEditionSlide({
+        editionId,
+        slides,
+        connection,
+      });
+    })
+
+    client.on('addSlide', (editionId, newEdition) => {
+      addSlide({
+        editionId,
+        newEdition,
+        connection,
+        client,
+      });
+    })
     client.on('createNewEdition', (editionData, questions) => {
       createNewEdition({
         editionData,
