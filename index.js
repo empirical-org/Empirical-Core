@@ -815,6 +815,39 @@ function updateEditionMetadata({
   .run(connection)
 }
 
+function setEditionId({
+  classroomActivityId,
+  editionId,
+  connection,
+  client,
+}) {
+  r.table('classroom_lessons')
+  .get(classroomActivityId)
+  .getField('edition_id')
+  .run(connection)
+  .then((currentEditionId) => {
+    if (currentEditionId !== editionId) {
+      setTeacherModels({
+        classroomActivityId,
+        editionId,
+        connection,
+      })
+
+      r.table('classroom_lessons')
+      .get(classroomActivityId)
+      .update({ edition_id: editionId })
+      .run(connection)
+    } else {
+      r.table('classroom_lessons')
+      .get(classroomActivityId)
+      .replace(r.row.without('edition_id'))
+      .run(connection)
+    }
+  })
+
+  client.emit(`editionIdSet:${classroomActivityId}`)
+}
+
 r.connect({
   host: 'localhost',
   port: 28015,
@@ -1110,13 +1143,6 @@ r.connect({
       })
     })
 
-    client.on('setTeacherModels', (classroomActivityId, editionId) => {
-      setTeacherModels({
-        classroomActivityId,
-        editionId,
-        connection,
-      });
-
     client.on('getAllClassroomLessonReviews', () => {
       getAllClassroomLessonReviews({
         connection,
@@ -1159,6 +1185,15 @@ r.connect({
         connection,
         editionMetadata
       })
+    })
+
+    client.on('setEditionId', (classroomActivityId, editionId) => {
+      setEditionId({
+        classroomActivityId,
+        editionId,
+        connection,
+        client,
+      });
     })
 
   });
