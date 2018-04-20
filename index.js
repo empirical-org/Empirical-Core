@@ -769,11 +769,16 @@ function getAllEditionMetadataForLesson({
   connection,
   lessonID
 }) {
+  console.log('lessonID', lessonID)
   if (lessonID) {
     r.table('lesson_edition_metadata')
     .filter(r.row("lesson_id").eq(lessonID))
-    .run(connection, (err, cursor) => {
-      r.table('lesson_edition_metadata').filter(r.row("lesson_id").eq(lessonID)).count().run(connection, (err, val) => {
+    .run(connection)
+    .then((cursor) => {
+      r.table('lesson_edition_metadata')
+      .filter(r.row("lesson_id").eq(lessonID))
+      .count()
+      .run(connection, (err, val) => {
         const numberOfEditions = val
         let editions = {}
         let editionCount = 0
@@ -831,7 +836,7 @@ function createNewEdition({
   questions
 }) {
   updateEditionMetadata({
-    connection,
+    connection: connection,
     editionMetadata: editionData
   })
   if (editionData.edition_id) {
@@ -864,7 +869,7 @@ function createNewEdition({
   client.emit(`editionCreated:${editionData.id}`)
 }
 
-publishEdition({
+function publishEdition({
   client,
   connection,
   editionMetadata,
@@ -875,7 +880,7 @@ publishEdition({
   updateEditionQuestions({editionQuestions, connection})
 }
 
-deleteEdition({
+function deleteEdition({
   connection,
   editionUID
 }) {
@@ -890,7 +895,7 @@ deleteEdition({
   .run(connection)
 }
 
-archiveEdition({
+function archiveEdition({
   connection,
   editionUID
 }) {
@@ -915,6 +920,16 @@ r.connect({
 }).then((connection) => {
   io.on('connection', (client) => {
     currentConnections[client.id] = { socket: client, role: null };
+
+    client.on('getAllEditionMetadataForLesson', (lessonID) => {
+      console.log('getAllEditionMetadataForLesson')
+      console.log('lessonID', lessonID)
+      getAllEditionMetadataForLesson({
+        connection,
+        client,
+        lessonID
+      })
+    })
 
     client.on('teacherConnected', (classroomActivityId) => {
       teacherConnected({
@@ -1225,19 +1240,22 @@ r.connect({
     })
 
     client.on('getAllEditionMetadata', () => {
+      console.log('are we here')
       getAllEditionMetadata({
         connection,
         client
       })
     })
 
-    client.on('getAllEditionMetadataForLesson', (lessonID) => {
-      getAllEditionMetadataForLesson({
-        connection,
-        client,
-        lessonID
-      })
-    })
+    // client.on('getAllEditionMetadataForLesson', (lessonID) => {
+    //   console.log('getAllEditionMetadataForLesson')
+    //   console.log('lessonID', lessonID)
+    //   getAllEditionMetadataForLesson({
+    //     connection,
+    //     client,
+    //     lessonID
+    //   })
+    // })
 
     client.on('getEditionQuestions', (editionID) => {
       getEditionQuestions({
@@ -1285,7 +1303,7 @@ r.connect({
         connection
       })
     })
-
+  })
   });
 });
 
