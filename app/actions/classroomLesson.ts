@@ -1,8 +1,5 @@
 declare function require(name:string);
 import  C from '../constants';
-import rootRef, { firebase } from '../libs/firebase';
-const editionMetadataRef = rootRef.child('lesson_edition_metadata');
-const editionQuestionsRef = rootRef.child('lesson_edition_questions');
 import _ from 'lodash'
 import * as IntF from '../components/classroomLessons/interfaces';
 import * as CustomizeIntF from '../interfaces/customize'
@@ -89,45 +86,47 @@ export function updateClassroomLessonsReviews(data) {
   return ({type: C.RECEIVE_CLASSROOM_LESSONS_REVIEW_DATA, data: reviewsGroupedByClassroomLessonId})
 }
 
-export function addSlide(editionUid: string, editionQuestions: CustomizeIntF.EditionQuestions, slideType: string, cb:Function|undefined) {
-  const editionQuestionRef = editionQuestionsRef.child(editionUid);
+export function addSlide(editionId: string, editionQuestions: CustomizeIntF.EditionQuestions, slideType: string, callback:Function|undefined) {
   const newEdition: CustomizeIntF.EditionQuestions = _.merge({}, editionQuestions)
   const newSlide: IntF.Question = lessonSlideBoilerplates[slideType]
   newEdition.questions.splice(-1, 0, newSlide)
-  editionQuestionRef.set(newEdition);
-  if (cb) {
-    cb(Number(newEdition.questions.length) - 2)
-  }
+
+  socket.on(`slideAdded:${editionId}`, () => {
+    if (callback) {
+      callback(Number(newEdition.questions.length) - 2)
+    }
+  })
+  socket.emit('addSlide', editionId, newEdition)
 }
 
-export function deleteEditionSlide(editionID, slideID, slides) {
-  const slidesRef = editionQuestionsRef.child(`${editionID}/questions/`)
-  const newArray = _.compact(Object.keys(slides).map(slideKey => {
-    if (slideKey != slideID ) {
+export function deleteEditionSlide(editionId, slideId, slides) {
+  const newSlides = _.compact(Object.keys(slides).map(slideKey => {
+    if (slideKey != slideId ) {
       return slides[slideKey]
     }
   }))
-  slidesRef.set(newArray);
+  socket.emit('deleteEditionSlide', editionId, newSlides)
 }
 
-export function addScriptItem(editionID: string, slideID: string, slide: IntF.Question, scriptItemType: string, cb: Function|undefined) {
+export function addScriptItem(editionId: string, slideId: string, slide: IntF.Question, scriptItemType: string, callback: Function|undefined) {
   const newSlide = _.merge({}, slide)
   newSlide.data.teach.script.push(scriptItemBoilerplates[scriptItemType])
-  const slideRef = editionQuestionsRef.child(`${editionID}/questions/${slideID}`)
-  slideRef.set(newSlide)
-  if (cb) {
-    cb(newSlide.data.teach.script.length - 1)
-  }
+
+  socket.on(`scriptItemDeleted:${editionId}`, () => {
+    if (callback) {
+      callback(newSlide.data.teach.script.length - 1)
+    }
+  })
+  socket.emit('addScriptItem', editionId, slideId, newSlide)
 }
 
-export function deleteScriptItem(editionID, slideID, scriptItemID, script) {
-  const scriptRef = editionQuestionsRef.child(`${editionID}/questions/${slideID}/data/teach/script`)
-  const newArray = _.compact(Object.keys(script).map(scriptKey => {
-    if (scriptKey != scriptItemID ) {
+export function deleteScriptItem(editionId, slideId, scriptItemId, script) {
+  const newScript = _.compact(Object.keys(script).map(scriptKey => {
+    if (scriptKey != scriptItemId ) {
       return script[scriptKey]
     }
   }))
-  scriptRef.set(newArray);
+  socket.emit('deleteScriptItem', editionId, slideId, newScript)
 }
 
 export function addLesson(lessonName, cb) {
@@ -147,22 +146,28 @@ export function addLesson(lessonName, cb) {
   })
 }
 
-export function saveEditionSlide(editionID, slideID, slideData, cb) {
-  editionQuestionsRef
-    .child(`${editionID}/questions/${slideID}/data`)
-    .set(slideData)
-  if (cb) {
-    cb()
-  }
+export function saveEditionSlide(editionId, slideId, slideData, callback) {
+  socket.on(`editionSlideSaved:${editionId}`, () => {
+    if (callback) {
+      callback()
+    }
+  })
+  socket.emit('saveEditionSlide', editionId, slideId, slideData)
 }
 
-export function saveEditionScriptItem(editionID, slideID, scriptItemID, scriptItem, cb) {
-  editionQuestionsRef
-    .child(`${editionID}/questions/${slideID}/data/teach/script/${scriptItemID}/`)
-    .set(scriptItem)
-  if (cb) {
-    cb()
-  }
+export function saveEditionScriptItem(editionId, slideId, scriptItemId, scriptItem, callback) {
+  socket.on(`editionScriptItemSaved:${editionId}`, () => {
+    if (callback) {
+      callback();
+    }
+  })
+
+  socket.emit('saveEditionScriptItem',
+    editionId,
+    slideId,
+    scriptItemId,
+    scriptItem,
+  )
 }
 
 export function deleteLesson(classroomLessonID) {
@@ -170,20 +175,15 @@ export function deleteLesson(classroomLessonID) {
 }
 
 export function deleteEdition(editionID) {
-  editionMetadataRef.child(editionID).remove();
-  editionQuestionsRef.child(editionID).remove();
+  socket.emit('deleteEdition', editionID)
 }
 
 export function updateSlideScriptItems(editionID, slideID, scriptItems) {
-  editionQuestionsRef
-    .child(`${editionID}/questions/${slideID}/data/teach/script/`)
-    .set(scriptItems)
+  socket.emit('updateSlideScriptItems', editionID, slideID, scriptItems)
 }
 
 export function updateEditionSlides(editionID, slides) {
-  editionQuestionsRef
-    .child(`${editionID}/questions/`)
-    .set(slides)
+  socket.emit('updateEditionSlides', editionID, slides)
 }
 
 export function updateClassroomLessonDetails(classroomLessonID, classroomLesson) {
