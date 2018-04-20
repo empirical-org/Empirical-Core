@@ -1,7 +1,5 @@
 declare function require(name:string);
 import  C from '../constants';
-import rootRef, { firebase } from '../libs/firebase';
-const editionQuestionsRef = rootRef.child('lesson_edition_questions');
 import _ from 'lodash'
 import * as IntF from '../components/classroomLessons/interfaces';
 import * as CustomizeIntF from 'app/interfaces/customize'
@@ -88,15 +86,17 @@ export function updateClassroomLessonsReviews(data) {
   return ({type: C.RECEIVE_CLASSROOM_LESSONS_REVIEW_DATA, data: reviewsGroupedByClassroomLessonId})
 }
 
-export function addSlide(editionUid: string, editionQuestions: CustomizeIntF.EditionQuestions, slideType: string, cb:Function|undefined) {
-  const editionQuestionRef = editionQuestionsRef.child(editionUid);
+export function addSlide(editionId: string, editionQuestions: CustomizeIntF.EditionQuestions, slideType: string, callback:Function|undefined) {
   const newEdition: CustomizeIntF.EditionQuestions = _.merge({}, editionQuestions)
   const newSlide: IntF.Question = lessonSlideBoilerplates[slideType]
   newEdition.questions.splice(-1, 0, newSlide)
-  editionQuestionRef.set(newEdition);
-  if (cb) {
-    cb(Number(newEdition.questions.length) - 2)
-  }
+
+  socket.on(`slideAdded:${editionId}`, () => {
+    if (callback) {
+      callback(Number(newEdition.questions.length) - 2)
+    }
+  })
+  socket.emit('addSlide', editionId, newEdition)
 }
 
 export function deleteEditionSlide(editionId, slideId, slides) {
