@@ -99,14 +99,13 @@ export function addSlide(editionUid: string, editionQuestions: CustomizeIntF.Edi
   }
 }
 
-export function deleteEditionSlide(editionID, slideID, slides) {
-  const slidesRef = editionQuestionsRef.child(`${editionID}/questions/`)
-  const newArray = _.compact(Object.keys(slides).map(slideKey => {
-    if (slideKey != slideID ) {
+export function deleteEditionSlide(editionId, slideId, slides) {
+  const newSlides = _.compact(Object.keys(slides).map(slideKey => {
+    if (slideKey != slideId ) {
       return slides[slideKey]
     }
   }))
-  slidesRef.set(newArray);
+  socket.emit('deleteEditionSlide', editionId, newSlides)
 }
 
 export function addScriptItem(editionId: string, slideId: string, slide: IntF.Question, scriptItemType: string, callback: Function|undefined) {
