@@ -173,9 +173,7 @@ export function deleteEdition(editionID) {
 }
 
 export function updateSlideScriptItems(editionID, slideID, scriptItems) {
-  editionQuestionsRef
-    .child(`${editionID}/questions/${slideID}/data/teach/script/`)
-    .set(scriptItems)
+  socket.emit('updateSlideScriptItems', editionID, slideID, scriptItems)
 }
 
 export function updateEditionSlides(editionID, slides) {
