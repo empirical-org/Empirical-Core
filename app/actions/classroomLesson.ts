@@ -5,7 +5,7 @@ const editionMetadataRef = rootRef.child('lesson_edition_metadata');
 const editionQuestionsRef = rootRef.child('lesson_edition_questions');
 import _ from 'lodash'
 import * as IntF from '../components/classroomLessons/interfaces';
-import * as CustomizeIntF from 'app/interfaces/customize'
+import * as CustomizeIntF from '../interfaces/customize'
 
 import lessonBoilerplate from '../components/classroomLessons/shared/classroomLessonBoilerplate'
 import lessonSlideBoilerplates from '../components/classroomLessons/shared/lessonSlideBoilerplates'

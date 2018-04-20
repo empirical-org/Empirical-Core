@@ -79,9 +79,12 @@ export interface ClassroomLessons {
 }
 
 export interface ClassroomLesson {
-  lesson: number;
   title: string;
-  questions: Questions
+  lesson?: string|number;
+  topic?: string;
+  unit?: string;
+  questions?: Questions;
+  id?: string;
 }
 
 export interface Questions {
