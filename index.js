@@ -945,6 +945,27 @@ function saveEditionScriptItem({
   })
 }
 
+function deleteScriptItem({
+  editionId,
+  slideId,
+  newScript,
+  connection,
+}) {
+  r.table('lesson_edition_questions')
+  .get(editionId)
+  .update({
+    questions: {
+      [slideId]: {
+        data: {
+          teach: {
+            script: newScript
+          }
+        }
+      }
+    }
+  })
+}
+
 r.connect({
   host: 'localhost',
   port: 28015,
@@ -1335,7 +1356,16 @@ r.connect({
         scriptItem,
         connection,
         client,
-      })
+      });
+    })
+
+    client.on('deleteScriptItem', (editionId, slideId, script) => {
+      deleteScriptItem({
+        editionId,
+        slideId,
+        script,
+        connection,
+      });
     })
   });
 });
