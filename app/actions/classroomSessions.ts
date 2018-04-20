@@ -1,9 +1,6 @@
 declare function require(name:string);
 import C from '../constants';
-import rootRef, { firebase } from '../libs/firebase';
 import * as request from 'request'
-const classroomSessionsRef = rootRef.child('classroom_lesson_sessions');
-const editionQuestionsRef = rootRef.child('lesson_edition_questions');
 import {
   ClassroomLessonSessions,
   ClassroomLessonSession,
@@ -335,25 +332,13 @@ export function setSlideStartTime(classroomActivityId: string, questionId: strin
   socket.emit('setSlideStartTime', classroomActivityId, questionId);
 }
 
-export function setEditionId(classroom_activity_id: string, editionId: string|null, callback?: Function): void {
-  const editionRef = classroomSessionsRef.child(`${classroom_activity_id}/edition_id`);
-  if (editionId) {
-    editionRef.once('value', (snapshot) => {
-      if (snapshot.val() !== editionId) {
-        setTeacherModels(classroom_activity_id, editionId)
-      }
-    })
-    editionRef.set(editionId)
-  } else {
-    editionRef.remove()
-  }
-  if (callback) {
-    callback()
-  }
-}
-
-export function setTeacherModels(classroomActivityId: string, editionId: string) {
-  socket.emit('setTeacherModels', classroomActivityId, editionId)
+export function setEditionId(classroomActivityId: string, editionId: string|null, callback?: Function): void {
+  socket.emit('setEditionId', classroomActivityId, editionId)
+  socket.on(`editionIdSet:${classroomActivityId}`, () => {
+    if (callback) {
+      callback();
+    }
+  })
 }
 
 export function updateNoStudentError(student: string | null) {
