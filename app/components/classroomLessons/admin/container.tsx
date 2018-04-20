@@ -10,7 +10,7 @@ import {
 } from '../../../actions/customize'
 import {
   listenForClassroomLessons,
-  listenForClassroomLessonsReviewsFromFirebase
+  listenForClassroomLessonReviews
 } from '../../../actions/classroomLesson';
 
 class AdminClassLessonsContainer extends Component<any, any> {
@@ -18,7 +18,7 @@ class AdminClassLessonsContainer extends Component<any, any> {
     super(props);
 
     this.props.dispatch(listenForClassroomLessons());
-    this.props.dispatch(listenForClassroomLessonsReviewsFromFirebase())
+    this.props.dispatch(listenForClassroomLessonReviews())
     this.props.dispatch(startListeningToEditionMetadata())
   }
 

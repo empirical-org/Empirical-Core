@@ -455,6 +455,12 @@ export function createPreviewSession(edition_id?:string) {
   return classroomActivityId;
 }
 
-export function saveReview(activityId:string, classroomActivityId:string, value:number) {
-  socket.emit('saveReview', classroomActivityId, activityId, value)
+export function saveReview(activity_id:string, classroom_activity_id:string, value:number) {
+  const review = {
+    id: classroom_activity_id,
+    activity_id: activity_id,
+    value: value,
+    classroom_activity_id: classroom_activity_id,
+  }
+  socket.emit('createOrUpdateReview', review)
 }

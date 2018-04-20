@@ -13,7 +13,7 @@ import {getParameterByName} from '../../libs/getParameterByName'
 
 import {
   getCurrentUserAndCoteachersFromLMS,
-  getEditionsForUserIds
+  getEditionMetadataForUserIds
 } from '../../actions/customize'
 
 interface customizeProps {
@@ -57,11 +57,11 @@ class Customize extends React.Component<customizeProps> {
           user_ids = nextProps.customize.coteachers.map(c => Number(c.id))
         }
         user_ids.push(nextProps.customize.user_id)
-        this.props.dispatch(getEditionsForUserIds(user_ids, this.props.params.lessonID))
+        this.props.dispatch(getEditionMetadataForUserIds(user_ids, this.props.params.lessonID))
       }
     } else {
       if (Object.keys(nextProps.customize.editions).length === 0) {
-        this.props.dispatch(getEditionsForUserIds([], this.props.params.lessonID))
+        this.props.dispatch(getEditionMetadataForUserIds([], this.props.params.lessonID))
       }
     }
   }
