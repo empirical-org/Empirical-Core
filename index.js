@@ -874,6 +874,28 @@ function updateEditionSlides({
   .run(connection)
 }
 
+function updateSlideScriptItems({
+  editionId,
+  slideId,
+  scriptItems,
+  connection,
+}) {
+  r.table('lesson_edition_questions')
+  .get(editionId)
+  .update({
+    questions: {
+      [slideId]: {
+        data: {
+          teach: {
+            script: scriptItems
+          }
+        }
+      }
+    }
+  })
+  .run(connection)
+}
+
 r.connect({
   host: 'localhost',
   port: 28015,
@@ -1229,10 +1251,19 @@ r.connect({
       })
     })
 
-    client.on('updateEditionSlides', (editionID, slides) => {
+    client.on('updateEditionSlides', (editionId, slides) => {
       updateEditionSlides({
-        editionID,
+        editionId,
         slides,
+        connection,
+      });
+    })
+
+    client.on('updateSlideScriptItems', (editionId, slideId, scriptItems) => {
+      updateSlideScriptItems({
+        editionId,
+        slideId,
+        scriptItems,
         connection,
       });
     })
