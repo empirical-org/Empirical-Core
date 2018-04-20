@@ -950,6 +950,7 @@ function deleteScriptItem({
   slideId,
   newScript,
   connection,
+  client,
 }) {
   r.table('lesson_edition_questions')
   .get(editionId)
@@ -964,6 +965,25 @@ function deleteScriptItem({
       }
     }
   })
+  .run(connection, () => {
+    client.emit(`scriptItemDeleted:${editionId}`)
+  })
+}
+
+function addScriptItem({
+  editionId,
+  slideId,
+  slide,
+  connection,
+}) {
+  r.table('lesson_edition_questions')
+  .get(editionId)
+  .update({
+    questions: {
+      [slideId]: slide
+    }
+  })
+  .run(connection)
 }
 
 r.connect({
