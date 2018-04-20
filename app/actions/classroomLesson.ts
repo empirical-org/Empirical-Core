@@ -170,8 +170,7 @@ export function deleteLesson(classroomLessonID) {
 }
 
 export function deleteEdition(editionID) {
-  editionMetadataRef.child(editionID).remove();
-  editionQuestionsRef.child(editionID).remove();
+  socket.emit('deleteEdition', editionID)
 }
 
 export function updateSlideScriptItems(editionID, slideID, scriptItems) {
