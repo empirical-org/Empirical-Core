@@ -999,6 +999,20 @@ function deleteEditionSlide({
   .run(connection)
 }
 
+function addSlide({
+  editionId,
+  newEdition,
+  connection,
+  client,
+}) {
+  r.table('lesson_edition_questions')
+  .get(editionId)
+  .set(newEdition)
+  .run(connection, () => {
+    client.emit(`slideAdded:${editionId}`)
+  })
+}
+
 r.connect({
   host: 'localhost',
   port: 28015,
@@ -1406,6 +1420,15 @@ r.connect({
         editionId,
         slides,
         connection,
+      });
+    })
+
+    client.on('addSlide', (editionId, newEdition) => {
+      addSlide({
+        editionId,
+        newEdition,
+        connection,
+        client,
       });
     })
   });
