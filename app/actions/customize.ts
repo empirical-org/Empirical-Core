@@ -1,11 +1,10 @@
 declare function require(name:string);
 import rootRef, { firebase } from '../libs/firebase';
-const editionQuestionsRef = rootRef.child('lesson_edition_questions');
-const editionMetadataRef = rootRef.child('lesson_edition_metadata');
-const classroomLessonsRef = rootRef.child('classroom_lessons');
 import C from '../constants';
 import * as CustomizeIntf from '../interfaces/customize'
 import lessonSlideBoilerplates from '../components/classroomLessons/shared/lessonSlideBoilerplates'
+
+import uuid from 'uuid/v4';
 import openSocket from 'socket.io-client';
 const socket = openSocket('http://localhost:8000');
 
@@ -65,68 +64,52 @@ export function clearEditionQuestions() {
 
 export function createNewEdition(editionUID:string|null, lessonUID:string, user_id:Number|string, classroomActivityId?:string, callback?:any) {
   let newEditionData, newEdition;
+  const newEditionKey = uuid();
   if (editionUID) {
-    newEditionData = {lesson_id: lessonUID, edition_id: editionUID, user_id: user_id}
-    newEdition = editionMetadataRef.push(newEditionData)
-      editionQuestionsRef.child(`${editionUID}`).once('value', snapshot => {
-      editionQuestionsRef.child(`${newEdition.key}`).set(snapshot.val())
-    })
+    newEditionData = {lesson_id: lessonUID, edition_id: editionUID, user_id: user_id, id: newEditionKey}
   } else {
-    newEditionData = {lesson_id: lessonUID, user_id: user_id}
-    newEdition = editionMetadataRef.push(newEditionData)
-      classroomLessonsRef.child(lessonUID).once('value', snapshot => {
-      editionQuestionsRef.child(`${newEdition.key}/questions`).set(snapshot.val().questions)
-    })
+    newEditionData = {lesson_id: lessonUID, user_id: user_id, id: newEditionKey}
   }
-  if (callback) {
-    callback(lessonUID, newEdition.key, classroomActivityId)
-  } else {
-    return newEdition.key
-  }
-}
-
-export function createNewAdminEdition(editionUID:string|null, lessonUID:string, user_id:Number|string, callback?:any, name?:string) {
-  let newEditionData, newEdition;
-  if (editionUID) {
-    newEditionData = {lesson_id: lessonUID, edition_id: editionUID, user_id: user_id, name: name, flags: ['alpha']}
-    newEdition = editionMetadataRef.push(newEditionData)
-      editionQuestionsRef.child(`${editionUID}`).once('value', snapshot => {
-      editionQuestionsRef.child(`${newEdition.key}`).set(snapshot.val())
-    })
-  } else {
-    newEditionData = {lesson_id: lessonUID, user_id: user_id, name: name, flags: ['alpha']}
-    newEdition = editionMetadataRef.push(newEditionData)
-      classroomLessonsRef.child(lessonUID).once('value', snapshot => {
-        const questions = snapshot.val().questions ? snapshot.val().questions : [lessonSlideBoilerplates['CL-LB'], lessonSlideBoilerplates['CL-EX']]
-        editionQuestionsRef.child(`${newEdition.key}/questions`).set(questions)
-    })
-  }
-  if (callback) {
-    callback(lessonUID, newEdition.key)
-  } else {
-    return newEdition.key
-  }
-}
-
-export function saveEditionName(editionUID:string, name:string) {
-  editionMetadataRef.child(`${editionUID}/name`).set(name)
-}
-
-export function archiveEdition(editionUID:string) {
-  const flagRef = editionMetadataRef.child(`${editionUID}/flags`)
-  flagRef.once('value', (snapshot) => {
-    if (!snapshot.val()) {
-      flagRef.set(['archived'])
+  socket.emit('createNewEdition', newEditionData)
+  socket.on(`editionCreated:${newEditionKey}`, () => {
+    if (callback) {
+      callback(lessonUID, newEditionKey, classroomActivityId)
     } else {
-      const newFlags = snapshot.val().push('archived')
-      flagRef.set(newFlags)
+      return newEditionKey
     }
   })
 }
 
+export function createNewAdminEdition(editionUID:string|null, lessonUID:string, user_id:Number|string, callback?:any, name?:string) {
+  let newEditionData, newEdition, questions;
+  const newEditionKey = uuid();
+  if (editionUID) {
+    newEditionData = {id: newEditionKey, lesson_id: lessonUID, edition_id: editionUID, user_id: user_id, name: name, flags: ['alpha']}
+  } else {
+    newEditionData = {id: newEditionKey, lesson_id: lessonUID, user_id: user_id, name: name, flags: ['alpha']}
+    questions = [lessonSlideBoilerplates['CL-LB'], lessonSlideBoilerplates['CL-EX']]
+  }
+  socket.emit('createNewEdition', newEditionData, questions)
+  socket.on(`editionCreated:${newEditionKey}`, () => {
+    if (callback) {
+      callback(lessonUID, newEditionKey)
+    } else {
+      return newEditionKey
+    }
+  })
+}
+
+export function saveEditionName(editionUID:string, name:string) {
+  const edition = {id: editionUID, name}
+  socket.emit('updateEditionMetadata', edition)
+}
+
+export function archiveEdition(editionUID:string) {
+  socket.emit('archiveEdition', editionUID)
+}
+
 export function deleteEdition(editionUID:string) {
-  editionMetadataRef.child(editionUID).remove()
-  editionQuestionsRef.child(editionUID).remove()
+  socket.emit('deleteEdition', editionUID)
 }
 
 export function setWorkingEditionQuestions(questions:CustomizeIntf.EditionQuestions) {
@@ -144,9 +127,9 @@ export function setIncompleteQuestions(incompleteQuestions:Array<number>|never) 
 export function publishEdition(editionUID:string, editionMetadata: CustomizeIntf.EditionMetadata, editionQuestions:CustomizeIntf.EditionQuestions, callback?:Function) {
   return function(dispatch) {
     dispatch(setIncompleteQuestions([]))
-    editionMetadata.last_published_at = firebase.database.ServerValue.TIMESTAMP
-    editionMetadataRef.child(editionUID).set(editionMetadata)
-    editionQuestionsRef.child(editionUID).set(editionQuestions)
+    editionMetadata.id = editionUID
+    editionQuestions.id = editionUID
+    socket.emit('publishEdition', editionMetadata, editionQuestions)
     sendPublishEditionEventToLMS()
     if (callback) {
       callback()

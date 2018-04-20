@@ -8,11 +8,13 @@ export interface EditionMetadata {
   sample_question: string,
   user_id: number,
   flags?: Array<string>,
-  lessonName?: string
+  lessonName?: string,
+  id?: string
 }
 
 export interface EditionQuestions {
-  questions: Array<CLIntF.Question>
+  questions: Array<CLIntF.Question>;
+  id?: string;
 }
 
 export interface EditionsMetadata {
