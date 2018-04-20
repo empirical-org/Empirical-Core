@@ -155,13 +155,19 @@ export function saveEditionSlide(editionId, slideId, slideData, callback) {
   socket.emit('saveEditionSlide', editionId, slideId, slideData)
 }
 
-export function saveEditionScriptItem(editionID, slideID, scriptItemID, scriptItem, cb) {
-  editionQuestionsRef
-    .child(`${editionID}/questions/${slideID}/data/teach/script/${scriptItemID}/`)
-    .set(scriptItem)
-  if (cb) {
-    cb()
-  }
+export function saveEditionScriptItem(editionId, slideId, scriptItemId, scriptItem, callback) {
+  socket.on(`editionScriptItemSaved:${editionId}`, () => {
+    if (callback) {
+      callback();
+    }
+  })
+
+  socket.emit('saveEditionScriptItem',
+    editionId,
+    slideId,
+    scriptItemId,
+    scriptItem,
+  )
 }
 
 export function deleteLesson(classroomLessonID) {
