@@ -119,14 +119,13 @@ export function addScriptItem(editionID: string, slideID: string, slide: IntF.Qu
   }
 }
 
-export function deleteScriptItem(editionID, slideID, scriptItemID, script) {
-  const scriptRef = editionQuestionsRef.child(`${editionID}/questions/${slideID}/data/teach/script`)
-  const newArray = _.compact(Object.keys(script).map(scriptKey => {
-    if (scriptKey != scriptItemID ) {
+export function deleteScriptItem(editionId, slideId, scriptItemId, script) {
+  const newScript = _.compact(Object.keys(script).map(scriptKey => {
+    if (scriptKey != scriptItemId ) {
       return script[scriptKey]
     }
   }))
-  scriptRef.set(newArray);
+  socket.emit('deleteScriptItem', editionId, slideId, newScript)
 }
 
 export function addLesson(lessonName, cb) {
