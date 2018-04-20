@@ -848,6 +848,21 @@ function setEditionId({
   client.emit(`editionIdSet:${classroomActivityId}`)
 }
 
+function deleteEdition({
+  editionId,
+  connection,
+}) {
+  r.table('lesson_edition_metadata')
+  .get(editionId)
+  .delete()
+  .run(connection)
+
+  r.table('lesson_edition_questions')
+  .get(editionId)
+  .delete()
+  .run(connection)
+}
+
 r.connect({
   host: 'localhost',
   port: 28015,
@@ -1194,6 +1209,13 @@ r.connect({
         connection,
         client,
       });
+    })
+
+    client.on('deleteEdition', (editionId) => {
+      deleteEdition({
+        editionId,
+        connection,
+      })
     })
 
   });
