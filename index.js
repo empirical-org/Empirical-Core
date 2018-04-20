@@ -863,6 +863,17 @@ function deleteEdition({
   .run(connection)
 }
 
+function updateEditionSlides({
+  editionId,
+  slides,
+  connection,
+}) {
+  r.table('lesson_edition_questions')
+  .get(editionId)
+  .update({ questions: slides })
+  .run(connection)
+}
+
 r.connect({
   host: 'localhost',
   port: 28015,
@@ -1218,6 +1229,13 @@ r.connect({
       })
     })
 
+    client.on('updateEditionSlides', (editionID, slides) => {
+      updateEditionSlides({
+        editionID,
+        slides,
+        connection,
+      });
+    })
   });
 });
 
