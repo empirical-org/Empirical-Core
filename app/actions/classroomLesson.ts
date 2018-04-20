@@ -146,13 +146,13 @@ export function addLesson(lessonName, cb) {
   })
 }
 
-export function saveEditionSlide(editionID, slideID, slideData, cb) {
-  editionQuestionsRef
-    .child(`${editionID}/questions/${slideID}/data`)
-    .set(slideData)
-  if (cb) {
-    cb()
-  }
+export function saveEditionSlide(editionId, slideId, slideData, callback) {
+  socket.on(`editionSlideSaved:${editionId}`, () => {
+    if (callback) {
+      callback()
+    }
+  })
+  socket.emit('saveEditionSlide', editionId, slideId, slideData)
 }
 
 export function saveEditionScriptItem(editionID, slideID, scriptItemID, scriptItem, cb) {
