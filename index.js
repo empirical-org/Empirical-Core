@@ -896,6 +896,27 @@ function updateSlideScriptItems({
   .run(connection)
 }
 
+function saveEditionSlide({
+  editionId,
+  slideId,
+  slideData,
+  connection,
+  client,
+}) {
+  r.table('lesson_edition_questions')
+  .get(editionId)
+  .update({
+    questions: {
+      [slideId]: {
+        data: slideData
+      }
+    }
+  })
+  .run(connection, () => {
+    client.emit(`editionSlideSaved:${editionId}`)
+  })
+}
+
 r.connect({
   host: 'localhost',
   port: 28015,
@@ -1264,6 +1285,15 @@ r.connect({
         editionId,
         slideId,
         scriptItems,
+        connection,
+      });
+    })
+
+    client.on('saveEditionSlide', (editionId, slideId, slideData) => {
+      saveEditionSlide({
+        editionId,
+        slideId,
+        slideData,
         connection,
       });
     })
