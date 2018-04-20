@@ -986,6 +986,19 @@ function addScriptItem({
   .run(connection)
 }
 
+function deleteEditionSlide({
+  editionId,
+  slides,
+  connection,
+}) {
+  r.table('lesson_edition_questions')
+  .get(editionId)
+  .update({
+    questions: slides
+  })
+  .run(connection)
+}
+
 r.connect({
   host: 'localhost',
   port: 28015,
@@ -1384,6 +1397,14 @@ r.connect({
         editionId,
         slideId,
         script,
+        connection,
+      });
+    })
+
+    client.on('deleteEditionSlide', (editionId, slides) => {
+      deleteEditionSlide({
+        editionId,
+        slides,
         connection,
       });
     })
