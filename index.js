@@ -815,6 +815,99 @@ function updateEditionMetadata({
   .run(connection)
 }
 
+function updateEditionQuestions({
+  connection,
+  editionQuestions
+}) {
+  r.table('lesson_edition_questions')
+  .insert(editionQuestions, { conflict: 'update' })
+  .run(connection)
+}
+
+function createNewEdition({
+  connection,
+  editionData,
+  client,
+  questions
+}) {
+  updateEditionMetadata({
+    connection,
+    editionMetadata: editionData
+  })
+  if (editionData.edition_id) {
+    r.table('lesson_edition_questions')
+    .get(editionData.edition_id)
+    .run(connection)
+    .then(editionQuestions => {
+      editionQuestions.id = editionData.id
+      r.table('lesson_edition_questions')
+      .insert(editionQuestions, { conflict: 'update' })
+      .run(connection)
+    })
+  } else if (questions) {
+    const editionQuestions = {id: editionData.id, questions}
+    r.table('lesson_edition_questions')
+    .insert(editionQuestions, { conflict: 'update' })
+    .run(connection)
+  } else {
+    r.table('classroom_lessons')
+    .get(editionData.lesson_id)
+    .getField('questions')
+    .run(connection)
+    .then(lessonQuestions => {
+      const editionQuestions = {id: editionData.id, questions: lessonQuestions}
+      r.table('lesson_edition_questions')
+      .insert(editionQuestions, { conflict: 'update'} )
+      .run(connection)
+    })
+  }
+  client.emit(`editionCreated:${editionData.id}`)
+}
+
+publishEdition({
+  client,
+  connection,
+  editionMetadata,
+  editionQuestions
+}) {
+  editionMetadata.last_published_at = new Date()
+  updateEditionMetadata({editionMetadata, connection})
+  updateEditionQuestions({editionQuestions, connection})
+}
+
+deleteEdition({
+  connection,
+  editionUID
+}) {
+  r.table('lessons_edition_metadata')
+  .get(editionUID)
+  .delete()
+  .run(connection)
+
+  r.table('lessons_edition_questions')
+  .get(editionUID)
+  .delete()
+  .run(connection)
+}
+
+archiveEdition({
+  connection,
+  editionUID
+}) {
+  r.table('lessons_edition_metadata')
+  .get(editionUID)
+  .getField('flags')
+  .run(connection)
+  .then(flags => {
+    if (flags && flags.length > 0) {
+      const editionMetadata = {id: editionUID, flags: flags.push('archived')}
+    } else {
+      const editionMetadata = {id: editionUID, flags: ['archived']}
+    }
+    updateEditionMetadata({connection, editionMetadata})
+  })
+}
+
 r.connect({
   host: 'localhost',
   port: 28015,
@@ -1158,6 +1251,38 @@ r.connect({
       updateEditionMetadata({
         connection,
         editionMetadata
+      })
+    })
+
+    client.on('createNewEdition', (editionData, questions) => {
+      createNewEdition({
+        editionData,
+        connection,
+        client,
+        questions
+      })
+    })
+
+    client.on('publishEdition', (editionMetadata, editionQuestions) => {
+      publishEdition({
+        editionMetadata,
+        editionQuestions,
+        connection,
+        client
+      })
+    })
+
+    client.on('deleteEdition', (editionUID) => {
+      deleteEdition({
+        editionUID,
+        connection
+      })
+    })
+
+    client.on('archiveEdition', (editionUID) => {
+      archiveEdition({
+        editionUID,
+        connection
       })
     })
 
