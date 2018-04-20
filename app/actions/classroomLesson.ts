@@ -1,7 +1,6 @@
 declare function require(name:string);
 import  C from '../constants';
 import rootRef, { firebase } from '../libs/firebase';
-const editionMetadataRef = rootRef.child('lesson_edition_metadata');
 const editionQuestionsRef = rootRef.child('lesson_edition_questions');
 import _ from 'lodash'
 import * as IntF from '../components/classroomLessons/interfaces';
@@ -180,9 +179,7 @@ export function updateSlideScriptItems(editionID, slideID, scriptItems) {
 }
 
 export function updateEditionSlides(editionID, slides) {
-  editionQuestionsRef
-    .child(`${editionID}/questions/`)
-    .set(slides)
+  socket.emit('updateEditionSlides', editionID, slides)
 }
 
 export function updateClassroomLessonDetails(classroomLessonID, classroomLesson) {
