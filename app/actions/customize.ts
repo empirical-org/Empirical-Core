@@ -3,6 +3,7 @@ import rootRef, { firebase } from '../libs/firebase';
 import C from '../constants';
 import * as CustomizeIntf from '../interfaces/customize'
 import lessonSlideBoilerplates from '../components/classroomLessons/shared/lessonSlideBoilerplates'
+import _ from 'lodash'
 
 import uuid from 'uuid/v4';
 import openSocket from 'socket.io-client';
@@ -41,7 +42,9 @@ export function getEditionMetadataForUserIds(userIds:Array<Number>, lessonID:str
 export function startListeningToEditionMetadata() {
   return function (dispatch, getState) {
     socket.on(`editionMetadata`, (editions) => {
-      dispatch(setEditionMetadata(editions))
+      if (!_.isEqual(editions, getState().customize.editions)) {
+        dispatch(setEditionMetadata(editions))
+      }
     })
     socket.emit('getAllEditionMetadata')
   };
@@ -50,7 +53,9 @@ export function startListeningToEditionMetadata() {
 export function getEditionQuestions(editionID:string) {
   return function (dispatch, getState) {
     socket.on(`editionQuestionsForEdition:${editionID}`, (questions) => {
-      dispatch(setEditionQuestions(questions))
+      if (!_.isEqual(getState().customize.editionQuestions, questions)) {
+        dispatch(setEditionQuestions(questions))
+      }
     })
     socket.emit('getEditionQuestions', editionID)
   };
@@ -149,7 +154,7 @@ function filterEditionsByUserIds(userIds:Array<Number|string>, editions:Customiz
           userEditions[id] = edition
         }
       })
-      if (Object.keys(userEditions).length > 0) {
+      if (Object.keys(userEditions).length > 0 && !_.isEqual(userEditions, getState().customize.editions)) {
         dispatch(setEditionMetadata(userEditions))
       }
     }
