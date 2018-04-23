@@ -492,7 +492,7 @@ function addStudents({
 }) {
   r.table('classroom_lesson_sessions')
   .get(classroomActivityId)
-  .update({ ...activitySessions, student_ids: studentIds })
+  .update({ students: activitySessions, student_ids: studentIds })
   .run(connection)
 }
 
@@ -753,7 +753,6 @@ function getAllEditionMetadataForLesson({
   connection,
   lessonID
 }) {
-  console.log('lessonID', lessonID)
   if (lessonID) {
     r.table('lesson_edition_metadata')
     .filter(r.row("lesson_id").eq(lessonID))
@@ -790,7 +789,7 @@ function getEditionQuestions({
   .run(connection, (err, cursor) => {
     cursor.each((err, document) => {
       let edition = document.new_val;
-      client.emit(`getEditionQuestionsForEdition:${edition.id}`, edition)
+      client.emit(`editionQuestionsForEdition:${edition.id}`, edition)
     });
   });
 }
@@ -821,8 +820,6 @@ function setEditionId({
   })
   .run(connection)
   .then((currentEditionId) => {
-    console.log('currentEditionId', currentEditionId)
-    console.log('editionId', editionId)
     if (currentEditionId !== editionId) {
       setTeacherModels({
         classroomActivityId,
@@ -1056,7 +1053,6 @@ function createNewEdition({
       .run(connection)
     })
   }
-  console.log('editionData.id', editionData.id)
   client.emit(`editionCreated:${editionData.id}`)
 }
 
@@ -1423,22 +1419,19 @@ r.connect({
     })
 
     client.on('getAllEditionMetadata', () => {
-      console.log('are we here')
       getAllEditionMetadata({
         connection,
         client
       })
     })
 
-    // client.on('getAllEditionMetadataForLesson', (lessonID) => {
-    //   console.log('getAllEditionMetadataForLesson')
-    //   console.log('lessonID', lessonID)
-    //   getAllEditionMetadataForLesson({
-    //     connection,
-    //     client,
-    //     lessonID
-    //   })
-    // })
+    client.on('getAllEditionMetadataForLesson', (lessonID) => {
+      getAllEditionMetadataForLesson({
+        connection,
+        client,
+        lessonID
+      })
+    })
 
     client.on('getEditionQuestions', (editionID) => {
       getEditionQuestions({
