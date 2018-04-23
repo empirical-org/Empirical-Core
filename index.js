@@ -36,7 +36,7 @@ function subscribeToCurrentSlide({
 }) {
   r.table('classroom_lesson_sessions')
   .get(classroomActivityId)
-  .getField('current_slide')
+  .pluck('current_slide')
   .run(connection)
   .then((currentSlide) => {
     client.emit(`currentSlide:${classroomActivityId}`, currentSlide)
@@ -51,39 +51,23 @@ function updateClassroomLessonSession({ connection, session }) {
 
 function createOrUpdateClassroomLessonSession({
   connection,
-  classroomActivityId
+  classroomActivityId,
+  teacherIdObject
 }) {
-  const url = process.env.EMPIRICAL_BASE_URL +
-    '/api/v1/classroom_activities/' +
-    classroomActivityId +
-    '/classroom_teacher_and_coteacher_ids'
-
   r.table('classroom_lesson_sessions')
   .get(classroomActivityId)
   .run(connection)
   .then((session) => {
-    fetch(url, {
-      method: "GET",
-      mode: "cors",
-      credentials: 'include',
-    }).then(response => {
-      if (!response.ok) {
-        console.log(response.statusText)
-      } else {
-        return response.json()
-      }
-    }).then(response => {
-      response ? session.teacher_ids = response.teacher_ids : undefined;
-      session.current_slide = session && session.current_slide ? session.current_slide : 0;
-      session.startTime = session && session.startTime ? session.startTime : new Date();
-      session.id = session && session.id ? session.id : classroomActivityId;
+    teacherIdObject ? session.teacher_ids = teacherIdObject.teacher_ids : undefined;
+    session.current_slide = session && session.current_slide ? session.current_slide : 0;
+    session.startTime = session && session.startTime ? session.startTime : new Date();
+    session.id = session && session.id ? session.id : classroomActivityId;
 
-      r.table('classroom_lesson_sessions')
-      .insert(session, { conflict: 'replace' })
-      .run(connection)
-    });
+    r.table('classroom_lesson_sessions')
+    .insert(session, { conflict: 'replace' })
+    .run(connection)
   });
-}
+};
 
 function teacherConnected({
   classroomActivityId,
@@ -826,11 +810,19 @@ function setEditionId({
   connection,
   client,
 }) {
-  r.table('classroom_lessons')
+  r.table('classroom_lesson_sessions')
   .get(classroomActivityId)
-  .getField('edition_id')
+  .do((session) => {
+    if (session) {
+      return session.pluck('edition_id')
+    } else {
+      return null;
+    }
+  })
   .run(connection)
   .then((currentEditionId) => {
+    console.log('currentEditionId', currentEditionId)
+    console.log('editionId', editionId)
     if (currentEditionId !== editionId) {
       setTeacherModels({
         classroomActivityId,
@@ -838,12 +830,12 @@ function setEditionId({
         connection,
       })
 
-      r.table('classroom_lessons')
+      r.table('classroom_lesson_sessions')
       .get(classroomActivityId)
       .update({ edition_id: editionId })
       .run(connection)
     } else {
-      r.table('classroom_lessons')
+      r.table('classroom_lesson_sessions')
       .get(classroomActivityId)
       .replace(r.row.without('edition_id'))
       .run(connection)
@@ -1064,6 +1056,7 @@ function createNewEdition({
       .run(connection)
     })
   }
+  console.log('editionData.id', editionData.id)
   client.emit(`editionCreated:${editionData.id}`)
 }
 
@@ -1120,8 +1113,6 @@ r.connect({
     currentConnections[client.id] = { socket: client, role: null };
 
     client.on('getAllEditionMetadataForLesson', (lessonID) => {
-      console.log('getAllEditionMetadataForLesson')
-      console.log('lessonID', lessonID)
       getAllEditionMetadataForLesson({
         connection,
         client,
@@ -1174,10 +1165,11 @@ r.connect({
       });
     });
 
-    client.on('createOrUpdateClassroomLessonSession', (classroomActivityId) => {
+    client.on('createOrUpdateClassroomLessonSession', (classroomActivityId, teacherIdObject) => {
       createOrUpdateClassroomLessonSession({
         connection,
         classroomActivityId,
+        teacherIdObject,
         client
       });
     });
@@ -1574,7 +1566,6 @@ r.connect({
       })
     })
   })
-  });
 });
 
 io.listen(8000);
