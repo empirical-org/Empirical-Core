@@ -786,7 +786,8 @@ function getEditionQuestions({
   r.table('lesson_edition_questions')
   .get(editionID)
   .changes({ includeInitial: true })
-  .run(connection, (err, cursor) => {
+  .run(connection)
+  .then(cursor => {
     cursor.each((err, document) => {
       let edition = document.new_val;
       client.emit(`editionQuestionsForEdition:${edition.id}`, edition)
@@ -796,11 +797,23 @@ function getEditionQuestions({
 
 function updateEditionMetadata({
   connection,
-  editionMetadata
+  editionMetadata,
+  client
 }) {
   r.table('lesson_edition_metadata')
-  .insert(editionMetadata, { conflict: 'update' })
+  .insert(editionMetadata, { conflict: 'update', returnChanges: true })
   .run(connection)
+  .then(cursor => {
+    return cursor.changes
+  })
+  .then(results => {
+    const edition = results[0].new_val
+    getAllEditionMetadataForLesson({
+      connection: connection,
+      client: client,
+      lessonID: edition.lesson_id
+    })
+  })
 }
 
 function setEditionId({
@@ -1024,7 +1037,8 @@ function createNewEdition({
 }) {
   updateEditionMetadata({
     connection: connection,
-    editionMetadata: editionData
+    editionMetadata: editionData,
+    client: client
   })
   if (editionData.edition_id) {
     r.table('lesson_edition_questions')
@@ -1063,7 +1077,7 @@ function publishEdition({
   editionQuestions
 }) {
   editionMetadata.last_published_at = new Date()
-  updateEditionMetadata({editionMetadata, connection})
+  updateEditionMetadata({editionMetadata, connection, client})
   updateEditionQuestions({editionQuestions, connection})
 }
 
@@ -1071,12 +1085,12 @@ function deleteEdition({
   connection,
   editionUID
 }) {
-  r.table('lessons_edition_metadata')
+  r.table('lesson_edition_metadata')
   .get(editionUID)
   .delete()
   .run(connection)
 
-  r.table('lessons_edition_questions')
+  r.table('lesson_edition_questions')
   .get(editionUID)
   .delete()
   .run(connection)
@@ -1084,19 +1098,21 @@ function deleteEdition({
 
 function archiveEdition({
   connection,
-  editionUID
+  editionUID,
+  client
 }) {
-  r.table('lessons_edition_metadata')
+  let editionMetadata
+  r.table('lesson_edition_metadata')
   .get(editionUID)
-  .getField('flags')
+  .pluck('flags')
   .run(connection)
   .then(flags => {
     if (flags && flags.length > 0) {
-      const editionMetadata = {id: editionUID, flags: flags.push('archived')}
+      editionMetadata = {id: editionUID, flags: flags.push('archived')}
     } else {
-      const editionMetadata = {id: editionUID, flags: ['archived']}
+      editionMetadata = {id: editionUID, flags: ['archived']}
     }
-    updateEditionMetadata({connection, editionMetadata})
+    updateEditionMetadata({connection, editionMetadata, client})
   })
 }
 
@@ -1444,7 +1460,8 @@ r.connect({
     client.on('updateEditionMetadata', (editionMetadata) => {
       updateEditionMetadata({
         connection,
-        editionMetadata
+        editionMetadata,
+        client
       })
     })
 
@@ -1557,14 +1574,16 @@ r.connect({
     client.on('deleteEdition', (editionUID) => {
       deleteEdition({
         editionUID,
-        connection
+        connection,
+        client
       })
     })
 
     client.on('archiveEdition', (editionUID) => {
       archiveEdition({
         editionUID,
-        connection
+        connection,
+        client
       })
     })
   })
