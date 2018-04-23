@@ -1,6 +1,7 @@
 declare function require(name:string);
 import C from '../constants';
 import * as request from 'request'
+import _ from 'lodash'
 import {
   ClassroomLessonSessions,
   ClassroomLessonSession,
@@ -19,10 +20,12 @@ import openSocket from 'socket.io-client';
 const socket = openSocket('http://localhost:8000');
 
 export function startListeningToSession(classroom_activity_id: string) {
-  return function(dispatch) {
+  return function(dispatch, getState) {
     socket.on(`classroomLessonSession:${classroom_activity_id}`, (data) => {
       if (data) {
-        dispatch(updateSession(data));
+        if (!_.isEqual(getState().classroomSessions.data, data)) {
+          dispatch(updateSession(data));
+        }
       } else {
         dispatch({type: C.NO_CLASSROOM_ACTIVITY, data: classroom_activity_id})
       }
@@ -61,12 +64,16 @@ export function startListeningToSessionForTeacher(
   classroom_activity_id: string,
   lesson_id: string
 ) {
-  return function (dispatch) {
+  return function (dispatch, getState) {
     let initialized = false;
 
     socket.on(`classroomLessonSession:${classroom_activity_id}`, (session) => {
       if (session) {
-        dispatch(updateSession(session));
+
+        if (!_.isEqual(getState().classroomSessions.data, session)) {
+          dispatch(updateSession(session));
+        }
+        }
         dispatch(getInitialData(
           classroom_activity_id,
           lesson_id,
@@ -109,17 +116,17 @@ export function getPreviewData(ca_id: string, lesson_id: string) {
   }
 }
 
-export function startListeningToCurrentSlide(classroomActivityId: string) {
-  return function (dispatch) {
-    socket.on(`currentSlide:${classroomActivityId}`, (slide) => {
-      if (slide) {
-        console.log('listening to current slide ', slide);
-        dispatch(updateSlideInStore(slide));
-      }
-    });
-    socket.emit('subscribeToCurrentSlide', classroomActivityId);
-  }
-}
+// export function startListeningToCurrentSlide(classroomActivityId: string) {
+//   return function (dispatch) {
+//     socket.on(`currentSlide:${classroomActivityId}`, (slide) => {
+//       if (slide) {
+//         console.log('listening to current slide ', slide);
+//         dispatch(updateSlideInStore(slide));
+//       }
+//     });
+//     socket.emit('subscribeToCurrentSlide', classroomActivityId);
+//   }
+// }
 
 export function updateSession(data: object): {type: string; data: any;} {
   return {

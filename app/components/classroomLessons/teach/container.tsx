@@ -6,7 +6,6 @@ const WakeLock: any = require('react-wakelock').default;
 import {
   startListeningToSession,
   startListeningToSessionForTeacher,
-  startListeningToCurrentSlide,
   goToNextSlide,
   goToPreviousSlide,
   saveSelectedStudentSubmission,
@@ -65,7 +64,7 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
     const lesson_id: string = this.props.params.lessonID
     if (ca_id ) {
       startLesson(ca_id, () => this.props.dispatch(startListeningToSessionForTeacher(ca_id, lesson_id)))
-      this.props.dispatch(startListeningToCurrentSlide(ca_id));
+      // this.props.dispatch(startListeningToCurrentSlide(ca_id));
       registerTeacherPresence(ca_id)
     }
     if (this.props.classroomLesson.hasreceiveddata) {
