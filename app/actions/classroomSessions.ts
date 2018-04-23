@@ -173,11 +173,11 @@ export function goToPreviousSlide(classroom_activity_id: string, state: Classroo
 export function updateCurrentSlide(classroom_activity_id: string, question_id: string) {
   return (dispatch) => {
     dispatch(updateSlideInStore(question_id))
-    updateSlideInFirebase(classroom_activity_id, question_id)
+    updateSlide(classroom_activity_id, question_id)
   }
 }
 
-export function updateSlideInFirebase(
+export function updateSlide(
   classroomActivityId: string,
   questionId: string
  ) {

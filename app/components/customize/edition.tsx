@@ -183,7 +183,7 @@ class CustomizeEdition extends React.Component<any, any> {
   }
 
   renderSlides() {
-    if (this.state.editionQuestions) {
+    if (this.state.editionQuestions && this.state.editionQuestions.questions) {
       return this.state.editionQuestions.questions.slice(1).map((q, i) => this.renderSlide(q, i))
     }
   }

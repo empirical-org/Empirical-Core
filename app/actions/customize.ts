@@ -74,10 +74,9 @@ export function createNewEdition(editionUID:string|null, lessonUID:string, user_
   socket.on(`editionCreated:${newEditionKey}`, () => {
     if (callback) {
       callback(lessonUID, newEditionKey, classroomActivityId)
-    } else {
-      return newEditionKey
     }
   })
+  return newEditionKey
 }
 
 export function createNewAdminEdition(editionUID:string|null, lessonUID:string, user_id:Number|string, callback?:any, name?:string) {
