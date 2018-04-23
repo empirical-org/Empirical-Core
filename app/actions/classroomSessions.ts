@@ -354,6 +354,10 @@ export function setEditionId(classroomActivityId: string, editionId: string|null
   })
 }
 
+export function setTeacherModels(classroomActivityId: string, editionId: string) {
+  socket.emit('setTeacherModels', classroomActivityId, editionId)
+}
+
 export function updateNoStudentError(student: string | null) {
   return function (dispatch) {
     dispatch({type: C.NO_STUDENT_ID, data: student})
