@@ -63,7 +63,7 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
 
   submitSubmission() {
     if (this.props.handleStudentSubmission) {
-      this.props.handleStudentSubmission(this.state.response, firebase.database.ServerValue.TIMESTAMP);
+      this.props.handleStudentSubmission(this.state.response);
       this.setState({ submitted: true, });
     }
   }

@@ -162,12 +162,12 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
     return student && this.props.classroomSessions.data.students ? !!this.props.classroomSessions.data.students[student] : false
   }
 
-  handleStudentSubmission(data: string, timestamp: string) {
+  handleStudentSubmission(data: string) {
     const classroom_activity_id: string|null = getParameterByName('classroom_activity_id');
     const student: string|null = getParameterByName('student');
     const current_slide: string = this.props.classroomSessions.data.current_slide;
     const safeData = scriptTagStrip(data)
-    const submission = {data: safeData, timestamp}
+    const submission = {data: safeData}
     if (classroom_activity_id && student && this.studentEnrolledInClass(student)) {
       saveStudentSubmission(
         classroom_activity_id,

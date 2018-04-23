@@ -194,7 +194,7 @@ class Multisteps extends React.Component<MultistepProps, MultistepState> {
 
   handleStudentSubmission(){
     if (this.state.isSubmittable && this.props.handleStudentSubmission) {
-        this.props.handleStudentSubmission(this.renderHTMLFromSubmissionObject(this.state.answers), moment().format())
+        this.props.handleStudentSubmission(this.renderHTMLFromSubmissionObject(this.state.answers))
         this.setState({isSubmittable: false, submitted: true})
     } else {
       this.setState({errors: true});

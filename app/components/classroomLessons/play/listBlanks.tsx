@@ -210,7 +210,7 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
 
   handleStudentSubmission(){
     if (this.state.isSubmittable && this.props.handleStudentSubmission) {
-        this.props.handleStudentSubmission(this.sortedAndJoinedAnswers(), firebase.database.ServerValue.TIMESTAMP)
+        this.props.handleStudentSubmission(this.sortedAndJoinedAnswers())
         this.setState({isSubmittable: false, submitted: true})
     } else {
       this.setState({errors: true});

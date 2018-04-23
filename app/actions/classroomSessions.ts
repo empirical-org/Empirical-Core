@@ -195,7 +195,7 @@ export function updateSlideInStore(slideId: string) {
   }
 }
 
-export function saveStudentSubmission(classroomActivityId: string, questionId: string, studentId: string, submission: {data: any, timestamp: string}): void {
+export function saveStudentSubmission(classroomActivityId: string, questionId: string, studentId: string, submission: {data: any}): void {
   socket.emit('saveStudentSubmission',
     classroomActivityId,
     questionId,

@@ -148,7 +148,7 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
 
   submitSubmission() {
     if (this.state.inputErrors.size === 0 && this.props.handleStudentSubmission) {
-      this.props.handleStudentSubmission(this.zipInputsAndText(), firebase.database.ServerValue.TIMESTAMP);
+      this.props.handleStudentSubmission(this.zipInputsAndText());
       this.setState({ submitted: true, });
     }
   }
