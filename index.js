@@ -1535,7 +1535,7 @@ r.connect({
         connection,
       })
     })
-  });
+
     client.on('createNewEdition', (editionData, questions) => {
       createNewEdition({
         editionData,
