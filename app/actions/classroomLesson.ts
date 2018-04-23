@@ -14,12 +14,15 @@ import openSocket from 'socket.io-client';
 const socket = openSocket('http://localhost:8000');
 
 export function getClassLesson(classroomLessonUid: string) {
-  console.log('getting a lesson')
-  return function (dispatch) {
+  return function (dispatch, getState) {
     socket.on(`classroomLesson:${classroomLessonUid}`, (lesson) => {
       if (lesson) {
+        if (!_.isEqual(getState().classroomLesson.data, lesson)) {
           dispatch(updateClassroomLesson(lesson));
+        }
+        if (getState().classroomLesson.data.id !== classroomLessonUid) {
           dispatch(setLessonId(classroomLessonUid))
+        }
       } else {
         dispatch({type: C.NO_LESSON_ID, data: classroomLessonUid})
       }
