@@ -57,7 +57,7 @@ export function toggleOnlyShowHeaders() {
   }
 }
 
-export function startListeningToSessionWithoutCurrentSlide(
+export function startListeningToSessionForTeacher(
   classroom_activity_id: string,
   lesson_id: string
 ) {
@@ -66,8 +66,7 @@ export function startListeningToSessionWithoutCurrentSlide(
 
     socket.on(`classroomLessonSession:${classroom_activity_id}`, (session) => {
       if (session) {
-        delete session.current_slide
-        dispatch(updateClassroomSessionWithoutCurrentSlide(session));
+        dispatch(updateSession(session));
         dispatch(getInitialData(
           classroom_activity_id,
           lesson_id,
@@ -80,13 +79,6 @@ export function startListeningToSessionWithoutCurrentSlide(
       }
     });
     socket.emit('subscribeToClassroomLessonSession', classroom_activity_id);
-  }
-}
-
-export function updateClassroomSessionWithoutCurrentSlide(data) {
-  return {
-    type: C.UPDATE_CLASSROOM_SESSION_WITHOUT_CURRENT_SLIDE,
-    data
   }
 }
 

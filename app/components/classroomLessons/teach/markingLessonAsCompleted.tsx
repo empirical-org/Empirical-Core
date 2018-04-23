@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 const WakeLock: any = require('react-wakelock').default;
 import {
   startListeningToSession,
-  startListeningToSessionWithoutCurrentSlide,
+  startListeningToSessionForTeacher,
 } from '../../../actions/classroomSessions';
 import {
   getClassLesson
@@ -29,7 +29,7 @@ class MarkingLessonAsCompleted extends React.Component<any, any> {
     const lesson_id: string = this.props.params.lessonID
     if (ca_id) {
       this.props.dispatch(getClassLesson(lesson_id));
-      this.props.dispatch(startListeningToSessionWithoutCurrentSlide(ca_id, lesson_id));
+      this.props.dispatch(startListeningToSessionForTeacher(ca_id, lesson_id));
     }
   }
 

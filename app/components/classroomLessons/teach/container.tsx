@@ -5,7 +5,7 @@ import _ from 'lodash'
 const WakeLock: any = require('react-wakelock').default;
 import {
   startListeningToSession,
-  startListeningToSessionWithoutCurrentSlide,
+  startListeningToSessionForTeacher,
   startListeningToCurrentSlide,
   goToNextSlide,
   goToPreviousSlide,
@@ -64,7 +64,7 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
     const ca_id: string|null = getParameterByName('classroom_activity_id')
     const lesson_id: string = this.props.params.lessonID
     if (ca_id ) {
-      startLesson(ca_id, () => this.props.dispatch(startListeningToSessionWithoutCurrentSlide(ca_id, lesson_id)))
+      startLesson(ca_id, () => this.props.dispatch(startListeningToSessionForTeacher(ca_id, lesson_id)))
       this.props.dispatch(startListeningToCurrentSlide(ca_id));
       registerTeacherPresence(ca_id)
     }
