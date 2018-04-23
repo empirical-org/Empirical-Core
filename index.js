@@ -1431,6 +1431,14 @@ r.connect({
         client,
       });
     })
+
+    client.on('setTeacherModels', (classroomActivityId, editionId) => {
+      setTeacherModels({
+        classroomActivityId,
+        editionId,
+        connection,
+      })
+    })
   });
 });
 
