@@ -36,7 +36,7 @@ function subscribeToCurrentSlide({
 }) {
   r.table('classroom_lesson_sessions')
   .get(classroomActivityId)
-  .getField('current_slide')
+  .pluck('current_slide')
   .run(connection)
   .then((currentSlide) => {
     client.emit(`currentSlide:${classroomActivityId}`, currentSlide)
@@ -51,39 +51,23 @@ function updateClassroomLessonSession({ connection, session }) {
 
 function createOrUpdateClassroomLessonSession({
   connection,
-  classroomActivityId
+  classroomActivityId,
+  teacherIdObject
 }) {
-  const url = process.env.EMPIRICAL_BASE_URL +
-    '/api/v1/classroom_activities/' +
-    classroomActivityId +
-    '/classroom_teacher_and_coteacher_ids'
-
   r.table('classroom_lesson_sessions')
   .get(classroomActivityId)
   .run(connection)
   .then((session) => {
-    fetch(url, {
-      method: "GET",
-      mode: "cors",
-      credentials: 'include',
-    }).then(response => {
-      if (!response.ok) {
-        console.log(response.statusText)
-      } else {
-        return response.json()
-      }
-    }).then(response => {
-      response ? session.teacher_ids = response.teacher_ids : undefined;
-      session.current_slide = session && session.current_slide ? session.current_slide : 0;
-      session.startTime = session && session.startTime ? session.startTime : new Date();
-      session.id = session && session.id ? session.id : classroomActivityId;
+    teacherIdObject ? session.teacher_ids = teacherIdObject.teacher_ids : undefined;
+    session.current_slide = session && session.current_slide ? session.current_slide : 0;
+    session.startTime = session && session.startTime ? session.startTime : new Date();
+    session.id = session && session.id ? session.id : classroomActivityId;
 
-      r.table('classroom_lesson_sessions')
-      .insert(session, { conflict: 'replace' })
-      .run(connection)
-    });
+    r.table('classroom_lesson_sessions')
+    .insert(session, { conflict: 'replace' })
+    .run(connection)
   });
-}
+};
 
 function teacherConnected({
   classroomActivityId,
@@ -508,7 +492,7 @@ function addStudents({
 }) {
   r.table('classroom_lesson_sessions')
   .get(classroomActivityId)
-  .update({ ...activitySessions, student_ids: studentIds })
+  .update({ students: activitySessions, student_ids: studentIds })
   .run(connection)
 }
 
@@ -772,8 +756,12 @@ function getAllEditionMetadataForLesson({
   if (lessonID) {
     r.table('lesson_edition_metadata')
     .filter(r.row("lesson_id").eq(lessonID))
-    .run(connection, (err, cursor) => {
-      r.table('lesson_edition_metadata').filter(r.row("lesson_id").eq(lessonID)).count().run(connection, (err, val) => {
+    .run(connection)
+    .then((cursor) => {
+      r.table('lesson_edition_metadata')
+      .filter(r.row("lesson_id").eq(lessonID))
+      .count()
+      .run(connection, (err, val) => {
         const numberOfEditions = val
         let editions = {}
         let editionCount = 0
@@ -801,7 +789,7 @@ function getEditionQuestions({
   .run(connection, (err, cursor) => {
     cursor.each((err, document) => {
       let edition = document.new_val;
-      client.emit(`getEditionQuestionsForEdition:${edition.id}`, edition)
+      client.emit(`editionQuestionsForEdition:${edition.id}`, edition)
     });
   });
 }
@@ -821,9 +809,15 @@ function setEditionId({
   connection,
   client,
 }) {
-  r.table('classroom_lessons')
+  r.table('classroom_lesson_sessions')
   .get(classroomActivityId)
-  .getField('edition_id')
+  .do((session) => {
+    if (session) {
+      return session.pluck('edition_id')
+    } else {
+      return null;
+    }
+  })
   .run(connection)
   .then((currentEditionId) => {
     if (currentEditionId !== editionId) {
@@ -833,12 +827,12 @@ function setEditionId({
         connection,
       })
 
-      r.table('classroom_lessons')
+      r.table('classroom_lesson_sessions')
       .get(classroomActivityId)
       .update({ edition_id: editionId })
       .run(connection)
     } else {
-      r.table('classroom_lessons')
+      r.table('classroom_lesson_sessions')
       .get(classroomActivityId)
       .replace(r.row.without('edition_id'))
       .run(connection)
@@ -1013,6 +1007,99 @@ function addSlide({
   })
 }
 
+function updateEditionQuestions({
+  connection,
+  editionQuestions
+}) {
+  r.table('lesson_edition_questions')
+  .insert(editionQuestions, { conflict: 'update' })
+  .run(connection)
+}
+
+function createNewEdition({
+  connection,
+  editionData,
+  client,
+  questions
+}) {
+  updateEditionMetadata({
+    connection: connection,
+    editionMetadata: editionData
+  })
+  if (editionData.edition_id) {
+    r.table('lesson_edition_questions')
+    .get(editionData.edition_id)
+    .run(connection)
+    .then(editionQuestions => {
+      editionQuestions.id = editionData.id
+      r.table('lesson_edition_questions')
+      .insert(editionQuestions, { conflict: 'update' })
+      .run(connection)
+    })
+  } else if (questions) {
+    const editionQuestions = {id: editionData.id, questions}
+    r.table('lesson_edition_questions')
+    .insert(editionQuestions, { conflict: 'update' })
+    .run(connection)
+  } else {
+    r.table('classroom_lessons')
+    .get(editionData.lesson_id)
+    .getField('questions')
+    .run(connection)
+    .then(lessonQuestions => {
+      const editionQuestions = {id: editionData.id, questions: lessonQuestions}
+      r.table('lesson_edition_questions')
+      .insert(editionQuestions, { conflict: 'update'} )
+      .run(connection)
+    })
+  }
+  client.emit(`editionCreated:${editionData.id}`)
+}
+
+function publishEdition({
+  client,
+  connection,
+  editionMetadata,
+  editionQuestions
+}) {
+  editionMetadata.last_published_at = new Date()
+  updateEditionMetadata({editionMetadata, connection})
+  updateEditionQuestions({editionQuestions, connection})
+}
+
+function deleteEdition({
+  connection,
+  editionUID
+}) {
+  r.table('lessons_edition_metadata')
+  .get(editionUID)
+  .delete()
+  .run(connection)
+
+  r.table('lessons_edition_questions')
+  .get(editionUID)
+  .delete()
+  .run(connection)
+}
+
+function archiveEdition({
+  connection,
+  editionUID
+}) {
+  r.table('lessons_edition_metadata')
+  .get(editionUID)
+  .getField('flags')
+  .run(connection)
+  .then(flags => {
+    if (flags && flags.length > 0) {
+      const editionMetadata = {id: editionUID, flags: flags.push('archived')}
+    } else {
+      const editionMetadata = {id: editionUID, flags: ['archived']}
+    }
+    updateEditionMetadata({connection, editionMetadata})
+  })
+}
+
 r.connect({
   host: 'localhost',
   port: 28015,
@@ -1020,6 +1107,14 @@ r.connect({
 }).then((connection) => {
   io.on('connection', (client) => {
     currentConnections[client.id] = { socket: client, role: null };
+
+    client.on('getAllEditionMetadataForLesson', (lessonID) => {
+      getAllEditionMetadataForLesson({
+        connection,
+        client,
+        lessonID
+      })
+    })
 
     client.on('teacherConnected', (classroomActivityId) => {
       teacherConnected({
@@ -1066,10 +1161,11 @@ r.connect({
       });
     });
 
-    client.on('createOrUpdateClassroomLessonSession', (classroomActivityId) => {
+    client.on('createOrUpdateClassroomLessonSession', (classroomActivityId, teacherIdObject) => {
       createOrUpdateClassroomLessonSession({
         connection,
         classroomActivityId,
+        teacherIdObject,
         client
       });
     });
@@ -1440,6 +1536,38 @@ r.connect({
       })
     })
   });
+    client.on('createNewEdition', (editionData, questions) => {
+      createNewEdition({
+        editionData,
+        connection,
+        client,
+        questions
+      })
+    })
+
+    client.on('publishEdition', (editionMetadata, editionQuestions) => {
+      publishEdition({
+        editionMetadata,
+        editionQuestions,
+        connection,
+        client
+      })
+    })
+
+    client.on('deleteEdition', (editionUID) => {
+      deleteEdition({
+        editionUID,
+        connection
+      })
+    })
+
+    client.on('archiveEdition', (editionUID) => {
+      archiveEdition({
+        editionUID,
+        connection
+      })
+    })
+  })
 });
 
 io.listen(8000);
