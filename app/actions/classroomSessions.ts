@@ -32,7 +32,20 @@ export function startListeningToSession(classroom_activity_id: string) {
 }
 
 export function startLesson(classroomActivityId: string, callback?: Function) {
-  socket.emit('createOrUpdateClassroomLessonSession', classroomActivityId);
+  fetch(`${process.env.EMPIRICAL_BASE_URL}/api/v1/classroom_activities/${classroomActivityId}/classroom_teacher_and_coteacher_ids`, {
+    method: "GET",
+    mode: "cors",
+    credentials: 'include',
+  }).then(response => {
+    if (!response.ok) {
+      console.log(response.statusText)
+    } else {
+      return response.json()
+    }
+  }).then(response => {
+    socket.emit('createOrUpdateClassroomLessonSession', classroomActivityId, response);
+  })
+
   if (callback) {
     callback();
   }
