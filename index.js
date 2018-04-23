@@ -36,7 +36,7 @@ function subscribeToCurrentSlide({
 }) {
   r.table('classroom_lesson_sessions')
   .get(classroomActivityId)
-  .pluck('current_slide')
+  .getField('current_slide')
   .run(connection)
   .then((currentSlide) => {
     client.emit(`currentSlide:${classroomActivityId}`, currentSlide)
@@ -192,8 +192,9 @@ function saveStudentSubmission({
     id: classroomActivityId,
     submissions: {}
   };
+  const submissionWithTimestamp = {...submission, timestamp: new Date()}
   session['submissions'][questionId] = {};
-  session['submissions'][questionId][studentId] = submission;
+  session['submissions'][questionId][studentId] = submissionWithTimestamp;
 
   updateClassroomLessonSession({
     session,
