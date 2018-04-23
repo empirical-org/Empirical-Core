@@ -29,20 +29,6 @@ function createPreviewSession({ connection, previewSessionData }) {
   .run(connection)
 }
 
-function subscribeToCurrentSlide({
-  connection,
-  client,
-  classroomActivityId
-}) {
-  r.table('classroom_lesson_sessions')
-  .get(classroomActivityId)
-  .getField('current_slide')
-  .run(connection)
-  .then((currentSlide) => {
-    client.emit(`currentSlide:${classroomActivityId}`, currentSlide)
-  });
-}
-
 function updateClassroomLessonSession({ connection, session }) {
   r.table('classroom_lesson_sessions')
   .insert(session, { conflict: 'update' })
@@ -684,7 +670,7 @@ function setTeacherModels({
 
 function getAllClassroomLessonReviews({
   connection,
-  client,
+  client
 }) {
   r.table('reviews')
   .run(connection, (err, cursor) => {
@@ -1145,14 +1131,14 @@ r.connect({
       });
     });
 
-    client.on('subscribeToCurrentSlide', (classroomActivityId) => {
-      subscribeToCurrentSlide({
-        connection,
-        client,
-        classroomActivityId
-      });
-    });
-
+    // client.on('subscribeToCurrentSlide', (classroomActivityId) => {
+    //   subscribeToCurrentSlide({
+    //     connection,
+    //     client,
+    //     classroomActivityId
+    //   });
+    // });
+    //
     client.on('updateClassroomLessonSession', (session) => {
       updateClassroomLessonSession({
         session,
@@ -1411,9 +1397,9 @@ r.connect({
     })
 
     client.on('createOrUpdateReview', (review) => {
-      getAllClassroomLessonReviews({
+      createOrUpdateReview({
         connection,
-        review
+        review,
       })
     })
 
