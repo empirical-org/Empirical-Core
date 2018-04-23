@@ -636,27 +636,15 @@ function setTeacherModels({
   connection,
 }) {
   r.table('lesson_edition_questions')
-  .get(editionId)
-  .do((edition) => {
-    if (edition === 'null') {
-      return edition.getField('questions');
-    } else {
-      return null;
-    }
-  })
+  .filter(r.row("id").eq(editionId))
   .run(connection)
-  .then((questions) => {
+  .then((editionsArray) => {
+    const questions = editionsArray.length === 1 ? editionsArray[0].questions : null
     r.table('classroom_lesson_sessions')
-    .get(classroomActivityId)
-    .do((session) => {
-      if (session === 'null') {
-        return session.getField('prompts')
-      } else {
-        return null;
-      }
-    })
+    .filter(r.row("id").eq(classroomActivityId))
     .run(connection)
-    .then((prompts) => {
+    .then((sessionsArray) => {
+      const prompts = sessionsArray.length === 1 ? sessionsArray[0].prompts : null
       if (questions && prompts) {
         Object.keys(prompts).forEach(key => {
           let canUpdate = questions[key] &&
@@ -823,16 +811,10 @@ function setEditionId({
   client,
 }) {
   r.table('classroom_lesson_sessions')
-  .get(classroomActivityId)
-  .do((session) => {
-    if (session) {
-      return session.pluck('edition_id')
-    } else {
-      return null;
-    }
-  })
+  .filter(r.row("id").eq(classroomActivityId))
   .run(connection)
-  .then((currentEditionId) => {
+  .then((sessionArray) => {
+    const currentEditionId = sessionArray.length === 1 ? sessionArray[0].edition_id : null
     if (currentEditionId !== editionId) {
       setTeacherModels({
         classroomActivityId,
