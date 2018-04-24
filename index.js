@@ -814,11 +814,6 @@ function setEditionId({
       r.table('classroom_lesson_sessions')
       .insert({ id: classroomActivityId, edition_id: editionId }, {conflict: 'update'})
       .run(connection)
-    } else {
-      r.table('classroom_lesson_sessions')
-      .get(classroomActivityId)
-      .replace(r.row.without('edition_id'))
-      .run(connection)
     }
   })
 
