@@ -1,6 +1,4 @@
 import Passthrough from 'components/shared/passthrough.jsx';
-import { createNewEdition} from '../../../../actions/customize'
-import { getParameterByName } from 'libs/getParameterByName';
 
 const successRoute = {
   path: ':lessonID/:editionID/success',
@@ -17,7 +15,7 @@ const successRoute = {
 
 const editionRoute = {
   path: ':lessonID/:editionID',
-  onEnter: (nextState, replaceWith) => {
+  onEnter: () => {
     document.title = 'Quill Lessons';
   },
   getComponent: (nextState, cb) => {
@@ -30,7 +28,7 @@ const editionRoute = {
 
 const chooseEditionRoute = {
   path: ':lessonID',
-  onEnter: (nextState, replaceWith) => {
+  onEnter: () => {
     document.title = 'Quill Lessons';
   },
   getComponent: (nextState, cb) => {

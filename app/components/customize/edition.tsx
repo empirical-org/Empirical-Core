@@ -132,6 +132,7 @@ class CustomizeEdition extends React.Component<any, any> {
   }
 
   publish() {
+    console.log('publish is getting called inside the edition')
     const slides = this.state.editionQuestions.questions.slice(1)
     const incompleteQuestions:Array<number>|never = []
     slides.forEach((s, i) => {

@@ -38,6 +38,14 @@ class ChooseEdition extends React.Component<any, any> {
     this.deleteNewEdition = this.deleteNewEdition.bind(this)
   }
 
+  componentWillMount() {
+    console.log('in choose edtion')
+  }
+
+  componentWillUnmount() {
+    console.log('about to unmount chooseEdition')
+  }
+
   makeNewEdition(editionUid:string|null) {
     if (this.props.customize.user_id) {
       const newEditionUid = createNewEdition(editionUid, this.props.params.lessonID, this.props.customize.user_id)
@@ -100,6 +108,7 @@ class ChooseEdition extends React.Component<any, any> {
       const editionId = editionKey ? editionKey : ''
       return this.props.router.push(`teach/class-lessons/${lessonId}/preview/${editionId}`)
     } else if (classroomActivityId) {
+      console.log('wtf')
       return setEditionId(classroomActivityId, editionKey, () => window.location.href = `#/teach/class-lessons/${lessonId}?&classroom_activity_id=${classroomActivityId}`)
     }
   }

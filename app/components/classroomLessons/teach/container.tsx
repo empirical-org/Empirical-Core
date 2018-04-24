@@ -56,7 +56,7 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
     super(props);
     props.dispatch(getCurrentUserAndCoteachersFromLMS())
     document.addEventListener("keydown", this.handleKeyDown.bind(this));
-    props.dispatch(firebaseAuth())
+    // props.dispatch(firebaseAuth())
   }
 
   componentDidMount() {

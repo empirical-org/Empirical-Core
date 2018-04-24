@@ -55,7 +55,7 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
       document.addEventListener("keydown", this.handleKeyDown.bind(this));
     }
 
-    props.dispatch(firebaseAuth())
+    // props.dispatch(firebaseAuth())
 
     this.handleStudentSubmission = this.handleStudentSubmission.bind(this);
     this.easyJoinDemo = this.easyJoinDemo.bind(this);

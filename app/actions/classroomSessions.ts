@@ -339,13 +339,13 @@ export function addSupportingInfo(classroomActivityId: string, supportingInfo: s
 }
 
 export function setSlideStartTime(classroomActivityId: string, questionId: string): void {
-
   socket.emit('setSlideStartTime', classroomActivityId, questionId);
 }
 
 export function setEditionId(classroomActivityId: string, editionId: string|null, callback?: Function): void {
   socket.emit('setEditionId', classroomActivityId, editionId)
   socket.on(`editionIdSet:${classroomActivityId}`, () => {
+    console.log('callback', callback)
     if (callback) {
       callback();
     }

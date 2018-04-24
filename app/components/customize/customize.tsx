@@ -35,7 +35,7 @@ class Customize extends React.Component<customizeProps> {
 
     super(props)
     props.dispatch(getCurrentUserAndCoteachersFromLMS())
-    props.dispatch(firebaseAuth())
+    // props.dispatch(firebaseAuth())
 
     if (props.params.lessonID) {
       props.dispatch(getClassLesson(props.params.lessonID))

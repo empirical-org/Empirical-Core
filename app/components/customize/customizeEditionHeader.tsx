@@ -9,6 +9,7 @@ export default class CustomizeEditionHeader extends React.Component<any, any> {
     }
 
     this.closeNote = this.closeNote.bind(this)
+    this.goBack = this.goBack.bind(this)
   }
 
   closeNote() {
@@ -17,11 +18,18 @@ export default class CustomizeEditionHeader extends React.Component<any, any> {
 
   renderBackButton() {
     if (window.history.length > 1) {
-      return <div className="back-button" onClick={() => window.history.back()}>
-      <i className="fa fa-icon fa-chevron-left"/>
-      Back
+      return <div className="back-button">
+        <span onClick={this.goBack}>
+          <i className="fa fa-icon fa-chevron-left"/>
+          Back
+        </span>
       </div>
     }
+  }
+
+  goBack() {
+    console.log('going back')
+    window.history.back()
   }
 
   renderNote() {
