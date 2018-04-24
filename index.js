@@ -808,10 +808,8 @@ function setEditionId({
         editionId,
         connection,
       })
-
       r.table('classroom_lesson_sessions')
-      .get(classroomActivityId)
-      .update({ edition_id: editionId })
+      .insert({ id: classroomActivityId, edition_id: editionId }, {conflict: 'update'})
       .run(connection)
     } else {
       r.table('classroom_lesson_sessions')
