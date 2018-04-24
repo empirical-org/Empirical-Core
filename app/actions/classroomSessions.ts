@@ -73,7 +73,6 @@ export function startListeningToSessionForTeacher(
         if (!_.isEqual(getState().classroomSessions.data, session)) {
           dispatch(updateSession(session));
         }
-        }
         dispatch(getInitialData(
           classroom_activity_id,
           lesson_id,
