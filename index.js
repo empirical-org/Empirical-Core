@@ -625,12 +625,14 @@ function setTeacherModels({
   r.table('lesson_edition_questions')
   .filter(r.row("id").eq(editionId))
   .run(connection)
-  .then((editionsArray) => {
+  .then(cursor => cursor.toArray())
+  .then(editionsArray => {
     const questions = editionsArray.length === 1 ? editionsArray[0].questions : null
     r.table('classroom_lesson_sessions')
     .filter(r.row("id").eq(classroomActivityId))
     .run(connection)
-    .then((sessionsArray) => {
+    .then(cursor => cursor.toArray())
+    .then(sessionsArray => {
       const prompts = sessionsArray.length === 1 ? sessionsArray[0].prompts : null
       if (questions && prompts) {
         Object.keys(prompts).forEach(key => {
@@ -800,7 +802,8 @@ function setEditionId({
   r.table('classroom_lesson_sessions')
   .filter(r.row("id").eq(classroomActivityId))
   .run(connection)
-  .then((sessionArray) => {
+  .then(cursor => cursor.toArray())
+  .then(sessionArray => {
     const currentEditionId = sessionArray.length === 1 ? sessionArray[0].edition_id : null
     if (currentEditionId !== editionId) {
       setTeacherModels({
