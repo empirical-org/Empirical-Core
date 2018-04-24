@@ -612,7 +612,7 @@ function deleteClassroomLesson({
   classroomLessonID
 }) {
   r.table('classroom_lessons')
-  .get(classroomLessonID)
+  .filter({id: classroomLessonID})
   .delete()
   .run(connection)
 }
@@ -704,7 +704,8 @@ function createOrUpdateReview({
 
 function getAllEditionMetadata({
   client,
-  connection
+  connection,
+  callback
 }) {
   r.table('lesson_edition_metadata')
   .run(connection, (err, cursor) => {
@@ -718,6 +719,9 @@ function getAllEditionMetadata({
         editionCount++
         if (editionCount === numberOfEditions) {
           client.emit('editionMetadata', editions)
+          if (callback) {
+            callback()
+          }
         }
       });
     })
@@ -728,7 +732,8 @@ function getAllEditionMetadata({
 function getAllEditionMetadataForLesson({
   client,
   connection,
-  lessonID
+  lessonID,
+  callback
 }) {
   if (lessonID) {
     r.table('lesson_edition_metadata')
@@ -742,12 +747,18 @@ function getAllEditionMetadataForLesson({
         const numberOfEditions = val
         let editions = {}
         let editionCount = 0
+        console.log('i am getting called')
         cursor.each(function(err, document) {
+          console.log('editionCount', editionCount)
+          console.log('numberOfEditions', numberOfEditions)
           if (err) throw err
           editions[document.id] = document
           editionCount++
           if (editionCount === numberOfEditions) {
             client.emit(`editionMetadataForLesson:${lessonID}`, editions)
+            if (callback) {
+              callback()
+            }
           }
         });
       })
@@ -767,7 +778,9 @@ function getEditionQuestions({
   .then(cursor => {
     cursor.each((err, document) => {
       let edition = document.new_val;
-      client.emit(`editionQuestionsForEdition:${edition.id}`, edition)
+      if (edition) {
+        client.emit(`editionQuestionsForEdition:${edition.id}`, edition)
+      }
     });
   });
 }
@@ -823,16 +836,24 @@ function setEditionId({
 function deleteEdition({
   editionId,
   connection,
+  client
 }) {
-  r.table('lesson_edition_metadata')
-  .get(editionId)
-  .delete()
-  .run(connection)
+  if (editionId) {
+    r.table('lesson_edition_questions')
+    .filter({id: editionId})
+    .delete()
+    .run(connection)
 
-  r.table('lesson_edition_questions')
-  .get(editionId)
-  .delete()
-  .run(connection)
+    r.table('lesson_edition_metadata')
+    .filter({id: editionId})
+    .delete()
+    .run(connection)
+    .then(() => {
+      console.log('oy wtf')
+      const callback = () => client.emit(`deletedEdition:${editionId}`)
+      getAllEditionMetadata({connection, client, callback})
+    })
+  }
 }
 
 function updateEditionSlides({
@@ -1032,6 +1053,7 @@ function createNewEdition({
       .run(connection)
     })
   }
+  getAllEditionMetadata({client, connection})
   client.emit(`editionCreated:${editionData.id}`)
 }
 
@@ -1044,21 +1066,6 @@ function publishEdition({
   editionMetadata.last_published_at = new Date()
   updateEditionMetadata({editionMetadata, connection, client})
   updateEditionQuestions({editionQuestions, connection})
-}
-
-function deleteEdition({
-  connection,
-  editionUID
-}) {
-  r.table('lesson_edition_metadata')
-  .get(editionUID)
-  .delete()
-  .run(connection)
-
-  r.table('lesson_edition_questions')
-  .get(editionUID)
-  .delete()
-  .run(connection)
 }
 
 function archiveEdition({
@@ -1443,6 +1450,7 @@ r.connect({
       deleteEdition({
         editionId,
         connection,
+        client
       })
     })
 
