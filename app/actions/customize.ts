@@ -96,7 +96,7 @@ export function createNewAdminEdition(editionUID:string|null, lessonUID:string, 
   }
   socket.emit('createNewEdition', newEditionData, questions)
   socket.on(`editionCreated:${newEditionKey}`, () => {
-    socket.removeAlllListeners(`editionCreated:${newEditionKey}`)
+    socket.removeAllListeners(`editionCreated:${newEditionKey}`)
     if (callback) {
       callback(lessonUID, newEditionKey)
     } else {
