@@ -71,7 +71,7 @@ class ShowClassroomLesson extends Component<any, any> {
   }
 
   saveLessonDetails(lesson) {
-    updateClassroomLessonDetails(this.props.params.classroomLessonID, lesson)
+    this.props.dispatch(updateClassroomLessonDetails(this.props.params.classroomLessonID, lesson))
   }
 
   addEdition() {

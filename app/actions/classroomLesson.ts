@@ -4,6 +4,8 @@ import _ from 'lodash'
 import * as IntF from '../components/classroomLessons/interfaces';
 import * as CustomizeIntF from '../interfaces/customize'
 
+import {setEditionMetadata} from './customize'
+
 import lessonBoilerplate from '../components/classroomLessons/shared/classroomLessonBoilerplate'
 import lessonSlideBoilerplates from '../components/classroomLessons/shared/lessonSlideBoilerplates'
 import scriptItemBoilerplates from '../components/classroomLessons/shared/scriptItemBoilerplates'
@@ -46,7 +48,6 @@ export function setLessonId(id:string) {
 }
 
 export function listenForClassroomLessons() {
-  console.log('getting classroom lessons')
   return function (dispatch) {
     socket.on('classroomLessons', (classroomLessons) => {
       if (classroomLessons) {
@@ -183,13 +184,15 @@ export function deleteLesson(classroomLessonID) {
 }
 
 export function deleteEdition(editionID, callback) {
-  socket.emit('deleteEdition', editionID)
-  socket.on(`deletedEdition:${editionID}`, () => {
-    socket.removeAllListeners(`deletedEdition:${editionID}`)
-    if (callback) {
-      callback()
-    }
-  })
+  return (dispatch) => {
+    socket.emit('deleteEdition', editionID)
+    socket.on('editionMetadata', editions => {
+      if (callback) {
+        callback()
+      }
+      dispatch(setEditionMetadata(editions))
+    })
+  }
 }
 
 export function updateSlideScriptItems(editionID, slideID, scriptItems) {
@@ -201,13 +204,27 @@ export function updateEditionSlides(editionID, slides) {
 }
 
 export function updateClassroomLessonDetails(classroomLessonID, classroomLesson) {
-  classroomLesson.id = classroomLessonID
-  socket.emit('createOrUpdateClassroomLesson', classroomLesson)
+  return (dispatch) => {
+    classroomLesson.id = classroomLessonID
+    socket.emit('createOrUpdateClassroomLesson', classroomLesson)
+    socket.on('classroomLessons', (classroomLessons) => {
+      if (classroomLessons) {
+        dispatch(updateClassroomLessons(classroomLessons))
+      } else {
+        dispatch({type: C.NO_LESSONS})
+      }
+    })
+  }
 }
 
 export function updateEditionDetails(editionID, edition) {
-  edition.id = editionID
-  socket.emit('updateEditionMetadata', edition)
+  return (dispatch) => {
+    edition.id = editionID
+    socket.emit('updateEditionMetadata', edition)
+    socket.on('editionMetadata', editions => {
+      dispatch(setEditionMetadata(editions))
+    })
+  }
 }
 
 export function clearClassroomLessonFromStore() {

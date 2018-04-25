@@ -171,7 +171,7 @@ function setCoteachers(coteachers:Array<any>) {
   return { type: C.SET_COTEACHERS, coteachers };
 }
 
-function setEditionMetadata(editionMetadata:CustomizeIntf.EditionsMetadata) {
+export function setEditionMetadata(editionMetadata:CustomizeIntf.EditionsMetadata) {
   return { type: C.SET_EDITION_METADATA, editionMetadata };
 }
 
