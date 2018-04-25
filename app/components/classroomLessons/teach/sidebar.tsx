@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { getParameterByName } from '../../../libs/getParameterByName';
 import {
   updateCurrentSlide,
-  updateSlideInFirebase
 } from '../../../actions/classroomSessions';
 import CLStudentLobby from '../play/lobby';
 import CLStudentStatic from '../play/static';

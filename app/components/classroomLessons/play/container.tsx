@@ -41,7 +41,7 @@ import * as CustomizeIntf from '../../../interfaces/customize'
 import {
   scriptTagStrip
 } from '../shared/scriptTagStrip';
-import Spinner from 'components/shared/spinner'
+import Spinner from '../../shared/spinner'
 import {firebaseAuth} from '../../../actions/users'
 
 class PlayClassroomLessonContainer extends React.Component<any, any> {

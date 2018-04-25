@@ -14,7 +14,7 @@ import EditionNamingModal from './editionNamingModal'
 import EditionRow from './editionRow'
 import SignupModal from '../classroomLessons/teach/signupModal'
 import { getParameterByName } from '../../libs/getParameterByName'
-import * as CustomizeIntF from 'app/interfaces/customize'
+import * as CustomizeIntF from '../../interfaces/customize'
 
 class ChooseEdition extends React.Component<any, any> {
   constructor(props) {

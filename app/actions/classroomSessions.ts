@@ -146,25 +146,29 @@ export function registerPresence(classroomActivityId: string, studentId: string)
   socket.emit('registerPresence', classroomActivityId, studentId)
 }
 
-export function goToNextSlide(classroom_activity_id: string, state: ClassroomLessonSession, lesson: ClassroomLesson|CustomizeIntf.EditionQuestions) {
-  const { current_slide } = state;
-  const { questions } = lesson;
-  const slides = Object.keys(questions);
-  const current_slide_index = slides.indexOf(current_slide.toString());
-  const nextSlide = slides[current_slide_index + 1];
-  if (nextSlide !== undefined) {
-    return updateCurrentSlide(classroom_activity_id, nextSlide);
+export function goToNextSlide(classroom_activity_id: string|null, state: ClassroomLessonSession, lesson: ClassroomLesson|CustomizeIntf.EditionQuestions) {
+  if (classroom_activity_id) {
+    const { current_slide } = state;
+    const { questions } = lesson;
+    const slides = Object.keys(questions);
+    const current_slide_index = slides.indexOf(current_slide.toString());
+    const nextSlide = slides[current_slide_index + 1];
+    if (nextSlide !== undefined) {
+      return updateCurrentSlide(classroom_activity_id, nextSlide);
+    }
   }
 }
 
-export function goToPreviousSlide(classroom_activity_id: string, state: ClassroomLessonSession, lesson: ClassroomLesson|CustomizeIntf.EditionQuestions) {
-  const { current_slide } = state;
-  const { questions } = lesson;
-  const slides = Object.keys(questions);
-  const current_slide_index = slides.indexOf(current_slide.toString());
-  const previousSlide = slides[current_slide_index - 1];
-  if (previousSlide !== undefined) {
-    return updateCurrentSlide(classroom_activity_id, previousSlide);
+export function goToPreviousSlide(classroom_activity_id: string|null, state: ClassroomLessonSession, lesson: ClassroomLesson|CustomizeIntf.EditionQuestions) {
+  if (classroom_activity_id) {
+    const { current_slide } = state;
+    const { questions } = lesson;
+    const slides = Object.keys(questions);
+    const current_slide_index = slides.indexOf(current_slide.toString());
+    const previousSlide = slides[current_slide_index - 1];
+    if (previousSlide !== undefined) {
+      return updateCurrentSlide(classroom_activity_id, previousSlide);
+    }
   }
 }
 
@@ -351,8 +355,10 @@ export function setEditionId(classroomActivityId: string, editionId: string|null
   })
 }
 
-export function setTeacherModels(classroomActivityId: string, editionId: string) {
-  socket.emit('setTeacherModels', classroomActivityId, editionId)
+export function setTeacherModels(classroomActivityId: string|null, editionId: string) {
+  if (classroomActivityId) {
+    socket.emit('setTeacherModels', classroomActivityId, editionId)
+  }
 }
 
 export function updateNoStudentError(student: string | null) {

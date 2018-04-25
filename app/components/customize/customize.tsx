@@ -52,7 +52,7 @@ class Customize extends React.Component<customizeProps> {
   componentWillReceiveProps(nextProps) {
     if (nextProps.customize.user_id) {
       if (nextProps.customize.user_id !== this.props.customize.user_id || !_.isEqual(nextProps.customize.coteachers, this.props.customize.coteachers)) {
-        let user_ids = []
+        let user_ids:Array<Number>|never = []
         if (nextProps.customize.coteachers.length > 0) {
           user_ids = nextProps.customize.coteachers.map(c => Number(c.id))
         }
