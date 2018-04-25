@@ -2,10 +2,10 @@ import React from 'react';
 import pluralize from 'pluralize'
 import PreviewCard from '../shared/preview_card.jsx';
 
-export default class extends React.Component {
+export default class TopicSection extends React.Component {
   renderArticleCards() {
     return this.props.articles.slice(0, 3).map(article =>
-      <PreviewCard content={article.preview_card_content} link={`/teacher_resources/${article.slug}`} />
+      <PreviewCard content={article.preview_card_content} link={article.external_link ? article.external_link : `/teacher_resources/${article.slug}`} />
     )
   }
 
@@ -15,7 +15,7 @@ export default class extends React.Component {
         return <img src="https://assets.quill.org/images/teacher_center/gettingstarted-gray.svg" />
       case 'Announcements':
         return <img src="https://assets.quill.org/images/teacher_center/announcement-gray.svg" />
-      case 'Case Studies':
+      case 'Teacher Stories':
         return <img src="https://assets.quill.org/images/teacher_center/casestudies-gray.svg" />
       case 'Writing Instruction Research':
         return <img src="https://assets.quill.org/images/teacher_center/research-gray.svg" />

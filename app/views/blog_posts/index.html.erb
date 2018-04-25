@@ -1,8 +1,8 @@
 <% current_path = request.env['PATH_INFO'] %>
 <% if current_path.include?('getting_started') %>
   <% @active_tab = 'Getting Started'%>
-<% elsif current_path.include?('case_studies') %>
-  <% @active_tab = 'Case Studies'%>
+<% elsif current_path.include?('teacher_stories') %>
+  <% @active_tab = 'Teacher Stories'%>
 <% elsif current_path.include?('writing_instruction_research') %>
   <% @active_tab = 'Writing Instruction Research'%>
 <% else %>

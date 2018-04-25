@@ -4,20 +4,20 @@ class Cms::UsersController < Cms::CmsController
   before_action :set_search_inputs, only: [:index, :search]
   before_action :get_subscription_data, only: [:new_subscription, :edit_subscription]
 
-  USERS_PER_PAGE = 10.0
+  USERS_PER_PAGE = 30.0
 
   def index
-    @user_search_query = {}
+    @user_search_query = {sort: 'last_sign_in', sort_direction: 'desc'}
     @user_search_query_results = user_query(user_query_params)
     @number_of_pages = 0
   end
 
   def search
-    @user_search_query = user_query_params
-    @user_search_query_results = user_query(user_query_params)
-    @user_search_query_results = @user_search_query_results ? @user_search_query_results : []
-    @number_of_pages = (number_of_users_matched / USERS_PER_PAGE).ceil
-    render :index
+    user_search_query = user_query_params
+    user_search_query_results = user_query(user_query_params)
+    user_search_query_results = user_search_query_results ? user_search_query_results : []
+    number_of_pages = (number_of_users_matched / USERS_PER_PAGE).ceil
+    render json: {numberOfPages: number_of_pages, userSearchQueryResults: user_search_query_results, userSearchQuery: user_search_query}
   end
 
   def new
@@ -123,7 +123,7 @@ protected
   end
 
   def user_query_params
-    params.permit(@text_search_inputs.map(&:to_sym) + default_params + [:page, :user_role, :user_premium_status => []])
+    params.permit(@text_search_inputs.map(&:to_sym) + default_params + [:page, :user_role, :sort, :sort_direction, :user_premium_status])
   end
 
   def user_query(params)
@@ -143,6 +143,7 @@ protected
 
     # NOTE: IF YOU CHANGE THIS QUERY'S CONDITIONS, PLEASE BE SURE TO
     # ADJUST THE PAGINATION QUERY STRING AS WELL.
+    #
     ActiveRecord::Base.connection.execute("
       SELECT
       	users.name AS name,
@@ -159,8 +160,10 @@ protected
       LEFT JOIN user_subscriptions ON users.id = user_subscriptions.user_id
       LEFT JOIN subscriptions ON user_subscriptions.subscription_id = subscriptions.id
       #{where_query_string_builder}
+      #{order_by_query_string}
       #{pagination_query_string}
     ").to_a
+
   end
 
   def where_query_string_builder
@@ -183,21 +186,25 @@ protected
     # User IP: users.ip_address
     # School name: schools.name
     # Premium status: subscriptions.account_type
+    sanitized_fuzzy_param_value = ActiveRecord::Base.sanitize('%' + param_value + '%')
+    sanitized_param_value = ActiveRecord::Base.sanitize(param_value)
+    # sanitized_and_joined_param_value = ActiveRecord::Base.sanitize(param_value.join('\',\''))
+
     case param
     when 'user_name'
-      "users.name ILIKE '%#{(param_value)}%'"
+      "users.name ILIKE #{(sanitized_fuzzy_param_value)}"
     when 'user_role'
-      "users.role = '#{(param_value)}'"
+      "users.role = #{(sanitized_param_value)}"
     when 'user_username'
-      "users.username ILIKE '%#{(param_value)}%'"
+      "users.username ILIKE #{(sanitized_fuzzy_param_value)}"
     when 'user_email'
-      "users.email ILIKE '%#{(param_value)}%'"
+      "users.email ILIKE #{(sanitized_fuzzy_param_value)}"
     when 'user_ip'
-      "users.ip_address = '#{(param_value)}'"
+      "users.ip_address = #{(sanitized_param_value)}"
     when 'school_name'
-      "schools.name ILIKE '%#{(param_value)}%'"
+      "schools.name ILIKE #{(sanitized_fuzzy_param_value)}"
     when 'user_premium_status'
-      "subscriptions.account_type IN ('#{param_value.join('\',\'')}')"
+      "subscriptions.account_type IN (#{sanitized_param_value})"
     else
       nil
     end
@@ -206,6 +213,16 @@ protected
   def pagination_query_string
     page = [user_query_params[:page].to_i - 1, 0].max
     "LIMIT #{USERS_PER_PAGE} OFFSET #{USERS_PER_PAGE * page}"
+  end
+
+  def order_by_query_string
+    sort = user_query_params[:sort]
+    sort_direction = user_query_params[:sort_direction]
+    if sort && sort_direction && sort != 'undefined' && sort_direction != 'undefined'
+      "ORDER BY #{sort} #{sort_direction}"
+    else
+      "ORDER BY last_sign_in DESC"
+    end
   end
 
   def number_of_users_matched
