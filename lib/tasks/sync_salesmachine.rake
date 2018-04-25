@@ -20,6 +20,6 @@ task :sync_salesmachine => :environment do
   end
 
   SyncSalesAccountsWorker.perform_async(ACCOUNTS_KEY)
-  SyncSalesContactWorker.perform_async(CONTACTS_KEY)
+  SyncSalesContactsWorker.perform_async(CONTACTS_KEY)
   SyncSalesStageWorker.perform_async(SALES_STAGE_KEY)
 end
