@@ -77,6 +77,7 @@ export function createNewEdition(editionUID:string|null, lessonUID:string, user_
   }
   socket.emit('createNewEdition', newEditionData)
   socket.on(`editionCreated:${newEditionKey}`, () => {
+    socket.removeAllListeners(`editionCreated:${newEditionKey}`)
     if (callback) {
       callback(lessonUID, newEditionKey, classroomActivityId)
     }
@@ -95,6 +96,7 @@ export function createNewAdminEdition(editionUID:string|null, lessonUID:string, 
   }
   socket.emit('createNewEdition', newEditionData, questions)
   socket.on(`editionCreated:${newEditionKey}`, () => {
+    socket.removeAlllListeners(`editionCreated:${newEditionKey}`)
     if (callback) {
       callback(lessonUID, newEditionKey)
     } else {

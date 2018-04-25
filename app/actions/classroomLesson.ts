@@ -95,6 +95,7 @@ export function addSlide(editionId: string, editionQuestions: CustomizeIntF.Edit
   newEdition.questions.splice(-1, 0, newSlide)
 
   socket.on(`slideAdded:${editionId}`, () => {
+    socket.removeAllListeners(`slideAdded:${editionId}`)
     if (callback) {
       callback(Number(newEdition.questions.length) - 2)
     }
@@ -115,7 +116,8 @@ export function addScriptItem(editionId: string, slideId: string, slide: IntF.Qu
   const newSlide = _.merge({}, slide)
   newSlide.data.teach.script.push(scriptItemBoilerplates[scriptItemType])
 
-  socket.on(`scriptItemDeleted:${editionId}`, () => {
+  socket.on(`scriptItemAdded:${editionId}`, () => {
+    socket.removeAllListeners(`scriptItemAdded:${editionId}`)
     if (callback) {
       callback(newSlide.data.teach.script.length - 1)
     }
@@ -141,6 +143,7 @@ export function addLesson(lessonName, cb) {
   }
 
   socket.on(`createdOrUpdatedClassroomLesson:${newLessonKey}`, (lessonUpdated) => {
+    socket.removeAllListeners(`createdOrUpdatedClassroomLesson:${newLessonKey}`)
     if (lessonUpdated) {
       if (cb) {
         cb(newLessonKey)
@@ -151,6 +154,7 @@ export function addLesson(lessonName, cb) {
 
 export function saveEditionSlide(editionId, slideId, slideData, callback) {
   socket.on(`editionSlideSaved:${editionId}`, () => {
+    socket.removeAllListeners(`editionSlideSaved:${editionId}`)
     if (callback) {
       callback()
     }
@@ -160,6 +164,7 @@ export function saveEditionSlide(editionId, slideId, slideData, callback) {
 
 export function saveEditionScriptItem(editionId, slideId, scriptItemId, scriptItem, callback) {
   socket.on(`editionScriptItemSaved:${editionId}`, () => {
+    socket.removeAllListeners(`editionScriptItemSaved:${editionId}`)
     if (callback) {
       callback();
     }
@@ -177,8 +182,14 @@ export function deleteLesson(classroomLessonID) {
   socket.emit('deleteClassroomLesson', classroomLessonID)
 }
 
-export function deleteEdition(editionID) {
+export function deleteEdition(editionID, callback) {
   socket.emit('deleteEdition', editionID)
+  socket.on(`deletedEdition:${editionID}`, () => {
+    socket.removeAllListeners(`deletedEdition:${editionID}`)
+    if (callback) {
+      callback()
+    }
+  })
 }
 
 export function updateSlideScriptItems(editionID, slideID, scriptItems) {

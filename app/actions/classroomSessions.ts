@@ -204,7 +204,6 @@ export function saveStudentSubmission(classroomActivityId: string, questionId: s
 }
 
 export function removeStudentSubmission(classroomActivityId: string, questionId: string, studentId: string): void {
-
   socket.emit('removeStudentSubmission',
     classroomActivityId,
     questionId,
@@ -373,6 +372,7 @@ export function setPrompt(classroomActivityId: string, questionId: string, promp
 export function easyJoinLessonAddName(classroomActivityId: string, studentName: string): void {
   socket.emit('addStudent', classroomActivityId, studentName)
   socket.on(`studentAdded:${classroomActivityId}`, (addedStudentName, nameRef) => {
+    socket.removeAllListeners(`studentAdded:${classroomActivityId}`)
     if (addedStudentName === studentName) {
       window.location.replace(window.location.href + `&student=${nameRef}`);
       window.location.reload();
