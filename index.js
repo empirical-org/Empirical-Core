@@ -747,10 +747,7 @@ function getAllEditionMetadataForLesson({
         const numberOfEditions = val
         let editions = {}
         let editionCount = 0
-        console.log('i am getting called')
         cursor.each(function(err, document) {
-          console.log('editionCount', editionCount)
-          console.log('numberOfEditions', numberOfEditions)
           if (err) throw err
           editions[document.id] = document
           editionCount++
@@ -797,12 +794,18 @@ function updateEditionMetadata({
     return cursor.changes
   })
   .then(results => {
-    const edition = results[0].new_val
-    getAllEditionMetadataForLesson({
-      connection: connection,
-      client: client,
-      lessonID: edition.lesson_id
-    })
+    const edition = results[0] ? results[0].new_val : null
+    if (edition) {
+      getAllEditionMetadataForLesson({
+        connection: connection,
+        client: client,
+        lessonID: edition.lesson_id
+      })
+      getAllEditionMetadata({
+        connection: connection,
+        client: client
+      })
+    }
   })
 }
 
@@ -849,7 +852,6 @@ function deleteEdition({
     .delete()
     .run(connection)
     .then(() => {
-      console.log('oy wtf')
       const callback = () => client.emit(`deletedEdition:${editionId}`)
       getAllEditionMetadata({connection, client, callback})
     })
@@ -875,18 +877,14 @@ function updateSlideScriptItems({
 }) {
   r.table('lesson_edition_questions')
   .get(editionId)
-  .update({
-    questions: {
-      [slideId]: {
-        data: {
-          teach: {
-            script: scriptItems
-          }
-        }
-      }
-    }
-  })
   .run(connection)
+  .then(edition => {
+    const editionWithUpdatedSlide = edition
+    editionWithUpdatedSlide.questions[slideId].data.teach.script = scriptItems
+    r.table('lesson_edition_questions')
+    .insert(editionWithUpdatedSlide, {conflict: 'update'})
+    .run(connection)
+  })
 }
 
 function saveEditionSlide({
@@ -898,16 +896,17 @@ function saveEditionSlide({
 }) {
   r.table('lesson_edition_questions')
   .get(editionId)
-  .update({
-    questions: {
-      [slideId]: {
-        data: slideData
-      }
-    }
+  .run(connection)
+  .then(edition => {
+    const editionWithUpdatedSlide = edition
+    editionWithUpdatedSlide.questions[slideId].data = slideData
+    r.table('lesson_edition_questions')
+    .insert(editionWithUpdatedSlide, {conflict: 'update'})
+    .run(connection, () => {
+        client.emit(`editionSlideSaved:${editionId}`)
+    })
   })
-  .run(connection, () => {
-    client.emit(`editionSlideSaved:${editionId}`)
-  })
+
 }
 
 function saveEditionScriptItem({
@@ -920,46 +919,34 @@ function saveEditionScriptItem({
 }) {
   r.table('lesson_edition_questions')
   .get(editionId)
-  .update({
-    questions: {
-      [slideId]: {
-        data: {
-          teach: {
-            script: {
-              [scriptItemId]: scriptItem
-            }
-          }
-        }
-      }
-    }
-  })
-  .run(connection, () => {
-    client.emit(`editionScriptItemSaved:${editionId}`)
+  .run(connection)
+  .then(edition => {
+    const editionWithUpdatedScriptItem = edition
+    editionWithUpdatedScriptItem.questions[slideId].data.teach.script[scriptItemId] = scriptItem
+    r.table('lesson_edition_questions')
+    .insert(editionWithUpdatedScriptItem, {conflict: 'update'})
+    .run(connection, () => {
+      client.emit(`editionScriptItemSaved:${editionId}`)
+    })
   })
 }
 
 function deleteScriptItem({
   editionId,
   slideId,
-  newScript,
+  script,
   connection,
   client,
 }) {
   r.table('lesson_edition_questions')
   .get(editionId)
-  .update({
-    questions: {
-      [slideId]: {
-        data: {
-          teach: {
-            script: newScript
-          }
-        }
-      }
-    }
-  })
-  .run(connection, () => {
-    client.emit(`scriptItemDeleted:${editionId}`)
+  .run(connection)
+  .then(edition => {
+    const newEdition = edition
+    edition.questions[slideId].data.teach.script = script
+    r.table('lesson_edition_questions')
+    .insert(newEdition, {conflict: 'update'})
+    .run(connection)
   })
 }
 
@@ -968,15 +955,21 @@ function addScriptItem({
   slideId,
   slide,
   connection,
+  client
 }) {
   r.table('lesson_edition_questions')
   .get(editionId)
-  .update({
-    questions: {
-      [slideId]: slide
-    }
-  })
   .run(connection)
+  .then(edition => {
+    const newEdition = edition
+    edition.questions[slideId] = slide
+    r.table('lesson_edition_questions')
+    .insert(newEdition, {conflict: 'update'})
+    .run(connection)
+    .then(() => {
+      client.emit(`scriptItemAdded:${editionId}`)
+    })
+  })
 }
 
 function deleteEditionSlide({
@@ -1000,7 +993,7 @@ function addSlide({
 }) {
   r.table('lesson_edition_questions')
   .get(editionId)
-  .set(newEdition)
+  .update(newEdition)
   .run(connection, () => {
     client.emit(`slideAdded:${editionId}`)
   })
@@ -1498,6 +1491,16 @@ r.connect({
         slideId,
         script,
         connection,
+      });
+    })
+
+    client.on('addScriptItem', (editionId, slideId, slide) => {
+      addScriptItem({
+        editionId,
+        slideId,
+        slide,
+        connection,
+        client
       });
     })
 
