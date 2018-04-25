@@ -9,6 +9,8 @@ require 'database_cleaner'
 require 'byebug'
 require 'vcr'
 require 'sidekiq/testing'
+require 'factory_bot_rails'
+require 'spec_helper'
 
 # Use a fake Sidekiq for Travis (Redis not available)
 Sidekiq::Testing.fake!
@@ -53,17 +55,14 @@ Dir[Rails.root.join("spec/shared/**/*.rb")].each {|f| require f}
 ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
+  config.include MockDataHelper
+  config.include SanitizationHelper
+  config.include SessionHelper
+  config.include FactoryBot::Syntax::Methods
+
   # Ensure that if we are running js tests, we are using latest webpack assets
   # This will use the defaults of :js and :server_rendering meta tags
   ReactOnRails::TestHelper.configure_rspec_to_compile_assets(config)
-
-  # ## Mock Framework
-  #
-  # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:
-  #
-  # config.mock_with :mocha
-  # config.mock_with :flexmock
-  # config.mock_with :rr
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
@@ -118,6 +117,7 @@ RSpec.configure do |config|
 
   # focus tests
   config.filter_run focus: true
+  config.silence_filter_announcements = true
   config.run_all_when_everything_filtered = true
 
   # some stuff that happens before all of the suite
@@ -126,10 +126,18 @@ RSpec.configure do |config|
     Rails.cache.clear
   end
 
-  # user_params and sign_in methods
-  config.include SessionHelper
+  config.around(:each, :caching) do |example|
+    caching = ActionController::Base.perform_caching
+    ActionController::Base.perform_caching = example.metadata[:caching]
+    example.run
+    ActionController::Base.perform_caching = caching
+  end
 
-  config.include FactoryBot::Syntax::Methods
+  # Allow Faker to reuse unique values between tests.
+  config.around(:each) do |example|
+    Faker::UniqueGenerator.clear
+    example.run
+  end
 end
 
 if defined?(Coveralls)

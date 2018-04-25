@@ -10,6 +10,7 @@ class SerializeSalesContact
       params: {
         email: teacher.email,
         name: teacher.name,
+        school: school,
         account_uid: account_uid.to_s,
         signed_up: teacher.created_at.to_i,
         admin: teacher.admin?,
@@ -20,14 +21,45 @@ class SerializeSalesContact
         number_of_completed_activities_per_student: activities_per_student,
         frl: free_lunches,
         teacher_link: teacher_link,
-      }
+        edit_teacher_link: edit_teacher_link,
+        city: city,
+        state: state,
+      }.merge(account_data_params)
     }
+  end
+
+  def account_data
+    unless account_uid.blank? || account_data_params.blank?
+      {
+        account_uid: account_uid.to_s,
+        method: 'account',
+        params: account_data_params
+      }
+    end
   end
 
   private
 
+  BASE_USER_URL = "https://www.quill.org/cms/users"
+
+  def account_data_params
+    @account_data_params ||= Hash.new.tap do |hash|
+      if teacher.sales_contact.present?
+        teacher.sales_contact.stages.each do |stage|
+          unless stage.completed_at.nil?
+            hash[stage.name_param.to_sym] = stage.completed_at
+          end
+        end
+      end
+    end
+  end
+
   def teacher_link
-    "https://www.quill.org/cms/users/#{teacher.id}/sign_in"
+    "#{BASE_USER_URL}/#{teacher.id}/sign_in"
+  end
+
+  def edit_teacher_link
+    "#{BASE_USER_URL}/#{teacher.id}/edit"
   end
 
   def free_lunches
@@ -40,8 +72,7 @@ class SerializeSalesContact
 
   def activities_per_student
     if number_of_students > 0
-      number_of_completed_activities.to_f /
-      number_of_students.to_f
+      (number_of_completed_activities.to_f / number_of_students.to_f).round(2)
     else
       0
     end
@@ -53,7 +84,7 @@ class SerializeSalesContact
 
   def number_of_completed_activities
     @number_of_completed_activities ||= begin
-      Unit.joins(classroom_activities: :activity_sessions)
+      ClassroomsTeacher.joins(classroom: :activity_sessions)
         .where(user_id: @teacher_id)
         .where('activity_sessions.state = ?', 'finished')
         .count
@@ -82,6 +113,18 @@ class SerializeSalesContact
 
   def account_uid
     teacher.school.id if teacher.school.present?
+  end
+
+  def school
+    teacher.school.name if teacher.school.present?
+  end
+
+  def city
+    teacher.school.city if teacher.school.present?
+  end
+
+  def state
+    teacher.school.state if teacher.school.present?
   end
 
   def teacher

@@ -3,11 +3,21 @@ describe('Credit Card Modal', () => {
     cy.logout()
   })
 
+  beforeEach(function() {
+    Cypress.Cookies.preserveOnce('_quill_session')
+  })
+
   describe('when I open the modal without a credit card associated with my account', ()=>{
     before(() =>{
-      cy.exec('RAILS_ENV=cypress spring rake find_or_create_cypress_test_data:find_or_create_teacher', {failOnNonZeroExit: false})
-      cy.login('teacher', 'password')
-      cy.visit('/premium')
+      cy.cleanDatabase()
+      cy.factoryBotCreate({
+        factory: 'teacher',
+        password: 'password',
+        username: 'teacher'
+      }).then(() => {
+        cy.login('teacher', 'password')
+        cy.visit('/premium')
+      })
       cy.get('#purchase-btn').click()
     })
 
@@ -25,12 +35,16 @@ describe('Credit Card Modal', () => {
 
   describe('when I open the modal with a credit card associated with my account', ()=>{
     before(()=>{
-      cy.exec('RAILS_ENV=cypress spring rake find_or_create_cypress_test_data:find_or_create_teacher_with_stripe_id', {failOnNonZeroExit: false})
-      cy.login('teacher', 'password')
-      beforeEach(() => {
-        Cypress.Cookies.preserveOnce('_quill_session')
+      cy.cleanDatabase()
+      cy.factoryBotCreate({
+        factory: 'teacher',
+        password: 'password',
+        username: 'teacher',
+        stripe_customer_id: 'cus_CN6VaNY6yd8R5M'
+      }).then(() => {
+        cy.login('teacher', 'password')
+        cy.visit('/premium')
       })
-      cy.visit('/premium')
       cy.get('#purchase-btn').click()
     })
 
@@ -43,12 +57,5 @@ describe('Credit Card Modal', () => {
       cy.get('.button').click()
       cy.get('.premium-confirmation')
     })
-    
   })
-
-
-
-
-
-
 })

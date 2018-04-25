@@ -1,72 +1,11 @@
 <div class='container'>
   <article class='simple-rounded-box cms-container'>
-    <div class='cms-container-meta'>
-      <div class='cms-container-meta-left'>
-        <h1>User Directory</h1>
-        <%= link_to 'Add New User', new_cms_user_path, class: 'btn button-green'  %>
-      </div>
-      <%= form_tag search_cms_users_path, class: 'cms-form' do %>
-        <div class='cms-meta-middle'>
-          <% @text_search_inputs.each do |attribute| %>
-            <div class='cms-form-row'>
-              <%= label_tag attribute, "#{attribute.gsub('_', ' ').titleize}" %>
-              <%= text_field_tag attribute, @user_search_query[attribute] ? @user_search_query[attribute] : '' %>
-            </div>
-          <% end %>
-        </div>
-
-        <div class='cms-meta-right'>
-          <div class='cms-form-row'>
-            <%= label_tag 'user_premium_status', 'Premium Status' %>
-            <%= select_tag 'user_premium_status', options_for_select(@school_premium_types, @user_search_query['user_premium_status'] ? @user_search_query['user_premium_status'] : []), multiple: true %>
-          </div>
-
-          <div class='cms-form-row'>
-            <%= label_tag 'user_role', 'Role' %>
-            <%= select_tag 'user_role', options_for_select(@user_role_types, @user_search_query['user_role']), include_blank: true %>
-          </div>
-
-          <div class='cms-submit-row'>
-            <%= hidden_field_tag 'page', 1 %>
-            <%= submit_tag 'Search' %>
-          </div>
-        </div>
-      <% end %>
+    <div style="margin-bottom:20px">
+      <h1 style="margin-bottom:20px">User Directory</h1>
+      <%= link_to 'Add New User', new_cms_user_path, class: 'btn button-green'  %>
     </div>
-
-    <table class='cms-results-table'>
-      <thead>
-        <tr>
-          <% # THIS ORDER MATCHES ORDER OF ATTRIBUTES IN USERS_CONTROLLER. %>
-          <% ['Name', 'Email', 'Role', 'Premium', 'Last Sign In', 'School', 'Edit', 'Details', 'Sign In'].each do |td| %>
-            <td><%= td %></td>
-          <% end %>
-        </tr>
-      </thead>
-      <tbody>
-        <% @user_search_query_results.each do |user| %>
-          <tr>
-            <% %w(name email role subscription last_sign_in).each do |attribute| %>
-              <td><%= user[attribute] || 'N/A' %></td>
-            <% end %>
-            <td><%= user['school'] ? (link_to user['school'], cms_school_path(user['school_id'])) : 'N/A' %></td>
-            <td><%= link_to 'Edit', edit_cms_user_path(user.values.last) %></td>
-            <td><%= link_to 'Details', cms_user_path(user.values.last) %></td>
-            <td><%= link_to 'Sign in', sign_in_cms_user_path(user.values.last), method: :put %></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-    <div class='cms-pagination-container'>
-      <% (1..@number_of_pages).to_a.each do |page| %>
-        <%= link_to page, '#!', onclick: "submitForm(#{page})", class: "cms-pagination #{ page == @user_search_query['page'].to_i ? 'cms-pagination-current' : nil}" %>
-      <% end %>
+    <div class='cms-container-meta'>
+      <%= react_component('CmsUserIndexApp', props: {queryResults: @user_search_query_results, query: @user_search_query, userRoleTypes: @user_role_types, schoolPremiumTypes: @school_premium_types}) %>
     </div>
   </article>
 </div>
-<script>
-  function submitForm(page) {
-    document.getElementById('page').value = page;
-    document.getElementsByClassName('cms-form')[0].submit();
-  }
-</script>
