@@ -55,8 +55,7 @@ export function setTeacherModels({
 
 export function getAllEditionMetadata({
   client,
-  connection,
-  callback
+  connection
 }) {
   r.table('lesson_edition_metadata')
   .run(connection, (err, cursor) => {
@@ -70,9 +69,6 @@ export function getAllEditionMetadata({
         editionCount++
         if (editionCount === numberOfEditions) {
           client.emit('editionMetadata', editions)
-          if (callback) {
-            callback()
-          }
         }
       });
     })
@@ -173,11 +169,6 @@ export function deleteEdition({
   client
 }) {
   if (editionId) {
-    // r.table('lesson_edition_metadata')
-    // .get(editionId)
-    // .run(connection)
-    // .then(edition => {
-      // const lessonID = edition.lesson_id
       r.table('lesson_edition_questions')
       .filter({id: editionId})
       .delete()
@@ -188,10 +179,8 @@ export function deleteEdition({
       .delete()
       .run(connection)
       .then(() => {
-        const callback = () => client.emit(`deletedEdition:${editionId}`)
-        getAllEditionMetadata({connection, client, callback})
+        getAllEditionMetadata({connection, client})
       })
-    // })
   }
 }
 

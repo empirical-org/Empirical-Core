@@ -46,9 +46,7 @@ export function createOrUpdateClassroomLesson({
   r.table('classroom_lessons')
   .insert(classroomLesson, { conflict: 'update' })
   .run(connection)
-  .then((err, document) => {
-    if (err) throw err
-    client.emit(`createdOrUpdatedClassroomLesson:${classroomLesson.id}`, true)
+  .then(() => {
     getAllClassroomLessons({connection, client})
   })
 }
