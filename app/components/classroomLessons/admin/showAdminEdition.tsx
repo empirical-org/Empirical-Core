@@ -61,8 +61,7 @@ class ShowAdminEdition extends Component<any, any> {
   deleteEdition() {
     const confirmation = window.confirm('Are you sure you want to delete this edition?')
     if (confirmation) {
-      deleteEdition(this.props.params.editionID)
-      window.location.href = `${window.location.origin}/#/admin/classroom-lessons/${this.props.params.classroomLessonID}`
+      deleteEdition(this.props.params.editionID, () => window.location.href = `${window.location.origin}/#/admin/classroom-lessons/${this.props.params.classroomLessonID}`)
     }
   }
 
