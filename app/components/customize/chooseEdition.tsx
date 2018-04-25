@@ -108,7 +108,6 @@ class ChooseEdition extends React.Component<any, any> {
       const editionId = editionKey ? editionKey : ''
       return this.props.router.push(`teach/class-lessons/${lessonId}/preview/${editionId}`)
     } else if (classroomActivityId) {
-      console.log('wtf')
       return setEditionId(classroomActivityId, editionKey, () => window.location.href = `#/teach/class-lessons/${lessonId}?&classroom_activity_id=${classroomActivityId}`)
     }
   }

@@ -345,7 +345,7 @@ export function setSlideStartTime(classroomActivityId: string, questionId: strin
 export function setEditionId(classroomActivityId: string, editionId: string|null, callback?: Function): void {
   socket.emit('setEditionId', classroomActivityId, editionId)
   socket.on(`editionIdSet:${classroomActivityId}`, () => {
-    console.log('callback', callback)
+    socket.removeAllListeners(`editionIdSet:${classroomActivityId}`);
     if (callback) {
       callback();
     }
