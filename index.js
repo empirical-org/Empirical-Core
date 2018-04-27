@@ -133,6 +133,23 @@ function registerPresence({
   });
 }
 
+function cleanDatabase({
+  connection,
+  ackCallback
+}) {
+  r.tableList().run(connection)
+  .then((list) => {
+    if (list) {
+      list.forEach((tableName) => {
+        r.table(tableName).delete().run(connection)
+      })
+    }
+  })
+  .then(() => {
+    ackCallback('ok')
+  })
+}
+
 r.connect({
   host: 'localhost',
   port: 28015,
@@ -140,6 +157,13 @@ r.connect({
 }).then((connection) => {
   io.on('connection', (client) => {
     currentConnections[client.id] = { socket: client, role: null };
+
+    client.on('cleanDatabase', (ackCallback) => {
+      cleanDatabase({
+        connection,
+        ackCallback
+      })
+    })
 
     client.on('getAllEditionMetadataForLesson', (lessonID) => {
       getAllEditionMetadataForLesson({

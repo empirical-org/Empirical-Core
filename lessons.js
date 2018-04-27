@@ -11,7 +11,9 @@ export function subscribeToClassroomLesson({
   .run(connection, (err, cursor) => {
     cursor.each((err, document) => {
       let lesson = document.new_val;
-      client.emit(`classroomLesson:${lesson.id}`, lesson)
+      if (lesson) {
+        client.emit(`classroomLesson:${lesson.id}`, lesson)
+      }
     });
   });
 }
@@ -26,14 +28,16 @@ export function getAllClassroomLessons({
       const numberOfLessons = val
       let classroomLessons = {}
       let lessonCount = 0
-      cursor.each((err, document) => {
-        if (err) throw err
-        classroomLessons[document.id] = document
-        lessonCount++
-        if (lessonCount === numberOfLessons) {
-          client.emit('classroomLessons', classroomLessons)
-        }
-      });
+      if (cursor) {
+        cursor.each((err, document) => {
+          if (err) throw err
+          classroomLessons[document.id] = document
+          lessonCount++
+          if (lessonCount === numberOfLessons) {
+            client.emit('classroomLessons', classroomLessons)
+          }
+        });
+      }
     })
   });
 }

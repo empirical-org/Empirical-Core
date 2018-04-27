@@ -26,14 +26,16 @@ export function getAllClassroomLessonReviews({
       const numberOfReviews = val
       let reviews = {}
       let reviewCount = 0
-      cursor.each((err, document) => {
-        if (err) throw err
-        reviews[document.id] = document
-        reviewCount++
-        if (reviewCount === numberOfReviews) {
-          client.emit('classroomLessonReviews', reviews)
-        }
-      });
+      if (cursor) {
+        cursor.each((err, document) => {
+          if (err) throw err
+          reviews[document.id] = document
+          reviewCount++
+          if (reviewCount === numberOfReviews) {
+            client.emit('classroomLessonReviews', reviews)
+          }
+        });
+      }
     })
   });
 }

@@ -63,14 +63,16 @@ export function getAllEditionMetadata({
       const numberOfEditions = val
       let editions = {}
       let editionCount = 0
-      cursor.each((err, document) => {
-        if (err) throw err
-        editions[document.id] = document
-        editionCount++
-        if (editionCount === numberOfEditions) {
-          client.emit('editionMetadata', editions)
-        }
-      });
+      if (cursor) {
+        cursor.each((err, document) => {
+          if (err) throw err
+          editions[document.id] = document
+          editionCount++
+          if (editionCount === numberOfEditions) {
+            client.emit('editionMetadata', editions)
+          }
+        });
+      }
     })
 
   })
