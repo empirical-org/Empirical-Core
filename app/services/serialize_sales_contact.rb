@@ -15,7 +15,7 @@ class SerializeSalesContact
         signed_up: teacher.created_at.to_i,
         admin: teacher.admin?,
         premium_status: premium_status,
-        premium_expiry_date: premium_expiration_date,
+        premium_expiry_date: subscription_expiration_date,
         number_of_students: number_of_students,
         number_of_completed_activities: number_of_completed_activities,
         number_of_completed_activities_per_student: activities_per_student,
@@ -99,7 +99,7 @@ class SerializeSalesContact
     end
   end
 
-  def premium_expiration_date
+  def subscription_expiration_date
     if subscription.present?
       subscription.expiration
     else
@@ -108,7 +108,13 @@ class SerializeSalesContact
   end
 
   def subscription
-    teacher.subscription if teacher.subscription.present?
+    if teacher.subscription.present?
+      return teacher.subscription
+    end
+
+    if teacher.last_expired_subscription.present?
+      return teacher.last_expired_subscription
+    end
   end
 
   def account_uid

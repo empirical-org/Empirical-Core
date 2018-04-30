@@ -19,7 +19,7 @@ task :sync_salesmachine => :environment do
     $redis.lpush(SALES_STAGE_KEY, teacher.id)
   end
 
-  SyncSalesAccountWorker.perform_async(ACCOUNTS_KEY)
-  SyncSalesContactWorker.perform_async(CONTACTS_KEY)
-  SyncSalesStageWorker.perform_async(SALES_STAGE_KEY)
+  SyncSalesAccountsWorker.perform_async(ACCOUNTS_KEY)
+  SyncSalesContactsWorker.perform_async(CONTACTS_KEY)
+  SyncSalesStagesWorker.perform_async(SALES_STAGE_KEY)
 end
