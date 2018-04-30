@@ -1,4 +1,4 @@
-class SyncSalesStageWorker
+class SyncSalesStagesWorker
   include Sidekiq::Worker
 
   def perform(redis_key)
@@ -22,7 +22,7 @@ class SyncSalesStageWorker
 
     if response.blank? || response.success?
       $redis.ltrim(redis_key, 100, -1)
-      SyncSalesStageWorker.perform_async(redis_key)
+      SyncSalesStagesWorker.perform_async(redis_key)
     else
       raise response.status.to_s
     end

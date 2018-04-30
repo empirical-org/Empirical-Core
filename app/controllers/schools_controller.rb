@@ -20,12 +20,17 @@ class SchoolsController < ApplicationController
         #if the school does not specifically have a name, we send the type (e.g. not listed, international, etc..)
         if School.find_by_id(school_params[:school_id_or_type])
           school = School.find(school_params[:school_id_or_type])
-          puts 'in this code block'
         else
-          school = School.find_or_create_by(name: school_params[:school_id_or_type])
+          school = School.find_or_create_by(
+            name: school_params[:school_id_or_type]
+          )
         end
-        su = SchoolsUsers.find_or_initialize_by(user_id: current_user.id)
-        su.update(school_id: school.id)
+        school_user = SchoolsUsers.find_or_initialize_by(
+          user_id: current_user.id
+        )
+        if school_user.update(school_id: school.id)
+          SyncSalesContactWorker.perform_async(current_user.id)
+        end
         find_or_create_checkbox('Add School', current_user)
         render json: {}
       }
@@ -35,6 +40,4 @@ class SchoolsController < ApplicationController
   def school_params
     params.permit(:school_id_or_type)
   end
-
-
 end
