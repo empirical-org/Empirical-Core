@@ -1,6 +1,9 @@
-import r from 'rethinkdb';
-import socketio from 'socket.io';
-const io = socketio()
+import r from 'rethinkdb'
+import socketio from 'socket.io'
+import fs from 'fs'
+import http from 'http'
+const app = http.createServer(handler)
+const io = socketio(app)
 
 import {
   subscribeToClassroomLessonSession,
@@ -8,6 +11,7 @@ import {
   updateClassroomLessonSession,
   createOrUpdateClassroomLessonSession,
   setSlideStartTime,
+  addStudent,
   addStudents,
   saveStudentSubmission,
   removeStudentSubmission,
@@ -67,6 +71,19 @@ import {
 } from './editions'
 
 let currentConnections = {};
+
+function handler (req, res) {
+  fs.readFile(__dirname + '/index.html',
+  function (err, data) {
+    if (err) {
+      res.writeHead(500);
+      return res.end('Error loading index.html')
+    }
+
+    res.writeHead(200);
+    res.end(data);
+  });
+}
 
 function teacherConnected({
   classroomActivityId,
@@ -633,5 +650,5 @@ r.connect({
   })
 });
 
-io.listen(8000);
+app.listen(8000);
 console.log('listening on port ', 8000);
