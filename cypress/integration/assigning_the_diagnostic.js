@@ -1,5 +1,6 @@
 describe('Assigning unit templates flow', () => {
   before(function() {
+    cy.logout()
     cy.cleanDatabase()
     cy.factoryBotCreate({
       factory: 'diagnostic_activity',
