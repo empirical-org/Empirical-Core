@@ -385,8 +385,6 @@ EmpiricalGrammar::Application.routes.draw do
     resources :users do
       # resource :subscription
       collection do
-        get 'new_with_school/:school_id', to: 'users#new_with_school', as: :new_with_school
-        post 'create_with_school/:school_id', to: 'users#create_with_school', as: :create_with_school
         post :search
         get :search, to: 'users#index'
       end
