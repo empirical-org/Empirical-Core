@@ -1,9 +1,10 @@
 class Cms::UsersController < Cms::CmsController
   before_filter :signed_in!
+  before_action :set_flags, only: [:edit, :new, :new_with_school ]
   before_action :set_user, only: [:show, :edit, :show_json, :update, :destroy, :edit_subscription, :new_subscription, :complete_sales_stage]
   before_action :set_search_inputs, only: [:index, :search]
   before_action :get_subscription_data, only: [:new_subscription, :edit_subscription]
-  before_action :filter_zeroes_from_checkboxes, only: [:update]
+  before_action :filter_zeroes_from_checkboxes, only: [:update, :create, :create_with_school]
 
   USERS_PER_PAGE = 30.0
 
@@ -24,6 +25,22 @@ class Cms::UsersController < Cms::CmsController
 
   def new
     @user = User.new
+  end
+
+  def new_with_school
+    @user = User.new
+    @with_school = true
+    @school = School.find(school_id_param)
+  end
+
+  def create_with_school
+    @user = User.new(user_params)
+    if @user.save! && !!SchoolsUsers.create(school_id: school_id_param, user: @user)
+      redirect_to cms_school_path(school_id_param)
+    else
+      flash[:error] = 'Did not save.'
+      redirect_to :back
+    end
   end
 
   def show
@@ -66,7 +83,6 @@ class Cms::UsersController < Cms::CmsController
   end
 
   def edit
-    @valid_flags = User::VALID_FLAGS
   end
 
   def edit_subscription
@@ -82,7 +98,6 @@ class Cms::UsersController < Cms::CmsController
       redirect_to cms_users_path, notice: 'User was successfully updated.'
     else
       flash[:error] = 'Did not save.'
-      @valid_flags = User::VALID_FLAGS
       render action: 'edit'
     end
   end
@@ -111,11 +126,19 @@ class Cms::UsersController < Cms::CmsController
 
 protected
 
+  def set_flags
+    @valid_flags = User::VALID_FLAGS
+  end
+
   def set_user
     @user = User
       .includes(sales_contact: { stages: [:user, :sales_stage_type] })
       .order('sales_stage_types.order ASC')
       .find(params[:id])
+  end
+
+  def school_id_param
+    params[:school_id].to_i
   end
 
   def user_params
