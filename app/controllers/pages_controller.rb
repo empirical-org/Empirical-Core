@@ -379,7 +379,7 @@ class PagesController < ApplicationController
   def determine_flag
     case action_name
     when 'grammar_tool', 'connect_tool', 'grammar_tool', 'proofreader_tool', 'lessons_tool'
-      @beta_flag = current_user && current_user.testing_flag == 'beta'
+      @beta_flag = current_user && current_user&.testing_flag == 'beta'
     end
   end
 
