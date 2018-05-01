@@ -73,7 +73,7 @@ import {
 let currentConnections = {};
 
 function handler (req, res) {
-  fs.readFile(__dirname + '/index.html',
+  fs.readFile('../' + __dirname + '/index.html',
   function (err, data) {
     if (err) {
       res.writeHead(500);
@@ -650,5 +650,5 @@ r.connect({
   })
 });
 
-app.listen(8000);
-console.log('listening on port ', 8000);
+app.listen(8081);
+console.log('listening on port ', 8081);
