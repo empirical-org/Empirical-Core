@@ -1,7 +1,8 @@
 node_modules
 rethinkdb_data
+lib/*
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
-!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.config.yml
 !.elasticbeanstalk/*.global.yml
