@@ -47,7 +47,7 @@ export default React.createClass({
 },
 
 tools: function() {
-  const userFlag = document.getElementById('current-user-flag').getAttribute('content');
+  const userFlag = document.getElementById('current-user-testing-flag').getAttribute('content');
   return [
   <LessonTypeMini
     key={'diagnostic'}
