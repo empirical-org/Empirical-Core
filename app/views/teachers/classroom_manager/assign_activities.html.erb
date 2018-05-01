@@ -1,5 +1,5 @@
 <%= render partial: 'teachers/shared/scorebook_tabs' %>
 <div class="page-content-wrapper">
-		<%= react_component('AssignActivitiesApp', props: {grade: @grade.to_s, tab: @tab.to_s, classroomName: @last_classroom_name, classroomId: @last_classroom_id.to_s, students: @students.to_s, flag: current_user.flag})%>
+		<%= react_component('AssignActivitiesApp', props: {grade: @grade.to_s, tab: @tab.to_s, classroomName: @last_classroom_name, classroomId: @last_classroom_id.to_s, students: @students.to_s, flag: current_user&.testing_flag})%>
 	</div>
 </div> 
