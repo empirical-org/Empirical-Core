@@ -61,18 +61,23 @@ class User < ActiveRecord::Base
   # gem validates_email_format_of
   validates_email_format_of :email, if: :email_required_or_present?
 
+
+
   validates :username,              presence:     { if: ->(m) { m.email.blank? && m.permanent? } },
                                     uniqueness:   { allow_blank: true },
                                     format:       {without: /\s/, message: 'cannot contain spaces', if: :validate_username?},
                                     on: :create
 
-  validates :flag,                  inclusion: { in: %w(alpha beta production),
-                                    message: "%{value} is not a valid flag" }, :allow_nil => true
+  validate :validate_flags
 
 
   ROLES      = %w(student teacher temporary user admin staff)
   SAFE_ROLES = %w(student teacher temporary)
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
+
+  TESTING_FLAGS = %w(alpha beta)
+  PERMISSIONS_FLAGS = %w(auditor)
+  VALID_FLAGS = TESTING_FLAGS.dup.concat(PERMISSIONS_FLAGS)
 
   default_scope -> { where('users.role != ?', 'temporary') }
 
@@ -84,6 +89,14 @@ class User < ActiveRecord::Base
   before_validation :prep_authentication_terms
 
   after_save :check_for_school
+
+  def testing_flag
+    self.flags.detect{|f| TESTING_FLAGS.include?(f)}
+  end
+
+  def auditor?
+    self.flags.include?('auditor')
+  end
 
   def redeem_credit
     balance = credit_transactions.sum(:amount)
@@ -475,6 +488,14 @@ class User < ActiveRecord::Base
   end
 
 private
+  def validate_flags
+    # ensures there are no items in the flags array that are not in the VALID_FLAGS const
+    invalid_flags = flags - VALID_FLAGS
+    if invalid_flags.any?
+       errors.add(:flags, "invalid flag(s) #{invalid_flags.to_s}")
+    end
+  end
+
   def validate_username_and_email
     # change_field will return the field (username or email) that is changing
     change_field = detect_username_or_email_updated
