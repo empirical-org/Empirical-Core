@@ -2,7 +2,7 @@ class ActivitiesController < ApplicationController
   before_action :activity, only: [:update]
 
   def search
-    search_result = $redis.get("default_#{current_user.flag ? current_user.flag + '_' : nil}activity_search") || custom_search
+    search_result = $redis.get("default_#{current_user&.testing_flag ? current_user&.testing_flag + '_' : nil}activity_search") || custom_search
     render json: search_result
   end
 
@@ -47,11 +47,11 @@ class ActivitiesController < ApplicationController
 protected
 
   def custom_search
-    flag = current_user.flag
+    flag = current_user&.testing_flag
     substring = flag ? flag + "_" : ""
     activity_search_results = $redis.get("default_#{substring}activity_search")
     unless activity_search_results
-      activity_search_results = JSON.parse(ActivitySearchWrapper.set_and_return_search_cache_data(current_user.flag))
+      activity_search_results = JSON.parse(ActivitySearchWrapper.set_and_return_search_cache_data(current_user&.testing_flag))
     end
     activity_search_results
   end

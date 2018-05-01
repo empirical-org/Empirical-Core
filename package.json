@@ -34,7 +34,8 @@
     "jest:watch": "cd client && npm run jest:watch",
     "jest:coverage": "cd client && npm run jest:coverage",
     "jest:silent": "cd client && npm run jest:silent",
-    "cypress:open": "cypress open"
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run"
   },
   "keywords": [
     "react",

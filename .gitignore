@@ -68,3 +68,5 @@ _book/
 /public/packs
 /public/packs-test
 /node_modules
+
+nohup\.out

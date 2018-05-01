@@ -47,7 +47,7 @@
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "app/controllers/cms/users_controller.rb",
-      "line": 162,
+      "line": 163,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "ActiveRecord::Base.connection.execute(\"\\n      SELECT\\n      \\tusers.name AS name,\\n      \\tusers.email AS email,\\n      \\tusers.role AS role,\\n      \\tsubscriptions.account_type AS subscription,\\n      \\tTO_CHAR(users.last_sign_in, 'Mon DD, YYYY') AS last_sign_in,\\n        schools.name AS school,\\n        schools.id AS school_id,\\n      \\tusers.id AS id\\n      FROM users\\n      LEFT JOIN schools_users ON users.id = schools_users.user_id\\n      LEFT JOIN schools ON schools_users.school_id = schools.id\\n      LEFT JOIN user_subscriptions ON users.id = user_subscriptions.user_id\\n      LEFT JOIN subscriptions ON user_subscriptions.subscription_id = subscriptions.id\\n      #{where_query_string_builder}\\n      #{order_by_query_string}\\n      #{pagination_query_string}\\n    \")",
       "render_path": null,
@@ -67,7 +67,7 @@
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "app/controllers/cms/schools_controller.rb",
-      "line": 173,
+      "line": 174,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "ActiveRecord::Base.connection.execute(\"\\n      SELECT\\n        schools.name AS school_name,\\n        schools.leanm AS district_name,\\n        COALESCE(schools.city, schools.mail_city) AS school_city,\\n        COALESCE(schools.state, schools.mail_state) AS school_state,\\n        COALESCE(schools.zipcode, schools.mail_zipcode) AS school_zip,\\n        schools.free_lunches AS frl,\\n        COUNT(DISTINCT schools_users.id) AS number_teachers,\\n        subscriptions.account_type AS premium_status,\\n        COUNT(DISTINCT schools_admins.id) AS number_admins,\\n        schools.id AS id\\n      FROM schools\\n      LEFT JOIN schools_users ON schools_users.school_id = schools.id\\n      LEFT JOIN schools_admins ON schools_admins.school_id = schools.id\\n      LEFT JOIN school_subscriptions ON school_subscriptions.school_id = schools.id\\n      LEFT JOIN subscriptions ON subscriptions.id = school_subscriptions.subscription_id\\n      #{where_query_string_builder}\\n      GROUP BY schools.name, schools.leanm, schools.city, schools.state, schools.zipcode, schools.free_lunches, subscriptions.account_type, schools.id\\n      #{having_string}\\n      #{order_by_query_string}\\n      #{pagination_query_string}\\n    \")",
       "render_path": null,
@@ -99,6 +99,26 @@
       "user_input": "classrooms_ids_to_check.map(&:to_i).join(\", \")",
       "confidence": "Medium",
       "note": "Any inputs here are sanitized."
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "2acd3b8ddc23a216db1de03c749f2336b36bc86e4b5ba8aeaf4e949bf368e608",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/controllers/teachers/units_controller.rb",
+      "line": 212,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.execute(\"SELECT units.name AS unit_name,\\n         activities.name AS activity_name,\\n         activities.supporting_info AS supporting_info,\\n         classrooms.name AS class_name,\\n         classrooms.id AS classroom_id,\\n         activities.activity_classification_id,\\n         ca.id AS classroom_activity_id,\\n         ca.unit_id AS unit_id,\\n         COALESCE(array_length(ca.assigned_student_ids, 1), 0) AS number_of_assigned_students,\\n         COUNT(DISTINCT students_classrooms.id) AS class_size,\\n         ca.due_date,\\n         activities.id AS activity_id,\\n         activities.uid as activity_uid,\\n         (SELECT COUNT(id) FROM activity_sessions WHERE is_final_score = true AND classroom_activity_id = ca.id AND activity_sessions.visible)  AS completed_count,\\n         (SELECT (SUM(percentage)*100) FROM activity_sessions WHERE is_final_score = true AND classroom_activity_id = ca.id AND activity_sessions.visible)  AS classroom_cumulative_score,\\n         (SELECT COUNT(DISTINCT user_id) FROM activity_sessions WHERE state = 'started' AND classroom_activity_id = ca.id AND activity_sessions.visible)  AS started_count,\\n         EXTRACT(EPOCH FROM units.created_at) AS unit_created_at,\\n         EXTRACT(EPOCH FROM ca.created_at) AS classroom_activity_created_at,\\n         #{ActiveRecord::Base.sanitize(own_or_coteach)} AS own_or_coteach,\\n         unit_owner.name AS owner_name,\\n         CASE WHEN unit_owner.id = #{current_user.id} THEN TRUE ELSE FALSE END AS owned_by_current_user\\n      FROM units\\n        INNER JOIN classroom_activities AS ca ON ca.unit_id = units.id\\n        INNER JOIN activities ON ca.activity_id = activities.id\\n        INNER JOIN classrooms ON ca.classroom_id = classrooms.id\\n        LEFT JOIN students_classrooms ON students_classrooms.classroom_id = classrooms.id AND students_classrooms.visible\\n        LEFT JOIN activity_sessions AS act_sesh ON act_sesh.classroom_activity_id = ca.id\\n        LEFT JOIN classrooms_teachers ON classrooms_teachers.classroom_id = classrooms.id\\n        JOIN users AS unit_owner ON unit_owner.id = units.user_id\\n      WHERE ca.classroom_id IN #{\"(#{current_user.send(\"classrooms_i_#{own_or_coteach}\").map(&:id).join(\", \")})\"}\\n        AND classrooms.visible = true\\n        AND units.visible = true\\n        AND ca.visible = true\\n        #{(\"AND activities.activity_classification_id = 6\" or \"\")}\\n        GROUP BY units.name, units.created_at, ca.id, classrooms.name, classrooms.id, activities.name, activities.activity_classification_id, activities.id, activities.uid, unit_owner.name, unit_owner.id\\n        #{(\"HAVING SUM(CASE WHEN act_sesh.visible = true AND act_sesh.state = 'finished' THEN 1 ELSE 0 END) > 0\" or \"\")}\\n        \")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Teachers::UnitsController",
+        "method": "units_i_own_or_coteach"
+      },
+      "user_input": "current_user.send(\"classrooms_i_#{own_or_coteach}\").map(&:id)",
+      "confidence": "High",
+      "note": ""
     },
     {
       "warning_type": "Redirect",
@@ -167,7 +187,7 @@
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "app/controllers/cms/users_controller.rb",
-      "line": 236,
+      "line": 241,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "ActiveRecord::Base.connection.execute(\"\\n      SELECT\\n      \\tCOUNT(users.id) AS count\\n      FROM users\\n      LEFT JOIN schools_users ON users.id = schools_users.user_id\\n      LEFT JOIN schools ON schools_users.school_id = schools.id\\n      LEFT JOIN user_subscriptions ON users.id = user_subscriptions.user_id\\n      LEFT JOIN subscriptions ON user_subscriptions.subscription_id = subscriptions.id\\n      #{where_query_string_builder}\\n    \")",
       "render_path": null,
@@ -266,7 +286,7 @@
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "app/controllers/teachers/progress_reports/diagnostic_reports_controller.rb",
-      "line": 99,
+      "line": 100,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "ActiveRecord::Base.connection.execute(\"\\n        SELECT activity_sessions.state\\n        FROM classrooms_teachers\\n        JOIN classrooms\\n          ON  classrooms_teachers.classroom_id = classrooms.id\\n          AND classrooms.visible = TRUE\\n        JOIN classroom_activities\\n          ON  classrooms.id = classroom_activities.classroom_id\\n          AND classroom_activities.visible = TRUE\\n          AND classroom_activities.activity_id IN (#{[413, 447, 602].join(\", \")})\\n        LEFT JOIN activity_sessions\\n          ON  classroom_activities.id = activity_sessions.classroom_activity_id\\n          AND activity_sessions.state = 'finished'\\n          AND activity_sessions.visible = TRUE\\n        WHERE classrooms_teachers.user_id = #{current_user.id}\\n      \")",
       "render_path": null,
@@ -446,7 +466,7 @@
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "app/controllers/cms/schools_controller.rb",
-      "line": 253,
+      "line": 256,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "ActiveRecord::Base.connection.execute(\"\\n      SELECT count(*) as count FROM\\n        (SELECT\\n        \\tCOUNT(schools.id) AS count\\n        FROM schools\\n        LEFT JOIN schools_users ON schools_users.school_id = schools.id\\n        LEFT JOIN schools_admins ON schools_admins.school_id = schools.id\\n        LEFT JOIN school_subscriptions ON school_subscriptions.school_id = schools.id\\n        LEFT JOIN subscriptions ON subscriptions.id = school_subscriptions.subscription_id\\n        #{where_query_string_builder}\\n        GROUP BY schools.id\\n        #{having_string}) as subquery\\n    \")",
       "render_path": null,
@@ -458,28 +478,8 @@
       "user_input": "where_query_string_builder",
       "confidence": "Medium",
       "note": "This is in the CMS, so no need to worry."
-    },
-    {
-      "warning_type": "SQL Injection",
-      "warning_code": 0,
-      "fingerprint": "f1a254ec27e2c3f8023d3d4a7aaaec8ecd8e628d8449e31b362caab2e6462805",
-      "check_name": "SQL",
-      "message": "Possible SQL injection",
-      "file": "app/controllers/teachers/units_controller.rb",
-      "line": 212,
-      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
-      "code": "ActiveRecord::Base.connection.execute(\"SELECT units.name AS unit_name,\\n         activities.name AS activity_name,\\n         activities.supporting_info AS supporting_info,\\n         classrooms.name AS class_name,\\n         classrooms.id AS classroom_id,\\n         activities.activity_classification_id,\\n         ca.id AS classroom_activity_id,\\n         ca.unit_id AS unit_id,\\n         COALESCE(array_length(ca.assigned_student_ids, 1), 0) AS number_of_assigned_students,\\n         COUNT(DISTINCT students_classrooms.id) AS class_size,\\n         ca.due_date,\\n         activities.id AS activity_id,\\n         activities.uid as activity_uid,\\n         (SELECT COUNT(id) FROM activity_sessions WHERE is_final_score = true AND classroom_activity_id = ca.id AND activity_sessions.visible)  AS completed_count,\\n         (SELECT (SUM(percentage)*100) FROM activity_sessions WHERE is_final_score = true AND classroom_activity_id = ca.id AND activity_sessions.visible)  AS classroom_cumulative_score,\\n         (SELECT COUNT(DISTINCT user_id) FROM activity_sessions WHERE state = 'started' AND classroom_activity_id = ca.id AND activity_sessions.visible)  AS started_count,\\n         EXTRACT(EPOCH FROM units.created_at) AS unit_created_at,\\n         EXTRACT(EPOCH FROM ca.created_at) AS classroom_activity_created_at,\\n         #{ActiveRecord::Base.sanitize(own_or_coteach)} AS own_or_coteach,\\n         unit_owner.name AS owner_name,\\n         CASE WHEN unit_owner.id = #{current_user.id} THEN TRUE ELSE FALSE END AS owned_by_current_user\\n      FROM units\\n        INNER JOIN classroom_activities AS ca ON ca.unit_id = units.id\\n        INNER JOIN activities ON ca.activity_id = activities.id\\n        INNER JOIN classrooms ON ca.classroom_id = classrooms.id\\n        INNER JOIN students_classrooms ON students_classrooms.classroom_id = classrooms.id\\n        LEFT JOIN activity_sessions AS act_sesh ON act_sesh.classroom_activity_id = ca.id\\n        LEFT JOIN classrooms_teachers ON classrooms_teachers.classroom_id = classrooms.id\\n        JOIN users AS unit_owner ON unit_owner.id = units.user_id\\n      WHERE ca.classroom_id IN #{\"(#{current_user.send(\"classrooms_i_#{own_or_coteach}\").map(&:id).join(\", \")})\"}\\n        AND classrooms.visible = true\\n        AND units.visible = true\\n        AND ca.visible = true\\n        AND students_classrooms.visible = true\\n        #{(\"AND activities.activity_classification_id = 6\" or \"\")}\\n        GROUP BY units.name, units.created_at, ca.id, classrooms.name, classrooms.id, activities.name, activities.activity_classification_id, activities.id, activities.uid, unit_owner.name, unit_owner.id\\n        #{(\"HAVING SUM(CASE WHEN act_sesh.visible = true AND act_sesh.state = 'finished' THEN 1 ELSE 0 END) > 0\" or \"\")}\\n        \")",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "Teachers::UnitsController",
-        "method": "units_i_own_or_coteach"
-      },
-      "user_input": "current_user.send(\"classrooms_i_#{own_or_coteach}\").map(&:id)",
-      "confidence": "High",
-      "note": "We explicitly set the own_or_coteach variable."
     }
   ],
-  "updated": "2018-04-10 11:59:40 -0400",
+  "updated": "2018-05-01 10:29:36 -0400",
   "brakeman_version": "4.1.1"
 }
