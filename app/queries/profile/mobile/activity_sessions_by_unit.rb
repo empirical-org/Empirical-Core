@@ -12,6 +12,7 @@ class Profile::Mobile::ActivitySessionsByUnit
   def student_profile_data_sql(classroom_id=nil, student_id=nil)
     ActiveRecord::Base.connection.execute(
       "SELECT unit.name AS unit_name,
+       activity.uid AS uid,
        activity.name,
        activity.description,
        activity.repeatable,
@@ -36,7 +37,7 @@ class Profile::Mobile::ActivitySessionsByUnit
     AND ca.classroom_id = #{classroom_id}
     AND ca.visible = true
     AND unit.visible = true
-    GROUP BY ca.id, activity.name, activity.description, acts.activity_id,
+    GROUP BY ca.id, activity.uid, activity.name, activity.description, acts.activity_id,
             unit.name, unit.id, unit.created_at, unit_name, activity.repeatable,
             activity.activity_classification_id, activity.repeatable
     ORDER BY pinned DESC, locked ASC, max_percentage DESC, unit.created_at ASC, ca.created_at ASC").to_a
