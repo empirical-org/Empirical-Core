@@ -39,12 +39,53 @@ describe User, type: :model do
   #it { should validate_uniqueness_of(:username).on(:create) }
 
   it { should validate_presence_of(:username).on(:create) }
-  it { should validate_inclusion_of(:flag).in_array(%w{alpha beta production}) }
 
   it { should have_secure_password }
 
   let(:user) { build(:user) }
   let!(:user_with_original_email) { build(:user, email: 'fake@example.com') }
+
+  describe 'flags' do
+
+    describe 'validations' do
+      it 'does not raise an error when the flags are in the VALID_FLAGS array' do
+        User::VALID_FLAGS.each do |flag|
+          expect{ user.update(flags: user.flags.push(flag))}.not_to raise_error(:flags)
+        end
+      end
+
+      it 'raises an error if the flag is not in the array' do
+        expect {user.update(Faker::Beer.name)}.to raise_error()
+      end
+    end
+
+    describe '#testing_flag' do
+      it "returns nil if the user does not have a flag from the User::TESTING_FLAGS array" do
+        user.update(flags: [User::PERMISSIONS_FLAGS.first])
+        expect(user.testing_flag).to eq(nil)
+      end
+      it "returns nil if the user does any flags" do
+        expect(user.testing_flag).to eq(nil)
+      end
+      it "returns a flag from the User::TESTING_FLAGS array if the user does have one" do
+        sample_testing_flag = User::TESTING_FLAGS.first
+        user.update(flags: [sample_testing_flag])
+        expect(user.testing_flag).to eq(sample_testing_flag)
+      end
+    end
+
+    describe '#auditor?' do
+      it 'returns true when the user has an auditor flag' do
+        user.update(flags: ['auditor'])
+        expect(user.auditor?).to eq(true)
+      end
+
+      it 'returns false when the user does not have an auditor flag' do
+        expect(user.auditor?).to eq(false)
+      end
+    end
+
+  end
 
   describe '#last_four' do
     it "returns nil if a user does not have a stripe_customer_id" do
@@ -1098,35 +1139,6 @@ describe User, type: :model do
 
     context 'when behaves like teacher' do
       it_behaves_like 'teacher'
-    end
-  end
-
-  describe 'flag' do
-    let(:user) { build(:user) }
-
-    it 'can equal production' do
-      user.update(flag: 'production')
-      expect(user).to be_valid
-    end
-
-    it 'can equal beta' do
-      user.update(flag: 'beta')
-      expect(user).to be_valid
-    end
-
-    it 'can equal alpha' do
-      user.update(flag: 'alpha')
-      expect(user).to be_valid
-    end
-
-    it 'can equal nil' do
-      user.update(flag: nil)
-      expect(user).to be_valid
-    end
-
-    it 'cannot equal anything other than alpha, beta, production or nil' do
-      user.update(flag: 'sunglasses')
-      expect(user).to_not be_valid
     end
   end
 

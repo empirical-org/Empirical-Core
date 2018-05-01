@@ -82,7 +82,7 @@
 			passwordInputField.id = 'user_password';
 			passwordInputField.classList = ['edit-password-field'];
 			passwordInputField.removeAttribute('disabled');
-			passwordInputField.setAttribute('readonly');
+			passwordInputField.setAttribute('readonly', true);
 		} else {
 			editPasswordLink.innerText = 'Reset Password to Last Name';
 			passwordInputField.type = 'password';
