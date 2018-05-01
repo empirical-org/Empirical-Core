@@ -44,9 +44,16 @@ export default class extends React.Component {
         alert(body.error);
       } else {
         this.props.onSuccess();
-        this.setState({email: '', selectedClassrooms: [], coteacherInvited: true}, window.setTimeout(() => { this.setState({coteacherInvited: false}) }, 3000));
+        this.setState(
+          {email: '', selectedClassrooms: [], coteacherInvited: true},
+          this.waitToResetToFalse
+        );
       }
     });
+  }
+
+  waitToResetToFalse(){
+    window.setTimeout(() => { this.setState({coteacherInvited: false})}, 3000)
   }
 
   handleDropdownChange(value) {
