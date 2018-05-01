@@ -5,7 +5,7 @@
       <%= link_to 'Add New User', new_cms_user_path, class: 'btn button-green'  %>
     </div>
     <div class='cms-container-meta'>
-      <%= react_component('CmsUserIndexApp', props: {queryResults: @user_search_query_results, query: @user_search_query, userRoleTypes: @user_role_types, schoolPremiumTypes: @school_premium_types}) %>
+      <%= react_component('CmsUserIndexApp', props: {queryResults: @user_search_query_results, userFlags: @user_flags, query: @user_search_query, userRoleTypes: @user_role_types, schoolPremiumTypes: @school_premium_types}) %>
     </div>
   </article>
 </div>

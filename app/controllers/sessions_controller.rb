@@ -52,6 +52,8 @@ class SessionsController < ApplicationController
         render json: {redirect: url}
       elsif params[:redirect].present?
         render json: {redirect: URI.parse(params[:redirect]).path}
+      elsif @user.auditor? && @user.subscription&.school_subscription?
+        render json: {redirect: '/subscriptions'}
       else
         render json: {redirect: '/'}
       end
