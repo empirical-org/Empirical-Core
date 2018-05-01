@@ -413,7 +413,7 @@ describe User, type: :model do
       it 'should return classrooms and students if the teacher is a coteacher' do
         coteacher = create(:classrooms_teacher, classroom: classroom, role: 'coteacher').user
         response = coteacher.classrooms_i_am_the_coteacher_for_with_a_specific_teacher_with_students(teacher.id)
-        expect(response).to eq([Classroom.first.attributes.merge(students: classroom.students)])
+        expect(response).to include(classroom.attributes.merge(students: classroom.students))
       end
 
       it 'should return an empty array if user does not coteach with the teacher' do

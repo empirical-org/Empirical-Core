@@ -144,6 +144,13 @@ export default class CmsUserIndex extends React.Component {
     </select>
   }
 
+  renderUserFlagSelect() {
+    const options = [<option value></option>].concat(this.props.userFlags.map(o => <option value={o}>{o}</option>))
+    return <select onChange={e => this.updateField(e, 'user_flag')}>
+      {options}
+    </select>
+  }
+
   submitPageForm(e) {
     this.updatePage(e.target.page.value)
   }
@@ -255,6 +262,11 @@ export default class CmsUserIndex extends React.Component {
           <div className='cms-form-row'>
             <label>Role</label>
             {this.renderUserRoleSelect()}
+          </div>
+
+          <div className='cms-form-row'>
+            <label>Flags Contain</label>
+            {this.renderUserFlagSelect()}
           </div>
 
           <div className='cms-submit-row'>

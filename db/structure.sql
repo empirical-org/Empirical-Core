@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 10.3 (Ubuntu 10.3-1.pgdg16.04+1)
+-- Dumped from database version 10.3
 -- Dumped by pg_dump version 10.3
 
 SET statement_timeout = 0;
@@ -2087,7 +2087,6 @@ CREATE TABLE public.users (
     clever_id character varying(255),
     signed_up_with_google boolean DEFAULT false,
     send_newsletter boolean DEFAULT false,
-    flag character varying,
     google_id character varying,
     last_sign_in timestamp without time zone,
     last_active timestamp without time zone,
@@ -3713,13 +3712,6 @@ CREATE INDEX index_users_on_email ON public.users USING btree (email);
 
 
 --
--- Name: index_users_on_flag; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_users_on_flag ON public.users USING btree (flag);
-
-
---
 -- Name: index_users_on_flags; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -4528,4 +4520,6 @@ INSERT INTO schema_migrations (version) VALUES ('20180319201128');
 INSERT INTO schema_migrations (version) VALUES ('20180319201311');
 
 INSERT INTO schema_migrations (version) VALUES ('20180417202537');
+
+INSERT INTO schema_migrations (version) VALUES ('20180418185045');
 
