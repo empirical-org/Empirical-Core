@@ -1,5 +1,10 @@
 class StudentsController < ApplicationController
 
+  def index
+    @current_user = current_user
+    @js_file = 'student'
+  end
+
   def account_settings
     @current_user = current_user
     @js_file = 'student'
