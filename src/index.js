@@ -2,8 +2,10 @@ import r from 'rethinkdb'
 import socketio from 'socket.io'
 import fs from 'fs'
 import http from 'http'
+import rethinkdbConfig from './rethinkdbConfig'
 const app = http.createServer(handler)
 const io = socketio(app)
+const port = process.env.PORT || 8000
 
 import {
   subscribeToClassroomLessonSession,
@@ -167,11 +169,7 @@ function cleanDatabase({
   })
 }
 
-r.connect({
-  host: 'localhost',
-  port: 28015,
-  db: 'quill_lessons'
-}).then((connection) => {
+r.connect(rethinkdbConfig).then((connection) => {
   io.on('connection', (client) => {
     currentConnections[client.id] = { socket: client, role: null };
 
@@ -650,5 +648,5 @@ r.connect({
   })
 });
 
-app.listen(8081);
-console.log('listening on port ', 8081);
+app.listen(port);
+console.log('listening on port ', port);
