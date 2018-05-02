@@ -5,6 +5,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   before_filter :authorize_owner!, except: [:scores, :scorebook]
   before_filter :authorize_teacher!, only: [:scores, :scorebook]
   include ScorebookHelper
+  require 'tzinfo'
 
   def lesson_planner
     if current_user.classrooms_i_teach.empty?
@@ -168,8 +169,8 @@ class Teachers::ClassroomManagerController < ApplicationController
     }
   end
 
-  # needed to simply render a page, lets React.js do the rest
   def my_account
+    @time_zones = [{name: 'Select Time Zone', id: 'Select Time Zone'}].concat(TZInfo::Timezone.all_country_zone_identifiers.sort.map{|tz| {name: tz, id: tz}})
   end
 
   def my_account_data
