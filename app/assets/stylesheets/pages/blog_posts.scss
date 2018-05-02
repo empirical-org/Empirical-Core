@@ -246,7 +246,7 @@ body {
 
 a.preview-card-link {
   text-decoration: none;
-  &:not(:last-of-type) {
+  &:not(:nth-child(3n)) {
     margin-right: 25px;
   }
 }
