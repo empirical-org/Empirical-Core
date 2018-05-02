@@ -10,7 +10,7 @@ export default (props) =>
   <form action={`${process.env.DEFAULT_URL}/teacher-center/search`}>
     <input type='text' placeholder='Search for posts' name='query' defaultValue={props.query ? props.query : null}/>
     <i className="fa fa-icon fa-search"/>
-    {props.showCancelSearchButton ? <a className="btn bg-quillgreen text-white cancel-button" href={`${process.env.DEFAULT_URL}/teacher-center/`}>Cancel Search</a> : null}
+    {props.showCancelSearchButton ? <img className="cancel-button" src={`${process.env.CDN_URL}/images/icons/CloseIcon.svg`} onClick={() => window.location.href = `${process.env.DEFAULT_URL}/teacher-center/`} /> : null}
   </form>
 </div>
 )
