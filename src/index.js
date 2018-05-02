@@ -170,7 +170,13 @@ function cleanDatabase({
   })
 }
 
+console.log('gonna connect')
+
 r.connect(rethinkdbConfig).then((connection) => {
+
+  console.log('connected')
+  console.log(connection)
+
   io.on('connection', (client) => {
     currentConnections[client.id] = { socket: client, role: null };
 
