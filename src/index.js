@@ -2,6 +2,7 @@ import r from 'rethinkdb'
 import socketio from 'socket.io'
 import fs from 'fs'
 import http from 'http'
+import path from 'path'
 import rethinkdbConfig from './rethinkdbConfig'
 const app = http.createServer(handler)
 const io = socketio(app)
@@ -75,14 +76,14 @@ import {
 let currentConnections = {};
 
 function handler (req, res) {
-  fs.readFile('../' + __dirname + '/index.html',
-  function (err, data) {
+  const indexPagePath = path.resolve(__dirname + '/..') + '/index.html'
+  fs.readFile(indexPagePath, (err, data) => {
     if (err) {
-      res.writeHead('500');
+      res.writeHead(500);
       return res.end('Error loading index.html')
     }
 
-    res.writeHead('200');
+    res.writeHead(200);
     res.end(data);
   });
 }
