@@ -17,6 +17,7 @@ import {
 class StudentProfile extends React.Component {
   constructor(props) {
     super(props);
+
     this.handleClassroomTabClick = this.handleClassroomTabClick.bind(this);
     this.initializePusher = this.initializePusher.bind(this);
   }
@@ -26,14 +27,22 @@ class StudentProfile extends React.Component {
       updateNumberOfClassroomTabs,
       fetchStudentProfile,
       fetchStudentsClassrooms,
+      classroomId
     } = this.props;
+
+    if (classroomId) {
+      handleClassroomClick(classroomId)
+      fetchStudentProfile(classroomId);
+      fetchStudentsClassrooms();
+    } else {
+      fetchStudentProfile();
+      fetchStudentsClassrooms();
+    }
 
     window.addEventListener('resize', () => {
       updateNumberOfClassroomTabs(window.innerWidth);
     });
     updateNumberOfClassroomTabs(window.innerWidth);
-    fetchStudentProfile();
-    fetchStudentsClassrooms();
   }
 
   componentDidUpdate() {
@@ -45,9 +54,10 @@ class StudentProfile extends React.Component {
   }
 
   handleClassroomTabClick(classroomId) {
-    const { loading, handleClassroomClick, fetchStudentProfile, } = this.props;
+    const { loading, handleClassroomClick, fetchStudentProfile, history} = this.props;
 
     if (!loading) {
+      history.push(`/classrooms/${classroomId}`)
       handleClassroomClick(classroomId);
       fetchStudentProfile(classroomId);
     }
