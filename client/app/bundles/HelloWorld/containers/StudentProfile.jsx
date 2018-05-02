@@ -57,7 +57,12 @@ class StudentProfile extends React.Component {
     const { loading, handleClassroomClick, fetchStudentProfile, history} = this.props;
 
     if (!loading) {
-      history.push(`/classrooms/${classroomId}`)
+      const newUrl = `/classrooms/${classroomId}`
+      if (history) {
+        history.push(newUrl)
+      } else {
+        window.location.href = newUrl
+      }
       handleClassroomClick(classroomId);
       fetchStudentProfile(classroomId);
     }
