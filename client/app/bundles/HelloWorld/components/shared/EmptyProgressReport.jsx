@@ -39,7 +39,7 @@ export default React.createClass({
      <h1>{title}</h1>
      <p>{content}</p>
      <button onClick={onButtonClick} className="button-green create-unit featured-button">{buttonText}</button>
-     <a href="/teacher_resources">Teacher Resources</a>
+     <a href="/teacher-center">Teacher Resources</a>
    </div>
  );
   },

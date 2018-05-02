@@ -36,13 +36,19 @@ class BlogPostsController < ApplicationController
   end
 
   def show_topic
-    if !BlogPost::TOPIC_SLUGS.include?(params[:topic])
-      raise ActionController::RoutingError.new('Topic Not Found')
+    # handling links that were possibly broken by changing slug function for topic names
+    if params[:topic].include?('_')
+      new_topic = params[:topic].gsub('_', '-')
+      redirect_to "/teacher-center/topic/#{new_topic}"
+    else
+      if !BlogPost::TOPIC_SLUGS.include?(params[:topic])
+        raise ActionController::RoutingError.new('Topic Not Found')
+      end
+      topic = params[:topic].gsub('-', ' ').titleize
+      @blog_posts = BlogPost.where(draft: false, topic: topic)
+      @title = topic
+      return render 'index'
     end
-    topic = params[:topic].gsub('_', ' ').titleize
-    @blog_posts = BlogPost.where(draft: false, topic: topic)
-    @title = topic
-    return render 'index'
   end
 
   private

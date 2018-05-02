@@ -24,7 +24,7 @@ export default class BlogPost extends React.Component {
       <PreviewCard
         key={post.title}
         content={post.preview_card_content}
-        link={post.external_link ? post.external_link : `/teacher_resources/${post.slug}`}
+        link={post.external_link ? post.external_link : `/teacher-center/${post.slug}`}
         externalLink={!!post.external_link}
       />
     )

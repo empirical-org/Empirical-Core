@@ -7,7 +7,7 @@ export default class TopicSection extends React.Component {
     return this.props.articles.slice(0, 3).map(article =>
       <PreviewCard
         content={article.preview_card_content}
-        link={article.external_link ? article.external_link : `/teacher_resources/${article.slug}`}
+        link={article.external_link ? article.external_link : `/teacher-center/${article.slug}`}
         externalLink={!!article.external_link}
       />
     )
@@ -36,7 +36,7 @@ export default class TopicSection extends React.Component {
         <div className='meta'>
           <h1>{this.topicIcon()}{this.props.title}</h1>
           <h2>{this.props.articleCount} {pluralize('article', this.props.articleCount)}</h2>
-          <a href={`/teacher_resources/topic/${this.props.title.toLowerCase().replace(/\s/g, '_')}`}>Show All</a>
+          <a href={`/teacher-center/topic/${this.props.title.toLowerCase().replace(/\s/g, '-')}`}>Show All</a>
         </div>
         <div id="preview-card-container">
           {this.renderArticleCards()}

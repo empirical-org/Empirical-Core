@@ -23,7 +23,7 @@ export default class extends React.Component {
       <PreviewCard
         key={article.title}
         content={article.preview_card_content}
-        link={article.external_link ? article.external_link : `/teacher_resources/${article.slug}`}
+        link={article.external_link ? article.external_link : `/teacher-center/${article.slug}`}
         externalLink={!!article.external_link}
       />
     )
@@ -34,7 +34,7 @@ export default class extends React.Component {
       <PreviewCard
         key={article.title}
         content={article.preview_card_content}
-        link={article.external_link ? article.external_link : `/teacher_resources/${article.slug}`}
+        link={article.external_link ? article.external_link : `/teacher-center/${article.slug}`}
         externalLink={!!article.external_link}
       />
     )
@@ -103,7 +103,7 @@ export default class extends React.Component {
     } else if (currentPageIsTopicPage) {
       return (
         <div className='topic-header'>
-          <h2>{window.location.pathname.split('/')[3].split('_').map(topic => topic.charAt(0).toUpperCase() + topic.slice(1)).join(' ')}</h2>
+          <h2>{window.location.pathname.split('/')[3].split('-').map(topic => topic.charAt(0).toUpperCase() + topic.slice(1)).join(' ')}</h2>
         </div>
       )
     } else if (currentPageIsSearchPage) {
@@ -120,7 +120,7 @@ export default class extends React.Component {
   renderMostReadPost() {
     const mostReadArticle = this.state.blogPostsSortedByMostRead[0];
     if (window.location.pathname.includes('search')) { return null; }
-    const link = mostReadArticle.external_link ? mostReadArticle.external_link : `/teacher_resources/${mostReadArticle.slug}`
+    const link = mostReadArticle.external_link ? mostReadArticle.external_link : `/teacher-center/${mostReadArticle.slug}`
     return (
       <h3>
         <a href={link}>{mostReadArticle.title}</a>
