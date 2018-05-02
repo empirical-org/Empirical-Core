@@ -7,7 +7,7 @@ class ProfilesController < ApplicationController
       @firewall_test = true
       @js_file = 'student'
       if current_user.classrooms.any?
-        render 'student'
+        render 'students/index'
       else
         render 'students_classrooms/add_classroom'
       end
