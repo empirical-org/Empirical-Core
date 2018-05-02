@@ -243,6 +243,7 @@ module Teacher
                   :username,
                   :authenticity_token,
                   :email,
+                  :time_zone,
                   :password,
                   :school_options_do_not_apply,
                   :school_id,
