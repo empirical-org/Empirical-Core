@@ -7,7 +7,7 @@ export default (props) => {
     <PreviewCard
       key={article.title}
       content={article.preview_card_content}
-      link={article.external_link ? article.external_link : `/teacher_resources/${article.slug}`}
+      link={article.external_link ? article.external_link : `/teacher-center/${article.slug}`}
       externalLink={!!article.external_link}
     />
   ) : null
