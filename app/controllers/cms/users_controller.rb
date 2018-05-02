@@ -1,14 +1,17 @@
 class Cms::UsersController < Cms::CmsController
   before_filter :signed_in!
+  before_action :set_flags, only: [:edit, :new, :new_with_school ]
   before_action :set_user, only: [:show, :edit, :show_json, :update, :destroy, :edit_subscription, :new_subscription, :complete_sales_stage]
   before_action :set_search_inputs, only: [:index, :search]
   before_action :get_subscription_data, only: [:new_subscription, :edit_subscription]
+  before_action :filter_zeroes_from_checkboxes, only: [:update, :create, :create_with_school]
 
   USERS_PER_PAGE = 30.0
 
   def index
     @user_search_query = {sort: 'last_sign_in', sort_direction: 'desc'}
     @user_search_query_results = user_query(user_query_params)
+    @user_flags = User::VALID_FLAGS
     @number_of_pages = 0
   end
 
@@ -22,6 +25,22 @@ class Cms::UsersController < Cms::CmsController
 
   def new
     @user = User.new
+  end
+
+  def new_with_school
+    @user = User.new
+    @with_school = true
+    @school = School.find(school_id_param)
+  end
+
+  def create_with_school
+    @user = User.new(user_params)
+    if @user.save! && !!SchoolsUsers.create(school_id: school_id_param, user: @user)
+      redirect_to cms_school_path(school_id_param)
+    else
+      flash[:error] = 'Did not save.'
+      redirect_to :back
+    end
   end
 
   def show
@@ -64,7 +83,6 @@ class Cms::UsersController < Cms::CmsController
   end
 
   def edit
-    # everything is set as props from @user in the view
   end
 
   def edit_subscription
@@ -108,6 +126,10 @@ class Cms::UsersController < Cms::CmsController
 
 protected
 
+  def set_flags
+    @valid_flags = User::VALID_FLAGS
+  end
+
   def set_user
     @user = User
       .includes(sales_contact: { stages: [:user, :sales_stage_type] })
@@ -115,15 +137,17 @@ protected
       .find(params[:id])
   end
 
+  def school_id_param
+    params[:school_id].to_i
+  end
+
   def user_params
-    params[:user][:flag] = nil unless ['alpha', 'beta'].include? params[:user][:flag]
-    params.require(:user).permit([:name, :email, :username, :role,
-      :flag, :classcode, :password, :password_confirmation] + default_params
+    params.require(:user).permit([:name, :email, :username, :role, :classcode, :password, :password_confirmation, :flags =>[]] + default_params
     )
   end
 
   def user_query_params
-    params.permit(@text_search_inputs.map(&:to_sym) + default_params + [:page, :user_role, :sort, :sort_direction, :user_premium_status])
+    params.permit(@text_search_inputs.map(&:to_sym) + default_params + [:page, :user_role, :user_flag, :sort, :sort_direction, :user_premium_status])
   end
 
   def user_query(params)
@@ -185,6 +209,7 @@ protected
     # User email: users.email
     # User IP: users.ip_address
     # School name: schools.name
+    # User flag: user.flags
     # Premium status: subscriptions.account_type
     sanitized_fuzzy_param_value = ActiveRecord::Base.sanitize('%' + param_value + '%')
     sanitized_param_value = ActiveRecord::Base.sanitize(param_value)
@@ -199,6 +224,8 @@ protected
       "users.username ILIKE #{(sanitized_fuzzy_param_value)}"
     when 'user_email'
       "users.email ILIKE #{(sanitized_fuzzy_param_value)}"
+    when 'user_flag'
+      "#{(sanitized_param_value)} = ANY (users.flags::text[])"
     when 'user_ip'
       "users.ip_address = #{(sanitized_param_value)}"
     when 'school_name'
@@ -242,7 +269,12 @@ protected
     @text_search_inputs = ['user_name', 'user_username', 'user_email', 'user_ip', 'school_name']
     @school_premium_types = Subscription.account_types
     @user_role_types = User.select('DISTINCT role').map { |r| r.role }
-    @all_search_inputs = @text_search_inputs + ['user_premium_status', 'user_role', 'page']
+    @all_search_inputs = @text_search_inputs + ['user_premium_status', 'user_role', 'page', 'user_flag']
+  end
+
+  def filter_zeroes_from_checkboxes
+    # checkboxes pass back '0' when unchecked -- we only want the attributes that are checked
+    params[:user][:flags] = user_params[:flags] - ["0"]
   end
 
   def subscription_params

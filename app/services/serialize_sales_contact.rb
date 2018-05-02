@@ -14,6 +14,7 @@ class SerializeSalesContact
         account_uid: account_uid.to_s,
         signed_up: teacher.created_at.to_i,
         admin: teacher.admin?,
+        auditor: teacher.auditor?, 
         premium_status: premium_status,
         premium_expiry_date: subscription_expiration_date,
         number_of_students: number_of_students,
