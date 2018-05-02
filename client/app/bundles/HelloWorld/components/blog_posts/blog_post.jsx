@@ -21,7 +21,12 @@ export default class BlogPost extends React.Component {
 
   renderMostRecentPosts() {
     return this.props.mostRecentPosts.map(post =>
-      <PreviewCard key={post.title} content={post.preview_card_content} link={post.external_link ? post.external_link : `/teacher_resources/${post.slug}`} />
+      <PreviewCard
+        key={post.title}
+        content={post.preview_card_content}
+        link={post.external_link ? post.external_link : `/teacher_resources/${post.slug}`}
+        externalLink={!!post.external_link}
+      />
     )
   }
 

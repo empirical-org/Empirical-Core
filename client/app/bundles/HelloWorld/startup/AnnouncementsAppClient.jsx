@@ -4,7 +4,12 @@ import HeaderSection from '../components/blog_posts/header_section'
 
 export default (props) => {
   const articles = props.blogPosts.length > 0 ? props.blogPosts.map(article =>
-    <PreviewCard content={article.preview_card_content} link={`/teacher_resources/${article.slug}`} />
+    <PreviewCard
+      key={article.title}
+      content={article.preview_card_content}
+      link={article.external_link ? article.external_link : `/teacher_resources/${article.slug}`}
+      externalLink={!!article.external_link}
+    />
   ) : null
   const content = articles ? <div id="preview-card-container">{articles}</div>
   : <div style={{fontSize: '30px', display: 'flex', justifyContent: 'center', height: '60vh', alignItems: 'center', flexDirection: 'column', fontWeight: 'bold'}}>
