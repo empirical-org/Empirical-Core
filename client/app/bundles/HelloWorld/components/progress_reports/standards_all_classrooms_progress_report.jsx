@@ -25,6 +25,7 @@ export default class extends React.Component {
       loading: true,
       errors: false,
       selectedClassroom: showAllClassroomKey,
+      updatingData: true,
       classrooms: [],
       userIsPremium: userIsPremium()
     }
@@ -46,15 +47,13 @@ export default class extends React.Component {
     request.get({
       url: `${process.env.DEFAULT_URL}/teachers/progress_reports/standards/classrooms.json`, qs
     }, (e, r, body) => {
-      const data = JSON.parse(body).data
-      const csvData = this.formatDataForCSV(data)
-      const standardsData = this.formatStandardsData(data)
+      const standardsData = this.formatStandardsData(JSON.parse(body).data)
       // gets unique classroom names
       const classrooms = JSON.parse(body).classrooms
       const students = [...new Set(JSON.parse(body).students)]
       classrooms.unshift({name: showAllClassroomKey})
       students.unshift({name: showAllStudentsKey})
-      that.setState({loading: false, errors: body.errors, standardsData, csvData, classrooms, students});
+      that.setState({loading: false, updatingData: false, errors: body.errors, standardsData, classrooms, students});
     });
   }
 
@@ -76,11 +75,11 @@ export default class extends React.Component {
     })
   }
 
-  formatDataForCSV(data) {
+  formatDataForCSV() {
     const csvData = [
       ['Standard Level', 'Standard Name', 'Students', 'Proficient', 'Activities']
     ]
-    data.forEach((row) => {
+    this.state.standardsData.forEach((row) => {
       csvData.push([
         row['section_name'], row['name'], row['total_student_count'], `${row['proficient_count']} of ${row['total_student_count']}`, row['total_activity_count']
       ])
@@ -154,7 +153,7 @@ export default class extends React.Component {
   }
 
   switchClassrooms(classroom) {
-    this.setState({selectedClassroom: classroom}, () => this.getData())
+    this.setState({selectedClassroom: classroom, updatingData: true}, () => this.getData())
   }
 
   goToStudentPage(studentName) {
@@ -164,23 +163,19 @@ export default class extends React.Component {
     }
   }
 
-  filteredData() {
-    return this.state.standardsData
-  }
-
-
-    tableOrEmptyMessage(filteredData){
-      if (filteredData.length) {
+  tableOrEmptyMessage(){
+      const data = this.state.standardsData
+      if (data.length) {
         return (
-          <div key={`${filteredData.length}-length-for-activities-scores-by-classroom`}>
-  					<ReactTable data={filteredData}
+          <div key={`${data.length}-length-for-activities-scores-by-classroom`}>
+  					<ReactTable data={data}
   						columns={this.columns()}
   						showPagination={false}
   						defaultSorted={[{id: 'standard_level', desc: false}]}
   					  showPaginationTop={false}
   						showPaginationBottom={false}
   						showPageSizeOptions={false}
-  						defaultPageSize={filteredData.length}
+  						defaultPageSize={data.length}
   						className='progress-report has-green-arrow'/></div>
         )
       } else {
@@ -196,7 +191,6 @@ export default class extends React.Component {
     if (this.state.loading) {
       return <LoadingSpinner/>
     }
-    const filteredData = this.filteredData()
     return (
       <div className='standards-all-classrooms progress-reports-2018 '>
         <div className="meta-overview flex-row space-between">
@@ -205,7 +199,7 @@ export default class extends React.Component {
             <p>Filter by classroom and student to see student mastery on the Common Core standards. You can export the data by downloading a CSV report.</p>
           </div>
           <div className='csv-and-how-we-grade'>
-            <CSVDownloadForProgressReport data={this.state.csvData}/>
+            <CSVDownloadForProgressReport key={`data is updating: ${this.state.updatingData}`} data={this.formatDataForCSV()}/>
             <a className='how-we-grade' href="https://support.quill.org/activities-implementation/how-does-grading-work">How We Grade<i className="fa fa-long-arrow-right"></i></a>
           </div>
         </div>
@@ -213,7 +207,7 @@ export default class extends React.Component {
           <ItemDropdown items={this.state.classrooms.map(c => c.name)} callback={this.switchClassrooms} selectedItem={this.state.selectedClassroom}/>
           <ItemDropdown items={_.uniq(this.state.students.map(s => s.name))} callback={this.goToStudentPage}/>
         </div>
-        {this.tableOrEmptyMessage(filteredData)}
+        {this.tableOrEmptyMessage()}
       </div>
     )
   }
