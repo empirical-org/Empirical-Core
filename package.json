@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "$(npm bin)/babel src --out-dir lib --presets es2015,stage-2",
-    "start": "npm run build && npm run start:production",
-    "start:production": "node lib/index.js",
+    "start": "npm run build && node lib/index.js",
     "start:dev": "nodemon src/index.js --exec babel-node --presets es2015,stage-2",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
