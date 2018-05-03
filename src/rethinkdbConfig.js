@@ -3,7 +3,6 @@ import path from 'path'
 
 
 const rethinkdbConfig = (() => {
-  const cert = fs.readFileSync(path.resolve(__dirname, '../cert'))
   let config = {
     host: process.env.RETHINKDB_HOST || 'localhost',
     port: process.env.RETHINKDB_PORT || 28015,
@@ -22,7 +21,8 @@ const rethinkdbConfig = (() => {
     config['password'] = process.env.RETHINKDB_PASSWORD
   }
 
-  if (cert) {
+  if (process.env.RETHINKDB_SSL_CERT === 'true') {
+    const cert = fs.readFileSync(path.resolve(__dirname, '../cert'))
     config['ssl'] = { ca: cert }
   }
 
