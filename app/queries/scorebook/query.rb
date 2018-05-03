@@ -2,7 +2,7 @@
 class Scorebook::Query
   SCORES_PER_PAGE = 200
 
-  def self.run(classroom_id, current_page=1, unit_id=nil, begin_date=nil, end_date=nil, offset=nil)
+  def self.run(classroom_id, current_page=1, unit_id=nil, begin_date=nil, end_date=nil, offset=0)
     ActiveRecord::Base.connection.execute(
     "SELECT
        students.id AS user_id,
@@ -75,7 +75,7 @@ class Scorebook::Query
   end
 
   def self.to_offset_datetime (date, offset)
-    (Date.parse(date).midnight + offset.seconds).to_s(:db)
+    (Date.parse(date).midnight - offset.seconds).to_s(:db)
   end
 
   def self.date_substring_for_acts_completed_at(begin_date, end_date, offset)
@@ -85,7 +85,7 @@ class Scorebook::Query
     ].reject(&:nil?).join(' AND ')
   end
 
-  def self.date_substring_for_acts_started_at(begin_date, end_date)
+  def self.date_substring_for_acts_started_at(begin_date, end_date, offset)
 
     [
       begin_date ? "acts.started_at >= '#{self.to_offset_datetime(begin_date, offset)}'" : nil,
@@ -94,7 +94,7 @@ class Scorebook::Query
 
   end
 
-  def self.date_substring_for_ca_created_at(begin_date, end_date)
+  def self.date_substring_for_ca_created_at(begin_date, end_date, offset)
     [
       begin_date ? "ca.created_at >= '#{self.to_offset_datetime(begin_date, offset)}'" : nil,
       end_date ? "ca.created_at <= '#{self.to_offset_datetime(end_date, offset)}'" : nil
