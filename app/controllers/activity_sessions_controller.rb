@@ -23,6 +23,7 @@ class ActivitySessionsController < ApplicationController
   def result
     @activity = @activity_session
     @results  = @activity_session.parse_for_results
+    @classroom_id = @activity_session&.classroom_activity&.classroom_id
   end
 
   def anonymous
