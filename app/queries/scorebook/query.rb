@@ -74,14 +74,20 @@ class Scorebook::Query
     )"
   end
 
+  def self.to_offset_datetime (date)
+    offset = 14400
+    (Date.parse(date).midnight + offset.seconds).to_s(:db)
+  end
+
   def self.date_substring_for_acts_completed_at(begin_date, end_date)
     [
-      begin_date ? "acts.completed_at >= #{begin_date}" : nil,
-      end_date ? "acts.completed_at <= #{end_date}" : nil
+      begin_date ? "acts.completed_at >= '#{self.to_offset_datetime(begin_date)}'" : nil,
+      end_date ? "acts.completed_at <= '#{self.to_offset_datetime(end_date)}'" : nil
     ].reject(&:nil?).join(' AND ')
   end
 
   def self.date_substring_for_acts_started_at(begin_date, end_date)
+
     [
       begin_date ? "acts.started_at >= #{begin_date}" : nil,
       end_date ? "acts.started_at <= #{end_date}" : nil
