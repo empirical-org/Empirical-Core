@@ -23,7 +23,7 @@ class GradesController < ApplicationController
         "SELECT concept_results.metadata,
         activities.description,
         concepts.name,
-        activity_sessions.completed_at,
+        activity_sessions.completed_at + INTERVAL '#{current_user.utc_offset} seconds' AS completed_at,
         classroom_activities.due_date
         FROM activity_sessions
         LEFT JOIN concept_results ON concept_results.activity_session_id = activity_sessions.id
@@ -38,8 +38,10 @@ class GradesController < ApplicationController
   end
 
   def tooltip_scores_query
+    # activity_sessions.completed_at + INTERVAL '#{current_user.utc_offset} seconds' AS completed_at
     ActiveRecord::Base.connection.execute(
-      "SELECT activity_sessions.percentage, activity_sessions.completed_at
+      "SELECT activity_sessions.percentage,
+      activity_sessions.completed_at + INTERVAL '#{current_user.utc_offset} seconds' AS completed_at
       FROM activity_sessions
       WHERE activity_sessions.classroom_activity_id = #{ActiveRecord::Base.sanitize(tooltip_params[:classroom_activity_id].to_i)}
       AND activity_sessions.user_id = #{ActiveRecord::Base.sanitize(tooltip_params[:user_id].to_i)}
