@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import request from 'request';
 import PasswordInfo from './password_info.jsx';
-import getAuthToken from '../../modules/get_auth_token'
+import getAuthToken from '../../modules/get_auth_token';
+import queryString from 'query-string';
 
 class LoginFormApp extends Component {
   constructor() {
@@ -9,7 +10,6 @@ class LoginFormApp extends Component {
     this.handleEmailChange = this.handleEmailChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-
     this.state = {
       showPass: false,
       email: '',
@@ -48,15 +48,22 @@ class LoginFormApp extends Component {
     request({
       url: `${process.env.DEFAULT_URL}/session/login_through_ajax`,
       method: 'POST',
-      json: { user: this.state, authenticity_token: getAuthToken(), },
+      json: {
+        user: {
+          email: this.state.email,
+          password: this.state.password,
+        },
+        authenticity_token: getAuthToken(),
+      },
     },
     (err, httpResponse, body) => {
       if (httpResponse.statusCode === 200 && body.redirect) {
+        // console.log(body);
         window.location = `${process.env.DEFAULT_URL}${body.redirect}`;
       } else {
         let message = 'You have entered an incorrect email/username or password.';
-        if(httpResponse.statusCode === 429) {
-          message = 'Too many failed attempts. Please wait one minute and try again.'
+        if (httpResponse.statusCode === 429) {
+          message = 'Too many failed attempts. Please wait one minute and try again.';
         }
         this.setState({ lastUpdate: new Date(), message: (body.message || message), });
       }
