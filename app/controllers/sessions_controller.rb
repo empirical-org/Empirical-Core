@@ -46,7 +46,11 @@ class SessionsController < ApplicationController
         TestForEarnedCheckboxesWorker.perform_async(@user.id)
       end
       sign_in(@user)
-      if params[:redirect].present?
+      if session[:post_auth_redirect].present?
+        url = session[:post_auth_redirect]
+        session.delete(:post_auth_redirect)
+        render json: {redirect: url}
+      elsif params[:redirect].present?
         render json: {redirect: URI.parse(params[:redirect]).path}
       elsif @user.auditor? && @user.subscription&.school_subscription?
         render json: {redirect: '/subscriptions'}
@@ -84,6 +88,7 @@ class SessionsController < ApplicationController
     @js_file = 'login'
     @user = User.new
     session[:role] = nil
+    session[:post_auth_redirect] = params[:redirect]
   end
 
   def failure
