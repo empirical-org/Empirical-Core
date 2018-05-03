@@ -42,3 +42,39 @@
 .flash.error, .flash.warning {
   background-color: $darkorange;
 }
+
+.flash.join-class-notification {
+  background-color: $quillforestgreen;
+  -webkit-animation: seconds 2.0s forwards;
+  -webkit-animation-iteration-count: 1;
+  -webkit-animation-delay: 10s;
+  -moz-animation: seconds 2.0s forwards;
+  animation: seconds 2.0s forwards;
+  animation-iteration-count: 1;
+  animation-delay: 10s;
+  position: relative;
+
+}
+
+@-webkit-keyframes seconds {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    height: 0%;
+    opacity: 0;
+    left: -9999px;
+    position: absolute;
+  }
+}
+@keyframes seconds {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    height: 0%;
+    opacity: 0;
+    left: -9999px;
+    position: absolute;
+  }
+}

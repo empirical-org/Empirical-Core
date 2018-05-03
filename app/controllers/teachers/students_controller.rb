@@ -22,12 +22,6 @@ class Teachers::StudentsController < ApplicationController
   end
 
   def index
-    binding.pry
-    if params["joined"] == 'success' && params["classroom"]
-      classroom = Classroom.find(params["classroom"])
-      teacher_name = classroom.owner.name
-      flash.now[:success] = "You have joined #{teacher_name}'s class: #{classroom.name}  🎉🎊."
-    end
   end
 
   def update
