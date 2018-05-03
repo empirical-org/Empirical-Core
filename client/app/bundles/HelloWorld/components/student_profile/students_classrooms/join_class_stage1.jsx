@@ -36,17 +36,19 @@ export default React.createClass({
 
   render: function() {
     return (
-      <div className='additional-class stage-1 text-center'>
-        <h1>Join a New Class</h1>
-        <span>Add Your Class Code</span>
-        <br/>
-        <input className='class-input' ref='classCodeInput' placeholder='e.g. fresh-bread'></input>
-        <br/>
-        {this.errorMessage()}
-        <button className='button-green' onClick={this.addClassroom}>Join Your Class</button>
-        <br/>
-        <span>Don't know your classcode?<br/>
-          You can ask your teacher for it.</span>
+      <div className="page-content-wrapper" id='add-additional-class'>
+        <div className='additional-class stage-1 text-center'>
+          <h1>Join a New Class</h1>
+          <span>Add Your Class Code</span>
+          <br/>
+          <input className='class-input' ref='classCodeInput' placeholder='e.g. fresh-bread'></input>
+          <br/>
+          {this.errorMessage()}
+          <button className='button-green' onClick={this.addClassroom}>Join Your Class</button>
+          <br/>
+          <span>Don't know your classcode?<br/>
+            You can ask your teacher for it.</span>
+        </div>
       </div>
     );
   }

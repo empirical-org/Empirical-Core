@@ -9,7 +9,7 @@ class ProfilesController < ApplicationController
       if current_user.classrooms.any?
         render 'students/index'
       else
-        render 'students_classrooms/add_classroom'
+        redirect_to '/add_classroom'
       end
     else
       send current_user.role
