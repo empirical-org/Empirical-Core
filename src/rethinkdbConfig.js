@@ -1,4 +1,6 @@
-import * as fs from 'fs'
+import fs from 'fs'
+import path from 'path'
+
 
 const rethinkdbConfig = (() => {
   const cert = fs.readFileSync(path.resolve(__dirname, '../cert'))
