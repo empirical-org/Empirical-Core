@@ -68,6 +68,8 @@ body {
 }
 
 #knowledge-center {
+  padding-bottom: 280px;
+  min-height: 800px;
   nav {
     margin: 35px auto;
     font-weight: 600;
@@ -246,7 +248,7 @@ body {
 
 a.preview-card-link {
   text-decoration: none;
-  &:not(:last-of-type) {
+  &:not(:nth-child(3n)) {
     margin-right: 25px;
   }
 }
@@ -280,7 +282,7 @@ a.all-blog-posts-back-button {
   article {
     margin: 0 auto;
     max-width: 945px;
-    padding: 25px;
+    padding: 25px 0px;
 
     a {
       text-decoration: underline;
@@ -309,7 +311,7 @@ a.all-blog-posts-back-button {
 
     header {
       font-size: 14px;
-      padding-top: 60px;
+      padding-top: 20px;
 
       h1 {
         font-size: 30px;
@@ -337,11 +339,12 @@ a.all-blog-posts-back-button {
     }
 
     main {
+      max-width: 750px;
       line-height: 1.75;
       margin-top: 40px;
 
       h1, h2, h3, p, ul, ol, img, blockquote {
-        margin: 16px 0;
+        margin: 32px 0;
       }
 
       p, ul, ol, blockquote {
@@ -386,9 +389,9 @@ a.all-blog-posts-back-button {
     background: #f8f6f6;
     padding: 35px 0;
 
-    #similiar-post-container {
+    #similar-post-container {
       margin: 0 auto;
-      max-width: 945px;
+      max-width: 950px;
 
       h2 {
         color: #3b3b3b;
