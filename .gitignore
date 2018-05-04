@@ -1,7 +1,6 @@
 node_modules
 rethinkdb_data
 lib/*
-cert
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
