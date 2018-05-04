@@ -2,7 +2,7 @@ import fs from 'fs'
 import path from 'path'
 
 const rethinkdbConfig = (() => {
-  const pathToCert = path.resolve(__dirname + '/..') + '/public-key.cert'
+  const pathToCert = path.resolve(__dirname + '/..') + '/public-key.crt'
 
   let config = {
     host: process.env.RETHINKDB_HOST || 'localhost',
