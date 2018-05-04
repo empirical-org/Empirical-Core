@@ -231,7 +231,7 @@ export default class extends React.Component {
   }
 
   goToPreview() {
-    const url = this.state.externalLink ? this.state.externalLink : `/teacher_resources/${this.state.slug}`
+    const url = this.state.externalLink ? this.state.externalLink : `/teacher-center/${this.state.slug}`
     window.open(url, '_blank')
   }
 

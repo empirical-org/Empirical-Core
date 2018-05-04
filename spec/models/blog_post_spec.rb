@@ -13,13 +13,13 @@ describe BlogPost, type: :model do
 
   describe '#path' do
     it 'should return the slug prefixed by the teacher resources path' do
-      expect(blog_post.path).to eq("/teacher_resources/#{blog_post.slug}")
+      expect(blog_post.path).to eq("/teacher-center/#{blog_post.slug}")
     end
   end
 
   describe '#topic_path' do
     it 'should return the path of the associated topic' do
-      expect(blog_post.topic_path).to eq("/teacher_resources/topic/#{blog_post.topic_slug}")
+      expect(blog_post.topic_path).to eq("/teacher-center/topic/#{blog_post.topic_slug}")
     end
   end
 
