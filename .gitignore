@@ -1,6 +1,7 @@
 node_modules
 rethinkdb_data
 lib/*
+.env
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*

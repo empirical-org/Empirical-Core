@@ -1,3 +1,5 @@
+import dotenv from 'dotenv'
+dotenv.config()
 import r from 'rethinkdb'
 import socketio from 'socket.io'
 import fs from 'fs'
@@ -6,7 +8,7 @@ import path from 'path'
 import rethinkdbConfig from './rethinkdbConfig'
 const app = http.createServer(handler)
 const io = socketio(app)
-const port = process.env.PORT || 8000
+const port = process.env.NODE_PORT
 
 import {
   subscribeToClassroomLessonSession,
