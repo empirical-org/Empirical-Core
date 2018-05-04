@@ -1,6 +1,6 @@
 class BlogPost < ActiveRecord::Base
   TOPICS = ['Getting Started', 'Teacher Stories', 'Writing Instruction Research', 'Announcements', 'Press', 'Case Studies', 'Teacher Materials', 'Best Practices', 'Support', 'Webinars']
-  TOPIC_SLUGS = TOPICS.map { |topic| topic.downcase.gsub(' ','_') }
+  TOPIC_SLUGS = TOPICS.map { |topic| topic.downcase.gsub(' ','-') }
 
   before_create :generate_slug, :set_order_number
 
@@ -21,11 +21,11 @@ class BlogPost < ActiveRecord::Base
   end
 
   def path
-    '/teacher_resources/' + self.slug
+    '/teacher-center/' + self.slug
   end
 
   def topic_path
-    '/teacher_resources/topic/' + self.topic_slug
+    '/teacher-center/topic/' + self.topic_slug
   end
 
   def topic_slug
