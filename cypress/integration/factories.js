@@ -15,7 +15,7 @@ describe('Factories', () => {
     cy.factoryBotCreateList({
       factory: 'teacher',
       traits: ['has_a_stripe_customer_id', 'signed_up_with_google'],
-      flag: 'beta',
+      flags: ['beta'],
       number: 4
     }).then((response) => {
       console.log(response.body);

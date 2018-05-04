@@ -30,7 +30,7 @@ const admin = () => [
   },
   {
     question: 'What resources can I use to introduce Quill to the teachers in my school?',
-    answer: [<p>You can access a two-page handout to introduce teachers to Quill <a href="https://d1yxac6hjodhgc.cloudfront.net/wp-content/uploads/2015/11/Quill-Overview3.pdf">here</a>. Your teachers can use the <a href="https://www.quill.org/teacher_resources">teacher resources</a> page to access in-depth guides and video overviews.</p>]
+    answer: [<p>You can access a two-page handout to introduce teachers to Quill <a href="https://d1yxac6hjodhgc.cloudfront.net/wp-content/uploads/2015/11/Quill-Overview3.pdf">here</a>. Your teachers can use the <a href="https://www.quill.org/teacher-center">teacher resources</a> page to access in-depth guides and video overviews.</p>]
   }
 ]
 

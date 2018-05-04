@@ -1,12 +1,11 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
 
-export default class extends React.Component {
-  render() {
-    return (
-      <a className='preview-card-link' href={this.props.link}>
-        <ReactMarkdown source={this.props.content} className='preview-card' />
-      </a>
-    )
-  }
-}
+const PreviewCard = (props) =>(
+    <a className='preview-card-link' target={props.externalLink ? "_blank" : "_self"} href={props.link}>
+      <ReactMarkdown source={props.content} className="preview-card" />
+    </a>
+  )
+
+
+export default PreviewCard
