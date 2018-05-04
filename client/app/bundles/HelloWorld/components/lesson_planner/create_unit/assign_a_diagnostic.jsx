@@ -14,7 +14,7 @@ export default React.createClass({
           <AssignmentTypeMini
             title={'Sentence Structure Diagnostic'}
             img={`${process.env.CDN_URL}/images/shared/diagnostic_icon.svg`}
-            link="diagnostic/413/stage/1"
+            link="/diagnostic/413/stage/1"
             bodyText={'Find your students’ writing abilities with a 22 question diagnostic.'}
             directions={'use intermittently'}
             quantity={1}
