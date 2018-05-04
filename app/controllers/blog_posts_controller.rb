@@ -10,6 +10,7 @@ class BlogPostsController < ApplicationController
     find_by_hash = { slug: params[:slug] }
     find_by_hash[:draft] = false unless current_user&.role == 'staff'
     @blog_post = BlogPost.find_by!(find_by_hash)
+    @topic = @blog_post.topic
     @display_paywall = true unless @blog_post.can_be_accessed_by(current_user)
     @blog_post.increment_read_count
     @author = @blog_post.author
@@ -35,13 +36,19 @@ class BlogPostsController < ApplicationController
   end
 
   def show_topic
-    if !BlogPost::TOPIC_SLUGS.include?(params[:topic])
-      raise ActionController::RoutingError.new('Topic Not Found')
+    # handling links that were possibly broken by changing slug function for topic names
+    if params[:topic].include?('_')
+      new_topic = params[:topic].gsub('_', '-')
+      redirect_to "/teacher-center/topic/#{new_topic}"
+    else
+      if !BlogPost::TOPIC_SLUGS.include?(params[:topic])
+        raise ActionController::RoutingError.new('Topic Not Found')
+      end
+      topic = params[:topic].gsub('-', ' ').titleize
+      @blog_posts = BlogPost.where(draft: false, topic: topic)
+      @title = topic
+      return render 'index'
     end
-    topic = params[:topic].gsub('_', ' ').titleize
-    @blog_posts = BlogPost.where(draft: false, topic: topic)
-    @title = topic
-    return render 'index'
   end
 
   private

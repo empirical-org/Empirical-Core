@@ -29,10 +29,19 @@ EmpiricalGrammar::Application.routes.draw do
     end
   end
 
-  resources :blog_posts, path: 'teacher_resources', only: [:index, :show], param: :slug do
+  resources :blog_posts, path: 'teacher-center', only: [:index, :show], param: :slug do
     collection do
       get '/topic/:topic', to: 'blog_posts#show_topic'
       get 'search', to: 'blog_posts#search'
+    end
+  end
+
+  resources :blog_posts, path: 'teacher_resources', only: [], param: :slug do
+    collection do
+      get '/', to: redirect('teacher-center')
+      get '/:slug', to: redirect('teacher-center/%{slug}')
+      get '/topic/:topic', to: redirect('teacher-center/topic/%{topic}')
+      get 'search', to: redirect('teacher-center/search')
     end
   end
 

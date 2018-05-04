@@ -234,7 +234,7 @@ class PagesController < ApplicationController
           },
           {
             question: "How can I get started with Quill?",
-            answer: "<p>Teachers create teacher accounts and students create student accounts by clicking <a href='http://www.quill.org/account/new'>here</a>. Teachers are given a class code for each class. Students join their teacher's class by plugging in their teacher's class code. Teachers may also manually create accounts for their students. If you have a Google Classroom account, you can sign up with Google and import your students. For more information about getting started, please visit our <a href='https://www.quill.org/teacher_resources'>Teacher Resources</a> page. You can also download our <a href='https://d1yxac6hjodhgc.cloudfront.net/wp-content/uploads/2015/11/Quill-Getting-Started-Guide-for-Teachers.pdf'>Getting Started Guide for Teachers.</a></p>"
+            answer: "<p>Teachers create teacher accounts and students create student accounts by clicking <a href='http://www.quill.org/account/new'>here</a>. Teachers are given a class code for each class. Students join their teacher's class by plugging in their teacher's class code. Teachers may also manually create accounts for their students. If you have a Google Classroom account, you can sign up with Google and import your students. For more information about getting started, please visit our <a href='https://www.quill.org/teacher-center'>Teacher Resources</a> page. You can also download our <a href='https://d1yxac6hjodhgc.cloudfront.net/wp-content/uploads/2015/11/Quill-Getting-Started-Guide-for-Teachers.pdf'>Getting Started Guide for Teachers.</a></p>"
           },
         ]
       },
@@ -369,7 +369,7 @@ class PagesController < ApplicationController
 
   def determine_js_file
     case action_name
-    when 'partners', 'mission', 'faq', 'impact', 'team', 'tos', 'media_kit', 'media', 'faq', 'privacy', 'premium', 'map', 'teacher_resources', 'news', 'stats', 'activities'
+    when 'partners', 'mission', 'faq', 'impact', 'team', 'tos', 'media_kit', 'media', 'faq', 'privacy', 'premium', 'map', 'teacher-center', 'news', 'stats', 'activities'
       @js_file = 'public'
     when 'grammar_tool', 'connect_tool', 'grammar_tool', 'proofreader_tool', 'lessons_tool'
       @js_file = 'tools'
