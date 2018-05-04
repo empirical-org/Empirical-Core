@@ -1,5 +1,6 @@
 import React from 'react'
 import getAuthToken from '../components/modules/get_auth_token'
+import LoadingIndicator from '../components/shared/loading_indicator'
 
 export default class JoinClass extends React.Component {
 
@@ -8,13 +9,15 @@ export default class JoinClass extends React.Component {
 
     this.state = {
       error: null,
-      classCodeInput: ''
+      classCodeInput: '',
+      loading: false
     }
 
     this.addClassroom = this.addClassroom.bind(this)
   }
 
   addClassroom() {
+    this.setState({loading: true})
     const data = new FormData()
     data.append('classcode', this.state.classCodeInput)
     fetch(`${process.env.DEFAULT_URL}/students_classrooms`, {
@@ -31,6 +34,7 @@ export default class JoinClass extends React.Component {
       return { error: 'Oops! You need to be signed in to join a class.' }
     })
     .then((response) => {
+      this.setState({loading: false})
       if (response.error) {
         let error
         switch (response.error) {
@@ -56,6 +60,9 @@ export default class JoinClass extends React.Component {
 
 
   render() {
+    if (this.state.loading) {
+      return <LoadingIndicator />
+    }
     return (
       <div className="page-content-wrapper" id='add-additional-class'>
         <div className='additional-class stage-1 text-center'>
