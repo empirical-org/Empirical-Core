@@ -1,6 +1,10 @@
 class StudentsClassroomsController < ApplicationController
-
+    skip_before_action :verify_authenticity_token
+    
+    
     def create
+      puts "params"
+      puts params
       if current_user
         @user = current_user
         classcode = params[:classcode].downcase.gsub(/\s+/, "")
@@ -11,15 +15,15 @@ class StudentsClassroomsController < ApplicationController
         rescue NoMethodError => exception
           if Classroom.unscoped.where(code: classcode).first.nil?
             InvalidClasscodeWorker.perform_async(@user.id, params[:classcode], classcode)
-            render status: 400, json: {error: "No such classcode"}.to_json
+            render status: 404, json: {error: "No such classcode"}, text: "No such classcode"
           else
-            render status: 400, json: {error: "Class is archived"}.to_json
+            render status: 400, json: {error: "Class is archived"}, text: "Class is archived"
           end
         else
           render json: classroom.attributes
         end
       else
-        render status: 403, json: {error: "Student not logged in."}.to_json
+        render status: 403, json: {error: "Student not logged in."}, text: "Student not logged in."
       end
     end
 

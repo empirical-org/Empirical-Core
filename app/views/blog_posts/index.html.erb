@@ -1,9 +1,9 @@
 <% current_path = request.env['PATH_INFO'] %>
-<% if current_path.include?('getting_started') %>
+<% if current_path.include?('getting-started') %>
   <% @active_tab = 'Getting Started'%>
-<% elsif current_path.include?('teacher_stories') %>
+<% elsif current_path.include?('teacher-stories') %>
   <% @active_tab = 'Teacher Stories'%>
-<% elsif current_path.include?('writing_instruction_research') %>
+<% elsif current_path.include?('writing-instruction-research') %>
   <% @active_tab = 'Writing Instruction Research'%>
 <% else %>
   <% @active_tab = 'All Resources'%>
