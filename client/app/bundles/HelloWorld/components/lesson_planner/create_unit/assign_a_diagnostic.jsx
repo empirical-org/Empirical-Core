@@ -14,7 +14,7 @@ export default React.createClass({
           <AssignmentTypeMini
             title={'Sentence Structure Diagnostic'}
             img={`${process.env.CDN_URL}/images/shared/diagnostic_icon.svg`}
-            link={`${process.env.DEFAULT_URL}/diagnostic/413/stage/1`}
+            link="diagnostic/413/stage/1"
             bodyText={'Find your students’ writing abilities with a 22 question diagnostic.'}
             directions={'use intermittently'}
             quantity={1}
@@ -26,7 +26,7 @@ export default React.createClass({
           <AssignmentTypeMini
             title={'ELL Diagnostic'}
             img={`${process.env.CDN_URL}/images/shared/ell_diagnostic_icon.svg`}
-            link={`${process.env.DEFAULT_URL}/diagnostic/447/stage/2`}
+            link="/diagnostic/447/stage/2"
             bodyText={'Find your students’ writing abilities with a 22 question diagnostic for language learners.'}
             directions={'use continuously'}
             quantity={1}
