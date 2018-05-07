@@ -41,7 +41,7 @@
  		<% end %>
 
 		<%- if current_user.nil? %>
-		<a href="/session/new" class="text-white nav-element">Login</a>
+		<a href="/session/new" class="text-white nav-element">Log In</a>
 		<a href="/account/new" class="sign-up-button text-white nav-element">Sign Up</a>
 		<%- elsif current_user.role == 'teacher' %>
 			<div class='navigation-vertical-rule hide-on-mobile nav-element'></div>
@@ -109,7 +109,7 @@
 	        <a href="/mission" class="text-white">Our Story</a>
 	      </li>
 	      <li>
-	        <a href="/session/new" class="text-white">Login</a>
+	        <a href="/session/new" class="text-white">Log In</a>
 	      </li>
 	      <li>
 	        <a href="/account/new" class="text-white">Sign Up</a>
