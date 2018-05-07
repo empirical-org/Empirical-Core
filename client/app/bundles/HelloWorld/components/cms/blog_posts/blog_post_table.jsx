@@ -80,7 +80,7 @@ export default class BlogPostTable extends React.Component {
       rating={blogPost.rating}
       views={blogPost.read_count}
       editLink={`/cms/blog_posts/${blogPost.id}/edit`}
-      previewLink={blogPost.external_link ? blogPost.external_link : `/teacher_resources/${blogPost.slug}`}
+      previewLink={blogPost.external_link ? blogPost.external_link : `/teacher-center/${blogPost.slug}`}
       deleteLink={`/cms/blog_posts/${blogPost.id}/delete`}
       key={index}
     />

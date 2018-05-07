@@ -14,7 +14,7 @@
 	<% active_tab = 'Our Story' %>
 <% elsif current_path.include?('activities') %>
 	<% active_tab = 'Explore Curriculum' %>
-<% elsif ['teacher_resources', 'faq', 'premium'].any? { |str| current_path.include?(str)} %>
+<% elsif ['teacher-center', 'faq', 'premium'].any? { |str| current_path.include?(str)} %>
 	<% active_tab = 'Teacher Center' %>
 <% else %>
 	<% active_tab = '' %>
@@ -83,7 +83,7 @@
 				</div>
 			</div>
 		<%- elsif current_user.role == 'student' %>
-			<%= link_to raw("<i class='fa fa-fw fa-plus-circle' aria-hidden='true'></i>  Join a Class"), add_classroom_students_classrooms_path, class: "text-white nav-element" %>
+			<%= link_to raw("<i class='fa fa-fw fa-plus-circle' aria-hidden='true'></i>  Join a Class"), '/add_classroom', class: "text-white nav-element" %>
 			<%= link_to raw("<i class='fa fa-fw fa-cog' aria-hidden='true'></i>  Account Settings"), account_settings_path, class: "text-white nav-element" %>
 			<%= link_to "Logout", '/session' , class: "text-white nav-element"%>
 		<% else %>
@@ -103,7 +103,7 @@
 	        <a href="/activities/packs" class="text-white">Explore Curriculum</a>
 	      </li>
 				<li>
-					<a href='/teacher_resources' class="text-white">Teacher Center</a>
+					<a href='/teacher-center' class="text-white">Teacher Center</a>
 				</li>
 	      <li>
 	        <a href="/mission" class="text-white">Our Story</a>
@@ -119,7 +119,7 @@
 					<a href="/tools/connect" class="text-white">Learning Tools</a>
 				</li>
 				<li>
-					<a href="/teacher_resources" class="text-white">Teacher Center</a>
+					<a href="/teacher-center" class="text-white">Teacher Center</a>
 				</li>
 				<li>
 					<a href="https://support.quill.org/" class="text-white">Quill Support</a>

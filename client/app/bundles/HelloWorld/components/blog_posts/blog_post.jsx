@@ -21,7 +21,12 @@ export default class BlogPost extends React.Component {
 
   renderMostRecentPosts() {
     return this.props.mostRecentPosts.map(post =>
-      <PreviewCard key={post.title} content={post.preview_card_content} link={post.external_link ? post.external_link : `/teacher_resources/${post.slug}`} />
+      <PreviewCard
+        key={post.title}
+        content={post.preview_card_content}
+        link={post.external_link ? post.external_link : `/teacher-center/${post.slug}`}
+        externalLink={!!post.external_link}
+      />
     )
   }
 
@@ -58,7 +63,6 @@ export default class BlogPost extends React.Component {
     return (
       <div id='article-container'>
         <article>
-          <a className='back-to-topic' href={`/teacher_resources/topic/${this.state.backLink}`}><i className='fa fa-chevron-left'></i>Back to {this.props.blogPost.topic}</a>
           <BlogPostContent
             updatedAt={this.props.blogPost.published_at ? this.props.blogPost.published_at : this.props.blogPost.updated_at}
             title={this.props.blogPost.title}
@@ -68,13 +72,12 @@ export default class BlogPost extends React.Component {
             centerImages={this.props.blogPost.center_images}
           />
           <footer>
-            <a className='back-to-topic' href={`/teacher_resources/topic/${this.state.backLink}`}><i className='fa fa-chevron-left'></i>Back to {this.props.blogPost.topic}</a>
             <p>{this.state.ratingMessage}</p>
             {this.renderRatingEmoji()}
           </footer>
         </article>
         <div id='similar-posts'>
-          <div id='similiar-post-container'>
+          <div id='similar-post-container'>
             <h2>Most Recent Posts</h2>
             <div id='preview-card-container'>
               {this.renderMostRecentPosts()}

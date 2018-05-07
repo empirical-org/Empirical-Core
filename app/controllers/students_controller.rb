@@ -1,5 +1,14 @@
 class StudentsController < ApplicationController
 
+  def index
+    @current_user = current_user
+    @js_file = 'student'
+    if params["joined"] == 'success' && params["classroom"]
+      classroom = Classroom.find(params["classroom"])
+      flash.now["join-class-notification"] = "You have joined #{classroom.name} 🎉🎊"
+    end
+  end
+
   def account_settings
     @current_user = current_user
     @js_file = 'student'

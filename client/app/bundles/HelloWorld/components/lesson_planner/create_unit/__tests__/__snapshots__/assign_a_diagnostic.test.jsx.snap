@@ -12,12 +12,13 @@ exports[`AssignADiagnostic component should render 1`] = `
     className="minis"
   >
     <a
-      href="/diagnostic/413/stage/1"
+      href="undefined/diagnostic/413/stage/1"
     >
       <assignment_type_mini
         bodyText="Find your students’ writing abilities with a 22 question diagnostic."
         directions="use intermittently"
         img="http://cdn.quill.org/images/shared/diagnostic_icon.svg"
+        link="/diagnostic/413/stage/1"
         quantity={1}
         timeDuration="~20 Min."
         title="Sentence Structure Diagnostic"
@@ -25,12 +26,13 @@ exports[`AssignADiagnostic component should render 1`] = `
       />
     </a>
     <a
-      href="/diagnostic/447/stage/2"
+      href="undefined/diagnostic/447/stage/2"
     >
       <assignment_type_mini
         bodyText="Find your students’ writing abilities with a 22 question diagnostic for language learners."
         directions="use continuously"
         img="http://cdn.quill.org/images/shared/ell_diagnostic_icon.svg"
+        link="/diagnostic/447/stage/2"
         quantity={1}
         timeDuration="~25 Min."
         title="ELL Diagnostic"

@@ -30,7 +30,8 @@ export default (state, action) => {
         loading: false,
         scores: action.data.scores,
         student: action.data.student,
-        nextActivitySession: action.data.next_activity_session
+        nextActivitySession: action.data.next_activity_session,
+        selectedClassroomId: action.data.classroom_id
       });
     case 'UPDATE_NUMBER_OF_CLASSROOM_TABS':
       const numberOfClassroomTabs = action.screenWidth > 1000 ? 5 : 1;
