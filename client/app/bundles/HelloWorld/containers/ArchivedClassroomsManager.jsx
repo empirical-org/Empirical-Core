@@ -362,7 +362,7 @@ export default React.createClass({
 
   joinOrAddClass() {
     if (this.props.role === 'student') {
-      return (<a href="/students_classrooms/add_classroom" className="btn button-green">Join a Class</a>);
+      return (<a href="/add_classroom" className="btn button-green">Join a Class</a>);
     }
   },
 

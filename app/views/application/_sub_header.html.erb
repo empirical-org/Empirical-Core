@@ -83,7 +83,7 @@
 				</div>
 			</div>
 		<%- elsif current_user.role == 'student' %>
-			<%= link_to raw("<i class='fa fa-fw fa-plus-circle' aria-hidden='true'></i>  Join a Class"), add_classroom_students_classrooms_path, class: "text-white nav-element" %>
+			<%= link_to raw("<i class='fa fa-fw fa-plus-circle' aria-hidden='true'></i>  Join a Class"), '/add_classroom', class: "text-white nav-element" %>
 			<%= link_to raw("<i class='fa fa-fw fa-cog' aria-hidden='true'></i>  Account Settings"), account_settings_path, class: "text-white nav-element" %>
 			<%= link_to "Logout", '/session' , class: "text-white nav-element"%>
 		<% else %>
