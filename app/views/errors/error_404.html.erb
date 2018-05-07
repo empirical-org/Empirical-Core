@@ -1,0 +1,28 @@
+<div class="container four-oh-four">
+ <div class="content">
+   <div class="text">
+     <h1>Oops! We can't seem to find what you're looking for.</h1>
+
+     <p class="description">Quill is a nonprofit, educational technology organization dedicated to strengthening student writing. Quill provides 10-15 minute free exercises that help students build sentence construction skills.</p>
+
+     <div class="cta-links">
+       <% if current_user %>
+       <a class="explore-homepage" href="https://quill.org">Return to Dashboard</a>
+       <% else %>
+       <a class="explore-homepage" href="https://quill.org">Explore Homepage</a>
+       <p class="login-or-signup"><a href="https://www.quill.org/session/new">Log in</a> or <a href="https://www.quill.org/account/new">Sign up</a></p>
+       <% end %>
+     </div>
+
+     <p class="helpful-links">Here are some helpful links:</p>
+     <a target="_blank" href="https://www.quill.org/tools/connect">Quill Connect</a>
+     <a target="_blank" href="https://www.quill.org/teacher-center">Teacher Center</a>
+     <a target="_blank" href="https://www.quill.org/teacher-center/topic/getting-started">Getting Started Guides</a>
+     <a target="_blank" href="https://www.quill.org/faq">FAQ Page</a>
+   </div>
+
+   <div class="illustration">
+     <img src="https://assets.quill.org/images/illustrations/clever-404-illustration.png">
+   </div>
+ </div>
+</div>
