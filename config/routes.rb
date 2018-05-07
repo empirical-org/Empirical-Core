@@ -16,6 +16,9 @@ EmpiricalGrammar::Application.routes.draw do
     end
   end
 
+  get '/classrooms/:classroom', to: 'students#index'
+  get '/add_classroom', to: 'students#index'
+
   resources :admins, only: [:show], format: 'json' do
     resources :teachers, only: [:index, :create]
   end
@@ -68,7 +71,6 @@ EmpiricalGrammar::Application.routes.draw do
   resources :schools, only: [:index], format: 'json'
   resources :students_classrooms do
     collection do
-      get :add_classroom
       get :classroom_manager
       get :classroom_manager_data
     end
