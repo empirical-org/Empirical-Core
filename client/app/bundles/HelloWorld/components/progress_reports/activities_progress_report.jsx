@@ -217,6 +217,13 @@ export default React.createClass({
     return (this.tableOrEmptyMessage())
   },
 
+  paramsToQueryString: function(){
+    // converts the params object to a query string
+    // https://stackoverflow.com/a/35416293/2812720
+    const obj = this.requestParams()
+    return `?${Object.keys(obj).map(k => `${encodeURIComponent(k)}=${encodeURIComponent(obj[k])}`).join('&')}`;
+  },
+
 
   nonPremiumBlur: function() {
     return this.canViewReport() ? '' : 'non-premium-blur';
@@ -224,7 +231,7 @@ export default React.createClass({
 
   downloadReport: function() {
     if(this.canViewReport()) {
-      return window.open('/teachers/progress_reports/activity_sessions.csv');
+      return window.open(`/teachers/progress_reports/activity_sessions.csv${this.paramsToQueryString()}`);
     }
     alert('Downloadable reports are a Premium feature. You can visit Quill.org/premium to upgrade now!');
   },

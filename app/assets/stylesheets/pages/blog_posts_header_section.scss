@@ -36,11 +36,11 @@
     flex-direction: column;
     align-items: center;
     .cancel-button {
-      font-weight: bold;
-      margin-top: 10px;
-      &:hover, &:focus {
-        color: white;
-      }
+      position: absolute;
+      right: 10;
+      top: 13px;
+      height: 15px;
+      cursor: pointer;
     }
   }
   .fa-search {
