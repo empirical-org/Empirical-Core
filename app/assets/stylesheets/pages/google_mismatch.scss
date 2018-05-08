@@ -1,0 +1,25 @@
+.google-mismatch-container {
+  margin: auto;
+  text-align: center;
+  max-width: 715px;
+  padding-top: 37px;
+  font-size: 18px;
+
+  h2 {
+    padding-bottom: 20px;
+    font-weight: 600;
+  }
+  p {
+    padding-bottom: 20px;
+  }
+
+  form {
+    display: inline-block;
+    .q-button {
+      border: 1px solid;
+      font-weight: 700;
+      padding: 8px 20px;
+      margin-left: 10px;
+    }
+  }
+}
