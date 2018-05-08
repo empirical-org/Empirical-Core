@@ -1,7 +1,7 @@
 class StudentsController < ApplicationController
   include QuillAuthentication
 
-  before_filter :authorize!
+  before_filter :authorize!, except: [:student_demo]
 
   def index
     @current_user = current_user
