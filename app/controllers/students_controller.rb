@@ -1,4 +1,7 @@
 class StudentsController < ApplicationController
+  include QuillAuthentication
+
+  before_filter :authorize!, except: [:student_demo]
 
   def index
     @current_user = current_user
@@ -33,6 +36,12 @@ class StudentsController < ApplicationController
     else
       render json: {errors: 'Please enter a valid email address.'}, status: 422
     end
+  end
+
+  private
+
+  def authorize!
+    auth_failed unless current_user
   end
 
 end
