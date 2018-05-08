@@ -18,6 +18,32 @@ export default class extends React.Component {
     this.setState({ articleFilter: filter });
   }
 
+  pageTitle() {
+    if (window.location.pathname.includes('topic')) {
+      return window.location.pathname.split('/')[3].split('-').map(topic => topic.charAt(0).toUpperCase() + topic.slice(1)).join(' ')
+    } else {
+      return 'Teacher Center'
+    }
+  }
+
+  pageSubtitle() {
+    switch (this.pageTitle()) {
+      case 'Teacher Stories':
+        return 'Read success stories about Quill in the class'
+      case 'Getting Started':
+        return 'Set up your classroom on Quill with guides, videos, and presentations'
+      case 'Writing Instruction Research':
+        return 'Read and download handpicked materials to teach writing'
+      case 'Support':
+        return 'The most common questions teachers ask about Quill'
+      case 'Webinars':
+        return 'Join online conferences to learn best practices for how to use Quill with your students'
+      case 'Teacher Center':
+      default:
+        return 'Everything you need to know about Quill’s pedagogy and use in the classroom'
+    }
+  }
+
   renderPreviewCards() {
     return this.props.blogPosts.map(article =>
       <PreviewCard
@@ -94,19 +120,18 @@ export default class extends React.Component {
   }
 
   renderNavAndSectionHeader() {
-    const currentPageIsTopicPage = window.location.pathname.includes('topic');
     const currentPageIsSearchPage = window.location.pathname.includes('search');
-    if (!currentPageIsTopicPage && !currentPageIsSearchPage) {
+    if (!currentPageIsSearchPage) {
       return (
         <span/>
       )
-    } else if (currentPageIsTopicPage) {
-      return (
-        <div className='topic-header'>
-          <h2>{window.location.pathname.split('/')[3].split('-').map(topic => topic.charAt(0).toUpperCase() + topic.slice(1)).join(' ')}</h2>
-        </div>
-      )
-    } else if (currentPageIsSearchPage) {
+    // } else if (currentPageIsTopicPage) {
+    //   return (
+    //     <div className='topic-header'>
+    //       <h2>{window.location.pathname.split('/')[3].split('-').map(topic => topic.charAt(0).toUpperCase() + topic.slice(1)).join(' ')}</h2>
+    //     </div>
+    //   )
+    } else {
       return (
         <nav>
           <ul>
@@ -116,6 +141,7 @@ export default class extends React.Component {
       )
     }
   }
+
 
   renderMostReadPost() {
     const mostReadArticle = this.state.blogPostsSortedByMostRead[0];
@@ -140,8 +166,8 @@ export default class extends React.Component {
       return (
         <div id="knowledge-center">
           <HeaderSection
-            title="Teacher Center"
-            subtitle="Everything you need to know about Quill’s pedgagogy and use in the classroom"
+            title={this.pageTitle()}
+            subtitle={this.pageSubtitle()}
             query={this.props.query}
             showCancelSearchButton={!!window.location.href.includes('search')}
           />
