@@ -46,7 +46,7 @@
 		<%- elsif current_user.role == 'teacher' %>
 			<div class='navigation-vertical-rule hide-on-mobile nav-element'></div>
 			<div id="nav-user-dropdown" class="dropdown-closed hide-on-mobile nav-element <%= user_dropdown_class %>">
-				<%= link_to raw("<img src='#{user_dropdown_img}'></img>#{current_user.name}"), '#', onClick: "toggleDropdown()", class: 'user-dropdown-button' %>
+				<%= link_to raw("<img class='user-dropdown-button-img' src='#{user_dropdown_img}'></img>#{current_user.name}"), '#', onClick: "toggleDropdown()", class: 'user-dropdown-button' %>
 				<div>
 					<i class="fa fa-caret-up"></i>
 					<%= link_to raw(
@@ -156,7 +156,7 @@
 
 	function closeDropdownIfOpen(e) {
 		const dropdown = document.querySelector('#nav-user-dropdown');
-		if (e.target.classList.value !== 'user-dropdown-button' && dropdown && dropdown.classList.contains('dropdown-open')) {
+		if (e.target.classList.value !== 'user-dropdown-button' && e.target.classList.value !== 'user-dropdown-button-img' && dropdown && dropdown.classList.contains('dropdown-open')) {
 				dropdown.classList.remove('dropdown-open');
 				dropdown.classList.add('dropdown-closed');
 		}
