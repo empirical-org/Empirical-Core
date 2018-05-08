@@ -104,7 +104,7 @@ class LoginFormApp extends Component {
               {this.toggleButtonText()}
             </div>
           </div>
-          <input type="submit" name="commit" value="Login" />
+          <input type="submit" name="commit" value="Log In" />
         </form>
         <PasswordInfo showHintBox={!!this.state.message} />
       </div>
