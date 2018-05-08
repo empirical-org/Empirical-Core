@@ -7,7 +7,7 @@
   }
 </script>
 <div class='cms-form'>
-  <% url =  @with_school ? "/cms/users/create_with_school/#{@school.id}" : 'cms/users' %>
+  <% url =  @with_school ? "/cms/users/create_with_school/#{@school.id}" : "/cms/users/#{@user.id}" %>
   <%= form_for @user, url: url do |f| %>
     <div class='cms-form-row'>
       <%= f.label :name %>
