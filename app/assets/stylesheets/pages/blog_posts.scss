@@ -197,10 +197,11 @@ body {
   .preview-card-body {
     background: $white;
     border-radius: 0 0 6px 6px;
-    color: #666;
+    color: #3b3b3b;
     padding: 20px 15px 15px;
     transition: all 0.3s ease-out;
     flex-grow: 1;
+    line-height: 24px;
 
     .button-container {
       display: flex;
@@ -221,9 +222,10 @@ body {
       font-size: 16px;
       font-weight: 600;
       line-height: 1.38;
-      margin-bottom: 17px;
+      margin-bottom: 14px;
       margin-top: 0px;
       transition: all 0.3s ease-out;
+      letter-spacing: 0.2px;
     }
 
   }
