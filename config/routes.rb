@@ -34,6 +34,8 @@ EmpiricalGrammar::Application.routes.draw do
 
   resources :blog_posts, path: 'teacher-center', only: [:index, :show], param: :slug do
     collection do
+      get '/topic/press', to: redirect('/press')
+      get '/topic/announcements', to: redirect('/announcements')
       get '/topic/:topic', to: 'blog_posts#show_topic'
       get 'search', to: 'blog_posts#search'
     end
