@@ -21,7 +21,9 @@ export default class extends React.Component{
         <a className="q-button cta-button bg-quillgreen text-white sync-button" href='/auth/google_oauth2'>
           Next: Sync With Google Classrooms
         </a>
-        <a className="return-link" href="/">Return To Your Profile</a>
+        <p>
+          <a className="return-link" href="/">Return To Your Profile</a>
+        </p>
       </div>)
   }
 }
