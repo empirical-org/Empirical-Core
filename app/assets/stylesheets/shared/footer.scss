@@ -1,10 +1,12 @@
 .footer-white {
   background-color: #fff;
-  padding: 44px 69px 80px;
+  padding: 78px 0px 172px;
   width: 100%;
+  max-width: 950px;
   display: flex;
   justify-content: center;
   box-shadow: 0 100vh 0 100vh #fff;
+  margin: auto;
   .footer-content {
     display: flex;
     flex-direction: column;
@@ -18,10 +20,11 @@
     display: flex;
     justify-content: space-between;
     width: 100%;
+    align-items:  center;
   }
   .top-half {
     align-items: flex-end;
-    padding-bottom: 70px;
+    padding-bottom: 33px;
     border-bottom: solid 1px #c0c0c0;
   }
   .bottom-half {
@@ -29,7 +32,7 @@
   }
   .footer-copy {
     color: #747474;
-    font-size: 18px;
+    font-size: 14px;
     max-width: 448px;
   }
   .logo-and-text {
@@ -38,7 +41,8 @@
     max-width: 700px;
     width: 100%;
     img {
-      margin-right: 20px;
+      height: 38px;
+      margin-right: 40px;
     }
     margin-right: 80px;
   }
@@ -116,9 +120,9 @@
     margin: 0 auto;
   }
   .footer-contacts {
-    font-size: 20px;
+    font-size: 14px;
     width: 100%;
-    max-width: 800px;
+    max-width: 540px;
     display: flex;
     justify-content: space-between;
     margin-right: 40px;
