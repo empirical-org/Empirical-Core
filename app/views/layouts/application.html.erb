@@ -13,7 +13,9 @@
       <%= render partial: 'header', media: 'all', 'data-turbolinks-track' => true %>
     </div>
     <%= render partial: 'admin_dashboard_header' %>
-    <%= yield %>
+    <div class="page">
+      <%= yield %>
+    </div>
     <!-- This is a placeholder for ReactOnRails to know where to render the store props for
      client side hydration -->
 <%= redux_store_hydration_data %>

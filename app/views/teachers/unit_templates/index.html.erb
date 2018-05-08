@@ -2,8 +2,6 @@
 <% @active_tab = 'Featured Activities' %>
 <%= render partial: 'pages/shared/explore_curriculum_navbar', active_tab: @active_tab %>
 
-<div class="page-content-wrapper">
-  <div class="tab-pane" id="public-activity-packs" data-authenticated=<%=@is_teacher%>>
-      <%= react_component('PublicUnitTemplatesApp', props: {})%>
-  </div>
+<div class="tab-pane" id="public-activity-packs" data-authenticated=<%=@is_teacher%>>
+    <%= react_component('PublicUnitTemplatesApp', props: {})%>
 </div>
