@@ -101,7 +101,11 @@ export default React.createClass({
   },
 
   selectAllRecommendations() {
-    this.setState({selections: this.state.recommendations})
+    const newSelections = this.state.selections.map((selection, index) => {
+      selection.students = this.state.recommendations[index].students
+      return selection
+    })
+    this.setState({selections: newSelections})
   },
 
   studentWasAssigned(student, previouslyAssignedRecommendation) {
