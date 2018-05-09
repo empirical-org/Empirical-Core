@@ -9,6 +9,7 @@ exports[`AppLegend component should render 1`] = `
   >
     <div
       className="icon"
+      onClick={[Function]}
     >
       <div
         className="icon-wrapper icon-diagnostic-embossed"
@@ -21,10 +22,16 @@ exports[`AppLegend component should render 1`] = `
         >
           Quill Diagnostic
         </p>
+        <p
+          className="description"
+        >
+          Identify Learning Gaps
+        </p>
       </div>
     </div>
     <div
       className="icon"
+      onClick={[Function]}
     >
       <div
         className="icon-wrapper icon-lessons-embossed"
@@ -37,10 +44,16 @@ exports[`AppLegend component should render 1`] = `
         >
           Quill Lessons
         </p>
+        <p
+          className="description"
+        >
+          Shared Group Lessons
+        </p>
       </div>
     </div>
     <div
       className="icon"
+      onClick={[Function]}
     >
       <div
         className="icon-wrapper icon-connect-embossed"
@@ -53,10 +66,16 @@ exports[`AppLegend component should render 1`] = `
         >
           Quill Connect
         </p>
+        <p
+          className="description"
+        >
+          Combine Sentences
+        </p>
       </div>
     </div>
     <div
       className="icon"
+      onClick={[Function]}
     >
       <div
         className="icon-wrapper icon-flag-embossed"
@@ -69,10 +88,16 @@ exports[`AppLegend component should render 1`] = `
         >
           Quill Proofreader
         </p>
+        <p
+          className="description"
+        >
+          Practice Mechanics
+        </p>
       </div>
     </div>
     <div
       className="icon"
+      onClick={[Function]}
     >
       <div
         className="icon-wrapper icon-puzzle-embossed"
@@ -84,6 +109,11 @@ exports[`AppLegend component should render 1`] = `
           className="title"
         >
           Quill Grammar
+        </p>
+        <p
+          className="description"
+        >
+          Fix Errors In Passages
         </p>
       </div>
     </div>
