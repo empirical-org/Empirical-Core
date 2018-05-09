@@ -64,7 +64,7 @@ export default class JoinClass extends React.Component {
       return <LoadingIndicator />
     }
     return (
-      <div className="page-content-wrapper" id='add-additional-class'>
+      <div id='add-additional-class'>
         <div className='additional-class stage-1 text-center'>
           <h1>Join a New Class</h1>
           <span>Add Your Class Code</span>
