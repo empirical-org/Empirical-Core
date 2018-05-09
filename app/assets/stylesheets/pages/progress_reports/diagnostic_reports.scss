@@ -315,6 +315,11 @@ $lightgray: #cecece;
       font-size: 12px;
       color: #027360;
       cursor: pointer;
+      display: flex;
+      align-items: flex-end;
+      img {
+        margin-right: 5px;
+      }
     }
     .assigned-activity-pack-text {
       margin-left: 10px;
