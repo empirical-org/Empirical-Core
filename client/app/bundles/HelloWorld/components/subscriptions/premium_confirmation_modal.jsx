@@ -36,7 +36,7 @@ export default React.createClass({
           <h1>Congratulations!</h1>
           <h2>You have a {this.props.subscription.account_type} Subscription</h2>
           {content}
-          <a className="q-button button cta-button bg-orange text-white" href="/teachers/progress_reports/activities_scores_by_classroom">View Premium Reports</a>
+          <a className="q-button button cta-button bg-orange text-white view-premium-reports" href="/teachers/progress_reports/activities_scores_by_classroom">View Premium Reports</a>
         </Modal.Body>
       </Modal>
     );
