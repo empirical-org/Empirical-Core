@@ -30,7 +30,7 @@ export default React.createClass({
           authenticity_token: $('meta[name=csrf-token]').attr('content'),
         },
       }).success(() => {
-        window.location.assign('/teachers/classrooms/scorebook');
+        window.location.assign('/teachers/progress_reports/activities_scores_by_classroom');
       });
     }
   },
