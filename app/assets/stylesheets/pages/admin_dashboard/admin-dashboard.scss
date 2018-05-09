@@ -295,6 +295,9 @@
   }
 
   .tab-subnavigation-wrapper {
+    .active, a:hover {
+      text-decoration: none;
+    }
     .premium {
       border: 1px solid #eda41b;
       color: #875a12;
