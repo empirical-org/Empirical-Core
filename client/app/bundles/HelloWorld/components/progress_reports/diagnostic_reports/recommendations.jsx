@@ -92,6 +92,18 @@ export default React.createClass({
     }
   },
 
+  unselectAllRecommendations() {
+    const newSelections = this.state.selections.map(selection => {
+      selection.students = []
+      return selection
+    })
+    this.setState({selections: newSelections})
+  },
+
+  selectAllRecommendations() {
+    this.setState({selections: this.state.recommendations})
+  },
+
   studentWasAssigned(student, previouslyAssignedRecommendation) {
     if (previouslyAssignedRecommendation && previouslyAssignedRecommendation.students) {
       return previouslyAssignedRecommendation.students.includes(student.id);
@@ -199,12 +211,24 @@ export default React.createClass({
     );
   },
 
+  renderCheckOrUncheckAllRecommendedActivityPacks() {
+    const hasSelectedActivities = this.state.selections.find(sel => _.compact(sel.students).length > 0)
+    if (hasSelectedActivities) {
+      return <p className="uncheck-recommendations" onClick={this.unselectAllRecommendations}><img src="https://assets.quill.org/images/icons/uncheckall-diagnostic.svg"/>Uncheck All</p>
+    } else {
+      return <p className="check-recommendations" onClick={this.selectAllRecommendations}><img src="https://assets.quill.org/images/icons/checkall-diagnostic.svg"/>Check All</p>
+    }
+  },
+
   renderTopBar() {
     return (
       <div className="recommendations-top-bar">
         <div className="recommendations-key">
           <div className="recommendations-key-icon" />
-          <p>Recommended Activity Packs</p>
+          <span className="recommended-activity-pack-text">
+            <p>Recommended Activity Packs</p>
+            {this.renderCheckOrUncheckAllRecommendedActivityPacks()}
+          </span>
           <div className="assigned-recommendations-key-icon"><i className="fa fa-check-circle" /></div>
           <span className="assigned-activity-pack-text">
             <p>Assigned Activity Packs</p>
