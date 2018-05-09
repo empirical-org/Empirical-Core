@@ -294,4 +294,22 @@
     }
   }
 
+  .tab-subnavigation-wrapper {
+    .premium {
+      border: 1px solid #eda41b;
+      color: #875a12;
+      .fa-star {
+        color: #eda41b;
+      }
+      &.active, &:hover {
+        text-decoration: none;
+        background: #eda41b;
+        color: white;
+        .fa-star {
+          color: white;
+        }
+      }
+    }
+  }
+
 }
