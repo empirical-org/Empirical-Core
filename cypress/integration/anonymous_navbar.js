@@ -138,7 +138,7 @@ describe('Anonymous Navbar', function() {
 
 
   it('Login item', function() {
-    cy.contains('Login').click({force: true})
+    cy.contains('Log In').click({force: true})
 
     cy.url().should('include', 'session/new')
   })

@@ -1,11 +1,8 @@
 <%= render partial: 'teachers/shared/scorebook_tabs' %>
-<!-- #page-content-wrapper
-  #activity-planner.tab-pane.teachers-unit-template data-id=@unit_template_id
+  <!-- #activity-planner.tab-pane.teachers-unit-template data-id=@unit_template_id
     = render partial: 'application/spinner' -->
 
 
-<div class="page-content-wrapper">
-  <div id="public-activity-packs" class="tab-pane teachers-unit-template" data-id="<%= @unit_template_id %>" data-authenticated=<%=@is_teacher%>>
+<div id="public-activity-packs" class="tab-pane teachers-unit-template" data-id="<%= @unit_template_id %>" data-authenticated=<%=@is_teacher%>>
   <%= react_component('PublicActivityPacksApp', props: {})%>
-  </div>
 </div>
