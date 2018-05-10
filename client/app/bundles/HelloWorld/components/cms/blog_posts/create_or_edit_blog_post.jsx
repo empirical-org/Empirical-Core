@@ -87,6 +87,8 @@ export default class extends React.Component {
     this.updatePreviewCardBasedOnType();
     if(this.props.action === 'new') {
       this.setState({ previewCardHasAlreadyBeenManuallyEdited: false });
+    } else {
+      this.setState({ previewCardHasAlreadyBeenManuallyEdited: true })
     }
   }
 
