@@ -49,7 +49,7 @@ export default class extends React.Component {
         sections.push(<TopicSection
           key={topic}
           title={topic}
-          articles={articlesInThisTopic.sort(a => a.order_number)}
+          articles={articlesInThisTopic.sort((a, b) => a.order_number - b.order_number)}
           articleCount={articlesInThisTopic.length}
         />
       );
