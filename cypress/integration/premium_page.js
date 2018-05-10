@@ -90,7 +90,7 @@ describe('Premium Page', () => {
       before(() => {
         cy.cleanDatabase()
         cy.factoryBotCreate({
-          factory: 'teacher',
+          factory: 'teacher_with_school',
           password: 'password',
           username: 'teacher',
           stripe_customer_id: 'cus_CN6VaNY6yd8R5M'
@@ -187,7 +187,7 @@ describe('Premium Page', () => {
         before(() => {
           cy.cleanDatabase()
           cy.factoryBotCreate({
-            factory: 'teacher',
+            factory: 'teacher_with_school',
             password: 'password',
             username: 'teacher',
             id: 1
