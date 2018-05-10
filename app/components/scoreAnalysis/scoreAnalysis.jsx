@@ -24,10 +24,10 @@ class ScoreAnalysis extends Component {
     this.state = {
       sort: 'weakResponses',
       direction: 'dsc',
-      questionType: questionType,
-      status: status,
+      questionType,
+      status,
       questionData: [],
-      flag: null
+      flag: 'production'
     };
 
     this.updateQuestionTypeFilter = this.updateQuestionTypeFilter.bind(this)
@@ -42,7 +42,7 @@ class ScoreAnalysis extends Component {
   componentWillMount() {
     checkTimeout();
     this.props.dispatch(loadScoreData());
-    const {scoreAnalysis, questions, diagnosticQuestions, sentenceFragments, fillInBlank} = this.props
+    const { scoreAnalysis, questions, diagnosticQuestions, sentenceFragments, fillInBlank } = this.props
     if (scoreAnalysis.hasreceiveddata && questions.hasreceiveddata && diagnosticQuestions.hasreceiveddata && sentenceFragments.hasreceiveddata && fillInBlank.hasreceiveddata) {
       if (this.state.questionData.length === 0) {
         this.formatData(this.props)
@@ -51,7 +51,7 @@ class ScoreAnalysis extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const {scoreAnalysis, questions, diagnosticQuestions, sentenceFragments, fillInBlank} = nextProps
+    const { scoreAnalysis, questions, diagnosticQuestions, sentenceFragments, fillInBlank } = nextProps
     if (scoreAnalysis.hasreceiveddata && questions.hasreceiveddata && diagnosticQuestions.hasreceiveddata && sentenceFragments.hasreceiveddata && fillInBlank.hasreceiveddata) {
       if (!_.isEqual(nextProps.scoreAnalysis.data, this.props.scoreAnalysis.data) || this.state.questionData.length === 0) {
         this.formatData(nextProps)
