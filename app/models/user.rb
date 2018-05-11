@@ -332,20 +332,6 @@ class User < ActiveRecord::Base
     self.update!(name: "Deleted User_#{self.id}", email: "deleted_user_#{self.id}@example.com", username: "deleted_user_#{self.id}")
   end
 
-  def last_name= last_name
-    first_name
-    @last_name = last_name
-    set_name
-  end
-
-  def first_name
-    @first_name ||= name.to_s.split("\s")[0]
-  end
-
-  def last_name
-    @last_name ||= name.to_s.split("\s")[-1]
-  end
-
   def set_name
     self.name = [@first_name, @last_name].compact.join(' ')
   end
