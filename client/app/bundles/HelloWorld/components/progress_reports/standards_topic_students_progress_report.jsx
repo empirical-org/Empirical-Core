@@ -134,6 +134,7 @@ export default class extends React.Component {
         <div className="meta-overview flex-row space-between">
           <div className='header-and-info'>
             <h1><span>Standards Report:</span> {this.state.topic.name}</h1>
+            <p>You can print this report by downloading a PDF file or export this data by downloading a CSV file.</p>
           </div>
           <div className='csv-and-how-we-grade'>
             <CSVDownloadForProgressReport data={this.state.csvData}/>
