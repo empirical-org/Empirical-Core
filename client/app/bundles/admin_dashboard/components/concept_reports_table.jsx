@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
-import EmptyStateForReport from '../../HelloWorld/components/progress_reports/empty_state_for_report';
+import EmptyStateForReport from '../../TeacherReact/components/progress_reports/empty_state_for_report';
 import { sortByLastName } from '../../../modules/sortingMethods';
 
 const ConceptReportsTable = ({ data, }) => {

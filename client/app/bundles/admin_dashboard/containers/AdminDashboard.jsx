@@ -3,10 +3,10 @@ import request from 'request';
 import AdminsTeachers from '../components/admins_teachers.tsx';
 import PremiumFeatures from '../components/premium_features.tsx';
 import CreateNewAccounts from '../components/create_new_accounts.tsx';
-import LoadingSpinner from '../../HelloWorld/components/shared/loading_indicator';
-import QuestionsAndAnswers from '../../HelloWorld/containers/QuestionsAndAnswers';
+import LoadingSpinner from '../../TeacherReact/components/shared/loading_indicator';
+import QuestionsAndAnswers from '../../TeacherReact/containers/QuestionsAndAnswers';
 
-import getAuthToken from '../../HelloWorld/components/modules/get_auth_token';
+import getAuthToken from '../../TeacherReact/components/modules/get_auth_token';
 
 export default React.createClass({
   propTypes: {

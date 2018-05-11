@@ -1,5 +1,5 @@
 import React from 'react';
-import JoinClass from '../../HelloWorld/containers/JoinClass.jsx';
+import JoinClass from '../../TeacherReact/containers/JoinClass.jsx';
 
 export default (props) => (
   <JoinClass {...props} />
