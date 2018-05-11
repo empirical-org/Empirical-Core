@@ -157,7 +157,7 @@ export default class extends React.Component {
         <div className="meta-overview flex-row space-between">
           <div className='header-and-info'>
             <h1>Activity Scores</h1>
-            <p>View the overall average score for each student in an active classroom. Click on an individual student to view their scores by activity pack and activity.</p>
+            <p>View the overall average score for each student in an active classroom. Click on a student’s name to see a report of each individual activity and print it as a PDF. You can print this report by downloading a PDF file or export this data by downloading a CSV file.</p>
           </div>
           <div className='csv-and-how-we-grade'>
             <CSVDownloadForProgressReport key={`${this.state.selectedClassroom} report button`} data={this.formatDataForCSV(filteredClassroomsData)}/>
