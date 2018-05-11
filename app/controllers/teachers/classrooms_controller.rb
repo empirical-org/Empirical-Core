@@ -27,9 +27,7 @@ class Teachers::ClassroomsController < ApplicationController
   end
 
   def regenerate_code
-    cl = Classroom.new
-    cl.generate_code
-    render json: {code: cl.code}
+    render json: {code: Classroom.generate_unique_code}
   end
 
   def create
