@@ -1,0 +1,41 @@
+.google-mismatch-container {
+  margin: auto;
+  text-align: center;
+  max-width: 715px;
+  padding-top: 37px;
+  font-size: 18px;
+
+  h2 {
+    padding-bottom: 20px;
+    font-weight: 600;
+    i {
+      margin-right: 12px;
+    }
+  }
+  p {
+    padding-bottom: 20px;
+  }
+
+  a.q-button.cta-button {
+    font-size: 16px;
+    margin-bottom: 40px;
+  }
+  form {
+    display: inline-block;
+    padding: 10px 0px 10px;
+    input:not(.q-button) {
+      width: 264px;  
+    }
+    .q-button {
+      border: 1px solid;
+      font-weight: 700;
+      margin-bottom: 0px;
+      padding: 8px 20px;
+      margin-left: 10px;
+    }
+  }
+  a:not(.q-button) {
+    color: #0d614d;
+    text-decoration: underline;
+  }
+}
