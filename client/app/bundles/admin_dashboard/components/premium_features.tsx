@@ -2,8 +2,6 @@ import * as React from 'react'
 
 const PremiumFeatures = () =>
 <div id="features">
-  <h2>School dashboard</h2>
-  <p>Quill Premium for Schools provides you with:</p>
   <div className="features-list">
     <div className="feature">
       <img src="https://assets.quill.org/images/icons/student_icon_admin.svg"/>

@@ -57,7 +57,7 @@
     }
     .features-list {
       display: flex;
-      margin-top: 32px;
+      margin-top: 70px;
       .feature {
         width: 320px;
         &:first-of-type, &:nth-of-type(2) {
@@ -137,6 +137,7 @@
     }
     .warning {
       font-weight: bold;
+      margin: 0px;
     }
     .teacher-link {
       font-size: 14px;
@@ -288,6 +289,27 @@
       .answer {
         p, ol, ul {
           margin-top: 15px;
+        }
+      }
+    }
+  }
+
+  .tab-subnavigation-wrapper {
+    .active, a:hover {
+      text-decoration: none;
+    }
+    .premium {
+      border: 1px solid #eda41b;
+      color: #875a12;
+      .fa-star {
+        color: #eda41b;
+      }
+      &.active, &:hover {
+        text-decoration: none;
+        background: #eda41b;
+        color: white;
+        .fa-star {
+          color: white;
         }
       }
     }
