@@ -19,11 +19,12 @@ class questionHealth extends Component {
       sf: {},
       dq: {},
       fib: {},
-      flag: null
+      flag: 'production'
     }
 
     this.updateFlag = this.updateFlag.bind(this)
     this.filterByFlag = this.filterByFlag.bind(this)
+    this.filterQuestionsByFlag = this.filterQuestionsByFlag.bind(this)
   }
 
   componentWillMount() {
@@ -44,49 +45,57 @@ class questionHealth extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.scoreAnalysis.hasreceiveddata) {
-      if (nextProps.questions.hasreceiveddata) {
-        this.setSentenceCombiningQuestions(nextProps.scoreAnalysis.data, nextProps.questions.data)
-      }
-      if (nextProps.diagnosticQuestions.hasreceiveddata) {
-        this.setDiagnosticQuestions(nextProps.scoreAnalysis.data, nextProps.diagnosticQuestions.data)
-      }
-      if (nextProps.sentenceFragments.hasreceiveddata) {
-        this.setSentenceFragments(nextProps.scoreAnalysis.data, nextProps.sentenceFragments.data)
-      }
-      if (nextProps.fillInBlank.hasreceiveddata) {
-        this.setFillInBlankQuestions(nextProps.scoreAnalysis.data, nextProps.fillInBlank.data)
-      }
+    const { scoreAnalysis, questions, diagnosticQuestions, sentenceFragments, fillInBlank } = nextProps
+    if (scoreAnalysis.hasreceiveddata && questions.hasreceiveddata && diagnosticQuestions.hasreceiveddata && sentenceFragments.hasreceiveddata && fillInBlank.hasreceiveddata) {
+      this.filterQuestionsByFlag(scoreAnalysis, questions, diagnosticQuestions, sentenceFragments, fillInBlank)
+      // if (nextProps.questions.hasreceiveddata) {
+      //   this.setSentenceCombiningQuestions(nextProps.scoreAnalysis.data, nextProps.questions.data)
+      // }
+      // if (nextProps.diagnosticQuestions.hasreceiveddata) {
+      //   this.setDiagnosticQuestions(nextProps.scoreAnalysis.data, nextProps.diagnosticQuestions.data)
+      // }
+      // if (nextProps.sentenceFragments.hasreceiveddata) {
+      //   this.setSentenceFragments(nextProps.scoreAnalysis.data, nextProps.sentenceFragments.data)
+      // }
+      // if (nextProps.fillInBlank.hasreceiveddata) {
+      //   this.setFillInBlankQuestions(nextProps.scoreAnalysis.data, nextProps.fillInBlank.data)
+      // }
     }
-
   }
 
   updateFlag(e) {
+    const { scoreAnalysis, questions, diagnosticQuestions, sentenceFragments, fillInBlank } = this.props
     const flag = e.target.value === 'all' ? null : e.target.value
-    this.setState({flag: flag}, this.filterQuestionsByFlag)
+    this.setState({flag: flag}, () => this.filterQuestionsByFlag(scoreAnalysis, questions, diagnosticQuestions, sentenceFragments, fillInBlank))
   }
 
   filterByFlag(q) {
     return q.flag === this.state.flag || q.flag === oldFlagToNew[this.state.flag]
   }
 
-  filterQuestionsByFlag() {
+  filterQuestionsByFlag(
+    scoreAnalysis,
+    questions,
+    diagnosticQuestions,
+    sentenceFragments,
+    fillInBlank
+  ) {
     let questionData, diagnosticQuestionData, sentenceFragmentData, fillInBlankQuestionData
     if (this.state.flag) {
-      questionData = _.pickBy(this.props.questions.data, this.filterByFlag)
-      diagnosticQuestionData = _.pickBy(this.props.diagnosticQuestions.data, this.filterByFlag)
-      sentenceFragmentData = _.pickBy(this.props.sentenceFragments.data, this.filterByFlag)
-      fillInBlankQuestionData = _.pickBy(this.props.fillInBlank.data, this.filterByFlag)
+      questionData = _.pickBy(questions.data, this.filterByFlag)
+      diagnosticQuestionData = _.pickBy(diagnosticQuestions.data, this.filterByFlag)
+      sentenceFragmentData = _.pickBy(sentenceFragments.data, this.filterByFlag)
+      fillInBlankQuestionData = _.pickBy(fillInBlank.data, this.filterByFlag)
     } else {
-      questionData = this.props.questions.data
-      diagnosticQuestionData = this.props.diagnosticQuestions.data
-      sentenceFragmentData = this.props.sentenceFragments.data
-      fillInBlankQuestionData = this.props.fillInBlank.data
+      questionData = questions.data
+      diagnosticQuestionData = diagnosticQuestions.data
+      sentenceFragmentData = sentenceFragments.data
+      fillInBlankQuestionData = fillInBlank.data
     }
-    this.setSentenceCombiningQuestions(this.props.scoreAnalysis.data, questionData)
-    this.setDiagnosticQuestions(this.props.scoreAnalysis.data, diagnosticQuestionData)
-    this.setSentenceFragments(this.props.scoreAnalysis.data, sentenceFragmentData)
-    this.setFillInBlankQuestions(this.props.scoreAnalysis.data, fillInBlankQuestionData)
+    this.setSentenceCombiningQuestions(scoreAnalysis.data, questionData)
+    this.setDiagnosticQuestions(scoreAnalysis.data, diagnosticQuestionData)
+    this.setSentenceFragments(scoreAnalysis.data, sentenceFragmentData)
+    this.setFillInBlankQuestions(scoreAnalysis.data, fillInBlankQuestionData)
   }
 
   setSentenceCombiningQuestions(analyzedQuestions, sentenceCombiningQuestions) {
