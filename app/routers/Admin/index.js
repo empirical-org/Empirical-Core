@@ -1,5 +1,8 @@
 export default {
   path: 'admin',
+  onEnter: () => {
+    document.location.href = `${document.location.origin + document.location.pathname}#/admin/question-health`
+  },
   getChildRoutes: (partialNextState, cb) => {
     Promise.all([
       System.import(/* webpackChunkName: "admin-concept-feedback" */ './routes/ConceptFeedback/index.js'),
