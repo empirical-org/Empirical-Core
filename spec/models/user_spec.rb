@@ -411,19 +411,7 @@ describe User, type: :model do
     end
   end
 
-  describe '#imported_from_clever?' do
-    let(:user) { build_stubbed(:user) }
-
-    before do
-      allow(user).to receive(:token).and_return("something")
-    end
-
-    it 'should return the token value' do
-      expect(user.imported_from_clever?).to eq("something")
-    end
-  end
-
-  describe '#delte_classroom_minis_cache' do
+  describe '#delete_classroom_minis_cache' do
     let(:user) { create(:user) }
 
     it 'should clear the class_room_minis cache' do
@@ -433,7 +421,7 @@ describe User, type: :model do
     end
   end
 
-  describe '#delte_struggling_students_cache' do
+  describe '#delete_struggling_students_cache' do
     let(:user) { create(:user) }
 
     it 'should clear the class_room_minis cache' do
@@ -485,7 +473,7 @@ describe User, type: :model do
     end
   end
 
-  describe '#delte_difficult_concepts_cache' do
+  describe '#delete_difficult_concepts_cache' do
     let(:user) { create(:user) }
 
     it 'should clear the class_room_minis cache' do

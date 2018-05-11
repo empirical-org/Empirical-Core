@@ -397,10 +397,6 @@ class User < ActiveRecord::Base
     end
   end
 
-  def imported_from_clever?
-    self.token
-  end
-
   ransacker :created_at_date, type: :date do |parent|
     Arel::Nodes::SqlLiteral.new "date(items.created_at)"
   end
