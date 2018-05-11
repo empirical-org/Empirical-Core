@@ -1,5 +1,5 @@
 import React from 'react'
-import StudentProfile from '../../HelloWorld/containers/StudentProfile.jsx'
+import StudentProfile from '../../TeacherReact/containers/StudentProfile.jsx'
 import { Provider } from 'react-redux'
 import studentProfile from '../../../reducers/student_profile'
 import { createStore, combineReducers, applyMiddleware } from 'redux'

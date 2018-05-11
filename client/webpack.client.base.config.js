@@ -71,7 +71,7 @@ module.exports = {
       'jquery'
     ],
     app: [
-      './app/bundles/HelloWorld/startup/clientRegistration'
+      './app/bundles/TeacherReact/startup/clientRegistration'
     ],
     home: [
       './app/bundles/Home/home'

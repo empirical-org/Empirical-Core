@@ -2,10 +2,10 @@
 *delete this file before merging into master*
 
 Twin Branches:
-- client/app/bundles/HelloWorld/containers/AdminDashboardRouter.jsx (unused)
+- client/app/bundles/TeacherReact/containers/AdminDashboardRouter.jsx (unused)
   AND
   client/app/bundles/admin_dashboard/containers/AdminDashboardRouter.jsx
-- client/app/bundles/HelloWorld/components/admin_dashboard/subnav_tabs.jsx (unused)
+- client/app/bundles/TeacherReact/components/admin_dashboard/subnav_tabs.jsx (unused)
   AND
   client/app/bundles/admin_dashboard/components/subnav_tabs.jsx
  
@@ -13,8 +13,8 @@ Twin Branches:
 - ~app/controllers/api/v1/progress_reports_controller.rb - add method for district_standards_reports~
 - ~app/queries/progress_reports/district_standards_reports.rb - write sql query for standards reports~
 - ~client/app/actions/district_standards_reports.rb~
-- ~client/app/bundles/HelloWorld/components/progress_reports/district_standards_reports_progress_report.jsx~
-- ~client/app/bundles/HelloWorld/startup/AdminDashboardAppClient.jsx - add new reducer to combined reducer~
+- ~client/app/bundles/TeacherReact/components/progress_reports/district_standards_reports_progress_report.jsx~
+- ~client/app/bundles/TeacherReact/startup/AdminDashboardAppClient.jsx - add new reducer to combined reducer~
 - ~client/app/bundles/admin_dashboard/components/standards_reports.jsx~
 - ~client/app/bundles/admin_dashboard/components/standards_reports_table.jsx~ 
 - ~client/app/bundles/admin_dashboard/components/subnav_tabs.jsx - add 'District Standards Reports' to subnav~
@@ -26,7 +26,7 @@ Twin Branches:
 
 
 TODO:
-  - ~Remove repetitive logic. It seems that some files in HelloWorld are twins or
+  - ~Remove repetitive logic. It seems that some files in TeacherReact are twins or
     identical to those in admin_dashboard. Any extra files make the code less
     useful and readable.~ 
   - ~Should teacher filter dropdown and/or associated logic be removed, ie,
@@ -38,7 +38,7 @@ TODO:
     keys.  Below, DistrictStandardsReports is expected to be
     district_standards_reports by callers. (moving to own issue #3992)
     * ![malformed_reducer.png]
-  - Reducer names should not be snake cased client/app/bundles/HelloWorld/startup/AdminDashboardAppClient.jsx (moving to own issue #3993)
+  - Reducer names should not be snake cased client/app/bundles/TeacherReact/startup/AdminDashboardAppClient.jsx (moving to own issue #3993)
     * This issue is put on hold until the issue above (#3992) is resolved
     * Partial fix made - the files themselves export as title case, but the keys
       on the reducer are still snake.  Since the reducer keys are called in many
