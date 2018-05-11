@@ -33,10 +33,20 @@
     .container {
         max-width: 800px;
         margin: auto;
+        align-items: center;
     }
 
     .nav-item {
         color: $white;
+    }
+
+    .question-counter {
+      font-size: 14px;
+      color: #ffffff;
+      letter-spacing: 0.2px;
+      span {
+        font-weight: 600;
+      }
     }
     @media (max-width: 850px) {
         .container {

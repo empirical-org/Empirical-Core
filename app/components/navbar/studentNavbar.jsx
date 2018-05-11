@@ -34,6 +34,10 @@ const Navbar = React.createClass({
     }
   },
 
+  diagnostic() {
+    return window.location.href.includes('play/diagnostic');
+  },
+
   ellDiagnostic() {
     return window.location.href.includes('play/diagnostic/ell');
   },
@@ -60,6 +64,15 @@ const Navbar = React.createClass({
     }
   },
 
+  renderQuestionCounter() {
+    const { questionSet, answeredQuestions, currentQuestion, } = this.props.playDiagnostic
+    if (this.diagnostic() && questionSet && currentQuestion && currentQuestion.type !== 'TL') {
+      const numberOfQuestions = questionSet.filter(q => q.type !== 'TL').length
+      const currentQuestionNumber = answeredQuestions.length + 1
+      return <div className="question-counter"><span>{currentQuestionNumber}</span> of <span>{numberOfQuestions}</span> Questions</div>
+    }
+  },
+
   render() {
     if (this.quillLessons()) {
       return (<StudentLessonsNavBar />);
@@ -77,6 +90,7 @@ const Navbar = React.createClass({
               />
             </a>
           </div>
+          {this.renderQuestionCounter()}
           {this.renderLinks()}
           <span className="nav-toggle" onClick={this.toggle}>
             <span />
@@ -106,6 +120,7 @@ const rightNav = (<div className="nav-right nav-menu">
 function select(state) {
   return {
     routing: state.routing,
+    playDiagnostic: state.playDiagnostic
   };
 }
 
