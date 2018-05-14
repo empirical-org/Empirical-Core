@@ -350,7 +350,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
       expect(response.body).to eq({
         hasPremium: "some subscription",
         trial_days_remaining: 10,
-        first_day_of_premium_ot_trial: true
+        first_day_of_premium_or_trial: true
       }.to_json)
     end
   end
