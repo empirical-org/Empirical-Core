@@ -319,7 +319,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
 
   describe '#students_list' do
     let(:teacher) { create(:teacher) }
-    let(:classroom) { create(:classroom_with_a_couple_students) }
+    let!(:classroom) { create(:classroom_with_a_couple_students) }
     
     before do
       allow(controller).to receive(:current_user) { teacher }
