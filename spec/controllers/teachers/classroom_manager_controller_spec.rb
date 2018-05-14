@@ -317,22 +317,22 @@ describe Teachers::ClassroomManagerController, type: :controller do
     end
   end
 
-  describe '#students_list' do
-    let(:teacher) { create(:teacher) }
-    let!(:classroom) { create(:classroom_with_a_couple_students) }
-    
-    before do
-      allow(controller).to receive(:current_user) { teacher }
-    end
-
-    it 'should assign the classroom and render the correct json' do
-      get :students_list, id: classroom.id, format: :json
-      expect(assigns(:classroom)).to eq classroom
-      expect(response.body).to eq({
-        students: classroom.students.order("substring(users.name, '(?=\s).*') asc, users.name asc"),
-      }.to_json)
-    end
-  end
+  # describe '#students_list' do
+  #   let(:teacher) { create(:teacher) }
+  #   let!(:classroom) { create(:classroom_with_a_couple_students) }
+  #
+  #   before do
+  #     allow(controller).to receive(:current_user) { teacher }
+  #   end
+  #
+  #   it 'should assign the classroom and render the correct json' do
+  #     get :students_list, id: classroom.id, format: :json
+  #     expect(assigns(:classroom)).to eq classroom
+  #     expect(response.body).to eq({
+  #       students: classroom.students.order("substring(users.name, '(?=\s).*') asc, users.name asc"),
+  #     }.to_json)
+  #   end
+  # end
 
   describe '#premium' do
     let(:teacher) { create(:teacher) }
