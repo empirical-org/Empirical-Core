@@ -85,7 +85,11 @@ class Teachers::ClassroomManagerController < ApplicationController
   def students_list
     @classroom = Classroom.find params[:id]
     last_name = "substring(users.name, '(?=\s).*')"
-    render json: {students: @classroom.students.order("#{last_name} asc, users.name asc")}
+    if classroom
+      render json: {students: @classroom.students.order("#{last_name} asc, users.name asc")}
+    else
+      render json: {}
+    end
   end
 
   def premium
