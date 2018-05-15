@@ -1,8 +1,7 @@
 <%= render partial: 'teachers/shared/scorebook_tabs' %>
-        	<!-- Tab panes -->
-  <div class="tab-content">
-      <div class="tab-pane active" id="class-manager">
-        <%= render partial: 'teachers/classrooms/subnav' %>
-        <%= react_component('CreateClassApp', props: {hasClassroomActivities: @has_activities, user: @user})%>
-    </div>
+
+<div class="tab-content">
+  <div class="tab-pane active" id="class-manager">
+    <%= react_component('CreateClassApp', props: {hasClassroomActivities: @has_activities, user: @user})%>
   </div>
+</div>

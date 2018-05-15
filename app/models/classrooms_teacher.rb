@@ -27,7 +27,7 @@ class ClassroomsTeacher < ActiveRecord::Base
   end
 
   def trigger_analytics_events_for_classroom_creation
-    find_or_create_checkbox('Create a Classroom', self.owner)
+    find_or_create_checkbox('Create a Classroom', self.classroom.owner)
     ClassroomCreationWorker.perform_async(self.classroom_id)
   end
 

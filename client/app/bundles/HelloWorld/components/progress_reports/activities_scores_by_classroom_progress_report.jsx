@@ -32,12 +32,11 @@ export default class extends React.Component {
       url: `${process.env.DEFAULT_URL}/api/v1/progress_reports/activities_scores_by_classroom_data`
     }, (e, r, body) => {
       const data = JSON.parse(body).data
-      const csvData = this.formatDataForCSV(data)
       const classroomsData = data;
       // gets unique classroom names
       const classroomNames = [...new Set(classroomsData.map(row => row.classroom_name))]
       classroomNames.unshift(showAllClassroomKey)
-      that.setState({loading: false, errors: body.errors, classroomsData, csvData, classroomNames});
+      that.setState({loading: false, errors: body.errors, classroomsData, classroomNames});
     });
   }
 
@@ -161,7 +160,7 @@ export default class extends React.Component {
             <p>View the overall average score for each student in an active classroom. Click on an individual student to view their scores by activity pack and activity.</p>
           </div>
           <div className='csv-and-how-we-grade'>
-            <CSVDownloadForProgressReport data={this.state.csvData}/>
+            <CSVDownloadForProgressReport key={`${this.state.selectedClassroom} report button`} data={this.formatDataForCSV(filteredClassroomsData)}/>
             <a className='how-we-grade' href="https://support.quill.org/activities-implementation/how-does-grading-work">How We Grade<i className="fa fa-long-arrow-right"></i></a>
           </div>
         </div>

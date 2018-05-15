@@ -5,8 +5,44 @@
     <h2><%= @user.name %></h2>
     <br />
     <%= link_to 'Edit User', edit_cms_user_path(params[:id]), class: 'btn button-green' %>
-    <%= link_to 'Edit Subscription', edit_subscription_cms_user_path(params[:id]), class: 'btn button-green' %>
     <br /><br />
+
+    <% if @user.sales_contact.present? %>
+      <h2>Sales Stage</h2>
+      <table class='cms-results-table'>
+        <thead>
+          <tr>
+            <td>Stage</td>
+            <td>Description</td>
+            <td>Completed</td>
+            <td>Staff</td>
+            <td>Action</td>
+          </tr>
+        </thead>
+        <tbody>
+          <% @user.sales_contact.stages.each do |stage| %>
+            <tr>
+              <td>
+                <%= stage.name %>
+              </td>
+              <td>
+                <%= stage.description %>
+              </td>
+              <td>
+                <%= format_date(stage.completed_at) %>
+              </td>
+              <td>
+                <%= completed_by(stage.user) %>
+              </td>
+              <td>
+                <%= action_column(stage) %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <br /><br />
+    <% end %>
 
     <p style='font-weight: 700;'>Email</p>
     <p><%= @user.email || 'N/A' %></p>
@@ -26,6 +62,10 @@
 
     <p style='font-weight: 700;'>Username</p>
     <p><%= @user.username || 'N/A' %></p>
+    <br />
+
+    <p style='font-weight: 700;'>Flags</p>
+    <p><%= @user.flags.any? ? @user.flags : 'None' %></p>
     <br />
 
     <p style='font-weight: 700;'>Role</p>
@@ -53,13 +93,9 @@
     <br />
 
     <% if @user.role == 'teacher' %>
-      <p style='font-weight: 700;'>Premium Status</p>
-      <p><%= @user.subscription.try(:account_type) || 'N/A' %></p>
-      <br />
-
-      <p style='font-weight: 700;'>Premium Expires</p>
-      <p><%= @user.subscription.try(:expiration) || 'N/A' %></p>
-      <br />
+    <% if @user.subscriptions.any? %>
+      <%= react_component('SubscriptionApp', props: {view: 'subscriptionHistory', subscriptions: @user.subscriptions, premiumCredits: @user.credit_transactions, authorityLevel: 'purchaser' }) %>
+    <% end %>
 
       <p style='font-weight: 700;'>Classes / Grades</p>
       <% @user.classrooms_i_teach.each do |c| %>
@@ -71,6 +107,7 @@
     <p style='font-weight: 700;'>IP Address</p>
     <p><%= @user.ip_address || 'N/A' %></p>
     <br />
+
 
     <p style='font-weight: 700;'>Created</p>
     <p><%= @user.created_at || 'N/A' %></p>

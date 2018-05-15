@@ -1,0 +1,137 @@
+.container.pages-container.pages-faq {
+  color: #3b3b3b;
+  width: 100%;
+  padding: 0;
+
+  * {
+    margin: 0;
+  }
+
+  header {
+    background: #348fdf url('/images/homepage/homepage_pattern_blue_premium.png');
+    color: #ffffff;
+    padding: 40px 10px;
+    text-align: center;
+
+    h1 {
+      font-size: 30px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      padding-top: 10px;
+    }
+
+    h2 {
+      font-weight: 400;
+      font-size: 16px;
+      margin: 0 0 28px;
+    }
+
+    p {
+      font-size: 14px;
+
+      a {
+        color: #ffffff;
+        font-weight: 600;
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .container-946 {
+    margin: auto;
+    padding: 60px 10px;
+    width: 946px;
+
+    .faq-about-quill {
+      background: #fafafa;
+      border: 1px solid #e9e9e9;
+      padding: 20px 36px 25px;
+      font-size: 18px;
+
+      .faq-big-quill {
+        font-weight: bold;
+        font-size: 16px;
+        line-height: 1;
+      }
+
+      p {
+        line-height: 1.8;
+
+        &:last-of-type {
+          margin-top: 20px;
+        }
+      }
+
+      a {
+        color: #027360;
+        text-decoration: underline;
+      }
+    }
+
+    h2 {
+      font-weight: 700;
+      font-size: 28px;
+      margin: 40px 0 20px;
+    }
+
+    .faq-accordion {
+      padding: 0;
+      border: none;
+
+      .question {
+        border-bottom: 1px solid #e9e9e9;
+        padding: 20px 0;
+        cursor: pointer;
+
+        &:last-of-type {
+          border-bottom: none;
+        }
+
+        .question-meta {
+          align-items: center;
+          display: flex;
+
+          h3 {
+            flex-grow: 1;
+            font-size: 20px;
+            font-weight: 600;
+          }
+
+          a {
+            color: #027360;
+            font-weight: 400;
+          }
+        }
+
+        .question-answer {
+          color: #666666;
+          display: none;
+          font-size: 18px;
+          line-height: 1.8;
+          margin-top: 18px;
+
+          ul {
+            font-size: 16px;
+          }
+
+          a {
+            font-weight: 400;
+            color: #666666;
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+
+    .faq-view-all {
+      border: solid 1px #666666;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 10px 12.5px;
+      margin: 50px auto 0;
+      display: block;
+      width: fit-content;
+    }
+  }
+}

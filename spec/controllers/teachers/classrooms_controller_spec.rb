@@ -1,4 +1,3 @@
-require 'spec_helper'
 require 'rails_helper'
 
 describe Teachers::ClassroomsController, type: :controller do
@@ -24,6 +23,23 @@ describe Teachers::ClassroomsController, type: :controller do
         returned_name_and_grade = [returned_class['name'], returned_class['grade']]
         passed_name_and_grade = [classroom_attributes[:name], classroom_attributes[:grade]]
         expect(returned_name_and_grade).to eq(passed_name_and_grade)
+    end
+
+    it 'should render toInviteStudents true when there are no students but the teacher has units' do
+      create(:unit, user_id: teacher.id)
+      post :create, classroom: classroom_attributes
+      expect(JSON.parse(response.body)['toInviteStudents']).to be
+    end
+
+    it 'should render toInviteStudents false when there are students in the classroom' do
+      classroom = create(:classroom_with_a_couple_students)
+      post :create, classroom: classroom.attributes
+      expect(JSON.parse(response.body)['toInviteStudents']).not_to be
+    end
+
+    it 'should render toInviteStudents false when the teacher has no units' do
+      post :create, classroom: classroom_attributes
+      expect(JSON.parse(response.body)['toInviteStudents']).not_to be
     end
 
     it 'displays the form' do

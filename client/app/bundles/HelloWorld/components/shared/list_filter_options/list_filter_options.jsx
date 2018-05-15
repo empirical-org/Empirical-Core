@@ -46,36 +46,13 @@
                   />
   },
 
-  renderForLoggedInUser: function () {
-   return (
-       <div className='list-filter-options-container'>
-         <div className='list-filter-options'>
-            {this.generateViews()}
-         </div>
-     </div>
-    );
-  },
-
-  renderForNotLoggedInUser: function () {
-    return (
-      <div key='not-logged-in' className="about-subtabs tab-subnavigation-wrapper">
-        <div className="container">
-          <ul>
-            <li>
-              {this.generateViews(this.props.userLoggedIn)}
-            </li>
-          </ul>
-        </div>
-      </div>
-    )
-
-  },
-
-
-
   render: function () {
     return (
-      this.props.userLoggedIn ? this.renderForLoggedInUser() : this.renderForNotLoggedInUser()
+      <div className='list-filter-options-container'>
+        <div className='list-filter-options'>
+           {this.generateViews()}
+        </div>
+    </div>
     );
   }
 })

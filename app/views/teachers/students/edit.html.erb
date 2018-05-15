@@ -1,71 +1,68 @@
-<div class="page-content-wrapper">
-	<div class="row">
-    <div class="col-xs-12 col-xl-12">
-			<%= render partial: 'teachers/shared/scorebook_tabs' %>
-      <!-- Tab panes -->
-			<div class="tab-content">
-				<div class="tab-pane active" id="class-manager">
-          <%= render partial: 'teachers/classrooms/subnav' %>
-					<div class="container">
-						<div class='user-profile-editor'>
-							<section class="no-border">
-								<h3 class="form-header"><%= "#{@student.name}'s Account" %></h1>
-								<%= form_for @student, url: teachers_classroom_student_path(@classroom, @student), class: 'edit-student-page' do |f| %>
-									<% if @teacher_created_student %>
-										<div class='form-row'>
-											<div class='form-label'>Real Name</div>
-											<div class='form-input'><%= f.text_field :name %></div>
-										</div>
-										<div class='form-row'>
-											<div class='form-label'>Username</div>
-											<div class='form-input'><%= f.text_field :username %></div>
-										</div>
-									<% else %>
-										<div class='form-row'>
-											<div class='form-label'>Real Name</div>
-											<div class='form-input'><%= f.text_field :name, class: 'inactive', disabled: true %></div>
-										</div>
-										<div class='form-row'>
-											<div class='form-label'>Username</div>
-											<div class='form-input'><%= f.text_field :username, class: 'inactive', disabled: true %></div>
-										</div>
-									<% end %>
-									<%- if @teacher_can_edit_password %>
-										<div class='form-row'>
-											<div class='form-label'>Password</div>
-											<div class='form-input'>
-												<%- if @teacher_can_see_password %>
-													<%= f.text_field :password, value: @student.last_name %>
-												<%- else %>
-													<input disabled type='password' class='inactive edit-password-field' value='<%= @student.last_name %>'>
-													<a onClick='toggleEditPasswordField()' class='edit-password-link'>Edit Password</a>
-												<% end %>
-											</div>
-										</div>
-									<% end %>
+<div class="row">
+  <div class="col-xs-12 col-xl-12">
+		<%= render partial: 'teachers/shared/scorebook_tabs' %>
+    <!-- Tab panes -->
+		<div class="tab-content">
+			<div class="tab-pane active" id="class-manager">
+				<div class="container">
+					<div class='user-profile-editor'>
+						<section class="no-border">
+							<h3 class="form-header"><%= "#{@student.name}'s Account" %></h1>
+							<%= form_for @student, url: teachers_classroom_student_path(@classroom, @student), class: 'edit-student-page' do |f| %>
+								<% if @teacher_created_student %>
 									<div class='form-row'>
-										<div class='form-label'>Class Code</div>
-										<div class='form-input'><input disabled type='text' class='inactive' value=<%= @classroom.code %>></div>
+										<div class='form-label'>Real Name</div>
+										<div class='form-input'><%= f.text_field :name %></div>
 									</div>
-									<% @sign_up_method.each do |k, v|  %>
-										<% if v %>
-									 		<div class='form-row'>
-												<div class='form-label'><%= k %></div>
-												<div class='form-input'><input disabled type='text' class='inactive' value=<%= v %>></div>
-											</div>
-										<% end %>
-									<% end %>
-									<% if @teacher_created_student || @teacher_can_edit_password %>
-										<%= f.button "Save Changes", class: 'button-green' %>
-									<% end %>
+									<div class='form-row'>
+										<div class='form-label'>Username</div>
+										<div class='form-input'><%= f.text_field :username %></div>
+									</div>
+								<% else %>
+									<div class='form-row'>
+										<div class='form-label'>Real Name</div>
+										<div class='form-input'><%= f.text_field :name, class: 'inactive', disabled: true %></div>
+									</div>
+									<div class='form-row'>
+										<div class='form-label'>Username</div>
+										<div class='form-input'><%= f.text_field :username, class: 'inactive', disabled: true %></div>
+									</div>
+								<% end %>
+								<%- if @teacher_can_edit_password %>
+									<div class='form-row'>
+										<div class='form-label'>Password</div>
+										<div class='form-input'>
+											<%- if @teacher_can_see_password %>
+												<%= f.text_field :password, value: @student.last_name %>
+											<%- else %>
+												<input disabled type='password' class='inactive edit-password-field' value='<%= @student.last_name %>'>
+												<a onClick='toggleEditPasswordField()' class='edit-password-link'>Reset Password to Last Name</a>
+											<% end %>
+										</div>
+									</div>
 								<% end %>
 								<div class='form-row'>
-									<div>
-										<%= button_to "Remove from Class", teacher_hide_students_classroom_path(classroom_id: @classroom.id, student_id: @student.id), data: {confirm: 'Are you sure you want to remove the student from this class?'}, method: 'post', class: 'remove-from-class btn btn-danger' %>
-									</div>
+									<div class='form-label'>Class Code</div>
+									<div class='form-input'><input disabled type='text' class='inactive' value=<%= @classroom.code %>></div>
 								</div>
-							</section>
-						</div>
+								<% @sign_up_method.each do |k, v|  %>
+									<% if v %>
+								 		<div class='form-row'>
+											<div class='form-label'><%= k %></div>
+											<div class='form-input'><input disabled type='text' class='inactive' value=<%= v %>></div>
+										</div>
+									<% end %>
+								<% end %>
+								<% if @teacher_created_student || @teacher_can_edit_password %>
+									<%= f.button "Save Changes", class: 'button-green' %>
+								<% end %>
+							<% end %>
+							<div class='form-row'>
+								<div>
+									<%= button_to "Remove from Class", teacher_hide_students_classroom_path(classroom_id: @classroom.id, student_id: @student.id), data: {confirm: 'Are you sure you want to remove the student from this class?'}, method: 'post', class: 'remove-from-class btn btn-danger' %>
+								</div>
+							</div>
+						</section>
 					</div>
 				</div>
 			</div>
@@ -76,15 +73,16 @@
 	function toggleEditPasswordField() {
 		const editPasswordLink = document.getElementsByClassName('edit-password-link')[0];
 		const passwordInputField = document.querySelector('.edit-password-field');
-		if(editPasswordLink.innerText == 'Edit Password') {
+		if(editPasswordLink.innerText == 'Reset Password to Last Name') {
 			editPasswordLink.innerText = 'Cancel';
 			passwordInputField.type = 'text';
 			passwordInputField.name = 'user[password]';
 			passwordInputField.id = 'user_password';
 			passwordInputField.classList = ['edit-password-field'];
 			passwordInputField.removeAttribute('disabled');
+			passwordInputField.setAttribute('readonly', true);
 		} else {
-			editPasswordLink.innerText = 'Edit Password';
+			editPasswordLink.innerText = 'Reset Password to Last Name';
 			passwordInputField.type = 'password';
 			passwordInputField.removeAttribute('name');
 			passwordInputField.removeAttribute('id');

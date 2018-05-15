@@ -29,7 +29,7 @@ class LoginPdf < Prawn::Document
       vertical_line cursor, cursor - 106, at: 242
     end
     stroke_color '000000'
-    render_text "<u>Instructions For Invited Students:</u>", 12
+    render_text "<u>Instructions for Invited Students:</u>", 12
     move_down 14
     render_text "1. Visit <b>quill.org</b>", 12
     move_down 7
@@ -55,13 +55,13 @@ class LoginPdf < Prawn::Document
       background_color: 'EFEFEF',
       borders: [:top],
       border_color: 'DDDDDD'
-    }, column_widths: [182, 262, 120])
+    }, column_widths: [182, 242, 140])
     table(body, cell_style: {
       padding: 10,
       size: 10,
       border_color: 'DDDDDD',
       borders: [:top, :bottom]
-    }, column_widths: [182, 262, 120])
+    }, column_widths: [182, 242, 140])
   end
 
   def render_section_for_one_student(student)
@@ -114,7 +114,7 @@ class LoginPdf < Prawn::Document
   end
 
   def username_or_email_for_student(student)
-    if (student.clever_id.present? || student.signed_up_with_google?) && student.email
+    if (student.clever_id.present? || student.signed_up_with_google?) && !student.email.blank?
       "Email:"
     else
       "Username:"
@@ -122,7 +122,7 @@ class LoginPdf < Prawn::Document
   end
 
   def username_or_email_value_for_student(student)
-    if (student.clever_id.present? || student.signed_up_with_google?) && student.email
+    if (student.clever_id.present? || student.signed_up_with_google?) && !student.email.blank?
       student.email
     else
       student.username
@@ -155,13 +155,13 @@ class LoginPdf < Prawn::Document
 
   def render_password_for_student(student)
     if student.clever_id.present?
-      "Log in with Clever"
+      "N/A (Log in with Clever)"
     elsif student.signed_up_with_google?
-      "Log in with Google"
-    elsif student.email.present?
-      "Log in with email/username and custom password"
+      "N/A (Log in with Google)"
+    elsif student.authenticate(student.last_name)
+      "#{student.last_name.capitalize}"
     else
-      student.last_name.capitalize
+      "N/A (Custom Password)"
     end
   end
 

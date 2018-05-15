@@ -108,3 +108,213 @@
   height: 80px;
   width: 80px;
 }
+
+.cms-container#blog-post {
+  form {
+    max-width: 725px;
+
+    label {
+      color: #666;
+      display: block;
+    }
+
+    input, textarea {
+      border-radius: 5px;
+      border: 1px solid #cecece;
+      display: block;
+      font-size: 14px;
+      line-height: 1.45;
+      padding: 9px 12px;
+      transition: 0.1s ease-out;
+      width: 100%;
+
+      &:focus {
+        border-color: #5bc1a9;
+        outline: none;
+      }
+    }
+
+    input {
+      margin-bottom: 20px;
+    }
+
+    .article-content-container {
+      border: 1px solid #cecece;
+      border-radius: 6px;
+      div:last-of-type {
+        padding: 0px 10px;
+      }
+    }
+
+    #article-preview-bar {
+      background: #cecece;
+      border-radius: 5px 5px 0 0;
+      padding: 5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 36px;
+      .article-tab {
+        cursor: pointer;
+        font-size: 14px;
+        margin-right: 10px;
+        padding: 10px;
+        padding-top: 0px;
+        border-radius: 6px 6px 0px 0px;
+        &.active {
+          background-color: white;
+        }
+      }
+      i {
+        font-size: 16px;
+        background: #fff;
+        border-radius: 5px;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+        color: #666;
+        cursor: pointer;
+        display: inline-block;
+        margin: 0 3px;
+        padding: 6px 4px 4px;
+        text-align: center;
+        transition: all 0.3s ease-out;
+        width: 30px;
+
+        &:hover {
+          box-shadow: 0 2px 1px rgba(0, 0, 0, 0.1);
+          margin-top: -1px;
+          color: #333;
+        }
+      }
+    }
+
+    textarea {
+      border-radius: 0 0 5px 5px;
+      border-top-width: 0;
+      resize: vertical;
+
+      &#preview-markdown-content {
+        margin-bottom: 20px;
+        border-radius: 5px;
+        border-top-width: 1px;
+      }
+    }
+
+    #preview-card-content-fields {
+      background: #eeeeee;
+      border-radius: 5px;
+      font-size: 0.8em;
+      margin-bottom: 20px;
+      max-width: 500px;
+      padding: 15px 20px 1px;
+
+      input {
+        font-size: 1em;
+        padding: 7px 8px;
+      }
+    }
+
+    input[type='submit'] {
+      background: $quillgreen;
+      border: none;
+      color: $white;
+      margin-top: 20px;
+      max-width: fit-content;
+    }
+
+    .markdown-preview {
+      margin-bottom: 20px;
+      width: 100%;
+      background: white;
+      border: 1px solid #ccc;
+      padding: 20px;
+
+      p {
+        font-size: 14px;
+        margin-bottom: 0;
+      }
+
+      h1, h2, h3, p, ul, ol, img, blockquote {
+        margin: 16px 0;
+      }
+    }
+
+    .short-fields {
+      display: flex;
+      margin-bottom: 20px;
+      div {
+        flex: 1
+      }
+      input {
+        width: 214px;
+      }
+    }
+
+    .markdown-cheatsheet {
+      color: $quillforestgreen;
+      display: block;
+      margin: 5px 0 20px;
+      text-align: right;
+    }
+  }
+}
+
+.premium-label, .center-images-label {
+  display: inline-block !important;
+}
+
+.premium-checkbox, .center-images-checkbox {
+  width: 20px !important;
+  display: inline-block !important;
+}
+.link {
+  margin-top: 5px;
+  margin-left: 5px;
+  color: $quillgreen;
+  display: block;
+}
+
+.cms-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.gallery-item {
+  width: 46%;
+  background-color: #ffffff;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 10px 20px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 300px;
+  img {
+    max-width: 100%;
+  }
+  p {
+    margin-bottom: 10px;
+    display: flex;
+    a {
+      font-size: 12px;
+    }
+    span {
+      margin-right: 10px;
+    }
+  }
+}
+
+.trash-link {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  font-size: 20px;
+}
+
+.warning {
+  color: #c51916;
+  margin: 18px;
+}

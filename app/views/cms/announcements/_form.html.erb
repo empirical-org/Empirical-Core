@@ -1,0 +1,27 @@
+<div class='cms-form'>
+  <%= form_for [:cms, @announcement] do |f| %>
+    <div class='cms-form-row'>
+      <%= f.label :text %>
+      <%= f.text_field :text %>
+    </div>
+    <div class='cms-form-row'>
+      <%= f.label :link %>
+      <%= f.text_field :link %>
+    </div>
+    <div class='cms-form-row'>
+      <%= f.label :type %>
+      <%= f.text_field :announcement_type, value: 'webinar', readonly: true %>
+    </div>
+    <div class='cms-form-row'>
+      <%= f.label :start %>
+      <%= f.datetime_local_field :start %>
+    </div>
+    <div class='cms-form-row'>
+      <%= f.label :end %>
+      <%= f.datetime_local_field :end %>
+    </div>
+    <div class='cms-submit-row'>
+      <%= f.submit 'Save', class: 'button-green' %>
+    </div>
+  <% end %>
+</div>

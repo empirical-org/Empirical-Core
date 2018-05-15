@@ -9,6 +9,16 @@ EmpiricalGrammar::Application.routes.draw do
 
   mount Sidekiq::Web => '/sidekiq', constraints: StaffConstraint.new
 
+  if Rails.env.test? || Rails.env == 'cypress'
+    resources :factories, only: :create do
+      post 'create_list', on: :collection
+      delete 'destroy_all', on: :collection
+    end
+  end
+
+  get '/classrooms/:classroom', to: 'students#index'
+  get '/add_classroom', to: 'students#index'
+
   resources :admins, only: [:show], format: 'json' do
     resources :teachers, only: [:index, :create]
   end
@@ -22,10 +32,40 @@ EmpiricalGrammar::Application.routes.draw do
     end
   end
 
-  # for Stripe
-  resources :charges
+  resources :blog_posts, path: 'teacher-center', only: [:index, :show], param: :slug do
+    collection do
+      get '/topic/press', to: redirect('/press')
+      get '/topic/announcements', to: redirect('/announcements')
+      get '/topic/:topic', to: 'blog_posts#show_topic'
+      get 'search', to: 'blog_posts#search'
+    end
+  end
 
-  resources :subscriptions
+  resources :blog_posts, path: 'teacher_resources', only: [], param: :slug do
+    collection do
+      get '/', to: redirect('teacher-center')
+      get '/:slug', to: redirect('teacher-center/%{slug}')
+      get '/topic/:topic', to: redirect('teacher-center/topic/%{topic}')
+      get 'search', to: redirect('teacher-center/search')
+    end
+  end
+
+  post 'rate_blog_post', to: 'blog_post_user_ratings#create'
+
+
+  # for Stripe
+  resources :charges, only: [:create]
+  post 'charges/update_card' => 'charges#update_card'
+  post 'charges/create_customer_with_card' => 'charges#create_customer_with_card'
+  post 'charges/new_teacher_premium' => 'charges#new_teacher_premium'
+  post 'charges/new_school_premium' => 'charges#new_school_premium'
+  put 'credit_transactions/redeem_credits_for_premium' => 'credit_transactions#redeem_credits_for_premium'
+
+  resources :subscriptions do
+    member do
+      get :purchaser_name
+    end
+  end
   resources :assessments
   resources :assignments
   resource :profile
@@ -33,7 +73,6 @@ EmpiricalGrammar::Application.routes.draw do
   resources :schools, only: [:index], format: 'json'
   resources :students_classrooms do
     collection do
-      get :add_classroom
       get :classroom_manager
       get :classroom_manager_data
     end
@@ -80,6 +119,10 @@ EmpiricalGrammar::Application.routes.draw do
   get 'account_settings' => 'students#account_settings'
   put 'make_teacher' => 'students#make_teacher'
   get 'teachers/admin_dashboard' => 'teachers#admin_dashboard'
+  get 'teachers/admin_dashboard/district_activity_scores' => 'teachers#admin_dashboard'
+  get 'teachers/admin_dashboard/district_activity_scores/student_overview' => 'teachers#admin_dashboard'
+  get 'teachers/admin_dashboard/district_concept_reports' => 'teachers#admin_dashboard'
+  get 'teachers/admin_dashboard/district_standards_reports' => 'teachers#admin_dashboard'
   put 'teachers/update_current_user' => 'teachers#update_current_user'
   get 'teachers/:id/schools/:school_id' => 'teachers#add_school'
   get 'teachers/get_completed_diagnostic_unit_info' => 'teachers#get_completed_diagnostic_unit_info'
@@ -284,6 +327,9 @@ EmpiricalGrammar::Application.routes.draw do
       get 'users/current_user_and_coteachers', to: 'users#current_user_and_coteachers'
       post 'published_edition' => 'activities#published_edition'
       get 'progress_reports/activities_scores_by_classroom_data' => 'progress_reports#activities_scores_by_classroom_data'
+      get 'progress_reports/district_activity_scores' => 'progress_reports#district_activity_scores'
+      get 'progress_reports/district_concept_reports' => 'progress_reports#district_concept_reports'
+      get 'progress_reports/district_standards_reports' => 'progress_reports#district_standards_reports'
       get 'progress_reports/student_overview_data/:student_id/:classroom_id' => 'progress_reports#student_overview_data'
     end
 
@@ -309,8 +355,6 @@ EmpiricalGrammar::Application.routes.draw do
     post :role, to: 'accounts#role'
   end
 
-  get '/admin', to: redirect('/demo?name=admin_demo')
-
   namespace :auth do
     get "/google_email_mismatch" => 'google#google_email_mismatch'
     get "/google_oauth2/callback" => 'google#google'
@@ -325,6 +369,7 @@ EmpiricalGrammar::Application.routes.draw do
   get '/select_school', to: 'schools#select_school'
 
   namespace :cms do
+    resources :images, only: [:index, :destroy, :create]
     put '/activity_categories/update_order_numbers', to: 'activity_categories#update_order_numbers'
     post '/activity_categories/destroy_and_recreate_acas', to: 'activity_categories#destroy_and_recreate_acas'
     resources :activity_categories, only: [:index, :show, :create, :update, :destroy]
@@ -336,19 +381,25 @@ EmpiricalGrammar::Application.routes.draw do
     put '/activity_classifications/update_order_numbers', to: 'activity_classifications#update_order_numbers'
     resources :activity_classifications
     resources :topics
+    resources :subscriptions
     resources :topic_categories
     resources :authors, only: [:index, :create, :edit, :update, :new]
     put '/unit_templates/update_order_numbers', to: 'unit_templates#update_order_numbers'
     resources :unit_templates, only: [:index, :create, :update, :destroy]
     resources :unit_template_categories, only: [:index, :create, :update, :destroy]
-
+    put '/blog_posts/update_order_numbers', to: 'blog_posts#update_order_numbers'
+    resources :blog_posts
+    get '/blog_posts/:id/delete', to: 'blog_posts#destroy'
+    get '/blog_posts/:id/unpublish', to: 'blog_posts#unpublish'
     resources :activities, path: 'activity_type/:activity_classification_id/activities' do
       resource :data
     end
 
     resources :users do
-      resource :subscription
+      # resource :subscription
       collection do
+        get 'new_with_school/:school_id', to: 'users#new_with_school', as: :new_with_school
+        post 'create_with_school/:school_id', to: 'users#create_with_school', as: :create_with_school
         post :search
         get :search, to: 'users#index'
       end
@@ -358,7 +409,8 @@ EmpiricalGrammar::Application.routes.draw do
         put :clear_data
         get :sign_in
         get :edit_subscription
-        post :update_subscription
+        get :new_subscription
+        post :complete_sales_stage
       end
       put 'make_admin/:school_id', to: 'users#make_admin', as: :make_admin
       put 'remove_admin/:school_id', to: 'users#remove_admin', as: :remove_admin
@@ -371,14 +423,16 @@ EmpiricalGrammar::Application.routes.draw do
       end
       member do
         get :edit_subscription
-        post :update_subscription
+        get :new_subscription
         get :new_admin
         post :add_admin_by_email
       end
     end
+
+    resources :announcements, only: [:index, :new, :create, :update, :edit]
   end
 
-  other_pages = %w(beta ideas board press partners develop mission faq tos privacy activities impact stats team premium teacher_resources media_kit play news home_new map firewall_info)
+  other_pages = %w(beta ideas board press partners develop mission faq tos privacy activities impact stats team premium media_kit play news home_new map firewall_info announcements)
   all_pages = other_pages
   all_pages.each do |page|
     get page => "pages##{page}", as: "#{page}"
@@ -413,6 +467,8 @@ EmpiricalGrammar::Application.routes.draw do
   get 'teacher_fix/move_student' => 'teacher_fix#index'
   get 'teacher_fix/google_unsync' => 'teacher_fix#index'
   get 'teacher_fix/merge_two_schools' => 'teacher_fix#index'
+  get 'teacher_fix/merge_two_classrooms' => 'teacher_fix#index'
+  get 'teacher_fix/delete_last_activity_session' => 'teacher_fix#index'
   get 'teacher_fix/get_archived_units' => 'teacher_fix#get_archived_units'
   post 'teacher_fix/recover_classroom_activities' => 'teacher_fix#recover_classroom_activities'
   post 'teacher_fix/recover_activity_sessions' => 'teacher_fix#recover_activity_sessions'
@@ -422,6 +478,8 @@ EmpiricalGrammar::Application.routes.draw do
   post 'teacher_fix/move_student_from_one_class_to_another' => 'teacher_fix#move_student_from_one_class_to_another'
   put 'teacher_fix/google_unsync_account' => 'teacher_fix#google_unsync_account'
   post 'teacher_fix/merge_two_schools' => 'teacher_fix#merge_two_schools'
+  post 'teacher_fix/merge_two_classrooms' => 'teacher_fix#merge_two_classrooms'
+  post 'teacher_fix/delete_last_activity_session' => 'teacher_fix#delete_last_activity_session'
 
   get 'activities/section/:section_id' => 'pages#activities', as: "activities_section"
   get 'activities/packs' => 'teachers/unit_templates#index'
@@ -435,7 +493,7 @@ EmpiricalGrammar::Application.routes.draw do
   get 'teachers/classrooms/activity_planner/lessons_for_activity/:activity_id' => 'teachers/classroom_manager#lesson_planner'
   get 'teachers/classrooms/activity_planner/units/:unitId/students/edit' => 'teachers/classroom_manager#lesson_planner'
   get 'teachers/classrooms/activity_planner/units/:unitId/activities/edit' => 'teachers/classroom_manager#lesson_planner'
-  get 'teachers/classrooms/activity_planner/units/:unitId/activities/edit/:unitName' => 'teachers/classroom_manager#lesson_planner'
+  get 'teachers/classrooms/activity_planner/units/:unitId/activities/edit/:unitName' => 'teachers/classroom_manager#lesson_planner', :constraints => { :unitName => /[^\/]+/ }
 
   get 'teachers/classrooms/assign_activities/:tab' => 'teachers/classroom_manager#assign_activities'
   get 'teachers/classrooms/assign_activities/featured-activity-packs/category/:category' => 'teachers/classroom_manager#assign_activities'
@@ -459,6 +517,7 @@ EmpiricalGrammar::Application.routes.draw do
 
   get 'demo' => 'teachers/progress_reports/standards/classrooms#demo'
   get 'student_demo' => 'students#student_demo'
+  get 'admin_demo', to: 'teachers/progress_reports#admin_demo'
 
   get '/404' => 'errors#error_404'
   get '/500' => 'errors#error_500'

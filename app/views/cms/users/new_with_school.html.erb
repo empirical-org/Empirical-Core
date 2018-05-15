@@ -1,0 +1,9 @@
+<div class='container'>
+  <article class='simple-rounded-box cms-container'>
+    <%= link_to 'User Directory', cms_users_path %> > New User
+    <br /><br />
+    <h2>New User For <%=@school.name%></h2>
+    <br />
+    <%= render 'form' %>
+  </article>
+</div>

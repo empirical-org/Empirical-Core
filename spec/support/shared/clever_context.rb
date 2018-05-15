@@ -1,6 +1,6 @@
 shared_context 'clever' do
-  let!(:teacher_response) {
-    Response = Struct.new(:sections, :school)
+  let!(:teacher_response) do
+    response = Struct.new(:sections, :school)
     sections = [
       {
         id: 'section_id_1',
@@ -9,12 +9,11 @@ shared_context 'clever' do
       }
     ]
     school = {nces_id: school_nces_id}
-    x = Response.new(sections, school)
-    x
-  }
+    response.new(sections, school)
+  end
 
-  let!(:section_response) {
-    Response = Struct.new(:students)
+  let!(:section_response) do
+    response = Struct.new(:students)
     students = [
       {
         id: 'student_id_1',
@@ -28,9 +27,8 @@ shared_context 'clever' do
         }
       }
     ]
-    x = Response.new(students)
-    x
-  }
+    response.new(students)
+  end
 
   def school_nces_id
     'fake_nces_id'

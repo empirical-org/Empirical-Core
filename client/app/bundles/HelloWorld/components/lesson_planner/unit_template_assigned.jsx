@@ -60,7 +60,7 @@ export default  React.createClass({
   },
 
   activityName: function() {
-    return this.state.data.name;
+    return this.state.data ? this.state.data.name : '';
   },
 
   socialShareUrl: function() {
@@ -86,7 +86,7 @@ export default  React.createClass({
     return (
       <span>
             <a href={href}>
-              <button onClick className="button-green add-students pull-right">
+              <button className="button-green add-students pull-right">
                 {text} <i className="fa fa-long-arrow-right"></i>
               </button>
             </a>

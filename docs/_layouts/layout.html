@@ -1,0 +1,220 @@
+<!DOCTYPE HTML>
+<html lang="{{ config.language }}" {% if page.dir == "rtl" %}dir="rtl"{% endif %}>
+  <head>
+    <meta charset="UTF-8">
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <title>{% block title %}{{ config.title|d("GitBook", true) }}{% endblock %}</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="{% block description %}{% endblock %}">
+    <meta name="generator" content="GitBook {{ gitbook.version }}">
+    {% if config.author %}<meta name="author" content="{{ config.author }}">{% endif %}
+    {% if config.isbn %}<meta name="identifier" content="{{ config.isbn }}" scheme="ISBN">{% endif %}
+    {% block style %}
+      {% for resource in plugins.resources.css %}
+        {% if resource.url %}
+          <link rel="stylesheet" href="{{ resource.url }}">
+        {% else %}
+          <link rel="stylesheet" href="{{ resource.path|resolveAsset }}">
+        {% endif %}
+      {% endfor %}
+    {% endblock %}
+    <style>
+      header {
+        background: #00c2a2;
+        display: flex;
+        padding: 20px;
+      }
+      header a:first-of-type {
+        flex-grow: 1;
+      }
+      header img {
+        height: 35px;
+      }
+      header nav {
+        align-self: center;
+      }
+      header nav a {
+        color: #ffffff;
+        font-size: 16px;
+        margin: 7px;
+      }
+      footer {
+        background-color: #393939;
+        padding-top: 78px;
+      }
+      .footer-navigation {
+        display: flex;
+        margin: 0 auto;
+        padding-bottom: 58px;
+        max-width: 1030px;
+      }
+      .footer-navigation div {
+        flex-grow: 1;
+      }
+      .footer-navigation ul {
+        flex-grow: 1;
+        margin-top: 0;
+      }
+      .footer-navigation li {
+        list-style: none;
+      }
+      .footer-navigation li:first-of-type {
+        color: #fff;
+        font-size: 14px;
+        font-weight: bold;
+        line-height: 1.5;
+        margin-bottom: 8px;
+      }
+      .footer-navigation li a {
+        color: #e1e1e1;
+        font-size: 15px;
+        line-height: 1.93;
+      }
+      .privacy-and-social {
+        border-bottom: 2px solid rgba(203,203,203,0.5);
+        display: flex;
+        justify-content: space-between;
+        margin: 0 auto;
+        max-width: 1030px;
+        padding-bottom: 26px;
+      }
+      .privacy-and-social a {
+        color: #e1e1e1;
+        margin: 0 14px;
+      }
+      .social {
+        font-size: 24px;
+      }
+      .partners {
+        font-size: 15px;
+        line-height: 1.93;
+        margin: 0 auto;
+        max-width: 1030px;
+        padding-bottom: 35px;
+        padding-top: 35px;
+        text-align: center;
+      }
+      .partners a {
+        color: #e1e1e1;
+      }
+      .partner-links {
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+        margin-top: 8px;
+      }
+    </style>
+    {% block head %}{% endblock %}
+  </head>
+  <body>
+    <header>
+      <a href="https://www.quill.org">
+        <img src="logo.png">
+      </a>
+      <nav>
+        <a href="https://www.quill.org">Quill.org</a>
+        <a href="https://github.com/empirical-org/Empirical-Core">GitHub</a>
+      </nav>
+    </header>
+    {% block body %}{% endblock %}
+    {% block javascript %}{% endblock %}
+    <footer>
+      <div class="footer-navigation">
+        <div>
+          <img src="https://assets.quill.org/images/homepage/quill_logo_homepage.svg">
+        </div>
+        <ul>
+          <li>
+            TOOLS
+          </li>
+          <li>
+            <a href="/tools/connect">Quill Connect</a>
+          </li>
+          <li>
+            <a href="/tools/lessons">Quill Lessons</a>
+          </li>
+          <li>
+            <a href="/tools/diagnostic">Quill Diagnostic</a>
+          </li>
+          <li>
+            <a href="/tools/proofreader">Quill Proofreader</a>
+          </li>
+          <li>
+            <a href="/tools/grammar">Quill Grammar</a>
+          </li>
+        </ul>
+        <ul>
+          <li>
+            RESOURCES
+          </li>
+          <li>
+            <a href="/activities/section/7">Browse by Standards</a>
+          </li>
+          <li>
+            <a href="/activities/packs">Browse by Topics</a>
+          </li>
+          <li>
+            <a href="/teacher-center">Getting Started</a>
+          </li>
+          <li>
+            <a href="/premium">Premium</a>
+          </li>
+        </ul>
+        <ul>
+          <li>
+            ORGANIZATION
+          </li>
+          <li>
+            <a href="/mission">About Us</a>
+          </li>
+          <li>
+            <a href="/impact">Impact</a>
+          </li>
+          <li>
+            <a href="/team">Team</a>
+          </li>
+          <li>
+            <a href="/partners">Partners</a>
+          </li>
+          <li>
+            <a href="/news">News</a>
+          </li>
+          <li>
+            <a href="/press">Press</a>
+          </li>
+          <li>
+            <a href="/media_kit">Media Kit</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="privacy-and-social">
+        <div class="privacy">
+          <a href="/tos">Terms</a>
+          <a href="/privacy">Privacy</a>
+          <a>hello@quill.org</a>
+        </div>
+        <div class="social">
+          <a target="_blank" href="http://twitter.com/Quill_org"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+          <a target="_blank" href="https://www.youtube.com/channel/UCG9mgvktG6vxp7XoYEJTiaw/videos?flow=list&amp;view=0&amp;sort=dd&amp;live_view=500"><i class="fa fa-youtube" aria-hidden="true"></i></a>
+          <a target="_blank" href="https://facebook.com/quill.org"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+          <a target="_blank" href="http://instagram.com/quill_org/"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+          <a target="_blank" href="https://github.com/empirical-org/Empirical-Core/issues"><i class="fa fa-github" aria-hidden="true"></i></a>
+        </div>
+      </div>
+      <div class="partners">
+        <p><a href="/mission">Quill is a 501(c)3 non-profit helping every student succeed thanks to our partners:</a></p>
+        <div class="partner-links"
+          <a href="/partners">
+            <img src="https://assets.quill.org/images/homepage/gates_logo.svg">
+            <img src="https://assets.quill.org/images/homepage/google_logo.svg">
+            <img src="https://assets.quill.org/images/homepage/att_logo.svg">
+            <img src="https://assets.quill.org/images/homepage/fastforward_logo.svg">
+            <img src="https://assets.quill.org/images/homepage/gould_logo.svg">
+            <img src="https://assets.quill.org/images/homepage/blackrock_logo.svg">
+          </a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
