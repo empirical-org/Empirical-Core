@@ -36,6 +36,7 @@ class Cms::UsersController < Cms::CmsController
   def create_with_school
     @user = User.new(user_params)
     if @user.save! && !!SchoolsUsers.create(school_id: school_id_param, user: @user)
+      SyncSalesContactWorker.perform_async(@user.id)
       redirect_to cms_school_path(school_id_param)
     else
       flash[:error] = 'Did not save.'
@@ -54,6 +55,7 @@ class Cms::UsersController < Cms::CmsController
   def create
     @user = User.new(user_params)
     if @user.save
+      SyncSalesContactWorker.perform_async(@user.id)
       redirect_to cms_users_path
     else
       flash[:error] = 'Did not save.'
