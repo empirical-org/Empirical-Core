@@ -31,7 +31,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def retrieve_classrooms_for_assigning_activities # in response to ajax request
-    render json: classroom_with_students_json(current_user.classroom_own)
+    render json: classroom_with_students_json(current_user.classrooms_i_own)
   end
 
   def retrieve_classrooms_i_teach_for_custom_assigning_activities # in response to ajax request
@@ -182,7 +182,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   private
 
   def set_classroom_variables
-    @tab = params[:tab] #|| "manageUnits"
+    @tab = params[:tab]
     @grade = params[:grade]
     @students = current_user.students.any?
     @last_classroom_name = current_user.classrooms_i_teach.last.name

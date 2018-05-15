@@ -147,31 +147,28 @@ describe Teachers::ClassroomManagerController, type: :controller do
     end
   end
 
-  # this controller method calls current_user.classroom_own which is not defined
-  # this test is written under the assumption that the correct method call is
-  # classroom_i_own
-  # describe '#retrieve_classrooms_for_assigning_activities' do
-  #   let(:teacher) { create(:teacher) }
-  #   let(:classroom) { create(:classroom) }
-  #
-  #   before do
-  #     allow(teacher).to receive(:classrooms_i_own) { [classroom] }
-  #     allow(controller).to receive(:current_user) { teacher }
-  #   end
-  #
-  #   it 'should return the correct json' do
-  #     json =  teacher.classrooms_i_own.map { |classroom|
-  #       {
-  #           classroom: classroom,
-  #           students: classroom.students.sort_by(&:sorting_name)
-  #       }
-  #     }
-  #     get :retrieve_classrooms_for_assigning_activities, format: :json
-  #     expect(response.body).to eq ({
-  #         classrooms_and_their_students: json
-  #     }).to_json
-  #   end
-  # end
+  describe '#retrieve_classrooms_for_assigning_activities' do
+    let(:teacher) { create(:teacher) }
+    let(:classroom) { create(:classroom) }
+
+    before do
+      allow(teacher).to receive(:classrooms_i_own) { [classroom] }
+      allow(controller).to receive(:current_user) { teacher }
+    end
+
+    it 'should return the correct json' do
+      json =  teacher.classrooms_i_own.map { |classroom|
+        {
+            classroom: classroom,
+            students: classroom.students.sort_by(&:sorting_name)
+        }
+      }
+      get :retrieve_classrooms_for_assigning_activities, format: :json
+      expect(response.body).to eq ({
+          classrooms_and_their_students: json
+      }).to_json
+    end
+  end
 
   describe '#retreive_classrooms_i_teach_for_custom_assigning_activities' do
     let(:teacher) { create(:teacher) }
@@ -317,22 +314,22 @@ describe Teachers::ClassroomManagerController, type: :controller do
     end
   end
 
-  # describe '#students_list' do
-  #   let(:teacher) { create(:teacher) }
-  #   let!(:classroom) { create(:classroom_with_a_couple_students) }
-  #
-  #   before do
-  #     allow(controller).to receive(:current_user) { teacher }
-  #   end
-  #
-  #   it 'should assign the classroom and render the correct json' do
-  #     get :students_list, id: classroom.id, format: :json
-  #     expect(assigns(:classroom)).to eq classroom
-  #     expect(response.body).to eq({
-  #       students: classroom.students.order("substring(users.name, '(?=\s).*') asc, users.name asc"),
-  #     }.to_json)
-  #   end
-  # end
+  describe '#students_list' do
+    let(:teacher) { create(:teacher_with_a_couple_classrooms_with_a_couple_students_each) }
+    let(:classroom) { teacher.classrooms_i_teach.first }
+
+    before do
+      allow(controller).to receive(:current_user) { teacher }
+    end
+
+    it 'should assign the classroom and render the correct json' do
+      get :students_list, id: classroom.id, format: :json
+      expect(assigns(:classroom)).to eq classroom
+      expect(response.body).to eq({
+        students: classroom.students.order("substring(users.name, '(?=\s).*') asc, users.name asc"),
+      }.to_json)
+    end
+  end
 
   describe '#premium' do
     let(:teacher) { create(:teacher) }
