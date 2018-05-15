@@ -3,21 +3,16 @@ import  C from '../constants';
 import _ from 'lodash'
 import * as IntF from '../components/classroomLessons/interfaces';
 import * as CustomizeIntF from '../interfaces/customize'
-
 import {setEditionMetadata} from './customize'
-
 import lessonBoilerplate from '../components/classroomLessons/shared/classroomLessonBoilerplate'
 import lessonSlideBoilerplates from '../components/classroomLessons/shared/lessonSlideBoilerplates'
 import scriptItemBoilerplates from '../components/classroomLessons/shared/scriptItemBoilerplates'
-
 import uuid from 'uuid/v4';
-import openSocket from 'socket.io-client';
-
-const socket = openSocket('http://localhost:8000');
+import socket from '../utils/socket'
 
 export function getClassLesson(classroomLessonUid: string) {
   return function (dispatch, getState) {
-    socket.on(`classroomLesson:${classroomLessonUid}`, (lesson) => {
+    socket.instance.on(`classroomLesson:${classroomLessonUid}`, (lesson) => {
       if (lesson) {
         if (!_.isEqual(getState().classroomLesson.data, lesson)) {
           dispatch(updateClassroomLesson(lesson));
@@ -29,7 +24,7 @@ export function getClassLesson(classroomLessonUid: string) {
         dispatch({type: C.NO_LESSON_ID, data: classroomLessonUid})
       }
     });
-    socket.emit('subscribeToClassroomLesson', classroomLessonUid);
+    socket.instance.emit('subscribeToClassroomLesson', classroomLessonUid);
   };
 }
 
@@ -49,25 +44,25 @@ export function setLessonId(id:string) {
 
 export function listenForClassroomLessons() {
   return function (dispatch) {
-    socket.on('classroomLessons', (classroomLessons) => {
+    socket.instance.on('classroomLessons', (classroomLessons) => {
       if (classroomLessons) {
         dispatch(updateClassroomLessons(classroomLessons))
       } else {
         dispatch({type: C.NO_LESSONS})
       }
     });
-    socket.emit('getAllClassroomLessons');
+    socket.instance.emit('getAllClassroomLessons');
   };
 }
 
 export function listenForClassroomLessonReviews() {
   return function (dispatch) {
-    socket.on('classroomLessonReviews', (reviews) => {
+    socket.instance.on('classroomLessonReviews', (reviews) => {
       if (reviews) {
         dispatch(updateClassroomLessonsReviews(reviews))
       }
     });
-    socket.emit('getAllClassroomLessonReviews');
+    socket.instance.emit('getAllClassroomLessonReviews');
   };
 }
 
@@ -95,13 +90,13 @@ export function addSlide(editionId: string, editionQuestions: CustomizeIntF.Edit
   const newSlide: IntF.Question = lessonSlideBoilerplates[slideType]
   newEdition.questions.splice(-1, 0, newSlide)
 
-  socket.on(`slideAdded:${editionId}`, () => {
-    socket.removeAllListeners(`slideAdded:${editionId}`)
+  socket.instance.on(`slideAdded:${editionId}`, () => {
+    socket.instance.removeAllListeners(`slideAdded:${editionId}`)
     if (callback) {
       callback(Number(newEdition.questions.length) - 2)
     }
   })
-  socket.emit('addSlide', editionId, newEdition)
+  socket.instance.emit('addSlide', editionId, newEdition)
 }
 
 export function deleteEditionSlide(editionId, slideId, slides) {
@@ -110,20 +105,20 @@ export function deleteEditionSlide(editionId, slideId, slides) {
       return slides[slideKey]
     }
   }))
-  socket.emit('deleteEditionSlide', editionId, newSlides)
+  socket.instance.emit('deleteEditionSlide', editionId, newSlides)
 }
 
 export function addScriptItem(editionId: string, slideId: string, slide: IntF.Question, scriptItemType: string, callback: Function|undefined) {
   const newSlide = _.merge({}, slide)
   newSlide.data.teach.script.push(scriptItemBoilerplates[scriptItemType])
 
-  socket.on(`scriptItemAdded:${editionId}`, () => {
-    socket.removeAllListeners(`scriptItemAdded:${editionId}`)
+  socket.instance.on(`scriptItemAdded:${editionId}`, () => {
+    socket.instance.removeAllListeners(`scriptItemAdded:${editionId}`)
     if (callback) {
       callback(newSlide.data.teach.script.length - 1)
     }
   })
-  socket.emit('addScriptItem', editionId, slideId, newSlide)
+  socket.instance.emit('addScriptItem', editionId, slideId, newSlide)
 }
 
 export function deleteScriptItem(editionId, slideId, scriptItemId, script) {
@@ -132,7 +127,7 @@ export function deleteScriptItem(editionId, slideId, scriptItemId, script) {
       return script[scriptKey]
     }
   }))
-  socket.emit('deleteScriptItem', editionId, slideId, newScript)
+  socket.instance.emit('deleteScriptItem', editionId, slideId, newScript)
 }
 
 export function addLesson(lessonName, cb) {
@@ -140,11 +135,11 @@ export function addLesson(lessonName, cb) {
   const newLessonKey = uuid();
   newLesson.id = newLessonKey
   if (newLessonKey) {
-    socket.emit('createOrUpdateClassroomLesson', newLesson)
+    socket.instance.emit('createOrUpdateClassroomLesson', newLesson)
   }
 
-  socket.on(`createdOrUpdatedClassroomLesson:${newLessonKey}`, (lessonUpdated) => {
-    socket.removeAllListeners(`createdOrUpdatedClassroomLesson:${newLessonKey}`)
+  socket.instance.on(`createdOrUpdatedClassroomLesson:${newLessonKey}`, (lessonUpdated) => {
+    socket.instance.removeAllListeners(`createdOrUpdatedClassroomLesson:${newLessonKey}`)
     if (lessonUpdated) {
       if (cb) {
         cb(newLessonKey)
@@ -154,24 +149,24 @@ export function addLesson(lessonName, cb) {
 }
 
 export function saveEditionSlide(editionId, slideId, slideData, callback) {
-  socket.on(`editionSlideSaved:${editionId}`, () => {
-    socket.removeAllListeners(`editionSlideSaved:${editionId}`)
+  socket.instance.on(`editionSlideSaved:${editionId}`, () => {
+    socket.instance.removeAllListeners(`editionSlideSaved:${editionId}`)
     if (callback) {
       callback()
     }
   })
-  socket.emit('saveEditionSlide', editionId, slideId, slideData)
+  socket.instance.emit('saveEditionSlide', editionId, slideId, slideData)
 }
 
 export function saveEditionScriptItem(editionId, slideId, scriptItemId, scriptItem, callback) {
-  socket.on(`editionScriptItemSaved:${editionId}`, () => {
-    socket.removeAllListeners(`editionScriptItemSaved:${editionId}`)
+  socket.instance.on(`editionScriptItemSaved:${editionId}`, () => {
+    socket.instance.removeAllListeners(`editionScriptItemSaved:${editionId}`)
     if (callback) {
       callback();
     }
   })
 
-  socket.emit('saveEditionScriptItem',
+  socket.instance.emit('saveEditionScriptItem',
     editionId,
     slideId,
     scriptItemId,
@@ -180,13 +175,13 @@ export function saveEditionScriptItem(editionId, slideId, scriptItemId, scriptIt
 }
 
 export function deleteLesson(classroomLessonID) {
-  socket.emit('deleteClassroomLesson', classroomLessonID)
+  socket.instance.emit('deleteClassroomLesson', classroomLessonID)
 }
 
 export function deleteEdition(editionID, callback) {
   return (dispatch) => {
-    socket.emit('deleteEdition', editionID)
-    socket.on('editionMetadata', editions => {
+    socket.instance.emit('deleteEdition', editionID)
+    socket.instance.on('editionMetadata', editions => {
       if (callback) {
         callback()
       }
@@ -196,18 +191,18 @@ export function deleteEdition(editionID, callback) {
 }
 
 export function updateSlideScriptItems(editionID, slideID, scriptItems) {
-  socket.emit('updateSlideScriptItems', editionID, slideID, scriptItems)
+  socket.instance.emit('updateSlideScriptItems', editionID, slideID, scriptItems)
 }
 
 export function updateEditionSlides(editionID, slides) {
-  socket.emit('updateEditionSlides', editionID, slides)
+  socket.instance.emit('updateEditionSlides', editionID, slides)
 }
 
 export function updateClassroomLessonDetails(classroomLessonID, classroomLesson) {
   return (dispatch) => {
     classroomLesson.id = classroomLessonID
-    socket.emit('createOrUpdateClassroomLesson', classroomLesson)
-    socket.on('classroomLessons', (classroomLessons) => {
+    socket.instance.emit('createOrUpdateClassroomLesson', classroomLesson)
+    socket.instance.on('classroomLessons', (classroomLessons) => {
       if (classroomLessons) {
         dispatch(updateClassroomLessons(classroomLessons))
       } else {
@@ -220,8 +215,8 @@ export function updateClassroomLessonDetails(classroomLessonID, classroomLesson)
 export function updateEditionDetails(editionID, edition) {
   return (dispatch) => {
     edition.id = editionID
-    socket.emit('updateEditionMetadata', edition)
-    socket.on('editionMetadata', editions => {
+    socket.instance.emit('updateEditionMetadata', edition)
+    socket.instance.on('editionMetadata', editions => {
       dispatch(setEditionMetadata(editions))
     })
   }

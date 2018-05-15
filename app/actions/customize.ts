@@ -4,10 +4,8 @@ import C from '../constants';
 import * as CustomizeIntf from '../interfaces/customize'
 import lessonSlideBoilerplates from '../components/classroomLessons/shared/lessonSlideBoilerplates'
 import _ from 'lodash'
-
 import uuid from 'uuid/v4';
-import openSocket from 'socket.io-client';
-const socket = openSocket('http://localhost:8000');
+import socket from '../utils/socket'
 
 export function getCurrentUserAndCoteachersFromLMS() {
   return function(dispatch) {
@@ -32,32 +30,32 @@ export function getCurrentUserAndCoteachersFromLMS() {
 
 export function getEditionMetadataForUserIds(userIds:Array<Number>, lessonID:string) {
   return function (dispatch, getState) {
-    socket.on(`editionMetadataForLesson:${lessonID}`, (editions) => {
+    socket.instance.on(`editionMetadataForLesson:${lessonID}`, (editions) => {
       dispatch(filterEditionsByUserIds(userIds, editions))
     })
-    socket.emit('getAllEditionMetadataForLesson', lessonID)
+    socket.instance.emit('getAllEditionMetadataForLesson', lessonID)
   };
 }
 
 export function startListeningToEditionMetadata() {
   return function (dispatch, getState) {
-    socket.on(`editionMetadata`, (editions) => {
+    socket.instance.on(`editionMetadata`, (editions) => {
       if (!_.isEqual(editions, getState().customize.editions)) {
         dispatch(setEditionMetadata(editions))
       }
     })
-    socket.emit('getAllEditionMetadata')
+    socket.instance.emit('getAllEditionMetadata')
   };
 }
 
 export function getEditionQuestions(editionID:string) {
   return function (dispatch, getState) {
-    socket.on(`editionQuestionsForEdition:${editionID}`, (questions) => {
+    socket.instance.on(`editionQuestionsForEdition:${editionID}`, (questions) => {
       if (!_.isEqual(getState().customize.editionQuestions, questions)) {
         dispatch(setEditionQuestions(questions))
       }
     })
-    socket.emit('getEditionQuestions', editionID)
+    socket.instance.emit('getEditionQuestions', editionID)
   };
 }
 
@@ -75,9 +73,9 @@ export function createNewEdition(editionUID:string|null, lessonUID:string, user_
   } else {
     newEditionData = {lesson_id: lessonUID, user_id: user_id, id: newEditionKey}
   }
-  socket.emit('createNewEdition', newEditionData)
-  socket.on(`editionCreated:${newEditionKey}`, () => {
-    socket.removeAllListeners(`editionCreated:${newEditionKey}`)
+  socket.instance.emit('createNewEdition', newEditionData)
+  socket.instance.on(`editionCreated:${newEditionKey}`, () => {
+    socket.instance.removeAllListeners(`editionCreated:${newEditionKey}`)
     if (callback) {
       callback(lessonUID, newEditionKey, classroomActivityId)
     }
@@ -94,9 +92,9 @@ export function createNewAdminEdition(editionUID:string|null, lessonUID:string, 
     newEditionData = {id: newEditionKey, lesson_id: lessonUID, user_id: user_id, name: name, flags: ['alpha']}
     questions = [lessonSlideBoilerplates['CL-LB'], lessonSlideBoilerplates['CL-EX']]
   }
-  socket.emit('createNewEdition', newEditionData, questions)
-  socket.on(`editionCreated:${newEditionKey}`, () => {
-    socket.removeAllListeners(`editionCreated:${newEditionKey}`)
+  socket.instance.emit('createNewEdition', newEditionData, questions)
+  socket.instance.on(`editionCreated:${newEditionKey}`, () => {
+    socket.instance.removeAllListeners(`editionCreated:${newEditionKey}`)
     if (callback) {
       callback(lessonUID, newEditionKey)
     } else {
@@ -107,15 +105,15 @@ export function createNewAdminEdition(editionUID:string|null, lessonUID:string, 
 
 export function saveEditionName(editionUID:string, name:string) {
   const edition = {id: editionUID, name}
-  socket.emit('updateEditionMetadata', edition)
+  socket.instance.emit('updateEditionMetadata', edition)
 }
 
 export function archiveEdition(editionUID:string) {
-  socket.emit('archiveEdition', editionUID)
+  socket.instance.emit('archiveEdition', editionUID)
 }
 
 export function deleteEdition(editionUID:string) {
-  socket.emit('deleteEdition', editionUID)
+  socket.instance.emit('deleteEdition', editionUID)
 }
 
 export function setWorkingEditionQuestions(questions:CustomizeIntf.EditionQuestions) {
@@ -135,7 +133,7 @@ export function publishEdition(editionUID:string, editionMetadata: CustomizeIntf
     dispatch(setIncompleteQuestions([]))
     editionMetadata.id = editionUID
     editionQuestions.id = editionUID
-    socket.emit('publishEdition', editionMetadata, editionQuestions)
+    socket.instance.emit('publishEdition', editionMetadata, editionQuestions)
     sendPublishEditionEventToLMS()
     if (callback) {
       callback()
