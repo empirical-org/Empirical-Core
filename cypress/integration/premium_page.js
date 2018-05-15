@@ -85,7 +85,37 @@ describe('Premium Page', () => {
       })
     })
 
-    describe('when I am logged in', () => {
+    describe('when I am logged in with no school', ()=>{
+
+      before(() => {
+        cy.cleanDatabase()
+        cy.factoryBotCreate({
+          factory: 'teacher',
+          password: 'password',
+          username: 'teacher',
+          stripe_customer_id: 'cus_CN6VaNY6yd8R5M'
+        }).then(() => {
+          cy.login('teacher', 'password')
+          cy.visit('/premium')
+        })
+        beforeEach(() => {
+          Cypress.Cookies.preserveOnce('_quill_session')
+        })
+      })
+
+      describe('school premium', ()=>{
+        it('will alert the user that they need to add a school', () => {
+          const stub = cy.stub()
+          cy.on('window:alert', stub)
+          cy.get('.btn.purple')
+            .click().then(() => {
+              expect(stub.getCall(0)).to.be.calledWith('You must add a school before buying School Premium. You can do so by visiting Quill.org/teachers/my_account')
+            })
+        })
+      })
+    })
+
+    describe('when I am logged in with a school', () => {
 
       before(() => {
         cy.cleanDatabase()
