@@ -3,6 +3,7 @@ dotenv.config()
 import r from 'rethinkdb'
 import socketio from 'socket.io'
 import fs from 'fs'
+import jwt from 'jsonwebtoken'
 import http from 'http'
 import path from 'path'
 import rethinkdbConfig from './rethinkdbConfig'
@@ -38,7 +39,7 @@ import {
   setTeacherName,
   addFollowUpName,
   addSupportingInfo,
-  setEditionId
+  setEditionId,
 } from './sessions'
 
 import {
@@ -159,7 +160,8 @@ function cleanDatabase({
   connection,
   ackCallback
 }) {
-  r.tableList().run(connection)
+  r.tableList()
+  .run(connection)
   .then((list) => {
     if (list) {
       list.forEach((tableName) => {
@@ -176,6 +178,22 @@ r.connect(rethinkdbConfig, (err, connection) => {
   if (err) {
     console.error(err)
   } else {
+    io.use((socket, next) => {
+      const options = { algorithms: ['RS256'] }
+      const pkey = process.env.JWT_PKEY
+      let token = socket.handshake.query.token
+
+      jwt.verify(token, pkey, options, (err, decodedToken) => {
+        if (err) {
+          console.error(err)
+          return next(new Error(err))
+        } else {
+          console.log(decodedToken, 'decodedToken')
+          return next()
+        }
+      })
+    })
+
     io.on('connection', (client) => {
       currentConnections[client.id] = { socket: client, role: null };
 
