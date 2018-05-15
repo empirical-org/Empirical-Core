@@ -2,38 +2,23 @@ import React from 'react'
 
 const admin = () => [
   {
-    question: 'How can I provide co-teachers access to their co-taught classes?',
-    answer: [<p>As we build out our co-teaching feature, we allow you to share admin access with co-teachers, so they can login to one another’s accounts and make changes to their shared classes. Here’s how to make this work:</p>,
-            <ol>
-              <li>One of the two teachers will create the class and add students to that class through their account.</li>
-              <li>Provide the account information for the co-teachers to these classes, and we will provide them access to the administrator dashboard.</li>
-              <li>
-                When these teachers login, they can select their co-teachers’ account, and sign in as that teacher to create assignments, manage classes, and view student data.
-                <ul>
-                  <li>NOTE: Any changes to a teacher’s account through the admin dashboard cannot be undone, so co-teachers should confirm they are in the correct account before making changes.</li>
-                </ul>
-              </li>
-            </ol>
-          ]
-  },
-  {
     question: 'How does the Professional Development work?',
     answer: <p>After upgrading to Quill School Premium, you’ll receive an email from our team with next steps, which include setting up your professional development session.</p>
   },
   {
-    question: 'Arranging the Session',
+    question: 'How can I arrange the Professional Development session?',
     answer: [<p>In order to set up that session, you will set up an initial 15-minute call between your PD coordinator and our School Partnerships team to discuss tailoring the session school goals and writing curriculum, which tools you’d like to highlight, and when you’d like the session to happen. You can do this by signing up at <a href="http://beccaquill.youcanbook.me">beccaquill.youcanbook.me</a>.</p>,
             <p>Teachers will be asked to set up their Quill accounts prior to the session, so they can jump right into exploring Quill!</p>
     ]
   },
   {
-    question: 'Session Structure',
+    question: 'What is the Professional Development session structure like?',
     answer: [
             <p>The personalized session will last 45 to 75 minutes, and will involve a review of chosen tools as they relate to the school’s focus, and (time allowing) a conversation surrounding how teachers can effectively integrate Quill into their classroom. In the session, teachers will establish a direct line of communication with the School Partnerships team.</p>
             ]
   },
   {
-    question: 'Session Access',
+    question: 'How will I access the Professional Development session?',
     answer: [<p>Sessions outside of New York City will be held remotely via Google Hangouts, and will be recorded via Hangouts on Air to provide teachers with continued access to the information. Teachers will receive a follow up email with a reminder of resources and a link to the session recording.</p>]
   },
   {
@@ -45,7 +30,7 @@ const admin = () => [
   },
   {
     question: 'What resources can I use to introduce Quill to the teachers in my school?',
-    answer: [<p>You can access a two-page handout to introduce teachers to Quill <a href="https://d1yxac6hjodhgc.cloudfront.net/wp-content/uploads/2015/11/Quill-Overview3.pdf">here</a>. Your teachers can use the <a href="https://www.quill.org/teacher_resources">teacher resources</a> page to access in-depth guides and video overviews.</p>]
+    answer: [<p>You can access a two-page handout to introduce teachers to Quill <a href="https://d1yxac6hjodhgc.cloudfront.net/wp-content/uploads/2015/11/Quill-Overview3.pdf">here</a>. Your teachers can use the <a href="https://www.quill.org/teacher-center">teacher resources</a> page to access in-depth guides and video overviews.</p>]
   }
 ]
 

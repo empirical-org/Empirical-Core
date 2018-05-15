@@ -1,8 +1,8 @@
 <div class='container'>
   <article class='simple-rounded-box cms-container'>
-    <%= link_to 'School Directory', cms_schools_path %> > <%= @school_info['Name'] %>
+    <%= link_to 'School Directory', cms_schools_path %> > <%= @school['Name'] %>
     <br /><br />
-    <h2><%= @school_info['Name'] %></h2>
+    <h2><%= @school['Name'] %></h2>
     <br />
     <table class='cms-results-table'>
       <thead>
@@ -31,10 +31,15 @@
         <% end %>
       </tbody>
     </table>
+    <h2>Add User</h2>
+    <%= link_to 'Add User', new_with_school_cms_users_path(params[:id]), class: 'btn button-green' %>
     <br /><br />
     <h2>School Subscription</h2>
     <br />
-    <%= link_to 'Edit Subscription', edit_subscription_cms_school_path(params[:id]), class: 'btn button-green' %>
+    <%if @subscription%>
+      <%= link_to 'Edit Subscription', edit_subscription_cms_school_path(params[:id]), class: 'btn button-green' %>
+    <%end%>
+    <%= link_to 'New Subscription', new_subscription_cms_school_path(params[:id]), class: 'btn button-green' %>
     <br />
     <% @school_subscription_info.each do |k,v| %>
       <br />
@@ -46,7 +51,7 @@
     <br />
     <%= link_to 'Edit School Info', edit_cms_school_path(params[:id]), class: 'btn button-green' %>
     <br />
-    <% @school_info.each do |k,v| %>
+    <% @school.each do |k,v| %>
       <br />
       <p><strong><%= k %></strong></p>
       <p><%= v || 'N/A' %></p>

@@ -1,7 +1,5 @@
 <%= render partial: 'pages/shared/discover_tabs' %>
 
-<div class="page-content-wrapper">
-  <div id="public-activity-packs" class="tab-pane teachers-unit-template" data-id="<%= @unit_template_id %>" data-authenticated=<%=@is_teacher%>>
-  <%= react_component('PublicActivityPacksApp', props: {})%>
-  </div>
+<div id="public-activity-packs" class="tab-pane teachers-unit-template" data-id="<%= @unit_template_id %>" data-authenticated=<%=@is_teacher%>>
+<%= react_component('PublicActivityPacksApp', props: {})%>
 </div>

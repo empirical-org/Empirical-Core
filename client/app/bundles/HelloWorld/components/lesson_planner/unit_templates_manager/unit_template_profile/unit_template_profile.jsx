@@ -7,7 +7,6 @@ import _ from 'underscore'
 
 import LoadingIndicator from '../../../shared/loading_indicator'
 import ScrollToTop from '../../../shared/scroll_to_top'
-import ListFilterOptions from '../../../shared/list_filter_options/list_filter_options'
 import UnitTemplateProfileHeader from './unit_template_profile_header'
 import UnitTemplateProfileDescription from './unit_template_profile_description'
 import UnitTemplateProfileAssignButton from './unit_template_profile_assign_button'
@@ -62,30 +61,6 @@ export default class UnitTemplateProfile extends React.Component {
       : '/teachers/classrooms/assign_activities/featured-activity-packs'
   }
 
-  showListFilterOptions() {
-    return this.state.data.non_authenticated
-      ? <ListFilterOptions userLoggedIn={!this.state.data.non_authenticated} options={[
-          {
-            id: 6,
-            name: 'High'
-          }, {
-            id: 4,
-            name: 'Elementary'
-          }, {
-            id: 5,
-            name: 'Middle'
-          }, {
-            id: 3,
-            name: 'ELL'
-          }, {
-            id: 9,
-            name: 'Diagnostic'
-          }
-        ]}/>
-      : null
-  }
-
-
   render() {
     if (this.state.loading) {
       return <LoadingIndicator/>
@@ -95,7 +70,7 @@ export default class UnitTemplateProfile extends React.Component {
       }
       return (
         <div className='unit-template-profile'>
-          <ScrollToTop/> {this.showListFilterOptions()}
+          <ScrollToTop/>
           <UnitTemplateProfileHeader data={this.state.data}/>
           <div className='unit-template-profile-container'>
             <div className=' no-pl'>

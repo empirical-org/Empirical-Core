@@ -2,9 +2,6 @@
    Navbar styles
    ========================================================================== */
 
-.image-brand img {
-  padding-top: 5px;
-}
 
 .navbar-brand {
   cursor: pointer !important;
@@ -14,22 +11,631 @@
   max-height: 77px;
 }
 
-.navbar-default .navbar-nav {
-  > li > a {
-    color: #000;
-    font-size: 16px;
-    line-height: 45px;
-    padding: 10px 20px;
-    font-weight: 500;
-    border-top: none;
-    .fa {
-      color: #737373;
-      margin-left: 5px;
-    }
-    &:hover, &:focus {
-      border-top: none;
+.navbar {
+  display: flex;
+  align-items: center;
+  height: 70px;
+  background-color: #00c2a2;
+  margin-top: 0px;
+  border-radius: 0px;
+  margin-bottom: 0px;
+  .container {
+    width: 100%;
+    max-width: 980px;
+  }
+}
+
+.home-nav-right {
+  font-weight: 600;
+  font-size: 16px;
+  .sign-up-button {
+    height: 30px;
+    padding: 0px 13px;
+    align-items: center;
+    display: flex;
+    border-radius: 6px;
+    border: white 1px solid;
+    &:hover {
+      color: #00c2a2;
+      background-color: #ffffff;
     }
   }
+}
+
+  .navigation-vertical-rule {
+    background: $white;
+    display: inline-block;
+    height: 32px;
+    position: relative;
+    top: 2px;
+    width: 1px;
+  }
+
+
+#nav-user-dropdown {
   position: relative;
-  left: 30px;
+  margin-top: 3px;
+  &.on-dashboard {
+    .user-dropdown-button {
+      background: #fff;
+      color: #00c2a2;
+    }
+  }
+  &.not-on-dashboard {
+    .user-dropdown-button {
+      border: solid 1px #ffffff;
+      color: #fff;
+    }
+  }
+  .user-dropdown-button {
+    border-radius: 2px;
+    float: right;
+    height: 30px;
+    align-items: center;
+    display: flex;
+    padding: 0px 12px;
+    font-size: 14px;
+    img {
+      margin-right: 12px;
+    }
+    &:focus, &:hover {
+      text-decoration: none;
+    }
+  }
+  div {
+    padding: 0;
+    top: 58px;
+    width: 100%;
+    border-radius: 2px;
+    box-shadow: 0 1px 2px 0 #c0c0c0;
+    position: absolute;
+    list-style: none;
+    left: 0;
+    background-color: #ffffff;
+    z-index: 100;
+    .fa-caret-up {
+      color: white;
+      position: absolute;
+      top: -10px;
+      right: 17px;
+    }
+    a {
+      border-radius: 0;
+      font-size: 14px;
+      padding: 6px 12px;
+      width: 100%;
+      display: flex;
+      font-weight: 600px;
+      color: #027360;
+      .image-container {
+        display: flex;
+        width: 22px;
+      }
+      .hover {
+        display: none;
+      }
+      &:hover {
+        text-decoration: none;
+        color: #00c2a2;
+        .static {
+          display: none;
+        }
+        .hover {
+          display: inline;
+        }
+      }
+      &:last-of-type {
+        padding: 8px 12px;
+        border-top: solid 1px #e9e9e9;
+      }
+    }
+  }
+  &.dropdown-closed {
+    .user-dropdown-button::after {
+      margin-left: 10px;
+      content: "\f078";
+      font-family: "FontAwesome";
+    }
+    div {
+      display: none;
+    }
+  }
+  &.dropdown-open {
+    .user-dropdown-button::after {
+      margin-left: 10px;
+      content: "\f077";
+      font-family: "FontAwesome";
+    }
+  }
+}
+
+nav.q-navbar-home {
+  max-width: 1165px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  position:relative;
+  margin: 0px auto;
+
+  .logo-img-new {
+    margin-top: 20px;
+    height: 35px;
+  }
+
+  .home-nav-right {
+    max-width: 700px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    .nav-element, .navbar-tooltip-trigger {
+      margin-left: 20px;
+      &:not(.sign-up-button) {
+        padding: 20px 0px;
+      }
+    }
+
+    .nav-element:not(.sign-up-button):hover {
+      color: #7cfbdf;
+    }
+
+    &.narrow {
+      display: none;
+    }
+
+    .sign-up-btn {
+      border: 1px solid $white;
+      //Instead of the line below you could use @includeborder-radius($radius, $vertical-radius)
+      border-radius: 4px;
+      padding: 4px 9px 2px;
+      background-color: $white;
+      color: $quillgreen;
+    }
+  }
+
+  /* Advanced Checkbox Hack */
+  // body { -webkit-animation: bugfix infinite 1s; }
+  @-webkit-keyframes bugfix { from {padding:0;} to {padding:0;} }
+
+  input.home-nav-checkbox[type=checkbox] {
+    position: absolute;
+    box-sizing:border-box;
+    top: -9999px;
+    left: -9999px;
+  }
+
+  label {
+    display:none;
+    cursor: pointer;
+    user-select:none;
+  }
+
+
+  /* custom-dropdown */
+  nav.home-nav-dropdown[role="home-custom-dropdown"] {
+    width: 100%;
+
+    a,
+    label {
+      text-decoration:none;
+      font: 1.2em sans-serif;
+      transition: color .3s ease-in-out;
+    }
+
+    ul {
+      padding: 0;
+      // margin: 0 auto;
+      width: 100%;
+      list-style:none;
+      position: absolute;
+      top: 59px;
+      left: 0;
+      z-index: 2;
+
+      > li {
+        float:left;
+        padding: .55em 15px;
+        // margin: 0 auto;
+        width:19%;
+        text-align:center;
+        cursor: pointer;
+
+        &:hover {
+          color: #3b3b3b;
+        }
+        &:active {
+          border-top: none;
+        }
+      }
+    }
+  }
+
+
+
+
+  /* small screens */
+
+  @media only screen and (max-width: 865px) {
+    a.q-button {
+      // &.cta-button, &.icon-button {
+        padding-left: 0px;
+        padding-right: 0px;
+      // }
+    }
+  }
+  @media screen and (min-width: 896px) {
+    nav.home-nav-dropdown[role="home-custom-dropdown"] {
+      display: none;
+    }
+  }
+  @media screen and (max-width: 895px) {
+    height: 60px;
+
+    .home-nav-right.wide {
+      display: none;
+    }
+
+    .logo-img-new {
+      margin-top: 7px;
+      height: 35px;
+    }
+
+    .desktop-nav-list {
+      display: none;
+    }
+    nav.home-nav-dropdown[role="home-custom-dropdown"] {
+      ul {
+        display:none;
+        // height:100%;
+        padding-bottom: 5px;
+        -webkit-box-shadow: 0px 10px 15px 5px rgba(0,0,0,0.2);
+        -moz-box-shadow: 0px 10px 15px 5px rgba(0,0,0,0.2);
+        box-shadow: 0px 10px 15px 5px rgba(0,0,0,0.2);
+      }
+
+      label {
+        position:relative;
+        display:block;
+        width:100%;
+        min-height:2.25em;
+        padding:.45em;
+        font-size:1.1em;
+        margin:0;
+      }
+
+      label:after {
+        position: absolute;
+        right: 10%;
+        top: -12px;
+        content: "\2261";
+        color: $white;
+        font-size: 4em;
+        @media only screen and (max-width : 419px) {
+          font-size: 3em;
+          top: 0px;
+        }
+      }
+
+      input.home-nav-checkbox[type=checkbox]:checked ~ label:after {
+        color: $white;
+      }
+
+      input.home-nav-checkbox[type=checkbox]:checked ~ ul {
+        display:block;
+
+        > li {
+          width: calc(100% - 30px);
+          text-align:left;
+        }
+      }
+    }
+  }
+  @media only screen and (max-width : 1165px) and (min-width: 600px) {
+    padding: 0 15px;
+    width: calc(100% - 30px);
+  }
+
+}
+
+.q-nav-bar {
+  margin: auto;
+  max-width: 965px;
+  padding-left: 7px;
+  @media (max-width: 990px) {
+    padding-left: 0px;
+  }
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    list-style-type: none;
+    margin: 0;
+    padding-left: 0px;
+    &.desktop-nav-list {
+      margin-bottom: 1px;
+    }
+  }
+
+  li {
+    padding: 0px;
+    white-space: nowrap;
+    &.active {
+      &:after {
+        content: "";
+        width: 100%;
+        height: 3px;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+      position: relative;
+    }
+  }
+  a {
+    font-size: 15px;
+    line-height: 45px;
+    color: #1e1e1e;
+    cursor: pointer;
+    padding-left: 25px;
+    padding-right: 25px;
+    display: inline-block;
+  }
+
+
+
+  /* Advanced Checkbox Hack */
+  // body { -webkit-animation: bugfix infinite 1s; }
+  @-webkit-keyframes bugfix { from {padding:0;} to {padding:0;} }
+
+  input[type=checkbox] {
+    position: absolute;
+    box-sizing:border-box;
+    top: -9999px;
+    left: -9999px;
+  }
+
+  label {
+    display:none;
+    cursor: pointer;
+    user-select:none;
+  }
+
+
+  /* custom-dropdown */
+  nav[role="custom-dropdown"] {
+    position:relative;
+    width: 100%;
+
+    a,
+    label {
+      text-decoration:none;
+      font: 1.4em sans-serif;
+      transition:color .3s ease-in-out;
+    }
+
+    ul {
+      padding: 0;
+      margin: 0 auto;
+      width:100%;
+      list-style:none;
+      position: absolute;
+
+      > li {
+        float:left;
+        padding:.55em .55em;
+        width:19%;
+        text-align:center;
+        cursor: pointer;
+
+        &:hover {
+          color: #3b3b3b;
+        }
+        &:active {
+          border-top: none;
+        }
+      }
+    }
+  }
+
+
+
+
+  /* small screens */
+
+  @media screen and (min-width: 501px) {
+    nav[role="custom-dropdown"] {
+      display: none;
+    }
+  }
+  @media screen and (max-width: 500px) {
+    .desktop-nav-list {
+      display: none;
+    }
+    nav[role="custom-dropdown"] {
+      ul {
+        display:none;
+        height:100%;
+      }
+
+      label {
+        position:relative;
+        display:block;
+        width: calc(100% - 30px);
+        min-height:2.25em;
+        padding:15px;
+        font-size:1.1em;
+        margin:0;
+      }
+
+      label:after {
+        position: absolute;
+        right: 25px;
+        top: -12px;
+        content: "\2261";
+        color: $white;
+        font-size: 4em;
+      }
+
+      input[type=checkbox]:checked ~ label:after {
+        color:#222;
+      }
+
+      input[type=checkbox]:checked ~ ul {
+        display:block;
+
+        > li {
+          width: calc(100% - 19px);
+          text-align:left;
+
+        }
+      }
+    }
+  }
+}
+
+.navbar-tooltip-trigger {
+  cursor: pointer;
+  position: relative;
+  span {
+    color: #fff;
+  }
+  &#learning-tools {
+    .navbar-tooltip {
+      width: 248px;
+    }
+  }
+  &#our-story {
+    .navbar-tooltip {
+      width: 261px;
+    }
+  }
+  &#teacher-center {
+    .navbar-tooltip {
+      .tooltip-link {
+        padding: 13px 20px 13px 25px;
+      }
+    }
+  }
+  .navbar-tooltip {
+    z-index: 100;
+    display: none;
+    position: absolute;
+    width: 300px;
+    border-radius: 5px;
+    background-color: #ffffff;
+    box-shadow: 0 1px 5px 0 #c0c0c0;
+    flex-direction: column;
+    top: 52px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px 0px;
+    .fa-caret-up {
+      color: white;
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      -webkit-transform: translateX(-50%);
+      transform: translateX(-50%);
+    }
+    .tooltip-link {
+      padding: 13px 25px;
+      display: flex;
+      align-items: flex-start;
+      .image-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 30px;
+        height: 30px;
+        margin-right: 15px;
+        border-radius: 3px;
+        box-shadow: 0 1px 2px 0 #e4e4e4;
+        i, svg {
+          color:  #00947b;
+        }
+        .hover {
+          display: none;
+        }
+      }
+      h3 {
+        font-size: 16px;
+        font-weight: 600;
+        color: #027360;
+        margin-top: 0px;
+        margin-bottom: 6px;
+      }
+      p {
+        font-size: 13px;
+        color: #949494;
+        margin-bottom: 0px;
+        font-weight: 300;
+      }
+      &:hover {
+        text-decoration: none;
+        h3, p, i, svg {
+          color: #00c2a2;
+        }
+        .static {
+          display: none;
+        }
+        .hover {
+          display: flex;
+        }
+      }
+    }
+  }
+  &:hover:not(.unhoverable), &:focus {
+    outline: none;
+    span {
+      color: #7cfbdf;
+    }
+    .navbar-tooltip {
+      display: flex;
+    }
+  }
+  &.active {
+    span {
+      color: #7cfbdf;
+    }
+  }
+}
+
+.home-navbar-list {
+  background-color: #3b3b3b;
+  margin-bottom: 0;
+  float: right;
+  list-style-type: none;
+  li {
+    float: left;
+    position: relative;
+    display: block;
+    padding: 18px 0;
+    a {
+      height: 25px;
+      padding: 0px 11px;
+      margin: 0 2px;
+      font-weight: 600;
+      position: relative;
+      display: flex;
+      align-items: center;
+      line-height: 20px;
+      color: $white;
+      font-size: 14px;
+      border: 1px solid transparent;
+      //Instead of the line below you could use @includeborder-radius($radius, $vertical-radius)
+      border-radius: 4px;
+      //Instead of the line below you could use @includetransition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
+      transition: 0.1s ease-out;
+      -moz-transition: 0.1s ease-out;
+      -webkit-transition: 0.1s ease-out;
+      &:hover {
+        text-decoration: none;
+      }
+    }
+    &:hover a {
+      background-color: $white;
+      color: $quillgreen;
+    }
+  }
 }

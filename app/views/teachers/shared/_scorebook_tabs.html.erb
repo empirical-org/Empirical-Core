@@ -1,43 +1,79 @@
-<!-- Nav tabs -->
-<div class="full-screen  bg-quillgreen">
-<div class="q-nav-bar" >
-
+<div class="full-screen bg-quillgreen">
+  <div class="q-nav-bar">
     <ul class="desktop-nav-list" role="tablist" id="teacher-nav-tabs">
 
-      <li class="<%= (!is_progress_report_page?) && ((controller_name == 'classrooms') or  (['invite_students', 'dashboard', 'my_account', 'teacher_guide', 'google_sync'].include?(action_name)) or controller_name == 'students') ? 'active' : '' %>">
-        <%= link_to 'Classes', dashboard_teachers_classrooms_path, role: 'tab' %>
-        <%= link_to 'Classes', dashboard_teachers_classrooms_path, role: 'tab', class: 'mobile' %>
+      <li class="<%= 'active' if home_page_should_be_active? %>">
+        <%= link_to 'Home', dashboard_teachers_classrooms_path %>
       </li>
 
-      <li class="<%= controller_name == 'classroom_manager' && action_name == 'lesson_planner' ? 'active' : '' %>" >
-        <%= link_to "My Activities", lesson_planner_teachers_classrooms_path, role: 'tab' %>
-        <%= link_to "My Activities", lesson_planner_teachers_classrooms_path, role: 'tab', class: 'mobile'  %>
-      </li>
-
-      <li class="<%= (is_progress_report_page? || (action_name == 'scorebook')) ? 'active' : '' %>">
-        <%= link_to "Student Reports", '/teachers/progress_reports/landing_page', role: 'tab' %>
-        <%= link_to "Reports", '/teachers/progress_reports/landing_page', role: 'tab', class: 'mobile' %>
-      </li>
-
-      <li class="<%= controller_name == 'classroom_manager' && action_name == 'assign_activities' ? 'active' : '' %>" >
-        <%= link_to "Assign Activities", assign_activities_teachers_classrooms_path, role: 'tab' %>
-        <%= link_to "Assign", assign_activities_teachers_classrooms_path, role: 'tab', class: 'mobile'  %>
-      </li>
-
-      <%- if current_user.admin? %>
-        <li class="<%= (action_name == 'admin_dashboard') ? 'admin-tab active' : 'admin-tab' %>">
-          <%= link_to raw('School Dashboard'), teachers_admin_dashboard_path, role: 'tab' %>
-          <%= link_to 'School', teachers_admin_dashboard_path, role: 'tab', class: 'mobile'  %>
+      <% if current_user.admin? %>
+        <li class="admin-tab <%= 'active' if admin_page_should_be_active? %>">
+          <%= link_to 'School Dashboard', teachers_admin_dashboard_path, role: 'tab' %>
         </li>
       <% end %>
-      
-      <%- unless ((current_user.premium_state == 'paid') || (current_user.premium_state == 'school')) %>
-        <li class="<%= (action_name == 'premium') ? 'premium-tab active' : 'premium-tab' %>">
-          <%= link_to raw(premium_tab_copy), premium_path, role: 'tab' %>
-          <%= link_to 'Premium', premium_path, role: 'tab', class: 'mobile'  %>
+
+      <li class="<%= 'active' if classes_page_should_be_active? %>">
+        <%= link_to 'Classes', teachers_classrooms_path %>
+      </li>
+
+      <li class="<%= 'active' if assign_activity_page_should_be_active? %>">
+        <%= link_to raw("Assign<span class='hide-on-mobile'> Activities</span>"), assign_activities_teachers_classrooms_path %>
+      </li>
+
+      <li class="<%= 'active' if my_activities_page_should_be_active? %>">
+        <%= link_to raw("<span class='hide-on-mobile'>My </span>Activities"), lesson_planner_teachers_classrooms_path %>
+      </li>
+
+      <li class="<%= 'active' if student_reports_page_should_be_active? %>">
+        <%= link_to raw("<span class='hide-on-mobile'>Student </span>Reports"), teachers_progress_reports_landing_page_path %>
+      </li>
+
+      <% unless current_user.premium_state === 'paid' %>
+        <li class="premium-tab <%= 'active' if premium_page_should_be_active? %>">
+          <%= link_to raw("<span class='hide-on-mobile'>#{premium_tab_copy}</span><span class='hide-on-desktop'>Premium</span>"), premium_path %>
         </li>
       <% end %>
+
     </ul>
+  </div>
+</div>
 
-</div>
-</div>
+<% if should_render_subnav? %>
+  <div class="tab-subnavigation-wrapper class-subnav <%= 'student-reports-subnav' if student_reports_page_should_be_active? %>">
+    <div class="container">
+      <ul>
+        <% if home_page_should_be_active? %>
+          <% if current_user.has_classrooms? || current_user.archived_classrooms.any? || current_user.coteacher_invitations.any? %>
+            <li><%= active_link_to 'Overview', dashboard_teachers_classrooms_path %></li>
+          <% end %>
+          <li><%= active_link_to 'My Account', teachers_my_account_path %></li>
+          <li><%= active_link_to 'My Subscriptions', subscriptions_path %></li>
+          <li><%= active_link_to 'Teacher Guide', teachers_teacher_guide_path %></li>
+        <% end %>
+
+        <% if classes_page_should_be_active? %>
+          <% if current_user.has_classrooms? || current_user.archived_classrooms.any? || current_user.coteacher_invitations.any? %>
+            <li><%= link_to 'Manage Classes', teachers_classrooms_path, class: (%w(index edit google_sync).include?(action_name)) ? 'active' : '' %></li>
+            <li><%= link_to 'Invite Students', (invite_students_teachers_classrooms_path), class: ((action_name == 'invite_students')) ? 'active' : '' %></li>
+          <% end %>
+          <li><%= active_link_to 'Create a Class', new_teachers_classroom_path %></li>
+        <% end %>
+
+        <% if student_reports_page_should_be_active? %>
+          <li><%= active_link_to 'Activity Summary', scorebook_teachers_classrooms_path, class: 'default'%></li>
+          <li><%= active_link_to 'Activity Analysis', '/teachers/progress_reports/diagnostic_reports/#/activity_packs', class: 'default activity-analysis-tab'%></li>
+          <li><%= active_link_to 'Diagnostics', '/teachers/progress_reports/diagnostic_reports/#/diagnostics', class: 'default diagnostic-tab'%></li>
+          <li><a href='/teachers/progress_reports/activities_scores_by_classroom' class=<%=%w(/teachers/progress_reports/student_overview /teachers/progress_reports/activities_scores_by_classroom).include?(request.path) ? 'active' : nil%> >Activity Scores  <i class="fa fa-star"></i></a></li>
+          <li><%= active_link_to raw('Concepts  <i class="fa fa-star"></i>'), teachers_progress_reports_concepts_students_path%></li>
+          <li><%= active_link_to raw('Standards  <i class="fa fa-star"></i>'), teachers_progress_reports_standards_classrooms_path %></li>
+          <li><%= active_link_to raw('Data Export  <i class="fa fa-star"></i>'), teachers_progress_reports_activity_sessions_path %></li>
+        <% end %>
+
+      </ul>
+    </div>
+  </div>
+
+  <% if student_reports_page_should_be_active? %>
+    <div id='premium-banner-container'></div>
+  <% end %>
+<% end %>

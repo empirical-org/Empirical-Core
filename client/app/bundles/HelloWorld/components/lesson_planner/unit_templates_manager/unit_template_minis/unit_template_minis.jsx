@@ -66,6 +66,14 @@
     }
   },
 
+  renderListFilterOptions: function(){
+    return (
+      <div className='row'>
+        {this.listFilterOptions()}
+      </div>
+    )
+},
+
   colView: function (data, index) {
     return (
       <div className={`small-screen-unit-template-container`} key={index}>
@@ -89,7 +97,6 @@
                     userLoggedIn={this.userLoggedIn()}
                     options={this.props.data.categories || []}
                     selectedId={this.props.data.selectedCategoryId}
-                    // select={this.props.actions.filterByCategory}
                     />
       );
     }
@@ -102,38 +109,13 @@
   userNotLoggedIn: function () {
     return !this.userLoggedIn();
   },
-  renderTopLevelNav: function () {
-    return this.listFilterOptions();
-  },
 
-  renderListFilterOptionsIfLoggedIn: function(){
-    if (this.userLoggedIn()) {
-      return (
-        <div className='row'>
-          {this.listFilterOptions()}
-        </div>
-      )
-    }
-  },
-
-  stateSpecificComponents: function () {
-    const components = [];
-    if (this.userNotLoggedIn()) {
-      components.push(this.renderTopLevelNav())
-    }
-    return (
-      <div>
-        {components.concat(this.alwaysRender())}
-      </div>
-    )
-  },
-
-  alwaysRender: function () {
+  render: function () {
     return (<div key='always-display' className='unit-template-minis'>
       <div className="container">
         <div className='row'>
           <div className='col-xs-12'>
-              {this.renderListFilterOptionsIfLoggedIn()}
+              {this.renderListFilterOptions()}
               {this.generateShowAllGradesView()}
             <div className='row'>
             {this.generateUnitTemplateViews()}
@@ -144,10 +126,5 @@
           </div>
         </div>
       </div>
-    </div>)
-  },
-
-  render: function () {
-    return this.stateSpecificComponents()
-  }
+    </div>)  }
 });

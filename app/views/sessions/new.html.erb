@@ -6,13 +6,13 @@
         <a href='/auth/google_oauth2'>
           <button class="google-login">
             <img src='/images/google_icon.svg'/>
-            <span>Login with Google</span>
+            <span>Log In with Google</span>
           </button>
         </a>
         <a href=<%="https://clever.com/oauth/authorize?#{ {response_type: 'code', redirect_uri: Clever::REDIRECT_URL, client_id: Clever::CLIENT_ID, scope: QuillClever.scope}.to_param }"%>>
           <button class="clever-login">
             <img src=<%= "#{ENV['CDN_URL']}/images/shared/clever_icon.svg" %>>
-            <span>Login with Clever</span>
+            <span>Log In with Clever</span>
           </button>
         </a>
       </div>

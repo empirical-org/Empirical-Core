@@ -5,6 +5,7 @@ class AccountsController < ApplicationController
   def new
     ClickSignUpWorker.perform_async
     session[:role] = nil
+    session[:post_sign_up_redirect] = params[:redirect]
     @teacherFromGoogleSignUp = false
     @js_file = 'session'
   end
@@ -32,6 +33,13 @@ class AccountsController < ApplicationController
       ip = request.remote_ip
       AccountCreationCallbacks.new(@user, ip).trigger
       @user.subscribe_to_newsletter
+      if @user.teacher? && request.env['affiliate.tag']
+        referrer_user_id = ReferrerUser.find_by(referral_code: request.env['affiliate.tag'])&.user&.id
+        ReferralsUser.create(user_id: referrer_user_id, referred_user_id: @user.id) if referrer_user_id
+      end
+      if session[:post_sign_up_redirect]
+        return render json: { redirectPath: session.delete(:post_sign_up_redirect) }
+      end
       return render json: { redirectPath: teachers_classrooms_path } if @user.has_outstanding_coteacher_invitation?
       render json: @user
     else

@@ -17,9 +17,8 @@ describe 'CleverIntegration::Importers::Classrooms' do
   }
 
   let!(:teacher_requester) {
-
-    Response = Struct.new(:sections)
-    response = Response.new(sections_response)
+    response_stuct = Struct.new(:sections)
+    response = response_stuct.new(sections_response)
 
     lambda do |clever_id, district_token|
       response

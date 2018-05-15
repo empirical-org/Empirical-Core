@@ -92,7 +92,7 @@ module Demo::ReportDemoCreator
   end
 
   def self.create_classroom_activities(classroom, unit)
-    activities = [413, 437, 434, 215, 41, 386, 289, 295]
+    activities = [413, 437, 434, 215, 41, 386, 289, 295, 418]
     classroom_activities = []
     activities.each do |act_id|
       values = {
@@ -116,7 +116,8 @@ module Demo::ReportDemoCreator
        41 => 438155,
       386 => 387966,
       289 => 442653,
-      295 => 442645},
+      295 => 442645,
+      418 => 662204},
 
 
       {413 => 657588,
@@ -126,7 +127,8 @@ module Demo::ReportDemoCreator
        41 => 459240,
       386 => 387956,
       289 => 442649,
-      295 => 442649},
+      295 => 442649,
+      418 => 662204},
 
 
       {413 => 657593,
@@ -136,7 +138,8 @@ module Demo::ReportDemoCreator
        41 => 438144,
       386 => 387967,
       289 => 442670,
-      295 => 442638},
+      295 => 442638,
+      418 => 662204},
 
 
       {413 => 657586,
@@ -146,7 +149,8 @@ module Demo::ReportDemoCreator
        41 => 438171,
       386 => 387954,
       289 => 442645,
-      295 => 442653},
+      295 => 442653,
+      418 => 662204},
 
 
       {413 => 657503,
@@ -156,7 +160,8 @@ module Demo::ReportDemoCreator
        41 => 438152,
       386 => 387948,
       289 => 442656,
-      295 => 442643}
+      295 => 442643,
+      418 => 662204}
     ]
 
     students.each_with_index do |student, num|

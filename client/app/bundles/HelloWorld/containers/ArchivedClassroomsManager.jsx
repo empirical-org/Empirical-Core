@@ -23,7 +23,7 @@ export default React.createClass({
       basePath = '/students_classrooms';
       getClassroomsPath = `${basePath}/classroom_manager_data`;
     }
-    return { loading: true, classrooms: null, basePath, getClassroomsPath, myName: ''};
+    return { loading: true, classrooms: null, basePath, getClassroomsPath, myName: '', };
   },
 
   componentDidMount() {
@@ -38,7 +38,7 @@ export default React.createClass({
           context: this,
           cache: false,
           success(data) {
-            this.formatData(data)
+            this.formatData(data);
           },
         });
       }
@@ -54,15 +54,15 @@ export default React.createClass({
     }
   },
 
-  formatData(data){
-    const coteacherClassroomsAndTeachers = this.formatCoteachers(data.coteachers, true)
-    data.coteachers = coteacherClassroomsAndTeachers.coteachers
-    data.coteachersByClassroom = coteacherClassroomsAndTeachers.coteachersByClassroom
-    data.pending_coteachers = this.formatCoteachers(data.pending_coteachers)
+  formatData(data) {
+    const coteacherClassroomsAndTeachers = this.formatCoteachers(data.coteachers, true);
+    data.coteachers = coteacherClassroomsAndTeachers.coteachers;
+    data.coteachersByClassroom = coteacherClassroomsAndTeachers.coteachersByClassroom;
+    data.pending_coteachers = this.formatCoteachers(data.pending_coteachers);
     const showArchivedNotification = data.active.length === 0;
     const myName = data.my_name;
-    delete data['my_name']
-    this.setState({ classrooms: data, loading: false, showArchivedNotification, myName}, this.hashLinkScroll);
+    delete data.my_name;
+    this.setState({ classrooms: data, loading: false, showArchivedNotification, myName, }, this.hashLinkScroll);
   },
 
   leaveClassroom(id) {
@@ -72,43 +72,43 @@ export default React.createClass({
           url: `${process.env.DEFAULT_URL}/classrooms_teachers/destroy/${id}`,
           json: { authenticity_token: getAuthToken(), },
         }, (e, r, b) => {
-          if (e) {
-            console.log(e)
-          } else {
-            this.getClassrooms()
-          }
+        if (e) {
+          console.log(e);
+        } else {
+          this.getClassrooms();
         }
-      )
+      }
+      );
     }
   },
 
   formatCoteachers(teachers, isCoteachers) {
     const classroomsByCoteacher = {};
-    const coteachersByClassroom = {}
-    teachers.forEach((coteacher)=> {
+    const coteachersByClassroom = {};
+    teachers.forEach((coteacher) => {
       if (isCoteachers) {
         // get an array of the coteachers that each classroom has
-        coteachersByClassroom[coteacher.name] = coteachersByClassroom[coteacher.name] || []
+        coteachersByClassroom[coteacher.name] = coteachersByClassroom[coteacher.name] || [];
         // name is classroom name
-        coteachersByClassroom[coteacher.name].push(coteacher.coteacher_name)
+        coteachersByClassroom[coteacher.name].push(coteacher.coteacher_name);
       }
       // get an array of the classrooms that each coteacher owns
-      classroomsByCoteacher[coteacher.coteacher_email] = classroomsByCoteacher[coteacher.coteacher_email] || []
+      classroomsByCoteacher[coteacher.coteacher_email] = classroomsByCoteacher[coteacher.coteacher_email] || [];
       classroomsByCoteacher[coteacher.coteacher_email].push(coteacher.name);
     });
-    const newCoteachers = []
-    for (let email in classroomsByCoteacher) {
+    const newCoteachers = [];
+    for (const email in classroomsByCoteacher) {
       if (classroomsByCoteacher.hasOwnProperty(email)) {
-        const teacherMatch = teachers.find((t)=>t.coteacher_email == email)
-        teacherMatch.classrooms = classroomsByCoteacher[email]
-        delete teacherMatch.name
-        newCoteachers.push(teacherMatch)
+        const teacherMatch = teachers.find(t => t.coteacher_email == email);
+        teacherMatch.classrooms = classroomsByCoteacher[email];
+        delete teacherMatch.name;
+        newCoteachers.push(teacherMatch);
       }
     }
     if (isCoteachers) {
-      return {coteachersByClassroom, coteachers: newCoteachers}
+      return { coteachersByClassroom, coteachers: newCoteachers, };
     }
-    return newCoteachers
+    return newCoteachers;
   },
 
   classAction(status, id) {
@@ -119,10 +119,10 @@ export default React.createClass({
       path = `${this.state.basePath}/${id}/${path}`;
       if (status === 'Archive') {
         if (confirm("Are you sure you want to archive this classroom? If you choose to unarchive it at a later date, your students' activities will not be restored.")) {
-          this.postClassroomChange(path)
+          this.postClassroomChange(path);
         }
       } else {
-        this.postClassroomChange(path)
+        this.postClassroomChange(path);
       }
     }
   },
@@ -148,7 +148,7 @@ export default React.createClass({
 
   finalContents(cl, action) {
     let displayed = action;
-    const myClassroom = cl.ownerName === this.state.myName
+    const myClassroom = cl.ownerName === this.state.myName;
     if (myClassroom) {
       if (this.state.loading) {
         displayed = [<LoadingIndicator key={`button-loading-indicator-for-${cl.id}`} />, <span key={`action-for-${cl.id}`}>{action}</span>];
@@ -156,25 +156,23 @@ export default React.createClass({
       return (<span
         onClick={() => { this.classAction(action, cl.id); }}
         className={`flex-row vertically-centered action-container ${action.toLowerCase()} ${cl.className.replace(/ /g, '')}`}
-        >
-          {displayed}
-        </span>);
-    } else {
-      return (<span
-        onClick={() => { this.leaveClassroom(cl.id) }}
-        className={`flex-row vertically-centered action-container ${cl.className.replace(/ /g, '')}`}
-        >
+      >
+        {displayed}
+      </span>);
+    }
+    return (<span
+      onClick={() => { this.leaveClassroom(cl.id); }}
+      className={`flex-row vertically-centered action-container ${cl.className.replace(/ /g, '')}`}
+    >
           Leave Classroom
         </span>);
-    }
   },
 
-  editOrRemove(action, coteacher_email, coteacher_id){
+  editOrRemove(action, coteacher_email, coteacher_id) {
     if (action == 'pending_coteachers') {
-      return <td className='edit-or-remove' onClick={() => { this.removePendingCoteacher(coteacher_email) }}><i className="fa fa-times-circle" aria-hidden="true"></i>Remove</td>
-    } else {
-      return <td className='edit-or-remove'><a href={`/classrooms_teachers/${coteacher_id}/edit_coteacher_form`}><i className="fa fa-pencil" aria-hidden="true"></i>Edit</a></td>
+      return <td className="edit-or-remove" onClick={() => { this.removePendingCoteacher(coteacher_email); }}><i className="fa fa-times-circle" aria-hidden="true" />Remove</td>;
     }
+    return <td className="edit-or-remove"><a href={`/classrooms_teachers/${coteacher_id}/edit_coteacher_form`}><i className="fa fa-pencil" aria-hidden="true" />Edit</a></td>;
   },
 
   removePendingCoteacher(coteacher_email) {
@@ -224,7 +222,7 @@ export default React.createClass({
 
   transferOwnership(classroomId, coteacherId) {
     const confirm = prompt("Are you sure you want to transfer ownership of this classroom? You will lose access to certain features like archiving this classroom and editing its activity packs. To continue with the transfer, please type 'TRANSFER' into the box below and hit submit. Otherwise, just hit submit.");
-    if(confirm.toLowerCase() === 'transfer') {
+    if (confirm.toLowerCase() === 'transfer') {
       request({
         url: `${process.env.DEFAULT_URL}/teachers/classrooms/${classroomId}/transfer_ownership`,
         method: 'POST',
@@ -254,26 +252,26 @@ export default React.createClass({
             <td>{cl.classrooms.map(classroom => <p key={`${classroom}-${cl.coteacher_email}`}>{classroom}</p>)}</td>
             {this.editOrRemove(action, cl.coteacher_email, cl.coteacher_id)}
           </tr>
-        )
+        );
       }
       if (cl.invitation) {
         return (
-          <tr key={cl.classroom_invitation_id + 'invite'}>
-            <td className='pending-invitation-class-name'>{cl.classroom_name}</td>
-            <td className='pending-invitation-row' colSpan={7}>{cl.inviter_name} has invited you to co-teach this class.
+          <tr key={`${cl.classroom_invitation_id}invite`}>
+            <td className="pending-invitation-class-name">{cl.classroom_name}</td>
+            <td className="pending-invitation-row" colSpan={7}>{cl.inviter_name} has invited you to co-teach this class.
               (<a onClick={() => this.handleAccept(cl.classroom_invitation_id)}>Accept Invite</a> / <a onClick={() => this.handleReject(cl.classroom_invitation_id)}>Decline Invite</a>)
             </td>
           </tr>
-        )
+        );
       }
       let coteacherCell;
       if (cl.coteachers && cl.coteachers.length) {
         coteacherCell = cl.coteachers.map(coteacher =>
           <p key={`${coteacher.name}-${coteacher.email}-coteacher-list`}>
             {coteacher.name}
-            {cl.ownerName == this.state.myName ? <a onClick={() => this.transferOwnership(cl.id, coteacher.id)} className='transfer-ownership'>(transfer class)</a> : null}
+            {cl.ownerName == this.state.myName ? <a onClick={() => this.transferOwnership(cl.id, coteacher.id)} className="transfer-ownership">(transfer class)</a> : null}
           </p>
-        )
+        );
       }
 
       return (
@@ -281,7 +279,7 @@ export default React.createClass({
           <td>{cl.className}</td>
           <td>{cl.ownerName}</td>
           <td>{coteacherCell}</td>
-          <td>{cl.from_google ?  <span className='google-classcode'>Synced from Google Classroom</span> : cl.classcode}</td>
+          <td>{cl.from_google ? <span className="google-classcode">Synced from Google Classroom</span> : cl.classcode}</td>
           <td className="student-count">{cl.studentCount}</td>
           <td className="created-date">{cl.createdDate}</td>
           <td>{manageClass}</td>
@@ -304,16 +302,16 @@ export default React.createClass({
     let content;
     if (this.props.role === 'teacher') {
       if (action === 'coteachers') {
-      content = (
-        <tr>
-          <th>Co-Teacher Name</th>
-          <th>Email Address</th>
-          <th>Status</th>
-          <th>Classes</th>
-          <th />
-        </tr>
-      )}
-      else {
+        content = (
+          <tr>
+            <th>Co-Teacher Name</th>
+            <th>Email Address</th>
+            <th>Status</th>
+            <th>Classes</th>
+            <th />
+          </tr>
+      );
+      } else {
         const manageClass = action === 'Archive' ? 'Edit Students' : '';
         content =
         (<tr>
@@ -364,7 +362,7 @@ export default React.createClass({
 
   joinOrAddClass() {
     if (this.props.role === 'student') {
-      return (<a href="/students_classrooms/add_classroom" className="btn button-green">Join a Class</a>);
+      return (<a href="/add_classroom" className="btn button-green">Join a Class</a>);
     }
   },
 
@@ -381,13 +379,12 @@ export default React.createClass({
     }
   },
 
-
-  coteachers(){
+  coteachers() {
     if (this.state.classrooms.coteachers.length || this.state.classrooms.pending_coteachers.length) {
       return (
         <div id="my-coteachers">
           <h1>My Co-Teachers</h1>
-          <table className='table'>
+          <table className="table">
             {this.tableHeaders('coteachers')}
             <tbody>
               {this.mapClassrooms(this.state.classrooms.pending_coteachers, 'pending_coteachers')}
@@ -395,7 +392,7 @@ export default React.createClass({
             </tbody>
           </table>
         </div>
-      )
+      );
     }
   },
 
@@ -426,7 +423,7 @@ export default React.createClass({
   optionSection() {
     return (
       <div className="archive-options-container">
-        <h1 className='main-title'>Manage Classes</h1>
+        <h1 className="main-title">Manage Classes</h1>
         <div className="flex-row vertically-centered space-between">
           <p>On this page, you can archive and unarchive classes. You can also click on <strong>Edit Students</strong> to reset students’ passwords below.</p>
           <div className="cta-box">
@@ -444,7 +441,7 @@ export default React.createClass({
         {this.optionSection()}
         {this.joinOrAddClass()}
         {this.stateSpecificComponents()}
-        <InviteCoteachers onSuccess={this.getClassrooms} classrooms={this.state.classrooms ? this.state.classrooms.active_classrooms_i_own : []}/>
+        <InviteCoteachers onSuccess={this.getClassrooms} classrooms={this.state.classrooms ? this.state.classrooms.active_classrooms_i_own : []} />
       </div>
     );
   },

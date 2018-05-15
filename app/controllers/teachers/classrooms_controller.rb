@@ -1,8 +1,10 @@
 class Teachers::ClassroomsController < ApplicationController
   respond_to :json, :html, :pdf
   before_filter :teacher!
-  before_filter :authorize_owner!, except: [:scores, :units, :scorebook]
-  before_filter :authorize_teacher!, only: [:scores, :units, :scorebook]
+  # The excepted/only methods below are ones that should be accessible to coteachers.
+  # TODO This authing could probably be refactored.
+  before_filter :authorize_owner!, except: [:scores, :units, :scorebook, :generate_login_pdf]
+  before_filter :authorize_teacher!, only: [:scores, :units, :scorebook, :generate_login_pdf]
 
   def index
     if current_user.classrooms_i_teach.empty? && current_user.archived_classrooms.empty? && !current_user.has_outstanding_coteacher_invitation?
@@ -25,15 +27,15 @@ class Teachers::ClassroomsController < ApplicationController
   end
 
   def regenerate_code
-    cl = Classroom.new
-    cl.generate_code
-    render json: {code: cl.code}
+    render json: {code: Classroom.generate_unique_code}
   end
 
   def create
     @classroom = Classroom.create_with_join(classroom_params, current_user.id)
     if @classroom.valid?
-      render json: {classroom: @classroom, toInviteStudents: current_user.students.empty?}
+      # For onboarding purposes, we don't want to prompt a teacher to invite students before they've assigned any units.
+      should_redirect_to_invite_students = @classroom.students.empty? && current_user.units.any?
+      render json: {classroom: @classroom, toInviteStudents: should_redirect_to_invite_students}
     else
        render json: {errors: @classroom.errors.full_messages }, status: 422
     end

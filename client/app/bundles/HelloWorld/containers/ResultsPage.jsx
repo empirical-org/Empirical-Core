@@ -15,8 +15,9 @@ export default React.createClass({
         </button>
       </a>)
     } else {
+      const link = this.props.classroomId ? `/classrooms/${this.props.classroomId}` : '/profile'
       return (
-        <a href='/profile'>
+        <a href={link}>
           <button className='btn button-green'>
             Back to Your Dashboard<i className="fa fa-long-arrow-right" aria-hidden="true"></i>
           </button>

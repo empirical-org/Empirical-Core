@@ -1,28 +1,23 @@
 <% @active_tab = 'Team' %>
-<%= render partial: 'pages/shared/pages_tabs', active_tab: @active_tab %>
+<%= render partial: 'pages/shared/our_story_navbar', active_tab: @active_tab %>
 
-<div class="white-background">
-  <div class="container pages-container team white-page">
-
-    <% team_info.each do |team_type| %>
-      <div class="row">
-        <h3> <%= team_type[:team] %> </h3>
-        <% team_type[:members].in_groups_of(3) do |people| %>
-          <div class="row">
-            <% people.each do |person| %>
-              <% if person %>
-                <div class="col-md-4 col-xs-12 team_section">
-                  <img src=<%= "http://assets.quill.org/images/headshots/#{person[:img]}" %> %>
-                  <h4> <%= person[:name] %> </h4>
-                  <p> <%= person[:title] %> </p>
-                  <p> <%= person[:desc] %> </p>
-                </div>
-              <% end %>
-            <% end %>
+<div class="container team">
+  <% team_info.each do |team_type| %>
+    <section>
+      <h3><%= team_type[:team] %></h3>
+      <div class='team-members'>
+        <% team_type[:members].each do |person| %>
+          <div class='team-member'>
+            <div class='meta-container'>
+              <img src=<%= "http://assets.quill.org/images/headshots/#{person[:img]}" %> %>
+              <h4> <%= person[:name] %> </h4>
+              <h5> <%= person[:title] %> </h5>
+            </div>
+            <p> <%= person[:desc] %> </p>
           </div>
         <% end %>
       </div>
-      <% end %>
-
+    </section>
+    <% end %>
   </div>
 </div>

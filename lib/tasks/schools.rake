@@ -78,4 +78,17 @@ namespace :schools do
     puts "✨ New Schools: #{total_new}"
     puts "✨ Updated Schools: #{total_updated}"
   end
+
+  desc 'Titleize all school name, address and other relevant data points'
+  task :titleize => :environment do
+    School.all.each do |school|
+      school.leanm = school.leanm&.titleize
+      school.name = school.name&.titleize
+      school.mail_street = school.mail_street&.titleize
+      school.mail_city = school.mail_city&.titleize
+      school.street = school.street&.titleize
+      school.city = school.street&.titleize
+      school.save! 
+    end  
+  end
 end
