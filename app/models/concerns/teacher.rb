@@ -452,10 +452,6 @@ module Teacher
     ").to_a
   end
 
-  def referrer_code
-    self.referrer_user.referral_code
-  end
-
   def referral_code
     self.referrer_user.referral_code
   end
