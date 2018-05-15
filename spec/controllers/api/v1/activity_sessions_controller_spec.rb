@@ -3,7 +3,7 @@ require 'rails_helper'
 describe Api::V1::ActivitySessionsController, type: :controller do
 
 
-  context 'PUT #update' do
+  describe '#update' do
     let(:token) { double :acceptable? => true, resource_owner_id: user.id }
     let(:user) { create(:student) }
 
@@ -97,6 +97,54 @@ describe Api::V1::ActivitySessionsController, type: :controller do
         response = subject
         expect(@activity_session.concept_results).to eq([])
       end
+    end
+  end
+
+  describe '#show' do
+    let!(:session) { create(:activity_session) }
+
+    it 'should render the correct json' do
+      get :show, id: session.uid
+      expect(JSON.parse(response.body)["meta"]).to eq({
+          "status" => "success",
+          "message" => nil,
+          "errors" => nil
+        })
+      expect(JSON.parse(response.body)["activity_session"]["uid"]).to eq session.uid
+      expect(JSON.parse(response.body)["activity_session"]["percentage"]).to eq session.percentage
+      expect(JSON.parse(response.body)["activity_session"]["state"]).to eq session.state
+      expect(JSON.parse(response.body)["activity_session"]["data"]).to eq session.data
+      expect(JSON.parse(response.body)["activity_session"]["temporary"]).to eq session.temporary
+      expect(JSON.parse(response.body)["activity_session"]["activity_uid"]).to eq session.activity_uid
+      expect(JSON.parse(response.body)["activity_session"]["anonymous"]).to eq session.anonymous
+    end
+  end
+
+  describe '#create' do
+    let(:classroom_activity) { create(:classroom_activity_with_activity) }
+    let(:session) { create(:proofreader_activity_session, classroom_activity: classroom_activity) }
+
+    it 'should create the activity session' do
+      put :create, params: session.attributes.except(:id, :completed_at, :user_id, :created_at, :updated_at), format: :json
+      expect(JSON.parse(response.body)["meta"]).to eq({
+        "status" => "success",
+        "message" => "Activity Session Created",
+        "errors" => {}
+      })
+    end
+  end
+
+  describe '#destoy' do
+    include_context "calling the api" #bypass doorkeeper
+    let!(:session) { create(:proofreader_activity_session) }
+
+    it 'should destroy the activity session' do
+      delete :destroy, id: session.uid, format: :json
+      expect(JSON.parse(response.body)["meta"]).to eq({
+        "status" => "success",
+        "message" => "Activity Session Destroy Successful",
+        "errors" => nil
+      })
     end
   end
 end
