@@ -44,7 +44,6 @@ class Api::V1::ActivitiesController < Api::ApiController
 
   # DELETE
   def destroy
-
     if @activity.destroy!
       render json: Activity.new, meta: {status: 'success', message: "Activity Destroy Successful", errors: nil}
     else
