@@ -6,19 +6,19 @@ const admin = () => [
     answer: <p>After upgrading to Quill School Premium, you’ll receive an email from our team with next steps, which include setting up your professional development session.</p>
   },
   {
-    question: 'Arranging the Session',
+    question: 'How can I arrange the Professional Development session?',
     answer: [<p>In order to set up that session, you will set up an initial 15-minute call between your PD coordinator and our School Partnerships team to discuss tailoring the session school goals and writing curriculum, which tools you’d like to highlight, and when you’d like the session to happen. You can do this by signing up at <a href="http://beccaquill.youcanbook.me">beccaquill.youcanbook.me</a>.</p>,
             <p>Teachers will be asked to set up their Quill accounts prior to the session, so they can jump right into exploring Quill!</p>
     ]
   },
   {
-    question: 'Session Structure',
+    question: 'What is the Professional Development session structure like?',
     answer: [
             <p>The personalized session will last 45 to 75 minutes, and will involve a review of chosen tools as they relate to the school’s focus, and (time allowing) a conversation surrounding how teachers can effectively integrate Quill into their classroom. In the session, teachers will establish a direct line of communication with the School Partnerships team.</p>
             ]
   },
   {
-    question: 'Session Access',
+    question: 'How will I access the Professional Development session?',
     answer: [<p>Sessions outside of New York City will be held remotely via Google Hangouts, and will be recorded via Hangouts on Air to provide teachers with continued access to the information. Teachers will receive a follow up email with a reminder of resources and a link to the session recording.</p>]
   },
   {

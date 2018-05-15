@@ -5,7 +5,7 @@ export default React.createClass({
 
   beginTrial() {
     $.post('/subscriptions', { subscription: { account_type: 'Teacher Trial', }, })
-      .success(() => { window.location.assign('/'); });
+      .success(() => { window.location.assign('/teachers/progress_reports/activities_scores_by_classroom'); });
   },
 
   miniBuilder() {
