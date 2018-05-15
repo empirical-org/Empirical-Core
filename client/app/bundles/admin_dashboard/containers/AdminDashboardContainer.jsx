@@ -4,7 +4,7 @@ import SubnavTabs from '../components/subnav_tabs.tsx';
 const AdminDashboardContainer = (props) => (
     <div className="tab-content">
       <div className="tab-pane active" id="class-manager">
-        <SubnavTabs />
+        <SubnavTabs path={props.location}/>
         <div id="admin-dashboard">
           {props.children}
         </div>

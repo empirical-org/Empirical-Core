@@ -60,15 +60,9 @@ describe('Recommendations Component', () => {
       />)
     wrapper.setState({recommendations, students, previouslyAssignedRecommendations})
     wrapper.instance().setSelections(previouslyAssignedRecommendations)
-    it('assigns state.selections to an array of activities, each with an array of student ids concatenated from state.previouslyAssignedRecommendations and state.recommendations', () => {
-      const selections = wrapper.state('recommendations').map((recommendation, i) => {
-				const prevAssigned = previouslyAssignedRecommendations[i]
-				const allStudents = _.uniq(recommendation.students.concat(prevAssigned.students))
-				return {
-					activity_pack_id: recommendation.activity_pack_id,
-					name: recommendation.name,
-					students: allStudents
-				}
+    it('assigns state.selections to an array of activities which is identical to the recommended activities', () => {
+      const selections = wrapper.state('recommendations').map(recommendation => {
+				return recommendation
 			})
       expect(_.isEqual(wrapper.state('selections'), selections)).toBe(true)
     })
@@ -80,15 +74,18 @@ describe('Recommendations Component', () => {
     />)
     wrapper.setState({recommendations, students, previouslyAssignedRecommendations, selections: recommendations})
     it ('returns an object with key selections and value array of objects with ids and classrooms', () => {
-      const selectionsArr = wrapper.state('selections').map(activityPack => ({
-        id: activityPack.activity_pack_id,
-        classrooms: [
-          {
-            id: params.classroomId,
-            student_ids: activityPack.students,
+      const selectionsArr = wrapper.state('selections').map((activityPack, index) => {
+        const students = _.uniq(activityPack.students.concat(wrapper.state('previouslyAssignedRecommendations')[index].students))
+          return {
+            id: activityPack.activity_pack_id,
+            classrooms: [
+              {
+                id: params.classroomId,
+                student_ids: students,
+              }
+            ]
           }
-        ]
-      }))
+        })
       const selectionsObj = {selections: selectionsArr}
       expect(_.isEqual(wrapper.instance().formatSelectionsForAssignment(), selectionsObj)).toBe(true)
     })

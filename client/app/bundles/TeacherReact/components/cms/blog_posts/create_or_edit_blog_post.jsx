@@ -87,6 +87,8 @@ export default class extends React.Component {
     this.updatePreviewCardBasedOnType();
     if(this.props.action === 'new') {
       this.setState({ previewCardHasAlreadyBeenManuallyEdited: false });
+    } else {
+      this.setState({ previewCardHasAlreadyBeenManuallyEdited: true })
     }
   }
 
@@ -343,7 +345,7 @@ export default class extends React.Component {
       footerContent = `<span/>`
     }
     if (this.state.previewCardButtonText) {
-      button = `<div class='button-container'><a class='article-cta-primary' href=${this.state.externalLink}>${this.state.previewCardButtonText}</a></div>`
+      button = `<div class='button-container'><a target='_blank' class='article-cta-primary' href=${this.state.externalLink}>${this.state.previewCardButtonText}</a></div>`
     } else {
       button = '<span/>'
     }
@@ -443,7 +445,7 @@ export default class extends React.Component {
         <input onChange={this.handleBlogPostPreviewImageChange} type='text' value={this.state.blogPostPreviewImage} />,
         <label>Title:</label>,
         <input onChange={this.handleBlogPostPreviewTitleChange} type='text' value={this.state.blogPostPreviewTitle} />,
-        <label>Description:</label>,
+        <label>Description: <i>(Please, choose the juiciest quote from the article that makes you want to read it and you should aim for 200 characters for the card description., for example: "I put jazz on and my kids work on Quill.")</i></label>,
         <input onChange={this.handleBlogPostPreviewDescriptionChange} type='text' value={this.state.blogPostPreviewDescription} />,
         <label>Button Text (button will link to whatever the external link is above):</label>,
         <input onChange={this.handlePreviewCardButtonTextChange} type='text' value={this.state.previewCardButtonText} />
@@ -451,7 +453,8 @@ export default class extends React.Component {
     } else if (preview_card_type === 'Custom HTML') {
       contentFields = [
         <label>Custom HTML:</label>,
-        <textarea rows={4} type="text" id="preview-markdown-content" value={this.state.custom_preview_card_content} onChange={this.handleCustomPreviewChange} />
+        <textarea rows={4} type="text" id="preview-markdown-content" value={this.state.custom_preview_card_content} onChange={this.handleCustomPreviewChange} />,
+        <i>If no author is supposed to show, please delete "&lt;p class=author>" through the next "&lt;/p>".</i>
       ]
     } else if(preview_card_type === 'Tweet') {
       contentFields = [
@@ -530,8 +533,8 @@ export default class extends React.Component {
           <i onClick={() => this.insertMarkdown('> ')} className="fa fa-quote-left" />
           <i onClick={() => this.insertMarkdown('[', '](http://samepicofdavecoulier.tumblr.com)')} className="fa fa-link" />
           <i onClick={() => this.insertMarkdown('![', '](http://cultofthepartyparrot.com/parrots/hd/parrot.gif)')} className="fa fa-file-image-o" />
-          <i onClick={() => this.insertMarkdown("<a href='https://google.com' class='article-cta-primary'>\n", "\n</a>")} className="fa fa-square" />
-          <i onClick={() => this.insertMarkdown("<a href='https://google.com' class='article-cta-secondary'>\n", "\n</a>")} className="fa fa-square-o" />
+          <i onClick={() => this.insertMarkdown("<a target='_blank' href='https://google.com' class='article-cta-primary'>\n", "\n</a>")} className="fa fa-square" />
+          <i onClick={() => this.insertMarkdown("<a target='_blank' href='https://google.com' class='article-cta-secondary'>\n", "\n</a>")} className="fa fa-square-o" />
         </div>
         content = <textarea rows={20} type="text" id="markdown-content" value={this.state.body} onChange={this.handleBodyChange} />
         mdLink = <a target="_blank" href="http://commonmark.org/help/" className='markdown-cheatsheet'>Markdown Cheatsheet</a>

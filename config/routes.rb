@@ -34,6 +34,8 @@ EmpiricalGrammar::Application.routes.draw do
 
   resources :blog_posts, path: 'teacher-center', only: [:index, :show], param: :slug do
     collection do
+      get '/topic/press', to: redirect('/press')
+      get '/topic/announcements', to: redirect('/announcements')
       get '/topic/:topic', to: 'blog_posts#show_topic'
       get 'search', to: 'blog_posts#search'
     end
@@ -491,7 +493,7 @@ EmpiricalGrammar::Application.routes.draw do
   get 'teachers/classrooms/activity_planner/lessons_for_activity/:activity_id' => 'teachers/classroom_manager#lesson_planner'
   get 'teachers/classrooms/activity_planner/units/:unitId/students/edit' => 'teachers/classroom_manager#lesson_planner'
   get 'teachers/classrooms/activity_planner/units/:unitId/activities/edit' => 'teachers/classroom_manager#lesson_planner'
-  get 'teachers/classrooms/activity_planner/units/:unitId/activities/edit/:unitName' => 'teachers/classroom_manager#lesson_planner'
+  get 'teachers/classrooms/activity_planner/units/:unitId/activities/edit/:unitName' => 'teachers/classroom_manager#lesson_planner', :constraints => { :unitName => /[^\/]+/ }
 
   get 'teachers/classrooms/assign_activities/:tab' => 'teachers/classroom_manager#assign_activities'
   get 'teachers/classrooms/assign_activities/featured-activity-packs/category/:category' => 'teachers/classroom_manager#assign_activities'

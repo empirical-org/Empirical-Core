@@ -64,20 +64,23 @@ export default React.createClass({
       that.setState({
         previouslyAssignedRecommendations: data.previouslyAssignedRecommendations,
         previouslyAssignedLessonsRecommendations: data.previouslyAssignedLessonsRecommendations,
-      }, that.setSelections(data.previouslyAssignedRecommendations, assigned, data.previouslyAssignedLessonsRecommendations));
+      }, that.setSelections(assigned, data.previouslyAssignedLessonsRecommendations));
     }));
   },
 
-  setSelections(previouslyAssignedRecommendations, assigned, previouslyAssignedLessonsRecommendations) {
-    const selections = this.state.recommendations.map((recommendation, i) => {
-      const prevAssigned = previouslyAssignedRecommendations[i];
-      const allAssignedStudents = _.uniq(recommendation.students.concat(prevAssigned.students));
-      return {
-        activity_pack_id: recommendation.activity_pack_id,
-        name: recommendation.name,
-        students: allAssignedStudents,
-      };
-    });
+  setSelections(assigned, previouslyAssignedLessonsRecommendations) {
+    let selections
+    if (this.state.selections.length === 0) {
+      selections = this.state.recommendations.map((recommendation, i) => {
+        return {
+          activity_pack_id: recommendation.activity_pack_id,
+          name: recommendation.name,
+          students: recommendation.students,
+        };
+      });
+    } else {
+      selections = this.state.selections
+    }
     const lessonsRecommendations = this.state.lessonsRecommendations.map((recommendation) => {
       if (previouslyAssignedLessonsRecommendations.includes(recommendation.activity_pack_id)) {
         return Object.assign({}, recommendation, { status: 'assigned', });
@@ -90,6 +93,22 @@ export default React.createClass({
     } else {
       this.setState({ selections, lessonsRecommendations, });
     }
+  },
+
+  unselectAllRecommendations() {
+    const newSelections = this.state.selections.map(selection => {
+      selection.students = []
+      return selection
+    })
+    this.setState({selections: newSelections})
+  },
+
+  selectAllRecommendations() {
+    const newSelections = this.state.selections.map((selection, index) => {
+      selection.students = this.state.recommendations[index].students
+      return selection
+    })
+    this.setState({selections: newSelections})
   },
 
   studentWasAssigned(student, previouslyAssignedRecommendation) {
@@ -137,15 +156,18 @@ export default React.createClass({
 
   formatSelectionsForAssignment() {
     const classroomId = this.props.params.classroomId;
-    const selectionsArr = this.state.selections.map(activityPack => ({
-      id: activityPack.activity_pack_id,
-      classrooms: [
-        {
-          id: classroomId,
-          student_ids: activityPack.students,
-        }
-      ],
-    }));
+    const selectionsArr = this.state.selections.map((activityPack, index) => {
+      const students = _.uniq(activityPack.students.concat(this.state.previouslyAssignedRecommendations[index].students))
+      return {
+        id: activityPack.activity_pack_id,
+        classrooms: [
+          {
+            id: classroomId,
+            student_ids: students,
+          }
+        ],
+      }
+    });
     return { selections: selectionsArr ,};
   },
 
@@ -199,12 +221,24 @@ export default React.createClass({
     );
   },
 
+  renderCheckOrUncheckAllRecommendedActivityPacks() {
+    const hasSelectedActivities = this.state.selections.find(sel => _.compact(sel.students).length > 0)
+    if (hasSelectedActivities) {
+      return <p className="uncheck-recommendations" onClick={this.unselectAllRecommendations}><img src="https://assets.quill.org/images/icons/uncheckall-diagnostic.svg"/><span>Uncheck All</span></p>
+    } else {
+      return <p className="check-recommendations" onClick={this.selectAllRecommendations}><img src="https://assets.quill.org/images/icons/checkall-diagnostic.svg"/><span>Check All</span></p>
+    }
+  },
+
   renderTopBar() {
     return (
       <div className="recommendations-top-bar">
         <div className="recommendations-key">
           <div className="recommendations-key-icon" />
-          <p>Recommended Activity Packs</p>
+          <span className="recommended-activity-pack-text">
+            <p>Recommended Activity Packs</p>
+            {this.renderCheckOrUncheckAllRecommendedActivityPacks()}
+          </span>
           <div className="assigned-recommendations-key-icon"><i className="fa fa-check-circle" /></div>
           <span className="assigned-activity-pack-text">
             <p>Assigned Activity Packs</p>
