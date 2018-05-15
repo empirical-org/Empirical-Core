@@ -111,9 +111,9 @@ export default class extends React.Component {
             </span>
 
             <div className='button-wrapper'>
-              <button onClick={window.print} className="print-button"><img className="print-img" src="https://assets.quill.org/images/icons/pdf-icon.svg" alt="print"/>PDF</button>
+              <button onClick={window.print} className="print-button"><img className="print-img" src="https://assets.quill.org/images/icons/download-report-premium.svg" alt="print"/>PDF</button>
               <CSVLink data={this.state.data} target="_blank">
-                <button><img src="https://assets.quill.org/images/icons/csv-icon.svg" alt="csv"/>CSV</button>
+                <button><img src="https://assets.quill.org/images/icons/download-report-premium-csv.svg" alt="csv"/>CSV</button>
               </CSVLink>
             </div>
           </div>
