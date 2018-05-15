@@ -95,10 +95,13 @@ describe Teachers::UnitsController, type: :controller do
     end
   end
 
-  # this action doesn't seem to be doing anything
   # the find line is commented out
   # describe '#destroy' do
-  #
+  #   it 'should make the unit invisible' do
+  #     expect(unit.visible).to eq true
+  #     delete :destroy, id: unit.id
+  #     expect(unit.reload.visible).to eq false
+  #   end
   # end
 
   describe '#edit' do
