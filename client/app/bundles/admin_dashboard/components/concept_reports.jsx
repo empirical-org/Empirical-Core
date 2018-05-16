@@ -1,7 +1,7 @@
 import React from 'react';
 import ConceptReportsTable from './concept_reports_table';
 import ItemDropdown from './item_dropdown.tsx';
-import CSVDownloadForProgressReport from '../../TeacherReact/components/progress_reports/csv_download_for_progress_report';
+import CSVDownloadForProgressReport from '../../Teacher/components/progress_reports/csv_download_for_progress_report';
 
 const ConceptReports = ({
   csvData,

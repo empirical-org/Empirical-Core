@@ -1,5 +1,5 @@
 import * as React from 'react'
-import DropdownMenu from '../../TeacherReact/components/progress_reports/dropdown_filter'
+import DropdownMenu from '../../Teacher/components/progress_reports/dropdown_filter'
 
 class CreateNewAccounts extends React.Component<any, any> {
   constructor(props) {
