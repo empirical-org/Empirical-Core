@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 describe Cms::ActivityCategoriesController, type: :controller do
+  it { should use_before_filter :set_activity_category }
+
   let(:user) { create(:staff) }
 
   before do
