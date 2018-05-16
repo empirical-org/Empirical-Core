@@ -1,5 +1,5 @@
 import React from 'react';
-import QuestionsAndAnswers from '../../TeacherReact/containers/QuestionsAndAnswers.jsx';
+import QuestionsAndAnswers from '../../Teacher/containers/QuestionsAndAnswers.jsx';
 
 export default (props) => (
   <QuestionsAndAnswers {...props} />

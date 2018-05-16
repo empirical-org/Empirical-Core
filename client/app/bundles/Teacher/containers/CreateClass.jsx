@@ -43,7 +43,7 @@ export default React.createClass({
     // Note to maintainers: if you update the grade options here, please also
     // ensure to do so in the following locations:
     //   - /app/views/teachers/students/index.html.erb
-    //   - /client/app/bundles/TeacherReact/components/google_classroom/google_classroom_sync/GoogleClassroomsList.jsx
+    //   - /client/app/bundles/Teacher/components/google_classroom/google_classroom_sync/GoogleClassroomsList.jsx
     const grades = [];
     for (let grade = 1; grade <= 12; grade++) {
       grades.push(

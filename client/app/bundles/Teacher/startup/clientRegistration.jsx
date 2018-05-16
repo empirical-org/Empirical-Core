@@ -38,7 +38,7 @@ import CmsSchoolIndexApp from './CmsSchoolIndexAppClient'
 
 require('../../../assets/styles/home.scss');
 
-// This is how react_on_rails can see the TeacherReactApp in the browser.
+// This is how react_on_rails can see the TeacherApp in the browser.
 
 ReactOnRails.register({ TeacherGuideApp,
   DashboardApp,
