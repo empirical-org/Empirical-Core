@@ -78,6 +78,7 @@ export default class extends React.Component {
         <div className="meta-overview flex-row space-between">
           <div className='header-and-info flex-row vertically-centered'>
             <h1><span>Concept Results:</span> {this.state.studentName}</h1>
+            <p>You can print this report by downloading a PDF file or export this data by downloading a CSV file.</p>
           </div>
           <div className='csv-and-how-we-grade'>
             <CSVDownloadForProgressReport data={this.state.reportData}/>
