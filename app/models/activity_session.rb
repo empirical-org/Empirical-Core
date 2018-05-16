@@ -103,7 +103,7 @@ class ActivitySession < ActiveRecord::Base
   end
 
   def activity
-    super || classroom_activity.activity
+    super || classroom_activity.try(:activity)
   end
 
   def classroom

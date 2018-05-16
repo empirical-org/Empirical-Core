@@ -44,4 +44,43 @@ describe Api::V1::ProgressReportsController, type: :controller do
       }.to_json)
     end
   end
+
+  describe '#district_activity_scores' do
+    before do
+      allow(teacher).to receive(:admin?) { true }
+      allow(controller).to receive(:current_user) { teacher }
+      allow_any_instance_of(ProgressReports::DistrictActivityScores).to receive(:results) { "some data" }
+    end
+
+    it 'should return the district activit scores progress reports' do
+      get :district_activity_scores, format: :json
+      expect(response.body).to eq({data: "some data"}.to_json)
+    end
+  end
+
+  describe '#district_concept_reports' do
+    before do
+      allow(teacher).to receive(:admin?) { true }
+      allow(controller).to receive(:current_user) { teacher }
+      allow_any_instance_of(ProgressReports::DistrictConceptReports).to receive(:results) { "some data" }
+    end
+
+    it 'should return the district activit scores progress reports' do
+      get :district_concept_reports, format: :json
+      expect(response.body).to eq({data: "some data"}.to_json)
+    end
+  end
+
+  describe '#district_standards_reports' do
+    before do
+      allow(teacher).to receive(:admin?) { true }
+      allow(controller).to receive(:current_user) { teacher }
+      allow_any_instance_of(ProgressReports::DistrictStandardsReports).to receive(:results) { "some data" }
+    end
+
+    it 'should return the district activit scores progress reports' do
+      get :district_standards_reports, format: :json
+      expect(response.body).to eq({data: "some data"}.to_json)
+    end
+  end
 end
