@@ -188,15 +188,18 @@ r.connect(rethinkdbConfig, (err, connection) => {
           console.error(err)
           return next(new Error(err))
         } else {
-          console.log(decodedToken, 'decodedToken')
+          currentConnections[socket.id] = {
+            socket,
+            role: null,
+            token: decodedToken,
+          };
+
           return next()
         }
       })
     })
 
     io.on('connection', (client) => {
-      currentConnections[client.id] = { socket: client, role: null };
-
       client.on('cleanDatabase', (ackCallback) => {
         cleanDatabase({
           connection,
