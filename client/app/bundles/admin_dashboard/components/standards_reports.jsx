@@ -23,7 +23,7 @@ const StandardsReports = ({
             School Standards Reports
           </h1>
           <p>
-           View concept mastery for a school or district at large
+            Each activity on Quill is aligned to a Common Core standard. This reports shows the school’s overall progress on each of the standards. You can print this report by downloading a PDF file or export this data by downloading a CSV file.
           </p>
         </div>
         <div className="csv-and-how-we-grade">
