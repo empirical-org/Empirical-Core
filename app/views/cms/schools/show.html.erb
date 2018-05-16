@@ -8,7 +8,7 @@
       <thead>
         <tr>
           <% ['Name', 'Classes', 'Students', 'Activities Completed',
-              'Last Active', 'Premium?', 'Make Admin', 'Sign In'].each do |td| %>
+              'Last Active', 'Premium?', 'Make Admin', 'Edit Attributes', 'Sign In'].each do |td| %>
             <td><%= td %></td>
           <% end %>
         </tr>
@@ -25,6 +25,9 @@
               <% else %>
                 <%= link_to 'Make Admin', cms_user_make_admin_path(user_id: teacher['user_id'], school_id: params[:id]), method: :put %>
               <% end %>
+            </td>
+            <td>
+              <%= link_to 'edit', edit_cms_user_path(teacher['user_id']) %>
             </td>
             <td><%= link_to 'Sign In', sign_in_cms_user_path(teacher['user_id']), method: :put %></td>
           </tr>
