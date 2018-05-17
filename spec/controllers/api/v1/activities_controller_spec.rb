@@ -111,6 +111,87 @@ describe Api::V1::ActivitiesController, type: :controller do
     end
   end
 
+  describe '#destroy' do
+    include_context "calling the api" # this handles the doorkeeper auth
+    let(:activity) { create(:activity) }
+
+    context 'when the destroy is successful' do
+      it 'should return the success json' do
+        get :destroy, format: :json, id: activity.uid
+        expect(JSON.parse(response.body)["meta"]).to eq({"status" => 'success', "message" => "Activity Destroy Successful", "errors" => nil})
+      end
+    end
+
+    context 'when the destroy is not successful' do
+      before do
+        allow_any_instance_of(Activity).to receive(:destroy!) { false }
+      end
+
+      it 'should return the failed json' do
+        get :destroy, format: :json, id: activity.uid
+        expect(JSON.parse(response.body)["meta"]).to eq({"status" => 'failed', "message" => "Activity Destroy Failed", "errors" => {}})
+      end
+    end
+  end
+
+  describe '#follow_up_activity_name_and_supporting_info' do
+    include_context "calling the api" # this handles the doorkeeper auth
+    let(:follow_up_activity) { create(:activity) }
+    let(:activity) { create(:activity, follow_up_activity: follow_up_activity) }
+
+    it 'should render the correct json' do
+      get :follow_up_activity_name_and_supporting_info, id: activity.id, format: :json
+      expect(response.body).to eq({
+        follow_up_activity_name: activity.follow_up_activity.name,
+        supporting_info: activity.supporting_info
+      }.to_json)
+    end
+  end
+
+  describe '#supporting_info' do
+    let(:activity) { create(:activity) }
+
+    it 'should render the correct json' do
+      get :supporting_info, id: activity.id, format: :json
+      expect(response.body).to eq ({supporting_info: activity.supporting_info}.to_json)
+    end
+  end
+
+  describe '#uids_and_flags' do
+    let!(:activity) { create(:activity) }
+    let!(:activity1) { create(:activity) }
+
+    it 'should render the correct json' do
+      get :uids_and_flags
+      expect(response.body).to eq({
+        activity.uid => {
+          flag: activity.flag
+        },
+        activity1.uid => {
+            flag: activity1.flag
+        }
+      }.to_json)
+    end
+  end
+
+  describe '#published_edition' do
+    let(:objective) { create(:objective, name: "Publish Customized Lesson") }
+    let(:milestone) { create(:milestone, name: "Publish Customized Lesson") }
+    let(:user) { create(:user) }
+
+    before do
+      allow(controller).to receive(:current_user) { user }
+    end
+
+    it 'should create the usermilestone and checkbox' do
+      expect(Checkbox.find_by(objective_id: objective.id, user_id: user.id)).to eq nil
+      expect(UserMilestone.find_by(milestone_id: milestone.id, user_id: user.id)).to eq nil
+      get :published_edition
+      expect(Checkbox.find_by(objective_id: objective.id, user_id: user.id)).to_not eq nil
+      expect(UserMilestone.find_by(milestone_id: milestone.id, user_id: user.id)).to_not eq nil
+    end
+  end
+
   context 'when not authenticated via OAuth' do
     it 'POST #create returns 401 Unauthorized' do
       post :create, format: :json

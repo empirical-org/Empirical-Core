@@ -44,8 +44,7 @@ const ActivityScores: React.SFC<ActivityScoresProps> = ({
             Activity Scores
           </h1>
           <p>
-            View the overall average score for each student in an active
-            classroom.
+            Each activity takes about 10-20 minutes to complete, and students receive a score out of 100 points based on their performance. Click on a student’s name to see a report and print it as a PDF. You can print this report by downloading a PDF file or export this data by downloading a CSV file.
           </p>
         </div>
         <div className="csv-and-how-we-grade">
