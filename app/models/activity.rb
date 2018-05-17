@@ -134,16 +134,6 @@ class Activity < ActiveRecord::Base
     end
   end
 
-  #this method is not used anywhere, consider deleting
-  def homepage_path(path, classification)
-    case classification.app_name.to_sym
-    when :grammar
-      '/stories/homepage'
-    when :writer
-      '/'
-    end
-  end
-
   def fix_angular_fragment!
     unless @url.fragment.blank?
       @url.path = "/##{@url.fragment}"
