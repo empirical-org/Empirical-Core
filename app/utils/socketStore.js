@@ -33,12 +33,21 @@ class SocketStore {
   }
 
   _openSocket(token, callback = null) {
+    this._closeCurrentSocket()
+
     let socket = openSocket(this.socketUrl, {
       query: { token }
     });
+
     this.instance = socket;
     if (callback) {
-      return callback()
+      return callback();
+    }
+  }
+
+  _closeCurrentSocket() {
+    if (this.instance) {
+      this.instance.close();
     }
   }
 

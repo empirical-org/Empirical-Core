@@ -1,5 +1,6 @@
 import * as React from 'react';
 import NavBar from '../navbar/navbar';
+import SocketProvider from '../socketProvider';
 import * as _ from 'lodash'
 import { connect } from 'react-redux';
 import {
@@ -75,10 +76,12 @@ class Customize extends React.Component<customizeProps> {
 
   render() {
     return (
-      <div>
-        <NavBar params={this.props.params} goToSuccessPage={this.goToSuccessPage}/>
-        {this.props.children}
-      </div>
+      <SocketProvider>
+        <div>
+          <NavBar params={this.props.params} goToSuccessPage={this.goToSuccessPage}/>
+          {this.props.children}
+        </div>
+      </SocketProvider>
     );
   }
 }

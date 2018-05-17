@@ -12,6 +12,7 @@ import diagnosticQuestionActions from '../../actions/diagnosticQuestions';
 import sentenceFragmentActions from '../../actions/sentenceFragments';
 import lessonActions from '../../actions/lessons';
 import levelActions from '../../actions/item-levels';
+import SocketProvider from '../socketProvider';
 
 const TabLink = props => (
   <li>
@@ -39,42 +40,43 @@ const adminContainer = React.createClass({
 
   render() {
     return (
-      <div>
-        <section className="section is-fullheight" style={{ display: 'flex', flexDirection: 'row', paddingTop: 0, paddingBottom: 0, }}>
-          <aside className="menu" style={{ minWidth: 220, borderRight: '1px solid #e3e3e3', padding: 15, paddingLeft: 0, }}>
-            <p className="menu-label">
-              General
-            </p>
-            <ul className="menu-list">
-              <TabLink to={'/admin/datadash'} activeClassName="is-active">Score Analysis</TabLink>
-              <TabLink to={'/admin/question-health'} activeClassName="is-active">Question Health</TabLink>
-              <TabLink to={'/admin/lessons'} activeClassName="is-active">Lessons</TabLink>
-              <TabLink to={'/admin/classroom-lessons'} activeClassName="is-active">Classroom Lessons</TabLink>
-            </ul>
-            <p className="menu-label">
-              Questions
-            </p>
-            <ul className="menu-list">
-              <TabLink to={'/admin/questions'} activeClassName="is-active">Sentence Combining</TabLink>
-              <TabLink to={'/admin/diagnostic-questions'} activeClassName="is-active">Diagnostic Questions</TabLink>
-              <TabLink to={'/admin/sentence-fragments'} activeClassName="is-active">Sentence Fragments</TabLink>
-              <TabLink to={'/admin/fill-in-the-blanks'} activeClassName="is-active">Fill In The Blanks</TabLink>
-            </ul>
-            <p className="menu-label">
-              Supporting
-            </p>
-            <ul className="menu-list">
-              <TabLink to={'/admin/concepts'} activeClassName="is-active">Concepts</TabLink>
-              <TabLink to={'admin/concepts-feedback'} activeClassName="is-active">Concept Feeback</TabLink>
-              <TabLink to={'/admin/item-levels'} activeClassName="is-active">Item Levels</TabLink>
-            </ul>
-          </aside>
-          <div className="admin-container">
-            {this.props.children}
-          </div>
-        </section>
-      </div>
-
+      <SocketProvider>
+        <div>
+          <section className="section is-fullheight" style={{ display: 'flex', flexDirection: 'row', paddingTop: 0, paddingBottom: 0, }}>
+            <aside className="menu" style={{ minWidth: 220, borderRight: '1px solid #e3e3e3', padding: 15, paddingLeft: 0, }}>
+              <p className="menu-label">
+                General
+              </p>
+              <ul className="menu-list">
+                <TabLink to={'/admin/datadash'} activeClassName="is-active">Score Analysis</TabLink>
+                <TabLink to={'/admin/question-health'} activeClassName="is-active">Question Health</TabLink>
+                <TabLink to={'/admin/lessons'} activeClassName="is-active">Lessons</TabLink>
+                <TabLink to={'/admin/classroom-lessons'} activeClassName="is-active">Classroom Lessons</TabLink>
+              </ul>
+              <p className="menu-label">
+                Questions
+              </p>
+              <ul className="menu-list">
+                <TabLink to={'/admin/questions'} activeClassName="is-active">Sentence Combining</TabLink>
+                <TabLink to={'/admin/diagnostic-questions'} activeClassName="is-active">Diagnostic Questions</TabLink>
+                <TabLink to={'/admin/sentence-fragments'} activeClassName="is-active">Sentence Fragments</TabLink>
+                <TabLink to={'/admin/fill-in-the-blanks'} activeClassName="is-active">Fill In The Blanks</TabLink>
+              </ul>
+              <p className="menu-label">
+                Supporting
+              </p>
+              <ul className="menu-list">
+                <TabLink to={'/admin/concepts'} activeClassName="is-active">Concepts</TabLink>
+                <TabLink to={'admin/concepts-feedback'} activeClassName="is-active">Concept Feeback</TabLink>
+                <TabLink to={'/admin/item-levels'} activeClassName="is-active">Item Levels</TabLink>
+              </ul>
+            </aside>
+            <div className="admin-container">
+              {this.props.children}
+            </div>
+          </section>
+        </div>
+      </SocketProvider>
     );
   },
 });
