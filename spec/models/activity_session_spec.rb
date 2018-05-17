@@ -165,15 +165,6 @@ describe ActivitySession, type: :model, redis: :true do
 
   end
 
-  describe '#classroom' do
-    let(:unit) { create(:unit) }
-    let(:activity_session) { create(:activity_session) }
-
-    it 'should return the classroom associated with the unit' do
-      expect(activity_session.classroom).to eq(unit.classroom)
-    end
-  end
-
   describe '#formatted_due_date' do
     context 'when classroom_activity is nil' do
       let(:activity_session) { create(:activity_session, classroom_activity: nil) }
