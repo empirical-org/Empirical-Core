@@ -5,7 +5,7 @@ import HomePage from "./components/HomePage";
 // import { TodoPage } from "./components/TodoPage";
 import AboutPage from "./components/AboutPage";
 import PageLayout from "./layouts/PageLayout";
-import PlayGrammar from "./components/PlayGrammar"
+import PlayGrammar from "./components/grammarActivities/container"
 
 export const routes: RouteConfig[] = [
     {
