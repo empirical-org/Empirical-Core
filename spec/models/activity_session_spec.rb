@@ -263,24 +263,6 @@ describe ActivitySession, type: :model, redis: :true do
     end
   end
 
-  describe '#percentage_as_percent_prefixed_by_scored' do
-    context 'when percentage is nil' do
-      let(:activity_session) { create(:activity_session, percentage: nil) }
-
-      it 'should return not completed at' do
-        expect(activity_session.percentage_as_percent_prefixed_by_scored).to eq("Not completed yet")
-      end
-    end
-
-    context 'when percentage is present' do
-      let(:activity_session) { create(:activity_session, percentage: 0.8) }
-
-      it 'should return the score' do
-        expect(activity_session.percentage_as_percent_prefixed_by_scored).to eq("Scored 80%")
-      end
-    end
-  end
-
   describe '#percentage_with_zero_if_nil' do
     context 'when percentage is absent' do
       let(:activity_session) { create(:activity_session, percentage: nil) }
