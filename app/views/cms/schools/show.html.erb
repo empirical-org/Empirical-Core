@@ -7,16 +7,22 @@
     <table class='cms-results-table'>
       <thead>
         <tr>
-          <% ['Name', 'Classes', 'Students', 'Activities Completed',
-              'Last Active', 'Premium?', 'Make Admin', 'Sign In'].each do |td| %>
+          <% ['Name', 'Role', 'Title', 'Purchaser', 'School\'s Point of Contact', 'Classes', 'Students', 'Activities Completed',
+              'Last Active', 'Premium?', 'Make Admin', 'Edit Attributes', 'Sign In'].each do |td| %>
             <td><%= td %></td>
           <% end %>
         </tr>
       </thead>
       <tbody>
         <% @teacher_data.each do |teacher| %>
+          
           <tr>
-            <% %w(teacher_name number_classrooms number_students number_activities_completed last_active subscription).each do |attribute| %>
+            <td><%= teacher['teacher_name'] || 'N/A' %></td>
+            <td><%= teacher['flags'].include?('auditor') ? 'Auditor' : 'Teacher' %></td>
+            <td><%= teacher['title'] || 'N/A' %></td>
+            <td><%= teacher['flags'].include?('purchaser') ? 'Purchaser' : '' %></td>
+            <td><%= teacher['flags'].include?('school_point_of_contact') ? 'School\'s Point of Contact' : '' %></td>
+            <% %w(title number_classrooms number_students number_activities_completed last_active subscription).each do |attribute| %>
               <td><%= teacher[attribute] || 'N/A' %></td>
             <% end %>
             <td>
@@ -25,6 +31,9 @@
               <% else %>
                 <%= link_to 'Make Admin', cms_user_make_admin_path(user_id: teacher['user_id'], school_id: params[:id]), method: :put %>
               <% end %>
+            </td>
+            <td>
+              <%= link_to 'edit', edit_cms_user_path(teacher['user_id']) %>
             </td>
             <td><%= link_to 'Sign In', sign_in_cms_user_path(teacher['user_id']), method: :put %></td>
           </tr>
