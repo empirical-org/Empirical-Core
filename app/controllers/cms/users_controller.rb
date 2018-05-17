@@ -144,7 +144,7 @@ protected
   end
 
   def user_params
-    params.require(:user).permit([:name, :email, :username, :role, :classcode, :password, :password_confirmation, :flags =>[]] + default_params
+    params.require(:user).permit([:name, :email, :username, :title, :role, :classcode, :password, :password_confirmation, :flags =>[]] + default_params
     )
   end
 

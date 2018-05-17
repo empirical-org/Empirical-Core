@@ -2092,7 +2092,8 @@ CREATE TABLE users (
     last_sign_in timestamp without time zone,
     last_active timestamp without time zone,
     stripe_customer_id character varying,
-    flags character varying[] DEFAULT '{}'::character varying[] NOT NULL
+    flags character varying[] DEFAULT '{}'::character varying[] NOT NULL,
+    title character varying
 );
 
 
@@ -4523,4 +4524,6 @@ INSERT INTO schema_migrations (version) VALUES ('20180319201311');
 INSERT INTO schema_migrations (version) VALUES ('20180417202537');
 
 INSERT INTO schema_migrations (version) VALUES ('20180418185045');
+
+INSERT INTO schema_migrations (version) VALUES ('20180517045137');
 
