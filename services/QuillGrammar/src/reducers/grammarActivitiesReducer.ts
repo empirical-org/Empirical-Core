@@ -2,14 +2,14 @@ import { Action } from "redux";
 import { initState } from "./rootReducer";
 import { ActionTypes } from "../actions/actionTypes";
 
-export const grammarActivities = (
-    state = {},
+export default (
+    currentState = {},
     action: Action,
 ) => {
     switch (action.type) {
         case ActionTypes.RECEIVE_GRAMMAR_ACTIVITY_DATA:
-            return (action as IInitStoreAction).todos;
+            return Object.assign({}, currentState, action.data);
         default:
-            return state;
+            return currentState;
     }
 };
