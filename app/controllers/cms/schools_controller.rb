@@ -305,6 +305,7 @@ class Cms::SchoolsController < Cms::CmsController
     ActiveRecord::Base.connection.execute("
       SELECT
         users.name AS teacher_name,
+        users.flags AS flags,
         COUNT(DISTINCT classrooms.id) AS number_classrooms,
         COUNT(DISTINCT students_classrooms.student_id) AS number_students,
         COUNT(DISTINCT activity_sessions) AS number_activities_completed,
@@ -322,7 +323,7 @@ class Cms::SchoolsController < Cms::CmsController
       LEFT JOIN subscriptions ON subscriptions.id = user_subscriptions.subscription_id
       LEFT JOIN schools_admins ON users.id = schools_admins.user_id
       WHERE schools_users.school_id = #{ActiveRecord::Base.sanitize(school_id)}
-      GROUP BY users.name, users.last_sign_in, subscriptions.account_type, users.id, schools_admins.id
+      GROUP BY users.name, users.flags, users.last_sign_in, subscriptions.account_type, users.id, schools_admins.id
     ").to_a
   end
 end
