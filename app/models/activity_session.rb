@@ -130,10 +130,6 @@ class ActivitySession < ActiveRecord::Base
     ProficiencyEvaluator.lump_into_center_of_proficiency_band(percentage)
   end
 
-  def percentage_with_zero_if_nil
-    ((percentage || 0)*100).round
-  end
-
   def percentage_as_decimal
     percentage.try(:round, 2)
   end
