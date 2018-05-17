@@ -26,6 +26,10 @@
       <%= f.text_field :username, autocomplete: 'off' %>
     </div>
     <div class='cms-form-row'>
+      <%= f.label :title %>
+      <%= f.text_field :title, autocomplete: 'off' %>
+    </div>
+    <div class='cms-form-row'>
       <%= f.label :role %>
       <%= f.select :role, [['student', 'student'], ['teacher', 'teacher'], ['staff', 'staff']], autocomplete: 'off' %>
     </div>
