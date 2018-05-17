@@ -1,7 +1,6 @@
 // import { Action } from "redux";
 // import { initState } from "./rootReducer";
 // import * as todoActions from "../actions/actionTypes";
-
 // export const todos = (
 //     state = initState.todos,
 //     action: Action,
@@ -33,3 +32,4 @@
 //             return state;
 //     }
 // };
+//# sourceMappingURL=todosReducer.js.map
