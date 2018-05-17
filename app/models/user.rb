@@ -76,7 +76,7 @@ class User < ActiveRecord::Base
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
 
   TESTING_FLAGS = %w(alpha beta)
-  PERMISSIONS_FLAGS = %w(auditor)
+  PERMISSIONS_FLAGS = %w(auditor purchaser school_point_of_contact)
   VALID_FLAGS = TESTING_FLAGS.dup.concat(PERMISSIONS_FLAGS)
 
   default_scope -> { where('users.role != ?', 'temporary') }
@@ -96,6 +96,14 @@ class User < ActiveRecord::Base
 
   def auditor?
     self.flags.include?('auditor')
+  end
+
+  def purchaser?
+    self.flags.include?('purchaser')
+  end
+
+  def school_poc?
+    self.flags.include?('school_point_of_contact')
   end
 
   def redeem_credit
@@ -365,7 +373,7 @@ class User < ActiveRecord::Base
   end
 
   def send_welcome_email
-    UserMailer.welcome_email(self).deliver_now! if email.present?
+    UserMailer.welcome_email(self).deliver_now! if email.present? && !auditor?
   end
 
   def send_account_created_email(temp_password, admin_name)
