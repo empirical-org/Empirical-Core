@@ -79,7 +79,7 @@ module.exports = {
                 use: [MiniCssExtractPlugin.loader, "css-loader"]
             },
             {
-                test:/\.less$/,
+                test:/\.scss/,
                 use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"]
             },
             { test: /\.png$/, loader: "url-loader?limit=100000" },
