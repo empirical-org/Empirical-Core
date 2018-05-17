@@ -106,10 +106,6 @@ class ActivitySession < ActiveRecord::Base
     super || classroom_activity.try(:activity)
   end
 
-  def classroom
-    unit.classroom
-  end
-
   def formatted_due_date
     return nil if self.classroom_activity.nil? or self.classroom_activity.due_date.nil?
     self.classroom_activity.due_date.strftime('%A, %B %d, %Y')
