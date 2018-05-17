@@ -8,7 +8,7 @@ import lessonBoilerplate from '../components/classroomLessons/shared/classroomLe
 import lessonSlideBoilerplates from '../components/classroomLessons/shared/lessonSlideBoilerplates'
 import scriptItemBoilerplates from '../components/classroomLessons/shared/scriptItemBoilerplates'
 import uuid from 'uuid/v4';
-import socket from '../utils/socket'
+import socket from '../utils/socketStore'
 
 export function getClassLesson(classroomLessonUid: string) {
   return function (dispatch, getState) {

@@ -5,7 +5,7 @@ import * as CustomizeIntf from '../interfaces/customize'
 import lessonSlideBoilerplates from '../components/classroomLessons/shared/lessonSlideBoilerplates'
 import _ from 'lodash'
 import uuid from 'uuid/v4';
-import socket from '../utils/socket'
+import socket from '../utils/socketStore'
 
 export function getCurrentUserAndCoteachersFromLMS() {
   return function(dispatch) {

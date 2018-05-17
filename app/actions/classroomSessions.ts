@@ -15,7 +15,7 @@ import {
 } from '../interfaces/classroomLessons';
 import * as CustomizeIntf from '../interfaces/customize'
 import uuid from 'uuid/v4';
-import socket from '../utils/socket'
+import socket from '../utils/socketStore'
 
 export function startListeningToSession(classroom_activity_id: string) {
   return function(dispatch, getState) {

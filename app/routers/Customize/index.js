@@ -3,12 +3,13 @@ import socket from '../../utils/socketStore';
 export default {
   path: 'customize/',
   getChildRoutes: (partialNextState, cb) => {
-    socket.connect();
-    Promise.all([
-      System.import(/* webpackChunkName: "customize-lesson" */ './routes/ClassroomLessons/index.js'),
-    ])
-    .then(modules => cb(null, modules.map(module => module.default)))
-    .catch(err => console.error('Dynamic page loading failed', err));
+    socket.connect(null,
+      Promise.all([
+        System.import(/* webpackChunkName: "customize-lesson" */ './routes/ClassroomLessons/index.js'),
+      ])
+      .then(modules => cb(null, modules.map(module => module.default)))
+      .catch(err => console.error('Dynamic page loading failed', err))
+    )
   },
   getComponent: (nextState, cb) => {
     require.ensure([], (require) => {

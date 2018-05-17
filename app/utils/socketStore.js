@@ -8,44 +8,48 @@ class SocketStore {
     this.socketUrl = 'http://localhost:8000';
   }
 
-  _requestAuthToken() {
+  _initSocket(callback = null) {
     let requestData = JSON.stringify({
       classroom_activity_id: this.classroomActivityId
     });
     let body = new FormData();
-    let request = new XMLHttpRequest();
-
     body.append('json', requestData);
-    request.open('POST', this.tokenUrl, false);
-    request.send(body);
 
-    if (request.status === 200) {
-      return JSON.parse(request.responseText);
-    } else {
-      console.log(request)
-    }
+    fetch(this.tokenUrl, {
+      method: 'POST',
+      mode: "cors",
+      credentials: 'include',
+      body,
+    }).then((response) => {
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
+      return response.json();
+    }).then((data) => {
+      if (data && data.token) {
+        this._openSocket(data.token, callback);
+      }
+    })
   }
 
-  _createSocket(token) {
+  _openSocket(token, callback = null) {
     let socket = openSocket(this.socketUrl, {
       query: { token }
     });
     this.instance = socket;
-    console.log(this.instance)
+    if (callback) {
+      return callback()
+    }
   }
 
-  connect(newClassroomActivityId = null) {
+  connect(newClassroomActivityId = null, callback = null) {
     let isSocketMissing      = !this.classroomActivityId && !this.instance
     let isNewActivitySession = this.classroomActivityId !== newClassroomActivityId
     let canCreateSocket      = isSocketMissing || isNewActivitySession
 
     if (canCreateSocket) {
-      let data = this._requestAuthToken();
+      let data = this._initSocket(callback);
       this.classroomActivityId = newClassroomActivityId;
-
-      if (data && data.token) {
-        this._createSocket(data.token);
-      }
     }
   }
 }
