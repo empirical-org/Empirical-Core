@@ -1,8 +1,8 @@
 import * as React from "react";
 import { Route, Switch } from "react-router-dom";
-import HomePage from "./pages/HomePage";
-// import { TodoPage } from "./pages/TodoPage";
-import AboutPage from "./pages/AboutPage";
+import HomePage from "./components/HomePage";
+// import { TodoPage } from "./components/TodoPage";
+import AboutPage from "./components/AboutPage";
 import PageLayout from "./layouts/PageLayout";
 export var routes = [
     {
