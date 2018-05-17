@@ -263,24 +263,6 @@ describe ActivitySession, type: :model, redis: :true do
     end
   end
 
-  describe '#percentage_with_zero_if_nil' do
-    context 'when percentage is absent' do
-      let(:activity_session) { create(:activity_session, percentage: nil) }
-
-      it 'should return 0' do
-        expect(activity_session.percentage_with_zero_if_nil).to eq(0)
-      end
-    end
-
-    context 'when percentage is present' do
-      let(:activity_session) { create(:activity_session, percentage: 0.4) }
-
-      it 'should return the percentage' do
-        expect(activity_session.percentage_with_zero_if_nil).to eq(40)
-      end
-    end
-  end
-
   describe '#percentage_as_decimal' do
     let(:activity_session) { create(:activity_session, percentage: 0.4) }
 
