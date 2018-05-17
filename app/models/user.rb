@@ -98,6 +98,14 @@ class User < ActiveRecord::Base
     self.flags.include?('auditor')
   end
 
+  def purchaser?
+    self.flags.include?('purchaser')
+  end
+
+  def school_poc?
+    self.flags.include?('school_point_of_contact')
+  end
+
   def redeem_credit
     balance = credit_transactions.sum(:amount)
     if balance > 0
