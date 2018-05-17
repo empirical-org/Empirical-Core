@@ -6,23 +6,17 @@ import { initStoreAction } from "../actions/actions";
 import { rootReducer } from "../reducers/rootReducer";
 
 export interface IState {
-    // todos: TodoItem[];
+    questions: any;
+    grammarActivities: any;
 }
 
 export const initStore = () => {
     return (dispatch: Dispatch<{}>) => {
-        // const todos: TodoItem[] = [{
-        //     key: 0,
-        //     id: 0,
-        //     name: "Create a template for react and typescript.",
-        //     isCompleted: true,
-        // }, {
-        //     key: 1,
-        //     id: 1,
-        //     name: "Wire up redux to the template.",
-        //     isCompleted: false,
-        // }];
-        return dispatch(initStoreAction());
+        const initialState = {
+          questions: {},
+          grammarActivities: {}
+        }
+        return dispatch(initStoreAction(initialState));
     };
 };
 

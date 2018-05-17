@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 import getParameterByName from '../../helpers/getParameterByName'
 import { IState } from "../../store/configStore";
 import { startListeningToActivity } from "../../actions/grammarActivities";
+import { startListeningToQuestions } from "../../actions/questions";
 
 class PlayGrammarContainer extends React.Component<any, any> {
     constructor(props: any) {
@@ -13,6 +14,14 @@ class PlayGrammarContainer extends React.Component<any, any> {
     componentWillMount() {
       const activityUID = getParameterByName('uid', window.location.href)
       this.props.dispatch(startListeningToActivity(activityUID))
+    }
+
+    componentWillReceiveProps(nextProps) {
+      if (nextProps.grammarActivities.hasreceiveddata) {
+        Object.keys(nextProps.grammarActivities.currentActivity.concepts).forEach(conceptUID => {
+          this.props.dispatch(startListeningToQuestions(conceptUID))
+        })
+      }
     }
 
     render(): JSX.Element {
@@ -25,6 +34,7 @@ class PlayGrammarContainer extends React.Component<any, any> {
 const mapStateToProps = (state: any) => {
     return {
         grammarActivities: state.grammarActivities,
+        questions: state.questions
     };
 };
 
