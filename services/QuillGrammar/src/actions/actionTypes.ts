@@ -1,10 +1,8 @@
 import { Action } from "redux";
-// import { TodoItem } from "../model/TodoItem";
-//
+
 export const ActionTypes = {
-    INIT_STORE: "INIT_STORE",
-    ADD_TODO_ITEM: "ADD_TODO_ITEM",
-    COMPLETE_TODO_ITEM: "COMPLETE_TODO_ITEM",
+    // GRAMMAR ACTIVITIES
+    RECEIVE_GRAMMAR_ACTIVITY_DATA: 'RECEIVE_GRAMMAR_ACTIVITY_DATA',
 };
 //
 export interface IInitStoreAction extends Action {
