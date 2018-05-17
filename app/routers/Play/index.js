@@ -1,6 +1,9 @@
+import socket from '../../utils/socketStore';
+
 export default {
   path: 'play/',
   getChildRoutes: (partialNextState, cb) => {
+    socket.connect();
     Promise.all([
       System.import(/* webpackChunkName: "play-lesson" */ './routes/Lessons/index.js'),
       System.import(/* webpackChunkName: "play-diagnostic" */ './routes/Diagnostics/index.js'),

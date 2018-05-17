@@ -1,6 +1,9 @@
+import socket from '../../utils/socketStore';
+
 export default {
   path: 'customize/',
   getChildRoutes: (partialNextState, cb) => {
+    socket.connect();
     Promise.all([
       System.import(/* webpackChunkName: "customize-lesson" */ './routes/ClassroomLessons/index.js'),
     ])

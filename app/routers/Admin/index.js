@@ -1,6 +1,9 @@
+import socket from '../../utils/socketStore'
+
 export default {
   path: 'admin',
   getChildRoutes: (partialNextState, cb) => {
+    socket.connect();
     Promise.all([
       System.import(/* webpackChunkName: "admin-concept-feedback" */ './routes/ConceptFeedback/index.js'),
       System.import(/* webpackChunkName: "admin-concepts" */ './routes/Concepts/index.js'),
