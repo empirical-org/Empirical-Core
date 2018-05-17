@@ -7,8 +7,10 @@ export default (
     action: Action,
 ) => {
     switch (action.type) {
-        case ActionTypes.RECEIVE_GRAMMAR_ACTIVITY_DATA:
-            return Object.assign({}, currentState, { currentActivity: action.data}, {hasreceiveddata: true});
+        case ActionTypes.RECEIVE_QUESTION_DATA:
+            return Object.assign({}, currentState, { [action.data.concept_uid]: action.data}, {hasreceiveddata: true});
+        case ActionTypes.NO_QUESTIONS_FOUND:
+            return Object.assign({}, currentState, { error: 'No questions found.'})
         default:
             return currentState;
     }

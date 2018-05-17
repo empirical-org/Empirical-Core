@@ -6,6 +6,10 @@ export const ActionTypes = {
 
     // GRAMMAR ACTIVITIES
     RECEIVE_GRAMMAR_ACTIVITY_DATA: 'RECEIVE_GRAMMAR_ACTIVITY_DATA',
+
+    // QUESTIONS
+    RECEIVE_QUESTION_DATA: 'RECEIVE_QUESTION_DATA',
+    NO_QUESTIONS_FOUND: 'NO_QUESTIONS_FOUND',
 };
 //
 export interface IInitStoreAction extends Action {
