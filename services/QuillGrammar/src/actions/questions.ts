@@ -2,15 +2,19 @@ import rootRef from '../firebase';
 import { ActionTypes } from './actionTypes'
 const questionsRef = rootRef.child('questions')
 
-export const startListeningToQuestions = (conceptUID: string) => {
-  console.log('conceptUID', conceptUID)
+export const startListeningToQuestions = (conceptUIDs: Array[string]) => {
   return function(dispatch) {
 
-    questionsRef.orderByChild('concept_uid').equalTo('conceptUID').on('value', (snapshot) => {
-      console.log('heyyyy')
-      console.log('snapshot.val', snapshot.val())
-      if (snapshot.val()) {
-        dispatch({ type: ActionTypes.RECEIVE_QUESTION_DATA, data: snapshot.val(), });
+    questionsRef.orderByChild('concept_uid').on('value', (snapshot) => {
+      const questions = snapshot.val()
+      const questionsForConcepts = []
+      Object.keys(questions).map(q => {
+        if (conceptUIDs.includes(questions[q].concept_uid)) {
+          questionsForConcepts.push(questions[q])
+        }
+      })
+      if (questionsForConcepts.length > 0) {
+        dispatch({ type: ActionTypes.RECEIVE_QUESTION_DATA, data: questionsForConcepts, });
       } else {
         dispatch({ type: ActionTypes.NO_QUESTIONS_FOUND})
       }
