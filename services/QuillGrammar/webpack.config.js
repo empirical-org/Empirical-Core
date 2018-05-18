@@ -15,8 +15,9 @@ module.exports = {
         'webpack/hot/only-dev-server',
         // bundle the client for hot reloading
         // only- means to only hot reload for successful updates
-        './index.tsx'
+        './index.tsx',
         // the entry point of our app
+        './styles/style.scss'
     ],
     output: {
         filename: 'hotloader.js',
@@ -76,11 +77,13 @@ module.exports = {
             { enforce: "pre", test: /\.js$/, loader: "source-map-loader" },
             {
                 test:/\.css$/,
-                use: [MiniCssExtractPlugin.loader, "css-loader"]
+                // use: ['css-hot-loader']
+                use: ['css-hot-loader', 'style-loader', MiniCssExtractPlugin.loader, "css-loader"]
             },
             {
                 test:/\.scss/,
-                use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"]
+                // use: ['css-hot-loader']
+                use: ['css-hot-loader', 'style-loader', MiniCssExtractPlugin.loader, "css-loader", "sass-loader"]
             },
             { test: /\.png$/, loader: "url-loader?limit=100000" },
             { test: /\.jpg$/, loader: "file-loader" },

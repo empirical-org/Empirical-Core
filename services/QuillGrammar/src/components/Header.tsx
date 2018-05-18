@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Layout, Row } from "antd";
 import { Link } from "react-router-dom";
-import './Header.scss'
+import '../styles/Header.scss'
 
 export const Header: React.StatelessComponent<{}> = () => {
     return (
