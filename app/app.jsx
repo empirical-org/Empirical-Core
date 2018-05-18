@@ -22,7 +22,8 @@ import levelActions from './actions/item-levels';
 import createHashHistory from 'history/lib/createHashHistory';
 import 'styles/style.scss';
 import Raven from 'raven-js';
-import quillNormalizer from './libs/quillNormalizer'
+import quillNormalizer from './libs/quillNormalizer';
+import SocketProvider from './components/socketProvider';
 
 if (process.env.NODE_ENV === 'production') {
   Raven
@@ -59,7 +60,9 @@ const rootRoute = {
 
 render((
   <Provider store={store}>
-    <Router history={history} routes={rootRoute} />
+    <SocketProvider>
+      <Router history={history} routes={rootRoute} />
+    </SocketProvider>
   </Provider>),
   root
 );

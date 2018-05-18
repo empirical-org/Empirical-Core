@@ -12,7 +12,9 @@ class SocketProvider extends React.Component {
     const callback = () => {
       this.setState({ socketOpened: true })
     };
+
     const classroomActivityId = getParameterByName('classroom_activity_id');
+
     socket.connect(classroomActivityId, callback)
   }
 
@@ -20,7 +22,7 @@ class SocketProvider extends React.Component {
     if (this.state.socketOpened) {
       return this.props.children;
     } else {
-      return null;
+      return false;
     }
   }
 }

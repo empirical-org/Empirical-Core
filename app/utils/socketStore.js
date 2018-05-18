@@ -9,17 +9,12 @@ class SocketStore {
   }
 
   _initSocket(callback = null) {
-    let requestData = JSON.stringify({
-      classroom_activity_id: this.classroomActivityId
-    });
-    let body = new FormData();
-    body.append('json', requestData);
-
     fetch(this.tokenUrl, {
       method: 'POST',
       mode: "cors",
       credentials: 'include',
-      body,
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ classroom_activity_id: this.classroomActivityId }),
     }).then((response) => {
       if (!response.ok) {
         throw Error(response.statusText);
@@ -48,6 +43,7 @@ class SocketStore {
   _closeCurrentSocket() {
     if (this.instance) {
       this.instance.close();
+      this.instance = null;
     }
   }
 
@@ -57,8 +53,8 @@ class SocketStore {
     let canCreateSocket      = isSocketMissing || isNewActivitySession
 
     if (canCreateSocket) {
-      let data = this._initSocket(callback);
       this.classroomActivityId = newClassroomActivityId;
+      this._initSocket(callback);
     }
   }
 }
