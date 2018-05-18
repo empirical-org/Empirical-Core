@@ -5,6 +5,7 @@ import getParameterByName from '../../helpers/getParameterByName'
 import { IState } from "../../store/configStore";
 import { startListeningToActivity } from "../../actions/grammarActivities";
 import { startListeningToQuestions } from "../../actions/questions";
+import Question from './question'
 
 class PlayGrammarContainer extends React.Component<any, any> {
     constructor(props: any) {
@@ -17,17 +18,22 @@ class PlayGrammarContainer extends React.Component<any, any> {
     }
 
     componentWillReceiveProps(nextProps) {
-      if (nextProps.grammarActivities.hasreceiveddata) {
-        Object.keys(nextProps.grammarActivities.currentActivity.concepts).forEach(conceptUID => {
-          this.props.dispatch(startListeningToQuestions(conceptUID))
-        })
+      if (nextProps.grammarActivities.hasreceiveddata && !nextProps.questions.hasreceiveddata && !nextProps.questions.error) {
+        const conceptUIDs = Object.keys(nextProps.grammarActivities.currentActivity.concepts)
+        this.props.dispatch(startListeningToQuestions(conceptUIDs))
       }
     }
 
     render(): JSX.Element {
+      if (this.props.grammarActivities.hasreceiveddata && this.props.questions.hasreceiveddata) {
+        return <Question activity={this.props.grammarActivities.currentActivity} questions={this.props.questions.currentQuestions}/>
+      } else if (this.props.questions.error) {
         return (
-            <div>Stuff will go here</div>
+          <div>{this.props.questions.error}</div>
         );
+      } else {
+        return <div>Loading...</div>
+      }
     }
 }
 

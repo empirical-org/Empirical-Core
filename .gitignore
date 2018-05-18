@@ -70,3 +70,5 @@ _book/
 /node_modules
 
 nohup\.out
+
+/services/QuillGrammar/built

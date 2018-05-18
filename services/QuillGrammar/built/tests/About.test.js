@@ -10,7 +10,7 @@ import * as React from "react";
 //     });
 // });
 import { shallow } from "enzyme";
-import AboutPage from "../components/components/AboutPage";
+import AboutPage from "../components/pages/AboutPage";
 describe("<AboutPage />", function () {
     it("should render without throwing an error", function () {
         expect(shallow(React.createElement(AboutPage, null)).contains(React.createElement("h1", null, "About"))).toBe(true);
