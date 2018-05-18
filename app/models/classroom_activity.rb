@@ -250,8 +250,10 @@ class ClassroomActivity < ActiveRecord::Base
   def post_to_google
     classroom_google_id = classroom&.google_classroom_id
     if classroom_google_id
-      access_token = "ya29.Gl2_BaJNFbLw2MeznIk1M92kkYkdharXEe3PVEetS8ViAUa67YSX2GzCOqMToTy8rBR5h9XyF6R3IhLXWJ0ij-uTyEFf57x3nHaQ4hx6KBIhDVmoGMUo68FV66VBmJk"
-      GoogleIntegration::CourseWork.post(access_token, self, classroom_google_id)
+      access_token = $redis.get("user_id:#{classroom.owner.id}_google_access_token")
+      if access_token
+        GoogleIntegration::CourseWork.post(access_token, self, classroom_google_id)
+      end
     end
   end
 

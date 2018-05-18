@@ -1,5 +1,7 @@
 class Auth::GoogleController < ApplicationController
 
+  after_action :set_google_id
+
   def google
     access_token = request.env['omniauth.auth']['credentials']['token']
     session[:google_access_token] = access_token
@@ -25,6 +27,12 @@ class Auth::GoogleController < ApplicationController
   end
 
   private
+
+  def set_google_id
+    if current_user
+      $redis.set("user_id:#{current_user.id}_google_access_token", {token: session[:google_access_token]})
+    end
+  end
 
   def redirect_request(request)
     request.referer &&
