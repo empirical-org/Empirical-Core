@@ -1,10 +1,21 @@
 import * as React from "react";
 import * as Redux from "redux";
 import {connect} from "react-redux";
+import { Row, Button } from "antd";
 
 class Question extends React.Component<any, any> {
     constructor(props: any) {
         super(props);
+
+        this.state = {
+          showExample: true
+        }
+
+        this.toggleExample = this.toggleExample.bind(this)
+    }
+
+    toggleExample() {
+      this.setState({showExample: !this.state.showExample})
     }
 
     topSection() {
@@ -16,44 +27,29 @@ class Question extends React.Component<any, any> {
           backgroundColor: '#ededed'
         }}
         >
-        <div style={{
-          display: 'flex',
-          alignItems: 'middle',
-          justifyContent: 'space-between',
-          marginLeft: 'auto',
-          marginRight: 'auto',
-          maxWidth: '56em'
-        }}>
+        <Row
+          type="flex"
+          align="middle"
+          justify="space-between"
+          >
           <h1>{this.props.activity.title}</h1>
           <div>
             <p>Sentences Completed: 0 of {this.props.questions.length}</p>
-            <div className="progress-bar-indication" style={{
-              backgroundColor: "#f2f2f2",
-              borderRadius: "6px",
-              border: "1px solid #DDD",
-              boxShadow: "inset 0 0 3px 0 rgba(115,115,115,.15)",
-              margin: "0 auto",
-              width: "100%",
-              height: "10px"
-            }}>
+            <div className="progress-bar-indication">
               <span className="meter"
-              style={{
-                width: `${meterWidth}%`,
-                backgroundColor: "#00c2a2",
-                border: "none",
-                borderRadius: "0",
-                height: "100%",
-                display: "block"
-              }}
+              style={{width: `${meterWidth}%`}}
             />
             </div>
         </div>
-        </div>
+      </Row>
+      <Row type="flex" align="middle" justify="flex-start">
+        <Button onClick={this.toggleExample}>{this.state.showExample ? 'Hide Example' : 'Show Example'}</Button>
+      </Row>
       </div>
     }
 
     render(): JSX.Element {
-      return this.topSection()
+      return <div className="question">{this.topSection()}</div>
     }
 }
 
