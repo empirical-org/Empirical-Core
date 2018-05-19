@@ -81,23 +81,23 @@ export function getAllEditionMetadata({
 export function getAllEditionMetadataForLesson({
   client,
   connection,
-  lessonID,
+  lessonId,
   callback
 }) {
-  if (lessonID) {
+  if (lessonId) {
     r.table('lesson_edition_metadata')
-    .filter(r.row("lesson_id").eq(lessonID))
+    .filter(r.row("lesson_id").eq(lessonId))
     .run(connection)
     .then((cursor) => {
       r.table('lesson_edition_metadata')
-      .filter(r.row("lesson_id").eq(lessonID))
+      .filter(r.row("lesson_id").eq(lessonId))
       .count()
       .run(connection, (err, val) => {
         const numberOfEditions = val
         let editions = {}
         let editionCount = 0
         if (numberOfEditions === 0) {
-          client.emit(`editionMetadataForLesson:${lessonID}`, editions)
+          client.emit(`editionMetadataForLesson:${lessonId}`, editions)
           if (callback) {
             callback
           }
@@ -107,7 +107,7 @@ export function getAllEditionMetadataForLesson({
             editions[document.id] = document
             editionCount++
             if (editionCount === numberOfEditions) {
-              client.emit(`editionMetadataForLesson:${lessonID}`, editions)
+              client.emit(`editionMetadataForLesson:${lessonId}`, editions)
               if (callback) {
                 callback()
               }
@@ -120,12 +120,12 @@ export function getAllEditionMetadataForLesson({
 }
 
 export function getEditionQuestions({
-  editionID,
+  editionId,
   connection,
   client
 }) {
   r.table('lesson_edition_questions')
-  .get(editionID)
+  .get(editionId)
   .changes({ includeInitial: true })
   .run(connection)
   .then(cursor => {
@@ -391,19 +391,19 @@ export function publishEdition({
 
 export function archiveEdition({
   connection,
-  editionUID,
+  editionId,
   client
 }) {
   let editionMetadata
   r.table('lesson_edition_metadata')
-  .get(editionUID)
+  .get(editionId)
   .pluck('flags')
   .run(connection)
   .then(flags => {
     if (flags && flags.length > 0) {
-      editionMetadata = {id: editionUID, flags: flags.push('archived')}
+      editionMetadata = {id: editionId, flags: flags.push('archived')}
     } else {
-      editionMetadata = {id: editionUID, flags: ['archived']}
+      editionMetadata = {id: editionId, flags: ['archived']}
     }
     updateEditionMetadata({connection, editionMetadata, client})
   })

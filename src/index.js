@@ -209,20 +209,12 @@ r.connect(rethinkdbConfig, (err, connection) => {
         })
       })
 
-      client.on('getAllEditionMetadataForLesson', (lessonID) => {
-        getAllEditionMetadataForLesson({
-          connection,
-          client,
-          lessonID
-        })
+      client.on('getAllEditionMetadataForLesson', (data) => {
+        getAllEditionMetadataForLesson({ ...adaptors, ...data });
       })
 
-      client.on('teacherConnected', (classroomActivityId) => {
-        teacherConnected({
-          connection,
-          classroomActivityId,
-          client,
-        })
+      client.on('teacherConnected', (data) => {
+        teacherConnected({ ...adaptors, ...data });
       });
 
       client.on('disconnect', () => {
@@ -232,230 +224,112 @@ r.connect(rethinkdbConfig, (err, connection) => {
         })
       });
 
-      client.on('subscribeToClassroomLessonSession', (classroomLessonSessionId) => {
-        subscribeToClassroomLessonSession({
-          connection,
-          client,
-          classroomLessonSessionId,
-        });
+      client.on('subscribeToClassroomLessonSession', (data) => {
+        subscribeToClassroomLessonSession({ ...adaptors, ...data });
       });
 
-      client.on('createPreviewSession', (previewSessionData) => {
-        createPreviewSession({
-          connection,
-          previewSessionData,
-        });
+      client.on('createPreviewSession', (data) => {
+        createPreviewSession({ ...adaptors, ...data });
       });
 
-      client.on('updateClassroomLessonSession', (session) => {
-        updateClassroomLessonSession({
-          session,
-          connection
-        });
+      client.on('updateClassroomLessonSession', (data) => {
+        updateClassroomLessonSession({ ...adaptors, ...data });
       });
 
-      client.on('createOrUpdateClassroomLessonSession', (classroomActivityId, teacherIdObject) => {
-        createOrUpdateClassroomLessonSession({
-          connection,
-          classroomActivityId,
-          teacherIdObject,
-          client
-        });
+      client.on('createOrUpdateClassroomLessonSession', (data) => {
+        createOrUpdateClassroomLessonSession({ ...adaptors, ...data });
       });
 
-      client.on('setSlideStartTime', (classroomActivityId, questionId) => {
-        setSlideStartTime({
-          connection,
-          classroomActivityId,
-          questionId,
-        });
+      client.on('setSlideStartTime', (data) => {
+        setSlideStartTime({ ...adaptors, ...data });
       });
 
-      client.on('registerPresence', (classroomActivityId, studentId) => {
-        registerPresence({
-          connection,
-          client,
-          classroomActivityId,
-          studentId,
-        })
+      client.on('registerPresence', (data) => {
+        registerPresence({ ...adaptors, ...data });
       });
 
-      client.on('addStudent', (classroomActivityId, studentName) => {
-        addStudent({
-          connection,
-          client,
-          classroomActivityId,
-          studentName,
-        });
+      client.on('addStudent', (data) => {
+        addStudent({ ...adaptors, ...data });
       });
 
-      client.on('saveStudentSubmission', (classroomActivityId, questionId, studentId, submission) => {
-        saveStudentSubmission({
-          classroomActivityId,
-          connection,
-          questionId,
-          studentId,
-          submission,
-        });
+      client.on('saveStudentSubmission', (data) => {
+        saveStudentSubmission({ ...adaptors, ...data });
       });
 
-      client.on('removeStudentSubmission', (classroomActivityId, questionId, studentId) => {
-        removeStudentSubmission({
-          classroomActivityId,
-          connection,
-          questionId,
-          studentId,
-        });
+      client.on('removeStudentSubmission', (data) => {
+        removeStudentSubmission({ ...adaptors, ...data });
       });
 
-      client.on('removeMode', (classroomActivityId, questionId) => {
-        removeMode({
-          connection,
-          classroomActivityId,
-          questionId,
-        });
+      client.on('removeMode', (data) => {
+        removeMode({ ...adaptors, ...data });
       })
 
-      client.on('clearAllSelectedSubmissions', (classroomActivityId, questionId) => {
-        clearAllSelectedSubmissions({
-          connection,
-          classroomActivityId,
-          questionId,
-        });
+      client.on('clearAllSelectedSubmissions', (data) => {
+        clearAllSelectedSubmissions({ ...adaptors, ...data });
       })
 
-      client.on('clearAllSubmissions', (classroomActivityId, questionId) => {
-        clearAllSubmissions({
-          connection,
-          classroomActivityId,
-          questionId,
-        });
+      client.on('clearAllSubmissions', (data) => {
+        clearAllSubmissions({ ...adaptors, ...data });
       })
 
-      client.on('saveSelectedStudentSubmission', (classroomActivityId, questionId, studentId) => {
-        saveSelectedStudentSubmission({
-          classroomActivityId,
-          questionId,
-          studentId,
-          connection,
-        });
+      client.on('saveSelectedStudentSubmission', (data) => {
+        saveSelectedStudentSubmission({ ...adaptors, ...data });
       })
 
-      client.on('updateStudentSubmissionOrder', (classroomActivityId, questionId, studentId) => {
-        updateStudentSubmissionOrder({
-          classroomActivityId,
-          questionId,
-          studentId,
-          connection,
-        });
+      client.on('updateStudentSubmissionOrder', (data) => {
+        updateStudentSubmissionOrder({ ...adaptors, ...data });
       })
 
-      client.on('removeSelectedStudentSubmission', (classroomActivityId, questionId, studentId) => {
-        removeSelectedStudentSubmission({
-          classroomActivityId,
-          questionId,
-          studentId,
-          connection,
-        });
+      client.on('removeSelectedStudentSubmission', (data) => {
+        removeSelectedStudentSubmission({ ...adaptors, ...data });
       })
 
-      client.on('setMode', (classroomActivityId, questionId, mode) => {
-        setMode({
-          classroomActivityId,
-          questionId,
-          mode,
-          connection,
-        });
+      client.on('setMode', (data) => {
+        setMode({ ...adaptors, ...data });
       })
 
-      client.on('setModel', (classroomActivityId, questionId, model) => {
-        setModel({
-          classroomActivityId,
-          questionId,
-          model,
-          connection,
-        });
+      client.on('setModel', (data) => {
+        setModel({ ...adaptors, ...data });
       })
 
-      client.on('setPrompt', (classroomActivityId, questionId, prompt) => {
-        setPrompt({
-          classroomActivityId,
-          questionId,
-          prompt,
-          connection,
-        });
+      client.on('setPrompt', (data) => {
+        setPrompt({ ...adaptors, ...data });
       })
 
-      client.on('toggleStudentFlag', (classroomActivityId, studentId) => {
-        toggleStudentFlag({
-          classroomActivityId,
-          studentId,
-          connection,
-        });
+      client.on('toggleStudentFlag', (data) => {
+        toggleStudentFlag({ ...adaptors, ...data });
       })
 
-      client.on('setWatchTeacherState', (classroomActivityId) => {
-        setWatchTeacherState({
-          classroomActivityId,
-          connection,
-        });
+      client.on('setWatchTeacherState', (data) => {
+        setWatchTeacherState({ ...adaptors, ...data });
       })
 
-      client.on('removeWatchTeacherState', (classroomActivityId) => {
-        removeWatchTeacherState({
-          classroomActivityId,
-          connection,
-        });
+      client.on('removeWatchTeacherState', (data) => {
+        removeWatchTeacherState({ ...adaptors, ...data });
       })
 
-      client.on('addStudents', (classroomActivityId, activitySessions, studentIds) => {
-        addStudents({
-          classroomActivityId,
-          activitySessions,
-          studentIds,
-          connection,
-        });
+      client.on('addStudents', (data) => {
+        addStudents({ ...adaptors, ...data });
       })
 
-      client.on('redirectAssignedStudents', (classroomActivityId, followUpOption, followUpUrl) => {
-        redirectAssignedStudents({
-          classroomActivityId,
-          followUpOption,
-          followUpUrl,
-          connection,
-        });
+      client.on('redirectAssignedStudents', (data) => {
+        redirectAssignedStudents({ ...adaptors, ...data });
       })
 
-      client.on('setClassroomName', (classroomActivityId, classroomName) => {
-        setClassroomName({
-          classroomActivityId,
-          classroomName,
-          connection,
-        });
+      client.on('setClassroomName', (data) => {
+        setClassroomName({ ...adaptors, ...data });
       })
 
-      client.on('setTeacherName', (classroomActivityId, teacherName) => {
-        setTeacherName({
-          classroomActivityId,
-          teacherName,
-          connection,
-        });
+      client.on('setTeacherName', (data) => {
+        setTeacherName({ ...adaptors, ...data });
       })
 
-      client.on('addFollowUpName', (classroomActivityId, followUpActivityName) => {
-        addFollowUpName({
-          classroomActivityId,
-          followUpActivityName,
-          connection,
-        });
+      client.on('addFollowUpName', (data) => {
+        addFollowUpName({ ...adaptors, ...data });
       })
 
-      client.on('addSupportingInfo', (classroomActivityId, supportingInfo) => {
-        addSupportingInfo({
-          classroomActivityId,
-          supportingInfo,
-          connection,
-        });
+      client.on('addSupportingInfo', (data) => {
+        addSupportingInfo({ ...adaptors, ...data });
       })
 
       client.on('saveReview', (classroomActivityId, activityId, value) => {
@@ -487,18 +361,12 @@ r.connect(rethinkdbConfig, (err, connection) => {
         getAllClassroomLessonReviews({ ...adaptors })
       })
 
-      client.on('createOrUpdateReview', (review) => {
-        createOrUpdateReview({
-          connection,
-          review,
-        })
+      client.on('createOrUpdateReview', (data) => {
+        createOrUpdateReview({ ...adaptors, ...data });
       })
 
       client.on('getAllEditionMetadata', () => {
-        getAllEditionMetadata({
-          connection,
-          client
-        })
+        getAllEditionMetadata({ ...adaptors });
       })
 
       client.on('getAllEditionMetadataForLesson', (lessonID) => {
@@ -509,25 +377,16 @@ r.connect(rethinkdbConfig, (err, connection) => {
         })
       })
 
-      client.on('getEditionQuestions', (editionID) => {
-        getEditionQuestions({
-          connection,
-          client,
-          editionID
-        })
+      client.on('getEditionQuestions', (data) => {
+        getEditionQuestions({ ...adaptors, ...data });
       })
 
       client.on('updateEditionMetadata', (data) => {
         updateEditionMetadata({ ...adaptors, ...data })
       })
 
-      client.on('setEditionId', (classroomActivityId, editionId) => {
-        setEditionId({
-          classroomActivityId,
-          editionId,
-          connection,
-          client,
-        });
+      client.on('setEditionId', (data) => {
+        setEditionId({ ...adaptors, ...data });
       })
 
       client.on('deleteEdition', (data) => {
@@ -566,38 +425,20 @@ r.connect(rethinkdbConfig, (err, connection) => {
         addSlide({ ...adaptors, ...data });
       })
 
-      client.on('setTeacherModels', (classroomActivityId, editionId) => {
-        setTeacherModels({
-          classroomActivityId,
-          editionId,
-          connection,
-        })
+      client.on('setTeacherModels', (data) => {
+        setTeacherModels({ ...adaptors, ...data });
       })
 
-      client.on('createNewEdition', (editionData, questions) => {
-        createNewEdition({
-          editionData,
-          connection,
-          client,
-          questions
-        })
+      client.on('createNewEdition', (data) => {
+        createNewEdition({ ...adaptors, ...data });
       })
 
-      client.on('publishEdition', (editionMetadata, editionQuestions) => {
-        publishEdition({
-          editionMetadata,
-          editionQuestions,
-          connection,
-          client
-        })
+      client.on('publishEdition', (data) => {
+        publishEdition({ ...adaptors, ...data });
       })
 
-      client.on('archiveEdition', (editionUID) => {
-        archiveEdition({
-          editionUID,
-          connection,
-          client
-        })
+      client.on('archiveEdition', (data) => {
+        archiveEdition({ ...adaptors, ...data });
       })
     })
   }

@@ -5,10 +5,10 @@ import { setTeacherModels } from './editions'
 export function subscribeToClassroomLessonSession({
   connection,
   client,
-  classroomLessonSessionId
+  classroomActivityId
 }) {
   r.table('classroom_lesson_sessions')
-  .get(classroomLessonSessionId)
+  .get(classroomActivityId)
   .changes({ includeInitial: true })
   .run(connection, (err, cursor) => {
     cursor.each((err, document) => {
