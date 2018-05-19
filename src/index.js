@@ -40,19 +40,19 @@ import {
   addFollowUpName,
   addSupportingInfo,
   setEditionId,
-} from './sessions'
+} from './handlers/sessions'
 
 import {
   getAllClassroomLessonReviews,
   createOrUpdateReview,
-} from './reviews'
+} from './handlers/reviews'
 
 import {
   subscribeToClassroomLesson,
   getAllClassroomLessons,
   createOrUpdateClassroomLesson,
   deleteClassroomLesson,
-} from './lessons'
+} from './handlers/lessons'
 
 import {
   setTeacherModels,
@@ -73,7 +73,7 @@ import {
   createNewEdition,
   publishEdition,
   archiveEdition,
-} from './editions'
+} from './handlers/editions'
 
 let currentConnections = {};
 
