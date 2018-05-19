@@ -28,13 +28,13 @@ const openSocket = require('socket.io-client');
 const socket     = openSocket('http://localhost:8000');
 
 Cypress.Commands.add('cleanDatabase', () => {
-  socket.emit('cleanDatabase', (acknowledgement) => {
-    if (acknowledgement === 'ok') {
-      console.log('cleaned')
-    } else {
-      throw 'Unable to clean database'
+  socket.emit('cleanDatabase', {
+    ackCallback: (acknowledgement) => {
+      if (acknowledgement !== 'ok') {
+        throw 'Unable to clean database';
+      }
     }
-  })
+  });
 })
 
 Cypress.Commands.add('addSlideToEdition', (slideType) => {
