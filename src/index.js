@@ -43,7 +43,6 @@ import {
 } from './sessions'
 
 import {
-  saveReview,
   getAllClassroomLessonReviews,
   createOrUpdateReview,
 } from './reviews'
@@ -202,11 +201,8 @@ r.connect(rethinkdbConfig, (err, connection) => {
     io.on('connection', (client) => {
       const adaptors = { connection, client };
 
-      client.on('cleanDatabase', (ackCallback) => {
-        cleanDatabase({
-          connection,
-          ackCallback
-        })
+      client.on('cleanDatabase', (data) => {
+        cleanDatabase({ ...adaptors, ...data });
       })
 
       client.on('getAllEditionMetadataForLesson', (data) => {
@@ -218,10 +214,7 @@ r.connect(rethinkdbConfig, (err, connection) => {
       });
 
       client.on('disconnect', () => {
-        disconnect({
-          connection,
-          client,
-        })
+        disconnect({ ...adaptors });
       });
 
       client.on('subscribeToClassroomLessonSession', (data) => {
@@ -332,15 +325,6 @@ r.connect(rethinkdbConfig, (err, connection) => {
         addSupportingInfo({ ...adaptors, ...data });
       })
 
-      client.on('saveReview', (classroomActivityId, activityId, value) => {
-        saveReview({
-          classroomActivityId,
-          activityId,
-          value,
-          connection,
-        })
-      })
-
       client.on('subscribeToClassroomLesson', (data) => {
         subscribeToClassroomLesson({ ...adaptors, ...data })
       })
@@ -369,12 +353,8 @@ r.connect(rethinkdbConfig, (err, connection) => {
         getAllEditionMetadata({ ...adaptors });
       })
 
-      client.on('getAllEditionMetadataForLesson', (lessonID) => {
-        getAllEditionMetadataForLesson({
-          connection,
-          client,
-          lessonID
-        })
+      client.on('getAllEditionMetadataForLesson', (data) => {
+        getAllEditionMetadataForLesson({ ...adaptors, ...data });
       })
 
       client.on('getEditionQuestions', (data) => {
