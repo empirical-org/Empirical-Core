@@ -24,7 +24,7 @@ export function getClassLesson(classroomLessonUid: string) {
         dispatch({type: C.NO_LESSON_ID, data: classroomLessonUid})
       }
     });
-    socket.instance.emit('subscribeToClassroomLesson', classroomLessonUid);
+    socket.instance.emit('subscribeToClassroomLesson', { classroomLessonUid });
   };
 }
 
@@ -96,7 +96,7 @@ export function addSlide(editionId: string, editionQuestions: CustomizeIntF.Edit
       callback(Number(newEdition.questions.length) - 2)
     }
   })
-  socket.instance.emit('addSlide', editionId, newEdition)
+  socket.instance.emit('addSlide', { editionId, newEdition })
 }
 
 export function deleteEditionSlide(editionId, slideId, slides) {
@@ -105,7 +105,7 @@ export function deleteEditionSlide(editionId, slideId, slides) {
       return slides[slideKey]
     }
   }))
-  socket.instance.emit('deleteEditionSlide', editionId, newSlides)
+  socket.instance.emit('deleteEditionSlide', { editionId, slides: newSlides })
 }
 
 export function addScriptItem(editionId: string, slideId: string, slide: IntF.Question, scriptItemType: string, callback: Function|undefined) {
@@ -118,7 +118,7 @@ export function addScriptItem(editionId: string, slideId: string, slide: IntF.Qu
       callback(newSlide.data.teach.script.length - 1)
     }
   })
-  socket.instance.emit('addScriptItem', editionId, slideId, newSlide)
+  socket.instance.emit('addScriptItem', { editionId, slideId, slide: newSlide })
 }
 
 export function deleteScriptItem(editionId, slideId, scriptItemId, script) {
@@ -127,7 +127,7 @@ export function deleteScriptItem(editionId, slideId, scriptItemId, script) {
       return script[scriptKey]
     }
   }))
-  socket.instance.emit('deleteScriptItem', editionId, slideId, newScript)
+  socket.instance.emit('deleteScriptItem', { editionId, slideId, script: newScript })
 }
 
 export function addLesson(lessonName, cb) {
@@ -135,7 +135,7 @@ export function addLesson(lessonName, cb) {
   const newLessonKey = uuid();
   newLesson.id = newLessonKey
   if (newLessonKey) {
-    socket.instance.emit('createOrUpdateClassroomLesson', newLesson)
+    socket.instance.emit('createOrUpdateClassroomLesson', { classroomLesson: newLesson })
   }
 
   socket.instance.on(`createdOrUpdatedClassroomLesson:${newLessonKey}`, (lessonUpdated) => {
@@ -155,7 +155,7 @@ export function saveEditionSlide(editionId, slideId, slideData, callback) {
       callback()
     }
   })
-  socket.instance.emit('saveEditionSlide', editionId, slideId, slideData)
+  socket.instance.emit('saveEditionSlide', { editionId, slideId, slideData })
 }
 
 export function saveEditionScriptItem(editionId, slideId, scriptItemId, scriptItem, callback) {
@@ -166,21 +166,21 @@ export function saveEditionScriptItem(editionId, slideId, scriptItemId, scriptIt
     }
   })
 
-  socket.instance.emit('saveEditionScriptItem',
+  socket.instance.emit('saveEditionScriptItem', {
     editionId,
     slideId,
     scriptItemId,
     scriptItem,
-  )
+  })
 }
 
-export function deleteLesson(classroomLessonID) {
-  socket.instance.emit('deleteClassroomLesson', classroomLessonID)
+export function deleteLesson(classroomLessonId) {
+  socket.instance.emit('deleteClassroomLesson', { classroomLessonId })
 }
 
-export function deleteEdition(editionID, callback) {
+export function deleteEdition(editionId, callback) {
   return (dispatch) => {
-    socket.instance.emit('deleteEdition', editionID)
+    socket.instance.emit('deleteEdition', { editionId })
     socket.instance.on('editionMetadata', editions => {
       if (callback) {
         callback()
@@ -190,18 +190,18 @@ export function deleteEdition(editionID, callback) {
   }
 }
 
-export function updateSlideScriptItems(editionID, slideID, scriptItems) {
-  socket.instance.emit('updateSlideScriptItems', editionID, slideID, scriptItems)
+export function updateSlideScriptItems(editionId, slideId, scriptItems) {
+  socket.instance.emit('updateSlideScriptItems', { editionId, slideId, scriptItems })
 }
 
-export function updateEditionSlides(editionID, slides) {
-  socket.instance.emit('updateEditionSlides', editionID, slides)
+export function updateEditionSlides(editionId, slides) {
+  socket.instance.emit('updateEditionSlides', { editionId, slides })
 }
 
-export function updateClassroomLessonDetails(classroomLessonID, classroomLesson) {
+export function updateClassroomLessonDetails(classroomLessonId, classroomLesson) {
   return (dispatch) => {
-    classroomLesson.id = classroomLessonID
-    socket.instance.emit('createOrUpdateClassroomLesson', classroomLesson)
+    classroomLesson.id = classroomLessonId
+    socket.instance.emit('createOrUpdateClassroomLesson', { classroomLesson })
     socket.instance.on('classroomLessons', (classroomLessons) => {
       if (classroomLessons) {
         dispatch(updateClassroomLessons(classroomLessons))
@@ -212,10 +212,10 @@ export function updateClassroomLessonDetails(classroomLessonID, classroomLesson)
   }
 }
 
-export function updateEditionDetails(editionID, edition) {
+export function updateEditionDetails(editionId, editionMetadata) {
   return (dispatch) => {
-    edition.id = editionID
-    socket.instance.emit('updateEditionMetadata', edition)
+    editionMetadata.id = editionId
+    socket.instance.emit('updateEditionMetadata', { editionMetadata })
     socket.instance.on('editionMetadata', editions => {
       dispatch(setEditionMetadata(editions))
     })
