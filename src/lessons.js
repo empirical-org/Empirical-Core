@@ -3,10 +3,10 @@ import r from 'rethinkdb';
 export function subscribeToClassroomLesson({
   connection,
   client,
-  classroomLessonUID
+  classroomLessonUid
 }) {
   r.table('classroom_lessons')
-  .get(classroomLessonUID)
+  .get(classroomLessonUid)
   .changes({ includeInitial: true })
   .run(connection, (err, cursor) => {
     cursor.each((err, document) => {
@@ -57,10 +57,10 @@ export function createOrUpdateClassroomLesson({
 
 export function deleteClassroomLesson({
   connection,
-  classroomLessonID
+  classroomLessonId
 }) {
   r.table('classroom_lessons')
-  .filter({id: classroomLessonID})
+  .filter({id: classroomLessonId})
   .delete()
   .run(connection)
 }

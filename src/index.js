@@ -200,6 +200,8 @@ r.connect(rethinkdbConfig, (err, connection) => {
     })
 
     io.on('connection', (client) => {
+      const adaptors = { connection, client };
+
       client.on('cleanDatabase', (ackCallback) => {
         cleanDatabase({
           connection,
@@ -465,41 +467,24 @@ r.connect(rethinkdbConfig, (err, connection) => {
         })
       })
 
-      client.on('subscribeToClassroomLesson', (classroomLessonUID) => {
-        subscribeToClassroomLesson({
-          classroomLessonUID,
-          connection,
-          client
-        })
+      client.on('subscribeToClassroomLesson', (data) => {
+        subscribeToClassroomLesson({ ...adaptors, ...data })
       })
 
       client.on('getAllClassroomLessons', () => {
-        getAllClassroomLessons({
-          connection,
-          client
-        })
+        getAllClassroomLessons({ ...adaptors })
       })
 
-      client.on('createOrUpdateClassroomLesson', (classroomLesson) => {
-        createOrUpdateClassroomLesson({
-          connection,
-          classroomLesson,
-          client
-        })
+      client.on('createOrUpdateClassroomLesson', (data) => {
+        createOrUpdateClassroomLesson({ ...adaptors, ...data });
       })
 
-      client.on('deleteClassroomLesson', (classroomLessonID) => {
-        deleteClassroomLesson({
-          connection,
-          classroomLessonID
-        })
+      client.on('deleteClassroomLesson', (data) => {
+        deleteClassroomLesson({ ...adaptors, ...data });
       })
 
       client.on('getAllClassroomLessonReviews', () => {
-        getAllClassroomLessonReviews({
-          connection,
-          client
-        })
+        getAllClassroomLessonReviews({ ...adaptors })
       })
 
       client.on('createOrUpdateReview', (review) => {
@@ -532,12 +517,8 @@ r.connect(rethinkdbConfig, (err, connection) => {
         })
       })
 
-      client.on('updateEditionMetadata', (editionMetadata) => {
-        updateEditionMetadata({
-          connection,
-          editionMetadata,
-          client
-        })
+      client.on('updateEditionMetadata', (data) => {
+        updateEditionMetadata({ ...adaptors, ...data })
       })
 
       client.on('setEditionId', (classroomActivityId, editionId) => {
@@ -549,86 +530,40 @@ r.connect(rethinkdbConfig, (err, connection) => {
         });
       })
 
-      client.on('deleteEdition', (editionId) => {
-        deleteEdition({
-          editionId,
-          connection,
-          client
-        })
+      client.on('deleteEdition', (data) => {
+        deleteEdition({ ...adaptors, ...data });
       })
 
-      client.on('updateEditionSlides', (editionId, slides) => {
-        updateEditionSlides({
-          editionId,
-          slides,
-          connection,
-        });
+      client.on('updateEditionSlides', (data) => {
+        updateEditionSlides({ ...adaptors, ...data });
       })
 
-      client.on('updateSlideScriptItems', (editionId, slideId, scriptItems) => {
-        updateSlideScriptItems({
-          editionId,
-          slideId,
-          scriptItems,
-          connection,
-        });
+      client.on('updateSlideScriptItems', (data) => {
+        updateSlideScriptItems({ ...adaptors, ...data });
       })
 
-      client.on('saveEditionSlide', (editionId, slideId, slideData) => {
-        saveEditionSlide({
-          editionId,
-          slideId,
-          slideData,
-          connection,
-          client,
-        });
+      client.on('saveEditionSlide', (data) => {
+        saveEditionSlide({ ...adaptors, ...data });
       })
 
-      client.on('saveEditionScriptItem', (editionId, slideId, scriptItemId,scriptItem) => {
-        saveEditionScriptItem({
-          editionId,
-          slideId,
-          scriptItemId,
-          scriptItem,
-          connection,
-          client,
-        });
+      client.on('saveEditionScriptItem', (data) => {
+        saveEditionScriptItem({ ...adaptors, ...data });
       })
 
-      client.on('deleteScriptItem', (editionId, slideId, script) => {
-        deleteScriptItem({
-          editionId,
-          slideId,
-          script,
-          connection,
-        });
+      client.on('deleteScriptItem', (data) => {
+        deleteScriptItem({ ...adaptors, ...data });
       })
 
-      client.on('addScriptItem', (editionId, slideId, slide) => {
-        addScriptItem({
-          editionId,
-          slideId,
-          slide,
-          connection,
-          client
-        });
+      client.on('addScriptItem', (data) => {
+        addScriptItem({ ...adaptors, ...data });
       })
 
-      client.on('deleteEditionSlide', (editionId, slides) => {
-        deleteEditionSlide({
-          editionId,
-          slides,
-          connection,
-        });
+      client.on('deleteEditionSlide', (data) => {
+        deleteEditionSlide({ ...adaptors, ...data });
       })
 
-      client.on('addSlide', (editionId, newEdition) => {
-        addSlide({
-          editionId,
-          newEdition,
-          connection,
-          client,
-        });
+      client.on('addSlide', (data) => {
+        addSlide({ ...adaptors, ...data });
       })
 
       client.on('setTeacherModels', (classroomActivityId, editionId) => {
@@ -652,14 +587,6 @@ r.connect(rethinkdbConfig, (err, connection) => {
         publishEdition({
           editionMetadata,
           editionQuestions,
-          connection,
-          client
-        })
-      })
-
-      client.on('deleteEdition', (editionUID) => {
-        deleteEdition({
-          editionUID,
           connection,
           client
         })
