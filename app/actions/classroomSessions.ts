@@ -17,18 +17,18 @@ import * as CustomizeIntf from '../interfaces/customize'
 import uuid from 'uuid/v4';
 import socket from '../utils/socketStore'
 
-export function startListeningToSession(classroom_activity_id: string) {
+export function startListeningToSession(classroomActivityId: string) {
   return function(dispatch, getState) {
-    socket.instance.on(`classroomLessonSession:${classroom_activity_id}`, (data) => {
+    socket.instance.on(`classroomLessonSession:${classroomActivityId}`, (data) => {
       if (data) {
         if (!_.isEqual(getState().classroomSessions.data, data)) {
           dispatch(updateSession(data));
         }
       } else {
-        dispatch({type: C.NO_CLASSROOM_ACTIVITY, data: classroom_activity_id})
+        dispatch({type: C.NO_CLASSROOM_ACTIVITY, data: classroomActivityId})
       }
     });
-    socket.instance.emit('subscribeToClassroomLessonSession', classroom_activity_id);
+    socket.instance.emit('subscribeToClassroomLessonSession', { classroomActivityId });
   };
 }
 
@@ -43,8 +43,8 @@ export function startLesson(classroomActivityId: string, callback?: Function) {
     } else {
       return response.json()
     }
-  }).then(response => {
-    socket.instance.emit('createOrUpdateClassroomLessonSession', classroomActivityId, response);
+  }).then(teacherIdObject => {
+    socket.instance.emit('createOrUpdateClassroomLessonSession', { classroomActivityId, teacherIdObject });
   })
 
   if (callback) {
@@ -59,30 +59,30 @@ export function toggleOnlyShowHeaders() {
 }
 
 export function startListeningToSessionForTeacher(
-  classroom_activity_id: string,
-  lesson_id: string
+  classroomActivityId: string,
+  lessonId: string
 ) {
   return function (dispatch, getState) {
     let initialized = false;
 
-    socket.instance.on(`classroomLessonSession:${classroom_activity_id}`, (session) => {
+    socket.instance.on(`classroomLessonSession:${classroomActivityId}`, (session) => {
       if (session) {
 
         if (!_.isEqual(getState().classroomSessions.data, session)) {
           dispatch(updateSession(session));
         }
         dispatch(getInitialData(
-          classroom_activity_id,
-          lesson_id,
+          classroomActivityId,
+          lessonId,
           initialized,
           session.preview
         ))
         initialized = true
       } else {
-        dispatch({type: C.NO_CLASSROOM_ACTIVITY, data: classroom_activity_id})
+        dispatch({type: C.NO_CLASSROOM_ACTIVITY, data: classroomActivityId})
       }
     });
-    socket.instance.emit('subscribeToClassroomLessonSession', classroom_activity_id);
+    socket.instance.emit('subscribeToClassroomLessonSession', { classroomActivityId });
   }
 }
 
@@ -113,18 +113,6 @@ export function getPreviewData(ca_id: string, lesson_id: string) {
   }
 }
 
-// export function startListeningToCurrentSlide(classroomActivityId: string) {
-//   return function (dispatch) {
-//     socket.instance.on(`currentSlide:${classroomActivityId}`, (slide) => {
-//       if (slide) {
-//         console.log('listening to current slide ', slide);
-//         dispatch(updateSlideInStore(slide));
-//       }
-//     });
-//     socket.instance.emit('subscribeToCurrentSlide', classroomActivityId);
-//   }
-// }
-
 export function updateSession(data: object): {type: string; data: any;} {
   return {
     type: C.UPDATE_CLASSROOM_SESSION_DATA,
@@ -133,15 +121,15 @@ export function updateSession(data: object): {type: string; data: any;} {
 }
 
 export function redirectAssignedStudents(classroomActivityId: string, followUpOption: string, followUpUrl: string) {
-  socket.instance.emit('redirectAssignedStudents',
+  socket.instance.emit('redirectAssignedStudents', {
     classroomActivityId,
     followUpOption,
     followUpUrl,
-  )
+  })
 }
 
 export function registerPresence(classroomActivityId: string, studentId: string): void {
-  socket.instance.emit('registerPresence', classroomActivityId, studentId)
+  socket.instance.emit('registerPresence', { classroomActivityId, studentId });
 }
 
 export function goToNextSlide(classroom_activity_id: string|null, state: ClassroomLessonSession, lesson: ClassroomLesson|CustomizeIntf.EditionQuestions) {
@@ -182,8 +170,10 @@ export function updateSlide(
   questionId: string
  ) {
   socket.instance.emit('updateClassroomLessonSession', {
-    id: classroomActivityId,
-    current_slide: questionId,
+    session: {
+      id: classroomActivityId,
+      current_slide: questionId,
+    }
   });
   setSlideStartTime(classroomActivityId, questionId)
 }
@@ -196,61 +186,78 @@ export function updateSlideInStore(slideId: string) {
 }
 
 export function saveStudentSubmission(classroomActivityId: string, questionId: string, studentId: string, submission: {data: any}): void {
-  socket.instance.emit('saveStudentSubmission',
+  socket.instance.emit('saveStudentSubmission', {
     classroomActivityId,
     questionId,
     studentId,
     submission,
-  );
-
+  });
 }
 
 export function removeStudentSubmission(classroomActivityId: string, questionId: string, studentId: string): void {
-  socket.instance.emit('removeStudentSubmission',
+  socket.instance.emit('removeStudentSubmission', {
     classroomActivityId,
     questionId,
-    studentId
-  )
+    studentId,
+  })
 }
 
-export function clearAllSubmissions(classroomActivityId: string, question_id: string): void {
-  socket.instance.emit('clearAllSubmissions', classroomActivityId, question_id)
+export function clearAllSubmissions(classroomActivityId: string, questionId: string): void {
+  socket.instance.emit('clearAllSubmissions', {
+    classroomActivityId,
+    questionId,
+  });
 }
 
 export function saveSelectedStudentSubmission(classroomActivityId: string, questionId: string, studentId: string): void {
-  socket.instance.emit('saveSelectedStudentSubmission', classroomActivityId, questionId, studentId)
+  socket.instance.emit('saveSelectedStudentSubmission', {
+    classroomActivityId,
+    questionId,
+    studentId
+  });
 }
 
 export function removeSelectedStudentSubmission(classroomActivityId: string, questionId: string, studentId: string): void {
-  socket.instance.emit('removeSelectedStudentSubmission', classroomActivityId, questionId, studentId)
+  socket.instance.emit('removeSelectedStudentSubmission', {
+    classroomActivityId,
+    questionId,
+    studentId,
+  })
 }
 
 export function updateStudentSubmissionOrder(classroomActivityId: string, questionId: string, studentId: string): void {
-  socket.instance.emit('updateStudentSubmissionOrder', classroomActivityId, questionId, studentId)
+  socket.instance.emit('updateStudentSubmissionOrder', {
+    classroomActivityId,
+    questionId,
+    studentId
+  });
 }
 
 export function clearAllSelectedSubmissions(classroomActivityId: string, questionId: string): void {
-  socket.instance.emit('clearAllSelectedSubmissions', classroomActivityId, questionId)
+  socket.instance.emit('clearAllSelectedSubmissions', {
+    classroomActivityId,
+    questionId,
+  });
 }
 
 export function setMode(classroomActivityId: string, questionId: string, mode): void {
-  socket.instance.emit('setMode', classroomActivityId, questionId, mode)
+  socket.instance.emit('setMode', { classroomActivityId, questionId, mode });
 }
 
 export function removeMode(classroomActivityId: string, questionId: string): void {
-  socket.instance.emit('removeMode', classroomActivityId, questionId)
+  socket.instance.emit('removeMode', { classroomActivityId, questionId });
 }
 
 export function setWatchTeacherState(classroomActivityId: string | null): void {
-  socket.instance.emit('setWatchTeacherState', classroomActivityId)
+  socket.instance.emit('setWatchTeacherState', { classroomActivityId });
 }
 
 export function removeWatchTeacherState(classroomActivityId: string): void {
-  socket.instance.emit('removeWatchTeacherState', classroomActivityId)
+  socket.instance.emit('removeWatchTeacherState', { classroomActivityId });
 }
 
 export function registerTeacherPresence(classroomActivityId: string | null): void {
-  socket.instance.emit('teacherConnected', classroomActivityId)
+  socket.instance.emit('teacherConnected', { classroomActivityId });
 }
 
 export function showSignupModal() {
@@ -284,7 +291,7 @@ export function unpinActivityOnSaveAndExit(classroom_activity_id) {
 }
 
 export function toggleStudentFlag(classroomActivityId: string|null, studentId: string): void {
-  socket.instance.emit('toggleStudentFlag', classroomActivityId, studentId)
+  socket.instance.emit('toggleStudentFlag', { classroomActivityId, studentId });
 }
 
 export function getClassroomAndTeacherNameFromServer(classroom_activity_id: string|null, baseUrl: string|undefined) {
@@ -308,11 +315,14 @@ export function getClassroomAndTeacherNameFromServer(classroom_activity_id: stri
 }
 
 function _setClassroomName(classroomName: string, classroomActivityId: string|null) {
-  socket.instance.emit('setClassroomName', classroomActivityId, classroomName)
+  socket.instance.emit('setClassroomName', {
+    classroomActivityId,
+    classroomName,
+  });
 }
 
 function _setTeacherName(teacherName: string, classroomActivityId: string|null) {
-  socket.instance.emit('setTeacherName', classroomActivityId, teacherName)
+  socket.instance.emit('setTeacherName', { classroomActivityId, teacherName });
 }
 
 function _setClassroomAndTeacherName(names: TeacherAndClassroomName, classroom_activity_id: string|null): void {
@@ -324,27 +334,36 @@ export function addStudents(classroomActivityId: string, studentObj): void {
   let studentIds = studentObj.student_ids;
   let activitySessions = studentObj.activity_sessions_and_names;
 
-  socket.instance.emit('addStudents',
+  socket.instance.emit('addStudents', {
     classroomActivityId,
     activitySessions,
     studentIds,
-  )
+  });
 }
 
 export function addFollowUpName(classroomActivityId: string, followUpActivityName: string|null): void {
-  socket.instance.emit('addFollowUpName', classroomActivityId, followUpActivityName)
+  socket.instance.emit('addFollowUpName', {
+    classroomActivityId,
+    followUpActivityName,
+  });
 }
 
 export function addSupportingInfo(classroomActivityId: string, supportingInfo: string|null): void {
-  socket.instance.emit('addSupportingInfo', classroomActivityId, supportingInfo)
+  socket.instance.emit('addSupportingInfo', {
+    classroomActivityId,
+    supportingInfo,
+  });
 }
 
 export function setSlideStartTime(classroomActivityId: string, questionId: string): void {
-  socket.instance.emit('setSlideStartTime', classroomActivityId, questionId);
+  socket.instance.emit('setSlideStartTime', {
+    classroomActivityId,
+    questionId,
+  });
 }
 
 export function setEditionId(classroomActivityId: string, editionId: string|null, callback?: Function): void {
-  socket.instance.emit('setEditionId', classroomActivityId, editionId)
+  socket.instance.emit('setEditionId', { classroomActivityId, editionId });
   socket.instance.on(`editionIdSet:${classroomActivityId}`, () => {
     socket.instance.removeAllListeners(`editionIdSet:${classroomActivityId}`);
     if (callback) {
@@ -355,7 +374,10 @@ export function setEditionId(classroomActivityId: string, editionId: string|null
 
 export function setTeacherModels(classroomActivityId: string|null, editionId: string) {
   if (classroomActivityId) {
-    socket.instance.emit('setTeacherModels', classroomActivityId, editionId)
+    socket.instance.emit('setTeacherModels', {
+      classroomActivityId,
+      editionId,
+    });
   }
 }
 
@@ -366,15 +388,19 @@ export function updateNoStudentError(student: string | null) {
 }
 
 export function setModel(classroomActivityId: string, questionId: string, model): void {
-  socket.instance.emit('setModel', classroomActivityId, questionId, model)
+  socket.instance.emit('setModel', { classroomActivityId, questionId, model });
 }
 
 export function setPrompt(classroomActivityId: string, questionId: string, prompt): void {
-  socket.instance.emit('setPrompt', classroomActivityId, questionId, prompt)
+  socket.instance.emit('setPrompt', {
+    classroomActivityId,
+    questionId,
+    prompt,
+  });
 }
 
 export function easyJoinLessonAddName(classroomActivityId: string, studentName: string): void {
-  socket.instance.emit('addStudent', classroomActivityId, studentName)
+  socket.instance.emit('addStudent', { classroomActivityId, studentName });
   socket.instance.on(`studentAdded:${classroomActivityId}`, (addedStudentName, nameRef) => {
     socket.instance.removeAllListeners(`studentAdded:${classroomActivityId}`)
     if (addedStudentName === studentName) {
@@ -448,10 +474,10 @@ export function loadSupportingInfo(lesson_id: string, classroom_activity_id: str
 
 export function createPreviewSession(edition_id?:string) {
   const classroomActivityId = uuid();
-  let previewSession;
+  let previewSessionData;
 
   if (edition_id) {
-    previewSession = {
+    previewSessionData = {
       'students': { 'student': 'James Joyce' },
       'current_slide': '0',
       'public': true,
@@ -460,7 +486,7 @@ export function createPreviewSession(edition_id?:string) {
       'id': classroomActivityId,
     }
   } else {
-    previewSession = {
+    previewSessionData = {
       'students': { 'student': 'James Joyce' },
       'current_slide': '0',
       'public': true,
@@ -469,7 +495,7 @@ export function createPreviewSession(edition_id?:string) {
     }
   }
 
-  socket.instance.emit('createPreviewSession', previewSession)
+  socket.instance.emit('createPreviewSession', { previewSessionData });
 
   return classroomActivityId;
 }
@@ -481,5 +507,5 @@ export function saveReview(activity_id:string, classroom_activity_id:string, val
     value: value,
     classroom_activity_id: classroom_activity_id,
   }
-  socket.instance.emit('createOrUpdateReview', review)
+  socket.instance.emit('createOrUpdateReview', { review });
 }
