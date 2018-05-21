@@ -75,15 +75,15 @@ module.exports = {
                 exclude: [resolve(__dirname, "node_modules")],
             },
             { enforce: "pre", test: /\.js$/, loader: "source-map-loader" },
+            // {
+            //     test:/\.css$/,
+            //     // use: ['css-hot-loader']
+            //     use: ['css-hot-loader', 'style-loader', MiniCssExtractPlugin.loader, "css-loader"]
+            // },
             {
-                test:/\.css$/,
+                test:/\.(css|scss)$/,
                 // use: ['css-hot-loader']
-                use: ['css-hot-loader', 'style-loader', MiniCssExtractPlugin.loader, "css-loader"]
-            },
-            {
-                test:/\.scss/,
-                // use: ['css-hot-loader']
-                use: ['css-hot-loader', 'style-loader', MiniCssExtractPlugin.loader, "css-loader", "sass-loader"]
+                use: ['css-hot-loader', 'style-loader', "css-loader", "sass-loader"]
             },
             { test: /\.png$/, loader: "url-loader?limit=100000" },
             { test: /\.jpg$/, loader: "file-loader" },
@@ -94,10 +94,10 @@ module.exports = {
         ]
     },
     plugins: [
-        new MiniCssExtractPlugin({
-            filename: "style.css",
-            chunkFilename: "[id].css"
-          }),
+        // new MiniCssExtractPlugin({
+        //     filename: "style.css",
+        //     chunkFilename: "[id].css"
+        //   }),
         new webpack.HotModuleReplacementPlugin(),
         // enable HMR globally
         new webpack.NamedModulesPlugin(),
