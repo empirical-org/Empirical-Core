@@ -515,7 +515,7 @@ EmpiricalGrammar::Application.routes.draw do
   get 'preview_lesson/:lesson_id' => 'activities#preview_lesson'
   get 'activities/:id/supporting_info' => 'activities#supporting_info'
 
-  get 'demo' => 'teachers/progress_reports/standards/classrooms#demo'
+  get 'demo' => 'teachers/progress_reports#demo'
   get 'student_demo' => 'students#student_demo'
   get 'admin_demo', to: 'teachers/progress_reports#admin_demo'
 

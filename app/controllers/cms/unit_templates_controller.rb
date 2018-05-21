@@ -11,10 +11,6 @@ class Cms::UnitTemplatesController < Cms::CmsController
   end
 
   def create
-    attributes = unit_template_params
-
-    attributes.delete(:authenticity_token)
-
     @unit_template = UnitTemplate.new(unit_template_params)
     if @unit_template.save!
       render json: @unit_template
