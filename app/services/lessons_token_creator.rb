@@ -1,8 +1,6 @@
 require 'jwt'
 
 class LessonsTokenCreator
-  attr_reader :user, :classroom_activity_id
-
   def initialize(user, classroom_activity_id)
     @user = user
     @classroom_activity_id = classroom_activity_id
@@ -23,14 +21,14 @@ class LessonsTokenCreator
   end
 
   def user_id
-    if user.present?
-      user.id
+    if @user.present?
+      @user.id
     end
   end
 
   def user_role
-    if user.present?
-      user.role
+    if @user.present?
+      @user.role
     else
       'anonymous'
     end
@@ -55,7 +53,7 @@ class LessonsTokenCreator
   end
 
   def classroom_activity
-    @classroom_activity ||= ClassroomActivity.find_by(id: classroom_activity_id)
+    @classroom_activity ||= ClassroomActivity.find_by(id: @classroom_activity_id)
   end
 
   def private_key
