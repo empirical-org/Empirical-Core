@@ -9,23 +9,21 @@ export function checkFillInTheBlankQuestion(
   response: string,
   responses: Array<Response>
 ): Response {
-  const responseTemplate = {
-    text: response,
-    question_uid,
-    count: 1,
-    gradeIndex: `nonhuman${question_uid}`
-  }
   const data = {
-    response,
+    response: response.trim(),
     responses
   }
+  const responseTemplate = {
+    text: data.response,
+    question_uid,
+    count: 1
+  };
   const firstPass = checkForMatches(data, firstPassMatchers)
   if (firstPass) {
     return Object.assign(responseTemplate, firstPass)
   }
 
-  responseTemplate.gradeIndex = `unmarked${question_uid}`
-  return responseTemplate
+  return responseTemplate;
 }
 
 function* firstPassMatchers(data) {
