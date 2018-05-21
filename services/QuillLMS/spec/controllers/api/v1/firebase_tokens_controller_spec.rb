@@ -55,4 +55,24 @@ describe Api::V1::FirebaseTokensController, type: :controller do
       end
     end
   end
+
+  describe '#create_for_connet' do
+    let!(:app) { FirebaseApp.create!(name: 'foobar', secret: '12345abcde') }
+    let!(:user) { create(:student) }
+
+    before do
+      allow_any_instance_of(FirebaseApp).to receive(:connect_token_for) { "connect token" }
+      subject
+    end
+
+    def subject
+      post :create_for_connect, "json" => { "app" => 'foobar' }.to_json, format: :json
+    end
+
+    it 'should respond with the connect token' do
+      expect(response.body).to eq({
+        token: "connect token"
+      }.to_json)
+    end
+  end
 end

@@ -152,7 +152,7 @@ export default class extends React.Component {
         <div className="meta-overview flex-row space-between">
           <div className='header-and-info'>
             <h1>Concept Results</h1>
-            <p>Each time a student correctly demonstrates a concept or creates an error, Quill generates a concept result. This report provides an aggregate picture of student progress on each concept.</p>
+            <p>Each question on Quill targets a specific writing concept. This report shows the number of times the student correctly or incorrectly used the targeted concept to answer the question. You can see a student’s results on each concept by clicking on the student’s name. You can print this report by downloading a PDF file or export this data by downloading a CSV file.</p>
           </div>
           <div className='csv-and-how-we-grade'>
             <CSVDownloadForProgressReport key={`reports are ready ${this.state.updatingReportData}`} data={this.state.filteredReportData} valuesToChange={changeValues} keysToOmit={this.keysToOmit()} />

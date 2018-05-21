@@ -6,7 +6,7 @@ class SalesContactSyncer
   end
 
   def sync
-    if user && user.teacher?
+    if can_sync_contact?
       @client.batch([account_data])
       true
     else
@@ -22,5 +22,9 @@ class SalesContactSyncer
 
   def user
     @user ||= User.find(@teacher_id)
+  end
+
+  def can_sync_contact?
+    user && (user.teacher? || user.auditor?)
   end
 end
