@@ -27,16 +27,17 @@ export function checkSentenceCombining(
   focusPoints: Array<FocusPoint>|null,
   incorrectSequences: Array<IncorrectSequence>|null
 ): Response {
-  const responseTemplate = {
-    text: response,
-    question_uid,
-    count: 1
-  };
   const data = {
     response: response.trim(),
     responses,
     focusPoints,
     incorrectSequences,
+  };
+
+  const responseTemplate = {
+    text: data.response,
+    question_uid,
+    count: 1
   };
 
   const firstPass = checkForMatches(data, firstPassMatchers); // returns partial response or null
