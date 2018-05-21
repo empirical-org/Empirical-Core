@@ -1,6 +1,6 @@
-function _isPreviewSession(classroomActivityId) {
+function _isPreviewSession(data) {
   const previewIdRegExp = RegExp('\Aprvw\-.+');
-  return previewIdRegExp.test(classroomActivityId);
+  return previewIdRegExp.test(data.classroomActivityId);
 }
 
 function _isRoleAuthorized(permittedRoles, currentRole) {
@@ -14,10 +14,11 @@ function _belongsToSession(data, token) {
 export function authorizeSession(data, token, client, callback) {
   const belongsToSession = _belongsToSession(data, token)
 
-  if (belongsToSession || _isPreviewSession(data.classroomActivityId)) {
+  if (belongsToSession || _isPreviewSession(data)) {
     callback();
   } else {
-    client.emit('notAuthorizedForSession');
+    console.error('unauthorizedSession')
+    client.emit('unauthorizedSession');
   }
 }
 
@@ -26,19 +27,21 @@ export function authorizeTeacherSession(data, token, client, callback) {
   const belongsToSession = _belongsToSession(data, token);
   const isValidSession   = userIsTeacher && belongsToSession;
 
-  if (isValidSession || _isPreviewSession(data.classroomActivityId)) {
+  if (isValidSession || _isPreviewSession(data)) {
     callback();
   } else {
-    client.emit('notAuthorizedForTeacherSession');
+    console.error('unauthorizedTeacherSession')
+    client.emit('unauthorizedTeacherSession');
   }
 }
 
-export function authorizeRole(permittedRoles, token, client, callback) {
+export function authorizeRole(permittedRoles, data, token, client, callback) {
   const isRoleAuthorized = _isRoleAuthorized(permittedRoles, token.role);
 
-  if (isRoleAuthorized || _isPreviewSession(data.classroomActivityId)) {
+  if (isRoleAuthorized || _isPreviewSession(data)) {
     callback();
   } else {
-    client.emit('notAuthorizedForRole');
+    console.error('unauthorizedRole')
+    client.emit('unauthorizedRole');
   }
 }

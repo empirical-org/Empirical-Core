@@ -205,11 +205,14 @@ r.connect(rethinkdbConfig, (err, connection) => {
     })
 
     io.on('connection', (client) => {
-      const adaptors  = { connection, client };
-      const authToken = currentConnections[client.id].token;
+      const adaptors   = { connection, client };
+      const authToken  = currentConnections[client.id].token;
+      const adminRoles = ['teacher', 'staff'];
+
+      console.log(authToken);
 
       client.on('cleanDatabase', (data) => {
-        authorizeRole(['test'], authToken, client, () => {
+        authorizeRole(['test'], data, authToken, client, () => {
           cleanDatabase({ ...adaptors, ...data });
         });
       });
@@ -219,7 +222,7 @@ r.connect(rethinkdbConfig, (err, connection) => {
       })
 
       client.on('teacherConnected', (data) => {
-        authorizeRole(['teacher', 'staff'], authToken, client, () => {
+        authorizeRole(adminRoles, data, authToken, client, () => {
           teacherConnected({ ...adaptors, ...data });
         });
       });
@@ -239,7 +242,7 @@ r.connect(rethinkdbConfig, (err, connection) => {
       });
 
       client.on('updateClassroomLessonSession', (data) => {
-        authorizeRole(['teacher', 'staff'], authToken, client, () => {
+        authorizeRole(adminRoles, data, authToken, client, () => {
           updateClassroomLessonSession({ ...adaptors, ...data });
         });
       });
@@ -395,13 +398,13 @@ r.connect(rethinkdbConfig, (err, connection) => {
       })
 
       client.on('createOrUpdateClassroomLesson', (data) => {
-        authorizeRole(['teacher', 'staff'], authToken, client, () => {
+        authorizeRole(adminRoles, data, authToken, client, () => {
           createOrUpdateClassroomLesson({ ...adaptors, ...data });
         });
       });
 
       client.on('deleteClassroomLesson', (data) => {
-        authorizeRole(['teacher', 'staff'], authToken, client, () => {
+        authorizeRole(adminRoles, data, authToken, client, () => {
           deleteClassroomLesson({ ...adaptors, ...data });
         });
       });
@@ -411,7 +414,7 @@ r.connect(rethinkdbConfig, (err, connection) => {
       });
 
       client.on('createOrUpdateReview', (data) => {
-        authorizeRole(['teacher', 'staff'], authToken, client, () => {
+        authorizeRole(adminRoles, data, authToken, client, () => {
           createOrUpdateReview({ ...adaptors, ...data });
         });
       });
@@ -429,7 +432,7 @@ r.connect(rethinkdbConfig, (err, connection) => {
       })
 
       client.on('updateEditionMetadata', (data) => {
-        authorizeRole(['teacher', 'staff'], authToken, client, () => {
+        authorizeRole(adminRoles, data, authToken, client, () => {
           updateEditionMetadata({ ...adaptors, ...data });
         });
       });
@@ -441,55 +444,55 @@ r.connect(rethinkdbConfig, (err, connection) => {
       });
 
       client.on('deleteEdition', (data) => {
-        authorizeRole(['teacher', 'staff'], authToken, client, () => {
+        authorizeRole(adminRoles, data, authToken, client, () => {
           deleteEdition({ ...adaptors, ...data });
         });
       });
 
       client.on('updateEditionSlides', (data) => {
-        authorizeRole(['teacher', 'staff'], authToken, client, () => {
+        authorizeRole(adminRoles, data, authToken, client, () => {
           updateEditionSlides({ ...adaptors, ...data });
         });
       })
 
       client.on('updateSlideScriptItems', (data) => {
-        authorizeRole(['teacher', 'staff'], authToken, client, () => {
+        authorizeRole(adminRoles, data, authToken, client, () => {
           updateSlideScriptItems({ ...adaptors, ...data });
         });
       });
 
       client.on('saveEditionSlide', (data) => {
-        authorizeRole(['teacher', 'staff'], authToken, client, () => {
+        authorizeRole(adminRoles, data, authToken, client, () => {
           saveEditionSlide({ ...adaptors, ...data });
         });
       });
 
       client.on('saveEditionScriptItem', (data) => {
-        authorizeRole(['teacher', 'staff'], authToken, client, () => {
+        authorizeRole(adminRoles, data, authToken, client, () => {
           saveEditionScriptItem({ ...adaptors, ...data });
         });
       });
 
       client.on('deleteScriptItem', (data) => {
-        authorizeRole(['teacher', 'staff'], authToken, client, () => {
+        authorizeRole(adminRoles, data, authToken, client, () => {
           deleteScriptItem({ ...adaptors, ...data });
         });
       });
 
       client.on('addScriptItem', (data) => {
-        authorizeRole(['teacher', 'staff'], authToken, client, () => {
+        authorizeRole(adminRoles, data, authToken, client, () => {
           addScriptItem({ ...adaptors, ...data });
         });
       });
 
       client.on('deleteEditionSlide', (data) => {
-        authorizeRole(['teacher', 'staff'], authToken, client, () => {
+        authorizeRole(adminRoles, data, authToken, client, () => {
           deleteEditionSlide({ ...adaptors, ...data });
         });
       });
 
       client.on('addSlide', (data) => {
-        authorizeRole(['teacher', 'staff'], authToken, client, () => {
+        authorizeRole(adminRoles, data, authToken, client, () => {
           addSlide({ ...adaptors, ...data });
         });
       });
@@ -501,19 +504,19 @@ r.connect(rethinkdbConfig, (err, connection) => {
       });
 
       client.on('createNewEdition', (data) => {
-        authorizeRole(['teacher', 'staff'], authToken, client, () => {
+        authorizeRole(adminRoles, data, authToken, client, () => {
           createNewEdition({ ...adaptors, ...data });
         });
       });
 
       client.on('publishEdition', (data) => {
-        authorizeRole(['teacher', 'staff'], authToken, client, () => {
+        authorizeRole(adminRoles, data, authToken, client, () => {
           publishEdition({ ...adaptors, ...data });
         });
       });
 
       client.on('archiveEdition', (data) => {
-        authorizeRole(['teacher', 'staff'], authToken, client, () => {
+        authorizeRole(adminRoles, data, authToken, client, () => {
           archiveEdition({ ...adaptors, ...data });
         });
       });
