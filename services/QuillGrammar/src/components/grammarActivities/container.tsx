@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import getParameterByName from '../../helpers/getParameterByName'
 import { IState } from "../../store/configStore";
 import { startListeningToActivity } from "../../actions/grammarActivities";
-import { startListeningToQuestions } from "../../actions/questions";
+import { startListeningToQuestions, goToNextQuestion, submitResponse } from "../../actions/questions";
 import Question from './question'
 
 class PlayGrammarContainer extends React.Component<any, any> {
@@ -22,11 +22,22 @@ class PlayGrammarContainer extends React.Component<any, any> {
         const conceptUIDs = Object.keys(nextProps.grammarActivities.currentActivity.concepts)
         this.props.dispatch(startListeningToQuestions(conceptUIDs))
       }
+      if (nextProps.questions.hasreceiveddata && !nextProps.questions.currentQuestion) {
+        console.log('nextProps.questions', nextProps.questions)
+        this.props.dispatch(goToNextQuestion())
+      }
     }
 
     render(): JSX.Element {
-      if (this.props.grammarActivities.hasreceiveddata && this.props.questions.hasreceiveddata) {
-        return <Question activity={this.props.grammarActivities.currentActivity} questions={this.props.questions.currentQuestions}/>
+      if (this.props.grammarActivities.hasreceiveddata && this.props.questions.hasreceiveddata && this.props.questions.currentQuestion) {
+        return <Question
+          activity={this.props.grammarActivities.currentActivity}
+          answeredQuestions={this.props.questions.answeredQuestions}
+          unansweredQuestions={this.props.questions.unansweredQuestions}
+          currentQuestion={this.props.questions.currentQuestion}
+          goToNextQuestion={() => this.props.dispatch(goToNextQuestion())}
+          submitResponse={(response) => this.props.dispatch(submitResponse(response))}
+        />
       } else if (this.props.questions.error) {
         return (
           <div>{this.props.questions.error}</div>

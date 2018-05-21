@@ -20,8 +20,64 @@
     width: 100%;
     height: 10px;
   }
-}
+  .example-button {
+    margin: 1em 0;
+  }
+  h1 {
+    margin-bottom: 0;
+  }
+  .example {
+    border-bottom: 1px solid #DDD;
+    padding-bottom: 1em;
+  }
 
-h1 {
-  color: red;
+  .instructions {
+    margin: 1em 0;
+  }
+
+  .top-section, .question-section {
+    padding: 20px 30px;
+  }
+
+  .question-section {
+    background-color: white;
+  }
+
+  .prompt {
+    font-size: 22px;
+    font-family: 'courier new';
+  }
+
+  .input-field {
+    padding-left: 30px;
+    padding-top: 20px;
+    font-size: 22px;
+    font-family: 'courier new';
+    width: 100%;
+    margin-top: 20px;
+    border: 1px solid #DDD;
+    border-radius: 6px;
+  }
+
+  .feedback {
+    padding: 25px 2.35765%;
+    box-shadow: 0 500px 2px 500px #ededed;
+    font-size: 18px;
+    div {
+      width: 44em;
+      margin: auto;
+    }
+  }
+
+  .correct {
+    background-color: #d2ffe8;
+  }
+
+  .incorrect {
+    background-color: #ffdede;
+  }
+
+  .try-again {
+    background-color: #ffecd2;
+  }
 }

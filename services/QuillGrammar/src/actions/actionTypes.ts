@@ -10,6 +10,8 @@ export const ActionTypes = {
     // QUESTIONS
     RECEIVE_QUESTION_DATA: 'RECEIVE_QUESTION_DATA',
     NO_QUESTIONS_FOUND: 'NO_QUESTIONS_FOUND',
+    GO_T0_NEXT_QUESTION: 'GO_T0_NEXT_QUESTION',
+    SUBMIT_RESPONSE: 'SUBMIT_RESPONSE',
 };
 //
 export interface IInitStoreAction extends Action {
