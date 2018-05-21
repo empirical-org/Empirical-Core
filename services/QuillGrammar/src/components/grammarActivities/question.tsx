@@ -54,7 +54,7 @@ class Question extends React.Component<any, any> {
     renderExample(): JSX.Element|undefined {
       const example = this.currentQuestion().rule_description
       if (this.state.showExample && example) {
-        return <Row type="flex" align="middle" justify="flex-start">
+        return <Row type="flex" align="middle" justify="start">
           <div className="example" dangerouslySetInnerHTML={{__html: example.replace(/\n/g,"<br />")}} />
         </Row>
       }
@@ -63,7 +63,7 @@ class Question extends React.Component<any, any> {
     renderCheckAnswerButton(): JSX.Element {
       const { response, questionStatus } = this.state
       if (questionStatus === 'unanswered') {
-        return <Button className="check-answer-button" onClick={this.checkAnswer}>Check Answer</Button>
+        return <Button className="check-answer-button" onClick={this.checkAnswer}>Check Work</Button>
       } else if (questionStatus === 'incorrectly answered') {
         return <Button className="check-answer-button" onClick={this.checkAnswer}>Recheck Work</Button>
       } else {
@@ -91,11 +91,11 @@ class Question extends React.Component<any, any> {
             </div>
         </div>
       </Row>
-      <Row type="flex" align="middle" justify="flex-start">
+      <Row type="flex" align="middle" justify="start">
         <Button className="example-button" onClick={this.toggleExample}>{this.state.showExample ? 'Hide Example' : 'Show Example'}</Button>
       </Row>
       {this.renderExample()}
-      <Row type="flex" align="middle" justify="flex-start">
+      <Row type="flex" align="middle" justify="start">
         <div className="instructions" dangerouslySetInnerHTML={{__html: this.currentQuestion().instructions}} />
       </Row>
       </div>
@@ -104,13 +104,13 @@ class Question extends React.Component<any, any> {
     renderQuestionSection(): JSX.Element {
       const prompt = this.currentQuestion().prompt
       return <div className="question-section">
-        <Row type="flex" align="middle" justify="flex-start">
+        <Row type="flex" align="middle" justify="start">
           <div className="prompt" dangerouslySetInnerHTML={{__html: prompt}} />
         </Row>
-        <Row type="flex" align="middle" justify="flex-start">
+        <Row type="flex" align="middle" justify="start">
           <textarea value={this.state.response} className="input-field" onChange={this.updateResponse}/>
         </Row>
-        <Row type="flex" align="middle" justify="flex-end">
+        <Row type="flex" align="middle" justify="end">
           {this.renderCheckAnswerButton()}
         </Row>
       </div>
