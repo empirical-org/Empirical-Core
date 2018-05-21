@@ -18,7 +18,7 @@ const rethinkdbConfig = (() => {
   }
 
   if (process.env.RETHINKDB_SSL_CERT) {
-    config['ssl'] = { ca: process.env.RETHINKDB_SSL_CERT }
+    config['ssl'] = { ca: Buffer(process.env.RETHINKDB_SSL_CERT) }
   }
 
   return config
