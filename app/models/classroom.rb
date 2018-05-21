@@ -29,6 +29,10 @@ class Classroom < ActiveRecord::Base
     classroom
   end
 
+  def units_json
+    units.select('units.id AS value, units.name').distinct.order('units.name').as_json(except: :id)
+  end
+
   def unique_topic_count
     if unique_topic_count_array.any?
       val = unique_topic_count_array.first.topic_count
