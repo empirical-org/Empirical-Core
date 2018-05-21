@@ -33,7 +33,7 @@ export function checkSentenceCombining(
     count: 1
   };
   const data = {
-    response,
+    response: response.trim(),
     responses,
     focusPoints,
     incorrectSequences,
