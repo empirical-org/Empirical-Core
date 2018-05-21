@@ -8,20 +8,20 @@ export default (
 ) => {
     switch (action.type) {
         case ActionTypes.RECEIVE_QUESTION_DATA:
-            return Object.assign({}, currentState, { unansweredQuestions: action.data.slice(1), currentQuestion: action.data[0]}, {hasreceiveddata: true});
+            const randomIndex = [Math.floor(Math.random()*action.data.length)];
+            const currentQuestion = action.data.splice(randomIndex, 1)[0]
+            return Object.assign({}, currentState, { unansweredQuestions: action.data, currentQuestion: currentQuestion, hasreceiveddata: true});
         case ActionTypes.NO_QUESTIONS_FOUND:
             return Object.assign({}, currentState, { error: 'No questions found.'})
         case ActionTypes.GO_T0_NEXT_QUESTION:
-            const changes = {}
+            const changes = Object.assign({}, currentState)
             if (currentState.currentQuestion) {
               changes.answeredQuestions = currentState.answeredQuestions.concat([currentState.currentQuestion])
             }
-            changes.currentQuestion = currentState.unansweredQuestions[0]
+            const randomIndex = [Math.floor(Math.random()*currentState.unansweredQuestions.length)];
+            changes.currentQuestion = changes.unansweredQuestions.splice(randomIndex, 1)[0]
             if (changes.currentQuestion) {
               changes.currentQuestion.attempts = []
-            }
-            if (currentState.unansweredQuestions.length > 0) {
-              changes.unansweredQuestions = currentState.unansweredQuestions.slice(1);
             }
             return Object.assign({}, currentState, changes)
         case ActionTypes.SUBMIT_RESPONSE:
