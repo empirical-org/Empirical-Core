@@ -14,19 +14,31 @@ class LessonsTokenCreator
 
   private
 
+  def payload
+    {
+      user_id:               user_id,
+      role:                  user_role,
+      classroom_activity_id: classroom_activity_id
+    }
+  end
+
   def user_id
     if user.present?
       user.id
+    end
+  end
+
+  def user_role
+    if user.present?
+      user.role
     else
       'anonymous'
     end
   end
 
-  def payload
-    @payload ||= Hash.new.tap do |data|
-      data[:user_id]               = user_id
-      data[:role]                  = user.role             if user.present?
-      data[:classroom_activity_id] = classroom_activity.id if valid_classroom_activity?
+  def classroom_activity_id
+    if valid_classroom_activity?
+      classroom_activity.id
     end
   end
 
