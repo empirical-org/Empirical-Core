@@ -2,7 +2,7 @@ import path from 'path';
 import fs from 'fs';
 
 export function requestHandler (req, res) {
-  const indexPagePath = path.resolve(__dirname + '/..') + '/index.html';
+  const indexPagePath = path.resolve(__dirname + '/../..') + '/index.html';
   fs.readFile(indexPagePath, (err, data) => {
     if (err) {
       res.writeHead(500);
