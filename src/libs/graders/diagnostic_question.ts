@@ -14,16 +14,18 @@ export function checkDiagnosticQuestion(
   response: string,
   responses: Array<Response>
 ): Response {
+  const data = {
+    response: response.trim(),
+    responses
+  };
+
   const responseTemplate = {
-    text: response,
+    text: data.response,
     question_uid,
     count: 1,
     gradeIndex: `nonhuman${question_uid}`
-  }
-  const data = {
-    response,
-    responses
-  }
+  };
+
   const firstPass = checkForMatches(data, firstPassMatchers)
   if (firstPass) {
     return Object.assign(responseTemplate, firstPass)
