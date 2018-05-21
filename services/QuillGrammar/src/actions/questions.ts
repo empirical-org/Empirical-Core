@@ -31,7 +31,6 @@ export const goToNextQuestion = () => {
 
 export const submitResponse = (response) => {
   return function(dispatch) {
-    console.log('i am totally getting called', response)
     dispatch({ type: ActionTypes.SUBMIT_RESPONSE, response })
   }
 }
