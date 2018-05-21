@@ -22,3 +22,16 @@ export const startListeningToQuestions = (conceptUIDs: Array[string]) => {
 
   }
 }
+
+export const goToNextQuestion = () => {
+  return function(dispatch) {
+    dispatch({ type: ActionTypes.GO_T0_NEXT_QUESTION })
+  }
+}
+
+export const submitResponse = (response) => {
+  return function(dispatch) {
+    console.log('i am totally getting called', response)
+    dispatch({ type: ActionTypes.SUBMIT_RESPONSE, response })
+  }
+}
