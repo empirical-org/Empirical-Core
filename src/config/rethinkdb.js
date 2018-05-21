@@ -1,12 +1,7 @@
 import dotenv from 'dotenv'
-import fs from 'fs'
-import path from 'path'
-
 dotenv.config()
 
 const rethinkdbConfig = (() => {
-  const pathToCert = path.resolve(__dirname + '/..') + '/public-key.crt'
-
   let config = {
     host: process.env.RETHINKDB_HOST,
     port: process.env.RETHINKDB_PORT,
