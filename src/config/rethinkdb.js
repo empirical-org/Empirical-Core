@@ -17,9 +17,8 @@ const rethinkdbConfig = (() => {
     config['authKey'] = process.env.RETHINKDB_AUTH_KEY
   }
 
-  if (process.env.RETHINKDB_USE_SSL === 'true') {
-    const caCert = fs.readFileSync(pathToCert)
-    config['ssl'] = { ca: caCert }
+  if (process.env.RETHINKDB_SSL_CERT) {
+    config['ssl'] = { ca: process.env.RETHINKDB_SSL_CERT }
   }
 
   return config
