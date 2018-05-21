@@ -473,7 +473,8 @@ export function loadSupportingInfo(lesson_id: string, classroom_activity_id: str
 }
 
 export function createPreviewSession(edition_id?:string) {
-  const classroomActivityId = uuid();
+  const previewIdPrefix = 'prvw-';
+  const classroomActivityId = `${previewIdPrefix}${uuid()}`;
   let previewSessionData;
 
   if (edition_id) {
@@ -484,7 +485,7 @@ export function createPreviewSession(edition_id?:string) {
       'preview': true,
       'edition_id': edition_id,
       'id': classroomActivityId,
-    }
+    };
   } else {
     previewSessionData = {
       'students': { 'student': 'James Joyce' },
@@ -492,7 +493,7 @@ export function createPreviewSession(edition_id?:string) {
       'public': true,
       'preview': true,
       'id': classroomActivityId,
-    }
+    };
   }
 
   socket.instance.emit('createPreviewSession', { previewSessionData });
