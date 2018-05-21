@@ -173,6 +173,14 @@ function cleanDatabase({
   })
 }
 
+function authorize(data, token, client, callback) {
+  if (data.classroomActivityId == token.classroom_activity_id) {
+    callback()
+  } else {
+    client.emit('Not Authorized')
+  }
+}
+
 r.connect(rethinkdbConfig, (err, connection) => {
   if (err) {
     console.error(err)
@@ -199,7 +207,8 @@ r.connect(rethinkdbConfig, (err, connection) => {
     })
 
     io.on('connection', (client) => {
-      const adaptors = { connection, client };
+      const adaptors  = { connection, client };
+      const authToken = currentConnections[client.id].token;
 
       client.on('cleanDatabase', (data) => {
         cleanDatabase({ ...adaptors, ...data });
@@ -218,7 +227,9 @@ r.connect(rethinkdbConfig, (err, connection) => {
       });
 
       client.on('subscribeToClassroomLessonSession', (data) => {
-        subscribeToClassroomLessonSession({ ...adaptors, ...data });
+        authorize(data, authToken, client, () => {
+          subscribeToClassroomLessonSession({ ...adaptors, ...data });
+        });
       });
 
       client.on('createPreviewSession', (data) => {
@@ -230,11 +241,15 @@ r.connect(rethinkdbConfig, (err, connection) => {
       });
 
       client.on('createOrUpdateClassroomLessonSession', (data) => {
-        createOrUpdateClassroomLessonSession({ ...adaptors, ...data });
+        authorize(data, authToken, client, () => {
+          createOrUpdateClassroomLessonSession({ ...adaptors, ...data });
+        });
       });
 
       client.on('setSlideStartTime', (data) => {
-        setSlideStartTime({ ...adaptors, ...data });
+        authorize(data, authToken, client, () => {
+          setSlideStartTime({ ...adaptors, ...data });
+        });
       });
 
       client.on('registerPresence', (data) => {
@@ -242,88 +257,130 @@ r.connect(rethinkdbConfig, (err, connection) => {
       });
 
       client.on('addStudent', (data) => {
-        addStudent({ ...adaptors, ...data });
+        authorize(data, authToken, client, () => {
+          addStudent({ ...adaptors, ...data });
+        });
       });
 
       client.on('saveStudentSubmission', (data) => {
-        saveStudentSubmission({ ...adaptors, ...data });
+        authorize(data, authToken, client, () => {
+          saveStudentSubmission({ ...adaptors, ...data });
+        });
       });
 
       client.on('removeStudentSubmission', (data) => {
-        removeStudentSubmission({ ...adaptors, ...data });
+        authorize(data, authToken, client, () => {
+          removeStudentSubmission({ ...adaptors, ...data });
+        });
       });
 
       client.on('removeMode', (data) => {
-        removeMode({ ...adaptors, ...data });
-      })
+        authorize(data, authToken, client, () => {
+          removeMode({ ...adaptors, ...data });
+        });
+      });
 
       client.on('clearAllSelectedSubmissions', (data) => {
-        clearAllSelectedSubmissions({ ...adaptors, ...data });
-      })
+        authorize(data, authToken, client, () => {
+          clearAllSelectedSubmissions({ ...adaptors, ...data });
+        });
+      });
 
       client.on('clearAllSubmissions', (data) => {
-        clearAllSubmissions({ ...adaptors, ...data });
-      })
+        authorize(data, authToken, client, () => {
+          clearAllSubmissions({ ...adaptors, ...data });
+        });
+      });
 
       client.on('saveSelectedStudentSubmission', (data) => {
-        saveSelectedStudentSubmission({ ...adaptors, ...data });
-      })
+        authorize(data, authToken, client, () => {
+          saveSelectedStudentSubmission({ ...adaptors, ...data });
+        });
+      });
 
       client.on('updateStudentSubmissionOrder', (data) => {
-        updateStudentSubmissionOrder({ ...adaptors, ...data });
-      })
+        authorize(data, authToken, client, () => {
+          updateStudentSubmissionOrder({ ...adaptors, ...data });
+        });
+      });
 
       client.on('removeSelectedStudentSubmission', (data) => {
-        removeSelectedStudentSubmission({ ...adaptors, ...data });
-      })
+        authorize(data, authToken, client, () => {
+          removeSelectedStudentSubmission({ ...adaptors, ...data });
+        });
+      });
 
       client.on('setMode', (data) => {
-        setMode({ ...adaptors, ...data });
-      })
+        authorize(data, authToken, client, () => {
+          setMode({ ...adaptors, ...data });
+        });
+      });
 
       client.on('setModel', (data) => {
-        setModel({ ...adaptors, ...data });
-      })
+        authorize(data, authToken, client, () => {
+          setModel({ ...adaptors, ...data });
+        });
+      });
 
       client.on('setPrompt', (data) => {
-        setPrompt({ ...adaptors, ...data });
-      })
+        authorize(data, authToken, client, () => {
+          setPrompt({ ...adaptors, ...data });
+        });
+      });
 
       client.on('toggleStudentFlag', (data) => {
-        toggleStudentFlag({ ...adaptors, ...data });
-      })
+        authorize(data, authToken, client, () => {
+          toggleStudentFlag({ ...adaptors, ...data });
+        });
+      });
 
       client.on('setWatchTeacherState', (data) => {
-        setWatchTeacherState({ ...adaptors, ...data });
-      })
+        authorize(data, authToken, client, () => {
+          setWatchTeacherState({ ...adaptors, ...data });
+        });
+      });
 
       client.on('removeWatchTeacherState', (data) => {
-        removeWatchTeacherState({ ...adaptors, ...data });
-      })
+        authorize(data, authToken, client, () => {
+          removeWatchTeacherState({ ...adaptors, ...data });
+        });
+      });
 
       client.on('addStudents', (data) => {
-        addStudents({ ...adaptors, ...data });
-      })
+        authorize(data, authToken, client, () => {
+          addStudents({ ...adaptors, ...data });
+        });
+      });
 
       client.on('redirectAssignedStudents', (data) => {
-        redirectAssignedStudents({ ...adaptors, ...data });
-      })
+        authorize(data, authToken, client, () => {
+          redirectAssignedStudents({ ...adaptors, ...data });
+        });
+      });
 
       client.on('setClassroomName', (data) => {
-        setClassroomName({ ...adaptors, ...data });
-      })
+        authorize(data, authToken, client, () => {
+          setClassroomName({ ...adaptors, ...data });
+        });
+      });
 
       client.on('setTeacherName', (data) => {
-        setTeacherName({ ...adaptors, ...data });
-      })
+        authorize(data, authToken, client, () => {
+          setTeacherName({ ...adaptors, ...data });
+        });
+      });
 
       client.on('addFollowUpName', (data) => {
-        addFollowUpName({ ...adaptors, ...data });
-      })
+        authorize(data, authToken, client, () => {
+          addFollowUpName({ ...adaptors, ...data });
+        });
+      });
 
       client.on('addSupportingInfo', (data) => {
-        addSupportingInfo({ ...adaptors, ...data });
-      })
+        authorize(data, authToken, client, () => {
+          addSupportingInfo({ ...adaptors, ...data });
+        });
+      });
 
       client.on('subscribeToClassroomLesson', (data) => {
         subscribeToClassroomLesson({ ...adaptors, ...data })
@@ -366,7 +423,9 @@ r.connect(rethinkdbConfig, (err, connection) => {
       })
 
       client.on('setEditionId', (data) => {
-        setEditionId({ ...adaptors, ...data });
+        authorize(data, authToken, client, () => {
+          setEditionId({ ...adaptors, ...data });
+        });
       })
 
       client.on('deleteEdition', (data) => {
@@ -406,8 +465,10 @@ r.connect(rethinkdbConfig, (err, connection) => {
       })
 
       client.on('setTeacherModels', (data) => {
-        setTeacherModels({ ...adaptors, ...data });
-      })
+        authorize(data, authToken, client, () => {
+          setTeacherModels({ ...adaptors, ...data });
+        });
+      });
 
       client.on('createNewEdition', (data) => {
         createNewEdition({ ...adaptors, ...data });
