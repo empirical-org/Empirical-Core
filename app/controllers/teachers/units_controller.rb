@@ -85,12 +85,7 @@ class Teachers::UnitsController < ApplicationController
 
   def select_lesson_with_activity_id
     activity_id = params[:activity_id].to_i
-    classroom_activities = ActiveRecord::Base.connection.execute("
-      SELECT classroom_activities.id from classroom_activities
-        LEFT JOIN classrooms_teachers ON classrooms_teachers.classroom_id = classroom_activities.classroom_id
-        WHERE classrooms_teachers.user_id = #{current_user.id.to_i}
-          AND classroom_activities.activity_id = #{activity_id}
-          AND classroom_activities.visible is TRUE").to_a
+    classroom_activities = lessons_with_current_user_and_activity
     if classroom_activities.length == 1
       ca_id = classroom_activities.first["id"]
       lesson_uid = Activity.find(activity_id).uid
@@ -136,6 +131,15 @@ class Teachers::UnitsController < ApplicationController
   end
 
   private
+
+  def lessons_with_current_user_and_activity
+    ActiveRecord::Base.connection.execute("
+      SELECT classroom_activities.id from classroom_activities
+        LEFT JOIN classrooms_teachers ON classrooms_teachers.classroom_id = classroom_activities.classroom_id
+        WHERE classrooms_teachers.user_id = #{current_user.id.to_i}
+          AND classroom_activities.activity_id = #{activity_id}
+          AND classroom_activities.visible is TRUE").to_a
+  end
 
   def unit_params
     params.require(:unit).permit(:id, :create, :name, classrooms: [:id, :all_students, student_ids: []], activities: [:id, :due_date])
