@@ -1,13 +1,16 @@
 import dotenv from 'dotenv';
-dotenv.config();
 import r from 'rethinkdb';
 import socketio from 'socket.io';
 import fs from 'fs';
 import jwt from 'jsonwebtoken';
 import http from 'http';
 import path from 'path';
-import rethinkdbConfig from './rethinkdbConfig';
-const app = http.createServer(handler);
+import rethinkdbConfig from './config/rethinkdb';
+import { requestHandler } from './config/server';
+
+dotenv.config();
+
+const app = http.createServer(requestHandler);
 const io = socketio(app);
 const port = process.env.NODE_PORT;
 
@@ -82,19 +85,6 @@ import {
 } from './handlers/authorization';
 
 let currentConnections = {};
-
-function handler (req, res) {
-  const indexPagePath = path.resolve(__dirname + '/..') + '/index.html'
-  fs.readFile(indexPagePath, (err, data) => {
-    if (err) {
-      res.writeHead(500);
-      return res.end('Error loading index.html')
-    }
-
-    res.writeHead(200);
-    res.end(data);
-  });
-}
 
 function teacherConnected({
   classroomActivityId,

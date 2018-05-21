@@ -1,7 +1,8 @@
 import dotenv from 'dotenv'
-dotenv.config()
 import fs from 'fs'
 import path from 'path'
+
+dotenv.config()
 
 const rethinkdbConfig = (() => {
   const pathToCert = path.resolve(__dirname + '/..') + '/public-key.crt'
