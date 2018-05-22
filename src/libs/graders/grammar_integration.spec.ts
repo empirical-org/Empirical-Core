@@ -1,6 +1,6 @@
 import { assert } from 'chai';
-// import {checkGrammarQuestion} from './grammar'
-import {checkGrammarQuestion} from '../../../dist/lib'
+import {checkGrammarQuestion} from './grammar'
+// import {checkGrammarQuestion} from '../../../dist/lib'
 import {Response} from '../../interfaces'
 
 describe('The checking a grammar question', () => {
