@@ -10,7 +10,7 @@ class SocketStore {
 
   _initSocket(callback = null) {
     const formData = new FormData();
-    formData.append('classroom_activity_id', this.classroomActivityId);
+    formData.append('classroom_activity_id', this.classroomActivityId)
 
     fetch(this.tokenUrl, {
       method: 'POST',
