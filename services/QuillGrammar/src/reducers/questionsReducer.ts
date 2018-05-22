@@ -3,11 +3,18 @@ import { initState } from "./rootReducer";
 import { ActionTypes } from "../actions/actionTypes";
 import { Question } from '../interfaces/questions'
 
+interface QuestionState {
+  hasreceiveddata: Boolean;
+  answeredQuestions: Array<Question>|never;
+  unansweredQuestions: Array<Question>|never;
+  currentQuestion: Question|null
+}
+
 export default (
-    currentState = {hasreceiveddata: false, answeredQuestions: [], unansweredQuestions: [], currentQuestion: null},
+    currentState: QuestionState = {hasreceiveddata: false, answeredQuestions: [], unansweredQuestions: [], currentQuestion: null},
     action: Action,
-) => {
-    let randomIndex: number, currentQuestion: Question
+): QuestionState => {
+    let randomIndex: number, currentQuestion: Question|{}
     switch (action.type) {
         case ActionTypes.RECEIVE_QUESTION_DATA:
             randomIndex = Math.floor(Math.random()*action.data.length);
@@ -16,7 +23,7 @@ export default (
         case ActionTypes.NO_QUESTIONS_FOUND:
             return Object.assign({}, currentState, { error: 'No questions found.'})
         case ActionTypes.GO_T0_NEXT_QUESTION:
-            const changes = Object.assign({}, currentState)
+            const changes: QuestionState = Object.assign({}, currentState)
             if (currentState.currentQuestion) {
               changes.answeredQuestions = currentState.answeredQuestions.concat([currentState.currentQuestion])
             }
