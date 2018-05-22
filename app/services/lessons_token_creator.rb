@@ -23,6 +23,8 @@ class LessonsTokenCreator
   def user_id
     if @user.present?
       @user.id
+    else
+      ''
     end
   end
 
@@ -37,6 +39,8 @@ class LessonsTokenCreator
   def classroom_activity_id
     if valid_classroom_activity?
       classroom_activity.id
+    else
+      ''
     end
   end
 
