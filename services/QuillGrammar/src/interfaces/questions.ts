@@ -1,10 +1,12 @@
+import { Response } from 'quill-marking-logic'
+
 export interface Question {
   answers: Array<Answer>;
   concept_uid: string;
   instructions: string;
   prompt: string;
   rule_description: string;
-  attempts?: string;
+  attempts?: Array<Response>;
   uid: string;
 }
 

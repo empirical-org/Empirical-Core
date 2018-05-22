@@ -12,7 +12,7 @@ export const startListeningToActivity = (activityUID: string) => {
       } else {
         dispatch({ type: ActionTypes.NO_GRAMMAR_ACTIVITY_FOUND })
       }
-  });
+    });
 
   }
 }
