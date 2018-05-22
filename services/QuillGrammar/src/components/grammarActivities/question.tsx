@@ -3,8 +3,26 @@ import * as Redux from "redux";
 import {connect} from "react-redux";
 import { Row, Button } from "antd";
 
-class Question extends React.Component<any, any> {
-    constructor(props: any) {
+import { Question } from '../../interfaces/questions'
+import { GrammarActivity } from '../../interfaces/grammarActivities'
+
+interface QuestionProps {
+  activity: GrammarActivity;
+  answeredQuestions: Array<Question>|never;
+  unansweredQuestion: Array<Question>|never;
+  currentQuestion: Question;
+  goToNextQuestion: Function;
+  checkAnswer: Function;
+}
+
+interface QuestionState {
+  showExample: Boolean;
+  response: string;
+  questionStatus: string;
+}
+
+class QuestionComponent extends React.Component<QuestionProps, QuestionState> {
+    constructor(props: QuestionProps) {
         super(props);
 
         this.state = {
@@ -19,28 +37,38 @@ class Question extends React.Component<any, any> {
         this.goToNextQuestion = this.goToNextQuestion.bind(this)
     }
 
+    componentWillReceiveProps(nextProps: QuestionProps) {
+      const currentQuestion = nextProps.currentQuestion
+      if (currentQuestion && currentQuestion.attempts && currentQuestion.attempts.length > 0) {
+        if (currentQuestion.attempts[1]) {
+          if (currentQuestion.attempts[1].optimal) {
+            this.setState({questionStatus: 'correctly answered'})
+          } else {
+            this.setState({questionStatus: 'final attempt'})
+          }
+        } else {
+          if (currentQuestion.attempts[0].optimal) {
+            this.setState({questionStatus: 'correctly answered'})
+          } else {
+            this.setState({questionStatus: 'incorrectly answered'})
+          }
+        }
+      }
+
+    }
+
     currentQuestion() {
       return this.props.currentQuestion
     }
 
     checkAnswer() {
       const response = this.state.response
-      this.props.submitResponse(response)
-      this.currentQuestion().answers.map(answer => {
-        const strippedCorrectAnswer = answer.text.replace(/{|}/gm, '')
-        if (this.state.response === strippedCorrectAnswer) {
-          this.setState({questionStatus: 'correctly answered', feedback: "<b>Well done!</b> That's the correct answer."})
-        } else if (this.state.questionStatus === 'incorrectly answered') {
-          this.setState({questionStatus: 'final attempt', feedback: `<b>Your Response:</b> ${this.state.response} <br/> <b>Correct Response:</b> ${strippedCorrectAnswer}`})
-        } else {
-          this.setState({questionStatus: 'incorrectly answered', feedback: '<b>Try again!</b> Unfortunately, that answer is incorrect.'})
-        }
-      })
+      this.props.checkAnswer(response, this.currentQuestion())
     }
 
     goToNextQuestion() {
       this.props.goToNextQuestion()
-      this.setState({response: '', feedback: undefined, questionStatus: 'unanswered'})
+      this.setState({response: '', questionStatus: 'unanswered'})
     }
 
     toggleExample() {
@@ -57,11 +85,13 @@ class Question extends React.Component<any, any> {
         return <Row type="flex" align="middle" justify="start">
           <div className="example" dangerouslySetInnerHTML={{__html: example.replace(/\n/g,"<br />")}} />
         </Row>
+      } else {
+        return undefined
       }
     }
 
     renderCheckAnswerButton(): JSX.Element {
-      const { response, questionStatus } = this.state
+      const { questionStatus } = this.state
       if (questionStatus === 'unanswered') {
         return <Button className="check-answer-button" onClick={this.checkAnswer}>Check Work</Button>
       } else if (questionStatus === 'incorrectly answered') {
@@ -117,21 +147,30 @@ class Question extends React.Component<any, any> {
     }
 
     renderFeedbackSection(): JSX.Element|undefined {
-      if (this.state.feedback) {
-        let className
-        switch(this.state.questionStatus) {
-          case 'correctly answered':
-            className = 'correct'
-            break;
-          case 'incorrectly answered':
-            className = 'try-again'
-            break;
-          case 'final attempt':
-          default:
+      const question = this.currentQuestion()
+      console.log(question.attempts)
+      if (question && question.attempts && question.attempts.length > 0) {
+        let className: string, feedback: string|undefined|null
+        if (question.attempts[1]) {
+          if (question.attempts[1].optimal) {
+              feedback = question.attempts[1].feedback
+              className = 'correct'
+          } else {
+            feedback = `<b>Your Response:</b> ${this.state.response} <br/> <b>Correct Response:</b> ${question.answers[0].text.replace(/{|}/gm, '')}`
             className = 'incorrect'
-            break;
+          }
+        } else {
+          if (question.attempts[0].optimal) {
+            feedback = question.attempts[0].feedback
+            className = 'correct'
+          } else {
+            feedback = question.attempts[0].feedback
+            className = 'try-again'
+          }
         }
-        return <div className={`feedback ${className}`}><div dangerouslySetInnerHTML={{__html: this.state.feedback}}/></div>
+        return <div className={`feedback ${className}`}><div dangerouslySetInnerHTML={{__html: feedback}}/></div>
+      } else {
+        return undefined
       }
     }
 
@@ -150,4 +189,4 @@ const mapDispatchToProps = (dispatch: Redux.Dispatch<any>) => {
     };
 };
 
-export default connect(mapDispatchToProps)(Question);
+export default connect(mapDispatchToProps)(QuestionComponent);

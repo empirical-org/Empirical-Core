@@ -30,7 +30,7 @@
     "css-hot-loader": "^1.3.9",
     "firebase": "^5.0.2",
     "node-sass": "^4.9.0",
-    "quill-marking-logic": "^0.3.2",
+    "quill-marking-logic": "^0.4.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.7",
