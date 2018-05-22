@@ -1,5 +1,4 @@
 import { Action } from "redux";
-import { initState } from "./rootReducer";
 import { ActionTypes } from "../actions/actionTypes";
 import { Question } from '../interfaces/questions'
 
