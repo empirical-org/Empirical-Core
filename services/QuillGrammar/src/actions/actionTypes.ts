@@ -6,6 +6,7 @@ export const ActionTypes = {
 
     // GRAMMAR ACTIVITIES
     RECEIVE_GRAMMAR_ACTIVITY_DATA: 'RECEIVE_GRAMMAR_ACTIVITY_DATA',
+    NO_GRAMMAR_ACTIVITY_FOUND: 'NO_GRAMMAR_ACTIVITY_FOUND',
 
     // QUESTIONS
     RECEIVE_QUESTION_DATA: 'RECEIVE_QUESTION_DATA',
@@ -16,11 +17,3 @@ export const ActionTypes = {
 //
 export interface IInitStoreAction extends Action {
 }
-//
-// export interface IAddTodoAction extends Action {
-//     todo: TodoItem;
-// }
-//
-// export interface ICompleteTodoAction extends Action {
-//     todo: TodoItem;
-// }
