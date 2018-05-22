@@ -5,7 +5,7 @@ class SocketStore {
     this.instance = null;
     this.classroomActivityId = null;
     this.tokenUrl = `${process.env.EMPIRICAL_BASE_URL}/api/v1/lessons_tokens`;
-    this.socketUrl = 'http://localhost:8000';
+    this.socketsUrl = process.env.LESSONS_WEBSOCKETS_URL;
   }
 
   _initSocket(callback = null) {
@@ -30,7 +30,7 @@ class SocketStore {
   _openSocket(token, callback = null) {
     this._closeCurrentSocket()
 
-    let socket = openSocket(this.socketUrl, {
+    let socket = openSocket(this.socketsUrl, {
       query: { token }
     });
 

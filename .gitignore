@@ -48,3 +48,5 @@ webpack-assets.json
 \.DS_Store
 
 .vscode
+
+.env
