@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import getParameterByName from '../../helpers/getParameterByName'
 import { IState } from "../../store/configStore";
 import { startListeningToActivity } from "../../actions/grammarActivities";
-import { startListeningToQuestions, goToNextQuestion, submitResponse } from "../../actions/questions";
+import { startListeningToQuestions, goToNextQuestion, checkAnswer } from "../../actions/questions";
 import Question from './question'
 
 class PlayGrammarContainer extends React.Component<any, any> {
@@ -36,7 +36,7 @@ class PlayGrammarContainer extends React.Component<any, any> {
           unansweredQuestions={this.props.questions.unansweredQuestions}
           currentQuestion={this.props.questions.currentQuestion}
           goToNextQuestion={() => this.props.dispatch(goToNextQuestion())}
-          submitResponse={(response) => this.props.dispatch(submitResponse(response))}
+          checkAnswer={(response) => this.props.dispatch(checkAnswer(response, this.props.questions.currentQuestion))}
         />
       } else if (this.props.questions.error) {
         return (

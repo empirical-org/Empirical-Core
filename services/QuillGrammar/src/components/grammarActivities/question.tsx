@@ -25,17 +25,18 @@ class Question extends React.Component<any, any> {
 
     checkAnswer() {
       const response = this.state.response
-      this.props.submitResponse(response)
-      this.currentQuestion().answers.map(answer => {
-        const strippedCorrectAnswer = answer.text.replace(/{|}/gm, '')
-        if (this.state.response === strippedCorrectAnswer) {
-          this.setState({questionStatus: 'correctly answered', feedback: "<b>Well done!</b> That's the correct answer."})
-        } else if (this.state.questionStatus === 'incorrectly answered') {
-          this.setState({questionStatus: 'final attempt', feedback: `<b>Your Response:</b> ${this.state.response} <br/> <b>Correct Response:</b> ${strippedCorrectAnswer}`})
-        } else {
-          this.setState({questionStatus: 'incorrectly answered', feedback: '<b>Try again!</b> Unfortunately, that answer is incorrect.'})
-        }
-      })
+      // this.props.submitResponse(response)
+      this.props.checkAnswer(response)
+      // this.currentQuestion().answers.map(answer => {
+      //   const strippedCorrectAnswer = answer.text.replace(/{|}/gm, '')
+      //   if (this.state.response === strippedCorrectAnswer) {
+      //     this.setState({questionStatus: 'correctly answered', feedback: "<b>Well done!</b> That's the correct answer."})
+      //   } else if (this.state.questionStatus === 'incorrectly answered') {
+      //     this.setState({questionStatus: 'final attempt', feedback: `<b>Your Response:</b> ${this.state.response} <br/> <b>Correct Response:</b> ${strippedCorrectAnswer}`})
+      //   } else {
+      //     this.setState({questionStatus: 'incorrectly answered', feedback: '<b>Try again!</b> Unfortunately, that answer is incorrect.'})
+      //   }
+      // })
     }
 
     goToNextQuestion() {
