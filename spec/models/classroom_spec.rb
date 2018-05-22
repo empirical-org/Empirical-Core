@@ -73,7 +73,7 @@ describe Classroom, type: :model do
     let(:user) { double(:user, teacher: teacher) }
     let(:students) { double(:students, where: [user]) }
     let(:classrooms_teachers) { double(:classrooms_teachers, includes: students) }
-  
+
     before do
       allow(classroom).to receive(:classrooms_teachers).and_return(classrooms_teachers)
     end
@@ -172,20 +172,6 @@ describe Classroom, type: :model do
     it 'should return the attributes with the students' do
       expect(classroom.with_students).to eq(classroom.attributes.merge({students: classroom.students}))
     end
-  end
-
-  describe "#classroom_activity_for" do
-    before do
-      @activity=Activity.create!()
-    end
-
-  	it "returns nil when none associated" do
-  		expect(classroom.classroom_activity_for(@activity)).to be_nil
-  	end
-
-    it "returns a classroom activity when it's associated" do
-    end
-
   end
 
   describe "#generate_code" do
