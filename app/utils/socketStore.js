@@ -9,12 +9,14 @@ class SocketStore {
   }
 
   _initSocket(callback = null) {
+    const formData = new FormData();
+    formData.append('classroom_activity_id', this.classroomActivityId);
+
     fetch(this.tokenUrl, {
       method: 'POST',
-      mode: "cors",
+      mode: 'cors',
       credentials: 'include',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ classroom_activity_id: this.classroomActivityId }),
+      body: formData,
     }).then((response) => {
       if (!response.ok) {
         throw Error(response.statusText);
