@@ -124,9 +124,16 @@ renderLessonPlanTooltip() {
     }
   },
 
+  postToGoogleLink(){
+    if (!this.props.data.completed) {
+      return <a href={`/teachers/classroom_activities/${this.caId()}/post_to_google`}>post to google!</a>;
+    }
+  },
+
   lessonFinalCell() {
   return <div className="lessons-end-row">
     {this.lessonCompletedOrLaunch()}
+    {this.postToGoogleLink()}
     <a
       className="customize-lesson"
       href={`/customize/${this.props.data.activityUid}`}

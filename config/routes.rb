@@ -162,6 +162,7 @@ EmpiricalGrammar::Application.routes.draw do
         get 'lessons_activities_cache'
         get 'lessons_units_and_activities'
         put 'update_multiple_due_dates'
+        get ':id/post_to_google' => 'classroom_activities#post_to_google'
         put ':id/hide' => 'classroom_activities#hide'
         get ':id/activity_from_classroom_activity' => 'classroom_activities#activity_from_classroom_activity'
         get ':id/launch_lesson/:lesson_uid' => 'classroom_activities#launch_lesson'

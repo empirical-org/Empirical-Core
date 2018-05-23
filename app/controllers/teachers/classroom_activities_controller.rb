@@ -22,6 +22,12 @@ class Teachers::ClassroomActivitiesController < ApplicationController
     render json: {}
   end
 
+  def post_to_google
+    access_token = session[:google_access_token]
+    google_response = GoogleIntegration::Announcements.post_announcement(access_token, @classroom_activity, @classroom_activity.classroom.google_classroom_id)
+    render json: {done: google_response.to_s}
+  end
+
   def launch_lesson
     if current_milestone && @classroom_activity.update(locked: false, pinned: true)
       find_or_create_lesson_activity_sessions_for_classroom
