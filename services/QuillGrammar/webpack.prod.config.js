@@ -10,16 +10,16 @@ module.exports = {
     entry: './index.tsx',
     output: {
         filename: 'hotloader.js',
-        path: resolve(__dirname, 'dist'), 
+        path: resolve(__dirname, 'dist'),
     },
     devtool: 'source-map',
     resolve: {
         extensions: [".ts", ".tsx", ".js", ".json"]
     },
     module: {
-        rules: [            
-            { 
-                test: /\.(ts|tsx)?$/, 
+        rules: [
+            {
+                test: /\.(ts|tsx)?$/,
                 use: [
                     {
                         loader: 'ts-loader',
@@ -36,13 +36,13 @@ module.exports = {
                               module: 'es2015'
                             }
                         },
-                    }, 
-                ] 
+                    },
+                ]
             },
             { enforce: "pre", test: /\.js$/, loader: "source-map-loader" },
             {
                 test:/\.css$/,
-                use: [MiniCssExtractPlugin.loader, "css-loader"]  
+                use: [MiniCssExtractPlugin.loader, "css-loader"]
             },
             {
                 test:/\.less$/,
@@ -53,7 +53,7 @@ module.exports = {
             { test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/, loader: 'url-loader?limit=10000&mimetype=application/font-woff' },
             { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: 'url-loader?limit=10000&mimetype=application/octet-stream' },
             { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: 'file-loader' },
-            { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: 'url-loader?limit=10000&mimetype=image/svg+xml' }            
+            { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: 'url-loader?limit=10000&mimetype=image/svg+xml' }
         ]
     },
     plugins: [
@@ -63,7 +63,8 @@ module.exports = {
           }),
         new HtmlWebpackPlugin({template: resolve(__dirname, 'src/index.html')}),
         new webpack.DefinePlugin({
-            'process.env.NODE_ENV': '"production"'
+            'process.env.NODE_ENV': '"production"',
+            'process.env.EMPIRICAL_BASE_URL': JSON.stringify('http://quill.org')
         }),
     ],
 };
