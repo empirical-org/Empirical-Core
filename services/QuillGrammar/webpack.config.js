@@ -106,4 +106,10 @@ module.exports = {
         // inject <script> in html file.
         new OpenBrowserPlugin({url: 'http://localhost:7000'}),
     ],
+    node: {
+      console: true,
+      fs: 'empty',
+      net: 'empty',
+      tls: 'empty'
+    }
 };
