@@ -36,7 +36,8 @@ export const checkAnswer = (response:string, question:Question) => {
         count: 1,
         text: a.text.replace(/{|}/gm, ''),
         question_uid: questionUID,
-        feedback: "<b>Well done!</b> That's the correct answer."
+        feedback: "<b>Well done!</b> That's the correct answer.",
+        concept_results: [{[question.concept_uid]: true}]
       }
     })
     const responseObj = checkGrammarQuestion(questionUID, response, formattedAnswers)

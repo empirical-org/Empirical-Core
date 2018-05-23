@@ -13,12 +13,14 @@ interface QuestionProps {
   currentQuestion: Question;
   goToNextQuestion: Function;
   checkAnswer: Function;
+  finishLesson: Function;
 }
 
 interface QuestionState {
   showExample: Boolean;
   response: string;
   questionStatus: string;
+  submittedEmptyString: Boolean
 }
 
 class QuestionComponent extends React.Component<QuestionProps, QuestionState> {
@@ -28,7 +30,8 @@ class QuestionComponent extends React.Component<QuestionProps, QuestionState> {
         this.state = {
           showExample: true,
           response: '',
-          questionStatus: 'unanswered'
+          questionStatus: 'unanswered',
+          submittedEmptyString: false
         }
 
         this.toggleExample = this.toggleExample.bind(this)
@@ -63,12 +66,21 @@ class QuestionComponent extends React.Component<QuestionProps, QuestionState> {
 
     checkAnswer() {
       const response = this.state.response
-      this.props.checkAnswer(response, this.currentQuestion())
+      if (this.state.response !== '') {
+        this.props.checkAnswer(response, this.currentQuestion())
+        this.setState({submittedEmptyString: false})
+      } else {
+        this.setState({submittedEmptyString: true})
+      }
     }
 
     goToNextQuestion() {
-      this.props.goToNextQuestion()
-      this.setState({response: '', questionStatus: 'unanswered'})
+      if (this.props.unansweredQuestions.length > 0) {
+        this.props.goToNextQuestion()
+        this.setState({response: '', questionStatus: 'unanswered'})
+      } else {
+        this.props.finishLesson()
+      }
     }
 
     toggleExample() {
@@ -148,13 +160,12 @@ class QuestionComponent extends React.Component<QuestionProps, QuestionState> {
 
     renderFeedbackSection(): JSX.Element|undefined {
       const question = this.currentQuestion()
-      console.log(question.attempts)
       if (question && question.attempts && question.attempts.length > 0) {
         let className: string, feedback: string|undefined|null
         if (question.attempts[1]) {
           if (question.attempts[1].optimal) {
-              feedback = question.attempts[1].feedback
-              className = 'correct'
+            feedback = question.attempts[1].feedback
+            className = 'correct'
           } else {
             feedback = `<b>Your Response:</b> ${this.state.response} <br/> <b>Correct Response:</b> ${question.answers[0].text.replace(/{|}/gm, '')}`
             className = 'incorrect'
@@ -169,9 +180,11 @@ class QuestionComponent extends React.Component<QuestionProps, QuestionState> {
           }
         }
         return <div className={`feedback ${className}`}><div dangerouslySetInnerHTML={{__html: feedback}}/></div>
-      } else {
-        return undefined
+      } else if (this.state.submittedEmptyString) {
+        return <div className={`feedback try-again`}><div dangerouslySetInnerHTML={{__html: 'You must enter a sentence for us to check.'}}/></div>
+
       }
+      return undefined
     }
 
     render(): JSX.Element {
