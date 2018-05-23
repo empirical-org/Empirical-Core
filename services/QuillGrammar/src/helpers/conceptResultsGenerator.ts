@@ -21,7 +21,6 @@ export function getConceptResultsForQuestion(question: Question) {
   }
   let directions = question.instructions;
   return conceptResults.map((conceptResult: ConceptResult) => {
-    console.log('conceptResult', conceptResult)
     return {
     concept_uid: conceptResult.conceptUID,
     question_type: 'sentence-writing',
@@ -57,6 +56,8 @@ export function getConceptResultsForAllQuestions(questions: Array<Question>) {
 export function calculateScoreForLesson(questions) {
   let correct = 0;
   questions.forEach((question) => {
+    console.log('question', question)
+    console.log('optimal', question.attempts.find((a) => a.optimal))
     correct += question.attempts.find((a) => a.optimal) ? 1 : 0
   });
   return Math.round((correct / questions.length) * 100) / 100;

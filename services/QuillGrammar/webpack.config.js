@@ -105,6 +105,9 @@ module.exports = {
         new HtmlWebpackPlugin({template: resolve(__dirname, 'src/index.html')}),
         // inject <script> in html file.
         new OpenBrowserPlugin({url: 'http://localhost:7000'}),
+        new webpack.DefinePlugin({
+          "process.env.EMPIRICAL_BASE_URL": JSON.stringify('http://localhost:3000')
+        })
     ],
     node: {
       console: true,

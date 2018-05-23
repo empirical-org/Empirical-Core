@@ -48,6 +48,8 @@ class PlayGrammarContainer extends React.Component<any, any> {
     }
 
     finishActivitySession(sessionID, results, score) {
+      console.log('results', results)
+      console.log('score', score)
       request(
         { url: `${process.env.EMPIRICAL_BASE_URL}/api/v1/activity_sessions/${sessionID}`,
           method: 'PUT',
@@ -59,10 +61,11 @@ class PlayGrammarContainer extends React.Component<any, any> {
           },
         },
         (err, httpResponse, body) => {
-          if (httpResponse.statusCode === 200) {
+          if (httpResponse && httpResponse.statusCode === 200) {
             console.log('Finished Saving');
             console.log(err, httpResponse, body);
-            document.location.href = `${process.env.EMPIRICAL_BASE_URL}/activity_sessions/${this.state.sessionID}`;
+            const sessionID = getParameterByName('student', window.location.href)
+            document.location.href = `${process.env.EMPIRICAL_BASE_URL}/activity_sessions/${sessionID}`;
             this.setState({ saved: true, });
           } else {
             this.setState({
