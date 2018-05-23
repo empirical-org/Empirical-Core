@@ -1,6 +1,7 @@
 class AccountsController < ApplicationController
   before_filter :signed_in!, only: [:edit, :update]
   before_filter :set_cache_buster, only: [:new]
+  before_filter :set_user, only: [:create]
 
   def new
     ClickSignUpWorker.perform_async
@@ -22,26 +23,15 @@ class AccountsController < ApplicationController
   # user record instead of creating a new one.
   def create
     role = params[:user].delete(:role)
-    @user = User.find_by_id(session[:temporary_user_id]) || User.new
-
     @user.attributes = user_params
     @user.safe_role_assignment(role)
     @user.validate_username = true
-
     if @user.save
       sign_in @user
-      ip = request.remote_ip
-      AccountCreationCallbacks.new(@user, ip).trigger
+      trigger_account_creation_callbacks
       @user.subscribe_to_newsletter
-      if @user.teacher? && request.env['affiliate.tag']
-        referrer_user_id = ReferrerUser.find_by(referral_code: request.env['affiliate.tag'])&.user&.id
-        ReferralsUser.create(user_id: referrer_user_id, referred_user_id: @user.id) if referrer_user_id
-      end
-      if session[:post_sign_up_redirect]
-        return render json: { redirectPath: session.delete(:post_sign_up_redirect) }
-      end
-      return render json: { redirectPath: teachers_classrooms_path } if @user.has_outstanding_coteacher_invitation?
-      render json: @user
+      create_referral_if_teacher_and_referrer
+      render json: creation_json
     else
       render json: {errors: @user.errors}, status: 422
     end
@@ -82,6 +72,32 @@ protected
                                  :send_newsletter,
                                  :school_ids)
   end
+
+  def creation_json
+    if session[:post_sign_up_redirect]
+      { redirectPath: session.delete(:post_sign_up_redirect) }
+    elsif @user.has_outstanding_coteacher_invitation?
+      { redirectPath: teachers_classrooms_path }
+    else
+      @user
+    end
+  end
+
+  def set_user
+    @user = User.find_by_id(session[:temporary_user_id]) || User.new
+  end
+
+  def trigger_account_creation_callbacks
+    AccountCreationCallbacks.new(@user, request.remote_ip).trigger
+  end
+
+  def create_referral_if_teacher_and_referrer
+    if @user.teacher? && request.env['affiliate.tag']
+      referrer_user_id = ReferrerUser.find_by(referral_code: request.env['affiliate.tag'])&.user&.id
+      ReferralsUser.create(user_id: referrer_user_id, referred_user_id: @user.id) if referrer_user_id
+    end
+  end
+
 
 
 end
