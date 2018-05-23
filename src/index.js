@@ -196,15 +196,18 @@ r.connect(rethinkdbConfig, (err, connection) => {
 
     io.on('connection', (client) => {
       const adaptors   = { connection, client };
-      const authToken  = currentConnections[client.id].token;
+      const connection = currentConnections[client.id]
+      const authToken  = connection.token;
       const adminRoles = ['teacher', 'staff'];
 
-      console.log(authToken);
+      console.log(currentConnections[connection]);
 
       client.on('cleanDatabase', (data) => {
-        authorizeRole(['test'], data, authToken, client, () => {
+        if (process.env.NODE_ENV === 'test') {
           cleanDatabase({ ...adaptors, ...data });
-        });
+        } else {
+          console.error(`Cannot clean database in ${process.env.NODE_ENV}`);
+        }
       });
 
       client.on('getAllEditionMetadataForLesson', (data) => {
@@ -514,5 +517,7 @@ r.connect(rethinkdbConfig, (err, connection) => {
   }
 });
 
-app.listen(port);
+app.listen(port, () => {
+  console.log(`Node server started and listening at ${port}`)
+});
 console.log('listening on port ', port);
