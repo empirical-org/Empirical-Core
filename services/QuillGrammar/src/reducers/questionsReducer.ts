@@ -13,11 +13,10 @@ export default (
     currentState: QuestionState = {hasreceiveddata: false, answeredQuestions: [], unansweredQuestions: [], currentQuestion: null},
     action: Action,
 ): QuestionState => {
-    let randomIndex: number, currentQuestion: Question|{}
+    let currentQuestion: Question|{}
     switch (action.type) {
         case ActionTypes.RECEIVE_QUESTION_DATA:
-            randomIndex = Math.floor(Math.random()*action.data.length);
-            currentQuestion = action.data.splice(randomIndex, 1)[0]
+            currentQuestion = action.data.splice(0, 1)[0]
             return Object.assign({}, currentState, { unansweredQuestions: action.data, currentQuestion: currentQuestion, hasreceiveddata: true});
         case ActionTypes.NO_QUESTIONS_FOUND:
             return Object.assign({}, currentState, { error: 'No questions found.'})
@@ -26,8 +25,7 @@ export default (
             if (currentState.currentQuestion) {
               changes.answeredQuestions = currentState.answeredQuestions.concat([currentState.currentQuestion])
             }
-            randomIndex = Math.floor(Math.random()*currentState.unansweredQuestions.length);
-            changes.currentQuestion = changes.unansweredQuestions.splice(randomIndex, 1)[0]
+            changes.currentQuestion = changes.unansweredQuestions.splice(0, 1)[0]
             if (changes.currentQuestion) {
               changes.currentQuestion.attempts = []
             }

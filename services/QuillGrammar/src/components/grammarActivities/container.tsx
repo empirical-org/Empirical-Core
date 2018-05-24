@@ -24,8 +24,8 @@ class PlayGrammarContainer extends React.Component<any, any> {
 
     componentWillReceiveProps(nextProps) {
       if (nextProps.grammarActivities.hasreceiveddata && !nextProps.questions.hasreceiveddata && !nextProps.questions.error) {
-        const conceptUIDs = Object.keys(nextProps.grammarActivities.currentActivity.concepts)
-        this.props.dispatch(startListeningToQuestions(conceptUIDs))
+        const concepts = nextProps.grammarActivities.currentActivity.concepts
+        this.props.dispatch(startListeningToQuestions(concepts))
       }
       if (nextProps.questions.hasreceiveddata && !nextProps.questions.currentQuestion) {
         console.log('nextProps.questions', nextProps.questions)
