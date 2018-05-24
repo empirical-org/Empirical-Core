@@ -2,14 +2,14 @@ import { combineReducers } from "redux";
 import { IState } from "../store/configStore";
 // import { todos } from "./todosReducer";
 import grammarActivities from './grammarActivitiesReducer'
-import questions from './questionsReducer'
+import session from './sessionReducer'
 
 export const initState: IState = {
     grammarActivities: {},
-    questions: {}
+    session: {}
 };
 
 export const rootReducer = combineReducers({
     grammarActivities,
-    questions
+    session
 });

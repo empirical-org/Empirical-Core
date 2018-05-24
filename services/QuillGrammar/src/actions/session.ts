@@ -1,10 +1,29 @@
 import rootRef from '../firebase';
 import { ActionTypes } from './actionTypes'
 const questionsRef = rootRef.child('questions')
+const sessionsRef = rootRef.child('sessions')
 import { Question } from '../interfaces/questions'
+import { SessionState } from '../reducers/sessionReducer'
 import { checkGrammarQuestion, Response } from 'quill-marking-logic'
-import { shuffle } from '../helpers/shuffle'
-import _ from 'lodash'
+import { shuffle } from '../helpers/shuffle';
+import _ from 'lodash';
+import { removeEmpty } from '../helpers/removeEmptyKeys'
+
+export const updateSessionOnFirebase: void = (sessionID: string, session: SessionState) => {
+  console.log('session', session)
+  // sessionsRef.child(sessionID).set(session)
+}
+
+export const setSessionReducerToSavedSession = (sessionID: string) => {
+  return function(dispatch) {
+    sessionsRef.child(sessionID).once('value', (snapshot) => {
+      const session = snapshot.val()
+      if (session) {
+        dispatch(setSessionReducer(session))
+      }
+    })
+  }
+}
 
 // typescript this
 export const startListeningToQuestions = (concepts: any) => {
@@ -61,7 +80,8 @@ export const checkAnswer = (response:string, question:Question) => {
       }
     })
     const responseObj = checkGrammarQuestion(questionUID, response, formattedAnswers)
-    dispatch(submitResponse(responseObj))
+    const cleanedResponseObj = removeEmpty(responseObj)
+    dispatch(submitResponse(cleanedResponseObj))
   }
 }
 
@@ -74,5 +94,11 @@ export const goToNextQuestion = () => {
 export const submitResponse = (response: Response) => {
   return function(dispatch) {
     dispatch({ type: ActionTypes.SUBMIT_RESPONSE, response })
+  }
+}
+
+export const setSessionReducer = (session: SessionState) => {
+  return function(dispatch) {
+    dispatch({ type: ActionTypes.SET_SESSION, session})
   }
 }

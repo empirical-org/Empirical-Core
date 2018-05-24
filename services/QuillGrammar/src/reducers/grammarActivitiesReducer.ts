@@ -1,5 +1,12 @@
 import { Action } from "redux";
 import { ActionTypes } from "../actions/actionTypes";
+import { GrammarActivity } from '../interfaces/grammarActivities'
+
+export interface GrammarActivityState {
+  hasreceiveddata: Boolean;
+  currentActivity: GrammarActivity;
+  error?: string;
+}
 
 export default (
     currentState = {hasreceiveddata: false},
