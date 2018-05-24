@@ -13,7 +13,6 @@ interface QuestionProps {
   currentQuestion: Question;
   goToNextQuestion: Function;
   checkAnswer: Function;
-  finishLesson: Function;
 }
 
 interface QuestionState {
@@ -75,12 +74,8 @@ class QuestionComponent extends React.Component<QuestionProps, QuestionState> {
     }
 
     goToNextQuestion() {
-      if (this.props.unansweredQuestions.length > 0) {
-        this.props.goToNextQuestion()
-        this.setState({response: '', questionStatus: 'unanswered'})
-      } else {
-        this.props.finishLesson()
-      }
+      this.props.goToNextQuestion()
+      this.setState({response: '', questionStatus: 'unanswered'})
     }
 
     toggleExample() {

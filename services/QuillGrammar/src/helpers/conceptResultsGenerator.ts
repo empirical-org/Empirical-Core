@@ -29,11 +29,13 @@ export function getConceptResultsForQuestion(question: Question) {
       directions,
       prompt,
       answer,
+      question_uid:  question.uid
     },
   }});
 }
 
 export function getNestedConceptResultsForAllQuestions(questions) {
+  console.log('questions', questions)
   return questions.map(questionObj => getConceptResultsForQuestion(questionObj));
 }
 
@@ -42,6 +44,7 @@ export function embedQuestionNumbers(nestedConceptResultArray) {
     return conceptResultArray.map((conceptResult) => {
       conceptResult.metadata.questionNumber = index + 1;
       conceptResult.metadata.questionScore = conceptResult.metadata.correct ? 1 : 0
+      console.log('conceptResult', conceptResult)
       return conceptResult;
     })
   });
@@ -56,10 +59,7 @@ export function getConceptResultsForAllQuestions(questions: Array<Question>) {
 export function calculateScoreForLesson(questions) {
   let correct = 0;
   questions.forEach((question) => {
-    console.log('question', question)
-    console.log('optimal', question.attempts.find((a) => a.optimal))
     correct += question.attempts.find((a) => a.optimal) ? 1 : 0
-    console.log(correct)
   });
   return Math.round((correct / questions.length) * 100) / 100;
 }
