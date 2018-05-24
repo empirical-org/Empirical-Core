@@ -59,6 +59,7 @@ export function calculateScoreForLesson(questions) {
     console.log('question', question)
     console.log('optimal', question.attempts.find((a) => a.optimal))
     correct += question.attempts.find((a) => a.optimal) ? 1 : 0
+    console.log(correct)
   });
   return Math.round((correct / questions.length) * 100) / 100;
 }
