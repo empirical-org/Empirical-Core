@@ -27,19 +27,23 @@ class PlayGrammarContainer extends React.Component<any, any> {
         const concepts = nextProps.grammarActivities.currentActivity.concepts
         this.props.dispatch(startListeningToQuestions(concepts))
       }
-      if (nextProps.questions.hasreceiveddata && !nextProps.questions.currentQuestion) {
+      if (nextProps.questions.hasreceiveddata && !nextProps.questions.currentQuestion && nextProps.questions.unansweredQuestions.length === 0 && nextProps.questions.answeredQuestions.length > 0) {
+        this.saveToLMS(nextProps.questions)
+      } else if (nextProps.questions.hasreceiveddata && !nextProps.questions.currentQuestion) {
         console.log('nextProps.questions', nextProps.questions)
         this.props.dispatch(goToNextQuestion())
       }
     }
 
-    saveToLMS() {
+    saveToLMS(questions) {
       this.setState({ error: false, });
-      const results = getConceptResultsForAllQuestions(this.props.questions.answeredQuestions);
-      console.log(results);
-      const score = calculateScoreForLesson(this.props.questions.answeredQuestions);
+      const results = getConceptResultsForAllQuestions(questions.answeredQuestions);
+      console.log('results', results);
+      const score = calculateScoreForLesson(questions.answeredQuestions);
+      console.log('score', score)
       const activityUID = getParameterByName('uid', window.location.href)
       const sessionID = getParameterByName('student', window.location.href)
+      debugger;
       if (sessionID) {
         this.finishActivitySession(sessionID, results, score);
       } else {
@@ -48,8 +52,6 @@ class PlayGrammarContainer extends React.Component<any, any> {
     }
 
     finishActivitySession(sessionID, results, score) {
-      console.log('results', results)
-      console.log('score', score)
       request(
         { url: `${process.env.EMPIRICAL_BASE_URL}/api/v1/activity_sessions/${sessionID}`,
           method: 'PUT',
@@ -109,7 +111,6 @@ class PlayGrammarContainer extends React.Component<any, any> {
           currentQuestion={this.props.questions.currentQuestion}
           goToNextQuestion={() => this.props.dispatch(goToNextQuestion())}
           checkAnswer={(response, question) => this.props.dispatch(checkAnswer(response, question))}
-          finishLesson={this.saveToLMS}
         />
       } else if (this.props.questions.error) {
         return (
