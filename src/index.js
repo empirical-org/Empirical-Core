@@ -197,7 +197,7 @@ r.connect(rethinkdbConfig, (err, connection) => {
     io.on('connection', (client) => {
       const adaptors   = { connection, client };
       const connection = currentConnections[client.id]
-      const authToken  = connection.token;
+      const authToken  = connection.token.data;
       const adminRoles = ['teacher', 'staff'];
 
       console.log(currentConnections[connection]);
