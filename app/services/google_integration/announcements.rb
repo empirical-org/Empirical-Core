@@ -26,7 +26,13 @@ module GoogleIntegration::Announcements
       }),
       headers: {"Content-Type": 'application/json'}
     )
-    api_call.body
+    json_api_response = JSON.parse(api_call.body, symbolize_names: true)
+    if json_api_response.dig(:error, :status) == 'UNAUTHENTICATED'
+      return 'UNAUTHENTICATED'
+    # TODO: pass back any other errors and we can handle them on the front end
+    else
+      json_api_response
+    end
   end
 
 end
