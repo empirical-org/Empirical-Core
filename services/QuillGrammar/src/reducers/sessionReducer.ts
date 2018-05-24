@@ -2,26 +2,29 @@ import { Action } from "redux";
 import { ActionTypes } from "../actions/actionTypes";
 import { Question } from '../interfaces/questions'
 
-interface QuestionState {
+export interface SessionState {
   hasreceiveddata: Boolean;
   answeredQuestions: Array<Question>|never;
   unansweredQuestions: Array<Question>|never;
-  currentQuestion: Question|null
+  currentQuestion: Question|null;
+  error?: string;
 }
 
 export default (
-    currentState: QuestionState = {hasreceiveddata: false, answeredQuestions: [], unansweredQuestions: [], currentQuestion: null},
+    currentState: SessionState = {hasreceiveddata: false, answeredQuestions: [], unansweredQuestions: [], currentQuestion: null},
     action: Action,
-): QuestionState => {
+): SessionState => {
     let currentQuestion: Question|{}
     switch (action.type) {
+        case ActionTypes.SET_SESSION:
+            return Object.assign({}, currentState, action.session)
         case ActionTypes.RECEIVE_QUESTION_DATA:
             currentQuestion = action.data.splice(0, 1)[0]
             return Object.assign({}, currentState, { unansweredQuestions: action.data, currentQuestion: currentQuestion, hasreceiveddata: true});
         case ActionTypes.NO_QUESTIONS_FOUND:
             return Object.assign({}, currentState, { error: 'No questions found.'})
         case ActionTypes.GO_T0_NEXT_QUESTION:
-            const changes: QuestionState = Object.assign({}, currentState)
+            const changes: SessionState = Object.assign({}, currentState)
             if (currentState.currentQuestion) {
               changes.answeredQuestions = currentState.answeredQuestions.concat([currentState.currentQuestion])
             }

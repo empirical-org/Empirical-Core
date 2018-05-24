@@ -2,13 +2,28 @@ import * as React from "react";
 import * as Redux from "redux";
 import {connect} from "react-redux";
 import request from 'request';
+import _ from 'lodash';
 import getParameterByName from '../../helpers/getParameterByName';
 import { startListeningToActivity } from "../../actions/grammarActivities";
-import { startListeningToQuestions, goToNextQuestion, checkAnswer } from "../../actions/questions";
+import {
+  updateSessionOnFirebase,
+  startListeningToQuestions,
+  goToNextQuestion,
+  checkAnswer,
+  setSessionReducerToSavedSession
+} from "../../actions/session";
 import { getConceptResultsForAllQuestions, calculateScoreForLesson } from '../../helpers/conceptResultsGenerator'
 import Question from './question'
+import { SessionState } from '../../reducers/sessionReducer'
+import { GrammarActivityState } from '../../reducers/grammarActivitiesReducer'
 
-class PlayGrammarContainer extends React.Component<any, any> {
+interface PlayGrammarContainerProps {
+  grammarActivities: GrammarActivityState;
+  session: SessionState;
+  dispatch: Function;
+}
+
+class PlayGrammarContainer extends React.Component<PlayGrammarContainerProps, any> {
     constructor(props: any) {
       super(props);
 
@@ -19,31 +34,41 @@ class PlayGrammarContainer extends React.Component<any, any> {
 
     componentWillMount() {
       const activityUID = getParameterByName('uid', window.location.href)
-      this.props.dispatch(startListeningToActivity(activityUID))
+      const sessionID = getParameterByName('student', window.location.href)
+
+      if (activityUID) {
+        this.props.dispatch(startListeningToActivity(activityUID))
+      }
+
+      if (sessionID) {
+        this.props.dispatch(setSessionReducerToSavedSession(sessionID))
+      }
     }
 
-    componentWillReceiveProps(nextProps) {
-      if (nextProps.grammarActivities.hasreceiveddata && !nextProps.questions.hasreceiveddata && !nextProps.questions.error) {
+    componentWillReceiveProps(nextProps: PlayGrammarContainerProps) {
+      if (nextProps.grammarActivities.hasreceiveddata && !nextProps.session.hasreceiveddata && !nextProps.session.error) {
         const concepts = nextProps.grammarActivities.currentActivity.concepts
         this.props.dispatch(startListeningToQuestions(concepts))
       }
-      if (nextProps.questions.hasreceiveddata && !nextProps.questions.currentQuestion && nextProps.questions.unansweredQuestions.length === 0 && nextProps.questions.answeredQuestions.length > 0) {
-        this.saveToLMS(nextProps.questions)
-      } else if (nextProps.questions.hasreceiveddata && !nextProps.questions.currentQuestion) {
-        console.log('nextProps.questions', nextProps.questions)
+
+      if (nextProps.session.hasreceiveddata && !nextProps.session.currentQuestion && nextProps.session.unansweredQuestions.length === 0 && nextProps.session.answeredQuestions.length > 0) {
+        this.saveToLMS(nextProps.session)
+      } else if (nextProps.session.hasreceiveddata && !nextProps.session.currentQuestion) {
         this.props.dispatch(goToNextQuestion())
       }
+
+      const sessionID = getParameterByName('student', window.location.href)
+      if (sessionID && !_.isEqual(nextProps.session, this.props.session)) {
+        updateSessionOnFirebase(sessionID, nextProps.session)
+      }
+
     }
 
-    saveToLMS(questions) {
-      this.setState({ error: false, });
+    saveToLMS(questions: SessionState) {
       const results = getConceptResultsForAllQuestions(questions.answeredQuestions);
-      console.log('results', results);
       const score = calculateScoreForLesson(questions.answeredQuestions);
-      console.log('score', score)
       const activityUID = getParameterByName('uid', window.location.href)
       const sessionID = getParameterByName('student', window.location.href)
-      debugger;
       if (sessionID) {
         this.finishActivitySession(sessionID, results, score);
       } else {
@@ -51,7 +76,7 @@ class PlayGrammarContainer extends React.Component<any, any> {
       }
     }
 
-    finishActivitySession(sessionID, results, score) {
+    finishActivitySession(sessionID: string, results, score) {
       request(
         { url: `${process.env.EMPIRICAL_BASE_URL}/api/v1/activity_sessions/${sessionID}`,
           method: 'PUT',
@@ -79,7 +104,7 @@ class PlayGrammarContainer extends React.Component<any, any> {
       );
     }
 
-    createAnonActivitySession(lessonID, results, score) {
+    createAnonActivitySession(lessonID: string, results, score) {
       request(
         { url: `${process.env.EMPIRICAL_BASE_URL}/api/v1/activity_sessions/`,
           method: 'POST',
@@ -103,18 +128,18 @@ class PlayGrammarContainer extends React.Component<any, any> {
     }
 
     render(): JSX.Element {
-      if (this.props.grammarActivities.hasreceiveddata && this.props.questions.hasreceiveddata && this.props.questions.currentQuestion) {
+      if (this.props.grammarActivities.hasreceiveddata && this.props.session.hasreceiveddata && this.props.session.currentQuestion) {
         return <Question
           activity={this.props.grammarActivities.currentActivity}
-          answeredQuestions={this.props.questions.answeredQuestions}
-          unansweredQuestions={this.props.questions.unansweredQuestions}
-          currentQuestion={this.props.questions.currentQuestion}
+          answeredQuestions={this.props.session.answeredQuestions}
+          unansweredQuestions={this.props.session.unansweredQuestions}
+          currentQuestion={this.props.session.currentQuestion}
           goToNextQuestion={() => this.props.dispatch(goToNextQuestion())}
           checkAnswer={(response, question) => this.props.dispatch(checkAnswer(response, question))}
         />
-      } else if (this.props.questions.error) {
+      } else if (this.props.session.error) {
         return (
-          <div>{this.props.questions.error}</div>
+          <div>{this.props.session.error}</div>
         );
       } else {
         return <div>Loading...</div>
@@ -125,7 +150,7 @@ class PlayGrammarContainer extends React.Component<any, any> {
 const mapStateToProps = (state: any) => {
     return {
         grammarActivities: state.grammarActivities,
-        questions: state.questions
+        session: state.session
     };
 };
 
