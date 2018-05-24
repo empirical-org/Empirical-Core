@@ -49,7 +49,7 @@ class QuestionComponent extends React.Component<QuestionProps, QuestionState> {
             this.setState({questionStatus: 'final attempt'})
           }
         } else {
-          if (currentQuestion.attempts[0].optimal) {
+          if (currentQuestion.attempts[0] && currentQuestion.attempts[0].optimal) {
             this.setState({questionStatus: 'correctly answered'})
           } else {
             this.setState({questionStatus: 'incorrectly answered'})

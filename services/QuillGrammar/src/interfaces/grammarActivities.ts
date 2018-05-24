@@ -10,5 +10,4 @@ export interface Concepts {
 
 export interface Concept {
   quantity: number;
-  ruleNumber: string|number;
 }

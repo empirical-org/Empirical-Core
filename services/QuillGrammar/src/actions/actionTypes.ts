@@ -13,6 +13,9 @@ export const ActionTypes = {
     NO_QUESTIONS_FOUND: 'NO_QUESTIONS_FOUND',
     GO_T0_NEXT_QUESTION: 'GO_T0_NEXT_QUESTION',
     SUBMIT_RESPONSE: 'SUBMIT_RESPONSE',
+
+    // SESSIONS
+    SET_SESSION: 'SET_SESSION',
 };
 //
 export interface IInitStoreAction extends Action {
