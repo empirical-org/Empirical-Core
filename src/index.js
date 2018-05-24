@@ -174,9 +174,10 @@ r.connect(rethinkdbConfig, (err, connection) => {
     console.error(err)
   } else {
     io.use((socket, next) => {
-      const options = { algorithms: ['RS256'] }
-      const pkey = process.env.JWT_PKEY
-      let token = socket.handshake.query.token
+      const options    = { algorithms: ['RS256'] }
+      const pathToCert = path.resolve(__dirname + '/..') + '/jwt-public-key.crt';
+      const pkey       = fs.readFileSync(pathToCert);
+      const token      = socket.handshake.query.token;
 
       jwt.verify(token, pkey, options, (err, decodedToken) => {
         if (err) {
@@ -520,4 +521,3 @@ r.connect(rethinkdbConfig, (err, connection) => {
 app.listen(port, () => {
   console.log(`Node server started and listening at ${port}`)
 });
-console.log('listening on port ', port);

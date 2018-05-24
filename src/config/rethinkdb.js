@@ -5,7 +5,7 @@ import path from 'path'
 dotenv.config()
 
 const rethinkdbConfig = (() => {
-  const pathToCert = path.resolve(__dirname + '/../..') + '/public-key.crt'
+  const pathToCert = path.resolve(__dirname + '/../..') + '/rethink-public-key.crt'
 
   let config = {
     host: process.env.RETHINKDB_HOST,
