@@ -14,6 +14,17 @@ class LessonsTokenCreator
 
   def payload
     {
+      data: data,
+      exp: exp
+    }
+  end
+
+  def exp
+    Time.now.to_i + 4 * 3600
+  end
+
+  def data
+    {
       user_id:               user_id,
       role:                  user_role,
       classroom_activity_id: classroom_activity_id
