@@ -1,6 +1,3 @@
-import dotenv from 'dotenv';
-dotenv.config();
-
 import 'babel-polyfill';
 import Promise from 'promise-polyfill';
 

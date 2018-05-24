@@ -106,7 +106,6 @@
     "babel-polyfill": "^6.23.0",
     "caniuse-db": "^1.0.30000693",
     "diff": "^3.2.0",
-    "dotenv": "^5.0.1",
     "draft-convert": "^2.0.1",
     "draft-js": "^0.10.5",
     "draft-js-export-html": "^0.6.0",
