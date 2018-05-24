@@ -137,7 +137,7 @@ class Teachers::UnitsController < ApplicationController
       SELECT classroom_activities.id from classroom_activities
         LEFT JOIN classrooms_teachers ON classrooms_teachers.classroom_id = classroom_activities.classroom_id
         WHERE classrooms_teachers.user_id = #{current_user.id.to_i}
-          AND classroom_activities.activity_id = #{activity_id}
+          AND classroom_activities.activity_id = #{ActiveRecord::Base.sanitize(params[:activity_id])}
           AND classroom_activities.visible is TRUE").to_a
   end
 
