@@ -9,7 +9,6 @@ import { shuffle } from '../helpers/shuffle';
 import _ from 'lodash';
 
 export const updateSessionOnFirebase = (sessionID: string, session: SessionState) => {
-  console.log('session', _.pickBy(session))
   const cleanedSession = _.pickBy(session)
   cleanedSession.currentQuestion ? cleanedSession.currentQuestion.attempts = _.compact(cleanedSession.currentQuestion.attempts) : null
   if (!cleanedSession.error) {
@@ -41,7 +40,6 @@ export const startListeningToQuestions = (concepts: any) => {
           const question = questions[q]
           question.uid = q
           if (questionsForConcepts.hasOwnProperty(question.concept_uid)) {
-            // console.log(questionsForConcepts[question.concept_uid])
             questionsForConcepts[question.concept_uid] = questionsForConcepts[question.concept_uid].concat(question)
           } else {
             questionsForConcepts[question.concept_uid] = [question]
@@ -49,16 +47,12 @@ export const startListeningToQuestions = (concepts: any) => {
         }
       })
 
-      console.log('questionsForConcepts', questionsForConcepts)
-
       const arrayOfQuestions = []
       Object.keys(questionsForConcepts).forEach(conceptUID => {
         const shuffledQuestionArray = shuffle(questionsForConcepts[conceptUID])
         const numberOfQuestions = concepts[conceptUID].quantity
         arrayOfQuestions.push(shuffledQuestionArray.slice(0, numberOfQuestions))
       })
-
-      console.log('arrayOfQuestions', arrayOfQuestions)
 
       const flattenedArrayOfQuestions = _.flatten(arrayOfQuestions)
       if (flattenedArrayOfQuestions.length > 0) {
@@ -74,7 +68,7 @@ export const startListeningToQuestions = (concepts: any) => {
 export const checkAnswer = (response:string, question:Question) => {
   return function(dispatch) {
     const questionUID: string = question.uid
-    const formattedAnswers: Array<any> = question.answers.map(a => {
+    const formattedAnswers: any[] = question.answers.map(a => {
       return {
         optimal: true,
         count: 1,
@@ -89,7 +83,7 @@ export const checkAnswer = (response:string, question:Question) => {
     })
     const responseObj = checkGrammarQuestion(questionUID, response, formattedAnswers)
     delete responseObj.parent_id
-    responseObj.feedback = responseObj.feedback ? responseObj.feedback : 'Sorry, that is not correct. Please try again.'
+    responseObj.feedback = responseObj.feedback ? responseObj.feedback : "<b>Try again!</b> Unfortunately, that answer is not correct."
     dispatch(submitResponse(responseObj))
   }
 }

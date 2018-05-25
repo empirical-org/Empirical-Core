@@ -8,18 +8,18 @@ import { GrammarActivity } from '../../interfaces/grammarActivities'
 
 interface QuestionProps {
   activity: GrammarActivity;
-  answeredQuestions: Array<Question>|never;
-  unansweredQuestion: Array<Question>|never;
+  answeredQuestions: Question[]|never;
+  unansweredQuestion: Question[]|never;
   currentQuestion: Question;
   goToNextQuestion: Function;
   checkAnswer: Function;
 }
 
 interface QuestionState {
-  showExample: Boolean;
+  showExample: boolean;
   response: string;
   questionStatus: string;
-  submittedEmptyString: Boolean
+  submittedEmptyString: boolean
 }
 
 class QuestionComponent extends React.Component<QuestionProps, QuestionState> {
@@ -79,7 +79,7 @@ class QuestionComponent extends React.Component<QuestionProps, QuestionState> {
     }
 
     toggleExample() {
-      this.setState({showExample: !this.state.showExample})
+      this.setState({ showExample: !this.state.showExample })
     }
 
     updateResponse(e) {
@@ -88,10 +88,15 @@ class QuestionComponent extends React.Component<QuestionProps, QuestionState> {
 
     renderExample(): JSX.Element|undefined {
       const example = this.currentQuestion().rule_description
-      if (this.state.showExample && example) {
-        return <Row type="flex" align="middle" justify="start">
+      if (example) {
+        let componentClasses = 'example-container'
+        if (this.state.showExample) {
+          componentClasses += ' show'
+        }
+        return <Row className={componentClasses} type="flex" align="middle" justify="start">
           <div className="example" dangerouslySetInnerHTML={{__html: example.replace(/\n/g,"<br />")}} />
         </Row>
+
       } else {
         return undefined
       }
