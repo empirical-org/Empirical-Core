@@ -317,6 +317,7 @@ EmpiricalGrammar::Application.routes.draw do
       post 'firebase_tokens/create_for_connect' => 'firebase_tokens#create_for_connect'
       resource :firebase_tokens,          only: [:create]
       get 'activities/:id/follow_up_activity_name_and_supporting_info' => 'activities#follow_up_activity_name_and_supporting_info'
+      get 'activities/:id/supporting_info' => 'activities#supporting_info'
       get 'classroom_activities/:id/student_names' => 'classroom_activities#student_names'
       put 'classroom_activities/:id/finish_lesson' => 'classroom_activities#finish_lesson'
       put 'classroom_activities/:id/pin_activity' => 'classroom_activities#pin_activity'
