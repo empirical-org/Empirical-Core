@@ -1,5 +1,5 @@
 function _isPreviewSession(data) {
-  const previewIdRegExp = RegExp('\Aprvw\-.+');
+  const previewIdRegExp = RegExp('^prvw\-.+$');
   return previewIdRegExp.test(data.classroomActivityId);
 }
 

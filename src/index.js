@@ -201,7 +201,7 @@ r.connect(rethinkdbConfig, (err, connection) => {
       const authToken         = currentConnection.token.data;
       const adminRoles        = ['teacher', 'staff'];
 
-      console.log(currentConnections[client.id]);
+      console.log(authToken);
 
       client.on('cleanDatabase', (data) => {
         if (process.env.NODE_ENV === 'test') {
