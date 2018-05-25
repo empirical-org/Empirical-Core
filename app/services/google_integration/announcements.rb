@@ -11,7 +11,7 @@ module GoogleIntegration::Announcements
     # to validate that you are using the right one
     name = classroom_activity.activity.name
     body = JSON.dump({
-      text: "#{name}: www.quill.org/teachers/classroom_activities/#{classroom_activity.id}/activity_from_classroom_activity"
+      text: "#{name}: #{classroom_activity.generate_activity_url}"
     })
     api_call = client.execute(api_method: service.courses.announcements.create,
       parameters: {

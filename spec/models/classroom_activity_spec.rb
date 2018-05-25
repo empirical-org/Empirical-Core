@@ -93,6 +93,12 @@ describe ClassroomActivity, type: :model, redis: :true do
     end
   end
 
+  describe '#generate_activity_url' do
+    it 'returns a url including the default url' do
+      expect(classroom_activity.generate_activity_url).to include(ENV["DEFAULT_URL"])
+    end
+  end
+
   describe '#save_concept_results' do
     let(:activity_session) { create(:activity_session) }
     let(:unit) { create(:unit) }
