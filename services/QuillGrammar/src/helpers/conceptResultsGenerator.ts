@@ -18,6 +18,11 @@ export function getConceptResultsForQuestion(question: Question) {
       conceptUID: question.concept_uid,
       correct: false,
     }];
+  } else if (!conceptResults.find(cr => cr.conceptUID === question.concept_uid )) {
+    conceptResults.push({
+      conceptUID: question.concept_uid,
+      correct: false,
+    })
   }
   let directions = question.instructions;
   return conceptResults.map((conceptResult: ConceptResult) => {

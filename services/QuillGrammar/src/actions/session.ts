@@ -12,14 +12,16 @@ export const updateSessionOnFirebase = (sessionID: string, session: SessionState
   console.log('session', _.pickBy(session))
   const cleanedSession = _.pickBy(session)
   cleanedSession.currentQuestion ? cleanedSession.currentQuestion.attempts = _.compact(cleanedSession.currentQuestion.attempts) : null
-  sessionsRef.child(sessionID).set(cleanedSession)
+  if (!cleanedSession.error) {
+    sessionsRef.child(sessionID).set(cleanedSession)
+  }
 }
 
 export const setSessionReducerToSavedSession = (sessionID: string) => {
   return function(dispatch) {
     sessionsRef.child(sessionID).once('value', (snapshot) => {
       const session = snapshot.val()
-      if (session) {
+      if (session && !session.error) {
         dispatch(setSessionReducer(session))
       }
     })
@@ -47,12 +49,17 @@ export const startListeningToQuestions = (concepts: any) => {
         }
       })
 
+      console.log('questionsForConcepts', questionsForConcepts)
+
       const arrayOfQuestions = []
       Object.keys(questionsForConcepts).forEach(conceptUID => {
         const shuffledQuestionArray = shuffle(questionsForConcepts[conceptUID])
         const numberOfQuestions = concepts[conceptUID].quantity
         arrayOfQuestions.push(shuffledQuestionArray.slice(0, numberOfQuestions))
       })
+
+      console.log('arrayOfQuestions', arrayOfQuestions)
+
       const flattenedArrayOfQuestions = _.flatten(arrayOfQuestions)
       if (flattenedArrayOfQuestions.length > 0) {
         dispatch({ type: ActionTypes.RECEIVE_QUESTION_DATA, data: flattenedArrayOfQuestions, });
