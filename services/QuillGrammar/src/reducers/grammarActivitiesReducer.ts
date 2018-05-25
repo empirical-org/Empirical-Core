@@ -3,7 +3,7 @@ import { ActionTypes } from "../actions/actionTypes";
 import { GrammarActivity } from '../interfaces/grammarActivities'
 
 export interface GrammarActivityState {
-  hasreceiveddata: Boolean;
+  hasreceiveddata: boolean;
   currentActivity: GrammarActivity;
   error?: string;
 }

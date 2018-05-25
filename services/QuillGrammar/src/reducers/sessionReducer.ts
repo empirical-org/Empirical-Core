@@ -3,9 +3,9 @@ import { ActionTypes } from "../actions/actionTypes";
 import { Question } from '../interfaces/questions'
 
 export interface SessionState {
-  hasreceiveddata: Boolean;
-  answeredQuestions: Array<Question>|never;
-  unansweredQuestions: Array<Question>|never;
+  hasreceiveddata: boolean;
+  answeredQuestions: Question[]|never;
+  unansweredQuestions: Question[]|never;
   currentQuestion: Question|null;
   error?: string;
 }

@@ -5,9 +5,12 @@
     ],
     "jsRules": {},
     "rules": {
-        "ordered-imports": false,
-        "object-literal-sort-keys": false,
-        "interface-name": false
+      "ordered-imports": false,
+      "object-literal-sort-keys": false,
+      "interface-name": false,
+      "quotemark": false,
+      "semicolon": false,
+      "member-access": false
     },
     "rulesDirectory": []
 }
