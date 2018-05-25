@@ -22,18 +22,6 @@ class Teachers::ClassroomActivitiesController < ApplicationController
     render json: {}
   end
 
-  def post_to_google
-    access_token = session[:google_access_token]
-    google_response = GoogleIntegration::Announcements.post_announcement(access_token, @classroom_activity, @classroom_activity.classroom.google_classroom_id)
-    if google_response == 'UNAUTHENTICATED'
-      session[:google_redirect] = request.path
-      redirect_to '/auth/google_oauth2'
-    else
-      session[:just_posted_to_google] = true
-      render json: {done: google_response.to_s}
-    end
-  end
-
   def launch_lesson
     if current_milestone && @classroom_activity.update(locked: false, pinned: true)
       find_or_create_lesson_activity_sessions_for_classroom
@@ -119,7 +107,7 @@ private
   end
 
   def is_valid_for_google_announcement?
-    @classroom_activity.is_valid_for_google_announcement? && current_user.google_id && !session[:just_posted_to_google]
+    @classroom_activity.is_valid_for_google_announcement? && current_user.google_id
   end
 
   def post_to_google_classroom
@@ -130,7 +118,6 @@ private
       session[:google_redirect] = request.path
       return redirect_to '/auth/google_oauth2'
     else
-      session[:just_posted_to_google] = true
       lesson_redirect_url = session[:lesson_redirect_url] || @lesson_url
       session.delete(:lesson_redirect_url)
       redirect_to lesson_redirect_url

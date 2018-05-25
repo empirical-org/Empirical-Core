@@ -10,20 +10,14 @@ module GoogleIntegration::Announcements
     # make sure you try out the API call with https://developers.google.com/classroom/reference/rest/v1/courses.announcements/create
     # to validate that you are using the right one
     name = classroom_activity.activity.name
+    body = JSON.dump({
+      text: "#{name}: www.quill.org/teachers/classroom_activities/#{classroom_activity.id}/activity_from_classroom_activity"
+    })
     api_call = client.execute(api_method: service.courses.announcements.create,
       parameters: {
         courseId: google_course_id,
       },
-      body: JSON.dump({
-        text: name,
-        materials: [{
-          link: {
-            url: "#{ENV['DEFAULT_URL']}/teachers/classroom_activities/#{classroom_activity.id}/activity_from_classroom_activity",
-            title: name,
-            thumbnailUrl: "wtf"
-          }
-        }]
-      }),
+      body: body,
       headers: {"Content-Type": 'application/json'}
     )
     json_api_response = JSON.parse(api_call.body, symbolize_names: true)
