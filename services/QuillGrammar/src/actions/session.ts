@@ -7,11 +7,12 @@ import { SessionState } from '../reducers/sessionReducer'
 import { checkGrammarQuestion, Response } from 'quill-marking-logic'
 import { shuffle } from '../helpers/shuffle';
 import _ from 'lodash';
-import { removeEmpty } from '../helpers/removeEmptyKeys'
 
-export const updateSessionOnFirebase: void = (sessionID: string, session: SessionState) => {
-  console.log('session', session)
-  // sessionsRef.child(sessionID).set(session)
+export const updateSessionOnFirebase = (sessionID: string, session: SessionState) => {
+  console.log('session', _.pickBy(session))
+  const cleanedSession = _.pickBy(session)
+  cleanedSession.currentQuestion ? cleanedSession.currentQuestion.attempts = _.compact(cleanedSession.currentQuestion.attempts) : null
+  sessionsRef.child(sessionID).set(cleanedSession)
 }
 
 export const setSessionReducerToSavedSession = (sessionID: string) => {
@@ -80,8 +81,9 @@ export const checkAnswer = (response:string, question:Question) => {
       }
     })
     const responseObj = checkGrammarQuestion(questionUID, response, formattedAnswers)
-    const cleanedResponseObj = removeEmpty(responseObj)
-    dispatch(submitResponse(cleanedResponseObj))
+    delete responseObj.parent_id
+    responseObj.feedback = responseObj.feedback ? responseObj.feedback : 'Sorry, that is not correct. Please try again.'
+    dispatch(submitResponse(responseObj))
   }
 }
 
