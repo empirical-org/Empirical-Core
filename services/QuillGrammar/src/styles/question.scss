@@ -30,6 +30,20 @@
     border-bottom: 1px solid #DDD;
     padding-bottom: 1em;
   }
+  .example-container {
+    transition: 0.25s ease-out;
+    max-height: 0px;
+    overflow: hidden;
+    opacity: 0;
+    .example {
+      overflow: hidden;
+    }
+    &.show {
+      max-height: 500px;
+      transition: 0.25s ease-in;
+      opacity: 1;
+    }
+  }
 
   .instructions {
     margin: 1em 0;

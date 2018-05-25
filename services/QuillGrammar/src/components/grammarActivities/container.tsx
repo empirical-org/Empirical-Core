@@ -15,7 +15,7 @@ import {
 import { getConceptResultsForAllQuestions, calculateScoreForLesson } from '../../helpers/conceptResultsGenerator'
 import { SessionState } from '../../reducers/sessionReducer'
 import { GrammarActivityState } from '../../reducers/grammarActivitiesReducer'
-import { Question } from '../../interfaces/questions'
+import { Question, FormattedConceptResult } from '../../interfaces/questions'
 import QuestionComponent from './question'
 import LoadingSpinner from '../shared/loading_spinner'
 
@@ -74,12 +74,12 @@ class PlayGrammarContainer extends React.Component<PlayGrammarContainerProps, an
       const sessionID = getParameterByName('student', window.location.href)
       if (sessionID) {
         this.finishActivitySession(sessionID, results, score);
-      } else {
+      } else if (activityUID) {
         this.createAnonActivitySession(activityUID, results, score);
       }
     }
 
-    finishActivitySession(sessionID: string, results, score: number) {
+    finishActivitySession(sessionID: string, results: FormattedConceptResult[], score: number) {
       request(
         { url: `${process.env.EMPIRICAL_BASE_URL}/api/v1/activity_sessions/${sessionID}`,
           method: 'PUT',
@@ -107,7 +107,7 @@ class PlayGrammarContainer extends React.Component<PlayGrammarContainerProps, an
       );
     }
 
-    createAnonActivitySession(lessonID: string, results, score: number) {
+    createAnonActivitySession(lessonID: string, results: FormattedConceptResult[], score: number) {
       request(
         { url: `${process.env.EMPIRICAL_BASE_URL}/api/v1/activity_sessions/`,
           method: 'POST',
