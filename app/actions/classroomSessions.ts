@@ -170,6 +170,7 @@ export function updateSlide(
   questionId: string
  ) {
   socket.instance.emit('updateClassroomLessonSession', {
+    classroomActivityId,
     session: {
       id: classroomActivityId,
       current_slide: questionId,
