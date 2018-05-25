@@ -40,11 +40,11 @@ describe Teachers::ClassroomActivitiesController, type: :controller do
 
     context 'when milestone exists and activity got updated' do
       let!(:user_milestone) { create(:user_milestone, milestone: milestone, user: teacher) }
-      let(:customize_lesson_url) { "#{activity.form_url}customize/#{activity.uid}?&classroom_activity_id=#{classroom_activity.id}"}
+      let(:customize_lesson_url) { "#{activity.classification_form_url}customize/#{activity.uid}?&classroom_activity_id=#{classroom_activity.id}"}
 
       context 'when activity session exists' do
         let!(:activity_session) { create(:activity_session, classroom_activity_id: classroom_activity.id, state: "started") }
-        let(:teach_class_url) { "#{activity.form_url}teach/class-lessons/#{activity.uid}?&classroom_activity_id=#{classroom_activity.id}" }
+        let(:teach_class_url) { "#{activity.classification_form_url}teach/class-lessons/#{activity.uid}?&classroom_activity_id=#{classroom_activity.id}" }
 
         it 'should redirect to teach class lessons url' do
           get :launch_lesson, id: classroom_activity.id, lesson_uid: activity.uid
