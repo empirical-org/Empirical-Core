@@ -26,13 +26,13 @@ class Teachers::ClassroomActivitiesController < ApplicationController
     if current_milestone && @classroom_activity.update(locked: false, pinned: true)
       find_or_create_lesson_activity_sessions_for_classroom
       PusherLessonLaunched.run(@classroom_activity.classroom)
-      @lesson_url = lesson_url(lesson)
       if is_valid_for_google_announcement?
+        session[:lesson_url] = @classroom_activity.generate_activity_url
         return post_to_google_classroom
       end
-      redirect_to @lesson_url and return
+      return redirect_to lesson_url(lesson)
     elsif current_milestone
-      redirect_to "#{ENV['DEFAULT_URL']}/tutorials/lessons?url=#{URI.escape(launch_lesson_url)}" and return
+      return redirect_to "#{ENV['DEFAULT_URL']}/tutorials/lessons?url=#{URI.escape(launch_lesson_url)}"
     end
     flash.now[:error] = "We cannot launch this lesson. If the problem persists, please contact support."
   end
@@ -114,13 +114,10 @@ private
     access_token = session[:google_access_token]
     google_response = GoogleIntegration::Announcements.post_announcement(access_token, @classroom_activity, @classroom_activity.classroom.google_classroom_id)
     if google_response == 'UNAUTHENTICATED'
-      session[:lesson_redirect_url] = @lesson_url
       session[:google_redirect] = request.path
       return redirect_to '/auth/google_oauth2'
     else
-      lesson_redirect_url = session[:lesson_redirect_url] || @lesson_url
-      session.delete(:lesson_redirect_url)
-      redirect_to lesson_redirect_url
+      redirect_to lesson_url(lesson)
     end
   end
 
