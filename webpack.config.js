@@ -53,7 +53,7 @@ module.exports = {
       PUSHER_KEY:  'a253169073ce7474f0ce',
       OAUTH_CLIENT_ID: 'd0932924044cf2f2e2c2df64a2e8d5e78eadfc8dff8687060b6856d4a62dd5d9',
       FIREBASE_APP_NAME: 'quillconnectstaging',
-      LESSONS_WEBSOCKETS_URL: 'http://lessonsdatabaseserver-dev.us-east-1.elasticbeanstalk.com'
+      LESSONS_WEBSOCKETS_URL: 'localhost:8000',
     }),
     // new BundleAnalyzerPlugin(), // For visualizing package size
     new webpack.optimize.CommonsChunkPlugin({ name: 'vendor', }),

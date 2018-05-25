@@ -79,3 +79,7 @@ Cypress.Commands.add('createPreviewLesson', () => {
     cy.get('li:first').find('span').contains('Preview').click()
   })
 })
+
+Cypress.Commands.add('addStudent', (classroomActivityId, studentName) => {
+  socket.emit('addStudent', classroomActivityId, studentName)
+})
