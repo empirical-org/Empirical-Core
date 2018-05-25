@@ -1,6 +1,5 @@
 import * as React from "react";
 import * as Redux from "redux";
-import {connect} from "react-redux";
 import { Row, Button } from "antd";
 
 import { Question } from '../../interfaces/questions'
@@ -196,10 +195,4 @@ class QuestionComponent extends React.Component<QuestionProps, QuestionState> {
     }
 }
 
-const mapDispatchToProps = (dispatch: Redux.Dispatch<any>) => {
-    return {
-        dispatch: dispatch
-    };
-};
-
-export default connect(mapDispatchToProps)(QuestionComponent);
+export default QuestionComponent;

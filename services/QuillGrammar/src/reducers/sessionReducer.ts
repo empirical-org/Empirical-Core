@@ -20,7 +20,7 @@ export default (
             return Object.assign({}, currentState, action.session)
         case ActionTypes.RECEIVE_QUESTION_DATA:
             currentQuestion = action.data.splice(0, 1)[0]
-            return Object.assign({}, currentState, { unansweredQuestions: action.data, currentQuestion: currentQuestion, hasreceiveddata: true});
+            return Object.assign({}, currentState, { unansweredQuestions: action.data, currentQuestion, hasreceiveddata: true});
         case ActionTypes.NO_QUESTIONS_FOUND:
             return Object.assign({}, currentState, { error: 'No questions found.'})
         case ActionTypes.GO_T0_NEXT_QUESTION:
