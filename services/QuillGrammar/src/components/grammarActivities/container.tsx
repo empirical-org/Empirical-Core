@@ -13,9 +13,11 @@ import {
   setSessionReducerToSavedSession
 } from "../../actions/session";
 import { getConceptResultsForAllQuestions, calculateScoreForLesson } from '../../helpers/conceptResultsGenerator'
-import Question from './question'
 import { SessionState } from '../../reducers/sessionReducer'
 import { GrammarActivityState } from '../../reducers/grammarActivitiesReducer'
+import { Question } from '../../interfaces/questions'
+import QuestionComponent from './question'
+import LoadingSpinner from '../shared/loading_spinner'
 
 interface PlayGrammarContainerProps {
   grammarActivities: GrammarActivityState;
@@ -36,13 +38,14 @@ class PlayGrammarContainer extends React.Component<PlayGrammarContainerProps, an
       const activityUID = getParameterByName('uid', window.location.href)
       const sessionID = getParameterByName('student', window.location.href)
 
+      if (sessionID) {
+        this.props.dispatch(setSessionReducerToSavedSession(sessionID))
+      }
+
       if (activityUID) {
         this.props.dispatch(startListeningToActivity(activityUID))
       }
 
-      if (sessionID) {
-        this.props.dispatch(setSessionReducerToSavedSession(sessionID))
-      }
     }
 
     componentWillReceiveProps(nextProps: PlayGrammarContainerProps) {
@@ -76,7 +79,7 @@ class PlayGrammarContainer extends React.Component<PlayGrammarContainerProps, an
       }
     }
 
-    finishActivitySession(sessionID: string, results, score) {
+    finishActivitySession(sessionID: string, results, score: number) {
       request(
         { url: `${process.env.EMPIRICAL_BASE_URL}/api/v1/activity_sessions/${sessionID}`,
           method: 'PUT',
@@ -104,7 +107,7 @@ class PlayGrammarContainer extends React.Component<PlayGrammarContainerProps, an
       );
     }
 
-    createAnonActivitySession(lessonID: string, results, score) {
+    createAnonActivitySession(lessonID: string, results, score: number) {
       request(
         { url: `${process.env.EMPIRICAL_BASE_URL}/api/v1/activity_sessions/`,
           method: 'POST',
@@ -129,20 +132,20 @@ class PlayGrammarContainer extends React.Component<PlayGrammarContainerProps, an
 
     render(): JSX.Element {
       if (this.props.grammarActivities.hasreceiveddata && this.props.session.hasreceiveddata && this.props.session.currentQuestion) {
-        return <Question
+        return <QuestionComponent
           activity={this.props.grammarActivities.currentActivity}
           answeredQuestions={this.props.session.answeredQuestions}
           unansweredQuestions={this.props.session.unansweredQuestions}
           currentQuestion={this.props.session.currentQuestion}
           goToNextQuestion={() => this.props.dispatch(goToNextQuestion())}
-          checkAnswer={(response, question) => this.props.dispatch(checkAnswer(response, question))}
+          checkAnswer={(response: string, question: Question) => this.props.dispatch(checkAnswer(response, question))}
         />
       } else if (this.props.session.error) {
         return (
           <div>{this.props.session.error}</div>
         );
       } else {
-        return <div>Loading...</div>
+        return <LoadingSpinner />
       }
     }
 }
