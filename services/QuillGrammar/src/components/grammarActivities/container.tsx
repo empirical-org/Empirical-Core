@@ -92,8 +92,6 @@ class PlayGrammarContainer extends React.Component<PlayGrammarContainerProps, an
         },
         (err, httpResponse, body) => {
           if (httpResponse && httpResponse.statusCode === 200) {
-            console.log('Finished Saving');
-            console.log(err, httpResponse, body);
             const sessionID = getParameterByName('student', window.location.href)
             document.location.href = `${process.env.EMPIRICAL_BASE_URL}/activity_sessions/${sessionID}`;
             this.setState({ saved: true, });
@@ -121,8 +119,6 @@ class PlayGrammarContainer extends React.Component<PlayGrammarContainerProps, an
         },
         (err, httpResponse, body) => {
           if (httpResponse.statusCode === 200) {
-            console.log('Finished Saving');
-            console.log(err, httpResponse, body);
             document.location.href = `${process.env.EMPIRICAL_BASE_URL}/activity_sessions/${body.activity_session.uid}`;
             this.setState({ saved: true, });
           }
@@ -159,7 +155,7 @@ const mapStateToProps = (state: any) => {
 
 const mapDispatchToProps = (dispatch: Redux.Dispatch<any>) => {
     return {
-        dispatch: dispatch
+        dispatch
     };
 };
 

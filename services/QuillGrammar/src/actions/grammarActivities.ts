@@ -4,7 +4,7 @@ const activitiesRef = rootRef.child('grammarActivities')
 import { GrammarActivity } from '../interfaces/grammarActivities'
 
 export const startListeningToActivity = (activityUID: string) => {
-  return function(dispatch) {
+  return (dispatch) => {
     activitiesRef.child(activityUID).on('value', (snapshot) => {
       const activity: GrammarActivity = snapshot.val()
       if (activity) {

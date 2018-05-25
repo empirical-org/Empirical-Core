@@ -22,7 +22,7 @@ export function getConceptResultsForQuestion(question: Question): FormattedConce
         correct: false,
       })
     }
-    let directions = question.instructions;
+    const directions = question.instructions;
     return conceptResults.map((conceptResult: ConceptResult) => {
       return {
         concept_uid: conceptResult.conceptUID,
@@ -40,11 +40,11 @@ export function getConceptResultsForQuestion(question: Question): FormattedConce
   }
 }
 
-export function getNestedConceptResultsForAllQuestions(questions: Array<Question>) {
+export function getNestedConceptResultsForAllQuestions(questions: Question[]) {
   return questions.map(questionObj => getConceptResultsForQuestion(questionObj));
 }
 
-export function embedQuestionNumbers(nestedConceptResultArray: Array<FormattedConceptResult>[]): Array<FormattedConceptResult>[] {
+export function embedQuestionNumbers(nestedConceptResultArray: FormattedConceptResult[][]): FormattedConceptResult[][] {
   return nestedConceptResultArray.map((conceptResultArray, index) => {
     return conceptResultArray.map((conceptResult: FormattedConceptResult) => {
       conceptResult.metadata.questionNumber = index + 1;
@@ -54,13 +54,13 @@ export function embedQuestionNumbers(nestedConceptResultArray: Array<FormattedCo
   });
 }
 
-export function getConceptResultsForAllQuestions(questions: Array<Question>):Array<FormattedConceptResult> {
+export function getConceptResultsForAllQuestions(questions: Question[]):FormattedConceptResult[] {
   const nested = getNestedConceptResultsForAllQuestions(questions);
   const withKeys = embedQuestionNumbers(nested);
   return [].concat.apply([], withKeys); // Flatten array
 }
 
-export function calculateScoreForLesson(questions: Array<Question>) {
+export function calculateScoreForLesson(questions: Question[]) {
   let correct = 0;
   questions.forEach((question) => {
     if (question.attempts) {
