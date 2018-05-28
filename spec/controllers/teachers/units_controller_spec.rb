@@ -104,18 +104,6 @@ describe Teachers::UnitsController, type: :controller do
   #   end
   # end
 
-  describe '#edit' do
-    before do
-      allow(LessonPlanner::UnitSerializer).to receive(:new) { "some json" }
-    end
-
-    it 'should find the unit and return the lesson planner' do
-      expect(LessonPlanner::UnitSerializer).to receive(:new).with(unit, root: false)
-      get :edit, id: unit.id
-      expect(response.body).to eq("some json")
-    end
-  end
-
   describe '#index' do
     let!(:activity) {create(:activity)}
     let!(:classroom_activity) {create(:classroom_activity, due_date: Time.now, unit: unit, classroom: classroom, activity: activity, assigned_student_ids: [student.id])}
