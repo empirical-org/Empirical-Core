@@ -103,7 +103,7 @@ class Subscription < ActiveRecord::Base
   end
 
   def self.account_types
-    ALL_FREE_TYPES.concat(ALL_PAID_TYPES)
+    ALL_TYPES
   end
 
   def renew_subscription
