@@ -12,11 +12,19 @@ export default class extends React.Component {
       userIsPremium: userIsPremium(),
       showDropdown: false
     }
+
+    document.addEventListener('click', this.closeDropdownIfOpen.bind(this))
+
     this.toggleDropdown = this.toggleDropdown.bind(this)
   }
 
+
   componentDidMount() {
     this.cleanData(this.props.data)
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('click', this.closeDropdownIfOpen.bind(this));
   }
 
   cleanData(data) {
@@ -72,6 +80,12 @@ export default class extends React.Component {
     })
   }
 
+  closeDropdownIfOpen(e) {
+    if (this.state.showDropdown && e.target.classList.value !== 'btn button-green' && e.target.classList.value !== 'print-button' && e.target.classList.value !== 'print-img') {
+      this.setState({ showDropdown: false})
+    }
+  }
+
   render() {
     if (this.state.userIsPremium && this.props.data) {
       let dropdown,
@@ -97,9 +111,9 @@ export default class extends React.Component {
             </span>
 
             <div className='button-wrapper'>
-              <button onClick={window.print} name='test'><img src="https://assets.quill.org/images/icons/pdf-icon.svg" alt="print"/>Print</button>
+              <button onClick={window.print} className="print-button"><img className="print-img" src="https://assets.quill.org/images/icons/download-report-premium.svg" alt="print"/>PDF</button>
               <CSVLink data={this.state.data} target="_blank">
-                <button><img src="https://assets.quill.org/images/icons/csv-icon.svg" alt="csv"/>CSV</button>
+                <button><img src="https://assets.quill.org/images/icons/download-report-premium-csv.svg" alt="csv"/>CSV</button>
               </CSVLink>
             </div>
           </div>
@@ -107,14 +121,14 @@ export default class extends React.Component {
       }
       return (
         <div className='download-button-wrapper'>
-          <button onClick={this.toggleDropdown} style={style} className={this.props.className || 'btn button-green'}>{this.props.buttonCoppy || "Download Report"}</button>
+          <button onClick={this.toggleDropdown} style={style} className={this.props.className || 'btn button-green'}>{this.props.buttonCopy || "Download Report"}</button>
           {dropdown}
         </div>
       )
     } else {
       return <button style={{
         display: 'block'
-      }} onClick={this.handleClick} className={this.props.className || 'btn button-green'}>{this.props.buttonCoppy || "Download Report"}</button>
+      }} onClick={this.handleClick} className={this.props.className || 'btn button-green'}>{this.props.buttonCopy || "Download Report"}</button>
     }
   }
 

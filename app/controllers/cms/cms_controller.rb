@@ -1,6 +1,8 @@
 class Cms::CmsController < ApplicationController
   before_filter :staff!
 
+  private
+
   def get_subscription_data
     if !@school && !@user && @subscription.schools.any?
       # then we are here directly through edit subscriptions and we want to select

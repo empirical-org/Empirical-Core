@@ -19,7 +19,7 @@ class Classroom < ActiveRecord::Base
   has_many :classrooms_teachers, foreign_key: 'classroom_id'
   has_many :teachers, through: :classrooms_teachers, source: :user
 
-  before_validation :generate_code, if: Proc.new {|c| c.code.blank?}
+  before_validation :set_code, if: Proc.new {|c| c.code.blank?}
 
   def self.create_with_join(classroom_attributes, teacher_id, role='owner')
     classroom = Classroom.create(classroom_attributes)
@@ -27,6 +27,10 @@ class Classroom < ActiveRecord::Base
       ClassroomsTeacher.create(user_id: teacher_id, classroom_id: classroom.id, role: role)
     end
     classroom
+  end
+
+  def units_json
+    units.select('units.id AS value, units.name').distinct.order('units.name').as_json(except: :id)
   end
 
   def unique_topic_count
@@ -84,13 +88,17 @@ class Classroom < ActiveRecord::Base
     self.students << new_students
   end
 
-  def classroom_activity_for activity
-    classroom_activities.where(activity_id: activity.id).first
+  def set_code
+    self.code = Classroom.generate_unique_code
   end
 
-  def generate_code
-    self.code = NameGenerator.generate
-    if Classroom.unscoped.find_by_code(code) then generate_code end
+  def self.generate_unique_code
+    code = NameGenerator.generate
+    if Classroom.unscoped.find_by_code(code)
+       generate_unique_code
+    else
+      code
+    end
   end
 
   def hide_appropriate_classroom_activities
