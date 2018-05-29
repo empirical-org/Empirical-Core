@@ -10,9 +10,6 @@ pipeline {
                     args '-u root:sudo -v $HOME/workspace/myproject:/myproject'
                 }
             }
-            environment {
-                //GITHUB_PASS = credentials('github-pass')
-            }
             steps {
 
                 sh 'echo "Beginning BUILD..."'
