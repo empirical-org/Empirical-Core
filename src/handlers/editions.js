@@ -86,35 +86,21 @@ export function getAllEditionMetadataForLesson({
 }) {
   if (lessonId) {
     r.table('lesson_edition_metadata')
-    .filter(r.row("lesson_id").eq(lessonId))
+    .filter(r.row('lesson_id').eq(lessonId))
+    .filter(
+      r.row.hasFields('flags').not().or(
+        r.row('flags').contains('archived').not()
+      )
+    )
     .run(connection)
     .then((cursor) => {
-      r.table('lesson_edition_metadata')
-      .filter(r.row("lesson_id").eq(lessonId))
-      .count()
-      .run(connection, (err, val) => {
-        const numberOfEditions = val
-        let editions = {}
-        let editionCount = 0
-        if (numberOfEditions === 0) {
-          client.emit(`editionMetadataForLesson:${lessonId}`, editions)
-          if (callback) {
-            callback
-          }
-        } else {
-          cursor.each((err, document) => {
-            if (err) throw err
-            editions[document.id] = document
-            editionCount++
-            if (editionCount === numberOfEditions) {
-              client.emit(`editionMetadataForLesson:${lessonId}`, editions)
-              if (callback) {
-                callback()
-              }
-            }
-          });
-        }
-      })
+      let editions = {};
+      cursor.toArray((err, results) => {
+        results.forEach((result) => {
+          editions[result.id] = result;
+        });
+        client.emit(`editionMetadataForLesson:${lessonId}`, editions)
+      });
     })
   }
 }
@@ -150,17 +136,15 @@ export function updateEditionMetadata({
     return cursor.changes
   })
   .then(results => {
-    const edition = results[0] ? results[0].new_val : null
+    const edition  = results[0] ? results[0].new_val : null
+    const lessonId = edition.lesson_id
+
+    if (edition && lessonId) {
+      getAllEditionMetadataForLesson({ connection, client, lessonId })
+    }
+
     if (edition) {
-      getAllEditionMetadataForLesson({
-        connection: connection,
-        client: client,
-        lessonID: edition.lesson_id
-      })
-      getAllEditionMetadata({
-        connection: connection,
-        client: client
-      })
+      getAllEditionMetadata({ connection, client })
     }
   })
 }
@@ -171,17 +155,12 @@ export function deleteEdition({
   client
 }) {
   if (editionId) {
-      r.table('lesson_edition_questions')
-      .filter({id: editionId})
-      .delete()
-      .run(connection)
-
       r.table('lesson_edition_metadata')
       .filter({id: editionId})
       .delete()
       .run(connection)
       .then(() => {
-        getAllEditionMetadata({connection, client})
+        getAllEditionMetadata({ connection, client })
       })
   }
 }
