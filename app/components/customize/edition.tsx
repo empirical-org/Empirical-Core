@@ -12,10 +12,11 @@ import {
 } from '../classroomLessons/interfaces'
 
 import {
+  getEditionMetadataForUserIds,
+  getEditionQuestions,
+  publishEdition,
   setWorkingEditionMetadata,
   setWorkingEditionQuestions,
-  publishEdition,
-  getEditionQuestions
 } from '../../actions/customize'
 
 import {
@@ -52,6 +53,7 @@ class CustomizeEdition extends React.Component<any, any> {
     if (classroomActivityId) {
       setEditionId(classroomActivityId, this.props.params.editionID)
     }
+    this.props.dispatch(getEditionMetadataForUserIds([], this.props.params.lessonID))
     this.props.dispatch(getEditionQuestions(this.props.params.editionID))
   }
 
