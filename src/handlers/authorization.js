@@ -17,8 +17,8 @@ export function authorizeSession(data, token, client, callback) {
   if (belongsToSession || _isPreviewSession(data)) {
     callback();
   } else {
-    console.error('unauthorizedSession')
-    client.emit('unauthorizedSession');
+    console.error({ error: 'unauthorizedSession', data, token });
+    client.emit('unauthorizedSession', { data, token });
   }
 }
 
@@ -30,8 +30,8 @@ export function authorizeTeacherSession(data, token, client, callback) {
   if (isValidSession || _isPreviewSession(data)) {
     callback();
   } else {
-    console.error('unauthorizedTeacherSession')
-    client.emit('unauthorizedTeacherSession');
+    console.error({ error: 'unauthorizedTeacherSession', data, token });
+    client.emit('unauthorizedTeacherSession', { data, token });
   }
 }
 
@@ -41,7 +41,7 @@ export function authorizeRole(permittedRoles, data, token, client, callback) {
   if (isRoleAuthorized || _isPreviewSession(data)) {
     callback();
   } else {
-    console.error('unauthorizedRole')
-    client.emit('unauthorizedRole');
+    console.error({ error: 'unauthorizedRole', data, token });
+    client.emit('unauthorizedRole', { data, token });
   }
 }
