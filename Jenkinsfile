@@ -23,8 +23,8 @@ pipeline {
                 }
 
                 sshagent (credentials: ['jenkins-ssh']) {
-                  sh 'echo "Adding github.com to list of known hosts"'
-                  sh 'ssh-keyscan -H github.com >> ~/.ssh/known_hosts'
+                  /*sh 'echo "Adding github.com to list of known hosts"'*/
+                  /*sh 'ssh-keyscan -H github.com >> ~/.ssh/known_hosts'*/
                   sh 'echo "Cloning repository..."'
                   sh 'git clone git@github.com:empirical-org/Empirical-Core.git'
                 }
