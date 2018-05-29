@@ -1,11 +1,13 @@
 class AdminsController < ApplicationController
   before_action :admin!
-  before_action :set_teacher, :admin_of_this_teacher!, :sign_in,
-                only: [:sign_in_classroom_manager,
-                                     :sign_in_progress_reports,
-                                     :sign_in_account_settings]
-
-
+  before_action :set_teacher,
+    :admin_of_this_teacher!,
+    :sign_in,
+    only: %w{
+      sign_in_classroom_manager
+      sign_in_progress_reports
+      sign_in_account_settings
+    }
 
   def show
     render json: UserAdminSerializer.new(current_user, root: false)
