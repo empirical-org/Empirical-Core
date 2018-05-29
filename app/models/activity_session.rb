@@ -106,10 +106,6 @@ class ActivitySession < ActiveRecord::Base
     super || classroom_activity.try(:activity)
   end
 
-  def classroom
-    unit.classroom
-  end
-
   def formatted_due_date
     return nil if self.classroom_activity.nil? or self.classroom_activity.due_date.nil?
     self.classroom_activity.due_date.strftime('%A, %B %d, %Y')
@@ -132,19 +128,6 @@ class ActivitySession < ActiveRecord::Base
 
   def percentile
     ProficiencyEvaluator.lump_into_center_of_proficiency_band(percentage)
-  end
-
-  def percentage_as_percent_prefixed_by_scored
-    if percentage.nil?
-      "Not completed yet"
-    else
-      x = (percentage*100).round.to_s + '%'
-      "Scored #{x}"
-    end
-  end
-
-  def percentage_with_zero_if_nil
-    ((percentage || 0)*100).round
   end
 
   def percentage_as_decimal

@@ -67,7 +67,7 @@ RSpec.configure do |config|
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
   # instead of true.
-  config.use_transactional_fixtures = false
+  config.use_transactional_fixtures = true
 
   # If true, the base class of anonymous controllers will be inferred
   # automatically. This will be the default behavior in future versions of
@@ -82,32 +82,29 @@ RSpec.configure do |config|
 
   # database cleaner config
   config.before(:suite) do
-    DatabaseCleaner.clean_with(:truncation)
+    DatabaseCleaner.clean_with(:transaction)
 
     begin
       # validate factories
       # FactoryBot.lint
     ensure
       # (re-?)clean the database after
-      DatabaseCleaner.clean_with(:truncation)
+      DatabaseCleaner.clean_with(:transaction)
     end
   end
 
   # most examples
   config.before(:each) do
     DatabaseCleaner.strategy = :transaction
+    DatabaseCleaner.start
+    SegmentAnalytics.backend = FakeSegmentBackend.new
   end
 
   # examples running in a browser
-  config.before(:each, js: true) do
-    DatabaseCleaner.strategy = :truncation
-  end
+  # config.before(:each, js: true) do
+  #   DatabaseCleaner.strategy = :truncation
+  # end
 
-  config.before(:each) do
-    DatabaseCleaner.start
-
-    SegmentAnalytics.backend = FakeSegmentBackend.new
-  end
 
   config.after(:each) do
     DatabaseCleaner.clean
@@ -122,8 +119,8 @@ RSpec.configure do |config|
 
   # some stuff that happens before all of the suite
   config.before(:suite) do
-    # create(:topic) unless Topic.any?
     Rails.cache.clear
+    DatabaseCleaner.clean
   end
 
   config.around(:each, :caching) do |example|

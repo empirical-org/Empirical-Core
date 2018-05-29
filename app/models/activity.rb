@@ -18,7 +18,7 @@ class Activity < ActiveRecord::Base
   before_create :flag_as_beta, unless: :flags?
   after_commit :clear_activity_search_cache
 
-  delegate :form_url, to: :classification
+  delegate :form_url, to: :classification, prefix: true
 
   scope :production, -> {
     where(<<-SQL, :production)
