@@ -23,18 +23,22 @@ class Teachers::ClassroomActivitiesController < ApplicationController
   end
 
   def launch_lesson
-    if current_milestone && @classroom_activity.update(locked: false, pinned: true)
-      find_or_create_lesson_activity_sessions_for_classroom
-      PusherLessonLaunched.run(@classroom_activity.classroom)
-      if is_valid_for_google_announcement?
-        session[:lesson_url] = @classroom_activity.generate_activity_url
-        return post_to_google_classroom
+    if lesson_tutorial_completed?
+      if @classroom_activity.update(locked: false, pinned: true)
+        find_or_create_lesson_activity_sessions_for_classroom
+        PusherLessonLaunched.run(@classroom_activity.classroom)
+        if is_valid_for_google_announcement?
+          session[:lesson_url] = @classroom_activity.generate_activity_url
+          return post_to_google_classroom
+        end
+        redirect_to lesson_url(lesson) and return
+      else
+        flash.now[:error] = "We cannot launch this lesson. If the problem persists, please contact support."
+        redirect_to :back
       end
-      return redirect_to lesson_url(lesson)
-    elsif current_milestone
-      return redirect_to "#{ENV['DEFAULT_URL']}/tutorials/lessons?url=#{URI.escape(launch_lesson_url)}"
+    else
+      redirect_to "#{ENV['DEFAULT_URL']}/tutorials/lessons?url=#{URI.escape(launch_lesson_url)}" and return
     end
-    flash.now[:error] = "We cannot launch this lesson. If the problem persists, please contact support."
   end
 
   def activity_from_classroom_activity
@@ -82,8 +86,8 @@ private
     "#{lesson.classification_form_url}teach/class-lessons/#{lesson.uid}/mark_lesson_as_completed?&classroom_activity_id=#{@classroom_activity.id}"
   end
 
-  def current_milestone
-    @user_milestone ||= UserMilestone.find_by(milestone_id: view_lessons_tutorial_milestone.id, user_id: current_user.id)
+  def lesson_tutorial_completed?
+    @tutorial_completed ||= UserMilestone.exists?(milestone_id: view_lessons_tutorial_milestone.id, user_id: current_user.id)
   end
 
   def launch_lesson_url
