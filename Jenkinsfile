@@ -5,21 +5,20 @@ pipeline {
         stage('build') {
             agent {
                 dockerfile {
-                    filename 'Dockerfile'
-                    dir 'docker/build'
+                    filename 'Dockerfile.build'
+                    dir 'services/QuillJenkins/agents/QuillLMS'
                     args '-u root:sudo -v $HOME/workspace/myproject:/myproject'
                 }
             }
             environment {
-                GITHUB_PASS = credentials('github-pass')
+                //GITHUB_PASS = credentials('github-pass')
             }
             steps {
                 sh 'echo "Beginning BUILD..."'
-
                 sh 'echo "Cloning repository..."'
                 script {
                   try {
-                    sh 'rm -r maxwellbuck.com'
+                    sh 'rm -r Empirical-Core'
                   }
                   catch (exc) {
                     sh 'echo "Cloning..."' 

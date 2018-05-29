@@ -1,16 +1,71 @@
+# Nginx Reverse proxy for Jenkins
+# source: https://wiki.jenkins.io/display/JENKINS/Running+Jenkins+behind+Nginx
+# reference for any problems w blue ocean ^^
+
+upstream jenkins {
+  keepalive 32; # keepalive connections
+  server 127.0.0.1:8080; # jenkins ip and port
+}
+
 server {
 	server_name jenkins.quill.org;
+  # jenkins web root directory (mentioned in the /etc/default/jenkins file)
+  root            /var/run/jenkins/war/;
+
+  access_log      /var/log/nginx/jenkins/access.log;
+  error_log       /var/log/nginx/jenkins/error.log;
+  ignore_invalid_headers off; #Jenkins pass-thru hdrs considered invalid by Nginx
+
+  location ~ "^/static/[0-9a-fA-F]{8}\/(.*)$" {
+    #rewrite all static files into requests to the root
+    #E.g /static/12345678/css/something.css will become /css/something.css
+    rewrite "^/static/[0-9a-fA-F]{8}\/(.*)" /$1 last;
+  }
+
+  location /userContent {
+    #have nginx handle all the static requests to the userContent folder files
+    #note : This is the $JENKINS_HOME dir
+      root /var/lib/jenkins/;
+    if (!-f $request_filename){
+      #this file does not exist, might be a directory or a /**view** url 
+      rewrite (.*) /$1 last;
+        break;
+    }
+      sendfile on;
+  }
+
+  location @jenkins {
+    sendfile off;
+    proxy_pass         http://jenkins;
+    proxy_redirect     default;
+    proxy_http_version 1.1;
+
+    proxy_set_header   Host              $host;
+    proxy_set_header   X-Real-IP  $remote_addr;
+    proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_max_temp_file_size 0;
+
+    #this is the maximum upload size
+    client_max_body_size 10m;
+    client_body_buffer_size 128k;
+
+    proxy_connect_timeout 90;
+    proxy_send_timeout 90;
+    proxy_read_timeout 90;
+    proxy_buffering off;
+    proxy_request_buffering off; # Required for HTTP CLI commands in Jenkins  > 2.54
+    proxy_set_header Connection ""; # Clear for keepalive
+  }
 
   location / {
-    # Jenkins 
-    proxy_pass          http://127.0.0.1:8080;
-    proxy_http_version  1.1;
-    proxy_set_header    X-Forwarded-For $remote_addr;
-    proxy_set_header    Host $http_host;
+    # Optional configuration to detect and redirect iPhones
+    if ($http_user_agent ~* '(iPhone|iPod)') {
+    rewrite ^/$ /view/iphone/ redirect;
+    }
+
+    try_files $uri @jenkins;
   }
-  error_page  404              /404.html;
-  error_page  401              /401.html;
-	
 
   listen [::]:443 ssl ipv6only=on; # managed by Certbot
   listen 443 ssl; # managed by Certbot
@@ -20,6 +75,7 @@ server {
   ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
 
 }
+
 server {
   if ($host = jenkins.quill.org) {
       return 301 https://$host$request_uri;
@@ -30,6 +86,5 @@ server {
 	listen [::]:80 default_server;
 	server_name jenkins.quill.org;
   return 404; # managed by Certbot
-
 }
 # vim:syn=nginx
