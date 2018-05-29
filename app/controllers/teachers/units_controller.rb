@@ -88,11 +88,14 @@ class Teachers::UnitsController < ApplicationController
     classroom_activities = lessons_with_current_user_and_activity
     if classroom_activities.length == 1
       ca_id = classroom_activities.first["id"]
-      lesson_uid = Activity.find(activity_id).uid
       redirect_to "/teachers/classroom_activities/#{ca_id}/launch_lesson/#{lesson_uid}"
     else
       redirect_to "/teachers/classrooms/activity_planner/lessons_for_activity/#{activity_id}"
     end
+  end
+
+  def lesson_uid
+    Activity.find(params[:activity_id].to_i).uid
   end
 
   def index
