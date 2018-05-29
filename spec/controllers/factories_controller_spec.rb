@@ -21,5 +21,5 @@ describe FactoriesController do
       get :create_list, factory: "some factory"
       expect(response.body).to eq({list: "some list"}.to_json)
     end
-  endg
+  end
 end
