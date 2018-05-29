@@ -128,11 +128,6 @@ class Teachers::UnitsController < ApplicationController
     render json: {}
   end
 
-  def edit
-    unit = Unit.find(params[:id])
-    render json: LessonPlanner::UnitSerializer.new(unit, root: false)
-  end
-
   private
 
   def lessons_with_current_user_and_activity

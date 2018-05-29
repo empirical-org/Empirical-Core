@@ -88,10 +88,6 @@ class Classroom < ActiveRecord::Base
     self.students << new_students
   end
 
-  def classroom_activity_for activity
-    classroom_activities.where(activity_id: activity.id).first
-  end
-
   def set_code
     self.code = Classroom.generate_unique_code
   end
