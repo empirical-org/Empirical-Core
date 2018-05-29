@@ -23,14 +23,18 @@ class Teachers::ClassroomActivitiesController < ApplicationController
   end
 
   def launch_lesson
-    if current_milestone && @classroom_activity.update(locked: false, pinned: true)
-      find_or_create_lesson_activity_sessions_for_classroom
-      PusherLessonLaunched.run(@classroom_activity.classroom)
-      redirect_to lesson_url(lesson) and return
-    elsif current_milestone
+    if lesson_tutorial_completed?
+      if @classroom_activity.update(locked: false, pinned: true)
+        find_or_create_lesson_activity_sessions_for_classroom
+        PusherLessonLaunched.run(@classroom_activity.classroom)
+        redirect_to lesson_url(lesson) and return
+      else
+        flash.now[:error] = "We cannot launch this lesson. If the problem persists, please contact support."
+        redirect_to :back
+      end
+    else
       redirect_to "#{ENV['DEFAULT_URL']}/tutorials/lessons?url=#{URI.escape(launch_lesson_url)}" and return
     end
-    flash.now[:error] = "We cannot launch this lesson. If the problem persists, please contact support."
   end
 
   def activity_from_classroom_activity
@@ -75,11 +79,11 @@ private
   end
 
   def mark_lesson_as_completed_url
-    "#{lesson.form_url}teach/class-lessons/#{lesson.uid}/mark_lesson_as_completed?&classroom_activity_id=#{@classroom_activity.id}"
+    "#{lesson.classification_form_url}teach/class-lessons/#{lesson.uid}/mark_lesson_as_completed?&classroom_activity_id=#{@classroom_activity.id}"
   end
 
-  def current_milestone
-    @user_milestone ||= UserMilestone.find_by(milestone_id: view_lessons_tutorial_milestone.id, user_id: current_user.id)
+  def lesson_tutorial_completed?
+    @tutorial_completed ||= UserMilestone.exists?(milestone_id: view_lessons_tutorial_milestone.id, user_id: current_user.id)
   end
 
   def launch_lesson_url
@@ -96,9 +100,9 @@ private
 
   def lesson_url(lesson)
     if (ActivitySession.find_by(classroom_activity_id: @classroom_activity.id, state: 'started'))
-      "#{lesson.form_url}teach/class-lessons/#{lesson.uid}?&classroom_activity_id=#{@classroom_activity.id}"
+      "#{lesson.classification_form_url}teach/class-lessons/#{lesson.uid}?&classroom_activity_id=#{@classroom_activity.id}"
     else
-      "#{lesson.form_url}customize/#{lesson.uid}?&classroom_activity_id=#{@classroom_activity.id}"
+      "#{lesson.classification_form_url}customize/#{lesson.uid}?&classroom_activity_id=#{@classroom_activity.id}"
     end
   end
 

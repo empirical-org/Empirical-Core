@@ -27,9 +27,10 @@ describe Teachers::ClassroomActivitiesController, type: :controller do
     end
   end
 
-  describe '#launch_session' do
+  describe '#launch_lesson' do
     let!(:milestone) { create(:milestone, name: "View Lessons Tutorial") }
     let!(:activity) { create(:activity) }
+
 
     before do
       # stubbing custom validation on creation of activity session
@@ -40,11 +41,11 @@ describe Teachers::ClassroomActivitiesController, type: :controller do
 
     context 'when milestone exists and activity got updated' do
       let!(:user_milestone) { create(:user_milestone, milestone: milestone, user: teacher) }
-      let(:customize_lesson_url) { "#{activity.form_url}customize/#{activity.uid}?&classroom_activity_id=#{classroom_activity.id}"}
+      let(:customize_lesson_url) { "#{activity.classification_form_url}customize/#{activity.uid}?&classroom_activity_id=#{classroom_activity.id}"}
 
       context 'when activity session exists' do
         let!(:activity_session) { create(:activity_session, classroom_activity_id: classroom_activity.id, state: "started") }
-        let(:teach_class_url) { "#{activity.form_url}teach/class-lessons/#{activity.uid}?&classroom_activity_id=#{classroom_activity.id}" }
+        let(:teach_class_url) { "#{activity.classification_form_url}teach/class-lessons/#{activity.uid}?&classroom_activity_id=#{classroom_activity.id}" }
 
         it 'should redirect to teach class lessons url' do
           get :launch_lesson, id: classroom_activity.id, lesson_uid: activity.uid
@@ -67,15 +68,15 @@ describe Teachers::ClassroomActivitiesController, type: :controller do
 
     context 'when milestone exists and activity could not get updated' do
       let!(:user_milestone) { create(:user_milestone, milestone: milestone, user: teacher) }
-      let(:launch_lesson_url) {  "#{ENV['DEFAULT_URL']}/tutorials/lessons?url=/teachers/classroom_activities/#{classroom_activity.id}/launch_lesson/#{activity.uid}" }
 
       before do
         allow_any_instance_of(ClassroomActivity).to receive(:update) { false }
       end
 
-      it 'should redirecct to launch lesson ulr' do
+      it 'should redirect back to the referrer' do
+        request.env["HTTP_REFERER"] = '/'
         get :launch_lesson, id: classroom_activity.id, lesson_uid: activity.uid
-        expect(response).to redirect_to launch_lesson_url
+        expect(response).to redirect_to '/'
       end
     end
 
