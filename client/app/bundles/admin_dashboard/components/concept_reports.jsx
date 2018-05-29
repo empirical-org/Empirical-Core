@@ -23,7 +23,7 @@ const ConceptReports = ({
             School Concept Reports
           </h1>
           <p>
-            View overall concept mastery for each student in an active classroom.
+            Each question on Quill targets a specific writing concept. This report shows the number of times the student correctly or incorrectly used the targeted concept to answer the question. You can print this report by downloading a PDF file or export this data by downloading a CSV file.
           </p>
         </div>
       <div className="csv-and-how-we-grade">

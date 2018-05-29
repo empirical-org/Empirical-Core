@@ -7,7 +7,7 @@
   }
 </script>
 <div class='cms-form'>
-  <% url =  @with_school ? "/cms/users/create_with_school/#{@school.id}" : 'cms/users' %>
+  <% url =  @with_school ? "/cms/users/create_with_school/#{@school.id}" : "/cms/users/#{@user.id}" %>
   <%= form_for @user, url: url do |f| %>
     <div class='cms-form-row'>
       <%= f.label :name %>
@@ -26,8 +26,12 @@
       <%= f.text_field :username, autocomplete: 'off' %>
     </div>
     <div class='cms-form-row'>
+      <%= f.label :title %>
+      <%= f.text_field :title, autocomplete: 'off' %>
+    </div>
+    <div class='cms-form-row'>
       <%= f.label :role %>
-      <%= f.select :role, [['student', 'student'], ['teacher', 'teacher'], ['admin', 'admin'], ['staff', 'staff']], autocomplete: 'off' %>
+      <%= f.select :role, [['student', 'student'], ['teacher', 'teacher'], ['staff', 'staff']], autocomplete: 'off' %>
     </div>
     <div class='cms-form-row'>
       <% @valid_flags.each do |flag| -%>

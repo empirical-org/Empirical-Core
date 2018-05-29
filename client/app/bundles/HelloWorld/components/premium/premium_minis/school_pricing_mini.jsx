@@ -11,6 +11,8 @@ export default React.createClass({
     }
     if (!this.props.userIsSignedIn) {
       onClickEvent = () => alert('You must be logged in to activate Premium.');
+    } else if (!this.props.userHasSchool) {
+      onClickEvent = () => alert('You must add a school before buying School Premium. You can do so by visiting Quill.org/teachers/my_account');
     } else if (!this.props.userIsEligibleForNewSubscription) {
       onClickEvent = () => alert('You have an active subscription and cannot buy premium now. You may buy a new Premium subscription when your current subscription expires.');
     }

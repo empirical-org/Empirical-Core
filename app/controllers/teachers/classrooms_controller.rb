@@ -27,9 +27,7 @@ class Teachers::ClassroomsController < ApplicationController
   end
 
   def regenerate_code
-    cl = Classroom.new
-    cl.generate_code
-    render json: {code: cl.code}
+    render json: {code: Classroom.generate_unique_code}
   end
 
   def create
@@ -74,7 +72,7 @@ class Teachers::ClassroomsController < ApplicationController
 
   def units
     @classroom = Classroom.find(params[:id])
-    render json: {units: @classroom.units.select('units.id AS value, units.name').distinct.order('units.name').as_json(except: :id)}
+    render json: {units: @classroom.units_json }
   end
 
   def generate_login_pdf

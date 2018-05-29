@@ -8,8 +8,7 @@ import getAuthToken from '../../modules/get_auth_token';
 export default class BlogPostTable extends React.Component {
   constructor(props) {
     super(props)
-
-    this.state = {blogPosts: this.props.blogPosts.sort(bp => bp.order_number)}
+    this.state = {blogPosts: props.blogPosts.sort((bp1, bp2) => bp1.order_number - bp2.order_number)}
     this.updateOrder = this.updateOrder.bind(this)
     this.saveOrder = this.saveOrder.bind(this)
   }

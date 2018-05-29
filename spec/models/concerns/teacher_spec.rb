@@ -442,13 +442,6 @@ describe User, type: :model do
       end
     end
 
-    describe '#referrer_code' do
-      let!(:referral_code) { teacher.referrer_user.referral_code }
-      it 'returns the appropriate referral code' do
-        expect(teacher.referrer_code).to be(referral_code)
-      end
-    end
-
     describe '#referral_code' do
       let!(:referral_code) { teacher.referrer_user.referral_code }
       it 'returns the appropriate referral code' do
