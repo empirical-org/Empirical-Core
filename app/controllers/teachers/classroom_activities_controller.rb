@@ -75,7 +75,7 @@ private
   end
 
   def mark_lesson_as_completed_url
-    "#{lesson.form_url}teach/class-lessons/#{lesson.uid}/mark_lesson_as_completed?&classroom_activity_id=#{@classroom_activity.id}"
+    "#{lesson.classification_form_url}teach/class-lessons/#{lesson.uid}/mark_lesson_as_completed?&classroom_activity_id=#{@classroom_activity.id}"
   end
 
   def current_milestone
@@ -96,9 +96,9 @@ private
 
   def lesson_url(lesson)
     if (ActivitySession.find_by(classroom_activity_id: @classroom_activity.id, state: 'started'))
-      "#{lesson.form_url}teach/class-lessons/#{lesson.uid}?&classroom_activity_id=#{@classroom_activity.id}"
+      "#{lesson.classification_form_url}teach/class-lessons/#{lesson.uid}?&classroom_activity_id=#{@classroom_activity.id}"
     else
-      "#{lesson.form_url}customize/#{lesson.uid}?&classroom_activity_id=#{@classroom_activity.id}"
+      "#{lesson.classification_form_url}customize/#{lesson.uid}?&classroom_activity_id=#{@classroom_activity.id}"
     end
   end
 
