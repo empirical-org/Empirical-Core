@@ -4,41 +4,8 @@ pipeline {
   stages {
     stage('start-postgres-docker') {
       steps {
-        sh 'ls -lh'
         echo "Starting postgres docker container..."
         sh 'docker run --name lms-testdb -d -p 5432:5432 postgres:10.1'
-      }
-    }
-    stage('build') {
-      agent {
-        dockerfile {
-          filename 'Dockerfile.build'
-          dir 'services/QuillJenkins/agents/QuillLMS'
-          args '-u root:sudo -v $HOME/workspace/myproject:/myproject'
-        }
-      }
-      steps {
-        echo "Beginning BUILD..."
-        script {
-          try {
-            sh 'rm -r Empirical-Core'
-          }
-          catch (exc) {
-            sh 'echo "Cloning..."' 
-          }
-        }
-
-        sh 'ls -lh'
-
-        sshagent (credentials: ['jenkins-ssh']) {
-          echo "Adding github.com to list of known hosts"
-          sh 'ssh-keyscan -H github.com >> ~/.ssh/known_hosts'
-          echo "Cloning repository..."
-          sh 'git clone git@github.com:empirical-org/Empirical-Core.git'
-        }
-        echo "Stashing the LMS..."
-        stash includes: 'Empirical-Core/services/QuillLMS/', name: 'lms_stash'
-        echo "Build successful!"
       }
     }
     stage('test') {
@@ -51,8 +18,7 @@ pipeline {
       }
       steps {
         echo "Beginnning TEST..."
-        unstash 'lms_stash'
-        dir('Empirical-Core/services/QuillLMS') {
+        dir('services/QuillLMS') {
           echo 'Installing Bundle...'
           sh 'bundle install'
 
