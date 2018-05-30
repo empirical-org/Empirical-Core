@@ -1,26 +1,4 @@
 <div class='container'>
-  <article class='simple-rounded-box cms-container'>
-    <%= link_to 'School Directory', cms_schools_path %> > <%= link_to @school.name, cms_school_path(@school.id) %> > Edit Subscription
-    <br /><br />
-    <h2>Edit Subscription: <%= @school.name %></h2>
-    <br />
-    <div class='cms-form'>
-      <%= form_tag update_subscription_cms_school_path(params[:id]) do %>
-        <div class='cms-form-row'>
-          <%= label_tag 'premium_status', 'Premium Status' %>
-          <%= select_tag 'premium_status', options_for_select(@school_premium_types, @account_type), include_blank: true, autocomplete: 'off' %>
-        </div>
-
-        <div class='cms-form-row'>
-          <%= label_tag 'expiration_date', 'Expiration Date' %>
-          <%= select_date @expiration_date, prefix: :expiration_date, autocomplete: 'off' %>
-        </div>
-
-        <div class='cms-submit-row'>
-          <%= submit_tag 'Save' %><br /><br />
-          <%= link_to 'Cancel', cms_school_path(@school.id)  %>
-        </div>
-      <% end %>
-    </div>
-  </article>
+  <%= react_component('SubscriptionApp', props: {view: 'edit', school: @school, subscription: @subscription, premiumTypes: @premium_types,
+  promoExpiration: @promo_expiration_date, subscriptionPaymentMethods: @subscription_payment_methods, purchaserEmail: @purchaser_email, schoolsUsers: @schools_users })%>
 </div>

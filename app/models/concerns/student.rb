@@ -7,7 +7,6 @@ module Student
     has_many :students_classrooms, foreign_key: 'student_id', dependent: :destroy, class_name: "StudentsClassrooms"
 
     has_many :classrooms, through: :students_classrooms, source: :classroom, inverse_of: :students, class_name: "Classroom"
-    # has_many :activities, through: :classrooms
     has_many :activity_sessions, dependent: :destroy
     has_many :assigned_activities, through: :classrooms, source: :activities
     has_many :started_activities, through: :activity_sessions, source: :activity

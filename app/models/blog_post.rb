@@ -1,10 +1,19 @@
 class BlogPost < ActiveRecord::Base
-  TOPICS = ['Case Studies', 'Teacher Stories', 'Webinars', 'Teacher Materials', 'Education Research']
-  TOPIC_SLUGS = TOPICS.map { |topic| topic.downcase.gsub(' ','_') }
+  TOPICS = ['Getting Started', 'Teacher Stories', 'Writing Instruction Research', 'Announcements', 'Press', 'Case Studies', 'Teacher Materials', 'Best Practices', 'Support', 'Webinars', 'Twitter Love']
+  TOPIC_SLUGS = TOPICS.map { |topic| topic.downcase.gsub(' ','-') }
 
-  before_create :generate_slug
+  before_create :generate_slug, :set_order_number
 
   belongs_to :author
+  has_many :blog_post_user_ratings
+  after_save :add_published_at
+
+  def set_order_number
+    if self.order_number.nil?
+      self.order_number =  BlogPost.where(topic: self.topic).count
+    end
+  end
+
 
   def increment_read_count
     self.read_count += 1
@@ -12,15 +21,32 @@ class BlogPost < ActiveRecord::Base
   end
 
   def path
-    '/teacher_resources/' + self.slug
+    '/teacher-center/' + self.slug
   end
 
   def topic_path
-    '/teacher_resources/topic/' + self.topic_slug
+    '/teacher-center/topic/' + self.topic_slug
   end
 
   def topic_slug
     self.topic.downcase.gsub(' ', '_')
+  end
+
+  def can_be_accessed_by(user)
+    return true unless self.premium
+    return true if self.premium && user&.is_premium?
+    false
+  end
+
+  def average_rating
+    ratings = self.blog_post_user_ratings.pluck(:rating)
+    return (ratings.sum / ratings.size).round(2) if ratings.any?
+  end
+
+  def add_published_at
+    if !self.draft && !self.published_at
+      self.update(published_at: DateTime.now)
+    end
   end
 
   private

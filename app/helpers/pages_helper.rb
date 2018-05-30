@@ -11,7 +11,7 @@ module PagesHelper
 		topics_actions = ['index']
 		faq_actions = ['faq']
 		media_kit_actions = ['media_kit']
-		getting_started_actions = ['teacher_resources']
+		getting_started_actions = ['teacher-center']
 		media_actions = ['news', 'press', 'blog_posts']
 		if tabname == "about"
 			about_actions.include?(action_name) ? 'active' : ''
@@ -25,7 +25,7 @@ module PagesHelper
 			media_actions.include?(action_name) ? 'active' : ''
 		elsif tabname == "team"
 			team_actions.include?(action_name) ? 'active' : ''
-		elsif tabname == 'getting_started'
+		elsif tabname == 'getting-started'
 			# TODO: revert this when we launch front end of knowlege center
 			action_name == 'temporarily_render_old_teacher_resources' ? 'active' : ''
 		elsif tabname == 'news'

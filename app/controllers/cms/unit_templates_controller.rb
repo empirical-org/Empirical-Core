@@ -1,5 +1,4 @@
-class Cms::UnitTemplatesController < ApplicationController
-  before_filter :staff!
+class Cms::UnitTemplatesController < Cms::CmsController
   before_action :set_unit_template, only: [:update, :destroy]
 
   def index
@@ -12,10 +11,6 @@ class Cms::UnitTemplatesController < ApplicationController
   end
 
   def create
-    attributes = unit_template_params
-
-    attributes.delete(:authenticity_token)
-
     @unit_template = UnitTemplate.new(unit_template_params)
     if @unit_template.save!
       render json: @unit_template

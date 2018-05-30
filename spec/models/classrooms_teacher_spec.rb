@@ -6,6 +6,23 @@ RSpec.describe ClassroomsTeacher, type: :model, redis: :true do
   let(:classrooms_teacher_with_null_classroom_id) { build(:classrooms_teacher, classroom_id: nil) }
   let(:classrooms_teacher) { build(:classrooms_teacher) }
 
+  it { should belong_to(:user) }
+  it { should belong_to(:classroom) }
+
+  it { is_expected.to callback(:delete_classroom_minis_cache_for_each_teacher_of_this_classroom).after(:create) }
+  it { is_expected.to callback(:reset_lessons_cache_for_teacher).after(:create) }
+  it { is_expected.to callback(:delete_classroom_minis_cache_for_each_teacher_of_this_classroom).before(:destroy) }
+  it { is_expected.to callback(:reset_lessons_cache_for_teacher).before(:destroy) }
+  it { is_expected.to callback(:trigger_analytics_events_for_classroom_creation).after(:commit).on(:create) }
+
+  describe 'teacher' do
+    let(:teacher) { create(:classrooms_teacher) }
+
+    it 'should return the associated user' do
+      expect(teacher.teacher).to eq(teacher.user)
+    end
+  end
+
   describe 'validations' do
 
     it 'should prevent saving arbitrary role' do
@@ -21,40 +38,25 @@ RSpec.describe ClassroomsTeacher, type: :model, redis: :true do
     end
   end
 
-  # describe 'callbacks' do
-  #   let(:classroom) { create(:classroom, :with_no_teacher) }
-  #   let(:teacher) { create(:teacher) }
-  #   let(:classrooms_teacher) { build(:classrooms_teacher,
-  #     classroom_id: classroom.id,
-  #     user_id: teacher.id
-  #   )}
-  #   # it 'should trigger_analytics_events_for_classroom_creation on create commit' do
-  #   #   current_jobs = ClassroomCreationWorker.jobs.size
-  #   #   classrooms_teacher.save!
-  #   #   expect(ClassroomCreationWorker.jobs.size).to eq(current_jobs + 1)
-  #   # end
-  #
-  #   it 'should delete_classroom_minis_cache on create' do
-  #     $redis.set("user_id:#{teacher.id}_classroom_minis", {something: 'something'})
-  #     classrooms_teacher.save
-  #     expect($redis.get("user_id:#{teacher.id}_classroom_minis")).to eq nil
-  #   end
-  # end
+  describe 'callbacks' do
+    let(:classrooms_teacher) { build(:classrooms_teacher) }
+    let(:teacher) { classrooms_teacher.teacher }
 
-  describe 'associations' do
-    let(:classroom) { create(:classroom, :with_no_teacher) }
-    let(:teacher) { create(:teacher) }
-    let(:classrooms_teacher) { create(:classrooms_teacher,
-      classroom_id: classroom.id,
-      user_id: teacher.id
-    )}
-
-    it 'should get the right teacher' do
-      expect(classrooms_teacher.teacher).to eq(teacher)
+    it 'should trigger_analytics_events_for_classroom_creation on create commit' do
+      expect{ create(:classrooms_teacher).run_callbacks(:commit) }.to change(ClassroomCreationWorker.jobs, :size).by 1
     end
 
-    it 'should get the right classroom' do
-      expect(classrooms_teacher.classroom).to eq(classroom)
+    it 'should find or create checkbox' do
+      expect(classrooms_teacher).to receive(:find_or_create_checkbox)
+      classrooms_teacher.save
+      classrooms_teacher.run_callbacks(:commit)
+    end
+
+    it 'should delete_classroom_minis_cache on create' do
+      $redis.set("user_id:#{teacher.id}_classroom_minis", {something: 'something'})
+      classrooms_teacher.save
+      expect($redis.get("user_id:#{teacher.id}_classroom_minis")).to eq nil
     end
   end
+
 end

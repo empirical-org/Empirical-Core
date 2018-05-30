@@ -2,6 +2,21 @@ require 'rails_helper'
 
 describe Activity, type: :model, redis: :true do
 
+  it { should have_and_belong_to_many(:unit_templates) }
+  it { should belong_to(:classification).class_name("ActivityClassification") }
+  it { should belong_to(:topic) }
+  it { should have_one(:section).through(:topic) }
+  it { should belong_to(:follow_up_activity).class_name("Activity").with_foreign_key("follow_up_activity_id") }
+  it { should have_many(:classroom_activities).dependent(:destroy) }
+  it { should have_many(:classrooms).through(:classroom_activities) }
+  it { should have_many(:units).through(:classroom_activities) }
+  it { should have_many(:activity_category_activities).dependent(:destroy) }
+  it { should have_many(:activity_categories).through(:activity_category_activities) }
+
+  it { is_expected.to callback(:flag_as_beta).before(:create).unless(:flags?) }
+
+  it { should delegate_method(:form_url).to(:classification) }
+
   let!(:activity){ build(:activity) }
 
   describe 'validations' do
@@ -164,7 +179,6 @@ describe Activity, type: :model, redis: :true do
 
     end
 
-
   end
 
   describe "can behave like a flagged model" do
@@ -184,12 +198,55 @@ describe Activity, type: :model, redis: :true do
   end
 
   describe "#set_activity_search_cache" do
-    let!(:cache_activity){ create(:activity, flag: "production") }
-    xit 'sets the default_activity_search for the cache' do
-      $redis.flushdb
+    let!(:cache_activity) { create(:activity, :production) }
+
+    it 'sets the default_activity_search for the cache' do
+      $redis.redis.flushdb
       Activity.set_activity_search_cache
-      
       expect(JSON.parse($redis.get('default_activity_search'))['activities'].first['uid']).to eq(cache_activity.uid)
+    end
+  end
+
+  describe 'diagnositic_activit_ids' do
+    it 'should have the correct values' do
+      expect(Activity::DIAGNOSTIC_ACTIVITY_IDS).to eq([413, 447, 602])
+    end
+  end
+
+  describe '#topic_uid =' do
+    let(:activity) { create(:activity) }
+    let(:topic) { create(:topic) }
+
+    it 'should set the topic_uid' do
+      activity.topic_uid = topic.uid
+      expect(activity.topic_id).to eq(topic.id)
+    end
+  end
+
+  describe '#activity_classification_uids=' do
+    let(:activity) { create(:activity) }
+    let(:classification) { create(:activity_classification) }
+
+    it 'should set the activity_classification_uid' do
+      activity.activity_classification_uid= classification.uid
+      expect(activity.activity_classification_id).to eq(classification.id)
+    end
+  end
+
+  describe 'user scope' do
+    it 'should return the correct scope for the correct flag' do
+      expect(Activity.user_scope('alpha')).to eq(Activity.alpha_user)
+      expect(Activity.user_scope('beta')).to eq(Activity.beta_user)
+      expect(Activity.user_scope('anything')).to eq(Activity.production)
+    end
+  end
+
+  describe '#clear_activity_search_cache' do
+    let(:activity) { create(:activity) }
+
+    it 'should call clear_activity_search_cache' do
+      expect(Activity).to receive(:clear_activity_search_cache)
+      activity.clear_activity_search_cache
     end
   end
 

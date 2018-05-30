@@ -1,0 +1,26 @@
+import React from 'react';
+/* THIS FILE MAY BE AN UNUSED DUPLICATE */
+const SubnavTabs = () => {
+  return(
+    <div className="tab-subnavigation-wrapper class-subnav">
+      <div className="container">
+        <ul>
+          <li>
+            <a href="/teachers/admin_dashboard">Admin Dashboard</a>
+          </li>
+          <li>
+            <a href="/teachers/admin_dashboard/district_activity_scores">District Activity Scores</a>
+          </li>
+          <li>
+            <a href="/teachers/admin_dashboard/district_concept_reports">District Concept Reports</a>
+          </li>
+          <li>
+            <a href="/teachers/admin_dashboard/district_standards_reports">District Standards Reports</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  );
+};
+
+export default SubnavTabs;

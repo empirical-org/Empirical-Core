@@ -1,0 +1,46 @@
+<div id="learning-tools" class="navbar-tooltip-trigger <%= active_tab == 'Learning Tools' ? 'active' : '' %>" tabindex="1">
+  <span>Learning Tools</span>
+  <div class="navbar-tooltip">
+    <i class="fa fa-caret-up"></i>
+    <%= render 'navbar/tooltip_link',
+      text: 'Quill Connect',
+      subtext: 'Combine Sentences',
+      hover_image_src: 'https://assets.quill.org/images/navbar/navbar-connect-solid.svg',
+      image_src: 'https://assets.quill.org/images/navbar/navbar-connect-gradient.svg',
+      image_id: 'connect-img',
+      link: '/tools/connect'
+    %>
+    <%= render 'navbar/tooltip_link',
+      text: 'Quill Lessons',
+      subtext: 'Teacher-Led Group Lessons',
+      hover_image_src: 'https://assets.quill.org/images/navbar/navbar-lessons-solid.svg',
+      image_src: 'https://assets.quill.org/images/navbar/navbar-lessons-gradient.svg',
+      image_id: 'lessons-img',
+      link: '/tools/lessons'
+    %>
+    <%= render 'navbar/tooltip_link',
+      text: 'Quill Diagnostic',
+      subtext: 'Identify Learning Gaps',
+      hover_image_src: 'https://assets.quill.org/images/navbar/navbar-diagnostic-solid.svg',
+      image_src: 'https://assets.quill.org/images/navbar/navbar-diagnostic-gradient.svg',
+      image_id: 'diagnostic-img',
+      link: '/tools/diagnostic'
+    %>
+    <%= render 'navbar/tooltip_link',
+      text: 'Quill Proofreader',
+      subtext: 'Fix Errors in Passages',
+      hover_image_src: 'https://assets.quill.org/images/navbar/navbar-proofreader-solid.svg',
+      image_src: 'https://assets.quill.org/images/navbar/navbar-proofreader-gradient.svg',
+      image_id: 'proofreader-img',
+      link: '/tools/proofreader'
+    %>
+    <%= render 'navbar/tooltip_link',
+      text: 'Quill Grammar',
+      subtext: 'Practice Basic Mechanics',
+      hover_image_src: 'https://assets.quill.org/images/navbar/navbar-grammar-solid.svg',
+      image_src: 'https://assets.quill.org/images/navbar/navbar-grammar-gradient.svg',
+      image_id: 'grammar-img',
+      link: '/tools/grammar'
+    %>
+  </div>
+</div>

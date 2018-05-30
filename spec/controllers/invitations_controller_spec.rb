@@ -8,7 +8,7 @@ describe InvitationsController, type: :controller do
   describe '#destroy_pending_invitations_to_specific_invitee' do
     context 'user is signed in' do
       before do
-        session[:user_id] = teacher
+        session[:user_id] = teacher.id
       end
 
       context 'delete' do
@@ -24,7 +24,7 @@ describe InvitationsController, type: :controller do
   describe '#destroy_pending_invitations_from_specific_inviter' do
     context 'user is signed in' do
       before do
-        session[:user_id] = invited_teacher
+        session[:user_id] = invited_teacher.id
       end
 
       context 'delete' do

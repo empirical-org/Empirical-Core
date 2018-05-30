@@ -1,7 +1,7 @@
 import $ from 'jquery';
 import firebase from 'firebase';
 
-if (process.env.NODE_ENV === 'development' || process.env.FIREBASE_API_KEY) {
+if (process.env.RAILS_ENV === 'development' || process.env.FIREBASE_API_KEY) {
   const connectConfig = {
     apiKey: process.env.FIREBASE_API_KEY,
     authDomain: process.env.FIREBASE_AUTH_DOMAIN,

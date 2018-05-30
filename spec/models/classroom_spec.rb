@@ -2,73 +2,25 @@ require 'rails_helper'
 
 describe Classroom, type: :model do
 
+  it { should validate_uniqueness_of(:code) }
+  it { should validate_presence_of(:name) }
+
+  it { should have_many(:classroom_activities) }
+  it { should have_many(:activities).through(:classroom_activities) }
+  it { should have_many(:units).through(:classroom_activities) }
+  it { should have_many(:activity_sessions).through(:classroom_activities) }
+  #check if the code is correct as assign activities model does not exist
+  #it { should have_many(:sections).through(:assign_activities) }
+  it { should have_many(:coteacher_classroom_invitations) }
+  it { should have_many(:students_classrooms).with_foreign_key('classroom_id').dependent(:destroy).class_name("StudentsClassrooms") }
+  it { should have_many(:students).through(:students_classrooms).source(:student).with_foreign_key('classroom_id').inverse_of(:classrooms).class_name("User") }
+  it { should have_many(:classrooms_teachers).with_foreign_key('classroom_id') }
+  it { should have_many(:teachers).through(:classrooms_teachers).source(:user) }
+
+  it { is_expected.to callback(:hide_appropriate_classroom_activities).after(:commit) }
+
   let(:classroom) { build(:classroom) }
-  let(:teacher) { create(:teacher)}
-
-  context 'validations' do
-    it 'must have a name' do
-      classroom = build(:classroom, name: nil)
-      expect(classroom.save).to be(false)
-    end
-
-    it "must generate a unique code" do
-      classroom = create(:classroom)
-      classroom_with_non_unique_code = build(:classroom, code: classroom.code)
-      expect(classroom_with_non_unique_code.save).to be(false)
-    end
-  end
-
-  describe "#with_students" do
-    describe "the classrooms attributes with a students key value as well" do
-      it "returns an empty students value if there are no students in the classroom" do
-        expect(classroom.with_students[:students]).to be_empty
-      end
-
-      it "returns the students in the classroom if they exist" do
-        classroom = create(:classroom_with_a_couple_students)
-        expect(classroom.with_students[:students].length).to eq(2)
-      end
-
-    end
-  end
-
-  describe "relations with teachers" do
-    let!(:classroom) { create(:classroom) }
-    let!(:classroom_with_no_teacher) {create(:classroom, :with_no_teacher)}
-    let!(:classroom_with_a_couple_coteachers) {create(:classroom, :with_a_couple_coteachers)}
-    # context "#classrooms_teachers" do
-    #   it "returns an array of classrooms_teacher objects if there are any" do
-    #     byebug
-    #     expect(classroom.classrooms_teachers.length).to eq(1)
-    #   end
-    #   it "returns an empty array if there are no associated classrooms_teachers" do
-    #     expect(classroom_with_no_teacher.classrooms_teachers).to eq([])
-    #   end
-    # end
-
-    context "#owner" do
-      it "returns the user who owns the classroom" do
-        expect(classroom.owner).to eq(ClassroomsTeacher.find_by_role_and_classroom_id('owner', classroom.id).teacher)
-      end
-    end
-
-    context "#coteachers" do
-      let!(:classroom_with_coteacher) {create(:classroom, :with_coteacher)}
-      it "returns all users who coteach the classroom (but do not own it)" do
-        single_coteacher_arr = [ClassroomsTeacher.find_by(classroom: classroom_with_coteacher, role: 'coteacher').teacher]
-        expect(classroom_with_coteacher.coteachers).to eq(single_coteacher_arr)
-        couple_coteacher_arr = ClassroomsTeacher.where(classroom: classroom_with_a_couple_coteachers, role: 'coteacher').map(&:teacher).flatten
-        expect(classroom_with_a_couple_coteachers.coteachers).to eq(couple_coteacher_arr)
-      end
-    end
-
-    context "#teachers" do
-      it "returns all users who teach the class (as owners or coteachers)" do
-        classroom_teachers = ClassroomsTeacher.where(classroom: classroom_with_a_couple_coteachers).map(&:teacher)
-        expect(classroom_with_a_couple_coteachers.teachers).to match_array(classroom_teachers)
-      end
-    end
-  end
+  let(:teacher) { create(:teacher) }
 
   describe '#create_with_join' do
 
@@ -92,6 +44,7 @@ describe Classroom, type: :model do
         expect(ClassroomsTeacher.last.role).to eq('owner')
       end
     end
+
     context 'when passed invalid classrooms data' do
       def invalid_classroom_attributes
         attributes = classroom.attributes
@@ -114,21 +67,111 @@ describe Classroom, type: :model do
 
   end
 
+  describe '#coteachers' do
+    let(:classroom) { build_stubbed(:classroom) }
+    let(:teacher) { double(:teacher) }
+    let(:user) { double(:user, teacher: teacher) }
+    let(:students) { double(:students, where: [user]) }
+    let(:classrooms_teachers) { double(:classrooms_teachers, includes: students) }
 
-
-
-  describe "#classroom_activity_for" do
     before do
-      @activity=Activity.create!()
+      allow(classroom).to receive(:classrooms_teachers).and_return(classrooms_teachers)
     end
 
-  	it "returns nil when none associated" do
-  		expect(classroom.classroom_activity_for(@activity)).to be_nil
-  	end
+    it 'should return the teachers' do
+      expect(classroom.coteachers).to include(teacher)
+    end
+  end
 
-    it "returns a classroom activity when it's associated" do
+  describe '#unique_topic_count' do
+    let(:classroom) { create(:classroom) }
+    let(:activity_session) { double(:activity_session, topic_count: 10) }
+
+    context 'when unique topic count array exists' do
+      before do
+        allow(classroom).to receive(:unique_topic_count_array).and_return([activity_session])
+      end
+
+      it 'should return the topic count for the first memeber of the array' do
+        expect(classroom.unique_topic_count).to eq(10)
+      end
     end
 
+    context 'when unique topic count array does not exist' do
+      before do
+        allow(classroom).to receive(:unique_topic_count_array).and_return([])
+      end
+
+      it 'should return the topic count for the first memeber of the array' do
+        expect(classroom.unique_topic_count).to eq(nil)
+      end
+    end
+  end
+
+  describe '#unique_topic_count_array' do
+    let(:classroom) { create(:classroom) }
+
+    before do
+      allow(ProgressReports::Standards::ActivitySession).to receive(:new).and_call_original
+    end
+
+    it 'should create a activity session progress report' do
+      expect(ProgressReports::Standards::ActivitySession).to receive(:new).with(classroom.owner)
+      classroom.unique_topic_count_array
+    end
+  end
+
+  describe '#archived_classrooms_manager' do
+    let(:classroom) { create(:classroom) }
+
+    before do
+      allow(classroom).to receive(:coteachers).and_return([])
+    end
+
+    it 'should return the correct hash' do
+      expect(classroom.archived_classrooms_manager).to eq({
+        createdDate: classroom.created_at.strftime("%m/%d/%Y"),
+        className: classroom.name,
+        id: classroom.id,
+        studentCount: classroom.students.count,
+        classcode: classroom.code,
+        ownerName: classroom.owner.name,
+        from_google: !!classroom.google_classroom_id,
+        coteachers: []
+        })
+    end
+  end
+
+  describe '#hide_appropriate_classroom_activities' do
+    let(:classroom) { create(:classroom) }
+
+    it 'should call hide_all_classroom_activities if classroom not visible' do
+      classroom.visible = false
+      expect(classroom).to receive(:hide_all_classroom_activities)
+      classroom.hide_appropriate_classroom_activities
+    end
+
+    it 'should not do anything if classroom visible' do
+      classroom.visible = true
+      expect(classroom).to_not receive(:hide_all_classroom_activities)
+      classroom.hide_appropriate_classroom_activities
+    end
+  end
+
+  describe '#with_student_ids' do
+    let(:classroom) { create(:classroom) }
+
+    it 'should return the attributes with student ids' do
+      expect(classroom.with_students_ids).to eq(classroom.attributes.merge({student_ids: classroom.students.ids}))
+    end
+  end
+
+  describe '#with_students' do
+    let(:classroom) { create(:classroom) }
+
+    it 'should return the attributes with the students' do
+      expect(classroom.with_students).to eq(classroom.attributes.merge({students: classroom.students}))
+    end
   end
 
   describe "#generate_code" do

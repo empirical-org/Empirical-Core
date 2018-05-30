@@ -7,6 +7,27 @@ describe School, type: :model do
   let!(:bk_teacher_colleague) { create(:teacher, school: bk_school) }
   let!(:queens_teacher) { create(:teacher, school: queens_school) }
 
+  describe('#subscription') do
+      let!(:subscription) { create(:subscription, expiration: Date.tomorrow) }
+      let!(:school_subscription) {create(:school_subscription, school: bk_school, subscription: subscription)}
+
+    it "returns a subscription if a valid one exists" do
+      expect(bk_school.subscription).to eq(subscription)
+    end
+
+    it "returns the subscription with the latest expiration date multiple valid ones exists" do
+      later_subscription = create(:subscription, expiration: Date.today + 365)
+      later_user_sub = create(:school_subscription, school: bk_school, subscription: later_subscription)
+      expect(bk_school.reload.subscription).to eq(later_subscription)
+    end
+
+    it "returns nil if a valid subscription does not exist" do
+      subscription.update(expiration: Date.yesterday)
+      expect(bk_school.reload.subscription).to eq(nil)
+    end
+  end
+
+
   describe 'validations' do
     before do
       @school = School.new
@@ -55,19 +76,4 @@ describe School, type: :model do
 
   end
 
-
-  describe '#grant_premium_to_users' do
-
-    it "gives premium to all of a schools users" do
-      expect(bk_school.users.map(&:subscription).flatten.any?).to eq(false)
-      bk_school.grant_premium_to_users
-      expect(bk_school.users.reload.map(&:subscription).flatten.count).to eq(bk_school.users.count)
-    end
-
-    it 'does not give premium to users of other schools' do
-      bk_school.grant_premium_to_users
-      expect(queens_school.users.map(&:subscription).flatten.any?).to eq(false)
-    end
-
-  end
 end

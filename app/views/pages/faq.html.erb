@@ -1,22 +1,18 @@
-<% if current_user %>
-  <%= render partial: 'teachers/shared/scorebook_tabs' %>
-<% else %>
-  <% @active_tab = 'FAQ' %>
-  <%= render partial: 'pages/shared/discover_tabs', active_tab: @active_tab %>
-<% end %>
+<% @active_tab = 'FAQ' %>
+<%= render partial: 'pages/shared/teacher_center_navbar', active_tab: @active_tab %>
 
 <div class="container pages-container pages-faq">
 
   <header>
     <h1>Frequently Asked Questions</h1>
-    <h2>Everything you need to know about Quill's pedgagogy and use in the classroom</h2>
-    <p>Still have a question? <a href='https://support.quill.org'>Head to our support page</a></p>
+    <h2>Everything you need to know about Quill's pedagogy and use in the classroom</h2>
+    <p>Still have a question? <a href='https://support.quill.org'>Visit our support page</a></p>
   </header>
 
   <div class='container-946'>
     <section class='faq-about-quill'>
-      <p><span class='faq-big-quill'>Quill</span> is a nonprofit, educational technology organization dedicated to
-      improving student writing. Quill provides over 300 research-based writing,
+      <p><span class='faq-big-quill'>Quill is a nonprofit, educational technology organization dedicated to
+        improving student writing.</span> Quill provides over 300 research-based writing,
       grammar, and proofreading activities organized by the Common Core standards.
       Our activities were built by a small team of language educators. We took
       each topic from the Common Core language section, and we researched how
@@ -30,10 +26,10 @@
       <h2><%= section[:title] %></h2>
       <section class='faq-accordion'>
         <% section[:faqs].each do |faq| %>
-          <div class='question'>
+          <div class='question' onClick="toggleAccordion(event)">
             <div class='question-meta'>
               <h3><%= faq[:question] %></h3>
-              <a onClick="toggleAccordion(event)">Expand</a>
+              <a>Expand</a>
             </div>
             <div class='question-answer'>
               <%= raw(faq[:answer]) %>
@@ -51,13 +47,14 @@
 <script>
   function toggleAccordion(e) {
     e.preventDefault();
-    var display = 'block';
-    var text = 'Collapse';
-    if(e.target.innerText === 'Collapse') {
+    let display = 'block';
+    let text = 'Collapse';
+    const expandOrCollapseLink = e.currentTarget.getElementsByClassName("question-meta")[0].getElementsByTagName('a')[0]
+    if(expandOrCollapseLink.innerText === 'Collapse') {
       display = 'none';
       text = 'Expand';
     }
     e.target.parentElement.nextElementSibling.style.display = display;
-    e.target.innerText = text;
+    expandOrCollapseLink.innerText = text;
   }
 </script>

@@ -7,27 +7,37 @@
   }
 </script>
 <div class='cms-form'>
-  <%= form_for [:cms, @user] do |f| %>
+  <% url =  @with_school ? "/cms/users/create_with_school/#{@school.id}" : "/cms/users/#{@user.id}" %>
+  <%= form_for @user, url: url do |f| %>
     <div class='cms-form-row'>
       <%= f.label :name %>
+      <span>First and Last</span>
       <%= f.text_field :name, autocomplete: 'off' %>
     </div>
     <div class='cms-form-row'>
       <%= f.label :email %>
-      <%= f.text_field :email, autocomplete: 'off', readonly: true %>
-      <a href='#!' onclick="unlockField('user_email')">Edit</a>
+      <%= f.text_field :email, autocomplete: 'off', readonly: !@with_school %>
+      <% if !@with_school %>
+        <a href='#!' onclick="unlockField('user_email')">Edit</a>
+      <%end%>
     </div>
     <div class='cms-form-row'>
       <%= f.label :username %>
       <%= f.text_field :username, autocomplete: 'off' %>
     </div>
     <div class='cms-form-row'>
-      <%= f.label :role %>
-      <%= f.select :role, [['student', 'student'], ['teacher', 'teacher'], ['admin', 'admin'], ['staff', 'staff']], autocomplete: 'off' %>
+      <%= f.label :title %>
+      <%= f.text_field :title, autocomplete: 'off' %>
     </div>
     <div class='cms-form-row'>
-      <%= f.label :flag %>
-      <%= f.select :flag, [['beta', 'beta'], ['alpha', 'alpha']], autocomplete: 'off', include_blank: true %>
+      <%= f.label :role %>
+      <%= f.select :role, [['student', 'student'], ['teacher', 'teacher'], ['staff', 'staff']], autocomplete: 'off' %>
+    </div>
+    <div class='cms-form-row'>
+      <% @valid_flags.each do |flag| -%>
+        <%= f.label flag.to_sym %>
+        <%=check_box('user', "flags", {multiple: true, checked: @user.flags.include?(flag) || nil}, flag.to_sym, )%>
+      <% end -%>
     </div>
     <div class='cms-form-row'>
       <%= f.label :classcode %>
@@ -35,13 +45,17 @@
     </div>
     <div class='cms-form-row'>
       <%= f.label :password %>
-      <%= f.password_field :password, autocomplete: 'new-password', readonly: true %>
-      <a href='#!' onclick="unlockField('user_password')">Edit</a>
+      <%= f.password_field :password, autocomplete: 'new-password', readonly: !@with_school %>
+      <% if !@with_school %>
+        <a href='#!' onclick="unlockField('user_password')">Edit</a>
+      <%end%>
     </div>
     <div class='cms-form-row'>
       <%= f.label :password_confirmation %>
-      <%= f.password_field :password_confirmation, autocomplete: 'new-password', readonly: true %>
-      <a href='#!' onclick="unlockField('user_password_confirmation')">Edit</a>
+      <%= f.password_field :password_confirmation, autocomplete: 'new-password', readonly: !@with_school %>
+      <% if !@with_school %>
+        <a href='#!' onclick="unlockField('user_password_confirmation')">Edit</a>
+      <%end%>
     </div>
     <div class='cms-submit-row'>
       <%= f.submit 'Save', class: 'button-green' %>
