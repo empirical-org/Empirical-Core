@@ -189,7 +189,6 @@ protected
       #{order_by_query_string}
       #{pagination_query_string}
     ").to_a
-
   end
 
   def where_query_string_builder
