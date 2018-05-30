@@ -175,3 +175,27 @@
 		width: 100%;
 	}
 }
+
+@media (max-width: 767px) {
+	.pages-stats {
+		overflow-x: hidden;
+		height: 120% !important;
+		.container.pages-container {
+			iframe{
+				width:225% !important;
+			  zoom: 2.0;
+			  -webkit-transform: scale(0.45);
+			  -webkit-transform-origin: 0 0;
+				margin-bottom: 0px;
+				padding-bottom: 0px;
+				z-index: 5;
+			}
+		}
+	}
+	#mission {
+		padding-right: 0%;
+		img {
+			width: 95%;
+		}
+	}
+}
