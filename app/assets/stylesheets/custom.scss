@@ -1,5 +1,9 @@
 @import url(//fonts.googleapis.com/css?family=Open+Sans:700,400,300,600);
 
+.page {
+  min-height: 100vh;
+}
+
 .flash-notice {
   color: red;
 }
@@ -12,10 +16,6 @@
 
 .border-mixin {
   border: 1px solid #cecece;
-}
-
-.page-content-wrapper {
-  min-height: 100vh;
 }
 
 .section-mixin {

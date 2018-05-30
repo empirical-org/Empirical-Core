@@ -1,16 +1,15 @@
 <head>
   <% if Rails.env.development? %>
-    <title>[DEV] Quill.org &mdash; Interactive Writing and Grammar</title>
+    <title>[DEV] Quill.org &mdash; <%= @title || 'Interactive Writing and Grammar' %></title>
     <%= favicon_link_tag 'favicon-dev.ico' %>
   <% else %>
-    <title>Quill.org &mdash; Interactive Writing and Grammar</title>
+    <title>Quill.org &mdash; <%= @title || 'Interactive Writing and Grammar' %></title>
     <%= favicon_link_tag 'favicon.ico' %>
   <% end %>
 
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title><%= @title || "Free tools to make your students better writers." %></title>
   <meta property="og:type"               content="website" />
   <meta property="og:title"              content= "<%= @title || "Free tools to make your students better writers." %>" />
   <meta property="og:image"              content=<%= image_url('share/facebook.png') %> />
@@ -19,26 +18,19 @@
   <meta name="og:description" content="<%= @description || @content %>">
 
   <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+  <!-- <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/solid.js" integrity="sha384-+Ga2s7YBbhOD6nie0DzrZpJes+b2K1xkpKxTFFcx59QmVPaSA8c7pycsNaFwUK6l" crossorigin="anonymous"></script>
+  <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/fontawesome.js" integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG23c" crossorigin="anonymous"></script> -->
+
   <%= render partial: 'typekit' unless Rails.env.test? %>
-  <%= env_stylesheet_link_tag(static: 'application_static',
-                             hot: 'application_non_webpack',
-                             media: 'all',
-                             'data-turbolinks-track' => true) %>
+  <%= stylesheet_pack_tag('app') %>
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
-
- <!-- These do not use turbolinks, so no data-turbolinks-track -->
- <!-- This is to load the hot assets. -->
- <%= env_javascript_include_tag(hot: ['http://localhost:3500/vendor-bundle.js',
-                                      "http://localhost:3500/#{@js_file || 'app'}-bundle.js"],
-                                      ) %>
-
- <!-- These do use turbolinks -->
- <%= env_javascript_include_tag(static: @js_file || 'application_static',
-                                hot: 'application_non_webpack',
-                                'data-turbolinks-track' => true) %>
+  <%= javascript_pack_tag('vendor') %>
+  <%= javascript_pack_tag(@js_file || 'app') %>
   <%= csrf_meta_tags %>
-  <meta id='current-user-flag' property="flag" content=<%= current_user&.flag%> />
+  <meta id='current-user-testing-flag' property="flag" content=<%= current_user&.testing_flag%> />
+  <meta id='current-user-id' property="id" content=<%= current_user&.id%> />
   <meta id='current-user-is-premium?' property="is_premium?" content=<%= current_user&.is_premium?%> />
+  <meta id='current-user-email' property="email" content=<%= current_user&.email%> />
   <% unless Rails.env.test? %>
     <link href="//fonts.googleapis.com/css?family=Comfortaa:400,700" rel="stylesheet" type="text/css" />
   <% end %>

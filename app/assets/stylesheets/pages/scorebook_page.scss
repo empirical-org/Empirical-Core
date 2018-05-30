@@ -1,4 +1,5 @@
 #scorebook {
+	margin-bottom: 300px;
 	.section-content-wrapper {
 		padding-bottom: 25px;
 	}
@@ -30,8 +31,24 @@
 
 	.app-legend {
 		padding-top: 25px;
+		.icon {
+			cursor: pointer;
+		}
 		.title {
 			color: #717171;
+			margin-bottom: 6px;
+		}
+		.description {
+			color: #888888;
+		}
+		.icon-puzzle-embossed, .icon-flag-embossed, .icon-connect-embossed, .icon-lessons-embossed, .icon-diagnostic-embossed {
+			background-position: top;
+		}
+		.icon-wrapper {
+			margin-bottom: 3px;
+		}
+		.icons-description-wrapper {
+			margin-left: 5px;
 		}
 	}
 
@@ -67,7 +84,7 @@
 
 		.average-score {
 			color: #666666;
-			
+
 		}
 
 		a.activity-scores-link {

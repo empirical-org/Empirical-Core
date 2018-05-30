@@ -85,19 +85,17 @@ class Teachers::UnitsController < ApplicationController
 
   def select_lesson_with_activity_id
     activity_id = params[:activity_id].to_i
-    classroom_activities = ActiveRecord::Base.connection.execute("
-      SELECT classroom_activities.id from classroom_activities
-        LEFT JOIN classrooms_teachers ON classrooms_teachers.classroom_id = classroom_activities.classroom_id
-        WHERE classrooms_teachers.user_id = #{current_user.id.to_i}
-          AND classroom_activities.activity_id = #{activity_id}
-          AND classroom_activities.visible is TRUE").to_a
+    classroom_activities = lessons_with_current_user_and_activity
     if classroom_activities.length == 1
       ca_id = classroom_activities.first["id"]
-      lesson_uid = Activity.find(activity_id).uid
       redirect_to "/teachers/classroom_activities/#{ca_id}/launch_lesson/#{lesson_uid}"
     else
       redirect_to "/teachers/classrooms/activity_planner/lessons_for_activity/#{activity_id}"
     end
+  end
+
+  def lesson_uid
+    Activity.find(params[:activity_id].to_i).uid
   end
 
   def index
@@ -130,12 +128,16 @@ class Teachers::UnitsController < ApplicationController
     render json: {}
   end
 
-  def edit
-    unit = Unit.find(params[:id])
-    render json: LessonPlanner::UnitSerializer.new(unit, root: false)
-  end
-
   private
+
+  def lessons_with_current_user_and_activity
+    ActiveRecord::Base.connection.execute("
+      SELECT classroom_activities.id from classroom_activities
+        LEFT JOIN classrooms_teachers ON classrooms_teachers.classroom_id = classroom_activities.classroom_id
+        WHERE classrooms_teachers.user_id = #{current_user.id.to_i}
+          AND classroom_activities.activity_id = #{ActiveRecord::Base.sanitize(params[:activity_id])}
+          AND classroom_activities.visible is TRUE").to_a
+  end
 
   def unit_params
     params.require(:unit).permit(:id, :create, :name, classrooms: [:id, :all_students, student_ids: []], activities: [:id, :due_date])
@@ -205,7 +207,7 @@ class Teachers::UnitsController < ApplicationController
         INNER JOIN classroom_activities AS ca ON ca.unit_id = units.id
         INNER JOIN activities ON ca.activity_id = activities.id
         INNER JOIN classrooms ON ca.classroom_id = classrooms.id
-        INNER JOIN students_classrooms ON students_classrooms.classroom_id = classrooms.id
+        LEFT JOIN students_classrooms ON students_classrooms.classroom_id = classrooms.id AND students_classrooms.visible
         LEFT JOIN activity_sessions AS act_sesh ON act_sesh.classroom_activity_id = ca.id
         LEFT JOIN classrooms_teachers ON classrooms_teachers.classroom_id = classrooms.id
         JOIN users AS unit_owner ON unit_owner.id = units.user_id
@@ -213,7 +215,6 @@ class Teachers::UnitsController < ApplicationController
         AND classrooms.visible = true
         AND units.visible = true
         AND ca.visible = true
-        AND students_classrooms.visible = true
         #{lessons}
         GROUP BY units.name, units.created_at, ca.id, classrooms.name, classrooms.id, activities.name, activities.activity_classification_id, activities.id, activities.uid, unit_owner.name, unit_owner.id
         #{completed}

@@ -18,6 +18,8 @@ class Activity < ActiveRecord::Base
   before_create :flag_as_beta, unless: :flags?
   after_commit :clear_activity_search_cache
 
+  delegate :form_url, to: :classification, prefix: true
+
   scope :production, -> {
     where(<<-SQL, :production)
       activities.flags = '{}' OR ? = ANY (activities.flags)
@@ -131,15 +133,6 @@ class Activity < ActiveRecord::Base
       params[:uid] = uid if uid.present?
       @url.query_values = params
       fix_angular_fragment!
-    end
-  end
-
-  def homepage_path(path, classification)
-    case classification.app_name.to_sym
-    when :grammar
-      '/stories/homepage'
-    when :writer
-      '/'
     end
   end
 

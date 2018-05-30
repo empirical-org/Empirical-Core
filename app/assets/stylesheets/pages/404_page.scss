@@ -1,10 +1,131 @@
-// Used on 404 page
-#status_404 {
-  padding-bottom: 20px;
-}
-.status_404_button {
-  width: 200px;
-  margin: auto;
-  display: block;
-  margin-top: 27px;
+.four-oh-four {
+  color: #3b3b3b;
+  margin: 80px auto;
+  .content {
+    display: flex;
+    justify-content: space-between;
+  }
+  .logo {
+    margin: 70px auto;
+    display: block;
+  }
+  .text {
+    max-width: 627px;
+    width: 100%;
+  }
+  .illustration {
+    padding-top: 30px;
+  }
+  .try-again {
+    font-weight: bold;
+  }
+  .dont-worry {
+    font-weight: bold;
+    color: #348fdf;
+  }
+  .contact-us {
+    font-size: 22px;
+  }
+  .return-time {
+    font-weight: bold;
+    font-size: 24px;
+  }
+  button, .learn-more {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    margin-top: 5px;
+    margin-bottom: 9px;
+    width: 220px;
+    height: 45px;
+    border-radius: 6px;
+    border: none;
+    background-color: #00c2a2;
+    font-size: 18px;
+    font-weight: 600;
+    color: #ffffff;
+  }
+  button:hover {
+    outline: none;
+  }
+
+  @media (max-width: 900px) {
+    .container {
+      display: flex;
+      flex-direction: column;
+    }
+    .text {
+      margin: auto;
+    }
+    .illustration {
+      display: none;
+    }
+  }
+
+  .text {
+    max-width: 486px;
+  }
+
+  img {
+    height: 300px;
+  }
+
+  h1 {
+    font-size: 24px;
+    font-weight: bold;
+    line-height: normal;
+    margin-bottom: 25px;
+  }
+
+  p {
+    font-size: 18px;
+  }
+
+  .description {
+    margin-bottom: 30px;
+  }
+
+  .cta-links {
+    display: flex;
+    align-items: center;
+    margin-bottom: 35px;
+  }
+
+  a {
+    font-size: 12px;
+    font-weight: 600;
+    color: #027360;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  .explore-homepage {
+    width: 188px;
+    height: 40px;
+    border-radius: 3px;
+    background-color: #00c2a2;
+    font-size: 16px;
+    display: flex;
+    font-weight: bold;
+    color: #ffffff;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .login-or-signup {
+    font-size: 14px;
+    margin-left: 20px;
+    a {
+      margin-bottom: 0px;
+      display: inline;
+      font-size: 14px;
+    }
+  }
+
+  .helpful-links {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
 }

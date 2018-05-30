@@ -65,11 +65,75 @@
 }
 
 .pages-activities {
-	ul.dropdown-menu {
-		margin-left: 15px;
+	margin-top: 40px;
+	h1 {
+		font-size: 30px;
+		color: #3b3b3b;
+		font-weight: bold;
+		margin-bottom: 9px;
 	}
-	.row.activity-description {
-		margin-top: 2% !important;
+	p {
+		font-size: 16px;
+		color: #666666;
+
+	}
+	.dropdown-container {
+		width: 200px;
+		height: 40px;
+		position: relative;
+		margin: 30px 0px;
+	}
+	.button-select {
+		border-radius: 6px;
+		background-color: #ffffff;
+		border: solid 1px #cecece;
+	}
+	ul.dropdown-menu {
+		position: absolute;
+		top: 40px;
+	}
+	h4 {
+		margin-bottom: 25px;
+    font-size: 18px;
+    font-weight: bold;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e9e9e9;
+    color: #3b3b3b;
+	}
+	.name {
+		font-size: 16px;
+		font-weight: 600;
+		color: #3b3b3b;
+		margin-bottom: 6px;
+	}
+	.topic {
+		margin-bottom: 20px;
+	}
+	.activity {
+		display: flex;
+		align-items: flex-start;
+		justify-content: space-between;
+		margin-bottom: 30px;
+		&:last-of-type {
+			margin-bottom: 50px;
+		}
+	}
+	.name-and-description {
+    flex: 3;
+    margin-right: 20px;
+	}
+	.activity-description {
+		color: #666666;
+		max-width: 600px;
+		width: 100%;
+	}
+	@media (max-width: 500px) {
+		.activity {
+			flex-direction: column;
+		}
+		.activity-link {
+			margin-top: 5px;
+		}
 	}
 }
 

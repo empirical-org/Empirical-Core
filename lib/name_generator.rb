@@ -1,15 +1,7 @@
 module NameGenerator
 
   def generate
-    "#{color}-#{animal}"
-  end
-
-  def animal
-    sample('animals.db')
-  end
-
-  def color
-    sample('colors.db')
+    "#{sample('noun_1.db')}-#{sample('noun_2.db')}"
   end
 
   extend self

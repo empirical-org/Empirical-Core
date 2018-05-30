@@ -197,6 +197,40 @@
     color: #e1e1e1;
     padding-bottom: 26px;
     border-bottom: 2px solid rgba(203, 203, 203, 0.5);
+    form {
+      max-width: 322px;
+      width: 100%;
+      position: relative;
+      margin-bottom: 0px;
+      .input {
+        display: flex;
+      }
+      .text {
+        max-width: 272px;
+        padding: 9px 12px 9px 30px;
+        width: 100%;
+        border-right: 0;
+        border-radius: 6px 0px 0px 6px;
+        border: none;
+        background-color: #4f4f4f;
+        color: #9a9a9a;
+      }
+      .fa-search {
+        color: #9a9a9a;
+        position: absolute;
+        left: 10px;
+        top: 11px;
+        font-size: 16px;
+      }
+      .search {
+        width: 79px;
+        background-color: #e1e1e1;
+        font-weight: bold;
+        border-radius: 0px 6px 6px 0px;
+        border: 0px;
+        color: #3b3b3b;
+      }
+    }
     div {
       a {
         margin-left: 14px;
@@ -219,6 +253,12 @@
         a {
         color: $white
         }
+      }
+    }
+    @media (max-width: 910px) {
+      flex-direction: column;
+      .pas-left, .pas-right {
+        margin-bottom: 20px;
       }
     }
 
@@ -245,6 +285,7 @@
       > img {
         flex: 1 1 auto;
         overflow-y: auto;
+        margin-right: 25px;
       }
     }
   }
@@ -253,8 +294,9 @@
     padding-left: 15px;
     padding-right: 15px;
   }
-  @media only screen and (max-width : 630px) {
+  @media only screen and (max-width : 650px) {
     padding-top: 25px;
+    text-align: center;
 
     .footer-navigation {
       flex-direction: column;

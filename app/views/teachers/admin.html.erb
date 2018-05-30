@@ -1,12 +1,11 @@
 <%= render partial: 'teachers/shared/scorebook_tabs' %>
-	<!-- Tab panes -->
-	<div class="tab-content">
-		<div class="tab-pane active" id="class-manager">
-			<%= render partial: 'teachers/admin/subnav' %>
-        <div id="admin-dashboard" data-id=<%=current_user.id %>>
-          <%= react_component('AdminDashboardApp', props: {id: current_user.id}) %>
-        </div>
-      </div>
+<div class="tab-content">
+  <div class="tab-pane active" id="class-manager">
+    <div id="admin-dashboard" data-id=<%=current_user.id %> >
+      <%= react_component('AdminDashboardApp', props: {id: current_user.id}) %>
     </div>
   </div>
 </div>
+
+
+

@@ -4,31 +4,25 @@ class ActivitySessionsController < ApplicationController
   before_action :activity_session_from_uid, only: [:result]
   before_action :activity_session_for_update, only: [:update]
   before_action :activity, only: [:play, :result]
-
   before_action :activity_session_authorize!, only: [:play, :result]
   before_action :activity_session_authorize_teacher!, only: [:concept_results]
   after_action  :update_student_last_active, only: [:play, :result]
 
   def play
     @module_url = @activity.module_url(@activity_session)
-    if @activity.activity_classification_id == 6
-      classroom_activity_id = @activity_session.classroom_activity_id
-      url = "#{ENV['FIREBASE_DATABASE_URL']}/v2/classroom_lesson_sessions/#{classroom_activity_id}/students.json"
-      options = {"#{@activity_session.uid}": current_user.name}
-      HTTParty.patch(url, body: options.to_json)
-    end
+    path_request_to_firebase if @activity.activity_classification_id == 6
     redirect_to(@module_url.to_s)
   end
 
   def result
     @activity = @activity_session
     @results  = @activity_session.parse_for_results
+    @classroom_id = @activity_session&.classroom_activity&.classroom_id
   end
 
   def anonymous
     @activity = Activity.find(params[:activity_id])
-    return redirect_to "#{ENV['DEFAULT_URL']}/preview_lesson/#{@activity.uid}" if @activity.classification.key == 'lessons'
-    redirect_to(@activity.anonymous_module_url.to_s)
+    redirect_to anonymous_return_url
   end
 
   private
@@ -42,6 +36,32 @@ class ActivitySessionsController < ApplicationController
 
   def activity_session_from_uid
     @activity_session ||= ActivitySession.unscoped.find_by_uid!(params[:uid])
+  end
+
+  def path_request_to_firebase
+    classroom_activity_id = @activity_session.classroom_activity_id
+    HTTParty.patch(
+        firebase_url_for(
+            classroom_activity_id
+        ),
+        body: firebase_json_request_body.to_json
+    )
+  end
+
+  def firebase_json_request_body
+    @options ||= {"#{@activity_session.uid}": current_user.name}
+  end
+
+  def firebase_url_for(classroom_activity_id)
+    @url ||= "#{ENV['FIREBASE_DATABASE_URL']}/v2/classroom_lesson_sessions/#{classroom_activity_id}/students.json"
+  end
+
+  def anonymous_return_url
+    if @activity.classification.key == "lessons"
+      "#{ENV['DEFAULT_URL']}/preview_lesson/#{@activity.uid}"
+    else
+      @activity.anonymous_module_url.to_s
+    end
   end
 
   def activity_session_for_update

@@ -247,7 +247,7 @@ class Recommendations
         activityPackId: 23,
         requirements: [
           {
-            concept_id: 'KvF_BYehx-U2Mk5oGbcjBw',
+            concept_id: 'o1yvrCpaYu0r-jqogv7PBw',
             count: 1,
             noIncorrect: true
           }

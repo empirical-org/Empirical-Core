@@ -42,7 +42,10 @@ class ClassroomsTeachersController < ApplicationController
   end
 
   def edit_info_for_specific_teacher(selected_teacher_id)
-    {is_coteacher: current_user.classrooms_i_own_that_a_specific_user_coteaches_with_me(selected_teacher_id).map(&:id), invited_to_coteach: current_user.classroom_ids_i_have_invited_a_specific_teacher_to_coteach(selected_teacher_id)}
+    {
+      is_coteacher: current_user.classrooms_i_own_that_a_specific_user_coteaches_with_me(selected_teacher_id).map(&:id),
+      invited_to_coteach: current_user.classroom_ids_i_have_invited_a_specific_teacher_to_coteach(selected_teacher_id)
+    }
   end
 
 

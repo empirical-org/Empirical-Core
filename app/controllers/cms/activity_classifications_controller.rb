@@ -1,5 +1,4 @@
-class Cms::ActivityClassificationsController < ApplicationController
-
+class Cms::ActivityClassificationsController < Cms::CmsController
   def index
     respond_to do |format|
       format.html
@@ -11,7 +10,6 @@ class Cms::ActivityClassificationsController < ApplicationController
 
   def create
     activity_classification = ActivityClassification.new(activity_classification_params)
-
     if activity_classification.save!
       render json: activity_classification
     else

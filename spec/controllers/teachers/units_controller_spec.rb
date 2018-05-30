@@ -1,8 +1,11 @@
 require 'rails_helper'
 
 describe Teachers::UnitsController, type: :controller do
+  it { should use_before_filter :teacher! }
+  it { should use_before_filter :authorize! }
+
   let!(:student) {create(:student)}
-  let!(:classroom) { create(:classroom, students: [student]) }
+  let!(:classroom) { create(:classroom_with_students_and_activities, students: [student]) }
   let!(:teacher) { classroom.owner }
   let!(:unit) {create(:unit, user: teacher)}
   let!(:unit2) {create(:unit, user: teacher)}
@@ -29,6 +32,80 @@ describe Teachers::UnitsController, type: :controller do
       }.to change(AssignActivityWorker.jobs, :size).by(1)
     end
   end
+
+  describe '#prohibited_unit_names' do
+    let(:unit_names) { teacher.units.pluck(:name).map(&:downcase) }
+    let(:unit_template_names) { UnitTemplate.pluck(:name).map(&:downcase) }
+
+    it 'should render the correct json' do
+      get :prohibited_unit_names, format: :json
+      expect(response.body).to eq({
+          prohibitedUnitNames: unit_names.concat(unit_template_names)
+      }.to_json)
+    end
+  end
+
+  describe '#last_assigned_unit_id' do
+    it 'should render the current json' do
+      get :last_assigned_unit_id, format: :json
+      expect(response.body).to eq({
+        id: Unit.where(user: teacher).last.id
+      }.to_json)
+    end
+  end
+
+  describe '#lesson_info_for_activity' do
+    context 'when activities present' do
+      let(:activities) { classroom.activities }
+
+      before do
+        allow(controller).to receive(:get_classroom_activities_for_activity) { activities }
+      end
+
+      it 'should render the correct json' do
+        get :lesson_info_for_activity, activity_id: activities.first.id, format: :json
+        expect(response.body).to eq({
+          classroom_activities: activities,
+          activity_name: Activity.select('name').where("id = #{activities.first.id}")
+        }.to_json)
+      end
+    end
+
+    context 'when activities not present' do
+      before do
+        allow(controller).to receive(:get_classroom_activities_for_activity) { [] }
+      end
+
+      it 'should render the correct json' do
+        get :lesson_info_for_activity, activity_id: classroom.activities.first.id, format: :json
+        expect(response.body).to eq({
+          errors: "No activities found"
+        }.to_json)
+      end
+    end
+
+  end
+
+  describe '#diagnostic_units' do
+    before do
+      # return unit on the first call and unit2 on the second call
+      allow(ActiveRecord::Base.connection).to receive(:execute).and_return([unit.attributes.merge({"activity_classification_id" => "4"})], [unit2.attributes.merge({"activity_classification_id" => '2'})])
+    end
+
+    it 'should render the correct json' do
+      get :diagnostic_units, report: true
+      expect(response.body).to eq([unit.attributes.merge({"activity_classification_id" => "4"})].to_json)
+    end
+  end
+
+  # the find line is commented out
+  # describe '#destroy' do
+  #   it 'should make the unit invisible' do
+  #     expect(unit.visible).to eq true
+  #     delete :destroy, id: unit.id
+  #     expect(unit.reload.visible).to eq false
+  #   end
+  # end
 
   describe '#index' do
     let!(:activity) {create(:activity)}

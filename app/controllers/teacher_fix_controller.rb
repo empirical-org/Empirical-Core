@@ -105,7 +105,7 @@ class TeacherFixController < ApplicationController
     if account1 && account2
       if account1.role === 'teacher' && account2.role === 'teacher'
         Unit.unscoped.where(user_id: account1.id).update_all(user_id: account2.id)
-        Classroom.unscoped.where(teacher_id: account1.id).update_all(teacher_id: account2.id)
+        ClassroomsTeacher.where(user_id: account1.id).update_all(user_id: account2.id)
         account1.delete_dashboard_caches
         account2.delete_dashboard_caches
         render json: {}, status: 200
@@ -171,6 +171,33 @@ class TeacherFixController < ApplicationController
     begin
       raise 'Please specify a school ID.' if params['from_school_id'].nil? || params['to_school_id'].nil?
       TeacherFixes::merge_two_schools(params['from_school_id'], params['to_school_id'])
+    rescue => e
+      return render json: { error: e.message || e }
+    end
+    return render json: {}, status: 200
+  end
+
+  def merge_two_classrooms
+    begin
+      classroom_1 = Classroom.find_by(code: params['class_code_1'])
+      classroom_2 = Classroom.find_by(code: params['class_code_2'])
+      raise 'The first class code is invalid' if !classroom_1
+      raise 'The second class code is invalid' if !classroom_2
+      TeacherFixes::merge_two_classrooms(classroom_1.id, classroom_2.id)
+    rescue => e
+      return render json: { error: e.message || e }
+    end
+    return render json: {}, status: 200
+  end
+
+  def delete_last_activity_session
+    begin
+      account_identifier = params['student_identifier']
+      user = User.find_by_username_or_email(account_identifier)
+      activity = Activity.find_by(name: params['activity_name'])
+      raise 'No such student' if !user
+      raise 'No such activity' if !activity
+      TeacherFixes::delete_last_activity_session(user.id, activity.id)
     rescue => e
       return render json: { error: e.message || e }
     end

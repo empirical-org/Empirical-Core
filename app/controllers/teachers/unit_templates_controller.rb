@@ -69,7 +69,7 @@ class Teachers::UnitTemplatesController < ApplicationController
   end
 
   def related_models(ut)
-    related_models = UnitTemplate.user_scope(current_user.try(:flag) || 'production').where(unit_template_category_id: ut.unit_template_category_id).where.not(id: ut.id).limit(3)
+    related_models = ut.related_models(related_models_flag)
     formatted_related_models = []
     related_models.each do |rm|
       formatted_related_models << format_unit_template(rm)
@@ -77,15 +77,19 @@ class Teachers::UnitTemplatesController < ApplicationController
     formatted_related_models
   end
 
-  def get_unit_templates_by_user_flag
-    UnitTemplate.user_scope(current_user.try(:flag) || 'production')
+  def related_models_flag
+    current_user.testing_flag || "production"
+  end
+
+  def get_unit_templats_by_user_testing_flag
+    UnitTemplate.user_scope(current_user&.testing_flag || 'production')
     .includes(:author, :unit_template_category)
     .order(:order_number)
     .map{ |ut| ut.get_cached_serialized_unit_template }
   end
 
   def get_cached_formatted_unit_templates
-    flag = current_user&.flag ? current_user.flag : 'production'
+    flag = current_user&.testing_flag || 'production'
     ut_cache_name = "#{flag}_unit_templates"
     cached = $redis.get(ut_cache_name)
     set_cache_if_necessary_and_return(cached, ut_cache_name)
@@ -96,7 +100,7 @@ class Teachers::UnitTemplatesController < ApplicationController
     if ut_cache
       ut_cache
     else
-      uts = get_unit_templates_by_user_flag
+      uts = get_unit_templats_by_user_testing_flag
       $redis.set(ut_cache_name, uts)
       uts
     end
