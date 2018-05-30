@@ -1,0 +1,50 @@
+FROM ubuntu:16.04
+
+RUN mkdir /haim
+WORKDIR /haim
+
+RUN apt-get update -y
+RUN mkdir /root/.ssh
+
+# Replace shell with bash so we can source files
+RUN rm /bin/sh && ln -s /bin/bash /bin/sh
+
+# Base deps
+RUN apt-get install -y autoconf \
+  bison build-essential libssl-dev \ 
+  libyaml-dev libreadline6-dev \
+  zlib1g-dev libncurses5-dev curl \
+  libffi-dev libgdbm3 libgdbm-dev
+
+# Install Rbenv
+RUN git clone https://github.com/rbenv/rbenv.git ~/.rbenv
+ENV PATH="$HOME/.rbenv/bin:$PATH"
+RUN echo 'eval "$(rbenv init -)"' >> ~/.bashrc
+
+# Install Ruby-Build to use Rbenv Install
+RUN git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
+
+# Install Ruby
+RUN rbenv install 2.3.1
+RUN rbenv global 2.3.1
+
+# Install Bundler
+RUN echo "gem: --no-document" > ~/.gemrc # dnt add individual gem docs
+RUN gem install bundler
+
+# Install Rails?
+
+# Install nvm and npm
+RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
+
+# Install node with nvm
+RUN nvm install 7.5.0
+RUN nvm use 7.5.0
+
+
+
+
+
+
+
+
