@@ -15,6 +15,8 @@ describe Activity, type: :model, redis: :true do
 
   it { is_expected.to callback(:flag_as_beta).before(:create).unless(:flags?) }
 
+  it { should delegate_method(:form_url).to(:classification) }
+
   let!(:activity){ build(:activity) }
 
   describe 'validations' do
