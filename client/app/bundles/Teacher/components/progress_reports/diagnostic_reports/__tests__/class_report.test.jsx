@@ -125,14 +125,17 @@ describe('ClassReport component', () => {
       ];
       const startedNames = ['Example A', 'Example B', 'Example C'];
       const unstartedNames = ['Example A', 'Example B', 'Example C'];
+      const missedNames = ['Example A, Example B, Example C'];
       wrapper.find(ProgressReport).props().onFetchSuccess({
         students: students,
         started_names: startedNames,
-        unstarted_names: unstartedNames
+        unstarted_names: unstartedNames,
+        missed_names: missedNames
       });
       expect(wrapper.state().students).toEqual(students);
       expect(wrapper.state().startedNames).toEqual(startedNames);
       expect(wrapper.state().unstartedNames).toEqual(unstartedNames);
+      expect(wrapper.state().missedNames).toEqual(missedNames);
     });
   });
 
