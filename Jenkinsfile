@@ -4,6 +4,7 @@ pipeline {
   stages {
     stage('start-postgres-docker') {
       steps {
+        sh 'ls -lh'
         echo "Starting postgres docker container..."
         sh 'docker run --name lms-testdb -d -p 5432:5432 postgres:10.1'
       }
@@ -26,6 +27,8 @@ pipeline {
             sh 'echo "Cloning..."' 
           }
         }
+
+        sh 'ls -lh'
 
         sshagent (credentials: ['jenkins-ssh']) {
           echo "Adding github.com to list of known hosts"
