@@ -17,18 +17,15 @@ RUN apt-get install -y autoconf \
   libffi-dev libgdbm3 libgdbm-dev
 
 # Install Rbenv
-RUN git clone https://github.com/rbenv/rbenv.git ~/.rbenv
-#ENV PATH="$HOME/.rbenv/bin:$PATH"
-RUN echo 'eval "$(rbenv init -)"' >> ~/.bashrc
-RUN echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc 
-RUN source ~/.bashrc
-
-# Install Ruby-Build to use Rbenv Install
-RUN git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
-
-# Install Ruby
-RUN rbenv install 2.3.1
-RUN rbenv global 2.3.1
+RUN git clone https://github.com/rbenv/rbenv.git ~/.rbenv \
+    && echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc \
+    && git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build \
+    && echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"' >> ~/.profile \
+    && echo 'eval "$(rbenv init -)"' >> ~/.bashrc \
+    && source ~/.bashrc \
+    && rbenv install -v 2.3.1 \
+    && rbenv global 2.3.1 \
+    && echo $PATH
 
 # Install Bundler
 RUN echo "gem: --no-document" > ~/.gemrc # dnt add individual gem docs
@@ -42,11 +39,5 @@ RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.s
 # Install node with nvm
 RUN nvm install 7.5.0
 RUN nvm use 7.5.0
-
-
-
-
-
-
 
 
