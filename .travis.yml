@@ -8,6 +8,7 @@ cache:
 rvm:
   - 2.3.1
 script:
+  - cd services/QuillLMS
   # setup rspec
   - cp config/database.yml.travis config/database.yml
   - bundle exec rake parallel:create
