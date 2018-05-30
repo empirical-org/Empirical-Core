@@ -1,3 +1,0 @@
-class TemporarySerializer < UserSerializer
-
-end
