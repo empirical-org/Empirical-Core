@@ -18,10 +18,10 @@
           
           <tr>
             <td><%= teacher['teacher_name'] || 'N/A' %></td>
-            <td><%= teacher['flags'].include?('auditor') ? 'Auditor' : 'Teacher' %></td>
+            <td><%= teacher['flags']&.include?('auditor') ? 'Auditor' : 'Teacher' %></td>
             <td><%= teacher['title'] || 'N/A' %></td>
-            <td><%= teacher['flags'].include?('purchaser') ? 'Purchaser' : '' %></td>
-            <td><%= teacher['flags'].include?('school_point_of_contact') ? 'School\'s Point of Contact' : '' %></td>
+            <td><%= teacher['flags']&.include?('purchaser') ? 'Purchaser' : '' %></td>
+            <td><%= teacher['flags']&.include?('school_point_of_contact') ? 'School\'s Point of Contact' : '' %></td>
             <% %w(title number_classrooms number_students number_activities_completed last_active subscription).each do |attribute| %>
               <td><%= teacher[attribute] || 'N/A' %></td>
             <% end %>

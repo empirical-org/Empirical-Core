@@ -1,5 +1,7 @@
 class ActivitiesController < ApplicationController
   before_action :activity, only: [:update]
+  before_filter :set_activity_by_lesson_id, only: [:preview_lesson]
+  before_filter :set_activity, only: [:supporting_info, :customize_lesson]
 
   def search
     search_result = $redis.get("default_#{current_user&.testing_flag ? current_user&.testing_flag + '_' : nil}activity_search") || custom_search
@@ -16,35 +18,40 @@ class ActivitiesController < ApplicationController
   end
 
   def preview_lesson
-    lesson = Activity.find_by(id: params[:lesson_id]) || Activity.find_by(uid: params[:lesson_id])
-    base_route = lesson.classification.form_url
-    preview_url = "#{base_route}teach/class-lessons/#{lesson.uid}/preview"
-    if current_user
-      completed = !!Milestone.find_by(name: 'View Lessons Tutorial').users.include?(current_user)
-      if completed
-        redirect_to preview_url
-      else
-        redirect_to "#{ENV['DEFAULT_URL']}/tutorials/lessons?url=#{URI.escape(preview_url)}"
-      end
+    if current_user && !user_completed_view_lessons_tutorial?
+      redirect_to "#{ENV['DEFAULT_URL']}/tutorials/lessons?url=#{URI.escape(preview_url)}"
     else
       redirect_to preview_url
     end
   end
 
   def supporting_info
-    activity = Activity.find_by(id: params[:id]) || Activity.find_by(uid: params[:id])
-    if activity.supporting_info
-      redirect_to activity.supporting_info
+    if @activity.supporting_info
+      redirect_to @activity.supporting_info
     end
   end
 
   def customize_lesson
-    activity = Activity.find_by(id: params[:id]) || Activity.find_by(uid: params[:id])
-    base_url = activity.classification.form_url
-    redirect_to "#{base_url}customize/#{activity.uid}"
+    redirect_to "#{@activity.classification_form_url}customize/#{@activity.uid}"
   end
 
 protected
+
+  def set_activity
+    @activity = Activity.find_by(id: params[:id]) || Activity.find_by(uid: params[:id])
+  end
+
+  def set_activity_by_lesson_id
+    @activity = Activity.find_by(id: params[:lesson_id]) || Activity.find_by(uid: params[:lesson_id])
+  end
+
+  def user_completed_view_lessons_tutorial?
+    !!Milestone.find_by(name: 'View Lessons Tutorial').users.include?(current_user)
+  end
+
+  def preview_url
+    @url ||= "#{@activity.classification_form_url}teach/class-lessons/#{@activity.uid}/preview"
+  end
 
   def custom_search
     flag = current_user&.testing_flag

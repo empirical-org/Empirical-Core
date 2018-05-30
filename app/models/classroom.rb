@@ -29,6 +29,10 @@ class Classroom < ActiveRecord::Base
     classroom
   end
 
+  def units_json
+    units.select('units.id AS value, units.name').distinct.order('units.name').as_json(except: :id)
+  end
+
   def unique_topic_count
     if unique_topic_count_array.any?
       val = unique_topic_count_array.first.topic_count
@@ -82,10 +86,6 @@ class Classroom < ActiveRecord::Base
     new_students = students_to_add.collect {|s| User.create_from_clever({info: s}, 'student')}
 
     self.students << new_students
-  end
-
-  def classroom_activity_for activity
-    classroom_activities.where(activity_id: activity.id).first
   end
 
   def set_code

@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 describe BlogPostsController, type: :controller do
+  it { should use_before_action :set_announcement }
+
   let(:announcement) { create(:announcement) }
 
   describe '#index' do

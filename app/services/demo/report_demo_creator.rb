@@ -6,7 +6,6 @@ module Demo::ReportDemoCreator
     students = self.create_students(classroom)
     unit = self.create_unit(teacher)
     classroom_activities = self.create_classroom_activities(classroom, unit)
-    sleep 20
     activity_sessions = self.create_activity_sessions(students)
   end
 
