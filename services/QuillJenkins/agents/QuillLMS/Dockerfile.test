@@ -20,18 +20,18 @@ RUN apt-get install -y autoconf \
 RUN echo "this is $HOME" 
 
 # Install Rbenv
-RUN git clone https://github.com/rbenv/rbenv.git ~/.rbenv \
-    && echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc \
-    && git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build \
-    && echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"' >> ~/.bashrc \
-    && echo 'eval "$(rbenv init -)"' >> ~/.bashrc \
-    && source ~/.bashrc \
+RUN git clone https://github.com/rbenv/rbenv.git /root/.rbenv \
+    && echo 'export PATH="/root/.rbenv/bin:$PATH"' >> /root/.bashrc \
+    && git clone https://github.com/rbenv/ruby-build.git /root/.rbenv/plugins/ruby-build \
+    && echo 'export PATH="/root/.rbenv/plugins/ruby-build/bin:$PATH"' >> /root/.bashrc \
+    && echo 'eval "$(rbenv init -)"' >> /root/.bashrc \
+    && source /root/.bashrc \
+    && echo $PATH
     && rbenv install -v 2.3.1 \
     && rbenv global 2.3.1 \
-    && echo $PATH
 
 # Install Bundler
-RUN echo "gem: --no-document" > ~/.gemrc # dnt add individual gem docs
+RUN echo "gem: --no-document" > /root/.gemrc # dnt add individual gem docs
 RUN gem install bundler
 
 # Install Rails?
