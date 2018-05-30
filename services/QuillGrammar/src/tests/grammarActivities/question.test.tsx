@@ -90,4 +90,46 @@ describe("<PlayGrammarContainer />", () => {
         })
       })
     })
+
+    describe('the textarea', () => {
+
+      describe('before it is typed in', () => {
+        const untypedInWrapper = shallow(<QuestionComponent
+          activity={currentActivity}
+          answeredQuestions={session.answeredQuestions}
+          unansweredQuestions={session.unansweredQuestions}
+          currentQuestion={currentQuestion}
+          goToNextQuestion={() => {}}
+          checkAnswer={() => {}}
+        />)
+        const textArea = untypedInWrapper.find('textarea')
+        it ('should not have any text', () => {
+          expect(textArea.props().value).toEqual('')
+        })
+
+        it ('state.response is empty', () => {
+          expect(untypedInWrapper.state('response')).toEqual('')
+        })
+      })
+
+      describe('after it is typed in', () => {
+        const typedInWrapper = shallow(<QuestionComponent
+          activity={currentActivity}
+          answeredQuestions={session.answeredQuestions}
+          unansweredQuestions={session.unansweredQuestions}
+          currentQuestion={currentQuestion}
+          goToNextQuestion={() => {}}
+          checkAnswer={() => {}}
+        />)
+        const typedText = 'Hello'
+        typedInWrapper.find('textarea').simulate('change', { target: { value: typedText } })
+        it ('should have the typed text', () => {
+          expect(typedInWrapper.find('textarea').props().value).toEqual(typedText)
+        })
+
+        it ('state.response has the typed string', () => {
+          expect(typedInWrapper.state('response')).toEqual(typedText)
+        })
+      })
+    })
 });
