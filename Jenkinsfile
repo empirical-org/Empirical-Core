@@ -32,6 +32,8 @@ pipeline {
 
 
         dir('services/QuillLMS') {
+          echo 'Ensuring bundler is the right version...'
+          sh 'gem install bundler'
           echo 'Installing Bundle...'
           sh 'bundle install'
 

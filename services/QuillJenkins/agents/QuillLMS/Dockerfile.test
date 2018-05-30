@@ -15,5 +15,3 @@ RUN apt-get install -y autoconf \
 
 ## Install nvm and npm (doesn't work in Dockerfile, moved to Jenkinsfile)
 # curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash && source ~/.bashrc && nvm install 7.5.0 && nvm use 7.5.0
-
-# Install Rails?
