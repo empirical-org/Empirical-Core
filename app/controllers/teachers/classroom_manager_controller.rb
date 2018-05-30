@@ -5,6 +5,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   before_filter :authorize_owner!, except: [:scores, :scorebook]
   before_filter :authorize_teacher!, only: [:scores, :scorebook]
   include ScorebookHelper
+  require 'tzinfo'
 
   def lesson_planner
     if current_user.classrooms_i_teach.empty?
@@ -122,7 +123,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def scores
-    scores = Scorebook::Query.run(params[:classroom_id], params[:current_page], params[:unit_id], params[:begin_date], params[:end_date])
+    scores = Scorebook::Query.run(params[:classroom_id], params[:current_page], params[:unit_id], params[:begin_date], params[:end_date], current_user.utc_offset)
     last_page = scores.length < 200
     render json: {
       scores: scores,
@@ -130,8 +131,8 @@ class Teachers::ClassroomManagerController < ApplicationController
     }
   end
 
-  # needed to simply render a page, lets React.js do the rest
   def my_account
+    @time_zones = [{name: 'Select Time Zone', id: 'Select Time Zone'}].concat(TZInfo::Timezone.all_country_zone_identifiers.sort.map{|tz| {name: tz, id: tz}})
   end
 
   def my_account_data
