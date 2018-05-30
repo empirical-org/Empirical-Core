@@ -16,6 +16,9 @@ RUN apt-get install -y autoconf \
   zlib1g-dev libncurses5-dev curl \
   libffi-dev libgdbm3 libgdbm-dev
 
+
+RUN echo "this is $HOME" 
+
 # Install Rbenv
 RUN git clone https://github.com/rbenv/rbenv.git ~/.rbenv \
     && echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc \
