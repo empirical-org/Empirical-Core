@@ -30,10 +30,6 @@ pipeline {
       steps {
         echo "Beginnning TEST..."
 
-        echo "Installing nvm and npm..."
-        sh '''#!/bin/bash -l
-              curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash && source ~/.bashrc && nvm install 7.5.0 && nvm use 7.5.0
-        '''
 
         dir('services/QuillLMS') {
           echo 'Installing Bundle...'
@@ -52,13 +48,16 @@ pipeline {
           sh 'bundle exec brakeman -z'
 
           echo 'Jest:'
-          echo 'Setting up jest...' 
-          sh 'nvm install'
-          sh 'npm install'
-          sh 'npm run build:test'
-          echo 'Running jest...'
-          sh 'npm run jest:coverage'
-          sh 'bash <(curl -s https://codecov.io/bash) -cF jest'
+          nvm('v0.33.11') {
+            /* https://plugins.jenkins.io/nvm-wrapper */
+            echo 'Setting up jest...' 
+            sh 'nvm install'
+            sh 'npm install'
+            sh 'npm run build:test'
+            echo 'Running jest...'
+            sh 'npm run jest:coverage'
+            sh 'bash <(curl -s https://codecov.io/bash) -cF jest'
+          }
 
           echo "Test successful!"
         }
