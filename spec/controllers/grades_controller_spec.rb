@@ -1,6 +1,11 @@
 require 'rails_helper'
 
 describe GradesController do
+  let(:teacher) { create(:teacher, :with_classrooms_students_and_activities) }
+  before do
+    session[:user_id] = teacher.id
+  end
+  
   it { should use_before_action :authorize! }
 
   describe '#index' do
@@ -16,7 +21,7 @@ describe GradesController do
     end
 
     it 'should render the correct json' do
-      get :tooltip, user_id: 1, completed: true, classroom_activity_id: ""
+      get :tooltip, user_id: teacher.id, completed: true, classroom_activity_id: ""
       expect(response.body).to eq({concept_results: ["query result"], scores: ["query result"]}.to_json)
     end
   end
