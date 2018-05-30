@@ -2,7 +2,7 @@ import React from 'react';
 import ReactTable from 'react-table';
 import moment from 'moment';
 import 'react-table/react-table.css';
-import EmptyStateForReport from '../../HelloWorld/components/progress_reports/empty_state_for_report';
+import EmptyStateForReport from '../../Teacher/components/progress_reports/empty_state_for_report';
 
 const StandardsReportsTable = ({ data, }) => {
   const columns = [

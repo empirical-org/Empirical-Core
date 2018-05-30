@@ -1,5 +1,5 @@
 import * as React from 'react';
-import StudentOverview from 'bundles/HelloWorld/components/progress_reports/student_overview';
+import StudentOverview from 'bundles/Teacher/components/progress_reports/student_overview';
 import { Link } from 'react-router';
 
 
