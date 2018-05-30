@@ -13,6 +13,8 @@ const subscriptionProps = { subscription: {
   accountTypes: { trial: [], teacher: [], school: [], },
 };
 
+const timeZones = JSON.parse('[{"name":"Select Time Zone","id":"Select Time Zone"},{"name":"Africa/Abidjan","id":"Africa/Abidjan"},{"name":"Africa/Accra","id":"Africa/Accra"}]');
+
 describe('TeacherAccount container', () => {
   // Sadly, we have to mount here instead of using shallow
   // because the TeacherAccount container uses quite a few
@@ -23,23 +25,26 @@ describe('TeacherAccount container', () => {
       userType="teacher"
       teacherId={7}
       subscriptionProps={subscriptionProps}
+      timeZones={timeZones}
     />
   );
   const wrapperStaff = mount(
     <TeacherAccount
       userType="staff"
       subscriptionProps={subscriptionProps}
+      timeZones={timeZones}
     />
   );
   wrapper.setState({ loading: false, });
   wrapperStaff.setState({ loading: false, });
 
   it('should have the expected initial state', () => {
-    expect(shallow(<TeacherAccount subscriptionProps={subscriptionProps} userType="arbitrary" teacherId={4} />).state()).toEqual({
+    expect(shallow(<TeacherAccount subscriptionProps={subscriptionProps} userType="arbitrary" teacherId={4} timeZones={timeZones} />).state()).toEqual({
       id: 4,
       name: '',
       username: '',
       email: '',
+      time_zone: 'Select Time Zone',
       isSaving: false,
       selectedSchool: null,
       originalSelectedSchool: null,

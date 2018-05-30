@@ -69,12 +69,16 @@ class Teachers::UnitTemplatesController < ApplicationController
   end
 
   def related_models(ut)
-    related_models = UnitTemplate.user_scope(current_user&.testing_flag || 'production').where(unit_template_category_id: ut.unit_template_category_id).where.not(id: ut.id).limit(3)
+    related_models = ut.related_models(related_models_flag)
     formatted_related_models = []
     related_models.each do |rm|
       formatted_related_models << format_unit_template(rm)
     end
     formatted_related_models
+  end
+
+  def related_models_flag
+    current_user.testing_flag || "production"
   end
 
   def get_unit_templats_by_user_testing_flag

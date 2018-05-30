@@ -47,6 +47,8 @@ gem 'fog-aws'
 
 # TIME
 gem 'time_difference'
+gem 'tzinfo'
+gem 'tzinfo-data'
 
 # OTHERS
 gem 'global'

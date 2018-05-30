@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import LoadingSpinner from '../../HelloWorld/components/shared/loading_indicator';
+import LoadingSpinner from '../../Teacher/components/shared/loading_indicator';
 import StandardsReports from '../components/standards_reports';
 import {
   switchClassroom,

@@ -72,10 +72,16 @@ export default React.createClass({
             {previewLink}
           </div>
 
-          <p className='description'> 
+          <p className='description'>
             <img src='https://assets.quill.org/images/icons/info-black.svg' alt="info-icon"/>
             {this.props.selectedActivity.description}
           </p>
+
+          <p className='standard'>
+            <img src='https://assets.quill.org/images/icons/common-core-gray.svg' alt="common-core-icon"/>
+            {this.props.selectedActivity.topic.name}
+          </p>
+
           <div className="nav-elements">
             <ItemDropdown
               items={this.props.classrooms || [{ name: 'Please Add a Classroom', id: null, }]}

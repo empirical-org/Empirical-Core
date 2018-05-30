@@ -243,6 +243,7 @@ module Teacher
                   :username,
                   :authenticity_token,
                   :email,
+                  :time_zone,
                   :password,
                   :school_options_do_not_apply,
                   :school_id,
@@ -264,6 +265,7 @@ module Teacher
       if self.update_attributes(username: params[:username] || self.username,
                                         email: params[:email] || self.email,
                                         name: params[:name] || self.name,
+                                        time_zone: params[:time_zone] || self.time_zone,
                                         password: params[:password] || self.password,
                                         role: params[:role] || self.role)
         are_there_non_school_related_errors = false
