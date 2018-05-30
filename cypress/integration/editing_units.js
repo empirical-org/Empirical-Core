@@ -1,19 +1,20 @@
 describe('Editing Units', function() {
   before(function() {
-    cy.cleanDatabase()
-    cy.factoryBotCreate({
-      factory: 'activity',
-      traits: ['production'],
-      name: 'Unassigned Activity'
-    })
-    cy.factoryBotCreate({
-      factory: 'teacher',
-      traits: ['with_classrooms_students_and_activities'],
-      password: 'password',
-      email: 'someone@gmail.com'
-    }).then(() => {
-      cy.login('someone@gmail.com', 'password')
-      cy.visit('/teachers/classrooms/activity_planner')
+    cy.cleanDatabase().then(() => {
+      cy.factoryBotCreate({
+        factory: 'activity',
+        traits: ['production'],
+        name: 'Unassigned Activity'
+      })
+      cy.factoryBotCreate({
+        factory: 'teacher',
+        traits: ['with_classrooms_students_and_activities'],
+        password: 'password',
+        email: 'someone@gmail.com'
+      }).then(() => {
+        cy.login('someone@gmail.com', 'password')
+        cy.visit('/teachers/classrooms/activity_planner')
+      })
     })
   })
 
