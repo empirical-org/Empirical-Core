@@ -26,7 +26,7 @@ class InvitationsController < ApplicationController
 
   def destroy_pending_invitations_from_specific_inviter
     begin
-      Invitation.find_by(invitatiogn_type: params[:invitation_type], inviter_id: params[:inviter_id], invitee_email: current_user.email, archived: false).destroy
+      Invitation.find_by(invitation_type: params[:invitation_type], inviter_id: params[:inviter_id], invitee_email: current_user.email, archived: false).destroy
       return render json: {}
     rescue => e
       return render json: { error: e.message }, status: 422
