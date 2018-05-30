@@ -4,6 +4,4 @@ class CreditTransactionsController < ApplicationController
   def redeem_credits_for_premium
     render json: {subscription: current_user.redeem_credit}
   end
-
-
 end
