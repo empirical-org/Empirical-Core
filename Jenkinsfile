@@ -5,7 +5,18 @@ pipeline {
     stage('start-postgres-docker') {
       steps {
         echo "Starting postgres docker container..."
-        sh 'docker run --name lms-testdb -d -p 5432:5432 postgres:10.1'
+        script {
+          try {
+            sh 'docker run --name lms-testdb -d -p 5432:5432 postgres:10.1'
+          }
+          catch (exc) {
+            echo 'Stopping and removing old postgres docker image'
+            sh 'docker stop lms-testdb'
+            sh 'docker rm lms-testdb'
+            sh 'docker run --name lms-testdb -d -p 5432:5432 postgres:10.1'
+          }
+          
+        }
       }
     }
     stage('test') {
