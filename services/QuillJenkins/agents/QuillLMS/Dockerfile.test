@@ -18,11 +18,7 @@ RUN apt-get install -y autoconf \
 
 # Install nvm and npm
 RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
-RUN source ~/.bashrc # add nvm to path or something
-
-# Install node with nvm
-RUN nvm install 7.5.0
-RUN nvm use 7.5.0
+RUN source ~/.bashrc && nvm install 7.5.0 && nvm use 7.5.0 # add nvm to path or something
 
 # Install ruby-install (rvm is overkill in docker container)
 RUN wget -O ruby-install-0.6.1.tar.gz https://github.com/postmodern/ruby-install/archive/v0.6.1.tar.gz
