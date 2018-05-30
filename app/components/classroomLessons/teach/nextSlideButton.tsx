@@ -29,7 +29,7 @@ class NextSlideButton extends Component<any, any> {
 
   render() {
     const data = this.props.classroomSessions.data;
-    const editionData: EditionQuestions = this.props.customize.editionQuestions;
+    const editionData = this.props.customize.editionQuestions
     if (editionData.questions && Number(data.current_slide) === editionData.questions.length - 1) {
       return <span />;
     } else if (Number(data.current_slide) === 0) {

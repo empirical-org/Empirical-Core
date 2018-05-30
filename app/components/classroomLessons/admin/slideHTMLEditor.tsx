@@ -11,13 +11,21 @@ class MultipleTextEditor extends React.Component<any, any> {
   constructor(props) {
     super(props);
     const richButtonsPlugin = createRichButtonsPlugin();
+    const InlineButton = ({className, toggleInlineStyle, isActive, label, inlineStyle, onMouseDown, title}) =>
+      <a onClick={toggleInlineStyle} onMouseDown={onMouseDown}>
+        <span
+          className={`${className}`}
+          title={title ? title : label}
+          style={{ color: isActive ? '#990000' : '#777' }}>{title}
+        </span>
+      </a>;
     const {
       ItalicButton, BoldButton, UnderlineButton,
-      BlockquoteButton, OLButton, ULButton, H4Button
+      BlockquoteButton, OLButton, ULButton, H4Button, MonospaceButton
     } = richButtonsPlugin;
     this.state = {
       text: EditorState.createWithContent(convertFromHTML(this.props.text || '')),
-      components: { ItalicButton, BoldButton, UnderlineButton, BlockquoteButton, OLButton, ULButton, H4Button},
+      components: { ItalicButton, BoldButton, UnderlineButton, BlockquoteButton, OLButton, ULButton, H4Button, MonospaceButton, InlineButton},
       plugins: [richButtonsPlugin],
       hasFocus: false,
     };
@@ -48,7 +56,7 @@ class MultipleTextEditor extends React.Component<any, any> {
   }
 
   render() {
-    const { ItalicButton, BoldButton, UnderlineButton, BlockquoteButton, OLButton, ULButton, H4Button } = this.state.components;
+    const { ItalicButton, BoldButton, UnderlineButton, BlockquoteButton, OLButton, ULButton, H4Button, MonospaceButton, InlineButton } = this.state.components;
     const textBoxClass = this.state.hasFocus ? 'card-content hasFocus' : 'card-content';
     return (
       <div className="card is-fullwidth">
@@ -65,6 +73,7 @@ class MultipleTextEditor extends React.Component<any, any> {
               <OLButton />
               <ULButton />
               <H4Button />
+              <MonospaceButton><InlineButton className="alignLeft" title="Align Left" /></MonospaceButton>
             </div>
           </div>
         </header>

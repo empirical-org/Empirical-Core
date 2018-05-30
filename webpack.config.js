@@ -69,16 +69,15 @@ module.exports = {
       inject: 'body',
       chunks: ['polyfills', 'vendor', 'javascript'],
       chunksSortMode: (chunk1, chunk2) => {
-        var orders = [ 'vendor', 'polyfills', 'javascript'];
-        var order1 = orders.indexOf(chunk1.names[0]);
-        var order2 = orders.indexOf(chunk2.names[0]);
+        let orders = ['vendor', 'polyfills', 'javascript'];
+        let order1 = orders.indexOf(chunk1.names[0]);
+        let order2 = orders.indexOf(chunk2.names[0]);
         if (order1 > order2) {
           return 1;
         } else if (order1 < order2) {
           return -1;
-        } else {
-          return 0;
         }
+        return 0;
       },
     })
   ],

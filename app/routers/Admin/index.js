@@ -1,5 +1,6 @@
 export default {
   path: 'admin',
+  indexRoute: { onEnter: (nextState, replace) => replace('/admin/question-health'), },
   getChildRoutes: (partialNextState, cb) => {
     Promise.all([
       System.import(/* webpackChunkName: "admin-concept-feedback" */ './routes/ConceptFeedback/index.js'),

@@ -13,6 +13,7 @@ QuestionSubmissionsList
 import TextEditor from '../shared/textEditor';
 import SubmitButton from './submitButton'
 import FeedbackRow from './feedbackRow'
+import Feedback from '../../renderForQuestions/components/feedback' 
 import numberToWord from '../../../libs/numberToWord'
 import { getParameterByName } from '../../../libs/getParameterByName';
 const icon = require('../../../img/question_icon.svg')
@@ -233,9 +234,10 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
     } else {
       let errorArea = this.state.errors ? this.renderWarning() : null;
       let feedbackRow = this.state.submitted ? <FeedbackRow/> : null;
-      let instructionsRow = this.props.data.play.instructions ? (<div style={{marginTop: -20}} className="feedback-row">
-        <p dangerouslySetInnerHTML={{__html: this.props.data.play.instructions}}></p>
-      </div>) : null;
+      let instructionsRow = this.props.data.play.instructions ? (<Feedback 
+        feedbackType="default"
+        feedback={(<p dangerouslySetInnerHTML={{__html: this.props.data.play.instructions}}></p>)}
+      />) : null;
       let submitButton = !this.props.projector ? <SubmitButton key={`${this.state.isSubmittable}`} disabled={this.state.submitted || !this.state.isSubmittable} onClick={this.handleStudentSubmission}/> : null;
       return (
         <div>
@@ -247,7 +249,7 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
         <div>
           <div className='feedback-and-button-container'>
             {errorArea}
-            {feedbackRow}
+            <div style={{marginBottom: 20}}>{feedbackRow}</div>
             {submitButton}
           </div>
         </div>

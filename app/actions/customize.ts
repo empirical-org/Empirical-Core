@@ -156,7 +156,7 @@ function filterEditionsByUserIds(userIds:Array<Number|string>, editions:Customiz
       const editionIds = Object.keys(editions)
       editionIds.forEach(id => {
         const edition = editions[id]
-        if (allowedIds.indexOf(edition.user_id) !== -1 && (!edition.flags || edition.flags.indexOf('archived') === -1 && edition.flags.indexOf('alpha') === -1)) {
+        if (allowedIds.indexOf(edition.user_id) !== -1 && (!edition.flags || Array.isArray(edition.flags) && edition.flags.indexOf('archived') === -1 && edition.flags.indexOf('alpha') === -1)) {
           userEditions[id] = edition
         }
       })

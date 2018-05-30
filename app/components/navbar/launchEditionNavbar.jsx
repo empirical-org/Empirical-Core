@@ -7,9 +7,9 @@ class LaunchEditionNavbar extends React.Component {
   }
 
   renderCustomizedEditionsTag() {
-    const {editions} = this.props.customize
+    const { editions } = this.props.customize
     const customEdition = Object.keys(editions).find(e => {
-      return editions[e].lesson_id === this.props.params.lessonID
+      return editions[e].lesson_id === this.props.params.lessonID && editions[e].user_id !== 'quill-staff'
     })
     if (customEdition) {
       return <div className="custom-editions-tag">Customized</div>
