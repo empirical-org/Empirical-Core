@@ -1,17 +1,35 @@
 import { GrammarActivityState } from '../../reducers/grammarActivitiesReducer'
 import { SessionState } from '../../reducers/sessionReducer'
+import { GrammarActivity } from '../../interfaces/grammarActivities'
+import { Question } from '../../interfaces/questions'
+
+export const currentActivity: GrammarActivity = {
+  concepts: {
+    '1ohLyApTz7lZ3JszrA98Xg': {
+      quantity: 9
+    }
+  },
+  description: "Write nine sentences using parallel structure.",
+  title : "Parallel Structure"
+}
+
+export const currentQuestion: Question = {
+  answers: [
+    {
+      text: "The team stretched their legs, {practiced} their drills, and then rehearsed their set plays."
+    }
+  ],
+  concept_uid: "1ohLyApTz7lZ3JszrA98Xg",
+  instructions: "Rewrite the sentence so that it has proper parallel structure.",
+  prompt: "The team stretched their legs, practice their drills, and then rehearsed their set plays.",
+  rule_description: "<b>Correct:</b> I laughed, I cried, and I shouted during the performance.\n<b>Incorrect:</b> I laughed, I was crying, and I shout during the performance.\nSentences flow easily when all the actions in a list have the same ending. This means that each and every action in a list stays in the past, present, or future tense.",
+  uid: "-Jzw0qjO5owyFPUAwDGx",
+  attempts: []
+}
 
 export const grammarActivities: GrammarActivityState = {
   hasreceiveddata: true,
-  currentActivity: {
-    concepts: {
-      '1ohLyApTz7lZ3JszrA98Xg': {
-        quantity: 9
-      }
-    },
-    description: "Write nine sentences using parallel structure.",
-    title : "Parallel Structure"
-  }
+  currentActivity
 }
 
 export const session: SessionState = {
@@ -120,17 +138,5 @@ export const session: SessionState = {
         uid: "-KAfwjD8pcldAXkHjxA8"
       }
     ],
-    currentQuestion: {
-      answers: [
-        {
-          text: "The team stretched their legs, {practiced} their drills, and then rehearsed their set plays."
-        }
-      ],
-      concept_uid: "1ohLyApTz7lZ3JszrA98Xg",
-      instructions: "Rewrite the sentence so that it has proper parallel structure.",
-      prompt: "The team stretched their legs, practice their drills, and then rehearsed their set plays.",
-      rule_description: "<b>Correct:</b> I laughed, I cried, and I shouted during the performance.\n<b>Incorrect:</b> I laughed, I was crying, and I shout during the performance.\nSentences flow easily when all the actions in a list have the same ending. This means that each and every action in a list stays in the past, present, or future tense.",
-      uid: "-Jzw0qjO5owyFPUAwDGx",
-      attempts: []
-    }
+    currentQuestion
   }
