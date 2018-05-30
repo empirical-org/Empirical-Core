@@ -1,7 +1,7 @@
 import React from 'react';
 import StandardsReportsTable from './standards_reports_table';
 import ItemDropdown from './item_dropdown.tsx';
-import CSVDownloadForProgressReport from '../../HelloWorld/components/progress_reports/csv_download_for_progress_report';
+import CSVDownloadForProgressReport from '../../Teacher/components/progress_reports/csv_download_for_progress_report';
 
 const StandardsReports = ({
   csvData,

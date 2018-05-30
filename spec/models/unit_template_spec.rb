@@ -21,6 +21,16 @@ describe UnitTemplate, redis: :true, type: :model do
     end
   end
 
+  describe '#related_models' do
+    let!(:unit_template1) { create(:unit_template, unit_template_category_id: unit_template.unit_template_category_id) }
+    let!(:unit_template2) { create(:unit_template) }
+
+    it 'should return the unit templates with the same category' do
+      expect(unit_template.related_models("alpha")).to include unit_template1
+      expect(unit_template.related_models("alpha")).to_not include unit_template2
+    end
+  end
+
   describe '#activity_ids' do
     let(:activity) { create(:activity) }
     let(:activity1) { create(:activity) }

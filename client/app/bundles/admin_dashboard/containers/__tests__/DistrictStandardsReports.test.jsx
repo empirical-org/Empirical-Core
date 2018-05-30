@@ -7,7 +7,7 @@ import { createMockStore } from 'redux-test-utils';
 import AdminDashboardRouter from '../AdminDashboardRouter.jsx';
 import DistrictStandardsReports from '../DistrictStandardsReports.jsx';
 // import DistrictStandardsReportsProgressReports from 'bundles/admin_dashboard/containers/DistrictStandardsReports.jsx'
-// import DistrictStandardsReportsProgressReports from 'bundles/HelloWorld/components/progress_reports/district_standards_reports_progress_report.jsx'
+// import DistrictStandardsReportsProgressReports from 'bundles/Teacher/components/progress_reports/district_standards_reports_progress_report.jsx'
 
 describe('DistrictStandardsReports', () => {
   it('renders report for all students', () => {

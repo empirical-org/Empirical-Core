@@ -20,6 +20,17 @@ module Student
     end
     protected :classroom_activity_score_join
 
+    def get_student_average_score
+      avg_str = ActiveRecord::Base.connection.execute(
+       "select avg(percentage) from activity_sessions
+        join users on activity_sessions.user_id = users.id
+        join activities on activity_sessions.activity_id = activities.id
+        where activities.activity_classification_id != 6
+        and activities.activity_classification_id != 4
+        and users.id = #{self.id}").to_a[0]['avg']
+      (avg_str.to_f * 100).to_i
+    end
+
 
   end
 end
