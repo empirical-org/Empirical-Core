@@ -1,8 +1,7 @@
 <section class="tool-header">
-  <%= render partial: 'pages/shared/home_navbar' %>
+  <%= render partial: 'pages/shared/navbar' %>
   <% @active_tab = 'Quill Lessons' %>
   <% @tool = 'lessons' %>
-  <%= render partial: "pages/shared/tools_tabs", active_tab: @active_tab %>
   <%= render partial: "pages/shared/tools_anchor_navbar", active_tab: @active_tab, tool: @tool%>
 </section>
 
@@ -15,7 +14,7 @@
         <p class='description'>
           Quill Lessons enables teachers to lead whole-class and small group writing instruction. Teachers control interactive slides that contain writing prompts, and the entire class responds to each prompt. Each Quill Lessons activity provides a lesson plan, writing prompts, discussion topics, and a follow up independent practice activity.
         </p>
-        <a href='https://connect.quill.org/#/teach/class-lessons/-KsKpXAoaEIY5jvWMIzJ/preview' target="_blank" class="q-button cta-button bg-white text-lessonspurple">Try Quill Lessons Now</a>
+        <a href=<%= "/activity_sessions/anonymous?activity_id=566" %> target="_blank" class="q-button cta-button bg-white text-lessonspurple">Try Quill Lessons Now</a>
     </section>
 
     <section class="tool-animation-section " id="overview">
@@ -179,7 +178,7 @@
     <section class="tool-try-it bg-lessons-purple bg-image-lessons-pattern">
         <h2 class='q-h1'>Try It Out for Yourself</h2>
         <!-- TODO get real link here -->
-        <a href='https://connect.quill.org/#/teach/class-lessons/-KsKpXAoaEIY5jvWMIzJ/preview' target="_blank" class="q-button cta-button bg-white text-lessonspurple">Preview the Lessons</a>
+        <a href=<%= "/activity_sessions/anonymous?activity_id=566" %> target="_blank" class="q-button cta-button bg-white text-lessonspurple">Preview the Lessons</a>
     </section>
 
     <section class="tool-testimonial" id="testimonial">
@@ -228,4 +227,8 @@
 
 </div>
 
-<%= render partial: 'pages/shared/footer' %>
+<% if current_user %>
+  <%= render partial: 'footer' %>
+<% else %>
+  <%= render partial: 'pages/shared/footer' %>
+<% end %>

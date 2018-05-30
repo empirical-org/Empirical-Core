@@ -138,11 +138,33 @@
       margin-bottom: 20px;
     }
 
-    #markdown-shortcuts {
+    .article-content-container {
+      border: 1px solid #cecece;
+      border-radius: 6px;
+      div:last-of-type {
+        padding: 0px 10px;
+      }
+    }
+
+    #article-preview-bar {
       background: #cecece;
       border-radius: 5px 5px 0 0;
       padding: 5px;
-
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 36px;
+      .article-tab {
+        cursor: pointer;
+        font-size: 14px;
+        margin-right: 10px;
+        padding: 10px;
+        padding-top: 0px;
+        border-radius: 6px 6px 0px 0px;
+        &.active {
+          background-color: white;
+        }
+      }
       i {
         font-size: 16px;
         background: #fff;
@@ -202,12 +224,29 @@
     .markdown-preview {
       margin-bottom: 20px;
       width: 100%;
+      background: white;
+      border: 1px solid #ccc;
+      padding: 20px;
+
+      p {
+        font-size: 14px;
+        margin-bottom: 0;
+      }
+
+      h1, h2, h3, p, ul, ol, img, blockquote {
+        margin: 16px 0;
+      }
     }
 
-    .flex-three-cols {
+    .short-fields {
       display: flex;
-      justify-content: space-between;
       margin-bottom: 20px;
+      div {
+        flex: 1
+      }
+      input {
+        width: 214px;
+      }
     }
 
     .markdown-cheatsheet {
@@ -217,4 +256,65 @@
       text-align: right;
     }
   }
+}
+
+.premium-label, .center-images-label {
+  display: inline-block !important;
+}
+
+.premium-checkbox, .center-images-checkbox {
+  width: 20px !important;
+  display: inline-block !important;
+}
+.link {
+  margin-top: 5px;
+  margin-left: 5px;
+  color: $quillgreen;
+  display: block;
+}
+
+.cms-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.gallery-item {
+  width: 46%;
+  background-color: #ffffff;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 10px 20px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 300px;
+  img {
+    max-width: 100%;
+  }
+  p {
+    margin-bottom: 10px;
+    display: flex;
+    a {
+      font-size: 12px;
+    }
+    span {
+      margin-right: 10px;
+    }
+  }
+}
+
+.trash-link {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  font-size: 20px;
+}
+
+.warning {
+  color: #c51916;
+  margin: 18px;
 }

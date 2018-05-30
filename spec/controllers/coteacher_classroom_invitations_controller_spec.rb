@@ -17,13 +17,13 @@ describe CoteacherClassroomInvitationsController, type: :controller do
       context 'get' do
         it 'should accept one invitation' do
           get :accept_pending_coteacher_invitations, coteacher_invitation_ids: [invite_one.id]
-          expect(invited_teacher.classrooms_i_coteach.map(&:id)).to eq([invite_one.classroom_id])
+          expect(invited_teacher.classrooms_i_coteach.map(&:id)).to match_array([invite_one.classroom_id])
           expect(response).to redirect_to dashboard_teachers_classrooms_path
         end
 
         it 'should accept multiple invitations' do
           get :accept_pending_coteacher_invitations, coteacher_invitation_ids: [invite_one.id, invite_two.id]
-          expect(invited_teacher.classrooms_i_coteach.map(&:id)).to eq([invite_one.classroom_id, invite_two.classroom_id])
+          expect(invited_teacher.classrooms_i_coteach.map(&:id)).to match_array([invite_one.classroom_id, invite_two.classroom_id])
           expect(response).to redirect_to dashboard_teachers_classrooms_path
         end
       end
@@ -31,12 +31,12 @@ describe CoteacherClassroomInvitationsController, type: :controller do
       context 'post' do
         it 'should accept one invitation' do
           get :accept_pending_coteacher_invitations, coteacher_invitation_ids: [invite_one.id]
-          expect(invited_teacher.classrooms_i_coteach.map(&:id)).to eq([invite_one.classroom_id])
+          expect(invited_teacher.classrooms_i_coteach.map(&:id)).to match_array([invite_one.classroom_id])
         end
 
         it 'should accept multiple invitations' do
           get :accept_pending_coteacher_invitations, coteacher_invitation_ids: [invite_one.id, invite_two.id]
-          expect(invited_teacher.classrooms_i_coteach.map(&:id)).to eq([invite_one.classroom_id, invite_two.classroom_id])
+          expect(invited_teacher.classrooms_i_coteach.map(&:id)).to match_array([invite_one.classroom_id, invite_two.classroom_id])
         end
       end
     end

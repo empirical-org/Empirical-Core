@@ -15,27 +15,25 @@
 
     <meta name="description" content="<%= @description %>">
 
-    <meta property="og:type"               content="website" />
-    <meta property="og:title"              content="<%= @title %>" />
-    <meta property="og:description"              content="<%= @description %>" />
-    <meta property="og:image"              content=<%= image_url('share/facebook.png') %> />
+    <meta property="og:type"        content="website" />
+    <meta property="og:title"       content="<%= @title %>" />
+    <meta property="og:description" content="<%= @description %>" />
+    <meta property="og:image"       content=<%= image_url('share/facebook.png') %> />
 
+
+    <!-- <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/solid.js" integrity="sha384-+Ga2s7YBbhOD6nie0DzrZpJes+b2K1xkpKxTFFcx59QmVPaSA8c7pycsNaFwUK6l" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/fontawesome.js" integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG23c" crossorigin="anonymous"></script> -->
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <%= render partial: 'typekit' unless Rails.env.test? %>
-    <!-- <%= env_javascript_include_tag(hot: ['http://localhost:3500/vendor-bundle.js', 'http://localhost:3500/app-bundle.js', 'http://localhost:3500/home-bundle.js']) %> -->
-    <%= env_stylesheet_link_tag(static: 'home',
-                              hot: 'application_non_webpack',
-                              media: 'all',
-                              'data-turbolinks-track' => true) %>
-   <%= env_javascript_include_tag(hot: ['http://localhost:3500/vendor-bundle.js', "http://localhost:3500/#{@js_file || 'home'}-bundle.js", 'http://localhost:3500/app-bundle.js'],
-                                 static: @js_file || 'home') %>
-   <%= csrf_meta_tags %>
-   <%= render partial: 'application/head_embed_codes' %>
+    <%= javascript_pack_tag('vendor') %>
+    <%= javascript_pack_tag(@js_file || 'home') %>
+    <%= stylesheet_pack_tag('home') %>
+    <%= csrf_meta_tags %>
+    <%= render partial: 'application/head_embed_codes' %>
   </head>
   <body>
     <%= yield %>
     <%= render partial: 'remarketing_tag' %>
     <%= render partial: 'tracking_code' %>
   </body>
-  <!-- <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %> -->
 </html>

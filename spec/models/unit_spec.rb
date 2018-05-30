@@ -1,6 +1,17 @@
 require 'rails_helper'
 
 describe Unit, type: :model do
+
+  #fails because unit has no foreign key classroom_Id
+  #it { should belong_to(:classroom) }
+  it { should belong_to(:user) }
+  it { should belong_to(:unit_template) }
+  it { should have_many(:classroom_activities).dependent(:destroy) }
+  it { should have_many(:activities).through(:classroom_activities) }
+  it { should have_many(:topics).through(:activities) }
+
+  it { is_expected.to callback(:hide_classroom_activities_if_visible_false).after(:save) }
+
   let!(:classroom) {create(:classroom)}
   let!(:teacher) {create(:teacher)}
   let!(:activity) {create(:activity)}
@@ -26,7 +37,7 @@ describe Unit, type: :model do
         let!(:non_uniq_unit) {Unit.new(name: unit.name, user: teacher, visible: true)}
 
         it "when visibile == true it must be unique" do
-          expect{non_uniq_unit.save!}.to raise_error
+          expect{non_uniq_unit.save!}.to raise_error(ActiveRecord::RecordInvalid)
         end
 
         it "unless visibility == false" do
@@ -76,13 +87,6 @@ describe Unit, type: :model do
     end
   end
 
-  describe '#destroy' do
-    it 'destroys associated classroom_activities' do
-      unit.destroy
-      expect(ClassroomActivity.where(id: classroom_activity.id)).to be_empty
-    end
-  end
-
   describe '#hide_classroom_activities_if_visible_false' do
     it 'is called when the unit is saved' do
       expect(unit).to receive(:hide_classroom_activities_if_visible_false)
@@ -101,12 +105,24 @@ describe Unit, type: :model do
       expect(classroom_activity.attributes).to eq(old_ca_attributes)
     end
 
-
-
   end
 
+  describe '#email_lesson_plan' do
+    let(:user) { create(:user, email: 'test@quill.org') }
+    let(:activity) { create(:activity) }
+    let(:activities) { double(:activities, where: [activity]) }
+    let(:join_units) { double(:join_units, joins: activities) }
+    let(:join_classroom_activities) { double(:join_classroom_activities , joins: join_units) }
+    let(:classroom_activity) { create(:classroom_activity, activity: activity) }
+    let(:unit) { create(:unit, user: user, classroom_activities: [classroom_activity]) }
 
+    before do
+      allow(Activity).to receive(:select).and_return(join_classroom_activities)
+    end
 
-
+    it 'should kick off background job for the lesson plan email' do
+      expect{ unit.email_lesson_plan }.to change(LessonPlanEmailWorker.jobs, :size).by 1
+    end
+  end
 
 end

@@ -1,0 +1,4 @@
+<%= render 'teachers/shared/scorebook_tabs' %>
+<div class="subscriptions">
+  <%= react_component('SubscriptionApp', props: {subscriptions: @subscriptions, coordinatorEmail: @coordinatorEmail, premiumCredits: @premium_credits, subscriptionStatus: @subscription_status, schoolSubscriptionTypes: @school_subscription_types, trialSubscriptionTypes: @trial_types, lastFour: @last_four, userAuthorityLevel: @user_authority_level}) %>
+</div>

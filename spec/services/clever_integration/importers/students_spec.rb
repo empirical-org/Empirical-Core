@@ -28,9 +28,8 @@ describe 'CleverIntegration::Importers::Students' do
   }
 
   let!(:section_requester) {
-
-    Response = Struct.new(:students)
-    response = Response.new(students_response)
+    response_struct = Struct.new(:students)
+    response = response_struct.new(students_response)
 
     lambda do |clever_id, district_token|
       response

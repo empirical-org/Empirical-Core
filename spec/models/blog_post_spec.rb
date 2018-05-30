@@ -13,13 +13,13 @@ describe BlogPost, type: :model do
 
   describe '#path' do
     it 'should return the slug prefixed by the teacher resources path' do
-      expect(blog_post.path).to eq("/teacher_resources/#{blog_post.slug}")
+      expect(blog_post.path).to eq("/teacher-center/#{blog_post.slug}")
     end
   end
 
   describe '#topic_path' do
     it 'should return the path of the associated topic' do
-      expect(blog_post.topic_path).to eq("/teacher_resources/topic/#{blog_post.topic_slug}")
+      expect(blog_post.topic_path).to eq("/teacher-center/topic/#{blog_post.topic_slug}")
     end
   end
 
@@ -45,6 +45,47 @@ describe BlogPost, type: :model do
 
     it 'should increment the appended number of the slug that already exists' do
       expect(another_blog_post_with_same_title.slug).to eq("#{slug}-3")
+    end
+  end
+
+  describe '#can_be_accessed_by' do
+    context 'when the article is free' do
+      let(:free_article) { create(:blog_post) }
+      it 'should be accessible' do
+        expect(free_article.can_be_accessed_by(nil)).to be(true)
+      end
+    end
+
+    context 'when the article is premium' do
+      let(:paid_article) { create(:blog_post, :premium) }
+      let(:free_user)    { create(:teacher) }
+      let(:premium_user) { create(:teacher, :premium)}
+
+      it 'should be accessible to premium users' do
+        expect(paid_article.can_be_accessed_by(premium_user)).to be(true)
+      end
+
+      it 'should not be accessible to nonpremium users' do
+        expect(paid_article.can_be_accessed_by(free_user)).to be(false)
+      end
+
+      it 'should not be accessible to nonusers' do
+        expect(paid_article.can_be_accessed_by(nil)).to be(false)
+      end
+    end
+  end
+
+  describe '#average_rating' do
+    let(:blog_post) { create(:blog_post) }
+    let(:blog_post_ratings) { create_list(:blog_post_user_rating, 5, blog_post: blog_post) }
+
+    it 'should calculate the average' do
+      expected_average = (blog_post_ratings.map(&:rating).sum / blog_post_ratings.size).round(2)
+      expect(blog_post.average_rating).to eq(expected_average)
+    end
+
+    it 'should return nil if there are no ratings' do
+      expect(blog_post.average_rating).to be(nil)
     end
   end
 end

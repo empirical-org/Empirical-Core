@@ -1,19 +1,17 @@
 class Teachers::ClassroomManagerController < ApplicationController
   respond_to :json, :html
   before_filter :teacher_or_public_activity_packs
+  # WARNING: these filter methods check against classroom_id, not id.
   before_filter :authorize_owner!, except: [:scores, :scorebook]
   before_filter :authorize_teacher!, only: [:scores, :scorebook]
   include ScorebookHelper
+  require 'tzinfo'
 
   def lesson_planner
     if current_user.classrooms_i_teach.empty?
       redirect_to new_teachers_classroom_path
     else
-      @tab = params[:tab] #|| "manageUnits"
-      @grade = params[:grade]
-      @students = current_user.students.any?
-      @last_classroom_name = current_user.classrooms_i_teach.last.name
-      @last_classroom_id = current_user.classrooms_i_teach.last.id
+      set_classroom_variables
     end
   end
 
@@ -21,11 +19,7 @@ class Teachers::ClassroomManagerController < ApplicationController
     if current_user.role != 'staff' && current_user.classrooms_i_teach.empty?
       redirect_to new_teachers_classroom_path
     else
-      @tab = params[:tab] #|| "manageUnits"
-      @grade = params[:grade]
-      @students = current_user.students.any?
-      @last_classroom_name = current_user.classrooms_i_teach&.last&.name
-      @last_classroom_id = current_user.classrooms_i_teach&.last&.id
+      set_classroom_variables
     end
   end
 
@@ -38,21 +32,11 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def retrieve_classrooms_for_assigning_activities # in response to ajax request
-    classrooms_and_their_students = current_user.classrooms_own.map do |classroom|
-      {  classroom: classroom, students: classroom.students.sort_by(&:sorting_name)}
-    end
-    render json: {
-      classrooms_and_their_students: classrooms_and_their_students
-    }
+    render json: classroom_with_students_json(current_user.classrooms_i_own)
   end
 
   def retrieve_classrooms_i_teach_for_custom_assigning_activities # in response to ajax request
-    classrooms_and_their_students = current_user.classrooms_i_teach.map do |classroom|
-      {  classroom: classroom, students: classroom.students.sort_by(&:sorting_name)}
-    end
-    render json: {
-      classrooms_and_their_students: classrooms_and_their_students
-    }
+    render json: classroom_with_students_json(current_user.classrooms_i_teach)
   end
 
   def invite_students
@@ -66,33 +50,15 @@ class Teachers::ClassroomManagerController < ApplicationController
 
   def archived_classroom_manager_data
     begin
-      invited_classrooms = ActiveRecord::Base.connection.execute("
-        SELECT coteacher_classroom_invitations.id AS classroom_invitation_id, users.name AS inviter_name, classrooms.name AS classroom_name, TRUE AS invitation
-        FROM invitations
-        JOIN coteacher_classroom_invitations ON coteacher_classroom_invitations.invitation_id = invitations.id
-        JOIN users ON users.id = invitations.inviter_id
-        JOIN classrooms ON classrooms.id = coteacher_classroom_invitations.classroom_id
-        WHERE invitations.invitee_email = #{ActiveRecord::Base.sanitize(current_user.email)} AND invitations.archived = false;
-      ").to_a
-      active = invited_classrooms
-      inactive = []
-      # TODO: easy performance fix could be done here
-      ClassroomsTeacher.where(user_id: current_user.id).each do |classrooms_teacher|
-        classroom = Classroom.unscoped.find(classrooms_teacher.classroom_id)
-        if classroom.visible
-          active << classroom.archived_classrooms_manager
-        else
-          inactive << classroom.archived_classrooms_manager
-        end
-      end
+      classrooms = active_and_inactive_classrooms_hash
     rescue NoMethodError => exception
       render json: {error: "No classrooms yet!"}, status: 400
     else
       classrooms_i_own_that_have_coteachers = current_user.classrooms_i_own_that_have_coteachers
       render json: {
-        active: active,
+        active: classrooms[:active],
         active_classrooms_i_own: current_user.classrooms_i_own.map{|c| {label: c[:name], value: c[:id]}},
-        inactive: inactive,
+        inactive: classrooms[:inactive],
         coteachers: current_user.classrooms_i_own_that_have_coteachers,
         pending_coteachers: current_user.classrooms_i_own_that_have_pending_coteacher_invitations,
         my_name: current_user.name
@@ -103,7 +69,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   def scorebook
     @classrooms = classrooms_with_data
     if params['classroom_id']
-      @classroom = @classrooms.find{|classroom| classroom["id"] == params['classroom_id']}
+      @classroom = @classrooms.find{|classroom| classroom["id"] == params['classroom_id'].to_i}
     else
       @classroom = @classrooms.first
     end
@@ -118,13 +84,11 @@ class Teachers::ClassroomManagerController < ApplicationController
     @firewall_test = true
   end
 
-
   def students_list
-    @classroom = Classroom.find params[:id]
+    @classroom = current_user.classrooms_i_teach.find {|classroom| classroom.id == params[:id]&.to_i}
     last_name = "substring(users.name, '(?=\s).*')"
     render json: {students: @classroom.students.order("#{last_name} asc, users.name asc")}
   end
-
 
   def premium
     @subscription_type = current_user.premium_state
@@ -159,7 +123,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def scores
-    scores = Scorebook::Query.run(params[:classroom_id], params[:current_page], params[:unit_id], params[:begin_date], params[:end_date])
+    scores = Scorebook::Query.run(params[:classroom_id], params[:current_page], params[:unit_id], params[:begin_date], params[:end_date], current_user.utc_offset)
     last_page = scores.length < 200
     render json: {
       scores: scores,
@@ -167,8 +131,8 @@ class Teachers::ClassroomManagerController < ApplicationController
     }
   end
 
-  # needed to simply render a page, lets React.js do the rest
   def my_account
+    @time_zones = [{name: 'Select Time Zone', id: 'Select Time Zone'}].concat(TZInfo::Timezone.all_country_zone_identifiers.sort.map{|tz| {name: tz, id: tz}})
   end
 
   def my_account_data
@@ -181,9 +145,11 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def clear_data
-    sign_out
-    User.find(params[:id]).clear_data
-    render json: {}
+    if params[:id] == current_user.id
+      sign_out
+      User.find(params[:id]).clear_data
+      render json: {}
+    end
   end
 
   def google_sync
@@ -215,6 +181,53 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   private
+
+  def set_classroom_variables
+    @tab = params[:tab]
+    @grade = params[:grade]
+    @students = current_user.students.any?
+    @last_classroom_name = current_user.classrooms_i_teach.last.name
+    @last_classroom_id = current_user.classrooms_i_teach.last.id
+  end
+
+
+  def classroom_with_students_json(classrooms)
+    {
+        classrooms_and_their_students: classrooms.map { |classroom|
+          classroom_json(classroom)
+        }
+    }
+  end
+
+  def classroom_json(classroom)
+    {  classroom: classroom, students: classroom.students.sort_by(&:sorting_name)}
+  end
+
+  def invited_classrooms
+    ActiveRecord::Base.connection.execute("
+        SELECT coteacher_classroom_invitations.id AS classroom_invitation_id, users.name AS inviter_name, classrooms.name AS classroom_name, TRUE AS invitation
+        FROM invitations
+        JOIN coteacher_classroom_invitations ON coteacher_classroom_invitations.invitation_id = invitations.id
+        JOIN users ON users.id = invitations.inviter_id
+        JOIN classrooms ON classrooms.id = coteacher_classroom_invitations.classroom_id
+        WHERE invitations.invitee_email = #{ActiveRecord::Base.sanitize(current_user.email)} AND invitations.archived = false;
+      ").to_a
+  end
+
+  def active_and_inactive_classrooms_hash
+    classrooms = {}
+    classrooms[:active] = invited_classrooms
+    classrooms[:inactive] = []
+    ClassroomsTeacher.where(user_id: current_user.id).each do |classrooms_teacher|
+      classroom = Classroom.unscoped.find(classrooms_teacher.classroom_id)
+      if classroom.visible
+        classrooms[:active] << classroom.archived_classrooms_manager
+      else
+        classrooms[:inactive] << classroom.archived_classrooms_manager
+      end
+    end
+    classrooms
+  end
 
   def classrooms_with_data
     ActiveRecord::Base.connection.execute(

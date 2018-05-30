@@ -130,11 +130,6 @@ class Teachers::UnitsController < ApplicationController
     render json: {}
   end
 
-  def edit
-    unit = Unit.find(params[:id])
-    render json: LessonPlanner::UnitSerializer.new(unit, root: false)
-  end
-
   private
 
   def unit_params
@@ -205,7 +200,7 @@ class Teachers::UnitsController < ApplicationController
         INNER JOIN classroom_activities AS ca ON ca.unit_id = units.id
         INNER JOIN activities ON ca.activity_id = activities.id
         INNER JOIN classrooms ON ca.classroom_id = classrooms.id
-        INNER JOIN students_classrooms ON students_classrooms.classroom_id = classrooms.id
+        LEFT JOIN students_classrooms ON students_classrooms.classroom_id = classrooms.id AND students_classrooms.visible
         LEFT JOIN activity_sessions AS act_sesh ON act_sesh.classroom_activity_id = ca.id
         LEFT JOIN classrooms_teachers ON classrooms_teachers.classroom_id = classrooms.id
         JOIN users AS unit_owner ON unit_owner.id = units.user_id
@@ -213,7 +208,6 @@ class Teachers::UnitsController < ApplicationController
         AND classrooms.visible = true
         AND units.visible = true
         AND ca.visible = true
-        AND students_classrooms.visible = true
         #{lessons}
         GROUP BY units.name, units.created_at, ca.id, classrooms.name, classrooms.id, activities.name, activities.activity_classification_id, activities.id, activities.uid, unit_owner.name, unit_owner.id
         #{completed}

@@ -1,0 +1,23 @@
+<% image_id ||= nil%>
+<% image_src ||= nil%>
+<% hover_image_src ||= nil %>
+<% new_tab ||= false %>
+
+<a
+  class="tooltip-link"
+  href="<%= link %>"
+  target="<%= new_tab ? '_blank' : '_self' %>"
+>
+  <div class="image-container">
+    <% if image_src && hover_image_src %>
+      <img id="<%=image_id%>" class="static" src="<%= image_src %>"></img>
+      <img id="hover-<%=image_id%>" class="hover" src="<%= hover_image_src %>"></img>
+    <% elsif fa_class %>
+      <i class="<%= fa_class %>"></i>
+    <% end %>
+  </div>
+  <div>
+    <h3><%= text %></h3>
+    <p><%= subtext %></p>
+  </div>
+</a>

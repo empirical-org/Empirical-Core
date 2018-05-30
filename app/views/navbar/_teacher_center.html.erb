@@ -1,0 +1,54 @@
+<div id="teacher-center" class="navbar-tooltip-trigger <%= active_tab == 'Teacher Center' ? 'active' : '' %>" tabindex="1">
+  <span>Teacher Center</span>
+  <div class="navbar-tooltip">
+    <i class="fa fa-caret-up"></i>
+    <%= render 'navbar/tooltip_link',
+      text: 'All Resources',
+      subtext: 'View all of Quill’s instructional resources',
+      hover_image_src: 'https://assets.quill.org/images/navbar/navbar-resources-solid.svg',
+      image_src: 'https://assets.quill.org/images/navbar/navbar-resources-gradient.svg',
+      image_id: 'resources-img',
+      link: '/teacher-center'
+    %>
+    <%= render 'navbar/tooltip_link',
+      text: 'Getting Started',
+      subtext: 'Set up your classroom on Quill with guides, videos, and presentations',
+      hover_image_src: 'https://assets.quill.org/images/navbar/navbar-gettingstarted-solid.svg',
+      image_src: 'https://assets.quill.org/images/navbar/navbar-gettingstarted-gradient.svg',
+      image_id: 'gettingstarted-img',
+      link: '/teacher-center/topic/getting-started'
+    %>
+    <%= render 'navbar/tooltip_link',
+      text: 'Teacher Stories',
+      subtext: 'Read success stories about Quill in the class',
+      hover_image_src: 'https://assets.quill.org/images/navbar/navbar-casestudy-solid.svg',
+      image_src: 'https://assets.quill.org/images/navbar/navbar-casestudy-gradient.svg',
+      image_id: 'casestudy-img',
+      link: '/teacher-center/topic/teacher-stories'
+    %>
+    <%= render 'navbar/tooltip_link',
+      text: 'Writing Instruction Research',
+      subtext: 'Read and download handpicked materials to teach writing',
+      hover_image_src: 'https://assets.quill.org/images/navbar/navbar-writingresearch-solid.svg',
+      image_src: 'https://assets.quill.org/images/navbar/navbar-writingresearch-gradient.svg',
+      image_id: 'research-img',
+      link: '/teacher-center/topic/writing-instruction-research'
+    %>
+    <%= render 'navbar/tooltip_link',
+      text: 'FAQ',
+      subtext: 'Answers for common questions about Quill',
+      hover_image_src: 'https://assets.quill.org/images/navbar/navbar-faq-solid.svg',
+      image_src: 'https://assets.quill.org/images/navbar/navbar-faq-gradient.svg',
+      image_id: 'faq-img',
+      link: '/faq'
+    %>
+    <%= render 'navbar/tooltip_link',
+      text: 'Premium',
+      subtext: 'Gain actionable insights with Quill Premium',
+      hover_image_src: 'https://assets.quill.org/images/navbar/navbar-premium-solid.svg',
+      image_src: 'https://assets.quill.org/images/navbar/navbar-premium-gradient.svg',
+      image_id: 'premium-img',
+      link: '/premium'
+    %>
+  </div>
+</div>

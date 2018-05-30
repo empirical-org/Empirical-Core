@@ -1,12 +1,11 @@
 require 'rails_helper'
 
 describe 'CleverIntegration::Importers::Teachers' do
-
-  let!(:district) {
+  let!(:district) do
     create(:district, name: 'district1', clever_id: '1', token: '1')
-  }
+  end
 
-  let!(:teachers_response) {
+  let!(:teachers_response) do
     [
       {id: '1',
        email: 'teacher@gmail.com',
@@ -16,17 +15,16 @@ describe 'CleverIntegration::Importers::Teachers' do
        }
      }
     ]
-  }
+  end
 
-  let!(:district_requester) {
-
-    Response = Struct.new(:teachers)
-    response = Response.new(teachers_response)
+  let!(:district_requester) do
+    response_struct = Struct.new(:teachers)
+    response = response_struct.new(teachers_response)
 
     lambda do |clever_id, district_token|
       response
     end
-  }
+  end
 
 
   def subject
