@@ -26,9 +26,9 @@ RUN git clone https://github.com/rbenv/rbenv.git /root/.rbenv \
     && echo 'export PATH="/root/.rbenv/plugins/ruby-build/bin:$PATH"' >> /root/.bashrc \
     && echo 'eval "$(rbenv init -)"' >> /root/.bashrc \
     && source /root/.bashrc \
-    && echo $PATH
+    && echo $PATH \
     && rbenv install -v 2.3.1 \
-    && rbenv global 2.3.1 \
+    && rbenv global 2.3.1
 
 # Install Bundler
 RUN echo "gem: --no-document" > /root/.gemrc # dnt add individual gem docs
