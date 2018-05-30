@@ -137,7 +137,8 @@ module PublicProgressReports
         time: get_time_in_minutes(final_activity_session),
         number_of_questions: formatted_concept_results.length,
         concept_results: formatted_concept_results,
-        score: get_average_score(formatted_concept_results)
+        score: get_average_score(formatted_concept_results),
+        average_score_on_quill: student.get_student_average_score
       }
     end
 
@@ -249,7 +250,10 @@ module PublicProgressReports
       assigned_recommendations = Recommendations.new.send("recs_for_#{diagnostic.id}").map do |rec|
         # one unit per teacher with this name.
         unit = Unit.find_by(user_id: teacher_id, unit_template_id: rec[:activityPackId])
-        student_ids = ClassroomActivity.find_by(unit: unit, classroom: classroom).try(:assigned_student_ids)
+        if !unit
+          unit = Unit.find_by(user_id: teacher_id, name: UnitTemplate.find_by_id(rec[:activityPackId]).name)
+        end
+        student_ids = ClassroomActivity.find_by(unit: unit, classroom: classroom).try(:assigned_student_ids) || []
         return_value_for_recommendation(student_ids, rec)
       end
       recommended_lesson_activity_ids = LessonRecommendations.new.send("recs_#{diagnostic.id}_data").map {|r| r[:activityPackId]}

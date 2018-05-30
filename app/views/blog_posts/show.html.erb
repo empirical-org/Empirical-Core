@@ -1,2 +1,16 @@
+<% if @topic == 'Getting Started' || @topic == 'Teacher Stories' || @topic == 'Writing Instruction Research' %>
+  <% @active_tab = @topic %>
+<% else %>
+  <% @active_tab = 'All Resources'%>
+<% end %>
+
 <%= render partial: 'teachers/shared/scorebook_tabs' if current_user %>
-<%= react_component('BlogPostsApp', props: {route: 'show', blogPost: @blog_post, announcement: @announcement, mostRecentPosts: @most_recent_posts, author: @author }) %>
+<%= render partial: 'pages/shared/teacher_center_navbar', active_tab: @active_tab %>
+<%= react_component('BlogPostsApp', props: {
+  route: 'show',
+  blogPost: @blog_post,
+  announcement: @announcement,
+  mostRecentPosts: @most_recent_posts,
+  author: @author,
+  displayPaywall: @display_paywall
+}) %>

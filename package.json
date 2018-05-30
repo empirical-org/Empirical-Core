@@ -1,11 +1,14 @@
 {
-  "name": "react_on_rails",
-  "version": "2.0.0-rc.2",
-  "description": "example of server rendering",
-  "main": "server.js",
+  "name": "Empirical-Core",
+  "description": "Empirical Core",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/empirical-org/Empirical-Core.git"
+  },
+  "license": "AGPL-3.0",
   "engines": {
-    "node": "4.4.5",
-    "npm": "3.9.5"
+    "node": "7.5.0",
+    "npm": "4.1.2"
   },
   "cacheDirectories": [
     "client/node_modules"
@@ -25,16 +28,14 @@
     "build:dev:client": "(cd client && npm run build:dev:client --silent)",
     "build:dev:server": "(cd client && npm run build:dev:server --silent)",
     "hot-assets": "(cd client && npm run hot-assets)",
-    "jest": "cd client && npm run jest",
+    "jest": "./script/jest.sh",
     "jest:u": "cd client && npm run jest -- -u",
     "jest:update": "cd client && npm run jest -- -u",
     "jest:watch": "cd client && npm run jest:watch",
     "jest:coverage": "cd client && npm run jest:coverage",
-    "jest:silent": "cd client && npm run jest:silent"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/shakacode/react_on_rails.git"
+    "jest:silent": "cd client && npm run jest:silent",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run"
   },
   "keywords": [
     "react",
@@ -42,27 +43,30 @@
     "server",
     "rendering"
   ],
-  "author": "justin808",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/shakacode/react_on_rails/issues"
-  },
   "dependencies": {
+    "faker": "^4.1.0",
     "gitbook-plugin-rss": "git+https://git@github.com/ddmck/gitbook-plugin-rss.git",
     "istanbul-lib-instrument": "^1.9.1",
     "react-csv": "^1.0.8",
     "react-dropdown": "^1.3.2",
+    "react-radio-buttons": "^1.2.1",
     "react-select": "^1.1.0",
     "react-table": "^6.7.6",
     "tabslet": "^1.7.3"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
+    "cypress": "^2.1.0",
     "eslint": "^4.6.1",
     "eslint-config-airbnb": "^15.1.0",
     "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-jsx-a11y": "^5.1.1",
     "eslint-plugin-react": "^7.3.0",
-    "gitbook-cli": "^2.3.2"
+    "faye-websocket": "^0.11.1",
+    "gitbook-cli": "^2.3.2",
+    "memory-fs": "^0.4.1",
+    "mime": "^2.2.0",
+    "qs": "^6.5.1",
+    "redux-test-utils": "^0.2.2"
   }
 }

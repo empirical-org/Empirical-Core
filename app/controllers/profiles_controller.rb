@@ -7,9 +7,16 @@ class ProfilesController < ApplicationController
       @firewall_test = true
       @js_file = 'student'
       if current_user.classrooms.any?
-        render 'student'
+        # in the future, we could use the following sql query to direct the student
+        # to the classroom with the most recently updated classroom activity,
+        # but it may not be worth the memory use now.
+        # SELECT classroom_activities.classroom_id FROM classroom_activities
+        # WHERE 1892827 = ANY(classroom_activities.assigned_student_ids)
+        # ORDER BY classroom_activities.updated_at DESC
+        # LIMIT 1
+        render 'students/index'
       else
-        render 'students_classrooms/add_classroom'
+        redirect_to '/add_classroom'
       end
     else
       send current_user.role
@@ -22,7 +29,12 @@ class ProfilesController < ApplicationController
 
   def student_profile_data
     if current_user.classrooms.any?
-      render json: {scores: student_profile_data_sql(params[:current_classroom_id]), next_activity_session: next_activity_session, student: student_data}
+      render json: {
+        scores: student_profile_data_sql(params[:current_classroom_id]),
+        next_activity_session: next_activity_session,
+        student: student_data,
+        classroom_id: params[:current_classroom_id] ? params[:current_classroom_id] : current_user.classrooms.last.id
+      }
     else
       render json: {error: 'Current user has no classrooms'}
     end
@@ -47,10 +59,6 @@ class ProfilesController < ApplicationController
     else
       redirect_to new_teachers_classroom_path
     end
-  end
-
-  def admin
-    render :admin
   end
 
   def staff
@@ -138,7 +146,7 @@ protected
     if !classroom_id
        current_user.classrooms.last
     else
-      Classroom.find(classroom_id.to_i) if !!classroom_id
+      current_user.classrooms.find(classroom_id.to_i) if !!classroom_id
     end
   end
 end

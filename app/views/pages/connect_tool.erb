@@ -1,8 +1,7 @@
 <section class="tool-header">
-  <%= render partial: 'pages/shared/home_navbar' %>
+  <%= render partial: 'pages/shared/navbar' %>
   <% @active_tab = 'Quill Connect' %>
   <% @tool = 'connect' %>
-  <%= render partial: "pages/shared/tools_tabs", active_tab: @active_tab %>
   <%= render partial: "pages/shared/tools_anchor_navbar", active_tab: @active_tab, tool: @tool%>
 </section>
 <div class="tool-container connect-tool-page">
@@ -14,7 +13,7 @@
       <p class='description'>
         Help your students advance from fragmented and run-on sentences to complex and well-structured sentences with Quill Connect. Using the evidence-based strategy of sentence combining, students combine multiple ideas into a single sentence. They then receive instant feedback designed to help them improve the clarity and precision of their sentences.
       </p>
-      <a href='https://connect.quill.org/#/play/lesson/-KnoWhUWhtxvet4_bi4r' target="_blank" class="q-button cta-button bg-white text-connect-yellow">Try Quill Connect Now</a>
+      <a href=<%= "#{ENV['QUILL_CONNECT_URL']}/#/play/lesson/-KnoWhUWhtxvet4_bi4r" %> target="_blank" class="q-button cta-button bg-white text-connect-yellow">Try Quill Connect Now</a>
     </section>
 
     <section class="tool-animation-section " id="overview">
@@ -212,7 +211,7 @@
 
   <section class="tool-try-it bg-connect-yellow bg-image-connect-pattern-bullseye">
     <h2 class='q-h1'>Try It Out for Yourself</h2>
-    <a href='https://connect.quill.org/#/play/lesson/-KnoWhUWhtxvet4_bi4r' target="_blank" class="q-button cta-button bg-white text-connect-yellow">Preview Quill Connect</a>
+    <a href=<%= "#{ENV['QUILL_CONNECT_URL']}/#/play/lesson/-KnoWhUWhtxvet4_bi4r" %> target="_blank" class="q-button cta-button bg-white text-connect-yellow">Preview Quill Connect</a>
   </section>
 
   <section>
@@ -254,4 +253,8 @@
 </div>
 
 
-<%= render partial: 'pages/shared/footer' %>
+<% if current_user %>
+  <%= render partial: 'footer' %>
+<% else %>
+  <%= render partial: 'pages/shared/footer' %>
+<% end %>

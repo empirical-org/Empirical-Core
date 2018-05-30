@@ -1,4 +1,4 @@
-class Cms::TopicCategoriesController < ApplicationController
+class Cms::TopicCategoriesController < Cms::CmsController
   before_action :set_topic_category, only: [:show, :edit, :update, :destroy]
 
   def index

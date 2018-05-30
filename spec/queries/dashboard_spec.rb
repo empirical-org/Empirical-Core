@@ -7,7 +7,7 @@ describe 'Dashboard', redis: :true do
   let(:teacher_with_no_activities) {classroom_with_no_activities.owner}
 
   before(:each) do
-    $redis.flushdb
+    $redis.redis.flushdb
   end
 
   context 'when there are no completed activities' do

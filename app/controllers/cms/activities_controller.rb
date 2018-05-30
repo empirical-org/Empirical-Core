@@ -1,6 +1,6 @@
-class Cms::ActivitiesController < ApplicationController
-  before_filter :staff!
+class Cms::ActivitiesController < Cms::CmsController
   before_filter :find_classification
+  before_filter :set_activity, only: [:edit, :update, :destroy]
 
   def index
     @flag = params[:flag].to_s.to_sym.presence || :production
@@ -18,12 +18,10 @@ class Cms::ActivitiesController < ApplicationController
   end
 
   def edit
-    @activity = Activity.find(params[:id])
   end
 
   def create
     @activity = @activity_classification.activities.new(activity_params)
-
     if @activity.save
       redirect_to cms_activity_data_path(@activity_classification.id, @activity), notice: 'Activity was successfully created.'
     else
@@ -32,8 +30,6 @@ class Cms::ActivitiesController < ApplicationController
   end
 
   def update
-    @activity = subject
-
     if @activity.update_attributes(activity_params)
       redirect_to cms_activity_data_path(@activity_classification.id, @activity), notice: 'Activity was successfully updated.'
     else
@@ -42,8 +38,6 @@ class Cms::ActivitiesController < ApplicationController
   end
 
   def destroy
-    @activity = subject
-
     @activity.assignments.each do |assignment|
       assignment.scores.each(&:destroy)
       Assignment.find(assignment.id).destroy
@@ -55,8 +49,8 @@ class Cms::ActivitiesController < ApplicationController
 
 protected
 
-  def subject
-    @activity_classification.activities.find(params[:id])
+  def set_activity
+    @activity = @activity_classification.activities.find(params[:id])
   end
 
   def find_classification
