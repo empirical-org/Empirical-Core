@@ -27,6 +27,60 @@ export const currentQuestion: Question = {
   attempts: []
 }
 
+const incorrectAttemptOne = {
+  author: "Spelling Hint",
+  concept_results: [{
+    conceptUID: "1ohLyApTz7lZ3JszrA98Xg",
+    correct: false
+
+  }],
+  count: 1,
+  feedback: "Try again. There may be a spelling mistake.",
+  question_uid: "-Jzw0qjO5owyFPUAwDGx",
+  spelling_error: true,
+  text: "The team stretch their legs, practice their drills, and then rehearse their set plays."
+}
+
+const incorrectAttemptTwo = {
+  author: "Spelling Hint",
+  concept_results: [{
+    conceptUID: "1ohLyApTz7lZ3JszrA98Xg",
+    correct: false
+  }],
+  count: 1,
+  feedback: "Try again. There may be a spelling mistake.",
+  question_uid: "-Jzw0qjO5owyFPUAwDGx",
+  spelling_error: true,
+  text: "The team scratch their legs, practice their drills, and then rehearse their set plays."
+}
+
+const correctAttempt = {
+  concept_results: [{
+    conceptUID: "1ohLyApTz7lZ3JszrA98Xg",
+    correct: true
+  }],
+  count: 1,
+  feedback: "Great job!.",
+  question_uid: "-Jzw0qjO5owyFPUAwDGx",
+  optimal: true,
+  text: "The team stretched their legs, practiced their drills, and then rehearsed their set plays."
+}
+
+export const currentQuestionWithOneIncorrectAttempt: Question = {
+  ...currentQuestion,
+  attempts: [incorrectAttemptOne]
+}
+
+export const currentQuestionWithTwoIncorrectAttempts: Question = {
+  ...currentQuestion,
+  attempts: [incorrectAttemptOne, incorrectAttemptTwo]
+}
+
+export const currentQuestionWithOneCorrectAttempt: Question = {
+  ...currentQuestion,
+  attempts: [correctAttempt]
+}
+
 export const grammarActivities: GrammarActivityState = {
   hasreceiveddata: true,
   currentActivity

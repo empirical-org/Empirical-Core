@@ -1,7 +1,14 @@
 import * as React from "react";
 import {shallow} from "enzyme";
 import { QuestionComponent } from "../../components/grammarActivities/question";
-import { currentActivity, session, currentQuestion } from './data'
+import {
+  currentActivity,
+  session,
+  currentQuestion,
+  currentQuestionWithOneIncorrectAttempt,
+  currentQuestionWithTwoIncorrectAttempts,
+  currentQuestionWithOneCorrectAttempt
+} from './data'
 
 describe("<PlayGrammarContainer />", () => {
   const shallowWrapper = shallow(<QuestionComponent
@@ -123,12 +130,91 @@ describe("<PlayGrammarContainer />", () => {
         />)
         const typedText = 'Hello'
         typedInWrapper.find('textarea').simulate('change', { target: { value: typedText } })
+
         it ('should have the typed text', () => {
           expect(typedInWrapper.find('textarea').props().value).toEqual(typedText)
         })
 
         it ('state.response has the typed string', () => {
           expect(typedInWrapper.state('response')).toEqual(typedText)
+        })
+      })
+
+    })
+
+    describe('feedback and the check answer button', () => {
+
+      describe("if state.questionStatus is 'unanswered'", () => {
+
+        it("the check answer button says 'Check Work'", () => {
+          expect(shallowWrapper.find('.check-answer-button').children().first().text()).toEqual('Check Work')
+        })
+
+        it("there is no feedback", () => {
+          expect(shallowWrapper.find('.feedback')).toHaveLength(0)
+        })
+      })
+
+      describe("if state.questionStatus is 'incorrectly answered'", () => {
+        const wrapperWithOneIncorrectAttempt = shallow(<QuestionComponent
+          activity={currentActivity}
+          answeredQuestions={session.answeredQuestions}
+          unansweredQuestions={session.unansweredQuestions}
+          currentQuestion={currentQuestionWithOneIncorrectAttempt}
+          goToNextQuestion={() => {}}
+          checkAnswer={() => {}}
+        />)
+
+        wrapperWithOneIncorrectAttempt.setState({questionStatus: 'incorrectly answered'})
+
+        it("the check answer button says 'Recheck Work'", () => {
+          expect(wrapperWithOneIncorrectAttempt.find('.check-answer-button').children().first().text()).toEqual('Recheck Work')
+        })
+
+        it("there is feedback with a try again class", () => {
+          expect(wrapperWithOneIncorrectAttempt.find('.feedback.try-again')).toHaveLength(1)
+        })
+      })
+
+      describe("if state.questionStatus is 'final attempt'", () => {
+        const wrapperWithTwoIncorrectAttempts = shallow(<QuestionComponent
+          activity={currentActivity}
+          answeredQuestions={session.answeredQuestions}
+          unansweredQuestions={session.unansweredQuestions}
+          currentQuestion={currentQuestionWithTwoIncorrectAttempts}
+          goToNextQuestion={() => {}}
+          checkAnswer={() => {}}
+        />)
+
+        wrapperWithTwoIncorrectAttempts.setState({questionStatus: 'incorrectly answered'})
+
+        it("the check answer button says 'Recheck Work'", () => {
+          expect(wrapperWithTwoIncorrectAttempts.find('.check-answer-button').children().first().text()).toEqual('Recheck Work')
+        })
+
+        it("there is feedback with an incorrect class", () => {
+          expect(wrapperWithTwoIncorrectAttempts.find('.feedback.incorrect')).toHaveLength(1)
+        })
+      })
+
+      describe("if state.questionStatus is 'correct'", () => {
+        const wrapperWithOneCorrectAttempt = shallow(<QuestionComponent
+          activity={currentActivity}
+          answeredQuestions={session.answeredQuestions}
+          unansweredQuestions={session.unansweredQuestions}
+          currentQuestion={currentQuestionWithOneCorrectAttempt}
+          goToNextQuestion={() => {}}
+          checkAnswer={() => {}}
+        />)
+
+        wrapperWithOneCorrectAttempt.setState({questionStatus: 'correct'})
+
+        it("the check answer button says 'Next Problem'", () => {
+          expect(wrapperWithOneCorrectAttempt.find('.check-answer-button').children().first().text()).toEqual('Next Problem')
+        })
+
+        it("there is feedback with a correct class", () => {
+          expect(wrapperWithOneCorrectAttempt.find('.feedback.correct')).toHaveLength(1)
         })
       })
     })
