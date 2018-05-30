@@ -11,24 +11,19 @@ RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
 # Base deps
 RUN apt-get install -y autoconf \
-  bison build-essential libssl-dev \ 
+  bison build-essential libssl-dev wget \ 
   libyaml-dev libreadline6-dev git-core \
   zlib1g-dev libncurses5-dev curl \
   libffi-dev libgdbm3 libgdbm-dev
 
+# Install ruby-install (rvm is overkill in docker container)
+RUN wget -O ruby-install-0.6.1.tar.gz https://github.com/postmodern/ruby-install/archive/v0.6.1.tar.gz
+RUN tar -xzvf ruby-install-0.6.1.tar.gz
+RUN cd ruby-install-0.6.1/
+RUN make install
 
-RUN echo "this is $HOME" 
-
-# Install Rbenv
-RUN git clone https://github.com/rbenv/rbenv.git /root/.rbenv \
-    && echo 'export PATH="/root/.rbenv/bin:$PATH"' >> /root/.bashrc \
-    && git clone https://github.com/rbenv/ruby-build.git /root/.rbenv/plugins/ruby-build \
-    && echo 'export PATH="/root/.rbenv/plugins/ruby-build/bin:$PATH"' >> /root/.bashrc \
-    && echo 'eval "$(rbenv init -)"' >> /root/.bashrc \
-    && source /root/.bashrc \
-    && echo $PATH \
-    && rbenv install -v 2.3.1 \
-    && rbenv global 2.3.1
+# Install ruby
+RUN ruby-install ruby 2.3.1
 
 # Install Bundler
 RUN echo "gem: --no-document" > /root/.gemrc # dnt add individual gem docs
