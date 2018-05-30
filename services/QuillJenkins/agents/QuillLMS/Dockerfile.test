@@ -20,22 +20,23 @@ RUN apt-get install -y autoconf \
 RUN wget -O ruby-install-0.6.1.tar.gz https://github.com/postmodern/ruby-install/archive/v0.6.1.tar.gz
 RUN tar -xzvf ruby-install-0.6.1.tar.gz
 RUN cd ruby-install-0.6.1/
-RUN make install
 
-# Install ruby
-RUN ruby-install ruby 2.3.1
-
-# Install Bundler
-RUN echo "gem: --no-document" > /root/.gemrc # dnt add individual gem docs
-RUN gem install bundler
-
-# Install Rails?
-
-# Install nvm and npm
-RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
-
-# Install node with nvm
-RUN nvm install 7.5.0
-RUN nvm use 7.5.0
+#RUN make install
+#
+## Install ruby
+#RUN ruby-install ruby 2.3.1
+#
+## Install Bundler
+#RUN echo "gem: --no-document" > /root/.gemrc # dnt add individual gem docs
+#RUN gem install bundler
+#
+## Install Rails?
+#
+## Install nvm and npm
+#RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
+#
+## Install node with nvm
+#RUN nvm install 7.5.0
+#RUN nvm use 7.5.0
 
 
