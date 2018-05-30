@@ -12,7 +12,7 @@ RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 # Base deps
 RUN apt-get install -y autoconf \
   bison build-essential libssl-dev \ 
-  libyaml-dev libreadline6-dev \
+  libyaml-dev libreadline6-dev git-core \
   zlib1g-dev libncurses5-dev curl \
   libffi-dev libgdbm3 libgdbm-dev
 
