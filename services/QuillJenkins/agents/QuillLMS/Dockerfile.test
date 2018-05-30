@@ -1,7 +1,4 @@
-FROM ubuntu:16.04
-
-RUN mkdir /haim
-WORKDIR /haim
+FROM ruby:2.3.1
 
 RUN apt-get update -y
 RUN mkdir /root/.ssh
@@ -19,18 +16,4 @@ RUN apt-get install -y autoconf \
 ## Install nvm and npm (doesn't work in Dockerfile, moved to Jenkinsfile)
 # curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash && source ~/.bashrc && nvm install 7.5.0 && nvm use 7.5.0
 
-# Install ruby-install (rvm is overkill in docker container)
-RUN wget -O ruby-install-0.6.1.tar.gz https://github.com/postmodern/ruby-install/archive/v0.6.1.tar.gz
-RUN tar -xzvf ruby-install-0.6.1.tar.gz
-RUN cd ruby-install-0.6.1/ && make install
-
-# Install ruby and add sym links to bin
-RUN ruby-install ruby 2.3.1
-RUN ln -s /opt/rubies/ruby-2.3.1/bin/* /usr/local/sbin
-
-# Install Bundler
-RUN echo "gem: --no-document" > /root/.gemrc # dnt add individual gem docs
-RUN gem install bundler
-
 # Install Rails?
-#
