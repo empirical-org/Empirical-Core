@@ -1,6 +1,7 @@
 import React from 'react'
 import ProgressReport from '../progress_report.jsx'
 import OverviewBoxes from './overview_boxes.jsx'
+import MissedLessonRow from './missed_lesson_row.jsx'
 import _ from 'underscore';
 
 export default React.createClass({
@@ -82,11 +83,20 @@ export default React.createClass({
     };
   },
 
+  sortByLastName: function(names) {
+    return names.sort((a, b) => {
+      const aLast = a.split(' ')[1]
+      const bLast = b.split(' ')[1]
+      return aLast.localeCompare(bLast)
+    })
+  },
+
   onFetchSuccess: function(responseData) {
     this.setState({
       students: responseData.students,
-      startedNames: responseData.started_names,
-      unstartedNames: responseData.unstarted_names
+      startedNames: this.sortByLastName(responseData.started_names),
+      unstartedNames: this.sortByLastName(responseData.unstarted_names),
+      missedNames: this.sortByLastName(responseData.missed_names)
     });
   },
 
@@ -94,11 +104,13 @@ export default React.createClass({
     if (this.state.showInProgressAndUnstartedStudents) {
       const startedRows = _.map(this.state.startedNames, name => <tr key={name} className='in-progress-row'><td>{name}</td><td colSpan='3'>In Progress</td></tr>)
       const unstartedRows = _.map(this.state.unstartedNames, name => <tr key={name} className='unstarted-row'><td>{name}</td><td colSpan='3'>Not Started</td></tr>)
+      const missedRows = _.map(this.state.missedNames, name => <MissedLessonRow name={name}/>)
       return (
         <table className='student-report-box sortable-table'>
           <tbody>
             {startedRows}
             {unstartedRows}
+            {missedRows}
           </tbody>
         </table>
       )

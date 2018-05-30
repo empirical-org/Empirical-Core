@@ -68,7 +68,7 @@ export default React.createClass({
         <div id="reports-navbar">
           <div className='name-and-preview flex-row name-and-preview flex-row vertically-centered'>
             {image}
-            <h1>{this.props.selectedActivity.name}</h1>
+            <h1>{this.props.selectedActivity ? this.props.selectedActivity.name : ''}</h1>
             {previewLink}
           </div>
 
@@ -79,7 +79,7 @@ export default React.createClass({
 
           <p className='standard'>
             <img src='https://assets.quill.org/images/icons/common-core-gray.svg' alt="common-core-icon"/>
-            {this.props.selectedActivity.topic.name}
+            {this.props.selectedActivity && this.props.selectedActivity.topic ? this.props.selectedActivity.topic.name : ''}
           </p>
 
           <div className="nav-elements">
