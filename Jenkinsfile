@@ -3,8 +3,10 @@ pipeline {
   agent any
   stages {
     stage('start-postgres-docker') {
-      echo "Starting postgres docker container..."
-      sh 'docker run --name lms-testdb -d -p 5432:5432 postgres:10.1'
+      steps {
+        echo "Starting postgres docker container..."
+        sh 'docker run --name lms-testdb -d -p 5432:5432 postgres:10.1'
+      }
     }
     stage('build') {
       agent {
@@ -93,9 +95,11 @@ pipeline {
       }
     }
     stage('stop-postgres-docker') {
-      echo "Stopping postgres docker container..."
-      sh 'docker stop lms-testdb'
-      sh 'docker rm lms-testdb'
+      steps {
+        echo "Stopping postgres docker container..."
+        sh 'docker stop lms-testdb'
+        sh 'docker rm lms-testdb'
+      }
     }
   }
 }
