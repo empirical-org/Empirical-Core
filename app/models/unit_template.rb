@@ -19,8 +19,8 @@ class UnitTemplate < ActiveRecord::Base
     self.activities = Activity.find(activity_ids)
   end
 
-  def self.related_models(user, unit_template)
-    user_scope(user&.testing_flag || 'production').where(unit_template_category_id: unit_template.unit_template_category_id).where.not(id: unit_template.id).limit(3)
+  def related_models(flag)
+    UnitTemplate.user_scope(flag).where(unit_template_category_id: self.unit_template_category_id).where.not(id: self.id).limit(3)
   end
 
   def activity_ids
