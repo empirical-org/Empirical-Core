@@ -8,7 +8,7 @@ import { GrammarActivity } from '../../interfaces/grammarActivities'
 interface QuestionProps {
   activity: GrammarActivity;
   answeredQuestions: Question[]|never;
-  unansweredQuestion: Question[]|never;
+  unansweredQuestions: Question[]|never;
   currentQuestion: Question;
   goToNextQuestion: Function;
   checkAnswer: Function;
@@ -21,7 +21,7 @@ interface QuestionState {
   submittedEmptyString: boolean
 }
 
-class QuestionComponent extends React.Component<QuestionProps, QuestionState> {
+export class QuestionComponent extends React.Component<QuestionProps, QuestionState> {
     constructor(props: QuestionProps) {
         super(props);
 
