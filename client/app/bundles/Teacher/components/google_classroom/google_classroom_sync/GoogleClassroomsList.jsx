@@ -169,7 +169,7 @@ export default class extends React.Component{
     // Note to maintainers: if you update the grade options here, please also
     // ensure to do so in the following locations:
     //   - /app/views/teachers/students/index.html.erb
-    //   - /app/bundles/HelloWorld/containers/CreateClass.jsx
+    //   - /app/bundles/Teacher/containers/CreateClass.jsx
       let grades = [];
       for (let grade = 1; grade <= 12; grade++) {
           grades.push(
