@@ -338,3 +338,30 @@
     color: #666666;
   }
 }
+
+@media (max-width: 767px) {
+  .subscriptions{
+    width: 95%;
+    .subscription-status {
+      div{
+        div{
+          .box{
+            display: none;
+          }
+          margin-left: 18%;
+          margin-bottom: 4%;
+        }
+        a{
+          margin-left: 8%;
+        }
+      }
+    }
+    .current-subscription-information-and-cta {
+      .sub-button-row{
+        a[href$=".pdf"]{
+          margin-left: 10%;
+        }
+      }
+    }
+  }
+}
