@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 describe Teachers::ClassroomsController, type: :controller do
+  it { should use_before_filter :teacher! }
+  it { should use_before_filter :authorize_owner! }
+  it { should use_before_filter :authorize_teacher! }
+
   describe 'creating a classroom' do
     let(:teacher) { create(:teacher) }
     let(:classroom_attributes) {attributes_for(:classroom)}
@@ -95,4 +99,142 @@ describe Teachers::ClassroomsController, type: :controller do
     end
   end
 
+  describe '#index' do
+    let(:teacher) { create(:teacher) }
+
+    before do
+      allow(controller).to receive(:current_user) { teacher }
+    end
+
+    context 'when current user has no classrooms i teach, archived classrooms and outstanding teacher invitation' do
+      before do
+        allow(teacher).to receive(:classrooms_i_teach) { [] }
+        allow(teacher).to receive(:has_outstanding_coteacher_invitation?) { false }
+        allow(teacher).to receive(:archived_classrooms) { [] }
+      end
+
+      it 'should redirect to new classroom path' do
+        get :index
+        expect(response).to redirect_to new_teachers_classroom_path
+      end
+    end
+
+    context 'when current user has classrooms i teach' do
+      let(:classroom) { create(:classroom) }
+
+      before do
+        allow(teacher).to receive(:classrooms_i_teach) { [classroom] }
+      end
+
+      it 'should assign the classrooms and classroom' do
+        get :index
+        expect(assigns(:classrooms)).to eq [classroom]
+        expect(assigns(:classroom)).to eq classroom
+      end
+    end
+  end
+
+  describe '#classroom_i_teach' do
+    let(:teacher) { create(:teacher) }
+    let(:classroom) { create(:classroom) }
+
+    before do
+      allow(teacher).to receive(:classrooms_i_teach) { [classroom] }
+      allow(controller).to receive(:current_user) { teacher }
+    end
+
+    it 'should give the classroom i teach for the current user' do
+      get :classrooms_i_teach
+      expect(assigns(:classrooms)).to eq [classroom]
+    end
+  end
+
+  describe '#regenerate_code' do
+    let(:teacher) { create(:teacher) }
+
+    before do
+      allow(controller).to receive(:current_user) { teacher }
+      allow(Classroom).to receive(:generate_unique_code) { "unique code" }
+    end
+
+    it 'should give the new code' do
+      get :regenerate_code
+      expect(response.body).to eq({code: "unique code"}.to_json)
+    end
+  end
+
+  describe '#update' do
+    let!(:classroom) { create(:classroom) }
+    let(:teacher) { classroom.owner }
+
+    before do
+      allow(controller).to receive(:current_user) { teacher }
+    end
+
+    it 'should update the given classroom' do
+      post :update, id: classroom.id, classroom: { name: "new name" }
+      expect(classroom.reload.name).to eq "new name"
+      expect(response).to redirect_to teachers_classroom_students_path(classroom.id)
+    end
+  end
+
+  describe '#destroy' do
+    let!(:classroom) { create(:classroom) }
+    let(:teacher) { classroom.owner }
+
+    before do
+      allow(controller).to receive(:current_user) { teacher }
+    end
+
+    it 'should destroy the given classroom' do
+      delete :destroy, id: classroom.id
+      expect{Classroom.find classroom.id}.to raise_exception ActiveRecord::RecordNotFound
+      expect(response).to redirect_to teachers_classrooms_path
+    end
+  end
+
+  describe '#hide' do
+    let!(:classroom) { create(:classroom) }
+    let(:teacher) { classroom.owner }
+
+    before do
+      allow(controller).to receive(:current_user) { teacher }
+    end
+
+    it 'should hide the classroom' do
+      put :hide, id: classroom.id
+      expect(classroom.reload.visible).to eq false
+      expect(response).to redirect_to teachers_classrooms_path
+    end
+  end
+
+  describe '#unhide' do
+    let!(:classroom) { create(:classroom) }
+    let(:teacher) { classroom.owner }
+
+    before do
+      allow(controller).to receive(:current_user) { teacher }
+    end
+
+    it 'should unhide the classroom' do
+      classroom.update(visible: false)
+      post :unhide, class_id: classroom.id
+      expect(classroom.reload.visible).to eq true
+    end
+  end
+
+  describe '#units' do
+    let!(:classroom) { create(:classroom) }
+    let(:teacher) { classroom.owner }
+
+    before do
+      allow(controller).to receive(:current_user) { teacher }
+      allow_any_instance_of(Classroom).to receive(:units_json) { "units" }
+    end
+
+    it 'should give the correct json' do
+      get :units, id: classroom.id
+      expect(response.body).to eq({units: "units"}.to_json)
+    end
+  end
 end

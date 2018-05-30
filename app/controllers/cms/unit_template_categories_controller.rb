@@ -2,10 +2,11 @@ class Cms::UnitTemplateCategoriesController < Cms::CmsController
   before_action :set_unit_template_category, only: [:update, :destroy]
 
   def index
+    @unit_template_categories = UnitTemplateCategory.all
     respond_to do |format|
       format.html
       format.json do
-        render json: UnitTemplateCategory.all
+        render json: @unit_template_categories
       end
     end
   end
