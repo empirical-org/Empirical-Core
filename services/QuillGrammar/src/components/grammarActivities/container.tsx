@@ -25,7 +25,7 @@ interface PlayGrammarContainerProps {
   dispatch: Function;
 }
 
-class PlayGrammarContainer extends React.Component<PlayGrammarContainerProps, any> {
+export class PlayGrammarContainer extends React.Component<PlayGrammarContainerProps, any> {
     constructor(props: any) {
       super(props);
 
@@ -49,6 +49,7 @@ class PlayGrammarContainer extends React.Component<PlayGrammarContainerProps, an
     }
 
     componentWillReceiveProps(nextProps: PlayGrammarContainerProps) {
+      console.log(JSON.stringify(nextProps))
       if (nextProps.grammarActivities.hasreceiveddata && !nextProps.session.hasreceiveddata && !nextProps.session.error) {
         const concepts = nextProps.grammarActivities.currentActivity.concepts
         this.props.dispatch(startListeningToQuestions(concepts))
