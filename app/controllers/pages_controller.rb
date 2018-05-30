@@ -7,11 +7,8 @@ class PagesController < ApplicationController
     if signed_in?
       redirect_to(profile_path) && return
     end
-
     @body_class = 'home-page'
-
-    @activity = Activity.with_classification.find_by_uid(ENV.fetch('HOMEPAGE_ACTIVITY_UID', ''))
-
+    @activity = Activity.with_classification.find_by_uid(ENVr.fetch('HOMEPAGE_ACTIVITY_UID', ''))
     self.formats = ['html']
   end
 
@@ -355,7 +352,6 @@ class PagesController < ApplicationController
   def announcements
     @blog_posts = BlogPost.where(draft: false, topic: 'Announcements')
   end
-
 
   private
 
