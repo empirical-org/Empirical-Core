@@ -612,10 +612,14 @@ $lightgray: #cecece;
   }
 }
 
-.description {
+.description, .standard {
   img {
     margin-right: 15px;
   }
+}
+
+.standard {
+  margin-top: 6px;
 }
 
 .name-and-preview {
@@ -631,3 +635,5 @@ $lightgray: #cecece;
   }
   padding-bottom: 15px;
 }
+
+
