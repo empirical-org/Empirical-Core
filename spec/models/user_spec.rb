@@ -101,6 +101,22 @@ describe User, type: :model do
     end
   end
 
+  describe '#utc_offset' do
+    it "returns 0 if the user does not have a timezone" do
+      expect(user.utc_offset).to eq(0)
+    end
+
+    it "returns a negative number if the user has a timezone that is behind utc" do
+      user.update(time_zone: 'America/New_York')
+      expect(user.utc_offset).to be < 0
+    end
+
+    it "returns a postive number if the user has a timezone that is ahead of utc" do
+      user.update(time_zone: 'Australia/Perth')
+      expect(user.utc_offset).to be > 0
+    end
+  end
+
   describe 'subscription methods' do
 
     context('subscription methods') do
