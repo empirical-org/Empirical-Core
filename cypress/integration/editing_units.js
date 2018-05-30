@@ -55,7 +55,7 @@ describe('Editing Units', function() {
   describe('changing the due date for an activity', () => {
     it ('allows me to change one activity\'s due date', () => {
       cy.get('.activities-unit:first-of-type .activity:first-of-type .due-date-input').click()
-      cy.get('[aria-label="day-28"]:last-of-type').click()
+      cy.get('[aria-label="day-28"]').click()
     })
 
     it ('allows me to apply the first activity\'s due date to the whole unit', () => {
