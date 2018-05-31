@@ -20,6 +20,10 @@ pipeline {
           args '-u root:sudo -v $HOME/workspace/myproject:/myproject --name lms-webapp --network jnk-net'
         }
       }
+      environment {
+          REDISCLOUD_URL='redis://localhost:6379/0'
+          REDISCLOUD_NAMESPACE='test'
+      }
       steps {
         echo "Beginnning TEST..."
 
