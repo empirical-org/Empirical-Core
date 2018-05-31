@@ -23,6 +23,7 @@ pipeline {
       environment {
           REDISCLOUD_URL='redis://localhost:6379/0'
           REDISCLOUD_NAMESPACE='test'
+          RACK_ENV='test' /* for rake tasks, default is development */
       }
       steps {
         echo "Beginnning TEST..."
