@@ -12,16 +12,15 @@ RSpec.describe ReferrerUser, type: :model do
 
   context 'validations' do
     it 'does not allow two of the same users' do
-      ReferrerUser.create(user_id: 1, referral_code: 'example')
       expect {
-        ReferrerUser.create!(user_id: 1, referral_code: 'different')
+        ReferrerUser.create!(user_id: teacher.id, referral_code: 'different')
       }.to raise_error ActiveRecord::RecordNotUnique
     end
 
     it 'does not allow two of the same referral codes' do
-      ReferrerUser.create(user_id: 1, referral_code: 'same')
+      # ReferrerUser.create(user_id: 1, referral_code: 'same')
       expect {
-        ReferrerUser.create!(user_id: 2, referral_code: 'same')
+        ReferrerUser.create!(user_id: 2, referral_code: referrer_user.referral_code)
       }.to raise_error ActiveRecord::RecordNotUnique
     end
   end
