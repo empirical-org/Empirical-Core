@@ -187,6 +187,7 @@ class Subscription < ActiveRecord::Base
       payment_amount = TEACHER_PRICE
     elsif premium_type === 'school'
       charge = charge_user_for_school_premium(school)
+      binding.pry
       payment_amount = SCHOOL_RENEWAL_PRICE
     else
       raise "an incorrect premium type #{premium_type} was passed"

@@ -175,8 +175,12 @@ describe Subscription, type: :model do
     end
 
     it "creates a new user-subscription join when the charge succeeds" do
+      school.users.push(user)
       old_user_sub_count = UserSubscription.count
-      Subscription.give_school_premium_if_charge_succeeds(school, user)
+      subby = Subscription.give_school_premium_if_charge_succeeds(school, user)
+      puts subby.attributes
+      puts subby.errors.any?
+      binding.pry
       expect(SchoolSubscription.count - old_user_sub_count).to eq(1)
     end
 
