@@ -2093,7 +2093,8 @@ CREATE TABLE users (
     last_active timestamp without time zone,
     stripe_customer_id character varying,
     flags character varying[] DEFAULT '{}'::character varying[] NOT NULL,
-    title character varying
+    title character varying,
+    time_zone character varying
 );
 
 
@@ -3742,6 +3743,13 @@ CREATE INDEX index_users_on_stripe_customer_id ON users USING btree (stripe_cust
 
 
 --
+-- Name: index_users_on_time_zone; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_users_on_time_zone ON public.users USING btree (time_zone);
+
+
+--
 -- Name: index_users_on_token; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -4524,6 +4532,8 @@ INSERT INTO schema_migrations (version) VALUES ('20180319201311');
 INSERT INTO schema_migrations (version) VALUES ('20180417202537');
 
 INSERT INTO schema_migrations (version) VALUES ('20180418185045');
+
+INSERT INTO schema_migrations (version) VALUES ('20180502152419');
 
 INSERT INTO schema_migrations (version) VALUES ('20180517045137');
 

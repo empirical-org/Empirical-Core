@@ -201,12 +201,21 @@ $lightgray: #cecece;
 /* for shading by score*/
 .green-score-color {
   background-color: #e7fee8;
+  &:hover {
+    background-color: #D7FCD9;
+  }
 }
 .red-score-color {
   background-color: #feedf0;
+  &:hover {
+    background-color: #FADDE2;
+  }
 }
 .yellow-score-color {
   background-color: #fff6e2;
+  &:hover {
+    background-color: #FEF0D2;
+  }
 }
 .unstarted-row {
   background: #f7f5f5;
@@ -236,17 +245,27 @@ $lightgray: #cecece;
 #individual-classroom-view {
   margin: auto;
   max-width: 950px;
-  & > div {
-    max-width: 660px;
-  }
   th, td {
     text-align: left;
     &:first-of-type {
       width: 48%;
     }
   }
+  th:nth-of-type(4) {
+    border-right: none;
+  }
+  th:last-of-type {
+    border-left: none;
+  }
   td:first-of-type {
     text-decoration: underline;
+  }
+  td:last-of-type {
+    text-align: right;
+    padding-right: 20px;
+  }
+  th:last-of-type {
+    width: 40px;
   }
 }
 
@@ -593,10 +612,14 @@ $lightgray: #cecece;
   }
 }
 
-.description {
+.description, .standard {
   img {
     margin-right: 15px;
   }
+}
+
+.standard {
+  margin-top: 6px;
 }
 
 .name-and-preview {
@@ -612,3 +635,5 @@ $lightgray: #cecece;
   }
   padding-bottom: 15px;
 }
+
+

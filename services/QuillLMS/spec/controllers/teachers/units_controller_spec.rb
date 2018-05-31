@@ -1,6 +1,9 @@
 require 'rails_helper'
 
 describe Teachers::UnitsController, type: :controller do
+  it { should use_before_filter :teacher! }
+  it { should use_before_filter :authorize! }
+
   let!(:student) {create(:student)}
   let!(:classroom) { create(:classroom_with_students_and_activities, students: [student]) }
   let!(:teacher) { classroom.owner }
@@ -103,18 +106,6 @@ describe Teachers::UnitsController, type: :controller do
   #     expect(unit.reload.visible).to eq false
   #   end
   # end
-
-  describe '#edit' do
-    before do
-      allow(LessonPlanner::UnitSerializer).to receive(:new) { "some json" }
-    end
-
-    it 'should find the unit and return the lesson planner' do
-      expect(LessonPlanner::UnitSerializer).to receive(:new).with(unit, root: false)
-      get :edit, id: unit.id
-      expect(response.body).to eq("some json")
-    end
-  end
 
   describe '#index' do
     let!(:activity) {create(:activity)}

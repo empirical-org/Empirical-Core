@@ -10,7 +10,6 @@ class Cms::ActivityClassificationsController < Cms::CmsController
 
   def create
     activity_classification = ActivityClassification.new(activity_classification_params)
-
     if activity_classification.save!
       render json: activity_classification
     else

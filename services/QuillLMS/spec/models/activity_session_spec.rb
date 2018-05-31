@@ -165,15 +165,6 @@ describe ActivitySession, type: :model, redis: :true do
 
   end
 
-  describe '#classroom' do
-    let(:unit) { create(:unit) }
-    let(:activity_session) { create(:activity_session) }
-
-    it 'should return the classroom associated with the unit' do
-      expect(activity_session.classroom).to eq(unit.classroom)
-    end
-  end
-
   describe '#formatted_due_date' do
     context 'when classroom_activity is nil' do
       let(:activity_session) { create(:activity_session, classroom_activity: nil) }
@@ -269,42 +260,6 @@ describe ActivitySession, type: :model, redis: :true do
     it 'should call proficiency evaluator and get lump into center of proficiency band' do
       expect(ProficiencyEvaluator).to receive(:lump_into_center_of_proficiency_band).with(activity_session.percentage).and_return(fake)
       expect(activity_session.percentile).to eq fake
-    end
-  end
-
-  describe '#percentage_as_percent_prefixed_by_scored' do
-    context 'when percentage is nil' do
-      let(:activity_session) { create(:activity_session, percentage: nil) }
-
-      it 'should return not completed at' do
-        expect(activity_session.percentage_as_percent_prefixed_by_scored).to eq("Not completed yet")
-      end
-    end
-
-    context 'when percentage is present' do
-      let(:activity_session) { create(:activity_session, percentage: 0.8) }
-
-      it 'should return the score' do
-        expect(activity_session.percentage_as_percent_prefixed_by_scored).to eq("Scored 80%")
-      end
-    end
-  end
-
-  describe '#percentage_with_zero_if_nil' do
-    context 'when percentage is absent' do
-      let(:activity_session) { create(:activity_session, percentage: nil) }
-
-      it 'should return 0' do
-        expect(activity_session.percentage_with_zero_if_nil).to eq(0)
-      end
-    end
-
-    context 'when percentage is present' do
-      let(:activity_session) { create(:activity_session, percentage: 0.4) }
-
-      it 'should return the percentage' do
-        expect(activity_session.percentage_with_zero_if_nil).to eq(40)
-      end
     end
   end
 

@@ -85,19 +85,17 @@ class Teachers::UnitsController < ApplicationController
 
   def select_lesson_with_activity_id
     activity_id = params[:activity_id].to_i
-    classroom_activities = ActiveRecord::Base.connection.execute("
-      SELECT classroom_activities.id from classroom_activities
-        LEFT JOIN classrooms_teachers ON classrooms_teachers.classroom_id = classroom_activities.classroom_id
-        WHERE classrooms_teachers.user_id = #{current_user.id.to_i}
-          AND classroom_activities.activity_id = #{activity_id}
-          AND classroom_activities.visible is TRUE").to_a
+    classroom_activities = lessons_with_current_user_and_activity
     if classroom_activities.length == 1
       ca_id = classroom_activities.first["id"]
-      lesson_uid = Activity.find(activity_id).uid
       redirect_to "/teachers/classroom_activities/#{ca_id}/launch_lesson/#{lesson_uid}"
     else
       redirect_to "/teachers/classrooms/activity_planner/lessons_for_activity/#{activity_id}"
     end
+  end
+
+  def lesson_uid
+    Activity.find(params[:activity_id].to_i).uid
   end
 
   def index
@@ -130,12 +128,16 @@ class Teachers::UnitsController < ApplicationController
     render json: {}
   end
 
-  def edit
-    unit = Unit.find(params[:id])
-    render json: LessonPlanner::UnitSerializer.new(unit, root: false)
-  end
-
   private
+
+  def lessons_with_current_user_and_activity
+    ActiveRecord::Base.connection.execute("
+      SELECT classroom_activities.id from classroom_activities
+        LEFT JOIN classrooms_teachers ON classrooms_teachers.classroom_id = classroom_activities.classroom_id
+        WHERE classrooms_teachers.user_id = #{current_user.id.to_i}
+          AND classroom_activities.activity_id = #{ActiveRecord::Base.sanitize(params[:activity_id])}
+          AND classroom_activities.visible is TRUE").to_a
+  end
 
   def unit_params
     params.require(:unit).permit(:id, :create, :name, classrooms: [:id, :all_students, student_ids: []], activities: [:id, :due_date])
@@ -170,7 +172,7 @@ class Teachers::UnitsController < ApplicationController
     own_or_coteach_classrooms_array = current_user.send("classrooms_i_#{own_or_coteach}").map(&:id)
     if own_or_coteach_classrooms_array.any?
       if report
-        completed = "HAVING SUM(CASE WHEN act_sesh.visible = true AND act_sesh.state = 'finished' THEN 1 ELSE 0 END) > 0"
+        completed = lessons ? "HAVING ca.completed" : "HAVING SUM(CASE WHEN act_sesh.visible = true AND act_sesh.state = 'finished' THEN 1 ELSE 0 END) > 0"
       else
         completed = ''
       end

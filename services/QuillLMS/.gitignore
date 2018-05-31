@@ -69,4 +69,10 @@ _book/
 /public/packs-test
 /node_modules
 
+<<<<<<< HEAD:.gitignore
 nohup\.out
+
+/services/QuillGrammar/built
+=======
+nohup.out
+>>>>>>> develop:services/QuillLMS/.gitignore

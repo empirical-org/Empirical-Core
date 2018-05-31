@@ -71,7 +71,7 @@ module PublicProgressReports
       questions_arr
     end
 
-    def classrooms_with_students_that_completed_activity unit_id, activity_id
+    def classrooms_with_students_that_completed_activity(unit_id, activity_id)
       h = {}
       unit = Unit.find(unit_id)
       class_ids = current_user.classrooms_i_teach.map(&:id)
@@ -81,14 +81,16 @@ module PublicProgressReports
       class_acts.each do |ca|
         classroom = ca.classroom.attributes
         activity_sessions = ca.activity_sessions.completed
-        activity_sessions.each do |activity_session|
+        if activity_sessions || ca.completed
           class_id = classroom['id']
           h[class_id] ||= classroom
-          h[class_id][:students] ||= []
-          if h[class_id][:students].exclude? activity_session.user
-             h[class_id][:students] << activity_session.user
-          end
           h[class_id][:classroom_activity_id] = ca.id
+          activity_sessions.each do |activity_session|
+            h[class_id][:students] ||= []
+            if h[class_id][:students].exclude? activity_session.user
+               h[class_id][:students] << activity_session.user
+            end
+          end
         end
       end
 
@@ -108,7 +110,8 @@ module PublicProgressReports
         name: classroom.name,
         students: [],
         started_names: [],
-        unstarted_names: []
+        unstarted_names: [],
+        missed_names: []
       }
       classroom_activity.assigned_student_ids.each do |student_id|
         student = User.find_by(id: student_id)
@@ -119,6 +122,8 @@ module PublicProgressReports
           else
             if ActivitySession.find_by(user_id: student_id, state: 'started', classroom_activity_id: ca_id)
               scores[:started_names].push(student.name)
+            elsif classroom_activity.completed
+              scores[:missed_names].push(student.name)
             else
               scores[:unstarted_names].push(student.name)
             end
@@ -137,7 +142,8 @@ module PublicProgressReports
         time: get_time_in_minutes(final_activity_session),
         number_of_questions: formatted_concept_results.length,
         concept_results: formatted_concept_results,
-        score: get_average_score(formatted_concept_results)
+        score: get_average_score(formatted_concept_results),
+        average_score_on_quill: student.get_student_average_score
       }
     end
 
