@@ -1,0 +1,367 @@
+.subscriptions {
+  max-width: 950px;
+  margin: auto;
+  padding-top: 22px;
+  .q-button.cta-button {
+    font-size: 14px;
+    height: 40px;
+    padding: 10px 16px;
+    margin-top: none;
+    margin-top: 0;
+    margin-right: 30px;
+  }
+  .fa-credit-card {
+    padding-right: 5px;
+    font-size: 13px;
+  }
+
+  .refund-policy p {
+    color: #1e1e1e;
+    margin-bottom: 130px;
+    font-size: 16px;
+  }
+
+
+  h2 {
+    font-size: 20px;
+    color: #1e1e1e;
+    font-weight: 700;
+    margin-bottom: 14px;
+  }
+
+  .current-subscription-information-and-cta, table,
+  .subscription-status {
+    box-shadow: 0 1px 2px 0 #e9e9e9;
+    border-radius: 3px;
+  }
+
+  .empty-state,
+  .subscription-status {
+    border-radius: 3px;
+  }
+
+  .total-premium-credits {
+    font-size: 16px;
+    .total-header {
+      font-weight: 600;
+    }
+  }
+
+  .premium-credits-table {
+    margin-bottom: 12px;
+  }
+
+  .has-credit {
+    border: 1px solid white;
+  }
+
+  .next-plan-alert {
+    min-height: 50px;
+	  background-color: #fcf1e1;
+	  border: solid 1px rgba(245, 186, 91, 0.41);
+    font-size: 14px;
+    padding: 10px;
+    i {
+      color: #ea9a1a;
+      font-size: 20px;
+      margin-right: 10px;
+    }
+  }
+
+  .renew-subscription.cta-button {
+    height: 40px;
+    padding: 8px 9px;
+  }
+
+  .subscription-status {
+    background-color: #fff;
+    padding-top: 15px;
+    color: #3b3b3b;
+    padding-bottom: 0px;
+    strong {
+      padding-right: 4px;
+    }
+    i {
+      color: #ff4542;
+      padding-right: 15px;
+    }
+    img {
+      height: 27px;
+      padding-left: 15px;
+    }
+    .box {
+      margin-right: 20px;
+      width: 5px;
+      height: 40px;
+    }
+
+    p {
+      padding: 0 30px 30px;
+      font-size: 16px;
+      .green-link {
+        padding-right: 5px;
+      }
+    }
+
+    h2 {
+      align-self: center;
+      margin-bottom: 0;
+      margin-right: 30px;
+    }
+
+    .expiration-date {
+      background-color: #fafafa;
+      padding: 10px 8px;
+      font-size: 18px;
+
+      span {
+        font-weight: 600;
+      }
+    }
+
+    p {
+      margin-top: 20px;
+    }
+  }
+
+  .subscription-history {
+    min-height: 174px;
+    .empty-state {
+      border: solid 1px #e9e9e9;
+      font-size: 14px;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 174px;
+      padding: 41px;
+      color: #666;
+      p {
+        margin-top: 5px;
+      }
+      h3 {
+        font-size: 16px;
+        font-weight: 600;
+        color: #666666;
+      }
+    }
+  }
+
+  section {
+    padding-bottom: 0;
+    padding-top: 40px;
+    border-bottom: none;
+  }
+
+
+
+  .current-subscription-information-and-cta {
+    border: 1px solid #fff;
+    .current-subscription-information {
+      font-size: 16px;
+      color: #3b3b3b;
+      padding: 20px 30px;
+      background-color: white;
+      .meta-section {
+        padding-top: 0px;
+        &:not(:last-of-type) {
+          border-bottom: 1px solid #d8d8d8;
+        }
+        &:not(:first-of-type) {
+          padding-top: 25px;
+        }
+        &.payment {
+          padding-bottom: 20px;
+        }
+        .green-link {
+          font-size: 14px;
+          padding-left: 10px;
+        }
+      }
+      h3 {
+        font-size: 14px;
+        color: #c0c0c0;
+        margin-bottom: 25px;
+        font-weight: 700;
+        character-spacing: 0.5px;
+      }
+
+
+      .title {
+        display: inline-block;
+        margin-right: 20px;
+        width: 124px;
+        margin-bottom: 20px;
+        font-size: 16px;
+        font-weight: 600;
+        color: #666;
+      }
+    }
+
+    .sub-button-row {
+      padding-left: 30px;
+      background-color: white;
+      .q-button {
+        margin-bottom: 30px;
+      }
+      i {
+        padding-right: 7px;
+      }
+    }
+
+  }
+
+  .green-link {
+    font-size: 16px;
+    color: #027360;
+    cursor: pointer;
+  }
+
+  .available-credit {
+    border-radius: 3px;
+    background-color: #f8a724;
+    border: solid 1px #f5ba5b;
+    min-height: 77px;
+    color: white;
+    margin-bottom: 20px;
+    padding: 23px 16px;
+
+    &.no-credits {
+      background-color: white;
+      color: #f8a724;
+    }
+
+    .button {
+      background-color: #f8a724;
+      border: solid 1px #fff;
+      font-size: 16px;
+      color: white;
+      margin: 0;
+    }
+
+    .credit-quantity {
+      color: #f8a72;
+      font-size: 18px;
+
+      span {
+        font-size: 24px;
+        font-weight: 700;
+      }
+    }
+  }
+
+  table {
+    width: 100%;
+    border-collapse: separate;
+
+    td {
+      &.date-received {
+        width: 21%;
+      }
+
+      &.action {
+        width: 60%;
+      }
+
+      &.amount-received {
+        width: 28%;
+      }
+    }
+
+    tr {
+      height: 41px;
+      background-color: #ffffff;
+
+      &:first-of-type {
+        border: none;
+
+        th {
+          color: #3b3b3b;
+          background-color: #fafafa;
+          border: 1px solid #e9e9e9;
+          border-right: none;
+
+          &:first-of-type {
+            border-top-left-radius: 5px;
+          }
+
+          &:last-of-type {
+            border-right: 1px solid #e9e9e9;
+            border-top-right-radius: 5px;
+          }
+          padding-left: 14px;
+          // min-width: 15%;
+        }
+        font-size: 14px;
+        font-weight: 600;
+        text-align: left;
+      }
+
+      &:not(:first-of-type) {
+        size: 14px;
+
+        td {
+          padding-left: 14px;
+          border-bottom: 1px solid #e9e9e9;
+          &.action {
+            max-width: 236px;
+          }
+
+          &:first-of-type {
+            border-left: 1px solid #e9e9e9;
+          }
+
+          &:last-of-type {
+            border-right: 1px solid #e9e9e9;
+          }
+        }
+
+        &:last-of-type {
+          td:first-of-type {
+            border-bottom-left-radius: 5px;
+          }
+
+          td:last-of-type {
+            border-bottom-right-radius: 5px;
+          }
+        }
+      }
+    }
+
+    .subscription-row {
+      font-size: 14px;
+      font-style: italic;
+      color: #666666;
+    }
+  }
+
+  p {
+    color: #666666;
+  }
+}
+
+@media (max-width: 767px) {
+  .subscriptions{
+    width: 95%;
+    .subscription-status {
+      div{
+        div{
+          .box{
+            display: none;
+          }
+          margin-left: 18%;
+          margin-bottom: 4%;
+        }
+        a{
+          margin-left: 8%;
+        }
+      }
+    }
+    .current-subscription-information-and-cta {
+      .sub-button-row{
+        a[href$=".pdf"]{
+          margin-left: 10%;
+        }
+      }
+    }
+  }
+}

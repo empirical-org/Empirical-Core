@@ -1,0 +1,119 @@
+
+<div class="row">
+  <div class="col-xs-12.col-xl-12">
+    <%= render partial: 'teachers/shared/scorebook_tabs' %>
+    <div class="tab-content">
+      <div id="class-manager" class="tab-pane active">
+        <div class="container edit-students">
+          <h1>Edit Students</h1>
+          <div class='react-container'>
+            <%= react_component('EditStudentApp', props: {classroomId: @classroom.id})%>
+          </div>
+            <div class='name-and-editing-info'>
+              <div class='name-and-download flex-row space-between'>
+                <h2 id="static-name-and-grade"><%=@classroom.name%> <span>Grade: <%=@classroom.grade%></span></h2>
+                <div id="edit-classroom-row">
+                  <%= form_for(@classroom,
+                    url: teachers_classroom_path(@classroom),
+                    class: 'class-page',
+                    html: {id: 'edit-classroom-form'})  do |f|%>
+                      <div id="class-name">
+                        <%= f.label      :name, 'Class Name', class: 'class-name' %>
+                        <%= f.text_field :name %>
+                      </div>
+                      <div id="class-grade">
+                        <%= f.label :grade, class: 'class-grade' %>
+                        <%
+                        # Note to maintainers: if you update the grade options here, please also ensure to do so in the following locations:
+                        #   - /app/bundles/Teacher/components/google_classroom/google_classroom_sync/GoogleClassroomsList.jsx
+                        #   - /app/bundles/Teacher/containers/CreateClass.jsx
+                        %>
+                        <%= f.select :grade, %w(1 2 3 4 5 6 7 8 9 10 11 12 University Other) %>
+                    </div>
+                    <% end %>
+                  </div>
+                  <button>
+                    <%= link_to 'Download Login Sheet PDF',
+                                generate_login_pdf_path(@classroom.id),
+                                method: 'get' %>
+                  </button>
+              </div>
+              <span id='show-hide' class='green-text'>Edit Class Name And Grade</span>
+              <span id="submit-button" class='green-text'>Save Changes</span>
+              <span> <%= link_to 'Archive Class',
+                                    hide_teachers_classroom_path(@classroom),
+                                   class: 'delete-class',
+                                    method: 'post' %></span>
+            </div>
+          <% if @classroom.students.any? %>
+            <div class="container" id="student-table">
+              <section class="no-border class-page">
+                <table class="table students">
+                  <thead>
+                    <tr>
+                      <th>Student Name</th>
+                      <th>Username</th>
+                      <th>Activities Completed</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% @classroom.students.sort_by(&:sorting_name).each do |student| %>
+                      <tr class=<%dom_class(student)%> id=<% dom_id(student)%> >
+                        <td class="name"> <%=student.name %> </td>
+                        <td class="username"> <%= student.username %> </td>
+                        <td class="activities_completed"> <%= student.finished_activities(@classroom).count %> </td>
+                        <td> <%= link_to 'Edit Account',
+                                    edit_teachers_classroom_student_path(@classroom,
+                                                                         student) %> </td>
+                      </tr>
+                    <% end %>
+                  </tbody>
+                </table>
+              </section>
+            </div>
+            <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const show = function (elem) {
+	elem.style.display = 'block';
+};
+
+// Hide an element
+const hide = function (elem) {
+	elem.style.display = 'none';
+};
+
+// Toggle element visibility
+const toggle = function (elem) {
+
+	// If the element is visible, hide it
+	if (window.getComputedStyle(elem).display === 'block') {
+		hide(elem);
+		return;
+	}
+
+	// Otherwise, show it
+	show(elem);
+
+};
+
+document.getElementById('show-hide').onclick = function() {
+  event.preventDefault()
+  show(document.getElementById('edit-classroom-row'))
+  document.getElementById('submit-button').style.display = 'inline'
+  hide(document.getElementById('static-name-and-grade'))
+  hide(document.getElementById('show-hide'))
+};
+
+document.getElementById('submit-button').onclick = function() {
+  event.preventDefault()
+  document.getElementById('edit-classroom-form').submit()
+};
+
+</script>
