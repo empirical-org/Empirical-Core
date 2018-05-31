@@ -74,13 +74,13 @@ pipeline {
         }
       }
     }
-    post {
-      always {
-        echo "Stopping postgres docker container..."
-        sh 'docker stop lms-testdb'
-        sh 'docker rm lms-testdb'
-        sh 'docker network rm jnk-net'
-      }
+  }
+  post {
+    always {
+      echo "Stopping postgres docker container..."
+      sh 'docker stop lms-testdb'
+      sh 'docker rm lms-testdb'
+      sh 'docker network rm jnk-net'
     }
   }
 }
