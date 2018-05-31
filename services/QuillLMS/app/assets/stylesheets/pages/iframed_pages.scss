@@ -1,0 +1,99 @@
+#blog_posts_iframe {
+  height: 163px;
+  margin-top: 28px;
+  width: 100%;
+  border: none;
+}
+
+#ideas_iframe {
+  height: 2000px;
+margin-top: -230px;
+width: 100%;
+border: none;
+}
+
+
+#board_iframe {
+  width: 100%;
+  height: 1400px;
+  border: none;
+  position: relative;
+}
+
+#teacher_resources_iframe {
+  width: 100%;
+  height: 5500px;
+  border: none;
+}
+
+
+
+.media_navigation {
+  z-index: 1;
+  position: relative;
+}
+
+#wp_iframe {
+      position: relative;
+      height: 3499px;
+      width: 100%;
+      top: -270px;
+}
+
+#press_iframe {
+  position: relative;
+  height: 6500px;
+  width: 100%;
+  top: -4px;
+}
+
+
+.medium-articles {
+  iframe {
+    margin-top: 6em;
+  }
+}
+
+#media_kit_iframe {
+  width: 100%;
+  height: 7361px;
+  border: none;
+  position: relative;
+}
+
+#partners-iframe {
+  width: 100%;
+  height: 1577px;
+  border: none;
+  position: relative;
+}
+
+#map-iframe {
+  width: 100%;
+  height: 700px;
+  border: none;
+  position: relative;
+}
+
+@media (max-width: 767px) {
+  #map-iframe {
+    margin-left: 3%;
+    width: 94%;
+    height: 95%;
+    border: none;
+    position: relative;
+  }
+  #press_iframe {
+    position: relative;
+    height: 6500px;
+    width: 96%;
+    margin-left: 2%;
+    top: -4px;
+  }
+  #partners-iframe {
+    width: 100%;
+    height: 3280px;
+    border: none;
+    position: relative;
+  }
+}

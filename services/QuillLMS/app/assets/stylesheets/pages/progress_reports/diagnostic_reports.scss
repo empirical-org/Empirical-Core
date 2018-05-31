@@ -1,0 +1,639 @@
+/* individual-activity-reports*/
+.diagnostic-nav-container, .activity-analysis  {
+  margin: 0 auto;
+  max-width: 950px;
+  padding-top: 44px;
+  h1 {
+    font-size: 24px;
+    font-weight: 700;
+  }
+  .nav-elements {
+    margin-top: 28px;
+  }
+}
+
+.individual-activity-reports {
+    margin: 0 auto;
+    padding-bottom: 91px;
+}
+
+/* should be moved into select-item-dropdown file*/
+$darkgray3: #7e7e7e;
+$quillgreen: #00c2a2;
+$lightgray: #cecece;
+/* for report-navbar.scss*/
+#report-button-group {
+    margin-right: 40px;
+    margin-left: 40px;
+    border-radius: 6px;
+    border: solid 1px $lightgray;
+    button {
+        background-color: white;
+        border: 1px solid $lightgray;
+        border-top: none;
+        border-bottom: none;
+        font-weight: 400;
+        &:last-of-type {
+            border-right: none;
+        }
+        &:first-of-type {
+            border-left: none;
+        }
+        &.active-true,
+        &:focus,
+        &:focus,
+        &:hover {
+            background-color: $quillgreen;
+            border-color: $quillgreen;
+            color: white;
+        }
+    }
+}
+/* for activity by classroom overview*/
+#individual-activity-classroom-view {
+  max-width: 950px;
+  margin: auto;
+    th:first-of-type,
+    tr td:first-of-type {
+        width: 110px;
+        text-align: center;
+    }
+    th:nth-of-type(2),
+    tr td:nth-of-type(2) {
+        width: 80px;
+        text-align: center;
+    }
+    th:nth-of-type(3),
+    tr td:nth-of-type(3) {
+        width: 310px;
+        text-align: left;
+    }
+    th:nth-of-type(4),
+    tr td:nth-of-type(4) {
+        width: 310px;
+        text-align: left;
+    }
+}
+/* for the individual student reports*/
+@mixin gray-border {
+    border: solid 1px #cecece;
+}
+.individual-student-activity-view {
+  padding-bottom: 91px;
+  padding-top: 25px;
+  margin: auto;
+  max-width: 950px;
+  width: 100%;
+  margin: 0 auto;
+  .how-we-grade {
+    margin-top: 1.5em;
+  }
+}
+.student-report-box {
+    margin: auto;
+    margin-top: 25px;
+    max-width: 950px;
+    .student-report-table-and-index {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      background-color: white;
+    }
+    .question-index {
+        @include gray-border;
+        border-right: none;
+        width: 10%;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+                flex-direction: column;
+        text-align: center;
+        -webkit-box-pack: center;
+            -ms-flex-pack: center;
+                justify-content: center;
+        font-size: 24px;
+    }
+    table {
+        background-color: white;
+        @include gray-border;
+        border-left: none;
+        font-size: 14;
+        max-width: 855px;
+        width: 100%;
+        tr {
+            height: 30px;
+            padding-left: 8px;
+            border-bottom: solid 0.5px #cecece;
+            &:first-of-type:not(.directions):not(.feedback) {
+              height: 0px;
+            }
+            /* first of type has height of 0 so we don't want any borders*/
+            &:last-of-type, &:first-of-type:not(.directions):not(.feedback) {
+              border-bottom: none;
+            }
+            &.student-report-headers {
+              td div {
+                height: 0;
+              }
+              td div span {
+                position: relative;
+                top: -34px;
+                font-weight: 700;
+              }
+              td:first-of-type div span {
+                right: 82%;
+              }
+            }
+        }
+        td {
+          &:first-of-type {
+            padding-left: 10px;
+              width: 13.5%;
+          }
+          &:nth-of-type(2) {
+            width: 34px;
+            text-align: right;
+          }
+          &:last-of-type {
+            padding-left: 32px;
+            padding-right: 10px;
+          }
+        }
+    }
+}
+
+/* TODO: merge this with above CSS*/
+
+.student-report-box {
+  td {
+      height: 30px;
+      border-bottom: solid 0.5px #cecece;
+    }
+  tr.student-report-headers td {
+    height: 0px;
+    border-bottom: none;
+  }
+}
+
+#individual-classroom-view {
+  table {
+    margin: 0;
+    width: 100%;
+
+    &:last-of-type tr {
+      border-top: 0;
+    }
+  }
+
+  .unstarted-row, .in-progress-row {
+    td:first-of-type {
+      text-decoration: none;
+    }
+    td:last-of-type {
+      text-align: left;
+    }
+  }
+}
+
+/* for shading by score*/
+.green-score-color {
+  background-color: #e7fee8;
+  &:hover {
+    background-color: #D7FCD9;
+  }
+}
+.red-score-color {
+  background-color: #feedf0;
+  &:hover {
+    background-color: #FADDE2;
+  }
+}
+.yellow-score-color {
+  background-color: #fff6e2;
+  &:hover {
+    background-color: #FEF0D2;
+  }
+}
+.unstarted-row {
+  background: #f7f5f5;
+}
+.in-progress-row {
+  background: #ffffff;
+}
+
+
+/* for class reports*/
+
+.student-groupings {
+  @include gray-border;
+  display: inline-block;
+  margin-top: 15px;
+  margin-right: 15px;
+  width: 193px;
+  padding: 10px;
+  h3 {
+    font-size: 20px;
+    margin-bottom: 3px;
+  }
+  span {
+    white-space: pre;
+  }
+}
+#individual-classroom-view {
+  margin: auto;
+  max-width: 950px;
+  th, td {
+    text-align: left;
+    &:first-of-type {
+      width: 48%;
+    }
+  }
+  th:nth-of-type(4) {
+    border-right: none;
+  }
+  th:last-of-type {
+    border-left: none;
+  }
+  td:first-of-type {
+    text-decoration: underline;
+  }
+  td:last-of-type {
+    text-align: right;
+    padding-right: 20px;
+  }
+  th:last-of-type {
+    width: 40px;
+  }
+}
+
+.recommendations-explanation {
+  margin-top: 35px;
+  font-family: 'adelle-sans';
+  font-size: 18px;
+  line-height: 1.5em;
+  color: #000000;
+}
+
+.recommendations-container {
+  margin: 0 auto;
+  max-width: 950px;
+  width: 100%
+}
+
+.recommendations-explanation-container {
+  margin: 0 auto;
+  max-width: 950px;
+  width: 100%;
+}
+
+.recommendations-top-bar {
+  margin-top: 35px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+
+
+  .recommendations-key {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+
+    .recommendations-key-icon {
+      height: 40px;
+      width: 40px;
+      border-radius: 4px;
+      background-color: #eafcff;
+      border: solid 1px #cecece;
+      margin-right: 9px;
+    }
+    .assigned-recommendations-key-icon {
+      i {
+        font-size: 35px;
+        color: #82bf3c;
+        margin-left: 44px;
+      }
+    }
+    .uncheck-recommendations, .check-recommendations {
+      font-size: 12px;
+      color: #027360;
+      cursor: pointer;
+      display: flex;
+      align-items: flex-end;
+      img {
+        margin-right: 5px;
+      }
+    }
+    .assigned-activity-pack-text {
+      margin-left: 10px;
+      p:nth-of-type(2) {
+        color: #737373;
+      }
+    }
+  }
+}
+
+.recommendations-assign-button {
+  height: 40px;
+  border-radius: 6px;
+  background-color: #01c2a2;
+  cursor: pointer;
+
+  span {
+    font-family: 'adelle-sans';
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    color: #ffffff;
+    line-height: 40px;
+    margin: 0 28px;
+  }
+}
+
+.recommendations-table-header {
+  margin-top: 35px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+
+  .recommendations-table-header-name {
+    width: 140px;
+    padding: 12px;
+    font-family: 'adelle-sans';
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.25;
+  }
+
+  .recommendations-table-header-item {
+    -webkit-box-flex: 1;
+        -ms-flex-positive: 1;
+            flex-grow: 1;
+    -ms-flex-preferred-size: 0;
+        flex-basis: 0;
+    padding: 12px;
+    font-family: 'adelle-sans';
+    font-size: 12px;
+
+
+
+    p {
+      line-height: 1.25;
+      font-weight: 600;
+      margin-bottom: 3px;
+    }
+    a {
+
+      color: #027360;
+    }
+  }
+
+}
+
+.recommendations-table-row-wrapper {
+  .recommendations-table-row {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    height: 48px;
+
+    .recommendations-table-row-name {
+      width: 140px;
+      padding: 12px;
+      font-family: 'adelle-sans';
+      font-size: 12px;
+      line-height: 1.25;
+      background-color: #ffffff;
+      border: solid 1px #cecece;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: center;
+          -ms-flex-align: center;
+              align-items: center;
+        border-bottom: none;
+    }
+
+    .recommendations-table-row-item {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-flex: 1;
+          -ms-flex-positive: 1;
+              flex-grow: 1;
+      -ms-flex-preferred-size: 0;
+          flex-basis: 0;
+      padding: 12px;
+      font-family: 'adelle-sans';
+      font-size: 12px;
+      line-height: 1.25;
+      overflow: hidden;
+      background-color: #ffffff;
+      border: solid 1px #cecece;
+      border-left: none;
+      -webkit-box-align: center;
+          -ms-flex-align: center;
+              align-items: center;
+      border-bottom: none;
+      &:not(.previously-assigned) {
+        cursor: pointer;
+      }
+      &.recommended {
+        background-color: #eafcff;
+      }
+
+      &.selected {
+        p {
+          color: #000000;
+        }
+      }
+      &.previously-assigned {
+        p {
+          color: #737373 !important;
+        }
+        i {
+          font-size: 18px;
+          color: #82bf3c;
+          margin-right: 10px;
+        }
+      }
+
+      p {
+        display: -webkit-box;
+        -ms-flex-negative: 1;
+            flex-shrink: 1;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-height: 30px;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        font-weight: normal;
+        line-height: 1.25;
+        color: #646464;
+      }
+
+
+    }
+
+    &:last-of-type {
+      .recommendations-table-row-name, .recommendations-table-row-item {
+          border-bottom: solid 1px #cecece;
+      }
+      .recommendations-table-row-name {
+        /* border-top: none;*/
+      }
+    }
+
+  }
+}
+
+.recommendations-bottom-bar {
+  margin-top: 45px;
+  margin-bottom: 90px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+      -ms-flex-direction: row-reverse;
+          flex-direction: row-reverse;
+}
+
+
+/* for progress report landing page*/
+.progress-reports-landing-page {
+  margin: auto;
+  max-width: 1025px;
+  a {
+    text-decoration: none;
+  }
+  .generic-mini {
+    margin: 20px;
+  }
+  .premium {
+    margin-top: 5px;
+    color: #eda41b;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    /* want shorter images if we have the premium row of type*/
+    & + div {
+      height: 120px;
+    }
+  }
+  h3 + div {
+    padding-top: 10px;
+  }
+
+}
+
+@media screen and (max-width: 1000px) {
+    .diagnostic-nav-container {
+      padding-left: 10px;
+    }
+    #reports-navbar div.how-we-grade {
+      float: none !important;
+      text-align: left;
+      margin-top: 0px;
+    }
+}
+
+.assigned-activities .row:hover {
+  background-color: $row-hover-green-white;
+
+  div.starting-row div#activity-analysis-activity-name a, div.starting-row div#activity-analysis-activity-name span {
+    color: $quillgreen;
+  }
+}
+
+.assigned-activities .row:first-of-type .activity-analysis-row-right {
+  *::before {
+    color: $anothergray;
+    cursor: auto;
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    position: relative;
+    top: -44px;
+  }
+
+  .number-of-students::before {
+    content: 'Completion';
+    margin-right: -65px;
+    width: 65px;
+  }
+
+  .average-score::before {
+    content: 'Avg. Score';
+    margin-right: -59px;
+    width: 59px;
+  }
+}
+
+.activity-analysis-row-right {
+  .chevron-right {
+    margin-right: 5px;
+  }
+
+  .activity-analysis-pie-chart {
+    border-radius: 50%;
+    box-shadow: 0 0 0 2px $quillblue inset;
+    margin-right: 10px;
+    transform: rotate(-90deg);
+    vertical-align: text-bottom;
+    width: 18px;
+  }
+}
+
+.description, .standard {
+  img {
+    margin-right: 15px;
+  }
+}
+
+.standard {
+  margin-top: 6px;
+}
+
+.name-and-preview {
+  a {
+    color: #027360;
+    padding-left: 20px;
+  }
+  h1 {
+    margin-bottom: 0;
+  }
+  img {
+    padding-right: 15px;
+  }
+  padding-bottom: 15px;
+}
+
+

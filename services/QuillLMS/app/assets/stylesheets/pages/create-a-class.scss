@@ -1,0 +1,150 @@
+.create-a-class-page {
+  background-color: #f6f3f3;
+.create-a-class {
+  max-width: 820px;
+  width: 100%;
+  margin: auto;
+  padding-bottom: 54px;
+  background-color: #f6f3f3;
+  &:before {
+    content: '';
+    display: block;
+    height: 24px;
+    width: 100%;
+  }
+  #new-classroom, #new-google-classroom {
+    max-width: 405px;
+    width: 100%;
+    display: inline-block;
+  }
+  #new-google-classroom {
+    padding-left: 50px;
+    float: right;
+    img {
+      height: 33px;
+      width: 33px;
+      float: right;
+      margin-right: 10px;
+      margin-top: -7px;
+    }
+    button {
+      margin-top: 42px;
+      width: 272px;
+      font-size: 16px;
+      padding: 8px 19px;
+    }
+  }
+  #new-classroom {
+    border-right: solid 1px #c0c0c0;
+    padding-right: 70px;
+  }
+   h1 {
+     font-size: 20px;
+	   font-weight: 600;
+     margin-bottom: 20px;
+   }
+   label {
+     font-size: 14px;
+     max-width: 127px;
+     width: 100%;
+     font-weight: 400;
+   }
+    .dropdown-toggle {
+        font-size: 14px;
+        font-weight: 500;
+        border: solid 1px #d4d4d4;
+        text-align: left;
+        min-width: 90px;
+        color: #b2b2b2;
+        &.has-grade {
+          color: #000;
+        }
+    }
+    .input-row {
+      margin-bottom: 10px;
+      input, .dropdown-toggle {
+        width: 188px;
+        &.inactive {
+          background-color: transparent;
+          font-size: 19px;
+          font-weight: 600;
+          line-height: 1.05;
+          letter-spacing: 1px;
+        }
+      }
+    }
+    #regenerate-class-code {
+      margin-left: 127px;
+      color:  #027360;
+      cursor: pointer;
+      margin-bottom: 50px;
+      max-width: 188px;
+      width: 100%;
+      text-align: center;
+      i {
+        margin-right: 8px;
+      }
+    }
+    .errors {
+      margin-top: 1em;
+      color: red;
+      font-weight: 700;
+    }
+    .caret {
+        float: right;
+        border-top: 6px solid;
+        border-right: 6px solid transparent;
+        border-left: 6px solid transparent;
+        position: relative;
+        top: 8px;
+        margin-left: 10px;
+    }
+    .submit-button {
+      width: 187px;
+      font-size: 16px;
+      font-weight: bold;
+    }
+}
+}
+
+@media (max-width: 767px) {
+  .create-a-class-page {
+    .create-a-class {
+      width: 95%;
+      margin: auto;
+      padding-bottom: 54px;
+      background-color: #f6f3f3;
+      #new-google-classroom {
+        padding-top: 25%;
+        padding-left: 0%;
+        padding-bottom: 5%;
+        text-align: center;
+        img {
+          height: 33px;
+          width: 33px;
+          float: right;
+          margin-right: 10px;
+          margin-top: -7px;
+        }
+        button {
+          margin-top: 42px;
+          width: 272px;
+          font-size: 16px;
+          padding: 8px 19px;
+        }
+      }
+      #regenerate-class-code {
+        margin-left: 1%;
+        color:  #027360;
+        cursor: pointer;
+        margin-bottom: 50px;
+        max-width: 188px;
+        width: 100%;
+        text-align: center;
+        i {
+          margin-right: 8px;
+        }
+      }
+    }
+  }
+}
