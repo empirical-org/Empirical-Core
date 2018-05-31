@@ -8,8 +8,7 @@
     "start": "EMPIRICAL_BASE_URL=localhost:3000 webpack-dev-server",
     "test": "jest",
     "build": "tsc && webpack --progress",
-    "clean": "rd /s/q built",
-    "prepare": "tsc && webpack --progress --config webpack.prod.config.js"
+    "clean": "rd /s/q built"
   },
   "keywords": [
     "quill",
@@ -19,6 +18,7 @@
   "author": "Quill.org",
   "license": "AGPL-3.0",
   "dependencies": {
+    "@types/lodash": "^4.14.109",
     "@types/node": "^9.4.7",
     "@types/react": "^16.0.40",
     "@types/react-dom": "^16.0.4",
