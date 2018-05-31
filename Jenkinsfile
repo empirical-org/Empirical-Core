@@ -6,16 +6,9 @@ pipeline {
       steps {
         echo "Starting postgres docker container..."
         script {
-          try {
-            sh 'docker run --name lms-testdb -d -p 5432:5432 postgres:10.1'
-          }
-          catch (exc) {
-            echo 'Stopping and removing old postgres docker image'
-            sh 'docker stop lms-testdb'
-            sh 'docker rm lms-testdb'
-            sh 'docker run --name lms-testdb -d -p 5432:5432 postgres:10.1'
-          }
-          
+          sh 'docker network create jnk-net'
+          /*sh 'docker run --name lms-testdb --network jnk-net -d -p 127.0.0.1:5432:5432 postgres:10.1'*/
+          sh 'docker run --name lms-testdb --network jnk-net -d postgres:10.1'
         }
       }
     }
@@ -24,7 +17,7 @@ pipeline {
         dockerfile {
           filename 'Dockerfile.test'
           dir 'services/QuillJenkins/agents/QuillLMS'
-          args '-u root:sudo -v $HOME/workspace/myproject:/myproject'
+          args '-u root:sudo -v $HOME/workspace/myproject:/myproject --name lms-webapp --network jnk-net'
         }
       }
       steps {
@@ -81,11 +74,12 @@ pipeline {
         }
       }
     }
-    stage('stop-postgres-docker') {
-      steps {
+    post {
+      always {
         echo "Stopping postgres docker container..."
         sh 'docker stop lms-testdb'
         sh 'docker rm lms-testdb'
+        sh 'docker network rm jnk-net'
       }
     }
   }
