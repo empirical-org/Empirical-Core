@@ -1,0 +1,18 @@
+FROM ruby:2.3.1
+
+RUN apt-get update -y
+RUN mkdir /root/.ssh
+
+# Replace shell with bash so we can source files
+RUN rm /bin/sh && ln -s /bin/bash /bin/sh
+
+# Base deps
+RUN apt-get install -y autoconf \
+  bison build-essential libssl-dev wget \ 
+  libyaml-dev libreadline6-dev git-core \
+  zlib1g-dev libncurses5-dev curl \
+  libffi-dev libgdbm3 libgdbm-dev \
+  postgresql-client
+
+## Install nvm and npm (doesn't work in Dockerfile, moved to Jenkinsfile)
+# curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash && source ~/.bashrc && nvm install 7.5.0 && nvm use 7.5.0
