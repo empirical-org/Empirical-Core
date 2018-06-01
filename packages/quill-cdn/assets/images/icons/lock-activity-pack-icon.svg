@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="11px" height="15px" viewBox="0 0 11 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 47.1 (45422) - http://www.bohemiancoding.com/sketch -->
+    <title>Group 5</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="10-Teacher-Dashboard:-Acitivity-Planner" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="10_00-My-Activity-Pack-Copy-7" transform="translate(-213.000000, -534.000000)" fill="#3B3B3B">
+            <g id="Group-7" transform="translate(199.000000, 528.000000)">
+                <g id="Group-3" transform="translate(14.000000, 6.000000)">
+                    <g id="Group-5">
+                        <path d="M8.06666667,6.42857143 L8.06666667,3.92857143 C8.06666667,2.54785955 6.91753086,1.42857143 5.5,1.42857143 C4.08246914,1.42857143 2.93333333,2.54785955 2.93333333,3.92857143 L2.93333333,6.42857143 L8.06666667,6.42857143 Z M5.5,0 C7.72754849,0 9.53333333,1.75888134 9.53333333,3.92857143 L9.53333333,6.42857143 L1.46666667,6.42857143 L1.46666667,3.92857143 C1.46666667,1.75888134 3.27245151,0 5.5,0 Z" id="Rectangle-2" fill-rule="nonzero"></path>
+                        <path d="M1.46666667,6.42857143 L1.46666667,13.5714286 L9.53333333,13.5714286 L9.53333333,6.42857143 L1.46666667,6.42857143 Z M1.46666667,5 L9.53333333,5 C10.343351,5 11,5.63959321 11,6.42857143 L11,13.5714286 C11,14.3604068 10.343351,15 9.53333333,15 L1.46666667,15 C0.656649034,15 0,14.3604068 0,13.5714286 L0,6.42857143 C0,5.63959321 0.656649034,5 1.46666667,5 Z" id="Rectangle-17" fill-rule="nonzero"></path>
+                        <ellipse id="Oval" cx="5.5" cy="8.92857143" rx="1.1" ry="1.07142857"></ellipse>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="88px" height="72px" viewBox="0 0 88 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43.1 (39012) - http://www.bohemiancoding.com/sketch -->
+    <title>Group 6</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="10-Teacher-Dashboard:-Acitivity-Planner" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="10_02-Choose-a-Diagnostic" transform="translate(-614.000000, -318.000000)">
+            <g id="Group-2" transform="translate(511.000000, 256.000000)">
+                <g id="Group-6" transform="translate(103.000000, 63.000000)">
+                    <polyline id="Shape" stroke="#BCBABA" fill="#F8F6F6" points="74.2727273 38.1818182 74.2727273 70 17 70 17 0 74.2727273 0 74.2727273 19.0909091"></polyline>
+                    <path d="M29.7272727,15.6666667 L48.8181818,15.6666667" id="Shape" stroke="#B4B4B4" stroke-width="1.2"></path>
+                    <path d="M29.7272727,32 L46.9090909,32" id="Shape" stroke="#B4B4B4" stroke-width="1.2"></path>
+                    <path d="M29.7272727,47.1666667 L61.5454545,47.1666667" id="Shape" stroke="#B4B4B4" stroke-width="1.2"></path>
+                    <path d="M74.2727273,35.1818182 L87,47.9090909" id="Shape" stroke="#C79765" stroke-width="2"></path>
+                    <ellipse id="Oval" stroke="#9D9D9D" stroke-width="2" fill="#CEE5F9" cx="61.5454545" cy="25.6363636" rx="15.9090909" ry="15.9090909"></ellipse>
+                    <path d="M47.3333333,25 L61.5454545,25" id="Shape" stroke="#99C8F1" stroke-width="4"></path>
+                    <rect id="Rectangle-3" fill="#FF4542" x="0" y="2" width="34" height="16" rx="1"></rect>
+                    <path d="M9.922,10.412 L13.366,10.412 L13.366,8.9 L9.922,8.9 L9.922,6.86 L13.582,6.86 L13.582,5.312 L8.074,5.312 L8.074,14 L13.798,14 L13.798,12.44 L9.922,12.44 L9.922,10.412 Z M16.918,5.312 L15.07,5.312 L15.07,14 L20.638,14 L20.638,12.44 L16.918,12.44 L16.918,5.312 Z M23.734,5.312 L21.886,5.312 L21.886,14 L27.454,14 L27.454,12.44 L23.734,12.44 L23.734,5.312 Z" id="ELL" fill="#FFFFFF"></path>
+                    <g id="Group-3" transform="translate(0.000000, 2.000000)"></g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

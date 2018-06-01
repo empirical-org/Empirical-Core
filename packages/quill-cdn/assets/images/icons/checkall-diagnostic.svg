@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="13px" height="13px" viewBox="0 0 13 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49.2 (51160) - http://www.bohemiancoding.com/sketch -->
+    <title>Group 37</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="09-Teacher-Dashboard:-Student-Reports" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="09_05-b-Sentence-Structure-Recommendations---Check-All" transform="translate(-218.000000, -734.000000)">
+            <g id="Group-13" transform="translate(218.000000, 731.000000)">
+                <g id="Group-37" transform="translate(0.000000, 3.000000)">
+                    <path d="M6.5,9.29289322 L10.4037932,5.38910002 C10.5990553,5.19383787 10.9156378,5.19383787 11.1109,5.38910002 C11.3061621,5.58436216 11.3061621,5.90094465 11.1109,6.0962068 L6.5,10.7071068 L3.64644661,7.85355339 C3.45118446,7.65829124 3.45118446,7.34170876 3.64644661,7.14644661 C3.84170876,6.95118446 4.15829124,6.95118446 4.35355339,7.14644661 L6.5,9.29289322 Z" id="Path-2" fill="#027360" fill-rule="nonzero"></path>
+                    <path d="M2,0 L10,0 C10.5522847,-1.01453063e-16 11,0.44771525 11,1 L2.5,1 C1.67157288,1 1,1.67157288 1,2.5 L1,11 L1,11 C0.44771525,11 6.76353751e-17,10.5522847 0,10 L0,2 C-1.3527075e-16,0.8954305 0.8954305,2.02906125e-16 2,0 Z" id="Rectangle-9" fill="#027360"></path>
+                    <rect id="Rectangle-13" stroke="#027360" x="2.5" y="2.5" width="10" height="10" rx="2"></rect>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="45px" height="42px" viewBox="0 0 45 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 40 (33762) - http://www.bohemiancoding.com/sketch -->
+    <title>Group 17</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <polygon id="path-1" points="0 40.7885867 43.667871 40.7885867 43.667871 0.437157676 0 0.437157676"></polygon>
+    </defs>
+    <g id="Welcome" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Quill-Homepage" transform="translate(-148.000000, -5631.000000)">
+            <g id="Group-17" transform="translate(149.000000, 5631.000000)">
+                <path d="M38.3398495,19.6281397 L43.1945161,12.7343887 L38.3398493,19.6281398 L33.4851828,16.9692037 L38.3398495,19.6281397 Z" id="Stroke-3" stroke="#00C2A2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                <polyline id="Stroke-5" stroke="#00C2A2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" points="0.47311828 20.6129202 4.35694624 23.5674534 8.24077419 16.6737024 14.0662796 27.5066712 17.9501075 19.6282357 21.8339355 22.5822891 25.9117419 17.8556117"></polyline>
+                <path d="M28,20.6129202 L28,40.308529" id="Stroke-7" stroke="#00C2A2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M28,0.917119374 L28,12.7347726" id="Stroke-9" stroke="#00C2A2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M29.6014022,12.7345806 C31.7465204,12.7345806 33.4852301,14.4980872 33.4852301,16.6737984 C33.4852301,18.8495096 31.7465204,20.6130161 29.6014022,20.6130161 C27.4562839,20.6130161 25.7175742,18.8495096 25.7175742,16.6737984 C25.7175742,14.4980872 27.4562839,12.7345806 29.6014022,12.7345806 L29.6014022,12.7345806 Z" id="Stroke-13" stroke="#00C2A2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <g id="Clip-16"></g>
+                <polygon id="Stroke-15" stroke="#00C2A2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" mask="url(#mask-2)" points="0.47311828 40.3087209 43.1947527 40.3087209 43.1947527 0.917023401 0.47311828 0.917023401"></polygon>
+            </g>
+        </g>
+    </g>
+</svg>
