@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="142px" height="142px" viewBox="0 0 142 142" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43.1 (39012) - http://www.bohemiancoding.com/sketch -->
+    <title>Group 5</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="09-Teacher-Dashboard:-Student-Reports" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="09_08-Diagnostic-Reports---Assigned" transform="translate(-925.000000, -230.000000)">
+            <g id="Group-5" transform="translate(926.000000, 231.000000)">
+                <polyline id="Shape" stroke="#BCBABA" fill="#F8F6F6" points="114.545455 76.3636364 114.545455 140 0 140 0 0 114.545455 0 114.545455 38.1818182"></polyline>
+                <path d="M25.4545455,37.3333333 L63.6363636,37.3333333" id="Shape" stroke="#B4B4B4" stroke-width="1.2"></path>
+                <path d="M25.4545455,70 L59.8181818,70" id="Shape" stroke="#B4B4B4" stroke-width="1.2"></path>
+                <path d="M25.4545455,100.333333 L89.0909091,100.333333" id="Shape" stroke="#B4B4B4" stroke-width="1.2"></path>
+                <path d="M114.545455,76.3636364 L140,101.818182" id="Shape" stroke="#C79765" stroke-width="2"></path>
+                <ellipse id="Oval" stroke="#9D9D9D" stroke-width="2" fill="#CEE5F9" cx="89.0909091" cy="57.2727273" rx="31.8181818" ry="31.8181818"></ellipse>
+                <path d="M60.6666667,56 L89.0909091,56" id="Shape" stroke="#99C8F1" stroke-width="4"></path>
+            </g>
+        </g>
+    </g>
+</svg>

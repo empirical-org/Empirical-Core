@@ -1,0 +1,171 @@
+body {
+  background-color: #fafafa;
+  font-family: adelle-sans, Arial;
+  color: #3b3b3b;
+}
+.container {
+  margin: auto;
+  max-width: 950px;
+  width: 100%;
+}
+.content {
+  display: flex;
+  justify-content: space-between;
+}
+.logo {
+  margin: 70px auto;
+  display: block;
+}
+.text {
+  max-width: 627px;
+  width: 100%;
+}
+.illustration {
+  padding-top: 30px;
+}
+h1 {
+  font-size: 36px;
+  font-weight: normal;
+}
+.try-again {
+  font-weight: bold;
+}
+.dont-worry {
+  font-weight: bold;
+  color: #348fdf;
+}
+.contact-us {
+  font-size: 22px;
+}
+.return-time {
+  font-weight: bold;
+  font-size: 24px;
+}
+button, .learn-more {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  margin-top: 5px;
+  margin-bottom: 9px;
+  width: 220px;
+  height: 45px;
+  border-radius: 6px;
+  border: none;
+  background-color: #00c2a2;
+  font-size: 18px;
+  font-weight: 600;
+  color: #ffffff;
+}
+button:hover {
+  outline: none;
+}
+
+.upgrading p {
+  font-size: 20px;
+}
+
+.upgrading .contact-info {
+  color: #027360;
+  text-decoration: none;
+}
+
+.timeout p {
+  font-size: 24px;
+}
+
+.timeout  .contact-info {
+  color: #18b891;
+}
+
+@media (max-width: 900px) {
+  .container {
+    display: flex;
+    flex-direction: column;
+  }
+  .text {
+    margin: auto;
+  }
+  .illustration {
+    display: none;
+  }
+}
+
+.four-oh-four {
+  margin-top: 80px;
+}
+
+.four-oh-four .text {
+  max-width: 486px;
+}
+
+.four-oh-four img {
+  height: 300px;
+}
+
+.four-oh-four h1 {
+  font-size: 24px;
+  font-weight: bold;
+}
+.four-oh-four p {
+  font-family: adelle-sans, Helvetica, Arial;
+  font-size: 18px;
+}
+.four-oh-four .cta-links {
+  display: flex;
+  align-items: center;
+}
+.four-oh-four a {
+  font-size: 12px;
+  font-weight: 600;
+  color: #027360;
+  text-decoration: none;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.four-oh-four .explore-homepage {
+  width: 188px;
+  height: 40px;
+  border-radius: 3px;
+  background-color: #00c2a2;
+  font-size: 16px;
+  display: flex;
+  font-weight: bold;
+  color: #ffffff;
+  align-items: center;
+  justify-content: center;
+}
+
+.four-oh-four .login-or-signup {
+  font-size: 14px;
+  margin-left: 20px;
+}
+
+.login-or-signup a {
+  margin-bottom: 0px;
+  display: inline;
+  font-size: 14px;
+}
+
+.four-oh-four .helpful-links {
+  font-size: 14px;
+}
+
+.clever a {
+  display: inline;
+  color: #027360;
+  text-decoration: underline;
+  font-size: 18px;
+  font-weight: normal;
+}
+
+.clever .dividing-line {
+  border-bottom: solid 1px #e9e9e9;
+  width: 140px;
+  margin: 15px 0px;
+}
+
+.clever .content {
+  align-items: center;
+}

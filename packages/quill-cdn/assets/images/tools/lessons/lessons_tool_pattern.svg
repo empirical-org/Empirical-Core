@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="612px" height="500px" viewBox="0 0 612 500" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43.2 (39069) - http://www.bohemiancoding.com/sketch -->
+    <title>Group 45</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="01-Tools-Landing-Pages" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="01_05-Lessons-Page" transform="translate(-331.000000, -539.000000)">
+            <g id="Group-45" transform="translate(331.000000, 540.000000)">
+                <g id="Group-38" transform="translate(46.000000, 230.000000) scale(-1, 1) translate(-46.000000, -230.000000) translate(0.000000, 167.000000)" stroke="#E6E6E6" stroke-width="2">
+                    <rect id="Rectangle-8" x="1" y="76" width="90" height="16"></rect>
+                    <g id="Group-44" transform="translate(21.000000, 0.000000)">
+                        <path d="M25,76.1808511 L25,0.819148936" id="Line" stroke-linecap="round"></path>
+                        <path d="M42.2587278,61.9431452 C42.2587278,61.9431452 54.3508811,51.025899 54.3508811,37.4765008 C54.3508811,23.9271027 41.8508811,12.9431452 41.8508811,12.9431452 C41.8508811,12.9431452 29.3508811,23.9271027 29.3508811,37.4765008 C29.3508811,44.2400719 34.9425777,54.0358935 34.9425777,54.0358935 L42.2587278,61.9431452 Z" id="Oval-7" transform="translate(41.850881, 37.443145) rotate(43.000000) translate(-41.850881, -37.443145) "></path>
+                        <path d="M13.8275133,28.4848999 C13.8275133,28.4848999 20.3414127,22.4105905 21.1124102,15.4324627 C21.8834078,8.45433489 17.8805325,1.01137704 17.8805325,1.01137704 C17.8805325,1.01137704 10.8832847,3.69833604 8.9878482,11.3661473 C6.94534207,19.6289152 10.1382988,24.5287017 10.1382988,24.5287017 L13.8275133,28.4848999 Z" id="Oval-7-Copy" transform="translate(14.758197, 14.748138) scale(-1, 1) rotate(43.000000) translate(-14.758197, -14.748138) "></path>
+                    </g>
+                    <rect id="Rectangle-8-Copy" x="13" y="92" width="66" height="33"></rect>
+                </g>
+                <g id="Group-37" transform="translate(487.000000, 356.000000)">
+                    <g id="Group-36" stroke="#E6E6E6" stroke-width="2">
+                        <path d="M105.860968,113.211102 L26.8609679,4.21110247" id="Line" stroke-linecap="square"></path>
+                        <path d="M85.8609679,18.2111025 L21.8609679,61.2111025" id="Line" stroke-linecap="square"></path>
+                        <path d="M103,32 L30.8609679,85.2111025" id="Line" stroke-linecap="square"></path>
+                        <path d="M111.860968,53.2111025 L48.8609679,99.2111025" id="Line" stroke-linecap="square"></path>
+                        <path d="M60.8609679,14.2111025 L107.860968,77.2111025" id="Line" stroke-linecap="square"></path>
+                        <path d="M71.8609679,103.211102 L25.8609679,41.2111025" id="Line" stroke-linecap="square"></path>
+                        <rect id="Combined-Shape" x="49" y="135" width="37" height="7"></rect>
+                        <circle id="Oval" cx="67.3609679" cy="58.7111025" r="45"></circle>
+                        <path d="M90.6544867,112.816019 C95.1783131,109.853486 99.2390363,106.242263 102.7045,102.114505 C110.729265,92.5561042 115.562136,80.2279503 115.562136,66.7710189 C115.562136,36.3953577 90.9377971,11.7710189 60.5621358,11.7710189 C38.9836829,11.7710189 20.3076272,24.1976586 11.2998598,42.2850467" id="Oval" transform="translate(63.430998, 62.293519) rotate(-165.000000) translate(-63.430998, -62.293519) "></path>
+                    </g>
+                    <rect id="Rectangle-9" stroke="#E2E2E2" stroke-width="2" transform="translate(67.500000, 124.500000) rotate(-270.000000) translate(-67.500000, -124.500000) " x="58" y="122" width="19" height="5"></rect>
+                    <rect id="Rectangle-7" fill="#FFFFFF" x="66" y="133" width="3" height="5"></rect>
+                </g>
+                <g id="Group-8" transform="translate(555.500000, 55.000000) scale(-1, 1) translate(-555.500000, -55.000000) translate(499.000000, 0.000000)" stroke="#E9E9E9" stroke-width="2">
+                    <rect id="Rectangle" x="1" y="21" width="111" height="88" rx="1"></rect>
+                    <rect id="Rectangle-2" x="16" y="35" width="80" height="57" rx="1"></rect>
+                    <rect id="Rectangle-3" x="27" y="82" width="29" height="10" rx="1"></rect>
+                    <path d="M111,35 L96,22" id="Line" stroke-linecap="square" transform="translate(103.500000, 28.500000) scale(1, -1) translate(-103.500000, -28.500000) "></path>
+                    <path d="M2,22 L16,36" id="Line" stroke-linecap="square"></path>
+                    <path d="M35,21 L58,0" id="Line-Copy" stroke-linecap="round"></path>
+                    <path d="M58,0 L80,21" id="Line-Copy-3" stroke-linecap="round"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
