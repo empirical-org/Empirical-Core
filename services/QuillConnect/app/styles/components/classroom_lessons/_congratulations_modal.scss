@@ -1,0 +1,127 @@
+.congratulations-modal-container {
+  .congratulations-modal-background {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 99;
+    background-color: #3f3f3f;
+    opacity: 0.9;
+  }
+  .congratulations-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 580px;
+    border-radius: 6px;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    z-index: 100;
+    width: 550px;
+    .exit {
+      right: 12px;
+      top: 12px;
+      position: absolute;
+      cursor: pointer;
+    }
+    .illustration {
+      height: 110px;
+      margin-bottom: 20px;
+      width: 187px;
+      margin-top: 55px;
+    }
+    .dividing-line {
+      width: 109px;
+      border-bottom: solid 2px #979797;
+    }
+    h1 {
+      font-size: 20px;
+      font-weight: 600;
+      &.congratulations {
+        font-weight: bold;
+      }
+    }
+    p {
+      margin: 20px 0px;
+      font-size: 16px;
+      line-height: 1.56;
+      width: 450px;
+      span {
+        font-weight: bold;
+      }
+    }
+    button {
+      margin-top: 30px;
+      width: 147px;
+      height: 40px;
+      border-radius: 3px;
+      background-color: #00c2a2;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      &:focus {
+        outline: none;
+      }
+    }
+    .feedback, .feedback-response {
+        background-color: #fafafa;
+        margin-top: 20px;
+        box-shadow: 0 1px 2px 0 #e9e9e9;
+        border-bottom-right-radius: 6px;
+        border-bottom-left-radius: 6px;
+        border-top: solid 1px #e9e9e9;
+        width: 100%;
+        display: flex;
+        height: 100%;
+        flex-direction: column;
+        align-items: center;
+      p:first-of-type {
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+      p:last-of-type {
+        margin-top: 0px;
+        font-size: 12px;
+        color: #929292;
+      }
+      .emoji-row {
+        display: flex;
+        justify-content: space-between;
+        width: 300px;
+        img {
+          background-color: white;
+          display: inline-block;
+          border-radius: 30px;
+          box-shadow: 0 2px 4px 0 #e9e9e9;
+          padding: 5px;
+          cursor: pointer;
+        }
+      }
+    }
+    .feedback-response {
+      p:first-of-type {
+        margin-top: 20px;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+      p:last-of-type {
+        margin-bottom: 12px;
+        width: 408px;
+        font-size: 14px;
+        letter-spacing: 0.3px;
+      }
+      a {
+        font-size: 14px;
+        font-weight: 600;
+        color: #027360;
+      }
+    }
+  }
+}
