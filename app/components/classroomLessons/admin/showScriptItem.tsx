@@ -2,10 +2,6 @@ import React, {Component} from 'react'
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import {
-  getClassroomLessonScriptItem,
-  getClassroomLessonSlide
-} from './helpers';
-import {
   saveEditionScriptItem,
   deleteScriptItem
 } from '../../../actions/classroomLesson'

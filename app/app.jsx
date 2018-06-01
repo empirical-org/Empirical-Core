@@ -19,13 +19,11 @@ import fillInBlankActions from './actions/fillInBlank';
 import sentenceFragmentActions from './actions/sentenceFragments';
 import lessonActions from './actions/lessons';
 import levelActions from './actions/item-levels';
-import Passthrough from './components/shared/passthrough.jsx';
-// import createBrowserHistory from 'history/lib/createBrowserHistory';
-// const history = createBrowserHistory()
 import createHashHistory from 'history/lib/createHashHistory';
 import 'styles/style.scss';
 import Raven from 'raven-js';
-import quillNormalizer from './libs/quillNormalizer'
+import quillNormalizer from './libs/quillNormalizer';
+import SocketProvider from './components/socketProvider';
 
 if (process.env.NODE_ENV === 'production') {
   Raven
@@ -48,16 +46,6 @@ const history = syncHistoryWithStore(hashhistory, store);
 
 const root = document.getElementById('root');
 
-function getParameterByName(name, url) {
-  if (!url) url = window.location.href;
-  name = name.replace(/[\[\]]/g, '\\$&');
-  let regex = new RegExp(`[?&]${name}(=([^&#]*)|&|#|$)`),
-    results = regex.exec(url);
-  if (!results) return null;
-  if (!results[2]) return '';
-  return decodeURIComponent(results[2].replace(/\+/g, ' '));
-}
-
 const rootRoute = {
   childRoutes: [{
     path: '/',
@@ -72,7 +60,9 @@ const rootRoute = {
 
 render((
   <Provider store={store}>
-    <Router history={history} routes={rootRoute} />
+    <SocketProvider>
+      <Router history={history} routes={rootRoute} />
+    </SocketProvider>
   </Provider>),
   root
 );
@@ -83,7 +73,6 @@ setTimeout(() => {
   store.dispatch(questionActions.loadQuestions());
   store.dispatch(fillInBlankActions.loadQuestions());
   store.dispatch(sentenceFragmentActions.loadSentenceFragments());
-  // store.dispatch( pathwayActions.loadPathways() );
   store.dispatch(lessonActions.loadLessons());
   store.dispatch(levelActions.loadItemLevels());
 });

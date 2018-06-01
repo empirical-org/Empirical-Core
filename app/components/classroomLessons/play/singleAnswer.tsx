@@ -64,7 +64,7 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
 
   submitSubmission() {
     if (this.props.handleStudentSubmission) {
-      this.props.handleStudentSubmission(this.state.response, firebase.database.ServerValue.TIMESTAMP);
+      this.props.handleStudentSubmission(this.state.response);
       this.setState({ submitted: true, });
     }
   }
@@ -184,7 +184,7 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
 
   renderProjectorHeader() {
     if (this.props.projector) {
-      const studentCount:number = this.props.studentCount
+      const studentCount:number|undefined = this.props.studentCount
       const submissionCount:number = this.props.submissions ? Object.keys(this.props.submissions).length : 0
       const studentCountText:string = studentCount && submissionCount ? `${submissionCount} of ${studentCount} Answered` : ''
       return <div className="projector-header-section">

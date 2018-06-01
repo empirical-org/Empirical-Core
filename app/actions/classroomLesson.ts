@@ -1,31 +1,30 @@
 declare function require(name:string);
 import  C from '../constants';
-import rootRef, { firebase } from '../libs/firebase';
-const classroomLessonsRef = rootRef.child('classroom_lessons');
-const reviewsRef = rootRef.child('reviews');
-const editionMetadataRef = rootRef.child('lesson_edition_metadata');
-const editionQuestionsRef = rootRef.child('lesson_edition_questions');
 import _ from 'lodash'
 import * as IntF from '../components/classroomLessons/interfaces';
-import * as CustomizeIntF from 'app/interfaces/customize'
-
+import * as CustomizeIntF from '../interfaces/customize'
+import {setEditionMetadata} from './customize'
 import lessonBoilerplate from '../components/classroomLessons/shared/classroomLessonBoilerplate'
 import lessonSlideBoilerplates from '../components/classroomLessons/shared/lessonSlideBoilerplates'
 import scriptItemBoilerplates from '../components/classroomLessons/shared/scriptItemBoilerplates'
+import uuid from 'uuid/v4';
+import socket from '../utils/socketStore'
 
-export function getClassLessonFromFirebase(classroomLessonUid: string) {
-  console.log('getting a lesson')
-  return function (dispatch) {
-    console.log("Fetching")
-    classroomLessonsRef.child(classroomLessonUid).on('value', (snapshot) => {
-      console.log("Fetched")
-      if (snapshot && snapshot.val()) {
-        dispatch(updateClassroomLesson(snapshot.val()));
-        dispatch(setLessonId(classroomLessonUid))
+export function getClassLesson(classroomLessonUid: string) {
+  return function (dispatch, getState) {
+    socket.instance.on(`classroomLesson:${classroomLessonUid}`, (lesson) => {
+      if (lesson) {
+        if (!_.isEqual(getState().classroomLesson.data, lesson)) {
+          dispatch(updateClassroomLesson(lesson));
+        }
+        if (getState().classroomLesson.data.id !== classroomLessonUid) {
+          dispatch(setLessonId(classroomLessonUid))
+        }
       } else {
         dispatch({type: C.NO_LESSON_ID, data: classroomLessonUid})
       }
     });
+    socket.instance.emit('subscribeToClassroomLesson', { classroomLessonUid });
   };
 }
 
@@ -43,26 +42,28 @@ export function setLessonId(id:string) {
   }
 }
 
-export function listenForClassroomLessonsFromFirebase() {
+export function listenForClassroomLessons() {
   return function (dispatch) {
-    classroomLessonsRef.on('value', (snapshot) => {
-      if (snapshot && snapshot.val()) {
-        dispatch(updateClassroomLessons(snapshot.val()))
+    socket.instance.on('classroomLessons', (classroomLessons) => {
+      if (classroomLessons) {
+        dispatch(updateClassroomLessons(classroomLessons))
       } else {
         dispatch({type: C.NO_LESSONS})
       }
-    })
-  }
+    });
+    socket.instance.emit('getAllClassroomLessons');
+  };
 }
 
-export function listenForClassroomLessonsReviewsFromFirebase() {
+export function listenForClassroomLessonReviews() {
   return function (dispatch) {
-    reviewsRef.on('value', (snapshot) => {
-      if (snapshot && snapshot.val()) {
-        dispatch(updateClassroomLessonsReviews(snapshot.val()))
+    socket.instance.on('classroomLessonReviews', (reviews) => {
+      if (reviews) {
+        dispatch(updateClassroomLessonsReviews(reviews))
       }
-    })
-  }
+    });
+    socket.instance.emit('getAllClassroomLessonReviews');
+  };
 }
 
 export function updateClassroomLessons(data) {
@@ -84,103 +85,141 @@ export function updateClassroomLessonsReviews(data) {
   return ({type: C.RECEIVE_CLASSROOM_LESSONS_REVIEW_DATA, data: reviewsGroupedByClassroomLessonId})
 }
 
-export function addSlide(editionUid: string, editionQuestions: CustomizeIntF.EditionQuestions, slideType: string, cb:Function|undefined) {
-  const editionQuestionRef = editionQuestionsRef.child(editionUid);
+export function addSlide(editionId: string, editionQuestions: CustomizeIntF.EditionQuestions, slideType: string, callback:Function|undefined) {
   const newEdition: CustomizeIntF.EditionQuestions = _.merge({}, editionQuestions)
   const newSlide: IntF.Question = lessonSlideBoilerplates[slideType]
   newEdition.questions.splice(-1, 0, newSlide)
-  editionQuestionRef.set(newEdition);
-  if (cb) {
-    cb(Number(newEdition.questions.length) - 2)
-  }
+
+  socket.instance.on(`slideAdded:${editionId}`, () => {
+    socket.instance.removeAllListeners(`slideAdded:${editionId}`)
+    if (callback) {
+      callback(Number(newEdition.questions.length) - 2)
+    }
+  })
+  socket.instance.emit('addSlide', { editionId, newEdition })
 }
 
-export function deleteEditionSlide(editionID, slideID, slides) {
-  const slidesRef = editionQuestionsRef.child(`${editionID}/questions/`)
-  const newArray = _.compact(Object.keys(slides).map(slideKey => {
-    if (slideKey != slideID ) {
+export function deleteEditionSlide(editionId, slideId, slides) {
+  const newSlides = _.compact(Object.keys(slides).map(slideKey => {
+    if (slideKey != slideId ) {
       return slides[slideKey]
     }
   }))
-  slidesRef.set(newArray);
+  socket.instance.emit('deleteEditionSlide', { editionId, slides: newSlides })
 }
 
-export function addScriptItem(editionID: string, slideID: string, slide: IntF.Question, scriptItemType: string, cb: Function|undefined) {
+export function addScriptItem(editionId: string, slideId: string, slide: IntF.Question, scriptItemType: string, callback: Function|undefined) {
   const newSlide = _.merge({}, slide)
   newSlide.data.teach.script.push(scriptItemBoilerplates[scriptItemType])
-  const slideRef = editionQuestionsRef.child(`${editionID}/questions/${slideID}`)
-  slideRef.set(newSlide)
-  if (cb) {
-    cb(newSlide.data.teach.script.length - 1)
-  }
+
+  socket.instance.on(`scriptItemAdded:${editionId}`, () => {
+    socket.instance.removeAllListeners(`scriptItemAdded:${editionId}`)
+    if (callback) {
+      callback(newSlide.data.teach.script.length - 1)
+    }
+  })
+  socket.instance.emit('addScriptItem', { editionId, slideId, slide: newSlide })
 }
 
-export function deleteScriptItem(editionID, slideID, scriptItemID, script) {
-  const scriptRef = editionQuestionsRef.child(`${editionID}/questions/${slideID}/data/teach/script`)
-  const newArray = _.compact(Object.keys(script).map(scriptKey => {
-    if (scriptKey != scriptItemID ) {
+export function deleteScriptItem(editionId, slideId, scriptItemId, script) {
+  const newScript = _.compact(Object.keys(script).map(scriptKey => {
+    if (scriptKey != scriptItemId ) {
       return script[scriptKey]
     }
   }))
-  scriptRef.set(newArray);
+  socket.instance.emit('deleteScriptItem', { editionId, slideId, script: newScript })
 }
 
 export function addLesson(lessonName, cb) {
-  const newLesson = lessonBoilerplate(lessonName)
-  const newLessonKey = classroomLessonsRef.push().key
+  const newLesson:IntF.ClassroomLesson = lessonBoilerplate(lessonName)
+  const newLessonKey = uuid();
+  newLesson.id = newLessonKey
   if (newLessonKey) {
-    classroomLessonsRef.child(newLessonKey).set(newLesson)
-    if (cb) {
-      cb(newLessonKey)
-    }  
+    socket.instance.emit('createOrUpdateClassroomLesson', { classroomLesson: newLesson })
+  }
+
+  socket.instance.on(`createdOrUpdatedClassroomLesson:${newLessonKey}`, (lessonUpdated) => {
+    socket.instance.removeAllListeners(`createdOrUpdatedClassroomLesson:${newLessonKey}`)
+    if (lessonUpdated) {
+      if (cb) {
+        cb(newLessonKey)
+      }
+    }
+  })
+}
+
+export function saveEditionSlide(editionId, slideId, slideData, callback) {
+  socket.instance.on(`editionSlideSaved:${editionId}`, () => {
+    socket.instance.removeAllListeners(`editionSlideSaved:${editionId}`)
+    if (callback) {
+      callback()
+    }
+  })
+  socket.instance.emit('saveEditionSlide', { editionId, slideId, slideData })
+}
+
+export function saveEditionScriptItem(editionId, slideId, scriptItemId, scriptItem, callback) {
+  socket.instance.on(`editionScriptItemSaved:${editionId}`, () => {
+    socket.instance.removeAllListeners(`editionScriptItemSaved:${editionId}`)
+    if (callback) {
+      callback();
+    }
+  })
+
+  socket.instance.emit('saveEditionScriptItem', {
+    editionId,
+    slideId,
+    scriptItemId,
+    scriptItem,
+  })
+}
+
+export function deleteLesson(classroomLessonId) {
+  socket.instance.emit('deleteClassroomLesson', { classroomLessonId })
+}
+
+export function deleteEdition(editionId, callback) {
+  return (dispatch) => {
+    socket.instance.emit('deleteEdition', { editionId })
+    socket.instance.on('editionMetadata', editions => {
+      if (callback) {
+        callback()
+      }
+      dispatch(setEditionMetadata(editions))
+    })
   }
 }
 
-export function saveEditionSlide(editionID, slideID, slideData, cb) {
-  editionQuestionsRef
-    .child(`${editionID}/questions/${slideID}/data`)
-    .set(slideData)
-  if (cb) {
-    cb()
+export function updateSlideScriptItems(editionId, slideId, scriptItems) {
+  socket.instance.emit('updateSlideScriptItems', { editionId, slideId, scriptItems })
+}
+
+export function updateEditionSlides(editionId, slides) {
+  socket.instance.emit('updateEditionSlides', { editionId, slides })
+}
+
+export function updateClassroomLessonDetails(classroomLessonId, classroomLesson) {
+  return (dispatch) => {
+    classroomLesson.id = classroomLessonId
+    socket.instance.emit('createOrUpdateClassroomLesson', { classroomLesson })
+    socket.instance.on('classroomLessons', (classroomLessons) => {
+      if (classroomLessons) {
+        dispatch(updateClassroomLessons(classroomLessons))
+      } else {
+        dispatch({type: C.NO_LESSONS})
+      }
+    })
   }
 }
 
-export function saveEditionScriptItem(editionID, slideID, scriptItemID, scriptItem, cb) {
-  editionQuestionsRef
-    .child(`${editionID}/questions/${slideID}/data/teach/script/${scriptItemID}/`)
-    .set(scriptItem)
-  if (cb) {
-    cb()
+export function updateEditionDetails(editionId, editionMetadata) {
+  return (dispatch) => {
+    editionMetadata.id = editionId
+    socket.instance.emit('updateEditionMetadata', { editionMetadata })
+    socket.instance.on('editionMetadata', editions => {
+      dispatch(setEditionMetadata(editions))
+    })
   }
-}
-
-export function deleteLesson(classroomLessonID) {
-  classroomLessonsRef.child(classroomLessonID).remove();
-}
-
-export function deleteEdition(editionID) {
-  editionMetadataRef.child(editionID).remove();
-  editionQuestionsRef.child(editionID).remove();
-}
-
-export function updateSlideScriptItems(editionID, slideID, scriptItems) {
-  editionQuestionsRef
-    .child(`${editionID}/questions/${slideID}/data/teach/script/`)
-    .set(scriptItems)
-}
-
-export function updateEditionSlides(editionID, slides) {
-  editionQuestionsRef
-    .child(`${editionID}/questions/`)
-    .set(slides)
-}
-
-export function updateClassroomLessonDetails(classroomLessonID, classroomLesson) {
-  classroomLessonsRef.child(classroomLessonID).set(classroomLesson)
-}
-
-export function updateEditionDetails(editionID, edition) {
-  editionMetadataRef.child(editionID).set(edition)
 }
 
 export function clearClassroomLessonFromStore() {

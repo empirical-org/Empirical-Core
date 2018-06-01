@@ -19,13 +19,6 @@ export default function (currentState = initialState, action) {
         data: action.data,
       });
       return newState;
-    case C.UPDATE_CLASSROOM_SESSION_WITHOUT_CURRENT_SLIDE:
-      newState = Object.assign({}, currentState, {
-        hasreceiveddata: true,
-        data: action.data,
-      });
-      newState.data.current_slide = currentState.data.current_slide;
-      return newState;
     case C.UPDATE_SLIDE_IN_STORE:
       newState = Object.assign({}, JSON.parse(JSON.stringify(currentState)));
       newState.data.current_slide = action.data;

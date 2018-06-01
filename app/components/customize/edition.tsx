@@ -12,10 +12,11 @@ import {
 } from '../classroomLessons/interfaces'
 
 import {
+  getEditionMetadataForUserIds,
+  getEditionQuestions,
+  publishEdition,
   setWorkingEditionMetadata,
   setWorkingEditionQuestions,
-  publishEdition,
-  getEditionQuestions
 } from '../../actions/customize'
 
 import {
@@ -52,6 +53,7 @@ class CustomizeEdition extends React.Component<any, any> {
     if (classroomActivityId) {
       setEditionId(classroomActivityId, this.props.params.editionID)
     }
+    this.props.dispatch(getEditionMetadataForUserIds([], this.props.params.lessonID))
     this.props.dispatch(getEditionQuestions(this.props.params.editionID))
   }
 
@@ -132,6 +134,7 @@ class CustomizeEdition extends React.Component<any, any> {
   }
 
   publish() {
+    console.log('publish is getting called inside the edition')
     const slides = this.state.editionQuestions.questions.slice(1)
     const incompleteQuestions:Array<number>|never = []
     slides.forEach((s, i) => {
@@ -183,7 +186,7 @@ class CustomizeEdition extends React.Component<any, any> {
   }
 
   renderSlides() {
-    if (this.state.editionQuestions) {
+    if (this.state.editionQuestions && this.state.editionQuestions.questions) {
       return this.state.editionQuestions.questions.slice(1).map((q, i) => this.renderSlide(q, i))
     }
   }

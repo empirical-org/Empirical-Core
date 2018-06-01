@@ -32,8 +32,8 @@ const adminContainer = React.createClass({
     this.props.dispatch(sentenceFragmentActions.startListeningToSentenceFragments());
     this.props.dispatch(lessonActions.startListeningToLessons());
     this.props.dispatch(levelActions.startListeningToItemLevels());
-    // this.props.dispatch(listenForClassroomLessonsFromFirebase());
-    // this.props.dispatch(listenForClassroomLessonsReviewsFromFirebase())
+    // this.props.dispatch(listenForClassroomLessons());
+    // this.props.dispatch(listenForClassroomLessonReviews())
     // this.props.dispatch(startListeningToEditionMetadata())
   },
 
@@ -74,7 +74,6 @@ const adminContainer = React.createClass({
           </div>
         </section>
       </div>
-
     );
   },
 });

@@ -36,9 +36,13 @@
   padding-top: 25px;
   display: flex;
   align-items: center;
-  cursor: pointer;
   i {
     margin-right: 5px;
     font-size: 12px;
+  }
+  span {
+    cursor: pointer;
+    align-items: center;
+    display: flex;
   }
 }

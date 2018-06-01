@@ -14,7 +14,7 @@ import EditionNamingModal from './editionNamingModal'
 import EditionRow from './editionRow'
 import SignupModal from '../classroomLessons/teach/signupModal'
 import { getParameterByName } from '../../libs/getParameterByName'
-import * as CustomizeIntF from 'app/interfaces/customize'
+import * as CustomizeIntF from '../../interfaces/customize'
 
 class ChooseEdition extends React.Component<any, any> {
   constructor(props) {
@@ -36,6 +36,14 @@ class ChooseEdition extends React.Component<any, any> {
     this.selectAction = this.selectAction.bind(this)
     this.hideSignupModal = this.hideSignupModal.bind(this)
     this.deleteNewEdition = this.deleteNewEdition.bind(this)
+  }
+
+  componentWillMount() {
+    console.log('in choose edtion')
+  }
+
+  componentWillUnmount() {
+    console.log('about to unmount chooseEdition')
   }
 
   makeNewEdition(editionUid:string|null) {

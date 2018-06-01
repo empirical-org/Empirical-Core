@@ -10,7 +10,7 @@ import {
   addScriptItem
 } from '../../../actions/classroomLesson'
 import * as IntF from '../interfaces';
-import * as CustomizeIntF from 'app/interfaces/customize'
+import * as CustomizeIntF from '../../../interfaces/customize'
 import Script from './script'
 import {
   saveEditionSlide,

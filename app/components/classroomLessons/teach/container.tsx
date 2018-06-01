@@ -5,11 +5,9 @@ import _ from 'lodash'
 const WakeLock: any = require('react-wakelock').default;
 import {
   startListeningToSession,
-  startListeningToSessionWithoutCurrentSlide,
-  startListeningToCurrentSlide,
+  startListeningToSessionForTeacher,
   goToNextSlide,
   goToPreviousSlide,
-  updateCurrentSlide,
   saveSelectedStudentSubmission,
   removeSelectedStudentSubmission,
   setMode,
@@ -19,18 +17,17 @@ import {
   clearAllSelectedSubmissions,
   toggleStudentFlag,
   clearAllSubmissions,
-  updateSlideInFirebase,
   registerTeacherPresence,
   loadStudentNames,
   startLesson
 } from '../../../actions/classroomSessions';
 import {
-  getClassLessonFromFirebase,
+  getClassLesson,
   clearClassroomLessonFromStore
 } from '../../../actions/classroomLesson';
 import {
   getCurrentUserAndCoteachersFromLMS,
-  getEditionsForUserIds,
+  getEditionMetadataForUserIds,
   getEditionQuestions,
   clearEditionQuestions
 } from '../../../actions/customize'
@@ -48,8 +45,8 @@ import {
 } from '../interfaces';
 import {
   ClassroomLesson
-} from 'interfaces/classroomLessons'
-import * as CustomizeIntf from 'interfaces/customize'
+} from '../../../interfaces/classroomLessons'
+import * as CustomizeIntf from '../../../interfaces/customize'
 import {firebaseAuth} from '../../../actions/users'
 
 
@@ -58,15 +55,15 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
     super(props);
     props.dispatch(getCurrentUserAndCoteachersFromLMS())
     document.addEventListener("keydown", this.handleKeyDown.bind(this));
-    props.dispatch(firebaseAuth())
+    // props.dispatch(firebaseAuth())
   }
 
   componentDidMount() {
     const ca_id: string|null = getParameterByName('classroom_activity_id')
     const lesson_id: string = this.props.params.lessonID
     if (ca_id ) {
-      startLesson(ca_id, () => this.props.dispatch(startListeningToSessionWithoutCurrentSlide(ca_id, lesson_id)))
-      this.props.dispatch(startListeningToCurrentSlide(ca_id));
+      startLesson(ca_id, () => this.props.dispatch(startListeningToSessionForTeacher(ca_id, lesson_id)))
+      // this.props.dispatch(startListeningToCurrentSlide(ca_id));
       registerTeacherPresence(ca_id)
     }
     if (this.props.classroomLesson.hasreceiveddata) {
@@ -79,17 +76,17 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
   componentWillReceiveProps(nextProps) {
     const lessonId: string = nextProps.params.lessonID
     if (!nextProps.customize.user_id && Object.keys(nextProps.customize.editions).length === 0) {
-      this.props.dispatch(getEditionsForUserIds([], lessonId))
+      this.props.dispatch(getEditionMetadataForUserIds([], lessonId))
     }
     if (nextProps.classroomSessions.hasreceiveddata) {
-      if (!nextProps.classroomSessions.data.edition_id && Object.keys(this.props.customize.editionQuestions).length === 0) {
+      if (!nextProps.classroomSessions.data.edition_id && Object.keys(nextProps.customize.editionQuestions).length === 0) {
         window.location.href =`#/customize/${lessonId}?&classroom_activity_id=${getParameterByName('classroom_activity_id')}`
       }
-      if (nextProps.classroomSessions.data.edition_id && Object.keys(this.props.customize.editionQuestions).length === 0) {
+      if (nextProps.classroomSessions.data.edition_id && Object.keys(nextProps.customize.editionQuestions).length === 0) {
         this.props.dispatch(getEditionQuestions(nextProps.classroomSessions.data.edition_id))
       }
       if (!nextProps.classroomLesson.hasreceiveddata) {
-        this.props.dispatch(getClassLessonFromFirebase(lessonId));
+        this.props.dispatch(getClassLesson(lessonId));
       }
       if (nextProps.classroomSessions.data.edition_id !== this.props.classroomSessions.data.edition_id && nextProps.classroomSessions.data.edition_id) {
         this.props.dispatch(getEditionQuestions(nextProps.classroomSessions.data.edition_id))
@@ -101,7 +98,7 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
         user_ids = nextProps.customize.coteachers.map(c => Number(c.id))
       }
       user_ids.push(nextProps.customize.user_id)
-      this.props.dispatch(getEditionsForUserIds(user_ids, lessonId))
+      this.props.dispatch(getEditionMetadataForUserIds(user_ids, lessonId))
     }
   }
 

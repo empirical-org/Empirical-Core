@@ -16,7 +16,6 @@ export default function (currentstate, action) {
   let newstate;
   switch (action.type) {
     case C.RECEIVE_CLASSROOM_LESSON_DATA:
-      console.log('Updating');
       return Object.assign({}, currentstate, {
         hasreceiveddata: true,
         data: action.data,

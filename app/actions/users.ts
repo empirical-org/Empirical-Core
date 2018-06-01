@@ -20,9 +20,12 @@ export function firebaseAuth() {
         return response.json();
       }).then((response) => {
           firebase.auth().signInWithCustomToken(response.token).then((firebaseResponse) => {
-            firebase.auth().currentUser.getToken().then((token) => {
-              console.log(jwt_decode(token));
-            });
+            const currentUser = firebase.auth().currentUser
+            if (currentUser) {
+              currentUser.getToken().then((token) => {
+                console.log(jwt_decode(token));
+              });
+            }
           }).catch((error) => {
             console.log(error.message)
           })

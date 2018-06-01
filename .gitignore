@@ -2,6 +2,7 @@
 logs
 *.log
 npm-debug.log*
+nohup.out
 
 # Runtime data
 pids
@@ -37,8 +38,9 @@ node_modules
 .node_repl_history
 data.tsv
 
-# Firebase files
+# Database files
 .firebaserc
+rethinkdb_data
 
 # webpack files
 webpack-assets.json
@@ -46,3 +48,5 @@ webpack-assets.json
 \.DS_Store
 
 .vscode
+
+.env

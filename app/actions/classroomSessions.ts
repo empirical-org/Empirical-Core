@@ -1,11 +1,7 @@
 declare function require(name:string);
 import C from '../constants';
-import rootRef, { firebase } from '../libs/firebase';
 import * as request from 'request'
-const classroomSessionsRef = rootRef.child('classroom_lesson_sessions');
-const classroomLessonsRef = rootRef.child('classroom_lessons');
-const editionQuestionsRef = rootRef.child('lesson_edition_questions');
-const reviewsRef = rootRef.child('reviews')
+import _ from 'lodash'
 import {
   ClassroomLessonSessions,
   ClassroomLessonSession,
@@ -18,53 +14,42 @@ import {
  ClassroomLesson
 } from '../interfaces/classroomLessons';
 import * as CustomizeIntf from '../interfaces/customize'
+import uuid from 'uuid/v4';
+import socket from '../utils/socketStore'
 
-
-export function startListeningToSession(classroom_activity_id: string) {
-  return function (dispatch) {
-    let initialized = false
-    setTimeout(() => {
-      if (!initialized) {
-        // if the snapshot cannot be read within 60 seconds, it is probably not being authenticated by firebase
-        dispatch({type: C.NO_CLASSROOM_ACTIVITY, data: classroom_activity_id})
-      }
-    }, 6000)
-    classroomSessionsRef.child(classroom_activity_id).on('value', (snapshot) => {
-      if (snapshot && snapshot.val()) {
-        dispatch(updateSession(snapshot.val()));
-        initialized = true
+export function startListeningToSession(classroomActivityId: string) {
+  return function(dispatch, getState) {
+    socket.instance.on(`classroomLessonSession:${classroomActivityId}`, (data) => {
+      if (data) {
+        if (!_.isEqual(getState().classroomSessions.data, data)) {
+          dispatch(updateSession(data));
+        }
       } else {
-        dispatch({type: C.NO_CLASSROOM_ACTIVITY, data: classroom_activity_id})
+        dispatch({type: C.NO_CLASSROOM_ACTIVITY, data: classroomActivityId})
       }
     });
+    socket.instance.emit('subscribeToClassroomLessonSession', { classroomActivityId });
   };
 }
 
-export function startLesson(classroom_activity_id: string, callback?: Function) {
-  const sessionRef = classroomSessionsRef.child(classroom_activity_id)
-  sessionRef.once('value', (snapshot) => {
-      const session = snapshot.val()
-      fetch(`${process.env.EMPIRICAL_BASE_URL}/api/v1/classroom_activities/${classroom_activity_id}/classroom_teacher_and_coteacher_ids`, {
-        method: "GET",
-        mode: "cors",
-        credentials: 'include',
-      }).then(response => {
-        if (!response.ok) {
-          console.log(response.statusText)
-        } else {
-          return response.json()
-        }
-      }).then(response => {
-        response ? session.teacher_ids = response.teacher_ids : undefined
-        session.current_slide = session && session.current_slide ? session.current_slide : 0
-        session.startTime = session && session.startTime ? session.startTime : firebase.database.ServerValue.TIMESTAMP
-        sessionRef.set({...session})
-        if (callback) {
-          callback()
-        }
-      })
+export function startLesson(classroomActivityId: string, callback?: Function) {
+  fetch(`${process.env.EMPIRICAL_BASE_URL}/api/v1/classroom_activities/${classroomActivityId}/classroom_teacher_and_coteacher_ids`, {
+    method: "GET",
+    mode: "cors",
+    credentials: 'include',
+  }).then(response => {
+    if (!response.ok) {
+      console.log(response.statusText)
+    } else {
+      return response.json()
     }
-  )
+  }).then(teacherIdObject => {
+    socket.instance.emit('createOrUpdateClassroomLessonSession', { classroomActivityId, teacherIdObject });
+  })
+
+  if (callback) {
+    callback();
+  }
 }
 
 export function toggleOnlyShowHeaders() {
@@ -73,33 +58,31 @@ export function toggleOnlyShowHeaders() {
   }
 }
 
-export function startListeningToSessionWithoutCurrentSlide(classroom_activity_id: string, lesson_id: string) {
-  return function (dispatch) {
-    let initialized = false
-    setTimeout(() => {
-      if (!initialized) {
-        // if the snapshot cannot be read within 60 seconds, it is probably not being authenticated by firebase
-        dispatch({type: C.NO_CLASSROOM_ACTIVITY, data: classroom_activity_id})
-      }
-    }, 6000)
-    classroomSessionsRef.child(classroom_activity_id).on('value', (snapshot) => {
-      if (snapshot && snapshot.val()) {
-        const payload = snapshot.val()
-        delete payload.current_slide
-        dispatch(updateClassroomSessionWithoutCurrentSlide(payload));
-        dispatch(getInitialData(classroom_activity_id, lesson_id, initialized, payload.preview))
+export function startListeningToSessionForTeacher(
+  classroomActivityId: string,
+  lessonId: string
+) {
+  return function (dispatch, getState) {
+    let initialized = false;
+
+    socket.instance.on(`classroomLessonSession:${classroomActivityId}`, (session) => {
+      if (session) {
+
+        if (!_.isEqual(getState().classroomSessions.data, session)) {
+          dispatch(updateSession(session));
+        }
+        dispatch(getInitialData(
+          classroomActivityId,
+          lessonId,
+          initialized,
+          session.preview
+        ))
         initialized = true
       } else {
-        dispatch({type: C.NO_CLASSROOM_ACTIVITY, data: classroom_activity_id})
+        dispatch({type: C.NO_CLASSROOM_ACTIVITY, data: classroomActivityId})
       }
-    })
-  };
-}
-
-export function updateClassroomSessionWithoutCurrentSlide(data) {
-  return {
-    type: C.UPDATE_CLASSROOM_SESSION_WITHOUT_CURRENT_SLIDE,
-    data
+    });
+    socket.instance.emit('subscribeToClassroomLessonSession', { classroomActivityId });
   }
 }
 
@@ -130,17 +113,6 @@ export function getPreviewData(ca_id: string, lesson_id: string) {
   }
 }
 
-export function startListeningToCurrentSlide(classroom_activity_id: string) {
-  return function (dispatch) {
-    classroomSessionsRef.child(`${classroom_activity_id}/current_slide`).on('value', (snapshot) => {
-      if (snapshot && snapshot.val()) {
-        console.log('listening to current slide ', snapshot.val())
-        dispatch(updateSlideInStore(snapshot.val()));
-      }
-    });
-  };
-}
-
 export function updateSession(data: object): {type: string; data: any;} {
   return {
     type: C.UPDATE_CLASSROOM_SESSION_DATA,
@@ -148,56 +120,63 @@ export function updateSession(data: object): {type: string; data: any;} {
   };
 }
 
-export function redirectAssignedStudents(classroom_activity_id: string, followUpOption: string, followUpUrl: string) {
-  const followUpOptionRef = classroomSessionsRef.child(`${classroom_activity_id}/followUpOption`)
-  const followUpUrlRef = classroomSessionsRef.child(`${classroom_activity_id}/followUpUrl`)
-  followUpOptionRef.set(followUpOption)
-  followUpUrlRef.set(followUpUrl)
+export function redirectAssignedStudents(classroomActivityId: string, followUpOption: string, followUpUrl: string) {
+  socket.instance.emit('redirectAssignedStudents', {
+    classroomActivityId,
+    followUpOption,
+    followUpUrl,
+  })
 }
 
-export function registerPresence(classroom_activity_id: string, student_id: string): void {
-  const presenceRef = classroomSessionsRef.child(`${classroom_activity_id}/presence/${student_id}`);
-  firebase.database().ref('.info/connected').on('value', (snapshot) => {
-    if (snapshot && snapshot.val() === true) {
-      presenceRef.onDisconnect().set(false);
-      presenceRef.set(true);
+export function registerPresence(classroomActivityId: string, studentId: string): void {
+  socket.instance.emit('registerPresence', { classroomActivityId, studentId });
+}
+
+export function goToNextSlide(classroom_activity_id: string|null, state: ClassroomLessonSession, lesson: ClassroomLesson|CustomizeIntf.EditionQuestions) {
+  if (classroom_activity_id) {
+    const { current_slide } = state;
+    const { questions } = lesson;
+    const slides = Object.keys(questions);
+    const current_slide_index = slides.indexOf(current_slide.toString());
+    const nextSlide = slides[current_slide_index + 1];
+    if (nextSlide !== undefined) {
+      return updateCurrentSlide(classroom_activity_id, nextSlide);
     }
-  });
-}
-
-export function goToNextSlide(classroom_activity_id: string, state: ClassroomLessonSession, lesson: ClassroomLesson|CustomizeIntf.EditionQuestions) {
-  const { current_slide } = state;
-  const { questions } = lesson;
-  const slides = Object.keys(questions);
-  const current_slide_index = slides.indexOf(current_slide.toString());
-  const nextSlide = slides[current_slide_index + 1];
-  if (nextSlide !== undefined) {
-    return updateCurrentSlide(classroom_activity_id, nextSlide);
   }
 }
 
-export function goToPreviousSlide(classroom_activity_id: string, state: ClassroomLessonSession, lesson: ClassroomLesson|CustomizeIntf.EditionQuestions) {
-  const { current_slide } = state;
-  const { questions } = lesson;
-  const slides = Object.keys(questions);
-  const current_slide_index = slides.indexOf(current_slide.toString());
-  const previousSlide = slides[current_slide_index - 1];
-  if (previousSlide !== undefined) {
-    return updateCurrentSlide(classroom_activity_id, previousSlide);
+export function goToPreviousSlide(classroom_activity_id: string|null, state: ClassroomLessonSession, lesson: ClassroomLesson|CustomizeIntf.EditionQuestions) {
+  if (classroom_activity_id) {
+    const { current_slide } = state;
+    const { questions } = lesson;
+    const slides = Object.keys(questions);
+    const current_slide_index = slides.indexOf(current_slide.toString());
+    const previousSlide = slides[current_slide_index - 1];
+    if (previousSlide !== undefined) {
+      return updateCurrentSlide(classroom_activity_id, previousSlide);
+    }
   }
 }
 
 export function updateCurrentSlide(classroom_activity_id: string, question_id: string) {
   return (dispatch) => {
     dispatch(updateSlideInStore(question_id))
-    updateSlideInFirebase(classroom_activity_id, question_id)
+    updateSlide(classroom_activity_id, question_id)
   }
 }
 
-export function updateSlideInFirebase(classroom_activity_id: string , question_id: string ) {
-  const currentSlideRef = classroomSessionsRef.child(`${classroom_activity_id}/current_slide`);
-  currentSlideRef.set(question_id);
-  setSlideStartTime(classroom_activity_id, question_id)
+export function updateSlide(
+  classroomActivityId: string,
+  questionId: string
+ ) {
+  socket.instance.emit('updateClassroomLessonSession', {
+    classroomActivityId,
+    session: {
+      id: classroomActivityId,
+      current_slide: questionId,
+    }
+  });
+  setSlideStartTime(classroomActivityId, questionId)
 }
 
 export function updateSlideInStore(slideId: string) {
@@ -207,88 +186,79 @@ export function updateSlideInStore(slideId: string) {
   }
 }
 
-export function saveStudentSubmission(classroom_activity_id: string, question_id: string, student_id: string, submission: {data: any, timestamp: string}): void {
-  const submissionRef = classroomSessionsRef.child(`${classroom_activity_id}/submissions/${question_id}/${student_id}`);
-  submissionRef.set(submission);
+export function saveStudentSubmission(classroomActivityId: string, questionId: string, studentId: string, submission: {data: any}): void {
+  socket.instance.emit('saveStudentSubmission', {
+    classroomActivityId,
+    questionId,
+    studentId,
+    submission,
+  });
 }
 
-export function removeStudentSubmission(classroom_activity_id: string, question_id: string, student_id: string): void {
-  const submissionRef = classroomSessionsRef.child(`${classroom_activity_id}/submissions/${question_id}/${student_id}`);
-  submissionRef.remove();
-}
-
-export function clearAllSubmissions(classroom_activity_id: string, question_id: string): void {
-  const submissionRef = classroomSessionsRef.child(`${classroom_activity_id}/submissions/${question_id}`);
-  submissionRef.remove()
-}
-
-export function removeSelectedSubmissionOrder(classroom_activity_id: string, question_id: string): void {
-  const submissionOrderRef = classroomSessionsRef.child(`${classroom_activity_id}/selected_submission_order/${question_id}`);
-  submissionOrderRef.remove()
-}
-
-export function saveSelectedStudentSubmission(classroom_activity_id: string, question_id: string, student_id: string): void {
-  const selectedSubmissionRef = classroomSessionsRef.child(`${classroom_activity_id}/selected_submissions/${question_id}/${student_id}`);
-  selectedSubmissionRef.set(true);
-}
-
-export function removeSelectedStudentSubmission(classroom_activity_id: string, question_id: string, student_id: string): void {
-  const selectedSubmissionRef = classroomSessionsRef.child(`${classroom_activity_id}/selected_submissions/${question_id}/${student_id}`);
-  selectedSubmissionRef.remove();
-}
-
-export function updateStudentSubmissionOrder(classroom_activity_id: string, question_id: string, student_id: string): void {
-  const selectedSubmissionOrderRef = classroomSessionsRef.child(`${classroom_activity_id}/selected_submission_order/${question_id}`);
-  selectedSubmissionOrderRef.once('value', (snapshot) => {
-    const currentArray = snapshot.val()
-    if (currentArray) {
-      if (currentArray.includes(student_id)) {
-        const index = currentArray.indexOf(student_id)
-        currentArray.splice(index, 1)
-        selectedSubmissionOrderRef.set(currentArray)
-      } else {
-        currentArray.push(student_id)
-        selectedSubmissionOrderRef.set(currentArray)
-      }
-    } else {
-      selectedSubmissionOrderRef.set([student_id])
-    }
+export function removeStudentSubmission(classroomActivityId: string, questionId: string, studentId: string): void {
+  socket.instance.emit('removeStudentSubmission', {
+    classroomActivityId,
+    questionId,
+    studentId,
   })
 }
 
-export function clearAllSelectedSubmissions(classroom_activity_id: string, question_id: string): void {
-  const selectedSubmissionRef = classroomSessionsRef.child(`${classroom_activity_id}/selected_submissions/${question_id}`);
-  selectedSubmissionRef.remove()
-}
-
-export function setMode(classroom_activity_id: string, question_id: string, mode): void {
-  const modeRef = classroomSessionsRef.child(`${classroom_activity_id}/modes/${question_id}`);
-  modeRef.set(mode);
-}
-
-export function removeMode(classroom_activity_id: string, question_id: string): void {
-  const modeRef = classroomSessionsRef.child(`${classroom_activity_id}/modes/${question_id}`);
-  modeRef.remove();
-}
-
-export function setWatchTeacherState(classroom_activity_id: string | null): void {
-  const watchTeacherRef = classroomSessionsRef.child(`${classroom_activity_id}/watchTeacherState`);
-  watchTeacherRef.set(true);
-}
-
-export function removeWatchTeacherState(classroom_activity_id: string): void {
-  const watchTeacherRef = classroomSessionsRef.child(`${classroom_activity_id}/watchTeacherState`);
-  watchTeacherRef.remove();
-}
-
-export function registerTeacherPresence(classroom_activity_id: string | null): void {
-  const absentTeacherRef = classroomSessionsRef.child(`${classroom_activity_id}/absentTeacherState`);
-  firebase.database().ref('.info/connected').on('value', (snapshot) => {
-    if (snapshot && snapshot.val() === true) {
-      absentTeacherRef.onDisconnect().set(true);
-      absentTeacherRef.set(false);
-    }
+export function clearAllSubmissions(classroomActivityId: string, questionId: string): void {
+  socket.instance.emit('clearAllSubmissions', {
+    classroomActivityId,
+    questionId,
   });
+}
+
+export function saveSelectedStudentSubmission(classroomActivityId: string, questionId: string, studentId: string): void {
+  socket.instance.emit('saveSelectedStudentSubmission', {
+    classroomActivityId,
+    questionId,
+    studentId
+  });
+}
+
+export function removeSelectedStudentSubmission(classroomActivityId: string, questionId: string, studentId: string): void {
+  socket.instance.emit('removeSelectedStudentSubmission', {
+    classroomActivityId,
+    questionId,
+    studentId,
+  })
+}
+
+export function updateStudentSubmissionOrder(classroomActivityId: string, questionId: string, studentId: string): void {
+  socket.instance.emit('updateStudentSubmissionOrder', {
+    classroomActivityId,
+    questionId,
+    studentId
+  });
+}
+
+export function clearAllSelectedSubmissions(classroomActivityId: string, questionId: string): void {
+  socket.instance.emit('clearAllSelectedSubmissions', {
+    classroomActivityId,
+    questionId,
+  });
+}
+
+export function setMode(classroomActivityId: string, questionId: string, mode): void {
+  socket.instance.emit('setMode', { classroomActivityId, questionId, mode });
+}
+
+export function removeMode(classroomActivityId: string, questionId: string): void {
+  socket.instance.emit('removeMode', { classroomActivityId, questionId });
+}
+
+export function setWatchTeacherState(classroomActivityId: string | null): void {
+  socket.instance.emit('setWatchTeacherState', { classroomActivityId });
+}
+
+export function removeWatchTeacherState(classroomActivityId: string): void {
+  socket.instance.emit('removeWatchTeacherState', { classroomActivityId });
+}
+
+export function registerTeacherPresence(classroomActivityId: string | null): void {
+  socket.instance.emit('teacherConnected', { classroomActivityId });
 }
 
 export function showSignupModal() {
@@ -321,15 +291,8 @@ export function unpinActivityOnSaveAndExit(classroom_activity_id) {
     });
 }
 
-export function toggleStudentFlag(classroomActivityId: string|null, student_id: string): void {
-  const flaggedStudentRef = classroomSessionsRef.child(`${classroomActivityId}/flaggedStudents/${student_id}`)
-  flaggedStudentRef.once('value', (snapshot) => {
-    if(snapshot.val()){
-      flaggedStudentRef.remove()
-    } else {
-      flaggedStudentRef.set(true)
-    }
-  })
+export function toggleStudentFlag(classroomActivityId: string|null, studentId: string): void {
+  socket.instance.emit('toggleStudentFlag', { classroomActivityId, studentId });
 }
 
 export function getClassroomAndTeacherNameFromServer(classroom_activity_id: string|null, baseUrl: string|undefined) {
@@ -352,14 +315,15 @@ export function getClassroomAndTeacherNameFromServer(classroom_activity_id: stri
   }
 }
 
-function _setClassroomName(classroomName: string, classroom_activity_id: string|null) {
-  const classroomNameRef = classroomSessionsRef.child(`${classroom_activity_id}/classroom_name`);
-  classroomNameRef.set(classroomName)
+function _setClassroomName(classroomName: string, classroomActivityId: string|null) {
+  socket.instance.emit('setClassroomName', {
+    classroomActivityId,
+    classroomName,
+  });
 }
 
-function _setTeacherName(teacherName: string, classroom_activity_id: string|null) {
-  const teacherNameRef = classroomSessionsRef.child(`${classroom_activity_id}/teacher_name`);
-  teacherNameRef.set(teacherName)
+function _setTeacherName(teacherName: string, classroomActivityId: string|null) {
+  socket.instance.emit('setTeacherName', { classroomActivityId, teacherName });
 }
 
 function _setClassroomAndTeacherName(names: TeacherAndClassroomName, classroom_activity_id: string|null): void {
@@ -367,71 +331,55 @@ function _setClassroomAndTeacherName(names: TeacherAndClassroomName, classroom_a
   _setTeacherName(names.teacher, classroom_activity_id)
 }
 
-export function addStudents(classroom_activity_id: string, studentObj): void {
-  const studentsRef = classroomSessionsRef.child(`${classroom_activity_id}/students`);
-  studentsRef.set(studentObj.activity_sessions_and_names)
-  const studentIdsRef = classroomSessionsRef.child(`${classroom_activity_id}/student_ids`);
-  studentIdsRef.set(studentObj.student_ids)
-}
+export function addStudents(classroomActivityId: string, studentObj): void {
+  let studentIds = studentObj.student_ids;
+  let activitySessions = studentObj.activity_sessions_and_names;
 
-export function addFollowUpName(classroom_activity_id: string, followUpActivityName: string|null): void {
-  const followUpRef = classroomSessionsRef.child(`${classroom_activity_id}/followUpActivityName`);
-  followUpRef.set(followUpActivityName)
-}
-
-export function addSupportingInfo(classroom_activity_id: string, supportingInfo: string|null): void {
-  const supportingInfoRef = classroomSessionsRef.child(`${classroom_activity_id}/supportingInfo`);
-  supportingInfoRef.set(supportingInfo)
-}
-
-export function setSlideStartTime(classroom_activity_id: string, question_id: string): void {
-  const timestampRef = classroomSessionsRef.child(`${classroom_activity_id}/timestamps/${question_id}`);
-  const submissionRef = classroomSessionsRef.child(`${classroom_activity_id}/submissions/${question_id}`)
-  // update timestamp if the teacher clicks on a slide and there are no submissions yet
-  submissionRef.on('value', (snapshot) => {
-    if (snapshot && snapshot.val() === null) {
-      timestampRef.set(firebase.database.ServerValue.TIMESTAMP)
-    }
+  socket.instance.emit('addStudents', {
+    classroomActivityId,
+    activitySessions,
+    studentIds,
   });
 }
 
-export function setEditionId(classroom_activity_id: string, editionId: string|null, callback?: Function): void {
-  const editionRef = classroomSessionsRef.child(`${classroom_activity_id}/edition_id`);
-  if (editionId) {
-    editionRef.once('value', (snapshot) => {
-      if (snapshot.val() !== editionId) {
-        setTeacherModels(classroom_activity_id, editionId)
-      }
-    })
-    editionRef.set(editionId)
-  } else {
-    editionRef.remove()
-  }
-  if (callback) {
-    callback()
-  }
+export function addFollowUpName(classroomActivityId: string, followUpActivityName: string|null): void {
+  socket.instance.emit('addFollowUpName', {
+    classroomActivityId,
+    followUpActivityName,
+  });
 }
 
-export function setTeacherModels(classroom_activity_id: string, editionId: string) {
-  const editionQuestionsArrayRef = editionQuestionsRef.child(`${editionId}/questions`)
-  const sessionPromptsRef = classroomSessionsRef.child(`${classroom_activity_id}/prompts`)
-  const sessionModelsRef = classroomSessionsRef.child(`${classroom_activity_id}/models`)
-  editionQuestionsArrayRef.once('value', (questionsSnap) => {
-    sessionPromptsRef.once('value', (promptsSnap) => {
-      const questions = questionsSnap.val()
-      const prompts = promptsSnap.val()
-      if (questions && prompts) {
-        Object.keys(prompts).forEach(key => {
-          if (questions[key] && questions[key].data && questions[key].data.play && questions[key].data.play.prompt) {
-            if (prompts[key] !== questions[key].data.play.prompt) {
-              sessionPromptsRef.child(key).set(questions[key].data.play.prompt)
-              sessionModelsRef.child(key).remove()
-            }
-          }
-        })
-      }
-    })
+export function addSupportingInfo(classroomActivityId: string, supportingInfo: string|null): void {
+  socket.instance.emit('addSupportingInfo', {
+    classroomActivityId,
+    supportingInfo,
+  });
+}
+
+export function setSlideStartTime(classroomActivityId: string, questionId: string): void {
+  socket.instance.emit('setSlideStartTime', {
+    classroomActivityId,
+    questionId,
+  });
+}
+
+export function setEditionId(classroomActivityId: string, editionId: string|null, callback?: Function): void {
+  socket.instance.emit('setEditionId', { classroomActivityId, editionId });
+  socket.instance.on(`editionIdSet:${classroomActivityId}`, () => {
+    socket.instance.removeAllListeners(`editionIdSet:${classroomActivityId}`);
+    if (callback) {
+      callback();
+    }
   })
+}
+
+export function setTeacherModels(classroomActivityId: string|null, editionId: string) {
+  if (classroomActivityId) {
+    socket.instance.emit('setTeacherModels', {
+      classroomActivityId,
+      editionId,
+    });
+  }
 }
 
 export function updateNoStudentError(student: string | null) {
@@ -440,27 +388,27 @@ export function updateNoStudentError(student: string | null) {
   };
 }
 
-export function setModel(classroom_activity_id: string, question_id: string, model): void {
-  const modelRef = classroomSessionsRef.child(`${classroom_activity_id}/models/${question_id}`);
-  modelRef.set(model);
+export function setModel(classroomActivityId: string, questionId: string, model): void {
+  socket.instance.emit('setModel', { classroomActivityId, questionId, model });
 }
 
-export function setPrompt(classroom_activity_id: string, question_id: string, prompt): void {
-  const promptRef = classroomSessionsRef.child(`${classroom_activity_id}/prompts/${question_id}`);
-  promptRef.set(prompt);
+export function setPrompt(classroomActivityId: string, questionId: string, prompt): void {
+  socket.instance.emit('setPrompt', {
+    classroomActivityId,
+    questionId,
+    prompt,
+  });
 }
 
-export function easyJoinLessonAddName(classroom_activity_id: string, studentName: string): void {
-  const nameRef: string = studentName.replace(/\s/g, '').toLowerCase()
-  const newStudentsRef = classroomSessionsRef.child(`${classroom_activity_id}/students/${nameRef}`);
-  newStudentsRef.set(studentName, (error) => {
-    if (error) {
-      console.log("Data could not be saved." + error);
-    } else {
-      window.location.replace(window.location.href + `&student=${nameRef}`)
-      window.location.reload()
+export function easyJoinLessonAddName(classroomActivityId: string, studentName: string): void {
+  socket.instance.emit('addStudent', { classroomActivityId, studentName });
+  socket.instance.on(`studentAdded:${classroomActivityId}`, (addedStudentName, nameRef) => {
+    socket.instance.removeAllListeners(`studentAdded:${classroomActivityId}`)
+    if (addedStudentName === studentName) {
+      window.location.replace(window.location.href + `&student=${nameRef}`);
+      window.location.reload();
     }
-  })
+  });
 }
 
 export function loadStudentNames(classroom_activity_id: string, baseUrl: string|undefined) {
@@ -526,22 +474,40 @@ export function loadSupportingInfo(lesson_id: string, classroom_activity_id: str
 }
 
 export function createPreviewSession(edition_id?:string) {
-  let previewSession
+  const previewIdPrefix = 'prvw-';
+  const classroomActivityId = `${previewIdPrefix}${uuid()}`;
+  let previewSessionData;
+
   if (edition_id) {
-    previewSession = classroomSessionsRef.push({ 'students': {'student': 'James Joyce'}, 'current_slide': '0', 'public': true, 'preview': true, 'edition_id': edition_id})
+    previewSessionData = {
+      'students': { 'student': 'James Joyce' },
+      'current_slide': '0',
+      'public': true,
+      'preview': true,
+      'edition_id': edition_id,
+      'id': classroomActivityId,
+    };
   } else {
-    previewSession = classroomSessionsRef.push({ 'students': {'student': 'James Joyce'}, 'current_slide': '0', 'public': true, 'preview': true})
+    previewSessionData = {
+      'students': { 'student': 'James Joyce' },
+      'current_slide': '0',
+      'public': true,
+      'preview': true,
+      'id': classroomActivityId,
+    };
   }
-  return previewSession.key
+
+  socket.instance.emit('createPreviewSession', { previewSessionData });
+
+  return classroomActivityId;
 }
 
 export function saveReview(activity_id:string, classroom_activity_id:string, value:number) {
-  const reviewRef = reviewsRef.child(classroom_activity_id)
   const review = {
+    id: classroom_activity_id,
     activity_id: activity_id,
     value: value,
     classroom_activity_id: classroom_activity_id,
-    timestamp: firebase.database.ServerValue.TIMESTAMP
   }
-  reviewRef.set(review)
+  socket.instance.emit('createOrUpdateReview', { review });
 }

@@ -61,13 +61,12 @@ class ShowAdminEdition extends Component<any, any> {
   deleteEdition() {
     const confirmation = window.confirm('Are you sure you want to delete this edition?')
     if (confirmation) {
-      deleteEdition(this.props.params.editionID)
-      window.location.href = `${window.location.origin}/#/admin/classroom-lessons/${this.props.params.classroomLessonID}`
+      this.props.dispatch(deleteEdition(this.props.params.editionID, () => window.location.href = `${window.location.origin}/#/admin/classroom-lessons/${this.props.params.classroomLessonID}`))
     }
   }
 
   saveEditionDetails(edition) {
-    updateEditionDetails(this.props.params.editionID, edition)
+    this.props.dispatch(updateEditionDetails(this.props.params.editionID, edition))
   }
 
   selectNewSlideType(e) {

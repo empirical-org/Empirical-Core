@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 const WakeLock: any = require('react-wakelock').default;
 import {
   startListeningToSession,
-  startListeningToSessionWithoutCurrentSlide,
+  startListeningToSessionForTeacher,
 } from '../../../actions/classroomSessions';
 import {
-  getClassLessonFromFirebase
+  getClassLesson
 } from '../../../actions/classroomLesson';
 import { getParameterByName } from '../../../libs/getParameterByName';
 import {
@@ -28,8 +28,8 @@ class MarkingLessonAsCompleted extends React.Component<any, any> {
     const ca_id: string|null = getParameterByName('classroom_activity_id')
     const lesson_id: string = this.props.params.lessonID
     if (ca_id) {
-      this.props.dispatch(getClassLessonFromFirebase(lesson_id));
-      this.props.dispatch(startListeningToSessionWithoutCurrentSlide(ca_id, lesson_id));
+      this.props.dispatch(getClassLesson(lesson_id));
+      this.props.dispatch(startListeningToSessionForTeacher(ca_id, lesson_id));
     }
   }
 

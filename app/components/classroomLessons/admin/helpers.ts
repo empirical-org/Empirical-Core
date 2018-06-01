@@ -60,14 +60,6 @@ export function getClassroomLesson(props: IntF.ClassroomLessons, classroomLesson
   return props[classroomLessonID]
 }
 
-export function getClassroomLessonSlide(props: IntF.ClassroomLessons, classroomLessonID: string, slideID: string): IntF.Question {
-  return getClassroomLesson(props, classroomLessonID).questions[slideID]
-}
-
-export function getClassroomLessonScriptItem(props: IntF.ClassroomLessons, classroomLessonID: string, slideID: string, scriptItemID: string): CLIntF.ScriptItem {
-  return getClassroomLessonSlide(props, classroomLessonID, slideID).data.teach.script[scriptItemID]
-}
-
 export const slideTypeKeys = ['CL-ST', 'CL-MD', 'CL-SA', 'CL-FB', 'CL-FL', 'CL-MS']
 
 export const scriptItemTypeKeys = ['STEP-HTML', 'STEP-HTML-TIP']

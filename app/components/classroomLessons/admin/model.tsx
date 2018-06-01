@@ -9,7 +9,11 @@ interface AdminModelProps {
   save: Function
 }
 
-class AdminModel extends Component<AdminModelProps, any>{
+interface AdminModelState {
+  question: CLIntF.QuestionData
+}
+
+class AdminModel extends Component<AdminModelProps, AdminModelState>{
   constructor(props){
     super(props);
 

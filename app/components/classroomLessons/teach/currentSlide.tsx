@@ -14,7 +14,6 @@ import {
   redirectAssignedStudents,
   updateStudentSubmissionOrder,
   setPrompt,
-  removeSelectedSubmissionOrder,
   hideSignupModal
 } from '../../../actions/classroomSessions';
 import Spinner from '../../../components/shared/spinner'
@@ -67,7 +66,6 @@ class CurrentSlide extends React.Component<any, any> {
     this.saveModel = this.saveModel.bind(this);
     this.savePrompt = this.savePrompt.bind(this);
     this.updateToggledHeaderCount = this.updateToggledHeaderCount.bind(this);
-    this.clearSelectedSubmissionOrder = this.clearSelectedSubmissionOrder.bind(this);
     this.closePreviewModal = this.closePreviewModal.bind(this)
     this.closeTimeoutModal = this.closeTimeoutModal.bind(this)
     this.closeCongratulationsModal = this.closeCongratulationsModal.bind(this)
@@ -90,7 +88,7 @@ class CurrentSlide extends React.Component<any, any> {
     if (nextProps.classroomSessions.hasreceiveddata && nextProps.classroomLesson.hasreceiveddata) {
       const data: ClassroomLessonSession = nextProps.classroomSessions.data;
       const editionData: CustomizeIntf.EditionQuestions = nextProps.customize.editionQuestions;
-      const script: Array<ScriptItem> = editionData && editionData.questions ? editionData.questions[data.current_slide].data.teach.script : []
+      const script: Array<ScriptItem> = editionData && editionData.questions && editionData.questions[data.current_slide] ? editionData.questions[data.current_slide].data.teach.script : []
       this.setState({
         numberOfHeaders: script.filter(scriptItem => scriptItem.type === 'STEP-HTML' || scriptItem.type === 'STEP-HTML-TIP').length,
       })
@@ -114,6 +112,7 @@ class CurrentSlide extends React.Component<any, any> {
 
   clearAllSelectedSubmissions(currentSlide: string) {
     const caId: string|null = getParameterByName('classroom_activity_id');
+
     if (caId) {
       clearAllSelectedSubmissions(caId, currentSlide);
     }
@@ -130,13 +129,6 @@ class CurrentSlide extends React.Component<any, any> {
     const caId: string|null = getParameterByName('classroom_activity_id');
     if (caId) {
       removeStudentSubmission(caId, currentSlideId, student);
-    }
-  }
-
-  clearSelectedSubmissionOrder(currentSlideId: string) {
-    const caId: string|null = getParameterByName('classroom_activity_id');
-    if (caId) {
-      removeSelectedSubmissionOrder(caId, currentSlideId);
     }
   }
 
@@ -321,7 +313,6 @@ class CurrentSlide extends React.Component<any, any> {
               saveModel={this.saveModel}
               clearStudentSubmission={this.clearStudentSubmission}
               savePrompt={this.savePrompt}
-              clearSelectedSubmissionOrder={this.clearSelectedSubmissionOrder}
             />
           break
         case 'CL-EX':

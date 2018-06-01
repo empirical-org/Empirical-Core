@@ -3,7 +3,7 @@ import NavBar from '../navbar/navbar';
 import * as _ from 'lodash'
 import { connect } from 'react-redux';
 import {
-  getClassLessonFromFirebase
+  getClassLesson
 } from '../../actions/classroomLesson'
 import {
   startListeningToSession
@@ -13,7 +13,7 @@ import {getParameterByName} from '../../libs/getParameterByName'
 
 import {
   getCurrentUserAndCoteachersFromLMS,
-  getEditionsForUserIds
+  getEditionMetadataForUserIds
 } from '../../actions/customize'
 
 interface customizeProps {
@@ -35,10 +35,10 @@ class Customize extends React.Component<customizeProps> {
 
     super(props)
     props.dispatch(getCurrentUserAndCoteachersFromLMS())
-    props.dispatch(firebaseAuth())
+    // props.dispatch(firebaseAuth())
 
     if (props.params.lessonID) {
-      props.dispatch(getClassLessonFromFirebase(props.params.lessonID))
+      props.dispatch(getClassLesson(props.params.lessonID))
     }
 
     const ca_id: string|null = getParameterByName('classroom_activity_id')
@@ -52,16 +52,16 @@ class Customize extends React.Component<customizeProps> {
   componentWillReceiveProps(nextProps) {
     if (nextProps.customize.user_id) {
       if (nextProps.customize.user_id !== this.props.customize.user_id || !_.isEqual(nextProps.customize.coteachers, this.props.customize.coteachers)) {
-        let user_ids = []
+        let user_ids:Array<Number>|never = []
         if (nextProps.customize.coteachers.length > 0) {
           user_ids = nextProps.customize.coteachers.map(c => Number(c.id))
         }
         user_ids.push(nextProps.customize.user_id)
-        this.props.dispatch(getEditionsForUserIds(user_ids, this.props.params.lessonID))
+        this.props.dispatch(getEditionMetadataForUserIds(user_ids, this.props.params.lessonID))
       }
     } else {
       if (Object.keys(nextProps.customize.editions).length === 0) {
-        this.props.dispatch(getEditionsForUserIds([], this.props.params.lessonID))
+        this.props.dispatch(getEditionMetadataForUserIds([], this.props.params.lessonID))
       }
     }
   }

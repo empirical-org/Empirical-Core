@@ -13,7 +13,7 @@ interface ModelQuestionProps {
   data: QuestionData,
   model?: string|null,
   prompt?: string|null,
-  projector: boolean
+  projector?: boolean
 }
 
 interface ModelQuestionState {}

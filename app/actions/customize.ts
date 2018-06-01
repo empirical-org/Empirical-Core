@@ -1,11 +1,11 @@
 declare function require(name:string);
 import rootRef, { firebase } from '../libs/firebase';
-const editionQuestionsRef = rootRef.child('lesson_edition_questions');
-const editionMetadataRef = rootRef.child('lesson_edition_metadata');
-const classroomLessonsRef = rootRef.child('classroom_lessons');
 import C from '../constants';
 import * as CustomizeIntf from '../interfaces/customize'
 import lessonSlideBoilerplates from '../components/classroomLessons/shared/lessonSlideBoilerplates'
+import _ from 'lodash'
+import uuid from 'uuid/v4';
+import socket from '../utils/socketStore'
 
 export function getCurrentUserAndCoteachersFromLMS() {
   return function(dispatch) {
@@ -28,29 +28,34 @@ export function getCurrentUserAndCoteachersFromLMS() {
   }
 }
 
-export function getEditionsForUserIds(userIds:Array<Number>, lessonID:string) {
+export function getEditionMetadataForUserIds(userIds:Array<Number>, lessonId:string) {
   return function (dispatch, getState) {
-    editionMetadataRef.orderByChild("lesson_id").equalTo(lessonID).on('value', (snapshot) => {
-      dispatch(filterEditionsByUserIds(userIds, snapshot.val()))
-    });
+    socket.instance.on(`editionMetadataForLesson:${lessonId}`, (editions) => {
+      dispatch(filterEditionsByUserIds(userIds, editions))
+    })
+    socket.instance.emit('getAllEditionMetadataForLesson', { lessonId });
   };
 }
 
 export function startListeningToEditionMetadata() {
   return function (dispatch, getState) {
-    editionMetadataRef.on('value', (snapshot) => {
-      dispatch(setEditionMetadata(snapshot.val()))
-    });
+    socket.instance.on(`editionMetadata`, (editions) => {
+      if (!_.isEqual(editions, getState().customize.editions)) {
+        dispatch(setEditionMetadata(editions))
+      }
+    })
+    socket.instance.emit('getAllEditionMetadata')
   };
 }
 
-export function getEditionQuestions(editionID:string) {
+export function getEditionQuestions(editionId:string) {
   return function (dispatch, getState) {
-    editionQuestionsRef.child(editionID).on('value', (snapshot) => {
-      if (snapshot.val()) {
-        dispatch(setEditionQuestions(snapshot.val()))
+    socket.instance.on(`editionQuestionsForEdition:${editionId}`, (questions) => {
+      if (!_.isEqual(getState().customize.editionQuestions, questions)) {
+        dispatch(setEditionQuestions(questions))
       }
-    });
+    })
+    socket.instance.emit('getEditionQuestions', { editionId });
   };
 }
 
@@ -60,70 +65,58 @@ export function clearEditionQuestions() {
   }
 }
 
-export function createNewEdition(editionUID:string|null, lessonUID:string, user_id:Number|string, classroomActivityId?:string, callback?:any) {
+export function createNewEdition(editionId:string|null, lessonId:string, userId:Number|string, classroomActivityId?:string, callback?:any) {
   let newEditionData, newEdition;
-  if (editionUID) {
-    newEditionData = {lesson_id: lessonUID, edition_id: editionUID, user_id: user_id}
-    newEdition = editionMetadataRef.push(newEditionData)
-      editionQuestionsRef.child(`${editionUID}`).once('value', snapshot => {
-      editionQuestionsRef.child(`${newEdition.key}`).set(snapshot.val())
-    })
+  const newEditionKey = uuid();
+  if (editionId) {
+    newEditionData = {lesson_id: lessonId, edition_id: editionId, user_id: userId, id: newEditionKey}
   } else {
-    newEditionData = {lesson_id: lessonUID, user_id: user_id}
-    newEdition = editionMetadataRef.push(newEditionData)
-      classroomLessonsRef.child(lessonUID).once('value', snapshot => {
-      editionQuestionsRef.child(`${newEdition.key}/questions`).set(snapshot.val().questions)
-    })
+    newEditionData = {lesson_id: lessonId, user_id: userId, id: newEditionKey}
   }
-  if (callback) {
-    callback(lessonUID, newEdition.key, classroomActivityId)
-  } else {
-    return newEdition.key
-  }
+  socket.instance.emit('createNewEdition', { editionData: newEditionData });
+  socket.instance.on(`editionCreated:${newEditionKey}`, () => {
+    socket.instance.removeAllListeners(`editionCreated:${newEditionKey}`)
+    if (callback) {
+      callback(lessonId, newEditionKey, classroomActivityId)
+    }
+  })
+  return newEditionKey
 }
 
-export function createNewAdminEdition(editionUID:string|null, lessonUID:string, user_id:Number|string, callback?:any, name?:string) {
-  let newEditionData, newEdition;
-  if (editionUID) {
-    newEditionData = {lesson_id: lessonUID, edition_id: editionUID, user_id: user_id, name: name, flags: ['alpha']}
-    newEdition = editionMetadataRef.push(newEditionData)
-      editionQuestionsRef.child(`${editionUID}`).once('value', snapshot => {
-      editionQuestionsRef.child(`${newEdition.key}`).set(snapshot.val())
-    })
+export function createNewAdminEdition(editionId:string|null, lessonId:string, userId:Number|string, callback?:any, name?:string) {
+  let newEditionData, newEdition, questions;
+  const newEditionKey = uuid();
+  if (editionId) {
+    newEditionData = {id: newEditionKey, lesson_id: lessonId, edition_id: editionId, user_id: userId, name: name, flags: ['alpha']}
   } else {
-    newEditionData = {lesson_id: lessonUID, user_id: user_id, name: name, flags: ['alpha']}
-    newEdition = editionMetadataRef.push(newEditionData)
-      classroomLessonsRef.child(lessonUID).once('value', snapshot => {
-        const questions = snapshot.val().questions ? snapshot.val().questions : [lessonSlideBoilerplates['CL-LB'], lessonSlideBoilerplates['CL-EX']]
-        editionQuestionsRef.child(`${newEdition.key}/questions`).set(questions)
-    })
+    newEditionData = {id: newEditionKey, lesson_id: lessonId, user_id: userId, name: name, flags: ['alpha']}
+    questions = [lessonSlideBoilerplates['CL-LB'], lessonSlideBoilerplates['CL-EX']]
   }
-  if (callback) {
-    callback(lessonUID, newEdition.key)
-  } else {
-    return newEdition.key
-  }
-}
-
-export function saveEditionName(editionUID:string, name:string) {
-  editionMetadataRef.child(`${editionUID}/name`).set(name)
-}
-
-export function archiveEdition(editionUID:string) {
-  const flagRef = editionMetadataRef.child(`${editionUID}/flags`)
-  flagRef.once('value', (snapshot) => {
-    if (!snapshot.val()) {
-      flagRef.set(['archived'])
+  socket.instance.emit('createNewEdition', {
+    editionData: newEditionData,
+    questions,
+  });
+  socket.instance.on(`editionCreated:${newEditionKey}`, () => {
+    socket.instance.removeAllListeners(`editionCreated:${newEditionKey}`)
+    if (callback) {
+      callback(lessonId, newEditionKey)
     } else {
-      const newFlags = snapshot.val().push('archived')
-      flagRef.set(newFlags)
+      return newEditionKey
     }
   })
 }
 
-export function deleteEdition(editionUID:string) {
-  editionMetadataRef.child(editionUID).remove()
-  editionQuestionsRef.child(editionUID).remove()
+export function saveEditionName(editionId:string, name:string) {
+  const editionMetadata = {id: editionId, name}
+  socket.instance.emit('updateEditionMetadata', { editionMetadata });
+}
+
+export function archiveEdition(editionId:string) {
+  socket.instance.emit('archiveEdition', { editionId });
+}
+
+export function deleteEdition(editionId:string) {
+  socket.instance.emit('deleteEdition', { editionId });
 }
 
 export function setWorkingEditionQuestions(questions:CustomizeIntf.EditionQuestions) {
@@ -138,12 +131,15 @@ export function setIncompleteQuestions(incompleteQuestions:Array<number>|never) 
   return { type: C.SET_INCOMPLETE_QUESTIONS, incompleteQuestions };
 }
 
-export function publishEdition(editionUID:string, editionMetadata: CustomizeIntf.EditionMetadata, editionQuestions:CustomizeIntf.EditionQuestions, callback?:Function) {
+export function publishEdition(editionId:string, editionMetadata: CustomizeIntf.EditionMetadata, editionQuestions:CustomizeIntf.EditionQuestions, callback?:Function) {
   return function(dispatch) {
     dispatch(setIncompleteQuestions([]))
-    editionMetadata.last_published_at = firebase.database.ServerValue.TIMESTAMP
-    editionMetadataRef.child(editionUID).set(editionMetadata)
-    editionQuestionsRef.child(editionUID).set(editionQuestions)
+    editionMetadata.id = editionId
+    editionQuestions.id = editionId
+    socket.instance.emit('publishEdition', {
+      editionMetadata,
+      editionQuestions
+    });
     sendPublishEditionEventToLMS()
     if (callback) {
       callback()
@@ -164,7 +160,7 @@ function filterEditionsByUserIds(userIds:Array<Number|string>, editions:Customiz
           userEditions[id] = edition
         }
       })
-      if (Object.keys(userEditions).length > 0) {
+      if (Object.keys(userEditions).length > 0 && !_.isEqual(userEditions, getState().customize.editions)) {
         dispatch(setEditionMetadata(userEditions))
       }
     }
@@ -179,7 +175,7 @@ function setCoteachers(coteachers:Array<any>) {
   return { type: C.SET_COTEACHERS, coteachers };
 }
 
-function setEditionMetadata(editionMetadata:CustomizeIntf.EditionsMetadata) {
+export function setEditionMetadata(editionMetadata:CustomizeIntf.EditionsMetadata) {
   return { type: C.SET_EDITION_METADATA, editionMetadata };
 }
 

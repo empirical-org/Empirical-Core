@@ -9,16 +9,16 @@ import {
   startListeningToEditionMetadata
 } from '../../../actions/customize'
 import {
-  listenForClassroomLessonsFromFirebase,
-  listenForClassroomLessonsReviewsFromFirebase
+  listenForClassroomLessons,
+  listenForClassroomLessonReviews
 } from '../../../actions/classroomLesson';
 
 class AdminClassLessonsContainer extends Component<any, any> {
   constructor(props) {
     super(props);
 
-    this.props.dispatch(listenForClassroomLessonsFromFirebase());
-    this.props.dispatch(listenForClassroomLessonsReviewsFromFirebase())
+    this.props.dispatch(listenForClassroomLessons());
+    this.props.dispatch(listenForClassroomLessonReviews())
     this.props.dispatch(startListeningToEditionMetadata())
   }
 

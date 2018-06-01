@@ -23,7 +23,7 @@ import ProjectorModal from './projectorModal'
 import ErrorPage from '../shared/errorPage'
 import FlaggedStudentCompletedPage from './flaggedStudentCompleted'
 import {
-  getClassLessonFromFirebase
+  getClassLesson
  } from '../../../actions/classroomLesson';
 import {
  getEditionQuestions
@@ -41,7 +41,7 @@ import * as CustomizeIntf from '../../../interfaces/customize'
 import {
   scriptTagStrip
 } from '../shared/scriptTagStrip';
-import Spinner from 'components/shared/spinner'
+import Spinner from '../../shared/spinner'
 import {firebaseAuth} from '../../../actions/users'
 
 class PlayClassroomLessonContainer extends React.Component<any, any> {
@@ -55,7 +55,7 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
       document.addEventListener("keydown", this.handleKeyDown.bind(this));
     }
 
-    props.dispatch(firebaseAuth())
+    // props.dispatch(firebaseAuth())
 
     this.handleStudentSubmission = this.handleStudentSubmission.bind(this);
     this.easyJoinDemo = this.easyJoinDemo.bind(this);
@@ -86,7 +86,7 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
         this.props.dispatch(getEditionQuestions(nextProps.classroomSessions.data.edition_id))
       }
       if (!nextProps.classroomLesson.hasreceiveddata) {
-        this.props.dispatch(getClassLessonFromFirebase(lessonId));
+        this.props.dispatch(getClassLesson(lessonId));
       }
       if (nextProps.classroomSessions.data.edition_id !== this.props.classroomSessions.data.edition_id) {
         this.props.dispatch(getEditionQuestions(nextProps.classroomSessions.data.edition_id))
@@ -162,12 +162,12 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
     return student && this.props.classroomSessions.data.students ? !!this.props.classroomSessions.data.students[student] : false
   }
 
-  handleStudentSubmission(data: string, timestamp: string) {
+  handleStudentSubmission(data: string) {
     const classroom_activity_id: string|null = getParameterByName('classroom_activity_id');
     const student: string|null = getParameterByName('student');
     const current_slide: string = this.props.classroomSessions.data.current_slide;
     const safeData = scriptTagStrip(data)
-    const submission = {data: safeData, timestamp}
+    const submission = {data: safeData}
     if (classroom_activity_id && student && this.studentEnrolledInClass(student)) {
       saveStudentSubmission(
         classroom_activity_id,
