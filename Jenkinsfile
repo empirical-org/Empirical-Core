@@ -44,7 +44,8 @@ pipeline {
           sh 'bundle exec rake parallel:load_structure'
           echo "Running rspec"
           sh 'bundle exec rake parallel:spec'
-          sh 'bash <(curl -s https://codecov.io/bash) -cF rspec -f coverage/coverage.json'
+          /*sh 'bash <(curl -s https://codecov.io/bash) -cF rspec -f coverage/coverage.json'*/
+          sh 'curl https://codecov.io/bash | bash -cF rspec -f coverage/coverage.json'
 
           echo "Brakeman:"
           sh 'bundle exec brakeman -z'
@@ -58,7 +59,8 @@ pipeline {
             sh 'npm run build:test'
             echo 'Running jest...'
             sh 'npm run jest:coverage'
-            sh 'bash <(curl -s https://codecov.io/bash) -cF jest'
+            /*sh 'bash <(curl -s https://codecov.io/bash) -cF jest'*/
+            sh 'curl https://codecov.io/bash | bash -cF jest'
           }
 
           echo "Test successful!"
