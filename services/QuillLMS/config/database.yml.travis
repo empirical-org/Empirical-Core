@@ -1,8 +1,4 @@
-
 test:
   adapter: postgresql
-  encoding: unicode
   database: empiricalgrammar_test<%= ENV['TEST_ENV_NUMBER'] %>
-  host:     localhost
-
-# vim:syn=yaml
+  username: postgres
