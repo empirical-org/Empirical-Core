@@ -8,11 +8,11 @@ const initialState = {
   workingEditionQuestions: {},
   incompleteQuestions: [],
   coteachers: [],
-  editionQuestions: {}
+  editionQuestions: {},
+  originalEditionQuestions: {},
 };
 
 export default function (currentstate, action) {
-  let newstate;
   switch (action.type) {
     case C.SET_USER_ID:
       return Object.assign({}, currentstate, {
@@ -30,6 +30,10 @@ export default function (currentstate, action) {
       return Object.assign({}, currentstate, {
         editionQuestions: action.editionQuestions,
       });
+    case C.SET_ORIGINAL_EDITION_QUESTIONS:
+      return Object.assign({}, currentstate, {
+        originalEditionQuestions: action.originalEditionQuestions,
+      });
     case C.SET_WORKING_EDITION_QUESTIONS:
       return Object.assign({}, currentstate, {
         workingEditionQuestions: action.questions,
@@ -44,4 +48,16 @@ export default function (currentstate, action) {
     });
     default: return currentstate || initialState;
   }
+}
+
+export function getIncompleteQuestions(store) {
+  return store.incompleteQuestions;
+}
+
+export function getEditionMetadata(store) {
+  return store.editions;
+}
+
+export function getEditionQuestions(store) {
+  return store.editionQuestions;
 }

@@ -78,6 +78,29 @@ export function getAllEditionMetadata({
   })
 }
 
+export function getEditionMetadataForLesson({
+  client,
+  connection,
+  lessonId,
+  editionId,
+}) {
+  if (lessonId && editionId) {
+    r.table('lesson_edition_metadata')
+    .get(editionId)
+    .filter(r.row('lesson_id').eq(lessonId))
+    .run(connection)
+    .then((cursor) => {
+      let editions = {};
+      cursor.toArray((err, results) => {
+        results.forEach((result) => {
+          editions[result.id] = result;
+        });
+        client.emit(`editionMetadataForLesson:${lessonId}`, editions)
+      });
+    })
+  }
+}
+
 export function getAllEditionMetadataForLesson({
   client,
   connection,
