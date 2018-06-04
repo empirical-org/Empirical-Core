@@ -6,9 +6,10 @@ class SocketStore {
     this.classroomActivityId = null;
     this.tokenUrl = `${process.env.EMPIRICAL_BASE_URL}/api/v1/lessons_tokens`;
     this.socketsUrl = process.env.LESSONS_WEBSOCKETS_URL;
+    this.token = null;
   }
 
-  _initSocket(callback = null) {
+  _getAuthTokenAndConnect(callback = null) {
     const formData = new FormData();
     formData.append('classroom_activity_id', this.classroomActivityId);
 
@@ -24,39 +25,48 @@ class SocketStore {
       return response.json();
     }).then((data) => {
       if (data && data.token) {
-        this._openSocket(data.token, callback);
+        this.token = data.token;
+        this._handleConnection(callback);
       }
     })
   }
 
-  _openSocket(token, callback = null) {
-    this._closeCurrentSocket()
+  _handleConnection(callback = null) {
+    if (this.instance) {
+      this._addAuthtokenToConnection();
+    } else {
+      this._openNewConnection();
+    }
 
-    let socket = openSocket(this.socketsUrl, {
-      query: { token }
-    });
-
-    this.instance = socket;
     if (callback) {
       return callback();
     }
   }
 
-  _closeCurrentSocket() {
-    if (this.instance) {
-      this.instance.close();
-      this.instance = null;
-    }
+  _addAuthtokenToConnection() {
+    this.instance.emit('authentication', { token: this.token });
+  }
+
+  _openNewConnection() {
+    this.instance = openSocket(this.socketsUrl);
+
+    this.instance.on('connect', () => {
+      this._addAuthtokenToConnection();
+      console.log('connected to server');
+    });
+
+    this.instance.on('disconnect', () => {
+      console.log('disconnected to server');
+    });
   }
 
   connect(newClassroomActivityId = null, callback = null) {
-    let isSocketMissing      = !this.classroomActivityId && !this.instance
-    let isNewActivitySession = this.classroomActivityId !== newClassroomActivityId
-    let canCreateSocket      = isSocketMissing || isNewActivitySession
+    let isNewActivitySession = this.classroomActivityId !== newClassroomActivityId;
+    let isSocketMissing      = !this.classroomActivityId && !this.instance;
 
-    if (canCreateSocket) {
+    if (isSocketMissing || isNewActivitySession) {
       this.classroomActivityId = newClassroomActivityId;
-      this._initSocket(callback);
+      this._getAuthTokenAndConnect(callback);
     }
   }
 }
