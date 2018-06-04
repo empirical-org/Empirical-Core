@@ -1,7 +1,7 @@
-import openSocket from 'socket.io-client'
+import openSocket from 'socket.io-client';
 
 class SocketStore {
-  constructor(){
+  constructor() {
     this.instance = null;
     this.classroomActivityId = null;
     this.tokenUrl = `${process.env.EMPIRICAL_BASE_URL}/api/v1/lessons_tokens`;
@@ -28,7 +28,9 @@ class SocketStore {
         this.token = data.token;
         this._handleConnection(callback);
       }
-    })
+    }).catch((error) => {
+      console.log(error);
+    });
   }
 
   _handleConnection(callback = null) {
@@ -44,7 +46,7 @@ class SocketStore {
   }
 
   _addAuthtokenToConnection() {
-    this.instance.emit('authentication', { token: this.token });
+    this.instance.emit('authentication', { token: this.token, });
   }
 
   _openNewConnection() {
@@ -61,8 +63,8 @@ class SocketStore {
   }
 
   connect(newClassroomActivityId = null, callback = null) {
-    let isNewActivitySession = this.classroomActivityId !== newClassroomActivityId;
-    let isSocketMissing      = !this.classroomActivityId && !this.instance;
+    const isNewActivitySession = this.classroomActivityId !== newClassroomActivityId;
+    const isSocketMissing = !this.classroomActivityId && !this.instance;
 
     if (isSocketMissing || isNewActivitySession) {
       this.classroomActivityId = newClassroomActivityId;
