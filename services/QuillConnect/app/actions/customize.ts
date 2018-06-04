@@ -29,11 +29,20 @@ export function getCurrentUserAndCoteachersFromLMS() {
 }
 
 export function getEditionMetadataForUserIds(userIds:Array<Number>, lessonId:string) {
-  return function (dispatch, getState) {
+  return function (dispatch) {
     socket.instance.on(`editionMetadataForLesson:${lessonId}`, (editions) => {
       dispatch(filterEditionsByUserIds(userIds, editions))
     })
     socket.instance.emit('getAllEditionMetadataForLesson', { lessonId });
+  };
+}
+
+export function getEditionMetadata(lessonId:string, editionId:string) {
+  return function (dispatch) {
+    socket.instance.on(`editionMetadataForLesson:${lessonId}`, (editions) => {
+      setEditionMetadata(editions)
+    })
+    socket.instance.emit('getEditionMetadataForLesson', { lessonId, editionId });
   };
 }
 
@@ -179,8 +188,12 @@ export function setEditionMetadata(editionMetadata:CustomizeIntf.EditionsMetadat
   return { type: C.SET_EDITION_METADATA, editionMetadata };
 }
 
-function setEditionQuestions(editionQuestions:CustomizeIntf.EditionQuestions|{}) {
+export function setEditionQuestions(editionQuestions:CustomizeIntf.EditionQuestions|{}) {
   return { type: C.SET_EDITION_QUESTIONS, editionQuestions };
+}
+
+export function setOriginalEditionQuestions( originalEditionQuestions:CustomizeIntf.EditionQuestions|{} ) {
+  return { type: C.SET_ORIGINAL_EDITION_QUESTIONS, originalEditionQuestions };
 }
 
 function sendPublishEditionEventToLMS() {

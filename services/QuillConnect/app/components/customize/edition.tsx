@@ -6,35 +6,38 @@ import Slide from './slide'
 import CustomizeEditionHeader from './customizeEditionHeader'
 import NameAndSampleQuestionModal from './nameAndSampleQuestionModal'
 import SuccessModal from './successModal'
-import {getParameterByName} from '../../libs/getParameterByName'
-import {
-  Question
-} from '../classroomLessons/interfaces'
+import { getParameterByName } from '../../libs/getParameterByName'
+import { Question } from '../classroomLessons/interfaces'
 
 import {
+  getEditionMetadata,
   getEditionMetadataForUserIds,
   getEditionQuestions,
   publishEdition,
+  setEditionMetadata,
+  setEditionQuestions,
+  setIncompleteQuestions,
+  setOriginalEditionQuestions,
   setWorkingEditionMetadata,
   setWorkingEditionQuestions,
 } from '../../actions/customize'
 
 import {
   setEditionId,
-  setTeacherModels
+  setTeacherModels,
 } from '../../actions/classroomSessions'
+
+import {
+  getStoredEditionMetadata,
+  getIncompleteQuestions,
+  getStoredEditionQuestions,
+} from '../../reducers/combined'
 
 class CustomizeEdition extends React.Component<any, any> {
   constructor(props) {
     super(props)
 
-    const editionMetadata = props.customize.editions[props.params.editionID]
-
-    this.state = {
-      editionMetadata: editionMetadata,
-      showEditModal: false,
-      incompleteQuestions: []
-    }
+    this.state = { showEditModal: false };
 
     this.updateQuestion = this.updateQuestion.bind(this)
     this.publish = this.publish.bind(this)
@@ -49,67 +52,79 @@ class CustomizeEdition extends React.Component<any, any> {
   }
 
   componentWillMount() {
-    const classroomActivityId = getParameterByName('classroom_activity_id')
+    const classroomActivityId = getParameterByName('classroom_activity_id');
     if (classroomActivityId) {
-      setEditionId(classroomActivityId, this.props.params.editionID)
+      setEditionId(classroomActivityId, this.props.params.editionID);
     }
-    this.props.dispatch(getEditionMetadataForUserIds([], this.props.params.lessonID))
-    this.props.dispatch(getEditionQuestions(this.props.params.editionID))
+
+    this.props.dispatch(getEditionMetadata(
+      this.props.params.lessonID,
+      this.props.params.editionID
+    ));
+
+    this.props.dispatch(getEditionQuestions(this.props.params.editionID));
   }
 
   componentWillReceiveProps(nextProps) {
-    if (!_.isEqual(nextProps.customize.editions[nextProps.params.editionID], this.props.customize.editions[nextProps.params.editionID])) {
-      const editionMetadata = nextProps.customize.editions[nextProps.params.editionID]
-      if (this.state.editionMetadata === undefined) {
-        this.setState({editionMetadata: editionMetadata}, () => nextProps.dispatch(setWorkingEditionMetadata(editionMetadata)))
-      }
+    const hasNewEdition = !_.isEqual(
+      nextProps.editionMetadata,
+      this.props.editionMetadata
+    );
+    const isEditionUndefined = this.props.editionMetadata === undefined;
+    const isMissingQuestions = !this.props.editionQuestions.questions;
+
+    if (hasNewEdition && isEditionUndefined) {
+      this.props.dispatch(setEditionQuestions(nextProps.editionQuestions));
+      this.props.dispatch(setWorkingEditionQuestions(nextProps.editionQuestions));
+      this.props.dispatch(setWorkingEditionMetadata(nextProps.editionMetadata));
     }
-    if (!_.isEqual(nextProps.customize.editionQuestions, this.props.customize.editionQuestions) || this.state.editionQuestions === undefined) {
-      const editionQuestions = nextProps.customize.editionQuestions
-      if (this.state.editionQuestions === undefined || !this.state.editionQuestions.questions) {
-        this.setState({originalEditionQuestions: editionQuestions, editionQuestions: editionQuestions}, () => nextProps.dispatch(setWorkingEditionQuestions(editionQuestions)))
-      } else {
-        this.setState({originalEditionQuestions: editionQuestions})
-      }
+
+    if (hasNewEdition && isMissingQuestions) {
+      this.props.dispatch(setEditionQuestions(nextProps.editionQuestions));
+      this.props.dispatch(setWorkingEditionQuestions(nextProps.editionQuestions));
     }
-    if (!_.isEqual(nextProps.customize.incompleteQuestions, this.state.incompleteQuestions)) {
-      this.setState({incompleteQuestions: nextProps.customize.incompleteQuestions})
+
+    if (hasNewEdition) {
+      this.props.dispatch(setOriginalEditionQuestions(nextProps.editionQuestions));
     }
   }
 
   updateQuestion(question: Question, questionIndex: number) {
-    const newEditionQuestions = _.merge({}, this.state.editionQuestions)
+    const newEditionQuestions = _.merge({}, this.props.editionQuestions)
     newEditionQuestions.questions[questionIndex].data = question
-    this.setState({editionQuestions: newEditionQuestions}, () => this.props.dispatch(setWorkingEditionQuestions(newEditionQuestions)))
+    this.props.dispatch(setEditionQuestions(newEditionQuestions));
+    this.props.dispatch(setWorkingEditionQuestions(newEditionQuestions));
   }
 
   updateName(e) {
-    const newEditionMetadata = _.merge({}, this.state.editionMetadata)
+    const newEditionMetadata = _.merge({}, this.props.editionMetadata)
     newEditionMetadata.name = e.target.value
-    this.setState({editionMetadata: newEditionMetadata}, () => this.props.dispatch(setWorkingEditionMetadata(newEditionMetadata)))
+    this.props.dispatch(setEditionMetadata(newEditionMetadata));
+    this.props.dispatch(setWorkingEditionMetadata(newEditionMetadata));
   }
 
   updateSampleQuestion(e) {
-    const newEditionMetadata = _.merge({}, this.state.editionMetadata)
+    const newEditionMetadata = _.merge({}, this.props.editionMetadata)
     newEditionMetadata.sample_question = e.target.value
-    this.setState({editionMetadata: newEditionMetadata}, () => this.props.dispatch(setWorkingEditionMetadata(newEditionMetadata)))
+    this.props.dispatch(setEditionMetadata(newEditionMetadata));
+    this.props.dispatch(setWorkingEditionMetadata(newEditionMetadata));
   }
 
   showEditModal() {
-    this.setState({showEditModal: true})
+    this.setState({ showEditModal: true });
   }
 
   closeEditModal() {
-    this.setState({showEditModal: false})
+    this.setState({ showEditModal: false });
   }
 
   resetSlide(questionIndex: number) {
-    const question = this.state.originalEditionQuestions.questions[questionIndex].data
+    const question = this.props.originalEditionQuestions.questions[questionIndex].data
     this.updateQuestion(question, questionIndex)
   }
 
   clearSlide(questionIndex: number) {
-    const question = _.merge({}, this.state.editionQuestions.questions[questionIndex].data)
+    const question = _.merge({}, this.props.editionQuestions.questions[questionIndex].data)
     const clearedSlide = {}
     Object.keys(question.play).map((k) => {
       if (k === 'cues') {
@@ -134,20 +149,38 @@ class CustomizeEdition extends React.Component<any, any> {
   }
 
   publish() {
-    console.log('publish is getting called inside the edition')
-    const slides = this.state.editionQuestions.questions.slice(1)
-    const incompleteQuestions:Array<number>|never = []
-    slides.forEach((s, i) => {
-      const q = s.data.play
-      if (q.prompt === '' || q.prompt && q.prompt.trim() === '' || q.prompt === '<p></p>' || q.prompt == '<p><br></p>') {
-        incompleteQuestions.push(i)
-      } else if (!q.prompt && q.html && q.html === '<p></p>' || q.html == '<p><br></p>') {
-        incompleteQuestions.push(i)
+    const slides = this.props.editionQuestions.questions.slice(1);
+    const incompleteQuestions:Array<number>|never = [];
+
+    slides.forEach((slide, i) => {
+      let question = slide.data.play;
+      let isIncomplete = (
+          question.prompt === '' ||
+          question.prompt &&
+          question.prompt.trim() === '' ||
+          question.prompt === '<p></p>' ||
+          question.prompt == '<p><br></p>'
+        ) || (
+          !question.prompt &&
+          question.html &&
+          question.html === '<p></p>' ||
+          question.html == '<p><br></p>'
+        );
+
+      if (isIncomplete) {
+        incompleteQuestions.push(i);
       }
-    })
-    this.setState({incompleteQuestions: incompleteQuestions})
-    if (incompleteQuestions.length === 0 && this.state.editionMetadata.name) {
-      this.props.dispatch(publishEdition(this.props.params.editionID, this.state.editionMetadata, this.state.editionQuestions, this.afterPublishing))
+    });
+
+    this.props.dispatch(setIncompleteQuestions(incompleteQuestions));
+
+    if (incompleteQuestions.length === 0 && this.props.editionMetadata.name) {
+      this.props.dispatch(publishEdition(
+        this.props.params.editionID,
+        this.props.editionMetadata,
+        this.props.editionQuestions,
+        this.afterPublishing
+      ));
     }
   }
 
@@ -172,7 +205,7 @@ class CustomizeEdition extends React.Component<any, any> {
 
   renderPublishSection() {
     let text
-    if (this.state.editionMetadata.name && (!this.state.incompleteQuestions || this.state.incompleteQuestions.length === 0)) {
+    if (this.props.editionMetadata.name && (!this.props.incompleteQuestions || this.props.incompleteQuestions.length === 0)) {
       text = <p>Press <span>"Publish Edition"</span> to save this lesson. You will see the <span>“Customized”</span> tag next to the name of the lesson.</p>
     } else {
       text = <p className="error"><i className="fa fa-icon fa-exclamation-triangle"/>You have left one of the fields above empty. Please fill out all the required fields and click Publish Edition.</p>
@@ -186,13 +219,13 @@ class CustomizeEdition extends React.Component<any, any> {
   }
 
   renderSlides() {
-    if (this.state.editionQuestions && this.state.editionQuestions.questions) {
-      return this.state.editionQuestions.questions.slice(1).map((q, i) => this.renderSlide(q, i))
+    if (this.props.editionQuestions && this.props.editionQuestions.questions) {
+      return this.props.editionQuestions.questions.slice(1).map((q, i) => this.renderSlide(q, i))
     }
   }
 
   renderSlide(q: Question, i: number) {
-    const incompletePrompt = this.state.incompleteQuestions && this.state.incompleteQuestions.includes(i)
+    const incompletePrompt = this.props.incompleteQuestions && this.props.incompleteQuestions.includes(i)
     return <Slide
       key={i}
       question={q}
@@ -206,11 +239,11 @@ class CustomizeEdition extends React.Component<any, any> {
 
   renderEditModal() {
     if (this.state.showEditModal) {
-      const buttonClassName = this.state.editionMetadata.name ? 'active' : 'inactive'
+      const buttonClassName = this.props.editionMetadata.name ? 'active' : 'inactive'
       return <NameAndSampleQuestionModal
           updateName={this.updateName}
-          name={this.state.editionMetadata.name}
-          sampleQuestion={this.state.editionMetadata.sample_question}
+          name={this.props.editionMetadata.name}
+          sampleQuestion={this.props.editionMetadata.sample_question}
           updateSampleQuestion={this.updateSampleQuestion}
           buttonClassName={buttonClassName}
           closeEditModal={this.closeEditModal}
@@ -225,7 +258,7 @@ class CustomizeEdition extends React.Component<any, any> {
         ? `customize/${this.props.params.lessonID}/${this.props.params.editionID}?&classroom_activity_id=${classroomActivityId}`
         : `customize/${this.props.params.lessonID}/${this.props.params.editionID}`
       return <SuccessModal
-        editionName={this.state.editionMetadata.name}
+        editionName={this.props.editionMetadata.name}
         activityName={this.props.classroomLesson.data.title}
         backLink={backLink}
         editionLink={this.followUpLink()}
@@ -234,8 +267,7 @@ class CustomizeEdition extends React.Component<any, any> {
   }
 
   render() {
-    if (this.state.editionMetadata) {
-
+    if (this.props.editionMetadata) {
       return <div className="customize-edition-container customize-page">
         <div className="customize-edition">
           {this.renderEditModal()}
@@ -243,8 +275,8 @@ class CustomizeEdition extends React.Component<any, any> {
           <CustomizeEditionHeader
             lessonNumber={this.props.classroomLesson.data.lesson}
             lessonTitle={this.props.classroomLesson.data.title}
-            editionName={this.state.editionMetadata.name}
-            sampleQuestion={this.state.editionMetadata.sample_question}
+            editionName={this.props.editionMetadata.name}
+            sampleQuestion={this.props.editionMetadata.sample_question}
             showEditModal={this.showEditModal}
           />
         {this.renderSlides()}
@@ -257,10 +289,13 @@ class CustomizeEdition extends React.Component<any, any> {
   }
 }
 
-function select(state) {
+function mapStateToProps(state, props) {
   return {
     customize: state.customize,
-    classroomLesson: state.classroomLesson
+    classroomLesson: state.classroomLesson,
+    incompleteQuestions: getIncompleteQuestions(state),
+    editionMetadata: getStoredEditionMetadata(state, props),
+    editionQuestions: getStoredEditionQuestions(state),
   }
 }
 
@@ -268,4 +303,4 @@ function mergeProps(stateProps: Object, dispatchProps: Object, ownProps: Object)
   return {...ownProps, ...stateProps, ...dispatchProps}
 }
 
-export default connect(select, dispatch => ({dispatch}), mergeProps)(CustomizeEdition)
+export default connect(mapStateToProps, dispatch => ({dispatch}), mergeProps)(CustomizeEdition)
