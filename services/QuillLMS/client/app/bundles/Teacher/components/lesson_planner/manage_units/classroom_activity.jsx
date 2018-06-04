@@ -108,8 +108,8 @@ renderLessonPlanTooltip() {
     if (diagnosticIds.includes(this.activityId()) && window.location.pathname.includes('diagnostic_reports')) {
       return (
         <div onClick={this.goToRecommendations} className="recommendations-button">
-					Recommendations
-				</div>
+          Recommendations
+        </div>
       )
     }
   },
@@ -123,6 +123,12 @@ renderLessonPlanTooltip() {
       }
     }
   },
+  //
+  // postToGoogleLink(){
+  //   if (!this.props.data.completed) {
+  //     return <a href={`/teachers/classroom_activities/${this.caId()}/post_to_google`}>post to google!</a>;
+  //   }
+  // },
 
   lessonFinalCell() {
   return <div className="lessons-end-row">

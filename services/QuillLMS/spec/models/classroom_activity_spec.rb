@@ -82,6 +82,23 @@ describe ClassroomActivity, type: :model, redis: :true do
     end
   end
 
+  describe '#is_valid_for_google_announcement?' do
+    it "returns true if the classroom_activity's classroom has a google_classroom_id" do
+      classroom_activity.classroom.update(google_classroom_id: '3')
+      expect(classroom_activity.reload.is_valid_for_google_announcement?).to be
+    end
+    it "returns false if the classroom_activity's classroom does not have a google_classroom_id" do
+      classroom_activity.classroom.update(google_classroom_id: nil)
+      expect(classroom_activity.reload.is_valid_for_google_announcement?).not_to be
+    end
+  end
+
+  describe '#generate_activity_url' do
+    it 'returns a url including the default url' do
+      expect(classroom_activity.generate_activity_url).to include(ENV["DEFAULT_URL"])
+    end
+  end
+
   describe '#save_concept_results' do
     let(:activity_session) { create(:activity_session) }
     let(:unit) { create(:unit) }

@@ -1,5 +1,7 @@
 class Auth::GoogleController < ApplicationController
 
+  after_action :set_google_id
+
   def google
     access_token = request.env['omniauth.auth']['credentials']['token']
     session[:google_access_token] = access_token
@@ -8,7 +10,14 @@ class Auth::GoogleController < ApplicationController
       # If we are here it is simply to get a new access token. Ultimately, we should
       # set this up for refresh tokens at which point, this will no longer be necessary.
       return redirect_to URI(request.referer).path
+    elsif session[:google_redirect]
+      # todo: we should be using this instead of the redirect request above. Then, make an afterhook that will delete
+      # the google_redirect
+      redirect_route = session[:google_redirect]
+      session[:google_redirect] = nil
+      return redirect_to redirect_route
     end
+
     if (session[:role].present? && User.where(google_id: google_id).none?) || (current_user && !current_user.signed_up_with_google)
       # If the above is true, the user is either currently signing up and has session[:role] or
       # the user is extant and is about to register with google for the first time
@@ -25,6 +34,12 @@ class Auth::GoogleController < ApplicationController
   end
 
   private
+
+  def set_google_id
+    if current_user
+      $redis.set("user_id:#{current_user.id}_google_access_token", {token: session[:google_access_token]})
+    end
+  end
 
   def redirect_request(request)
     request.referer &&
