@@ -29,4 +29,18 @@ describe SchoolsController, type: :controller do
     expect(json['error']).to eq('You must enter a zipcode.')
   end
 
+  describe '#select_school' do
+    let(:user) { create(:user) }
+    let(:school_user) { create(:school_user, user: user) }
+
+    before do
+      allow(controller).to receive(:current_user) { user }
+    end
+
+    it 'should fire up the sync sales contact worker' do
+      expect(SyncSalesContactWorker).to receive(:perform_async)
+      put :select_school, school_id_or_type: @school.id, format: :json
+    end
+  end
+
 end
