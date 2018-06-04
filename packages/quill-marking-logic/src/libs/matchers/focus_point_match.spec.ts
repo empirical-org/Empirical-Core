@@ -38,6 +38,11 @@ const focusPoints = [
     text: 'startups',
     feedback: "What's that thing with computers and school he likes?",
     concept_results: [{correct: true, conceptUID: 'a'}]
+  },
+  {
+    text: '^Jared',
+    feedback: "Use the name of the student who likes things.",
+    concept_results: [{correct: true, conceptUID: 'a'}]
   }
 ]
 
@@ -53,7 +58,8 @@ describe('focusPointMatch', () => {
     'Jared likes edtech and startups.',
     'Jared likes startups and edtech.',
     'Jared likes startups as well as edtech.',
-    'Jared likes startups as well as edtech.'
+    'Jared likes startups as well as edtech.',
+    'He likes startups.'
   ];
 
   positiveTests.forEach((test, i) => {

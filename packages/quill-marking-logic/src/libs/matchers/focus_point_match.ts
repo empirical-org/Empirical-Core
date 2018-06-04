@@ -4,10 +4,10 @@ import {Response, FocusPoint, PartialResponse} from '../../interfaces'
 import {conceptResultTemplate} from '../helpers/concept_result_template'
 
 export function focusPointMatch(responseString:string, focusPoints:Array<FocusPoint>):FocusPoint {
-  return _.find(focusPoints, (fp) => {
-    const options = fp.text.split('|||');
-    const anyMatches = _.any(options, opt => responseString.indexOf(opt) !== -1);
-    return !anyMatches;
+  return _.find(focusPoints, (focusPoint) => {
+    const options = focusPoint.text.split('|||');
+    const anyMatches = _.any(options, opt => new RegExp(opt).test(responseString));
+    return anyMatches;
   });
 }
 
