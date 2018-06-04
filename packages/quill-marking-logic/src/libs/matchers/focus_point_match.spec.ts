@@ -48,18 +48,17 @@ const focusPoints = [
 
 describe('focusPointMatch', () => {
   const positiveTests = [
-    'Jared likes startups.',
-    'Jared likes edtech.',
+    'Jared likes startups and pencils.',
+    'Jared likes edtech and games.',
     'Jared likes edtech because he likes startups.',
-    'Jared likes edtech and edtech.'
+    'He likes edtech and startups.'
   ];
 
   const negativeTests = [
     'Jared likes edtech and startups.',
     'Jared likes startups and edtech.',
     'Jared likes startups as well as edtech.',
-    'Jared likes startups as well as edtech.',
-    'He likes startups.'
+    'Jared likes edtech as well as startups.'
   ];
 
   positiveTests.forEach((test, i) => {
