@@ -100,8 +100,13 @@ class ResponsesController < ApplicationController
     selected_sequences = params_for_get_count_affected_by_focus_points[:selected_sequences]
     responses = Response.where(question_uid: params[:question_uid])
     matched_responses_count = 0
+    non_blank_selected_sequences = selected_sequences.select { |ss| ss.length > 0}
     responses.each do |response|
-      if selected_sequences.any? { |ss| ss.length > 0 && Regexp.new(Regexp.escape(ss), 'i').match(response.text)}
+      match = non_blank_selected_sequences.any? do |ss|
+        sequence_particles = ss.split('&&')
+        sequence_particles.all? { |sp| sp.length > 0 && Regexp.new(Regexp.escape(sp), 'i').match(response.text)}
+      end
+      if match
         matched_responses_count += 1
       end
     end
