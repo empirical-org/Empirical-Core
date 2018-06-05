@@ -19,6 +19,8 @@ export default class FocusPointsInputAndConceptResultSelectorForm extends React.
       itemConcepts: item ? (item.conceptResults ? item.conceptResults : {}) : {},
       matchedCount: 0
     }
+
+    this.handleChange = this.handleChange.bind(this)
   }
 
   addOrEditItemLabel() {
