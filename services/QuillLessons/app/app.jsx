@@ -1,10 +1,5 @@
 import 'babel-polyfill';
 import Promise from 'promise-polyfill';
-
-// To add to window
-if (!window.Promise) {
-  window.Promise = Promise;
-}
 import BackOff from './utils/backOff';
 import React from 'react';
 import { render } from 'react-dom';
@@ -25,6 +20,11 @@ import Raven from 'raven-js';
 import quillNormalizer from './libs/quillNormalizer';
 import SocketProvider from './components/socketProvider';
 
+// To add to window
+if (!window.Promise) {
+  window.Promise = Promise;
+}
+
 if (process.env.NODE_ENV === 'production') {
   Raven
   .config(
@@ -35,7 +35,6 @@ if (process.env.NODE_ENV === 'production') {
   )
   .install();
 }
-
 
 BackOff();
 const hashhistory = createHashHistory({ queryKey: false, });
@@ -69,12 +68,6 @@ render((
 
 setTimeout(() => {
   store.dispatch(conceptActions.startListeningToConcepts());
-  store.dispatch(conceptsFeedbackActions.loadConceptsFeedback());
-  store.dispatch(questionActions.loadQuestions());
-  store.dispatch(fillInBlankActions.loadQuestions());
-  store.dispatch(sentenceFragmentActions.loadSentenceFragments());
-  store.dispatch(lessonActions.loadLessons());
-  store.dispatch(levelActions.loadItemLevels());
 });
 
-String.prototype.quillNormalize = quillNormalizer
+String.prototype.quillNormalize = quillNormalizer;
