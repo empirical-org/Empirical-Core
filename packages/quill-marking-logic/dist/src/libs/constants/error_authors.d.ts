@@ -22,5 +22,5 @@ export interface ErrorAuthors {
     "Too Short Hint": string;
     "Whitespace Hint": string;
 }
-declare const ;
+declare const error_authors: ErrorAuthors;
 export default error_authors;
