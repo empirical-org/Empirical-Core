@@ -83,13 +83,25 @@ class ResponsesController < ApplicationController
     render json: IncorrectSequenceCalculator.get_incorrect_sequences_for_question(params[:question_uid])
   end
 
-  def get_affected_count
-    used_sequences = params_for_get_affected_count[:used_sequences]
-    selected_sequences = params_for_get_affected_count[:selected_sequences]
+  def get_count_affected_by_incorrect_sequences
+    used_sequences = params_for_get_count_affected_by_incorrect_sequences[:used_sequences]
+    selected_sequences = params_for_get_count_affected_by_incorrect_sequences[:selected_sequences]
     responses = Response.where(question_uid: params[:question_uid], optimal: nil)
     matched_responses_count = 0
     responses.each do |response|
       if used_sequences.none? { |us| us.length > 0 && Regexp.new(us).match(response.text)} && selected_sequences.any? { |ss| ss.length > 0 && Regexp.new(ss).match(response.text)}
+        matched_responses_count += 1
+      end
+    end
+    render json: {matchedCount: matched_responses_count}
+  end
+
+  def get_count_affected_by_focus_points
+    selected_sequences = params_for_get_count_affected_by_focus_points[:selected_sequences]
+    responses = Response.where(question_uid: params[:question_uid])
+    matched_responses_count = 0
+    responses.each do |response|
+      if selected_sequences.any? { |ss| ss.length > 0 && Regexp.new(Regexp.escape(ss), 'i').match(response.text)}
         matched_responses_count += 1
       end
     end
@@ -192,7 +204,11 @@ class ResponsesController < ApplicationController
       )
     end
 
-    def params_for_get_affected_count
+    def params_for_get_count_affected_by_incorrect_sequences
+      params.require(:data).permit!
+    end
+
+    def params_for_get_count_affected_by_focus_points
       params.require(:data).permit!
     end
 

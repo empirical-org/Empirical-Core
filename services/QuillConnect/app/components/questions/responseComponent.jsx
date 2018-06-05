@@ -68,6 +68,63 @@ class ResponseComponent extends React.Component {
       health: {},
       gradeBreakdown: {},
     };
+
+    this.getHealth = this.getHealth.bind(this)
+    this.getGradeBreakdown = this.getGradeBreakdown.bind(this)
+    this.clearResponses = this.clearResponses.bind(this)
+    this.searchResponses = this.searchResponses.bind(this)
+    this.getTotalAttempts = this.getTotalAttempts.bind(this)
+    this.getResponseCount = this.getResponseCount.bind(this)
+    this.removeResponseFromMassEditArray = this.removeResponseFromMassEditArray.bind(this)
+    this.expand = this.expand.bind(this)
+    this.updateRematchedResponse = this.updateRematchedResponse.bind(this)
+    this.getPercentageWeakResponses = this.getPercentageWeakResponses.bind(this)
+    this.getErrorsForAttempt = this.getErrorsForAttempt.bind(this)
+    this.generateFeedbackString = this.generateFeedbackString.bind(this)
+    this.rematchResponse = this.rematchResponse.bind(this)
+    this.rematchAllResponses = this.rematchAllResponses.bind(this)
+    this.responsesWithStatus = this.responsesWithStatus.bind(this)
+    this.responsesGroupedByStatus = this.responsesGroupedByStatus.bind(this)
+    this.responsesByStatusCodeAndResponseCount = this.responsesByStatusCodeAndResponseCount.bind(this)
+    this.formatForQuestionBar = this.formatForQuestionBar.bind(this)
+    this.gatherVisibleResponses = this.gatherVisibleResponses.bind(this)
+    this.getResponse = this.getResponse.bind(this)
+    this.getChildResponses = this.getChildResponses.bind(this)
+    this.getResponsesForCurrentPage = this.getResponsesForCurrentPage.bind(this)
+    this.getBoundsForCurrentPage = this.getBoundsForCurrentPage.bind(this)
+    this.renderResponses = this.renderResponses.bind(this)
+    this.toggleResponseSort = this.toggleResponseSort.bind(this)
+    this.renderSortingFields = this.renderSortingFields.bind(this)
+    this.toggleField = this.toggleField.bind(this)
+    this.toggleExcludeMisspellings = this.toggleExcludeMisspellings.bind(this)
+    this.resetFields = this.resetFields.bind(this)
+    this.deselectFields = this.deselectFields.bind(this)
+    this.renderStatusToggleMenu = this.renderStatusToggleMenu.bind(this)
+    this.collapseAllResponses = this.collapseAllResponses.bind(this)
+    this.expandAllResponses = this.expandAllResponses.bind(this)
+    this.allClosed = this.allClosed.bind(this)
+    this.renderExpandCollapseAll = this.renderExpandCollapseAll.bind(this)
+    this.renderRematchAllButton = this.renderRematchAllButton.bind(this)
+    this.renderPOSStrings = this.renderPOSStrings.bind(this)
+    this.renderViewResponsesOrPOSButton = this.renderViewResponsesOrPOSButton.bind(this)
+    this.renderResetAllFiltersButton = this.renderResetAllFiltersButton.bind(this)
+    this.renderDeselectAllFiltersButton = this.renderDeselectAllFiltersButton.bind(this)
+    this.getToPathwaysForResponse = this.getToPathwaysForResponse.bind(this)
+    this.getUniqAndCountedToResponsePathways = this.getUniqAndCountedToResponsePathways.bind(this)
+    this.mapCountToToResponse = this.mapCountToToResponse.bind(this)
+    this.getFromPathwaysForResponse = this.getFromPathwaysForResponse.bind(this)
+    this.getUniqAndCountedResponsePathways = this.getUniqAndCountedResponsePathways.bind(this)
+    this.getPOSTagsList = this.getPOSTagsList.bind(this)
+    this.handleStringFiltering = this.handleStringFiltering.bind(this)
+    this.getFilteredResponses = this.getFilteredResponses.bind(this)
+    this.mapCountToResponse = this.mapCountToResponse.bind(this)
+    this.updatePageNumber = this.updatePageNumber.bind(this)
+    this.incrementPageNumber = this.incrementPageNumber.bind(this)
+    this.decrementPageNumber = this.decrementPageNumber.bind(this)
+    this.getNumberOfPages = this.getNumberOfPages.bind(this)
+    this.resetPageNumber = this.resetPageNumber.bind(this)
+    this.renderDisplayingMessage = this.renderDisplayingMessage.bind(this)
+    this.renderPageNumbers = this.renderPageNumbers.bind(this)
   }
 
   componentDidMount() {
@@ -75,7 +132,7 @@ class ResponseComponent extends React.Component {
     this.getHealth();
     this.getGradeBreakdown();
     this.props.dispatch(questionActions.initializeSubscription(this.props.questionID));
-
+  }
 
   componentDidUpdate(prevProps) {
     if (!_.isEqual(this.props.filters.formattedFilterData, prevProps.filters.formattedFilterData)) {
@@ -84,12 +141,12 @@ class ResponseComponent extends React.Component {
       this.props.dispatch(questionActions.clearQuestionState(this.props.questionID));
       this.searchResponses();
     }
-
+  }
 
   componentWillUnmount() {
     this.props.dispatch(questionActions.removeSubscription(this.props.questionID));
     this.clearResponses();
-
+  }
 
   getHealth() {
     request(
@@ -627,7 +684,7 @@ class ResponseComponent extends React.Component {
       </div>
     );
   }
-};
+}
 
 function select(state) {
   return {
