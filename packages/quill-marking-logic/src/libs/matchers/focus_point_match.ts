@@ -5,9 +5,9 @@ import {conceptResultTemplate} from '../helpers/concept_result_template'
 
 
 export function focusPointMatchHelper(responseString:string, focusPointParticle:string):boolean {
-  // Given a focus point and a response string, return 
+  // Given a focus point and a response string, return
   const match_list = focusPointParticle.split('&&'); // => "Dog&&Cat" => ['Dog', 'Cat']
-  return _.all(match_list, m => new RegExp(m, 'i').test(responseString));
+  return _.every(match_list, m => new RegExp(m, 'i').test(responseString));
 }
 
 
