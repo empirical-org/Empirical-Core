@@ -40,6 +40,13 @@ export default React.createClass({
           return <AffectedResponse key={resp.key}>{this.renderResponse(resp)}</AffectedResponse>
         }
       }
+      if (resp && resp.statusCode !== 1 && resp.statusCode !== 0 && this.props.selectedFocusPoints) {
+        const noneMatch = !this.props.selectedFocusPoints.some(fp => fp.length > 0 && new RegExp(fp).test(resp.text))
+        if (noneMatch) {
+          return <AffectedResponse key={resp.key}>{this.renderResponse(resp)}</AffectedResponse>
+        }
+      }
+
       return (this.renderResponse(resp))
     });
 

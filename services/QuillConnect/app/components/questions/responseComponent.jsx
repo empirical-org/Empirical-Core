@@ -246,11 +246,12 @@ const Responses = React.createClass({
 
   renderResponses() {
     if (this.state.viewingResponses) {
-      const { questionID, selectedIncorrectSequences} = this.props;
+      const { questionID, selectedIncorrectSequences, selectedFocusPoints } = this.props;
       const responsesWStatus = this.responsesWithStatus();
       const responses = _.sortBy(responsesWStatus, 'sortOrder');
       return (<ResponseList
         selectedIncorrectSequences={selectedIncorrectSequences}
+        selectedFocusPoints={selectedFocusPoints}
         responses={responses}
         getResponse={this.getResponse}
         getChildResponses={this.getChildResponses}
