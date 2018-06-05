@@ -43,7 +43,7 @@ export default React.createClass({
       if (resp && this.props.selectedFocusPoints) {
         const focusPoints = this.props.selectedFocusPoints.filter(fp => fp.length > 0)
         console.log('focusPoints', focusPoints)
-        const matchAllFocusPoints = focusPoints.some(fp => new RegExp(fp).test(resp.text))
+        const matchAllFocusPoints = focusPoints.some(fp => new RegExp(fp, 'i').test(resp.text))
         if (matchAllFocusPoints) {
           return <AffectedResponse key={resp.key}>{this.renderResponse(resp)}</AffectedResponse>
         }
