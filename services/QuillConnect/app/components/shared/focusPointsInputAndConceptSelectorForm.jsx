@@ -21,6 +21,8 @@ export default class FocusPointsInputAndConceptResultSelectorForm extends React.
     }
 
     this.handleChange = this.handleChange.bind(this)
+    this.handleFeedbackChange = this.handleFeedbackChange.bind(this)
+    this.getNewAffectedCount = this.getNewAffectedCount.bind(this)
   }
 
   addOrEditItemLabel() {
@@ -32,7 +34,7 @@ export default class FocusPointsInputAndConceptResultSelectorForm extends React.
     const newSeqs = this.state.itemText.split('|||')
     request(
       {
-        url: `${process.env.QUILL_CMS}/responses/${qid}/affected_count`,
+        url: `${process.env.QUILL_CMS}/responses/${qid}/focus_point_affected_count`,
         method: 'POST',
         json: {data: {selected_sequences: newSeqs}},
       },

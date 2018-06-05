@@ -35,7 +35,7 @@ export default React.createClass({
     const newSeqs = this.state.itemText.split('|||')
     request(
       {
-        url: `${process.env.QUILL_CMS}/responses/${qid}/affected_count`,
+        url: `${process.env.QUILL_CMS}/responses/${qid}/incorrect_sequence_affected_count`,
         method: 'POST',
         json: {data: {used_sequences: usedSeqs, selected_sequences: newSeqs}},
       },
