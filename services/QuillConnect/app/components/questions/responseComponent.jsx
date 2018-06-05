@@ -43,10 +43,10 @@ const qualityLabels = ['Human Optimal', 'Human Sub-Optimal', 'Algorithm Optimal'
 const colors = ['#81c784', '#ffb74d', '#BA68C8', '#5171A5', '#e57373'];
 
 const responsesPerPage = 20;
-const feedbackStrings = C.FEEDBACK_STRINGS;
 
-const Responses = React.createClass({
-  getInitialState() {
+class ResponseComponent extends React.Component {
+  constructor(props) {
+    super(props)
     let actions;
     let matcher;
     if (this.props.mode === 'sentenceFragments') {
@@ -59,7 +59,7 @@ const Responses = React.createClass({
       actions = questionActions;
       matcher = QuestionMatcher;
     }
-    return {
+    this.state = {
       percentageOfWeakResponses: 0,
       actions,
       viewingResponses: true,
@@ -68,14 +68,14 @@ const Responses = React.createClass({
       health: {},
       gradeBreakdown: {},
     };
-  },
+  }
 
   componentDidMount() {
     this.searchResponses();
     this.getHealth();
     this.getGradeBreakdown();
     this.props.dispatch(questionActions.initializeSubscription(this.props.questionID));
-  },
+
 
   componentDidUpdate(prevProps) {
     if (!_.isEqual(this.props.filters.formattedFilterData, prevProps.filters.formattedFilterData)) {
@@ -84,12 +84,12 @@ const Responses = React.createClass({
       this.props.dispatch(questionActions.clearQuestionState(this.props.questionID));
       this.searchResponses();
     }
-  },
+
 
   componentWillUnmount() {
     this.props.dispatch(questionActions.removeSubscription(this.props.questionID));
     this.clearResponses();
-  },
+
 
   getHealth() {
     request(
@@ -103,7 +103,7 @@ const Responses = React.createClass({
           });
         }
       );
-  },
+  }
 
   getGradeBreakdown() {
     request(
@@ -117,46 +117,46 @@ const Responses = React.createClass({
           });
         }
       );
-  },
+  }
 
   clearResponses() {
     this.props.dispatch(questionActions.updateResponses({ responses: [], numberOfResponses: 0, numberOfPages: 1, responsePageNumber: 1, }));
-  },
+  }
 
   searchResponses() {
     this.props.dispatch(questionActions.incrementRequestCount())
     this.props.dispatch(questionActions.searchResponses(this.props.questionID));
-  },
+  }
 
   getTotalAttempts() {
     return this.state.health.total_number_of_attempts;
     // return _.reduce(this.props.responses, (memo, item) => memo + item.count, 0);
-  },
+  }
 
   getResponseCount() {
     return this.state.health.total_number_of_responses;
-  },
+  }
 
   removeResponseFromMassEditArray(responseKey) {
     this.props.dispatch(massEdit.removeResponseFromMassEditArray(responseKey));
-  },
+  }
 
   expand(responseKey) {
     this.props.dispatch(filterActions.toggleExpandSingleResponse(responseKey));
-  },
+  }
 
   updateRematchedResponse(rid, vals) {
     this.props.dispatch(submitResponseEdit(rid, vals, this.props.questionID));
-  },
+  }
 
   getPercentageWeakResponses() {
     const { common_unmatched_responses, total_number_of_responses } = this.state.health
     return common_unmatched_responses > 0 ? (common_unmatched_responses/total_number_of_responses * 100).toFixed(2) : 0.0
-  },
+  }
 
   getErrorsForAttempt(attempt) {
     return attempt.feedback;
-  },
+  }
 
   generateFeedbackString(attempt) {
     const errors = this.getErrorsForAttempt(attempt);
@@ -167,13 +167,13 @@ const Responses = React.createClass({
     //   }
     // }))
     return errors;
-  },
+  }
 
   rematchResponse(rid) {
     const response = this.props.filters.responses[rid];
     const callback = this.searchResponses;
     rematchOne(response, this.props.mode, this.props.question, this.props.questionID, callback);
-  },
+  }
 
   rematchAllResponses() {
     console.log('Rematching All Responses');
@@ -192,19 +192,19 @@ const Responses = React.createClass({
     //   console.log('Rematching: ', resp.key, percentage, '% complete');
     //   this.rematchResponse(resp.key);
     // });
-  },
+  }
 
   responsesWithStatus() {
     return hashToCollection(respWithStatus(this.props.filters.responses));
-  },
+  }
 
   responsesGroupedByStatus() {
     return _.groupBy(this.responsesWithStatus(), 'statusCode');
-  },
+  }
 
   responsesByStatusCodeAndResponseCount() {
     return _.mapObject(this.responsesGroupedByStatus(), (val, key) => _.reduce(val, (memo, resp) => memo + (resp.count || 0), 0));
-  },
+  }
 
   formatForQuestionBar() {
     // {"human_optimal":153,"human_suboptimal":140,"algo_optimal":0,"algo_suboptimal":8780,"unmatched":28820}
@@ -219,30 +219,30 @@ const Responses = React.createClass({
       value: val / totalResponseCount * 100,
       color: colors[qualityLabels.indexOf(key)],
     }));
-  },
+  }
 
   gatherVisibleResponses() {
     return this.responsesWithStatus();
-  },
+  }
 
   getResponse(responseID) {
     return this.props.filters.responses[responseID];
-  },
+  }
 
   getChildResponses(responseID) {
     const responses = hashToCollection(this.props.responses);
     return _.where(responses, { parentID: responseID, });
-  },
+  }
 
   getResponsesForCurrentPage(responses) {
     return responses;
-  },
+  }
 
   getBoundsForCurrentPage(length) {
     const startIndex = (this.props.filters.responsePageNumber - 1) * responsesPerPage;
     const endIndex = startIndex + responsesPerPage > length ? length : startIndex + responsesPerPage;
     return [startIndex, endIndex];
-  },
+  }
 
   renderResponses() {
     if (this.state.viewingResponses) {
@@ -273,11 +273,11 @@ const Responses = React.createClass({
         massEdit={this.props.massEdit}
       />);
     }
-  },
+  }
 
   toggleResponseSort(field) {
     this.props.dispatch(filterActions.toggleResponseSort(field));
-  },
+  }
 
   renderSortingFields() {
     return (<ResponseSortFields
@@ -285,23 +285,23 @@ const Responses = React.createClass({
       ascending={this.props.filters.ascending}
       toggleResponseSort={this.toggleResponseSort}
     />);
-  },
+  }
 
   toggleField(status) {
     this.props.dispatch(filterActions.toggleStatusField(status));
-  },
+  }
 
   toggleExcludeMisspellings() {
     this.props.dispatch(filterActions.toggleExcludeMisspellings());
-  },
+  }
 
   resetFields() {
     this.props.dispatch(filterActions.resetAllFields());
-  },
+  }
 
   deselectFields() {
     this.props.dispatch(filterActions.deselectAllFields());
-  },
+  }
 
   renderStatusToggleMenu() {
     return (
@@ -317,11 +317,11 @@ const Responses = React.createClass({
         deselectFields={this.deselectFields}
       />
     );
-  },
+  }
 
   collapseAllResponses() {
     this.props.dispatch(filterActions.collapseAllResponses());
-  },
+  }
 
   expandAllResponses() {
     const responses = this.responsesWithStatus();
@@ -330,7 +330,7 @@ const Responses = React.createClass({
       newExpandedState[responses[i].key] = true;
     }
     this.props.dispatch(filterActions.expandAllResponses(newExpandedState));
-  },
+  }
 
   allClosed() {
     const expanded = this.props.filters.expanded;
@@ -338,7 +338,7 @@ const Responses = React.createClass({
       if (expanded[i] === true) return false;
     }
     return true;
-  },
+  }
 
   renderExpandCollapseAll() {
     let text,
@@ -352,7 +352,7 @@ const Responses = React.createClass({
       text = 'Close';
     }
     return <a className="button is-fullwidth" onClick={handleClick}>{text}</a>;
-  },
+  }
 
   renderRematchAllButton() {
     if (this.props.admin) {
@@ -360,7 +360,7 @@ const Responses = React.createClass({
 
       return (<button disabled={!!this.state.progress} className="button is-outlined is-danger" style={{ float: 'right', }} onClick={this.rematchAllResponses}>{text}</button>);
     }
-  },
+  }
 
   renderPOSStrings() {
     if (!this.state.viewingResponses) {
@@ -371,7 +371,7 @@ const Responses = React.createClass({
         </div>
       );
     }
-  },
+  }
 
   renderViewResponsesOrPOSButton() {
     return (
@@ -385,7 +385,7 @@ const Responses = React.createClass({
         >Show {this.state.viewingResponses ? 'POS' : 'Uniques'}</button>
       </div>
     );
-  },
+  }
 
   renderResetAllFiltersButton() {
     return (
@@ -393,7 +393,7 @@ const Responses = React.createClass({
         <button className="button is-fullwidth is-outlined" onClick={this.resetFields}>Select All Filters</button>
       </div>
     );
-  },
+  }
 
   renderDeselectAllFiltersButton() {
     return (
@@ -401,18 +401,18 @@ const Responses = React.createClass({
         <button className="button is-fullwidth is-outlined" onClick={this.deselectFields}>Deselect All Filters</button>
       </div>
     );
-  },
+  }
 
   getToPathwaysForResponse(rid) {
     const responseCollection = hashToCollection(this.props.pathways.data);
     const responsePathways = _.where(responseCollection, { fromResponseID: rid, });
     return responsePathways;
-  },
+  }
 
   getUniqAndCountedToResponsePathways(rid) {
     const counted = _.countBy(this.getToPathwaysForResponse(rid), path => path.toResponseID);
     return counted;
-  },
+  }
 
   mapCountToToResponse(rid) {
     const mapped = _.mapObject(this.getUniqAndCountedToResponsePathways(rid), (value, key) => {
@@ -421,7 +421,7 @@ const Responses = React.createClass({
       return response;
     });
     return _.values(mapped);
-  },
+  }
 
   // from pathways
 
@@ -429,12 +429,12 @@ const Responses = React.createClass({
     const responseCollection = hashToCollection(this.props.pathways.data);
     const responsePathways = _.where(responseCollection, { toResponseID: rid, });
     return responsePathways;
-  },
+  }
 
   getUniqAndCountedResponsePathways(rid) {
     const counted = _.countBy(this.getFromPathwaysForResponse(rid), path => path.fromResponseID);
     return counted;
-  },
+  }
 
   getPOSTagsList() {
     const responses = this.gatherVisibleResponses();
@@ -461,12 +461,12 @@ const Responses = React.createClass({
       }
     });
     return posTagsList;
-  },
+  }
 
   handleStringFiltering() {
     this.props.dispatch(questionActions.updateStringFilter(this.refs.stringFilter.value, this.props.questionID));
     // this.setState({ stringFilter: this.refs.stringFilter.value, responsePageNumber: 1, }, () => this.searchResponses());
-  },
+  }
 
   getFilteredResponses(responses) {
     if (this.props.filters.stringFilter == '') {
@@ -474,7 +474,7 @@ const Responses = React.createClass({
     }
     const that = this;
     return _.filter(responses, response => response.text.indexOf(that.props.filters.stringFilter) >= 0);
-  },
+  }
 
   mapCountToResponse(rid) {
     const mapped = _.mapObject(this.getUniqAndCountedResponsePathways(rid), (value, key) => {
@@ -491,31 +491,31 @@ const Responses = React.createClass({
       return response;
     });
     return _.values(mapped);
-  },
+  }
 
   updatePageNumber(pageNumber) {
     this.props.dispatch(questionActions.updatePageNumber(pageNumber, this.props.questionID));
-  },
+  }
 
   incrementPageNumber() {
     if (this.props.filters.responsePageNumber < this.getNumberOfPages()) {
       this.updatePageNumber(this.props.filters.responsePageNumber + 1);
     }
-  },
+  }
 
   decrementPageNumber() {
     if (this.props.filters.responsePageNumber !== 1) {
       this.updatePageNumber(this.props.filters.responsePageNumber - 1);
     }
-  },
+  }
 
   getNumberOfPages() {
     return this.props.filters.numberOfPages;
-  },
+  }
 
   resetPageNumber() {
     this.updatePageNumber(1);
-  },
+  }
 
   renderDisplayingMessage() {
     let endWord,
@@ -530,7 +530,7 @@ const Responses = React.createClass({
     const bounds = this.getBoundsForCurrentPage(length);
     const message = `Displaying ${bounds[0] + 1}-${bounds[1]} of ${length}${endWord}`;
     return <p className="label">{message}</p>;
-  },
+  }
 
   renderPageNumbers() {
     // var array
@@ -584,7 +584,7 @@ const Responses = React.createClass({
         </div>
       </div>
     );
-  },
+  }
 
   render() {
     const questionBar = this.props.filters.responses && Object.keys(this.props.filters.responses).length > 0
@@ -626,8 +626,8 @@ const Responses = React.createClass({
         {this.renderPageNumbers()}
       </div>
     );
-  },
-});
+  }
+};
 
 function select(state) {
   return {
@@ -639,4 +639,4 @@ function select(state) {
   };
 }
 
-export default connect(select)(Responses);
+export default connect(select)(ResponseComponent);
