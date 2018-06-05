@@ -58,7 +58,8 @@ describe('focusPointMatch', () => {
     'Jared likes edtech and startups.',
     'Jared likes startups and edtech.',
     'Jared likes startups as well as edtech.',
-    'Jared likes edtech as well as startups.'
+    'Jared likes edtech as well as startups.',
+    'jared likes edtech as well as startups.'
   ];
 
   positiveTests.forEach((test, i) => {
