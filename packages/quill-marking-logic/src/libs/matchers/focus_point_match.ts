@@ -9,7 +9,7 @@ export function focusPointMatch(responseString:string, focusPoints:Array<FocusPo
   // focusPts = [(Bob|||Katherine),(is|||was)]
   return _.find(focusPoints, (focusPoint) => {
     const options = focusPoint.text.split('|||');
-    const anyMatches = _.any(options, opt => new RegExp(opt).test(responseString));
+    const anyMatches = _.any(options, opt => new RegExp(opt, 'i').test(responseString));
     return !anyMatches;
   }); // => null (1), (Bob|||Katherine) (2)
 
