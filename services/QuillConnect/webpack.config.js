@@ -50,8 +50,7 @@ module.exports = {
       NODE_ENV: 'development',
       EMPIRICAL_BASE_URL: 'http://localhost:3000',
       QUILL_CMS: 'http://localhost:3100',
-      PUSHER_KEY:  'a253169073ce7474f0ce',
-      OAUTH_CLIENT_ID: 'd0932924044cf2f2e2c2df64a2e8d5e78eadfc8dff8687060b6856d4a62dd5d9',
+      PUSHER_KEY: 'a253169073ce7474f0ce',
       FIREBASE_APP_NAME: 'quillconnectstaging',
       LESSONS_WEBSOCKETS_URL: 'localhost:8000',
     }),
@@ -69,9 +68,9 @@ module.exports = {
       inject: 'body',
       chunks: ['polyfills', 'vendor', 'javascript'],
       chunksSortMode: (chunk1, chunk2) => {
-        let orders = ['vendor', 'polyfills', 'javascript'];
-        let order1 = orders.indexOf(chunk1.names[0]);
-        let order2 = orders.indexOf(chunk2.names[0]);
+        const orders = ['vendor', 'polyfills', 'javascript'];
+        const order1 = orders.indexOf(chunk1.names[0]);
+        const order2 = orders.indexOf(chunk2.names[0]);
         if (order1 > order2) {
           return 1;
         } else if (order1 < order2) {

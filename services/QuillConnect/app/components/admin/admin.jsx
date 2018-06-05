@@ -23,18 +23,14 @@ const TabLink = props => (
 
 const adminContainer = React.createClass({
   componentWillMount() {
-    this.props.dispatch(userActions.firebaseAuth())
+    this.props.dispatch(userActions.firebaseAuth());
     this.props.dispatch(conceptActions.startListeningToConcepts());
     this.props.dispatch(conceptsFeedbackActions.startListeningToConceptsFeedback());
     this.props.dispatch(questionActions.startListeningToQuestions());
     this.props.dispatch(fillInBlankActions.startListeningToQuestions());
     this.props.dispatch(diagnosticQuestionActions.startListeningToDiagnosticQuestions());
     this.props.dispatch(sentenceFragmentActions.startListeningToSentenceFragments());
-    this.props.dispatch(lessonActions.startListeningToLessons());
     this.props.dispatch(levelActions.startListeningToItemLevels());
-    // this.props.dispatch(listenForClassroomLessons());
-    // this.props.dispatch(listenForClassroomLessonReviews())
-    // this.props.dispatch(startListeningToEditionMetadata())
   },
 
   render() {
@@ -49,7 +45,6 @@ const adminContainer = React.createClass({
               <TabLink to={'/admin/datadash'} activeClassName="is-active">Score Analysis</TabLink>
               <TabLink to={'/admin/question-health'} activeClassName="is-active">Question Health</TabLink>
               <TabLink to={'/admin/lessons'} activeClassName="is-active">Lessons</TabLink>
-              <TabLink to={'/admin/classroom-lessons'} activeClassName="is-active">Classroom Lessons</TabLink>
             </ul>
             <p className="menu-label">
               Questions
