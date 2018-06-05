@@ -52,7 +52,6 @@ module.exports = {
       QUILL_CMS: 'http://localhost:3100',
       PUSHER_KEY: 'a253169073ce7474f0ce',
       FIREBASE_APP_NAME: 'quillconnectstaging',
-      LESSONS_WEBSOCKETS_URL: 'localhost:8000',
     }),
     // new BundleAnalyzerPlugin(), // For visualizing package size
     new webpack.optimize.CommonsChunkPlugin({ name: 'vendor', }),
