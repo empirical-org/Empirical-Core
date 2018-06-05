@@ -5,8 +5,8 @@ module GoogleIntegration::Classroom::Main
     GoogleIntegration::Classroom::Student.run(student, self.parse_courses(student, client))
   end
 
-  def self.pull_data(user, access_token)
-    client = GoogleIntegration::Client.create(access_token)
+  def self.pull_data(user)
+    client = GoogleIntegration::Client.create(user.auth_credential.access_token)
     self.parse_courses(user, client)
   end
 

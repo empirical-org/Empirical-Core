@@ -5,7 +5,6 @@ class Teachers::ClassroomManagerController < ApplicationController
   before_filter :authorize_owner!, except: [:scores, :scorebook]
   before_filter :authorize_teacher!, only: [:scores, :scorebook]
   include ScorebookHelper
-  require 'tzinfo'
 
   def lesson_planner
     if current_user.classrooms_i_teach.empty?
@@ -20,6 +19,10 @@ class Teachers::ClassroomManagerController < ApplicationController
       redirect_to new_teachers_classroom_path
     else
       set_classroom_variables
+      post_to_google_if_valid
+
+
+
     end
   end
 
@@ -123,7 +126,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def scores
-    scores = Scorebook::Query.run(params[:classroom_id], params[:current_page], params[:unit_id], params[:begin_date], params[:end_date], current_user.utc_offset)
+    scores = Scorebook::Query.run(params[:classroom_id], params[:current_page], params[:unit_id], params[:begin_date], params[:end_date])
     last_page = scores.length < 200
     render json: {
       scores: scores,
@@ -131,8 +134,8 @@ class Teachers::ClassroomManagerController < ApplicationController
     }
   end
 
+  # needed to simply render a page, lets React.js do the rest
   def my_account
-    @time_zones = [{name: 'Select Time Zone', id: 'Select Time Zone'}].concat(TZInfo::Timezone.all_country_zone_identifiers.sort.map{|tz| {name: tz, id: tz}})
   end
 
   def my_account_data
@@ -157,7 +160,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def retrieve_google_classrooms
-    google_response = GoogleIntegration::Classroom::Main.pull_data(current_user, session[:google_access_token])
+    google_response = GoogleIntegration::Classroom::Main.pull_data(current_user)
     data = google_response === 'UNAUTHENTICATED' ? {errors: google_response} : {classrooms: google_response}
     render json: data
   end
@@ -176,7 +179,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def import_google_students
-    GoogleStudentImporterWorker.perform_async(current_user.id, session[:google_access_token])
+    GoogleStudentImporterWorker.perform_async(current_user.id, current_user.auth_credential.access_token)
     render json: {}
   end
 
@@ -247,6 +250,30 @@ class Teachers::ClassroomManagerController < ApplicationController
   def authorize_teacher!
     if params[:classroom_id]
       classroom_teacher!(params[:classroom_id])
+    end
+  end
+
+  def post_to_google_if_valid
+    if @classroom_activities_valid_for_google
+      session[:classroom_activities_to_post] = @classroom_activities_valid_for_google
+      post_classroom_activities_to_google
+    end
+  end
+
+  # def post_classroom_activities_to_google
+  #   session[:classroom_activities_to_post].each do
+  #
+  #   end
+  # end
+
+  def classroom_activities_valid_for_google?
+    if params[:activityPackId]
+      @classroom_activities_valid_for_google = valid_current_user.units.last.classroom_activities.select do |act_pack|
+        act_pack.is_valid_for_google_announcement_with_specific_user?(current_user)
+      end
+      @classroom_activities_valid_for_google.any?
+    else
+      false
     end
   end
 

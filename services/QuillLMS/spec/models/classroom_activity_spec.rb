@@ -82,14 +82,26 @@ describe ClassroomActivity, type: :model, redis: :true do
     end
   end
 
-  describe '#is_valid_for_google_announcement?' do
-    it "returns true if the classroom_activity's classroom has a google_classroom_id" do
+  describe '#is_valid_for_google_announcement_with_specific_user?' do
+    it "returns true if the classroom_activity's classroom has a google_classroom_id and the passed user has a google_id" do
       classroom_activity.classroom.update(google_classroom_id: '3')
-      expect(classroom_activity.reload.is_valid_for_google_announcement?).to be
+      teacher.update(google_id: 10)
+      expect(classroom_activity.reload.is_valid_for_google_announcement_with_specific_user?(teacher)).to be
     end
-    it "returns false if the classroom_activity's classroom does not have a google_classroom_id" do
+    it "returns false if the classroom_activity's classroom does not a google_classroom_id and the passed user has a google_id" do
       classroom_activity.classroom.update(google_classroom_id: nil)
-      expect(classroom_activity.reload.is_valid_for_google_announcement?).not_to be
+      teacher.update(google_id: 10)
+      expect(classroom_activity.reload.is_valid_for_google_announcement_with_specific_user?(teacher)).not_to be
+    end
+    it "returns false if the classroom_activity's classroom has a google_classroom_id and the user does not have a google_id" do
+      classroom_activity.classroom.update(google_classroom_id: 4)
+      teacher.update(google_id: nil)
+      expect(classroom_activity.reload.is_valid_for_google_announcement_with_specific_user?(teacher)).not_to be
+    end
+    it "returns false if the classroom_activity's classroom does not have a google_classroom_id and the user does not have a google_id" do
+      classroom_activity.classroom.update(google_classroom_id: nil)
+      teacher.update(google_id: nil)
+      expect(classroom_activity.reload.is_valid_for_google_announcement_with_specific_user?(teacher)).not_to be
     end
   end
 

@@ -41,8 +41,12 @@ class ClassroomActivity < ActiveRecord::Base
     end
   end
 
-  def is_valid_for_google_announcement?
-    !!self.classroom.google_classroom_id
+  def is_valid_for_google_announcement_with_specific_user?(user)
+    !!self.classroom.google_classroom_id && !!user.google_id
+  end
+
+  def is_valid_for_google_announcement_with_owner?
+    !!self.classroom.google_classroom_id && !!self.classroom.owner.google_id
   end
 
   def generate_activity_url
@@ -256,6 +260,22 @@ class ClassroomActivity < ActiveRecord::Base
   end
 
   private
+
+  # def post_to_google_if_valid
+  #   not_lesson = self.activity.activity_classification_id != 6
+  #   if not_lesson && is_valid_for_google_announcement_with_owner?
+  #     # do not want to post if lesson, because the teacher has not
+  #     # launched the lesson at time of create
+  #     owner = classroom.owner
+  #     if GoogleIntegration::RefreshAccessToken.new(owner).refresh
+  #       GoogleIntegration::Announcements.new(
+  #         owner.auth_credential.access_token,
+  #         self,
+  #         classroom.google_classroom_id
+  #       ).post
+  #     end
+  #   end
+  # end
 
   def lock_if_lesson
     if ActivityClassification.find_by_id(activity&.activity_classification_id)&.key == 'lessons'

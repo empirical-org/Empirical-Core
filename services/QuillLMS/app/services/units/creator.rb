@@ -37,7 +37,7 @@ module Units::Creator
       product = activities_data.product([classroom[:id].to_i]).uniq
       product.each do |pair|
         activity_data, classroom_id = pair
-        unit.classroom_activities.create!(activity_id: activity_data[:id],
+        new_ca = unit.classroom_activities.create!(activity_id: activity_data[:id],
                                           due_date: activity_data[:due_date],
                                           classroom_id: classroom_id,
                                           assigned_student_ids: classroom[:student_ids],

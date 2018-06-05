@@ -27,8 +27,7 @@ class Teachers::ClassroomActivitiesController < ApplicationController
       if @classroom_activity.update(locked: false, pinned: true)
         find_or_create_lesson_activity_sessions_for_classroom
         PusherLessonLaunched.run(@classroom_activity.classroom)
-        if is_valid_for_google_announcement?
-          session[:lesson_url] = @classroom_activity.generate_activity_url
+        if @classroom_activity.is_valid_for_google_announcement_with_specific_user?(current_user)
           return post_to_google_classroom
         end
         redirect_to lesson_url(lesson) and return
@@ -110,13 +109,14 @@ private
     end
   end
 
-  def is_valid_for_google_announcement?
-    @classroom_activity.is_valid_for_google_announcement? && current_user.google_id
-  end
-
   def post_to_google_classroom
-    access_token = session[:google_access_token]
-    google_response = GoogleIntegration::Announcements.post_announcement(access_token, @classroom_activity, @classroom_activity.classroom.google_classroom_id)
+    # GoogleIntegration::RefreshAccessToken.new(owner).refresh
+    access_token = current_user.auth_credential.access_token
+    google_response = GoogleIntegration::Announcements.new(
+      access_token,
+      @classroom_activity,
+      @classroom_activity.classroom.google_classroom_id
+    ).post
     if google_response == 'UNAUTHENTICATED'
       session[:google_redirect] = request.path
       return redirect_to '/auth/google_oauth2'
