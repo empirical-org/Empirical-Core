@@ -33,7 +33,7 @@ export function getCompleteSentenceConceptResult(question) {
   const returnValue = {};
   const correct = calculateCorrectnessOfSentence(question.attempts[0]);
   const concept_uid = 'KfA8-dg8FvlJz4eY0PkekA';
-  const answer = question.attempts[0].submitted;
+  const answer = question.attempts[0].response.text;
   const directions = question.instructions || C.INSTRUCTIONS.sentenceFragments;
   const prompt = question.prompt;
   returnValue.concept_uid = concept_uid;
@@ -74,7 +74,7 @@ export function getConceptResultsForSentenceFragmentAttempt(question, attemptInd
 export function calculateCorrectnessOfSentence(attempt) {
   if (attempt && attempt.response && attempt.response.optimal !== undefined) {
     return attempt.response.optimal ? 1 : 0;
-  } else {
+  } 
     return 1;
-  }
+  
 }
