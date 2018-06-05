@@ -133,8 +133,6 @@ export default class FocusPointsInputAndConceptResultSelectorForm extends React.
         mode = dataset;
       }
     });
-    console.log('dataset', theDatasetYouAreLookingFor)
-    console.log('mode', mode)
     return { dataset: theDatasetYouAreLookingFor, mode, }; // "These are not the datasets you're looking for."
   }
 
