@@ -26,6 +26,7 @@ import quillNormalizer from './libs/quillNormalizer';
 import SocketProvider from './components/socketProvider';
 
 if (process.env.NODE_ENV === 'production') {
+  console.log('App is running in production');
   Raven
   .config(
     'https://528794315c61463db7d5181ebc1d51b9@sentry.io/210579',
@@ -36,33 +37,26 @@ if (process.env.NODE_ENV === 'production') {
   .install();
 }
 
-
 BackOff();
 const hashhistory = createHashHistory({ queryKey: false, });
 const store = createStore();
 
 // create an enhanced history that syncs navigation events with the store
 const history = syncHistoryWithStore(hashhistory, store);
-
 const root = document.getElementById('root');
-
 const rootRoute = {
   childRoutes: [{
     path: '/',
     childRoutes: [
       require('./routers/Admin/index').default,
-      require('./routers/Play/index').default,
-      require('./routers/Teach/index').default,
-      require('./routers/Customize/index').default
+      require('./routers/Play/index').default
     ],
   }],
 };
 
 render((
   <Provider store={store}>
-    <SocketProvider>
-      <Router history={history} routes={rootRoute} />
-    </SocketProvider>
+    <Router history={history} routes={rootRoute} />
   </Provider>),
   root
 );
@@ -73,8 +67,8 @@ setTimeout(() => {
   store.dispatch(questionActions.loadQuestions());
   store.dispatch(fillInBlankActions.loadQuestions());
   store.dispatch(sentenceFragmentActions.loadSentenceFragments());
-  store.dispatch(lessonActions.loadLessons());
   store.dispatch(levelActions.loadItemLevels());
+  store.dispatch(lessonActions.startListeningToLessons());
 });
 
-String.prototype.quillNormalize = quillNormalizer
+String.prototype.quillNormalize = quillNormalizer;

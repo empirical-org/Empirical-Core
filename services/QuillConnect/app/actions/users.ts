@@ -27,7 +27,7 @@ export function firebaseAuth() {
               });
             }
           }).catch((error) => {
-            console.log(error.message)
+            console.log("Failed to create token", error.message)
           })
         })
     }

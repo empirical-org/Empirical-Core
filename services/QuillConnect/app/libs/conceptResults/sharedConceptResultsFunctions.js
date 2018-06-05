@@ -12,7 +12,7 @@ export function getConceptResultsForAttempt(question, attemptIndex, question_typ
     }
   }
   const prompt = question.prompt.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, '');
-  const answer = question.attempts[attemptIndex].submitted;
+  const answer = question.attempts[attemptIndex].response.text;
   const attemptNumber = attemptIndex + 1;
   let conceptResults = [];
   if (question.attempts[attemptIndex].response) {
