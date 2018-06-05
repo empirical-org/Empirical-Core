@@ -4,12 +4,19 @@ import {Response, FocusPoint, PartialResponse} from '../../interfaces'
 import {conceptResultTemplate} from '../helpers/concept_result_template'
 
 
+export function focusPointMatchHelper(responseString:string, focusPointParticle:string):boolean {
+  // Given a focus point and a response string, return 
+  const match_list = focusPointParticle.split('&&'); // => "Dog&&Cat" => ['Dog', 'Cat']
+  return _.all(match_list, m => new RegExp(m, 'i').test(responseString));
+}
+
+
 export function focusPointMatch(responseString:string, focusPoints:Array<FocusPoint>):FocusPoint {
   // respStr = "Bob is cool" (1), "James is cool (2)"
   // focusPts = [(Bob|||Katherine),(is|||was)]
   return _.find(focusPoints, (focusPoint) => {
     const options = focusPoint.text.split('|||');
-    const anyMatches = _.any(options, opt => new RegExp(opt, 'i').test(responseString));
+    const anyMatches = _.any(options, particle => focusPointMatchHelper(responseString, particle));
     return !anyMatches;
   }); // => null (1), (Bob|||Katherine) (2)
 
