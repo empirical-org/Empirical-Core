@@ -32,6 +32,12 @@ export default React.createClass({
     />
   },
 
+  focusPointMatchHelper: function (responseString, focusPointParticle) {
+    // Given a focus point and a response string, return
+    const match_list = focusPointParticle.split('&&'); // => "Dog&&Cat" => ['Dog', 'Cat']
+    return _.every(match_list, m => new RegExp(m, 'i').test(responseString));
+  },
+
   render: function () {
     var responseListItems = this.props.responses.map((resp) => {
       if (resp && resp.statusCode !== 1 && resp.statusCode !== 0 && this.props.selectedIncorrectSequences) {
@@ -42,7 +48,7 @@ export default React.createClass({
       }
       if (resp && this.props.selectedFocusPoints) {
         const focusPoints = this.props.selectedFocusPoints.filter(fp => fp.length > 0)
-        const matchAllFocusPoints = focusPoints.some(fp => new RegExp(fp, 'i').test(resp.text))
+        const matchAllFocusPoints = focusPoints.some(fp => this.focusPointMatchHelper(resp.text, fp))
         if (matchAllFocusPoints) {
           return <AffectedResponse key={resp.key}>{this.renderResponse(resp)}</AffectedResponse>
         }
