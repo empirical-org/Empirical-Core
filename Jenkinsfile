@@ -51,18 +51,32 @@ pipeline {
           echo "Brakeman:"
           sh 'bundle exec brakeman -z'
 
-          echo 'Jest:'
-          nvm('v0.33.11') {
-            /* https://plugins.jenkins.io/nvm-wrapper */
+          nvm(nvmInstallURL: 'https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh',
+             nvmIoJsOrgMirror: 'https://iojs.org/dist',
+             nvmNodeJsOrgMirror: 'https://nodejs.org/dist',
+             version: '7.5.0') {
+                /* https://plugins.jenkins.io/nvm-wrapper */
+                echo "Installing npm..."
+                sh "npm install"
+                echo "Building test distribution"
+                sh 'npm run build:test'
+                echo 'Running jest...'
+                sh 'npm run jest:coverage'
+                /*sh 'bash <(curl -s https://codecov.io/bash) -cF jest'*/
+                sh 'curl -s https://codecov.io/bash | bash -s - -cF jest'
+
+              }
+          }
+
+          /*nvm('v0.33.11') {
             echo 'Setting up jest...' 
             sh 'nvm install'
             sh 'npm install'
             sh 'npm run build:test'
             echo 'Running jest...'
             sh 'npm run jest:coverage'
-            /*sh 'bash <(curl -s https://codecov.io/bash) -cF jest'*/
             sh 'curl https://codecov.io/bash | bash -cF jest'
-          }
+          }*/
 
           echo "Test successful!"
         }
