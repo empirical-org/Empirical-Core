@@ -5,21 +5,27 @@
 #   gem 'sqlite3'
 #
 default: &default
-  adapter: sqlite3
+  adapter: postgresql
+  encoding: unicode
+  host:     localhost
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
 
 development:
   <<: *default
-  database: db/development.sqlite3
+  port:     54321
+  user:     donald
+  password: <%= ENV['REMOTE_DB_PASSWORD'] %> 
+  database: quill_comprehension_development
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: db/test.sqlite3
+  database: quill_comprehension_test
+
 
 production:
   <<: *default
-  database: db/production.sqlite3
+  database: quill_comprehension_production
