@@ -5,9 +5,16 @@ Types::QueryType = GraphQL::ObjectType.define do
 
   # TODO: remove me
   field :activities, !types[Types::ActivityType] do
-    description "An Activity"
-    resolve ->(obj, args, ctx) {
+    description 'Activities'
+    resolve -> (obj, args, ctx) {
       Activity.all
+    }
+  end
+
+  field :questions, !types[Types::QuestionType] do
+    description 'Questions'
+    resolve -> (obj, args, ctx) {
+      Question.all
     }
   end
 end
