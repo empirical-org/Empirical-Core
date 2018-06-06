@@ -7,25 +7,27 @@ class GoogleIntegration::AuthCredentials
 
   def create_or_update
     params = {}
-    params[:refresh_token] = @refresh_token if @refresh_token.present?
-    params[:access_token]  = @access_token  if @access_token.present?
+    params[:refresh_token] = refresh_token if refresh_token.present?
+    params[:access_token]  = access_token  if access_token.present?
 
-    @credentials.update(params)
+    credentials.update(params)
   end
 
   def credentials
-    @credentials ||= AuthCredential.find_or_initialize_by(
+    @credentials ||= ::AuthCredential.find_or_initialize_by(
       user_id: @user.id,
       provider: 'google'
     )
   end
 
   def access_token
-    @request.env['omniauth.auth']['credentials']['token']
+    @access_token ||= @request.env['omniauth.auth']['credentials']['token']
   end
 
   def refresh_token
-    @request.env['omniauth.auth']['credentials']['refresh_token']
+    @refresh_token ||= begin
+      @request.env['omniauth.auth']['credentials']['refresh_token']
+    end
   end
 
   private

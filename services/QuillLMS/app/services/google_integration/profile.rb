@@ -1,27 +1,40 @@
-module GoogleIntegration::Profile
+class GoogleIntegration::Profile
 
-  def self.fetch_name_email_and_google_id(access_token)
-    data = self.fetch_data(access_token)
-    name = data['displayName']
-    email = data['emails'][0]['value']
-    google_id = data['id']
-    [name, email, google_id]
+  def initialize(access_token)
+    @access_token = access_token
+  end
+
+  def name
+    profile['displayName']
+  end
+
+  def email
+    profile['emails'][0]['value']
+  end
+
+  def google_id
+    profile['id']
   end
 
   private
 
-  def self.fetch_data(access_token)
-    client = self.client(access_token)
-    service = client.discovered_api('plus')
-    result = client.execute(
-      api_method: service.people.get,
-      parameters: {'userId' => 'me'},
-      headers: {'Content-Type' => 'application/json'})
-    data = JSON.parse(result.body)
-    data
+  def profile
+    @profile ||= begin
+      response = fetch_profile
+      JSON.parse(response.body)
+    end
   end
 
-  def self.client(access_token)
-    GoogleIntegration::Client.create(access_token)
+  def fetch_profile
+    service = client.discovered_api('plus')
+    client.execute(
+      api_method: service.people.get,
+      parameters: { 'userId' => 'me' },
+      headers:    { 'Content-Type' => 'application/json' }
+    )
+  end
+
+  def client
+    @client ||= GoogleIntegration::Client.create(@access_token)
   end
 end
