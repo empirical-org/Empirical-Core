@@ -65,9 +65,7 @@ pipeline {
                 /*sh 'bash <(curl -s https://codecov.io/bash) -cF jest'*/
                 sh 'curl -s https://codecov.io/bash | bash -s - -cF jest'
 
-              }
           }
-
           /*nvm('v0.33.11') {
             echo 'Setting up jest...' 
             sh 'nvm install'
