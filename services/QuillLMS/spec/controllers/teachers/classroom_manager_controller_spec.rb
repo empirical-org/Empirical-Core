@@ -450,6 +450,8 @@ describe Teachers::ClassroomManagerController, type: :controller do
     end
 
     it 'should kick off the importer' do
+      create(:auth_credential, user: teacher)
+
       expect(GoogleStudentImporterWorker).to receive(:perform_async).with(teacher.id, 'fake_access_token')
       get :import_google_students, selected_classrooms: [1,2], format: :json
     end
