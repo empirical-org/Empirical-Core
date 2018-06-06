@@ -4,9 +4,6 @@ import AffectedResponse from './affectedResponse.jsx'
 import _ from 'underscore'
 
 export default class ResponseList extends React.Component {
-  constructor(props) {
-    super(props)
-  }
 
   renderResponse(resp) {
     return <Response

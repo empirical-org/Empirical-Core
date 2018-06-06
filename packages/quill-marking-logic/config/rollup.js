@@ -28,13 +28,6 @@ rollup.rollup({
             preferBuiltins: true
           }),
       json(),
-      nodeGlobals(),
-      builtins({
-        crypto: true,
-        fs: false,
-        net: false,
-        tls: false
-      }),
       commonjs({
         include: 'node_modules/**',
         exclude: 'node_modules/tough-cookie/package.json',
@@ -45,6 +38,13 @@ rollup.rollup({
           'node_modules/events/events.js': ['EventEmitter'],
           'node_modules/buffer/index.js': ['isBuffer']
         }
+      }),
+      nodeGlobals(),
+      builtins({
+        crypto: true,
+        fs: false,
+        net: false,
+        tls: false
       }),
       typescript(),
       uglifyPlugin()

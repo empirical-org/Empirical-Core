@@ -1,8 +1,8 @@
 const questionPrompt: string = "Bats have wings. They can fly."
 import {responses, focusPoints, incorrectSequences} from '../../../test/data/batswings'
 import { assert } from 'chai';
-// import {checkSentenceCombining} from '../../../dist/lib'
-import {checkSentenceCombining} from './sentence_combining';
+import {checkSentenceCombining} from '../../../dist/lib'
+// import {checkSentenceCombining} from './sentence_combining';
 import {Response} from '../../interfaces';
 import { feedbackStrings, spellingFeedbackStrings } from '../constants/feedback_strings';
 import {spacingBeforePunctuation} from '../algorithms/spacingBeforePunctuation'
