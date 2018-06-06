@@ -110,7 +110,7 @@ class ResponsesController < ApplicationController
     responses.each do |response|
       match = non_blank_selected_sequences.any? do |ss|
         sequence_particles = ss.split('&&')
-        sequence_particles.all? { |sp| sp.length > 0 && Regexp.new(Regexp.escape(sp), 'i').match(response.text)}
+        sequence_particles.all? { |sp| sp.length > 0 && Regexp.new(sp, 'i').match(response.text)}
       end
       if match
         matched_responses_count += 1
