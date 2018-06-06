@@ -132,6 +132,7 @@ export default React.createClass({
               ref="answerBox"
               className="connect-text-area"
               autoFocus
+              disabled={this.props.disabled}
             />
           </div>
         </div>
