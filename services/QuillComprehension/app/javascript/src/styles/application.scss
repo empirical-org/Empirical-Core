@@ -1,0 +1,14 @@
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+@import 'navbar';
+@import 'containers';
+
+html {
+  line-height: 1.15;
+}
+
+body {
+  background-color: rgba(#00c2a2, 0.03);
+}
