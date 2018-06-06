@@ -26,8 +26,6 @@ pipeline {
           RACK_ENV='test' /* for rake tasks, default is development */
           PROGRESS_REPORT_FOG_DIRECTORY='empirical-progress-report-dev'
           FOG_DIRECTORY='empirical-core-staging'
-          LANG="C"
-          LC_ALL="en_US.UTF-8"
       }
       steps {
         echo "Beginnning TEST..."
