@@ -1,0 +1,41 @@
+2018-06-05T17:24:16.655209000 0.027930s notice: Recursively removing directory /Users/donald/Programming/MonoQuill/rethinkdb_data/tmp
+2018-06-05T17:24:16.657234000 0.029958s notice: Initializing directory /Users/donald/Programming/MonoQuill/rethinkdb_data
+2018-06-05T17:24:16.657320000 0.030040s info: Creating a default database for your convenience. (This is because you ran 'rethinkdb' without 'create', 'serve', or '--join', and the directory '/Users/donald/Programming/MonoQuill/rethinkdb_data' did not already exist or is empty.)
+2018-06-05T17:24:16.657355000 0.030075s notice: Running rethinkdb 2.3.6 (CLANG 9.0.0 (clang-900.0.37))...
+2018-06-05T17:24:16.663555000 0.036277s notice: Running on Darwin 17.5.0 x86_64
+2018-06-05T17:24:16.663606000 0.036326s notice: Loading data from directory /Users/donald/Programming/MonoQuill/rethinkdb_data
+2018-06-05T17:24:17.197160000 0.569882s info: Automatically using cache size of 1163 MB
+2018-06-05T17:24:17.198521000 0.571242s notice: Listening for intracluster connections on port 29015
+2018-06-05T17:24:17.207998000 0.580720s notice: Listening for client driver connections on port 28015
+2018-06-05T17:24:17.252008000 0.624729s error: Could not bind to http port: The address at localhost:8080 is reserved or already in use.
+2018-06-05T17:25:36.815528000 0.014328s notice: Running rethinkdb 2.3.6 (CLANG 9.0.0 (clang-900.0.37))...
+2018-06-05T17:25:36.820350000 0.019146s notice: Running on Darwin 17.5.0 x86_64
+2018-06-05T17:25:36.820403000 0.019198s notice: Loading data from directory /Users/donald/Programming/MonoQuill/rethinkdb_data
+2018-06-05T17:25:36.873836000 0.072632s info: Automatically using cache size of 1133 MB
+2018-06-05T17:25:36.874586000 0.073382s notice: Listening for intracluster connections on port 29015
+2018-06-05T17:25:36.876735000 0.075531s notice: Listening for client driver connections on port 28015
+2018-06-05T17:25:36.905508000 0.104304s error: Could not bind to http port: The address at localhost:1010 is reserved or already in use.
+2018-06-05T17:25:43.284059000 0.013832s notice: Running rethinkdb 2.3.6 (CLANG 9.0.0 (clang-900.0.37))...
+2018-06-05T17:25:43.289444000 0.019214s notice: Running on Darwin 17.5.0 x86_64
+2018-06-05T17:25:43.289506000 0.019275s notice: Loading data from directory /Users/donald/Programming/MonoQuill/rethinkdb_data
+2018-06-05T17:25:43.387786000 0.117556s info: Automatically using cache size of 1130 MB
+2018-06-05T17:25:43.388490000 0.118259s notice: Listening for intracluster connections on port 29015
+2018-06-05T17:25:43.390517000 0.120287s notice: Listening for client driver connections on port 28015
+2018-06-05T17:25:43.390677000 0.120446s notice: Listening for administrative HTTP connections on port 9999
+2018-06-05T17:25:43.390678000 0.120448s notice: Listening on cluster addresses: 127.0.0.1, ::1
+2018-06-05T17:25:43.390684000 0.120453s notice: Listening on driver addresses: 127.0.0.1, ::1
+2018-06-05T17:25:43.390687000 0.120456s notice: Listening on http addresses: 127.0.0.1, ::1
+2018-06-05T17:25:43.390694000 0.120463s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2018-06-05T17:25:43.390701000 0.120470s notice: Server ready, "seo_2006_seo_nyc_local_dzq" b1af4681-2897-428a-aded-a73df0818ac3
+2018-06-05T17:41:30.133084000 946.865258s info: Table 70216348-fe79-4665-a4fa-6bb8a0b9887f: Starting a new Raft election for term 1.
+2018-06-05T17:41:30.135243000 946.867418s info: Table 70216348-fe79-4665-a4fa-6bb8a0b9887f: Added replica on this server.
+2018-06-05T17:41:30.158152000 946.890327s info: Table 70216348-fe79-4665-a4fa-6bb8a0b9887f: This server is Raft leader for term 1. Latest log index is 0.
+2018-06-05T17:42:14.159625000 990.891910s info: Table 1b7c6b24-7a3e-4999-9347-0c0bb1f18445: Starting a new Raft election for term 1.
+2018-06-05T17:42:14.160086000 990.892372s info: Table 1b7c6b24-7a3e-4999-9347-0c0bb1f18445: Added replica on this server.
+2018-06-05T17:42:14.182251000 990.914537s info: Table 1b7c6b24-7a3e-4999-9347-0c0bb1f18445: This server is Raft leader for term 1. Latest log index is 0.
+2018-06-05T17:49:53.405787000 1450.139239s info: Table 6dca8bd7-ccde-42bf-82b1-14b701a4892c: Starting a new Raft election for term 1.
+2018-06-05T17:49:53.406276000 1450.139728s info: Table 6dca8bd7-ccde-42bf-82b1-14b701a4892c: Added replica on this server.
+2018-06-05T17:49:53.427507000 1450.160959s info: Table 6dca8bd7-ccde-42bf-82b1-14b701a4892c: This server is Raft leader for term 1. Latest log index is 0.
+2018-06-05T17:52:09.304387000 1586.038680s info: Table 3d0dcc31-96cd-4b35-aaee-ef8e9417ff30: Starting a new Raft election for term 1.
+2018-06-05T17:52:09.304616000 1586.038908s info: Table 3d0dcc31-96cd-4b35-aaee-ef8e9417ff30: Added replica on this server.
+2018-06-05T17:52:09.329666000 1586.063958s info: Table 3d0dcc31-96cd-4b35-aaee-ef8e9417ff30: This server is Raft leader for term 1. Latest log index is 0.
