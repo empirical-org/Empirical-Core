@@ -66,8 +66,4 @@ render((
   root
 );
 
-setTimeout(() => {
-  store.dispatch(conceptActions.startListeningToConcepts());
-});
-
 String.prototype.quillNormalize = quillNormalizer;
