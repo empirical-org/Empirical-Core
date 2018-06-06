@@ -442,7 +442,8 @@ export default React.createClass({
       icon = '⚠️';
     }
     const authorStyle = { marginLeft: '10px', };
-    const author = response.author ? <span style={authorStyle} className="tag is-dark">{response.author}</span> : undefined;
+    const showTag = response.author && (response.statusCode === 2 || response.statusCode === 3)
+    const author = showTag ? <span style={authorStyle} className="tag is-dark">{response.author}</span> : undefined;
     const checked = this.props.massEdit.selectedResponses.includes(response.id) ? 'checked' : '';
     return (
       <div style={{ display: 'flex', alignItems: 'center', }} className={bgColor}>
