@@ -45,7 +45,8 @@ pipeline {
           echo "Running rspec"
           sh 'bundle exec rake parallel:spec'
           /*sh 'bash <(curl -s https://codecov.io/bash) -cF rspec -f coverage/coverage.json'*/
-          sh 'curl https://codecov.io/bash | bash -cF rspec -f coverage/coverage.json'
+          /*sh 'curl https://codecov.io/bash | bash -cF rspec -f * coverage/coverage.json'*/
+          sh 'curl -s https://codecov.io/bash | bash -s - -cF rspec -f coverage/coverage.json'
 
           echo "Brakeman:"
           sh 'bundle exec brakeman -z'
