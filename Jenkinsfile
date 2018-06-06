@@ -12,10 +12,10 @@ pipeline {
         }
       }
     }
-    stage('test') {
+    stage('test-ruby') {
       agent {
         dockerfile {
-          filename 'Dockerfile.test'
+          filename 'Dockerfile.test-ruby'
           dir 'services/QuillJenkins/agents/QuillLMS'
           args '-u root:sudo -v $HOME/workspace/myproject:/myproject --name lms-webapp --network jnk-net'
         }
@@ -26,6 +26,7 @@ pipeline {
           RACK_ENV='test' /* for rake tasks, default is development */
           PROGRESS_REPORT_FOG_DIRECTORY='empirical-progress-report-dev'
           FOG_DIRECTORY='empirical-core-staging'
+          CONTINUOUS_INTEGRATION=true
       }
       steps {
         echo "Beginnning TEST..."
@@ -44,39 +45,31 @@ pipeline {
           sh 'bundle exec rake parallel:load_structure'
           echo "Running rspec"
           sh 'bundle exec rake parallel:spec'
-          /*sh 'bash <(curl -s https://codecov.io/bash) -cF rspec -f coverage/coverage.json'*/
-          /*sh 'curl https://codecov.io/bash | bash -cF rspec -f * coverage/coverage.json'*/
           sh 'curl -s https://codecov.io/bash | bash -s - -cF rspec -f coverage/coverage.json'
 
           echo "Brakeman:"
           sh 'bundle exec brakeman -z'
 
-          nvm(nvmInstallURL: 'https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh',
-             nvmIoJsOrgMirror: 'https://iojs.org/dist',
-             nvmNodeJsOrgMirror: 'https://nodejs.org/dist',
-             version: '7.5.0') {
-                /* https://plugins.jenkins.io/nvm-wrapper */
-                echo "Installing npm..."
-                sh "npm install"
-                echo "Building test distribution"
-                sh 'npm run build:test'
-                echo 'Running jest...'
-                sh 'npm run jest:coverage'
-                /*sh 'bash <(curl -s https://codecov.io/bash) -cF jest'*/
-                sh 'curl -s https://codecov.io/bash | bash -s - -cF jest'
-
-          }
-          /*nvm('v0.33.11') {
-            echo 'Setting up jest...' 
-            sh 'nvm install'
-            sh 'npm install'
-            sh 'npm run build:test'
-            echo 'Running jest...'
-            sh 'npm run jest:coverage'
-            sh 'curl https://codecov.io/bash | bash -cF jest'
-          }*/
-
           echo "Test successful!"
+        }
+      }
+    }
+    stage('test-node') {
+      agent {
+        dockerfile {
+          filename 'Dockerfile.test-node'
+          dir 'services/QuillJenkins/agents/QuillLMS'
+          args '-u root:sudo -v $HOME/workspace/myproject:/myproject --name lms-webapp-frontend --network jnk-net'
+        }
+      }
+      steps {
+        echo "Beginnning front-end tests..."
+        dir('services/QuillLMS') {
+          echo "Building test distribution"
+          sh 'npm run build:test'
+          echo 'Running jest...'
+          sh 'npm run jest:coverage'
+          sh 'curl -s https://codecov.io/bash | bash -s - -cF jest'
         }
       }
     }
