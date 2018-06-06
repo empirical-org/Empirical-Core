@@ -1,0 +1,115 @@
+.name-and-sample-question-modal-container {
+  .name-and-sample-question-modal-background {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 99;
+    background-color: #3f3f3f;
+    opacity: 0.9;
+  }
+  .name-and-sample-question-modal {
+    width: 551px;
+    height: 674px;
+    border-radius: 6px;
+    background-color: #ffffff;
+    position: fixed;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    z-index: 100;
+    .exit {
+      right: 12px;
+      top: 12px;
+      position: absolute;
+      cursor: pointer;
+    }
+    .illustration {
+      margin: 45px 0px 40px;
+    }
+    span {
+      font-weight: bold;
+    }
+    h1 {
+      font-size: 20px;
+      font-weight: 600;
+      color: #3b3b3b;
+      margin-bottom: 20px;
+    }
+    .explanation {
+      padding: 0px 30px;
+      font-size: 16px;
+    	text-align: center;
+    	color: #3b3b3b;
+      margin-bottom: 30px;
+    }
+    .name-section, .sample-question-section {
+      height: 120px;
+      padding: 20px 30px;
+      width: 100%;
+      p {
+        font-size: 14px;
+        text-align: left;
+        margin-bottom: 5px;
+      }
+      input {
+        width: 100%;
+        height: 45px;
+        border-radius: 3px;
+        background-color: #ffffff;
+        border: solid 1px #c0c0c0;
+        padding-left: 15px;
+        line-height: 1.31;
+        font-size: 16px;
+        text-align: left;
+        color: #3b3b3b;
+        &:focus {
+          outline: none;
+        }
+        &::placeholder {
+          font-size: 16px;
+          font-style: italic;
+          line-height: 1.31;
+          text-align: left;
+          color: #c0c0c0;
+        }
+      }
+    }
+    .fields {
+      margin-bottom: 30px;
+      width: 100%;
+      background-color: #fafafa;
+    }
+    .dividing-line {
+      width: 470px;
+      border-bottom: solid 1px #e9e9e9;
+    }
+    button {
+      width: 145px;
+      height: 40px;
+      border-radius: 3px;
+      color: white;
+      font-size: 14px;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      background-color: #00c2a2;
+      &.inactive {
+        background-color: #e9e9e9;
+      }
+    }
+
+    a {
+      margin-top: 15px;
+      margin-bottom: 40px;
+      font-size: 16px;
+      font-weight: 600;
+      color: #027360;
+    }
+  }
+}
