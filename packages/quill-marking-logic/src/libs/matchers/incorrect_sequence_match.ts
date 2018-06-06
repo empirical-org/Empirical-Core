@@ -4,8 +4,8 @@ import {Response, IncorrectSequence, PartialResponse} from '../../interfaces'
 import {conceptResultTemplate} from '../helpers/concept_result_template'
 
 export function incorrectSequenceMatchHelper(responseString:string, incorrectSequenceParticle:string):boolean {
-  const match_list = incorrectSequenceParticle.split('&&');
-  return _.every(match_list, m => new RegExp(m).test(responseString));
+  const matchList = incorrectSequenceParticle.split('&&');
+  return matchList.every(m => new RegExp(m).test(responseString));
 }
 
 export function incorrectSequenceMatch(responseString: string, incorrectSequences:Array<IncorrectSequence>):IncorrectSequence {
