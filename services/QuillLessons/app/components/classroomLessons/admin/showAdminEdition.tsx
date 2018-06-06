@@ -141,7 +141,10 @@ class ShowAdminEdition extends Component<any, any> {
       return (
         <div className="admin-classroom-lessons-container">
           <div className="lesson-header">
-            <h4 className="title is-4">Lesson: <a href={`/#/admin/classroom-lessons/${this.props.params.classroomLessonID}`}>{this.classroomLesson().title} </a> </h4>
+            <div className="top-line">
+              <h5 className="title is-4">Lesson: {this.classroomLesson().title}</h5>
+              <a href="https://docs.google.com/document/d/1oc3IlB4pDPUFcFLl4eHItPinC9GEKvblkifIKStMSmQ/edit">Quill Lessons Style Guide</a>
+            </div>
             <h4 className="title is-4">Edition: {this.edition().name} <a target="_blank" href={`/#/teach/class-lessons/${this.props.params.classroomLessonID}/preview/${this.props.params.editionID}`}>Preview</a> </h4>
             <EditEditionDetails edition={this.edition()} save={this.saveEditionDetails} deleteEdition={this.deleteEdition} />
           </div>
