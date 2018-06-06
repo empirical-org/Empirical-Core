@@ -215,6 +215,14 @@ export default React.createClass({
     }
   },
 
+  renderExplanatoryNote() {
+    return <div style={{ marginBottom: '10px' }}>
+      <p>Focus points can contain regular expressions. See <a href="https://www.regextester.com/">this page</a> to test regular expressions, and access the cheat sheet on the right. <b>Note:</b> any periods need to be prefaced with a backslash ("\") in order to be evaluated correctly. Example: "walked\."</p>
+      <br />
+      <p>In order to indicate that two or more words or phrases must appear in the response together, you can separate them using "&&". Example: "running&&dancing&&swimming", "run&&dance&&swim".</p>
+    </div>
+  },
+
   render() {
     const appropriateData = this.returnAppropriateDataset();
     const { dataset, mode, } = appropriateData;
@@ -222,6 +230,7 @@ export default React.createClass({
       <div>
         <div className="box add-incorrect-sequence">
           <h4 className="title">{this.addOrEditItemLabel()}</h4>
+          {this.renderExplanatoryNote()}
           <div className="control">
             <label className="label">{this.props.itemLabel} Text</label>
             {this.renderTextInputFields()}
