@@ -3,9 +3,12 @@ import Response from './response.jsx'
 import AffectedResponse from './affectedResponse.jsx'
 import _ from 'underscore'
 
-export default React.createClass({
+export default class ResponseList extends React.Component {
+  constructor(props) {
+    super(props)
+  }
 
-  renderResponse: function(resp) {
+  renderResponse(resp) {
     return <Response
       key={resp.key}
       response={resp}
@@ -30,18 +33,23 @@ export default React.createClass({
       conceptID={this.props.conceptID}
       massEdit={this.props.massEdit}
     />
-  },
+  }
 
-  focusPointMatchHelper: function (responseString, focusPointParticle) {
-    // Given a focus point and a response string, return
-    const match_list = focusPointParticle.split('&&'); // => "Dog&&Cat" => ['Dog', 'Cat']
-    return _.every(match_list, m => new RegExp(m, 'i').test(responseString));
-  },
+  incorrectSequenceMatchHelper(responseString, sequenceParticle) {
+    const matchList = sequenceParticle.split('&&');
+    return _.every(matchList, m => new RegExp(m).test(responseString));
+  }
 
-  render: function () {
-    var responseListItems = this.props.responses.map((resp) => {
+  focusPointMatchHelper(responseString, sequenceParticle) {
+    const matchList = sequenceParticle.split('&&');
+    return _.every(matchList, m => new RegExp(m, 'i').test(responseString));
+  }
+
+  render() {
+    const responseListItems = this.props.responses.map((resp) => {
       if (resp && resp.statusCode !== 1 && resp.statusCode !== 0 && this.props.selectedIncorrectSequences) {
-        const anyMatches = this.props.selectedIncorrectSequences.some(inSeq => inSeq.length > 0 && new RegExp(inSeq).test(resp.text))
+        const incorrectSequences = this.props.selectedIncorrectSequences.filter(is => is.length > 0)
+        const anyMatches = incorrectSequences.some(inSeq => this.incorrectSequenceMatchHelper(resp.text, inSeq))
         if (anyMatches) {
           return <AffectedResponse key={resp.key}>{this.renderResponse(resp)}</AffectedResponse>
         }
@@ -63,4 +71,4 @@ export default React.createClass({
       </div>
     );
   }
-})
+}
