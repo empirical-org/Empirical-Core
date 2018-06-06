@@ -5,9 +5,12 @@ RUN mkdir /root/.ssh
 
 # fix invalid byte seq error
 # (https://stackoverflow.com/questions/17031651/invalid-byte-sequence-in-us-ascii-argument-error-when-i-run-rake-dbseed-in-ra)
-ENV LANG=en_US.UTF-8
-ENV LANGUAGE=en_US.UTF-8
-ENV LC_ALL=en_US.UTF-8
+#ENV LANG=en_US.UTF-8
+#ENV LANGUAGE=en_US.UTF-8
+#ENV LC_ALL=en_US.UTF-8
+# en_US.UTF-8 not available in ruby docker container, do
+# (https://github.com/docker-library/ruby/issues/45)
+ENV LANG=C.UTF-8
 
 # Replace shell with bash so we can source files
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
