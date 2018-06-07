@@ -439,6 +439,25 @@ $lightgray: #cecece;
           -ms-flex-align: center;
               align-items: center;
         border-bottom: none;
+        a {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          width: 100%;
+          i {
+            color: #c0c0c0;
+            font-size: 10px;
+          }
+          &:hover {
+            text-decoration: none;
+            i {
+              color: #3b3b3b;
+            }
+            span {
+              text-decoration: underline;
+            }
+          }
+        }
     }
 
     .recommendations-table-row-item {
@@ -635,5 +654,3 @@ $lightgray: #cecece;
   }
   padding-bottom: 15px;
 }
-
-
