@@ -1,1 +1,2 @@
 FROM node:7.5.0
+#ENV NODE_PATH=/install/node_modules

@@ -65,7 +65,7 @@ pipeline {
       }
       steps {
         echo "Beginnning front-end tests..."
-        dir('services/QuillLMS') {
+        dir('services/QuillLMS/client') {
           echo "Installing necessary packages..."
           sh 'npm install'
           sh 'ls'
