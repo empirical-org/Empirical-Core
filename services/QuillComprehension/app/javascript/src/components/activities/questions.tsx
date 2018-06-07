@@ -29,10 +29,24 @@ export default class AppComponent extends React.Component<AppProps, AppState> {
     })
   };
 
+  updateSubmission(newValue:string, question:Question) {
+    const prompt = question.prompt;
+    const promptLength = prompt.length
+    console.log("substring", newValue.substr(0, promptLength))
+    if (newValue.substr(0, promptLength) === prompt) {
+      const newState = Object.assign({}, this.state)
+      newState.submissions[question.id] = newValue
+      this.setState(newState)
+    }
+  }
+
   renderQuestions(questions:Array<Question>, submissions: Submissions) {
-    return questions.map((a) => {
+    return questions.map((a, i) => {
       return (
-        <textarea className="form-control" value={submissions[a.id]}/>
+        <div className='form-group' key={i}>
+          <label className='form-label'>Question {i +1}</label>
+          <textarea className="form-control" value={submissions[a.id]} onChange={e => this.updateSubmission(e.target.value, a)}/>
+        </div>
       )
     })
   } 
