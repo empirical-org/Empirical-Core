@@ -24,4 +24,11 @@ Types::QueryType = GraphQL::ObjectType.define do
       Question.all
     }
   end
+
+  field :responses, !types[Types::ResponseType] do
+    description 'Responses to Questions'
+    resolve -> (obj, args, ctx) {
+      Response.all.limit(30)
+    }
+  end
 end
