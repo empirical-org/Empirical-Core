@@ -20,8 +20,7 @@ RUN apt-get install -y autoconf \
   libffi-dev libgdbm3 libgdbm-dev \
   postgresql-client
 
-RUN ls
-COPY /Empirical-Core/services/QuillLMS/Gemfile* /tmp/
+COPY services/QuillLMS/Gemfile* /tmp/
 WORKDIR /tmp
 RUN bundle install
 
