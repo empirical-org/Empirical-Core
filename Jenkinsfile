@@ -65,6 +65,8 @@ pipeline {
       steps {
         echo "Beginnning front-end tests..."
         dir('services/QuillLMS') {
+          echo "Installing necessary packages..."
+          sh 'npm install'
           echo "Building test distribution"
           sh 'npm run build:test'
           echo 'Running jest...'
