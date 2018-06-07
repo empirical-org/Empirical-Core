@@ -7,7 +7,7 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  host:     localhost
+
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
 
@@ -15,6 +15,7 @@ development:
   <<: *default
   port:     54321
   user:     donald
+  host:     localhost
   password: <%= ENV['REMOTE_DB_PASSWORD'] %> 
   database: quill_comprehension_development
 
@@ -23,9 +24,12 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
+  host:     localhost
   database: quill_comprehension_test
 
 
 production:
   <<: *default
   database: quill_comprehension_production
+  username: quill_comprehension
+  password: <%= ENV['MYAPP_DATABASE_PASSWORD'] %>
