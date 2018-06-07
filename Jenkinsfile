@@ -65,15 +65,17 @@ pipeline {
       }
       steps {
         echo "Beginnning front-end tests..."
-        dir('services/QuillLMS/client') {
-          echo "Installing necessary packages..."
-          sh 'npm install'
-          sh 'ls'
-          echo "Building test distribution"
-          sh 'npm run build:test'
-          echo 'Running jest...'
-          sh 'npm run jest:coverage'
-          sh 'curl -s https://codecov.io/bash | bash -s - -cF jest'
+        withCredentials([string(credentialsId: 'codecov-token', variable: 'CODECOV_TOKEN')]) {
+          dir('services/QuillLMS/client') {
+            echo "Installing necessary packages..."
+            sh 'npm install'
+            sh 'ls'
+            echo "Building test distribution"
+            sh 'npm run build:test'
+            echo 'Running jest...'
+            sh 'npm run jest:coverage'
+            sh "curl -s https://codecov.io/bash | bash -s - -cF jest -t $CODECOV_TOKEN"
+          }
         }
       }
     }
@@ -89,7 +91,7 @@ pipeline {
           }
           else {
             echo "deploy stage ignored; you are not on master or develop."
-          }
+          } 
         }
       }
     }
