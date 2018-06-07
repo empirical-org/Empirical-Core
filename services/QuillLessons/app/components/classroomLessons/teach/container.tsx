@@ -47,8 +47,6 @@ import {
   ClassroomLesson
 } from '../../../interfaces/classroomLessons'
 import * as CustomizeIntf from '../../../interfaces/customize'
-import {firebaseAuth} from '../../../actions/users'
-
 
 class TeachClassroomLessonContainer extends React.Component<any, any> {
   constructor(props) {
