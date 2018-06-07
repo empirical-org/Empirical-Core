@@ -192,7 +192,9 @@ protected
   end
 
   def where_query_string_builder
-    conditions = ["users.role != 'temporary'"]
+    not_temporary = "users.role != 'temporary'"
+    most_recent_subscription = "user_subscriptions.created_at = (SELECT MAX(user_subscriptions.created_at) FROM user_subscriptions WHERE user_subscriptions.user_id = users.id)"
+    conditions = [not_temporary, most_recent_subscription]
     @all_search_inputs.each do |param|
       param_value = user_query_params[param]
       if param_value && !param_value.empty?
