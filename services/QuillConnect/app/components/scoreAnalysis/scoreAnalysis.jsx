@@ -230,10 +230,11 @@ class ScoreAnalysis extends Component {
         return this.sortNumerically(data)
       case 'status':
         return this.sortByStatus(data)
+      case 'activities':
+        return this.sortByActivity(data)
       case 'questionType':
       case 'prompt':
       case 'flag':
-      case 'activities':
       default:
         return this.sortAlphabetically(data);
     }
@@ -244,7 +245,7 @@ class ScoreAnalysis extends Component {
   }
 
   sortAlphabetically(data) {
-    return data.sort((a, b,) => {
+    return data.sort((a, b) => {
       const aSort = a[this.state.sort] ? a[this.state.sort] : ''
       const bSort = b[this.state.sort] ? b[this.state.sort] : ''
       return aSort.localeCompare(bSort)
@@ -254,6 +255,14 @@ class ScoreAnalysis extends Component {
   sortByStatus(data) {
     const statusOrder = ['Very Weak', 'Weak', 'Okay', 'Strong']
     return data.sort((a, b) => statusOrder.indexOf(a[this.state.sort]) - statusOrder.indexOf(b[this.state.sort]))
+  }
+
+  sortByActivity(data) {
+    return data.sort((a, b) => {
+      const aSort = a[this.state.sort] && a[this.state.sort][0] ? a[this.state.sort][0].name : ''
+      const bSort = b[this.state.sort] && b[this.state.sort][0] ? b[this.state.sort][0].name : ''
+      return aSort.localeCompare(bSort)
+    })
   }
 
   renderRows() {

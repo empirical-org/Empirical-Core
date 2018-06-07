@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "QUILL_CMS=https://cms.quill.org webpack-dev-server --hot --inline",
+    "start": "QUILL_CMS=http://localhost:3100 webpack-dev-server --hot --inline",
     "test": "mocha --opts mocha.opts",
     "test:watch": "mocha --opts mocha.opts --watch --reporter dot",
     "storybook": "start-storybook -p 9001",
