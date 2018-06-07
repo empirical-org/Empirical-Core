@@ -3,7 +3,14 @@ Types::QueryType = GraphQL::ObjectType.define do
   # Add root-level fields here.
   # They will be entry points for queries on your schema.
 
-  # TODO: remove me
+  field :activity, Types::ActivityType do
+    description 'Activity'
+    argument :id, types.ID
+    resolve -> (obj, args, ctx) {
+      Activity.find(args[:id])
+    }
+  end
+
   field :activities, !types[Types::ActivityType] do
     description 'Activities'
     resolve -> (obj, args, ctx) {
