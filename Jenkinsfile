@@ -12,7 +12,6 @@ pipeline {
         }
       }
     }
-    /*
     stage('test-ruby') {
       agent {
         dockerfile {
@@ -46,7 +45,9 @@ pipeline {
           sh 'bundle exec rake parallel:load_structure'
           echo "Running rspec"
           sh 'bundle exec rake parallel:spec'
-          sh 'curl -s https://codecov.io/bash | bash -s - -cF rspec -f coverage/coverage.json'
+          withCredentials([string(credentialsId: 'codecov-token', variable: 'CODECOV_TOKEN')]) {
+            sh "curl -s https://codecov.io/bash | bash -s - -cF rspec -f coverage/coverage.json -t $CODECOV_TOKEN"
+          }
 
           echo "Brakeman:"
           sh 'bundle exec brakeman -z'
@@ -54,7 +55,7 @@ pipeline {
           echo "Test successful!"
         }
       }
-    }*/
+    }
     stage('test-node') {
       agent {
         dockerfile {
