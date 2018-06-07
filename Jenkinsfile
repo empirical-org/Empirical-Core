@@ -42,11 +42,11 @@ pipeline {
           echo "Setting up rspec..."
           sh 'cp config/database.yml.travis config/database.yml'
           echo "Running rspec"
-          /*sh 'bundle exec rake parallel:create'
+          sh 'bundle exec rake parallel:create'
           sh 'bundle exec rake parallel:load_structure'
-          sh 'bundle exec rake parallel:spec'*/
-          sh 'bundle exec rake db:structure:load'
-          sh 'bundle exec rspec'
+          sh 'bundle exec rake parallel:spec'
+          /*sh 'bundle exec rake db:structure:load'
+          sh 'bundle exec rspec'*/
           withCredentials([string(credentialsId: 'codecov-token', variable: 'CODECOV_TOKEN')]) {
             sh "curl -s https://codecov.io/bash | bash -s - -cF rspec -f coverage/coverage.json -t $CODECOV_TOKEN"
           }
