@@ -15,8 +15,8 @@ pipeline {
     stage('test-ruby') {
       agent {
         dockerfile {
-          filename 'Dockerfile.test-ruby'
-          dir 'services/QuillJenkins/agents/QuillLMS'
+          filename 'services/QuillJenkins/agents/QuillLMS/Dockerfile.test-ruby'
+          dir '.'
           args '-u root:sudo -v $HOME/workspace/myproject:/myproject --name lms-webapp --network jnk-net'
         }
       }
