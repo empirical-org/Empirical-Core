@@ -8,7 +8,8 @@
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_pack_tag 'application' %>
-    <%= javascript_pack_tag 'hello_react' %>
+    <%= stylesheet_pack_tag @page_style_bundle if @page_style_bundle %>
+    <%= javascript_pack_tag @page_js_bundle if @page_js_bundle %>
   </head>
 
   <body>

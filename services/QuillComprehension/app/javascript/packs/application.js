@@ -9,3 +9,4 @@
 import 'normalize.css'
 import 'src/styles/application.scss'
 console.log('Hello World from Webpacker')
+

@@ -1,14 +1,23 @@
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
+
 *, *:before, *:after {
   box-sizing: border-box;
+  font-family: 'Source Sans Pro', sans-serif;
 }
 
 @import 'navbar';
 @import 'containers';
+@import 'articles';
 
 html {
   line-height: 1.15;
 }
 
 body {
-  background-color: rgba(#00c2a2, 0.03);
+  background-color: #f5fbf7;
+  font-family: 'Source Sans Pro', sans-serif;
+  color: #495057;
+  font-feature-settings: "liga" 0;
+  font-size: 0.9375rem;
+  -webkit-font-smoothing: antialiased;
 }
