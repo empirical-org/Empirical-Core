@@ -12,6 +12,7 @@ pipeline {
         }
       }
     }
+    /*
     stage('test-ruby') {
       agent {
         dockerfile {
@@ -23,7 +24,7 @@ pipeline {
       environment {
           REDISCLOUD_URL='redis://localhost:6379/0'
           REDISCLOUD_NAMESPACE='test'
-          RACK_ENV='test' /* for rake tasks, default is development */
+          RACK_ENV='test' // for rake tasks, default is development
           PROGRESS_REPORT_FOG_DIRECTORY='empirical-progress-report-dev'
           FOG_DIRECTORY='empirical-core-staging'
           CONTINUOUS_INTEGRATION=true
@@ -53,7 +54,7 @@ pipeline {
           echo "Test successful!"
         }
       }
-    }
+    }*/
     stage('test-node') {
       agent {
         dockerfile {
@@ -67,6 +68,7 @@ pipeline {
         dir('services/QuillLMS') {
           echo "Installing necessary packages..."
           sh 'npm install'
+          sh 'ls'
           echo "Building test distribution"
           sh 'npm run build:test'
           echo 'Running jest...'
