@@ -12,6 +12,7 @@ const QuestionRow = props => (
     <td>{props.question.incorrectSequences}</td>
     <td>{props.question.hasModelConcept.toString()}</td>
     <td>{props.question.flag}</td>
+    <td>{props.question.activities.length > 0 ? props.question.activities.map(a => <Link style={{ display: 'block' }} to={`/admin/lessons/${a.uid}`}>{a.name}</Link>) : ''}</td>
   </tr>
 )
 
