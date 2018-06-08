@@ -1,6 +1,7 @@
 import * as React from 'react';
 import gql from "graphql-tag";
 import { Mutation } from "react-apollo";
+import QuestionCard from './question';
 
 const SUBMIT_RESPONSE = gql`
   mutation submitResponse($text: String!, $question_id: ID!)  {
@@ -44,6 +45,8 @@ export default class AppComponent extends React.Component<AppProps, AppState> {
     props.questions.forEach((question) => {
       this.state.submissions[question.id] = question.prompt
     })
+    this.updateCompleteness = this.updateCompleteness.bind(this);
+    this.updateSubmission = this.updateSubmission.bind(this);
   };
 
   updateCompleteness(question_id:number) {
@@ -55,7 +58,6 @@ export default class AppComponent extends React.Component<AppProps, AppState> {
   updateSubmission(newValue:string, question:Question) {
     const prompt = question.prompt;
     const promptLength = prompt.length
-    console.log("substring", newValue.substr(0, promptLength))
     if (newValue.substr(0, promptLength) === prompt) {
       const newState = Object.assign({}, this.state)
       newState.submissions[question.id] = newValue
@@ -73,20 +75,34 @@ export default class AppComponent extends React.Component<AppProps, AppState> {
 
   renderQuestions(questions:Array<Question>, submissions: Submissions) {
     return questions.map((a, i) => {
+      // return (
+      //   <div className='form-group' key={i}>
+      //     <label className='form-label'>Question {i +1}</label>
+      //     <textarea className="form-control" value={submissions[a.id]} onChange={e => this.updateSubmission(e.target.value, a)}/>
+      //     <Mutation mutation={SUBMIT_RESPONSE}>
+      //       {(submitResponse, { data }) => (
+      //         <button className='btn btn-primary' onClick={(e) => {
+      //           e.preventDefault();
+      //           submitResponse({variables: {text: this.state.submissions[a.id], question_id: a.id}});
+      //           this.updateCompleteness(a.id);
+      //         }}>Submit</button>
+      //       )}
+      //     </Mutation>
+      //   </div>
+      // )
       return (
-        <div className='form-group' key={i}>
-          <label className='form-label'>Question {i +1}</label>
-          <textarea className="form-control" value={submissions[a.id]} onChange={e => this.updateSubmission(e.target.value, a)}/>
-          <Mutation mutation={SUBMIT_RESPONSE}>
-            {(submitResponse, { data }) => (
-              <button className='btn btn-primary' onClick={(e) => {
-                e.preventDefault();
-                submitResponse({variables: {text: this.state.submissions[a.id], question_id: a.id}});
-                this.updateCompleteness(a.id);
-              }}>Submit</button>
-            )}
-          </Mutation>
-        </div>
+        <Mutation mutation={SUBMIT_RESPONSE}>
+          {(submitResponse, { data }) => (
+            <QuestionCard 
+            question={a} 
+            submission={this.state.submissions[a.id]} 
+            complete={this.state.complete[a.id]}
+            updateSubmission={this.updateSubmission}
+            updateCompleteness={this.updateCompleteness}
+            submitResponse={submitResponse} 
+            number={i}/>
+          )}
+        </Mutation>
       )
     })
   } 
@@ -100,7 +116,7 @@ export default class AppComponent extends React.Component<AppProps, AppState> {
       )
     }
     return (
-      <div className="article-card">
+      <div>
         {this.renderQuestions(this.props.questions, this.state.submissions)}
       </div>
     );
