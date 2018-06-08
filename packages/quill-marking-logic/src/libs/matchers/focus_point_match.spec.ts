@@ -25,35 +25,41 @@ const savedResponses: Array<Response> = [
 
 const focusPoints = [
   {
-    text: 'edtech',
-    feedback: "What's that thing with computers and school he likes?",
-    concept_results: [{correct: true, conceptUID: 'a'}]
-  },
-  {
     text: 'and|||as well as',
     feedback: "What's a word that shows he likes two things?",
     concept_results: [{correct: true, conceptUID: 'a'}]
   },
   {
-    text: 'startups',
-    feedback: "What's that thing with computers and school he likes?",
+    text: '^Jared',
+    feedback: "Use the name of the student who likes things.",
     concept_results: [{correct: true, conceptUID: 'a'}]
-  }
+  },
+  {
+    text: 'edtech&&startups',
+    feedback: "Make sure you mention Jared likes both edtech and startups",
+    concept_results: [{correct: true, conceptUID: 'a'}]
+  },
+  {
+    text: 'likes',
+    feedback: "Use a word that conveys appreciation and starts with l.",
+    concept_results: [{correct: true, conceptUID: 'a'}]
+  },
 ]
 
 describe('focusPointMatch', () => {
   const positiveTests = [
-    'Jared likes startups.',
-    'Jared likes edtech.',
+    'Jared likes startups and pencils.',
+    'Jared likes edtech and games.',
     'Jared likes edtech because he likes startups.',
-    'Jared likes edtech and edtech.'
+    'He likes edtech and startups.'
   ];
 
   const negativeTests = [
     'Jared likes edtech and startups.',
     'Jared likes startups and edtech.',
     'Jared likes startups as well as edtech.',
-    'Jared likes startups as well as edtech.'
+    'Jared likes edtech as well as startups.',
+    'jared likes edtech as well as startups.'
   ];
 
   positiveTests.forEach((test, i) => {

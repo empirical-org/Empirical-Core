@@ -12,6 +12,11 @@
     border-bottom: 1px solid #e3e3e3;
   }
 
+  .top-line {
+    display: flex;
+    justify-content: space-between;
+  }
+
   ul.classroom-lessons-index {
     width: 650px;
     li {

@@ -83,13 +83,36 @@ class ResponsesController < ApplicationController
     render json: IncorrectSequenceCalculator.get_incorrect_sequences_for_question(params[:question_uid])
   end
 
-  def get_affected_count
-    used_sequences = params_for_get_affected_count[:used_sequences]
-    selected_sequences = params_for_get_affected_count[:selected_sequences]
+  def get_count_affected_by_incorrect_sequences
+    used_sequences = params_for_get_count_affected_by_incorrect_sequences[:used_sequences] || []
+    selected_sequences = params_for_get_count_affected_by_incorrect_sequences[:selected_sequences]
     responses = Response.where(question_uid: params[:question_uid], optimal: nil)
+    non_blank_selected_sequences = selected_sequences.select { |ss| ss.length > 0}
     matched_responses_count = 0
     responses.each do |response|
-      if used_sequences.none? { |us| us.length > 0 && Regexp.new(us).match(response.text)} && selected_sequences.any? { |ss| ss.length > 0 && Regexp.new(ss).match(response.text)}
+      no_matching_used_sequences = used_sequences.none? { |us| s.length > 0 && Regexp.new(us).match(response.text) }
+      matching_selected_sequence = non_blank_selected_sequences.any? do |ss|
+        sequence_particles = ss.split('&&')
+        sequence_particles.all? { |sp| sp.length > 0 && Regexp.new(sp).match(response.text)}
+      end
+      if no_matching_used_sequences && matching_selected_sequence
+        matched_responses_count += 1
+      end
+    end
+    render json: {matchedCount: matched_responses_count}
+  end
+
+  def get_count_affected_by_focus_points
+    selected_sequences = params_for_get_count_affected_by_focus_points[:selected_sequences]
+    responses = Response.where(question_uid: params[:question_uid])
+    non_blank_selected_sequences = selected_sequences.select { |ss| ss.length > 0}
+    matched_responses_count = 0
+    responses.each do |response|
+      match = non_blank_selected_sequences.any? do |ss|
+        sequence_particles = ss.split('&&')
+        sequence_particles.all? { |sp| sp.length > 0 && Regexp.new(sp, 'i').match(response.text)}
+      end
+      if match
         matched_responses_count += 1
       end
     end
@@ -192,7 +215,11 @@ class ResponsesController < ApplicationController
       )
     end
 
-    def params_for_get_affected_count
+    def params_for_get_count_affected_by_incorrect_sequences
+      params.require(:data).permit!
+    end
+
+    def params_for_get_count_affected_by_focus_points
       params.require(:data).permit!
     end
 

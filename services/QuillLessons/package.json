@@ -71,7 +71,7 @@
     "extract-text-webpack-plugin": "^2.1.2",
     "file-loader": "^0.11.2",
     "firebase": "^3.0.3",
-    "hard-source-webpack-plugin": "^0.5.18",
+    "hard-source-webpack-plugin": "^0.7.5",
     "history": "^3.3.0",
     "html-webpack-plugin": "^2.24.1",
     "jest": "^19.0.2",

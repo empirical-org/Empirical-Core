@@ -126,7 +126,7 @@ protected
     GROUP BY ca.id, activity.name, activity.description, acts.activity_id,
             unit.name, unit.id, unit.created_at, unit_name, activity.repeatable,
             activity.activity_classification_id, activity.repeatable
-    ORDER BY pinned DESC, locked ASC, max_percentage DESC, unit.created_at ASC, ca.created_at ASC").to_a
+    ORDER BY pinned DESC, locked ASC, max_percentage DESC, ca.due_date ASC, unit.created_at ASC, ca.created_at ASC").to_a
   end
 
   def next_activity_session

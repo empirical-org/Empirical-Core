@@ -64,12 +64,6 @@ module PagesHelper
 			      desc: "Peter designs the user experience, manages the team, and leads fundraising. Peter found his passion for writing as a journalist at his high school's newspaper, and studied philosophy at Bates College. By teaching students how to write, we teach them how to organize and articulate their ideas. With Quill, he aims to help millions of people improve their writing and thinking skills. In 2016, he was awarded Forbes' 30 Under 30 for education."
 					},
 					{
-						img: 'thumb-ryan.png',
-						name: "Ryan Novas",
-						title: "COO, Web Developer, Cofounder",
-						desc: "Ryan develops new features for Quill and maintains the website. He also oversees Quill's operations and directs technical support initiatives. Ryan previously taught English to high school students in Maine and has worked at marketing and public relations companies in Washington and New York."
-					},
-					{
 						img: 'thumb-donald.png',
 			      name: 'Donald McKendrick',
 			      title: 'Technology Director, Cofounder',
@@ -85,14 +79,8 @@ module PagesHelper
 			      img: 'thumb-emilia.png',
 			      name: "Emilia Friedberg",
 			      title: "Software Developer",
-			      desc: "Emilia is a developer who is passionate about education. Before joining Quill, Emilia taught at an elementary school in Arizona and tutored students at Breakthrough Santa Fe. As a developer, the first program she built was Word by Word, a grammar tool that teaches students how to identify parts of speech in a sentence."
+			      desc: "Emilia is a software developer who is passionate about education. Before joining Quill, Emilia taught at an elementary school in Arizona and tutored students at Breakthrough Santa Fe. As a developer, the first program she built was Word by Word, a grammar tool that teaches students how to identify parts of speech in a sentence."
 			    },
-					{
-						img: 'thumb-amr.png',
-						name: 'Amr Thameen',
-						title: 'Lead Designer',
-						desc: "Amr is the Lead Designer at Quill. He designs Quill’s interface, creates the user experience, and oversees the overall brand image. A speaker of three different languages and graduate of schools on multiple continents, Amr sees the importance of improving students' writing and its effect on critical thinking. Before Quill, Amr was a designer at multiple startups, working with Virtual Reality and the travel industry. Amr holds a bachelor’s degree in Architecture from Middlebury College."
-					},
 					{
 						img: 'thumb-becca.jpg',
 						name: 'Becca Garrison',
@@ -105,11 +93,23 @@ module PagesHelper
 						title: 'Editorial Associate',
 						desc: "Jenny creates new content and works with the Engineering team to provide real-time feedback to students. Before joining Quill, Jenny taught English to elementary school students in France. She holds an undergraduate degree in French and is passionate about improving communication."
 					},
-					{
-						img: 'thumb-jared-silver.jpg',
-						name: "Jared Silver",
-						title: "Software Developer",
-						desc: "Jared Silver is a software developer who joined Quill full-time after contributing as an open source volunteer and intern. He has worked with a number of edtech organizations, such as Codecademy, EdSurge, and Oppia Foundation, and he cares deeply about using technology to make education more equitable."
+          {
+            img: 'thumb-max.jpg',
+            name: 'Max Buck',
+            title: 'Software Developer',
+            desc: "Max is a software developer with a passion for writing. Before joining Quill, Max studied Computer Science at Ohio State University, worked for a number of different startups, and travelled around the country in a gutted Toyota 4Runner."
+          },
+          {
+						img: 'thumb-tom-conroy.jpg',
+						name: 'Tom Conroy',
+						title: 'Software Developer',
+						desc: 'Tom is a software developer who joined Quill to help struggling student writers. Before joining our team, he studied at the University of Maryland, College Park and worked for several startups.'
+					},
+          {
+						img: 'thumb-maddy.jpg',
+						name: 'Maddy Maher',
+						title: 'Outreach Associate',
+						desc: "Maddy is an outreach associate who joined Quill full-time after contributing as an Education Team intern. She is passionate about education and holds an Undergraduate degree in English Literature from Hamilton College."
 					}
 				]
 			},
@@ -117,17 +117,17 @@ module PagesHelper
 				team: 'Board of Directors',
 				members: [
 					{
-						img: "thumb-jane.png",
-						name: "Jane Parver",
-						title: "Board Chair",
-						desc: "Jane Parver is an experienced trial lawyer who concentrates her practice in the areas of civil and white collar litigation and internal investigations. She is Special Counsel at Kaye Scholer, as well as part of the ASCPA board and the Columbia Law School Board of Visitors. Ms. Parver established and now oversees the Susan Price Carr Scholarship Committee, which awards several scholarships annually to Columbia Law School students."
-					},
-					{
 						img: 'thumb-paulwalker.png',
 						name: 'Paul Walker',
-						title: 'Board Member',
+						title: 'Board Chair',
 						desc: "Paul Walker is a New York City based technologist and philanthropist. Paul spends his philanthropic energies working with organizations that provide opportunity and social capital to young adults through access to education, science, and critical reasoning. Paul retired as a partner from Goldman Sachs in 2015, where he co-headed the firm’s technology division and held roles in risk management and technology. He holds a PhD in Physics from the University of Illinois and a BA in Physics from Cornell University."
 					},
+          {
+            img: "thumb-jane.png",
+            name: "Jane Parver",
+            title: "Board Member",
+            desc: "Jane Parver is an experienced trial lawyer who concentrates her practice in the areas of civil and white collar litigation and internal investigations. She is Special Counsel at Kaye Scholer, as well as part of the ASCPA board and the Columbia Law School Board of Visitors. Ms. Parver established and now oversees the Susan Price Carr Scholarship Committee, which awards several scholarships annually to Columbia Law School students."
+          },
 					{
 						img: 'thumb_ben.png',
 						name: "Ben Sussman",
@@ -214,25 +214,7 @@ module PagesHelper
 						name: "Matt Coleman",
 						title: "Developer",
 						desc: "Matt is a developer with a BS in Computer Engineering. He likes Fedora and lives in Boston.",
-					},
-					{
-						img: 'thumb_akash.png',
-						name: "Akash Bagaria",
-						title: "Intern",
-						desc: "Akash is a student taking a gap year prior to attending Harvard University, where he intends to study economics. He is driven to intern at Quill by his fascination with the start-up culture and his love for serving the broader community. Having avidly debated and written for the newspaper throughout high school, Akash grasps the importance of critical thinking -- and he values Quill's mission to instill this skill in students nationwide."
-					},
-					{
-						img: 'thumb_priya.png',
-						name: "Priya Mathur",
-						title: "Intern",
-						desc: "Priya is a graduate student at NYU studying Digital Media Design for Learning. Before pursuing a master’s degree, she was an elementary school teacher and taught in both Canada and England. Most recently, Priya worked as an Educational Technology Consultant in elementary schools across Toronto, training students and teachers on how to accommodate assistive technology to their individual learning needs. She is enthusiastic about learning how educational technology can remove barriers to learning and change the landscape of education."
-					},
-					{
-						img: 'thumb_olivia.png',
-						name: 'Olivia Kingree',
-						title: 'Intern',
-						desc: "Olivia Kingree is a college student who is interning at Quill for the Spring 2017 semester. As an editorial intern, she creates new learning activities and grades existing practice problems. Olivia has also worked as a math and Spanish tutor for middle and high school students for the past four years. She is passionate about reading and writing and hopes to help Quill in its aim to  improve students' writing skills and confidence."
-					},
+					}
 				]
 			}
 		]

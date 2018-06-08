@@ -149,7 +149,10 @@ class ShowClassroomLesson extends Component<any, any> {
       return (
         <div className="admin-classroom-lessons-container">
           <div className="lesson-header">
-            <h5 className="title is-4">Lesson: {this.classroomLesson().title}</h5>
+            <div className="top-line">
+              <h5 className="title is-4">Lesson: {this.classroomLesson().title}</h5>
+              <a href="https://docs.google.com/document/d/1oc3IlB4pDPUFcFLl4eHItPinC9GEKvblkifIKStMSmQ/edit">Quill Lessons Style Guide</a>
+            </div>
             <h5 className="title is-5">{this.renderPercentage()}</h5>
             <EditLessonDetails classroomLesson={this.classroomLesson()} save={this.saveLessonDetails} deleteLesson={this.deleteLesson} />
           </div>

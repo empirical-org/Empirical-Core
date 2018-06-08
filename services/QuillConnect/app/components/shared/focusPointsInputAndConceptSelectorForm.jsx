@@ -8,42 +8,41 @@ import TextEditor from '../questions/textEditor.jsx';
 import ResponseComponent from '../questions/responseComponent'
 import request from 'request'
 
-export default React.createClass({
+export default class FocusPointsInputAndConceptResultSelectorForm extends React.Component {
+  constructor(props) {
+    super(props)
 
-  propTypes: {
-    item: React.PropTypes.obj,
-    onSubmit: React.PropTypes.func.isRequired,
-  },
-
-  getInitialState() {
     const item = this.props.item;
-    return ({
+    this.state = {
       itemText: item ? `${item.text}|||` : '',
       itemFeedback: item ? item.feedback : '',
       itemConcepts: item ? (item.conceptResults ? item.conceptResults : {}) : {},
       matchedCount: 0
-    });
-  },
+    }
+
+    this.handleChange = this.handleChange.bind(this)
+    this.handleFeedbackChange = this.handleFeedbackChange.bind(this)
+    this.getNewAffectedCount = this.getNewAffectedCount.bind(this)
+  }
 
   addOrEditItemLabel() {
     return this.props.item ? `Edit ${this.props.itemLabel}` : `Add New ${this.props.itemLabel}`;
-  },
+  }
 
   getNewAffectedCount() {
     const qid = this.props.questionID
-    const usedSeqs = this.props.usedSequences
     const newSeqs = this.state.itemText.split('|||')
     request(
       {
-        url: `${process.env.QUILL_CMS}/responses/${qid}/incorrect_sequence_affected_count`,
+        url: `${process.env.QUILL_CMS}/responses/${qid}/focus_point_affected_count`,
         method: 'POST',
-        json: {data: {used_sequences: usedSeqs, selected_sequences: newSeqs}},
+        json: {data: {selected_sequences: newSeqs}},
       },
       (err, httpResponse, data) => {
         this.setState({matchedCount: data.matchedCount})
         }
       );
-    },
+    }
 
   handleChange(stateKey, e) {
     const obj = {};
@@ -53,7 +52,7 @@ export default React.createClass({
     }
     obj[stateKey] = value;
     this.setState(obj);
-  },
+  }
 
   handleConceptChange(e) {
     const concepts = this.state.itemConcepts;
@@ -63,11 +62,11 @@ export default React.createClass({
         itemConcepts: concepts,
       });
     }
-  },
+  }
 
   handleFeedbackChange(e) {
     this.setState({itemFeedback: e})
-  },
+  }
 
   submit(focusPoint) {
     const data = {
@@ -76,13 +75,13 @@ export default React.createClass({
       conceptResults: this.state.itemConcepts,
     };
     this.props.onSubmit(data, focusPoint);
-  },
+  }
 
   renderTextInputFields() {
     return this.state.itemText.split('|||').map(text => (
       <input className="input focus-point-text" style={{ marginBottom: 5, }} onChange={this.handleChange.bind(null, 'itemText')} onBlur={this.getNewAffectedCount} type="text" value={text || ''} />
     ));
-  },
+  }
 
   renderConceptSelectorFields() {
     const components = _.mapObject(Object.assign({}, this.state.itemConcepts, { null: { correct: false, text: 'This is a placeholder', }, }), (val, key) => (
@@ -96,32 +95,32 @@ export default React.createClass({
       />
     ));
     return _.values(components);
-  },
+  }
 
   deleteConceptResult(key) {
     const newConceptResults = Object.assign({}, this.state.itemConcepts)
     delete newConceptResults[key]
     this.setState({itemConcepts: newConceptResults})
-  },
+  }
 
   toggleCheckboxCorrect(key) {
     const data = this.state;
     data.itemConcepts[key].correct = !data.itemConcepts[key].correct;
     this.setState(data);
-  },
+  }
 
   toggleSuggestedSequence(text) {
-    let newIncorrectSequences
-    const incorrectSequences = this.state.itemText.split('|||')
-    const index = incorrectSequences.indexOf(`${text}`)
+    let newFocusPoints
+    const focusPoints = this.state.itemText.split('|||')
+    const index = focusPoints.indexOf(`${text}`)
     if (index !== -1) {
-      incorrectSequences.splice(index, 1).join('|||')
-      newIncorrectSequences = incorrectSequences.join('|||')
+      focusPoints.splice(index, 1).join('|||')
+      newFocusPoints = focusPoints.join('|||')
     } else {
-      newIncorrectSequences = incorrectSequences.join('|||') + `${text}|||`
+      newFocusPoints = focusPoints.join('|||') + `${text}|||`
     }
-    this.setState({itemText: newIncorrectSequences}, this.getNewAffectedCount)
-  },
+    this.setState({itemText: newFocusPoints}, this.getNewAffectedCount)
+  }
 
   returnAppropriateDataset() {
     const questionID = this.props.questionID
@@ -135,65 +134,7 @@ export default React.createClass({
       }
     });
     return { dataset: theDatasetYouAreLookingFor, mode, }; // "These are not the datasets you're looking for."
-  },
-
-  renderSuggestedIncorrectSequences() {
-    if (this.props.suggestedSequences && this.props.suggestedSequences.length > 0) {
-      const suggestedSequences = []
-      const coveredSequences = []
-      this.props.suggestedSequences.forEach((seq, i) => {
-        const incorrectSequences = this.state.itemText.split('|||')
-        const added = incorrectSequences.includes(`${seq}`)
-        const covered = _.any(incorrectSequences, inSeq => inSeq.length > 0 && seq.includes(inSeq));
-        let color
-        if (added) {
-          color = '#c0c0c0'
-        } else if (covered) {
-          color = '#969696'
-        } else {
-          color = '#3b3b3b'
-        }
-        const seqTag = this.renderSequenceTag(seq, color, i)
-        covered && !added ? coveredSequences.push(seqTag) : suggestedSequences.push(seqTag)
-      })
-      const suggestedSequencesDiv = suggestedSequences.length > 0 ? <div>
-        <label className="label">Suggested Sequences</label>
-        <div>{suggestedSequences}</div>
-      </div> : null
-      const coveredSequencesDiv = coveredSequences.length > 0 ? <div>
-        <label className="label">Covered by Selected Sequences</label>
-        <div>{coveredSequences}</div>
-      </div> : null
-      return <div>
-        {suggestedSequencesDiv}
-        {coveredSequencesDiv}
-      </div>
-    }
-  },
-
-  renderUsedIncorrectSequences() {
-    if (this.props.usedSequences && this.props.usedSequences.length > 0) {
-      const usedSequences = this.props.usedSequences.map((seq, i) => this.renderSequenceTag(seq, '#c0c0c0', i))
-        return <div>
-          <label className="label">Previously Used Sequences</label>
-          <div>
-            {usedSequences}
-          </div>
-        </div>
-    }
-  },
-
-  renderCoveredByUsedIncorrectSequences() {
-    if (this.props.coveredSequences && this.props.coveredSequences.length > 0) {
-      const coveredSequences = this.props.coveredSequences.map((seq, i) => this.renderSequenceTag(seq, '#969696', i))
-        return <div>
-          <label className="label">Covered by Previously Used Sequences</label>
-          <div>
-            {coveredSequences}
-          </div>
-        </div>
-    }
-  },
+  }
 
   renderSequenceTag(seq, backgroundColor, i) {
     return <span
@@ -203,25 +144,15 @@ export default React.createClass({
         onClick={() => this.toggleSuggestedSequence(seq)}>
       {seq}
       </span>
-   },
+   }
 
-  renderSuggestedIncorrectSequencesSection() {
-    if (this.props.suggestedSequences && this.props.suggestedSequences.length > 0) {
-      return <div>
-        {this.renderSuggestedIncorrectSequences()}
-        {this.renderUsedIncorrectSequences()}
-        {this.renderCoveredByUsedIncorrectSequences()}
-      </div>
-    }
-  },
-
-  renderExplanatoryNote() {
-    return <div style={{ marginBottom: '10px' }}>
-      <p>Focus points can contain regular expressions. See <a href="https://www.regextester.com/">this page</a> to test regular expressions, and access the cheat sheet on the right. <b>Note:</b> any periods need to be prefaced with a backslash ("\") in order to be evaluated correctly. Example: "walked\."</p>
-      <br />
-      <p>In order to indicate that two or more words or phrases must appear in the response together, you can separate them using "&&". Example: "running&&dancing&&swimming", "run&&dance&&swim".</p>
-    </div>
-  },
+   renderExplanatoryNote() {
+     return <div style={{ marginBottom: '10px' }}>
+       <p>Focus points can contain regular expressions. See <a href="https://www.regextester.com/">this page</a> to test regular expressions, and access the cheat sheet on the right. <b>Note:</b> any periods need to be prefaced with a backslash ("\") in order to be evaluated correctly. Example: "walked\."</p>
+       <br />
+       <p>In order to indicate that two or more words or phrases must appear in the response together, you can separate them using "&&". Example: "running&&dancing&&swimming", "run&&dance&&swim".</p>
+     </div>
+   }
 
   render() {
     const appropriateData = this.returnAppropriateDataset();
@@ -234,7 +165,6 @@ export default React.createClass({
           <div className="control">
             <label className="label">{this.props.itemLabel} Text</label>
             {this.renderTextInputFields()}
-            {this.renderSuggestedIncorrectSequencesSection()}
             <label className="label" style={{ marginTop: 10, }}>Feedback</label>
             <TextEditor text={this.state.itemFeedback || ""} handleTextChange={this.handleFeedbackChange} key={"feedback"}/>
             <label className="label" style={{ marginTop: 10, }}>Concepts</label>
@@ -248,7 +178,7 @@ export default React.createClass({
         <div>
           <label className="label">{this.state.matchedCount} {this.state.matchedCount === 1 ? 'sequence' : 'sequences'} affected</label>
           <ResponseComponent
-            selectedIncorrectSequences={this.state.itemText.split('|||')}
+            selectedFocusPoints={this.state.itemText.split('|||')}
             question={dataset}
             mode={mode}
             states={this.props.states}
@@ -257,6 +187,6 @@ export default React.createClass({
         </div>
       </div>
     );
-  },
+  }
 
-});
+};

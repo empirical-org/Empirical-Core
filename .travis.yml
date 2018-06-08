@@ -20,7 +20,7 @@ script:
   # stop postgresql db to save resources
   - sudo service postgresql stop 10
   # run rails security static analysis
-  - bundle exec brakeman -z
+  # - bundle exec brakeman -z
   # setup jest
   - nvm install
   - npm install
