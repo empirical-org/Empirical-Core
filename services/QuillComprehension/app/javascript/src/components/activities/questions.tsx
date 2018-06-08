@@ -46,6 +46,12 @@ export default class AppComponent extends React.Component<AppProps, AppState> {
     })
   };
 
+  updateCompleteness(question_id:number) {
+    const newState = Object.assign({}, this.state);
+    newState.complete[question_id] = true;
+    this.setState(newState)
+  }
+
   updateSubmission(newValue:string, question:Question) {
     const prompt = question.prompt;
     const promptLength = prompt.length
@@ -55,6 +61,14 @@ export default class AppComponent extends React.Component<AppProps, AppState> {
       newState.submissions[question.id] = newValue
       this.setState(newState)
     }
+  }
+
+  allComplete(questions:Array<Question>, completedQuestions:CompleteHash): boolean{
+    let complete = true;
+    questions.forEach((question) => {
+      complete = !!completedQuestions[question.id] && complete
+    })
+    return complete
   }
 
   renderQuestions(questions:Array<Question>, submissions: Submissions) {
@@ -68,9 +82,7 @@ export default class AppComponent extends React.Component<AppProps, AppState> {
               <button className='btn btn-primary' onClick={(e) => {
                 e.preventDefault();
                 submitResponse({variables: {text: this.state.submissions[a.id], question_id: a.id}});
-                const newState = {complete: {}};
-                newState.complete[a.id] = true
-                this.setState(Object.assign(this.state, newState));
+                this.updateCompleteness(a.id);
               }}>Submit</button>
             )}
           </Mutation>
@@ -80,6 +92,13 @@ export default class AppComponent extends React.Component<AppProps, AppState> {
   } 
 
   render() {
+    if (this.allComplete(this.props.questions, this.state.complete)) {
+      return (
+        <div className="article-card">
+          <p>Thanks for playing! Your unique code is: <strong>{Math.random().toString(36).substring(2)}</strong></p>
+        </div>
+      )
+    }
     return (
       <div className="article-card">
         {this.renderQuestions(this.props.questions, this.state.submissions)}
