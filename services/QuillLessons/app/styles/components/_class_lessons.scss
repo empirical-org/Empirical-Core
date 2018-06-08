@@ -56,6 +56,10 @@
         transform-origin: top left;
         padding: 25px;
         pointer-events: none;
+        .student-view {
+          left: 35px !important;
+          width: 400px !important;
+        }
       }
     }
     .sidebar-header {

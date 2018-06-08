@@ -127,7 +127,7 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
     if (this.props.mode === 'PROJECT') {
       return this.renderProject();
     }
-    const textBoxDisabled = !!this.state.submitted;
+    const textBoxDisabled = !!this.state.submitted || this.props.projector
       return (
         <TextEditor
           defaultValue={''}
@@ -146,7 +146,7 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
       if (this.state.submitted) {
         return (<FeedbackRow/>);
       } else if (this.props.data.play.instructions) {
-        return (<Feedback 
+        return (<Feedback
           feedbackType="default"
           feedback={(<p dangerouslySetInnerHTML={{__html: this.props.data.play.instructions}}></p>)}
         />);
