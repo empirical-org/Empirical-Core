@@ -14,13 +14,23 @@ export interface Props {
   updateSubmission: Function; 
   updateCompleteness: Function;
   submitResponse: Function;
+  reset: Function;
 }
 
 class QuestionCard extends React.Component<Props, any> {
-  render() {
-    const {number, question, submission, complete, updateSubmission, updateCompleteness, submitResponse} = this.props;
+  renderCardBackground(complete:boolean) {
+    const classes:string = `card-status card-status-left ${ complete ? 'bg-teal' : 'bg-blue' }` 
     return (
-      <div className="card">
+      <div className={classes}></div>
+    )
+  }
+
+  render() {
+
+    const {number, question, submission, complete, updateSubmission, updateCompleteness, submitResponse, reset} = this.props;
+    return (
+      <div className="card question-wrapper">
+        {this.renderCardBackground(complete)}
         <div className="card-header">
           <h3 className="card-title">Question {number + 1}</h3>
         </div>
@@ -30,7 +40,10 @@ class QuestionCard extends React.Component<Props, any> {
         <div className="card-footer d-fl-r jc-sb">
           <div className="m-r-1"><p></p></div>
           <div>
-            <button className='btn btn-link m-r-1'>Reset</button>
+            <button className='btn btn-link m-r-1' onClick={(e) => {
+              e.preventDefault();
+              reset();
+            }}>Reset</button>
             <button className='btn btn-primary' onClick={(e) => {
               e.preventDefault();
               submitResponse({variables: {text: submission, question_id: question.id}});
