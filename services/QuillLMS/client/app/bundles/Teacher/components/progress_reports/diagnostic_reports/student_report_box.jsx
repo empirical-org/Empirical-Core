@@ -1,22 +1,9 @@
 import React from 'react'
 import ScoreColor from '../../modules/score_color.js'
 import ConceptResultTableRow from './concept_result_table_row.jsx'
-import StudentReportHeader from './student_report_header.jsx'
 import stripHtml from '../../modules/strip_html'
 
 export default React.createClass({
-
-	header: function() {
-		if (this.props.boxNumber === 1) {
-			return (
-				<tr className="student-report-headers">
-					<td><div><span>Question</span></div></td>
-					<td><div><span>Score</span></div></td>
-					<td></td>
-    		</tr>
-			);
-		}
-	},
 
 	concepts: function() {
 		return this.props.questionData.concepts.map((concept) => (
@@ -56,7 +43,6 @@ export default React.createClass({
 
 	render: function() {
 		const data = this.props.questionData;
-		const header = this.props.boxNumber === 1 ? <StudentReportHeader boxNumber={this.props.boxNumber}/> : null;
 		return (
 			<div className='individual-activity-report'>
 				<div className="student-report-box">
@@ -64,7 +50,6 @@ export default React.createClass({
 							<div className='question-index'>{this.props.boxNumber}</div>
 								<table>
 									<tbody>
-										{header}
 										{this.directions()}
 										{this.prompt()}
 										<tr className={ScoreColor(data.score)}>

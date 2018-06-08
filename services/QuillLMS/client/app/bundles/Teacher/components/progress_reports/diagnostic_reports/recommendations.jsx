@@ -294,9 +294,11 @@ export default React.createClass({
   },
 
   renderTableRow(student) {
+    const { activityId, classroomId, unitId } = this.props.routeParams
+    const studentReportLink = `/teachers/progress_reports/diagnostic_reports#/u/${unitId}/a/${activityId}/c/${classroomId}/student_report/${student.id}`
     return (
       <div className="recommendations-table-row" key={student.id}>
-        <div className="recommendations-table-row-name">{student.name}</div>
+        <div className="recommendations-table-row-name"><a href={studentReportLink} target="_blank"><span>{student.name}</span> <i className="fa fa-icon fa-external-link"></i></a></div>
         {this.renderActivityPackRowItems(student)}
       </div>
     );
