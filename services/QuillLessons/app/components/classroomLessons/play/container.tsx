@@ -42,7 +42,6 @@ import {
   scriptTagStrip
 } from '../shared/scriptTagStrip';
 import Spinner from '../../shared/spinner'
-import {firebaseAuth} from '../../../actions/users'
 
 class PlayClassroomLessonContainer extends React.Component<any, any> {
   constructor(props) {
