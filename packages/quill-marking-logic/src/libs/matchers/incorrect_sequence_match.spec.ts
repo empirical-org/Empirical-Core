@@ -54,6 +54,11 @@ const incorrectSequences = [
     text: 'fun.$',
     feedback: 'Inc 6',
     concept_results: [{correct: true, conceptUID: 'a'}]
+  },
+  {
+    text: 'likes&&loves',
+    feedback: 'Inc 7',
+    concept_results: [{correct: true, conceptUID: 'a'}]
   }
 ]
 
@@ -66,7 +71,8 @@ describe('The incorrectSequenceMatch', () => {
     'Jared likes startups as well as Edtech.',
     'Jared likes Edtech as well as Edtech.',
     'Donald likes startups as well as Edtech.',
-    'Jared likes startups as well as Edtech.'
+    'Jared likes startups as well as Edtech.',
+    'Jared loves startups and Edtech'
   ];
 
   const positiveTests = [
@@ -77,6 +83,7 @@ describe('The incorrectSequenceMatch', () => {
     'Jared likes startups and startups.',
     'Emilia likes startups as well as Edtech.',
     'Jared likes startups, Edtech, and fun.',
+    'Jared likes startups and loves edtech.'
   ];
 
   positiveTests.forEach((test:string, i) => {
