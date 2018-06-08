@@ -8,40 +8,56 @@ function _isRoleAuthorized(permittedRoles, currentRole) {
 }
 
 function _belongsToSession(data, token) {
-  return data.classroomActivityId == token.classroom_activity_id;
+  return data.classroomActivityId == token.data.classroom_activity_id;
+}
+
+function _reportError(errorText, data, token, client) {
+  console.error({ error: errorText, data, token });
+  client.emit(errorText, { data, token });
+}
+
+function _checkToken(token, callback) {
+  if (token.isValid) {
+    callback();
+  } else {
+    _reportError('invalidToken', data, token, client);
+  }
 }
 
 export function authorizeSession(data, token, client, callback) {
-  const belongsToSession = _belongsToSession(data, token)
+  _checkToken(token, () => {
+    const belongsToSession = _belongsToSession(data, token)
 
-  if (belongsToSession || _isPreviewSession(data)) {
-    callback();
-  } else {
-    console.error({ error: 'unauthorizedSession', data, token });
-    client.emit('unauthorizedSession', { data, token });
-  }
+    if (belongsToSession || _isPreviewSession(data)) {
+      callback();
+    } else {
+      _reportError('unauthorizedSession', data, token, client);
+    }
+  });
 }
 
 export function authorizeTeacherSession(data, token, client, callback) {
-  const userIsTeacher    = _isRoleAuthorized(['staff', 'teacher'], token.role);
-  const belongsToSession = _belongsToSession(data, token);
-  const isValidSession   = userIsTeacher && belongsToSession;
+  _checkToken(token, () => {
+    const userIsTeacher    = _isRoleAuthorized(['staff', 'teacher'], token.data.role);
+    const belongsToSession = _belongsToSession(data, token);
+    const isValidSession   = userIsTeacher && belongsToSession;
 
-  if (isValidSession || _isPreviewSession(data)) {
-    callback();
-  } else {
-    console.error({ error: 'unauthorizedTeacherSession', data, token });
-    client.emit('unauthorizedTeacherSession', { data, token });
-  }
+    if (isValidSession || _isPreviewSession(data)) {
+      callback();
+    } else {
+      _reportError('unauthorizedTeacherSession', data, token, client);
+    }
+  });
 }
 
 export function authorizeRole(permittedRoles, data, token, client, callback) {
-  const isRoleAuthorized = _isRoleAuthorized(permittedRoles, token.role);
+  _checkToken(token, () => {
+    const isRoleAuthorized = _isRoleAuthorized(permittedRoles, token.data.role);
 
-  if (isRoleAuthorized || _isPreviewSession(data)) {
-    callback();
-  } else {
-    console.error({ error: 'unauthorizedRole', data, token });
-    client.emit('unauthorizedRole', { data, token });
-  }
+    if (isRoleAuthorized || _isPreviewSession(data)) {
+      callback();
+    } else {
+      _reportError('unauthorizedRole', data, token, client);
+    }
+  });
 }

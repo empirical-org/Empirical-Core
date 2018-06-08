@@ -31,20 +31,20 @@ export default React.createClass({
         p: "The diagnostic covers eight fundamental areas of sentence structure, giving you insight into your students’ ability to effectively create both basic and advanced sentences.",
         a: null
       },
-      {imgSrc: "/images/tools/diagnostic/diagnostic_intro_slide_2.svg",
+      {imgSrc: "/images/tools/diagnostic/diagnostic_intro_slide_3.svg",
         imgAlt: "diagnostic overview",
         imgId: 'responses',
         h1: "Student Responses Analyzed",
         p: "Quill automatically analyzes and grades open-ended responses. It identifies the writing skills students know and the skills they need to practice.",
         a: null
       },
-      {imgSrc: "/images/tools/diagnostic/diagnostic_intro_slide_3.svg",
+      {imgSrc: "/images/tools/diagnostic/diagnostic_intro_slide_4.svg",
         imgAlt: "diagnostic overview",
         h1: "Recommended Activities",
         p: "You can then view a variety of reports to identify individual student and class-wide learning gaps. Quill generates a personalized learning plan for students based on where they need the most help.",
         a: null
       },
-      {imgSrc: "/images/tools/diagnostic/diagnostic_intro_slide_4.svg",
+      {imgSrc: "/images/tools/diagnostic/diagnostic_intro_slide_5.svg",
         imgAlt: "diagnostic overview",
         h1: "Evidence Based",
         p: "The diagnostic evaluates student writing using an evidence based strategy called sentence combining. This strategy explicitly teaches students how to write sophisticated, complex sentences.",

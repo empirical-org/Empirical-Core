@@ -8,7 +8,6 @@ import {
 import {
   startListeningToSession
 } from '../../actions/classroomSessions'
-import {firebaseAuth} from '../../actions/users'
 import {getParameterByName} from '../../libs/getParameterByName'
 
 import {

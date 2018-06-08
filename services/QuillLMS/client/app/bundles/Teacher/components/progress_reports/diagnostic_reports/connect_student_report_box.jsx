@@ -1,8 +1,7 @@
 import React from 'react'
 import ScoreColor from '../../modules/score_color.js'
 import ConceptResultTableRow from './concept_result_table_row.jsx'
-import StudentReportHeader from './student_report_header.jsx'
-	import NumberSuffix from '../../modules/numberSuffixBuilder.js'
+import NumberSuffix from '../../modules/numberSuffixBuilder.js'
 
 export default React.createClass({
 
@@ -94,7 +93,6 @@ export default React.createClass({
 
 	render: function() {
 		const data = this.props.questionData;
-		const header = this.props.boxNumber === 1 ? <StudentReportHeader boxNumber={this.props.boxNumber}/> : null;
 		return (
 			<div className='individual-activity-report'>
 				<div className="student-report-box">
@@ -102,7 +100,6 @@ export default React.createClass({
 							<div className='question-index'>{this.props.boxNumber}</div>
 								<table>
 									<tbody>
-										{header}
 										{this.feedbackOrDirections(data.directions, 'Directions')}
 										<tr>
 											<td>Prompt</td>
