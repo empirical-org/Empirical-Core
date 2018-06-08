@@ -1,7 +1,7 @@
 import {responses, incorrectSequences} from '../../../test/data/batswings'
 import { assert } from 'chai';
-import {checkSentenceFragment} from './sentence_fragment'
-// import {checkSentenceFragment} from '../../../dist/lib'
+// import {checkSentenceFragment} from './sentence_fragment'
+import {checkSentenceFragment} from '../../../dist/lib'
 import {Response} from '../../interfaces';
 import { feedbackStrings } from '../constants/feedback_strings';
 import {spacingBeforePunctuation} from '../algorithms/spacingBeforePunctuation'

@@ -3,12 +3,23 @@ import {getTopOptimalResponse} from '../sharedResponseFunctions'
 import {Response, FocusPoint, PartialResponse} from '../../interfaces'
 import {conceptResultTemplate} from '../helpers/concept_result_template'
 
+
+export function focusPointMatchHelper(responseString:string, focusPointParticle:string):boolean {
+  // Given a focus point and a response string, return
+  const matchList = focusPointParticle.split('&&'); // => "Dog&&Cat" => ['Dog', 'Cat']
+  return matchList.every(m => new RegExp(m, 'i').test(responseString));
+}
+
+
 export function focusPointMatch(responseString:string, focusPoints:Array<FocusPoint>):FocusPoint {
-  return _.find(focusPoints, (fp) => {
-    const options = fp.text.split('|||');
-    const anyMatches = _.any(options, opt => responseString.indexOf(opt) !== -1);
+  // respStr = "Bob is cool" (1), "James is cool (2)"
+  // focusPts = [(Bob|||Katherine),(is|||was)]
+  return _.find(focusPoints, (focusPoint) => {
+    const options = focusPoint.text.split('|||');
+    const anyMatches = _.any(options, particle => focusPointMatchHelper(responseString, particle));
     return !anyMatches;
-  });
+  }); // => null (1), (Bob|||Katherine) (2)
+
 }
 
 export function focusPointChecker(responseString: string, focusPoints:Array<FocusPoint>, responses:Array<Response>):PartialResponse|undefined {

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'underscore';
-import MultipleInputAndConceptSelectorForm from '../shared/multipleInputAndConceptSelectorForm.jsx';
+import FocusPointsInputAndConceptResultSelectorForm from '../shared/focusPointsInputAndConceptSelectorForm'
+// import MultipleInputAndConceptSelectorForm from '../shared/multipleInputAndConceptSelectorForm.jsx';
 import questionActions from '../../actions/questions.js';
 import sentenceFragmentActions from '../../actions/sentenceFragments.js';
 
@@ -29,9 +30,19 @@ class NewFocusPointsContainer extends Component {
   }
 
   render() {
+    const states = true
     return (
       <div>
-        <MultipleInputAndConceptSelectorForm itemLabel="Focus Point" onSubmit={this.submitFocusPointForm} />
+        <FocusPointsInputAndConceptResultSelectorForm
+          itemLabel="Focus Point"
+          onSubmit={this.submitFocusPointForm}
+          questionID={this.props.params.questionID}
+          questions={this.props.questions}
+          sentenceFragments={this.props.sentenceFragments}
+          diagnosticQuestions={this.props.diagnosticQuestions}
+          fillInBlank={this.props.fillInBlank}
+          states={states}
+        />
         {this.props.children}
       </div>
     );
@@ -39,17 +50,12 @@ class NewFocusPointsContainer extends Component {
 }
 
 function select(props) {
-  let mapState
-  if (window.location.href.includes('sentence-fragments')) {
-    mapState = {
-      sentenceFragments: props.sentenceFragments
-    };
-  } else {
-    mapState = {
-      questions: props.questions
-    };
+  return {
+    sentenceFragments: props.sentenceFragments,
+    questions: props.questions,
+    diagnosticQuestions: props.diagnosticQuestions,
+    fillInBlank: props.fillInBlank
   }
-  return mapState
 }
 
 export default connect(select)(NewFocusPointsContainer);
