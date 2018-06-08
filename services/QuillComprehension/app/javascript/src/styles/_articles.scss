@@ -1,0 +1,37 @@
+.article-container {
+ padding: 0 0 2rem 0;
+}
+
+.article-card {
+  margin-top: 2rem;
+  background-color: #fff;
+  padding: 3.5rem;
+  width: 880px;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 40, 100, 0.12);
+  border-radius: 3px;
+
+  h2 {
+    margin: 0 0 1rem 0;
+    font-weight: 600;
+    line-height: 1.1;
+    color: inherit; 
+  }
+
+  p {
+    margin: 0;
+    line-height: 1.66;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+  }
+
+}
+
+.article-title {
+  margin: 1.5rem 0;
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: 2.5rem;
+  color: rgb(73, 80, 87);
+}
