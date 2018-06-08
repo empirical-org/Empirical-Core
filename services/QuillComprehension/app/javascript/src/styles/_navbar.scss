@@ -1,0 +1,17 @@
+.navbar {
+  width: 100%;
+  height: 64px;
+  background-color: #fff;
+  padding: 1rem 0px;
+  border-bottom: 1px solid rgba(0, 40, 100, 0.12);
+  
+  .navbar-inner {
+    display: flex;
+    align-items: center;
+    height: 32px;
+
+    span.logo {
+      font-size: 1.2rem;
+    }
+  }
+}
