@@ -1,0 +1,8 @@
+node_modules
+rethinkdb_data
+lib/*
+*.env
+*.crt
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
