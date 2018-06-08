@@ -117,17 +117,17 @@ module PagesHelper
 				team: 'Board of Directors',
 				members: [
 					{
-						img: "thumb-jane.png",
-						name: "Jane Parver",
-						title: "Board Chair",
-						desc: "Jane Parver is an experienced trial lawyer who concentrates her practice in the areas of civil and white collar litigation and internal investigations. She is Special Counsel at Kaye Scholer, as well as part of the ASCPA board and the Columbia Law School Board of Visitors. Ms. Parver established and now oversees the Susan Price Carr Scholarship Committee, which awards several scholarships annually to Columbia Law School students."
-					},
-					{
 						img: 'thumb-paulwalker.png',
 						name: 'Paul Walker',
-						title: 'Board Member',
+						title: 'Board Chair',
 						desc: "Paul Walker is a New York City based technologist and philanthropist. Paul spends his philanthropic energies working with organizations that provide opportunity and social capital to young adults through access to education, science, and critical reasoning. Paul retired as a partner from Goldman Sachs in 2015, where he co-headed the firm’s technology division and held roles in risk management and technology. He holds a PhD in Physics from the University of Illinois and a BA in Physics from Cornell University."
 					},
+          {
+            img: "thumb-jane.png",
+            name: "Jane Parver",
+            title: "Board Member",
+            desc: "Jane Parver is an experienced trial lawyer who concentrates her practice in the areas of civil and white collar litigation and internal investigations. She is Special Counsel at Kaye Scholer, as well as part of the ASCPA board and the Columbia Law School Board of Visitors. Ms. Parver established and now oversees the Susan Price Carr Scholarship Committee, which awards several scholarships annually to Columbia Law School students."
+          },
 					{
 						img: 'thumb_ben.png',
 						name: "Ben Sussman",
