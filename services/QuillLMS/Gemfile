@@ -174,7 +174,7 @@ group :test, :development do
   gem 'terminal-notifier-guard'
   gem 'rspec-retry'
   gem 'rspec-redis_helper'
-  gem 'brakeman'
+  gem 'brakeman', '= 4.1.1'
 end
 
 group :test, :development, :cypress do
