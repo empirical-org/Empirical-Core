@@ -1,4 +1,16 @@
 import * as React from 'react';
+import gql from "graphql-tag";
+import { Mutation } from "react-apollo";
+
+const SUBMIT_RESPONSE = gql`
+  mutation submitResponse($text: String!, $question_id: ID!)  {
+    createNewResponse(text: $text, question_id: $question_id) {
+      id
+      text
+      submissions
+    }
+  }
+`;
 
 export interface Question {
   id:number;
@@ -10,19 +22,24 @@ export interface Submissions {
   [key:number]: string
 }
 
+export interface CompleteHash {
+  [key:number]: boolean
+}
 export interface AppProps {
   questions: Array<Question>
 }
 
 export interface AppState {
   submissions: Submissions
+  complete: CompleteHash
 }
 
 export default class AppComponent extends React.Component<AppProps, AppState> {
   constructor(props) {
     super(props);
     this.state = {
-      submissions: {}
+      submissions: {},
+      complete: {},
     }
     props.questions.forEach((question) => {
       this.state.submissions[question.id] = question.prompt
@@ -46,8 +63,17 @@ export default class AppComponent extends React.Component<AppProps, AppState> {
         <div className='form-group' key={i}>
           <label className='form-label'>Question {i +1}</label>
           <textarea className="form-control" value={submissions[a.id]} onChange={e => this.updateSubmission(e.target.value, a)}/>
-
-          <button className='btn btn-primary' onSubmit={() => {}}>Submit</button>
+          <Mutation mutation={SUBMIT_RESPONSE}>
+            {(submitResponse, { data }) => (
+              <button className='btn btn-primary' onClick={(e) => {
+                e.preventDefault();
+                submitResponse({variables: {text: this.state.submissions[a.id], question_id: a.id}});
+                const newState = {complete: {}};
+                newState.complete[a.id] = true
+                this.setState(Object.assign(this.state, newState));
+              }}>Submit</button>
+            )}
+          </Mutation>
         </div>
       )
     })
