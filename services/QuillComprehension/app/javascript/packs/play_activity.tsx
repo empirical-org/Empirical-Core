@@ -10,7 +10,7 @@ const client = new ApolloClient({});
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
     <ApolloProvider client={client}>
-      <ActivityContainer />
+      <ActivityContainer activity_id={document.getElementById('target').dataset.activityId}/>
     </ApolloProvider>,
     document.getElementById('target'),
   )

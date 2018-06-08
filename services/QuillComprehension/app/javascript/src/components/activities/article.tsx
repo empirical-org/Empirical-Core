@@ -20,10 +20,8 @@ const Article = ({activity_id}): JSX.Element => (
     `}
   >
     {({ loading, error, data }) => {
-      console.log(data)
       if (loading) return <p>Loading...</p>;
       if (error) return <p>Error :(</p>;
-
       return (
         <div className="article-container">
           <h1 className="article-title">Read The Following Passage Carefully</h1>
