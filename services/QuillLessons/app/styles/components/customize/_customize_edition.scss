@@ -18,11 +18,19 @@
       margin-bottom: 30px;
       padding-top: 50px;
       .slide-number {
-        margin-right: 20px;
         min-width: 60px;
         font-size: 16px;
         font-weight: bold;
         color: #3b3b3b;
+      }
+      .slide-number-and-type-container {
+        margin-right: 15px;
+        font-size: 16px;
+        white-space: nowrap;
+      }
+      .slide-type {
+        color: #3c93e1;
+        font-weight: bold;
       }
       .line {
         display: inline-block;
