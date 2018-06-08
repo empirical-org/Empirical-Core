@@ -73,25 +73,17 @@ export default class AppComponent extends React.Component<AppProps, AppState> {
     return complete
   }
 
+  resetQuestion(question:Question) {
+    const newState = Object.assign({}, this.state);
+    newState.complete[question.id] = false;
+    newState.submissions[question.id] = question.prompt;
+    this.setState(newState)
+  }
+
   renderQuestions(questions:Array<Question>, submissions: Submissions) {
     return questions.map((a, i) => {
-      // return (
-      //   <div className='form-group' key={i}>
-      //     <label className='form-label'>Question {i +1}</label>
-      //     <textarea className="form-control" value={submissions[a.id]} onChange={e => this.updateSubmission(e.target.value, a)}/>
-      //     <Mutation mutation={SUBMIT_RESPONSE}>
-      //       {(submitResponse, { data }) => (
-      //         <button className='btn btn-primary' onClick={(e) => {
-      //           e.preventDefault();
-      //           submitResponse({variables: {text: this.state.submissions[a.id], question_id: a.id}});
-      //           this.updateCompleteness(a.id);
-      //         }}>Submit</button>
-      //       )}
-      //     </Mutation>
-      //   </div>
-      // )
       return (
-        <Mutation mutation={SUBMIT_RESPONSE}>
+        <Mutation mutation={SUBMIT_RESPONSE} key={a.id}>
           {(submitResponse, { data }) => (
             <QuestionCard 
             question={a} 
@@ -99,7 +91,8 @@ export default class AppComponent extends React.Component<AppProps, AppState> {
             complete={this.state.complete[a.id]}
             updateSubmission={this.updateSubmission}
             updateCompleteness={this.updateCompleteness}
-            submitResponse={submitResponse} 
+            submitResponse={submitResponse}
+            reset={() => {this.resetQuestion(a)} } 
             number={i}/>
           )}
         </Mutation>
