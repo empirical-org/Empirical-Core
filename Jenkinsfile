@@ -12,7 +12,7 @@ pipeline {
 
       }
     }
-    stage('test-ruby') {
+    stage('test') {
       parallel {
         stage('test-ruby') {
           agent {
@@ -21,7 +21,6 @@ pipeline {
               dir '.'
               args '-u root:sudo -v $HOME/workspace/myproject:/myproject --name lms-webapp --network jnk-net'
             }
-
           }
           environment {
             REDISCLOUD_URL = 'redis://localhost:6379/0'
@@ -49,41 +48,33 @@ pipeline {
               sh 'bundle exec brakeman -z'
               echo 'Test successful!'
             }
-
           }
         }
-        stage('test-node2') {
+        stage('test-node') {
+          agent {
+            dockerfile {
+              filename 'Dockerfile.test-node'
+              dir 'services/QuillJenkins/agents/QuillLMS'
+              args '-u root:sudo -v $HOME/workspace/myproject:/myproject --name lms-webapp-frontend --network jnk-net'
+            }
+
+          }
           steps {
-            echo 'Parallel step'
+            echo 'Beginnning front-end tests...'
+            withCredentials(bindings: [string(credentialsId: 'codecov-token', variable: 'CODECOV_TOKEN')]) {
+              dir(path: 'services/QuillLMS') {
+                echo 'Installing necessary packages...'
+                sh 'npm install'
+                sh 'ls'
+                echo 'Building test distribution'
+                sh 'npm run build:test'
+                echo 'Running jest...'
+                sh 'npm run jest:coverage'
+                sh "curl -s https://codecov.io/bash | bash -s - -cF jest -t $CODECOV_TOKEN"
+              }
+            }
           }
         }
-      }
-    }
-    stage('test-node') {
-      agent {
-        dockerfile {
-          filename 'Dockerfile.test-node'
-          dir 'services/QuillJenkins/agents/QuillLMS'
-          args '-u root:sudo -v $HOME/workspace/myproject:/myproject --name lms-webapp-frontend --network jnk-net'
-        }
-
-      }
-      steps {
-        echo 'Beginnning front-end tests...'
-        withCredentials(bindings: [string(credentialsId: 'codecov-token', variable: 'CODECOV_TOKEN')]) {
-          dir(path: 'services/QuillLMS') {
-            echo 'Installing necessary packages...'
-            sh 'npm install'
-            sh 'ls'
-            echo 'Building test distribution'
-            sh 'npm run build:test'
-            echo 'Running jest...'
-            sh 'npm run jest:coverage'
-            sh "curl -s https://codecov.io/bash | bash -s - -cF jest -t $CODECOV_TOKEN"
-          }
-
-        }
-
       }
     }
     stage('deploy') {
@@ -100,7 +91,6 @@ pipeline {
             echo "deploy stage ignored; you are not on master or develop."
           }
         }
-
       }
     }
   }
@@ -110,8 +100,7 @@ pipeline {
       sh 'docker stop lms-testdb'
       sh 'docker rm lms-testdb'
       sh 'docker network rm jnk-net'
-
     }
-
   }
 }
+
