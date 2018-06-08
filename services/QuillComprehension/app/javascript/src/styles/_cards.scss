@@ -1,0 +1,41 @@
+.card {
+  margin-top: 2rem;
+  background-color: #fff;
+  width: 880px;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 40, 100, 0.12);
+  border-radius: 3px;
+
+  .card-header {
+    background: none;
+    padding: 0.5rem 1.5rem;
+    display: -ms-flexbox;
+    display: flex;
+    min-height: 3.5rem;
+    -ms-flex-align: center;
+    align-items: center;
+    border-bottom: 1px solid rgba(0, 40, 100, 0.12);
+    margin-bottom: 0px;
+  }
+
+  .card-title {
+    font-size: 1.125rem;
+    line-height: 1.2;
+    font-weight: 400;
+    margin-bottom: 1.5rem;
+  }
+
+  .card-body {
+    flex: 1 1 auto;
+    margin: 0;
+    padding: 1.5rem 1.5rem;
+    position: relative;
+  }
+  
+  .card-footer {
+    padding: 1rem 1.5rem;
+    background: none;
+    border-top: 1px solid rgba(0, 40, 100, 0.12);
+    margin-top: 0px;
+  }
+}
