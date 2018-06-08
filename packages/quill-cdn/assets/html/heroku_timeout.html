@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="../styles/error_page_styles.css">
+  </head>
+  <body>
+
+  <div class="container timeout">
+    <img class="logo" src="../images/timeout/QuillLogoTimeout.svg">
+    <div class="content">
+      <div class="text">
+        <h1>Timeout Error</h1>
+
+        <p>Sorry! We are currently experiencing a large amount of traffic, and we are not able to load this page.</p>
+
+        <p class="try-again">Please try again in one minute.</p>
+
+        <button onclick="refreshPage()">Refresh Page</button>
+
+        <p class="contact-us">If you keep seeing this page or if you need help, you can call us at <span class="contact-info">646-442-1095</span> or email us at <span class="contact-info">hello@quill.org</span></p>
+      </div>
+
+      <div class="illustration">
+        <img src="../images/timeout/TimeoutIllustration.svg">
+      </div>
+    </div>
+  </div>
+
+  <script>
+  function refreshPage() {
+    location.reload()
+  }
+  </script>
+
+  </body>
+</html>
