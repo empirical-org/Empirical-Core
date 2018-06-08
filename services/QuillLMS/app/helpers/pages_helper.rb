@@ -214,25 +214,7 @@ module PagesHelper
 						name: "Matt Coleman",
 						title: "Developer",
 						desc: "Matt is a developer with a BS in Computer Engineering. He likes Fedora and lives in Boston.",
-					},
-					{
-						img: 'thumb_akash.png',
-						name: "Akash Bagaria",
-						title: "Intern",
-						desc: "Akash is a student taking a gap year prior to attending Harvard University, where he intends to study economics. He is driven to intern at Quill by his fascination with the start-up culture and his love for serving the broader community. Having avidly debated and written for the newspaper throughout high school, Akash grasps the importance of critical thinking -- and he values Quill's mission to instill this skill in students nationwide."
-					},
-					{
-						img: 'thumb_priya.png',
-						name: "Priya Mathur",
-						title: "Intern",
-						desc: "Priya is a graduate student at NYU studying Digital Media Design for Learning. Before pursuing a master’s degree, she was an elementary school teacher and taught in both Canada and England. Most recently, Priya worked as an Educational Technology Consultant in elementary schools across Toronto, training students and teachers on how to accommodate assistive technology to their individual learning needs. She is enthusiastic about learning how educational technology can remove barriers to learning and change the landscape of education."
-					},
-					{
-						img: 'thumb_olivia.png',
-						name: 'Olivia Kingree',
-						title: 'Intern',
-						desc: "Olivia Kingree is a college student who is interning at Quill for the Spring 2017 semester. As an editorial intern, she creates new learning activities and grades existing practice problems. Olivia has also worked as a math and Spanish tutor for middle and high school students for the past four years. She is passionate about reading and writing and hopes to help Quill in its aim to  improve students' writing skills and confidence."
-					},
+					}
 				]
 			}
 		]
