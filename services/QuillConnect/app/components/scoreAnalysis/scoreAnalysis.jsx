@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
+  updateData,
   loadScoreData,
   checkTimeout
 } from '../../actions/scoreAnalysis.js';
@@ -81,9 +82,10 @@ class ScoreAnalysis extends Component {
   }
 
   formatDataForQuestionType(questionData, scoreAnalysis, typeName, pathName) {
-    return _.map(hashToCollection(questionData), question => {
+    return _.map(hashToCollection(questionData), (question) => {
       const scoreData = scoreAnalysis.data[question.key];
       if (scoreData) {
+        console.log('scoreData', scoreData.activities)
         const percentageWeakResponses = Math.round(scoreData.common_unmatched_responses/scoreData.responses * 100)
         return {
           key: `${question.key}-${typeName}`,
@@ -97,7 +99,8 @@ class ScoreAnalysis extends Component {
           focusPoints: question.focusPoints ? Object.keys(question.focusPoints).length : 0,
           incorrectSequences: question.incorrectSequences ? Object.keys(question.incorrectSequences).length : 0,
           flag: question.flag,
-          pathName: pathName
+          pathName,
+          activities: scoreData.activities || []
         };
       }
     });
@@ -219,10 +222,6 @@ class ScoreAnalysis extends Component {
 
   sortData(data) {
     switch (this.state.sort) {
-      case 'questionType':
-      case 'prompt':
-      case 'flag':
-        return this.sortAlphabetically(data);
       case 'responses':
       case 'weakResponses':
       case 'incorrectSequences':
@@ -231,6 +230,13 @@ class ScoreAnalysis extends Component {
         return this.sortNumerically(data)
       case 'status':
         return this.sortByStatus(data)
+      case 'activities':
+        return this.sortByActivity(data)
+      case 'questionType':
+      case 'prompt':
+      case 'flag':
+      default:
+        return this.sortAlphabetically(data);
     }
   }
 
@@ -239,7 +245,7 @@ class ScoreAnalysis extends Component {
   }
 
   sortAlphabetically(data) {
-    return data.sort((a, b,) => {
+    return data.sort((a, b) => {
       const aSort = a[this.state.sort] ? a[this.state.sort] : ''
       const bSort = b[this.state.sort] ? b[this.state.sort] : ''
       return aSort.localeCompare(bSort)
@@ -249,6 +255,14 @@ class ScoreAnalysis extends Component {
   sortByStatus(data) {
     const statusOrder = ['Very Weak', 'Weak', 'Okay', 'Strong']
     return data.sort((a, b) => statusOrder.indexOf(a[this.state.sort]) - statusOrder.indexOf(b[this.state.sort]))
+  }
+
+  sortByActivity(data) {
+    return data.sort((a, b) => {
+      const aSort = a[this.state.sort] && a[this.state.sort][0] ? a[this.state.sort][0].name : ''
+      const bSort = b[this.state.sort] && b[this.state.sort][0] ? b[this.state.sort][0].name : ''
+      return aSort.localeCompare(bSort)
+    })
   }
 
   renderRows() {
@@ -316,6 +330,7 @@ class ScoreAnalysis extends Component {
                 <th onClick={this.clickSort.bind(this, 'incorrectSequences')}>Incorrect #</th>
                 <th onClick={this.clickSort.bind(this, 'hasModelConcept')}>Model</th>
                 <th onClick={this.clickSort.bind(this, 'flag')}>Flag</th>
+                <th onClick={this.clickSort.bind(this, 'activities')}>Activity</th>
               </tr>
             </thead>
             <tbody>
