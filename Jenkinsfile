@@ -69,7 +69,7 @@ pipeline {
       steps {
         echo "Beginnning front-end tests..."
         withCredentials([string(credentialsId: 'codecov-token', variable: 'CODECOV_TOKEN')]) {
-          dir('services/QuillLMS/client') {
+          dir('services/QuillLMS') {
             echo "Installing necessary packages..."
             sh 'npm install'
             sh 'ls'
