@@ -184,6 +184,7 @@ protected
       LEFT JOIN schools_users ON users.id = schools_users.user_id
       LEFT JOIN schools ON schools_users.school_id = schools.id
       LEFT JOIN user_subscriptions ON users.id = user_subscriptions.user_id
+      AND user_subscriptions.created_at = (SELECT MAX(user_subscriptions.created_at) FROM user_subscriptions WHERE user_subscriptions.user_id = users.id)
       LEFT JOIN subscriptions ON user_subscriptions.subscription_id = subscriptions.id
       #{where_query_string_builder}
       #{order_by_query_string}
@@ -193,8 +194,7 @@ protected
 
   def where_query_string_builder
     not_temporary = "users.role != 'temporary'"
-    most_recent_subscription = "user_subscriptions.created_at = (SELECT MAX(user_subscriptions.created_at) FROM user_subscriptions WHERE user_subscriptions.user_id = users.id)"
-    conditions = [not_temporary, most_recent_subscription]
+    conditions = [not_temporary]
     @all_search_inputs.each do |param|
       param_value = user_query_params[param]
       if param_value && !param_value.empty?
