@@ -46,6 +46,8 @@ export default class AppComponent extends React.Component<AppProps, AppState> {
         <div className='form-group' key={i}>
           <label className='form-label'>Question {i +1}</label>
           <textarea className="form-control" value={submissions[a.id]} onChange={e => this.updateSubmission(e.target.value, a)}/>
+
+          <button className='btn btn-primary' onSubmit={() => {}}>Submit</button>
         </div>
       )
     })
