@@ -5,12 +5,13 @@ import path from 'path'
 dotenv.config()
 
 const rethinkdbConfig = (() => {
-  const pathToCert = path.resolve(__dirname + '/../..') + '/rethink-public-key.crt'
+  const keyFileName = `/rethink-public-key-${process.env.NODE_ENV}.crt`;
+  const pathToCert  = path.resolve(__dirname + '/../..') + keyFileName;
 
   let config = {
     host: process.env.RETHINKDB_HOST,
     port: process.env.RETHINKDB_PORT,
-    db: 'quill_lessons'
+    db:   'quill_lessons'
   }
 
   if (process.env.RETHINKDB_AUTH_KEY) {
@@ -18,7 +19,7 @@ const rethinkdbConfig = (() => {
   }
 
   if (process.env.RETHINKDB_USE_SSL === 'true') {
-    const caCert = fs.readFileSync(pathToCert)
+    const caCert  = fs.readFileSync(pathToCert)
     config['ssl'] = { ca: caCert }
   }
 
