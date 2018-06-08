@@ -1,4 +1,3 @@
-/// <reference types="underscore" />
 import * as _ from 'underscore';
 import { Response, PartialResponse } from '../interfaces';
 export interface ResponseObject {

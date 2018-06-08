@@ -1,0 +1,3 @@
+rethinkdb: rethinkdb --http-port 9000
+lessons-server: cd ../QuillLessonsServer && NODE_PORT=8000 RETHINKDB_HOST=localhost RETHINKDB_PORT=28015 npm start
+connect-client: cd ../QuillLessons && QUILL_CMS=localhost:3100 node_modules/.bin/webpack-dev-server --hot --inline

@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import _ from 'underscore';
 import IncorrectSequencesInputAndConceptSelectorForm from '../shared/incorrectSequencesInputAndConceptSelectorForm.jsx';
 import questionActions from '../../actions/questions.js';
-import request from 'request'
 
 class NewIncorrectSequencesContainer extends Component {
   constructor() {

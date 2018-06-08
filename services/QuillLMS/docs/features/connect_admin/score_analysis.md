@@ -14,7 +14,8 @@ question_uid: {
   total_attempts: integer,
   common_matched_attempts: integer,
   common_unmatched_attempts: integer,
-  common_unmatched_responses: integer
+  common_unmatched_responses: integer,
+  activities: [{uid: string, name: string}]
 }
 ```
 
@@ -76,3 +77,6 @@ Whether or not there is a model concept.
 
 ### Flag
 Question flag.
+
+### Activities
+Links to activities that contain the question.

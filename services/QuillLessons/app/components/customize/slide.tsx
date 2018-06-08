@@ -31,6 +31,40 @@ export default class Slide extends React.Component<any, any> {
     this.setState({showScript: !this.state.showScript})
   }
 
+  slideTypeName() {
+    switch (this.props.question.type) {
+      case 'CL-ST':
+      case 'CL-EX':
+        return 'Static Text'
+      case 'CL-MD':
+        return 'Teacher Model'
+      case 'CL-SA':
+      case 'CL-FB':
+      case 'CL-FL':
+      case 'CL-MS':
+        return 'Students Practice'
+      default:
+        return ''
+    }
+  }
+
+  numberAndTypeWidth() {
+    switch (this.props.question.type) {
+      case 'CL-ST':
+      case 'CL-EX':
+        return '130px'
+      case 'CL-MD':
+        return '165px'
+      case 'CL-SA':
+      case 'CL-FB':
+      case 'CL-FL':
+      case 'CL-MS':
+        return '185px'
+      default:
+        return ''
+    }
+  }
+
   renderSlide() {
     if (this.state.showSlide) {
       const Component = getComponent(this.props.question.type)
@@ -66,7 +100,10 @@ export default class Slide extends React.Component<any, any> {
     const showSlideButtonText = this.state.showSlide ? 'Hide' : 'Show'
     return <div className="slide-container" key={this.props.questionIndex}>
       <div className='slide-header'>
-      <span className="slide-number">Slide {this.props.questionIndex}</span>
+      <div style={{minWidth: `${this.numberAndTypeWidth()}`}} className='slide-number-and-type-container'>
+        <span className="slide-number">Slide {this.props.questionIndex} - </span>
+        <span className="slide-type">{this.slideTypeName()}</span>
+      </div>
       <span className="line"></span>
       <span onClick={this.toggleShowSlide} className="hide">{showSlideButtonText}</span>
       </div>
