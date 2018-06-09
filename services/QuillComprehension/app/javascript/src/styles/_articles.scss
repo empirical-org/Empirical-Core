@@ -6,10 +6,19 @@
   margin-top: 2rem;
   background-color: #fff;
   padding: 3.5rem;
-  width: 880px;
+  width: 100%;
+  max-width: 880px;
   background-clip: border-box;
   border: 1px solid rgba(0, 40, 100, 0.12);
   border-radius: 3px;
+
+  @media (max-width: 480px) { 
+    padding: 2rem;
+  }
+
+  @media (max-width: 320px) { 
+    padding: 1rem;
+  }
 
   h2 {
     margin: 0 0 1rem 0;
