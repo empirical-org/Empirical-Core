@@ -25,9 +25,23 @@ class QuestionCard extends React.Component<Props, any> {
     )
   }
 
+  renderSubmitButton(complete:boolean, clickSubmitButton){
+    if (complete) return (
+      <button className='btn btn-success' onClick={(e) => e.preventDefault()}>
+        Submitted
+      </button>
+    )
+    return (<button className='btn btn-primary' onClick={clickSubmitButton}>Submit</button>)
+  }
+
   render() {
 
     const {number, question, submission, complete, updateSubmission, updateCompleteness, submitResponse, reset} = this.props;
+    const clickSubmitButton = (e) => {
+      e.preventDefault();
+      submitResponse({variables: {text: submission, question_id: question.id}});
+      updateCompleteness(question.id);
+    }
     return (
       <div className="card question-wrapper">
         {this.renderCardBackground(complete)}
@@ -44,11 +58,8 @@ class QuestionCard extends React.Component<Props, any> {
               e.preventDefault();
               reset();
             }}>Reset</button>
-            <button className='btn btn-primary' onClick={(e) => {
-              e.preventDefault();
-              submitResponse({variables: {text: submission, question_id: question.id}});
-              updateCompleteness(question.id);
-            }}>Submit</button></div>
+            {this.renderSubmitButton(complete, clickSubmitButton)}
+          </div>
         </div>
       </div>
     );
