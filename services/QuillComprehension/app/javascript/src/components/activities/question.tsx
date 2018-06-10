@@ -48,8 +48,8 @@ class QuestionCard extends React.Component<Props, any> {
         <div className="card-header">
           <h3 className="card-title">Question {number + 1}</h3>
         </div>
-        <div className="card-body">
-          <textarea className="form-control" value={submission} onChange={e => updateSubmission(e.target.value, question)}/>
+        <div className="card-body p-0">
+          <textarea className="form-control question" value={submission} onChange={e => updateSubmission(e.target.value, question)}/>
         </div>
         <div className="card-footer d-fl-r jc-sb">
           <div className="m-r-1"><p></p></div>
