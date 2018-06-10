@@ -1,9 +1,16 @@
 import * as React from 'react';
+import {connect} from 'react-redux'
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import Article from './article'
 import Questions from './questions'
-export interface AppProps { 
+import {markArticleAsRead} from '../../actions/activities'
+import {ActivitiesState} from '../../reducers/activities'
+
+export interface AppProps extends PassedProps, DispatchFromProps, StateFromProps { 
+}
+
+export interface PassedProps {
   activity_id: string
 }
 
@@ -32,7 +39,7 @@ function activityQuery(activity_id:string) {
 `
 }
 
-export default class AppComponent extends React.Component<AppProps, any> {
+class ActivityContainer extends React.Component<AppProps, any> {
   render() {
     return (
       <Query
@@ -45,7 +52,7 @@ export default class AppComponent extends React.Component<AppProps, any> {
             <div className="container">
               <div className="article-container">
                 <h1 className="article-title">Read The Following Passage Carefully</h1>
-                <Article activity_id={parseInt(this.props.activity_id)} article={data.activity.article} title={data.activity.title} />
+                <Article activity_id={parseInt(this.props.activity_id)} article={data.activity.article} title={data.activity.title} markAsRead={this.props.markArticleAsRead} />
                 <h1 className="article-title">Now Complete The Following Sentences</h1>
                 <Questions questions={data.activity.questions}/>
               </div>
@@ -56,3 +63,27 @@ export default class AppComponent extends React.Component<AppProps, any> {
     );
   }
 }
+
+interface StateFromProps {
+  activities: ActivitiesState;
+}
+
+interface DispatchFromProps {
+  markArticleAsRead: () => void;
+}
+
+const mapStateToProps = state => {
+  return {
+    activities: state.activities
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    markArticleAsRead: () => {
+      dispatch(markArticleAsRead())
+    }
+  }
+}
+
+export default connect<StateFromProps, DispatchFromProps, PassedProps>(mapStateToProps, mapDispatchToProps)(ActivityContainer)
