@@ -2,10 +2,11 @@ import * as React from 'react';
 import {connect} from 'react-redux'
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
-import Article from './article'
-import Questions from './questions'
-import {markArticleAsRead} from '../../actions/activities'
-import {ActivitiesState} from '../../reducers/activities'
+import Article from './article';
+import Questions from './questions';
+import QuestionSets from './question_sets';
+import {markArticleAsRead, chooseQuestionSet} from '../../actions/activities';
+import {ActivitiesState} from '../../reducers/activities';
 
 export interface AppProps extends PassedProps, DispatchFromProps, StateFromProps { 
 }
@@ -53,6 +54,7 @@ class ActivityContainer extends React.Component<AppProps, any> {
               <div className="article-container">
                 <h1 className="article-title">Read The Following Passage Carefully</h1>
                 <Article activity_id={parseInt(this.props.activity_id)} article={data.activity.article} title={data.activity.title} markAsRead={this.props.markArticleAsRead} />
+                <QuestionSets questionSets={data.activity.question_sets} chooseQuestionSet={this.props.chooseQuestionSet} questionSetId={this.props.activities.questionSetId}/>
                 <h1 className="article-title">Now Complete The Following Sentences</h1>
                 <Questions questions={data.activity.questions}/>
               </div>
@@ -70,6 +72,7 @@ interface StateFromProps {
 
 interface DispatchFromProps {
   markArticleAsRead: () => void;
+  chooseQuestionSet: (questionSetId:number) => void
 }
 
 const mapStateToProps = state => {
@@ -82,6 +85,9 @@ const mapDispatchToProps = dispatch => {
   return {
     markArticleAsRead: () => {
       dispatch(markArticleAsRead())
+    },
+    chooseQuestionSet: (questionSetId) => {
+      dispatch(chooseQuestionSet(questionSetId))
     }
   }
 }

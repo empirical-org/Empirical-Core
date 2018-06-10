@@ -13,12 +13,14 @@ export interface ActivitiesState {
   submissions: Submissions
   complete: CompleteHash
   readArticle: false
+  questionSetId: string|null
 }
 
 export const initialState:ActivitiesState = {
   submissions: {},
   complete: {},
   readArticle: false,
+  questionSetId: null
 }
 
 function activityReducer(state:ActivitiesState=initialState,action?:ActivitiesAction) {
