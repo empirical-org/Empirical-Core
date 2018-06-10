@@ -1,5 +1,5 @@
 import { ActivitiesAction, UPDATE_SUBMISSION, COMPLETE_QUESTION, READ_ARTICLE } from "../actions/activities";
-import R from 'ramda';
+import * as R from 'ramda';
 
 export interface Submissions {
   [key:number]: string
