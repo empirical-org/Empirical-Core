@@ -1,7 +1,10 @@
 import * as React from 'react';
+import {connect} from 'react-redux'
 import gql from "graphql-tag";
 import { Mutation } from "react-apollo";
 import QuestionCard from './question';
+import {updateSubmission, completeQuestion} from '../../actions/activities'
+import {ActivitiesState} from '../../reducers/activities'
 
 const SUBMIT_RESPONSE = gql`
   mutation submitResponse($text: String!, $question_id: ID!)  {
@@ -26,42 +29,28 @@ export interface Submissions {
 export interface CompleteHash {
   [key:number]: boolean
 }
-export interface AppProps {
+export interface AppProps extends DispatchFromProps,StateFromProps {
   questions: Array<Question>
 }
 
 export interface AppState {
-  submissions: Submissions
-  complete: CompleteHash
 }
 
-export default class AppComponent extends React.Component<AppProps, AppState> {
+class QuestionComponent extends React.Component<AppProps, any> {
   constructor(props) {
     super(props);
-    this.state = {
-      submissions: {},
-      complete: {},
-    }
     props.questions.forEach((question) => {
-      this.state.submissions[question.id] = question.prompt
+      props.updateSubmission(question.id, question.prompt)
     })
-    this.updateCompleteness = this.updateCompleteness.bind(this);
     this.updateSubmission = this.updateSubmission.bind(this);
   };
 
-  updateCompleteness(question_id:number) {
-    const newState = Object.assign({}, this.state);
-    newState.complete[question_id] = true;
-    this.setState(newState)
-  }
 
   updateSubmission(newValue:string, question:Question) {
     const prompt = question.prompt;
     const promptLength = prompt.length
     if (newValue.substr(0, promptLength) === prompt) {
-      const newState = Object.assign({}, this.state)
-      newState.submissions[question.id] = newValue
-      this.setState(newState)
+      this.props.updateSubmission(question.id, newValue);
     }
   }
 
@@ -73,13 +62,6 @@ export default class AppComponent extends React.Component<AppProps, AppState> {
     return complete
   }
 
-  resetQuestion(question:Question) {
-    const newState = Object.assign({}, this.state);
-    newState.complete[question.id] = false;
-    newState.submissions[question.id] = question.prompt;
-    this.setState(newState)
-  }
-
   renderQuestions(questions:Array<Question>, submissions: Submissions) {
     return questions.map((a, i) => {
       return (
@@ -87,12 +69,12 @@ export default class AppComponent extends React.Component<AppProps, AppState> {
           {(submitResponse, { data }) => (
             <QuestionCard 
             question={a} 
-            submission={this.state.submissions[a.id]} 
-            complete={this.state.complete[a.id]}
+            submission={this.props.activities.submissions[a.id]} 
+            complete={this.props.activities.complete[a.id]}
             updateSubmission={this.updateSubmission}
-            updateCompleteness={this.updateCompleteness}
+            updateCompleteness={this.props.markQuestionAsComplete}
             submitResponse={submitResponse}
-            reset={() => {this.resetQuestion(a)} } 
+            reset={() => {this.props.resetQuestion(a)} } 
             number={i}/>
           )}
         </Mutation>
@@ -101,7 +83,7 @@ export default class AppComponent extends React.Component<AppProps, AppState> {
   } 
 
   render() {
-    if (this.allComplete(this.props.questions, this.state.complete)) {
+    if (this.allComplete(this.props.questions, this.props.activities.complete)) {
       return (
         <div className="article-card">
           <p>Thanks for playing! Your unique code is: <strong>{Math.random().toString(36).substring(2)}</strong></p>
@@ -110,9 +92,40 @@ export default class AppComponent extends React.Component<AppProps, AppState> {
     }
     return (
       <div>
-        {this.renderQuestions(this.props.questions, this.state.submissions)}
+        {this.renderQuestions(this.props.questions, this.props.activities.submissions)}
       </div>
     );
   }
 }
 
+interface StateFromProps {
+  activities: ActivitiesState
+}
+
+interface DispatchFromProps {
+  resetQuestion: (question:Question) => void;
+  updateSubmission: (questionId:number, submission:string) => void;
+  markQuestionAsComplete: (questionId:number) => void;
+}
+
+const mapStateToProps = state => {
+  return {
+    activities: state.activities
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    resetQuestion: (question:Question) => {
+      dispatch(updateSubmission(question.id, question.prompt))
+    },
+    updateSubmission: (questionId:number, submission:string) => {
+      dispatch(updateSubmission(questionId, submission))
+    },
+    markQuestionAsComplete: (questionId:number) => {
+      dispatch(completeQuestion(questionId))
+    },
+  }
+}
+
+export default connect<StateFromProps, DispatchFromProps, {questions: Array<Question>}>(mapStateToProps,mapDispatchToProps)(QuestionComponent)
