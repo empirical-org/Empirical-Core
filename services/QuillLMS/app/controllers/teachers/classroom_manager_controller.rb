@@ -19,10 +19,6 @@ class Teachers::ClassroomManagerController < ApplicationController
       redirect_to new_teachers_classroom_path
     else
       set_classroom_variables
-      post_to_google_if_valid
-
-
-
     end
   end
 
@@ -134,7 +130,6 @@ class Teachers::ClassroomManagerController < ApplicationController
     }
   end
 
-  # needed to simply render a page, lets React.js do the rest
   def my_account
   end
 
@@ -156,7 +151,6 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def google_sync
-    # renders the google sync jsx file
   end
 
   def retrieve_google_classrooms
@@ -250,24 +244,6 @@ class Teachers::ClassroomManagerController < ApplicationController
   def authorize_teacher!
     if params[:classroom_id]
       classroom_teacher!(params[:classroom_id])
-    end
-  end
-
-  def post_to_google_if_valid
-    if @classroom_activities_valid_for_google
-      session[:classroom_activities_to_post] = @classroom_activities_valid_for_google
-      post_classroom_activities_to_google
-    end
-  end
-
-  def classroom_activities_valid_for_google?
-    if params[:activityPackId]
-      @classroom_activities_valid_for_google = valid_current_user.units.last.classroom_activities.select do |act_pack|
-        act_pack.is_valid_for_google_announcement_with_specific_user?(current_user)
-      end
-      @classroom_activities_valid_for_google.any?
-    else
-      false
     end
   end
 
