@@ -17,15 +17,15 @@ const LessonForm = React.createClass({
       selectedQuestions: currentValues && currentValues.questions ? currentValues.questions : [],
       flag: currentValues ? currentValues.flag : 'alpha',
       questionType: 'questions',
-      modelConceptUID: null
+      modelConceptUID: currentValues ? currentValues.modelConceptUID : null
     };
   },
 
   submit() {
-    const { name, questions, landingPageHtml, flag, modelConceptUID } = this.state
+    const { name, selectedQuestions, landingPageHtml, flag, modelConceptUID, } = this.state
     this.props.submit({
       name,
-      questions,
+      questions: selectedQuestions,
       landingPageHtml,
       flag,
       modelConceptUID
