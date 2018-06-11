@@ -17,6 +17,7 @@ Empirical Core is the Learning Management System that powers Quill.org, a free w
 |---|---|---|---|---|
 |[![codecov](https://codecov.io/gh/empirical-org/Empirical-Core/branch/iss4261%2Fjenkins-mono/graph/badge.svg?flag=jest)](https://codecov.io/gh/empirical-org/Empirical-Core)|[![codecov](https://codecov.io/gh/empirical-org/Empirical-Core/branch/iss4261%2Fjenkins-mono/graph/badge.svg?flag=rspec)](https://codecov.io/gh/empirical-org/Empirical-Core)|[![Build Status](https://travis-ci.org/empirical-org/Empirical-Core.svg?branch=iss4261%2Fjenkins-mono)](https://travis-ci.org/empirical-org/Empirical-Core)|[![Maintainability](https://api.codeclimate.com/v1/badges/01afdc9d25304bba229c/maintainability)](https://codeclimate.com/github/empirical-org/Empirical-Core/maintainability)|[![Build Status](https://jenkins.quill.org/buildStatus/icon?job=quill.org/iss4261%2Fjenkins-mono)](https://jenkins.quill.org/job/quill.org/job/iss4261%2Fjenkins-mono/)|
 
+**Please edit only the README.md.editable file so that branch names will continue to be automatically generated correctly**
 
 
 **Fork and Clone this repository to submit a Pull Request**.
