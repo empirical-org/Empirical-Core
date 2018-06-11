@@ -2,7 +2,7 @@ const C = require('../constants').default;
 import rootRef from '../libs/firebase';
 const	lessonsRef = rootRef.child('lessons');
 import { push } from 'react-router-redux';
-import {updateFlag} from './questions'
+import {updateFlag, updateModelConceptUID} from './questions'
 
 	// called when the app starts. this means we immediately download all quotes, and
 	// then receive all quotes again as soon as anyone changes anything.
@@ -48,7 +48,7 @@ import {updateFlag} from './questions'
   function submitLessonEdit(cid, content, qids) {
     return function (dispatch, getState) {
       dispatch({ type: C.SUBMIT_LESSON_EDIT, cid, });
-      dispatch(updateQuestionFlags(content, qids))
+      dispatch(updateQuestions(content, qids))
       lessonsRef.child(cid).set(content, (error) => {
         dispatch({ type: C.FINISH_LESSON_EDIT, cid, });
         if (error) {
@@ -60,11 +60,16 @@ import {updateFlag} from './questions'
     };
   }
 
-  function updateQuestionFlags(content, qids) {
+  function updateQuestions(content, qids) {
     return function (dispatch) {
       if (content.flag) {
         qids.forEach(qid => {
           dispatch(updateFlag(qid, content.flag))
+        })
+      }
+      if (content.modelConceptUID) {
+        qids.forEach(qid => {
+          dispatch(updateModelConceptUID(qid, content.modelConceptUID))
         })
       }
     };
@@ -82,6 +87,8 @@ import {updateFlag} from './questions'
         if (error) {
           dispatch({ type: C.DISPLAY_ERROR, error: `Submission failed! ${error}`, });
         } else {
+          const qids = content.questions ? content.questions.map(q => q.key) : []
+          dispatch(updateQuestions(content, qids))
           dispatch({ type: C.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
           const action = push(`/admin/lessons/${newRef.key}`);
           dispatch(action);
@@ -97,7 +104,7 @@ export default {
   cancelLessonEdit,
   deleteLesson,
   submitLessonEdit,
-  updateQuestionFlags,
+  updateQuestions,
   toggleNewLessonModal,
   submitNewLesson
 };

@@ -4,6 +4,7 @@ import { hashToCollection } from '../../libs/hashToCollection';
 import QuestionSelector from 'react-select-search';
 import SortableList from '../questions/sortableList/sortableList.jsx';
 import LandingPageEditor from './landingPageEditor.jsx';
+import ChooseModelContainer from './chooseModelContainer.jsx'
 import _ from 'underscore';
 
 const LessonForm = React.createClass({
@@ -16,15 +17,18 @@ const LessonForm = React.createClass({
       selectedQuestions: currentValues && currentValues.questions ? currentValues.questions : [],
       flag: currentValues ? currentValues.flag : 'alpha',
       questionType: 'questions',
+      modelConceptUID: null
     };
   },
 
   submit() {
+    const { name, questions, landingPageHtml, flag, modelConceptUID } = this.state
     this.props.submit({
-      name: this.state.name,
-      questions: this.state.selectedQuestions,
-      landingPageHtml: this.state.landingPageHtml,
-      flag: this.state.flag,
+      name,
+      questions,
+      landingPageHtml,
+      flag,
+      modelConceptUID
     });
   },
 
@@ -149,6 +153,11 @@ const LessonForm = React.createClass({
         <label className="label">All Questions</label>
         {this.renderSearchBox()}
         <br />
+        <ChooseModelContainer
+          updateModelConcept={modelConceptUID => this.setState({ modelConceptUID })}
+          modelConceptUID={this.state.modelConceptUID}
+          conceptsFeedback={this.props.conceptsFeedback}
+        />
         <p className="control">
           <button className={`button is-primary ${this.props.stateSpecificClass}`} onClick={this.submit}>Submit</button>
         </p>
@@ -162,6 +171,7 @@ function select(state) {
     questions: state.questions,
     concepts: state.concepts,
     sentenceFragments: state.sentenceFragments,
+    conceptsFeedback: state.conceptsFeedback
   };
 }
 

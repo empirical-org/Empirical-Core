@@ -37,7 +37,7 @@ class ChooseModelContainer extends Component {
   }
 
   selectConcept(e) {
-    this.setState({modelConceptUID: e.value});
+    this.setState({ modelConceptUID: e.value });
   }
 
   renderButtons() {
