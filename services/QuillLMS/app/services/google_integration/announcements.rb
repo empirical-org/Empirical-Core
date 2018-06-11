@@ -1,31 +1,30 @@
 require 'google/api_client'
 
 class GoogleIntegration::Announcements
+  include Rails.application.routes.url_helpers
+  attr_reader :client, :unit, :classroom_activity
 
-  def self.post_unit_to_valid_classrooms(unit)
-    classroom_activities_sample = unit.classroom_activities.group_by{|ca| ca.activity_id}.values.first
-    binding.pry
-    classroom_activities_sample.each do |ca|
-      if ca.is_valid_for_google_announcement_with_owner?
-        owner = ca.classroom.owner
+  def self.post_unit(unit)
+    classroom_activities = unit.classroom_activities
+      .group_by { |classroom_activity| classroom_activity.activity_id }
+      .values
+      .first
+
+    classroom_activities.each do |classroom_activity|
+      if classroom_activity.is_valid_for_google_announcement_with_owner?
+        owner = classroom_activity.classroom.owner
         GoogleIntegration::RefreshAccessToken.new(owner).refresh
-        new(owner.auth_credential.access_token, ca, ca.classroom.google_classroom_id, unit.name).post
+        new(classroom_activity, unit).post
       end
     end
   end
 
-  def initialize(access_token, classroom_activity, google_course_id, unit_name=nil )
-    @access_token = access_token
+  def initialize(classroom_activity, unit = nil)
     @classroom_activity = classroom_activity
-    @google_course_id = google_course_id
-    @unit_name = unit_name
+    @unit = unit
   end
 
   def post
-    # As of May 23, 2018, the error responses provided by Google's server to malformed requests were not accurate
-    # if you change this call and are struggling with the body,
-    # make sure you try out the API call with https://developers.google.com/classroom/reference/rest/v1/courses.announcements/create
-    # to validate that you are using the right one
     handle_response { request }
   end
 
@@ -33,9 +32,9 @@ class GoogleIntegration::Announcements
 
   def request
     client.execute(
-      api_method: service.courses.announcements.create,
+      api_method: api_method,
       parameters: {
-        courseId: @google_course_id,
+        courseId: google_course_id,
       },
       body: body.to_json,
       headers: {"Content-Type": 'application/json'}
@@ -45,7 +44,6 @@ class GoogleIntegration::Announcements
   def handle_response(&request)
     response = JSON.parse(request.call.body, symbolize_names: true)
     if response.dig(:error, :status) == 'UNAUTHENTICATED'
-      # TODO: pass back any other errors and we can handle them on the front end
       'UNAUTHENTICATED'
     else
       response
@@ -53,7 +51,7 @@ class GoogleIntegration::Announcements
   end
 
   def body
-    if @classroom_activity.assigned_student_ids.any? && !@classroom_activity.assign_on_join
+    if classroom_activity.assigned_student_ids.any? && !classroom_activity.assign_on_join
       base_body.merge(individual_students_body)
     else
       base_body
@@ -61,14 +59,34 @@ class GoogleIntegration::Announcements
   end
 
   def base_body
-    if @unit_name
-      text = "New Unit: #{@unit_name} #{ENV["DEFAULT_URL"]}"
-    else
-      text = "#{@classroom_activity.activity.name}: #{@classroom_activity.generate_activity_url}"
-    end
     {
-      text: text
+      text: announcement_text
     }
+  end
+
+  def classroom
+    classroom_activity.classroom
+  end
+
+  def access_token
+    classroom.owner.auth_credential.access_token
+  end
+
+  def google_course_id
+    classroom.google_classroom_id
+  end
+
+  def announcement_text
+    if @unit.present?
+      unit_url = classroom_url(classroom.id, anchor: unit.id)
+
+      "New Unit: #{@unit.name} #{unit_url}"
+    else
+      activity_url  = classroom_activity.generate_activity_url
+      activity_name = classroom_activity.activity.name
+
+      "New Activity: #{activity_name} #{activity_url}"
+    end
   end
 
   def individual_students_body
@@ -81,14 +99,16 @@ class GoogleIntegration::Announcements
   end
 
   def assigned_student_ids_as_google_ids
-    User.where(id: @classroom_activity.assigned_student_ids).pluck(:google_id).compact
-  end
-
-  def service
-    client.discovered_api('classroom', 'v1')
+    User.where(id: classroom_activity.assigned_student_ids)
+      .pluck(:google_id)
+      .compact
   end
 
   def client
-    GoogleIntegration::Client.create(@access_token)
+    GoogleIntegration::Client.create(access_token)
+  end
+
+  def api_method
+    client.discovered_api('classroom', 'v1').courses.announcements.create
   end
 end

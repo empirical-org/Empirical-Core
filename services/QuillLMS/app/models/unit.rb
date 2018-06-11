@@ -63,7 +63,7 @@ class Unit < ActiveRecord::Base
   # end
 
   def post_to_google_if_valid
-    GoogleIntegration::Announcements.post_unit_to_valid_classrooms(self)
+    GoogleIntegration::Announcements.post_unit(self)
   end
 
 end
