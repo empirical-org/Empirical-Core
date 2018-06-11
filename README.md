@@ -12,16 +12,6 @@
 
 Empirical Core is the Learning Management System that powers Quill.org, a free writing tool.
 
-
-|Front End|Back End|Travis CI|Code Climate|Jenkins|
-|---|---|---|---|---|
-|[![codecov](https://codecov.io/gh/empirical-org/Empirical-Core/branch/develop/graph/badge.svg?flag=jest)](https://codecov.io/gh/empirical-org/Empirical-Core)|[![codecov](https://codecov.io/gh/empirical-org/Empirical-Core/branch/develop/graph/badge.svg?flag=rspec)](https://codecov.io/gh/empirical-org/Empirical-Core)|[![Build Status](https://travis-ci.org/empirical-org/Empirical-Core.svg?branch=develop)](https://travis-ci.org/empirical-org/Empirical-Core)|[![Maintainability](https://api.codeclimate.com/v1/badges/01afdc9d25304bba229c/maintainability)](https://codeclimate.com/github/empirical-org/Empirical-Core/maintainability)|[![Build Status](https://jenkins.quill.org/buildStatus/icon?job=quill.org/develop)](https://jenkins.quill.org/job/quill.org/job/develop/)|
-
-
-***Badges refer to the state of the develop branch. The Master branch meets or exceeds the state of develop at all times.***
-
-
-
 **Fork and Clone this repository to submit a Pull Request**.
 
 **Getting Started:** [Visit our Community Page](http://community.quill.org/teams/quill-lms/). The Mailing List, Chat, Issues, and Docs can all be accessed from the community page.
