@@ -10,35 +10,35 @@ import ScorebookFilters from '../components/scorebook/scorebook_filters';
 import ScoreLegend from '../components/scorebook/score_legend';
 import AppLegend from '../components/scorebook/app_legend.jsx';
 import EmptyProgressReport from '../components/shared/EmptyProgressReport';
-import moment from 'moment'
+import moment from 'moment';
 
 export default React.createClass({
 
   DATE_RANGE_FILTER_OPTIONS: [
     {
       title: 'Today',
-      beginDate: moment()
+      beginDate: moment(),
     },
     {
       title: 'This Week',
-      beginDate: moment().startOf('week')
+      beginDate: moment().startOf('week'),
     },
     {
       title: 'This Month',
-      beginDate: moment().startOf('month')
+      beginDate: moment().startOf('month'),
     },
     {
       title: 'Last 7 days',
-      beginDate: moment().subtract(7, 'days')
+      beginDate: moment().subtract(7, 'days'),
     },
     {
       title: 'Last 30 days',
-      beginDate: moment().subtract(1, 'months')
+      beginDate: moment().subtract(1, 'months'),
     },
     {
       title: 'All Time',
-      beginDate: null
-    },
+      beginDate: null,
+    }
   ],
 
   mixins: [TableFilterMixin],
@@ -50,7 +50,7 @@ export default React.createClass({
     const allActivityPacksUnit = {
       name: 'All Activity Packs',
       value: '',
-    }
+    };
     return {
       units: [],
       classrooms: this.props.allClassrooms,
@@ -66,13 +66,13 @@ export default React.createClass({
       loading: false,
       is_last_page: false,
       noLoadHasEverOccurredYet: true,
-      anyScoresHaveLoadedPreviously: localStorage.getItem('anyScoresHaveLoadedPreviously') || false
+      anyScoresHaveLoadedPreviously: localStorage.getItem('anyScoresHaveLoadedPreviously') || false,
     };
   },
 
   componentDidMount() {
     this.setStateFromLocalStorage(this.fetchData);
-    if(this.props.selectedClassroom) {
+    if (this.props.selectedClassroom) {
       this.getUpdatedUnits(this.props.selectedClassroom.value);
     }
     this.modules.scrollify.scrollify('#page-content-wrapper', this);
@@ -80,40 +80,40 @@ export default React.createClass({
 
   formatDate(date) {
     if (date) {
-      const standardizedDate = moment.utc(date)
+      const standardizedDate = moment.utc(date);
       return `${standardizedDate.year()}-${standardizedDate.month() + 1}-${standardizedDate.date()}`;
     }
   },
 
   setStateFromLocalStorage(callback) {
-    let state = {}
-    const storedSelectedClassroomId = window.localStorage.getItem('scorebookSelectedClassroomId')
-    const storedDateFilterName = window.localStorage.getItem('scorebookDateFilterName')
-    const dateFilterName = !storedDateFilterName || storedDateFilterName === 'null' ? null : storedDateFilterName
-    const selectedClassroomId = !storedSelectedClassroomId || storedSelectedClassroomId === 'null' ? null : storedSelectedClassroomId
+    const state = {};
+    const storedSelectedClassroomId = window.localStorage.getItem('scorebookSelectedClassroomId');
+    const storedDateFilterName = window.localStorage.getItem('scorebookDateFilterName');
+    const dateFilterName = !storedDateFilterName || storedDateFilterName === 'null' ? null : storedDateFilterName;
+    const selectedClassroomId = !storedSelectedClassroomId || storedSelectedClassroomId === 'null' ? null : storedSelectedClassroomId;
     if (selectedClassroomId) {
-      const selectedClassroom = this.state.classrooms.find(c => c.id === selectedClassroomId)
+      const selectedClassroom = this.state.classrooms.find(c => c.id === selectedClassroomId);
       if (selectedClassroom) {
-        state.selectedClassroom = selectedClassroom
+        state.selectedClassroom = selectedClassroom;
       }
     }
     if (dateFilterName) {
-      const beginDate = this.DATE_RANGE_FILTER_OPTIONS.find(o => o.title === dateFilterName).beginDate
+      const beginDate = this.DATE_RANGE_FILTER_OPTIONS.find(o => o.title === dateFilterName).beginDate;
       window.localStorage.setItem('scorebookBeginDate', beginDate);
-      state.beginDate = beginDate
-      state.dateFilterName = dateFilterName
-      this.setState(state, callback)
+      state.beginDate = beginDate;
+      state.dateFilterName = dateFilterName;
+      this.setState(state, callback);
     } else {
-      state.beginDate = this.convertStoredDateToMoment(window.localStorage.getItem('scorebookBeginDate'))
-      this.setState(state, callback)
+      state.beginDate = this.convertStoredDateToMoment(window.localStorage.getItem('scorebookBeginDate'));
+      this.setState(state, callback);
     }
   },
 
   fetchData() {
     const newCurrentPage = this.state.currentPage + 1;
     this.setState({ loading: true, currentPage: newCurrentPage, });
-    if(!this.state.selectedClassroom) {
-      this.setState({ missing: 'classrooms' });
+    if (!this.state.selectedClassroom) {
+      this.setState({ missing: 'classrooms', });
       return;
     }
     $.ajax({
@@ -138,33 +138,33 @@ export default React.createClass({
       url: `${process.env.DEFAULT_URL}/teachers/classrooms/${classroomId}/units`,
     }, (error, httpStatus, body) => {
       const parsedBody = JSON.parse(body);
-      const units = parsedBody.units
+      const units = parsedBody.units;
       if (units.length === 1) {
-        const selectedUnit = units[0]
+        const selectedUnit = units[0];
         that.setState({
           unitFilters: units,
-          selectedUnit: selectedUnit,
-          missing: this.checkMissing(this.state.scores)
+          selectedUnit,
+          missing: this.checkMissing(this.state.scores),
         });
       } else {
-        const selectedUnit = { name: 'All Activity Packs', value: '', }
+        const selectedUnit = { name: 'All Activity Packs', value: '', };
         that.setState({
           unitFilters: [selectedUnit].concat(units),
-          selectedUnit: selectedUnit,
-          missing: this.checkMissing(this.state.scores)
+          selectedUnit,
+          missing: this.checkMissing(this.state.scores),
         });
       }
     });
   },
 
   checkMissing(scores) {
-    if(!(this.state.anyScoresHaveLoadedPreviously == 'true') && scores.size > 0) {
-      this.setState({anyScoresHaveLoadedPreviously: true});
+    if (!(this.state.anyScoresHaveLoadedPreviously == 'true') && scores.size > 0) {
+      this.setState({ anyScoresHaveLoadedPreviously: true ,});
       localStorage.setItem('anyScoresHaveLoadedPreviously', true);
     }
     if (!this.state.classroomFilters || this.state.classroomFilters.length === 0) {
       return 'classrooms';
-    } else if(this.state.anyScoresHaveLoadedPreviously == 'true' && (!scores || scores.size === 0)) {
+    } else if (this.state.anyScoresHaveLoadedPreviously == 'true' && (!scores || scores.size === 0)) {
       return 'activitiesWithinDateRange';
     } else if (this.state.unitFilters.length && (!scores || scores.size === 0)) {
       return 'students';
@@ -174,8 +174,6 @@ export default React.createClass({
   },
 
   displayData(data) {
-    let num = 0
-    data.scores.forEach(s => s.user_id === "1637709" ? num++ : null)
     this.setState({
       classroomFilters: this.props.allClassrooms,
       is_last_page: data.is_last_page,
@@ -199,10 +197,10 @@ export default React.createClass({
         completed_attempts: s.completed_attempts ? Number(s.completed_attempts) : 0,
         marked_complete: s.marked_complete,
         activity_description: s.activity_description,
-        activity_classification_id: s.activity_classification_id
+        activity_classification_id: s.activity_classification_id,
       });
     });
-    console.log(data.is_last_page)
+    console.log(data.is_last_page);
     this.setState({ loading: false, scores: newScores, missing: this.checkMissing(newScores), });
   },
 
@@ -215,7 +213,7 @@ export default React.createClass({
   },
 
   selectClassroom(option) {
-    window.localStorage.setItem('scorebookSelectedClassroomId', option.id)
+    window.localStorage.setItem('scorebookSelectedClassroomId', option.id);
     this.getUpdatedUnits(option.value);
     this.setState({
       scores: new Map(),
@@ -231,18 +229,18 @@ export default React.createClass({
     this.setState({
       scores: new Map(),
       currentPage: 0,
-      beginDate: beginDate,
-      endDate: endDate,
-      dateFilterName
+      beginDate,
+      endDate,
+      dateFilterName,
     }, this.fetchData);
   },
 
   convertStoredDateToMoment(savedString) {
     if(savedString && savedString !== 'null') {
       return moment(savedString)
-    } else {
+    } 
       return null;
-    }
+    
   },
 
   render() {
@@ -253,7 +251,7 @@ export default React.createClass({
     this.state.scores.forEach((s) => {
       index += 0;
       const sData = s.scores[0];
-      scores.push(<StudentScores key={`${sData.userId}`} data={{ scores: s.scores, name: s.name, activity_name: sData.activity_name, userId: sData.userId, classroomId: this.state.selectedClassroom.id }} premium_state={this.props.premium_state} />);
+      scores.push(<StudentScores key={`${sData.userId}`} data={{ scores: s.scores, name: s.name, activity_name: sData.activity_name, userId: sData.userId, classroomId: this.state.selectedClassroom.id, }} premium_state={this.props.premium_state} />);
     });
 
     if (this.state.loading) {
