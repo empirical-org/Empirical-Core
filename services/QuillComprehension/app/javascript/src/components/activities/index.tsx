@@ -2,6 +2,7 @@ import * as React from 'react';
 import {connect} from 'react-redux'
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
+import * as R from 'ramda';
 import Article from './article';
 import Questions from './questions';
 import QuestionSets from './question_sets';
@@ -45,13 +46,15 @@ class ActivityContainer extends React.Component<AppProps, any> {
     if (!read) return;
     if (activity.question_sets.length > 1 && questionSetId === null) return
     let questions;
-    if (activity.question_sets.length === 0) {
-      // questions = 
+    if (activity.question_sets.length === 1) {
+      questions = activity.question_sets[0].questions;
+    } else {
+      questions = R.find(R.propEq('id', questionSetId))(activity.question_sets).questions
     }
     return (
       <div>
         <h1 className="article-title">Now Complete The Following Sentences</h1>
-        <Questions questions={questions}/>
+        <Questions questions={questions} key={questionSetId}/>
       </div>
     )
     
@@ -71,7 +74,7 @@ class ActivityContainer extends React.Component<AppProps, any> {
                 <h1 className="article-title">Read The Following Passage Carefully</h1>
                 <Article activity_id={parseInt(this.props.activity_id)} article={data.activity.article} title={data.activity.title} markAsRead={this.props.markArticleAsRead} />
                 <QuestionSets questionSets={data.activity.question_sets} chooseQuestionSet={this.props.chooseQuestionSet} questionSetId={this.props.activities.questionSetId}/>
-                
+                {this.renderQuestions(data.activity, this.props.activities.questionSetId, this.props.activities.readArticle)}
               </div>
             </div>
           );
