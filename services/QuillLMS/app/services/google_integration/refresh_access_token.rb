@@ -1,11 +1,4 @@
 class GoogleIntegration::RefreshAccessToken
-  # https://stackoverflow.com/questions/12792326/how-do-i-refresh-my-google-oauth2-access-token-using-my-refresh-token#14491560
-  # TODO: this can be made much better with the psuedo-code block commented out below
-  # if !current_user.refresh_token
-  #       then we will need to tell the js to re-auth them via #google, where they will need to manually sign in.
-  # elsif current_user.google_token_expires_at < DateTime.now
-  #      then we need to use refresh token as shown below
-  # end
 
   def initialize(user)
     @user = user

@@ -20,7 +20,6 @@ class Unit < ActiveRecord::Base
   default_scope { where(visible: true)}
   belongs_to :unit_template
   after_save :hide_classroom_activities_if_visible_false
-  # after_create :post_to_google_if_valid
 
   def hide_if_no_visible_classroom_activities
     if self.classroom_activities.length == 0
@@ -51,16 +50,6 @@ class Unit < ActiveRecord::Base
   end
 
   private
-
-  # def classrooms_with_google_id
-  #   valid_classrooms = self.classrooms.where('google_classroom_id is not null')
-  #   assigned_student_ids = ClassroomActivity.where(
-  #     activity_id: Unit.last.activities.first,
-  #     unit_id: Unit.last.id,
-  #     classroom_id: self.classrooms.where('google_classroom_id is not null').ids
-  #   ).pluck(:assigned_student_ids, :classroom_id, :assign_on_join)
-  #   assigned_student_ids.map{|asi| {assigned_student_ids: asi.first, classroom: valid_classrooms.find{|vc| vc.id == asi[1]}, assign_on_join: asi.last}}
-  # end
 
   def post_to_google_if_valid
     GoogleIntegration::Announcements.post_unit(self)

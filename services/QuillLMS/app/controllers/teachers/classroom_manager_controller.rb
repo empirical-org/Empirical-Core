@@ -260,12 +260,6 @@ class Teachers::ClassroomManagerController < ApplicationController
     end
   end
 
-  # def post_classroom_activities_to_google
-  #   session[:classroom_activities_to_post].each do
-  #
-  #   end
-  # end
-
   def classroom_activities_valid_for_google?
     if params[:activityPackId]
       @classroom_activities_valid_for_google = valid_current_user.units.last.classroom_activities.select do |act_pack|
