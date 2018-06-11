@@ -43,10 +43,11 @@ module Units::Creator
                                         )
       end
     end
+
     unit.email_lesson_plan
-    GoogleIntegration::Announcements.post_unit(unit)
     # unit.hide_if_no_visible_classroom_activities
     # activity_sessions in the state of 'unstarted' are automatically created in an after_create callback in the classroom_activity model
     AssignActivityWorker.perform_async(current_user_id || teacher.id)
+    GoogleIntegration::Announcements.post_unit(unit)
   end
 end
