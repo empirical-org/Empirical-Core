@@ -41,6 +41,22 @@ function activityQuery(activity_id:string) {
 }
 
 class ActivityContainer extends React.Component<AppProps, any> {
+  renderQuestions(activity, questionSetId, read) {
+    if (!read) return;
+    if (activity.question_sets.length > 1 && questionSetId === null) return
+    let questions;
+    if (activity.question_sets.length === 0) {
+      // questions = 
+    }
+    return (
+      <div>
+        <h1 className="article-title">Now Complete The Following Sentences</h1>
+        <Questions questions={questions}/>
+      </div>
+    )
+    
+  }
+
   render() {
     return (
       <Query
@@ -55,8 +71,7 @@ class ActivityContainer extends React.Component<AppProps, any> {
                 <h1 className="article-title">Read The Following Passage Carefully</h1>
                 <Article activity_id={parseInt(this.props.activity_id)} article={data.activity.article} title={data.activity.title} markAsRead={this.props.markArticleAsRead} />
                 <QuestionSets questionSets={data.activity.question_sets} chooseQuestionSet={this.props.chooseQuestionSet} questionSetId={this.props.activities.questionSetId}/>
-                <h1 className="article-title">Now Complete The Following Sentences</h1>
-                <Questions questions={data.activity.questions}/>
+                
               </div>
             </div>
           );
