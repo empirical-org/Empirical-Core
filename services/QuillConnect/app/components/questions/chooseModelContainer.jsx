@@ -72,7 +72,7 @@ class ChooseModelContainer extends Component {
     if (this.state.lessonModelConceptUID && this.state.lessonModelConceptUID !== this.state.modelConceptUID) {
       const concept = this.props.concepts.data['0'].find(c => c.uid === this.state.lessonModelConceptUID)
       if (concept) {
-        return <div style={{marginBottom: '10px'}}>
+        return <div style={{ marginBottom: '10px' }}>
           <p>The activity that this question belongs to has the following Model Concept:</p>
           <p><i>"{concept.displayName}"</i></p>
         </div>
