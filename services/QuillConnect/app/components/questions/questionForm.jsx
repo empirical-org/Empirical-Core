@@ -27,7 +27,7 @@ export default React.createClass({
       conceptID: this.state.concept,
       instructions: this.state.instructions,
       flag: this.state.flag,
-      cuesLabel: this.refs.cuesLabel.value
+      cuesLabel: this.state.cuesLabel
     })
   },
 

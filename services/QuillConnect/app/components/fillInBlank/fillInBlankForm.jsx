@@ -27,6 +27,7 @@ class FillInBlankForm extends Component {
     this.handleItemLevelChange = this.handleItemLevelChange.bind(this);
     this.handleSelectorChange = this.handleSelectorChange.bind(this);
     this.handleFlagChange = this.handleFlagChange.bind(this);
+    this.handleCuesLabelChange = this.handleCuesLabelChange.bind(this);
     this.submit = this.submit.bind(this);
   }
 
