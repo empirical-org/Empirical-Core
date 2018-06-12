@@ -1,4 +1,7 @@
 // Padding
+.p-0 {
+  padding: 0 !important;
+}
 
 .p-1 {
   padding: 1rem
@@ -79,4 +82,8 @@
 
 .bg-teal {
   background-color: #2bcbba !important;
+}
+
+.bg-warning {
+  background-color: #f1c40f !important;
 }
