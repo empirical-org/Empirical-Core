@@ -78,7 +78,7 @@ export default React.createClass({
           <p className="control">
             <textarea className="input" type="text" ref="instructions" defaultValue={this.props.question.instructions} onChange={this.handleInstructionsChange}></textarea>
           </p>
-          <label className="label">Cues Label (default is "Joining Words")</label>
+          <label className="label">Cues Label (default is "joining words" for multiple cues and "joining word" for single cues)</label>
           <p className="control">
             <input className="input" type="text" onChange={this.handleCuesLabelChange} defaultValue={this.props.question.cuesLabel}></input>
           </p>
