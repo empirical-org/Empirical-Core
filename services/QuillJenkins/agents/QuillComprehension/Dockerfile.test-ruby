@@ -1,5 +1,8 @@
 FROM ruby:2.5.1
 
+
+
+
 RUN apt-get update -y
 
 # fix invalid byte seq error
@@ -18,6 +21,12 @@ RUN apt-get install -y autoconf \
   zlib1g-dev libncurses5-dev curl \
   libffi-dev libgdbm3 libgdbm-dev \
   postgresql-client
+
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+
+RUN apt-get update 
+RUN apt-get install --no-install-recommends yarn
 
 #Ensure bundler is the right version
 RUN gem install bundler
