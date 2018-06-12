@@ -1,0 +1,43 @@
+#!/bin/sh
+
+# Section A
+## Keep editable readme, regular readme. on commit, editable readme is copied
+## onto readme, and it's branch variables are filled in.
+
+encode_forward_slash () {
+  # Jenkins has non-standard url encoding rules.
+  echo ${1//\//%252F}
+}
+
+
+REPO_ROOT=$(git rev-parse --show-toplevel)
+BRANCH_NAME=$(git rev-parse --symbolic --abbrev-ref HEAD)
+BRANCH_NAME=$(encode_forward_slash $BRANCH_NAME)
+
+cp_editable_readme_to_readme () {
+  OLDNAME=$(echo $1)
+  NEW_NAME=$(echo $1 | rev | cut -f 2- -d '.editable' | rev)
+  cp $OLDNAME $NEW_NAME
+}
+
+# copy editable readme to visible readme
+files=$(find $REPO_ROOT/services -maxdepth 2 -name 'README.md.editable' -type f)
+for f in $files
+do
+  OLDNAME=$(echo $f)
+  NEW_NAME=$(echo $f | rev | cut -f 2- -d '.' | rev)
+  cp $OLDNAME $NEW_NAME
+done
+
+# populate branch variable in readme's
+find $REPO_ROOT/services -maxdepth 2 -name 'README.md' -type f -print0 | xargs -0 -n 1 sed -i ""  -e "s/{BRANCH_NAME}/$BRANCH_NAME/g"
+
+# git add the new readme files
+files=$(find $REPO_ROOT/services -maxdepth 2 -name 'README.md' -type f)
+for f in $files
+do
+  git add $f
+done
+
+
+
