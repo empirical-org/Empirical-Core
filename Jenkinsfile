@@ -13,7 +13,7 @@ pipeline {
     }
     stage('test') {
       parallel {
-        stage('test-ruby') {
+        stage('test-QuillLMS-ruby') {
           agent {
             dockerfile {
               filename 'services/QuillJenkins/agents/QuillLMS/Dockerfile.test-ruby'
@@ -48,7 +48,7 @@ pipeline {
             }
           }
         }
-        stage('test-node') {
+        stage('test-QuillLMS-node') {
           agent {
             dockerfile {
               filename 'Dockerfile.test-node'
@@ -74,6 +74,30 @@ pipeline {
                 /* Check that code coverage has not decreased */
                 sh "python -c'import codecov; codecov.fail_on_decrease(\"develop\", $env.BRANCH_NAME )' || exit"
               }
+            }
+          }
+        }
+        stage('test-QuillComprehension-ruby') {
+          agent {
+            dockerfile {
+              filename 'services/QuillJenkins/agents/QuillComprehension/Dockerfile.test-ruby'
+              dir '.'
+              args '-u root:sudo -v $HOME/workspace/myproject:/myproject --name QuillComprehension-webapp --network jnk-net'
+            }
+          }
+          environment {
+            RACK_ENV = 'test'
+          }
+          steps {
+            echo 'Beginnning TEST...'
+            dir(path: 'services/QuillComprehension') {
+              echo 'DB:'
+              sh 'bundle exec rails db:schema:load'
+              echo 'Rspec:'
+              echo 'Setting up rspec...'
+              echo 'Running rspec'
+              sh 'bundle exec rspec'
+              echo 'Test successful!'
             }
           }
         }
