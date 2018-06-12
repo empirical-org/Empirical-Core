@@ -34,7 +34,7 @@ pipeline {
             dir(path: 'services/QuillLMS') {
               echo 'Rspec:'
               echo 'Setting up rspec...'
-              sh 'cp config/database.yml.travis config/database.yml'
+              sh 'cp config/database.yml.jenkins config/database.yml'
               echo 'Running rspec'
               sh 'bundle exec rake parallel:create'
               sh 'bundle exec rake parallel:load_structure'
