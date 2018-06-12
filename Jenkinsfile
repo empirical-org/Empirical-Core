@@ -91,6 +91,7 @@ pipeline {
           steps {
             echo 'Beginnning TEST...'
             dir(path: 'services/QuillComprehension') {
+              sh 'bundle install'
               echo 'DB:'
               sh 'bin/rails db:schema:load'
               echo 'Rspec:'
