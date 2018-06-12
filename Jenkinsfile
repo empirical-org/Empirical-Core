@@ -6,7 +6,6 @@ pipeline {
         echo 'Starting postgres docker container...'
         script {
           sh 'docker network create jnk-net'
-          /*sh 'docker run --name lms-testdb --network jnk-net -d -p 127.0.0.1:5432:5432 postgres:10.1'*/
           sh 'docker run --name lms-testdb --network jnk-net -d postgres:10.1'
         }
 
@@ -43,7 +42,6 @@ pipeline {
               withCredentials(bindings: [string(credentialsId: 'codecov-token', variable: 'CODECOV_TOKEN')]) {
                 sh "curl -s https://codecov.io/bash | bash -s - -cF rspec -f coverage/coverage.json -t $CODECOV_TOKEN"
               }
-
               echo 'Brakeman:'
               sh 'bundle exec brakeman -z'
               echo 'Test successful!'
@@ -85,14 +83,20 @@ pipeline {
       steps {
         echo 'Beginnning DEPLOY...'
         script {
-          if ("$env.BRANCH_NAME" == 'master') {
-            echo "Quill.org successfully deployed!"
+          if ("$env.CHANGE_ID" && "$env.CHANGE_BRANCH" == 'develop') {
+            echo "Automatically merging pull request $env.CHANGE_ID into master..."
+          }
+          else if ("$env.CHANGE_ID") {
+            echo "Automatically merging pull request $env.CHANGE_ID into develop..."
           }
           else if ("$env.BRANCH_NAME" == 'develop') {
-            echo "Staging successfully deployed!"
+            echo "Automatically deploying develop to staging..."
+          }
+          else if ("$env.BRANCH_NAME" == 'master') {
+            echo "Automatically deploying master to production..."
           }
           else {
-            echo "deploy stage ignored; you are not on master or develop."
+            echo "Your branch is not master, develop, an open PR, or a branch with an open PR.  Nothing to do."
           }
         }
       }
