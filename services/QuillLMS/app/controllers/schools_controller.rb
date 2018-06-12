@@ -37,6 +37,8 @@ class SchoolsController < ApplicationController
     end
   end
 
+  private
+
   def school_params
     params.permit(:school_id_or_type)
   end
