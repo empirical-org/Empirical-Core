@@ -92,7 +92,7 @@ pipeline {
             echo 'Beginnning TEST...'
             dir(path: 'services/QuillComprehension') {
               echo 'DB:'
-              sh 'bundle exec rails db:schema:load'
+              sh 'bin/rails db:schema:load'
               echo 'Rspec:'
               echo 'Setting up rspec...'
               echo 'Running rspec'
