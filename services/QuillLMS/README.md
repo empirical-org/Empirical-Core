@@ -14,6 +14,9 @@
 Empirical Core is the Learning Management System that powers Quill.org, a free writing tool.
 
 
+Quill.org gives CI status for the HEAD of all active branches. Here is the build
+table for iss4261%252Fjenkins-mono.
+
 |Front End|Back End|Travis CI|Code Climate|Jenkins|
 |---|---|---|---|---|
 |[![codecov](https://codecov.io/gh/empirical-org/Empirical-Core/branch/iss4261%252Fjenkins-mono/graph/badge.svg?flag=jest)](https://codecov.io/gh/empirical-org/Empirical-Core)|[![codecov](https://codecov.io/gh/empirical-org/Empirical-Core/branch/iss4261%252Fjenkins-mono/graph/badge.svg?flag=rspec)](https://codecov.io/gh/empirical-org/Empirical-Core)|[![Build Status](https://travis-ci.org/empirical-org/Empirical-Core.svg?branch=iss4261%252Fjenkins-mono)](https://travis-ci.org/empirical-org/Empirical-Core)|[![Maintainability](https://api.codeclimate.com/v1/badges/01afdc9d25304bba229c/maintainability)](https://codeclimate.com/github/empirical-org/Empirical-Core/maintainability)|[![Build Status](https://jenkins.quill.org/buildStatus/icon?job=quill.org/iss4261%252Fjenkins-mono)](https://jenkins.quill.org/job/quill.org/job/iss4261%252Fjenkins-mono/)|
