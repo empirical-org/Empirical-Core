@@ -72,6 +72,10 @@ pipeline {
                 sh 'npm run jest:coverage'
                 sh "curl -s https://codecov.io/bash | bash -s - -cF jest -t $CODECOV_TOKEN"
               }
+              dir(path: 'services/QuillJenkins/scripts') {
+                /* Check that code coverage has not decreased */
+                sh "python -c'import codecov; codecov.fail_on_decrease(\"develop\", $env.BRANCH_NAME )' || exit"
+              }
             }
           }
         }

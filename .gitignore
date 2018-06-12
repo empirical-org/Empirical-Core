@@ -72,3 +72,6 @@ _book/
 nohup\.out
 
 /services/QuillGrammar/built
+
+# Ignore generated python files
+*.pyc
