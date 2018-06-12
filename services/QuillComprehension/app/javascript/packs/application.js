@@ -8,5 +8,3 @@
 // layout file, like app/views/layouts/application.html.erb
 import 'normalize.css'
 import 'src/styles/application.scss'
-console.log('Hello World from Webpacker')
-
