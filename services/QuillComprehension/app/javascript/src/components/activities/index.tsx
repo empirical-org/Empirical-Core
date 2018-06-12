@@ -60,6 +60,14 @@ class ActivityContainer extends React.Component<AppProps, any> {
     
   }
 
+  renderQuestionSets(data, readArticle) {
+    if (readArticle && data.activity.question_sets.length > 1 && !this.props.activities.questionSetId) {
+      return (
+        <QuestionSets questionSets={data.activity.question_sets} chooseQuestionSet={this.props.chooseQuestionSet} questionSetId={this.props.activities.questionSetId}/>
+      )
+    }
+  }
+
   render() {
     return (
       <Query
@@ -73,7 +81,7 @@ class ActivityContainer extends React.Component<AppProps, any> {
               <div className="article-container">
                 <h1 className="article-title">Read The Following Passage Carefully</h1>
                 <Article activity_id={parseInt(this.props.activity_id)} article={data.activity.article} title={data.activity.title} markAsRead={this.props.markArticleAsRead} />
-                <QuestionSets questionSets={data.activity.question_sets} chooseQuestionSet={this.props.chooseQuestionSet} questionSetId={this.props.activities.questionSetId}/>
+                {this.renderQuestionSets(data, this.props.activities.readArticle)}
                 {this.renderQuestions(data.activity, this.props.activities.questionSetId, this.props.activities.readArticle)}
               </div>
             </div>
