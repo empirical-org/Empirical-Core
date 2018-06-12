@@ -57,7 +57,7 @@ const Lesson = React.createClass({
   saveLessonEdits(vals) {
     const { data, } = this.props.lessons,
       { lessonID, } = this.props.params;
-    const qids = data[lessonID].questions ? data[lessonID].questions.map(q => q.key) : []
+    const qids = vals.questions ? vals.questions.map(q => q.key) : []
     this.props.dispatch(lessonActions.submitLessonEdit(lessonID, vals, qids));
   },
 
