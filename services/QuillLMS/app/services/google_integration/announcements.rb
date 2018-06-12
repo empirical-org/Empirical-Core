@@ -105,7 +105,7 @@ class GoogleIntegration::Announcements
   end
 
   def client
-    GoogleIntegration::Client.create(access_token)
+    GoogleIntegration::Client.new(access_token).create
   end
 
   def api_method

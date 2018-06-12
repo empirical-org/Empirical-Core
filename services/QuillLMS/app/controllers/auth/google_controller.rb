@@ -5,8 +5,6 @@ class Auth::GoogleController < ApplicationController
     @profile      = GoogleIntegration::Profile.new(@access_token)
 
     if session[:google_redirect]
-      # todo: we should be using this instead of the redirect request above. Then, make an afterhook that will delete
-      # the google_redirect
       GoogleIntegration::AuthCredentials.new(request, current_user)
         .create_or_update
       redirect_route = session[:google_redirect]

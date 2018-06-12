@@ -35,6 +35,6 @@ class GoogleIntegration::Profile
   end
 
   def client
-    @client ||= GoogleIntegration::Client.create(@access_token)
+    @client ||= GoogleIntegration::Client.new(@access_token).create
   end
 end
