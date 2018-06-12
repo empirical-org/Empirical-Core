@@ -33,7 +33,8 @@ class BlogPost < ActiveRecord::Base
   end
 
   def can_be_accessed_by(user)
-    return true unless self.premium
+    return true unless self.premium || self.school_premium
+    return true if self.school_premium && user&.is_school_premium?
     return true if self.premium && user&.is_premium?
     false
   end
