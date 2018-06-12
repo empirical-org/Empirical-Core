@@ -15,7 +15,7 @@ Empirical Core is the Learning Management System that powers Quill.org, a free w
 
 
 Quill.org gives CI status for the HEAD of all active branches. Here is the build
-table for iss4261%252Fjenkins-mono.
+table for **iss4261%252Fjenkins-mono**:
 
 |Front End|Back End|Travis CI|Code Climate|Jenkins|
 |---|---|---|---|---|
