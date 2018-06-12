@@ -48,7 +48,7 @@ pipeline {
         //     }
         //   }
         // }
-        // stage('test-QuillLMS-node') {
+          // stage('test-QuillLMS-node') {
         //   agent {
         //     dockerfile {
         //       filename 'Dockerfile.test-node'
@@ -92,6 +92,8 @@ pipeline {
             echo 'Beginnning TEST...'
             dir(path: 'services/QuillComprehension') {
               sh 'bundle install'
+              sh 'curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash && source ~/.bashrc && nvm install && nvm use'
+              sh 'yarn install'
               echo 'DB:'
               sh 'bin/rails db:schema:load'
               echo 'Rspec:'
