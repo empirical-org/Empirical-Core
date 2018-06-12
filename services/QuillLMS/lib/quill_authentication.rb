@@ -74,7 +74,7 @@ module QuillAuthentication
   def auth_failed
     sign_out
     session[:attempted_path] = request.fullpath
-    redirect_to new_session_path, status: :see_other
+    redirect_to(new_session_path, status: :see_other)
   end
 
   def signed_out!
