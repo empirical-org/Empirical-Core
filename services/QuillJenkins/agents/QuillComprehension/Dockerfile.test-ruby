@@ -24,10 +24,10 @@ RUN gem install bundler
 
 # Install gems from gemfile
 COPY services/QuillComprehension/Gemfile /tmp/
+COPY services/QuillComprehension/.nvmrc /tmp/
 WORKDIR /tmp
 RUN ls
 RUN bundle install
 
-WORKDIR /
-
 RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash && source ~/.bashrc && nvm use
+WORKDIR /
