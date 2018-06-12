@@ -1,3 +1,4 @@
+
 ## Documentation Table of Contents
 
 * [API Controllers](https://github.com/empirical-org/Empirical-Core/blob/develop/app/controllers/api/README.md)
@@ -87,3 +88,5 @@ The installation comes with some pre-populated data to help you get started:
 * A teacher, with username `teacher` and password `password`.
 * A student, username `student` and password `password`.
 * A staff member, with username `staff` and password `password`.
+
+vim: set ft=markdown:
