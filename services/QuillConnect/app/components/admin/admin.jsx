@@ -63,6 +63,12 @@ const adminContainer = React.createClass({
               <TabLink to={'admin/concepts-feedback'} activeClassName="is-active">Concept Feeback</TabLink>
               <TabLink to={'/admin/item-levels'} activeClassName="is-active">Item Levels</TabLink>
             </ul>
+            <p className="menu-label">
+              Title Cards
+            </p>
+            <ul className="menu-list">
+              <TabLink to={'/admin/title-cards'} activeClassName="is-active">Title Cards</TabLink>
+            </ul>
           </aside>
           <div className="admin-container">
             {this.props.children}
