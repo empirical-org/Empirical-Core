@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PlayLessonQuestion from './question';
 import PlaySentenceFragment from './sentenceFragment.jsx';
+import PlayFillInTheBlankQuestion from './fillInBlank.jsx'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { clearData, loadData, nextQuestion, submitResponse, updateName, updateCurrentQuestion, resumePreviousSession } from '../../actions.js';
 import SessionActions from '../../actions/sessions.js';
@@ -156,7 +157,18 @@ const Lesson = React.createClass({
       const key = questionItem.key;
       const question = this.props[questionType].data[key];
       question.key = key;
-      const type = questionType === 'questions' ? 'SC' : 'SF';
+      let type
+      switch (questionType) {
+        case 'questions':
+          type = 'SC'
+          break
+        case 'fillInBlank':
+          type = 'FB'
+          break
+        case 'sentenceFragments':
+        default:
+          type = 'SF'
+      }
       return { type, question, };
     });
   },
@@ -207,13 +219,40 @@ const Lesson = React.createClass({
     if (data[lessonID]) {
       if (this.props.playLesson.currentQuestion) {
         const { type, question, } = this.props.playLesson.currentQuestion;
+
         if (type === 'SF') {
           component = (
-            <PlaySentenceFragment currentKey={question.key} question={question} nextQuestion={this.nextQuestion} key={question.key} marking="diagnostic" updateAttempts={this.submitResponse} markIdentify={this.markIdentify} dispatch={this.props.dispatch} />
+            <PlaySentenceFragment
+              currentKey={question.key}
+              question={question}
+              nextQuestion={this.nextQuestion}
+              key={question.key}
+              marking="diagnostic"
+              updateAttempts={this.submitResponse}
+              markIdentify={this.markIdentify}
+              dispatch={this.props.dispatch}
+            />
+          );
+        } else if (type === 'FB') {
+          component = (
+            <PlayFillInTheBlankQuestion
+              key={question.key}
+              question={question}
+              nextQuestion={this.nextQuestion}
+              prefill={this.getLesson().prefill}
+              dispatch={this.props.dispatch}
+              submitResponse={this.submitResponse}
+            />
           );
         } else {
           component = (
-            <PlayLessonQuestion key={question.key} question={question} nextQuestion={this.nextQuestion} prefill={this.getLesson().prefill} dispatch={this.props.dispatch} />
+            <PlayLessonQuestion
+              key={question.key}
+              question={question}
+              nextQuestion={this.nextQuestion}
+              prefill={this.getLesson().prefill}
+              dispatch={this.props.dispatch}
+            />
           );
         }
       } else if (this.props.playLesson.answeredQuestions.length > 0 && (this.props.playLesson.unansweredQuestions.length === 0 && this.props.playLesson.currentQuestion === undefined)) {
@@ -256,6 +295,7 @@ function select(state) {
     sentenceFragments: state.sentenceFragments,
     playLesson: state.playLesson, // the questionReducer
     routing: state.routing,
+    fillInBlank: state.fillInBlank
     // sessions: state.sessions,
     // responses: state.responses,
   };
