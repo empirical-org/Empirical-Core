@@ -16,8 +16,9 @@ pipeline {
               echo "Pulling fake-develop..."
               def payload='{\"commit_title\":\"Merged by jenkins.\", \"commit_message\":\"automatically merged by jenkins.\"}'
               def mergeEndpoint='https://api.github.com/repos/empirical-org/Empirical-Core/pulls/$env.CHANGE_ID/merge'
-              def response = ["curl", "-X", "PUT", "-H", "Content-Type: application/json", "-d", "${payload}", "mergeEndpoint"].execute().text
-              println response
+              def headers = 'Content-Type: application/json'
+              echo "curl -X PUT -H \"${headers}\" -d '${payload}' '${mergeEndpoint}'"
+              sh "curl -X PUT -H \"${headers}\" -d '${payload}' '${mergeEndpoint}'"
               /*PUT /repos/:owner/:repo/pulls/:number/merge*/
             }
             
