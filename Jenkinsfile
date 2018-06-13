@@ -15,10 +15,10 @@ pipeline {
               sh 'ssh-keyscan -H github.com >> ~/.ssh/known_hosts'
               echo "Pulling fake-develop..."
               def payload='{\"commit_title\":\"Merged by jenkins.\", \"commit_message\":\"automatically merged by jenkins.\"}'
-              def mergeEndpoint='https://api.github.com/repos/empirical-org/Empirical-Core/pulls/$env.CHANGE_ID/merge'
+              def mergeEndpoint="https://api.github.com/repos/empirical-org/Empirical-Core/pulls/${env.CHANGE_ID}/merge"
               def headers = 'Content-Type: application/json'
-              echo "curl -X PUT -H \"${headers}\" -d '${payload}' ${mergeEndpoint}"
-              sh "curl -X PUT -H \"${headers}\" -d '${payload}' ${mergeEndpoint}"
+              echo "curl -X PUT -H \"${headers}\" -d '${payload}' '${mergeEndpoint}'"
+              sh "curl -X PUT -H \"${headers}\" -d '${payload}' '${mergeEndpoint}'"
               /*PUT /repos/:owner/:repo/pulls/:number/merge*/
             }
             
