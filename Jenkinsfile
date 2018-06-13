@@ -96,6 +96,7 @@ pipeline {
               sh 'yarn install'
               echo 'DB:'
               sh 'cp config/database.yml.jenkins config/database.yml'
+              sh 'bin/rails db:create'
               sh 'bin/rails db:schema:load'
               echo 'Rspec:'
               echo 'Setting up rspec...'
