@@ -17,8 +17,10 @@ pipeline {
               def payload='{\"commit_title\":\"Merged by jenkins.\", \"commit_message\":\"automatically merged by jenkins.\"}'
               def mergeEndpoint="https://api.github.com/repos/empirical-org/Empirical-Core/pulls/${env.CHANGE_ID}/merge"
               def headers = 'Content-Type: application/json'
-              echo "curl -X PUT -H \"${headers}\" -d '${payload}' '${mergeEndpoint}'"
-              sh "curl -X PUT -H \"${headers}\" -d '${payload}' '${mergeEndpoint}'"
+              withCredentials([usernamePassword(credentialsId: 'gh-pr-merge', usernameVariable: 'U', passwordVariable: 'T')]) {
+                echo "curl -X PUT -u ${U}:${T} -H \"${headers}\" -d '${payload}' '${mergeEndpoint}'"
+                sh "curl -X PUT -u ${U}:${T} -H \"${headers}\" -d '${payload}' '${mergeEndpoint}'"
+              }
               /*PUT /repos/:owner/:repo/pulls/:number/merge*/
             }
             
