@@ -122,6 +122,20 @@ function updateFlag(qid, flag) {
   }
 }
 
+function updateModelConceptUID(qid, modelConceptUID) {
+  return dispatch => {
+    questionsRef.child(`${qid}/modelConceptUID/`).once('value', (snapshot) => {
+      if (!snapshot.val()) {
+        questionsRef.child(`${qid}/modelConceptUID/`).set(modelConceptUID, (error) => {
+          if (error) {
+            alert(`Model concept update failed! ${error}`);
+          }
+        });
+      }
+    })
+  }
+}
+
 function submitNewIncorrectSequence(qid, data) {
   return (dispatch, getState) => {
     questionsRef.child(`${qid}/incorrectSequences`).push(data, (error) => {
@@ -371,5 +385,6 @@ module.exports = {
   setStringFilter,
   incrementRequestCount,
   updateFlag,
-  getSuggestedSequences
+  getSuggestedSequences,
+  updateModelConceptUID
 };
