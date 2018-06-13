@@ -11,10 +11,8 @@ describe TeacherFixController do
 
   describe '#get_archived_units' do
     context 'when user does not exist' do
-      let!(:user) { create(:teacher) }
-
       it 'should render no such user' do
-        get :get_archived_units, teacher_identifier: user.email
+        get :get_archived_units, teacher_identifier: "new@email.com"
         expect(response.body).to eq({error: "No such user."}.to_json)
       end
     end

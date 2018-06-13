@@ -255,7 +255,7 @@ describe User, type: :model do
           let!(:subscription) { create(:subscription, expiration: Date.yesterday - 1, account_type: 'Teacher Paid') }
           let!(:user_subscription) { create(:user_subscription, user_id: teacher.id, subscription: subscription) }
           it 'returns false' do
-            expect(teacher.is_premium?).to be false
+            expect(teacher.reload.is_premium?).to be false
           end
         end
 

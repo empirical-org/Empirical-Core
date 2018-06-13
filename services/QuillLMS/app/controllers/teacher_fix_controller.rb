@@ -202,7 +202,7 @@ class TeacherFixController < ApplicationController
 
   def archived_units_for_user
     @archived_units ||= Unit.unscoped.where(visible: false, user_id: @user.id).map do |unit|
-      unit = u.attributes
+      unit = unit.attributes
       unit['shared_name'] = Unit.find_by(user_id: unit['user_id'], name: unit['name']).present?
       unit
     end
