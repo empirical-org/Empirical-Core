@@ -14,9 +14,9 @@ pipeline {
               echo "Adding github.com to list of known hosts"
               sh 'ssh-keyscan -H github.com >> ~/.ssh/known_hosts'
               echo "Pulling fake-develop..."
-              sh "export PAYLOAD='{\"commit_title\":\"Merged by jenkins.\", \"commit_message\":\"automatically merged by jenkins.\"}'"
-              sh "export MERGE_ENDPOINT=https://api.github.com/repos/empirical-org/Empirical-Core/pulls/$env.CHANGE_ID/merge"
-              sh "curl -X PUT -H \"Content-Type: application/json\" -d $PAYLOAD $MERGE_ENDPOINT"
+              def payload='{\"commit_title\":\"Merged by jenkins.\", \"commit_message\":\"automatically merged by jenkins.\"}'
+              def mergeEndpoint='https://api.github.com/repos/empirical-org/Empirical-Core/pulls/$env.CHANGE_ID/merge'
+              sh "curl -X PUT -H \"Content-Type: application/json\" -d ${payload} ${mergeEndpoint}"
               /*PUT /repos/:owner/:repo/pulls/:number/merge*/
             }
             
