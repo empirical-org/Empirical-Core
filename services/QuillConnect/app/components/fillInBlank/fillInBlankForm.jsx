@@ -30,7 +30,8 @@ class FillInBlankForm extends Component {
   }
 
   handlePromptChange(prompt) {
-    this.setState({prompt});
+    const pTagStrippedPrompt = prompt.replace(/(<p[^>]+?>|<p>|<\/p>)/img, "")
+    this.setState({ prompt: pTagStrippedPrompt });
   }
 
   handleInstructionsChange(e) {

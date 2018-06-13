@@ -15,7 +15,8 @@ import translationMap from '../../libs/translations/ellQuestionMapper.js';
 import WarningDialogue from '../fillInBlank/warningDialogue.jsx'
 import Prompt from '../fillInBlank/prompt.jsx'
 import Instructions from '../fillInBlank/instructions.jsx'
-import Feedback from '../renderForQuestions/components/feedback'
+import Feedback from '../renderForQuestions/feedback'
+import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
 
 const styles = {
   container: {
@@ -261,11 +262,6 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     }
   }
 
-  // submitResponse(response) {
-  //   debugger;
-  //   submitQuestionResponse(response, this.props, this.state.sessionKey, submitResponse);
-  // }
-  //
   updateResponseResource(response) {
     updateResponseResource(response, this.getQuestion().key, this.getQuestion().attempts, this.props.dispatch);
   }
@@ -290,12 +286,41 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     return text;
   }
 
-  getSubmitButtonText() {
-    let text = translations.english['submit button text'];
-    if (this.props.language && this.props.language !== 'english') {
-      text += ` / ${translations[this.props.language]['submit button text']}`;
+  getLatestAttempt() {
+    return _.last(this.props.question.attempts || []);
+  }
+
+  showNextQuestionButton() {
+    const { question, } = this.props;
+    const latestAttempt = this.getLatestAttempt();
+    const readyForNext =
+      question.attempts.length > 4 || (latestAttempt && latestAttempt.response.optimal);
+    if (readyForNext) {
+      return true;
+    } else {
+      return false;
     }
-    return text;
+  }
+
+  renderButton() {
+    if (this.showNextQuestionButton()) {
+      return (
+        <button className="button student-submit" onClick={this.props.nextQuestion}>Next</button>
+      );
+    } else if (this.state.responses) {
+      if (this.props.question.attempts.length > 0) {
+        const buttonClass = "button student-recheck";
+        return <button className={buttonClass} onClick={this.checkAnswer}>Recheck Your Answer</button>;
+      } else {
+        return <button className="button student-submit" onClick={this.checkAnswer}>Submit</button>;
+      }
+    } else {
+      <button className="button student-submit is-disabled" onClick={() => {}}>Submit</button>;
+    }
+  }
+
+  renderFeedbackStatements(attempt) {
+    return <RenderQuestionFeedback attempt={attempt} getQuestion={this.getQuestion} />;
   }
 
   render() {
@@ -305,7 +330,6 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     } else {
       fullPageInstructions = { display: 'block' }
     }
-    const button = this.state.responses ? <button className="button student-submit" onClick={this.checkAnswer}>{this.getSubmitButtonText()}</button> : <button className="button student-submit is-disabled" onClick={() => {}}>Submit</button>;
     return (
       <div className="student-container-inner-diagnostic">
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -317,13 +341,19 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
                 customText={this.customText()}
                 displayArrowAndText={true}
               />
-              <Feedback feedbackType="instructions" feedback={this.getInstructionText()} />
+              <Feedback
+                question={this.props.question}
+                sentence={this.getInstructionText()}
+                responses={this.state.responses}
+                getQuestion={this.getQuestion}
+                renderFeedbackStatements={this.renderFeedbackStatements}
+              />
             </div>
           </div>
           {this.renderMedia()}
         </div>
         <div style={{marginTop: 20}} className="question-button-group button-group">
-          {button}
+          {this.renderButton()}
         </div>
       </div>
     );

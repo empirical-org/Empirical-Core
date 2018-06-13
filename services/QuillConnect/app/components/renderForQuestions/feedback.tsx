@@ -45,6 +45,7 @@ class Feedback extends React.Component<any, any> {
   }
 
   getFeedbackCopy(data): string {
+    console.log('feedback type', this.getFeedbackType(data))
     const latestAttempt = getLatestAttempt(data.question.attempts);
     let returnVal;
     switch (this.getFeedbackType(data)) {
@@ -70,7 +71,7 @@ class Feedback extends React.Component<any, any> {
       case "default":
         returnVal = (<p>Combine the sentences into one sentence.</p>)
         break;
-      default: 
+      default:
         returnVal = (<p>Combine the sentences into one sentence.</p>)
     }
     return returnVal
@@ -79,7 +80,7 @@ class Feedback extends React.Component<any, any> {
   render() {
     const key:number = this.props ? this.props.question.attempts.length : 0;
     return (
-      <StatelessFeedback 
+      <StatelessFeedback
         key={key}
         feedbackType={this.getFeedbackType(this.props)}
         feedback={this.getFeedbackCopy(this.props)}
