@@ -10,18 +10,12 @@ pipeline {
           }
           else if (env.CHANGE_ID) {
             echo "Automatically merging pull request $env.CHANGE_ID into fake-develop..."
-            sshagent (credentials: ['jenkins-ssh']) {
-              echo "Adding github.com to list of known hosts"
-              sh 'ssh-keyscan -H github.com >> ~/.ssh/known_hosts'
-              echo "Pulling fake-develop..."
-              def payload='{\"commit_title\":\"Merged by jenkins.\", \"commit_message\":\"automatically merged by jenkins.\"}'
-              def mergeEndpoint="https://api.github.com/repos/empirical-org/Empirical-Core/pulls/${env.CHANGE_ID}/merge"
-              def headers = 'Content-Type: application/json'
-              withCredentials([usernamePassword(credentialsId: 'robot-butler', usernameVariable: 'U', passwordVariable: 'T')]) {
-                echo "curl -X PUT -u ${U}:${T} -H \"${headers}\" -d '${payload}' '${mergeEndpoint}'"
-                sh "curl -X PUT -u ${U}:${T} -H \"${headers}\" -d '${payload}' '${mergeEndpoint}'"
-              }
-              /*PUT /repos/:owner/:repo/pulls/:number/merge*/
+            echo "Pulling fake-develop..."
+            def payload='{\"commit_title\":\"Merged by jenkins.\", \"commit_message\":\"automatically merged by jenkins.\"}'
+            def mergeEndpoint="https://api.github.com/repos/empirical-org/Empirical-Core/pulls/${env.CHANGE_ID}/merge"
+            def headers = 'Content-Type: application/json'
+            withCredentials([usernamePassword(credentialsId: 'robot-butler', usernameVariable: 'U', passwordVariable: 'T')]) {
+              sh "curl -X PUT -u ${U}:${T} -H \"${headers}\" -d '${payload}' '${mergeEndpoint}'"
             }
             
 
