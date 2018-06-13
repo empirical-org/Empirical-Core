@@ -143,7 +143,6 @@ const LessonForm = React.createClass({
             <select defaultValue={'questions'} onChange={this.handleSelectQuestionType}>
               <option value="questions">Sentence Combining</option>
               <option value="sentenceFragments">Sentence Fragment</option>
-              <option value="sentenceFragments">Sentence Fragment</option>
               <option value="fillInBlank">Fill In the Blank</option>
             </select>
           </span>
