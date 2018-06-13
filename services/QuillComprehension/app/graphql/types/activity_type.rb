@@ -6,6 +6,12 @@ Types::ActivityType = GraphQL::ObjectType.define do
   field :article, !types.String
   field :description, !types.String
 
+  field :question_sets, !types[Types::QuestionSetType] do 
+    resolve -> (obj, args, ctx) {
+      obj.question_sets
+    }
+  end
+
   field :questions, !types[Types::QuestionType] do
     resolve -> (obj, args, ctx) {
       obj.questions
