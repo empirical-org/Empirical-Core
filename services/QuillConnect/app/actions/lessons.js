@@ -48,8 +48,9 @@ import {updateFlag, updateModelConceptUID} from './questions'
   function submitLessonEdit(cid, content, qids) {
     return function (dispatch, getState) {
       dispatch({ type: C.SUBMIT_LESSON_EDIT, cid, });
-      dispatch(updateQuestions(content, qids))
-      lessonsRef.child(cid).set(content, (error) => {
+      const cleanedContent = _.pickBy(content)
+      dispatch(updateQuestions(cleanedContent, qids))
+      lessonsRef.child(cid).set(cleanedContent, (error) => {
         dispatch({ type: C.FINISH_LESSON_EDIT, cid, });
         if (error) {
           dispatch({ type: C.DISPLAY_ERROR, error: `Update failed! ${error}`, });
@@ -80,15 +81,16 @@ import {updateFlag, updateModelConceptUID} from './questions'
   }
 
   function submitNewLesson(content) {
+    const cleanedContent = _.pickBy(content)
     return function (dispatch, getState) {
       dispatch({ type: C.AWAIT_NEW_LESSON_RESPONSE, });
-      var newRef = lessonsRef.push(content, (error) => {
+      var newRef = lessonsRef.push(cleanedContent, (error) => {
         dispatch({ type: C.RECEIVE_NEW_LESSON_RESPONSE, });
         if (error) {
           dispatch({ type: C.DISPLAY_ERROR, error: `Submission failed! ${error}`, });
         } else {
-          const qids = content.questions ? content.questions.map(q => q.key) : []
-          dispatch(updateQuestions(content, qids))
+          const qids = cleanedContent.questions ? cleanedContent.questions.map(q => q.key) : []
+          dispatch(updateQuestions(cleanedContent, qids))
           dispatch({ type: C.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
           const action = push(`/admin/lessons/${newRef.key}`);
           dispatch(action);
