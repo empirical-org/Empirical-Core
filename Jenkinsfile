@@ -82,7 +82,7 @@ pipeline {
             dockerfile {
               filename 'services/QuillJenkins/agents/QuillComprehension/Dockerfile.test-ruby'
               dir '.'
-              args '-u root:sudo -v $HOME/workspace/myproject:/myproject --name QuillComprehension-webapp --network jnk-net -e NODE_VERSION="$(cat ./services/QuillComprehension/.nvmrc)"'
+              args '-u root:sudo -v $HOME/workspace/myproject:/myproject --name QuillComprehension-webapp --network jnk-net'
             }
           }
           environment {
