@@ -95,6 +95,7 @@ pipeline {
               // sh 'curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash && source ~/.bashrc && nvm install && nvm use'
               sh 'yarn install'
               echo 'DB:'
+              sh 'cp config/database.yml.jenkins config/database.yml'
               sh 'bin/rails db:schema:load'
               echo 'Rspec:'
               echo 'Setting up rspec...'
