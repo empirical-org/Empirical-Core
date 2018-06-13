@@ -328,7 +328,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     if (this.props.language === 'arabic' && !(this.getQuestion().mediaURL)) {
       fullPageInstructions = { maxWidth: 800, width: '100%' }
     } else {
-      fullPageInstructions = { display: 'block' }
+      fullPageInstructions = { display: 'block', width: '100%' }
     }
     return (
       <div className="student-container-inner-diagnostic">

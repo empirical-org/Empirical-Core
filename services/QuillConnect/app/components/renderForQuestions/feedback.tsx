@@ -45,7 +45,6 @@ class Feedback extends React.Component<any, any> {
   }
 
   getFeedbackCopy(data): string {
-    console.log('feedback type', this.getFeedbackType(data))
     const latestAttempt = getLatestAttempt(data.question.attempts);
     let returnVal;
     switch (this.getFeedbackType(data)) {
