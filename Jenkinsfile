@@ -98,8 +98,6 @@ pipeline {
         //       sh 'cp config/database.yml.jenkins config/database.yml'
         //       sh 'bin/rails db:create'
         //       sh 'bin/rails db:schema:load'
-        //       echo 'Rspec:'
-        //       echo 'Setting up rspec...'
         //       echo 'Running rspec'
         //       sh 'bundle exec rspec'
         //       echo 'Running Jest'
