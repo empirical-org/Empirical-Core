@@ -102,6 +102,8 @@ pipeline {
               echo 'Setting up rspec...'
               echo 'Running rspec'
               sh 'bundle exec rspec'
+              echo 'Running Jest'
+              sh 'yarn test'
               echo 'Test successful!'
             }
           }
