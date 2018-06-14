@@ -26,7 +26,6 @@ pipeline {
               sh 'python -c "import json;f=open(\'check\');j=json.loads(f.read());print(j[\'mergeable\']);f.close()" > tmp'
               def mergeable = readFile 'tmp'
               echo mergeable
-              echo mergeable.equals('True')
 
               sh 'python -c "import json;f=open(\'check\');j=json.loads(f.read());print(j[\'base\'][\'ref\']);f.close()" > tmp'
               def mergingInto = readFile 'tmp'
