@@ -81,6 +81,7 @@ pipeline {
             }
           }
           else {
+
             echo "Your branch is not fake-master, fake-develop, an open PR, or a branch with an open PR.  Nothing to do."
           }
         }

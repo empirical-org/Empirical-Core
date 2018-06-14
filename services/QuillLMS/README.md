@@ -15,11 +15,11 @@ Empirical Core is the Learning Management System that powers Quill.org, a free w
 
 
 Quill.org gives CI status for the HEAD of all active branches. Here is the build
-table for **fake-develop**:
+table for **fake-feature**:
 
 |Front End|Back End|Travis CI|Code Climate|Jenkins|
 |---|---|---|---|---|
-|[![codecov](https://codecov.io/gh/empirical-org/Empirical-Core/branch/fake-develop/graph/badge.svg?flag=jest)](https://codecov.io/gh/empirical-org/Empirical-Core)|[![codecov](https://codecov.io/gh/empirical-org/Empirical-Core/branch/fake-develop/graph/badge.svg?flag=rspec)](https://codecov.io/gh/empirical-org/Empirical-Core)|[![Build Status](https://travis-ci.org/empirical-org/Empirical-Core.svg?branch=fake-develop)](https://travis-ci.org/empirical-org/Empirical-Core)|[![Maintainability](https://api.codeclimate.com/v1/badges/01afdc9d25304bba229c/maintainability)](https://codeclimate.com/github/empirical-org/Empirical-Core/maintainability)|[![Build Status](https://jenkins.quill.org/buildStatus/icon?job=quill.org/fake-develop)](https://jenkins.quill.org/job/quill.org/job/fake-develop/)|
+|[![codecov](https://codecov.io/gh/empirical-org/Empirical-Core/branch/fake-feature/graph/badge.svg?flag=jest)](https://codecov.io/gh/empirical-org/Empirical-Core)|[![codecov](https://codecov.io/gh/empirical-org/Empirical-Core/branch/fake-feature/graph/badge.svg?flag=rspec)](https://codecov.io/gh/empirical-org/Empirical-Core)|[![Build Status](https://travis-ci.org/empirical-org/Empirical-Core.svg?branch=fake-feature)](https://travis-ci.org/empirical-org/Empirical-Core)|[![Maintainability](https://api.codeclimate.com/v1/badges/01afdc9d25304bba229c/maintainability)](https://codeclimate.com/github/empirical-org/Empirical-Core/maintainability)|[![Build Status](https://jenkins.quill.org/buildStatus/icon?job=quill.org/fake-feature)](https://jenkins.quill.org/job/quill.org/job/fake-feature/)|
 
 **Please edit only the README.md.editable file so that branch names will continue to be automatically generated correctly. Thank you.**
 
