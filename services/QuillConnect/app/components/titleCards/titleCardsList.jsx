@@ -2,6 +2,12 @@ import React from 'react';
 import LinkListItem from '../shared/linkListItem.jsx'
 
 export default class TitleCardsList extends React.Component<any, any> {
+  constructor(props) {
+    super(props)
+
+    this.renderListItems = this.renderListItems.bind(this)
+  }
+
   renderListItems() {
     const questions = this.props.titleCards;
     if (questions.length === 0) {

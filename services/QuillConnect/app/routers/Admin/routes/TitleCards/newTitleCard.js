@@ -1,6 +1,6 @@
-import NewTitleCard from 'components/titleCards/newTitleCard.tsx';
+import TitleCardForm from '../../../../components/titleCards/titleCardForm.tsx';
 
 export default {
   path: 'new',
-  component: NewTitleCard
+  component: TitleCardForm
 };

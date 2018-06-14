@@ -10,35 +10,35 @@ import ArchivedButton from '../shared/archivedButton.jsx'
 class TitleCards extends React.Component<any, any> {
   constructor(props) {
     super(props)
+
+    this.renderQuestionsList = this.renderQuestionsList.bind(this)
+  }
+
+  renderQuestionsList() {
+    const titleCards = hashToCollection(this.props.titleCards.data)
+    if (this.props.titleCards.hasreceiveddata && titleCards) {
+      return <QuestionsList titleCards={titleCards || []} />
+    } else if (!this.props.titleCards.hasreceiveddata) {
+      return <p>Loading...</p>
+    } else {
+      return <p>No title cards yet</p>
+    }
   }
 
   render() {
-    if (this.props.titleCards.hasreceiveddata) {
-      const titleCards = hashToCollection(this.props.titleCards.data)
-      return (
-        <section className="section">
-          <div className="container">
-            <Link to={'admin/title-cards/new'}>
-              <button className="button is-primary">Create a New Title Card</button>
-            </Link>
-            <p className="menu-label">Title Cards</p>
-            <QuestionsList titleCards={titleCards || []} showOnlyArchived={this.state.showOnlyArchived}/>
-          </div>
-        </section>
-      )
-    }
-
-    else {
-      return (
-        <div>
-          hi
+    return (
+      <section className="section">
+        <div className="container">
+          <Link to={'admin/title-cards/new'}>
+            <button className="button is-primary">Create a New Title Card</button>
+          </Link>
+          <p className="menu-label">Title Cards</p>
+          {this.renderQuestionsList()}
         </div>
-      )
-    }
+      </section>
+    )
   }
-
-})
-
+}
 
 function select(state) {
   return {

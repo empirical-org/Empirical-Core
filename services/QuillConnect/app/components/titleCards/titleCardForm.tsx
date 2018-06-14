@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import TextEditor from '../questions/textEditor.jsx';
 import {hashToCollection} from '../../libs/hashToCollection'
-import {submitNewTitleCard} from '../../actions/titleCards'
+import {submitNewTitleCard} from '../../actions/titleCards.ts'
 import _ from 'lodash'
 
 class TitleCardForm extends React.Component {
@@ -15,6 +15,7 @@ class TitleCardForm extends React.Component {
 
     this.handleTitleChange = this.handleTitleChange.bind(this)
     this.handleContentChange = this.handleContentChange.bind(this)
+    this.submit = this.submit.bind(this)
   }
 
   submit() {
@@ -22,7 +23,7 @@ class TitleCardForm extends React.Component {
   }
 
   handleTitleChange(e) {
-    this.setState({title: e})
+    this.setState({title: e.target.value})
   }
 
   handleContentChange(e) {
@@ -38,7 +39,7 @@ class TitleCardForm extends React.Component {
         <textarea className="input" type="text" value={this.state.title || ""} onChange={this.handleTitleChange}/>
         <br/>
         <label className="label">Content</label>
-        <TextEditor text={this.state.content || ""} onChange={this.handleContentChange}/>
+        <TextEditor text={this.state.content || ""} handleTextChange={this.handleContentChange}/>
         <br/>
         <button className="button is-primary" onClick={this.submit}>Save Question</button>
       </div>
@@ -46,4 +47,11 @@ class TitleCardForm extends React.Component {
   }
 }
 
-export default connect()(TitleCardForm)
+function select(state) {
+  return {
+    titleCards: state.titleCards,
+    routing: state.routing
+  }
+}
+
+export default connect(select)(TitleCardForm)
