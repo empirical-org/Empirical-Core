@@ -51,7 +51,7 @@ pipeline {
 
               /* ensure user has permission for auto-merged requests */
               sh "curl -X GET -u ${U}:${T} '${teamEndpoint}' > team"
-              sh "python -c \"import json;f=open('team');j=json.loads(f.read());print(${ghUser} in [u['login'] for u in j])\" > tmp"
+              sh "python -c \"import json;f=open('team');j=json.loads(f.read());print('${ghUser}' in [u['login'] for u in j])\" > tmp"
               def userOk = readFile 'tmp'
               userOk userOk.trim()
               if (userOk != 'True') {
