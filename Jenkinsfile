@@ -59,24 +59,26 @@ pipeline {
               }
 
               /* MERGE THE PR */
-              sh "curl -X PUT -u ${U}:${T} -H \"${headers}\" -d '${payload}' '${mergeEndpoint}'"
+              sh "curl -X PUT -u ${U}:${T} -H \"${headers}\" -d '${payload}' '${mergeEndpoint}' || exit"
+              echo "Successfully merged PR ${env.CHANGE_BRANCH}."
 
+              /* if branch target was fake-develop, deploy fake-develop to staging */
+              if (mergingInto == 'fake-develop') {
+                echo "Automatically deploying fake-develop to staging..."
+                /* heroku allows authentication through 'heroku login', http basic
+                 * auth, and SSH keys.  Since right now this stage runs only on the
+                 * Jenkins master node, we have simply pre-logged in the user with
+                 * heroku login.  If this process needs to execute on a non-master
+                 * node, consult
+                 * https://devcenter.heroku.com/articles/git#http-git-authentication
+                 */
+                def herokuStagingLMS="https://git.heroku.com/empirical-grammar-staging.git"
+                sh "git push -f ${herokuStagingLMS} `git subtree split --prefix services/QuillLMS HEAD`:master"
+              }
+              else if (mergingInto == 'fake-master') {
+                echo "Automatically deploying fake-master to production..."
+              }
             }
-          }
-          else if (env.BRANCH_NAME == 'fake-develop') {
-            echo "Automatically deploying fake-develop to staging..."
-            /* heroku allows authentication through 'heroku login', http basic
-             * auth, and SSH keys.  Since right now this stage runs only on the
-             * Jenkins master node, we have simply pre-logged in the user with
-             * heroku login.  If this process needs to execute on a non-master
-             * node, consult
-             * https://devcenter.heroku.com/articles/git#http-git-authentication
-             */
-            def herokuStagingLMS="https://git.heroku.com/empirical-grammar-staging.git"
-            sh "git push -f ${herokuStagingLMS} `git subtree split --prefix services/QuillLMS HEAD`:master"
-          }
-          else if (env.BRANCH_NAME == 'fake-master') {
-            echo "Automatically deploying fake-master to production..."
           }
           else {
             echo "Your branch is not fake-master, fake-develop, an open PR, or a branch with an open PR.  Nothing to do."
