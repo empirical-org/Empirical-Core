@@ -3,9 +3,13 @@ development:
   encoding: unicode
   database: emp_gr_development
   host:     localhost
+  username: postgres
+  password: 123456789
 
 test:
   adapter: postgresql
   encoding: unicode
   database: emp_gr_test
   host:     localhost
+  username: postgres
+  password: 123456789
