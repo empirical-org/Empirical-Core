@@ -23,14 +23,14 @@ pipeline {
               sh "curl -X GET -u ${U}:${T} '${checkEndpoint}' > check"
               sh 'python -c "import json;f=open(\'check\');j=json.loads(f.read());print(j[\'user\'][\'login\']);f.close()" > tmp'
               def ghUser = readFile 'tmp'
-              def ghUser = ghUser.trim() 
+              ghUser = ghUser.trim() 
               sh 'python -c "import json;f=open(\'check\');j=json.loads(f.read());print(j[\'mergeable\']);f.close()" > tmp'
               def mergeable = readFile 'tmp'
-              def mergeable = mergeable.trim()
+              mergeable = mergeable.trim()
 
               sh 'python -c "import json;f=open(\'check\');j=json.loads(f.read());print(j[\'base\'][\'ref\']);f.close()" > tmp'
               def mergingInto = readFile 'tmp'
-              def mergingInto = mergingInto.trim()
+              mergingInto = mergingInto.trim()
 
               /* TODO: for test only, remove */
               if (mergingInto == 'master') {
@@ -57,6 +57,7 @@ pipeline {
               sh "curl -X GET -u ${U}:${T} '${teamEndpoint}' > team"
               sh "python -c \"import json;f=open('team');j=json.loads(f.read());print(${ghUser} in [u['login'] for u in j])\" > tmp"
               def userOk = readFile 'tmp'
+              userOk userOk.trim()
               if (userOk != 'True') {
                 error("This user does not have permission to start an automatic merge.")
               }
