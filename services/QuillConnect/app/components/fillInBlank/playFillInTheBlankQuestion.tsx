@@ -286,6 +286,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
 
   customText() {
     // HARDCODED
+    // this code should be deprecated once cuesLabels are launched and the 
     let text = translations.english['add word bank cue'];
     text = `${text}${this.state.blankAllowed ? ' or leave blank' : ''}`;
     if (this.props.language && this.props.language !== 'english') {
