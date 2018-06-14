@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Activity:</strong>
+  <%= @question_set.activity %>
+</p>
+
+<p>
+  <strong>Prompt:</strong>
+  <%= @question_set.prompt %>
+</p>
+
+<p>
+  <strong>Order:</strong>
+  <%= @question_set.order %>
+</p>
+
+<%= link_to 'Edit', edit_question_set_path(@question_set) %> |
+<%= link_to 'Back', question_sets_path %>

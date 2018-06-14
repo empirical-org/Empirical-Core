@@ -7,6 +7,10 @@ import {
   calculateCorrectnessOfSentence
 } from './sentenceFragment.js';
 
+import {
+  getConceptResultsForFillInTheBlanks
+} from './fillInTheBlanks'
+
 import _ from 'underscore'
 
 const scoresForNAttempts = {
@@ -22,6 +26,8 @@ export function getConceptResultsForQuestion(questionObj) {
     return getAllSentenceFragmentConceptResults(questionObj.question);
   } else if (questionObj.type === 'SC') {
     return getConceptResultsForSentenceCombining(questionObj.question);
+  } else if (questionObj.type === 'FB') {
+    return getConceptResultsForFillInTheBlanks(questionObj.question);
   }
 }
 
@@ -65,6 +71,7 @@ export function calculateScoreForLesson(questions) {
         correct += getScoreForSentenceFragment(question.question);
         break;
       case 'SC':
+      case 'FB':
         correct += getScoreForSentenceCombining(question.question);
         break;
       default:
