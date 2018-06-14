@@ -106,6 +106,27 @@ pipeline {
         //     }
         //   }
         // }
+        stage('test-quill-grammar') {
+          agent {
+            dockerfile {
+              filename 'services/QuillJenkins/agents/Generic/Dockerfile.test-node'
+              dir '.'
+              args '-u root:sudo -v $HOME/workspace/myproject:/myproject --name quill-grammar'
+            }
+          }
+          environment {
+            NODE_ENV = 'test'
+          }
+          steps {
+            echo 'Beginnning TEST...'
+            dir(path: 'services/QuillGrammar') {
+              sh 'npm install'
+              echo 'Running Karma'
+              sh 'npm run test'
+              echo 'Test successful!'
+            }
+          }
+        }
         stage('test-quill-marking-logic') {
           agent {
             dockerfile {
