@@ -26,9 +26,7 @@ pipeline {
               sh 'python -c "import json;f=open(\'check\');j=json.loads(f.read());print(j[\'mergeable\']);f.close()" > tmp'
               def mergeable = readFile 'tmp'
               echo mergeable
-              echo mergeable == 'True'
-              echo mergeable == "True"
-              echo "${mergeable}" == "True"
+              echo mergeable.equals('True')
 
               sh 'python -c "import json;f=open(\'check\');j=json.loads(f.read());print(j[\'base\'][\'ref\']);f.close()" > tmp'
               def mergingInto = readFile 'tmp'
@@ -39,7 +37,7 @@ pipeline {
               }
 
               /* ensure PR is mergeable */ 
-              if (mergeable != 'True') {
+              if (!mergeable.equals('True')) {
                 error("Not able to automatically merge branch! exiting.")
               }
 
