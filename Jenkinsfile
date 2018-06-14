@@ -53,7 +53,7 @@ pipeline {
               sh "curl -X GET -u ${U}:${T} '${teamEndpoint}' > team"
               sh "python -c \"import json;f=open('team');j=json.loads(f.read());print('${ghUser}' in [u['login'] for u in j])\" > tmp"
               def userOk = readFile 'tmp'
-              userOk userOk.trim()
+              userOk = userOk.trim()
               if (userOk != 'True') {
                 error("This user does not have permission to start an automatic merge.")
               }
