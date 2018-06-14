@@ -63,7 +63,6 @@ pipeline {
               }
             }
           }
-        }
         // stage('test-QuillLMS-node') {
         //   agent {
         //     dockerfile {
