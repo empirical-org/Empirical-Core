@@ -65,8 +65,15 @@ pipeline {
           }
           else if (env.BRANCH_NAME == 'fake-develop') {
             echo "Automatically deploying fake-develop to staging..."
-            def herokuLMS="https://git.heroku.com/empirical-grammar-staging.git"
-            /* git push -f ${herokuLMS} `git subtree split --prefix services/QuillLMS HEAD`:master */
+            /* heroku allows authentication through 'heroku login', http basic
+             * auth, and SSH keys.  Since right now this stage runs only on the
+             * Jenkins master node, we have simply pre-logged in the user with
+             * heroku login.  If this process needs to execute on a non-master
+             * node, consult
+             * https://devcenter.heroku.com/articles/git#http-git-authentication
+             */
+            def herokuStagingLMS="https://git.heroku.com/empirical-grammar-staging.git"
+            sh "git push -f ${herokuStagingLMS} `git subtree split --prefix services/QuillLMS HEAD`:master"
           }
           else if (env.BRANCH_NAME == 'fake-master') {
             echo "Automatically deploying fake-master to production..."
