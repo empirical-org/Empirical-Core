@@ -25,7 +25,6 @@ pipeline {
               def ghUser = readFile 'tmp'
               sh 'python -c "import json;f=open(\'check\');j=json.loads(f.read());print(j[\'mergeable\']);f.close()" > tmp'
               def mergeable = readFile 'tmp'
-              echo mergeable
 
               sh 'python -c "import json;f=open(\'check\');j=json.loads(f.read());print(j[\'base\'][\'ref\']);f.close()" > tmp'
               def mergingInto = readFile 'tmp'
@@ -35,6 +34,8 @@ pipeline {
                 error('No merging into master in test mode!')
               }
 
+              echo mergeable
+              sh "diff  <(echo 'True' ) <(echo '${mergeable}') || exit"
               /* ensure PR is mergeable */ 
               if (!mergeable.equals('True')) {
                 error("Not able to automatically merge branch! exiting.")
