@@ -12,11 +12,15 @@ pipeline {
             echo "Automatically merging pull request $env.CHANGE_ID into fake-develop..."
             echo "Pulling fake-develop..."
 
-            /* merge check */
             def quillStaffId='509062'
             def checkEndpoint="https://api.github.com/repos/empirical-org/Empirical-Core/pulls/${env.CHANGE_ID}"
             def teamEndpoint="https://api.github.com/teams/${quillStaffId}/members"
+            def payload='{\"commit_title\":\"Merged by jenkins.\", \"commit_message\":\"automatically merged by jenkins.\"}'
+            def mergeEndpoint="https://api.github.com/repos/empirical-org/Empirical-Core/pulls/${env.CHANGE_ID}/merge"
+            def headers = 'Content-Type: application/json'
             withCredentials([usernamePassword(credentialsId: 'robot-butler', usernameVariable: 'U', passwordVariable: 'T')]) {
+              /* PERFORM MERGE CHECKS */
+
               /* fetch pr */
               sh "curl -X GET -u ${U}:${T} '${checkEndpoint}' > check"
               sh 'python -c "import json;f=open(\'check\');j=json.loads(f.read());print(j[\'user\'][\'login\']);f.close()" > tmp'
@@ -32,8 +36,8 @@ pipeline {
               }
 
               /* ensure branch to merge into is not master */
-              if (mergingInto == 'master') {
-                error("Only the 'develop' branch can merge directly into master!")
+              if (mergingInto == 'fake-master' || mergingInto == 'master') {
+                error("Only the 'fake-develop' branch can merge directly into fake-master!")
               }
               
               /* ensure user has permission for auto-merged requests */
@@ -43,14 +47,10 @@ pipeline {
               if (userOk != 'True') {
                 error("This user does not have permission to start an automatic merge.")
               }
-            }
 
-            /* merge */
-            def payload='{\"commit_title\":\"Merged by jenkins.\", \"commit_message\":\"automatically merged by jenkins.\"}'
-            def mergeEndpoint="https://api.github.com/repos/empirical-org/Empirical-Core/pulls/${env.CHANGE_ID}/merge"
-            def headers = 'Content-Type: application/json'
-            withCredentials([usernamePassword(credentialsId: 'robot-butler', usernameVariable: 'U', passwordVariable: 'T')]) {
+              /* MERGE THE PR */
               sh "curl -X PUT -u ${U}:${T} -H \"${headers}\" -d '${payload}' '${mergeEndpoint}'"
+
             }
           }
           else if (env.BRANCH_NAME == 'fake-develop') {
