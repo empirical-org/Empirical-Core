@@ -27,4 +27,18 @@ function submitNewTitleCard(content) {
   };
 }
 
-export { submitNewTitleCard, startListeningToTitleCards }
+function submitTitleCardEdit(qid, content) {
+  return (dispatch, getState) => {
+    titleCardsRef.child(qid).update(content, (error) => {
+      if (error) {
+        dispatch({ type: C.DISPLAY_ERROR, error: `Update failed! ${error}`, });
+      } else {
+        dispatch({ type: C.DISPLAY_MESSAGE, message: 'Update successfully saved!', });
+        const action = push(`/admin/title-cards/${qid}`);
+        dispatch(action);
+      }
+    });
+  };
+}
+
+export { submitNewTitleCard, startListeningToTitleCards, submitTitleCardEdit }

@@ -19,7 +19,7 @@ export default class TitleCardsList extends React.Component<any, any> {
           key={titleCard.key}
           itemKey={titleCard.key}
           text={titleCard.title}
-          basePath="title-card"
+          basePath="title-cards"
         />
       )
     })

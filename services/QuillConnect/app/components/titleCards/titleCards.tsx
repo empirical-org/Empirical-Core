@@ -2,10 +2,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 import _ from 'underscore'
 import { Link } from 'react-router'
-import Modal from '../modal/modal.jsx'
 import {hashToCollection} from '../../libs/hashToCollection'
 import QuestionsList from './titleCardsList.jsx'
-import ArchivedButton from '../shared/archivedButton.jsx'
 
 class TitleCards extends React.Component<any, any> {
   constructor(props) {
