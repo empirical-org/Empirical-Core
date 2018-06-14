@@ -149,25 +149,28 @@ export default React.createClass({
     });
   },
 
-  hideClassroomActivity(ca_id, unit_id) {
-    let units,
-      x1;
-    units = this.state.units;
-    x1 = _.map(units, (unit) => {
-      if (this.getIdFromUnit(unit) === unit_id) {
-        if (unit.classroom_activities) {
-          unit.classroom_activities = _.reject(unit.classroom_activities, ca => ca.id === ca_id);
-        } else if (unit.classroomActivities) {
-          unit.classroomActivities = new Map(_.reject(Array.from(unit.classroomActivities), ca => ca[1].caId === ca_id)); // This is very bad code.
+  hideClassroomActivity(caId, unitId) {
+    request.put({
+      url: `${process.env.DEFAULT_URL}/teachers/classroom_activities/${caId}/hide`,
+      json: { authenticity_token: getAuthToken(), }, },
+      (error, httpStatus, body) => {
+        if (httpStatus && httpStatus.statusCode === 200) {
+          const units = this.state.units;
+          const modifiedUnits = _.map(units, (unit) => {
+            const modifiedUnit = unit
+            if (this.getIdFromUnit(modifiedUnit) === unitId) {
+              if (modifiedUnit.classroom_activities) {
+                modifiedUnit.classroom_activities = _.reject(modifiedUnit.classroom_activities, ca => ca.id === caId);
+              } else if (modifiedUnit.classroomActivities) {
+                modifiedUnit.classroomActivities = new Map(_.reject(Array.from(modifiedUnit.classroomActivities), ca => ca[1].caId === caId)); // This is very bad code.
+              }
+            }
+            return modifiedUnit;
+          });
+          this.setState({ units: modifiedUnits, });
         }
       }
-      return unit;
-    });
-    this.setState({ units: x1, });
-
-    request.put(`${process.env.DEFAULT_URL}/teachers/classroom_activities/${ca_id}/hide`, {
-      json: { authenticity_token: getAuthToken(), },
-    });
+    )
   },
 
   updateDueDate(ca_id, date) {
