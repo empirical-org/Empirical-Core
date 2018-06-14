@@ -32,7 +32,8 @@ const Lesson = React.createClass({
     if (questionsForLesson) {
       const listItems = questionsForLesson.map((question) => {
         const displayName = question.prompt || 'No question prompt';
-        return (<li key={question.key}><Link to={`/admin/${question.questionType.toKebab() || 'questions'}/${question.key}`}>{displayName.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, '')}</Link></li>);
+        const questionType = question.questionType === 'fillInBlank' ? 'fill-in-the-blanks' : question.questionType.toKebab()
+        return (<li key={question.key}><Link to={`/admin/${questionType || 'questions'}/${question.key}`}>{displayName.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, '')}</Link></li>);
       });
       return (
         <ul>{listItems}</ul>
@@ -118,6 +119,7 @@ function select(state) {
     questions: state.questions,
     routing: state.routing,
     sentenceFragments: state.sentenceFragments,
+    fillInBlank: state.fillInBlank
   };
 }
 

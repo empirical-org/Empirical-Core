@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :question_sets
   resources :responses
   resources :questions
   if Rails.env.development?
