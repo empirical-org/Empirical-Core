@@ -67,7 +67,8 @@ class TitleCardForm extends React.Component<any, TitleCardFormState> {
   }
 
   handleContentChange(e) {
-    this.setState({content: e})
+    const formattedContent = e.replace(/<p><\/p>/g, '<br/>').replace(/&nbsp;/g, '<br/>')
+    this.setState({content: formattedContent})
   }
 
   renderHeaderText() {
