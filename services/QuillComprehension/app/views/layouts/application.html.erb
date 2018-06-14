@@ -15,16 +15,20 @@
   </head>
 
   <body>
-    <div class='navbar'>
-      <div class='container'>
-        <div class="navbar-inner d-fl-r ai-c">
-          <i data-feather="feather" class="m-r-1"></i><span class="logo">Comprehension</span>
+    <div class="page">
+      <div class="page-main">
+        <div class='navbar'>
+          <div class='container'>
+            <div class="navbar-inner d-fl-r ai-c">
+              <i data-feather="feather" class="m-r-1"></i><span class="logo">Comprehension</span>
+            </div>
+          </div>
         </div>
+        <%= yield %>
       </div>
     </div>
-    <%= yield %>
   </body>
   <script>
-      feather.replace()
-    </script>
+    feather.replace()
+  </script>
 </html>
