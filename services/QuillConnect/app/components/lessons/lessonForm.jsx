@@ -85,9 +85,14 @@ const LessonForm = React.createClass({
     let options = hashToCollection(this.props[questionType].data);
     const concepts = this.props.concepts.data[0];
     console.log('Options: ', options);
+    let formatted
     if (options.length > 0) {
-      options = _.filter(options, option => _.find(concepts, { uid: option.conceptID, }) && (option.flag !== "archived")); // filter out questions with no valid concept
-      const formatted = options.map(opt => ({ name: opt.prompt.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, ''), value: opt.key, }));
+      if (questionType !== 'titleCards') {
+        options = _.filter(options, option => _.find(concepts, { uid: option.conceptID, }) && (option.flag !== "archived")); // filter out questions with no valid concept
+        formatted = options.map(opt => ({ name: opt.prompt.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, ''), value: opt.key, }));
+      } else {
+        formatted = options.map((opt) => { return { name: opt.title, value: opt.key } })
+      }
       return (<QuestionSelector
         key={questionType} options={formatted} placeholder="Search for a question"
         onChange={this.handleSearchChange}
@@ -144,6 +149,7 @@ const LessonForm = React.createClass({
               <option value="questions">Sentence Combining</option>
               <option value="sentenceFragments">Sentence Fragment</option>
               <option value="fillInBlank">Fill In the Blank</option>
+              <option value="titleCards">Title Cards</option>
             </select>
           </span>
         </p>
@@ -173,7 +179,8 @@ function select(state) {
     concepts: state.concepts,
     sentenceFragments: state.sentenceFragments,
     conceptsFeedback: state.conceptsFeedback,
-    fillInBlank: state.fillInBlank
+    fillInBlank: state.fillInBlank,
+    titleCards: state.titleCards
   };
 }
 
