@@ -23,11 +23,14 @@ pipeline {
               sh "curl -X GET -u ${U}:${T} '${checkEndpoint}' > check"
               sh 'python -c "import json;f=open(\'check\');j=json.loads(f.read());print(j[\'user\'][\'login\']);f.close()" > tmp'
               def ghUser = readFile 'tmp'
+              def ghUser = ghUser.trim() 
               sh 'python -c "import json;f=open(\'check\');j=json.loads(f.read());print(j[\'mergeable\']);f.close()" > tmp'
               def mergeable = readFile 'tmp'
+              def mergeable = mergeable.trim()
 
               sh 'python -c "import json;f=open(\'check\');j=json.loads(f.read());print(j[\'base\'][\'ref\']);f.close()" > tmp'
               def mergingInto = readFile 'tmp'
+              def mergingInto = mergingInto.trim()
 
               /* TODO: for test only, remove */
               if (mergingInto == 'master') {
@@ -38,7 +41,6 @@ pipeline {
               print mergeable.length()
               print 'True'.length()
 
-              sh "diff  <(echo 'True' ) <(echo '${mergeable}') || exit"
               /* ensure PR is mergeable */ 
               if (!mergeable.equals('True')) {
                 error("Not able to automatically merge branch! exiting.")
