@@ -5,10 +5,8 @@ pipeline {
       steps {
         echo 'Beginnning DEPLOY...'
         script {
-          if (env.CHANGE_ID && env.CHANGE_BRANCH == 'fake-develop') {
-            echo "Automatically merging pull request $env.CHANGE_ID into fake-master..."
-          }
-          else if (env.CHANGE_ID) {
+          /* only PRs have a change id */
+          if (env.CHANGE_ID) {
             echo "Automatically merging pull request $env.CHANGE_ID into fake-develop..."
             echo "Pulling fake-develop..."
 
@@ -30,16 +28,23 @@ pipeline {
               sh 'python -c "import json;f=open(\'check\');j=json.loads(f.read());print(j[\'base\'][\'ref\']);f.close()" > tmp'
               def mergingInto = readFile 'tmp'
 
+              /* TODO: for test only, remove */
+              if (mergingInto == 'master') {
+                error('No merging into master in test mode!')
+              }
+
               /* ensure PR is mergeable */ 
               if (mergeable != 'True') {
                 error("Not able to automatically merge branch! exiting.")
               }
 
               /* ensure branch to merge into is not master */
-              if (mergingInto == 'fake-master' || mergingInto == 'master') {
-                error("Only the 'fake-develop' branch can merge directly into fake-master!")
+              if (env.CHANGE_BRANCH != 'fake-develop') {
+                if (mergingInto == 'fake-master'){
+                  error("Only the 'fake-develop' branch can merge directly into fake-master!")
+                }
               }
-              
+
               /* ensure user has permission for auto-merged requests */
               sh "curl -X GET -u ${U}:${T} '${teamEndpoint}' > team"
               sh "python -c \"import json;f=open('team');j=json.loads(f.read());print(${ghUser} in [u['login'] for u in j])\" > tmp"
