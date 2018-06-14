@@ -35,6 +35,9 @@ pipeline {
               }
 
               echo mergeable
+              print mergeable.length()
+              print 'True'.length()
+
               sh "diff  <(echo 'True' ) <(echo '${mergeable}') || exit"
               /* ensure PR is mergeable */ 
               if (!mergeable.equals('True')) {
