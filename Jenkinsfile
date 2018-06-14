@@ -37,10 +37,6 @@ pipeline {
                 error('No merging into master in test mode!')
               }
 
-              echo mergeable
-              print mergeable.length()
-              print 'True'.length()
-
               /* ensure PR is mergeable */ 
               if (!mergeable.equals('True')) {
                 error("Not able to automatically merge branch! exiting.")
