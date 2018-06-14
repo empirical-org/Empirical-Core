@@ -127,6 +127,27 @@ pipeline {
             }
           }
         }
+        stage('test-quill-spellchecker') {
+          agent {
+            dockerfile {
+              filename 'services/QuillJenkins/agents/Generic/Dockerfile.test-node'
+              dir '.'
+              args '-u root:sudo -v $HOME/workspace/myproject:/myproject --name quill-spellchecker'
+            }
+          }
+          environment {
+            NODE_ENV = 'test'
+          }
+          steps {
+            echo 'Beginnning TEST...'
+            dir(path: 'packages/quill-spellchecker') {
+              sh 'npm install'
+              echo 'Running Karma'
+              sh 'npm run test'
+              echo 'Test successful!'
+            }
+          }
+        }
       }
     }
     stage('deploy') {
