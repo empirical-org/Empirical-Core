@@ -13,6 +13,7 @@ export default React.createClass({
       concept: this.props.question.conceptID,
       instructions: this.props.question.instructions ? this.props.question.instructions : "",
       flag: this.props.question.flag ? this.props.question.flag : "alpha",
+      cuesLabel: this.props.cuesLabel ? this.props.cuesLabel : ''
     }
   },
 
@@ -25,7 +26,8 @@ export default React.createClass({
       itemLevel: this.state.itemLevel,
       conceptID: this.state.concept,
       instructions: this.state.instructions,
-      flag: this.state.flag
+      flag: this.state.flag,
+      cuesLabel: this.state.cuesLabel
     })
   },
 
@@ -61,6 +63,10 @@ export default React.createClass({
     this.setState({ flag: e.target.value, });
   },
 
+  handleCuesLabelChange: function(e) {
+    this.setState({ cuesLabel: e.target.value, });
+  },
+
   render: function () {
     if(this.props.concepts.hasreceiveddata) {
       return (
@@ -71,6 +77,10 @@ export default React.createClass({
           <label className="label">Instructions for student</label>
           <p className="control">
             <textarea className="input" type="text" ref="instructions" defaultValue={this.props.question.instructions} onChange={this.handleInstructionsChange}></textarea>
+          </p>
+          <label className="label">Cues Label (default is "joining words" for multiple cues and "joining word" for single cues)</label>
+          <p className="control">
+            <input className="input" type="text" onChange={this.handleCuesLabelChange} defaultValue={this.props.question.cuesLabel}></input>
           </p>
           <label className="label">Cues (separated by commas, no spaces eg "however,therefore,hence")</label>
           <p className="control">
