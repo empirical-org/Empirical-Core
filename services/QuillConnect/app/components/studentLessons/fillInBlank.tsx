@@ -6,16 +6,17 @@ const qml = require('quill-marking-logic')
 const checkFillInTheBlankQuestion = qml.checkFillInTheBlankQuestion
 import { getGradedResponsesWithCallback } from '../../actions/responses.js';
 import { hashToCollection } from '../../libs/hashToCollection';
-import { submitResponse, } from '../../actions/diagnostics.js';
+// import { submitResponse, } from '../../actions/diagnostics.js';
 import submitQuestionResponse from '../renderForQuestions/submitResponse.js';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 import Cues from '../renderForQuestions/cues.jsx';
 import translations from '../../libs/translations/index.js';
 import translationMap from '../../libs/translations/ellQuestionMapper.js';
-import WarningDialogue from './warningDialogue.jsx'
-import Prompt from './prompt.jsx'
-import Instructions from './instructions.jsx'
-import Feedback from '../renderForQuestions/components/feedback'
+import WarningDialogue from '../fillInBlank/warningDialogue.jsx'
+import Prompt from '../fillInBlank/prompt.jsx'
+import Instructions from '../fillInBlank/instructions.jsx'
+import Feedback from '../renderForQuestions/feedback'
+import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
 
 const styles = {
   container: {
@@ -250,13 +251,8 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
       const questionUID = this.getQuestion().key
       const responses = hashToCollection(this.state.responses)
       const response = {response: checkFillInTheBlankQuestion(questionUID, zippedAnswer, responses)}
-      this.setResponse(response);
       this.updateResponseResource(response);
-      this.submitResponse(response);
-      this.setState({
-        response: '',
-      });
-      this.props.nextQuestion();
+      this.props.submitResponse(response);
     }
   }
 
@@ -264,10 +260,6 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     if (this.props.setResponse) {
       this.props.setResponse(response)
     }
-  }
-
-  submitResponse(response) {
-    submitQuestionResponse(response, this.props, this.state.sessionKey, submitResponse);
   }
 
   updateResponseResource(response) {
@@ -286,7 +278,6 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
 
   customText() {
     // HARDCODED
-    // this code should be deprecated once cuesLabels are launched and the 
     let text = translations.english['add word bank cue'];
     text = `${text}${this.state.blankAllowed ? ' or leave blank' : ''}`;
     if (this.props.language && this.props.language !== 'english') {
@@ -295,12 +286,41 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     return text;
   }
 
-  getSubmitButtonText() {
-    let text = translations.english['submit button text'];
-    if (this.props.language && this.props.language !== 'english') {
-      text += ` / ${translations[this.props.language]['submit button text']}`;
+  getLatestAttempt() {
+    return _.last(this.props.question.attempts || []);
+  }
+
+  showNextQuestionButton() {
+    const { question, } = this.props;
+    const latestAttempt = this.getLatestAttempt();
+    const readyForNext =
+      question.attempts.length > 4 || (latestAttempt && latestAttempt.response.optimal);
+    if (readyForNext) {
+      return true;
+    } else {
+      return false;
     }
-    return text;
+  }
+
+  renderButton() {
+    if (this.showNextQuestionButton()) {
+      return (
+        <button className="button student-submit" onClick={this.props.nextQuestion}>Next</button>
+      );
+    } else if (this.state.responses) {
+      if (this.props.question.attempts.length > 0) {
+        const buttonClass = "button student-recheck";
+        return <button className={buttonClass} onClick={this.checkAnswer}>Recheck Your Answer</button>;
+      } else {
+        return <button className="button student-submit" onClick={this.checkAnswer}>Submit</button>;
+      }
+    } else {
+      <button className="button student-submit is-disabled" onClick={() => {}}>Submit</button>;
+    }
+  }
+
+  renderFeedbackStatements(attempt) {
+    return <RenderQuestionFeedback attempt={attempt} getQuestion={this.getQuestion} />;
   }
 
   render() {
@@ -308,9 +328,8 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     if (this.props.language === 'arabic' && !(this.getQuestion().mediaURL)) {
       fullPageInstructions = { maxWidth: 800, width: '100%' }
     } else {
-      fullPageInstructions = { display: 'block' }
+      fullPageInstructions = { display: 'block', width: '100%' }
     }
-    const button = this.state.responses ? <button className="button student-submit" onClick={this.checkAnswer}>{this.getSubmitButtonText()}</button> : <button className="button student-submit is-disabled" onClick={() => {}}>Submit</button>;
     return (
       <div className="student-container-inner-diagnostic">
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -322,13 +341,19 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
                 customText={this.customText()}
                 displayArrowAndText={true}
               />
-              <Feedback feedbackType="instructions" feedback={this.getInstructionText()} />
+              <Feedback
+                question={this.props.question}
+                sentence={this.getInstructionText()}
+                responses={this.state.responses}
+                getQuestion={this.getQuestion}
+                renderFeedbackStatements={this.renderFeedbackStatements}
+              />
             </div>
           </div>
           {this.renderMedia()}
         </div>
         <div style={{marginTop: 20}} className="question-button-group button-group">
-          {button}
+          {this.renderButton()}
         </div>
       </div>
     );
