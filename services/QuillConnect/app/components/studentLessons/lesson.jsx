@@ -76,9 +76,10 @@ const Lesson = React.createClass({
 
   saveToLMS() {
     this.setState({ error: false, });
-    const results = getConceptResultsForAllQuestions(this.props.playLesson.answeredQuestions);
+    const relevantAnsweredQuestions = this.props.playLesson.answeredQuestions.filter(q => q.questionType !== 'TL')
+    const results = getConceptResultsForAllQuestions(relevantAnsweredQuestions);
     console.log(results);
-    const score = calculateScoreForLesson(this.props.playLesson.answeredQuestions);
+    const score = calculateScoreForLesson(relevantAnsweredQuestions);
     const { lessonID, } = this.props.params;
     const sessionID = this.state.sessionID;
     if (sessionID) {
