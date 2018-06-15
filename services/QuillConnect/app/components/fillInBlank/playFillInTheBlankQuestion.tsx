@@ -49,7 +49,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     this.checkAnswer = this.checkAnswer.bind(this);
     this.getQuestion = this.getQuestion.bind(this);
     const q = this.getQuestion();
-    const splitPrompt = q.prompt.split('___');
+    const splitPrompt = q.prompt.replace(/<p>/g, '').replace(/<\/p>/g, '').split('___');
     this.state = {
       splitPrompt,
       inputVals: this.generateInputs(splitPrompt),
@@ -93,7 +93,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
 
   handleChange(i, e) {
     const existing = [...this.state.inputVals];
-    existing[i] = e.target.value.trim();
+    existing[i] = e.target.value;
     this.setState({
       inputVals: existing,
     });
@@ -198,6 +198,13 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
       styling.borderWidth = '2px';
       delete styling.borderImageSource;
     }
+    if (this.state.cues.some(c => c.length > 15)) {
+      styling.width = '200px'
+    } else if (this.state.cues.some(c => c.length > 10)) {
+      styling.width = '150px;'
+    } else if (this.state.cues.some(c => c.length > 5)) {
+      styling.width = '100px;'
+    }
     return (
       <span key={`span${i}`}>
         <div style={{ position: 'relative', height: 0, width: 0, }}>
@@ -235,7 +242,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
 
   zipInputsAndText() {
     const zipped = _.zip(this.state.splitPrompt, this.state.inputVals);
-    return _.flatten(zipped).join('');
+    return _.flatten(zipped).join('').trim();
   }
 
   checkAnswer() {
@@ -286,7 +293,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
 
   customText() {
     // HARDCODED
-    // this code should be deprecated once cuesLabels are launched and the 
+    // this code should be deprecated once cuesLabels are launched and the
     let text = translations.english['add word bank cue'];
     text = `${text}${this.state.blankAllowed ? ' or leave blank' : ''}`;
     if (this.props.language && this.props.language !== 'english') {
