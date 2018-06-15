@@ -20,14 +20,14 @@ describe QuillComprehensionSchema do
 
   describe "the activity query" do
     # provide a query string for `result`
-    let(:query_string) { %|{ activity(id: 1) { id, title } }| }
+    let(:query_string) { %|{ activity(id: 1) { title } }| }
 
     context "when there's no current user" do
       
       it "works" do
         activity = create(:activity)
         # calling `result` executes the query
-        expect(result["data"]["activity"]).to eq(activity.attributes.select { |key| ['id', 'title'].include?(key) })
+        expect(result["data"]["activity"]).to eq(activity.attributes.select { |key| ['title'].include?(key) })
       end
     end
 
