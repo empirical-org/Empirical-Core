@@ -31,9 +31,10 @@ const Lesson = React.createClass({
     const questionsForLesson = this.questionsForLesson();
     if (questionsForLesson) {
       const listItems = questionsForLesson.map((question) => {
-        const displayName = question.prompt || 'No question prompt';
-        const questionType = question.questionType === 'fillInBlank' ? 'fill-in-the-blanks' : question.questionType.toKebab()
-        return (<li key={question.key}><Link to={`/admin/${questionType || 'questions'}/${question.key}`}>{displayName.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, '')}</Link></li>);
+        const { questionType, title, prompt, key, } = question
+        const displayName = (questionType === 'titleCards' ? title : prompt) || 'No question prompt';
+        const questionTypeLink = questionType === 'fillInBlank' ? 'fill-in-the-blanks' : questionType.toKebab()
+        return (<li key={question.key}><Link to={`/admin/${questionTypeLink || 'questions'}/${question.key}`}>{displayName.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, '')}</Link></li>);
       });
       return (
         <ul>{listItems}</ul>
@@ -119,7 +120,8 @@ function select(state) {
     questions: state.questions,
     routing: state.routing,
     sentenceFragments: state.sentenceFragments,
-    fillInBlank: state.fillInBlank
+    fillInBlank: state.fillInBlank,
+    titleCards: state.titleCards
   };
 }
 
