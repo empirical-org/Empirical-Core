@@ -13,9 +13,6 @@ class GoogleIntegration::User
   private
 
   def user
-    puts 'beeerr * 10102' * 100
-    puts user_params
-
     @user ||= begin
       @user_class.where(email: data.email).first_or_initialize.tap do |user|
         if user.new_record?

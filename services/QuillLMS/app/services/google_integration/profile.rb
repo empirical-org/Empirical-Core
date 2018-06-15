@@ -26,7 +26,7 @@ class GoogleIntegration::Profile
   end
 
   def expires_at
-    credentials.expires_at if credentials.present?
+    Time.at(expiration_in_epoch_time) if expiration_in_epoch_time.present?
   end
 
   def role
@@ -38,6 +38,12 @@ class GoogleIntegration::Profile
   end
 
   private
+
+  def expiration_in_epoch_time
+    if credentials.present?
+      credentials.expires_at || credentials.expires_in
+    end
+  end
 
   def credentials
     omniauth_data.credentials if omniauth_data.present?
