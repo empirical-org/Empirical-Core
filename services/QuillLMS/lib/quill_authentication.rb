@@ -45,7 +45,7 @@ module QuillAuthentication
     remote_ip = (request.present? ? request.remote_ip : nil)
 
     if user.role == 'teacher'
-      TestForEarnedCheckboxesWorker.perform_async(@user.id)
+      TestForEarnedCheckboxesWorker.perform_async(user.id)
     end
 
     if !session[:staff_id] || session[:staff_id] == user.id

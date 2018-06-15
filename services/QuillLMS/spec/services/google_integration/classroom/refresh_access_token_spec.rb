@@ -10,7 +10,8 @@ describe GoogleIntegration::RefreshAccessToken do
     expired_auth_credentials = create(:auth_credential,
       user: user,
       access_token: 'mr',
-      expires_at: current_time - 1.day
+      expires_at: current_time - 1.day,
+      refresh_token: 'haha-great'
     )
     http_client = double('http_client')
     response = double('response',
@@ -39,7 +40,8 @@ describe GoogleIntegration::RefreshAccessToken do
     expired_auth_credentials = create(:auth_credential,
       user: user,
       access_token: 'mr',
-      expires_at: current_time - 1.day
+      expires_at: current_time - 1.day,
+      refresh_token: 'haha-great'
     )
     http_client = double('http_client')
     response = double('response',
@@ -67,7 +69,8 @@ describe GoogleIntegration::RefreshAccessToken do
     auth_credentials = create(:auth_credential,
       user: user,
       access_token: 'mr',
-      expires_at: current_time + 1.day
+      expires_at: current_time + 1.day,
+      refresh_token: 'haha-great',
     )
     http_client = double('http_client')
 
@@ -81,7 +84,8 @@ describe GoogleIntegration::RefreshAccessToken do
     auth_credentials = create(:auth_credential,
       user: user,
       access_token: 'mr',
-      expires_at: current_time + 1.day
+      expires_at: current_time + 1.day,
+      refresh_token: 'haha-great',
     )
     http_client = double('http_client')
 
