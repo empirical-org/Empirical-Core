@@ -15,7 +15,6 @@ class ShowTitleCard extends React.Component<any, any> {
 
   getTitleCard() {
     const {titleCardID} = this.props.routeParams
-    console.log('titleCard', this.props.titleCards.data[titleCardID])
     return this.props.titleCards.data[titleCardID]
   }
 
