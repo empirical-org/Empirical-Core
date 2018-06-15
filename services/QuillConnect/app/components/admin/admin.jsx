@@ -12,6 +12,7 @@ import diagnosticQuestionActions from '../../actions/diagnosticQuestions';
 import sentenceFragmentActions from '../../actions/sentenceFragments';
 import lessonActions from '../../actions/lessons';
 import levelActions from '../../actions/item-levels';
+import * as titleCardActions from '../../actions/titleCards.ts';
 
 const TabLink = props => (
   <li>
@@ -31,6 +32,7 @@ const adminContainer = React.createClass({
     this.props.dispatch(diagnosticQuestionActions.startListeningToDiagnosticQuestions());
     this.props.dispatch(sentenceFragmentActions.startListeningToSentenceFragments());
     this.props.dispatch(levelActions.startListeningToItemLevels());
+    this.props.dispatch(titleCardActions.startListeningToTitleCards())
   },
 
   render() {
@@ -62,6 +64,12 @@ const adminContainer = React.createClass({
               <TabLink to={'/admin/concepts'} activeClassName="is-active">Concepts</TabLink>
               <TabLink to={'admin/concepts-feedback'} activeClassName="is-active">Concept Feeback</TabLink>
               <TabLink to={'/admin/item-levels'} activeClassName="is-active">Item Levels</TabLink>
+            </ul>
+            <p className="menu-label">
+              Title Cards
+            </p>
+            <ul className="menu-list">
+              <TabLink to={'/admin/title-cards'} activeClassName="is-active">Title Cards</TabLink>
             </ul>
           </aside>
           <div className="admin-container">
