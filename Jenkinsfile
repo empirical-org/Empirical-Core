@@ -56,12 +56,12 @@ pipeline {
               sh 'npm run build:test'
               echo 'Running jest...'
               sh 'npm run jest:coverage'
-              withCredentials(bindings: [string(credentialsId: 'codecov-token', variable: 'CODECOV_TOKEN')]) { 
+              withCredentials(bindings: [string(credentialsId: 'codecov-token', variable: 'CODECOV_TOKEN')]) {
                 sh "curl -s https://codecov.io/bash | bash -s - -cF jest -t $CODECOV_TOKEN"
               }
 
               dir(path: 'services/QuillJenkins/scripts') {
-                // Check that code coverage has not decreased 
+                // Check that code coverage has not decreased
                 sh "python -c'import codecov; codecov.fail_on_decrease(\"develop\", $env.BRANCH_NAME )' || exit"
               }
               */
@@ -160,6 +160,28 @@ pipeline {
             }
           }
         }
+        stage('test-quill-connect') {
+          agent {
+            dockerfile {
+              filename 'services/QuillJenkins/agents/QuillConnect/Dockerfile.test'
+              dir '.'
+              args '-u root:sudo -v $HOME/workspace/myproject:/myproject --name quill-connect'
+            }
+          }
+          environment {
+            /* the NODE_ENV can be anything other than production */
+            NODE_ENV = 'test'
+          }
+          steps {
+            echo 'Beginnning TEST...'
+            dir(path: 'services/QuillConnect') {
+              sh 'npm install'
+              echo 'Running Mocha'
+              sh 'npm run test'
+              echo 'Test successful!'
+            }
+          }
+        }
       }
     }
     stage('deploy') {
@@ -184,7 +206,7 @@ pipeline {
               sh "curl -X GET -u ${U}:${T} '${checkEndpoint}' > check"
               sh 'python -c "import json;f=open(\'check\');j=json.loads(f.read());print(j[\'user\'][\'login\']);f.close()" > tmp'
               def ghUser = readFile 'tmp'
-              ghUser = ghUser.trim() 
+              ghUser = ghUser.trim()
               sh 'python -c "import json;f=open(\'check\');j=json.loads(f.read());print(j[\'mergeable\']);f.close()" > tmp'
               def mergeable = readFile 'tmp'
               mergeable = mergeable.trim()
@@ -198,7 +220,7 @@ pipeline {
                 error('No merging into master in test mode!')
               }
 
-              /* ensure PR is mergeable */ 
+              /* ensure PR is mergeable */
               if (!mergeable.equals('True')) {
                 error("Not able to automatically merge branch! exiting.")
               }
@@ -258,4 +280,3 @@ pipeline {
     }
   }
 }
-
