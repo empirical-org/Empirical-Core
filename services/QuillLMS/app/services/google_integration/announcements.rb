@@ -2,7 +2,7 @@ require 'google/api_client'
 
 class GoogleIntegration::Announcements
   include Rails.application.routes.url_helpers
-  attr_reader :client, :unit, :classroom_activity
+  attr_reader :unit, :classroom_activity
 
   def self.post_unit(unit)
     classroom_activities = unit.classroom_activities
@@ -13,7 +13,6 @@ class GoogleIntegration::Announcements
     classroom_activities.each do |classroom_activity|
       if classroom_activity.is_valid_for_google_announcement_with_owner?
         owner = classroom_activity.classroom.owner
-        GoogleIntegration::RefreshAccessToken.new(owner).refresh
         new(classroom_activity, unit).post
       end
     end
@@ -68,8 +67,8 @@ class GoogleIntegration::Announcements
     classroom_activity.classroom
   end
 
-  def access_token
-    classroom.owner.auth_credential.access_token
+  def user
+    classroom.owner
   end
 
   def google_course_id
@@ -93,7 +92,7 @@ class GoogleIntegration::Announcements
     {
       assigneeMode: "INDIVIDUAL_STUDENTS",
       individualStudentsOptions: {
-        studentIds:assigned_student_ids_as_google_ids
+        studentIds: assigned_student_ids_as_google_ids
       }
     }
   end
@@ -105,7 +104,7 @@ class GoogleIntegration::Announcements
   end
 
   def client
-    GoogleIntegration::Client.new(access_token).create
+    @client ||= GoogleIntegration::Client.new(user).create
   end
 
   def api_method

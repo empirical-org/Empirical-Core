@@ -41,8 +41,13 @@ module QuillAuthentication
     auth_failed
   end
 
-  def sign_in user
+  def sign_in(user)
     remote_ip = (request.present? ? request.remote_ip : nil)
+
+    if user.role == 'teacher'
+      TestForEarnedCheckboxesWorker.perform_async(@user.id)
+    end
+
     if !session[:staff_id] || session[:staff_id] == user.id
       # only kick off login worker if there is no staff id,
       # or if the user getting logged into is staff

@@ -1,13 +1,12 @@
 module GoogleIntegration::Classroom::Main
 
-  def self.join_existing_google_classrooms(student, access_token)
-    client = GoogleIntegration::Client.new(access_token).create
+  def self.join_existing_google_classrooms(student)
+    client = GoogleIntegration::Client.new(student).create
     GoogleIntegration::Classroom::Student.run(student, self.parse_courses(student, client))
   end
 
   def self.pull_data(user)
-    token = user.auth_credential.access_token
-    client = GoogleIntegration::Client.new(token).create
+    client = GoogleIntegration::Client.new(user).create
     self.parse_courses(user, client)
   end
 

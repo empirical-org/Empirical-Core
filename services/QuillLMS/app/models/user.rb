@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
 
 
   has_secure_password validations: false
-  has_one :auth_credential
+  has_one :auth_credential, dependent: :destroy
   has_many :user_subscriptions
   has_many :subscriptions, through: :user_subscriptions
   has_many :checkboxes
@@ -40,7 +40,7 @@ class User < ActiveRecord::Base
 
   has_many :blog_post_user_ratings
 
-
+  accepts_nested_attributes_for :auth_credential
 
   delegate :name, :mail_city, :mail_state, to: :school, allow_nil: true, prefix: :school
 

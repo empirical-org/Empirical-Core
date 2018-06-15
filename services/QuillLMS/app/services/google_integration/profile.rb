@@ -1,40 +1,49 @@
 class GoogleIntegration::Profile
 
-  def initialize(access_token)
-    @access_token = access_token
+  def initialize(request, session)
+    @session = session
+    @request = request
   end
 
   def name
-    profile['displayName']
+    info.name if info.present?
   end
 
   def email
-    profile['emails'][0]['value']
+    info.email if info.present?
   end
 
   def google_id
-    profile['id']
+    omniauth_data.uid if omniauth_data.present?
+  end
+
+  def refresh_token
+    credentials.refresh_token if credentials.present?
+  end
+
+  def access_token
+    credentials.token if credentials.present?
+  end
+
+  def expires_at
+    credentials.expires_at if credentials.present?
+  end
+
+  def role
+    @session['role']
+  end
+
+  def info
+    omniauth_data.info if omniauth_data.present?
   end
 
   private
 
-  def profile
-    @profile ||= begin
-      response = fetch_profile
-      JSON.parse(response.body)
-    end
+  def credentials
+    omniauth_data.credentials if omniauth_data.present?
   end
 
-  def fetch_profile
-    service = client.discovered_api('plus')
-    client.execute(
-      api_method: service.people.get,
-      parameters: { 'userId' => 'me' },
-      headers:    { 'Content-Type' => 'application/json' }
-    )
-  end
-
-  def client
-    @client ||= GoogleIntegration::Client.new(@access_token).create
+  def omniauth_data
+    @request.env['omniauth.auth']
   end
 end
