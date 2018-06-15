@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PlayLessonQuestion from './question';
 import PlaySentenceFragment from './sentenceFragment.jsx';
 import PlayFillInTheBlankQuestion from './fillInBlank.tsx'
+import TitleCard from './titleCard.tsx'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { clearData, loadData, nextQuestion, submitResponse, updateName, updateCurrentQuestion, resumePreviousSession } from '../../actions.js';
 import SessionActions from '../../actions/sessions.js';
@@ -165,6 +166,9 @@ const Lesson = React.createClass({
         case 'fillInBlank':
           type = 'FB'
           break
+        case 'titleCards':
+          type = 'TL'
+          break
         case 'sentenceFragments':
         default:
           type = 'SF'
@@ -244,6 +248,13 @@ const Lesson = React.createClass({
               submitResponse={this.submitResponse}
             />
           );
+        } else if (type === 'TL'){
+          component = (
+            <TitleCard
+              nextQuestion={this.nextQuestion}
+              data={question}
+            />
+          )
         } else {
           component = (
             <PlayLessonQuestion
@@ -295,7 +306,8 @@ function select(state) {
     sentenceFragments: state.sentenceFragments,
     playLesson: state.playLesson, // the questionReducer
     routing: state.routing,
-    fillInBlank: state.fillInBlank
+    fillInBlank: state.fillInBlank,
+    titleCards: state.titleCards
     // sessions: state.sessions,
     // responses: state.responses,
   };

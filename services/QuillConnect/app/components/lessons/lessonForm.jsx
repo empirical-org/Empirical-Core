@@ -66,8 +66,9 @@ const LessonForm = React.createClass({
       const questionsList = this.state.selectedQuestions.map((question) => {
         const questionobj = this.props[question.questionType].data[question.key];
         const prompt = questionobj ? questionobj.prompt : 'Question No Longer Exists';
+        const promptOrTitle = question.questionType === 'titleCards' ? questionobj.title : prompt
         return (<p className="sortable-list-item" key={question.key} questionType={question.questionType}>
-          {prompt}
+          {promptOrTitle}
           {'\t\t'}
           <button onClick={this.handleChange.bind(null, question.key)}>Delete</button>
         </p>
