@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PlayLessonQuestion from './question';
 import PlaySentenceFragment from './sentenceFragment.jsx';
+import PlayFillInTheBlankQuestion from './fillInBlank.tsx'
+import TitleCard from './titleCard.tsx'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { clearData, loadData, nextQuestion, submitResponse, updateName, updateCurrentQuestion, resumePreviousSession } from '../../actions.js';
 import SessionActions from '../../actions/sessions.js';
@@ -74,9 +76,10 @@ const Lesson = React.createClass({
 
   saveToLMS() {
     this.setState({ error: false, });
-    const results = getConceptResultsForAllQuestions(this.props.playLesson.answeredQuestions);
+    const relevantAnsweredQuestions = this.props.playLesson.answeredQuestions.filter(q => q.questionType !== 'TL')
+    const results = getConceptResultsForAllQuestions(relevantAnsweredQuestions);
     console.log(results);
-    const score = calculateScoreForLesson(this.props.playLesson.answeredQuestions);
+    const score = calculateScoreForLesson(relevantAnsweredQuestions);
     const { lessonID, } = this.props.params;
     const sessionID = this.state.sessionID;
     if (sessionID) {
@@ -156,7 +159,21 @@ const Lesson = React.createClass({
       const key = questionItem.key;
       const question = this.props[questionType].data[key];
       question.key = key;
-      const type = questionType === 'questions' ? 'SC' : 'SF';
+      let type
+      switch (questionType) {
+        case 'questions':
+          type = 'SC'
+          break
+        case 'fillInBlank':
+          type = 'FB'
+          break
+        case 'titleCards':
+          type = 'TL'
+          break
+        case 'sentenceFragments':
+        default:
+          type = 'SF'
+      }
       return { type, question, };
     });
   },
@@ -207,13 +224,47 @@ const Lesson = React.createClass({
     if (data[lessonID]) {
       if (this.props.playLesson.currentQuestion) {
         const { type, question, } = this.props.playLesson.currentQuestion;
+
         if (type === 'SF') {
           component = (
-            <PlaySentenceFragment currentKey={question.key} question={question} nextQuestion={this.nextQuestion} key={question.key} marking="diagnostic" updateAttempts={this.submitResponse} markIdentify={this.markIdentify} dispatch={this.props.dispatch} />
+            <PlaySentenceFragment
+              currentKey={question.key}
+              question={question}
+              nextQuestion={this.nextQuestion}
+              key={question.key}
+              marking="diagnostic"
+              updateAttempts={this.submitResponse}
+              markIdentify={this.markIdentify}
+              dispatch={this.props.dispatch}
+            />
           );
+        } else if (type === 'FB') {
+          component = (
+            <PlayFillInTheBlankQuestion
+              key={question.key}
+              question={question}
+              nextQuestion={this.nextQuestion}
+              prefill={this.getLesson().prefill}
+              dispatch={this.props.dispatch}
+              submitResponse={this.submitResponse}
+            />
+          );
+        } else if (type === 'TL'){
+          component = (
+            <TitleCard
+              nextQuestion={this.nextQuestion}
+              data={question}
+            />
+          )
         } else {
           component = (
-            <PlayLessonQuestion key={question.key} question={question} nextQuestion={this.nextQuestion} prefill={this.getLesson().prefill} dispatch={this.props.dispatch} />
+            <PlayLessonQuestion
+              key={question.key}
+              question={question}
+              nextQuestion={this.nextQuestion}
+              prefill={this.getLesson().prefill}
+              dispatch={this.props.dispatch}
+            />
           );
         }
       } else if (this.props.playLesson.answeredQuestions.length > 0 && (this.props.playLesson.unansweredQuestions.length === 0 && this.props.playLesson.currentQuestion === undefined)) {
@@ -256,6 +307,8 @@ function select(state) {
     sentenceFragments: state.sentenceFragments,
     playLesson: state.playLesson, // the questionReducer
     routing: state.routing,
+    fillInBlank: state.fillInBlank,
+    titleCards: state.titleCards
     // sessions: state.sessions,
     // responses: state.responses,
   };

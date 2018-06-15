@@ -7,7 +7,9 @@ import translations from '../../libs/translations/index.js';
 export default React.createClass({
 
   getJoiningWordsText() {
-    if (this.props.getQuestion().cues && this.props.getQuestion().cues.length === 1) {
+    if (this.props.getQuestion().cues && this.props.getQuestion().cuesLabel) {
+      return this.props.getQuestion().cuesLabel
+    } else if (this.props.getQuestion().cues && this.props.getQuestion().cues.length === 1) {
       let text = translations.english['joining word cues single'];
       if (this.props.language && this.props.language !== 'english') {
         text += ` / ${translations[this.props.language]['joining word cues single']}`;
