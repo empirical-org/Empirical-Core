@@ -117,11 +117,12 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     const newErrors = new Set(this.state.inputErrors);
     const inputVal = this.state.inputVals[i] || '';
     const inputSufficient = this.state.blankAllowed ? true : inputVal;
+    const cueMatch = inputVal && this.state.cues.some(c => c.toLowerCase() === inputVal.toLowerCase())
 
-    if (!inputSufficient || (inputVal && this.state.cues.indexOf(inputVal.toLowerCase()) === -1)) {
-      newErrors.add(i);
-    } else {
+    if (inputSufficient && cueMatch) {
       newErrors.delete(i);
+    } else {
+      newErrors.add(i);
     }
 
     // following condition will return false if no new errors
@@ -201,9 +202,11 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     if (this.state.cues.some(c => c.length > 15)) {
       styling.width = '200px'
     } else if (this.state.cues.some(c => c.length > 10)) {
-      styling.width = '150px;'
+      styling.width = '150px'
     } else if (this.state.cues.some(c => c.length > 5)) {
-      styling.width = '100px;'
+      styling.width = '100px'
+    } else {
+      styling.width = '50px'
     }
     return (
       <span key={`span${i}`}>
