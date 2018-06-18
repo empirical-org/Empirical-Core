@@ -689,7 +689,7 @@ DEPENDENCIES
   bcrypt
   better_errors
   binding_of_caller
-  brakeman
+  brakeman (= 4.1.1)
   bulk_insert
   bullet
   byebug (= 8.2.1)
