@@ -17,7 +17,7 @@ pipeline {
             dockerfile {
               filename 'services/QuillJenkins/agents/QuillLMS/Dockerfile.test-ruby'
               dir '.'
-              args "-u root:sudo -v $HOME/workspace/myproject:/myproject --name lms-webapp --network jnk-net${env.BUILD_TAG}"
+              args "-u root:sudo -v \$HOME/workspace/myproject:/myproject --name lms-webapp --network jnk-net${env.BUILD_TAG}"
             }
           }
           environment {
@@ -72,7 +72,7 @@ pipeline {
             dockerfile {
               filename 'services/QuillJenkins/agents/QuillComprehension/Dockerfile.test-ruby'
               dir '.'
-              args "-u root:sudo -v $HOME/workspace/myproject:/myproject --name QuillComprehension-webapp --network jnk-net${env.BUILD_TAG}"
+              args "-u root:sudo -v \$HOME/workspace/myproject:/myproject --name QuillComprehension-webapp --network jnk-net${env.BUILD_TAG}"
             }
           }
           environment {
@@ -307,7 +307,7 @@ pipeline {
             dockerfile {
               filename 'services/QuillJenkins/agents/QuillConnect/Dockerfile.deploy'
               dir '.'
-              args "-u root:sudo -v $HOME/workspace/myproject:/myproject --name connect-deploy --network jnk-net${env.BUILD_TAG}"
+              args "-u root:sudo -v \$HOME/workspace/myproject:/myproject --name connect-deploy --network jnk-net${env.BUILD_TAG}"
             }
           }
           environment {
