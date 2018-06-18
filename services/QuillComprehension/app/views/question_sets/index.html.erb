@@ -19,7 +19,7 @@
         <tbody>
           <% @question_sets.each do |question_set| %>
             <tr>
-              <td><%= question_set.activity.title %></td>
+              <td><%= link_to question_set.activity&.title, activity_path(question_set.activity_id) %></td>
               <td><%= question_set.prompt %></td>
               <td><%= question_set.order %></td>
               <td><%= link_to 'Show', question_set %></td>
