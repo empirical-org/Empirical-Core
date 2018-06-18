@@ -33,7 +33,8 @@ pipeline {
             dir(path: 'services/QuillLMS') {
               echo 'Rspec:'
               echo 'Setting up rspec...'
-              sh 'cp config/database.yml.jenkins config/database.yml'
+              //sh 'cp config/database.yml.jenkins config/database.yml'
+              sh "./services/QuillLMS/config/generate_databaseyml.sh ${env.BUILD_TAG} config/database.yml" 
               echo 'Running rspec'
               sh 'bundle exec rake parallel:create'
               sh 'bundle exec rake parallel:load_structure'
@@ -84,7 +85,8 @@ pipeline {
               sh 'bundle install'
               sh 'yarn install'
               echo 'DB:'
-              sh 'cp config/database.yml.jenkins config/database.yml'
+              //sh 'cp config/database.yml.jenkins config/database.yml'
+              sh "./services/QuillLMS/config/generate_databaseyml.sh ${env.BUILD_TAG} config/database.yml" 
               sh 'bin/rails db:create'
               sh 'bin/rails db:schema:load'
               echo 'Running rspec'
