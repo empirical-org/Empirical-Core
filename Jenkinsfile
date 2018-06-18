@@ -5,8 +5,8 @@ pipeline {
       steps {
         echo 'Starting postgres docker container...'
         script {
-          sh 'docker network create jnk-net'
-          sh 'docker run --name lms-testdb --network jnk-net -d postgres:10.1'
+          sh "docker network create jnk-net${env.BUILD_TAG}"
+          sh "docker run --name lms-testdb --network jnk-net${env.BUILD_TAG} -d postgres:10.1"
         }
       }
     }
@@ -17,7 +17,7 @@ pipeline {
             dockerfile {
               filename 'services/QuillJenkins/agents/QuillLMS/Dockerfile.test-ruby'
               dir '.'
-              args '-u root:sudo -v $HOME/workspace/myproject:/myproject --name lms-webapp --network jnk-net'
+              args "-u root:sudo -v $HOME/workspace/myproject:/myproject --name lms-webapp --network jnk-net${env.BUILD_TAG}"
             }
           }
           environment {
@@ -72,7 +72,7 @@ pipeline {
             dockerfile {
               filename 'services/QuillJenkins/agents/QuillComprehension/Dockerfile.test-ruby'
               dir '.'
-              args '-u root:sudo -v $HOME/workspace/myproject:/myproject --name QuillComprehension-webapp --network jnk-net'
+              args "-u root:sudo -v $HOME/workspace/myproject:/myproject --name QuillComprehension-webapp --network jnk-net${env.BUILD_TAG}"
             }
           }
           environment {
@@ -307,7 +307,7 @@ pipeline {
             dockerfile {
               filename 'services/QuillJenkins/agents/QuillConnect/Dockerfile.deploy'
               dir '.'
-              args '-u root:sudo -v $HOME/workspace/myproject:/myproject --name connect-deploy --network jnk-net'
+              args "-u root:sudo -v $HOME/workspace/myproject:/myproject --name connect-deploy --network jnk-net${env.BUILD_TAG}"
             }
           }
           environment {
@@ -345,7 +345,7 @@ pipeline {
       echo 'Stopping postgres docker container...'
       sh 'docker stop lms-testdb'
       sh 'docker rm lms-testdb'
-      sh 'docker network rm jnk-net'
+      sh "docker network rm jnk-net${env.BUILD_TAG}"
     }
   }
 }
