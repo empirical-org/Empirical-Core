@@ -23,7 +23,6 @@ import createHashHistory from 'history/lib/createHashHistory';
 import 'styles/style.scss';
 import Raven from 'raven-js';
 import quillNormalizer from './libs/quillNormalizer';
-import SocketProvider from './components/socketProvider';
 
 if (process.env.NODE_ENV === 'production') {
   console.log('App is running in production');

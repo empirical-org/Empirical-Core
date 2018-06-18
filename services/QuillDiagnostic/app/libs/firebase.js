@@ -12,15 +12,15 @@ if (prod) {
 } else {
   config = {
     apiKey: 'AIzaSyAJNeVssNkcjNonREdRZ7gTyEDqmAfz7Go',
-    authDomain: 'quilldiagnosticstaging.firebaseapp.com',
-    databaseURL: 'https://quilldiagnosticstaging.firebaseio.com',
-    storageBucket: 'quilldiagnosticstaging.appspot.com',
+    authDomain: 'quillconnectstaging.firebaseapp.com',
+    databaseURL: 'https://quillconnectstaging.firebaseio.com',
+    storageBucket: 'quillconnectstaging.appspot.com',
   };
 }
 
 firebase.initializeApp(config);
 
-const rootRef = firebase.database().ref().child('v1');
+const rootRef = firebase.database().ref().child('v2');
 
 export default rootRef;
 

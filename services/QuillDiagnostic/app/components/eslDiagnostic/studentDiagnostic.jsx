@@ -15,7 +15,7 @@ import LanguagePage from './languagePage.jsx';
 import FinishedDiagnostic from './finishedDiagnostic.jsx';
 import DiagnosticProgressBar from '../shared/diagnosticProgressBar.jsx';
 import { getConceptResultsForAllQuestions } from '../../libs/conceptResults/diagnostic';
-import TitleCard from './titleCard.jsx';
+import TitleCard from './titleCard.tsx';
 import SessionActions from '../../actions/sessions.js';
 import { getParameterByName } from '../../libs/getParameterByName';
 
