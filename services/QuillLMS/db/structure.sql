@@ -3746,7 +3746,7 @@ CREATE INDEX index_users_on_stripe_customer_id ON users USING btree (stripe_cust
 -- Name: index_users_on_time_zone; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_users_on_time_zone ON public.users USING btree (time_zone);
+CREATE INDEX index_users_on_time_zone ON users USING btree (time_zone);
 
 
 --
