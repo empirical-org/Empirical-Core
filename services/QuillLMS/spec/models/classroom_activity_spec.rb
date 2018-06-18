@@ -107,7 +107,10 @@ describe ClassroomActivity, type: :model, redis: :true do
 
   describe '#generate_activity_url' do
     it 'returns a url including the default url' do
-      expect(classroom_activity.generate_activity_url).to include(ENV["DEFAULT_URL"])
+      ENV["DEFAULT_URL"] = 'http://cooolsville.edu'
+
+      expect(classroom_activity.generate_activity_url)
+        .to include('http://cooolsville.edu')
     end
   end
 
