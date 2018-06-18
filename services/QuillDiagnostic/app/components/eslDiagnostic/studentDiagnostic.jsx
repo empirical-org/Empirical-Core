@@ -194,7 +194,18 @@ const StudentDiagnostic = React.createClass({
   },
 
   getData() {
-    return diagnosticQuestions();
+    const { data, } = this.props.lessons,
+      { lessonID, } = this.props.params;
+    if (data[lessonID].questions) {
+      return _.values(data[lessonID].questions).map((question) => {
+        console.log(question)
+        const questions = this.props[question.questionType].data;
+        const qFromDB = Object.assign({}, questions[question.key]);
+        qFromDB.questionType = question.questionType;
+        qFromDB.key = question.key;
+        return qFromDB;
+      });
+    }
   },
 
   markIdentify(bool) {

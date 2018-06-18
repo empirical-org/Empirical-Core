@@ -1,6 +1,6 @@
 const C = require('../constants').default;
 import rootRef from '../libs/firebase';
-const	lessonsRef = rootRef.child('lessons');
+const	lessonsRef = rootRef.child('diagnostics');
 import { push } from 'react-router-redux';
 import {updateFlag, updateModelConceptUID} from './questions'
 

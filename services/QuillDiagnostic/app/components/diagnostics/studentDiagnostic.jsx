@@ -4,10 +4,7 @@ import CarouselAnim from '../shared/carouselAnimation.jsx';
 import { clearData, loadData, nextQuestion, nextQuestionWithoutSaving, submitResponse, updateName, updateCurrentQuestion, resumePreviousDiagnosticSession } from '../../actions/diagnostics.js';
 import _ from 'underscore';
 import { hashToCollection } from '../../libs/hashToCollection';
-import diagnosticQuestions from './diagnosticQuestions.js';
-import researchDiagnosticQuestions from './researchDiagnosticQuestions.js';
 import SessionActions from '../../actions/sessions.js';
-import Spinner from '../shared/spinner.jsx';
 import SmartSpinner from '../shared/smartSpinner.jsx';
 import PlaySentenceFragment from './sentenceFragment.jsx';
 import PlayDiagnosticQuestion from './sentenceCombining.jsx';
@@ -197,12 +194,19 @@ const StudentDiagnostic = React.createClass({
     this.props.dispatch(updateName(name));
   },
 
-  getData() {
-    const { diagnosticID, } = this.props.params;
-    if (diagnosticID == 'researchDiagnostic') {
-      return researchDiagnosticQuestions();
+  questionsForLesson() {
+    const { data, } = this.props.lessons,
+      { lessonID, } = this.props.params;
+    if (data[lessonID].questions) {
+      return _.values(data[lessonID].questions).map((question) => {
+        console.log(question)
+        const questions = this.props[question.questionType].data;
+        const qFromDB = Object.assign({}, questions[question.key]);
+        qFromDB.questionType = question.questionType;
+        qFromDB.key = question.key;
+        return qFromDB;
+      });
     }
-    return diagnosticQuestions();
   },
 
   getQuestionCount() {

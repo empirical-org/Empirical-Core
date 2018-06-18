@@ -20,7 +20,7 @@
         ".read": true,
         ".write": true
       },
-      "concept_feedback": {
+      "concept-feedback": {
         ".read": true,
         ".write": true
       },
