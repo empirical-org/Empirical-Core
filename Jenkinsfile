@@ -6,18 +6,18 @@ pipeline {
         echo 'Starting postgres docker container...'
         script {
           sh "docker network create jnk-net${env.BUILD_TAG}"
-          sh "docker run --name lms-testdb --network jnk-net${env.BUILD_TAG} -d postgres:10.1"
+          sh "docker run --name lms-testdb${env.BUILD_TAG} --network jnk-net${env.BUILD_TAG} -d postgres:10.1"
         }
       }
     }
     stage('test') {
       parallel {
-        stage('test-QuillLMS-ruby') {
+        stage('test-lms-ruby') {
           agent {
             dockerfile {
               filename 'services/QuillJenkins/agents/QuillLMS/Dockerfile.test-ruby'
               dir '.'
-              args "-u root:sudo -v \$HOME/workspace/myproject:/myproject --name lms-webapp --network jnk-net${env.BUILD_TAG}"
+              args "-u root:sudo -v \$HOME/workspace/myproject:/myproject --name test-lms-ruby${env.BUILD_TAG} --network jnk-net${env.BUILD_TAG}"
             }
           }
           environment {
@@ -67,12 +67,12 @@ pipeline {
             }
           }
         }
-        stage('test-QuillComprehension') {
+        stage('test-comprehension') {
           agent {
             dockerfile {
               filename 'services/QuillJenkins/agents/QuillComprehension/Dockerfile.test-ruby'
               dir '.'
-              args "-u root:sudo -v \$HOME/workspace/myproject:/myproject --name QuillComprehension-webapp --network jnk-net${env.BUILD_TAG}"
+              args "-u root:sudo -v \$HOME/workspace/myproject:/myproject --name test-comprehension${env.BUILD_TAG} --network jnk-net${env.BUILD_TAG}"
             }
           }
           environment {
@@ -95,12 +95,12 @@ pipeline {
             }
           }
         }
-        stage('test-quill-grammar') {
+        stage('test-grammar') {
           agent {
             dockerfile {
               filename 'services/QuillJenkins/agents/Generic/Dockerfile.test-node'
               dir '.'
-              args '-u root:sudo -v $HOME/workspace/myproject:/myproject --name quill-grammar'
+              args "-u root:sudo -v \$HOME/workspace/myproject:/myproject --name test-grammar${env.BUILD_TAG}"
             }
           }
           environment {
@@ -116,12 +116,12 @@ pipeline {
             }
           }
         }
-        stage('test-quill-marking-logic') {
+        stage('test-marking-logic') {
           agent {
             dockerfile {
               filename 'services/QuillJenkins/agents/Generic/Dockerfile.test-node'
               dir '.'
-              args '-u root:sudo -v $HOME/workspace/myproject:/myproject --name quill-marking-logic'
+              args "-u root:sudo -v \$HOME/workspace/myproject:/myproject --name test-marking-logic${env.BUILD_TAG}"
             }
           }
           environment {
@@ -137,12 +137,12 @@ pipeline {
             }
           }
         }
-        stage('test-quill-spellchecker') {
+        stage('test-spellchecker') {
           agent {
             dockerfile {
               filename 'services/QuillJenkins/agents/Generic/Dockerfile.test-node'
               dir '.'
-              args '-u root:sudo -v $HOME/workspace/myproject:/myproject --name quill-spellchecker'
+              args "-u root:sudo -v \$HOME/workspace/myproject:/myproject --name test-spellchecker${env.BUILD_TAG}"
             }
           }
           environment {
@@ -158,12 +158,12 @@ pipeline {
             }
           }
         }
-        stage('test-quill-connect') {
+        stage('test-connect') {
           agent {
             dockerfile {
               filename 'services/QuillJenkins/agents/QuillConnect/Dockerfile.test'
               dir '.'
-              args '-u root:sudo -v $HOME/workspace/myproject:/myproject --name quill-connect'
+              args "-u root:sudo -v \$HOME/workspace/myproject:/myproject --name test-connect${env.BUILD_TAG}"
             }
           }
           environment {
@@ -307,7 +307,7 @@ pipeline {
             dockerfile {
               filename 'services/QuillJenkins/agents/QuillConnect/Dockerfile.deploy'
               dir '.'
-              args "-u root:sudo -v \$HOME/workspace/myproject:/myproject --name connect-deploy --network jnk-net${env.BUILD_TAG}"
+              args "-u root:sudo -v \$HOME/workspace/myproject:/myproject --name deploy-connect${env.BUILD_TAG} --network jnk-net${env.BUILD_TAG}"
             }
           }
           environment {
@@ -343,8 +343,8 @@ pipeline {
   post {
     always {
       echo 'Stopping postgres docker container...'
-      sh 'docker stop lms-testdb'
-      sh 'docker rm lms-testdb'
+      sh "docker stop lms-testdb${env.BUILD_TAG}"
+      sh "docker rm lms-testdb${env.BUILD_TAG}"
       sh "docker network rm jnk-net${env.BUILD_TAG}"
     }
   }
