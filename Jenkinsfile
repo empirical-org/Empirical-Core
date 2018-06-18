@@ -251,9 +251,6 @@ pipeline {
       }
     }
     stage('deploy') {
-      agent {
-        label 'master'
-      }
       parallel {
         stage('deploy-lms') {
           agent {
