@@ -45,29 +45,15 @@ pipeline {
               echo 'Brakeman:'
               sh 'bundle exec brakeman -z'
               echo 'Test successful!'
-            }
-          }
-        }
-          stage('test-QuillLMS-node') {
-          agent {
-            dockerfile {
-              filename 'Dockerfile.test-node'
-              dir 'services/QuillJenkins/agents/QuillLMS'
-              args '-u root:sudo -v $HOME/workspace/myproject:/myproject --name lms-webapp-frontend --network jnk-net'
-            }
-
-          }
-          steps {
-            echo 'Beginnning front-end tests...'
-            withCredentials(bindings: [string(credentialsId: 'codecov-token', variable: 'CODECOV_TOKEN')]) {
-              dir(path: 'services/QuillLMS') {
-                echo 'Installing necessary packages...'
-                sh 'npm install'
-                sh 'ls'
-                echo 'Building test distribution'
-                sh 'npm run build:test'
-                echo 'Running jest...'
-                sh 'npm run jest:coverage'
+              echo 'Beginnning front-end tests...'
+              echo 'Installing necessary packages...'
+              sh 'npm install'
+              sh 'ls'
+              echo 'Building test distribution'
+              sh 'npm run build:test'
+              echo 'Running jest...'
+              sh 'npm run jest:coverage'
+              withCredentials(bindings: [string(credentialsId: 'codecov-token', variable: 'CODECOV_TOKEN')]) { 
                 sh "curl -s https://codecov.io/bash | bash -s - -cF jest -t $CODECOV_TOKEN"
               }
               dir(path: 'services/QuillJenkins/scripts') {
@@ -77,7 +63,7 @@ pipeline {
             }
           }
         }
-        stage('test-QuillComprehension-ruby') {
+        stage('test-QuillComprehension') {
           agent {
             dockerfile {
               filename 'services/QuillJenkins/agents/QuillComprehension/Dockerfile.test-ruby'
@@ -92,18 +78,78 @@ pipeline {
             echo 'Beginnning TEST...'
             dir(path: 'services/QuillComprehension') {
               sh 'bundle install'
-              // sh 'curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash && source ~/.bashrc && nvm install && nvm use'
               sh 'yarn install'
               echo 'DB:'
               sh 'cp config/database.yml.jenkins config/database.yml'
               sh 'bin/rails db:create'
               sh 'bin/rails db:schema:load'
-              echo 'Rspec:'
-              echo 'Setting up rspec...'
               echo 'Running rspec'
               sh 'bundle exec rspec'
               echo 'Running Jest'
               sh 'yarn test'
+              echo 'Test successful!'
+            }
+          }
+        }
+        stage('test-quill-grammar') {
+          agent {
+            dockerfile {
+              filename 'services/QuillJenkins/agents/Generic/Dockerfile.test-node'
+              dir '.'
+              args '-u root:sudo -v $HOME/workspace/myproject:/myproject --name quill-grammar'
+            }
+          }
+          environment {
+            NODE_ENV = 'test'
+          }
+          steps {
+            echo 'Beginnning TEST...'
+            dir(path: 'services/QuillGrammar') {
+              sh 'npm install'
+              echo 'Running Karma'
+              sh 'npm run test'
+              echo 'Test successful!'
+            }
+          }
+        }
+        stage('test-quill-marking-logic') {
+          agent {
+            dockerfile {
+              filename 'services/QuillJenkins/agents/Generic/Dockerfile.test-node'
+              dir '.'
+              args '-u root:sudo -v $HOME/workspace/myproject:/myproject --name quill-marking-logic'
+            }
+          }
+          environment {
+            NODE_ENV = 'test'
+          }
+          steps {
+            echo 'Beginnning TEST...'
+            dir(path: 'packages/quill-marking-logic') {
+              sh 'npm install'
+              echo 'Running Karma'
+              sh 'npm run test'
+              echo 'Test successful!'
+            }
+          }
+        }
+        stage('test-quill-spellchecker') {
+          agent {
+            dockerfile {
+              filename 'services/QuillJenkins/agents/Generic/Dockerfile.test-node'
+              dir '.'
+              args '-u root:sudo -v $HOME/workspace/myproject:/myproject --name quill-spellchecker'
+            }
+          }
+          environment {
+            NODE_ENV = 'test'
+          }
+          steps {
+            echo 'Beginnning TEST...'
+            dir(path: 'packages/quill-spellchecker') {
+              sh 'npm install'
+              echo 'Running Karma'
+              sh 'npm run test'
               echo 'Test successful!'
             }
           }

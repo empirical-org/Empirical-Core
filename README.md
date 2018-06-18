@@ -31,6 +31,6 @@ universe structure.  Checking out open issues is a great way to get started as
 an open source contributor.
 
 
-Thanks for your intrest in Quill! 
+Thanks for your interest in Quill! 
 
 
