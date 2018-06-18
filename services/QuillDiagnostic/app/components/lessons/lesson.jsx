@@ -17,7 +17,8 @@ const Lesson = React.createClass({
     const { data, } = this.props.lessons,
       { lessonID, } = this.props.params;
     if (data[lessonID].questions) {
-      return data[lessonID].questions.map((question) => {
+      return _.values(data[lessonID].questions).map((question) => {
+        console.log(question)
         const questions = this.props[question.questionType].data;
         const qFromDB = Object.assign({}, questions[question.key]);
         qFromDB.questionType = question.questionType;

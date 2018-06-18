@@ -1,6 +1,6 @@
 const C = require('../constants').default;
 import rootRef from '../libs/firebase';
-const	feedbackRef = rootRef.child('concept_feedback');
+const	feedbackRef = rootRef.child('concept-feedback');
 import { push } from 'react-router-redux';
 
 const actions = {

@@ -1,5 +1,5 @@
 import ConceptsFeedback from 'components/feedback/concepts-feedback.jsx';
-import ConceptFeedback from 'components/feedback/concept_feedback.jsx';
+import ConceptFeedback from 'components/feedback/concept-feedback.jsx';
 
 const conceptFeedbackRoute = {
   path: ':feedbackID',
