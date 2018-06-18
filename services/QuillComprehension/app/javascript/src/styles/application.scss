@@ -27,3 +27,15 @@ body {
   font-size: 0.9375rem;
   -webkit-font-smoothing: antialiased;
 }
+
+a {
+  color: #467fcf;
+  text-decoration: none;
+  background-color: transparent;
+  text-decoration-skip: ink;
+  
+  &:hover {
+    color: #295a9f;
+    text-decoration: underline;
+  }
+}

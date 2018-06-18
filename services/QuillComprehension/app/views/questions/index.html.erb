@@ -18,8 +18,8 @@
         <tbody>
           <% @questions.each do |question| %>
             <tr>
-              <td><%= question.question_set&.activity&.title %></td>
-              <td><%= question.question_set&.prompt %></td>
+              <td><%= link_to question.question_set&.activity&.title, activity_path(question.question_set&.activity_id) %></td>
+              <td><%= link_to question.question_set&.prompt, question_set_path(question.question_set_id) %></td>
               <td><%= question.prompt %></td>
               <td><%= link_to 'Show', question %></td>
               <td><%= link_to 'Edit', edit_question_path(question) %></td>
