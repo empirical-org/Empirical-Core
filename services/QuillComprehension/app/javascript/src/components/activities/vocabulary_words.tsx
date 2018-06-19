@@ -12,7 +12,6 @@ export interface Props {
 } 
 
 export default class VocabularyWords extends React.Component<Props, any> {
-
   render() {
     return (
       <div className="d-fl-r ai-c">
