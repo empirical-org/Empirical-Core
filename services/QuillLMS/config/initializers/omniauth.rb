@@ -8,6 +8,7 @@ Rails.application.config.middleware.use OmniAuth::Builder do
       scope: ['email',
               'profile',
               'classroom.courses.readonly',
+              'classroom.announcements',
               'classroom.rosters.readonly',
               'classroom.profile.emails'],
       access_type: 'offline'
