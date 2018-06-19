@@ -21,7 +21,7 @@ pipeline {
               sh "curl -X GET -u ${U}:${T} '${checkEndpoint}' > check"
               sh 'python -c "import json;f=open(\'check\');j=json.loads(f.read());print(j[\'user\'][\'login\']);f.close()" > tmp'
               def ghUser = readFile 'tmp'
-              def ghUser.trim()
+              ghUser.trim()
 
               sh 'python -c "import json;f=open(\'check\');j=json.loads(f.read());print(j[\'mergeable\']);f.close()" > tmp'
               def mergeable = readFile 'tmp'
