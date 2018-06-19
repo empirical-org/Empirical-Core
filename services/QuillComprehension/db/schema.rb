@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_10_182341) do
+ActiveRecord::Schema.define(version: 2018_06_19_174131) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,7 +51,19 @@ ActiveRecord::Schema.define(version: 2018_06_10_182341) do
     t.index ["text", "question_id"], name: "index_responses_on_text_and_question_id", unique: true
   end
 
+  create_table "vocabulary_words", force: :cascade do |t|
+    t.bigint "activity_id"
+    t.text "text"
+    t.text "description"
+    t.text "example"
+    t.integer "order"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["activity_id"], name: "index_vocabulary_words_on_activity_id"
+  end
+
   add_foreign_key "question_sets", "activities"
   add_foreign_key "questions", "question_sets"
   add_foreign_key "responses", "questions"
+  add_foreign_key "vocabulary_words", "activities"
 end

@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   resources :activities, shallow: true do
     resources :question_sets
+    resources :vocabulary_words
   end
   resources :question_sets, only: [], shallow: true do
     resources :questions
