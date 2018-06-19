@@ -26,7 +26,10 @@ export default React.createClass({
         this.props.handleTextChange(convertToHTML(this.state.text.getCurrentContent()));
       }
     );
-    }
+  }
+  if (nextProps.text !== this.props.text) {
+    this.setState({text: EditorState.createWithContent(convertFromHTML(nextProps.text || ''))})
+  }
   },
 
   getState() {

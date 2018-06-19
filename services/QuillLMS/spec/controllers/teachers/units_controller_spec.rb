@@ -16,20 +16,24 @@ describe Teachers::UnitsController, type: :controller do
   )}
 
   before do
-      session[:user_id] = teacher.id # sign in, is there a better way to do this in test?
+    allow(GoogleIntegration::Announcements).to receive(:post_unit)
+    session[:user_id] = teacher.id
   end
 
   describe '#create' do
     it 'kicks off a background job' do
+      create(:auth_credential, user: teacher)
       expect {
-        post :create, classroom_id: classroom.id,
-                      unit: {
-                        name: 'A Cool Learning Experience',
-                        classrooms: [],
-                        activities: []
-                      }
-        expect(response.status).to eq(200)
+        post(:create,
+          classroom_id: classroom.id,
+          unit: {
+            name: 'A Cool Learning Experience',
+            classrooms: [],
+            activities: []
+          }
+        )
       }.to change(AssignActivityWorker.jobs, :size).by(1)
+      expect(response.status).to eq(200)
     end
   end
 
