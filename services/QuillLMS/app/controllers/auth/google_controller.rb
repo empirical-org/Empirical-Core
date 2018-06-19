@@ -4,10 +4,12 @@ class Auth::GoogleController < ApplicationController
   before_action :set_user,                     only: :google
   before_action :check_if_email_matches,       only: :google
   before_action :handle_google_teacher_signup, only: :google
+  before_action :handle_google_student_signup, only: :google
 
   def google
-    GoogleStudentImporterWorker.perform_async(@user.id)
-
+    if @user.teacher?
+      GoogleStudentImporterWorker.perform_async(@user.id)
+    end
     if @user.student?
       GoogleIntegration::Classroom::Main.join_existing_google_classrooms(@user)
     end
@@ -42,6 +44,12 @@ class Auth::GoogleController < ApplicationController
   def check_if_email_matches
     if current_user && current_user.email.downcase != @user.email
       redirect_to auth_google_email_mismatch_path(google_email: @user.email)
+    end
+  end
+
+  def handle_google_student_signup
+    unless @user.new_record? && @user.student? && @user.save
+      render 'accounts/new'
     end
   end
 
