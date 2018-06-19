@@ -12,6 +12,13 @@ ln -s $QROOT/meta/hooks/pre-commit $QROOT/.git/hooks/pre-commit
 *Install hooks*
 
 
+Quill.org gives CI status for the HEAD of all active branches. Here is the build
+table for **jpf2**:
+
+|Jenkins CI|
+|---|
+|[![Build Status](https://jenkins.quill.org/buildStatus/icon?job=quill.org/jpf2)](https://jenkins.quill.org/job/quill.org/job/jpf2/)|
+
 ## Structure
 
 If you've installed the repository hooks, it's time to start writing code that
