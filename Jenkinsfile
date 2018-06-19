@@ -1,6 +1,16 @@
 pipeline {
   agent any
+  environment {
+     FOO = "foo"
+  }
   stages {
+    stage('write-envar') {
+      sh "export ${env.FOO}='bar'"
+    }
+    stage('read-envar') {
+      echo "${env.FOO}" 
+      sh 'exit 1'
+    }
     stage('start-postgres-docker') {
       steps {
         echo 'Starting postgres docker container...'
