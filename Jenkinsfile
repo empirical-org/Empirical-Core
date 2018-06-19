@@ -1,19 +1,44 @@
 pipeline {
   agent any
   stages {
-    stage('write-envar') {
+    stage('set-pr-envars') {
       steps {
         script {
-          env.FOO='bar'
-          def foo1='boop'
+          env.MERGING_INTO=''
+          env.MERGEABLE=''
+          env.IS_PR=false
+          env.USER_IS_STAFF_MEMBER='False'
+          if (env.CHANGE_ID) {
+            env.IS_PR=true
+            def quillStaffId='509062'
+            def checkEndpoint="https://api.github.com/repos/empirical-org/Empirical-Core/pulls/${env.CHANGE_ID}"
+            def teamEndpoint="https://api.github.com/teams/${quillStaffId}/members"
+            def payload='{\"commit_title\":\"Merged by jenkins.\", \"commit_message\":\"automatically merged by jenkins.\"}'
+            def mergeEndpoint="https://api.github.com/repos/empirical-org/Empirical-Core/pulls/${env.CHANGE_ID}/merge"
+            def headers = 'Content-Type: application/json'
+            withCredentials([usernamePassword(credentialsId: 'robot-butler', usernameVariable: 'U', passwordVariable: 'T')]) {
+              /* fetch pr */
+              sh "curl -X GET -u ${U}:${T} '${checkEndpoint}' > check"
+              sh 'python -c "import json;f=open(\'check\');j=json.loads(f.read());print(j[\'user\'][\'login\']);f.close()" > tmp'
+              def ghUser = readFile 'tmp'
+              def ghUser.trim()
+
+              sh 'python -c "import json;f=open(\'check\');j=json.loads(f.read());print(j[\'mergeable\']);f.close()" > tmp'
+              def mergeable = readFile 'tmp'
+              env.MERGEABLE=mergeable.trim()
+
+              sh 'python -c "import json;f=open(\'check\');j=json.loads(f.read());print(j[\'base\'][\'ref\']);f.close()" > tmp'
+              def mergingInto = readFile 'tmp'
+              env.MERGING_INTO=mergingInto.trim()
+
+              /* ensure user has permission for auto-merged requests */
+              sh "curl -X GET -u ${U}:${T} '${teamEndpoint}' > team"
+              sh "python -c \"import json;f=open('team');j=json.loads(f.read());print('${ghUser}' in [u['login'] for u in j])\" > tmp"
+              def userOk = readFile 'tmp'
+              env.USER_IS_STAFF_MEMBER=userOk.trim() 
+            }
+          }
         }
-      }
-    }
-    stage('read-envar') {
-      steps {
-        echo env.FOO
-        echo foo1
-        sh 'exit 1'
       }
     }
     stage('start-postgres-docker') {
@@ -206,7 +231,7 @@ pipeline {
         echo "Merging PR if possible..."
         script {
           /* only PRs have a change id */
-          if (env.CHANGE_ID) {
+          if (env.IS_PR) {
             echo "Automatically merging pull request $env.CHANGE_ID into fake-develop..."
             echo "Pulling fake-develop..."
 
@@ -219,42 +244,24 @@ pipeline {
             withCredentials([usernamePassword(credentialsId: 'robot-butler', usernameVariable: 'U', passwordVariable: 'T')]) {
               /* PERFORM MERGE CHECKS */
 
-              /* fetch pr */
-              sh "curl -X GET -u ${U}:${T} '${checkEndpoint}' > check"
-              sh 'python -c "import json;f=open(\'check\');j=json.loads(f.read());print(j[\'user\'][\'login\']);f.close()" > tmp'
-              def ghUser = readFile 'tmp'
-              ghUser = ghUser.trim()
-              sh 'python -c "import json;f=open(\'check\');j=json.loads(f.read());print(j[\'mergeable\']);f.close()" > tmp'
-              def mergeable = readFile 'tmp'
-              mergeable = mergeable.trim()
-
-              sh 'python -c "import json;f=open(\'check\');j=json.loads(f.read());print(j[\'base\'][\'ref\']);f.close()" > tmp'
-              def mergingInto = readFile 'tmp'
-              mergingInto = mergingInto.trim()
-
               /* TODO: for test only, remove */
-              if (mergingInto == 'master') {
+              if (env.MERGING_INTO == 'master') {
                 error('No merging into master in test mode!')
               }
 
               /* ensure PR is mergeable */
-              if (!mergeable.equals('True')) {
+              if (!env.MERGEABLE.equals('True')) {
                 error("Not able to automatically merge branch! exiting.")
               }
 
               /* ensure branch to merge into is not master */
               if (env.CHANGE_BRANCH != 'fake-develop') {
-                if (mergingInto == 'fake-master'){
+                if (env.MERGING_INTO == 'fake-master'){
                   error("Only the 'fake-develop' branch can merge directly into fake-master!")
                 }
               }
 
-              /* ensure user has permission for auto-merged requests */
-              sh "curl -X GET -u ${U}:${T} '${teamEndpoint}' > team"
-              sh "python -c \"import json;f=open('team');j=json.loads(f.read());print('${ghUser}' in [u['login'] for u in j])\" > tmp"
-              def userOk = readFile 'tmp'
-              userOk = userOk.trim()
-              if (userOk != 'True') {
+              if (env.USER_IS_STAFF_MEMBER != 'True') {
                 error("This user does not have permission to start an automatic merge.")
               }
 
@@ -279,20 +286,11 @@ pipeline {
             echo 'Beginnning LMS DEPLOY...'
             script {
               /* only PRs have a change id */
-              if (env.CHANGE_ID) {
-                def checkEndpoint="https://api.github.com/repos/empirical-org/Empirical-Core/pulls/${env.CHANGE_ID}"
+              if (env.IS_PR) {
                 withCredentials([usernamePassword(credentialsId: 'robot-butler', usernameVariable: 'U', passwordVariable: 'T')]) {
                   /* DEPLOY LMS TO CORRECT LOCATION */
-
-                  /* fetch PR to find branch it will merge into - determines
-                   * staging /production deploy */
-                  sh "curl -X GET -u ${U}:${T} '${checkEndpoint}' > check"
-                  sh 'python -c "import json;f=open(\'check\');j=json.loads(f.read());print(j[\'base\'][\'ref\']);f.close()" > tmp'
-                  def mergingInto = readFile 'tmp'
-                  mergingInto = mergingInto.trim()
-
                   /* if branch target was fake-develop, deploy fake-develop to staging */
-                  if (mergingInto == 'fake-develop') {
+                  if (env.MERGING_INTO == 'fake-develop') {
                     echo "Automatically deploying fake-develop to staging..."
                     /* heroku allows authentication through 'heroku login', http basic
                      * auth, and SSH keys.  Since right now this stage runs only on the
@@ -304,7 +302,7 @@ pipeline {
                     def herokuStagingLMS="https://git.heroku.com/empirical-grammar-staging.git"
                     sh "git push -f ${herokuStagingLMS} `git subtree split --prefix services/QuillLMS HEAD`:master"
                   }
-                  else if (mergingInto == 'fake-master') {
+                  else if (env.MERGING_INTO == 'fake-master') {
                     echo "Automatically deploying fake-master to production..."
                     echo "Warning: This behavior is not yet enabled with this pipeline."
                   }
@@ -336,22 +334,15 @@ pipeline {
           steps {
             echo "Beginnning connect deploy..."
             script {
-              if (env.CHANGE_ID) {
-                def checkEndpoint="https://api.github.com/repos/empirical-org/Empirical-Core/pulls/${env.CHANGE_ID}"
+              if (env.IS_PR) {
                 withCredentials([usernamePassword(credentialsId: 'robot-butler', usernameVariable: 'U', passwordVariable: 'T')]) {
-                  /* fetch PR to find branch it will merge into - determines
-                   * staging /production deploy */
-                  sh "curl -X GET -u ${U}:${T} '${checkEndpoint}' > check"
-                  sh 'python -c "import json;f=open(\'check\');j=json.loads(f.read());print(j[\'base\'][\'ref\']);f.close()" > tmp'
-                  def mergingInto = readFile 'tmp'
-                  mergingInto = mergingInto.trim()
-                  if (mergingInto == 'fake-develop') {
+                  if (env.MERGING_INTO == 'fake-develop') {
                     echo "Adding staging.sh script to be run in the npm context..."
                     sh "echo 'webpack --optimize-minimize; firebase deploy --project production' > staging.sh"
                     echo "Deploying connect to staging..."
                     sh 'npm run deploy:staging'
                   }
-                  else if (mergingInto == 'fake-master') {
+                  else if (env.MERGING_INTO == 'fake-master') {
                     echo "Automatically deploying fake-master to production..."
                     echo "Warning: This behavior is not yet enabled with this pipeline."
                   }
