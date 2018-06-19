@@ -6,9 +6,11 @@ class Auth::GoogleController < ApplicationController
   before_action :handle_google_teacher_signup, only: :google
 
   def google
-    GoogleStudentImporterWorker.perform_async(@user.id)
+    if @user.teacher?
+      GoogleStudentImporterWorker.perform_async(@user.id)
+    end
 
-    if @user.student?
+    if @user.student? && (@user.persisted? || @user.save)
       GoogleIntegration::Classroom::Main.join_existing_google_classrooms(@user)
     end
 
@@ -45,7 +47,7 @@ class Auth::GoogleController < ApplicationController
     end
   end
 
-  def handle_google_teacher_signup
+  d
     return unless @user.new_record? && @user.teacher?
 
     if @user.save
