@@ -5,11 +5,15 @@ pipeline {
   }
   stages {
     stage('write-envar') {
-      sh "export ${env.FOO}='bar'"
+      steps {
+        sh "export ${env.FOO}='bar'"
+      }
     }
     stage('read-envar') {
-      echo "${env.FOO}" 
-      sh 'exit 1'
+      steps {
+        echo "${env.FOO}" 
+        sh 'exit 1'
+      }
     }
     stage('start-postgres-docker') {
       steps {
