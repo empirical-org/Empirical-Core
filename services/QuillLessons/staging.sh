@@ -1,2 +1,15 @@
-rm -r dist/; QUILL_CMS=https://cms.quill.org NODE_ENV=production EMPIRICAL_BASE_URL=https://www.quill.org PUSHER_KEY=b2cbf247b2e2d930b21d webpack --optimize-minimize
-firebase deploy --project production
+#!/usr/bin/env bash
+
+if [[ -d ./dist ]]
+then
+  rm -rf ./dist
+fi
+
+EMPIRICAL_BASE_URL=https://staging.quill.org \
+FIREBASE_APP_NAME=quillconnect \
+LESSONS_WEBSOCKETS_URL=https://lessons-server.quill.org \
+NODE_ENV=production \
+QUILL_CMS=https://cms.quill.org \
+webpack -p
+
+aws s3 sync ./dist/ s3://quill-lessons-staging --delete
