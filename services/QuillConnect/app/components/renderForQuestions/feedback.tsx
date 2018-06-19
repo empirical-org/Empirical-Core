@@ -77,7 +77,7 @@ class Feedback extends React.Component<any, any> {
   }
 
   render() {
-    const key:number = this.props ? this.props.question.attempts.length : 0;
+    const key:number = this.props && this.props.question && this.props.question.attempts ? this.props.question.attempts.length : 0;
     return (
       <StatelessFeedback
         key={key}

@@ -50,18 +50,9 @@ const Navbar = React.createClass({
     const navMenu = this.ellDiagnostic() ? '' : 'nav-menu';
     return (
       <div className={`nav-right ${navMenu}`} style={this.navStyles()}>
-        {this.renderLessonSpecificContent()}
         <a key="a-tag-student-navabar" onClick={this.saveAndExitConfirm} className="nav-item" activeClassName="is-active">Save & Exit</a>
       </div>
     );
-  },
-
-  renderLessonSpecificContent() {
-    if (this.ellDiagnostic()) {
-      return (
-        <LanguageSelector key="language-selector" />
-      );
-    }
   },
 
   renderQuestionCounter() {

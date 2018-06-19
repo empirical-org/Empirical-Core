@@ -2,24 +2,18 @@ import React from 'react';
 import Cue from './cue.jsx'
 import CueExplanation from './cueExplanation.jsx'
 import arrow from '../../img/arrow_icon.svg';
-import translations from '../../libs/translations/index.js';
 
 export default React.createClass({
 
   getJoiningWordsText() {
+    let text
     if (this.props.getQuestion().cues && this.props.getQuestion().cuesLabel) {
       return this.props.getQuestion().cuesLabel
     } else if (this.props.getQuestion().cues && this.props.getQuestion().cues.length === 1) {
-      let text = translations.english['joining word cues single'];
-      if (this.props.language && this.props.language !== 'english') {
-        text += ` / ${translations[this.props.language]['joining word cues single']}`;
-      }
+      text = 'joining word'
       return text;
     } else {
-      let text = translations.english['joining word cues multiple'];
-      if (this.props.language && this.props.language !== 'english') {
-        text += ` / ${translations[this.props.language]['joining word cues multiple']}`;
-      }
+      text = 'joining words';
       return text;
     }
   },
