@@ -202,8 +202,6 @@ class questionHealth extends Component {
         return 'Sentence Combining'
       case 'sf':
         return 'Sentence Fragments'
-      case 'dq':
-        return 'Diagnostic Questions'
       case 'fib':
         return 'Fill In Blank'
     }

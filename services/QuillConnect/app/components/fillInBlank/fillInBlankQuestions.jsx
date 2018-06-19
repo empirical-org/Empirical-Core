@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 import FillInTheBlankList from './fillInBlankList.jsx';
 import { hashToCollection } from '../../libs/hashToCollection';
 import ArchivedButton from '../shared/archivedButton.jsx'
+import { QuestionList } from 'quill-component-library/dist/componentLibrary';
 
 class FillInBlankQuestions extends Component {
   constructor() {
@@ -27,9 +28,13 @@ class FillInBlankQuestions extends Component {
           <Link to={'admin/fill-in-the-blanks/new'}>
             <button className="button is-primary">Create a New Fill In The Blank</button>
           </Link>
-          <ArchivedButton showOnlyArchived={this.state.showOnlyArchived} toggleShowArchived={this.toggleShowArchived} lessons={false} /> 
+          <ArchivedButton showOnlyArchived={this.state.showOnlyArchived} toggleShowArchived={this.toggleShowArchived} lessons={false} />
           <p className="menu-label">Fill In The Blank</p>
-          <FillInTheBlankList fillInTheBlanks={hashToCollection(this.props.fillInBlank.data) || []} showOnlyArchived={this.state.showOnlyArchived}/>
+          <QuestionList
+            questions={hashToCollection(this.props.fillInBlank.data) || []}
+            showOnlyArchived={this.state.showOnlyArchived}
+            basePath={'fill-in-the-blanks'}
+          />
         </div>
       </section>
     );

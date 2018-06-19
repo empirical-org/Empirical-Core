@@ -53,7 +53,6 @@ const adminContainer = React.createClass({
             </p>
             <ul className="menu-list">
               <TabLink to={'/admin/questions'} activeClassName="is-active">Sentence Combining</TabLink>
-              <TabLink to={'/admin/diagnostic-questions'} activeClassName="is-active">Diagnostic Questions</TabLink>
               <TabLink to={'/admin/sentence-fragments'} activeClassName="is-active">Sentence Fragments</TabLink>
               <TabLink to={'/admin/fill-in-the-blanks'} activeClassName="is-active">Fill In The Blanks</TabLink>
             </ul>
