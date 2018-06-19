@@ -230,6 +230,12 @@ pipeline {
       steps {
         echo "Merging PR if possible..."
         script {
+          echo 'printing envars set earlier'
+          echo env.MERGING_INTO
+          echo env.MERGEABLE
+          echo env.IS_PR
+          echo env.USER_IS_STAFF_MEMBER
+          echo 'end of envars'
           /* only PRs have a change id */
           if (env.IS_PR) {
             echo "Automatically merging pull request $env.CHANGE_ID into fake-develop..."
