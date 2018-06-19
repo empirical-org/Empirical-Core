@@ -6,9 +6,8 @@ then
 fi
 
 EMPIRICAL_BASE_URL=https://staging.quill.org \
-FIREBASE_APP_NAME=quillconnect \
-LESSONS_WEBSOCKETS_URL=https://lessons-server.quill.org \
-NODE_ENV=production \
+LESSONS_WEBSOCKETS_URL=https://staging-lessons-server.quill.org/ \
+NODE_ENV=staging \
 QUILL_CMS=https://cms.quill.org \
 webpack -p
 
