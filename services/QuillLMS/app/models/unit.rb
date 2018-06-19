@@ -14,6 +14,7 @@ class Unit < ActiveRecord::Base
   validates_with UniqueNameWhenVisible
   belongs_to :user
   has_many :classroom_activities, dependent: :destroy
+  has_many :classrooms, through: :classroom_activities
   has_many :activities, through: :classroom_activities
   has_many :topics, through: :activities
   default_scope { where(visible: true)}
@@ -46,6 +47,12 @@ class Unit < ActiveRecord::Base
         LessonPlanEmailWorker.perform_async(teacher_id, activity_ids, unit_id)
       end
     end
+  end
+
+  private
+
+  def post_to_google_if_valid
+    GoogleIntegration::Announcements.post_unit(self)
   end
 
 end

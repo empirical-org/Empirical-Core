@@ -17,6 +17,7 @@ const diagnosticQuestionForm = React.createClass({
         prefilledText: '',
         cues: '',
         flag: 'alpha',
+        cuesLabel: ''
       }
     }
     return {
@@ -27,6 +28,7 @@ const diagnosticQuestionForm = React.createClass({
       prefilledText: question.prefilledText? question.prefilledText : '',
       cues: question.cues? question.cues : '',
       flag: question.flag ? question.flag : 'alpha',
+      cuesLabel: question.cuesLabel ? question.cuesLabel : ''
     }
   },
 
@@ -39,6 +41,7 @@ const diagnosticQuestionForm = React.createClass({
       conceptID: this.state.concept,
       instructions: this.state.instructions,
       flag: this.state.flag,
+      cuesLabel: this.state.cuesLabel
     })
   },
 
@@ -70,6 +73,10 @@ const diagnosticQuestionForm = React.createClass({
     this.setState({ flag: e.target.value, });
   },
 
+  handleCuesLabelChange: function(e) {
+    this.setState({ cuesLabel: e.target.value, });
+  },
+
   render: function () {
     return (
       <div className="box">
@@ -79,6 +86,10 @@ const diagnosticQuestionForm = React.createClass({
         <label className="label">Instructions for student</label>
         <p className="control">
           <textarea className="input" type="text" ref="instructions" defaultValue={this.state.instructions} onChange={this.handleInstructionsChange}></textarea>
+        </p>
+        <label className="label">Cues Label (default is "joining words" for multiple cues and "joining word" for single cues)</label>
+        <p className="control">
+          <input className="input" type="text" onChange={this.handleCuesLabelChange} defaultValue={this.props.question.cuesLabel}></input>
         </p>
         <label className="label">Cues (separated by commas, no spaces eg "however,therefore,hence")</label>
         <p className="control">
