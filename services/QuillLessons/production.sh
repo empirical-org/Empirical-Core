@@ -11,5 +11,5 @@ NODE_ENV=production \
 QUILL_CMS=https://cms.quill.org \
 webpack -p
 
-aws s3 sync ./dist/ s3://aws-website-quillconnect-6sy4b  --delete
+aws s3 sync ./dist/ s3://quill-lessons --delete
 ./rollbar.sh
