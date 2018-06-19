@@ -6,10 +6,10 @@ pipeline {
         script {
           env.MERGING_INTO=''
           env.MERGEABLE=''
-          env.IS_PR=false
+          env.IS_PR='False'
           env.USER_IS_STAFF_MEMBER='False'
           if (env.CHANGE_ID) {
-            env.IS_PR=true
+            env.IS_PR='True'
             def quillStaffId='509062'
             def checkEndpoint="https://api.github.com/repos/empirical-org/Empirical-Core/pulls/${env.CHANGE_ID}"
             def teamEndpoint="https://api.github.com/teams/${quillStaffId}/members"
@@ -237,7 +237,7 @@ pipeline {
           echo env.USER_IS_STAFF_MEMBER
           echo 'end of envars'
           /* only PRs have a change id */
-          if (env.IS_PR) {
+          if (env.IS_PR == 'True') {
             echo "Automatically merging pull request $env.CHANGE_ID into $env.MERGING_INTO..."
 
             def quillStaffId='509062'
@@ -291,7 +291,7 @@ pipeline {
             echo 'Beginnning LMS DEPLOY...'
             script {
               /* only PRs have a change id */
-              if (env.IS_PR) {
+              if (env.IS_PR == 'True') {
                 withCredentials([usernamePassword(credentialsId: 'robot-butler', usernameVariable: 'U', passwordVariable: 'T')]) {
                   /* DEPLOY LMS TO CORRECT LOCATION */
                   /* if branch target was fake-develop, deploy fake-develop to staging */
@@ -339,7 +339,7 @@ pipeline {
           steps {
             echo "Beginnning connect deploy..."
             script {
-              if (env.IS_PR) {
+              if (env.IS_PR == 'True') {
                 withCredentials([usernamePassword(credentialsId: 'robot-butler', usernameVariable: 'U', passwordVariable: 'T')]) {
                   if (env.MERGING_INTO == 'fake-develop') {
                     echo "Adding staging.sh script to be run in the npm context..."
