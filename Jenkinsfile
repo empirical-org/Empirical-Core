@@ -3,13 +3,15 @@ pipeline {
   stages {
     stage('write-envar') {
       steps {
-        //env.FOO='bar'
-        def foo1='boop'
+        script {
+          env.FOO='bar'
+          def foo1='boop'
+        }
       }
     }
     stage('read-envar') {
       steps {
-        //echo env.FOO
+        echo env.FOO
         echo foo1
         sh 'exit 1'
       }
