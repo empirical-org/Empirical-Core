@@ -8,7 +8,6 @@ import conceptActions from '../../actions/concepts';
 import conceptsFeedbackActions from '../../actions/concepts-feedback';
 import questionActions from '../../actions/questions';
 import fillInBlankActions from '../../actions/fillInBlank';
-import diagnosticQuestionActions from '../../actions/diagnosticQuestions';
 import sentenceFragmentActions from '../../actions/sentenceFragments';
 import lessonActions from '../../actions/lessons';
 import levelActions from '../../actions/item-levels';
@@ -29,7 +28,6 @@ const adminContainer = React.createClass({
     this.props.dispatch(conceptsFeedbackActions.startListeningToConceptsFeedback());
     this.props.dispatch(questionActions.startListeningToQuestions());
     this.props.dispatch(fillInBlankActions.startListeningToQuestions());
-    this.props.dispatch(diagnosticQuestionActions.startListeningToDiagnosticQuestions());
     this.props.dispatch(sentenceFragmentActions.startListeningToSentenceFragments());
     this.props.dispatch(levelActions.startListeningToItemLevels());
     this.props.dispatch(titleCardActions.startListeningToTitleCards())

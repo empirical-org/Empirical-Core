@@ -7,7 +7,6 @@ import ResponseList from './responseList.jsx';
 import QuestionMatcher from '../../libs/question';
 import questionActions from '../../actions/questions';
 import sentenceFragmentActions from '../../actions/sentenceFragments';
-import diagnosticQuestionActions from '../../actions/diagnosticQuestions';
 import ResponseSortFields from './responseSortFields.jsx';
 import ResponseToggleFields from './responseToggleFields.jsx';
 import { getPartsOfSpeechTags } from '../../libs/partsOfSpeechTagging.js';
@@ -18,7 +17,6 @@ import {
   rematchAll,
   rematchOne
 } from '../../libs/grading/rematching.ts';
-import DiagnosticQuestionMatcher from '../../libs/diagnosticQuestion.js';
 import massEdit from '../../actions/massEdit';
 import TextEditor from './textEditor.jsx';
 import getBoilerplateFeedback from './boilerplateFeedback.jsx';
@@ -52,9 +50,6 @@ class ResponseComponent extends React.Component {
     if (this.props.mode === 'sentenceFragments') {
       actions = sentenceFragmentActions;
       matcher = POSMatcher;
-    } else if (this.props.mode === 'diagnosticQuestions') {
-      actions = diagnosticQuestionActions;
-      matcher = DiagnosticQuestionMatcher;
     } else {
       actions = questionActions;
       matcher = QuestionMatcher;

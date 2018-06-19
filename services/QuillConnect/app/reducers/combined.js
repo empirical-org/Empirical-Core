@@ -8,7 +8,6 @@ import classroomSessions from './classroomSessions';
 import concepts from './concepts';
 import conceptsFeedback from './concepts-feedback';
 import customize, * as FromCustomize from './customize'
-import diagnosticQuestions from './diagnosticQuestions';
 import display from './display';
 import fillInBlank from './fillInBlank';
 import filters from './filtersReducer';
@@ -17,7 +16,6 @@ import itemLevels from './item-levels';
 import lessons from './lessons';
 import massEdit from './massEdit';
 import pathways from './pathways';
-import playDiagnostic from './diagnostics';
 import playLesson from './questionReducer';
 import question from './questionReducerV2';
 import questions from './questions';
@@ -36,7 +34,6 @@ const combinedReducers = combineReducers({
   concepts,
   conceptsFeedback,
   customize,
-  diagnosticQuestions,
   display,
   fillInBlank,
   filters,
@@ -45,7 +42,6 @@ const combinedReducers = combineReducers({
   lessons,
   massEdit,
   pathways,
-  playDiagnostic,
   playLesson,
   question,
   questions,

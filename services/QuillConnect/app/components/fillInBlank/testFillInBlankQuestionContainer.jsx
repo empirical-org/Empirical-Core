@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import PlayFillInTheBlankQuestion from './playFillInTheBlankQuestion';
-import { clearData, loadData, nextQuestion, submitResponse, updateName, updateCurrentQuestion, resumePreviousSession } from '../../actions/diagnostics.js';
+import PlayFillInTheBlankQuestion from '../studentLessons/fillInBlank.tsx';
+import { clearData, loadData, nextQuestion, submitResponse, updateName, updateCurrentQuestion, resumePreviousSession } from '../../actions.js';
 
 class TestQuestion extends Component {
   constructor() {
@@ -63,13 +63,21 @@ class TestQuestion extends Component {
   }
 
   render() {
-    if (this.props.playDiagnostic.currentQuestion) {
-      const question = this.props.playDiagnostic.currentQuestion.data;
+    if (this.props.playLesson.currentQuestion) {
+      const question = this.props.playLesson.currentQuestion.data;
       console.log(question);
       return (
         <div>
           <div className="test-question-container">
-            <PlayFillInTheBlankQuestion key={this.state.key} question={question} prefill={false} nextQuestion={this.reset} dispatch={this.props.dispatch} setResponse={this.setResponse}/>
+            <PlayFillInTheBlankQuestion
+              key={this.state.key}
+              question={question}
+              prefill={false}
+              nextQuestion={this.reset}
+              dispatch={this.props.dispatch}
+              setResponse={this.setResponse}
+              submitResponse={submitResponse}
+            />
           </div>
           {this.renderGrading()}
         </div>
@@ -86,7 +94,7 @@ class TestQuestion extends Component {
 function select(props) {
   return {
     fillInBlank: props.fillInBlank,
-    playDiagnostic: props.playDiagnostic,
+    playLesson: props.playLesson
   };
 }
 
