@@ -36,6 +36,12 @@ function activityQuery(activity_id:string) {
         prompt
         order
       }
+      vocabulary_words {
+        id
+        text
+        description
+        example
+      }
     }
   }
 `
