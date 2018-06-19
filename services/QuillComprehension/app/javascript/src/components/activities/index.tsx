@@ -6,6 +6,7 @@ import * as R from 'ramda';
 import Article from './article';
 import Questions from './questions';
 import QuestionSets from './question_sets';
+import VocabularyWords from './vocabulary_words';
 import {markArticleAsRead, chooseQuestionSet} from '../../actions/activities';
 import {ActivitiesState} from '../../reducers/activities';
 
@@ -86,6 +87,7 @@ class ActivityContainer extends React.Component<AppProps, any> {
             <div className="container">
               <div className="article-container">
                 <h1 className="article-title">Read The Following Passage Carefully</h1>
+                <VocabularyWords vocabWords={data.activity.vocabulary_words}/>
                 <Article activity_id={parseInt(this.props.activity_id)} article={data.activity.article} title={data.activity.title} markAsRead={this.props.markArticleAsRead} />
                 {this.renderQuestionSets(data, this.props.activities.readArticle)}
                 {this.renderQuestions(data.activity, this.props.activities.questionSetId, this.props.activities.readArticle)}
