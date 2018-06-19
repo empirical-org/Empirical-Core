@@ -238,8 +238,7 @@ pipeline {
           echo 'end of envars'
           /* only PRs have a change id */
           if (env.IS_PR) {
-            echo "Automatically merging pull request $env.CHANGE_ID into fake-develop..."
-            echo "Pulling fake-develop..."
+            echo "Automatically merging pull request $env.CHANGE_ID into $env.MERGING_INTO..."
 
             def quillStaffId='509062'
             def checkEndpoint="https://api.github.com/repos/empirical-org/Empirical-Core/pulls/${env.CHANGE_ID}"
