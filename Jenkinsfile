@@ -322,16 +322,25 @@ pipeline {
             echo "Beginnning connect deploy..."
             script {
               if (env.CHANGE_ID) {
-                  if (mergingInto == 'fake-develop') {
-                    echo "Adding staging.sh script to be run in the npm context..."
-                    sh "echo 'webpack --optimize-minimize; firebase deploy --project production' > staging.sh"
-                    echo "Deploying connect to staging..."
-                    sh 'npm run deploy:staging'
-                  }
-                  else if (mergingInto == 'fake-master') {
-                    echo "Automatically deploying fake-master to production..."
-                    echo "Warning: This behavior is not yet enabled with this pipeline."
-                  }
+                def checkEndpoint="https://api.github.com/repos/empirical-org/Empirical-Core/pulls/${env.CHANGE_ID}"
+                withCredentials([usernamePassword(credentialsId: 'robot-butler', usernameVariable: 'U', passwordVariable: 'T')]) {
+                  /* fetch PR to find branch it will merge into - determines
+                   * staging /production deploy */
+                  sh "curl -X GET -u ${U}:${T} '${checkEndpoint}' > check"
+                  sh 'python -c "import json;f=open(\'check\');j=json.loads(f.read());print(j[\'base\'][\'ref\']);f.close()" > tmp'
+                  def mergingInto = readFile 'tmp'
+                  mergingInto = mergingInto.trim()
+                }
+                if (mergingInto == 'fake-develop') {
+                  echo "Adding staging.sh script to be run in the npm context..."
+                  sh "echo 'webpack --optimize-minimize; firebase deploy --project production' > staging.sh"
+                  echo "Deploying connect to staging..."
+                  sh 'npm run deploy:staging'
+                }
+                else if (mergingInto == 'fake-master') {
+                  echo "Automatically deploying fake-master to production..."
+                  echo "Warning: This behavior is not yet enabled with this pipeline."
+                }
               }
               else {
                 echo "Your branch is not fake-master, fake-develop, an open PR, or a branch with an open PR.  Nothing to do."
