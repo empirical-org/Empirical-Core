@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import actions from '../../actions/concepts'
 import _ from 'underscore'
 import Modal from '../modal/modal.jsx'
-import LinkListItem from '../shared/linkListItem.jsx'
+import { LinkListItem } from 'quill-component-library/dist/componentLibrary';
 
 const Concepts = React.createClass({
   createNew: function () {

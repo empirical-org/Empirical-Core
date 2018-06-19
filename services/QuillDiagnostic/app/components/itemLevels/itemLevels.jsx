@@ -1,10 +1,10 @@
 import React from 'react'
+import { LinkListItem } from 'quill-component-library/dist/componentLibrary'
 import ItemLevelForm from './itemLevelForm.jsx'
 import levelActions from '../../actions/item-levels.js'
 import {connect} from 'react-redux'
 import Modal from '../modal/modal.jsx'
 import {Link} from 'react-router'
-import LinkListItem from '../shared/linkListItem.jsx'
 
 const ItemLevels = React.createClass({
 

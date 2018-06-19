@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import actions from '../../actions/questions';
 import _ from 'underscore';
 import { Link } from 'react-router';
+import { QuestionList } from 'quill-component-library/dist/componentLibrary';
 import Modal from '../modal/modal.jsx';
 import { hashToCollection } from '../../libs/hashToCollection';
 import Question from '../../libs/question';
@@ -295,7 +296,12 @@ class Questions extends React.Component {
             <ArchivedButton showOnlyArchived={this.state.showOnlyArchived} toggleShowArchived={this.toggleShowArchived} lessons={false} />
             <br />
             <br />
-            <QuestionsList displayNoConceptQuestions={this.state.displayNoConceptQuestions} questions={this.state.diagnosticQuestions} concepts={concepts} baseRoute={'admin'} showOnlyArchived={this.state.showOnlyArchived}/>
+            <QuestionList
+              questions={hashToCollection(this.state.diagnosticQuestions) || []}
+              showOnlyArchived={this.state.showOnlyArchived}
+              basePath="questions"
+            />
+
           </div>
         </section>
       );

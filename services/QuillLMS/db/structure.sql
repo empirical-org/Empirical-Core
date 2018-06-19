@@ -545,7 +545,8 @@ CREATE TABLE blog_posts (
     published_at timestamp without time zone,
     external_link character varying,
     center_images boolean,
-    order_number integer
+    order_number integer,
+    school_premium boolean DEFAULT false
 );
 
 
@@ -3826,7 +3827,7 @@ CREATE INDEX index_users_on_stripe_customer_id ON public.users USING btree (stri
 -- Name: index_users_on_time_zone; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_users_on_time_zone ON users USING btree (time_zone);
+CREATE INDEX index_users_on_time_zone ON public.users USING btree (time_zone);
 
 
 --
@@ -4626,4 +4627,6 @@ INSERT INTO schema_migrations (version) VALUES ('20180502152419');
 INSERT INTO schema_migrations (version) VALUES ('20180517045137');
 
 INSERT INTO schema_migrations (version) VALUES ('20180530145153');
+
+INSERT INTO schema_migrations (version) VALUES ('20180612212919');
 

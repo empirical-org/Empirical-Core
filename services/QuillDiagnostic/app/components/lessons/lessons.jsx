@@ -6,7 +6,7 @@ import { Link } from 'react-router';
 import Modal from '../modal/modal.jsx';
 import { hashToCollection } from '../../libs/hashToCollection';
 import EditLessonForm from './lessonForm.jsx';
-import LinkListItem from '../shared/linkListItem.jsx';
+import { LinkListItem } from 'quill-component-library/dist/componentLibrary';;
 import ArchivedButton from '../shared/archivedButton.jsx';
 import FlagDropdown from '../shared/flagDropdown.jsx';
 

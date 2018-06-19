@@ -1,5 +1,5 @@
 import React from 'react';
-import LinkListItem from '../shared/linkListItem.jsx'
+import { LinkListItem } from 'quill-component-library/dist/componentLibrary';
 
 export default class TitleCardsList extends React.Component<any, any> {
   constructor(props) {

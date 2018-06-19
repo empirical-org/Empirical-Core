@@ -21,4 +21,4 @@ const LinkListItem = (props:LinkListProps) => (
   </li>
 )
 
-export default LinkListItem
+export { LinkListItem }
