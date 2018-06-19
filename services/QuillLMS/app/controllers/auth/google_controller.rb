@@ -10,6 +10,9 @@ class Auth::GoogleController < ApplicationController
     if @user.teacher?
       GoogleStudentImporterWorker.perform_async(@user.id)
     end
+    if @user.student?
+      GoogleIntegration::Classroom::Main.join_existing_google_classrooms(@user)
+    end
 
     sign_in(@user)
     redirect_to profile_path
