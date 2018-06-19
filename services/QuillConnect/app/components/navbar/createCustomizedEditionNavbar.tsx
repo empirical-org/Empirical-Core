@@ -1,6 +1,7 @@
 import * as React from 'react';
 const helpIcon = require('../../img/help_icon.svg')
 
+/** @augments {React.SFC<object, object>} */
 const CreateCustomizedEditionNavbar: React.SFC<any> = () =>
   <div className="customize-navbar-container">
     <div className="customize-navbar">

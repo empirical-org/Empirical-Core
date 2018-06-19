@@ -46,23 +46,22 @@ const adminContainer = React.createClass({
             <ul className="menu-list">
               <TabLink to={'/admin/datadash'} activeClassName="is-active">Score Analysis</TabLink>
               <TabLink to={'/admin/question-health'} activeClassName="is-active">Question Health</TabLink>
-              <TabLink to={'/admin/lessons'} activeClassName="is-active">Lessons</TabLink>
+              <TabLink to={'/admin/lessons'} activeClassName="is-active">Diagnostics</TabLink>
             </ul>
             <p className="menu-label">
               Questions
             </p>
             <ul className="menu-list">
-              <TabLink to={'/admin/questions'} activeClassName="is-active">Sentence Combining</TabLink>
-              <TabLink to={'/admin/diagnostic-questions'} activeClassName="is-active">Diagnostic Questions</TabLink>
-              <TabLink to={'/admin/sentence-fragments'} activeClassName="is-active">Sentence Fragments</TabLink>
-              <TabLink to={'/admin/fill-in-the-blanks'} activeClassName="is-active">Fill In The Blanks</TabLink>
+              <TabLink to={'/admin/questions'} activeClassName="is-active">Diagnostic Sentence Combining</TabLink>
+              <TabLink to={'/admin/sentence-fragments'} activeClassName="is-active">Diagnostic Sentence Fragments</TabLink>
+              <TabLink to={'/admin/fill-in-the-blanks'} activeClassName="is-active">Diagnostic Fill In The Blanks</TabLink>
             </ul>
             <p className="menu-label">
               Supporting
             </p>
             <ul className="menu-list">
               <TabLink to={'/admin/concepts'} activeClassName="is-active">Concepts</TabLink>
-              <TabLink to={'admin/concepts-feedback'} activeClassName="is-active">Concept Feeback</TabLink>
+              <TabLink to={'admin/concepts-feedback'} activeClassName="is-active">Concept Feedback</TabLink>
               <TabLink to={'/admin/item-levels'} activeClassName="is-active">Item Levels</TabLink>
             </ul>
             <p className="menu-label">

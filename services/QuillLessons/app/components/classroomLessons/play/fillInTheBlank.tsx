@@ -157,12 +157,12 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
   renderInstructions() {
     if (this.props.mode !== 'PROJECT') {
       if (this.state.submitted) {
-        return (<Feedback 
+        return (<Feedback
           feedbackType="correct-matched"
           feedback={(<p>Great Work! Please wait as your teacher reviews your answer...</p>)}
         />);
       } else if (this.props.data.play.instructions) {
-        return (<Feedback 
+        return (<Feedback
           feedbackType="default"
           feedback={(<p dangerouslySetInnerHTML={{__html: this.props.data.play.instructions}}></p>)}
         />);
