@@ -22,6 +22,7 @@ export default class VocabularyWords extends React.Component<Props, State> {
     this.state = {
       activeVocabWord: null
     }
+    this.clearVocabWord = this.clearVocabWord.bind(this)
   }
 
   selectVocabWord(vocabWord:VocabularyWord):void {
@@ -35,10 +36,14 @@ export default class VocabularyWords extends React.Component<Props, State> {
   renderModal() {
     if (this.state.activeVocabWord) {
       return (
-        <Modal>
+        <Modal exit={e => this.clearVocabWord()}>
           <div className="card mw-50">
             <div className="card-header"><h3>{this.state.activeVocabWord.text}</h3></div>
-            <div className="card-body"><p>{this.state.activeVocabWord.description}</p></div>
+            <div className="card-body">
+              <p><strong>Definition</strong>: {this.state.activeVocabWord.description}</p>
+              <p><strong>Sample Sentence</strong>: <span dangerouslySetInnerHTML={{__html: this.state.activeVocabWord.example}}/></p>
+            </div>
+            <div className="card-footer"><button className="btn btn-primary" onClick={e => this.clearVocabWord()}>Done</button></div>
           </div>
         </Modal>
       )
