@@ -18,9 +18,6 @@ class SessionsController < ApplicationController
       report_that_route_is_still_in_use
       login_failure 'Login failed. Did you sign up with Google? If so, please log in with Google using the link above.'
     elsif @user.authenticate(params[:user][:password])
-      if @user.role == 'teacher'
-        TestForEarnedCheckboxesWorker.perform_async(@user.id)
-      end
       sign_in(@user)
       if params[:redirect].present?
         redirect_to URI.parse(params[:redirect]).path
@@ -42,9 +39,6 @@ class SessionsController < ApplicationController
     elsif @user.password_digest.nil?
       render json: {message: 'Did you sign up with Google? If so, please log in with Google using the link above.'}, status: 401
     elsif @user.authenticate(params[:user][:password])
-      if @user.role == 'teacher'
-        TestForEarnedCheckboxesWorker.perform_async(@user.id)
-      end
       sign_in(@user)
       if session[:post_auth_redirect].present?
         url = session[:post_auth_redirect]

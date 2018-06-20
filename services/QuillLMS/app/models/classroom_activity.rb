@@ -41,6 +41,18 @@ class ClassroomActivity < ActiveRecord::Base
     end
   end
 
+  def is_valid_for_google_announcement_with_specific_user?(user)
+    !!self.classroom.google_classroom_id && !!user.google_id
+  end
+
+  def is_valid_for_google_announcement_with_owner?
+    !!self.classroom.google_classroom_id && !!self.classroom.owner.google_id
+  end
+
+  def generate_activity_url
+    "#{ENV['DEFAULT_URL']}/teachers/classroom_activities/#{self.id}/activity_from_classroom_activity"
+  end
+
   def assign_follow_up_lesson(locked=true)
     extant_ca = ClassroomActivity.find_by(classroom_id: self.classroom_id,
                                           activity_id: self.activity.follow_up_activity_id,
