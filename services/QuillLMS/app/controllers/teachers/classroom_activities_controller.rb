@@ -27,9 +27,9 @@ class Teachers::ClassroomActivitiesController < ApplicationController
       if @classroom_activity.update(locked: false, pinned: true)
         find_or_create_lesson_activity_sessions_for_classroom
         PusherLessonLaunched.run(@classroom_activity.classroom)
-        if @classroom_activity.is_valid_for_google_announcement_with_specific_user?(current_user)
-          return post_to_google_classroom
-        end
+        # if @classroom_activity.is_valid_for_google_announcement_with_specific_user?(current_user)
+        #   return post_to_google_classroom
+        # end
         redirect_to lesson_url(lesson) and return
       else
         flash.now[:error] = "We cannot launch this lesson. If the problem persists, please contact support."
