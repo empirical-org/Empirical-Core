@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { hashToCollection } from '../../libs/hashToCollection';
 import QuestionSelector from 'react-select-search';
 import SortableList from '../questions/sortableList/sortableList.jsx';
-import LandingPageEditor from './landingPageEditor.jsx';
+import LandingPageEditor from 'quill-component-library/dist/componentLibrary';
 import ChooseModelContainer from './chooseModelContainer.jsx'
 import _ from 'underscore';
 

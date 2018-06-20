@@ -1,14 +1,14 @@
 import React from 'react';
 import { LinkListItem } from './linkListItem.jsx'
 
-interface QuestionListProps {
-  showOnlyArchived: boolean;
-  questions: Array<any>;
-  basePath: string;
-}
-
-export class QuestionList extends React.Component<QuestionListProps, {}> {
-  constructor(props: QuestionListProps) {
+// interface QuestionListProps {
+//   showOnlyArchived: boolean;
+//   questions: Array<any>;
+//   basePath: string;
+// }
+//
+export class QuestionList extends React.Component<any, {}> {
+  constructor(props: any) {
     super(props)
 
     this.renderListItems = this.renderListItems.bind(this)
@@ -19,15 +19,15 @@ export class QuestionList extends React.Component<QuestionListProps, {}> {
     if (questions.length !== 0) {
       let filtered;
       if (!this.props.showOnlyArchived) {
-        filtered = questions.filter((question) =>
+        filtered = questions.filter((question: any) =>
           question.flag !== "archived"
         )
       } else {
-        filtered = questions.filter((question) =>
+        filtered = questions.filter((question: any) =>
           question.flag === "archived"
         )
       }
-      return filtered.map(question => (
+      return filtered.map((question: any) => (
         <LinkListItem
           key={question.key}
           itemKey={question.key}
