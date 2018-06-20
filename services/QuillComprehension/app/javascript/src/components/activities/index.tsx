@@ -101,14 +101,28 @@ class ActivityContainer extends React.Component<AppProps, any> {
           if (loading) return <p>Loading...</p>;
           if (error) return <p>Error :(</p>;
           return (
-            <div className="container">
-              <div className="article-container">
-                <button onClick={this.speak}>Speak</button>
-                <h1 className="article-title">Read The Following Passage Carefully</h1>
-                <VocabularyWords vocabWords={data.activity.vocabulary_words}/>
-                <Article activity_id={parseInt(this.props.activity_id)} article={data.activity.article} title={data.activity.title} markAsRead={this.props.markArticleAsRead} />
-                {this.renderQuestionSets(data, this.props.activities.readArticle)}
-                {this.renderQuestions(data.activity, this.props.activities.questionSetId, this.props.activities.readArticle)}
+            <div>
+              <div className="subnav">
+                <div className="container d-fl-r jc-sb">
+                  <div className="subnav-left">
+                    <div className="subnav-item">Read</div>
+                    <div className="subnav-item">Choose</div>
+                    <div className="subnav-item">Answer</div>
+                  </div>
+                  <div className="subnav-right">
+                    <div className="subnav-item">Speak <button onClick={this.speak}>Speak</button></div>
+                    <div className="subnav-item">Font Size</div>
+                  </div>
+                </div>
+              </div>
+              <div className="container">
+                <div className="article-container">
+                  <h1 className="article-title">Read The Following Passage Carefully</h1>
+                  <VocabularyWords vocabWords={data.activity.vocabulary_words}/>
+                  <Article activity_id={parseInt(this.props.activity_id)} article={data.activity.article} title={data.activity.title} markAsRead={this.props.markArticleAsRead} />
+                  {this.renderQuestionSets(data, this.props.activities.readArticle)}
+                  {this.renderQuestions(data.activity, this.props.activities.questionSetId, this.props.activities.readArticle)}
+                </div>
               </div>
             </div>
           );
