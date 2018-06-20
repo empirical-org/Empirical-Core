@@ -47,8 +47,25 @@ function activityQuery(activity_id:string) {
   }
 `
 }
-
+const voiceSynth = window.speechSynthesis;
+let voices;
 class ActivityContainer extends React.Component<AppProps, any> {
+  constructor(props) {
+    super(props)
+    voices = voiceSynth.getVoices();
+  }
+
+  speak(e) {
+    
+    e.preventDefault();
+    voiceSynth.cancel();
+    const script = window.getSelection().toString();
+    const utterance = new SpeechSynthesisUtterance(script);
+    console.log(voices)
+    utterance.voice = voices[49] ? voices[49] : voices[0];
+    voiceSynth.speak(utterance)
+  }
+
   renderQuestions(activity, questionSetId, read) {
     if (!read) return;
     if (activity.question_sets.length > 1 && questionSetId === null) return
@@ -86,6 +103,7 @@ class ActivityContainer extends React.Component<AppProps, any> {
           return (
             <div className="container">
               <div className="article-container">
+                <button onClick={this.speak}>Speak</button>
                 <h1 className="article-title">Read The Following Passage Carefully</h1>
                 <VocabularyWords vocabWords={data.activity.vocabulary_words}/>
                 <Article activity_id={parseInt(this.props.activity_id)} article={data.activity.article} title={data.activity.title} markAsRead={this.props.markArticleAsRead} />
