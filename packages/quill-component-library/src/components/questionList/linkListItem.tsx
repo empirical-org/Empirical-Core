@@ -1,15 +1,15 @@
 import React from 'react'
 import {Link} from 'react-router'
 
-interface LinkListProps {
-  basePath: string;
-  itemKey: string;
-  text: string;
-  activeClassName?: string;
-  className?: string;
-}
+// interface LinkListProps {
+//   basePath: string;
+//   itemKey: string;
+//   text: string;
+//   activeClassName?: string;
+//   className?: string;
+// }
 
-const LinkListItem = (props:LinkListProps) => (
+const LinkListItem = (props:any) => (
   <li>
     <Link
       to={'admin/' + props.basePath + '/' + props.itemKey}

@@ -1,7 +1,7 @@
 export {
   QuestionList,
   LinkListItem
-} from './components/questionList/index';
+} from './components/questionList/index'
 
 export {
   Instructions,
@@ -10,5 +10,9 @@ export {
 } from './components/fillInBlank/index'
 
 export {
-  ConceptExplanation
+  ConceptExplanation,
 } from './components/feedback/conceptExplanation'
+
+export {
+  LandingPageEditor
+} from './components/lessons/landingPageEditor'
