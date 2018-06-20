@@ -7,7 +7,7 @@ const Article = ({activity_id, article, title, markAsRead}): JSX.Element => (
       <h2>{title}</h2>
     </div>
     <div className="card-body">
-      <p dangerouslySetInnerHTML={{__html: article}}></p>
+      <p onSelect={(e) => console.log(e)} dangerouslySetInnerHTML={{__html: article}}></p>
     </div>
     <div className="card-footer d-fl-r jc-sb">
       <div className="m-r-1 d-fl-r ai-c">When you have finished reading the passage, click done.</div>
