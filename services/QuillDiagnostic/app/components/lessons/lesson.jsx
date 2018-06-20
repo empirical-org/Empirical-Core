@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import _ from 'underscore';
 import lessonActions from '../../actions/lessons';
-import Modal from '../modal/modal.jsx';
+import { Modal } from 'quill-component-library/dist/componentLibrary';
 import C from '../../constants.js';
 import EditLessonForm from './lessonForm.jsx';
 

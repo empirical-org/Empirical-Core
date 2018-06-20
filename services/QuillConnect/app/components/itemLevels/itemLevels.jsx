@@ -2,7 +2,7 @@ import React from 'react'
 import ItemLevelForm from './itemLevelForm.jsx'
 import levelActions from '../../actions/item-levels.js'
 import {connect} from 'react-redux'
-import Modal from '../modal/modal.jsx'
+import { Modal } from 'quill-component-library/dist/componentLibrary'
 import {Link} from 'react-router'
 import { LinkListItem } from 'quill-component-library/dist/componentLibrary';
 
