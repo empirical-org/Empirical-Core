@@ -1,12 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom'
-const modalRoot = document.getElementById('modal-root');
+
 
 class Modal extends React.Component<any> {
-  static el = document.createElement('div');
+  // static el = document.createElement('div');
+  // static modalRoot = document.getElementById('modal-root');
 
   constructor(props) {
     super(props);
+
+    console.log(props.children)
   }
 
   componentDidMount() {
@@ -18,17 +21,17 @@ class Modal extends React.Component<any> {
     // DOM node, or uses 'autoFocus' in a descendant, add
     // state to Modal and only render the children when Modal
     // is inserted in the DOM tree.
-    modalRoot.appendChild(Modal.el);
+    document.getElementById('modal-root').appendChild(document.createElement('div'));
   }
 
   componentWillUnmount() {
-    modalRoot.removeChild(Modal.el);
+    document.getElementById('modal-root').removeChild(document.createElement('div'));
   }
 
   render() {
     return ReactDOM.createPortal(
       this.props.children,
-      Modal.el,
+      document.getElementById('modal-root'),
     );
   }
 }
