@@ -1,16 +1,12 @@
 # Welcome to the Quill universe.
 
 Each package and service in our repository has its own idiosycracies that will
-be documented in it's own README.  To get started as an open source developer or
-staff member, we request that you install the git hooks for this repository by
-running this in the top level of this repository.
+be documented in it's own README.
 
-```bash
-export QROOT=$(git rev-parse --show-toplevel)
-ln -s $QROOT/meta/hooks/pre-commit $QROOT/.git/hooks/pre-commit
-```
-*Install hooks*
-
+||Jenkins CI|
+|---|---|
+|**develop**|[![Build Status](https://jenkins.quill.org/buildStatus/icon?job=quill.org/develop)](https://jenkins.quill.org/job/quill.org/job/develop/)|
+|**master**|[![Build Status](https://jenkins.quill.org/buildStatus/icon?job=quill.org/master)](https://jenkins.quill.org/job/quill.org/job/master/)|
 
 ## Structure
 
@@ -31,6 +27,6 @@ universe structure.  Checking out open issues is a great way to get started as
 an open source contributor.
 
 
-Thanks for your intrest in Quill! 
+Thanks for your interest in Quill! 
 
 
