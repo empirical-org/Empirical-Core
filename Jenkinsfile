@@ -260,9 +260,9 @@ pipeline {
               }
 
               /* ensure branch to merge into is not master */
-              if (env.CHANGE_BRANCH != 'fake-develop') {
-                if (env.MERGING_INTO == 'fake-master'){
-                  error("Only the 'fake-develop' branch can merge directly into fake-master!")
+              if (env.CHANGE_BRANCH != 'develop') {
+                if (env.MERGING_INTO == 'master'){
+                  error("Only the 'develop' branch can merge directly into master!")
                 }
               }
 
@@ -276,7 +276,7 @@ pipeline {
             }
           }
           else {
-            echo "Your branch is not fake-master, fake-develop, an open PR, or a branch with an open PR.  Nothing to do."
+            echo "Not a Pull Request; nothing to do."
           }
         }
       }
@@ -290,34 +290,26 @@ pipeline {
           steps {
             echo 'Beginnning LMS DEPLOY...'
             script {
-              /* only PRs have a change id */
-              if (env.IS_PR == 'True') {
-                withCredentials([usernamePassword(credentialsId: 'robot-butler', usernameVariable: 'U', passwordVariable: 'T')]) {
-                  /* DEPLOY LMS TO CORRECT LOCATION */
-                  /* if branch target was fake-develop, deploy fake-develop to staging */
-                  if (env.MERGING_INTO == 'fake-develop') {
-                    echo "Automatically deploying fake-develop to staging..."
-                    /* heroku allows authentication through 'heroku login', http basic
-                     * auth, and SSH keys.  Since right now this stage runs only on the
-                     * Jenkins master node, we have simply pre-logged in the user with
-                     * heroku login.  If this process needs to execute on a non-master
-                     * node, consult
-                     * https://devcenter.heroku.com/articles/git#http-git-authentication
-                     */
-                    def herokuStagingLMS="https://git.heroku.com/empirical-grammar-staging.git"
-                    sh "git push -f ${herokuStagingLMS} `git subtree split --prefix services/QuillLMS HEAD`:master"
-                  }
-                  else if (env.MERGING_INTO == 'fake-master') {
-                    echo "Automatically deploying fake-master to production..."
-                    echo "Warning: This behavior is not yet enabled with this pipeline."
-                  }
-                  else {
-                    echo "No deploy stage for non-master / non-develop branch."
-                  }
+              withCredentials([usernamePassword(credentialsId: 'robot-butler', usernameVariable: 'U', passwordVariable: 'T')]) {
+                if (env.CHANGE_BRANCH == 'develop') {
+                  echo "Automatically deploying develop to staging..."
+                  /* heroku allows authentication through 'heroku login', http basic
+                   * auth, and SSH keys.  Since right now this stage runs only on the
+                   * Jenkins master node, we have simply pre-logged in the user with
+                   * heroku login.  If this process needs to execute on a non-master
+                   * node, consult
+                   * https://devcenter.heroku.com/articles/git#http-git-authentication
+                   */
+                  def herokuStagingLMS="https://git.heroku.com/empirical-grammar-staging.git"
+                  sh "git push -f ${herokuStagingLMS} `git subtree split --prefix services/QuillLMS HEAD`:master"
                 }
-              }
-              else {
-                echo "No deploy stage for non-PR."
+                else if (env.CHANGE_BRANCH == 'master') {
+                  echo "Automatically deploying master to production..."
+                  echo "Warning: This behavior is not yet enabled with this pipeline."
+                }
+                else {
+                  echo "No deploy stage for non-master / non-develop branch. If you submitted a PR to one of these branches, a build will be triggered."
+                }
               }
             }
           }
@@ -339,24 +331,40 @@ pipeline {
           steps {
             echo "Beginnning connect deploy..."
             script {
-              if (env.IS_PR == 'True') {
-                withCredentials([usernamePassword(credentialsId: 'robot-butler', usernameVariable: 'U', passwordVariable: 'T')]) {
-                  if (env.MERGING_INTO == 'fake-develop') {
-                    echo "Adding staging.sh script to be run in the npm context..."
-                    sh "echo 'webpack --optimize-minimize; firebase deploy --project production' > staging.sh"
-                    echo "Deploying connect to staging..."
-                    sh 'npm run deploy:staging'
-                  }
-                  else if (env.MERGING_INTO == 'fake-master') {
-                    echo "Automatically deploying fake-master to production..."
-                    echo "Warning: This behavior is not yet enabled with this pipeline."
-                  }
+              withCredentials([usernamePassword(credentialsId: 'robot-butler', usernameVariable: 'U', passwordVariable: 'T')]) {
+                if (env.CHANGE_BRANCH == 'develop') {
+                  echo "Adding staging.sh script to be run in the npm context..."
+                  sh "echo 'webpack --optimize-minimize; firebase deploy --project production' > staging.sh"
+                  echo "Deploying connect to staging..."
+                  sh 'npm run deploy:staging'
+                }
+                else if (env.CHANGE_BRANCH == 'master') {
+                  echo "Automatically deploying master to production..."
+                  echo "Warning: This behavior is not yet enabled with this pipeline."
+                }
+                else {
+                  echo "No deploy stage for non-master / non-develop branch. If you submitted a PR to one of these branches, a build will be triggered."
                 }
               }
-              else {
-                echo "Your branch is not fake-master, fake-develop, an open PR, or a branch with an open PR.  Nothing to do."
-              }
             }
+          }
+        }
+      }
+    }
+    stage('trigger-destination-branch-builds') {
+      /* after a pr is successfully merged, build the destination branch */
+      /* https://www.ittybittytalks.com/how-to-automate-your-jenkins-build-script/ */
+      steps {
+        script {
+          if (env.IS_PR) {
+            withCredentials([usernamePassword(credentialsId: 'jenkins-api', usernameVariable: 'U', passwordVariable: 'T')]) {
+              echo "Trigging destination branch build for ${env.MERGING_INTO}..."
+              sh "curl -u ${U}:${T} https://jenkins.quill.org/job/quill.org/job/${env.MERGING_INTO}/build || exit"
+              // https://jenkins.quill.org/job/quill.org/job/develop/build?delay=0sec
+            }
+          }
+          else {
+            echo "Only PRs trigger destination branch builds; nothing to do."
           }
         }
       }
