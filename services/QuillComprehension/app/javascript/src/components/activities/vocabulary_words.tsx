@@ -34,7 +34,14 @@ export default class VocabularyWords extends React.Component<Props, State> {
 
   renderModal() {
     if (this.state.activeVocabWord) {
-      return (<Modal><p>{this.state.activeVocabWord.text}</p></Modal>)
+      return (
+        <Modal>
+          <div className="card mw-50">
+            <div className="card-header"><h3>{this.state.activeVocabWord.text}</h3></div>
+            <div className="card-body"><p>{this.state.activeVocabWord.description}</p></div>
+          </div>
+        </Modal>
+      )
     }
   }
   
