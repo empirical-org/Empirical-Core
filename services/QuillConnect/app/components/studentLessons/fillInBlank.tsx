@@ -10,7 +10,7 @@ import { hashToCollection } from '../../libs/hashToCollection';
 import submitQuestionResponse from '../renderForQuestions/submitResponse.js';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 import Cues from '../renderForQuestions/cues.jsx';
-import WarningDialogue from '../fillInBlank/warningDialogue.jsx'
+import { WarningDialogue } from 'quill-component-library/dist/componentLibrary'
 import Prompt from '../fillInBlank/prompt.jsx'
 import Instructions from '../fillInBlank/instructions.jsx'
 import Feedback from '../renderForQuestions/feedback'

@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import WarningDialogue from '../warningDialogue.jsx';
+import { WarningDialogue } from 'quill-component-library/dist/componentLibrary';
 
 describe('WarningDialogue component', () => {
   const text = 'Use one of the words below.'

@@ -12,7 +12,7 @@ import updateResponseResource from '../renderForQuestions/updateResponseResource
 import Cues from '../renderForQuestions/cues.jsx';
 import translations from '../../libs/translations/index.js';
 import translationMap from '../../libs/translations/ellQuestionMapper.js';
-import WarningDialogue from './warningDialogue.jsx'
+import { WarningDialogue } from 'quill-component-library/dist/componentLibrary'
 import Prompt from './prompt.jsx'
 import Instructions from './instructions.jsx'
 import Feedback from '../renderForQuestions/components/feedback'
@@ -286,7 +286,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
 
   customText() {
     // HARDCODED
-    // this code should be deprecated once cuesLabels are launched and the 
+    // this code should be deprecated once cuesLabels are launched and the
     let text = translations.english['add word bank cue'];
     text = `${text}${this.state.blankAllowed ? ' or leave blank' : ''}`;
     if (this.props.language && this.props.language !== 'english') {
