@@ -6,11 +6,19 @@ class Modal extends React.Component<any> {
 
   constructor(props) {
     super(props);
+    this.exit = this.exit.bind(this)
+  }
+
+  exit(e) {
+    this.props.exit()
   }
 
   render() {
     return ReactDOM.createPortal(
-      (<div className="modal">{this.props.children}</div>),
+      (
+        <div className="modal" onClick={this.exit}>
+            {this.props.children}
+        </div>),
       document.getElementById('modal-root'),
     );
   }
