@@ -5,7 +5,7 @@ import _ from 'underscore'
 import { QuestionData } from '../../../interfaces/classroomLessons'
 import Cues from '../../../components/renderForQuestions/cues';
 import TextEditor from '../../renderForQuestions/renderTextEditor';
-import WarningDialogue from '../../../components/fillInBlank/warningDialogue'
+import { WarningDialogue } from 'quill-component-library/dist/componentLibrary'
 import { getParameterByName } from '../../../libs/getParameterByName';
 import {
   QuestionSubmissionsList,
