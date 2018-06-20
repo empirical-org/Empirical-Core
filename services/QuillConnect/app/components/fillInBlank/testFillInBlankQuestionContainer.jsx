@@ -14,6 +14,7 @@ class TestQuestion extends Component {
 
     this.setResponse = this.setResponse.bind(this)
     this.reset = this.reset.bind(this);
+    this.submitResponse = this.submitResponse.bind(this)
   }
 
   componentDidMount() {
@@ -29,10 +30,13 @@ class TestQuestion extends Component {
   questionsForLesson() {
     const question = this.getQuestion();
     question.key = this.props.params.questionID;
+    if (!question.attempts) {
+      question.attempts = []
+    }
     return [
       {
         type: 'FB',
-        data: question,
+        question,
       }
     ];
   }
@@ -45,6 +49,7 @@ class TestQuestion extends Component {
   }
 
   getQuestion() {
+    const fillInBlank = this.props.fillInBlank;
     return this.props.fillInBlank.data[this.props.params.questionID];
   }
 
@@ -59,13 +64,17 @@ class TestQuestion extends Component {
   }
 
   setResponse(response) {
+
     this.setState({gradedResponse: response})
+  }
+
+  submitResponse(response) {
+    this.props.dispatch(submitResponse(response))
   }
 
   render() {
     if (this.props.playLesson.currentQuestion) {
-      const question = this.props.playLesson.currentQuestion.data;
-      console.log(question);
+      const question = this.props.playLesson.currentQuestion.question;
       return (
         <div>
           <div className="test-question-container">
@@ -76,7 +85,7 @@ class TestQuestion extends Component {
               nextQuestion={this.reset}
               dispatch={this.props.dispatch}
               setResponse={this.setResponse}
-              submitResponse={submitResponse}
+              submitResponse={this.submitResponse}
             />
           </div>
           {this.renderGrading()}
