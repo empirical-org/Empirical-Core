@@ -19,6 +19,16 @@
   padding-bottom: 1rem
 }
 
+.p-x-1 {
+  padding-left: 1rem;
+  padding-right: 1rem;
+} 
+
+.p-y-1 {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+} 
+
 // Margins
 .m-1 {
   margin: 1rem
@@ -91,4 +101,8 @@
 
 .text-nowrap {
   white-space: nowrap !important;
+}
+
+.mw-50 {
+  max-width: 50%;
 }
