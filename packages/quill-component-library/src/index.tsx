@@ -9,3 +9,11 @@ export {
 export {
   WarningDialogue
 } from './components/fillInBlank/warningDialogue'
+
+export {
+  Instructions
+} from './components/fillInBlank/instructions'
+
+export {
+  ConceptExplanation
+} from './components/feedback/conceptExplanation'

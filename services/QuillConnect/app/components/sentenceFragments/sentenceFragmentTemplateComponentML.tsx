@@ -15,7 +15,7 @@ import {
   getGradedResponsesWithCallback
 } from '../../actions/responses';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
-import ConceptExplanation from '../feedback/conceptExplanation.jsx';
+import { ConceptExplanation } from 'quill-component-library/dist/componentLibrary';
 const icon = require('../../img/question_icon.svg');
 
 const PlaySentenceFragment = React.createClass<any, any>({

@@ -26,7 +26,7 @@ import submitPathway from '../renderForQuestions/submitPathway.js';
 import MultipleChoice from './multipleChoice.jsx';
 import StateFinished from '../renderForQuestions/renderThankYou.jsx';
 import AnswerForm from '../renderForQuestions/renderFormForAnswer.jsx';
-import ConceptExplanation from '../feedback/conceptExplanation.jsx';
+import { ConceptExplanation } from 'quill-component-library/dist/componentLibrary';
 import { getOptimalResponses, getSubOptimalResponses, getTopOptimalResponse } from '../../libs/sharedResponseFunctions';
 import {
   getResponsesWithCallback,

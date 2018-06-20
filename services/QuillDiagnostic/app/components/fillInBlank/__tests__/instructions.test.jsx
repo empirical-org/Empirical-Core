@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import Instructions from '../instructions.jsx';
+import Instructions from 'quill-component-library/dist/componentLibrary'
 
 describe('Instructions component', () => {
 
