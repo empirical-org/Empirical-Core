@@ -4,7 +4,7 @@ import { QuestionList } from 'quill-component-library/dist/componentLibrary'
 import actions from '../../actions/questions';
 import _ from 'underscore';
 import { Link } from 'react-router';
-import Modal from '../modal/modal.jsx';
+import { Modal } from 'quill-component-library/dist/componentLibrary';
 import { hashToCollection } from '../../libs/hashToCollection';
 import Question from '../../libs/question';
 import QuestionsList from './questionsList.jsx';

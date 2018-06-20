@@ -16,3 +16,7 @@ export {
 export {
   LandingPageEditor
 } from './components/lessons/landingPageEditor'
+
+export {
+  Modal
+} from './components/modal/modal'

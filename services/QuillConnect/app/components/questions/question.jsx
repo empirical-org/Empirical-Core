@@ -7,7 +7,7 @@ import { hashToCollection } from '../../libs/hashToCollection';
 import {
   listenToResponsesWithCallback
 } from '../../actions/responses';
-import Modal from '../modal/modal.jsx';
+import { Modal } from 'quill-component-library/dist/componentLibrary';
 import EditFrom from './questionForm.jsx';
 import Response from './response.jsx';
 import C from '../../constants';

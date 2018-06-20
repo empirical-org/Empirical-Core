@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import ResponseComponent from '../questions/responseComponent.jsx';
-import Modal from '../modal/modal.jsx';
+import { Modal } from 'quill-component-library/dist/componentLibrary';
 import EditForm from './sentenceFragmentForm.jsx';
 import fragmentActions from '../../actions/sentenceFragments.js';
 import C from '../../constants';

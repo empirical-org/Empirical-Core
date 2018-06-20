@@ -3,7 +3,7 @@ import _ from 'underscore';
 import questionActions from '../../actions/questions';
 import sentenceFragmentActions from '../../actions/sentenceFragments';
 import ConceptSelector from '../shared/conceptSelector.jsx';
-import Modal from '../modal/modal.jsx';
+import { Modal } from 'quill-component-library/dist/componentLibrary';
 import ResponseList from './responseList.jsx';
 import { hashToCollection } from '../../libs/hashToCollection';
 import TextEditor from './textEditor.jsx';

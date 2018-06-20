@@ -3,7 +3,7 @@ import questionActions from '../../actions/questions';
 import sentenceFragmentActions from '../../actions/sentenceFragments';
 import Question from '../../libs/question';
 const jsDiff = require('diff');
-import Modal from '../modal/modal.jsx';
+import { Modal } from 'quill-component-library/dist/componentLibrary';
 import ResponseList from './responseList.jsx';
 import _ from 'underscore';
 import { hashToCollection } from '../../libs/hashToCollection';

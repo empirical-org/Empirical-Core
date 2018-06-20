@@ -1,5 +1,5 @@
 import React from 'react'
-import Modal from '../modal/modal.jsx'
+import { Modal } from 'quill-component-library/dist/componentLibrary'
 import {Link} from 'react-router'
 import {connect} from 'react-redux'
 import {hashToCollection} from '../../libs/hashToCollection'
