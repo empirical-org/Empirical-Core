@@ -13,7 +13,7 @@ import {
   getGradedResponsesWithCallback
 } from '../../actions/responses';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
-import ConceptExplanation from '../feedback/conceptExplanation.jsx';
+import { ConceptExplanation } from 'quill-component-library/dist/componentLibrary';
 import Feedback from '../renderForQuestions/feedback';
 import StatelessFeedback from '../renderForQuestions/components/feedback'
 const icon = require('../../img/question_icon.svg');
