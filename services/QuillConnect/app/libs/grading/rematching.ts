@@ -73,7 +73,7 @@ export function paginatedNonHumanResponses(matcher, matcherFields, qid, page, ca
 
   return request(
     {
-      uri: `${process.env.QUILL_CMS}/questions/${qid}/responses/search`,
+      uri: `https://cms.quill.org/questions/${qid}/responses/search`,
       method: 'POST',
       body: getResponseBody(page),
       json: true,
@@ -157,7 +157,7 @@ function updateResponse(rid, content) {
   const rubyConvertedResponse = objectWithSnakeKeysFromCamel(content);
   return request({
     method: 'PUT',
-    uri: `${process.env.QUILL_CMS}/responses/${rid}`,
+    uri: `https://cms.quill.org/responses/${rid}`,
     body: { response: rubyConvertedResponse, },
     json: true,
   });
@@ -242,7 +242,7 @@ function getResponseBody(pageNumber) {
 }
 
 function getGradedResponses(questionID) {
-  return request(`${process.env.QUILL_CMS}/questions/${questionID}/responses`);
+  return request(`https://cms.quill.org/questions/${questionID}/responses`);
 }
 
 function formatGradedResponses(jsonString):{[key:string]: Response} {
