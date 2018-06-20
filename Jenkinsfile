@@ -359,7 +359,7 @@ pipeline {
           if (env.IS_PR) {
             withCredentials([usernamePassword(credentialsId: 'jenkins-api', usernameVariable: 'U', passwordVariable: 'T')]) {
               echo "Trigging destination branch build for ${env.MERGING_INTO}..."
-              sh "curl -u ${U}:${T} https://jenkins.quill.org/job/quill.org/job/${env.MERGING_INTO}/build || exit"
+              sh "curl -X POST -u ${U}:${T} https://jenkins.quill.org/job/quill.org/job/${env.MERGING_INTO}/build || exit"
               // https://jenkins.quill.org/job/quill.org/job/develop/build?delay=0sec
             }
           }
