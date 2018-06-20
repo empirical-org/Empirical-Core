@@ -3,7 +3,7 @@ import actions from '../../actions/concepts-feedback'
 import feedbackActions from '../../actions/concepts-feedback'
 import { connect } from 'react-redux'
 import TextEditor from '../questions/textEditor.jsx'
-import ConceptExplanation from './conceptExplanation.jsx'
+import { ConceptExplanation } from 'quill-component-library/dist/componentLibrary'
 export default React.createClass ({
 
   // propTypes: {

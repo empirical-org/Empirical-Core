@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import Prompt from '../prompt.jsx';
+import Prompt from 'quill-component-library/dist/componentLibrary';
 
 describe('Prompt component', () => {
 

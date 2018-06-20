@@ -1,18 +1,13 @@
 export {
   QuestionList,
-} from './components/questionList/questionList';
-
-export {
   LinkListItem
-} from './components/questionList/linkListItem'
+} from './components/questionList/index';
 
 export {
-  WarningDialogue
-} from './components/fillInBlank/warningDialogue'
-
-export {
-  Instructions
-} from './components/fillInBlank/instructions'
+  Instructions,
+  WarningDialogue,
+  Prompt
+} from './components/fillInBlank/index'
 
 export {
   ConceptExplanation
