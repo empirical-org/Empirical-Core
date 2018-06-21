@@ -1,3 +1,109 @@
+$spacingSizes: 0rem 0.25rem 0.5rem 1rem 2rem 4rem 8rem 16rem;
+//padding all
+@each $size in $spacingSizes {
+  $i: index($spacingSizes, $size);
+  .pa#{$i - 1} { 
+    padding: $size;
+  }
+}
+//padding horizontal
+@each $size in $spacingSizes {
+  $i: index($spacingSizes, $size);
+  .ph#{$i - 1} { 
+    padding-left: $size;
+    padding-right: $size;
+  }
+}
+//padding vertical
+@each $size in $spacingSizes {
+  $i: index($spacingSizes, $size);
+  .pv#{$i - 1} { 
+    padding-top: $size;
+    padding-bottom: $size;
+  }
+}
+//padding top
+@each $size in $spacingSizes {
+  $i: index($spacingSizes, $size);
+  .pt#{$i - 1} { 
+    padding-top: $size;
+  }
+}
+//padding bottom
+@each $size in $spacingSizes {
+  $i: index($spacingSizes, $size);
+  .pb#{$i - 1} { 
+    padding-bottom: $size;
+  }
+}
+//padding left
+@each $size in $spacingSizes {
+  $i: index($spacingSizes, $size);
+  .pl#{$i - 1} { 
+    padding-left: $size;
+  }
+}
+//padding right
+@each $size in $spacingSizes {
+  $i: index($spacingSizes, $size);
+  .pr#{$i - 1} { 
+    padding-right: $size;
+  }
+}
+
+// Margins
+
+@each $size in $spacingSizes {
+  $i: index($spacingSizes, $size);
+  .ma#{$i - 1} { 
+    margin: $size;
+  }
+}
+//margin horizontal
+@each $size in $spacingSizes {
+  $i: index($spacingSizes, $size);
+  .mh#{$i - 1} { 
+    margin-left: $size;
+    margin-right: $size;
+  }
+}
+//margin vertical
+@each $size in $spacingSizes {
+  $i: index($spacingSizes, $size);
+  .mv#{$i - 1} { 
+    margin-top: $size;
+    margin-bottom: $size;
+  }
+}
+//margin top
+@each $size in $spacingSizes {
+  $i: index($spacingSizes, $size);
+  .mt#{$i - 1} { 
+    margin-top: $size;
+  }
+}
+//margin bottom
+@each $size in $spacingSizes {
+  $i: index($spacingSizes, $size);
+  .mb#{$i - 1} { 
+    margin-bottom: $size;
+  }
+}
+//margin left
+@each $size in $spacingSizes {
+  $i: index($spacingSizes, $size);
+  .ml#{$i - 1} { 
+    margin-left: $size;
+  }
+}
+//margin right
+@each $size in $spacingSizes {
+  $i: index($spacingSizes, $size);
+  .mr#{$i - 1} { 
+    margin-right: $size;
+  }
+}
+
 // Padding
 .p-0 {
   padding: 0 !important;
