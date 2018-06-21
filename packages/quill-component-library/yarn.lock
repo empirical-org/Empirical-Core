@@ -781,6 +781,13 @@ diff@^3.0.1, diff@^3.1.0, diff@^3.2.0:
   version "3.4.0"
   resolved "https://registry.yarnpkg.com/diff/-/diff-3.4.0.tgz#b1d85507daf3964828de54b37d0d73ba67dda56c"
 
+draft-convert@^2.1.2:
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/draft-convert/-/draft-convert-2.1.2.tgz#00624b40fc80dca320c4e693a5fd21debb78206d"
+  dependencies:
+    immutable "~3.7.4"
+    invariant "^2.2.1"
+
 draft-js-export-html@^0.6.0:
   version "0.6.0"
   resolved "https://registry.yarnpkg.com/draft-js-export-html/-/draft-js-export-html-0.6.0.tgz#cc80f0544c43d0a7fedbc53c0cb0914e8090f769"

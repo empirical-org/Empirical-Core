@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import icon from `${process.env.QUILL_CDN}/images/icons/question_icon.svg`;
 import _ from 'underscore';
 import { submitResponse, } from '../../actions/diagnostics.js';
 import ReactTransition from 'react-addons-css-transition-group';
