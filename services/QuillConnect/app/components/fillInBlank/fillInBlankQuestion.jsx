@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import icon from '../../img/question_icon.svg';
+import icon from `${process.env.QUILL_CDN}/images/icons/question_icon.svg`;
 import Cues from '../renderForQuestions/cues.jsx';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';

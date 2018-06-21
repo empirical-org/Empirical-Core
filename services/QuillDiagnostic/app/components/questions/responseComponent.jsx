@@ -151,7 +151,7 @@ class ResponseComponent extends React.Component {
   getHealth() {
     request(
       {
-        url: `${process.env.QUILL_CMS}/questions/${this.props.questionID}/health`,
+        url: `https://cms.quill.org/questions/${this.props.questionID}/health`,
         method: 'GET',
       },
         (err, httpResponse, data) => {
@@ -165,7 +165,7 @@ class ResponseComponent extends React.Component {
   getGradeBreakdown() {
     request(
       {
-        url: `${process.env.QUILL_CMS}/questions/${this.props.questionID}/grade_breakdown`,
+        url: `https://cms.quill.org/questions/${this.props.questionID}/grade_breakdown`,
         method: 'GET',
       },
         (err, httpResponse, data) => {

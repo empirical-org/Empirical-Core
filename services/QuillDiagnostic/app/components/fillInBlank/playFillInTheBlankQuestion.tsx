@@ -15,7 +15,7 @@ import translationMap from '../../libs/translations/ellQuestionMapper.js';
 import { WarningDialogue } from 'quill-component-library/dist/componentLibrary'
 import Prompt from 'quill-component-library/dist/componentLibrary'
 import Instructions from 'quill-component-library/dist/componentLibrary'
-import Feedback from '../renderForQuestions/components/feedback'
+import { Feedback } from 'quill-component-library/dist/componentLibrary'
 
 const styles = {
   container: {

@@ -1,6 +1,5 @@
 import React from 'react';
-import Cue from './cue.jsx'
-import CueExplanation from './cueExplanation.jsx'
+import { Cue, CueExplanation } from 'quill-component-library/dist/componentLibrary'
 import arrow from '../../img/arrow_icon.svg';
 
 export default React.createClass({
@@ -40,7 +39,7 @@ export default React.createClass({
       text = <span></span>
     }
     //const arrow = this.props.displayArrowAndText ? (<div><img src={arrow} /> {this.renderExplanation()}</div>) : <span></span>
-    if (this.props.getQuestion().cues && this.props.getQuestion().cues.length > 0 && this.props.getQuestion().cues[0] !== '') {
+    if  (this.props.getQuestion().cues && this.props.getQuestion().cues.length > 0 && this.props.getQuestion().cues[0] !== '') {
       const cueDivs = this.props.getQuestion().cues.map((cue, i) => <Cue key={`${i}${cue}`} cue={cue} />)
       return (
         <div className="cues">

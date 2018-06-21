@@ -52,11 +52,18 @@
     "typescript": "^2.6.2"
   },
   "dependencies": {
+    "@types/draft-js": "^0.10.5",
     "@types/react": "^16.4.0",
     "@types/react-router": "^3.0.5",
+    "draft-js": "^0.10.5",
+    "draft-js-export-html": "^0.6.0",
+    "draft-js-plugins-editor": "^2.0.4",
+    "draft-js-richbuttons-plugin": "^2.2.0",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-router": "^3.0.5",
+    "react-simple-pie-chart": "^0.5.0",
+    "react-sortable": "^2.0.0",
     "rollup": "^0.60.7"
   }
 }

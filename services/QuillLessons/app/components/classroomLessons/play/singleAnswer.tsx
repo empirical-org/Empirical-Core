@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import Cues from '../../../components/renderForQuestions/cues';
 import RenderSentenceFragments from '../../../components/renderForQuestions/sentenceFragments';
 import FeedbackRow from './feedbackRow'
-import Feedback from '../../renderForQuestions/components/feedback'
+import { Feedback } from 'quill-component-library/dist/componentLibrary'
 import TextEditor from '../../renderForQuestions/renderTextEditor';
 import { getParameterByName } from '../../../libs/getParameterByName';
 import { firebase } from '../../../libs/firebase';
