@@ -1,18 +1,6 @@
 pipeline {
   agent any
   stages {
-    stage('test-envars') {
-      steps {
-        script {
-          echo 'git_branch'
-          echo env.GIT_BRANCH
-          echo 'branch_name'
-          echo env.BRANCH_NAME
-          // https://wiki.jenkins.io/display/JENKINS/Building+a+software+project
-          sh 'exit'
-        }
-      }
-    }
     stage('set-pr-envars') {
       steps {
         script {
@@ -272,9 +260,10 @@ pipeline {
               }
 
               /* ensure branch to merge into is not master */
+              /* CHANGE_BRANCH is the source branch for a PR */
               if (env.CHANGE_BRANCH != 'develop') {
-                if (env.MERGING_INTO == 'master'){
-                  error("Only the 'develop' branch can merge directly into master!")
+                if (env.MERGING_INTO == 'master') {
+                  error("Only pull requests from the develop branch can merge directly into master!")
                 }
               }
 
@@ -284,7 +273,7 @@ pipeline {
 
               /* MERGE THE PR */
               sh "curl -X PUT -u ${U}:${T} -H \"${headers}\" -d '${payload}' '${mergeEndpoint}' || exit"
-              echo "Successfully merged PR ${env.CHANGE_BRANCH}."
+              echo "Successfully merged ${env.GIT_BRANCH}: ${env.CHANGE_BRANCH} -> ${env.MERGING_INTO}"
             }
           }
           else {
@@ -303,7 +292,7 @@ pipeline {
             echo 'Beginnning LMS DEPLOY...'
             script {
               withCredentials([usernamePassword(credentialsId: 'robot-butler', usernameVariable: 'U', passwordVariable: 'T')]) {
-                if (env.CHANGE_BRANCH == 'develop') {
+                if (env.GIT_BRANCH == 'develop') {
                   echo "Automatically deploying develop to staging..."
                   /* heroku allows authentication through 'heroku login', http basic
                    * auth, and SSH keys.  Since right now this stage runs only on the
@@ -315,7 +304,7 @@ pipeline {
                   def herokuStagingLMS="https://git.heroku.com/empirical-grammar-staging.git"
                   sh "git push -f ${herokuStagingLMS} `git subtree split --prefix services/QuillLMS HEAD`:master"
                 }
-                else if (env.CHANGE_BRANCH == 'master') {
+                else if (env.GIT_BRANCH == 'master') {
                   echo "Automatically deploying master to production..."
                   echo "Warning: This behavior is not yet enabled with this pipeline."
                 }
@@ -344,13 +333,13 @@ pipeline {
             echo "Beginnning connect deploy..."
             script {
               withCredentials([usernamePassword(credentialsId: 'robot-butler', usernameVariable: 'U', passwordVariable: 'T')]) {
-                if (env.CHANGE_BRANCH == 'develop') {
+                if (env.GIT_BRANCH == 'develop') {
                   echo "Adding staging.sh script to be run in the npm context..."
                   sh "echo 'webpack --optimize-minimize; firebase deploy --project production' > staging.sh"
                   echo "Deploying connect to staging..."
                   sh 'npm run deploy:staging'
                 }
-                else if (env.CHANGE_BRANCH == 'master') {
+                else if (env.GIT_BRANCH == 'master') {
                   echo "Automatically deploying master to production..."
                   echo "Warning: This behavior is not yet enabled with this pipeline."
                 }
