@@ -15,8 +15,7 @@ import {
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 import { ConceptExplanation } from 'quill-component-library/dist/componentLibrary';
 import Feedback from '../renderForQuestions/feedback';
-import { Feedback } from 'quill-component-library/dist/componentLibrary'
-const icon = require('../../img/question_icon.svg');
+// import { Feedback } from 'quill-component-library/dist/componentLibrary'
 
 const PlaySentenceFragment = React.createClass<any, any>({
   getInitialState() {

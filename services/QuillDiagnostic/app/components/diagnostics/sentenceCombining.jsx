@@ -1,5 +1,4 @@
 import React from 'react';
-import icon from `${process.env.QUILL_CDN}/images/icons/question_icon.svg`;
 import _ from 'underscore';
 import { submitResponse, clearResponses } from '../../actions/diagnostics.js';
 import ReactTransition from 'react-addons-css-transition-group';
@@ -8,7 +7,6 @@ import {
 } from '../../actions/responses.js';
 import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
 import RenderQuestionCues from '../renderForQuestions/cues.jsx';
-import { SentenceFragments } from 'quill-component-library/dist/componentLibrary';
 import { Feedback } from 'quill-component-library/dist/componentLibrary';
 import getResponse from '../renderForQuestions/checkAnswer';
 import submitQuestionResponse from '../renderForQuestions/submitResponse.js';
@@ -178,9 +176,9 @@ const PlayDiagnosticQuestion = React.createClass({
   renderNextQuestionButton(correct) {
     if (correct) {
       return (<button className="button is-outlined is-success" onClick={this.nextQuestion}>Next</button>);
-    } 
+    }
       return (<button className="button is-outlined is-warning" onClick={this.nextQuestion}>Next</button>);
-    
+
   },
 
   render() {
@@ -216,9 +214,9 @@ const PlayDiagnosticQuestion = React.createClass({
           </ReactTransition>
         </div>
       );
-    } 
+    }
       return (<p>Loading...</p>);
-    
+
   },
 });
 

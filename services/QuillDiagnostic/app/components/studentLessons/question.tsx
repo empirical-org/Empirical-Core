@@ -24,7 +24,7 @@ import submitQuestionResponse from '../renderForQuestions/submitResponse.js';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 import submitPathway from '../renderForQuestions/submitPathway.js';
 import MultipleChoice from './multipleChoice.jsx';
-import { ThankYou } as StateFinished from 'quill-component-library/dist/componentLibrary';
+import { ThankYou }  from 'quill-component-library/dist/componentLibrary';
 import AnswerForm from '../renderForQuestions/renderFormForAnswer.jsx';
 import { ConceptExplanation } from 'quill-component-library/dist/componentLibrary';
 import { getOptimalResponses, getSubOptimalResponses, getTopOptimalResponse } from '../../libs/sharedResponseFunctions';
@@ -33,6 +33,7 @@ import {
   getGradedResponsesWithCallback
 } from '../../actions/responses.js';
 import {Response} from 'quill-marking-logic'
+const StateFinished = ThankYou
 
 const feedbackStrings = C.FEEDBACK_STRINGS;
 

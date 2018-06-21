@@ -13,7 +13,7 @@ import {
   getResponsesWithCallback,
   getGradedResponsesWithCallback
 } from '../../actions/responses.js';
-import icon from `${process.env.QUILL_CDN}/images/icons/question_icon.svg`;
+const icon = 'http://localhost:45537/images/icons/question_icon.svg'
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 import { hashToCollection } from '../../libs/hashToCollection.js';
 import translations from '../../libs/translations/index.js';

@@ -16,7 +16,7 @@ import FeedbackRow from './feedbackRow'
 import { Feedback } from 'quill-component-library/dist/componentLibrary' 
 import numberToWord from '../../../libs/numberToWord'
 import { getParameterByName } from '../../../libs/getParameterByName';
-const icon = require('../../../img/question_icon.svg')
+const icon = 'http://localhost:45537/images/icons/question_icon.svg' 
 
 interface ListBlankProps {
   data: QuestionData;

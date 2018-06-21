@@ -1,15 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom'
 import _ from 'underscore';
-import icon from `${process.env.QUILL_CDN}/images/icons/question_icon.svg`;
-import revise from `${process.env.QUILL_CDN}/images/icons/revise_orange_icon.svg`;
-import multiple from `${process.env.QUILL_CDN}/images/icons/multiple_choice_icon.svg`;
-import success from `${process.env.QUILL_CDN}/images/icons/check-mark.svg`;
+const icon = 'http://localhost:45537//images/icons/question_icon.svg';
+const revise = 'http://localhost:45537//images/icons/revise_orange_icon.svg';
+const multiple = 'http://localhost:45537//images/icons/multiple_choice_icon.svg';
+const success = 'http://localhost:45537//images/icons/check-mark.svg';
 import getAnswerState from './answerState';
 import {Response} from 'quill-marking-logic';
 import { Feedback } from 'quill-component-library/dist/componentLibrary';
 
-class Feedback extends React.Component<any, any> {
+class FeedbackComponent extends React.Component<any, any> {
   constructor(props){
     super(props)
   }
@@ -79,7 +79,7 @@ class Feedback extends React.Component<any, any> {
   render() {
     const key:number = this.props ? this.props.question.attempts.length : 0;
     return (
-      <StatelessFeedback
+      <Feedback
         key={key}
         feedbackType={this.getFeedbackType(this.props)}
         feedback={this.getFeedbackCopy(this.props)}
@@ -88,7 +88,7 @@ class Feedback extends React.Component<any, any> {
   }
 }
 
-export default Feedback;
+export default FeedbackComponent;
 
 const getLatestAttempt = function (attempts: Array<any> = []): any {
   const lastIndex = attempts.length - 1;
