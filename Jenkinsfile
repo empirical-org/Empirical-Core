@@ -1,6 +1,18 @@
 pipeline {
   agent any
   stages {
+    stage('test-envars') {
+      steps {
+        script {
+          echo 'git_branch'
+          echo env.GIT_BRANCH
+          echo 'branch_name'
+          echo env.BRANCH_NAME
+          // https://wiki.jenkins.io/display/JENKINS/Building+a+software+project
+          sh 'exit'
+        }
+      }
+    }
     stage('set-pr-envars') {
       steps {
         script {
