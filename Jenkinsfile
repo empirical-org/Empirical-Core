@@ -260,9 +260,10 @@ pipeline {
               }
 
               /* ensure branch to merge into is not master */
+              /* CHANGE_BRANCH is the source branch for a PR */
               if (env.CHANGE_BRANCH != 'develop') {
-                if (env.MERGING_INTO == 'master'){
-                  error("Only the 'develop' branch can merge directly into master!")
+                if (env.MERGING_INTO == 'master') {
+                  error("Only pull requests from the develop branch can merge directly into master!")
                 }
               }
 
@@ -272,7 +273,7 @@ pipeline {
 
               /* MERGE THE PR */
               sh "curl -X PUT -u ${U}:${T} -H \"${headers}\" -d '${payload}' '${mergeEndpoint}' || exit"
-              echo "Successfully merged PR ${env.CHANGE_BRANCH}."
+              echo "Successfully merged ${env.GIT_BRANCH}: ${env.CHANGE_BRANCH} -> ${env.MERGING_INTO}"
             }
           }
           else {
@@ -291,7 +292,7 @@ pipeline {
             echo 'Beginnning LMS DEPLOY...'
             script {
               withCredentials([usernamePassword(credentialsId: 'robot-butler', usernameVariable: 'U', passwordVariable: 'T')]) {
-                if (env.CHANGE_BRANCH == 'develop') {
+                if (env.GIT_BRANCH == 'develop') {
                   echo "Automatically deploying develop to staging..."
                   /* heroku allows authentication through 'heroku login', http basic
                    * auth, and SSH keys.  Since right now this stage runs only on the
@@ -303,7 +304,7 @@ pipeline {
                   def herokuStagingLMS="https://git.heroku.com/empirical-grammar-staging.git"
                   sh "git push -f ${herokuStagingLMS} `git subtree split --prefix services/QuillLMS HEAD`:master"
                 }
-                else if (env.CHANGE_BRANCH == 'master') {
+                else if (env.GIT_BRANCH == 'master') {
                   echo "Automatically deploying master to production..."
                   echo "Warning: This behavior is not yet enabled with this pipeline."
                 }
@@ -332,13 +333,13 @@ pipeline {
             echo "Beginnning connect deploy..."
             script {
               withCredentials([usernamePassword(credentialsId: 'robot-butler', usernameVariable: 'U', passwordVariable: 'T')]) {
-                if (env.CHANGE_BRANCH == 'develop') {
+                if (env.GIT_BRANCH == 'develop') {
                   echo "Adding staging.sh script to be run in the npm context..."
                   sh "echo 'webpack --optimize-minimize; firebase deploy --project production' > staging.sh"
                   echo "Deploying connect to staging..."
                   sh 'npm run deploy:staging'
                 }
-                else if (env.CHANGE_BRANCH == 'master') {
+                else if (env.GIT_BRANCH == 'master') {
                   echo "Automatically deploying master to production..."
                   echo "Warning: This behavior is not yet enabled with this pipeline."
                 }
@@ -356,7 +357,10 @@ pipeline {
       /* https://www.ittybittytalks.com/how-to-automate-your-jenkins-build-script/ */
       steps {
         script {
-          if (env.IS_PR == 'True') {
+          if(env.MERGING_INTO in ['master', 'develop']) {
+            echo "${env.MERGING_INTO} will be built automatically by Jenkins; nothing to do now."
+          }
+          else if (env.IS_PR == 'True') {
             withCredentials([usernamePassword(credentialsId: 'jenkins-api', usernameVariable: 'U', passwordVariable: 'T')]) {
               echo "Trigging destination branch build for ${env.MERGING_INTO}..."
               sh "curl -X POST -u ${U}:${T} https://jenkins.quill.org/job/quill.org/job/${env.MERGING_INTO}/build || exit"
