@@ -357,7 +357,10 @@ pipeline {
       /* https://www.ittybittytalks.com/how-to-automate-your-jenkins-build-script/ */
       steps {
         script {
-          if (env.IS_PR == 'True') {
+          if(env.MERGING_INTO in ['master', 'develop']) {
+            echo "${env.MERGING_INTO} will be built automatically by Jenkins; nothing to do now."
+          }
+          else if (env.IS_PR == 'True') {
             withCredentials([usernamePassword(credentialsId: 'jenkins-api', usernameVariable: 'U', passwordVariable: 'T')]) {
               echo "Trigging destination branch build for ${env.MERGING_INTO}..."
               sh "curl -X POST -u ${U}:${T} https://jenkins.quill.org/job/quill.org/job/${env.MERGING_INTO}/build || exit"
