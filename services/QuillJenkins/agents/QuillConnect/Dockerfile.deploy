@@ -1,7 +1,7 @@
 FROM node:7.4.0
 
 RUN apt-get update 
-RUN apt-get install -y python-pip
+RUN apt-get install -y python-pip libpython-dev python-dev
 RUN pip install awscli --upgrade --user
 
 
