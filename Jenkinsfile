@@ -101,7 +101,7 @@ pipeline {
 
     //           dir(path: 'services/QuillJenkins/scripts') {
     //             // Check that code coverage has not decreased
-    //             sh "python -c'import codecov; codecov.fail_on_decrease(\"fake-fake-fake-develop\", $env.BRANCH_NAME )' || exit"
+    //             sh "python -c'import codecov; codecov.fail_on_decrease(\"fake-fake-develop\", $env.BRANCH_NAME )' || exit"
     //           }
     //           */
     //           echo 'Front end tests disabled for now.  moving on!'
@@ -261,9 +261,9 @@ pipeline {
 
               /* ensure branch to merge into is not master */
               /* CHANGE_BRANCH is the source branch for a PR */
-              if (env.CHANGE_BRANCH != 'fake-fake-develop') {
+              if (env.CHANGE_BRANCH != 'fake-develop') {
                 if (env.MERGING_INTO == 'master') {
-                  error("Only pull requests from the fake-fake-develop branch can merge directly into master!")
+                  error("Only pull requests from the fake-develop branch can merge directly into master!")
                 }
               }
 
@@ -292,8 +292,8 @@ pipeline {
         //     echo 'Beginnning LMS DEPLOY...'
         //     script {
         //       withCredentials([usernamePassword(credentialsId: 'robot-butler', usernameVariable: 'U', passwordVariable: 'T')]) {
-        //         if (env.GIT_BRANCH == 'fake-fake-develop') {
-        //           echo "Automatically deploying fake-fake-develop to staging..."
+        //         if (env.GIT_BRANCH == 'fake-develop') {
+        //           echo "Automatically deploying fake-develop to staging..."
         //           /* heroku allows authentication through 'heroku login', http basic
         //            * auth, and SSH keys.  Since right now this stage runs only on the
         //            * Jenkins master node, we have simply pre-logged in the user with
@@ -309,7 +309,7 @@ pipeline {
         //           echo "Warning: This behavior is not yet enabled with this pipeline."
         //         }
         //         else {
-        //           echo "No deploy stage for non-master / non-fake-fake-develop branch. If you submitted a PR to one of these branches, a build will be triggered."
+        //           echo "No deploy stage for non-master / non-fake-develop branch. If you submitted a PR to one of these branches, a build will be triggered."
         //         }
         //       }
         //     }
@@ -333,7 +333,7 @@ pipeline {
         //     echo "Beginnning connect deploy..."
         //     script {
         //       withCredentials([usernamePassword(credentialsId: 'robot-butler', usernameVariable: 'U', passwordVariable: 'T')]) {
-        //         if (env.GIT_BRANCH == 'fake-fake-develop') {
+        //         if (env.GIT_BRANCH == 'fake-develop') {
         //           echo "Adding staging.sh script to be run in the npm context..."
         //           sh "echo 'webpack --optimize-minimize; firebase deploy --project production' > staging.sh"
         //           echo "Deploying connect to staging..."
@@ -344,7 +344,7 @@ pipeline {
         //           echo "Warning: This behavior is not yet enabled with this pipeline."
         //         }
         //         else {
-        //           echo "No deploy stage for non-master / non-fake-fake-develop branch. If you submitted a PR to one of these branches, a build will be triggered."
+        //           echo "No deploy stage for non-master / non-fake-develop branch. If you submitted a PR to one of these branches, a build will be triggered."
         //         }
         //       }
         //     }
@@ -369,7 +369,7 @@ pipeline {
           steps {
             echo "Beginnning lessons deploy..."
             script {
-              if (env.GIT_BRANCH == 'fake-fake-develop') {
+              if (env.GIT_BRANCH == 'fake-develop') {
                 echo "install deps"
                 sh "npm install"
                 echo "Deploying connect to staging..."
@@ -381,7 +381,7 @@ pipeline {
                 echo "Warning: This behavior is not yet enabled with this pipeline."
               }
               else {
-                echo "No deploy stage for non-master / non-fake-fake-develop branch. If you submitted a PR to one of these branches, a build will be triggered."
+                echo "No deploy stage for non-master / non-fake-develop branch. If you submitted a PR to one of these branches, a build will be triggered."
               }
             }
           }
@@ -393,14 +393,14 @@ pipeline {
       /* https://www.ittybittytalks.com/how-to-automate-your-jenkins-build-script/ */
       steps {
         script {
-          if(env.MERGING_INTO in ['master', 'fake-fake-fake-develop']) {
+          if(env.MERGING_INTO in ['master', 'fake-fake-develop']) {
             echo "${env.MERGING_INTO} will be built automatically by Jenkins; nothing to do now."
           }
           else if (env.IS_PR == 'True') {
             withCredentials([usernamePassword(credentialsId: 'jenkins-api', usernameVariable: 'U', passwordVariable: 'T')]) {
               echo "Trigging destination branch build for ${env.MERGING_INTO}..."
               sh "curl -X POST -u ${U}:${T} https://jenkins.quill.org/job/quill.org/job/${env.MERGING_INTO}/build || exit"
-              // https://jenkins.quill.org/job/quill.org/job/fake-fake-fake-develop/build?delay=0sec
+              // https://jenkins.quill.org/job/quill.org/job/fake-fake-develop/build?delay=0sec
             }
           }
           else {
