@@ -78,6 +78,8 @@ npm manifest:
       "react": "^16.4.1",
       "react-dom": "^16.4.1",
       "react-router": "^3.0.5",
+      "react-simple-pie-chart": "^0.5.0",
+      "react-sortable": "^2.0.0",
       "rollup": "^0.60.7"
     }
   }
@@ -2692,7 +2694,7 @@ Lockfile:
       minimist "^1.2.0"
       strip-json-comments "~2.0.1"
   
-  react-dom@^16.4.1:
+  react-dom@16.x.x, react-dom@^16.4.1:
     version "16.4.1"
     resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.4.1.tgz#7f8b0223b3a5fbe205116c56deb85de32685dad6"
     dependencies:
@@ -2713,7 +2715,18 @@ Lockfile:
       prop-types "^15.5.6"
       warning "^3.0.0"
   
-  react@^16.4.1:
+  react-simple-pie-chart@^0.5.0:
+    version "0.5.0"
+    resolved "https://registry.yarnpkg.com/react-simple-pie-chart/-/react-simple-pie-chart-0.5.0.tgz#207238a6fcfc268d20706894fd28169dc84b42c2"
+  
+  react-sortable@^2.0.0:
+    version "2.0.0"
+    resolved "https://registry.yarnpkg.com/react-sortable/-/react-sortable-2.0.0.tgz#677350ace58d2de0145c7c6bed3573ce6a376ae7"
+    dependencies:
+      react "16.x.x"
+      react-dom "16.x.x"
+  
+  react@16.x.x, react@^16.4.1:
     version "16.4.1"
     resolved "https://registry.yarnpkg.com/react/-/react-16.4.1.tgz#de51ba5764b5dbcd1f9079037b862bd26b82fe32"
     dependencies:

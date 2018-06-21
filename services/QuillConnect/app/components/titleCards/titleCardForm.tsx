@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import TextEditor from '../questions/textEditor.jsx';
+import { TextEditor } from 'quill-component-library/dist/componentLibrary';
 import {hashToCollection} from '../../libs/hashToCollection'
 import {
   submitNewTitleCard,

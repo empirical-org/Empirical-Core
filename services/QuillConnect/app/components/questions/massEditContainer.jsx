@@ -2,7 +2,7 @@ import React from 'react';
 import request from 'request';
 import { connect } from 'react-redux';
 import massEdit from '../../actions/massEdit';
-import TextEditor from './textEditor.jsx';
+import { TextEditor } from 'quill-component-library/dist/componentLibrary';
 import getBoilerplateFeedback from './boilerplateFeedback.jsx';
 import ConceptResultList from './conceptResultList.jsx';
 import _ from 'underscore';

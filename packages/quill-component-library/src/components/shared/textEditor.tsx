@@ -13,17 +13,17 @@ const {
   BlockquoteButton, ULButton, H3Button
 } = richButtonsPlugin;
 
-// interface LandingPageEditorProps {
+// interface TextEditorProps {
 //   text: string;
 //   boilerplate: string;
 //   handleTextChange: Function;
 // }
 //
-// interface LandingPageEditorState {
+// interface TextEditorState {
 //   text: any;
 // }
 
-class LandingPageEditor extends React.Component<any, any> {
+class TextEditor extends React.Component<any, any> {
   constructor(props: any) {
     super(props)
 
@@ -73,4 +73,4 @@ class LandingPageEditor extends React.Component<any, any> {
 
 }
 
-export { LandingPageEditor }
+export { TextEditor }

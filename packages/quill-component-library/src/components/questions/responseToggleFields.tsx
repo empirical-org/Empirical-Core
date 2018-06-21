@@ -1,7 +1,11 @@
 import React from 'react';
 
-export default React.createClass({
-  renderToggleField(status, index) {
+class ResponseToggleFields extends React.Component<any, any> {
+  constructor(props: any) {
+    super(props)
+  }
+
+  renderToggleField(status: string, index: number) {
     let tagClass = 'tag';
     let addColorToTag = false;
     if (this.props.visibleStatuses[status]) addColorToTag = true;
@@ -38,26 +42,28 @@ export default React.createClass({
         <span className={tagClass} onClick={this.toggleFieldAndResetPage.bind(null, status)}>{status.replace(' Hint', '')}</span>
       </label>
     );
-  },
+  }
 
-  toggleFieldAndResetPage(status) {
+  toggleFieldAndResetPage(status: string) {
     this.props.resetPageNumber();
     this.props.toggleField(status);
-  },
+  }
 
   render() {
     return (
       <div>
         <div style={{ margin: '10 0', }}>
-          {this.props.qualityLabels.map((label, i) => this.renderToggleField(label, i))}
+          {this.props.qualityLabels.map((label: string, i: number) => this.renderToggleField(label, i))}
         </div>
         <div style={{ margin: '10 0 0 0', display: 'flex', flexWrap: 'wrap', }}>
-          {this.props.labels.map((label, i) => this.renderToggleField(label, i))}
+          {this.props.labels.map((label: string, i: number) => this.renderToggleField(label, i))}
         </div>
         <div>
           <input type='checkbox' checked={this.props.excludeMisspellings} onClick={() => this.props.toggleExcludeMisspellings()}/> <label>Exclude Misspellings?</label>
         </div>
       </div>
     );
-  },
-});
+  }
+}
+
+export { ResponseToggleFields }

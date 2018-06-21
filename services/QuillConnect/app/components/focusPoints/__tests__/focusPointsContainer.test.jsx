@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { genericQuestion } from '../../../../test/data/jest_data.js';
 import { FocusPointsContainer } from '../focusPointsContainer.jsx';
-import SortableList from '../../questions/sortableList/sortableList.jsx';
+import { SortableList } from 'quill-component-library/dist/componentLibrary';
 
 function setup() {
   const params = { questionID: 100, };

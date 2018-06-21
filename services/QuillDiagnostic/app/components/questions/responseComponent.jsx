@@ -8,8 +8,8 @@ import QuestionMatcher from '../../libs/question';
 import questionActions from '../../actions/questions';
 import sentenceFragmentActions from '../../actions/sentenceFragments';
 import diagnosticQuestionActions from '../../actions/diagnosticQuestions';
-import ResponseSortFields from './responseSortFields.jsx';
-import ResponseToggleFields from './responseToggleFields.jsx';
+import { ResponseSortFields } from 'quill-component-library/dist/componentLibrary';
+import { ResponseToggleFields } from 'quill-component-library/dist/componentLibrary';
 import { getPartsOfSpeechTags } from '../../libs/partsOfSpeechTagging.js';
 import POSForResponsesList from './POSForResponsesList.jsx';
 import respWithStatus from '../../libs/responseTools.js';
@@ -20,9 +20,9 @@ import {
 } from '../../libs/grading/rematching.ts';
 import DiagnosticQuestionMatcher from '../../libs/diagnosticQuestion.js';
 import massEdit from '../../actions/massEdit';
-import TextEditor from './textEditor.jsx';
+import { TextEditor } from 'quill-component-library/dist/componentLibrary';
 import getBoilerplateFeedback from './boilerplateFeedback.jsx';
-import QuestionBar from './questionBar.jsx';
+import { QuestionBar } from 'quill-component-library/dist/componentLibrary';
 import request from 'request';
 import {
   deleteResponse,

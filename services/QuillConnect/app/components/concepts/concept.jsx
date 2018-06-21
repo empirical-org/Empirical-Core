@@ -5,7 +5,7 @@ import actions from '../../actions/concepts'
 import questionActions from '../../actions/questions'
 import _ from 'underscore'
 import {hashToCollection} from '../../libs/hashToCollection'
-import TextEditor from '../questions/textEditor.jsx'
+import { TextEditor } from 'quill-component-library/dist/componentLibrary'
 
 const Concept = React.createClass({
   getInitialState: function (){
