@@ -9,7 +9,10 @@ import QuestionSets from './question_sets';
 import VocabularyWords from './vocabulary_words';
 import {markArticleAsRead, chooseQuestionSet, setFontSize} from '../../actions/activities';
 import {ActivitiesState} from '../../reducers/activities';
-
+import {
+  Play,
+  Pause
+} from 'react-feather';
 export interface AppProps extends PassedProps, DispatchFromProps, StateFromProps { 
 }
 
@@ -56,7 +59,6 @@ class ActivityContainer extends React.Component<AppProps, any> {
   }
 
   speak(e) {
-    
     e.preventDefault();
     voiceSynth.cancel();
     const script = window.getSelection().toString();
@@ -64,6 +66,11 @@ class ActivityContainer extends React.Component<AppProps, any> {
     console.log(voices)
     utterance.voice = voices[49] ? voices[49] : voices[0];
     voiceSynth.speak(utterance)
+  }
+
+  cancelSpeak(e) {
+    e.preventDefault();
+    voiceSynth.cancel();
   }
 
   renderQuestions(activity, questionSetId, read) {
@@ -102,7 +109,8 @@ class ActivityContainer extends React.Component<AppProps, any> {
             <div className="subnav-item">Answer</div>
           </div>
           <div className="subnav-right">
-            <div className="subnav-item">Speak <button onClick={this.speak}>Speak</button></div>
+            <div className="subnav-item"><button className="btn-icon" onClick={this.speak}><Play /></button></div>
+            <div className="subnav-item" ><button className="btn-icon" onClick={this.cancelSpeak}><Pause /></button></div>
             <div className="subnav-item">Font Size <span className="d-fl-r ai-bl"><span className="fs-sm" onClick={(e) => this.props.setFontSize(1)}>A</span> <span className="fs-md" onClick={(e) => this.props.setFontSize(2)}>A</span> <span className="fs-lg" onClick={(e) =>this.props.setFontSize(3)}>A</span></span></div>
           </div>
         </div>
