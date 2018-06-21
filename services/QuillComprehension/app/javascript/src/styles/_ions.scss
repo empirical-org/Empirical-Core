@@ -85,6 +85,10 @@
   align-items: flex-end;
 }
 
+.ai-bl {
+  align-items: baseline;
+}
+
 // Backgrounds
 .bg-blue {
   background-color: #467fcf !important;
@@ -110,7 +114,7 @@
 // fonts 
 
 .fs-sm {
-  font-size: 0.75rem;
+  font-size: 0.85rem;
 }
 
 .fs-md {
@@ -118,5 +122,5 @@
 }
 
 .fs-lg {
-  font-size: 1.25rem;
+  font-size: 1.15rem;
 }
