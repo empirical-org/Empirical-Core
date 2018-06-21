@@ -13,7 +13,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 
-module.exports = {
+let config = {
   resolve: {
     modules: [
       path.resolve(__dirname, 'app'),
@@ -37,33 +37,15 @@ module.exports = {
     chunkFilename: '[name].[chunkhash].js',
     path: `${__dirname}/dist`,
   },
-
-  // resolve: {
-  // // changed from extensions: [".js", ".jsx"]
-  //   extensions: ['.ts', '.tsx', '.js', '.jsx', '.ejs'],
-  // },
   plugins: [
-    new HardSourceWebpackPlugin(),
     assetsPluginInstance,
     new ExtractTextPlugin('style.css'),
     new webpack.EnvironmentPlugin({
-      NODE_ENV: 'development',
       EMPIRICAL_BASE_URL: 'http://localhost:3000',
-      QUILL_CMS: 'http://localhost:3100',
-      PUSHER_KEY:  'a253169073ce7474f0ce',
-      OAUTH_CLIENT_ID: 'd0932924044cf2f2e2c2df64a2e8d5e78eadfc8dff8687060b6856d4a62dd5d9',
-      FIREBASE_APP_NAME: 'quillconnectstaging',
       LESSONS_WEBSOCKETS_URL: 'localhost:8000',
+      NODE_ENV: 'development',
+      QUILL_CMS: 'http://localhost:3100',
     }),
-    // new BundleAnalyzerPlugin(), // For visualizing package size
-    new webpack.optimize.CommonsChunkPlugin({ name: 'vendor', }),
-    // new CompressionPlugin({
-    //   asset: '[path].gz[query]',
-    //   algorithm: 'gzip',
-    //   test: /\.js$/,
-    //   threshold: 10240,
-    //   minRatio: 0.8,
-    // }),
     new HtmlWebpackPlugin({
       template: './index.html.ejs',
       inject: 'body',
@@ -82,12 +64,6 @@ module.exports = {
     })
   ],
   module: {
-    // rules: [
-    //   // changed from { test: /\.jsx?$/, use: { loader: 'babel-loader' } },
-    //   { test: /\.(t|j)sx?$/, use: { loader: 'awesome-typescript-loader', }, },
-    //   // addition - add source-map support
-    //   { enforce: 'pre', test: /\.js$/, loader: 'source-map-loader', }
-    // ],
     noParse: /node_modules\/json-schema\/lib\/validate\.js/,
     rules: [
       {
@@ -143,3 +119,9 @@ module.exports = {
   // addition - add source-map support
   devtool: 'eval',
 };
+
+if (!live) {
+  config.plugins.push(new HardSourceWebpackPlugin());
+}
+
+module.exports = config;

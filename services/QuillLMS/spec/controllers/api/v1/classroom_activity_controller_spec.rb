@@ -71,7 +71,7 @@ describe Api::V1::ClassroomActivitiesController, type: :controller do
         session[:user_id] = teacher.id
         put :finish_lesson, id: classroom.classroom_activities.first.id, json: {concept_results: [], follow_up: true}.to_json, format: 'json'
         follow_up = classroom.classroom_activities.first.assign_follow_up_lesson(false)
-        expect(JSON.parse(response.body)).to eq({"follow_up_url"=> "#{ENV['DEFAULT_URL']}/teachers/classroom_activities/#{follow_up&.id}/activity_from_classroom_activity"})
+        expect(JSON.parse(response.body)).to eq({"follow_up_url"=> follow_up&.generate_activity_url || 'error'})
     end
 
     it 'returns JSON object with link to home if not requested' do

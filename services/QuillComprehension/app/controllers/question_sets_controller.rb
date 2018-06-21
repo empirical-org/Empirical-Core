@@ -1,10 +1,10 @@
 class QuestionSetsController < ApplicationController
   before_action :set_question_set, only: [:show, :edit, :update, :destroy]
-
+  before_action :set_activity, only: [:index, :new, :create]
   # GET /question_sets
   # GET /question_sets.json
   def index
-    @question_sets = QuestionSet.all
+    @question_sets = @activity.question_sets
   end
 
   # GET /question_sets/1
@@ -56,7 +56,7 @@ class QuestionSetsController < ApplicationController
   def destroy
     @question_set.destroy
     respond_to do |format|
-      format.html { redirect_to question_sets_url, notice: 'Question set was successfully destroyed.' }
+      format.html { redirect_to activity_question_sets_path(@question_set.activity_id), notice: 'Question set was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -65,6 +65,10 @@ class QuestionSetsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_question_set
       @question_set = QuestionSet.find(params[:id])
+    end
+
+    def set_activity
+      @activity = Activity.find(params[:activity_id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

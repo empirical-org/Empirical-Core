@@ -14,16 +14,6 @@
 Empirical Core is the Learning Management System that powers Quill.org, a free writing tool.
 
 
-Quill.org gives CI status for the HEAD of all active branches. Here is the build
-table for **jenkins-pipeline-full**:
-
-|Front End|Back End|Travis CI|Code Climate|Jenkins|
-|---|---|---|---|---|
-|[![codecov](https://codecov.io/gh/empirical-org/Empirical-Core/branch/jenkins-pipeline-full/graph/badge.svg?flag=jest)](https://codecov.io/gh/empirical-org/Empirical-Core)|[![codecov](https://codecov.io/gh/empirical-org/Empirical-Core/branch/jenkins-pipeline-full/graph/badge.svg?flag=rspec)](https://codecov.io/gh/empirical-org/Empirical-Core)|[![Build Status](https://travis-ci.org/empirical-org/Empirical-Core.svg?branch=jenkins-pipeline-full)](https://travis-ci.org/empirical-org/Empirical-Core)|[![Maintainability](https://api.codeclimate.com/v1/badges/01afdc9d25304bba229c/maintainability)](https://codeclimate.com/github/empirical-org/Empirical-Core/maintainability)|[![Build Status](https://jenkins.quill.org/buildStatus/icon?job=quill.org/jenkins-pipeline-full)](https://jenkins.quill.org/job/quill.org/job/jenkins-pipeline-full/)|
-
-**Please edit only the README.md.editable file so that branch names will continue to be automatically generated correctly. Thank you.**
-
-
 **Fork and Clone this repository to submit a Pull Request**.
 
 **Getting Started:** [Visit our Community Page](http://community.quill.org/teams/quill-lms/). The Mailing List, Chat, Issues, and Docs can all be accessed from the community page.

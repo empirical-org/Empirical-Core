@@ -1,10 +1,10 @@
 class QuestionsController < ApplicationController
   before_action :set_question, only: [:show, :edit, :update, :destroy]
-
+  before_action :set_question_set, only: [:index, :new, :create]
   # GET /questions
   # GET /questions.json
   def index
-    @questions = Question.all
+    @questions = @question_set.questions
   end
 
   # GET /questions/1
@@ -56,7 +56,7 @@ class QuestionsController < ApplicationController
   def destroy
     @question.destroy
     respond_to do |format|
-      format.html { redirect_to questions_url, notice: 'Question was successfully destroyed.' }
+      format.html { redirect_to question_set_questions_path(@question.question_set_id), notice: 'Question was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -67,8 +67,12 @@ class QuestionsController < ApplicationController
       @question = Question.find(params[:id])
     end
 
+    def set_question_set
+      @question_set = QuestionSet.find(params[:question_set_id])
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def question_params
-      params.require(:question).permit(:prompt, :activity_id, :order)
+      params.require(:question).permit(:prompt, :question_set_id, :order)
     end
 end
