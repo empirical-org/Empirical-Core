@@ -111,7 +111,7 @@ class ActivityContainer extends React.Component<AppProps, any> {
           <div className="subnav-right">
             <div className="subnav-item"><button className="btn-icon" onClick={this.speak}><Play /></button></div>
             <div className="subnav-item" ><button className="btn-icon" onClick={this.cancelSpeak}><Pause /></button></div>
-            <div className="subnav-item">Font Size <span className="d-fl-r ai-bl"><span className="fs-sm" onClick={(e) => this.props.setFontSize(1)}>A</span> <span className="fs-md" onClick={(e) => this.props.setFontSize(2)}>A</span> <span className="fs-lg" onClick={(e) =>this.props.setFontSize(3)}>A</span></span></div>
+            <div className="subnav-item">Font Size <span className="d-fl-r ai-bl"><span className="fs-sm pa1" onClick={(e) => this.props.setFontSize(1)}>A</span> <span className="fs-md pa1" onClick={(e) => this.props.setFontSize(2)}>A</span> <span className="fs-lg pa1" onClick={(e) =>this.props.setFontSize(3)}>A</span></span></div>
           </div>
         </div>
       </div>
