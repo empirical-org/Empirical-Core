@@ -351,7 +351,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
       }.to_json)
     end
   end
-  
+
   describe '#classroom_mini' do
     let(:teacher) { create(:teacher) }
 
@@ -359,7 +359,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
       allow(controller).to receive(:current_user) { teacher }
       allow(teacher).to receive(:get_classroom_minis_info) { "some class info" }
     end
-    
+
     it 'should render the correct json' do
       get :classroom_mini, format: :json
       expect(response.body).to eq({
@@ -383,7 +383,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
       })
     end
   end
-  
+
   describe '#getting_started' do
     let(:teacher) { create(:teacher) }
 
@@ -450,7 +450,10 @@ describe Teachers::ClassroomManagerController, type: :controller do
     end
 
     it 'should kick off the importer' do
-      expect(GoogleStudentImporterWorker).to receive(:perform_async).with(teacher.id, session[:google_access_token])
+      create(:auth_credential, user: teacher)
+
+      expect(GoogleStudentImporterWorker).to receive(:perform_async)
+        .with(teacher.id,)
       get :import_google_students, selected_classrooms: [1,2], format: :json
     end
   end

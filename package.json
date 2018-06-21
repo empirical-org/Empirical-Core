@@ -1,0 +1,26 @@
+{
+  "name": "monoquill",
+  "version": "1.0.0",
+  "description": "Quill Monorepo",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "gitbook-cli": "^2.3.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/empirical-org/empirical-core.git"
+  },
+  "author": "Donald McKendrick",
+  "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/empirical-org/empirical-core/issues"
+  },
+  "homepage": "https://github.com/empirical-org/empirical-core#readme"
+}
