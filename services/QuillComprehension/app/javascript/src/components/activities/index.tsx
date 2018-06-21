@@ -92,7 +92,7 @@ class ActivityContainer extends React.Component<AppProps, any> {
   }
 
   renderQuestionSets(data, readArticle) {
-    if (readArticle && data.activity.question_sets.length > 1 && !this.props.activities.questionSetId) {
+    if (readArticle && data.activity.question_sets.length > 1) {
       return (
         <QuestionSets questionSets={data.activity.question_sets} chooseQuestionSet={this.props.chooseQuestionSet} questionSetId={this.props.activities.questionSetId}/>
       )
@@ -107,6 +107,7 @@ class ActivityContainer extends React.Component<AppProps, any> {
             <div className="subnav-item">Read</div>
             <div className="subnav-item">Choose</div>
             <div className="subnav-item">Answer</div>
+            <div className="subnav-item">Review</div>
           </div>
           <div className="subnav-right">
             <div className="subnav-item"><button className="btn-icon" onClick={this.speak}><Play /></button></div>
