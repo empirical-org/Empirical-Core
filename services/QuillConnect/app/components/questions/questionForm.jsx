@@ -1,5 +1,5 @@
 import React from 'react'
-import TextEditor from './textEditor.jsx';
+import { TextEditor } from 'quill-component-library/dist/componentLibrary';
 import {hashToCollection} from '../../libs/hashToCollection'
 import _ from 'lodash'
 import ConceptSelector from '../shared/conceptSelector.jsx'

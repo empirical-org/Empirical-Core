@@ -2,7 +2,7 @@ import React from 'react'
 import actions from '../../actions/concepts-feedback'
 import feedbackActions from '../../actions/concepts-feedback'
 import { connect } from 'react-redux'
-import TextEditor from '../questions/textEditor.jsx'
+import { TextEditor } from 'quill-component-library/dist/componentLibrary'
 import { ConceptExplanation } from 'quill-component-library/dist/componentLibrary'
 export default React.createClass ({
 

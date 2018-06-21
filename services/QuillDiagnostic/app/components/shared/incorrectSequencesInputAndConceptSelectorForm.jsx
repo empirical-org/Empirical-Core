@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 import _ from 'underscore';
 import C from '../../constants';
 import ConceptSelectorWithCheckbox from './conceptSelectorWithCheckbox.jsx';
-import TextEditor from '../questions/textEditor.jsx';
+import { TextEditor } from 'quill-component-library/dist/componentLibrary';
 import ResponseComponent from '../questions/responseComponent'
 import request from 'request'
 

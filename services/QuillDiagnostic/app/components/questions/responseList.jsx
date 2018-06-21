@@ -1,6 +1,6 @@
 import React from 'react'
 import Response from './response.jsx'
-import AffectedResponse from './affectedResponse.jsx'
+import { AffectedResponse } from 'quill-component-library/dist/componentLibrary'
 import _ from 'underscore'
 
 export default class ResponseList extends React.Component {

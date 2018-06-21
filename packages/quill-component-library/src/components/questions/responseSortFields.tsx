@@ -1,19 +1,23 @@
 import React from 'react';
 
-export default React.createClass({
-  stateSpecificClass(stateName) {
+class ResponseSortFields extends React.Component<any, any> {
+  constructor(props: any) {
+    super(props)
+  }
+
+  stateSpecificClass(stateName: string) {
     if (this.props.sorting === stateName) {
       return ' is-active';
     }
-  },
+  }
 
-  renderAscendingArrow(stateName) {
+  renderAscendingArrow(stateName: string) {
     if (this.props.sorting === stateName) {
       return this.props.ascending ? ' ⬆' : ' ⬇';
     }
-  },
+  }
 
-  renderSortField(displayName, stateName) {
+  renderSortField(displayName: string, stateName: string) {
     return (
       <li className={this.stateSpecificClass(stateName)}>
         <a onClick={this.props.toggleResponseSort.bind(null, stateName)}>
@@ -21,7 +25,7 @@ export default React.createClass({
         </a>
       </li>
     );
-  },
+  }
 
   render() {
     return (
@@ -33,6 +37,8 @@ export default React.createClass({
         {this.renderSortField('Status', 'status')}
       </ul>
     );
-  },
+  }
 
-});
+}
+
+export { ResponseSortFields }

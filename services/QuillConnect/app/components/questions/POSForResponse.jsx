@@ -8,7 +8,7 @@ import ResponseList from './responseList.jsx';
 import _ from 'underscore';
 import { hashToCollection } from '../../libs/hashToCollection';
 import Textarea from 'react-textarea-autosize';
-import TextEditor from './textEditor.jsx';
+import { TextEditor } from 'quill-component-library/dist/componentLibrary';
 import feedbackActions from '../../actions/concepts-feedback.js';
 
 const C = require('../../constants').default;

@@ -6,7 +6,7 @@ import ConceptSelector from '../shared/conceptSelector.jsx';
 import { Modal } from 'quill-component-library/dist/componentLibrary';
 import ResponseList from './responseList.jsx';
 import { hashToCollection } from '../../libs/hashToCollection';
-import TextEditor from './textEditor.jsx';
+import { TextEditor } from 'quill-component-library/dist/componentLibrary';
 import getBoilerplateFeedback from './boilerplateFeedback.jsx';
 import massEdit from '../../actions/massEdit';
 import ConceptSelectorWithCheckbox from '../shared/conceptSelectorWithCheckbox.jsx';

@@ -4,7 +4,7 @@ import _ from 'underscore';
 import questionActions from '../../actions/questions.js';
 import sentenceFragmentActions from '../../actions/sentenceFragments.js';
 import { hashToCollection } from '../../libs/hashToCollection';
-import SortableList from '../questions/sortableList/sortableList.jsx';
+import { SortableList } from 'quill-component-library/dist/componentLibrary';
 
 export class FocusPointsContainer extends Component {
   constructor() {

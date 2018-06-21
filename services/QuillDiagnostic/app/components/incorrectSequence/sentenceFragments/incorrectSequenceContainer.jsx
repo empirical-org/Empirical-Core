@@ -4,7 +4,7 @@ import _ from 'underscore';
 import MultipleInputAndConceptSelectorForm from '../../shared/multipleInputAndConceptSelectorForm.jsx';
 import sentenceFragmentActions from '../../../actions/sentenceFragments.js';
 import { hashToCollection } from '../../../libs/hashToCollection';
-import SortableList from '../../questions/sortableList/sortableList.jsx';
+import { SortableList } from 'quill-component-library/dist/componentLibrary';
 
 class IncorrectSequencesContainer extends Component {
   constructor() {

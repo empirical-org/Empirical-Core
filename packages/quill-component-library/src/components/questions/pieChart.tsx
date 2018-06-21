@@ -1,22 +1,27 @@
-import React, { Component } from 'react'
-import Pie from 'react-simple-pie-chart'
-export default React.createClass ({
+import React from 'react'
+const Pie = require('react-simple-pie-chart')
 
-  getInitialState: function () {
-    return {
+class PieChart extends React.Component<any, any> {
+  constructor(props: any) {
+    super(props)
+
+    this.state = {
       expandedSector: null
     }
-  },
 
-  handleMouseEnterOnSector: function (sector) {
+    this.handleMouseEnterOnSector = this.handleMouseEnterOnSector.bind(this)
+    this.handleMouseLeaveFromSector = this.handleMouseLeaveFromSector.bind(this)
+  }
+
+  handleMouseEnterOnSector(sector: any) {
     this.setState({ expandedSector: sector })
-  },
+  }
 
-  handleMouseLeaveFromSector: function () {
+  handleMouseLeaveFromSector() {
     this.setState({ expandedSector: null })
-  },
+  }
 
-  render: function () {
+  render() {
     return (
       <div id='pie-chart'>
           <Pie
@@ -24,7 +29,7 @@ export default React.createClass ({
 
           />
         {
-          this.props.data.map((d, i) => (
+          this.props.data.map((d: any, i: number) => (
             <div key={ i }>
               <span style={{ backgroundColor: d.color, width: '20px', marginRight: 5, color: d.color, borderRadius: '100%' }}>OO</span>
               <span style={{ fontWeight: this.state.expandedSector == i ? 'bold' : null }}>
@@ -45,4 +50,6 @@ export default React.createClass ({
       </div>
     )
   }
-})
+}
+
+export { PieChart }

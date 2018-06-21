@@ -14,9 +14,22 @@ export {
 } from './components/feedback/conceptExplanation'
 
 export {
-  LandingPageEditor
-} from './components/lessons/landingPageEditor'
+  TextEditor
+} from './components/shared/textEditor'
 
 export {
   Modal
 } from './components/modal/modal'
+
+export {
+  ListItem,
+  SortableList
+} from './components/sortableList/index'
+
+export {
+  AffectedResponse,
+  PieChart,
+  QuestionBar,
+  ResponseSortFields,
+  ResponseToggleFields
+} from './components/questions/index'
