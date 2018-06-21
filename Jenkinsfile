@@ -367,21 +367,23 @@ pipeline {
             AWS_SECRET_ACCESS_KEY=credentials('AWS_SECRET_ACCESS_KEY')
           }
           steps {
-            echo "Beginnning lessons deploy..."
-            script {
-              if (env.GIT_BRANCH == 'fake-develop') {
-                echo "install deps"
-                sh "npm install"
-                echo "Deploying connect to staging..."
-                sh 'npm run build:jenkins'
-                sh 'aws s3 sync ./dist s3://aws-website-quill-lessons-staging --delete'
-              }
-              else if (env.GIT_BRANCH == 'master') {
-                echo "Automatically deploying master to production..."
-                echo "Warning: This behavior is not yet enabled with this pipeline."
-              }
-              else {
-                echo "No deploy stage for non-master / non-fake-develop branch. If you submitted a PR to one of these branches, a build will be triggered."
+            dir (path: 'services/QuillConnect') {
+              echo "Beginnning lessons deploy..."
+              script {
+                if (env.GIT_BRANCH == 'fake-develop') {
+                  echo "install deps"
+                  sh "npm install"
+                  echo "Deploying connect to staging..."
+                  sh 'npm run build:jenkins'
+                  sh 'aws s3 sync ./dist s3://aws-website-quill-lessons-staging --delete'
+                }
+                else if (env.GIT_BRANCH == 'master') {
+                  echo "Automatically deploying master to production..."
+                  echo "Warning: This behavior is not yet enabled with this pipeline."
+                }
+                else {
+                  echo "No deploy stage for non-master / non-fake-develop branch. If you submitted a PR to one of these branches, a build will be triggered."
+                }
               }
             }
           }
