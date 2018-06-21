@@ -1,8 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import LanguageSelector from './languageSelector.jsx';
-import StudentLessonsNavBar from './studentLessonsNavbar.jsx';
 
 const Navbar = React.createClass({
   getInitialState() {
@@ -65,12 +63,8 @@ const Navbar = React.createClass({
   },
 
   render() {
-    if (this.quillLessons()) {
-      return (<StudentLessonsNavBar />);
-    }
-    const ellNavClassName = this.ellDiagnostic() ? 'ell-nav' : '';
     return (
-      <header className={`nav student-nav ${ellNavClassName}`} style={{ height: '50px', }}>
+      <header className='nav student-nav' style={{ height: '50px', }}>
         <div className="container">
           <div className="nav-left">
             <a href={`${process.env.EMPIRICAL_BASE_URL}`} className="nav-item">
@@ -93,20 +87,6 @@ const Navbar = React.createClass({
     );
   },
 });
-
-const rightNav = (<div className="nav-right nav-menu">
-  <span className="nav-item">
-    <Link to={'/admin'} className="nav-item" activeClassName="is-active">Admin</Link>
-  </span>
-  <span className="nav-item">
-    <a href="#">
-      Help
-    </a>
-  </span>
-  <span className="nav-item">
-    <a className="button" href="#">Button</a>
-  </span>
-</div>);
 
 function select(state) {
   return {
