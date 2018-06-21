@@ -2,7 +2,7 @@ import R from 'ramda'
 import activityReducer, {
   initialState
 } from './activities';
-import { completeQuestion, updateSubmission, markArticleAsRead, chooseQuestionSet } from '../actions/activities';
+import { completeQuestion, updateSubmission, markArticleAsRead, chooseQuestionSet, setFontSize } from '../actions/activities';
 
 test('returns the correct initial state if provided no actions', () => {
   expect(activityReducer()).toEqual(initialState);
@@ -46,6 +46,12 @@ test('returns the correct state when article is marked as read', () => {
 test('returns the correct state when question set is chosen', () => {
   const action = chooseQuestionSet(1);
   const expectedState = R.mergeDeepRight(initialState, {questionSetId: 1})
+  expect(activityReducer(initialState, action )).toEqual(expectedState);
+})
+
+test('returns the correct state when fontsize is changed', () => {
+  const action = setFontSize(1);
+  const expectedState = R.mergeDeepRight(initialState, {fontSize: 1})
   expect(activityReducer(initialState, action )).toEqual(expectedState);
 })
 

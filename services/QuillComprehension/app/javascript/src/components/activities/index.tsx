@@ -7,7 +7,7 @@ import Article from './article';
 import Questions from './questions';
 import QuestionSets from './question_sets';
 import VocabularyWords from './vocabulary_words';
-import {markArticleAsRead, chooseQuestionSet} from '../../actions/activities';
+import {markArticleAsRead, chooseQuestionSet, setFontSize} from '../../actions/activities';
 import {ActivitiesState} from '../../reducers/activities';
 
 export interface AppProps extends PassedProps, DispatchFromProps, StateFromProps { 
@@ -92,6 +92,24 @@ class ActivityContainer extends React.Component<AppProps, any> {
     }
   }
 
+  renderSubnav() {
+    return (
+      <div className="subnav">
+        <div className="container d-fl-r jc-sb">
+          <div className="subnav-left">
+            <div className="subnav-item">Read</div>
+            <div className="subnav-item">Choose</div>
+            <div className="subnav-item">Answer</div>
+          </div>
+          <div className="subnav-right">
+            <div className="subnav-item">Speak <button onClick={this.speak}>Speak</button></div>
+            <div className="subnav-item">Font Size <button onClick={(e) => this.props.setFontSize(1)}>1</button><button onClick={(e) => this.props.setFontSize(2)}>2</button><button onClick={(e) =>this.props.setFontSize(3)}>3</button></div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
   render() {
     return (
       <Query
@@ -102,24 +120,12 @@ class ActivityContainer extends React.Component<AppProps, any> {
           if (error) return <p>Error :(</p>;
           return (
             <div>
-              <div className="subnav">
-                <div className="container d-fl-r jc-sb">
-                  <div className="subnav-left">
-                    <div className="subnav-item">Read</div>
-                    <div className="subnav-item">Choose</div>
-                    <div className="subnav-item">Answer</div>
-                  </div>
-                  <div className="subnav-right">
-                    <div className="subnav-item">Speak <button onClick={this.speak}>Speak</button></div>
-                    <div className="subnav-item">Font Size</div>
-                  </div>
-                </div>
-              </div>
+              {this.renderSubnav()}
               <div className="container">
                 <div className="article-container">
                   <h1 className="article-title">Read The Following Passage Carefully</h1>
                   <VocabularyWords vocabWords={data.activity.vocabulary_words}/>
-                  <Article activity_id={parseInt(this.props.activity_id)} article={data.activity.article} title={data.activity.title} markAsRead={this.props.markArticleAsRead} />
+                  <Article activity_id={parseInt(this.props.activity_id)} article={data.activity.article} title={data.activity.title} markAsRead={this.props.markArticleAsRead} fontSize={this.props.activities.fontSize} />
                   {this.renderQuestionSets(data, this.props.activities.readArticle)}
                   {this.renderQuestions(data.activity, this.props.activities.questionSetId, this.props.activities.readArticle)}
                 </div>
@@ -139,6 +145,7 @@ interface StateFromProps {
 interface DispatchFromProps {
   markArticleAsRead: () => void;
   chooseQuestionSet: (questionSetId:number) => void
+  setFontSize: (fontSize:number) => void
 }
 
 const mapStateToProps = state => {
@@ -154,6 +161,9 @@ const mapDispatchToProps = dispatch => {
     },
     chooseQuestionSet: (questionSetId) => {
       dispatch(chooseQuestionSet(questionSetId))
+    },
+    setFontSize: (fontSize) => {
+      dispatch(setFontSize(fontSize))
     }
   }
 }
