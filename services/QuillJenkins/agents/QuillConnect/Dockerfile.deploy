@@ -1,8 +1,8 @@
 FROM node:7.4.0
 
-RUN apt-get update
-RUN apt-get install python-pip
-RUN pip install awscli --upgrade --user
+RUN apt-get update 
+RUN apt-get install -y python-pip
+RUN pip install -y awscli --upgrade --user
 
 
 # Replace shell with bash so we can source files
