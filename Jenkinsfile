@@ -101,7 +101,7 @@ pipeline {
 
     //           dir(path: 'services/QuillJenkins/scripts') {
     //             // Check that code coverage has not decreased
-    //             sh "python -c'import codecov; codecov.fail_on_decrease(\"fake-fake-develop\", $env.BRANCH_NAME )' || exit"
+    //             sh "python -c'import codecov; codecov.fail_on_decrease(\"fake-develop\", $env.BRANCH_NAME )' || exit"
     //           }
     //           */
     //           echo 'Front end tests disabled for now.  moving on!'
@@ -393,14 +393,14 @@ pipeline {
       /* https://www.ittybittytalks.com/how-to-automate-your-jenkins-build-script/ */
       steps {
         script {
-          if(env.MERGING_INTO in ['master', 'fake-fake-develop']) {
+          if(env.MERGING_INTO in ['master', 'fake-develop']) {
             echo "${env.MERGING_INTO} will be built automatically by Jenkins; nothing to do now."
           }
           else if (env.IS_PR == 'True') {
             withCredentials([usernamePassword(credentialsId: 'jenkins-api', usernameVariable: 'U', passwordVariable: 'T')]) {
               echo "Trigging destination branch build for ${env.MERGING_INTO}..."
               sh "curl -X POST -u ${U}:${T} https://jenkins.quill.org/job/quill.org/job/${env.MERGING_INTO}/build || exit"
-              // https://jenkins.quill.org/job/quill.org/job/fake-fake-develop/build?delay=0sec
+              // https://jenkins.quill.org/job/quill.org/job/fake-develop/build?delay=0sec
             }
           }
           else {
