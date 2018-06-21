@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'underscore';
-import Feedback from '../renderForQuestions/components/feedback';
+import { Feedback } from 'quill-component-library/dist/componentLibrary';
 
 export default React.createClass({
   getInitialState() {

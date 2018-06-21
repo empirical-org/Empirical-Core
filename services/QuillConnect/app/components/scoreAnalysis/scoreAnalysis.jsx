@@ -6,7 +6,7 @@ import {
   checkTimeout
 } from '../../actions/scoreAnalysis.js';
 import LoadingSpinner from '../shared/spinner.jsx';
-import QuestionRow from './questionRow.jsx';
+import { QuestionRow } from 'quill-component-library/dist/componentLibrary';
 import { hashToCollection } from '../../libs/hashToCollection.js';
 import { getParameterByName } from '../../libs/getParameterByName'
 import _ from 'underscore';

@@ -6,7 +6,7 @@ import {
   QuestionData
 } from '../../../interfaces/classroomLessons';
 import { textEditorInputNotEmpty } from '../shared/textEditorClean'
-import Feedback from '../../renderForQuestions/components/feedback'
+import { Feedback } from 'quill-component-library/dist/componentLibrary'
 const icon = require('../../../img/question_icon.svg')
 
 interface ModelQuestionProps {

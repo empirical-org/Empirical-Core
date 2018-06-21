@@ -33,3 +33,15 @@ export {
   ResponseSortFields,
   ResponseToggleFields
 } from './components/questions/index'
+
+export {
+  Feedback,
+  Cue,
+  CueExplanation,
+  ThankYou,
+  SentenceFragments
+} from './components/renderForQuestions/index'
+
+export {
+  QuestionRow
+} from './components/scoreAnalysis/index'

@@ -1,9 +1,9 @@
 import React from 'react';
-import icon from '../../../img/question_icon.svg';
-import revise from '../../../img/revise_orange_icon.svg';
-import multiple from '../../../img/multiple_choice_icon.svg';
-import success  from '../../../img/check-mark.svg';
-import arrow from '../../../img/correct_icon.svg';
+const icon = 'http://localhost:45537/images/icons/question_icon.png';
+const revise = 'http://localhost:45537/images/icons/revise_orange_icon.svg';
+const multiple = 'http://localhost:45537/images/icons/multiple_choice_icon.svg';
+const success  = 'http://localhost:45537/images/icons/check-mark.svg';
+const arrow = 'http://localhost:45537/images/icons/correct_icon.svg';
 
 function getIconClassName(feedbackType: string): string {
   let returnVal;
@@ -55,7 +55,7 @@ function getFeedbackIcon(feedbackType: string): string {
     case "default":
       returnVal = icon;
       break;
-    default: 
+    default:
       returnVal = icon;
   }
   return returnVal;
@@ -78,13 +78,13 @@ function getCSSClasses(feedbackType: string): string {
     case "default":
       returnVal = "default"
       break;
-    default: 
+    default:
       returnVal = "default"
   }
   return "student-feedback-container " + returnVal
 }
 
-export default ({ feedbackType, feedback, }) => (
+const Feedback = ({ feedbackType, feedback, }: any) => (
   <div className={getCSSClasses(feedbackType)}>
     <div className={'feedback-row student-feedback-inner-container'}>
       <img className={getIconClassName(feedbackType)} src={getFeedbackIcon(feedbackType)}  />
@@ -92,3 +92,5 @@ export default ({ feedbackType, feedback, }) => (
     </div>
   </div>
 );
+
+export { Feedback }

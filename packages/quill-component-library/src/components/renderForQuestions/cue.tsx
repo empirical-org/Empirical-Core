@@ -1,9 +1,9 @@
 import React from 'react'
 
-const cue = props => (
+const Cue = (props: any) => (
   <div className="cue">
     {props.cue}
   </div>
 )
 
-export default cue
+export { Cue }

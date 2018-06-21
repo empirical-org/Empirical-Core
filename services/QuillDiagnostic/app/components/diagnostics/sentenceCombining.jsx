@@ -1,5 +1,5 @@
 import React from 'react';
-import icon from '../../img/question_icon.svg';
+import icon from `${process.env.QUILL_CDN}/images/icons/question_icon.svg`;
 import _ from 'underscore';
 import { submitResponse, clearResponses } from '../../actions/diagnostics.js';
 import ReactTransition from 'react-addons-css-transition-group';
@@ -8,8 +8,8 @@ import {
 } from '../../actions/responses.js';
 import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
 import RenderQuestionCues from '../renderForQuestions/cues.jsx';
-import RenderSentenceFragments from '../renderForQuestions/sentenceFragments.jsx';
-import Feedback from '../renderForQuestions/components/feedback';
+import { SentenceFragments } from 'quill-component-library/dist/componentLibrary';
+import { Feedback } from 'quill-component-library/dist/componentLibrary';
 import getResponse from '../renderForQuestions/checkAnswer';
 import submitQuestionResponse from '../renderForQuestions/submitResponse.js';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';

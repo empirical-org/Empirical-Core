@@ -13,12 +13,12 @@ import {
   getResponsesWithCallback,
   getGradedResponsesWithCallback
 } from '../../actions/responses.js';
-import icon from '../../img/question_icon.svg';
+import icon from `${process.env.QUILL_CDN}/images/icons/question_icon.svg`;
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 import { hashToCollection } from '../../libs/hashToCollection.js';
 import translations from '../../libs/translations/index.js';
 import translationMap from '../../libs/translations/ellQuestionMapper.js';
-import Feedback from '../renderForQuestions/components/feedback';
+import { Feedback } from 'quill-component-library/dist/componentLibrary';
 
 const key = ''; // enables this component to be used by both play/sentence-fragments and play/diagnostic
 

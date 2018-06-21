@@ -12,7 +12,7 @@ QuestionSubmissionsList
 import TextEditor from '../shared/textEditor';
 import SubmitButton from './submitButton'
 import FeedbackRow from './feedbackRow'
-import Feedback from '../../renderForQuestions/components/feedback'
+import { Feedback } from 'quill-component-library/dist/componentLibrary'
 import numberToWord from '../../../libs/numberToWord'
 import { getParameterByName } from '../../../libs/getParameterByName';
 const icon = require('../../../img/question_icon.svg')

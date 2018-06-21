@@ -15,7 +15,7 @@ import { PieChart } from 'quill-component-library/dist/componentLibrary';
 import { QuestionBar } from 'quill-component-library/dist/componentLibrary';
 import ResponseComponent from './responseComponent.jsx';
 import getBoilerplateFeedback from './boilerplateFeedback.jsx';
-import icon from '../../img/question_icon.svg';
+import icon from `${process.env.QUILL_CDN}/images/icons/question_icon.svg`;
 import Cues from '../renderForQuestions/cues.jsx';
 import {
   deleteResponse,

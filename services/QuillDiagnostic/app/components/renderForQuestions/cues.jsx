@@ -1,6 +1,5 @@
 import React from 'react';
-import Cue from './cue.jsx'
-import CueExplanation from './cueExplanation.jsx'
+import { Cue, CueExplanation } from 'quill-component-library/dist/componentLibrary'
 import arrow from '../../img/arrow_icon.svg';
 import translations from '../../libs/translations/index.js';
 

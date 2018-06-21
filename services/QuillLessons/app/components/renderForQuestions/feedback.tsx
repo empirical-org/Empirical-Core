@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom'
 import _ from 'underscore';
-import icon from '../../img/question_icon.svg';
-import revise from '../../img/revise_orange_icon.svg';
-import multiple from '../../img/multiple_choice_icon.svg';
-import success  from '../../img/check-mark.svg';
+import icon from `${process.env.QUILL_CDN}/images/icons/question_icon.svg`;
+import revise from `${process.env.QUILL_CDN}/images/icons/revise_orange_icon.svg`;
+import multiple from `${process.env.QUILL_CDN}/images/icons/multiple_choice_icon.svg`;
+import success from `${process.env.QUILL_CDN}/images/icons/check-mark.svg`;
 import getAnswerState from './answerState';
 import {Response} from 'quill-marking-logic';
-import StatelessFeedback from './components/feedback';
+import { Feedback } from 'quill-component-library/dist/componentLibrary';
 
 class Feedback extends React.Component<any, any> {
   constructor(props){
