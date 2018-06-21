@@ -101,7 +101,7 @@ pipeline {
 
               dir(path: 'services/QuillJenkins/scripts') {
                 // Check that code coverage has not decreased
-                sh "python -c'import codecov; codecov.fail_on_decrease(\"develop\", $env.BRANCH_NAME )' || exit"
+                sh "python -c'import codecov; codecov.fail_on_decrease(\"fake-fake-fake-develop\", $env.BRANCH_NAME )' || exit"
               }
               */
               echo 'Front end tests disabled for now.  moving on!'
@@ -261,9 +261,9 @@ pipeline {
 
               /* ensure branch to merge into is not master */
               /* CHANGE_BRANCH is the source branch for a PR */
-              if (env.CHANGE_BRANCH != 'develop') {
+              if (env.CHANGE_BRANCH != 'fake-fake-develop') {
                 if (env.MERGING_INTO == 'master') {
-                  error("Only pull requests from the develop branch can merge directly into master!")
+                  error("Only pull requests from the fake-fake-develop branch can merge directly into master!")
                 }
               }
 
@@ -284,38 +284,73 @@ pipeline {
     }
     stage('deploy') {
       parallel {
-        stage('deploy-lms') {
-          agent {
-            label 'master'
-          }
-          steps {
-            echo 'Beginnning LMS DEPLOY...'
-            script {
-              withCredentials([usernamePassword(credentialsId: 'robot-butler', usernameVariable: 'U', passwordVariable: 'T')]) {
-                if (env.GIT_BRANCH == 'develop') {
-                  echo "Automatically deploying develop to staging..."
-                  /* heroku allows authentication through 'heroku login', http basic
-                   * auth, and SSH keys.  Since right now this stage runs only on the
-                   * Jenkins master node, we have simply pre-logged in the user with
-                   * heroku login.  If this process needs to execute on a non-master
-                   * node, consult
-                   * https://devcenter.heroku.com/articles/git#http-git-authentication
-                   */
-                  def herokuStagingLMS="https://git.heroku.com/empirical-grammar-staging.git"
-                  sh "git push -f ${herokuStagingLMS} `git subtree split --prefix services/QuillLMS HEAD`:master"
-                }
-                else if (env.GIT_BRANCH == 'master') {
-                  echo "Automatically deploying master to production..."
-                  echo "Warning: This behavior is not yet enabled with this pipeline."
-                }
-                else {
-                  echo "No deploy stage for non-master / non-develop branch. If you submitted a PR to one of these branches, a build will be triggered."
-                }
-              }
-            }
-          }
-        }
-        stage('deploy-connect') {
+        // stage('deploy-lms') {
+        //   agent {
+        //     label 'master'
+        //   }
+        //   steps {
+        //     echo 'Beginnning LMS DEPLOY...'
+        //     script {
+        //       withCredentials([usernamePassword(credentialsId: 'robot-butler', usernameVariable: 'U', passwordVariable: 'T')]) {
+        //         if (env.GIT_BRANCH == 'fake-fake-develop') {
+        //           echo "Automatically deploying fake-fake-develop to staging..."
+        //           /* heroku allows authentication through 'heroku login', http basic
+        //            * auth, and SSH keys.  Since right now this stage runs only on the
+        //            * Jenkins master node, we have simply pre-logged in the user with
+        //            * heroku login.  If this process needs to execute on a non-master
+        //            * node, consult
+        //            * https://devcenter.heroku.com/articles/git#http-git-authentication
+        //            */
+        //           def herokuStagingLMS="https://git.heroku.com/empirical-grammar-staging.git"
+        //           sh "git push -f ${herokuStagingLMS} `git subtree split --prefix services/QuillLMS HEAD`:master"
+        //         }
+        //         else if (env.GIT_BRANCH == 'master') {
+        //           echo "Automatically deploying master to production..."
+        //           echo "Warning: This behavior is not yet enabled with this pipeline."
+        //         }
+        //         else {
+        //           echo "No deploy stage for non-master / non-fake-fake-develop branch. If you submitted a PR to one of these branches, a build will be triggered."
+        //         }
+        //       }
+        //     }
+        //   }
+        // }
+        // stage('deploy-connect') {
+        //   agent {
+        //     dockerfile {
+        //       filename 'services/QuillJenkins/agents/QuillConnect/Dockerfile.deploy'
+        //       dir '.'
+        //       args "-u root:sudo -v \$HOME/workspace/myproject:/myproject --name deploy-connect${env.BUILD_TAG} --network jnk-net${env.BUILD_TAG}"
+        //     }
+        //   }
+        //   environment {
+        //     QUILL_CMS='https://cms.quill.org'
+        //     NODE_ENV='production'
+        //     EMPIRICAL_BASE='https://www.quill.org'
+        //     PUSHER_KEY=credentials('pusher-key-connect')
+        //   }
+        //   steps {
+        //     echo "Beginnning connect deploy..."
+        //     script {
+        //       withCredentials([usernamePassword(credentialsId: 'robot-butler', usernameVariable: 'U', passwordVariable: 'T')]) {
+        //         if (env.GIT_BRANCH == 'fake-fake-develop') {
+        //           echo "Adding staging.sh script to be run in the npm context..."
+        //           sh "echo 'webpack --optimize-minimize; firebase deploy --project production' > staging.sh"
+        //           echo "Deploying connect to staging..."
+        //           sh 'npm run deploy:staging'
+        //         }
+        //         else if (env.GIT_BRANCH == 'master') {
+        //           echo "Automatically deploying master to production..."
+        //           echo "Warning: This behavior is not yet enabled with this pipeline."
+        //         }
+        //         else {
+        //           echo "No deploy stage for non-master / non-fake-fake-develop branch. If you submitted a PR to one of these branches, a build will be triggered."
+        //         }
+        //       }
+        //     }
+        //   }
+        // }
+        stage('deploy-lessons') {
           agent {
             dockerfile {
               filename 'services/QuillJenkins/agents/QuillConnect/Dockerfile.deploy'
@@ -328,24 +363,25 @@ pipeline {
             NODE_ENV='production'
             EMPIRICAL_BASE='https://www.quill.org'
             PUSHER_KEY=credentials('pusher-key-connect')
+            AWS_ACCESS_KEY_ID=credentials('AWS_ACCESS_KEY_ID')
+            AWS_SECRET_ACCESS_KEY=credentials('AWS_SECRET_ACCESS_KEY')
           }
           steps {
-            echo "Beginnning connect deploy..."
+            echo "Beginnning lessons deploy..."
             script {
-              withCredentials([usernamePassword(credentialsId: 'robot-butler', usernameVariable: 'U', passwordVariable: 'T')]) {
-                if (env.GIT_BRANCH == 'develop') {
-                  echo "Adding staging.sh script to be run in the npm context..."
-                  sh "echo 'webpack --optimize-minimize; firebase deploy --project production' > staging.sh"
-                  echo "Deploying connect to staging..."
-                  sh 'npm run deploy:staging'
-                }
-                else if (env.GIT_BRANCH == 'master') {
-                  echo "Automatically deploying master to production..."
-                  echo "Warning: This behavior is not yet enabled with this pipeline."
-                }
-                else {
-                  echo "No deploy stage for non-master / non-develop branch. If you submitted a PR to one of these branches, a build will be triggered."
-                }
+              if (env.GIT_BRANCH == 'fake-fake-develop') {
+                echo "install deps"
+                sh "npm install"
+                echo "Deploying connect to staging..."
+                sh 'npm run build:jenkins'
+                sh 'aws s3 sync ./dist s3://aws-website-quill-lessons-staging --delete'
+              }
+              else if (env.GIT_BRANCH == 'master') {
+                echo "Automatically deploying master to production..."
+                echo "Warning: This behavior is not yet enabled with this pipeline."
+              }
+              else {
+                echo "No deploy stage for non-master / non-fake-fake-develop branch. If you submitted a PR to one of these branches, a build will be triggered."
               }
             }
           }
@@ -357,14 +393,14 @@ pipeline {
       /* https://www.ittybittytalks.com/how-to-automate-your-jenkins-build-script/ */
       steps {
         script {
-          if(env.MERGING_INTO in ['master', 'develop']) {
+          if(env.MERGING_INTO in ['master', 'fake-fake-fake-develop']) {
             echo "${env.MERGING_INTO} will be built automatically by Jenkins; nothing to do now."
           }
           else if (env.IS_PR == 'True') {
             withCredentials([usernamePassword(credentialsId: 'jenkins-api', usernameVariable: 'U', passwordVariable: 'T')]) {
               echo "Trigging destination branch build for ${env.MERGING_INTO}..."
               sh "curl -X POST -u ${U}:${T} https://jenkins.quill.org/job/quill.org/job/${env.MERGING_INTO}/build || exit"
-              // https://jenkins.quill.org/job/quill.org/job/develop/build?delay=0sec
+              // https://jenkins.quill.org/job/quill.org/job/fake-fake-fake-develop/build?delay=0sec
             }
           }
           else {
