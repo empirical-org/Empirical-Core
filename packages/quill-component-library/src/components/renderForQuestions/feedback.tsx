@@ -1,5 +1,5 @@
 import React from 'react';
-const icon = 'http://localhost:45537/images/icons/question_icon.png';
+const icon = 'http://localhost:45537/images/icons/question_icon.svg';
 const revise = 'http://localhost:45537/images/icons/revise_orange_icon.svg';
 const multiple = 'http://localhost:45537/images/icons/multiple_choice_icon.svg';
 const success  = 'http://localhost:45537/images/icons/check-mark.svg';

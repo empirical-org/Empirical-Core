@@ -12,9 +12,7 @@ import updateResponseResource from '../renderForQuestions/updateResponseResource
 import Cues from '../renderForQuestions/cues.jsx';
 import translations from '../../libs/translations/index.js';
 import translationMap from '../../libs/translations/ellQuestionMapper.js';
-import { WarningDialogue } from 'quill-component-library/dist/componentLibrary'
-import Prompt from 'quill-component-library/dist/componentLibrary'
-import Instructions from 'quill-component-library/dist/componentLibrary'
+import { WarningDialogue, Prompt, Instructions } from 'quill-component-library/dist/componentLibrary'
 import Feedback from '../renderForQuestions/feedback'
 import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
 

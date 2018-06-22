@@ -74,7 +74,6 @@ class questionHealth extends Component {
   filterQuestionsByFlag(
     scoreAnalysis,
     questions,
-    diagnosticQuestions,
     sentenceFragments,
     fillInBlank
   ) {

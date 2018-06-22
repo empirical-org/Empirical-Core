@@ -53,15 +53,6 @@ const Navbar = React.createClass({
     );
   },
 
-  renderQuestionCounter() {
-    const { questionSet, answeredQuestions, currentQuestion, } = this.props.playDiagnostic
-    if (this.diagnostic() && questionSet && currentQuestion && currentQuestion.type !== 'TL') {
-      const numberOfQuestions = questionSet.filter(q => q.type !== 'TL').length
-      const currentQuestionNumber = answeredQuestions.length + 1
-      return <div className="question-counter"><span>{currentQuestionNumber}</span> of <span>{numberOfQuestions}</span> Questions</div>
-    }
-  },
-
   render() {
     return (
       <header className='nav student-nav' style={{ height: '50px', }}>
@@ -75,7 +66,6 @@ const Navbar = React.createClass({
               />
             </a>
           </div>
-          {this.renderQuestionCounter()}
           {this.renderLinks()}
           <span className="nav-toggle" onClick={this.toggle}>
             <span />
