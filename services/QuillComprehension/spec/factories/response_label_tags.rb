@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :response_label_tag do
-    response nil
-    response_label nil
+    response
+    response_label
     score 1
   end
 end

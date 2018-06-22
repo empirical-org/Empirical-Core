@@ -1,9 +1,9 @@
 FactoryBot.define do
   factory :vocabulary_word do
-    activity nil
-    text "MyText"
-    description "MyText"
-    example "MyText"
+    activity
+    text "Sprout"
+    description "(verb) to grow."
+    example "You have sprouted."
     order 1
   end
 end
