@@ -1,10 +1,10 @@
 class ResponsesController < ApplicationController
   before_action :set_response, only: [:show, :edit, :update, :destroy]
-
+  before_action :set_question, only: [:index, :create, :new] 
   # GET /responses
   # GET /responses.json
   def index
-    @responses = Response.all
+    @responses = @question.responses
   end
 
   # GET /responses/1
@@ -56,7 +56,7 @@ class ResponsesController < ApplicationController
   def destroy
     @response.destroy
     respond_to do |format|
-      format.html { redirect_to responses_url, notice: 'Response was successfully destroyed.' }
+      format.html { redirect_to question_responses_url(@response.question_id), notice: 'Response was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -65,6 +65,10 @@ class ResponsesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_response
       @response = Response.find(params[:id])
+    end
+
+    def set_question
+      @question = Question.find(params[:question_id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
