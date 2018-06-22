@@ -9,7 +9,6 @@ module.exports = merge(common, {
       QUILL_CMS: 'https://cms.quill.org',
       NODE_ENV: 'production',
       EMPIRICAL_BASE_URL: 'https://www.quill.org',
-      PUSHER_KEY: 'insert-pusher-key',
       FIREBASE_APP_NAME: 'quillconnect',
     })
   ],
