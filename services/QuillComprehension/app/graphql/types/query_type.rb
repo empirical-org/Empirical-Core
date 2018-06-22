@@ -31,4 +31,11 @@ Types::QueryType = GraphQL::ObjectType.define do
       Response.all.limit(30)
     }
   end
+
+  field :response_labels, !types[Types::ResponseLabelType] do
+    description 'Labels for Responses'
+    resolve -> (obj, args, ctx) {
+      ResponseLabel.all
+    }
+  end
 end
