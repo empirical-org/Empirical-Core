@@ -3,7 +3,7 @@ const { EditorState } = require('draft-js/lib/EditorState')
 const { ContentState } = require('draft-js/lib/ContentState')
 const Editor = require('draft-js-plugins-editor')
 const { convertFromHTML, convertToHTML } = require('draft-convert')
-const createRichButtonsPlugin = require('draft-js-richbuttons-plugin')
+import createRichButtonsPlugin from 'draft-js-richbuttons-plugin'
 
 const richButtonsPlugin = createRichButtonsPlugin();
 const {
