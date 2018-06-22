@@ -1,3 +1,109 @@
+$spacingSizes: 0rem 0.25rem 0.5rem 1rem 2rem 4rem 8rem 16rem;
+//padding all
+@each $size in $spacingSizes {
+  $i: index($spacingSizes, $size);
+  .pa#{$i - 1} { 
+    padding: $size;
+  }
+}
+//padding horizontal
+@each $size in $spacingSizes {
+  $i: index($spacingSizes, $size);
+  .ph#{$i - 1} { 
+    padding-left: $size;
+    padding-right: $size;
+  }
+}
+//padding vertical
+@each $size in $spacingSizes {
+  $i: index($spacingSizes, $size);
+  .pv#{$i - 1} { 
+    padding-top: $size;
+    padding-bottom: $size;
+  }
+}
+//padding top
+@each $size in $spacingSizes {
+  $i: index($spacingSizes, $size);
+  .pt#{$i - 1} { 
+    padding-top: $size;
+  }
+}
+//padding bottom
+@each $size in $spacingSizes {
+  $i: index($spacingSizes, $size);
+  .pb#{$i - 1} { 
+    padding-bottom: $size;
+  }
+}
+//padding left
+@each $size in $spacingSizes {
+  $i: index($spacingSizes, $size);
+  .pl#{$i - 1} { 
+    padding-left: $size;
+  }
+}
+//padding right
+@each $size in $spacingSizes {
+  $i: index($spacingSizes, $size);
+  .pr#{$i - 1} { 
+    padding-right: $size;
+  }
+}
+
+// Margins
+
+@each $size in $spacingSizes {
+  $i: index($spacingSizes, $size);
+  .ma#{$i - 1} { 
+    margin: $size;
+  }
+}
+//margin horizontal
+@each $size in $spacingSizes {
+  $i: index($spacingSizes, $size);
+  .mh#{$i - 1} { 
+    margin-left: $size;
+    margin-right: $size;
+  }
+}
+//margin vertical
+@each $size in $spacingSizes {
+  $i: index($spacingSizes, $size);
+  .mv#{$i - 1} { 
+    margin-top: $size;
+    margin-bottom: $size;
+  }
+}
+//margin top
+@each $size in $spacingSizes {
+  $i: index($spacingSizes, $size);
+  .mt#{$i - 1} { 
+    margin-top: $size;
+  }
+}
+//margin bottom
+@each $size in $spacingSizes {
+  $i: index($spacingSizes, $size);
+  .mb#{$i - 1} { 
+    margin-bottom: $size;
+  }
+}
+//margin left
+@each $size in $spacingSizes {
+  $i: index($spacingSizes, $size);
+  .ml#{$i - 1} { 
+    margin-left: $size;
+  }
+}
+//margin right
+@each $size in $spacingSizes {
+  $i: index($spacingSizes, $size);
+  .mr#{$i - 1} { 
+    margin-right: $size;
+  }
+}
+
 // Padding
 .p-0 {
   padding: 0 !important;
@@ -18,6 +124,16 @@
 .p-b-1 {
   padding-bottom: 1rem
 }
+
+.p-x-1 {
+  padding-left: 1rem;
+  padding-right: 1rem;
+} 
+
+.p-y-1 {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+} 
 
 // Margins
 .m-1 {
@@ -75,6 +191,10 @@
   align-items: flex-end;
 }
 
+.ai-bl {
+  align-items: baseline;
+}
+
 // Backgrounds
 .bg-blue {
   background-color: #467fcf !important;
@@ -86,4 +206,27 @@
 
 .bg-warning {
   background-color: #f1c40f !important;
+}
+
+
+.text-nowrap {
+  white-space: nowrap !important;
+}
+
+.mw-50 {
+  max-width: 50vw;
+}
+
+// fonts 
+
+.fs-sm {
+  font-size: 0.85rem;
+}
+
+.fs-md {
+  font-size: 1rem;
+}
+
+.fs-lg {
+  font-size: 1.15rem;
 }
