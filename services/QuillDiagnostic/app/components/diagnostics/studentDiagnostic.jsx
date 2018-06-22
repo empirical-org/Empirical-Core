@@ -167,7 +167,7 @@ const StudentDiagnostic = React.createClass({
   },
 
   loadQuestionSet() {
-    const data = this.getFetchedData();
+    const data = this.questionsForLesson();
     const action = loadData(data);
     this.props.dispatch(action);
   },
@@ -183,11 +183,11 @@ const StudentDiagnostic = React.createClass({
   },
 
   getLesson() {
-    return this.props.lessons.data[this.props.params.lessonID];
+    return this.props.lessons.data[this.props.params.diagnosticID];
   },
 
   getLessonName() {
-    return this.props.lessons.data[this.props.params.lessonID].name;
+    return this.props.lessons.data[this.props.params.diagnosticID].name;
   },
 
   saveStudentName(name) {
@@ -196,17 +196,36 @@ const StudentDiagnostic = React.createClass({
 
   questionsForLesson() {
     const { data, } = this.props.lessons,
-      { lessonID, } = this.props.params;
-    if (data[lessonID].questions) {
-      return _.values(data[lessonID].questions).map((question) => {
-        console.log(question)
-        const questions = this.props[question.questionType].data;
-        const qFromDB = Object.assign({}, questions[question.key]);
-        qFromDB.questionType = question.questionType;
-        qFromDB.key = question.key;
-        return qFromDB;
-      });
-    }
+      { diagnosticID, } = this.props.params;
+    const filteredQuestions = data[diagnosticID].questions.filter(ques =>
+       this.props[ques.questionType].data[ques.key]
+    );
+    // this is a quickfix for missing questions -- if we leave this in here
+    // long term, we should return an array through a forloop to
+    // cut the time from 2N to N
+    return filteredQuestions.map((questionItem) => {
+      const questionType = questionItem.questionType;
+      const key = questionItem.key;
+      const question = this.props[questionType].data[key];
+      question.key = key;
+      question.attempts = question.attempts ? question.attempts : []
+      let type
+      switch (questionType) {
+        case 'questions':
+          type = 'SC'
+          break
+        case 'fillInBlank':
+          type = 'FB'
+          break
+        case 'titleCards':
+          type = 'TL'
+          break
+        case 'sentenceFragments':
+        default:
+          type = 'SF'
+      }
+      return { type, data: question, };
+    });
   },
 
   getQuestionCount() {
@@ -239,33 +258,33 @@ const StudentDiagnostic = React.createClass({
     return percent;
   },
 
-  getFetchedData() {
-    const returnValue = this.getData().map((obj) => {
-      let data;
-      if (obj.type === 'SC') {
-        data = this.props.questions.data[obj.key];
-      } else if (obj.type === 'SF') {
-        data = this.props.sentenceFragments.data[obj.key];
-      } else {
-        data = obj;
-      }
-      data.key = obj.key;
-      return {
-        type: obj.type,
-        data,
-      };
-    });
-    return returnValue;
+  getQuestionType(type) {
+    let questionType
+    switch (type) {
+      case 'questions':
+        questionType = 'SC'
+        break
+      case 'fillInBlanks':
+        questionType = 'FB'
+        break
+      case 'titleCards':
+        questionType = 'TL'
+        break
+      case 'sentenceFragments':
+        questionType = 'SF'
+        break
+    }
+    return questionType
   },
 
   render() {
-    const diagnosticID = this.props.params.diagnosticID;
+    const questionType = this.props.playDiagnostic.currentQuestion ? this.props.playDiagnostic.currentQuestion.type : ''
     let component;
     if (this.props.questions.hasreceiveddata && this.props.sentenceFragments.hasreceiveddata) {
       if (!this.props.playDiagnostic.questionSet) {
         component = (<SmartSpinner message={'Loading Your Lesson 50%'} onMount={this.loadQuestionSet} key="step2" />);
       } else if (this.props.playDiagnostic.currentQuestion) {
-        if (this.props.playDiagnostic.currentQuestion.type === 'SC') {
+        if (questionType === 'SC') {
           component = (<PlayDiagnosticQuestion
             question={this.props.playDiagnostic.currentQuestion.data} nextQuestion={this.nextQuestion}
             dispatch={this.props.dispatch}
@@ -273,7 +292,7 @@ const StudentDiagnostic = React.createClass({
             key={this.props.playDiagnostic.currentQuestion.data.key}
             marking="diagnostic"
           />);
-        } else if (this.props.playDiagnostic.currentQuestion.type === 'SF') {
+        } else if (questionType === 'SF') {
           component = (<PlaySentenceFragment
             question={this.props.playDiagnostic.currentQuestion.data} currentKey={this.props.playDiagnostic.currentQuestion.data.key}
             key={this.props.playDiagnostic.currentQuestion.data.key}
@@ -282,7 +301,7 @@ const StudentDiagnostic = React.createClass({
             nextQuestion={this.nextQuestion} markIdentify={this.markIdentify}
             updateAttempts={this.submitResponse}
           />);
-        } else if (this.props.playDiagnostic.currentQuestion.type === 'TL') {
+        } else if (questionType === 'TL') {
           component = (
             <TitleCard
               data={this.props.playDiagnostic.currentQuestion.data}
@@ -324,6 +343,7 @@ function select(state) {
     sentenceFragments: state.sentenceFragments,
     // responses: state.responses,
     sessions: state.sessions,
+    lessons: state.lessons
   };
 }
 export default connect(select)(StudentDiagnostic);
