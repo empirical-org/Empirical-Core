@@ -5,6 +5,7 @@
   box-sizing: border-box;
   font-family: 'Source Sans Pro', sans-serif;
 }
+
 @import 'ions';
 @import 'navbar';
 @import 'containers';
@@ -14,6 +15,8 @@
 @import 'buttons';
 @import 'cards';
 @import 'tables';
+@import 'tags';
+@import 'modals';
 
 html {
   line-height: 1.15;
@@ -26,6 +29,9 @@ body {
   font-feature-settings: "liga" 0;
   font-size: 0.9375rem;
   -webkit-font-smoothing: antialiased;
+  position: relative;
+  z-index: 1;
+  min-height: 100vh; 
 }
 
 a {
