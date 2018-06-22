@@ -10,9 +10,7 @@ import { hashToCollection } from '../../libs/hashToCollection';
 import submitQuestionResponse from '../renderForQuestions/submitResponse.js';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 import Cues from '../renderForQuestions/cues.jsx';
-import { WarningDialogue } from 'quill-component-library/dist/componentLibrary'
-import Prompt from 'quill-component-library/dist/componentLibrary'
-import Instructions from 'quill-component-library/dist/componentLibrary'
+import { WarningDialogue, Prompt, Instructions } from 'quill-component-library/dist/componentLibrary'
 import Feedback from '../renderForQuestions/feedback'
 import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
 
@@ -329,8 +327,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     } else {
       fullPageInstructions = { display: 'block', width: '100%' }
     }
-    return (
-      <div className="student-container-inner-diagnostic">
+    return (<div className="student-container-inner-diagnostic">
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <div style={fullPageInstructions}>
             <div>

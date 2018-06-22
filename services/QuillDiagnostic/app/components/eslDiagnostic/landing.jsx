@@ -12,7 +12,7 @@ export default React.createClass({
 
   getResumeButtonText() {
     let text = translations.english['resume button text'];
-    if (this.props.language !== 'english') {
+    if (this.props.language && this.props.language !== 'english') {
       text += ` / ${translations[this.props.language]['resume button text']}`;
     }
     return text;
@@ -20,7 +20,7 @@ export default React.createClass({
 
   getBeginButtonText() {
     let text = translations.english['begin button text'];
-    if (this.props.language !== 'english') {
+    if (this.props.language && this.props.language !== 'english') {
       text += ` / ${translations[this.props.language]['begin button text']}`;
     }
     return text;
@@ -28,7 +28,7 @@ export default React.createClass({
 
   getLandingPageHTML() {
     let html = translations.english['diagnostic intro text'];
-    if (this.props.language !== 'english') {
+    if this.props.language && this.props.language !== 'english') {
       const textClass = this.props.language === 'arabic' ? 'right-to-left arabic-title-div' : '';
       html += `<br/><div class="${textClass}">${translations[this.props.language]['diagnostic intro text']}</div>`;
     }

@@ -7,7 +7,7 @@ import {
 } from '../../actions/responses.js';
 import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
 import RenderQuestionCues from '../renderForQuestions/cues.jsx';
-import { Feedback } from 'quill-component-library/dist/componentLibrary';
+import { Feedback, SentenceFragments } from 'quill-component-library/dist/componentLibrary';
 import getResponse from '../renderForQuestions/checkAnswer';
 import submitQuestionResponse from '../renderForQuestions/submitResponse.js';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
@@ -76,7 +76,7 @@ const PlayDiagnosticQuestion = React.createClass({
   },
 
   renderSentenceFragments() {
-    return <RenderSentenceFragments prompt={this.getQuestion().prompt} />;
+    return <SentenceFragments prompt={this.getQuestion().prompt} />;
   },
 
   listCuesAsString(cues) {
