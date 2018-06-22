@@ -1,0 +1,6 @@
+<h1>Editing Vocabulary Word</h1>
+
+<%= render 'form', vocabulary_word: @vocabulary_word %>
+
+<%= link_to 'Show', @vocabulary_word %> |
+<%= link_to 'Back', activity_vocabulary_words_path(@vocabulary_word.activity_id) %>
