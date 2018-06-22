@@ -14,11 +14,13 @@ function fontSizeToClass(fontSize:number):string  {
 }
 
 const Article = ({activity_id, article, title, markAsRead, fontSize}): JSX.Element => (
-  <div key={activity_id} className="card article-card">
+  <div key={activity_id} className="card question-wrapper
+  ">
     <div className="card-header">
-      <h2>{title}</h2>
+      <h3 className="card-title">Read The Following Passage Carefully</h3>
     </div>
-    <div className="card-body">
+    <div className="card-body article-body">
+      <h2 className="mb3">{title}</h2>  
       <p className={fontSizeToClass(fontSize)} onSelect={(e) => console.log(e)} dangerouslySetInnerHTML={{__html: article}}></p>
     </div>
     <div className="card-footer d-fl-r jc-sb">

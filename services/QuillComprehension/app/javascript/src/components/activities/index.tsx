@@ -132,7 +132,6 @@ class ActivityContainer extends React.Component<AppProps, any> {
               {this.renderSubnav()}
               <div className="container">
                 <div className="article-container">
-                  <h1 className="article-title">Read The Following Passage Carefully</h1>
                   <VocabularyWords vocabWords={data.activity.vocabulary_words}/>
                   <Article activity_id={parseInt(this.props.activity_id)} article={data.activity.article} title={data.activity.title} markAsRead={this.props.markArticleAsRead} fontSize={this.props.activities.fontSize} />
                   {this.renderQuestionSets(data, this.props.activities.readArticle)}
