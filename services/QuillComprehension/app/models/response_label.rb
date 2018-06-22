@@ -1,0 +1,2 @@
+class ResponseLabel < ApplicationRecord
+end
