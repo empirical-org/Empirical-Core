@@ -359,9 +359,6 @@ pipeline {
             }
           }
           environment {
-            QUILL_CMS='https://cms.quill.org'
-            NODE_ENV='production'
-            EMPIRICAL_BASE='https://www.quill.org'
             PUSHER_KEY=credentials('pusher-key-connect')
             AWS_ACCESS_KEY_ID=credentials('AWS_ACCESS_KEY_ID')
             AWS_SECRET_ACCESS_KEY=credentials('AWS_SECRET_ACCESS_KEY')
@@ -371,7 +368,7 @@ pipeline {
               echo "Beginnning lessons deploy..."
               script {
                 if (env.GIT_BRANCH == 'fake-develop') {
-                  echo "install deps"
+                  echo "Installing dependencies..."
                   sh "npm install"
                   echo "Deploying connect to staging..."
                   sh 'npm run build:jenkins'
