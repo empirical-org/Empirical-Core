@@ -15,7 +15,9 @@ const sessionsRef = rootRef.child('sessions');
 var C = require('../../constants').default;
 import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
 import RenderQuestionCues from '../renderForQuestions/cues.jsx';
-import { SentenceFragments } from 'quill-component-library/dist/componentLibrary';
+import { SentenceFragments, ThankYou, ConceptExplanation } from 'quill-component-library/dist/componentLibrary';
+const RenderSentenceFragments = SentenceFragments
+const StateFinished = ThankYou
 import RenderFeedback from '../renderForQuestions/feedback';
 import generateFeedbackString from '../renderForQuestions/generateFeedbackString.js';
 import getResponse from '../renderForQuestions/checkAnswer';
@@ -24,9 +26,7 @@ import submitQuestionResponse from '../renderForQuestions/submitResponse.js';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 import submitPathway from '../renderForQuestions/submitPathway.js';
 import MultipleChoice from './multipleChoice.jsx';
-import { ThankYou } as StateFinished from 'quill-component-library/dist/componentLibrary';
 import AnswerForm from '../renderForQuestions/renderFormForAnswer.jsx';
-import { ConceptExplanation } from 'quill-component-library/dist/componentLibrary';
 import { getOptimalResponses, getSubOptimalResponses, getTopOptimalResponse } from '../../libs/sharedResponseFunctions';
 import {
   getResponsesWithCallback,
