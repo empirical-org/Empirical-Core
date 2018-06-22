@@ -1,24 +1,20 @@
-const env = process.env.NODE_ENV;
-const live = (env === 'production' || env === 'staging');
 const AssetsPlugin = require('assets-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
+const webpack = require('webpack');
 
 const assetsPluginInstance = new AssetsPlugin();
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CompressionPlugin = require('compression-webpack-plugin');
-
-console.log('in prod: ', live);
-const webpack = require('webpack');
-const path = require('path');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 
 module.exports = {
   resolve: {
+    // directories where to look for modules
     modules: [
       path.resolve(__dirname, 'app'),
       'node_modules'
     ],
+    // extensions that are used
     extensions: [
       '.js',
       '.jsx',
@@ -26,44 +22,27 @@ module.exports = {
       '.tsx'
     ],
   },
-  context: `${__dirname}/app`,
+  // the home directory for webpack
+  // the entry and module.rules.loader option
+  // is resolved relative to this directory
+  context: __dirname,
   entry: {
+    javascript: './app/app.jsx',
     polyfills: ['babel-polyfill', 'whatwg-fetch'],
     vendor: ['pos', 'draft-js'],
-    javascript: './app.jsx',
   },
   output: {
     filename: '[name].[hash].js',
     chunkFilename: '[name].[chunkhash].js',
-    path: `${__dirname}/dist`,
+    path: path.resolve(__dirname, 'dist'),
   },
-
-  // resolve: {
-  // // changed from extensions: [".js", ".jsx"]
-  //   extensions: ['.ts', '.tsx', '.js', '.jsx', '.ejs'],
-  // },
   plugins: [
     new HardSourceWebpackPlugin(),
     assetsPluginInstance,
     new ExtractTextPlugin('style.css'),
-    new webpack.EnvironmentPlugin({
-      NODE_ENV: 'development',
-      EMPIRICAL_BASE_URL: 'http://localhost:3000',
-      QUILL_CMS: 'http://localhost:3100',
-      PUSHER_KEY: 'a253169073ce7474f0ce',
-      FIREBASE_APP_NAME: 'quillconnectstaging',
-    }),
-    // new BundleAnalyzerPlugin(), // For visualizing package size
     new webpack.optimize.CommonsChunkPlugin({ name: 'vendor', }),
-    // new CompressionPlugin({
-    //   asset: '[path].gz[query]',
-    //   algorithm: 'gzip',
-    //   test: /\.js$/,
-    //   threshold: 10240,
-    //   minRatio: 0.8,
-    // }),
     new HtmlWebpackPlugin({
-      template: './index.html.ejs',
+      template: './app/index.html.ejs',
       inject: 'body',
       chunks: ['polyfills', 'vendor', 'javascript'],
       chunksSortMode: (chunk1, chunk2) => {
@@ -80,12 +59,6 @@ module.exports = {
     })
   ],
   module: {
-    // rules: [
-    //   // changed from { test: /\.jsx?$/, use: { loader: 'babel-loader' } },
-    //   { test: /\.(t|j)sx?$/, use: { loader: 'awesome-typescript-loader', }, },
-    //   // addition - add source-map support
-    //   { enforce: 'pre', test: /\.js$/, loader: 'source-map-loader', }
-    // ],
     noParse: /node_modules\/json-schema\/lib\/validate\.js/,
     rules: [
       {
@@ -106,14 +79,6 @@ module.exports = {
       {
         test: /\.html$/,
         use: ['file-loader?name=[name].[ext]'],
-      },
-      {
-        test: /\.scss$/,
-        use: live ? ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          // resolve-url-loader may be chained before sass-loader if necessary
-          use: ['css-loader', 'sass-loader'],
-        }) : ['style-loader', 'css-loader?sourceMap', 'sass-loader?sourceMap'],
       },
       {
         test: /\.svg$/,
@@ -138,6 +103,4 @@ module.exports = {
     net: 'empty',
     tls: 'empty',
   },
-  // addition - add source-map support
-  devtool: 'eval',
 };
