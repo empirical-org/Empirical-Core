@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :response_labels
   resources :activities, shallow: true do
     resources :question_sets
     resources :vocabulary_words
