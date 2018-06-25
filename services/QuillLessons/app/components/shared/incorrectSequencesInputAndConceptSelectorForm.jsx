@@ -5,6 +5,7 @@ import _ from 'underscore';
 import C from '../../constants';
 import ConceptSelectorWithCheckbox from './conceptSelectorWithCheckbox.jsx';
 import { TextEditor } from 'quill-component-library/dist/componentLibrary';
+import { EditorState, ContentState } from 'draft-js'
 import ResponseComponent from '../questions/responseComponent'
 import request from 'request'
 
@@ -227,7 +228,13 @@ export default React.createClass({
             {this.renderTextInputFields()}
             {this.renderSuggestedIncorrectSequencesSection()}
             <label className="label" style={{ marginTop: 10, }}>Feedback</label>
-            <TextEditor text={this.state.itemFeedback || ""} handleTextChange={this.handleFeedbackChange} key={"feedback"}/>
+            <TextEditor
+              text={this.state.itemFeedback || ""}
+              handleTextChange={this.handleFeedbackChange}
+              key={"feedback"}
+              EditorState={EditorState}
+              ContentState={ContentState}
+            />
             <label className="label" style={{ marginTop: 10, }}>Concepts</label>
             {this.renderConceptSelectorFields()}
           </div>

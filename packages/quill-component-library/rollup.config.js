@@ -51,7 +51,7 @@ export default {
             include: 'node_modules/**',
             namedExports: {
               'node_modules/prop-types/index.js': ['bool', 'object', 'string', 'func', 'oneOfType', 'array', 'shape', 'element', 'arrayOf'],
-              'node_modules/react/index.js': ['createElement']
+              'node_modules/react/react.js': ['createElement']
             }
         }),
         resolve({

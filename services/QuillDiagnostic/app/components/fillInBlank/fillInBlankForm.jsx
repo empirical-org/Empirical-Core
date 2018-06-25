@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
+import { EditorState, ContentState } from 'draft-js'
 import { connect } from 'react-redux';
-import {hashToCollection} from '../../libs/hashToCollection';
 import { TextEditor } from 'quill-component-library/dist/componentLibrary';
+import { hashToCollection } from '../../libs/hashToCollection';
 import ConceptSelector from '../shared/conceptSelector.jsx';
 import FlagDropdown from '../shared/flagDropdown.jsx';
-
 
 class FillInBlankForm extends Component {
   constructor() {
@@ -130,7 +130,12 @@ class FillInBlankForm extends Component {
       <form className="box" onSubmit={this.submit}>
         <h6 className="control subtitle">Create a new question</h6>
         <label className="label">Prompt</label>
-        <TextEditor text={this.state.prompt} handleTextChange={this.handlePromptChange} />
+        <TextEditor
+          text={this.state.prompt}
+          handleTextChange={this.handlePromptChange}
+          ContentState={ContentState}
+          EditorState={EditorState}
+        />
         <br />
         <label className="label">Instructions for student</label>
         <p className="control">

@@ -3,6 +3,7 @@ import request from 'request';
 import { connect } from 'react-redux';
 import massEdit from '../../actions/massEdit';
 import { TextEditor } from 'quill-component-library/dist/componentLibrary';
+import { EditorState, ContentState } from 'draft-js'
 import getBoilerplateFeedback from './boilerplateFeedback.jsx';
 import ConceptResultList from './conceptResultList.jsx';
 import _ from 'underscore';
@@ -230,7 +231,13 @@ class MassEditContainer extends React.Component {
           <div className="card-content">
             <div className="content">
               <h3>FEEDBACK <span style={{ fontSize: '0.7em', marginLeft: '0.75em', }}>⚠️️ All other feedback associated with selected responses will be overwritten ⚠️️</span></h3>
-              <TextEditor text={this.state.massEditFeedback || ''} handleTextChange={this.handleMassEditFeedbackTextChange} boilerplate={this.state.selectedMassEditBoilerplate} />
+              <TextEditor
+                text={this.state.massEditFeedback || ''}
+                handleTextChange={this.handleMassEditFeedbackTextChange}
+                boilerplate={this.state.selectedMassEditBoilerplate}
+                EditorState={EditorState}
+                ContentState={ContentState}
+              />
             </div>
             <div className="content">
               <h4>Boilerplate Feedback</h4>

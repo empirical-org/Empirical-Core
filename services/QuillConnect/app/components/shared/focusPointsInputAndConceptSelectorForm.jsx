@@ -5,6 +5,7 @@ import _ from 'underscore';
 import C from '../../constants';
 import ConceptSelectorWithCheckbox from './conceptSelectorWithCheckbox.jsx';
 import { TextEditor } from 'quill-component-library/dist/componentLibrary';
+import { EditorState, ContentState } from 'draft-js'
 import ResponseComponent from '../questions/responseComponent'
 import request from 'request'
 
@@ -166,7 +167,13 @@ export default class FocusPointsInputAndConceptResultSelectorForm extends React.
             <label className="label">{this.props.itemLabel} Text</label>
             {this.renderTextInputFields()}
             <label className="label" style={{ marginTop: 10, }}>Feedback</label>
-            <TextEditor text={this.state.itemFeedback || ""} handleTextChange={this.handleFeedbackChange} key={"feedback"}/>
+            <TextEditor
+              text={this.state.itemFeedback || ""}
+              handleTextChange={this.handleFeedbackChange}
+              key={"feedback"}
+              EditorState={EditorState}
+              ContentState={ContentState}
+            />
             <label className="label" style={{ marginTop: 10, }}>Concepts</label>
             {this.renderConceptSelectorFields()}
           </div>

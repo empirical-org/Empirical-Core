@@ -20,7 +20,6 @@ import {
 } from '../../libs/grading/rematching.ts';
 import DiagnosticQuestionMatcher from '../../libs/diagnosticQuestion.js';
 import massEdit from '../../actions/massEdit';
-import { TextEditor } from 'quill-component-library/dist/componentLibrary';
 import getBoilerplateFeedback from './boilerplateFeedback.jsx';
 import { QuestionBar } from 'quill-component-library/dist/componentLibrary';
 import request from 'request';

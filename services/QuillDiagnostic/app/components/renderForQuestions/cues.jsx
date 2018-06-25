@@ -54,6 +54,8 @@ export default React.createClass({
           {text}
         </div>
       );
+    } else {
+      return <span/>
     }
   },
 

@@ -1,5 +1,6 @@
 import React from 'react'
 import { TextEditor } from 'quill-component-library/dist/componentLibrary';
+import { EditorState, ContentState } from 'draft-js'
 import {hashToCollection} from '../../libs/hashToCollection'
 import _ from 'lodash'
 import ConceptSelector from '../shared/conceptSelector.jsx'
@@ -73,7 +74,12 @@ export default React.createClass({
         <div className="box">
           <h6 className="control subtitle">Create a new question</h6>
           <label className="label">Prompt</label>
-          <TextEditor text={this.props.question.prompt || ""} handleTextChange={this.handlePromptChange}/>
+          <TextEditor
+            text={this.props.question.prompt || ""}
+            handleTextChange={this.handlePromptChange}
+            EditorState={EditorState}
+            ContentState={ContentState}
+          />
           <label className="label">Instructions for student</label>
           <p className="control">
             <textarea className="input" type="text" ref="instructions" defaultValue={this.props.question.instructions} onChange={this.handleInstructionsChange}></textarea>
