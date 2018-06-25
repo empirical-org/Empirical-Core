@@ -25,6 +25,14 @@ Types::QueryType = GraphQL::ObjectType.define do
     }
   end
 
+  field :question, Types::QuestionType do
+    description 'Questions'
+    argument :id, types.ID
+    resolve -> (obj, args, ctx) {
+      Question.find(args[:id])
+    }
+  end
+
   field :responses, !types[Types::ResponseType] do
     description 'Responses to Questions'
     resolve -> (obj, args, ctx) {
