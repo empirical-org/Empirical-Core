@@ -58,8 +58,9 @@ const PlayDiagnosticQuestion = React.createClass({
   },
 
   getInstructionText() {
-    const textKey = translationMap[this.getQuestion().key];
-    let text = translations.english[textKey];
+    const q = this.getQuestion()
+    const textKey = translationMap[q.key];
+    let text = q.instructions ? q.instructions : translations.english[textKey];
     if (this.props.language && this.props.language !== 'english') {
       const textClass = this.props.language === 'arabic' ? 'right-to-left' : '';
       text += `<br/><br/><span class="${textClass}">${translations[this.props.language][textKey]}</span>`;
@@ -80,7 +81,7 @@ const PlayDiagnosticQuestion = React.createClass({
   },
 
   renderSentenceFragments() {
-    return <RenderSentenceFragments prompt={this.getQuestion().prompt} />;
+    return <SentenceFragments prompt={this.getQuestion().prompt} />;
   },
 
   listCuesAsString(cues) {
