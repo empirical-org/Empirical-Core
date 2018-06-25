@@ -5,10 +5,10 @@ import translations from '../../libs/translations/index.js';
 class TitleCard extends Component {
 
   getContentHTML() {
-    let html = translations.english[this.props.data.content];
+    let html = this.props.data.content ? this.props.data.content : translations.english[this.props.data.key];
     if (this.props.language !== 'english') {
       const textClass = this.props.language === 'arabic' ? 'right-to-left arabic-title-div' : '';
-      html += `<br/><div class="${textClass}">${translations[this.props.language][this.props.data.content]}</div>`;
+      html += `<br/><div class="${textClass}">${translations[this.props.language][this.props.data.key]}</div>`;
     }
     return html;
   }

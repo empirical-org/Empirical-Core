@@ -19,6 +19,7 @@ import fillInBlankActions from './actions/fillInBlank';
 import sentenceFragmentActions from './actions/sentenceFragments';
 import lessonActions from './actions/lessons';
 import levelActions from './actions/item-levels';
+import * as titleCardActions from './actions/titleCards.ts';
 import createHashHistory from 'history/lib/createHashHistory';
 import 'styles/style.scss';
 import Raven from 'raven-js';
@@ -61,6 +62,7 @@ render((
 );
 
 setTimeout(() => {
+  store.dispatch(titleCardActions.loadTitleCards());
   store.dispatch(conceptActions.startListeningToConcepts());
   store.dispatch(conceptsFeedbackActions.loadConceptsFeedback());
   store.dispatch(questionActions.loadQuestions());

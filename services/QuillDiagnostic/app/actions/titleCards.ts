@@ -14,6 +14,14 @@ function startListeningToTitleCards() {
   };
 }
 
+function loadTitleCards() {
+  return (dispatch) => {
+    titleCardsRef.once('value', (snapshot) => {
+      dispatch({ type: C.RECEIVE_TITLE_CARDS_DATA, data: snapshot.val(), });
+    });
+  };
+}
+
 function submitNewTitleCard(content) {
   return (dispatch) => {
     const newRef = titleCardsRef.push(content, (error) => {
@@ -41,4 +49,4 @@ function submitTitleCardEdit(qid, content) {
   };
 }
 
-export { submitNewTitleCard, startListeningToTitleCards, submitTitleCardEdit }
+export { submitNewTitleCard, loadTitleCards, startListeningToTitleCards, submitTitleCardEdit }
