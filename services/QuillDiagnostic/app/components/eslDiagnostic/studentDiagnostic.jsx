@@ -184,6 +184,7 @@ const StudentDiagnostic = React.createClass({
           dispatch={this.props.dispatch}
           nextQuestion={this.nextQuestionWithoutSaving}
           language={this.language()}
+          key={this.props.playDiagnostic.currentQuestion.data.key}
         />
       );
     } else if (this.props.playDiagnostic.currentQuestion.type === 'FB') {
@@ -194,6 +195,7 @@ const StudentDiagnostic = React.createClass({
           dispatch={this.props.dispatch}
           nextQuestion={this.nextQuestionWithoutSaving}
           language={this.language()}
+          key={this.props.playDiagnostic.currentQuestion.data.key}
         />
       );
     }
@@ -283,7 +285,7 @@ const StudentDiagnostic = React.createClass({
 
   getFetchedData() {
     const lesson = this.getLesson()
-    const filteredQuestions = lesson.questions.filter(ques => {
+    const filteredQuestions = lesson.questions.filter((ques) => {
       return this.props[ques.questionType] ? this.props[ques.questionType].data[ques.key] : null
     });
     // this is a quickfix for missing questions -- if we leave this in here

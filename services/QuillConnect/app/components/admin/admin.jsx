@@ -30,7 +30,7 @@ const adminContainer = React.createClass({
     this.props.dispatch(fillInBlankActions.startListeningToQuestions());
     this.props.dispatch(sentenceFragmentActions.startListeningToSentenceFragments());
     this.props.dispatch(levelActions.startListeningToItemLevels());
-    this.props.dispatch(titleCardActions.startListeningToTitleCards())
+    this.props.dispatch(titleCardActions.loadTitleCards())
   },
 
   render() {
