@@ -395,6 +395,7 @@ EmpiricalGrammar::Application.routes.draw do
     get '/blog_posts/:id/unpublish', to: 'blog_posts#unpublish'
     resources :activities, path: 'activity_type/:activity_classification_id/activities' do
       resource :data
+      resources :recommendations
     end
 
     resources :users do
