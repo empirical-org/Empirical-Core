@@ -4,10 +4,10 @@ import questionActions from '../../actions/questions';
 import diagnosticQuestionActions from '../../actions/diagnosticQuestions';
 import sentenceFragmentActions from '../../actions/sentenceFragments';
 import ConceptSelector from '../shared/conceptSelector.jsx';
-import { Modal } from 'quill-component-library/dist/componentLibrary';
+import { Modal, TextEditor } from 'quill-component-library/dist/componentLibrary';
+import { EditorState, ContentState } from 'draft-js'
 import ResponseList from './responseList.jsx';
 import { hashToCollection } from '../../libs/hashToCollection';
-import { TextEditor } from 'quill-component-library/dist/componentLibrary';
 import getBoilerplateFeedback from './boilerplateFeedback.jsx';
 import massEdit from '../../actions/massEdit';
 import ConceptSelectorWithCheckbox from '../shared/conceptSelectorWithCheckbox.jsx';
@@ -351,7 +351,13 @@ export default React.createClass({
         (<div className="content">
           {parentDetails}
           <label className="label">Feedback</label>
-          <TextEditor text={this.state.feedback || ''} handleTextChange={this.handleFeedbackChange} boilerplate={this.state.selectedBoilerplate} />
+          <TextEditor
+            text={this.state.feedback || ''}
+            handleTextChange={this.handleFeedbackChange}
+            boilerplate={this.state.selectedBoilerplate}
+            EditorState={EditorState}
+            ContentState={ContentState}
+          />
 
           <br />
           <label className="label">Boilerplate feedback</label>

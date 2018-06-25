@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { hashToCollection } from '../../libs/hashToCollection';
 import QuestionSelector from 'react-select-search';
-import { SortableList } from 'quill-component-library/dist/componentLibrary';
-import { TextEditor } from 'quill-component-library/dist/componentLibrary';
+import { SortableList, TextEditor } from 'quill-component-library/dist/componentLibrary';
+import { EditorState, ContentState } from 'draft-js'
 import ChooseModelContainer from './chooseModelContainer.jsx'
 import _ from 'underscore';
 
@@ -130,7 +130,12 @@ const LessonForm = React.createClass({
         <p className="control">
           <label className="label">Landing Page Content</label>
         </p>
-        <TextEditor text={this.state.landingPageHtml || ''} handleTextChange={this.handleLPChange} />
+        <TextEditor
+          text={this.state.landingPageHtml || ''}
+          handleTextChange={this.handleLPChange}
+          EditorState={EditorState}
+          ContentState={ContentState}
+          />
         <br />
         <p className="control">
           <label className="label">Flag</label>

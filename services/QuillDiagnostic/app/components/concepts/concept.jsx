@@ -6,6 +6,7 @@ import questionActions from '../../actions/questions'
 import _ from 'underscore'
 import {hashToCollection} from '../../libs/hashToCollection'
 import { TextEditor } from 'quill-component-library/dist/componentLibrary'
+import { EditorState, ContentState } from 'draft-js'
 
 const Concept = React.createClass({
   getInitialState: function (){
@@ -85,7 +86,12 @@ const Concept = React.createClass({
       <form className="box" onSubmit={this.submitNewQuestion}>
         <h6 className="control subtitle">Create a new question</h6>
         <label className="label">Prompt</label>
-        <TextEditor text={""} handleTextChange={this.handlePromptChange} />
+        <TextEditor
+          text={""}
+          handleTextChange={this.handlePromptChange}
+          EditorState={EditorState}
+          ContentState={ContentState}
+        />
         <label className="label">Instructions for student</label>
         <p className="control">
           <textarea className="input" type="text" ref="instructions"></textarea>

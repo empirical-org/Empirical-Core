@@ -1,7 +1,7 @@
 import React from 'react';
-import {EditorState, ContentState, convertToRaw} from 'draft-js';
+import { EditorState, ContentState } from 'draft-js';
 import Editor from 'draft-js-plugins-editor';
-import {convertFromHTML, convertToHTML} from 'draft-convert'
+import { convertFromHTML, convertToHTML } from 'draft-convert'
 import createRichButtonsPlugin from 'draft-js-richbuttons-plugin';
 
 const richButtonsPlugin = createRichButtonsPlugin();

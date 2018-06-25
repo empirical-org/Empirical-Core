@@ -1,7 +1,5 @@
 import React from 'react';
-const { EditorState } = require('draft-js/lib/EditorState')
-const { ContentState } = require('draft-js/lib/ContentState')
-const Editor = require('draft-js-plugins-editor')
+import Editor from 'draft-js-plugins-editor'
 const { convertFromHTML, convertToHTML } = require('draft-convert')
 import createRichButtonsPlugin from 'draft-js-richbuttons-plugin'
 
@@ -23,18 +21,20 @@ const {
 //   text: any;
 // }
 
-class TextEditor extends React.Component<any, any> {
+class TextEditor extends React.Component <any, any> {
   constructor(props: any) {
     super(props)
 
     this.state = {
-      text: EditorState.createWithContent(convertFromHTML(this.props.text || ''))
+      text: this.props.EditorState.createWithContent(convertFromHTML(this.props.text || ''))
     }
+
+    this.handleTextChange = this.handleTextChange.bind(this)
   }
 
   componentWillReceiveProps(nextProps: any) {
     if (nextProps.boilerplate !== this.props.boilerplate) {
-      this.setState({text: EditorState.createWithContent(ContentState.createFromBlockArray(convertFromHTML(nextProps.boilerplate)))},
+      this.setState({text: this.props.EditorState.createWithContent(this.props.ContentState.createFromBlockArray(convertFromHTML(nextProps.boilerplate)))},
       () => {
         this.props.handleTextChange(convertToHTML(this.state.text.getCurrentContent()))
       }

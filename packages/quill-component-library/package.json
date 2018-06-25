@@ -1,6 +1,6 @@
 {
   "name": "quill-component-library",
-  "version": "0.1.4",
+  "version": "0.1.8",
   "description": "A library for components shared between Quill apps.",
   "main": "componentLibrary.js",
   "module": "componentLibrary.module.js",
@@ -60,8 +60,8 @@
     "draft-js-export-html": "^0.6.0",
     "draft-js-plugins-editor": "^2.0.4",
     "draft-js-richbuttons-plugin": "^2.2.0",
-    "react": "^16.4.1",
-    "react-dom": "^16.4.1",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
     "react-router": "^3.0.5",
     "react-simple-pie-chart": "^0.5.0",
     "react-sortable": "^2.0.0",

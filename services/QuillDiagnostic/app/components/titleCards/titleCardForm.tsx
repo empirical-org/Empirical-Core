@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { TextEditor } from 'quill-component-library/dist/componentLibrary';
+import { EditorState, ContentState } from 'draft-js'
 import {hashToCollection} from '../../libs/hashToCollection'
 import {
   submitNewTitleCard,
@@ -89,7 +90,12 @@ class TitleCardForm extends React.Component<any, TitleCardFormState> {
         <textarea className="input" type="text" value={this.state.title || ""} onChange={this.handleTitleChange}/>
         <br/>
         <label className="label">Content</label>
-        <TextEditor text={this.state.content || ""} handleTextChange={this.handleContentChange}/>
+        <TextEditor
+          text={this.state.content || ""}
+          handleTextChange={this.handleContentChange}
+          EditorState={EditorState}
+          ContentState={ContentState}
+        />
         <br/>
         <button className="button is-primary" onClick={this.submit}>Save Question</button>
       </div>
