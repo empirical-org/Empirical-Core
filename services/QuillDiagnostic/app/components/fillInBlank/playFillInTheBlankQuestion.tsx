@@ -46,22 +46,40 @@ const styles = {
 export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
   constructor(props) {
     super(props);
+
     this.checkAnswer = this.checkAnswer.bind(this);
-    this.getQuestion = this.getQuestion.bind(this);
-    const q = this.getQuestion();
+    this.getQuestion = this.getQuestion.bind(this)
+    this.getGradedResponsesWithCallback = this.getGradedResponsesWithCallback.bind(this)
+    this.setQuestionValues = this.setQuestionValues.bind(this)
+
+    this.state = {}
+  }
+
+  componentWillMount() {
+    this.setQuestionValues(this.props.question)
+  }
+
+  setQuestionValues(question) {
+    const q = question;
     const splitPrompt = q.prompt.split('___');
-    this.state = {
+    this.setState({
       splitPrompt,
       inputVals: this.generateInputs(splitPrompt),
       inputErrors: new Set(),
       cues: q.cues,
       blankAllowed: q.blankAllowed,
-    };
+    }, () => this.getGradedResponsesWithCallback(question));
   }
 
-  componentDidMount() {
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.question.prompt !== this.props.question.prompt) {
+      this.setQuestionValues(nextProps.question)
+    }
+  }
+
+  getGradedResponsesWithCallback(question) {
     getGradedResponsesWithCallback(
-      this.getQuestion().key,
+      question.key,
       (data) => {
         this.setState({ responses: data, });
       }
@@ -69,13 +87,13 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
   }
 
   getQuestion() {
-    const { question, } = this.props;
-    return question;
+    return this.props.question
   }
 
   getInstructionText() {
-    const textKey = translationMap[this.getQuestion().key];
-    let text = translations.english[textKey];
+    const q = this.getQuestion()
+    const textKey = translationMap[q.key];
+    let text = q.instructions ? q.instructions : translations.english[textKey];
     if (this.props.language && this.props.language !== 'english') {
       const textClass = this.props.language === 'arabic' ? 'right-to-left' : '';
       text += `<br/><br/><span class="${textClass}">${translations[this.props.language][textKey]}</span>`;
@@ -229,6 +247,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
           splitPromptWithInput.push(this.renderText(section, i));
         }
       });
+      console.log('splitPromptWithInput', splitPromptWithInput)
       return splitPromptWithInput;
     }
   }
@@ -247,7 +266,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
         }
       }
       const zippedAnswer = this.zipInputsAndText();
-      const questionUID = this.getQuestion().key
+      const questionUID = this.props.question.key
       const responses = hashToCollection(this.state.responses)
       const response = {response: checkFillInTheBlankQuestion(questionUID, zippedAnswer, responses)}
       this.setResponse(response);
@@ -271,14 +290,14 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
   }
 
   updateResponseResource(response) {
-    updateResponseResource(response, this.getQuestion().key, this.getQuestion().attempts, this.props.dispatch);
+    updateResponseResource(response, this.props.question.key, this.props.question.attempts, this.props.dispatch);
   }
 
   renderMedia() {
-    if (this.getQuestion().mediaURL) {
+    if (this.props.question.mediaURL) {
       return (
         <div className='ell-illustration' style={{ marginTop: 15, minWidth: 200 }}>
-          <img src={this.getQuestion().mediaURL} />
+          <img src={this.props.question.mediaURL} />
         </div>
       );
     }
@@ -305,7 +324,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
 
   render() {
     let fullPageInstructions
-    if (this.props.language === 'arabic' && !(this.getQuestion().mediaURL)) {
+    if (this.props.language === 'arabic' && !(this.props.question.mediaURL)) {
       fullPageInstructions = { maxWidth: 800, width: '100%' }
     } else {
       fullPageInstructions = { display: 'block' }

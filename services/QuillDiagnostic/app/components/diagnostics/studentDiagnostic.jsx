@@ -197,8 +197,10 @@ const StudentDiagnostic = React.createClass({
   questionsForLesson() {
     const { data, } = this.props.lessons,
       { diagnosticID, } = this.props.params;
-    const filteredQuestions = data[diagnosticID].questions.filter(ques =>
-       this.props[ques.questionType].data[ques.key]
+    const filteredQuestions = data[diagnosticID].questions.filter(ques => {
+      console.log('ques', ques)
+      return this.props[ques.questionType] ? this.props[ques.questionType].data[ques.key] : null
+    }
     );
     // this is a quickfix for missing questions -- if we leave this in here
     // long term, we should return an array through a forloop to

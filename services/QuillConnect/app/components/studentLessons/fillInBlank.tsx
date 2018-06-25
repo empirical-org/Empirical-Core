@@ -43,22 +43,40 @@ const styles = {
 export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
   constructor(props) {
     super(props);
+
     this.checkAnswer = this.checkAnswer.bind(this);
-    this.getQuestion = this.getQuestion.bind(this);
-    const q = this.getQuestion();
-    const splitPrompt = q ? q.prompt.split('___') : '';
-    this.state = {
+    this.getQuestion = this.getQuestion.bind(this)
+    this.getGradedResponsesWithCallback = this.getGradedResponsesWithCallback.bind(this)
+    this.setQuestionValues = this.setQuestionValues.bind(this)
+
+    this.state = {}
+  }
+
+  componentWillMount() {
+    this.setQuestionValues(this.props.question)
+  }
+
+  setQuestionValues(question) {
+    const q = question;
+    const splitPrompt = q.prompt.split('___');
+    this.setState({
       splitPrompt,
       inputVals: this.generateInputs(splitPrompt),
       inputErrors: new Set(),
       cues: q.cues,
       blankAllowed: q.blankAllowed,
-    };
+    }, () => this.getGradedResponsesWithCallback(question));
   }
 
-  componentDidMount() {
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.question.prompt !== this.props.question.prompt) {
+      this.setQuestionValues(nextProps.question)
+    }
+  }
+
+  getGradedResponsesWithCallback(question) {
     getGradedResponsesWithCallback(
-      this.getQuestion().key,
+      question.key,
       (data) => {
         this.setState({ responses: data, });
       }

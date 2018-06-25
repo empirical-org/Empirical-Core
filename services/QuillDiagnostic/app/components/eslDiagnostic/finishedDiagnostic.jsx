@@ -1,6 +1,7 @@
 import React from 'react';
 import Spinner from '../shared/spinner.jsx';
 import translations from '../../libs/translations/index.js';
+
 export default React.createClass({
 
   componentDidMount() {

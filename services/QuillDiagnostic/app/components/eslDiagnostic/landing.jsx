@@ -3,7 +3,7 @@ import beginArrow from '../../img/begin_arrow.svg';
 
 import ResumeOrBeginButton from '../shared/resumeOrBeginButton.jsx'
 
-import translations from '../../libs/translations/index.js';
+import translations from '../../libs/translations/index';
 export default React.createClass({
 
   resume() {
@@ -28,7 +28,7 @@ export default React.createClass({
 
   getLandingPageHTML() {
     let html = translations.english['diagnostic intro text'];
-    if this.props.language && this.props.language !== 'english') {
+    if (this.props.language !== 'english') {
       const textClass = this.props.language === 'arabic' ? 'right-to-left arabic-title-div' : '';
       html += `<br/><div class="${textClass}">${translations[this.props.language]['diagnostic intro text']}</div>`;
     }
