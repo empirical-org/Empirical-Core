@@ -345,7 +345,8 @@ function select(state) {
     sentenceFragments: state.sentenceFragments,
     // responses: state.responses,
     sessions: state.sessions,
-    lessons: state.lessons
+    lessons: state.lessons,
+    titleCards: state.titleCards
   };
 }
 export default connect(select)(StudentDiagnostic);

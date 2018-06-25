@@ -14,8 +14,8 @@ import {
 } from '../../actions/responses';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 import { ConceptExplanation } from 'quill-component-library/dist/componentLibrary';
-import Feedback from '../renderForQuestions/feedback';
-// import { Feedback } from 'quill-component-library/dist/componentLibrary'
+// import Feedback from '../renderForQuestions/feedback';
+import { Feedback } from 'quill-component-library/dist/componentLibrary'
 
 const PlaySentenceFragment = React.createClass<any, any>({
   getInitialState() {
@@ -176,7 +176,7 @@ const PlaySentenceFragment = React.createClass<any, any>({
     return (
       <div className="container">
         <div className="feedback-row">
-          <StatelessFeedback
+          <Feedback
             feedbackType="default"
             feedback={(<p>Is this a complete or an incomplete sentence?</p>)}
           />
