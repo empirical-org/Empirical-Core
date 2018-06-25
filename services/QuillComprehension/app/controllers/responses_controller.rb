@@ -4,6 +4,7 @@ class ResponsesController < ApplicationController
   # GET /responses
   # GET /responses.json
   def index
+    @page_js_bundle = 'tag_responses'
     @responses = @question.responses
   end
 
