@@ -1,38 +1,39 @@
 import * as React from 'react';
-import {connect} from 'react-redux'
-import { Query } from "react-apollo";
+import { Query, Mutation } from "react-apollo";
 import gql from "graphql-tag";
-import * as R from 'ramda';
 
-function activityQuery(activity_id:string) {
+function responsesQuery(question_id:string) {
   return gql`
   {
-    activity(id: ${activity_id}) {
-      title
-      article
-      question_sets {
-        id 
-        prompt
-        questions {
-          id
-          prompt
-          order
-        }
-      }
-      questions {
+    question(id: ${question_id}) {
+      prompt 
+      responses {
         id
-        prompt
-        order
-      }
-      vocabulary_words {
-        id
+        submissions
         text
-        description
-        example
       }
+    }
+    response_labels {
+      id
+      name
+      description
     }
   }
 `
+}
+
+const SUBMIT_RESPONSE_LABEL_TAG = gql`
+  mutation submitResponseLabelTag($response_id: ID!, $response_label_id: ID!, $score: Int)  {
+    createResponseLabelTag(response_id: $response_id, response_label_id: $response_label_id, score: $score) {
+      response_label_id
+      response_id
+      score
+    }
+  }
+`;
+
+function selectRandomItem(array:Array<any>):any {
+  return array[Math.floor(Math.random()*array.length)];
 }
 
 class TagResponsesContainer extends React.Component<any> {
@@ -43,14 +44,37 @@ class TagResponsesContainer extends React.Component<any> {
   render() {
     return (
       <Query
-        query={activityQuery(this.props.activity_id)}
+        query={responsesQuery(this.props.question_id)}
       >
         {({ loading, error, data }) => {
           if (loading) return <p>Loading...</p>;
           if (error) return <p>Error :(</p>;
+          const response = selectRandomItem(data.question.responses);
+          const label = selectRandomItem(data.response_labels);
           return (
-            <div>
-              <p>Hi</p>
+            <div className="card">
+              <div className="card-header">
+              <p><span style={{textTransform: "uppercase"}}>{ label.name}</span> -- {label.description} </p>  
+              </div>
+              <div className="card-body">
+                <p>{ response.text}</p>
+              </div>
+              <Mutation mutation={SUBMIT_RESPONSE_LABEL_TAG}>
+                {(submitResponseLabelTag, { data }) => (
+                  <div className="card-footer" style={{display:  "flex", flexDirection:  "row", alignItems: "left", justifyContent: "space around"}}>
+                    <button className="btn btn-success mr1" style={{flexGrow: 1}} onClick={(e) => {
+                      e.preventDefault();
+                      submitResponseLabelTag({variables: {response_id: response.id, response_label_id: label.id, score:1}})
+                      setTimeout(() => {window.location.reload()}, 500)
+                    }}>Yes</button>
+                    <button className="btn btn-danger ml1" style={{flexGrow:  1}} onClick={(e) => {
+                      e.preventDefault();
+                      submitResponseLabelTag({variables: {response_id: response.id, response_label_id: label.id, score:-1}})
+                      setTimeout(() => {window.location.reload()}, 500)
+                    }}>No</button>
+                  </div>
+                )}
+              </Mutation>
             </div>
           );
         }}

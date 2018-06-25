@@ -3,7 +3,7 @@
 
   <h1><%= @question.prompt %>...</h1>
 
-  <div id="tagger-target"></div>
+  <div id="tagger-target" data-question-id=<%= @question.id %>></div>
   <div class="card">
     <div class="table-responsive">
       <table class="table table-hover table-outline table-vcenter text-nowrap card-table">

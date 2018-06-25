@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
     <Provider store={store}>
       <ApolloProvider client={client}>
-        <TagResponsesContainer activity_id={document.getElementById('tagger-target').dataset.activityId}/>
+        <TagResponsesContainer question_id={document.getElementById('tagger-target').dataset.questionId}/>
       </ApolloProvider>
     </Provider>,
     document.getElementById('tagger-target'),
