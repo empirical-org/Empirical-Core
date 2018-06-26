@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { QuestionList } from 'quill-component-library/dist/componentLibrary'
 import actions from '../../actions/questions';
 import _ from 'underscore';
 import { Link } from 'react-router';
@@ -254,7 +253,7 @@ const Questions = React.createClass({
 
   render() {
     const { questions, concepts, } = this.props;
-    if (this.props.questions.hasreceiveddata && this.props.concepts.hasreceiveddata) {
+    if (questions.hasreceiveddata && concepts.hasreceiveddata) {
       return (
         <section className="section">
           <div className="container">
@@ -269,8 +268,10 @@ const Questions = React.createClass({
             <ArchivedButton showOnlyArchived={this.state.showOnlyArchived} toggleShowArchived={this.toggleShowArchived} lessons={false} />
             <br />
             <br />
-            <QuestionList
-              questions={hashToCollection(questions.data) || []}
+            <QuestionsList
+              questions={questions}
+              concepts={concepts}
+              displayNoConceptQuestions={this.state.displayNoConceptQuestions}
               showOnlyArchived={this.state.showOnlyArchived}
               basePath={'questions'}
             />

@@ -43,8 +43,8 @@ class ScoreAnalysis extends Component {
   componentWillMount() {
     checkTimeout();
     this.props.dispatch(loadScoreData());
-    const { scoreAnalysis, questions, diagnosticQuestions, sentenceFragments, fillInBlank } = this.props
-    if (scoreAnalysis.hasreceiveddata && questions.hasreceiveddata && diagnosticQuestions.hasreceiveddata && sentenceFragments.hasreceiveddata && fillInBlank.hasreceiveddata) {
+    const { scoreAnalysis, questions, sentenceFragments, fillInBlank } = this.props
+    if (scoreAnalysis.hasreceiveddata && questions.hasreceiveddata && sentenceFragments.hasreceiveddata && fillInBlank.hasreceiveddata) {
       if (this.state.questionData.length === 0) {
         this.formatData(this.props)
       }
@@ -52,8 +52,8 @@ class ScoreAnalysis extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { scoreAnalysis, questions, diagnosticQuestions, sentenceFragments, fillInBlank } = nextProps
-    if (scoreAnalysis.hasreceiveddata && questions.hasreceiveddata && diagnosticQuestions.hasreceiveddata && sentenceFragments.hasreceiveddata && fillInBlank.hasreceiveddata) {
+    const { scoreAnalysis, questions, sentenceFragments, fillInBlank } = nextProps
+    if (scoreAnalysis.hasreceiveddata && questions.hasreceiveddata && sentenceFragments.hasreceiveddata && fillInBlank.hasreceiveddata) {
       if (!_.isEqual(nextProps.scoreAnalysis.data, this.props.scoreAnalysis.data) || this.state.questionData.length === 0) {
         this.formatData(nextProps)
       }
@@ -71,13 +71,12 @@ class ScoreAnalysis extends Component {
   }
 
   formatData(props) {
-    const { questions, diagnosticQuestions, sentenceFragments, fillInBlank, concepts, scoreAnalysis, } = props;
+    const { questions, sentenceFragments, fillInBlank, concepts, scoreAnalysis, } = props;
     // const validConcepts = _.map(concepts.data[0], con => con.uid);
     const formattedQuestions = this.formatDataForQuestionType(questions.data, scoreAnalysis, 'Sentence Combining', 'questions')
-    const formattedDiagnosticQuestions = this.formatDataForQuestionType(diagnosticQuestions.data, scoreAnalysis, 'Diagnostic Question', 'diagnostic-questions')
     const formattedSentenceFragments = this.formatDataForQuestionType(sentenceFragments.data, scoreAnalysis, 'Sentence Fragment', 'sentence-fragments')
     const formattedFillInBlank = this.formatDataForQuestionType(fillInBlank.data, scoreAnalysis, 'Fill In Blank', 'fill-in-the-blanks')
-    const formatted = [...formattedQuestions, ...formattedDiagnosticQuestions, ...formattedSentenceFragments, ...formattedFillInBlank]
+    const formatted = [...formattedQuestions, ...formattedSentenceFragments, ...formattedFillInBlank]
     this.setState({questionData: _.compact(formatted)})
   }
 
@@ -168,8 +167,6 @@ class ScoreAnalysis extends Component {
         return 'Sentence Combining'
       case 'sf':
         return 'Sentence Fragment'
-      case 'dq':
-        return 'Diagnostic Question'
       case 'fib':
         return 'Fill In Blank'
     }
@@ -181,8 +178,6 @@ class ScoreAnalysis extends Component {
         return 'sc'
       case 'Sentence Fragment':
         return 'sf'
-      case 'Diagnostic Question':
-        return 'dq'
       case 'Fill In Blank':
         return 'fib'
       default:
@@ -285,7 +280,6 @@ class ScoreAnalysis extends Component {
           <option value="all">All</option>
           <option value="sc">Sentence Combining</option>
           <option value="sf">Sentence Fragment</option>
-          <option value="dq">Diagnostic Question</option>
           <option value="fib">Fill In Blank</option>
         </select>
       </div>
@@ -348,7 +342,6 @@ class ScoreAnalysis extends Component {
 function select(state) {
   return {
     questions: state.questions,
-    diagnosticQuestions: state.diagnosticQuestions,
     sentenceFragments: state.sentenceFragments,
     fillInBlank: state.fillInBlank,
     concepts: state.concepts,
