@@ -63,17 +63,17 @@ const QuestionsList = React.createClass({
   },
 
   renderQuestionsWithoutValidKey: function () {
-    if(!this.props.displayNoConceptQuestions) {
-      return (<div></div>)
+    const concepts = hashToCollection(this.props.concepts.data['0']);
+    const questions = hashToCollection(this.props.questions);
+    const label = (<p className="menu-label">
+      No valid concept
+    </p>)
+    if (!this.props.displayNoConceptQuestions) {
+      return this.renderConceptWithQuestions(questions, label);
     } else {
-      const concepts = hashToCollection(this.props.concepts.data['0']);
-      const questions = hashToCollection(this.props.questions.data);
       const questionsToRender = _.reject(questions, (question) => {
         return !!_.find(concepts, {uid: question.conceptID})
       })
-      const label = (<p className="menu-label">
-        No valid concept
-      </p>)
       return this.renderConceptWithQuestions(questionsToRender, label);
     }
   },
