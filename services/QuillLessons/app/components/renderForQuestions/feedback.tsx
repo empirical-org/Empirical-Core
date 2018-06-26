@@ -2,9 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom'
 import _ from 'underscore';
 const icon = 'http://localhost:45537/images/icons/question_icon.svg'
-import revise from `${process.env.QUILL_CDN}/images/icons/revise_orange_icon.svg`;
-import multiple from `${process.env.QUILL_CDN}/images/icons/multiple_choice_icon.svg`;
-import success from `${process.env.QUILL_CDN}/images/icons/check-mark.svg`;
+import revise from 'http://cdn.quill.org/images/icons/revise_orange_icon.svg';
+import multiple from 'http://cdn.quill.org/images/icons/multiple_choice_icon.svg';
+import success from 'http://cdn.quill.org/images/icons/check-mark.svg';
 import getAnswerState from './answerState';
 import {Response} from 'quill-marking-logic';
 import { Feedback } from 'quill-component-library/dist/componentLibrary';

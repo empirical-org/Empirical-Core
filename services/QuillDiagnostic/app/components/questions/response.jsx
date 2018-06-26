@@ -33,10 +33,16 @@ export default React.createClass({
     let actions;
     if (this.props.mode === 'sentenceFragment') {
       actions = sentenceFragmentActions;
-    } else if (this.props.mode === 'diagnosticQuestion') {
-      actions = diagnosticQuestionActions;
     } else {
       actions = questionActions;
+    }
+    let conceptResults = {}
+    if (response.concept_results) {
+      if (typeof response.concept_results === 'string') {
+        conceptResults = JSON.parse(response.concept_results)
+      } else {
+        conceptResults = response.concept_results
+      }
     }
     return {
       feedback: response.feedback || '',
@@ -49,7 +55,7 @@ export default React.createClass({
         conceptUID: '',
         correct: true,
       },
-      conceptResults: response.concept_results || {}
+      conceptResults
     };
   },
 

@@ -2,7 +2,6 @@ import React from 'react';
 import _ from 'underscore';
 import questionActions from '../../actions/questions';
 import sentenceFragmentActions from '../../actions/sentenceFragments';
-import ConceptSelector from '../shared/conceptSelector.jsx';
 import { Modal, TextEditor } from 'quill-component-library/dist/componentLibrary';
 import { EditorState, ContentState } from 'draft-js'
 import ResponseList from './responseList.jsx';
@@ -35,6 +34,14 @@ export default React.createClass({
     } else {
       actions = questionActions;
     }
+    let conceptResults = {}
+    if (response.concept_results) {
+      if (typeof response.concept_results === 'string') {
+        conceptResults = JSON.parse(response.concept_results)
+      } else {
+        conceptResults = response.concept_results
+      }
+    }
     return {
       feedback: response.feedback || '',
       selectedBoilerplate: '',
@@ -46,7 +53,7 @@ export default React.createClass({
         conceptUID: '',
         correct: true,
       },
-      conceptResults: response.concept_results || {}
+      conceptResults
     };
   },
 

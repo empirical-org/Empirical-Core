@@ -3,6 +3,9 @@ import React from 'react';
 class ResponseToggleFields extends React.Component<any, any> {
   constructor(props: any) {
     super(props)
+
+    this.toggleFieldAndResetPage = this.toggleFieldAndResetPage.bind(this)
+    this.renderToggleField = this.renderToggleField.bind(this)
   }
 
   renderToggleField(status: string, index: number) {
