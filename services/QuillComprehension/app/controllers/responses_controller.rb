@@ -55,6 +55,7 @@ class ResponsesController < ApplicationController
   # DELETE /responses/1
   # DELETE /responses/1.json
   def destroy
+    ResponseLabelTag.where(response_id: @response.id).each {|x| x.destroy}
     @response.destroy
     respond_to do |format|
       format.html { redirect_to question_responses_url(@response.question_id), notice: 'Response was successfully destroyed.' }
