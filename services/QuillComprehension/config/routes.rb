@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   resources :activities, shallow: true do
     resources :question_sets
     resources :vocabulary_words
+
+    get 'play', on: :member    
   end
   resources :question_sets, only: [], shallow: true do
     resources :questions
