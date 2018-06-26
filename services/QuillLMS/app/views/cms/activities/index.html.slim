@@ -25,7 +25,7 @@
       - @activities.each do |activity|
         tr
           td= link_to activity.name, anonymous_activity_sessions_path(activity_id: activity.id)
-          td= link_to 'Edit', edit_cms_activity_path(id: activity.id)
-          td= link_to 'Recommendations', cms_activity_recommendations_path(activity_id: activity.id)
+          td= link_to 'Edit', edit_cms_activity_classification_activity_path(@activity_classification, activity)
+          td= link_to 'Recommendations', cms_activity_classification_activity_recommendations_path(@activity_classification, activity)
 
-    = link_to 'Add a new activity', new_cms_activity_path
+    = link_to 'Add a new activity', new_cms_activity_classification_activity_path

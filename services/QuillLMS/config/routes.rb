@@ -375,13 +375,18 @@ EmpiricalGrammar::Application.routes.draw do
     put '/activity_categories/update_order_numbers', to: 'activity_categories#update_order_numbers'
     post '/activity_categories/destroy_and_recreate_acas', to: 'activity_categories#destroy_and_recreate_acas'
     resources :activity_categories, only: [:index, :show, :create, :update, :destroy]
+    resources :activity_classifications do
+      resources :activities do
+        resource :data
+        resources :recommendations
+      end
+    end
     resources :admin_accounts, only: [:index, :create, :update, :destroy]
     resources :admins, only: [:index, :create, :update, :destroy]
     resources :categories
     resources :concepts
     resources :sections
     put '/activity_classifications/update_order_numbers', to: 'activity_classifications#update_order_numbers'
-    resources :activity_classifications
     resources :topics
     resources :subscriptions
     resources :topic_categories
@@ -393,10 +398,6 @@ EmpiricalGrammar::Application.routes.draw do
     resources :blog_posts
     get '/blog_posts/:id/delete', to: 'blog_posts#destroy'
     get '/blog_posts/:id/unpublish', to: 'blog_posts#unpublish'
-    resources :activities, path: 'activity_type/:activity_classification_id/activities' do
-      resource :data
-      resources :recommendations
-    end
 
     resources :users do
       # resource :subscription
