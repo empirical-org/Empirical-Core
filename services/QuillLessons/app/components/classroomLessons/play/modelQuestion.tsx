@@ -1,13 +1,12 @@
 declare function require(name:string);
 import React, { Component } from 'react';
 import Cues from '../../../components/renderForQuestions/cues';
-import RenderSentenceFragments from '../../../components/renderForQuestions/sentenceFragments';
 import {
   QuestionData
 } from '../../../interfaces/classroomLessons';
 import { textEditorInputNotEmpty } from '../shared/textEditorClean'
-import { Feedback } from 'quill-component-library/dist/componentLibrary'
-const icon = 'http://localhost:45537/images/icons/question_icon.svg' 
+import { Feedback, SentenceFragments } from 'quill-component-library/dist/componentLibrary'
+const icon = 'http://localhost:45537/images/icons/question_icon.svg'
 
 interface ModelQuestionProps {
   data: QuestionData,
@@ -25,7 +24,7 @@ class ModelQuestion extends Component<ModelQuestionProps, ModelQuestionState> {
 
   renderInstructions() {
     if (this.props.data.play.instructions) {
-      return (<Feedback 
+      return (<Feedback
         feedbackType="default"
         feedback={(<p dangerouslySetInnerHTML={{__html: this.props.data.play.instructions}}></p>)}
       />);
@@ -76,7 +75,7 @@ class ModelQuestion extends Component<ModelQuestionProps, ModelQuestionState> {
       const prompt = promptNotEmpty ? editedPrompt : this.props.data.play.prompt;
       return (
         <div>
-          <RenderSentenceFragments prompt={prompt} />
+          <SentenceFragments prompt={prompt} />
           {this.renderCues()}
           {this.renderInstructions()}
         </div>
