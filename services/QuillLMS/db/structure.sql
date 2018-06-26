@@ -1365,6 +1365,39 @@ ALTER SEQUENCE public.page_areas_id_seq OWNED BY public.page_areas.id;
 
 
 --
+-- Name: recommendations; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE recommendations (
+    id integer NOT NULL,
+    name character varying NOT NULL,
+    activity_id integer NOT NULL,
+    concept_id integer NOT NULL,
+    unit_template_id integer NOT NULL
+);
+
+
+--
+-- Name: recommendations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE recommendations_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: recommendations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE recommendations_id_seq OWNED BY recommendations.id;
+
+
+--
 -- Name: referrals_users; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -2406,6 +2439,13 @@ ALTER TABLE ONLY public.page_areas ALTER COLUMN id SET DEFAULT nextval('public.p
 
 
 --
+-- Name: recommendations id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY recommendations ALTER COLUMN id SET DEFAULT nextval('recommendations_id_seq'::regclass);
+
+
+--
 -- Name: referrals_users id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -2845,6 +2885,14 @@ ALTER TABLE ONLY public.objectives
 
 ALTER TABLE ONLY public.page_areas
     ADD CONSTRAINT page_areas_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: recommendations recommendations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY recommendations
+    ADD CONSTRAINT recommendations_pkey PRIMARY KEY (id);
 
 
 --
@@ -3479,6 +3527,34 @@ CREATE UNIQUE INDEX index_oauth_applications_on_uid ON public.oauth_applications
 
 
 --
+-- Name: index_recommendations_on_activity_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_recommendations_on_activity_id ON public.recommendations USING btree (activity_id);
+
+
+--
+-- Name: index_recommendations_on_concept_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_recommendations_on_concept_id ON public.recommendations USING btree (concept_id);
+
+
+--
+-- Name: index_recommendations_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_recommendations_on_name ON public.recommendations USING btree (name);
+
+
+--
+-- Name: index_recommendations_on_unit_template_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_recommendations_on_unit_template_id ON public.recommendations USING btree (unit_template_id);
+
+
+--
 -- Name: index_referrals_users_on_referred_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -4027,6 +4103,22 @@ ALTER TABLE ONLY public.sales_stages
 
 
 --
+-- Name: recommendations fk_rails_6745e4bc86; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY recommendations
+    ADD CONSTRAINT fk_rails_6745e4bc86 FOREIGN KEY (unit_template_id) REFERENCES unit_templates(id);
+
+
+--
+-- Name: recommendations fk_rails_a275ef1a54; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY recommendations
+    ADD CONSTRAINT fk_rails_a275ef1a54 FOREIGN KEY (concept_id) REFERENCES concepts(id);
+
+
+--
 -- Name: sales_stages fk_rails_a8025d2621; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -4048,6 +4140,14 @@ ALTER TABLE ONLY public.concept_results
 
 ALTER TABLE ONLY public.sales_contacts
     ADD CONSTRAINT fk_rails_d6738e130a FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
+-- Name: recommendations fk_rails_dc326309ed; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY recommendations
+    ADD CONSTRAINT fk_rails_dc326309ed FOREIGN KEY (activity_id) REFERENCES activities(id);
 
 
 --
@@ -4625,4 +4725,6 @@ INSERT INTO schema_migrations (version) VALUES ('20180502152419');
 INSERT INTO schema_migrations (version) VALUES ('20180517045137');
 
 INSERT INTO schema_migrations (version) VALUES ('20180530145153');
+
+INSERT INTO schema_migrations (version) VALUES ('20180625211305');
 

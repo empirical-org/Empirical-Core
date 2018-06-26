@@ -1,0 +1,25 @@
+<article class="simple-rounded-box">
+  <h2>New Recommendation for <%= @activity.name %></h2>
+  <hr/>
+  <div class="cms-form">
+    <%= form_for [:cms, @activity_classification, @activity, @recommendation] do |f| %>
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+      <%= f.label :unit_template_id, 'Unit Template' %>
+      <%= f.collection_select :unit_template_id,
+        @unit_templates,
+        :id,
+        :name,
+        include_blank: true
+      %>
+      <%= f.label :concept_id, 'Concept Tag' %>
+      <%= f.collection_select :concept_id,
+        @concepts,
+        :id,
+        :name,
+        include_blank: true
+      %>
+      <%= f.submit %>
+    <% end %>
+  </div>
+</article>
