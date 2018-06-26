@@ -15,7 +15,7 @@ import FeedbackRow from './feedbackRow'
 import { Feedback } from 'quill-component-library/dist/componentLibrary'
 import numberToWord from '../../../libs/numberToWord'
 import { getParameterByName } from '../../../libs/getParameterByName';
-const icon = 'http://localhost:45537/images/icons/question_icon.svg' 
+const icon = 'http://cdn.quill.org/images/icons/question_icon.svg' 
 
 interface MultistepProps {
   data: QuestionData;

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const questionIconSrc = 'http://localhost:45537/images/icons/question_icon.svg'
+const questionIconSrc = 'http://cdn.quill.org/images/icons/question_icon.svg'
 
 // interface InstructionsProps {
 //   html: 'string'
