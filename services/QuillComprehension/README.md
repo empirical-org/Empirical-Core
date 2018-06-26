@@ -2,13 +2,13 @@
 
 ## Getting Started
 
-#### System Dependencies
+### System Dependencies
 Quill Comprehension uses [Yarn](https://yarnpkg.com/lang/en/) to manage dependencies. To install dependencies from `yarn.lock` and gems from `Gemfile`:
 ```
 $ yarn
 $ bundle update
 ```
-#### Database Creation/Initialization
+### Database Creation/Initialization
 Quill Comprehension stores data in PostgreSQL. To run on your local machine, you'll have to  create the Postgres database and migrate the schema from Rails:
 
 In `config/database.yml`, change the development user to your own Postgres username.
@@ -25,23 +25,23 @@ To set up the proper database schema, run:
 $ rails db:migrate
 ```
 
-#### Launching
+### Launching
 To launch Quill Comprehension:
 ```
 $ rails server
 ```
 
-#### Test Suite
+### Test Suite
 If you'd like to run tests:
 ```
 $ bundle exec rspec
 ```
 
-#### Version Info
+### Version Info
 Ruby: 2.5.1  
 Rails: 5.2.0
 
-#### Other
+### Other
 
 Things we may want to cover in README:
 
