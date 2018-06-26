@@ -8,8 +8,7 @@ import QuestionMatcher from '../../libs/question';
 import questionActions from '../../actions/questions';
 import sentenceFragmentActions from '../../actions/sentenceFragments';
 import diagnosticQuestionActions from '../../actions/diagnosticQuestions';
-import { ResponseSortFields } from 'quill-component-library/dist/componentLibrary';
-import { ResponseToggleFields } from 'quill-component-library/dist/componentLibrary';
+import { ResponseSortFields, ResponseToggleFields } from 'quill-component-library/dist/componentLibrary';
 import { getPartsOfSpeechTags } from '../../libs/partsOfSpeechTagging.js';
 import POSForResponsesList from './POSForResponsesList.jsx';
 import respWithStatus from '../../libs/responseTools.js';
@@ -502,7 +501,7 @@ class ResponseComponent extends React.Component {
     let posTagsList = {},
       posTagsAsString = '';
     responses.forEach((response) => {
-      posTagsAsString = response.posTags.join();
+      posTagsAsString = response.posTags ? response.posTags.join() : '';
       if (posTagsList[posTagsAsString]) {
         posTagsList[posTagsAsString].count += response.count;
         posTagsList[posTagsAsString].responses.push(response);

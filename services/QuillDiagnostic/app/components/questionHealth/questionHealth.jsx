@@ -7,6 +7,7 @@ import {
 import LoadingSpinner from '../shared/spinner.jsx';
 import { hashToCollection } from '../../libs/hashToCollection.js';
 import {oldFlagToNew} from '../../libs/flagMap'
+import { getDiagnosticQuestions } from '../../libs/getDiagnosticQuestions'
 import _ from 'lodash';
 
 class questionHealth extends Component {
@@ -23,7 +24,7 @@ class questionHealth extends Component {
 
     this.updateFlag = this.updateFlag.bind(this)
     this.filterByFlag = this.filterByFlag.bind(this)
-    this.filterQuestionsByFlag = this.filterQuestionsByFlag.bind(this)
+    this.filterQuestions = this.filterQuestions.bind(this)
   }
 
   componentWillMount() {
@@ -45,7 +46,7 @@ class questionHealth extends Component {
   componentWillReceiveProps(nextProps) {
     const { scoreAnalysis, questions, sentenceFragments, fillInBlank } = nextProps
     if (scoreAnalysis.hasreceiveddata && questions.hasreceiveddata && sentenceFragments.hasreceiveddata && fillInBlank.hasreceiveddata) {
-      this.filterQuestionsByFlag(scoreAnalysis, questions, sentenceFragments, fillInBlank)
+      this.filterQuestions(scoreAnalysis, questions, sentenceFragments, fillInBlank)
       // if (nextProps.questions.hasreceiveddata) {
       //   this.setSentenceCombiningQuestions(nextProps.scoreAnalysis.data, nextProps.questions.data)
       // }
@@ -64,32 +65,35 @@ class questionHealth extends Component {
   updateFlag(e) {
     const { scoreAnalysis, questions, sentenceFragments, fillInBlank } = this.props
     const flag = e.target.value === 'all' ? null : e.target.value
-    this.setState({flag: flag}, () => this.filterQuestionsByFlag(scoreAnalysis, questions, sentenceFragments, fillInBlank))
+    this.setState({flag: flag}, () => this.filterQuestions(scoreAnalysis, questions, sentenceFragments, fillInBlank))
   }
 
   filterByFlag(q) {
     return q.flag === this.state.flag || q.flag === oldFlagToNew[this.state.flag]
   }
 
-  filterQuestionsByFlag(
+  filterQuestions(
     scoreAnalysis,
     questions,
     sentenceFragments,
     fillInBlank
   ) {
-    let questionData, sentenceFragmentData, fillInBlankQuestionData
+    const questionData = getDiagnosticQuestions(this.props.lessons.data, questions.data)
+    const sentenceFragmentData = getDiagnosticQuestions(this.props.lessons.data, sentenceFragments.data)
+    const fillInBlankData = getDiagnosticQuestions(this.props.lessons.data, fillInBlank.data)
+    let filteredQuestionData, filteredSentenceFragmentData, filteredFillInBlankQuestionData
     if (this.state.flag) {
-      questionData = _.pickBy(questions.data, this.filterByFlag)
-      sentenceFragmentData = _.pickBy(sentenceFragments.data, this.filterByFlag)
-      fillInBlankQuestionData = _.pickBy(fillInBlank.data, this.filterByFlag)
+      filteredQuestionData = _.pickBy(questionData, this.filterByFlag)
+      filteredSentenceFragmentData = _.pickBy(sentenceFragmentData, this.filterByFlag)
+      filteredFillInBlankQuestionData = _.pickBy(fillInBlankData, this.filterByFlag)
     } else {
-      questionData = questions.data
-      sentenceFragmentData = sentenceFragments.data
-      fillInBlankQuestionData = fillInBlank.data
+      filteredQuestionData = questionData
+      filteredSentenceFragmentData = sentenceFragmentData
+      filteredFillInBlankQuestionData = fillInBlankData
     }
-    this.setSentenceCombiningQuestions(scoreAnalysis.data, questionData)
-    this.setSentenceFragments(scoreAnalysis.data, sentenceFragmentData)
-    this.setFillInBlankQuestions(scoreAnalysis.data, fillInBlankQuestionData)
+    this.setSentenceCombiningQuestions(scoreAnalysis.data, filteredQuestionData)
+    this.setSentenceFragments(scoreAnalysis.data, filteredSentenceFragmentData)
+    this.setFillInBlankQuestions(scoreAnalysis.data, filteredFillInBlankQuestionData)
   }
 
   setSentenceCombiningQuestions(analyzedQuestions, sentenceCombiningQuestions) {
@@ -295,7 +299,8 @@ function select(state) {
     questions: state.questions,
     scoreAnalysis: state.scoreAnalysis,
     sentenceFragments: state.sentenceFragments,
-    fillInBlank: state.fillInBlank
+    fillInBlank: state.fillInBlank,
+    lessons: state.lessons
   };
 }
 
