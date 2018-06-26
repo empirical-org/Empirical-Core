@@ -11,7 +11,7 @@ import {
   SelectedSubmissionsForQuestion,
 } from '../interfaces';
 import { QuestionData } from '../../../interfaces/classroomLessons'
-const icon = 'http://localhost:45537/images/icons/question_icon.svg' ;
+const icon = 'http://cdn.quill.org/images/icons/question_icon.svg' ;
 
 interface SingleAnswerProps {
   data: QuestionData,

@@ -16,7 +16,7 @@ import {
 } from '../../actions/responses';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 import { ConceptExplanation } from 'quill-component-library/dist/componentLibrary';
-const icon = 'http://localhost:45537/images/icons/question_icon.svg'
+const icon = 'http://cdn.quill.org/images/icons/question_icon.svg'
 
 const PlaySentenceFragment = React.createClass<any, any>({
   getInitialState() {

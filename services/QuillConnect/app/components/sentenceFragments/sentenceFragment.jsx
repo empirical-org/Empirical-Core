@@ -6,7 +6,7 @@ import EditForm from './sentenceFragmentForm.jsx';
 import fragmentActions from '../../actions/sentenceFragments.js';
 import C from '../../constants';
 import { Link } from 'react-router';
-const icon = 'http://localhost:45537/images/icons/question_icon.svg'
+const icon = 'http://cdn.quill.org/images/icons/question_icon.svg'
 
 import {
   listenToResponsesWithCallback

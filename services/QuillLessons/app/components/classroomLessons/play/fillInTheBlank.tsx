@@ -14,7 +14,7 @@ import {
 import promptSplitter from '../shared/promptSplitter'
 import htmlStrip from '../shared/htmlStrip'
 import { Feedback } from 'quill-component-library/dist/componentLibrary'
-const icon = 'http://localhost:45537/images/icons/question_icon.svg' 
+const icon = 'http://cdn.quill.org/images/icons/question_icon.svg' 
 
 interface fillInTheBlankProps {
   data: QuestionData,

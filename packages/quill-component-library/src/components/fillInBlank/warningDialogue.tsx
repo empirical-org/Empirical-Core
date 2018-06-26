@@ -9,7 +9,7 @@ import React from 'react'
 const WarningDialogue = (props: any) => (
   <div className="warning-dialogue" style={props.style}>
     <span style={{ whiteSpace: 'nowrap', }}>{props.text}</span>
-    <img style={props.chevyStyle} src='http://localhost:45537/images/icons/tooltipChevron.svg' alt="chevron" />
+    <img style={props.chevyStyle} src='http://cdn.quill.org/images/icons/tooltipChevron.svg' alt="chevron" />
   </div>
 )
 
