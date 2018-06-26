@@ -2,7 +2,7 @@ import React from 'react';
 import _ from 'underscore';
 import { hashToCollection } from '../../libs/hashToCollection';
 import { connect } from 'react-redux';
-import arrow from `${process.env.QUILL_CDN}/images/icons/correct_icon.svg`;
+import arrow from 'http://cdn.quill.org/images/icons/correct_icon.svg';
 import { Feedback } from 'quill-component-library/dist/componentLibrary';
 const jsDiff = require('diff');
 

@@ -18,7 +18,6 @@ import {
   rematchOne
 } from '../../libs/grading/rematching.ts';
 import massEdit from '../../actions/massEdit';
-import { TextEditor } from 'quill-component-library/dist/componentLibrary';
 import getBoilerplateFeedback from './boilerplateFeedback.jsx';
 import { QuestionBar } from 'quill-component-library/dist/componentLibrary';
 import request from 'request';
@@ -498,7 +497,7 @@ class ResponseComponent extends React.Component {
     let posTagsList = {},
       posTagsAsString = '';
     responses.forEach((response) => {
-      posTagsAsString = response.posTags.join();
+      posTagsAsString = response.posTags ? response.posTags.join() : '';
       if (posTagsList[posTagsAsString]) {
         posTagsList[posTagsAsString].count += response.count;
         posTagsList[posTagsAsString].responses.push(response);
