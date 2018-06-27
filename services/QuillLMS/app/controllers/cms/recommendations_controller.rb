@@ -11,6 +11,7 @@ class Cms::RecommendationsController < Cms::CmsController
     @activity = Activity.find(params[:activity_id])
     @unit_templates = UnitTemplate.all
     @concepts = Concept.all
+    @types = Recommendation.types.map { |type| [type.first, type.first.titleize] }
     @recommendation = Recommendation.new
   end
 end
