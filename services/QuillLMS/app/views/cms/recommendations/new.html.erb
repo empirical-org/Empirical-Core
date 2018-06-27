@@ -12,13 +12,8 @@
         :name,
         include_blank: true
       %>
-      <%= f.label :concept_id, 'Concept Tag' %>
-      <%= f.collection_select :concept_id,
-        @concepts,
-        :id,
-        :name,
-        include_blank: true
-      %>
+      <%= f.label :type %>
+      <%= f.collection_select :type, @types, :first, :second %>
       <%= f.submit %>
     <% end %>
   </div>

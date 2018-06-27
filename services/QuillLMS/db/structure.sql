@@ -1372,8 +1372,8 @@ CREATE TABLE recommendations (
     id integer NOT NULL,
     name character varying NOT NULL,
     activity_id integer NOT NULL,
-    concept_id integer NOT NULL,
-    unit_template_id integer NOT NULL
+    unit_template_id integer NOT NULL,
+    type integer NOT NULL
 );
 
 
@@ -3534,13 +3534,6 @@ CREATE INDEX index_recommendations_on_activity_id ON public.recommendations USIN
 
 
 --
--- Name: index_recommendations_on_concept_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_recommendations_on_concept_id ON public.recommendations USING btree (concept_id);
-
-
---
 -- Name: index_recommendations_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -4108,14 +4101,6 @@ ALTER TABLE ONLY public.sales_stages
 
 ALTER TABLE ONLY recommendations
     ADD CONSTRAINT fk_rails_6745e4bc86 FOREIGN KEY (unit_template_id) REFERENCES unit_templates(id);
-
-
---
--- Name: recommendations fk_rails_a275ef1a54; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY recommendations
-    ADD CONSTRAINT fk_rails_a275ef1a54 FOREIGN KEY (concept_id) REFERENCES concepts(id);
 
 
 --
@@ -4727,4 +4712,8 @@ INSERT INTO schema_migrations (version) VALUES ('20180517045137');
 INSERT INTO schema_migrations (version) VALUES ('20180530145153');
 
 INSERT INTO schema_migrations (version) VALUES ('20180625211305');
+
+INSERT INTO schema_migrations (version) VALUES ('20180627183421');
+
+INSERT INTO schema_migrations (version) VALUES ('20180627184008');
 
