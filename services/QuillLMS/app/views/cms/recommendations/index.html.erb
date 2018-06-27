@@ -1,1 +1,51 @@
-<%= link_to 'New Recommendation', new_cms_activity_classification_activity_recommendation_path(@activity_classification, @activity) %>
+<div class="container">
+  <article class="simple-rounded-box">
+    <h1>Recommendations</h1>
+    <hr>
+    <h2>Independent Practice</h2>
+    <% if @independent_recommendations.present? %>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Activity Pack</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @independent_recommendations.each do |recommendation| %>
+            <tr>
+              <td><%= recommendation.name %></td>
+              <td><%= recommendation.unit_template.name %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <p>None Yet</p>
+    <% end %>
+    <br>
+    <h2>Group Lessons</h2>
+    <% if @group_recommendations.present? %>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Activity Pack</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @group_recommendations.each do |recommendation| %>
+            <tr>
+              <td><%= recommendation.name %></td>
+              <td><%= recommendation.unit_template.name %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <p>None Yet</p>
+    <% end %>
+    <br>
+    <%= link_to 'New Recommendation', new_cms_activity_classification_activity_recommendation_path(@activity_classification, @activity) %>
+  </article>
+</div>

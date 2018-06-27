@@ -1,20 +1,39 @@
-<article class="simple-rounded-box">
-  <h2>New Recommendation for <%= @activity.name %></h2>
-  <hr/>
-  <div class="cms-form">
-    <%= form_for [:cms, @activity_classification, @activity, @recommendation] do |f| %>
-      <%= f.label :name %>
-      <%= f.text_field :name %>
-      <%= f.label :unit_template_id, 'Unit Template' %>
-      <%= f.collection_select :unit_template_id,
-        @unit_templates,
-        :id,
-        :name,
-        include_blank: true
-      %>
-      <%= f.label :type %>
-      <%= f.collection_select :type, @types, :first, :second %>
-      <%= f.submit %>
+<div class="container">
+  <article class="simple-rounded-box">
+    <h2>New Recommendation for <%= @activity.name %></h2>
+    <hr/>
+    <% if @recommendation.errors.any? %>
+      <div>
+        <h3>
+          <%= pluralize(@recommendation.errors.count, "error") %>
+          prohibited this recommendation from being saved:
+        </h3>
+        <ul>
+        <% @recommendation.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
     <% end %>
-  </div>
-</article>
+    <div class="cms-form">
+      <%= form_for [:cms, @activity_classification, @activity, @recommendation] do |f| %>
+        <%= f.label :name %>
+        <%= f.text_field :name %>
+        <%= f.label :unit_template_id, 'Activity Pack' %>
+        <%= f.collection_select :unit_template_id,
+          @unit_templates,
+          :id,
+          :name,
+          include_blank: true
+        %>
+        <%= f.label :category %>
+        <%= f.collection_select :category,
+          Recommendation.categories.map { |type| [type.first, type.first.titleize] },
+          :first,
+          :second
+        %>
+        <%= f.submit %>
+      <% end %>
+    </div>
+  </article>
+</div>
