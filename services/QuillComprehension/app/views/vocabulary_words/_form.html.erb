@@ -1,0 +1,42 @@
+<%= form_with(model: vocabulary_word, local: true, url: (@vocabulary_word.new_record? ? [@activity, @vocabulary_word]: @vocabulary_word)) do |form| %>
+  <% if vocabulary_word.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(vocabulary_word.errors.count, "error") %> prohibited this vocabulary_word from being saved:</h2>
+
+      <ul>
+      <% vocabulary_word.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :activity_id %>
+    <%= form.text_field :activity_id, value: (@vocabulary_word.new_record? ? @activity.id : @vocabulary_word.activity_id) %>
+  </div>
+
+  <div class="field">
+    <%= form.label :text %>
+    <%= form.text_area :text %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description %>
+  </div>
+
+  <div class="field">
+    <%= form.label :example %>
+    <%= form.text_area :example %>
+  </div>
+
+  <div class="field">
+    <%= form.label :order %>
+    <%= form.number_field :order %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
