@@ -1,6 +1,5 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
-import gql from "graphql-tag";
 import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "react-apollo";
 import { Provider } from 'react-redux'
