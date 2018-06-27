@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
-  updateData,
   loadScoreData,
   checkTimeout
 } from '../../actions/scoreAnalysis.js';
@@ -9,6 +8,7 @@ import LoadingSpinner from '../shared/spinner.jsx';
 import { QuestionRow } from 'quill-component-library/dist/componentLibrary';
 import { hashToCollection } from '../../libs/hashToCollection.js';
 import { getParameterByName } from '../../libs/getParameterByName'
+import { getNonDiagnosticQuestions } from '../../libs/getNonDiagnosticQuestions'
 import _ from 'underscore';
 import {oldFlagToNew} from '../../libs/flagMap'
 
@@ -81,7 +81,8 @@ class ScoreAnalysis extends Component {
   }
 
   formatDataForQuestionType(questionData, scoreAnalysis, typeName, pathName) {
-    return _.map(hashToCollection(questionData), (question) => {
+    const nonDiagnosticQuestions = getNonDiagnosticQuestions(this.props.diagnosticLessons.data, questionData)
+    return _.map(hashToCollection(nonDiagnosticQuestions), (question) => {
       const scoreData = scoreAnalysis.data[question.key];
       if (scoreData) {
         console.log('scoreData', scoreData.activities)
@@ -347,6 +348,7 @@ function select(state) {
     concepts: state.concepts,
     scoreAnalysis: state.scoreAnalysis,
     routing: state.routing,
+    diagnosticLessons: state.diagnosticLessons
   };
 }
 
