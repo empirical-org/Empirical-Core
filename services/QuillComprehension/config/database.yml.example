@@ -13,10 +13,7 @@ default: &default
 
 development:
   <<: *default
-  port:     54321
-  user:     donald
-  host:     localhost
-  password: <%= ENV['REMOTE_DB_PASSWORD'] %> 
+  port:     5432
   database: quill_comprehension_development
 
 # Warning: The database defined as "test" will be erased and
@@ -27,9 +24,3 @@ test:
   host:     localhost
   database: quill_comprehension_test
 
-
-production:
-  <<: *default
-  database: quill_comprehension_production
-  username: quill_comprehension
-  password: <%= ENV['MYAPP_DATABASE_PASSWORD'] %>

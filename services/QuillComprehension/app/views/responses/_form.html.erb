@@ -1,4 +1,4 @@
-<%= form_with(model: response, local: true) do |form| %>
+<%= form_with(model: response, local: true, url: (@response.new_record? ? [@question, @response] : @response)) do |form| %>
   <% if response.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(response.errors.count, "error") %> prohibited this response from being saved:</h2>
@@ -12,8 +12,8 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :question %>
-    <%= form.text_field :question %>
+    <%= form.label :question_id %>
+    <%= form.text_field :question_id, value: (@response.new_record? ? @question.id : @response.question_id) %>
   </div>
 
   <div class="field">

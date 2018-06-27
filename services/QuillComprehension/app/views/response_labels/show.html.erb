@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @response_label.name.capitalize %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @response_label.description %>
+</p>
+
+<%= link_to 'Edit', edit_response_label_path(@response_label) %> |
+<%= link_to 'Back', response_labels_path %>

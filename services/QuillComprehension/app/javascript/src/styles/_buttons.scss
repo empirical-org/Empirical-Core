@@ -33,7 +33,26 @@
   border-color:  #2bcbba;
 }
 
+.btn-danger {
+  color: #fff;
+  background-color:  #cd201f;
+  border-color:  #cd201f;
+}
+
 .btn-link {
   color: #467fcf;
   background-color: transparent;
+}
+
+.btn-icon {
+  padding: 0;
+  margin: 0;
+  height: auto;
+  width: auto;
+  background: none;
+  border: none;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
 }

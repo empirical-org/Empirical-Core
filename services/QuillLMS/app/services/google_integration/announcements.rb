@@ -18,11 +18,11 @@ class GoogleIntegration::Announcements
     end
   end
 
-  def initialize(classroom_activity, unit = nil)
+  def initialize(classroom_activity, unit=nil)
     @classroom_activity = classroom_activity
     @unit = unit
   end
-
+ 
   def post
     handle_response { request }
   end
