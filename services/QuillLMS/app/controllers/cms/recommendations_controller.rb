@@ -29,6 +29,18 @@ class Cms::RecommendationsController < Cms::CmsController
     end
   end
 
+  def destroy
+    @recommendation = Recommendation.find(params[:id])
+
+    if @recommendation.destroy
+      flash[:notice] = 'Recommendation destroyed!'
+    else
+      flash[:error] = 'Unable to destroy recommendation.'
+    end
+
+    redirect_to cms_activity_classification_activity_recommendations_path
+  end
+
   private
 
   def set_activity_classification
