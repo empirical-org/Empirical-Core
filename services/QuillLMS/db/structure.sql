@@ -1373,7 +1373,7 @@ CREATE TABLE recommendations (
     name character varying NOT NULL,
     activity_id integer NOT NULL,
     unit_template_id integer NOT NULL,
-    type integer NOT NULL
+    category integer NOT NULL
 );
 
 
@@ -4716,4 +4716,6 @@ INSERT INTO schema_migrations (version) VALUES ('20180625211305');
 INSERT INTO schema_migrations (version) VALUES ('20180627183421');
 
 INSERT INTO schema_migrations (version) VALUES ('20180627184008');
+
+INSERT INTO schema_migrations (version) VALUES ('20180627200532');
 
