@@ -9,6 +9,7 @@
           <tr>
             <th>Name</th>
             <th>Activity Pack</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -16,6 +17,17 @@
             <tr>
               <td><%= recommendation.name %></td>
               <td><%= recommendation.unit_template.name %></td>
+              <td>
+                <%= link_to 'Delete',
+                  cms_activity_classification_activity_recommendation_path(
+                    @activity_classification,
+                    @activity,
+                    recommendation
+                  ),
+                  method: :delete,
+                  data: { confirm: 'Are you sure?' }
+                %>
+              </td>
             </tr>
           <% end %>
         </tbody>
@@ -31,6 +43,7 @@
           <tr>
             <th>Name</th>
             <th>Activity Pack</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -38,6 +51,17 @@
             <tr>
               <td><%= recommendation.name %></td>
               <td><%= recommendation.unit_template.name %></td>
+              <td>
+                <%= link_to 'Delete',
+                  cms_activity_classification_activity_recommendation_path(
+                    @activity_classification,
+                    @activity,
+                    recommendation
+                  ),
+                  method: :delete,
+                  data: { confirm: 'Are you sure?' }
+                %>
+              </td>
             </tr>
           <% end %>
         </tbody>
