@@ -59,16 +59,19 @@ class Auth::GoogleController < ApplicationController
   def save_teacher_from_google_signup
     return unless @user.new_record? && @user.teacher?
 
+    @js_file = 'session'
+
     if @user.save
       AccountCreationCallbacks.new(@user, request.remote_ip).trigger
       @user.subscribe_to_newsletter
       @teacherFromGoogleSignUp = true
-      @js_file = 'session'
 
       sign_in(@user)
-      render 'accounts/new'
     else
-      redirect_to new_account_path
+      @teacherFromGoogleSignUp = false
+      flash.now[:error] = @user.errors.full_messages.join(', ')
     end
+
+    render 'accounts/new'
   end
 end
