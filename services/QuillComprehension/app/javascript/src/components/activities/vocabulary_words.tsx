@@ -42,8 +42,8 @@ export default class VocabularyWords extends React.Component<Props, State> {
           <div className="card mw-50">
             <div className="card-header"><h3>{this.state.activeVocabWord.text}</h3></div>
             <div className="card-body">
-              <p><strong>Definition</strong>: {this.state.activeVocabWord.description}</p>
-              <p><strong>Sample Sentence</strong>: <ReactMarkdown source={this.state.activeVocabWord.example} /></p>
+              <p><strong>Definition</strong>: <ReactMarkdown source={this.state.activeVocabWord.description}/></p>
+              <p><strong>Sample Sentence</strong>: <ReactMarkdown source={this.state.activeVocabWord.example}/></p>
             </div>
             <div className="card-footer"><button className="btn btn-primary" onClick={e => this.clearVocabWord()}>Done</button></div>
           </div>
