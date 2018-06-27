@@ -3,7 +3,7 @@ test:
   adapter: postgresql
   encoding: unicode
   database: empiricalgrammar_test<%= ENV['TEST_ENV_NUMBER'] %>
-  host:     lms-testdb
+  host:     lms-testdb<%= ENV['BUILD_TAG'] %>
   username: postgres
 
 # vim:syn=yaml

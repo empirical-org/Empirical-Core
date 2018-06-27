@@ -3,4 +3,4 @@
 <%= render 'form', response: @response %>
 
 <%= link_to 'Show', @response %> |
-<%= link_to 'Back', responses_path %>
+<%= link_to 'Back', question_responses_path(@response.question_id) %>

@@ -23,26 +23,6 @@
     {
       "warning_type": "SQL Injection",
       "warning_code": 0,
-      "fingerprint": "0f8c74d53cc3eb9a2cc9595f20ad4d856d32c0f2a15dec7a29a3e98a0e611106",
-      "check_name": "SQL",
-      "message": "Possible SQL injection",
-      "file": "app/controllers/cms/users_controller.rb",
-      "line": 188,
-      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
-      "code": "ActiveRecord::Base.connection.execute(\"\\n      SELECT\\n      \\tusers.name AS name,\\n      \\tusers.email AS email,\\n      \\tusers.role AS role,\\n      \\tsubscriptions.account_type AS subscription,\\n      \\tTO_CHAR(users.last_sign_in, 'Mon DD, YYYY') AS last_sign_in,\\n        schools.name AS school,\\n        schools.id AS school_id,\\n      \\tusers.id AS id\\n      FROM users\\n      LEFT JOIN schools_users ON users.id = schools_users.user_id\\n      LEFT JOIN schools ON schools_users.school_id = schools.id\\n      LEFT JOIN user_subscriptions ON users.id = user_subscriptions.user_id\\n      LEFT JOIN subscriptions ON user_subscriptions.subscription_id = subscriptions.id\\n      #{where_query_string_builder}\\n      #{order_by_query_string}\\n      #{pagination_query_string}\\n    \")",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "Cms::UsersController",
-        "method": "user_query"
-      },
-      "user_input": "where_query_string_builder",
-      "confidence": "Medium",
-      "note": ""
-    },
-    {
-      "warning_type": "SQL Injection",
-      "warning_code": 0,
       "fingerprint": "1bbfd086a4e9c27a0b95dac5515d50d4a26da8604e3f726c18fab1171f0eb8be",
       "check_name": "SQL",
       "message": "Possible SQL injection",
@@ -87,7 +67,7 @@
       "check_name": "Redirect",
       "message": "Possible unprotected redirect",
       "file": "app/controllers/pages_controller.rb",
-      "line": 48,
+      "line": 45,
       "link": "https://brakemanscanner.org/docs/warning_types/redirect/",
       "code": "redirect_to(Activity.with_classification.find_by_uid(\"-K0rnIIF_iejGqS3XPJ8\").anonymous_module_url.to_s)",
       "render_path": null,
@@ -147,7 +127,7 @@
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "app/controllers/cms/users_controller.rb",
-      "line": 265,
+      "line": 267,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "ActiveRecord::Base.connection.execute(\"\\n      SELECT\\n      \\tCOUNT(users.id) AS count\\n      FROM users\\n      LEFT JOIN schools_users ON users.id = schools_users.user_id\\n      LEFT JOIN schools ON schools_users.school_id = schools.id\\n      LEFT JOIN user_subscriptions ON users.id = user_subscriptions.user_id\\n      LEFT JOIN subscriptions ON user_subscriptions.subscription_id = subscriptions.id\\n      #{where_query_string_builder}\\n    \")",
       "render_path": null,
@@ -442,6 +422,26 @@
     {
       "warning_type": "SQL Injection",
       "warning_code": 0,
+      "fingerprint": "ea435352954473baa695bad958649f49765d54229a8bef903d2458ca2fbaccf3",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/controllers/cms/users_controller.rb",
+      "line": 189,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.execute(\"\\n      SELECT\\n      \\tusers.name AS name,\\n      \\tusers.email AS email,\\n      \\tusers.role AS role,\\n      \\tsubscriptions.account_type AS subscription,\\n      \\tTO_CHAR(users.last_sign_in, 'Mon DD, YYYY') AS last_sign_in,\\n        schools.name AS school,\\n        schools.id AS school_id,\\n      \\tusers.id AS id\\n      FROM users\\n      LEFT JOIN schools_users ON users.id = schools_users.user_id\\n      LEFT JOIN schools ON schools_users.school_id = schools.id\\n      LEFT JOIN user_subscriptions ON users.id = user_subscriptions.user_id\\n      AND user_subscriptions.created_at = (SELECT MAX(user_subscriptions.created_at) FROM user_subscriptions WHERE user_subscriptions.user_id = users.id)\\n      LEFT JOIN subscriptions ON user_subscriptions.subscription_id = subscriptions.id\\n      #{where_query_string_builder}\\n      #{order_by_query_string}\\n      #{pagination_query_string}\\n    \")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Cms::UsersController",
+        "method": "user_query"
+      },
+      "user_input": "where_query_string_builder",
+      "confidence": "Medium",
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
       "fingerprint": "f01bb70a71628dc0641ecfa8e964d326a962cb62a6ba6678a999ccddeefa1f30",
       "check_name": "SQL",
       "message": "Possible SQL injection",
@@ -460,6 +460,6 @@
       "note": ""
     }
   ],
-  "updated": "2018-05-30 16:21:11 -0400",
+  "updated": "2018-06-13 21:17:55 -0400",
   "brakeman_version": "4.1.1"
 }

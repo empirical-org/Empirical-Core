@@ -17,4 +17,10 @@ Types::ActivityType = GraphQL::ObjectType.define do
       obj.questions
     }
   end
+
+  field :vocabulary_words, !types[Types::VocabularyWordType] do
+    resolve -> (obj, args, ctx) {
+      obj.vocabulary_words
+    }
+  end
 end

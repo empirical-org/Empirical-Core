@@ -1,5 +1,5 @@
 class ActivitiesController < ApplicationController
-  before_action :set_activity, only: [:show, :edit, :update, :destroy]
+  before_action :set_activity, only: [:show, :edit, :update, :destroy, :play]
 
   # GET /activities
   # GET /activities.json
@@ -61,6 +61,11 @@ class ActivitiesController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def play
+    @page_js_bundle = 'play_activity'
+  end
+    
 
   private
     # Use callbacks to share common setup or constraints between actions.
