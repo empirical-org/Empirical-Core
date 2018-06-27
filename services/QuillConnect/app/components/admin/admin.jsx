@@ -11,6 +11,7 @@ import fillInBlankActions from '../../actions/fillInBlank';
 import sentenceFragmentActions from '../../actions/sentenceFragments';
 import lessonActions from '../../actions/lessons';
 import levelActions from '../../actions/item-levels';
+import diagnosticLessonActions from '../../actions/diagnosticLessons'
 import * as titleCardActions from '../../actions/titleCards.ts';
 
 const TabLink = props => (
@@ -23,6 +24,7 @@ const TabLink = props => (
 
 const adminContainer = React.createClass({
   componentWillMount() {
+    console.log('diagnosticLessonActions', diagnosticLessonActions)
     this.props.dispatch(userActions.firebaseAuth());
     this.props.dispatch(conceptActions.startListeningToConcepts());
     this.props.dispatch(conceptsFeedbackActions.startListeningToConceptsFeedback());
@@ -31,6 +33,7 @@ const adminContainer = React.createClass({
     this.props.dispatch(sentenceFragmentActions.startListeningToSentenceFragments());
     this.props.dispatch(levelActions.startListeningToItemLevels());
     this.props.dispatch(titleCardActions.startListeningToTitleCards())
+    this.props.dispatch(diagnosticLessonActions.loadDiagnosticLessons())
   },
 
   render() {

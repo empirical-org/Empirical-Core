@@ -25,6 +25,7 @@ import scoreAnalysis from './scoreAnalysis';
 import sentenceFragments from './sentenceFragments';
 import sessions from './sessions';
 import titleCards from './titleCards';
+import diagnosticLessons from './diagnosticLessons';
 
 const combinedReducers = combineReducers({
   classroomLesson,
@@ -51,7 +52,8 @@ const combinedReducers = combineReducers({
   scoreAnalysis,
   sentenceFragments,
   sessions,
-  titleCards
+  titleCards,
+  diagnosticLessons
 });
 
 export default combinedReducers;

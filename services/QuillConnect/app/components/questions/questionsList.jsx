@@ -54,7 +54,7 @@ const QuestionsList = React.createClass({
 
   mapConceptsToList: function () {
     const concepts = hashToCollection(this.props.concepts.data['0']);
-    const questions = hashToCollection(this.props.questions.data);
+    const questions = hashToCollection(this.props.questions);
     return concepts.map((concept) => {
       var label = this.renderLabel(concept);
       var questionsForConcept = _.where(questions, {conceptID: concept.uid})

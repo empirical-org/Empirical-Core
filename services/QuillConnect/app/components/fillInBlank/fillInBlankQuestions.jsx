@@ -1,18 +1,28 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import FillInTheBlankList from './fillInBlankList.jsx';
+import { QuestionList } from 'quill-component-library/dist/componentLibrary';
 import { hashToCollection } from '../../libs/hashToCollection';
 import ArchivedButton from '../shared/archivedButton.jsx'
-import { QuestionList } from 'quill-component-library/dist/componentLibrary';
+import { getNonDiagnosticQuestions } from '../../libs/getNonDiagnosticQuestions'
 
 class FillInBlankQuestions extends Component {
   constructor() {
     super();
     this.state = {
       showOnlyArchived: false,
+      questions: {}
     }
     this.toggleShowArchived = this.toggleShowArchived.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { fillInBlank, diagnosticLessons } = nextProps
+    if (fillInBlank.hasreceiveddata && diagnosticLessons.hasreceiveddata) {
+      if (Object.keys(this.state.questions).length === 0 || !_.isEqual(this.props.fillInBlank.data, fillInBlank.data) || (!_.isEqual(this.props.diagnosticLessons.data, diagnosticLessons.data))) {
+        this.setState({ questions: getNonDiagnosticQuestions(diagnosticLessons.data, fillInBlank.data) })
+      }
+    }
   }
 
   toggleShowArchived() {
@@ -31,9 +41,9 @@ class FillInBlankQuestions extends Component {
           <ArchivedButton showOnlyArchived={this.state.showOnlyArchived} toggleShowArchived={this.toggleShowArchived} lessons={false} />
           <p className="menu-label">Fill In The Blank</p>
           <QuestionList
-            questions={hashToCollection(this.props.fillInBlank.data) || []}
+            questions={hashToCollection(this.state.questions) || []}
             showOnlyArchived={this.state.showOnlyArchived}
-            basePath={'fill-in-the-blanks'}
+            basePath="fill-in-the-blanks"
           />
         </div>
       </section>
@@ -45,6 +55,7 @@ class FillInBlankQuestions extends Component {
 function select(props) {
   return {
     fillInBlank: props.fillInBlank,
+    diagnosticLessons: props.diagnosticLessons
   };
 }
 
