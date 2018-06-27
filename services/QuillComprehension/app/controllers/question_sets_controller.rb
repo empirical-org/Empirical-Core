@@ -28,7 +28,7 @@ class QuestionSetsController < ApplicationController
 
     respond_to do |format|
       if @question_set.save
-        format.html { redirect_to @question_set, notice: 'Question set was successfully created.' }
+        format.html { redirect_to @activity, notice: 'Question set was successfully created.' }
         format.json { render :show, status: :created, location: @question_set }
       else
         format.html { render :new }
