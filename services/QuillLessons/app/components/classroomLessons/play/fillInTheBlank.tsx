@@ -5,7 +5,7 @@ import _ from 'underscore'
 import { QuestionData } from '../../../interfaces/classroomLessons'
 import Cues from '../../../components/renderForQuestions/cues';
 import TextEditor from '../../renderForQuestions/renderTextEditor';
-import { WarningDialogue } from 'quill-component-library/dist/componentLibrary'
+import { WarningDialogue, Feedback } from 'quill-component-library/dist/componentLibrary'
 import { getParameterByName } from '../../../libs/getParameterByName';
 import {
   QuestionSubmissionsList,
@@ -13,7 +13,6 @@ import {
 } from '../interfaces';
 import promptSplitter from '../shared/promptSplitter'
 import htmlStrip from '../shared/htmlStrip'
-import { Feedback } from 'quill-component-library/dist/componentLibrary'
 const icon = 'http://cdn.quill.org/images/icons/question_icon.svg' 
 
 interface fillInTheBlankProps {

@@ -6,7 +6,7 @@ const revise = 'http://cdn.quill.org/images/icons/revise_orange_icon.svg';
 const multiple = 'http://cdn.quill.org/images/icons/multiple_choice_icon.svg';
 const success = 'http://cdn.quill.org/images/icons/check-mark.svg';
 import getAnswerState from './answerState';
-import {Response} from 'quill-marking-logic';
+import { Response } from 'quill-marking-logic';
 import { Feedback } from 'quill-component-library/dist/componentLibrary';
 
 class FeedbackComponent extends React.Component<any, any> {
