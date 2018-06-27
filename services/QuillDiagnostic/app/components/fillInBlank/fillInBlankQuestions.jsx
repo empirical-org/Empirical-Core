@@ -31,19 +31,6 @@ class FillInBlankQuestions extends Component {
     });
   }
 
-  getDiagnosticQuestions() {
-    const { lessons, fillInBlank, } = this.props
-    const diagnosticQuestions = {}
-    Object.keys(fillInBlank.data).forEach((k) => {
-      const isDiagnosticQuestion = Object.values(lessons.data).some(l => l.questions.includes(lq => lq.key === k))
-      console.log(isDiagnosticQuestion)
-      if (isDiagnosticQuestion) {
-        diagnosticQuestions[k] = fillInBlank[k]
-      }
-    })
-    return diagnosticQuestions
-  }
-
   render() {
     return (
       <section className="section">

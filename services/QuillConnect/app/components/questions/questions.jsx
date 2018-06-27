@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import actions from '../../actions/questions';
 import _ from 'underscore';
+import { Link } from 'react-router';
 import { Modal } from 'quill-component-library/dist/componentLibrary';
 import { hashToCollection } from '../../libs/hashToCollection';
 import Question from '../../libs/question';
@@ -11,6 +12,7 @@ import { push } from 'react-router-redux';
 import respWithStatus from '../../libs/responseTools.js';
 import { submitResponseEdit, setUpdatedResponse, deleteResponse } from '../../actions/responses';
 import ArchivedButton from '../shared/archivedButton.jsx';
+import { getNonDiagnosticQuestions } from '../../libs/getNonDiagnosticQuestions'
 
 function sleep(milliseconds) {
   const start = new Date().getTime();
@@ -21,37 +23,63 @@ function sleep(milliseconds) {
   }
 }
 
-const Questions = React.createClass({
-  getInitialState() {
-    return {
+class Questions extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
       displayNoConceptQuestions: false,
       showOnlyArchived: false,
-    };
-  },
+      questions: {}
+    }
+
+    this.createNew = this.createNew.bind(this)
+    this.submitNewQuestion = this.submitNewQuestion.bind(this)
+    this.updateRematchedResponse = this.updateRematchedResponse.bind(this)
+    this.mapConceptsToList = this.mapConceptsToList.bind(this)
+    this.responsesWithStatusForQuestion = this.responsesWithStatusForQuestion.bind(this)
+    this.rematchAllQuestions = this.rematchAllQuestions.bind(this)
+    this.rematchAllResponses = this.rematchAllResponses.bind(this)
+    this.rematchResponse = this.rematchResponse.bind(this)
+    this.renderModal = this.renderModal.bind(this)
+    this.handleSearchChange = this.handleSearchChange.bind(this)
+    this.toggleNoConceptQuestions = this.toggleNoConceptQuestions.bind(this)
+    this.toggleShowArchived = this.toggleShowArchived.bind(this)
+    this.renderSearchBox = this.renderSearchBox.bind(this)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { questions, diagnosticLessons } = nextProps
+    if (questions.hasreceiveddata && diagnosticLessons.hasreceiveddata) {
+      if (Object.keys(this.state.questions).length === 0 || !_.isEqual(this.props.questions.data, questions.data) || (!_.isEqual(this.props.diagnosticLessons.data, diagnosticLessons.data))) {
+        this.setState({ questions: getNonDiagnosticQuestions(diagnosticLessons.data, questions.data) })
+      }
+    }
+  }
 
   createNew() {
     this.props.dispatch(actions.toggleNewQuestionModal());
-  },
+  }
 
   submitNewQuestion() {
     const newQuestion = { name: this.refs.newQuestionName.value, };
     this.props.dispatch(actions.submitNewQuestion(newQuestion));
     this.refs.newQuestionName.value = '';
     // this.props.dispatch(actions.toggleNewQuestionModal())
-  },
+  }
 
   updateRematchedResponse(rid, vals) {
     this.props.dispatch(submitResponseEdit(rid, vals));
-  },
+  }
 
   getErrorsForAttempt(attempt) {
     return attempt.feedback;
-  },
+  }
 
   generateFeedbackString(attempt) {
     const errors = this.getErrorsForAttempt(attempt);
     return errors;
-  },
+  }
 
   getMatchingResponse(quest, response, responses) {
     const fields = {
@@ -61,7 +89,7 @@ const Questions = React.createClass({
     };
     const question = new Question(fields);
     return question.checkMatch(response.text);
-  },
+  }
 
   // functions for rematching all Responses
   mapConceptsToList() {
@@ -69,12 +97,12 @@ const Questions = React.createClass({
     const questions = hashToCollection(this.props.questions.data);
     const conceptsWithQuestions = concepts.map(concept => _.where(questions, { conceptID: concept.uid, }));
     return _.flatten(conceptsWithQuestions);
-  },
+  }
 
   responsesWithStatusForQuestion(questionUID) {
     const responses = this.props.responses.data[questionUID];
     return hashToCollection(respWithStatus(responses));
-  },
+  }
 
   rematchAllQuestions() {
     const ignoreList = [
@@ -117,7 +145,7 @@ const Questions = React.createClass({
       }
     });
     console.log('Finished Rematching All Questions');
-  },
+  }
 
   rematchAllResponses(question) {
     // console.log('Rematching All Responses', question);
@@ -129,7 +157,7 @@ const Questions = React.createClass({
       this.rematchResponse(question, resp, responsesWithStat);
     });
     // console.log('Finished Rematching All Responses');
-  },
+  }
 
   rematchResponse(question, response, responses) {
     if (!response.questionUID || !response.text) {
@@ -137,10 +165,10 @@ const Questions = React.createClass({
     }
     const newMatchedResponse = this.getMatchingResponse(question, response, responses);
     const changed =
-      (newMatchedResponse.response.parentID !== response.parentID) ||
-      (newMatchedResponse.response.author !== response.author) ||
-      (newMatchedResponse.response.feedback !== response.feedback) ||
-      (newMatchedResponse.response.conceptResults !== response.conceptResults);
+    (newMatchedResponse.response.parentID !== response.parentID) ||
+    (newMatchedResponse.response.author !== response.author) ||
+    (newMatchedResponse.response.feedback !== response.feedback) ||
+    (newMatchedResponse.response.conceptResults !== response.conceptResults);
     const unmatched = (newMatchedResponse.found === false);
     // console.log('Rematched: t, u, o, n: ', changed, unmatched);
     // console.log(response);
@@ -157,8 +185,8 @@ const Questions = React.createClass({
         // console.log("Unmatched: ", response.key)
         sleep(150);
         this.props.dispatch(
-            setUpdatedResponse(response.key, newValues)
-          );
+          setUpdatedResponse(response.key, newValues)
+        );
       } else if (newMatchedResponse.response.parentID === undefined) {
         this.props.dispatch(
           deleteResponse(question.key, response.key)
@@ -179,7 +207,7 @@ const Questions = React.createClass({
         this.updateRematchedResponse(response.key, newValues);
       }
     }
-  },
+  }
 
   renderModal() {
     const stateSpecificClass = this.props.questions.submittingnew ? 'is-loading' : '';
@@ -213,24 +241,24 @@ const Questions = React.createClass({
         </Modal>
       );
     }
-  },
+  }
 
   handleSearchChange(e) {
     const action = push(`/admin/questions/${e.value}`);
     this.props.dispatch(action);
-  },
+  }
 
   toggleNoConceptQuestions() {
     this.setState({
       displayNoConceptQuestions: !this.state.displayNoConceptQuestions,
     });
-  },
+  }
 
   toggleShowArchived() {
     this.setState({
       showOnlyArchived: !this.state.showOnlyArchived,
     });
-  },
+  }
 
 
   renderSearchBox() {
@@ -248,7 +276,7 @@ const Questions = React.createClass({
       const searchBox = (<QuestionSelector options={formatted} placeholder="Search for a question" onChange={this.handleSearchChange} />);
       return searchBox;
     }
-  },
+  }
 
   render() {
     const { questions, concepts, } = this.props;
@@ -268,12 +296,13 @@ const Questions = React.createClass({
             <br />
             <br />
             <QuestionsList
-              questions={questions}
+              questions={this.state.questions}
               concepts={concepts}
               displayNoConceptQuestions={this.state.displayNoConceptQuestions}
               showOnlyArchived={this.state.showOnlyArchived}
               basePath={'questions'}
             />
+
           </div>
         </section>
       );
@@ -282,8 +311,9 @@ const Questions = React.createClass({
         <div>Loading...</div>
       );
     }
-  },
-});
+  }
+
+}
 
 function select(state) {
   return {
@@ -291,6 +321,7 @@ function select(state) {
     questions: state.questions,
     // responses: state.responses,
     routing: state.routing,
+    diagnosticLessons: state.diagnosticLessons
   };
 }
 
