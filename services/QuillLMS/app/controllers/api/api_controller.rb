@@ -26,6 +26,7 @@ class Api::ApiController < ActionController::Base
   def add_platform_doc_header
     response.headers['X-Platform-Spec'] = 'https://github.com/interagent/http-api-design'
     response.headers['X-API-Reference'] = 'http://docs.empirical.org/api-reference/'
+    response.headers['Access-Control-Allow-Credentials'] = 'true'
   end
 
   def current_user
