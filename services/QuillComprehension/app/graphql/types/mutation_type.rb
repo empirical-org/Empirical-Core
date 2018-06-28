@@ -1,7 +1,6 @@
-Types::MutationType = GraphQL::ObjectType.define do
-  name "Mutation"
+class Types::MutationType < Types::BaseObject
 
-  field :createNewResponse, function: Mutations::CreateNewResponse.new
+  field :create_new_response, function: Mutations::CreateNewResponse.new
 
-  field :createResponseLabelTag, function: Mutations::CreateResponseLabelTag.new
+  field :create_response_label_tag, function: Mutations::CreateResponseLabelTag.new
 end

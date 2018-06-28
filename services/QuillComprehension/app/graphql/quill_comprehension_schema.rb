@@ -1,4 +1,4 @@
-QuillComprehensionSchema = GraphQL::Schema.define do
+class QuillComprehensionSchema  < GraphQL::Schema
   mutation(Types::MutationType)
   query(Types::QueryType)
 end
