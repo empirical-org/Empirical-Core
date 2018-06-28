@@ -13,7 +13,7 @@ import {
   Play,
   Pause
 } from 'react-feather';
-export interface AppProps extends PassedProps, DispatchFromProps, StateFromProps { 
+export interface AppProps extends PassedProps, DispatchFromProps, StateFromProps {
 }
 
 export interface PassedProps {
@@ -26,8 +26,8 @@ function activityQuery(activity_id:string) {
     activity(id: ${activity_id}) {
       title
       article
-      question_sets {
-        id 
+      questionSets {
+        id
         prompt
         questions {
           id
@@ -40,7 +40,7 @@ function activityQuery(activity_id:string) {
         prompt
         order
       }
-      vocabulary_words {
+      vocabularyWords {
         id
         text
         description
@@ -88,7 +88,7 @@ class ActivityContainer extends React.Component<AppProps, any> {
         <Questions questions={questions} key={questionSetId}/>
       </div>
     )
-    
+
   }
 
   renderQuestionSets(data, readArticle) {
