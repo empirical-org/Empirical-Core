@@ -11,14 +11,14 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :question_id %>
-    <%= form.text_field :question_id, value: (@response.new_record? ? @question.id : @response.question_id) %>
+  <div class="form-group">
+    <%= form.label :question_id, class: "form-label" %>
+    <%= form.text_field :question_id, value: (@response.new_record? ? @question.id : @response.question_id), class: "form-control" %>
   </div>
 
-  <div class="field">
-    <%= form.label :text %>
-    <%= form.text_area :text %>
+  <div class="form-group">
+    <%= form.label :text, class: "form-label" %>
+    <%= form.text_area :text, class: "form-control" %>
   </div>
 
   <div class="actions">
