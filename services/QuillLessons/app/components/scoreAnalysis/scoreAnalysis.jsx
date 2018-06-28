@@ -4,7 +4,7 @@ import {
   loadScoreData,
   checkTimeout
 } from '../../actions/scoreAnalysis.js';
-import LoadingSpinner from '../shared/spinner.jsx';
+import { Spinner } from 'quill-component-library/dist/componentLibrary'
 import { QuestionRow } from 'quill-component-library/dist/componentLibrary';
 import { hashToCollection } from 'quill-component-library/dist/componentLibrary';
 import { getParameterByName } from '../../libs/getParameterByName'
@@ -325,7 +325,7 @@ class ScoreAnalysis extends Component {
         </div>
       );
     }
-    return (<LoadingSpinner />);
+    return (<Spinner />);
   }
 
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import Spinner from '../shared/spinner.jsx';
+import { Spinner } from 'quill-component-library/dist/componentLibrary';
 export default React.createClass({
 
   componentDidMount() {

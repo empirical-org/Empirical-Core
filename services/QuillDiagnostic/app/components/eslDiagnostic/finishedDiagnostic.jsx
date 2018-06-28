@@ -1,5 +1,5 @@
 import React from 'react';
-import Spinner from '../shared/spinner.jsx';
+import { Spinner } from 'quill-component-library/dist/componentLibrary';
 import translations from '../../libs/translations/index.js';
 
 export default React.createClass({

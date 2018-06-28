@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 const C = require('../../constants').default;
 import rootRef from '../../libs/firebase';
 const sessionsRef = rootRef.child('sessions');
-import Spinner from '../shared/spinner.jsx';
+import { Spinner } from 'quill-component-library/dist/componentLibrary';
 
 export default React.createClass({
   getInitialState() {

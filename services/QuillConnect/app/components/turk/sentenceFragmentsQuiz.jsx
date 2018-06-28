@@ -5,7 +5,7 @@ import {clearData, loadData, nextQuestion, submitResponse, updateName, updateCur
 import _ from 'underscore'
 import { hashToCollection } from 'quill-component-library/dist/componentLibrary'
 import diagnosticQuestions from './diagnosticQuestions.jsx'
-import Spinner from '../shared/spinner.jsx'
+import { Spinner } from 'quill-component-library/dist/componentLibrary'
 import PlaySentenceFragment from '../studentLessons/sentenceFragment.jsx'
 import PlayDiagnosticQuestion from '../studentLessons/question.tsx'
 import LandingPage from './landing.jsx'
