@@ -22,7 +22,9 @@ export {
   Error,
   FlagDropdown,
   Passthrough,
-  ResumeOrBeginButton
+  ResumeOrBeginButton,
+  SmartSpinner,
+  Spinner
 } from './components/shared/index'
 
 export {

@@ -15,7 +15,7 @@ import {
 import _ from 'underscore';
 import { hashToCollection } from 'quill-component-library/dist/componentLibrary';
 import SessionActions from '../../actions/sessions.js';
-import SmartSpinner from '../shared/smartSpinner.jsx';
+import { SmartSpinner } from 'quill-component-library/dist/componentLibrary';
 import PlaySentenceFragment from './sentenceFragment.jsx';
 import PlayDiagnosticQuestion from './sentenceCombining.jsx';
 import PlayFillInTheBlankQuestion from '../fillInBlank/playFillInTheBlankQuestion'
