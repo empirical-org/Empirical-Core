@@ -6,7 +6,7 @@ import { Link } from 'react-router';
 import Question from '../../libs/question';
 import Textarea from 'react-textarea-autosize';
 import * as _ from 'underscore';
-import { hashToCollection } from '../../libs/hashToCollection';
+import { hashToCollection } from 'quill-component-library/dist/componentLibrary';
 import { submitResponse, clearResponses } from '../../actions.js';
 import pathwayActions from '../../actions/pathways';
 var C = require('../../constants').default;

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import CarouselAnim from '../shared/carouselAnimation.jsx';
 import { clearData, loadData, nextQuestion, nextQuestionWithoutSaving, submitResponse, updateName, updateCurrentQuestion, resumePreviousDiagnosticSession } from '../../actions/diagnostics.js';
 import _ from 'underscore';
-import { hashToCollection } from '../../libs/hashToCollection';
+import { hashToCollection } from 'quill-component-library/dist/componentLibrary';
 import SessionActions from '../../actions/sessions.js';
 import SmartSpinner from '../shared/smartSpinner.jsx';
 import PlaySentenceFragment from './sentenceFragment.jsx';

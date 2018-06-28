@@ -6,7 +6,7 @@ import {
 } from '../../actions/scoreAnalysis.js';
 import LoadingSpinner from '../shared/spinner.jsx';
 import { QuestionRow } from 'quill-component-library/dist/componentLibrary';
-import { hashToCollection } from '../../libs/hashToCollection.js';
+import { hashToCollection } from 'quill-component-library/dist/componentLibrary';
 import { getParameterByName } from '../../libs/getParameterByName'
 import _ from 'underscore';
 import {oldFlagToNew} from '../../libs/flagMap'

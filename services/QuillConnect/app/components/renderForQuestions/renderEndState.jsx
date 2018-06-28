@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'underscore';
-import { hashToCollection } from '../../libs/hashToCollection';
+import { hashToCollection } from 'quill-component-library/dist/componentLibrary';
 import { connect } from 'react-redux';
 const arrow = 'http://cdn.quill.org/images/icons/correct_icon.svg';
 import { Feedback } from 'quill-component-library/dist/componentLibrary';

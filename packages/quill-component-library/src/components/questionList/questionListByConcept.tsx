@@ -1,27 +1,31 @@
 import React from 'react'
-import _ from 'underscore'
+import _ from 'lodash'
 import { hashToCollection } from '../../libs/hashToCollection'
-import { LinkListItem } from 'quill-component-library/dist/componentLibrary'
+import { LinkListItem } from './linkListItem'
 
-const QuestionsList = React.createClass({
-  renderLabel: function (concept) {
+class QuestionListByConcept extends React.Component<any, any> {
+  constructor(props) {
+    super(props)
+
+    this.renderQuestionLinks = this.renderQuestionLinks.bind(this)
+    this.mapConceptsToList = this.mapConceptsToList.bind(this)
+    this.renderQuestionsWithoutValidKey = this.renderQuestionsWithoutValidKey.bind(this)
+  }
+
+  renderLabel(concept) {
     return (
       <p className="menu-label">
-        {concept.name}
+      {concept.name}
       </p>
     );
-  },
+  }
 
-  renderQuestionLinks: function (questions) {
+  renderQuestionLinks(questions) {
     let filtered;
     if (!this.props.showOnlyArchived) {
-      filtered = questions.filter((question) =>
-        question.flag !== "archived"
-      )
+      filtered = questions.filter((question) => question.flag !== "archived" )
     } else {
-      filtered = questions.filter((question) =>
-        question.flag === "archived"
-      )
+      filtered = questions.filter((question) => question.flag === "archived" )
     }
     return filtered.map((question) => {
       if (question.prompt) {
@@ -36,33 +40,33 @@ const QuestionsList = React.createClass({
         );
       }
     });
-  },
+  }
 
-  renderConceptWithQuestions: function (questions, label) {
+  renderConceptWithQuestions(questions, label) {
     if (questions.length === 0) {
       return;
     }
 
-    var listItems = this.renderQuestionLinks(questions);
+    const listItems = this.renderQuestionLinks(questions);
     return [
       label,
       (<ul className="menu-list">
         {listItems}
       </ul>)
     ];
-  },
+  }
 
-  mapConceptsToList: function () {
+  mapConceptsToList() {
     const concepts = hashToCollection(this.props.concepts.data['0']);
     const questions = hashToCollection(this.props.questions);
     return concepts.map((concept) => {
-      var label = this.renderLabel(concept);
-      var questionsForConcept = _.where(questions, {conceptID: concept.uid})
+      const label = this.renderLabel(concept);
+      const questionsForConcept = questions.filter(q => q.conceptID === concept.uid)
       return this.renderConceptWithQuestions(questionsForConcept, label);
     })
-  },
+  }
 
-  renderQuestionsWithoutValidKey: function () {
+  renderQuestionsWithoutValidKey() {
     if(!this.props.displayNoConceptQuestions) {
       return (<div></div>)
     } else {
@@ -72,13 +76,13 @@ const QuestionsList = React.createClass({
         return !!_.find(concepts, {uid: question.conceptID})
       })
       const label = (<p className="menu-label">
-        No valid concept
+      No valid concept
       </p>)
       return this.renderConceptWithQuestions(questionsToRender, label);
     }
-  },
+  }
 
-  render: function () {
+  render() {
     return (
       <aside className="menu">
         {this.mapConceptsToList()}
@@ -86,6 +90,6 @@ const QuestionsList = React.createClass({
       </aside>
     );
   }
-});
+}
 
-export default QuestionsList
+export { QuestionListByConcept }

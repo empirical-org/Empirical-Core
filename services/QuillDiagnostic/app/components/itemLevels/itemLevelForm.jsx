@@ -2,7 +2,7 @@ import React from 'react'
 import { Modal } from 'quill-component-library/dist/componentLibrary'
 import {Link} from 'react-router'
 import {connect} from 'react-redux'
-import {hashToCollection} from '../../libs/hashToCollection'
+import { hashToCollection } from 'quill-component-library/dist/componentLibrary'
 import _ from 'lodash'
 
 const ItemLevelForm = React.createClass({

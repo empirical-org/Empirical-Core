@@ -4,7 +4,7 @@ import actions from '../../actions/concepts-feedback'
 import _ from 'underscore'
 import { Modal } from 'quill-component-library/dist/componentLibrary'
 import { LinkListItem } from 'quill-component-library/dist/componentLibrary';
-import {hashToCollection} from '../../libs/hashToCollection'
+import { hashToCollection } from 'quill-component-library/dist/componentLibrary'
 
 const ConceptsFeedback = React.createClass({
   createNew: function () {

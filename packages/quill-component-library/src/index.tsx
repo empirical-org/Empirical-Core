@@ -1,6 +1,7 @@
 export {
   QuestionList,
-  LinkListItem
+  LinkListItem,
+  QuestionListByConcept
 } from './components/questionList/index'
 
 export {
@@ -45,3 +46,7 @@ export {
 export {
   QuestionRow
 } from './components/scoreAnalysis/index'
+
+export {
+  hashToCollection
+} from './libs/hashToCollection'

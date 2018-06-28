@@ -8,7 +8,7 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { clearData, loadData, nextQuestion, submitResponse, updateName, updateCurrentQuestion, resumePreviousSession } from '../../actions.js';
 import SessionActions from '../../actions/sessions.js';
 import _ from 'underscore';
-import { hashToCollection } from '../../libs/hashToCollection';
+import { hashToCollection } from 'quill-component-library/dist/componentLibrary';
 import { getConceptResultsForAllQuestions, calculateScoreForLesson } from '../../libs/conceptResults/lesson';
 import Register from './register.jsx';
 import Finished from './finished.jsx';

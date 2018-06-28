@@ -5,7 +5,7 @@ import {
   checkTimeout
 } from '../../actions/scoreAnalysis.js';
 import LoadingSpinner from '../shared/spinner.jsx';
-import { hashToCollection } from '../../libs/hashToCollection.js';
+import { hashToCollection } from 'quill-component-library/dist/componentLibrary';
 import {oldFlagToNew} from '../../libs/flagMap'
 import { getNonDiagnosticQuestions } from '../../libs/getNonDiagnosticQuestions'
 import _ from 'lodash';

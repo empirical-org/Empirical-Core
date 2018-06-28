@@ -1,7 +1,7 @@
 import React from 'react'
 import { TextEditor } from 'quill-component-library/dist/componentLibrary';
 import { EditorState, ContentState } from 'draft-js'
-import {hashToCollection} from '../../libs/hashToCollection'
+import { hashToCollection } from 'quill-component-library/dist/componentLibrary'
 import _ from 'lodash'
 import ConceptSelector from '../shared/conceptSelector.jsx'
 import FlagDropdown from '../shared/flagDropdown.jsx'

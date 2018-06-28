@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import _ from 'underscore'
 import { Link } from 'react-router'
-import {hashToCollection} from '../../libs/hashToCollection'
+import { hashToCollection } from 'quill-component-library/dist/componentLibrary'
 import TitleCard from './titleCard'
 
 class ShowTitleCard extends React.Component<any, any> {

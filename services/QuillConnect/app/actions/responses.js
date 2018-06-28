@@ -2,7 +2,7 @@
 import _ from 'underscore';
 import pathwaysActions from './pathways';
 import rootRef from '../libs/firebase';
-import { hashToCollection } from '../libs/hashToCollection.js';
+import { hashToCollection } from 'quill-component-library/dist/componentLibrary';
 import request from 'request';
 import objectWithSnakeKeysFromCamel from '../libs/objectWithSnakeKeysFromCamel';
 

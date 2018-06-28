@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {hashToCollection} from '../../libs/hashToCollection';
+import { hashToCollection } from 'quill-component-library/dist/componentLibrary';
 import { TextEditor } from 'quill-component-library/dist/componentLibrary';
 import { EditorState, ContentState } from 'draft-js'
 import ConceptSelector from '../shared/conceptSelector.jsx';
