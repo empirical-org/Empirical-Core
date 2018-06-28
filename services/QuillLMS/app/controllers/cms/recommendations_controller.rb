@@ -16,6 +16,10 @@ class Cms::RecommendationsController < Cms::CmsController
     @recommendation = Recommendation.new
   end
 
+  def show
+    @recommendation = Recommendation.find(params[:id])
+  end
+
   def create
     @recommendation = Recommendation.new(activity: @activity)
 
