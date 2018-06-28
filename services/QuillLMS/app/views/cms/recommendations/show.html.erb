@@ -1,0 +1,29 @@
+<div class="container">
+  <article class="simple-rounded-box">
+    <h1><%= @recommendation.name.titleize %> Recommendation</h1>
+    <hr>
+    <h2>Criteria</h2>
+    <% if @criteria.present? %>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Concept</th>
+            <th>Category</th>
+            <th>Count</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    <% else %>
+      <p>None Yet</p>
+    <% end %>
+    <%= link_to 'New Criteria',
+      new_cms_activity_classification_activity_recommendation_criterium_path(
+        @activity_classification,
+        @activity,
+        @recommendation
+      )
+    %>
+  </article>
+</div>

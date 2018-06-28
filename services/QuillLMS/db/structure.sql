@@ -914,6 +914,38 @@ ALTER SEQUENCE public.credit_transactions_id_seq OWNED BY public.credit_transact
 
 
 --
+-- Name: criteria; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE criteria (
+    id integer NOT NULL,
+    concept_id integer NOT NULL,
+    count integer DEFAULT 0 NOT NULL,
+    category integer NOT NULL
+);
+
+
+--
+-- Name: criteria_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE criteria_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: criteria_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE criteria_id_seq OWNED BY criteria.id;
+
+
+--
 -- Name: csv_exports; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -2348,6 +2380,13 @@ ALTER TABLE ONLY public.credit_transactions ALTER COLUMN id SET DEFAULT nextval(
 
 
 --
+-- Name: criteria id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY criteria ALTER COLUMN id SET DEFAULT nextval('criteria_id_seq'::regclass);
+
+
+--
 -- Name: csv_exports id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -2781,6 +2820,14 @@ ALTER TABLE ONLY public.coteacher_classroom_invitations
 
 ALTER TABLE ONLY public.credit_transactions
     ADD CONSTRAINT credit_transactions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: criteria criteria_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY criteria
+    ADD CONSTRAINT criteria_pkey PRIMARY KEY (id);
 
 
 --
@@ -3433,6 +3480,13 @@ CREATE INDEX index_credit_transactions_on_source_type_and_source_id ON public.cr
 --
 
 CREATE INDEX index_credit_transactions_on_user_id ON public.credit_transactions USING btree (user_id);
+
+
+--
+-- Name: index_criteria_on_concept_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_criteria_on_concept_id ON public.criteria USING btree (concept_id);
 
 
 --
@@ -4112,6 +4166,14 @@ ALTER TABLE ONLY public.sales_stages
 
 
 --
+-- Name: criteria fk_rails_ada79930c6; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY criteria
+    ADD CONSTRAINT fk_rails_ada79930c6 FOREIGN KEY (concept_id) REFERENCES concepts(id);
+
+
+--
 -- Name: concept_results fk_rails_cebe4a6023; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -4718,4 +4780,6 @@ INSERT INTO schema_migrations (version) VALUES ('20180627183421');
 INSERT INTO schema_migrations (version) VALUES ('20180627184008');
 
 INSERT INTO schema_migrations (version) VALUES ('20180627200532');
+
+INSERT INTO schema_migrations (version) VALUES ('20180628161337');
 

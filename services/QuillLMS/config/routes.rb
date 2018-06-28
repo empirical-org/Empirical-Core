@@ -378,7 +378,9 @@ EmpiricalGrammar::Application.routes.draw do
     resources :activity_classifications do
       resources :activities do
         resource :data
-        resources :recommendations
+        resources :recommendations do
+          resources :criteria
+        end
       end
     end
     resources :admin_accounts, only: [:index, :create, :update, :destroy]

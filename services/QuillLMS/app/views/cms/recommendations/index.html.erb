@@ -1,6 +1,6 @@
 <div class="container">
   <article class="simple-rounded-box">
-    <h1>Recommendations</h1>
+    <h1>Recommendations for <%= @activity.name %></h1>
     <hr>
     <h2>Independent Practice</h2>
     <% if @recommendations.independent_practice.present? %>
@@ -9,6 +9,7 @@
           <tr>
             <th>Name</th>
             <th>Activity Pack</th>
+            <th></th>
             <th></th>
           </tr>
         </thead>
