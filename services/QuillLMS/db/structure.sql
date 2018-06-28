@@ -3498,6 +3498,13 @@ CREATE INDEX index_criteria_on_recommendation_id ON public.criteria USING btree 
 
 
 --
+-- Name: index_criteria_on_recommendation_id_and_concept_id_and_category; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_criteria_on_recommendation_id_and_concept_id_and_category ON public.criteria USING btree (recommendation_id, concept_id, category);
+
+
+--
 -- Name: index_districts_users_on_district_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -4800,4 +4807,6 @@ INSERT INTO schema_migrations (version) VALUES ('20180627200532');
 INSERT INTO schema_migrations (version) VALUES ('20180628161337');
 
 INSERT INTO schema_migrations (version) VALUES ('20180628182314');
+
+INSERT INTO schema_migrations (version) VALUES ('20180628191240');
 
