@@ -1,7 +1,7 @@
 import React from 'react';
-import beginArrow from '../../img/begin_arrow.svg';
+const beginArrow = 'http://cdn.quill.org/images/icons/begin_arrow.svg';
 
-import ResumeOrBeginButton from '../shared/resumeOrBeginButton.jsx'
+import { ResumeOrBeginButton } from 'quill-component-library/dist/componentLibrary'
 
 import translations from '../../libs/translations/index';
 export default React.createClass({

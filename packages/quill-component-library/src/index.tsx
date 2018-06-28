@@ -19,7 +19,10 @@ export {
   ArchivedButton,
   CarouselAnimation,
   DiagnosticProgressBar,
-  Error
+  Error,
+  FlagDropdown,
+  Passthrough,
+  ResumeOrBeginButton
 } from './components/shared/index'
 
 export {

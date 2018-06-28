@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import ConceptSelector from '../shared/conceptSelector.jsx';
-import FlagDropdown from '../shared/flagDropdown.jsx';
+import { FlagDropdown } from 'quill-component-library/dist/componentLibrary';
 
 const sentenceFragmentForm = React.createClass({
 

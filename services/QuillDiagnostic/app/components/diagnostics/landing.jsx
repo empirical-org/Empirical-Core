@@ -1,6 +1,6 @@
 import React from 'react';
 
-import ResumeOrBeginButton from '../shared/resumeOrBeginButton.jsx';
+import { ResumeOrBeginButton } from 'quill-component-library/dist/componentLibrary';
 
 export default React.createClass({
 

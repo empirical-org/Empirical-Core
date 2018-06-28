@@ -17,3 +17,15 @@ export {
 export {
   Error
 } from './error'
+
+export {
+  FlagDropdown
+} from './flagDropdown'
+
+export {
+  Passthrough
+} from './passthrough'
+
+export {
+  ResumeOrBeginButton
+} from './resumeOrBeginButton'

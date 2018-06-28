@@ -1,4 +1,4 @@
-import Passthrough from 'components/shared/passthrough.jsx';
+import { Passthrough } from 'quill-component-library/dist/componentLibrary';
 import { getParameterByName } from 'libs/getParameterByName';
 
 const diagnosticRoute = {

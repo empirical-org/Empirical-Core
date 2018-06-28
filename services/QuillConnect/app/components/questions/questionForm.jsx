@@ -4,7 +4,7 @@ import { EditorState, ContentState } from 'draft-js'
 import { hashToCollection } from 'quill-component-library/dist/componentLibrary'
 import _ from 'lodash'
 import ConceptSelector from '../shared/conceptSelector.jsx'
-import FlagDropdown from '../shared/flagDropdown.jsx'
+import { FlagDropdown } from 'quill-component-library/dist/componentLibrary'
 
 export default React.createClass({
   getInitialState: function () {
