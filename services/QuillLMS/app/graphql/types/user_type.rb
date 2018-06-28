@@ -5,5 +5,6 @@ class Types::UserType < Types::BaseObject
   field :name, String, null: false
   field :email, String, null: true
   field :username, String, null: true
+  field :role, String, null: false
   field :time_zone, String, null: true
 end
