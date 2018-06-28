@@ -1,0 +1,32 @@
+<% if @criterion.errors.any? %>
+  <div>
+    <h3>
+      <%= pluralize(@criterion.errors.count, "error") %>
+      prohibited this criterion from being saved:
+    </h3>
+    <ul>
+    <% @criterion.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+<div class="cms-form">
+  <%= form_for [:cms, @activity_classification, @activity, @recommendation, @criterion ] do |f| %>
+    <%= f.label :concept_id, 'Concept' %>
+    <%= f.collection_select :concept_id,
+      Concept.all,
+      :id,
+      :name
+    %>
+    <%= f.label :category %>
+    <%= f.collection_select :category,
+      Criterion.categories.map { |type| [type.first, type.first.titleize] },
+      :first,
+      :second
+    %>
+    <%= f.label :count %>
+    <%= f.number_field :count, { min: 0, max: 100 } %>
+    <%= f.submit %>
+  <% end %>
+</div>

@@ -2,6 +2,7 @@ class Cms::CriteriaController < Cms::CmsController
   before_action :set_activity
   before_action :set_recommendation
   before_action :set_activity_classification
+  before_action :set_criterion, only: [:edit, :update, :destroy]
 
   def new
     @criterion = Criterion.new
@@ -10,7 +11,7 @@ class Cms::CriteriaController < Cms::CmsController
   def create
     @criterion = Criterion.new(recommendation: @recommendation)
 
-    if @criterion.update(criteria_params)
+    if @criterion.update(criterion_params)
       redirect_to cms_activity_classification_activity_recommendation_path(
         @activity_classification,
         @activity,
@@ -22,9 +23,22 @@ class Cms::CriteriaController < Cms::CmsController
     end
   end
 
-  def destroy
-    @criterion = Criterion.find(params[:id])
+  def edit; end
 
+  def update
+    if @criterion.update(criterion_params)
+      redirect_to cms_activity_classification_activity_recommendation_path(
+        @activity_classification,
+        @activity,
+        @recommendation
+      ), flash: { notice: 'Criterion updated!' }
+    else
+      flash.now[:error] = 'Unable to update criterion.'
+      render :edit
+    end
+  end
+
+  def destroy
     if @criterion.destroy
       flash[:notice] = 'Criterion deleted!'
     else
@@ -40,6 +54,10 @@ class Cms::CriteriaController < Cms::CmsController
 
   private
 
+  def set_criterion
+    @criterion = Criterion.find(params[:id])
+  end
+
   def set_activity_classification
     @activity_classification = ActivityClassification
       .find(params[:activity_classification_id])
@@ -53,7 +71,7 @@ class Cms::CriteriaController < Cms::CmsController
     @recommendation = Recommendation.find(params[:recommendation_id])
   end
 
-  def criteria_params
+  def criterion_params
     params.require(:criterion).permit(:concept_id, :category, :count)
   end
 end
