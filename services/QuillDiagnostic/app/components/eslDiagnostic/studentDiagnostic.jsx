@@ -1,6 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { CarouselAnimation } from 'quill-component-library/dist/componentLibrary';
+import {
+  CarouselAnimation,
+  hashToCollection,
+  SmartSpinner,
+  PlayTitleCard,
+  DiagnosticProgressBar
+} from 'quill-component-library/dist/componentLibrary';
 import {
   clearData,
   loadData,
@@ -13,17 +19,13 @@ import {
   updateLanguage
 } from '../../actions/diagnostics.js';
 import _ from 'underscore';
-import { hashToCollection } from 'quill-component-library/dist/componentLibrary';
 import SessionActions from '../../actions/sessions.js';
-import { SmartSpinner } from 'quill-component-library/dist/componentLibrary';
 import PlaySentenceFragment from './sentenceFragment.jsx';
 import PlayDiagnosticQuestion from './sentenceCombining.jsx';
 import PlayFillInTheBlankQuestion from '../fillInBlank/playFillInTheBlankQuestion'
-import TitleCard from './titleCard.tsx';
 import LandingPage from './landing.jsx';
 import LanguagePage from './languagePage.jsx';
 import FinishedDiagnostic from './finishedDiagnostic.jsx';
-import { DiagnosticProgressBar } from 'quill-component-library/dist/componentLibrary';
 import { getConceptResultsForAllQuestions } from '../../libs/conceptResults/diagnostic';
 import { getParameterByName } from '../../libs/getParameterByName';
 
@@ -178,7 +180,7 @@ const StudentDiagnostic = React.createClass({
       />);
     } else if (this.props.playDiagnostic.currentQuestion.type === 'TL') {
       component = (
-        <TitleCard
+        <PlayTitleCard
           data={this.props.playDiagnostic.currentQuestion.data}
           currentKey={this.props.playDiagnostic.currentQuestion.data.key}
           dispatch={this.props.dispatch}

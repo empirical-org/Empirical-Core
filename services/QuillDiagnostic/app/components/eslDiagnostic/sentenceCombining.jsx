@@ -3,11 +3,14 @@ import { connect } from 'react-redux';
 import _ from 'underscore';
 import { submitResponse, } from '../../actions/diagnostics.js';
 import ReactTransition from 'react-addons-css-transition-group';
-
 import { getGradedResponsesWithCallback } from '../../actions/responses.js';
 import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
 import RenderQuestionCues from '../renderForQuestions/cues.jsx';
-import { SentenceFragments } from 'quill-component-library/dist/componentLibrary';
+import {
+  SentenceFragments,
+  Error,
+  Feedback
+} from 'quill-component-library/dist/componentLibrary';
 import RenderFeedback from '../renderForQuestions/feedback';
 import getResponse from '../renderForQuestions/checkAnswer';
 import submitQuestionResponse from '../renderForQuestions/submitResponse.js';
@@ -16,8 +19,6 @@ import submitPathway from '../renderForQuestions/submitPathway.js';
 import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
 import translations from '../../libs/translations/index.js';
 import translationMap from '../../libs/translations/ellQuestionMapper.js';
-import { Error } from 'quill-component-library/dist/componentLibrary';
-import { Feedback } from 'quill-component-library/dist/componentLibrary';
 
 const C = require('../../constants').default;
 

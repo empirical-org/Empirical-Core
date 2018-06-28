@@ -3,13 +3,17 @@ import { connect } from 'react-redux';
 import actions from '../../actions/questions';
 import _ from 'underscore';
 import { Link } from 'react-router';
-import { Modal, hashToCollection, QuestionListByConcept } from 'quill-component-library/dist/componentLibrary';
+import {
+  Modal,
+  hashToCollection,
+  QuestionListByConcept,
+  ArchivedButton
+} from 'quill-component-library/dist/componentLibrary';
 import Question from '../../libs/question';
 import QuestionSelector from 'react-select-search';
 import { push } from 'react-router-redux';
 import respWithStatus from '../../libs/responseTools.js';
 import { submitResponseEdit, setUpdatedResponse, deleteResponse } from '../../actions/responses';
-import { ArchivedButton } from 'quill-component-library/dist/componentLibrary';
 import { getNonDiagnosticQuestions } from '../../libs/getNonDiagnosticQuestions'
 
 function sleep(milliseconds) {

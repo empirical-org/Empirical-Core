@@ -3,18 +3,19 @@ import { connect } from 'react-redux';
 import PlayLessonQuestion from './question';
 import PlaySentenceFragment from './sentenceFragment.jsx';
 import PlayFillInTheBlankQuestion from './fillInBlank.tsx'
-import TitleCard from './titleCard.tsx'
+import {
+  PlayTitleCard,
+  Register,
+  Spinner
+} from 'quill-component-library/dist/componentLibrary'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { clearData, loadData, nextQuestion, submitResponse, updateName, updateCurrentQuestion, resumePreviousSession } from '../../actions.js';
 import SessionActions from '../../actions/sessions.js';
 import _ from 'underscore';
-import { hashToCollection } from 'quill-component-library/dist/componentLibrary';
 import { getConceptResultsForAllQuestions, calculateScoreForLesson } from '../../libs/conceptResults/lesson';
-import Register from './register.jsx';
 import Finished from './finished.jsx';
 import { getParameterByName } from '../../libs/getParameterByName';
 
-import { Spinner } from 'quill-component-library/dist/componentLibrary';
 const request = require('request');
 
 const Lesson = React.createClass({
@@ -251,7 +252,7 @@ const Lesson = React.createClass({
           );
         } else if (type === 'TL'){
           component = (
-            <TitleCard
+            <PlayTitleCard
               nextQuestion={this.nextQuestion}
               data={question}
             />

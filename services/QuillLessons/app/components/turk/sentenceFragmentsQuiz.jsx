@@ -3,9 +3,12 @@ import { connect } from 'react-redux'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { clearData, loadData, nextQuestion, submitResponse, updateName, updateCurrentQuestion } from '../../actions/diagnostics.js'
 import _ from 'underscore'
-import { hashToCollection, CarouselAnimation } from 'quill-component-library/dist/componentLibrary'
+import {
+  hashToCollection,
+  CarouselAnimation,
+  Spinner
+} from 'quill-component-library/dist/componentLibrary'
 import diagnosticQuestions from './diagnosticQuestions.jsx'
-import { Spinner } from 'quill-component-library/dist/componentLibrary'
 import PlaySentenceFragment from '../diagnostics/sentenceFragment.jsx'
 import PlayDiagnosticQuestion from '../diagnostics/sentenceCombining.jsx'
 import LandingPage from './landing.jsx'

@@ -1,10 +1,12 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import { Link } from 'react-router'
-import { hashToCollection } from 'quill-component-library/dist/componentLibrary'
-import { ArchivedButton } from 'quill-component-library/dist/componentLibrary'
+import {
+  hashToCollection,
+  ArchivedButton,
+  QuestionList
+} from 'quill-component-library/dist/componentLibrary'
 import { getNonDiagnosticQuestions } from '../../libs/getNonDiagnosticQuestions'
-import { QuestionList } from 'quill-component-library/dist/componentLibrary';
 
 class SentenceFragments extends React.Component {
   constructor(props) {

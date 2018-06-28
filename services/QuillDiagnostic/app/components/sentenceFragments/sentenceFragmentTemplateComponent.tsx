@@ -5,7 +5,11 @@ import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
 import * as _ from 'underscore';
 import * as ReactTransition from 'react-addons-css-transition-group';
 import {checkSentenceFragment, Response } from 'quill-marking-logic'
-import { hashToCollection } from 'quill-component-library/dist/componentLibrary';
+import {
+  hashToCollection,
+  ConceptExplanation,
+  Feedback
+} from 'quill-component-library/dist/componentLibrary';
 import {
   submitResponse,
   incrementResponseCount,
@@ -13,9 +17,7 @@ import {
   getGradedResponsesWithCallback
 } from '../../actions/responses';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
-import { ConceptExplanation } from 'quill-component-library/dist/componentLibrary';
 // import Feedback from '../renderForQuestions/feedback';
-import { Feedback } from 'quill-component-library/dist/componentLibrary'
 
 const PlaySentenceFragment = React.createClass<any, any>({
   getInitialState() {

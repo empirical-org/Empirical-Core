@@ -57,8 +57,14 @@ export {
 } from './components/scoreAnalysis/index'
 
 export {
-  MultipleChoice
+  MultipleChoice,
+  Register,
+  PlayTitleCard
 } from './components/studentLessons/index'
+
+export {
+  TitleCard
+} from './components/titleCards/index'
 
 export {
   hashToCollection

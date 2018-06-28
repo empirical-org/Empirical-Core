@@ -3,8 +3,10 @@ import { connect } from 'react-redux';
 import _ from 'underscore';
 import questionActions from '../../actions/questions.js';
 import sentenceFragmentActions from '../../actions/sentenceFragments.js';
-import { hashToCollection } from 'quill-component-library/dist/componentLibrary';
-import { SortableList } from 'quill-component-library/dist/componentLibrary';
+import {
+  hashToCollection,
+  SortableList
+} from 'quill-component-library/dist/componentLibrary';
 
 export class FocusPointsContainer extends Component {
   constructor() {

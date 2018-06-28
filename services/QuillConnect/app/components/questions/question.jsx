@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import questionActions from '../../actions/questions';
 import _ from 'underscore';
-import { hashToCollection } from 'quill-component-library/dist/componentLibrary';
 import {
   listenToResponsesWithCallback
 } from '../../actions/responses';
@@ -11,8 +10,6 @@ import { Modal } from 'quill-component-library/dist/componentLibrary';
 import EditFrom from './questionForm.jsx';
 import Response from './response.jsx';
 import C from '../../constants';
-import { PieChart } from 'quill-component-library/dist/componentLibrary';
-import { QuestionBar } from 'quill-component-library/dist/componentLibrary';
 import ResponseComponent from './responseComponent.jsx';
 import getBoilerplateFeedback from './boilerplateFeedback.jsx';
 const icon = 'https://assets.quill.org/images/icons/question_icon.svg'

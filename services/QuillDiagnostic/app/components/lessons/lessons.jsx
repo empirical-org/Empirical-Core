@@ -3,12 +3,13 @@ import { connect } from 'react-redux';
 import actions from '../../actions/lessons';
 import _ from 'underscore';
 import { Link } from 'react-router';
-import { Modal } from 'quill-component-library/dist/componentLibrary';
-import { hashToCollection } from 'quill-component-library/dist/componentLibrary';
+import {
+  Modal,
+  LinkListItem,
+  ArchivedButton,
+  FlagDropdown
+} from 'quill-component-library/dist/componentLibrary';
 import EditLessonForm from './lessonForm.jsx';
-import { LinkListItem } from 'quill-component-library/dist/componentLibrary';;
-import { ArchivedButton } from 'quill-component-library/dist/componentLibrary';
-import { FlagDropdown } from 'quill-component-library/dist/componentLibrary';
 
 const Lessons = React.createClass({
 

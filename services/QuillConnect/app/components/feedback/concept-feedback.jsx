@@ -5,7 +5,6 @@ import { Link } from 'react-router'
 import actions from '../../actions/concepts-feedback'
 import feedbackActions from '../../actions/concepts-feedback'
 import _ from 'underscore'
-import { hashToCollection } from 'quill-component-library/dist/componentLibrary'
 import FeedbackForm from './feedbackForm.jsx'
 import { ConceptExplanation } from 'quill-component-library/dist/componentLibrary';
 

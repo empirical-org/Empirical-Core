@@ -1,33 +1,41 @@
 import React from 'react';
 const beginArrow = 'https://assets.quill.org/images/icons/begin_arrow.svg';
 
-export default React.createClass({
-  getInitialState() {
-    return {
+class Register extends React.Component<any, any> {
+  constructor(props) {
+    super(props)
+
+    this.state = {
       showIntro: false,
       name: '',
       hasSentenceFragment: this.hasSentenceFragment(),
-    };
-  },
+    }
 
-  // componentWillMount() {
-  //   this.props.getResponses(this.props.lesson.questions);
-  // },
+    this.handleNameChange = this.handleNameChange.bind(this)
+    this.getLessonName = this.getLessonName.bind(this)
+    this.landingPageHtmlHasText = this.landingPageHtmlHasText.bind(this)
+    this.startActivity = this.startActivity.bind(this)
+    this.leaveIntro = this.leaveIntro.bind(this)
+    this.resume = this.resume.bind(this)
+    this.hasSentenceFragment = this.hasSentenceFragment.bind(this)
+    this.renderButton = this.renderButton.bind(this)
+    this.renderIntro = this.renderIntro.bind(this)
+  }
 
   handleNameChange(e) {
     this.setState({ name: e.target.value, });
-  },
+  }
 
   getLessonName() {
     return this.props.lesson.name;
-  },
+  }
 
   landingPageHtmlHasText(){
     // strips out everything nested betwee < and >.
     // we should also not allow draft js to send text-less answers from
     // the lp editor
     return this.props.lesson.landingPageHtml.replace(/(<([^>]+)>)/ig, "").length > 0;
-  },
+  }
 
   startActivity() {
     if (this.props.lesson.landingPageHtml && this.landingPageHtmlHasText()) {
@@ -35,15 +43,15 @@ export default React.createClass({
     } else {
       this.props.startActivity(this.state.name);
     }
-  },
+  }
 
   leaveIntro() {
     this.props.startActivity(this.state.name);
-  },
+  }
 
   resume() {
     this.props.resumeActivity(this.props.session);
-  },
+  }
 
   hasSentenceFragment() {
     const { questions } = this.props.lesson;
@@ -53,21 +61,7 @@ export default React.createClass({
       }
     }
     return false;
-  },
-
-  // renderResume: function () {
-  //   if (this.props.session) {
-  //     return (
-  //       <button className="button student-begin is-fullwidth" onClick={this.resume}>Resume</button>
-  //     )
-  //   }
-  // },
-  //
-  // renderBegin: function (){
-  //   return (
-  //     <button className="button student-begin is-fullwidth" onClick={this.startActivity}>Start</button>{this.renderResume()}
-  //   )
-  // },
+  }
 
   renderButton() {
     let onClickFn,
@@ -87,7 +81,7 @@ export default React.createClass({
         <img className="begin-arrow" src={beginArrow} />
       </button>
     );
-  },
+  }
 
   renderIntro() {
     if (this.state.showIntro) {
@@ -134,7 +128,7 @@ export default React.createClass({
         </div>
       );
     }
-  },
+  }
 
   render() {
     return (
@@ -146,5 +140,7 @@ export default React.createClass({
         {this.renderIntro()}
       </section>
     );
-  },
-});
+  }
+}
+
+export { Register }
