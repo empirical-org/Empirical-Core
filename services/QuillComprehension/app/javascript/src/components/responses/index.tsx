@@ -6,14 +6,14 @@ function responsesQuery(question_id:string) {
   return gql`
   {
     question(id: ${question_id}) {
-      prompt 
+      prompt
       responses {
         id
         submissions
         text
       }
     }
-    response_labels {
+    responseLabels {
       id
       name
       description
@@ -54,7 +54,7 @@ class TagResponsesContainer extends React.Component<any> {
           return (
             <div className="card">
               <div className="card-header">
-              <p><span style={{textTransform: "uppercase"}}>{ label.name}</span> -- {label.description} </p>  
+              <p><span style={{textTransform: "uppercase"}}>{ label.name}</span> -- {label.description} </p>
               </div>
               <div className="card-body">
                 <p>{ response.text}</p>
