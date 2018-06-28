@@ -3,7 +3,7 @@
     <h1>Recommendations</h1>
     <hr>
     <h2>Independent Practice</h2>
-    <% if @independent_recommendations.present? %>
+    <% if @recommendations.independent_practice.present? %>
       <table class="table">
         <thead>
           <tr>
@@ -13,23 +13,9 @@
           </tr>
         </thead>
         <tbody>
-          <% @independent_recommendations.each do |recommendation| %>
-            <tr>
-              <td><%= recommendation.name %></td>
-              <td><%= recommendation.unit_template.name %></td>
-              <td>
-                <%= link_to 'Delete',
-                  cms_activity_classification_activity_recommendation_path(
-                    @activity_classification,
-                    @activity,
-                    recommendation
-                  ),
-                  method: :delete,
-                  data: { confirm: 'Are you sure?' }
-                %>
-              </td>
-            </tr>
-          <% end %>
+          <%= render partial: "recommendation",
+            collection: @recommendations.independent_practice
+          %>
         </tbody>
       </table>
     <% else %>
@@ -37,7 +23,7 @@
     <% end %>
     <br>
     <h2>Group Lessons</h2>
-    <% if @group_recommendations.present? %>
+    <% if @recommendations.group_lesson.present? %>
       <table class="table">
         <thead>
           <tr>
@@ -47,23 +33,9 @@
           </tr>
         </thead>
         <tbody>
-          <% @group_recommendations.each do |recommendation| %>
-            <tr>
-              <td><%= recommendation.name %></td>
-              <td><%= recommendation.unit_template.name %></td>
-              <td>
-                <%= link_to 'Delete',
-                  cms_activity_classification_activity_recommendation_path(
-                    @activity_classification,
-                    @activity,
-                    recommendation
-                  ),
-                  method: :delete,
-                  data: { confirm: 'Are you sure?' }
-                %>
-              </td>
-            </tr>
-          <% end %>
+          <%= render partial: "recommendation",
+            collection: @recommendations.group_lesson
+          %>
         </tbody>
       </table>
     <% else %>
