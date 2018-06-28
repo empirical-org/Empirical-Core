@@ -7,7 +7,7 @@ import { Modal } from 'quill-component-library/dist/componentLibrary';
 import { hashToCollection } from 'quill-component-library/dist/componentLibrary';
 import EditLessonForm from './lessonForm.jsx';
 import { LinkListItem } from 'quill-component-library/dist/componentLibrary';;
-import ArchivedButton from '../shared/archivedButton.jsx';
+import { ArchivedButton } from 'quill-component-library/dist/componentLibrary';
 import FlagDropdown from '../shared/flagDropdown.jsx';
 
 const Lessons = React.createClass({

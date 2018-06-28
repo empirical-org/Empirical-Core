@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { QuestionList } from 'quill-component-library/dist/componentLibrary';
 import { hashToCollection } from 'quill-component-library/dist/componentLibrary';
-import ArchivedButton from '../shared/archivedButton.jsx'
+import { ArchivedButton } from 'quill-component-library/dist/componentLibrary'
 import { getDiagnosticQuestions } from '../../libs/getDiagnosticQuestions'
 
 class FillInBlankQuestions extends Component {
