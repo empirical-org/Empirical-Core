@@ -1,5 +1,5 @@
 import React from 'react'
-import spinner from '../../img/loader_still.svg';
+const spinner = 'https://assets.quill.org/images/icons/loader_still.svg';
 export default React.createClass({
 
   render: function () {

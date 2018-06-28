@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import spinner from '../../img/loader_still.svg';
+const spinner = 'https://assets.quill.org/images/icons/loader_still.svg';
 export default class SmartSpinner extends Component {
   constructor(props) {
     super();
