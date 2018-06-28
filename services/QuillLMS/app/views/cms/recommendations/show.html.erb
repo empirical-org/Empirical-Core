@@ -18,6 +18,18 @@
             <td><%= criterion.concept.name %></td>
             <td><%= criterion.category.titleize %></td>
             <td><%= criterion.count %></td>
+            <td>
+              <%= link_to 'Delete',
+                cms_activity_classification_activity_recommendation_criterion_path(
+                  @activity_classification,
+                  @activity,
+                  @recommendation,
+                  criterion
+                ),
+                method: :delete,
+                data: { confirm: 'Are you sure?' }
+              %>
+            </td>
           </tr>
         <% end %>
         </tbody>
