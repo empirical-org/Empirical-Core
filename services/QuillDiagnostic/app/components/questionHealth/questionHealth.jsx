@@ -4,7 +4,7 @@ import {
   loadScoreData,
   checkTimeout
 } from '../../actions/scoreAnalysis.js';
-import LoadingSpinner from '../shared/spinner.jsx';
+import { Spinner } from 'quill-component-library/dist/componentLibrary'
 import { hashToCollection } from 'quill-component-library/dist/componentLibrary';
 import {oldFlagToNew} from '../../libs/flagMap'
 import { getDiagnosticQuestions } from '../../libs/getDiagnosticQuestions'
@@ -280,7 +280,7 @@ class questionHealth extends Component {
 
   render() {
     if (this.state.loading) {
-      return <LoadingSpinner />
+      return <Spinner />
     } else {
       return <div className="question-health">
         <h1>Data Dashboard - Health of Questions</h1>

@@ -14,7 +14,7 @@ import Register from './register.jsx';
 import Finished from './finished.jsx';
 import { getParameterByName } from '../../libs/getParameterByName';
 
-import Spinner from '../shared/spinner.jsx';
+import { Spinner } from 'quill-component-library/dist/componentLibrary';
 const request = require('request');
 
 const Lesson = React.createClass({
