@@ -4,6 +4,11 @@ require 'staff_constraint'
 EmpiricalGrammar::Application.routes.draw do
 
 
+  if Rails.env.development?
+    mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/graphql"
+  end
+
+  post "/graphql", to: "graphql#execute"
   mount RailsAdmin::Engine => '/staff', as: 'rails_admin'
   use_doorkeeper
 
