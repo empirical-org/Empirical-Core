@@ -13,7 +13,7 @@ import submitQuestionResponse from '../renderForQuestions/submitResponse.js';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 import submitPathway from '../renderForQuestions/submitPathway.js';
 import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
-import Error from '../shared/error.jsx';
+import { Error } from 'quill-component-library/dist/componentLibrary';
 
 const C = require('../../constants').default;
 

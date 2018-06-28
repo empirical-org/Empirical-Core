@@ -9,3 +9,11 @@ export {
 export {
   CarouselAnimation
 } from './carouselAnimation'
+
+export {
+  DiagnosticProgressBar
+} from './diagnosticProgressBar'
+
+export {
+  Error
+} from './error'

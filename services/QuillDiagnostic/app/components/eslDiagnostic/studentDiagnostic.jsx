@@ -23,7 +23,7 @@ import TitleCard from './titleCard.tsx';
 import LandingPage from './landing.jsx';
 import LanguagePage from './languagePage.jsx';
 import FinishedDiagnostic from './finishedDiagnostic.jsx';
-import DiagnosticProgressBar from '../shared/diagnosticProgressBar.jsx';
+import { DiagnosticProgressBar } from 'quill-component-library/dist/componentLibrary';
 import { getConceptResultsForAllQuestions } from '../../libs/conceptResults/diagnostic';
 import { getParameterByName } from '../../libs/getParameterByName';
 

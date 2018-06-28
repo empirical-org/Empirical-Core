@@ -11,7 +11,7 @@ import PlayDiagnosticQuestion from './sentenceCombining.jsx';
 import TitleCard from '../studentLessons/titleCard.tsx';
 import LandingPage from './landing.jsx';
 import FinishedDiagnostic from './finishedDiagnostic.jsx';
-import DiagnosticProgressBar from '../shared/diagnosticProgressBar.jsx';
+import { DiagnosticProgressBar } from 'quill-component-library/dist/componentLibrary';
 import { getConceptResultsForAllQuestions } from '../../libs/conceptResults/diagnostic';
 import { getParameterByName } from '../../libs/getParameterByName';
 
