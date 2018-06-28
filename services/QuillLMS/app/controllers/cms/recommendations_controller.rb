@@ -18,6 +18,7 @@ class Cms::RecommendationsController < Cms::CmsController
 
   def show
     @recommendation = Recommendation.find(params[:id])
+    @criteria = @recommendation.criteria
   end
 
   def create

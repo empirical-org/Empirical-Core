@@ -13,13 +13,20 @@
           </tr>
         </thead>
         <tbody>
+        <% @criteria.each do |criterion| %>
+          <tr>
+            <td><%= criterion.concept.name %></td>
+            <td><%= criterion.category.titleize %></td>
+            <td><%= criterion.count %></td>
+          </tr>
+        <% end %>
         </tbody>
       </table>
     <% else %>
       <p>None Yet</p>
     <% end %>
     <%= link_to 'New Criteria',
-      new_cms_activity_classification_activity_recommendation_criterium_path(
+      new_cms_activity_classification_activity_recommendation_criterion_path(
         @activity_classification,
         @activity,
         @recommendation
