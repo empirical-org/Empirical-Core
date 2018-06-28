@@ -1,0 +1,3 @@
+export {
+  MultipleChoice
+} from './multipleChoice'
