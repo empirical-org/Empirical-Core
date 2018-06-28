@@ -1,6 +1,6 @@
 import React from 'react';
 import { Cue, CueExplanation } from 'quill-component-library/dist/componentLibrary'
-import arrow from '../../img/arrow_icon.svg';
+const arrow = 'https://assets.quill.org/images/icons/arrow_icon.svg';
 
 export default React.createClass({
 

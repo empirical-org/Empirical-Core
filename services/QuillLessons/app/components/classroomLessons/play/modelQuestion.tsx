@@ -6,7 +6,7 @@ import {
 } from '../../../interfaces/classroomLessons';
 import { textEditorInputNotEmpty } from '../shared/textEditorClean'
 import { Feedback, SentenceFragments } from 'quill-component-library/dist/componentLibrary'
-const icon = 'http://cdn.quill.org/images/icons/question_icon.svg'
+const icon = 'https://assets.quill.org/images/icons/question_icon.svg'
 
 interface ModelQuestionProps {
   data: QuestionData,

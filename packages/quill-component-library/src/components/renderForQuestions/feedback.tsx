@@ -1,9 +1,9 @@
 import React from 'react';
-const icon = 'http://cdn.quill.org/images/icons/question_icon.svg';
-const revise = 'http://cdn.quill.org/images/icons/revise_orange_icon.svg';
-const multiple = 'http://cdn.quill.org/images/icons/multiple_choice_icon.svg';
-const success  = 'http://cdn.quill.org/images/icons/check-mark.svg';
-const arrow = 'http://cdn.quill.org/images/icons/correct_icon.svg';
+const icon = 'https://assets.quill.org/images/icons/question_icon.svg';
+const revise = 'https://assets.quill.org/images/icons/revise_orange_icon.svg';
+const multiple = 'https://assets.quill.org/images/icons/multiple_choice_icon.svg';
+const success  = 'https://assets.quill.org/images/icons/check-mark.svg';
+const arrow = 'https://assets.quill.org/images/icons/correct_icon.svg';
 
 function getIconClassName(feedbackType: string): string {
   let returnVal;

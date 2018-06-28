@@ -1,8 +1,8 @@
 declare function require(name:string);
 
 import * as React from 'react';
-const grayFlag = require('../../../img/flag_gray.svg')
-const blueFlag = require('../../../img/flag_blue.svg')
+const grayFlag = 'https://assets.quill.org/images/icons/flag_gray.svg'
+const blueFlag = 'https://assets.quill.org/images/icons/flag_blue.svg'
 
 interface flaggedStudentsProps {
   flaggedStudents: Object,
