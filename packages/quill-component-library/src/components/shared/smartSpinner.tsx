@@ -1,8 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
+
 const spinner = 'https://assets.quill.org/images/icons/loader_still.svg';
-export default class SmartSpinner extends Component {
+
+class SmartSpinner extends React.Component<any, any> {
   constructor(props) {
-    super();
+    super(props);
   }
 
   componentWillMount() {
@@ -23,3 +25,5 @@ export default class SmartSpinner extends Component {
   }
 
 }
+
+export { SmartSpinner }
