@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import CarouselAnim from '../shared/carouselAnimation.jsx';
+import { CarouselAnimation } from 'quill-component-library/dist/componentLibrary';
 import {
   clearData,
   loadData,
@@ -362,9 +362,9 @@ const StudentDiagnostic = React.createClass({
         <DiagnosticProgressBar percent={this.getProgressPercent()} />
         <section className="section is-fullheight minus-nav student">
           <div className="student-container student-container-diagnostic">
-            <CarouselAnim>
+            <CarouselAnimation>
               {component}
-            </CarouselAnim>
+            </CarouselAnimation>
           </div>
         </section>
       </div>

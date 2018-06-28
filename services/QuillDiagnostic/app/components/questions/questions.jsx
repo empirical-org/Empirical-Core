@@ -13,7 +13,7 @@ import QuestionSelector from 'react-select-search';
 import { push } from 'react-router-redux';
 import respWithStatus from '../../libs/responseTools.js';
 import { submitResponseEdit, setUpdatedResponse, deleteResponse } from '../../actions/responses';
-import ArchivedButton from '../shared/archivedButton.jsx';
+import { ArchivedButton } from 'quill-component-library/dist/componentLibrary';
 import { getDiagnosticQuestions } from '../../libs/getDiagnosticQuestions'
 
 function sleep(milliseconds) {

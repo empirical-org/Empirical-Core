@@ -15,8 +15,9 @@ export {
 } from './components/feedback/conceptExplanation'
 
 export {
-  TextEditor
-} from './components/shared/textEditor'
+  TextEditor,
+  ArchivedButton
+} from './components/shared/index'
 
 export {
   Modal
