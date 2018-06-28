@@ -16,7 +16,7 @@ import submitPathway from '../renderForQuestions/submitPathway.js';
 import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
 import translations from '../../libs/translations/index.js';
 import translationMap from '../../libs/translations/ellQuestionMapper.js';
-import Error from '../shared/error.jsx';
+import { Error } from 'quill-component-library/dist/componentLibrary';
 import { Feedback } from 'quill-component-library/dist/componentLibrary';
 
 const C = require('../../constants').default;

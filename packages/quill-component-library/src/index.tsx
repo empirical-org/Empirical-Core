@@ -16,7 +16,10 @@ export {
 
 export {
   TextEditor,
-  ArchivedButton
+  ArchivedButton,
+  CarouselAnimation,
+  DiagnosticProgressBar,
+  Error
 } from './components/shared/index'
 
 export {
