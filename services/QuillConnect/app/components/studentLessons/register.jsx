@@ -1,5 +1,5 @@
 import React from 'react';
-import beginArrow from '../../img/begin_arrow.svg';
+const beginArrow = 'http://cdn.quill.org/images/icons/begin_arrow.svg';
 
 export default React.createClass({
   getInitialState() {

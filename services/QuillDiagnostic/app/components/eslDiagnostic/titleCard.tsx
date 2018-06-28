@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import beginArrow from '../../img/begin_arrow.svg';
+const beginArrow = 'http://cdn.quill.org/images/icons/begin_arrow.svg';
 import translations from '../../libs/translations/index.js';
 
 class TitleCard extends Component {

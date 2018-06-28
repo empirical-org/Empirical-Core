@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { TextEditor } from 'quill-component-library/dist/componentLibrary';
 import { hashToCollection } from 'quill-component-library/dist/componentLibrary';
 import ConceptSelector from '../shared/conceptSelector.jsx';
-import FlagDropdown from '../shared/flagDropdown.jsx';
+import { FlagDropdown } from 'quill-component-library/dist/componentLibrary';
 
 class FillInBlankForm extends Component {
   constructor() {
