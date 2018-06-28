@@ -921,7 +921,8 @@ CREATE TABLE criteria (
     id integer NOT NULL,
     concept_id integer NOT NULL,
     count integer DEFAULT 0 NOT NULL,
-    category integer NOT NULL
+    category integer NOT NULL,
+    recommendation_id integer NOT NULL
 );
 
 
@@ -3490,6 +3491,13 @@ CREATE INDEX index_criteria_on_concept_id ON public.criteria USING btree (concep
 
 
 --
+-- Name: index_criteria_on_recommendation_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_criteria_on_recommendation_id ON public.criteria USING btree (recommendation_id);
+
+
+--
 -- Name: index_districts_users_on_district_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -4150,6 +4158,14 @@ ALTER TABLE ONLY public.sales_stages
 
 
 --
+-- Name: criteria fk_rails_63b994bcda; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY criteria
+    ADD CONSTRAINT fk_rails_63b994bcda FOREIGN KEY (recommendation_id) REFERENCES recommendations(id);
+
+
+--
 -- Name: recommendations fk_rails_6745e4bc86; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -4782,4 +4798,6 @@ INSERT INTO schema_migrations (version) VALUES ('20180627184008');
 INSERT INTO schema_migrations (version) VALUES ('20180627200532');
 
 INSERT INTO schema_migrations (version) VALUES ('20180628161337');
+
+INSERT INTO schema_migrations (version) VALUES ('20180628182314');
 
