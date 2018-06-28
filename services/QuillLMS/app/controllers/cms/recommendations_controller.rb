@@ -4,6 +4,7 @@ class Cms::RecommendationsController < Cms::CmsController
   before_action :set_unit_templates, only: [:new, :create]
 
   def index
+    @recommendations = Recommendation.where(activity: @activity)
     @independent_recommendations = Recommendation.independent_practice
       .where(activity: @activity)
     @group_recommendations = Recommendation.group_lesson
