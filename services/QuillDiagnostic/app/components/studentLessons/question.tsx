@@ -23,7 +23,7 @@ import handleFocus from '../renderForQuestions/handleFocus.js';
 import submitQuestionResponse from '../renderForQuestions/submitResponse.js';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 import submitPathway from '../renderForQuestions/submitPathway.js';
-import MultipleChoice from './multipleChoice.jsx';
+import { MultipleChoice } from 'quill-component-library/dist/componentLibrary';
 import { ThankYou }  from 'quill-component-library/dist/componentLibrary';
 import AnswerForm from '../renderForQuestions/renderFormForAnswer.jsx';
 import { ConceptExplanation } from 'quill-component-library/dist/componentLibrary';

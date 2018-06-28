@@ -57,5 +57,9 @@ export {
 } from './components/scoreAnalysis/index'
 
 export {
+  MultipleChoice
+} from './components/studentLessons/index'
+
+export {
   hashToCollection
 } from './libs/hashToCollection'
