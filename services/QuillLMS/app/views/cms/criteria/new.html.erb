@@ -1,7 +1,20 @@
 <div class="container">
   <article class="simple-rounded-box">
     <h2>New Criterion for <%= @recommendation.name.titleize %> Recommendation</h2>
-    <hr/>
+    <hr>
+    <% if @criterion.errors.any? %>
+      <div>
+        <h3>
+          <%= pluralize(@criterion.errors.count, "error") %>
+          prohibited this criterion from being saved:
+        </h3>
+        <ul>
+        <% @criterion.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
     <div class="cms-form">
       <%= form_for [:cms, @activity_classification, @activity, @recommendation, @criterion ] do |f| %>
         <%= f.label :concept_id, 'Concept' %>

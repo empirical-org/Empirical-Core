@@ -12,9 +12,9 @@ class Cms::CriteriaController < Cms::CmsController
       .find(params[:activity_classification_id])
     @activity = Activity.find(params[:activity_id])
     @recommendation = Recommendation.find(params[:recommendation_id])
-    @criteria = Criterion.new(recommendation: @recommendation)
+    @criterion = Criterion.new(recommendation: @recommendation)
 
-    if @criteria.update(criteria_params)
+    if @criterion.update(criteria_params)
       redirect_to cms_activity_classification_activity_recommendation_path(
         @activity_classification,
         @activity,
@@ -22,6 +22,7 @@ class Cms::CriteriaController < Cms::CmsController
       ), flash: { notice: 'Criterion created!' }
     else
       flash.now[:error] = 'Unable to create criterion.'
+      render :new
     end
   end
 
