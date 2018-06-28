@@ -3,10 +3,8 @@ import { connect } from 'react-redux';
 import actions from '../../actions/questions';
 import _ from 'underscore';
 import { Link } from 'react-router';
-import { Modal } from 'quill-component-library/dist/componentLibrary';
-import { hashToCollection } from '../../libs/hashToCollection';
+import { Modal, hashToCollection, QuestionListByConcept } from 'quill-component-library/dist/componentLibrary';
 import Question from '../../libs/question';
-import QuestionsList from './questionsList.jsx';
 import QuestionSelector from 'react-select-search';
 import { push } from 'react-router-redux';
 import respWithStatus from '../../libs/responseTools.js';
@@ -295,7 +293,7 @@ class Questions extends React.Component {
             <ArchivedButton showOnlyArchived={this.state.showOnlyArchived} toggleShowArchived={this.toggleShowArchived} lessons={false} />
             <br />
             <br />
-            <QuestionsList
+            <QuestionListByConcept
               questions={this.state.questions}
               concepts={concepts}
               displayNoConceptQuestions={this.state.displayNoConceptQuestions}

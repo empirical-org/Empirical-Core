@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { TextEditor } from 'quill-component-library/dist/componentLibrary';
 import { EditorState, ContentState } from 'draft-js'
-import {hashToCollection} from '../../libs/hashToCollection'
+import { hashToCollection } from 'quill-component-library/dist/componentLibrary'
 import {
   submitNewTitleCard,
   updateTitleCard,

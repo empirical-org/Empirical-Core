@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import {clearData, loadData, nextQuestion, submitResponse, updateName, updateCurrentQuestion} from '../../actions/diagnostics.js'
 import _ from 'underscore'
-import {hashToCollection} from '../../libs/hashToCollection'
+import { hashToCollection } from 'quill-component-library/dist/componentLibrary'
 import diagnosticQuestions from './diagnosticQuestions.jsx'
 import Spinner from '../shared/spinner.jsx'
 import PlaySentenceFragment from '../studentLessons/sentenceFragment.jsx'

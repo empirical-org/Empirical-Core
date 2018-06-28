@@ -4,7 +4,7 @@ import actions from '../../actions/lessons';
 import _ from 'underscore';
 import { Link } from 'react-router';
 import { Modal } from 'quill-component-library/dist/componentLibrary';
-import { hashToCollection } from '../../libs/hashToCollection';
+import { hashToCollection } from 'quill-component-library/dist/componentLibrary';
 import EditLessonForm from './lessonForm.jsx';
 import { LinkListItem } from 'quill-component-library/dist/componentLibrary';;
 import ArchivedButton from '../shared/archivedButton.jsx';

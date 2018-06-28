@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import { Link } from 'react-router'
 
 import SentenceFragmentsList from './sentenceFragmentsList.jsx'
-import { hashToCollection } from '../../libs/hashToCollection'
+import { hashToCollection } from 'quill-component-library/dist/componentLibrary'
 import ArchivedButton from '../shared/archivedButton.jsx'
 import { getDiagnosticQuestions } from '../../libs/getDiagnosticQuestions'
 import { QuestionList } from 'quill-component-library/dist/componentLibrary';

@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import filterActions from '../../actions/filters';
 import _ from 'underscore';
-import { hashToCollection } from '../../libs/hashToCollection';
+import { hashToCollection } from 'quill-component-library/dist/componentLibrary';
 import ResponseList from './responseList.jsx';
 import QuestionMatcher from '../../libs/question';
 import questionActions from '../../actions/questions';

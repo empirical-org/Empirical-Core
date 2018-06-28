@@ -7,7 +7,7 @@ import * as ReactTransition from 'react-addons-css-transition-group';
 import {checkSentenceFragment, Response } from 'quill-marking-logic'
 import Feedback from '../renderForQuestions/feedback';
 import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
-import { hashToCollection } from '../../libs/hashToCollection.js';
+import { hashToCollection } from 'quill-component-library/dist/componentLibrary';
 import {
   submitResponse,
   incrementResponseCount,

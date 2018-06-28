@@ -31,7 +31,7 @@ export class QuestionList extends React.Component<any, {}> {
         <LinkListItem
           key={question.key}
           itemKey={question.key}
-          text={question.prompt}
+          text={question.prompt ? question.prompt : question.title}
           basePath={this.props.basePath}
         />
       ));

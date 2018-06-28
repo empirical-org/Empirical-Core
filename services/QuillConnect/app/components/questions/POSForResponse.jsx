@@ -5,7 +5,7 @@ import Question from '../../libs/question';
 const jsDiff = require('diff');
 import ResponseList from './responseList.jsx';
 import _ from 'underscore';
-import { hashToCollection } from '../../libs/hashToCollection';
+import { hashToCollection } from 'quill-component-library/dist/componentLibrary';
 import Textarea from 'react-textarea-autosize';
 import feedbackActions from '../../actions/concepts-feedback.js';
 
