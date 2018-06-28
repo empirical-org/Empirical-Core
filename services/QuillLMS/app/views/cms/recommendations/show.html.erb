@@ -10,6 +10,8 @@
             <th>Concept</th>
             <th>Category</th>
             <th>Count</th>
+            <th></th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -18,6 +20,16 @@
             <td><%= criterion.concept.name %></td>
             <td><%= criterion.category.titleize %></td>
             <td><%= criterion.count %></td>
+            <td>
+              <%= link_to 'Edit',
+                edit_cms_activity_classification_activity_recommendation_criterion_path(
+                  @activity_classification,
+                  @activity,
+                  @recommendation,
+                  criterion
+                )
+              %>
+            </td>
             <td>
               <%= link_to 'Delete',
                 cms_activity_classification_activity_recommendation_criterion_path(
