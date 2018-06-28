@@ -3,10 +3,12 @@ import {connect} from 'react-redux'
 import { Link } from 'react-router'
 
 import SentenceFragmentsList from './sentenceFragmentsList.jsx'
-import { hashToCollection } from 'quill-component-library/dist/componentLibrary'
-import { ArchivedButton } from 'quill-component-library/dist/componentLibrary'
+import {
+  hashToCollection,
+  QuestionRow,
+  hashToCollection
+} from 'quill-component-library/dist/componentLibrary'
 import { getDiagnosticQuestions } from '../../libs/getDiagnosticQuestions'
-import { QuestionList } from 'quill-component-library/dist/componentLibrary';
 
 class SentenceFragments extends React.Component {
   constructor(props) {

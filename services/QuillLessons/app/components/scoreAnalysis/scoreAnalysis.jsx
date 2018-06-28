@@ -4,9 +4,11 @@ import {
   loadScoreData,
   checkTimeout
 } from '../../actions/scoreAnalysis.js';
-import { Spinner } from 'quill-component-library/dist/componentLibrary'
-import { QuestionRow } from 'quill-component-library/dist/componentLibrary';
-import { hashToCollection } from 'quill-component-library/dist/componentLibrary';
+import {
+  Spinner,
+  QuestionRow,
+  hashToCollection
+} from 'quill-component-library/dist/componentLibrary'
 import { getParameterByName } from '../../libs/getParameterByName'
 import _ from 'underscore';
 import {oldFlagToNew} from '../../libs/flagMap'

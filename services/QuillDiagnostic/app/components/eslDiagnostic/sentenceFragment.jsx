@@ -15,10 +15,12 @@ import {
 } from '../../actions/responses.js';
 const icon = 'https://assets.quill.org/images/icons/question_icon.svg'
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
-import { hashToCollection } from 'quill-component-library/dist/componentLibrary';
+import {
+  hashToCollection,
+  Feedback
+} from 'quill-component-library/dist/componentLibrary';
 import translations from '../../libs/translations/index.js';
 import translationMap from '../../libs/translations/ellQuestionMapper.js';
-import { Feedback } from 'quill-component-library/dist/componentLibrary';
 
 const key = ''; // enables this component to be used by both play/sentence-fragments and play/diagnostic
 

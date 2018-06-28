@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import { QuestionList } from 'quill-component-library/dist/componentLibrary';
-import { hashToCollection } from 'quill-component-library/dist/componentLibrary';
-import { ArchivedButton } from 'quill-component-library/dist/componentLibrary'
+import {
+  QuestionList,
+  hashToCollection,
+  ArchivedButton
+} from 'quill-component-library/dist/componentLibrary';
 import { getDiagnosticQuestions } from '../../libs/getDiagnosticQuestions'
 
 class FillInBlankQuestions extends Component {

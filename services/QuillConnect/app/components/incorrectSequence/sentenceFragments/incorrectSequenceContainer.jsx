@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import _ from 'underscore';
 import MultipleInputAndConceptSelectorForm from '../../shared/multipleInputAndConceptSelectorForm.jsx';
 import sentenceFragmentActions from '../../../actions/sentenceFragments.js';
-import { hashToCollection } from 'quill-component-library/dist/componentLibrary';
 import { SortableList } from 'quill-component-library/dist/componentLibrary';
 
 class IncorrectSequencesContainer extends Component {

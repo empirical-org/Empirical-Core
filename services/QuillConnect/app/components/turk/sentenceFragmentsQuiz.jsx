@@ -3,15 +3,17 @@ import {connect} from 'react-redux'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import {clearData, loadData, nextQuestion, submitResponse, updateName, updateCurrentQuestion} from '../../actions/diagnostics.js'
 import _ from 'underscore'
-import { hashToCollection } from 'quill-component-library/dist/componentLibrary'
+import {
+  hashToCollection,
+  Spinner
+  CarouselAnimation
+} from 'quill-component-library/dist/componentLibrary'
 import diagnosticQuestions from './diagnosticQuestions.jsx'
-import { Spinner } from 'quill-component-library/dist/componentLibrary'
 import PlaySentenceFragment from '../studentLessons/sentenceFragment.jsx'
 import PlayDiagnosticQuestion from '../studentLessons/question.tsx'
 import LandingPage from './landing.jsx'
 import FinishedDiagnostic from './finishedDiagnostic.jsx'
 import {getConceptResultsForAllQuestions} from '../../libs/conceptResults/diagnostic'
-import { CarouselAnimation } from 'quill-component-library/dist/componentLibrary';
 const request = require('request');
 
 var StudentDiagnostic = React.createClass({

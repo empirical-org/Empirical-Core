@@ -2,7 +2,10 @@ declare function require(name:string);
 import React, { Component } from 'react';
 import Cues from '../../../components/renderForQuestions/cues';
 import FeedbackRow from './feedbackRow'
-import { Feedback, SentenceFragments } from 'quill-component-library/dist/componentLibrary'
+import {
+  Feedback,
+  SentenceFragments
+} from 'quill-component-library/dist/componentLibrary'
 import TextEditor from '../../renderForQuestions/renderTextEditor';
 import { getParameterByName } from '../../../libs/getParameterByName';
 import { firebase } from '../../../libs/firebase';

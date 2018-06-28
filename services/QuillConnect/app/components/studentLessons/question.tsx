@@ -6,8 +6,16 @@ import { Link } from 'react-router';
 import Question from '../../libs/question';
 import Textarea from 'react-textarea-autosize';
 import * as _ from 'underscore';
-import { hashToCollection } from 'quill-component-library/dist/componentLibrary';
+import {
+  hashToCollection,
+  SentenceFragments,
+  ThankYou,
+  ConceptExplanation,
+  MultipleChoice
+} from 'quill-component-library/dist/componentLibrary';
 import { submitResponse, clearResponses } from '../../actions.js';
+const RenderSentenceFragments = SentenceFragments
+const StateFinished = ThankYou
 import pathwayActions from '../../actions/pathways';
 var C = require('../../constants').default;
 import rootRef from '../../libs/firebase';
@@ -15,9 +23,6 @@ const sessionsRef = rootRef.child('sessions');
 var C = require('../../constants').default;
 import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
 import RenderQuestionCues from '../renderForQuestions/cues.jsx';
-import { SentenceFragments, ThankYou, ConceptExplanation } from 'quill-component-library/dist/componentLibrary';
-const RenderSentenceFragments = SentenceFragments
-const StateFinished = ThankYou
 import RenderFeedback from '../renderForQuestions/feedback';
 import generateFeedbackString from '../renderForQuestions/generateFeedbackString.js';
 import getResponse from '../renderForQuestions/checkAnswer';
@@ -25,7 +30,6 @@ import handleFocus from '../renderForQuestions/handleFocus.js';
 import submitQuestionResponse from '../renderForQuestions/submitResponse.js';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 import submitPathway from '../renderForQuestions/submitPathway.js';
-import { MultipleChoice } from 'quill-component-library/dist/componentLibrary';
 import AnswerForm from '../renderForQuestions/renderFormForAnswer.jsx';
 import { getOptimalResponses, getSubOptimalResponses, getTopOptimalResponse } from '../../libs/sharedResponseFunctions';
 import {

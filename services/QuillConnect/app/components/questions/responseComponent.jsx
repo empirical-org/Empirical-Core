@@ -2,13 +2,16 @@ import React from 'react';
 import { connect } from 'react-redux';
 import filterActions from '../../actions/filters';
 import _ from 'underscore';
-import { hashToCollection } from 'quill-component-library/dist/componentLibrary';
+import {
+  hashToCollection,
+  ResponseSortFields,
+  ResponseToggleFields,
+  QuestionBar
+} from 'quill-component-library/dist/componentLibrary';
 import ResponseList from './responseList.jsx';
 import QuestionMatcher from '../../libs/question';
 import questionActions from '../../actions/questions';
 import sentenceFragmentActions from '../../actions/sentenceFragments';
-import { ResponseSortFields } from 'quill-component-library/dist/componentLibrary';
-import { ResponseToggleFields } from 'quill-component-library/dist/componentLibrary';
 import { getPartsOfSpeechTags } from '../../libs/partsOfSpeechTagging.js';
 import POSForResponsesList from './POSForResponsesList.jsx';
 import respWithStatus from '../../libs/responseTools.js';
@@ -19,7 +22,6 @@ import {
 } from '../../libs/grading/rematching.ts';
 import massEdit from '../../actions/massEdit';
 import getBoilerplateFeedback from './boilerplateFeedback.jsx';
-import { QuestionBar } from 'quill-component-library/dist/componentLibrary';
 import request from 'request';
 import {
   deleteResponse,

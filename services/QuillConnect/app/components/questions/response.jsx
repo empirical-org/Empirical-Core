@@ -2,10 +2,13 @@ import React from 'react';
 import _ from 'underscore';
 import questionActions from '../../actions/questions';
 import sentenceFragmentActions from '../../actions/sentenceFragments';
-import { Modal, TextEditor } from 'quill-component-library/dist/componentLibrary';
+import {
+  Modal,
+  TextEditor,
+  hashToCollection
+} from 'quill-component-library/dist/componentLibrary';
 import { EditorState, ContentState } from 'draft-js'
 import ResponseList from './responseList.jsx';
-import { hashToCollection } from 'quill-component-library/dist/componentLibrary';
 import getBoilerplateFeedback from './boilerplateFeedback.jsx';
 import massEdit from '../../actions/massEdit';
 import ConceptSelectorWithCheckbox from '../shared/conceptSelectorWithCheckbox.jsx';

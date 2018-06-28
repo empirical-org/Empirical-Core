@@ -1,7 +1,7 @@
 import React from 'react';
 const beginArrow = 'https://assets.quill.org/images/icons/begin_arrow.svg';
 
-const TitleCard = props => (
+const PlayTitleCard = props => (
   <div className="landing-page">
     <div className="landing-page-html" dangerouslySetInnerHTML={{__html: props.data.content}}></div>
     <button className="button student-begin" onClick={props.nextQuestion}>
@@ -11,4 +11,4 @@ const TitleCard = props => (
   </div>
 )
 
-export default TitleCard
+export { PlayTitleCard }

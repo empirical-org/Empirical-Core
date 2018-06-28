@@ -1,10 +1,12 @@
 import React from 'react'
-import { TextEditor } from 'quill-component-library/dist/componentLibrary';
+import {
+  TextEditor,
+  hashToCollection,
+  FlagDropdown
+} from 'quill-component-library/dist/componentLibrary';
 import { EditorState, ContentState } from 'draft-js'
-import { hashToCollection } from 'quill-component-library/dist/componentLibrary'
 import _ from 'lodash'
 import ConceptSelector from '../shared/conceptSelector.jsx'
-import { FlagDropdown } from 'quill-component-library/dist/componentLibrary'
 
 export default React.createClass({
   getInitialState: function () {

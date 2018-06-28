@@ -4,8 +4,7 @@ import { Link } from 'react-router'
 import actions from '../../actions/concepts'
 import questionActions from '../../actions/questions'
 import _ from 'underscore'
-import { hashToCollection } from 'quill-component-library/dist/componentLibrary'
-import { TextEditor } from 'quill-component-library/dist/componentLibrary'
+import { hashToCollection, TextEditor } from 'quill-component-library/dist/componentLibrary'
 import { EditorState, ContentState } from 'draft-js'
 
 const Concept = React.createClass({

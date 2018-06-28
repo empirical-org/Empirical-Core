@@ -5,7 +5,10 @@ import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
 import * as _ from 'underscore';
 import * as ReactTransition from 'react-addons-css-transition-group';
 import {checkSentenceFragment, Response } from 'quill-marking-logic'
-import { hashToCollection } from 'quill-component-library/dist/componentLibrary';
+import {
+  hashToCollection,
+  Feedback
+} from 'quill-component-library/dist/componentLibrary';
 import {
   submitResponse,
   incrementResponseCount,
@@ -14,8 +17,7 @@ import {
 } from '../../actions/responses';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 import { ConceptExplanation } from 'quill-component-library/dist/componentLibrary';
-import Feedback from '../renderForQuestions/feedback';
-import { Feedback } from 'quill-component-library/dist/componentLibrary'
+import FeedbackComponent from '../renderForQuestions/feedback';
 const icon = 'https://assets.quill.org/images/icons/question_icon.svg'
 
 const PlaySentenceFragment = React.createClass<any, any>({
@@ -177,7 +179,7 @@ const PlaySentenceFragment = React.createClass<any, any>({
     return (
       <div className="container">
         <div className="feedback-row">
-          <StatelessFeedback
+          <Feedback
             feedbackType="default"
             feedback={(<p>Is this a complete or an incomplete sentence?</p>)}
           />
@@ -229,7 +231,7 @@ const PlaySentenceFragment = React.createClass<any, any>({
           <img className="info" src={icon} />
           <p>{instructions}</p>
         </div> */}
-        <Feedback
+        <FeedbackComponent
           question={this.props.question}
           sentence={instructions}
           responses={this.getResponses()}
