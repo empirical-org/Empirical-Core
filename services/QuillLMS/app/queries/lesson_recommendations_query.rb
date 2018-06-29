@@ -1,4 +1,4 @@
-class LessonRecommendations
+class LessonRecommendationsQuery
   attr_reader :relation, :activity_id, :classroom_id
 
   def initialize(activity_id, classroom_id = nil, relation = Activity)
