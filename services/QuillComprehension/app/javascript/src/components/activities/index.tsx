@@ -13,7 +13,7 @@ import {
   Play,
   Pause
 } from 'react-feather';
-export interface AppProps extends PassedProps, DispatchFromProps, StateFromProps { 
+export interface AppProps extends PassedProps, DispatchFromProps, StateFromProps {
 }
 
 export interface PassedProps {
@@ -26,8 +26,8 @@ function activityQuery(activity_id:string) {
     activity(id: ${activity_id}) {
       title
       article
-      question_sets {
-        id 
+      questionSets {
+        id
         prompt
         questions {
           id
@@ -40,7 +40,7 @@ function activityQuery(activity_id:string) {
         prompt
         order
       }
-      vocabulary_words {
+      vocabularyWords {
         id
         text
         description
@@ -75,12 +75,12 @@ class ActivityContainer extends React.Component<AppProps, any> {
 
   renderQuestions(activity, questionSetId, read) {
     if (!read) return;
-    if (activity.question_sets.length > 1 && questionSetId === null) return
+    if (activity.questionSets.length > 1 && questionSetId === null) return
     let questions;
-    if (activity.question_sets.length === 1) {
-      questions = activity.question_sets[0].questions;
+    if (activity.questionSets.length === 1) {
+      questions = activity.questionSets[0].questions;
     } else {
-      questions = R.find(R.propEq('id', questionSetId))(activity.question_sets).questions
+      questions = R.find(R.propEq('id', questionSetId))(activity.questionSets).questions
     }
     return (
       <div>
@@ -88,13 +88,13 @@ class ActivityContainer extends React.Component<AppProps, any> {
         <Questions questions={questions} key={questionSetId}/>
       </div>
     )
-    
+
   }
 
   renderQuestionSets(data, readArticle) {
-    if (readArticle && data.activity.question_sets.length > 1) {
+    if (readArticle && data.activity.questionSets.length > 1) {
       return (
-        <QuestionSets questionSets={data.activity.question_sets} chooseQuestionSet={this.props.chooseQuestionSet} questionSetId={this.props.activities.questionSetId}/>
+        <QuestionSets questionSets={data.activity.questionSets} chooseQuestionSet={this.props.chooseQuestionSet} questionSetId={this.props.activities.questionSetId}/>
       )
     }
   }
@@ -132,7 +132,7 @@ class ActivityContainer extends React.Component<AppProps, any> {
               {this.renderSubnav()}
               <div className="container">
                 <div className="article-container">
-                  <VocabularyWords vocabWords={data.activity.vocabulary_words}/>
+                  <VocabularyWords vocabWords={data.activity.vocabularyWords}/>
                   <Article activity_id={parseInt(this.props.activity_id)} article={data.activity.article} title={data.activity.title} markAsRead={this.props.markArticleAsRead} fontSize={this.props.activities.fontSize} />
                   {this.renderQuestionSets(data, this.props.activities.readArticle)}
                   {this.renderQuestions(data.activity, this.props.activities.questionSetId, this.props.activities.readArticle)}

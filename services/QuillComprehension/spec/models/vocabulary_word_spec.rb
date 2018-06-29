@@ -1,5 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe VocabularyWord, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it "should belong to an activity" do
+    activity = create(:activity)
+    vocabWord = create(:vocabulary_word, activity: activity)
+    expect(vocabWord.activity).to be(activity)
+  end
 end
