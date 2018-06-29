@@ -8,7 +8,6 @@ import {checkSentenceFragment, Response } from 'quill-marking-logic'
 import {
   hashToCollection,
   ConceptExplanation,
-  Feedback
 } from 'quill-component-library/dist/componentLibrary';
 import {
   submitResponse,
@@ -17,7 +16,7 @@ import {
   getGradedResponsesWithCallback
 } from '../../actions/responses';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
-// import Feedback from '../renderForQuestions/feedback';
+import Feedback from '../renderForQuestions/feedback';
 
 const PlaySentenceFragment = React.createClass<any, any>({
   getInitialState() {
