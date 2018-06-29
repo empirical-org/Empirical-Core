@@ -69,6 +69,9 @@ class ActivitiesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_activity
+      if (params[:id] == 'any')
+        return redirect_to play_activity_path(Activity.order("RANDOM()").first)
+      end
       @activity = Activity.find(params[:id])
     end
 
