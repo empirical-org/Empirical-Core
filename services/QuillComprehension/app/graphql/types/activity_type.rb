@@ -1,26 +1,25 @@
-Types::ActivityType = GraphQL::ObjectType.define do
-  name 'Activity'
+class Types::ActivityType < Types::BaseObject
 
-  field :id, !types.ID
-  field :title, !types.String
-  field :article, !types.String
-  field :description, !types.String
+  field :id, ID, null: false
+  field :title, String, null: false
+  field :article, String, null: false
+  field :description, String, null: false
 
-  field :question_sets, !types[Types::QuestionSetType] do 
-    resolve -> (obj, args, ctx) {
-      obj.question_sets
-    }
+  field :question_sets, [Types::QuestionSetType, null: true], null: false
+
+  def question_sets
+    object.question_sets
   end
 
-  field :questions, !types[Types::QuestionType] do
-    resolve -> (obj, args, ctx) {
-      obj.questions
-    }
+  field :questions, [Types::QuestionType, null: true], null: false
+
+  def questions
+    object.questions
   end
 
-  field :vocabulary_words, !types[Types::VocabularyWordType] do
-    resolve -> (obj, args, ctx) {
-      obj.vocabulary_words
-    }
+  field :vocabulary_words, [Types::VocabularyWordType, null: true], null: false
+
+  def vocabulary_words
+    object.vocabulary_words
   end
 end
