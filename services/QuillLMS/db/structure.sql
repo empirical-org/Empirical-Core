@@ -3603,13 +3603,6 @@ CREATE INDEX index_recommendations_on_activity_id ON public.recommendations USIN
 
 
 --
--- Name: index_recommendations_on_name; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_recommendations_on_name ON public.recommendations USING btree (name);
-
-
---
 -- Name: index_recommendations_on_unit_template_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -4809,4 +4802,6 @@ INSERT INTO schema_migrations (version) VALUES ('20180628161337');
 INSERT INTO schema_migrations (version) VALUES ('20180628182314');
 
 INSERT INTO schema_migrations (version) VALUES ('20180628191240');
+
+INSERT INTO schema_migrations (version) VALUES ('20180629151757');
 
