@@ -219,7 +219,7 @@ module PublicProgressReports
       unique_students = activity_sessions.map {|activity_session| user = activity_session.user; {id: user.id, name: user.name}}
                                          .sort_by {|stud| stud[:name].split()[1]}
 
-      recommendations = Activity.find(diagnostic.id).recommendations_hash.map do |activity_pack_recommendation|
+      recommendations = RecommendationsQuery.new(diagnostic.id).activity_recommendations.map do |activity_pack_recommendation|
         students = []
         activity_sessions_counted.each do |activity_session|
           activity_pack_recommendation[:requirements].each do |req|
@@ -253,7 +253,7 @@ module PublicProgressReports
       classroom = Classroom.find(classroom_id)
       teacher_id = classroom.owner.id
       diagnostic = Activity.find(activity_id)
-      assigned_recommendations = Activity.find(diagnostic.id).recommendations_hash.map do |rec|
+      assigned_recommendations = RecommendationsQuery.new(diagnostic.id).activity_recommendations.map do |rec|
         # one unit per teacher with this name.
         unit = Unit.find_by(user_id: teacher_id, unit_template_id: rec[:activityPackId])
         if !unit
@@ -262,7 +262,8 @@ module PublicProgressReports
         student_ids = ClassroomActivity.find_by(unit: unit, classroom: classroom).try(:assigned_student_ids) || []
         return_value_for_recommendation(student_ids, rec)
       end
-      recommended_lesson_activity_ids = LessonRecommendations.new(diagnostic.id)
+      recommended_lesson_activity_ids = LessonRecommendationsQuery.new(diagnostic.id)
+        .activity_recommendations
         .map { |r| r[:activityPackId] }
       associated_teacher_ids = ClassroomsTeacher.where(classroom_id: classroom_id).pluck(:user_id)
       assigned_lesson_ids = Unit.where(unit_template_id: recommended_lesson_activity_ids, user_id: associated_teacher_ids).pluck(:unit_template_id)
