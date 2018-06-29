@@ -10,9 +10,11 @@ class NewFillInBlank extends Component {
   }
 
   submitNewQuestion(data, newQuestionOptimalResponse) {
-    if(data.prompt !== '') {
+    if (data.prompt !== '') {
+      const questionData = data
+      questionData.prompt = data.prompt.replace('<p>', '').replace('</p>', '')
       this.props.dispatch(fillInBlankActions.submitNewQuestion(
-        data,
+        questionData,
         {
           text: newQuestionOptimalResponse.trim(),
           optimal: true,

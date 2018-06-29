@@ -11,8 +11,10 @@ class EditFillInBlank extends Component {
     this.returnQuestionState = this.returnQuestionState.bind(this);
   }
 
-  editQuestion(data, newQuestionOptimalResponse) {
+  editQuestion(data) {
     const fillInBlankQuestionID = this.props.params.questionID;
+    const questionData = data
+    questionData.prompt = data.prompt.replace('<p>', '').replace('</p>', '')
     this.props.dispatch(fillInBlankActions.submitQuestionEdit(fillInBlankQuestionID, data));
   }
 
