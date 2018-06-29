@@ -218,7 +218,8 @@ module PublicProgressReports
       activity_sessions_counted = activity_sessions_with_counted_concepts(activity_sessions)
       unique_students = activity_sessions.map {|activity_session| user = activity_session.user; {id: user.id, name: user.name}}
                                          .sort_by {|stud| stud[:name].split()[1]}
-      recommendations = Recommendations.new.send("recs_for_#{diagnostic.id}").map do |activity_pack_recommendation|
+
+      recommendations = Activity.find(diagnostic.id).recommendations_hash.map do |activity_pack_recommendation|
         students = []
         activity_sessions_counted.each do |activity_session|
           activity_pack_recommendation[:requirements].each do |req|
@@ -252,7 +253,7 @@ module PublicProgressReports
       classroom = Classroom.find(classroom_id)
       teacher_id = classroom.owner.id
       diagnostic = Activity.find(activity_id)
-      assigned_recommendations = Recommendations.new.send("recs_for_#{diagnostic.id}").map do |rec|
+      assigned_recommendations = Activity.find(diagnostic.id).recommendations_hash.map do |rec|
         # one unit per teacher with this name.
         unit = Unit.find_by(user_id: teacher_id, unit_template_id: rec[:activityPackId])
         if !unit

@@ -34,6 +34,27 @@ class Activity < ActiveRecord::Base
 
   DIAGNOSTIC_ACTIVITY_IDS = [413, 447, 602]
 
+  def recommendations_hash
+    serialized_recommendations = Jbuilder.new do |json|
+      json.array! recommendations do |recommendation|
+        json.recommendation recommendation.name
+        json.activityPackId recommendation.unit_template.id
+
+        if recommendation.criteria.present?
+          json.requirements recommendation.criteria do |criterion|
+            json.concept_id criterion.concept.uid
+            json.count criterion.count
+            if criterion.category == 'incorrect_submissions'
+              json.noIncorrect true
+            end
+          end
+        end
+      end
+    end.target!
+
+    JSON.parse(serialized_recommendations, symbolize_names: true)
+  end
+
   def topic_uid= uid
     self.topic_id = Topic.find_by_uid(uid).id
   end
