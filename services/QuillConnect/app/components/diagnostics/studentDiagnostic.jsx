@@ -11,7 +11,7 @@ import Spinner from '../shared/spinner.jsx';
 import SmartSpinner from '../shared/smartSpinner.jsx';
 import PlaySentenceFragment from './sentenceFragment.jsx';
 import PlayDiagnosticQuestion from './sentenceCombining.jsx';
-import TitleCard from './titleCard.jsx';
+import TitleCard from '../studentLessons/titleCard.tsx';
 import LandingPage from './landing.jsx';
 import FinishedDiagnostic from './finishedDiagnostic.jsx';
 import DiagnosticProgressBar from '../shared/diagnosticProgressBar.jsx';

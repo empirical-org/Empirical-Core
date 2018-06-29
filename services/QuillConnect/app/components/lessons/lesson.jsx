@@ -31,8 +31,10 @@ const Lesson = React.createClass({
     const questionsForLesson = this.questionsForLesson();
     if (questionsForLesson) {
       const listItems = questionsForLesson.map((question) => {
-        const displayName = question.prompt || 'No question prompt';
-        return (<li key={question.key}><Link to={`/admin/${question.questionType.toKebab() || 'questions'}/${question.key}`}>{displayName.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, '')}</Link></li>);
+        const { questionType, title, prompt, key, } = question
+        const displayName = (questionType === 'titleCards' ? title : prompt) || 'No question prompt';
+        const questionTypeLink = questionType === 'fillInBlank' ? 'fill-in-the-blanks' : questionType.toKebab()
+        return (<li key={question.key}><Link to={`/admin/${questionTypeLink || 'questions'}/${question.key}`}>{displayName.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, '')}</Link></li>);
       });
       return (
         <ul>{listItems}</ul>
@@ -57,7 +59,7 @@ const Lesson = React.createClass({
   saveLessonEdits(vals) {
     const { data, } = this.props.lessons,
       { lessonID, } = this.props.params;
-    const qids = data[lessonID].questions ? data[lessonID].questions.map(q => q.key) : []
+    const qids = vals.questions ? vals.questions.map(q => q.key) : []
     this.props.dispatch(lessonActions.submitLessonEdit(lessonID, vals, qids));
   },
 
@@ -118,6 +120,8 @@ function select(state) {
     questions: state.questions,
     routing: state.routing,
     sentenceFragments: state.sentenceFragments,
+    fillInBlank: state.fillInBlank,
+    titleCards: state.titleCards
   };
 }
 

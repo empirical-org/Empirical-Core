@@ -1,4 +1,4 @@
-import { ActivitiesAction, UPDATE_SUBMISSION, COMPLETE_QUESTION, READ_ARTICLE } from "../actions/activities";
+import { ActivitiesAction, UPDATE_SUBMISSION, COMPLETE_QUESTION, READ_ARTICLE, CHOOSE_QUESTION_SET, SET_FONT_SIZE } from "../actions/activities";
 import * as R from 'ramda';
 
 export interface Submissions {
@@ -13,12 +13,16 @@ export interface ActivitiesState {
   submissions: Submissions
   complete: CompleteHash
   readArticle: false
+  questionSetId: string|null
+  fontSize: number
 }
 
 export const initialState:ActivitiesState = {
   submissions: {},
   complete: {},
   readArticle: false,
+  questionSetId: null,
+  fontSize: 2,
 }
 
 function activityReducer(state:ActivitiesState=initialState,action?:ActivitiesAction) {
@@ -35,8 +39,12 @@ function activityReducer(state:ActivitiesState=initialState,action?:ActivitiesAc
           [action.data.questionId]: true
         }
       });
+    case CHOOSE_QUESTION_SET:
+      return R.mergeDeepRight(state, {questionSetId: action.data.questionSetId})
     case READ_ARTICLE:
       return R.mergeDeepRight(state, {readArticle: true})
+    case SET_FONT_SIZE:
+      return R.mergeDeepRight(state, {fontSize: action.data.fontSize})
     default:
       return Object.assign({}, state);
   }

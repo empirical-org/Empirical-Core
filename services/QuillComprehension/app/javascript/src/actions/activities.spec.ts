@@ -4,7 +4,11 @@ import {
   UPDATE_SUBMISSION, 
   COMPLETE_QUESTION,
   markArticleAsRead,
-  READ_ARTICLE
+  READ_ARTICLE,
+  chooseQuestionSet, 
+  CHOOSE_QUESTION_SET,
+  setFontSize,
+  SET_FONT_SIZE
 } from './activities';
 
 test('returns the correct action from completeQuestion', () => {
@@ -19,4 +23,12 @@ test('returns the correct action from updateSubmission', () => {
 
 test('returns the correct action from markArticleAsRead', () => {
   expect(markArticleAsRead()).toEqual({type: READ_ARTICLE})
+})
+
+test('returns the correct action from chooseQuestionSet', () => {
+  expect(chooseQuestionSet(1)).toEqual({type: CHOOSE_QUESTION_SET, data: {questionSetId: 1}})
+})
+
+test('returns the correct action from setFontSize', () => {
+  expect(setFontSize(1)).toEqual({type: SET_FONT_SIZE, data: {fontSize: 1}})
 })

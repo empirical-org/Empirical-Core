@@ -1,0 +1,5 @@
+FROM node:7.5.0
+
+# node requires python, so python is pre-installed
+RUN apt-get update && apt-get install -y python-pip
+RUN pip install requests==2.18.4

@@ -4,6 +4,7 @@ import { hashToCollection } from '../../libs/hashToCollection';
 import QuestionSelector from 'react-select-search';
 import SortableList from '../questions/sortableList/sortableList.jsx';
 import LandingPageEditor from './landingPageEditor.jsx';
+import ChooseModelContainer from './chooseModelContainer.jsx'
 import _ from 'underscore';
 
 const LessonForm = React.createClass({
@@ -16,15 +17,18 @@ const LessonForm = React.createClass({
       selectedQuestions: currentValues && currentValues.questions ? currentValues.questions : [],
       flag: currentValues ? currentValues.flag : 'alpha',
       questionType: 'questions',
+      modelConceptUID: currentValues ? currentValues.modelConceptUID : null
     };
   },
 
   submit() {
+    const { name, selectedQuestions, landingPageHtml, flag, modelConceptUID, } = this.state
     this.props.submit({
-      name: this.state.name,
-      questions: this.state.selectedQuestions,
-      landingPageHtml: this.state.landingPageHtml,
-      flag: this.state.flag,
+      name,
+      questions: selectedQuestions,
+      landingPageHtml,
+      flag,
+      modelConceptUID
     });
   },
 
@@ -62,8 +66,9 @@ const LessonForm = React.createClass({
       const questionsList = this.state.selectedQuestions.map((question) => {
         const questionobj = this.props[question.questionType].data[question.key];
         const prompt = questionobj ? questionobj.prompt : 'Question No Longer Exists';
+        const promptOrTitle = question.questionType === 'titleCards' ? questionobj.title : prompt
         return (<p className="sortable-list-item" key={question.key} questionType={question.questionType}>
-          {prompt}
+          {promptOrTitle}
           {'\t\t'}
           <button onClick={this.handleChange.bind(null, question.key)}>Delete</button>
         </p>
@@ -81,9 +86,14 @@ const LessonForm = React.createClass({
     let options = hashToCollection(this.props[questionType].data);
     const concepts = this.props.concepts.data[0];
     console.log('Options: ', options);
+    let formatted
     if (options.length > 0) {
-      options = _.filter(options, option => _.find(concepts, { uid: option.conceptID, }) && (option.flag !== "archived")); // filter out questions with no valid concept
-      const formatted = options.map(opt => ({ name: opt.prompt.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, ''), value: opt.key, }));
+      if (questionType !== 'titleCards') {
+        options = _.filter(options, option => _.find(concepts, { uid: option.conceptID, }) && (option.flag !== "archived")); // filter out questions with no valid concept
+        formatted = options.map(opt => ({ name: opt.prompt.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, ''), value: opt.key, }));
+      } else {
+        formatted = options.map((opt) => { return { name: opt.title, value: opt.key } })
+      }
       return (<QuestionSelector
         key={questionType} options={formatted} placeholder="Search for a question"
         onChange={this.handleSearchChange}
@@ -139,6 +149,8 @@ const LessonForm = React.createClass({
             <select defaultValue={'questions'} onChange={this.handleSelectQuestionType}>
               <option value="questions">Sentence Combining</option>
               <option value="sentenceFragments">Sentence Fragment</option>
+              <option value="fillInBlank">Fill In the Blank</option>
+              <option value="titleCards">Title Cards</option>
             </select>
           </span>
         </p>
@@ -149,6 +161,11 @@ const LessonForm = React.createClass({
         <label className="label">All Questions</label>
         {this.renderSearchBox()}
         <br />
+        <ChooseModelContainer
+          updateModelConcept={modelConceptUID => this.setState({ modelConceptUID })}
+          modelConceptUID={this.state.modelConceptUID}
+          conceptsFeedback={this.props.conceptsFeedback}
+        />
         <p className="control">
           <button className={`button is-primary ${this.props.stateSpecificClass}`} onClick={this.submit}>Submit</button>
         </p>
@@ -162,6 +179,9 @@ function select(state) {
     questions: state.questions,
     concepts: state.concepts,
     sentenceFragments: state.sentenceFragments,
+    conceptsFeedback: state.conceptsFeedback,
+    fillInBlank: state.fillInBlank,
+    titleCards: state.titleCards
   };
 }
 

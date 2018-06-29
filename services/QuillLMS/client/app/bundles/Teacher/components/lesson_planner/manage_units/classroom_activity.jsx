@@ -108,8 +108,8 @@ renderLessonPlanTooltip() {
     if (diagnosticIds.includes(this.activityId()) && window.location.pathname.includes('diagnostic_reports')) {
       return (
         <div onClick={this.goToRecommendations} className="recommendations-button">
-					Recommendations
-				</div>
+          Recommendations
+        </div>
       )
     }
   },
