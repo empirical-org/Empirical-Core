@@ -166,7 +166,4 @@ class Activity < ActiveRecord::Base
 
     return @url
   end
-
-
-
 end
