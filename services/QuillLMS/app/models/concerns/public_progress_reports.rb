@@ -262,7 +262,8 @@ module PublicProgressReports
         student_ids = ClassroomActivity.find_by(unit: unit, classroom: classroom).try(:assigned_student_ids) || []
         return_value_for_recommendation(student_ids, rec)
       end
-      recommended_lesson_activity_ids = LessonRecommendations.new.send("recs_#{diagnostic.id}_data").map {|r| r[:activityPackId]}
+      recommended_lesson_activity_ids = LessonRecommendations.new(diagnostic.id)
+        .map { |r| r[:activityPackId] }
       associated_teacher_ids = ClassroomsTeacher.where(classroom_id: classroom_id).pluck(:user_id)
       assigned_lesson_ids = Unit.where(unit_template_id: recommended_lesson_activity_ids, user_id: associated_teacher_ids).pluck(:unit_template_id)
       {

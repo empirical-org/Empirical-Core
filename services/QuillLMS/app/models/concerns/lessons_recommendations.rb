@@ -21,7 +21,10 @@ module LessonsRecommendations
     end
 
     def get_recommendations
-      LessonRecommendations.new.send("recs_for_activity", @activity_id, @classroom_activity.classroom_id).map do |lessons_rec|
+      LessonRecommendations.new(
+        @activity_id,
+        @classroom_activity.classroom_id
+      ).activity_recommendations.map do |lessons_rec|
         fail_count = 0
         @activity_sessions_with_counted_concepts.each do |activity_session|
           lessons_rec[:requirements].each do |req|
