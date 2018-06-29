@@ -7,7 +7,7 @@ import * as ReactTransition from 'react-addons-css-transition-group';
 import {checkSentenceFragment, Response } from 'quill-marking-logic'
 import {
   hashToCollection,
-  Feedback
+  ConceptExplanation,
 } from 'quill-component-library/dist/componentLibrary';
 import {
   submitResponse,
@@ -16,9 +16,7 @@ import {
   getGradedResponsesWithCallback
 } from '../../actions/responses';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
-import { ConceptExplanation } from 'quill-component-library/dist/componentLibrary';
-import FeedbackComponent from '../renderForQuestions/feedback';
-const icon = 'https://assets.quill.org/images/icons/question_icon.svg'
+import Feedback from '../renderForQuestions/feedback';
 
 const PlaySentenceFragment = React.createClass<any, any>({
   getInitialState() {
@@ -231,7 +229,7 @@ const PlaySentenceFragment = React.createClass<any, any>({
           <img className="info" src={icon} />
           <p>{instructions}</p>
         </div> */}
-        <FeedbackComponent
+        <Feedback
           question={this.props.question}
           sentence={instructions}
           responses={this.getResponses()}
