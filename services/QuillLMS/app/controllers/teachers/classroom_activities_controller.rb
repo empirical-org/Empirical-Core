@@ -27,9 +27,9 @@ class Teachers::ClassroomActivitiesController < ApplicationController
       if @classroom_activity.update(locked: false, pinned: true)
         find_or_create_lesson_activity_sessions_for_classroom
         PusherLessonLaunched.run(@classroom_activity.classroom)
-        # if @classroom_activity.is_valid_for_google_announcement_with_specific_user?(current_user)
-        #   return post_to_google_classroom
-        # end
+        if @classroom_activity.is_valid_for_google_announcement_with_specific_user?(current_user)
+          return post_to_google_classroom
+        end
         redirect_to lesson_url(lesson) and return
       else
         flash.now[:error] = "We cannot launch this lesson. If the problem persists, please contact support."
@@ -110,13 +110,8 @@ private
   end
 
   def post_to_google_classroom
-    # GoogleIntegration::RefreshAccessToken.new(owner).refresh
-    access_token = current_user.auth_credential.access_token
-    google_response = GoogleIntegration::Announcements.new(
-      access_token,
-      @classroom_activity,
-      @classroom_activity.classroom.google_classroom_id
-    ).post
+    google_response = GoogleIntegration::Announcements.new(@classroom_activity)
+      .post
     if google_response == 'UNAUTHENTICATED'
       session[:google_redirect] = request.path
       return redirect_to '/auth/google_oauth2'
