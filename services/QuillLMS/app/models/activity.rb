@@ -36,7 +36,7 @@ class Activity < ActiveRecord::Base
 
   def recommendations_hash
     serialized_recommendations = Jbuilder.new do |json|
-      json.array! recommendations do |recommendation|
+      json.array! recommendations.independent_practice do |recommendation|
         json.recommendation recommendation.name
         json.activityPackId recommendation.unit_template.id
 
