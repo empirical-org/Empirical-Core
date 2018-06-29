@@ -42,13 +42,7 @@ const Lessons = React.createClass({
       keys = _.filter(keys, key => data[key].flag === this.state.lessonFlags);
     }
     if (this.state.showOnlyArchived) {
-      const { questions } = this.props;
-      keys = _.filter(keys, key => (data[key].questions.filter((question) => {
-        const currentQuestion = questions.data[question.key];
-        if (currentQuestion && currentQuestion.flag === "archived") {
-          return question;
-        }
-      })).length > 0);
+      keys = keys.filter(key => data[key].questions && data[key].questions.some(q => q.flag === 'archived'))
     }
     return keys.map(key => (
       <LinkListItem
