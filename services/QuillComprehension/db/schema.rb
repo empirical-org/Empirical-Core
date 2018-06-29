@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_19_174131) do
+ActiveRecord::Schema.define(version: 2018_06_22_175925) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,6 +41,23 @@ ActiveRecord::Schema.define(version: 2018_06_19_174131) do
     t.index ["question_set_id"], name: "index_questions_on_question_set_id"
   end
 
+  create_table "response_label_tags", force: :cascade do |t|
+    t.bigint "response_id"
+    t.bigint "response_label_id"
+    t.integer "score"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["response_id"], name: "index_response_label_tags_on_response_id"
+    t.index ["response_label_id"], name: "index_response_label_tags_on_response_label_id"
+  end
+
+  create_table "response_labels", force: :cascade do |t|
+    t.text "name"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "responses", force: :cascade do |t|
     t.bigint "question_id"
     t.text "text"
@@ -64,6 +81,8 @@ ActiveRecord::Schema.define(version: 2018_06_19_174131) do
 
   add_foreign_key "question_sets", "activities"
   add_foreign_key "questions", "question_sets"
+  add_foreign_key "response_label_tags", "response_labels"
+  add_foreign_key "response_label_tags", "responses"
   add_foreign_key "responses", "questions"
   add_foreign_key "vocabulary_words", "activities"
 end
