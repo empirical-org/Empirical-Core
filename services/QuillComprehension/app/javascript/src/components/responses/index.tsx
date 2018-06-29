@@ -50,7 +50,7 @@ class TagResponsesContainer extends React.Component<any> {
           if (loading) return <p>Loading...</p>;
           if (error) return <p>Error :(</p>;
           const response = selectRandomItem(data.question.responses);
-          const label = selectRandomItem(data.response_labels);
+          const label = selectRandomItem(data.responseLabels);
           return (
             <div className="card">
               <div className="card-header">
