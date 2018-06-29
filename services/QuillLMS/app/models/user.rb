@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
 
 
   has_secure_password validations: false
+  has_one :auth_credential, dependent: :destroy
   has_many :user_subscriptions
   has_many :subscriptions, through: :user_subscriptions
   has_many :checkboxes
@@ -39,7 +40,7 @@ class User < ActiveRecord::Base
 
   has_many :blog_post_user_ratings
 
-
+  accepts_nested_attributes_for :auth_credential
 
   delegate :name, :mail_city, :mail_state, to: :school, allow_nil: true, prefix: :school
 
@@ -100,11 +101,9 @@ class User < ActiveRecord::Base
 
   def utc_offset
     if self.time_zone
-      # then the user has a time zone and we return the UTC offset
       tz = TZInfo::Timezone.get(time_zone)
       tz.period_for_utc(Time.new.utc).utc_total_offset
     else
-      # the user does not have a time zone and we do not offset UTC
       0
     end
   end

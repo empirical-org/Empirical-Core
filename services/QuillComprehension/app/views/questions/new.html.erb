@@ -1,5 +1,11 @@
-<h1>New Question</h1>
-
-<%= render 'form', question: @question %>
-
-<%= link_to 'Back', questions_path %>
+<div class="container">
+  <div class="card">
+    <div class="card-header">
+      <h1>New Question</h1>
+    </div>
+    <div class="card-body">
+      <%= render 'form', question: @question %>
+    </div>
+  </div>
+  <%= link_to 'Back', question_set_questions_path %>
+</div>

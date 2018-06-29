@@ -4,8 +4,7 @@
     <title>QuillComprehension</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application' %>
     <script src="https://unpkg.com/feather-icons"></script>
     <%= javascript_pack_tag 'application' %>
     <%= stylesheet_pack_tag 'application' %>
@@ -15,16 +14,28 @@
   </head>
 
   <body>
-    <div class='navbar'>
-      <div class='container'>
-        <div class="navbar-inner d-fl-r ai-c">
-          <i data-feather="feather" class="m-r-1"></i><span class="logo">Comprehension</span>
+    <div class="page">
+      <div class="page-main">
+        <% if notice %>
+          <div class="alert alert-primary" role="alert">
+            <div class='container'>
+              <%= notice %>
+            </div>
+          </div>
+        <% end %>
+        <div class='navbar'>
+          <div class='container'>
+            <div class="navbar-inner d-fl-r ai-c">
+              <i data-feather="feather" class="m-r-1"></i><span class="logo">Comprehension</span>
+            </div>
+          </div>
         </div>
+        <%= yield %>
       </div>
     </div>
-    <%= yield %>
+    <div id="modal-root"></div>
   </body>
   <script>
-      feather.replace()
-    </script>
+    feather.replace()
+  </script>
 </html>

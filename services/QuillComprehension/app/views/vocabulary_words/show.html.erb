@@ -1,0 +1,29 @@
+
+
+<p>
+  <strong>Activity:</strong>
+  <%= @vocabulary_word.activity.title %>
+</p>
+
+<p>
+  <strong>Text:</strong>
+  <%= @vocabulary_word.text %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @vocabulary_word.description %>
+</p>
+
+<p>
+  <strong>Example:</strong>
+  <%= @vocabulary_word.example %>
+</p>
+
+<p>
+  <strong>Order:</strong>
+  <%= @vocabulary_word.order %>
+</p>
+
+<%= link_to 'Edit', edit_vocabulary_word_path(@vocabulary_word) %> |
+<%= link_to 'Back', activity_vocabulary_words_path(@vocabulary_word.activity_id) %>
