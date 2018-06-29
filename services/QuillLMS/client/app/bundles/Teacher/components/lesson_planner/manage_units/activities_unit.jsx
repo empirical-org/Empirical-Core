@@ -17,6 +17,14 @@ export default React.createClass({
     };
   },
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.data.classroomActivities && (nextProps.data.classroomActivities.length === this.state.classroomActivities.length)) {
+      this.setState({classroomActivities: nextProps.data.classroomActivities})
+    } else if (nextProps.data.classroom_activities && (nextProps.data.classroom_activities.length === this.state.classroomActivities.length)) {
+      this.setState({classroomActivities: nextProps.data.classroom_activities})
+    }
+  },
+
   hideUnit() {
     const x = confirm('Are you sure you want to delete this Activity Pack? \n \nIt will delete all assignments given to students associated with this pack, even if those assignments have already been completed.');
     if (x) {

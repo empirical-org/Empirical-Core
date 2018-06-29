@@ -17,6 +17,7 @@ class FillInBlankForm extends Component {
       newQuestionOptimalResponse: '',
       itemLevel: 'Select Item Level',
       flag: 'alpha',
+      cuesLabel: ''
     };
     this.toggleQuestionBlankAllowed = this.toggleQuestionBlankAllowed.bind(this);
     this.handlePromptChange = this.handlePromptChange.bind(this);
@@ -26,11 +27,12 @@ class FillInBlankForm extends Component {
     this.handleItemLevelChange = this.handleItemLevelChange.bind(this);
     this.handleSelectorChange = this.handleSelectorChange.bind(this);
     this.handleFlagChange = this.handleFlagChange.bind(this);
+    this.handleCuesLabelChange = this.handleCuesLabelChange.bind(this);
     this.submit = this.submit.bind(this);
   }
 
   handlePromptChange(prompt) {
-    this.setState({prompt});
+    this.setState({ prompt });
   }
 
   handleInstructionsChange(e) {
@@ -57,6 +59,10 @@ class FillInBlankForm extends Component {
     this.setState({ flag: e.target.value, });
   }
 
+  handleCuesLabelChange(e) {
+    this.setState({ cuesLabel: e.target.value, });
+  }
+
   itemLevelToOptions() {
     return hashToCollection(this.props.itemLevels.data).map((level) => {
       return (
@@ -78,6 +84,7 @@ class FillInBlankForm extends Component {
       instructions: this.state.instructions,
       conceptID: this.state.conceptID,
       flag: this.state.flag ? this.state.flag : 'alpha',
+      cuesLabel: this.state.cuesLabel
     };
     this.props.action(data, this.state.newQuestionOptimalResponse);
   }
@@ -91,6 +98,7 @@ class FillInBlankForm extends Component {
       itemLevel: 'Select Item Level',
       conceptID: null,
       flag: 'alpha',
+      cuesLabel: ''
     });
   }
 
@@ -127,6 +135,10 @@ class FillInBlankForm extends Component {
         <label className="label">Instructions for student</label>
         <p className="control">
           <textarea className="input" type="text" value={this.state.instructions} onChange={this.handleInstructionsChange}></textarea>
+        </p>
+        <label className="label">Cues Label (default is "joining words" for multiple cues and "joining word" for single cues)</label>
+        <p className="control">
+          <input className="input" type="text" value={this.state.cuesLabel} onChange={this.handleCuesLabelChange}></input>
         </p>
         <label className="label">Cues (separated by commas, no spaces eg "however,therefore,hence")</label>
         <p className="control">

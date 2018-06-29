@@ -1,4 +1,4 @@
-<p id="notice"><%= notice %></p>
+
 
 <p>
   <strong>Prompt:</strong>
@@ -7,7 +7,7 @@
 
 <p>
   <strong>Activity:</strong>
-  <%= @question.activity %>
+  <%= @question.question_set.activity.title %>
 </p>
 
 <p>
@@ -16,4 +16,4 @@
 </p>
 
 <%= link_to 'Edit', edit_question_path(@question) %> |
-<%= link_to 'Back', questions_path %>
+<%= link_to 'Back', question_set_questions_path(@question.question_set_id) %>

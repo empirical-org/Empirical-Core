@@ -1,0 +1,28 @@
+#!/bin/sh
+
+# Section A
+## In order to support branch specific CI badges
+
+#encode_forward_slash () {
+#  # Jenkins has non-standard url encoding rules.
+#  echo ${1//\//%252F}
+#}
+#
+#REPO_ROOT=$(git rev-parse --show-toplevel)
+#BRANCH_NAME=$(git rev-parse --symbolic --abbrev-ref HEAD)
+#BRANCH_NAME=$(encode_forward_slash $BRANCH_NAME)
+#
+## BACK UP 'editable' version of readme
+#cp $REPO_ROOT/README.md $REPO_ROOT/README.md.bak
+#
+## populate branch variable in readme's
+#find $REPO_ROOT -maxdepth 1 -name 'README.md' -type f -print0 | xargs -0 -n 1 sed -i "" -e "s/{BRANCH_NAME}/$BRANCH_NAME/g"
+#
+## git add the new readme files
+#git add $REPO_ROOT/README.md
+#
+## Restore README from backup
+#mv $REPO_ROOT/README.md.bak $REPO_ROOT/README.md
+
+
+
