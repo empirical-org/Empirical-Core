@@ -4,7 +4,6 @@ import {
   CarouselAnimation,
   hashToCollection,
   SmartSpinner,
-  PlayTitleCard,
   DiagnosticProgressBar
 } from 'quill-component-library/dist/componentLibrary';
 import {
@@ -25,6 +24,7 @@ import PlayDiagnosticQuestion from './sentenceCombining.jsx';
 import PlayFillInTheBlankQuestion from '../fillInBlank/playFillInTheBlankQuestion'
 import LandingPage from './landing.jsx';
 import LanguagePage from './languagePage.jsx';
+import PlayTitleCard from './titleCard.tsx'
 import FinishedDiagnostic from './finishedDiagnostic.jsx';
 import { getConceptResultsForAllQuestions } from '../../libs/conceptResults/diagnostic';
 import { getParameterByName } from '../../libs/getParameterByName';
