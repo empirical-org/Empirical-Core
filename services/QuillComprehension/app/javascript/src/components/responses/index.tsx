@@ -25,8 +25,8 @@ function responsesQuery(question_id:string) {
 const SUBMIT_RESPONSE_LABEL_TAG = gql`
   mutation submitResponseLabelTag($response_id: ID!, $response_label_id: ID!, $score: Int)  {
     createResponseLabelTag(response_id: $response_id, response_label_id: $response_label_id, score: $score) {
-      response_label_id
-      response_id
+      responseLabelId
+      responseId
       score
     }
   }
@@ -36,9 +36,16 @@ function selectRandomItem(array:Array<any>):any {
   return array[Math.floor(Math.random()*array.length)];
 }
 
-class TagResponsesContainer extends React.Component<any> {
+export interface AppState {
+  count: number;
+}
+
+class TagResponsesContainer extends React.Component<any, AppState> {
   constructor(props) {
     super(props)
+    this.state = {
+      count: 0
+    }
   }
 
   render() {
@@ -52,7 +59,7 @@ class TagResponsesContainer extends React.Component<any> {
           const response = selectRandomItem(data.question.responses);
           const label = selectRandomItem(data.responseLabels);
           return (
-            <div className="card">
+            <div className="card" key={this.state.count}>
               <div className="card-header">
               <p><span style={{textTransform: "uppercase"}}>{ label.name}</span> -- {label.description} </p>
               </div>
@@ -65,12 +72,12 @@ class TagResponsesContainer extends React.Component<any> {
                     <button className="btn btn-success mr1" style={{flexGrow: 1}} onClick={(e) => {
                       e.preventDefault();
                       submitResponseLabelTag({variables: {response_id: response.id, response_label_id: label.id, score:1}})
-                      setTimeout(() => {window.location.reload()}, 500)
+                      this.setState({count: this.state.count + 1})
                     }}>Yes</button>
                     <button className="btn btn-danger ml1" style={{flexGrow:  1}} onClick={(e) => {
                       e.preventDefault();
                       submitResponseLabelTag({variables: {response_id: response.id, response_label_id: label.id, score:-1}})
-                      setTimeout(() => {window.location.reload()}, 500)
+                      this.setState({count: this.state.count + 1})
                     }}>No</button>
                   </div>
                 )}
