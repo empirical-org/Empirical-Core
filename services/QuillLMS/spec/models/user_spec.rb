@@ -55,7 +55,9 @@ describe User, type: :model do
       end
 
       it 'raises an error if the flag is not in the array' do
-        expect {user.update(Faker::Beer.name)}.to raise_error()
+        expect {
+          user.update(flags: 'what what')
+        }.to raise_error(ActiveRecord::RecordInvalid)
       end
     end
 

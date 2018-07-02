@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe LessonRecommendations do
+describe LessonRecommendationsQuery do
   let(:subject) { described_class.new }
 
   describe '#rec_activities' do
