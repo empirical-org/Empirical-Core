@@ -3,7 +3,7 @@
     <h1><%= @recommendation.name.titleize %> Recommendation</h1>
     <hr>
     <h2>Criteria</h2>
-    <% if @criteria.present? %>
+    <% if @recommendation.present? && @recommendation.criteria.present? -%>
       <table class="table">
         <thead>
           <tr>
@@ -15,7 +15,7 @@
           </tr>
         </thead>
         <tbody>
-        <% @criteria.each do |criterion| %>
+        <% @recommendation.criteria.each do |criterion| %>
           <tr>
             <td><%= criterion.concept.name %></td>
             <td><%= criterion.category.titleize %></td>

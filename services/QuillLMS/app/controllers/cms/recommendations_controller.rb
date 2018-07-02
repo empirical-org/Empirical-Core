@@ -4,7 +4,8 @@ class Cms::RecommendationsController < Cms::CmsController
   before_action :set_unit_templates, only: [:new, :create]
 
   def index
-    @recommendations = Recommendation.where(activity: @activity)
+    @recommendations = Recommendation.includes(:unit_template)
+      .where(activity: @activity)
     @independent_recommendations = Recommendation.independent_practice
       .where(activity: @activity)
     @group_recommendations = Recommendation.group_lesson
@@ -17,8 +18,8 @@ class Cms::RecommendationsController < Cms::CmsController
   end
 
   def show
-    @recommendation = Recommendation.find(params[:id])
-    @criteria = @recommendation.criteria
+    @recommendation = Recommendation.includes(criteria: :concept)
+      .find(params[:id])
   end
 
   def create
