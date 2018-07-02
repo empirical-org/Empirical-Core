@@ -379,6 +379,9 @@ EmpiricalGrammar::Application.routes.draw do
       resources :activities do
         resource :data
         resources :recommendations do
+          collection do
+            post :sort
+          end
           resources :criteria
         end
       end

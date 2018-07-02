@@ -104,6 +104,7 @@ gem 'sass-rails'
 
 gem 'coffee-rails'
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 
 gem 'slim-rails'
 gem 'haml-rails'
