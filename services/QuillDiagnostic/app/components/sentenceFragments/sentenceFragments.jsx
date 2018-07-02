@@ -2,11 +2,10 @@ import React from 'react'
 import {connect} from 'react-redux'
 import { Link } from 'react-router'
 
-import SentenceFragmentsList from './sentenceFragmentsList.jsx'
 import {
   hashToCollection,
-  QuestionRow,
-  hashToCollection
+  ArchivedButton,
+  QuestionList
 } from 'quill-component-library/dist/componentLibrary'
 import { getDiagnosticQuestions } from '../../libs/getDiagnosticQuestions'
 

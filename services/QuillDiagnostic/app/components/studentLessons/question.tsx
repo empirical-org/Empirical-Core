@@ -126,7 +126,7 @@ const playLessonQuestion = React.createClass<any, any>({
   },
 
   renderSentenceFragments() {
-    return <RenderSentenceFragments prompt={this.getQuestion().prompt} />;
+    return <SentenceFragments prompt={this.getQuestion().prompt} />;
   },
 
   listCuesAsString(cues) {
