@@ -376,12 +376,11 @@ EmpiricalGrammar::Application.routes.draw do
     post '/activity_categories/destroy_and_recreate_acas', to: 'activity_categories#destroy_and_recreate_acas'
     resources :activity_categories, only: [:index, :show, :create, :update, :destroy]
     resources :activity_classifications do
+      put :update_order_numbers, on: :collection
       resources :activities do
         resource :data
         resources :recommendations do
-          collection do
-            post :sort
-          end
+          post :sort, on: :collection
           resources :criteria
         end
       end
@@ -391,7 +390,6 @@ EmpiricalGrammar::Application.routes.draw do
     resources :categories
     resources :concepts
     resources :sections
-    put '/activity_classifications/update_order_numbers', to: 'activity_classifications#update_order_numbers'
     resources :topics
     resources :subscriptions
     resources :topic_categories
