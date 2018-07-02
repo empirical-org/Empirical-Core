@@ -249,7 +249,6 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
           splitPromptWithInput.push(this.renderText(section, i));
         }
       });
-      console.log('splitPromptWithInput', splitPromptWithInput)
       return splitPromptWithInput;
     }
   }

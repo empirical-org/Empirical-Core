@@ -92,7 +92,6 @@ const StudentDiagnostic = React.createClass({
   saveToLMS() {
     this.setState({ error: false, });
     const results = getConceptResultsForAllQuestions(this.props.playDiagnostic.answeredQuestions);
-    console.log('Concept Results: ', results);
 
     const { diagnosticID, } = this.props.params;
     const sessionID = this.state.sessionID;
@@ -287,35 +286,37 @@ const StudentDiagnostic = React.createClass({
 
   getFetchedData() {
     const lesson = this.getLesson()
-    const filteredQuestions = lesson.questions.filter((ques) => {
-      return this.props[ques.questionType] ? this.props[ques.questionType].data[ques.key] : null
-    });
-    // this is a quickfix for missing questions -- if we leave this in here
-    // long term, we should return an array through a forloop to
-    // cut the time from 2N to N
-    return filteredQuestions.map((questionItem) => {
-      const questionType = questionItem.questionType;
-      const key = questionItem.key;
-      const question = this.props[questionType].data[key];
-      question.key = key;
-      question.attempts = question.attempts ? question.attempts : []
-      let type
-      switch (questionType) {
-        case 'questions':
+    if (lesson) {
+      const filteredQuestions = lesson.questions.filter((ques) => {
+        return this.props[ques.questionType] ? this.props[ques.questionType].data[ques.key] : null
+      });
+      // this is a quickfix for missing questions -- if we leave this in here
+      // long term, we should return an array through a forloop to
+      // cut the time from 2N to N
+      return filteredQuestions.map((questionItem) => {
+        const questionType = questionItem.questionType;
+        const key = questionItem.key;
+        const question = this.props[questionType].data[key];
+        question.key = key;
+        question.attempts = question.attempts ? question.attempts : []
+        let type
+        switch (questionType) {
+          case 'questions':
           type = 'SC'
           break
-        case 'fillInBlank':
+          case 'fillInBlank':
           type = 'FB'
           break
-        case 'titleCards':
+          case 'titleCards':
           type = 'TL'
           break
-        case 'sentenceFragments':
-        default:
+          case 'sentenceFragments':
+          default:
           type = 'SF'
-      }
-      return { type, data: question, };
-    });
+        }
+        return { type, data: question, };
+      });
+    }
   },
 
   updateLanguage(language) {

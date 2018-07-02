@@ -80,7 +80,6 @@ const StudentDiagnostic = React.createClass({
   saveToLMS() {
     this.setState({ error: false, });
     const results = getConceptResultsForAllQuestions(this.props.playDiagnostic.answeredQuestions);
-    console.log('Concept Results: ', results);
 
     const { diagnosticID, } = this.props.params;
     const sessionID = this.state.sessionID;
@@ -200,7 +199,6 @@ const StudentDiagnostic = React.createClass({
     const { data, } = this.props.lessons,
       { diagnosticID, } = this.props.params;
     const filteredQuestions = data[diagnosticID].questions.filter(ques => {
-      console.log('ques', ques)
       return this.props[ques.questionType] ? this.props[ques.questionType].data[ques.key] : null
     }
     );
