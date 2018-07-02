@@ -125,7 +125,6 @@ const PlaySentenceFragment = React.createClass<any, any>({
         }
         checkSentenceFragment(fields).then((resp) => {
           const matched = {response: resp}
-          console.log(typeof(matched), typeof(matched) === 'object')
           if (typeof(matched) === 'object') {
             updateResponseResource(matched, key, attempts, this.props.dispatch, );
             this.props.updateAttempts(matched);
