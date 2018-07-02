@@ -724,6 +724,7 @@ DEPENDENCIES
   jbuilder
   jquery-rails
   jquery-turbolinks
+  jquery-ui-rails
   kaminari
   letter_opener
   livingstyleguide

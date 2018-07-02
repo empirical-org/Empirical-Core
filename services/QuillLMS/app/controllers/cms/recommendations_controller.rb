@@ -22,7 +22,10 @@ class Cms::RecommendationsController < Cms::CmsController
   end
 
   def create
-    @recommendation = Recommendation.new(activity: @activity)
+    @recommendation = Recommendation.new(
+      activity: @activity,
+      order: next_order_number_for_category
+    )
 
     if @recommendation.update(recommendation_params)
       redirect_to(
@@ -47,6 +50,18 @@ class Cms::RecommendationsController < Cms::CmsController
     redirect_to cms_activity_classification_activity_recommendations_path
   end
 
+  def sort
+    recommendation_ids = params[:order].split(',')
+
+    if RecommendationsOrderer.new(recommendation_ids).update_order
+      flash[:notice] = 'Recommendation order updated!'
+    else
+      flash[:error] = 'Unable to update Recommendation order.'
+    end
+
+    redirect_to cms_activity_classification_activity_recommendations_path
+  end
+
   private
 
   def set_activity_classification
@@ -60,6 +75,20 @@ class Cms::RecommendationsController < Cms::CmsController
 
   def set_unit_templates
     @unit_templates = UnitTemplate.all
+  end
+
+  def next_order_number_for_category
+    if @activity.recommendations && @activity.recommendations.send(category)
+      @activity.recommendations.send(category).last.order + 1
+    else
+      0
+    end
+  end
+
+  def category
+    if Recommendation.categories.keys.include? recommendation_params[:category]
+      recommendation_params[:category].to_sym
+    end
   end
 
   def recommendation_params
