@@ -785,7 +785,7 @@ DEPENDENCIES
   select2-rails
   sentry-raven (>= 0.12.2)
   shoulda-callback-matchers (~> 1.1.1)
-  shoulda-matchers (~> 3.1)
+  shoulda-matchers (~> 3.1.2)
   sidekiq
   sidekiq-retries
   simplecov
