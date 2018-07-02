@@ -1,14 +1,14 @@
+<div class="container">
+  <p>
+    <strong>Question:</strong>
+    <%= @response.question.prompt %>
+  </p>
 
+  <p>
+    <strong>Text:</strong>
+    <%= @response.text %>
+  </p>
 
-<p>
-  <strong>Question:</strong>
-  <%= @response.question.prompt %>
-</p>
-
-<p>
-  <strong>Text:</strong>
-  <%= @response.text %>
-</p>
-
-<%= link_to 'Edit', edit_response_path(@response) %> |
-<%= link_to 'Back', question_responses_path(@response.question_id) %>
+  <%= link_to 'Edit', edit_response_path(@response) %> |
+  <%= link_to 'Back', question_responses_path(@response.question_id) %>
+</div>
