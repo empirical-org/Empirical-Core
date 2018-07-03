@@ -16,7 +16,7 @@ exports[`NewToolsMini component should render 1`] = `
       }
     >
       <img
-        src="/assets/icons/icon-star.svg"
+        src="https://assets.quill.org/images/icons/icon-star.svg"
         style={
           Object {
             "height": "27px",
@@ -29,7 +29,7 @@ exports[`NewToolsMini component should render 1`] = `
         }
       />
       <img
-        src="/assets/icons/icon-star.svg"
+        src="https://assets.quill.org/images/icons/icon-star.svg"
         style={
           Object {
             "height": "14px",
