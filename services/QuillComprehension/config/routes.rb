@@ -4,7 +4,7 @@ Rails.application.routes.draw do
     resources :question_sets
     resources :vocabulary_words
 
-    get 'play', on: :member    
+    get 'play', on: :member
   end
   resources :question_sets, only: [], shallow: true do
     resources :questions
@@ -12,8 +12,8 @@ Rails.application.routes.draw do
   resources :questions, only: [], shallow: true do
     resources :responses
   end
-  
-  
+
+
   if Rails.env.development?
     mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/graphql"
   end
@@ -21,5 +21,7 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   get '/', to: 'pages#index'
+
+  post 'responses/:id/reset_tags', to: 'responses#reset_tags'
 
 end

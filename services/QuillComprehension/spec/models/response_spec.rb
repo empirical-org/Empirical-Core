@@ -96,7 +96,7 @@ RSpec.describe Response, type: :model do
   it "can reset its tags for a response label" do
     create(:response_label_tag, response: response, response_label: correct_response_label)
     create(:response_label_tag, response: response, response_label: factual_response_label, score: -1)
-    response.reset_metric("correct")
+    response.reset_tags("correct")
     expect(response.all_metrics).to eq({
       "correct": 0,
       "factual": -1

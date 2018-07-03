@@ -12,7 +12,7 @@
   <h4>All Metrics</h4>
   <ul>
     <% @response.all_metrics.each do |k, v| %>
-      <li><%= "#{k}: #{v}"%></li>
+      <li><%= "#{k}: #{v}"%> <%= button_to "Reset", action: "reset_tags", response_label_name: k%> </li>
     <% end %>
   </ul>
 

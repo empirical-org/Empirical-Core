@@ -1,6 +1,6 @@
 class ResponsesController < ApplicationController
   before_action :set_response, only: [:show, :edit, :update, :destroy]
-  before_action :set_question, only: [:index, :create, :new] 
+  before_action :set_question, only: [:index, :create, :new]
   # GET /responses
   # GET /responses.json
   def index
@@ -61,6 +61,12 @@ class ResponsesController < ApplicationController
       format.html { redirect_to question_responses_url(@response.question_id), notice: 'Response was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  # Should be:
+  # POST /responses/1/reset_tags
+  def reset_tags
+    Response.find(params[:id]).reset_tags(params[:response_label_name])
   end
 
   private
