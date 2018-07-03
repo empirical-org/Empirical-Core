@@ -2,20 +2,44 @@ require 'rails_helper'
 require 'sidekiq/testing'
 Sidekiq::Testing.fake!
 
-
-
 describe Units::Creator do
-  let!(:classroom) { create(:classroom) }
-  let!(:teacher) { classroom.owner }
+  it 'creates a unit with a teacher' do
+    classroom = create(:classroom)
+    teacher   = classroom.owner
 
-  describe 'unit_creator' do
+    Units::Creator.run(
+      teacher,
+      'Something Really Cool',
+      [{id: 1}],
+      [{id: classroom.id, student_ids: []}]
+    )
+    expect(Unit.last.user).to eq(teacher)
+  end
 
-    it 'creates a unit with teacher and kicks off an assign activity worker' do
-      current_jobs = AssignActivityWorker.jobs.size
-      Units::Creator.run(teacher, 'Something Really Cool', [{id: 1}], [{id: classroom.id, student_ids: []}])
-      expect(Unit.last.user).to eq(teacher)
-      expect(AssignActivityWorker.jobs.size).to eq(current_jobs + 1)
-    end
+  it 'kicks off an assign activity worker' do
+    classroom = create(:classroom)
+    teacher   = classroom.owner
 
+    Units::Creator.run(
+      teacher,
+      'Something Really Cool',
+      [{id: 1}],
+      [{id: classroom.id, student_ids: []}]
+    )
+    expect(Unit.last.user).to eq(teacher)
+  end
+
+  it 'posts assignment announcements to google classroom' do
+    classroom = create(:classroom)
+    teacher   = classroom.owner
+
+    expect(GoogleIntegration::Announcements).to receive(:post_unit)
+
+    Units::Creator.run(
+      teacher,
+      'Something Really Cool',
+      [{id: 1}],
+      [{id: classroom.id, student_ids: []}]
+    )
   end
 end

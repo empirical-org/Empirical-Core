@@ -1,8 +1,8 @@
-<p id="notice"><%= notice %></p>
+
 
 <p>
   <strong>Question:</strong>
-  <%= @response.question %>
+  <%= @response.question.prompt %>
 </p>
 
 <p>
@@ -11,4 +11,4 @@
 </p>
 
 <%= link_to 'Edit', edit_response_path(@response) %> |
-<%= link_to 'Back', responses_path %>
+<%= link_to 'Back', question_responses_path(@response.question_id) %>

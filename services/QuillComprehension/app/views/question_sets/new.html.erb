@@ -1,5 +1,11 @@
-<h1>New Question Set</h1>
-
-<%= render 'form', question_set: @question_set %>
-
-<%= link_to 'Back', question_sets_path %>
+<div class="container">
+  <div class="card">
+    <div class="card-header">
+      <h1>New Question Set</h1>
+    </div>
+    <div class="card-body">
+      <%= render 'form', question_set: @question_set %>
+    </div>
+  </div>
+  <%= link_to 'Back', activity_question_sets_path %>
+</div>

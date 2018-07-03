@@ -1,6 +1,4 @@
 module Units::Creator
-
-
   def self.run(teacher, name, activities_data, classrooms_data, unit_template_id=nil, current_user_id=nil)
     self.create_helper(teacher, name, activities_data, classrooms_data, unit_template_id, current_user_id)
   end
@@ -37,7 +35,7 @@ module Units::Creator
       product = activities_data.product([classroom[:id].to_i]).uniq
       product.each do |pair|
         activity_data, classroom_id = pair
-        unit.classroom_activities.create!(activity_id: activity_data[:id],
+        new_ca = unit.classroom_activities.create!(activity_id: activity_data[:id],
                                           due_date: activity_data[:due_date],
                                           classroom_id: classroom_id,
                                           assigned_student_ids: classroom[:student_ids],
@@ -45,11 +43,11 @@ module Units::Creator
                                         )
       end
     end
+
     unit.email_lesson_plan
     # unit.hide_if_no_visible_classroom_activities
     # activity_sessions in the state of 'unstarted' are automatically created in an after_create callback in the classroom_activity model
     AssignActivityWorker.perform_async(current_user_id || teacher.id)
+    GoogleIntegration::Announcements.post_unit(unit)
   end
-
-
 end

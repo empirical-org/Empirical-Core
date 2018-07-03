@@ -50,7 +50,7 @@ describe User, type: :model do
     describe 'validations' do
       it 'does not raise an error when the flags are in the VALID_FLAGS array' do
         User::VALID_FLAGS.each do |flag|
-          expect{ user.update(flags: user.flags.push(flag))}.not_to raise_error(:flags)
+          expect{ user.update(flags: user.flags.push(flag))}.not_to raise_error
         end
       end
 

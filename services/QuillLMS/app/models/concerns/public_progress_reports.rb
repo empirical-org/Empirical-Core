@@ -208,7 +208,7 @@ module PublicProgressReports
       end
     end
 
-    def get_recommendations_for_classroom unit_id, classroom_id, activity_id
+    def get_recommendations_for_classroom(unit_id, classroom_id, activity_id)
       classroom_activity = ClassroomActivity.find_by(classroom_id: classroom_id, unit_id: unit_id, activity_id: activity_id)
       classroom = Classroom.find(classroom_id)
       diagnostic = Activity.find(activity_id)
