@@ -38,7 +38,7 @@ class Response < ApplicationRecord
     mapped.to_h
   end
 
-  def reset_metric(response_label_name)
+  def reset_tags(response_label_name)
     label_id = ResponseLabel.find_by_name!(response_label_name).id
     tags = ResponseLabelTag.where(response: self).where(response_label_id: label_id)
     tags.destroy_all
