@@ -9,18 +9,14 @@
     <%= @response.text %>
   </p>
 
-  <ul>
-    <% @response.metrics.each do |k, v| %>
-      <li><%= "#{k}: #{v}"%></li>
-    <% end %>
-  </ul>
-
+  <h4>All Metrics</h4>
   <ul>
     <% @response.all_metrics.each do |k, v| %>
       <li><%= "#{k}: #{v}"%></li>
     <% end %>
   </ul>
 
+  <h4>Latest Tags</h4>
   <ul>
     <% @response.latest_metrics.each do |k, v| %>
       <li><%= "#{k}: #{v}"%></li>
