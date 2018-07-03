@@ -3,14 +3,15 @@ Rails.application.routes.draw do
   resources :activities, shallow: true do
     resources :question_sets
     resources :vocabulary_words
-
     get 'play', on: :member
   end
   resources :question_sets, only: [], shallow: true do
     resources :questions
   end
   resources :questions, only: [], shallow: true do
-    resources :responses
+    resources :responses do
+      post 'reset_tags', on: :member
+    end
   end
 
 
@@ -21,7 +22,5 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   get '/', to: 'pages#index'
-
-  post 'responses/:id/reset_tags', to: 'responses#reset_tags'
 
 end
