@@ -15,14 +15,14 @@ RSpec.describe Response, type: :model do
     expect(question.activity).to be(activity)
   end
 
-  it "can calculate one of it metrics" do 
+  it "can calculate one of it metrics" do
     rlt1 = create(:response_label_tag, response: response, response_label: correct_response_label)
     expect(response.metric("correct")).to eq(1)
     rlt2 = create(:response_label_tag, response: response, response_label: correct_response_label, score: -1)
     expect(response.metric("correct")).to eq(0)
   end
 
-  it "can calculate one of it metrics 2" do 
+  it "can calculate one of it metrics 2" do
     rlt2 = create(:response_label_tag, response: response, response_label: correct_response_label, score: -1)
     expect(response.metric("correct")).to eq(-1)
   end
@@ -82,7 +82,6 @@ RSpec.describe Response, type: :model do
     })
   end
 
-
   it "can calculate its latest metrics with multiple tags" do
     create(:response_label_tag, response: response, response_label: correct_response_label)
     create(:response_label_tag, response: response, response_label: correct_response_label, score: -1)
@@ -91,6 +90,16 @@ RSpec.describe Response, type: :model do
     expect(response.latest_metrics).to eq({
       "correct": -1,
       "factual": 1
+    })
+  end
+
+  it "can reset its tags for a response label" do
+    create(:response_label_tag, response: response, response_label: correct_response_label)
+    create(:response_label_tag, response: response, response_label: factual_response_label, score: -1)
+    response.reset_tags("correct")
+    expect(response.all_metrics).to eq({
+      "correct": 0,
+      "factual": -1
     })
   end
 
