@@ -18,6 +18,17 @@ class Analyzer
     analytics_track({user_id: user.id, event: event}.merge(attributes))
   end
 
+  def track_chain(user, events)
+    analytics_identify(user)
+    events.each do |event|
+      analytics_track(
+        user_id: user.id,
+        event: event,
+        context: { ip: user.ip_address }
+      )
+    end
+  end
+
   private
 
   def analytics_track(hash)
