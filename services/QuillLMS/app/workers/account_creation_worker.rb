@@ -5,11 +5,20 @@ class AccountCreationWorker
     @user = User.find(id)
 
     # tell segment.io
-    analytics = AccountCreationAnalytics.new
+    analytics = Analyzer.new
     if @user.role == 'teacher'
-      analytics.track_teacher(@user)
+      events = [SegmentIo::Events::STUDENT_ACCOUNT_CREATION]
+      events += SegmentIo::Events::TEACHER_SIGNED_UP_FOR_NEWSLETTER if @user.send_newsletter
+      analytics.track_chain(@user, events)
     elsif @user.role == 'student'
-      analytics.track_student(@user)
+      analytics.track_with_attributes(
+        @user,
+        SegmentIo::Events::STUDENT_ACCOUNT_CREATION,
+        {
+          context: {:ip => @user.ip_address },
+          integrations: { intercom: 'false' }
+        }
+      )
     end
   end
 end
