@@ -26,19 +26,3 @@
     <%= f.submit %>
   <% end %>
 </div>
-
-<%= javascript_tag do %>
-  $(document).ready(function() {
-    var isChecked = $("#criterion_no_incorrect").prop('checked');
-
-    if (isChecked) {
-      $("#criterion_count").toggle();
-      $("label[for='criterion_count']").toggle()
-    }
-
-    $("#criterion_no_incorrect").click(function() {
-      $("#criterion_count").toggle();
-      $("label[for='criterion_count']").toggle()
-    });
-  });
-<% end %>
