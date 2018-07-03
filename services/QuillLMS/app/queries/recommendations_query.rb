@@ -16,7 +16,9 @@ class RecommendationsQuery
   private
 
   def activity
-    @activity ||= relation.find(activity_id)
+    @activity ||= relation
+      .includes(recommendations: [ { criteria: :concept }, :unit_template])
+      .find(activity_id)
   end
 
   def mandatory_concept
