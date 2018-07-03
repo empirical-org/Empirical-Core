@@ -31,7 +31,7 @@ const actions = {
     return { type: C.FINISH_DIAGNOSTIC_QUESTION_EDIT, qid, };
   },
   submitQuestionEdit(qid, content) {
-    return function (dispatch, getState) {
+    return (dispatch, getState) => {
       dispatch({ type: C.SUBMIT_DIAGNOSTIC_QUESTION_EDIT, qid, });
       diagnosticQuestionsRef.child(qid).update(content, (error) => {
         dispatch({ type: C.FINISH_DIAGNOSTIC_QUESTION_EDIT, qid, });

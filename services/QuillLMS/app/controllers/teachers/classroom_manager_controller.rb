@@ -5,7 +5,6 @@ class Teachers::ClassroomManagerController < ApplicationController
   before_filter :authorize_owner!, except: [:scores, :scorebook]
   before_filter :authorize_teacher!, only: [:scores, :scorebook]
   include ScorebookHelper
-  require 'tzinfo'
 
   def lesson_planner
     if current_user.classrooms_i_teach.empty?
@@ -153,11 +152,10 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def google_sync
-    # renders the google sync jsx file
   end
 
   def retrieve_google_classrooms
-    google_response = GoogleIntegration::Classroom::Main.pull_data(current_user, session[:google_access_token])
+    google_response = GoogleIntegration::Classroom::Main.pull_data(current_user)
     data = google_response === 'UNAUTHENTICATED' ? {errors: google_response} : {classrooms: google_response}
     render json: data
   end
@@ -176,7 +174,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def import_google_students
-    GoogleStudentImporterWorker.perform_async(current_user.id, session[:google_access_token])
+    GoogleStudentImporterWorker.perform_async(current_user.id)
     render json: {}
   end
 

@@ -1,4 +1,4 @@
-<%= form_with(model: question, local: true) do |form| %>
+<%= form_with(model: question, local: true, url: (@question.new_record? ? [@question_set, @question]: @question)) do |form| %>
   <% if question.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(question.errors.count, "error") %> prohibited this question from being saved:</h2>
@@ -11,22 +11,22 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :prompt %>
-    <%= form.text_area :prompt %>
+  <div class="form-group">
+    <%= form.label :prompt, class: "form-label" %>
+    <%= form.text_area :prompt, class: "form-control" %>
   </div>
 
-  <div class="field">
-    <%= form.label :question_set_id %>
-    <%= form.text_field :question_set_id %>
+  <div class="form-group">
+    <%= form.label :question_set_id, class: "form-label" %>
+    <%= form.text_field :question_set_id, value: (@question.new_record? ? @question_set.id : @question.question_set_id), class: "form-control" %>
   </div>
 
-  <div class="field">
-    <%= form.label :order %>
-    <%= form.number_field :order %>
+  <div class="form-group">
+    <%= form.label :order, class: "form-label" %>
+    <%= form.number_field :order, class: "form-control" %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit class: "btn btn-primary" %>
   </div>
 <% end %>

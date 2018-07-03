@@ -5,6 +5,7 @@ import { Mutation } from "react-apollo";
 import QuestionCard from './question';
 import {updateSubmission, completeQuestion} from '../../actions/activities'
 import {ActivitiesState} from '../../reducers/activities'
+import * as R from 'ramda'
 
 const SUBMIT_RESPONSE = gql`
   mutation submitResponse($text: String!, $question_id: ID!)  {
@@ -62,8 +63,13 @@ class QuestionComponent extends React.Component<AppProps, any> {
     return complete
   }
 
+  orderQuestions(questions:Array<Question>):Array<Question> {
+    const sortByOrder = R.sortBy(R.prop('order'));
+    return sortByOrder(questions)
+  }
+
   renderQuestions(questions:Array<Question>, submissions: Submissions) {
-    return questions.map((a, i) => {
+    return this.orderQuestions(questions).map((a, i) => {
       return (
         <Mutation mutation={SUBMIT_RESPONSE} key={a.id}>
           {(submitResponse, { data }) => (
