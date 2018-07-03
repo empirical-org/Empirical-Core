@@ -19,6 +19,10 @@ class RecommendationsQuery
     @activity ||= relation.find(activity_id)
   end
 
+  def manditory_concept
+    @manditory_concept ||= Concept.find_or_create_by(name: 'Manditory')
+  end
+
   def serialized_recommendations
     @serialized_recommendations ||= Jbuilder.new do |json|
       json.array! activity.recommendations.independent_practice do |recommendation|
@@ -27,11 +31,13 @@ class RecommendationsQuery
 
         if recommendation.criteria.present?
           json.requirements recommendation.criteria do |criterion|
-            json.concept_id criterion.concept.uid
-            json.count criterion.count
-            if criterion.category == 'incorrect_submissions'
-              json.noIncorrect true
+            if criterion.concept.uid == manditory_concept.uid
+              json.concept_id 'manditory'
+            else
+              json.concept_id criterion.concept.uid
             end
+            json.count criterion.count
+            json.noIncorrect criterion.no_incorrect
           end
         end
       end

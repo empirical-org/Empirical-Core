@@ -420,33 +420,36 @@ activities = {
   ]
 }
 
+manditory_concept = Concept.find_or_create_by(name: 'Manditory')
+
 activities.each do |activity_id, recommendations|
   ActiveRecord::Base.transaction do
-    recommendations.each do |recommendation_data|
+    recommendations.each_with_index do |recommendation_data, i|
       recommendation = Recommendation.create!(
         name: recommendation_data[:recommendation],
         activity_id: activity_id,
         unit_template_id: recommendation_data[:activityPackId],
-        category: :independent_practice
+        category: :independent_practice,
+        order: i
       )
 
       puts "Created recommendation - #{recommendation.name}"
 
       recommendation_data[:requirements].each do |criterion_data|
-        concept  = Concept.find_by(uid: criterion_data[:concept_id])
-        category = begin
-          if criterion_data[:noIncorrect] == true
-            :incorrect_submissions
+        concept_uid = begin
+          if criterion_data[:concept_id] === 'mandatory'
+            manditory_concept.uid
           else
-            :correct_submissions
+            criterion_data[:concept_id]
           end
         end
 
+        concept   = Concept.find_by(uid: concept_uid)
         criterion = Criterion.create!(
           concept: concept,
           count: criterion_data[:count],
-          category: category,
-          recommendation: recommendation
+          recommendation: recommendation,
+          no_incorrect: !!criterion_data[:noIncorrect]
         )
 
         puts " --> Created criterion - id:#{criterion.id}"
