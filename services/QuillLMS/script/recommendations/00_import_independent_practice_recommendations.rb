@@ -420,7 +420,7 @@ activities = {
   ]
 }
 
-manditory_concept = Concept.find_or_create_by(name: 'Manditory')
+manditory_concept = Concept.find_or_create_by(name: 'Mandatory')
 
 activities.each do |activity_id, recommendations|
   ActiveRecord::Base.transaction do
