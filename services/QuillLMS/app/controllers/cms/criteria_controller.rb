@@ -72,6 +72,7 @@ class Cms::CriteriaController < Cms::CmsController
   end
 
   def criterion_params
-    params.require(:criterion).permit(:concept_id, :category, :count)
+    params.require(:criterion)
+      .permit(:concept_id, :category, :count, :no_incorrect)
   end
 end

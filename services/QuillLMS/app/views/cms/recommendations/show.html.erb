@@ -8,7 +8,7 @@
         <thead>
           <tr>
             <th>Concept</th>
-            <th>Category</th>
+            <th>No Incorrect</th>
             <th>Count</th>
             <th></th>
             <th></th>
@@ -18,8 +18,8 @@
         <% @recommendation.criteria.each do |criterion| %>
           <tr>
             <td><%= criterion.concept.name %></td>
-            <td><%= criterion.category.titleize %></td>
-            <td><%= criterion.count %></td>
+            <td><%= criterion.no_incorrect %></td>
+            <td><%= criterion.no_incorrect ? 'NA' : criterion.count %></td>
             <td>
               <%= link_to 'Edit',
                 edit_cms_activity_classification_activity_recommendation_criterion_path(

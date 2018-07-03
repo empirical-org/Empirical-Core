@@ -19,14 +19,26 @@
       :id,
       :name
     %>
-    <%= f.label :category %>
-    <%= f.collection_select :category,
-      Criterion.categories.map { |type| [type.first, type.first.titleize] },
-      :first,
-      :second
-    %>
+    <%= f.label :no_incorrect %>
+    <%= f.check_box :no_incorrect, {}, 'true', 'false' %>
     <%= f.label :count %>
     <%= f.number_field :count, { min: 0, max: 100 } %>
     <%= f.submit %>
   <% end %>
 </div>
+
+<%= javascript_tag do %>
+  $(document).ready(function() {
+    var isChecked = $("#criterion_no_incorrect").prop('checked');
+
+    if (isChecked) {
+      $("#criterion_count").toggle();
+      $("label[for='criterion_count']").toggle()
+    }
+
+    $("#criterion_no_incorrect").click(function() {
+      $("#criterion_count").toggle();
+      $("label[for='criterion_count']").toggle()
+    });
+  });
+<% end %>

@@ -69,9 +69,7 @@ class LessonRecommendationsQuery
           json.requirements recommendation.criteria do |criterion|
             json.concept_id criterion.concept.uid
             json.count criterion.count
-            if criterion.category == 'incorrect_submissions'
-              json.noIncorrect true
-            end
+            json.noIncorrect criterion.no_incorrect
           end
         end
       end
