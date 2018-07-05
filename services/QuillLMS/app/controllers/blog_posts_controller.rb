@@ -1,5 +1,6 @@
 class BlogPostsController < ApplicationController
   before_action :set_announcement, only: [:index, :show, :show_topic]
+  before_action :set_role
 
   def index
     @topics = BlogPost::TOPICS
@@ -14,7 +15,7 @@ class BlogPostsController < ApplicationController
 
   def show
     find_by_hash = { slug: params[:slug] }
-    find_by_hash[:draft] = false unless current_user&.role == 'staff'
+    find_by_hash[:draft] = false unless @role == 'staff'
     @blog_post = BlogPost.find_by!(find_by_hash)
     @topic = @blog_post.topic
     @display_paywall = true unless @blog_post.can_be_accessed_by(current_user)
@@ -55,8 +56,9 @@ class BlogPostsController < ApplicationController
         raise ActionController::RoutingError.new('Topic Not Found')
       end
       topic = params[:topic].gsub('-', ' ').titleize
-      @blog_posts = BlogPost.where(draft: false, topic: topic)
-      @title = topic
+        @blog_posts = BlogPost.where(draft: false, topic: topic)
+      # hide student part of topic name for display
+      @title = @role == 'student' ? topic.gsub('Student ', '') : topic
       return render 'index'
     end
   end
@@ -64,5 +66,9 @@ class BlogPostsController < ApplicationController
   private
   def set_announcement
     @announcement = Announcement.get_current_webinar_announcement
+  end
+
+  def set_role
+    @role = current_user ? current_user.role : nil
   end
 end
