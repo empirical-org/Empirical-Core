@@ -21,7 +21,8 @@ export default class BlogPosts extends React.Component {
   }
 
   renderBlogPostsByTopic() {
-    const tables = this.props.topics.map(t => {
+    const allTopics = this.props.topics.concat(this.props.studentTopics)
+    const tables = allTopics.map(t => {
       const filteredBlogPosts = this.props.blogPosts.filter(bp => bp.topic === t)
       if (filteredBlogPosts.length > 0) {
         return <BlogPostTable

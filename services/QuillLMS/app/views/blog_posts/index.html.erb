@@ -5,10 +5,12 @@
   <% @active_tab = 'Teacher Stories'%>
 <% elsif current_path.include?('writing-instruction-research') %>
   <% @active_tab = 'Writing Instruction Research'%>
+<% elsif current_path.include?('how-to') %>
+    <% @active_tab = 'How To'%>
 <% else %>
   <% @active_tab = 'All Resources'%>
 <% end %>
 <%= render partial: 'pages/shared/teacher_center_navbar', active_tab: @active_tab %>
 <div class="container">
-  <%= react_component('BlogPostsApp', props: {route: 'index', blogPosts: @blog_posts, announcement: @announcement, query: @query, topics: @topics}) %>
+  <%= react_component('BlogPostsApp', props: {route: 'index', blogPosts: @blog_posts, announcement: @announcement, query: @query, topics: @topics, studentTopics: @student_topics, role: @role}) %>
 </div>

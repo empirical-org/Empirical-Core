@@ -53,7 +53,7 @@ EmpiricalGrammar::Application.routes.draw do
   resources :blog_posts, path: 'student-center', only: [], param: :slug do
     collection do
       get '/', to: 'blog_posts#student_center_index'
-      get '/:slug', to: redirect('student-center/%{slug}')
+      get '/:slug', to: 'blog_posts#show'
       get '/topic/:topic', to: 'blog_posts#show_topic'
       get 'search', to: 'blog_posts#search'
     end
