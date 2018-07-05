@@ -2,8 +2,14 @@ class BlogPostsController < ApplicationController
   before_action :set_announcement, only: [:index, :show, :show_topic]
 
   def index
-    @blog_posts = BlogPost.where(draft: false)
     @topics = BlogPost::TOPICS
+    @blog_posts = BlogPost.where(draft: false, topic: @topics)
+  end
+
+  def student_center_index
+    @topics = BlogPost::STUDENT_TOPICS
+    @blog_posts = BlogPost.where(draft: false, topic: @topics)
+    render :index
   end
 
   def show
@@ -39,9 +45,13 @@ class BlogPostsController < ApplicationController
     # handling links that were possibly broken by changing slug function for topic names
     if params[:topic].include?('_')
       new_topic = params[:topic].gsub('_', '-')
-      redirect_to "/teacher-center/topic/#{new_topic}"
+      if current_user.role == 'student'
+        redirect_to "/student-center/topic/#{new_topic}"
+      else
+        redirect_to "/teacher-center/topic/#{new_topic}"
+      end
     else
-      if !BlogPost::TOPIC_SLUGS.include?(params[:topic])
+      if !BlogPost::TOPIC_SLUGS.include?(params[:topic]) && !BlogPost::STUDENT_TOPIC_SLUGS.include?(params[:topic])
         raise ActionController::RoutingError.new('Topic Not Found')
       end
       topic = params[:topic].gsub('-', ' ').titleize
