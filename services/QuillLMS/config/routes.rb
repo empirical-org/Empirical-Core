@@ -50,6 +50,15 @@ EmpiricalGrammar::Application.routes.draw do
     end
   end
 
+  resources :blog_posts, path: 'student-center', only: [], param: :slug do
+    collection do
+      get '/', to: 'blog_posts#student_center_index'
+      get '/:slug', to: redirect('student-center/%{slug}')
+      get '/topic/:topic', to: 'blog_posts#show_topic'
+      get 'search', to: 'blog_posts#search'
+    end
+  end
+
   post 'rate_blog_post', to: 'blog_post_user_ratings#create'
 
 
