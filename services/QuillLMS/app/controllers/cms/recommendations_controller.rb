@@ -79,7 +79,7 @@ class Cms::RecommendationsController < Cms::CmsController
   end
 
   def next_order_number_for_category
-    if @activity.recommendations && @activity.recommendations.send(category)
+    if @activity.recommendations.present? && @activity.recommendations.send(category).present?
       @activity.recommendations.send(category).last.order + 1
     else
       0
