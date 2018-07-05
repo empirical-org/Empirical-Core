@@ -332,6 +332,44 @@ export default React.createClass({
     });
   },
 
+  renderIndependentActivityRecommendations() {
+    if (this.state.recommendations) {
+      return (
+        <div>
+          {this.renderTopBar()}
+          {this.renderTableHeader()}
+          <div className="recommendations-table-row-wrapper">
+            {this.renderTableRows()}
+          </div>
+        </div>
+      );
+    }
+  },
+
+  renderGroupActivityRecommendations() {
+    if (this.state.lessonsRecommendations) {
+      return (
+        <LessonsRecommendations
+          assignToWholeClass={this.assignToWholeClass}
+          recommendations={this.state.lessonsRecommendations}
+        />
+      );
+    }
+  },
+
+  renderRecommendations() {
+    if (this.state.recommendations || this.state.lessonsRecommendations) {
+      return (
+        <div className="recommendations-container">
+          {this.renderIndependentActivityRecommendations()}
+          {this.renderGroupActivityRecommendations()}
+        </div>
+      );
+    } else {
+      return <p>Sorry, there are no recommendations for this diagnosis at this time.</p>
+    }
+  },
+
   render() {
     if (this.state.loading) {
       return <LoadingSpinner />;
@@ -354,14 +392,7 @@ export default React.createClass({
           Independent Activity Recommendations
           </h3>
         {this.renderExplanation()}
-        <div className="recommendations-container">
-          {this.renderTopBar()}
-          {this.renderTableHeader()}
-          <div className="recommendations-table-row-wrapper">
-            {this.renderTableRows()}
-          </div>
-          <LessonsRecommendations assignToWholeClass={this.assignToWholeClass} recommendations={this.state.lessonsRecommendations} />
-        </div>
+        {this.renderRecommendations()}
       </div>
     );
   },
