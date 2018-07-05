@@ -333,7 +333,7 @@ export default React.createClass({
   },
 
   renderIndependentActivityRecommendations() {
-    if (this.state.recommendations) {
+    if (this.state.recommendations.length !== 0) {
       return (
         <div>
           {this.renderTopBar()}
@@ -347,7 +347,7 @@ export default React.createClass({
   },
 
   renderGroupActivityRecommendations() {
-    if (this.state.lessonsRecommendations) {
+    if (this.state.lessonsRecommendations.length !== 0) {
       return (
         <LessonsRecommendations
           assignToWholeClass={this.assignToWholeClass}
@@ -358,7 +358,7 @@ export default React.createClass({
   },
 
   renderRecommendations() {
-    if (this.state.recommendations || this.state.lessonsRecommendations) {
+    if (this.state.recommendations.length !== 0 || this.state.lessonsRecommendations.length !== 0) {
       return (
         <div className="recommendations-container">
           {this.renderIndependentActivityRecommendations()}
