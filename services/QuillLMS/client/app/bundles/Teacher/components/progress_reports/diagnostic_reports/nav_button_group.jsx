@@ -6,6 +6,11 @@ require('../../../../../assets/styles/app-variables.scss')
 
 
 export default React.createClass({
+
+	getInitialState: function() {
+		return { diagnosticActivityIds: [] };
+	},
+
 	propTypes: {
 		clickCallback: React.PropTypes.func.isRequired
 	},
@@ -16,7 +21,19 @@ export default React.createClass({
 		}
 	},
 
+	componentDidMount: function() {
+    $.ajax({
+      url: '/teachers/progress_reports/diagnostic_activity_ids',
+     	success: (data) => {
+     		this.setState({ diagnosticActivityIds: data.diagnosticActivityIds })
+     	},
+    });
+	},
 
+	isNotDiagnostic: function() {
+		return this.state.diagnosticActivityIds
+			.indexOf(Number(this.props.params.activityId)) === -1;
+	},
 
 	buttons: function() {
 		const contents = [
@@ -40,11 +57,8 @@ export default React.createClass({
 					}
 				}
 			}
-			let isNotDiagnostic = function(){
-				return [413, 447, 602].indexOf(Number(that.props.params.activityId)) === -1;
-			}
 			let name = navButton.name
-			if (name === 'Recommendations' && isNotDiagnostic()) {
+			if (name === 'Recommendations' && this.isNotDiagnostic()) {
 				// don't show recommendations unless it is a diagnostic
 				return
 			} else {

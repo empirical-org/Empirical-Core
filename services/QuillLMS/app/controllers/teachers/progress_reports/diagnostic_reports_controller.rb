@@ -31,6 +31,12 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
         render json: {lessonsRecommendations: get_recommended_lessons(params[:unit_id], params[:classroom_id], params[:activity_id])}
     end
 
+    def diagnostic_activity_ids
+      ids = ActivityClassification.find_by(key: 'diagnostic').activities.pluck(:id)
+
+      render json: { diagnosticActivityIds: ids }
+    end
+
     def previously_assigned_recommendations
       render json: get_previously_assigned_recommendations_by_classroom(params[:classroom_id], params[:activity_id])
     end
