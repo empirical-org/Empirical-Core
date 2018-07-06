@@ -1,8 +1,6 @@
-Types::ResponseLabelType = GraphQL::ObjectType.define do
-  name 'ResponseLabel'
+class Types::ResponseLabelType < Types::BaseObject
 
-  field :id, !types.ID
-  field :name, !types.String
-  field :description, !types.String
-
+  field :id, ID, null: false
+  field :name, String, null: false
+  field :description, String, null: false
 end
