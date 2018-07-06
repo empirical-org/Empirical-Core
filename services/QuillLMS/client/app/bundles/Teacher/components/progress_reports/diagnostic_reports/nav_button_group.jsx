@@ -1,41 +1,49 @@
 'use strict'
 
 import React from 'react'
-import LoadingSpinner from '../../shared/loading_indicator.jsx'
+
 require('../../../../../assets/styles/app-variables.scss')
 
+export default class NavButtonGroup extends React.Component {
 
-export default React.createClass({
+	constructor(props) {
+    super(props)
 
-	getInitialState: function() {
-		return { diagnosticActivityIds: [] };
-	},
+		this.state = { activityWithRecommendationsIds: [] };
 
-	propTypes: {
-		clickCallback: React.PropTypes.func.isRequired
-	},
+    this.buttonBuilder = this.buttonBuilder.bind(this)
+    this.doesNotHaveRecommendations = this.doesNotHaveRecommendations.bind(this)
+    this.buttons = this.buttons.bind(this)
+	}
 
-	buttonBuilder: function (name) {
+  componentDidMount() {
+    fetch(`${process.env.DEFAULT_URL}/teachers/progress_reports/activity_with_recommendations_ids`, {
+      method: 'GET',
+      mode: 'cors',
+      credentials: 'include'
+    }).then((response) => {
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
+      return response.json();
+    }).then((response) => {
+      this.setState({ activityWithRecommendationsIds: response.activityWithRecommendationsIds })
+    }).catch((error) => {
+      console.log('error', error)
+    })
+  }
+
+	buttonBuilder (name) {
 		return () => {
 			this.props.clickCallback(name.toLowerCase())
 		}
-	},
+	}
 
-	componentDidMount: function() {
-    $.ajax({
-      url: '/teachers/progress_reports/diagnostic_activity_ids',
-     	success: (data) => {
-     		this.setState({ diagnosticActivityIds: data.diagnosticActivityIds })
-     	},
-    });
-	},
+	doesNotHaveRecommendations() {
+		return this.state.activityWithRecommendationsIds.indexOf(Number(this.props.params.activityId)) === -1;
+	}
 
-	isNotDiagnostic: function() {
-		return this.state.diagnosticActivityIds
-			.indexOf(Number(this.props.params.activityId)) === -1;
-	},
-
-	buttons: function() {
+	buttons() {
 		const contents = [
 			{name: 'Students', words: ['student_report', 'students'], exceptions: []},
 			{name: 'Questions', words:['questions']},
@@ -58,20 +66,20 @@ export default React.createClass({
 				}
 			}
 			let name = navButton.name
-			if (name === 'Recommendations' && this.isNotDiagnostic()) {
+			if (name === 'Recommendations' && this.doesNotHaveRecommendations()) {
 				// don't show recommendations unless it is a diagnostic
 				return
 			} else {
 				return <button key={name} type="button" onClick={this.buttonBuilder(name)} className={`btn btn-secondary ${activeState}`}>{name}</button>
 			}
 		})
-	},
+	}
 
-	render: function() {
+	render() {
 		return (
 			<div id='report-button-group' className="btn-group" role="group" aria-label="Basic example">
 				{this.buttons()}
 			</div>
 		);
 	}
-});
+};

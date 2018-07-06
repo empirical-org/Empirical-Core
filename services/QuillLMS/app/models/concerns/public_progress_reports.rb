@@ -2,7 +2,7 @@ module PublicProgressReports
     extend ActiveSupport::Concern
 
     def last_completed_diagnostic
-      diagnostic_activity_ids = ActivityClassification.find(4).activities.map(&:id)
+      diagnostic_activity_ids = Activity.diagnostic_activity_ids
       current_user.classroom_activities.
                   joins(activity_sessions: :classroom_activity).
                   where('activity_sessions.state = ? AND activity_sessions.activity_id IN (?)', 'finished', diagnostic_activity_ids).
