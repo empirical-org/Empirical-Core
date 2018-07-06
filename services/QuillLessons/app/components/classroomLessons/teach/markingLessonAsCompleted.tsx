@@ -15,7 +15,7 @@ import {
 } from '../interfaces';
 import {
   ClassroomLesson
-} from '../../../interfaces/classroomLessons'
+} from '../../../interfaces/ClassroomLessons'
 import {generate} from '../../../libs/conceptResults/classroomLessons.js';
 
 

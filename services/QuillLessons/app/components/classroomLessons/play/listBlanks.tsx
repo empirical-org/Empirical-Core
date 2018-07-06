@@ -4,7 +4,7 @@ import * as _ from 'lodash'
 import { firebase } from '../../../libs/firebase';
 import {
 QuestionData,
-} from '../../../interfaces/classroomLessons'
+} from '../../../interfaces/ClassroomLessons'
 import {
 ClassroomLessonSession,
 SelectedSubmissionsForQuestion,
