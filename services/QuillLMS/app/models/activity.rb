@@ -32,7 +32,13 @@ class Activity < ActiveRecord::Base
 
   scope :with_classification, -> { includes(:classification).joins(:classification) }
 
-  DIAGNOSTIC_ACTIVITY_IDS = [413, 447, 602]
+  def self.diagnostic_activity_ids
+    ActivityClassification.find_by(key: 'diagnostic').activities.pluck(:id)
+  end
+
+  def self.activity_with_recommendations_ids
+    Recommendation.all.map(&:activity_id).uniq
+  end
 
   def topic_uid= uid
     self.topic_id = Topic.find_by_uid(uid).id
