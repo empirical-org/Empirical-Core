@@ -6,10 +6,14 @@ import * as R from 'ramda';
 import Article from './article';
 import Questions from './questions';
 import QuestionSets from './question_sets';
-import {markArticleAsRead, chooseQuestionSet} from '../../actions/activities';
+import VocabularyWords from './vocabulary_words';
+import {markArticleAsRead, chooseQuestionSet, setFontSize} from '../../actions/activities';
 import {ActivitiesState} from '../../reducers/activities';
-
-export interface AppProps extends PassedProps, DispatchFromProps, StateFromProps { 
+import {
+  Play,
+  Pause
+} from 'react-feather';
+export interface AppProps extends PassedProps, DispatchFromProps, StateFromProps {
 }
 
 export interface PassedProps {
@@ -22,8 +26,8 @@ function activityQuery(activity_id:string) {
     activity(id: ${activity_id}) {
       title
       article
-      question_sets {
-        id 
+      questionSets {
+        id
         prompt
         questions {
           id
@@ -36,20 +40,47 @@ function activityQuery(activity_id:string) {
         prompt
         order
       }
+      vocabularyWords {
+        id
+        text
+        description
+        example
+      }
     }
   }
 `
 }
-
+const voiceSynth = window.speechSynthesis;
+let voices;
 class ActivityContainer extends React.Component<AppProps, any> {
+  constructor(props) {
+    super(props)
+    voices = voiceSynth.getVoices();
+  }
+
+  speak(e) {
+    e.preventDefault();
+    voiceSynth.cancel();
+    const script = window.getSelection().toString();
+    const utterance = new SpeechSynthesisUtterance(script);
+    console.log(voices)
+    utterance.voice = voices[49] ? voices[49] : voices[0];
+    voiceSynth.speak(utterance)
+  }
+
+  cancelSpeak(e) {
+    e.preventDefault();
+    voiceSynth.cancel();
+  }
+
   renderQuestions(activity, questionSetId, read) {
     if (!read) return;
-    if (activity.question_sets.length > 1 && questionSetId === null) return
+    if (activity.questionSets.length > 1 && questionSetId === null) return
     let questions;
-    if (activity.question_sets.length === 1) {
-      questions = activity.question_sets[0].questions;
+    if (activity.questionSets.length === 1) {
+      questions = activity.questionSets[0].questions;
     } else {
-      questions = R.find(R.propEq('id', questionSetId))(activity.question_sets).questions
+      questions = R.find(R.propEq('id', questionSetId))(activity.questionSets).questions
     }
     return (
       <div>
@@ -57,15 +88,35 @@ class ActivityContainer extends React.Component<AppProps, any> {
         <Questions questions={questions} key={questionSetId}/>
       </div>
     )
-    
+
   }
 
   renderQuestionSets(data, readArticle) {
-    if (readArticle && data.activity.question_sets.length > 1 && !this.props.activities.questionSetId) {
+    if (readArticle && data.activity.questionSets.length > 1) {
       return (
-        <QuestionSets questionSets={data.activity.question_sets} chooseQuestionSet={this.props.chooseQuestionSet} questionSetId={this.props.activities.questionSetId}/>
+        <QuestionSets questionSets={data.activity.questionSets} chooseQuestionSet={this.props.chooseQuestionSet} questionSetId={this.props.activities.questionSetId}/>
       )
     }
+  }
+
+  renderSubnav() {
+    return (
+      <div className="subnav">
+        <div className="container d-fl-r jc-sb">
+          <div className="subnav-left">
+            <div className="subnav-item">Read</div>
+            <div className="subnav-item">Choose</div>
+            <div className="subnav-item">Answer</div>
+            <div className="subnav-item">Review</div>
+          </div>
+          <div className="subnav-right">
+            <div className="subnav-item"><button className="btn-icon" onClick={this.speak}><Play /></button></div>
+            <div className="subnav-item" ><button className="btn-icon" onClick={this.cancelSpeak}><Pause /></button></div>
+            <div className="subnav-item"><span className="d-fl-r ai-bl"><span className="fs-sm pa1" onClick={(e) => this.props.setFontSize(1)}>A</span> <span className="fs-md pa1" onClick={(e) => this.props.setFontSize(2)}>A</span> <span className="fs-lg pa1" onClick={(e) =>this.props.setFontSize(3)}>A</span></span></div>
+          </div>
+        </div>
+      </div>
+    )
   }
 
   render() {
@@ -77,12 +128,15 @@ class ActivityContainer extends React.Component<AppProps, any> {
           if (loading) return <p>Loading...</p>;
           if (error) return <p>Error :(</p>;
           return (
-            <div className="container">
-              <div className="article-container">
-                <h1 className="article-title">Read The Following Passage Carefully</h1>
-                <Article activity_id={parseInt(this.props.activity_id)} article={data.activity.article} title={data.activity.title} markAsRead={this.props.markArticleAsRead} />
-                {this.renderQuestionSets(data, this.props.activities.readArticle)}
-                {this.renderQuestions(data.activity, this.props.activities.questionSetId, this.props.activities.readArticle)}
+            <div>
+              {this.renderSubnav()}
+              <div className="container">
+                <div className="article-container">
+                  <VocabularyWords vocabWords={data.activity.vocabularyWords}/>
+                  <Article activity_id={parseInt(this.props.activity_id)} article={data.activity.article} title={data.activity.title} markAsRead={this.props.markArticleAsRead} fontSize={this.props.activities.fontSize} />
+                  {this.renderQuestionSets(data, this.props.activities.readArticle)}
+                  {this.renderQuestions(data.activity, this.props.activities.questionSetId, this.props.activities.readArticle)}
+                </div>
               </div>
             </div>
           );
@@ -99,6 +153,7 @@ interface StateFromProps {
 interface DispatchFromProps {
   markArticleAsRead: () => void;
   chooseQuestionSet: (questionSetId:number) => void
+  setFontSize: (fontSize:number) => void
 }
 
 const mapStateToProps = state => {
@@ -114,6 +169,9 @@ const mapDispatchToProps = dispatch => {
     },
     chooseQuestionSet: (questionSetId) => {
       dispatch(chooseQuestionSet(questionSetId))
+    },
+    setFontSize: (fontSize) => {
+      dispatch(setFontSize(fontSize))
     }
   }
 }

@@ -131,6 +131,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def my_account
+    @time_zones = [{name: 'Select Time Zone', id: 'Select Time Zone'}].concat(TZInfo::Timezone.all_country_zone_identifiers.sort.map{|tz| {name: tz, id: tz}})
   end
 
   def my_account_data
