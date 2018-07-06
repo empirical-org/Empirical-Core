@@ -16,6 +16,13 @@
   <body>
     <div class="page">
       <div class="page-main">
+        <% if notice %>
+          <div class="alert alert-primary" role="alert">
+            <div class='container'>
+              <%= notice %>
+            </div>
+          </div>
+        <% end %>
         <div class='navbar'>
           <div class='container'>
             <div class="navbar-inner d-fl-r ai-c">
@@ -26,6 +33,7 @@
         <%= yield %>
       </div>
     </div>
+    <div id="modal-root"></div>
   </body>
   <script>
     feather.replace()
