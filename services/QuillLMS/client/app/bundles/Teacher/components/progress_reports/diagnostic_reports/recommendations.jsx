@@ -336,10 +336,27 @@ export default React.createClass({
     if (this.state.recommendations.length !== 0) {
       return (
         <div>
-          {this.renderTopBar()}
-          {this.renderTableHeader()}
-          <div className="recommendations-table-row-wrapper">
-            {this.renderTableRows()}
+          <h3
+            id="recommendations-scroll-to"
+            style={{ width: '950px', margin: 'auto', textAlign: 'left', fontSize: '24px', fontWeight: 'bold', color: '#3b3b3b', }}
+          >
+            <img
+              style={{
+                position: 'relative',
+                top: '-3px',
+                marginRight: '15px',
+              }}
+              src="https://assets.quill.org/images/icons/independent-lesson-blue.svg" alt="independent practice logo"
+            />
+            Independent Activity Recommendations
+            </h3>
+          {this.renderExplanation()}
+          <div>
+            {this.renderTopBar()}
+            {this.renderTableHeader()}
+            <div className="recommendations-table-row-wrapper">
+              {this.renderTableRows()}
+            </div>
           </div>
         </div>
       );
@@ -366,7 +383,9 @@ export default React.createClass({
         </div>
       );
     } else {
-      return <p>Sorry, there are no recommendations for this diagnosis at this time.</p>
+      return <div className="recommendations-container">
+        <p style={{ fontSize: '24px', }}>We do not yet have recommendations for this diagnostic. Please check back soon.</p>
+      </div>
     }
   },
 
@@ -377,21 +396,6 @@ export default React.createClass({
     return (
       <div>
         <RecommendationOverview />
-        <h3
-          id="recommendations-scroll-to"
-          style={{ width: '950px', margin: 'auto', textAlign: 'left', fontSize: '24px', fontWeight: 'bold', color: '#3b3b3b', }}
-        >
-          <img
-            style={{
-              position: 'relative',
-              top: '-3px',
-              marginRight: '15px',
-            }}
-            src="https://assets.quill.org/images/icons/independent-lesson-blue.svg" alt="independent practice logo"
-          />
-          Independent Activity Recommendations
-          </h3>
-        {this.renderExplanation()}
         {this.renderRecommendations()}
       </div>
     );

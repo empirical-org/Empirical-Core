@@ -209,7 +209,7 @@ describe Activity, type: :model, redis: :true do
 
   describe 'diagnositic_activit_ids' do
     it 'should have the correct values' do
-      expect(Activity::DIAGNOSTIC_ACTIVITY_IDS).to eq([413, 447, 602])
+      expect(Activity.diagnostic_activity_ids).to eq([413, 447, 602])
     end
   end
 
