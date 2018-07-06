@@ -31,10 +31,18 @@ class QuestionSets extends React.Component<AppProps, any> {
   render() {
     const {questionSets, chooseQuestionSet} = this.props
     return (
-      <div>
-        <h1 className="article-title">Choose Your Position On The Issue</h1>
-        <div className="question-wrapper d-fl-r ai-sb jc-c">
-          {this.renderOptions(questionSets, chooseQuestionSet)}
+      <div className="card question-wrapper">
+        <div className="card-header">
+          <h3 className="card-title">Choose Your Position On The Issue</h3>
+        </div>
+        <div className="card-body">
+          <div className="question-wrapper d-fl-r ai-sb jc-c">
+            {this.renderOptions(questionSets, chooseQuestionSet)}
+          </div>
+        </div>
+        <div className="card-footer d-fl-r jc-sb">
+        <div className="m-r-1 d-fl-r ai-c">When you have made your decision, click done.</div>
+          <button className="btn btn-primary" onClick={() => {}}>Done</button>
         </div>
       </div>
     );

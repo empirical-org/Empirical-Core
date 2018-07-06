@@ -1,8 +1,7 @@
-Types::ResponseType = GraphQL::ObjectType.define do
-  name 'Response'
+class Types::ResponseType < Types::BaseObject
 
-  field :id, !types.ID
-  field :question_id,  !types.ID
-  field :submissions, !types.Int
-  field :text, !types.String
+  field :id, ID, null: false
+  field :question_id, ID, null: false
+  field :submissions, Integer, null: false
+  field :text, String, null: false
 end
