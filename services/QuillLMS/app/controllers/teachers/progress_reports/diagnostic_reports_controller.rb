@@ -32,9 +32,11 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     end
 
     def diagnostic_activity_ids
-      ids = ActivityClassification.find_by(key: 'diagnostic').activities.pluck(:id)
+      render json: { diagnosticActivityIds: Activity.diagnostic_activity_ids }
+    end
 
-      render json: { diagnosticActivityIds: ids }
+    def activity_with_recommendations_ids
+      render json: { activityWithRecommendationsIds: Activity.activity_with_recommendations_ids}
     end
 
     def previously_assigned_recommendations
@@ -103,7 +105,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
         JOIN classroom_activities
           ON  classrooms.id = classroom_activities.classroom_id
           AND classroom_activities.visible = TRUE
-          AND classroom_activities.activity_id IN (#{Activity::DIAGNOSTIC_ACTIVITY_IDS.join(', ')})
+          AND classroom_activities.activity_id IN (#{Activity.diagnostic_activity_ids.join(', ')})
         LEFT JOIN activity_sessions
           ON  classroom_activities.id = activity_sessions.classroom_activity_id
           AND activity_sessions.state = 'finished'
