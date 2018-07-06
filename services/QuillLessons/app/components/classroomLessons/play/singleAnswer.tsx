@@ -11,7 +11,7 @@ import {
   QuestionSubmissionsList,
   SelectedSubmissionsForQuestion,
 } from '../interfaces';
-import { QuestionData } from '../../../interfaces/classroomLessons'
+import { QuestionData } from '../../../interfaces/ClassroomLessons'
 const icon = require('../../../img/question_icon.svg');
 
 interface SingleAnswerProps {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {
 QuestionData
-} from '../../../interfaces/classroomLessons'
+} from '../../../interfaces/ClassroomLessons'
 
 interface StaticProps {
   data: QuestionData

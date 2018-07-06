@@ -3,7 +3,7 @@ import * as React from 'react';
 const moment = require('moment');
 import {
 QuestionData,
-} from '../../../interfaces/classroomLessons'
+} from '../../../interfaces/ClassroomLessons'
 import {
 ClassroomLessonSession,
 SelectedSubmissionsForQuestion,

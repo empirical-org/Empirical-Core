@@ -21,7 +21,7 @@ import {
 } from '../interfaces';
 import {
   ScriptItem
-} from '../../../interfaces/classroomLessons'
+} from '../../../interfaces/ClassroomLessons'
 const uncheckedGrayCheckbox = require('../../../img/box_gray_unchecked.svg')
 const checkedGrayCheckbox = require('../../../img/box_gray_checked.svg')
 const uncheckedGreenCheckbox = require('../../../img/box_green_unchecked.svg')

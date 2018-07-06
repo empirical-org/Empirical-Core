@@ -45,7 +45,7 @@ import {
 } from '../interfaces';
 import {
   ClassroomLesson
-} from '../../../interfaces/classroomLessons'
+} from '../../../interfaces/ClassroomLessons'
 import * as CustomizeIntf from '../../../interfaces/customize'
 
 class TeachClassroomLessonContainer extends React.Component<any, any> {
