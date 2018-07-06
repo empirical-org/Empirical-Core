@@ -9,7 +9,7 @@ import {
 import {
   Question,
   ClassroomLesson
-} from '../../../interfaces/classroomLessons';
+} from '../../../interfaces/ClassroomLessons';
 import ScriptComponent from '../shared/scriptComponent'
 import { sortByLastName } from '../shared/studentSorts'
 

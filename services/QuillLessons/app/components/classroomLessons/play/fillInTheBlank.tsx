@@ -2,7 +2,7 @@ declare function require(name:string);
 import * as React from 'react'
 import { firebase } from '../../../libs/firebase';
 import _ from 'underscore'
-import { QuestionData } from '../../../interfaces/classroomLessons'
+import { QuestionData } from '../../../interfaces/ClassroomLessons'
 import Cues from '../../../components/renderForQuestions/cues';
 import TextEditor from '../../renderForQuestions/renderTextEditor';
 import { getParameterByName } from '../../../libs/getParameterByName';

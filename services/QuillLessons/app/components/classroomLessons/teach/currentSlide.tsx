@@ -34,7 +34,7 @@ import {
 import {
   ClassroomLesson,
   ScriptItem
-} from '../../../interfaces/classroomLessons';
+} from '../../../interfaces/ClassroomLessons';
 import * as CustomizeIntf from '../../../interfaces/customize'
 import {generate} from '../../../libs/conceptResults/classroomLessons.js';
 

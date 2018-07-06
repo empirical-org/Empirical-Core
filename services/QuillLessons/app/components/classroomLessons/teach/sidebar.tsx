@@ -18,7 +18,7 @@ import {
 } from '../interfaces';
 import {
   ClassroomLesson
-} from '../../../interfaces/classroomLessons';
+} from '../../../interfaces/ClassroomLessons';
 import * as CustomizeIntf from '../../../interfaces/customize'
 const studentIcon = require('../../../img/student_icon.svg')
 
