@@ -4,7 +4,7 @@ import Cues from '../../../components/renderForQuestions/cues';
 import RenderSentenceFragments from '../../../components/renderForQuestions/sentenceFragments';
 import {
   QuestionData
-} from '../../../interfaces/classroomLessons';
+} from '../../../interfaces/ClassroomLessons';
 import { textEditorInputNotEmpty } from '../shared/textEditorClean'
 import Feedback from '../../renderForQuestions/components/feedback'
 const icon = require('../../../img/question_icon.svg')

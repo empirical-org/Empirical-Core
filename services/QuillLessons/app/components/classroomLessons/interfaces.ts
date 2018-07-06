@@ -1,4 +1,4 @@
-import * as CLIntF from '../../interfaces/classroomLessons'
+import * as CLIntF from '../../interfaces/ClassroomLessons'
 
 export interface ClassroomLessonSession {
   students: Students;

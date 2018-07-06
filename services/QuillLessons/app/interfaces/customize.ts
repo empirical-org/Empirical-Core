@@ -1,4 +1,4 @@
-import * as CLIntF from './classroomLessons'
+import * as CLIntF from './ClassroomLessons'
 
 export interface EditionMetadata {
   key: string,
