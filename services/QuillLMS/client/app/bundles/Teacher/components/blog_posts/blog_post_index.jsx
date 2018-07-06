@@ -31,6 +31,10 @@ export default class extends React.Component {
   }
 
   pageSubtitle() {
+    if (this.props.role === 'student') {
+      return 'Everything you need to know about using Quill'
+    }
+    
     switch (this.pageTitle()) {
       case 'Teacher Stories':
         return 'Read success stories about Quill in the class'
@@ -76,12 +80,11 @@ export default class extends React.Component {
     const articlesByTopic = _.groupBy(this.props.blogPosts, "topic");
     this.props.topics.forEach(topic => {
       const articlesInThisTopic = articlesByTopic[topic];
-      const topicName = this.props.role === 'student' ? topic.replace('Student ', '') : topic
       if (articlesInThisTopic) {
         sections.push(<TopicSection
           role={this.props.role}
           key={topic}
-          title={topicName}
+          title={topic}
           articles={articlesInThisTopic.sort((a, b) => a.order_number - b.order_number)}
           articleCount={articlesInThisTopic.length}
         />
