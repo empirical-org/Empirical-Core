@@ -3,12 +3,19 @@ import pluralize from 'pluralize'
 import PreviewCard from '../shared/preview_card.jsx';
 
 export default class TopicSection extends React.Component {
+  displayTitle() {
+    return this.props.role === 'student' ? this.props.title.replace('Student ', '') : this.props.title
+  }
+
+  sectionLink() {
+    return this.props.role === 'student' ? 'student-center' : 'teacher-center'
+  }
+
   renderArticleCards() {
-    const sectionLink = this.props.role === 'student' ? 'student-center' : 'teacher-center'
     return this.props.articles.slice(0, 3).map(article =>
       <PreviewCard
         content={article.preview_card_content}
-        link={article.external_link ? article.external_link : `/${sectionLink}/${article.slug}`}
+        link={article.external_link ? article.external_link : `/${this.sectionLink()}/${article.slug}`}
         externalLink={!!article.external_link}
       />
     )
@@ -35,9 +42,9 @@ export default class TopicSection extends React.Component {
     return (
       <section>
         <div className='meta'>
-          <h1>{this.topicIcon()}{this.props.title}</h1>
+          <h1>{this.topicIcon()}{this.displayTitle()}</h1>
           <h2>{this.props.articleCount} {pluralize('article', this.props.articleCount)}</h2>
-          <a href={`/teacher-center/topic/${this.props.title.toLowerCase().replace(/\s/g, '-')}`}>Show All</a>
+          <a href={`/${this.sectionLink()}/topic/${this.props.title.toLowerCase().replace(/\s/g, '-')}`}>Show All</a>
         </div>
         <div id="preview-card-container">
           {this.renderArticleCards()}
