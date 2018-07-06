@@ -1,7 +1,6 @@
 import * as React from 'react'
 import * as CLIntF from '../../../interfaces/ClassroomLessons';
 import * as _ from 'lodash'
-import MultipleTextEditor from '../shared/multipleTextEditor'
 import StudentMultistep from '../play/multistep'
 
 interface AdminMultistepProps {
