@@ -364,7 +364,7 @@ pipeline {
             AWS_SECRET_ACCESS_KEY=credentials('AWS_SECRET_ACCESS_KEY')
           }
           steps {
-            dir (path: 'services/QuillConnect') {
+            dir (path: 'services/QuillLessons') {
               echo "Beginnning lessons deploy..."
               script {
                 if (env.GIT_BRANCH == 'fake-develop') {
