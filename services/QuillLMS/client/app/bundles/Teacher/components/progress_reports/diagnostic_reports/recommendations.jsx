@@ -351,7 +351,7 @@ export default React.createClass({
             }}
             src="https://assets.quill.org/images/icons/independent-lesson-blue.svg" alt="independent practice logo"
           />
-          Personalized Independent Practice Recommendations
+          Independent Activity Recommendations
           </h3>
         {this.renderExplanation()}
         <div className="recommendations-container">
