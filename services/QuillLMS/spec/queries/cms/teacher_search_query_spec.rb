@@ -36,8 +36,7 @@ describe Cms::TeacherSearchQuery do
         admin_id: schools_admins.id.to_s
         }
 
-      binding.pry
-      expect(output).to eql(
+      expect(output).to eq(
         [expected.stringify_keys]
       )
     end
