@@ -9,9 +9,9 @@ class ActivitySession < ActiveRecord::Base
   include Concepts
 
   default_scope { where(visible: true)}
-  belongs_to :classroom_activity
+  belongs_to :classroom_unit
   belongs_to :activity
-  has_one :unit, through: :classroom_activity
+  has_one :unit, through: :classroom_unit
   has_many :concept_results
   has_many :concepts, -> { uniq }, through: :concept_results
 
@@ -57,9 +57,9 @@ class ActivitySession < ActiveRecord::Base
 
   def self.by_teacher(teacher)
     self.joins(
-      " JOIN classroom_activities ca ON activity_sessions.classroom_activity_id = ca.id
-        JOIN classrooms_teachers ON ca.classroom_id = classrooms_teachers.classroom_id
-        JOIN classrooms ON ca.classroom_id = classrooms.id
+      " JOIN classroom_units cu ON activity_sessions.classroom_unit_id = cu.id
+        JOIN classrooms_teachers ON cu.classroom_id = classrooms_teachers.classroom_id
+        JOIN classrooms ON cu.classroom_id = classrooms.id
       "
     ).where("classrooms_teachers.user_id = ?", teacher.id)
   end
@@ -74,7 +74,7 @@ class ActivitySession < ActiveRecord::Base
     end
 
     if filters[:unit_id].present?
-      query = query.joins(:classroom_activity).where("classroom_activities.unit_id = ?", filters[:unit_id])
+      query = query.joins(:classroom_unit).where("classroom_units.unit_id = ?", filters[:unit_id])
     end
 
     if filters[:section_id].present?
@@ -88,9 +88,13 @@ class ActivitySession < ActiveRecord::Base
     query
   end
 
+  def unit_activity
+    unit&.unit_activity
+  end
+
   def determine_if_final_score
     return true if (self.percentage.nil? or self.state != 'finished')
-    a = ActivitySession.where(classroom_activity: self.classroom_activity, user: self.user, is_final_score: true)
+    a = ActivitySession.where(classroom_unit: self.classroom_unit, user: self.user, is_final_score: true)
                        .where.not(id: self.id).first
     if a.nil?
       self.update_columns is_final_score: true
@@ -103,12 +107,12 @@ class ActivitySession < ActiveRecord::Base
   end
 
   def activity
-    super || classroom_activity.try(:activity)
+    super || unit_activity&.activity
   end
 
   def formatted_due_date
-    return nil if self.classroom_activity.nil? or self.classroom_activity.due_date.nil?
-    self.classroom_activity.due_date.strftime('%A, %B %d, %Y')
+    return nil if unit_activity&.due_date.nil?
+    self.unit_activity.due_date.strftime('%A, %B %d, %Y')
   end
 
   def formatted_completed_at
@@ -119,8 +123,8 @@ class ActivitySession < ActiveRecord::Base
   def display_due_date_or_completed_at_date
     if self.completed_at.present?
       "#{self.completed_at.strftime('%A, %B %d, %Y')}"
-    elsif (self.classroom_activity.present? and self.classroom_activity.due_date.present?)
-      "#{self.classroom_activity.due_date.strftime('%A, %B %d, %Y')}"
+    elsif (self.unit_activity.present? and self.unit_activity.due_date.present?)
+      "#{self.unit_activity.due_date.strftime('%A, %B %d, %Y')}"
     else
       ""
     end
@@ -189,7 +193,7 @@ class ActivitySession < ActiveRecord::Base
   end
 
   def invalidate_activity_session_count_if_completed
-    classroom_id = self.classroom_activity&.classroom_id
+    classroom_id = self.classroom_unit&.classroom_id
     if self.state == 'finished' && classroom_id
       $redis.del("classroom_id:#{classroom_id}_completed_activity_count")
     end
@@ -197,10 +201,8 @@ class ActivitySession < ActiveRecord::Base
 
   private
 
-
-
   def correctly_assigned
-    if self.classroom_activity && (classroom_activity.validate_assigned_student(self.user_id) == false)
+    if self.classroom_unit && (classroom_unit.validate_assigned_student(self.user_id) == false)
       begin
         raise 'Student was not assigned this activity'
       rescue => e
@@ -264,7 +266,7 @@ class ActivitySession < ActiveRecord::Base
   end
 
   def set_activity_id
-    self.activity_id = classroom_activity.try(:activity_id) if activity_id.nil?
+    self.activity_id = unit_activity.try(:activity_id) if activity_id.nil?
   end
 
   def set_completed_at

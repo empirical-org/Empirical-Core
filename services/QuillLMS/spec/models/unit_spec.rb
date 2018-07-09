@@ -10,7 +10,7 @@ describe Unit, type: :model do
   it { should have_many(:activities).through(:classroom_activities) }
   it { should have_many(:topics).through(:activities) }
 
-  it { is_expected.to callback(:hide_classroom_activities_if_visible_false).after(:save) }
+  it { is_expected.to callback(:hide_classroom_units_and_unit_activities_if_visible_false).after(:save) }
 
   let!(:classroom) {create(:classroom)}
   let!(:teacher) {create(:teacher)}
@@ -73,23 +73,23 @@ describe Unit, type: :model do
     end
   end
 
-  describe '#hide_if_no_visible_classroom_activities' do
+  describe '#hide_if_no_visible_unit_activities' do
     it 'updates the unit to visible == false if all of its classroom activities are visible == false' do
       unit.classroom_activities.each{|ca| ca.update(visible: false)}
       unit.reload
-      unit.hide_if_no_visible_classroom_activities
+      unit.hide_if_no_visible_unit_activities
       expect(unit.visible).to eq(false)
     end
 
     it 'does not update the unit to visible == false if it has any visible classroom activities' do
-      unit.hide_if_no_visible_classroom_activities
+      unit.hide_if_no_visible_unit_activities
       expect(unit.visible).to eq(true)
     end
   end
 
-  describe '#hide_classroom_activities_if_visible_false' do
+  describe '#hide_classroom_units_and_unit_activities_if_visible_false' do
     it 'is called when the unit is saved' do
-      expect(unit).to receive(:hide_classroom_activities_if_visible_false)
+      expect(unit).to receive(:hide_classroom_units_and_unit_activities_if_visible_false)
       unit.update(name: 'new name')
     end
 
