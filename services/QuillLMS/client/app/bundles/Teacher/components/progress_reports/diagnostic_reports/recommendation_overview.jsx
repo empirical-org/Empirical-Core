@@ -18,16 +18,16 @@ export default class RecommendationsOverview extends React.Component {
   render() {
     return (
       <div className="recommendations-overview center-text">
-        <h3>Quill now provides both <strong>Group Lessons</strong> and <strong>Independent Practice</strong></h3>
+        <h3>Quill now provides both <strong>Teacher-Led Activities</strong> and <strong>Independent Activities</strong></h3>
         <p>In the new Quill Lessons tool, you can teach writing skills to your class through a set of teacher-led slides.</p>
         <div className="flex-row space-between button-group">
           <a onClick={this.scrollToLessons} className="q-button text-quillblue bg-white">
             <img src="https://assets.quill.org/images/icons/group-lesson-icon-blue.svg" alt="group-lesson-logo" />
-            View Class Lessons
+            View Teacher-Led Activities
           </a>
           <a onClick={this.scrollToIndependent} className="q-button text-quillblue bg-white">
             <img src="https://assets.quill.org/images/icons/independent-lesson-black.svg" alt="independent-lesson-logo" />
-            View Independent Practice</a>
+            View Independent Activities</a>
         </div>
       </div>);
   }
