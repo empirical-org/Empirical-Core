@@ -46,6 +46,7 @@ let config = {
       NODE_ENV: 'development',
       QUILL_CMS: 'http://localhost:3100',
     }),
+    new webpack.optimize.CommonsChunkPlugin({ name: 'vendor', }),
     new HtmlWebpackPlugin({
       template: './index.html.ejs',
       inject: 'body',
