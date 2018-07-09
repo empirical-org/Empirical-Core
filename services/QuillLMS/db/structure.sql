@@ -673,6 +673,7 @@ CREATE SEQUENCE classroom_activities_id_seq
 --
 
 ALTER SEQUENCE classroom_activities_id_seq OWNED BY classroom_activities.id;
+<<<<<<< HEAD
 
 
 --
@@ -746,6 +747,8 @@ CREATE SEQUENCE classroom_units_id_seq
 --
 
 ALTER SEQUENCE classroom_units_id_seq OWNED BY classroom_units.id;
+=======
+>>>>>>> f4a5fffd7d4b2c80f835c3bb7e45e179cdfe4e72
 
 
 --
@@ -2078,6 +2081,7 @@ CREATE SEQUENCE topics_id_seq
 --
 
 ALTER SEQUENCE topics_id_seq OWNED BY topics.id;
+<<<<<<< HEAD
 
 
 --
@@ -2113,6 +2117,8 @@ CREATE SEQUENCE unit_activities_id_seq
 --
 
 ALTER SEQUENCE unit_activities_id_seq OWNED BY unit_activities.id;
+=======
+>>>>>>> f4a5fffd7d4b2c80f835c3bb7e45e179cdfe4e72
 
 
 --
@@ -2441,6 +2447,7 @@ ALTER TABLE ONLY checkboxes ALTER COLUMN id SET DEFAULT nextval('checkboxes_id_s
 --
 
 ALTER TABLE ONLY classroom_activities ALTER COLUMN id SET DEFAULT nextval('classroom_activities_id_seq'::regclass);
+<<<<<<< HEAD
 
 
 --
@@ -2455,6 +2462,8 @@ ALTER TABLE ONLY classroom_unit_activity_state ALTER COLUMN id SET DEFAULT nextv
 --
 
 ALTER TABLE ONLY classroom_units ALTER COLUMN id SET DEFAULT nextval('classroom_units_id_seq'::regclass);
+=======
+>>>>>>> f4a5fffd7d4b2c80f835c3bb7e45e179cdfe4e72
 
 
 --
@@ -2721,6 +2730,7 @@ ALTER TABLE ONLY topic_categories ALTER COLUMN id SET DEFAULT nextval('topic_cat
 --
 
 ALTER TABLE ONLY topics ALTER COLUMN id SET DEFAULT nextval('topics_id_seq'::regclass);
+<<<<<<< HEAD
 
 
 --
@@ -2728,6 +2738,8 @@ ALTER TABLE ONLY topics ALTER COLUMN id SET DEFAULT nextval('topics_id_seq'::reg
 --
 
 ALTER TABLE ONLY unit_activities ALTER COLUMN id SET DEFAULT nextval('unit_activities_id_seq'::regclass);
+=======
+>>>>>>> f4a5fffd7d4b2c80f835c3bb7e45e179cdfe4e72
 
 
 --
@@ -4352,6 +4364,7 @@ CREATE INDEX uta ON public.activities_unit_templates USING btree (unit_template_
 --
 
 CREATE TRIGGER tsvectorupdate BEFORE INSERT OR UPDATE ON public.blog_posts FOR EACH ROW EXECUTE PROCEDURE blog_posts_search_trigger();
+<<<<<<< HEAD
 
 
 --
@@ -4360,6 +4373,8 @@ CREATE TRIGGER tsvectorupdate BEFORE INSERT OR UPDATE ON public.blog_posts FOR E
 
 ALTER TABLE ONLY classroom_unit_activity_state
     ADD CONSTRAINT fk_rails_043c3345c6 FOREIGN KEY (classroom_unit_id) REFERENCES classroom_units(id);
+=======
+>>>>>>> f4a5fffd7d4b2c80f835c3bb7e45e179cdfe4e72
 
 
 --
@@ -4368,6 +4383,7 @@ ALTER TABLE ONLY classroom_unit_activity_state
 
 ALTER TABLE ONLY units
     ADD CONSTRAINT fk_rails_0b3b28b65f FOREIGN KEY (unit_template_id) REFERENCES unit_templates(id);
+<<<<<<< HEAD
 
 
 --
@@ -4376,6 +4392,8 @@ ALTER TABLE ONLY units
 
 ALTER TABLE ONLY classroom_units
     ADD CONSTRAINT fk_rails_3e1ff09783 FOREIGN KEY (unit_id) REFERENCES units(id);
+=======
+>>>>>>> f4a5fffd7d4b2c80f835c3bb7e45e179cdfe4e72
 
 
 --
@@ -4387,6 +4405,7 @@ ALTER TABLE ONLY sales_stages
 
 
 --
+<<<<<<< HEAD
 -- Name: unit_activities fk_rails_48bcb0b8a0; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -4395,6 +4414,8 @@ ALTER TABLE ONLY unit_activities
 
 
 --
+=======
+>>>>>>> f4a5fffd7d4b2c80f835c3bb7e45e179cdfe4e72
 -- Name: criteria fk_rails_63b994bcda; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -4408,6 +4429,7 @@ ALTER TABLE ONLY criteria
 
 ALTER TABLE ONLY recommendations
     ADD CONSTRAINT fk_rails_6745e4bc86 FOREIGN KEY (unit_template_id) REFERENCES unit_templates(id);
+<<<<<<< HEAD
 
 
 --
@@ -4416,6 +4438,8 @@ ALTER TABLE ONLY recommendations
 
 ALTER TABLE ONLY classroom_units
     ADD CONSTRAINT fk_rails_a3c514fc6d FOREIGN KEY (classroom_id) REFERENCES classrooms(id);
+=======
+>>>>>>> f4a5fffd7d4b2c80f835c3bb7e45e179cdfe4e72
 
 
 --
@@ -4432,6 +4456,7 @@ ALTER TABLE ONLY sales_stages
 
 ALTER TABLE ONLY criteria
     ADD CONSTRAINT fk_rails_ada79930c6 FOREIGN KEY (concept_id) REFERENCES concepts(id);
+<<<<<<< HEAD
 
 
 --
@@ -4448,6 +4473,8 @@ ALTER TABLE ONLY unit_activities
 
 ALTER TABLE ONLY classroom_unit_activity_state
     ADD CONSTRAINT fk_rails_ca1139af59 FOREIGN KEY (unit_activity_id) REFERENCES unit_activities(id);
+=======
+>>>>>>> f4a5fffd7d4b2c80f835c3bb7e45e179cdfe4e72
 
 
 --
@@ -5050,8 +5077,11 @@ INSERT INTO schema_migrations (version) VALUES ('20180517045137');
 
 INSERT INTO schema_migrations (version) VALUES ('20180530145153');
 
+<<<<<<< HEAD
 INSERT INTO schema_migrations (version) VALUES ('20180612212919');
 
+=======
+>>>>>>> f4a5fffd7d4b2c80f835c3bb7e45e179cdfe4e72
 INSERT INTO schema_migrations (version) VALUES ('20180625211305');
 
 INSERT INTO schema_migrations (version) VALUES ('20180627183421');
@@ -5074,6 +5104,7 @@ INSERT INTO schema_migrations (version) VALUES ('20180703154253');
 
 INSERT INTO schema_migrations (version) VALUES ('20180703154718');
 
+<<<<<<< HEAD
 INSERT INTO schema_migrations (version) VALUES ('20180709190219');
 
 INSERT INTO schema_migrations (version) VALUES ('20180709190257');
@@ -5082,3 +5113,5 @@ INSERT INTO schema_migrations (version) VALUES ('20180709190427');
 
 INSERT INTO schema_migrations (version) VALUES ('20180709192646');
 
+=======
+>>>>>>> f4a5fffd7d4b2c80f835c3bb7e45e179cdfe4e72

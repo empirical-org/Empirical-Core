@@ -1,6 +1,6 @@
 class Cms::DataController < Cms::ActivitiesController
   def show
-    params[:id] = params[:activity_id]
-    @activity = subjacect
+    params[:activity_id]
+    @activity = Activity.find(params[:activity_id])
   end
 end
