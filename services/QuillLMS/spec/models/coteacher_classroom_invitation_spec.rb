@@ -4,6 +4,24 @@ RSpec.describe CoteacherClassroomInvitation, type: :model do
   let!(:teacher) { create(:teacher_with_a_couple_classrooms_with_one_student_each) }
   let!(:classroom_one) { teacher.classrooms_i_own.first }
 
+  describe '#tracking' do
+    let!(:invite_one) { build(:coteacher_classroom_invitation, classroom_id: classroom_one.id) }
+    let(:analyzer) { double(:analyzer, track_with_attributes: true) }
+
+    before do
+      allow(Analyzer).to receive(:new) { analyzer }
+    end
+
+    it 'should track coteacher invitation' do
+      expect(analyzer).to receive(:track_with_attributes).with(
+        invite_one.invitation.inviter,
+        SegmentIo::Events::COTEACHER_INVITATION,
+        { properties: { invitee_email: invite_one.invitation.invitee_email } }
+      )
+      invite_one.save
+    end
+  end
+
   describe '#update_parent_invitation' do
     let!(:invite_one) { create(:coteacher_classroom_invitation, classroom_id: classroom_one.id) }
     let!(:pending_invitation) { invite_one.invitation }
