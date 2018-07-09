@@ -1,0 +1,76 @@
+<div class="container">
+  <article class="simple-rounded-box">
+    <h1>Recommendations for <%= @activity.name %></h1>
+    <hr>
+    <h2>Independent Practice</h2>
+    <% if @recommendations.independent_practice.present? %>
+      <table class="table table-responsive">
+        <thead>
+          <tr>
+            <th>Order</th>
+            <th>Name</th>
+            <th>Activity Pack</th>
+            <th>&nbsp</th>
+            <th>&nbsp</th>
+          </tr>
+        </thead>
+        <tbody>
+          <%= render partial: "recommendation",
+            collection: @recommendations.independent_practice
+          %>
+        </tbody>
+      </table>
+    <% else %>
+      <p>None Yet</p>
+    <% end %>
+    <br>
+    <h2>Group Lessons</h2>
+    <% if @recommendations.group_lesson.present? %>
+      <table class="table table-responsive">
+        <thead>
+          <tr>
+            <th>Order</th>
+            <th>Name</th>
+            <th>Activity Pack</th>
+            <th>&nbsp</th>
+            <th>&nbsp</th>
+          </tr>
+        </thead>
+        <tbody>
+          <%= render partial: "recommendation",
+            collection: @recommendations.group_lesson
+          %>
+        </tbody>
+      </table>
+    <% else %>
+      <p>None Yet</p>
+    <% end %>
+    <br>
+
+    <%= form_tag(
+      sort_cms_activity_classification_activity_recommendations_path
+    ) do -%>
+      <%= hidden_field_tag "order" %>
+      <%= submit_tag "Save Order", id: 'order-submit', style: "display: none;"%>
+    <% end -%>
+
+    <%= link_to 'New Recommendation',
+      new_cms_activity_classification_activity_recommendation_path(
+        @activity_classification,
+        @activity
+      )
+    %>
+  </article>
+</div>
+
+<%= javascript_tag do %>
+  $(document).ready(function() {
+    $( "tbody" ).sortable();
+    $( "tbody" ).on("sortupdate", function( event, ui ) {
+      var orderValue = $( this ).sortable('toArray');
+      $( "#order" ).val(orderValue);
+      $( "#order-submit" ).show();
+    });
+    $( "tbody" ).disableSelection();
+  });
+<% end %>
