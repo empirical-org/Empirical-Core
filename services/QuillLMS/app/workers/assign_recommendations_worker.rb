@@ -28,8 +28,8 @@ class AssignRecommendationsWorker
         Units::Creator.assign_unit_template_to_one_class(teacher.id, unit_template_id, classroom_data)
     end
 
-    analytics = AssignRecommendationsAnalytics.new
-    analytics.track(teacher)
+    analytics = Analyzer.new
+    analytics.track(teacher, SegmentIo::Events::ASSIGN_RECOMMENDATIONS)
 
     PusherRecommendationCompleted.run(classroom, unit_template_id, lesson) if last
   end
