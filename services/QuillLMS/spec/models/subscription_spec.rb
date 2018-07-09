@@ -301,7 +301,7 @@ describe Subscription, type: :model do
       it 'updates a UserSubscription based off of the passed attributes' do
         attributes = { expiration: Date.tomorrow }
         Subscription.create_with_user_join(user.id, attributes)
-        expect(user.subscription.expiration).to eq(Date.tomorrow)
+        expect(user.reload.subscription.expiration).to eq(Date.tomorrow)
       end
     end
   end
