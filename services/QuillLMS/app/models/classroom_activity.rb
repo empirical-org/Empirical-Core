@@ -268,7 +268,7 @@ class ClassroomActivity < ActiveRecord::Base
   # delete this yo
   # here lies the ghost of the method that wzs here
 
-  # this is wack
+  # unit activity
   def checkbox_type
     diagnostic_activity_ids = Activity.diagnostic_activity_ids
     if diagnostic_activity_ids.include?(self.activity_id)
@@ -280,6 +280,7 @@ class ClassroomActivity < ActiveRecord::Base
     end
   end
 
+  # classroom unit
   def validate_assigned_student(student_id)
     if self.assign_on_join
       if !self.assigned_student_ids || self.assigned_student_ids.exclude?(student_id)
@@ -294,23 +295,27 @@ class ClassroomActivity < ActiveRecord::Base
     end
   end
 
+  # yo, move this lessons cache to a concern
   def lessons_cache_info_formatter
     {"classroom_activity_id" => self.id, "activity_id" => activity.id, "activity_name" => activity.name, "unit_id" => self.unit_id, "completed" => self.has_a_completed_session? || self.completed}
   end
 
   private
 
+# state
   def lock_if_lesson
     if ActivityClassification.find_by_id(activity&.activity_classification_id)&.key == 'lessons'
       self.update(locked: true)
     end
   end
 
+  # less concern
   def format_initial_lessons_cache
     # grab all classroom activities from the current ones's teacher, filter the lessons, then parse them
     self.classroom.owner.classroom_activities.select{|ca| ca.activity.activity_classification_id == 6}.map{|ca| ca.lessons_cache_info_formatter}
   end
 
+  # less concern
   def update_lessons_cache
     if ActivityClassification.find_by_id(activity&.activity_classification_id)&.key == 'lessons'
       user_ids = ClassroomsTeacher.where(classroom_id: self.classroom_id).map(&:user_id)
@@ -335,6 +340,7 @@ class ClassroomActivity < ActiveRecord::Base
     end
   end
 
+  # some version of this will exist in unit act and classroom unit
   def not_duplicate
     if ClassroomActivity.find_by(classroom_id: self.classroom_id, activity_id: self.activity_id, unit_id: self.unit_id, visible: self.visible)
       begin
