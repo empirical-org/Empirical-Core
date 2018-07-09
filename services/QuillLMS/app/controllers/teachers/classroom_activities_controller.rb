@@ -16,7 +16,7 @@ class Teachers::ClassroomActivitiesController < ApplicationController
 
   def hide
     @classroom_activities.update_all(visible: false)
-    @classroom_activity.unit.hide_if_no_visible_classroom_activities
+    @classroom_activity.unit.hide_if_no_visible_unit_activities
     @activity_sessions.update_all(visible: false)
     SetTeacherLessonCache.perform_async(current_user.id)
     render json: {}
