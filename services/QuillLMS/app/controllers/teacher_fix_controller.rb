@@ -1,32 +1,20 @@
 class TeacherFixController < ApplicationController
   include TeacherFixes
   before_filter :staff!
+  before_filter :set_user, only: :get_archived_units
 
   def index
   end
 
   def get_archived_units
-    user = User.find_by_username_or_email(params['teacher_identifier'])
-    if !user
+    if !@user
       render json: {error: 'No such user.'}
-    elsif user.role != 'teacher'
+    elsif @user.role != 'teacher'
       render json: {error: 'This user is not a teacher.'}
+    elsif archived_units_for_user.any?
+      render json: {archived_units: archived_units_for_user}
     else
-      archived_units = Unit.unscoped.where(visible: false, user_id: user.id)
-      if archived_units.any?
-        archived_units_with_shared_name_attr = archived_units.map do |u|
-          unit_obj = u.attributes
-          if Unit.find_by(user_id: u['user_id'], name: u['name'])
-            unit_obj['shared_name'] = true
-          else
-            unit_obj['shared_name'] = false
-          end
-          unit_obj
-        end
-        render json: {archived_units: archived_units_with_shared_name_attr}
-      else
-        render json: {error: 'This user has no archived units.'}
-      end
+      render json: {error: 'This user has no archived units.'}
     end
   end
 
@@ -97,7 +85,8 @@ class TeacherFixController < ApplicationController
     else
       missing_account_identifier = account1 ? params['account_2_identifier'] : params['account_1_identifier']
       render json: {error: "We do not have an account for #{missing_account_identifier}"}
-    end  end
+    end
+  end
 
   def merge_teacher_accounts
     account1 = User.find_by_username_or_email(params['account_1_identifier'])
@@ -127,10 +116,11 @@ class TeacherFixController < ApplicationController
         classroom_1 = Classroom.find_by_code(params['class_code_1'])
         classroom_2 = Classroom.find_by_code(params['class_code_2'])
         if classroom_1 && classroom_2
-          if StudentsClassrooms.find_by(student_id: user.id, classroom_id: classroom_1.id)
+          classroom_1_students_classrooms = StudentsClassrooms.find_by(student_id: user.id, classroom_id: classroom_1.id)
+          if classroom_1_students_classrooms
             StudentsClassrooms.unscoped.find_or_create_by(student_id: user.id, classroom_id: classroom_2.id).update(visible: true)
             TeacherFixes::move_activity_sessions(user, classroom_1, classroom_2)
-            StudentsClassrooms.find_by(student_id: user.id, classroom_id: classroom_1.id).destroy
+            classroom_1_students_classrooms.destroy
             render json: {}, status: 200
           else
             render json: {error: "#{account_identifier} is not in a classroom with the code #{params['class_code_1']}."}
@@ -202,5 +192,19 @@ class TeacherFixController < ApplicationController
       return render json: { error: e.message || e }
     end
     return render json: {}, status: 200
+  end
+
+  private
+
+  def set_user
+    @user = User.find_by_username_or_email(params['teacher_identifier'])
+  end
+
+  def archived_units_for_user
+    @archived_units ||= Unit.unscoped.where(visible: false, user_id: @user.id).map do |unit|
+      unit = unit.attributes
+      unit['shared_name'] = Unit.find_by(user_id: unit['user_id'], name: unit['name']).present?
+      unit
+    end
   end
 end
