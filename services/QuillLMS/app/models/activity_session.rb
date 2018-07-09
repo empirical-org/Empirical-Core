@@ -55,6 +55,14 @@ class ActivitySession < ActiveRecord::Base
     where(is_final_score: true)
   end
 
+  def eligible_for_tracking?
+    classroom_activity.present? && classroom_activity.classroom.present? && classroom_activity.classroom.owner.present?
+  end
+
+  def classroom_owner
+    classroom_activity.classroom.owner
+  end
+
   def self.by_teacher(teacher)
     self.joins(
       " JOIN classroom_activities ca ON activity_sessions.classroom_activity_id = ca.id

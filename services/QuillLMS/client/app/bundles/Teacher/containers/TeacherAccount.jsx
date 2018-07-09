@@ -90,7 +90,7 @@ export default React.createClass({
       email: this.state.email,
       role: this.state.role,
       password: this.state.password,
-      time_zone: this.state.time_zone.name,
+      time_zone: this.state.time_zone ? this.state.time_zone.name : null,
       school_id: ((this.state.selectedSchool == null)
         ? null
         : this.state.selectedSchool.id),
