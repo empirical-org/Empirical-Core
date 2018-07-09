@@ -12,20 +12,38 @@ class ClassroomActivity < ActiveRecord::Base
   default_scope { where(visible: true) }
   scope :with_topic, ->(tid) { joins(:topic).where(topics: {id: tid}) }
 
+  # everyone
   validate :not_duplicate, :on => :create
 
+  # classroom_unit_activity_state
   validates_uniqueness_of :pinned, scope: :classroom_id,
     if: Proc.new { |ca| ca.pinned == true }
 
+  # classroom_unit_activity_state
   before_validation :check_pinned
-  before_save :check_for_assign_on_join_and_update_students_array_if_true
-  after_create :lock_if_lesson
-  after_save :teacher_checkbox, :hide_appropriate_activity_sessions, :update_lessons_cache
 
+  # classroom_units
+  before_save :check_for_assign_on_join_and_update_students_array_if_true
+
+  # classroom_unit_activity_state
+  after_create :lock_if_lesson
+
+  # classroom_units
+  after_save :teacher_checkbox,
+
+  # classroom_units and unit activities
+  :hide_appropriate_activity_sessions,
+
+  # classroom units,  unit activies, classroom unit activites state
+  :update_lessons_cache
+
+
+  # classroom_units
   def assigned_students
     User.where(id: assigned_student_ids)
   end
 
+  # classroom_units
   def check_for_assign_on_join_and_update_students_array_if_true
     student_ids = StudentsClassrooms.where(classroom_id: self.classroom_id).pluck(:student_id)
     if self.assigned_student_ids&.any? && !self.assign_on_join && self.assigned_student_ids.length >= student_ids.length
@@ -41,18 +59,23 @@ class ClassroomActivity < ActiveRecord::Base
     end
   end
 
+  # classroom units
   def is_valid_for_google_announcement_with_specific_user?(user)
     !!self.classroom.google_classroom_id && !!user.google_id
   end
 
+# classroom units
   def is_valid_for_google_announcement_with_owner?
     !!self.classroom.google_classroom_id && !!self.classroom.owner.google_id
   end
 
+  # classroom unit (kinda funky logic currently... -> will have to either pass a
+  # classroom_uinit_id or activity_id
   def generate_activity_url
     "#{ENV['DEFAULT_URL']}/teachers/classroom_activities/#{self.id}/activity_from_classroom_activity"
   end
 
+  # classroom unit - modify to expect activity id as input param
   def assign_follow_up_lesson(locked=true)
     extant_ca = ClassroomActivity.find_by(classroom_id: self.classroom_id,
                                           activity_id: self.activity.follow_up_activity_id,
@@ -73,6 +96,7 @@ class ClassroomActivity < ActiveRecord::Base
     follow_up
   end
 
+  # activity sessions
   def save_concept_results classroom_concept_results
     acts = self.activity_sessions.select(:id, :uid)
     classroom_concept_results.each do |concept_result|
@@ -85,6 +109,7 @@ class ClassroomActivity < ActiveRecord::Base
     end
   end
 
+  # activity sessions
   def delete_activity_sessions_with_no_concept_results
     incomplete_activity_session_ids = []
     self.activity_sessions.each do |as|
@@ -95,6 +120,7 @@ class ClassroomActivity < ActiveRecord::Base
     ActivitySession.where(id: incomplete_activity_session_ids).destroy_all
   end
 
+  # activity session (requires params)
   def find_or_create_started_activity_session(student_id)
     activity_session = ActivitySession.find_by(classroom_activity_id: self.id, user_id: student_id)
     if activity_session && activity_session.state == 'started'
@@ -107,27 +133,34 @@ class ClassroomActivity < ActiveRecord::Base
     end
   end
 
+  # unit activity
   def due_date_string= val
     self.due_date = Date.strptime(val, Time::DATE_FORMATS[:quill_default])
   end
 
+  # ua
   def due_date_string
     due_date.try(:to_formatted_s, :quill_default)
   end
 
+  # classroom unit
   def mark_all_activity_sessions_complete(data={})
     ActivitySession.unscoped.where(classroom_activity_id: self.id).update_all(state: 'finished', percentage: 1, completed_at: Time.current, data: data, is_final_score: true)
   end
 
+
+  # activity session (be very careful - you are modifying a table we didn't even plan to!)
   def activity_session_metadata
     act_seshes = activity_sessions.where(is_final_score: true).includes(concept_results: :concept)
     act_seshes.map{|act_sesh| act_sesh.concept_results.map{|cr| cr.metadata}}.flatten
   end
 
+  # class units
   def teacher_and_classroom_name
     {teacher: classroom&.owner&.name, classroom: classroom&.name}
   end
 
+  # unit activity
   def formatted_due_date
     if due_date.present?
       due_date.month.to_s + "-" + due_date.day.to_s + "-" + due_date.year.to_s
@@ -136,14 +169,17 @@ class ClassroomActivity < ActiveRecord::Base
     end
   end
 
+  # activity session
   def has_a_completed_session?
     !!activity_sessions.find_by(classroom_activity_id: self.id, state: "finished")
   end
 
+  # activity session
   def has_a_started_session?
     !!activity_sessions.find_by(classroom_activity_id: self.id, state: "started")
   end
 
+  # !unit activity (direct relationship w activity)
   def from_valid_date_for_activity_analysis?
     classification_id = self.activity.classification.id
     # if it is passage proofreader or sentence writing, we only want to show ones after this Date in certain reports
@@ -155,6 +191,7 @@ class ClassroomActivity < ActiveRecord::Base
     end
   end
 
+  # !unit activity (direct relationship w activity)
   def scorebook
     @score_book = {}
     completed.each do |activity_session|
@@ -169,6 +206,7 @@ class ClassroomActivity < ActiveRecord::Base
     @score_book
   end
 
+  # classroom unit
   def teacher_checkbox
     if self.classroom && self.classroom.owner
       owner = self.classroom.owner
@@ -179,6 +217,7 @@ class ClassroomActivity < ActiveRecord::Base
     end
   end
 
+  # activity sessions
   def hide_appropriate_activity_sessions
     # on save callback that checks if archived
     if self.visible == false
@@ -188,6 +227,7 @@ class ClassroomActivity < ActiveRecord::Base
     hide_unassigned_activity_sessions
   end
 
+  # activity sessions
   def hide_unassigned_activity_sessions
     #validate or hides any other related activity sessions
     act_seshes = self.activity_sessions
@@ -205,10 +245,12 @@ class ClassroomActivity < ActiveRecord::Base
     end
   end
 
+  # activity sessions
   def hide_all_activity_sessions
     self.activity_sessions.update_all(visible: false)
   end
 
+  # state
   def check_pinned
     if self.pinned == true
       if self.visible == false
@@ -223,14 +265,10 @@ class ClassroomActivity < ActiveRecord::Base
     end
   end
 
-  class << self
-    def create_session(activity, options = {})
-      classroom_activity = where(activity_id: activity.id, classroom_id: options[:user].classrooms.last.id).first_or_create
-      classroom_activity.activity_sessions.create!(user: options[:user])
-    end
-  end
+  # delete this yo
+  # here lies the ghost of the method that wzs here
 
-
+  # this is wack
   def checkbox_type
     if self.activity_id == 413 || self.activity_id == 447 || self.activity_id == 602
       checkbox_name = 'Assign Entry Diagnostic'
