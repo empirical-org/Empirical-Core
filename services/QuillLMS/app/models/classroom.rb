@@ -7,9 +7,11 @@ class Classroom < ActiveRecord::Base
   after_commit :hide_appropriate_classroom_activities
 
   has_many :classroom_activities
-  has_many :activities, through: :classroom_activities
-  has_many :units, through: :classroom_activities
-  has_many :activity_sessions, through: :classroom_activities
+  has_many :classroom_units
+  has_many :units, through: :classroom_units
+  has_many :unit_activities, through: :units
+  has_many :activities, through: :unit_activities
+  has_many :activity_sessions, through: :activities
   has_many :sections, through: :assign_activities
   has_many :coteacher_classroom_invitations
 

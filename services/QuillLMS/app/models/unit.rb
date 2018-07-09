@@ -13,25 +13,26 @@ class Unit < ActiveRecord::Base
   include ActiveModel::Validations
   validates_with UniqueNameWhenVisible
   belongs_to :user
-  has_many :classroom_activities, dependent: :destroy
-  has_many :classrooms, through: :classroom_activities
-  has_many :activities, through: :classroom_activities
+  has_many :unit_activities, dependent: :destroy
+  has_many :classroom_units, dependent: :destroy
+  has_many :classrooms, through: :classroom_units
+  has_many :activities, through: :unit_activities
   has_many :topics, through: :activities
   default_scope { where(visible: true)}
   belongs_to :unit_template
   after_save :hide_classroom_activities_if_visible_false
 
-  def hide_if_no_visible_classroom_activities
-    if self.classroom_activities.length == 0
-      self.update(visible: false)
-    end
-  end
-
-  def hide_classroom_activities_if_visible_false
-    if self.visible == false
-      ClassroomActivity.where(unit_id: self.id, visible: true).each{|ca| ca.update(visible: false)}
-    end
-  end
+  # def hide_if_no_visible_classroom_activities
+  #   if self.classroom_activities.length == 0
+  #     self.update(visible: false)
+  #   end
+  # end
+  #
+  # def hide_classroom_activities_if_visible_false
+  #   if self.visible == false
+  #     ClassroomActivity.where(unit_id: self.id, visible: true).each{|ca| ca.update(visible: false)}
+  #   end
+  # end
 
   def email_lesson_plan
     # limiting to production so teachers don't get emailed when we assign lessons from their account locally
