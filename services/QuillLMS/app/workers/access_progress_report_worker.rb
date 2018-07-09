@@ -5,7 +5,7 @@ class AccessProgressReportWorker
     @user = User.find(id)
 
     # tell segment.io
-    analytics = AccessProgressReportAnalytics.new
-    analytics.track(@user)
+    analytics = Analyzer.new
+    analytics.track(@user, SegmentIo::Events::ACCESS_PROGRESS_REPORT)
   end
 end
