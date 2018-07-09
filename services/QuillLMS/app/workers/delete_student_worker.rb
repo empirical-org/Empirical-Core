@@ -3,12 +3,13 @@ class DeleteStudentWorker
 
   def perform(teacher_id, referred_from_class_path)
     teacher = User.find(teacher_id)
+    analytics = Analyzer.new
     if referred_from_class_path
-      analytics = DeleteStudentAnalytics.new
+      event = SegmentIo::Events::TEACHER_DELETED_STUDENT_ACCOUNT
     else
-      analytics = MysteryStudentDeletionAnalytics.new
+      event = SegmentIo::Events::MYSTERY_STUDENT_DELETION
     end
     # tell segment.io
-    analytics.track(teacher)
+    analytics.track(teacher, event)
   end
 end
