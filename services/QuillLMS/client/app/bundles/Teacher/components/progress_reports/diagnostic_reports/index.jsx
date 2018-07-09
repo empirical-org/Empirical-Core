@@ -72,9 +72,11 @@ const DiagnosticReports = React.createClass({
 		let that = this;
 		const p = params || this.props.params;
 		this.ajax.getActivityData = $.get(`/api/v1/activities/${p.activityId}.json`, function(data) {
-			that.setState({
-				selectedActivity: data['activity']
-			});
+      if (data) {
+        that.setState({
+          selectedActivity: data['activity']
+        });
+      }
 		});
 	},
 

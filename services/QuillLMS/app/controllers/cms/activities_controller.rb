@@ -23,7 +23,7 @@ class Cms::ActivitiesController < Cms::CmsController
   def create
     @activity = @activity_classification.activities.new(activity_params)
     if @activity.save
-      redirect_to cms_activity_data_path(@activity_classification.id, @activity), notice: 'Activity was successfully created.'
+      redirect_to cms_activity_classification_activity_data_path(@activity_classification, @activity), notice: 'Activity was successfully created.'
     else
       render :new
     end
@@ -31,7 +31,7 @@ class Cms::ActivitiesController < Cms::CmsController
 
   def update
     if @activity.update_attributes(activity_params)
-      redirect_to cms_activity_data_path(@activity_classification.id, @activity), notice: 'Activity was successfully updated.'
+      redirect_to cms_activity_classification_activity_data_path(@activity_classification, @activity), notice: 'Activity was successfully updated.'
     else
       render :new
     end
