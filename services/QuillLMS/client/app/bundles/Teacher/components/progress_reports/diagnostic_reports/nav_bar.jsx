@@ -7,27 +7,38 @@ import blackIconAppName from '../../modules/get_black_icon_app_name_from_classif
 import l from 'lodash'
 import $ from 'jquery';
 
-export default React.createClass({
-  propTypes: {
-    classrooms: React.PropTypes.array.isRequired,
-    students: React.PropTypes.array,
-    studentDropdownCallBack: React.PropTypes.func,
-    dropdownCallback: React.PropTypes.func,
-    buttonGroupCallback: React.PropTypes.func,
-    selectedClassroom: React.PropTypes.object,
-    selectedStudentId: React.PropTypes.string,
-    params: React.PropTypes.object,
-  },
+export default class Navbar extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.students = this.students.bind(this)
+    this.studentDropdown = this.studentDropdown.bind(this)
+  }
 
   componentWillMount() {
-    if (window.location.hash.includes('/a/413', '/a/447', '/a/602')) {
-      $('.activity-analysis-tab').removeClass('active');
-      $('.diagnostic-tab').addClass('active');
-    } else {
-      $('.diagnostic-tab').removeClass('active');
-      $('.activity-analysis-tab').addClass('active');
-    }
-  },
+    fetch(`${process.env.DEFAULT_URL}/teachers/progress_reports/diagnostic_activity_ids`, {
+      method: 'GET',
+      mode: 'cors',
+      credentials: 'include'
+    }).then((response) => {
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
+      return response.json();
+    }).then((response) => {
+      const diagnosticActivityIds = response.diagnosticActivityIds
+      const activityId = Number(this.props.params.activityId)
+      if (diagnosticActivityIds.includes(activityId)) {
+        $('.activity-analysis-tab').removeClass('active');
+        $('.diagnostic-tab').addClass('active');
+      } else {
+        $('.diagnostic-tab').removeClass('active');
+        $('.activity-analysis-tab').addClass('active');
+      }
+    }).catch((error) => {
+      console.log('error', error)
+    })
+  }
 
   students() {
     const selectedClassroomId = parseInt(this.props.params.classroomId);
@@ -38,7 +49,7 @@ export default React.createClass({
     } else if (this.props.classrooms) {
       return this.props.classrooms[0].students;
     }
-  },
+  }
 
   studentDropdown() {
     let selectedStudent;
@@ -54,7 +65,7 @@ export default React.createClass({
         selectedStudent={selectedStudent || (this.students()[0] || null)}
       />);
     }
-  },
+  }
 
   render() {
     let appName, image, previewLink
@@ -97,5 +108,5 @@ export default React.createClass({
         </div>
       </div>
     );
-  },
-});
+  }
+};
