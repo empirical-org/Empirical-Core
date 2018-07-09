@@ -6,8 +6,8 @@
       return (
         <div className="mini_content">
           <div className="gray-underline" style={{ position: 'relative', padding: '8px', }}>
-            <img src="/assets/icons/icon-star.svg" style={{ position: 'absolute', top: '-11px', right: '-22px', transform: 'rotate(-22deg)', height: '27px', width: '27px', }} />
-            <img src="/assets/icons/icon-star.svg" style={{ position: 'absolute', top: '-11px', right: '-3px', transform: 'rotate(-34deg)', height: '14px', width: '14px', }} />
+            <img src="https://assets.quill.org/images/icons/icon-star.svg" style={{ position: 'absolute', top: '-11px', right: '-22px', transform: 'rotate(-22deg)', height: '27px', width: '27px', }} />
+            <img src="https://assets.quill.org/images/icons/icon-star.svg" style={{ position: 'absolute', top: '-11px', right: '-3px', transform: 'rotate(-34deg)', height: '14px', width: '14px', }} />
             <h3 style={{ fontWeight: 'normal', }}>New In-Class Collaborative Tool</h3>
           </div>
           <div>
