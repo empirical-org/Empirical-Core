@@ -212,18 +212,6 @@ describe ClassroomActivity, type: :model, redis: :true do
     end
   end
 
-  describe 'create_session' do
-    let(:classroom) { create(:classroom) }
-    let(:user) { create(:user) }
-    let(:activity) { create(:activity) }
-    let(:classroom_activity) { create(:classroom_activity, activity: activity, classroom: classroom) }
-
-    before do
-      user.classrooms << classroom
-    end
-
-    
-  end
 
   describe '#mark_all_activity_sessions_complete' do
     it 'marks all of a classroom activities activity sessions finished' do
