@@ -222,9 +222,7 @@ describe ClassroomActivity, type: :model, redis: :true do
       user.classrooms << classroom
     end
 
-    it 'should create a new activity session' do
-      expect{ ClassroomActivity.create_session(activity, {user: user}) }.to change(ActivitySession, :count).by(1)
-    end
+    
   end
 
   describe '#mark_all_activity_sessions_complete' do
