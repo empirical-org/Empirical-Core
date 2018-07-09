@@ -1,7 +1,6 @@
 class StudentsClassroomsController < ApplicationController
     skip_before_action :verify_authenticity_token
-    
-    
+
     def create
       puts "params"
       puts params
