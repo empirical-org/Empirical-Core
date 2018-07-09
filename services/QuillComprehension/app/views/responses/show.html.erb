@@ -1,14 +1,28 @@
+<div class="container">
+  <p>
+    <strong>Question:</strong>
+    <%= @response.question.prompt %>...
+  </p>
 
+  <p>
+    <strong>Text:</strong>
+    <%= @response.text %>
+  </p>
 
-<p>
-  <strong>Question:</strong>
-  <%= @response.question.prompt %>
-</p>
+  <h4>All Metrics</h4>
+  <ul>
+    <% @response.all_metrics.each do |k, v| %>
+      <li><%= "#{k}: #{v}"%> <%= button_to "Reset", action: "reset_tags", response_label_name: k%> </li>
+    <% end %>
+  </ul>
 
-<p>
-  <strong>Text:</strong>
-  <%= @response.text %>
-</p>
+  <h4>Latest Tags</h4>
+  <ul>
+    <% @response.latest_metrics.each do |k, v| %>
+      <li><%= "#{k}: #{v}"%></li>
+    <% end %>
+  </ul>
 
-<%= link_to 'Edit', edit_response_path(@response) %> |
-<%= link_to 'Back', question_responses_path(@response.question_id) %>
+  <%= link_to 'Edit', edit_response_path(@response) %> |
+  <%= link_to 'Back', question_responses_path(@response.question_id) %>
+</div>
