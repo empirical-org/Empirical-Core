@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :response_label do
-    name "Correct"
+    name "correct"
     description "This is an example of a correct answer."
   end
 end
