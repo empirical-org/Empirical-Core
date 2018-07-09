@@ -362,6 +362,10 @@ pipeline {
             PUSHER_KEY=credentials('pusher-key-connect')
             AWS_ACCESS_KEY_ID=credentials('AWS_ACCESS_KEY_ID')
             AWS_SECRET_ACCESS_KEY=credentials('AWS_SECRET_ACCESS_KEY')
+            EMPIRICAL_BASE_URL=credentials('STAGING_LMS_URL')
+            LESSONS_WEBSOCKETS_URL=credentials('STAGING_LESSONS_WEBSOCKETS_URL')
+            NODE_ENV='staging'
+            QUILL_CMS=credentials('CMS_URL')
           }
           steps {
             dir (path: 'services/QuillLessons') {
