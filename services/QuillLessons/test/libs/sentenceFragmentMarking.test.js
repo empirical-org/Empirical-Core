@@ -1,6 +1,6 @@
 /* global describe, it*/
 import expect from 'expect';
-import { hashToCollection } from '../../app/libs/hashToCollection.js';
+import { hashToCollection } from 'quill-component-library/dist/componentLibrary';
 import SFMarkingObj, { wordLengthCount } from '../../app/libs/sentenceFragment';
 import responses, {
   optimalResponse,
