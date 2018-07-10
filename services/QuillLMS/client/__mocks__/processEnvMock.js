@@ -1,5 +1,5 @@
 export default {
   env: {
-    CDN_URL: 'http://cdn.quill.org'
+    CDN_URL: 'https://assets.quill.org'
   }
 }

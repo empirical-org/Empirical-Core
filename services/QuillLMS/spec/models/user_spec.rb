@@ -55,7 +55,9 @@ describe User, type: :model do
       end
 
       it 'raises an error if the flag is not in the array' do
-        expect {user.update(Faker::Beer.name)}.to raise_error()
+        expect {
+          user.update!(flags: user.flags.push('wrong'))
+        }.to raise_error(ActiveRecord::RecordInvalid)
       end
     end
 
@@ -169,21 +171,21 @@ describe User, type: :model do
 
       describe('#eligible_for_new_subscription?') do
         it "returns true if the user does not have a subscription" do
-          user.subscription.destroy
+          user.reload.subscription.destroy
           expect(user.eligible_for_new_subscription?).to be
         end
 
         it "returns true if the user has a subscription with a trial account type" do
           Subscription::TRIAL_TYPES.each do |type|
             subscription.update(account_type: type)
-            expect(user.reload.eligible_for_new_subscription?).to be
+            expect(user.reload.eligible_for_new_subscription?).to be false
           end
         end
 
         it "returns false if the user has a subscription that does not have a trial account type" do
           (Subscription::ALL_TYPES - Subscription::TRIAL_TYPES).each do |type|
             subscription.update(account_type: type)
-            expect(user.reload.eligible_for_new_subscription?).not_to be
+            expect(user.reload.eligible_for_new_subscription?).not_to be true
           end
         end
       end
@@ -214,7 +216,7 @@ describe User, type: :model do
         end
 
         it 'returns an array including user.subscription if user has a valid subscription' do
-          expect(user.present_and_future_subscriptions).to include(user.subscription)
+          expect(user.reload.present_and_future_subscriptions).to include(user.subscription)
         end
 
         it 'returns an array including subscriptions that have not started yet, as long as their expiration is in the future and they have not been de-activated' do

@@ -1,6 +1,6 @@
 import React from 'react'
 import { mount } from 'enzyme'
-import QuestionRow from '../questionRow.jsx'
+import { QuestionRow } from 'quill-component-library/dist/componentLibrary'
 
 const question = {
   key: 'question',

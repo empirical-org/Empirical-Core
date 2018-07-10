@@ -18,6 +18,10 @@ class TestQuestion extends Component {
     this.reset();
   }
 
+  componentWillUnmount() {
+    this.props.dispatch(clearData());
+  }
+
   reset() {
     this.props.dispatch(clearData());
     this.startActivity();
