@@ -36,7 +36,7 @@ import {
 } from '../interfaces';
 import {
   ClassroomLesson
-} from '../../../interfaces/ClassroomLessons';
+} from '../../../interfaces/classroomLessons';
 import * as CustomizeIntf from '../../../interfaces/customize'
 import {
   scriptTagStrip

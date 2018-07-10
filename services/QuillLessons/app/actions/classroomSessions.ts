@@ -12,7 +12,7 @@ import {
 } from '../components/classroomLessons/interfaces';
 import {
  ClassroomLesson
-} from '../interfaces/ClassroomLessons';
+} from '../interfaces/classroomLessons';
 import * as CustomizeIntf from '../interfaces/customize'
 import uuid from 'uuid/v4';
 import socket from '../utils/socketStore'
