@@ -10,6 +10,7 @@ class Activity < ActiveRecord::Base
 
   belongs_to :follow_up_activity, class_name: "Activity", foreign_key: "follow_up_activity_id"
 
+  has_many :recommendations, dependent: :destroy
   has_many :classroom_activities, dependent: :destroy
   has_many :classrooms, through: :classroom_activities
   has_many :units, through: :classroom_activities
@@ -31,7 +32,13 @@ class Activity < ActiveRecord::Base
 
   scope :with_classification, -> { includes(:classification).joins(:classification) }
 
-  DIAGNOSTIC_ACTIVITY_IDS = [413, 447, 602]
+  def self.diagnostic_activity_ids
+    ActivityClassification.find_by(key: 'diagnostic').activities.pluck(:id)
+  end
+
+  def self.activity_with_recommendations_ids
+    Recommendation.all.map(&:activity_id).uniq
+  end
 
   def topic_uid= uid
     self.topic_id = Topic.find_by_uid(uid).id
@@ -144,7 +151,4 @@ class Activity < ActiveRecord::Base
 
     return @url
   end
-
-
-
 end

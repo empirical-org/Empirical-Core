@@ -5,7 +5,10 @@ import _ from 'underscore'
 import { QuestionData } from '../../../interfaces/classroomLessons'
 import Cues from '../../../components/renderForQuestions/cues';
 import TextEditor from '../../renderForQuestions/renderTextEditor';
-import WarningDialogue from '../../../components/fillInBlank/warningDialogue'
+import {
+  WarningDialogue,
+  Feedback
+} from 'quill-component-library/dist/componentLibrary'
 import { getParameterByName } from '../../../libs/getParameterByName';
 import {
   QuestionSubmissionsList,
@@ -13,8 +16,7 @@ import {
 } from '../interfaces';
 import promptSplitter from '../shared/promptSplitter'
 import htmlStrip from '../shared/htmlStrip'
-import Feedback from '../../renderForQuestions/components/feedback'
-const icon = require('../../../img/question_icon.svg')
+const icon = 'https://assets.quill.org/images/icons/question_icon.svg'
 
 interface fillInTheBlankProps {
   data: QuestionData,
@@ -157,12 +159,12 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
   renderInstructions() {
     if (this.props.mode !== 'PROJECT') {
       if (this.state.submitted) {
-        return (<Feedback 
+        return (<Feedback
           feedbackType="correct-matched"
           feedback={(<p>Great Work! Please wait as your teacher reviews your answer...</p>)}
         />);
       } else if (this.props.data.play.instructions) {
-        return (<Feedback 
+        return (<Feedback
           feedbackType="default"
           feedback={(<p dangerouslySetInnerHTML={{__html: this.props.data.play.instructions}}></p>)}
         />);
