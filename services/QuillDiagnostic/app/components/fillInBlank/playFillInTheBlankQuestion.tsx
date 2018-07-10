@@ -50,7 +50,6 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     super(props);
 
     this.checkAnswer = this.checkAnswer.bind(this);
-<<<<<<< HEAD:services/QuillDiagnostic/app/components/fillInBlank/playFillInTheBlankQuestion.tsx
     this.getQuestion = this.getQuestion.bind(this)
     this.getGradedResponsesWithCallback = this.getGradedResponsesWithCallback.bind(this)
     this.setQuestionValues = this.setQuestionValues.bind(this)
@@ -64,14 +63,8 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
 
   setQuestionValues(question) {
     const q = question;
-    const splitPrompt = q.prompt.split('___');
-    this.setState({
-=======
-    this.getQuestion = this.getQuestion.bind(this);
-    const q = this.getQuestion();
     const splitPrompt = q.prompt.replace(/<p>/g, '').replace(/<\/p>/g, '').split('___');
-    this.state = {
->>>>>>> develop:services/QuillConnect/app/components/fillInBlank/playFillInTheBlankQuestion.tsx
+    this.setState({
       splitPrompt,
       inputVals: this.generateInputs(splitPrompt),
       inputErrors: new Set(),
