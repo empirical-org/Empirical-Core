@@ -1,0 +1,7 @@
+language: node_js
+node_js:
+  # Don't specify a version here so that we use the version specified in .nvmrc instead.
+
+script:
+  - npm run jest
+  - npm run test

@@ -29,7 +29,7 @@ class ProgressReports::DistrictConceptReports
         JOIN schools ON schools.id = schools_admins.school_id
         JOIN schools_users on schools_users.school_id = schools.id
         JOIN users AS teachers on teachers.id = schools_users.user_id
-        JOIN classrooms_teachers ON classrooms_teachers.user_id = teachers.id AND           classrooms_teachers.role = 'owner'
+        JOIN classrooms_teachers ON classrooms_teachers.user_id = teachers.id AND classrooms_teachers.role = 'owner'
         JOIN classrooms ON classrooms.id = classrooms_teachers.classroom_id
         JOIN classroom_activities ON classroom_activities.classroom_id =
           classrooms.id

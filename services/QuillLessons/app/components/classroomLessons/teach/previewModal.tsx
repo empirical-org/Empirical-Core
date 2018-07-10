@@ -4,8 +4,8 @@ const PreviewModal = (props) =>
   (<div>
     <div className="preview-modal-background"></div>
     <div className="preview-modal">
-      <img onClick={props.closeModal} className="exit" src="http://assets.quill.org/images/icons/CloseIcon.svg" />
-      <img className="illustration" src="http://assets.quill.org/images/illustrations/preview_lesson_modal.svg" />
+      <img onClick={props.closeModal} className="exit" src="https://assets.quill.org/images/icons/CloseIcon.svg" />
+      <img className="illustration" src="https://assets.quill.org/images/illustrations/preview_lesson_modal.svg" />
       <h1>You're about to preview Quill Lessons</h1>
       <p>Quill Lessons provides whole-class lessons that are led by the teacher. Select questions for your students and <span>instantly</span> see their responses.</p>
       <p>Each time you select a new question or project a student’s answer, students instantly see it on their screens.</p>

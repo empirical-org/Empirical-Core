@@ -6,7 +6,7 @@ export default React.createClass({
    return (
      <div className='best-practices-container' onClick={() => window.location = "http://support.quill.org/general-questions/teacher-stories-how-to-best-use-quill-tools-with-your-students"}>
        <h4>Teacher Best Practices</h4>
-         <img src='http://assets.quill.org/images/photos/teacher_resources.jpg'></img>
+         <img src='https://assets.quill.org/images/photos/teacher_resources.jpg'></img>
        <p>Read stories of how teachers have successfully used Quill with their students.</p>
      </div>
    );

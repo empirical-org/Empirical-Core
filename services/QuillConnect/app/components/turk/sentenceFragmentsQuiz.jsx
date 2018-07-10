@@ -3,15 +3,17 @@ import {connect} from 'react-redux'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import {clearData, loadData, nextQuestion, submitResponse, updateName, updateCurrentQuestion} from '../../actions/diagnostics.js'
 import _ from 'underscore'
-import {hashToCollection} from '../../libs/hashToCollection'
+import {
+  hashToCollection,
+  Spinner
+  CarouselAnimation
+} from 'quill-component-library/dist/componentLibrary'
 import diagnosticQuestions from './diagnosticQuestions.jsx'
-import Spinner from '../shared/spinner.jsx'
-import PlaySentenceFragment from '../diagnostics/sentenceFragment.jsx'
-import PlayDiagnosticQuestion from '../diagnostics/sentenceCombining.jsx'
+import PlaySentenceFragment from '../studentLessons/sentenceFragment.jsx'
+import PlayDiagnosticQuestion from '../studentLessons/question.tsx'
 import LandingPage from './landing.jsx'
 import FinishedDiagnostic from './finishedDiagnostic.jsx'
 import {getConceptResultsForAllQuestions} from '../../libs/conceptResults/diagnostic'
-import CarouselAnim from '../shared/carouselAnimation.jsx';
 const request = require('request');
 
 var StudentDiagnostic = React.createClass({
@@ -181,9 +183,9 @@ var StudentDiagnostic = React.createClass({
       <progress className="progress diagnostic-progress" value={this.getProgressPercent()} max="100">15%</progress>
       <section className="section is-fullheight minus-nav student">
       <div className="student-container student-container-diagnostic">
-          <CarouselAnim>
+          <CarouselAnimation>
             {component}
-          </CarouselAnim>
+          </CarouselAnimation>
         </div>
       </section>
       </div>
