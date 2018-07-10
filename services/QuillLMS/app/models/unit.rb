@@ -20,7 +20,7 @@ class Unit < ActiveRecord::Base
   has_many :topics, through: :activities
   default_scope { where(visible: true)}
   belongs_to :unit_template
-  after_save :hide_classroom_units_and_unit_activities_if_visible_false
+  after_save :hide_classroom_units_and_unit_activities_if_visible_false, :create_any_new_classroom_unit_activity_states
 
   def hide_if_no_visible_unit_activities
     if self.unit_activities.length == 0
@@ -55,6 +55,15 @@ class Unit < ActiveRecord::Base
 
   def post_to_google_if_valid
     GoogleIntegration::Announcements.post_unit(self)
+  end
+
+  def create_any_new_classroom_unit_activity_states
+    lesson_unit_activities = self.unit_activities.select { |ua| ua.activity.is_lesson? }
+    lesson_unit_activities.each do |ua|
+      self.classroom_units.each do |cu|
+        ClassroomUnitActivityState.find_or_create_by(unit_activity_id: ua.id, classroom_unit_id: cu.id)
+      end
+    end
   end
 
 end

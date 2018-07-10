@@ -2,7 +2,7 @@ module Teacher
   extend ActiveSupport::Concern
 
   include CheckboxCallback
-
+  include LessonsCacheConcern
 
   TRIAL_LIMIT = 250
   TRIAL_START_DATE = Date.parse('1-9-2015') # September 1st 2015
@@ -80,8 +80,8 @@ module Teacher
 
   def affiliated_with_unit(unit_id)
     ActiveRecord::Base.connection.execute("SELECT units.id FROM units
-      JOIN classroom_activities ON classroom_activities.unit_id = units.id
-      JOIN classrooms_teachers ON classroom_activities.classroom_id = classrooms_teachers.classroom_id
+      JOIN classroom_units ON classroom_units.unit_id = units.id
+      JOIN classrooms_teachers ON classroom_units.classroom_id = classrooms_teachers.classroom_id
       WHERE classrooms_teachers.user_id = #{self.id} AND units.id = #{unit_id.to_i}
       LIMIT(1)").to_a.any?
   end
@@ -195,12 +195,12 @@ module Teacher
 			GROUP BY classrooms.name, classrooms.id"
     ).to_a
     counts = ActiveRecord::Base.connection.execute("SELECT classrooms.id AS id, COUNT(DISTINCT acts.id) FROM classrooms
-          FULL OUTER JOIN classroom_activities AS class_acts ON class_acts.classroom_id = classrooms.id
-          FULL OUTER JOIN activity_sessions AS acts ON acts.classroom_activity_id = class_acts.id
+          FULL OUTER JOIN classroom_units AS class_units ON class_units.classroom_id = classrooms.id
+          FULL OUTER JOIN activity_sessions AS acts ON acts.classroom_unit_id = class_units.id
           LEFT JOIN classrooms_teachers ON classrooms_teachers.classroom_id = classrooms.id
           WHERE classrooms_teachers.user_id = #{self.id}
           AND classrooms.visible
-          AND class_acts.visible
+          AND class_units.visible
           AND acts.visible
           AND acts.is_final_score = true
           GROUP BY classrooms.id").to_a
@@ -364,9 +364,9 @@ module Teacher
 
   def finished_diagnostic_unit_ids
     Unit.find_by_sql("SELECT DISTINCT units.id FROM units
-      JOIN classroom_activities AS ca ON ca.unit_id = units.id
-      JOIN activities AS acts ON ca.activity_id = acts.id
-      JOIN activity_sessions AS actsesh ON actsesh.classroom_activity_id = ca.id
+      JOIN classroom_units AS cu ON ca.unit_id = units.id
+      JOIN activity_sessions AS actsesh ON actsesh.classroom_unit_id = cu.id
+      JOIN activities AS acts ON actsesh.activity_id = acts.id
       WHERE units.user_id = #{self.id}
       AND acts.activity_classification_id = 4
       AND actsesh.state = 'finished'")

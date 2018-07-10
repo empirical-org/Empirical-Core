@@ -13,6 +13,7 @@ class Profile::ActivitySessionSerializer < ActiveModel::Serializer
   end
 
   def due_date
+    # formatted due date belongs to the classroom unit id now
     object.classroom_activity.formatted_due_date
   end
 

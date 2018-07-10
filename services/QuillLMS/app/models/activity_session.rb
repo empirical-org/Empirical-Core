@@ -207,6 +207,37 @@ class ActivitySession < ActiveRecord::Base
     end
   end
 
+  def self.save_concept_results(classroom_unit_id, activity_id, classroom_concept_results)
+    acts = ActivitySession.where(activity_id: activity_id, classroom_unit_id: classroom_unit_id).select(:id, :uid)
+    classroom_concept_results.each do |concept_result|
+      activity_session_id = acts.find { |act| act[:uid] == concept_result["activity_session_uid"]}[:id]
+      concept_result["activity_session_id"] = activity_session_id
+      concept_result.delete("activity_session_uid")
+    end
+    classroom_concept_results.each do |concept_result|
+      ConceptResult.create(concept_result)
+    end
+  end
+
+  def self.delete_activity_sessions_with_no_concept_results(classroom_unit_id, activity_id)
+    incomplete_activity_session_ids = []
+    ActivitySession.where(classroom_unit_id: classroom_unit_id, activity_id: activity_id).each do |as|
+      if as.concept_result_ids.empty?
+        incomplete_activity_session_ids.push(as.id)
+      end
+    end
+    ActivitySession.where(id: incomplete_activity_session_ids).destroy_all
+  end
+
+  def self.mark_all_activity_sessions_complete(classroom_unit_id, activity_id, data={})
+    ActivitySession.unscoped.where(classroom_unit_id: classroom_unit_id, activity_id: activity_id).update_all(state: 'finished', percentage: 1, completed_at: Time.current, data: data, is_final_score: true)
+  end
+
+  def self.activity_session_metadata(classroom_unit_id, activity_id)
+    act_seshes = activity_sessions.where(classroom_unit_id: classroom_unit_id, activity_id: activity_id, is_final_score: true).includes(concept_results: :concept)
+    act_seshes.map{|act_sesh| act_sesh.concept_results.map{|cr| cr.metadata}}.flatten
+  end
+
   private
 
   def correctly_assigned
