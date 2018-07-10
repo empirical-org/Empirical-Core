@@ -7,12 +7,14 @@ class Api::V1::ClassroomActivitiesController < Api::ApiController
   end
 
   def teacher_and_classroom_name
+    # this method belongs to the classroom unit now
     render json: @classroom_activity.teacher_and_classroom_name
   end
 
   def finish_lesson
     json = JSON.parse(params['json'])
     data = json['edition_id'] ? {edition_id: json['edition_id']} : {}
+    # these methods belong to activity sessions now, and need to be passed a classroom unit id and an activity id
     @classroom_activity.mark_all_activity_sessions_complete(data)
     @classroom_activity.update(locked: true, pinned: false, completed: true)
     @classroom_activity.save_concept_results(json['concept_results'])
