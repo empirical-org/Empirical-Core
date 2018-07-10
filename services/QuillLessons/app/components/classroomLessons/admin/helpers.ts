@@ -1,5 +1,4 @@
 import * as IntF from '../interfaces';
-import * as CLIntF from '../../../interfaces/ClassroomLessons';
 import AdminLobby from './lobby';
 import AdminStatic from './static';
 import AdminModel from './model';
