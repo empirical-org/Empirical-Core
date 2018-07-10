@@ -178,7 +178,10 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def import_google_students
-    GoogleStudentImporterWorker.perform_async(current_user.id)
+    GoogleStudentImporterWorker.perform_async(
+      current_user.id,
+      'Teachers::ClassroomManagerController'
+    )
     render json: {}
   end
 
