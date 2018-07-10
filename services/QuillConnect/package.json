@@ -75,6 +75,8 @@
     "history": "^3.3.0",
     "html-webpack-plugin": "^2.24.1",
     "jest": "^19.0.2",
+    "jsdom": "11.11.0",
+    "jsdom-global": "3.0.2",
     "json-loader": "^0.5.4",
     "lodash": "^4.17.4",
     "mocha": "^3.2.0",
