@@ -225,12 +225,12 @@ module Teacher
     TransferAccountWorker.perform_async(self.id, new_user.id);
   end
 
-  def classroom_activities(includes_value = nil)
+  def classroom_units(includes_value = nil)
     classroom_ids = classrooms_i_teach.map(&:id)
     if includes_value
-      ClassroomActivity.where(classroom_id: classroom_ids).includes(includes_value)
+      ClassroomUnit.where(classroom_id: classroom_ids).includes(includes_value)
     else
-      ClassroomActivity.where(classroom_id: classroom_ids)
+      ClassroomUnit.where(classroom_id: classroom_ids)
     end
   end
 
@@ -386,11 +386,7 @@ module Teacher
   end
 
   def get_data_for_lessons_cache
-    lesson_classroom_activities = []
-    self.classrooms_i_teach.each do |classroom|
-      classroom_activities.select{|ca| ca.activity.activity_classification_id == 6}.each{|ca| lesson_classroom_activities.push(ca.lessons_cache_info_formatter)}
-    end
-    lesson_classroom_activities
+    LessonsCacheConcern::format_initial_lessons_cache(self)
   end
 
   def classrooms_i_am_the_coteacher_for_with_a_specific_teacher(teacher_id)
@@ -481,11 +477,5 @@ module Teacher
     JOIN classrooms ON ct.classroom_id = classrooms.id #{only_visible_classrooms ? ' AND classrooms.visible = TRUE' : nil}
     WHERE ct.user_id = #{self.id}"
   end
-
-
-
-
-
-
 
 end
