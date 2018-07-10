@@ -34,9 +34,6 @@ class ClassroomActivity < ActiveRecord::Base
   # classroom_units and unit activities
   :hide_appropriate_activity_sessions,
 
-  # classroom units,  unit activies, classroom unit activites state
-  :update_lessons_cache
-
 
   # classroom_units
   def assigned_students
@@ -167,16 +164,6 @@ class ClassroomActivity < ActiveRecord::Base
     else
       ""
     end
-  end
-
-  # activity session
-  def has_a_completed_session?
-    !!activity_sessions.find_by(classroom_activity_id: self.id, state: "finished")
-  end
-
-  # activity session
-  def has_a_started_session?
-    !!activity_sessions.find_by(classroom_activity_id: self.id, state: "started")
   end
 
   # !unit activity (direct relationship w activity)

@@ -116,6 +116,10 @@ class Activity < ActiveRecord::Base
     $redis.set('default_activity_search', ActivitySearchWrapper.new.search.to_json)
   end
 
+  def is_lesson?
+    self.activity_classification_id == 6
+  end
+
   private
 
   def flag_as_beta

@@ -291,4 +291,13 @@ class ActivitySession < ActiveRecord::Base
     end
   end
 
+  def self.has_a_completed_session?(activity_id, classroom_unit_id)
+    !!ActivitySession.find_by(classroom_unit_id: classroom_unit_id, activity_id: activity_id, state: "finished")
+  end
+
+  def self.has_a_started_session?(activity_id, classroom_unit_id)
+    !!ActivitySession.find_by(classroom_unit_id: classroom_unit_id, activity_id: activity_id, state: "started")
+  end
+
+
 end
