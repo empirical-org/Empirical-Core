@@ -2,7 +2,7 @@ module PublicProgressReports
     extend ActiveSupport::Concern
 
     def last_completed_diagnostic
-      diagnostic_activity_ids = ActivityClassification.find(4).activities.map(&:id)
+      diagnostic_activity_ids = Activity.diagnostic_activity_ids
       current_user.classroom_activities.
                   joins(activity_sessions: :classroom_activity).
                   where('activity_sessions.state = ? AND activity_sessions.activity_id IN (?)', 'finished', diagnostic_activity_ids).
@@ -218,7 +218,8 @@ module PublicProgressReports
       activity_sessions_counted = activity_sessions_with_counted_concepts(activity_sessions)
       unique_students = activity_sessions.map {|activity_session| user = activity_session.user; {id: user.id, name: user.name}}
                                          .sort_by {|stud| stud[:name].split()[1]}
-      recommendations = Recommendations.new.send("recs_for_#{diagnostic.id}").map do |activity_pack_recommendation|
+
+      recommendations = RecommendationsQuery.new(diagnostic.id).activity_recommendations.map do |activity_pack_recommendation|
         students = []
         activity_sessions_counted.each do |activity_session|
           activity_pack_recommendation[:requirements].each do |req|
@@ -252,7 +253,7 @@ module PublicProgressReports
       classroom = Classroom.find(classroom_id)
       teacher_id = classroom.owner.id
       diagnostic = Activity.find(activity_id)
-      assigned_recommendations = Recommendations.new.send("recs_for_#{diagnostic.id}").map do |rec|
+      assigned_recommendations = RecommendationsQuery.new(diagnostic.id).activity_recommendations.map do |rec|
         # one unit per teacher with this name.
         unit = Unit.find_by(user_id: teacher_id, unit_template_id: rec[:activityPackId])
         if !unit
@@ -261,7 +262,9 @@ module PublicProgressReports
         student_ids = ClassroomActivity.find_by(unit: unit, classroom: classroom).try(:assigned_student_ids) || []
         return_value_for_recommendation(student_ids, rec)
       end
-      recommended_lesson_activity_ids = LessonRecommendations.new.send("recs_#{diagnostic.id}_data").map {|r| r[:activityPackId]}
+      recommended_lesson_activity_ids = LessonRecommendationsQuery.new(diagnostic.id)
+        .activity_recommendations
+        .map { |r| r[:activityPackId] }
       associated_teacher_ids = ClassroomsTeacher.where(classroom_id: classroom_id).pluck(:user_id)
       assigned_lesson_ids = Unit.where(unit_template_id: recommended_lesson_activity_ids, user_id: associated_teacher_ids).pluck(:unit_template_id)
       {

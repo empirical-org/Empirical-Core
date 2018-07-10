@@ -97,6 +97,24 @@ describe Teachers::ClassroomsController, type: :controller do
       expect(classroom.coteachers.length).to eq(1)
       expect(classroom.coteachers.first).to eq(owner)
     end
+
+    context 'segment IO tracking' do
+      let(:analyzer) { double(:analyzer, track_with_attributes: true) }
+
+      before do
+        allow(Analyzer).to receive(:new) { analyzer }
+      end
+
+      it 'should track the ownership transfer' do
+        expect(analyzer).to receive(:track_with_attributes).with(
+          owner,
+          SegmentIo::Events::TRANSFER_OWNERSHIP,
+          { properties: { new_owner_id: valid_coteacher.id.to_s } }
+        )
+        session[:user_id] = owner.id
+        post :transfer_ownership, id: classroom.id, requested_new_owner_id: valid_coteacher.id
+      end
+    end
   end
 
   describe '#index' do

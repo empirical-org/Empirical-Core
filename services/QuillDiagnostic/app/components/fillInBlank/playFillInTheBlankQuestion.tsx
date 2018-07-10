@@ -50,6 +50,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     super(props);
 
     this.checkAnswer = this.checkAnswer.bind(this);
+<<<<<<< HEAD:services/QuillDiagnostic/app/components/fillInBlank/playFillInTheBlankQuestion.tsx
     this.getQuestion = this.getQuestion.bind(this)
     this.getGradedResponsesWithCallback = this.getGradedResponsesWithCallback.bind(this)
     this.setQuestionValues = this.setQuestionValues.bind(this)
@@ -65,6 +66,12 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     const q = question;
     const splitPrompt = q.prompt.split('___');
     this.setState({
+=======
+    this.getQuestion = this.getQuestion.bind(this);
+    const q = this.getQuestion();
+    const splitPrompt = q.prompt.replace(/<p>/g, '').replace(/<\/p>/g, '').split('___');
+    this.state = {
+>>>>>>> develop:services/QuillConnect/app/components/fillInBlank/playFillInTheBlankQuestion.tsx
       splitPrompt,
       inputVals: this.generateInputs(splitPrompt),
       inputErrors: new Set(),
@@ -113,7 +120,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
 
   handleChange(i, e) {
     const existing = [...this.state.inputVals];
-    existing[i] = e.target.value.trim();
+    existing[i] = e.target.value;
     this.setState({
       inputVals: existing,
     });
@@ -137,11 +144,12 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     const newErrors = new Set(this.state.inputErrors);
     const inputVal = this.state.inputVals[i] || '';
     const inputSufficient = this.state.blankAllowed ? true : inputVal;
+    const cueMatch = inputVal && this.state.cues.some(c => c.toLowerCase() === inputVal.toLowerCase())
 
-    if (!inputSufficient || (inputVal && this.state.cues.indexOf(inputVal.toLowerCase()) === -1)) {
-      newErrors.add(i);
-    } else {
+    if (inputSufficient && cueMatch) {
       newErrors.delete(i);
+    } else {
+      newErrors.add(i);
     }
 
     // following condition will return false if no new errors
@@ -218,6 +226,15 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
       styling.borderWidth = '2px';
       delete styling.borderImageSource;
     }
+    if (this.state.cues.some(c => c.length > 15)) {
+      styling.width = '200px'
+    } else if (this.state.cues.some(c => c.length > 10)) {
+      styling.width = '150px'
+    } else if (this.state.cues.some(c => c.length > 5)) {
+      styling.width = '100px'
+    } else {
+      styling.width = '50px'
+    }
     return (
       <span key={`span${i}`}>
         <div style={{ position: 'relative', height: 0, width: 0, }}>
@@ -255,7 +272,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
 
   zipInputsAndText() {
     const zipped = _.zip(this.state.splitPrompt, this.state.inputVals);
-    return _.flatten(zipped).join('');
+    return _.flatten(zipped).join('').trim();
   }
 
   checkAnswer() {

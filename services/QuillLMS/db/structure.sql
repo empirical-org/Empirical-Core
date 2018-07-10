@@ -915,6 +915,39 @@ ALTER SEQUENCE credit_transactions_id_seq OWNED BY credit_transactions.id;
 
 
 --
+-- Name: criteria; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE criteria (
+    id integer NOT NULL,
+    concept_id integer NOT NULL,
+    count integer DEFAULT 0 NOT NULL,
+    recommendation_id integer NOT NULL,
+    no_incorrect boolean DEFAULT false NOT NULL
+);
+
+
+--
+-- Name: criteria_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE criteria_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: criteria_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE criteria_id_seq OWNED BY criteria.id;
+
+
+--
 -- Name: csv_exports; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1363,6 +1396,40 @@ CREATE SEQUENCE page_areas_id_seq
 --
 
 ALTER SEQUENCE page_areas_id_seq OWNED BY page_areas.id;
+
+
+--
+-- Name: recommendations; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE recommendations (
+    id integer NOT NULL,
+    name character varying NOT NULL,
+    activity_id integer NOT NULL,
+    unit_template_id integer NOT NULL,
+    category integer NOT NULL,
+    "order" integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: recommendations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE recommendations_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: recommendations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE recommendations_id_seq OWNED BY recommendations.id;
 
 
 --
@@ -2316,6 +2383,13 @@ ALTER TABLE ONLY credit_transactions ALTER COLUMN id SET DEFAULT nextval('credit
 
 
 --
+-- Name: criteria id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY criteria ALTER COLUMN id SET DEFAULT nextval('criteria_id_seq'::regclass);
+
+
+--
 -- Name: csv_exports id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -2404,6 +2478,13 @@ ALTER TABLE ONLY objectives ALTER COLUMN id SET DEFAULT nextval('objectives_id_s
 --
 
 ALTER TABLE ONLY page_areas ALTER COLUMN id SET DEFAULT nextval('page_areas_id_seq'::regclass);
+
+
+--
+-- Name: recommendations id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY recommendations ALTER COLUMN id SET DEFAULT nextval('recommendations_id_seq'::regclass);
 
 
 --
@@ -2745,6 +2826,14 @@ ALTER TABLE ONLY credit_transactions
 
 
 --
+-- Name: criteria criteria_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY criteria
+    ADD CONSTRAINT criteria_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: csv_exports csv_exports_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2846,6 +2935,14 @@ ALTER TABLE ONLY objectives
 
 ALTER TABLE ONLY page_areas
     ADD CONSTRAINT page_areas_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: recommendations recommendations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY recommendations
+    ADD CONSTRAINT recommendations_pkey PRIMARY KEY (id);
 
 
 --
@@ -3389,6 +3486,20 @@ CREATE INDEX index_credit_transactions_on_user_id ON credit_transactions USING b
 
 
 --
+-- Name: index_criteria_on_concept_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_criteria_on_concept_id ON public.criteria USING btree (concept_id);
+
+
+--
+-- Name: index_criteria_on_recommendation_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_criteria_on_recommendation_id ON public.criteria USING btree (recommendation_id);
+
+
+--
 -- Name: index_districts_users_on_district_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -3477,6 +3588,20 @@ CREATE UNIQUE INDEX index_oauth_access_tokens_on_token ON oauth_access_tokens US
 --
 
 CREATE UNIQUE INDEX index_oauth_applications_on_uid ON oauth_applications USING btree (uid);
+
+
+--
+-- Name: index_recommendations_on_activity_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_recommendations_on_activity_id ON public.recommendations USING btree (activity_id);
+
+
+--
+-- Name: index_recommendations_on_unit_template_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_recommendations_on_unit_template_id ON public.recommendations USING btree (unit_template_id);
 
 
 --
@@ -4028,11 +4153,35 @@ ALTER TABLE ONLY sales_stages
 
 
 --
+-- Name: criteria fk_rails_63b994bcda; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY criteria
+    ADD CONSTRAINT fk_rails_63b994bcda FOREIGN KEY (recommendation_id) REFERENCES recommendations(id);
+
+
+--
+-- Name: recommendations fk_rails_6745e4bc86; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY recommendations
+    ADD CONSTRAINT fk_rails_6745e4bc86 FOREIGN KEY (unit_template_id) REFERENCES unit_templates(id);
+
+
+--
 -- Name: sales_stages fk_rails_a8025d2621; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY sales_stages
     ADD CONSTRAINT fk_rails_a8025d2621 FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
+-- Name: criteria fk_rails_ada79930c6; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY criteria
+    ADD CONSTRAINT fk_rails_ada79930c6 FOREIGN KEY (concept_id) REFERENCES concepts(id);
 
 
 --
@@ -4049,6 +4198,14 @@ ALTER TABLE ONLY concept_results
 
 ALTER TABLE ONLY sales_contacts
     ADD CONSTRAINT fk_rails_d6738e130a FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
+-- Name: recommendations fk_rails_dc326309ed; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY recommendations
+    ADD CONSTRAINT fk_rails_dc326309ed FOREIGN KEY (activity_id) REFERENCES activities(id);
 
 
 --
@@ -4626,4 +4783,26 @@ INSERT INTO schema_migrations (version) VALUES ('20180502152419');
 INSERT INTO schema_migrations (version) VALUES ('20180517045137');
 
 INSERT INTO schema_migrations (version) VALUES ('20180530145153');
+
+INSERT INTO schema_migrations (version) VALUES ('20180625211305');
+
+INSERT INTO schema_migrations (version) VALUES ('20180627183421');
+
+INSERT INTO schema_migrations (version) VALUES ('20180627184008');
+
+INSERT INTO schema_migrations (version) VALUES ('20180627200532');
+
+INSERT INTO schema_migrations (version) VALUES ('20180628161337');
+
+INSERT INTO schema_migrations (version) VALUES ('20180628182314');
+
+INSERT INTO schema_migrations (version) VALUES ('20180628191240');
+
+INSERT INTO schema_migrations (version) VALUES ('20180629151757');
+
+INSERT INTO schema_migrations (version) VALUES ('20180702201017');
+
+INSERT INTO schema_migrations (version) VALUES ('20180703154253');
+
+INSERT INTO schema_migrations (version) VALUES ('20180703154718');
 

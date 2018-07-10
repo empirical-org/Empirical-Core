@@ -35,11 +35,11 @@ questions = Question.create([
 ])
 
 response_labels = ResponseLabel.create([
-  {"name"=>"correct"},
-  {"name"=>"logical"},
-  {"name"=>"detailed"},
-  {"name"=>"grammatical"},
-  {"name"=>"full sentence"},
-  {"name"=>"relevant"},
-  {"name"=>"well structured"}
+  {"name"=>"correct", "description"=>"It is considered correct."},
+  {"name"=>"logical", "description"=>"It is considered logical."},
+  {"name"=>"detailed", "description"=>"It is considered detailed."},
+  {"name"=>"grammatical", "description"=>"It is considered grammatically correct."},
+  {"name"=>"full sentence", "description"=>"It is considered to be a full sentence."},
+  {"name"=>"relevant", "description"=>"It is considered relevant."},
+  {"name"=>"well structured", "description"=>"It is considered well structured."}
 ])
