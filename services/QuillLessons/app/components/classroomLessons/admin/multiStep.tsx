@@ -1,5 +1,5 @@
 import * as React from 'react'
-import * as CLIntF from '../../../interfaces/ClassroomLessons';
+import * as CLIntF from '../../../interfaces/classroomLessons';
 import * as _ from 'lodash'
 import StudentMultistep from '../play/multistep'
 

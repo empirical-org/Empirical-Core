@@ -5,7 +5,7 @@ import {
 } from '../interfaces'
 import {
   ClassroomLesson
-} from '../../../interfaces/ClassroomLessons'
+} from '../../../interfaces/classroomLessons'
 import { textEditorInputNotEmpty } from '../shared/textEditorClean'
 import * as CustomizeIntf from '../../../interfaces/customize'
 
