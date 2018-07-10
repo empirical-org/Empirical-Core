@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import Error from '../error.jsx';
+import { Error } from 'quill-component-library/dist/componentLibrary';
 
 describe('Error component', () => {
   const error = 'You did something wrong.'
