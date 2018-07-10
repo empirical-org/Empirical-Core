@@ -1,5 +1,5 @@
 import * as React from 'react';
-const helpIcon = require('../../img/help_icon.svg')
+const helpIcon = 'https://assets.quill.org/images/icons/help_icon.svg'
 
 const CreateCustomizedEditionNavbar: React.SFC<any> = () =>
   <div className="customize-navbar-container">

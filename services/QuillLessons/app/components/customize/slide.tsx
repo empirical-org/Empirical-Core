@@ -79,7 +79,7 @@ export default class Slide extends React.Component<any, any> {
           incompletePrompt={this.props.incompletePrompt}
           />
           <div className="script-header" onClick={this.toggleShowScript}>
-            <img src="http://assets.quill.org/images/icons/show-steps.svg"/>
+            <img src="https://assets.quill.org/images/icons/show-steps.svg"/>
             <p>{showScriptButtonText}</p>
           </div>
           {this.renderScript()}

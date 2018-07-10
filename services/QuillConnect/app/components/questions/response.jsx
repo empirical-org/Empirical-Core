@@ -1,13 +1,14 @@
 import React from 'react';
 import _ from 'underscore';
 import questionActions from '../../actions/questions';
-import diagnosticQuestionActions from '../../actions/diagnosticQuestions';
 import sentenceFragmentActions from '../../actions/sentenceFragments';
-import ConceptSelector from '../shared/conceptSelector.jsx';
-import Modal from '../modal/modal.jsx';
+import {
+  Modal,
+  TextEditor,
+  hashToCollection
+} from 'quill-component-library/dist/componentLibrary';
+import { EditorState, ContentState } from 'draft-js'
 import ResponseList from './responseList.jsx';
-import { hashToCollection } from '../../libs/hashToCollection';
-import TextEditor from './textEditor.jsx';
 import getBoilerplateFeedback from './boilerplateFeedback.jsx';
 import massEdit from '../../actions/massEdit';
 import ConceptSelectorWithCheckbox from '../shared/conceptSelectorWithCheckbox.jsx';
@@ -33,10 +34,16 @@ export default React.createClass({
     let actions;
     if (this.props.mode === 'sentenceFragment') {
       actions = sentenceFragmentActions;
-    } else if (this.props.mode === 'diagnosticQuestion') {
-      actions = diagnosticQuestionActions;
     } else {
       actions = questionActions;
+    }
+    let conceptResults = {}
+    if (response.concept_results) {
+      if (typeof response.concept_results === 'string') {
+        conceptResults = JSON.parse(response.concept_results)
+      } else {
+        conceptResults = response.concept_results
+      }
     }
     return {
       feedback: response.feedback || '',
@@ -49,7 +56,7 @@ export default React.createClass({
         conceptUID: '',
         correct: true,
       },
-      conceptResults: response.concept_results || {}
+      conceptResults
     };
   },
 
@@ -351,7 +358,13 @@ export default React.createClass({
         (<div className="content">
           {parentDetails}
           <label className="label">Feedback</label>
-          <TextEditor text={this.state.feedback || ''} handleTextChange={this.handleFeedbackChange} boilerplate={this.state.selectedBoilerplate} />
+          <TextEditor
+            text={this.state.feedback || ''}
+            handleTextChange={this.handleFeedbackChange}
+            boilerplate={this.state.selectedBoilerplate}
+            EditorState={EditorState}
+            ContentState={ContentState}
+          />
 
           <br />
           <label className="label">Boilerplate feedback</label>

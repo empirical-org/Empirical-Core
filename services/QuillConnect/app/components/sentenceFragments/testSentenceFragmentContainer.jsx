@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PlaySentenceFragment from '../studentLessons/sentenceFragment.jsx';
-import { clearData, loadData, nextQuestion, submitResponse, updateName, updateCurrentQuestion, resumePreviousSession } from '../../actions/diagnostics.js';
+import { clearData, loadData, nextQuestion, submitResponse, updateName, updateCurrentQuestion, resumePreviousSession } from '../../actions.js';
 
 class TestQuestion extends Component {
   constructor() {
@@ -29,10 +29,13 @@ class TestQuestion extends Component {
   questionsForLesson() {
     const question = this.getQuestion();
     question.key = this.props.params.questionID;
+    if (!question.attempts) {
+      question.attempts = []
+    }
     return [
       {
         type: 'SF',
-        data: question,
+        question,
       }
     ];
   }
@@ -59,11 +62,20 @@ class TestQuestion extends Component {
   }
 
   render() {
-    if (this.props.playDiagnostic.currentQuestion) {
-      const question = this.props.playDiagnostic.currentQuestion.data;
+    if (this.props.playLesson.currentQuestion) {
+      const question = this.props.playLesson.currentQuestion.question;
       return (
         <div className="test-question-container">
-          <PlaySentenceFragment currentKey={this.props.params.questionID} key={this.props.params.questionID} question={question} prefill={false} nextQuestion={this.reset} dispatch={this.props.dispatch} markIdentify={this.markIdentify} updateAttempts={this.submitResponse}/>
+          <PlaySentenceFragment
+            currentKey={this.props.params.questionID}
+            key={this.props.params.questionID}
+            question={question}
+            prefill={false}
+            nextQuestion={this.reset}
+            dispatch={this.props.dispatch}
+            markIdentify={this.markIdentify}
+            updateAttempts={this.submitResponse}
+          />
         </div>
       );
     } else {
@@ -78,7 +90,7 @@ class TestQuestion extends Component {
 function select(props) {
   return {
     sentenceFragments: props.sentenceFragments,
-    playDiagnostic: props.playDiagnostic,
+    playLesson: props.playLesson,
   };
 }
 
