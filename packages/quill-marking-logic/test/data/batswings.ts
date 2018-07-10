@@ -1,4 +1,4 @@
-import {hashToCollection} from '../../src/libs/hashToCollection'
+import { hashToCollection } from 'quill-component-library/dist/componentLibrary'
 import {Response, FocusPoint, IncorrectSequence, ConceptResult} from '../../src/interfaces/index'
 
 const rawData = {

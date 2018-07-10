@@ -78,7 +78,11 @@ class Teachers::ClassroomManagerController < ApplicationController
 
   def dashboard
     if current_user.classrooms_i_teach.empty? && current_user.archived_classrooms.none? && !current_user.has_outstanding_coteacher_invitation?
-      redirect_to new_teachers_classroom_path
+      if current_user.schools_admins.any?
+        redirect_to teachers_admin_dashboard_path
+      else
+        redirect_to new_teachers_classroom_path
+      end
     end
     @firewall_test = true
   end

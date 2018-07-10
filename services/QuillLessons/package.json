@@ -129,6 +129,7 @@
     "pos": "^0.4.2",
     "promise-polyfill": "^6.0.2",
     "pusher-js": "^4.1.0",
+    "quill-component-library": "^0.1.19",
     "quill-marking-logic": "^0.3.2",
     "raven-js": "^3.17.0",
     "react": "^15.6.1",

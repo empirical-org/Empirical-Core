@@ -1,7 +1,7 @@
 declare function require(name:string);
 import * as React from 'react';
 import { connect } from 'react-redux';
-const helpIcon = require('../../img/help_icon.svg')
+const helpIcon = 'https://assets.quill.org/images/icons/help_icon.svg'
 import { getParameterByName } from '../../libs/getParameterByName';
 import {
   publishEdition,

@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import LinkListItem from '../linkListItem.jsx';
+import { LinkListItem } from 'quill-component-library/dist/componentLibrary';;
 
 describe('LinkListItem component', () => {
   const text = 'Fix this sentence.'

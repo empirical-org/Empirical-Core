@@ -1,6 +1,6 @@
 declare function require(name:string);
 import * as React from 'react';
-const AbsentTeacherIllustration = require('../../../img/absent_teacher_illustration.svg')
+const AbsentTeacherIllustration = 'https://assets.quill.org/images/icons/absent_teacher_illustration.svg'
 
 const AbsentTeacher = props => (
   <div>

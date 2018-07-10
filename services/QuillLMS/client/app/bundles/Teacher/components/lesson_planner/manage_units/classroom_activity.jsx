@@ -40,8 +40,26 @@ export default React.createClass({
       startDate: this.dueDate() ? moment(this.dueDate()) : undefined,
       showModal: false,
       showCustomizeTooltip: false,
-      showLessonPlanTooltip: false
+      showLessonPlanTooltip: false,
+      diagnosticIds: []
     }
+  },
+
+  componentDidMount() {
+    fetch(`${process.env.DEFAULT_URL}/teachers/progress_reports/activity_with_recommendations_ids`, {
+      method: 'GET',
+      mode: 'cors',
+      credentials: 'include'
+    }).then((response) => {
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
+      return response.json();
+    }).then((response) => {
+      this.setState({ activityWithRecommendationsIds: response.activityWithRecommendationsIds })
+    }).catch((error) => {
+      console.log('error', error)
+    })
   },
 
   componentWillReceiveProps(nextProps) {
@@ -81,22 +99,22 @@ export default React.createClass({
   },
 
   renderCustomizeTooltip() {
-  if (this.state.showCustomizeTooltip) {
-    return <div className="customize-tooltip">
-      <i className="fa fa-caret-up"/>
-      Customize
-    </div>
-  }
-},
+    if (this.state.showCustomizeTooltip) {
+      return <div className="customize-tooltip">
+        <i className="fa fa-caret-up"/>
+        Customize
+      </div>
+    }
+  },
 
-renderLessonPlanTooltip() {
-  if (this.state.showLessonPlanTooltip) {
-    return <div className="lesson-plan-tooltip">
-      <i className="fa fa-caret-up"/>
-      Download Lesson Plan
-    </div>
-  }
-},
+  renderLessonPlanTooltip() {
+    if (this.state.showLessonPlanTooltip) {
+      return <div className="lesson-plan-tooltip">
+        <i className="fa fa-caret-up"/>
+        Download Lesson Plan
+      </div>
+    }
+  },
 
   goToRecommendations() {
     const link = `/teachers/progress_reports/diagnostic_reports#/u/${this.unitId()}/a/${this.activityId()}/c/${this.classroomId()}/recommendations`
@@ -104,8 +122,8 @@ renderLessonPlanTooltip() {
   },
 
   buttonForRecommendations() {
-    const diagnosticIds = [413, 447, 602]
-    if (diagnosticIds.includes(this.activityId()) && window.location.pathname.includes('diagnostic_reports')) {
+    const activityWithRecommendationIds = this.state.activityWithRecommendationsIds
+    if (activityWithRecommendationIds && activityWithRecommendationIds.includes(this.activityId()) && window.location.pathname.includes('diagnostic_reports')) {
       return (
         <div onClick={this.goToRecommendations} className="recommendations-button">
           Recommendations

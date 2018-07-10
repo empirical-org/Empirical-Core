@@ -8,10 +8,10 @@ import conceptActions from '../../actions/concepts';
 import conceptsFeedbackActions from '../../actions/concepts-feedback';
 import questionActions from '../../actions/questions';
 import fillInBlankActions from '../../actions/fillInBlank';
-import diagnosticQuestionActions from '../../actions/diagnosticQuestions';
 import sentenceFragmentActions from '../../actions/sentenceFragments';
 import lessonActions from '../../actions/lessons';
 import levelActions from '../../actions/item-levels';
+import diagnosticLessonActions from '../../actions/diagnosticLessons'
 import * as titleCardActions from '../../actions/titleCards.ts';
 
 const TabLink = props => (
@@ -24,15 +24,16 @@ const TabLink = props => (
 
 const adminContainer = React.createClass({
   componentWillMount() {
+    console.log('diagnosticLessonActions', diagnosticLessonActions)
     this.props.dispatch(userActions.firebaseAuth());
     this.props.dispatch(conceptActions.startListeningToConcepts());
     this.props.dispatch(conceptsFeedbackActions.startListeningToConceptsFeedback());
     this.props.dispatch(questionActions.startListeningToQuestions());
     this.props.dispatch(fillInBlankActions.startListeningToQuestions());
-    this.props.dispatch(diagnosticQuestionActions.startListeningToDiagnosticQuestions());
     this.props.dispatch(sentenceFragmentActions.startListeningToSentenceFragments());
     this.props.dispatch(levelActions.startListeningToItemLevels());
     this.props.dispatch(titleCardActions.startListeningToTitleCards())
+    this.props.dispatch(diagnosticLessonActions.loadDiagnosticLessons())
   },
 
   render() {
@@ -53,7 +54,6 @@ const adminContainer = React.createClass({
             </p>
             <ul className="menu-list">
               <TabLink to={'/admin/questions'} activeClassName="is-active">Sentence Combining</TabLink>
-              <TabLink to={'/admin/diagnostic-questions'} activeClassName="is-active">Diagnostic Questions</TabLink>
               <TabLink to={'/admin/sentence-fragments'} activeClassName="is-active">Sentence Fragments</TabLink>
               <TabLink to={'/admin/fill-in-the-blanks'} activeClassName="is-active">Fill In The Blanks</TabLink>
             </ul>
@@ -62,7 +62,7 @@ const adminContainer = React.createClass({
             </p>
             <ul className="menu-list">
               <TabLink to={'/admin/concepts'} activeClassName="is-active">Concepts</TabLink>
-              <TabLink to={'admin/concepts-feedback'} activeClassName="is-active">Concept Feeback</TabLink>
+              <TabLink to={'admin/concepts-feedback'} activeClassName="is-active">Concept Feedback</TabLink>
               <TabLink to={'/admin/item-levels'} activeClassName="is-active">Item Levels</TabLink>
             </ul>
             <p className="menu-label">

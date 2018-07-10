@@ -1,0 +1,84 @@
+.nav.student-nav {
+  .student-lessons {
+    height: 66px;
+    display: flex;
+    width: 100%;
+    position: relative;
+    align-items: center;
+    .quill-logo {
+      position: relative;
+      left: 35;
+      height: 40px;
+    }
+  }
+    .slide-name, .lesson-name {
+      height: 28px;
+      font-size: 18px;
+    	font-family: $family-sans-serif;
+      color: $white;
+      position: absolute;
+      font-weight: bold;
+    }
+    .slide-name {
+      margin: auto;
+      left: 0;
+      right: 0;
+    }
+    .lesson-name {
+      right: 35;
+    }
+    height: 50px;
+    background-color: $green;
+
+    .container {
+        max-width: 800px;
+        margin: auto;
+        align-items: center;
+    }
+
+    .nav-item {
+        color: $white;
+    }
+
+    .question-counter {
+      font-size: 14px;
+      color: #ffffff;
+      letter-spacing: 0.2px;
+      span {
+        font-weight: 600;
+      }
+    }
+    @media (max-width: 850px) {
+        .container {
+            padding: 0 4% 0 4%;
+        }
+    }
+  &.ell-nav {
+    .nav-toggle {
+      display: none;
+    }
+    .nav-right {
+      align-items: stretch;
+      display: flex;
+      flex-basis: 0;
+      flex-grow: 1;
+      flex-shrink: 0;
+      justify-content: flex-end;
+        .nav-language-selector-container {
+          display: flex;
+          align-items: center;
+          @media (max-width: 690px) {
+            .nav-language-selector-directions {
+              display: none;
+            }
+            .nav-language-selector-trigger, .nav-language-selector-dropdown {
+              width: 132px;
+              .language-button-img {
+                margin-right: 7px;
+              }
+            }
+          }
+        }
+    }
+  }
+}

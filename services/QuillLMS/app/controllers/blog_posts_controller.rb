@@ -2,7 +2,7 @@ class BlogPostsController < ApplicationController
   before_action :set_announcement, only: [:index, :show, :show_topic]
 
   def index
-    @blog_posts = BlogPost.where(draft: false)
+    @blog_posts = BlogPost.where(draft: false).order('order_number')
     @topics = BlogPost::TOPICS
   end
 
@@ -45,7 +45,7 @@ class BlogPostsController < ApplicationController
         raise ActionController::RoutingError.new('Topic Not Found')
       end
       topic = params[:topic].gsub('-', ' ').titleize
-      @blog_posts = BlogPost.where(draft: false, topic: topic)
+      @blog_posts = BlogPost.where(draft: false, topic: topic).order('order_number')
       @title = topic
       return render 'index'
     end

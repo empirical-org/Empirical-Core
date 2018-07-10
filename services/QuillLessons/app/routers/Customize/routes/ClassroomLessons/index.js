@@ -1,4 +1,4 @@
-import Passthrough from 'components/shared/passthrough.jsx';
+import { Passthrough } from 'quill-component-library/dist/componentLibrary';
 
 const successRoute = {
   path: ':lessonID/:editionID/success',

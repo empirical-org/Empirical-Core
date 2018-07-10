@@ -10,8 +10,11 @@ class SubscriptionsController < ApplicationController
   end
 
   def purchaser_name
-    subscription_is_associated_with_current_user?
-    render json: {name: @subscription.purchaser.name}
+    if subscription_is_associated_with_current_user?
+      render json: {name: @subscription.purchaser.name}
+    else
+      auth_failed
+    end
   end
 
   def show
@@ -40,9 +43,7 @@ class SubscriptionsController < ApplicationController
   private
 
   def subscription_is_associated_with_current_user?
-    if !@subscription.users.include?(current_user) && !current_user == @subscription.purchaser
-      auth_failed
-    end
+    @subscription.users.include?(current_user) || current_user.id == @subscription.purchaser_id
   end
 
   def subscription_belongs_to_purchaser?
