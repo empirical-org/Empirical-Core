@@ -1,4 +1,4 @@
-import * as CLIntF from '../../../interfaces/ClassroomLessons'
+import * as CLIntF from '../../../interfaces/classroomLessons'
 
 interface ScriptItemTypes {
   [key:string]: CLIntF.ScriptItem

@@ -2,7 +2,7 @@ import * as React from 'react'
 
 import {
   ScriptItem
-} from '../../../interfaces/ClassroomLessons'
+} from '../../../interfaces/classroomLessons'
 
 
 interface StepHtmlProps {

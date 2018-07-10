@@ -8,8 +8,8 @@ import {
 import { getEditionQuestions } from '../../../actions/customize'
 
 import * as IntF from '../interfaces';
-import * as CLIntF from '../../../interfaces/ClassroomLessons';
-import * as CustomizeIntF from '../../../interfaces/Customize';
+import * as CLIntF from '../../../interfaces/classroomLessons';
+import * as CustomizeIntF from '../../../interfaces/customize';
 
 import EditScriptItem from './editScriptItem';
 
