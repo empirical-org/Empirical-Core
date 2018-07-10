@@ -47,10 +47,11 @@ let config = {
     new ExtractTextPlugin('style.css'),
     new webpack.EnvironmentPlugin({
       EMPIRICAL_BASE_URL: 'http://localhost:3000',
-      LESSONS_WEBSOCKETS_URL: 'localhost:8000',
+      LESSONS_WEBSOCKETS_URL: 'http://localhost:8000',
       NODE_ENV: 'development',
       QUILL_CMS: 'http://localhost:3100',
     }),
+    new webpack.optimize.CommonsChunkPlugin({ name: 'vendor', }),
     new HtmlWebpackPlugin({
       template: './index.html.ejs',
       inject: 'body',
@@ -66,6 +67,10 @@ let config = {
         }
         return 0;
       },
+    }),
+    new webpack.optimize.CommonsChunkPlugin({
+      names: ['polyfills', 'vendor'],
+      minChunks: Infinity,
     })
   ],
   module: {

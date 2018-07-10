@@ -1,14 +1,13 @@
-Types::QuestionSetType = GraphQL::ObjectType.define do
-  name 'QuestionSet'
+class Types::QuestionSetType < Types::BaseObject
 
-  field :id, !types.ID
-  field :activity_id,  !types.Int
-  field :order, !types.Int
-  field :prompt, !types.String
-  
-  field :questions, !types[Types::QuestionType] do
-    resolve -> (obj, args, ctx) {
-      obj.questions
-    }
+  field :id, ID, null: false
+  field :activity_id, Integer, null: false
+  field :order, Integer, null: false
+  field :prompt, String, null: false
+
+  field :questions, [Types::QuestionType, null: true], null: false
+
+  def questions
+    object.questions
   end
 end

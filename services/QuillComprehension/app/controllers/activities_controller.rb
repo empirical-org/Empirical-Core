@@ -10,7 +10,6 @@ class ActivitiesController < ApplicationController
   # GET /activities/1
   # GET /activities/1.json
   def show
-    @page_js_bundle = 'play_activity'
   end
 
   # GET /activities/new
@@ -70,6 +69,9 @@ class ActivitiesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_activity
+      if (params[:id] == 'any')
+        return redirect_to play_activity_path(Activity.order("RANDOM()").first)
+      end
       @activity = Activity.find(params[:id])
     end
 

@@ -85,7 +85,7 @@ end
 
 # Generate a shared diagnostic unit and a couple other units for the classrooms
 diagnostic_unit = create(:unit, :sentence_structure_diagnostic, user_id: teacher.id)
-diagnostic_activity = Activity.find(Activity::DIAGNOSTIC_ACTIVITY_IDS.first)
+diagnostic_activity = Activity.find(Activity.diagnostic_activity_ids.first)
 classrooms.each do |classroom|
   diagnostic_classroom_activity = create(:classroom_activity, activity: diagnostic_activity, unit: diagnostic_unit, classroom: classroom, assigned_student_ids: classroom.students.map(&:id))
   classroom_activities = create_pair(:classroom_activity, unit: create(:unit, user_id: teacher.id), classroom: classroom, assigned_student_ids: classroom.students.map(&:id))
