@@ -31,6 +31,10 @@ class CoteacherClassroomInvitation < ActiveRecord::Base
   def trigger_analytics
     invitation = self.invitation
     UserMilestone.find_or_create_by(user_id: invitation.inviter_id, milestone_id: Milestone.find_or_create_by(name: Milestone::TYPES[:invite_a_coteacher]).id)
-    CoteacherAnalytics.new.track_coteacher_invitation(User.find(invitation.inviter_id), invitation.invitee_email)
+    Analyzer.new.track_with_attributes(
+        User.find(invitation.inviter_id),
+        SegmentIo::Events::COTEACHER_INVITATION,
+        { properties: { invitee_email: invitation.invitee_email } }
+    )
   end
 end

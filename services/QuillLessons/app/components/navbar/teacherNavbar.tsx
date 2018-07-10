@@ -13,12 +13,12 @@ import {
 import {
   createNewEdition
 } from '../../actions/customize';
-const watchTeacherIcon = require('../../img/watch_teacher_icon.svg')
-const exitIcon = 'http://assets.quill.org/images/icons/save_exit_icon.svg'
-const projectorIcon = 'http://assets.quill.org/images/icons/projector_icon.svg'
-const helpIcon = require('../../img/help_icon.svg')
-const flagIcon = 'http://assets.quill.org/images/icons/list_flagged_students_icon.svg'
-const pdfIcon = 'http://assets.quill.org/images/icons/download_pdf_icon.svg'
+const watchTeacherIcon = 'https://assets.quill.org/images/icons/watch_teacher_icon.svg'
+const exitIcon = 'https://assets.quill.org/images/icons/save_exit_icon.svg'
+const projectorIcon = 'https://assets.quill.org/images/icons/projector_icon.svg'
+const helpIcon = 'https://assets.quill.org/images/icons/help_icon.svg'
+const flagIcon = 'https://assets.quill.org/images/icons/list_flagged_students_icon.svg'
+const pdfIcon = 'https://assets.quill.org/images/icons/download_pdf_icon.svg'
 
 class TeacherNavbar extends React.Component<any, any> {
   constructor(props) {
