@@ -4,7 +4,7 @@ class ClassroomUnit < ActiveRecord::Base
   belongs_to :unit, touch: true
   belongs_to :classroom
   has_many :activity_sessions
-  has_many :classroom_unit_activity_states, touch: true
+  has_many :classroom_unit_activity_states
 
   validate :not_duplicate
   before_save :check_for_assign_on_join_and_update_students_array_if_true

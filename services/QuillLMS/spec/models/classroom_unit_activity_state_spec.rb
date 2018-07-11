@@ -26,8 +26,8 @@ describe ClassroomUnitActivityState, type: :model, redis: :true do
   let!(:unit_activity2) { create(:unit_activity, unit: unit, activity: activity2) }
   let!(:classroom_unit ) { create(:classroom_unit , unit: unit, classroom: classroom, assigned_student_ids: [student.id]) }
   let!(:classroom_unit2 ) { create(:classroom_unit , unit: unit, classroom: classroom2, assigned_student_ids: [student.id]) }
-  let!(:cua ) { create(:classroom_unity_activity_state, unit_activity: unit_activity, classroom_unit: classroom_unit)}
-  let!(:cua ) { create(:classroom_unity_activity_state, unit_activity: unit_activity2, classroom_unit: classroom_unit2)}
+  let!(:cua ) { create(:classroom_unit_activity_state, unit_activity: unit_activity, classroom_unit: classroom_unit)}
+  let!(:cua2 ) { create(:classroom_unit_activity_state, unit_activity: unit_activity2, classroom_unit: classroom_unit2)}
   # let!(:activity_session) {create(:activity_session, user_id: student.id, state: 'unstarted', classroom_unit_id: classroom_unit.id)}
   # let(:lessons_activity) { create(:activity, activity_classification_id: 6) }
   # let(:lessons_unit_activity) { create(:unit_activity, unit: unit, activity: lessons_activity) }
@@ -167,8 +167,8 @@ describe ClassroomUnitActivityState, type: :model, redis: :true do
     end
 
     it "caches data about subsequent assignment" do
-      classroom_2.teachers.destroy_all
-      create(:classrooms_teacher, user_id: teacher.id, classroom_id: classroom_2.id)
+      classroom2.teachers.destroy_all
+      create(:classrooms_teacher, user_id: teacher.id, classroom_id: classroom2.id)
       lesson_data = {"classroom_unit_id" => classroom_unit.id,
         "classroom_unit_activity_state_id" => cua.id,
         "activity_id" => activity.id,
