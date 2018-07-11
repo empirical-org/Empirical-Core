@@ -355,8 +355,8 @@ EmpiricalGrammar::Application.routes.draw do
   post '/session/login_through_ajax', to: 'sessions#login_through_ajax'
   resource :session
 
-  resource :account do
-    post :role, to: 'accounts#role'
+  resource :account, only: [:new, :create, :edit, :update] do
+    post :role, on: :member
   end
 
   namespace :auth do
