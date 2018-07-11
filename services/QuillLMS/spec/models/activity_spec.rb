@@ -208,8 +208,11 @@ describe Activity, type: :model, redis: :true do
   end
 
   describe 'diagnositic_activit_ids' do
+    let(:activity_classification) { create(:activity_classification, key: "diagnostic") }
+    let!(:activity) { create(:activity, activity_classification_id: activity_classification.id) }
+
     it 'should have the correct values' do
-      expect(Activity.diagnostic_activity_ids).to eq([413, 447, 602])
+      expect(Activity.diagnostic_activity_ids).to eq([activity.id])
     end
   end
 

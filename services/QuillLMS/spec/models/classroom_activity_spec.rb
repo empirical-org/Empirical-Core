@@ -289,7 +289,9 @@ describe ClassroomActivity, type: :model, redis: :true do
 
       it 'assigns the entry diagnostic' do
           obj = Objective.create(name: 'Assign Entry Diagnostic')
-          classroom_activity.update!(activity_id: 413)
+          activity_classification = create(:activity_classification, key: "diagnostic")
+          activity = create(:activity, activity_classification_id: activity_classification.id)
+          classroom_activity.update!(activity_id: activity.id)
           expect(classroom_activity.classroom.owner.checkboxes.last.objective).to eq(obj)
       end
   end
