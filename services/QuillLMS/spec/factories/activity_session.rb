@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :activity_session do
     activity            { create(:activity, :production) }
-    classroom_unit      { create(:classroom_unit) }
+    classroom_activity  { create(:classroom_activity, activity: activity) }
     user                { create(:student) }
     uid                 { SecureRandom.urlsafe_base64 }
     percentage          { Faker::Number.decimal(0, 2) }
@@ -13,12 +13,12 @@ FactoryBot.define do
     temporary           false
 
     after(:create) do |activity_session|
-      unless activity_session.classroom_unit.nil?
-        classroom_unit = unit_session.classroom_unit
+      unless activity_session.classroom_activity.nil?
+        classroom_activity = activity_session.classroom_activity
       else # we'll do it live
-        classroom_unit = create(:classroom_unit)
+        classroom_activity = create(:classroom_activity, activity: activity_session.activity)
       end
-      StudentsClassrooms.find_or_create_by(student_id: activity_session.user_id, classroom_id: classroom_unit.classroom_id )
+      StudentsClassrooms.find_or_create_by(student_id: activity_session.user_id, classroom_id: classroom_activity.classroom_id )
       create(:concept_result, activity_session: activity_session)
     end
 
