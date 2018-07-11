@@ -221,7 +221,7 @@ EmpiricalGrammar::Application.routes.draw do
       end
     end
 
-    resources :classrooms do
+    resources :classrooms, only: [:index, :new, :create, :update, :destroy] do
       collection do
         get :classrooms_i_teach
         get :regenerate_code
