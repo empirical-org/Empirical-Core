@@ -6,7 +6,7 @@ interface Attempt {
 
 function getAnswerState(attempt: Attempt|undefined): boolean {
   if (attempt) {
-    return (attempt.response.optimal)
+    return !!(attempt.response.optimal)
   }
   return false
 }
