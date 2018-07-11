@@ -61,7 +61,8 @@ class UnitActivity < ActiveRecord::Base
   private
 
   def not_duplicate
-    if UnitActivity.find_by(activity_id: self.activity_id, unit_id: self.unit_id)
+    ua = UnitActivity.find_by(activity_id: self.activity_id, unit_id: self.unit_id)
+    if ua && (ua.id != self.id)
       begin
         raise 'This unit_activity is a duplicate'
       rescue => e
