@@ -3,19 +3,16 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import questionActions from '../../actions/questions';
 import _ from 'underscore';
-import { hashToCollection } from '../../libs/hashToCollection';
 import {
   listenToResponsesWithCallback
 } from '../../actions/responses';
-import Modal from '../modal/modal.jsx';
+import { Modal } from 'quill-component-library/dist/componentLibrary';
 import EditFrom from './questionForm.jsx';
 import Response from './response.jsx';
 import C from '../../constants';
-import Chart from './pieChart.jsx';
-import QuestionBar from './questionBar.jsx';
 import ResponseComponent from './responseComponent.jsx';
 import getBoilerplateFeedback from './boilerplateFeedback.jsx';
-import icon from '../../img/question_icon.svg';
+const icon = 'https://assets.quill.org/images/icons/question_icon.svg'
 import Cues from '../renderForQuestions/cues.jsx';
 import {
   deleteResponse,

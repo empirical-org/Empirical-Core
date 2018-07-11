@@ -16,8 +16,8 @@ describe ProgressReports::DistrictConceptReports do
     let(:subject) { described_class.new(admin.id) }
 
     it 'should return the correct results' do
-      correct = concept_result.metadata["correct"]
-      incorrect = (ConceptResult.count - correct).to_s
+      correct = activity_session.concept_results.select {|x| x.metadata["correct"] == 1 }.length 
+      incorrect = (ConceptResult.count - correct)
       percentage = (correct/ConceptResult.count.to_f*100).floor.to_s
       expect(subject.results).to eq(
         [{
@@ -26,11 +26,10 @@ describe ProgressReports::DistrictConceptReports do
           classroom_name: classroom.name,
           student_name: student.name,
           correct: correct.to_s,
-          incorrect: incorrect,
+          incorrect: incorrect.to_s,
           percentage: percentage,
         }.stringify_keys]
       )
     end
-
   end
 end

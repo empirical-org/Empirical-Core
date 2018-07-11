@@ -1,3 +1,8 @@
+if (!global._babelPolyfill) {
+  require('babel-polyfill');
+}
+
+
 const env = process.env.NODE_ENV;
 const live = (env === 'production' || env === 'staging');
 const AssetsPlugin = require('assets-webpack-plugin');
@@ -28,7 +33,7 @@ let config = {
   },
   context: `${__dirname}/app`,
   entry: {
-    polyfills: ['babel-polyfill', 'whatwg-fetch'],
+    polyfills: ['whatwg-fetch'],
     vendor: ['pos', 'draft-js'],
     javascript: './app.jsx',
   },

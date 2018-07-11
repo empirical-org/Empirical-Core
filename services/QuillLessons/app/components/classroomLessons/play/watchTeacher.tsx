@@ -1,6 +1,6 @@
 declare function require(name:string);
 import * as React from 'react';
-const WatchTeacherIllustration = require('../../../img/watch_teacher_illustration.svg')
+const WatchTeacherIllustration = 'https://assets.quill.org/images/illustrations/watch_teacher_illustration.svg'
 
 const WatchTeacher = props => (
   <div className="watch-teacher-container">
