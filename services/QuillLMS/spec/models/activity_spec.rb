@@ -12,13 +12,14 @@ describe Activity, type: :model, redis: :true do
   it { should have_many(:units).through(:classroom_activities) }
   it { should have_many(:activity_category_activities).dependent(:destroy) }
   it { should have_many(:activity_categories).through(:activity_category_activities) }
-
   it { is_expected.to callback(:flag_as_beta).before(:create).unless(:flags?) }
 
   it { should delegate_method(:form_url).to(:classification) }
 
   let!(:activity){ build(:activity) }
-
+  let!(:diagnostic_activity_classification) { create(:diagnostic)}
+  let!(:diagnostic_activity) { create(:diagnostic_activity) }
+  
   describe 'validations' do
     it 'requires a unique uid' do
       activity.save!
@@ -207,9 +208,9 @@ describe Activity, type: :model, redis: :true do
     end
   end
 
-  describe 'diagnositic_activit_ids' do
+  describe 'diagnositic_activity_ids' do
     it 'should have the correct values' do
-      expect(Activity.diagnostic_activity_ids).to eq([413, 447, 602])
+      expect(Activity.diagnostic_activity_ids).to eq([diagnostic_activity.id])
     end
   end
 

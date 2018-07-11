@@ -1,5 +1,5 @@
 import * as IntF from '../classroomLessons/interfaces';
-import * as CLIntF from '../../interfaces/ClassroomLessons';
+import * as CLIntF from '../../interfaces/classroomLessons';
 import CustomizeStatic from './slides/static';
 import CustomizeModel from './slides/model';
 import CustomizeSingleAnswer from './slides/singleAnswer';
