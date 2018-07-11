@@ -93,11 +93,14 @@ FactoryBot.define do
             students = create_list(:student, 3)
             activities.each_with_index do |a, i|
               if i < 3
-                create(:classroom_activity, unit: unit1, classroom: c, assigned_student_ids: students.map { |s| s[:id]}, activity: a)
+                create(:unit_activity, unit: unit1, activity: a)
+                create(:classroom_unit, unit: unit1, classroom: c, assigned_student_ids: students.map { |s| s[:id]})
               elsif i < 6
-                create(:classroom_activity, unit: unit2, classroom: c, assigned_student_ids: students.map { |s| s[:id]}, activity: a)
+                create(:unit_activity, unit: unit2, activity: a)
+                create(:classroom_unit, unit: unit2, classroom: c, assigned_student_ids: students.map { |s| s[:id]})
               else
-                create(:classroom_activity, unit: unit3, classroom: c, assigned_student_ids: students.map { |s| s[:id]}, activity: a)
+                create(:unit_activity, unit: unit3, activity: a)
+                create(:classroom_unit, unit: unit3, classroom: c, assigned_student_ids: students.map { |s| s[:id]})
               end
             end
             students.each do |s|
@@ -154,8 +157,9 @@ FactoryBot.define do
           classrooms.each do |classroom|
             units = create_pair(:unit, user: classroom.owner)
             units.each do |unit|
-              classroom_activities = create_pair(:classroom_activity, unit: unit, classroom: classroom, assigned_student_ids: [student.id])
-              create(:activity_session, classroom_activity: classroom_activities.first, user: student, activity: classroom_activities.first.activity)
+              classroom_units = create_pair(:classroom_unit, unit: unit, classroom: classroom, assigned_student_ids: [student.id])
+              unit_activities = create_pair(:unit_activity, unit: unit)
+              create(:activity_session, classroom_unit: classroom_units.first, user: student, activity: unit_activities.first.activity)
             end
           end
         end
