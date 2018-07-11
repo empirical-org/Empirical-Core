@@ -33,7 +33,7 @@ class Activity < ActiveRecord::Base
   scope :with_classification, -> { includes(:classification).joins(:classification) }
 
   def self.diagnostic_activity_ids
-    ActivityClassification.find_by(key: 'diagnostic').activities.pluck(:id)
+    ActivityClassification.find_by(key: 'diagnostic').try(:activities).try(:pluck, :id)
   end
 
   def self.activity_with_recommendations_ids
