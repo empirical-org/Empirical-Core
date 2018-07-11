@@ -2,8 +2,6 @@ class StudentsClassroomsController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def create
-    puts "params"
-    puts params
     if current_user
       @user = current_user
       classcode = params[:classcode].downcase.gsub(/\s+/, "")
