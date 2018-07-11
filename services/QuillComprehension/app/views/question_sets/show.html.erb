@@ -11,7 +11,7 @@
 </div>
 
 <div class="container">
-  <p>Activity: <%= @question_set.activity.title %></p>
+  <p>Activity: <%= link_to @question_set.activity.title, @question_set.activity %></p>
 
   <h3>Questions</h3>
 
