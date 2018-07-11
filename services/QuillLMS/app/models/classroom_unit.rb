@@ -1,14 +1,14 @@
 class ClassroomUnit < ActiveRecord::Base
   include ::NewRelic::Agent
-  include CheckboxCallback
 
   belongs_to :unit
   belongs_to :classroom
+  has_many :activity_sessions
   has_many :classroom_unit_activity_states
 
   validate :not_duplicate
   before_save :check_for_assign_on_join_and_update_students_array_if_true
-  after_save  :hide_appropriate_activity_sessions, :teacher_checkbox
+  after_save  :hide_appropriate_activity_sessions
 
   # this method does not seem to be getting used, but leaving it in for the tests for now
   def assigned_students
@@ -71,27 +71,6 @@ class ClassroomUnit < ActiveRecord::Base
       return
     end
     hide_unassigned_activity_sessions
-  end
-
-  def teacher_checkbox
-    if self.classroom && self.classroom.owner
-      owner = self.classroom.owner
-      checkbox_name = checkbox_type
-      if owner && self.unit && self.unit.name
-        CheckboxCallback::find_or_create_checkbox(checkbox_name, owner)
-      end
-    end
-  end
-
-  def checkbox_type
-    diagnostic_activity_ids = Activity.diagnostic_activity_ids
-    if diagnostic_activity_ids.include?(self.activity_id)
-      checkbox_name = 'Assign Entry Diagnostic'
-    elsif self.unit && self.unit.unit_template_id
-      checkbox_name = 'Assign Featured Activity Pack'
-    else
-      checkbox_name = 'Build Your Own Activity Pack'
-    end
   end
 
   def check_for_assign_on_join_and_update_students_array_if_true

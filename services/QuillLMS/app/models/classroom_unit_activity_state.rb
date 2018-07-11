@@ -1,11 +1,11 @@
 class ClassroomUnitActivityState < ActiveRecord::Base
   include ::NewRelic::Agent
-  include LessonsCacheConcern
+  include LessonsCache
 
   belongs_to :classroom_unit
   belongs_to :unit_activity
 
-  after_save :update_lessons_cache
+  after_save :update_lessons_cache_with_data
 
   before_validation :handle_pinning
   after_create :lock_if_lesson
@@ -15,8 +15,8 @@ class ClassroomUnitActivityState < ActiveRecord::Base
     self.classroom_unit.visible && self.unit_activity.visible
   end
 
-  def update_lessons_cache
-    LessonsCacheConcern::update_lessons_cache(self)
+  def update_lessons_cache_with_data
+    update_lessons_cache(self)
   end
 
   private

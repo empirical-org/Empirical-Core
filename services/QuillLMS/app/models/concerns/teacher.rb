@@ -2,7 +2,7 @@ module Teacher
   extend ActiveSupport::Concern
 
   include CheckboxCallback
-  include LessonsCacheConcern
+  include LessonsCache
 
   TRIAL_LIMIT = 250
   TRIAL_START_DATE = Date.parse('1-9-2015') # September 1st 2015
@@ -386,7 +386,7 @@ module Teacher
   end
 
   def get_data_for_lessons_cache
-    LessonsCacheConcern::format_initial_lessons_cache(self)
+    :LessonsCache::format_initial_lessons_cache(self)
   end
 
   def classrooms_i_am_the_coteacher_for_with_a_specific_teacher(teacher_id)

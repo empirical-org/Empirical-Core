@@ -5,7 +5,7 @@ class AddClassroomUnitsTable < ActiveRecord::Migration
       t.references :unit, index: true, foreign_key: true, null: false
       t.boolean :visible, default: true
       t.integer :assigned_student_ids, array: true, default: []
-      t.datetime :due_date
+      t.boolean :assign_on_join, default: false
 
       t.timestamps
     end

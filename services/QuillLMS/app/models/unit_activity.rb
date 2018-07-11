@@ -1,5 +1,6 @@
 class UnitActivity < ActiveRecord::Base
   include ::NewRelic::Agent
+  include CheckboxCallback
 
   belongs_to :unit, touch: true
   belongs_to :activity
@@ -7,7 +8,28 @@ class UnitActivity < ActiveRecord::Base
 
   validate :not_duplicate
 
-  after_save  :hide_appropriate_activity_sessions
+  after_save  :hide_appropriate_activity_sessions, :teacher_checkbox
+
+  def teacher_checkbox
+    if self.unit && self.unit.user
+      owner = self.unit.user
+      checkbox_name = checkbox_type
+      if owner && self.unit.name
+        find_or_create_checkbox(checkbox_name, owner)
+      end
+    end
+  end
+
+  def checkbox_type
+    diagnostic_activity_ids = Activity.diagnostic_activity_ids
+    if diagnostic_activity_ids.include?(self.activity_id)
+      checkbox_name = 'Assign Entry Diagnostic'
+    elsif self.unit && self.unit.unit_template_id
+      checkbox_name = 'Assign Featured Activity Pack'
+    else
+      checkbox_name = 'Build Your Own Activity Pack'
+    end
+  end
 
   def due_date_string= val
     self.due_date = Date.strptime(val, Time::DATE_FORMATS[:quill_default])
@@ -62,9 +84,11 @@ class UnitActivity < ActiveRecord::Base
   end
 
   def hide_all_activity_sessions
-    self.unit.classroom_units.each do |cu|
-      cu.activity_sessions.each do |as|
-        as.update(visible: false) if as.activity == self.activity
+    if self.unit && self.unit.classroom_units
+      self.unit.classroom_units.each do |cu|
+        cu.activity_sessions.each do |as|
+          as.update(visible: false) if as.activity == self.activity
+        end
       end
     end
   end
