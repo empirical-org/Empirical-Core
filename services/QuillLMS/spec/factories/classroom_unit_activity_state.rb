@@ -5,6 +5,5 @@ FactoryBot.define do
     pinned  false
     locked  false
     completed  false
-
   end
 end

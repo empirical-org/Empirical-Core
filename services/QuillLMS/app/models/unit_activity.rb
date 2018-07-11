@@ -4,7 +4,7 @@ class UnitActivity < ActiveRecord::Base
 
   belongs_to :unit, touch: true
   belongs_to :activity
-  has_many :classroom_unit_activity_states, touch: true
+  has_many :classroom_unit_activity_states
 
   validate :not_duplicate
 
