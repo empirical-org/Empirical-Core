@@ -1,4 +1,4 @@
-module LessonsCacheConcern
+module LessonsCache
   extend ActiveSupport::Concern
 
   def lessons_cache_info_formatter(cua)
