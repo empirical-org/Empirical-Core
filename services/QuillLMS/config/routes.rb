@@ -71,7 +71,7 @@ EmpiricalGrammar::Application.routes.draw do
   resource :profile
   resources :password_reset
   resources :schools, only: [:index], format: 'json'
-  resources :students_classrooms do
+  resources :students_classrooms, only: :create do
     collection do
       get :classroom_manager
       get :classroom_manager_data
