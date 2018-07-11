@@ -5,7 +5,7 @@ describe Cms::TeacherSearchQuery do
     Timecop.freeze
   end
 
-  after do
+  after do 
     Timecop.return
   end
 
@@ -36,7 +36,7 @@ describe Cms::TeacherSearchQuery do
         admin_id: schools_admins.id.to_s
         }
 
-      expect(output).to eql(
+      expect(output).to eq(
         [expected.stringify_keys]
       )
     end
