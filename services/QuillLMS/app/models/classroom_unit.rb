@@ -1,7 +1,7 @@
 class ClassroomUnit < ActiveRecord::Base
   include ::NewRelic::Agent
 
-  belongs_to :unit
+  belongs_to :unit, touch: true
   belongs_to :classroom
   has_many :activity_sessions
   has_many :classroom_unit_activity_states
@@ -89,7 +89,8 @@ class ClassroomUnit < ActiveRecord::Base
   end
 
   def not_duplicate
-    if ClassroomUnit.find_by(classroom_id: self.classroom_id, unit_id: self.unit_id)
+    cu = ClassroomUnit.find_by(classroom_id: self.classroom_id, unit_id: self.unit_id)
+    if cu && (cu.id != self.id)
       begin
         raise 'This classroom unit is a duplicate'
       rescue => e

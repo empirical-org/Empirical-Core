@@ -28,7 +28,7 @@ class ClassroomUnitActivityState < ActiveRecord::Base
   end
 
   def not_duplicate
-    if ClassroomUnitActivityState.find_by(classroom_unit_id: self.classroom_unit_id, unit_activity_id: self.unit_activity_id)
+    if cua && (cua.id != self.id)
       begin
         raise 'This classroom unit activity state is a duplicate'
       rescue => e
