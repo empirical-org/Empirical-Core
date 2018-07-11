@@ -1,4 +1,4 @@
-import { hashToCollection } from '../hashToCollection';
+import { hashToCollection } from 'quill-component-library/dist/componentLibrary';
 import { formattedCues } from '../formattedCues';
 
 export function getConceptResultsForFillInTheBlanks(question) {

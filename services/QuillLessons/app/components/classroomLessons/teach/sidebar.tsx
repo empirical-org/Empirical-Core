@@ -20,7 +20,7 @@ import {
   ClassroomLesson
 } from '../../../interfaces/classroomLessons';
 import * as CustomizeIntf from '../../../interfaces/customize'
-const studentIcon = require('../../../img/student_icon.svg')
+const studentIcon = 'https://assets.quill.org/images/icons/student_icon.svg'
 
 class Sidebar extends React.Component<any, any> {
 

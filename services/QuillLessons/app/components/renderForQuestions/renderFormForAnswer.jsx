@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import handleFocus from './handleFocus.js';
 import TextEditor from './renderTextEditor.jsx';
-import Modal from '../modal/modal.jsx';
+import { Modal } from 'quill-component-library/dist/componentLibrary';
 import _ from 'underscore';
 import EndState from './renderEndState.jsx';
 import getAnswerState from './answerState';
