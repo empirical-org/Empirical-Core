@@ -3,7 +3,6 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
 import * as _ from 'underscore';
-import * as ReactTransition from 'react-addons-css-transition-group';
 import {checkSentenceFragment, Response } from 'quill-marking-logic'
 import {
   hashToCollection,
