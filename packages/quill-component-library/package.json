@@ -1,6 +1,6 @@
 {
   "name": "quill-component-library",
-  "version": "0.1.19",
+  "version": "0.1.20",
   "description": "A library for components shared between Quill apps.",
   "main": "componentLibrary.js",
   "module": "componentLibrary.module.js",
@@ -22,13 +22,6 @@
     "dist": "yarn build; cd ./dist; yarn publish --access=public",
     "serve": "http-server ./dist",
     "watch": "chokidar 'src/**/*.ts' 'src/**/*.tsx' -c \"yarn build\""
-  },
-  "peerDependencies": {
-    "@types/classnames": "^2.2.3",
-    "@types/react": "^16.0.34",
-    "classnames": "^2.2.5",
-    "react": "^16.2.0",
-    "react-router": "^3.0.5"
   },
   "devDependencies": {
     "@types/node": "^9.3.0",
