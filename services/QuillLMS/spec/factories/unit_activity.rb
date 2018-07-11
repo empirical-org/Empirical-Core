@@ -2,7 +2,6 @@ FactoryBot.define do
   factory :unit_activity do
     unit            { create(:unit) }
     activity        { create(:activity, :production) }
-    visible true
 
 	  factory :unit_activity_with_activity do
 	     activity { Activity.first || create(:activity) }
