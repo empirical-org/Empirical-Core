@@ -7,24 +7,24 @@ FactoryBot.define do
 	     activity { Activity.first || create(:activity) }
 	  end
 
-    trait :diagnostic do
+    trait :diagnostic_unit_activity do
       activity { create(:diagnostic_activity, :production) }
     end
 
-    trait :proofreader do
+    trait :proofreader_unit_activity do
       activity { create(:proofreader_activity, :production) }
     end
 
-    trait :grammar do
+    trait :grammar_unit_activity do
       activity { create(:grammar_activity, :production) }
     end
 
-    trait :connect do
+    trait :connect_unit_activity do
       activity { create(:connect_activity, :production) }
     end
 
-    trait :lesson do
-      activity { create(:lesson_activity, :production) }
+    trait :lesson_unit_activity do
+      activity { create(:lesson_activity, :production, :with_follow_up) }
     end
   end
 end
