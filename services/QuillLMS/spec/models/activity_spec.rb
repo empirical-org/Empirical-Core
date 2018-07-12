@@ -7,9 +7,9 @@ describe Activity, type: :model, redis: :true do
   it { should belong_to(:topic) }
   it { should have_one(:section).through(:topic) }
   it { should belong_to(:follow_up_activity).class_name("Activity").with_foreign_key("follow_up_activity_id") }
-  it { should have_many(:classroom_activities).dependent(:destroy) }
-  it { should have_many(:classrooms).through(:classroom_activities) }
-  it { should have_many(:units).through(:classroom_activities) }
+  it { should have_many(:classroom_units).through(:units) }
+  it { should have_many(:classrooms).through(:classroom_units) }
+  it { should have_many(:units).through(:unit_activities) }
   it { should have_many(:activity_category_activities).dependent(:destroy) }
   it { should have_many(:activity_categories).through(:activity_category_activities) }
 
@@ -208,8 +208,12 @@ describe Activity, type: :model, redis: :true do
   end
 
   describe 'diagnositic_activit_ids' do
+    let(:classification) { create(:diagnostic)}
+    let!(:activity_1) { create(:activity, classification: classification) }
+    let!(:activity_2) { create(:activity, classification: classification) }
+
     it 'should have the correct values' do
-      expect(Activity.diagnostic_activity_ids).to eq([413, 447, 602])
+      expect(Activity.diagnostic_activity_ids).to include(activity_1.id, activity_2.id)
     end
   end
 
