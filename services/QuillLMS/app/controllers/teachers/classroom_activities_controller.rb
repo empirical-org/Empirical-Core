@@ -63,7 +63,15 @@ class Teachers::ClassroomActivitiesController < ApplicationController
     render json: {}
   end
 
-private
+  def mark_lesson_as_completed
+    redirect_to mark_lesson_as_completed_url
+  end
+
+  def mark_lesson_as_completed_url
+    "#{lesson.classification_form_url}teach/class-lessons/#{lesson.uid}/mark_lesson_as_completed?&classroom_activity_id=#{@classroom_activity.id}"
+  end
+
+  private
 
   def activity_session_id
     @classroom_activity.find_or_create_started_activity_session(current_user.id).id
@@ -75,14 +83,6 @@ private
 
   def set_classroom_activities
     @classroom_activities = ClassroomActivity.where(activity: @classroom_activity.activity, unit: @classroom_activity.unit)
-  end
-
-  def mark_lesson_as_completed
-    redirect_to mark_lesson_as_completed_url
-  end
-
-  def mark_lesson_as_completed_url
-    "#{lesson.classification_form_url}teach/class-lessons/#{lesson.uid}/mark_lesson_as_completed?&classroom_activity_id=#{@classroom_activity.id}"
   end
 
   def lesson_tutorial_completed?
