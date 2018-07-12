@@ -11,9 +11,19 @@ FactoryBot.define do
     temporary           false
 
     before(:create) do |activity_session|
-      student = create(:student)
-      activity_session.user = student
-      activity_session.classroom_unit = create(:classroom_unit, assigned_student_ids: [student.id])
+      if activity_session.user && !activity_session.classroom_unit
+        activity_session.classroom_unit = create(:classroom_unit, assigned_student_ids: [student.id])
+      elsif activity_session.user && activity_session.classroom_unit && activity_session.classroom_unit.assigned_student_ids.empty?
+        activity_session.classroom_unit.update(assigned_student_ids: [activity_session.user.id])
+      elsif activity_session.classroom_unit && !activity_session.user
+        student = create(:student)
+        activity_session.user = student
+        activity_session.classroom_unit.update(assigned_student_ids: [activity_session.user.id])
+      elsif !activity_session.user && !activity_session.classroom_unit
+        student = create(:student)
+        activity_session.user = student
+        activity_session.classroom_unit = create(:classroom_unit, assigned_student_ids: [student.id])
+      end
     end
 
     after(:create) do |activity_session|

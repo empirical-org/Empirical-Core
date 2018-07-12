@@ -97,15 +97,19 @@ class ActivitySession < ActiveRecord::Base
   end
 
   def unit
-    self&.classroom_unit&.unit
+    self.classroom_unit&.unit
   end
 
   def unit_activity
-    if self.activity
-      UnitActivity.find_by(unit: unit, activity: self.activity)
+    if self.activity_id
+      UnitActivity.find_by(unit: unit, activity_id: self.activity_id)
     else
       unit&.unit_activities.length == 1 ? unit&.unit_activities&.first : nil
     end
+  end
+
+  def activity
+    super || unit_activity&.activity
   end
 
   def determine_if_final_score
@@ -122,13 +126,9 @@ class ActivitySession < ActiveRecord::Base
     return true
   end
 
-  def activity
-    super || unit_activity&.activity
-  end
-
   def formatted_due_date
     return nil if unit_activity&.due_date.nil?
-    self.unit_activity.due_date.strftime('%A, %B %d, %Y')
+    unit_activity.due_date.strftime('%A, %B %d, %Y')
   end
 
   def formatted_completed_at
@@ -139,8 +139,8 @@ class ActivitySession < ActiveRecord::Base
   def display_due_date_or_completed_at_date
     if self.completed_at.present?
       "#{self.completed_at.strftime('%A, %B %d, %Y')}"
-    elsif (self.unit_activity.present? and self.unit_activity.due_date.present?)
-      "#{self.unit_activity.due_date.strftime('%A, %B %d, %Y')}"
+    elsif (unit_activity.present? and unit_activity.due_date.present?)
+      "#{unit_activity.due_date.strftime('%A, %B %d, %Y')}"
     else
       ""
     end
@@ -210,6 +210,8 @@ class ActivitySession < ActiveRecord::Base
 
   def invalidate_activity_session_count_if_completed
     classroom_id = self.classroom_unit&.classroom_id
+    puts 'hi!'
+    puts self.state == 'finished' && classroom_id
     if self.state == 'finished' && classroom_id
       $redis.del("classroom_id:#{classroom_id}_completed_activity_count")
     end
