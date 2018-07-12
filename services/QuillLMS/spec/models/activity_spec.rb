@@ -1,20 +1,25 @@
 require 'rails_helper'
 
 describe Activity, type: :model, redis: :true do
-
   it { should have_and_belong_to_many(:unit_templates) }
   it { should belong_to(:classification).class_name("ActivityClassification") }
   it { should belong_to(:topic) }
   it { should have_one(:section).through(:topic) }
-  it { should belong_to(:follow_up_activity).class_name("Activity").with_foreign_key("follow_up_activity_id") }
+  it do
+    should belong_to(:follow_up_activity).class_name("Activity")
+      .with_foreign_key("follow_up_activity_id")
+  end
+  it { should have_many(:unit_activities).dependent(:destroy) }
+  it { should have_many(:units).through(:unit_activities) }
   it { should have_many(:classroom_units).through(:units) }
   it { should have_many(:classrooms).through(:classroom_units) }
-  it { should have_many(:units).through(:unit_activities) }
+  it { should have_many(:recommendations).dependent(:destroy) }
   it { should have_many(:activity_category_activities).dependent(:destroy) }
   it { should have_many(:activity_categories).through(:activity_category_activities) }
-
   it { is_expected.to callback(:flag_as_beta).before(:create).unless(:flags?) }
-
+  it do
+    is_expected.to callback(:clear_activity_search_cache).after(:commit)
+  end
   it { should delegate_method(:form_url).to(:classification) }
 
   let!(:activity){ build(:activity) }
@@ -70,7 +75,6 @@ describe Activity, type: :model, redis: :true do
 
 
   describe "#form_url" do
-
     it "must not include uid if hasn't been validated" do
       activity.uid = nil
       expect(activity.form_url.to_s).not_to include "uid="
@@ -83,7 +87,6 @@ describe Activity, type: :model, redis: :true do
   end
 
   describe "#module_url" do
-
     let!(:student){ build(:student) }
 
     it "must add uid param of it's a valid student session" do
@@ -106,7 +109,6 @@ describe Activity, type: :model, redis: :true do
 
 
   describe "#flag's overwritten methods" do
-
     it "must be nil if has not been set" do
       expect(activity.flag).to be_nil
     end
@@ -133,17 +135,13 @@ describe Activity, type: :model, redis: :true do
     let!(:archived_activity){ create(:activity, flag: 'archived') }
     let!(:all_types){[production_activity, beta_activity, alpha_activity, archived_activity]}
 
-
     context 'the default scope' do
-
       it 'must show all types of flagged activities when default scope' do
         expect(all_types - Activity.all).to eq []
       end
-
     end
 
     context 'the production scope' do
-
       it 'must show only production flagged activities' do
         expect(all_types - Activity.production.all).to eq [beta_activity, alpha_activity, archived_activity]
       end
@@ -151,11 +149,9 @@ describe Activity, type: :model, redis: :true do
       it 'must return the same thing as Activity.user_scope(nil)' do
         expect(Activity.production).to eq (Activity.user_scope(nil))
       end
-
     end
 
     context 'the beta scope' do
-
       it 'must show only production and beta flagged activities' do
         expect(all_types - Activity.beta_user).to eq [alpha_activity, archived_activity]
       end
@@ -163,12 +159,9 @@ describe Activity, type: :model, redis: :true do
       it 'must return the same thing as Activity.user_scope(beta)' do
         expect(Activity.beta_user).to eq (Activity.user_scope('beta'))
       end
-
-
     end
 
     context 'the alpha scope' do
-
       it 'must show all types of flags except for archived with alpha_user scope' do
         expect(all_types - Activity.alpha_user).to eq [archived_activity]
       end
@@ -176,17 +169,13 @@ describe Activity, type: :model, redis: :true do
       it 'must return the same thing as Activity.user_scope(alpha)' do
         expect(Activity.alpha_user).to eq (Activity.user_scope('alpha'))
       end
-
     end
-
   end
 
   describe "can behave like a flagged model" do
-
     context "when behaves like flagged" do
       it_behaves_like "flagged"
     end
-
   end
 
   describe "#clear_activity_search_cache" do
@@ -253,5 +242,4 @@ describe Activity, type: :model, redis: :true do
       activity.clear_activity_search_cache
     end
   end
-
 end
