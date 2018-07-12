@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'ActivitiesScoresByClassroom' do
-  let(:classroom) {create(:classroom_with_classroom_activities)}
+  let(:classroom) {create(:classroom_with_classroom_units)}
 
   it "returns a row for each student that completed an activity session" do
     expect(ProgressReports::ActivitiesScoresByClassroom.results(classroom.owner.classrooms_i_teach.map(&:id)).length).to eq(classroom.students.length)
