@@ -1,22 +1,26 @@
 require 'rails_helper'
 
 describe Unit, type: :model do
-
-  #fails because unit has no foreign key classroom_Id
-  #it { should belong_to(:classroom) }
   it { should belong_to(:user) }
-  it { should belong_to(:unit_template) }
-  it { should have_many(:classroom_activities).dependent(:destroy) }
-  it { should have_many(:activities).through(:classroom_activities) }
+  it { should have_many(:unit_activities).dependent(:destroy) }
+  it { should have_many(:classroom_units).dependent(:destroy) }
+  it { should have_many(:classrooms).through(:classroom_units) }
+  it { should have_many(:activities).through(:unit_activities) }
   it { should have_many(:topics).through(:activities) }
-
-  it { is_expected.to callback(:hide_classroom_units_and_unit_activities_if_visible_false).after(:save) }
+  it { should belong_to(:unit_template) }
+  it do
+    is_expected
+      .to callback(:hide_classroom_units_and_unit_activities_if_visible_false)
+      .after(:save)
+  end
 
   let!(:classroom) {create(:classroom)}
   let!(:teacher) {create(:teacher)}
   let!(:activity) {create(:activity)}
-  let!(:unit) {create :unit, user: teacher}
-  let!(:classroom_activity) {create(:classroom_activity_with_activity, classroom: classroom, unit: unit)}
+  let!(:unit) {create(:unit, user: teacher, visible: true)}
+  let!(:classroom_activity) do
+    create(:classroom_activity_with_activity, classroom: classroom, unit: unit)
+  end
 
   describe 'user_id field' do
     it 'should not raise an error' do
@@ -33,7 +37,6 @@ describe Unit, type: :model do
       end
 
       context 'it should be scoped to visibility' do
-
         let!(:non_uniq_unit) {Unit.new(name: unit.name, user: teacher, visible: true)}
 
         it "when visibile == true it must be unique" do
@@ -49,7 +52,6 @@ describe Unit, type: :model do
           unit.update(visible: false)
           expect{non_uniq_unit.save!}.to_not raise_error
         end
-
       end
 
       it "does not have to be unique by name with different teachers" do
@@ -58,7 +60,6 @@ describe Unit, type: :model do
         expect(new_unit.valid?).to eq(true)
       end
     end
-
   end
 
   describe 'default_scope' do
@@ -74,15 +75,15 @@ describe Unit, type: :model do
   end
 
   describe '#hide_if_no_visible_unit_activities' do
-    it 'updates the unit to visible == false if all of its classroom activities are visible == false' do
-      unit.classroom_activities.each{|ca| ca.update(visible: false)}
-      unit.reload
-      unit.hide_if_no_visible_unit_activities
+    it 'updates the unit to visible false if all of its unit activities are not visible' do
+      create(:unit_activity, unit: unit, activity: activity, visible: false)
+      unit.reload.hide_if_no_visible_unit_activities
       expect(unit.visible).to eq(false)
     end
 
-    it 'does not update the unit to visible == false if it has any visible classroom activities' do
-      unit.hide_if_no_visible_unit_activities
+    it 'does not update the unit to visible false if it has any visible unit activities' do
+      create(:unit_activity, unit: unit, activity: activity, visible: true)
+      unit.reload.hide_if_no_visible_unit_activities
       expect(unit.visible).to eq(true)
     end
   end
@@ -104,7 +105,6 @@ describe Unit, type: :model do
       unit.update(name: 'something else')
       expect(classroom_activity.attributes).to eq(old_ca_attributes)
     end
-
   end
 
   describe '#email_lesson_plan' do
@@ -113,8 +113,8 @@ describe Unit, type: :model do
     let(:activities) { double(:activities, where: [activity]) }
     let(:join_units) { double(:join_units, joins: activities) }
     let(:join_classroom_activities) { double(:join_classroom_activities , joins: join_units) }
-    let(:classroom_activity) { create(:classroom_activity, activity: activity) }
-    let(:unit) { create(:unit, user: user, classroom_activities: [classroom_activity]) }
+    let(:unit) { create(:unit, user: user) }
+    let(:unit_activity) { create(:unit_activity, unit: unit, activity: activity) }
 
     before do
       allow(Activity).to receive(:select).and_return(join_classroom_activities)
@@ -124,5 +124,4 @@ describe Unit, type: :model do
       expect{ unit.email_lesson_plan }.to change(LessonPlanEmailWorker.jobs, :size).by 1
     end
   end
-
 end
