@@ -603,135 +603,83 @@ end
     end
   end
 
-  # describe '#assign_follow_up_lesson' do
-  #   context 'when follow_up_activity_id in activity is absent' do
-  #     let(:activity) { create(:activity, follow_up_activity: nil) }
-  #     let(:unit_activity) { create(:unit_activity, activity: activity) }
   #
-  #     it 'should return false' do
-  #       expect(unit_activity.assign_follow_up_lesson).to eq(false)
-  #     end
-  #   end
-  #
-  #   context 'when unit activity does not exist' do
-  #     let(:classroom) { create(:classroom) }
-  #     let(:follow_up_activity) { create(:activity) }
-  #     let(:activity) { create(:activity, follow_up_activity: follow_up_activity) }
-  #     let(:unit_activity) { build(:unit_activity, classroom: classroom) }
-  #
-  #     it 'should create the unit activity' do
-  #       created_activity = unit_activity.assign_follow_up_lesson
-  #       expect(created_activity.activity_id).to eq(unit_activity.activity_id)
-  #       expect(created_activity.unit_id).to eq(unit_activity.unit_id)
-  #       expect(created_activity.visible).to eq(true)
-  #     end
-  #   end
-  # end
-  #
-  # describe '#save_concept_results' do
-  #   let(:unit) { create(:unit) }
-  #   let(:concept) { create(:concept) }
-  #   let!(:unit_activity) { create(:unit_activity, activity: activity, unit: unit) }
-  #   let(:activity_session) { create(:activity_session, unit_activity_id: unit_activity.id, student_id: student.id) }
-  #   let(:concept_results) { [{"activity_session_uid" => activity_session.uid, concept: concept, activity_session: activity_session}] }
-  #
-  #   before do
-  #     activity_session.update_attributes(visible: true)
-  #   end
-  #
-  #   it 'should create a concept result with the hash given' do
-  #     expect(ConceptResult).to receive(:create).with({"activity_session_id" => activity_session.id, concept: concept, activity_session: activity_session})
-  #     unit_activity.save_concept_results(concept_results)
-  #   end
-  # end
-  #
-  # describe '#delete_activity_sessions_with_no_concept_results' do
-  #   let!(:activity_session) { create(:activity_session) }
-  #   let!(:activity_session1) { create(:activity_session) }
-  #   let(:unit_activity) { create(:unit_activity) }
-  #
-  #   before do
-  #     unit_activity.activity_sessions << activity_session
-  #     unit_activity.activity_sessions << activity_session1
-  #     allow(activity_session).to receive(:concept_result_ids).and_return([])
-  #     allow(activity_session1).to receive(:concept_result_ids).and_return(["anything"])
-  #   end
-  #
-  #   it 'should delete the activity sessions without the concept results' do
-  #     expect{ unit_activity.delete_activity_sessions_with_no_concept_results }.to change(ActivitySession, :count).by(-1)
-  #   end
-  # end
-  #
-  # describe '#has_a_started_session?' do
-  #   context 'when session exists' do
-  #     let(:activity_session) { create(:activity_session, state: "started") }
-  #     let(:clasroom_activity) { create(:unit_activity) }
-  #
-  #     before do
-  #       unit_activity.activity_sessions << activity_session
-  #     end
-  #
-  #     it 'should return true' do
-  #       expect(unit_activity.has_a_started_session?).to eq true
-  #     end
-  #   end
-  #
-  #   context 'when session does not exist' do
-  #     let(:clasroom_activity) { create(:unit_activity) }
-  #
-  #     it 'should return false' do
-  #       expect(unit_activity.has_a_started_session?).to eq false
-  #     end
-  #   end
-  # end
-  #
-  # describe '#mark_all_activity_sessions_complete' do
-  #   it 'marks all of a classroom activities activity sessions finished' do
-  #     activity_session.update(state: 'started')
-  #     expect(activity_session.state).not_to eq('finished')
-  #     unit_activity.mark_all_activity_sessions_complete
-  #     expect(activity_session.reload.state).to eq('finished')
-  #   end
-  # end
-  #
-  # describe '#has_a_completed_session?' do
-  #   it "returns false when a unit activity has no completed activity sessions" do
-  #     expect(unit_activity.has_a_completed_session?).to eq(false)
-  #   end
-  #
-  #   it "returns true when a unit activity has at least one completed activity session" do
-  #     activity_session = ActivitySession.create(unit_activity: unit_activity, state: 'finished')
-  #     expect(unit_activity.has_a_completed_session?).to eq(true)
-  #   end
-  # end
-  #
-  # describe 'locked column' do
-  #   it "exists by default for lessons classroom activities" do
-  #     expect(lessons_unit_activity.locked).to be(true)
-  #   end
-  #
-  #   it "does not exist by default for other classroom activities" do
-  #     expect(unit_activity.locked).to be(false)
-  #   end
-  # end
-  #
-  # describe '#find_or_create_started_activity_session' do
-  #   it "returns a started activity session if it exists" do
-  #     returned_activity_session = unit_activity_with_started_activity_session.find_or_create_started_activity_session(student.id)
-  #     expect(returned_activity_session).to eq(started_activity_session)
-  #   end
-  #
-  #   it "finds an unstarted activity session if it exists, updates it to started, and returns it" do
-  #     returned_activity_session = unit_activity.find_or_create_started_activity_session(student.id)
-  #     expect(returned_activity_session).to eq(activity_session)
-  #     expect(returned_activity_session.state).to eq('started')
-  #   end
-  #
-  #   it "creates a started activity session if neither a started nor an unstarted one exist" do
-  #     returned_activity_session = unit_activity_with_no_activity_session.find_or_create_started_activity_session(student.id)
-  #     expect(returned_activity_session.user_id).to eq(student.id)
-  #     expect(returned_activity_session.state).to eq('started')
-  #   end
-  # end
+  describe '#save_concept_results' do
+    let(:unit) { create(:unit) }
+    let(:concept) { create(:concept) }
+    let(:student) { create(:student) }
+    let(:activity) { create(:activity) }
+    let!(:unit_activity) { create(:unit_activity, activity: activity, unit: unit) }
+    let!(:classroom_unit) { create(:classroom_unit, unit: unit, assigned_student_ids: [student.id]) }
+    let(:activity_session) { create(:activity_session, classroom_unit_id: classroom_unit.id, user_id: student.id, activity: activity) }
+    let(:concept_results) { [{"activity_session_uid" => activity_session.uid, concept: concept, activity_session: activity_session}] }
 
+    before do
+      activity_session.update_attributes(visible: true)
+    end
+
+    it 'should create a concept result with the hash given' do
+      expect(ConceptResult).to receive(:create).with({"activity_session_id" => activity_session.id, concept: concept, activity_session: activity_session})
+      ActivitySession.save_concept_results(classroom_unit.id, unit_activity.activity_id, concept_results)
+    end
+  end
+
+  describe '#delete_activity_sessions_with_no_concept_results' do
+    let!(:activity) { create(:activity)}
+    let(:classroom_unit) { create(:classroom_unit) }
+    let!(:activity_session) { create(:activity_session, activity: activity, classroom_unit: classroom_unit) }
+    let!(:activity_session1) { create(:activity_session, activity: activity, classroom_unit: classroom_unit) }
+
+    it 'should delete the activity sessions without the concept results' do
+      activity_session.concept_results.destroy_all
+      expect{ ActivitySession.delete_activity_sessions_with_no_concept_results(classroom_unit.id, activity.id) }.to change(ActivitySession, :count).by(-1)
+    end
+  end
+  #
+  describe '#has_a_completed_session?' do
+    context 'when session exists' do
+      let(:activity_session) { create(:activity_session, state: "finished") }
+
+      it 'should return true' do
+        expect(ActivitySession.has_a_completed_session?(activity_session.activity.id, activity_session.classroom_unit.id)).to eq true
+      end
+    end
+
+    context 'when session does not exist' do
+      let(:activity_session) { create(:activity_session, state: 'started') }
+
+      it 'should return false' do
+        expect(ActivitySession.has_a_completed_session?(activity_session.activity.id, activity_session.classroom_unit.id)).to eq false
+      end
+    end
+  end
+  #
+  describe '#mark_all_activity_sessions_complete' do
+    let(:activity) { create(:activity) }
+    let(:classroom_unit) { create(:classroom_unit) }
+    let(:activity_session) { create(:activity_session, classroom_unit: classroom_unit, activity: activity, state: 'started') }
+    it 'marks all of a classroom activities activity sessions finished' do
+      expect(activity_session.state).not_to eq('finished')
+      ActivitySession.mark_all_activity_sessions_complete(classroom_unit.id, activity.id)
+      expect(activity_session.reload.state).to eq('finished')
+    end
+  end
+  #
+  describe '#has_a_started_session?' do
+    context 'when session exists' do
+      let(:activity_session) { create(:activity_session, state: "started") }
+
+      it 'should return true' do
+        expect(ActivitySession.has_a_started_session?(activity_session.activity.id, activity_session.classroom_unit.id)).to eq true
+      end
+    end
+
+    context 'when session does not exist' do
+      let(:activity_session) { create(:activity_session, state: 'finished') }
+
+      it 'should return false' do
+        expect(ActivitySession.has_a_started_session?(activity_session.activity.id, activity_session.classroom_unit.id)).to eq false
+      end
+    end
+  end
 end
