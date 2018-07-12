@@ -23,7 +23,7 @@ class Unit < ActiveRecord::Base
   after_save :hide_classroom_units_and_unit_activities_if_visible_false, :create_any_new_classroom_unit_activity_states
 
   def hide_if_no_visible_unit_activities
-    if self.unit_activities.length == 0
+    if self.unit_activities.where(visible: true).length == 0
       self.update(visible: false)
     end
   end
