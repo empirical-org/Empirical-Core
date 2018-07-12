@@ -171,18 +171,18 @@ describe TeacherFixes do
   describe '#merge_two_units and #merge_two_classroom_activities' do
     let (:student_a) {create(:student)}
     let (:student_b) {create(:student)}
-    let! (:classroom_with_classroom_activities) {create(:classroom_with_classroom_activities, students: [student_a, student_b])}
-    let! (:unit_1) {create(:unit, user_id: classroom_with_classroom_activities.owner.id)}
-    let! (:unit_2) {create(:unit, user_id: classroom_with_classroom_activities.owner.id)}
-    let (:activity_session_1) {create(:activity_session, classroom_activity: classroom_with_classroom_activities.classroom_activities.first, user_id: student_a.id)}
-    let (:activity_session_2) {create(:activity_session, classroom_activity: classroom_with_classroom_activities.classroom_activities.last, user_id: student_b.id)}
+    let! (:classroom_with_classroom_units) {create(:classroom_with_classroom_units, students: [student_a, student_b])}
+    let! (:unit_1) {create(:unit, user_id: classroom_with_classroom_units.owner.id)}
+    let! (:unit_2) {create(:unit, user_id: classroom_with_classroom_units.owner.id)}
+    let (:activity_session_1) {create(:activity_session, classroom_activity: classroom_with_classroom_units.classroom_activities.first, user_id: student_a.id)}
+    let (:activity_session_2) {create(:activity_session, classroom_activity: classroom_with_classroom_units.classroom_activities.last, user_id: student_b.id)}
 
     def ca_1
-      classroom_with_classroom_activities.classroom_activities.first
+      classroom_with_classroom_units.classroom_activities.first
     end
 
     def ca_2
-      classroom_with_classroom_activities.classroom_activities.last
+      classroom_with_classroom_units.classroom_activities.last
     end
 
     def prep
