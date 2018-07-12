@@ -210,8 +210,6 @@ class ActivitySession < ActiveRecord::Base
 
   def invalidate_activity_session_count_if_completed
     classroom_id = self.classroom_unit&.classroom_id
-    puts 'hi!'
-    puts self.state == 'finished' && classroom_id
     if self.state == 'finished' && classroom_id
       $redis.del("classroom_id:#{classroom_id}_completed_activity_count")
     end
