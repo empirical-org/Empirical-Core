@@ -178,7 +178,7 @@ describe User, type: :model do
         it "returns true if the user has a subscription with a trial account type" do
           Subscription::TRIAL_TYPES.each do |type|
             subscription.update(account_type: type)
-            expect(user.reload.eligible_for_new_subscription?).to be true
+            expect(user.reload.eligible_for_new_subscription?).to be false
           end
         end
 

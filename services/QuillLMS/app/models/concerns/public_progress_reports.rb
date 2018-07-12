@@ -45,6 +45,7 @@ module PublicProgressReports
     def results_by_question(params)
       classroom_activity = ClassroomActivity.find_by(classroom_id: params[:classroom_id], activity_id: params[:activity_id], unit_id: params[:unit_id])
       questions = Hash.new{|h,k| h[k]={} }
+      # this method lives on the activity session now and needs a classroom unit id and an activity id as arguments
       all_answers = classroom_activity.activity_session_metadata
       all_answers.each do |answer|
         curr_quest = questions[answer["questionNumber"]]

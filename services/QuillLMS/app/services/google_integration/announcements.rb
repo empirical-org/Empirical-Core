@@ -11,6 +11,7 @@ class GoogleIntegration::Announcements
       .first
 
     classroom_activities.each do |classroom_activity|
+      # this method lives in classroom unit now, will need refactor
       if classroom_activity.is_valid_for_google_announcement_with_owner?
         owner = classroom_activity.classroom.owner
         new(classroom_activity, unit).post
@@ -22,7 +23,7 @@ class GoogleIntegration::Announcements
     @classroom_activity = classroom_activity
     @unit = unit
   end
- 
+
   def post
     handle_response { request }
   end

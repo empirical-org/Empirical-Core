@@ -67,7 +67,7 @@ module EmpiricalGrammar
     config.middleware.insert_before 0, "Rack::Cors" do
       allow do
         origins 'quill.org', /https:\/\/(.)*.quill.org/, /localhost:.*/, /127.0.0.1:.*/
-        resource '/api/*', headers: :any, methods: [:get, :post, :patch, :put, :options], expose: ['Access-Control-Allow-Credentials'], credentials: true
+        resource '/api/*', headers: :any, methods: [:get, :post, :patch, :put, :options]
       end
     end
   end
