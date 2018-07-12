@@ -7,16 +7,19 @@ describe Activity, type: :model, redis: :true do
   it { should have_one(:section).through(:topic) }
   it do
     should belong_to(:follow_up_activity).class_name("Activity")
-      .with_foreign_key("follow_up_activity_id") }
+      .with_foreign_key("follow_up_activity_id")
   end
+  it { should have_many(:unit_activities).dependent(:destroy) }
+  it { should have_many(:units).through(:unit_activities) }
   it { should have_many(:classroom_units).through(:units) }
   it { should have_many(:classrooms).through(:classroom_units) }
-  it { should have_many(:units).through(:unit_activities) }
+  it { should have_many(:recommendations).dependent(:destroy) }
   it { should have_many(:activity_category_activities).dependent(:destroy) }
   it { should have_many(:activity_categories).through(:activity_category_activities) }
-
   it { is_expected.to callback(:flag_as_beta).before(:create).unless(:flags?) }
-
+  it do
+    is_expected.to callback(:clear_activity_search_cache).after(:commit)
+  end
   it { should delegate_method(:form_url).to(:classification) }
 
   let!(:activity){ build(:activity) }
