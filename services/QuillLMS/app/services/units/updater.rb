@@ -70,7 +70,7 @@ module Units::Updater
     unit = Unit.find unit_id
     if (hidden_cas_ids.any?) && (new_cas.none?)
       # then there is a chance that there are no existing classroom activities
-      unit.hide_if_no_visible_classroom_activities
+      unit.hide_if_no_visible_unit_activities
     end
     # necessary activity sessions are created in an after_create and after_save callback
     # in activity_sessions.rb

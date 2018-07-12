@@ -70,6 +70,7 @@ class LessonPlanner::UnitSerializer < ActiveModel::Serializer
 
   def dueDates
     classroom_activities.uniq(&:activity).reduce({}) do |acc, ca|
+      # formatted due date belongs to the classroom activity now
       acc[ca.activity.id] = ca.formatted_due_date
       acc
     end

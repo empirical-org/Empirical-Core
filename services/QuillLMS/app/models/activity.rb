@@ -10,10 +10,11 @@ class Activity < ActiveRecord::Base
 
   belongs_to :follow_up_activity, class_name: "Activity", foreign_key: "follow_up_activity_id"
 
+  has_many :unit_activities, dependent: :destroy
+  has_many :units, through: :unit_activities
+  has_many :classroom_units, through: :units
+  has_many :classrooms, through: :classroom_units
   has_many :recommendations, dependent: :destroy
-  has_many :classroom_activities, dependent: :destroy
-  has_many :classrooms, through: :classroom_activities
-  has_many :units, through: :classroom_activities
   has_many :activity_category_activities, dependent: :destroy
   has_many :activity_categories, through: :activity_category_activities
   before_create :flag_as_beta, unless: :flags?
@@ -113,6 +114,10 @@ class Activity < ActiveRecord::Base
 
   def self.set_activity_search_cache
     $redis.set('default_activity_search', ActivitySearchWrapper.new.search.to_json)
+  end
+
+  def is_lesson?
+    self.activity_classification_id == 6
   end
 
   private

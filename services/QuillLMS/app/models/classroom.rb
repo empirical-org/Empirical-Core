@@ -4,12 +4,13 @@ class Classroom < ActiveRecord::Base
   validates_presence_of :name
   default_scope { where(visible: true)}
 
-  after_commit :hide_appropriate_classroom_activities
+  after_commit :hide_appropriate_classroom_units
 
-  has_many :classroom_activities
-  has_many :activities, through: :classroom_activities
-  has_many :units, through: :classroom_activities
-  has_many :activity_sessions, through: :classroom_activities
+  has_many :classroom_units
+  has_many :units, through: :classroom_units
+  has_many :unit_activities, through: :units
+  has_many :activities, through: :unit_activities
+  has_many :activity_sessions, through: :activities
   has_many :sections, through: :assign_activities
   has_many :coteacher_classroom_invitations
 
@@ -56,9 +57,9 @@ class Classroom < ActiveRecord::Base
     ActivitySession.from_cte('best_activity_sessions', best_activity_sessions)
       .select("COUNT(DISTINCT(activities.topic_id)) as topic_count")
       .joins('JOIN activities ON activities.id = best_activity_sessions.activity_id')
-      .joins('JOIN classroom_activities ON classroom_activities.id = best_activity_sessions.classroom_activity_id')
-      .where('classroom_activities.classroom_id = ?', id)
-      .group('classroom_activities.classroom_id')
+      .joins('JOIN classroom_units ON classroom_units.id = best_activity_sessions.classroom_unit_id')
+      .where('classroom_units.classroom_id = ?', id)
+      .group('classroom_units.classroom_id')
       .order('')
   end
 
@@ -101,23 +102,23 @@ class Classroom < ActiveRecord::Base
     end
   end
 
-  def hide_appropriate_classroom_activities
+  def hide_appropriate_classroom_units
     # on commit callback that checks if archived
     if self.visible == false
-      hide_all_classroom_activities
+      hide_all_classroom_units
       return
     end
   end
 
-  def hide_all_classroom_activities
-    ActivitySession.where(classroom_activity: self.classroom_activities).update_all(visible: false)
-    self.classroom_activities.update_all(visible: false)
+  def hide_all_classroom_units
+    ActivitySession.where(classroom_unit: self.classroom_units).update_all(visible: false)
+    self.classroom_units.update_all(visible: false)
     SetTeacherLessonCache.perform_async(self.owner.id)
     ids = Unit.find_by_sql("
       SELECT unit.id FROM units unit
-      LEFT JOIN classroom_activities as ca ON ca.unit_id = unit.id AND ca.visible = true
+      LEFT JOIN classroom_units as cu ON cu.unit_id = unit.id AND cu.visible = true
       WHERE unit.visible = true
-      AND ca.id IS null
+      AND cu.id IS null
       AND unit.user_id = #{self.owner.id}")
     Unit.where(id: ids).update_all(visible: false)
   end

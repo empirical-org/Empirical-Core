@@ -16,7 +16,7 @@ class Teachers::ClassroomActivitiesController < ApplicationController
 
   def hide
     @classroom_activities.update_all(visible: false)
-    @classroom_activity.unit.hide_if_no_visible_classroom_activities
+    @classroom_activity.unit.hide_if_no_visible_unit_activities
     @activity_sessions.update_all(visible: false)
     SetTeacherLessonCache.perform_async(current_user.id)
     render json: {}
@@ -27,6 +27,7 @@ class Teachers::ClassroomActivitiesController < ApplicationController
       if @classroom_activity.update(locked: false, pinned: true)
         find_or_create_lesson_activity_sessions_for_classroom
         PusherLessonLaunched.run(@classroom_activity.classroom)
+        # this method lives in classroom_unit now, refactor needed
         if @classroom_activity.is_valid_for_google_announcement_with_specific_user?(current_user)
           return post_to_google_classroom
         end
