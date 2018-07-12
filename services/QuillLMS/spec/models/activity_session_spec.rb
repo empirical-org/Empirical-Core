@@ -3,9 +3,9 @@ require 'rails_helper'
 
 describe ActivitySession, type: :model, redis: :true do
 
-  it { should belong_to(:classroom_activity) }
+  it { should belong_to(:classroom_unit) }
   it { should belong_to(:activity) }
-  it { should have_one(:unit).through(:classroom_activity) }
+  it { should have_one(:unit).through(:classroom_unit) }
   it { should have_many(:concepts).through(:concept_results) }
   it { should belong_to(:user) }
 
@@ -28,24 +28,24 @@ describe ActivitySession, type: :model, redis: :true do
   describe '#classroom_owner' do
     let(:classroom) { build(:classroom) }
     let(:owner) { build(:teacher) }
-    let(:classroom_activity) { build(:classroom_activity, classroom: classroom) }
-    let(:activity_session) { build(:activity_session, classroom_activity: classroom_activity) }
+    let(:classroom_unit) { build(:classroom_unit, classroom: classroom) }
+    let(:activity_session) { build(:activity_session, classroom_unit: classroom_unit) }
 
     before do
       allow(classroom).to receive(:owner) { owner }
     end
 
-    it 'should give the classroom owner of the classroom activity' do
+    it 'should give the classroom owner of the classroom unit' do
       expect(activity_session.classroom_owner).to eq owner
     end
   end
 
   describe '#eligible_for_tracking?' do
-    context 'when classroom activity, classroom, or owner absent' do
+    context 'when classroom_unit, classroom, or owner absent' do
       let(:activity_session) { build_stubbed(:activity_session) }
 
       before do
-        allow(activity_session).to receive(:classroom_activity) { nil }
+        allow(activity_session).to receive(:classroom_unit) { nil }
       end
 
       it 'should return false' do
@@ -53,11 +53,11 @@ describe ActivitySession, type: :model, redis: :true do
       end
     end
 
-    context 'when classroom activity, classroom and owner present' do
+    context 'when classroom unit, classroom and owner present' do
       let(:classroom) { build(:classroom) }
       let(:owner) { build(:teacher) }
-      let(:classroom_activity) { build(:classroom_activity, classroom: classroom) }
-      let(:activity_session) { build(:activity_session, classroom_activity: classroom_activity) }
+      let(:classroom_unit) { build(:classroom_unit, classroom: classroom) }
+      let(:activity_session) { build(:activity_session, classroom_unit: classroom_unit) }
 
       before do
         allow(classroom).to receive(:owner) { owner }
@@ -89,50 +89,50 @@ describe ActivitySession, type: :model, redis: :true do
   end
 
   describe 'with_filters' do
-    let(:activity) { create(:classroom_activity) }
+    let(:classroom_unit) { create(:classroom_unit) }
 
     context 'classroom_id' do
       let(:classroom) { create(:classroom) }
-      let(:activity1) { create(:classroom_activity, classroom: classroom) }
+      let(:classroom_unit1) { create(:classroom_unit, classroom: classroom) }
 
       it 'should return the given query with the given classroom_id' do
-        expect(ActivitySession.with_filters(ClassroomActivity, {classroom_id: classroom.id}))
+        expect(ActivitySession.with_filters(ClassroomUnit, {classroom_id: classroom.id}))
       end
     end
 
     context 'student_id' do
       let(:student) { create(:student) }
-      let(:activity1) { create(:classroom_activity, student: student) }
+      let(:classroom_unit_1) { create(:classroom_unit, user: student) }
 
       it 'should return the given query with the given student_id' do
-        expect(ActivitySession.with_filters(ClassroomActivity, {student_id: student.id}))
+        expect(ActivitySession.with_filters(ClassroomUnit, {student_id: student.id}))
       end
     end
 
     context 'unit_id' do
       let(:unit) { create(:unit) }
-      let(:activity1) { create(:classroom_activity, unit: unit) }
+      let(:classroom_unit) { create(:classroom_unit, unit: unit) }
 
       it 'should return the given query with the given classroom_id' do
-        expect(ActivitySession.with_filters(ClassroomActivity, {unit_id: unit.id}))
+        expect(ActivitySession.with_filters(ClassroomUnit, {unit_id: unit.id}))
       end
     end
 
     context 'section_id' do
       let(:section) { create(:section) }
-      let(:activity1) { create(:classroom_activity, section: section) }
+      let(:classroom_unit1) { create(:classroom_unit, section: section) }
 
       it 'should return the given query with the given section_id' do
-        expect(ActivitySession.with_filters(ClassroomActivity, {section_id: section.id}))
+        expect(ActivitySession.with_filters(ClassroomUnit, {section_id: section.id}))
       end
     end
 
     context 'topic_id' do
       let(:topic) { create(:topic) }
-      let(:activity1) { create(:classroom_activity, topic: topic) }
+      let(:classroom_unit1) { create(:classroom_unit, topic: topic) }
 
       it 'should return the given query with the given topic_id' do
-        expect(ActivitySession.with_filters(ClassroomActivity, {topic_id: topic.id}))
+        expect(ActivitySession.with_filters(ClassroomUnit, {topic_id: topic.id}))
       end
     end
   end
@@ -160,8 +160,8 @@ describe ActivitySession, type: :model, redis: :true do
 
   describe "#invalidate_activity_session_count_if_completed" do
     let!(:student){ create(:student, :in_one_classroom) }
-    let!(:classroom_activity) { create(:classroom_activity, classroom_id: student.classrooms.first.id) }
-    let!(:activity_session){   create(:activity_session, classroom_activity_id: classroom_activity.id, state: 'not validated')}
+    let!(:classroom_unit) { create(:classroom_unit, classroom_id: student.classrooms.first.id, assigned_student_ids: [student.id]) }
+    let!(:activity_session){   create(:activity_session, classroom_unit: classroom_unit, state: 'not validated')}
 
     before(:each) do
       $redis.set("classroom_id:#{student.classrooms.first.id}_completed_activity_count", 10)
@@ -181,16 +181,18 @@ describe ActivitySession, type: :model, redis: :true do
 
   end
 
-	context "when there's not an associated activity but there's a classroom activity" do
+	context "when there's not an associated activity but there's a classroom unit and only one unit activity" do
 
 	    let!(:activity){ create(:activity) }
 	    let!(:student){ create(:student, :in_one_classroom) }
-	    let!(:classroom_activity) { create(:classroom_activity, activity_id: activity.id, classroom_id: student.classrooms.first.id) }
-		  let(:activity_session){   build(:activity_session, classroom_activity_id: classroom_activity.id)                     }
+	    let!(:classroom_unit) { create(:classroom_unit, assigned_student_ids: [student.id], classroom_id: student.classrooms.first.id) }
+      let!(:unit_activity ) { create(:unit_activity, activity: activity, unit: classroom_unit.unit)}
+		  let(:activity_session){   build(:activity_session, classroom_unit: classroom_unit)                     }
 
-  		it "must return the classroom activity" do
+  		it "must return the unit activity's activity" do
   			activity_session.activity_id=nil
-  			expect(activity_session.activity).to eq activity_session.classroom_activity.activity
+        unit_activity.unit.reload
+  			expect(activity_session.activity).to eq unit_activity.activity
   		end
 
 	end
@@ -210,28 +212,32 @@ describe ActivitySession, type: :model, redis: :true do
   end
 
   describe '#formatted_due_date' do
-    context 'when classroom_activity is nil' do
-      let(:activity_session) { create(:activity_session, classroom_activity: nil) }
+    context 'when classroom_unit is nil' do
+      let(:activity_session) { create(:activity_session, classroom_unit: nil) }
 
       it 'should return nil' do
         expect(activity_session.formatted_due_date).to eq(nil)
       end
     end
 
-    context 'when classroom_activity does not have a due date' do
-      let(:activity) { create(:classroom_activity, due_date: nil) }
-      let(:activity_session) { create(:activity_session, classroom_activity: activity) }
+    context 'when unit_activity does not have a due date' do
+      let(:classroom_unit) { create(:classroom_unit) }
+      let(:unit_activity) { create(:unit_activity, unit: classroom_unit.unit, due_date: nil) }
+      let(:activity_session) { create(:activity_session, classroom_unit: classroom_unit) }
 
       it 'should return nil' do
         expect(activity_session.formatted_due_date).to eq(nil)
       end
     end
 
-    context 'when classroom_activity has a due date' do
-      let(:classroom_activity) { create(:classroom_activity, due_date: Date.today+10.days) }
-      let(:activity_session) { create(:activity_session, classroom_activity: classroom_activity) }
+    context 'when unit_activity has a due date' do
+      let(:unit) { create(:unit)}
+      let(:classroom_unit) { create(:classroom_unit, unit: unit) }
+      let(:unit_activity) { create(:unit_activity, unit: unit, due_date:  Date.today+10.days) }
+      let(:activity_session) { create(:activity_session, classroom_unit: classroom_unit, activity: unit_activity.activity) }
 
-      it 'should return the formatted due date of the classroom activity' do
+      it 'should return the formatted due date of the unit activity' do
+        unit.reload
         expect(activity_session.formatted_due_date).to eq((Date.today+10.days).strftime("%A, %B %d, %Y"))
       end
     end
@@ -265,20 +271,24 @@ describe ActivitySession, type: :model, redis: :true do
       end
     end
 
-    context 'when classroom_activity present' do
+    context 'when classroom_unit and unit_activity present' do
       context 'when due date present' do
-        let(:classroom_activity) { create(:classroom_activity, due_date: Date.today+2.days) }
-        let(:activity_session) { create(:activity_session, classroom_activity: classroom_activity) }
+        let(:student) { create(:student) }
+        let(:classroom_unit) { create(:classroom_unit, assigned_student_ids: [student.id])}
+        let(:unit_activity) { create(:unit_activity, unit: classroom_unit.unit, due_date:  Date.today+2.days) }
+        let(:activity_session) { create(:activity_session, classroom_unit: classroom_unit, user: student, activity: unit_activity.activity) }
 
-        it 'should return the formatted due date for the classroom_activity' do
+        it 'should return the formatted due date for the classroom_unit' do
           activity_session.completed_at = nil
+          activity_session.unit.reload
           expect(activity_session.display_due_date_or_completed_at_date).to eq((Date.today+2.days).strftime('%A, %B %d, %Y'))
         end
       end
 
       context 'when due date is not present' do
-        let(:classroom_activity) { create(:classroom_activity, due_date: nil) }
-        let(:activity_session) { create(:activity_session, classroom_activity: classroom_activity) }
+        let(:classroom_unit) { create(:classroom_unit) }
+        let(:unit_activity) { create(:unit_activity, unit: classroom_unit.unit, due_date:  nil) }
+        let(:activity_session) { create(:activity_session, classroom_unit: classroom_unit) }
 
         it 'should return empty string' do
           activity_session.completed_at = nil
@@ -288,7 +298,7 @@ describe ActivitySession, type: :model, redis: :true do
     end
 
     context 'when neither is present' do
-      let(:activity_session) { create(:activity_session, classroom_activity: nil, completed_at: nil) }
+      let(:activity_session) { create(:activity_session, classroom_unit: nil, completed_at: nil) }
 
       it 'should return empty string' do
         activity_session.completed_at = nil
@@ -405,7 +415,7 @@ end
   		expect(activity_session).to be_completed
   	end
 
-  	it "must be false when copleted_at is not present" do
+  	it "must be false when cmopleted_at is not present" do
   		activity_session.completed_at=nil
   		expect(activity_session).to_not be_completed
   	end
@@ -417,17 +427,17 @@ end
     let!(:current_classroom) { create(:classroom_with_one_student) }
     let(:current_teacher) { current_classroom.owner }
     let!(:current_student) {current_classroom.students.first}
-    let!(:current_teacher_classroom_activity) { create(:classroom_activity_with_activity, classroom: current_classroom)}
+    let!(:current_teacher_classroom_unit) { create(:classroom_unit, classroom: current_classroom)}
     let!(:other_classroom) { create(:classroom_with_one_student) }
     let(:other_teacher) { other_classroom.owner }
     let!(:other_student) {other_classroom.students.first}
-    let!(:other_teacher_classroom_activity) { create(:classroom_activity_with_activity, classroom: other_classroom)}
+    let!(:other_teacher_classroom_unit) { create(:classroom_unit, classroom: other_classroom)}
 
     before do
       # Can't figure out why the setup above creates 2 activity sessions
       ActivitySession.destroy_all
-      2.times { create(:activity_session, classroom_activity: current_teacher_classroom_activity, user: current_student) }
-      3.times { create(:activity_session, classroom_activity: other_teacher_classroom_activity, user: other_student) }
+      2.times { create(:activity_session, classroom_unit: current_teacher_classroom_unit, user: current_student) }
+      3.times { create(:activity_session, classroom_unit: other_teacher_classroom_unit, user: other_student) }
     end
 
     it "only retrieves activity sessions for the students who have that teacher" do
@@ -563,17 +573,17 @@ end
     let!(:student) {create(:student)}
     let!(:activity) {create(:activity)}
 
-    let!(:classroom_activity)   {create(:classroom_activity, activity: activity, classroom: classroom)}
-    let!(:previous_final_score) {create(:activity_session, completed_at: Time.now, percentage: 0.9, is_final_score: true, user: student, classroom_activity: classroom_activity, activity: classroom_activity.activity)}
+    let!(:classroom_unit)   {create(:classroom_unit, classroom: classroom, assigned_student_ids: [student.id])}
+    let!(:previous_final_score) {create(:activity_session, completed_at: Time.now, percentage: 0.9, is_final_score: true, user: student, classroom_unit: classroom_unit, activity: activity)}
 
     it 'updates when new activity session has higher percentage ' do
-      new_activity_session =  create(:activity_session, is_final_score: false, user: student, classroom_activity: classroom_activity, activity: classroom_activity.activity)
+      new_activity_session =  create(:activity_session, is_final_score: false, user: student, classroom_unit: classroom_unit, activity: activity)
       new_activity_session.update_attributes completed_at: Time.now, state: 'finished', percentage: 0.95
-      expect([ActivitySession.find(previous_final_score.id).is_final_score, ActivitySession.find(new_activity_session.id).is_final_score]).to eq([false, true])
+      expect([ActivitySession.find(previous_final_score.id).reload.is_final_score, ActivitySession.find(new_activity_session.id).reload.is_final_score]).to eq([false, true])
     end
 
     it 'doesnt update when new activity session has lower percentage' do
-      new_activity_session =  create(:activity_session, completed_at: Time.now, state: 'finished', percentage: 0.5, is_final_score: false, user: student, classroom_activity: classroom_activity, activity: classroom_activity.activity)
+      new_activity_session =  create(:activity_session, completed_at: Time.now, state: 'finished', percentage: 0.5, is_final_score: false, user: student, classroom_unit: classroom_unit, activity: activity)
       expect([ActivitySession.find(previous_final_score.id).is_final_score, ActivitySession.find(new_activity_session.id).is_final_score]).to eq([true, false])
     end
 
@@ -585,14 +595,143 @@ end
     let!(:unassigned_student){ create(:student) }
     let!(:classroom){ create(:classroom, students: [assigned_student, unassigned_student])}
     let!(:activity){ create(:activity) }
-    let!(:classroom_activity) { create(:classroom_activity, classroom: classroom, activity_id: activity.id, assigned_student_ids: [assigned_student.id], assign_on_join: false )}
+    let!(:classroom_unit) { create(:classroom_unit, classroom: classroom, assigned_student_ids: [assigned_student.id], assign_on_join: false )}
 
     it 'ensures that the student was correctly assigned' do
-      act_sesh = ActivitySession.create(user_id: unassigned_student.id, classroom_activity: classroom_activity)
+      act_sesh = ActivitySession.create(user_id: unassigned_student.id, classroom_unit: classroom_unit)
       expect(act_sesh).not_to be_valid
     end
   end
 
-
+  # describe '#assign_follow_up_lesson' do
+  #   context 'when follow_up_activity_id in activity is absent' do
+  #     let(:activity) { create(:activity, follow_up_activity: nil) }
+  #     let(:unit_activity) { create(:unit_activity, activity: activity) }
+  #
+  #     it 'should return false' do
+  #       expect(unit_activity.assign_follow_up_lesson).to eq(false)
+  #     end
+  #   end
+  #
+  #   context 'when unit activity does not exist' do
+  #     let(:classroom) { create(:classroom) }
+  #     let(:follow_up_activity) { create(:activity) }
+  #     let(:activity) { create(:activity, follow_up_activity: follow_up_activity) }
+  #     let(:unit_activity) { build(:unit_activity, classroom: classroom) }
+  #
+  #     it 'should create the unit activity' do
+  #       created_activity = unit_activity.assign_follow_up_lesson
+  #       expect(created_activity.activity_id).to eq(unit_activity.activity_id)
+  #       expect(created_activity.unit_id).to eq(unit_activity.unit_id)
+  #       expect(created_activity.visible).to eq(true)
+  #     end
+  #   end
+  # end
+  #
+  # describe '#save_concept_results' do
+  #   let(:unit) { create(:unit) }
+  #   let(:concept) { create(:concept) }
+  #   let!(:unit_activity) { create(:unit_activity, activity: activity, unit: unit) }
+  #   let(:activity_session) { create(:activity_session, unit_activity_id: unit_activity.id, student_id: student.id) }
+  #   let(:concept_results) { [{"activity_session_uid" => activity_session.uid, concept: concept, activity_session: activity_session}] }
+  #
+  #   before do
+  #     activity_session.update_attributes(visible: true)
+  #   end
+  #
+  #   it 'should create a concept result with the hash given' do
+  #     expect(ConceptResult).to receive(:create).with({"activity_session_id" => activity_session.id, concept: concept, activity_session: activity_session})
+  #     unit_activity.save_concept_results(concept_results)
+  #   end
+  # end
+  #
+  # describe '#delete_activity_sessions_with_no_concept_results' do
+  #   let!(:activity_session) { create(:activity_session) }
+  #   let!(:activity_session1) { create(:activity_session) }
+  #   let(:unit_activity) { create(:unit_activity) }
+  #
+  #   before do
+  #     unit_activity.activity_sessions << activity_session
+  #     unit_activity.activity_sessions << activity_session1
+  #     allow(activity_session).to receive(:concept_result_ids).and_return([])
+  #     allow(activity_session1).to receive(:concept_result_ids).and_return(["anything"])
+  #   end
+  #
+  #   it 'should delete the activity sessions without the concept results' do
+  #     expect{ unit_activity.delete_activity_sessions_with_no_concept_results }.to change(ActivitySession, :count).by(-1)
+  #   end
+  # end
+  #
+  # describe '#has_a_started_session?' do
+  #   context 'when session exists' do
+  #     let(:activity_session) { create(:activity_session, state: "started") }
+  #     let(:clasroom_activity) { create(:unit_activity) }
+  #
+  #     before do
+  #       unit_activity.activity_sessions << activity_session
+  #     end
+  #
+  #     it 'should return true' do
+  #       expect(unit_activity.has_a_started_session?).to eq true
+  #     end
+  #   end
+  #
+  #   context 'when session does not exist' do
+  #     let(:clasroom_activity) { create(:unit_activity) }
+  #
+  #     it 'should return false' do
+  #       expect(unit_activity.has_a_started_session?).to eq false
+  #     end
+  #   end
+  # end
+  #
+  # describe '#mark_all_activity_sessions_complete' do
+  #   it 'marks all of a classroom activities activity sessions finished' do
+  #     activity_session.update(state: 'started')
+  #     expect(activity_session.state).not_to eq('finished')
+  #     unit_activity.mark_all_activity_sessions_complete
+  #     expect(activity_session.reload.state).to eq('finished')
+  #   end
+  # end
+  #
+  # describe '#has_a_completed_session?' do
+  #   it "returns false when a unit activity has no completed activity sessions" do
+  #     expect(unit_activity.has_a_completed_session?).to eq(false)
+  #   end
+  #
+  #   it "returns true when a unit activity has at least one completed activity session" do
+  #     activity_session = ActivitySession.create(unit_activity: unit_activity, state: 'finished')
+  #     expect(unit_activity.has_a_completed_session?).to eq(true)
+  #   end
+  # end
+  #
+  # describe 'locked column' do
+  #   it "exists by default for lessons classroom activities" do
+  #     expect(lessons_unit_activity.locked).to be(true)
+  #   end
+  #
+  #   it "does not exist by default for other classroom activities" do
+  #     expect(unit_activity.locked).to be(false)
+  #   end
+  # end
+  #
+  # describe '#find_or_create_started_activity_session' do
+  #   it "returns a started activity session if it exists" do
+  #     returned_activity_session = unit_activity_with_started_activity_session.find_or_create_started_activity_session(student.id)
+  #     expect(returned_activity_session).to eq(started_activity_session)
+  #   end
+  #
+  #   it "finds an unstarted activity session if it exists, updates it to started, and returns it" do
+  #     returned_activity_session = unit_activity.find_or_create_started_activity_session(student.id)
+  #     expect(returned_activity_session).to eq(activity_session)
+  #     expect(returned_activity_session.state).to eq('started')
+  #   end
+  #
+  #   it "creates a started activity session if neither a started nor an unstarted one exist" do
+  #     returned_activity_session = unit_activity_with_no_activity_session.find_or_create_started_activity_session(student.id)
+  #     expect(returned_activity_session.user_id).to eq(student.id)
+  #     expect(returned_activity_session.state).to eq('started')
+  #   end
+  # end
 
 end
