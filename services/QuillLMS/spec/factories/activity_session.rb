@@ -1,8 +1,6 @@
 FactoryBot.define do
   factory :activity_session do
     activity            { create(:activity, :production) }
-    classroom_unit      { create(:classroom_unit) }
-    user                { create(:student) }
     uid                 { SecureRandom.urlsafe_base64 }
     percentage          { Faker::Number.decimal(0, 2) }
     started_at          { created_at }
@@ -11,6 +9,12 @@ FactoryBot.define do
     is_final_score      true
     is_retry            false
     temporary           false
+
+    before(:create) do |activity_session|
+      student = create(:student)
+      activity_session.user = student
+      activity_session.classroom_unit = create(:classroom_unit, assigned_student_ids: [student.id])
+    end
 
     after(:create) do |activity_session|
       unless activity_session.classroom_unit.nil?

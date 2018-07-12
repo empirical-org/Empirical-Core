@@ -56,11 +56,11 @@ class ActivitySession < ActiveRecord::Base
   end
 
   def eligible_for_tracking?
-    classroom_activity.present? && classroom_activity.classroom.present? && classroom_activity.classroom.owner.present?
+    classroom_unit.present? && classroom_unit.classroom.present? && classroom_unit.classroom.owner.present?
   end
 
   def classroom_owner
-    classroom_activity.classroom.owner
+    classroom_unit.classroom.owner
   end
 
   def self.by_teacher(teacher)
@@ -96,8 +96,16 @@ class ActivitySession < ActiveRecord::Base
     query
   end
 
+  def unit
+    self&.classroom_unit&.unit
+  end
+
   def unit_activity
-    unit&.unit_activity
+    if self.activity
+      UnitActivity.find_by(unit: unit, activity: self.activity)
+    else
+      unit&.unit_activities.length == 1 ? unit&.unit_activities&.first : nil
+    end
   end
 
   def determine_if_final_score
