@@ -6,8 +6,8 @@ class Scorebook::Query
     ActiveRecord::Base.connection.execute(
     "SELECT
        students.id AS user_id,
-        ca.id AS ca_id,
-        ca.completed AS marked_complete,
+        cu.id AS ca_id,
+        cuas.completed AS marked_complete,
         students.name AS name,
         activity.activity_classification_id,
         activity.name AS activity_name,
@@ -18,30 +18,32 @@ class Scorebook::Query
         SUM(CASE WHEN acts.percentage IS NOT NULL THEN 1 ELSE 0 END) AS completed_attempts,
         SUM(CASE WHEN acts.state = 'started' THEN 1 ELSE 0 END) AS started,
         SUM(CASE WHEN acts.is_final_score = true THEN acts.id ELSE 0 END) AS id
-     FROM classroom_activities AS ca
-     LEFT JOIN students_classrooms AS sc on ca.classroom_id = sc.classroom_id
+     FROM classroom_units AS cu
+     LEFT JOIN students_classrooms AS sc on cu.classroom_id = sc.classroom_id
      RIGHT JOIN users AS students ON students.id = sc.student_id
      #{self.units(unit_id)&.first}
      LEFT JOIN activity_sessions AS acts ON (
-           acts.classroom_activity_id = ca.id
+           acts.classroom_unit_id = cu.id
            AND acts.user_id = students.id
            AND acts.visible = true
            )
-     INNER JOIN activities AS activity ON activity.id = ca.activity_id
-     WHERE ca.classroom_id = #{classroom_id}
-     AND  students.id = ANY (ca.assigned_student_ids::int[])
-     AND ca.visible = true
+     INNER JOIN activities AS activity ON activity.id = acts.activity_id
+     LEFT JOIN unit_activities ON unit_activities.activity_id = activity.id AND unit_activities.unit_id = cu.unit_id
+     LEFT JOIN classroom_unit_activity_states AS cuas ON cuas.unit_activity_id = unit_activities.id AND cuas.classroom_unit_id = cu.id
+     WHERE cu.classroom_id = #{classroom_id}
+     AND  students.id = ANY (cu.assigned_student_ids::int[])
+     AND cu.visible = true
      AND sc.visible = true
      #{self.units(unit_id)&.last}
      #{self.date_conditional_string(begin_date, end_date, offset)}
      GROUP BY
       students.id,
-       students.name, ca.id, activity.activity_classification_id, activity.name, activity.description
+       students.name, cu.id, activity.activity_classification_id, activity.name, activity.description, cuas.completed
      ORDER BY split_part( students.name, ' ' , 2),
        CASE WHEN SUM(CASE WHEN acts.percentage IS NOT NULL THEN 1 ELSE 0 END) > 0 THEN true ELSE false END DESC,
        MIN(acts.completed_at),
        CASE WHEN SUM(CASE WHEN acts.state = 'started' THEN 1 ELSE 0 END) > 0 THEN true ELSE false END DESC,
-       ca.created_at ASC
+       cu.created_at ASC
        OFFSET (#{(current_page.to_i - 1) * SCORES_PER_PAGE})
        FETCH NEXT #{SCORES_PER_PAGE} ROWS ONLY"
     ).to_a
@@ -49,7 +51,7 @@ class Scorebook::Query
 
   def self.units(unit_id)
     if unit_id && !unit_id.blank?
-      ["INNER JOIN units ON ca.unit_id = units.id", "AND units.id = #{ActiveRecord::Base.sanitize(unit_id)}"]
+      ["INNER JOIN units ON cu.unit_id = units.id", "AND units.id = #{ActiveRecord::Base.sanitize(unit_id)}"]
     end
   end
 
@@ -86,7 +88,6 @@ class Scorebook::Query
   end
 
   def self.date_substring_for_acts_started_at(begin_date, end_date, offset)
-
     [
       begin_date ? "acts.started_at >= '#{self.to_offset_datetime(begin_date, offset)}'" : nil,
       end_date ? "acts.started_at <= '#{self.to_offset_datetime(end_date, offset)}'" : nil
@@ -96,8 +97,8 @@ class Scorebook::Query
 
   def self.date_substring_for_ca_created_at(begin_date, end_date, offset)
     [
-      begin_date ? "ca.created_at >= '#{self.to_offset_datetime(begin_date, offset)}'" : nil,
-      end_date ? "ca.created_at <= '#{self.to_offset_datetime(end_date, offset)}'" : nil
+      begin_date ? "cu.created_at >= '#{self.to_offset_datetime(begin_date, offset)}'" : nil,
+      end_date ? "cu.created_at <= '#{self.to_offset_datetime(end_date, offset)}'" : nil
     ].reject(&:nil?).join(' AND ')
   end
 
