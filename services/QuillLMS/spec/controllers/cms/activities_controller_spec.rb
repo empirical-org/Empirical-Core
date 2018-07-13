@@ -3,10 +3,12 @@ require 'rails_helper'
 describe Cms::ActivitiesController, type: :controller do
   it { should use_before_filter :find_classification }
   it { should use_before_filter :set_activity }
-
+  
   let!(:classification) { create(:activity_classification) }
   let(:activities) { double(:activities, production: "production set", flagged: "flagged set") }
   let(:user) { create(:staff) }
+  let!(:diagnostic_activity_classification) { create(:diagnostic)}
+  let!(:diagnostic_activity) { create(:diagnostic_activity) }
 
   before do
     allow(controller).to receive(:current_user) { user }
