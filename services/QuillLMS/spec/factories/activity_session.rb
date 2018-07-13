@@ -12,7 +12,7 @@ FactoryBot.define do
 
     before(:create) do |activity_session|
       if activity_session.user && !activity_session.classroom_unit
-        activity_session.classroom_unit = create(:classroom_unit, assigned_student_ids: [student.id])
+        activity_session.classroom_unit = create(:classroom_unit, assigned_student_ids: [activity_session.user.id])
       elsif activity_session.user && activity_session.classroom_unit && activity_session.classroom_unit.assigned_student_ids.empty?
         activity_session.classroom_unit.update(assigned_student_ids: [activity_session.user.id])
       elsif activity_session.classroom_unit && !activity_session.user
