@@ -1,6 +1,6 @@
 import {Response} from "quill-marking-logic"
 
-interface Attempt {
+export interface Attempt {
   response: Response
 }
 
