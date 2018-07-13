@@ -73,7 +73,6 @@ describe 'ScorebookQuery' do
         begin_date = (activity_session1.reload.completed_at).to_date.to_s
         end_date = begin_date
         results = Scorebook::Query.run(classroom.id, 1, nil, begin_date, end_date, offset)
-        binding.pry
         expect(results.find{|res| res['id'] == activity_session2.id.to_s}).to be
         expect(results.length).to eq(1)
       end
