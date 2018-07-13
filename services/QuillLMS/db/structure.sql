@@ -546,8 +546,7 @@ CREATE TABLE blog_posts (
     published_at timestamp without time zone,
     external_link character varying,
     center_images boolean,
-    order_number integer,
-    school_premium boolean DEFAULT false
+    order_number integer
 );
 
 
@@ -673,14 +672,13 @@ CREATE SEQUENCE classroom_activities_id_seq
 --
 
 ALTER SEQUENCE classroom_activities_id_seq OWNED BY classroom_activities.id;
-<<<<<<< HEAD
 
 
 --
--- Name: classroom_unit_activity_state; Type: TABLE; Schema: public; Owner: -
+-- Name: classroom_unit_activity_states; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE classroom_unit_activity_state (
+CREATE TABLE classroom_unit_activity_states (
     id integer NOT NULL,
     classroom_unit_id integer NOT NULL,
     unit_activity_id integer NOT NULL,
@@ -694,10 +692,10 @@ CREATE TABLE classroom_unit_activity_state (
 
 
 --
--- Name: classroom_unit_activity_state_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: classroom_unit_activity_states_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE classroom_unit_activity_state_id_seq
+CREATE SEQUENCE classroom_unit_activity_states_id_seq
     AS integer
     START WITH 1
     INCREMENT BY 1
@@ -707,10 +705,10 @@ CREATE SEQUENCE classroom_unit_activity_state_id_seq
 
 
 --
--- Name: classroom_unit_activity_state_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: classroom_unit_activity_states_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE classroom_unit_activity_state_id_seq OWNED BY classroom_unit_activity_state.id;
+ALTER SEQUENCE classroom_unit_activity_states_id_seq OWNED BY classroom_unit_activity_states.id;
 
 
 --
@@ -723,7 +721,7 @@ CREATE TABLE classroom_units (
     unit_id integer NOT NULL,
     visible boolean DEFAULT true,
     assigned_student_ids integer[] DEFAULT '{}'::integer[],
-    due_date timestamp without time zone,
+    assign_on_join boolean DEFAULT false,
     created_at timestamp without time zone,
     updated_at timestamp without time zone
 );
@@ -747,8 +745,6 @@ CREATE SEQUENCE classroom_units_id_seq
 --
 
 ALTER SEQUENCE classroom_units_id_seq OWNED BY classroom_units.id;
-=======
->>>>>>> f4a5fffd7d4b2c80f835c3bb7e45e179cdfe4e72
 
 
 --
@@ -2081,7 +2077,6 @@ CREATE SEQUENCE topics_id_seq
 --
 
 ALTER SEQUENCE topics_id_seq OWNED BY topics.id;
-<<<<<<< HEAD
 
 
 --
@@ -2117,8 +2112,6 @@ CREATE SEQUENCE unit_activities_id_seq
 --
 
 ALTER SEQUENCE unit_activities_id_seq OWNED BY unit_activities.id;
-=======
->>>>>>> f4a5fffd7d4b2c80f835c3bb7e45e179cdfe4e72
 
 
 --
@@ -2447,14 +2440,13 @@ ALTER TABLE ONLY checkboxes ALTER COLUMN id SET DEFAULT nextval('checkboxes_id_s
 --
 
 ALTER TABLE ONLY classroom_activities ALTER COLUMN id SET DEFAULT nextval('classroom_activities_id_seq'::regclass);
-<<<<<<< HEAD
 
 
 --
--- Name: classroom_unit_activity_state id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: classroom_unit_activity_states id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY classroom_unit_activity_state ALTER COLUMN id SET DEFAULT nextval('classroom_unit_activity_state_id_seq'::regclass);
+ALTER TABLE ONLY classroom_unit_activity_states ALTER COLUMN id SET DEFAULT nextval('classroom_unit_activity_states_id_seq'::regclass);
 
 
 --
@@ -2462,8 +2454,6 @@ ALTER TABLE ONLY classroom_unit_activity_state ALTER COLUMN id SET DEFAULT nextv
 --
 
 ALTER TABLE ONLY classroom_units ALTER COLUMN id SET DEFAULT nextval('classroom_units_id_seq'::regclass);
-=======
->>>>>>> f4a5fffd7d4b2c80f835c3bb7e45e179cdfe4e72
 
 
 --
@@ -2730,7 +2720,6 @@ ALTER TABLE ONLY topic_categories ALTER COLUMN id SET DEFAULT nextval('topic_cat
 --
 
 ALTER TABLE ONLY topics ALTER COLUMN id SET DEFAULT nextval('topics_id_seq'::regclass);
-<<<<<<< HEAD
 
 
 --
@@ -2738,8 +2727,6 @@ ALTER TABLE ONLY topics ALTER COLUMN id SET DEFAULT nextval('topics_id_seq'::reg
 --
 
 ALTER TABLE ONLY unit_activities ALTER COLUMN id SET DEFAULT nextval('unit_activities_id_seq'::regclass);
-=======
->>>>>>> f4a5fffd7d4b2c80f835c3bb7e45e179cdfe4e72
 
 
 --
@@ -2913,11 +2900,11 @@ ALTER TABLE ONLY classroom_activities
 
 
 --
--- Name: classroom_unit_activity_state classroom_unit_activity_state_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: classroom_unit_activity_states classroom_unit_activity_states_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY classroom_unit_activity_state
-    ADD CONSTRAINT classroom_unit_activity_state_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY classroom_unit_activity_states
+    ADD CONSTRAINT classroom_unit_activity_states_pkey PRIMARY KEY (id);
 
 
 --
@@ -3548,17 +3535,17 @@ CREATE INDEX index_classroom_activities_on_updated_at ON public.classroom_activi
 
 
 --
--- Name: index_classroom_unit_activity_state_on_classroom_unit_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_classroom_unit_activity_states_on_classroom_unit_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_classroom_unit_activity_state_on_classroom_unit_id ON public.classroom_unit_activity_state USING btree (classroom_unit_id);
+CREATE INDEX index_classroom_unit_activity_states_on_classroom_unit_id ON public.classroom_unit_activity_states USING btree (classroom_unit_id);
 
 
 --
--- Name: index_classroom_unit_activity_state_on_unit_activity_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_classroom_unit_activity_states_on_unit_activity_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_classroom_unit_activity_state_on_unit_activity_id ON public.classroom_unit_activity_state USING btree (unit_activity_id);
+CREATE INDEX index_classroom_unit_activity_states_on_unit_activity_id ON public.classroom_unit_activity_states USING btree (unit_activity_id);
 
 
 --
@@ -4209,7 +4196,7 @@ CREATE INDEX tsv_idx ON public.blog_posts USING gin (tsv);
 -- Name: unique_classroom_and_activity_for_cua_state; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX unique_classroom_and_activity_for_cua_state ON public.classroom_unit_activity_state USING btree (classroom_unit_id, unit_activity_id);
+CREATE UNIQUE INDEX unique_classroom_and_activity_for_cua_state ON public.classroom_unit_activity_states USING btree (classroom_unit_id, unit_activity_id);
 
 
 --
@@ -4364,17 +4351,6 @@ CREATE INDEX uta ON public.activities_unit_templates USING btree (unit_template_
 --
 
 CREATE TRIGGER tsvectorupdate BEFORE INSERT OR UPDATE ON public.blog_posts FOR EACH ROW EXECUTE PROCEDURE blog_posts_search_trigger();
-<<<<<<< HEAD
-
-
---
--- Name: classroom_unit_activity_state fk_rails_043c3345c6; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY classroom_unit_activity_state
-    ADD CONSTRAINT fk_rails_043c3345c6 FOREIGN KEY (classroom_unit_id) REFERENCES classroom_units(id);
-=======
->>>>>>> f4a5fffd7d4b2c80f835c3bb7e45e179cdfe4e72
 
 
 --
@@ -4383,7 +4359,6 @@ ALTER TABLE ONLY classroom_unit_activity_state
 
 ALTER TABLE ONLY units
     ADD CONSTRAINT fk_rails_0b3b28b65f FOREIGN KEY (unit_template_id) REFERENCES unit_templates(id);
-<<<<<<< HEAD
 
 
 --
@@ -4392,8 +4367,6 @@ ALTER TABLE ONLY units
 
 ALTER TABLE ONLY classroom_units
     ADD CONSTRAINT fk_rails_3e1ff09783 FOREIGN KEY (unit_id) REFERENCES units(id);
-=======
->>>>>>> f4a5fffd7d4b2c80f835c3bb7e45e179cdfe4e72
 
 
 --
@@ -4405,7 +4378,14 @@ ALTER TABLE ONLY sales_stages
 
 
 --
-<<<<<<< HEAD
+-- Name: classroom_unit_activity_states fk_rails_457a11a3eb; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY classroom_unit_activity_states
+    ADD CONSTRAINT fk_rails_457a11a3eb FOREIGN KEY (classroom_unit_id) REFERENCES classroom_units(id);
+
+
+--
 -- Name: unit_activities fk_rails_48bcb0b8a0; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -4414,8 +4394,6 @@ ALTER TABLE ONLY unit_activities
 
 
 --
-=======
->>>>>>> f4a5fffd7d4b2c80f835c3bb7e45e179cdfe4e72
 -- Name: criteria fk_rails_63b994bcda; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -4429,7 +4407,6 @@ ALTER TABLE ONLY criteria
 
 ALTER TABLE ONLY recommendations
     ADD CONSTRAINT fk_rails_6745e4bc86 FOREIGN KEY (unit_template_id) REFERENCES unit_templates(id);
-<<<<<<< HEAD
 
 
 --
@@ -4438,8 +4415,6 @@ ALTER TABLE ONLY recommendations
 
 ALTER TABLE ONLY classroom_units
     ADD CONSTRAINT fk_rails_a3c514fc6d FOREIGN KEY (classroom_id) REFERENCES classrooms(id);
-=======
->>>>>>> f4a5fffd7d4b2c80f835c3bb7e45e179cdfe4e72
 
 
 --
@@ -4456,7 +4431,6 @@ ALTER TABLE ONLY sales_stages
 
 ALTER TABLE ONLY criteria
     ADD CONSTRAINT fk_rails_ada79930c6 FOREIGN KEY (concept_id) REFERENCES concepts(id);
-<<<<<<< HEAD
 
 
 --
@@ -4468,13 +4442,11 @@ ALTER TABLE ONLY unit_activities
 
 
 --
--- Name: classroom_unit_activity_state fk_rails_ca1139af59; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: classroom_unit_activity_states fk_rails_bab346c597; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY classroom_unit_activity_state
-    ADD CONSTRAINT fk_rails_ca1139af59 FOREIGN KEY (unit_activity_id) REFERENCES unit_activities(id);
-=======
->>>>>>> f4a5fffd7d4b2c80f835c3bb7e45e179cdfe4e72
+ALTER TABLE ONLY classroom_unit_activity_states
+    ADD CONSTRAINT fk_rails_bab346c597 FOREIGN KEY (unit_activity_id) REFERENCES unit_activities(id);
 
 
 --
@@ -5077,11 +5049,6 @@ INSERT INTO schema_migrations (version) VALUES ('20180517045137');
 
 INSERT INTO schema_migrations (version) VALUES ('20180530145153');
 
-<<<<<<< HEAD
-INSERT INTO schema_migrations (version) VALUES ('20180612212919');
-
-=======
->>>>>>> f4a5fffd7d4b2c80f835c3bb7e45e179cdfe4e72
 INSERT INTO schema_migrations (version) VALUES ('20180625211305');
 
 INSERT INTO schema_migrations (version) VALUES ('20180627183421');
@@ -5104,7 +5071,6 @@ INSERT INTO schema_migrations (version) VALUES ('20180703154253');
 
 INSERT INTO schema_migrations (version) VALUES ('20180703154718');
 
-<<<<<<< HEAD
 INSERT INTO schema_migrations (version) VALUES ('20180709190219');
 
 INSERT INTO schema_migrations (version) VALUES ('20180709190257');
@@ -5113,5 +5079,3 @@ INSERT INTO schema_migrations (version) VALUES ('20180709190427');
 
 INSERT INTO schema_migrations (version) VALUES ('20180709192646');
 
-=======
->>>>>>> f4a5fffd7d4b2c80f835c3bb7e45e179cdfe4e72
