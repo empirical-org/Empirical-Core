@@ -2,18 +2,27 @@ require 'rails_helper'
 
 describe ProgressReports::Standards::ClassroomSerializer, type: :serializer do
   let!(:classroom) { create(:classroom_with_one_student) }
+  let(:student) { classroom.students.first }
   let(:teacher) { classroom.owner }
   let(:activity) { create(:activity) }
-  let(:classroom_activity) { create(:classroom_activity, classroom: classroom, activity: activity) }
-  let(:classroom_for_report) { ProgressReports::Standards::Classroom.new(teacher).results({}).first }
+  let(:classroom_unit) do
+    create(:classroom_unit,
+      classroom: classroom,
+      assigned_student_ids: [student.id]
+    )
+  end
+  let(:classroom_for_report) do
+    ProgressReports::Standards::Classroom.new(teacher).results({}).first
+  end
   let(:serializer) { described_class.new(classroom_for_report) }
 
   before do
-    classroom.students.first.activity_sessions.create!(
-      classroom_activity: classroom_activity,
+    student.activity_sessions.create!(
+      classroom_unit: classroom_unit,
       percentage: 1,
       state: 'finished',
-      completed_at: 5.minutes.ago
+      completed_at: 5.minutes.ago,
+      activity: activity
     )
   end
 
