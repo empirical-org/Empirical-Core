@@ -148,5 +148,5 @@ module.exports = {
     tls: 'empty',
   },
   // addition - add source-map support
-  devtool: 'eval',
+  devtool: 'cheap-module-eval-source-map',
 };
