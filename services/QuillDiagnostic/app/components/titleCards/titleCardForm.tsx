@@ -7,9 +7,8 @@ import {
 import { EditorState, ContentState } from 'draft-js'
 import {
   submitNewTitleCard,
-  updateTitleCard,
   submitTitleCardEdit
-} from '../../actions/titleCards.ts'
+} from '../../actions/titleCards'
 import _ from 'lodash'
 
 interface TitleCardFormState {
@@ -17,7 +16,15 @@ interface TitleCardFormState {
   content: string
 }
 
-class TitleCardForm extends React.Component<any, TitleCardFormState> {
+export interface TitleCardFormProps {
+  titleCards: any
+  routing: any
+  routeParams: any
+  dispatch(any): void 
+}
+
+
+class TitleCardForm extends React.Component<TitleCardFormProps, TitleCardFormState> {
   constructor(props) {
     super(props)
 
@@ -89,7 +96,7 @@ class TitleCardForm extends React.Component<any, TitleCardFormState> {
         <h6 className="control subtitle">{this.renderHeaderText()}</h6>
         <br/>
         <label className="label">Title</label>
-        <textarea className="input" type="text" value={this.state.title || ""} onChange={this.handleTitleChange}/>
+        <textarea className="input" value={this.state.title || ""} onChange={this.handleTitleChange}/>
         <br/>
         <label className="label">Content</label>
         <TextEditor
