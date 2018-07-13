@@ -696,7 +696,8 @@ describe User, type: :model do
   end
 
   describe '#clear_data' do
-    let(:user) { create(:user) }
+    let(:user) { create(:user, google_id: 'sergey_and_larry_were_here') }
+    let!(:auth_credential) { create(:auth_credential, user: user) }
     before(:each) { user.clear_data }
 
     it "changes the user's email to one that is not personally identiable" do
@@ -709,6 +710,14 @@ describe User, type: :model do
 
     it "changes the user's name to one that is not personally identiable" do
       expect(user.name).to eq("Deleted User_#{user.id}")
+    end
+
+    it "removes the google id" do
+      expect(user.google_id).to be nil
+    end
+
+    it "destroys associated auth credentials if present" do
+      expect(user.reload.auth_credential).to be nil
     end
   end
 

@@ -18,7 +18,9 @@ describe Activity, type: :model, redis: :true do
   it { should delegate_method(:form_url).to(:classification) }
 
   let!(:activity){ build(:activity) }
-
+  let!(:diagnostic_activity_classification) { create(:diagnostic)}
+  let!(:diagnostic_activity) { create(:diagnostic_activity) }
+  
   describe 'validations' do
     it 'requires a unique uid' do
       activity.save!
@@ -207,12 +209,9 @@ describe Activity, type: :model, redis: :true do
     end
   end
 
-  describe 'diagnositic_activit_ids' do
-    let(:activity_classification) { create(:activity_classification, key: "diagnostic") }
-    let!(:activity) { create(:activity, activity_classification_id: activity_classification.id) }
-
+  describe 'diagnositic_activity_ids' do
     it 'should have the correct values' do
-      expect(Activity.diagnostic_activity_ids).to eq([activity.id])
+      expect(Activity.diagnostic_activity_ids).to eq([diagnostic_activity.id])
     end
   end
 

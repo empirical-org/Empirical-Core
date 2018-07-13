@@ -41,7 +41,7 @@ import * as CustomizeIntf from '../../../interfaces/customize'
 import {
   scriptTagStrip
 } from '../shared/scriptTagStrip';
-import Spinner from '../../shared/spinner'
+import {Spinner} from 'quill-component-library'
 
 class PlayClassroomLessonContainer extends React.Component<any, any> {
   constructor(props) {

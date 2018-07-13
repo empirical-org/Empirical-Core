@@ -71,7 +71,7 @@ EmpiricalGrammar::Application.routes.draw do
   resource :profile
   resources :password_reset
   resources :schools, only: [:index], format: 'json'
-  resources :students_classrooms do
+  resources :students_classrooms, only: :create do
     collection do
       get :classroom_manager
       get :classroom_manager_data
@@ -221,7 +221,7 @@ EmpiricalGrammar::Application.routes.draw do
       end
     end
 
-    resources :classrooms do
+    resources :classrooms, only: [:index, :new, :create, :update, :destroy] do
       collection do
         get :classrooms_i_teach
         get :regenerate_code
@@ -355,8 +355,8 @@ EmpiricalGrammar::Application.routes.draw do
   post '/session/login_through_ajax', to: 'sessions#login_through_ajax'
   resource :session
 
-  resource :account do
-    post :role, to: 'accounts#role'
+  resource :account, only: [:new, :create, :edit, :update] do
+    post :role, on: :member
   end
 
   namespace :auth do

@@ -1,4 +1,4 @@
-import MassEditContainer from 'components/questions/MassEditContainer.jsx';
+import MassEditContainer from 'components/questions/massEditContainer.jsx';
 
 export default {
   path: 'mass-edit',

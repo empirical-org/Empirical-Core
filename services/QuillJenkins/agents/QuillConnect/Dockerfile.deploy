@@ -1,4 +1,11 @@
-FROM node:9.5.0
+FROM node:8.11.2
+
+RUN apt-get update 
+RUN apt-get install -y python-pip libpython-dev python-dev
+RUN pip install awscli --upgrade --user
+RUN apt-get update 
+
+ENV PATH ~/.local/bin:$PATH
 
 # Replace shell with bash so we can source files
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
