@@ -9,6 +9,7 @@ FactoryBot.define do
     is_final_score      true
     is_retry            false
     temporary           false
+    visible             true
 
     before(:create) do |activity_session|
       if activity_session.user && !activity_session.classroom_unit
@@ -27,12 +28,8 @@ FactoryBot.define do
     end
 
     after(:create) do |activity_session|
-      unless activity_session.classroom_unit.nil?
-        classroom_unit = activity_session.classroom_unit
-      else # we'll do it live
-        classroom_unit = create(:classroom_unit)
-        create(:unit_activity, activity: activity_session.activity, unit: classroom_unit.unit)
-      end
+      classroom_unit = activity_session.classroom_unit
+      UnitActivity.find_or_create_by(activity: activity_session.activity, unit: classroom_unit.unit)
       StudentsClassrooms.find_or_create_by(student_id: activity_session.user_id, classroom_id: classroom_unit.classroom_id )
       create(:concept_result, activity_session: activity_session)
     end
@@ -66,6 +63,12 @@ FactoryBot.define do
 
     factory :lesson_activity_session do
       activity { create(:lesson_activity) }
+    end
+
+    factory :activity_session_without_concept_results do
+      after(:create) do |activity_session|
+          ConceptResult.where(activity_session: activity_session).destroy_all
+      end
     end
   end
 end

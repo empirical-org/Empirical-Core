@@ -10,8 +10,8 @@ describe ProgressReports::DistrictConceptReports do
     let!(:schools_admins) { create(:schools_admins, school: school, user: admin) }
     let!(:schools_users) { create(:schools_users, school: school, user: teacher) }
     let!(:classrooms_teacher) { create(:classrooms_teacher, user: teacher, role: "owner", classroom: classroom) }
-    let!(:classroom_activity) { create(:classroom_activity, classroom: classroom) }
-    let!(:activity_session) { create(:activity_session, classroom_activity: classroom_activity, user_id: student.id) }
+    let!(:classroom_unit) { create(:classroom_unit, classroom: classroom, assigned_student_ids: [student.id]) }
+    let!(:activity_session) { create(:activity_session_without_concept_results, classroom_unit: classroom_unit, user_id: student.id) }
     let!(:concept_result) { create(:concept_result, activity_session: activity_session) }
     let(:subject) { described_class.new(admin.id) }
 

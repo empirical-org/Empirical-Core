@@ -10,8 +10,9 @@ describe 'ActivitiesScoresByClassroom' do
   it "returns the average score and activity count for each student that completed activity sessions" do
     results = ProgressReports::ActivitiesScoresByClassroom.results(classroom.owner.classrooms_i_teach.map(&:id))
     results.each do |res|
-      activity_session_percentage = ActivitySession.where(user_id: res['student_id']).pluck(:percentage)
-      expect(activity_session_percentage.length).to eq(res['activity_count'].to_i)
+      diagnostic_and_lesson_activity_ids = Activity.where(activity_classification_id: [4, 6]).ids
+      expect(ActivitySession.unscoped.where(user_id: res['student_id']).length).to eq(res['activity_count'].to_i)
+      activity_session_percentage = ActivitySession.unscoped.where(user_id: res['student_id']).where.not(activity_id: diagnostic_and_lesson_activity_ids).pluck(:percentage)
       average_score = (activity_session_percentage.reduce(:+) / activity_session_percentage.length).to_f
       expect(average_score).to eq(res['average_score'].to_f)
     end
