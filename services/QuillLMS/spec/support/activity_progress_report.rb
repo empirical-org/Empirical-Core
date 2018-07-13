@@ -28,24 +28,23 @@ shared_context 'Activity Progress Report' do
     )
   end
 
-  # let(:classroom_one_activity) { create(:classroom_activity,
-  #   classroom: classroom_one, unit: classroom_one.units.first, activity: activity) }
-  # let(:classroom_two_activity) { create(:classroom_activity,
-  #   classroom: classroom_two, unit: classroom_two.units.first, activity: activity) }
-
   let(:student_one_session) do
-    student_in_classroom_one.activity_sessions.create!(
+    create(:activity_session,
       state: 'finished',
       percentage: 0.777778,
-      classroom_unit: classroom_unit_one
+      user: student_in_classroom_one,
+      classroom_unit: classroom_unit_one,
+      completed_at: Time.now
     )
   end
 
   let(:student_two_session) do
-    student_in_classroom_two.activity_sessions.create!(
+    create(:activity_session,
       state: 'finished',
       percentage: 0.75,
-      classroom_unit: classroom_unit_two
+      user: student_in_classroom_two,
+      classroom_unit: classroom_unit_two,
+      completed_at: Time.now
     )
   end
 
