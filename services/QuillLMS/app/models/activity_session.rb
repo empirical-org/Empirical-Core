@@ -114,7 +114,7 @@ class ActivitySession < ActiveRecord::Base
 
   def determine_if_final_score
     return true if (self.percentage.nil? or self.state != 'finished')
-    a = ActivitySession.where(classroom_unit: self.classroom_unit, user: self.user, is_final_score: true)
+    a = ActivitySession.where(classroom_unit: self.classroom_unit, user: self.user, is_final_score: true, activity: self.activity)
                        .where.not(id: self.id).first
     if a.nil?
       self.update_columns is_final_score: true
