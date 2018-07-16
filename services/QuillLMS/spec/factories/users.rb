@@ -91,16 +91,38 @@ FactoryBot.define do
           classrooms.each do |c|
             create(:classrooms_teacher, classroom_id: c.id, user_id: teacher.id)
             students = create_list(:student, 3)
-            activities.each_with_index do |a, i|
-              if i < 3
-                create(:unit_activity, unit: unit1, activity: a)
-                create(:classroom_unit, unit: unit1, classroom: c, assigned_student_ids: students.map { |s| s[:id]})
-              elsif i < 6
-                create(:unit_activity, unit: unit2, activity: a)
-                create(:classroom_unit, unit: unit2, classroom: c, assigned_student_ids: students.map { |s| s[:id]})
+
+            if activities.length >= 0 && activities.length < 3
+              create(:classroom_unit,
+                unit: unit1,
+                classroom: c,
+                assigned_student_ids: students.map { |s| s[:id]}
+              )
+            end
+
+            if activities.length >= 3 && activities.length < 6
+              create(:classroom_unit,
+                unit: unit2,
+                classroom: c,
+                assigned_student_ids: students.map { |s| s[:id]}
+              )
+            end
+
+            if activities.length >= 6
+              create(:classroom_unit,
+                unit: unit3,
+                classroom: c,
+                assigned_student_ids: students.map { |s| s[:id]}
+              )
+            end
+
+            activities.each_with_index do |activity, index|
+              if index < 3
+                create(:unit_activity, unit: unit1, activity: activity)
+              elsif index < 6
+                create(:unit_activity, unit: unit2, activity: activity)
               else
-                create(:unit_activity, unit: unit3, activity: a)
-                create(:classroom_unit, unit: unit3, classroom: c, assigned_student_ids: students.map { |s| s[:id]})
+                create(:unit_activity, unit: unit3, activity: activity)
               end
             end
             students.each do |s|
@@ -157,9 +179,9 @@ FactoryBot.define do
           classrooms.each do |classroom|
             units = create_pair(:unit, user: classroom.owner)
             units.each do |unit|
-              unit_activities = create_pair(:unit_activity, unit: unit)
-              classroom_units = create_pair(:classroom_unit, unit: unit, classroom: classroom, assigned_student_ids: [student.id])
-              create(:activity_session, classroom_unit: classroom_units.first, user: student, activity: unit_activities.first.activity)
+              unit_activity = create(:unit_activity, unit: unit)
+              classroom_unit = create(:classroom_unit, unit: unit, classroom: classroom, assigned_student_ids: [student.id])
+              create(:activity_session, classroom_unit: classroom_unit, user: student, activity: unit_activity.activity)
             end
           end
         end
