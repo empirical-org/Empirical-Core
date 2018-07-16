@@ -6,7 +6,7 @@ class ClassroomUnit < ActiveRecord::Base
   has_many :activity_sessions
   has_many :classroom_unit_activity_states
 
-  validate :not_duplicate
+  validates :unit, uniqueness: { scope: :classroom }
   before_save :check_for_assign_on_join_and_update_students_array_if_true
   after_save  :hide_appropriate_activity_sessions
 
@@ -45,9 +45,8 @@ class ClassroomUnit < ActiveRecord::Base
 
   def hide_unassigned_activity_sessions
     #validate or hides any other related activity sessions
-    act_seshes = self.activity_sessions
-    if act_seshes
-      act_seshes.each do |as|
+    if activity_sessions.present?
+      activity_sessions.each do |as|
         # We are explicitly checking to ensure that the student here actually belongs
         # in this classroom before running the validate_assigned_student method because
         # if this is not true, validate_assigned_student starts an infinite loop! 😨
@@ -87,23 +86,4 @@ class ClassroomUnit < ActiveRecord::Base
       self.assigned_student_ids = student_ids
     end
   end
-
-  def not_duplicate
-    cu = ClassroomUnit.find_by(classroom_id: self.classroom_id, unit_id: self.unit_id)
-    if cu && (cu.id != self.id)
-      begin
-        raise 'This classroom unit is a duplicate'
-      rescue => e
-        NewRelic::Agent.add_custom_attributes({
-          classroom_id: self.classroom_id,
-          unit_id: self.unit_id
-        })
-        NewRelic::Agent.notice_error(e)
-        errors.add(:duplicate_classroom_unit, "this classroom unit is a duplicate")
-      end
-    else
-      return true
-    end
-  end
-
 end
