@@ -35,9 +35,10 @@ module Units::Creator
       UnitActivity.create(unit_id: unit.id, activity_id: activity[:id], due_date: activity[:due_date])
     end
     classrooms.each do |classroom|
-      ClassroomUnit.create(classroom_id: classroom_id,
+      ClassroomUnit.create(classroom_id: classroom[:id],
                            assigned_student_ids: classroom[:student_ids],
-                           assign_on_join: classroom[:assign_on_join])
+                           assign_on_join: classroom[:assign_on_join],
+                           unit_id: unit.id)
     end
 
     unit.email_lesson_plan
