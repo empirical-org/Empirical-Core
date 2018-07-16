@@ -31,17 +31,13 @@ module Units::Creator
     unit = Unit.create!(name: name, user: teacher, unit_template_id: unit_template_id)
     # makes a permutation of each classroom with each activity to
     # create all necessary activity sessions
+    activities_data.each do |activity|
+      UnitActivity.create(unit_id: unit.id, activity_id: activity[:id], due_date: activity[:due_date])
+    end
     classrooms.each do |classroom|
-      product = activities_data.product([classroom[:id].to_i]).uniq
-      product.each do |pair|
-        activity_data, classroom_id = pair
-        new_ca = unit.classroom_activities.create!(activity_id: activity_data[:id],
-                                          due_date: activity_data[:due_date],
-                                          classroom_id: classroom_id,
-                                          assigned_student_ids: classroom[:student_ids],
-                                          assign_on_join: classroom[:assign_on_join]
-                                        )
-      end
+      ClassroomUnit.create(classroom_id: classroom_id,
+                           assigned_student_ids: classroom[:student_ids],
+                           assign_on_join: classroom[:assign_on_join])
     end
 
     unit.email_lesson_plan
