@@ -93,14 +93,26 @@ FactoryBot.define do
             students = create_list(:student, 3)
             activities.each_with_index do |a, i|
               if i < 3
-                create(:unit_activity, unit: unit1, activity: a)
-                create(:classroom_unit, unit: unit1, classroom: c, assigned_student_ids: students.map { |s| s[:id]})
+                unless UnitActivity.find_by(unit: unit1, activity: a)
+                  create(:unit_activity, unit: unit1, activity: a)
+                end
+                unless (ClassroomUnit.find_by(unit: unit1, classroom: c))
+                  create(:classroom_unit, unit: unit1, classroom: c, assigned_student_ids: students.map { |s| s[:id]})
+                end
               elsif i < 6
-                create(:unit_activity, unit: unit2, activity: a)
-                create(:classroom_unit, unit: unit2, classroom: c, assigned_student_ids: students.map { |s| s[:id]})
+                unless UnitActivity.find_by(unit: unit2, activity: a)
+                  create(:unit_activity, unit: unit2, activity: a)
+                end
+                unless (ClassroomUnit.find_by(unit: unit2, classroom: c))
+                  create(:classroom_unit, unit: unit2, classroom: c, assigned_student_ids: students.map { |s| s[:id]})
+                end
               else
-                create(:unit_activity, unit: unit3, activity: a)
-                create(:classroom_unit, unit: unit3, classroom: c, assigned_student_ids: students.map { |s| s[:id]})
+                unless UnitActivity.find_by(unit: unit3, activity: a)
+                  create(:unit_activity, unit: unit3, activity: a)
+                end
+                unless (ClassroomUnit.find_by(unit: unit3, classroom: c))
+                  create(:classroom_unit, unit: unit3, classroom: c, assigned_student_ids: students.map { |s| s[:id]})
+                end
               end
             end
             students.each do |s|
