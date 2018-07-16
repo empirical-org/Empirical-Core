@@ -111,6 +111,7 @@ private
   end
 
   def post_to_google_classroom
+    # this needs to go into unit activity, that's what we'll be passing into this method
     google_response = GoogleIntegration::Announcements.new(@classroom_activity)
       .post
     if google_response == 'UNAUTHENTICATED'
