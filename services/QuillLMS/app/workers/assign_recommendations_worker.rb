@@ -16,7 +16,7 @@ class AssignRecommendationsWorker
       unit = units.first
     end
     unit.update(visible: true) if unit && !unit.visible
-    ClassroomActivity.unscoped.where(unit_id: unit.id, classroom_id: classroom_id).each { |ca| ca.update(visible: true) } if unit
+    ClassroomUnit.unscoped.where(unit_id: unit.id, classroom_id: classroom_id).each { |ca| ca.update(visible: true) } if unit
     classroom_data = {id: classroom_id, student_ids: student_id_array, assign_on_join: assign_on_join}
     if unit
         Units::Updater.assign_unit_template_to_one_class(unit.id, classroom_data, unit_template_id, teacher.id)
