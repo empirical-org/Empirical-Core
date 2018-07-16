@@ -186,7 +186,7 @@ export default class extends React.Component {
       url = '/teachers/classrooms_i_teach_with_students';
       unitName = () => this.props.params.unitName;
     } else {
-      url = `/teachers/units/${that.props.params.unitId}/classrooms_with_students_and_classroom_activities`;
+      url = `/teachers/units/${that.props.params.unitId}/classrooms_with_students_and_classroom_units`;
       unitName = data => data.unit_name;
     }
     $.ajax({

@@ -79,7 +79,7 @@ export default class ClassroomsWithStudents extends React.Component {
         enabled={this.props.isSaveButtonEnabled}
         disabledText={'Edit Students Before Saving'}
         requestType={'PUT'}
-        url={`/teachers/units/${this.props.unitId}/update_classroom_activities_assigned_students`}
+        url={`/teachers/units/${this.props.unitId}/update_classroom_unit_assigned_students`}
         successCallback={this.resetPage}
         buttonText={'Update Students'}
         dataFunc={this.ajaxData}
