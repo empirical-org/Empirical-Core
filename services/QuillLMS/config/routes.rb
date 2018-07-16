@@ -136,8 +136,8 @@ EmpiricalGrammar::Application.routes.draw do
   namespace :teachers do
 
     resources :units, as: 'units_path' do
-      get :classrooms_with_students_and_classroom_activities, on: :member
-      put :update_classroom_activities_assigned_students, on: :member
+      get :classrooms_with_students_and_classroom_units, on: :member
+      put :update_classroom_unit_assigned_students, on: :member
       put :update_activities, on: :member
     end # moved from within classroom, since units are now cross-classroom
 
