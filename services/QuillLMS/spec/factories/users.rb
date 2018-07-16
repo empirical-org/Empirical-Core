@@ -169,9 +169,9 @@ FactoryBot.define do
           classrooms.each do |classroom|
             units = create_pair(:unit, user: classroom.owner)
             units.each do |unit|
-              unit_activities = create_pair(:unit_activity, unit: unit)
-              classroom_units = create_pair(:classroom_unit, unit: unit, classroom: classroom, assigned_student_ids: [student.id])
-              create(:activity_session, classroom_unit: classroom_units.first, user: student, activity: unit_activities.first.activity)
+              unit_activity = create(:unit_activity, unit: unit)
+              classroom_unit = create(:classroom_unit, unit: unit, classroom: classroom, assigned_student_ids: [student.id])
+              create(:activity_session, classroom_unit: classroom_unit, user: student, activity: unit_activity.activity)
             end
           end
         end
