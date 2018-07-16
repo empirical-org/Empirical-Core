@@ -6,7 +6,7 @@ class UnitActivity < ActiveRecord::Base
   belongs_to :activity
   has_many :classroom_unit_activity_states
 
-  validate :not_duplicate
+  # validates :unit, uniqueness: { scope: :activity }
 
   after_save  :hide_appropriate_activity_sessions, :teacher_checkbox
 
@@ -59,24 +59,6 @@ class UnitActivity < ActiveRecord::Base
   end
 
   private
-
-  def not_duplicate
-    ua = UnitActivity.find_by(activity_id: self.activity_id, unit_id: self.unit_id)
-    if ua && (ua.id != self.id)
-      begin
-        raise 'This unit_activity is a duplicate'
-      rescue => e
-        NewRelic::Agent.add_custom_attributes({
-          activity_id: self.activity_id,
-          unit_id: self.unit_id
-        })
-        NewRelic::Agent.notice_error(e)
-        errors.add(:duplicate_unit_activity, "this unit_activity is a duplicate")
-      end
-    else
-      return true
-    end
-  end
 
   def hide_appropriate_activity_sessions
     if self.visible == false

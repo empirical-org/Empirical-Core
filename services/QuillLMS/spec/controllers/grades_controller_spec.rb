@@ -1,11 +1,12 @@
 require 'rails_helper'
 
 describe GradesController do
-  let(:teacher) { create(:teacher, :with_classrooms_students_and_activities) }
+  let(:teacher) { create(:teacher) }
+
   before do
     session[:user_id] = teacher.id
   end
-  
+
   it { should use_before_action :authorize! }
 
   describe '#index' do
