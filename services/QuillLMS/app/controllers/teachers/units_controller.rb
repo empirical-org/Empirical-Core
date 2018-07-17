@@ -204,7 +204,7 @@ class Teachers::UnitsController < ApplicationController
          EXTRACT(EPOCH FROM ua.created_at) AS unit_activity_created_at,
          #{ActiveRecord::Base.sanitize(own_or_coteach)} AS own_or_coteach,
          unit_owner.name AS owner_name,
-         ua.id AS unit_activity_id
+         ua.id AS unit_activity_id,
          CASE WHEN unit_owner.id = #{current_user.id} THEN TRUE ELSE FALSE END AS owned_by_current_user
       FROM units
         INNER JOIN classroom_units AS cu ON cu.unit_id = units.id
@@ -221,7 +221,7 @@ class Teachers::UnitsController < ApplicationController
         AND cu.visible = true
         AND ua.visible = true
         #{lessons}
-        GROUP BY units.name, units.created_at, cu.id, classrooms.name, classrooms.id, activities.name, activities.activity_classification_id, activities.id, activities.uid, unit_owner.name, unit_owner.id, ua.due_date, ua.created_at
+        GROUP BY units.name, units.created_at, cu.id, classrooms.name, classrooms.id, activities.name, activities.activity_classification_id, activities.id, activities.uid, unit_owner.name, unit_owner.id, ua.due_date, ua.created_at, unit_activity_id
         #{completed}
         ").to_a
     else
