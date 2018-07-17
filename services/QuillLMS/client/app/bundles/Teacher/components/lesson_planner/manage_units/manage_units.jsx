@@ -84,12 +84,13 @@ export default React.createClass({
       name: u.activity_name,
       activityId: u.activity_id,
       created_at: u.classroom_activity_created_at,
-      caId: u.classroom_activity_id,
+      cuId: u.classroom_unit_id,
       activityClassificationId: u.activity_classification_id,
       classroomId: u.classroom_id,
       dueDate: u.due_date,
       ownedByCurrentUser: u.owned_by_current_user === 't',
       ownerName: u.owner_name,
+      uaId: u.unit_activity_id
     });
     return caObj;
   },
@@ -111,7 +112,7 @@ export default React.createClass({
         caUnit.classroomActivities.set(u.activity_id,
           caUnit.classroomActivities[u.activity_id] || {
             name: u.activity_name,
-            caId: u.classroom_activity_id,
+            cuId: u.classroom_unit_id,
             activityId: u.activity_id,
             created_at: u.classroom_activity_created_at,
             activityClassificationId: u.activity_classification_id,
@@ -120,6 +121,7 @@ export default React.createClass({
             dueDate: u.due_date,
             ownedByCurrentUser: u.owned_by_current_user === 't',
             ownerName: u.owner_name,
+            uaId: u.unit_activity_id
           });
       }
     });

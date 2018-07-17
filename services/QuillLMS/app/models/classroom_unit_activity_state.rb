@@ -56,7 +56,7 @@ class ClassroomUnitActivityState < ActiveRecord::Base
       else
         # unpin any other pinned ca before pinning new one
         classroom = self.classroom_unit.classroom
-        classroom_unit_ids = classroom.classroom_units.ids
+        classroom_unit_ids = classroom.classroom_units.ids.flatten
         pinned_cua = ClassroomUnitActivityState.unscoped.find_by(pinned: true, classroom_unit_id: [classroom_unit_ids])
         return if pinned_cua && pinned_cua == self
         pinned_cua.update_column("pinned", false) if pinned_cua

@@ -3,7 +3,6 @@ require 'staff_constraint'
 
 EmpiricalGrammar::Application.routes.draw do
 
-
   mount RailsAdmin::Engine => '/staff', as: 'rails_admin'
   use_doorkeeper
 
@@ -160,23 +159,22 @@ EmpiricalGrammar::Application.routes.draw do
 
     resources :classroom_activities, only: [:destroy, :update], as: 'classroom_activities_path' do
       collection do
-        get 'lessons_activities_cache'
-        get 'lessons_units_and_activities'
-        put 'update_multiple_due_dates'
-        get ':id/post_to_google' => 'classroom_activities#post_to_google'
-        put ':id/hide' => 'classroom_activities#hide'
-        # get ':id/launch_lesson/:lesson_uid' => 'classroom_activities#launch_lesson'
-        # get ':id/mark_lesson_as_completed/:lesson_uid' => 'classroom_activities#mark_lesson_as_completed'
+        get '/:slug', to: redirect('teacher-center/%{slug}')
+        get 'lessons_activities_cache', to: redirect('teachers/classroom_units/lesson_activities_cache')
+        get 'lessons_units_and_activities', to: redirect('teachers/classroom_units/lessons_units_and_activities')
+        put 'update_multiple_due_dates', to: redirect('teachers/unit_activities/update_multiple_due_dates')
+        get ':id/post_to_google', to: redirect('teachers/classroom_units/%{id}/post_to_google')
+        put ':id/hide', to: redirect('teachers/unit_activities/%{id}/hide')
+        get ':id/launch_lesson/:lesson_uid', to: redirect('teachers/classroom_units/%{id}/launch_lesson/%{lesson_uid}')
+        get ':id/mark_lesson_as_completed/:lesson_uid', to: redirect('teachers/classroom_units/%{id}/mark_lesson_as_completed/%{lesson_uid}')
       end
     end
 
-    resources :classroom_units, only: [:destroy, :update], as: 'classroom_units_path' do
+    resources :classroom_units, only: [:destroy], as: 'classroom_units_path' do
       collection do
         get 'lessons_activities_cache'
         get 'lessons_units_and_activities'
-        put 'update_multiple_due_dates'
         get ':id/post_to_google' => 'classroom_units#post_to_google'
-        put ':id/hide' => 'classroom_units#hide'
         get ':id/launch_lesson/:lesson_uid' => 'classroom_units#launch_lesson'
         get ':id/mark_lesson_as_completed/:lesson_uid' => 'classroom_units#mark_lesson_as_completed'
       end
@@ -184,10 +182,7 @@ EmpiricalGrammar::Application.routes.draw do
 
     resources :unit_activities, only: [:destroy, :update], as: 'unit_activities_path' do
       collection do
-        get 'lessons_activities_cache'
-        get 'lessons_units_and_activities'
         put 'update_multiple_due_dates'
-        get ':id/post_to_google' => 'unit_activities#post_to_google'
         put ':id/hide' => 'unit_activities#hide'
       end
     end
