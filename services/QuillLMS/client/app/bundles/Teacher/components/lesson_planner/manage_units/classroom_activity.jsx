@@ -268,7 +268,7 @@ export default React.createClass({
 
   lessonCompletedOrLaunch() {
     if (this.props.data.completed) {
-      return <a className="report-link" target="_blank" href={`/teachers/progress_reports/report_from_classroom_activity/${this.classroomUnitId()}`}>View Report</a>
+      return <a className="report-link" target="_blank" href={`/teachers/progress_reports/report_from_classroom_unit/${this.classroomUnitId()}/a/${this.activityId()}`}>View Report</a>
     }
     if (this.props.data.studentCount === 0) {
       return <a onClick={this.noStudentsWarning} id="launch-lesson">{this.props.data.started ? 'Resume Lesson' : 'Launch Lesson'}</a>
