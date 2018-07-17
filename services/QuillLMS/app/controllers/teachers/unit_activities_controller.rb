@@ -3,16 +3,15 @@ class Teachers::ClassroomActivitiesController < ApplicationController
   require 'pusher'
   respond_to :json
   before_filter :authorize!, :except => ["lessons_activities_cache", "lessons_units_and_activities", "update_multiple_due_dates"]
+  before_filter :teacher!
   before_filter :set_classroom_activities, only: [:update, :hide]
   before_filter :set_activity_session, only: :hide
 
-  # both
   def update
     @classroom_activities.each{ |classroom_activity| classroom_activity.try(:update_attributes, classroom_activity_params)}
     render json: @classroom_activities.to_json
   end
 
-  # both
   def hide
     @classroom_activities.update_all(visible: false)
     @classroom_activity.unit.hide_if_no_visible_unit_activities
@@ -21,7 +20,6 @@ class Teachers::ClassroomActivitiesController < ApplicationController
     render json: {}
   end
 
-  # classroom units, but it will also need an activity id
   def launch_lesson
     if lesson_tutorial_completed?
       if @classroom_activity.update(locked: false, pinned: true)
@@ -41,7 +39,6 @@ class Teachers::ClassroomActivitiesController < ApplicationController
     end
   end
 
-  # classroom units, but it will also need an activity id
   def lessons_activities_cache
     render json: {
       data: lessons_cache
@@ -54,7 +51,6 @@ class Teachers::ClassroomActivitiesController < ApplicationController
     }
   end
 
-  # unit activities
   def update_multiple_due_dates
     base_classroom_activities = ClassroomActivity.where(id: params[:classroom_activity_ids])
     activity_ids = base_classroom_activities.map(&:activity_id)

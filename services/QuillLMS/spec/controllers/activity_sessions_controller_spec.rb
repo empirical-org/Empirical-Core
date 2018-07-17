@@ -92,4 +92,19 @@ describe ActivitySessionsController, type: :controller do
     end
   end
 
+  describe '#activity_session_from_classroom_unit_and_activity' do
+    let(:student) { create(:student) }
+    let(:activity_session_url) { "/activity_sessions/#{ActivitySession.find_or_create_started_activity_session(student.id, cu.id, activity.id).id}/play" }
+
+    before do
+      allow(controller).to receive(:current_user) { student }
+      student.classrooms << classroom
+    end
+
+    it 'should redirect to the correct activity session url' do
+      get :activity_session_from_classroom_unit_and_activity, classroom_unit_id: cu.id, activity_id: activity.id
+      expect(response).to redirect_to activity_session_url
+    end
+  end
+
 end

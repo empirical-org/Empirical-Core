@@ -26,6 +26,7 @@ class Api::V1::ClassroomActivitiesController < Api::ApiController
       end
     end
     follow_up = json['follow_up'] ? @classroom_activity.assign_follow_up_lesson(false) : false
+    # generate activity url now belongs to activity session, and needs to be passed a classroom unit id and an activity id
     url = follow_up ? follow_up.generate_activity_url : "#{ENV['DEFAULT_URL']}"
     render json: {follow_up_url: url}
   end
