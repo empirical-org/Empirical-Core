@@ -78,7 +78,7 @@ class Teachers::UnitsController < ApplicationController
     classroom_units = get_classroom_units_for_activity(activity_id)
     return render json: {errors: 'No activities found'}, status: 422 if classroom_units.empty?
     render json: {
-      classroom_activities: classroom_units,
+      classroom_units: classroom_units,
       activity_name: Activity.select('name').where("id = #{activity_id}")
     }
   end
@@ -88,7 +88,7 @@ class Teachers::UnitsController < ApplicationController
     classroom_units = lessons_with_current_user_and_activity
     if classroom_units.length == 1
       cu_id = classroom_units.first["id"]
-      redirect_to "/teachers/classroom_activities/#{cu_id}/launch_lesson/#{lesson_uid}"
+      redirect_to "/teachers/classroom_units/#{cu_id}/launch_lesson/#{lesson_uid}"
     else
       redirect_to "/teachers/classrooms/activity_planner/lessons_for_activity/#{activity_id}"
     end
@@ -204,6 +204,7 @@ class Teachers::UnitsController < ApplicationController
          EXTRACT(EPOCH FROM ua.created_at) AS unit_activity_created_at,
          #{ActiveRecord::Base.sanitize(own_or_coteach)} AS own_or_coteach,
          unit_owner.name AS owner_name,
+         ua.id AS unit_activity_id,
          CASE WHEN unit_owner.id = #{current_user.id} THEN TRUE ELSE FALSE END AS owned_by_current_user
       FROM units
         INNER JOIN classroom_units AS cu ON cu.unit_id = units.id
@@ -220,7 +221,7 @@ class Teachers::UnitsController < ApplicationController
         AND cu.visible = true
         AND ua.visible = true
         #{lessons}
-        GROUP BY units.name, units.created_at, cu.id, classrooms.name, classrooms.id, activities.name, activities.activity_classification_id, activities.id, activities.uid, unit_owner.name, unit_owner.id, ua.due_date, ua.created_at
+        GROUP BY units.name, units.created_at, cu.id, classrooms.name, classrooms.id, activities.name, activities.activity_classification_id, activities.id, activities.uid, unit_owner.name, unit_owner.id, ua.due_date, ua.created_at, unit_activity_id
         #{completed}
         ").to_a
     else

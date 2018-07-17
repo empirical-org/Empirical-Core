@@ -2,7 +2,7 @@ namespace :rewrite_classroom_activities do
   desc 'create unit activities and classroom units from classroom activities'
 
   task :create_unit_activities_and_classroom_units  => :environment do
-    ClassroomActivity.unscoped.all.each do |ca|
+    ClassroomActivity.unscoped.where(classroom_id: [220524, 43699, 57126, 43698, 188628]).each do |ca|
       begin
         ua = UnitActivity.find_or_create_by(
           unit_id: ca.unit_id,

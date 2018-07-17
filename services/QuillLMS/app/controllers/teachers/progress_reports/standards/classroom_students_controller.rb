@@ -15,12 +15,12 @@ class Teachers::ProgressReports::Standards::ClassroomStudentsController < Teache
           serializer.as_json(root: false)
         end
 
-        cas = Classroom.where(id: params[:classroom_id]).includes(:classroom_activities).map(&:classroom_activities).flatten
+        cus = Classroom.where(id: params[:classroom_id]).includes(:classroom_units).map(&:classroom_units).flatten
 
         render json: {
           students: students_json,
           classroom: current_user.classrooms_i_teach.find{|classroom| classroom.id == params[:classroom_id].to_i},
-          units: units_with_completed_activities(cas),
+          units: units_with_completed_activities(cus),
           teacher: UserWithEmailSerializer.new(current_user).as_json(root: false)
         }
       end

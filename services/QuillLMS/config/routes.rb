@@ -3,7 +3,6 @@ require 'staff_constraint'
 
 EmpiricalGrammar::Application.routes.draw do
 
-
   mount RailsAdmin::Engine => '/staff', as: 'rails_admin'
   use_doorkeeper
 
@@ -92,6 +91,7 @@ EmpiricalGrammar::Application.routes.draw do
     put :play, on: :member
   end
   # 3rd party apps depend on the below, do not change :
+  get 'activity_sessions/classroom_units/:classroom_unit_id/activities/:activity_id' => 'activity_sessions#activity_session_from_classroom_unit_and_activity'
   get 'activity_sessions/:uid' => 'activity_sessions#result'
 
 
@@ -112,7 +112,7 @@ EmpiricalGrammar::Application.routes.draw do
 
   resources :grades, only: [:index]
 
-  get 'grades/tooltip/classroom_activity_id/:classroom_activity_id/user_id/:user_id/completed/:completed' => 'grades#tooltip'
+  get 'grades/tooltip/classroom_unit_id/:classroom_unit_id/user_id/:user_id/completed/:completed' => 'grades#tooltip'
 
   get :current_user_json, controller: 'teachers', action: 'current_user_json'
 
@@ -159,14 +159,31 @@ EmpiricalGrammar::Application.routes.draw do
 
     resources :classroom_activities, only: [:destroy, :update], as: 'classroom_activities_path' do
       collection do
+        get '/:slug', to: redirect('teacher-center/%{slug}')
+        get 'lessons_activities_cache', to: redirect('teachers/classroom_units/lesson_activities_cache')
+        get 'lessons_units_and_activities', to: redirect('teachers/classroom_units/lessons_units_and_activities')
+        put 'update_multiple_due_dates', to: redirect('teachers/unit_activities/update_multiple_due_dates')
+        get ':id/post_to_google', to: redirect('teachers/classroom_units/%{id}/post_to_google')
+        put ':id/hide', to: redirect('teachers/unit_activities/%{id}/hide')
+        get ':id/launch_lesson/:lesson_uid', to: redirect('teachers/classroom_units/%{id}/launch_lesson/%{lesson_uid}')
+        get ':id/mark_lesson_as_completed/:lesson_uid', to: redirect('teachers/classroom_units/%{id}/mark_lesson_as_completed/%{lesson_uid}')
+      end
+    end
+
+    resources :classroom_units, only: [:destroy], as: 'classroom_units_path' do
+      collection do
         get 'lessons_activities_cache'
         get 'lessons_units_and_activities'
+        get ':id/post_to_google' => 'classroom_units#post_to_google'
+        get ':id/launch_lesson/:lesson_uid' => 'classroom_units#launch_lesson'
+        get ':id/mark_lesson_as_completed/:lesson_uid' => 'classroom_units#mark_lesson_as_completed'
+      end
+    end
+
+    resources :unit_activities, only: [:destroy, :update], as: 'unit_activities_path' do
+      collection do
         put 'update_multiple_due_dates'
-        get ':id/post_to_google' => 'classroom_activities#post_to_google'
-        put ':id/hide' => 'classroom_activities#hide'
-        get ':id/activity_from_classroom_activity' => 'classroom_activities#activity_from_classroom_activity'
-        get ':id/launch_lesson/:lesson_uid' => 'classroom_activities#launch_lesson'
-        get ':id/mark_lesson_as_completed/:lesson_uid' => 'classroom_activities#mark_lesson_as_completed'
+        put ':id/hide' => 'unit_activities#hide'
       end
     end
 
@@ -186,8 +203,8 @@ EmpiricalGrammar::Application.routes.draw do
     namespace :progress_reports do
       resources :activity_sessions, only: [:index]
       resources :csv_exports, only: [:create]
-      get 'report_from_classroom_activity_and_user/ca/:classroom_activity_id/user/:user_id' => 'diagnostic_reports#report_from_classroom_activity_and_user'
-      get 'report_from_classroom_activity/:classroom_activity_id' => 'diagnostic_reports#report_from_classroom_activity'
+      get 'report_from_classroom_unit_activity_and_user/cu/:classroom_unit_id/user/:user_id/a/:activity_id' => 'diagnostic_reports#report_from_classroom_unit_and_user'
+      get 'report_from_classroom_unit_and_activity/:classroom_unit_id/a/:activity_id' => 'diagnostic_reports#report_from_classroom_unit'
       get 'diagnostic_reports' => 'diagnostic_reports#show'
       get 'diagnostic_status' => 'diagnostic_reports#diagnostic_status'
       get 'diagnostic_report' => 'diagnostic_reports#default_diagnostic_report'
