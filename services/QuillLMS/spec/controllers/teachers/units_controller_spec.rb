@@ -70,7 +70,7 @@ describe Teachers::UnitsController, type: :controller do
       it 'should render the correct json' do
         get :lesson_info_for_activity, activity_id: activities.first.id, format: :json
         expect(response.body).to eq({
-          classroom_activities: activities,
+          classroom_units: activities,
           activity_name: Activity.select('name').where("id = #{activities.first.id}")
         }.to_json)
       end
@@ -132,6 +132,7 @@ describe Teachers::UnitsController, type: :controller do
       expect(response[0]['classroom_id']).to eq(classroom.id.to_s)
       expect(response[0]['activity_classification_id']).to eq(activity.activity_classification_id.to_s)
       expect(response[0]['classroom_unit_id']).to eq(classroom_unit.id.to_s)
+      expect(response[0]['unit_activity_id']).to eq(unit_activity.id.to_s)
       expect(response[0]['unit_id']).to eq(unit.id.to_s)
       expect(response[0]['class_size']).to eq(classroom.students.count.to_s)
       expect(response[0]['activity_uid']).to eq(activity.uid)
@@ -246,12 +247,15 @@ describe Teachers::UnitsController, type: :controller do
 
     it 'should redirect to the lesson if there is only one lesson' do
       classroom_unit = create(:classroom_unit, classroom: current_user.classrooms_i_own.first)
+      unit_activity = create(:unit_activity, unit: classroom_unit.unit, activity: activity)
       get :select_lesson_with_activity_id, activity_id: activity.id
       expect(response).to redirect_to("/teachers/classroom_units/#{classroom_unit.id}/launch_lesson/#{activity.uid}")
     end
 
     it 'should redirect to a lessons index if there are multiple lessons' do
-      create_pair(:classroom_unit)
+      unit = create(:unit)
+      create_pair(:classroom_unit, unit: unit)
+      unit_activity = create(:unit_activity, unit: unit, activity: activity)
       get :select_lesson_with_activity_id, activity_id: activity.id
       expect(response).to redirect_to("/teachers/classrooms/activity_planner/lessons_for_activity/#{activity.id}")
     end
