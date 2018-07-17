@@ -67,7 +67,7 @@ class ClassroomUnitActivityState < ActiveRecord::Base
   def only_one_pinned
     if self.pinned
       classroom = self.classroom_unit.classroom
-      classroom_unit_ids = classroom.classroom_units.ids
+      classroom_unit_ids = classroom.classroom_units.ids.flatten
       pinned_cuas = ClassroomUnitActivityState.unscoped.where(pinned: true, classroom_unit_id: [classroom_unit_ids])
       pinned_cuas.length == 1
     end
