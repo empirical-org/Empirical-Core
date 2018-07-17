@@ -70,16 +70,16 @@ export default React.createClass({
     }
   },
 
-  hideClassroomActivity() {
+  hideUnitActivity() {
     const x = confirm('Are you sure you want to delete this assignment?')
     if (x) {
-      this.props.hideClassroomActivity(this.caId(), this.unitId())
+      this.props.hideUnitActivity(this.uaId(), this.unitId())
     }
   },
 
   handleChange(date) {
     this.setState({ startDate: date, })
-    this.props.updateDueDate(this.caId(), date.format())
+    this.props.updateDueDate(this.uaId(), date.format())
   },
 
   toggleCustomizeTooltip() {
@@ -227,6 +227,10 @@ export default React.createClass({
     return this.props.data.caId || this.props.data.id
   },
 
+  uaId() {
+    return this.props.data.uaId || this.props.data.ua_id
+  },
+
   unitId() {
     return this.props.unitId || this.props.data.unit_id
   },
@@ -290,7 +294,7 @@ export default React.createClass({
   deleteRow() {
     if (!this.props.report && !(this.isLesson())) {
       const style = !this.props.data.ownedByCurrentUser ? {visibility: 'hidden'} : null
-      return <div className="pull-right" style={style}><img className="delete-classroom-activity h-pointer" onClick={this.hideClassroomActivity} src="/images/x.svg" /></div>
+      return <div className="pull-right" style={style}><img className="delete-classroom-activity h-pointer" onClick={this.hideUnitActivity} src="/images/x.svg" /></div>
     }
   },
 

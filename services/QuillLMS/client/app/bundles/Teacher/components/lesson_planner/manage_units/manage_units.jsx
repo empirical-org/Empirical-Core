@@ -149,9 +149,9 @@ export default React.createClass({
     });
   },
 
-  hideClassroomActivity(caId, unitId) {
+  hideUnitActivity(uaId, unitId) {
     request.put({
-      url: `${process.env.DEFAULT_URL}/teachers/classroom_activities/${caId}/hide`,
+      url: `${process.env.DEFAULT_URL}/teachers/unit_activities/${uaId}/hide`,
       json: { authenticity_token: getAuthToken(), }, },
       (error, httpStatus, body) => {
         if (httpStatus && httpStatus.statusCode === 200) {
@@ -160,9 +160,9 @@ export default React.createClass({
             const modifiedUnit = unit
             if (this.getIdFromUnit(modifiedUnit) === unitId) {
               if (modifiedUnit.classroom_activities) {
-                modifiedUnit.classroom_activities = _.reject(modifiedUnit.classroom_activities, ca => ca.id === caId);
+                modifiedUnit.classroom_activities = _.reject(modifiedUnit.classroom_activities, ca => ca.ua_id === uaId);
               } else if (modifiedUnit.classroomActivities) {
-                modifiedUnit.classroomActivities = new Map(_.reject(Array.from(modifiedUnit.classroomActivities), ca => ca[1].caId === caId)); // This is very bad code.
+                modifiedUnit.classroomActivities = new Map(_.reject(Array.from(modifiedUnit.classroomActivities), ca => ca[1].uaId === uaId)); // This is very bad code.
               }
             }
             return modifiedUnit;
@@ -173,15 +173,15 @@ export default React.createClass({
     )
   },
 
-  updateDueDate(ca_id, date) {
-    request.put(`${process.env.DEFAULT_URL}/teachers/classroom_activities/${ca_id}`, {
-      json: { classroom_activity: { due_date: date, }, authenticity_token: getAuthToken(), },
+  updateDueDate(ua_id, date) {
+    request.put(`${process.env.DEFAULT_URL}/teachers/unit_activities/${ua_id}`, {
+      json: { unit_activity: { due_date: date, }, authenticity_token: getAuthToken(), },
     });
   },
 
-  updateMultipleDueDates(ca_ids, date) {
-    request.put(`${process.env.DEFAULT_URL}/teachers/classroom_activities/update_multiple_due_dates`, {
-      json: { classroom_activity_ids: ca_ids, due_date: date, authenticity_token: getAuthToken(), },
+  updateMultipleDueDates(ua_ids, date) {
+    request.put(`${process.env.DEFAULT_URL}/teachers/unit_activities/update_multiple_due_dates`, {
+      json: { unit_activity_ids: ca_ids, due_date: date, authenticity_token: getAuthToken(), },
     });
   },
 
@@ -208,7 +208,7 @@ export default React.createClass({
       content = (<Units
         updateDueDate={this.updateDueDate}
         editUnit={this.props.actions.editUnit}
-        hideClassroomActivity={this.hideClassroomActivity}
+        hideUnitActivity={this.hideUnitActivity}
         hideUnit={this.hideUnit}
         data={this.state.units}
         updateMultipleDueDates={this.updateMultipleDueDates}

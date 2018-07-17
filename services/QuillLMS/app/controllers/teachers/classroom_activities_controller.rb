@@ -7,21 +7,21 @@ class Teachers::ClassroomActivitiesController < ApplicationController
   before_filter :set_activity_session, only: :hide
 
   # both
-  def update
-    @classroom_activities.each{ |classroom_activity| classroom_activity.try(:update_attributes, classroom_activity_params)}
-    render json: @classroom_activities.to_json
-  end
+  # def update
+  #   @classroom_activities.each{ |classroom_activity| classroom_activity.try(:update_attributes, classroom_activity_params)}
+  #   render json: @classroom_activities.to_json
+  # end
 
   # both
-  def hide
-    @classroom_activities.update_all(visible: false)
-    @classroom_activity.unit.hide_if_no_visible_unit_activities
-    @activity_sessions.update_all(visible: false)
-    SetTeacherLessonCache.perform_async(current_user.id)
-    render json: {}
-  end
+  # def hide
+  #   @classroom_activities.update_all(visible: false)
+  #   @classroom_activity.unit.hide_if_no_visible_unit_activities
+  #   @activity_sessions.update_all(visible: false)
+  #   SetTeacherLessonCache.perform_async(current_user.id)
+  #   render json: {}
+  # end
 
-  # classroom units, but it will also need an activity id
+  # classroom units
   def launch_lesson
     if lesson_tutorial_completed?
       if @classroom_activity.update(locked: false, pinned: true)
@@ -41,7 +41,7 @@ class Teachers::ClassroomActivitiesController < ApplicationController
     end
   end
 
-  # classroom units, but it will also need an activity id
+  # classroom units
   def lessons_activities_cache
     render json: {
       data: lessons_cache
