@@ -92,6 +92,7 @@ EmpiricalGrammar::Application.routes.draw do
     put :play, on: :member
   end
   # 3rd party apps depend on the below, do not change :
+  get 'activity_sessions/classroom_units/:classroom_unit_id/activities/:activity_id' => 'activity_sessions#activity_session_from_classroom_unit_and_activity'
   get 'activity_sessions/:uid' => 'activity_sessions#result'
 
 
@@ -164,9 +165,30 @@ EmpiricalGrammar::Application.routes.draw do
         put 'update_multiple_due_dates'
         get ':id/post_to_google' => 'classroom_activities#post_to_google'
         put ':id/hide' => 'classroom_activities#hide'
-        get ':id/activity_from_classroom_activity' => 'classroom_activities#activity_from_classroom_activity'
-        get ':id/launch_lesson/:lesson_uid' => 'classroom_activities#launch_lesson'
-        get ':id/mark_lesson_as_completed/:lesson_uid' => 'classroom_activities#mark_lesson_as_completed'
+        # get ':id/launch_lesson/:lesson_uid' => 'classroom_activities#launch_lesson'
+        # get ':id/mark_lesson_as_completed/:lesson_uid' => 'classroom_activities#mark_lesson_as_completed'
+      end
+    end
+
+    resources :classroom_units, only: [:destroy, :update], as: 'classroom_units_path' do
+      collection do
+        get 'lessons_activities_cache'
+        get 'lessons_units_and_activities'
+        put 'update_multiple_due_dates'
+        get ':id/post_to_google' => 'classroom_units#post_to_google'
+        put ':id/hide' => 'classroom_units#hide'
+        get ':id/launch_lesson/:lesson_uid' => 'classroom_units#launch_lesson'
+        get ':id/mark_lesson_as_completed/:lesson_uid' => 'classroom_units#mark_lesson_as_completed'
+      end
+    end
+
+    resources :unit_activities, only: [:destroy, :update], as: 'unit_activities_path' do
+      collection do
+        get 'lessons_activities_cache'
+        get 'lessons_units_and_activities'
+        put 'update_multiple_due_dates'
+        get ':id/post_to_google' => 'unit_activities#post_to_google'
+        put ':id/hide' => 'unit_activities#hide'
       end
     end
 

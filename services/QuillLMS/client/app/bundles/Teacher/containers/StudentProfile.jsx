@@ -113,6 +113,7 @@ class StudentProfile extends React.Component {
         hasActivities={scores.length > 0}
         name={nextActivitySession.name}
         caId={nextActivitySession.ca_id}
+        activityId={nextActivitySession.activity_id}
         activityClassificationId={nextActivitySession.activity_classification_id}
         maxPercentage={nextActivitySession.max_percentage}
       />) : null;

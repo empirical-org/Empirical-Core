@@ -246,6 +246,22 @@ class ActivitySession < ActiveRecord::Base
     act_seshes.map{|act_sesh| act_sesh.concept_results.map{|cr| cr.metadata}}.flatten
   end
 
+  def self.generate_activity_url(classroom_unit_id, activity_id)
+    "#{ENV['DEFAULT_URL']}/activity_sessions/classroom_units/#{classroom_unit_id}/activities/#{activity_id}"
+  end
+
+  def self.find_or_create_started_activity_session(student_id, classroom_unit_id, activity_id)
+    activity_session = ActivitySession.find_by(classroom_unit_id: classroom_unit_id, user_id: student_id, activity_id: activity_id)
+    if activity_session && activity_session.state == 'started'
+      activity_session
+    elsif activity_session && activity_session.state == 'unstarted'
+      activity_session.update(state: 'started')
+      activity_session
+    else
+      ActivitySession.create(classroom_unit_id: classroom_unit_id, user_id: student_id, activity_id: activity_id, state: 'started', started_at: Time.now)
+    end
+  end
+
   private
 
   def correctly_assigned

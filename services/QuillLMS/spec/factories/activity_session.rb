@@ -45,6 +45,13 @@ FactoryBot.define do
       is_final_score false
     end
 
+    trait :started do
+      percentage {nil}
+      state 'started'
+      completed_at {nil}
+      is_final_score false
+    end
+
     factory :diagnostic_activity_session do
       activity { create(:diagnostic_activity) }
     end

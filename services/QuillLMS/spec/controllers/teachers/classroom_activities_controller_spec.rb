@@ -107,21 +107,6 @@ describe Teachers::ClassroomActivitiesController, type: :controller do
     end
   end
 
-  describe '#activity_from_classroom_activity' do
-    let(:student) { create(:student) }
-    let(:activity_session_url) { "/activity_sessions/#{classroom_activity.find_or_create_started_activity_session(student.id).id}/play" }
-
-    before do
-      allow(controller).to receive(:current_user) { student }
-      student.classrooms << classroom
-    end
-
-    it 'should redirect to the correct activity session url' do
-      get :activity_from_classroom_activity, id: classroom_activity.id
-      expect(response).to redirect_to activity_session_url
-    end
-  end
-
   describe '#lessons_activities_cache' do
     before do
       allow(teacher).to receive(:set_and_return_lessons_cache_data) { {id: "not 10"} }
