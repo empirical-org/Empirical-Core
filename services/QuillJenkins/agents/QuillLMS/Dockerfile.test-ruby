@@ -29,13 +29,6 @@ RUN apt-get install -y --no-install-recommends yarn
 #Ensure bundler is the right version
 RUN gem install bundler
 
-# Install gems from gemfile
-COPY services/QuillLMS/Gemfile /tmp/
-WORKDIR /tmp
-RUN ls
-RUN bundle install
-
-WORKDIR /
 
 ENV NVM_DIR /usr/local/nvm
 ENV NODE_VERSION 7.5.0
