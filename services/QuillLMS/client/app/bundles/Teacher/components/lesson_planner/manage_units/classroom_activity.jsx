@@ -70,16 +70,16 @@ export default React.createClass({
     }
   },
 
-  hideClassroomActivity() {
+  hideUnitActivity() {
     const x = confirm('Are you sure you want to delete this assignment?')
     if (x) {
-      this.props.hideClassroomActivity(this.caId(), this.unitId())
+      this.props.hideUnitActivity(this.uaId(), this.unitId())
     }
   },
 
   handleChange(date) {
     this.setState({ startDate: date, })
-    this.props.updateDueDate(this.caId(), date.format())
+    this.props.updateDueDate(this.uaId(), date.format())
   },
 
   toggleCustomizeTooltip() {
@@ -137,7 +137,7 @@ export default React.createClass({
       if (this.props.data.completed) {
         return <p className="lesson-completed"><i className="fa fa-icon fa-check-circle" />Lesson Complete</p>
       } else if (this.props.data.started) {
-        return <a className="mark-completed" target="_blank" href={`/teachers/classroom_activities/${this.props.data.caId}/mark_lesson_as_completed/${this.activityId()}`}>Mark As Complete</a>
+        return <a className="mark-completed" target="_blank" href={`/classroom_units/${this.classroomUnitId()}/mark_lesson_as_completed/${this.activityId()}`}>Mark As Complete</a>
       }
     }
   },
@@ -196,7 +196,7 @@ export default React.createClass({
         <img key='chevron-right' className='chevron-right' src="https://assets.quill.org/images/icons/chevron-dark-green.svg" />
       ]
     } else if (this.props.report) {
-      return [<a key="this.props.data.activity.anonymous_path" href={this.anonymousPath()} target="_blank">Preview</a>, <a key={`report-url-${this.caId()}`} onClick={this.urlForReport}>View Report</a>]
+      return [<a key="this.props.data.activity.anonymous_path" href={this.anonymousPath()} target="_blank">Preview</a>, <a key={`report-url-${this.classroomUnitId()}`} onClick={this.urlForReport}>View Report</a>]
     } else if (this.isLesson()) {
        return this.lessonFinalCell()
     }
@@ -223,8 +223,12 @@ export default React.createClass({
     )
   },
 
-  caId() {
-    return this.props.data.caId || this.props.data.id
+  classroomUnitId() {
+    return this.props.data.cuId || this.props.data.classroom_unit_id
+  },
+
+  uaId() {
+    return this.props.data.uaId || this.props.data.ua_id
   },
 
   unitId() {
@@ -264,22 +268,22 @@ export default React.createClass({
 
   lessonCompletedOrLaunch() {
     if (this.props.data.completed) {
-      return <a className="report-link" target="_blank" href={`/teachers/progress_reports/report_from_classroom_activity/${this.props.data.caId}`}>View Report</a>
+      return <a className="report-link" target="_blank" href={`/teachers/progress_reports/report_from_classroom_unit/${this.classroomUnitId()}/a/${this.activityId()}`}>View Report</a>
     }
     if (this.props.data.studentCount === 0) {
       return <a onClick={this.noStudentsWarning} id="launch-lesson">{this.props.data.started ? 'Resume Lesson' : 'Launch Lesson'}</a>
     } else {
       if (this.props.data.started) {
-        return <a href={`${process.env.DEFAULT_URL}/teachers/classroom_activities/${this.caId()}/launch_lesson/${this.activityId()}`} className="resume-lesson">Resume Lesson</a>
+        return <a href={`${process.env.DEFAULT_URL}/teachers/classroom_units/${this.classroomUnitId()}/launch_lesson/${this.activityId()}`} className="resume-lesson">Resume Lesson</a>
       } else {
-        return <a href={`${process.env.DEFAULT_URL}/teachers/classroom_activities/${this.caId()}/launch_lesson/${this.activityId()}`} id="launch-lesson">Launch Lesson</a>
+        return <a href={`${process.env.DEFAULT_URL}/teachers/classroom_units/${this.classroomUnitId()}/launch_lesson/${this.activityId()}`} id="launch-lesson">Launch Lesson</a>
       }
     }
   },
 
   noStudentsWarning() {
     if (window.confirm("You have no students in this class. Quill Lessons is a collaborative tool for teachers and students to work together. If you'd like to launch this lesson anyway, click OK below. Otherwise, click Cancel.")) {
-      window.location.href = `${process.env.DEFAULT_URL}/teachers/classroom_activities/${this.caId()}/launch_lesson/${this.activityId()}`
+      window.location.href = `${process.env.DEFAULT_URL}/teachers/classroom_units/${this.classroomUnitId()}/launch_lesson/${this.activityId()}`
     }
   },
 
@@ -290,7 +294,7 @@ export default React.createClass({
   deleteRow() {
     if (!this.props.report && !(this.isLesson())) {
       const style = !this.props.data.ownedByCurrentUser ? {visibility: 'hidden'} : null
-      return <div className="pull-right" style={style}><img className="delete-classroom-activity h-pointer" onClick={this.hideClassroomActivity} src="/images/x.svg" /></div>
+      return <div className="pull-right" style={style}><img className="delete-classroom-activity h-pointer" onClick={this.hideUnitActivity} src="/images/x.svg" /></div>
     }
   },
 
@@ -306,7 +310,7 @@ export default React.createClass({
     if (this.state.showModal) {
       return (<PreviewOrLaunchModal
         lessonID={this.activityId()}
-        classroomActivityID={this.caId()}
+        classroomUnitId={this.classroomUnitId()}
         closeModal={this.closeModal}
         completed={this.props.data.completed}
       />)

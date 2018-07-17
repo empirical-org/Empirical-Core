@@ -397,23 +397,4 @@
 #       end
 #     end
 #   end
-#
-#   describe '#find_or_create_started_activity_session' do
-#     it "returns a started activity session if it exists" do
-#       returned_activity_session = classroom_activity_with_started_activity_session.find_or_create_started_activity_session(student.id)
-#       expect(returned_activity_session).to eq(started_activity_session)
-#     end
-#
-#     it "finds an unstarted activity session if it exists, updates it to started, and returns it" do
-#       returned_activity_session = classroom_activity.find_or_create_started_activity_session(student.id)
-#       expect(returned_activity_session).to eq(activity_session)
-#       expect(returned_activity_session.state).to eq('started')
-#     end
-#
-#     it "creates a started activity session if neither a started nor an unstarted one exist" do
-#       returned_activity_session = classroom_activity_with_no_activity_session.find_or_create_started_activity_session(student.id)
-#       expect(returned_activity_session.user_id).to eq(student.id)
-#       expect(returned_activity_session.state).to eq('started')
-#     end
-#   end
-# end
+## end

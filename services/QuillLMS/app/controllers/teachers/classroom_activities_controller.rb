@@ -2,26 +2,26 @@ class Teachers::ClassroomActivitiesController < ApplicationController
   include QuillAuthentication
   require 'pusher'
   respond_to :json
-  before_filter :authorize!, :except => ["lessons_activities_cache", "lessons_units_and_activities", "activity_from_classroom_activity", "update_multiple_due_dates"]
-  before_filter :teacher!, :except => ["activity_from_classroom_activity"]
-  before_filter :student!, :only => ["activity_from_classroom_activity"]
-  before_filter :authorize_student!, :only => ["activity_from_classroom_activity"]
+  before_filter :authorize!, :except => ["lessons_activities_cache", "lessons_units_and_activities", "update_multiple_due_dates"]
   before_filter :set_classroom_activities, only: [:update, :hide]
   before_filter :set_activity_session, only: :hide
 
-  def update
-    @classroom_activities.each{ |classroom_activity| classroom_activity.try(:update_attributes, classroom_activity_params)}
-    render json: @classroom_activities.to_json
-  end
+  # both
+  # def update
+  #   @classroom_activities.each{ |classroom_activity| classroom_activity.try(:update_attributes, classroom_activity_params)}
+  #   render json: @classroom_activities.to_json
+  # end
 
-  def hide
-    @classroom_activities.update_all(visible: false)
-    @classroom_activity.unit.hide_if_no_visible_unit_activities
-    @activity_sessions.update_all(visible: false)
-    SetTeacherLessonCache.perform_async(current_user.id)
-    render json: {}
-  end
+  # both
+  # def hide
+  #   @classroom_activities.update_all(visible: false)
+  #   @classroom_activity.unit.hide_if_no_visible_unit_activities
+  #   @activity_sessions.update_all(visible: false)
+  #   SetTeacherLessonCache.perform_async(current_user.id)
+  #   render json: {}
+  # end
 
+  # classroom units
   def launch_lesson
     if lesson_tutorial_completed?
       if @classroom_activity.update(locked: false, pinned: true)
@@ -41,10 +41,7 @@ class Teachers::ClassroomActivitiesController < ApplicationController
     end
   end
 
-  def activity_from_classroom_activity
-    redirect_to "/activity_sessions/#{activity_session_id}/play"
-  end
-
+  # classroom units
   def lessons_activities_cache
     render json: {
       data: lessons_cache
@@ -57,6 +54,7 @@ class Teachers::ClassroomActivitiesController < ApplicationController
     }
   end
 
+  # unit activities
   def update_multiple_due_dates
     base_classroom_activities = ClassroomActivity.where(id: params[:classroom_activity_ids])
     activity_ids = base_classroom_activities.map(&:activity_id)
@@ -65,10 +63,6 @@ class Teachers::ClassroomActivitiesController < ApplicationController
   end
 
 private
-
-  def activity_session_id
-    @classroom_activity.find_or_create_started_activity_session(current_user.id).id
-  end
 
   def set_activity_session
     @activity_sessions = ActivitySession.where(classroom_activity_id: @classroom_activities.ids)

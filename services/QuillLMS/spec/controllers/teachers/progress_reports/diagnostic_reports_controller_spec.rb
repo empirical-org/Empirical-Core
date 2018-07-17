@@ -9,10 +9,12 @@ include_context "Unit Assignments Variables"
   describe 'getting the report for a completed activity session' do
     describe 'updating existing recommendations' do
       let(:unit) {create(:unit)}
-      let!(:classroom_activity) { create(:classroom_activity, activity: activity, unit: unit, classroom: classroom) }
-      let!(:activity_session) { create(:activity_session, classroom_activity: classroom_activity, activity: activity, user: student) }
+      let(:activity) { create(:activity)}
+      let!(:classroom_unit) { create(:classroom_unit, unit: unit, classroom: classroom) }
+      let!(:unit_activity) { create(:unit_activity, unit: unit, activity: activity)}
+      let!(:activity_session) { create(:activity_session, classroom_unit: classroom_unit, activity: activity, user: student) }
       it "redirects to the correct page" do
-        get :report_from_classroom_activity_and_user, ({classroom_activity_id: classroom_activity.id, user_id: student.id})
+        get :report_from_classroom_unit_and_user, ({classroom_unit_id: classroom_unit.id, user_id: student.id, activity_id: activity.id})
         expect(response).to redirect_to("/teachers/progress_reports/diagnostic_reports#/u/#{unit.id}/a/#{activity.id}/c/#{classroom.id}/student_report/#{student.id}")
       end
     end

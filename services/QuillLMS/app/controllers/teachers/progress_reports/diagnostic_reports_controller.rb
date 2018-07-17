@@ -48,11 +48,11 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
       unit_id = params[:unit_id]
       activity_id = params[:activity_id]
       classroom_hash = ActiveRecord::Base.connection.execute("
-        SELECT classroom_activities.classroom_id from classroom_activities
-        LEFT JOIN activity_sessions ON classroom_activities.id = activity_sessions.classroom_activity_id
-        WHERE classroom_activities.unit_id = #{ActiveRecord::Base.sanitize(unit_id)}
-          AND classroom_activities.activity_id = #{ActiveRecord::Base.sanitize(activity_id)}
-          AND classroom_activities.visible = TRUE
+        SELECT classroom_units.classroom_id from classroom_units
+        LEFT JOIN activity_sessions ON classroom_units.id = activity_sessions.classroom_unit_id
+        WHERE classroom_units.unit_id = #{ActiveRecord::Base.sanitize(unit_id)}
+          AND activity_sessions.activity_id = #{ActiveRecord::Base.sanitize(activity_id)}
+          AND classroom_units.visible = TRUE
           AND activity_sessions.is_final_score = TRUE
         ORDER BY activity_sessions.updated_at DESC
         LIMIT 1;").to_a
@@ -78,8 +78,8 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
         redirect_to default_diagnostic_url
     end
 
-    def report_from_classroom_activity
-      url = classroom_report_url(params[:classroom_activity_id].to_i)
+    def report_from_classroom_unit
+      url = classroom_report_url(params[:classroom_unit_id].to_i, params[:activity_id].to_i)
       if url
         redirect_to url
       else
@@ -87,8 +87,8 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
       end
     end
 
-    def report_from_classroom_activity_and_user
-        act_sesh_report = activity_session_report(params[:classroom_activity_id].to_i, params[:user_id].to_i)
+    def report_from_classroom_unit_and_user
+        act_sesh_report = activity_session_report(params[:classroom_unit_id].to_i, params[:user_id].to_i, params[:activity_id].to_i)
         respond_to do |format|
           format.html { redirect_to act_sesh_report[:url] }
           format.json { render json: act_sesh_report.to_json }
@@ -102,12 +102,12 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
         JOIN classrooms
           ON  classrooms_teachers.classroom_id = classrooms.id
           AND classrooms.visible = TRUE
-        JOIN classroom_activities
-          ON  classrooms.id = classroom_activities.classroom_id
-          AND classroom_activities.visible = TRUE
-          AND classroom_activities.activity_id IN (#{Activity.diagnostic_activity_ids.join(', ')})
+        JOIN classroom_units
+          ON  classrooms.id = classroom_units.classroom_id
+          AND classroom_units.visible = TRUE
+          AND classroom_units.activity_id IN (#{Activity.diagnostic_activity_ids.join(', ')})
         LEFT JOIN activity_sessions
-          ON  classroom_activities.id = activity_sessions.classroom_activity_id
+          ON  classroom_units.id = activity_sessions.classroom_unit_id
           AND activity_sessions.state = 'finished'
           AND activity_sessions.visible = TRUE
         WHERE classrooms_teachers.user_id = #{current_user.id}

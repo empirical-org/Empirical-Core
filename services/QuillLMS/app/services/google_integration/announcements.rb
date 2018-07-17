@@ -83,7 +83,7 @@ class GoogleIntegration::Announcements
 
       "New Unit: #{@unit.name} #{unit_url}"
     else
-      activity_url  = @unit_activity.generate_activity_url
+      activity_url  = ActivitySession.generate_activity_url(classroom_unit.id, @unit_activity.activity.id)
       activity_name = @unit_activity.activity.name
 
       "New Activity: #{activity_name} #{activity_url}"

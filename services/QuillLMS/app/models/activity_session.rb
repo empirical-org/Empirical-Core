@@ -288,6 +288,22 @@ class ActivitySession < ActiveRecord::Base
     end
   end
 
+  def self.generate_activity_url(classroom_unit_id, activity_id)
+    "#{ENV['DEFAULT_URL']}/activity_sessions/classroom_units/#{classroom_unit_id}/activities/#{activity_id}"
+  end
+
+  def self.find_or_create_started_activity_session(student_id, classroom_unit_id, activity_id)
+    activity_session = ActivitySession.find_by(classroom_unit_id: classroom_unit_id, user_id: student_id, activity_id: activity_id)
+    if activity_session && activity_session.state == 'started'
+      activity_session
+    elsif activity_session && activity_session.state == 'unstarted'
+      activity_session.update(state: 'started')
+      activity_session
+    else
+      ActivitySession.create(classroom_unit_id: classroom_unit_id, user_id: student_id, activity_id: activity_id, state: 'started', started_at: Time.now)
+    end
+  end
+
   private
 
   def correctly_assigned
@@ -372,12 +388,12 @@ class ActivitySession < ActiveRecord::Base
     end
   end
 
-  def self.has_a_completed_session?(activity_id, classroom_unit_id)
-    !!ActivitySession.find_by(classroom_unit_id: classroom_unit_id, activity_id: activity_id, state: "finished")
+  def self.has_a_completed_session?(activity_id_or_ids, classroom_unit_id_or_ids)
+    !!ActivitySession.find_by(classroom_unit_id: classroom_unit_id_or_ids, activity_id: activity_id_or_ids, state: "finished")
   end
 
-  def self.has_a_started_session?(activity_id, classroom_unit_id)
-    !!ActivitySession.find_by(classroom_unit_id: classroom_unit_id, activity_id: activity_id, state: "started")
+  def self.has_a_started_session?(activity_id_or_ids, classroom_unit_id_or_ids)
+    !!ActivitySession.find_by(classroom_unit_id: classroom_unit_id_or_ids, activity_id: activity_id_or_ids, state: "started")
   end
 
 

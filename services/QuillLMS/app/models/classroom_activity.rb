@@ -9,10 +9,6 @@ class ClassroomActivity < ActiveRecord::Base
 
   # classroom unit (kinda funky logic currently... -> will have to either pass a
   # classroom_uinit_id or activity_id
-  def generate_activity_url
-    "#{ENV['DEFAULT_URL']}/teachers/classroom_activities/#{self.id}/activity_from_classroom_activity"
-  end
-
   # classroom unit - modify to expect activity id as input param
   def assign_follow_up_lesson(locked=true)
     extant_ca = ClassroomActivity.find_by(classroom_id: self.classroom_id,
@@ -35,15 +31,5 @@ class ClassroomActivity < ActiveRecord::Base
   end
 
   # activity session (requires params)
-  def find_or_create_started_activity_session(student_id)
-    activity_session = ActivitySession.find_by(classroom_activity_id: self.id, user_id: student_id)
-    if activity_session && activity_session.state == 'started'
-      activity_session
-    elsif activity_session && activity_session.state == 'unstarted'
-      activity_session.update(state: 'started')
-      activity_session
-    else
-      ActivitySession.create(classroom_activity_id: self.id, user_id: student_id, activity_id: self.activity_id, state: 'started', started_at: Time.now)
-    end
-  end
+
 end

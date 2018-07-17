@@ -727,4 +727,54 @@ end
       end
     end
   end
+
+  describe '#generate_activity_url' do
+    let(:classroom_unit) { create(:classroom_unit) }
+    let(:activity) { create(:activity) }
+    ENV["DEFAULT_URL"] = 'http://cooolsville.edu'
+
+    it 'returns a url including the default url' do
+      expect(ActivitySession.generate_activity_url(classroom_unit.id, activity.id))
+        .to include('http://cooolsville.edu')
+    end
+
+    it 'returns a url including the classroom unit id' do
+      expect(ActivitySession.generate_activity_url(classroom_unit.id, activity.id))
+        .to include("classroom_units/#{classroom_unit.id}")
+    end
+
+    it 'returns a url including the activity id' do
+      expect(ActivitySession.generate_activity_url(classroom_unit.id, activity.id))
+      .to include("activities/#{activity.id}")
+    end
+  end
+
+  describe '#find_or_create_started_activity_session' do
+    let(:student) { create(:student) }
+    let(:classroom) { create(:classroom) }
+    let(:classroom_unit) { create(:classroom_unit, classroom: classroom, assigned_student_ids: [student.id]) }
+    let(:activity) { create(:activity) }
+    let (:unit_activity) { create(:unit_activity, activity: activity, unit: classroom_unit.unit )}
+
+    it "returns a started activity session if it exists" do
+      started_activity_session = create(:activity_session, :started, user: student, activity: activity, classroom_unit: classroom_unit)
+      returned_activity_session = ActivitySession.find_or_create_started_activity_session(student.id, classroom_unit.id, activity.id)
+      expect(returned_activity_session).to eq(started_activity_session)
+    end
+
+    it "finds an unstarted activity session if it exists, updates it to started, and returns it" do
+      unstarted_activity_session = create(:activity_session, :unstarted, user: student, activity: activity, classroom_unit: classroom_unit)
+      returned_activity_session = ActivitySession.find_or_create_started_activity_session(student.id, classroom_unit.id, activity.id)
+      expect(returned_activity_session).to eq(unstarted_activity_session)
+      expect(returned_activity_session.state).to eq('started')
+    end
+
+    it "creates a started activity session if neither a started nor an unstarted one exist" do
+      returned_activity_session = ActivitySession.find_or_create_started_activity_session(student.id, classroom_unit.id, activity.id)
+      expect(returned_activity_session.user_id).to eq(student.id)
+      expect(returned_activity_session.state).to eq('started')
+    end
+  end
+
+
 end
