@@ -1,33 +1,81 @@
 class Api::V1::ClassroomActivitiesController < Api::ApiController
   include QuillAuthentication
   before_filter :authorize!
+  before_filter :set_activity_sessions, only: :student_names
 
   def student_names
-    render json: get_assigned_student_hash
+    render json: assigned_students
   end
 
   def teacher_and_classroom_name
-    # this method belongs to the classroom unit now
-    render json: @classroom_activity.teacher_and_classroom_name
+    classroom_unit = ClassroomUnit.find(params[:classroom_unit_id])
+    render json: classroom_unit.teacher_and_classroom_name
   end
 
   def finish_lesson
     json = JSON.parse(params['json'])
     data = json['edition_id'] ? {edition_id: json['edition_id']} : {}
-    # these methods belong to activity sessions now, and need to be passed a classroom unit id and an activity id
-    @classroom_activity.mark_all_activity_sessions_complete(data)
-    @classroom_activity.update(locked: true, pinned: false, completed: true)
-    @classroom_activity.save_concept_results(json['concept_results'])
-    @classroom_activity.delete_activity_sessions_with_no_concept_results
+
+    activity = Activity.find(params[:activity_id])
+    classroom_unit = ClassroomUnit.find(params[:classroom_unit_id])
+
+    unit_activity = UnitActivity.find_by(
+      unit_id: classroom_unit.unit_id,
+      activity_id: params[:activity_id]
+    )
+
+    states = ClassroomUnitActivityState.where(
+      classroom_unit_id: params[:classroom_unit_id],
+      unit_activity: unit_activity
+    )
+
+    ActivitySession.mark_all_activity_sessions_complete(
+      params[:classroom_unit_id],
+      params[:activity_id],
+      data
+    )
+
+    states.update_all(locked: true, pinned: false, completed: true)
+
+    ActivitySession.save_concept_results(
+      params[:classroom_unit_id],
+      params[:activity_id],
+      json['concept_results']
+    )
+
+    ActivitySession.delete_activity_sessions_with_no_concept_results(
+      params[:classroom_unit_id],
+      params[:activity_id]
+    )
+
     if json['edition_id']
       milestone = Milestone.find_by_name('Complete Customized Lesson')
       if !UserMilestone.find_by(user_id: current_user.id, milestone_id: milestone.id)
         UserMilestone.create(user_id: current_user.id, milestone_id: milestone.id)
       end
     end
-    follow_up = json['follow_up'] ? @classroom_activity.assign_follow_up_lesson(false) : false
-    url = follow_up ? follow_up.generate_activity_url : "#{ENV['DEFAULT_URL']}"
-    render json: {follow_up_url: url}
+
+    follow_up = begin
+      if json['follow_up'].present?
+        ActivitySession.assign_follow_up_lesson(
+          params[:classroom_unit_id],
+          params[:activity_id],
+          false
+        )
+      else
+        false
+      end
+    end
+
+    url = begin
+      if follow_up.present?
+        follow_up.generate_activity_url
+      else
+        "#{ENV['DEFAULT_URL']}"
+      end
+    end
+
+    render json: { follow_up_url: url }
   end
 
   def pin_activity
@@ -50,26 +98,34 @@ class Api::V1::ClassroomActivitiesController < Api::ApiController
 
   private
 
-  def authorize!
-    @classroom_activity = ClassroomActivity.find params[:id]
-    classroom_id = @classroom_activity.classroom.id
-    classroom_teacher!(classroom_id)
+  def set_activity_sessions
+    @activity_sessions = ActivitySession.includes(:user).where(
+      activity_id: params[:activity_id],
+      classroom_unit_id: params[:classroom_unit_id]
+    )
   end
 
-  def get_assigned_student_hash
-    activity_sessions = @classroom_activity.activity_sessions.includes(:user)
+  def authorize!
+    classroom_unit = ClassroomUnit.find(params[:classroom_unit_id])
+    classroom_teacher!(classroom_unit.classroom.id)
+  end
+
+  def assigned_students
     assigned_student_hash = {}
     assigned_student_ids_hash = {}
-    activity_sessions.each do |act_sesh|
-      if act_sesh.uid
-        assigned_student_hash[act_sesh.uid] = act_sesh.user.name
+
+    @activity_sessions.each do |activity_session|
+      if activity_session.uid
+        assigned_student_hash[activity_session.uid] = activity_session.user.name
       end
-      if act_sesh.user_id
-        assigned_student_ids_hash[act_sesh.user_id] = true
+      if activity_session.user_id
+        assigned_student_ids_hash[activity_session.user_id] = true
       end
     end
-    {activity_sessions_and_names: assigned_student_hash, student_ids: assigned_student_ids_hash}
+
+    {
+      activity_sessions_and_names: assigned_student_hash,
+      student_ids: assigned_student_ids_hash
+    }
   end
-
-
 end
