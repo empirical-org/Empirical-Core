@@ -73,20 +73,20 @@ pipeline {
             dir(path: 'services/QuillLMS') {
               echo 'Installing Deps'
               sh 'bundle install'
-              echo 'Rspec:'
-              echo 'Setting up rspec...'
-              //sh 'cp config/database.yml.jenkins config/database.yml'
-              sh "config/generate_databaseyml.sh ${env.BUILD_TAG} config/database.yml" 
-              echo 'Running rspec'
-              sh 'bundle exec rake parallel:create'
-              sh 'bundle exec rake parallel:load_structure'
-              sh 'bundle exec rake parallel:spec'
-              withCredentials(bindings: [string(credentialsId: 'codecov-token', variable: 'CODECOV_TOKEN')]) {
-                sh "curl -s https://codecov.io/bash | bash -s - -cF rspec -f coverage/coverage.json -t $CODECOV_TOKEN"
-              }
-              echo 'Brakeman:'
-              sh 'bundle exec brakeman -z'
-              echo 'Test successful!'
+              // echo 'Rspec:'
+              // echo 'Setting up rspec...'
+              // //sh 'cp config/database.yml.jenkins config/database.yml'
+              // sh "config/generate_databaseyml.sh ${env.BUILD_TAG} config/database.yml" 
+              // echo 'Running rspec'
+              // sh 'bundle exec rake parallel:create'
+              // sh 'bundle exec rake parallel:load_structure'
+              // sh 'bundle exec rake parallel:spec'
+              // withCredentials(bindings: [string(credentialsId: 'codecov-token', variable: 'CODECOV_TOKEN')]) {
+              //   sh "curl -s https://codecov.io/bash | bash -s - -cF rspec -f coverage/coverage.json -t $CODECOV_TOKEN"
+              // }
+              // echo 'Brakeman:'
+              // sh 'bundle exec brakeman -z'
+              // echo 'Test successful!'
 
               echo 'Beginnning front-end tests...'
 
