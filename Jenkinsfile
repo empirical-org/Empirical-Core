@@ -71,6 +71,8 @@ pipeline {
           steps {
             echo 'Beginnning TEST...'
             dir(path: 'services/QuillLMS') {
+              echo 'Installing Deps'
+              sh 'bundle install'
               echo 'Rspec:'
               echo 'Setting up rspec...'
               //sh 'cp config/database.yml.jenkins config/database.yml'
