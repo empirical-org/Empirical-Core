@@ -15,7 +15,7 @@ const webpackConfigLoader = require('react-on-rails/webpackConfigLoader');
 
 console.log('Directory: ', __dirname);
 
-const configPath = resolve('..', 'config');
+const configPath = resolve('../', 'config');
 const { output, } = webpackConfigLoader(configPath);
 const nodeEnv = devBuild ? 'development' : 'production';
 
