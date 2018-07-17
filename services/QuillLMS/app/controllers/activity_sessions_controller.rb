@@ -17,7 +17,7 @@ class ActivitySessionsController < ApplicationController
   def result
     @activity = @activity_session
     @results  = @activity_session.parse_for_results
-    @classroom_id = @activity_session&.classroom_activity&.classroom_id
+    @classroom_id = @activity_session&.classroom_unit&.classroom_id
   end
 
   def anonymous
@@ -39,10 +39,10 @@ class ActivitySessionsController < ApplicationController
   end
 
   def path_request_to_firebase
-    classroom_activity_id = @activity_session.classroom_activity_id
+    classroom_unit_id = @activity_session.classroom_unit_id
     HTTParty.patch(
         firebase_url_for(
-            classroom_activity_id
+            classroom_unit_id
         ),
         body: firebase_json_request_body.to_json
     )
@@ -52,8 +52,8 @@ class ActivitySessionsController < ApplicationController
     @options ||= {"#{@activity_session.uid}": current_user.name}
   end
 
-  def firebase_url_for(classroom_activity_id)
-    @url ||= "#{ENV['FIREBASE_DATABASE_URL']}/v2/classroom_lesson_sessions/#{classroom_activity_id}/students.json"
+  def firebase_url_for(classroom_unit_id)
+    @url ||= "#{ENV['FIREBASE_DATABASE_URL']}/v2/classroom_lesson_sessions/#{classroom_unit_id}/students.json"
   end
 
   def anonymous_return_url
