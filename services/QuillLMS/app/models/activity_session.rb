@@ -246,6 +246,48 @@ class ActivitySession < ActiveRecord::Base
     act_seshes.map{|act_sesh| act_sesh.concept_results.map{|cr| cr.metadata}}.flatten
   end
 
+  def self.assign_follow_up_lesson(classroom_unit_id, activity_id, locked = true)
+    activity = Activity.find(activity_id)
+    classroom_unit = ClassroomUnit.find(classroom_unit_id)
+    unit_activity = UnitActivity.find_by(
+      activity: activity,
+      unit_id: classroom_unit.unit_id
+    )
+    state = ClassroomUnitActivityState.where(
+      unit_activity: unit_activity,
+      classroom_unit: classroom_unit,
+    )
+
+    if activity.follow_up_activity_id.nil?
+      return false
+    end
+
+    if state.first.present?
+      state.update(locked: false)
+      return state
+    end
+
+    begin
+      ActiveRecord::Base.transaction do
+        follow_up_unit_activity = UnitActivity.create!(
+          activity_id: activity.follow_up_activity_id,
+          unit_id: classroom_unit.unit_id,
+          visible: true
+        )
+
+        ClassroomUnitActivityState.create!(
+          locked: locked,
+          unit_activity: follow_up_unit_activity,
+          classroom_unit: classroom_unit
+        )
+
+        follow_up_unit_activity
+      end
+    rescue StandardError => e
+      false
+    end
+  end
+
   private
 
   def correctly_assigned

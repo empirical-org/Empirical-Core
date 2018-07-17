@@ -18,11 +18,56 @@ describe ActivitySession, type: :model, redis: :true do
   it { is_expected.to callback(:trigger_events).around(:save) }
 
   describe "can behave like an uid class" do
-
     context "when behaves like uid" do
       it_behaves_like "uid"
     end
+  end
 
+  describe '.assign_follow_up_lesson' do
+    context 'when follow_up_activity_id in activity is absent' do
+      let(:unit) { create(:unit) }
+      let(:classroom_unit) { create(:classroom_unit, unit: unit) }
+      let(:activity) { create(:activity, follow_up_activity: nil) }
+      let!(:activity_session) do
+        create(:activity_session,
+          activity: activity,
+          classroom_unit: classroom_unit
+        )
+      end
+
+      it 'should return false' do
+        result = ActivitySession.assign_follow_up_lesson(
+          classroom_unit.id,
+          activity.id,
+        )
+
+        expect(result).to eq(false)
+      end
+    end
+
+    context 'when classroom activity does not exist' do
+      let(:unit) { create(:unit) }
+      let(:classroom_unit) { create(:classroom_unit, unit: unit) }
+      let(:follow_up_activity) { create(:activity) }
+      let(:activity) { create(:activity, follow_up_activity: follow_up_activity) }
+      let!(:activity_session) do
+        create(:activity_session,
+          activity: activity,
+          classroom_unit: classroom_unit
+        )
+      end
+
+      it 'should create the unit_activity' do
+        unit_activity = ActivitySession.assign_follow_up_lesson(
+          classroom_unit.id,
+          activity.id,
+        )
+        expect(unit_activity.activity_id).to eq(follow_up_activity.id)
+        expect(unit_activity.unit_id).to eq(unit.id)
+        expect(unit_activity.visible).to eq(true)
+        expect(unit_activity.classroom_unit_activity_states.first.locked).to eq(true)
+      end
+    end
   end
 
   describe '#classroom_owner' do
