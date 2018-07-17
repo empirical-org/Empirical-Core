@@ -58,10 +58,6 @@ class UnitActivity < ActiveRecord::Base
     end
   end
 
-  def generate_activity_url
-    "#{ENV['DEFAULT_URL']}/teachers/classroom_activities/#{self.id}/activity_from_classroom_activity"
-  end
-
   private
 
   def hide_appropriate_activity_sessions

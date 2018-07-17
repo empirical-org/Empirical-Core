@@ -131,8 +131,9 @@ describe Api::V1::ClassroomActivitiesController, type: :controller do
       )
 
       follow_up = UnitActivity.last
-      expected_url = "#{ENV['DEFAULT_URL']}/teachers/" +
-        "classroom_activities/#{follow_up.id}/activity_from_classroom_activity"
+
+      expected_url = "#{ENV['DEFAULT_URL']}/activity_sessions/classroom_units/" +
+        "#{classroom_unit.id}/activities/#{follow_up.id}"
 
       expect(JSON.parse(response.body))
         .to eq({ "follow_up_url" => expected_url })
