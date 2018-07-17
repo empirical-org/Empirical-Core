@@ -234,7 +234,8 @@ describe Teachers::UnitsController, type: :controller do
     let!(:activity) { create(:lesson_activity) }
 
     before(:each) do
-      ClassroomActivity.destroy_all
+      ClassroomUnit.destroy_all
+      UnitActivity.destroy_all
       session['user_id'] = classroom_unit.classroom.owner.id
     end
 
