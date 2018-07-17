@@ -6,7 +6,8 @@ module UnitsWithCompletedActivities
     relevant_unit_ids = []
     all_assigned_units.each do |unit_id, classroom_units|
       activity_ids = Unit.find(unit_id)&.unit_activities&.map(&:activity_id).flatten
-      relevant_unit_ids << unit_id if classroom_units.select { |cu| ActivitySession.has_a_completed_session?(cu.id, activity_ids) }.any?
+      classroom_unit_ids = classroom_units.map(&:id).flatten
+      relevant_unit_ids << unit_id if ActivitySession.has_a_completed_session?(activity_ids, classroom_unit_ids)
     end
     Unit.where(id: relevant_unit_ids)
   end
