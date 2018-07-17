@@ -12,8 +12,9 @@ describe ActivitySessionsController, type: :controller do
   let!(:activity) { create(:activity) }
   let!(:classroom) { create(:classroom)}
   let!(:user1) { create(:user, classcode: classroom.code) }
-  let!(:ca) { create(:classroom_activity, classroom: classroom, activity: activity)}
-  let!(:activity_session) { create(:activity_session, user: user1, activity: activity, classroom_activity: ca, state: 'unstarted') }
+  let!(:cu) { create(:classroom_unit, classroom: classroom, assigned_student_ids: [user1.id])}
+  let!(:ua) { create(:unit_activity, unit: cu.unit, activity: activity)}
+  let!(:activity_session) { create(:activity_session, user: user1, activity: activity, classroom_unit: cu, state: 'unstarted') }
   let(:user) { create(:staff) }
 
   before do
@@ -23,7 +24,7 @@ describe ActivitySessionsController, type: :controller do
 
   describe '#play' do
     context 'when the activity classification id is 6' do
-      let(:url) { "#{ENV['FIREBASE_DATABASE_URL']}/v2/classroom_lesson_sessions/#{ca.id}/students.json" }
+      let(:url) { "#{ENV['FIREBASE_DATABASE_URL']}/v2/classroom_lesson_sessions/#{cu.id}/students.json" }
       let(:body) { {"#{activity_session.uid}": user.name}.to_json }
 
       before do
@@ -58,7 +59,7 @@ describe ActivitySessionsController, type: :controller do
       get :result, uid: activity_session.uid
       expect(assigns(:activity)).to eq activity_session
       expect(assigns(:results)).to eq activity_session.parse_for_results
-      expect(assigns(:classroom_id)).to eq activity_session.classroom_activity.classroom_id
+      expect(assigns(:classroom_id)).to eq activity_session.classroom_unit.classroom_id
     end
   end
 
