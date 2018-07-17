@@ -1,6 +1,6 @@
 # require 'rails_helper'
 #
-# describe Teachers::ClassroomActivitiesController, type: :controller do
+# describe Teachers::ClassroomUnitsController, type: :controller do
 #   it { should use_before_filter :authorize! }
 #   it { should use_before_filter :teacher! }
 #   it { should use_before_filter :student! }

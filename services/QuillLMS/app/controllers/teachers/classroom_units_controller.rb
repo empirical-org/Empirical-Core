@@ -4,17 +4,18 @@ class Teachers::ClassroomActivitiesController < ApplicationController
   respond_to :json
   before_filter :authorize!, :except => ["lessons_activities_cache", "lessons_units_and_activities", "update_multiple_due_dates"]
   before_filter :teacher!
-  before_filter :set_classroom_activities, only: [:update, :hide]
+  before_filter :set_classroom_units, only: [:update, :hide]
   before_filter :set_activity_session, only: :hide
 
-  def update
-    @classroom_activities.each{ |classroom_activity| classroom_activity.try(:update_attributes, classroom_activity_params)}
-    render json: @classroom_activities.to_json
-  end
+  # unclear if this is ever being used, leaving commented out for now
+  # def update
+  #   @classroom_units.each{ |classroom_unit| classroom_unit.try(:update_attributes, classroom_unit_params)}
+  #   render json: @classroom_units.to_json
+  # end
 
   def hide
-    @classroom_activities.update_all(visible: false)
-    @classroom_activity.unit.hide_if_no_visible_unit_activities
+    @classroom_units.update_all(visible: false)
+    @classroom_unit.unit.hide_if_no_visible_unit_activities
     @activity_sessions.update_all(visible: false)
     SetTeacherLessonCache.perform_async(current_user.id)
     render json: {}
@@ -22,11 +23,11 @@ class Teachers::ClassroomActivitiesController < ApplicationController
 
   def launch_lesson
     if lesson_tutorial_completed?
-      if @classroom_activity.update(locked: false, pinned: true)
+      if @classroom_unit.update(locked: false, pinned: true)
         find_or_create_lesson_activity_sessions_for_classroom
-        PusherLessonLaunched.run(@classroom_activity.classroom)
+        PusherLessonLaunched.run(@classroom_unit.classroom)
         # this method lives in classroom_unit now, refactor needed
-        if @classroom_activity.is_valid_for_google_announcement_with_specific_user?(current_user)
+        if @classroom_unit.is_valid_for_google_announcement_with_specific_user?(current_user)
           return post_to_google_classroom
         end
         redirect_to lesson_url(lesson) and return
@@ -54,11 +55,11 @@ class Teachers::ClassroomActivitiesController < ApplicationController
 private
 
   def set_activity_session
-    @activity_sessions = ActivitySession.where(classroom_activity_id: @classroom_activities.ids)
+    @activity_sessions = ActivitySession.where(classroom_unit_id: @classroom_units.ids)
   end
 
-  def set_classroom_activities
-    @classroom_activities = ClassroomActivity.where(activity: @classroom_activity.activity, unit: @classroom_activity.unit)
+  def set_classroom_units
+    @classroom_units = ClassroomUnit.where(activity: @classroom_unit.activity, unit: @classroom_unit.unit)
   end
 
   def mark_lesson_as_completed
@@ -66,7 +67,7 @@ private
   end
 
   def mark_lesson_as_completed_url
-    "#{lesson.classification_form_url}teach/class-lessons/#{lesson.uid}/mark_lesson_as_completed?&classroom_activity_id=#{@classroom_activity.id}"
+    "#{lesson.classification_form_url}teach/class-lessons/#{lesson.uid}/mark_lesson_as_completed?&classroom_unit_id=#{@classroom_unit.id}"
   end
 
   def lesson_tutorial_completed?
@@ -74,7 +75,7 @@ private
   end
 
   def launch_lesson_url
-    "/teachers/classroom_activities/#{@classroom_activity.id}/launch_lesson/#{lesson.uid}"
+    "/teachers/classroom_units/#{@classroom_unit.id}/launch_lesson/#{lesson.uid}"
   end
 
   def lesson
@@ -86,16 +87,16 @@ private
   end
 
   def lesson_url(lesson)
-    if (ActivitySession.find_by(classroom_activity_id: @classroom_activity.id, state: 'started'))
-      "#{lesson.classification_form_url}teach/class-lessons/#{lesson.uid}?&classroom_activity_id=#{@classroom_activity.id}"
+    if (ActivitySession.find_by(classroom_unit_id: @classroom_unit.id, state: 'started'))
+      "#{lesson.classification_form_url}teach/class-lessons/#{lesson.uid}?&classroom_unit_id=#{@classroom_unit.id}"
     else
-      "#{lesson.classification_form_url}customize/#{lesson.uid}?&classroom_activity_id=#{@classroom_activity.id}"
+      "#{lesson.classification_form_url}customize/#{lesson.uid}?&classroom_unit_id=#{@classroom_unit.id}"
     end
   end
 
   def post_to_google_classroom
     # this needs to go into unit activity, that's what we'll be passing into this method
-    google_response = GoogleIntegration::Announcements.new(@classroom_activity)
+    google_response = GoogleIntegration::Announcements.new(@classroom_unit)
       .post
     if google_response == 'UNAUTHENTICATED'
       session[:google_redirect] = request.path
@@ -106,12 +107,12 @@ private
   end
 
   def find_or_create_lesson_activity_sessions_for_classroom
-    @classroom_activity.assigned_student_ids.each{|id| ActivitySession.unscoped.find_or_create_by(classroom_activity_id: @classroom_activity.id, activity_id: @classroom_activity.activity_id, user_id: id).update(visible: true)}
+    @classroom_unit.assigned_student_ids.each{|id| ActivitySession.unscoped.find_or_create_by(classroom_unit_id: @classroom_unit.id, activity_id: @classroom_unit.activity_id, user_id: id).update(visible: true)}
   end
 
   def authorize!
-    @classroom_activity = ClassroomActivity.find params[:id]
-    if @classroom_activity.classroom.teacher_ids.exclude?(current_user.id) then auth_failed end
+    @classroom_unit = ClassroomUnit.find params[:id]
+    if @classroom_unit.classroom.teacher_ids.exclude?(current_user.id) then auth_failed end
   end
 
 
@@ -130,7 +131,7 @@ private
     end
   end
 
-  def classroom_activity_params
-    params[:classroom_activity].permit(:due_date, :due_date_string, :choose_everyone, {assigned_student_ids: []}, :unit_id)
+  def classroom_unit_params
+    params[:classroom_unit].permit(:due_date, :due_date_string, :choose_everyone, {assigned_student_ids: []}, :unit_id)
   end
 end

@@ -185,15 +185,15 @@ export default React.createClass({
 
   updateAllDueDates(date) {
     const newClassroomActivities = new Map(this.state.classroomActivities)
-    const caIds = []
+    const uaIds = []
     this.state.classroomActivities.forEach((v, k) => {
-      caIds.push(v.caId)
+      uaIds.push(v.uaId)
       const classroomActivity = newClassroomActivities.get(k)
       classroomActivity.dueDate = moment(date)
       newClassroomActivities.set(k, classroomActivity)
     })
     this.setState({classroomActivities: newClassroomActivities})
-    this.props.updateMultipleDueDates(caIds, date)
+    this.props.updateMultipleDueDates(uaIds, date)
   },
 
   numberOfStudentsAssignedToUnit() {
@@ -218,7 +218,7 @@ export default React.createClass({
             activityReport={this.props.activityReport}
             lesson={this.props.lesson}
             updateDueDate={this.props.updateDueDate}
-            hideClassroomActivity={this.props.hideClassroomActivity}
+            hideUnitActivity={this.props.hideUnitActivity}
             unitId={this.props.data.unitId}
             data={ca}
             updateAllDueDates={this.updateAllDueDates}
