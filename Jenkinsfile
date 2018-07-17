@@ -92,7 +92,8 @@ pipeline {
 
               echo 'Installing necessary packages...'
               sh 'npm install'
-              sh 'mkdir client/webpack'
+              sh 'mkdir client/config'
+              sh 'mkdir client/config/webpack'
               sh 'cp config/webpack/test.js client/webpack/test.js'
               echo 'Building test distribution'
               sh 'npm run build:test'
