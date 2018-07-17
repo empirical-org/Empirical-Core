@@ -71,7 +71,7 @@ class Api::V1::ClassroomActivitiesController < Api::ApiController
       if follow_up.present?
         ActivitySession.generate_activity_url(
           params[:classroom_unit_id],
-          params[:activity_id]
+          follow_up.id
         )
       else
         "#{ENV['DEFAULT_URL']}"
