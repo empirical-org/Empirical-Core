@@ -94,7 +94,7 @@ pipeline {
               sh 'npm install'
               sh 'mkdir client/config'
               sh 'mkdir client/config/webpack'
-              sh 'cp config/webpack/test.js client/webpack/test.js'
+              sh 'cp config/webpack/* client/config/webpack/.'
               echo 'Building test distribution'
               sh 'npm run build:test'
               echo 'Running jest...'
