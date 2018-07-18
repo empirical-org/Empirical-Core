@@ -22,7 +22,7 @@ describe GradesController do
     end
 
     it 'should render the correct json' do
-      get :tooltip, user_id: teacher.id, completed: true, classroom_activity_id: ""
+      get :tooltip, user_id: teacher.id, completed: true, classroom_unit_id: ""
       expect(response.body).to eq({concept_results: ["query result"], scores: ["query result"]}.to_json)
     end
   end
