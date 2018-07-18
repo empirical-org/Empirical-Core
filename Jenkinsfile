@@ -135,8 +135,10 @@ pipeline {
                 sh "curl -s https://codecov.io/bash | bash -s - -cF jest -t $CODECOV_TOKEN"
               }
               dir(path: 'services/QuillJenkins/scripts') {
-                /* Check that code coverage has not decreased */
-                sh "python -c'import codecov; codecov.fail_on_decrease(\"develop\", $env.BRANCH_NAME )' || exit"
+                // Check that code coverage has not decreased
+                sh "python --version"
+                sh "ls -alt"
+                sh "python -c 'import codecov; codecov.fail_on_decrease(\"fake-develop\", $env.BRANCH_NAME )' || exit"
               }
             }
           }
