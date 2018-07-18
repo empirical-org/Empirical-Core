@@ -81,18 +81,24 @@ class Api::V1::ClassroomActivitiesController < Api::ApiController
     render json: { follow_up_url: url }
   end
 
-  def pin_activity
-    @classroom_activity.update(pinned: true)
-    render json: @classroom_activity.pinned
-  end
-
   def unpin_and_lock_activity
-    @classroom_activity.update(pinned: false, locked: true)
-    render json: @classroom_activity.pinned
+    classroom_unit = ClassroomUnit.find(params[:classroom_unit_id])
+    unit_activity = UnitActivity.find_by(
+      unit_id: classroom_unit.unit_id,
+      activity_id: params[:activity_id]
+    )
+    state = ClassroomUnitActivityState.find_by(
+      classroom_unit_id: params[:classroom_unit_id],
+      unit_activity: unit_activity
+    )
+    state.update(pinned: false, locked: true)
+    render json: state.pinned
   end
 
   def classroom_teacher_and_coteacher_ids
-    teacher_ids = @classroom_activity.try(&:classroom).try(&:teacher_ids)
+    classroom_unit = ClassroomUnit.find(params[:classroom_unit_id])
+
+    teacher_ids = classroom_unit.try(&:classroom).try(&:teacher_ids)
     if teacher_ids
       teacher_ids_h = Hash[teacher_ids.collect { |item| [item, true] } ]
     end
