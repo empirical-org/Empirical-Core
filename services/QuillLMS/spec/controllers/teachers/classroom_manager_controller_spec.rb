@@ -459,7 +459,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
 
   describe '#dashboard_query' do
     let(:teacher) { create(:teacher) }
-
+    
     before do
       allow(Dashboard).to receive(:queries) { "queries" }
       allow(controller).to receive(:current_user) { teacher }

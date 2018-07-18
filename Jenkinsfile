@@ -124,7 +124,7 @@ pipeline {
             withCredentials(bindings: [string(credentialsId: 'codecov-token', variable: 'CODECOV_TOKEN')]) {
               dir(path: 'services/QuillLMS') {
                 echo 'Installing necessary packages...'
-                sh 'npm install'
+                sh 'npm install --unsafe-perm'
                 sh 'ls'
                 echo 'Building test distribution'
                 sh 'npm run build:test'
