@@ -108,7 +108,7 @@ class TeachersController < ApplicationController
   end
 
   def get_diagnostic_info_for_dashboard_mini
-    records = ActiveRecord::Base.connection.execute("SELECT ca.id AS classroom_unit_id,
+    records = ActiveRecord::Base.connection.execute("SELECT cu.id AS classroom_unit_id,
       units.id AS unit_id,
       classroom.id AS classroom_id,
       acts.id AS activity_id,
