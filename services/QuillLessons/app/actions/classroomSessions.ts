@@ -114,7 +114,7 @@ export function getLessonData(
   classroomUnitId: string,
 ) {
   return function(dispatch) {
-    dispatch(getClassroomAndTeacherNameFromServer(ca_id, process.env.EMPIRICAL_BASE_URL))
+    dispatch(getClassroomAndTeacherNameFromServer(classroomUnitId, process.env.EMPIRICAL_BASE_URL))
     dispatch(loadStudentNames(activityId, classroomUnitId, process.env.EMPIRICAL_BASE_URL))
     dispatch(loadFollowUpNameAndSupportingInfo(activityId, ca_id, process.env.EMPIRICAL_BASE_URL))
   }
@@ -309,9 +309,16 @@ export function toggleStudentFlag(classroomActivityId: string|null, studentId: s
   socket.instance.emit('toggleStudentFlag', { classroomActivityId, studentId });
 }
 
-export function getClassroomAndTeacherNameFromServer(classroom_activity_id: string|null, baseUrl: string|undefined) {
+export function getClassroomAndTeacherNameFromServer(
+  classroomUnitId: string|null,
+  baseUrl: string|undefined
+) {
   return function (dispatch) {
-    fetch(`${baseUrl}/api/v1/classroom_activities/${classroom_activity_id}/teacher_and_classroom_name`, {
+    let url = new URL(`${baseUrl}/api/v1/classroom_activities/teacher_and_classroom_name`);
+    let params = { classroom_unit_id: classroomUnitId };
+    url.search = new URLSearchParams(params)
+
+    fetch(url, {
       method: 'GET',
       mode: 'cors',
       credentials: 'include',
@@ -322,27 +329,30 @@ export function getClassroomAndTeacherNameFromServer(classroom_activity_id: stri
       }
       return response.json();
     }).then((response) => {
-      _setClassroomAndTeacherName(response, classroom_activity_id)
+      _setClassroomAndTeacherName(response, classroomUnitId)
     }).catch((error) => {
       console.log('error retrieving classroom and teacher name', error)
     });
   }
 }
 
-function _setClassroomName(classroomName: string, classroomActivityId: string|null) {
+function _setClassroomName(classroomName: string, classroomUnitId: string|null) {
   socket.instance.emit('setClassroomName', {
-    classroomActivityId,
+    classroomUnitId,
     classroomName,
   });
 }
 
-function _setTeacherName(teacherName: string, classroomActivityId: string|null) {
-  socket.instance.emit('setTeacherName', { classroomActivityId, teacherName });
+function _setTeacherName(teacherName: string, classroomUnitId: string|null) {
+  socket.instance.emit('setTeacherName', { classroomUnitId, teacherName });
 }
 
-function _setClassroomAndTeacherName(names: TeacherAndClassroomName, classroom_activity_id: string|null): void {
-  _setClassroomName(names.classroom, classroom_activity_id)
-  _setTeacherName(names.teacher, classroom_activity_id)
+function _setClassroomAndTeacherName(
+  names: TeacherAndClassroomName,
+  classroomUnitId: string|null
+): void {
+  _setClassroomName(names.classroom, classroomUnitId)
+  _setTeacherName(names.teacher, classroomUnitId)
 }
 
 export function addStudents(classroomActivityId: string, studentObj): void {
