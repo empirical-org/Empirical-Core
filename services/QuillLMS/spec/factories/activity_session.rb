@@ -29,7 +29,7 @@ FactoryBot.define do
 
     after(:create) do |activity_session|
       classroom_unit = activity_session.classroom_unit
-      UnitActivity.find_or_create_by(activity: activity_session.activity, unit: classroom_unit.unit)
+      UnitActivity.find_or_create_by(activity: activity_session.activity, unit_id: classroom_unit.unit_id)
       StudentsClassrooms.find_or_create_by(student_id: activity_session.user_id, classroom_id: classroom_unit.classroom_id )
       create(:concept_result, activity_session: activity_session)
     end
