@@ -3,7 +3,7 @@ module PublicProgressReports
 
     def last_completed_diagnostic
       diagnostic_activity_ids = Activity.diagnostic_activity_ids
-      current_user.classroom_activities.
+      current_user.classroom_units.
                   joins(activity_sessions: :classroom_unit).
                   where('activity_sessions.state = ? AND activity_sessions.activity_id IN (?)', 'finished', diagnostic_activity_ids).
                   order('created_at DESC').
@@ -75,12 +75,14 @@ module PublicProgressReports
       unit = Unit.find(unit_id)
       class_ids = current_user.classrooms_i_teach.map(&:id)
       #without definining class ids, it may default to a classroom activity from a non-existant classroom
-      class_acts = unit.classroom_activities.where(activity_id: activity_id, classroom_id: class_ids)
+      class_units = unit.classroom_units.where(classroom_id: class_ids)
+      unit_activity = UnitActivity.find_by(activity_id: activity_id, unit: unit)
 
-      class_acts.each do |ca|
-        classroom = ca.classroom.attributes
-        activity_sessions = ca.activity_sessions.completed
-        if activity_sessions || ca.completed
+      class_units.each do |cu|
+        cuas = ClassroomUnitActivityState.find_by(unit_activity: unit_activity, classroom_unit: cu)
+        classroom = cu.classroom.attributes
+        activity_sessions = cu.activity_sessions.completed
+        if activity_sessions || cuas&.completed
           class_id = classroom['id']
           h[class_id] ||= classroom
           h[class_id][:classroom_unit_id] = ca.id
