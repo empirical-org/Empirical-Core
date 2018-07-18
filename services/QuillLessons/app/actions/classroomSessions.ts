@@ -444,10 +444,13 @@ export function setEditionId(
   })
 }
 
-export function setTeacherModels(classroomActivityId: string|null, editionId: string) {
-  if (classroomActivityId) {
+export function setTeacherModels(
+  classroomUnitId: string|null,
+  editionId: string
+) {
+  if (classroomUnitId) {
     socket.instance.emit('setTeacherModels', {
-      classroomActivityId,
+      classroomUnitId,
       editionId,
     });
   }
@@ -459,22 +462,29 @@ export function updateNoStudentError(student: string | null) {
   };
 }
 
-export function setModel(classroomActivityId: string, questionId: string, model): void {
-  socket.instance.emit('setModel', { classroomActivityId, questionId, model });
+export function setModel(
+  classroomUnitId: string,
+  questionId: string,
+  model
+): void {
+  socket.instance.emit('setModel', { classroomUnitId, questionId, model });
 }
 
-export function setPrompt(classroomActivityId: string, questionId: string, prompt): void {
+export function setPrompt(classroomUnitId: string, questionId: string, prompt): void {
   socket.instance.emit('setPrompt', {
-    classroomActivityId,
+    classroomUnitId,
     questionId,
     prompt,
   });
 }
 
-export function easyJoinLessonAddName(classroomActivityId: string, studentName: string): void {
-  socket.instance.emit('addStudent', { classroomActivityId, studentName });
-  socket.instance.on(`studentAdded:${classroomActivityId}`, (addedStudentName, nameRef) => {
-    socket.instance.removeAllListeners(`studentAdded:${classroomActivityId}`)
+export function easyJoinLessonAddName(
+  classroomUnitId: string,
+  studentName: string
+): void {
+  socket.instance.emit('addStudent', { classroomUnitId, studentName });
+  socket.instance.on(`studentAdded:${classroomUnitId}`, (addedStudentName, nameRef) => {
+    socket.instance.removeAllListeners(`studentAdded:${classroomUnitId}`)
     if (addedStudentName === studentName) {
       window.location.replace(window.location.href + `&student=${nameRef}`);
       window.location.reload();
@@ -540,12 +550,12 @@ export function loadFollowUpNameAndSupportingInfo(
 }
 
 export function loadSupportingInfo(
-  lesson_id: string,
+  activityId: string,
   baseUrl: string,
   classroomUnitId: string
 ) {
   return function (dispatch) {
-    fetch(`${baseUrl}/api/v1/activities/${lesson_id}/supporting_info`, {
+    fetch(`${baseUrl}/api/v1/activities/${activityId}/supporting_info`, {
       method: 'GET',
       mode: 'cors',
       credentials: 'include',
@@ -592,12 +602,12 @@ export function createPreviewSession(edition_id?:string) {
   return classroomActivityId;
 }
 
-export function saveReview(activity_id:string, classroom_activity_id:string, value:number) {
+export function saveReview(activityId:string, classroomUnitId:string, value:number) {
   const review = {
-    id: classroom_activity_id,
-    activity_id: activity_id,
+    id: classroomUnitId,
+    activity_id: activityId,
     value: value,
-    classroom_activity_id: classroom_activity_id,
+    classroom_unit_id: classroomUnitId,
   }
   socket.instance.emit('createOrUpdateReview', { review });
 }

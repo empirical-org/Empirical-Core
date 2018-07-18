@@ -234,17 +234,15 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
   }
 
   handleChange(e) {
-    console.log("event: ", e)
     this.setState({
       easyDemoName: e.target.value
     })
   }
 
   easyJoinDemo() {
-    console.log("Joining", this.state)
-    const classroom_activity_id: string|null = getParameterByName('classroom_activity_id');
-    if (classroom_activity_id) {
-      easyJoinLessonAddName(classroom_activity_id, this.state.easyDemoName)
+    const classroomUnitId: string|null = getParameterByName('classroom_unit_id');
+    if (classroomUnitId) {
+      easyJoinLessonAddName(classroomUnitId, this.state.easyDemoName)
     }
   }
 
