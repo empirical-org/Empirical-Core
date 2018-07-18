@@ -100,7 +100,7 @@ export default class extends React.Component {
     const that = this;
     const newState = Object.assign({}, this.state);
     newState.classrooms.forEach((classy, classroomIndex) => {
-      const ca = classy.classroom_activity;
+      const ca = classy.classroom_unit;
       let selectedCount = 0;
       if (ca) {
         if (ca.assigned_student_ids && ca.assigned_student_ids.length > 0) {
