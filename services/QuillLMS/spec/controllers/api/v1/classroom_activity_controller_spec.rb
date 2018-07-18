@@ -152,6 +152,38 @@ describe Api::V1::ClassroomActivitiesController, type: :controller do
     end
   end
 
+  describe '#unpin_and_lock_activity' do
+    let(:unit_activity) do
+      UnitActivity.find_by(unit: classroom_unit.unit, activity: activity)
+    end
+
+    let!(:classroom_unit_activity_state) do
+      create(:classroom_unit_activity_state,
+        classroom_unit: classroom_unit,
+        unit_activity: unit_activity,
+        pinned: true,
+        locked: false
+      )
+    end
+
+    before do
+      session[:user_id] = teacher.id
+    end
+
+    it 'should unpin and lock the state of classroom unit activity' do
+      put(:unpin_and_lock_activity,
+        activity_id: activity.id,
+        classroom_unit_id: classroom_unit.id,
+        format: :json
+      )
+
+      expect(classroom_unit_activity_state.reload).to have_attributes(
+        pinned: false,
+        locked: true,
+      )
+    end
+  end
+
   describe '#classroom_teacher_and_coteacher_ids' do
     let(:teacher_ids) { Hash[classroom.teacher_ids.collect {|i| [i, true]}] }
 

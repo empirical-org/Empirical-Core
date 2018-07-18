@@ -340,7 +340,7 @@ EmpiricalGrammar::Application.routes.draw do
       get 'activities/:id/supporting_info' => 'activities#supporting_info'
       get 'classroom_activities/student_names' => 'classroom_activities#student_names'
       put 'classroom_activities/finish_lesson' => 'classroom_activities#finish_lesson'
-      put 'classroom_activities/:id/unpin_and_lock_activity' => 'classroom_activities#unpin_and_lock_activity'
+      put 'classroom_activities/unpin_and_lock_activity' => 'classroom_activities#unpin_and_lock_activity'
       get 'classroom_activities/teacher_and_classroom_name' => 'classroom_activities#teacher_and_classroom_name'
       get 'classroom_activities/classroom_teacher_and_coteacher_ids' => 'classroom_activities#classroom_teacher_and_coteacher_ids'
       get 'users/profile', to: 'users#profile'
