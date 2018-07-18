@@ -111,7 +111,7 @@ pipeline {
             }
           }
         }
-        // stage('test-QuillLMS-node') {
+        stage('test-QuillLMS-node') {
           agent {
             dockerfile {
               filename 'Dockerfile.test-node'
