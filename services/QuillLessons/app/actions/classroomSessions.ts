@@ -294,8 +294,18 @@ export function hideSignupModal() {
   };
 }
 
-export function unpinActivityOnSaveAndExit(classroom_activity_id) {
-    fetch(`${process.env.EMPIRICAL_BASE_URL}/api/v1/classroom_activities/${classroom_activity_id}/unpin_and_lock_activity`, {
+export function unpinActivityOnSaveAndExit(
+  activityId: string,
+  classroomUnitId: string
+) {
+    let url = new URL(`${process.env.EMPIRICAL_BASE_URL}/api/v1/classroom_activities/unpin_and_lock_activity`);
+    let params = {
+      activity_id: activityId,
+      classroom_unit_id: classroomUnitId
+    }
+    url.search = new URLSearchParams(params)
+
+    fetch(url, {
       method: 'PUT',
       mode: 'cors',
       credentials: 'include',
