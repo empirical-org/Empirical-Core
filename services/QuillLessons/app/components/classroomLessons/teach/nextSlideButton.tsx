@@ -16,11 +16,11 @@ class NextSlideButton extends Component<any, any> {
   }
 
   goToNextSlide() {
-    const ca_id: string|null = getParameterByName('classroom_activity_id');
+    const classroomUnitId: string|null = getParameterByName('classroom_unit_id');
     const sessionData: ClassroomLessonSession = this.props.classroomSessions.data;
     const editionData: EditionQuestions = this.props.customize.editionQuestions;
-    if (ca_id) {
-      const updateInStore = goToNextSlide(ca_id, sessionData, editionData);
+    if (classroomUnitId) {
+      const updateInStore = goToNextSlide(sessionData, editionData, classroomUnitId);
       if (updateInStore) {
         this.props.dispatch(updateInStore);
       }

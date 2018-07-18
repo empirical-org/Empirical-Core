@@ -103,13 +103,13 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
     const tag = event.target.tagName.toLowerCase()
     const className = event.target.className.toLowerCase()
     if (tag !== 'input' && tag !== 'textarea' && className.indexOf("drafteditor") === -1 && (event.keyCode === 39 || event.keyCode === 37)) {
-      const ca_id: string|null = getParameterByName('classroom_activity_id');
+      const classroomUnitId: string|null = getParameterByName('classroom_unit_id');
       const sessionData: ClassroomLessonSession = this.props.classroomSessions.data;
       const editionData: CustomizeIntf.EditionQuestions = this.props.customize.editionQuestions;
-      if (ca_id) {
+      if (classroomUnitId) {
         const updateInStore = event.keyCode === 39
-          ? goToNextSlide(ca_id, sessionData, editionData)
-          : goToPreviousSlide(ca_id, sessionData, editionData)
+          ? goToNextSlide(sessionData, editionData, classroomUnitId)
+          : goToPreviousSlide(sessionData, editionData, classroomUnitId)
         if (updateInStore) {
           this.props.dispatch(updateInStore);
         }

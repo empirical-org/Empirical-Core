@@ -70,9 +70,9 @@ class Sidebar extends React.Component<any, any> {
   }
 
   goToSlide(slide_id: string) {
-    const caId: string|null = getParameterByName('classroom_activity_id');
-    if (caId) {
-      this.props.dispatch(updateCurrentSlide(caId, slide_id));
+    const classroom_unit_id: string|null = getParameterByName('classroom_unit_id');
+    if (classroom_unit_id) {
+      this.props.dispatch(updateCurrentSlide(slide_id, classroom_unit_id));
     }
   }
 
