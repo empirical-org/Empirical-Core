@@ -362,6 +362,16 @@ module Teacher
     Date.today >= TRIAL_START_DATE
   end
 
+  def finished_diagnostic_unit_ids_with_classroom_id_and_activity_id
+    Unit.find_by_sql("SELECT DISTINCT units.id AS unit_id, cu.classroom_id AS classroom_id, activities.id AS activity_id FROM units
+      JOIN classroom_units AS cu ON ca.unit_id = units.id
+      JOIN activity_sessions AS actsesh ON actsesh.classroom_unit_id = cu.id
+      JOIN activities AS acts ON actsesh.activity_id = acts.id
+      WHERE units.user_id = #{self.id}
+      AND acts.activity_classification_id = 4
+      AND actsesh.state = 'finished'")
+  end
+
   def finished_diagnostic_unit_ids
     Unit.find_by_sql("SELECT DISTINCT units.id FROM units
       JOIN classroom_units AS cu ON ca.unit_id = units.id
