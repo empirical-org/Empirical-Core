@@ -68,21 +68,19 @@ export function toggleOnlyShowHeaders() {
 }
 
 export function startListeningToSessionForTeacher(
-  classroomActivityId: string,
   activityId: string,
   classroomUnitId: string,
 ) {
   return function (dispatch, getState) {
     let initialized = false;
 
-    socket.instance.on(`classroomLessonSession:${classroomActivityId}`, (session) => {
+    socket.instance.on(`classroomLessonSession:${classroomUnitId}`, (session) => {
       if (session) {
 
         if (!_.isEqual(getState().classroomSessions.data, session)) {
           dispatch(updateSession(session));
         }
         dispatch(getInitialData(
-          classroomActivityId,
           activityId,
           initialized,
           session.preview,
@@ -90,47 +88,48 @@ export function startListeningToSessionForTeacher(
         ))
         initialized = true
       } else {
-        dispatch({type: C.NO_CLASSROOM_ACTIVITY, data: classroomActivityId})
+        dispatch({type: C.NO_CLASSROOM_UNIT, data: classroomUnitId})
       }
     });
-    socket.instance.emit('subscribeToClassroomLessonSession', { classroomActivityId });
+    socket.instance.emit('subscribeToClassroomLessonSession', { classroomUnitId });
   }
 }
 
 export function getInitialData(
-  ca_id: string,
   activityId: string,
   initialized,
   preview,
   classroomUnitId: string,
 ) {
   return function(dispatch) {
-    if (!initialized && ca_id) {
+    if (!initialized && classroomUnitId) {
       if (preview) {
-        dispatch(getPreviewData(ca_id, activityId))
+        dispatch(getPreviewData(activityId, classroomUnitId))
       } else {
-        dispatch(getLessonData(ca_id, activityId, classroomUnitId))
+        dispatch(getLessonData(activityId, classroomUnitId))
       }
     }
   }
 }
 
 export function getLessonData(
-  ca_id: string,
   activityId: string
   classroomUnitId: string,
 ) {
   return function(dispatch) {
     dispatch(getClassroomAndTeacherNameFromServer(classroomUnitId, process.env.EMPIRICAL_BASE_URL))
     dispatch(loadStudentNames(activityId, classroomUnitId, process.env.EMPIRICAL_BASE_URL))
-    dispatch(loadFollowUpNameAndSupportingInfo(activityId, ca_id, process.env.EMPIRICAL_BASE_URL))
+    dispatch(loadFollowUpNameAndSupportingInfo(activityId, process.env.EMPIRICAL_BASE_URL, classroomUnitId))
   }
 }
 
-export function getPreviewData(ca_id: string, lesson_id: string) {
+export function getPreviewData(
+  lesson_id: string,
+  classroomUnitId: string
+) {
   const baseUrl:string = process.env.EMPIRICAL_BASE_URL ? String(process.env.EMPIRICAL_BASE_URL) : 'https://quill.org/'
   return function(dispatch) {
-    dispatch(loadSupportingInfo(lesson_id, ca_id, baseUrl))
+    dispatch(loadSupportingInfo(lesson_id, baseUrl, classroomUnitId))
   }
 }
 
@@ -387,16 +386,22 @@ export function addStudents(classroomUnitId: string, studentObj): void {
   });
 }
 
-export function addFollowUpName(classroomActivityId: string, followUpActivityName: string|null): void {
+export function addFollowUpName(
+  classroomUnitId: string,
+  followUpActivityName: string|null
+): void {
   socket.instance.emit('addFollowUpName', {
-    classroomActivityId,
+    classroomUnitId,
     followUpActivityName,
   });
 }
 
-export function addSupportingInfo(classroomActivityId: string, supportingInfo: string|null): void {
+export function addSupportingInfo(
+  classroomUnitId: string,
+  supportingInfo: string|null
+): void {
   socket.instance.emit('addSupportingInfo', {
-    classroomActivityId,
+    classroomUnitId,
     supportingInfo,
   });
 }
@@ -487,10 +492,14 @@ export function loadStudentNames(
   };
 }
 
-export function loadFollowUpNameAndSupportingInfo(lesson_id: string, classroom_activity_id: string, baseUrl: string|undefined) {
+export function loadFollowUpNameAndSupportingInfo(
+  activityId: string,
+  baseUrl: string|undefined,
+  classroomUnitId: string
+) {
   return function (dispatch) {
     const coreUrl = baseUrl ? baseUrl : process.env.EMPIRICAL_BASE_URL
-    fetch(`${baseUrl}/api/v1/activities/${lesson_id}/follow_up_activity_name_and_supporting_info`, {
+    fetch(`${baseUrl}/api/v1/activities/${activityId}/follow_up_activity_name_and_supporting_info`, {
       method: 'GET',
       mode: 'cors',
       credentials: 'include',
@@ -501,15 +510,19 @@ export function loadFollowUpNameAndSupportingInfo(lesson_id: string, classroom_a
       }
       return response.json();
     }).then((response) => {
-      addFollowUpName(classroom_activity_id, response.follow_up_activity_name)
-      addSupportingInfo(classroom_activity_id, response.supporting_info)
+      addFollowUpName(classroomUnitId, response.follow_up_activity_name)
+      addSupportingInfo(classroomUnitId, response.supporting_info)
     }).catch((error) => {
       console.log('error retrieving follow up ', error)
     });
   };
 }
 
-export function loadSupportingInfo(lesson_id: string, classroom_activity_id: string, baseUrl: string) {
+export function loadSupportingInfo(
+  lesson_id: string,
+  baseUrl: string,
+  classroomUnitId: string
+) {
   return function (dispatch) {
     fetch(`${baseUrl}/api/v1/activities/${lesson_id}/supporting_info`, {
       method: 'GET',
@@ -522,7 +535,7 @@ export function loadSupportingInfo(lesson_id: string, classroom_activity_id: str
       }
       return response.json();
     }).then((response) => {
-      addSupportingInfo(classroom_activity_id, response.supporting_info)
+      addSupportingInfo(classroomUnitId, response.supporting_info)
     }).catch((error) => {
       console.log('error retrieving supporting info ', error)
     });
