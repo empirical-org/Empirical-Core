@@ -160,10 +160,11 @@ describe Api::V1::ClassroomActivitiesController, type: :controller do
     end
 
     it 'should return the teacher ids in the classroom' do
-      get :classroom_teacher_and_coteacher_ids, format: :json, activity_id: activity.id, classroom_unit_id: classroom_unit.id
-      expect(response.body).to eq({
-        teacher_ids: teacher_ids
-      }.to_json)
+      get(:classroom_teacher_and_coteacher_ids,
+        format: :json,
+        classroom_unit_id: classroom_unit.id
+      )
+      expect(response.body).to eq({ teacher_ids: teacher_ids }.to_json)
     end
   end
 
