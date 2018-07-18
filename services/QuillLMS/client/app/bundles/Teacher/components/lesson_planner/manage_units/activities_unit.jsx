@@ -209,8 +209,8 @@ export default React.createClass({
 
   renderClassroomActivities() {
     const classroomActivitiesArr = [];
+      let i = 0
       for (const [key, ca] of this.state.classroomActivities) {
-        const isFirst = this.state.classroomActivities.values().next().value.caId === ca.caId
         classroomActivitiesArr.push(
           <ClassroomActivity
             key={`${this.props.data.unitId}-${key}`}
@@ -222,10 +222,11 @@ export default React.createClass({
             unitId={this.props.data.unitId}
             data={ca}
             updateAllDueDates={this.updateAllDueDates}
-            isFirst={isFirst}
+            isFirst={i === 0}
             numberOfStudentsAssignedToUnit={this.numberOfStudentsAssignedToUnit()}
           />
         );
+      i += 1
     }
     return classroomActivitiesArr;
   },

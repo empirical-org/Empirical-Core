@@ -183,7 +183,7 @@ export default React.createClass({
 
   updateMultipleDueDates(ua_ids, date) {
     request.put(`${process.env.DEFAULT_URL}/teachers/unit_activities/update_multiple_due_dates`, {
-      json: { unit_activity_ids: ca_ids, due_date: date, authenticity_token: getAuthToken(), },
+      json: { unit_activity_ids: ua_ids, due_date: date, authenticity_token: getAuthToken(), },
     });
   },
 
