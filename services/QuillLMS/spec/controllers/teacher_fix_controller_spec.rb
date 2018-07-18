@@ -81,14 +81,14 @@ describe TeacherFixController do
     end
   end
 
-  describe '#recover_classroom_activities' do
+  describe '#recover_classroom_units' do
     context 'classroom exists' do
       let!(:classroom) { create(:classroom) }
       let!(:unit) { create(:unit, visible: false) }
       let!(:classroom_activity) { create(:classroom_activity, visible: false,classroom_id: classroom.id, unit_id: unit.id) }
 
       it 'should mark the units and activit sessions visible' do
-        post :recover_classroom_activities, class_code: classroom.code
+        post :recover_classroom_units, class_code: classroom.code
         expect(unit.reload.visible).to eq true
         expect(classroom_activity.reload.visible).to eq true
       end
@@ -96,7 +96,7 @@ describe TeacherFixController do
 
     context 'classroom does not exist' do
       it 'should render no such classroom' do
-        post :recover_classroom_activities, class_code: "some code"
+        post :recover_classroom_units, class_code: "some code"
         expect(response.body).to eq({error: "No such classroom"}.to_json)
       end
     end
