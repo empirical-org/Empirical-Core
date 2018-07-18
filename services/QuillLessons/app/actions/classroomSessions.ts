@@ -19,23 +19,27 @@ import socket from '../utils/socketStore';
 import { URL, URLSearchParams } from 'url';
 
 
-export function startListeningToSession(classroomActivityId: string) {
+export function startListeningToSession(classroomUnitId: string) {
   return function(dispatch, getState) {
-    socket.instance.on(`classroomLessonSession:${classroomActivityId}`, (data) => {
+    socket.instance.on(`classroomLessonSession:${classroomUnitId}`, (data) => {
       if (data) {
         if (!_.isEqual(getState().classroomSessions.data, data)) {
           dispatch(updateSession(data));
         }
       } else {
-        dispatch({type: C.NO_CLASSROOM_ACTIVITY, data: classroomActivityId})
+        dispatch({type: C.NO_CLASSROOM_UNIT, data: classroomUnitId})
       }
     });
-    socket.instance.emit('subscribeToClassroomLessonSession', { classroomActivityId });
+    socket.instance.emit('subscribeToClassroomLessonSession', { classroomUnitId });
   };
 }
 
-export function startLesson(classroomActivityId: string, callback?: Function) {
-  fetch(`${process.env.EMPIRICAL_BASE_URL}/api/v1/classroom_activities/${classroomActivityId}/classroom_teacher_and_coteacher_ids`, {
+export function startLesson(classroomUnitId: string, callback?: Function) {
+  let url = new URL(`${process.env.EMPIRICAL_BASE_URL}/api/v1/classroom_activities/classroom_teacher_and_coteacher_ids`);
+  let params = { classroom_unit_id: classroomUnitId }
+  url.search = new URLSearchParams(params)
+
+  fetch(url, {
     method: "GET",
     mode: "cors",
     credentials: 'include',
@@ -46,7 +50,10 @@ export function startLesson(classroomActivityId: string, callback?: Function) {
       return response.json()
     }
   }).then(teacherIdObject => {
-    socket.instance.emit('createOrUpdateClassroomLessonSession', { classroomActivityId, teacherIdObject });
+    socket.instance.emit('createOrUpdateClassroomLessonSession', {
+      classroomUnitId,
+      teacherIdObject
+    });
   })
 
   if (callback) {
@@ -134,9 +141,13 @@ export function updateSession(data: object): {type: string; data: any;} {
   };
 }
 
-export function redirectAssignedStudents(classroomActivityId: string, followUpOption: string, followUpUrl: string) {
+export function redirectAssignedStudents(
+  classroomUnitId: string,
+  followUpOption: string,
+  followUpUrl: string
+) {
   socket.instance.emit('redirectAssignedStudents', {
-    classroomActivityId,
+    classroomUnitId,
     followUpOption,
     followUpUrl,
   })
@@ -287,8 +298,18 @@ export function hideSignupModal() {
   };
 }
 
-export function unpinActivityOnSaveAndExit(classroom_activity_id) {
-    fetch(`${process.env.EMPIRICAL_BASE_URL}/api/v1/classroom_activities/${classroom_activity_id}/unpin_and_lock_activity`, {
+export function unpinActivityOnSaveAndExit(
+  activityId: string,
+  classroomUnitId: string
+) {
+    let url = new URL(`${process.env.EMPIRICAL_BASE_URL}/api/v1/classroom_activities/unpin_and_lock_activity`);
+    let params = {
+      activity_id: activityId,
+      classroom_unit_id: classroomUnitId
+    }
+    url.search = new URLSearchParams(params)
+
+    fetch(url, {
       method: 'PUT',
       mode: 'cors',
       credentials: 'include',
@@ -355,12 +376,12 @@ function _setClassroomAndTeacherName(
   _setTeacherName(names.teacher, classroomUnitId)
 }
 
-export function addStudents(classroomActivityId: string, studentObj): void {
+export function addStudents(classroomUnitId: string, studentObj): void {
   let studentIds = studentObj.student_ids;
   let activitySessions = studentObj.activity_sessions_and_names;
 
   socket.instance.emit('addStudents', {
-    classroomActivityId,
+    classroomUnitId,
     activitySessions,
     studentIds,
   });
@@ -459,7 +480,7 @@ export function loadStudentNames(
       }
       return response.json();
     }).then((response) => {
-      addStudents(classroom_activity_id, response)
+      addStudents(classroomUnitId, response)
     }).catch((error) => {
       console.log('error retrieving students names ', error)
     });

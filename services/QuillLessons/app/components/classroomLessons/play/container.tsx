@@ -63,10 +63,10 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
   }
 
   componentDidMount() {
-    const classroom_activity_id = getParameterByName('classroom_activity_id');
+    const classroomUnitId = getParameterByName('classroom_unit_id');
     const student = getParameterByName('student');
-    if (classroom_activity_id) {
-      this.props.dispatch(startListeningToSession(classroom_activity_id));
+    if (classroomUnitId) {
+      this.props.dispatch(startListeningToSession(classroomUnitId));
     }
     document.getElementsByTagName("html")[0].style.backgroundColor = "white";
   }

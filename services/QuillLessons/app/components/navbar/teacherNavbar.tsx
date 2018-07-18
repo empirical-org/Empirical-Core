@@ -280,8 +280,10 @@ class TeacherNavbar extends React.Component<any, any> {
 
   exitLesson() {
     if (window.confirm('Are you sure you want to exit the lesson?')) {
-      const ca_id: string|null = getParameterByName('classroom_activity_id');
-      unpinActivityOnSaveAndExit(ca_id)
+      const classroomUnitId: string|null = getParameterByName('classroom_unit_id');
+      const activityId = this.props.params.lessonID;
+
+      unpinActivityOnSaveAndExit(activityId, classroomUnitId)
       document.location.href = process.env.EMPIRICAL_BASE_URL || 'https://www.quill.org';
     }
   }
