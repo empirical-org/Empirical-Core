@@ -11,36 +11,42 @@ class Profile::Mobile::ActivitySessionsByUnit
 
   def student_profile_data_sql(classroom_id=nil, student_id=nil)
     ActiveRecord::Base.connection.execute(
-      "SELECT unit.name AS unit_name,
-       activity.uid AS uid,
+      "SELECT unit.name,
        activity.name,
        activity.description,
        activity.repeatable,
        activity.activity_classification_id,
        unit.id AS unit_id,
        unit.created_at AS unit_created_at,
-       cu.id AS cu_id,
-       cu.completed AS marked_complete,
-       cu.activity_id,
+       unit.name AS unit_name,
+       cu.id AS ca_id,
+       cuas.completed AS marked_complete,
+       ua.activity_id,
        MAX(acts.updated_at) AS act_sesh_updated_at,
-       cu.due_date,
-       cu.created_at AS classroom_activity_created_at,
-       cu.locked,
-       cu.pinned,
+       ua.due_date,
+       cu.created_at AS unit_activity_created_at,
+       cuas.locked,
+       cuas.pinned,
        MAX(acts.percentage) AS max_percentage,
        SUM(CASE WHEN acts.state = 'started' THEN 1 ELSE 0 END) AS resume_link
-    FROM classroom_units AS cu
-    LEFT JOIN activity_sessions AS acts ON cu.id = acts.classroom_unit_id AND acts.visible = true AND acts.user_id = #{student_id}
-    JOIN units AS unit ON unit.id = cu.unit_id
-    JOIN activities AS activity ON activity.id = acts.activity_id
-    WHERE #{student_id} = ANY (cu.assigned_student_ids::int[])
+    FROM unit_activities AS ua
+    JOIN units AS unit ON unit.id = ua.unit_id
+    JOIN classroom_units AS cu ON unit.id = cu.unit_id
+    LEFT JOIN activity_sessions AS acts ON cu.id = acts.classroom_unit_id AND acts.visible = true
+    AND acts.user_id = #{student_id}
+    JOIN activities AS activity ON activity.id = ua.activity_id
+    LEFT JOIN classroom_unit_activity_states AS cuas ON ua.id = cuas.unit_activity_id
+    AND cu.id = cuas.classroom_unit_id
+    WHERE #{classroom_id} = ANY (cu.assigned_student_ids::int[])
     AND cu.classroom_id = #{classroom_id}
     AND cu.visible = true
     AND unit.visible = true
-    GROUP BY cu.id, activity.uid, activity.name, activity.description, acts.activity_id,
-            unit.name, unit.id, unit.created_at, unit_name, activity.repeatable,
-            activity.activity_classification_id, activity.repeatable
-    ORDER BY pinned DESC, locked ASC, max_percentage DESC, unit.created_at ASC, cu.created_at ASC").to_a
+    AND ua.visible = true
+    GROUP BY ua.id, cu.id, activity.name, activity.description, ua.activity_id,
+      unit.name, unit.id, unit.created_at, unit_name, activity.repeatable,
+      activity.activity_classification_id, activity.repeatable, cuas.completed,
+      cuas.locked, cuas.pinned
+    ORDER BY pinned DESC, locked ASC, max_percentage DESC, ua.due_date ASC, unit.created_at ASC, cu.created_at ASC").to_a
   end
 
   def prepare_json(grouped_sessions)

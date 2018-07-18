@@ -83,7 +83,7 @@ export default React.createClass({
     caObj.classroomActivities.set(u.activity_id, {
       name: u.activity_name,
       activityId: u.activity_id,
-      created_at: u.classroom_activity_created_at,
+      created_at: u.unit_activity_created_at,
       cuId: u.classroom_unit_id,
       activityClassificationId: u.activity_classification_id,
       classroomId: u.classroom_id,
@@ -114,7 +114,7 @@ export default React.createClass({
             name: u.activity_name,
             cuId: u.classroom_unit_id,
             activityId: u.activity_id,
-            created_at: u.classroom_activity_created_at,
+            created_at: u.unit_activity_created_at,
             activityClassificationId: u.activity_classification_id,
             classroomId: u.classroom_id,
             createdAt: u.ca_created_at,
