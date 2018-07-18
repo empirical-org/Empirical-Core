@@ -2,7 +2,6 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 const WakeLock: any = require('react-wakelock').default;
 import {
-  startListeningToSession,
   startListeningToSessionForTeacher,
 } from '../../../actions/classroomSessions';
 import {

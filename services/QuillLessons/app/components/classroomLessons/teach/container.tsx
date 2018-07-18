@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import _ from 'lodash'
 const WakeLock: any = require('react-wakelock').default;
 import {
-  startListeningToSession,
   startListeningToSessionForTeacher,
   goToNextSlide,
   goToPreviousSlide,
