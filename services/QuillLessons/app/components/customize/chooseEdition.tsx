@@ -103,12 +103,12 @@ class ChooseEdition extends React.Component<any, any> {
 
   selectAction(editionKey: string) {
     const lessonId = this.props.params.lessonID
-    const classroomActivityId = getParameterByName('classroom_activity_id')
+    const classroomUnitId = getParameterByName('classroom_unit_id')
     if (getParameterByName('preview')) {
       const editionId = editionKey ? editionKey : ''
       return this.props.router.push(`teach/class-lessons/${lessonId}/preview/${editionId}`)
-    } else if (classroomActivityId) {
-      return setEditionId(classroomActivityId, editionKey, () => window.location.href = `#/teach/class-lessons/${lessonId}?&classroom_activity_id=${classroomActivityId}`)
+    } else if (classroomUnitId) {
+      return setEditionId(classroomUnitId, editionKey, () => window.location.href = `#/teach/class-lessons/${lessonId}?&classroom_unit_id=${classroomUnitId}`)
     }
   }
 
