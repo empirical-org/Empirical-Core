@@ -87,7 +87,9 @@ class Api::V1::ClassroomActivitiesController < Api::ApiController
   end
 
   def classroom_teacher_and_coteacher_ids
-    teacher_ids = @classroom_activity.try(&:classroom).try(&:teacher_ids)
+    classroom_unit = ClassroomUnit.find(params[:classroom_unit_id])
+
+    teacher_ids = classroom_unit.try(&:classroom).try(&:teacher_ids)
     if teacher_ids
       teacher_ids_h = Hash[teacher_ids.collect { |item| [item, true] } ]
     end
