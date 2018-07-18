@@ -111,6 +111,34 @@ pipeline {
             }
           }
         }
+        // stage('test-QuillLMS-node') {
+          agent {
+            dockerfile {
+              filename 'Dockerfile.test-node'
+              dir 'services/QuillJenkins/agents/QuillLMS'
+              args '-u root:sudo -v $HOME/workspace/myproject:/myproject --name lms-webapp-frontend --network jnk-net'
+            }
+          }
+          steps {
+            echo 'Beginnning front-end tests...'
+            withCredentials(bindings: [string(credentialsId: 'codecov-token', variable: 'CODECOV_TOKEN')]) {
+              dir(path: 'services/QuillLMS') {
+                echo 'Installing necessary packages...'
+                sh 'npm install'
+                sh 'ls'
+                echo 'Building test distribution'
+                sh 'npm run build:test'
+                echo 'Running jest...'
+                sh 'npm run jest:coverage'
+                sh "curl -s https://codecov.io/bash | bash -s - -cF jest -t $CODECOV_TOKEN"
+              }
+              dir(path: 'services/QuillJenkins/scripts') {
+                /* Check that code coverage has not decreased */
+                sh "python -c'import codecov; codecov.fail_on_decrease(\"develop\", $env.BRANCH_NAME )' || exit"
+              }
+            }
+          }
+        }
         stage('test-comprehension') {
           agent {
             dockerfile {
