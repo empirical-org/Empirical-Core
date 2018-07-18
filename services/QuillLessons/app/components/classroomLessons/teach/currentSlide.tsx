@@ -38,6 +38,7 @@ import {
 import * as CustomizeIntf from '../../../interfaces/customize'
 import {generate} from '../../../libs/conceptResults/classroomLessons.js';
 
+
 class CurrentSlide extends React.Component<any, any> {
   constructor(props) {
     super(props);
@@ -205,15 +206,24 @@ class CurrentSlide extends React.Component<any, any> {
   }
 
   finishLesson() {
-    const questions = this.props.customize.editionQuestions.questions
-    const submissions = this.props.classroomSessions.data.submissions
-    const follow_up = this.props.classroomSessions.data.followUpActivityName && this.state.selectedOptionKey !== 'No Follow Up Practice';
-    const caId: string|null = getParameterByName('classroom_activity_id');
-    const concept_results = generate(questions, submissions)
-    const edition_id: string|undefined = this.props.classroomSessions.data.edition_id
+    const questions = this.props.customize.editionQuestions.questions;
+    const submissions = this.props.classroomSessions.data.submissions;
+    const followUp = this.props.classroomSessions.data.followUpActivityName && this.state.selectedOptionKey !== 'No Follow Up Practice';
+    const activityId = this.props.lessonId;
+    const classroomUnitId: string = getParameterByName('classroom_unit_id');
+    const conceptResults = generate(questions, submissions);
+    const editionId: string|undefined = this.props.classroomSessions.data.edition_id;
     const data = new FormData();
-    data.append( "json", JSON.stringify( {follow_up, concept_results, edition_id} ) );
-    fetch(`${process.env.EMPIRICAL_BASE_URL}/api/v1/classroom_activities/${caId}/finish_lesson`, {
+
+    data.append("json", JSON.stringify({
+      follow_up: followUp,
+      concept_results: conceptResults,
+      edition_id: editionId,
+      activity_id: activityId,
+      classroom_unit_id: classroomUnitId,
+    }));
+
+    fetch(`${process.env.EMPIRICAL_BASE_URL}/api/v1/classroom_activities/finish_lesson`, {
       method: 'PUT',
       mode: 'cors',
       credentials: 'include',
@@ -224,12 +234,20 @@ class CurrentSlide extends React.Component<any, any> {
       }
       return response.json();
     }).then((response) => {
-      if (caId) {
-        redirectAssignedStudents(caId, this.state.selectedOptionKey, response.follow_up_url)
+      if (classroomUnitId) {
+        redirectAssignedStudents(
+          classroomUnitId,
+          this.state.selectedOptionKey,
+          response.follow_up_url
+        );
       }
-      this.setState({completed: true, showTimeoutModal: false, showCongratulationsModal: true})
+      this.setState({
+        completed: true,
+        showTimeoutModal: false,
+        showCongratulationsModal: true
+       });
     }).catch((error) => {
-      console.log('error', error)
+      console.log('error', error);
     })
   }
 

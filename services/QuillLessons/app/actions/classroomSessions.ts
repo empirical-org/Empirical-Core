@@ -141,9 +141,13 @@ export function updateSession(data: object): {type: string; data: any;} {
   };
 }
 
-export function redirectAssignedStudents(classroomActivityId: string, followUpOption: string, followUpUrl: string) {
+export function redirectAssignedStudents(
+  classroomUnitId: string,
+  followUpOption: string,
+  followUpUrl: string
+) {
   socket.instance.emit('redirectAssignedStudents', {
-    classroomActivityId,
+    classroomUnitId,
     followUpOption,
     followUpUrl,
   })
