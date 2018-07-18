@@ -86,8 +86,9 @@ export default React.createClass({
     caObj.classroomActivities.set(u.activity_id, {
       name: u.activity_name,
       activityId: u.activity_id,
-      created_at: u.classroom_activity_created_at,
-      caId: u.classroom_activity_id,
+      created_at: u.unit_activity_created_at,
+      uaId: u.unit_activity_id,
+      cuId: u.classroom_unit_id,
       activityClassificationId: u.activity_classification_id,
 			classroomId: u.classroom_id,
 			ownedByCurrentUser: u.owned_by_current_user === 't',
@@ -133,9 +134,10 @@ export default React.createClass({
 	classroomActivityData(u, assignedStudentCount, completedCount, cumulativeScore) {
 		return {
 			name: u.activity_name,
-			caId: u.classroom_activity_id,
+			uaId: u.unit_activity_id,
+      cuId: u.classroom_unit_id,
 			activityId: u.activity_id,
-			created_at: u.classroom_activity_created_at,
+			created_at: u.unit_activity_created_at,
 			activityClassificationId: u.activity_classification_id,
 			classroomId: u.classroom_id,
 			ownedByCurrentUser: u.owned_by_current_user === 't',
