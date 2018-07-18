@@ -110,10 +110,8 @@ class Teachers::UnitsController < ApplicationController
   # Get all Units containing lessons, and only retrieve the classroom activities for lessons.
   # We use the count to see if we should mark as completed.
   def lesson_units
-    units_i_own = units_i_own_or_coteach('own', false, true)
-    units_i_coteach = units_i_own_or_coteach('coteach', false, true)
-    lesson_units = units_i_own.concat(units_i_coteach)
-    render json: lesson_units.to_json
+    lesson_units_i_teach = units_i_teach_own_or_coteach('teach', false, true)
+    render json: lesson_units_i_teach.to_json
   end
 
   def hide
@@ -164,15 +162,13 @@ class Teachers::UnitsController < ApplicationController
   end
 
   def units(report)
-    units_i_own = units_i_own_or_coteach('own', report, false)
-    units_i_coteach = units_i_own_or_coteach('coteach', report, false)
-    units_i_own.concat(units_i_coteach)
+    units_i_teach_own_or_coteach('teach', report, false)
   end
 
-  def units_i_own_or_coteach(own_or_coteach, report, lessons)
-    # returns an empty array if own_or_coteach_classrooms_array is empty
-    own_or_coteach_classrooms_array = current_user.send("classrooms_i_#{own_or_coteach}").map(&:id)
-    if own_or_coteach_classrooms_array.any?
+  def units_i_teach_own_or_coteach(teach_own_or_coteach, report, lessons)
+    # returns an empty array if teach_own_or_coteach_classrooms_array is empty
+    teach_own_or_coteach_classrooms_array = current_user.send("classrooms_i_#{teach_own_or_coteach}").map(&:id)
+    if teach_own_or_coteach_classrooms_array.any?
       if report
         completed = lessons ? "HAVING ca.completed" : "HAVING SUM(CASE WHEN act_sesh.visible = true AND act_sesh.state = 'finished' THEN 1 ELSE 0 END) > 0"
       else
@@ -183,7 +179,7 @@ class Teachers::UnitsController < ApplicationController
       else
         lessons = ''
       end
-      own_or_coteach_string = "(#{own_or_coteach_classrooms_array.join(', ')})"
+      teach_own_or_coteach_string = "(#{teach_own_or_coteach_classrooms_array.join(', ')})"
       ActiveRecord::Base.connection.execute("SELECT units.name AS unit_name,
          activities.name AS activity_name,
          activities.supporting_info AS supporting_info,
@@ -202,7 +198,7 @@ class Teachers::UnitsController < ApplicationController
          (SELECT COUNT(DISTINCT user_id) FROM activity_sessions WHERE state = 'started' AND classroom_unit_id = cu.id AND activity_sessions.visible)  AS started_count,
          EXTRACT(EPOCH FROM units.created_at) AS unit_created_at,
          EXTRACT(EPOCH FROM ua.created_at) AS unit_activity_created_at,
-         #{ActiveRecord::Base.sanitize(own_or_coteach)} AS own_or_coteach,
+         #{ActiveRecord::Base.sanitize(teach_own_or_coteach)} AS teach_own_or_coteach,
          unit_owner.name AS owner_name,
          ua.id AS unit_activity_id,
          CASE WHEN unit_owner.id = #{current_user.id} THEN TRUE ELSE FALSE END AS owned_by_current_user
@@ -213,9 +209,8 @@ class Teachers::UnitsController < ApplicationController
         INNER JOIN classrooms ON cu.classroom_id = classrooms.id
         LEFT JOIN students_classrooms ON students_classrooms.classroom_id = classrooms.id AND students_classrooms.visible
         LEFT JOIN activity_sessions AS act_sesh ON act_sesh.classroom_unit_id = cu.id
-        LEFT JOIN classrooms_teachers ON classrooms_teachers.classroom_id = classrooms.id
         JOIN users AS unit_owner ON unit_owner.id = units.user_id
-      WHERE cu.classroom_id IN #{own_or_coteach_string}
+      WHERE cu.classroom_id IN #{teach_own_or_coteach_string}
         AND classrooms.visible = true
         AND units.visible = true
         AND cu.visible = true
