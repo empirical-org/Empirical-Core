@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import _ from 'lodash'
 const WakeLock: any = require('react-wakelock').default;
 import {
-  startListeningToSession,
   startListeningToSessionForTeacher,
   goToNextSlide,
   goToPreviousSlide,
@@ -59,7 +58,7 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
     const classroomUnitId: string|null = getParameterByName('classroom_unit_id');
     const activityId: string = this.props.params.lessonID;
     if (ca_id) {
-      startLesson(ca_id, () => this.props.dispatch(startListeningToSessionForTeacher(ca_id, activityId, classroomUnitId)));
+      startLesson(classroomUnitId, () => this.props.dispatch(startListeningToSessionForTeacher(ca_id, activityId, classroomUnitId)));
       registerTeacherPresence(ca_id);
     }
     if (this.props.classroomLesson.hasreceiveddata) {
