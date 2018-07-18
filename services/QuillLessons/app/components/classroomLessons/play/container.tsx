@@ -141,13 +141,13 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
     const tag = event.target.tagName.toLowerCase()
     const className = event.target.className.toLowerCase()
     if (tag !== 'input' && tag !== 'textarea' && className.indexOf("drafteditor") === -1 && (event.keyCode === 39 || event.keyCode === 37)) {
-      const ca_id: string|null = getParameterByName('classroom_activity_id');
+      const classroomUnitId: string|null = getParameterByName('classroom_unit_id');
       const sessionData: ClassroomLessonSession = this.props.classroomSessions.data;
       const editionData: CustomizeIntf.EditionQuestions = this.props.customize.editionQuestions;
-      if (ca_id) {
+      if (classroomUnitId) {
         const updateInStore = event.keyCode === 39
-          ? goToNextSlide(ca_id, sessionData, editionData)
-          : goToPreviousSlide(ca_id, sessionData, editionData)
+          ? goToNextSlide(sessionData, editionData, classroomUnitId)
+          : goToPreviousSlide(sessionData, editionData, classroomUnitId)
         if (updateInStore) {
           this.props.dispatch(updateInStore);
         }
@@ -251,6 +251,7 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
   renderLeftButton() {
     if (getParameterByName('projector') && this.props.classroomSessions.data.current_slide !== '0') {
       const ca_id: string|null = getParameterByName('classroom_activity_id');
+      const classroomUnitId: string|null = getParameterByName('classroom_unit_id');
       const sessionData: ClassroomLessonSession = this.props.classroomSessions.data;
       const editionData: CustomizeIntf.EditionQuestions = this.props.customize.editionQuestions;
       const imageSrc = this.state.leftHover ? 'https://assets.quill.org/images/icons/left-button-hover.svg' : 'https://assets.quill.org/images/icons/left-button.svg'
@@ -259,7 +260,7 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
         src={imageSrc}
         onMouseOver={() => this.setState({leftHover: true})}
         onMouseOut={() => this.setState({leftHover: false})}
-        onClick={() => this.props.dispatch(goToPreviousSlide(ca_id, sessionData, editionData))}
+        onClick={() => this.props.dispatch(goToPreviousSlide(sessionData, editionData, classroomUnitId))}
       />
     }
 
@@ -268,7 +269,7 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
   renderRightButton() {
     const currentSlide = Number(this.props.classroomSessions.data.current_slide)
     if (getParameterByName('projector') && currentSlide !== this.props.classroomLesson.data.questions.length - 1) {
-      const ca_id: string|null = getParameterByName('classroom_activity_id');
+      const classroomUnitId: string|null = getParameterByName('classroom_unit_id');
       const sessionData: ClassroomLessonSession = this.props.classroomSessions.data;
       const editionData: CustomizeIntf.EditionQuestions = this.props.customize.editionQuestions;
       const className: string = currentSlide === 0 ? 'right-button keep-right' : 'right-button'
@@ -278,7 +279,7 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
       src={imageSrc}
       onMouseOver={() => this.setState({rightHover: true})}
       onMouseOut={() => this.setState({rightHover: false})}
-      onClick={() => this.props.dispatch(goToNextSlide(ca_id, sessionData, editionData))}
+      onClick={() => this.props.dispatch(goToNextSlide(sessionData, editionData, classroomUnitId))}
     />
     }
   }

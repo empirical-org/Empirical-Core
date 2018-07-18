@@ -159,51 +159,62 @@ export function registerPresence(
   socket.instance.emit('registerPresence', { classroomUnitId, studentId });
 }
 
-export function goToNextSlide(classroom_activity_id: string|null, state: ClassroomLessonSession, lesson: ClassroomLesson|CustomizeIntf.EditionQuestions) {
-  if (classroom_activity_id) {
+export function goToNextSlide(
+  state: ClassroomLessonSession,
+  lesson: ClassroomLesson|CustomizeIntf.EditionQuestions,
+  classroomUnitId: string|null
+) {
+  if (classroomUnitId) {
     const { current_slide } = state;
     const { questions } = lesson;
     const slides = questions ? Object.keys(questions) : [];
     const current_slide_index = slides.indexOf(current_slide.toString());
     const nextSlide = slides[current_slide_index + 1];
     if (nextSlide !== undefined) {
-      return updateCurrentSlide(classroom_activity_id, nextSlide);
+      return updateCurrentSlide(nextSlide, classroomUnitId);
     }
   }
 }
 
-export function goToPreviousSlide(classroom_activity_id: string|null, state: ClassroomLessonSession, lesson: ClassroomLesson|CustomizeIntf.EditionQuestions) {
-  if (classroom_activity_id) {
+export function goToPreviousSlide(
+  state: ClassroomLessonSession,
+  lesson: ClassroomLesson|CustomizeIntf.EditionQuestions,
+  classroomUnitId: string|null
+) {
+  if (classroomUnitId) {
     const { current_slide } = state;
     const { questions } = lesson;
     const slides = questions ? Object.keys(questions) : [];
     const current_slide_index = slides.indexOf(current_slide.toString());
     const previousSlide = slides[current_slide_index - 1];
     if (previousSlide !== undefined) {
-      return updateCurrentSlide(classroom_activity_id, previousSlide);
+      return updateCurrentSlide(previousSlide, classroomUnitId);
     }
   }
 }
 
-export function updateCurrentSlide(classroom_activity_id: string, question_id: string) {
+export function updateCurrentSlide(
+  question_id: string,
+  classroomUnitId: string
+) {
   return (dispatch) => {
     dispatch(updateSlideInStore(question_id))
-    updateSlide(classroom_activity_id, question_id)
+    updateSlide(question_id, classroomUnitId)
   }
 }
 
 export function updateSlide(
-  classroomActivityId: string,
-  questionId: string
+  questionId: string,
+  classroomUnitId: string
  ) {
   socket.instance.emit('updateClassroomLessonSession', {
-    classroomActivityId,
+    classroomUnitId,
     session: {
-      id: classroomActivityId,
+      id: classroomUnitId,
       current_slide: questionId,
     }
   });
-  setSlideStartTime(classroomActivityId, questionId)
+  setSlideStartTime(classroomUnitId, questionId)
 }
 
 export function updateSlideInStore(slideId: string) {
@@ -409,9 +420,9 @@ export function addSupportingInfo(
   });
 }
 
-export function setSlideStartTime(classroomActivityId: string, questionId: string): void {
+export function setSlideStartTime(classroomUnitId: string, questionId: string): void {
   socket.instance.emit('setSlideStartTime', {
-    classroomActivityId,
+    classroomUnitId,
     questionId,
   });
 }
