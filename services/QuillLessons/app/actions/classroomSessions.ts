@@ -19,18 +19,18 @@ import socket from '../utils/socketStore';
 import { URL, URLSearchParams } from 'url';
 
 
-export function startListeningToSession(classroomActivityId: string) {
+export function startListeningToSession(classroomUnitId: string) {
   return function(dispatch, getState) {
-    socket.instance.on(`classroomLessonSession:${classroomActivityId}`, (data) => {
+    socket.instance.on(`classroomLessonSession:${classroomUnitId}`, (data) => {
       if (data) {
         if (!_.isEqual(getState().classroomSessions.data, data)) {
           dispatch(updateSession(data));
         }
       } else {
-        dispatch({type: C.NO_CLASSROOM_ACTIVITY, data: classroomActivityId})
+        dispatch({type: C.NO_CLASSROOM_UNIT, data: classroomUnitId})
       }
     });
-    socket.instance.emit('subscribeToClassroomLessonSession', { classroomActivityId });
+    socket.instance.emit('subscribeToClassroomLessonSession', { classroomUnitId });
   };
 }
 

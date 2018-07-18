@@ -40,9 +40,9 @@ class Customize extends React.Component<customizeProps> {
       props.dispatch(getClassLesson(props.params.lessonID))
     }
 
-    const ca_id: string|null = getParameterByName('classroom_activity_id')
-    if (ca_id) {
-      props.dispatch(startListeningToSession(ca_id))
+    const classroomUnitId: string|null = getParameterByName('classroom_unit_id')
+    if (classroomUnitId) {
+      props.dispatch(startListeningToSession(classroomUnitId))
     }
 
     this.goToSuccessPage = this.goToSuccessPage.bind(this)
