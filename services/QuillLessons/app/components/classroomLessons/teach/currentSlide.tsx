@@ -157,9 +157,9 @@ class CurrentSlide extends React.Component<any, any> {
   }
 
   saveModel(model: string) {
-    const caId: string|null = getParameterByName('classroom_activity_id');
-    if (caId) {
-      setModel(caId, this.props.classroomSessions.data.current_slide, model);
+    const classroomUnitId: string|null = getParameterByName('classroom_unit_id');
+    if (classroomUnitId) {
+      setModel(classroomUnitId, this.props.classroomSessions.data.current_slide, model);
     }
   }
 
@@ -173,9 +173,9 @@ class CurrentSlide extends React.Component<any, any> {
   }
 
   savePrompt(prompt: string) {
-    const caId: string|null = getParameterByName('classroom_activity_id');
-    if (caId) {
-      setPrompt(caId, this.props.classroomSessions.data.current_slide, prompt);
+    const classroomUnitId: string|null = getParameterByName('classroom_unit_id');
+    if (classroomUnitId) {
+      setPrompt(classroomUnitId, this.props.classroomSessions.data.current_slide, prompt);
     }
   }
 

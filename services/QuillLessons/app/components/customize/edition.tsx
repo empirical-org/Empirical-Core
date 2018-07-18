@@ -185,8 +185,8 @@ class CustomizeEdition extends React.Component<any, any> {
   }
 
   afterPublishing() {
-    const classroomActivityId = getParameterByName('classroom_activity_id')
-    setTeacherModels(classroomActivityId, this.props.params.editionID)
+    const classroomUnitId = getParameterByName('classroom_unit_id')
+    setTeacherModels(classroomUnitId, this.props.params.editionID)
     this.goToSuccessPage()
   }
 
