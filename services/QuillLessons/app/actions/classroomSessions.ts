@@ -420,17 +420,24 @@ export function addSupportingInfo(
   });
 }
 
-export function setSlideStartTime(classroomUnitId: string, questionId: string): void {
+export function setSlideStartTime(
+  classroomUnitId: string,
+  questionId: string
+): void {
   socket.instance.emit('setSlideStartTime', {
     classroomUnitId,
     questionId,
   });
 }
 
-export function setEditionId(classroomActivityId: string, editionId: string|null, callback?: Function): void {
-  socket.instance.emit('setEditionId', { classroomActivityId, editionId });
-  socket.instance.on(`editionIdSet:${classroomActivityId}`, () => {
-    socket.instance.removeAllListeners(`editionIdSet:${classroomActivityId}`);
+export function setEditionId(
+  classroomUnitId: string,
+  editionId: string|null,
+  callback?: Function
+): void {
+  socket.instance.emit('setEditionId', { classroomUnitId, editionId });
+  socket.instance.on(`editionIdSet:${classroomUnitId}`, () => {
+    socket.instance.removeAllListeners(`editionIdSet:${classroomUnitId}`);
     if (callback) {
       callback();
     }

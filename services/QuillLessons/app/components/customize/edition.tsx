@@ -52,9 +52,9 @@ class CustomizeEdition extends React.Component<any, any> {
   }
 
   componentWillMount() {
-    const classroomActivityId = getParameterByName('classroom_activity_id');
-    if (classroomActivityId) {
-      setEditionId(classroomActivityId, this.props.params.editionID);
+    const classroomUnitId = getParameterByName('classroom_unit_id');
+    if (classroomUnitId) {
+      setEditionId(classroomUnitId, this.props.params.editionID);
     }
 
     this.props.dispatch(getEditionMetadata(
