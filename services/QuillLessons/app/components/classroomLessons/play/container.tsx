@@ -116,15 +116,15 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
         element.scrollTop = 0;
       }
       const student = getParameterByName('student');
-      const classroom_activity_id = getParameterByName('classroom_activity_id')
+      const classroomUnitId = getParameterByName('classroom_unit_id')
       const projector = getParameterByName('projector')
       const { data, hasreceiveddata } = this.props.classroomSessions;
       if (projector === "true") {
         if (!this.state.projector) {
           this.setState({projector: true, showProjectorModal: true})
         }
-      } else if (classroom_activity_id && student && hasreceiveddata && this.studentEnrolledInClass(student)) {
-        registerPresence(classroom_activity_id, student);
+      } else if (classroomUnitId && student && hasreceiveddata && this.studentEnrolledInClass(student)) {
+        registerPresence(classroomUnitId, student);
       } else {
         if (hasreceiveddata && !this.studentEnrolledInClass(student) && !nextProps.classroomSessions.error) {
           if (nextProps.classroomSessions.data.public) {

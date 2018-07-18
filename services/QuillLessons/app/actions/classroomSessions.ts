@@ -124,12 +124,12 @@ export function getLessonData(
 }
 
 export function getPreviewData(
-  lesson_id: string,
+  activityId: string,
   classroomUnitId: string
 ) {
   const baseUrl:string = process.env.EMPIRICAL_BASE_URL ? String(process.env.EMPIRICAL_BASE_URL) : 'https://quill.org/'
   return function(dispatch) {
-    dispatch(loadSupportingInfo(lesson_id, baseUrl, classroomUnitId))
+    dispatch(loadSupportingInfo(activityId, baseUrl, classroomUnitId))
   }
 }
 
@@ -152,8 +152,11 @@ export function redirectAssignedStudents(
   })
 }
 
-export function registerPresence(classroomActivityId: string, studentId: string): void {
-  socket.instance.emit('registerPresence', { classroomActivityId, studentId });
+export function registerPresence(
+  classroomUnitId: string,
+  studentId: string
+): void {
+  socket.instance.emit('registerPresence', { classroomUnitId, studentId });
 }
 
 export function goToNextSlide(classroom_activity_id: string|null, state: ClassroomLessonSession, lesson: ClassroomLesson|CustomizeIntf.EditionQuestions) {
