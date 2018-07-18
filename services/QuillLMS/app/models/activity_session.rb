@@ -104,7 +104,7 @@ class ActivitySession < ActiveRecord::Base
     if self.activity_id
       UnitActivity.find_by(unit: unit, activity_id: self.activity_id)
     else
-      unit&.unit_activities.length == 1 ? unit&.unit_activities&.first : nil
+      unit&.unit_activities&.length == 1 ? unit&.unit_activities&.first : nil
     end
   end
 
