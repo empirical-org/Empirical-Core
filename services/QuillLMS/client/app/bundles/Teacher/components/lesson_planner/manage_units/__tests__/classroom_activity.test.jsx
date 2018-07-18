@@ -48,6 +48,7 @@ describe('ClassroomActivity component', () => {
           },
           activityId: 413}}/>
     );
+    wrapper.setState({activityWithRecommendationsIds: [413]})
       expect(wrapper.find('.recommendations-button')).toHaveLength(1);
   });
 

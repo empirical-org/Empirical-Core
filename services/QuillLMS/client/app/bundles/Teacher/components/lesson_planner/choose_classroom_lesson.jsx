@@ -34,7 +34,7 @@ export default class ChooseClassroomLesson extends React.Component {
     return <div>{classrooms}</div>
   }
 
-  renderClassroomRow(ca, i) {
+  renderClassroomRow(cu, i) {
     const numberOfStudents = `${cu.number_of_assigned_students} student${cu.number_of_assigned_students === 1 ? '' : 's'}`
     const selectedClassName = cu.id === this.state.classroomUnitId ? 'selected' : null
     let completionText, completionClass, imgName, clickFunction

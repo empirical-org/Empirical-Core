@@ -396,7 +396,7 @@ module Teacher
   end
 
   def get_data_for_lessons_cache
-    :LessonsCache::format_initial_lessons_cache(self)
+    format_initial_lessons_cache(self)
   end
 
   def classrooms_i_am_the_coteacher_for_with_a_specific_teacher(teacher_id)
