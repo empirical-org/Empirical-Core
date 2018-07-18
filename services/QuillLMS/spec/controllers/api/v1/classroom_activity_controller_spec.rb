@@ -152,18 +152,6 @@ describe Api::V1::ClassroomActivitiesController, type: :controller do
     end
   end
 
-  describe '#pin_activity' do
-    before do
-      session[:user_id] = teacher.id
-    end
-
-    it 'should update the pin attribute in the activity' do
-      expect(classroom.classroom_activities.first.pinned).to eq false
-      get :pin_activity, activity_id: activity.id, classroom_unit_id: classroom_unit.id
-      expect(classroom.reload.classroom_activities.first.pinned).to eq true
-    end
-  end
-
   describe '#classroom_teacher_and_coteacher_ids' do
     let(:teacher_ids) { Hash[classroom.teacher_ids.collect {|i| [i, true]}] }
 
