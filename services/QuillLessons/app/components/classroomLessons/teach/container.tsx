@@ -18,7 +18,6 @@ import {
   toggleStudentFlag,
   clearAllSubmissions,
   registerTeacherPresence,
-  loadStudentNames,
   startLesson
 } from '../../../actions/classroomSessions';
 import {
@@ -53,20 +52,19 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
     super(props);
     props.dispatch(getCurrentUserAndCoteachersFromLMS())
     document.addEventListener("keydown", this.handleKeyDown.bind(this));
-    // props.dispatch(firebaseAuth())
   }
 
   componentDidMount() {
-    const ca_id: string|null = getParameterByName('classroom_activity_id')
-    const lesson_id: string = this.props.params.lessonID
-    if (ca_id ) {
-      startLesson(ca_id, () => this.props.dispatch(startListeningToSessionForTeacher(ca_id, lesson_id)))
-      // this.props.dispatch(startListeningToCurrentSlide(ca_id));
-      registerTeacherPresence(ca_id)
+    const ca_id: string|null = getParameterByName('classroom_activity_id');
+    const classroomUnitId: string|null = getParameterByName('classroom_unit_id');
+    const activityId: string = this.props.params.lessonID;
+    if (ca_id) {
+      startLesson(ca_id, () => this.props.dispatch(startListeningToSessionForTeacher(ca_id, activityId, classroomUnitId)));
+      registerTeacherPresence(ca_id);
     }
     if (this.props.classroomLesson.hasreceiveddata) {
-      this.props.dispatch(clearClassroomLessonFromStore())
-      this.props.dispatch(clearEditionQuestions())
+      this.props.dispatch(clearClassroomLessonFromStore());
+      this.props.dispatch(clearEditionQuestions());
     }
     document.getElementsByTagName("html")[0].style.overflowY = "hidden";
   }
