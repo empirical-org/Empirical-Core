@@ -105,6 +105,7 @@ pipeline {
 
               dir(path: 'services/QuillJenkins/scripts') {
                 // Check that code coverage has not decreased
+                sh "pwd"
                 sh "python --version"
                 sh "ls -alt"
                 sh "python -c 'import codecov; codecov.fail_on_decrease(\"fake-develop\", \"$env.BRANCH_NAME\" )' || exit"
@@ -136,6 +137,7 @@ pipeline {
               }
               dir(path: 'services/QuillJenkins/scripts') {
                 // Check that code coverage has not decreased
+                sh "pwd"
                 sh "python --version"
                 sh "ls -alt"
                 sh "python -c 'import codecov; codecov.fail_on_decrease(\"fake-develop\", \"$env.BRANCH_NAME\" )' || exit"
