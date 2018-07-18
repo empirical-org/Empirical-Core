@@ -99,9 +99,8 @@ class TeachersController < ApplicationController
 
   def get_completed_diagnostic_unit_info
     begin
-      unit_id = current_user.finished_diagnostic_unit_ids.first.id
-      ca = ClassroomActivity.find_by(unit_id: unit_id, activity_id: Activity.diagnostic_activity_ids)
-      unit_info = { unit_id: unit_id, classroom_id: ca.classroom_id, activity_id: ca.activity_id }
+      last_finished_diagnostic = current_user.finished_diagnostic_unit_ids_with_classroom_id_and_activity_id.first
+      unit_info = { unit_id: last_finished_diagnostic.unit_id, classroom_id: last_finished_diagnostic.classroom_id, activity_id: last_finished_diagnostic.activity_id }
     rescue
       unit_info = {}
     end
