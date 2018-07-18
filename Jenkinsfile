@@ -116,7 +116,7 @@ pipeline {
             dockerfile {
               filename 'Dockerfile.test-node'
               dir 'services/QuillJenkins/agents/QuillLMS'
-              args '-u root:sudo -v \$HOME/workspace/myproject:/myproject --name lms-webapp-frontend${env.BUILD_TAG} --network jnk-net${env.BUILD_TAG}'
+              args "-u root:sudo -v \$HOME/workspace/myproject:/myproject --name lms-webapp-frontend${env.BUILD_TAG} --network jnk-net${env.BUILD_TAG}""
             }
           }
           steps {
