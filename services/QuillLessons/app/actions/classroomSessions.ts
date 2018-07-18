@@ -1,7 +1,7 @@
 declare function require(name:string);
 import C from '../constants';
-import * as request from 'request'
-import _ from 'lodash'
+import * as request from 'request';
+import _ from 'lodash';
 import {
   ClassroomLessonSessions,
   ClassroomLessonSession,
@@ -13,9 +13,11 @@ import {
 import {
  ClassroomLesson
 } from '../interfaces/classroomLessons';
-import * as CustomizeIntf from '../interfaces/customize'
+import * as CustomizeIntf from '../interfaces/customize';
 import uuid from 'uuid/v4';
-import socket from '../utils/socketStore'
+import socket from '../utils/socketStore';
+import { URL, URLSearchParams } from 'url';
+
 
 export function startListeningToSession(classroomActivityId: string) {
   return function(dispatch, getState) {
@@ -60,7 +62,8 @@ export function toggleOnlyShowHeaders() {
 
 export function startListeningToSessionForTeacher(
   classroomActivityId: string,
-  lessonId: string
+  activityId: string,
+  classroomUnitId: string,
 ) {
   return function (dispatch, getState) {
     let initialized = false;
@@ -73,9 +76,10 @@ export function startListeningToSessionForTeacher(
         }
         dispatch(getInitialData(
           classroomActivityId,
-          lessonId,
+          activityId,
           initialized,
-          session.preview
+          session.preview,
+          classroomUnitId
         ))
         initialized = true
       } else {
@@ -86,23 +90,33 @@ export function startListeningToSessionForTeacher(
   }
 }
 
-export function getInitialData(ca_id: string, lesson_id: string, initialized, preview) {
+export function getInitialData(
+  ca_id: string,
+  activityId: string,
+  initialized,
+  preview,
+  classroomUnitId: string,
+) {
   return function(dispatch) {
     if (!initialized && ca_id) {
       if (preview) {
-        dispatch(getPreviewData(ca_id, lesson_id))
+        dispatch(getPreviewData(ca_id, activityId))
       } else {
-        dispatch(getLessonData(ca_id, lesson_id))
+        dispatch(getLessonData(ca_id, activityId, classroomUnitId))
       }
     }
   }
 }
 
-export function getLessonData(ca_id: string, lesson_id: string) {
+export function getLessonData(
+  ca_id: string,
+  activityId: string
+  classroomUnitId: string,
+) {
   return function(dispatch) {
     dispatch(getClassroomAndTeacherNameFromServer(ca_id, process.env.EMPIRICAL_BASE_URL))
-    dispatch(loadStudentNames(ca_id, process.env.EMPIRICAL_BASE_URL))
-    dispatch(loadFollowUpNameAndSupportingInfo(lesson_id, ca_id, process.env.EMPIRICAL_BASE_URL))
+    dispatch(loadStudentNames(activityId, classroomUnitId, process.env.EMPIRICAL_BASE_URL))
+    dispatch(loadFollowUpNameAndSupportingInfo(activityId, ca_id, process.env.EMPIRICAL_BASE_URL))
   }
 }
 
@@ -411,9 +425,20 @@ export function easyJoinLessonAddName(classroomActivityId: string, studentName: 
   });
 }
 
-export function loadStudentNames(classroom_activity_id: string, baseUrl: string|undefined) {
+export function loadStudentNames(
+  activityId: string,
+  classroomUnitId: string,
+  baseUrl: string|undefined
+) {
   return function (dispatch) {
-    fetch(`${baseUrl}/api/v1/classroom_activities/${classroom_activity_id}/student_names`, {
+    let url = new URL(`${baseUrl}/api/v1/classroom_activities/student_names`);
+    let params = {
+      activity_id: activityId,
+      classroom_unit_id: classroomUnitId
+    }
+    url.search = new URLSearchParams(params)
+
+    fetch(url, {
       method: 'GET',
       mode: 'cors',
       credentials: 'include',
