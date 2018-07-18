@@ -24,12 +24,11 @@ class MarkingLessonAsCompleted extends React.Component<any, any> {
   }
 
   componentDidMount() {
-    const ca_id: string|null = getParameterByName('classroom_activity_id');
     const classroomUnitId: string|null = getParameterByName('classroom_unit_id');
     const activityId: string = this.props.params.lessonID;
-    if (ca_id) {
+    if (classroomUnitId) {
       this.props.dispatch(getClassLesson(activityId));
-      this.props.dispatch(startListeningToSessionForTeacher(ca_id, activityId, classroomUnitId));
+      this.props.dispatch(startListeningToSessionForTeacher(activityId, classroomUnitId));
     }
   }
 

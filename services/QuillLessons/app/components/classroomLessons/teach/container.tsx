@@ -57,8 +57,10 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
     const ca_id: string|null = getParameterByName('classroom_activity_id');
     const classroomUnitId: string|null = getParameterByName('classroom_unit_id');
     const activityId: string = this.props.params.lessonID;
-    if (ca_id) {
-      startLesson(classroomUnitId, () => this.props.dispatch(startListeningToSessionForTeacher(ca_id, activityId, classroomUnitId)));
+    if (ca_id && classroomUnitId) {
+      startLesson(classroomUnitId, () => {
+        this.props.dispatch(startListeningToSessionForTeacher(activityId, classroomUnitId));
+      });
       registerTeacherPresence(ca_id);
     }
     if (this.props.classroomLesson.hasreceiveddata) {
