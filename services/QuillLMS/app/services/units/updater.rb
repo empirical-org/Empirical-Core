@@ -25,8 +25,8 @@ module Units::Updater
   private
 
   def self.matching_or_new_classroom_unit(classroom, extant_classroom_units, new_cus, hidden_cus_ids, unit_id)
-
-    matching_cu = extant_classroom_units.find{|cu| cu.classroom_id == classroom[:id]}
+    classroom_id = classroom[:id].to_i
+    matching_cu = extant_classroom_units.find{|cu| cu.classroom_id == classroom_id}
     if matching_cu
       if classroom[:student_ids] == false
         # then there are no assigned students and we should hide the cas
@@ -37,7 +37,7 @@ module Units::Updater
       end
     elsif classroom[:student_ids] || classroom[:assign_on_join]
       # making an array of hashes to create in one bulk option
-      new_cus.push({classroom_id: classroom[:id],
+      new_cus.push({classroom_id: classroom_id,
          unit_id: unit_id,
          assign_on_join: classroom[:assign_on_join],
          assigned_student_ids: classroom[:student_ids]})
