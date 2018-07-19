@@ -162,15 +162,15 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
   }
 
   handleStudentSubmission(data: string) {
-    const classroom_activity_id: string|null = getParameterByName('classroom_activity_id');
+    const classroomUnitId: string|null = getParameterByName('classroom_unit_id');
     const student: string|null = getParameterByName('student');
-    const current_slide: string = this.props.classroomSessions.data.current_slide;
+    const currentSlide: string = this.props.classroomSessions.data.current_slide;
     const safeData = scriptTagStrip(data)
     const submission = {data: safeData}
-    if (classroom_activity_id && student && this.studentEnrolledInClass(student)) {
+    if (classroomUnitId && student && this.studentEnrolledInClass(student)) {
       saveStudentSubmission(
-        classroom_activity_id,
-        current_slide,
+        classroomUnitId,
+        currentSlide,
         student,
         submission
       );
@@ -248,7 +248,6 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
 
   renderLeftButton() {
     if (getParameterByName('projector') && this.props.classroomSessions.data.current_slide !== '0') {
-      const ca_id: string|null = getParameterByName('classroom_activity_id');
       const classroomUnitId: string|null = getParameterByName('classroom_unit_id');
       const sessionData: ClassroomLessonSession = this.props.classroomSessions.data;
       const editionData: CustomizeIntf.EditionQuestions = this.props.customize.editionQuestions;

@@ -224,79 +224,113 @@ export function updateSlideInStore(slideId: string) {
   }
 }
 
-export function saveStudentSubmission(classroomActivityId: string, questionId: string, studentId: string, submission: {data: any}): void {
+export function saveStudentSubmission(
+  classroomUnitId: string,
+  questionId: string,
+  studentId: string,
+  submission: {data: any}
+): void {
   socket.instance.emit('saveStudentSubmission', {
-    classroomActivityId,
+    classroomUnitId,
     questionId,
     studentId,
     submission,
   });
 }
 
-export function removeStudentSubmission(classroomActivityId: string, questionId: string, studentId: string): void {
+export function removeStudentSubmission(
+  classroomUnitId: string,
+  questionId: string,
+  studentId: string
+): void {
   socket.instance.emit('removeStudentSubmission', {
-    classroomActivityId,
+    classroomUnitId,
     questionId,
     studentId,
   })
 }
 
-export function clearAllSubmissions(classroomActivityId: string, questionId: string): void {
+export function clearAllSubmissions(
+  classroomUnitId: string,
+  questionId: string
+): void {
   socket.instance.emit('clearAllSubmissions', {
-    classroomActivityId,
+    classroomUnitId,
     questionId,
   });
 }
 
-export function saveSelectedStudentSubmission(classroomActivityId: string, questionId: string, studentId: string): void {
+export function saveSelectedStudentSubmission(
+  classroomUnitId: string,
+  questionId: string,
+  studentId: string
+): void {
   socket.instance.emit('saveSelectedStudentSubmission', {
-    classroomActivityId,
+    classroomUnitId,
     questionId,
     studentId
   });
 }
 
-export function removeSelectedStudentSubmission(classroomActivityId: string, questionId: string, studentId: string): void {
+export function removeSelectedStudentSubmission(
+  classroomUnitId: string,
+  questionId: string,
+  studentId: string
+): void {
   socket.instance.emit('removeSelectedStudentSubmission', {
-    classroomActivityId,
+    classroomUnitId,
     questionId,
     studentId,
   })
 }
 
-export function updateStudentSubmissionOrder(classroomActivityId: string, questionId: string, studentId: string): void {
+export function updateStudentSubmissionOrder(
+  classroomUnitId: string,
+  questionId: string,
+  studentId: string
+): void {
   socket.instance.emit('updateStudentSubmissionOrder', {
-    classroomActivityId,
+    classroomUnitId,
     questionId,
     studentId
   });
 }
 
-export function clearAllSelectedSubmissions(classroomActivityId: string, questionId: string): void {
+export function clearAllSelectedSubmissions(
+  classroomUnitId: string,
+  questionId: string
+): void {
   socket.instance.emit('clearAllSelectedSubmissions', {
-    classroomActivityId,
+    classroomUnitId,
     questionId,
   });
 }
 
-export function setMode(classroomActivityId: string, questionId: string, mode): void {
-  socket.instance.emit('setMode', { classroomActivityId, questionId, mode });
+export function setMode(
+  classroomUnitId: string,
+  questionId: string,
+  mode
+): void {
+  socket.instance.emit('setMode', { classroomUnitId, questionId, mode });
 }
 
-export function removeMode(classroomActivityId: string, questionId: string): void {
-  socket.instance.emit('removeMode', { classroomActivityId, questionId });
+export function removeMode(
+  classroomUnitId: string,
+  questionId: string
+): void {
+  socket.instance.emit('removeMode', { classroomUnitId, questionId });
 }
 
-export function setWatchTeacherState(classroomActivityId: string | null): void {
-  socket.instance.emit('setWatchTeacherState', { classroomActivityId });
+export function setWatchTeacherState(classroomUnitId: string | null): void {
+  socket.instance.emit('setWatchTeacherState', { classroomUnitId });
 }
 
-export function removeWatchTeacherState(classroomActivityId: string): void {
-  socket.instance.emit('removeWatchTeacherState', { classroomActivityId });
+export function removeWatchTeacherState(classroomUnitId: string): void {
+  socket.instance.emit('removeWatchTeacherState', { classroomUnitId });
 }
 
-export function registerTeacherPresence(classroomActivityId: string | null): void {
-  socket.instance.emit('teacherConnected', { classroomActivityId });
+export function registerTeacherPresence(classroomUnitId: string | null): void {
+  socket.instance.emit('teacherConnected', { classroomUnitId });
 }
 
 export function showSignupModal() {
@@ -339,8 +373,11 @@ export function unpinActivityOnSaveAndExit(
     });
 }
 
-export function toggleStudentFlag(classroomActivityId: string|null, studentId: string): void {
-  socket.instance.emit('toggleStudentFlag', { classroomActivityId, studentId });
+export function toggleStudentFlag(
+  classroomUnitId: string|null,
+  studentId: string
+): void {
+  socket.instance.emit('toggleStudentFlag', { classroomUnitId, studentId });
 }
 
 export function getClassroomAndTeacherNameFromServer(
@@ -573,19 +610,19 @@ export function loadSupportingInfo(
   };
 }
 
-export function createPreviewSession(edition_id?:string) {
+export function createPreviewSession(editionId?:string) {
   const previewIdPrefix = 'prvw-';
-  const classroomActivityId = `${previewIdPrefix}${uuid()}`;
+  const classroomUnitId = `${previewIdPrefix}${uuid()}`;
   let previewSessionData;
 
-  if (edition_id) {
+  if (editionId) {
     previewSessionData = {
       'students': { 'student': 'James Joyce' },
       'current_slide': '0',
       'public': true,
       'preview': true,
-      'edition_id': edition_id,
-      'id': classroomActivityId,
+      'edition_id': editionId,
+      'id': classroomUnitId,
     };
   } else {
     previewSessionData = {
@@ -593,13 +630,13 @@ export function createPreviewSession(edition_id?:string) {
       'current_slide': '0',
       'public': true,
       'preview': true,
-      'id': classroomActivityId,
+      'id': classroomUnitId,
     };
   }
 
   socket.instance.emit('createPreviewSession', { previewSessionData });
 
-  return classroomActivityId;
+  return classroomUnitId;
 }
 
 export function saveReview(activityId:string, classroomUnitId:string, value:number) {

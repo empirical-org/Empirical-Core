@@ -97,39 +97,39 @@ class CurrentSlide extends React.Component<any, any> {
   }
 
   toggleSelected(currentSlideId: string, student: string) {
-    const caId: string|null = getParameterByName('classroom_activity_id');
-    if (caId) {
+    const classroomUnitId: string|null = getParameterByName('classroom_unit_id');
+    if (classroomUnitId) {
       const submissions: SelectedSubmissions | null = this.props.classroomSessions.data.selected_submissions;
       const currentSlide: SelectedSubmissionsForQuestion | null = submissions ? submissions[currentSlideId] : null;
       const currentValue: boolean | null = currentSlide ? currentSlide[student] : null;
-      updateStudentSubmissionOrder(caId, currentSlideId, student)
+      updateStudentSubmissionOrder(classroomUnitId, currentSlideId, student)
       if (!currentValue) {
-        saveSelectedStudentSubmission(caId, currentSlideId, student);
+        saveSelectedStudentSubmission(classroomUnitId, currentSlideId, student);
       } else {
-        removeSelectedStudentSubmission(caId, currentSlideId, student);
+        removeSelectedStudentSubmission(classroomUnitId, currentSlideId, student);
       }
     }
   }
 
   clearAllSelectedSubmissions(currentSlide: string) {
-    const caId: string|null = getParameterByName('classroom_activity_id');
+    const classroomUnitId: string|null = getParameterByName('classroom_unit_id');
 
-    if (caId) {
-      clearAllSelectedSubmissions(caId, currentSlide);
+    if (classroomUnitId) {
+      clearAllSelectedSubmissions(classroomUnitId, currentSlide);
     }
   }
 
   clearAllSubmissions(currentSlide: string) {
-    const caId: string|null = getParameterByName('classroom_activity_id');
-    if (caId) {
-      clearAllSubmissions(caId, currentSlide);
+    const classroomUnitId: string|null = getParameterByName('classroom_unit_id');
+    if (classroomUnitId) {
+      clearAllSubmissions(classroomUnitId, currentSlide);
     }
   }
 
   clearStudentSubmission(currentSlideId: string, student: string) {
-    const caId: string|null = getParameterByName('classroom_activity_id');
-    if (caId) {
-      removeStudentSubmission(caId, currentSlideId, student);
+    const classroomUnitId: string|null = getParameterByName('classroom_unit_id');
+    if (classroomUnitId) {
+      removeStudentSubmission(classroomUnitId, currentSlideId, student);
     }
   }
 
@@ -138,22 +138,22 @@ class CurrentSlide extends React.Component<any, any> {
   }
 
   startDisplayingAnswers() {
-    const caId: string|null = getParameterByName('classroom_activity_id');
-    if (caId) {
-      setMode(caId, this.props.classroomSessions.data.current_slide, 'PROJECT');
+    const classroomUnitId: string|null = getParameterByName('classroom_unit_id');
+    if (classroomUnitId) {
+      setMode(classroomUnitId, this.props.classroomSessions.data.current_slide, 'PROJECT');
     }
   }
 
   stopDisplayingAnswers() {
-    const caId: string|null = getParameterByName('classroom_activity_id');
-    if (caId) {
-      removeMode(caId, this.props.classroomSessions.data.current_slide);
+    const classroomUnitId: string|null = getParameterByName('classroom_unit_id');
+    if (classroomUnitId) {
+      removeMode(classroomUnitId, this.props.classroomSessions.data.current_slide);
     }
   }
 
-  toggleStudentFlag(student_id: string) {
-    const ca_id: string|null = getParameterByName('classroom_activity_id');
-    toggleStudentFlag(ca_id, student_id);
+  toggleStudentFlag(studentId: string) {
+    const classroomUnitId: string|null = getParameterByName('classroom_unit_id');
+    toggleStudentFlag(classroomUnitId, studentId);
   }
 
   saveModel(model: string) {
