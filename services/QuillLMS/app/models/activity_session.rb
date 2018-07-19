@@ -242,7 +242,7 @@ class ActivitySession < ActiveRecord::Base
   end
 
   def self.activity_session_metadata(classroom_unit_id, activity_id)
-    act_seshes = activity_sessions.where(classroom_unit_id: classroom_unit_id, activity_id: activity_id, is_final_score: true).includes(concept_results: :concept)
+    act_seshes = ActivitySession.where(classroom_unit_id: classroom_unit_id, activity_id: activity_id, is_final_score: true).includes(concept_results: :concept)
     act_seshes.map{|act_sesh| act_sesh.concept_results.map{|cr| cr.metadata}}.flatten
   end
 

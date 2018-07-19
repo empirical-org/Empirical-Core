@@ -45,6 +45,7 @@ export default React.createClass({
 	getClassrooms() {
 		request.get(`${process.env.DEFAULT_URL}/teachers/classrooms/classrooms_i_teach`, (error, httpStatus, body) => {
 			const classrooms = JSON.parse(body).classrooms;
+			console.log('classrooms', classrooms.length)
 			if(classrooms.length > 0) {
 				this.setState({ classrooms }, () => this.getUnits());
 			} else {
@@ -169,46 +170,48 @@ export default React.createClass({
 	stateBasedComponent: function() {
 		if(!this.state.loaded) {
 			return <LoadingSpinner />;
-		}
-
-		let content;
-
-		const allClassroomsClassroom = { name: 'All Classrooms' }
-		const classrooms = [allClassroomsClassroom].concat(this.state.classrooms);
-		const classroomWithSelectedId = classrooms.find(classroom => classroom.id === Number(this.state.selectedClassroomId));
-		const selectedClassroom = classroomWithSelectedId ? classroomWithSelectedId : allClassroomsClassroom;
-
-		if(this.state.units.length === 0 && this.state.selectedClassroomId) {
-			content = (
-				<EmptyProgressReport
-					missing='activitiesForSelectedClassroom'
-					onButtonClick={() => {
-						this.setState({ selectedClassroomId: null, loaded: false });
-						this.getUnitsForCurrentClass();
-					}}
-				/>
-			);
-		} else if(this.state.units.length === 0) {
-			content = <EmptyProgressReport missing='activities' />
 		} else {
-			content = <Units report={Boolean(true)} activityReport={Boolean(true)} data={this.state.units}/>
+			let content;
+
+			const allClassroomsClassroom = { name: 'All Classrooms' }
+			const classrooms = [allClassroomsClassroom].concat(this.state.classrooms);
+			const classroomWithSelectedId = classrooms.find(classroom => classroom.id === Number(this.state.selectedClassroomId));
+			const selectedClassroom = classroomWithSelectedId ? classroomWithSelectedId : allClassroomsClassroom;
+
+			if(this.state.units.length === 0 && this.state.selectedClassroomId) {
+				content = (
+					<EmptyProgressReport
+						missing='activitiesForSelectedClassroom'
+						onButtonClick={() => {
+							this.setState({ selectedClassroomId: null, loaded: false });
+							this.getUnitsForCurrentClass();
+						}}
+					/>
+				);
+			} else if(this.state.units.length === 0) {
+				content = <EmptyProgressReport missing='activities' />
+			} else {
+				content = <Units report={Boolean(true)} activityReport={Boolean(true)} data={this.state.units}/>
+			}
+
+			return (
+				<div className='activity-analysis'>
+					<h1>Activity Analysis</h1>
+					<p>Open an activity analysis to view students' responses, the overall results on each question, and the concepts students need to practice.</p>
+					<div className="classroom-selector">
+						<p>Select a classroom:</p>
+						<ItemDropdown
+							items={classrooms}
+							callback={this.switchClassrooms}
+							selectedItem={selectedClassroom}
+						/>
+					</div>
+					{content}
+				</div>
+			)
+
 		}
 
-		return (
-			<div className='activity-analysis'>
-				<h1>Activity Analysis</h1>
-				<p>Open an activity analysis to view students' responses, the overall results on each question, and the concepts students need to practice.</p>
-				<div className="classroom-selector">
-					<p>Select a classroom:</p>
-					<ItemDropdown
-						items={classrooms}
-						callback={this.switchClassrooms}
-						selectedItem={selectedClassroom}
-					/>
-				</div>
-				{content}
-			</div>
-		)
 	},
 
 	render: function() {

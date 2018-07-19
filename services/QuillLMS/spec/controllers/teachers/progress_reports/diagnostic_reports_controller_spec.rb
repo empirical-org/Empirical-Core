@@ -14,7 +14,7 @@ include_context "Unit Assignments Variables"
       let!(:unit_activity) { create(:unit_activity, unit: unit, activity: activity)}
       let!(:activity_session) { create(:activity_session, classroom_unit: classroom_unit, activity: activity, user: student) }
       it "redirects to the correct page" do
-        get :report_from_classroom_unit_and_user, ({classroom_unit_id: classroom_unit.id, user_id: student.id, activity_id: activity.id})
+        get :report_from_classroom_unit_activity_and_user, ({classroom_unit_id: classroom_unit.id, user_id: student.id, activity_id: activity.id})
         expect(response).to redirect_to("/teachers/progress_reports/diagnostic_reports#/u/#{unit.id}/a/#{activity.id}/c/#{classroom.id}/student_report/#{student.id}")
       end
     end

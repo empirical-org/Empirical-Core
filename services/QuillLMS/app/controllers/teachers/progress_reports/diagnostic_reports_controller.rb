@@ -78,7 +78,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
         redirect_to default_diagnostic_url
     end
 
-    def report_from_classroom_unit
+    def report_from_classroom_unit_and_activity
       url = classroom_report_url(params[:classroom_unit_id].to_i, params[:activity_id].to_i)
       if url
         redirect_to url
@@ -87,7 +87,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
       end
     end
 
-    def report_from_classroom_unit_and_user
+    def report_from_classroom_unit_activity_and_user
         act_sesh_report = activity_session_report(params[:classroom_unit_id].to_i, params[:user_id].to_i, params[:activity_id].to_i)
         respond_to do |format|
           format.html { redirect_to act_sesh_report[:url] }
