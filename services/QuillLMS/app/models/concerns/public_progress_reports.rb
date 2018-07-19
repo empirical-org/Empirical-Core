@@ -31,9 +31,9 @@ module PublicProgressReports
     end
 
     def default_diagnostic_url
-      ca = last_completed_diagnostic
-      if ca
-        custom_url = "#u/#{ca.unit.id}/a/#{ca.activity_id}/c/#{ca.classroom_id}"
+      cu = last_completed_diagnostic
+      if cu
+        custom_url = "#u/#{cu.unit.id}/a/#{cu.activity_id}/c/#{cu.classroom_id}"
         return "/teachers/progress_reports/diagnostic_reports/#{custom_url}/students"
       else
         return "/teachers/progress_reports/diagnostic_reports/#not_completed"
@@ -41,10 +41,9 @@ module PublicProgressReports
     end
 
     def results_by_question(params)
-      classroom_unit = ClassroomUnit.find_by(classroom_id: params[:classroom_id], activity_id: params[:activity_id], unit_id: params[:unit_id])
+      classroom_unit = ClassroomUnit.find_by(classroom_id: params[:classroom_id], unit_id: params[:unit_id])
       questions = Hash.new{|h,k| h[k]={} }
-      # this method lives on the activity session now and needs a classroom unit id and an activity id as arguments
-      all_answers = classroom_unit.activity_session_metadata
+      all_answers = ActivitySession.activity_session_metadata(classroom_unit.id, params[:activity_id])
       all_answers.each do |answer|
         curr_quest = questions[answer["questionNumber"]]
         curr_quest[:correct] ||= 0
@@ -85,7 +84,7 @@ module PublicProgressReports
         if activity_sessions || cuas&.completed
           class_id = classroom['id']
           h[class_id] ||= classroom
-          h[class_id][:classroom_unit_id] = ca.id
+          h[class_id][:classroom_unit_id] = cu.id
           activity_sessions.each do |activity_session|
             h[class_id][:students] ||= []
             if h[class_id][:students].exclude? activity_session.user
@@ -102,6 +101,7 @@ module PublicProgressReports
 
     def results_for_classroom unit_id, activity_id, classroom_id
       classroom_unit = ClassroomUnit.find_by(classroom_id: classroom_id, unit_id: unit_id)
+      activity = Activity.find(activity_id)
       # activity_sessions = classroom_unit.activity_sessions.where(is_final_score: true).includes(:user, concept_results: :concept)
       classroom = Classroom.find(classroom_id)
       cu_id = classroom_unit.id
@@ -209,12 +209,12 @@ module PublicProgressReports
     end
 
     def get_recommendations_for_classroom(unit_id, classroom_id, activity_id)
-      classroom_unit = ClassroomUnit.find_by(classroom_id: classroom_id, unit_id: unit_id, activity_id: activity_id)
+      classroom_unit = ClassroomUnit.find_by(classroom_id: classroom_id, unit_id: unit_id)
       classroom = Classroom.find(classroom_id)
       diagnostic = Activity.find(activity_id)
       students = classroom.students
       activity_sessions = ActivitySession.includes(concept_results: :concept)
-                      .where(classroom_unit_id: classroom_unit.id, is_final_score: true)
+                      .where(classroom_unit_id: classroom_unit.id, is_final_score: true, activity: activity_id)
       activity_sessions_counted = activity_sessions_with_counted_concepts(activity_sessions)
       unique_students = activity_sessions.map {|activity_session| user = activity_session.user; {id: user.id, name: user.name}}
                                          .sort_by {|stud| stud[:name].split()[1]}

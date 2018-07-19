@@ -21,11 +21,6 @@ export default class ActivityIconWithTooltip extends React.Component {
     this.activityId = this.activityId.bind(this)
   }
 
-  activityId() {
-    const d = this.props.data;
-    return d.activityId || d.activity_id || d.activity ? d.activity.id : null
-  }
-
   getConceptResultInfo() {
     const that = this;
     request.get({
@@ -37,7 +32,7 @@ export default class ActivityIconWithTooltip extends React.Component {
   }
 
   goToReport() {
-      window.location = `/teachers/progress_reports/report_from_classroom_unit_and_user/cu/${this.props.data.cuId}/user/${this.props.data.userId}/a/${this.activityId()}`
+      window.location = `/teachers/progress_reports/report_from_classroom_unit_activity_and_user/cu/${this.props.data.cuId}/user/${this.props.data.userId}/a/${this.activityId()}`
   }
 
   loadTooltipTitle(crData) {
@@ -63,6 +58,11 @@ export default class ActivityIconWithTooltip extends React.Component {
       return d.activity.classification.id;
     }
     return null;
+  }
+
+  activityId() {
+    const d = this.props.data;
+    return d.activityId
   }
 
   showToolTipAndGetConceptResultInfo() {

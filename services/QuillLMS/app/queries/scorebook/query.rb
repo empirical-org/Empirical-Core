@@ -3,14 +3,17 @@ class Scorebook::Query
   SCORES_PER_PAGE = 200
 
   def self.run(classroom_id, current_page=1, unit_id=nil, begin_date=nil, end_date=nil, offset=0)
+    first_unit = self.units(unit_id) ? self.units(unit_id).first : nil
+    last_unit = self.units(unit_id) ? self.units(unit_id).last : nil
     ActiveRecord::Base.connection.execute(
     "SELECT
        students.id AS user_id,
-        cu.id AS ca_id,
+        cu.id AS cu_id,
         cuas.completed AS marked_complete,
         students.name AS name,
         activity.activity_classification_id,
         activity.name AS activity_name,
+        activity.id AS activity_id,
         activity.description AS activity_description,
         MAX(acts.updated_at) AS updated_at,
         MIN(acts.started_at) AS started_at,
@@ -21,7 +24,7 @@ class Scorebook::Query
      FROM classroom_units AS cu
      LEFT JOIN students_classrooms AS sc on cu.classroom_id = sc.classroom_id
      RIGHT JOIN users AS students ON students.id = sc.student_id
-     #{self.units(unit_id)&.first}
+     #{first_unit}
      LEFT JOIN activity_sessions AS acts ON (
            acts.classroom_unit_id = cu.id
            AND acts.user_id = students.id
@@ -34,11 +37,11 @@ class Scorebook::Query
      AND  students.id = ANY (cu.assigned_student_ids::int[])
      AND cu.visible = true
      AND sc.visible = true
-     #{self.units(unit_id)&.last}
+     #{last_unit}
      #{self.date_conditional_string(begin_date, end_date, offset)}
      GROUP BY
       students.id,
-       students.name, cu.id, activity.activity_classification_id, activity.name, activity.description, cuas.completed
+       students.name, cu.id, activity.activity_classification_id, activity.name, activity.description, cuas.completed, activity.id
      ORDER BY split_part( students.name, ' ' , 2),
        CASE WHEN SUM(CASE WHEN acts.percentage IS NOT NULL THEN 1 ELSE 0 END) > 0 THEN true ELSE false END DESC,
        MIN(acts.completed_at),
