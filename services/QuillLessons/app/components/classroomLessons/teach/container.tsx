@@ -75,7 +75,7 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
     }
     if (nextProps.classroomSessions.hasreceiveddata) {
       if (!nextProps.classroomSessions.data.edition_id && Object.keys(nextProps.customize.editionQuestions).length === 0) {
-        window.location.href =`#/customize/${lessonId}?&classroom_activity_id=${getParameterByName('classroom_activity_id')}`
+        window.location.href =`#/customize/${lessonId}?&classroom_unit_id=${getParameterByName('classroom_unit_id')}`
       }
       if (nextProps.classroomSessions.data.edition_id && Object.keys(nextProps.customize.editionQuestions).length === 0) {
         this.props.dispatch(getEditionQuestions(nextProps.classroomSessions.data.edition_id))
