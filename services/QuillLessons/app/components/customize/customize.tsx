@@ -66,9 +66,9 @@ class Customize extends React.Component<customizeProps> {
   }
 
   goToSuccessPage() {
-    const classroomActivityId = getParameterByName('classroom_activity_id')
+    const classroomUnitId = getParameterByName('classroom_unit_id')
     let link = `/customize/${this.props.params.lessonID}/${this.props.params.editionID}/success`
-    link = classroomActivityId ? link.concat(`?&classroom_activity_id=${classroomActivityId}`) : link
+    link = classroomUnitId ? link.concat(`?&classroom_unit_id=${classroomUnitId}`) : link
     this.props.router.push(link)
   }
 
