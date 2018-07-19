@@ -290,13 +290,13 @@ class TeacherNavbar extends React.Component<any, any> {
 
   toggleWatchTeacherMode() {
     const { watchTeacherState } = this.props.classroomSessions.data
-    const ca_id: string|null = getParameterByName('classroom_activity_id');
+    const classroomUnitId: string|null = getParameterByName('classroom_unit_id');
     if (watchTeacherState) {
-      if (ca_id) {
-        removeWatchTeacherState(ca_id);
+      if (classroomUnitId) {
+        removeWatchTeacherState(classroomUnitId);
       }
     } else {
-      setWatchTeacherState(ca_id);
+      setWatchTeacherState(classroomUnitId);
     }
   }
 

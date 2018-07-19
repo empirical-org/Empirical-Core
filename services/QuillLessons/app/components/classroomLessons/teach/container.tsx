@@ -14,7 +14,6 @@ import {
   getClassroomAndTeacherNameFromServer,
   toggleOnlyShowHeaders,
   clearAllSelectedSubmissions,
-  toggleStudentFlag,
   clearAllSubmissions,
   registerTeacherPresence,
   startLesson
@@ -54,14 +53,13 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
   }
 
   componentDidMount() {
-    const ca_id: string|null = getParameterByName('classroom_activity_id');
     const classroomUnitId: string|null = getParameterByName('classroom_unit_id');
     const activityId: string = this.props.params.lessonID;
-    if (ca_id && classroomUnitId) {
+    if (classroomUnitId) {
       startLesson(classroomUnitId, () => {
         this.props.dispatch(startListeningToSessionForTeacher(activityId, classroomUnitId));
       });
-      registerTeacherPresence(ca_id);
+      registerTeacherPresence(classroomUnitId);
     }
     if (this.props.classroomLesson.hasreceiveddata) {
       this.props.dispatch(clearClassroomLessonFromStore());
