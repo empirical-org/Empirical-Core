@@ -74,7 +74,13 @@ export function clearEditionQuestions() {
   }
 }
 
-export function createNewEdition(editionId:string|null, lessonId:string, userId:Number|string, classroomActivityId?:string, callback?:any) {
+export function createNewEdition(
+  editionId:string|null,
+  lessonId:string,
+  userId:Number|string,
+  classroomUnitId?:string,
+  callback?:any
+) {
   let newEditionData, newEdition;
   const newEditionKey = uuid();
   if (editionId) {
@@ -86,7 +92,7 @@ export function createNewEdition(editionId:string|null, lessonId:string, userId:
   socket.instance.on(`editionCreated:${newEditionKey}`, () => {
     socket.instance.removeAllListeners(`editionCreated:${newEditionKey}`)
     if (callback) {
-      callback(lessonId, newEditionKey, classroomActivityId)
+      callback(lessonId, newEditionKey, classroomUnitId)
     }
   })
   return newEditionKey

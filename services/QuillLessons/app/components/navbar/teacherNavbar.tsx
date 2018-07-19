@@ -194,15 +194,23 @@ class TeacherNavbar extends React.Component<any, any> {
 
   renderEditLink() {
     let action, editText
-    const classroomActivityID = getParameterByName('classroom_activity_id')
-    if (this.props.customize.user_id && classroomActivityID) {
+    const classroomUnitId = getParameterByName('classroom_unit_id')
+    if (this.props.customize.user_id && classroomUnitId) {
       const lessonID:string = this.props.params.lessonID
       const editionID:string = this.props.classroomSessions.data.edition_id
       if (editionID && this.props.customize.editions[editionID] && this.props.customize.editions[editionID].user_id === this.props.customize.user_id) {
-        action = () => {this.redirectToEdit(lessonID, editionID, classroomActivityID)}
+        action = () => {this.redirectToEdit(lessonID, editionID, classroomUnitId)}
         editText = 'Edit This Edition'
       } else {
-        action = () => {createNewEdition(editionID, lessonID, this.props.customize.user_id, classroomActivityID, this.redirectToEdit)}
+        action = () => {
+          createNewEdition(
+            editionID,
+            lessonID,
+            this.props.customize.user_id,
+            classroomUnitId,
+            this.redirectToEdit
+          )
+        }
         editText = 'Make A Copy'
       }
     } else {
@@ -224,8 +232,8 @@ class TeacherNavbar extends React.Component<any, any> {
     }
   }
 
-  redirectToEdit(lessonID:string, editionID:string, classroomActivityID:string) {
-    window.location.href = `#/customize/${this.props.params.lessonID}/${editionID}?&classroom_activity_id=${classroomActivityID}`
+  redirectToEdit(lessonID:string, editionID:string, classroomUnitId:string) {
+    window.location.href = `#/customize/${this.props.params.lessonID}/${editionID}?&classroom_unit_id=${classroomUnitId}`
   }
 
   redirectToSwitchEdition(lessonID:string, classroomActivityID:string) {
