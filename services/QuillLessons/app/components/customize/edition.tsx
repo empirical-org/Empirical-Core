@@ -191,16 +191,16 @@ class CustomizeEdition extends React.Component<any, any> {
   }
 
   goToSuccessPage() {
-    const classroomActivityId = getParameterByName('classroom_activity_id')
+    const classroomUnitId = getParameterByName('classroom_unit_id')
     let link = `/customize/${this.props.params.lessonID}/${this.props.params.editionID}/success`
-    link = classroomActivityId ? link.concat(`?&classroom_activity_id=${classroomActivityId}`) : link
+    link = classroomUnitId ? link.concat(`?&classroom_unit_id=${classroomUnitId}`) : link
     this.props.router.push(link)
   }
 
   followUpLink() {
     const {lessonID, editionID} = this.props.params
-    const classroomActivityID = getParameterByName('classroom_activity_id')
-    return classroomActivityID ? `teach/class-lessons/${lessonID}?&classroom_activity_id=${classroomActivityID}` : `teach/class-lessons/${lessonID}/preview/${editionID}`
+    const classroomUnitId = getParameterByName('classroom_unit_id')
+    return classroomUnitId ? `teach/class-lessons/${lessonID}?&classroom_unit_id=${classroomUnitId}` : `teach/class-lessons/${lessonID}/preview/${editionID}`
   }
 
   renderPublishSection() {
@@ -253,9 +253,9 @@ class CustomizeEdition extends React.Component<any, any> {
 
   renderSuccessModal() {
     if (window.location.href.indexOf('success') !== -1) {
-      const classroomActivityId = getParameterByName('classroom_activity_id')
-      const backLink = classroomActivityId
-        ? `customize/${this.props.params.lessonID}/${this.props.params.editionID}?&classroom_activity_id=${classroomActivityId}`
+      const classroomUnitId = getParameterByName('classroom_unit_id')
+      const backLink = classroomUnitId
+        ? `customize/${this.props.params.lessonID}/${this.props.params.editionID}?&classroom_unit_id=${classroomUnitId}`
         : `customize/${this.props.params.lessonID}/${this.props.params.editionID}`
       return <SuccessModal
         editionName={this.props.editionMetadata.name}
