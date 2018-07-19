@@ -60,7 +60,7 @@ describe('Classroom Lesssons', () => {
 
   it('allows teacher to flag and unflag a student', () => {
     cy.url().then((urlString) => {
-      urlString = urlString.split('classroom_activity_id=')
+      urlString = urlString.split('classroom_unit_id=')
       const classroomUnitId = urlString[1]
 
       cy.addStudent(classroomUnitId, 'Milton')

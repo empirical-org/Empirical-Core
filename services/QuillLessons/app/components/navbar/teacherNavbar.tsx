@@ -223,9 +223,9 @@ class TeacherNavbar extends React.Component<any, any> {
   switchOnClick() {
     if (this.props.customize.user_id) {
       const lessonID: string = this.props.params.lessonID
-      const classroomActivityID = getParameterByName('classroom_activity_id')
-      if (classroomActivityID) {
-        this.redirectToSwitchEdition(lessonID, classroomActivityID)
+      const classroomUnitId = getParameterByName('classroom_unit_id')
+      if (classroomUnitId) {
+        this.redirectToSwitchEdition(lessonID, classroomUnitId)
       }
     } else {
       this.props.dispatch(showSignupModal())
@@ -236,8 +236,8 @@ class TeacherNavbar extends React.Component<any, any> {
     window.location.href = `#/customize/${this.props.params.lessonID}/${editionID}?&classroom_unit_id=${classroomUnitId}`
   }
 
-  redirectToSwitchEdition(lessonID:string, classroomActivityID:string) {
-    window.location.href =`#/customize/${lessonID}?&classroom_activity_id=${classroomActivityID}`
+  redirectToSwitchEdition(lessonID:string, classroomUnitId:string) {
+    window.location.href =`#/customize/${lessonID}?&classroom_unit_id=${classroomUnitId}`
   }
 
   customizeDropdown() {
