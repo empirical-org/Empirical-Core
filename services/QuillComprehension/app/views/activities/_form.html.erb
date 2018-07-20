@@ -1,3 +1,6 @@
+<link rel="stylesheet" href="//cdn.quilljs.com/1.2.6/quill.snow.css">
+<!-- TODO: Change the style import from CDN to Javscript import -->
+
 <%= form_with(model: activity, local: true) do |form| %>
   <% if activity.errors.any? %>
     <div id="error_explanation">
@@ -18,8 +21,10 @@
 
   <div class="form-group">
     <%= form.label :article, class: "form-label" %>
-    <%= form.text_area :article, class: "form-control mh-40" %>
+    <%= form.text_field :article, class: "form-control" %>
   </div>
+
+  <div id="quill-react-text-editor"></div>
 
   <div class="form-group">
     <%= form.label :description, class: "form-label" %>
