@@ -22,14 +22,14 @@ class TextEditor extends React.Component {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  var formGroups = document.getElementsByClassName("quill-editor")
+  var formGroups = document.getElementsByClassName("text-editor")
   for (var i = 0; i < formGroups.length; i++) {
-    var origForm = formGroups[i].getElementsByClassName("form-control")[0]
-    var quillEditor = document.createElement("div")
-    formGroups[i].appendChild(quillEditor)
+    var oldInput = formGroups[i].getElementsByClassName("form-control")[0]
+    var newInput = document.createElement("div")
+    formGroups[i].appendChild(newInput)
     ReactDOM.render(
-      <TextEditor fieldName={origForm.id} text={origForm.value}/>,
-      quillEditor
+      <TextEditor fieldName={oldInput.id} text={oldInput.value}/>,
+      newInput
     )
   }
 })
