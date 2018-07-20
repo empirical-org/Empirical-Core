@@ -1,5 +1,5 @@
 import ShowEditions from 'components/classroomLessons/admin/allUserEditions';
-import Passthrough from 'components/shared/passthrough';
+import Passthrough from 'quill-component-library/dist/componentLibrary';
 
 export default {
   path: 'editions',
