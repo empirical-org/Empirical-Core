@@ -16,7 +16,6 @@ import {
 import * as CustomizeIntf from '../interfaces/customize';
 import uuid from 'uuid/v4';
 import socket from '../utils/socketStore';
-const { Url } = require('url');
 
 export function startListeningToSession(classroomUnitId: string) {
   return function(dispatch, getState) {
@@ -34,8 +33,8 @@ export function startListeningToSession(classroomUnitId: string) {
 }
 
 export function startLesson(classroomUnitId: string, callback?: Function) {
-  let url = new Url('/api/v1/classroom_activities/classroom_teacher_and_coteacher_ids', process.env.EMPIRICAL_BASE_URL);
-  url.search = `classroom_unit_id=${classroomUnitId}`;
+  let url = new URL('/api/v1/classroom_activities/classroom_teacher_and_coteacher_ids', process.env.EMPIRICAL_BASE_URL);
+  url.search = new URLSearchParams({ classroom_unit_id: classroomUnitId });
 
   fetch(url.href, {
     method: "GET",
@@ -347,8 +346,11 @@ export function unpinActivityOnSaveAndExit(
   activityId: string,
   classroomUnitId: string
 ) {
-    let url = new Url('/api/v1/classroom_activities/unpin_and_lock_activity', process.env.EMPIRICAL_BASE_URL);
-    url.search = `activity_id=${activityId}&classroom_unit_id=${classroomUnitId}`;
+    let url = new URL('/api/v1/classroom_activities/unpin_and_lock_activity', process.env.EMPIRICAL_BASE_URL);
+    url.search = new URLSearchParams({
+      activity_id: activityId,
+      classroom_unit_id: classroomUnitId
+    });
 
     fetch(url.href, {
       method: 'PUT',
@@ -379,8 +381,8 @@ export function getClassroomAndTeacherNameFromServer(
   baseUrl: string|undefined
 ) {
   return function (dispatch) {
-    let url = new Url('/api/v1/classroom_activities/teacher_and_classroom_name', baseUrl);
-    url.search = `classroom_unit_id=${classroomUnitId}`;
+    let url = new URL('/api/v1/classroom_activities/teacher_and_classroom_name', process.env.EMPIRICAL_BASE_URL);
+    url.search = new URLSearchParams({ classroom_unit_id: classroomUnitId });
 
     fetch(url.href, {
       method: 'GET',
@@ -528,8 +530,11 @@ export function loadStudentNames(
   baseUrl: string|undefined
 ) {
   return function (dispatch) {
-    let url = new Url('/api/v1/classroom_activities/student_names', baseUrl);
-    url.search = `activity_id=${activityId}&classroom_unit_id=${classroomUnitId}`;
+    let url = new URL('/api/v1/classroom_activities/student_names', baseUrl);
+    url.search = new URLSearchParams({
+      activity_id: activityId,
+      classroom_unit_id: classroomUnitId
+    });
 
     fetch(url.href, {
       method: 'GET',

@@ -53,7 +53,7 @@ private
   end
 
   def mark_lesson_as_completed_url
-    "#{lesson.classification_form_url}teach/class-lessons/#{lesson.uid}/mark_lesson_as_completed?&classroom_activity_id=#{@classroom_unit.id}"
+    "#{lesson.classification_form_url}teach/class-lessons/#{lesson.uid}/mark_lesson_as_completed?&classroom_unit_id=#{@classroom_unit.id}"
   end
 
   def lesson_tutorial_completed?
@@ -74,9 +74,9 @@ private
 
   def lesson_url(lesson)
     if (ActivitySession.find_by(classroom_unit_id: @classroom_unit.id, state: 'started'))
-      "#{lesson.classification_form_url}teach/class-lessons/#{lesson.uid}?&classroom_activity_id=#{@classroom_unit.id}"
+      "#{lesson.classification_form_url}teach/class-lessons/#{lesson.uid}?&classroom_unit_id=#{@classroom_unit.id}"
     else
-      "#{lesson.classification_form_url}customize/#{lesson.uid}?&classroom_activity_id=#{@classroom_unit.id}"
+      "#{lesson.classification_form_url}customize/#{lesson.uid}?&classroom_unit_id=#{@classroom_unit.id}"
     end
   end
 
