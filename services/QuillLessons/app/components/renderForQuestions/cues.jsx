@@ -2,8 +2,7 @@ import React from 'react';
 import {
   Cue,
   CueExplanation
-} from 'quill-component-library/dist/componentLibrary'
-import arrow from 'https://assets.quill.org/images/icons/arrow_icon.svg';
+} from 'quill-component-library/dist/componentLibrary';
 
 export default React.createClass({
 
@@ -35,13 +34,13 @@ export default React.createClass({
   renderCues() {
     let arrowPicture, text
     if (this.props.displayArrowAndText) {
+      const arrow = 'https://assets.quill.org/images/icons/arrow_icon.svg';
       arrowPicture = <img src={arrow} />
       text = this.renderExplanation()
     } else {
       arrowPicture = <span></span>
       text = <span></span>
     }
-    //const arrow = this.props.displayArrowAndText ? (<div><img src={arrow} /> {this.renderExplanation()}</div>) : <span></span>
     if  (this.props.getQuestion().cues && this.props.getQuestion().cues.length > 0 && this.props.getQuestion().cues[0] !== '') {
       const cueDivs = this.props.getQuestion().cues.map((cue, i) => <Cue key={`${i}${cue}`} cue={cue} />)
       return (
@@ -57,5 +56,4 @@ export default React.createClass({
   render() {
     return <div>{this.renderCues()}</div>;
   },
-
 });
