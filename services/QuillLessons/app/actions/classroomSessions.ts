@@ -39,7 +39,7 @@ export function startLesson(classroomUnitId: string, callback?: Function) {
   let params = { classroom_unit_id: classroomUnitId }
   url.search = new URLSearchParams(params)
 
-  fetch(url, {
+  fetch(url.href, {
     method: "GET",
     mode: "cors",
     credentials: 'include',
@@ -113,7 +113,7 @@ export function getInitialData(
 }
 
 export function getLessonData(
-  activityId: string
+  activityId: string,
   classroomUnitId: string,
 ) {
   return function(dispatch) {
@@ -356,7 +356,7 @@ export function unpinActivityOnSaveAndExit(
     }
     url.search = new URLSearchParams(params)
 
-    fetch(url, {
+    fetch(url.href, {
       method: 'PUT',
       mode: 'cors',
       credentials: 'include',
@@ -389,7 +389,7 @@ export function getClassroomAndTeacherNameFromServer(
     let params = { classroom_unit_id: classroomUnitId };
     url.search = new URLSearchParams(params)
 
-    fetch(url, {
+    fetch(url.href, {
       method: 'GET',
       mode: 'cors',
       credentials: 'include',
@@ -542,7 +542,7 @@ export function loadStudentNames(
     }
     url.search = new URLSearchParams(params)
 
-    fetch(url, {
+    fetch(url.href, {
       method: 'GET',
       mode: 'cors',
       credentials: 'include',
