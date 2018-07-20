@@ -89,7 +89,7 @@ describe('ClassMini component', () => {
         <ClassMini classObj={exampleClassObjNoStudents} />
       );
       expect(wrapper.find('.button-green').text()).toBe('Invite Students');
-      expect(wrapper.find('a').at(2).prop('href')).toBe('/teachers/classrooms/invite_students');
+      expect(wrapper.find('a').at(3).prop('href')).toBe('/teachers/classrooms/invite_students');
     });
 
     it('should say "Assign Activities" if there are students but no activities', () => {
@@ -97,7 +97,7 @@ describe('ClassMini component', () => {
         <ClassMini classObj={exampleClassObjNoActivities} />
       );
       expect(wrapper.find('.button-green').text()).toBe('Assign Activities');
-      expect(wrapper.find('a').at(2).prop('href')).toBe('/teachers/classrooms/activity_planner?tab=exploreActivityPacks');
+      expect(wrapper.find('a').at(3).prop('href')).toBe('/teachers/classrooms/activity_planner?tab=exploreActivityPacks');
     });
 
     it('should say "view results" if there are students and activities', () => {
@@ -105,7 +105,7 @@ describe('ClassMini component', () => {
         <ClassMini classObj={exampleClassObj} />
       );
       expect(wrapper.find('.class-mini-btn').text()).toBe('View Results');
-      expect(wrapper.find('a').at(2).prop('href')).toBe('/teachers/classrooms/scorebook?classroom_id=1');
+      expect(wrapper.find('a').at(3).prop('href')).toBe('/teachers/classrooms/scorebook?classroom_id=1');
     });
   });
 

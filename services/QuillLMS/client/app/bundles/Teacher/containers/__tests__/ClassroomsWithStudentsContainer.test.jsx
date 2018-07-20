@@ -459,7 +459,7 @@ describe('ClassroomsWithStudentsContainer container', () => {
 
   describe('selectPreviouslyAssignedStudents', ()=> {
     it('selectPreviouslyAssignedStudents marks a student as selected if they are an assigned student', () => {
-      const wrapper = shallow( < ClassroomsWithStudentsContainer {...props}/>);
+      const wrapper = shallow(<ClassroomsWithStudentsContainer {...props}/>);
         wrapper.setState(_.cloneDeep(state))
         let assignedStudents = wrapper.state().classrooms[0].classroom_activity.assigned_student_ids
         let students = wrapper.state().classrooms[0].students

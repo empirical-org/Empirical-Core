@@ -42,7 +42,7 @@ class Scorebook::Query
      #{self.date_conditional_string(begin_date, end_date, offset)}
      GROUP BY
       students.id,
-       students.name, cu.id, activity.activity_classification_id, activity.name, activity.description, cuas.completed, activity.id
+       students.name, cu.id, activity.activity_classification_id, activity.name, activity.description, cuas.completed, activity.id, acts.id
      ORDER BY split_part( students.name, ' ' , 2),
        CASE WHEN SUM(CASE WHEN acts.percentage IS NOT NULL THEN 1 ELSE 0 END) > 0 THEN true ELSE false END DESC,
        MIN(acts.completed_at),
