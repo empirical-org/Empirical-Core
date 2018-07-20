@@ -4,7 +4,7 @@ import ClassroomsWithStudents from '../components/lesson_planner/create_unit/sta
 import LoadingIndicator from '../components/shared/loading_indicator.jsx';
 import _ from 'underscore';
 
-export default class extends React.Component {
+export default class ClassroomsWithStudentsContainer extends React.Component {
   constructor(props) {
     super(props);
 
@@ -126,7 +126,7 @@ export default class extends React.Component {
   }
 
   updateAllOrNoneAssigned(classy, selectedCount) {
-    if ((classy.students.length && (selectedCount === classy.students.length)) || (classy.students.length === 0 && classy.classroom_activity)) {
+    if ((classy.students.length && (selectedCount === classy.students.length)) || (classy.students.length === 0 && classy.classroom_unit)) {
       classy.allSelected = true;
       classy.noneSelected = false;
     } else if (classy.students.length && selectedCount === 0) {
@@ -145,8 +145,8 @@ export default class extends React.Component {
   classroomUpdated(classy) {
     const assignedStudentIds = this.getAssignedIds(classy).sort();
     let updated;
-    if (classy.classroom_activity) {
-      const ca = classy.classroom_activity;
+    if (classy.classroom_unit) {
+      const ca = classy.classroom_unit;
       if (ca.assign_on_join) {
 				// if everyone in class was assigned, check to see if assignedStudentIds length is equal to number of students in class
 				// if it is, there hasn't been an update unless there are no students in the class
