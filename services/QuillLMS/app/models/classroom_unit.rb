@@ -1,5 +1,6 @@
 class ClassroomUnit < ActiveRecord::Base
   include ::NewRelic::Agent
+  include AtomicArrays
 
   belongs_to :unit, touch: true
   belongs_to :classroom

@@ -5,12 +5,14 @@ module TeacherFixes
   def self.merge_activity_sessions(account1, account2)
     a1_grouped_activity_sessions = account1.activity_sessions.group_by { |as| as.classroom_unit_id }
     a2_grouped_activity_sessions = account2.activity_sessions.group_by { |as| as.classroom_unit_id }
-    a2_grouped_activity_sessions.each do |ca_id, activity_sessions|
-      activity_sessions.each {|as| as.update_columns(user_id: account1.id) }
-      if a1_grouped_activity_sessions[ca_id]
-        hide_extra_activity_sessions(ca_id, account1.id)
-      else
-        ClassroomUnit.find(ca_id).atomic_append(:assigned_student_ids, account1.id)
+    a2_grouped_activity_sessions.each do |cu_id, activity_sessions|
+      if cu_id
+        activity_sessions.each {|as| as.update_columns(user_id: account1.id) }
+        if a1_grouped_activity_sessions[cu_id]
+          hide_extra_activity_sessions(cu_id, account1.id)
+        else
+          ClassroomUnit.find_by(id: cu_id).atomic_append(:assigned_student_ids, account1.id)
+        end
       end
     end
   end
