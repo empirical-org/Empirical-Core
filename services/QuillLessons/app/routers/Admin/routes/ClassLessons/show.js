@@ -3,7 +3,7 @@ import ShowAdminEdition from 'components/classroomLessons/admin/showAdminEdition
 import ShowEditionSlide from 'components/classroomLessons/admin/showSlide';
 import ShowEditionScriptItem from 'components/classroomLessons/admin/showScriptItem';
 import ShowClassroomLessonUserEditions from 'components/classroomLessons/admin/userEditions';
-import Passthrough from 'components/shared/passthrough';
+import Passthrough from 'quill-component-library/dist/componentLibrary';
 
 export default {
   path: ':classroomLessonID',
