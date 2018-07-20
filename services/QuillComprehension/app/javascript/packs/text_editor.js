@@ -1,6 +1,7 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import ReactQuill from 'react-quill'
+import 'react-quill/dist/quill.snow.css'
 
 class TextEditor extends React.Component {
 
