@@ -20,6 +20,7 @@ class ActivitiesController < ApplicationController
 
   # GET /activities/1/edit
   def edit
+    @page_js_bundle = 'text_editor'
   end
 
   # POST /activities
