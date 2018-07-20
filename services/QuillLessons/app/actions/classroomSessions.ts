@@ -16,8 +16,7 @@ import {
 import * as CustomizeIntf from '../interfaces/customize';
 import uuid from 'uuid/v4';
 import socket from '../utils/socketStore';
-import { URL, URLSearchParams } from 'url';
-
+const { Url } = require('url');
 
 export function startListeningToSession(classroomUnitId: string) {
   return function(dispatch, getState) {
@@ -35,9 +34,8 @@ export function startListeningToSession(classroomUnitId: string) {
 }
 
 export function startLesson(classroomUnitId: string, callback?: Function) {
-  let url = new URL(`${process.env.EMPIRICAL_BASE_URL}/api/v1/classroom_activities/classroom_teacher_and_coteacher_ids`);
-  let params = { classroom_unit_id: classroomUnitId }
-  url.search = new URLSearchParams(params)
+  let url = new Url('/api/v1/classroom_activities/classroom_teacher_and_coteacher_ids', process.env.EMPIRICAL_BASE_URL);
+  url.search = `classroom_unit_id=${classroomUnitId}`;
 
   fetch(url.href, {
     method: "GET",
@@ -349,12 +347,8 @@ export function unpinActivityOnSaveAndExit(
   activityId: string,
   classroomUnitId: string
 ) {
-    let url = new URL(`${process.env.EMPIRICAL_BASE_URL}/api/v1/classroom_activities/unpin_and_lock_activity`);
-    let params = {
-      activity_id: activityId,
-      classroom_unit_id: classroomUnitId
-    }
-    url.search = new URLSearchParams(params)
+    let url = new Url('/api/v1/classroom_activities/unpin_and_lock_activity', process.env.EMPIRICAL_BASE_URL);
+    url.search = `activity_id=${activityId}&classroom_unit_id=${classroomUnitId}`;
 
     fetch(url.href, {
       method: 'PUT',
@@ -385,9 +379,8 @@ export function getClassroomAndTeacherNameFromServer(
   baseUrl: string|undefined
 ) {
   return function (dispatch) {
-    let url = new URL(`${baseUrl}/api/v1/classroom_activities/teacher_and_classroom_name`);
-    let params = { classroom_unit_id: classroomUnitId };
-    url.search = new URLSearchParams(params)
+    let url = new Url('/api/v1/classroom_activities/teacher_and_classroom_name', baseUrl);
+    url.search = `classroom_unit_id=${classroomUnitId}`;
 
     fetch(url.href, {
       method: 'GET',
@@ -535,12 +528,8 @@ export function loadStudentNames(
   baseUrl: string|undefined
 ) {
   return function (dispatch) {
-    let url = new URL(`${baseUrl}/api/v1/classroom_activities/student_names`);
-    let params = {
-      activity_id: activityId,
-      classroom_unit_id: classroomUnitId
-    }
-    url.search = new URLSearchParams(params)
+    let url = new Url('/api/v1/classroom_activities/student_names', baseUrl);
+    url.search = `activity_id=${activityId}&classroom_unit_id=${classroomUnitId}`;
 
     fetch(url.href, {
       method: 'GET',
@@ -567,7 +556,7 @@ export function loadFollowUpNameAndSupportingInfo(
 ) {
   return function (dispatch) {
     const coreUrl = baseUrl ? baseUrl : process.env.EMPIRICAL_BASE_URL
-    fetch(`${baseUrl}/api/v1/activities/${activityId}/follow_up_activity_name_and_supporting_info`, {
+    fetch(`${coreUrl}/api/v1/activities/${activityId}/follow_up_activity_name_and_supporting_info`, {
       method: 'GET',
       mode: 'cors',
       credentials: 'include',
