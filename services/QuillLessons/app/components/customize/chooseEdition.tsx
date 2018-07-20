@@ -166,7 +166,7 @@ class ChooseEdition extends React.Component<any, any> {
   }
 
   renderEditions() {
-    const {editions, user_id} = this.props.customize
+    const { editions, user_id } = this.props.customize
     const sessionEditionId:string|undefined = this.props.classroomSessions.data ? this.props.classroomSessions.data.edition_id : undefined
     if (Object.keys(editions).length > 0) {
       const quillEditions:Array<JSX.Element>  = []

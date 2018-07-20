@@ -47,6 +47,7 @@ class TeacherNavbar extends React.Component<any, any> {
     this.switchOnClick = this.switchOnClick.bind(this)
     this.redirectToEdit = this.redirectToEdit.bind(this)
     this.redirectToSwitchEdition = this.redirectToSwitchEdition.bind(this)
+    this.exitLesson = this.exitLesson.bind(this)
   }
 
   renderCustomizedEditionsTag() {
@@ -287,10 +288,10 @@ class TeacherNavbar extends React.Component<any, any> {
   }
 
   exitLesson() {
-    if (window.confirm('Are you sure you want to exit the lesson?')) {
-      const classroomUnitId: string|null = getParameterByName('classroom_unit_id');
-      const activityId = this.props.params.lessonID;
+    const classroomUnitId: string|null = getParameterByName('classroom_unit_id');
+    const activityId = this.props.params.lessonID;
 
+    if (window.confirm('Are you sure you want to exit the lesson?')) {
       unpinActivityOnSaveAndExit(activityId, classroomUnitId)
       document.location.href = process.env.EMPIRICAL_BASE_URL || 'https://www.quill.org';
     }
