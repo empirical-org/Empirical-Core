@@ -30,13 +30,14 @@ class Scorebook::Query
            AND acts.user_id = students.id
            AND acts.visible = true
            )
-     INNER JOIN activities AS activity ON activity.id = acts.activity_id
-     LEFT JOIN unit_activities ON unit_activities.activity_id = activity.id AND unit_activities.unit_id = cu.unit_id
+     LEFT JOIN unit_activities ON unit_activities.unit_id = cu.unit_id
+     INNER JOIN activities AS activity ON activity.id = unit_activities.activity_id
      LEFT JOIN classroom_unit_activity_states AS cuas ON cuas.unit_activity_id = unit_activities.id AND cuas.classroom_unit_id = cu.id
      WHERE cu.classroom_id = #{classroom_id}
      AND  students.id = ANY (cu.assigned_student_ids::int[])
-     AND cu.visible = true
-     AND sc.visible = true
+     AND unit_activities.visible
+     AND cu.visible
+     AND sc.visible
      #{last_unit}
      #{self.date_conditional_string(begin_date, end_date, offset)}
      GROUP BY
