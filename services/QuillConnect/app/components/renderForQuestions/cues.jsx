@@ -32,7 +32,7 @@ export default React.createClass({
   renderCues() {
     let arrowPicture, text
     if (this.props.displayArrowAndText) {
-      arrowPicture = <img src={arrow} />
+      arrowPicture = this.props.getQuestion().cuesLabel !== ' ' ? <img src={arrow} /> : null
       text = this.renderExplanation()
     } else {
       arrowPicture = <span></span>
