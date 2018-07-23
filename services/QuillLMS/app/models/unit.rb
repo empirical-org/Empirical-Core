@@ -21,6 +21,7 @@ class Unit < ActiveRecord::Base
   default_scope { where(visible: true)}
   belongs_to :unit_template
   after_save :hide_classroom_units_and_unit_activities_if_visible_false, :create_any_new_classroom_unit_activity_states
+  after_touch :save
 
   def hide_if_no_visible_unit_activities
     if self.unit_activities.where(visible: true).length == 0
@@ -52,10 +53,6 @@ class Unit < ActiveRecord::Base
   end
 
   private
-
-  def post_to_google_if_valid
-    GoogleIntegration::Announcements.post_unit(self)
-  end
 
   def create_any_new_classroom_unit_activity_states
     lesson_unit_activities = self.unit_activities.select { |ua| ua.activity.is_lesson? }
