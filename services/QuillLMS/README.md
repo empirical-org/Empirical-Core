@@ -1,4 +1,3 @@
-
 ## Documentation Table of Contents
 
 * [API Controllers](https://github.com/empirical-org/Empirical-Core/blob/develop/app/controllers/api/README.md)
@@ -7,12 +6,9 @@
 * [CMS controllers](https://github.com/empirical-org/Empirical-Core/blob/develop/app/controllers/cms/README.md)
 * [Google Integration](https://github.com/empirical-org/Empirical-Core/blob/develop/app/services/google_integration/README.md)
 
-
-
 # Welcome to Empirical Core
 
 Empirical Core is the Learning Management System that powers Quill.org, a free writing tool.
-
 
 **Fork and Clone this repository to submit a Pull Request**.
 

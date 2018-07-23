@@ -77,20 +77,25 @@ class Teachers::UnitTemplatesController < ApplicationController
     formatted_related_models
   end
 
+  def current_user_testing_flag
+    if current_user.present?
+      current_user.testing_flag
+    end
+  end
+
   def related_models_flag
-    current_user.testing_flag || "production"
+    current_user_testing_flag || "production"
   end
 
   def get_unit_templats_by_user_testing_flag
-    UnitTemplate.user_scope(current_user&.testing_flag || 'production')
+    UnitTemplate.user_scope(related_models_flag)
     .includes(:author, :unit_template_category)
     .order(:order_number)
     .map{ |ut| ut.get_cached_serialized_unit_template }
   end
 
   def get_cached_formatted_unit_templates
-    flag = current_user&.testing_flag || 'production'
-    ut_cache_name = "#{flag}_unit_templates"
+    ut_cache_name = "#{related_models_flag}_unit_templates"
     cached = $redis.get(ut_cache_name)
     set_cache_if_necessary_and_return(cached, ut_cache_name)
   end
