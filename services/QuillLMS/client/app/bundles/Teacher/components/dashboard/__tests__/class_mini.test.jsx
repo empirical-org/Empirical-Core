@@ -4,7 +4,6 @@ import { shallow } from 'enzyme';
 import ClassMini from '../class_mini';
 
 describe('ClassMini component', () => {
-
   const exampleClassObj = {
     id: 1,
     name: 'English 101',
@@ -12,7 +11,7 @@ describe('ClassMini component', () => {
     students: 20,
     student_count: 20,
     activities_completed: 3,
-    activity_count: 3
+    activity_count: 3,
   };
 
   const exampleClassObjNoActivities = {
@@ -22,17 +21,17 @@ describe('ClassMini component', () => {
     students: 20,
     student_count: 20,
     activities_completed: 0,
-    activity_count: 0
-  }
+    activity_count: 0,
+  };
 
   const exampleClassObjNoStudents = {
     id: 1,
     name: 'English 101',
     code: 'donald-pug',
     students: 0,
-    studen_counts: 0,
+    student_count: 0,
     activities_completed: 0,
-    activiy_count: 0
+    activity_count: 0,
   };
 
   it('should render class name and code', () => {
@@ -108,5 +107,4 @@ describe('ClassMini component', () => {
       expect(wrapper.find('a').at(3).prop('href')).toBe('/teachers/classrooms/scorebook?classroom_id=1');
     });
   });
-
 });

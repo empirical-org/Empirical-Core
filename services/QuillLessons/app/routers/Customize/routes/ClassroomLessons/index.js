@@ -6,7 +6,7 @@ const successRoute = {
     document.title = 'Quill Lessons';
   },
   getComponent: (nextState, cb) => {
-    System.import(/* webpackChunkName: "customize-classroom-lesson-edition" */'components/customize/edition.tsx')
+    import(/* webpackChunkName: "customize-classroom-lesson-edition" */'components/customize/edition.tsx')
     .then((component) => {
       cb(null, component.default);
     });
@@ -19,7 +19,7 @@ const editionRoute = {
     document.title = 'Quill Lessons';
   },
   getComponent: (nextState, cb) => {
-    System.import(/* webpackChunkName: "customize-classroom-lesson-edition" */'components/customize/edition.tsx')
+    import(/* webpackChunkName: "customize-classroom-lesson-edition" */'components/customize/edition.tsx')
     .then((component) => {
       cb(null, component.default);
     });
@@ -32,7 +32,7 @@ const chooseEditionRoute = {
     document.title = 'Quill Lessons';
   },
   getComponent: (nextState, cb) => {
-    System.import(/* webpackChunkName: "customize-choose-edition" */'components/customize/chooseEdition.tsx')
+    import(/* webpackChunkName: "customize-choose-edition" */'components/customize/chooseEdition.tsx')
     .then((component) => {
       cb(null, component.default);
     });

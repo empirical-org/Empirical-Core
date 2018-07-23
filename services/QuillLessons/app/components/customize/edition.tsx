@@ -31,6 +31,7 @@ import {
   getStoredEditionMetadata,
   getIncompleteQuestions,
   getStoredEditionQuestions,
+  getStoredOriginalEditionQuestions,
 } from '../../reducers/combined'
 
 class CustomizeEdition extends React.Component<any, any> {
@@ -63,6 +64,7 @@ class CustomizeEdition extends React.Component<any, any> {
     ));
 
     this.props.dispatch(getEditionQuestions(this.props.params.editionID));
+    this.props.dispatch(setOriginalEditionQuestions(this.props.editionQuestions));
   }
 
   componentWillReceiveProps(nextProps) {
@@ -70,6 +72,7 @@ class CustomizeEdition extends React.Component<any, any> {
       nextProps.editionMetadata,
       this.props.editionMetadata
     );
+
     const isEditionUndefined = this.props.editionMetadata === undefined;
     const isMissingQuestions = !this.props.editionQuestions.questions;
 
@@ -82,10 +85,6 @@ class CustomizeEdition extends React.Component<any, any> {
     if (hasNewEdition && isMissingQuestions) {
       this.props.dispatch(setEditionQuestions(nextProps.editionQuestions));
       this.props.dispatch(setWorkingEditionQuestions(nextProps.editionQuestions));
-    }
-
-    if (hasNewEdition) {
-      this.props.dispatch(setOriginalEditionQuestions(nextProps.editionQuestions));
     }
   }
 
@@ -120,6 +119,10 @@ class CustomizeEdition extends React.Component<any, any> {
 
   resetSlide(questionIndex: number) {
     const question = this.props.originalEditionQuestions.questions[questionIndex].data
+    if (question) {
+      question.reset = true
+    }
+
     this.updateQuestion(question, questionIndex)
   }
 
@@ -294,6 +297,7 @@ function mapStateToProps(state, props) {
     customize: state.customize,
     classroomLesson: state.classroomLesson,
     incompleteQuestions: getIncompleteQuestions(state),
+    originalEditionQuestions: getStoredOriginalEditionQuestions(state),
     editionMetadata: getStoredEditionMetadata(state, props),
     editionQuestions: getStoredEditionQuestions(state),
   }
