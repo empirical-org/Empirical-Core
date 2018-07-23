@@ -15,10 +15,14 @@ class ActivitiesController < ApplicationController
   # GET /activities/new
   def new
     @activity = Activity.new
+    @page_js_bundle = 'text_editor'
+    @page_style_bundle = 'text_editor'
   end
 
   # GET /activities/1/edit
   def edit
+    @page_js_bundle = 'text_editor'
+    @page_style_bundle = 'text_editor'
   end
 
   # POST /activities
@@ -64,7 +68,7 @@ class ActivitiesController < ApplicationController
   def play
     @page_js_bundle = 'play_activity'
   end
-    
+
 
   private
     # Use callbacks to share common setup or constraints between actions.
