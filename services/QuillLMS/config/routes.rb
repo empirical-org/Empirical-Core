@@ -12,6 +12,7 @@ EmpiricalGrammar::Application.routes.draw do
     resources :factories, only: :create do
       post 'create_list', on: :collection
       delete 'destroy_all', on: :collection
+      delete 'destroy_all_assignments', on: :collection
     end
   end
 
