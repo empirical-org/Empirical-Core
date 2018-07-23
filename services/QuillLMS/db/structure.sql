@@ -3489,14 +3489,14 @@ CREATE INDEX index_credit_transactions_on_user_id ON credit_transactions USING b
 -- Name: index_criteria_on_concept_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_criteria_on_concept_id ON public.criteria USING btree (concept_id);
+CREATE INDEX index_criteria_on_concept_id ON criteria USING btree (concept_id);
 
 
 --
 -- Name: index_criteria_on_recommendation_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_criteria_on_recommendation_id ON public.criteria USING btree (recommendation_id);
+CREATE INDEX index_criteria_on_recommendation_id ON criteria USING btree (recommendation_id);
 
 
 --
@@ -3594,14 +3594,14 @@ CREATE UNIQUE INDEX index_oauth_applications_on_uid ON oauth_applications USING 
 -- Name: index_recommendations_on_activity_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_recommendations_on_activity_id ON public.recommendations USING btree (activity_id);
+CREATE INDEX index_recommendations_on_activity_id ON recommendations USING btree (activity_id);
 
 
 --
 -- Name: index_recommendations_on_unit_template_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_recommendations_on_unit_template_id ON public.recommendations USING btree (unit_template_id);
+CREATE INDEX index_recommendations_on_unit_template_id ON recommendations USING btree (unit_template_id);
 
 
 --
