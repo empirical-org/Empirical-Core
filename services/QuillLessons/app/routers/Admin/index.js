@@ -3,7 +3,7 @@ export default {
   indexRoute: { onEnter: (nextState, replace) => replace('/admin/classroom-lessons'), },
   getChildRoutes: (partialNextState, cb) => {
     Promise.all([
-      System.import(/* webpackChunkName: "admin-class-lessons" */ './routes/ClassLessons/index.js')
+      import(/* webpackChunkName: "admin-class-lessons" */ './routes/ClassLessons/index.js')
     ])
     .then(modules => cb(null, modules.map(module => module.default)))
     .catch(err => console.error('Dynamic page loading failed', err));
