@@ -2,6 +2,15 @@
 
 ## Local Setup
 
+### Install RethinkDB
+
+Download and install [RethinkDB](https://www.rethinkdb.com/), the realtime database QuillLessonsServer uses. Installation instructions are available on the RethinkDB [installation guide](https://rethinkdb.com/docs/install/).
+
+If you're more comfortable with installing custom software, you can use [homebrew](http://brew.sh/) to download and install RethinkDB instead using the following commands:
+
+    $ brew update
+    $ brew install rethinkdb
+
 ### Generate RSA Keys
 Open ruby console `$ irb`
 Generate the keys in the irb console:
@@ -40,3 +49,5 @@ You will also need the QuillLMS to run to generate the JWT needed to authenticat
 $ foreman start -f Procfile.static
 ```
 Navigate your browser to `http://localhost:8080/#/admin` to confirm things are working.
+
+For more information, see the Quill [docs](https://docs.quill.org/tools/lessons_server.html).

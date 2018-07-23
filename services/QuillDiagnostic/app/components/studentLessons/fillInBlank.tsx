@@ -19,6 +19,7 @@ import {
 } from 'quill-component-library/dist/componentLibrary'
 import Feedback from '../renderForQuestions/feedback'
 import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
+import { Attempt } from '../renderForQuestions/answerState.js';
 
 const styles = {
   container: {
@@ -152,7 +153,8 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
       padding: '2px 7px',
     };
     const body:ClientRect|null = document.getElementsByTagName('body')[0].getBoundingClientRect();
-    const rectangle:ClientRect|null = document.getElementById(`input${i}`) && document.getElementById(`input${i}`).getBoundingClientRect();
+    const inputFromDom:HTMLElement|null = document.getElementById(`input${i}`)
+    const rectangle:ClientRect|null =  inputFromDom ? inputFromDom.getBoundingClientRect() : null;
     let chevyStyle:any = this.chevyStyleLeft();
     if (rectangle && body && rectangle.left > (body.width / 2)) {
       warningStyle.right = '-73px';
@@ -288,7 +290,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     return text;
   }
 
-  getLatestAttempt() {
+  getLatestAttempt(): Attempt | undefined {
     return _.last(this.props.question.attempts || []);
   }
 

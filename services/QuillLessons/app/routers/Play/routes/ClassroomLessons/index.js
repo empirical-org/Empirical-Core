@@ -8,7 +8,7 @@ const playRoute = {
     document.title = 'Quill Lessons';
   },
   getComponent: (nextState, cb) => {
-    System.import(/* webpackChunkName: "teach-classroom-lesson" */'components/classroomLessons/play/container.tsx')
+    import(/* webpackChunkName: "teach-classroom-lesson" */'components/classroomLessons/play/container.tsx')
     .then((component) => {
       cb(null, component.default);
     });
