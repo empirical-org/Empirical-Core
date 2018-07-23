@@ -1,5 +1,4 @@
 import * as React from 'react'
-import ReactMarkdown from 'react-markdown'
 
 function fontSizeToClass(fontSize:number):string  {
   switch (fontSize) {
@@ -22,7 +21,7 @@ const Article = ({activity_id, article, title, markAsRead, fontSize}): JSX.Eleme
     </div>
     <div className="card-body article-body">
       <h2 className="mb3">{title}</h2>
-      <ReactMarkdown className={fontSizeToClass(fontSize)} source={article} />
+      <p className={fontSizeToClass(fontSize)} onSelect={(e) => console.log(e)} dangerouslySetInnerHTML={{__html: article}}></p>
     </div>
     <div className="card-footer d-fl-r jc-sb">
       <div className="m-r-1 d-fl-r ai-c">When you have finished reading the passage, click done.</div>

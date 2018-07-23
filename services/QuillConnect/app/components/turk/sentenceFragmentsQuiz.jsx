@@ -1,62 +1,57 @@
-import React from 'react'
-import {connect} from 'react-redux'
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import {clearData, loadData, nextQuestion, submitResponse, updateName, updateCurrentQuestion} from '../../actions/diagnostics.js'
-import _ from 'underscore'
+import React from 'react';
+import { connect } from 'react-redux';
+import _ from 'underscore';
 import {
   hashToCollection,
-  Spinner
+  Spinner,
   CarouselAnimation
-} from 'quill-component-library/dist/componentLibrary'
-import diagnosticQuestions from './diagnosticQuestions.jsx'
-import PlaySentenceFragment from '../studentLessons/sentenceFragment.jsx'
-import PlayDiagnosticQuestion from '../studentLessons/question.tsx'
-import LandingPage from './landing.jsx'
-import FinishedDiagnostic from './finishedDiagnostic.jsx'
-import {getConceptResultsForAllQuestions} from '../../libs/conceptResults/diagnostic'
-const request = require('request');
+} from 'quill-component-library/dist/componentLibrary';
+import { clearData, loadData, nextQuestion, submitResponse, updateName, updateCurrentQuestion } from '../../actions/diagnostics.js';
+import diagnosticQuestions from './diagnosticQuestions.jsx';
+import PlaySentenceFragment from '../studentLessons/sentenceFragment.jsx';
+import PlayDiagnosticQuestion from '../studentLessons/question.tsx';
+import LandingPage from './landing.jsx';
+import FinishedDiagnostic from './finishedDiagnostic.jsx';
 
-var StudentDiagnostic = React.createClass({
+const StudentDiagnostic = React.createClass({
 
-  getInitialState: function () {
+  getInitialState() {
     return {
-      saved: false
-    }
+      saved: false,
+    };
   },
 
-  saveToLMS: function () {
-    this.setState({saved: true});
-    return
+  saveToLMS() {
+    this.setState({ saved: true, });
   },
 
-
-  componentWillMount: function() {
-    this.props.dispatch(clearData())
+  componentWillMount() {
+    this.props.dispatch(clearData());
   },
 
-  submitResponse: function(response) {
+  submitResponse(response) {
     const action = submitResponse(response);
-    this.props.dispatch(action)
+    this.props.dispatch(action);
   },
 
-  renderQuestionComponent: function () {
+  renderQuestionComponent() {
     if (this.props.question.currentQuestion) {
       return (<Question
-                question={this.props.question.currentQuestion}
-                submitResponse={this.submitResponse}
-                prefill={this.getLesson().prefill}/>)
+        question={this.props.question.currentQuestion}
+        submitResponse={this.submitResponse}
+        prefill={this.getLesson().prefill}
+      />);
     }
   },
 
-  questionsForDiagnostic: function () {
-    var questionsCollection = hashToCollection(this.props.questions.data)
-    const {data} = this.props.lessons, {lessonID} = this.props.params;
-    return data[lessonID].questions.map((id) => {
-      return _.find(questionsCollection, {key: id})
-    })
+  questionsForDiagnostic() {
+    const questionsCollection = hashToCollection(this.props.questions.data);
+    const { data, } = this.props.lessons,
+      { lessonID, } = this.props.params;
+    return data[lessonID].questions.map(id => _.find(questionsCollection, { key: id, }));
   },
 
-  startActivity: function (name, data) {
+  startActivity(name, data) {
     // this.saveStudentName(name);
     // const action = loadData(data)
     // this.props.dispatch(action);
@@ -68,24 +63,24 @@ var StudentDiagnostic = React.createClass({
     this.props.dispatch(next);
   },
 
-  nextQuestion: function () {
+  nextQuestion() {
     const next = nextQuestion();
     this.props.dispatch(next);
   },
 
-  getLesson: function () {
-    return this.props.lessons.data[this.props.params.lessonID]
+  getLesson() {
+    return this.props.lessons.data[this.props.params.lessonID];
   },
 
-  getLessonName: function () {
-    return this.props.lessons.data[this.props.params.lessonID].name
+  getLessonName() {
+    return this.props.lessons.data[this.props.params.lessonID].name;
   },
 
-  saveStudentName: function (name) {
-    this.props.dispatch(updateName(name))
+  saveStudentName(name) {
+    this.props.dispatch(updateName(name));
   },
 
-  questionsForLesson: function () {
+  questionsForLesson() {
     // const {data} = this.props.lessons, {lessonID} = this.props.params;
     // console.log(data[lessonID], data[lessonID].questions)
     // return data[lessonID].questions;
@@ -107,31 +102,29 @@ var StudentDiagnostic = React.createClass({
     });
   },
 
-  getData: function() {
+  getData() {
     if (this.props.params.lessonID) {
-      return this.questionsForLesson()
-    } else {
-      return diagnosticQuestions()
+      return this.questionsForLesson();
     }
+    return diagnosticQuestions();
   },
 
-  markIdentify: function (bool) {
-    const action = updateCurrentQuestion({identified: bool})
-    this.props.dispatch(action)
+  markIdentify(bool) {
+    const action = updateCurrentQuestion({ identified: bool, });
+    this.props.dispatch(action);
   },
 
-  getProgressPercent: function () {
+  getProgressPercent() {
     if (this.props.playDiagnostic && this.props.playDiagnostic.answeredQuestions && this.props.playDiagnostic.questionSet) {
-      return this.props.playDiagnostic.answeredQuestions.length / this.props.playDiagnostic.questionSet.length * 100
-    } else {
-      0
+      return this.props.playDiagnostic.answeredQuestions.length / this.props.playDiagnostic.questionSet.length * 100;
     }
+    0;
   },
 
-  getFetchedData: function() {
-    var returnValue = this.getData().map((obj)=>{
-      console.log(obj)
-      var data = (obj.questionType === "questions") ? this.props.questions.data[obj.key] : this.props.sentenceFragments.data[obj.key]
+  getFetchedData() {
+    const returnValue = this.getData().map((obj) => {
+      console.log(obj);
+      const data = (obj.questionType === 'questions') ? this.props.questions.data[obj.key] : this.props.sentenceFragments.data[obj.key];
       data.key = obj.key;
       // if(obj.type==="SF") {
       //   data.needsIdentification = true
@@ -139,34 +132,34 @@ var StudentDiagnostic = React.createClass({
       //   data.needsIdentification = false
       // }
       return {
-        "type": obj.questionType,
-        "data": data
-      }
-    })
-    return returnValue
+        type: obj.questionType,
+        data,
+      };
+    });
+    return returnValue;
   },
 
-  render: function() {
+  render() {
     const { data, } = this.props.lessons,
       { lessonID, } = this.props.params;
-    var component;
+    let component;
     if (this.props.questions.hasreceiveddata && this.props.sentenceFragments.hasreceiveddata) {
       if (data[lessonID]) {
         if (this.props.playDiagnostic.currentQuestion) {
-          if(this.props.playDiagnostic.currentQuestion.type === "SC") {
-            component = (<PlayDiagnosticQuestion question={this.props.playDiagnostic.currentQuestion.data} nextQuestion={this.nextQuestion} key={this.props.playDiagnostic.currentQuestion.data.key} dispatch={this.props.dispatch}/>)
-
+          if (this.props.playDiagnostic.currentQuestion.type === 'SC') {
+            component = (<PlayDiagnosticQuestion question={this.props.playDiagnostic.currentQuestion.data} nextQuestion={this.nextQuestion} key={this.props.playDiagnostic.currentQuestion.data.key} dispatch={this.props.dispatch} />);
           } else {
-            component =   (<PlaySentenceFragment question={this.props.playDiagnostic.currentQuestion.data} currentKey={this.props.playDiagnostic.currentQuestion.data.key}
-                                    key={this.props.playDiagnostic.currentQuestion.data.key}
-                                    nextQuestion={this.nextQuestion} markIdentify={this.markIdentify}
-                                    updateAttempts={this.submitResponse} dispatch={this.props.dispatch}/>)
+            component = (<PlaySentenceFragment
+              question={this.props.playDiagnostic.currentQuestion.data} currentKey={this.props.playDiagnostic.currentQuestion.data.key}
+              key={this.props.playDiagnostic.currentQuestion.data.key}
+              nextQuestion={this.nextQuestion} markIdentify={this.markIdentify}
+              updateAttempts={this.submitResponse} dispatch={this.props.dispatch}
+            />);
           }
         } else if (this.props.playDiagnostic.answeredQuestions.length > 0 && this.props.playDiagnostic.unansweredQuestions.length === 0) {
-          component = (<FinishedDiagnostic saveToLMS={this.saveToLMS} saved={this.state.saved}/>)
-        }
-        else {
-          component =  <LandingPage lesson={this.getLesson()} begin={()=>{this.startActivity("John")}}/>
+          component = (<FinishedDiagnostic saveToLMS={this.saveToLMS} saved={this.state.saved} />);
+        } else {
+          component = <LandingPage lesson={this.getLesson()} begin={() => { this.startActivity('John'); }} />;
           // (
           //   <div className="container">
           //     <button className="button is-info" onClick={()=>{this.startActivity("John", data)}}>Start</button>
@@ -175,23 +168,23 @@ var StudentDiagnostic = React.createClass({
         }
       }
     } else {
-      component =  (<Spinner/>)
+      component = (<Spinner />);
     }
 
     return (
       <div>
-      <progress className="progress diagnostic-progress" value={this.getProgressPercent()} max="100">15%</progress>
-      <section className="section is-fullheight minus-nav student">
-      <div className="student-container student-container-diagnostic">
-          <CarouselAnimation>
-            {component}
-          </CarouselAnimation>
-        </div>
-      </section>
+        <progress className="progress diagnostic-progress" value={this.getProgressPercent()} max="100">15%</progress>
+        <section className="section is-fullheight minus-nav student">
+          <div className="student-container student-container-diagnostic">
+            <CarouselAnimation>
+              {component}
+            </CarouselAnimation>
+          </div>
+        </section>
       </div>
-    )
-  }
-})
+    );
+  },
+});
 
 function select(state) {
   return {
@@ -199,7 +192,7 @@ function select(state) {
     routing: state.routing,
     questions: state.questions,
     playDiagnostic: state.playDiagnostic,
-    sentenceFragments: state.sentenceFragments
-  }
+    sentenceFragments: state.sentenceFragments,
+  };
 }
-export default connect(select)(StudentDiagnostic)
+export default connect(select)(StudentDiagnostic);
