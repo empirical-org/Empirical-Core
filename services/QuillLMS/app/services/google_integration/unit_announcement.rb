@@ -1,28 +1,12 @@
 require 'google/api_client'
 
-class GoogleIntegration::Announcements
+class GoogleIntegration::UnitAnnouncement
   include Rails.application.routes.url_helpers
-  attr_reader :unit, :classroom_unit
+  attr_reader :classroom_unit
 
-  def self.post_unit(unit)
-    classroom_units = unit.classroom_units
-      # we may just be able to skip this part?
-      # .group_by { |classroom_unit| classroom_unit.activity_id }
-      # .values
-      # .first
-
-    classroom_units.each do |classroom_unit|
-      # this method lives in classroom unit now, will need refactor
-      if classroom_unit.is_valid_for_google_announcement_with_owner?
-        # owner = classroom_unit.classroom.owner
-        new(classroom_unit, unit).post
-      end
-    end
-  end
-
-  def initialize(unit_activity, unit=nil)
-    @unit_activity = unit_activity
-    @unit = unit
+  def initialize(classroom_unit, client = nil)
+    @classroom_unit = classroom_unit
+    @client = client
   end
 
   def post
@@ -52,7 +36,7 @@ class GoogleIntegration::Announcements
   end
 
   def body
-    if classroom_unit.assigned_student_ids.any? && !classroom_unit.assign_on_join
+    if individual_students?
       base_body.merge(individual_students_body)
     else
       base_body
@@ -69,6 +53,10 @@ class GoogleIntegration::Announcements
     classroom_unit.classroom
   end
 
+  def unit
+    classroom_unit.unit
+  end
+
   def user
     classroom.owner
   end
@@ -78,16 +66,14 @@ class GoogleIntegration::Announcements
   end
 
   def announcement_text
-    if @unit.present?
-      unit_url = classroom_url(classroom.id, anchor: unit.id)
+    unit_url = classroom_url(classroom.id, anchor: unit.id)
 
-      "New Unit: #{@unit.name} #{unit_url}"
-    else
-      activity_url  = ActivitySession.generate_activity_url(classroom_unit.id, @unit_activity.activity.id)
-      activity_name = @unit_activity.activity.name
+    "New Unit: #{unit.name} #{unit_url}"
+  end
 
-      "New Activity: #{activity_name} #{activity_url}"
-    end
+  def individual_students?
+    classroom_unit.assigned_student_ids.any? &&
+    !classroom_unit.assign_on_join
   end
 
   def individual_students_body

@@ -28,23 +28,33 @@ module Units::Creator
   private
 
   def self.create_helper(teacher, name, activities_data, classrooms, unit_template_id=nil, current_user_id)
-    unit = Unit.create!(name: name, user: teacher, unit_template_id: unit_template_id)
+    unit = Unit.create!(
+      name: name,
+      user: teacher,
+      unit_template_id: unit_template_id
+    )
     # makes a permutation of each classroom with each activity to
     # create all necessary activity sessions
     activities_data.each do |activity|
-      UnitActivity.create(unit_id: unit.id, activity_id: activity[:id], due_date: activity[:due_date])
+      UnitActivity.create(
+        unit_id: unit.id,
+        activity_id: activity[:id],
+        due_date: activity[:due_date]
+      )
     end
     classrooms.each do |classroom|
-      ClassroomUnit.create(classroom_id: classroom[:id],
-                           assigned_student_ids: classroom[:student_ids],
-                           assign_on_join: classroom[:assign_on_join],
-                           unit_id: unit.id)
+      classroom_unit = ClassroomUnit.create(
+        classroom_id: classroom[:id],
+        assigned_student_ids: classroom[:student_ids],
+        assign_on_join: classroom[:assign_on_join],
+        unit_id: unit.id
+      )
+      GoogleIntegration::UnitAnnouncement.new(classroom_unit).post
     end
 
     unit.email_lesson_plan
     # unit.hide_if_no_visible_unit_activities
     # activity_sessions in the state of 'unstarted' are automatically created in an after_create callback in the classroom_activity model
     AssignActivityWorker.perform_async(current_user_id || teacher.id)
-    GoogleIntegration::Announcements.post_unit(unit)
   end
 end

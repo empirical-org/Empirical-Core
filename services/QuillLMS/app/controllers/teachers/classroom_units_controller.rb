@@ -9,6 +9,7 @@ class Teachers::ClassroomUnitsController < ApplicationController
   def launch_lesson
     @unit_activity = UnitActivity.find_by(unit_id: @classroom_unit.unit_id, activity: @lesson.id)
     cuas = ClassroomUnitActivityState.find_by(classroom_unit: @classroom_unit, unit_activity: @unit_activity)
+
     if lesson_tutorial_completed?
       if cuas && cuas.update(locked: false, pinned: true)
         find_or_create_lesson_activity_sessions_for_classroom
@@ -81,8 +82,8 @@ private
   end
 
   def post_to_google_classroom
-    google_response = GoogleIntegration::Announcements.new(@unit_activity)
-      .post
+    google_response = GoogleIntegration::LessonAnnouncement
+      .new(@classroom_unit, @unit_activity).post
     if google_response == 'UNAUTHENTICATED'
       session[:google_redirect] = request.path
       return redirect_to '/auth/google_oauth2'
