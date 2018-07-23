@@ -46,9 +46,11 @@ RUN source $NVM_DIR/nvm.sh \
     && nvm alias default $NODE_VERSION \
     && nvm use $NODE_VERSION
 
-
 ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules
 ENV PATH $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
 
 RUN node -v
 RUN npm -v
+
+RUN apt-get update && apt-get install -y python-pip
+RUN pip install requests==2.18.4
