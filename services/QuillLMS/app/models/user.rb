@@ -347,7 +347,17 @@ class User < ActiveRecord::Base
   end
 
   def clear_data
-    self.update!(name: "Deleted User_#{self.id}", email: "deleted_user_#{self.id}@example.com", username: "deleted_user_#{self.id}")
+    ActiveRecord::Base.transaction do
+      update!(
+        name:      "Deleted User_#{self.id}",
+        email:     "deleted_user_#{self.id}@example.com",
+        username:  "deleted_user_#{self.id}",
+        google_id: nil
+      )
+      if auth_credential.present?
+        auth_credential.destroy!
+      end
+    end
   end
 
   def last_name= last_name

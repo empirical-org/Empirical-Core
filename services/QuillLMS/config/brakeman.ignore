@@ -222,22 +222,22 @@
     {
       "warning_type": "SQL Injection",
       "warning_code": 0,
-      "fingerprint": "987eba4ded8ee9151b02cc136e53b8fc278574a5e2c49e7ff495efde9ff49c50",
+      "fingerprint": "959f52b75906be4ac1e373b753a5acadc4380e02a13a99740efb340a660098c4",
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "app/controllers/teachers/progress_reports/diagnostic_reports_controller.rb",
-      "line": 100,
+      "line": 108,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
-      "code": "ActiveRecord::Base.connection.execute(\"\\n        SELECT activity_sessions.state\\n        FROM classrooms_teachers\\n        JOIN classrooms\\n          ON  classrooms_teachers.classroom_id = classrooms.id\\n          AND classrooms.visible = TRUE\\n        JOIN classroom_activities\\n          ON  classrooms.id = classroom_activities.classroom_id\\n          AND classroom_activities.visible = TRUE\\n          AND classroom_activities.activity_id IN (#{[413, 447, 602].join(\", \")})\\n        LEFT JOIN activity_sessions\\n          ON  classroom_activities.id = activity_sessions.classroom_activity_id\\n          AND activity_sessions.state = 'finished'\\n          AND activity_sessions.visible = TRUE\\n        WHERE classrooms_teachers.user_id = #{current_user.id}\\n      \")",
+      "code": "ActiveRecord::Base.connection.execute(\"\\n        SELECT activity_sessions.state\\n        FROM classrooms_teachers\\n        JOIN classrooms\\n          ON  classrooms_teachers.classroom_id = classrooms.id\\n          AND classrooms.visible = TRUE\\n        JOIN classroom_activities\\n          ON  classrooms.id = classroom_activities.classroom_id\\n          AND classroom_activities.visible = TRUE\\n          AND classroom_activities.activity_id IN (#{Activity.diagnostic_activity_ids.join(\", \")})\\n        LEFT JOIN activity_sessions\\n          ON  classroom_activities.id = activity_sessions.classroom_activity_id\\n          AND activity_sessions.state = 'finished'\\n          AND activity_sessions.visible = TRUE\\n        WHERE classrooms_teachers.user_id = #{current_user.id}\\n      \")",
       "render_path": null,
       "location": {
         "type": "method",
         "class": "Teachers::ProgressReports::DiagnosticReportsController",
         "method": "diagnostic_status"
       },
-      "user_input": "[413, 447, 602].join(\", \")",
-      "confidence": "Medium",
-      "note": "DIAGNOSTIC_ACTIVITY_IDS is a constant we control, so this is a false positive."
+      "user_input": "Activity.diagnostic_activity_ids.join(\", \")",
+      "confidence": "High",
+      "note": ""
     },
     {
       "warning_type": "Mass Assignment",
@@ -460,6 +460,6 @@
       "note": ""
     }
   ],
-  "updated": "2018-06-13 21:17:55 -0400",
+  "updated": "2018-07-11 19:28:37 -0400",
   "brakeman_version": "4.1.1"
 }
