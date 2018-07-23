@@ -453,14 +453,13 @@ describe Teachers::ClassroomManagerController, type: :controller do
       create(:auth_credential, user: teacher)
 
       expect(GoogleStudentImporterWorker).to receive(:perform_async)
-        .with(teacher.id,)
       get :import_google_students, selected_classrooms: [1,2], format: :json
     end
   end
 
   describe '#dashboard_query' do
     let(:teacher) { create(:teacher) }
-
+    
     before do
       allow(Dashboard).to receive(:queries) { "queries" }
       allow(controller).to receive(:current_user) { teacher }
