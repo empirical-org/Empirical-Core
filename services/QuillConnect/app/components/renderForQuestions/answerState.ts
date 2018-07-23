@@ -1,12 +1,12 @@
 import {Response} from "quill-marking-logic"
 
-interface Attempt {
+export interface Attempt {
   response: Response
 }
 
 function getAnswerState(attempt: Attempt|undefined): boolean {
   if (attempt) {
-    return (attempt.response.optimal)
+    return !!(attempt.response.optimal)
   }
   return false
 }
