@@ -2,7 +2,7 @@ export default {
   path: 'teach/',
   getChildRoutes: (partialNextState, cb) => {
     Promise.all([
-      System.import(/* webpackChunkName: "teach-classroom-lesson" */ './routes/ClassroomLessons/index.js')
+      import(/* webpackChunkName: "teach-classroom-lesson" */ './routes/ClassroomLessons/index.js')
     ])
     .then(modules => cb(null, modules.map(module => module.default)))
     .catch(err => console.error('Dynamic page loading failed', err))

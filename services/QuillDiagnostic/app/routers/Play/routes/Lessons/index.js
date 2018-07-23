@@ -4,7 +4,7 @@ import { getParameterByName } from 'libs/getParameterByName';
 const playRoute = {
   path: ':lessonID',
   getComponent: (nextState, cb) => {
-    System.import(/* webpackChunkName: "student-lesson" */'components/studentLessons/lesson.jsx')
+    import(/* webpackChunkName: "student-lesson" */'components/studentLessons/lesson.jsx')
     .then((component) => {
       cb(null, component.default);
     });
