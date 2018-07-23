@@ -16,11 +16,13 @@ class VocabularyWordsController < ApplicationController
   def new
     @vocabulary_word = VocabularyWord.new
     @page_js_bundle = 'text_editor'
+    @page_style_bundle = 'text_editor'
   end
 
   # GET /vocabulary_words/1/edit
   def edit
     @page_js_bundle = 'text_editor'
+    @page_style_bundle = 'text_editor'
   end
 
   # POST /vocabulary_words
