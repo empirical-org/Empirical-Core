@@ -76,7 +76,7 @@ export default class extends React.Component {
           <div style={{flexBasis: '50%', marginRight: 20}}>
             <div>
               <div>Email</div>
-              <input type="email" value={this.state.email} placeholder={'Email Address'} onChange={this.handleEmailChange} style={{width: '100%'}}/>
+              <input type="email" id="co-teacher-email" value={this.state.email} placeholder={'Email Address'} onChange={this.handleEmailChange} style={{width: '100%'}}/>
             </div>
             <br />
             <div>
