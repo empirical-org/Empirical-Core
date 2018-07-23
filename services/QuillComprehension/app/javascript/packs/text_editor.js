@@ -17,7 +17,7 @@ class TextEditor extends React.Component {
   }
 
   render() {
-    return <ReactQuill value={this.state.text} onChange={this.handleChange} />
+    return <ReactQuill value={this.state.text} onChange={this.handleChange} theme="snow"/>
   }
 
 }

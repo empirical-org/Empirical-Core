@@ -16,11 +16,13 @@ class ActivitiesController < ApplicationController
   def new
     @activity = Activity.new
     @page_js_bundle = 'text_editor'
+    @page_style_bundle = 'text_editor'
   end
 
   # GET /activities/1/edit
   def edit
     @page_js_bundle = 'text_editor'
+    @page_style_bundle = 'text_editor'
   end
 
   # POST /activities
