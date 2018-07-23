@@ -561,6 +561,7 @@ pipeline {
       sh "docker network rm jnk-net${env.BUILD_TAG}"
       echo "Removing workspace"
       deleteDir()
+      cleanWs()
     }
   }
 }
