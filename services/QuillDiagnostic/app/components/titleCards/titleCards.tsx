@@ -1,10 +1,15 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import _ from 'underscore'
 import { Link } from 'react-router'
 import { QuestionList, hashToCollection } from 'quill-component-library/dist/componentLibrary'
+export interface ComponentProps {
+  titleCards: any
+  routing: any
+  routeParams: any 
+  dispatch(any): void
+}
 
-class TitleCards extends React.Component<any, any> {
+class TitleCards extends React.Component<ComponentProps, any> {
   constructor(props) {
     super(props)
 

@@ -61,3 +61,8 @@ export function getEditionMetadata(store) {
 export function getEditionQuestions(store) {
   return store.editionQuestions;
 }
+
+export function getOriginalEditionQuestions(store) {
+  return store.originalEditionQuestions;
+}
+

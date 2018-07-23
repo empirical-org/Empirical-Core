@@ -16,6 +16,7 @@ const PromptField: React.SFC<any> = (props) => {
         incompletePrompt={props.incompletePrompt}
         text={props.text}
         handleTextChange={(e) => props.handleTextChange(e)}
+        reset={props.reset}
         showBlockquote={props.showBlockquote}
       />
     </div>

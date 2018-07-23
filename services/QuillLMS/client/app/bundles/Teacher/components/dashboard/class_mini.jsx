@@ -1,4 +1,5 @@
 import React from 'react';
+
 export default React.createClass({
 
   manageClassGear() {
@@ -6,21 +7,20 @@ export default React.createClass({
       <div className="class-mini-top">
         {this.viewCoteachers()}
         <a className="class-mini-edit-students" href={this.manageClassLink()}>
-          <p><img src="/images/person_icon.svg" alt="person-icon"/><span>Edit Students</span></p>
+          <p><img src="/images/person_icon.svg" alt="person-icon" /><span>Edit Students</span></p>
         </a>
       </div>
     );
   },
 
   viewCoteachers() {
-    let link
+    let link;
     if (this.props.classObj.has_coteacher) {
-      link = this.props.classObj.teacher_role === 'owner' ? '/teachers/classrooms#my-coteachers' : '/teachers/classrooms#active-classes'
-      return <a href={link}>View Co-Teachers</a>
-    } else {
-      link = '/teachers/classrooms#invite-coteachers'
-      return <a href={link}>Add Co-Teachers</a>
+      link = this.props.classObj.teacher_role === 'owner' ? '/teachers/classrooms#my-coteachers' : '/teachers/classrooms#active-classes';
+      return <a href={link}>View Co-Teachers</a>;
     }
+    link = '/teachers/classrooms#invite-coteachers';
+    return <a href={link}>Add Co-Teachers</a>;
   },
 
   manageClassLink() {
