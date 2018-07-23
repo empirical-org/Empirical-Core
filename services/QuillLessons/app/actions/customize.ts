@@ -62,6 +62,7 @@ export function getEditionQuestions(editionId:string) {
     socket.instance.on(`editionQuestionsForEdition:${editionId}`, (questions) => {
       if (!_.isEqual(getState().customize.editionQuestions, questions)) {
         dispatch(setEditionQuestions(questions))
+        dispatch(setOriginalEditionQuestions(questions))
       }
     })
     socket.instance.emit('getEditionQuestions', { editionId });
@@ -192,7 +193,7 @@ export function setEditionQuestions(editionQuestions:CustomizeIntf.EditionQuesti
   return { type: C.SET_EDITION_QUESTIONS, editionQuestions };
 }
 
-export function setOriginalEditionQuestions( originalEditionQuestions:CustomizeIntf.EditionQuestions|{} ) {
+export function setOriginalEditionQuestions(originalEditionQuestions:CustomizeIntf.EditionQuestions|{}) {
   return { type: C.SET_ORIGINAL_EDITION_QUESTIONS, originalEditionQuestions };
 }
 

@@ -7,9 +7,9 @@ export default {
   },
   getChildRoutes: (partialNextState, cb) => {
     Promise.all([
-      System.import('./newItemLevel.js'),
-      System.import('./itemLevel.js'),
-      System.import('./editItemLevel.js')
+      import('./newItemLevel.js'),
+      import('./itemLevel.js'),
+      import('./editItemLevel.js')
     ])
     .then(modules => cb(null, modules.map(module => module.default)))
     .catch(err => console.error('Dynamic page loading failed', err));
