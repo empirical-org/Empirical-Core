@@ -16,6 +16,7 @@ describe Activity, type: :model, redis: :true do
   it { should have_many(:recommendations).dependent(:destroy) }
   it { should have_many(:activity_category_activities).dependent(:destroy) }
   it { should have_many(:activity_categories).through(:activity_category_activities) }
+
   it { is_expected.to callback(:flag_as_beta).before(:create).unless(:flags?) }
   it do
     is_expected.to callback(:clear_activity_search_cache).after(:commit)
