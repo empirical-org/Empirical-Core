@@ -3,20 +3,17 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
 import * as _ from 'underscore';
-import * as ReactTransition from 'react-addons-css-transition-group';
 import {checkSentenceFragment, Response } from 'quill-marking-logic'
 import {
   hashToCollection,
   ConceptExplanation,
 } from 'quill-component-library/dist/componentLibrary';
 import {
-  submitResponse,
-  incrementResponseCount,
-  getResponsesWithCallback,
   getGradedResponsesWithCallback
 } from '../../actions/responses';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 import Feedback from '../renderForQuestions/feedback';
+import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
 
 const PlaySentenceFragment = React.createClass<any, any>({
   getInitialState() {

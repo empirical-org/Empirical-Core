@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { Spinner } from 'quill-component-library/dist/componentLibrary'
 const WakeLock: any = require('react-wakelock').default;
 import {
   startListeningToSession,
@@ -41,7 +42,7 @@ import * as CustomizeIntf from '../../../interfaces/customize'
 import {
   scriptTagStrip
 } from '../shared/scriptTagStrip';
-import {Spinner} from 'quill-component-library'
+
 
 class PlayClassroomLessonContainer extends React.Component<any, any> {
   constructor(props) {
