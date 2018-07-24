@@ -31,11 +31,11 @@ describe Teachers::ClassroomUnitsController, type: :controller do
       let!(:unit_activity) { create(:unit_activity, activity: activity, unit: classroom_unit.unit)}
       let!(:cuas) { create(:classroom_unit_activity_state, unit_activity: unit_activity, classroom_unit: classroom_unit)}
 
-      let(:customize_lesson_url) { "#{activity.classification_form_url}customize/#{activity.uid}?&classroom_activity_id=#{classroom_unit.id}"}
+      let(:customize_lesson_url) { "#{activity.classification_form_url}customize/#{activity.uid}?&classroom_unit_id=#{classroom_unit.id}"}
 
       context 'when activity session exists' do
         let!(:activity_session) { create(:activity_session, classroom_unit_id: classroom_unit.id, state: "started") }
-        let(:teach_class_url) { "#{activity.classification_form_url}teach/class-lessons/#{activity.uid}?&classroom_activity_id=#{classroom_unit.id}" }
+        let(:teach_class_url) { "#{activity.classification_form_url}teach/class-lessons/#{activity.uid}?&classroom_unit_id=#{classroom_unit.id}" }
 
         it 'should redirect to teach class lessons url' do
           get :launch_lesson, id: classroom_unit.id, lesson_uid: activity.uid
