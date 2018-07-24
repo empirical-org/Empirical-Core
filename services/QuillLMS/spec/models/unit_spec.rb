@@ -18,9 +18,6 @@ describe Unit, type: :model do
   let!(:teacher) {create(:teacher)}
   let!(:activity) {create(:activity)}
   let!(:unit) {create(:unit, user: teacher, visible: true)}
-  let!(:classroom_activity) do
-    create(:classroom_activity_with_activity, classroom: classroom, unit: unit)
-  end
 
   describe 'user_id field' do
     it 'should not raise an error' do
@@ -92,18 +89,6 @@ describe Unit, type: :model do
     it 'is called when the unit is saved' do
       expect(unit).to receive(:hide_classroom_units_and_unit_activities_if_visible_false)
       unit.update(name: 'new name')
-    end
-
-    it "does not update the unit's classroom activities unless the unit is archived" do
-      old_ca_attributes = classroom_activity.attributes
-      unit.update(name: 'something else')
-      expect(classroom_activity.attributes).to eq(old_ca_attributes)
-    end
-
-    it "archives the unit's classroom activities if the unit archived" do
-      old_ca_attributes = classroom_activity.attributes
-      unit.update(name: 'something else')
-      expect(classroom_activity.attributes).to eq(old_ca_attributes)
     end
   end
 
