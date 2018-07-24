@@ -10,7 +10,6 @@ class Cms::CriteriaController < Cms::CmsController
 
   def create
     @criterion = Criterion.new(recommendation: @recommendation)
-
     if @criterion.update(criterion_params)
       redirect_to cms_activity_classification_activity_recommendation_path(
         @activity_classification,
