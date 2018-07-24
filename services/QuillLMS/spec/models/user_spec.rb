@@ -55,7 +55,9 @@ describe User, type: :model do
       end
 
       it 'raises an error if the flag is not in the array' do
-        expect {user.update(Faker::Beer.name)}.to raise_error()
+        expect {
+          user.update!(flags: user.flags.push('wrong'))
+        }.to raise_error(ActiveRecord::RecordInvalid)
       end
     end
 
@@ -171,6 +173,7 @@ describe User, type: :model do
         it "returns true if the user does not have a subscription" do
           user.reload.subscription.destroy
           expect(user.eligible_for_new_subscription?).to be true
+          expect(user.eligible_for_new_subscription?).to be
         end
 
         it "returns true if the user has a subscription with a trial account type" do
@@ -183,7 +186,7 @@ describe User, type: :model do
         it "returns false if the user has a subscription that does not have a trial account type" do
           (Subscription::ALL_PAID_TYPES).each do |type|
             subscription.update(account_type: type)
-            expect(user.reload.eligible_for_new_subscription?).to be false
+            expect(user.reload.eligible_for_new_subscription?).not_to be true
           end
         end
       end
@@ -694,7 +697,8 @@ describe User, type: :model do
   end
 
   describe '#clear_data' do
-    let(:user) { create(:user) }
+    let(:user) { create(:user, google_id: 'sergey_and_larry_were_here') }
+    let!(:auth_credential) { create(:auth_credential, user: user) }
     before(:each) { user.clear_data }
 
     it "changes the user's email to one that is not personally identiable" do
@@ -707,6 +711,14 @@ describe User, type: :model do
 
     it "changes the user's name to one that is not personally identiable" do
       expect(user.name).to eq("Deleted User_#{user.id}")
+    end
+
+    it "removes the google id" do
+      expect(user.google_id).to be nil
+    end
+
+    it "destroys associated auth credentials if present" do
+      expect(user.reload.auth_credential).to be nil
     end
   end
 

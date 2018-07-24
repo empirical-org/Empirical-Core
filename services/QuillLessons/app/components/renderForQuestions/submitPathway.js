@@ -1,4 +1,4 @@
-import { hashToCollection } from '../../libs/hashToCollection';
+import { hashToCollection } from 'quill-component-library/dist/componentLibrary';
 import _ from 'underscore';
 import pathwayActions from '../../actions/pathways';
 

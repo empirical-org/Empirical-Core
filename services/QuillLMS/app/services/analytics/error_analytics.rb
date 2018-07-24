@@ -1,8 +1,8 @@
 class ErrorAnalytics
   attr_accessor :analytics
 
-  def initialize
-    self.analytics = SegmentAnalytics.new
+  def initialize(analyzer = SegmentAnalytics.new)
+    self.analytics = analyzer
   end
 
   def track_500

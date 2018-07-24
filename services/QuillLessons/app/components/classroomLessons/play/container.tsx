@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { Spinner } from 'quill-component-library/dist/componentLibrary'
 const WakeLock: any = require('react-wakelock').default;
 import {
   startListeningToSession,
@@ -41,7 +42,7 @@ import * as CustomizeIntf from '../../../interfaces/customize'
 import {
   scriptTagStrip
 } from '../shared/scriptTagStrip';
-import Spinner from '../../shared/spinner'
+
 
 class PlayClassroomLessonContainer extends React.Component<any, any> {
   constructor(props) {
@@ -253,7 +254,7 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
       const ca_id: string|null = getParameterByName('classroom_activity_id');
       const sessionData: ClassroomLessonSession = this.props.classroomSessions.data;
       const editionData: CustomizeIntf.EditionQuestions = this.props.customize.editionQuestions;
-      const imageSrc = this.state.leftHover ? 'http://assets.quill.org/images/icons/left-button-hover.svg' : 'http://assets.quill.org/images/icons/left-button.svg'
+      const imageSrc = this.state.leftHover ? 'https://assets.quill.org/images/icons/left-button-hover.svg' : 'https://assets.quill.org/images/icons/left-button.svg'
       return <img
         className="left-button"
         src={imageSrc}
@@ -272,7 +273,7 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
       const sessionData: ClassroomLessonSession = this.props.classroomSessions.data;
       const editionData: CustomizeIntf.EditionQuestions = this.props.customize.editionQuestions;
       const className: string = currentSlide === 0 ? 'right-button keep-right' : 'right-button'
-      const imageSrc = this.state.rightHover ? 'http://assets.quill.org/images/icons/right-button-hover.svg' : 'http://assets.quill.org/images/icons/right-button.svg'
+      const imageSrc = this.state.rightHover ? 'https://assets.quill.org/images/icons/right-button-hover.svg' : 'https://assets.quill.org/images/icons/right-button.svg'
       return <img
       className={className}
       src={imageSrc}

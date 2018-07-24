@@ -57,9 +57,12 @@ export default React.createClass({
       var tagsToRender = [];
       const posTagKeys = keysForPOS()
 
-      tag.tags.forEach((index) => {
-        tagsToRender.push(posTagKeys[index])
-      })
+      if (tag.tags) {
+        tag.tags.forEach((index) => {
+          tagsToRender.push(posTagKeys[index])
+        })
+      }
+      
       var headerStyle = {
         "padding": "10px 20px",
         "borderBottom": "0.2px solid #e6e6e6"

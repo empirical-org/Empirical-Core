@@ -29,6 +29,19 @@ export default React.createClass({
     );
   },
 
+  premiumPromo() {
+    const today = new Date()
+    const marchFirst = new Date(today.getFullYear(), 2, 1)
+    const julyFifteenth = new Date(today.getFullYear(), 6, 15)
+    if (today > marchFirst && today < julyFifteenth) {
+      return <div className="premium-notification-box-container">
+        <NotificationBox>
+          <span><strong>Upgrade now and get the rest of the school year free.</strong><br/> First time subscribers' subscriptions will be extended through July 31st, {today.getFullYear()}.</span>
+        </NotificationBox>
+      </div>
+    }
+  },
+
   render() {
     return (
       <div className="container" id="premium-pricing-guide">
@@ -36,11 +49,7 @@ export default React.createClass({
           <h1>Pricing Guide</h1>
           <p>Save time grading and gain actionable insights with Quill Premium.</p>
         </div>
-        <div className="premium-notification-box-container">
-          <NotificationBox>
-            <span><strong>Upgrade now and get the rest of the school year free.</strong><br/> First time subscribers' subscriptions will be extended through July 31st, 2019.</span>
-          </NotificationBox>
-        </div>
+        {this.premiumPromo()}
         <PremiumPricingMinisRow {...this.props} />
         <DistrictPricingBox />
         <PremiumFlyer />

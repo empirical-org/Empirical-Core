@@ -2,8 +2,12 @@ import React from 'react'
 import actions from '../../actions/concepts-feedback'
 import feedbackActions from '../../actions/concepts-feedback'
 import { connect } from 'react-redux'
-import TextEditor from '../questions/textEditor.jsx'
-import ConceptExplanation from './conceptExplanation.jsx'
+import {
+  TextEditor,
+  ConceptExplanation
+} from 'quill-component-library/dist/componentLibrary'
+import { EditorState, ContentState } from 'draft-js'
+
 export default React.createClass ({
 
   // propTypes: {
@@ -57,7 +61,13 @@ export default React.createClass ({
       if (part === this.state.editing) {
         return [
           (<label className="label">{part}</label>),
-          (<TextEditor text={this.state[part]} handleTextChange={this.handleChange.bind(null, part)} key={part}/>)
+          (<TextEditor
+            text={this.state[part]}
+            handleTextChange={this.handleChange.bind(null, part)}
+            key={part}
+            EditorState={EditorState}
+            ContentState={ContentState}
+          />)
         ]
       } else {
         return [
