@@ -11,29 +11,29 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :activity_id %>
-    <%= form.text_field :activity_id, value: (@vocabulary_word.new_record? ? @activity.id : @vocabulary_word.activity_id) %>
+  <div class="form-group">
+    <%= form.label :activity_id, class: "form-label" %>
+    <%= form.text_field :activity_id, value: (@vocabulary_word.new_record? ? @activity.id : @vocabulary_word.activity_id), class: "form-control" %>
   </div>
 
-  <div class="field">
-    <%= form.label :text %>
-    <%= form.text_area :text %>
+  <div class="form-group">
+    <%= form.label :text, class: "form-label" %>
+    <%= form.text_area :text, class: "form-control" %>
   </div>
 
-  <div class="field">
-    <%= form.label :description %>
-    <%= form.text_area :description %>
+  <div class="form-group text-editor">
+    <%= form.label :description, class: "form-label" %>
+    <%= form.hidden_field :description, class: "form-control" %>
   </div>
 
-  <div class="field">
-    <%= form.label :example %>
-    <%= form.text_area :example %>
+  <div class="form-group text-editor">
+    <%= form.label :example, class: "form-label" %>
+    <%= form.hidden_field :example, class: "form-control" %>
   </div>
 
-  <div class="field">
-    <%= form.label :order %>
-    <%= form.number_field :order %>
+  <div class="form-group">
+    <%= form.label :order, class: "form-label" %>
+    <%= form.number_field :order, class: "form-control" %>
   </div>
 
   <div class="actions">

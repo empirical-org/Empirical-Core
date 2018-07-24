@@ -70,3 +70,6 @@ _book/
 /node_modules
 
 nohup.out
+
+/cypress/screenshots
+/cypress/videos

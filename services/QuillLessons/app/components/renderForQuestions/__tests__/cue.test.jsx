@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import Cue from '../cue.jsx';
+import { Cue } from 'quill-component-library/dist/componentLibrary';
 
 describe('Cue component', () => {
   const cue = 'or'

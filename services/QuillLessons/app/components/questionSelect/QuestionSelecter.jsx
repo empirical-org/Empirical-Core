@@ -1,6 +1,6 @@
 import React from 'react'
 import _ from 'underscore'
-import { hashToCollection } from '../../libs/hashToCollection'
+import { hashToCollection } from 'quill-component-library/dist/componentLibrary'
 import { connect } from 'react-redux'
 import C from '../../constants'
 

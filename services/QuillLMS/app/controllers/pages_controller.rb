@@ -346,11 +346,11 @@ class PagesController < ApplicationController
   end
 
   def press
-    @blog_posts = BlogPost.where(draft: false, topic: 'Press')
+    @blog_posts = BlogPost.where(draft: false, topic: 'Press').order('order_number')
   end
 
   def announcements
-    @blog_posts = BlogPost.where(draft: false, topic: 'Announcements')
+    @blog_posts = BlogPost.where(draft: false, topic: 'Announcements').order('order_number')
   end
 
   private

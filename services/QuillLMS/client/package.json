@@ -173,6 +173,9 @@
     "coveragePathIgnorePatterns": [
       "/node_modules/",
       "/test_data/"
+    ],
+    "roots": [
+      "app"
     ]
   }
 }

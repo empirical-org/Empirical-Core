@@ -22,12 +22,12 @@ import {
 import {
   ScriptItem
 } from '../../../interfaces/classroomLessons'
-const uncheckedGrayCheckbox = require('../../../img/box_gray_unchecked.svg')
-const checkedGrayCheckbox = require('../../../img/box_gray_checked.svg')
-const uncheckedGreenCheckbox = require('../../../img/box_green_unchecked.svg')
-const checkedGreenCheckbox = require('../../../img/box_green_checked.svg')
-const grayFlag = require('../../../img/flag_gray.svg')
-const blueFlag = require('../../../img/flag_blue.svg')
+const uncheckedGrayCheckbox = 'https://assets.quill.org/images/icons/box_gray_unchecked.svg'
+const checkedGrayCheckbox = 'https://assets.quill.org/images/icons/box_gray_checked.svg'
+const uncheckedGreenCheckbox = 'https://assets.quill.org/images/icons/box_green_unchecked.svg'
+const checkedGreenCheckbox = 'https://assets.quill.org/images/icons/box_green_checked.svg'
+const grayFlag = 'https://assets.quill.org/images/icons/flag_gray.svg'
+const blueFlag = 'https://assets.quill.org/images/icons/flag_blue.svg'
 const moment = require('moment');
 
 interface ScriptContainerProps {

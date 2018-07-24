@@ -1,8 +1,18 @@
-Types::ResponseType = GraphQL::ObjectType.define do
-  name 'Response'
+class Types::ResponseType < Types::BaseObject
 
-  field :id, !types.ID
-  field :question_id,  !types.ID
-  field :submissions, !types.Int
-  field :text, !types.String
+  field :id, ID, null: false
+  field :question_id, ID, null: false
+  field :submissions, Integer, null: false
+  field :text, String, null: false
+
+  field :metrics, Types::MetricsType, null: false
+  field :latest_metrics, Types::MetricsType, null: false
+
+  def metrics
+    object.all_metrics
+  end
+
+  def latest_metrics
+    object.latest_metrics
+  end
 end

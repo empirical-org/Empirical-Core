@@ -21,7 +21,7 @@ export default class LessonsRecommendations extends React.Component {
         <div className="lesson-recommendations-wrapper" id="lessons-recommendations-wrapper">
           <h2>
             <img src="https://assets.quill.org/images/icons/group-lesson-icon-black.svg" alt="class practice logo" />
-            Collaborative Class Lessons Recommendations
+            Teacher-Led Activity Recommendations
           </h2>
           <p>
             Quill Lessons are 30 - 45 minutes whole class collaborative learning sessions. The Quill Lessons tool provides teachers with interactive whole class Quill activities, teacher modeling prompts, and class-wide discussion topics. You can learn more here or try a sample lesson. Quill recommends a whole class Quill Lessons activity when at least 50% of your students in the class need instruction in that area.
