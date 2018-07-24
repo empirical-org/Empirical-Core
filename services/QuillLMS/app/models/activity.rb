@@ -41,6 +41,18 @@ class Activity < ActiveRecord::Base
     Recommendation.all.map(&:activity_id).uniq
   end
 
+  def self.find_by_id_or_uid(arg)
+    begin
+      find(arg)
+    rescue ActiveRecord::RecordNotFound
+      find_by(uid: arg)
+    rescue ActiveRecord::RecordNotFound
+      raise ActiveRecord::RecordNotFound.new(
+        "Couldn't find Activity with 'id' or 'uid'=#{arg}"
+      )
+    end
+  end
+
   def topic_uid= uid
     self.topic_id = Topic.find_by_uid(uid).id
   end
@@ -129,9 +141,9 @@ class Activity < ActiveRecord::Base
   def lesson_url_helper
     base = classification.module_url
     lesson = uid + '?'
-    classroom_activity_id = @activity_session.classroom_activity.id.to_s
+    classroom_unit_id = @activity_session.classroom_unit.id.to_s
     student_id = @activity_session.uid
-    url = base + lesson + 'classroom_activity_id=' + classroom_activity_id + '&student=' + student_id
+    url = base + lesson + 'classroom_unit_id=' + classroom_unit_id + '&student=' + student_id
     @url = Addressable::URI.parse(url)
   end
 
