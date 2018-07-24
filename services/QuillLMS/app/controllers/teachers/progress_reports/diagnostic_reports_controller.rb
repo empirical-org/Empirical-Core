@@ -79,7 +79,9 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     end
 
     def report_from_classroom_unit_and_activity
-      url = classroom_report_url(params[:classroom_unit_id].to_i, params[:activity_id].to_i)
+      activity = Activity.find_by_id_or_uid(params[:activity_id])
+      url = classroom_report_url(params[:classroom_unit_id].to_i, activity.id)
+
       if url
         redirect_to url
       else

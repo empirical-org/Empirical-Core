@@ -14,7 +14,8 @@ import {
   redirectAssignedStudents,
   updateStudentSubmissionOrder,
   setPrompt,
-  hideSignupModal
+  hideSignupModal,
+  finishLesson
 } from '../../../actions/classroomSessions';
 import { Spinner } from 'quill-component-library/dist/componentLibrary';
 import CLLobby from './lobby';
@@ -209,46 +210,32 @@ class CurrentSlide extends React.Component<any, any> {
     const questions = this.props.customize.editionQuestions.questions;
     const submissions = this.props.classroomSessions.data.submissions;
     const followUp = this.props.classroomSessions.data.followUpActivityName && this.state.selectedOptionKey !== 'No Follow Up Practice';
-    const activityId = this.props.lessonId;
+    const activityId = this.props.classroomLesson.data.id;
     const classroomUnitId: string = getParameterByName('classroom_unit_id');
     const conceptResults = generate(questions, submissions);
     const editionId: string|undefined = this.props.classroomSessions.data.edition_id;
-    const data = new FormData();
 
-    data.append("json", JSON.stringify({
-      follow_up: followUp,
-      concept_results: conceptResults,
-      edition_id: editionId,
-      activity_id: activityId,
-      classroom_unit_id: classroomUnitId,
-    }));
-
-    fetch(`${process.env.EMPIRICAL_BASE_URL}/api/v1/classroom_activities/finish_lesson`, {
-      method: 'PUT',
-      mode: 'cors',
-      credentials: 'include',
-      body: data
-    }).then((response) => {
-      if (!response.ok) {
-        throw Error(response.statusText);
-      }
-      return response.json();
-    }).then((response) => {
-      if (classroomUnitId) {
-        redirectAssignedStudents(
-          classroomUnitId,
-          this.state.selectedOptionKey,
-          response.follow_up_url
-        );
-      }
-      this.setState({
-        completed: true,
-        showTimeoutModal: false,
-        showCongratulationsModal: true
-       });
-    }).catch((error) => {
-      console.log('error', error);
-    })
+    finishLesson(
+      followUp,
+      conceptResults,
+      editionId,
+      activityId,
+      classroomUnitId,
+      (response) => {
+        if (classroomUnitId) {
+          redirectAssignedStudents(
+            classroomUnitId,
+            this.state.selectedOptionKey,
+            response.follow_up_url
+          );
+        }
+        this.setState({
+          completed: true,
+          showTimeoutModal: false,
+          showCongratulationsModal: true
+        });
+      })
+    );
   }
 
   timeOut() {
@@ -292,7 +279,7 @@ class CurrentSlide extends React.Component<any, any> {
     const data: ClassroomLessonSession = this.props.classroomSessions.data;
     const lessonData: ClassroomLesson = this.props.classroomLesson.data;
     const editionData: CustomizeIntf.EditionQuestions = this.props.customize.editionQuestions;
-    const lessonId: string = this.props.classroomLesson.id
+    const lessonId: string = this.props.classroomLesson.data.id
     const lessonDataLoaded: boolean = this.props.classroomLesson.hasreceiveddata;
     const editionDataLoaded: boolean = editionData.questions && editionData.questions.length > 0
     if (this.props.classroomSessions.hasreceiveddata && lessonDataLoaded && editionDataLoaded) {

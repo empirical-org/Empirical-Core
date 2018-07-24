@@ -1,10 +1,15 @@
 class Api::V1::ClassroomActivitiesController < Api::ApiController
   include QuillAuthentication
   before_filter :authorize!
-  before_filter :set_activity_sessions, only: :student_names
 
   def student_names
-    render json: assigned_students
+    activity          = Activity.find_by(uid: params[:activity_id])
+    activity_sessions = ActivitySession.includes(:user).where(
+      activity: activity,
+      classroom_unit_id: params[:classroom_unit_id]
+    )
+
+    render json: assigned_students(activity_sessions)
   end
 
   def teacher_and_classroom_name
@@ -13,15 +18,12 @@ class Api::V1::ClassroomActivitiesController < Api::ApiController
   end
 
   def finish_lesson
-    json = JSON.parse(params['json'])
-    data = json['edition_id'] ? {edition_id: json['edition_id']} : {}
-
-    activity = Activity.find(params[:activity_id])
+    activity = Activity.find_by_id_or_uid(params[:activity_id])
     classroom_unit = ClassroomUnit.find(params[:classroom_unit_id])
 
     unit_activity = UnitActivity.find_by(
       unit_id: classroom_unit.unit_id,
-      activity_id: params[:activity_id]
+      activity_id: activity.id
     )
 
     states = ClassroomUnitActivityState.where(
@@ -29,6 +31,7 @@ class Api::V1::ClassroomActivitiesController < Api::ApiController
       unit_activity: unit_activity
     )
 
+    data = params[:edition_id] ? { edition_id: params[:edition_id] } : {}
     ActivitySession.mark_all_activity_sessions_complete(
       params[:classroom_unit_id],
       params[:activity_id],
@@ -39,8 +42,8 @@ class Api::V1::ClassroomActivitiesController < Api::ApiController
 
     ActivitySession.save_concept_results(
       params[:classroom_unit_id],
-      params[:activity_id],
-      json['concept_results']
+      activity.id,
+      params[:concept_results]
     )
 
     ActivitySession.delete_activity_sessions_with_no_concept_results(
@@ -48,7 +51,7 @@ class Api::V1::ClassroomActivitiesController < Api::ApiController
       params[:activity_id]
     )
 
-    if json['edition_id']
+    if params[:edition_id]
       milestone = Milestone.find_by_name('Complete Customized Lesson')
       if !UserMilestone.find_by(user_id: current_user.id, milestone_id: milestone.id)
         UserMilestone.create(user_id: current_user.id, milestone_id: milestone.id)
@@ -56,7 +59,7 @@ class Api::V1::ClassroomActivitiesController < Api::ApiController
     end
 
     follow_up = begin
-      if json['follow_up'].present?
+      if params[:follow_up].present?
         ActivitySession.assign_follow_up_lesson(
           params[:classroom_unit_id],
           params[:activity_id],
@@ -82,10 +85,11 @@ class Api::V1::ClassroomActivitiesController < Api::ApiController
   end
 
   def unpin_and_lock_activity
+    activity = Activity.find_by(uid: params[:activity_id])
     classroom_unit = ClassroomUnit.find(params[:classroom_unit_id])
     unit_activity = UnitActivity.find_by(
       unit_id: classroom_unit.unit_id,
-      activity_id: params[:activity_id]
+      activity: activity
     )
     state = ClassroomUnitActivityState.find_by(
       classroom_unit_id: params[:classroom_unit_id],
@@ -107,23 +111,16 @@ class Api::V1::ClassroomActivitiesController < Api::ApiController
 
   private
 
-  def set_activity_sessions
-    @activity_sessions = ActivitySession.includes(:user).where(
-      activity_id: params[:activity_id],
-      classroom_unit_id: params[:classroom_unit_id]
-    )
-  end
-
   def authorize!
     classroom_unit = ClassroomUnit.find(params[:classroom_unit_id])
     classroom_teacher!(classroom_unit.classroom.id)
   end
 
-  def assigned_students
+  def assigned_students(activity_sessions)
     assigned_student_hash = {}
     assigned_student_ids_hash = {}
 
-    @activity_sessions.each do |activity_session|
+    activity_sessions.each do |activity_session|
       if activity_session.uid
         assigned_student_hash[activity_session.uid] = activity_session.user.name
       end

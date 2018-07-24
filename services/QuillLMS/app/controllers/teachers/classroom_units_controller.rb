@@ -7,8 +7,14 @@ class Teachers::ClassroomUnitsController < ApplicationController
   before_action :lesson, :only => ["launch_lesson"]
 
   def launch_lesson
-    @unit_activity = UnitActivity.find_by(unit_id: @classroom_unit.unit_id, activity: @lesson.id)
-    cuas = ClassroomUnitActivityState.find_by(classroom_unit: @classroom_unit, unit_activity: @unit_activity)
+    @unit_activity = UnitActivity.find_by(
+      unit_id: @classroom_unit.unit_id,
+      activity: @lesson.id
+    )
+    cuas = ClassroomUnitActivityState.find_by(
+      classroom_unit: @classroom_unit,
+      unit_activity: @unit_activity
+    )
 
     if lesson_tutorial_completed?
       if cuas && cuas.update(locked: false, pinned: true)
