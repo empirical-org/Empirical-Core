@@ -25,6 +25,50 @@ describe ActivitySession, type: :model, redis: :true do
 
   end
 
+  describe '#classroom_owner' do
+    let(:classroom) { build(:classroom) }
+    let(:owner) { build(:teacher) }
+    let(:classroom_activity) { build(:classroom_activity, classroom: classroom) }
+    let(:activity_session) { build(:activity_session, classroom_activity: classroom_activity) }
+
+    before do
+      allow(classroom).to receive(:owner) { owner }
+    end
+
+    it 'should give the classroom owner of the classroom activity' do
+      expect(activity_session.classroom_owner).to eq owner
+    end
+  end
+
+  describe '#eligible_for_tracking?' do
+    context 'when classroom activity, classroom, or owner absent' do
+      let(:activity_session) { build_stubbed(:activity_session) }
+
+      before do
+        allow(activity_session).to receive(:classroom_activity) { nil }
+      end
+
+      it 'should return false' do
+        expect(activity_session.eligible_for_tracking?).to eq false
+      end
+    end
+
+    context 'when classroom activity, classroom and owner present' do
+      let(:classroom) { build(:classroom) }
+      let(:owner) { build(:teacher) }
+      let(:classroom_activity) { build(:classroom_activity, classroom: classroom) }
+      let(:activity_session) { build(:activity_session, classroom_activity: classroom_activity) }
+
+      before do
+        allow(classroom).to receive(:owner) { owner }
+      end
+
+      it 'should return true' do
+        expect(activity_session.eligible_for_tracking?).to eq true
+      end
+    end
+  end
+
   describe 'paginate ' do
     let(:activity_session) { create(:activity_session) }
     let(:activity_session1) { create(:activity_session) }

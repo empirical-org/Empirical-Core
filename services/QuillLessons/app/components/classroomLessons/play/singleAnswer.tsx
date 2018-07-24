@@ -1,9 +1,11 @@
 declare function require(name:string);
 import React, { Component } from 'react';
 import Cues from '../../../components/renderForQuestions/cues';
-import RenderSentenceFragments from '../../../components/renderForQuestions/sentenceFragments';
 import FeedbackRow from './feedbackRow'
-import Feedback from '../../renderForQuestions/components/feedback'
+import {
+  Feedback,
+  SentenceFragments
+} from 'quill-component-library/dist/componentLibrary'
 import TextEditor from '../../renderForQuestions/renderTextEditor';
 import { getParameterByName } from '../../../libs/getParameterByName';
 import { firebase } from '../../../libs/firebase';
@@ -12,7 +14,7 @@ import {
   SelectedSubmissionsForQuestion,
 } from '../interfaces';
 import { QuestionData } from '../../../interfaces/classroomLessons'
-const icon = require('../../../img/question_icon.svg');
+const icon = 'https://assets.quill.org/images/icons/question_icon.svg' ;
 
 interface SingleAnswerProps {
   data: QuestionData,
@@ -198,7 +200,7 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
     return (
       <div>
         {this.renderProjectorHeader()}
-        <RenderSentenceFragments prompt={this.props.data.play.prompt} />
+        <SentenceFragments prompt={this.props.data.play.prompt} />
         {this.renderCues()}
         {this.renderInstructions()}
         {this.modeAppropriateRender()}

@@ -2,13 +2,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 import actions from '../../actions/lessons';
 import _ from 'underscore';
-import { Link } from 'react-router';
-import Modal from '../modal/modal.jsx';
-import { hashToCollection } from '../../libs/hashToCollection';
+import {
+  Modal,
+  LinkListItem,
+  ArchivedButton,
+  FlagDropdown
+} from 'quill-component-library/dist/componentLibrary';
 import EditLessonForm from './lessonForm.jsx';
-import LinkListItem from '../shared/linkListItem.jsx';
-import ArchivedButton from '../shared/archivedButton.jsx';
-import FlagDropdown from '../shared/flagDropdown.jsx';
 
 const Lessons = React.createClass({
 
@@ -41,13 +41,7 @@ const Lessons = React.createClass({
       keys = _.filter(keys, key => data[key].flag === this.state.lessonFlags);
     }
     if (this.state.showOnlyArchived) {
-      const { questions } = this.props;
-      keys = _.filter(keys, key => (data[key].questions.filter((question) => {
-        const currentQuestion = questions.data[question.key];
-        if (currentQuestion && currentQuestion.flag === "archived") {
-          return question;
-        }
-      })).length > 0);
+      keys = keys.filter(key => data[key].questions && data[key].questions.some(q => q.flag === 'archived'))
     }
     return keys.map(key => (
       <LinkListItem

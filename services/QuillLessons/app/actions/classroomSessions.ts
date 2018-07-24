@@ -136,7 +136,7 @@ export function goToNextSlide(classroom_activity_id: string|null, state: Classro
   if (classroom_activity_id) {
     const { current_slide } = state;
     const { questions } = lesson;
-    const slides = Object.keys(questions);
+    const slides = questions ? Object.keys(questions) : [];
     const current_slide_index = slides.indexOf(current_slide.toString());
     const nextSlide = slides[current_slide_index + 1];
     if (nextSlide !== undefined) {
@@ -149,7 +149,7 @@ export function goToPreviousSlide(classroom_activity_id: string|null, state: Cla
   if (classroom_activity_id) {
     const { current_slide } = state;
     const { questions } = lesson;
-    const slides = Object.keys(questions);
+    const slides = questions ? Object.keys(questions) : [];
     const current_slide_index = slides.indexOf(current_slide.toString());
     const previousSlide = slides[current_slide_index - 1];
     if (previousSlide !== undefined) {

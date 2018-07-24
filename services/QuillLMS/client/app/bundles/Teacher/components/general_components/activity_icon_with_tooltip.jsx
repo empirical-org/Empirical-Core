@@ -107,11 +107,11 @@ export default class ActivityIconWithTooltip extends React.Component {
   statusIndicator() {
     const {started, completed_attempts} = this.props.data
     if (started) {
-      return <img className="in-progress-symbol" src="http://assets.quill.org/images/scorebook/blue-circle-sliced.svg"/>
+      return <img className="in-progress-symbol" src="https://assets.quill.org/images/scorebook/blue-circle-sliced.svg"/>
     } else if (completed_attempts > 1) {
       const completedNumber = completed_attempts > 9 ? '+' : completed_attempts
       return <span>
-        <img className="attempt-symbol" src="http://assets.quill.org/images/scorebook/blue-circle-solid.svg"/>
+        <img className="attempt-symbol" src="https://assets.quill.org/images/scorebook/blue-circle-solid.svg"/>
         <span className="attempt-count">{completedNumber}</span>
       </span>
     }

@@ -7,7 +7,10 @@ import * as ReactTransition from 'react-addons-css-transition-group';
 import {checkSentenceFragment, Response } from 'quill-marking-logic'
 import Feedback from '../renderForQuestions/feedback';
 import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
-import { hashToCollection } from '../../libs/hashToCollection.js';
+import {
+  hashToCollection,
+  ConceptExplanation
+} from 'quill-component-library/dist/componentLibrary';
 import {
   submitResponse,
   incrementResponseCount,
@@ -15,25 +18,15 @@ import {
   getGradedResponsesWithCallback
 } from '../../actions/responses';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
-import ConceptExplanation from '../feedback/conceptExplanation.jsx';
-const icon = require('../../img/question_icon.svg');
+const icon = 'https://assets.quill.org/images/icons/question_icon.svg'
 
 const PlaySentenceFragment = React.createClass<any, any>({
   getInitialState() {
     return {
-      response: this.props.question.prompt,
+      response: this.props.question ? this.props.question.prompt : '',
       checkAnswerEnabled: true,
       editing: false,
     };
-  },
-
-  componentDidMount() {
-    getGradedResponsesWithCallback(
-      this.props.question.key,
-      (data) => {
-        this.setState({ responses: data, });
-      }
-    );
   },
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -48,6 +41,15 @@ const PlaySentenceFragment = React.createClass<any, any>({
   },
 
   componentWillReceiveProps(nextProps) {
+    if (nextProps.question && !this.state.responses) {
+      getGradedResponsesWithCallback(
+        this.props.question.key,
+        (data) => {
+          this.setState({ responses: data, });
+        }
+      )
+    }
+
     if (nextProps.question.attempts.length !== this.props.question.attempts.length) {
       this.setState({editing: false})
     }
@@ -126,7 +128,6 @@ const PlaySentenceFragment = React.createClass<any, any>({
         }
         checkSentenceFragment(fields).then((resp) => {
           const matched = {response: resp}
-          console.log(typeof(matched), typeof(matched) === 'object')
           if (typeof(matched) === 'object') {
             updateResponseResource(matched, key, attempts, this.props.dispatch, );
             this.props.updateAttempts(matched);
@@ -193,14 +194,14 @@ const PlaySentenceFragment = React.createClass<any, any>({
         <button className="button student-submit" onClick={this.props.nextQuestion}>Next</button>
       );
     } else if (this.state.responses) {
-      if (this.props.question.attempts.length > 0) {
-        const buttonClass = this.state.editing ? "button student-recheck" : "button student-recheck is-disabled";
+      if (this.props.question && this.props.question.attempts ? this.props.question.attempts.length > 0 : false) {
+        const buttonClass = "button student-recheck";
         return <button className={buttonClass} onClick={this.checkAnswer}>Recheck Your Answer</button>;
       } else {
         return <button className="button student-submit" onClick={this.checkAnswer}>Submit</button>;
       }
     } else {
-      <button className="button student-submit is-disabled" onClick={() => {}}>Submit</button>;
+      return <button className="button student-submit is-disabled" onClick={() => {}}>Submit</button>;
     }
   },
 
@@ -260,7 +261,7 @@ const PlaySentenceFragment = React.createClass<any, any>({
       return (
         <div className="student-container-inner-diagnostic">
           <div className="draft-js sentence-fragments prevent-selection">
-            <p>{this.getQuestion().prompt}</p>
+            <p>{this.getQuestion() ? this.getQuestion().prompt : ''}</p>
           </div>
           {this.renderInteractiveComponent()}
         </div>

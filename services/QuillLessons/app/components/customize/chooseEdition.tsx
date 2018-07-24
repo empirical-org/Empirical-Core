@@ -1,20 +1,20 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import * as _ from 'lodash'
+import * as _ from 'lodash';
 import {
   createNewEdition,
   saveEditionName,
   archiveEdition,
   deleteEdition
-} from '../../actions/customize'
+} from '../../actions/customize';
 import {
   setEditionId
-} from '../../actions/classroomSessions'
-import EditionNamingModal from './editionNamingModal'
-import EditionRow from './editionRow'
-import SignupModal from '../classroomLessons/teach/signupModal'
-import { getParameterByName } from '../../libs/getParameterByName'
-import * as CustomizeIntF from '../../interfaces/customize'
+} from '../../actions/classroomSessions';
+import EditionNamingModal from './editionNamingModal';
+import EditionRow from './editionRow';
+import SignupModal from '../classroomLessons/teach/signupModal';
+import { getParameterByName } from '../../libs/getParameterByName';
+import * as CustomizeIntF from '../../interfaces/customize';
 
 class ChooseEdition extends React.Component<any, any> {
   constructor(props) {

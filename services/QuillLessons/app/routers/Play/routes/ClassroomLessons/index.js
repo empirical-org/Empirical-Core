@@ -1,4 +1,4 @@
-import Passthrough from 'components/shared/passthrough.jsx';
+import { Passthrough } from 'quill-component-library/dist/componentLibrary';
 
 import { getParameterByName } from 'libs/getParameterByName';
 
@@ -8,7 +8,7 @@ const playRoute = {
     document.title = 'Quill Lessons';
   },
   getComponent: (nextState, cb) => {
-    System.import(/* webpackChunkName: "teach-classroom-lesson" */'components/classroomLessons/play/container.tsx')
+    import(/* webpackChunkName: "teach-classroom-lesson" */'components/classroomLessons/play/container.tsx')
     .then((component) => {
       cb(null, component.default);
     });

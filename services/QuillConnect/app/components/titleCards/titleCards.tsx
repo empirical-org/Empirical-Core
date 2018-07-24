@@ -2,10 +2,16 @@ import React from 'react'
 import { connect } from 'react-redux'
 import _ from 'underscore'
 import { Link } from 'react-router'
-import {hashToCollection} from '../../libs/hashToCollection'
-import QuestionsList from './titleCardsList.jsx'
+import { QuestionList, hashToCollection } from 'quill-component-library/dist/componentLibrary'
 
-class TitleCards extends React.Component<any, any> {
+
+export interface ComponentProps {
+  titleCards: any
+  routing: any
+  routeParams: any 
+}
+
+class TitleCards extends React.Component<ComponentProps, any> {
   constructor(props) {
     super(props)
 
@@ -15,7 +21,7 @@ class TitleCards extends React.Component<any, any> {
   renderQuestionsList() {
     const titleCards = hashToCollection(this.props.titleCards.data)
     if (this.props.titleCards.hasreceiveddata && titleCards) {
-      return <QuestionsList titleCards={titleCards || []} />
+      return <QuestionList questions={titleCards || []} basePath='title-cards'/>
     } else if (!this.props.titleCards.hasreceiveddata) {
       return <p>Loading...</p>
     } else {

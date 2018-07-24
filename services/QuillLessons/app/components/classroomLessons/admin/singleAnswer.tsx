@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import * as CLIntF from '../../../interfaces/ClassroomLessons';
+import * as CLIntF from '../../../interfaces/classroomLessons';
 import _ from 'lodash'
 import MultipleTextEditor from '../shared/multipleTextEditor'
 import StudentSingleAnswer from '../play/singleAnswer'

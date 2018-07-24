@@ -1,0 +1,25 @@
+<%= content_tag(:tr, id: recommendation.id) do -%>
+  <td><%= recommendation.order.to_i + 1 %></td>
+  <td><%= recommendation.name %></td>
+  <td><%= recommendation.unit_template.name %></td>
+  <td>
+    <%= link_to 'Criteria',
+      cms_activity_classification_activity_recommendation_path(
+        @activity_classification,
+        @activity,
+        recommendation
+      )
+    %>
+  </td>
+  <td>
+    <%= link_to 'Delete',
+      cms_activity_classification_activity_recommendation_path(
+        @activity_classification,
+        @activity,
+        recommendation
+      ),
+      method: :delete,
+      data: { confirm: 'Are you sure?' }
+    %>
+  </td>
+<% end -%>
