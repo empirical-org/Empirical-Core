@@ -10,7 +10,9 @@ class GoogleIntegration::LessonAnnouncement
   end
 
   def post
-    handle_response { request }
+    if can_post_to_google_classroom?
+      handle_response { request }
+    end
   end
 
   private
@@ -97,5 +99,9 @@ class GoogleIntegration::LessonAnnouncement
 
   def api_method
     client.discovered_api('classroom', 'v1').courses.announcements.create
+  end
+
+  def can_post_to_google_classroom?
+    classroom.google_classroom_id.present?
   end
 end
