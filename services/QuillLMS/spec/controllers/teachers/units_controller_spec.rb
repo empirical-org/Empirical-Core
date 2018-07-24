@@ -17,7 +17,6 @@ describe Teachers::UnitsController, type: :controller do
   let!(:unit_activity) { create(:unit_activity, unit: unit)}
 
   before do
-    allow(GoogleIntegration::Announcements).to receive(:post_unit)
     session[:user_id] = teacher.id
   end
 
