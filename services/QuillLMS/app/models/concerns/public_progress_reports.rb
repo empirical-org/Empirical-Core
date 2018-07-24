@@ -99,10 +99,17 @@ module PublicProgressReports
       h.map{|k,v| v}
     end
 
-    def results_for_classroom unit_id, activity_id, classroom_id
-      classroom_unit = ClassroomUnit.find_by(classroom_id: classroom_id, unit_id: unit_id)
-      activity = Activity.find(activity_id)
-      # activity_sessions = classroom_unit.activity_sessions.where(is_final_score: true).includes(:user, concept_results: :concept)
+    def results_for_classroom(unit_id, activity_id, classroom_id)
+      classroom_unit = ClassroomUnit.find_by(
+        classroom_id: classroom_id,
+        unit_id: unit_id
+      )
+      activity = Activity.find_by_id_or_uid(activity_id)
+      unit_activity = UnitActivity.find_by(unit_id: unit_id, activity: activity)
+      state = ClassroomUnitActivityState.find_by(
+        unit_activity: unit_activity,
+        classroom_unit: classroom_unit
+      )
       classroom = Classroom.find(classroom_id)
       cu_id = classroom_unit.id
       scores = {
@@ -120,9 +127,14 @@ module PublicProgressReports
           if final_activity_session
             scores[:students].push(formatted_score_obj(final_activity_session, activity, student))
           else
-            if ActivitySession.find_by(user_id: student_id, state: 'started', classroom_unit_id: cu_id, activity_id: activity_id)
+            if ActivitySession.find_by(
+                user_id: student_id,
+                state: 'started',
+                classroom_unit_id: cu_id,
+                activity_id: activity_id
+              )
               scores[:started_names].push(student.name)
-            elsif classroom_unit.completed
+            elsif state.completed
               scores[:missed_names].push(student.name)
             else
               scores[:unstarted_names].push(student.name)

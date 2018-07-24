@@ -58,6 +58,44 @@ export function startLesson(classroomUnitId: string, callback?: Function) {
   }
 }
 
+export function finishLesson(
+  followUp,
+  conceptResults,
+  editionId,
+  activityId,
+  classroomUnitId,
+  callback?: Function
+) {
+  const data = JSON.stringify({
+    follow_up: followUp,
+    concept_results: conceptResults,
+    edition_id: editionId,
+    activity_id: activityId,
+    classroom_unit_id: classroomUnitId,
+  });
+
+  fetch(`${process.env.EMPIRICAL_BASE_URL}/api/v1/classroom_activities/finish_lesson`, {
+    method: 'PUT',
+    body: data,
+    mode: 'cors',
+    credentials: 'include',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    },
+  }).then((response) => {
+    if (!response.ok) {
+      throw Error(response.statusText);
+    }
+    return response.json();
+  }).then((response) => {
+    callback(response);
+  }).catch((error) => {
+    console.log('error', error);
+  })
+
+}
+
 export function toggleOnlyShowHeaders() {
   return function (dispatch) {
     dispatch({type: C.TOGGLE_HEADERS})

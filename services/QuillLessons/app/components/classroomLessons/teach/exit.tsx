@@ -13,12 +13,13 @@ class ExitSlide extends React.Component<any, any> {
   }
 
   goToReports() {
-    const caId: string|null = getParameterByName('classroom_unit_id');
-    window.location.href = `${process.env.EMPIRICAL_BASE_URL}/teachers/progress_reports/report_from_classroom_unit/${caId}`
+    const classroom_unit: string|null = getParameterByName('classroom_unit_id');
+    const { lessonId } = this.props;
+    window.location.href = `${process.env.EMPIRICAL_BASE_URL}/teachers/progress_reports/report_from_classroom_unit_and_activity/${classroom_unit}/a/${lessonId}`
   }
 
   renderAssignmentOptionsAndButton() {
-    const {followUpActivityName, students} = this.props
+    const { followUpActivityName, students } = this.props;
     if (this.props.completed) {
       return <div className='assign-button-container'>
       <button onClick={this.goToReports}>Exit Lesson | View Report</button>

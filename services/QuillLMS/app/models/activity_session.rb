@@ -215,15 +215,32 @@ class ActivitySession < ActiveRecord::Base
     end
   end
 
-  def self.save_concept_results(classroom_unit_id, activity_id, classroom_concept_results)
-    acts = ActivitySession.where(activity_id: activity_id, classroom_unit_id: classroom_unit_id).select(:id, :uid)
-    classroom_concept_results.each do |concept_result|
-      activity_session_id = acts.find { |act| act[:uid] == concept_result["activity_session_uid"]}[:id]
-      concept_result["activity_session_id"] = activity_session_id
-      concept_result.delete("activity_session_uid")
+  def self.save_concept_results(classroom_unit_id, activity_id, concept_results)
+    activity_sessions = ActivitySession.where(
+      activity_id: activity_id,
+      classroom_unit_id: classroom_unit_id
+    ).select(:id, :uid)
+
+    concept_results.each do |concept_result|
+      activity_session_id = activity_sessions.find do |activity_session|
+        activity_session[:uid] == concept_result[:activity_session_uid]
+      end[:id]
+
+      concept = Concept.find_by_id_or_uid(concept_result[:concept_id])
+      concept_result[:metadata] = concept_result[:metadata].to_json
+      concept_result[:concept_id] = concept.id
+      concept_result.delete(:concept_uid)
+      concept_result[:activity_session_id] = activity_session_id
+      concept_result.delete(:activity_session_uid)
     end
-    classroom_concept_results.each do |concept_result|
-      ConceptResult.create(concept_result)
+
+    concept_results.each do |concept_result|
+      ConceptResult.create(
+        concept_id: concept_result[:concept_id],
+        question_type: concept_result[:question_type],
+        activity_session_id: concept_result[:activity_session_id],
+        metadata: concept_result[:metadata],
+      )
     end
   end
 
@@ -246,8 +263,8 @@ class ActivitySession < ActiveRecord::Base
     act_seshes.map{|act_sesh| act_sesh.concept_results.map{|cr| cr.metadata}}.flatten
   end
 
-  def self.assign_follow_up_lesson(classroom_unit_id, activity_id, locked = true)
-    activity = Activity.find(activity_id)
+  def self.assign_follow_up_lesson(classroom_unit_id, activity_uid, locked = true)
+    activity = Activity.find_by(uid: activity_uid)
     classroom_unit = ClassroomUnit.find(classroom_unit_id)
     unit_activity = UnitActivity.find_by(
       activity: activity,

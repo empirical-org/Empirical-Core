@@ -46,29 +46,12 @@ class MarkingLessonAsCompleted extends React.Component<any, any> {
     const activityId = this.props.params.lessonID;
     const classroomUnitId = getParameterByName('classroom_unit_id');
     const conceptResults = generate(questions, submissions);
-    const data = new FormData();
-    data.append("json", JSON.stringify({
-      follow_up: false,
-      concept_results: conceptResults,
-      activity_id: activityId,
-      classroom_unit_id: classroomUnitId,
-    }));
 
-    fetch(`${process.env.EMPIRICAL_BASE_URL}/api/v1/classroom_activities/finish_lesson`, {
-      method: 'PUT',
-      mode: 'cors',
-      credentials: 'include',
-      body: data
-    }).then((response) => {
-      if (!response.ok) {
-        throw Error(response.statusText);
+    finishLesson(false, conceptResults, null, activityId, classroomUnitId,
+      (response) => {
+        window.location.href = `${process.env.EMPIRICAL_BASE_URL}/teachers/classrooms/activity_planner/lessons`;
       }
-      return response.json();
-    }).then((response) => {
-      window.location.href = `${process.env.EMPIRICAL_BASE_URL}/teachers/classrooms/activity_planner/lessons`;
-    }).catch((error) => {
-      console.log('error', error);
-    });
+    );
   }
 
   render() {

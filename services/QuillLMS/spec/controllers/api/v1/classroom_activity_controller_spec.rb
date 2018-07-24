@@ -26,7 +26,7 @@ describe Api::V1::ClassroomActivitiesController, type: :controller do
     it 'does not authenticate a teacher who is not associated with the classroom activity' do
       session[:user_id] = other_teacher.id
       get(:student_names,
-        activity_id: activity.id,
+        activity_id: activity.uid,
         classroom_unit_id: classroom_unit.id,
         format: 'json'
       )
@@ -36,7 +36,7 @@ describe Api::V1::ClassroomActivitiesController, type: :controller do
     it 'authenticates a teacher who is associated with the classroom activity classroom' do
       session[:user_id] = teacher.id
       get(:student_names,
-        activity_id: activity.id,
+        activity_id: activity.uid,
         classroom_unit_id: classroom_unit.id,
         format: 'json'
       )
@@ -46,7 +46,7 @@ describe Api::V1::ClassroomActivitiesController, type: :controller do
     it 'returns JSON object with activity session name key values' do
       session[:user_id] = teacher.id
       get(:student_names,
-        activity_id: activity.id,
+        activity_id: activity.uid,
         classroom_unit_id: classroom_unit.id,
         format: 'json'
       )
@@ -57,7 +57,7 @@ describe Api::V1::ClassroomActivitiesController, type: :controller do
     it 'returns JSON object with student id key values' do
       session[:user_id] = teacher.id
       get(:student_names,
-        activity_id: activity.id,
+        activity_id: activity.uid,
         classroom_unit_id: classroom_unit.id,
         format: 'json'
       )
@@ -102,9 +102,10 @@ describe Api::V1::ClassroomActivitiesController, type: :controller do
     it 'does not authenticate a teacher who does not own the classroom activity' do
       session[:user_id] = other_teacher.id
       put(:finish_lesson,
-        activity_id: activity.id,
+        activity_id: activity.uid,
         classroom_unit_id: classroom_unit.id,
-        json: { concept_results: [], follow_up: true }.to_json,
+        concept_results: [],
+        follow_up: true,
         format: 'json'
       )
       expect(response.status).to be_in([303, 404])
@@ -112,10 +113,13 @@ describe Api::V1::ClassroomActivitiesController, type: :controller do
 
     it 'authenticates a teacher who does own the classroom activity' do
       session[:user_id] = teacher.id
+      concept_result = create(:concept_result)
+
       put(:finish_lesson,
-        activity_id: activity.id,
+        activity_id: activity.uid,
         classroom_unit_id: classroom_unit.id,
-        json: { concept_results: [], follow_up: true }.to_json,
+        concept_results: [],
+        follow_up: true,
         format: 'json'
       )
       expect(response.status).not_to eq(303)
@@ -124,9 +128,10 @@ describe Api::V1::ClassroomActivitiesController, type: :controller do
     it 'returns JSON object with follow up url if requested' do
       session[:user_id] = teacher.id
       put(:finish_lesson,
-        activity_id: activity.id,
+        activity_id: activity.uid,
         classroom_unit_id: classroom_unit.id,
-        json: { concept_results: [], follow_up: true }.to_json,
+        concept_results: [],
+        follow_up: true,
         format: 'json'
       )
 
@@ -142,9 +147,10 @@ describe Api::V1::ClassroomActivitiesController, type: :controller do
     it 'returns JSON object with link to home if not requested' do
       session[:user_id] = teacher.id
       put(:finish_lesson,
-        activity_id: activity.id,
+        activity_id: activity.uid,
         classroom_unit_id: classroom_unit.id,
-        json: { concept_results: [], follow_up: false }.to_json,
+        concept_results: [],
+        follow_up: false,
         format: 'json'
       )
       expect(JSON.parse(response.body))
@@ -172,14 +178,14 @@ describe Api::V1::ClassroomActivitiesController, type: :controller do
 
     it 'should unpin and lock the state of classroom unit activity' do
       put(:unpin_and_lock_activity,
-        activity_id: activity.id,
+        activity_id: activity.uid,
         classroom_unit_id: classroom_unit.id,
         format: :json
       )
 
       expect(classroom_unit_activity_state.reload).to have_attributes(
         pinned: false,
-        locked: true,
+        locked: true
       )
     end
   end
