@@ -55,6 +55,26 @@ describe Activity, type: :model, redis: :true do
     end
   end
 
+  describe ".find_by_id_or_uid" do
+    it "can find by uid string" do
+      uid = 'a2423kahfadf32'
+      activity = create(:activity, id: '999', uid: uid)
+
+      result = Activity.find_by_id_or_uid(uid)
+
+      expect(result).to eq(activity)
+    end
+
+    it "can find by numeric id" do
+      id = 999
+      activity = create(:activity, id: id, uid: 'a2423kahfadf32')
+
+      result = Activity.find_by_id_or_uid(id)
+
+      expect(result).to eq(activity)
+    end
+  end
+
   describe "#classification_key" do
   	describe "#classification_key="
 	  it "must set classification relationship" do
