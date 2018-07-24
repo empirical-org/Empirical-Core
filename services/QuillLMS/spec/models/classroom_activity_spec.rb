@@ -18,6 +18,8 @@ describe ClassroomActivity, type: :model, redis: :true do
   let!(:activity_classification_3) { create(:activity_classification, id: 3)}
   let!(:activity_classification_2) { create(:grammar)}
   let!(:activity_classification_6) { create(:lesson)}
+  let!(:diagnostic_activity_classification) { create(:diagnostic)}
+  let!(:diagnostic_activity) { create(:diagnostic_activity) }
   let!(:activity) { create(:activity) }
   let!(:student) { create(:user, role: 'student', username: 'great', name: 'hi hi', password: 'pwd') }
   let!(:classroom) { create(:classroom, students: [student]) }
