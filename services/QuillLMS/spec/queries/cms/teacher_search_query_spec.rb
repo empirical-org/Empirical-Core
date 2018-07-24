@@ -35,7 +35,6 @@ describe Cms::TeacherSearchQuery do
         user_id: user.id.to_s,
         admin_id: schools_admins.id.to_s
         }
-
       expect(output).to eql(
         [expected.stringify_keys]
       )
