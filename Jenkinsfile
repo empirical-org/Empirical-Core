@@ -71,6 +71,8 @@ pipeline {
           steps {
             echo 'Beginnning TEST...'
             dir(path: 'services/QuillLMS') {
+              echo 'Installing Deps'
+              sh 'bundle install'
               echo 'Rspec:'
               echo 'Setting up rspec...'
               //sh 'cp config/database.yml.jenkins config/database.yml'
@@ -89,8 +91,10 @@ pipeline {
               echo 'Beginnning front-end tests...'
 
               echo 'Installing necessary packages...'
-              sh 'npm install'
-              sh 'ls'
+              sh 'npm install --unsafe-perm'
+              // sh 'mkdir client/config'
+              // sh 'mkdir client/config/webpack'
+              // sh 'cp config/webpack/* client/config/webpack/.'
               echo 'Building test distribution'
               sh 'npm run build:test'
               echo 'Running jest...'
@@ -98,15 +102,40 @@ pipeline {
               withCredentials(bindings: [string(credentialsId: 'codecov-token', variable: 'CODECOV_TOKEN')]) {
                 sh "curl -s https://codecov.io/bash | bash -s - -cF jest -t $CODECOV_TOKEN"
               }
-
-              dir(path: 'services/QuillJenkins/scripts') {
-                // Check that code coverage has not decreased
-                sh "python -c'import codecov; codecov.fail_on_decrease(\"fake-develop\", $env.BRANCH_NAME )' || exit"
-              }
-              echo 'Front end tests disabled for now.  moving on!'
             }
           }
         }
+        // stage('test-QuillLMS-node') {
+        //   agent {
+        //     dockerfile {
+        //       filename 'Dockerfile.test-node'
+        //       dir 'services/QuillJenkins/agents/QuillLMS'
+        //       args "-u root:sudo -v \$HOME/workspace/myproject:/myproject --name lms-webapp-frontend${env.BUILD_TAG} --network jnk-net${env.BUILD_TAG}"
+        //     }
+        //   }
+        //   steps {
+        //     echo 'Beginnning front-end tests...'
+        //     withCredentials(bindings: [string(credentialsId: 'codecov-token', variable: 'CODECOV_TOKEN')]) {
+        //       dir(path: 'services/QuillLMS') {
+        //         echo 'Installing necessary packages...'
+        //         sh 'npm install --unsafe-perm'
+        //         sh 'ls'
+        //         echo 'Building test distribution'
+        //         sh 'npm run build:test'
+        //         echo 'Running jest...'
+        //         sh 'npm run jest:coverage'
+        //         sh "curl -s https://codecov.io/bash | bash -s - -cF jest -t $CODECOV_TOKEN"
+        //       }
+        //       dir(path: 'services/QuillJenkins/scripts') {
+        //         // Check that code coverage has not decreased
+        //         sh "pwd"
+        //         sh "python --version"
+        //         sh "ls -alt"
+        //         sh "python -c 'import codecov; codecov.fail_on_decrease(\"fake-develop\", \"$env.BRANCH_NAME\" )' || exit"
+        //       }
+        //     }
+        //   }
+        // }
         stage('test-comprehension') {
           agent {
             dockerfile {
@@ -266,6 +295,27 @@ pipeline {
               sh 'npm run build:jenkins'
               echo 'Test successful!'
             }
+          }
+        }
+      }
+    }
+    stage('Check Coverage') {
+      agent {
+        dockerfile {
+          filename 'Dockerfile.test-node'
+          dir 'services/QuillJenkins/agents/QuillLMS'
+          args "-u root:sudo -v \$HOME/workspace/myproject:/myproject --name coverage${env.BUILD_TAG} --network jnk-net${env.BUILD_TAG}"
+        }
+      }
+      steps {
+        echo 'Checking covergage vs developp...'
+        withCredentials(bindings: [string(credentialsId: 'codecov-token', variable: 'CODECOV_TOKEN')]) {
+          dir(path: 'services/QuillJenkins/scripts') {
+            // Check that code coverage has not decreased
+            sh "pwd"
+            sh "python --version"
+            sh "ls -alt"
+            sh "python -c 'import codecov; codecov.fail_on_decrease(\"develop\", \"$env.BRANCH_NAME\" )' || exit"
           }
         }
       }
@@ -509,6 +559,9 @@ pipeline {
       sh "docker stop lms-testdb${env.BUILD_TAG}"
       sh "docker rm lms-testdb${env.BUILD_TAG}"
       sh "docker network rm jnk-net${env.BUILD_TAG}"
+      echo "Removing workspace"
+      deleteDir()
+      cleanWs()
     }
   }
 }

@@ -172,7 +172,7 @@ describe User, type: :model do
       describe('#eligible_for_new_subscription?') do
         it "returns true if the user does not have a subscription" do
           user.reload.subscription.destroy
-          expect(user.eligible_for_new_subscription?).to be true
+          expect(user.eligible_for_new_subscription?).to be
         end
 
         it "returns true if the user has a subscription with a trial account type" do
