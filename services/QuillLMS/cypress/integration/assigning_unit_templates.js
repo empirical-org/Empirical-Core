@@ -37,13 +37,12 @@ describe('Assigning unit templates flow', () => {
       cy.contains('View Assigned Activity Packs').click()
       cy.url().should('include', '/teachers/classrooms/activity_planner#')
       // commenting out the line below because it is just taking too long for the unit to show up
-      // cy.get('.activities-unit').should('have.length', 1)
+      cy.get('.activities-unit').should('have.length', 1)
     })
   })
 
   describe('assigning the unit template to some students', function() {
     it('clicking the customize students button will take me to the customize students page', function() {
-      cy.destroyAllAssignments()
       cy.visit('/teachers/classrooms/assign_activities/featured-activity-packs')
       cy.get('.unit-template-mini').eq(3).click()
       cy.contains('Customize Students').click()
@@ -58,7 +57,6 @@ describe('Assigning unit templates flow', () => {
       cy.contains('Add Students Before Assigning').click()
       cy.url().should('include', '/teachers/classrooms/assign_activities/new_unit/students/edit/name')
     })
-
 
     it('allows me to select an entire classroom', function() {
       cy.get('.panel-group').first().find('.panel-heading > .title > div > .css-label').click()
@@ -90,7 +88,7 @@ describe('Assigning unit templates flow', () => {
       cy.contains('Assign Activity Pack').click()
       cy.url().should('include', '/teachers/classrooms/activity_planner')
       // commenting out the line below because it is just taking too long for the unit to show up
-      // cy.get('.activities-unit').should('have.length', 2)
+      cy.get('.activities-unit').should('have.length', 2)
     })
   })
 })
