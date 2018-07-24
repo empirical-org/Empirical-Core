@@ -34,6 +34,8 @@ module Units::Updater
       elsif (matching_cu.assigned_student_ids != classroom[:student_ids]) || matching_cu.assign_on_join != classroom[:assign_on_join]
         # then something changed and we should update
         matching_cu.update!(assign_on_join: classroom[:assign_on_join], assigned_student_ids: classroom[:student_ids], visible: true)
+      elsif !matching_cu.visible
+        matching_cu.update!(visible: true)
       end
     elsif classroom[:student_ids] || classroom[:assign_on_join]
       # making an array of hashes to create in one bulk option
@@ -50,6 +52,8 @@ module Units::Updater
       if matching_ua[:due_date] != activity_data[:due_date]
         # then something changed and we should update
         matching_ua.update!(due_date: activity_data[:due_date], visible: true)
+      elsif !matching_ua.visible
+        matching_ua.update!(visible: true)
       end
     elsif activity_data[:id]
       # making an array of hashes to create in one bulk option
@@ -60,10 +64,10 @@ module Units::Updater
   end
 
   def self.update_helper(unit_id, activities_data, classrooms_data, current_user_id)
-    extant_classroom_units = ClassroomUnit.unscoped.where(unit_id: unit_id)
+    extant_classroom_units = ClassroomUnit.where(unit_id: unit_id)
     new_cus = []
     hidden_cus_ids = []
-    extant_unit_activities = UnitActivity.unscoped.where(unit_id: unit_id)
+    extant_unit_activities = UnitActivity.where(unit_id: unit_id)
     new_uas = []
     hidden_ua_ids = []
     classrooms_data.each do |classroom|

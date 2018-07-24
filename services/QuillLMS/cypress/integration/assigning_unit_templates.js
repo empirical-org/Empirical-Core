@@ -36,7 +36,6 @@ describe('Assigning unit templates flow', () => {
       cy.url().should('include', '/assigned')
       cy.contains('View Assigned Activity Packs').click()
       cy.url().should('include', '/teachers/classrooms/activity_planner#')
-      // commenting out the line below because it is just taking too long for the unit to show up
       cy.get('.activities-unit').should('have.length', 1)
     })
   })
@@ -87,7 +86,6 @@ describe('Assigning unit templates flow', () => {
       cy.get('.panel-group').last().find('.panel-heading > .title > div > .css-label').click()
       cy.contains('Assign Activity Pack').click()
       cy.url().should('include', '/teachers/classrooms/activity_planner')
-      // commenting out the line below because it is just taking too long for the unit to show up
       cy.get('.activities-unit').should('have.length', 2)
     })
   })
