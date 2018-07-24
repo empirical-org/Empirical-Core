@@ -67,6 +67,7 @@ pipeline {
             PROGRESS_REPORT_FOG_DIRECTORY = 'empirical-progress-report-dev'
             FOG_DIRECTORY = 'empirical-core-staging'
             CONTINUOUS_INTEGRATION = true
+            SALESMACHINE_API_KEY = 'SALESMACHINE_API_KEY'
           }
           steps {
             echo 'Beginnning TEST...'

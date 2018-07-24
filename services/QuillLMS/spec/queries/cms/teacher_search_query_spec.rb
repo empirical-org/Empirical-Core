@@ -5,7 +5,7 @@ describe Cms::TeacherSearchQuery do
     Timecop.freeze
   end
 
-  after do
+  after do 
     Timecop.return
   end
 
