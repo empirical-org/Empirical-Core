@@ -27,6 +27,7 @@ describe('Credit Card Modal', () => {
 
     describe('the option to enter a credit card', ()=> {
       it('opens the stripe modal when clicked', ()=>{
+        cy.visit('/premium')
         cy.get('#purchase-btn').click()
       })
     })
