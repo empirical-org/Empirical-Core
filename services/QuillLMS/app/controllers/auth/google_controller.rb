@@ -8,7 +8,7 @@ class Auth::GoogleController < ApplicationController
 
   def google
     if @user.teacher?
-      GoogleStudentImporterWorker.perform_async(@user.id)
+      GoogleStudentImporterWorker.perform_async(@user.id, 'Auth::GoogleController')
     end
 
     if @user.student?

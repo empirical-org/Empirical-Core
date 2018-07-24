@@ -1,9 +1,8 @@
 import React from 'react'
-import Modal from '../modal/modal.jsx'
+import { Modal, hashToCollection } from 'quill-component-library/dist/componentLibrary'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
 import _ from 'underscore'
-import {hashToCollection} from '../../libs/hashToCollection'
 import rootRef from "../../libs/firebase"
 const sessionsRef = rootRef.child('sessions')
 

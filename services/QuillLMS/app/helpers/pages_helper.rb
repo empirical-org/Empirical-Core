@@ -81,18 +81,6 @@ module PagesHelper
 			      title: "Software Developer",
 			      desc: "Emilia is a software developer who is passionate about education. Before joining Quill, Emilia taught at an elementary school in Arizona and tutored students at Breakthrough Santa Fe. As a developer, the first program she built was Word by Word, a grammar tool that teaches students how to identify parts of speech in a sentence."
 			    },
-					{
-						img: 'thumb-becca.jpg',
-						name: 'Becca Garrison',
-						title: 'Partnerships Director',
-						desc: "Becca supports teachers and schools in using Quill to its full potential to strengthen student writing. Previously she coached teachers and schools with integrating instructional technology in pedagogically sound ways. She started her career teaching secondary English in schools across the South Bronx and Colorado."
-					},
-					{
-						img: 'thumb-jenny.jpg',
-						name: 'Jenny Price',
-						title: 'Editorial Associate',
-						desc: "Jenny creates new content and works with the Engineering team to provide real-time feedback to students. Before joining Quill, Jenny taught English to elementary school students in France. She holds an undergraduate degree in French and is passionate about improving communication."
-					},
           {
             img: 'thumb-max.jpg',
             name: 'Max Buck',
@@ -110,7 +98,13 @@ module PagesHelper
 						name: 'Maddy Maher',
 						title: 'Outreach Associate',
 						desc: "Maddy is an outreach associate who joined Quill full-time after contributing as an Education Team intern. She is passionate about education and holds an Undergraduate degree in English Literature from Hamilton College."
-					}
+					},
+          {
+            img: 'thumb-tom.png',
+            name: 'Tom Calabrese',
+            title: 'Product Designer',
+            desc: "Tom is a designer who's passionate about building meaningful and magical products. He studied at the Fashion Institute of Technology with a Bachelor’s degree in Communication Design, as well as the School of Visual Arts with a Masters in Branding."
+          },
 				]
 			},
 			{
@@ -209,12 +203,12 @@ module PagesHelper
 			{
 				team: 'Interns and Volunteers',
 				members: [
-					{
-						img: 'thumb-matt-coleman.png',
-						name: "Matt Coleman",
-						title: "Developer",
-						desc: "Matt is a developer with a BS in Computer Engineering. He likes Fedora and lives in Boston.",
-					}
+          {
+            img: 'thumb-eric.jpg',
+            name: 'Eric Tang',
+            title: 'Software Development Intern',
+            desc: "Eric is a rising sophomore at Stanford University who enjoys reading novels, tutoring students and fiddling with Natural Language Processing algorithms. He’s working at Quill this summer because he’s excited to help students become better writers and communicators!"
+          }
 				]
 			}
 		]

@@ -1,9 +1,11 @@
 import React from 'react';
 import _ from 'underscore';
-import { hashToCollection } from '../../libs/hashToCollection';
+import {
+  hashToCollection,
+  Feedback
+} from 'quill-component-library/dist/componentLibrary';
 import { connect } from 'react-redux';
-import arrow from '../../img/correct_icon.svg';
-import Feedback from './components/feedback';
+const arrow = 'https://assets.quill.org/images/icons/correct_icon.svg';
 const jsDiff = require('diff');
 
 const EndState = React.createClass({

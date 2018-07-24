@@ -13,7 +13,7 @@ import {
   deleteEditionSlide
 } from '../../../actions/classroomLesson'
 import EditEditionDetails from './editEditionDetails'
-import SortableList from '../../questions/sortableList/sortableList.jsx';
+import { SortableList } from 'quill-component-library/dist/componentLibrary';
 import { getEditionQuestions } from '../../../actions/customize'
 
 class ShowAdminEdition extends Component<any, any> {

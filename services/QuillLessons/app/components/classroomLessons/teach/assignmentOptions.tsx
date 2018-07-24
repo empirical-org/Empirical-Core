@@ -1,8 +1,8 @@
 declare function require(name:string);
 import * as React from 'react'
-const RadioButtonHover = require('../../../img/radioButtonHover.svg')
-const RadioButtonIcon = require('../../../img/radioButtonIcon.svg')
-const RadioButtonSelected = require('../../../img/radioButtonSelected.svg')
+const RadioButtonHover = 'https://assets.quill.org/images/icons/radioButtonHover.svg'
+const RadioButtonIcon = 'https://assets.quill.org/images/icons/radioButtonIcon.svg'
+const RadioButtonSelected = 'https://assets.quill.org/images/icons/radioButtonSelected.svg'
 
 class AssignmentOptions extends React.Component<{numberOfStudents: number, updateSelectedOptionKey: Function, selectedOptionKey: string, followUpActivityName: string}> {
   constructor(props) {

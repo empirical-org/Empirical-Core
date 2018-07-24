@@ -1,9 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import actions from '../../actions/concepts'
 import _ from 'underscore'
-import Modal from '../modal/modal.jsx'
-import LinkListItem from '../shared/linkListItem.jsx'
+import { Modal, LinkListItem } from 'quill-component-library/dist/componentLibrary'
+import actions from '../../actions/concepts'
 
 const Concepts = React.createClass({
   createNew: function () {

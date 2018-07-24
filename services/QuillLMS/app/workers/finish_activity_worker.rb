@@ -23,9 +23,11 @@ class FinishActivityWorker
       event_data.merge!(anonymous: false, student: StudentSerializer.new(activity_session.user))
     end
 
-    analytics = FinishActivityAnalytics.new
-    analytics.track(activity_session)
-
+    if activity_session.eligible_for_tracking?
+      analytics = Analyzer.new
+      analytics.track(activity_session.classroom_owner, SegmentIo::Events::ACTIVITY_COMPLETION)
+    end
+    
     # add it to the student's scorebook
     #
     # anything else?

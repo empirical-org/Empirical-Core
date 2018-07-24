@@ -5,18 +5,19 @@ import * as  _ from 'underscore';
 const qml = require('quill-marking-logic')
 const checkFillInTheBlankQuestion = qml.checkFillInTheBlankQuestion
 import { getGradedResponsesWithCallback } from '../../actions/responses.js';
-import { hashToCollection } from '../../libs/hashToCollection';
 // import { submitResponse, } from '../../actions/diagnostics.js';
 import submitQuestionResponse from '../renderForQuestions/submitResponse.js';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 import Cues from '../renderForQuestions/cues.jsx';
-import translations from '../../libs/translations/index.js';
-import translationMap from '../../libs/translations/ellQuestionMapper.js';
-import WarningDialogue from '../fillInBlank/warningDialogue.jsx'
-import Prompt from '../fillInBlank/prompt.jsx'
-import Instructions from '../fillInBlank/instructions.jsx'
+import {
+  WarningDialogue,
+  Prompt,
+  Instructions,
+  hashToCollection
+} from 'quill-component-library/dist/componentLibrary'
 import Feedback from '../renderForQuestions/feedback'
 import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
+import { Attempt } from '../renderForQuestions/answerState.js';
 
 const styles = {
   container: {
@@ -47,22 +48,40 @@ const styles = {
 export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
   constructor(props) {
     super(props);
+
     this.checkAnswer = this.checkAnswer.bind(this);
-    this.getQuestion = this.getQuestion.bind(this);
-    const q = this.getQuestion();
+    this.getQuestion = this.getQuestion.bind(this)
+    this.getGradedResponsesWithCallback = this.getGradedResponsesWithCallback.bind(this)
+    this.setQuestionValues = this.setQuestionValues.bind(this)
+
+    this.state = {}
+  }
+
+  componentWillMount() {
+    this.setQuestionValues(this.props.question)
+  }
+
+  setQuestionValues(question) {
+    const q = question;
     const splitPrompt = q.prompt.split('___');
-    this.state = {
+    this.setState({
       splitPrompt,
       inputVals: this.generateInputs(splitPrompt),
       inputErrors: new Set(),
       cues: q.cues,
       blankAllowed: q.blankAllowed,
-    };
+    }, () => this.getGradedResponsesWithCallback(question));
   }
 
-  componentDidMount() {
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.question.prompt !== this.props.question.prompt) {
+      this.setQuestionValues(nextProps.question)
+    }
+  }
+
+  getGradedResponsesWithCallback(question) {
     getGradedResponsesWithCallback(
-      this.getQuestion().key,
+      question.key,
       (data) => {
         this.setState({ responses: data, });
       }
@@ -75,13 +94,17 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
   }
 
   getInstructionText() {
-    const textKey = translationMap[this.getQuestion().key];
-    let text = translations.english[textKey];
-    if (this.props.language && this.props.language !== 'english') {
-      const textClass = this.props.language === 'arabic' ? 'right-to-left' : '';
-      text += `<br/><br/><span class="${textClass}">${translations[this.props.language][textKey]}</span>`;
+    let instructions;
+    const latestAttempt = this.getLatestAttempt();
+    if (latestAttempt && latestAttempt.response && latestAttempt.response.feedback) {
+      const component = <span dangerouslySetInnerHTML={{__html: latestAttempt.response.feedback}}/>
+      instructions = latestAttempt.response.feedback ? component :
+      'Revise your work. Fill in the blanks with the word or phrase that best fits the sentence.';
+    } else if (this.props.question.instructions && this.props.question.instructions !== '') {
+      instructions = this.props.question.instructions;
+    } else {
+      instructions = 'Fill in the blanks with the word or phrase that best fits the sentence.';
     }
-    return (<p dangerouslySetInnerHTML={{ __html: text, }} />);
   }
 
   generateInputs(promptArray) {
@@ -150,7 +173,8 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
       padding: '2px 7px',
     };
     const body:ClientRect|null = document.getElementsByTagName('body')[0].getBoundingClientRect();
-    const rectangle:ClientRect|null = document.getElementById(`input${i}`) && document.getElementById(`input${i}`).getBoundingClientRect();
+    const inputFromDom:HTMLElement|null = document.getElementById(`input${i}`)
+    const rectangle:ClientRect|null =  inputFromDom ? inputFromDom.getBoundingClientRect() : null;
     let chevyStyle:any = this.chevyStyleLeft();
     if (rectangle && body && rectangle.left > (body.width / 2)) {
       warningStyle.right = '-73px';
@@ -278,15 +302,12 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
 
   customText() {
     // HARDCODED
-    let text = translations.english['add word bank cue'];
+    let text = 'Add words';
     text = `${text}${this.state.blankAllowed ? ' or leave blank' : ''}`;
-    if (this.props.language && this.props.language !== 'english') {
-      text += ` / ${translations[this.props.language]['add word bank cue']}`;
-    }
     return text;
   }
 
-  getLatestAttempt() {
+  getLatestAttempt(): Attempt | undefined {
     return _.last(this.props.question.attempts || []);
   }
 
@@ -294,7 +315,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     const { question, } = this.props;
     const latestAttempt = this.getLatestAttempt();
     const readyForNext =
-      question.attempts.length > 4 || (latestAttempt && latestAttempt.response.optimal);
+      question.attempts ? question.attempts.length > 4 : false || (latestAttempt && latestAttempt.response.optimal);
     if (readyForNext) {
       return true;
     } else {
@@ -308,7 +329,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
         <button className="button student-submit" onClick={this.props.nextQuestion}>Next</button>
       );
     } else if (this.state.responses) {
-      if (this.props.question.attempts.length > 0) {
+      if (this.props.question && this.props.question.attempts ? this.props.question.attempts.length > 0 : false) {
         const buttonClass = "button student-recheck";
         return <button className={buttonClass} onClick={this.checkAnswer}>Recheck Your Answer</button>;
       } else {
@@ -330,8 +351,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     } else {
       fullPageInstructions = { display: 'block', width: '100%' }
     }
-    return (
-      <div className="student-container-inner-diagnostic">
+    return (<div className="student-container-inner-diagnostic">
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <div style={fullPageInstructions}>
             <div>

@@ -36,6 +36,7 @@
   * [Quill Connect](tools/connect.md)
   * [Quill Diagnostic](tools/diagnostic.md)
   * [Quill Lessons](tools/lessons.md)
+  * [Quill Lessons Server](tools/lessons_server.md)
   * [Integrating a New Tool](tools/integrating_an_activity.md)
 * [Libraries](libraries/index.md)
   * [Node Modules](libraries/node_modules.md)

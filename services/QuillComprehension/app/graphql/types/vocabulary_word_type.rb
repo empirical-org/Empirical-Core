@@ -1,10 +1,8 @@
-Types::VocabularyWordType = GraphQL::ObjectType.define do
-  name 'VocabularyWord'
+class Types::VocabularyWordType < Types::BaseObject
 
-  field :id, !types.ID
-  field :text, !types.String
-  field :description, !types.String
-  field :example, !types.String
-  field :order, !types.Int
-
+  field :id, ID, null: false
+  field :text, String, null: false
+  field :description, String, null: false
+  field :example, String, null: false
+  field :order, Integer, null: false
 end
