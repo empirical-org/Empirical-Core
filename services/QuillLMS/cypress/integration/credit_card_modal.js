@@ -18,7 +18,7 @@ describe('Credit Card Modal', () => {
         cy.login('teacher', 'password')
         cy.visit('/premium')
       })
-      cy.get('#purchase-btn').click()
+      cy.get('#purchase-btn').click({force: true})
     })
 
     it('loads', ()=>{
@@ -27,7 +27,8 @@ describe('Credit Card Modal', () => {
 
     describe('the option to enter a credit card', ()=> {
       it('opens the stripe modal when clicked', ()=>{
-        cy.get('#purchase-btn').click()
+        cy.get('.enter-credit-card').click({force: true})
+        cy.get('.stripe_checkout_app')
       })
     })
 
