@@ -18,7 +18,7 @@ RUN apt-get install -y autoconf \
   libyaml-dev libreadline6-dev git-core \
   zlib1g-dev libncurses5-dev curl \
   libffi-dev libgdbm3 libgdbm-dev \
-  postgresql-client-common postgresql-client-9.6 \
+  libpq-dev, postgresql-client-9.5 \
   apt-transport-https
 
 # Install Yarn 😻
