@@ -1,9 +1,9 @@
 source 'https://rubygems.org'
 
-ruby '2.3.1'
+ruby '2.5.1'
 
 # CORE DEPS
-gem 'rails', '=4.2.7.1'
+gem 'rails', '=4.2.10'
 gem 'puma', '~> 3.10.0'
 
 # EARLY TO APPLY TO OTHER GEMS
@@ -157,7 +157,7 @@ gem 'awesome_print'
 
 group :test, :development do
   gem 'quiet_assets'
-  gem 'parallel_tests', '~> 2.21.3'
+  gem 'parallel_tests'
   gem 'pry'
   gem 'pry-rails'
   gem 'pry-remote'
