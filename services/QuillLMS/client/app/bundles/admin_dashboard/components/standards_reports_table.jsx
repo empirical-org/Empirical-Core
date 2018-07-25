@@ -16,33 +16,26 @@ const StandardsReportsTable = ({ data, }) => {
       accessor: 'name',
       Cell: row => row.original.name,
     }, {
-      Header: 'Teacher Name',
+      Header: 'Teacher',
       accessor: 'teacher_name',
       Cell: row => row.original.teacher_name,
     }, {
-      Header: 'Classroom Name',
+      Header: 'Classroom',
       accessor: 'classroom_name',
       Cell: row => row.original.classroom_name,
     }, {
-      Header: 'School Name',
+      Header: 'School',
       accessor: 'school_name',
       Cell: row => row.original.school_name,
     }, {
-      Header: 'Students',
-      accessor: 'total_student_count',
-      // resizable: false,
-      width: 80,
-      Cell: row => row.original.total_student_count,
-    }, {
       Header: 'Proficent',
       accessor: 'proficient_count',
-      resizable: false,
+      // resizable: false,
       Cell: row => `${row.original.proficient_count  } of ${  row.original.total_student_count}`,
     }, {
       Header: 'Activities',
       accessor: 'total_activity_count',
-      resizable: false,
-      width: 80,
+      // resizable: false,
       Cell: row => Number(row.original.total_activity_count),
     }
   ];

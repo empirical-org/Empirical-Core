@@ -17,7 +17,7 @@ class ProgressReports::DistrictStandardsReports
 
   def query
     <<~SQL
-    WITH final_activity_sessions AS (
+      WITH final_activity_sessions AS (
           SELECT
           activity_sessions.*,
           activities.topic_id,
@@ -61,7 +61,8 @@ class ProgressReports::DistrictStandardsReports
               HAVING AVG(percentage) >= 0.8
             ) AS avg_score_for_topic_by_user ON avg_score_for_topic_by_user.topic_id = topics.id AND avg_score_for_topic_by_user.classroom_name = final_activity_sessions.classroom_name AND avg_score_for_topic_by_user.teacher_name = final_activity_sessions.teacher_name AND avg_score_for_topic_by_user.school_name = final_activity_sessions.school_name
           GROUP BY final_activity_sessions.teacher_name, final_activity_sessions.classroom_name, final_activity_sessions.school_name, topics.id, sections.name
-          ORDER BY topics.name ASC;     SQL
+          ORDER BY topics.name ASC;
+      SQL
   end
 
 end
