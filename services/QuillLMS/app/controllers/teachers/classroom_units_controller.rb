@@ -2,9 +2,12 @@ class Teachers::ClassroomUnitsController < ApplicationController
   include QuillAuthentication
   require 'pusher'
   respond_to :json
-  before_filter :authorize!, :except => ["lessons_activities_cache", "lessons_units_and_activities", "update_multiple_due_dates"]
-  before_filter :teacher!
-  before_action :lesson, :only => ["launch_lesson"]
+  before_action :authorize!, except: [
+    :lessons_activities_cache,
+    :lessons_units_and_activities, :update_multiple_due_dates
+  ]
+  before_action :teacher!
+  before_action :lesson, only: :launch_lesson
 
   def launch_lesson
     @unit_activity = UnitActivity.find_by(
@@ -45,7 +48,11 @@ class Teachers::ClassroomUnitsController < ApplicationController
     }
   end
 
-private
+  def mark_lesson_as_completed
+    redirect_to mark_lesson_as_completed_url
+  end
+
+  private
 
   def set_activity_session
     @activity_sessions = ActivitySession.where(classroom_unit_id: @classroom_units.ids)
@@ -53,10 +60,6 @@ private
 
   def set_classroom_units
     @classroom_units = ClassroomUnit.where(activity: @classroom_unit.activity, unit: @classroom_unit.unit)
-  end
-
-  def mark_lesson_as_completed
-    redirect_to mark_lesson_as_completed_url
   end
 
   def mark_lesson_as_completed_url

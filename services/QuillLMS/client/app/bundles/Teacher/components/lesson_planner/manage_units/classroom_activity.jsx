@@ -137,7 +137,9 @@ export default React.createClass({
       if (this.props.data.completed) {
         return <p className="lesson-completed"><i className="fa fa-icon fa-check-circle" />Lesson Complete</p>
       } else if (this.props.data.started) {
-        return <a className="mark-completed" target="_blank" href={`/classroom_units/${this.classroomUnitId()}/mark_lesson_as_completed/${this.activityId()}`}>Mark As Complete</a>
+        let href = `/teachers/classroom_units/${this.classroomUnitId()}/mark_lesson_as_completed/${this.activityId()}`;
+
+        return <a className="mark-completed" target="_blank" href={href}>Mark As Complete</a>
       }
     }
   },
