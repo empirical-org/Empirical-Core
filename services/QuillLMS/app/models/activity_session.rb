@@ -245,7 +245,12 @@ class ActivitySession < ActiveRecord::Base
 
   def self.delete_activity_sessions_with_no_concept_results(classroom_unit_id, activity_id)
     incomplete_activity_session_ids = []
-    ActivitySession.where(classroom_unit_id: classroom_unit_id, activity_id: activity_id).each do |as|
+    activity = Activity.find_by_id_or_uid(activity_id)
+    activity_sessions = ActivitySession.where(
+      classroom_unit_id: classroom_unit_id,
+      activity: activity
+    )
+    activity_sessions.each do |as|
       if as.concept_result_ids.empty?
         incomplete_activity_session_ids.push(as.id)
       end
@@ -254,12 +259,30 @@ class ActivitySession < ActiveRecord::Base
   end
 
   def self.mark_all_activity_sessions_complete(classroom_unit_id, activity_id, data={})
-    ActivitySession.unscoped.where(classroom_unit_id: classroom_unit_id, activity_id: activity_id).update_all(state: 'finished', percentage: 1, completed_at: Time.current, data: data, is_final_score: true)
+    activity = Activity.find_by_id_or_uid(activity_id)
+    ActivitySession.unscoped
+      .where(classroom_unit_id: classroom_unit_id, activity: activity)
+      .update_all(
+        state: 'finished',
+        percentage: 1,
+        completed_at: Time.current,
+        data: data,
+        is_final_score: true
+      )
   end
 
   def self.activity_session_metadata(classroom_unit_id, activity_id)
-    act_seshes = ActivitySession.where(classroom_unit_id: classroom_unit_id, activity_id: activity_id, is_final_score: true).includes(concept_results: :concept)
-    act_seshes.map{|act_sesh| act_sesh.concept_results.map{|cr| cr.metadata}}.flatten
+    activity = Activity.find_by_id_or_uid(activity_id)
+    activity_sessions = ActivitySession.where(
+      classroom_unit_id: classroom_unit_id,
+      activity: activity,
+      is_final_score: true
+    ).includes(concept_results: :concept)
+    activity_sessions.map do |activity_session|
+      activity_session.concept_results.map do |concept_result|
+        concept_result.metadata
+      end
+    end.flatten
   end
 
   def self.assign_follow_up_lesson(classroom_unit_id, activity_uid, locked = true)
@@ -269,7 +292,7 @@ class ActivitySession < ActiveRecord::Base
       activity: activity,
       unit_id: classroom_unit.unit_id
     )
-    state = ClassroomUnitActivityState.where(
+    state = ClassroomUnitActivityState.find_by(
       unit_activity: unit_activity,
       classroom_unit: classroom_unit,
     )
@@ -278,7 +301,7 @@ class ActivitySession < ActiveRecord::Base
       return false
     end
 
-    if state.first.present?
+    if state.present?
       state.update(locked: false)
       return state
     end
@@ -309,14 +332,25 @@ class ActivitySession < ActiveRecord::Base
   end
 
   def self.find_or_create_started_activity_session(student_id, classroom_unit_id, activity_id)
-    activity_session = ActivitySession.find_by(classroom_unit_id: classroom_unit_id, user_id: student_id, activity_id: activity_id)
+    activity = Activity.find_by_id_or_uid(activity_id)
+    activity_session = ActivitySession.find_by(
+      classroom_unit_id: classroom_unit_id,
+      user_id: student_id,
+      activity: activity
+    )
     if activity_session && activity_session.state == 'started'
       activity_session
     elsif activity_session && activity_session.state == 'unstarted'
       activity_session.update(state: 'started')
       activity_session
     else
-      ActivitySession.create(classroom_unit_id: classroom_unit_id, user_id: student_id, activity_id: activity_id, state: 'started', started_at: Time.now)
+      ActivitySession.create(
+        classroom_unit_id: classroom_unit_id,
+        user_id: student_id,
+        activity: activity,
+        state: 'started',
+        started_at: Time.now
+      )
     end
   end
 
@@ -411,6 +445,4 @@ class ActivitySession < ActiveRecord::Base
   def self.has_a_started_session?(activity_id_or_ids, classroom_unit_id_or_ids)
     !!ActivitySession.find_by(classroom_unit_id: classroom_unit_id_or_ids, activity_id: activity_id_or_ids, state: "started")
   end
-
-
 end
