@@ -33,7 +33,7 @@ export function startListeningToSession(classroomUnitId: string) {
 }
 
 export function startLesson(classroomUnitId: string, callback?: Function) {
-  let url = new URL('/api/v1/classroom_activities/classroom_teacher_and_coteacher_ids', process.env.EMPIRICAL_BASE_URL);
+  let url = new URL('/api/v1/classroom_units/classroom_teacher_and_coteacher_ids', process.env.EMPIRICAL_BASE_URL);
   url.search = new URLSearchParams({ classroom_unit_id: classroomUnitId });
 
   fetch(url.href, {
@@ -74,7 +74,7 @@ export function finishLesson(
     classroom_unit_id: classroomUnitId,
   });
 
-  fetch(`${process.env.EMPIRICAL_BASE_URL}/api/v1/classroom_activities/finish_lesson`, {
+  fetch(`${process.env.EMPIRICAL_BASE_URL}/api/v1/classroom_units/finish_lesson`, {
     method: 'PUT',
     body: data,
     mode: 'cors',
@@ -384,7 +384,7 @@ export function unpinActivityOnSaveAndExit(
   activityId: string,
   classroomUnitId: string
 ) {
-    let url = new URL('/api/v1/classroom_activities/unpin_and_lock_activity', process.env.EMPIRICAL_BASE_URL);
+    let url = new URL('/api/v1/classroom_units/unpin_and_lock_activity', process.env.EMPIRICAL_BASE_URL);
     url.search = new URLSearchParams({
       activity_id: activityId,
       classroom_unit_id: classroomUnitId
@@ -419,7 +419,7 @@ export function getClassroomAndTeacherNameFromServer(
   baseUrl: string|undefined
 ) {
   return function (dispatch) {
-    let url = new URL('/api/v1/classroom_activities/teacher_and_classroom_name', process.env.EMPIRICAL_BASE_URL);
+    let url = new URL('/api/v1/classroom_units/teacher_and_classroom_name', process.env.EMPIRICAL_BASE_URL);
     url.search = new URLSearchParams({ classroom_unit_id: classroomUnitId });
 
     fetch(url.href, {
@@ -568,7 +568,7 @@ export function loadStudentNames(
   baseUrl: string|undefined
 ) {
   return function (dispatch) {
-    let url = new URL('/api/v1/classroom_activities/student_names', baseUrl);
+    let url = new URL('/api/v1/classroom_units/student_names', baseUrl);
     url.search = new URLSearchParams({
       activity_id: activityId,
       classroom_unit_id: classroomUnitId

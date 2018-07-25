@@ -1,4 +1,4 @@
-class Api::V1::ClassroomActivitiesController < Api::ApiController
+class Api::V1::ClassroomUnitsController < Api::ApiController
   include QuillAuthentication
   before_filter :authorize!
 

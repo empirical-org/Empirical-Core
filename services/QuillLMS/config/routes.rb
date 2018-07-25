@@ -333,17 +333,26 @@ EmpiricalGrammar::Application.routes.draw do
       resources :topic_categories,        only: [:index]
       resources :concepts,                only: [:index, :create]
       resources :users,                   only: [:index]
+      resources :classroom_units,         only: [] do
+        collection do
+          get 'student_names'
+          put 'finish_lesson'
+          put 'unpin_and_lock_activity'
+          get 'teacher_and_classroom_name'
+          get 'classroom_teacher_and_coteacher_ids'
+        end
+      end
       resource :me, controller: 'me',     except: [:index, :new, :edit, :destroy]
       resource :ping, controller: 'ping', except: [:index, :new, :edit, :destroy]
       post 'firebase_tokens/create_for_connect' => 'firebase_tokens#create_for_connect'
       resource :firebase_tokens,          only: [:create]
       get 'activities/:id/follow_up_activity_name_and_supporting_info' => 'activities#follow_up_activity_name_and_supporting_info'
       get 'activities/:id/supporting_info' => 'activities#supporting_info'
-      get 'classroom_activities/student_names' => 'classroom_activities#student_names'
-      put 'classroom_activities/finish_lesson' => 'classroom_activities#finish_lesson'
-      put 'classroom_activities/unpin_and_lock_activity' => 'classroom_activities#unpin_and_lock_activity'
-      get 'classroom_activities/teacher_and_classroom_name' => 'classroom_activities#teacher_and_classroom_name'
-      get 'classroom_activities/classroom_teacher_and_coteacher_ids' => 'classroom_activities#classroom_teacher_and_coteacher_ids'
+      get 'classroom_activities/student_names' => 'classroom_units#student_names'
+      put 'classroom_activities/finish_lesson' => 'classroom_units#finish_lesson'
+      put 'classroom_activities/unpin_and_lock_activity' => 'classroom_units#unpin_and_lock_activity'
+      get 'classroom_activities/teacher_and_classroom_name' => 'classroom_units#teacher_and_classroom_name'
+      get 'classroom_activities/classroom_teacher_and_coteacher_ids' => 'classroom_units#classroom_teacher_and_coteacher_ids'
       get 'users/profile', to: 'users#profile'
       get 'users/current_user_and_coteachers', to: 'users#current_user_and_coteachers'
       post 'published_edition' => 'activities#published_edition'
