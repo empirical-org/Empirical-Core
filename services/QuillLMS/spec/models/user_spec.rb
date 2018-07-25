@@ -183,9 +183,9 @@ describe User, type: :model do
         end
 
         it "returns false if the user has a subscription that does not have a trial account type" do
-          (Subscription::ALL_TYPES - Subscription::TRIAL_TYPES).each do |type|
+          (Subscription::ALL_PAID_TYPES).each do |type|
             subscription.update(account_type: type)
-            expect(user.reload.eligible_for_new_subscription?).not_to be true
+            expect(user.reload.eligible_for_new_subscription?).to be false
           end
         end
       end
