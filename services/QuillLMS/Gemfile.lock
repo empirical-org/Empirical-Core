@@ -341,7 +341,7 @@ GEM
       mimemagic (~> 0.3.0)
       terrapin (~> 0.6.0)
     parallel (1.12.1)
-    parallel_tests (2.21.3)
+    parallel_tests (2.22.0)
       parallel
     parslet (1.8.2)
     pdf-core (0.7.0)
@@ -735,7 +735,7 @@ DEPENDENCIES
   omniauth-clever
   omniauth-google-oauth2
   paperclip
-  parallel_tests (~> 2.21.3)
+  parallel_tests
   parslet
   pdf-core
   pdf-inspector
