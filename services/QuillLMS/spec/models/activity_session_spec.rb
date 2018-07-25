@@ -38,7 +38,7 @@ describe ActivitySession, type: :model, redis: :true do
       it 'should return false' do
         result = ActivitySession.assign_follow_up_lesson(
           classroom_unit.id,
-          activity.id,
+          activity.uid,
         )
 
         expect(result).to eq(false)
@@ -455,7 +455,6 @@ end
   end
 
   describe "#completed?" do
-
   	it "must be true when completed_at is present" do
   		expect(activity_session).to be_completed
   	end
@@ -464,7 +463,6 @@ end
   		activity_session.completed_at=nil
   		expect(activity_session).to_not be_completed
   	end
-
   end
 
   describe "#by_teacher" do
@@ -494,7 +492,6 @@ end
   #--- legacy methods
 
   describe "#grade" do
-
   	it "must be equal to percentage" do
   		expect(activity_session.grade).to eq activity_session.percentage
   	end
@@ -502,7 +499,6 @@ end
   end
 
   describe "#anonymous=" do
-
   	it "must be equal to temporary" do
   		expect(activity_session.anonymous=true).to eq activity_session.temporary
   	end
@@ -515,7 +511,6 @@ end
 
 
   context "when before_create is fired" do
-
   	describe "#set_state" do
 
   		it "must set state as unstarted" do
@@ -523,9 +518,7 @@ end
   			activity_session.save!
   			expect(activity_session.state).to eq "unstarted"
   		end
-
   	end
-
   end
 
   context "when before_save is triggered" do
@@ -537,9 +530,7 @@ end
       end
 
       context "when completed_at is already set" do
-        before do
-          activity_session.completed_at = 5.minutes.ago
-        end
+        before { activity_session.completed_at = 5.minutes.ago }
 
         it "should not change completed at "do
           expect {
@@ -566,9 +557,8 @@ end
 
   context "when completed scope" do
   	describe ".completed" do
-  		before do
-			create_list(:activity_session, 5)
-  		end
+  		before { create_list(:activity_session, 5) }
+
   		it "must locate all the completed items" do
   			expect(ActivitySession.completed.count).to eq 5
   		end
@@ -592,12 +582,8 @@ end
   end
 
   context "when incompleted scope" do
-
   	describe ".incomplete" do
-
-  		before do
-			     create_list(:activity_session, 3, :unstarted)
-  		end
+  		before { create_list(:activity_session, 3, :unstarted) }
 
   		it "must locate all the incompleted items" do
   			expect(ActivitySession.incomplete.count).to eq 3
@@ -608,9 +594,7 @@ end
   				expect(item.completed_at).to be_nil
   			end
   		end
-
   	end
-
   end
 
   describe '#determine_if_final_score' do
@@ -631,9 +615,7 @@ end
       new_activity_session =  create(:activity_session, completed_at: Time.now, state: 'finished', percentage: 0.5, is_final_score: false, user: student, classroom_unit: classroom_unit, activity: activity)
       expect([ActivitySession.find(previous_final_score.id).is_final_score, ActivitySession.find(new_activity_session.id).is_final_score]).to eq([true, false])
     end
-
   end
-
 
   describe '#validations' do
     let!(:assigned_student){ create(:student) }
@@ -648,7 +630,6 @@ end
     end
   end
 
-  #
   describe '#save_concept_results' do
     let(:unit) { create(:unit) }
     let(:concept) { create(:concept) }
@@ -657,14 +638,27 @@ end
     let!(:unit_activity) { create(:unit_activity, activity: activity, unit: unit) }
     let!(:classroom_unit) { create(:classroom_unit, unit: unit, assigned_student_ids: [student.id]) }
     let(:activity_session) { create(:activity_session, classroom_unit_id: classroom_unit.id, user_id: student.id, activity: activity) }
-    let(:concept_results) { [{"activity_session_uid" => activity_session.uid, concept: concept, activity_session: activity_session}] }
+    let(:concept_results) do
+      [{
+        activity_session_uid: activity_session.uid,
+        concept_id: concept.id,
+        metadata: {},
+        question_type: 'lessons-slide'
+      }]
+    end
 
     before do
       activity_session.update_attributes(visible: true)
     end
 
     it 'should create a concept result with the hash given' do
-      expect(ConceptResult).to receive(:create).with({"activity_session_id" => activity_session.id, concept: concept, activity_session: activity_session})
+      expect(ConceptResult).to receive(:create).with({
+        activity_session_id: activity_session.id,
+        concept_id: concept.id,
+        activity_session_id: activity_session.id,
+        metadata: '{}',
+        question_type: 'lessons-slide'
+      })
       ActivitySession.save_concept_results(classroom_unit.id, unit_activity.activity_id, concept_results)
     end
   end
@@ -775,6 +769,4 @@ end
       expect(returned_activity_session.state).to eq('started')
     end
   end
-
-
 end
