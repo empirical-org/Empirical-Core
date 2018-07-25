@@ -1,6 +1,7 @@
-FROM ruby:2.3.1
+FROM ruby:2.5.1
 
 RUN apt-get update -y
+RUN apt-get upgrade -y
 RUN mkdir /root/.ssh
 
 # fix invalid byte seq error
@@ -38,7 +39,7 @@ RUN bundle install
 WORKDIR /
 
 ENV NVM_DIR /usr/local/nvm
-ENV NODE_VERSION 7.5.0
+ENV NODE_VERSION 8.11.3
 
 RUN curl --silent -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.2/install.sh | bash
 RUN source $NVM_DIR/nvm.sh \
@@ -46,9 +47,11 @@ RUN source $NVM_DIR/nvm.sh \
     && nvm alias default $NODE_VERSION \
     && nvm use $NODE_VERSION
 
-
 ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules
 ENV PATH $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
 
 RUN node -v
 RUN npm -v
+
+RUN apt-get update && apt-get install -y python-pip
+RUN pip install requests==2.18.4

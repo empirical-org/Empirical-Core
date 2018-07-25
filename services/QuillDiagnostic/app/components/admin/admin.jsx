@@ -1,5 +1,4 @@
 import React from 'react';
-import activeComponent from 'react-router-active-component';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import NavBar from '../navbar/navbar.jsx';
@@ -10,7 +9,6 @@ import questionActions from '../../actions/questions';
 import fillInBlankActions from '../../actions/fillInBlank';
 import diagnosticQuestionActions from '../../actions/diagnosticQuestions';
 import sentenceFragmentActions from '../../actions/sentenceFragments';
-import lessonActions from '../../actions/lessons';
 import levelActions from '../../actions/item-levels';
 import * as titleCardActions from '../../actions/titleCards.ts';
 
@@ -32,7 +30,7 @@ const adminContainer = React.createClass({
     this.props.dispatch(diagnosticQuestionActions.startListeningToDiagnosticQuestions());
     this.props.dispatch(sentenceFragmentActions.startListeningToSentenceFragments());
     this.props.dispatch(levelActions.startListeningToItemLevels());
-    this.props.dispatch(titleCardActions.startListeningToTitleCards())
+    this.props.dispatch(titleCardActions.startListeningToTitleCards());
   },
 
   render() {
@@ -44,7 +42,7 @@ const adminContainer = React.createClass({
               General
             </p>
             <ul className="menu-list">
-              <TabLink to={'/admin/datadash'} activeClassName="is-active">Score Analysis</TabLink>
+              <TabLink to={'/admin/datadash'} activeClassName="is-active">Score analysis</TabLink>
               <TabLink to={'/admin/question-health'} activeClassName="is-active">Question Health</TabLink>
               <TabLink to={'/admin/lessons'} activeClassName="is-active">Diagnostics</TabLink>
             </ul>

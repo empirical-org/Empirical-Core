@@ -4,7 +4,14 @@ import _ from 'underscore'
 import { Link } from 'react-router'
 import { QuestionList, hashToCollection } from 'quill-component-library/dist/componentLibrary'
 
-class TitleCards extends React.Component<any, any> {
+
+export interface ComponentProps {
+  titleCards: any
+  routing: any
+  routeParams: any 
+}
+
+class TitleCards extends React.Component<ComponentProps, any> {
   constructor(props) {
     super(props)
 

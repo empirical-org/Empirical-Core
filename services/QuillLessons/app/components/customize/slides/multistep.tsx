@@ -85,6 +85,7 @@ class CustomizeMultistep extends Component<CustomizeMultistepProps, {}>{
           <PromptField
             incompletePrompt={this.props.incompletePrompt}
             text={this.props.question.play.prompt}
+            reset={this.props.question.reset}
             handleTextChange={(e) => this.handlePromptChange(e)}
             showBlockquote={false}
           />

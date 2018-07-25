@@ -53,6 +53,7 @@ class CustomizeStatic extends Component<CustomizeStaticProps, {}>{
           <PromptField
             incompletePrompt={this.props.incompletePrompt}
             text={this.props.question.play.html}
+            reset={this.props.question.reset}
             handleTextChange={(e) => this.handleHTMLChange(e)}
             showBlockquote={true}
           />
