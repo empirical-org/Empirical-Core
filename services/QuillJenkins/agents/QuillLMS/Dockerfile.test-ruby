@@ -19,7 +19,7 @@ RUN apt-get install -y autoconf \
   libyaml-dev libreadline6-dev git-core \
   zlib1g-dev libncurses5-dev curl \
   libffi-dev libgdbm3 libgdbm-dev \
-  apt-transport-https postgresql-client
+  postgresql-client apt-transport-https
 
 # Install Yarn 😻
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
