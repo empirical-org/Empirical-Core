@@ -1,0 +1,53 @@
+FROM ruby:2.5.1
+RUN echo "break"
+RUN apt-get update -y
+
+# fix invalid byte seq error
+# (https://stackoverflow.com/questions/17031651/invalid-byte-sequence-in-us-ascii-argument-error-when-i-run-rake-dbseed-in-ra)
+# en_US.UTF-8 not available in ruby docker container, do
+# (https://github.com/docker-library/ruby/issues/45)
+ENV LANG=C.UTF-8
+
+# Replace shell with bash so we can source files
+RUN rm /bin/sh && ln -s /bin/bash /bin/sh
+
+# Base deps
+RUN apt-get install -y autoconf \
+  bison build-essential libssl-dev wget \ 
+  libyaml-dev libreadline6-dev git-core \
+  zlib1g-dev libncurses5-dev curl \
+  libffi-dev libgdbm3 libgdbm-dev \
+  postgresql-client apt-transport-https
+
+# Install Yarn 😻
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+RUN apt-get update -y
+RUN apt-get install -y --no-install-recommends yarn
+
+#Ensure bundler is the right version
+RUN gem install bundler
+
+# Install gems from gemfile
+COPY services/QuillComprehension/Gemfile /tmp/
+
+WORKDIR /tmp
+RUN ls
+RUN bundle install
+WORKDIR /
+
+ENV NVM_DIR /usr/local/nvm
+ENV NODE_VERSION 8.11.2
+
+RUN curl --silent -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.2/install.sh | bash
+RUN source $NVM_DIR/nvm.sh \
+    && nvm install $NODE_VERSION \
+    && nvm alias default $NODE_VERSION \
+    && nvm use $NODE_VERSION
+
+
+ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules
+ENV PATH $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
+
+RUN node -v
+RUN npm -v
