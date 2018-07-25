@@ -32,11 +32,14 @@ describe Units::Creator do
   end
 
   it 'posts assignment announcements to google classroom' do
-    classroom = create(:classroom)
-    teacher   = classroom.owner
-    activity  = create(:activity)
+    classroom         = create(:classroom)
+    teacher           = classroom.owner
+    activity          = create(:activity)
+    unit_anmouncement = double('unit_anmouncement')
 
-    expect(GoogleIntegration::Announcements).to receive(:post_unit)
+    allow(GoogleIntegration::UnitAnnouncement).to receive(:new)
+      .and_return(unit_anmouncement)
+    expect(unit_anmouncement).to receive(:post)
 
     Units::Creator.run(
       teacher,
