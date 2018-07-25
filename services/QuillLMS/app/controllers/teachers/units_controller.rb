@@ -191,6 +191,7 @@ class Teachers::UnitsController < ApplicationController
          COALESCE(array_length(cu.assigned_student_ids, 1), 0) AS number_of_assigned_students,
          COUNT(DISTINCT students_classrooms.id) AS class_size,
          ua.due_date,
+         state.completed,
          activities.id AS activity_id,
          activities.uid as activity_uid,
          (SELECT COUNT(id) FROM activity_sessions WHERE is_final_score = true AND classroom_unit_id = cu.id AND activity_sessions.visible)  AS completed_count,
@@ -210,13 +211,16 @@ class Teachers::UnitsController < ApplicationController
         LEFT JOIN students_classrooms ON students_classrooms.classroom_id = classrooms.id AND students_classrooms.visible
         LEFT JOIN activity_sessions AS act_sesh ON act_sesh.classroom_unit_id = cu.id
         JOIN users AS unit_owner ON unit_owner.id = units.user_id
+        LEFT JOIN classroom_unit_activity_states AS state
+          ON state.unit_activity_id = ua.id
+          AND state.classroom_unit_id = cu.id
       WHERE cu.classroom_id IN #{teach_own_or_coteach_string}
         AND classrooms.visible = true
         AND units.visible = true
         AND cu.visible = true
         AND ua.visible = true
         #{lessons}
-        GROUP BY units.name, units.created_at, cu.id, classrooms.name, classrooms.id, activities.name, activities.activity_classification_id, activities.id, activities.uid, unit_owner.name, unit_owner.id, ua.due_date, ua.created_at, unit_activity_id
+        GROUP BY units.name, units.created_at, cu.id, classrooms.name, classrooms.id, activities.name, activities.activity_classification_id, activities.id, activities.uid, unit_owner.name, unit_owner.id, ua.due_date, ua.created_at, unit_activity_id, state.completed, ua.id
         #{completed}
         ").to_a
     else
