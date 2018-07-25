@@ -338,7 +338,7 @@ pipeline {
             echo 'Beginnning LMS DEPLOY...'
             script {
               withCredentials([usernamePassword(credentialsId: 'robot-butler', usernameVariable: 'U', passwordVariable: 'T')]) {
-                if (env.GIT_BRANCH == 'fake-develop') {
+                if (env.GIT_BRANCH == 'develop') {
                   echo "Automatically deploying fake-develop to staging..."
                   /* heroku allows authentication through 'heroku login', http basic
                    * auth, and SSH keys.  Since right now this stage runs only on the
@@ -382,7 +382,7 @@ pipeline {
               echo "Beginnning connect deploy..."
               script {
                 withCredentials([usernamePassword(credentialsId: 'robot-butler', usernameVariable: 'U', passwordVariable: 'T')]) {
-                  if (env.GIT_BRANCH == 'fake-develop') {
+                  if (env.GIT_BRANCH == 'develop') {
                     echo "Building packages..."
                     sh 'npm run build:jenkins'
                     echo "Deploying to S3..."
@@ -421,7 +421,7 @@ pipeline {
             dir (path: 'services/QuillLessons') {
               echo "Beginnning lessons deploy..."
               script {
-                if (env.GIT_BRANCH == 'fake-develop') {
+                if (env.GIT_BRANCH == 'develop') {
                   echo "Installing dependencies..."
                   sh "npm install"
                   echo "Deploying connect to staging..."
@@ -460,7 +460,7 @@ pipeline {
             dir (path: 'services/QuillDiagnostic') {
               echo "Beginnning diagnostic deploy..."
               script {
-                if (env.GIT_BRANCH == 'fake-develop') {
+                if (env.GIT_BRANCH == 'develop') {
                   echo "Installing dependencies..."
                   sh "npm install"
                   echo "Deploying connect to staging..."
@@ -509,7 +509,6 @@ pipeline {
       sh "docker rm lms-testdb${env.BUILD_TAG}"
       sh "docker network rm jnk-net${env.BUILD_TAG}"
       echo "Removing workspace"
-      deleteDir()
       cleanWs()
     }
   }
