@@ -269,27 +269,6 @@ pipeline {
         }
       }
     }
-    stage('Check Coverage') {
-      agent {
-        dockerfile {
-          filename 'Dockerfile.test-node'
-          dir 'services/QuillJenkins/agents/QuillLMS'
-          args "-u root:sudo -v \$HOME/workspace/myproject:/myproject --name coverage${env.BUILD_TAG} --network jnk-net${env.BUILD_TAG}"
-        }
-      }
-      steps {
-        echo 'Checking covergage vs developp...'
-        withCredentials(bindings: [string(credentialsId: 'codecov-token', variable: 'CODECOV_TOKEN')]) {
-          dir(path: 'services/QuillJenkins/scripts') {
-            // Check that code coverage has not decreased
-            sh "pwd"
-            sh "python --version"
-            sh "ls -alt"
-            sh "python -c 'import codecov; codecov.fail_on_decrease(\"develop\", \"$env.BRANCH_NAME\" )' || exit"
-          }
-        }
-      }
-    }
     stage('merge') {
       agent {
         label 'master'
