@@ -157,7 +157,7 @@ gem 'awesome_print'
 
 group :test, :development do
   gem 'quiet_assets'
-  gem 'parallel_tests', '~> 2.21.3'
+  gem 'parallel_tests'
   gem 'pry'
   gem 'pry-rails'
   gem 'pry-remote'
