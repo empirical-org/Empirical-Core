@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Api::V1::ClassroomActivitiesController, type: :controller do
+describe Api::V1::ClassroomUnitsController, type: :controller do
   let(:other_teacher) { create(:teacher) }
   let(:classroom) { create(:classroom) }
   let(:students) { create_list(:student, 5) }
