@@ -77,10 +77,12 @@ export default React.createClass({
 
   renderOptimalResponse: function() {
     if (this.props.new) {
-      return <label className="label">Optimal Response</label>
-      <p className="control">
-        <input className="input" type="text" ref="newQuestionOptimalResponse" onBlur={this.copyAnswerToPrefill}></input>
-      </p>
+      return <div>
+        <label className="label">Optimal Response</label>
+        <p className="control">
+          <input className="input" type="text" ref="newQuestionOptimalResponse" onBlur={this.copyAnswerToPrefill}></input>
+        </p>
+      </div>
     }
   },
 
