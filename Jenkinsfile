@@ -140,7 +140,7 @@ pipeline {
         stage('test-comprehension') {
           agent {
             dockerfile {
-              filename 'services/QuillJenkins/agents/QuillComprehension/Dockerfile.test-ruby'
+              filename 'services/QuillJenkins/agents/QuillComprehension/Dockerfile.2.5.1'
               dir '.'
               args "-u root:sudo -v \$HOME/workspace/myproject:/myproject --name test-comprehension${env.BUILD_TAG} --network jnk-net${env.BUILD_TAG}"
             }
