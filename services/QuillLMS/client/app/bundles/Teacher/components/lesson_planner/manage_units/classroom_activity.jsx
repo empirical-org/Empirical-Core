@@ -134,7 +134,7 @@ export default React.createClass({
 
   renderLessonsAction() {
     if (window.location.pathname.includes('lessons')) {
-      if (this.props.data.completed) {
+      if (this.props.data.completed === 't') {
         return <p className="lesson-completed"><i className="fa fa-icon fa-check-circle" />Lesson Complete</p>
       } else if (this.props.data.started) {
         let href = `/teachers/classroom_units/${this.classroomUnitId()}/mark_lesson_as_completed/${this.activityId()}`;
@@ -269,7 +269,7 @@ export default React.createClass({
   },
 
   lessonCompletedOrLaunch() {
-    if (this.props.data.completed) {
+    if (this.props.data.completed === 't') {
       return <a className="report-link" target="_blank" href={`/teachers/progress_reports/report_from_classroom_unit_and_activity/${this.classroomUnitId()}/a/${this.activityId()}`}>View Report</a>
     }
     if (this.props.data.studentCount === 0) {
