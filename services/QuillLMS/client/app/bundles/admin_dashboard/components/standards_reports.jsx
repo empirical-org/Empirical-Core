@@ -23,7 +23,7 @@ const StandardsReports = ({
             School Standards Reports
           </h1>
           <p>
-            Each activity on Quill is aligned to a Common Core standard. This reports shows the school’s overall progress on each of the standards. You can print this report by downloading a PDF file or export this data by downloading a CSV file.
+            Each activity on Quill is aligned to a Common Core standard. This report shows the school’s overall progress on each of the standards. You can print this report by downloading a PDF file or export this data by downloading a CSV file.
           </p>
         </div>
         <div className="csv-and-how-we-grade">
@@ -34,7 +34,26 @@ const StandardsReports = ({
           </a>
         </div>
       </div>
-      <div className="dropdown-container" />
+      <div className="dropdown-container">
+        <ItemDropdown
+            items={schoolNames}
+            callback={switchSchool}
+            selectedItem={selectedSchool}
+            dropdownId="cr-school-select-dropdown"
+          />
+        <ItemDropdown
+            items={teacherNames}
+            callback={switchTeacher}
+            selectedItem={selectedTeacher}
+            dropdownId="cr-teacher-select-dropdown"
+          />
+        <ItemDropdown
+            items={classroomNames}
+            callback={switchClassroom}
+            selectedItem={selectedClassroom}
+            dropdownId="cr-classroom-select-dropdown"
+          />
+      </div>
       <StandardsReportsTable data={filteredStandardsReportsData} />
     </div>
   );

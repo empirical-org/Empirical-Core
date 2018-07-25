@@ -16,9 +16,22 @@ const StandardsReportsTable = ({ data, }) => {
       accessor: 'name',
       Cell: row => row.original.name,
     }, {
+      Header: 'Teacher Name',
+      accessor: 'teacher_name',
+      Cell: row => row.original.teacher_name,
+    }, {
+      Header: 'Classroom Name',
+      accessor: 'classroom_name',
+      Cell: row => row.original.classroom_name,
+    }, {
+      Header: 'School Name',
+      accessor: 'school_name',
+      Cell: row => row.original.school_name,
+    }, {
       Header: 'Students',
       accessor: 'total_student_count',
-      resizable: false,
+      // resizable: false,
+      width: 80,
       Cell: row => row.original.total_student_count,
     }, {
       Header: 'Proficent',
@@ -29,6 +42,7 @@ const StandardsReportsTable = ({ data, }) => {
       Header: 'Activities',
       accessor: 'total_activity_count',
       resizable: false,
+      width: 80,
       Cell: row => Number(row.original.total_activity_count),
     }
   ];
@@ -45,7 +59,7 @@ data={data}
         showPageSizeOptions={false}
         defaultPageSize={100}
         minRows={1}
-        className="progress-report has-green-arrow"  
+        className="progress-report has-green-arrow"
       />
     </div>);
   }
