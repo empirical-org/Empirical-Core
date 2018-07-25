@@ -55,9 +55,9 @@ pipeline {
         stage('test-lms-ruby') {
           agent {
             dockerfile {
-              filename 'services/QuillJenkins/agents/QuillLMS/Dockerfile.test-ruby'
+              filename 'services/QuillJenkins/agents/QuillLMS/Dockerfile.2.5.1'
               dir '.'
-              args "-u root:sudo -v \$HOME/workspace/myproject:/myproject --name test-lms-ruby${env.BUILD_TAG} --network jnk-net${env.BUILD_TAG} --no-cache"
+              args "-u root:sudo -v \$HOME/workspace/myproject:/myproject --name test-lms-ruby${env.BUILD_TAG} --network jnk-net${env.BUILD_TAG}"
             }
           }
           environment {
