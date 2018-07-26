@@ -85,7 +85,7 @@ class Api::V1::ClassroomUnitsController < Api::ApiController
   end
 
   def unpin_and_lock_activity
-    activity = Activity.find_by(uid: params[:activity_id])
+    activity = Activity.find_by_id_or_uid(params[:activity_id])
     classroom_unit = ClassroomUnit.find(params[:classroom_unit_id])
     unit_activity = UnitActivity.find_by(
       unit_id: classroom_unit.unit_id,

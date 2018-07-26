@@ -105,16 +105,17 @@ protected
        activity.repeatable,
        activity.activity_classification_id,
        unit.id AS unit_id,
+       ua.id AS ua_id,
        unit.created_at AS unit_created_at,
        unit.name AS unit_name,
        cu.id AS ca_id,
-       cuas.completed AS marked_complete,
+       COALESCE(cuas.completed, 'f') AS marked_complete,
        ua.activity_id,
        MAX(acts.updated_at) AS act_sesh_updated_at,
        ua.due_date,
        cu.created_at AS unit_activity_created_at,
-       cuas.locked,
-       cuas.pinned,
+       COALESCE(cuas.locked, 'f') AS locked,
+       COALESCE(cuas.pinned, 'f') AS pinned,
        MAX(acts.percentage) AS max_percentage,
        SUM(CASE WHEN acts.state = 'started' THEN 1 ELSE 0 END) AS resume_link
     FROM unit_activities AS ua
@@ -130,18 +131,23 @@ protected
     AND cu.visible = true
     AND unit.visible = true
     AND ua.visible = true
-    GROUP BY ua.id, cu.id, activity.name, activity.description, ua.activity_id,
-      unit.name, unit.id, unit.created_at, unit_name, activity.repeatable,
-      activity.activity_classification_id, activity.repeatable, cuas.completed,
-      cuas.locked, cuas.pinned
+    GROUP BY unit.id, unit.name, unit.created_at, cu.id, activity.name, activity.activity_classification_id, activity.id, activity.uid, ua.due_date, ua.created_at, unit_activity_id, cuas.completed, cuas.locked, cuas.pinned, ua.id
+
     ORDER BY pinned DESC, locked ASC, max_percentage DESC, ua.due_date ASC, unit.created_at ASC, cu.created_at ASC").to_a
   end
 
   def next_activity_session
     # We only need to check the first activity session record here because of
     # the order in which the the query returns these.
-    if @act_sesh_records.any?
-      @act_sesh_records.first['max_percentage'] ? nil : @act_sesh_records.first
+    can_display_next_activity = @act_sesh_records.any?  &&
+      @act_sesh_records.first['max_percentage'].blank?  &&
+      @act_sesh_records.first['marked_complete'] == 'f' && (
+        @act_sesh_records.first['pinned'] == 't' ||
+        @act_sesh_records.first['pinned'] == 'f'
+      )
+
+    if can_display_next_activity
+      @act_sesh_records.first
     end
   end
 
