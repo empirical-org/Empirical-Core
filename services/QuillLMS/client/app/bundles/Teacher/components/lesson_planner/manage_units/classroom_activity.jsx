@@ -334,7 +334,6 @@ export default React.createClass({
     }
     return (
       <div className="row activity" style={this.props.activityReport ? Object.assign({}, styles.row, {cursor: 'pointer'}) : styles.row} onClick={this.props.activityReport ? this.urlForReport : null}>
-        {this.renderModal()}
         <div className="starting-row">
           <div className="cell">
             <div className={`pull-left icon-wrapper ${this.icon()}`} />
@@ -345,6 +344,7 @@ export default React.createClass({
             {this.buttonForRecommendations()}
           </div>
         </div>
+        {this.renderModal()}
         <div className={this.props.activityReport ? 'cell activity-analysis-row-right' : 'cell'} style={endRow}>
           {this.renderLessonsAction()}
           {this.finalCell()}
