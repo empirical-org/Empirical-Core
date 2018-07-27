@@ -93,7 +93,7 @@ class ActivitySessionsController < ApplicationController
   end
 
   def activity_session_authorize_teacher!
-    if !ActivityAuthorizer.new(current_user, @activity_session).authorize_teacher
+    unless AuthorizedTeacherForActivity.new(current_user, @activity_session).call
       render_error(404)
     end
   end
