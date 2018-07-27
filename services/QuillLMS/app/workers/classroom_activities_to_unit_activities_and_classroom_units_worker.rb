@@ -2,10 +2,11 @@ class ClassroomActivitiesToUnitActivitiesAndClassroomUnitsWorker
   include Sidekiq::Worker
 
   def perform(unit_id)
+    UnitActivity.skip_callback(:save, :after, :teacher_checkbox)
     ClassroomActivity.unscoped.where(unit_id: unit_id).each do |ca|
       if Classroom.unscoped.find_by(id: ca.classroom_id) && ca.unit_id && ca.activity_id && ca.classroom_id
         begin
-          ua = UnitActivity.find_or_create_by(
+          ua = UnitActivity.find_or_initialize_by(
             unit_id: ca.unit_id,
             activity_id: ca.activity_id
           )
@@ -40,8 +41,10 @@ class ClassroomActivitiesToUnitActivitiesAndClassroomUnitsWorker
         rescue Exception => e
           puts e.message
         end
+
       end
     end
+    UnitActivity.set_callback(:save, :after, :teacher_checkbox)
   end
 
 end
