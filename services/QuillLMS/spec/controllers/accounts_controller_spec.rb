@@ -52,14 +52,14 @@ describe AccountsController, type: :controller do
       end
 
       context 'when user is saved' do
-        let(:callbacks) { double(:callbacks, trigger: true) }
+        let(:callbacks) { double(:callbacks, call: true) }
 
         before do
           allow(CompleteAccountCreation).to receive(:new) { callbacks }
         end
 
         it 'should kick off the account creation callback' do
-          expect(callbacks).to receive(:trigger)
+          expect(callbacks).to receive(:call)
           post :create, user: { classcode: "code", email: "test@test.com", password: "test123", role: "student" }
         end
 
