@@ -88,7 +88,7 @@ protected
   end
 
   def trigger_account_creation_callbacks
-    AccountCreationCallbacks.new(@user, request.remote_ip).trigger
+    CompleteAccountCreation.new(@user, request.remote_ip).call
   end
 
   def create_referral_if_teacher_and_referrer

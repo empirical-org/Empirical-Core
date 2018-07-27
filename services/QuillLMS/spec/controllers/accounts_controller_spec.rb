@@ -55,7 +55,7 @@ describe AccountsController, type: :controller do
         let(:callbacks) { double(:callbacks, trigger: true) }
 
         before do
-          allow(AccountCreationCallbacks).to receive(:new) { callbacks }
+          allow(CompleteAccountCreation).to receive(:new) { callbacks }
         end
 
         it 'should kick off the account creation callback' do

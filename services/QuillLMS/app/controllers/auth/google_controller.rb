@@ -62,7 +62,7 @@ class Auth::GoogleController < ApplicationController
     @js_file = 'session'
 
     if @user.save
-      AccountCreationCallbacks.new(@user, request.remote_ip).trigger
+      CompleteAccountCreation.new(@user, request.remote_ip).call
       @user.subscribe_to_newsletter
       @teacherFromGoogleSignUp = true
 
