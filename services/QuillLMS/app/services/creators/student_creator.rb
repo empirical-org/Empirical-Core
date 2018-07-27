@@ -1,7 +1,7 @@
 module Creators::StudentCreator
 
   def self.check_names(params)
-    name_validator = FirstLastNameValidator.new(params[:user]).check_names
+    name_validator = ValidateFullName.new(params[:user]).call
     if name_validator[:status] == 'failure'
       return name_validator[:notice]
     else
@@ -28,5 +28,4 @@ module Creators::StudentCreator
     sc.update(visible: true)
     sc
   end
-
 end
