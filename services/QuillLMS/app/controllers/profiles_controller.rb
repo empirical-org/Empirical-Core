@@ -139,12 +139,11 @@ protected
   def next_activity_session
     # We only need to check the first activity session record here because of
     # the order in which the the query returns these.
-    can_display_next_activity = @act_sesh_records.any?  &&
-      @act_sesh_records.first['max_percentage'].blank?  &&
-      @act_sesh_records.first['marked_complete'] == 'f' && (
-        @act_sesh_records.first['pinned'] == 't' ||
-        @act_sesh_records.first['pinned'] == 'f'
-      )
+    can_display_next_activity = begin
+      @act_sesh_records.any? &&
+      @act_sesh_records.first['locked'] == 'f' &&
+      @act_sesh_records.first['marked_complete'] == 'f'
+    end
 
     if can_display_next_activity
       @act_sesh_records.first
