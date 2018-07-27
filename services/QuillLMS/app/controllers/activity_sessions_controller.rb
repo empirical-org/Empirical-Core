@@ -85,7 +85,9 @@ class ActivitySessionsController < ApplicationController
   def activity_session_authorize!
     if @activity_session.user_id.nil?
       return true
-    elsif !ActivityAuthorizer.new(current_user, @activity_session).authorize
+    end
+
+    unless AuthorizedUserForActivity.new(current_user, @activity_session).call
       render_error(404)
     end
   end
