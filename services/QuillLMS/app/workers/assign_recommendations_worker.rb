@@ -20,6 +20,7 @@ class AssignRecommendationsWorker
     PusherRecommendationCompleted.run(classroom, unit_template_id, lesson) if last
   end
 
+  private
   def assign_unit_to_one_class(unit, classroom_id, classroom_data, unit_template_id, teacher_id)
     if unit.present?
       show_classroom_activities(unit.id, classroom_id)
