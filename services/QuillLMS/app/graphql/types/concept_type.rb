@@ -11,7 +11,7 @@ class Types::ConceptType < Types::BaseObject
   field :siblings, [Types::ConceptType, null: true], null: true
   
   def parent
-    Concept.find(object.parent_id)
+    Concept.find(object.parent_id) if object.parent_id
   end
 
   def children
