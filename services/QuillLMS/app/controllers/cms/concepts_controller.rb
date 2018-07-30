@@ -1,5 +1,6 @@
 class Cms::ConceptsController < Cms::CmsController
   def index
+    @js_file = 'staff'
   end
 
   def new

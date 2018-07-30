@@ -92,7 +92,9 @@ module.exports = {
     tools: [
       './app/bundles/Tools/tools.js'
     ],
-
+    staff: [
+      './app/bundles/Staff/startup/clientRegistration.js'
+    ],
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx'],
