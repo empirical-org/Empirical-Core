@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Spinner } from 'quill-component-library/dist/componentLibrary'
 const WakeLock: any = require('react-wakelock').default;
 import {
   startListeningToSession,
@@ -19,30 +18,22 @@ import CLStudentSingleAnswer from './singleAnswer';
 import CLListBlanks from './listBlanks';
 import CLStudentFillInTheBlank from './fillInTheBlank';
 import CLStudentModelQuestion from './modelQuestion';
-import CLMultistep from './multistep'
-import ProjectorModal from './projectorModal'
-import ErrorPage from '../shared/errorPage'
-import FlaggedStudentCompletedPage from './flaggedStudentCompleted'
-import {
-  getClassLesson
- } from '../../../actions/classroomLesson';
-import {
- getEditionQuestions
-} from '../../../actions/customize';
+import CLMultistep from './multistep';
+import ProjectorModal from './projectorModal';
+import ErrorPage from '../shared/errorPage';
+import FlaggedStudentCompletedPage from './flaggedStudentCompleted';
+import { getClassLesson } from '../../../actions/classroomLesson';
+import { getEditionQuestions } from '../../../actions/customize';
 import { getParameterByName } from '../../../libs/getParameterByName';
 import {
   ClassroomLessonSessions,
   ClassroomLessonSession,
   QuestionSubmissionsList,
 } from '../interfaces';
-import {
-  ClassroomLesson
-} from '../../../interfaces/classroomLessons';
-import * as CustomizeIntf from '../../../interfaces/customize'
-import {
-  scriptTagStrip
-} from '../shared/scriptTagStrip';
-import { Spinner } from 'quill-component-library/dist/componentLibrary'
+import { ClassroomLesson } from '../../../interfaces/classroomLessons';
+import * as CustomizeIntf from '../../../interfaces/customize';
+import { scriptTagStrip } from '../shared/scriptTagStrip';
+import { Spinner } from 'quill-component-library/dist/componentLibrary';
 
 
 class PlayClassroomLessonContainer extends React.Component<any, any> {

@@ -34,7 +34,10 @@ export function startListeningToSession(classroomUnitId: string) {
 
 export function startLesson(classroomUnitId: string, callback?: Function) {
   let url = new URL('/api/v1/classroom_units/classroom_teacher_and_coteacher_ids', process.env.EMPIRICAL_BASE_URL);
-  url.search = new URLSearchParams({ classroom_unit_id: classroomUnitId });
+  const params = new URLSearchParams(JSON.stringify({
+    classroom_unit_id: classroomUnitId
+  }));
+  url.search = params.toString();
 
   fetch(url.href, {
     method: "GET",
@@ -58,7 +61,7 @@ export function startLesson(classroomUnitId: string, callback?: Function) {
   }
 }
 
-export function finishLesson(
+export function finishActivity(
   followUp,
   conceptResults,
   editionId,
@@ -89,7 +92,9 @@ export function finishLesson(
     }
     return response.json();
   }).then((response) => {
-    callback(response);
+    if (callback) {
+      callback(response);
+    }
   }).catch((error) => {
     console.log('error', error);
   })
@@ -385,10 +390,11 @@ export function unpinActivityOnSaveAndExit(
   classroomUnitId: string
 ) {
     let url = new URL('/api/v1/classroom_units/unpin_and_lock_activity', process.env.EMPIRICAL_BASE_URL);
-    url.search = new URLSearchParams({
+    const params = new URLSearchParams(JSON.stringify({
       activity_id: activityId,
       classroom_unit_id: classroomUnitId
-    });
+    }));
+    url.search = params.toString();
 
     fetch(url.href, {
       method: 'PUT',
@@ -420,7 +426,10 @@ export function getClassroomAndTeacherNameFromServer(
 ) {
   return function (dispatch) {
     let url = new URL('/api/v1/classroom_units/teacher_and_classroom_name', process.env.EMPIRICAL_BASE_URL);
-    url.search = new URLSearchParams({ classroom_unit_id: classroomUnitId });
+    const params = new URLSearchParams(JSON.stringify({
+      classroom_unit_id: classroomUnitId
+    }));
+    url.search = params.toString();
 
     fetch(url.href, {
       method: 'GET',
@@ -569,10 +578,11 @@ export function loadStudentNames(
 ) {
   return function (dispatch) {
     let url = new URL('/api/v1/classroom_units/student_names', baseUrl);
-    url.search = new URLSearchParams({
+    const params = new URLSearchParams(JSON.stringify({
       activity_id: activityId,
       classroom_unit_id: classroomUnitId
-    });
+    }));
+    url.search = params.toString();
 
     fetch(url.href, {
       method: 'GET',
