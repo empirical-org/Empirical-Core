@@ -15,7 +15,7 @@ import {
   updateStudentSubmissionOrder,
   setPrompt,
   hideSignupModal,
-  finishLesson
+  finishActivity
 } from '../../../actions/classroomSessions';
 import { Spinner } from 'quill-component-library/dist/componentLibrary';
 import CLLobby from './lobby';
@@ -211,31 +211,24 @@ class CurrentSlide extends React.Component<any, any> {
     const submissions = this.props.classroomSessions.data.submissions;
     const followUp = this.props.classroomSessions.data.followUpActivityName && this.state.selectedOptionKey !== 'No Follow Up Practice';
     const activityId = this.props.classroomLesson.data.id;
-    const classroomUnitId: string = getParameterByName('classroom_unit_id');
+    const classroomUnitId = getParameterByName('classroom_unit_id') || '';
     const conceptResults = generate(questions, submissions);
     const editionId: string|undefined = this.props.classroomSessions.data.edition_id;
 
-    finishLesson(
-      followUp,
-      conceptResults,
-      editionId,
-      activityId,
-      classroomUnitId,
-      (response) => {
-        if (classroomUnitId) {
-          redirectAssignedStudents(
-            classroomUnitId,
-            this.state.selectedOptionKey,
-            response.follow_up_url
-          );
-        }
-        this.setState({
-          completed: true,
-          showTimeoutModal: false,
-          showCongratulationsModal: true
-        });
-      })
-    );
+    finishActivity(followUp, conceptResults, editionId, activityId, classroomUnitId, (response) => {
+      if (classroomUnitId) {
+        redirectAssignedStudents(
+          classroomUnitId,
+          this.state.selectedOptionKey,
+          response.follow_up_url
+        );
+      }
+      this.setState({
+        completed: true,
+        showTimeoutModal: false,
+        showCongratulationsModal: true
+      });
+    });
   }
 
   timeOut() {
