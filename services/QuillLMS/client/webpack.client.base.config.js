@@ -45,11 +45,6 @@ const basePlugins = [new webpack.DefinePlugin({
       postcss: [autoprefixer],
     },
   }),
-  new webpack.optimize.CommonsChunkPlugin({
-    name: 'vendor',
-    filename: 'vendor-bundle-[chunkhash].js',
-    minChunks: Infinity,
-  }),
   new ManifestPlugin({
     publicPath: output.publicPath,
     writeToFileEmit: true,
