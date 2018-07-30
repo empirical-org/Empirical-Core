@@ -13,7 +13,7 @@
   "main": "js/app.js",
   "dependencies": {
     "@types/react": "^16.0.40",
-    "apollo-boost": "^0.1.10",
+    "apollo-boost": "^0.1.12",
     "autoprefixer": "^6.3.5",
     "babel-core": "^6.7.4",
     "babel-eslint": "^6.1.2",
@@ -55,7 +55,7 @@
     "react-addons-css-transition-group": "^15.2.0",
     "react-addons-shallow-compare": "^15.6.2",
     "react-addons-update": "^15.2.1",
-    "react-apollo": "^2.1.8",
+    "react-apollo": "^2.1.9",
     "react-bootstrap": "^0.30.0",
     "react-csv": "^1.0.8",
     "react-datepicker": "^0.40.0",
