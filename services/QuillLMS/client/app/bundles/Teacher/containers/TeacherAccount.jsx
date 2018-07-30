@@ -62,7 +62,7 @@ export default React.createClass({
       role: data.role,
       googleId: data.google_id,
       signedUpWithGoogle: data.signed_up_with_google,
-      time_zone: data.time_zone,
+      time_zone: data.time_zone ? data.time_zone.replace(/_/g, ' ') : data.time_zone,
       selectedSchool: schoolData,
       originalSelectedSchoolId,
       schoolOptionsDoNotApply: (originalSelectedSchoolId == null),
@@ -90,7 +90,7 @@ export default React.createClass({
       email: this.state.email,
       role: this.state.role,
       password: this.state.password,
-      time_zone: this.state.time_zone ? this.state.time_zone.name : null,
+      time_zone: this.state.time_zone ? this.state.time_zone.name.replace(/ /g, '_') : null,
       school_id: ((this.state.selectedSchool == null)
         ? null
         : this.state.selectedSchool.id),
