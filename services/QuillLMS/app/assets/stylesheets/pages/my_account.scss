@@ -30,6 +30,10 @@
       }
     }
   }
+  .dropdown-menu {
+    max-height: 300px;
+    overflow: scroll;
+  }
   .dropdown-toggle.btn.btn-default {
     width: 300px;
   }
