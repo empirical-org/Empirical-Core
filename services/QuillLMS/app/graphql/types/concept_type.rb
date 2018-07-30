@@ -8,6 +8,7 @@ class Types::ConceptType < Types::BaseObject
   
   field :parent, Types::ConceptType, null: true
   field :children, [Types::ConceptType, null: true], null: true
+  field :siblings, [Types::ConceptType, null: true], null: true
   
   def parent
     Concept.find(object.parent_id)
@@ -15,6 +16,10 @@ class Types::ConceptType < Types::BaseObject
 
   def children
     Concept.where(parent_id: object.id)
+  end
+
+  def siblings
+    Concept.where(parent_id: object.parent_id)
   end
 
 end
