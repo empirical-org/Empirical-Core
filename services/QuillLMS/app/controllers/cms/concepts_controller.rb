@@ -3,6 +3,11 @@ class Cms::ConceptsController < Cms::CmsController
     @js_file = 'staff'
   end
 
+  def show
+    @js_file = 'staff'
+    @concept_id = params[:id]
+  end
+
   def new
     @level_2_concepts = Concept.where(parent_id: nil)
     @concepts = @level_2_concepts.map{|con| ["#{con.name} - Level 2", con.id]}
