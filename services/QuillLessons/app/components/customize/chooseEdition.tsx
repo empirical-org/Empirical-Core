@@ -104,12 +104,8 @@ class ChooseEdition extends React.Component<any, any> {
   selectAction(editionKey: string) {
     const lessonId = this.props.params.lessonID
     const classroomUnitId = getParameterByName('classroom_unit_id')
-    if (getParameterByName('preview')) {
-      const editionId = editionKey ? editionKey : ''
-      return this.props.router.push(`teach/class-lessons/${lessonId}/preview/${editionId}`)
-    } else if (classroomUnitId) {
-      return setEditionId(classroomUnitId, editionKey, () => window.location.href = `#/teach/class-lessons/${lessonId}?&classroom_unit_id=${classroomUnitId}`)
-    }
+
+    return setEditionId(classroomUnitId, editionKey, () => window.location.href = `#/teach/class-lessons/${lessonId}?&classroom_unit_id=${classroomUnitId}`)
   }
 
   renderBackButton() {
@@ -122,9 +118,11 @@ class ChooseEdition extends React.Component<any, any> {
   }
 
   renderLessonInfo() {
-    const lessonData = this.props.classroomLesson.data
+    const lessonData = this.props.classroomLesson.data;
+    const { preview } = this.props.classroomSessions.data;
+
     let text
-    if (getParameterByName('preview')) {
+    if (preview) {
       text = 'You are previewing this lesson:'
     } else if (getParameterByName('classroom_unit_id')) {
       text = 'You are launching this lesson:'
