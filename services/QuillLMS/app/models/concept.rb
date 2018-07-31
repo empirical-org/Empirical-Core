@@ -25,4 +25,12 @@ class Concept < ActiveRecord::Base
     concept2 + concept1 + concept0
   end
 
+  def self.childless_only
+    ActiveRecord::Base.connection.execute("
+      SELECT concepts.id, concepts.name, concepts.uid, concepts.parent_id FROM concepts
+      LEFT JOIN concepts AS children ON children.parent_id = concepts.id
+      WHERE children.id is null
+    ").to_a
+  end
+
 end

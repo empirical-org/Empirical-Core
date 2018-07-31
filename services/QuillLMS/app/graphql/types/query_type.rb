@@ -10,5 +10,12 @@ class Types::QueryType < Types::BaseObject
     return Concept.find(id) if id
   end  
 
-  field :concepts, [Types::ConceptType], null: false, resolve: -> (obj, args, ctx) { Concept.all }
+  field :concepts, [Types::ConceptType], null: false do
+    argument :childless_only, Boolean, "Select only concepts with no children", required: false
+  end
+
+  def concepts(childless_only: false)
+    return Concept.childless_only if childless_only
+    return Concept.all
+  end
 end
