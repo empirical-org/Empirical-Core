@@ -101,8 +101,8 @@ class ChooseEdition extends React.Component<any, any> {
   }
 
   selectAction(editionKey: string) {
-    const lessonId = this.props.params.lessonID
-    const classroomUnitId = getParameterByName('classroom_unit_id')
+    const lessonId = this.props.params.lessonID;
+    const classroomUnitId = getParameterByName('classroom_unit_id') || '';
 
     return setEditionId(classroomUnitId, editionKey, () => window.location.href = `#/teach/class-lessons/${lessonId}?&classroom_unit_id=${classroomUnitId}`)
   }
