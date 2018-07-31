@@ -288,10 +288,11 @@ class TeacherNavbar extends React.Component<any, any> {
   }
 
   exitLesson() {
-    const classroomUnitId: string|null = getParameterByName('classroom_unit_id');
+    const classroomUnitId = getParameterByName('classroom_unit_id') || '';
     const activityId = this.props.params.lessonID;
+    const shouldExit = window.confirm('Are you sure you want to exit the lesson?')
 
-    if (window.confirm('Are you sure you want to exit the lesson?')) {
+    if (shouldExit) {
       unpinActivityOnSaveAndExit(activityId, classroomUnitId)
       document.location.href = process.env.EMPIRICAL_BASE_URL || 'https://www.quill.org';
     }
@@ -299,7 +300,7 @@ class TeacherNavbar extends React.Component<any, any> {
 
   toggleWatchTeacherMode() {
     const { watchTeacherState } = this.props.classroomSessions.data
-    const classroomUnitId: string|null = getParameterByName('classroom_unit_id');
+    const classroomUnitId = getParameterByName('classroom_unit_id');
     if (watchTeacherState) {
       if (classroomUnitId) {
         removeWatchTeacherState(classroomUnitId);
