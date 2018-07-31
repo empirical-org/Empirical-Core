@@ -11,15 +11,15 @@ class Types::ConceptType < Types::BaseObject
   field :siblings, [Types::ConceptType, null: true], null: true
   
   def parent
-    Concept.find(object.parent_id) if object.parent_id
+    Concept.find(object['parent_id']) if object['parent_id']
   end
 
   def children
-    Concept.where(parent_id: object.id)
+    Concept.where(parent_id: object['id'])
   end
 
   def siblings
-    Concept.where(parent_id: object.parent_id)
+    Concept.where(parent_id: object['parent_id'])
   end
 
 end
