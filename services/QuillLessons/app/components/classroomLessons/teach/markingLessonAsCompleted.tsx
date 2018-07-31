@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 const WakeLock: any = require('react-wakelock').default;
 import {
   startListeningToSessionForTeacher,
+  finishActivity,
 } from '../../../actions/classroomSessions';
 import {
   getClassLesson
@@ -47,7 +48,7 @@ class MarkingLessonAsCompleted extends React.Component<any, any> {
     const classroomUnitId = getParameterByName('classroom_unit_id');
     const conceptResults = generate(questions, submissions);
 
-    finishLesson(false, conceptResults, null, activityId, classroomUnitId,
+    finishActivity(false, conceptResults, null, activityId, classroomUnitId,
       (response) => {
         window.location.href = `${process.env.EMPIRICAL_BASE_URL}/teachers/classrooms/activity_planner/lessons`;
       }
