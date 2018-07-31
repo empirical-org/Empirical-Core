@@ -5,9 +5,10 @@ import gql from "graphql-tag";
 
 import client from '../../../modules/apollo';
 
-const conceptsIndexQuery:string = `
+function conceptQuery(id){
+  return `
   {
-    concepts(childlessOnly: true) {
+    concept(id: ${id}) {
       id
       name
       parent {
@@ -18,16 +19,29 @@ const conceptsIndexQuery:string = `
           name
         }
       }
+      children {
+        id
+        name
+      }
+      siblings {
+        id
+        name
+      }
     }
   }
 `
+}
 export interface Concept {
   id:string;
   name:string;
   parent?:Concept;
 }
 interface QueryResult {
-  concepts: Array<Concept>
+  id:string;
+  name:string;
+  parent?:Concept;
+  children: Array<Concept>;
+  siblings: Array<Concept>;
 }
 
 
@@ -35,28 +49,6 @@ interface QueryResult {
 class App extends React.Component {
   constructor(props){
     super(props)
-  }
-
-  renderGrandparentCell(rowData:Concept) {
-    if (rowData.parent && rowData.parent.parent) {
-      const grandparent = rowData.parent.parent;
-      return (
-        <a href={`/cms/concepts/${grandparent.id}`}>
-          {grandparent.name}
-        </a>
-      )
-    }
-  }
-
-  renderParentCell(rowData:Concept) {
-    if (rowData.parent) {
-      const parent = rowData.parent;
-      return (
-        <a href={`/cms/concepts/${parent.id}`}>
-          {parent.name}
-        </a>
-      )
-    }
   }
 
   renderCell(rowData:Concept) {
@@ -70,36 +62,77 @@ class App extends React.Component {
   renderList(data:QueryResult) {
     return data.concepts.map((row) => (
       <tr key={row.id}>
-        <td>{this.renderGrandparentCell(row)}</td>
-        <td>{this.renderParentCell(row)}</td>
         <td>{this.renderCell(row)}</td>
       </tr>
     ));
+  }
+
+  renderGrandparent(concept:QueryResult){
+    if (concept.parent && concept.parent.parent) {
+      const grandparent = concept.parent.parent;
+      return (
+        <h2>Grandparent: <a href={`/cms/concepts/${grandparent.id}`}>{grandparent.name}</a></h2>
+      )
+    }
+  }
+
+  renderParent(concept:QueryResult){
+    if (concept.parent) {
+      const {parent} = concept;
+      return (
+        <h2>Parent: <a href={`/cms/concepts/${parent.id}`}>{parent.name}</a></h2>
+      )
+    }
+  }
+
+  renderChildren(concept:QueryResult){
+    return (
+      <div>
+        <h4>Children</h4>
+        <ul>
+          {(concept.children.map(({id, name}) => {
+            return (
+              <li key={id}><a href={`/cms/concepts/${id}`}>{name}</a></li>
+            )
+          }))}  
+        </ul>
+      </div>
+    )
+  }
+
+  renderSiblings(concept:QueryResult){
+    return (
+      <div>
+        <h4>Siblings</h4>
+        <ul>
+          {(concept.siblings.map(({id, name}) => {
+            return (
+              <li key={id}><a href={`/cms/concepts/${id}`}>{name}</a></li>
+            )
+          }))}  
+        </ul>
+      </div>
+    )
   }
 
   render() {
     return  (
       <ApolloProvider client={client}>
         <Query
-          query={gql(conceptsIndexQuery)}
+          query={gql(conceptQuery(this.props.concept_id))}
         >
           {({ loading, error, data }) => {
             if (loading) return <p>Loading...</p>;
             if (error) return <p>Error :(</p>;
-
+            const concept:QueryResult = data.concept;
             return (
-              <table>
-                <thead>
-                  <tr>
-                    <th>Grandparent</th>
-                    <th>Parent</th>
-                    <th>Concept</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {this.renderList(data)}
-                </tbody>
-              </table>
+              <div>
+                <h1>{concept.name}</h1>
+                {this.renderParent(concept)}
+                {this.renderGrandparent(concept)}
+                {this.renderSiblings(concept)}
+                {this.renderChildren(concept)}
+              </div>
             )
           }}
         </Query>

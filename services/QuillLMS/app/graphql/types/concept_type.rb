@@ -19,7 +19,7 @@ class Types::ConceptType < Types::BaseObject
   end
 
   def siblings
-    Concept.where(parent_id: object['parent_id'])
+    Concept.where(parent_id: object['parent_id']).where.not(id: object['id'])
   end
 
 end
