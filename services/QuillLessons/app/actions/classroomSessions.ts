@@ -8,7 +8,9 @@ import {
   QuestionSubmissionsList,
   SelectedSubmissions,
   SelectedSubmissionsForQuestion,
-  TeacherAndClassroomName
+  TeacherAndClassroomName,
+  ClassroomSessionId,
+  ClassroomUnitId
 } from '../components/classroomLessons/interfaces';
 import {
  ClassroomLesson
@@ -17,22 +19,22 @@ import * as CustomizeIntf from '../interfaces/customize';
 import uuid from 'uuid/v4';
 import socket from '../utils/socketStore';
 
-export function startListeningToSession(classroomUnitId: string) {
+export function startListeningToSession(classroomSessionId: ClassroomSessionId) {
   return function(dispatch, getState) {
-    socket.instance.on(`classroomLessonSession:${classroomUnitId}`, (data) => {
+    socket.instance.on(`classroomLessonSession:${classroomSessionId}`, (data) => {
       if (data) {
         if (!_.isEqual(getState().classroomSessions.data, data)) {
           dispatch(updateSession(data));
         }
       } else {
-        dispatch({type: C.NO_CLASSROOM_UNIT, data: classroomUnitId})
+        dispatch({type: C.NO_CLASSROOM_UNIT, data: classroomSessionId})
       }
     });
-    socket.instance.emit('subscribeToClassroomLessonSession', { classroomUnitId });
+    socket.instance.emit('subscribeToClassroomLessonSession', { classroomSessionId });
   };
 }
 
-export function startLesson(classroomUnitId: string, callback?: Function) {
+export function startLesson(classroomUnitId: ClassroomUnitId, classroomSessionId: ClassroomSessionId, callback?: Function) {
   let url = new URL('/api/v1/classroom_units/classroom_teacher_and_coteacher_ids', process.env.EMPIRICAL_BASE_URL);
   const params = {
     classroom_unit_id: classroomUnitId
@@ -51,7 +53,7 @@ export function startLesson(classroomUnitId: string, callback?: Function) {
     }
   }).then(teacherIdObject => {
     socket.instance.emit('createOrUpdateClassroomLessonSession', {
-      classroomUnitId,
+      classroomSessionId,
       teacherIdObject
     });
   })
@@ -66,7 +68,7 @@ export function finishActivity(
   conceptResults,
   editionId,
   activityId,
-  classroomUnitId,
+  classroomUnitId: ClassroomUnitId,
   callback?: Function
 ) {
   const data = JSON.stringify({
@@ -109,7 +111,8 @@ export function toggleOnlyShowHeaders() {
 
 export function startListeningToSessionForTeacher(
   activityId: string,
-  classroomUnitId: string,
+  classroomUnitId: ClassroomUnitId,
+  classroomSessionId: ClassroomSessionId
 ) {
   return function (dispatch, getState) {
     let initialized = false;
@@ -124,6 +127,7 @@ export function startListeningToSessionForTeacher(
           activityId,
           initialized,
           session.preview,
+          classroomSessionId,
           classroomUnitId
         ))
         initialized = true
@@ -139,14 +143,15 @@ export function getInitialData(
   activityId: string,
   initialized,
   preview,
-  classroomUnitId: string,
+  classroomSessionId: ClassroomSessionId,
+  classroomUnitId: ClassroomUnitId
 ) {
   return function(dispatch) {
-    if (!initialized && classroomUnitId) {
+    if (!initialized && classroomSessionId) {
       if (preview) {
-        dispatch(getPreviewData(activityId, classroomUnitId))
+        dispatch(getPreviewData(activityId, classroomSessionId))
       } else {
-        dispatch(getLessonData(activityId, classroomUnitId))
+        dispatch(getLessonData(activityId, classroomSessionId, classroomUnitId))
       }
     }
   }
@@ -154,18 +159,19 @@ export function getInitialData(
 
 export function getLessonData(
   activityId: string,
-  classroomUnitId: string,
+  classroomSessionId: ClassroomSessionId,
+  classroomUnitId: ClassroomUnitId
 ) {
   return function(dispatch) {
-    dispatch(getClassroomAndTeacherNameFromServer(classroomUnitId, process.env.EMPIRICAL_BASE_URL))
-    dispatch(loadStudentNames(activityId, classroomUnitId, process.env.EMPIRICAL_BASE_URL))
+    dispatch(getClassroomAndTeacherNameFromServer(classroomUnitId, classroomSessionId, process.env.EMPIRICAL_BASE_URL))
+    dispatch(loadStudentNames(activityId, classroomUnitId, classroomSessionId, process.env.EMPIRICAL_BASE_URL))
     dispatch(loadFollowUpNameAndSupportingInfo(activityId, process.env.EMPIRICAL_BASE_URL, classroomUnitId))
   }
 }
 
 export function getPreviewData(
   activityId: string,
-  classroomUnitId: string
+  classroomUnitId: ClassroomUnitId
 ) {
   const baseUrl:string = process.env.EMPIRICAL_BASE_URL ? String(process.env.EMPIRICAL_BASE_URL) : 'https://quill.org/'
   return function(dispatch) {
@@ -181,37 +187,37 @@ export function updateSession(data: object): {type: string; data: any;} {
 }
 
 export function redirectAssignedStudents(
-  classroomUnitId: string,
+  classroomSessionId: ClassroomSessionId,
   followUpOption: string,
   followUpUrl: string
 ) {
   socket.instance.emit('redirectAssignedStudents', {
-    classroomUnitId,
+    classroomSessionId,
     followUpOption,
     followUpUrl,
   })
 }
 
 export function registerPresence(
-  classroomUnitId: string,
+  classroomSessionId: ClassroomSessionId,
   studentId: string
 ): void {
-  socket.instance.emit('registerPresence', { classroomUnitId, studentId });
+  socket.instance.emit('registerPresence', { classroomSessionId, studentId });
 }
 
 export function goToNextSlide(
   state: ClassroomLessonSession,
   lesson: ClassroomLesson|CustomizeIntf.EditionQuestions,
-  classroomUnitId: string|null
+  classroomSessionId: ClassroomSessionId|null
 ) {
-  if (classroomUnitId) {
+  if (classroomSessionId) {
     const { current_slide } = state;
     const { questions } = lesson;
     const slides = questions ? Object.keys(questions) : [];
     const current_slide_index = slides.indexOf(current_slide.toString());
     const nextSlide = slides[current_slide_index + 1];
     if (nextSlide !== undefined) {
-      return updateCurrentSlide(nextSlide, classroomUnitId);
+      return updateCurrentSlide(nextSlide, classroomSessionId);
     }
   }
 }
@@ -219,42 +225,42 @@ export function goToNextSlide(
 export function goToPreviousSlide(
   state: ClassroomLessonSession,
   lesson: ClassroomLesson|CustomizeIntf.EditionQuestions,
-  classroomUnitId: string|null
+  classroomSessionId: ClassroomSessionId|null
 ) {
-  if (classroomUnitId) {
+  if (classroomSessionId) {
     const { current_slide } = state;
     const { questions } = lesson;
     const slides = questions ? Object.keys(questions) : [];
     const current_slide_index = slides.indexOf(current_slide.toString());
     const previousSlide = slides[current_slide_index - 1];
     if (previousSlide !== undefined) {
-      return updateCurrentSlide(previousSlide, classroomUnitId);
+      return updateCurrentSlide(previousSlide, classroomSessionId);
     }
   }
 }
 
 export function updateCurrentSlide(
   question_id: string,
-  classroomUnitId: string
+  classroomSessionId: ClassroomSessionId
 ) {
   return (dispatch) => {
     dispatch(updateSlideInStore(question_id))
-    updateSlide(question_id, classroomUnitId)
+    updateSlide(question_id, classroomSessionId)
   }
 }
 
 export function updateSlide(
   questionId: string,
-  classroomUnitId: string
+  classroomSessionId: ClassroomSessionId
  ) {
   socket.instance.emit('updateClassroomLessonSession', {
-    classroomUnitId,
+    classroomSessionId,
     session: {
-      id: classroomUnitId,
+      id: classroomSessionId,
       current_slide: questionId,
     }
   });
-  setSlideStartTime(classroomUnitId, questionId)
+  setSlideStartTime(classroomSessionId, questionId)
 }
 
 export function updateSlideInStore(slideId: string) {
@@ -265,13 +271,13 @@ export function updateSlideInStore(slideId: string) {
 }
 
 export function saveStudentSubmission(
-  classroomUnitId: string,
+  classroomSessionId: ClassroomSessionId,
   questionId: string,
   studentId: string,
   submission: {data: any}
 ): void {
   socket.instance.emit('saveStudentSubmission', {
-    classroomUnitId,
+    classroomSessionId,
     questionId,
     studentId,
     submission,
@@ -279,98 +285,98 @@ export function saveStudentSubmission(
 }
 
 export function removeStudentSubmission(
-  classroomUnitId: string,
+  classroomSessionId: ClassroomSessionId,
   questionId: string,
   studentId: string
 ): void {
   socket.instance.emit('removeStudentSubmission', {
-    classroomUnitId,
+    classroomSessionId,
     questionId,
     studentId,
   })
 }
 
 export function clearAllSubmissions(
-  classroomUnitId: string,
+  classroomSessionId: ClassroomSessionId,
   questionId: string
 ): void {
   socket.instance.emit('clearAllSubmissions', {
-    classroomUnitId,
+    classroomSessionId,
     questionId,
   });
 }
 
 export function saveSelectedStudentSubmission(
-  classroomUnitId: string,
+  classroomSessionId: ClassroomSessionId,
   questionId: string,
   studentId: string
 ): void {
   socket.instance.emit('saveSelectedStudentSubmission', {
-    classroomUnitId,
+    classroomSessionId,
     questionId,
     studentId
   });
 }
 
 export function removeSelectedStudentSubmission(
-  classroomUnitId: string,
+  classroomSessionId: ClassroomSessionId,
   questionId: string,
   studentId: string
 ): void {
   socket.instance.emit('removeSelectedStudentSubmission', {
-    classroomUnitId,
+    classroomSessionId,
     questionId,
     studentId,
   })
 }
 
 export function updateStudentSubmissionOrder(
-  classroomUnitId: string,
+  classroomSessionId: ClassroomSessionId,
   questionId: string,
   studentId: string
 ): void {
   socket.instance.emit('updateStudentSubmissionOrder', {
-    classroomUnitId,
+    classroomSessionId,
     questionId,
     studentId
   });
 }
 
 export function clearAllSelectedSubmissions(
-  classroomUnitId: string,
+  classroomSessionId: ClassroomSessionId,
   questionId: string
 ): void {
   socket.instance.emit('clearAllSelectedSubmissions', {
-    classroomUnitId,
+    classroomSessionId,
     questionId,
   });
 }
 
 export function setMode(
-  classroomUnitId: string,
+  classroomSessionId: ClassroomSessionId,
   questionId: string,
   mode
 ): void {
-  socket.instance.emit('setMode', { classroomUnitId, questionId, mode });
+  socket.instance.emit('setMode', { classroomSessionId, questionId, mode });
 }
 
 export function removeMode(
-  classroomUnitId: string,
+  classroomSessionId: ClassroomSessionId,
   questionId: string
 ): void {
-  socket.instance.emit('removeMode', { classroomUnitId, questionId });
+  socket.instance.emit('removeMode', { classroomSessionId, questionId });
 }
 
-export function setWatchTeacherState(classroomUnitId: string | null): void {
-  socket.instance.emit('setWatchTeacherState', { classroomUnitId });
+export function setWatchTeacherState(classroomSessionId: ClassroomSessionId | null): void {
+  socket.instance.emit('setWatchTeacherState', { classroomSessionId });
 }
 
-export function removeWatchTeacherState(classroomUnitId: string): void {
-  socket.instance.emit('removeWatchTeacherState', { classroomUnitId });
+export function removeWatchTeacherState(classroomSessionId: ClassroomSessionId): void {
+  socket.instance.emit('removeWatchTeacherState', { classroomSessionId });
 }
 
-export function registerTeacherPresence(classroomUnitId: string | null): void {
-  socket.instance.emit('teacherConnected', { classroomUnitId });
+export function registerTeacherPresence(classroomSessionId: ClassroomSessionId | null): void {
+  socket.instance.emit('teacherConnected', { classroomSessionId });
 }
 
 export function showSignupModal() {
@@ -387,7 +393,7 @@ export function hideSignupModal() {
 
 export function unpinActivityOnSaveAndExit(
   activityId: string,
-  classroomUnitId: string
+  classroomUnitId: ClassroomUnitId
 ) {
     let url = new URL('/api/v1/classroom_units/unpin_and_lock_activity', process.env.EMPIRICAL_BASE_URL);
     const params = {
@@ -414,14 +420,15 @@ export function unpinActivityOnSaveAndExit(
 }
 
 export function toggleStudentFlag(
-  classroomUnitId: string|null,
+  classroomSessionId: ClassroomSessionId|null,
   studentId: string
 ): void {
-  socket.instance.emit('toggleStudentFlag', { classroomUnitId, studentId });
+  socket.instance.emit('toggleStudentFlag', { classroomSessionId, studentId });
 }
 
 export function getClassroomAndTeacherNameFromServer(
-  classroomUnitId: string|null,
+  classroomUnitId: ClassroomUnitId|null,
+  classroomSessionId: ClassroomSessionId,
   baseUrl: string|undefined
 ) {
   return function (dispatch) {
@@ -442,81 +449,81 @@ export function getClassroomAndTeacherNameFromServer(
       }
       return response.json();
     }).then((response) => {
-      _setClassroomAndTeacherName(response, classroomUnitId)
+      _setClassroomAndTeacherName(response, classroomSessionId)
     }).catch((error) => {
       console.log('error retrieving classroom and teacher name', error)
     });
   }
 }
 
-function _setClassroomName(classroomName: string, classroomUnitId: string|null) {
+function _setClassroomName(classroomName: string, classroomSessionId: ClassroomSessionId|null) {
   socket.instance.emit('setClassroomName', {
-    classroomUnitId,
+    classroomSessionId,
     classroomName,
   });
 }
 
-function _setTeacherName(teacherName: string, classroomUnitId: string|null) {
-  socket.instance.emit('setTeacherName', { classroomUnitId, teacherName });
+function _setTeacherName(teacherName: string, classroomSessionId: ClassroomSessionId|null) {
+  socket.instance.emit('setTeacherName', { classroomSessionId, teacherName });
 }
 
 function _setClassroomAndTeacherName(
   names: TeacherAndClassroomName,
-  classroomUnitId: string|null
+  classroomSessionId: ClassroomSessionId|null
 ): void {
-  _setClassroomName(names.classroom, classroomUnitId)
-  _setTeacherName(names.teacher, classroomUnitId)
+  _setClassroomName(names.classroom, classroomSessionId)
+  _setTeacherName(names.teacher, classroomSessionId)
 }
 
-export function addStudents(classroomUnitId: string, studentObj): void {
+export function addStudents(classroomSessionId: ClassroomSessionId, studentObj): void {
   let studentIds = studentObj.student_ids;
   let activitySessions = studentObj.activity_sessions_and_names;
 
   socket.instance.emit('addStudents', {
-    classroomUnitId,
+    classroomSessionId,
     activitySessions,
     studentIds,
   });
 }
 
 export function addFollowUpName(
-  classroomUnitId: string,
+  classroomSessionId: ClassroomSessionId,
   followUpActivityName: string|null
 ): void {
   socket.instance.emit('addFollowUpName', {
-    classroomUnitId,
+    classroomSessionId,
     followUpActivityName,
   });
 }
 
 export function addSupportingInfo(
-  classroomUnitId: string,
+  classroomSessionId: ClassroomSessionId,
   supportingInfo: string|null
 ): void {
   socket.instance.emit('addSupportingInfo', {
-    classroomUnitId,
+    classroomSessionId,
     supportingInfo,
   });
 }
 
 export function setSlideStartTime(
-  classroomUnitId: string,
+  classroomSessionId: ClassroomSessionId,
   questionId: string
 ): void {
   socket.instance.emit('setSlideStartTime', {
-    classroomUnitId,
+    classroomSessionId,
     questionId,
   });
 }
 
 export function setEditionId(
-  classroomUnitId: string,
+  classroomSessionId: ClassroomSessionId,
   editionId: string|null,
   callback?: Function
 ): void {
-  socket.instance.emit('setEditionId', { classroomUnitId, editionId });
-  socket.instance.on(`editionIdSet:${classroomUnitId}`, () => {
-    socket.instance.removeAllListeners(`editionIdSet:${classroomUnitId}`);
+  socket.instance.emit('setEditionId', { classroomSessionId, editionId });
+  socket.instance.on(`editionIdSet:${classroomSessionId}`, () => {
+    socket.instance.removeAllListeners(`editionIdSet:${classroomSessionId}`);
     if (callback) {
       callback();
     }
@@ -524,12 +531,12 @@ export function setEditionId(
 }
 
 export function setTeacherModels(
-  classroomUnitId: string|null,
+  classroomSessionId: ClassroomSessionId|null,
   editionId: string
 ) {
-  if (classroomUnitId) {
+  if (classroomSessionId) {
     socket.instance.emit('setTeacherModels', {
-      classroomUnitId,
+      classroomSessionId,
       editionId,
     });
   }
@@ -542,28 +549,28 @@ export function updateNoStudentError(student: string | null) {
 }
 
 export function setModel(
-  classroomUnitId: string,
+  classroomSessionId: ClassroomSessionId,
   questionId: string,
   model
 ): void {
-  socket.instance.emit('setModel', { classroomUnitId, questionId, model });
+  socket.instance.emit('setModel', { classroomSessionId, questionId, model });
 }
 
-export function setPrompt(classroomUnitId: string, questionId: string, prompt): void {
+export function setPrompt(classroomSessionId: ClassroomSessionId, questionId: string, prompt): void {
   socket.instance.emit('setPrompt', {
-    classroomUnitId,
+    classroomSessionId,
     questionId,
     prompt,
   });
 }
 
 export function easyJoinLessonAddName(
-  classroomUnitId: string,
+  classroomSessionId: ClassroomSessionId,
   studentName: string
 ): void {
-  socket.instance.emit('addStudent', { classroomUnitId, studentName });
-  socket.instance.on(`studentAdded:${classroomUnitId}`, (addedStudentName, nameRef) => {
-    socket.instance.removeAllListeners(`studentAdded:${classroomUnitId}`)
+  socket.instance.emit('addStudent', { classroomSessionId, studentName });
+  socket.instance.on(`studentAdded:${classroomSessionId}`, (addedStudentName, nameRef) => {
+    socket.instance.removeAllListeners(`studentAdded:${classroomSessionId}`)
     if (addedStudentName === studentName) {
       window.location.replace(window.location.href + `&student=${nameRef}`);
       window.location.reload();
@@ -573,7 +580,8 @@ export function easyJoinLessonAddName(
 
 export function loadStudentNames(
   activityId: string,
-  classroomUnitId: string,
+  classroomUnitId: ClassroomUnitId,
+  classroomSessionId: ClassroomSessionId,
   baseUrl: string|undefined
 ) {
   return function (dispatch) {
@@ -595,7 +603,7 @@ export function loadStudentNames(
       }
       return response.json();
     }).then((response) => {
-      addStudents(classroomUnitId, response)
+      addStudents(classroomSessionId, response)
     }).catch((error) => {
       console.log('error retrieving students names ', error)
     });
@@ -605,7 +613,7 @@ export function loadStudentNames(
 export function loadFollowUpNameAndSupportingInfo(
   activityId: string,
   baseUrl: string|undefined,
-  classroomUnitId: string
+  classroomSessionId: ClassroomSessionId
 ) {
   return function (dispatch) {
     const coreUrl = baseUrl ? baseUrl : process.env.EMPIRICAL_BASE_URL
@@ -620,8 +628,8 @@ export function loadFollowUpNameAndSupportingInfo(
       }
       return response.json();
     }).then((response) => {
-      addFollowUpName(classroomUnitId, response.follow_up_activity_name)
-      addSupportingInfo(classroomUnitId, response.supporting_info)
+      addFollowUpName(classroomSessionId, response.follow_up_activity_name)
+      addSupportingInfo(classroomSessionId, response.supporting_info)
     }).catch((error) => {
       console.log('error retrieving follow up ', error)
     });
@@ -631,7 +639,7 @@ export function loadFollowUpNameAndSupportingInfo(
 export function loadSupportingInfo(
   activityId: string,
   baseUrl: string,
-  classroomUnitId: string
+  classroomSessionId: ClassroomSessionId
 ) {
   return function (dispatch) {
     fetch(`${baseUrl}/api/v1/activities/${activityId}/supporting_info`, {
@@ -645,7 +653,7 @@ export function loadSupportingInfo(
       }
       return response.json();
     }).then((response) => {
-      addSupportingInfo(classroomUnitId, response.supporting_info)
+      addSupportingInfo(classroomSessionId, response.supporting_info)
     }).catch((error) => {
       console.log('error retrieving supporting info ', error)
     });
@@ -654,7 +662,7 @@ export function loadSupportingInfo(
 
 export function createPreviewSession(editionId?:string) {
   const previewIdPrefix = 'prvw-';
-  const classroomUnitId = `${previewIdPrefix}${uuid()}`;
+  const classroomSessionId = `${previewIdPrefix}${uuid()}`;
   let previewSessionData;
 
   if (editionId) {
@@ -664,7 +672,7 @@ export function createPreviewSession(editionId?:string) {
       'public': true,
       'preview': true,
       'edition_id': editionId,
-      'id': classroomUnitId,
+      'id': classroomSessionId,
     };
   } else {
     previewSessionData = {
@@ -672,21 +680,21 @@ export function createPreviewSession(editionId?:string) {
       'current_slide': '0',
       'public': true,
       'preview': true,
-      'id': classroomUnitId,
+      'id': classroomSessionId,
     };
   }
 
   socket.instance.emit('createPreviewSession', { previewSessionData });
 
-  return classroomUnitId;
+  return classroomSessionId;
 }
 
-export function saveReview(activityId:string, classroomUnitId:string, value:number) {
+export function saveReview(activityId:string, classroomSessionId:ClassroomSessionId, value:number) {
   const review = {
-    id: classroomUnitId,
+    id: classroomSessionId,
     activity_id: activityId,
     value: value,
-    classroom_unit_id: classroomUnitId,
+    classroom_unit_id: classroomSessionId,
   }
   socket.instance.emit('createOrUpdateReview', { review });
 }
