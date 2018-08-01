@@ -1,8 +1,8 @@
-import React from 'react';
+import * as React from 'react';
 import CurrentSlide from './currentSlide';
 import NextSlideButton from './nextSlideButton';
 
-const MainContentContainer = (props) =>
+const MainContentContainer = (props:any) =>
   (<div className="main-content">
     <div className="main-content-wrapper">
       <CurrentSlide params={props.params}/>

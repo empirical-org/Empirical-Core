@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import { connect } from 'react-redux';
 import { getParameterByName } from '../../../libs/getParameterByName';
 import { goToNextSlide } from '../../../actions/classroomSessions';
@@ -11,7 +11,7 @@ import {
   EditionQuestions
 } from '../../../interfaces/customize'
 
-class NextSlideButton extends Component<any, any> {
+class NextSlideButton extends React.Component<any, any> {
   constructor(props) {
     super(props);
 
