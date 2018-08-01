@@ -14,7 +14,9 @@ import CLStudentModelQuestion from '../play/modelQuestion';
 import CLStudentMultistep from '../play/multistep';
 import {
   ClassroomLessonSession,
-  QuestionSubmissionsList
+  QuestionSubmissionsList,
+  ClassroomSessionId,
+  ClassroomUnitId
 } from '../interfaces';
 import {
   ClassroomLesson
@@ -26,8 +28,13 @@ class Sidebar extends React.Component<any, any> {
 
   constructor(props) {
     super(props);
+
+    const classroomUnitId: ClassroomUnitId = getParameterByName('classroom_unit_id')
+    const activityUid = props.params.lessonID
     this.state = {
-      currentSlide: null,
+      classroomUnitId,
+      classroomSessionId: classroomUnitId.concat(activityUid),
+      currentSlide: null
     }
   }
 
@@ -70,9 +77,9 @@ class Sidebar extends React.Component<any, any> {
   }
 
   goToSlide(slide_id: string) {
-    const classroom_unit_id: string|null = getParameterByName('classroom_unit_id');
-    if (classroom_unit_id) {
-      this.props.dispatch(updateCurrentSlide(slide_id, classroom_unit_id));
+    const classroomSessionId: ClassroomSessionId|null = this.state.classroomSessionId;
+    if (classroomSessionId) {
+      this.props.dispatch(updateCurrentSlide(slide_id, classroomSessionId));
     }
   }
 

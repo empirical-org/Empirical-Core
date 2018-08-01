@@ -12,24 +12,37 @@ import { getParameterByName } from '../../../libs/getParameterByName';
 import {
   ClassroomLessonSessions,
   ClassroomLessonSession,
+  ClassroomUnitId,
+  ClassroomSessionId
 } from '../interfaces';
 import {
   ClassroomLesson
 } from '../../../interfaces/classroomLessons'
 import {generate} from '../../../libs/conceptResults/classroomLessons.js';
 
+interface MarkingLessonsAsCompletedState {
+  classroomUnitId: ClassroomUnitId,
+  classroomSessionId: ClassroomSessionId
+}
 
-class MarkingLessonAsCompleted extends React.Component<any, any> {
+class MarkingLessonAsCompleted extends React.Component<any, MarkingLessonsAsCompletedState> {
   constructor(props) {
     super(props);
+
+    const classroomUnitId: ClassroomUnitId = getParameterByName('classroom_unit_id')
+    const activityUid = props.params.lessonID
+    this.state = {
+      classroomUnitId,
+      classroomSessionId: classroomUnitId.concat(activityUid)
+    }
   }
 
   componentDidMount() {
-    const classroomUnitId: string|null = getParameterByName('classroom_unit_id');
+    const { classroomUnitId, classroomSessionId } = this.state
     const activityId: string = this.props.params.lessonID;
     if (classroomUnitId) {
       this.props.dispatch(getClassLesson(activityId));
-      this.props.dispatch(startListeningToSessionForTeacher(activityId, classroomUnitId));
+      this.props.dispatch(startListeningToSessionForTeacher(activityId, classroomUnitId, classroomSessionId));
     }
   }
 
@@ -45,7 +58,7 @@ class MarkingLessonAsCompleted extends React.Component<any, any> {
     const questions = nextProps.classroomLesson.data.questions;
     const submissions = nextProps.classroomSessions.data.submissions;
     const activityId = this.props.params.lessonID;
-    const classroomUnitId = getParameterByName('classroom_unit_id');
+    const classroomUnitId = this.state.classroomUnitId;
     const conceptResults = generate(questions, submissions);
 
     finishActivity(false, conceptResults, null, activityId, classroomUnitId,

@@ -9,6 +9,10 @@ import {
   startListeningToSession
 } from '../../actions/classroomSessions'
 import {getParameterByName} from '../../libs/getParameterByName'
+import {
+  ClassroomSessionId,
+  ClassroomUnitId
+} from '../classroomLessons/interfaces'
 
 import {
   getCurrentUserAndCoteachersFromLMS,
@@ -29,20 +33,33 @@ interface customizeProps {
   routes: any
 }
 
-class Customize extends React.Component<customizeProps> {
+interface customizeState {
+  classroomUnitId: ClassroomUnitId,
+  classroomSessionId: ClassroomSessionId
+}
+
+class Customize extends React.Component<customizeProps, customizeState> {
   constructor(props: customizeProps) {
 
     super(props)
+
+    const classroomUnitId: ClassroomUnitId = getParameterByName('classroom_unit_id')
+    const activityUid = props.params.lessonID
+    const classroomSessionId: ClassroomSessionId = classroomUnitId.concat(activityUid)
+    this.state = {
+      classroomUnitId,
+      classroomSessionId
+    }
+
     props.dispatch(getCurrentUserAndCoteachersFromLMS())
     // props.dispatch(firebaseAuth())
 
-    if (props.params.lessonID) {
-      props.dispatch(getClassLesson(props.params.lessonID))
+    if (activityUid) {
+      props.dispatch(getClassLesson(activityUid))
     }
 
-    const classroomUnitId: string|null = getParameterByName('classroom_unit_id')
-    if (classroomUnitId) {
-      props.dispatch(startListeningToSession(classroomUnitId))
+    if (classroomSessionId) {
+      props.dispatch(startListeningToSession(classroomSessionId))
     }
 
     this.goToSuccessPage = this.goToSuccessPage.bind(this)

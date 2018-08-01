@@ -4,6 +4,8 @@ import { getParameterByName } from '../../../libs/getParameterByName';
 import { goToNextSlide } from '../../../actions/classroomSessions';
 import {
   ClassroomLessonSession,
+  ClassroomUnitId,
+  ClassroomSessionId
 } from '../interfaces'
 import {
   EditionQuestions
@@ -12,15 +14,24 @@ import {
 class NextSlideButton extends Component<any, any> {
   constructor(props) {
     super(props);
+
+    const classroomUnitId: ClassroomUnitId = getParameterByName('classroom_unit_id')
+    const activityUid = props.params.lessonID
+    this.state = {
+      classroomUnitId,
+      classroomSessionId: classroomUnitId.concat(activityUid)
+    }
+
+
     this.goToNextSlide = this.goToNextSlide.bind(this);
   }
 
   goToNextSlide() {
-    const classroomUnitId: string|null = getParameterByName('classroom_unit_id');
+    const classroomSessionId: ClassroomSessionId|null = this.state.classroomSessionId;
     const sessionData: ClassroomLessonSession = this.props.classroomSessions.data;
     const editionData: EditionQuestions = this.props.customize.editionQuestions;
-    if (classroomUnitId) {
-      const updateInStore = goToNextSlide(sessionData, editionData, classroomUnitId);
+    if (classroomSessionId) {
+      const updateInStore = goToNextSlide(sessionData, editionData, classroomSessionId);
       if (updateInStore) {
         this.props.dispatch(updateInStore);
       }
