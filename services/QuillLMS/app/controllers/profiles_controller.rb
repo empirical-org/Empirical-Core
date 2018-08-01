@@ -121,7 +121,7 @@ protected
     FROM unit_activities AS ua
     JOIN units AS unit ON unit.id = ua.unit_id
     JOIN classroom_units AS cu ON unit.id = cu.unit_id
-    LEFT JOIN activity_sessions AS acts ON cu.id = acts.classroom_unit_id AND acts.visible = true
+    LEFT JOIN activity_sessions AS acts ON cu.id = acts.classroom_unit_id AND acts.activity_id = ua.activity_id AND acts.visible = true
     AND acts.user_id = #{current_user.id}
     JOIN activities AS activity ON activity.id = ua.activity_id
     LEFT JOIN classroom_unit_activity_states AS cuas ON ua.id = cuas.unit_activity_id
