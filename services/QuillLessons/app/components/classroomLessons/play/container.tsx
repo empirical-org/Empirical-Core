@@ -46,7 +46,7 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
     this.state = {
       easyDemoName: '',
       classroomUnitId,
-      classroomSessionId: classroomUnitId.concat(activityUid)
+      classroomSessionId: classroomUnitId ? classroomUnitId.concat(activityUid) : null
     }
 
     if (getParameterByName('projector')) {

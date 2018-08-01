@@ -41,15 +41,19 @@ import {
 import * as CustomizeIntf from '../../../interfaces/customize'
 import {generate} from '../../../libs/conceptResults/classroomLessons.js';
 
+interface CurrentSlideProps {
+  params: any,
+  [key:string]: any
+}
 
-class CurrentSlide extends React.Component<any, any> {
+class CurrentSlide extends React.Component<CurrentSlideProps & StateFromProps, any> {
   constructor(props) {
     super(props);
 
     const data: ClassroomLessonSession = props.classroomSessions.data;
     const lessonData: ClassroomLesson = props.classroomLesson.data;
     const script: Array<ScriptItem> = lessonData && lessonData.questions && lessonData.questions[data.current_slide] ? lessonData.questions[data.current_slide].data.teach.script : []
-    const classroomUnitId: ClassroomUnitId = getParameterByName('classroom_unit_id')
+    const classroomUnitId: ClassroomUnitId|null = getParameterByName('classroom_unit_id')
     const activityUid = props.params.lessonID
 
     this.state = {
@@ -61,7 +65,7 @@ class CurrentSlide extends React.Component<any, any> {
       completed: false,
       selectedOptionKey: data.followUpActivityName ? "Small Group Instruction and Independent Practice" : '',
       classroomUnitId,
-      classroomSessionId: classroomUnitId.concat(activityUid)
+      classroomSessionId: classroomUnitId ? classroomUnitId.concat(activityUid) : null
     }
 
     this.toggleSelected = this.toggleSelected.bind(this);
@@ -369,4 +373,14 @@ function mergeProps(stateProps: Object, dispatchProps: Object, ownProps: Object)
   return {...ownProps, ...stateProps, ...dispatchProps}
 }
 
-export default connect(select, dispatch => ({dispatch}), mergeProps)(CurrentSlide);
+export interface DispatchFromProps {
+
+}
+
+export interface StateFromProps {
+  customize: any
+  classroomLesson: any
+  classroomSessions: any
+}
+
+export default connect<StateFromProps, DispatchFromProps, CurrentSlideProps>(select, dispatch => ({dispatch}))(CurrentSlide);

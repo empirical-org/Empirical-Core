@@ -28,7 +28,7 @@ class TeacherNavbar extends React.Component<any, any> {
   constructor(props) {
     super(props);
 
-    const classroomUnitId: ClassroomUnitId = getParameterByName('classroom_unit_id')
+    const classroomUnitId: ClassroomUnitId|null = getParameterByName('classroom_unit_id')
     const activityUid = props.params.lessonID
 
     this.state = {
@@ -37,7 +37,7 @@ class TeacherNavbar extends React.Component<any, any> {
       showFlagDropdown: false,
       showCustomizeDropdown: false,
       classroomUnitId,
-      classroomSessionId: classroomUnitId.concat(activityUid)
+      classroomSessionId: classroomUnitId ? classroomUnitId.concat(activityUid) : null
     }
 
     this.presentStudentCount = this.presentStudentCount.bind(this)

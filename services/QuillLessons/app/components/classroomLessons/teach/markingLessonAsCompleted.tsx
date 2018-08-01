@@ -21,26 +21,26 @@ import {
 import {generate} from '../../../libs/conceptResults/classroomLessons.js';
 
 interface MarkingLessonsAsCompletedState {
-  classroomUnitId: ClassroomUnitId,
-  classroomSessionId: ClassroomSessionId
+  classroomUnitId: ClassroomUnitId|null,
+  classroomSessionId: ClassroomSessionId|null
 }
 
 class MarkingLessonAsCompleted extends React.Component<any, MarkingLessonsAsCompletedState> {
   constructor(props) {
     super(props);
 
-    const classroomUnitId: ClassroomUnitId = getParameterByName('classroom_unit_id')
+    const classroomUnitId: ClassroomUnitId|null = getParameterByName('classroom_unit_id')
     const activityUid = props.params.lessonID
     this.state = {
       classroomUnitId,
-      classroomSessionId: classroomUnitId.concat(activityUid)
+      classroomSessionId: classroomUnitId ? classroomUnitId.concat(activityUid) : null
     }
   }
 
   componentDidMount() {
     const { classroomUnitId, classroomSessionId } = this.state
     const activityId: string = this.props.params.lessonID;
-    if (classroomUnitId) {
+    if (classroomUnitId && classroomSessionId) {
       this.props.dispatch(getClassLesson(activityId));
       this.props.dispatch(startListeningToSessionForTeacher(activityId, classroomUnitId, classroomSessionId));
     }
@@ -58,14 +58,16 @@ class MarkingLessonAsCompleted extends React.Component<any, MarkingLessonsAsComp
     const questions = nextProps.classroomLesson.data.questions;
     const submissions = nextProps.classroomSessions.data.submissions;
     const activityId = this.props.params.lessonID;
-    const classroomUnitId = this.state.classroomUnitId;
+    const classroomUnitId:ClassroomUnitId|null = this.state.classroomUnitId;
     const conceptResults = generate(questions, submissions);
 
-    finishActivity(false, conceptResults, null, activityId, classroomUnitId,
-      (response) => {
-        window.location.href = `${process.env.EMPIRICAL_BASE_URL}/teachers/classrooms/activity_planner/lessons`;
-      }
-    );
+    if (classroomUnitId) {
+      finishActivity(false, conceptResults, null, activityId, classroomUnitId,
+        (response) => {
+          window.location.href = `${process.env.EMPIRICAL_BASE_URL}/teachers/classrooms/activity_planner/lessons`;
+        }
+      );
+    }
   }
 
   render() {

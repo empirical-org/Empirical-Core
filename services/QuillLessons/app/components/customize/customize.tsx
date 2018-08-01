@@ -34,8 +34,8 @@ interface customizeProps {
 }
 
 interface customizeState {
-  classroomUnitId: ClassroomUnitId,
-  classroomSessionId: ClassroomSessionId
+  classroomUnitId: ClassroomUnitId|null,
+  classroomSessionId: ClassroomSessionId|null
 }
 
 class Customize extends React.Component<customizeProps, customizeState> {
@@ -43,9 +43,9 @@ class Customize extends React.Component<customizeProps, customizeState> {
 
     super(props)
 
-    const classroomUnitId: ClassroomUnitId = getParameterByName('classroom_unit_id')
+    const classroomUnitId: ClassroomUnitId|null = getParameterByName('classroom_unit_id')
     const activityUid = props.params.lessonID
-    const classroomSessionId: ClassroomSessionId = classroomUnitId.concat(activityUid)
+    const classroomSessionId: ClassroomSessionId|null = classroomUnitId ? classroomUnitId.concat(activityUid) : null
     this.state = {
       classroomUnitId,
       classroomSessionId
