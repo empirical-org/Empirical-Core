@@ -165,17 +165,17 @@ export function getLessonData(
   return function(dispatch) {
     dispatch(getClassroomAndTeacherNameFromServer(classroomUnitId, classroomSessionId, process.env.EMPIRICAL_BASE_URL))
     dispatch(loadStudentNames(activityId, classroomUnitId, classroomSessionId, process.env.EMPIRICAL_BASE_URL))
-    dispatch(loadFollowUpNameAndSupportingInfo(activityId, process.env.EMPIRICAL_BASE_URL, classroomUnitId))
+    dispatch(loadFollowUpNameAndSupportingInfo(activityId, process.env.EMPIRICAL_BASE_URL, classroomSessionId))
   }
 }
 
 export function getPreviewData(
   activityId: string,
-  classroomUnitId: ClassroomUnitId
+  classroomSessionId: ClassroomSessionId
 ) {
   const baseUrl:string = process.env.EMPIRICAL_BASE_URL ? String(process.env.EMPIRICAL_BASE_URL) : 'https://quill.org/'
   return function(dispatch) {
-    dispatch(loadSupportingInfo(activityId, baseUrl, classroomUnitId))
+    dispatch(loadSupportingInfo(activityId, baseUrl, classroomSessionId))
   }
 }
 
@@ -694,7 +694,7 @@ export function saveReview(activityId:string, classroomSessionId:ClassroomSessio
     id: classroomSessionId,
     activity_id: activityId,
     value: value,
-    classroom_unit_id: classroomSessionId,
+    classroom_session_id: classroomSessionId,
   }
   socket.instance.emit('createOrUpdateReview', { review });
 }

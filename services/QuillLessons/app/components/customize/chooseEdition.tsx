@@ -10,6 +10,10 @@ import {
 import {
   setEditionId
 } from '../../actions/classroomSessions';
+import {
+  ClassroomSessionId,
+  ClassroomUnitId
+} from '../classroomLessons/interfaces'
 import EditionNamingModal from './editionNamingModal';
 import EditionRow from './editionRow';
 import SignupModal from '../classroomLessons/teach/signupModal';
@@ -19,11 +23,17 @@ import * as CustomizeIntF from '../../interfaces/customize';
 class ChooseEdition extends React.Component<any, any> {
   constructor(props) {
     super(props)
+
+    const classroomUnitId: ClassroomUnitId = getParameterByName('classroom_unit_id')
+    const activityUid = props.params.lessonID
+
     this.state = {
       showNamingModal: false,
       newEditionUid: '',
       newEditionName: '',
-      showSignupModal: false
+      showSignupModal: false,
+      classroomUnitId,
+      classroomSessionId: classroomUnitId.concat(activityUid)
     }
 
     this.makeNewEdition = this.makeNewEdition.bind(this)
@@ -102,9 +112,9 @@ class ChooseEdition extends React.Component<any, any> {
 
   selectAction(editionKey: string) {
     const lessonId = this.props.params.lessonID;
-    const classroomUnitId = getParameterByName('classroom_unit_id') || '';
+    const classroomSessionId:ClassroomSessionId = this.state.classroomSessionId || '';
 
-    return setEditionId(classroomUnitId, editionKey, () => window.location.href = `#/teach/class-lessons/${lessonId}?&classroom_unit_id=${classroomUnitId}`)
+    return setEditionId(classroomSessionId, editionKey, () => window.location.href = `#/teach/class-lessons/${lessonId}?&classroom_unit_id=${classroomUnitId}`)
   }
 
   renderBackButton() {

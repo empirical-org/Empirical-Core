@@ -2,12 +2,12 @@ import React from 'react';
 import CurrentSlide from './currentSlide';
 import NextSlideButton from './nextSlideButton';
 
-const MainContentContainer = () =>
+const MainContentContainer = (props) =>
   (<div className="main-content">
     <div className="main-content-wrapper">
-      <CurrentSlide />
+      <CurrentSlide params={props.params}/>
       <div className="next-slide-button-container">
-        <NextSlideButton />
+        <NextSlideButton params={props.params}/>
       </div>
     </div>
   </div>);

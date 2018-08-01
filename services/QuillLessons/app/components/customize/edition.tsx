@@ -34,11 +34,24 @@ import {
   getStoredOriginalEditionQuestions,
 } from '../../reducers/combined'
 
+import {
+  ClassroomSessionId,
+  ClassroomUnitId
+} from '../classroomLessons/interfaces'
+
+
 class CustomizeEdition extends React.Component<any, any> {
   constructor(props) {
     super(props)
 
-    this.state = { showEditModal: false };
+    const classroomUnitId: ClassroomUnitId = getParameterByName('classroom_unit_id')
+    const activityUid = props.params.lessonID
+
+    this.state = {
+      showEditModal: false,
+      classroomUnitId,
+      classroomSessionId: classroomUnitId.concat(activityUid)
+    };
 
     this.updateQuestion = this.updateQuestion.bind(this)
     this.publish = this.publish.bind(this)
@@ -53,9 +66,9 @@ class CustomizeEdition extends React.Component<any, any> {
   }
 
   componentWillMount() {
-    const classroomUnitId = getParameterByName('classroom_unit_id');
-    if (classroomUnitId) {
-      setEditionId(classroomUnitId, this.props.params.editionID);
+    const classroomSessionId: ClassroomSessionId = this.state.classroomSessionId;
+    if (classroomSessionId) {
+      setEditionId(classroomSessionId, this.props.params.editionID);
     }
 
     this.props.dispatch(getEditionMetadata(
@@ -188,8 +201,8 @@ class CustomizeEdition extends React.Component<any, any> {
   }
 
   afterPublishing() {
-    const classroomUnitId = getParameterByName('classroom_unit_id')
-    setTeacherModels(classroomUnitId, this.props.params.editionID)
+    const classroomSessionId:ClassroomSessionId = this.state.classroomSessionId
+    setTeacherModels(classroomSessionId, this.props.params.editionID)
     this.goToSuccessPage()
   }
 

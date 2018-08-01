@@ -13,6 +13,10 @@ import {
 import {
   createNewEdition
 } from '../../actions/customize';
+import {
+  ClassroomSessionId,
+  ClassroomUnitId
+} from '../classroomLessons/interfaces'
 const watchTeacherIcon = 'https://assets.quill.org/images/icons/watch_teacher_icon.svg'
 const exitIcon = 'https://assets.quill.org/images/icons/save_exit_icon.svg'
 const projectorIcon = 'https://assets.quill.org/images/icons/projector_icon.svg'
@@ -23,11 +27,17 @@ const pdfIcon = 'https://assets.quill.org/images/icons/download_pdf_icon.svg'
 class TeacherNavbar extends React.Component<any, any> {
   constructor(props) {
     super(props);
+
+    const classroomUnitId: ClassroomUnitId = getParameterByName('classroom_unit_id')
+    const activityUid = props.params.lessonID
+
     this.state = {
       tooltip: '',
       showHelpDropdown: false,
       showFlagDropdown: false,
-      showCustomizeDropdown: false
+      showCustomizeDropdown: false,
+      classroomUnitId,
+      classroomSessionId: classroomUnitId.concat(activityUid)
     }
 
     this.presentStudentCount = this.presentStudentCount.bind(this)
@@ -300,13 +310,13 @@ class TeacherNavbar extends React.Component<any, any> {
 
   toggleWatchTeacherMode() {
     const { watchTeacherState } = this.props.classroomSessions.data
-    const classroomUnitId = getParameterByName('classroom_unit_id');
+    const classroomSessionId: ClassroomSessionId|null = this.state.classroomSessionId;
     if (watchTeacherState) {
-      if (classroomUnitId) {
-        removeWatchTeacherState(classroomUnitId);
+      if (classroomSessionId) {
+        removeWatchTeacherState(classroomSessionId);
       }
     } else {
-      setWatchTeacherState(classroomUnitId);
+      setWatchTeacherState(classroomSessionId);
     }
   }
 

@@ -30,7 +30,9 @@ import { getParameterByName } from '../../../libs/getParameterByName';
 import {
   SelectedSubmissions,
   SelectedSubmissionsForQuestion,
-  ClassroomLessonSession
+  ClassroomLessonSession,
+  ClassroomSessionId,
+  ClassroomUnitId
 } from '../interfaces';
 import {
   ClassroomLesson,
@@ -47,6 +49,8 @@ class CurrentSlide extends React.Component<any, any> {
     const data: ClassroomLessonSession = props.classroomSessions.data;
     const lessonData: ClassroomLesson = props.classroomLesson.data;
     const script: Array<ScriptItem> = lessonData && lessonData.questions && lessonData.questions[data.current_slide] ? lessonData.questions[data.current_slide].data.teach.script : []
+    const classroomUnitId: ClassroomUnitId = getParameterByName('classroom_unit_id')
+    const activityUid = props.params.lessonID
 
     this.state = {
       numberOfHeaders: script.filter(scriptItem => scriptItem.type === 'STEP-HTML' || scriptItem.type === 'STEP-HTML-TIP').length,
@@ -56,6 +60,8 @@ class CurrentSlide extends React.Component<any, any> {
       showCongratulationsModal: false,
       completed: false,
       selectedOptionKey: data.followUpActivityName ? "Small Group Instruction and Independent Practice" : '',
+      classroomUnitId,
+      classroomSessionId: classroomUnitId.concat(activityUid)
     }
 
     this.toggleSelected = this.toggleSelected.bind(this);
@@ -98,39 +104,38 @@ class CurrentSlide extends React.Component<any, any> {
   }
 
   toggleSelected(currentSlideId: string, student: string) {
-    const classroomUnitId: string|null = getParameterByName('classroom_unit_id');
-    if (classroomUnitId) {
+    const classroomSessionId: ClassroomSessionId|null = this.state.classroomSessionId;
+    if (classroomSessionId) {
       const submissions: SelectedSubmissions | null = this.props.classroomSessions.data.selected_submissions;
       const currentSlide: SelectedSubmissionsForQuestion | null = submissions ? submissions[currentSlideId] : null;
       const currentValue: boolean | null = currentSlide ? currentSlide[student] : null;
-      updateStudentSubmissionOrder(classroomUnitId, currentSlideId, student)
+      updateStudentSubmissionOrder(classroomSessionId, currentSlideId, student)
       if (!currentValue) {
-        saveSelectedStudentSubmission(classroomUnitId, currentSlideId, student);
+        saveSelectedStudentSubmission(classroomSessionId, currentSlideId, student);
       } else {
-        removeSelectedStudentSubmission(classroomUnitId, currentSlideId, student);
+        removeSelectedStudentSubmission(classroomSessionId, currentSlideId, student);
       }
     }
   }
 
   clearAllSelectedSubmissions(currentSlide: string) {
-    const classroomUnitId: string|null = getParameterByName('classroom_unit_id');
-
-    if (classroomUnitId) {
-      clearAllSelectedSubmissions(classroomUnitId, currentSlide);
+    const classroomSessionId: ClassroomSessionId|null = this.state.classroomSessionId;
+    if (classroomSessionId) {
+      clearAllSelectedSubmissions(classroomSessionId, currentSlide);
     }
   }
 
   clearAllSubmissions(currentSlide: string) {
-    const classroomUnitId: string|null = getParameterByName('classroom_unit_id');
-    if (classroomUnitId) {
-      clearAllSubmissions(classroomUnitId, currentSlide);
+    const classroomSessionId: ClassroomSessionId|null = this.state.classroomSessionId;
+    if (classroomSessionId) {
+      clearAllSubmissions(classroomSessionId, currentSlide);
     }
   }
 
   clearStudentSubmission(currentSlideId: string, student: string) {
-    const classroomUnitId: string|null = getParameterByName('classroom_unit_id');
-    if (classroomUnitId) {
-      removeStudentSubmission(classroomUnitId, currentSlideId, student);
+    const classroomSessionId: ClassroomSessionId|null = this.state.classroomSessionId;
+    if (classroomSessionId) {
+      removeStudentSubmission(classroomSessionId, currentSlideId, student);
     }
   }
 
@@ -139,28 +144,28 @@ class CurrentSlide extends React.Component<any, any> {
   }
 
   startDisplayingAnswers() {
-    const classroomUnitId: string|null = getParameterByName('classroom_unit_id');
-    if (classroomUnitId) {
-      setMode(classroomUnitId, this.props.classroomSessions.data.current_slide, 'PROJECT');
+    const classroomSessionId: ClassroomSessionId|null = this.state.classroomSessionId;
+    if (classroomSessionId) {
+      setMode(classroomSessionId, this.props.classroomSessions.data.current_slide, 'PROJECT');
     }
   }
 
   stopDisplayingAnswers() {
-    const classroomUnitId: string|null = getParameterByName('classroom_unit_id');
-    if (classroomUnitId) {
-      removeMode(classroomUnitId, this.props.classroomSessions.data.current_slide);
+    const classroomSessionId: ClassroomSessionId|null = this.state.classroomSessionId;
+    if (classroomSessionId) {
+      removeMode(classroomSessionId, this.props.classroomSessions.data.current_slide);
     }
   }
 
   toggleStudentFlag(studentId: string) {
-    const classroomUnitId: string|null = getParameterByName('classroom_unit_id');
-    toggleStudentFlag(classroomUnitId, studentId);
+    const classroomSessionId: ClassroomSessionId|null = this.state.classroomSessionId;
+    toggleStudentFlag(classroomSessionId, studentId);
   }
 
   saveModel(model: string) {
-    const classroomUnitId: string|null = getParameterByName('classroom_unit_id');
-    if (classroomUnitId) {
-      setModel(classroomUnitId, this.props.classroomSessions.data.current_slide, model);
+    const classroomSessionId: ClassroomSessionId|null = this.state.classroomSessionId;
+    if (classroomSessionId) {
+      setModel(classroomSessionId, this.props.classroomSessions.data.current_slide, model);
     }
   }
 
@@ -174,9 +179,9 @@ class CurrentSlide extends React.Component<any, any> {
   }
 
   savePrompt(prompt: string) {
-    const classroomUnitId: string|null = getParameterByName('classroom_unit_id');
-    if (classroomUnitId) {
-      setPrompt(classroomUnitId, this.props.classroomSessions.data.current_slide, prompt);
+    const classroomSessionId: ClassroomSessionId|null = this.state.classroomSessionId;
+    if (classroomSessionId) {
+      setPrompt(classroomSessionId, this.props.classroomSessions.data.current_slide, prompt);
     }
   }
 
@@ -211,14 +216,15 @@ class CurrentSlide extends React.Component<any, any> {
     const submissions = this.props.classroomSessions.data.submissions;
     const followUp = this.props.classroomSessions.data.followUpActivityName && this.state.selectedOptionKey !== 'No Follow Up Practice';
     const activityId = this.props.classroomLesson.data.id;
-    const classroomUnitId = getParameterByName('classroom_unit_id') || '';
+    const classroomUnitId = this.state.classroomUnitId || '';
+    const classroomSessionId = this.state.classroomSessionId || '';
     const conceptResults = generate(questions, submissions);
     const editionId: string|undefined = this.props.classroomSessions.data.edition_id;
 
     finishActivity(followUp, conceptResults, editionId, activityId, classroomUnitId, (response) => {
-      if (classroomUnitId) {
+      if (classroomSessionId) {
         redirectAssignedStudents(
-          classroomUnitId,
+          classroomSessionId,
           this.state.selectedOptionKey,
           response.follow_up_url
         );
@@ -254,7 +260,7 @@ class CurrentSlide extends React.Component<any, any> {
 
   renderCongratulationsModal() {
     if (this.state.showCongratulationsModal) {
-      return <CongratulationsModal closeModal={this.closeCongratulationsModal} lessonId={this.props.lessonId}/>
+      return <CongratulationsModal closeModal={this.closeCongratulationsModal} lessonId={this.props.lessonId} classroomSessionId={this.state.classroomSessionId}/>
     }
   }
 
