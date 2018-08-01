@@ -4,6 +4,7 @@ import { ApolloProvider, Query } from "react-apollo";
 import gql from "graphql-tag";
 
 import client from '../../../modules/apollo';
+import ConceptsTable from "../components/ConceptsTable";
 
 const conceptsIndexQuery:string = `
   {
@@ -88,18 +89,7 @@ class App extends React.Component {
             if (error) return <p>Error :(</p>;
 
             return (
-              <table>
-                <thead>
-                  <tr>
-                    <th>Grandparent</th>
-                    <th>Parent</th>
-                    <th>Concept</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {this.renderList(data)}
-                </tbody>
-              </table>
+              <ConceptsTable concepts={data.concepts}/>
             )
           }}
         </Query>
@@ -110,3 +100,16 @@ class App extends React.Component {
 };
 
 export default App
+
+{/* <table>
+                <thead>
+                  <tr>
+                    <th>Grandparent</th>
+                    <th>Parent</th>
+                    <th>Concept</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {this.renderList(data)}
+                </tbody>
+              </table> */}

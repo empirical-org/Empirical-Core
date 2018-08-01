@@ -13,6 +13,7 @@
   "main": "js/app.js",
   "dependencies": {
     "@types/react": "^16.0.40",
+    "antd": "^3.7.3",
     "apollo-boost": "^0.1.12",
     "autoprefixer": "^6.3.5",
     "babel-core": "^6.7.4",
