@@ -85,12 +85,14 @@ export function createNewEdition(
   let newEditionData, newEdition;
   const newEditionKey = uuid();
   if (editionId) {
-    newEditionData = {activity_id: activityId, edition_id: editionId, user_id: userId, id: newEditionKey}
+    newEditionData = {lesson_id: activityId, edition_id: editionId, user_id: userId, id: newEditionKey}
   } else {
-    newEditionData = {activity_id: activityId, user_id: userId, id: newEditionKey}
+    newEditionData = {lesson_id: activityId, user_id: userId, id: newEditionKey}
   }
   socket.instance.emit('createNewEdition', { editionData: newEditionData });
   socket.instance.on(`editionCreated:${newEditionKey}`, () => {
+    console.log('newEditionKey: ', newEditionKey)
+
     socket.instance.removeAllListeners(`editionCreated:${newEditionKey}`)
     if (callback) {
       callback(activityId, newEditionKey, classroomUnitId)
@@ -109,9 +111,9 @@ export function createNewAdminEdition(
   let newEditionData, newEdition, questions;
   const newEditionKey = uuid();
   if (editionId) {
-    newEditionData = {id: newEditionKey, activity_id: activityId, edition_id: editionId, user_id: userId, name: name, flags: ['alpha']}
+    newEditionData = {id: newEditionKey, lesson_id: activityId, edition_id: editionId, user_id: userId, name: name, flags: ['alpha']}
   } else {
-    newEditionData = {id: newEditionKey, activity_id: activityId, user_id: userId, name: name, flags: ['alpha']}
+    newEditionData = {id: newEditionKey, lesson_id: activityId, user_id: userId, name: name, flags: ['alpha']}
     questions = [lessonSlideBoilerplates['CL-LB'], lessonSlideBoilerplates['CL-EX']]
   }
   socket.instance.emit('createNewEdition', {

@@ -23,7 +23,6 @@ class ChooseEdition extends React.Component<any, any> {
       showNamingModal: false,
       newEditionUid: '',
       newEditionName: '',
-      selectState: getParameterByName('preview') || getParameterByName('classroom_unit_id'),
       showSignupModal: false
     }
 
@@ -102,14 +101,10 @@ class ChooseEdition extends React.Component<any, any> {
   }
 
   selectAction(editionKey: string) {
-    const lessonId = this.props.params.lessonID
-    const classroomUnitId = getParameterByName('classroom_unit_id')
-    if (getParameterByName('preview')) {
-      const editionId = editionKey ? editionKey : ''
-      return this.props.router.push(`teach/class-lessons/${lessonId}/preview/${editionId}`)
-    } else if (classroomUnitId) {
-      return setEditionId(classroomUnitId, editionKey, () => window.location.href = `#/teach/class-lessons/${lessonId}?&classroom_unit_id=${classroomUnitId}`)
-    }
+    const lessonId = this.props.params.lessonID;
+    const classroomUnitId = getParameterByName('classroom_unit_id') || '';
+
+    return setEditionId(classroomUnitId, editionKey, () => window.location.href = `#/teach/class-lessons/${lessonId}?&classroom_unit_id=${classroomUnitId}`)
   }
 
   renderBackButton() {
@@ -122,9 +117,11 @@ class ChooseEdition extends React.Component<any, any> {
   }
 
   renderLessonInfo() {
-    const lessonData = this.props.classroomLesson.data
+    const lessonData = this.props.classroomLesson.data;
+    const { preview } = this.props.classroomSessions.data;
+
     let text
-    if (getParameterByName('preview')) {
+    if (preview) {
       text = 'You are previewing this lesson:'
     } else if (getParameterByName('classroom_unit_id')) {
       text = 'You are launching this lesson:'
@@ -138,7 +135,10 @@ class ChooseEdition extends React.Component<any, any> {
   }
 
   renderHeader() {
-    if (this.state.selectState) {
+    const selectState = this.props.classroomSessions.data.preview ||
+      getParameterByName('classroom_unit_id');
+
+    if (selectState) {
       return <h1>Select Edition of Lesson</h1>
     } else {
       return <h1>Customize Edition of Lesson</h1>
@@ -146,7 +146,11 @@ class ChooseEdition extends React.Component<any, any> {
   }
 
   renderExplanation() {
-    if (this.state.selectState) {
+    const selectState = this.props.classroomSessions.data.preview ||
+      getParameterByName('classroom_unit_id');
+
+
+    if (selectState) {
       return <p className="explanation">By clicking <span>“Customize”</span> and then selecting <span>“Make Copy,”</span> you will be able to customize the lesson with your own content. You can update your own editions at any time by clicking on <span>“Customize”</span> and then selecting <span>“Edit Edition”</span>. If you decide to customize a lesson now, your launched lesson will be paused until you publish your new edition.</p>
     } else {
       return <p className="explanation">By clicking <span>“Customize”</span> and then selecting <span>“Make Copy,”</span> you will be able to customize the lesson with your own content. You can update your own editions at any time by clicking on <span>“Customize”</span> and then selecting <span>“Edit Edition”</span>.</p>
@@ -166,6 +170,8 @@ class ChooseEdition extends React.Component<any, any> {
   }
 
   renderEditions() {
+    const selectState = this.props.classroomSessions.data.preview ||
+      getParameterByName('classroom_unit_id');
     const { editions, user_id } = this.props.customize
     const sessionEditionId:string|undefined = this.props.classroomSessions.data ? this.props.classroomSessions.data.edition_id : undefined
     if (Object.keys(editions).length > 0) {
@@ -185,7 +191,7 @@ class ChooseEdition extends React.Component<any, any> {
               archiveEdition={this.archiveEdition}
               creator='user'
               selectAction={this.selectAction}
-              selectState={this.state.selectState}
+              selectState={selectState}
               selectedEdition={sessionEditionId === e}
               />
             myEditions.push(editionRow)
@@ -196,7 +202,7 @@ class ChooseEdition extends React.Component<any, any> {
               makeNewEdition={this.makeNewEdition}
               creator='quill'
               selectAction={this.selectAction}
-              selectState={this.state.selectState}
+              selectState={selectState}
               selectedEdition={sessionEditionId === e}
             />
             quillEditions.push(editionRow)
@@ -207,7 +213,7 @@ class ChooseEdition extends React.Component<any, any> {
               makeNewEdition={this.makeNewEdition}
               creator='coteacher'
               selectAction={this.selectAction}
-              selectState={this.state.selectState}
+              selectState={selectState}
               selectedEdition={sessionEditionId === e}
             />
             coteacherEditions.push(editionRow)
