@@ -24,7 +24,7 @@ class ChooseEdition extends React.Component<any, any> {
   constructor(props) {
     super(props)
 
-    const classroomUnitId: ClassroomUnitId = getParameterByName('classroom_unit_id')
+    const classroomUnitId: ClassroomUnitId|null = getParameterByName('classroom_unit_id')
     const activityUid = props.params.lessonID
 
     this.state = {
@@ -33,7 +33,7 @@ class ChooseEdition extends React.Component<any, any> {
       newEditionName: '',
       showSignupModal: false,
       classroomUnitId,
-      classroomSessionId: classroomUnitId.concat(activityUid)
+      classroomSessionId: classroomUnitId ? classroomUnitId.concat(activityUid) : null
     }
 
     this.makeNewEdition = this.makeNewEdition.bind(this)
@@ -113,6 +113,7 @@ class ChooseEdition extends React.Component<any, any> {
   selectAction(editionKey: string) {
     const lessonId = this.props.params.lessonID;
     const classroomSessionId:ClassroomSessionId = this.state.classroomSessionId || '';
+    const classroomUnitId:ClassroomUnitId = this.state.classroomUnitId || '';
 
     return setEditionId(classroomSessionId, editionKey, () => window.location.href = `#/teach/class-lessons/${lessonId}?&classroom_unit_id=${classroomUnitId}`)
   }

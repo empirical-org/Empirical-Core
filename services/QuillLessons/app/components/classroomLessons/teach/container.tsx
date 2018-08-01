@@ -51,11 +51,11 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
   constructor(props) {
     super(props);
 
-    const classroomUnitId: ClassroomUnitId = getParameterByName('classroom_unit_id')
+    const classroomUnitId: ClassroomUnitId|null = getParameterByName('classroom_unit_id')
     const activityUid = props.params.lessonID
     this.state = {
       classroomUnitId,
-      classroomSessionId: classroomUnitId.concat(activityUid)
+      classroomSessionId: classroomUnitId ? classroomUnitId.concat(activityUid) : null
     }
 
     props.dispatch(getCurrentUserAndCoteachersFromLMS())
@@ -114,7 +114,7 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
       const classroomSessionId: ClassroomSessionId|null = this.state.classroomSessionId;
       const sessionData: ClassroomLessonSession = this.props.classroomSessions.data;
       const editionData: CustomizeIntf.EditionQuestions = this.props.customize.editionQuestions;
-      if (classroomUnitId) {
+      if (classroomSessionId) {
         const updateInStore = event.keyCode === 39
           ? goToNextSlide(sessionData, editionData, classroomSessionId)
           : goToPreviousSlide(sessionData, editionData, classroomSessionId)

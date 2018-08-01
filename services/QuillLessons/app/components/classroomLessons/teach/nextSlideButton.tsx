@@ -11,17 +11,20 @@ import {
   EditionQuestions
 } from '../../../interfaces/customize'
 
-class NextSlideButton extends React.Component<any, any> {
+interface NextSlideButtonProps {
+  [key:string]: any;
+}
+
+class NextSlideButton extends React.Component<StateFromProps & NextSlideButtonProps, any> {
   constructor(props) {
     super(props);
 
-    const classroomUnitId: ClassroomUnitId = getParameterByName('classroom_unit_id')
+    const classroomUnitId: ClassroomUnitId|null = getParameterByName('classroom_unit_id')
     const activityUid = props.params.lessonID
     this.state = {
       classroomUnitId,
-      classroomSessionId: classroomUnitId.concat(activityUid)
+      classroomSessionId: classroomUnitId ? classroomUnitId.concat(activityUid) : null
     }
-
 
     this.goToNextSlide = this.goToNextSlide.bind(this);
   }
@@ -63,4 +66,14 @@ function mergeProps(stateProps: Object, dispatchProps: Object, ownProps: Object)
   return {...ownProps, ...stateProps, ...dispatchProps}
 }
 
-export default connect(select, dispatch => ({dispatch}), mergeProps)(NextSlideButton);
+export interface DispatchFromProps {
+
+}
+
+export interface StateFromProps {
+  customize: any
+  classroomSessions: any
+}
+
+
+export default connect<StateFromProps, DispatchFromProps, NextSlideButtonProps>(select, dispatch => ({dispatch}))(NextSlideButton);

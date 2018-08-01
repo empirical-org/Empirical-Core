@@ -44,13 +44,13 @@ class CustomizeEdition extends React.Component<any, any> {
   constructor(props) {
     super(props)
 
-    const classroomUnitId: ClassroomUnitId = getParameterByName('classroom_unit_id')
+    const classroomUnitId: ClassroomUnitId|null = getParameterByName('classroom_unit_id')
     const activityUid = props.params.lessonID
 
     this.state = {
       showEditModal: false,
       classroomUnitId,
-      classroomSessionId: classroomUnitId.concat(activityUid)
+      classroomSessionId: classroomUnitId ? classroomUnitId.concat(activityUid) : null
     };
 
     this.updateQuestion = this.updateQuestion.bind(this)
