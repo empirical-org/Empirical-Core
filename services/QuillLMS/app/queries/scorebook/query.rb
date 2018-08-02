@@ -25,13 +25,14 @@ class Scorebook::Query
      LEFT JOIN students_classrooms AS sc on cu.classroom_id = sc.classroom_id
      RIGHT JOIN users AS students ON students.id = sc.student_id
      #{first_unit}
+     LEFT JOIN unit_activities ON unit_activities.unit_id = cu.unit_id
+     INNER JOIN activities AS activity ON activity.id = unit_activities.activity_id
      LEFT JOIN activity_sessions AS acts ON (
            acts.classroom_unit_id = cu.id
            AND acts.user_id = students.id
+           AND acts.activity_id = activity.id
            AND acts.visible = true
            )
-     LEFT JOIN unit_activities ON unit_activities.unit_id = cu.unit_id
-     INNER JOIN activities AS activity ON activity.id = unit_activities.activity_id
      LEFT JOIN classroom_unit_activity_states AS cuas ON cuas.unit_activity_id = unit_activities.id AND cuas.classroom_unit_id = cu.id
      WHERE cu.classroom_id = #{classroom_id}
      AND  students.id = ANY (cu.assigned_student_ids::int[])
