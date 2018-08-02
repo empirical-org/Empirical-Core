@@ -135,7 +135,7 @@ export function startListeningToSessionForTeacher(
         dispatch({type: C.NO_CLASSROOM_UNIT, data: classroomUnitId})
       }
     });
-    socket.instance.emit('subscribeToClassroomLessonSession', { classroomUnitId });
+    socket.instance.emit('subscribeToClassroomLessonSession', { classroomSessionId });
   }
 }
 
