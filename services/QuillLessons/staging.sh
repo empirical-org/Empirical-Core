@@ -13,4 +13,4 @@ NODE_ENV=staging \
 QUILL_CMS=https://cms.quill.org \
 webpack -p
 
-aws s3 sync ./dist s3://aws-website-quill-lessons-staging --delete
+aws s3 sync ./dist s3://aws-website-quill-lessons-staging --delete --profile peter
