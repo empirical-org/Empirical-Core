@@ -1,21 +1,34 @@
 require 'rails_helper'
 
-describe IpLocationWorker, type: :worker do
-  let(:worker) { IpLocationWorker.new }
-  let(:teacher) { create(:teacher) }
+describe IpLocationWorker do
+  let(:subject) { described_class.new }
 
-  # TODO: make a vcr recording of this
+  describe '#perform' do
+    let!(:user) { create(:user) }
 
+    before do
+      allow(Pointpin).to receive(:locate) {
+        {
+          "country_name" => "country",
+          "region_name" => "region",
+          "city_name" => "city",
+          "postcode" => "110011",
+        }
+      }
+    end
 
-  pending 'uses Pointpin API to get zip, country, state, and city of user' #do
-  #   ip_address = '74.125.224.72' #google's address
-  #   worker.perform(teacher.id, ip_address)
-  #   expect(teacher.ip_location).to eq('a')
-  # end
+    it 'should create the ip location unless the location is in the given blacklist' do
+      subject.perform(user.id, "some_ip", [])
+      expect(IpLocation.last.country).to eq "country"
+      expect(IpLocation.last.state).to eq "region"
+      expect(IpLocation.last.city).to eq "city"
+      expect(IpLocation.last.zip).to eq 110011
+      expect(IpLocation.last.user).to eq user
+    end
 
- pending 'does not return a location for ip addresses where the zip is 10005' #do
-  #   ip_address = '74.125.224.72'
-  #   worker.perform(teacher.id, ip_address)
-  #   expect(teacher.ip_location).to eq('a')
-  # end
+    it 'should not create the ip location if it is in the given blacklist' do
+      subject.perform(user.id, "some_ip", ["110011"])
+      expect(IpLocation.count).to eq 0
+    end
+  end
 end
