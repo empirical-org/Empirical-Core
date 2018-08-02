@@ -13,7 +13,7 @@ class GenerateFullname
   attr_reader :name
 
   def generate_fullname
-    first_name, last_name = NameSplitter.new(name).split
+    first_name, last_name = SplitName.new(name).call
 
     if last_name.nil? && first_name.present?
       return "#{first_name} #{first_name}"
