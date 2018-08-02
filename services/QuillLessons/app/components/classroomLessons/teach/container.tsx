@@ -7,14 +7,6 @@ import {
   startListeningToSessionForTeacher,
   goToNextSlide,
   goToPreviousSlide,
-  saveSelectedStudentSubmission,
-  removeSelectedStudentSubmission,
-  setMode,
-  removeMode,
-  getClassroomAndTeacherNameFromServer,
-  toggleOnlyShowHeaders,
-  clearAllSelectedSubmissions,
-  clearAllSubmissions,
   registerTeacherPresence,
   startLesson
 } from '../../../actions/classroomSessions';
