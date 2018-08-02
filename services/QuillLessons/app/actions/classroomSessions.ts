@@ -40,7 +40,6 @@ export function startLesson(classroomUnitId: ClassroomUnitId, classroomSessionId
     classroom_unit_id: classroomUnitId
   };
   Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
-
   fetch(url.href, {
     method: "GET",
     mode: "cors",
@@ -117,7 +116,7 @@ export function startListeningToSessionForTeacher(
   return function (dispatch, getState) {
     let initialized = false;
 
-    socket.instance.on(`classroomLessonSession:${classroomUnitId}`, (session) => {
+    socket.instance.on(`classroomLessonSession:${classroomSessionId}`, (session) => {
       if (session) {
 
         if (!_.isEqual(getState().classroomSessions.data, session)) {
@@ -132,7 +131,7 @@ export function startListeningToSessionForTeacher(
         ))
         initialized = true
       } else {
-        dispatch({type: C.NO_CLASSROOM_UNIT, data: classroomUnitId})
+        dispatch({type: C.NO_CLASSROOM_UNIT, data: classroomSessionId})
       }
     });
     socket.instance.emit('subscribeToClassroomLessonSession', { classroomSessionId });
