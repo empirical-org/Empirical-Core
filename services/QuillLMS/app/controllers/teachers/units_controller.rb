@@ -209,7 +209,7 @@ class Teachers::UnitsController < ApplicationController
         INNER JOIN activities ON ua.activity_id = activities.id
         INNER JOIN classrooms ON cu.classroom_id = classrooms.id
         LEFT JOIN students_classrooms ON students_classrooms.classroom_id = classrooms.id AND students_classrooms.visible
-        LEFT JOIN activity_sessions AS act_sesh ON act_sesh.classroom_unit_id = cu.id
+        LEFT JOIN activity_sessions AS act_sesh ON act_sesh.classroom_unit_id = cu.id AND act_sesh.activity_id = activities.id
         JOIN users AS unit_owner ON unit_owner.id = units.user_id
         LEFT JOIN classroom_unit_activity_states AS state
           ON state.unit_activity_id = ua.id
