@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Table } from 'antd';
 import { Concept } from '../containers/ConceptsIndex';
-
+import moment from 'moment';
 
 interface ConceptsTableProps {
   concepts: Array<Concept>
@@ -15,6 +15,7 @@ interface ConceptRow {
   conceptId:string;
   parentConceptId:string|null;
   grandparentConceptId:string|null;
+  createdAt:number;
 }
 
 const columns = [
@@ -39,6 +40,13 @@ const columns = [
     render: (text, record:ConceptRow) => (<a href={"/cms/concepts/" + record.conceptId}>{text}</a>),
     sorter:  (a, b) => a.conceptName.localeCompare(b.conceptName),
   },
+  {
+    title: 'Created At',
+    dataIndex: 'createdAt',
+    key: 'createdAt',
+    render: (text) => moment(text* 1000).format('MMMM Do YYYY'),
+    sorter:  (a, b) => (a.createdAt - b.createdAt),
+  },
 ];
 
 function prepareData(data:Array<Concept>):Array<ConceptRow> {
@@ -54,6 +62,7 @@ function prepareRow(concept:Concept):ConceptRow {
     parentConceptId: concept.parent ? concept.parent.id : null,
     grandparentConceptName: concept.parent && concept.parent.parent ? concept.parent.parent.name : "",
     grandparentConceptId: concept.parent && concept.parent.parent ? concept.parent.parent.id : null,
+    createdAt: concept.createdAt,
   }
 }
 
