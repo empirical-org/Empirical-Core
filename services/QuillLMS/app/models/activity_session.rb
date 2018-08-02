@@ -288,8 +288,14 @@ class ActivitySession < ActiveRecord::Base
   def self.assign_follow_up_lesson(classroom_unit_id, activity_uid, locked = true)
     activity = Activity.find_by_id_or_uid(activity_uid)
     classroom_unit = ClassroomUnit.find(classroom_unit_id)
+
+    if activity.follow_up_activity_id.nil?
+      return false
+    end
+
+    follow_up_activity = Activity.find_by(id: activity.follow_up_activity_id)
     unit_activity = UnitActivity.find_by(
-      activity: activity,
+      activity: follow_up_activity,
       unit_id: classroom_unit.unit_id
     )
     state = ClassroomUnitActivityState.find_by(
@@ -297,13 +303,9 @@ class ActivitySession < ActiveRecord::Base
       classroom_unit: classroom_unit,
     )
 
-    if activity.follow_up_activity_id.nil?
-      return false
-    end
-
     if state.present?
       state.update(locked: false)
-      return state
+      return unit_activity
     end
 
     begin
@@ -320,7 +322,7 @@ class ActivitySession < ActiveRecord::Base
           classroom_unit: classroom_unit
         )
 
-        follow_up_unit_activity
+        return follow_up_unit_activity
       end
     rescue StandardError => e
       false
