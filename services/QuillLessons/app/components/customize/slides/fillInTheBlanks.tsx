@@ -69,6 +69,7 @@ class CustomizeFillInTheBlanks extends Component<CustomizeFillInTheBlanksProps>{
           <PromptField
             incompletePrompt={this.props.incompletePrompt}
             text={this.props.question.play.prompt}
+            reset={this.props.question.reset}
             handleTextChange={(e) => this.handlePromptChange(e)}
             blankInstructions={<span className="blank-instructions">Make sure you add "___" to create blanks between the words</span>}
             showBlockquote={false}

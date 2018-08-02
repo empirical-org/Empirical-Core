@@ -19,6 +19,7 @@ export interface Question {
 export interface QuestionData {
   play: PlayData;
   teach: TeachData;
+  reset?: Boolean;
 }
 
 export interface PlayData {

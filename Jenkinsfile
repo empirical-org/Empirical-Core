@@ -55,7 +55,7 @@ pipeline {
         stage('test-lms-ruby') {
           agent {
             dockerfile {
-              filename 'services/QuillJenkins/agents/QuillLMS/Dockerfile.test-ruby'
+              filename 'services/QuillJenkins/agents/QuillLMS/Dockerfile.2.5.1'
               dir '.'
               args "-u root:sudo -v \$HOME/workspace/myproject:/myproject --name test-lms-ruby${env.BUILD_TAG} --network jnk-net${env.BUILD_TAG}"
             }
@@ -67,10 +67,13 @@ pipeline {
             PROGRESS_REPORT_FOG_DIRECTORY = 'empirical-progress-report-dev'
             FOG_DIRECTORY = 'empirical-core-staging'
             CONTINUOUS_INTEGRATION = true
+            SALESMACHINE_API_KEY = 'SALESMACHINE_API_KEY'
           }
           steps {
             echo 'Beginnning TEST...'
             dir(path: 'services/QuillLMS') {
+              echo 'Installing Deps'
+              sh 'bundle install'
               echo 'Rspec:'
               echo 'Setting up rspec...'
               //sh 'cp config/database.yml.jenkins config/database.yml'
@@ -89,8 +92,10 @@ pipeline {
               echo 'Beginnning front-end tests...'
 
               echo 'Installing necessary packages...'
-              sh 'npm install'
-              sh 'ls'
+              sh 'npm install --unsafe-perm'
+              // sh 'mkdir client/config'
+              // sh 'mkdir client/config/webpack'
+              // sh 'cp config/webpack/* client/config/webpack/.'
               echo 'Building test distribution'
               sh 'npm run build:test'
               echo 'Running jest...'
@@ -98,19 +103,13 @@ pipeline {
               withCredentials(bindings: [string(credentialsId: 'codecov-token', variable: 'CODECOV_TOKEN')]) {
                 sh "curl -s https://codecov.io/bash | bash -s - -cF jest -t $CODECOV_TOKEN"
               }
-
-              dir(path: 'services/QuillJenkins/scripts') {
-                // Check that code coverage has not decreased
-                sh "python -c'import codecov; codecov.fail_on_decrease(\"fake-develop\", $env.BRANCH_NAME )' || exit"
-              }
-              echo 'Front end tests disabled for now.  moving on!'
             }
           }
         }
         stage('test-comprehension') {
           agent {
             dockerfile {
-              filename 'services/QuillJenkins/agents/QuillComprehension/Dockerfile.test-ruby'
+              filename 'services/QuillJenkins/agents/QuillComprehension/Dockerfile.2.5.1'
               dir '.'
               args "-u root:sudo -v \$HOME/workspace/myproject:/myproject --name test-comprehension${env.BUILD_TAG} --network jnk-net${env.BUILD_TAG}"
             }
@@ -339,7 +338,7 @@ pipeline {
             echo 'Beginnning LMS DEPLOY...'
             script {
               withCredentials([usernamePassword(credentialsId: 'robot-butler', usernameVariable: 'U', passwordVariable: 'T')]) {
-                if (env.GIT_BRANCH == 'fake-develop') {
+                if (env.GIT_BRANCH == 'develop') {
                   echo "Automatically deploying fake-develop to staging..."
                   /* heroku allows authentication through 'heroku login', http basic
                    * auth, and SSH keys.  Since right now this stage runs only on the
@@ -383,7 +382,7 @@ pipeline {
               echo "Beginnning connect deploy..."
               script {
                 withCredentials([usernamePassword(credentialsId: 'robot-butler', usernameVariable: 'U', passwordVariable: 'T')]) {
-                  if (env.GIT_BRANCH == 'fake-develop') {
+                  if (env.GIT_BRANCH == 'develop') {
                     echo "Building packages..."
                     sh 'npm run build:jenkins'
                     echo "Deploying to S3..."
@@ -422,7 +421,7 @@ pipeline {
             dir (path: 'services/QuillLessons') {
               echo "Beginnning lessons deploy..."
               script {
-                if (env.GIT_BRANCH == 'fake-develop') {
+                if (env.GIT_BRANCH == 'develop') {
                   echo "Installing dependencies..."
                   sh "npm install"
                   echo "Deploying connect to staging..."
@@ -461,7 +460,7 @@ pipeline {
             dir (path: 'services/QuillDiagnostic') {
               echo "Beginnning diagnostic deploy..."
               script {
-                if (env.GIT_BRANCH == 'fake-develop') {
+                if (env.GIT_BRANCH == 'develop') {
                   echo "Installing dependencies..."
                   sh "npm install"
                   echo "Deploying connect to staging..."
@@ -509,6 +508,8 @@ pipeline {
       sh "docker stop lms-testdb${env.BUILD_TAG}"
       sh "docker rm lms-testdb${env.BUILD_TAG}"
       sh "docker network rm jnk-net${env.BUILD_TAG}"
+      echo "Removing workspace"
+      cleanWs()
     }
   }
 }

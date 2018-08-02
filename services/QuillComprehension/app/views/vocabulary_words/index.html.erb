@@ -20,7 +20,7 @@
         <tbody>
           <% @vocabulary_words.each do |vocabulary_word| %>
             <tr>
-              <td><%= vocabulary_word.activity %></td>
+              <td><%= link_to vocabulary_word.activity.title, vocabulary_word.activity %></td>
               <td><%= vocabulary_word.text %></td>
               <td><%= vocabulary_word.description %></td>
               <td><%= vocabulary_word.example %></td>
