@@ -65,6 +65,7 @@ const ConceptsTable: React.SFC<ConceptsTableProps> = ({concepts}) => {
       dataSource={data}
       size="middle" 
       bordered 
+      pagination={{ pageSize: 20 }}
     />
   );
 };
