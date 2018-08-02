@@ -11,6 +11,7 @@ const conceptsIndexQuery:string = `
     concepts(childlessOnly: true) {
       id
       name
+      createdAt
       parent {
         id
         name
@@ -25,6 +26,7 @@ const conceptsIndexQuery:string = `
 export interface Concept {
   id:string;
   name:string;
+  createdAt?:number;
   parent?:Concept;
 }
 interface QueryResult {
