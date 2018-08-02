@@ -13,6 +13,6 @@ module CleverIntegration::Parsers::Teacher
   private
 
   def self.generate_name(first_name, last_name)
-    NameUnifier.run(first_name, last_name)
+    JoinNames.new(first_name, last_name).call
   end
 end
