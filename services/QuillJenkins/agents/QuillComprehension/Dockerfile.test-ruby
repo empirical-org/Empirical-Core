@@ -1,8 +1,5 @@
 FROM ruby:2.5.1
-
-
-
-
+RUN echo "break"
 RUN apt-get update -y
 
 # fix invalid byte seq error

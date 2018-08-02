@@ -146,10 +146,10 @@ describe('Premium Page', () => {
             cy.get('#purchase-btn').click()
           })
 
-          it('has a Free Trial button that activate a trial when clicked and redirects to the scorebook', () => {
-            cy.get('.empty-blue').click()
+          it('has a Free Trial button that activates a trial when clicked and redirects to the scorebook', () => {
+            cy.get('.empty-blue').click({force: true})
             cy.location().should((loc) => {
-              expect(loc.pathname).to.eq('/teachers/classrooms/scorebook')
+              expect(loc.pathname).to.eq('/teachers/progress_reports/activities_scores_by_classroom')
             })
             cy.get('.premium-tab > a > .hide-on-mobile').contains('30 Days Left')
           })
