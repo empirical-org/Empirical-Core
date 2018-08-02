@@ -10,7 +10,7 @@ describe Api::V1::ClassroomUnitsController, type: :controller do
       assigned_student_ids: students.map(&:id)
     )
   end
-  let(:activity) { create(:activity) }
+  let(:activity) { create(:lesson_activity, :with_follow_up) }
   let!(:activity_sessions) do
     students.map do |student|
       create(:activity_session,
@@ -135,10 +135,8 @@ describe Api::V1::ClassroomUnitsController, type: :controller do
         format: 'json'
       )
 
-      follow_up = UnitActivity.last
-
       expected_url = "#{ENV['DEFAULT_URL']}/activity_sessions/classroom_units/" +
-        "#{classroom_unit.id}/activities/#{follow_up.id}"
+        "#{classroom_unit.id}/activities/#{activity.follow_up_activity_id}"
 
       expect(JSON.parse(response.body))
         .to eq({ "follow_up_url" => expected_url })
