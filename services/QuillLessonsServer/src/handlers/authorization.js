@@ -9,7 +9,7 @@ function _isRoleAuthorized(permittedRoles, currentRole) {
 
 function _belongsToSession(data, token) {
   const regexedClassroomUnitId = new RegExp('^' + token.data.classroom_unit_id)
-  return data.classroomSessionId.test(regexedClassroomUnitId);
+  return regexedClassroomUnitId.test(data.classroomSessionId);
 }
 
 function _reportError(errorText, data, token, client) {
