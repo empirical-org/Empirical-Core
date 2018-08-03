@@ -1,4 +1,4 @@
-module JoinNames
+class JoinNames
 
   def initialize(first_name, last_name)
     @first_name = first_name
@@ -6,13 +6,13 @@ module JoinNames
   end
 
   def call
-    first_name = first_name.blank? ? 'Firstname' : first_name.capitalize
-    last_name  = last_name.blank?  ? 'Lastname'  : last_name.capitalize
+    joined_first_name = first_name.blank? ? 'Firstname' : first_name.capitalize
+    joined_last_name  = last_name.blank?  ? 'Lastname'  : last_name.capitalize
 
-    "#{first_name} #{last_name}"
+    "#{joined_first_name} #{joined_last_name}"
   end
 
   private
 
-  attr_reader :first_name, :last_name
+  attr_accessor :first_name, :last_name
 end
