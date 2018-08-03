@@ -7,8 +7,4 @@ class ArchiveClassroomActivitiesActivitySessionsWorker
       act_sesh.update(visible: false)
     end
   end
-
-
-
-
 end
