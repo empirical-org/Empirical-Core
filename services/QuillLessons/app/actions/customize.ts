@@ -28,10 +28,13 @@ export function getCurrentUserAndCoteachersFromLMS() {
   }
 }
 
-export function getEditionMetadataForUserIds(userIds:Array<Number>, activityId:string) {
+export function getEditionMetadataForUserIds(
+  userIds:Array<Number>,
+  activityId:string
+) {
   return function (dispatch) {
     socket.instance.on(`editionMetadataForLesson:${activityId}`, (editions) => {
-      dispatch(filterEditionsByUserIds(userIds, editions))
+      dispatch(selectQuillStaffAndUserEditions(userIds, editions))
     })
     socket.instance.emit('getAllEditionMetadataForLesson', { activityId });
   };
@@ -168,11 +171,13 @@ export function publishEdition(editionId:string, editionMetadata: CustomizeIntf.
     if (callback) {
       callback()
     }
-
   }
 }
 
-function filterEditionsByUserIds(userIds:Array<Number|string>, editions:CustomizeIntf.EditionsMetadata) {
+function selectQuillStaffAndUserEditions(
+  userIds:Array<Number|string>,
+  editions:CustomizeIntf.EditionsMetadata
+) {
   return function (dispatch, getState) {
     if (editions && Object.keys(editions).length > 0) {
       const allowedIds = userIds.concat('quill-staff')
