@@ -134,7 +134,7 @@ module PublicProgressReports
                 activity_id: activity_id
               )
               scores[:started_names].push(student.name)
-            elsif state.completed
+            elsif state && state.completed
               scores[:missed_names].push(student.name)
             else
               scores[:unstarted_names].push(student.name)
