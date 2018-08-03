@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'SalesAccountSyncer' do
+describe SyncSalesAccount do
   before { Timecop.freeze }
   after { Timecop.return }
 
@@ -15,6 +15,6 @@ describe 'SalesAccountSyncer' do
     allow(serializer_instance).to receive(:data) { data }
     expect(client).to receive(:batch).with([data])
 
-    SalesAccountSyncer.new(school.id, serializer, client).sync
+    SyncSalesAccount.new(school.id, serializer, client).call
   end
 end
