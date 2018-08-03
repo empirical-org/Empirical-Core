@@ -195,7 +195,7 @@ class Teachers::UnitsController < ApplicationController
          activities.id AS activity_id,
          activities.uid as activity_uid,
          (SELECT COUNT(id) FROM activity_sessions WHERE is_final_score = true AND classroom_unit_id = cu.id AND activity_sessions.visible AND activity_sessions.activity_id = activities.id)  AS completed_count,
-         (SELECT (SUM(percentage)*100) FROM activity_sessions WHERE is_final_score = true AND classroom_unit_id = cu.id AND activity_sessions.visible)  AS classroom_cumulative_score,
+         (SELECT (SUM(percentage)*100) FROM activity_sessions WHERE is_final_score = true AND classroom_unit_id = cu.id AND activity_sessions.activity_id = activities.id AND activity_sessions.visible)  AS classroom_cumulative_score,
          (SELECT COUNT(DISTINCT user_id) FROM activity_sessions WHERE state = 'started' AND classroom_unit_id = cu.id AND activity_sessions.activity_id = activities.id AND activity_sessions.visible)  AS started_count,
          EXTRACT(EPOCH FROM units.created_at) AS unit_created_at,
          EXTRACT(EPOCH FROM ua.created_at) AS unit_activity_created_at,
