@@ -222,6 +222,7 @@ class Teachers::UnitsController < ApplicationController
         #{lessons}
         GROUP BY units.name, units.created_at, cu.id, classrooms.name, classrooms.id, activities.name, activities.activity_classification_id, activities.id, activities.uid, unit_owner.name, unit_owner.id, ua.due_date, ua.created_at, unit_activity_id, state.completed, ua.id
         #{completed}
+        ORDER BY unit_activity_id
         ").to_a
     else
       []
