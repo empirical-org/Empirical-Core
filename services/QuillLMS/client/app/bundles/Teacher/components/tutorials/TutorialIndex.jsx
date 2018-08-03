@@ -54,15 +54,16 @@ export default class TutorialIndex extends React.Component {
   }
 
   nextButton() {
+    const lessonsUrl = process.env.QUILL_LESSONS_URL || 'https://lessons.quill.org'
     if (this.state.slideNumber !== this.state.slides.length) {
       return <button className="text-white bg-quillgreen next-button" onClick={() => this.goToSlide(this.state.slideNumber + 1)}>Next</button>
-    } else if (getParameterByName('url')){
+    } else if (getParameterByName('url')) {
       const url = getParameterByName('url')
       return <button className="text-white bg-quillgreen next-button" onClick={() => window.location = decodeURIComponent(url)}>Next</button>
-    } else if (getParameterByName('nocta')){
-      return <div style={{'height': '55px'}}/>
+    } else if (getParameterByName('nocta')) {
+      return <div style={{ 'height': '55px' }}/>
     } else {
-      return <button className="text-white bg-quillgreen try-button" onClick={() => {window.location = "#{ENV['QUILL_CONNECT_URL']}/#/teach/class-lessons/-KsKpXAoaEIY5jvWMIzJ/preview"}}>Try Sample Activity</button>
+      return <button className="text-white bg-quillgreen try-button" onClick={() => { window.location = `${lessonsUrl}/#/teach/class-lessons/-KsKpXAoaEIY5jvWMIzJ/preview` }}>Try Sample Activity</button>
     }
   }
 
