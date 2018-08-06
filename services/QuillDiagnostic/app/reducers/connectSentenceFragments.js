@@ -10,7 +10,7 @@ export default function (currentstate, action) {
   switch (action.type) {
     case C.RECEIVE_CONNECT_SENTENCE_FRAGMENT_DATA:
       newstate = _.cloneDeep(currentstate);
-      newstate.questions = action.data
+      newstate.questions = action ? action.data : {}
       return newstate;
     case C.SUCCESSFULLY_CLONED_CONNECT_SENTENCE_FRAGMENT:
       newstate = _.cloneDeep(currentstate);
