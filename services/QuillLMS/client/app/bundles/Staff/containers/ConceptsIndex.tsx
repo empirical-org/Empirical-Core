@@ -40,46 +40,6 @@ class App extends React.Component {
     super(props)
   }
 
-  renderGrandparentCell(rowData:Concept) {
-    if (rowData.parent && rowData.parent.parent) {
-      const grandparent = rowData.parent.parent;
-      return (
-        <a href={`/cms/concepts/${grandparent.id}`}>
-          {grandparent.name}
-        </a>
-      )
-    }
-  }
-
-  renderParentCell(rowData:Concept) {
-    if (rowData.parent) {
-      const parent = rowData.parent;
-      return (
-        <a href={`/cms/concepts/${parent.id}`}>
-          {parent.name}
-        </a>
-      )
-    }
-  }
-
-  renderCell(rowData:Concept) {
-    return (
-      <a href={`/cms/concepts/${rowData.id}`}>
-        {rowData.name}
-      </a>
-    )
-  }
-
-  renderList(data:QueryResult) {
-    return data.concepts.map((row) => (
-      <tr key={row.id}>
-        <td>{this.renderGrandparentCell(row)}</td>
-        <td>{this.renderParentCell(row)}</td>
-        <td>{this.renderCell(row)}</td>
-      </tr>
-    ));
-  }
-
   render() {
     return  (
       <ApolloProvider client={client}>
