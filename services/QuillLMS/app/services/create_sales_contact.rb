@@ -1,10 +1,10 @@
-class SalesContactCreator
+class CreateSalesContact
   def initialize(user_id, stage_types_factory = nil)
     @user                = User.find(user_id)
     @stage_types_factory = stage_types_factory || SalesStageTypesFactory
   end
 
-  def create
+  def call
     return false unless can_create_sales_contact?
 
     begin

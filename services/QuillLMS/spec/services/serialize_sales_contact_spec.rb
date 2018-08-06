@@ -56,7 +56,7 @@ describe 'SerializeSalesContact' do
     school = create(:school)
     teacher = create(:user, role: 'teacher')
     school.users << teacher
-    SalesContactCreator.new(teacher.id).create
+    CreateSalesContact.new(teacher.id).call
     account_data = SerializeSalesContact.new(teacher.id).account_data
 
     expect(account_data).to be nil
