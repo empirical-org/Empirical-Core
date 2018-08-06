@@ -12,9 +12,24 @@ import {
 } from '../../actions/connectSentenceFragments.ts'
 
 class CloneConnectQuestions extends Component {
-  constructor() {
-    super();
-    this.state = {
+  constructor(props) {
+    super(props);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { connectSentenceFragments, connectFillInBlank, connectSentenceCombining } = nextProps
+    if (connectSentenceFragments.error !== this.props.connectSentenceFragments.error) {
+      window.alert(connectSentenceFragments.error)
+    } else if (connectSentenceFragments.message !== this.props.connectSentenceFragments.message) {
+      window.alert(connectSentenceFragments.message)
+    } else if (connectFillInBlank.error !== this.props.connectFillInBlank.error) {
+      window.alert(connectFillInBlank.error)
+    } else if (connectFillInBlank.message !== this.props.connectFillInBlank.message) {
+      window.alert(connectSentenceFragments.message)
+    } else if (connectSentenceCombining.error !== this.props.connectSentenceCombining.error) {
+      window.alert(connectSentenceCombining.error)
+    } else if (connectSentenceCombining.message !== this.props.connectSentenceCombining.message) {
+      window.alert(connectSentenceFragments.message)
     }
   }
 
@@ -24,7 +39,7 @@ class CloneConnectQuestions extends Component {
       const questions = Object.keys(connectFillInBlank.questions).map(k => {
         const question = connectFillInBlank.questions[k]
         return (<Question
-          cloneFunction={() => cloneConnectFillInBlankQuestion(k)}
+          cloneFunction={() => this.props.dispatch(cloneConnectFillInBlankQuestion(k))}
           prompt={question.prompt}
         />)
       })
@@ -41,7 +56,7 @@ class CloneConnectQuestions extends Component {
       const questions = Object.keys(connectSentenceFragments.questions).map(k => {
         const question = connectSentenceFragments.questions[k]
         return (<Question
-          cloneFunction={() => cloneConnectSentenceFragment(k)}
+          cloneFunction={() => this.props.dispatch(cloneConnectSentenceFragment(k))}
           prompt={question.prompt}
         />)
       })
@@ -59,7 +74,7 @@ class CloneConnectQuestions extends Component {
       const questions = Object.keys(connectSentenceCombining.questions).map(k => {
         const question = connectSentenceCombining.questions[k]
         return (<Question
-          cloneFunction={() => cloneConnectSentenceCombiningQuestion(k)}
+          cloneFunction={() => this.props.dispatch(cloneConnectSentenceCombiningQuestion(k))}
           prompt={question.prompt}
         />)
       })

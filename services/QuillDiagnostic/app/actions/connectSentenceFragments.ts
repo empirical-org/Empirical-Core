@@ -15,27 +15,29 @@ export function startListeningToConnectSentenceFragments() {
 }
 
 export function cloneConnectSentenceFragment(uid: string) {
-  connectSentenceFragmentsRef.child(uid).on('value', (snapshot) => {
-    const connectSentenceFragment = snapshot ? snapshot.val() : null
-    if (connectSentenceFragment) {
-      const diagnosticSentenceFragment = diagnosticSentenceFragmentsRef.push(connectSentenceFragment)
-      request(
-        {
-          url: `${process.env.QUILL_CMS}/responses/clone_responses`,
-          method: 'POST',
-          json: { original_question_uid: uid, new_question_uid: diagnosticSentenceFragment.key, }
-        },
-        (err, httpResponse, data) => {
-          // check again for number in state
-          // if equal to const set earlier, update the state
-          // otherwise, do nothing
-          if (err) {
-            console.log('uh oh', err)
-          } else {
-            console.log('yay', data)
+  return (dispatch) => {
+    connectSentenceFragmentsRef.child(uid).on('value', (snapshot) => {
+      const connectSentenceFragment = snapshot ? snapshot.val() : null
+      if (connectSentenceFragment) {
+        const diagnosticSentenceFragment = diagnosticSentenceFragmentsRef.push(connectSentenceFragment)
+        request(
+          {
+            url: `${process.env.QUILL_CMS}/responses/clone_responses`,
+            method: 'POST',
+            json: { original_question_uid: uid, new_question_uid: diagnosticSentenceFragment.key, }
+          },
+          (err, httpResponse, data) => {
+            // check again for number in state
+            // if equal to const set earlier, update the state
+            // otherwise, do nothing
+            if (err) {
+              dispatch({ type: C.ERROR_CLONING_CONNECT_SENTENCE_FRAGMENT })
+            } else {
+              dispatch({ type: C.SUCCESSFULLY_CLONED_CONNECT_SENTENCE_FRAGMENT })
+            }
           }
-        }
-      );
-    }
-  });
+        );
+      }
+    });
+  }
 }
