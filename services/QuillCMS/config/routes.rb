@@ -16,6 +16,7 @@ Rails.application.routes.draw do
 
   # Stats controller
   get 'stats/question_health_index' => 'stats#question_health_index'
+  get 'stats/diagnostic_question_health_index' => 'stats#diagnostic_question_health_index'
 
   #fragments controller for passing events to nlp.quill.org
   post 'fragments/is_sentence' => 'fragments#is_sentence'
