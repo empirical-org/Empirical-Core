@@ -10,7 +10,6 @@ import {
   hashToCollection
 } from 'quill-component-library/dist/componentLibrary'
 import { getParameterByName } from '../../libs/getParameterByName'
-import { getNonDiagnosticQuestions } from '../../libs/getNonDiagnosticQuestions'
 import _ from 'underscore';
 import {oldFlagToNew} from '../../libs/flagMap'
 
@@ -83,8 +82,7 @@ class ScoreAnalysis extends Component {
   }
 
   formatDataForQuestionType(questionData, scoreAnalysis, typeName, pathName) {
-    const nonDiagnosticQuestions = getNonDiagnosticQuestions(this.props.diagnosticLessons.data, questionData)
-    return _.map(hashToCollection(nonDiagnosticQuestions), (question) => {
+    return _.map(hashToCollection(questionData), (question) => {
       const scoreData = scoreAnalysis.data[question.key];
       if (scoreData) {
         console.log('scoreData', scoreData.activities)
@@ -349,8 +347,7 @@ function select(state) {
     fillInBlank: state.fillInBlank,
     concepts: state.concepts,
     scoreAnalysis: state.scoreAnalysis,
-    routing: state.routing,
-    diagnosticLessons: state.diagnosticLessons
+    routing: state.routing
   };
 }
 
