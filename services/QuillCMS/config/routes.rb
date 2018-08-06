@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   post  'responses/:question_uid/focus_point_affected_count' => 'responses#get_count_affected_by_focus_points'
   post 'questions/:question_uid/responses/search' => 'responses#search'
   post 'responses/batch_responses_for_lesson' => 'responses#batch_responses_for_lesson'
+  post 'responses/clone_responses' => 'responses#clone_responses'
 
   # Stats controller
   get 'stats/question_health_index' => 'stats#question_health_index'
