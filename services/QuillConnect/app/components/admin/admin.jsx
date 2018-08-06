@@ -13,9 +13,6 @@ import lessonActions from '../../actions/lessons';
 import levelActions from '../../actions/item-levels';
 import diagnosticLessonActions from '../../actions/diagnosticLessons'
 import * as titleCardActions from '../../actions/titleCards.ts';
-import * as connectSentenceCombiningActions from '../../actions/connectSentenceCombining';
-import * as connectFillInBlankActions from '../../actions/connectFillInBlank';
-import * as connectSentenceFragmentActions from '../../actions/connectSentenceFragments';
 
 const TabLink = props => (
   <li>
