@@ -56,7 +56,9 @@ class FillInBlankQuestions extends Component {
 function select(props) {
   return {
     fillInBlank: props.fillInBlank,
-    lessons: props.lessons
+    lessons: props.lessons,
+    connectFillInBlankQuestions: props.connectFillInBlankQuestions
+
   };
 }
 
