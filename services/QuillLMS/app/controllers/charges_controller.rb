@@ -13,7 +13,7 @@ class ChargesController < ApplicationController
   def new_teacher_premium
     new_sub = Subscription.give_teacher_premium_if_charge_succeeds(current_user)
     if new_sub.present?
-      SalesContactUpdaterWorker.perform_async(current_user.id, '2')
+      UpdateSalesContactWorker.perform_async(current_user.id, '2')
     end
     render json: {new_subscription: new_sub}
   end
@@ -21,7 +21,7 @@ class ChargesController < ApplicationController
   def new_school_premium
     new_sub = Subscription.give_school_premium_if_charge_succeeds(current_user.school, current_user)
     if new_sub.present?
-      SalesContactUpdaterWorker.perform_async(current_user.id, '6.1')
+      UpdateSalesContactWorker.perform_async(current_user.id, '6.1')
     end
     render json: {new_subscription: new_sub}
   end

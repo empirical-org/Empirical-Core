@@ -114,8 +114,8 @@ class Cms::UsersController < Cms::CmsController
   end
 
   def complete_sales_stage
-    success = SalesContactUpdater
-      .new(@user.id, params[:stage_number], current_user).update
+    success = UpdateSalesContact
+      .new(@user.id, params[:stage_number], current_user).call
 
     if success == true
       flash[:success] = 'Stage marked completed'
