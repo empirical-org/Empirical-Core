@@ -1,4 +1,4 @@
-class SalesContactUpdater
+class UpdateSalesContact
 
   def initialize(user_id, stage_number, current_user = nil, notifier = nil)
     @user_id      = user_id
@@ -7,7 +7,7 @@ class SalesContactUpdater
     @current_user = current_user
   end
 
-  def update
+  def call
     create_sales_contact
 
     if sales_stage.completed_at.nil? && update_sales_stage

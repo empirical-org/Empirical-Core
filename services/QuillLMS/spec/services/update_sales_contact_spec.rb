@@ -1,13 +1,13 @@
 require 'rails_helper'
 
-describe 'SalesContactUpdater' do
+describe UpdateSalesContact do
   before { Timecop.freeze }
   after { Timecop.return }
 
   it 'updates the sales stage for a user' do
     user = create(:user, role: 'teacher')
 
-    SalesContactUpdater.new(user.id, '1').update
+    UpdateSalesContact.new(user.id, '1').call
 
     stage = SalesStage.joins(:sales_stage_type)
       .where('sales_stage_types.name = ?', 'Basic Subscription')
@@ -20,7 +20,7 @@ describe 'SalesContactUpdater' do
     staff = create(:user, role: 'staff')
     user = create(:user, role: 'teacher')
 
-    SalesContactUpdater.new(user.id, '1', staff).update
+    UpdateSalesContact.new(user.id, '1', staff).call
 
     stage = SalesStage.joins(:sales_stage_type)
       .where('sales_stage_types.name = ?', 'Basic Subscription')
@@ -35,6 +35,6 @@ describe 'SalesContactUpdater' do
 
     expect(notifier).to receive(:perform_async).with(user.id, 'basic_subscription')
 
-    SalesContactUpdater.new(user.id, '1', nil, notifier).update
+    UpdateSalesContact.new(user.id, '1', nil, notifier).call
   end
 end

@@ -49,7 +49,7 @@ RSpec.describe ChargesController, type: :controller do
       end
 
       it 'should kick off the sales contact updater and return the json' do
-        expect(SalesContactUpdaterWorker).to receive(:perform_async).with(teacher.id, "2")
+        expect(UpdateSalesContactWorker).to receive(:perform_async).with(teacher.id, "2")
         post :new_teacher_premium
         expect(response.body).to eq({new_subscription: "subscription"}.to_json)
       end
@@ -74,7 +74,7 @@ RSpec.describe ChargesController, type: :controller do
       end
 
       it 'should kick off the sales contact updater and return the json' do
-        expect(SalesContactUpdaterWorker).to receive(:perform_async).with(teacher.id, "6.1")
+        expect(UpdateSalesContactWorker).to receive(:perform_async).with(teacher.id, "6.1")
         post :new_school_premium
         expect(response.body).to eq({new_subscription: "subscription"}.to_json)
       end
