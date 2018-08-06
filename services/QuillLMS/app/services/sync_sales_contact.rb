@@ -1,11 +1,11 @@
-class SalesContactSyncer
+class SyncSalesContact
   def initialize(teacher_id, serializer = nil, client = nil)
     @teacher_id = teacher_id
     @serializer = serializer || SerializeSalesContact
     @client     = client || SalesmachineClient
   end
 
-  def sync
+  def call
     if can_sync_contact?
       @client.batch([account_data])
       true
