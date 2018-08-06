@@ -37,7 +37,7 @@ class SalesContactUpdater
   end
 
   def create_sales_contact
-    SalesContactCreator.new(user.id).create if user.sales_contact.nil?
+    CreateSalesContact.new(user.id).call if user.sales_contact.nil?
   end
 
   def notify_cms
