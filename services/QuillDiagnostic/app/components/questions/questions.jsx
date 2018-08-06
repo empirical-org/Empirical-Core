@@ -322,7 +322,8 @@ function select(state) {
     questions: state.questions,
     // responses: state.responses,
     routing: state.routing,
-    lessons: state.lessons
+    lessons: state.lessons,
+    connectSentenceCombining: state.connectSentenceCombining
   };
 }
 

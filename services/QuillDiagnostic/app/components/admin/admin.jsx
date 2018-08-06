@@ -11,6 +11,9 @@ import diagnosticQuestionActions from '../../actions/diagnosticQuestions';
 import sentenceFragmentActions from '../../actions/sentenceFragments';
 import levelActions from '../../actions/item-levels';
 import * as titleCardActions from '../../actions/titleCards.ts';
+import * as connectSentenceCombiningActions from '../../actions/connectSentenceCombining';
+import * as connectFillInBlankActions from '../../actions/connectFillInBlank';
+import * as connectSentenceFragmentActions from '../../actions/connectSentenceFragments';
 
 const TabLink = props => (
   <li>
@@ -31,6 +34,9 @@ const adminContainer = React.createClass({
     this.props.dispatch(sentenceFragmentActions.startListeningToSentenceFragments());
     this.props.dispatch(levelActions.startListeningToItemLevels());
     this.props.dispatch(titleCardActions.startListeningToTitleCards());
+    this.props.dispatch(connectSentenceCombiningActions.startListeningToConnectQuestions())
+    this.props.dispatch(connectFillInBlankActions.startListeningToConnectFillInBlankQuestions())
+    this.props.dispatch(connectSentenceFragmentActions.startListeningToConnectSentenceFragments())
   },
 
   render() {
