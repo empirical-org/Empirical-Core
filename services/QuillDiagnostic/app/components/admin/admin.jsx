@@ -13,7 +13,7 @@ import levelActions from '../../actions/item-levels';
 import * as titleCardActions from '../../actions/titleCards.ts';
 import * as connectSentenceCombiningActions from '../../actions/connectSentenceCombining';
 import * as connectFillInBlankActions from '../../actions/connectFillInBlank';
-import * as connectSentenceFragmentActions from '../../actions/connectSentenceFragments';
+import * as connectSentenceFragmentActions from '../../actions/connectSentenceFragments.ts';
 
 const TabLink = props => (
   <li>
@@ -56,6 +56,7 @@ const adminContainer = React.createClass({
               Questions
             </p>
             <ul className="menu-list">
+              <TabLink to={'/admin/clone_questions'} activeClassName="is-active">Clone Connect Questions</TabLink>
               <TabLink to={'/admin/questions'} activeClassName="is-active">Diagnostic Sentence Combining</TabLink>
               <TabLink to={'/admin/sentence-fragments'} activeClassName="is-active">Diagnostic Sentence Fragments</TabLink>
               <TabLink to={'/admin/fill-in-the-blanks'} activeClassName="is-active">Diagnostic Fill In The Blanks</TabLink>

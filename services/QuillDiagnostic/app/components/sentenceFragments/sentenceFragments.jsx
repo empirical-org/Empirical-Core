@@ -65,8 +65,6 @@ function select(state) {
     sentenceFragments: state.sentenceFragments,
     routing: state.routing,
     lessons: state.lessons,
-    connectSentenceFragments: state.connectSentenceFragments
-
   }
 }
 
