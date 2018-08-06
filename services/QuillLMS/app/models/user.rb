@@ -587,7 +587,11 @@ private
   end
 
   def generate_username(classroom_id=nil)
-    self.username = UsernameGenerator.run(self.first_name, self.last_name, get_class_code(classroom_id))
+    self.username = GenerateUsername.new(
+      self.first_name,
+      self.last_name,
+      get_class_code(classroom_id)
+    ).call
   end
 
   def update_invitee_email_address
