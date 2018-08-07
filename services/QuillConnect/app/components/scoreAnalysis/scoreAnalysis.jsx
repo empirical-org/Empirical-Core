@@ -85,7 +85,7 @@ class ScoreAnalysis extends Component {
     return _.map(hashToCollection(questionData), (question) => {
       const scoreData = scoreAnalysis.data[question.key];
       if (scoreData) {
-        const percentageWeakResponses = Math.round(scoreData.common_unmatched_responses/scoreData.responses * 100)
+        const percentageWeakResponses = Math.round((scoreData.common_unmatched_responses/scoreData.responses) * 100)
         return {
           key: `${question.key}-${typeName}`,
           uid: question.key,
