@@ -9,7 +9,9 @@ const	diagnosticFillInBlankRef = rootRef.child('diagnostic_fillInBlankQuestions'
 export function startListeningToConnectFillInBlankQuestions() {
   return (dispatch, getState) => {
     connectFillInBlankRef.on('value', (snapshot) => {
-      dispatch({ type: C.RECEIVE_CONNECT_FILL_IN_BLANK_DATA, data: snapshot.val(), });
+      if (snapshot) {
+        dispatch({ type: C.RECEIVE_CONNECT_FILL_IN_BLANK_DATA, data: snapshot.val(), });
+      }
     });
   };
 }
