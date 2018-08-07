@@ -100,7 +100,7 @@ class User < ActiveRecord::Base
   end
 
   def utc_offset
-    if self.time_zone
+    if self.time_zone && self.time_zone.length > 0
       tz = TZInfo::Timezone.get(time_zone)
       tz.period_for_utc(Time.new.utc).utc_total_offset
     else

@@ -13,7 +13,6 @@ module ApplicationHelper
   end
 
   def question_section
-
   end
 
   def combine(array_1, array_2)
