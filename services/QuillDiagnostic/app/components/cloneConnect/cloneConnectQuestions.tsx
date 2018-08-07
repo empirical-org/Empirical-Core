@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import { connect } from 'react-redux';
 import Question from './question.tsx'
 import {
   cloneConnectSentenceCombiningQuestion
-} from '../../actions/connectSentenceCombining'
+} from '../../actions/connectSentenceCombining.ts'
 import {
   cloneConnectFillInBlankQuestion
-} from '../../actions/connectFillInBlank'
+} from '../../actions/connectFillInBlank.ts'
 import {
   cloneConnectSentenceFragment
 } from '../../actions/connectSentenceFragments.ts'
 
-class CloneConnectQuestions extends Component {
+class CloneConnectQuestions extends React.Component<any, any> {
   constructor(props) {
     super(props);
   }
@@ -33,6 +33,13 @@ class CloneConnectQuestions extends Component {
     }
   }
 
+  renderQuestionSection(title: string, questions) {
+    return <div>
+      <h3 style={{ fontWeight: 600, fontSize: '24px', }}>{title}</h3>
+      {questions}
+    </div>
+  }
+
   renderFillInBlankQuestions() {
     const { connectFillInBlank } = this.props
     if (connectFillInBlank && connectFillInBlank.questions) {
@@ -43,10 +50,7 @@ class CloneConnectQuestions extends Component {
           prompt={question.prompt}
         />)
       })
-      return <div>
-        <h3 style={{ fontWeight: '600', fontSize: '24px' }}>Fill in the Blank Questions</h3>
-        {questions}
-      </div>
+      return this.renderQuestionSection('Fill in the Blank Questions', questions)
     }
   }
 
@@ -60,10 +64,7 @@ class CloneConnectQuestions extends Component {
           prompt={question.prompt}
         />)
       })
-      return <div>
-        <h3 style={{ fontWeight: '600', fontSize: '24px' }}>Sentence Fragments</h3>
-        {questions}
-      </div>
+      return this.renderQuestionSection('Sentence Fragments', questions)
     }
   }
 
@@ -78,10 +79,7 @@ class CloneConnectQuestions extends Component {
           prompt={question.prompt}
         />)
       })
-      return <div>
-        <h3 style={{ fontWeight: '600', fontSize: '24px' }}>Sentence Combining Questions</h3>
-        {questions}
-      </div>
+      return this.renderQuestionSection('Sentence Combining Questions', questions)
     }
   }
 
@@ -103,8 +101,12 @@ function select(props) {
   return {
     connectFillInBlank: props.connectFillInBlank,
     connectSentenceFragments: props.connectSentenceFragments,
-    connectSentenceCombining: props.connectSentenceCombining
+    connectSentenceCombining: props.connectSentenceCombining,
   };
 }
 
-export default connect(select)(CloneConnectQuestions);
+function mergeProps(stateProps: Object, dispatchProps: Object, ownProps: Object) {
+  return {...ownProps, ...stateProps, ...dispatchProps}
+}
+
+export default connect(select, dispatch => ({dispatch}), mergeProps)(CloneConnectQuestions)

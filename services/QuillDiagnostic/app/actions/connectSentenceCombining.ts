@@ -9,7 +9,9 @@ const	diagnosticSentenceCombiningRef = rootRef.child('diagnostic_questions');
 export function startListeningToConnectQuestions() {
   return (dispatch, getState) => {
     connectSentenceCombiningRef.on('value', (snapshot) => {
-      dispatch({ type: C.RECEIVE_CONNECT_QUESTIONS_DATA, data: snapshot.val(), });
+      if (snapshot) {
+        dispatch({ type: C.RECEIVE_CONNECT_QUESTIONS_DATA, data: snapshot.val(), });
+      }
     });
   };
 }

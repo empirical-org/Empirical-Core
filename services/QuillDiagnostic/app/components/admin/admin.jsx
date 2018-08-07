@@ -11,8 +11,8 @@ import diagnosticQuestionActions from '../../actions/diagnosticQuestions';
 import sentenceFragmentActions from '../../actions/sentenceFragments';
 import levelActions from '../../actions/item-levels';
 import * as titleCardActions from '../../actions/titleCards.ts';
-import * as connectSentenceCombiningActions from '../../actions/connectSentenceCombining';
-import * as connectFillInBlankActions from '../../actions/connectFillInBlank';
+import * as connectSentenceCombiningActions from '../../actions/connectSentenceCombining.ts';
+import * as connectFillInBlankActions from '../../actions/connectFillInBlank.ts';
 import * as connectSentenceFragmentActions from '../../actions/connectSentenceFragments.ts';
 
 const TabLink = props => (

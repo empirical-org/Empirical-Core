@@ -9,7 +9,9 @@ const	diagnosticSentenceFragmentsRef = rootRef.child('diagnostic_sentenceFragmen
 export function startListeningToConnectSentenceFragments() {
   return (dispatch, getState) => {
     connectSentenceFragmentsRef.on('value', (snapshot) => {
-      dispatch({ type: C.RECEIVE_CONNECT_SENTENCE_FRAGMENT_DATA, data: snapshot.val(), });
+      if (snapshot) {
+        dispatch({ type: C.RECEIVE_CONNECT_SENTENCE_FRAGMENT_DATA, data: snapshot.val(), });
+      }
     });
   };
 }
