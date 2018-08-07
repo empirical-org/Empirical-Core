@@ -36,7 +36,7 @@ class TeachersController < ApplicationController
 
   # Called when a teacher accepts an invite to the school. This is sent to them via email.
   def add_school
-    if current_user && current_user == User.find_by(id: params[:id])
+    if current_user.present? && current_user == User.find_by(id: params[:id])
       # Current user is the user that was invited.
       school = School.find(params[:school_id])
       # User should only belong to one school, so we find their existing link and update the school.
@@ -56,7 +56,7 @@ class TeachersController < ApplicationController
   end
 
   def admin_dashboard
-    if current_user.admin?
+    if current_user.present? && current_user.admin?
       render 'admin'
     else
       redirect_to profile_path
@@ -98,7 +98,7 @@ class TeachersController < ApplicationController
   def get_completed_diagnostic_unit_info
     begin
       unit_id = current_user.finished_diagnostic_unit_ids.first.id
-      ca = ClassroomActivity.find_by(unit_id: unit_id, activity_id: [413, 447, 602])
+      ca = ClassroomActivity.find_by(unit_id: unit_id, activity_id: Activity.diagnostic_activity_ids)
       unit_info = { unit_id: unit_id, classroom_id: ca.classroom_id, activity_id: ca.activity_id }
     rescue
       unit_info = {}

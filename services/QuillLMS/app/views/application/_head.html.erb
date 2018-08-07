@@ -2,6 +2,9 @@
   <% if Rails.env.development? %>
     <title>[DEV] Quill.org &mdash; <%= @title || 'Interactive Writing and Grammar' %></title>
     <%= favicon_link_tag 'favicon-dev.ico' %>
+  <% elsif Rails.env.staging? %>
+    <title>[Staging] Quill.org &mdash; <%= @title || 'Interactive Writing and Grammar' %></title>
+    <%= favicon_link_tag 'favicon-staging.ico' %>
   <% else %>
     <title>Quill.org &mdash; <%= @title || 'Interactive Writing and Grammar' %></title>
     <%= favicon_link_tag 'favicon.ico' %>

@@ -80,7 +80,7 @@ EmpiricalGrammar::Application.routes.draw do
   resource :profile
   resources :password_reset
   resources :schools, only: [:index], format: 'json'
-  resources :students_classrooms do
+  resources :students_classrooms, only: :create do
     collection do
       get :classroom_manager
       get :classroom_manager_data
@@ -205,6 +205,8 @@ EmpiricalGrammar::Application.routes.draw do
       get 'students_by_classroom/u/:unit_id/a/:activity_id/c/:classroom_id' => 'diagnostic_reports#students_by_classroom'
       get 'recommendations_for_classroom/:unit_id/:classroom_id/activity/:activity_id' => 'diagnostic_reports#recommendations_for_classroom'
       get 'lesson_recommendations_for_classroom/u/:unit_id/c/:classroom_id/a/:activity_id' => 'diagnostic_reports#lesson_recommendations_for_classroom'
+      get 'diagnostic_activity_ids' => 'diagnostic_reports#diagnostic_activity_ids'
+      get 'activity_with_recommendations_ids' => 'diagnostic_reports#activity_with_recommendations_ids'
       get 'previously_assigned_recommendations/:classroom_id/activity/:activity_id' => 'diagnostic_reports#previously_assigned_recommendations'
       get 'report_from_unit_and_activity/u/:unit_id/a/:activity_id' => 'diagnostic_reports#redirect_to_report_for_most_recent_activity_session_associated_with_activity_and_unit'
       post 'assign_selected_packs' => 'diagnostic_reports#assign_selected_packs'
@@ -228,7 +230,7 @@ EmpiricalGrammar::Application.routes.draw do
       end
     end
 
-    resources :classrooms do
+    resources :classrooms, only: [:index, :new, :create, :update, :destroy] do
       collection do
         get :classrooms_i_teach
         get :regenerate_code
@@ -362,8 +364,8 @@ EmpiricalGrammar::Application.routes.draw do
   post '/session/login_through_ajax', to: 'sessions#login_through_ajax'
   resource :session
 
-  resource :account do
-    post :role, to: 'accounts#role'
+  resource :account, only: [:new, :create, :edit, :update] do
+    post :role, on: :member
   end
 
   namespace :auth do
@@ -384,13 +386,21 @@ EmpiricalGrammar::Application.routes.draw do
     put '/activity_categories/update_order_numbers', to: 'activity_categories#update_order_numbers'
     post '/activity_categories/destroy_and_recreate_acas', to: 'activity_categories#destroy_and_recreate_acas'
     resources :activity_categories, only: [:index, :show, :create, :update, :destroy]
+    resources :activity_classifications do
+      put :update_order_numbers, on: :collection
+      resources :activities do
+        resource :data
+        resources :recommendations do
+          post :sort, on: :collection
+          resources :criteria
+        end
+      end
+    end
     resources :admin_accounts, only: [:index, :create, :update, :destroy]
     resources :admins, only: [:index, :create, :update, :destroy]
     resources :categories
     resources :concepts
     resources :sections
-    put '/activity_classifications/update_order_numbers', to: 'activity_classifications#update_order_numbers'
-    resources :activity_classifications
     resources :topics
     resources :subscriptions
     resources :topic_categories
@@ -402,9 +412,6 @@ EmpiricalGrammar::Application.routes.draw do
     resources :blog_posts
     get '/blog_posts/:id/delete', to: 'blog_posts#destroy'
     get '/blog_posts/:id/unpublish', to: 'blog_posts#unpublish'
-    resources :activities, path: 'activity_type/:activity_classification_id/activities' do
-      resource :data
-    end
 
     resources :users do
       # resource :subscription

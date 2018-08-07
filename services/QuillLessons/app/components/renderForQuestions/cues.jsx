@@ -1,25 +1,23 @@
 import React from 'react';
-import Cue from './cue.jsx'
-import CueExplanation from './cueExplanation.jsx'
-import arrow from '../../img/arrow_icon.svg';
-import translations from '../../libs/translations/index.js';
+import {
+  Cue,
+  CueExplanation
+} from 'quill-component-library/dist/componentLibrary';
+
+const arrow = 'https://assets.quill.org/images/icons/arrow_icon.svg';
 
 export default React.createClass({
 
   getJoiningWordsText() {
-    if (this.props.getQuestion().cues && this.props.getQuestion().cues.length === 1) {
-      let text = translations.english['joining word cues single'];
-      if (this.props.language && this.props.language !== 'english') {
-        text += ` / ${translations[this.props.language]['joining word cues single']}`;
-      }
-      return text;
-    } else {
-      let text = translations.english['joining word cues multiple'];
-      if (this.props.language && this.props.language !== 'english') {
-        text += ` / ${translations[this.props.language]['joining word cues multiple']}`;
-      }
+    let text;
+    if (this.props.getQuestion().cues && this.props.getQuestion().cuesLabel) {
+      return this.props.getQuestion().cuesLabel;
+    } else if (this.props.getQuestion().cues && this.props.getQuestion().cues.length === 1) {
+      text = 'joining word';
       return text;
     }
+    text = 'joining words';
+    return text;
   },
 
   renderExplanation() {
@@ -35,17 +33,18 @@ export default React.createClass({
   },
 
   renderCues() {
-    let arrowPicture, text
+    let arrowPicture,
+      text;
     if (this.props.displayArrowAndText) {
-      arrowPicture = <img src={arrow} />
-      text = this.renderExplanation()
+      arrowPicture = <img src={arrow} />;
+      text = this.renderExplanation();
     } else {
-      arrowPicture = <span></span>
-      text = <span></span>
+      arrowPicture = <span />;
+      text = <span />;
     }
-    //const arrow = this.props.displayArrowAndText ? (<div><img src={arrow} /> {this.renderExplanation()}</div>) : <span></span>
+    // const arrow = this.props.displayArrowAndText ? (<div><img src={arrow} /> {this.renderExplanation()}</div>) : <span></span>
     if (this.props.getQuestion().cues && this.props.getQuestion().cues.length > 0 && this.props.getQuestion().cues[0] !== '') {
-      const cueDivs = this.props.getQuestion().cues.map((cue, i) => <Cue key={`${i}${cue}`} cue={cue} />)
+      const cueDivs = this.props.getQuestion().cues.map((cue, i) => <Cue key={`${i}${cue}`} cue={cue} />);
       return (
         <div className="cues">
           {cueDivs}

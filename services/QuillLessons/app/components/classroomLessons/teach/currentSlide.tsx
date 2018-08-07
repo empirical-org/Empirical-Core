@@ -16,7 +16,7 @@ import {
   setPrompt,
   hideSignupModal
 } from '../../../actions/classroomSessions';
-import Spinner from '../../../components/shared/spinner'
+import {Spinner} from 'quill-component-library/dist/componentLibrary';
 import CLLobby from './lobby';
 import CLStatic from './static';
 import CLSingleAnswer from './singleAnswer';

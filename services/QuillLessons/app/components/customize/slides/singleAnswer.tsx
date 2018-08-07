@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import * as CLIntF from '../../../interfaces/ClassroomLessons';
+import * as CLIntF from '../../../interfaces/classroomLessons';
 import _ from 'lodash'
 import PromptField from './slideComponents/promptField'
 import StudentSingleAnswer from '../../classroomLessons/play/singleAnswer'
@@ -76,6 +76,7 @@ class CustomizeSingleAnswer extends Component<SingleAnswerProps, {}>{
           <PromptField
             incompletePrompt={this.props.incompletePrompt}
             text={this.props.question.play.prompt}
+            reset={this.props.question.reset}
             handleTextChange={(e) => this.handlePromptChange(e)}
             showBlockquote={false}
           />
