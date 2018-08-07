@@ -1,15 +1,35 @@
 require 'rails_helper'
 
-describe CsvExportWorker, type: :worker do
-  let(:worker) { CsvExportWorker.new }
-  let(:csv_export) { create(:csv_export, teacher: teacher)}
-  let(:teacher) { create(:teacher) }
+describe CsvExportWorker do
+  let(:subject) { described_class.new }
 
-  subject { worker.perform(csv_export.id, teacher.id) }
+  describe '#perform' do
+    context 'when csv export is sent' do
+      before do
+        allow(CsvExport).to receive(:find) { double(sent?: true) }
+      end
 
-  skip 'generates the CSV' do
-    subject
-    expect(csv_export.reload.csv_file.url).to_not be_nil
+      it 'should return' do
+        expect(subject.perform(1, 2)).to eq nil
+      end
+    end
+
+    context 'when csv export is not sent' do
+      let(:file) { double(:file, url: "url") }
+      let(:export) { double(:export, sent?: false, export!: true, csv_file: file, mark_sent!: true) }
+
+      before do
+        allow(CsvExport).to receive(:find) { export }
+      end
+
+      it 'should export the csv, run pusher export completed service and mark the csv as sent' do
+        expect(export).to receive(:export!)
+        expect(export).to receive(:mark_sent!)
+        expect(PusherCSVExportCompleted).to receive(:run).with(1, "url")
+        subject.perform(2, 1)
+      end
+
+    end
   end
 
 end
