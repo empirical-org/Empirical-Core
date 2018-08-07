@@ -86,7 +86,6 @@ class ScoreAnalysis extends Component {
     return _.map(hashToCollection(diagnosticQuestions), (question) => {
       const scoreData = scoreAnalysis.data[question.key];
       if (scoreData) {
-        console.log('scoreData', scoreData.activities)
         const percentageWeakResponses = Math.round(scoreData.common_unmatched_responses/scoreData.responses * 100)
         return {
           key: `${question.key}-${typeName}`,

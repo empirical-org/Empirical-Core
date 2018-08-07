@@ -18,10 +18,10 @@ class FillInBlankQuestions extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { fillInBlank } = nextProps
+    const { fillInBlank, } = nextProps
     if (fillInBlank.hasreceiveddata) {
       if (Object.keys(this.state.questions).length === 0 || !_.isEqual(this.props.fillInBlank.data, fillInBlank.data) || (!_.isEqual(this.props.diagnosticLessons.data, diagnosticLessons.data))) {
-        this.setState({ questions: fillInBlank.data) })
+        this.setState({ questions: fillInBlank.data, })
       }
     }
   }
