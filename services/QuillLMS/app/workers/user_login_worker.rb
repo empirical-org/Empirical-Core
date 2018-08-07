@@ -7,11 +7,24 @@ class UserLoginWorker
     @user.update(ip_address: ip_address, last_sign_in: Time.now)
     @user.save
 
-    analytics = SigninAnalytics.new
+    analytics = Analyzer.new
     if @user.role == 'teacher'
-      analytics.track_teacher(@user)
+      analytics.track(@user, SegmentIo::Events::TEACHER_SIGNIN)
     elsif @user.role == 'student'
-      analytics.track_student(@user)
+      # keep these in the following order so the student is the last one identified
+      teacher = StudentsTeacher.run(@user)
+      analytics.track(
+        teacher,
+        SegmentIo::Events::TEACHERS_STUDENT_SIGNIN,
+      ) unless teacher.nil?
+      analytics.track_with_attributes(
+        @user,
+        SegmentIo::Events::STUDENT_SIGNIN,
+        {
+          context: { :ip => @user.ip_address },
+          integrations: { all: true, Intercom: false }
+        }
+      )
     end
 
   end

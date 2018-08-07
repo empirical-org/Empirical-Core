@@ -4,7 +4,7 @@ class BlogPostsController < ApplicationController
 
   def index
     @topics = BlogPost::TOPICS
-    @blog_posts = BlogPost.where(draft: false, topic: @topics)
+    @blog_posts = BlogPost.where(draft: false, topic: @topics).order('order_number')
   end
 
   def student_center_index
@@ -56,7 +56,7 @@ class BlogPostsController < ApplicationController
         raise ActionController::RoutingError.new('Topic Not Found')
       end
       topic = params[:topic].gsub('-', ' ').titleize
-        @blog_posts = BlogPost.where(draft: false, topic: topic)
+      @blog_posts = BlogPost.where(draft: false, topic: topic).order('order_number')
       # hide student part of topic name for display
       @title = @role == 'student' ? topic.gsub('Student ', '') : topic
       return render 'index'

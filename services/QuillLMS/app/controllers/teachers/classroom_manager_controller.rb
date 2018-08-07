@@ -78,7 +78,11 @@ class Teachers::ClassroomManagerController < ApplicationController
 
   def dashboard
     if current_user.classrooms_i_teach.empty? && current_user.archived_classrooms.none? && !current_user.has_outstanding_coteacher_invitation?
-      redirect_to new_teachers_classroom_path
+      if current_user.schools_admins.any?
+        redirect_to teachers_admin_dashboard_path
+      else
+        redirect_to new_teachers_classroom_path
+      end
     end
     @firewall_test = true
   end
@@ -131,7 +135,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def my_account
-    @time_zones = [{name: 'Select Time Zone', id: 'Select Time Zone'}].concat(TZInfo::Timezone.all_country_zone_identifiers.sort.map{|tz| {name: tz, id: tz}})
+    @time_zones = [{name: 'Select Time Zone', id: 'Select Time Zone'}].concat(TZInfo::Timezone.all_country_zone_identifiers.sort.map{|tz| {name: tz.gsub('_', ' '), id: tz}})
   end
 
   def my_account_data
@@ -174,7 +178,10 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def import_google_students
-    GoogleStudentImporterWorker.perform_async(current_user.id)
+    GoogleStudentImporterWorker.perform_async(
+      current_user.id,
+      'Teachers::ClassroomManagerController'
+    )
     render json: {}
   end
 

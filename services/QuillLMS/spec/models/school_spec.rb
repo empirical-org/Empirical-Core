@@ -12,7 +12,7 @@ describe School, type: :model do
       let!(:school_subscription) {create(:school_subscription, school: bk_school, subscription: subscription)}
 
     it "returns a subscription if a valid one exists" do
-      expect(bk_school.subscription).to eq(subscription)
+      expect(bk_school.reload.subscription).to eq(subscription)
     end
 
     it "returns the subscription with the latest expiration date multiple valid ones exists" do

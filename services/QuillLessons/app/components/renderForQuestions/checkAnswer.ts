@@ -1,5 +1,5 @@
 declare function require(name:string);
-import { hashToCollection } from '../../libs/hashToCollection';
+import { hashToCollection } from 'quill-component-library/dist/componentLibrary';
 import * as _ from 'underscore'
 import {checkSentenceCombining, checkDiagnosticQuestion} from 'quill-marking-logic'
 

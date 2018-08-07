@@ -26,8 +26,8 @@
       <h2><%= section[:title] %></h2>
       <section class='faq-accordion'>
         <% section[:faqs].each do |faq| %>
-          <div class='question' onClick="toggleAccordion(event)">
-            <div class='question-meta'>
+          <div class='question'>
+            <div class='question-meta' onClick="toggleAccordion(event)">
               <h3><%= faq[:question] %></h3>
               <a>Expand</a>
             </div>
@@ -49,7 +49,7 @@
     e.preventDefault();
     let display = 'block';
     let text = 'Collapse';
-    const expandOrCollapseLink = e.currentTarget.getElementsByClassName("question-meta")[0].getElementsByTagName('a')[0]
+    const expandOrCollapseLink = e.currentTarget.getElementsByTagName('a')[0]
     if(expandOrCollapseLink.innerText === 'Collapse') {
       display = 'none';
       text = 'Expand';

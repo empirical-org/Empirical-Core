@@ -9,11 +9,11 @@ const CompressionPlugin = require('compression-webpack-plugin');
 console.log('in prod: ', live);
 const webpack = require('webpack');
 const path = require('path');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 
-let config = {
+module.exports = {
+  mode: 'development',
   resolve: {
     modules: [
       path.resolve(__dirname, 'app'),
@@ -26,7 +26,7 @@ let config = {
       '.tsx'
     ],
   },
-  context: `${__dirname}/app`,
+  context: path.resolve(__dirname, 'app'),
   entry: {
     polyfills: ['babel-polyfill', 'whatwg-fetch'],
     vendor: ['pos', 'draft-js'],
@@ -35,25 +35,35 @@ let config = {
   output: {
     filename: '[name].[hash].js',
     chunkFilename: '[name].[chunkhash].js',
-    path: `${__dirname}/dist`,
+    path: path.resolve(__dirname, 'dist'),
+  },
+  devServer: {
+    contentBase: path.join(__dirname, 'dist'),
+    compress: true,
+    port: 8090,
   },
   plugins: [
     assetsPluginInstance,
-    new ExtractTextPlugin('style.css'),
     new webpack.EnvironmentPlugin({
       EMPIRICAL_BASE_URL: 'http://localhost:3000',
-      LESSONS_WEBSOCKETS_URL: 'localhost:8000',
+      LESSONS_WEBSOCKETS_URL: 'http://localhost:8000',
       NODE_ENV: 'development',
       QUILL_CMS: 'http://localhost:3100',
+    }),
+    new MiniCssExtractPlugin({
+      // Options similar to the same options in webpackOptions.output
+      // both options are optional
+      filename: '[name].css',
+      chunkFilename: '[id].css',
     }),
     new HtmlWebpackPlugin({
       template: './index.html.ejs',
       inject: 'body',
       chunks: ['polyfills', 'vendor', 'javascript'],
       chunksSortMode: (chunk1, chunk2) => {
-        let orders = ['vendor', 'polyfills', 'javascript'];
-        let order1 = orders.indexOf(chunk1.names[0]);
-        let order2 = orders.indexOf(chunk2.names[0]);
+        const orders = ['vendor', 'polyfills', 'javascript'];
+        const order1 = orders.indexOf(chunk1);
+        const order2 = orders.indexOf(chunk2);
         if (order1 > order2) {
           return 1;
         } else if (order1 < order2) {
@@ -72,13 +82,13 @@ let config = {
         use: [
           'react-hot-loader',
           'babel-loader',
-          'awesome-typescript-loader'
+          'ts-loader'
         ],
       },
       {
         test: /\.d.ts$/,
         use: [
-          'awesome-typescript-loader'
+          'ts-loader'
         ],
       },
       {
@@ -87,11 +97,9 @@ let config = {
       },
       {
         test: /\.scss$/,
-        use: live ? ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          // resolve-url-loader may be chained before sass-loader if necessary
-          use: ['css-loader', 'sass-loader'],
-        }) : ['style-loader', 'css-loader?sourceMap', 'sass-loader?sourceMap'],
+        use: [
+          !live ? 'style-loader' : MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'
+        ],
       },
       {
         test: /\.svg$/,
@@ -117,11 +125,5 @@ let config = {
     tls: 'empty',
   },
   // addition - add source-map support
-  devtool: 'eval',
+  devtool: 'cheap-module-eval-source-map',
 };
-
-if (!live) {
-  config.plugins.push(new HardSourceWebpackPlugin());
-}
-
-module.exports = config;
