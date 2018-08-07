@@ -1,5 +1,5 @@
 import * as React from "react";
-
+import {Link} from "react-router";
 import { ApolloProvider, Query } from "react-apollo";
 import gql from "graphql-tag";
 
@@ -71,7 +71,7 @@ class App extends React.Component {
     if (concept.parent && concept.parent.parent) {
       const grandparent = concept.parent.parent;
       return (
-        <h2>Grandparent: <a href={`/cms/concepts/${grandparent.id}`}>{grandparent.name}</a></h2>
+        <h2>Grandparent: <Link to={grandparent.id}>{grandparent.name}</Link></h2>
       )
     }
   }
@@ -80,7 +80,7 @@ class App extends React.Component {
     if (concept.parent) {
       const {parent} = concept;
       return (
-        <h2>Parent: <a href={`/cms/concepts/${parent.id}`}>{parent.name}</a></h2>
+        <h2>Parent: <Link to={parent.id}>{parent.name}</Link></h2>
       )
     }
   }
@@ -92,7 +92,7 @@ class App extends React.Component {
         <ul>
           {(concept.children.map(({id, name}) => {
             return (
-              <li key={id}><a href={`/cms/concepts/${id}`}>{name}</a></li>
+              <li key={id}><Link to={id}>{name}</Link></li>
             )
           }))}  
         </ul>
@@ -107,7 +107,7 @@ class App extends React.Component {
         <ul>
           {(concept.siblings.map(({id, name}) => {
             return (
-              <li key={id}><a href={`/cms/concepts/${id}`}>{name}</a></li>
+              <li key={id}><Link to={id}>{name}</Link></li>
             )
           }))}  
         </ul>
@@ -119,7 +119,7 @@ class App extends React.Component {
     return  (
       <ApolloProvider client={client}>
         <Query
-          query={gql(conceptQuery(this.props.concept_id))}
+          query={gql(conceptQuery(this.props.params.id))}
         >
           {({ loading, error, data }) => {
             if (loading) return <p>Loading...</p>;
