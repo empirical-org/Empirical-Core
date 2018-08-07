@@ -392,6 +392,12 @@ class User < ActiveRecord::Base
     clever_user.district.id
   end
 
+  def teacher_of_student
+    unless classrooms.empty?
+      classrooms.first.owner
+    end
+  end
+
   def send_welcome_email
     UserMailer.welcome_email(self).deliver_now! if email.present? && !auditor?
   end
