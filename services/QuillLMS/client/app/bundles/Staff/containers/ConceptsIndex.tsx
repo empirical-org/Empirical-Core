@@ -1,9 +1,6 @@
 import * as React from "react";
-
-import { ApolloProvider, Query } from "react-apollo";
+import { Query } from "react-apollo";
 import gql from "graphql-tag";
-
-import client from '../../../modules/apollo';
 import ConceptsTable from "../components/ConceptsTable";
 
 const conceptsIndexQuery:string = `
@@ -42,36 +39,21 @@ class App extends React.Component {
 
   render() {
     return  (
-      <ApolloProvider client={client}>
-        <Query
-          query={gql(conceptsIndexQuery)}
-        >
-          {({ loading, error, data }) => {
-            if (loading) return <p>Loading...</p>;
-            if (error) return <p>Error :(</p>;
+      <Query
+        query={gql(conceptsIndexQuery)}
+      >
+        {({ loading, error, data }) => {
+          if (loading) return <p>Loading...</p>;
+          if (error) return <p>Error :(</p>;
 
-            return (
-              <ConceptsTable concepts={data.concepts}/>
-            )
-          }}
-        </Query>
-      </ApolloProvider>
+          return (
+            <ConceptsTable concepts={data.concepts}/>
+          )
+        }}
+      </Query>
     )
   }
   
 };
 
 export default App
-
-{/* <table>
-                <thead>
-                  <tr>
-                    <th>Grandparent</th>
-                    <th>Parent</th>
-                    <th>Concept</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {this.renderList(data)}
-                </tbody>
-              </table> */}

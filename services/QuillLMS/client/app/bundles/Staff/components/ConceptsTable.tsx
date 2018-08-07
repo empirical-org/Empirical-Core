@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Table } from 'antd';
+import {Link} from 'react-router';
 import { Concept } from '../containers/ConceptsIndex';
 import moment from 'moment';
 
@@ -23,21 +24,21 @@ const columns = [
     title: 'Grandparent Name',
     dataIndex: 'grandparentConceptName',
     key: 'grandparentConceptName',
-    render: (text, record:ConceptRow) => (<a href={"/cms/concepts/" + record.grandparentConceptId}>{text}</a>),
+    render: (text, record:ConceptRow) => (<Link to={record.grandparentConceptId}>{text}</Link>),
     sorter:  (a, b) => a.grandparentConceptName.localeCompare(b.grandparentConceptName),
   },
   {
     title: 'Parent Name',
     dataIndex: 'parentConceptName',
     key: 'parentConceptName',
-    render: (text, record:ConceptRow) => (<a href={"/cms/concepts/" + record.parentConceptId}>{text}</a>),
+    render: (text, record:ConceptRow) => (<Link to={record.parentConceptId}>{text}</Link>),
     sorter:  (a, b) => a.parentConceptName.localeCompare(b.parentConceptName),
   },
   {
     title: 'Name',
     dataIndex: 'conceptName',
     key: 'conceptName',
-    render: (text, record:ConceptRow) => (<a href={"/cms/concepts/" + record.conceptId}>{text}</a>),
+    render: (text, record:ConceptRow) => (<Link to={record.conceptId}>{text}</Link>),
     sorter:  (a, b) => a.conceptName.localeCompare(b.conceptName),
   },
   {
