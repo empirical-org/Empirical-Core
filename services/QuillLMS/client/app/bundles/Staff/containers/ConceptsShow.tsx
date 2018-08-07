@@ -4,12 +4,21 @@ import { ApolloProvider, Query } from "react-apollo";
 import gql from "graphql-tag";
 
 import client from '../../../modules/apollo';
+import { 
+  Breadcrumb, 
+  Divider, 
+  Card, 
+  List,
+  Row,
+  Col,
+} from "antd";
 
 function conceptQuery(id){
   return `
   {
     concept(id: ${id}) {
       id
+      uid
       name
       parent {
         id
@@ -71,7 +80,7 @@ class App extends React.Component {
     if (concept.parent && concept.parent.parent) {
       const grandparent = concept.parent.parent;
       return (
-        <h2>Grandparent: <Link to={grandparent.id}>{grandparent.name}</Link></h2>
+        <Breadcrumb.Item><Link to={grandparent.id}>{grandparent.name}</Link></Breadcrumb.Item>
       )
     }
   }
@@ -80,38 +89,32 @@ class App extends React.Component {
     if (concept.parent) {
       const {parent} = concept;
       return (
-        <h2>Parent: <Link to={parent.id}>{parent.name}</Link></h2>
+        <Breadcrumb.Item><Link to={parent.id}>{parent.name}</Link></Breadcrumb.Item>
       )
     }
   }
 
   renderChildren(concept:QueryResult){
-    return (
-      <div>
-        <h4>Children</h4>
-        <ul>
-          {(concept.children.map(({id, name}) => {
-            return (
-              <li key={id}><Link to={id}>{name}</Link></li>
-            )
-          }))}  
-        </ul>
-      </div>
+    return (  
+      <List
+        size="small"
+        header={<div>Children</div>}
+        bordered
+        dataSource={concept.children}
+        renderItem={({id, name}) => (<List.Item><Link to={id}>{name}</Link></List.Item>)}
+      />
     )
   }
 
   renderSiblings(concept:QueryResult){
-    return (
-      <div>
-        <h4>Siblings</h4>
-        <ul>
-          {(concept.siblings.map(({id, name}) => {
-            return (
-              <li key={id}><Link to={id}>{name}</Link></li>
-            )
-          }))}  
-        </ul>
-      </div>
+    return (  
+      <List
+        size="small"
+        header={<div>Siblings</div>}
+        bordered
+        dataSource={concept.siblings}
+        renderItem={({id, name}) => (<List.Item><Link to={id}>{name}</Link></List.Item>)}
+      />
     )
   }
 
@@ -127,11 +130,20 @@ class App extends React.Component {
             const concept:QueryResult = data.concept;
             return (
               <div>
-                <h1>{concept.name}</h1>
-                {this.renderParent(concept)}
-                {this.renderGrandparent(concept)}
-                {this.renderSiblings(concept)}
-                {this.renderChildren(concept)}
+                <Breadcrumb>
+                  <Breadcrumb.Item><Link to="/">Home</Link></Breadcrumb.Item>
+                  {this.renderGrandparent(concept)}
+                  {this.renderParent(concept)}
+                  <Breadcrumb.Item>{concept.name}</Breadcrumb.Item>
+                </Breadcrumb>
+                <Divider />
+                <h3>{concept.name}</h3>
+                <p>{concept.uid}</p>
+                
+                <Row gutter={16}>
+                  <Col span={12}>{this.renderSiblings(concept)}</Col>
+                  <Col span={12}>{this.renderChildren(concept)}</Col>
+                </Row>
               </div>
             )
           }}
