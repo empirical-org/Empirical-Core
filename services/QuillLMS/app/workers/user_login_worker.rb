@@ -12,7 +12,7 @@ class UserLoginWorker
       analytics.track(@user, SegmentIo::Events::TEACHER_SIGNIN)
     elsif @user.role == 'student'
       # keep these in the following order so the student is the last one identified
-      teacher = StudentsTeacher.run(@user)
+      teacher = @user.teacher_of_student
       analytics.track(
         teacher,
         SegmentIo::Events::TEACHERS_STUDENT_SIGNIN,
