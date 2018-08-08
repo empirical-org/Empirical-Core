@@ -40,7 +40,12 @@ class Teachers::ProgressReportsController < ApplicationController
   end
 
   def set_admin_user
-    @admin_user = User.find_by(email: teacher_email) || Demo::AdminReportDemoCreator.create_demo(admin_demo_name, email_safe_school_name, teacher_email)
+    @admin_user = User.find_by(email: teacher_email) ||
+      Demo::CreateAdminReport.new(
+        admin_demo_name,
+        email_safe_school_name,
+        teacher_email
+      ).call
   end
 
   def teacher_email

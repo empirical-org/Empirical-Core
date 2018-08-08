@@ -82,46 +82,47 @@ describe Teachers::ProgressReportsController do
 
   describe '#admin_demo' do
     context 'when name given' do
-      context 'when user exists' do
-        let!(:user) { create(:user, email: "hello+demoadmin-test@quill.org") }
-
-        it 'should set the user and redirect to teacher_admin_dashboard path' do
-          get :admin_demo, name: "test"
-          expect(assigns(:admin_user)).to eq user
-        end
+      it 'sets the user and redirects to teacher_admin_dashboard path when user exists' do
+        user = create(:user, email: "hello+demoadmin-test@quill.org")
+        get :admin_demo, name: "test"
+        expect(assigns(:admin_user)).to eq user
       end
 
-      context 'when user does not exist' do
-        before do
-          allow(Demo::AdminReportDemoCreator).to receive(:create_demo) { |name| create(:user, email: "hello+demoadmin-#{name}@quill.org" )  }
+      it 'sets the user, redirects to teacher_admin_dashboard path when user doesnt exist' do
+        admin_report_service = double('admin_report_service')
+        allow(admin_report_service).to receive(:call) do
+          create(:user, email: "hello+demoadmin-test@quill.org")
         end
 
-        it 'should set the user and redirect to teacher_admin_dashboard path' do
-          expect(Demo::AdminReportDemoCreator).to receive(:create_demo).with("test", "test", "hello+demoadmin-test@quill.org")
-          get :admin_demo, name: "test"
-        end
+        expect(Demo::CreateAdminReport)
+          .to receive(:new)
+          .with("test", "test", "hello+demoadmin-test@quill.org")
+          .and_return(admin_report_service)
+
+        get :admin_demo, name: "test"
       end
     end
 
     context 'when name not given' do
-      context 'when user exists' do
-        let!(:user) { create(:user, email: "hello+demoadmin-admindemoschool@quill.org") }
+      it 'sets the user and redirect to teacher_admin_dashboard path when user exists' do
+        user = create(:user, email: "hello+demoadmin-admindemoschool@quill.org")
 
-        it 'should set the user and redirect to teacher_admin_dashboard path' do
-          get :admin_demo
-          expect(assigns(:admin_user)).to eq user
-        end
+        get :admin_demo
+        expect(assigns(:admin_user)).to eq user
       end
 
-      context 'when user does not exist' do
-        before do
-          allow(Demo::AdminReportDemoCreator).to receive(:create_demo) { |name, school_name, email| create(:user, email: email)  }
+      it 'sets the user, redirects to teacher_admin_dashboard path when user does not exist' do
+        admin_report_service = double('admin_report_service')
+        allow(admin_report_service).to receive(:call) do
+          create(:user, email: "hello+demoadmin-admindemoschool@quill.org")
         end
 
-        it 'should set the user and redirect to teacher_admin_dashboard path' do
-          expect(Demo::AdminReportDemoCreator).to receive(:create_demo).with("Admin Demo School", "admindemoschool", "hello+demoadmin-admindemoschool@quill.org")
-          get :admin_demo
-        end
+        expect(Demo::CreateAdminReport)
+          .to receive(:new)
+          .with("Admin Demo School", "admindemoschool", "hello+demoadmin-admindemoschool@quill.org")
+          .and_return(admin_report_service)
+
+        get :admin_demo
       end
     end
   end
@@ -132,7 +133,7 @@ describe Teachers::ProgressReportsController do
       expect(response).to render_template "landing_page"
     end
   end
-  
+
   describe '#activities_scores_by_classroom' do
     it 'should render the activities scores by classroom' do
       get :activities_scores_by_classroom
