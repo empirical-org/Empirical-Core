@@ -139,7 +139,7 @@ const playLessonQuestion = React.createClass<any, any>({
     if (override) {
       sentence = override;
     } else if (this.getQuestion() && this.getQuestion().modelConceptUID) {
-      sentence = 'Revise your work. Use the model below as an example.';
+      sentence = 'Revise your work. Use the hint below as an example.';
     } else {
       sentence = 'Keep writing! Revise your sentence by changing the order of the ideas.';
     }

@@ -121,8 +121,8 @@ describe Api::V1::ActivitySessionsController, type: :controller do
   end
 
   describe '#create' do
-    let(:classroom_activity) { create(:classroom_activity_with_activity) }
-    let(:session) { create(:proofreader_activity_session, classroom_activity: classroom_activity) }
+    let(:classroom_unit) { create(:classroom_unit) }
+    let(:session) { create(:proofreader_activity_session, classroom_unit: classroom_unit) }
 
     it 'should create the activity session' do
       put :create, params: session.attributes.except(:id, :completed_at, :user_id, :created_at, :updated_at), format: :json

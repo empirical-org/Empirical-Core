@@ -3,7 +3,7 @@ import { render } from 'react-dom'
 import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 import TeacherFixIndex from '../components/teacher_fix/index.jsx'
 import UnarchiveUnits from '../components/teacher_fix/unarchive_units.jsx'
-import RecoverClassroomActivities from '../components/teacher_fix/recover_classroom_activities.jsx'
+import RecoverClassroomUnits from '../components/teacher_fix/recover_classroom_units.jsx'
 import RecoverActivitySessions from '../components/teacher_fix/recover_activity_sessions.jsx'
 import MergeStudentAccounts from '../components/teacher_fix/merge_student_accounts.jsx'
 import MergeTeacherAccounts from '../components/teacher_fix/merge_teacher_accounts.jsx'
@@ -19,7 +19,7 @@ export default React.createClass({
 			<Router Router history={browserHistory}>
         <Route path="/teacher_fix" component={TeacherFixIndex}/>
 				<Route path="/teacher_fix/unarchive_units" component={UnarchiveUnits}/>
-				<Route path="/teacher_fix/recover_classroom_activities" component={RecoverClassroomActivities}/>
+				<Route path="/teacher_fix/recover_classroom_units" component={RecoverClassroomUnits}/>
 				<Route path="/teacher_fix/recover_activity_sessions" component={RecoverActivitySessions}/>
 				<Route path="/teacher_fix/merge_student_accounts" component={MergeStudentAccounts}/>
 				<Route path="/teacher_fix/merge_teacher_accounts" component={MergeTeacherAccounts}/>

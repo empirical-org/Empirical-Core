@@ -88,7 +88,7 @@ export default React.createClass({
     } else {
       linkText = 'Start Activity';
     }
-    return <a href={activityLaunchLink(this.props.data.ca_id)}>{linkText}</a>;
+    return <a href={activityLaunchLink(this.props.data.ca_id, this.props.data.activity_id)}>{linkText}</a>;
   },
 
   render() {

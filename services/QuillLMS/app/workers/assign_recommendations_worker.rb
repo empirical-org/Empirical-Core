@@ -9,22 +9,17 @@ class AssignRecommendationsWorker
       unit = find_unit(units)
       unit.update(visible:true) if unit && !unit.visible
     end
-    classroom_data = {
-      id: classroom_id,
-      student_ids: student_id_array,
-      assign_on_join: assign_on_join
-    }
-    unit ||= nil
-    assign_unit_to_one_class(unit, classroom_id, classroom_data, unit_template_id, teacher.id)
-    track_recommendation_assignment(teacher)
-    PusherRecommendationCompleted.run(classroom, unit_template_id, lesson) if last
-  end
-
-  private
-  def assign_unit_to_one_class(unit, classroom_id, classroom_data, unit_template_id, teacher_id)
-    if unit.present?
-      show_classroom_activities(unit.id, classroom_id)
-      Units::Updater.assign_unit_template_to_one_class(unit.id, classroom_data, unit_template_id, teacher_id)
+    if units.length > 1
+      visible_units = units.where(visible: true)
+      unit = visible_units.length > 0 ? visible_units.first : units.order('updated_at DESC').first
+    elsif units.length == 1
+      unit = units.first
+    end
+    unit.update(visible: true) if unit && !unit.visible
+    ClassroomUnit.unscoped.where(unit_id: unit.id, classroom_id: classroom_id).each { |ca| ca.update(visible: true) } if unit
+    classroom_data = {id: classroom_id, student_ids: student_id_array, assign_on_join: assign_on_join}
+    if unit
+        Units::Updater.assign_unit_template_to_one_class(unit.id, classroom_data, unit_template_id, teacher.id)
     else
       #  TODO: use a find or create for the unit var above.
       #  This way, we can just pass the units creator a unit argument.

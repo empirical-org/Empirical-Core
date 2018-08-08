@@ -9,15 +9,15 @@ class ProgressReports::Standards::NewStudent
     classroom_id = filters ? filters["classroom_id"] : nil
     results = ::User.with(best_activity_sessions:
      ("SELECT activity_sessions.*, activities.topic_id FROM activity_sessions
-          JOIN classroom_activities ON activity_sessions.classroom_activity_id = classroom_activities.id
-          JOIN activities ON classroom_activities.activity_id = activities.id
-          JOIN classrooms ON classroom_activities.classroom_id = classrooms.id
+          JOIN classroom_units ON activity_sessions.classroom_unit_id = classroom_units.id
+          JOIN activities ON activity_sessions.activity_id = activities.id
+          JOIN classrooms ON classroom_units.classroom_id = classrooms.id
           JOIN classrooms_teachers ON classrooms.id = classrooms_teachers.classroom_id AND classrooms_teachers.user_id = #{@teacher.id}
           WHERE activity_sessions.is_final_score
           #{topic_conditional(topic_id)}
           #{classroom_conditional(classroom_id)}
           AND activity_sessions.visible
-          AND classroom_activities.visible")).with(best_per_topic_user: ProgressReports::Standards::Student.best_per_topic_user).select(<<-SQL
+          AND classroom_units.visible")).with(best_per_topic_user: ProgressReports::Standards::Student.best_per_topic_user).select(<<-SQL
         users.id,
         users.name,
         #{User.sorting_name_sql},

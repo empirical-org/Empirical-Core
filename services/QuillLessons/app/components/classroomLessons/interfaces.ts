@@ -1,5 +1,9 @@
 import * as CLIntF from '../../interfaces/classroomLessons'
 
+export type ClassroomSessionId = string
+
+export type ClassroomUnitId = string
+
 export interface ClassroomLessonSession {
   students: Students;
   presence: Presence;
