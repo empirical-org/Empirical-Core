@@ -28,8 +28,8 @@ module TeachersData
     LEFT OUTER JOIN (SELECT acss_ids.teacher_id, #{time_spent}) AS time_spent, SUM(acss_ids.number_of_questions_completed) AS number_of_questions_completed FROM activity_sessions
       INNER JOIN (SELECT users.id AS teacher_id, COUNT(DISTINCT concept_results.id) AS number_of_questions_completed, activity_sessions.id AS activity_session_id FROM users
       INNER JOIN units ON users.id = units.user_id
-      INNER JOIN classroom_activities ON units.id = classroom_activities.unit_id
-      INNER JOIN activity_sessions ON classroom_activities.id = activity_sessions.classroom_activity_id
+      INNER JOIN classroom_units ON units.id = classroom_units.unit_id
+      INNER JOIN activity_sessions ON classroom_units.id = activity_sessions.classroom_unit_id
       INNER JOIN concept_results ON activity_sessions.id = concept_results.activity_session_id
       WHERE users.id IN (#{teacher_ids_str})
       AND activity_sessions.state = 'finished'

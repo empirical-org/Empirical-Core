@@ -37,7 +37,10 @@ module QuillAuthentication
   end
 
   def classroom_teacher!(classroom_id)
-    return if ClassroomsTeacher.exists?(classroom_id: classroom_id, user: current_user)
+    return if ClassroomsTeacher.exists?(
+      classroom_id: classroom_id,
+      user: current_user
+    )
     auth_failed
   end
 

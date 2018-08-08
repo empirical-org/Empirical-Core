@@ -24,20 +24,22 @@ class TeacherFixController < ApplicationController
       Unit.unscoped.where(id: id).first.update_attribute('name', name)
     end
     Unit.unscoped.where(id: unit_ids).update_all(visible: true)
-    classroom_activities = ClassroomActivity.unscoped.where(unit_id: unit_ids)
-    classroom_activities.update_all(visible: true)
-    ActivitySession.unscoped.where(classroom_activity_id: classroom_activities.ids).update_all(visible: true)
+    classroom_units = ClassroomUnit.where(unit_id: unit_ids)
+    classroom_units.update_all(visible: true)
+    unit_activities = UnitActivity.where(unit_id: unit_ids)
+    unit_activities.update_all(visible: true)
+    ActivitySession.unscoped.where(classroom_unit_id: classroom_units.ids).update_all(visible: true)
     render json: {}, status: 200
   end
 
-  def recover_classroom_activities
+  def recover_classroom_units
     classroom = Classroom.find_by_code(params['class_code'])
     if classroom
-      classroom_activities = ClassroomActivity.unscoped.where(classroom_id: classroom.id)
-      unit_ids = classroom_activities.map(&:unit_id)
+      classroom_units = ClassroomUnit.unscoped.where(classroom_id: classroom.id)
+      unit_ids = classroom_units.map(&:unit_id)
       Unit.unscoped.where(visible: false, id: unit_ids).update_all(visible: true)
-      classroom_activities.update_all(visible: true)
-      ActivitySession.unscoped.where(classroom_activity_id: classroom_activities.ids).update_all(visible: true)
+      classroom_units.update_all(visible: true)
+      ActivitySession.unscoped.where(classroom_unit_id: classroom_units.ids).update_all(visible: true)
       render json: {}, status: 200
     else
       render json: {error: 'No such classroom'}
@@ -49,9 +51,9 @@ class TeacherFixController < ApplicationController
     if user && user.role == 'teacher'
       unit = Unit.find_by(name: params['unit_name'], user_id: user.id)
       if unit
-        ClassroomActivity.unscoped.where(unit_id: unit.id).each do |ca|
-          activity_sessions = ActivitySession.unscoped.where(classroom_activity_id: ca.id)
-          ca.update(visible: true, assigned_student_ids: activity_sessions.map(&:user_id))
+        ClassroomUnit.unscoped.where(unit_id: unit.id).each do |cu|
+          activity_sessions = ActivitySession.unscoped.where(classroom_unit_id: cu.id)
+          cu.update(visible: true, assigned_student_ids: activity_sessions.map(&:user_id))
           activity_sessions.update_all(visible: true)
         end
         render json: {}, status: 200

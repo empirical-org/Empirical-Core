@@ -9,6 +9,10 @@ import {
   startListeningToSession
 } from '../../actions/classroomSessions'
 import {getParameterByName} from '../../libs/getParameterByName'
+import {
+  ClassroomSessionId,
+  ClassroomUnitId
+} from '../classroomLessons/interfaces'
 
 import {
   getCurrentUserAndCoteachersFromLMS,
@@ -29,20 +33,33 @@ interface customizeProps {
   routes: any
 }
 
-class Customize extends React.Component<customizeProps> {
+interface customizeState {
+  classroomUnitId: ClassroomUnitId|null,
+  classroomSessionId: ClassroomSessionId|null
+}
+
+class Customize extends React.Component<customizeProps, customizeState> {
   constructor(props: customizeProps) {
 
     super(props)
+
+    const classroomUnitId: ClassroomUnitId|null = getParameterByName('classroom_unit_id')
+    const activityUid = props.params.lessonID
+    const classroomSessionId: ClassroomSessionId|null = classroomUnitId ? classroomUnitId.concat(activityUid) : null
+    this.state = {
+      classroomUnitId,
+      classroomSessionId
+    }
+
     props.dispatch(getCurrentUserAndCoteachersFromLMS())
     // props.dispatch(firebaseAuth())
 
-    if (props.params.lessonID) {
-      props.dispatch(getClassLesson(props.params.lessonID))
+    if (activityUid) {
+      props.dispatch(getClassLesson(activityUid))
     }
 
-    const ca_id: string|null = getParameterByName('classroom_activity_id')
-    if (ca_id) {
-      props.dispatch(startListeningToSession(ca_id))
+    if (classroomSessionId) {
+      props.dispatch(startListeningToSession(classroomSessionId))
     }
 
     this.goToSuccessPage = this.goToSuccessPage.bind(this)
@@ -66,9 +83,9 @@ class Customize extends React.Component<customizeProps> {
   }
 
   goToSuccessPage() {
-    const classroomActivityId = getParameterByName('classroom_activity_id')
+    const classroomUnitId = getParameterByName('classroom_unit_id')
     let link = `/customize/${this.props.params.lessonID}/${this.props.params.editionID}/success`
-    link = classroomActivityId ? link.concat(`?&classroom_activity_id=${classroomActivityId}`) : link
+    link = classroomUnitId ? link.concat(`?&classroom_unit_id=${classroomUnitId}`) : link
     this.props.router.push(link)
   }
 

@@ -25,4 +25,15 @@ class Concept < ActiveRecord::Base
     concept2 + concept1 + concept0
   end
 
+  def self.find_by_id_or_uid(arg)
+    begin
+      find(arg)
+    rescue ActiveRecord::RecordNotFound
+      find_by(uid: arg)
+    rescue ActiveRecord::RecordNotFound
+      raise ActiveRecord::RecordNotFound.new(
+        "Couldn't find Concept with 'id' or 'uid'=#{arg}"
+      )
+    end
+  end
 end
