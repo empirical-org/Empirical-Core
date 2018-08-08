@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import ScriptComponent from '../shared/scriptComponent';
 import {
   ClassroomLessonSession,
@@ -30,7 +30,7 @@ interface SingleAnswerState {
 
 }
 
-class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
+class SingleAnswer extends React.Component<SingleAnswerProps, SingleAnswerState> {
   constructor(props) {
     super(props);
     this.toggleSelected = this.toggleSelected.bind(this);

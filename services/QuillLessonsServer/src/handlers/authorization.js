@@ -1,6 +1,6 @@
 function _isPreviewSession(data) {
   const previewIdRegExp = RegExp('^prvw\-.+$');
-  return previewIdRegExp.test(data.classroomActivityId);
+  return previewIdRegExp.test(data.classroomUnitId);
 }
 
 function _isRoleAuthorized(permittedRoles, currentRole) {
@@ -8,7 +8,8 @@ function _isRoleAuthorized(permittedRoles, currentRole) {
 }
 
 function _belongsToSession(data, token) {
-  return data.classroomActivityId == token.data.classroom_activity_id;
+  const regexedClassroomUnitId = new RegExp('^' + token.data.classroom_unit_id)
+  return regexedClassroomUnitId.test(data.classroomSessionId);
 }
 
 function _reportError(errorText, data, token, client) {

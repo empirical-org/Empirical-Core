@@ -90,16 +90,16 @@ describe 'SerializeSalesAccount' do
     active_student = create(:user, role: 'student')
     teacher = create(:user, role: 'teacher')
     classroom = create(:classroom)
-    classroom_activity = create(:classroom_activity, classroom: classroom)
+    classroom_unit = create(:classroom_unit, classroom: classroom)
     create(:classrooms_teacher, user: teacher, classroom: classroom)
     create(:activity_session,
       user: active_student,
-      classroom_activity: classroom_activity,
+      classroom_unit: classroom_unit,
       state: 'finished'
     )
     create(:activity_session,
       user: active_student,
-      classroom_activity: classroom_activity,
+      classroom_unit: classroom_unit,
       state: 'finished'
     )
     school.users << active_student

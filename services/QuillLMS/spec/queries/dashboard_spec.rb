@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'Dashboard', redis: :true do
-  let(:classroom_with_sufficient_data) {create(:classroom_with_35_classroom_activities)}
+  let(:classroom_with_sufficient_data) {create(:classroom_with_35_classroom_units)}
   let(:teacher_with_sufficient_data) {classroom_with_sufficient_data.owner}
   let(:classroom_with_no_activities) {create(:classroom)}
   let(:teacher_with_no_activities) {classroom_with_no_activities.owner}
@@ -25,8 +25,8 @@ describe 'Dashboard', redis: :true do
 
     it "returns the lowest scoring student" do
       results = Dashboard.queries(teacher_with_sufficient_data)
-      ca_ids = ClassroomActivity.where(classroom_id: classroom_with_sufficient_data.id).ids
-      name_of_lowest = ActivitySession.where(classroom_activity_id: ca_ids).order('percentage asc').limit(1).first.user.name
+      cu_ids = ClassroomUnit.where(classroom_id: classroom_with_sufficient_data.id).ids
+      name_of_lowest = ActivitySession.where(classroom_unit_id: cu_ids).order('percentage asc').limit(1).first.user.name
       expect(results.to_s).to include(name_of_lowest)
     end
   end

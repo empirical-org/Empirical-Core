@@ -1,30 +1,18 @@
 require 'google/api_client'
 
-class GoogleIntegration::Announcements
-  include Rails.application.routes.url_helpers
-  attr_reader :unit, :classroom_activity
+class GoogleIntegration::LessonAnnouncement
+  attr_reader :classroom_unit, :unit_activity
 
-  def self.post_unit(unit)
-    classroom_activities = unit.classroom_activities
-      .group_by { |classroom_activity| classroom_activity.activity_id }
-      .values
-      .first
-
-    classroom_activities.each do |classroom_activity|
-      if classroom_activity.is_valid_for_google_announcement_with_owner?
-        owner = classroom_activity.classroom.owner
-        new(classroom_activity, unit).post
-      end
-    end
+  def initialize(classroom_unit, unit_activity, client = nil)
+    @classroom_unit = classroom_unit
+    @unit_activity = unit_activity
+    @client = client
   end
 
-  def initialize(classroom_activity, unit=nil)
-    @classroom_activity = classroom_activity
-    @unit = unit
-  end
- 
   def post
-    handle_response { request }
+    if can_post_to_google_classroom?
+      handle_response { request }
+    end
   end
 
   private
@@ -50,7 +38,7 @@ class GoogleIntegration::Announcements
   end
 
   def body
-    if classroom_activity.assigned_student_ids.any? && !classroom_activity.assign_on_join
+    if individual_students?
       base_body.merge(individual_students_body)
     else
       base_body
@@ -64,7 +52,7 @@ class GoogleIntegration::Announcements
   end
 
   def classroom
-    classroom_activity.classroom
+    classroom_unit.classroom
   end
 
   def user
@@ -76,16 +64,18 @@ class GoogleIntegration::Announcements
   end
 
   def announcement_text
-    if @unit.present?
-      unit_url = classroom_url(classroom.id, anchor: unit.id)
+    activity_url  = ActivitySession.generate_activity_url(
+      classroom_unit.id,
+      unit_activity.activity.id
+    )
+    activity_name = unit_activity.activity.name
 
-      "New Unit: #{@unit.name} #{unit_url}"
-    else
-      activity_url  = classroom_activity.generate_activity_url
-      activity_name = classroom_activity.activity.name
+    "New Activity: #{activity_name} #{activity_url}"
+  end
 
-      "New Activity: #{activity_name} #{activity_url}"
-    end
+  def individual_students?
+    classroom_unit.assigned_student_ids.any? &&
+    !classroom_unit.assign_on_join
   end
 
   def individual_students_body
@@ -98,7 +88,7 @@ class GoogleIntegration::Announcements
   end
 
   def assigned_student_ids_as_google_ids
-    User.where(id: classroom_activity.assigned_student_ids)
+    User.where(id: classroom_unit.assigned_student_ids)
       .pluck(:google_id)
       .compact
   end
@@ -109,5 +99,9 @@ class GoogleIntegration::Announcements
 
   def api_method
     client.discovered_api('classroom', 'v1').courses.announcements.create
+  end
+
+  def can_post_to_google_classroom?
+    classroom.google_classroom_id.present?
   end
 end

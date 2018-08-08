@@ -1,8 +1,6 @@
 FactoryBot.define do
   factory :activity_session do
     activity            { create(:activity, :production) }
-    classroom_activity  { create(:classroom_activity, activity: activity) }
-    user                { create(:student) }
     uid                 { SecureRandom.urlsafe_base64 }
     percentage          { Faker::Number.decimal(0, 2) }
     started_at          { created_at }
@@ -11,14 +9,28 @@ FactoryBot.define do
     is_final_score      true
     is_retry            false
     temporary           false
+    visible             true
+
+    before(:create) do |activity_session|
+      if activity_session.user && !activity_session.classroom_unit
+        activity_session.classroom_unit = create(:classroom_unit, assigned_student_ids: [activity_session.user.id])
+      elsif activity_session.user && activity_session.classroom_unit && activity_session.classroom_unit.assigned_student_ids.empty?
+        activity_session.classroom_unit.update(assigned_student_ids: [activity_session.user.id])
+      elsif activity_session.classroom_unit && !activity_session.user
+        student = create(:student)
+        activity_session.user = student
+        activity_session.classroom_unit.update(assigned_student_ids: [activity_session.user.id])
+      elsif !activity_session.user && !activity_session.classroom_unit
+        student = create(:student)
+        activity_session.user = student
+        activity_session.classroom_unit = create(:classroom_unit, assigned_student_ids: [student.id])
+      end
+    end
 
     after(:create) do |activity_session|
-      unless activity_session.classroom_activity.nil?
-        classroom_activity = activity_session.classroom_activity
-      else # we'll do it live
-        classroom_activity = create(:classroom_activity, activity: activity_session.activity)
-      end
-      StudentsClassrooms.find_or_create_by(student_id: activity_session.user_id, classroom_id: classroom_activity.classroom_id )
+      classroom_unit = activity_session.classroom_unit
+      UnitActivity.find_or_create_by(activity: activity_session.activity, unit_id: classroom_unit.unit_id)
+      StudentsClassrooms.find_or_create_by(student_id: activity_session.user_id, classroom_id: classroom_unit.classroom_id )
       create(:concept_result, activity_session: activity_session)
     end
 
@@ -29,6 +41,13 @@ FactoryBot.define do
     trait :unstarted do
       percentage {nil}
       state 'unstarted'
+      completed_at {nil}
+      is_final_score false
+    end
+
+    trait :started do
+      percentage {nil}
+      state 'started'
       completed_at {nil}
       is_final_score false
     end
@@ -51,6 +70,12 @@ FactoryBot.define do
 
     factory :lesson_activity_session do
       activity { create(:lesson_activity) }
+    end
+
+    factory :activity_session_without_concept_results do
+      after(:create) do |activity_session|
+          ConceptResult.where(activity_session: activity_session).destroy_all
+      end
     end
   end
 end
