@@ -5,7 +5,7 @@ class ProgressReports::ActivitySession
 
   def results(filters)
     filters = (filters || {}).with_indifferent_access
-    query = ::ActivitySession.includes(:user, :classroom_activity, activity: [:topic, :classification])
+    query = ::ActivitySession.includes(:user, :classroom_unit, activity: [:topic, :classification])
       .references(:classification)
       .completed
       .by_teacher(@teacher)

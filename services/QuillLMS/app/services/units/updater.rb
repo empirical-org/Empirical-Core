@@ -1,6 +1,4 @@
 module Units::Updater
-
-
   # in this file, 'unit' refers to a unit object, 'activities_data' to an array of objects
   # with activity ids and due_dates, and 'classrooms_data' to an array of objects with an id
   # and array of student ids.
@@ -26,55 +24,66 @@ module Units::Updater
 
   private
 
-  def self.matching_or_new_classroom_activity(activity_data, classroom_id, extant_classroom_activities, new_cas, hidden_cas_ids, classroom, unit_id)
-
-    matching_ca = extant_classroom_activities.find{|ca| (ca.activity_id == activity_data[:id] && ca.classroom_id == classroom_id)}
-    if matching_ca
+  def self.matching_or_new_classroom_unit(classroom, extant_classroom_units, new_cus, hidden_cus_ids, unit_id)
+    classroom_id = classroom[:id].to_i
+    matching_cu = extant_classroom_units.find{|cu| cu.classroom_id == classroom_id}
+    if matching_cu
       if classroom[:student_ids] == false
         # then there are no assigned students and we should hide the cas
-        hidden_cas_ids.push(matching_ca.id)
-      elsif (matching_ca[:due_date] != activity_data[:due_date]) || (matching_ca.assigned_student_ids != classroom[:student_ids]) || matching_ca.assign_on_join != classroom[:assign_on_join]
+        hidden_cus_ids.push(matching_cu.id)
+      elsif (matching_cu.assigned_student_ids != classroom[:student_ids]) || matching_cu.assign_on_join != classroom[:assign_on_join]
         # then something changed and we should update
-        matching_ca.update!(due_date: activity_data[:due_date], assign_on_join: classroom[:assign_on_join], assigned_student_ids: classroom[:student_ids], visible: true)
+        matching_cu.update!(assign_on_join: classroom[:assign_on_join], assigned_student_ids: classroom[:student_ids], visible: true)
+      elsif !matching_cu.visible
+        matching_cu.update!(visible: true)
       end
-    elsif (classroom[:student_ids] || classroom[:assign_on_join]) && activity_data[:id]
+    elsif classroom[:student_ids] || classroom[:assign_on_join]
       # making an array of hashes to create in one bulk option
-      new_cas.push({activity_id: activity_data[:id],
-         classroom_id: classroom_id,
+      new_cus.push({classroom_id: classroom_id,
          unit_id: unit_id,
-         due_date: activity_data[:due_date],
          assign_on_join: classroom[:assign_on_join],
          assigned_student_ids: classroom[:student_ids]})
     end
   end
 
+  def self.matching_or_new_unit_activity(activity_data, extant_unit_activities, new_uas, hidden_ua_ids, unit_id)
+    matching_ua = extant_unit_activities.find{|ua| (ua.activity_id == activity_data[:id])}
+    if matching_ua
+      if matching_ua[:due_date] != activity_data[:due_date]
+        # then something changed and we should update
+        matching_ua.update!(due_date: activity_data[:due_date], visible: true)
+      elsif !matching_ua.visible
+        matching_ua.update!(visible: true)
+      end
+    elsif activity_data[:id]
+      # making an array of hashes to create in one bulk option
+      new_uas.push({activity_id: activity_data[:id],
+         unit_id: unit_id,
+         due_date: activity_data[:due_date]})
+    end
+  end
 
   def self.update_helper(unit_id, activities_data, classrooms_data, current_user_id)
-    extant_classroom_activities = ClassroomActivity.unscoped.where(unit_id: unit_id)
-    new_cas = []
-    hidden_cas_ids = []
+    extant_classroom_units = ClassroomUnit.where(unit_id: unit_id)
+    new_cus = []
+    hidden_cus_ids = []
+    extant_unit_activities = UnitActivity.where(unit_id: unit_id)
+    new_uas = []
+    hidden_ua_ids = []
     classrooms_data.each do |classroom|
-        product = activities_data.product([classroom[:id].to_i])
-        product.each do |pair|
-          activity_data, classroom_id = pair
-          self.matching_or_new_classroom_activity(activity_data, classroom_id, extant_classroom_activities, new_cas, hidden_cas_ids, classroom, unit_id)
-        end
+      self.matching_or_new_classroom_unit(classroom, extant_classroom_units, new_cus, hidden_cus_ids, unit_id)
     end
-    # TODO: this is messing everything up by not generating new activity sessions since it skips the callback
-    # however, it is far more efficient
-    # new_cas.any? ? ClassroomActivity.bulk_insert(values: new_cas) : nil
-    new_cas.uniq.each{|ca| ClassroomActivity.create(ca)}
-    # TODO: same as above -- efficient, but we need the callbacks
-    # hidden_cas_ids.any? ? ClassroomActivity.where(id: hidden_cas_ids).update_all(visible: false) : nil
-    hidden_cas_ids.each{|ca_id| ClassroomActivity.find_by_id(ca_id)&.update(visible: false)}
+    activities_data.each do |activity|
+      self.matching_or_new_unit_activity(activity, extant_unit_activities, new_uas, hidden_ua_ids, unit_id)
+    end
+    new_cus.uniq.each{|cu| ClassroomUnit.create(cu)}
+    hidden_cus_ids.each{|cu_id| ClassroomUnit.find_by_id(cu_id)&.update(visible: false)}
+    new_uas.uniq.each{|ua| UnitActivity.create(ua)}
+    hidden_ua_ids.each{|ua_id| UnitActivity.find_by_id(ua_id)&.update(visible: false)}
     unit = Unit.find unit_id
-    if (hidden_cas_ids.any?) && (new_cas.none?)
-      # then there is a chance that there are no existing classroom activities
-      unit.hide_if_no_visible_classroom_activities
+    if (hidden_ua_ids.any?) && (new_uas.none?)
+      unit.hide_if_no_visible_unit_activities
     end
-    # necessary activity sessions are created in an after_create and after_save callback
-    # in activity_sessions.rb
-    # TODO: Assign Activity Worker should be labeled as an analytics worker
     AssignActivityWorker.perform_async(current_user_id)
   end
 

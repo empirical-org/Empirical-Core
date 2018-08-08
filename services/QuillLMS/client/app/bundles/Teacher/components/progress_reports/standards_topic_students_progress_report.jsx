@@ -12,7 +12,7 @@ import userIsPremium from '../modules/user_is_premium'
 
 const showAllClassroomKey = 'All Classrooms'
 
-export default class extends React.Component {
+export default class IndividualStandardsReport extends React.Component {
 
   constructor(props) {
     super()
@@ -122,7 +122,7 @@ export default class extends React.Component {
 
   switchClassrooms(classroomName) {
     const classroom = this.state.classrooms.find(c => c.name === classroomName)
-    this.setState({selectedClassroom: classroom}, this.getData)
+    this.setState({ selectedClassroom: classroom }, this.getData)
   }
 
   render() {

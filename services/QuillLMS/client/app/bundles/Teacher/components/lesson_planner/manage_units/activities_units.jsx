@@ -8,7 +8,7 @@ export default React.createClass({
     const units = _.map(this.props.data, function (data) {
   			return (<Unit
     key={data.unitId}
-    hideClassroomActivity={this.props.hideClassroomActivity}
+    hideUnitActivity={this.props.hideUnitActivity}
     hideUnit={this.props.hideUnit}
     report={this.props.report}
     activityReport={this.props.activityReport}
