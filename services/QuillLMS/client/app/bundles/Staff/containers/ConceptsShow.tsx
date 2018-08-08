@@ -120,35 +120,33 @@ class App extends React.Component {
 
   render() {
     return  (
-      <ApolloProvider client={client}>
-        <Query
-          query={gql(conceptQuery(this.props.params.id))}
-        >
-          {({ loading, error, data }) => {
-            if (loading) return <p>Loading...</p>;
-            if (error) return <p>Error :(</p>;
-            const concept:QueryResult = data.concept;
-            return (
-              <div>
-                <Breadcrumb>
-                  <Breadcrumb.Item><Link to="/">Home</Link></Breadcrumb.Item>
-                  {this.renderGrandparent(concept)}
-                  {this.renderParent(concept)}
-                  <Breadcrumb.Item>{concept.name}</Breadcrumb.Item>
-                </Breadcrumb>
-                <Divider />
-                <h3>{concept.name}</h3>
-                <p>{concept.uid}</p>
-                
-                <Row gutter={16}>
-                  <Col span={12}>{this.renderSiblings(concept)}</Col>
-                  <Col span={12}>{this.renderChildren(concept)}</Col>
-                </Row>
-              </div>
-            )
-          }}
-        </Query>
-      </ApolloProvider>
+      <Query
+        query={gql(conceptQuery(this.props.params.id))}
+      >
+        {({ loading, error, data }) => {
+          if (loading) return <p>Loading...</p>;
+          if (error) return <p>Error :(</p>;
+          const concept:QueryResult = data.concept;
+          return (
+            <div>
+              <Breadcrumb>
+                <Breadcrumb.Item><Link to="/">Home</Link></Breadcrumb.Item>
+                {this.renderGrandparent(concept)}
+                {this.renderParent(concept)}
+                <Breadcrumb.Item>{concept.name}</Breadcrumb.Item>
+              </Breadcrumb>
+              <Divider />
+              <h3>{concept.name}</h3>
+              <p>{concept.uid}</p>
+              
+              <Row gutter={16}>
+                <Col span={12}>{this.renderSiblings(concept)}</Col>
+                <Col span={12}>{this.renderChildren(concept)}</Col>
+              </Row>
+            </div>
+          )
+        }}
+      </Query>
     )
   }
   
