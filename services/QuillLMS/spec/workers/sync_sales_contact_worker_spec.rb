@@ -4,15 +4,15 @@ describe SyncSalesContactWorker do
   let(:subject) { described_class.new }
 
   describe '#perform' do
-    let(:syncer) { double(:syncer, sync: true) }
+    let(:syncer) { double(:syncer, call: true) }
 
     before do
-      allow(SalesContactSyncer).to receive(:new) { syncer }
+      allow(SyncSalesContact).to receive(:new) { syncer }
     end
 
     it 'should sync the sales contact syncer' do
-      expect(SalesContactSyncer).to receive(:new).with(1)
-      expect(syncer).to receive(:sync)
+      expect(SyncSalesContact).to receive(:new).with(1)
+      expect(syncer).to receive(:call)
       subject.perform(1)
     end
   end
