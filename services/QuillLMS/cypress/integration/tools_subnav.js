@@ -23,5 +23,4 @@ describe('Tools Page Navbar', function() {
     cy.get('.q-nav-bar > .desktop-nav-list > #grammar').contains('Quill Grammar').click({force: true})
     cy.url().should('include', 'tools/grammar')
   })
-
 })

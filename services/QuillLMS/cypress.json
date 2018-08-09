@@ -4,5 +4,6 @@
   "pageLoadTimeout": 100000,
   "viewportWidth": 1440,
   "viewportHeight": 900,
-  "projectId": "duvidh"
+  "projectId": "duvidh",
+  "integrationFolder": "spec/features"
 }
