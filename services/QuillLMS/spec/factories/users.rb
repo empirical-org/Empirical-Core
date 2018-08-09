@@ -1,4 +1,10 @@
 FactoryBot.define do
+  factory :simple_user, class: 'User' do
+    name 'Jane Doe'
+    email 'fake@example.com'
+    password 'password'
+  end
+
   factory :user do
     name       { "#{Faker::Name.unique.first_name} #{Faker::Name.last_name}" }
     username   { name.gsub(' ', '-') }
