@@ -39,4 +39,6 @@ FactoryBot.define do
       end
     end
   end
+
+  factory :simple_school, class: 'School' do; end
 end
