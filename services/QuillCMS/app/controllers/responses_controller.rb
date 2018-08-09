@@ -153,6 +153,16 @@ class ResponsesController < ApplicationController
     render json: {questionsWithResponses: questions_with_responses}.to_json
   end
 
+  def replace_concept_uids
+    original_concept_uid = params[:original_concept_uid]
+    new_concept_uid = params[:new_concept_uid]
+    ActiveRecord::Base.connection.execute("
+      UPDATE responses
+      SET concept_results = concept_results - '#{original_concept_uid}' || jsonb_build_object('#{new_concept_uid}', concept_results->'#{original_concept_uid}')
+      WHERE concept_results ->> '#{original_concept_uid}' IS NOT NULL
+    ")
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_response
