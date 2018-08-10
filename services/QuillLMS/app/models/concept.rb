@@ -1,12 +1,17 @@
 class Concept < ActiveRecord::Base
   include Uid
   belongs_to :parent, class_name: 'Concept', foreign_key: :parent_id
+  belongs_to :replacement, class_name: 'Concept', foreign_key: :replacement_id
   validates :name, presence: true
   has_many :concept_results
 
   # need the below because those making POST requests to /api/v1/concepts know only uids, not ids
   def parent_uid= uid
     self.parent_id = Concept.find_by(uid: uid).id
+  end
+
+  def replacement_uid= uid
+    self.replacement_id = Concept.find_by(uid: uid).id
   end
 
   # Find all the concepts that are not a parent of any other concept
