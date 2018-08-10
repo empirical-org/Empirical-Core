@@ -13,6 +13,10 @@ import {
 import {
   createNewEdition
 } from '../../actions/customize';
+import {
+  ClassroomSessionId,
+  ClassroomUnitId
+} from '../classroomLessons/interfaces'
 const watchTeacherIcon = 'https://assets.quill.org/images/icons/watch_teacher_icon.svg'
 const exitIcon = 'https://assets.quill.org/images/icons/save_exit_icon.svg'
 const projectorIcon = 'https://assets.quill.org/images/icons/projector_icon.svg'
@@ -23,11 +27,17 @@ const pdfIcon = 'https://assets.quill.org/images/icons/download_pdf_icon.svg'
 class TeacherNavbar extends React.Component<any, any> {
   constructor(props) {
     super(props);
+
+    const classroomUnitId: ClassroomUnitId|null = getParameterByName('classroom_unit_id')
+    const activityUid = props.params.lessonID
+
     this.state = {
       tooltip: '',
       showHelpDropdown: false,
       showFlagDropdown: false,
-      showCustomizeDropdown: false
+      showCustomizeDropdown: false,
+      classroomUnitId,
+      classroomSessionId: classroomUnitId ? classroomUnitId.concat(activityUid) : null
     }
 
     this.presentStudentCount = this.presentStudentCount.bind(this)
@@ -47,6 +57,7 @@ class TeacherNavbar extends React.Component<any, any> {
     this.switchOnClick = this.switchOnClick.bind(this)
     this.redirectToEdit = this.redirectToEdit.bind(this)
     this.redirectToSwitchEdition = this.redirectToSwitchEdition.bind(this)
+    this.exitLesson = this.exitLesson.bind(this)
   }
 
   renderCustomizedEditionsTag() {
@@ -194,15 +205,23 @@ class TeacherNavbar extends React.Component<any, any> {
 
   renderEditLink() {
     let action, editText
-    const classroomActivityID = getParameterByName('classroom_activity_id')
-    if (this.props.customize.user_id && classroomActivityID) {
+    const classroomUnitId = getParameterByName('classroom_unit_id')
+    if (this.props.customize.user_id && classroomUnitId) {
       const lessonID:string = this.props.params.lessonID
       const editionID:string = this.props.classroomSessions.data.edition_id
       if (editionID && this.props.customize.editions[editionID] && this.props.customize.editions[editionID].user_id === this.props.customize.user_id) {
-        action = () => {this.redirectToEdit(lessonID, editionID, classroomActivityID)}
+        action = () => {this.redirectToEdit(lessonID, editionID, classroomUnitId)}
         editText = 'Edit This Edition'
       } else {
-        action = () => {createNewEdition(editionID, lessonID, this.props.customize.user_id, classroomActivityID, this.redirectToEdit)}
+        action = () => {
+          createNewEdition(
+            editionID,
+            lessonID,
+            this.props.customize.user_id,
+            classroomUnitId,
+            this.redirectToEdit
+          )
+        }
         editText = 'Make A Copy'
       }
     } else {
@@ -215,21 +234,21 @@ class TeacherNavbar extends React.Component<any, any> {
   switchOnClick() {
     if (this.props.customize.user_id) {
       const lessonID: string = this.props.params.lessonID
-      const classroomActivityID = getParameterByName('classroom_activity_id')
-      if (classroomActivityID) {
-        this.redirectToSwitchEdition(lessonID, classroomActivityID)
+      const classroomUnitId = getParameterByName('classroom_unit_id')
+      if (classroomUnitId) {
+        this.redirectToSwitchEdition(lessonID, classroomUnitId)
       }
     } else {
       this.props.dispatch(showSignupModal())
     }
   }
 
-  redirectToEdit(lessonID:string, editionID:string, classroomActivityID:string) {
-    window.location.href = `#/customize/${this.props.params.lessonID}/${editionID}?&classroom_activity_id=${classroomActivityID}`
+  redirectToEdit(lessonID:string, editionID:string, classroomUnitId:string) {
+    window.location.href = `#/customize/${this.props.params.lessonID}/${editionID}?&classroom_unit_id=${classroomUnitId}`
   }
 
-  redirectToSwitchEdition(lessonID:string, classroomActivityID:string) {
-    window.location.href =`#/customize/${lessonID}?&classroom_activity_id=${classroomActivityID}`
+  redirectToSwitchEdition(lessonID:string, classroomUnitId:string) {
+    window.location.href =`#/customize/${lessonID}?&classroom_unit_id=${classroomUnitId}`
   }
 
   customizeDropdown() {
@@ -279,22 +298,25 @@ class TeacherNavbar extends React.Component<any, any> {
   }
 
   exitLesson() {
-    if (window.confirm('Are you sure you want to exit the lesson?')) {
-      const ca_id: string|null = getParameterByName('classroom_activity_id');
-      unpinActivityOnSaveAndExit(ca_id)
+    const classroomUnitId = getParameterByName('classroom_unit_id') || '';
+    const activityId = this.props.params.lessonID;
+    const shouldExit = window.confirm('Are you sure you want to exit the lesson?')
+
+    if (shouldExit) {
+      unpinActivityOnSaveAndExit(activityId, classroomUnitId)
       document.location.href = process.env.EMPIRICAL_BASE_URL || 'https://www.quill.org';
     }
   }
 
   toggleWatchTeacherMode() {
     const { watchTeacherState } = this.props.classroomSessions.data
-    const ca_id: string|null = getParameterByName('classroom_activity_id');
+    const classroomSessionId: ClassroomSessionId|null = this.state.classroomSessionId;
     if (watchTeacherState) {
-      if (ca_id) {
-        removeWatchTeacherState(ca_id);
+      if (classroomSessionId) {
+        removeWatchTeacherState(classroomSessionId);
       }
     } else {
-      setWatchTeacherState(ca_id);
+      setWatchTeacherState(classroomSessionId);
     }
   }
 

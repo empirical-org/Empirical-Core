@@ -10,6 +10,7 @@ const NextActivity = ({
   activityClassificationId,
   caId,
   maxPercentage,
+  activityId
 }) => {
   if (name) {
     const text = activityClassificationId === '6' ? 'Join Lesson' : 'Start Activity';
@@ -31,7 +32,7 @@ const NextActivity = ({
           </p>
         </div>
         <div className="start-activity-wrapper">
-          <a href={activityLaunchLink(caId)}>
+          <a href={activityLaunchLink(caId, activityId)}>
             <button className="button-green pull-right">
               {text}
             </button>

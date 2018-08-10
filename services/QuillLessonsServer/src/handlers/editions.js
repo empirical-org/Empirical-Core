@@ -1,7 +1,7 @@
 import r from 'rethinkdb';
 
 export function setTeacherModels({
-  classroomActivityId,
+  classroomUnitId,
   editionId,
   connection,
 }) {
@@ -12,7 +12,7 @@ export function setTeacherModels({
   .then(editionsArray => {
     const questions = editionsArray.length === 1 ? editionsArray[0].questions : null
     r.table('classroom_lesson_sessions')
-    .filter(r.row("id").eq(classroomActivityId))
+    .filter(r.row("id").eq(classroomUnitId))
     .run(connection)
     .then(cursor => cursor.toArray())
     .then(sessionsArray => {
@@ -29,7 +29,7 @@ export function setTeacherModels({
 
             if (shouldUpdate) {
               r.table('classroom_lesson_sessions')
-              .get(classroomActivityId)
+              .get(classroomUnitId)
               .update({
                 prompts: {
                   [key]: questions[key].data.play.prompt
@@ -38,7 +38,7 @@ export function setTeacherModels({
               .run(connection)
 
               r.table('classroom_lesson_sessions')
-              .get(classroomActivityId)
+              .get(classroomUnitId)
               .replace(r.row.without({
                 models: {
                   [key]: true
@@ -81,13 +81,13 @@ export function getAllEditionMetadata({
 export function getEditionMetadataForLesson({
   client,
   connection,
-  lessonId,
+  activityId,
   editionId,
 }) {
-  if (lessonId && editionId) {
+  if (activityId && editionId) {
     r.table('lesson_edition_metadata')
     .get(editionId)
-    .filter(r.row('lesson_id').eq(lessonId))
+    .filter(r.row('lesson_id').eq(activityId))
     .run(connection)
     .then((cursor) => {
       let editions = {};
@@ -95,7 +95,7 @@ export function getEditionMetadataForLesson({
         results.forEach((result) => {
           editions[result.id] = result;
         });
-        client.emit(`editionMetadataForLesson:${lessonId}`, editions)
+        client.emit(`editionMetadataForLesson:${activityId}`, editions)
       });
     })
   }
@@ -104,12 +104,12 @@ export function getEditionMetadataForLesson({
 export function getAllEditionMetadataForLesson({
   client,
   connection,
-  lessonId,
+  activityId,
   callback
 }) {
-  if (lessonId) {
+  if (activityId) {
     r.table('lesson_edition_metadata')
-    .filter(r.row('lesson_id').eq(lessonId))
+    .filter(r.row('lesson_id').eq(activityId))
     .filter(
       r.row.hasFields('flags').not().or(
         r.row('flags').contains('archived').not()
@@ -122,7 +122,7 @@ export function getAllEditionMetadataForLesson({
         results.forEach((result) => {
           editions[result.id] = result;
         });
-        client.emit(`editionMetadataForLesson:${lessonId}`, editions)
+        client.emit(`editionMetadataForLesson:${activityId}`, editions)
       });
     })
   }
@@ -160,10 +160,10 @@ export function updateEditionMetadata({
   })
   .then(results => {
     const edition  = results[0] ? results[0].new_val : null
-    const lessonId = edition.lesson_id
+    const activityId = edition.lesson_id
 
-    if (edition && lessonId) {
-      getAllEditionMetadataForLesson({ connection, client, lessonId })
+    if (edition && activityId) {
+      getAllEditionMetadataForLesson({ connection, client, activityId })
     }
 
     if (edition) {

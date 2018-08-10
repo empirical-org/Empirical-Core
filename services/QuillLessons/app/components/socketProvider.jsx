@@ -13,9 +13,9 @@ class SocketProvider extends React.Component {
       this.setState({ socketOpened: true })
     };
 
-    const classroomActivityId = getParameterByName('classroom_activity_id');
+    const classroomUnitId = getParameterByName('classroom_unit_id');
 
-    socket.connect(classroomActivityId, callback)
+    socket.connect(classroomUnitId, callback)
   }
 
   render() {

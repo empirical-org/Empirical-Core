@@ -6,6 +6,7 @@ class ActivitySessionsController < ApplicationController
   before_action :activity, only: [:play, :result]
   before_action :activity_session_authorize!, only: [:play, :result]
   before_action :activity_session_authorize_teacher!, only: [:concept_results]
+  before_action :authorize_student_belongs_to_classroom_unit!, only: [:activity_session_from_classroom_unit_and_activity]
   after_action  :update_student_last_active, only: [:play, :result]
 
   def play
@@ -17,12 +18,17 @@ class ActivitySessionsController < ApplicationController
   def result
     @activity = @activity_session
     @results  = @activity_session.parse_for_results
-    @classroom_id = @activity_session&.classroom_activity&.classroom_id
+    @classroom_id = @activity_session&.classroom_unit&.classroom_id
   end
 
   def anonymous
     @activity = Activity.find(params[:activity_id])
     redirect_to anonymous_return_url
+  end
+
+  def activity_session_from_classroom_unit_and_activity
+    started_activity_session_id = ActivitySession.find_or_create_started_activity_session(current_user.id, params[:classroom_unit_id], params[:activity_id])&.id
+    redirect_to "/activity_sessions/#{started_activity_session_id}/play"
   end
 
   private
@@ -39,10 +45,10 @@ class ActivitySessionsController < ApplicationController
   end
 
   def path_request_to_firebase
-    classroom_activity_id = @activity_session.classroom_activity_id
+    classroom_unit_id = @activity_session.classroom_unit_id
     HTTParty.patch(
         firebase_url_for(
-            classroom_activity_id
+            classroom_unit_id
         ),
         body: firebase_json_request_body.to_json
     )
@@ -52,8 +58,8 @@ class ActivitySessionsController < ApplicationController
     @options ||= {"#{@activity_session.uid}": current_user.name}
   end
 
-  def firebase_url_for(classroom_activity_id)
-    @url ||= "#{ENV['FIREBASE_DATABASE_URL']}/v2/classroom_lesson_sessions/#{classroom_activity_id}/students.json"
+  def firebase_url_for(classroom_unit_id)
+    @url ||= "#{ENV['FIREBASE_DATABASE_URL']}/v2/classroom_lesson_sessions/#{classroom_unit_id}/students.json"
   end
 
   def anonymous_return_url
@@ -95,4 +101,10 @@ class ActivitySessionsController < ApplicationController
       UpdateStudentLastActiveWorker.perform_async(current_user.id, DateTime.now)
     end
   end
+
+  def authorize_student_belongs_to_classroom_unit!
+    @classroom_unit = ClassroomUnit.find params[:classroom_unit_id]
+    if current_user.classrooms.exclude?(@classroom_unit.classroom) then auth_failed end
+  end
+
 end
