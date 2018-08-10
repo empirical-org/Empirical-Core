@@ -4,7 +4,7 @@ import { Query } from "react-apollo";
 import gql from "graphql-tag";
 
 import { 
-  Breadcrumb, Divider, Form, 
+  Breadcrumb, Divider, Form, Input 
 } from "antd";
 
 const FormItem = Form.Item;
@@ -49,14 +49,56 @@ interface QueryResult {
   siblings: Array<Concept>;
 }
 
+const CustomizedForm = Form.create({
+  onFieldsChange(props, changedFields) {
+    props.onChange(changedFields);
+  },
+  mapPropsToFields(props) {
+    return {
+      conceptName: Form.createFormField({
+        ...props.conceptName,
+        value: props.conceptName.value,
+      }),
+    };
+  },
+  onValuesChange(_, values) {
+    console.log(values);
+  },
+})((props) => {
+  const { getFieldDecorator } = props.form;
+  return (
+    <Form>
+      <FormItem label="Concept Name">
+        {getFieldDecorator('conceptName', {
+          rules: [{ required: true, message: 'Concept Name is required!' }],
+        })(<Input />)}
+      </FormItem>
+    </Form>
+  );
+});
+
 
 
 class App extends React.Component {
   constructor(props){
     super(props)
+    this.state = {
+      fields: {
+        conceptName: {
+          value: null,
+        },
+      },
+    };
+  }
+
+  handleFormChange = (changedFields) => {
+    this.setState(({ fields }) => ({
+      fields: { ...fields, ...changedFields },
+    }));
   }
 
   render() {
+    const fields = this.state.fields;
     return  (
       <div>
         <Breadcrumb>
@@ -64,15 +106,7 @@ class App extends React.Component {
           <Breadcrumb.Item>New Concept</Breadcrumb.Item>
         </Breadcrumb>
         <Divider></Divider>
-        <Form onSubmit={() => {alert("submitted")}}>
-          <FormItem>
-            {getFieldDecorator('name', {
-              rules: [{ required: true, message: 'Please input a name for the concept!' }],
-            })(
-              <Input placeholder="Name" />
-            )}
-          </FormItem>
-        </Form>
+        <CustomizedForm {...fields} onChange={this.handleFormChange} />
       </div>
     )
   }
