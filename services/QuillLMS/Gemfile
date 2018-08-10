@@ -157,6 +157,7 @@ end
 gem 'awesome_print'
 
 group :test, :development do
+  gem 'cypress-on-rails', '~> 1.0'
   gem 'quiet_assets'
   gem 'parallel_tests'
   gem 'pry'
