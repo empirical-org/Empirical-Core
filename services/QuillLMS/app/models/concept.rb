@@ -24,9 +24,9 @@ class Concept < ActiveRecord::Base
 
   def self.all_with_level
     # https://github.com/dockyard/postgres_ext/blob/master/docs/querying.md
-    concept2 = Concept.select(:id, :name, :uid, :parent_id, '2 AS level').where(parent_id: nil)
-    concept1 = Concept.select(:id, :name, :uid, :parent_id, '1 AS level').where(parent_id: concept2.ids)
-    concept0 = Concept.select(:id, :name, :uid, :parent_id, '0 AS level').where(parent_id: concept1.ids)
+    concept2 = Concept.select(:id, :name, :uid, :parent_id, '2 AS level').where(parent_id: nil, visible: true)
+    concept1 = Concept.select(:id, :name, :uid, :parent_id, '1 AS level').where(parent_id: concept2.ids, visible: true)
+    concept0 = Concept.select(:id, :name, :uid, :parent_id, '0 AS level').where(parent_id: concept1.ids, visible: true)
     concept2 + concept1 + concept0
   end
 
