@@ -1,14 +1,12 @@
 describe('Teacher creates new account', () => {
   beforeEach(() => {
-    cy.cleanDatabase()
+    cy.app('clean')
   })
 
   it('they should see the new classroom page', () => {
-    cy.factoryBotCreate({
-      factory: 'simple_school',
-      name: 'Kool School',
-      zipcode: 11104,
-    })
+    cy.appFactories([
+      ['create', 'simple_school', { name: 'Kool School', zipcode: 11104, }]
+    ])
 
     cy.visit('/')
     cy.contains('Sign Up').click()

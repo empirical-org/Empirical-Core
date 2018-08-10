@@ -1,29 +1,26 @@
 describe('Student joins classroom', () => {
   beforeEach(() => {
-    cy.cleanDatabase()
+    cy.app('clean')
   })
 
   it('they should see their profile', () => {
-    cy.factoryBotCreate({
-      factory: 'simple_classroom',
-      name: 'Cool Class',
-      code: 'fresh-jive',
-      id: 101,
-    })
-
-    cy.factoryBotCreate({
-      factory: 'simple_user',
-      role: 'teacher',
-      name: 'Edna Krabappel',
-      id: 101,
-    })
-
-    cy.factoryBotCreate({
-      factory: 'classrooms_teacher',
-      user_id: 101,
-      classroom_id: 101,
-      role: 'owner',
-    })
+    cy.appFactories([
+      ['create', 'simple_classroom', {
+        name: 'Cool Class',
+        code: 'fresh-jive',
+        id: 101,
+      }],
+      ['create', 'simple_user', {
+        role: 'teacher',
+        name: 'Edna Krabappel',
+        id: 101,
+      }],
+      ['create', 'classrooms_teacher', {
+        user_id: 101,
+        classroom_id: 101,
+        role: 'owner',
+      }]
+    ])
 
     cy.visit('/')
     cy.contains('Sign Up').click()
