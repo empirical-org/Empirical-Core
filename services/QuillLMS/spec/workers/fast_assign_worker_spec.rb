@@ -9,7 +9,7 @@ describe FastAssignWorker, type: :worker do
     it "can create new units and classroom activities" do
       FastAssignWorker.new.perform(teacher.id, unit_template1.id)
       expect(unit_templates_have_a_corresponding_unit?([unit_template1.id])).to eq(true)
-      eventually { expect(units_have_a_corresponding_classroom_activities?([unit_template1.id])).to eq(true) }
+      eventually { expect(units_have_corresponding_unit_activities?([unit_template1.id])).to eq(true) }
     end
   end
 
@@ -21,17 +21,16 @@ describe FastAssignWorker, type: :worker do
     end
 
     it "and adds new classroom activities to the existing unit" do
-      # TODO: something is wrong with the associations
-      original_units_cas = ClassroomActivity.where(unit_id: unit.id).count
+      original_units_cus = ClassroomUnit.where(unit_id: unit.id).count
       FastAssignWorker.new.perform(teacher.id, unit_template1.id)
-      new_units_cas = ClassroomActivity.where(unit_id: unit.id).count
-      eventually { expect(new_units_cas - original_units_cas).to eq(1)}
+      new_units_cus = ClassroomUnit.where(unit_id: unit.id).count
+      eventually { expect(new_units_cus - original_units_cus).to eq(1)}
     end
 
     it "that assigns the new activities to all students" do
-      original_classroom_activity = ClassroomActivity.create!(unit_id: unit.id, activity_id: unit_template1.activities.first.id, classroom_id: classroom.id, assigned_student_ids: [student.id])
+      original_classroom_unit = ClassroomUnit.create!(unit_id: unit.id, classroom_id: classroom.id, assigned_student_ids: [student.id])
       FastAssignWorker.new.perform(teacher.id, unit_template1.id)
-      expect(unit.classroom_activities.find(original_classroom_activity.id).assign_on_join).to eq(true)
+      expect(unit.classroom_units.find(original_classroom_unit.id).assign_on_join).to eq(true)
     end
   end
 

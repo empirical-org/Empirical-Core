@@ -5,6 +5,8 @@ then
   rm -rf ./dist
 fi
 
+mkdir ./dist
+
 EMPIRICAL_BASE_URL=https://www.quill.org \
 LESSONS_WEBSOCKETS_URL=https://lessons-server.quill.org \
 NODE_ENV=production \
