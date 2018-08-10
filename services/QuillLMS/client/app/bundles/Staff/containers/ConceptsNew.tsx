@@ -4,7 +4,7 @@ import { Query } from "react-apollo";
 import gql from "graphql-tag";
 
 import { 
-  Breadcrumb, Divider, Form, Input, Cascader 
+  Breadcrumb, Divider, Form, Input, Cascader, Button
 } from "antd";
 import { CascaderOptionType } from "../../../../node_modules/antd/lib/cascader";
 
@@ -65,38 +65,38 @@ const CustomizedForm = Form.create({
       }),
     };
   },
-  onValuesChange(_, values) {
-    console.log(values);
-  },
 })((props) => {
   const { getFieldDecorator } = props.form;
   return (
-    <Form>
+    <Form onSubmit={props.onSubmit}>
       <FormItem label="Concept Name">
         {getFieldDecorator('conceptName', {
           rules: [{ required: true, message: 'Concept Name is required!' }],
         })(<Input />)}
       </FormItem>
-      <FormItem
-          label="Parent Concept"
-        >
-          {getFieldDecorator('parentId', {
-            rules: [{ type: 'array', required: false, message: 'Please select your habitual residence!' }],
-          })(
-            <Query
-              query={gql(parentConceptsQuery())}
+      <Query
+        query={gql(parentConceptsQuery())}
+      >
+        {({ loading, error, data }) => {
+          if (loading) return <p>Loading...</p>;
+          if (error) return <p>Error :(</p>;
+          const concepts:CascaderOptionType[] = data.concepts;
+          return (
+            <FormItem
+              label="Parent Concept"
             >
-              {({ loading, error, data }) => {
-                if (loading) return <p>Loading...</p>;
-                if (error) return <p>Error :(</p>;
-                const concepts:CascaderOptionType[] = data.concepts;
-                return (
-                  <Cascader options={concepts} changeOnSelect/>
-                )
-              }}
-            </Query>
-          )}
-        </FormItem>
+              {getFieldDecorator('parentId', {
+                rules: [{ type: 'array', required: false }],
+              })(
+                <Cascader options={concepts} changeOnSelect/>
+              )}
+            </FormItem>
+          )
+        }}
+      </Query>
+      <Button type="primary" htmlType="submit">
+        Create New Level {2 - props.parentId.value.length} Concept
+      </Button>
     </Form>
   );
 });
@@ -110,16 +110,26 @@ class App extends React.Component {
           value: null,
         },
         parentId: {
-          value: null,
+          value: [],
         },
       },
     };
   }
 
   handleFormChange = (changedFields) => {
-    this.setState(({ fields }) => ({
-      fields: { ...fields, ...changedFields },
-    }));
+    console.log(changedFields)
+    this.setState(({ fields }) => {
+      const newState =  {
+        fields: { ...fields, ...changedFields },
+      }
+      console.log("new:  ", newState)
+      return newState;
+    });
+  }
+
+  handleFormSubmit = (e) => {
+    e.preventDefault()
+    console.log('submitting', this.state);
   }
 
   render() {
@@ -131,7 +141,7 @@ class App extends React.Component {
           <Breadcrumb.Item>New Concept</Breadcrumb.Item>
         </Breadcrumb>
         <Divider></Divider>
-        <CustomizedForm {...fields} onChange={this.handleFormChange} />
+        <CustomizedForm {...fields} onChange={this.handleFormChange} onSubmit={this.handleFormSubmit} />
       </div>
     )
   }
