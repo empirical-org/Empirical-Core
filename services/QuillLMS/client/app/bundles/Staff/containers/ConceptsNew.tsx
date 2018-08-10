@@ -4,49 +4,49 @@ import { Query } from "react-apollo";
 import gql from "graphql-tag";
 
 import { 
-  Breadcrumb, Divider, Form, Input 
+  Breadcrumb, Divider, Form, Input, Cascader 
 } from "antd";
+import { CascaderOptionType } from "../../../../node_modules/antd/lib/cascader";
+
+const residences = [{
+  value: 'zhejiang',
+  label: 'Zhejiang',
+  children: [{
+    value: 'hangzhou',
+    label: 'Hangzhou',
+    children: [{
+      value: 'xihu',
+      label: 'West Lake',
+    }],
+  }],
+}, {
+  value: 'jiangsu',
+  label: 'Jiangsu',
+  children: [{
+    value: 'nanjing',
+    label: 'Nanjing',
+    children: [{
+      value: 'zhonghuamen',
+      label: 'Zhong Hua Men',
+    }],
+  }],
+}];
 
 const FormItem = Form.Item;
 
-function conceptQuery(id){
+function parentConceptsQuery(){
   return `
   {
-    concept(id: ${id}) {
-      id
-      uid
-      name
-      parent {
-        id
-        name
-        parent {
-          id
-          name
-        }
-      }
+    concepts(levelTwoOnly: true) {
+      value: id
+      label: name
       children {
-        id
-        name
-      }
-      siblings {
-        id
-        name
+        value: id
+        label: name
       }
     }
   }
 `
-}
-export interface Concept {
-  id:string;
-  name:string;
-  parent?:Concept;
-}
-interface QueryResult {
-  id:string;
-  name:string;
-  parent?:Concept;
-  children: Array<Concept>;
-  siblings: Array<Concept>;
 }
 
 const CustomizedForm = Form.create({
@@ -58,6 +58,10 @@ const CustomizedForm = Form.create({
       conceptName: Form.createFormField({
         ...props.conceptName,
         value: props.conceptName.value,
+      }),
+      parentId: Form.createFormField({
+        ...props.parentId,
+        value: props.parentId.value,
       }),
     };
   },
@@ -73,11 +77,29 @@ const CustomizedForm = Form.create({
           rules: [{ required: true, message: 'Concept Name is required!' }],
         })(<Input />)}
       </FormItem>
+      <FormItem
+          label="Parent Concept"
+        >
+          {getFieldDecorator('parentId', {
+            rules: [{ type: 'array', required: false, message: 'Please select your habitual residence!' }],
+          })(
+            <Query
+              query={gql(parentConceptsQuery())}
+            >
+              {({ loading, error, data }) => {
+                if (loading) return <p>Loading...</p>;
+                if (error) return <p>Error :(</p>;
+                const concepts:CascaderOptionType[] = data.concepts;
+                return (
+                  <Cascader options={concepts} changeOnSelect/>
+                )
+              }}
+            </Query>
+          )}
+        </FormItem>
     </Form>
   );
 });
-
-
 
 class App extends React.Component {
   constructor(props){
@@ -85,6 +107,9 @@ class App extends React.Component {
     this.state = {
       fields: {
         conceptName: {
+          value: null,
+        },
+        parentId: {
           value: null,
         },
       },
