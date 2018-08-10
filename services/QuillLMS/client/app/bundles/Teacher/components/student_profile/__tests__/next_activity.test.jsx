@@ -22,9 +22,10 @@ describe('NextActivity component', () => {
       <NextActivity
         name={'Activity Name'}
         caId={1024}
+        activityId={10}
       />
     );
-    expect(wrapper.find('a').prop('href')).toBe('/teachers/classroom_activities/1024/activity_from_classroom_activity');
+    expect(wrapper.find('a').prop('href')).toBe('/activity_sessions/classroom_units/1024/activities/10');
     expect(wrapper.find('button').text()).toBe('Start Activity');
   });
 

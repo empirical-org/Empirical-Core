@@ -13,7 +13,7 @@ class GradesController < ApplicationController
   private
 
   def tooltip_params
-    params.permit(:classroom_activity_id, :user_id, :completed)
+    params.permit(:classroom_unit_id, :user_id, :completed)
   end
 
   def tooltip_query
@@ -24,13 +24,14 @@ class GradesController < ApplicationController
         activities.description,
         concepts.name,
         activity_sessions.completed_at + INTERVAL '#{current_user.utc_offset} seconds' AS completed_at,
-        classroom_activities.due_date
+        unit_activities.due_date
         FROM activity_sessions
         LEFT JOIN concept_results ON concept_results.activity_session_id = activity_sessions.id
         LEFT OUTER JOIN concepts ON concept_results.concept_id = concepts.id
-        JOIN classroom_activities ON classroom_activities.id = activity_sessions.classroom_activity_id
+        JOIN classroom_units ON classroom_units.id = activity_sessions.classroom_unit_id
         JOIN activities ON activities.id = activity_sessions.activity_id
-        WHERE activity_sessions.classroom_activity_id = #{ActiveRecord::Base.sanitize(tooltip_params[:classroom_activity_id].to_i)}
+        JOIN unit_activities ON activities.id = unit_activities.activity_id AND unit_activities.unit_id = classroom_units.unit_id
+        WHERE activity_sessions.classroom_unit_id = #{ActiveRecord::Base.sanitize(tooltip_params[:classroom_unit_id].to_i)}
         AND activity_sessions.user_id = #{ActiveRecord::Base.sanitize(tooltip_params[:user_id].to_i)}
         AND activity_sessions.is_final_score IS true
         ").to_a
@@ -43,7 +44,7 @@ class GradesController < ApplicationController
       "SELECT activity_sessions.percentage,
       activity_sessions.completed_at + INTERVAL '#{current_user.utc_offset} seconds' AS completed_at
       FROM activity_sessions
-      WHERE activity_sessions.classroom_activity_id = #{ActiveRecord::Base.sanitize(tooltip_params[:classroom_activity_id].to_i)}
+      WHERE activity_sessions.classroom_unit_id = #{ActiveRecord::Base.sanitize(tooltip_params[:classroom_unit_id].to_i)}
       AND activity_sessions.user_id = #{ActiveRecord::Base.sanitize(tooltip_params[:user_id].to_i)}
       And activity_sessions.percentage IS NOT NULL
       ORDER BY activity_sessions.completed_at
@@ -51,9 +52,9 @@ class GradesController < ApplicationController
   end
 
   def authorize!
-    return unless params[:classroom_activity_id].present?
-    classroom_activity = ClassroomActivity.includes(:classroom).find(params[:classroom_activity_id])
-    classroom_teacher!(classroom_activity.classroom_id)
+    return unless params[:classroom_unit_id].present?
+    classroom_unit = ClassroomUnit.includes(:classroom).find(params[:classroom_unit_id])
+    classroom_teacher!(classroom_unit.classroom_id)
   end
 
 end

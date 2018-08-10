@@ -257,9 +257,9 @@ describe('Manage Classrooms', function() {
     })
 
 
-    describe('when I want to withdraw a coteacher invitation', ()=>{
-      it('allows me to do so')
-    })
+    // describe('when I want to withdraw a coteacher invitation', ()=>{
+    //   it('allows me to do so')
+    // })
 
   })
 

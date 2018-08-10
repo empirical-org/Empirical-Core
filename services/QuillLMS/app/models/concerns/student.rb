@@ -12,13 +12,16 @@ module Student
     has_many :started_activities, through: :activity_sessions, source: :activity
 
     def finished_activities classroom
-      classroom_activity_score_join(classroom).where('activity_sessions.completed_at is not null')
+      classroom_unit_score_join(classroom).where('activity_sessions.completed_at is not null')
     end
 
-    def classroom_activity_score_join classroom
-      started_activities.joins('join classroom_activities ON classroom_activities.activity_id = activities.id').where(classroom_activities: { classroom_id: classroom.id })
+    def classroom_unit_score_join classroom
+      started_activities
+      .joins('join unit_activities ON unit_activities.activity_id = activities.id')
+      .joins('join classroom_units ON classroom_units.unit_id = unit_activities.unit_id')
+      .where(classroom_units: { classroom_id: classroom.id })
     end
-    protected :classroom_activity_score_join
+    protected :classroom_unit_score_join
 
     def get_student_average_score
       avg_str = ActiveRecord::Base.connection.execute(

@@ -4,21 +4,10 @@ import { connect } from 'react-redux';
 import _ from 'lodash'
 const WakeLock: any = require('react-wakelock').default;
 import {
-  startListeningToSession,
   startListeningToSessionForTeacher,
   goToNextSlide,
   goToPreviousSlide,
-  saveSelectedStudentSubmission,
-  removeSelectedStudentSubmission,
-  setMode,
-  removeMode,
-  getClassroomAndTeacherNameFromServer,
-  toggleOnlyShowHeaders,
-  clearAllSelectedSubmissions,
-  toggleStudentFlag,
-  clearAllSubmissions,
   registerTeacherPresence,
-  loadStudentNames,
   startLesson
 } from '../../../actions/classroomSessions';
 import {
@@ -42,6 +31,8 @@ import {
   QuestionSubmissionsList,
   SelectedSubmissions,
   SelectedSubmissionsForQuestion,
+  ClassroomSessionId,
+  ClassroomUnitId
 } from '../interfaces';
 import {
   ClassroomLesson
@@ -51,22 +42,30 @@ import * as CustomizeIntf from '../../../interfaces/customize'
 class TeachClassroomLessonContainer extends React.Component<any, any> {
   constructor(props) {
     super(props);
+
+    const classroomUnitId: ClassroomUnitId|null = getParameterByName('classroom_unit_id')
+    const activityUid = props.params.lessonID
+    this.state = {
+      classroomUnitId,
+      classroomSessionId: classroomUnitId ? classroomUnitId.concat(activityUid) : null
+    }
+
     props.dispatch(getCurrentUserAndCoteachersFromLMS())
     document.addEventListener("keydown", this.handleKeyDown.bind(this));
-    // props.dispatch(firebaseAuth())
   }
 
   componentDidMount() {
-    const ca_id: string|null = getParameterByName('classroom_activity_id')
-    const lesson_id: string = this.props.params.lessonID
-    if (ca_id ) {
-      startLesson(ca_id, () => this.props.dispatch(startListeningToSessionForTeacher(ca_id, lesson_id)))
-      // this.props.dispatch(startListeningToCurrentSlide(ca_id));
-      registerTeacherPresence(ca_id)
+    const { classroomUnitId, classroomSessionId } = this.state
+    const activityId: string = this.props.params.lessonID;
+    if (classroomUnitId) {
+      startLesson(classroomUnitId, classroomSessionId, () => {
+        this.props.dispatch(startListeningToSessionForTeacher(activityId, classroomUnitId, classroomSessionId));
+      });
+      registerTeacherPresence(classroomSessionId);
     }
     if (this.props.classroomLesson.hasreceiveddata) {
-      this.props.dispatch(clearClassroomLessonFromStore())
-      this.props.dispatch(clearEditionQuestions())
+      this.props.dispatch(clearClassroomLessonFromStore());
+      this.props.dispatch(clearEditionQuestions());
     }
     document.getElementsByTagName("html")[0].style.overflowY = "hidden";
   }
@@ -78,7 +77,7 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
     }
     if (nextProps.classroomSessions.hasreceiveddata) {
       if (!nextProps.classroomSessions.data.edition_id && Object.keys(nextProps.customize.editionQuestions).length === 0) {
-        window.location.href =`#/customize/${lessonId}?&classroom_activity_id=${getParameterByName('classroom_activity_id')}`
+        window.location.href =`#/customize/${lessonId}?&classroom_unit_id=${getParameterByName('classroom_unit_id')}`
       }
       if (nextProps.classroomSessions.data.edition_id && Object.keys(nextProps.customize.editionQuestions).length === 0) {
         this.props.dispatch(getEditionQuestions(nextProps.classroomSessions.data.edition_id))
@@ -104,13 +103,13 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
     const tag = event.target.tagName.toLowerCase()
     const className = event.target.className.toLowerCase()
     if (tag !== 'input' && tag !== 'textarea' && className.indexOf("drafteditor") === -1 && (event.keyCode === 39 || event.keyCode === 37)) {
-      const ca_id: string|null = getParameterByName('classroom_activity_id');
+      const classroomSessionId: ClassroomSessionId|null = this.state.classroomSessionId;
       const sessionData: ClassroomLessonSession = this.props.classroomSessions.data;
       const editionData: CustomizeIntf.EditionQuestions = this.props.customize.editionQuestions;
-      if (ca_id) {
+      if (classroomSessionId) {
         const updateInStore = event.keyCode === 39
-          ? goToNextSlide(ca_id, sessionData, editionData)
-          : goToPreviousSlide(ca_id, sessionData, editionData)
+          ? goToNextSlide(sessionData, editionData, classroomSessionId)
+          : goToPreviousSlide(sessionData, editionData, classroomSessionId)
         if (updateInStore) {
           this.props.dispatch(updateInStore);
         }
@@ -137,8 +136,8 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
       return (
         <div className="teach-lesson-container" style={teachLessonContainerStyle}>
           <WakeLock />
-          <Sidebar/>
-          <MainContentContainer/>
+          <Sidebar params={this.props.params}/>
+          <MainContentContainer params={this.props.params}/>
         </div>
       );
     }

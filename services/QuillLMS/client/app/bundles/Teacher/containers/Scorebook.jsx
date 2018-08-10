@@ -186,8 +186,9 @@ export default React.createClass({
       newScores.has(s.user_id) || newScores.set(s.user_id, { name: s.name, scores: [], });
       const scores = newScores.get(s.user_id).scores;
       scores.push({
-        caId: s.ca_id,
+        cuId: s.cu_id,
         // activitySessionId: s.id,
+        activityId: s.activity_id,
         userId: s.user_id,
         updated: s.updated_at,
         name: s.activity_name,
@@ -238,9 +239,9 @@ export default React.createClass({
   convertStoredDateToMoment(savedString) {
     if(savedString && savedString !== 'null') {
       return moment(savedString)
-    } 
+    }
       return null;
-    
+
   },
 
   render() {

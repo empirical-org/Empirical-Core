@@ -1,12 +1,19 @@
 require 'rails_helper'
 
 describe ProgressReports::Standards::StudentSerializer, type: :serializer do
-  let!(:classroom) { create(:classroom_with_one_student) }
+  let(:classroom) { create(:classroom_with_one_student) }
   let(:teacher) { classroom.owner }
-  let!(:student) {classroom.students.first}
+  let(:student) {classroom.students.first}
   let(:activity) { create(:activity) }
-  let(:classroom_activity) { create(:classroom_activity, classroom: classroom, activity: activity) }
-  let(:student_for_report) { ProgressReports::Standards::Student.new(teacher).results({}).first }
+  let(:classroom_unit) do
+    create(:classroom_unit,
+      classroom: classroom,
+      assigned_student_ids: [student.id]
+    )
+  end
+  let(:student_for_report) do
+    ProgressReports::Standards::Student.new(teacher).results({}).first
+  end
   let(:serializer) do
     serializer = described_class.new(student_for_report)
     serializer.classroom_id = 123
@@ -15,10 +22,11 @@ describe ProgressReports::Standards::StudentSerializer, type: :serializer do
 
   before do
     student.activity_sessions.create!(
-      classroom_activity: classroom_activity,
       percentage: 0.7547,
       state: 'finished',
-      completed_at: 5.minutes.ago
+      completed_at: 5.minutes.ago,
+      classroom_unit: classroom_unit,
+      activity: activity
     )
   end
 
@@ -28,18 +36,20 @@ describe ProgressReports::Standards::StudentSerializer, type: :serializer do
     let(:parsed_student) { parsed['student'] }
 
     it 'includes the right keys' do
-      expect(parsed_student.keys)
-        .to match_array %w(name
-                           id
-                           sorting_name
-                           total_standard_count
-                           proficient_standard_count
-                           not_proficient_standard_count
-                           total_activity_count
-                           average_score
-                           student_topics_href
-                           mastery_status
-                          )
+      expect(parsed_student.keys).to match_array(
+        [
+          'name',
+          'id',
+          'sorting_name',
+          'total_standard_count',
+          'proficient_standard_count',
+          'not_proficient_standard_count',
+          'total_activity_count',
+          'average_score',
+          'student_topics_href',
+          'mastery_status'
+        ]
+      )
     end
 
     it 'includes properly rounded scores' do
