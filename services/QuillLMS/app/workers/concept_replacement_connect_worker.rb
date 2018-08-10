@@ -24,14 +24,14 @@ class ConceptReplacementConnectWorker
       end
 
       if q['focusPoints']
-        focus_points = replace_focus_points_for_question(q['focusPoints'], original_concept_uid, new_concept_uid)
+        focus_points = replace_focus_points_or_incorrect_sequences_for_question(q['focusPoints'], original_concept_uid, new_concept_uid)
         if focus_points
           data['focusPoints'] = focus_points
         end
       end
 
       if q['incorrectSequences']
-        incorrect_sequences = replace_incorrect_sequences_for_question(q['incorrectSequences'], original_concept_uid, new_concept_uid)
+        incorrect_sequences = replace_focus_points_or_incorrect_sequences_for_question(q['incorrectSequences'], original_concept_uid, new_concept_uid)
         if incorrect_sequences
           data['incorrectSequences'] = incorrect_sequences
         end
@@ -44,31 +44,17 @@ class ConceptReplacementConnectWorker
     end
   end
 
-  def replace_focus_points_for_question(focus_points, original_concept_uid, new_concept_uid)
-    if focus_points.any { |fp| fp['conceptUID'] == original_concept_uid }
-      new_focus_points = focus_points.dup
-      focus_points.each do |key, fp|
-        if fp['conceptUID'] == original_concept_uid
-          new_focus_points[key]['conceptUID'] = new_concept_uid
-        end
-      end
-      return new_focus_points
-    else
-      return nil
-    end
-  end
-
-  def replace_incorrect_sequences_for_question(incorrect_sequences, original_concept_uid, new_concept_uid)
-    if incorrect_sequences.any { |is| is['conceptResults'].any { |cr| cr['conceptUID'] == original_concept_uid} }
-      new_incorrect_sequences = incorrect_sequences.dup
-      incorrect_sequences.each do |key, is|
-        is['conceptResults'].each do |crkey, cr|
+  def replace_focus_points_or_incorrect_sequences_for_question(fp_or_is, original_concept_uid, new_concept_uid)
+    if fp_or_is.any { |k, v| v['conceptResults'] && v['conceptResults'].any { |cr| cr['conceptUID'] == original_concept_uid} }
+      new_fp_or_is = fp_or_is.dup
+      fp_or_is.each do |k, v|
+        v['conceptResults'].each do |crkey, cr|
           if cr['conceptUID'] == original_concept_uid
-            new_incorrect_sequences[key]['conceptResults'][crkey]['conceptUID'] = new_concept_uid
+            new_fp_or_is[k]['conceptResults'][crkey]['conceptUID'] = new_concept_uid
           end
         end
       end
-      return new_incorrect_sequences
+      return new_fp_or_is
     else
       return nil
     end
