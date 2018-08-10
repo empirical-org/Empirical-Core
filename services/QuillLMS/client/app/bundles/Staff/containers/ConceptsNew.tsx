@@ -8,30 +8,6 @@ import {
 } from "antd";
 import { CascaderOptionType } from "../../../../node_modules/antd/lib/cascader";
 
-const residences = [{
-  value: 'zhejiang',
-  label: 'Zhejiang',
-  children: [{
-    value: 'hangzhou',
-    label: 'Hangzhou',
-    children: [{
-      value: 'xihu',
-      label: 'West Lake',
-    }],
-  }],
-}, {
-  value: 'jiangsu',
-  label: 'Jiangsu',
-  children: [{
-    value: 'nanjing',
-    label: 'Nanjing',
-    children: [{
-      value: 'zhonghuamen',
-      label: 'Zhong Hua Men',
-    }],
-  }],
-}];
-
 const FormItem = Form.Item;
 
 function parentConceptsQuery(){
@@ -55,9 +31,9 @@ const CustomizedForm = Form.create({
   },
   mapPropsToFields(props) {
     return {
-      conceptName: Form.createFormField({
-        ...props.conceptName,
-        value: props.conceptName.value,
+      name: Form.createFormField({
+        ...props.name,
+        value: props.name.value,
       }),
       parentId: Form.createFormField({
         ...props.parentId,
@@ -70,7 +46,7 @@ const CustomizedForm = Form.create({
   return (
     <Form onSubmit={props.onSubmit}>
       <FormItem label="Concept Name">
-        {getFieldDecorator('conceptName', {
+        {getFieldDecorator('name', {
           rules: [{ required: true, message: 'Concept Name is required!' }],
         })(<Input />)}
       </FormItem>
@@ -106,7 +82,7 @@ class App extends React.Component {
     super(props)
     this.state = {
       fields: {
-        conceptName: {
+        name: {
           value: null,
         },
         parentId: {
