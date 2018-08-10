@@ -9,7 +9,7 @@ export default React.createClass({
   },
 
   handleScores() {
-    return this.props.data.scores.map((score, index) => <ActivityIconWithTooltip key={`${this.props.data.name} ${index} ${score.caId}`} data={score} premium_state={this.props.premium_state} context={'scorebook'} />);
+    return this.props.data.scores.map((score, index) => <ActivityIconWithTooltip key={`${this.props.data.name} ${index} ${score.cuId}`} data={score} premium_state={this.props.premium_state} context={'scorebook'} />);
   },
 
   calculateAverageScore() {

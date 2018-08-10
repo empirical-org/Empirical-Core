@@ -57,10 +57,10 @@ export function createOrUpdateClassroomLesson({
 
 export function deleteClassroomLesson({
   connection,
-  classroomLessonId
+  activityId
 }) {
   r.table('classroom_lessons')
-  .filter({id: classroomLessonId})
+  .filter({id: activityId})
   .delete()
   .run(connection)
 }

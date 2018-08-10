@@ -3,7 +3,7 @@ class Api::V1::LessonsTokensController < Api::ApiController
 
   def create
     token = LessonsTokenCreator
-      .new(current_user, params[:classroom_activity_id])
+      .new(current_user, params[:classroom_unit_id])
       .create
     render json: { token: token }
   end

@@ -1,5 +1,6 @@
 class Teachers::ProgressReports::Standards::TopicStudentsController < Teachers::ProgressReportsController
   def index
+    classroom_id = params[:classroom_id].to_i
     respond_to do |format|
       format.html
       format.json do
@@ -7,18 +8,18 @@ class Teachers::ProgressReports::Standards::TopicStudentsController < Teachers::
         students_json = students.map do |student|
           serializer = ::ProgressReports::Standards::StudentSerializer.new(student)
           # Doing this because can't figure out how to get custom params into serializers
-          serializer.classroom_id = params[:classroom_id]
+          serializer.classroom_id = classroom_id
           serializer.as_json(root: false)
         end
         topics = ::ProgressReports::Standards::NewTopic.new(current_user).results(params)
         topics_json = topics.map do |topic|
           serializer = ::ProgressReports::Standards::TopicSerializer.new(topic)
           # Doing this because can't figure out how to get custom params into serializers
-          serializer.classroom_id = params[:classroom_id]
+          serializer.classroom_id = classroom_id
           serializer.as_json(root: false)
         end
         classrooms_i_teach = current_user.classrooms_i_teach
-        selected_classroom = params[:classroom_id] == 0 ? 'All Classrooms' : classrooms_i_teach.find{|c| c.id == params[:classroom_id]}
+        selected_classroom = classroom_id == 0 ? 'All Classrooms' : classrooms_i_teach.find{|c| c.id == classroom_id}
         render json: {
           selected_classroom: selected_classroom,
           classrooms: classrooms_i_teach,

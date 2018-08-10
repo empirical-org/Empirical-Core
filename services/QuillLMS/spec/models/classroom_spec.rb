@@ -5,10 +5,11 @@ describe Classroom, type: :model do
   it { should validate_uniqueness_of(:code) }
   it { should validate_presence_of(:name) }
 
-  it { should have_many(:classroom_activities) }
-  it { should have_many(:activities).through(:classroom_activities) }
-  it { should have_many(:units).through(:classroom_activities) }
-  it { should have_many(:activity_sessions).through(:classroom_activities) }
+  it { should have_many(:classroom_units) }
+  it { should have_many(:units).through(:classroom_units) }
+  it { should have_many(:unit_activities).through(:units) }
+  it { should have_many(:activities).through(:unit_activities) }
+  it { should have_many(:activity_sessions).through(:classroom_units) }
   #check if the code is correct as assign activities model does not exist
   #it { should have_many(:sections).through(:assign_activities) }
   it { should have_many(:coteacher_classroom_invitations) }
@@ -17,7 +18,7 @@ describe Classroom, type: :model do
   it { should have_many(:classrooms_teachers).with_foreign_key('classroom_id') }
   it { should have_many(:teachers).through(:classrooms_teachers).source(:user) }
 
-  it { is_expected.to callback(:hide_appropriate_classroom_activities).after(:commit) }
+  it { is_expected.to callback(:hide_appropriate_classroom_units).after(:commit) }
 
   let(:classroom) { build(:classroom) }
   let(:teacher) { create(:teacher) }
@@ -142,19 +143,19 @@ describe Classroom, type: :model do
     end
   end
 
-  describe '#hide_appropriate_classroom_activities' do
+  describe '#hide_appropriate_classroom_units' do
     let(:classroom) { create(:classroom) }
 
-    it 'should call hide_all_classroom_activities if classroom not visible' do
+    it 'should call hide_all_classroom_units if classroom not visible' do
       classroom.visible = false
-      expect(classroom).to receive(:hide_all_classroom_activities)
-      classroom.hide_appropriate_classroom_activities
+      expect(classroom).to receive(:hide_all_classroom_units)
+      classroom.hide_appropriate_classroom_units
     end
 
     it 'should not do anything if classroom visible' do
       classroom.visible = true
-      expect(classroom).to_not receive(:hide_all_classroom_activities)
-      classroom.hide_appropriate_classroom_activities
+      expect(classroom).to_not receive(:hide_all_classroom_units)
+      classroom.hide_appropriate_classroom_units
     end
   end
 

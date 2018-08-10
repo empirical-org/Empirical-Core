@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 describe ActivityAuthorizer do
-  let(:user) { double(:user, staff?: false) }
-  let(:session) { double(:session, user: user) }
+  let(:user) { create(:teacher) }
+  let(:session) { create(:activity_session, user: user) }
   let(:subject) { described_class.new(user, session) }
 
   describe '#authorize' do
@@ -28,7 +28,7 @@ describe ActivityAuthorizer do
 
     context 'when activity session user is not the same as given user' do
       before do
-        allow(session).to receive(:user) { double(:another_user) }
+        allow(session).to receive(:user) { create(:teacher) }
       end
 
       it 'should return false' do
@@ -44,14 +44,15 @@ describe ActivityAuthorizer do
   end
 
   describe '#authorize_teacher' do
-    let(:classroom) { double(:classroom, owner: user) }
-    let(:activity) { double(:classroom_activity, classroom: classroom) }
+    let(:classroom) { create(:classroom, :with_no_teacher) }
+    let(:classroom_unit) { create(:classroom_unit, classroom: classroom) }
 
     before do
-      allow(session).to receive(:classroom_activity) { activity }
+      allow(session).to receive(:classroom_unit) { classroom_unit }
     end
 
-    it 'should return true if the classroom owner in the activity is the same as given user' do
+    it 'should return true if the classroom owner in the classroom unit is the same as given user' do
+      ClassroomsTeacher.create(classroom: classroom, user: user, role: 'owner')
       expect(subject.authorize_teacher).to eq true
     end
   end

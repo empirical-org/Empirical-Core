@@ -5,10 +5,10 @@ import { setTeacherModels } from './editions'
 export function subscribeToClassroomLessonSession({
   connection,
   client,
-  classroomActivityId
+  classroomSessionId
 }) {
   r.table('classroom_lesson_sessions')
-  .get(classroomActivityId)
+  .get(classroomSessionId)
   .changes({ includeInitial: true })
   .run(connection, (err, cursor) => {
     cursor.each((err, document) => {
@@ -35,17 +35,17 @@ export function updateClassroomLessonSession({ connection, session }) {
 
 export function createOrUpdateClassroomLessonSession({
   connection,
-  classroomActivityId,
+  classroomSessionId,
   teacherIdObject
 }) {
   r.table('classroom_lesson_sessions')
-  .get(classroomActivityId)
+  .get(classroomSessionId)
   .run(connection)
   .then((session) => {
     teacherIdObject ? session.teacher_ids = teacherIdObject.teacher_ids : undefined;
     session.current_slide = session && session.current_slide ? session.current_slide : 0;
     session.startTime = session && session.startTime ? session.startTime : new Date();
-    session.id = session && session.id ? session.id : classroomActivityId;
+    session.id = session && session.id ? session.id : classroomSessionId;
 
     r.table('classroom_lesson_sessions')
     .insert(session, { conflict: 'replace' })
@@ -54,14 +54,14 @@ export function createOrUpdateClassroomLessonSession({
 };
 
 export function setSlideStartTime({
-  classroomActivityId,
+  classroomSessionId,
   questionId,
   connection,
 }) {
-  let session = { id: classroomActivityId, timestamps: {} };
+  let session = { id: classroomSessionId, timestamps: {} };
 
   r.table('classroom_lesson_sessions')
-  .get(classroomActivityId)('submissions')(questionId.toString())
+  .get(classroomSessionId)('submissions')(questionId.toString())
   .changes({ includeInitial: true })
   .run(connection)
   .catch(() => {
@@ -76,13 +76,13 @@ export function setSlideStartTime({
 export function addStudent({
   connection,
   client,
-  classroomActivityId,
+  classroomSessionId,
   studentName,
 }) {
   const nameRef = studentName.replace(/\s/g, '').toLowerCase()
 
   r.table('classroom_lesson_sessions')
-  .get(classroomActivityId)
+  .get(classroomSessionId)
   .update((classroomActivity) => {
     let students = {};
 
@@ -96,19 +96,19 @@ export function addStudent({
   })
   .run(connection)
   .then(() => {
-    client.emit(`studentAdded:${classroomActivityId}`, studentName, nameRef)
+    client.emit(`studentAdded:${classroomSessionId}`, studentName, nameRef)
   });
 }
 
 export function saveStudentSubmission({
-  classroomActivityId,
+  classroomSessionId,
   connection,
   questionId,
   studentId,
   submission,
 }) {
   let session = {
-    id: classroomActivityId,
+    id: classroomSessionId,
     submissions: {}
   };
   const submissionWithTimestamp = {...submission, timestamp: new Date()}
@@ -122,13 +122,13 @@ export function saveStudentSubmission({
 }
 
 export function removeStudentSubmission({
-  classroomActivityId,
+  classroomSessionId,
   connection,
   questionId,
   studentId,
 }) {
   r.table('classroom_lesson_sessions')
-  .get(classroomActivityId).replace(r.row.without({
+  .get(classroomSessionId).replace(r.row.without({
     submissions: { [questionId]: { [studentId]: true } }
   }))
   .run(connection)
@@ -136,11 +136,11 @@ export function removeStudentSubmission({
 
 export function removeMode({
   connection,
-  classroomActivityId,
+  classroomSessionId,
   questionId,
 }) {
   r.table('classroom_lesson_sessions')
-  .get(classroomActivityId)
+  .get(classroomSessionId)
   .replace(r.row.without({
     modes: { [questionId]: true }
   }))
@@ -149,42 +149,42 @@ export function removeMode({
 
 export function clearAllSelectedSubmissions({
   connection,
-  classroomActivityId,
+  classroomSessionId,
   questionId,
 }) {
   r.table('classroom_lesson_sessions')
-  .get(classroomActivityId).replace(r.row.without({
+  .get(classroomSessionId).replace(r.row.without({
     selected_submissions: { [questionId]: true }
   }))
   .run(connection)
 
   removeSelectedSubmissionOrder({
     connection,
-    classroomActivityId,
+    classroomSessionId,
     questionId,
   })
 }
 
 export function clearAllSubmissions({
   connection,
-  classroomActivityId,
+  classroomSessionId,
   questionId,
 }) {
   r.table('classroom_lesson_sessions')
-  .get(classroomActivityId).replace(r.row.without({
+  .get(classroomSessionId).replace(r.row.without({
     submissions: { [questionId]: true }
   }))
   .run(connection)
 }
 
 export function saveSelectedStudentSubmission({
-  classroomActivityId,
+  classroomSessionId,
   questionId,
   studentId,
   connection,
 }) {
   r.table('classroom_lesson_sessions')
-  .get(classroomActivityId)
+  .get(classroomSessionId)
   .update({
     selected_submissions: {
       [questionId]: {
@@ -196,13 +196,13 @@ export function saveSelectedStudentSubmission({
 }
 
 export function updateStudentSubmissionOrder({
-  classroomActivityId,
+  classroomSessionId,
   questionId,
   studentId,
   connection,
 }) {
   r.table('classroom_lesson_sessions')
-  .get(classroomActivityId)
+  .get(classroomSessionId)
   .hasFields({
     selected_submission_order: {
       [questionId]: true
@@ -212,13 +212,13 @@ export function updateStudentSubmissionOrder({
   .then((result) => {
     if (result) {
       r.table('classroom_lesson_sessions')
-      .get(classroomActivityId)('selected_submission_order')(questionId)
+      .get(classroomSessionId)('selected_submission_order')(questionId)
       .contains(studentId)
       .run(connection)
       .then((result) => {
         if (!result) {
           r.table('classroom_lesson_sessions')
-          .get(classroomActivityId)
+          .get(classroomSessionId)
           .update({
             selected_submission_order: {
               [questionId]: r.row('selected_submission_order')(questionId)
@@ -228,7 +228,7 @@ export function updateStudentSubmissionOrder({
           .run(connection)
         } else {
           r.table('classroom_lesson_sessions')
-          .get(classroomActivityId)
+          .get(classroomSessionId)
           .update({
             selected_submission_order: {
               [questionId]: r.row('selected_submission_order')(questionId)
@@ -240,7 +240,7 @@ export function updateStudentSubmissionOrder({
       })
     } else {
       r.table('classroom_lesson_sessions')
-      .get(classroomActivityId)
+      .get(classroomSessionId)
       .update({
         selected_submission_order: {
           [questionId]: [
@@ -254,12 +254,12 @@ export function updateStudentSubmissionOrder({
 }
 
 export function removeSelectedSubmissionOrder({
-  classroomActivityId,
+  classroomSessionId,
   questionId,
   connection,
 }) {
   r.table('classroom_lesson_sessions')
-  .get(classroomActivityId)
+  .get(classroomSessionId)
   .replace(r.row.without({
     selected_submission_order: {
       [questionId]: true
@@ -269,13 +269,13 @@ export function removeSelectedSubmissionOrder({
 }
 
 export function removeSelectedStudentSubmission({
-  classroomActivityId,
+  classroomSessionId,
   questionId,
   studentId,
   connection,
 }) {
   r.table('classroom_lesson_sessions')
-  .get(classroomActivityId)
+  .get(classroomSessionId)
   .replace(r.row.without({
     selected_submissions: {
       [questionId]: {
@@ -286,7 +286,7 @@ export function removeSelectedStudentSubmission({
   .run(connection)
   .then(() => {
     r.table('classroom_lesson_sessions')
-    .get(classroomActivityId)
+    .get(classroomSessionId)
     .replace(r.row.without({
       selected_submission_order: {
         [questionId]: [
@@ -299,13 +299,13 @@ export function removeSelectedStudentSubmission({
 }
 
 export function setMode({
-  classroomActivityId,
+  classroomSessionId,
   questionId,
   mode,
   connection,
 }) {
   r.table('classroom_lesson_sessions')
-  .get(classroomActivityId)
+  .get(classroomSessionId)
   .update({
     modes: {
       [questionId]: mode
@@ -315,13 +315,13 @@ export function setMode({
 }
 
 export function setModel({
-  classroomActivityId,
+  classroomSessionId,
   questionId,
   model,
   connection,
 }) {
   r.table('classroom_lesson_sessions')
-  .get(classroomActivityId)
+  .get(classroomSessionId)
   .update({
     models: {
       [questionId]: model
@@ -331,13 +331,13 @@ export function setModel({
 }
 
 export function setPrompt({
-  classroomActivityId,
+  classroomSessionId,
   questionId,
   prompt,
   connection,
 }) {
   r.table('classroom_lesson_sessions')
-  .get(classroomActivityId)
+  .get(classroomSessionId)
   .update({
     prompts: {
       [questionId]: prompt
@@ -347,12 +347,12 @@ export function setPrompt({
 }
 
 export function toggleStudentFlag({
-  classroomActivityId,
+  classroomSessionId,
   studentId,
   connection,
 }) {
   r.table('classroom_lesson_sessions')
-  .get(classroomActivityId)
+  .get(classroomSessionId)
   .hasFields({
     flaggedStudents: {
       [studentId]: true
@@ -362,7 +362,7 @@ export function toggleStudentFlag({
   .then((result) => {
     if (result) {
       r.table('classroom_lesson_sessions')
-      .get(classroomActivityId)
+      .get(classroomSessionId)
       .replace(r.row.without({
         flaggedStudents: {
           [studentId]: true
@@ -371,7 +371,7 @@ export function toggleStudentFlag({
       .run(connection)
     } else {
       r.table('classroom_lesson_sessions')
-      .get(classroomActivityId)
+      .get(classroomSessionId)
       .update({
         flaggedStudents: {
           [studentId]: true
@@ -383,11 +383,11 @@ export function toggleStudentFlag({
 }
 
 export function setWatchTeacherState({
-  classroomActivityId,
+  classroomSessionId,
   connection,
 }) {
   r.table('classroom_lesson_sessions')
-  .get(classroomActivityId)
+  .get(classroomSessionId)
   .update({
     watchTeacherState: true
   })
@@ -395,106 +395,106 @@ export function setWatchTeacherState({
 }
 
 export function removeWatchTeacherState({
-  classroomActivityId,
+  classroomSessionId,
   connection,
 }) {
   r.table('classroom_lesson_sessions')
-  .get(classroomActivityId)
+  .get(classroomSessionId)
   .replace(r.row.without('watchTeacherState'))
   .run(connection)
 }
 
 export function addStudents({
-  classroomActivityId,
+  classroomSessionId,
   activitySessions,
   studentIds,
   connection,
 }) {
   r.table('classroom_lesson_sessions')
-  .get(classroomActivityId)
+  .get(classroomSessionId)
   .update({ students: activitySessions, student_ids: studentIds })
   .run(connection)
 }
 
 export function redirectAssignedStudents({
-  classroomActivityId,
+  classroomSessionId,
   followUpOption,
   followUpUrl,
   connection,
 }) {
   r.table('classroom_lesson_sessions')
-  .get(classroomActivityId)
+  .get(classroomSessionId)
   .update({ followUpOption, followUpUrl })
   .run(connection)
 }
 
 export function setClassroomName({
-  classroomActivityId,
+  classroomSessionId,
   classroomName,
   connection,
 }) {
   r.table('classroom_lesson_sessions')
-  .get(classroomActivityId)
+  .get(classroomSessionId)
   .update({ classroom_name: classroomName })
   .run(connection)
 }
 
 export function setTeacherName({
-  classroomActivityId,
+  classroomSessionId,
   teacherName,
   connection,
 }) {
   r.table('classroom_lesson_sessions')
-  .get(classroomActivityId)
+  .get(classroomSessionId)
   .update({ teacher_name: teacherName })
   .run(connection)
 }
 
 export function addFollowUpName({
-  classroomActivityId,
+  classroomSessionId,
   followUpActivityName,
   connection,
 }) {
   r.table('classroom_lesson_sessions')
-  .get(classroomActivityId)
+  .get(classroomSessionId)
   .update({ followUpActivityName })
   .run(connection)
 }
 
 export function addSupportingInfo({
-  classroomActivityId,
+  classroomSessionId,
   supportingInfo,
   connection,
 }) {
   r.table('classroom_lesson_sessions')
-  .get(classroomActivityId)
+  .get(classroomSessionId)
   .update({ supportingInfo })
   .run(connection)
 }
 
 export function setEditionId({
-  classroomActivityId,
+  classroomSessionId,
   editionId,
   connection,
   client,
 }) {
   r.table('classroom_lesson_sessions')
-  .filter(r.row("id").eq(classroomActivityId))
+  .filter(r.row("id").eq(classroomSessionId))
   .run(connection)
   .then(cursor => cursor.toArray())
   .then(sessionArray => {
     const currentEditionId = sessionArray.length === 1 ? sessionArray[0].edition_id : null
     if (currentEditionId !== editionId) {
       setTeacherModels({
-        classroomActivityId,
+        classroomSessionId,
         editionId,
         connection,
       })
       r.table('classroom_lesson_sessions')
-      .insert({ id: classroomActivityId, edition_id: editionId }, {conflict: 'update'})
+      .insert({ id: classroomSessionId, edition_id: editionId }, {conflict: 'update'})
       .run(connection)
     }
   })
 
-  client.emit(`editionIdSet:${classroomActivityId}`)
+  client.emit(`editionIdSet:${classroomSessionId}`)
 }
