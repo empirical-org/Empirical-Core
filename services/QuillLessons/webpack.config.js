@@ -103,17 +103,33 @@ module.exports = {
       },
       {
         test: /\.svg$/,
-        loader: 'file-loader',
         include: /app\/img/,
+        use: [
+          'file-loader'
+        ],
       },
       {
         test: /\.(jpg|png)$/,
-        loader: 'url-loader?limit=25000',
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 25000
+            }
+          }
+        ],
         include: /app\/img/,
       },
       {
         test: /\.(eot|woff|woff2|ttf|png|jpe?g|gif|svg)(\?\S*)?$/,
-        loader: 'url-loader?limit=25000',
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 25000
+            }
+          }
+        ],
         exclude: /app\/img/,
       }
     ],

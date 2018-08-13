@@ -9,14 +9,14 @@ describe Teachers::UnitsController, type: :controller do
   let!(:teacher) { classroom.owner }
   let!(:unit) {create(:unit, user: teacher)}
   let!(:unit2) {create(:unit, user: teacher)}
-  let!(:classroom_activity) { create(
-    :classroom_activity_with_activity,
-    unit: unit, classroom: classroom,
+  let!(:classroom_unit) { create(:classroom_unit,
+    unit: unit,
+    classroom: classroom,
     assigned_student_ids: [student.id]
   )}
+  let!(:unit_activity) { create(:unit_activity, unit: unit)}
 
   before do
-    allow(GoogleIntegration::Announcements).to receive(:post_unit)
     session[:user_id] = teacher.id
   end
 
@@ -63,13 +63,13 @@ describe Teachers::UnitsController, type: :controller do
       let(:activities) { classroom.activities }
 
       before do
-        allow(controller).to receive(:get_classroom_activities_for_activity) { activities }
+        allow(controller).to receive(:get_classroom_units_for_activity) { activities }
       end
 
       it 'should render the correct json' do
         get :lesson_info_for_activity, activity_id: activities.first.id, format: :json
         expect(response.body).to eq({
-          classroom_activities: activities,
+          classroom_units: activities,
           activity_name: Activity.select('name').where("id = #{activities.first.id}")
         }.to_json)
       end
@@ -77,7 +77,7 @@ describe Teachers::UnitsController, type: :controller do
 
     context 'when activities not present' do
       before do
-        allow(controller).to receive(:get_classroom_activities_for_activity) { [] }
+        allow(controller).to receive(:get_classroom_units_for_activity) { [] }
       end
 
       it 'should render the correct json' do
@@ -113,12 +113,13 @@ describe Teachers::UnitsController, type: :controller do
 
   describe '#index' do
     let!(:activity) {create(:activity)}
-    let!(:classroom_activity) {create(:classroom_activity, due_date: Time.now, unit: unit, classroom: classroom, activity: activity, assigned_student_ids: [student.id])}
+    let!(:classroom_unit) {create(:classroom_unit, unit: unit, classroom: classroom, assigned_student_ids: [student.id])}
+    let!(:unit_activity) {create(:unit_activity, due_date: Time.now, unit: unit, activity: activity)}
     let!(:activity_session) {create(:activity_session,
       activity: activity,
-      classroom_activity: classroom_activity,
       user: student,
-      state: 'finished'
+      state: 'finished',
+      classroom_unit: classroom_unit
     )}
 
     it 'should return json in the appropriate format' do
@@ -129,13 +130,14 @@ describe Teachers::UnitsController, type: :controller do
       expect(response[0]['class_name']).to eq(classroom.name)
       expect(response[0]['classroom_id']).to eq(classroom.id.to_s)
       expect(response[0]['activity_classification_id']).to eq(activity.activity_classification_id.to_s)
-      expect(response[0]['classroom_activity_id']).to eq(classroom_activity.id.to_s)
+      expect(response[0]['classroom_unit_id']).to eq(classroom_unit.id.to_s)
+      expect(response[0]['unit_activity_id']).to eq(unit_activity.id.to_s)
       expect(response[0]['unit_id']).to eq(unit.id.to_s)
       expect(response[0]['class_size']).to eq(classroom.students.count.to_s)
       expect(response[0]['activity_uid']).to eq(activity.uid)
-      expect(DateTime.parse(response[0]['due_date']).to_i).to eq(classroom_activity.due_date.to_i)
+      expect(DateTime.parse(response[0]['due_date']).to_i).to eq(unit_activity.due_date.to_i)
       expect(response[0]['unit_created_at'].to_i).to eq(unit.created_at.to_i)
-      expect(response[0]['classroom_activity_created_at'].to_i).to eq(classroom_activity.created_at.to_i)
+      expect(response[0]['unit_activity_created_at'].to_i).to eq(unit_activity.created_at.to_i)
     end
 
     # TODO write a VCR-like test to check when this request returns something other than what we expect.
@@ -161,30 +163,30 @@ describe Teachers::UnitsController, type: :controller do
     end
   end
 
-  describe '#classrooms_with_students_and_classroom_activities' do
+  describe '#classrooms_with_students_and_classroom_units' do
 
-    it "returns #get_classrooms_with_students_and_classroom_activities when it is passed a valid unit id" do
-        get :classrooms_with_students_and_classroom_activities, id: unit.id
+    it "returns #get_classrooms_with_students_and_classroom_units when it is passed a valid unit id" do
+        get :classrooms_with_students_and_classroom_units, id: unit.id
         res = JSON.parse(response.body)
         expect(res["classrooms"].first["id"]).to eq(classroom.id)
         expect(res["classrooms"].first["name"]).to eq(classroom.name)
         expect(res["classrooms"].first["students"].first['id']).to eq(student.id)
         expect(res["classrooms"].first["students"].first['name']).to eq(student.name)
-        expect(res["classrooms"].first["classroom_activity"]).to eq({"id" => classroom_activity.id, "assigned_student_ids" => classroom_activity.assigned_student_ids, "assign_on_join" => true})
+        expect(res["classrooms"].first["classroom_unit"]).to eq({"id" => classroom_unit.id, "assigned_student_ids" => classroom_unit.assigned_student_ids, "assign_on_join" => true})
     end
 
 
     it "sends a 422 error code when it is not passed a valid unit id" do
-      get :classrooms_with_students_and_classroom_activities, id: Unit.count + 1000
+      get :classrooms_with_students_and_classroom_units, id: Unit.count + 1000
       expect(response.status).to eq(422)
     end
 
   end
 
-  describe '#update_classroom_activities_assigned_students' do
+  describe '#update_classroom_unit_assigned_students' do
 
     it "sends a 200 status code when it is passed valid data" do
-      put :update_classroom_activities_assigned_students,
+      put :update_classroom_unit_assigned_students,
           id: unit.id,
           unit: {
             classrooms: "[{\"id\":#{classroom.id},\"student_ids\":[]}]"
@@ -193,7 +195,7 @@ describe Teachers::UnitsController, type: :controller do
     end
 
     it "sends a 422 status code when it is passed invalid data" do
-      put :update_classroom_activities_assigned_students,
+      put :update_classroom_unit_assigned_students,
           id: unit.id + 500,
           unit: {
             classrooms: "[{\"id\":#{classroom.id},\"student_ids\":[]}]"
@@ -206,7 +208,7 @@ describe Teachers::UnitsController, type: :controller do
   describe '#update_activities' do
 
     it "sends a 200 status code when it is passed valid data" do
-      activity = classroom_activity.activity
+      activity = unit_activity.activity
       put :update_activities,
           id: unit.id.to_s,
           data: {
@@ -217,7 +219,7 @@ describe Teachers::UnitsController, type: :controller do
     end
 
     it "sends a 422 status code when it is passed invalid data" do
-      activity = classroom_activity.activity
+      activity = unit_activity.activity
       put :update_activities,
           id: unit.id + 500,
           data: {
@@ -232,8 +234,9 @@ describe Teachers::UnitsController, type: :controller do
     let!(:activity) { create(:lesson_activity) }
 
     before(:each) do
-      ClassroomActivity.destroy_all
-      session['user_id'] = classroom_activity.classroom.owner.id
+      ClassroomUnit.destroy_all
+      UnitActivity.destroy_all
+      session['user_id'] = classroom_unit.classroom.owner.id
     end
 
     it 'should redirect to a lessons index if there are no lessons' do
@@ -242,13 +245,16 @@ describe Teachers::UnitsController, type: :controller do
     end
 
     it 'should redirect to the lesson if there is only one lesson' do
-      classroom_activity = create(:classroom_activity, activity: activity, classroom: current_user.classrooms_i_own.first)
+      classroom_unit = create(:classroom_unit, classroom: current_user.classrooms_i_own.first)
+      unit_activity = create(:unit_activity, unit: classroom_unit.unit, activity: activity)
       get :select_lesson_with_activity_id, activity_id: activity.id
-      expect(response).to redirect_to("/teachers/classroom_activities/#{classroom_activity.id}/launch_lesson/#{activity.uid}")
+      expect(response).to redirect_to("/teachers/classroom_units/#{classroom_unit.id}/launch_lesson/#{activity.uid}")
     end
 
     it 'should redirect to a lessons index if there are multiple lessons' do
-      create_pair(:classroom_activity, activity: activity)
+      unit = create(:unit)
+      create_pair(:classroom_unit, unit: unit)
+      unit_activity = create(:unit_activity, unit: unit, activity: activity)
       get :select_lesson_with_activity_id, activity_id: activity.id
       expect(response).to redirect_to("/teachers/classrooms/activity_planner/lessons_for_activity/#{activity.id}")
     end

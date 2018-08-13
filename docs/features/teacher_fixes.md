@@ -8,21 +8,21 @@ These pages are designed to fix issues that are frequently reported on Intercom 
 
 Use when a teacher has purposefully or accidentally deleted an activity pack and wants it back.
 
-All archived units are selected by default. Unarchiving a unit will also unarchive all of that unit's classroom activities and activity sessions.
+All archived units are selected by default. Unarchiving a unit will also unarchive all of that unit's classroom units and activity sessions.
 
 If the input field for a unit name is outlined in red, that means that it shares a name with one of that teacher's visible units. If you are going to unarchive this unit, make sure you change the name. Appending a number to the unit's name is a good way to handle this.
 
-## [Restore Classroom Activities](https://www.quill.org/teacher_fix/recover_classroom_activities)
+## [Restore Classroom Units](https://www.quill.org/teacher_fix/recover_classroom_units)
 
 Use this when a teacher has archived and then unarchived a classroom and wants their data back.
 
-This method will unarchive all of the classroom activities and associated activity sessions for a given classroom, as well as any units (activity packs) that are associated with these classroom activities in the event that they have been hidden.
+This method will unarchive all of the classroom units and associated activity sessions for a given classroom, as well as any units (activity packs) that are associated with these classroom units in the event that they have been hidden.
 
 ## [Restore Activity Sessions](https://www.quill.org/teacher_fix/recover_activity_sessions)
 
 Use as a first line of defense when teachers complain about missing activity sessions, frequently seen with the diagnostic.
 
-This method will unarchive all of the activity sessions for a given unit that may have been accidentally unassigned. The student ids from the unarchived activity sessions are pushed back into the classroom activity's assigned_student_ids array if they are absent.
+This method will unarchive all of the activity sessions for a given unit that may have been accidentally unassigned. The student ids from the unarchived activity sessions are pushed back into the classroom unit's assigned_student_ids array if they are absent.
 
 ## [Merge Student Accounts](https://www.quill.org/teacher_fix/merge_student_accounts)
 
