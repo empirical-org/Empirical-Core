@@ -6,6 +6,7 @@ import HomePage from "./components/HomePage";
 import AboutPage from "./components/AboutPage";
 import PageLayout from "./components/PageLayout";
 import PlayGrammar from "./components/grammarActivities/container"
+import Admin from "./components/admin/admin"
 
 export const routes: RouteConfig[] = [
     {
@@ -13,18 +14,22 @@ export const routes: RouteConfig[] = [
       component: () => (<PlayGrammar />)
     },
     {
-        path: "/home",
-        exact: true,
-        component: () => (<HomePage />),
-    },
+      path: "/admin",
+      component: () => (<Admin />)
+    }
+    // {
+    //     path: "/home",
+    //     exact: true,
+    //     component: () => (<HomePage />),
+    // },
     // {
     //     path: "/todo",
     //     component: () => (<TodoPage />),
     // },
-    {
-        path: "/about",
-        component: () => (<AboutPage />),
-    },
+    // {
+    //     path: "/about",
+    //     component: () => (<AboutPage />),
+    // },
 ];
 
 export const route = (

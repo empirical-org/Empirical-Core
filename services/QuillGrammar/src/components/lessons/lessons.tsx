@@ -1,8 +1,7 @@
-import React from 'react';
+import * as React from 'react';
 import { connect } from 'react-redux';
-import actions from '../../actions/lessons';
+import * as actions from '../../actions/grammarActivities';
 import _ from 'underscore';
-import { Link } from 'react-router';
 import {
   Modal,
   LinkListItem,
@@ -110,7 +109,7 @@ class Lessons extends React.Component {
 
 function select(state) {
   return {
-    lessons: state.lessons,
+    lessons: state.grammarActivities,
     routing: state.routing,
     questions: state.questions,
   };
