@@ -58,7 +58,7 @@ export const startListeningToQuestions = (concepts: any) => {
       if (flattenedArrayOfQuestions.length > 0) {
         dispatch({ type: ActionTypes.RECEIVE_QUESTION_DATA, data: flattenedArrayOfQuestions, });
       } else {
-        dispatch({ type: ActionTypes.NO_QUESTIONS_FOUND})
+        dispatch({ type: ActionTypes.NO_QUESTIONS_FOUND_FOR_SESSION})
       }
     });
 
