@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Spinner } from 'quill-component-library/dist/componentLibrary'
 const WakeLock: any = require('react-wakelock').default;
 import {
   startListeningToSession,
@@ -19,36 +18,35 @@ import CLStudentSingleAnswer from './singleAnswer';
 import CLListBlanks from './listBlanks';
 import CLStudentFillInTheBlank from './fillInTheBlank';
 import CLStudentModelQuestion from './modelQuestion';
-import CLMultistep from './multistep'
-import ProjectorModal from './projectorModal'
-import ErrorPage from '../shared/errorPage'
-import FlaggedStudentCompletedPage from './flaggedStudentCompleted'
-import {
-  getClassLesson
- } from '../../../actions/classroomLesson';
-import {
- getEditionQuestions
-} from '../../../actions/customize';
+import CLMultistep from './multistep';
+import ProjectorModal from './projectorModal';
+import ErrorPage from '../shared/errorPage';
+import FlaggedStudentCompletedPage from './flaggedStudentCompleted';
+import { getClassLesson } from '../../../actions/classroomLesson';
+import { getEditionQuestions } from '../../../actions/customize';
 import { getParameterByName } from '../../../libs/getParameterByName';
 import {
   ClassroomLessonSessions,
   ClassroomLessonSession,
   QuestionSubmissionsList,
+  ClassroomSessionId
 } from '../interfaces';
-import {
-  ClassroomLesson
-} from '../../../interfaces/classroomLessons';
-import * as CustomizeIntf from '../../../interfaces/customize'
-import {
-  scriptTagStrip
-} from '../shared/scriptTagStrip';
+import { ClassroomLesson } from '../../../interfaces/classroomLessons';
+import * as CustomizeIntf from '../../../interfaces/customize';
+import { scriptTagStrip } from '../shared/scriptTagStrip';
+import { Spinner } from 'quill-component-library/dist/componentLibrary';
 
 
 class PlayClassroomLessonContainer extends React.Component<any, any> {
   constructor(props) {
     super(props);
+
+    const classroomUnitId = getParameterByName('classroom_unit_id')
+    const activityUid = props.params.lessonID
     this.state = {
-      easyDemoName: ''
+      easyDemoName: '',
+      classroomUnitId,
+      classroomSessionId: classroomUnitId ? classroomUnitId.concat(activityUid) : null
     }
 
     if (getParameterByName('projector')) {
@@ -64,10 +62,10 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
   }
 
   componentDidMount() {
-    const classroom_activity_id = getParameterByName('classroom_activity_id');
+    const classroomSessionId: ClassroomSessionId = this.state.classroomSessionId;
     const student = getParameterByName('student');
-    if (classroom_activity_id) {
-      this.props.dispatch(startListeningToSession(classroom_activity_id));
+    if (classroomSessionId) {
+      this.props.dispatch(startListeningToSession(classroomSessionId));
     }
     document.getElementsByTagName("html")[0].style.backgroundColor = "white";
   }
@@ -117,15 +115,15 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
         element.scrollTop = 0;
       }
       const student = getParameterByName('student');
-      const classroom_activity_id = getParameterByName('classroom_activity_id')
+      const { classroomSessionId } = this.state
       const projector = getParameterByName('projector')
       const { data, hasreceiveddata } = this.props.classroomSessions;
       if (projector === "true") {
         if (!this.state.projector) {
           this.setState({projector: true, showProjectorModal: true})
         }
-      } else if (classroom_activity_id && student && hasreceiveddata && this.studentEnrolledInClass(student)) {
-        registerPresence(classroom_activity_id, student);
+      } else if (classroomSessionId && student && hasreceiveddata && this.studentEnrolledInClass(student)) {
+        registerPresence(classroomSessionId, student);
       } else {
         if (hasreceiveddata && !this.studentEnrolledInClass(student) && !nextProps.classroomSessions.error) {
           if (nextProps.classroomSessions.data.public) {
@@ -142,13 +140,13 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
     const tag = event.target.tagName.toLowerCase()
     const className = event.target.className.toLowerCase()
     if (tag !== 'input' && tag !== 'textarea' && className.indexOf("drafteditor") === -1 && (event.keyCode === 39 || event.keyCode === 37)) {
-      const ca_id: string|null = getParameterByName('classroom_activity_id');
+      const classroomSessionId: ClassroomSessionId|null = this.state.classroomSessionId
       const sessionData: ClassroomLessonSession = this.props.classroomSessions.data;
       const editionData: CustomizeIntf.EditionQuestions = this.props.customize.editionQuestions;
-      if (ca_id) {
+      if (classroomSessionId) {
         const updateInStore = event.keyCode === 39
-          ? goToNextSlide(ca_id, sessionData, editionData)
-          : goToPreviousSlide(ca_id, sessionData, editionData)
+          ? goToNextSlide(sessionData, editionData, classroomSessionId)
+          : goToPreviousSlide(sessionData, editionData, classroomSessionId)
         if (updateInStore) {
           this.props.dispatch(updateInStore);
         }
@@ -163,15 +161,15 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
   }
 
   handleStudentSubmission(data: string) {
-    const classroom_activity_id: string|null = getParameterByName('classroom_activity_id');
+    const classroomSessionId: ClassroomSessionId|null = this.state.classroomSessionId;
     const student: string|null = getParameterByName('student');
-    const current_slide: string = this.props.classroomSessions.data.current_slide;
+    const currentSlide: string = this.props.classroomSessions.data.current_slide;
     const safeData = scriptTagStrip(data)
     const submission = {data: safeData}
-    if (classroom_activity_id && student && this.studentEnrolledInClass(student)) {
+    if (classroomSessionId && student && this.studentEnrolledInClass(student)) {
       saveStudentSubmission(
-        classroom_activity_id,
-        current_slide,
+        classroomSessionId,
+        currentSlide,
         student,
         submission
       );
@@ -235,23 +233,21 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
   }
 
   handleChange(e) {
-    console.log("event: ", e)
     this.setState({
       easyDemoName: e.target.value
     })
   }
 
   easyJoinDemo() {
-    console.log("Joining", this.state)
-    const classroom_activity_id: string|null = getParameterByName('classroom_activity_id');
-    if (classroom_activity_id) {
-      easyJoinLessonAddName(classroom_activity_id, this.state.easyDemoName)
+    const classroomSessionId: ClassroomSessionId|null = this.state.classroomSessionId;
+    if (classroomSessionId) {
+      easyJoinLessonAddName(classroomSessionId, this.state.easyDemoName)
     }
   }
 
   renderLeftButton() {
     if (getParameterByName('projector') && this.props.classroomSessions.data.current_slide !== '0') {
-      const ca_id: string|null = getParameterByName('classroom_activity_id');
+      const classroomSessionId: ClassroomSessionId|null = this.state.classroomSessionId;
       const sessionData: ClassroomLessonSession = this.props.classroomSessions.data;
       const editionData: CustomizeIntf.EditionQuestions = this.props.customize.editionQuestions;
       const imageSrc = this.state.leftHover ? 'https://assets.quill.org/images/icons/left-button-hover.svg' : 'https://assets.quill.org/images/icons/left-button.svg'
@@ -260,7 +256,7 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
         src={imageSrc}
         onMouseOver={() => this.setState({leftHover: true})}
         onMouseOut={() => this.setState({leftHover: false})}
-        onClick={() => this.props.dispatch(goToPreviousSlide(ca_id, sessionData, editionData))}
+        onClick={() => this.props.dispatch(goToPreviousSlide(sessionData, editionData, classroomSessionId))}
       />
     }
 
@@ -269,7 +265,7 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
   renderRightButton() {
     const currentSlide = Number(this.props.classroomSessions.data.current_slide)
     if (getParameterByName('projector') && currentSlide !== this.props.classroomLesson.data.questions.length - 1) {
-      const ca_id: string|null = getParameterByName('classroom_activity_id');
+      const classroomSessionId: ClassroomSessionId|null = this.state.classroomSessionId;
       const sessionData: ClassroomLessonSession = this.props.classroomSessions.data;
       const editionData: CustomizeIntf.EditionQuestions = this.props.customize.editionQuestions;
       const className: string = currentSlide === 0 ? 'right-button keep-right' : 'right-button'
@@ -279,7 +275,7 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
       src={imageSrc}
       onMouseOver={() => this.setState({rightHover: true})}
       onMouseOut={() => this.setState({rightHover: false})}
-      onClick={() => this.props.dispatch(goToNextSlide(ca_id, sessionData, editionData))}
+      onClick={() => this.props.dispatch(goToNextSlide(sessionData, editionData, classroomSessionId))}
     />
     }
   }

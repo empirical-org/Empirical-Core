@@ -3,7 +3,7 @@ import openSocket from 'socket.io-client';
 class SocketStore {
   constructor() {
     this.instance = null;
-    this.classroomActivityId = null;
+    this.classroomUnitId = null;
     this.tokenUrl = `${process.env.EMPIRICAL_BASE_URL}/api/v1/lessons_tokens`;
     this.socketsUrl = process.env.LESSONS_WEBSOCKETS_URL;
     this.token = null;
@@ -11,7 +11,7 @@ class SocketStore {
 
   _getAuthTokenAndConnect(callback = null) {
     const formData = new FormData();
-    formData.append('classroom_activity_id', this.classroomActivityId);
+    formData.append('classroom_unit_id', this.classroomUnitId);
 
     fetch(this.tokenUrl, {
       method: 'POST',
@@ -62,12 +62,12 @@ class SocketStore {
     });
   }
 
-  connect(newClassroomActivityId = null, callback = null) {
-    const isNewActivitySession = this.classroomActivityId !== newClassroomActivityId;
-    const isSocketMissing = !this.classroomActivityId && !this.instance;
+  connect(newClassroomUnitId = null, callback = null) {
+    const isNewActivitySession = this.classroomUnitId !== newClassroomUnitId;
+    const isSocketMissing = !this.classroomUnitId && !this.instance;
 
     if (isSocketMissing || isNewActivitySession) {
-      this.classroomActivityId = newClassroomActivityId;
+      this.classroomUnitId = newClassroomUnitId;
       this._getAuthTokenAndConnect(callback);
     }
   }

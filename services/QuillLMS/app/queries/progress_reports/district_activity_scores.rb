@@ -33,18 +33,18 @@ class ProgressReports::DistrictActivityScores
         ) AS average_score,
         COUNT(activity_sessions.id) AS activity_count,
         classrooms.id AS classroom_id
-      FROM classroom_activities
-      JOIN activity_sessions ON classroom_activities.id = activity_sessions.classroom_activity_id
-      JOIN activities ON classroom_activities.activity_id = activities.id
-      JOIN classrooms ON classrooms.id = classroom_activities.classroom_id
+      FROM classroom_units
+      JOIN activity_sessions ON classroom_units.id = activity_sessions.classroom_unit_id
+      JOIN activities ON activity_sessions.activity_id = activities.id
+      JOIN classrooms ON classrooms.id = classroom_units.classroom_id
       JOIN classrooms_teachers ON classrooms_teachers.classroom_id = classrooms.id
       JOIN users AS teachers ON teachers.id = classrooms_teachers.user_id
       JOIN schools_users ON schools_users.user_id = teachers.id
       JOIN schools ON schools.id = schools_users.school_id
       JOIN users AS students ON students.id = activity_sessions.user_id
-      WHERE classroom_activities.classroom_id IN (#{classroom_ids_for_admin})
+      WHERE classroom_units.classroom_id IN (#{classroom_ids_for_admin})
       AND activity_sessions.is_final_score = TRUE
-      AND classroom_activities.visible = true
+      AND classroom_units.visible = true
       GROUP BY classrooms.name, students.id, students.name, teachers.name,
         schools.name, classrooms.id, students.last_active
     SQL
