@@ -6,6 +6,7 @@ export interface GrammarActivityState {
   hasreceiveddata: boolean;
   currentActivity: GrammarActivity;
   activities: GrammarActivities
+  newLessonModalOpen: boolean
   error?: string;
 }
 
@@ -18,6 +19,19 @@ export default (
           return Object.assign({}, currentState, { activities: action.data}, {hasreceiveddata: true})
         case ActionTypes.RECEIVE_GRAMMAR_ACTIVITY_DATA:
             return Object.assign({}, currentState, { currentActivity: action.data}, {hasreceiveddata: true});
+        case ActionTypes.TOGGLE_NEW_LESSON_MODAL:
+            return Object.assign({}, currentState, {
+                newLessonModalOpen: !currentState.newLessonModalOpen
+            });
+        case C.AWAIT_NEW_LESSON_RESPONSE:
+            return Object.assign({}, currentState, {
+                submittingnew: true
+            });
+        case C.RECEIVE_NEW_LESSON_RESPONSE:
+            return Object.assign({}, currentState, {
+                submittingnew: false,
+                newLessonModalOpen: false
+            });
         case ActionTypes.NO_GRAMMAR_ACTIVITY_FOUND:
             return Object.assign({}, currentState, { error: 'No activity found.'})
         case ActionTypes.NO_GRAMMAR_ACTIVITIES_FOUND:

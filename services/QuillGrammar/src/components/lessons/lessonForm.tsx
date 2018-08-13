@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { connect } from 'react-redux';
 import QuestionSelector from 'react-select-search';
 import {
@@ -7,7 +7,6 @@ import {
   TextEditor
 } from 'quill-component-library/dist/componentLibrary';
 import { EditorState, ContentState } from 'draft-js'
-import ChooseModelContainer from './chooseModelContainer.jsx'
 import _ from 'underscore';
 
 class LessonForm extends React.Component {
@@ -183,11 +182,6 @@ class LessonForm extends React.Component {
         <label className="label">All Questions</label>
         {this.renderSearchBox()}
         <br />
-        <ChooseModelContainer
-          updateModelConcept={modelConceptUID => this.setState({ modelConceptUID })}
-          modelConceptUID={this.state.modelConceptUID}
-          conceptsFeedback={this.props.conceptsFeedback}
-        />
         <p className="control">
           <button className={`button is-primary ${this.props.stateSpecificClass}`} onClick={this.submit}>Submit</button>
         </p>
@@ -199,11 +193,7 @@ class LessonForm extends React.Component {
 function select(state) {
   return {
     questions: state.questions,
-    concepts: state.concepts,
-    sentenceFragments: state.sentenceFragments,
-    conceptsFeedback: state.conceptsFeedback,
-    fillInBlank: state.fillInBlank,
-    titleCards: state.titleCards
+    concepts: state.concepts
   };
 }
 

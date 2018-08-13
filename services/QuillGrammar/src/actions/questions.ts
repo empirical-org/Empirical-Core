@@ -5,7 +5,7 @@ const questionsRef = rootRef.child('questions')
 import { Questions } from '../interfaces/questions'
 
 export const startListeningToQuestions = () => {
-  return (dispatch) => {
+  return dispatch => {
     questionsRef.on('value', (snapshot) => {
       const questions: Questions = snapshot.val()
       if (questions) {
@@ -40,4 +40,14 @@ export const getGradedResponsesWithCallback = (questionID, callback) => {
     });
     callback(bodyToObj);
   });
+}
+
+export const updateFlag = (qid: string, flag: string) => {
+  return dispatch => {
+    questionsRef.child(`${qid}/flag/`).set(flag, (error) => {
+      if (error) {
+        alert(`Flag update failed! ${error}`);
+      }
+    });
+  }
 }
