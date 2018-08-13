@@ -59,7 +59,7 @@ module.exports = {
     new webpack.EnvironmentPlugin({
       NODE_ENV: 'development',
       EMPIRICAL_BASE_URL: 'https://staging.quill.org',
-      QUILL_CMS: 'https://cms.quill.org',
+      QUILL_CMS: 'http://localhost:3100',
       PUSHER_KEY: 'a253169073ce7474f0ce',
       FIREBASE_APP_NAME: 'quillconnectstaging',
     }),

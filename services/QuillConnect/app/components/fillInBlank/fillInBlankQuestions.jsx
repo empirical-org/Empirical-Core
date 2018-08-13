@@ -6,7 +6,6 @@ import {
   hashToCollection,
   ArchivedButton
 } from 'quill-component-library/dist/componentLibrary';
-import { getNonDiagnosticQuestions } from '../../libs/getNonDiagnosticQuestions'
 
 class FillInBlankQuestions extends Component {
   constructor() {
@@ -19,10 +18,10 @@ class FillInBlankQuestions extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { fillInBlank, diagnosticLessons } = nextProps
-    if (fillInBlank.hasreceiveddata && diagnosticLessons.hasreceiveddata) {
+    const { fillInBlank, } = nextProps
+    if (fillInBlank.hasreceiveddata) {
       if (Object.keys(this.state.questions).length === 0 || !_.isEqual(this.props.fillInBlank.data, fillInBlank.data) || (!_.isEqual(this.props.diagnosticLessons.data, diagnosticLessons.data))) {
-        this.setState({ questions: getNonDiagnosticQuestions(diagnosticLessons.data, fillInBlank.data) })
+        this.setState({ questions: fillInBlank.data, })
       }
     }
   }
@@ -56,8 +55,7 @@ class FillInBlankQuestions extends Component {
 
 function select(props) {
   return {
-    fillInBlank: props.fillInBlank,
-    diagnosticLessons: props.diagnosticLessons
+    fillInBlank: props.fillInBlank
   };
 }
 
