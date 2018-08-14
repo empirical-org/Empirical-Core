@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
 import * as _ from 'underscore';
 import * as ReactTransition from 'react-addons-css-transition-group';
-import {checkSentenceFragment, Response } from 'quill-marking-logic'
+import {checkDiagnosticSentenceFragment, Response } from 'quill-marking-logic'
 import Feedback from '../renderForQuestions/feedback';
 import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
 import {
@@ -126,7 +126,7 @@ const PlaySentenceFragment = React.createClass<any, any>({
           focusPoints,
           incorrectSequences
         }
-        checkSentenceFragment(fields).then((resp) => {
+        checkDiagnosticSentenceFragment(fields).then((resp) => {
           const matched = {response: resp}
           if (typeof(matched) === 'object') {
             updateResponseResource(matched, key, attempts, this.props.dispatch, );

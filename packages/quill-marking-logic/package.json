@@ -69,6 +69,7 @@
     "immutable": "^3.8.2",
     "levenshtein": "^1.0.5",
     "lodash": "^4.17.4",
+    "pos": "^0.4.2",
     "quill-component-library": "^0.1.19",
     "quill-spellchecker": "^0.1.5",
     "quill-string-normalizer": "0.0.7",
