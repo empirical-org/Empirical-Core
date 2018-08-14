@@ -6,10 +6,12 @@ import session from './sessionReducer'
 
 export const initState: IState = {
     grammarActivities: {},
-    session: {}
+    session: {},
+    questions: {}
 };
 
 export const rootReducer = combineReducers({
     grammarActivities,
-    session
+    session,
+    questions
 });

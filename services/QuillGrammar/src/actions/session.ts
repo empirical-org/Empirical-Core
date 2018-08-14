@@ -17,7 +17,7 @@ export const updateSessionOnFirebase = (sessionID: string, session: SessionState
 }
 
 export const setSessionReducerToSavedSession = (sessionID: string) => {
-  return (dispatch) => {
+  return dispatch => {
     sessionsRef.child(sessionID).once('value', (snapshot) => {
       const session = snapshot.val()
       if (session && !session.error) {
@@ -29,7 +29,7 @@ export const setSessionReducerToSavedSession = (sessionID: string) => {
 
 // typescript this
 export const startListeningToQuestions = (concepts: any) => {
-  return (dispatch) => {
+  return dispatch => {
 
     const conceptUIDs = Object.keys(concepts)
     questionsRef.orderByChild('concept_uid').on('value', (snapshot) => {
@@ -58,7 +58,7 @@ export const startListeningToQuestions = (concepts: any) => {
       if (flattenedArrayOfQuestions.length > 0) {
         dispatch({ type: ActionTypes.RECEIVE_QUESTION_DATA, data: flattenedArrayOfQuestions, });
       } else {
-        dispatch({ type: ActionTypes.NO_QUESTIONS_FOUND})
+        dispatch({ type: ActionTypes.NO_QUESTIONS_FOUND_FOR_SESSION})
       }
     });
 
@@ -66,7 +66,7 @@ export const startListeningToQuestions = (concepts: any) => {
 }
 
 export const checkAnswer = (response:string, question:Question) => {
-  return (dispatch) => {
+  return dispatch => {
     const questionUID: string = question.uid
     const formattedAnswers: any[] = question.answers.map(a => {
       return {
@@ -89,19 +89,19 @@ export const checkAnswer = (response:string, question:Question) => {
 }
 
 export const goToNextQuestion = () => {
-  return (dispatch) => {
+  return dispatch => {
     dispatch({ type: ActionTypes.GO_T0_NEXT_QUESTION })
   }
 }
 
 export const submitResponse = (response: Response) => {
-  return (dispatch) => {
+  return dispatch => {
     dispatch({ type: ActionTypes.SUBMIT_RESPONSE, response })
   }
 }
 
 export const setSessionReducer = (session: SessionState) => {
-  return (dispatch) => {
+  return dispatch => {
     dispatch({ type: ActionTypes.SET_SESSION, session})
   }
 }
