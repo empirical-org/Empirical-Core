@@ -4,7 +4,7 @@ import { Questions } from '../interfaces/questions'
 
 export interface QuestionsState {
   hasreceiveddata: boolean;
-  questions: Questions
+  data: Questions
   error?: string;
 }
 
@@ -14,7 +14,7 @@ export default (
 ) => {
     switch (action.type) {
         case ActionTypes.RECEIVE_QUESTIONS_DATA:
-          return Object.assign({}, currentState, { questions: action.data}, {hasreceiveddata: true})
+          return Object.assign({}, currentState, { data: action.data}, {hasreceiveddata: true})
         case ActionTypes.NO_QUESTIONS_FOUND:
             return Object.assign({}, currentState, { error: 'No questions found.'})
         default:

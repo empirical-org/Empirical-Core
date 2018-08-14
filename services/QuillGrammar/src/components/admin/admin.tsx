@@ -3,6 +3,7 @@ import { Route } from "react-router-dom";
 import { connect } from 'react-redux';
 import * as grammarActivitiesActions from '../../actions/grammarActivities'
 import * as questionsActions from '../../actions/questions'
+import * as conceptsActions from '../../actions/concepts'
 import Lessons from '../lessons/lessons'
 import TabLink from './tabLink'
 
@@ -14,6 +15,7 @@ class adminContainer extends React.Component {
   componentWillMount() {
     this.props.dispatch(questionsActions.startListeningToQuestions());
     this.props.dispatch(grammarActivitiesActions.startListeningToActivities());
+    this.props.dispatch(conceptsActions.startListeningToConcepts());
   }
 
   render() {

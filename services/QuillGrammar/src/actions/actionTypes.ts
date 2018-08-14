@@ -30,6 +30,9 @@ export const ActionTypes = {
     DISPLAY_ERROR: 'DISPLAY_ERROR',
     DISPLAY_MESSAGE: 'DISPLAY_MESSAGE',
     CLEAR_DISPLAY_MESSAGE_AND_ERROR: 'CLEAR_DISPLAY_MESSAGE_AND_ERROR',
+
+    // CONCEPTS
+    RECEIVE_CONCEPTS_DATA: 'RECEIVE_CONCEPTS_DATA',
 };
 //
 export interface IInitStoreAction extends Action {
