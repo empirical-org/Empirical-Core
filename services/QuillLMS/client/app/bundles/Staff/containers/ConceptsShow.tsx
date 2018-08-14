@@ -12,6 +12,7 @@ import {
   Row,
   Col,
 } from "antd";
+import ConceptsShow from "../components/ConceptsShow";
 
 function conceptQuery(id){
   return `
@@ -136,13 +137,9 @@ class App extends React.Component {
                 <Breadcrumb.Item>{concept.name}</Breadcrumb.Item>
               </Breadcrumb>
               <Divider />
-              <h3>{concept.name}</h3>
-              <p>{concept.uid}</p>
+
+              <ConceptsShow concept={concept}/>
               
-              <Row gutter={16}>
-                <Col span={12}>{this.renderSiblings(concept)}</Col>
-                <Col span={12}>{this.renderChildren(concept)}</Col>
-              </Row>
             </div>
           )
         }}
