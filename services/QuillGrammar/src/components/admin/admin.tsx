@@ -5,6 +5,7 @@ import * as grammarActivitiesActions from '../../actions/grammarActivities'
 import * as questionsActions from '../../actions/questions'
 import * as conceptsActions from '../../actions/concepts'
 import Lessons from '../lessons/lessons'
+import Lesson from '../lessons/lesson'
 import TabLink from './tabLink'
 
 class adminContainer extends React.Component {
@@ -48,6 +49,7 @@ class adminContainer extends React.Component {
             {this.props.children}
           </div>
         </section>
+        <Route path={`/admin/lessons/:lessonID`} component={Lesson}/>
         <Route path={`/admin/lessons`} component={Lessons}/>
       </div>
     );
