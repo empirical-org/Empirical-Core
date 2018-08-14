@@ -7,13 +7,15 @@ export interface GrammarActivityState {
   currentActivity: GrammarActivity;
   data: GrammarActivities
   newLessonModalOpen: boolean
+  states: Object
   error?: string;
 }
 
 export default (
-    currentState = {hasreceiveddata: false, data: {}},
+    currentState = {hasreceiveddata: false, data: {}, states: {}},
     action: Action,
 ) => {
+    let newstate
     switch (action.type) {
         case ActionTypes.RECEIVE_GRAMMAR_ACTIVITIES_DATA:
           return Object.assign({}, currentState, { data: action.data}, {hasreceiveddata: true})
@@ -36,6 +38,18 @@ export default (
             return Object.assign({}, currentState, { error: 'No activity found.'})
         case ActionTypes.NO_GRAMMAR_ACTIVITIES_FOUND:
             return Object.assign({}, currentState, { error: 'No activities found.'})
+        case ActionTypes.START_LESSON_EDIT:
+            newstate = _.cloneDeep(currentState);
+            newstate.states[action.cid] = ActionTypes.EDITING_LESSON;
+            return newstate;
+        case ActionTypes.FINISH_LESSON_EDIT:
+            newstate = _.cloneDeep(currentState);
+            delete newstate.states[action.cid];
+            return newstate;
+        case ActionTypes.SUBMIT_LESSON_EDIT:
+            newstate = _.cloneDeep(currentState);
+            newstate.states[action.cid] = ActionTypes.SUBMITTING_LESSON;
+            return newstate;
         default:
             return currentState;
     }

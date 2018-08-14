@@ -12,7 +12,7 @@ import { Link } from 'react-router-dom';
 const LinkListItem = (props:any) => (
   <li>
     <Link
-      to={props.basePath + '/' + props.itemKey}
+      to={'/admin/' + props.basePath + '/' + props.itemKey}
       className={props.className}
     >
       {props.text}

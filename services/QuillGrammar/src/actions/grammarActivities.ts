@@ -54,3 +54,42 @@ export const submitNewLesson = (content) => {
     });
   };
 }
+
+export const startLessonEdit = (cid) => {
+  return { type: ActionTypes.START_LESSON_EDIT, cid, };
+}
+
+export const cancelLessonEdit = (cid) => {
+  return { type: ActionTypes.FINISH_LESSON_EDIT, cid, };
+}
+
+export const submitLessonEdit = (cid, content) => {
+  return function (dispatch, getState) {
+    dispatch({ type: ActionTypes.SUBMIT_LESSON_EDIT, cid, });
+    const cleanedContent = _.pickBy(content)
+    activitiesRef.child(cid).set(cleanedContent, (error) => {
+      dispatch({ type: ActionTypes.FINISH_LESSON_EDIT, cid, });
+      if (error) {
+        dispatch({ type: ActionTypes.DISPLAY_ERROR, error: `Update failed! ${error}`, });
+      } else {
+        dispatch({ type: ActionTypes.DISPLAY_MESSAGE, message: 'Update successfully saved!', });
+      }
+    });
+  };
+}
+
+export const deleteLesson = (cid) => {
+  return dispatch => {
+    dispatch({ type: ActionTypes.SUBMIT_LESSON_EDIT, cid, });
+    activitiesRef.child(cid).remove(error => {
+      dispatch({ type: ActionTypes.FINISH_LESSON_EDIT, cid, });
+      if (error) {
+        dispatch({ type: ActionTypes.DISPLAY_ERROR, error: `Deletion failed! ${error}`, });
+      } else {
+        dispatch({ type: ActionTypes.DISPLAY_MESSAGE, message: 'Lesson successfully deleted!', });
+        const action = push(`/admin/lessons`)
+        dispatch(action)
+      }
+    });
+  };
+}
