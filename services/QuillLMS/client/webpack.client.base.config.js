@@ -45,11 +45,6 @@ const basePlugins = [new webpack.DefinePlugin({
       postcss: [autoprefixer],
     },
   }),
-  new webpack.optimize.CommonsChunkPlugin({
-    name: 'vendor',
-    filename: 'vendor-bundle-[chunkhash].js',
-    minChunks: Infinity,
-  }),
   new ManifestPlugin({
     publicPath: output.publicPath,
     writeToFileEmit: true,
@@ -97,7 +92,9 @@ module.exports = {
     tools: [
       './app/bundles/Tools/tools.js'
     ],
-
+    staff: [
+      './app/bundles/Staff/startup/clientRegistration.js'
+    ],
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx'],

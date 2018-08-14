@@ -97,6 +97,7 @@ gem 'salesmachine-ruby', '~> 1.0.0'
 
 # API
 gem 'active_model_serializers', '~> 0.9.0'
+gem 'graphql'
 
 # UI HELPERS
 gem 'sass'
@@ -202,3 +203,5 @@ gem 'sqreen'
 
 # temp for migrations
 gem 'paperclip'
+
+gem 'graphiql-rails', group: :development
