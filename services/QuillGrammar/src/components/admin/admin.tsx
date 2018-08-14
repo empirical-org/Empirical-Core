@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Route } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import { connect } from 'react-redux';
 import * as grammarActivitiesActions from '../../actions/grammarActivities'
 import * as questionsActions from '../../actions/questions'
@@ -49,8 +49,10 @@ class adminContainer extends React.Component {
             {this.props.children}
           </div>
         </section>
-        <Route path={`/admin/lessons/:lessonID`} component={Lesson}/>
-        <Route path={`/admin/lessons`} component={Lessons}/>
+        <Switch>
+          <Route path={`/admin/lessons/:lessonID`} component={Lesson}/>
+          <Route path={`/admin/lessons`} component={Lessons}/>
+        </Switch>
       </div>
     );
   }
