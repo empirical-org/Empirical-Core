@@ -1,6 +1,6 @@
 import * as React from "react";
 import {Link} from "react-router";
-import { Query } from "react-apollo";
+import { Query, Mutation } from "react-apollo";
 import gql from "graphql-tag";
 
 import { 
@@ -24,6 +24,19 @@ function parentConceptsQuery(){
   }
 `
 }
+
+const CREATE_CONCEPT = gql`
+  mutation createConcept($name: String!, $parentId: ID){
+    createConcept(input: {name: $name, parentId: $parentId}){
+      concept {
+        id
+        uid
+        name
+        parentId
+      }
+    }
+  }
+`;
 
 const CustomizedForm = Form.create({
   onFieldsChange(props, changedFields) {
@@ -98,7 +111,7 @@ class App extends React.Component {
       const newState =  {
         fields: { ...fields, ...changedFields },
       }
-      console.log("new:  ", newState)
+      console.log("new: ", newState)
       return newState;
     });
   }
@@ -108,16 +121,28 @@ class App extends React.Component {
     console.log('submitting', this.state);
   }
 
+  redirectToShow = (data) => {
+    console.log("Called")
+    this.props.router.push(data.createConcept.concept.id)
+  }
+
   render() {
     const fields = this.state.fields;
     return  (
       <div>
         <Breadcrumb>
           <Breadcrumb.Item><Link to="/">Home</Link></Breadcrumb.Item>
-          <Breadcrumb.Item>New Concept</Breadcrumb.Item>
+          <Breadcrumb.Item>Create A New Concept</Breadcrumb.Item>
         </Breadcrumb>
         <Divider></Divider>
-        <CustomizedForm {...fields} onChange={this.handleFormChange} onSubmit={this.handleFormSubmit} />
+        <Mutation mutation={CREATE_CONCEPT} onCompleted={this.redirectToShow}>
+          {(createConcept, { data }) => (
+            <CustomizedForm {...fields} onChange={this.handleFormChange} onSubmit={(e) => {
+              e.preventDefault();
+              createConcept({ variables: {name: this.state.fields.name.value, parentId: this.state.fields.parentId.value[this.state.fields.parentId.value.length - 1]}});
+            }} />
+          )}
+        </Mutation>
       </div>
     )
   }
