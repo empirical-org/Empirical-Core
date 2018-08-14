@@ -1,28 +1,24 @@
 import * as React from 'react';
-import { Link } from 'react-router';
 import { Route } from "react-router-dom";
 import { connect } from 'react-redux';
 import * as grammarActivitiesActions from '../../actions/grammarActivities'
 import * as questionsActions from '../../actions/questions'
 import Lessons from '../lessons/lessons'
+import TabLink from './tabLink'
 
-const TabLink = props => (
-  <li>
-    <Link to={props.to} activeClassName="is-active">{props.children}</Link>
-  </li>
-);
+class adminContainer extends React.Component {
+  constructor(props) {
+    super(props)
+  }
 
-// activeComponent('li');
-
-const adminContainer = React.createClass({
   componentWillMount() {
     this.props.dispatch(questionsActions.startListeningToQuestions());
     this.props.dispatch(grammarActivitiesActions.startListeningToActivities());
-  },
+  }
 
   render() {
     return (
-      <div>
+      <div style={{ display: 'flex', backgroundColor: "white" }}>
         <section className="section is-fullheight" style={{ display: 'flex', flexDirection: 'row', paddingTop: 0, paddingBottom: 0, }}>
           <aside className="menu" style={{ minWidth: 220, borderRight: '1px solid #e3e3e3', padding: 15, paddingLeft: 0, }}>
             <p className="menu-label">
@@ -53,8 +49,8 @@ const adminContainer = React.createClass({
         <Route path={`/admin/lessons`} component={Lessons}/>
       </div>
     );
-  },
-});
+  }
+}
 
 function select(state) {
   return {
