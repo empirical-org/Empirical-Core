@@ -4,15 +4,21 @@ import { IState } from "../store/configStore";
 import grammarActivities from './grammarActivitiesReducer'
 import session from './sessionReducer'
 import questions from './questionsReducer'
+import concepts from './conceptsReducer'
+import display from './displayReducer'
 
 export const initState: IState = {
     grammarActivities: {},
     session: {},
-    questions: {}
+    questions: {},
+    concepts: {},
+    display : {}
 };
 
 export const rootReducer = combineReducers({
     grammarActivities,
     session,
-    questions
+    questions,
+    concepts,
+    display
 });

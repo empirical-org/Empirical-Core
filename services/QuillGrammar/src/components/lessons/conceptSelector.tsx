@@ -7,6 +7,14 @@ import Select from 'react-select';
 // TODO: delete everywhere else that we use conceptsToOptions
 
 class ConceptSelector extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.conceptsToOptions = this.conceptsToOptions.bind(this)
+    this.currentConcept = this.currentConcept.bind(this)
+    this.placeholder = this.placeholder.bind(this)
+    this.handleSelectorChange = this.handleSelectorChange.bind(this)
+  }
 
   conceptsToOptions () {
     let concepts = this.props.concepts.data["0"];
@@ -34,13 +42,17 @@ class ConceptSelector extends React.Component {
     }
   }
 
+  handleSelectorChange(concept) {
+    this.props.handleSelectorChange(concept)
+  }
+
   render() {
     return (
       <Select
         disabled={this.props.selectorDisabled}
         options={this.conceptsToOptions()}
         placeholder={this.placeholder()}
-        onChange={this.props.handleSelectorChange}
+        onChange={this.handleSelectorChange}
         style={{display: 'block'}}
       />
     )
