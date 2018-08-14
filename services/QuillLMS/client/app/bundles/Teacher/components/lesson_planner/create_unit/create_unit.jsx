@@ -209,11 +209,6 @@ export default React.createClass({
     this.toggleStage(3);
   },
 
-  onCreateSuccess(response) {
-    this.setState({ newUnitId: response.id, });
-    this.toggleStage(3);
-  },
-
   determineIfInputProvidedAndValid() {
     return (this.getSelectedActivities().length > 0);
   },
