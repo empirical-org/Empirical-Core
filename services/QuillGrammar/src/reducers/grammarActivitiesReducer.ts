@@ -5,29 +5,29 @@ import { GrammarActivity, GrammarActivities } from '../interfaces/grammarActivit
 export interface GrammarActivityState {
   hasreceiveddata: boolean;
   currentActivity: GrammarActivity;
-  activities: GrammarActivities
+  data: GrammarActivities
   newLessonModalOpen: boolean
   error?: string;
 }
 
 export default (
-    currentState = {hasreceiveddata: false},
+    currentState = {hasreceiveddata: false, data: {}},
     action: Action,
 ) => {
     switch (action.type) {
         case ActionTypes.RECEIVE_GRAMMAR_ACTIVITIES_DATA:
-          return Object.assign({}, currentState, { activities: action.data}, {hasreceiveddata: true})
+          return Object.assign({}, currentState, { data: action.data}, {hasreceiveddata: true})
         case ActionTypes.RECEIVE_GRAMMAR_ACTIVITY_DATA:
             return Object.assign({}, currentState, { currentActivity: action.data}, {hasreceiveddata: true});
         case ActionTypes.TOGGLE_NEW_LESSON_MODAL:
             return Object.assign({}, currentState, {
                 newLessonModalOpen: !currentState.newLessonModalOpen
             });
-        case C.AWAIT_NEW_LESSON_RESPONSE:
+        case ActionTypes.AWAIT_NEW_LESSON_RESPONSE:
             return Object.assign({}, currentState, {
                 submittingnew: true
             });
-        case C.RECEIVE_NEW_LESSON_RESPONSE:
+        case ActionTypes.RECEIVE_NEW_LESSON_RESPONSE:
             return Object.assign({}, currentState, {
                 submittingnew: false,
                 newLessonModalOpen: false

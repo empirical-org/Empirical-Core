@@ -4,18 +4,18 @@ import * as actions from '../../actions/grammarActivities';
 import _ from 'underscore';
 import {
   Modal,
-  LinkListItem,
   ArchivedButton,
   FlagDropdown
 } from 'quill-component-library/dist/componentLibrary';
-import EditLessonForm from './lessonForm.jsx';
+import LinkListItem from '../shared/linkListItem'
+import EditLessonForm from './lessonForm';
 
 class Lessons extends React.Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      lessonFlags: 'production',
+      lessonFlags: 'All Flags',
       showOnlyArchived: false,
     }
 
@@ -25,7 +25,6 @@ class Lessons extends React.Component {
     this.renderLessons = this.renderLessons.bind(this)
     this.renderModal = this.renderModal.bind(this)
     this.handleSelect = this.handleSelect.bind(this)
-
   }
 
   createNew() {
@@ -58,7 +57,7 @@ class Lessons extends React.Component {
         itemKey={key}
         basePath='lessons'
         activeClassName='is-active'
-        text={data[key].name || 'No name'}
+        text={data[key].title || 'No name'}
       />
     ));
   }
