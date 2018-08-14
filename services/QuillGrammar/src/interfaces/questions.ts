@@ -1,5 +1,9 @@
 import { Response } from 'quill-marking-logic'
 
+export interface Questions {
+  [key:string]: Question
+}
+
 export interface Question {
   answers: Answer[];
   concept_uid: string;
