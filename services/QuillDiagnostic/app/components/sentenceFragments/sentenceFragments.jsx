@@ -7,7 +7,6 @@ import {
   ArchivedButton,
   QuestionList
 } from 'quill-component-library/dist/componentLibrary'
-import { getDiagnosticQuestions } from '../../libs/getDiagnosticQuestions'
 
 class SentenceFragments extends React.Component {
   constructor(props) {
@@ -25,7 +24,7 @@ class SentenceFragments extends React.Component {
     const { sentenceFragments, lessons } = nextProps
     if (sentenceFragments.hasreceiveddata && lessons.hasreceiveddata) {
       if (Object.keys(this.state.diagnosticQuestions).length === 0 || !_.isEqual(this.props.sentenceFragments.data, sentenceFragments.data) || (!_.isEqual(this.props.lessons.data, lessons.data))) {
-        this.setState({ diagnosticQuestions: getDiagnosticQuestions(lessons.data, sentenceFragments.data) })
+        this.setState({ diagnosticQuestions: sentenceFragments.data })
       }
     }
   }
@@ -65,7 +64,7 @@ function select(state) {
   return {
     sentenceFragments: state.sentenceFragments,
     routing: state.routing,
-    lessons: state.lessons
+    lessons: state.lessons,
   }
 }
 
