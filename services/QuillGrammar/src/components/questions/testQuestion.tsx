@@ -6,12 +6,17 @@ import { setSessionReducer, goToNextQuestion, checkAnswer } from '../../actions/
 class TestQuestion extends React.Component {
   constructor() {
     super();
-    this.reset = this.reset.bind(this);
     this.state = {
       responsesForGrading: [],
       allResponses: [],
       key: 0,
     };
+
+    this.reset = this.reset.bind(this)
+    this.questionsForLesson = this.questionsForLesson.bind(this)
+    this.startActivity = this.startActivity.bind(this)
+    this.getQuestion = this.getQuestion.bind(this)
+    this.checkAnswer = this.checkAnswer.bind(this)
   }
 
   componentDidMount() {
@@ -54,7 +59,7 @@ class TestQuestion extends React.Component {
   }
 
   checkAnswer(response, question) {
-
+    this.props.dispatch(checkAnswer(response, question))
   }
 
   render() {
