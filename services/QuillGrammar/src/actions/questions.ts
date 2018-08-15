@@ -1,4 +1,6 @@
 import request from 'request'
+import Pusher from 'pusher-js';
+
 import rootRef from '../firebase';
 import { ActionTypes } from './actionTypes'
 const questionsRef = rootRef.child('questions')
@@ -98,4 +100,28 @@ export const getFormattedSearchData = (state) =>{
 
 export const updateResponses = (data) =>{
   return { type: ActionTypes.UPDATE_SEARCHED_RESPONSES, data, };
+}
+
+export const initializeSubscription = (qid) => {
+  return (dispatch) => {
+    if (process.env.NODE_ENV === 'development') {
+      Pusher.logToConsole = true;
+    }
+    if (!window.pusher) {
+      console.log('pusher key', process.env.PUSHER_KEY)
+      window.pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
+    }
+    const channel = window.pusher.subscribe(`admin-${qid}`);
+    channel.bind('new-response', (data) => {
+      setTimeout(() => dispatch(searchResponses(qid)), 1000);
+    });
+  };
+}
+
+export const removeSubscription = (qid) => {
+  return (dispatch) => {
+    if (window.pusher) {
+      window.pusher.unsubscribe(`admin-${qid}`);
+    }
+  };
 }
