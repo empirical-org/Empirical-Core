@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { withRouter, Link } from 'react-router-dom'
 import * as questionActions from '../../actions/questions';
 import _ from 'underscore';
 import { Modal } from 'quill-component-library/dist/componentLibrary';
@@ -200,15 +201,15 @@ class AdminQuestion extends React.Component {
           </p>
           <div className="tabs">
             <ul>
-              <li activeClassName="is-active" to={`admin/questions/${questionID}/responses`}>Responses</li>
-              <li activeClassName="is-active" to={`admin/questions/${questionID}/test`}>Play Question</li>
+              <li><Link activeClassName="is-active" to={`/admin/questions/${questionID}/responses`}>Responses</Link></li>
+              <li><Link activeClassName="is-active" to={`/admin/questions/${questionID}/test`}>Play Question</Link></li>
               {activeLink}
             </ul>
           </div>
           {this.props.children}
           <Switch>
-            <Route path={`/admin/questions/${questionID}/responses`} component={ResponseComponentWrapper}/>
-            <Route path={`/admin/questions/${questionID}/test`} component={TestQuestion}/>
+            <Route path={`/admin/questions/:questionID/responses`} component={ResponseComponentWrapper} questionID={questionID}/>
+            <Route path={`/admin/questions/:questionID/test`} component={TestQuestion}/>
           </Switch>
         </div>
       );
@@ -229,4 +230,4 @@ function select(state) {
   };
 }
 
-export default connect(select)(AdminQuestion);
+export default withRouter(connect(select)(AdminQuestion));

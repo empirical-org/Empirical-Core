@@ -51,3 +51,51 @@ export const updateFlag = (qid: string, flag: string) => {
     });
   }
 }
+
+export const incrementRequestCount = () => {
+  return { type: ActionTypes.INCREMENT_REQUEST_COUNT }
+}
+
+export const searchResponses = (qid) => {
+  return (dispatch, getState) => {
+    const requestNumber = getState().filters.requestCount
+    // check for request number in state, save as const
+    console.log('URL', `${process.env.QUILL_CMS}/questions/${qid}/responses/search`)
+    request(
+      {
+        url: `${process.env.QUILL_CMS}/questions/${qid}/responses/search`,
+        method: 'POST',
+        json: { search: getFormattedSearchData(getState()), },
+      },
+      (err, httpResponse, data) => {
+        // check again for number in state
+        // if equal to const set earlier, update the state
+        // otherwise, do nothing
+        if (getState().filters.requestCount === requestNumber && data) {
+          const embeddedOrder = _.map(data.results, (response, i) => {
+            response.sortOrder = i;
+            return response;
+          });
+          const parsedResponses = _.indexBy(embeddedOrder, 'id');
+          const responseData = {
+            responses: parsedResponses,
+            numberOfResponses: data.numberOfResults,
+            numberOfPages: data.numberOfPages,
+          };
+          dispatch(updateResponses(responseData));
+        }
+      }
+    );
+  };
+}
+
+export const getFormattedSearchData = (state) =>{
+  const searchData = state.filters.formattedFilterData;
+  searchData.text = state.filters.stringFilter;
+  searchData.pageNumber = state.filters.responsePageNumber;
+  return searchData;
+}
+
+export const updateResponses = (data) =>{
+  return { type: ActionTypes.UPDATE_SEARCHED_RESPONSES, data, };
+}

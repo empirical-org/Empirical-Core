@@ -16,8 +16,8 @@ class ResponseComponentWrapper extends React.Component {
   }
 
   componentWillMount() {
-    const { questionID, } = this.props.params;
-    console.log('PARAMS: ', this.props.params);
+    const { questionID, } = this.props.match.params;
+    console.log('PARAMS: ', this.props.match.params);
   }
 
   getResponses() {
@@ -25,16 +25,9 @@ class ResponseComponentWrapper extends React.Component {
   }
 
   returnAppropriateDataset() {
-    const { questionID, } = this.props.params;
-    const datasets = ['fillInBlank', 'sentenceFragments'];
-    let theDatasetYouAreLookingFor = this.props.questions.data[questionID];
-    let mode = 'questions';
-    datasets.forEach((dataset) => {
-      if (this.props[dataset].data[questionID]) {
-        theDatasetYouAreLookingFor = this.props[dataset].data[questionID];
-        mode = dataset;
-      }
-    });
+    const { questionID, } = this.props.match.params;
+    const theDatasetYouAreLookingFor = this.props.questions.data[questionID];
+    const mode = 'questions';
     return { dataset: theDatasetYouAreLookingFor, mode, }; // "These are not the datasets you're looking for."
   }
 
@@ -42,7 +35,7 @@ class ResponseComponentWrapper extends React.Component {
     const appropriateData = this.returnAppropriateDataset();
     const { dataset, mode, } = appropriateData;
     const { states, } = this.props.questions;
-    const { questionID, } = this.props.params;
+    const { questionID, } = this.props.match.params;
     return (
       <ResponseComponent
         question={dataset}
