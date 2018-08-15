@@ -26,6 +26,22 @@ class AdminQuestion extends React.Component {
       loadedResponses: false,
       addingNewResponse: false,
     }
+
+    this.startEditingQuestion = this.startEditingQuestion.bind(this)
+    this.cancelEditingQuestion = this.cancelEditingQuestion.bind(this)
+    this.saveQuestionEdits = this.saveQuestionEdits.bind(this)
+    this.getQuestion = this.getQuestion.bind(this)
+    this.startAddingNewResponse = this.startAddingNewResponse.bind(this)
+    this.submitResponse = this.submitResponse.bind(this)
+    this.boilerplateCategoriesToOptions = this.boilerplateCategoriesToOptions.bind(this)
+    this.boilerplateSpecificFeedbackToOptions = this.boilerplateSpecificFeedbackToOptions.bind(this)
+    this.chooseBoilerplateCategory = this.chooseBoilerplateCategory.bind(this)
+    this.chooseSpecificBoilerplateFeedback = this.chooseSpecificBoilerplateFeedback.bind(this)
+    this.renderBoilerplateCategoryDropdown = this.renderBoilerplateCategoryDropdown.bind(this)
+    this.renderBoilerplateCategoryOptionsDropdown = this.renderBoilerplateCategoryOptionsDropdown.bind(this)
+    this.renderNewResponseForm = this.renderNewResponseForm.bind(this)
+    this.renderEditForm = this.renderEditForm.bind(this)
+    this.isLoading = this.isLoading.bind(this)
   }
 
   startEditingQuestion() {
