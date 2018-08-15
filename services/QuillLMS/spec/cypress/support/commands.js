@@ -31,3 +31,10 @@ Cypress.Commands.add('login', (emailOrUsername, password) => {
     json: { user: {email: emailOrUsername, password: password} },
   })
 })
+
+Cypress.Commands.add('logout', () => {
+  cy.request({
+    url: '/session',
+    method: 'get',
+  })
+})
