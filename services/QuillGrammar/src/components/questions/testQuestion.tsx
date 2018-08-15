@@ -30,7 +30,7 @@ class TestQuestion extends React.Component {
 
   questionsForLesson() {
     const question = this.getQuestion();
-    question.key = this.props.params.questionID;
+    question.key = this.props.match.params.questionID;
     return [
       question
     ];
@@ -50,7 +50,7 @@ class TestQuestion extends React.Component {
   }
 
   getQuestion() {
-    return this.props.questions.data[this.props.params.questionID];
+    return this.props.questions.data[this.props.match.params.questionID];
   }
 
   checkAnswer(response, question) {
@@ -60,7 +60,6 @@ class TestQuestion extends React.Component {
   render() {
     if (this.props.session.currentQuestion) {
       const { currentQuestion, answeredQuestions, unansweredQuestions } = this.props.session;
-      console.log(question);
       return (
         <div className="test-question-container">
           <PlayQuestion
