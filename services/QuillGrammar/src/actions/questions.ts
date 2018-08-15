@@ -70,6 +70,7 @@ export const searchResponses = (qid) => {
         json: { search: getFormattedSearchData(getState()), },
       },
       (err, httpResponse, data) => {
+        console.log('data', data.results)
         // check again for number in state
         // if equal to const set earlier, update the state
         // otherwise, do nothing
@@ -78,7 +79,7 @@ export const searchResponses = (qid) => {
             response.sortOrder = i;
             return response;
           });
-          const parsedResponses = _.indexBy(embeddedOrder, 'id');
+          const parsedResponses = _.keyBy(embeddedOrder, 'id');
           const responseData = {
             responses: parsedResponses,
             numberOfResponses: data.numberOfResults,
