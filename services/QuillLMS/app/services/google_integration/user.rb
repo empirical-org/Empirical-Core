@@ -14,7 +14,7 @@ class GoogleIntegration::User
 
   def user
     @user ||= begin
-      @user_class.where(email: data.email&.downcase).first_or_initialize.tap do |user|
+      @user_class.where('google_id= ? OR email= ?', data.google_id, data.email&.downcase).first_or_initialize.tap do |user|
         if user.new_record?
           user.assign_attributes(user_params)
         else
