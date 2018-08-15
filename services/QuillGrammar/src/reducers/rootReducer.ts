@@ -6,6 +6,7 @@ import session from './sessionReducer'
 import questions from './questionsReducer'
 import concepts from './conceptsReducer'
 import display from './displayReducer'
+import responses from './responsesReducer'
 
 export const initState: IState = {
     grammarActivities: {},
@@ -20,5 +21,6 @@ export const rootReducer = combineReducers({
     session,
     questions,
     concepts,
-    display
+    display,
+    responses
 });
