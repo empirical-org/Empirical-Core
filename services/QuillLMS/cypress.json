@@ -5,7 +5,7 @@
   "viewportWidth": 1440,
   "viewportHeight": 900,
   "projectId": "duvidh",
-  "integrationFolder": "spec/cypress/integration",
+  "integrationFolder": "spec/cypress/tests",
   "fixturesFolder": "spec/cypress/fixtures",
   "supportFile": "spec/cypress/support/index.js"
 }

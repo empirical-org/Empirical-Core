@@ -32,7 +32,7 @@ describe('Assigning unit templates flow', () => {
         cy.login('someone@gmail.com', 'password')
         cy.visit('/teachers/classrooms/assign_activities/assign-a-diagnostic')
       })
-    }) 
+    })
   })
 
   beforeEach(function() {
