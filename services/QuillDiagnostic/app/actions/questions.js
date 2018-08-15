@@ -2,7 +2,7 @@ const C = require('../constants').default;
 
 import rootRef from '../libs/firebase';
 
-const	questionsRef = rootRef.child('questions');
+const	questionsRef = rootRef.child('diagnostic_questions');
 const	responsesRef = rootRef.child('responses');
 const moment = require('moment');
 
