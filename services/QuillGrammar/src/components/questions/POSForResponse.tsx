@@ -1,23 +1,23 @@
 import React from 'react';
 import _ from 'underscore';
 
-const C = require('../../constants').default;
+import { ActionTypes } from '../../actions/actionTypes';
 
-const feedbackStrings = C.FEEDBACK_STRINGS;
+const feedbackStrings = ActionTypes.FEEDBACK_STRINGS;
 
-export default React.createClass({
+export default class POSForResponse extends React.Component {
 
   getInitialState() {
     return {
       isExpanded: false,
     };
-  },
+  }
 
   toggleExpandSinglePOS() {
     this.setState({
       isExpanded: !this.state.isExpanded,
     });
-  },
+  }
 
   renderExpandedPOSListText() {
     if (this.state.isExpanded) {
@@ -30,7 +30,7 @@ export default React.createClass({
         <p>{response.text}</p>
         ));
     }
-  },
+  }
 
   renderExpandedPOSListCount() {
     if (this.state.isExpanded) {
@@ -40,7 +40,7 @@ export default React.createClass({
         <p>{response.count}</p>
         ));
     }
-  },
+  }
 
   render() {
     const { headerStyle, } = this.props;
@@ -71,5 +71,5 @@ export default React.createClass({
         </div>
       </header>
     );
-  },
-});
+  }
+}

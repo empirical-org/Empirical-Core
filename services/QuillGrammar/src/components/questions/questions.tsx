@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import actions from '../../actions/questions';
+import * as actions from '../../actions/questions';
 import _ from 'underscore';
 import { Link } from 'react-router';
 import {

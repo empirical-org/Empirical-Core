@@ -5,6 +5,7 @@ import * as grammarActivitiesActions from '../../actions/grammarActivities'
 import * as questionsActions from '../../actions/questions'
 import * as conceptsActions from '../../actions/concepts'
 import Questions from '../questions/questions'
+import Question from '../questions/question'
 import Lessons from '../lessons/lessons'
 import Lesson from '../lessons/lesson'
 import TabLink from './tabLink'
@@ -53,6 +54,7 @@ class adminContainer extends React.Component {
         <Switch>
           <Route path={`/admin/lessons/:lessonID`} component={Lesson}/>
           <Route path={`/admin/lessons`} component={Lessons}/>
+          <Route path={`/admin/questions/:questionID`} component={Question}/>
           <Route path={`/admin/questions`} component={Questions}/>
         </Switch>
       </div>
