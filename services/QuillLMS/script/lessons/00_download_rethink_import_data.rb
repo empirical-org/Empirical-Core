@@ -18,6 +18,7 @@ edition_metadata.each do |k, v|
   metadata_with_ids.push(v)
 end
 file_path = Rails.root.join('tmp', 'metadata.json')
+File.write(file_path, metadata_with_ids.to_json)
 
 edition_questions = HTTParty.get("#{ENV['FIREBASE_DATABASE_URL']}/v2/lesson_edition_questions.json")
 edition_questions_with_ids = []
@@ -26,6 +27,7 @@ edition_questions.each do |k, v|
   edition_questions_with_ids.push(v)
 end
 file_path = Rails.root.join('tmp', 'edition_questions.json')
+File.write(file_path, edition_questions_with_ids.to_json)
 
 reviews = HTTParty.get("#{ENV['FIREBASE_DATABASE_URL']}/v2/reviews.json")
 reviews_with_ids = []
@@ -34,3 +36,4 @@ reviews.each do |k, v|
   reviews_with_ids.push(v)
 end
 file_path = Rails.root.join('tmp', 'reviews.json')
+File.write(file_path, reviews_with_ids.to_json)
