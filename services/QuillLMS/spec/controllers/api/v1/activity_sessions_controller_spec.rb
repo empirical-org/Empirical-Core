@@ -9,7 +9,24 @@ describe Api::V1::ActivitySessionsController, type: :controller do
 
     before do
       allow(controller).to receive(:doorkeeper_token) {token}
-      @activity_session = create(:activity_session, user: user)
+      @activity_session = create(:activity_session, state: 'started', user: user)
+    end
+
+    it 'notifies when state is updated to finished' do
+      service_instance = double(:service_instance)
+
+      expect(NotifyOfCompletedActivity).to receive(:new)
+        .with(@activity_session, user)
+        .and_return(service_instance)
+      expect(service_instance).to receive(:call)
+
+      put :update, id: @activity_session.uid, state: 'finished'
+    end
+
+    it 'does not notify when state is not updated to finished' do
+      expect(NotifyOfCompletedActivity).not_to receive(:new)
+
+      put :update, id: @activity_session.uid
     end
 
     context 'default behavior' do
@@ -35,7 +52,7 @@ describe Api::V1::ActivitySessionsController, type: :controller do
 
     end
 
-    context 'when concept results are included' do
+    context 'concept results are included' do
 
       def subject
         @writing_concept = create(:concept, name: 'Creative Writing')
@@ -78,7 +95,7 @@ describe Api::V1::ActivitySessionsController, type: :controller do
       end
     end
 
-    context 'when a result is assigned to a non-existent concept tag' do
+    context 'result is assigned to a non-existent concept tag' do
       def subject
         results = [
           {
@@ -103,7 +120,7 @@ describe Api::V1::ActivitySessionsController, type: :controller do
   describe '#show' do
     let!(:session) { create(:activity_session) }
 
-    it 'should render the correct json' do
+    it 'renders the correct json' do
       get :show, id: session.uid
       expect(JSON.parse(response.body)["meta"]).to eq({
           "status" => "success",
@@ -124,7 +141,7 @@ describe Api::V1::ActivitySessionsController, type: :controller do
     let(:classroom_unit) { create(:classroom_unit) }
     let(:session) { create(:proofreader_activity_session, classroom_unit: classroom_unit) }
 
-    it 'should create the activity session' do
+    it 'creates the activity session' do
       put :create, params: session.attributes.except(:id, :completed_at, :user_id, :created_at, :updated_at), format: :json
       expect(JSON.parse(response.body)["meta"]).to eq({
         "status" => "success",
@@ -138,7 +155,7 @@ describe Api::V1::ActivitySessionsController, type: :controller do
     include_context "calling the api" #bypass doorkeeper
     let!(:session) { create(:proofreader_activity_session) }
 
-    it 'should destroy the activity session' do
+    it 'destroys the activity session' do
       delete :destroy, id: session.uid, format: :json
       expect(JSON.parse(response.body)["meta"]).to eq({
         "status" => "success",

@@ -15,6 +15,12 @@ class Api::V1::ActivitySessionsController < Api::ApiController
     # FIXME: ignore id because it's related to inconsistency between
     # naming - id in app and uid here
     if @activity_session.update(activity_session_params.except(:id, :concept_results))
+      state_change = @activity_session.previous_changes["state"]
+
+      if state_change.present? && state_change.last == 'finished'
+        NotifyOfCompletedActivity.new(@activity_session, current_user).call
+      end
+
       if @concept_results
         handle_concept_results
       end
