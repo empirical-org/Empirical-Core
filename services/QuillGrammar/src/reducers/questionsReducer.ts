@@ -6,10 +6,11 @@ export interface QuestionsState {
   hasreceiveddata: boolean;
   data: Questions
   error?: string;
+  states: Object;
 }
 
 export default (
-    currentState = {hasreceiveddata: false},
+    currentState = {hasreceiveddata: false, states: {}},
     action: Action,
 ) => {
     switch (action.type) {

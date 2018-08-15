@@ -21,6 +21,7 @@ export const ActionTypes = {
     // QUESTIONS
     RECEIVE_QUESTIONS_DATA: 'RECEIVE_QUESTIONS_DATA',
     NO_QUESTIONS_FOUND: 'NO_QUESTIONS_FOUND',
+    EDITING_QUESTION: 'EDITING_QUESTION',
 
     // QUESTIONS FOR SESSION
     RECEIVE_QUESTION_DATA: 'RECEIVE_QUESTION_DATA',
@@ -46,6 +47,90 @@ export const ActionTypes = {
     UPDATE_RESPONSE_DATA: 'UPDATE_RESPONSE_DATA',
     SHOULD_RELOAD_RESPONSES: 'SHOULD_RELOAD_RESPONSES',
     START_RESPONSE_EDIT: 'START_RESPONSE_EDIT',
+
+    // MASS EDIT
+    ADD_RESPONSE_TO_MASS_EDIT_ARRAY: 'ADD_RESPONSE_TO_MASS_EDIT_ARRAY',
+    REMOVE_RESPONSE_FROM_MASS_EDIT_ARRAY: 'REMOVE_RESPONSE_FROM_MASS_EDIT_ARRAY',
+    CLEAR_RESPONSES_FROM_MASS_EDIT_ARRAY: 'CLEAR_RESPONSES_FROM_MASS_EDIT_ARRAY',
+
+    // FILTERS
+    TOGGLE_EXPAND_SINGLE_RESPONSE: 'TOGGLE_EXPAND_SINGLE_RESPONSE',
+    COLLAPSE_ALL_RESPONSES: 'COLLAPSE_ALL_RESPONSES',
+    EXPAND_ALL_RESPONSES: 'EXPAND_ALL_RESPONSES',
+    TOGGLE_STATUS_FIELD: 'TOGGLE_STATUS_FIELD',
+    TOGGLE_RESPONSE_SORT: 'TOGGLE_RESPONSE_SORT',
+    TOGGLE_EXCLUDE_MISSPELLINGS: 'TOGGLE_EXCLUDE_MISSPELLINGS',
+    RESET_ALL_FIELDS: 'RESET_ALL_FIELDS',
+    DESELECT_ALL_FIELDS: 'DESELECT_ALL_FIELDS',
+    UPDATE_SEARCHED_RESPONSES: 'UPDATE_SEARCHED_RESPONSES',
+    SET_RESPONSE_PAGE_NUMBER: 'SET_RESPONSE_PAGE_NUMBER',
+    SET_RESPONSE_STRING_FILTER: 'SET_RESPONSE_STRING_FILTER',
+    INCREMENT_REQUEST_COUNT: 'INCREMENT_REQUEST_COUNT',
+
+    FEEDBACK_STRINGS: {
+      punctuationError: 'There may be an error. How could you update the punctuation?',
+      punctuationAndCaseError: 'There may be an error. How could you update the punctuation and capitalization?',
+      typingError: 'Try again. There may be a spelling mistake.',
+      caseError: 'Proofread your work. There may be a capitalization error.',
+      minLengthError: 'Revise your work. Do you have all of the information from the prompt?',
+      maxLengthError: 'Revise your work. How could this sentence be shorter and more concise?',
+      modifiedWordError: 'Revise your work. You may have mixed up or misspelled a word.',
+      additionalWordError: 'Revise your work. You may have added an extra word.',
+      missingWordError: 'Revise your work. You may have left out an important word.',
+      whitespaceError: 'There may be an error. You may have forgotten a space between two words.',
+      flexibleModifiedWordError: 'Revise your work. You may have mixed up a word.',
+      flexibleAdditionalWordError: 'Revise your work. You may have added an extra word.',
+      flexibleMissingWordError: 'Revise your work. You may have left out an important word.',
+    },
+
+    ERROR_TYPES: [
+      'typingError',
+      'caseError',
+      'punctuationError',
+      'punctuationAndCaseError',
+      'minLengthError',
+      'maxLengthError',
+      'flexibleModifiedWordError',
+      'flexibleAdditionalWordError',
+      'flexibleMissingWordError',
+      'modifiedWordError',
+      'additionalWordError',
+      'missingWordError',
+      'whitespaceError',
+      'requiredWordsError',
+      'tooShortError',
+      'tooLongError'
+    ],
+
+    ERROR_AUTHORS: [
+      'Focus Point Hint',
+      'Incorrect Sequence Hint',
+      'Capitalization Hint',
+      'Starting Capitalization Hint',
+      'Punctuation Hint',
+      'Punctuation and Case Hint',
+      'Punctuation End Hint',
+      'Modified Word Hint',
+      'Additional Word Hint',
+      'Missing Word Hint',
+      'Flexible Modified Word Hint',
+      'Flexible Additional Word Hint',
+      'Flexible Missing Word Hint',
+      'Whitespace Hint',
+      'Missing Details Hint',
+      'Not Concise Hint',
+      'Required Words Hint',
+      'Too Short Hint',
+      'Too Long Hint',
+      'Parts of Speech',
+      'Spelling Hint',
+    ],
+
+    // STATE
+    START_CHILD_RESPONSE_VIEW: 'START_CHILD_RESPONSE_VIEW',
+    START_FROM_RESPONSE_VIEW: 'START_FROM_RESPONSE_VIEW',
+    START_TO_RESPONSE_VIEW: 'START_TO_RESPONSE_VIEW',
+
 };
 //
 export interface IInitStoreAction extends Action {
