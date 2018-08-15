@@ -23,7 +23,7 @@ class adminContainer extends React.Component {
 
   render() {
     return (
-      <div style={{ display: 'flex', backgroundColor: "white" }}>
+      <div style={{ display: 'flex', backgroundColor: "white", height: '100vw' }}>
         <section className="section is-fullheight" style={{ display: 'flex', flexDirection: 'row', paddingTop: 0, paddingBottom: 0, }}>
           <aside className="menu" style={{ minWidth: 220, borderRight: '1px solid #e3e3e3', padding: 15, paddingLeft: 0, }}>
             <p className="menu-label">

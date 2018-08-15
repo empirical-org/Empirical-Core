@@ -126,3 +126,25 @@ export const removeSubscription = (qid) => {
     }
   };
 }
+
+export const startQuestionEdit = (qid) => {
+  return { type: ActionTypes.START_QUESTION_EDIT, qid, };
+}
+
+export const cancelQuestionEdit = (qid) => {
+  return { type: ActionTypes.FINISH_QUESTION_EDIT, qid, };
+}
+
+export const submitQuestionEdit = (qid, content) => {
+  return (dispatch, getState) => {
+    dispatch({ type: ActionTypes.SUBMIT_QUESTION_EDIT, qid, });
+    questionsRef.child(qid).update(content, (error) => {
+      dispatch({ type: ActionTypes.FINISH_QUESTION_EDIT, qid, });
+      if (error) {
+        dispatch({ type: ActionTypes.DISPLAY_ERROR, error: `Update failed! ${error}`, });
+      } else {
+        dispatch({ type: ActionTypes.DISPLAY_MESSAGE, message: 'Update successfully saved!', });
+      }
+    });
+  };
+}
