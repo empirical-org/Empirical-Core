@@ -15,16 +15,16 @@ const selectClassroom = () => {
 
 describe('Manage Classrooms', function() {
 
-  before( function() {
-    cy.cleanDatabase()
-    cy.factoryBotCreate({
-      factory: 'teacher',
-      password: 'password',
-      email: 'someone@gmail.com'
-    }).then(() => {
-      cy.login('someone@gmail.com', 'password')
-      cy.visit('teachers/classrooms')
-    })
+  before(function() {
+    cy.app('clean')
+    cy.appFactories([
+      ['create', 'teacher', {
+        password: 'password',
+        email: 'someone@gmail.com',
+      }]
+    ])
+    cy.login('someone@gmail.com', 'password')
+    cy.visit('teachers/classrooms')
   })
 
   beforeEach(() => {
@@ -42,15 +42,15 @@ describe('Manage Classrooms', function() {
     describe('that I coteach', ()=>{
       before( function() {
         cy.logout()
-        cy.cleanDatabase()
-        cy.factoryBotCreate({
-          factory: 'co_teacher_with_one_classroom',
-          password: 'password',
-          email: 'someone@gmail.com'
-        }).then(() => {
-          cy.login('someone@gmail.com', 'password')
-          cy.visit('teachers/classrooms')
-        })
+        cy.app('clean')
+        cy.appFactories([
+          ['create', 'co_teacher_with_one_classroom', {
+            password: 'password',
+            email: 'someone@gmail.com'
+          }]
+        ])
+        cy.login('someone@gmail.com', 'password')
+        cy.visit('teachers/classrooms')
       })
 
       itShowsMeMyClassrooms()
@@ -75,16 +75,15 @@ describe('Manage Classrooms', function() {
     describe('that I own', ()=>{
       before( function() {
         cy.logout()
-        cy.cleanDatabase()
-        cy.factoryBotCreate({
-          factory: 'teacher',
-          password: 'password',
-          traits: ['with_classrooms_students_and_activities'],
-          email: 'someone@gmail.com'
-        }).then(() => {
-          cy.login('someone@gmail.com', 'password')
-          cy.visit('teachers/classrooms')
-        })
+        cy.app('clean')
+        cy.appFactories([
+          ['create', 'teacher', 'with_classrooms_students_and_activities', {
+            password: 'password',
+            email: 'someone@gmail.com',
+          }]
+        ])
+        cy.login('someone@gmail.com', 'password')
+        cy.visit('teachers/classrooms')
       })
 
       it('has a link to edit students in the classroom row', ()=>{
@@ -147,29 +146,25 @@ describe('Manage Classrooms', function() {
             cy.get('.notification-box').should('contain', 'You’ve archived all your classes!')
           })
         })
-
       })
     })
-
   })
 
-
   describe('the coteachers section', ()=> {
-    before( function() {
+    before(function() {
       cy.logout()
-      cy.cleanDatabase()
-      cy.factoryBotCreate({
-        factory: 'teacher',
-        password: 'password',
-        traits: ['with_classrooms_students_and_activities'],
-        email: 'someone@gmail.com'
-      }).then(() => {
-        cy.login('someone@gmail.com', 'password')
-        cy.visit('teachers/classrooms')
-      })
+      cy.app('clean')
+      cy.appFactories([
+        ['create', 'teacher', 'with_classrooms_students_and_activities', {
+          password: 'password',
+          email: 'someone@gmail.com',
+        }]
+      ])
+      cy.login('someone@gmail.com', 'password')
+      cy.visit('teachers/classrooms')
     })
-    const coteacherEmail = faker.internet.email();
 
+    const coteacherEmail = faker.internet.email();
 
     it('is does not exist when I have no coteachers', ()=> {
       cy.get('#my-coteachers').should('not.exist')
@@ -211,42 +206,6 @@ describe('Manage Classrooms', function() {
             })
           })
         })
-
-        // describe('it gives me an alert when I leave', ()=>{
-        //   // TODO: figure out why the stubs are not getting called in this one
-        //   // it('the email blank', ()=>{
-        //   //   const stub = cy.stub()
-        //   //   cy.on('window:alert', stub)
-        //   //   selectClassroom()
-        //   //   cy.get('.button-green')
-        //   //     .click()
-        //   //     // cy.wait(500)
-        //   //     // .then(()=>{
-        //   //       expect(stub.getCall(1)).to.be.calledWith('email')
-        //   //     // })
-        //   // })
-        //   // it('the email invalid', ()=>{
-        //   //   const stub = cy.stub()
-        //   //   cy.on('window:alert', stub)
-        //   //   selectClassroom()
-        //   //   cy.get('.button-green')
-        //   //     .click()
-        //   //     // cy.wait(500)
-        //   //     // .then(()=>{
-        //   //       expect(stub.getCall(1)).to.be.calledWith('email')
-        //   //     // })
-        //   // })
-        //   // it('the classrooms empty', ()=>{
-        //   //   const stub = cy.stub()
-        //   //   cy.on('window:alert', stub)
-        //   //   cy.get('.button-green')
-        //   //     .click()
-        //   //     // cy.wait(500)
-        //   //     // .then(()=>{
-        //   //       expect(stub.getCall(1)).to.be.calledWith('email')
-        //   //     // })
-        //   // })
-        // })
       })
     })
 
@@ -255,12 +214,5 @@ describe('Manage Classrooms', function() {
         cy.get('#my-coteachers').should('exist')
       })
     })
-
-
-    // describe('when I want to withdraw a coteacher invitation', ()=>{
-    //   it('allows me to do so')
-    // })
-
   })
-
 })

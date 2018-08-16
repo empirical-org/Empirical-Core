@@ -15,15 +15,15 @@ const fillInName = (name)=>{
 describe('Create Classroom', function() {
 
   before( function() {
-    cy.cleanDatabase()
-    cy.factoryBotCreate({
-      factory: 'teacher',
-      password: 'password',
-      email: 'someone@gmail.com'
-    }).then(() => {
-      cy.login('someone@gmail.com', 'password')
-      cy.visit('teachers/classrooms/new')
-    })
+    cy.app('clean')
+    cy.appFactories([
+      ['create', 'teacher', {
+        password: 'password',
+        email: 'someone@gmail.com'
+      }]
+    ])
+    cy.login('someone@gmail.com', 'password')
+    cy.visit('teachers/classrooms/new')
   })
 
   beforeEach(() => {
@@ -84,17 +84,16 @@ describe('Create Classroom', function() {
 
       describe('when I have students or units',()=>{
         before(()=>{
-          cy.cleanDatabase()
-          cy.factoryBotCreate({
-            factory: 'teacher',
-            traits: ['with_classrooms_students_and_activities'],
-            password: 'password1',
-            email: 'someone1@gmail.com',
-            id: 1000
-          }).then(() => {
-            cy.login('someone1@gmail.com', 'password1')
-            cy.visit('teachers/classrooms/new')
-          })
+          cy.app('clean')
+          cy.appFactories([
+            ['create', 'teacher', 'with_classrooms_students_and_activities', {
+              password: 'password1',
+              email: 'someone1@gmail.com',
+              id: 1000,
+            }]
+          ])
+          cy.login('someone1@gmail.com', 'password1')
+          cy.visit('teachers/classrooms/new')
           fillInAllFormsAndClickButton()
         })
         it ('brings me to the add students page', ()=> {

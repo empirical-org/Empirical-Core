@@ -710,8 +710,7 @@ DEPENDENCIES
   doorkeeper (= 1.4.1)
   dotenv-rails
   es5-shim-rails
-  factory_bot
-  factory_bot_rails
+  factory_bot_rails (~> 4.8.2)
   faker
   fakeredis (~> 0.7.0)
   faraday_middleware

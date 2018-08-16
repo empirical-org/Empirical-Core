@@ -1,18 +1,16 @@
 describe('Assigning unit templates flow', () => {
   before(function() {
-    cy.cleanDatabase()
-    cy.factoryBotCreateList({
-      factory: 'unit_template_with_activities',
-      number: 5
-    })
-    cy.factoryBotCreate({
-      factory: 'teacher_with_a_couple_classrooms_with_a_couple_students_each',
-      password: 'password',
-      email: 'someone@gmail.com'
-    }).then(() => {
-      cy.login('someone@gmail.com', 'password')
-      cy.visit('/teachers/classrooms/assign_activities/featured-activity-packs')
-    })
+    cy.app('clean')
+    cy.app('factory_bot')
+    cy.appFactories([
+      ['create_list', 'unit_template_with_activities', 5],
+      ['create', 'teacher_with_a_couple_classrooms_with_a_couple_students_each', {
+        password: 'password',
+        email: 'someone@gmail.com'
+      }]
+    ])
+    cy.login('someone@gmail.com', 'password')
+    cy.visit('/teachers/classrooms/assign_activities/featured-activity-packs')
   })
 
   beforeEach(function() {

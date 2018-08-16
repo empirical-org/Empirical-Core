@@ -1,13 +1,13 @@
 describe('User Manager', function() {
   before(function() {
-    cy.cleanDatabase()
-    cy.factoryBotCreate({
-      factory: 'staff',
-      password: 'password',
-      email: 'staff@gmail.com'
-    }).then(() => {
-      cy.login('staff@gmail.com', 'password')
-    })
+    cy.app('clean')
+    cy.appFactories([
+      ['create', 'staff', {
+        password: 'password',
+        email: 'staff@gmail.com'
+      }]
+    ])
+    cy.login('staff@gmail.com', 'password')
   })
 
   beforeEach(function() {
@@ -22,5 +22,4 @@ describe('User Manager', function() {
   after(function() {
     cy.logout()
   })
-
 })

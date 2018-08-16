@@ -1,39 +1,30 @@
 describe('Explore All Activities page', function() {
   before(function() {
-    cy.cleanDatabase()
-    cy.factoryBotCreate({
-      factory: 'diagnostic_activity',
-      name: 'Diagnostic Activity',
-      traits: ['production']
-    })
-    cy.factoryBotCreate({
-      factory: 'proofreader_activity',
-      name: 'Proofreader Activity',
-      traits: ['production']
-    })
-    cy.factoryBotCreate({
-      factory: 'grammar_activity',
-      name: 'Grammar Activity',
-      traits: ['production']
-    })
-    cy.factoryBotCreate({
-      factory: 'connect_activity',
-      name: 'Connect Activity',
-      traits: ['production']
-    })
-    cy.factoryBotCreate({
-      factory: 'lesson_activity',
-      name: 'Lesson Activity',
-      traits: ['production']
-    })
-    cy.factoryBotCreate({
-      factory: 'teacher_with_a_couple_classrooms_with_a_couple_students_each',
-      password: 'password',
-      email: 'someone@gmail.com'
-    }).then(() => {
-      cy.login('someone@gmail.com', 'password')
-      cy.visit('/teachers/classrooms/assign_activities/create-unit')
-    })
+    cy.app('clean')
+    cy.app('factory_bot')
+    cy.appFactories([
+      ['create', 'diagnostic_activity', 'production', {
+        name: 'Diagnostic Activity'
+      }],
+      ['create', 'proofreader_activity', 'production', {
+        name: 'Proofreader Activity'
+      }],
+      ['create', 'grammar_activity', 'production', {
+        name: 'Proofreader Activity'
+      }],
+      ['create', 'connect_activity', 'production', {
+        name: 'Connect Activity'
+      }],
+      ['create', 'lesson_activity', 'production', {
+        name: 'Lesson Activity'
+      }],
+      ['create', 'teacher_with_a_couple_classrooms_with_a_couple_students_each', {
+        password: 'password',
+        email: 'someone@gmail.com'
+      }],
+    ])
+    cy.login('someone@gmail.com', 'password')
+    cy.visit('/teachers/classrooms/assign_activities/create-unit')
   })
 
   beforeEach(function() {

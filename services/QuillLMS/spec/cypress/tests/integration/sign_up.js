@@ -7,14 +7,14 @@ describe('Sign Up page', function() {
   })
 
   before(function() {
-    cy.cleanDatabase()
-    cy.factoryBotCreate({
-      factory: 'school',
-      name: 'Cool Bushwick School',
-      zipcode: 11221
-    }).then(() => {
-      cy.visit('/account/new')
-    })
+    cy.app('clean')
+    cy.appFactories([
+      ['create', 'school', {
+        name: 'Cool Bushwick School',
+        zipcode: 11221
+      }]
+    ])
+    cy.visit('/account/new')
   })
 
   beforeEach(() => {
@@ -112,13 +112,13 @@ describe('Sign Up page', function() {
 
   describe('I am a student with a non-unique usernsame', function() {
     before(function() {
-      cy.cleanDatabase()
-      cy.factoryBotCreate({
-        factory: 'student',
-        username: 'student',
-      }).then(() => {
-        cy.visit('/account/new')
-      })
+      cy.app('clean')
+      cy.appFactories([
+        ['create', 'student', {
+          username: 'student'
+        }]
+      ])
+      cy.visit('/account/new')
       beforeEach(() => {
         Cypress.Cookies.preserveOnce('_quill_session')
       })

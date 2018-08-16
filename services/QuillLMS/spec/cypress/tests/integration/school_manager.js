@@ -1,17 +1,14 @@
 describe('School Manager', function() {
   before(function() {
-    cy.cleanDatabase()
-    cy.factoryBotCreate({
-      factory: 'staff',
-      password: 'password',
-      email: 'staff@gmail.com'
-    }).then(() => {
-      cy.factoryBotCreate({
-        factory: 'school_with_three_teachers'
-      }).then(() => {
-      cy.login('staff@gmail.com', 'password')
-      })
-    })
+    cy.app('clean')
+    cy.appFactories([
+      ['create', 'staff', {
+        password: 'password',
+        email: 'staff@gmail.com'
+      }],
+      ['create', 'school_with_three_teachers']
+    ])
+    cy.login('staff@gmail.com', 'password')
   })
 
   beforeEach(function() {
@@ -26,5 +23,4 @@ describe('School Manager', function() {
   after(function() {
     cy.logout()
   })
-
 })

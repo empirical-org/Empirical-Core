@@ -6,17 +6,16 @@ describe('manage class', function() {
 
   before( function() {
     cy.logout()
-    cy.cleanDatabase()
-    cy.factoryBotCreate({
-      factory: 'teacher',
-      password: 'password',
-      traits: ['with_classrooms_students_and_activities'],
-      email: 'someone@gmail.com'
-    }).then(() => {
-      cy.login('someone@gmail.com', 'password')
-      cy.visit('teachers/classrooms/')
-      cy.get(':nth-child(1) > :nth-child(7) > .manage-class').click({force: true})
-    })
+    cy.app('clean')
+    cy.appFactories([
+      ['create', 'teacher', 'with_classrooms_students_and_activities', {
+        password: 'password',
+        email: 'someone@gmail.com',
+      }]
+    ])
+    cy.login('someone@gmail.com', 'password')
+    cy.visit('teachers/classrooms/')
+    cy.get(':nth-child(1) > :nth-child(7) > .manage-class').click({force: true})
   })
 
   beforeEach(() => {
