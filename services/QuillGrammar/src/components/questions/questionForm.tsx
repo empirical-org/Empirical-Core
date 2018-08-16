@@ -103,7 +103,7 @@ export default class QuestionForm extends React.Component {
           </p>
           <label className="label">Optimal answer (you can add more later)</label>
           <p className="control">
-            <textarea className="input" type="text" ref="answers" defaultValue={optimalAnswer} onChange={this.handleAnswerChange}></textarea>
+            <textarea className="input" type="text" ref="answers" defaultValue={optimalAnswer} onChange={this.handleAnswersChange}></textarea>
           </p>
           <br/>
           <button className="button is-primary" onClick={this.submit}>Update Question</button>

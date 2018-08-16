@@ -138,8 +138,7 @@ export const cancelQuestionEdit = (qid) => {
 export const submitQuestionEdit = (qid, content) => {
   return (dispatch, getState) => {
     dispatch({ type: ActionTypes.SUBMIT_QUESTION_EDIT, qid, });
-    content.answers.forEach(a => saveOptimalResponse(qid, content.concept_uid, a))
-    dispatch(saveOptimalResponse(qid, content.concept_uid, content.answers))
+    content.answers.forEach(a => dispatch(saveOptimalResponse(qid, content.concept_uid, a)))
     questionsRef.child(qid).update(content, (error) => {
       dispatch({ type: ActionTypes.FINISH_QUESTION_EDIT, qid, });
       if (error) {
@@ -151,7 +150,7 @@ export const submitQuestionEdit = (qid, content) => {
   };
 }
 
-export const saveOptimalResponse = (qid, conceptUid, answer) {
+export const saveOptimalResponse = (qid, conceptUid, answer) => {
   return (dispatch) => {
     if (answer.text) {
       const formattedResponse = {
