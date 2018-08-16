@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 10.3 (Ubuntu 10.3-1.pgdg16.04+1)
+-- Dumped from database version 10.1
 -- Dumped by pg_dump version 10.1
 
 SET statement_timeout = 0;
@@ -1298,6 +1298,37 @@ ALTER SEQUENCE milestones_id_seq OWNED BY milestones.id;
 
 
 --
+-- Name: notifications; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE notifications (
+    id integer NOT NULL,
+    text text NOT NULL,
+    user_id integer NOT NULL
+);
+
+
+--
+-- Name: notifications_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE notifications_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: notifications_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE notifications_id_seq OWNED BY notifications.id;
+
+
+--
 -- Name: oauth_access_grants; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -2569,6 +2600,13 @@ ALTER TABLE ONLY milestones ALTER COLUMN id SET DEFAULT nextval('milestones_id_s
 
 
 --
+-- Name: notifications id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY notifications ALTER COLUMN id SET DEFAULT nextval('notifications_id_seq'::regclass);
+
+
+--
 -- Name: oauth_access_grants id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -3044,6 +3082,14 @@ ALTER TABLE ONLY milestones
 
 
 --
+-- Name: notifications notifications_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY notifications
+    ADD CONSTRAINT notifications_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: oauth_access_grants oauth_access_grants_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3279,1078 +3325,1085 @@ ALTER TABLE ONLY users
 -- Name: aut; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX aut ON public.activities_unit_templates USING btree (activity_id, unit_template_id);
+CREATE INDEX aut ON activities_unit_templates USING btree (activity_id, unit_template_id);
 
 
 --
 -- Name: classroom_invitee_index; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX classroom_invitee_index ON public.coteacher_classroom_invitations USING btree (invitation_id, classroom_id);
+CREATE UNIQUE INDEX classroom_invitee_index ON coteacher_classroom_invitations USING btree (invitation_id, classroom_id);
 
 
 --
 -- Name: email_idx; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX email_idx ON public.users USING gin (email gin_trgm_ops);
+CREATE INDEX email_idx ON users USING gin (email gin_trgm_ops);
 
 
 --
 -- Name: index_act_category_acts_on_act_id_and_act_cat_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_act_category_acts_on_act_id_and_act_cat_id ON public.activity_category_activities USING btree (activity_id, activity_category_id);
+CREATE INDEX index_act_category_acts_on_act_id_and_act_cat_id ON activity_category_activities USING btree (activity_id, activity_category_id);
 
 
 --
 -- Name: index_activities_on_activity_classification_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_activities_on_activity_classification_id ON public.activities USING btree (activity_classification_id);
+CREATE INDEX index_activities_on_activity_classification_id ON activities USING btree (activity_classification_id);
 
 
 --
 -- Name: index_activities_on_topic_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_activities_on_topic_id ON public.activities USING btree (topic_id);
+CREATE INDEX index_activities_on_topic_id ON activities USING btree (topic_id);
 
 
 --
 -- Name: index_activities_on_uid; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_activities_on_uid ON public.activities USING btree (uid);
+CREATE UNIQUE INDEX index_activities_on_uid ON activities USING btree (uid);
 
 
 --
 -- Name: index_activity_classifications_on_key; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_activity_classifications_on_key ON public.activity_classifications USING btree (key);
+CREATE UNIQUE INDEX index_activity_classifications_on_key ON activity_classifications USING btree (key);
 
 
 --
 -- Name: index_activity_classifications_on_uid; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_activity_classifications_on_uid ON public.activity_classifications USING btree (uid);
+CREATE UNIQUE INDEX index_activity_classifications_on_uid ON activity_classifications USING btree (uid);
 
 
 --
 -- Name: index_activity_sessions_on_activity_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_activity_sessions_on_activity_id ON public.activity_sessions USING btree (activity_id);
+CREATE INDEX index_activity_sessions_on_activity_id ON activity_sessions USING btree (activity_id);
 
 
 --
 -- Name: index_activity_sessions_on_classroom_activity_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_activity_sessions_on_classroom_activity_id ON public.activity_sessions USING btree (classroom_activity_id);
+CREATE INDEX index_activity_sessions_on_classroom_activity_id ON activity_sessions USING btree (classroom_activity_id);
 
 
 --
 -- Name: index_activity_sessions_on_completed_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_activity_sessions_on_completed_at ON public.activity_sessions USING btree (completed_at);
+CREATE INDEX index_activity_sessions_on_completed_at ON activity_sessions USING btree (completed_at);
 
 
 --
 -- Name: index_activity_sessions_on_pairing_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_activity_sessions_on_pairing_id ON public.activity_sessions USING btree (pairing_id);
+CREATE INDEX index_activity_sessions_on_pairing_id ON activity_sessions USING btree (pairing_id);
 
 
 --
 -- Name: index_activity_sessions_on_started_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_activity_sessions_on_started_at ON public.activity_sessions USING btree (started_at);
+CREATE INDEX index_activity_sessions_on_started_at ON activity_sessions USING btree (started_at);
 
 
 --
 -- Name: index_activity_sessions_on_state; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_activity_sessions_on_state ON public.activity_sessions USING btree (state);
+CREATE INDEX index_activity_sessions_on_state ON activity_sessions USING btree (state);
 
 
 --
 -- Name: index_activity_sessions_on_uid; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_activity_sessions_on_uid ON public.activity_sessions USING btree (uid);
+CREATE UNIQUE INDEX index_activity_sessions_on_uid ON activity_sessions USING btree (uid);
 
 
 --
 -- Name: index_activity_sessions_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_activity_sessions_on_user_id ON public.activity_sessions USING btree (user_id);
+CREATE INDEX index_activity_sessions_on_user_id ON activity_sessions USING btree (user_id);
 
 
 --
 -- Name: index_admin_accounts_admins_on_admin_account_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_admin_accounts_admins_on_admin_account_id ON public.admin_accounts_admins USING btree (admin_account_id);
+CREATE INDEX index_admin_accounts_admins_on_admin_account_id ON admin_accounts_admins USING btree (admin_account_id);
 
 
 --
 -- Name: index_admin_accounts_admins_on_admin_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_admin_accounts_admins_on_admin_id ON public.admin_accounts_admins USING btree (admin_id);
+CREATE INDEX index_admin_accounts_admins_on_admin_id ON admin_accounts_admins USING btree (admin_id);
 
 
 --
 -- Name: index_admin_accounts_teachers_on_admin_account_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_admin_accounts_teachers_on_admin_account_id ON public.admin_accounts_teachers USING btree (admin_account_id);
+CREATE INDEX index_admin_accounts_teachers_on_admin_account_id ON admin_accounts_teachers USING btree (admin_account_id);
 
 
 --
 -- Name: index_admin_accounts_teachers_on_teacher_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_admin_accounts_teachers_on_teacher_id ON public.admin_accounts_teachers USING btree (teacher_id);
+CREATE INDEX index_admin_accounts_teachers_on_teacher_id ON admin_accounts_teachers USING btree (teacher_id);
 
 
 --
 -- Name: index_announcements_on_start_and_end; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_announcements_on_start_and_end ON public.announcements USING btree (start, "end" DESC);
+CREATE INDEX index_announcements_on_start_and_end ON announcements USING btree (start, "end" DESC);
 
 
 --
 -- Name: index_auth_credentials_on_access_token; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_auth_credentials_on_access_token ON public.auth_credentials USING btree (access_token);
+CREATE INDEX index_auth_credentials_on_access_token ON auth_credentials USING btree (access_token);
 
 
 --
 -- Name: index_auth_credentials_on_provider; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_auth_credentials_on_provider ON public.auth_credentials USING btree (provider);
+CREATE INDEX index_auth_credentials_on_provider ON auth_credentials USING btree (provider);
 
 
 --
 -- Name: index_auth_credentials_on_refresh_token; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_auth_credentials_on_refresh_token ON public.auth_credentials USING btree (refresh_token);
+CREATE INDEX index_auth_credentials_on_refresh_token ON auth_credentials USING btree (refresh_token);
 
 
 --
 -- Name: index_auth_credentials_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_auth_credentials_on_user_id ON public.auth_credentials USING btree (user_id);
+CREATE INDEX index_auth_credentials_on_user_id ON auth_credentials USING btree (user_id);
 
 
 --
 -- Name: index_blog_posts_on_author_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_blog_posts_on_author_id ON public.blog_posts USING btree (author_id);
+CREATE INDEX index_blog_posts_on_author_id ON blog_posts USING btree (author_id);
 
 
 --
 -- Name: index_blog_posts_on_read_count; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_blog_posts_on_read_count ON public.blog_posts USING btree (read_count);
+CREATE INDEX index_blog_posts_on_read_count ON blog_posts USING btree (read_count);
 
 
 --
 -- Name: index_blog_posts_on_slug; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_blog_posts_on_slug ON public.blog_posts USING btree (slug);
+CREATE UNIQUE INDEX index_blog_posts_on_slug ON blog_posts USING btree (slug);
 
 
 --
 -- Name: index_blog_posts_on_title; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_blog_posts_on_title ON public.blog_posts USING btree (title);
+CREATE INDEX index_blog_posts_on_title ON blog_posts USING btree (title);
 
 
 --
 -- Name: index_blog_posts_on_topic; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_blog_posts_on_topic ON public.blog_posts USING btree (topic);
+CREATE INDEX index_blog_posts_on_topic ON blog_posts USING btree (topic);
 
 
 --
 -- Name: index_checkboxes_on_user_id_and_objective_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_checkboxes_on_user_id_and_objective_id ON public.checkboxes USING btree (user_id, objective_id);
+CREATE UNIQUE INDEX index_checkboxes_on_user_id_and_objective_id ON checkboxes USING btree (user_id, objective_id);
 
 
 --
 -- Name: index_classroom_activities_on_activity_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_classroom_activities_on_activity_id ON public.classroom_activities USING btree (activity_id);
+CREATE INDEX index_classroom_activities_on_activity_id ON classroom_activities USING btree (activity_id);
 
 
 --
 -- Name: index_classroom_activities_on_classroom_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_classroom_activities_on_classroom_id ON public.classroom_activities USING btree (classroom_id);
+CREATE INDEX index_classroom_activities_on_classroom_id ON classroom_activities USING btree (classroom_id);
 
 
 --
 -- Name: index_classroom_activities_on_classroom_id_and_pinned; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_classroom_activities_on_classroom_id_and_pinned ON public.classroom_activities USING btree (classroom_id, pinned) WHERE (pinned = true);
+CREATE UNIQUE INDEX index_classroom_activities_on_classroom_id_and_pinned ON classroom_activities USING btree (classroom_id, pinned) WHERE (pinned = true);
 
 
 --
 -- Name: index_classroom_activities_on_unit_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_classroom_activities_on_unit_id ON public.classroom_activities USING btree (unit_id);
+CREATE INDEX index_classroom_activities_on_unit_id ON classroom_activities USING btree (unit_id);
 
 
 --
 -- Name: index_classroom_activities_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_classroom_activities_on_updated_at ON public.classroom_activities USING btree (updated_at);
+CREATE INDEX index_classroom_activities_on_updated_at ON classroom_activities USING btree (updated_at);
 
 
 --
 -- Name: index_classroom_unit_activity_states_on_classroom_unit_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_classroom_unit_activity_states_on_classroom_unit_id ON public.classroom_unit_activity_states USING btree (classroom_unit_id);
+CREATE INDEX index_classroom_unit_activity_states_on_classroom_unit_id ON classroom_unit_activity_states USING btree (classroom_unit_id);
 
 
 --
 -- Name: index_classroom_unit_activity_states_on_unit_activity_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_classroom_unit_activity_states_on_unit_activity_id ON public.classroom_unit_activity_states USING btree (unit_activity_id);
+CREATE INDEX index_classroom_unit_activity_states_on_unit_activity_id ON classroom_unit_activity_states USING btree (unit_activity_id);
 
 
 --
 -- Name: index_classroom_units_on_classroom_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_classroom_units_on_classroom_id ON public.classroom_units USING btree (classroom_id);
+CREATE INDEX index_classroom_units_on_classroom_id ON classroom_units USING btree (classroom_id);
 
 
 --
 -- Name: index_classroom_units_on_unit_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_classroom_units_on_unit_id ON public.classroom_units USING btree (unit_id);
+CREATE INDEX index_classroom_units_on_unit_id ON classroom_units USING btree (unit_id);
 
 
 --
 -- Name: index_classroom_units_on_unit_id_and_classroom_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_classroom_units_on_unit_id_and_classroom_id ON public.classroom_units USING btree (unit_id, classroom_id);
+CREATE UNIQUE INDEX index_classroom_units_on_unit_id_and_classroom_id ON classroom_units USING btree (unit_id, classroom_id);
 
 
 --
 -- Name: index_classrooms_on_code; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_classrooms_on_code ON public.classrooms USING btree (code);
+CREATE INDEX index_classrooms_on_code ON classrooms USING btree (code);
 
 
 --
 -- Name: index_classrooms_on_grade; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_classrooms_on_grade ON public.classrooms USING btree (grade);
+CREATE INDEX index_classrooms_on_grade ON classrooms USING btree (grade);
 
 
 --
 -- Name: index_classrooms_on_grade_level; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_classrooms_on_grade_level ON public.classrooms USING btree (grade_level);
+CREATE INDEX index_classrooms_on_grade_level ON classrooms USING btree (grade_level);
 
 
 --
 -- Name: index_classrooms_on_teacher_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_classrooms_on_teacher_id ON public.classrooms USING btree (teacher_id);
+CREATE INDEX index_classrooms_on_teacher_id ON classrooms USING btree (teacher_id);
 
 
 --
 -- Name: index_classrooms_teachers_on_classroom_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_classrooms_teachers_on_classroom_id ON public.classrooms_teachers USING btree (classroom_id);
+CREATE INDEX index_classrooms_teachers_on_classroom_id ON classrooms_teachers USING btree (classroom_id);
 
 
 --
 -- Name: index_classrooms_teachers_on_role; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_classrooms_teachers_on_role ON public.classrooms_teachers USING btree (role);
+CREATE INDEX index_classrooms_teachers_on_role ON classrooms_teachers USING btree (role);
 
 
 --
 -- Name: index_classrooms_teachers_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_classrooms_teachers_on_user_id ON public.classrooms_teachers USING btree (user_id);
+CREATE INDEX index_classrooms_teachers_on_user_id ON classrooms_teachers USING btree (user_id);
 
 
 --
 -- Name: index_comments_on_ancestry; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_comments_on_ancestry ON public.comments USING btree (ancestry);
+CREATE INDEX index_comments_on_ancestry ON comments USING btree (ancestry);
 
 
 --
 -- Name: index_concept_results_on_activity_classification_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_concept_results_on_activity_classification_id ON public.concept_results USING btree (activity_classification_id);
+CREATE INDEX index_concept_results_on_activity_classification_id ON concept_results USING btree (activity_classification_id);
 
 
 --
 -- Name: index_concept_results_on_activity_session_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_concept_results_on_activity_session_id ON public.concept_results USING btree (activity_session_id);
+CREATE INDEX index_concept_results_on_activity_session_id ON concept_results USING btree (activity_session_id);
 
 
 --
 -- Name: index_concept_results_on_question_type; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_concept_results_on_question_type ON public.concept_results USING btree (question_type);
+CREATE INDEX index_concept_results_on_question_type ON concept_results USING btree (question_type);
 
 
 --
 -- Name: index_coteacher_classroom_invitations_on_classroom_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_coteacher_classroom_invitations_on_classroom_id ON public.coteacher_classroom_invitations USING btree (classroom_id);
+CREATE INDEX index_coteacher_classroom_invitations_on_classroom_id ON coteacher_classroom_invitations USING btree (classroom_id);
 
 
 --
 -- Name: index_coteacher_classroom_invitations_on_invitation_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_coteacher_classroom_invitations_on_invitation_id ON public.coteacher_classroom_invitations USING btree (invitation_id);
+CREATE INDEX index_coteacher_classroom_invitations_on_invitation_id ON coteacher_classroom_invitations USING btree (invitation_id);
 
 
 --
 -- Name: index_credit_transactions_on_source_type_and_source_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_credit_transactions_on_source_type_and_source_id ON public.credit_transactions USING btree (source_type, source_id);
+CREATE INDEX index_credit_transactions_on_source_type_and_source_id ON credit_transactions USING btree (source_type, source_id);
 
 
 --
 -- Name: index_credit_transactions_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_credit_transactions_on_user_id ON public.credit_transactions USING btree (user_id);
+CREATE INDEX index_credit_transactions_on_user_id ON credit_transactions USING btree (user_id);
 
 
 --
 -- Name: index_criteria_on_concept_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_criteria_on_concept_id ON public.criteria USING btree (concept_id);
+CREATE INDEX index_criteria_on_concept_id ON criteria USING btree (concept_id);
 
 
 --
 -- Name: index_criteria_on_recommendation_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_criteria_on_recommendation_id ON public.criteria USING btree (recommendation_id);
+CREATE INDEX index_criteria_on_recommendation_id ON criteria USING btree (recommendation_id);
 
 
 --
 -- Name: index_districts_users_on_district_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_districts_users_on_district_id ON public.districts_users USING btree (district_id);
+CREATE INDEX index_districts_users_on_district_id ON districts_users USING btree (district_id);
 
 
 --
 -- Name: index_districts_users_on_district_id_and_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_districts_users_on_district_id_and_user_id ON public.districts_users USING btree (district_id, user_id);
+CREATE INDEX index_districts_users_on_district_id_and_user_id ON districts_users USING btree (district_id, user_id);
 
 
 --
 -- Name: index_districts_users_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_districts_users_on_user_id ON public.districts_users USING btree (user_id);
+CREATE INDEX index_districts_users_on_user_id ON districts_users USING btree (user_id);
 
 
 --
 -- Name: index_invitations_on_invitee_email; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_invitations_on_invitee_email ON public.invitations USING btree (invitee_email);
+CREATE INDEX index_invitations_on_invitee_email ON invitations USING btree (invitee_email);
 
 
 --
 -- Name: index_invitations_on_inviter_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_invitations_on_inviter_id ON public.invitations USING btree (inviter_id);
+CREATE INDEX index_invitations_on_inviter_id ON invitations USING btree (inviter_id);
 
 
 --
 -- Name: index_ip_locations_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_ip_locations_on_user_id ON public.ip_locations USING btree (user_id);
+CREATE INDEX index_ip_locations_on_user_id ON ip_locations USING btree (user_id);
 
 
 --
 -- Name: index_ip_locations_on_zip; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_ip_locations_on_zip ON public.ip_locations USING btree (zip);
+CREATE INDEX index_ip_locations_on_zip ON ip_locations USING btree (zip);
 
 
 --
 -- Name: index_milestones_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_milestones_on_name ON public.milestones USING btree (name);
+CREATE INDEX index_milestones_on_name ON milestones USING btree (name);
+
+
+--
+-- Name: index_notifications_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_notifications_on_user_id ON notifications USING btree (user_id);
 
 
 --
 -- Name: index_oauth_access_grants_on_token; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_oauth_access_grants_on_token ON public.oauth_access_grants USING btree (token);
+CREATE UNIQUE INDEX index_oauth_access_grants_on_token ON oauth_access_grants USING btree (token);
 
 
 --
 -- Name: index_oauth_access_tokens_on_refresh_token; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_oauth_access_tokens_on_refresh_token ON public.oauth_access_tokens USING btree (refresh_token);
+CREATE UNIQUE INDEX index_oauth_access_tokens_on_refresh_token ON oauth_access_tokens USING btree (refresh_token);
 
 
 --
 -- Name: index_oauth_access_tokens_on_resource_owner_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_oauth_access_tokens_on_resource_owner_id ON public.oauth_access_tokens USING btree (resource_owner_id);
+CREATE INDEX index_oauth_access_tokens_on_resource_owner_id ON oauth_access_tokens USING btree (resource_owner_id);
 
 
 --
 -- Name: index_oauth_access_tokens_on_token; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_oauth_access_tokens_on_token ON public.oauth_access_tokens USING btree (token);
+CREATE UNIQUE INDEX index_oauth_access_tokens_on_token ON oauth_access_tokens USING btree (token);
 
 
 --
 -- Name: index_oauth_applications_on_uid; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_oauth_applications_on_uid ON public.oauth_applications USING btree (uid);
+CREATE UNIQUE INDEX index_oauth_applications_on_uid ON oauth_applications USING btree (uid);
 
 
 --
 -- Name: index_recommendations_on_activity_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_recommendations_on_activity_id ON public.recommendations USING btree (activity_id);
+CREATE INDEX index_recommendations_on_activity_id ON recommendations USING btree (activity_id);
 
 
 --
 -- Name: index_recommendations_on_unit_template_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_recommendations_on_unit_template_id ON public.recommendations USING btree (unit_template_id);
+CREATE INDEX index_recommendations_on_unit_template_id ON recommendations USING btree (unit_template_id);
 
 
 --
 -- Name: index_referrals_users_on_referred_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_referrals_users_on_referred_user_id ON public.referrals_users USING btree (referred_user_id);
+CREATE UNIQUE INDEX index_referrals_users_on_referred_user_id ON referrals_users USING btree (referred_user_id);
 
 
 --
 -- Name: index_referrals_users_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_referrals_users_on_user_id ON public.referrals_users USING btree (user_id);
+CREATE INDEX index_referrals_users_on_user_id ON referrals_users USING btree (user_id);
 
 
 --
 -- Name: index_referrer_users_on_referral_code; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_referrer_users_on_referral_code ON public.referrer_users USING btree (referral_code);
+CREATE UNIQUE INDEX index_referrer_users_on_referral_code ON referrer_users USING btree (referral_code);
 
 
 --
 -- Name: index_referrer_users_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_referrer_users_on_user_id ON public.referrer_users USING btree (user_id);
+CREATE UNIQUE INDEX index_referrer_users_on_user_id ON referrer_users USING btree (user_id);
 
 
 --
 -- Name: index_sales_contacts_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_sales_contacts_on_user_id ON public.sales_contacts USING btree (user_id);
+CREATE INDEX index_sales_contacts_on_user_id ON sales_contacts USING btree (user_id);
 
 
 --
 -- Name: index_sales_stage_types_on_name_and_order; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_sales_stage_types_on_name_and_order ON public.sales_stage_types USING btree (name, "order");
+CREATE UNIQUE INDEX index_sales_stage_types_on_name_and_order ON sales_stage_types USING btree (name, "order");
 
 
 --
 -- Name: index_sales_stages_on_sales_contact_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_sales_stages_on_sales_contact_id ON public.sales_stages USING btree (sales_contact_id);
+CREATE INDEX index_sales_stages_on_sales_contact_id ON sales_stages USING btree (sales_contact_id);
 
 
 --
 -- Name: index_sales_stages_on_sales_stage_type_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_sales_stages_on_sales_stage_type_id ON public.sales_stages USING btree (sales_stage_type_id);
+CREATE INDEX index_sales_stages_on_sales_stage_type_id ON sales_stages USING btree (sales_stage_type_id);
 
 
 --
 -- Name: index_sales_stages_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_sales_stages_on_user_id ON public.sales_stages USING btree (user_id);
+CREATE INDEX index_sales_stages_on_user_id ON sales_stages USING btree (user_id);
 
 
 --
 -- Name: index_school_subscriptions_on_school_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_school_subscriptions_on_school_id ON public.school_subscriptions USING btree (school_id);
+CREATE INDEX index_school_subscriptions_on_school_id ON school_subscriptions USING btree (school_id);
 
 
 --
 -- Name: index_school_subscriptions_on_subscription_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_school_subscriptions_on_subscription_id ON public.school_subscriptions USING btree (subscription_id);
+CREATE INDEX index_school_subscriptions_on_subscription_id ON school_subscriptions USING btree (subscription_id);
 
 
 --
 -- Name: index_schools_admins_on_school_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_schools_admins_on_school_id ON public.schools_admins USING btree (school_id);
+CREATE INDEX index_schools_admins_on_school_id ON schools_admins USING btree (school_id);
 
 
 --
 -- Name: index_schools_admins_on_school_id_and_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_schools_admins_on_school_id_and_user_id ON public.schools_admins USING btree (school_id, user_id);
+CREATE UNIQUE INDEX index_schools_admins_on_school_id_and_user_id ON schools_admins USING btree (school_id, user_id);
 
 
 --
 -- Name: index_schools_admins_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_schools_admins_on_user_id ON public.schools_admins USING btree (user_id);
+CREATE INDEX index_schools_admins_on_user_id ON schools_admins USING btree (user_id);
 
 
 --
 -- Name: index_schools_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_schools_on_name ON public.schools USING btree (name);
+CREATE INDEX index_schools_on_name ON schools USING btree (name);
 
 
 --
 -- Name: index_schools_on_nces_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_schools_on_nces_id ON public.schools USING btree (nces_id);
+CREATE INDEX index_schools_on_nces_id ON schools USING btree (nces_id);
 
 
 --
 -- Name: index_schools_on_state; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_schools_on_state ON public.schools USING btree (state);
+CREATE INDEX index_schools_on_state ON schools USING btree (state);
 
 
 --
 -- Name: index_schools_on_zipcode; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_schools_on_zipcode ON public.schools USING btree (zipcode);
+CREATE INDEX index_schools_on_zipcode ON schools USING btree (zipcode);
 
 
 --
 -- Name: index_schools_users_on_school_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_schools_users_on_school_id ON public.schools_users USING btree (school_id);
+CREATE INDEX index_schools_users_on_school_id ON schools_users USING btree (school_id);
 
 
 --
 -- Name: index_schools_users_on_school_id_and_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_schools_users_on_school_id_and_user_id ON public.schools_users USING btree (school_id, user_id);
+CREATE INDEX index_schools_users_on_school_id_and_user_id ON schools_users USING btree (school_id, user_id);
 
 
 --
 -- Name: index_schools_users_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_schools_users_on_user_id ON public.schools_users USING btree (user_id);
+CREATE UNIQUE INDEX index_schools_users_on_user_id ON schools_users USING btree (user_id);
 
 
 --
 -- Name: index_students_classrooms_on_classroom_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_students_classrooms_on_classroom_id ON public.students_classrooms USING btree (classroom_id);
+CREATE INDEX index_students_classrooms_on_classroom_id ON students_classrooms USING btree (classroom_id);
 
 
 --
 -- Name: index_students_classrooms_on_student_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_students_classrooms_on_student_id ON public.students_classrooms USING btree (student_id);
+CREATE INDEX index_students_classrooms_on_student_id ON students_classrooms USING btree (student_id);
 
 
 --
 -- Name: index_students_classrooms_on_student_id_and_classroom_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_students_classrooms_on_student_id_and_classroom_id ON public.students_classrooms USING btree (student_id, classroom_id);
+CREATE UNIQUE INDEX index_students_classrooms_on_student_id_and_classroom_id ON students_classrooms USING btree (student_id, classroom_id);
 
 
 --
 -- Name: index_subscription_types_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_subscription_types_on_name ON public.subscription_types USING btree (name);
+CREATE INDEX index_subscription_types_on_name ON subscription_types USING btree (name);
 
 
 --
 -- Name: index_subscriptions_on_de_activated_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_subscriptions_on_de_activated_date ON public.subscriptions USING btree (de_activated_date);
+CREATE INDEX index_subscriptions_on_de_activated_date ON subscriptions USING btree (de_activated_date);
 
 
 --
 -- Name: index_subscriptions_on_purchaser_email; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_subscriptions_on_purchaser_email ON public.subscriptions USING btree (purchaser_email);
+CREATE INDEX index_subscriptions_on_purchaser_email ON subscriptions USING btree (purchaser_email);
 
 
 --
 -- Name: index_subscriptions_on_purchaser_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_subscriptions_on_purchaser_id ON public.subscriptions USING btree (purchaser_id);
+CREATE INDEX index_subscriptions_on_purchaser_id ON subscriptions USING btree (purchaser_id);
 
 
 --
 -- Name: index_subscriptions_on_recurring; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_subscriptions_on_recurring ON public.subscriptions USING btree (recurring);
+CREATE INDEX index_subscriptions_on_recurring ON subscriptions USING btree (recurring);
 
 
 --
 -- Name: index_subscriptions_on_start_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_subscriptions_on_start_date ON public.subscriptions USING btree (start_date);
+CREATE INDEX index_subscriptions_on_start_date ON subscriptions USING btree (start_date);
 
 
 --
 -- Name: index_topic_categories_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_topic_categories_on_name ON public.topic_categories USING btree (name);
+CREATE INDEX index_topic_categories_on_name ON topic_categories USING btree (name);
 
 
 --
 -- Name: index_topics_on_topic_category_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_topics_on_topic_category_id ON public.topics USING btree (topic_category_id);
+CREATE INDEX index_topics_on_topic_category_id ON topics USING btree (topic_category_id);
 
 
 --
 -- Name: index_unit_activities_on_activity_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_unit_activities_on_activity_id ON public.unit_activities USING btree (activity_id);
+CREATE INDEX index_unit_activities_on_activity_id ON unit_activities USING btree (activity_id);
 
 
 --
 -- Name: index_unit_activities_on_unit_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_unit_activities_on_unit_id ON public.unit_activities USING btree (unit_id);
+CREATE INDEX index_unit_activities_on_unit_id ON unit_activities USING btree (unit_id);
 
 
 --
 -- Name: index_unit_activities_on_unit_id_and_activity_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_unit_activities_on_unit_id_and_activity_id ON public.unit_activities USING btree (unit_id, activity_id);
+CREATE UNIQUE INDEX index_unit_activities_on_unit_id_and_activity_id ON unit_activities USING btree (unit_id, activity_id);
 
 
 --
 -- Name: index_unit_templates_on_activity_info; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_unit_templates_on_activity_info ON public.unit_templates USING btree (activity_info);
+CREATE INDEX index_unit_templates_on_activity_info ON unit_templates USING btree (activity_info);
 
 
 --
 -- Name: index_unit_templates_on_author_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_unit_templates_on_author_id ON public.unit_templates USING btree (author_id);
+CREATE INDEX index_unit_templates_on_author_id ON unit_templates USING btree (author_id);
 
 
 --
 -- Name: index_unit_templates_on_unit_template_category_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_unit_templates_on_unit_template_category_id ON public.unit_templates USING btree (unit_template_category_id);
+CREATE INDEX index_unit_templates_on_unit_template_category_id ON unit_templates USING btree (unit_template_category_id);
 
 
 --
 -- Name: index_units_on_unit_template_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_units_on_unit_template_id ON public.units USING btree (unit_template_id);
+CREATE INDEX index_units_on_unit_template_id ON units USING btree (unit_template_id);
 
 
 --
 -- Name: index_units_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_units_on_user_id ON public.units USING btree (user_id);
+CREATE INDEX index_units_on_user_id ON units USING btree (user_id);
 
 
 --
 -- Name: index_user_milestones_on_milestone_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_user_milestones_on_milestone_id ON public.user_milestones USING btree (milestone_id);
+CREATE INDEX index_user_milestones_on_milestone_id ON user_milestones USING btree (milestone_id);
 
 
 --
 -- Name: index_user_milestones_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_user_milestones_on_user_id ON public.user_milestones USING btree (user_id);
+CREATE INDEX index_user_milestones_on_user_id ON user_milestones USING btree (user_id);
 
 
 --
 -- Name: index_user_milestones_on_user_id_and_milestone_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_user_milestones_on_user_id_and_milestone_id ON public.user_milestones USING btree (user_id, milestone_id);
+CREATE UNIQUE INDEX index_user_milestones_on_user_id_and_milestone_id ON user_milestones USING btree (user_id, milestone_id);
 
 
 --
 -- Name: index_user_subscriptions_on_subscription_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_user_subscriptions_on_subscription_id ON public.user_subscriptions USING btree (subscription_id);
+CREATE INDEX index_user_subscriptions_on_subscription_id ON user_subscriptions USING btree (subscription_id);
 
 
 --
 -- Name: index_user_subscriptions_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_user_subscriptions_on_user_id ON public.user_subscriptions USING btree (user_id);
+CREATE INDEX index_user_subscriptions_on_user_id ON user_subscriptions USING btree (user_id);
 
 
 --
 -- Name: index_users_on_active; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_users_on_active ON public.users USING btree (active);
+CREATE INDEX index_users_on_active ON users USING btree (active);
 
 
 --
 -- Name: index_users_on_classcode; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_users_on_classcode ON public.users USING btree (classcode);
+CREATE INDEX index_users_on_classcode ON users USING btree (classcode);
 
 
 --
 -- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_users_on_email ON public.users USING btree (email);
+CREATE INDEX index_users_on_email ON users USING btree (email);
 
 
 --
 -- Name: index_users_on_flags; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_users_on_flags ON public.users USING btree (flags);
+CREATE INDEX index_users_on_flags ON users USING btree (flags);
 
 
 --
 -- Name: index_users_on_google_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_users_on_google_id ON public.users USING btree (google_id);
+CREATE INDEX index_users_on_google_id ON users USING btree (google_id);
 
 
 --
 -- Name: index_users_on_role; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_users_on_role ON public.users USING btree (role);
+CREATE INDEX index_users_on_role ON users USING btree (role);
 
 
 --
 -- Name: index_users_on_stripe_customer_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_users_on_stripe_customer_id ON public.users USING btree (stripe_customer_id);
+CREATE INDEX index_users_on_stripe_customer_id ON users USING btree (stripe_customer_id);
 
 
 --
 -- Name: index_users_on_time_zone; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_users_on_time_zone ON public.users USING btree (time_zone);
+CREATE INDEX index_users_on_time_zone ON users USING btree (time_zone);
 
 
 --
 -- Name: index_users_on_token; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_users_on_token ON public.users USING btree (token);
+CREATE INDEX index_users_on_token ON users USING btree (token);
 
 
 --
 -- Name: index_users_on_username; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_users_on_username ON public.users USING btree (username);
+CREATE INDEX index_users_on_username ON users USING btree (username);
 
 
 --
 -- Name: name_idx; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX name_idx ON public.users USING gin (name gin_trgm_ops);
+CREATE INDEX name_idx ON users USING gin (name gin_trgm_ops);
 
 
 --
 -- Name: tsv_idx; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX tsv_idx ON public.blog_posts USING gin (tsv);
+CREATE INDEX tsv_idx ON blog_posts USING gin (tsv);
 
 
 --
 -- Name: unique_classroom_and_activity_for_cua_state; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX unique_classroom_and_activity_for_cua_state ON public.classroom_unit_activity_states USING btree (classroom_unit_id, unit_activity_id);
+CREATE UNIQUE INDEX unique_classroom_and_activity_for_cua_state ON classroom_unit_activity_states USING btree (classroom_unit_id, unit_activity_id);
 
 
 --
 -- Name: unique_classroom_and_user_ids_on_classrooms_teachers; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX unique_classroom_and_user_ids_on_classrooms_teachers ON public.classrooms_teachers USING btree (user_id, classroom_id);
+CREATE UNIQUE INDEX unique_classroom_and_user_ids_on_classrooms_teachers ON classrooms_teachers USING btree (user_id, classroom_id);
 
 
 --
 -- Name: unique_index_schools_on_nces_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX unique_index_schools_on_nces_id ON public.schools USING btree (nces_id) WHERE ((nces_id)::text <> ''::text);
+CREATE UNIQUE INDEX unique_index_schools_on_nces_id ON schools USING btree (nces_id) WHERE ((nces_id)::text <> ''::text);
 
 
 --
 -- Name: unique_index_schools_on_ppin; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX unique_index_schools_on_ppin ON public.schools USING btree (ppin) WHERE ((ppin)::text <> ''::text);
+CREATE UNIQUE INDEX unique_index_schools_on_ppin ON schools USING btree (ppin) WHERE ((ppin)::text <> ''::text);
 
 
 --
 -- Name: unique_index_users_on_email; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX unique_index_users_on_email ON public.users USING btree (email) WHERE ((id > 1641954) AND (email IS NOT NULL) AND ((email)::text <> ''::text));
+CREATE UNIQUE INDEX unique_index_users_on_email ON users USING btree (email) WHERE ((id > 1641954) AND (email IS NOT NULL) AND ((email)::text <> ''::text));
 
 
 --
 -- Name: unique_index_users_on_google_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX unique_index_users_on_google_id ON public.users USING btree (google_id) WHERE ((id > 1641954) AND (google_id IS NOT NULL) AND ((google_id)::text <> ''::text));
+CREATE UNIQUE INDEX unique_index_users_on_google_id ON users USING btree (google_id) WHERE ((id > 1641954) AND (google_id IS NOT NULL) AND ((google_id)::text <> ''::text));
 
 
 --
 -- Name: unique_index_users_on_username; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX unique_index_users_on_username ON public.users USING btree (username) WHERE ((id > 1641954) AND (username IS NOT NULL) AND ((username)::text <> ''::text));
+CREATE UNIQUE INDEX unique_index_users_on_username ON users USING btree (username) WHERE ((id > 1641954) AND (username IS NOT NULL) AND ((username)::text <> ''::text));
 
 
 --
 -- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX unique_schema_migrations ON public.schema_migrations USING btree (version);
+CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (version);
 
 
 --
 -- Name: username_idx; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX username_idx ON public.users USING gin (username gin_trgm_ops);
+CREATE INDEX username_idx ON users USING gin (username gin_trgm_ops);
 
 
 --
 -- Name: users_to_tsvector_idx; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX users_to_tsvector_idx ON public.users USING gin (to_tsvector('english'::regconfig, (name)::text));
+CREATE INDEX users_to_tsvector_idx ON users USING gin (to_tsvector('english'::regconfig, (name)::text));
 
 
 --
 -- Name: users_to_tsvector_idx1; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX users_to_tsvector_idx1 ON public.users USING gin (to_tsvector('english'::regconfig, (email)::text));
+CREATE INDEX users_to_tsvector_idx1 ON users USING gin (to_tsvector('english'::regconfig, (email)::text));
 
 
 --
 -- Name: users_to_tsvector_idx10; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX users_to_tsvector_idx10 ON public.users USING gin (to_tsvector('english'::regconfig, (username)::text));
+CREATE INDEX users_to_tsvector_idx10 ON users USING gin (to_tsvector('english'::regconfig, (username)::text));
 
 
 --
 -- Name: users_to_tsvector_idx11; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX users_to_tsvector_idx11 ON public.users USING gin (to_tsvector('english'::regconfig, split_part((ip_address)::text, '/'::text, 1)));
+CREATE INDEX users_to_tsvector_idx11 ON users USING gin (to_tsvector('english'::regconfig, split_part((ip_address)::text, '/'::text, 1)));
 
 
 --
 -- Name: users_to_tsvector_idx2; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX users_to_tsvector_idx2 ON public.users USING gin (to_tsvector('english'::regconfig, (role)::text));
+CREATE INDEX users_to_tsvector_idx2 ON users USING gin (to_tsvector('english'::regconfig, (role)::text));
 
 
 --
 -- Name: users_to_tsvector_idx3; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX users_to_tsvector_idx3 ON public.users USING gin (to_tsvector('english'::regconfig, (classcode)::text));
+CREATE INDEX users_to_tsvector_idx3 ON users USING gin (to_tsvector('english'::regconfig, (classcode)::text));
 
 
 --
 -- Name: users_to_tsvector_idx4; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX users_to_tsvector_idx4 ON public.users USING gin (to_tsvector('english'::regconfig, (username)::text));
+CREATE INDEX users_to_tsvector_idx4 ON users USING gin (to_tsvector('english'::regconfig, (username)::text));
 
 
 --
 -- Name: users_to_tsvector_idx5; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX users_to_tsvector_idx5 ON public.users USING gin (to_tsvector('english'::regconfig, split_part((ip_address)::text, '/'::text, 1)));
+CREATE INDEX users_to_tsvector_idx5 ON users USING gin (to_tsvector('english'::regconfig, split_part((ip_address)::text, '/'::text, 1)));
 
 
 --
 -- Name: users_to_tsvector_idx6; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX users_to_tsvector_idx6 ON public.users USING gin (to_tsvector('english'::regconfig, (name)::text));
+CREATE INDEX users_to_tsvector_idx6 ON users USING gin (to_tsvector('english'::regconfig, (name)::text));
 
 
 --
 -- Name: users_to_tsvector_idx7; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX users_to_tsvector_idx7 ON public.users USING gin (to_tsvector('english'::regconfig, (email)::text));
+CREATE INDEX users_to_tsvector_idx7 ON users USING gin (to_tsvector('english'::regconfig, (email)::text));
 
 
 --
 -- Name: users_to_tsvector_idx8; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX users_to_tsvector_idx8 ON public.users USING gin (to_tsvector('english'::regconfig, (role)::text));
+CREATE INDEX users_to_tsvector_idx8 ON users USING gin (to_tsvector('english'::regconfig, (role)::text));
 
 
 --
 -- Name: users_to_tsvector_idx9; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX users_to_tsvector_idx9 ON public.users USING gin (to_tsvector('english'::regconfig, (classcode)::text));
+CREATE INDEX users_to_tsvector_idx9 ON users USING gin (to_tsvector('english'::regconfig, (classcode)::text));
 
 
 --
 -- Name: uta; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX uta ON public.activities_unit_templates USING btree (unit_template_id, activity_id);
+CREATE INDEX uta ON activities_unit_templates USING btree (unit_template_id, activity_id);
 
 
 --
 -- Name: blog_posts tsvectorupdate; Type: TRIGGER; Schema: public; Owner: -
 --
 
-CREATE TRIGGER tsvectorupdate BEFORE INSERT OR UPDATE ON public.blog_posts FOR EACH ROW EXECUTE PROCEDURE blog_posts_search_trigger();
+CREATE TRIGGER tsvectorupdate BEFORE INSERT OR UPDATE ON blog_posts FOR EACH ROW EXECUTE PROCEDURE blog_posts_search_trigger();
 
 
 --
@@ -4431,6 +4484,14 @@ ALTER TABLE ONLY sales_stages
 
 ALTER TABLE ONLY criteria
     ADD CONSTRAINT fk_rails_ada79930c6 FOREIGN KEY (concept_id) REFERENCES concepts(id);
+
+
+--
+-- Name: notifications fk_rails_b080fb4855; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY notifications
+    ADD CONSTRAINT fk_rails_b080fb4855 FOREIGN KEY (user_id) REFERENCES users(id);
 
 
 --
@@ -5080,4 +5141,10 @@ INSERT INTO schema_migrations (version) VALUES ('20180709190427');
 INSERT INTO schema_migrations (version) VALUES ('20180709192646');
 
 INSERT INTO schema_migrations (version) VALUES ('20180718195853');
+
+INSERT INTO schema_migrations (version) VALUES ('20180815174156');
+
+INSERT INTO schema_migrations (version) VALUES ('20180815180204');
+
+INSERT INTO schema_migrations (version) VALUES ('20180816210411');
 
