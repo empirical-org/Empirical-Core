@@ -1,3 +1,38 @@
 .feedback_row {
   display: flex;
 }
+
+.is-success.is-algo-optimal {
+  background-color: #BA68C8;
+}
+
+.algorithm-optimal-response {
+  background-color: #F6ECF8;
+}
+
+.algorithm-sub-optimal-response {
+  background-color: #E9EDF7;
+}
+
+.not-found-response {
+  background-color: #FFF0F2;
+}
+
+.human-sub-optimal-response {
+  background-color: #FFF9E8;
+}
+.human-optimal-response {
+  background-color: #F5FAEF;
+}
+
+.unexpanded {
+  padding: 10px 15px 0px;
+}
+
+.expanded {
+  padding: 20px 15px 10px;
+}
+
+.panel-checkbox.toggle {
+  padding: 5px;
+}
