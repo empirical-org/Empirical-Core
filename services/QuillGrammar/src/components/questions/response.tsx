@@ -3,9 +3,9 @@ import _ from 'underscore';
 import * as questionActions from '../../actions/questions';
 import {
   Modal,
-  TextEditor,
   hashToCollection
 } from 'quill-component-library/dist/componentLibrary';
+import TextEditor from '../shared/textEditor'
 import { EditorState, ContentState } from 'draft-js'
 import ResponseList from './responseList';
 import getBoilerplateFeedback from './boilerplateFeedback';
@@ -51,6 +51,51 @@ export default class Response extends React.Component {
       },
       conceptResults,
     };
+
+    this.deleteResponse = this.deleteResponse.bind(this)
+    this.editResponse = this.editResponse.bind(this)
+    this.cancelResponseEdit = this.cancelResponseEdit.bind(this)
+    this.viewChildResponses = this.viewChildResponses.bind(this)
+    this.cancelChildResponseView = this.cancelChildResponseView.bind(this)
+    this.viewFromResponses = this.viewFromResponses.bind(this)
+    this.cancelFromResponseView = this.cancelFromResponseView.bind(this)
+    this.viewToResponses = this.viewToResponses.bind(this)
+    this.cancelToResponseView = this.cancelToResponseView.bind(this)
+    this.updateResponse = this.updateResponse.bind(this)
+    this.getErrorsForAttempt = this.getErrorsForAttempt.bind(this)
+    this.markAsWeak = this.markAsWeak.bind(this)
+    this.unmarkAsWeak = this.unmarkAsWeak.bind(this)
+    this.rematchResponse = this.rematchResponse.bind(this)
+    this.incrementResponse = this.incrementResponse.bind(this)
+    this.removeLinkToParentID = this.removeLinkToParentID.bind(this)
+    this.applyDiff = this.applyDiff.bind(this)
+    this.handleFeedbackChange = this.handleFeedbackChange.bind(this)
+    this.updateConceptResults = this.updateConceptResults.bind(this)
+    this.deleteConceptResult = this.deleteConceptResult.bind(this)
+    this.chooseBoilerplateCategory = this.chooseBoilerplateCategory.bind(this)
+    this.chooseSpecificBoilerplateFeedback = this.chooseSpecificBoilerplateFeedback.bind(this)
+    this.boilerplateCategoriesToOptions = this.boilerplateCategoriesToOptions.bind(this)
+    this.boilerplateSpecificFeedbackToOptions = this.boilerplateSpecificFeedbackToOptions.bind(this)
+    this.addResponseToMassEditArray = this.addResponseToMassEditArray.bind(this)
+    this.removeResponseFromMassEditArray = this.removeResponseFromMassEditArray.bind(this)
+    this.clearResponsesFromMassEditArray = this.clearResponsesFromMassEditArray.bind(this)
+    this.onMassSelectCheckboxToggle = this.onMassSelectCheckboxToggle.bind(this)
+    this.toggleCheckboxCorrect = this.toggleCheckboxCorrect.bind(this)
+    this.handleConceptChange = this.handleConceptChange.bind(this)
+    this.getParentResponse = this.getParentResponse.bind(this)
+    this.renderBoilerplateCategoryDropdown = this.renderBoilerplateCategoryDropdown.bind(this)
+    this.renderBoilerplateCategoryOptionsDropdown = this.renderBoilerplateCategoryOptionsDropdown.bind(this)
+    this.renderConceptResults = this.renderConceptResults.bind(this)
+    this.renderResponseContent = this.renderResponseContent.bind(this)
+    this.renderResponseFooter = this.renderResponseFooter.bind(this)
+    this.renderResponseHeader = this.renderResponseHeader.bind(this)
+    this.cardClasses = this.cardClasses.bind(this)
+    this.headerClasses = this.headerClasses.bind(this)
+    this.renderChildResponses = this.renderChildResponses.bind(this)
+    this.printResponsePathways = this.printResponsePathways.bind(this)
+    this.toResponsePathways = this.toResponsePathways.bind(this)
+    this.renderToResponsePathways = this.renderToResponsePathways.bind(this)
+    this.renderFromResponsePathways = this.renderFromResponsePathways.bind(this)
 
   }
 

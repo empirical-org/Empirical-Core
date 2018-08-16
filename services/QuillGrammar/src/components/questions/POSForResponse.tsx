@@ -6,11 +6,16 @@ import { ActionTypes } from '../../actions/actionTypes';
 const feedbackStrings = ActionTypes.FEEDBACK_STRINGS;
 
 export default class POSForResponse extends React.Component {
+  constructor(props) {
+    super(props)
 
-  getInitialState() {
-    return {
-      isExpanded: false,
-    };
+    this.state = {
+      isExpanded: false
+    }
+
+    this.toggleExpandSinglePOS = this.toggleExpandSinglePOS.bind(this)
+    this.renderExpandedPOSListText = this.renderExpandedPOSListText.bind(this)
+    this.renderExpandedPOSListCount = this.renderExpandedPOSListCount.bind(this)
   }
 
   toggleExpandSinglePOS() {

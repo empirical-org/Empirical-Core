@@ -153,16 +153,14 @@ export const submitQuestionEdit = (qid, content) => {
 export const saveOptimalResponse = (qid, conceptUid, answer) => {
   return (dispatch) => {
     if (answer.text) {
+      const conceptResults = [{[conceptUid]: true}]
       const formattedResponse = {
         optimal: true,
         count: 1,
         text: answer.text.replace(/{|}/gm, ''),
         question_uid: qid,
         feedback: "<b>Well done!</b> That's the correct answer.",
-        concept_results: [{
-          conceptUID: conceptUid,
-          correct: true
-        }]
+        concept_results: conceptResults
       }
       dispatch(responseActions.submitResponse(formattedResponse, null, false))
     }
@@ -178,4 +176,31 @@ export const updateStringFilter = (stringFilter, qid) => {
 
 export const setStringFilter = (stringFilter) => {
   return { type: ActionTypes.SET_RESPONSE_STRING_FILTER, stringFilter, };
+}
+
+export const startResponseEdit = (qid, rid) => {
+  return { type: ActionTypes.START_RESPONSE_EDIT, qid, rid, };
+}
+
+export const updatePageNumber = (pageNumber, qid) => {
+  return (dispatch) => {
+    dispatch(setPageNumber(pageNumber));
+    dispatch(searchResponses(qid));
+  };
+}
+
+export const setPageNumber = (pageNumber) => {
+  return { type: ActionTypes.SET_RESPONSE_PAGE_NUMBER, pageNumber, };
+}
+
+export const clearQuestionState = (qid) => {
+  return { type: ActionTypes.CLEAR_QUESTION_STATE, qid, };
+}
+
+export const startChildResponseView = (qid, rid) => {
+  return { type: ActionTypes.START_CHILD_RESPONSE_VIEW, qid, rid, };
+}
+
+export const cancelChildResponseView = (qid, rid) => {
+  return { type: ActionTypes.CANCEL_CHILD_RESPONSE_VIEW, qid, rid, };
 }

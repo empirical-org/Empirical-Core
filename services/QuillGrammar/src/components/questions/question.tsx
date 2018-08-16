@@ -199,7 +199,7 @@ class AdminQuestion extends React.Component {
       : <li style={{color: "#a2a1a1"}}>Mass Edit ({this.props.massEdit.numSelectedResponses})</li>
 
       return (
-        <div>
+        <div style={{paddingRight: '30px', paddingTop: '10px'}}>
           {this.renderEditForm()}
           {this.renderNewResponseForm()}
           <div style={{display: 'flex', justifyContent: 'space-between'}}>

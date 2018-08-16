@@ -94,44 +94,13 @@ class Questions extends React.Component {
   }
 
   rematchAllQuestions() {
-    const ignoreList = [
-      '-KP-LIzVyeL6a38yW0im',
-      '-KPt1wiz5zY1JgNSLbQZ',
-      '-KPt6EDsKbaXVrIf9dJY',
-      '-KPt2OD4fkKen27eyiry',
-      '-KPt2ZzZAIVsrQ-asGEY',
-      '-KP-M1Crf2pvqO4QH6zI',
-      '-KP-M7WtUdYK6vd6S57X',
-      '-KP-MEpdOxjU7OyzL6ss',
-      '-KPt2jWGaZbGEaUKj-da',
-      '-KPt2vzVYs2QAWkeo7QT',
-      '-KPt3I_hR_Xlv5Cr1mvB',
-      '-KP-Mv5jsZKhraQH2DOt',
-      '-KPt3fnhAJ_vQF_dD4Oj',
-      '-KPt3uD8hulWiYGp3Rm7',
-      '-KP-Nc414z5N_TKwnvms',
-      '-KP-M1Crf2pvqO4QH6zI-esp',
-      '-KP-LIzVyeL6a38yW0im-esp',
-      '-KP-M7WtUdYK6vd6S57X-esp',
-      '-KPt2OD4fkKen27eyiry-esp',
-      '-KP-MEpdOxjU7OyzL6ss-esp',
-      '-KPt3I_hR_Xlv5Cr1mvB-esp',
-      '-KP-Mv5jsZKhraQH2DOt-esp',
-      '-KPt3fnhAJ_vQF_dD4Oj-esp',
-      '-KPt3uD8hulWiYGp3Rm7-esp'
-    ];
-
     console.log('Rematching All Questions');
     const questLength = _.keys(this.props.questions.data).length;
     _.each(hashToCollection(this.props.questions.data), (question, index) => {
       const percentage = index / questLength * 100;
       console.log(`Rematching: ${percentage}% complete`);
-      if (ignoreList.indexOf(question.key) === -1 && question.conceptID) {
-        console.log('Rematching Question: ', question.key);
-        this.rematchAllResponses(question);
-      } else {
-        console.log('Ignoring');
-      }
+      console.log('Rematching Question: ', question.key);
+      this.rematchAllResponses(question);
     });
     console.log('Finished Rematching All Questions');
   }
