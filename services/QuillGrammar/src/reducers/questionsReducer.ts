@@ -13,8 +13,8 @@ export default (
     currentState = {hasreceiveddata: false, states: {}},
     action: Action,
 ) => {
-    switch (action.type) {
       let newstate
+      switch (action.type) {
         case ActionTypes.RECEIVE_QUESTIONS_DATA:
           return Object.assign({}, currentState, { data: action.data}, {hasreceiveddata: true})
         case ActionTypes.AWAIT_NEW_QUESTION_RESPONSE:
@@ -86,7 +86,6 @@ export default (
           newstate = _.cloneDeep(currentState);
           delete newstate.states[action.qid];
           return newstate;
-
         case ActionTypes.NO_QUESTIONS_FOUND:
             return Object.assign({}, currentState, { error: 'No questions found.'})
         default:
