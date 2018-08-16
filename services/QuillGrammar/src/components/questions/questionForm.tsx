@@ -8,24 +8,36 @@ import { EditorState, ContentState } from 'draft-js'
 import ConceptSelector from '../shared/conceptSelector'
 
 export default class QuestionForm extends React.Component {
-  getInitialState () {
-    return {
-      prompt: "",
-      concept: this.props.question.concept_uid,
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      prompt: this.props.question,
+      concept_uid: this.props.question.concept_uid,
       instructions: this.props.question.instructions ? this.props.question.instructions : "",
       flag: this.props.question.flag ? this.props.question.flag : "alpha",
-      rule_description: this.props.rule_description ? this.props.rule_description : ''
+      rule_description: this.props.question.rule_description ? this.props.question.rule_description : '',
+      answers: this.props.question.answers ? this.props.question.answers : []
     }
+
+    this.submit = this.submit.bind(this)
+    this.handlePromptChange = this.handlePromptChange.bind(this)
+    this.handleInstructionsChange = this.handleInstructionsChange.bind(this)
+    this.handleRuleDescriptionChange = this.handleRuleDescriptionChange.bind(this)
+    this.handleSelectorChange = this.handleSelectorChange.bind(this)
+    this.handleConceptChange = this.handleConceptChange.bind(this)
+    this.handleFlagChange = this.handleFlagChange.bind(this)
+    this.handleAnswersChange = this.handleAnswersChange.bind(this)
   }
 
   submit () {
     this.props.submit({
       prompt: this.state.prompt,
-      prefilledText: this.refs.prefilledText.value,
-      concept_uid: this.state.concept,
+      concept_uid: this.state.concept_uid,
       instructions: this.state.instructions,
       flag: this.state.flag,
-      cuesLabel: this.state.cuesLabel
+      rule_description: this.state.rule_description,
+      answers: this.state.answers
     })
   }
 
@@ -33,40 +45,33 @@ export default class QuestionForm extends React.Component {
     this.setState({prompt: e})
   }
 
-  handleLevelChange(e) {
-    this.setState({itemLevel: this.refs.itemLevel.value})
-  }
-
   handleInstructionsChange(e) {
     this.setState({instructions: e.target.value})
   }
 
-  itemLevelToOptions() {
-    return hashToCollection(this.props.itemLevels.data).map((level) => {
-      return (
-        <option>{level.name}</option>
-      )
-    })
+  handleRuleDescriptionChange(e) {
+    this.setState({rule_description: e})
   }
 
   handleSelectorChange(e) {
-    this.setState({concept: e.value})
+    this.setState({concept_uid: e.value})
   }
 
   handleConceptChange() {
-    this.setState({concept: this.refs.concept.value})
+    this.setState({concept_uid: this.refs.concept.value})
   }
 
   handleFlagChange(e) {
     this.setState({ flag: e.target.value, });
   }
 
-  handleCuesLabelChange(e) {
-    this.setState({ cuesLabel: e.target.value, });
+  handleAnswersChange(e) {
+    this.setState({ answers: [{ text: e.target.value }], });
   }
 
   render () {
     if(this.props.concepts.hasreceiveddata) {
+      const optimalAnswer = this.props.question.answers[0] ? this.props.question.answers[0].text : ''
       return (
         <div className="box">
           <h6 className="control subtitle">Create a new question</h6>
@@ -81,34 +86,25 @@ export default class QuestionForm extends React.Component {
           <p className="control">
             <textarea className="input" type="text" ref="instructions" defaultValue={this.props.question.instructions} onChange={this.handleInstructionsChange}></textarea>
           </p>
-          <label className="label">Cues Label (default is "joining words" for multiple cues and "joining word" for single cues)</label>
-          <p className="control">
-            <input className="input" type="text" onChange={this.handleCuesLabelChange} defaultValue={this.props.question.cuesLabel}></input>
-          </p>
-          <label className="label">Cues (separated by commas, no spaces eg "however,therefore,hence")</label>
-          <p className="control">
-            <input className="input" type="text" ref="cues" defaultValue={this.props.question.cues}></input>
-          </p>
-          <label className="label">Prefilled Text (place 5 underscores where you want the user to fill in _____)</label>
-          <p className="control">
-            <input className="input" type="text" ref="prefilledText" defaultValue={this.props.question.prefilledText}></input>
-          </p>
-
-          <label className="label">Item level</label>
-          <p className="control">
-            <span className="select">
-              <select onChange={this.handleLevelChange} ref="itemLevel" value={this.state.itemLevel}>
-                <option>Select Item Level</option>
-                {this.itemLevelToOptions()}
-              </select>
-            </span>
-          </p>
           <FlagDropdown flag={this.state.flag} handleFlagChange={this.handleFlagChange} isLessons={false}/>
           <label className="label">Concept</label>
           <div>
-            <ConceptSelector currentConceptUID={this.state.concept}
+            <ConceptSelector currentConceptUID={this.state.concept_uid}
               handleSelectorChange={this.handleSelectorChange}/>
           </div>
+          <label className="label">Rule description</label>
+          <p className="control">
+            <TextEditor
+              text={this.props.question.rule_description || ""}
+              handleTextChange={this.handleRuleDescriptionChange}
+              EditorState={EditorState}
+              ContentState={ContentState}
+            />
+          </p>
+          <label className="label">Optimal answer (you can add more later)</label>
+          <p className="control">
+            <textarea className="input" type="text" ref="answers" defaultValue={optimalAnswer} onChange={this.handleAnswerChange}></textarea>
+          </p>
           <br/>
           <button className="button is-primary" onClick={this.submit}>Update Question</button>
         </div>
