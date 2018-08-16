@@ -82,17 +82,9 @@ RSpec.configure do |config|
   #     --seed 1234
   config.order = "random"
 
-  # database cleaner config
   config.before(:suite) do
-    DatabaseCleaner.clean_with(:transaction)
-
-    begin
-      # validate factories
-      # FactoryBot.lint
-    ensure
-      # (re-?)clean the database after
-      DatabaseCleaner.clean_with(:transaction)
-    end
+    Rails.cache.clear
+    DatabaseCleaner.clean_with(:truncation)
   end
 
   # most examples
@@ -118,12 +110,6 @@ RSpec.configure do |config|
   config.filter_run focus: true
   config.silence_filter_announcements = true
   config.run_all_when_everything_filtered = true
-
-  # some stuff that happens before all of the suite
-  config.before(:suite) do
-    Rails.cache.clear
-    DatabaseCleaner.clean
-  end
 
   config.around(:each, :caching) do |example|
     caching = ActionController::Base.perform_caching
