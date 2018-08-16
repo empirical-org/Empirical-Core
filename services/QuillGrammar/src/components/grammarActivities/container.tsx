@@ -33,6 +33,7 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
       this.saveToLMS = this.saveToLMS.bind(this)
       this.finishActivitySession = this.finishActivitySession.bind(this)
       this.createAnonActivitySession = this.createAnonActivitySession.bind(this)
+      this.checkAnswer = this.checkAnswer.bind(this)
     }
 
     componentWillMount() {

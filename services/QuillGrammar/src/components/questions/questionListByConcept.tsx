@@ -38,6 +38,7 @@ export default class QuestionListByConcept extends React.Component<any, any> {
             itemKey={question.key}
             basePath={this.props.basePath}
             text={formattedPrompt}
+            subpath={'responses'}
           />
         );
       }
