@@ -1,21 +1,17 @@
 describe('Editing Units', function() {
   before(function() {
-    cy.cleanDatabase().then(() => {
-      cy.factoryBotCreate({
-        factory: 'activity',
-        traits: ['production'],
+    cy.app('clean')
+    cy.appFactories([
+      ['create', 'activity', 'production', {
         name: 'Unassigned Activity'
-      })
-      cy.factoryBotCreate({
-        factory: 'teacher',
-        traits: ['with_classrooms_students_and_activities'],
+      }],
+      ['create', 'teacher', 'with_classrooms_students_and_activities', {
         password: 'password',
         email: 'someone@gmail.com'
-      }).then(() => {
-        cy.login('someone@gmail.com', 'password')
-        cy.visit('/teachers/classrooms/activity_planner')
-      })
-    })
+      }]
+    ])
+    cy.login('someone@gmail.com', 'password')
+    cy.visit('/teachers/classrooms/activity_planner')
   })
 
   beforeEach(function() {

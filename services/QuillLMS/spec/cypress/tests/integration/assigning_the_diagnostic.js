@@ -1,38 +1,41 @@
 describe('Assigning unit templates flow', () => {
   before(function() {
-    cy.logout()
-    cy.cleanDatabase().then(() => {
-      cy.factoryBotCreate({
-        factory: 'diagnostic_activity',
+    cy.app('clean')
+    cy.app('factory_bot')
+    cy.appFactories([
+      ['create', 'diagnostic_activity', {
         name: 'Sentence Structure Diagnostic',
         id: 413
-      }).then(() => {
-        cy.factoryBotCreate({
-          factory: 'unit_template',
-          id: 20,
-          name: 'Sentence Structure Diagnostic'
-        })
-      })
-      cy.factoryBotCreate({
-        factory: 'diagnostic_activity',
+      }],
+      ['create', 'unit_template_category', {
+        id: 101,
+        name: 'Category 1'
+      }],
+      ['create', 'unit_template', {
+        id: 20,
+        name: 'Sentence Structure Diagnostic',
+        unit_template_category_id: 101,
+      }],
+      ['create', 'diagnostic_activity', {
         name: 'ELL Diagnostic',
         id: 447
-      }).then(() => {
-        cy.factoryBotCreate({
-          factory: 'unit_template',
-          id: 34,
-          name: 'ELL Diagnostic'
-        })
-      })
-      cy.factoryBotCreate({
-        factory: 'teacher_with_a_couple_classrooms_with_a_couple_students_each',
+      }],
+      ['create', 'unit_template_category', {
+        id: 102,
+        name: 'Category 2'
+      }],
+      ['create', 'unit_template', {
+        id: 34,
+        name: 'ELL Diagnostic',
+        unit_template_category_id: 102,
+      }],
+      ['create','teacher_with_a_couple_classrooms_with_a_couple_students_each', {
         password: 'password',
         email: 'someone@gmail.com'
-      }).then(() => {
-        cy.login('someone@gmail.com', 'password')
-        cy.visit('/teachers/classrooms/assign_activities/assign-a-diagnostic')
-      })
-    })
+      }]
+    ])
+    cy.login('someone@gmail.com', 'password')
+    cy.visit('/teachers/classrooms/assign_activities/assign-a-diagnostic')
   })
 
   beforeEach(function() {

@@ -1,14 +1,14 @@
 describe('Teacher Navbar', function() {
   before(function() {
-    cy.cleanDatabase()
-    cy.factoryBotCreate({
-      factory: 'teacher_with_one_classroom',
-      password: 'password',
-      username: 'teacher'
-    }).then(() => {
-      cy.login('teacher', 'password')
-      cy.visit('/')
-    })
+    cy.app('clean')
+    cy.appFactories([
+      ['create', 'teacher_with_one_classroom', {
+        password: 'password',
+        username: 'teacher',
+      }]
+    ])
+    cy.login('teacher', 'password')
+    cy.visit('/')
   })
 
   after(() => {

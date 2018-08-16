@@ -1,17 +1,17 @@
 describe('Login page', function() {
 
   before(function() {
-    cy.cleanDatabase()
-    cy.factoryBotCreate({
-      factory: 'teacher',
-      password: 'password',
-      username: 'teacher'
-    })
-    cy.factoryBotCreate({
-      factory: 'student',
-      password: 'password',
-      username: 'student'
-    })
+    cy.app('clean')
+    cy.appFactories([
+      ['create', 'teacher', {
+        password: 'password',
+        username: 'teacher',
+      }],
+      ['create', 'student', {
+        password: 'password',
+        username: 'student',
+      }]
+    ])
   })
 
   after(() => {
