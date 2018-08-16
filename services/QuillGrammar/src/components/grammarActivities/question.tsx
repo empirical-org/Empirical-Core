@@ -1,9 +1,11 @@
 import * as React from "react";
 import * as Redux from "redux";
 import { Row, Button } from "antd";
+import { Response } from 'quill-marking-logic'
 
 import { Question } from '../../interfaces/questions'
 import { GrammarActivity } from '../../interfaces/grammarActivities'
+import * as responseActions from '../../actions/responses'
 
 interface QuestionProps {
   activity: GrammarActivity;
@@ -19,6 +21,7 @@ interface QuestionState {
   response: string;
   questionStatus: string;
   submittedEmptyString: boolean
+  responses: Array<Response>
 }
 
 export class QuestionComponent extends React.Component<QuestionProps, QuestionState> {
@@ -29,13 +32,23 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
           showExample: true,
           response: '',
           questionStatus: 'unanswered',
-          submittedEmptyString: false
+          submittedEmptyString: false,
+          responses: []
         }
 
         this.toggleExample = this.toggleExample.bind(this)
         this.updateResponse = this.updateResponse.bind(this)
         this.checkAnswer = this.checkAnswer.bind(this)
         this.goToNextQuestion = this.goToNextQuestion.bind(this)
+    }
+
+    componentDidMount() {
+      responseActions.getGradedResponsesWithCallback(
+        this.props.currentQuestion.uid,
+        (data) => {
+          this.setState({ responses: data, });
+        }
+      );
     }
 
     componentWillReceiveProps(nextProps: QuestionProps) {
@@ -55,7 +68,6 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
           }
         }
       }
-
     }
 
     currentQuestion() {
@@ -64,8 +76,10 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
 
     checkAnswer() {
       const response = this.state.response
+      const question = this.currentQuestion()
+      const isFirstAttempt = !question.attempts || question.attempts.length === 0
       if (this.state.response !== '') {
-        this.props.checkAnswer(response, this.currentQuestion())
+        this.props.checkAnswer(response, question, this.state.responses, isFirstAttempt)
         this.setState({submittedEmptyString: false})
       } else {
         this.setState({submittedEmptyString: true})

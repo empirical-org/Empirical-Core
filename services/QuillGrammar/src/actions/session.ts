@@ -2,6 +2,7 @@ import rootRef from '../firebase';
 import { ActionTypes } from './actionTypes'
 const questionsRef = rootRef.child('questions')
 const sessionsRef = rootRef.child('sessions')
+import * as responseActions from './responses'
 import { Question } from '../interfaces/questions'
 import { SessionState } from '../reducers/sessionReducer'
 import { checkGrammarQuestion, Response } from 'quill-marking-logic'
@@ -65,25 +66,13 @@ export const startListeningToQuestions = (concepts: any) => {
   }
 }
 
-export const checkAnswer = (response:string, question:Question) => {
+export const checkAnswer = (response:string, question:Question, responses:Array<Response>, isFirstAttempt:Boolean) => {
   return dispatch => {
     const questionUID: string = question.uid
-    const formattedAnswers: any[] = question.answers.map(a => {
-      return {
-        optimal: true,
-        count: 1,
-        text: a.text.replace(/{|}/gm, ''),
-        question_uid: questionUID,
-        feedback: "<b>Well done!</b> That's the correct answer.",
-        concept_results: [{
-          conceptUID: question.concept_uid,
-          correct: true
-        }]
-      }
-    })
-    const responseObj = checkGrammarQuestion(questionUID, response, formattedAnswers)
-    delete responseObj.parent_id
+    const responseObj = checkGrammarQuestion(questionUID, response, responses)
     responseObj.feedback = responseObj.feedback ? responseObj.feedback : "<b>Try again!</b> Unfortunately, that answer is not correct."
+    dispatch(responseActions.submitResponse(responseObj, null, isFirstAttempt))
+    delete responseObj.parent_id
     dispatch(submitResponse(responseObj))
   }
 }
