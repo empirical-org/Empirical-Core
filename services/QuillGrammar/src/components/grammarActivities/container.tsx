@@ -3,6 +3,7 @@ import * as Redux from "redux";
 import {connect} from "react-redux";
 import request from 'request';
 import _ from 'lodash';
+import { Response } from 'quill-marking-logic'
 import getParameterByName from '../../helpers/getParameterByName';
 import { startListeningToActivity } from "../../actions/grammarActivities";
 import {
@@ -127,6 +128,11 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
       );
     }
 
+    checkAnswer(response:string, question:Question, responses:Array<Response>, isFirstAttempt:Boolean) {
+      this.props.dispatch(checkAnswer(response, question, responses, isFirstAttempt))
+    }
+
+
     render(): JSX.Element {
       if (this.props.grammarActivities.hasreceiveddata && this.props.session.hasreceiveddata && this.props.session.currentQuestion) {
         return <QuestionComponent
@@ -135,7 +141,7 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
           unansweredQuestions={this.props.session.unansweredQuestions}
           currentQuestion={this.props.session.currentQuestion}
           goToNextQuestion={() => this.props.dispatch(goToNextQuestion())}
-          checkAnswer={(response: string, question: Question) => this.props.dispatch(checkAnswer(response, question))}
+          checkAnswer={this.checkAnswer}
         />
       } else if (this.props.session.error) {
         return (

@@ -35,7 +35,7 @@ class TestQuestion extends React.Component {
 
   questionsForLesson() {
     const question = this.getQuestion();
-    question.key = this.props.match.params.questionID;
+    question.uid = this.props.match.params.questionID;
     return [
       question
     ];
@@ -58,8 +58,8 @@ class TestQuestion extends React.Component {
     return this.props.questions.data[this.props.match.params.questionID];
   }
 
-  checkAnswer(response, question) {
-    this.props.dispatch(checkAnswer(response, question))
+  checkAnswer(response:string, question, responses, isFirstAttempt:Boolean) {
+    this.props.dispatch(checkAnswer(response, question, responses, isFirstAttempt))
   }
 
   render() {
