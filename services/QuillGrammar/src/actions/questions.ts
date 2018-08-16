@@ -168,3 +168,14 @@ export const saveOptimalResponse = (qid, conceptUid, answer) => {
     }
   }
 }
+
+export const updateStringFilter = (stringFilter, qid) => {
+  return (dispatch) => {
+    dispatch(setStringFilter(stringFilter));
+    dispatch(searchResponses(qid));
+  };
+}
+
+export const setStringFilter = (stringFilter) => {
+  return { type: ActionTypes.SET_RESPONSE_STRING_FILTER, stringFilter, };
+}
