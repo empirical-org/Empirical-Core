@@ -11,22 +11,18 @@ export default class QuestionForm extends React.Component {
   getInitialState () {
     return {
       prompt: "",
-      itemLevel: this.props.question.itemLevel ? this.props.question.itemLevel : "",
-      concept: this.props.question.conceptID,
+      concept: this.props.question.concept_uid,
       instructions: this.props.question.instructions ? this.props.question.instructions : "",
       flag: this.props.question.flag ? this.props.question.flag : "alpha",
-      cuesLabel: this.props.cuesLabel ? this.props.cuesLabel : ''
+      rule_description: this.props.rule_description ? this.props.rule_description : ''
     }
   }
 
   submit () {
-
     this.props.submit({
       prompt: this.state.prompt,
       prefilledText: this.refs.prefilledText.value,
-      cues: this.refs.cues.value.split(','),
-      itemLevel: this.state.itemLevel,
-      conceptID: this.state.concept,
+      concept_uid: this.state.concept,
       instructions: this.state.instructions,
       flag: this.state.flag,
       cuesLabel: this.state.cuesLabel

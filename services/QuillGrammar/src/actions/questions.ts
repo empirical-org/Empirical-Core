@@ -16,7 +16,6 @@ export const startListeningToQuestions = () => {
         dispatch({ type: ActionTypes.NO_QUESTIONS_FOUND })
       }
     });
-
   }
 }
 
