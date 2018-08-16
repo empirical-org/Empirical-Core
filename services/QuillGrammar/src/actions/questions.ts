@@ -5,6 +5,7 @@ import rootRef from '../firebase';
 import { ActionTypes } from './actionTypes'
 const questionsRef = rootRef.child('questions')
 import { Questions } from '../interfaces/questions'
+import * as responseActions from './responses'
 
 export const startListeningToQuestions = () => {
   return dispatch => {
@@ -137,6 +138,8 @@ export const cancelQuestionEdit = (qid) => {
 export const submitQuestionEdit = (qid, content) => {
   return (dispatch, getState) => {
     dispatch({ type: ActionTypes.SUBMIT_QUESTION_EDIT, qid, });
+    content.answers.forEach(a => saveOptimalResponse(qid, content.concept_uid, a))
+    dispatch(saveOptimalResponse(qid, content.concept_uid, content.answers))
     questionsRef.child(qid).update(content, (error) => {
       dispatch({ type: ActionTypes.FINISH_QUESTION_EDIT, qid, });
       if (error) {
@@ -146,4 +149,23 @@ export const submitQuestionEdit = (qid, content) => {
       }
     });
   };
+}
+
+export const saveOptimalResponse = (qid, conceptUid, answer) {
+  return (dispatch) => {
+    if (answer.text) {
+      const formattedResponse = {
+        optimal: true,
+        count: 1,
+        text: answer.text.replace(/{|}/gm, ''),
+        question_uid: qid,
+        feedback: "<b>Well done!</b> That's the correct answer.",
+        concept_results: [{
+          conceptUID: conceptUid,
+          correct: true
+        }]
+      }
+      dispatch(responseActions.submitResponse(formattedResponse, null, false))
+    }
+  }
 }
