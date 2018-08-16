@@ -27,6 +27,7 @@
   <%= render partial: 'typekit' unless Rails.env.test? %>
   <%= stylesheet_pack_tag('app') %>
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= stylesheet_pack_tag(@style_file) if @style_file %>
   <%= javascript_pack_tag('vendor') %>
   <%= javascript_pack_tag(@js_file || 'app') %>
   <%= csrf_meta_tags %>
