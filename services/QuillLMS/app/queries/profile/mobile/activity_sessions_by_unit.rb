@@ -11,6 +11,7 @@ class Profile::Mobile::ActivitySessionsByUnit
 
   def student_profile_data_sql(classroom_id=nil, student_id=nil)
     ActiveRecord::Base.connection.execute("SELECT unit.name,
+    activity.uid as uid,
      activity.name,
      activity.description,
      activity.repeatable,

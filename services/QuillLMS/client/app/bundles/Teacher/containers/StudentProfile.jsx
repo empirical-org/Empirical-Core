@@ -48,7 +48,7 @@ class StudentProfile extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.selectedClassroomId !== this.props.selectedClassroomId) {
       if (!window.location.href.includes(nextProps.selectedClassroomId)) {
-        this.props.history.push(`/classrooms/${nextProps.selectedClassroomId}`)
+        window.location.href = `${process.env.DEFAULT_URL}/classrooms/${nextProps.selectedClassroomId}`
       }
     }
   }
