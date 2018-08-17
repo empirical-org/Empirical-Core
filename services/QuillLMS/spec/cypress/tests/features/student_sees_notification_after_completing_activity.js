@@ -3,17 +3,18 @@ describe('Student completes activity', () => {
     cy.app('clean')
   })
 
-  it('they should see a notification on their profile', () => {
+  it('they see notification on their profile', () => {
     cy.appFactories([
       ['create', 'simple_user', {
         id: 101,
-        email: 'fake@example.com',
+        email: 'student@example.com',
         password: 'password',
         role: 'student',
       }],
       ['create', 'simple_user', {
         id: 102,
-        email: 'fake_teacher@example.com',
+        email: 'teacher@example.com',
+        password: 'password',
         role: 'teacher',
       }],
       ['create', 'simple_classroom', {
@@ -64,7 +65,7 @@ describe('Student completes activity', () => {
       percentage: 98.0
     })
 
-    cy.login('fake@example.com', 'password')
+    cy.login('student@example.com', 'password')
     cy.visit('/')
 
     cy.get('li').contains('Groovy Activity completed')
