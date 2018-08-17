@@ -66,6 +66,7 @@ EmpiricalGrammar::Application.routes.draw do
   end
   resources :assessments
   resources :assignments
+  resources :notifications, only: :index, format: :json
   resource :profile
   resources :password_reset
   resources :schools, only: [:index], format: 'json'
