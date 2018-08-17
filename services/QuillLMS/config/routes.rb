@@ -96,6 +96,7 @@ EmpiricalGrammar::Application.routes.draw do
     get :anonymous, on: :collection
     get :play, on: :member
     put :play, on: :member
+    resources :activity_session_interaction_logs, only: :create
   end
   # 3rd party apps depend on the below, do not change :
   get 'activity_sessions/classroom_units/:classroom_unit_id/activities/:activity_id' => 'activity_sessions#activity_session_from_classroom_unit_and_activity'
