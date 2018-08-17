@@ -12,21 +12,15 @@ describe Api::V1::ActivitySessionsController, type: :controller do
       @activity_session = create(:activity_session, state: 'started', user: user)
     end
 
-    it 'notifies when state is updated to finished' do
+    it 'passes activity session and user to notifier service' do
       service_instance = double(:service_instance)
 
       expect(NotifyOfCompletedActivity).to receive(:new)
-        .with(@activity_session, user)
+        .with(@activity_session)
         .and_return(service_instance)
       expect(service_instance).to receive(:call)
 
       put :update, id: @activity_session.uid, state: 'finished'
-    end
-
-    it 'does not notify when state is not updated to finished' do
-      expect(NotifyOfCompletedActivity).not_to receive(:new)
-
-      put :update, id: @activity_session.uid
     end
 
     context 'default behavior' do
