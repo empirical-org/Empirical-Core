@@ -67,6 +67,6 @@ describe('Student completes activity', () => {
     cy.login('fake@example.com', 'password')
     cy.visit('/')
 
-    cy.get('table').contains('Groovy Activity completed')
+    cy.get('li').contains('Groovy Activity completed')
   })
 })
