@@ -13,7 +13,7 @@ class ActivitySession < ActiveRecord::Base
   belongs_to :activity
   has_one :unit, through: :classroom_unit
   has_many :concept_results
-  has_many :activity_session_interaction_logs
+  has_many :activity_session_interaction_logs, dependent: :destroy
   has_many :concepts, -> { uniq }, through: :concept_results
 
   validate :correctly_assigned, :on => :create
