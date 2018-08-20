@@ -193,6 +193,10 @@ GEM
       multi_json (~> 1.11)
       os (~> 0.9)
       signet (~> 0.7)
+    graphiql-rails (1.4.10)
+      railties
+      sprockets-rails
+    graphql (1.8.4)
     guard (2.14.2)
       formatador (>= 0.2.4)
       listen (>= 2.7, < 4.0)
@@ -714,6 +718,8 @@ DEPENDENCIES
   fuubar (~> 2.0.0.rc1)
   global
   google-api-client (= 0.8.6)
+  graphiql-rails
+  graphql
   guard
   guard-rspec
   guard-shell

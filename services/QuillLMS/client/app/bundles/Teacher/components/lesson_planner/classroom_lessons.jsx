@@ -90,7 +90,7 @@ export default class ClassroomLessons extends React.Component {
   }
 
   switchClassrooms(classroom) {
-    this.props.history.push(`/teachers/classrooms/activity_planner/lessons/${classroom.id}`);
+    window.location.href = (`${process.env.DEFAULT_URL}/teachers/classrooms/activity_planner/lessons/${classroom.id}`);
     this.setState({ selectedClassroomId: `${classroom.id}`, }, () => this.getLessonsForCurrentClass());
   }
 

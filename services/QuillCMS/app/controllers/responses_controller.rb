@@ -162,6 +162,14 @@ class ResponsesController < ApplicationController
       WHERE concept_results ->> '#{original_concept_uid}' IS NOT NULL
     ")
   end
+  
+  def clone_responses
+    Response.where(question_uid: params[:original_question_uid]).each do |r|
+      new_record = r.dup
+      new_record.update(question_uid: params[:new_question_uid])
+    end
+    render json: :ok
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
