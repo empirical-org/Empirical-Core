@@ -8,6 +8,8 @@ const noUnderlineErrors = [];
 
 const feedbackStrings = C.FEEDBACK_STRINGS;
 
+const timeBetweenActivitySessionInteractionLogsInMS = 5000
+
 export default React.createClass({
   getInitialState() {
     return {
@@ -17,6 +19,18 @@ export default React.createClass({
 
   getErrorsForAttempt(attempt) {
     return _.pick(attempt, ...C.ERROR_TYPES);
+  },
+
+  reportActivtySessionTextBoxInteraction() {
+    console.log('text box interaction');
+  },
+
+  componentWillMount() {
+    this.reportActivtySessionTextBoxInteraction = _.debounce(
+      this.reportActivtySessionTextBoxInteraction,
+      timeBetweenActivitySessionInteractionLogsInMS,
+      true
+    );
   },
 
   componentWillReceiveProps(nextProps) {
@@ -128,6 +142,7 @@ export default React.createClass({
               value={this.props.value}
               onInput={this.handleTextChange}
               onKeyDown={this.handleKeyDown}
+              onKeyUp={this.reportActivtySessionTextBoxInteraction}
               placeholder={this.props.placeholder}
               ref="answerBox"
               className="connect-text-area"
