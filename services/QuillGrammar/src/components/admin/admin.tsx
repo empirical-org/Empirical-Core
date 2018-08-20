@@ -4,12 +4,15 @@ import { connect } from 'react-redux';
 import * as grammarActivitiesActions from '../../actions/grammarActivities'
 import * as questionsActions from '../../actions/questions'
 import * as conceptsActions from '../../actions/concepts'
+import * as conceptsFeedbackActions from '../../actions/conceptsFeedback'
 import Questions from '../questions/questions'
 import Question from '../questions/question'
 import Lessons from '../lessons/lessons'
 import Lesson from '../lessons/lesson'
 import Concepts from '../concepts/concepts'
 import Concept from '../concepts/concept'
+import ConceptsFeedback from '../conceptsFeedback/conceptsFeedback'
+import ConceptFeedback from '../conceptsFeedback/conceptFeedback'
 import TabLink from './tabLink'
 
 class adminContainer extends React.Component {
@@ -21,6 +24,7 @@ class adminContainer extends React.Component {
     this.props.dispatch(questionsActions.startListeningToQuestions());
     this.props.dispatch(grammarActivitiesActions.startListeningToActivities());
     this.props.dispatch(conceptsActions.startListeningToConcepts());
+    this.props.dispatch(conceptsFeedbackActions.startListeningToConceptsFeedback());
   }
 
   render() {
@@ -45,7 +49,7 @@ class adminContainer extends React.Component {
             </p>
             <ul className="menu-list">
               <TabLink to={'/admin/concepts'} activeClassName="is-active">Concepts</TabLink>
-              <TabLink to={'admin/concepts-feedback'} activeClassName="is-active">Concept Feedback</TabLink>
+              <TabLink to={'/admin/concepts_feedback'} activeClassName="is-active">Concept Feedback</TabLink>
             </ul>
           </aside>
           <div className="admin-container">
@@ -59,6 +63,8 @@ class adminContainer extends React.Component {
           <Route path={`/admin/questions`} component={Questions}/>
           <Route path={`/admin/concepts/:conceptID`} component={Concept}/>
           <Route path={`/admin/concepts`} component={Concepts}/>
+          <Route path={`/admin/concepts_feedback/:conceptFeedbackID`} component={ConceptFeedback}/>
+          <Route path={`/admin/concepts_feedback`} component={ConceptsFeedback}/>
         </Switch>
       </div>
     );
