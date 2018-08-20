@@ -3,6 +3,7 @@ import _ from 'underscore';
 import Textarea from 'react-textarea-autosize';
 import { generateStyleObjects } from '../../libs/markupUserResponses';
 import { getParameterByName } from '../../libs/getParameterByName';
+import { sendActivitySessionInteractionLog } from '../../libs/sendActivitySessionInteractionLog';
 
 const C = require('../../constants').default;
 
@@ -24,8 +25,7 @@ export default React.createClass({
   },
 
   reportActivtySessionTextBoxInteraction() {
-    console.log('text box interaction');
-    console.log(getParameterByName('student'));
+    sendActivitySessionInteractionLog(getParameterByName('student'), { info: 'textbox interaction', });
   },
 
   componentWillMount() {
