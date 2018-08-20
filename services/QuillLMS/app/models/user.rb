@@ -27,11 +27,11 @@ class User < ActiveRecord::Base
   has_many :schools_i_coordinate, class_name: 'School', foreign_key: 'coordinator_id'
   has_many :schools_i_authorize, class_name: 'School', foreign_key: 'authorizer_id'
 
-
   has_many :schools_admins, class_name: 'SchoolsAdmins'
   has_many :administered_schools, through: :schools_admins, source: :school, foreign_key: :user_id
   has_many :classrooms_teachers
   has_many :classrooms_i_teach, through: :classrooms_teachers, source: :classroom
+  has_many :students_i_teach, through: :classrooms_i_teach, source: :students
 
   has_and_belongs_to_many :districts
   has_one :ip_location
