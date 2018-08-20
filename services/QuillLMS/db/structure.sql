@@ -260,6 +260,32 @@ CREATE TABLE activity_sessions (
     user_id integer,
     pairing_id character varying(255),
     percentage double precision,
+    state character varying(255),
+    completed_at timestamp without time zone,
+    uid character varying(255),
+    temporary boolean,
+    data hstore,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    started_at timestamp without time zone,
+    is_retry boolean,
+    is_final_score boolean,
+    visible boolean,
+    classroom_unit_id integer
+);
+
+
+--
+-- Name: old_activity_sessions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE old_activity_sessions (
+    id integer NOT NULL,
+    classroom_activity_id integer,
+    activity_id integer,
+    user_id integer,
+    pairing_id character varying(255),
+    percentage double precision,
     state character varying(255) DEFAULT 'unstarted'::character varying NOT NULL,
     completed_at timestamp without time zone,
     uid character varying(255),
@@ -291,7 +317,7 @@ CREATE SEQUENCE activity_sessions_id_seq
 -- Name: activity_sessions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE activity_sessions_id_seq OWNED BY activity_sessions.id;
+ALTER SEQUENCE activity_sessions_id_seq OWNED BY old_activity_sessions.id;
 
 
 --
@@ -898,7 +924,9 @@ CREATE TABLE concepts (
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     parent_id integer,
-    uid character varying(255) NOT NULL
+    uid character varying(255) NOT NULL,
+    replacement_id integer,
+    visible boolean DEFAULT true
 );
 
 
@@ -1295,6 +1323,58 @@ CREATE SEQUENCE milestones_id_seq
 --
 
 ALTER SEQUENCE milestones_id_seq OWNED BY milestones.id;
+
+
+--
+-- Name: new_activity_sessions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE new_activity_sessions (
+    id integer NOT NULL,
+    classroom_activity_id integer,
+    activity_id integer,
+    user_id integer,
+    pairing_id character varying(255),
+    percentage double precision,
+    state character varying(255) NOT NULL,
+    completed_at timestamp without time zone,
+    uid character varying(255),
+    temporary boolean,
+    data hstore,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    started_at timestamp without time zone,
+    is_retry boolean,
+    is_final_score boolean,
+    visible boolean NOT NULL,
+    classroom_unit_id integer
+);
+
+
+--
+-- Name: newer_activity_sessions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE newer_activity_sessions (
+    id integer,
+    classroom_activity_id integer,
+    activity_id integer,
+    user_id integer,
+    pairing_id character varying(255),
+    percentage double precision,
+    state character varying(255),
+    completed_at timestamp without time zone,
+    uid character varying(255),
+    temporary boolean,
+    data hstore,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    started_at timestamp without time zone,
+    is_retry boolean,
+    is_final_score boolean,
+    visible boolean,
+    classroom_unit_id integer
+);
 
 
 --
@@ -2359,13 +2439,6 @@ ALTER TABLE ONLY activity_classifications ALTER COLUMN id SET DEFAULT nextval('a
 
 
 --
--- Name: activity_sessions id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY activity_sessions ALTER COLUMN id SET DEFAULT nextval('activity_sessions_id_seq'::regclass);
-
-
---
 -- Name: admin_accounts id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -2597,6 +2670,13 @@ ALTER TABLE ONLY objectives ALTER COLUMN id SET DEFAULT nextval('objectives_id_s
 
 
 --
+-- Name: old_activity_sessions id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY old_activity_sessions ALTER COLUMN id SET DEFAULT nextval('activity_sessions_id_seq'::regclass);
+
+
+--
 -- Name: page_areas id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -2804,10 +2884,10 @@ ALTER TABLE ONLY activity_classifications
 
 
 --
--- Name: activity_sessions activity_sessions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: old_activity_sessions activity_sessions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY activity_sessions
+ALTER TABLE ONLY old_activity_sessions
     ADD CONSTRAINT activity_sessions_pkey PRIMARY KEY (id);
 
 
@@ -3044,6 +3124,14 @@ ALTER TABLE ONLY milestones
 
 
 --
+-- Name: activity_sessions newest_activity_sessions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY activity_sessions
+    ADD CONSTRAINT newest_activity_sessions_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: oauth_access_grants oauth_access_grants_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3276,6 +3364,13 @@ ALTER TABLE ONLY users
 
 
 --
+-- Name: activity_sessions_classroom_activity_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX activity_sessions_classroom_activity_id_idx ON public.old_activity_sessions USING btree (classroom_activity_id);
+
+
+--
 -- Name: aut; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -3336,62 +3431,6 @@ CREATE UNIQUE INDEX index_activity_classifications_on_key ON public.activity_cla
 --
 
 CREATE UNIQUE INDEX index_activity_classifications_on_uid ON public.activity_classifications USING btree (uid);
-
-
---
--- Name: index_activity_sessions_on_activity_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_activity_sessions_on_activity_id ON public.activity_sessions USING btree (activity_id);
-
-
---
--- Name: index_activity_sessions_on_classroom_activity_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_activity_sessions_on_classroom_activity_id ON public.activity_sessions USING btree (classroom_activity_id);
-
-
---
--- Name: index_activity_sessions_on_completed_at; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_activity_sessions_on_completed_at ON public.activity_sessions USING btree (completed_at);
-
-
---
--- Name: index_activity_sessions_on_pairing_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_activity_sessions_on_pairing_id ON public.activity_sessions USING btree (pairing_id);
-
-
---
--- Name: index_activity_sessions_on_started_at; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_activity_sessions_on_started_at ON public.activity_sessions USING btree (started_at);
-
-
---
--- Name: index_activity_sessions_on_state; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_activity_sessions_on_state ON public.activity_sessions USING btree (state);
-
-
---
--- Name: index_activity_sessions_on_uid; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_activity_sessions_on_uid ON public.activity_sessions USING btree (uid);
-
-
---
--- Name: index_activity_sessions_on_user_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_activity_sessions_on_user_id ON public.activity_sessions USING btree (user_id);
 
 
 --
@@ -4183,6 +4222,48 @@ CREATE INDEX index_users_on_username ON public.users USING btree (username);
 --
 
 CREATE INDEX name_idx ON public.users USING gin (name gin_trgm_ops);
+
+
+--
+-- Name: newest_activity_sessions_activity_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX newest_activity_sessions_activity_id_idx ON public.activity_sessions USING btree (activity_id);
+
+
+--
+-- Name: newest_activity_sessions_classroom_unit_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX newest_activity_sessions_classroom_unit_id_idx ON public.activity_sessions USING btree (classroom_unit_id);
+
+
+--
+-- Name: newest_activity_sessions_state_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX newest_activity_sessions_state_idx ON public.activity_sessions USING btree (state);
+
+
+--
+-- Name: newest_activity_sessions_uid_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX newest_activity_sessions_uid_idx ON public.activity_sessions USING btree (uid);
+
+
+--
+-- Name: newest_activity_sessions_user_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX newest_activity_sessions_user_id_idx ON public.activity_sessions USING btree (user_id);
+
+
+--
+-- Name: newest_activity_sessions_visible_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX newest_activity_sessions_visible_idx ON public.activity_sessions USING btree (visible);
 
 
 --
@@ -5080,4 +5161,6 @@ INSERT INTO schema_migrations (version) VALUES ('20180709190427');
 INSERT INTO schema_migrations (version) VALUES ('20180709192646');
 
 INSERT INTO schema_migrations (version) VALUES ('20180718195853');
+
+INSERT INTO schema_migrations (version) VALUES ('20180810181001');
 
