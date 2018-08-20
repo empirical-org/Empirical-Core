@@ -5,7 +5,7 @@ class Cms::ConceptsController < Cms::CmsController
   end
 
   def new
-    @level_2_concepts = Concept.where(parent_id: nil)
+    @level_2_concepts = Concept.where(parent_id: nil, visible: true)
     @concepts = @level_2_concepts.map{|con| ["#{con.name} - Level 2", con.id]}
     @concept = Concept.new
   end
