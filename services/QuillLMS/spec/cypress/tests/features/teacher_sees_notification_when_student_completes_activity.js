@@ -53,6 +53,7 @@ describe('Student completes activity', () => {
         visible: true
       }],
       ['create', 'simple_activity_session', {
+        id: 101,
         classroom_unit_id: 101,
         uid: 'UIDHERE',
         user_id: 101,
@@ -72,6 +73,10 @@ describe('Student completes activity', () => {
     })
     cy.reload()
 
-    cy.contains('Groovy Activity completed by Billie Mcgrane').click()
+    cy.contains('Billie Mcgrane completed Groovy Activity').should(
+      'have.prop',
+      'href',
+      'http://localhost:3000/teachers/progress_reports/diagnostic_reports#/u/101/a/101/c/101/student_report/101'
+    )
   })
 })
