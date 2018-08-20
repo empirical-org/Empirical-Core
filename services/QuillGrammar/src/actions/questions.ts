@@ -1,6 +1,6 @@
 import request from 'request'
 import Pusher from 'pusher-js';
-
+import { push } from 'react-router-redux';
 import rootRef from '../firebase';
 import { ActionTypes } from './actionTypes'
 const questionsRef = rootRef.child('questions')
@@ -124,6 +124,23 @@ export const removeSubscription = (qid) => {
     if (window.pusher) {
       window.pusher.unsubscribe(`admin-${qid}`);
     }
+  };
+}
+
+export const submitNewQuestion = (content) => {
+  return dispatch => {
+    dispatch({ type: ActionTypes.AWAIT_NEW_QUESTION_RESPONSE, });
+    const newRef = questionsRef.push(content, (error) => {
+      dispatch({ type: ActionTypes.RECEIVE_NEW_QUESTION_RESPONSE, });
+      if (error) {
+        dispatch({ type: ActionTypes.DISPLAY_ERROR, error: `Submission failed! ${error}`, });
+      } else {
+        dispatch({ type: ActionTypes.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
+        const action = push(`/admin/questions/${newRef.key}`);
+        dispatch(action);
+      }
+    });
+    content.answers.forEach(a => dispatch(saveOptimalResponse(newRef.key, content.concept_uid, a)))
   };
 }
 

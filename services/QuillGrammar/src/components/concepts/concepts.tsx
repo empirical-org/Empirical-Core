@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
-import LinkListItem from 'quill-shared/linkListItem'
+import LinkListItem from '../shared/linkListItem'
 import * as actions from '../../actions/concepts'
 
 class Concepts extends React.Component {
@@ -12,15 +12,15 @@ class Concepts extends React.Component {
     const data = this.props.concepts.data["0"];
     // const keys = _.keys(data["0"]);
     if (data) {
-      return data.map((concept) => {
-        return <LinkListItem
+      return data.sort((a, b) => a.displayName.localeCompare(b.displayName)).map(concept =>
+        (<LinkListItem
            key={concept.uid}
            itemKey={concept.uid}
            basePath='concepts'
            text={concept.displayName}
            activeClassName='is-active'
-         />
-      })
+         />)
+      )
     }
   }
 

@@ -8,6 +8,8 @@ import Questions from '../questions/questions'
 import Question from '../questions/question'
 import Lessons from '../lessons/lessons'
 import Lesson from '../lessons/lesson'
+import Concepts from '../concepts/concepts'
+import Concept from '../concepts/concept'
 import TabLink from './tabLink'
 
 class adminContainer extends React.Component {
@@ -44,7 +46,6 @@ class adminContainer extends React.Component {
             <ul className="menu-list">
               <TabLink to={'/admin/concepts'} activeClassName="is-active">Concepts</TabLink>
               <TabLink to={'admin/concepts-feedback'} activeClassName="is-active">Concept Feedback</TabLink>
-              <TabLink to={'/admin/item-levels'} activeClassName="is-active">Item Levels</TabLink>
             </ul>
           </aside>
           <div className="admin-container">
@@ -56,6 +57,8 @@ class adminContainer extends React.Component {
           <Route path={`/admin/lessons`} component={Lessons}/>
           <Route path={`/admin/questions/:questionID`} component={Question}/>
           <Route path={`/admin/questions`} component={Questions}/>
+          <Route path={`/admin/concepts/:conceptID`} component={Concept}/>
+          <Route path={`/admin/concepts`} component={Concepts}/>
         </Switch>
       </div>
     );
