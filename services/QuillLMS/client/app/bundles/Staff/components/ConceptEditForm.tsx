@@ -47,19 +47,16 @@ class ConceptEditForm extends React.Component<AppProps, any> {
   }
 
   handleFormChange = (changedFields) => {
-    console.log(changedFields)
     this.setState(({ fields }) => {
       const newState =  {
         fields: { ...fields, ...changedFields },
       }
-      console.log("new: ", newState)
       return newState;
     });
   }
 
   handleFormSubmit = (e) => {
     e.preventDefault()
-    console.log('submitting', this.state);
   }
 
   redirectToShow = (data) => {
