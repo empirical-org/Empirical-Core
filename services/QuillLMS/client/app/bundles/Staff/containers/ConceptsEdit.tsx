@@ -8,6 +8,7 @@ import {
 } from "antd";
 import { CascaderOptionType } from "../../../../node_modules/antd/lib/cascader";
 import ConceptBreadCrumb from "../components/ConceptBreadCrumb";
+import ConceptEditForm from "../components/ConceptEditForm";
 
 const FormItem = Form.Item;
 
@@ -53,85 +54,6 @@ function conceptQuery(id){
 `
 }
 
-function parentConceptsQuery(){
-  return `
-  {
-    concepts(levelTwoOnly: true) {
-      value: id
-      label: name
-      children {
-        value: id
-        label: name
-      }
-    }
-  }
-`
-}
-
-const EDIT_CONCEPT = gql`
-mutation editConcept($id: ID! $name: String, $parentId: ID){
-    editConcept(input: {id: $id, name: $name, parentId: $parentId}){
-      concept {
-        id
-        uid
-        name
-        parentId
-      }
-    }
-  }
-`;
-
-const CustomizedForm = Form.create({
-  onFieldsChange(props, changedFields) {
-    props.onChange(changedFields);
-  },
-  mapPropsToFields(props) {
-    return {
-      name: Form.createFormField({
-        ...props.name,
-        value: props.name.value,
-      }),
-      parentId: Form.createFormField({
-        ...props.parentId,
-        value: props.parentId.value,
-      }),
-    };
-  },
-})((props) => {
-  const { getFieldDecorator } = props.form;
-  return (
-    <Form onSubmit={props.onSubmit}>
-      <FormItem label="Concept Name">
-        {getFieldDecorator('name', {
-          rules: [{ required: true, message: 'Concept Name is required!' }],
-        })(<Input />)}
-      </FormItem>
-      <Query
-        query={gql(parentConceptsQuery())}
-      >
-        {({ loading, error, data }) => {
-          if (loading) return <p>Loading...</p>;
-          if (error) return <p>Error :(</p>;
-          const concepts:CascaderOptionType[] = data.concepts;
-          return (
-            <FormItem
-              label="Parent Concept"
-            >
-              {getFieldDecorator('parentId', {
-                rules: [{ type: 'array', required: false }],
-              })(
-                <Cascader options={concepts} changeOnSelect/>
-              )}
-            </FormItem>
-          )
-        }}
-      </Query>
-      <Button type="primary" htmlType="submit">
-        Create New Level {2 - props.parentId.value.length} Concept
-      </Button>
-    </Form>
-  );
-});
 
 class App extends React.Component {
   constructor(props){
@@ -164,17 +86,16 @@ class App extends React.Component {
     console.log('submitting', this.state);
   }
 
-  redirectToShow = (data) => {
-    console.log("Called")
-    this.props.router.push(data.createConcept.concept.id)
+  redirectToShow = (concept:Concept) => {
+    this.props.router.push(concept.id)
   }
 
   render() {
     const fields = this.state.fields;
     return (
       <Query
-            query={gql(conceptQuery(this.props.params.id))}
-          >
+        query={gql(conceptQuery(this.props.params.id))}
+      >
       {({ loading, error, data }) => {
         if (loading) return <p>Loading...</p>;
         if (error) return <p>Error :(</p>;
@@ -189,21 +110,12 @@ class App extends React.Component {
               <Breadcrumb.Item>Edit</Breadcrumb.Item>
             </Breadcrumb>
             <Divider></Divider>
-            <Mutation mutation={EDIT_CONCEPT} onCompleted={this.redirectToShow}>
-              {(editConcept, { data }) => (
-                <CustomizedForm {...fields} onChange={this.handleFormChange} onSubmit={(e) => {
-                  e.preventDefault();
-                  editConcept({ variables: {name: this.state.fields.name.value, parentId: this.state.fields.parentId.value[this.state.fields.parentId.value.length - 1]}});
-                }} />
-              )}
-            </Mutation>
+            <ConceptEditForm concept={concept} redirectToShow ={this.redirectToShow}/>
           </div>
           )
         }}
       </Query>
-    )
-    
-    
+    ) 
   }
   
 };
