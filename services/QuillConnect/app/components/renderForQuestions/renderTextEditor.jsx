@@ -2,13 +2,15 @@ import React from 'react';
 import _ from 'underscore';
 import Textarea from 'react-textarea-autosize';
 import { generateStyleObjects } from '../../libs/markupUserResponses';
+import { getParameterByName } from '../../libs/getParameterByName';
+
 const C = require('../../constants').default;
 
 const noUnderlineErrors = [];
 
 const feedbackStrings = C.FEEDBACK_STRINGS;
 
-const timeBetweenActivitySessionInteractionLogsInMS = 5000
+const timeBetweenActivitySessionInteractionLogsInMS = 5000;
 
 export default React.createClass({
   getInitialState() {
@@ -23,6 +25,7 @@ export default React.createClass({
 
   reportActivtySessionTextBoxInteraction() {
     console.log('text box interaction');
+    console.log(getParameterByName('student'));
   },
 
   componentWillMount() {
