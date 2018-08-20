@@ -1,8 +1,8 @@
 import React from 'react';
 
-const Notification = ({ text, user }) => {
+const Notification = ({ text, href }) => {
   return(
-    <p>{`${text} by ${user}`}</p>
+    <a href={href}>{text}</a>
   );
 };
 

@@ -1,4 +1,4 @@
 json.array! @notifications do |notification|
   json.text notification.text
-  json.user notification.user.name
+  json.href notification.activity_student_report_path
 end
