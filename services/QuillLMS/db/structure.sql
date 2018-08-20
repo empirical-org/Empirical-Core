@@ -1304,7 +1304,8 @@ ALTER SEQUENCE milestones_id_seq OWNED BY milestones.id;
 CREATE TABLE notifications (
     id integer NOT NULL,
     text text NOT NULL,
-    user_id integer NOT NULL
+    user_id integer NOT NULL,
+    meta jsonb DEFAULT '{}'::jsonb NOT NULL
 );
 
 
@@ -5147,4 +5148,6 @@ INSERT INTO schema_migrations (version) VALUES ('20180815174156');
 INSERT INTO schema_migrations (version) VALUES ('20180815180204');
 
 INSERT INTO schema_migrations (version) VALUES ('20180816210411');
+
+INSERT INTO schema_migrations (version) VALUES ('20180820154444');
 
