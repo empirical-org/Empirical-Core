@@ -11,8 +11,10 @@ class ActivitySession < ActiveRecord::Base
   default_scope { where(visible: true)}
   belongs_to :classroom_unit
   belongs_to :activity
+  has_one :classroom, through: :classroom_unit
   has_one :unit, through: :classroom_unit
   has_many :concept_results
+  has_many :teachers, through: :classroom
   has_many :concepts, -> { uniq }, through: :concept_results
 
   validate :correctly_assigned, :on => :create
