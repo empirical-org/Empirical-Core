@@ -30,7 +30,7 @@ class Questions extends React.Component {
     this.state = {
       displayNoConceptQuestions: false,
       showOnlyArchived: false,
-      questions: {}
+      questions: props.questions.hasreceiveddata ? props.questions.data : {}
     }
 
     this.createNew = this.createNew.bind(this)
