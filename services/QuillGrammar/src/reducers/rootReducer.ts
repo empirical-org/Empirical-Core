@@ -9,6 +9,7 @@ import display from './displayReducer'
 import responses from './responsesReducer'
 import massEdit from './massEditReducer'
 import filters from './filtersReducer'
+import conceptsFeedback from './conceptsFeedbackReducer'
 
 export const initState: IState = {
     grammarActivities: {},
@@ -19,6 +20,7 @@ export const initState: IState = {
     responses: {},
     massEdit: {},
     filters: {},
+    conceptsFeedback: {}
 };
 
 export const rootReducer = combineReducers({
@@ -29,5 +31,6 @@ export const rootReducer = combineReducers({
     display,
     responses,
     massEdit,
-    filters
+    filters,
+    conceptsFeedback
 });
