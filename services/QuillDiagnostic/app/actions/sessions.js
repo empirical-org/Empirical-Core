@@ -25,8 +25,9 @@ export default {
 
   update(sessionID, session) {
     const cleanSession = _.pickBy(session);
-    delete_null_properties(cleanSession, true);
-    sessionsRef.child(sessionID).set(cleanSession);
+    const cleanedSession = JSON.parse(JSON.stringify(cleanSession));
+    delete_null_properties(cleanedSession, true);
+    sessionsRef.child(sessionID).set(cleanedSession);
   },
 
   delete(sessionID) {
