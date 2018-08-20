@@ -1,12 +1,13 @@
 declare function require(name:string);
 import { hashToCollection } from 'quill-component-library/dist/componentLibrary';
-import * as _ from 'underscore'
-import {checkSentenceCombining, checkDiagnosticQuestion} from 'quill-marking-logic'
-import { getParameterByName } from '../../libs/getParameterByName'
+import * as _ from 'underscore';
+import {checkSentenceCombining, checkDiagnosticQuestion} from 'quill-marking-logic';
+import { getParameterByName } from '../../libs/getParameterByName';
+import { sendActivitySessionInteractionLog } from '../../libs/sendActivitySessionInteractionLog';
+
 
 export default function checkAnswer(question, response, responses, mode='default') {
-  console.log('report check answer interaction');
-  console.log(getParameterByName('student'));
+  sendActivitySessionInteractionLog(getParameterByName('student'), { info: 'answer check' })
   const fields = {
     responses: responses ? hashToCollection(responses) : [],
     questionUID: question.key,

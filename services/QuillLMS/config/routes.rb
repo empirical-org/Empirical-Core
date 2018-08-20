@@ -96,7 +96,6 @@ EmpiricalGrammar::Application.routes.draw do
     get :anonymous, on: :collection
     get :play, on: :member
     put :play, on: :member
-    resources :activity_session_interaction_logs, only: :create
   end
   # 3rd party apps depend on the below, do not change :
   get 'activity_sessions/classroom_units/:classroom_unit_id/activities/:activity_id' => 'activity_sessions#activity_session_from_classroom_unit_and_activity'
@@ -333,7 +332,10 @@ EmpiricalGrammar::Application.routes.draw do
       get 'activities/uids_and_flags' => 'activities#uids_and_flags'
       resources :activities,              except: [:index, :new, :edit]
       resources :activity_flags,          only: [:index]
-      resources :activity_sessions,       except: [:index, :new, :edit]
+      resources :activity_sessions,       except: [:index, :new, :edit] do
+        resources :activity_session_interaction_logs, only: :create
+      end
+      resources 
       resources :lessons_tokens,          only: [:create]
       resources :sections,                only: [:index]
       resources :topics,                  only: [:index]
