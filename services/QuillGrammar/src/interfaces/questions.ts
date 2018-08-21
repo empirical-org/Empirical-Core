@@ -12,6 +12,7 @@ export interface Question {
   rule_description: string;
   attempts?: Response[];
   uid: string;
+  key?: string;
 }
 
 export interface Answer {

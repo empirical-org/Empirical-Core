@@ -27,7 +27,7 @@ class ConceptFeedback extends React.Component{
   }
 
   submitNewFeedback(conceptFeedbackID, data) {
-    this.props.dispatch(actions.submitConceptsFeedbackEdit(conceptFeedbackID, data)
+    this.props.dispatch(actions.submitConceptsFeedbackEdit(conceptFeedbackID, data))
   }
 
   cancelEdit(conceptFeedbackID) {
@@ -72,7 +72,11 @@ class ConceptFeedback extends React.Component{
         <div key={this.props.match.params.conceptFeedbackID} className="container">
           {conceptName}
           <p>404: No Concept Feedback Found... So let's make one! 🙌 🖋 🇬🇧 🇮🇳</p>
-          <FeedbackForm conceptFeedbackID={this.props.match.params.conceptFeedbackID} submitNewFeedback={this.submitNewFeedback} cancelEdit={this.cancelEdit}/>
+          <FeedbackForm
+            conceptFeedbackID={this.props.match.params.conceptFeedbackID}
+            submitNewFeedback={this.submitNewFeedback}
+            cancelEdit={this.cancelEdit}
+          />
         </div>
       )
     }

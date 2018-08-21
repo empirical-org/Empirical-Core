@@ -5,7 +5,14 @@ import { ConceptExplanation } from 'quill-component-library/dist/componentLibrar
 import TextEditor from '../shared/textEditor'
 import { EditorState, ContentState } from 'draft-js'
 
-export default class FeedbackForm extends React.Component {
+interface FeedbackFormState {
+  description: string;
+  leftBox: string;
+  rightBox: string;
+  editing: string;
+}
+
+export default class FeedbackForm extends React.Component<FeedbackFormProps, FeedbackFormState> {
   constructor(props) {
     super(props)
 
@@ -23,8 +30,8 @@ export default class FeedbackForm extends React.Component {
     this.renderEditor = this.renderEditor.bind(this)
   }
 
-  handleChange(key, e) {
-    const newState = {}
+  handleChange(key: string, e: string) {
+    const newState: object = {}
     newState[key] = e;
     this.setState(newState)
   }

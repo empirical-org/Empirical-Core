@@ -1,15 +1,28 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import {
-  hashToCollection,
-  SortableList,
-} from 'quill-component-library/dist/componentLibrary';
 import { EditorState, ContentState } from 'draft-js'
 import TextEditor from '../shared/textEditor'
 import ConceptSelector from '../shared/conceptSelector'
+import { GrammarActivity, Concepts, Concept } from '../../interfaces/grammarActivities'
+import { ConceptReducerState } from '../../reducers/conceptsReducer'
 
-class LessonForm extends React.Component {
-  constructor(props) {
+interface LessonFormState {
+  title: string;
+  description: string;
+  flag: string;
+  concepts: Concepts;
+}
+
+interface LessonFormProps {
+  submit: Function;
+  concepts: ConceptReducerState;
+  stateSpecificClass?: string;
+  currentValues: LessonFormState|null;
+  lesson: LessonFormState|null;
+}
+
+class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
+  constructor(props: LessonFormProps) {
     super(props)
 
     const { currentValues, } = props
@@ -41,13 +54,13 @@ class LessonForm extends React.Component {
     });
   }
 
-  handleStateChange(key, event) {
-    const changes = {};
+  handleStateChange(key: string, event: React.ChangeEvent<{value: string}>) {
+    const changes: LessonFormState = {};
     changes[key] = event.target.value;
     this.setState(changes);
   }
 
-  addConcept(concept) {
+  addConcept(concept: { value: string }) {
     const { value } = concept
     if (value) {
       const currentSelectedConcepts = this.state.concepts;
@@ -57,44 +70,50 @@ class LessonForm extends React.Component {
     }
   }
 
-  changeConceptQuantity(conceptUid, e) {
+  changeConceptQuantity(conceptUid: string, e: React.ChangeEvent<{value: string}>) {
     const number = e.target.value ? parseInt(e.target.value) : 0
     const newSelectedConcepts = this.state.concepts;
     newSelectedConcepts[conceptUid] = { quantity: number }
     this.setState({ concepts: newSelectedConcepts, });
   }
 
-  removeConcept(conceptUid) {
+  removeConcept(conceptUid: string) {
     let newSelectedConcepts = this.state.concepts;
     delete newSelectedConcepts[conceptUid]
     this.setState({ concepts: newSelectedConcepts, });
   }
 
-  handleSearchChange(e) {
-    this.addConcept(e.value);
-  }
-
-  handleFlagSelect(e) {
+  handleFlagSelect(e: React.ChangeEvent<{value: string}>) {
     this.setState({ flag: e.target.value, });
   }
-  handleDescriptionChange(e) {
+
+  handleDescriptionChange(e: string) {
     this.setState({ description: e, });
   }
 
-  renderConceptRows() {
+  renderConceptRows(): Array<JSX.Element|undefined>|void {
     const conceptUids = Object.keys(this.state.concepts)
     if (conceptUids.length > 0) {
       return conceptUids.map(c => {
         const conceptVal = this.state.concepts[c]
-        const conceptAttributes = this.props.concepts.data['0'].find(concept => concept.uid === c)
+        const conceptAttributes = this.props.concepts.data['0'].find((concept: Concept) => concept.uid === c)
         if (conceptVal && conceptAttributes) {
           return <div key={c} style={{ display: 'flex', justifyContent: 'space-between' }}>
             <span>{conceptAttributes.displayName}</span>
             <span style={{ display: 'flex', justifyContent: 'space-between' }}>
-              <span><span>Quantity: </span> <input type="number" defaultValue={conceptVal.quantity} style={{ width: '50px' }} onChange={(e) => this.changeConceptQuantity(c, e)}></input></span>
+              <span>
+                <span>Quantity: </span>
+                <input
+                  defaultValue={conceptVal.quantity.toString()}
+                  style={{ width: '50px' }}
+                  onChange={(e) => this.changeConceptQuantity(c, e)}>
+                </input>
+              </span>
               <span style={{ cursor: 'pointer' }} onClick={() => this.removeConcept(c)}>X</span>
             </span>
           </div>
+        } else {
+          return undefined
         }
       })
     }

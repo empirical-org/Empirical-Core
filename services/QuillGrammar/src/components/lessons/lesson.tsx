@@ -5,13 +5,24 @@ import * as lessonActions from '../../actions/grammarActivities';
 import { Modal, hashToCollection } from 'quill-component-library/dist/componentLibrary';
 import EditLessonForm from './lessonForm';
 import { ActionTypes } from '../../actions/actionTypes'
+import { Question, Questions } from '../../interfaces/questions'
+import { GrammarActivityState } from '../../reducers/grammarActivitiesReducer'
+import { GrammarActivity } from '../../interfaces/grammarActivities'
+import { Match } from '../../interfaces/match'
 
 String.prototype.toKebab = function () {
   return this.replace(/([A-Z])/g, char => `-${char.toLowerCase()}`);
 };
 
-class Lesson extends React.Component {
-  constructor(props) {
+interface LessonProps {
+  dispatch: Function;
+  match: Match;
+  lessons: GrammarActivityState;
+  questions: Questions;
+}
+
+class Lesson extends React.Component<LessonProps> {
+  constructor(props: LessonProps) {
     super(props)
 
     this.questionsForLesson = this.questionsForLesson.bind(this)
@@ -23,46 +34,40 @@ class Lesson extends React.Component {
     this.renderEditLessonForm = this.renderEditLessonForm.bind(this)
   }
 
-  questionsForLesson() {
-    const { data, } = this.props.lessons,
-      { lessonID, } = this.props.match.params;
+  questionsForLesson(): Array<Question>|void {
+    const { data, } = this.props.lessons
+    const { lessonID, }: string = this.props.match.params
     const questions = this.props.questions ? hashToCollection(this.props.questions.data) : []
     const lessonConcepts = data[lessonID].concepts
     if (lessonConcepts) {
       const conceptUids = Object.keys(data[lessonID].concepts)
       return questions.filter(q => conceptUids.includes(q.concept_uid))
-      // return _.values(data[lessonID].questions).map((question) => {
-      //   console.log(question)
-      //   const questions = this.props[question.questionType].data;
-      //   const qFromDB = Object.assign({} questions[question.key]);
-      //   qFromDB.questionType = question.questionType;
-      //   qFromDB.key = question.key;
-      //   return qFromDB;
-      // });
     }
   }
 
-  lesson() {
-    const { data, } = this.props.lessons,
-      { lessonID, } = this.props.match.params;
-    return data[lessonID]
+  lesson(): GrammarActivity|void {
+    const { data, } = this.props.lessons
+    const lessonID: string|undefined = this.props.match.params.lessonID;
+    if (lessonID) {
+      return data[lessonID]
+    }
   }
 
-  renderQuestionsForLesson() {
+  renderQuestionsForLesson():Array<JSX.Element>|JSX.Element {
     const questionsForLesson = this.questionsForLesson();
     if (questionsForLesson) {
-      const conceptIds = {}
-      const listItems = questionsForLesson.forEach((question) => {
+      const conceptIds: {[key:string]: Array<JSX.Element>} = {}
+      questionsForLesson.forEach((question: Question) => {
         const { prompt, key, concept_uid} = question
         const displayName = prompt || 'No question prompt';
-        const questionLink = <li key={question.key}><Link to={`/admin/questions/${question.key}`}>{displayName.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, '')}</Link></li>
+        const questionLink = <li key={key}><Link to={`/admin/questions/${question.key}`}>{displayName.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, '')}</Link></li>
         if (conceptIds[concept_uid]) {
-          conceptIds[concept_uid].push(questionLink)]
+          conceptIds[concept_uid].push(questionLink)
         } else {
           conceptIds[concept_uid] = [questionLink]
         }
       });
-      const conceptSections = []
+      const conceptSections:Array<JSX.Element> = []
       Object.keys(conceptIds).forEach(conceptId => {
         const lessonConcept = this.lesson().concepts[conceptId]
         const quantity = lessonConcept.quantity
@@ -79,46 +84,52 @@ class Lesson extends React.Component {
     );
   }
 
-  deleteLesson() {
-    const { lessonID, } = this.props.match.params;
+  deleteLesson():void {
+    const lessonID: string|undefined = this.props.match.params.lessonID;
     if (confirm('do you want to do this?')) {
       this.props.dispatch(lessonActions.deleteLesson(lessonID));
     }
   }
 
-  cancelEditingLesson() {
+  cancelEditingLesson():void {
     this.props.dispatch(lessonActions.cancelLessonEdit(this.props.match.params.lessonID));
   }
 
-  saveLessonEdits(vals) {
-    const { data, } = this.props.lessons,
-      { lessonID, } = this.props.match.params;
+  saveLessonEdits(vals: GrammarActivity):void {
+    const { data, } = this.props.lessons
+    const lessonID: string|undefined = this.props.match.params.lessonID;
     this.props.dispatch(lessonActions.submitLessonEdit(lessonID, vals));
   }
 
-  editLesson() {
+  editLesson():void {
     const { lessonID, } = this.props.match.params;
     this.props.dispatch(lessonActions.startLessonEdit(lessonID));
     // // console.log("Edit button clicked");
   }
 
-  renderEditLessonForm() {
-    const { data, } = this.props.lessons,
-      { lessonID, } = this.props.match.params;
-    const lesson = data ? data[lessonID] : null
-    if (this.props.lessons.states && this.props.lessons.states[lessonID] === ActionTypes.EDITING_LESSON) {
-      return (
-        <Modal close={this.cancelEditingLesson}>
-          <EditLessonForm lesson={lesson} submit={this.saveLessonEdits} currentValues={lesson} />
-        </Modal>
-      );
+  renderEditLessonForm():JSX.Element|void {
+    const { data, } = this.props.lessons
+    const lessonID: string|undefined = this.props.match.params.lessonID;
+    if (lessonID) {
+      const lesson = data ? data[lessonID] : null
+      if (this.props.lessons.states && this.props.lessons.states[lessonID] === ActionTypes.EDITING_LESSON) {
+        return (
+          <Modal close={this.cancelEditingLesson}>
+            <EditLessonForm
+              lesson={lesson}
+              submit={this.saveLessonEdits}
+              currentValues={lesson}
+            />
+          </Modal>
+        );
+      }
     }
   }
 
   render() {
     const { data, } = this.props.lessons
-    const { lessonID, } = this.props.match.params;
-    if (data && data[lessonID]) {
+    const lessonID: string|undefined = this.props.match.params.lessonID;
+    if (data && lessonID && data[lessonID]) {
       return (
         <div>
           <Link to={'admin/lessons'}>Return to All Lessons</Link>
