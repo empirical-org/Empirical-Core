@@ -5,9 +5,20 @@ describe('Teacher edits an exsiting classroom', () => {
 
   it('they see the changes after saving', () => {
     cy.appFactories([
-      ['create', 'teacher', 'with_classrooms_students_and_activities', {
+      ['create', 'simple_user', {
+        id: 101,
+        role: 'teacher',
         password: 'password',
         email: 'someone@gmail.com',
+      }],
+      ['create', 'simple_classroom', {
+        id: 101,
+        grade: 'Kindergarten'
+
+      }],
+      ['create', 'classrooms_teacher', {
+        classroom_id: 101,
+        user_id: 101
       }]
     ])
 
@@ -18,10 +29,10 @@ describe('Teacher edits an exsiting classroom', () => {
 
     cy.contains('Edit Class Name And Grade').click()
 
-    cy.get('input#classroom_name').clear().type('Testing 245')
+    cy.get('input#classroom_name').clear().type('Testing 101')
     cy.get('select#classroom_grade').select('University')
     cy.contains('Save Changes').click()
 
-    cy.get('h2').should('contain', 'Testing 245 Grade: University')
+    cy.get('h2').should('contain', 'Testing 101 Grade: University')
   })
 })
