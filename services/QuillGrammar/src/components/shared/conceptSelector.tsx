@@ -23,7 +23,7 @@ class ConceptSelector extends React.Component {
         return _.keys(this.props.conceptsFeedback.data).includes(concept.uid);
       });
     }
-    return _.map(concepts, (concept)=>{
+    return concepts.sort((a, b) => a.displayName.localeCompare(b.displayName)).map(concept =>{
       return (
         {label: concept.displayName, value: concept.uid, shortenedName: concept.name}
       )

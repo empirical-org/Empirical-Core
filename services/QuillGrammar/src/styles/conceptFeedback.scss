@@ -1,7 +1,9 @@
 .concept-explanation {
   font-family: $family-monospace;
-  margin: 1em 0;
   font-size: 20px;
+  margin: auto;
+  max-width: 49em;
+  padding: 20px 30px;
   .concept-explanation-title {
     font-weight: bold;
     padding-left: 15px;

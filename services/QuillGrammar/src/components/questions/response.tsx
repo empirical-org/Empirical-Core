@@ -141,7 +141,7 @@ export default class Response extends React.Component {
   updateResponse(rid: string) {
     const newResp = {
       weak: false,
-      feedback: this.state.feedback,
+      feedback: this.state.feedback !== '<br/>' ? this.state.feedback : '',
       optimal: this.refs.newResponseOptimal.checked,
       author: null,
       parent_id: null,
