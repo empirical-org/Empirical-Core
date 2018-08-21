@@ -207,11 +207,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
             className = 'try-again'
           }
         }
-        if (feedback && feedback !== '<br/>') {
-          return <div className={`feedback ${className}`}><div dangerouslySetInnerHTML={{__html: feedback}}/></div>
-        } else {
-          return this.renderConceptExplanation()
-        }
+        return <div className={`feedback ${className}`}><div dangerouslySetInnerHTML={{__html: feedback}}/></div>
       } else if (this.state.submittedEmptyString) {
         return <div className={`feedback try-again`}><div dangerouslySetInnerHTML={{__html: 'You must enter a sentence for us to check.'}}/></div>
 
@@ -221,10 +217,9 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
 
     renderConceptExplanation(): JSX.Element|undefined {
       const latestAttempt:Response|undefined = this.getLatestAttempt(this.currentQuestion().attempts);
-      debugger;
-      if (latestAttempt) {
-        if (!latestAttempt.optimal && latestAttempt.conceptResults) {
-          const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.conceptResults);
+      if (latestAttempt && !latestAttempt.optimal) {
+        if (latestAttempt.concept_results) {
+          const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.response.concept_results);
           if (conceptID) {
             const data = this.props.conceptsFeedback.data[conceptID.conceptUID];
             if (data) {
@@ -232,12 +227,12 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
             }
           }
         } else if (this.currentQuestion() && this.currentQuestion().modelConceptUID) {
-          const dataF = this.props.conceptsFeedback.data[this.getQuestion().modelConceptUID];
+          const dataF = this.props.conceptsFeedback.data[this.currentQuestion().modelConceptUID];
           if (dataF) {
             return <ConceptExplanation {...dataF} />;
           }
         } else if (this.currentQuestion().conceptID) {
-          const data = this.props.conceptsFeedback.data[this.getQuestion().conceptID];
+          const data = this.props.conceptsFeedback.data[this.currentQuestion().concept_uid];
           if (data) {
             return <ConceptExplanation {...data} />;
           }
@@ -250,6 +245,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
         {this.renderTopSection()}
         {this.renderQuestionSection()}
         {this.renderFeedbackSection()}
+        {this.renderConceptExplanation()}
       </div>
     }
 }

@@ -70,7 +70,7 @@ export const checkAnswer = (response:string, question:Question, responses:Array<
   return dispatch => {
     const questionUID: string = question.uid
     const responseObj = checkGrammarQuestion(questionUID, response, responses)
-    responseObj.feedback = responseObj.feedback ? responseObj.feedback : "<b>Try again!</b> Unfortunately, that answer is not correct."
+    responseObj.feedback = responseObj.feedback && responseObj.feedback !== '<br/>' ? responseObj.feedback : "<b>Try again!</b> Unfortunately, that answer is not correct."
     dispatch(responseActions.submitResponse(responseObj, null, isFirstAttempt))
     delete responseObj.parent_id
     dispatch(submitResponse(responseObj))
