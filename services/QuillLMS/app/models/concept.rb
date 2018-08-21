@@ -31,11 +31,11 @@ class Concept < ActiveRecord::Base
   end
 
   def self.childless_only
-    ActiveRecord::Base.connection.execute("
-      SELECT concepts.id, concepts.name, concepts.uid, concepts.parent_id, extract(epoch from concepts.created_at) as created_at, concepts.visible FROM concepts
+    Concept.find_by_sql("
+      SELECT concepts.id, concepts.name, concepts.uid, concepts.parent_id, concepts.created_at, concepts.visible::BOOLEAN FROM concepts
       LEFT JOIN concepts AS children ON children.parent_id = concepts.id
       WHERE children.id is null
-    ").to_a
+    ")
   end
 
   def self.find_by_id_or_uid(arg)
