@@ -13,6 +13,7 @@ import {
   checkAnswer,
   setSessionReducerToSavedSession
 } from "../../actions/session";
+import { startListeningToConceptsFeedback } from '../../actions/conceptsFeedback'
 import { getConceptResultsForAllQuestions, calculateScoreForLesson } from '../../helpers/conceptResultsGenerator'
 import { SessionState } from '../../reducers/sessionReducer'
 import { GrammarActivityState } from '../../reducers/grammarActivitiesReducer'
@@ -48,6 +49,10 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
         this.props.dispatch(startListeningToActivity(activityUID))
       }
 
+    }
+
+    componentDidMount() {
+      this.props.dispatch(startListeningToConceptsFeedback());
     }
 
     componentWillReceiveProps(nextProps: PlayGrammarContainerProps) {
