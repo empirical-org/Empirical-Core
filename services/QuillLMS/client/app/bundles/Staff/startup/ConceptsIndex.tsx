@@ -7,7 +7,6 @@ import { Router, Route, IndexRoute, hashHistory } from 'react-router'
 import { ApolloProvider } from "react-apollo";
 import client from '../../../modules/apollo';
 
-
 const container = (props) => (
   <div style={{paddingTop: 25}}>{props.children}</div>
 )
