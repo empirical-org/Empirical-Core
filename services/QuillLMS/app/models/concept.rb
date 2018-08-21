@@ -32,7 +32,7 @@ class Concept < ActiveRecord::Base
 
   def self.childless_only
     ActiveRecord::Base.connection.execute("
-      SELECT concepts.id, concepts.name, concepts.uid, concepts.parent_id, extract(epoch from concepts.created_at) as created_at, visible FROM concepts
+      SELECT concepts.id, concepts.name, concepts.uid, concepts.parent_id, extract(epoch from concepts.created_at) as created_at, concepts.visible FROM concepts
       LEFT JOIN concepts AS children ON children.parent_id = concepts.id
       WHERE children.id is null
     ").to_a
