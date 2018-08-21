@@ -89,6 +89,134 @@ CREATE FUNCTION public.blog_posts_search_trigger() RETURNS trigger
       $$;
 
 
+--
+-- Name: old_timespent_teacher(integer); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.old_timespent_teacher(teacher integer) RETURNS bigint
+    LANGUAGE sql
+    AS $$
+        SELECT COALESCE(MAX(time_spent_query.time_spent),0)::BIGINT AS time_spent
+          FROM users
+          LEFT OUTER JOIN (SELECT acss_ids.teacher_id, SUM (
+              CASE
+              WHEN (activity_sessions.started_at IS NULL)
+                OR (activity_sessions.completed_at IS NULL)
+                OR (activity_sessions.completed_at - activity_sessions.started_at < interval '1 minute')
+                OR (activity_sessions.completed_at - activity_sessions.started_at > interval '30 minutes')
+              THEN 441
+              ELSE
+                EXTRACT (
+                  'epoch' FROM (activity_sessions.completed_at - activity_sessions.started_at)
+                )
+              END) AS time_spent FROM activity_sessions
+            INNER JOIN (SELECT users.id AS teacher_id, activity_sessions.id AS activity_session_id FROM users
+            INNER JOIN units ON users.id = units.user_id
+            INNER JOIN classroom_units ON units.id = classroom_units.unit_id
+            INNER JOIN activity_sessions ON classroom_units.id = activity_sessions.classroom_unit_id
+            INNER JOIN concept_results ON activity_sessions.id = concept_results.activity_session_id
+            WHERE users.id = teacher
+            AND activity_sessions.completed_at < timestamp '2018-08-21 00:00:00.000000'
+            AND activity_sessions.state = 'finished'
+            GROUP BY users.id, activity_sessions.id) AS acss_ids ON activity_sessions.id = acss_ids.activity_session_id
+            GROUP BY acss_ids.teacher_id
+          ) AS time_spent_query ON users.id = time_spent_query.teacher_id
+          WHERE users.id = teacher
+          GROUP BY users.id;
+      $$;
+
+
+--
+-- Name: timespent_activity_session(integer); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.timespent_activity_session(act_sess integer) RETURNS integer
+    LANGUAGE plpgsql
+    AS $$
+        DECLARE
+          first_item timestamp;
+          last_item timestamp;
+          max_item timestamp;
+          arow record;
+          time_spent float;
+          item timestamp;
+        BEGIN
+          first_item := NULL;
+          last_item := NULL;
+          max_item := NULL;
+          time_spent := 0.0;
+          FOR arow IN (SELECT date FROM activity_session_interaction_logs WHERE activity_session_id = act_sess) LOOP
+            item := arow;
+            IF last_item IS NULL THEN
+              first_item := item;
+              max_item := item;
+              last_item := item;
+            ELSIF EXTRACT( EPOCH FROM item - last_item ) <= 2 * 60 THEN
+              max_item := item;
+              last_item := item;
+            ELSIF EXTRACT( EPOCH FROM item - last_item ) > 2 * 60 THEN
+              time_spent := time_spent + EXTRACT( EPOCH FROM max_item - first_item );
+              first_item := item;
+              last_item := item;
+              max_item := item;
+            END IF;
+          END LOOP;
+          IF max_item IS NOT NULL AND first_item IS NOT NULL THEN
+            time_spent := time_spent + EXTRACT( EPOCH FROM max_item - first_item );
+          END IF;
+          RETURN time_spent;
+        END;
+      $$;
+
+
+--
+-- Name: timespent_student(integer); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.timespent_student(student integer) RETURNS bigint
+    LANGUAGE sql
+    AS $$
+        SELECT COALESCE(SUM(time_spent),0) FROM (
+          SELECT id,timespent_activity_session(id) AS time_spent FROM activity_sessions
+          WHERE activity_sessions.user_id = student 
+          GROUP BY id) as as_ids;
+
+      $$;
+
+
+--
+-- Name: timespent_student_for_teacher(integer, integer); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.timespent_student_for_teacher(student integer, teacher integer) RETURNS bigint
+    LANGUAGE sql
+    AS $$
+        SELECT COALESCE(SUM(time_spent),0) FROM (SELECT activity_sessions.id as activity_session_id, timespent_activity_session(activity_sessions.id) as time_spent FROM users 
+          JOIN classrooms on users.id = classrooms.teacher_id
+          JOIN classroom_activities ON classroom_activities.classroom_id = classrooms.id
+          JOIN activity_sessions ON activity_sessions.id = classroom_activities.activity_id
+          WHERE users.id = teacher
+          AND activity_sessions.user_id = student
+          GROUP BY activity_session_id) as times_spent;
+      $$;
+
+
+--
+-- Name: timespent_teacher(integer); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.timespent_teacher(teacher integer) RETURNS bigint
+    LANGUAGE sql
+    AS $$
+        SELECT COALESCE(SUM(time_spent),0) FROM (SELECT activity_sessions.id as activity_session_id, timespent_activity_session(activity_sessions.id) as time_spent FROM users 
+          JOIN classrooms on users.id = classrooms.teacher_id
+          JOIN classroom_activities ON classroom_activities.classroom_id = classrooms.id
+          JOIN activity_sessions ON activity_sessions.id = classroom_activities.activity_id
+          WHERE users.id = teacher
+          GROUP BY activity_session_id) as times_spent;
+      $$;
+
+
 SET default_tablespace = '';
 
 SET default_with_oids = false;
@@ -5206,4 +5334,14 @@ INSERT INTO schema_migrations (version) VALUES ('20180718195853');
 INSERT INTO schema_migrations (version) VALUES ('20180810181001');
 
 INSERT INTO schema_migrations (version) VALUES ('20180817171936');
+
+INSERT INTO schema_migrations (version) VALUES ('20180821200652');
+
+INSERT INTO schema_migrations (version) VALUES ('20180821201236');
+
+INSERT INTO schema_migrations (version) VALUES ('20180821201559');
+
+INSERT INTO schema_migrations (version) VALUES ('20180821202836');
+
+INSERT INTO schema_migrations (version) VALUES ('20180821213520');
 
