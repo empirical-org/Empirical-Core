@@ -40,7 +40,7 @@ export default class FeedbackForm extends React.Component {
       leftBox,
       rightBox
     }
-    this.props.submitNewFeedback(this.props.feedbackID, data)
+    this.props.submitNewFeedback(this.props.conceptFeedbackID, data)
   }
 
   cancel() {
