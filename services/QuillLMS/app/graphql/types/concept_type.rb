@@ -6,6 +6,7 @@ class Types::ConceptType < Types::BaseObject
   field :name, String, null: false
   field :parent_id, ID, null: true
   field :created_at, Int, null: false
+  field :visible, Boolean, null: false
   
   field :parent, Types::ConceptType, null: true
   field :children, [Types::ConceptType, null: true], null: true
