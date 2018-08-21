@@ -1,5 +1,18 @@
+import { Action } from "redux";
 import { ActionTypes } from "../actions/actionTypes";
-import _ from 'lodash';
+import * as _ from 'lodash';
+import { ConceptFeedback } from '../interfaces/conceptsFeedback'
+
+type ConceptsFeedbackAction = Action & { data: Array<ConceptFeedback>, cid: string }
+
+interface ConceptsFeedbackState {
+  hasreceiveddata: boolean,
+  submittingnew: boolean,
+  data: Array<ConceptFeedback>,
+  states: {[key:string]: string},
+  newConceptModalOpen: boolean
+
+}
 
 const initialState = {
   conceptsFeedback: {
@@ -10,7 +23,7 @@ const initialState = {
   }
 }
 
-export default function(currentstate,action){
+export default function(currentstate: ConceptsFeedbackState, action: ConceptsFeedbackAction){
     let newstate;
     switch(action.type){
         case ActionTypes.RECEIVE_CONCEPTS_FEEDBACK_DATA:

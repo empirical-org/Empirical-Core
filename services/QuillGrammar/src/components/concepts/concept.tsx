@@ -6,17 +6,41 @@ import {
 import { connect } from 'react-redux'
 import TextEditor from '../shared/textEditor'
 import * as questionActions from '../../actions/questions'
+import { ConceptReducerState } from '../../reducers/conceptsReducer'
+import { QuestionsReducerState } from '../../reducers/questionsReducer'
+import { Match } from '../../interfaces/match'
+import { Question } from '../../interfaces/questions'
 import { Link } from 'react-router-dom';
 import { EditorState, ContentState } from 'draft-js'
 import _ from 'underscore'
 
-class Concept extends React.Component {
-  constructor(props) {
+interface ConceptState {
+  prompt: string;
+  concept_uid: string|undefined;
+  instructions: string;
+  flag: string;
+  rule_description: string;
+  answers: Array<Answer>;
+}
+
+interface ConceptProps {
+  concepts: ConceptReducerState;
+  match: Match;
+  questions: QuestionsReducerState;
+  dispatch: Function;
+}
+
+interface Answer {
+  text: string;
+}
+
+class Concept extends React.Component<ConceptProps, ConceptState> {
+  constructor(props: ConceptProps) {
     super(props)
 
     this.state = {
       prompt: '',
-      concept_uid: this.props.match.params.conceptID,
+      concept_uid: props.match.params.conceptID,
       instructions: '',
       flag: 'alpha',
       rule_description: '',
@@ -35,7 +59,7 @@ class Concept extends React.Component {
 
   getConcept() {
     const {data} = this.props.concepts, {conceptID} = this.props.match.params;
-    return _.find(data['0'], {uid: conceptID})
+    return data[0].find(c => c.uid === conceptID)
   }
 
   questionsForConcept() {
@@ -45,7 +69,7 @@ class Concept extends React.Component {
 
   renderQuestionsForConcept() {
     const questionsForConcept = this.questionsForConcept()
-    const listItems = questionsForConcept.map((question) => {
+    const listItems = questionsForConcept.map((question: Question) => {
       return (<li key={question.key}><Link to={'/admin/questions/' + question.key + '/responses'}>{question.prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")}</Link></li>)
     })
     return (
@@ -53,7 +77,7 @@ class Concept extends React.Component {
     )
   }
 
-  submit () {
+  submit():void {
     if (this.state.prompt !== '') {
       this.props.dispatch(questionActions.submitNewQuestion({
         prompt: this.state.prompt,
@@ -66,19 +90,19 @@ class Concept extends React.Component {
     }
   }
 
-  handlePromptChange (e) {
+  handlePromptChange (e: string) {
     this.setState({prompt: e})
   }
 
-  handleInstructionsChange(e) {
+  handleInstructionsChange(e: object) {
     this.setState({instructions: e.target.value})
   }
 
-  handleRuleDescriptionChange(e) {
+  handleRuleDescriptionChange(e: string) {
     this.setState({rule_description: e})
   }
 
-  handleSelectorChange(e) {
+  handleSelectorChange(e: object) {
     this.setState({concept_uid: e.value})
   }
 
@@ -96,7 +120,7 @@ class Concept extends React.Component {
 
   render () {
     const {data} = this.props.concepts, {conceptID} = this.props.match.params;
-    if(this.props.concepts.hasreceiveddata && this.getConcept()) {
+    if (this.props.concepts.hasreceiveddata && this.getConcept()) {
       return (
         <div>
           <Link to ={'/admin/concepts'}>Return to All Concepts</Link>
@@ -112,7 +136,7 @@ class Concept extends React.Component {
             />
             <label className="label">Instructions for student</label>
             <p className="control">
-              <textarea className="input" type="text" ref="instructions" onChange={this.handleInstructionsChange}></textarea>
+              <textarea className="input" ref="instructions" onChange={this.handleInstructionsChange}></textarea>
             </p>
             <FlagDropdown flag={this.state.flag} handleFlagChange={this.handleFlagChange} isLessons={false}/>
             <label className="label">Rule description</label>
@@ -125,7 +149,7 @@ class Concept extends React.Component {
             </p>
             <label className="label">Optimal answer (you can add more later)</label>
             <p className="control">
-              <textarea className="input" type="text" ref="answers" onChange={this.handleAnswersChange}></textarea>
+              <textarea className="input" ref="answers" onChange={this.handleAnswersChange}></textarea>
             </p>
             <br/>
             <button className="button is-primary" onClick={this.submit}>Create Question</button>
@@ -142,7 +166,6 @@ class Concept extends React.Component {
 function select(state) {
   return {
     concepts: state.concepts,
-    routing: state.routing,
     questions: state.questions
   }
 }

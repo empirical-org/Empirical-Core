@@ -2,7 +2,7 @@ import { Action } from "redux";
 import { ActionTypes } from "../actions/actionTypes";
 import { Questions } from '../interfaces/questions'
 
-export interface QuestionsState {
+export interface QuestionsReducerState {
   hasreceiveddata: boolean;
   data: Questions
   error?: string;

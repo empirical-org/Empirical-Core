@@ -2,20 +2,22 @@ import { Action } from "redux";
 import { ActionTypes } from "../actions/actionTypes";
 import { GrammarActivity, GrammarActivities } from '../interfaces/grammarActivities'
 
+type GrammarActivityStateAction = Action & {cid: string}
+
 export interface GrammarActivityState {
   hasreceiveddata: boolean;
-  currentActivity: GrammarActivity;
+  currentActivity: GrammarActivity|null;
   data: GrammarActivities
   newLessonModalOpen: boolean
-  states: Object
+  states: {[key:string]: string}
   error?: string;
 }
 
 export default (
-    currentState = {hasreceiveddata: false, data: {}, states: {}},
-    action: Action,
+    currentState = {hasreceiveddata: false, data: {}, states: {}, newLessonModalOpen: false, currentActivity: null},
+    action: GrammarActivityStateAction,
 ) => {
-    let newstate
+    let newstate: GrammarActivityState
     switch (action.type) {
         case ActionTypes.RECEIVE_GRAMMAR_ACTIVITIES_DATA:
           return Object.assign({}, currentState, { data: action.data}, {hasreceiveddata: true})

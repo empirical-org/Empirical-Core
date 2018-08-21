@@ -1,4 +1,4 @@
-import request from 'request'
+import * as request from 'request'
 import Pusher from 'pusher-js';
 import { push } from 'react-router-redux';
 import rootRef from '../firebase';
