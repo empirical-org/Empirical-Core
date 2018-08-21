@@ -21,6 +21,7 @@ function conceptQuery(id){
       id
       uid
       name
+      visible
       parent {
         id
         name
