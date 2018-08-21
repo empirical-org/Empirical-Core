@@ -107,6 +107,7 @@ class App extends React.Component {
               <Breadcrumb.Item><Link to="/">Home</Link></Breadcrumb.Item>
               <ConceptBreadCrumb concept={concept.parent ? concept.parent.parent : null} />
               <ConceptBreadCrumb concept={concept.parent} />
+              <ConceptBreadCrumb concept={concept} />
               <Breadcrumb.Item>Edit</Breadcrumb.Item>
             </Breadcrumb>
             <Divider></Divider>
