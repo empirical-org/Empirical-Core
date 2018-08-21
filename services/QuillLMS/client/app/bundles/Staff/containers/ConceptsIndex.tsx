@@ -25,10 +25,13 @@ const conceptsIndexQuery:string = `
 `
 export interface Concept {
   id:string;
+  uid?:string
   name:string;
   createdAt?:number;
   parent?:Concept;
-  visible?:Boolean
+  visible?:boolean;
+  siblings?:Array<Concept>;
+  children?:Array<Concept>;
 }
 interface QueryResult {
   concepts: Array<Concept>
