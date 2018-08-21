@@ -1,5 +1,5 @@
 describe('Student completes activity', () => {
-  beforeEach(() => {
+  before(() => {
     cy.app('clean')
   })
 
