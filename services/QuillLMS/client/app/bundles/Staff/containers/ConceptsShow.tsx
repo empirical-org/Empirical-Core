@@ -63,64 +63,6 @@ class App extends React.Component {
     super(props)
   }
 
-  renderCell(rowData:Concept) {
-    return (
-      <a href={`/cms/concepts/${rowData.id}`}>
-        {rowData.name}
-      </a>
-    )
-  }
-
-  renderList(data:QueryResult) {
-    return data.concepts.map((row) => (
-      <tr key={row.id}>
-        <td>{this.renderCell(row)}</td>
-      </tr>
-    ));
-  }
-
-  renderGrandparent(concept:QueryResult){
-    if (concept.parent && concept.parent.parent) {
-      const grandparent = concept.parent.parent;
-      return (
-        <Breadcrumb.Item><Link to={grandparent.id}>{grandparent.name}</Link></Breadcrumb.Item>
-      )
-    }
-  }
-
-  renderParent(concept:QueryResult){
-    if (concept.parent) {
-      const {parent} = concept;
-      return (
-        <Breadcrumb.Item><Link to={parent.id}>{parent.name}</Link></Breadcrumb.Item>
-      )
-    }
-  }
-
-  renderChildren(concept:QueryResult){
-    return (  
-      <List
-        size="small"
-        header={<div>Children</div>}
-        bordered
-        dataSource={concept.children}
-        renderItem={({id, name}) => (<List.Item><Link to={id}>{name}</Link></List.Item>)}
-      />
-    )
-  }
-
-  renderSiblings(concept:QueryResult){
-    return (  
-      <List
-        size="small"
-        header={<div>Siblings</div>}
-        bordered
-        dataSource={concept.siblings}
-        renderItem={({id, name}) => (<List.Item><Link to={id}>{name}</Link></List.Item>)}
-      />
-    )
-  }
-
   render() {
     return  (
       <Query
