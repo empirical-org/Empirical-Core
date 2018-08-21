@@ -143,6 +143,7 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
           currentQuestion={this.props.session.currentQuestion}
           goToNextQuestion={() => this.props.dispatch(goToNextQuestion())}
           checkAnswer={this.checkAnswer}
+          conceptsFeedback={this.props.conceptsFeedback}
         />
       } else if (this.props.session.error) {
         return (
@@ -157,7 +158,8 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
 const mapStateToProps = (state: any) => {
     return {
         grammarActivities: state.grammarActivities,
-        session: state.session
+        session: state.session,
+        conceptsFeedback: state.conceptsFeedback
     };
 };
 

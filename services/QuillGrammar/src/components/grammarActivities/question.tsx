@@ -2,7 +2,7 @@ import * as React from "react";
 import * as Redux from "redux";
 import { Row, Button } from "antd";
 import { Response } from 'quill-marking-logic'
-
+import { hashToCollection, ConceptExplanation } from 'quill-component-library/dist/componentLibrary'
 import { Question } from '../../interfaces/questions'
 import { GrammarActivity } from '../../interfaces/grammarActivities'
 import * as responseActions from '../../actions/responses'
@@ -14,6 +14,7 @@ interface QuestionProps {
   currentQuestion: Question;
   goToNextQuestion: Function;
   checkAnswer: Function;
+  conceptsFeedback: any;
 }
 
 interface QuestionState {
@@ -97,6 +98,20 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
 
     updateResponse(e) {
       this.setState({response: e.target.value})
+    }
+
+    getNegativeConceptResultsForResponse(conceptResults) {
+      return hashToCollection(conceptResults).filter(cr => !cr.correct);
+    }
+
+    getNegativeConceptResultForResponse(conceptResults) {
+      const negCRs = this.getNegativeConceptResultsForResponse(conceptResults);
+      return negCRs.length > 0 ? negCRs[0] : undefined;
+    }
+
+    getLatestAttempt(attempts:Array<Response> = []):Response|undefined {
+      const lastIndex = attempts.length - 1;
+      return attempts[lastIndex];
     }
 
     renderExample(): JSX.Element|undefined {
@@ -192,12 +207,42 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
             className = 'try-again'
           }
         }
-        return <div className={`feedback ${className}`}><div dangerouslySetInnerHTML={{__html: feedback}}/></div>
+        if (feedback && feedback !== '<br/>') {
+          return <div className={`feedback ${className}`}><div dangerouslySetInnerHTML={{__html: feedback}}/></div>
+        } else {
+          return this.renderConceptExplanation()
+        }
       } else if (this.state.submittedEmptyString) {
         return <div className={`feedback try-again`}><div dangerouslySetInnerHTML={{__html: 'You must enter a sentence for us to check.'}}/></div>
 
       }
       return undefined
+    }
+
+    renderConceptExplanation(): JSX.Element|undefined {
+      const latestAttempt:Response|undefined = this.getLatestAttempt(this.currentQuestion().attempts);
+      debugger;
+      if (latestAttempt) {
+        if (!latestAttempt.optimal && latestAttempt.conceptResults) {
+          const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.conceptResults);
+          if (conceptID) {
+            const data = this.props.conceptsFeedback.data[conceptID.conceptUID];
+            if (data) {
+              return <ConceptExplanation {...data} />;
+            }
+          }
+        } else if (this.currentQuestion() && this.currentQuestion().modelConceptUID) {
+          const dataF = this.props.conceptsFeedback.data[this.getQuestion().modelConceptUID];
+          if (dataF) {
+            return <ConceptExplanation {...dataF} />;
+          }
+        } else if (this.currentQuestion().conceptID) {
+          const data = this.props.conceptsFeedback.data[this.getQuestion().conceptID];
+          if (data) {
+            return <ConceptExplanation {...data} />;
+          }
+        }
+      }
     }
 
     render(): JSX.Element {

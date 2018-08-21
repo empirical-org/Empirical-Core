@@ -74,6 +74,7 @@ class TestQuestion extends React.Component {
             unansweredQuestions={unansweredQuestions}
             activity={{title: 'Test Question', concepts: {}, description: ''}}
             checkAnswer={this.checkAnswer}
+            conceptsFeedback={this.props.conceptsFeedback}
           />
         </div>
       );
@@ -90,6 +91,7 @@ function select(props) {
   return {
     questions: props.questions,
     session: props.session,
+    conceptsFeedback: props.conceptsFeedback
   };
 }
 
