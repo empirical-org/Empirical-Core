@@ -13,6 +13,7 @@ mutation editConcept($id: ID! $name: String, $parentId: ID){
         uid
         name
         parentId
+        visible
       }
     }
   }
@@ -26,8 +27,8 @@ export interface AppProps {
 
 function getParentIdArray(concept:Concept):Array<Number>{
   const parentIdArray = [];
-  const grandparentId:Number = concept.parent && concept.parent.parent ? parentIdArray.push(concept.parent.parent.id) : null;
-  const parentId:Number = concept.parent ? parentIdArray.push(concept.parent.id) : null;
+  concept.parent && concept.parent.parent ? parentIdArray.push(concept.parent.parent.id) : null;
+  concept.parent ? parentIdArray.push(concept.parent.id) : null;
   return parentIdArray;
 } 
 
