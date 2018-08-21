@@ -13,6 +13,7 @@ import {
   Col,
 } from "antd";
 import ConceptsShow from "../components/ConceptsShow";
+import ConceptBreadCrumb from '../components/ConceptBreadCrumb';
 
 function conceptQuery(id){
   return `
@@ -133,8 +134,8 @@ class App extends React.Component {
             <div>
               <Breadcrumb>
                 <Breadcrumb.Item><Link to="/">Home</Link></Breadcrumb.Item>
-                {this.renderGrandparent(concept)}
-                {this.renderParent(concept)}
+                <ConceptBreadCrumb concept={concept.parent ? concept.parent.parent : null} />
+                <ConceptBreadCrumb concept={concept.parent} />
                 <Breadcrumb.Item>{concept.name}</Breadcrumb.Item>
               </Breadcrumb>
               <Divider />
