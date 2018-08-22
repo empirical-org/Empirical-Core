@@ -87,13 +87,13 @@ import {
 let currentConnections = {};
 
 function teacherConnected({
-  classroomActivityId,
+  classroomSessionId,
   connection,
   client,
 }) {
-  let session = { id: classroomActivityId, absentTeacherState: false };
+  let session = { id: classroomSessionId, absentTeacherState: false };
   currentConnections[client.id].role = 'teacher';
-  currentConnections[client.id].classroomActivityId = classroomActivityId;
+  currentConnections[client.id].classroomSessionId = classroomSessionId;
 
   updateClassroomLessonSession({
     connection,
@@ -107,7 +107,7 @@ function disconnect({
 }) {
   if (currentConnections[client.id].role === 'teacher') {
     let session = {
-      id: currentConnections[client.id].classroomActivityId,
+      id: currentConnections[client.id].classroomSessionId,
       absentTeacherState: true
     };
 
@@ -119,7 +119,7 @@ function disconnect({
 
   if (currentConnections[client.id].role === 'student') {
     let session = {
-      id: currentConnections[client.id].classroomActivityId,
+      id: currentConnections[client.id].classroomSessionId,
       presence: {}
     };
     session['presence'][currentConnections[client.id].studentId] = false
@@ -135,14 +135,14 @@ function disconnect({
 
 function registerPresence({
   connection,
-  classroomActivityId,
+  classroomSessionId,
   studentId,
   client,
 }) {
-  let session = { id: classroomActivityId, presence: {} }
+  let session = { id: classroomSessionId, presence: {} }
   currentConnections[client.id].role = 'student';
   currentConnections[client.id].studentId = studentId;
-  currentConnections[client.id].classroomActivityId = classroomActivityId;
+  currentConnections[client.id].classroomSessionId = classroomSessionId;
   session.presence[studentId] = true;
 
   updateClassroomLessonSession({

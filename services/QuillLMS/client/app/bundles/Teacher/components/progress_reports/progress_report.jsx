@@ -73,7 +73,7 @@ export default  React.createClass({
   },
 
   componentWillUpdate: function(nextProps, nextState) {
-    if (this.state.loading !== nextState.loading) {
+    if (this.state.loading !== nextState.loading && this.props.showInProgressAndUnstartedStudents) {
       this.props.showInProgressAndUnstartedStudents(!nextState.loading)
     }
   },

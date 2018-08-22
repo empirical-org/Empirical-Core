@@ -6,7 +6,6 @@ import {
 } from '../../actions/scoreAnalysis.js';
 import { Spinner } from 'quill-component-library/dist/componentLibrary'
 import { oldFlagToNew } from '../../libs/flagMap'
-import { getDiagnosticQuestions } from '../../libs/getDiagnosticQuestions'
 import _ from 'lodash';
 
 class questionHealth extends Component {
@@ -77,9 +76,9 @@ class questionHealth extends Component {
     sentenceFragments,
     fillInBlank
   ) {
-    const questionData = getDiagnosticQuestions(this.props.lessons.data, questions.data)
-    const sentenceFragmentData = getDiagnosticQuestions(this.props.lessons.data, sentenceFragments.data)
-    const fillInBlankData = getDiagnosticQuestions(this.props.lessons.data, fillInBlank.data)
+    const questionData = questions.data
+    const sentenceFragmentData = sentenceFragments.data
+    const fillInBlankData = fillInBlank.data
     let filteredQuestionData, filteredSentenceFragmentData, filteredFillInBlankQuestionData
     if (this.state.flag) {
       filteredQuestionData = _.pickBy(questionData, this.filterByFlag)

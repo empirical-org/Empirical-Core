@@ -1,1 +1,1 @@
-export default classroomActivityId => `/teachers/classroom_activities/${classroomActivityId}/activity_from_classroom_activity`;
+export default (classroomUnitId, activityId) => `/activity_sessions/classroom_units/${classroomUnitId}/activities/${activityId}`;

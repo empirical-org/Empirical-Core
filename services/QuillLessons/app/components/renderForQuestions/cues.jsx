@@ -42,9 +42,8 @@ export default React.createClass({
       arrowPicture = <span />;
       text = <span />;
     }
-    // const arrow = this.props.displayArrowAndText ? (<div><img src={arrow} /> {this.renderExplanation()}</div>) : <span></span>
-    if (this.props.getQuestion().cues && this.props.getQuestion().cues.length > 0 && this.props.getQuestion().cues[0] !== '') {
-      const cueDivs = this.props.getQuestion().cues.map((cue, i) => <Cue key={`${i}${cue}`} cue={cue} />);
+    if  (this.props.getQuestion().cues && this.props.getQuestion().cues.length > 0 && this.props.getQuestion().cues[0] !== '') {
+      const cueDivs = this.props.getQuestion().cues.map((cue, i) => <Cue key={`${i}${cue}`} cue={cue} />)
       return (
         <div className="cues">
           {cueDivs}
@@ -58,5 +57,4 @@ export default React.createClass({
   render() {
     return <div>{this.renderCues()}</div>;
   },
-
 });

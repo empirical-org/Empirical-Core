@@ -11,7 +11,7 @@ export default React.createClass({
       const partitionedActivities = _.partition(groupedUnits[unit], activity => (activity.max_percentage != null));
       unitsWithGroupedActivities[unit] = {};
       if (partitionedActivities[0].length) {
-        unitsWithGroupedActivities[unit].complete = _.sortBy(partitionedActivities[0], 'classroom_activity_created_at');
+        unitsWithGroupedActivities[unit].complete = _.sortBy(partitionedActivities[0], 'unit_activity_created_at');
       }
       if (partitionedActivities[1].length) {
         unitsWithGroupedActivities[unit].incomplete = partitionedActivities[1];

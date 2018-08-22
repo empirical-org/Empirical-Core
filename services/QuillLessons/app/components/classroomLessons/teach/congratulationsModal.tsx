@@ -1,8 +1,9 @@
 import * as React from 'react'
 import { saveReview } from '../../../actions/classroomSessions';
+import { ClassroomSessionId } from '../interfaces'
 import { getParameterByName } from '../../../libs/getParameterByName';
 
-export default class CongratulationsModal extends React.Component<{closeModal: any, lessonId:string}, {selectedEmoji: number|null}> {
+export default class CongratulationsModal extends React.Component<{closeModal: any, lessonId:string, classroomSessionId:ClassroomSessionId}, {selectedEmoji: number|null}> {
   constructor(props) {
     super(props)
 
@@ -16,9 +17,9 @@ export default class CongratulationsModal extends React.Component<{closeModal: a
 
   selectEmoji(value:number) {
     this.setState({selectedEmoji: value})
-    const classroomActivityId = getParameterByName('classroom_activity_id')
-    if (classroomActivityId) {
-      saveReview(this.props.lessonId, classroomActivityId, value)
+    const classroomSessionId = this.props.classroomSessionId
+    if (classroomSessionId) {
+      saveReview(this.props.lessonId, classroomSessionId, value)
     }
   }
 
