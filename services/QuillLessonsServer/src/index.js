@@ -1,7 +1,4 @@
-if (process.env.NODE_ENV === 'staging' || process.env.NODE_ENV === 'production') {
-  require('newrelic');
-}
-
+import newrelic from 'newrelic';
 import dotenv from 'dotenv';
 import r from 'rethinkdb';
 import socketio from 'socket.io';
@@ -84,7 +81,6 @@ import {
 
 import {
   authorizeSession,
-  authorizeTeacherSession,
   authorizeRole,
 } from './handlers/authorization';
 
@@ -184,24 +180,19 @@ function verifyToken(token) {
   const options      = { algorithms: ['RS256'] }
   const pathToCert   = path.resolve(__dirname + '/..') + '/jwt-public-key.crt';
   const pkey         = fs.readFileSync(pathToCert);
-  let isValid;
-  let tokenData;
 
   jwt.verify(token, pkey, options, (err, decodedToken) => {
     if (err) {
-      console.error(err);
-      isValid = false;
+      throw err;
     } else {
-      tokenData = decodedToken.data;
-      isValid   = true;
+      return decodedToken;
     }
   });
-
-  return { isValid: isValid, data: tokenData };
 }
 
 r.connect(rethinkdbConfig, (err, connection) => {
   if (err) {
+    newrelic.noticeError(err)
     console.error(err)
   } else {
     io.on('connection', (client) => {
@@ -224,7 +215,7 @@ r.connect(rethinkdbConfig, (err, connection) => {
         })
 
         client.on('teacherConnected', (data) => {
-          authorizeRole(adminRoles, data, authToken, client, () => {
+          authorizeRole(adminRoles, data, authToken, () => {
             teacherConnected({ ...adaptors, ...data });
           });
         });
@@ -234,7 +225,7 @@ r.connect(rethinkdbConfig, (err, connection) => {
         });
 
         client.on('subscribeToClassroomLessonSession', (data) => {
-          authorizeSession(data, authToken, client, () => {
+          authorizeSession(data, authToken, () => {
             subscribeToClassroomLessonSession({ ...adaptors, ...data });
           });
         });
@@ -244,19 +235,19 @@ r.connect(rethinkdbConfig, (err, connection) => {
         });
 
         client.on('updateClassroomLessonSession', (data) => {
-          authorizeRole(adminRoles, data, authToken, client, () => {
+          authorizeRole(adminRoles, data, authToken, () => {
             updateClassroomLessonSession({ ...adaptors, ...data });
           });
         });
 
         client.on('createOrUpdateClassroomLessonSession', (data) => {
-          authorizeSession(data, authToken, client, () => {
+          authorizeSession(data, authToken, () => {
             createOrUpdateClassroomLessonSession({ ...adaptors, ...data });
           });
         });
 
         client.on('setSlideStartTime', (data) => {
-          authorizeSession(data, authToken, client, () => {
+          authorizeSession(data, authToken, () => {
             setSlideStartTime({ ...adaptors, ...data });
           });
         });
@@ -266,127 +257,127 @@ r.connect(rethinkdbConfig, (err, connection) => {
         });
 
         client.on('addStudent', (data) => {
-          authorizeSession(data, authToken, client, () => {
+          authorizeSession(data, authToken, () => {
             addStudent({ ...adaptors, ...data });
           });
         });
 
         client.on('saveStudentSubmission', (data) => {
-          authorizeSession(data, authToken, client, () => {
+          authorizeSession(data, authToken, () => {
             saveStudentSubmission({ ...adaptors, ...data });
           });
         });
 
         client.on('removeStudentSubmission', (data) => {
-          authorizeSession(data, authToken, client, () => {
+          authorizeSession(data, authToken, () => {
             removeStudentSubmission({ ...adaptors, ...data });
           });
         });
 
         client.on('removeMode', (data) => {
-          authorizeSession(data, authToken, client, () => {
+          authorizeSession(data, authToken, () => {
             removeMode({ ...adaptors, ...data });
           });
         });
 
         client.on('clearAllSelectedSubmissions', (data) => {
-          authorizeSession(data, authToken, client, () => {
+          authorizeSession(data, authToken, () => {
             clearAllSelectedSubmissions({ ...adaptors, ...data });
           });
         });
 
         client.on('clearAllSubmissions', (data) => {
-          authorizeSession(data, authToken, client, () => {
+          authorizeSession(data, authToken, () => {
             clearAllSubmissions({ ...adaptors, ...data });
           });
         });
 
         client.on('saveSelectedStudentSubmission', (data) => {
-          authorizeSession(data, authToken, client, () => {
+          authorizeSession(data, authToken, () => {
             saveSelectedStudentSubmission({ ...adaptors, ...data });
           });
         });
 
         client.on('updateStudentSubmissionOrder', (data) => {
-          authorizeSession(data, authToken, client, () => {
+          authorizeSession(data, authToken, () => {
             updateStudentSubmissionOrder({ ...adaptors, ...data });
           });
         });
 
         client.on('removeSelectedStudentSubmission', (data) => {
-          authorizeSession(data, authToken, client, () => {
+          authorizeSession(data, authToken, () => {
             removeSelectedStudentSubmission({ ...adaptors, ...data });
           });
         });
 
         client.on('setMode', (data) => {
-          authorizeSession(data, authToken, client, () => {
+          authorizeSession(data, authToken, () => {
             setMode({ ...adaptors, ...data });
           });
         });
 
         client.on('setModel', (data) => {
-          authorizeSession(data, authToken, client, () => {
+          authorizeSession(data, authToken, () => {
             setModel({ ...adaptors, ...data });
           });
         });
 
         client.on('setPrompt', (data) => {
-          authorizeSession(data, authToken, client, () => {
+          authorizeSession(data, authToken, () => {
             setPrompt({ ...adaptors, ...data });
           });
         });
 
         client.on('toggleStudentFlag', (data) => {
-          authorizeSession(data, authToken, client, () => {
+          authorizeSession(data, authToken, () => {
             toggleStudentFlag({ ...adaptors, ...data });
           });
         });
 
         client.on('setWatchTeacherState', (data) => {
-          authorizeSession(data, authToken, client, () => {
+          authorizeSession(data, authToken, () => {
             setWatchTeacherState({ ...adaptors, ...data });
           });
         });
 
         client.on('removeWatchTeacherState', (data) => {
-          authorizeSession(data, authToken, client, () => {
+          authorizeSession(data, authToken, () => {
             removeWatchTeacherState({ ...adaptors, ...data });
           });
         });
 
         client.on('addStudents', (data) => {
-          authorizeSession(data, authToken, client, () => {
+          authorizeSession(data, authToken, () => {
             addStudents({ ...adaptors, ...data });
           });
         });
 
         client.on('redirectAssignedStudents', (data) => {
-          authorizeSession(data, authToken, client, () => {
+          authorizeSession(data, authToken, () => {
             redirectAssignedStudents({ ...adaptors, ...data });
           });
         });
 
         client.on('setClassroomName', (data) => {
-          authorizeSession(data, authToken, client, () => {
+          authorizeSession(data, authToken, () => {
             setClassroomName({ ...adaptors, ...data });
           });
         });
 
         client.on('setTeacherName', (data) => {
-          authorizeSession(data, authToken, client, () => {
+          authorizeSession(data, authToken, () => {
             setTeacherName({ ...adaptors, ...data });
           });
         });
 
         client.on('addFollowUpName', (data) => {
-          authorizeSession(data, authToken, client, () => {
+          authorizeSession(data, authToken, () => {
             addFollowUpName({ ...adaptors, ...data });
           });
         });
 
         client.on('addSupportingInfo', (data) => {
-          authorizeSession(data, authToken, client, () => {
+          authorizeSession(data, authToken, () => {
             addSupportingInfo({ ...adaptors, ...data });
           });
         });
@@ -400,13 +391,13 @@ r.connect(rethinkdbConfig, (err, connection) => {
         })
 
         client.on('createOrUpdateClassroomLesson', (data) => {
-          authorizeRole(adminRoles, data, authToken, client, () => {
+          authorizeRole(adminRoles, data, authToken, () => {
             createOrUpdateClassroomLesson({ ...adaptors, ...data });
           });
         });
 
         client.on('deleteClassroomLesson', (data) => {
-          authorizeRole(adminRoles, data, authToken, client, () => {
+          authorizeRole(adminRoles, data, authToken, () => {
             deleteClassroomLesson({ ...adaptors, ...data });
           });
         });
@@ -416,7 +407,7 @@ r.connect(rethinkdbConfig, (err, connection) => {
         });
 
         client.on('createOrUpdateReview', (data) => {
-          authorizeRole(adminRoles, data, authToken, client, () => {
+          authorizeRole(adminRoles, data, authToken, () => {
             createOrUpdateReview({ ...adaptors, ...data });
           });
         });
@@ -434,91 +425,91 @@ r.connect(rethinkdbConfig, (err, connection) => {
         })
 
         client.on('updateEditionMetadata', (data) => {
-          authorizeRole(adminRoles, data, authToken, client, () => {
+          authorizeRole(adminRoles, data, authToken, () => {
             updateEditionMetadata({ ...adaptors, ...data });
           });
         });
 
         client.on('setEditionId', (data) => {
-          authorizeSession(data, authToken, client, () => {
+          authorizeSession(data, authToken, () => {
             setEditionId({ ...adaptors, ...data });
           });
         });
 
         client.on('deleteEdition', (data) => {
-          authorizeRole(adminRoles, data, authToken, client, () => {
+          authorizeRole(adminRoles, data, authToken, () => {
             deleteEdition({ ...adaptors, ...data });
           });
         });
 
         client.on('updateEditionSlides', (data) => {
-          authorizeRole(adminRoles, data, authToken, client, () => {
+          authorizeRole(adminRoles, data, authToken, () => {
             updateEditionSlides({ ...adaptors, ...data });
           });
         })
 
         client.on('updateSlideScriptItems', (data) => {
-          authorizeRole(adminRoles, data, authToken, client, () => {
+          authorizeRole(adminRoles, data, authToken, () => {
             updateSlideScriptItems({ ...adaptors, ...data });
           });
         });
 
         client.on('saveEditionSlide', (data) => {
-          authorizeRole(adminRoles, data, authToken, client, () => {
+          authorizeRole(adminRoles, data, authToken, () => {
             saveEditionSlide({ ...adaptors, ...data });
           });
         });
 
         client.on('saveEditionScriptItem', (data) => {
-          authorizeRole(adminRoles, data, authToken, client, () => {
+          authorizeRole(adminRoles, data, authToken, () => {
             saveEditionScriptItem({ ...adaptors, ...data });
           });
         });
 
         client.on('deleteScriptItem', (data) => {
-          authorizeRole(adminRoles, data, authToken, client, () => {
+          authorizeRole(adminRoles, data, authToken, () => {
             deleteScriptItem({ ...adaptors, ...data });
           });
         });
 
         client.on('addScriptItem', (data) => {
-          authorizeRole(adminRoles, data, authToken, client, () => {
+          authorizeRole(adminRoles, data, authToken, () => {
             addScriptItem({ ...adaptors, ...data });
           });
         });
 
         client.on('deleteEditionSlide', (data) => {
-          authorizeRole(adminRoles, data, authToken, client, () => {
+          authorizeRole(adminRoles, data, authToken, () => {
             deleteEditionSlide({ ...adaptors, ...data });
           });
         });
 
         client.on('addSlide', (data) => {
-          authorizeRole(adminRoles, data, authToken, client, () => {
+          authorizeRole(adminRoles, data, authToken, () => {
             addSlide({ ...adaptors, ...data });
           });
         });
 
         client.on('setTeacherModels', (data) => {
-          authorizeSession(data, authToken, client, () => {
+          authorizeSession(data, authToken, () => {
             setTeacherModels({ ...adaptors, ...data });
           });
         });
 
         client.on('createNewEdition', (data) => {
-          authorizeRole(adminRoles, data, authToken, client, () => {
+          authorizeRole(adminRoles, data, authToken, () => {
             createNewEdition({ ...adaptors, ...data });
           });
         });
 
         client.on('publishEdition', (data) => {
-          authorizeRole(adminRoles, data, authToken, client, () => {
+          authorizeRole(adminRoles, data, authToken, () => {
             publishEdition({ ...adaptors, ...data });
           });
         });
 
         client.on('archiveEdition', (data) => {
-          authorizeRole(adminRoles, data, authToken, client, () => {
+          authorizeRole(adminRoles, data, authToken, () => {
             archiveEdition({ ...adaptors, ...data });
           });
         });
