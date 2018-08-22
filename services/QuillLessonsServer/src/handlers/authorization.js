@@ -3,62 +3,41 @@ function _isPreviewSession(data) {
   return previewIdRegExp.test(data.classroomUnitId);
 }
 
-function _isRoleAuthorized(permittedRoles, currentRole) {
-  return permittedRoles.includes(currentRole);
-}
+function _checkUserRole(permittedRoles, currentRole) {
+  const authorizedRole = permittedRoles.includes(currentRole)
+  const previewSession = _isPreviewSession(data)
 
-function _belongsToSession(data, token) {
-  const regexedClassroomUnitId = new RegExp('^' + token.data.classroom_unit_id)
-  return regexedClassroomUnitId.test(data.classroomSessionId);
-}
-
-function _reportError(errorText, data, token, client) {
-  console.error({ error: errorText, data, token });
-  client.emit(errorText, { data, token });
-}
-
-function _checkToken(data, token, callback) {
-  if (token.isValid) {
-    callback();
-  } else {
-    _reportError('invalidToken', data, token, client);
+  if (previewSession || authorizedRole) {
+    return true
   }
+
+  let error  = Error.new('User role is not authorized for this action');
+  error.name = 'UnauthorizedUserRoleError';
+  throw error;
 }
 
-export function authorizeSession(data, token, client, callback) {
-  _checkToken(data, token, () => {
-    const belongsToSession = _belongsToSession(data, token)
+function _checkUserSession(data, token) {
+  const ClassroomUnitIdRegExp = new RegExp('^' + token.data.classroom_unit_id);
+  const sessionAuthorized     = ClassroomUnitIdRegExp.test(data.classroomSessionId);
+  const previewSession        = _isPreviewSession(data)
 
-    if (belongsToSession || _isPreviewSession(data)) {
-      callback();
-    } else {
-      _reportError('unauthorizedSession', data, token, client);
-    }
-  });
+  if (previewSession || sessionAuthorized) {
+    return true
+  }
+
+  let error  = Error.new('User classroom session is not authorized for this action');
+  error.name = 'UnauthorizedUserSessionError';
+  throw error;
 }
 
-export function authorizeTeacherSession(data, token, client, callback) {
-  _checkToken(data, token, () => {
-    const userIsTeacher    = _isRoleAuthorized(['staff', 'teacher'], token.data.role);
-    const belongsToSession = _belongsToSession(data, token);
-    const isValidSession   = userIsTeacher && belongsToSession;
+export function authorizeSession(data, token, callback) {
+  _checkUserSession(data, token);
 
-    if (isValidSession || _isPreviewSession(data)) {
-      callback();
-    } else {
-      _reportError('unauthorizedTeacherSession', data, token, client);
-    }
-  });
+  callback();
 }
 
-export function authorizeRole(permittedRoles, data, token, client, callback) {
-  _checkToken(token, () => {
-    const isRoleAuthorized = _isRoleAuthorized(permittedRoles, token.data.role);
+export function authorizeRole(permittedRoles, data, token, callback) {
+  _checkUserRole(permittedRoles, token.data.role);
 
-    if (isRoleAuthorized || _isPreviewSession(data)) {
-      callback();
-    } else {
-      _reportError('unauthorizedRole', data, token, client);
-    }
-  });
+  callback();
 }
