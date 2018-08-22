@@ -13,6 +13,7 @@ export interface Question {
   attempts?: Response[];
   uid: string;
   key?: string;
+  flag?: string;
 }
 
 export interface Answer {

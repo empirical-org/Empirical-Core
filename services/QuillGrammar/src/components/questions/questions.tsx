@@ -9,7 +9,6 @@ import {
 } from 'quill-component-library/dist/componentLibrary';
 import QuestionListByConcept from './questionListByConcept'
 import checkAnswer from '../../libs/checkAnswer';
-import QuestionSelector from 'react-select-search';
 import { push } from 'react-router-redux';
 import respWithStatus from '../../libs/responseTools.ts';
 import { submitResponseEdit, deleteResponse } from '../../actions/responses';
