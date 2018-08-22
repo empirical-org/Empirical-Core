@@ -16,22 +16,31 @@ export default React.createClass({
       concept: this.props.question.conceptID,
       instructions: this.props.question.instructions ? this.props.question.instructions : "",
       flag: this.props.question.flag ? this.props.question.flag : "alpha",
-      cuesLabel: this.props.cuesLabel ? this.props.cuesLabel : ''
+      cuesLabel: this.props.question.cuesLabel ? this.props.question.cuesLabel : ''
     }
   },
 
   submit: function () {
-
-    this.props.submit({
+    const questionObj = {
       prompt: this.state.prompt,
       prefilledText: this.refs.prefilledText.value,
       cues: this.refs.cues.value.split(','),
       itemLevel: this.state.itemLevel,
-      conceptID: this.state.concept,
       instructions: this.state.instructions,
       flag: this.state.flag,
       cuesLabel: this.state.cuesLabel
-    })
+    }
+    if (this.props.new) {
+      const optimalResponseObj = {text: this.refs.newQuestionOptimalResponse.value.trim(), optimal: true, count: 0, feedback: "That's a great sentence!"}
+      this.props.submit(questionObj, optimalResponseObj)
+    } else {
+      questionObj.conceptID = this.state.concept
+      this.props.submit(questionObj)
+    }
+  },
+
+  copyAnswerToPrefill: function () {
+    this.refs.prefilledText.value = this.refs.newQuestionOptimalResponse.value
   },
 
   handlePromptChange: function (e) {
@@ -54,6 +63,29 @@ export default React.createClass({
     })
   },
 
+  renderConceptSelector: function() {
+    if (!this.props.new) {
+      return <div>
+        <label className="label">Concept</label>
+        <div>
+          <ConceptSelector currentConceptUID={this.state.concept}
+            handleSelectorChange={this.handleSelectorChange}/>
+          </div>
+        </div>
+    }
+  },
+
+  renderOptimalResponse: function() {
+    if (this.props.new) {
+      return <div>
+        <label className="label">Optimal Response</label>
+        <p className="control">
+          <input className="input" type="text" ref="newQuestionOptimalResponse" onBlur={this.copyAnswerToPrefill}></input>
+        </p>
+      </div>
+    }
+  },
+
   handleSelectorChange: function(e) {
     this.setState({concept: e.value})
   },
@@ -71,7 +103,7 @@ export default React.createClass({
   },
 
   render: function () {
-    if(this.props.concepts.hasreceiveddata) {
+    if(this.props.new || this.props.concepts.hasreceiveddata) {
       return (
         <div className="box">
           <h6 className="control subtitle">Create a new question</h6>
@@ -86,7 +118,7 @@ export default React.createClass({
           <p className="control">
             <textarea className="input" type="text" ref="instructions" defaultValue={this.props.question.instructions} onChange={this.handleInstructionsChange}></textarea>
           </p>
-          <label className="label">Cues Label (default is "joining words" for multiple cues and "joining word" for single cues)</label>
+          <label className="label">Cues Label (default is "joining words"/"joining word" for single cues, enter a space to have no label)</label>
           <p className="control">
             <input className="input" type="text" onChange={this.handleCuesLabelChange} defaultValue={this.props.question.cuesLabel}></input>
           </p>
@@ -94,6 +126,7 @@ export default React.createClass({
           <p className="control">
             <input className="input" type="text" ref="cues" defaultValue={this.props.question.cues}></input>
           </p>
+          {this.renderOptimalResponse()}
           <label className="label">Prefilled Text (place 5 underscores where you want the user to fill in _____)</label>
           <p className="control">
             <input className="input" type="text" ref="prefilledText" defaultValue={this.props.question.prefilledText}></input>
@@ -109,11 +142,7 @@ export default React.createClass({
             </span>
           </p>
           <FlagDropdown flag={this.state.flag} handleFlagChange={this.handleFlagChange} isLessons={false}/>
-          <label className="label">Concept</label>
-          <div>
-            <ConceptSelector currentConceptUID={this.state.concept}
-              handleSelectorChange={this.handleSelectorChange}/>
-          </div>
+          {this.renderConceptSelector()}
           <br/>
           <button className="button is-primary" onClick={this.submit}>Update Question</button>
         </div>
