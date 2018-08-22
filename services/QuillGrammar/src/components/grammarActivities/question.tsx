@@ -219,7 +219,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
       const latestAttempt:Response|undefined = this.getLatestAttempt(this.currentQuestion().attempts);
       if (latestAttempt && !latestAttempt.optimal) {
         if (latestAttempt.concept_results) {
-          const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.response.concept_results);
+          const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.concept_results);
           if (conceptID) {
             const data = this.props.conceptsFeedback.data[conceptID.conceptUID];
             if (data) {

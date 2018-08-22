@@ -16,6 +16,7 @@ import { Route, Switch, withRouter } from "react-router-dom";
 import ResponseComponentWrapper from './responseRouteWrapper'
 import ChooseModelContainer from './chooseModelContainer'
 import TestQuestion from './testQuestion'
+import MassEditContainer from './massEditContainer'
 
 class AdminQuestion extends React.Component {
   constructor(props) {
@@ -196,12 +197,12 @@ class AdminQuestion extends React.Component {
       return (<p>Loading...</p>);
     } else if (data[questionID]) {
       const activeLink = this.props.massEdit.numSelectedResponses > 1
-      ? <li activeClassName="is-active" to={`/admin/questions/${questionID}/mass-edit`}>Mass Edit ({this.props.massEdit.numSelectedResponses})</li>
+      ? <li><Link activeClassName="is-active" to={`/admin/questions/${questionID}/mass-edit`}>Mass Edit ({this.props.massEdit.numSelectedResponses})</Link></li>
       : <li style={{color: "#a2a1a1"}}>Mass Edit ({this.props.massEdit.numSelectedResponses})</li>
       const modelText = data[questionID].modelConceptUID ? 'Edit Model Concept' : 'Add Model Concept'
 
       return (
-        <div style={{paddingRight: '30px', paddingTop: '10px'}}>
+        <div style={{paddingRight: '30px', paddingTop: '10px', width: '80%'}}>
           {this.renderEditForm()}
           {this.renderNewResponseForm()}
           <div style={{display: 'flex', justifyContent: 'space-between'}}>
@@ -230,6 +231,7 @@ class AdminQuestion extends React.Component {
             <Route path={`/admin/questions/:questionID/responses`} component={ResponseComponentWrapper} questionID={questionID}/>
             <Route path={`/admin/questions/:questionID/test`} component={TestQuestion}/>
             <Route path={`/admin/questions/:questionID/choose_model`} component={ChooseModelContainer}/>
+            <Route path={`/admin/questions/:questionID/mass-edit`} component={MassEditContainer}/>
           </Switch>
         </div>
       );
