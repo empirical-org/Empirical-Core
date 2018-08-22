@@ -1,27 +1,22 @@
 /* eslint-env browser*/
 import _ from 'underscore';
-import pathwaysActions from './pathways';
-import { hashToCollection } from 'quill-component-library/dist/componentLibrary';
-import request from 'request';
+import * as request from 'request';
 import objectWithSnakeKeysFromCamel from '../libs/objectWithSnakeKeysFromCamel';
+import { Response } from 'quill-marking-logic'
 
 import { ActionTypes } from './actionTypes'
 const moment = require('moment');
 
-export function deleteStatus(questionId) {
+export function deleteStatus(questionId: string) {
   return { type: ActionTypes.DELETE_RESPONSE_STATUS, data: { questionId, }, };
 }
 
-export function updateStatus(questionId, status) {
+export function updateStatus(questionId: string, status: string) {
   return { type: ActionTypes.UPDATE_RESPONSE_STATUS, data: { questionId, status, }, };
 }
 
-export function updateData(questionId, responses) {
+export function updateData(questionId: string, responses) {
   return { type: ActionTypes.UPDATE_RESPONSE_DATA, data: { questionId, responses, }, };
-}
-
-function responsesForQuestionRef(questionId) {
-  return responsesRef.orderByChild('questionUID').equalTo(questionId);
 }
 
 function getQuestionLoadedStatusForGroupedResponses(groupedResponses) {
@@ -34,13 +29,14 @@ function getQuestionLoadedStatusForGroupedResponses(groupedResponses) {
   return statuses;
 }
 
-export function submitResponse(content, prid, isFirstAttempt) {
+export function submitResponse(content: Response, prid: string, isFirstAttempt:boolean) {
   delete content.gradeIndex;
-  const rubyConvertedResponse = objectWithSnakeKeysFromCamel(content);
+  console.log('CONTENT', content)
+  const rubyConvertedResponse: Response & { created_at: string, first_attempt_count: number, is_first_attempt: boolean} = objectWithSnakeKeysFromCamel(content);
   rubyConvertedResponse.created_at = moment().format('x');
   rubyConvertedResponse.first_attempt_count = isFirstAttempt ? 1 : 0;
   rubyConvertedResponse.is_first_attempt = isFirstAttempt;
-  return (dispatch) => {
+  return (dispatch:Function) => {
     request.post({
       url: `${process.env.QUILL_CMS}/responses/create_or_increment`,
       form: { response: rubyConvertedResponse, }, },

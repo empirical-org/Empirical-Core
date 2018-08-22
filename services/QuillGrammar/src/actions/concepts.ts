@@ -2,25 +2,30 @@ import * as request from 'request';
 import _ from 'underscore';
 
 import { ActionTypes } from './actionTypes'
+import { Concept } from '../interfaces/concepts'
 
 const conceptsEndpoint = `${process.env.EMPIRICAL_BASE_URL}/api/v1/concepts.json`;
 
-function splitInLevels(concepts) {
+function splitInLevels(concepts: Array<Concept>) {
   return _.groupBy(concepts, 'level');
 }
 
-function getParentName(concept, concepts) {
-  const parent = concepts['1'].find(c => c.id === concept.parent_id)
-  const grandParent = concepts['2'].find(c => c.id === parent.parent_id)
-  return `${grandParent.name} | ${parent.name}`;
+function getParentName(concept: Concept, concepts: Array<Array<Concept>>):string|void {
+  const parent: Concept|undefined = concepts[1].find(c => c.id === concept.parent_id)
+  if (parent) {
+    const grandParent: Concept|undefined = concepts[2].find(c => c.id === parent.parent_id)
+    if (grandParent) {
+      return `${grandParent.name} | ${parent.name}`;
+    }
+  }
 }
 
 export const startListeningToConcepts = () => {
-  return dispatch => {
+  return (dispatch:Function) => {
     request(conceptsEndpoint, (error, response, body) => {
       if (!error && response.statusCode === 200) {
         const concepts = splitInLevels(JSON.parse(body).concepts);
-        concepts['0'] = concepts['0'].map((concept) => {
+        concepts['0'] = concepts['0'].map((concept:Concept) => {
           concept.displayName = `${getParentName(concept, concepts)} | ${concept.name}`;
           return concept;
         });
