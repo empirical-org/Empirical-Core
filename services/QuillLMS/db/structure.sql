@@ -192,13 +192,13 @@ CREATE FUNCTION public.timespent_student(student integer) RETURNS bigint
 CREATE FUNCTION public.timespent_student_for_teacher(student integer, teacher integer) RETURNS bigint
     LANGUAGE sql
     AS $$
-        SELECT COALESCE(SUM(time_spent),0) FROM (SELECT activity_sessions.id as activity_session_id, timespent_activity_session(activity_sessions.id) as time_spent FROM users 
-          JOIN classrooms on users.id = classrooms.teacher_id
-          JOIN classroom_activities ON classroom_activities.classroom_id = classrooms.id
-          JOIN activity_sessions ON activity_sessions.id = classroom_activities.activity_id
+        SELECT COALESCE(SUM(time_spent),0) FROM (SELECT activity_sessions.id AS activity_session_id, timespent_activity_session(activity_sessions.id) as time_spent FROM users
+          INNER JOIN classrooms_teachers ON users.id = classrooms_teachers.user_id
+          INNER JOIN classroom_units ON classrooms_teachers.classroom_id = classroom_units.classroom_id
+          INNER JOIN activity_sessions ON classroom_units.id = activity_sessions.classroom_unit_id
           WHERE users.id = teacher
           AND activity_sessions.user_id = student
-          GROUP BY activity_session_id) as times_spent;
+          GROUP BY users.id, activity_sessions.id) as times_spent;
       $$;
 
 
@@ -209,12 +209,12 @@ CREATE FUNCTION public.timespent_student_for_teacher(student integer, teacher in
 CREATE FUNCTION public.timespent_teacher(teacher integer) RETURNS bigint
     LANGUAGE sql
     AS $$
-        SELECT COALESCE(SUM(time_spent),0) FROM (SELECT activity_sessions.id as activity_session_id, timespent_activity_session(activity_sessions.id) as time_spent FROM users 
-          JOIN classrooms on users.id = classrooms.teacher_id
-          JOIN classroom_activities ON classroom_activities.classroom_id = classrooms.id
-          JOIN activity_sessions ON activity_sessions.id = classroom_activities.activity_id
+        SELECT COALESCE(SUM(time_spent),0) FROM (SELECT activity_sessions.id AS activity_session_id, timespent_activity_session(activity_sessions.id) as time_spent FROM users
+          INNER JOIN classrooms_teachers ON users.id = classrooms_teachers.user_id
+          INNER JOIN classroom_units ON classrooms_teachers.classroom_id = classroom_units.classroom_id
+          INNER JOIN activity_sessions ON classroom_units.id = activity_sessions.classroom_unit_id
           WHERE users.id = teacher
-          GROUP BY activity_session_id) as times_spent;
+          GROUP BY users.id, activity_sessions.id) as times_spent;
       $$;
 
 
@@ -5347,4 +5347,8 @@ INSERT INTO schema_migrations (version) VALUES ('20180821202836');
 INSERT INTO schema_migrations (version) VALUES ('20180821213520');
 
 INSERT INTO schema_migrations (version) VALUES ('20180822144355');
+
+INSERT INTO schema_migrations (version) VALUES ('20180822155024');
+
+INSERT INTO schema_migrations (version) VALUES ('20180822155243');
 
