@@ -4,6 +4,7 @@ import gql from "graphql-tag";
 import ConceptsTable from "../components/ConceptsTable";
 import RadioGroup from "../../../../node_modules/antd/lib/radio/group";
 import RadioButton from "../../../../node_modules/antd/lib/radio/radioButton";
+import ConceptSearch from "../components/ConceptsSearch";
 
 const conceptsIndexQuery:string = `
   {
@@ -58,6 +59,7 @@ class App extends React.Component {
           <RadioButton value={true}>Live</RadioButton>
           <RadioButton value={false}>Archived</RadioButton>
         </RadioGroup>
+        
         <Query
           query={gql(conceptsIndexQuery)}
         >
@@ -66,7 +68,11 @@ class App extends React.Component {
             if (error) return <p>Error :(</p>;
 
             return (
-              <ConceptsTable concepts={data.concepts} visible={this.state.visible}/>
+              <div>
+                <ConceptSearch concepts={data.concepts}/>
+                <ConceptsTable concepts={data.concepts} visible={this.state.visible}/>
+              </div>
+              
             )
           }}
         </Query>
