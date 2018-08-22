@@ -5,18 +5,11 @@
  * See lib/config/default.js in the agent distribution for a more complete
  * description of configuration variables and their potential values.
  */
-
-var app_name = 'QuillLessonsServer'
-
-if (process.env.ENV === 'staging') {
-  app_name = app_name + '-staging'
-}
-
 exports.config = {
   /**
    * Array of application names.
    */
-  app_name: [app_name],
+  app_name: [process.env.NEW_RELIC_APP_NAME],
   /**
    * Your New Relic license key.
    */
