@@ -20,7 +20,7 @@ module TeachersData
       users.email,
       COUNT(DISTINCT students_classrooms.id) AS number_of_students,
       time_spent_query.number_of_questions_completed AS number_of_questions_completed,
-      MAX(time_spent_query.time_spent) AS time_spent
+      old_timespent_teacher(users.id) + timespent_teacher(users.id) AS time_spent
     FROM users
     LEFT OUTER JOIN classrooms_teachers ON users.id = classrooms_teachers.user_id
     LEFT OUTER JOIN classrooms ON classrooms_teachers.classroom_id = classrooms.id
