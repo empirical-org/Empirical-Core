@@ -17,6 +17,7 @@
     "babel-preset-stage-2": "^6.24.1",
     "dotenv": "^5.0.1",
     "jsonwebtoken": "^8.2.1",
+    "newrelic": "^4.8.0",
     "rethinkdb": "^2.3.3",
     "socket.io": "^2.0.3"
   },
