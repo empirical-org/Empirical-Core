@@ -1,4 +1,6 @@
-if (process.env.NODE_ENV === 'production') require('newrelic');
+if (process.env.NODE_ENV === 'staging' || process.env.NODE_ENV === 'production') {
+  require('newrelic');
+}
 
 import dotenv from 'dotenv';
 import r from 'rethinkdb';
