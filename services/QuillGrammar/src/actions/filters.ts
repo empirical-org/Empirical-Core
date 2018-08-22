@@ -8,7 +8,7 @@ import { ActionTypes } from './actionTypes'
     return {type:ActionTypes.COLLAPSE_ALL_RESPONSES, };
  }
 
- export const expandAllResponses = (expandedResponses) => {
+ export const expandAllResponses = (expandedResponses: {[key:string]: boolean}) => {
     return {type:ActionTypes.EXPAND_ALL_RESPONSES, expandedResponses, };
  }
 

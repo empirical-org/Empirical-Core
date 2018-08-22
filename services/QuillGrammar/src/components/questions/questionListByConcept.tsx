@@ -1,12 +1,24 @@
-import React from 'react'
+import * as React from 'react'
 import _ from 'lodash'
 import LinkListItem from '../shared/linkListItem'
 import {
   hashToCollection
 } from 'quill-component-library/dist/componentLibrary';
+import { Concept } from '../../interfaces/concepts'
+import { ConceptReducerState } from '../../reducers/conceptsReducer'
+import { QuestionsReducerState } from '../../reducers/questionsReducer'
+import { Question } from '../../interfaces/questions'
 
-export default class QuestionListByConcept extends React.Component<any, any> {
-  constructor(props) {
+interface QuestionListByConceptProps {
+  concepts: ConceptReducerState;
+  showOnlyArchived: boolean;
+  basePath: string;
+  displayNoConceptQuestions: boolean;
+  questions: QuestionsReducerState;
+}
+
+export default class QuestionListByConcept extends React.Component<QuestionListByConceptProps> {
+  constructor(props: QuestionListByConceptProps) {
     super(props)
 
     this.renderQuestionLinks = this.renderQuestionLinks.bind(this)
@@ -14,22 +26,22 @@ export default class QuestionListByConcept extends React.Component<any, any> {
     this.renderQuestionsWithoutValidKey = this.renderQuestionsWithoutValidKey.bind(this)
   }
 
-  renderLabel(concept) {
+  renderLabel(concept: Concept) {
     return (
       <p className="menu-label">
-      {concept.name}
+      {concept.displayName}
       </p>
     );
   }
 
-  renderQuestionLinks(questions) {
+  renderQuestionLinks(questions: Array<Question>):Array<JSX.Element|undefined> {
     let filtered;
     if (!this.props.showOnlyArchived) {
       filtered = questions.filter((question) => question.flag !== "archived" )
     } else {
       filtered = questions.filter((question) => question.flag === "archived" )
     }
-    return filtered.map((question) => {
+    return filtered.map((question: Question) => {
       if (question.prompt) {
         const formattedPrompt = question.prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")
         return (
@@ -45,7 +57,7 @@ export default class QuestionListByConcept extends React.Component<any, any> {
     });
   }
 
-  renderConceptWithQuestions(questions, label) {
+  renderConceptWithQuestions(questions: Array<Question>, label: JSX.Element, index: number) {
     if (questions.length === 0) {
       return;
     }
@@ -53,19 +65,21 @@ export default class QuestionListByConcept extends React.Component<any, any> {
     const listItems = this.renderQuestionLinks(questions);
     return [
       label,
-      (<ul className="menu-list">
+      (<ul className="menu-list" key={index}>
         {listItems}
       </ul>)
     ];
   }
 
   mapConceptsToList() {
-    const concepts = hashToCollection(this.props.concepts.data['0']);
+    const concepts = hashToCollection(this.props.concepts.data[0]);
     const questions = hashToCollection(this.props.questions);
-    return concepts.map((concept) => {
+    let count = 0
+    return concepts.sort((a: Concept, b: Concept) => a.displayName.localeCompare(b.displayName)).map((concept: Concept) => {
+      count++
       const label = this.renderLabel(concept);
       const questionsForConcept = questions.filter(q => q.concept_uid === concept.uid)
-      return this.renderConceptWithQuestions(questionsForConcept, label);
+      return this.renderConceptWithQuestions(questionsForConcept, label, count);
     })
   }
 
@@ -81,7 +95,7 @@ export default class QuestionListByConcept extends React.Component<any, any> {
       const label = (<p className="menu-label">
       No valid concept
       </p>)
-      return this.renderConceptWithQuestions(questionsToRender, label);
+      return this.renderConceptWithQuestions(questionsToRender, label, 0);
     }
   }
 

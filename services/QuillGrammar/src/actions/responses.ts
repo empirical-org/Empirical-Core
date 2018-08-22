@@ -2,7 +2,7 @@
 import _ from 'underscore';
 import * as request from 'request';
 import objectWithSnakeKeysFromCamel from '../libs/objectWithSnakeKeysFromCamel';
-import { Response } from 'quill-marking-logic'
+import { Response, ConceptResult } from 'quill-marking-logic'
 
 import { ActionTypes } from './actionTypes'
 const moment = require('moment');
@@ -15,14 +15,14 @@ export function updateStatus(questionId: string, status: string) {
   return { type: ActionTypes.UPDATE_RESPONSE_STATUS, data: { questionId, status, }, };
 }
 
-export function updateData(questionId: string, responses) {
+export function updateData(questionId: string, responses: Array<Response>) {
   return { type: ActionTypes.UPDATE_RESPONSE_DATA, data: { questionId, responses, }, };
 }
 
 function getQuestionLoadedStatusForGroupedResponses(groupedResponses) {
   const questionsKeys = _.keys(groupedResponses);
   const statuses = {};
-  questionsKeys.forEach((key) => {
+  questionsKeys.forEach((key:string) => {
     statuses[key] = 'LOADED';
   });
   console.log(statuses);
@@ -53,8 +53,8 @@ export function submitResponse(content: Response, prid: string, isFirstAttempt:b
   };
 }
 
-export function submitMassEditFeedback(ids, properties, qid) {
-  return (dispatch) => {
+export function submitMassEditFeedback(ids: Array<string>, properties, qid: string) {
+  return (dispatch:Function) => {
     const updated_attribute = properties;
     console.log(updated_attribute);
     request.put({
@@ -73,8 +73,8 @@ export function submitMassEditFeedback(ids, properties, qid) {
   };
 }
 
-export function submitMassEditConceptResults(ids, conceptResults, qid) {
-  return (dispatch) => {
+export function submitMassEditConceptResults(ids: Array<string>, conceptResults: Array<ConceptResult>, qid: string) {
+  return (dispatch:Function) => {
     const updated_attribute = {
       concept_results: conceptResults,
     };
@@ -94,8 +94,8 @@ export function submitMassEditConceptResults(ids, conceptResults, qid) {
   };
 }
 
-export function massEditDeleteResponses(ids, qid) {
-  return (dispatch) => {
+export function massEditDeleteResponses(ids:Array<string>, qid:string) {
+  return (dispatch:Function) => {
     request.post({
       url: `${process.env.QUILL_CMS}/responses/mass_edit/delete_many`,
       json: { ids, }, },
@@ -112,9 +112,9 @@ export function massEditDeleteResponses(ids, qid) {
   };
 }
 
-export function submitResponseEdit(rid, content, qid) {
-  const rubyConvertedResponse = objectWithSnakeKeysFromCamel(content, false);
-  return (dispatch) => {
+export function submitResponseEdit(rid:string, content: Response, qid:string) {
+  const rubyConvertedResponse = objectWithSnakeKeysFromCamel(content);
+  return (dispatch: Function) => {
     request.put({
       url: `${process.env.QUILL_CMS}/responses/${rid}`,
       form: { response: rubyConvertedResponse, }, },
