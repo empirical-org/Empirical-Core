@@ -1,6 +1,6 @@
 # Integrating an External Activity
 
-When a user begins an activity session they hit the `/teachers/classroom_activities/:classroom_activity_id/activity_from_classroom_activity` route. This either finds an existing started activity session, which is the case when a user is resuming an activity, or creates a new record in the database, when a user has either never started or already completed an activity. The user is then redirected to the `/activity_sessions/:activity_session_id/play` route.
+When a user begins an activity session they hit the `/activity_sessions/classroom_units/:classroom_unit_id/activities/:activity_id` (`#activity_session_from_classroom_unit_and_activity`) route. This either finds an existing started activity session, which is the case when a user is resuming an activity, or creates a new record in the database, when a user has either never started or already completed an activity. The user is then redirected to the `/activity_sessions/:activity_session_id/play` route.
 
 The `ActivitySessionsController#play` function redirects the user to the activity page by building a URL from the activity model function `module_url` which calls `module_url_helper`. The `module_url_helper` function looks to the `ActivityClassification` model to fetch the `module_url` value so that it can build a URL for the user. The built URL has the structure `:ActivityClassification.module_url?uid=:Activity.uid&student=:ActivitySession.uid` for example: `grammar.quill.org/play/?uid=1234&student=abcd`.
 
@@ -43,4 +43,4 @@ where
 - `percentage` takes a floating point value between 0 and 1, representing the students percentage score.
 
 # Questions
-How can we improve this page? 
+How can we improve this page?

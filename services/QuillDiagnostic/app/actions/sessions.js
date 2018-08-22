@@ -1,6 +1,8 @@
-const C = require('../constants').default;
 import rootRef from '../libs/firebase';
 import _ from 'lodash';
+
+const C = require('../constants').default;
+
 const sessionsRef = rootRef.child('savedSessions');
 
 export default {
@@ -22,10 +24,10 @@ export default {
   },
 
   update(sessionID, session) {
-    // delete_null_properties(session, true)
-    // console.log(session);
-    console.log(_.pickBy(session));
-    sessionsRef.child(sessionID).set(_.pickBy(session));
+    const cleanSession = _.pickBy(session);
+    const cleanedSession = JSON.parse(JSON.stringify(cleanSession));
+    delete_null_properties(cleanedSession, true);
+    sessionsRef.child(sessionID).set(cleanedSession);
   },
 
   delete(sessionID) {

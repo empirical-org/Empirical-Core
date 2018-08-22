@@ -25,4 +25,23 @@ class Concept < ActiveRecord::Base
     concept2 + concept1 + concept0
   end
 
+  def self.childless_only
+    ActiveRecord::Base.connection.execute("
+      SELECT concepts.id, concepts.name, concepts.uid, concepts.parent_id, extract(epoch from concepts.created_at) as created_at FROM concepts
+      LEFT JOIN concepts AS children ON children.parent_id = concepts.id
+      WHERE children.id is null
+    ").to_a
+  end
+
+  def self.find_by_id_or_uid(arg)
+    begin
+      find(arg)
+    rescue ActiveRecord::RecordNotFound
+      find_by(uid: arg)
+    rescue ActiveRecord::RecordNotFound
+      raise ActiveRecord::RecordNotFound.new(
+        "Couldn't find Concept with 'id' or 'uid'=#{arg}"
+      )
+    end
+  end
 end

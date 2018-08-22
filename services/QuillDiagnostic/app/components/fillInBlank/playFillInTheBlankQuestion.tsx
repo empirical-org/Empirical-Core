@@ -137,8 +137,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     const newErrors = new Set(this.state.inputErrors);
     const inputVal = this.state.inputVals[i] || '';
     const inputSufficient = this.state.blankAllowed ? true : inputVal;
-    const cueMatch = inputVal && this.state.cues.some(c => c.toLowerCase() === inputVal.toLowerCase())
-
+    const cueMatch = (inputVal && this.state.cues.some(c => c.toLowerCase() === inputVal.toLowerCase())) || inputVal === ''
     if (inputSufficient && cueMatch) {
       newErrors.delete(i);
     } else {

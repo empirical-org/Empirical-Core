@@ -14,7 +14,6 @@ import QuestionSelector from 'react-select-search';
 import { push } from 'react-router-redux';
 import respWithStatus from '../../libs/responseTools.js';
 import { submitResponseEdit, setUpdatedResponse, deleteResponse } from '../../actions/responses';
-import { getDiagnosticQuestions } from '../../libs/getDiagnosticQuestions'
 
 function sleep(milliseconds) {
   const start = new Date().getTime();
@@ -54,7 +53,7 @@ class Questions extends React.Component {
     const { questions, lessons } = nextProps
     if (questions.hasreceiveddata && lessons.hasreceiveddata) {
       if (Object.keys(this.state.diagnosticQuestions).length === 0 || !_.isEqual(this.props.questions.data, questions.data) || (!_.isEqual(this.props.lessons.data, lessons.data))) {
-        this.setState({ diagnosticQuestions: getDiagnosticQuestions(lessons.data, questions.data) })
+        this.setState({ diagnosticQuestions: questions.data })
       }
     }
   }

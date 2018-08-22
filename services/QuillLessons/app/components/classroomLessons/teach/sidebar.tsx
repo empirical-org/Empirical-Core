@@ -14,7 +14,9 @@ import CLStudentModelQuestion from '../play/modelQuestion';
 import CLStudentMultistep from '../play/multistep';
 import {
   ClassroomLessonSession,
-  QuestionSubmissionsList
+  QuestionSubmissionsList,
+  ClassroomSessionId,
+  ClassroomUnitId
 } from '../interfaces';
 import {
   ClassroomLesson
@@ -22,12 +24,27 @@ import {
 import * as CustomizeIntf from '../../../interfaces/customize'
 const studentIcon = 'https://assets.quill.org/images/icons/student_icon.svg'
 
-class Sidebar extends React.Component<any, any> {
+interface ReducerSidebarProps extends React.Props<any> {
+  classroomSessions: any,
+  classroomLesson: any,
+  customize: any,
+}
+
+interface PassedSidebarProps extends React.Props<any> {
+  params: any
+}
+
+class Sidebar extends React.Component<ReducerSidebarProps & PassedSidebarProps & DispatchFromProps, any> {
 
   constructor(props) {
     super(props);
+
+    const classroomUnitId: ClassroomUnitId|null = getParameterByName('classroom_unit_id')
+    const activityUid = props.params.lessonID
     this.state = {
-      currentSlide: null,
+      classroomUnitId,
+      classroomSessionId: classroomUnitId ? classroomUnitId.concat(activityUid) : null,
+      currentSlide: null
     }
   }
 
@@ -70,9 +87,9 @@ class Sidebar extends React.Component<any, any> {
   }
 
   goToSlide(slide_id: string) {
-    const caId: string|null = getParameterByName('classroom_activity_id');
-    if (caId) {
-      this.props.dispatch(updateCurrentSlide(caId, slide_id));
+    const classroomSessionId: ClassroomSessionId|null = this.state.classroomSessionId;
+    if (classroomSessionId) {
+      this.props.dispatch(updateCurrentSlide(slide_id, classroomSessionId));
     }
   }
 
@@ -196,4 +213,8 @@ function mergeProps(stateProps: Object, dispatchProps: Object, ownProps: Object)
   return {...ownProps, ...stateProps, ...dispatchProps}
 }
 
-export default connect(select, dispatch => ({dispatch}), mergeProps)(Sidebar);
+export interface DispatchFromProps {
+  dispatch: any;
+}
+
+export default connect<ReducerSidebarProps, DispatchFromProps, PassedSidebarProps>(select, dispatch => ({dispatch}))(Sidebar);

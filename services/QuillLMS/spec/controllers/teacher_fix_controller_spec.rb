@@ -49,14 +49,14 @@ describe TeacherFixController do
 
   describe '#unarchive_units' do
     let!(:unit) { create(:unit, visible: false) }
-    let!(:activity) { create(:classroom_activity, unit_id: unit.id, visible: false) }
-    let!(:session) { create(:activity_session, classroom_activity_id: activity.id, visible: false) }
+    let!(:activity) { create(:classroom_unit, unit_id: unit.id, visible: false) }
+    let!(:session) { create(:activity_session, classroom_unit_id: activity.id, visible: false) }
     let!(:unit1) { create(:unit, visible: false) }
-    let!(:activity1) { create(:classroom_activity, unit_id: unit1.id, visible: false) }
-    let!(:session1) { create(:activity_session, classroom_activity_id: activity.id) }
+    let!(:activity1) { create(:classroom_unit, unit_id: unit1.id, visible: false) }
+    let!(:session1) { create(:activity_session, classroom_unit_id: activity.id) }
     let!(:unit2) { create(:unit, visible: false) }
-    let!(:activity2) { create(:classroom_activity, unit_id: unit2.id, visible: false) }
-    let!(:session2) { create(:activity_session, classroom_activity_id: activity.id) }
+    let!(:activity2) { create(:classroom_unit, unit_id: unit2.id, visible: false) }
+    let!(:session2) { create(:activity_session, classroom_unit_id: activity.id) }
 
     it 'should change the names of given units' do
       post :unarchive_units, changed_names: [[unit.id, "new name"]], unit_ids: [unit.id, unit1.id, unit2.id]
@@ -81,22 +81,22 @@ describe TeacherFixController do
     end
   end
 
-  describe '#recover_classroom_activities' do
+  describe '#recover_classroom_units' do
     context 'classroom exists' do
       let!(:classroom) { create(:classroom) }
       let!(:unit) { create(:unit, visible: false) }
-      let!(:classroom_activity) { create(:classroom_activity, visible: false,classroom_id: classroom.id, unit_id: unit.id) }
+      let!(:classroom_unit) { create(:classroom_unit, visible: false,classroom_id: classroom.id, unit_id: unit.id) }
 
       it 'should mark the units and activit sessions visible' do
-        post :recover_classroom_activities, class_code: classroom.code
+        post :recover_classroom_units, class_code: classroom.code
         expect(unit.reload.visible).to eq true
-        expect(classroom_activity.reload.visible).to eq true
+        expect(classroom_unit.reload.visible).to eq true
       end
     end
 
     context 'classroom does not exist' do
       it 'should render no such classroom' do
-        post :recover_classroom_activities, class_code: "some code"
+        post :recover_classroom_units, class_code: "some code"
         expect(response.body).to eq({error: "No such classroom"}.to_json)
       end
     end
@@ -109,14 +109,14 @@ describe TeacherFixController do
       context 'when unit exists' do
         let!(:another_user) { create(:user) }
         let!(:unit) { create(:unit, user_id: user.id, name: "some name") }
-        let!(:classroom_activity) { create(:classroom_activity, unit_id: unit.id, visible: false) }
-        let!(:activity_session) { create(:activity_session, visible: false, classroom_activity_id: classroom_activity.id, user_id: another_user.id) }
+        let!(:classroom_unit) { create(:classroom_unit, unit_id: unit.id, visible: false) }
+        let!(:activity_session) { create(:activity_session, visible: false, classroom_unit_id: classroom_unit.id, user_id: another_user.id) }
 
         it 'should update all the classroom activities' do
           post :recover_activity_sessions, email: user.email, unit_name: "some name"
           expect(activity_session.reload.visible).to eq true
-          expect(classroom_activity.reload.visible).to eq true
-          expect(classroom_activity.reload.assigned_student_ids).to eq [another_user.id]
+          expect(classroom_unit.reload.visible).to eq true
+          expect(classroom_unit.reload.assigned_student_ids).to eq [another_user.id]
           expect(response.code).to eq "200"
         end
       end
