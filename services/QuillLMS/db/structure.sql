@@ -96,7 +96,8 @@ CREATE FUNCTION public.blog_posts_search_trigger() RETURNS trigger
 CREATE FUNCTION public.old_timespent_teacher(teacher integer) RETURNS bigint
     LANGUAGE sql
     AS $$
-        SELECT COALESCE(MAX(time_spent_query.time_spent),0)::BIGINT AS time_spent
+        SELECT COALESCE(MAX(time_spent)::BIGINT, 0) FROM
+        (SELECT MAX(time_spent_query.time_spent) AS time_spent
           FROM users
           LEFT OUTER JOIN (SELECT acss_ids.teacher_id, SUM (
               CASE
@@ -122,7 +123,7 @@ CREATE FUNCTION public.old_timespent_teacher(teacher integer) RETURNS bigint
             GROUP BY acss_ids.teacher_id
           ) AS time_spent_query ON users.id = time_spent_query.teacher_id
           WHERE users.id = teacher
-          GROUP BY users.id;
+          GROUP BY users.id) as times_spent;
       $$;
 
 
@@ -5344,4 +5345,6 @@ INSERT INTO schema_migrations (version) VALUES ('20180821201559');
 INSERT INTO schema_migrations (version) VALUES ('20180821202836');
 
 INSERT INTO schema_migrations (version) VALUES ('20180821213520');
+
+INSERT INTO schema_migrations (version) VALUES ('20180822144355');
 
