@@ -1,3 +1,5 @@
+if (process.env.NODE_ENV === 'production') require('newrelic');
+
 import dotenv from 'dotenv';
 import r from 'rethinkdb';
 import socketio from 'socket.io';
