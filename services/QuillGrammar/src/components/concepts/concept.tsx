@@ -94,7 +94,7 @@ class Concept extends React.Component<ConceptProps, ConceptState> {
     this.setState({prompt: e})
   }
 
-  handleInstructionsChange(e: object) {
+  handleInstructionsChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
     this.setState({instructions: e.target.value})
   }
 
@@ -102,7 +102,7 @@ class Concept extends React.Component<ConceptProps, ConceptState> {
     this.setState({rule_description: e})
   }
 
-  handleSelectorChange(e: object) {
+  handleSelectorChange(e: {value: string}) {
     this.setState({concept_uid: e.value})
   }
 
@@ -110,11 +110,11 @@ class Concept extends React.Component<ConceptProps, ConceptState> {
     this.setState({concept_uid: this.refs.concept.value})
   }
 
-  handleFlagChange(e) {
+  handleFlagChange(e: React.ChangeEvent<HTMLInputElement>) {
     this.setState({ flag: e.target.value, });
   }
 
-  handleAnswersChange(e) {
+  handleAnswersChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
     this.setState({ answers: [{ text: e.target.value }], });
   }
 
@@ -163,11 +163,15 @@ class Concept extends React.Component<ConceptProps, ConceptState> {
   }
 }
 
-function select(state) {
+function select(state: any) {
   return {
     concepts: state.concepts,
     questions: state.questions
   }
 }
 
-export default connect(select)(Concept)
+function mergeProps(stateProps: Object, dispatchProps: Object, ownProps: Object) {
+  return {...ownProps, ...stateProps, ...dispatchProps}
+}
+
+export default connect(select, dispatch => ({dispatch}), mergeProps)(Concept)

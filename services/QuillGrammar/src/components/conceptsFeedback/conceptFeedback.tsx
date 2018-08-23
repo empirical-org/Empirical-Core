@@ -1,14 +1,21 @@
 import * as React from 'react'
 import { ActionTypes } from '../../actions/actionTypes'
 import { connect } from 'react-redux'
-import { Link } from 'react-router'
 import * as actions from '../../actions/conceptsFeedback'
-import _ from 'underscore'
 import FeedbackForm from './feedbackForm'
 import { ConceptExplanation } from 'quill-component-library/dist/componentLibrary';
+import { ConceptFeedback } from '../../interfaces/conceptsFeedback'
+import { Match } from '../../interfaces/match'
+import { ConceptsFeedbackState } from '../../reducers/conceptsFeedbackReducer'
 
-class ConceptFeedback extends React.Component{
-  constructor(props) {
+interface ConceptFeedbackComponentProps {
+  dispatch: Function;
+  conceptsFeedback: ConceptsFeedbackState;
+  match: Match;
+}
+
+class ConceptFeedbackComponent extends React.Component<ConceptFeedbackComponentProps>{
+  constructor(props: ConceptFeedbackComponentProps) {
     super(props)
 
     this.deleteConceptsFeedback = this.deleteConceptsFeedback.bind(this)
@@ -19,24 +26,30 @@ class ConceptFeedback extends React.Component{
   }
 
   deleteConceptsFeedback() {
-    this.props.dispatch(actions.deleteConceptsFeedback(this.props.match.params.conceptFeedbackID))
+    const conceptFeedbackID = this.props.match.params.conceptFeedbackID
+    if (conceptFeedbackID) {
+      this.props.dispatch(actions.deleteConceptsFeedback(conceptFeedbackID))
+    }
   }
 
   toggleEdit() {
-    this.props.dispatch(actions.startConceptsFeedbackEdit(this.props.match.params.conceptFeedbackID))
+    const conceptFeedbackID = this.props.match.params.conceptFeedbackID
+    if (conceptFeedbackID) {
+      this.props.dispatch(actions.startConceptsFeedbackEdit(conceptFeedbackID))
+    }
   }
 
-  submitNewFeedback(conceptFeedbackID, data) {
+  submitNewFeedback(conceptFeedbackID: string, data: ConceptFeedback) {
     this.props.dispatch(actions.submitConceptsFeedbackEdit(conceptFeedbackID, data))
   }
 
-  cancelEdit(conceptFeedbackID) {
+  cancelEdit(conceptFeedbackID: string) {
       this.props.dispatch(actions.cancelConceptsFeedbackEdit(conceptFeedbackID))
   }
 
   concept() {
     const {conceptFeedbackID} = this.props.match.params;
-    return this.props.concepts.hasreceiveddata ? this.props.concepts.data[0].find(c => c.uid === conceptFeedbackID) : null
+    return this.props.concepts.hasreceiveddata ? this.props.concepts.data[0].find((c: Concept) => c.uid === conceptFeedbackID) : null
   }
 
   render(){
@@ -44,7 +57,7 @@ class ConceptFeedback extends React.Component{
     const {conceptFeedbackID} = this.props.match.params;
     const concept = this.concept()
     const conceptName = concept ? <h4 className="title">{concept.displayName}</h4> : null
-    if (data && data[conceptFeedbackID]) {
+    if (data && conceptFeedbackID && data[conceptFeedbackID]) {
       const isEditing = (states[conceptFeedbackID] === ActionTypes.START_CONCEPTS_FEEDBACK_EDIT);
       if (isEditing) {
         return (
@@ -93,4 +106,8 @@ function select(state) {
   }
 }
 
-export default connect(select)(ConceptFeedback)
+function mergeProps(stateProps: Object, dispatchProps: Object, ownProps: Object) {
+  return {...ownProps, ...stateProps, ...dispatchProps}
+}
+
+export default connect(select, dispatch => ({dispatch}), mergeProps)(ConceptFeedbackComponent)

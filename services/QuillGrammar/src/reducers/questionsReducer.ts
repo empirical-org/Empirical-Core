@@ -6,12 +6,14 @@ export interface QuestionsReducerState {
   hasreceiveddata: boolean;
   data: Questions
   error?: string;
-  states: Object;
+  states: { [key:string]: string };
 }
+
+type QuestionReducerAction = Action & { data: Questions, qid: string }
 
 export default (
     currentState = {hasreceiveddata: false, states: {}},
-    action: Action,
+    action: QuestionReducerAction,
 ) => {
       let newstate
       switch (action.type) {

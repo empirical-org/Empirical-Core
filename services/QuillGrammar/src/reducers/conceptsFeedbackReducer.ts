@@ -5,13 +5,12 @@ import { ConceptFeedback } from '../interfaces/conceptsFeedback'
 
 type ConceptsFeedbackAction = Action & { data: Array<ConceptFeedback>, cid: string }
 
-interface ConceptsFeedbackState {
+export interface ConceptsFeedbackState {
   hasreceiveddata: boolean,
   submittingnew: boolean,
   data: Array<ConceptFeedback>,
   states: {[key:string]: string},
   newConceptModalOpen: boolean
-
 }
 
 const initialState = {

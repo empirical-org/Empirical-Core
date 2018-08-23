@@ -1,9 +1,16 @@
 import * as React from 'react'
-import * as actions from '../../actions/conceptsFeedback'
-import { connect } from 'react-redux'
 import { ConceptExplanation } from 'quill-component-library/dist/componentLibrary'
 import TextEditor from '../shared/textEditor'
 import { EditorState, ContentState } from 'draft-js'
+
+interface FeedbackFormProps {
+  submitNewFeedback: Function;
+  cancelEdit: Function;
+  conceptFeedbackID: string;
+  description: string;
+  leftBox: string;
+  rightBox: string;
+}
 
 interface FeedbackFormState {
   description: string;
@@ -13,7 +20,7 @@ interface FeedbackFormState {
 }
 
 export default class FeedbackForm extends React.Component<FeedbackFormProps, FeedbackFormState> {
-  constructor(props) {
+  constructor(props: FeedbackFormProps) {
     super(props)
 
     this.state = {
@@ -31,7 +38,7 @@ export default class FeedbackForm extends React.Component<FeedbackFormProps, Fee
   }
 
   handleChange(key: string, e: string) {
-    const newState: object = {}
+    const newState: FeedbackFormState = this.state
     newState[key] = e;
     this.setState(newState)
   }
@@ -51,10 +58,10 @@ export default class FeedbackForm extends React.Component<FeedbackFormProps, Fee
   }
 
   cancel() {
-    this.props.cancelEdit(this.props.feedbackID)
+    this.props.cancelEdit(this.props.conceptFeedbackID)
   }
 
-  setEditor(part) {
+  setEditor(part: string;) {
     this.setState({editing: part})
   }
 
