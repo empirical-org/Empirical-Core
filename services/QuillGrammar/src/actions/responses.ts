@@ -25,13 +25,11 @@ function getQuestionLoadedStatusForGroupedResponses(groupedResponses) {
   questionsKeys.forEach((key:string) => {
     statuses[key] = 'LOADED';
   });
-  console.log(statuses);
   return statuses;
 }
 
 export function submitResponse(content: Response, prid: string, isFirstAttempt:boolean) {
   delete content.gradeIndex;
-  console.log('CONTENT', content)
   const rubyConvertedResponse: Response & { created_at: string, first_attempt_count: number, is_first_attempt: boolean} = objectWithSnakeKeysFromCamel(content);
   rubyConvertedResponse.created_at = moment().format('x');
   rubyConvertedResponse.first_attempt_count = isFirstAttempt ? 1 : 0;
@@ -56,7 +54,6 @@ export function submitResponse(content: Response, prid: string, isFirstAttempt:b
 export function submitMassEditFeedback(ids: Array<string>, properties, qid: string) {
   return (dispatch:Function) => {
     const updated_attribute = properties;
-    console.log(updated_attribute);
     request.put({
       url: `${process.env.QUILL_CMS}/responses/mass_edit/edit_many`,
       json: { ids, updated_attribute, }, },

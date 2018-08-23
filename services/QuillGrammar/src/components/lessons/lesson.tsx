@@ -7,6 +7,7 @@ import EditLessonForm from './lessonForm';
 import { ActionTypes } from '../../actions/actionTypes'
 import { Question, Questions } from '../../interfaces/questions'
 import { GrammarActivityState } from '../../reducers/grammarActivitiesReducer'
+import { ConceptReducerState } from '../../reducers/conceptsReducer'
 import { GrammarActivity } from '../../interfaces/grammarActivities'
 import { Match } from '../../interfaces/match'
 
@@ -19,6 +20,7 @@ interface LessonProps {
   match: Match;
   lessons: GrammarActivityState;
   questions: Questions;
+  concepts: ConceptReducerState;
 }
 
 class Lesson extends React.Component<LessonProps> {
@@ -36,7 +38,7 @@ class Lesson extends React.Component<LessonProps> {
 
   questionsForLesson(): Array<Question>|void {
     const { data, } = this.props.lessons
-    const { lessonID, }: string = this.props.match.params
+    const { lessonID, } = this.props.match.params
     const questions = this.props.questions ? hashToCollection(this.props.questions.data) : []
     const lessonConcepts = data[lessonID].concepts
     if (lessonConcepts) {
@@ -68,13 +70,14 @@ class Lesson extends React.Component<LessonProps> {
         }
       });
       const conceptSections:Array<JSX.Element> = []
+      const lesson = this.lesson()
       Object.keys(conceptIds).forEach(conceptId => {
-        const lessonConcept = this.lesson().concepts[conceptId]
-        const quantity = lessonConcept.quantity
+        const lessonConcept = lesson ? lesson.concepts[conceptId] : null
+        const quantity = lessonConcept ? lessonConcept.quantity : null
         const concept = this.props.concepts.data[0].find(c => c.uid === conceptId)
         const quantitySpan = <span style={{ fontStyle: 'italic' }}>{quantity} {quantity === 1 ? 'Question' : 'Questions'} Chosen at Random</span>
         conceptSections.push(<br/>)
-        conceptSections.push(<h3>{concept.displayName} - {quantitySpan}</h3>)
+        conceptSections.push(<h3>{concept ? concept.displayName : null} - {quantitySpan}</h3>)
         conceptSections.push(<ul>{conceptIds[conceptId]}</ul>)
       })
       return conceptSections
@@ -155,7 +158,7 @@ class Lesson extends React.Component<LessonProps> {
 
 }
 
-function select(state) {
+function select(state: any) {
   return {
     lessons: state.grammarActivities,
     questions: state.questions,

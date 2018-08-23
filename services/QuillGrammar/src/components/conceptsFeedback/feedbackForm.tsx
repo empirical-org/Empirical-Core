@@ -61,7 +61,7 @@ export default class FeedbackForm extends React.Component<FeedbackFormProps, Fee
     this.props.cancelEdit(this.props.conceptFeedbackID)
   }
 
-  setEditor(part: string;) {
+  setEditor(part: string) {
     this.setState({editing: part})
   }
 

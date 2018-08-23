@@ -28,7 +28,6 @@ export const getGradedResponsesWithCallback = (questionID:string, callback:Funct
     }
     const bodyToObj: {[key:string]: Response} = {};
     JSON.parse(body).forEach((resp: Response) => {
-      console.log('resp', resp)
       bodyToObj[resp.id] = resp;
       if (typeof resp.concept_results === 'string') {
         resp.concept_results = JSON.parse(resp.concept_results);
@@ -66,7 +65,6 @@ export const searchResponses = (qid:string) => {
   return (dispatch:Function, getState:Function) => {
     const requestNumber = getState().filters.requestCount
     // check for request number in state, save as const
-    console.log('URL', `${process.env.QUILL_CMS}/questions/${qid}/responses/search`)
     request(
       {
         url: `${process.env.QUILL_CMS}/questions/${qid}/responses/search`,
@@ -74,7 +72,6 @@ export const searchResponses = (qid:string) => {
         json: { search: getFormattedSearchData(getState()), },
       },
       (err, httpResponse, data) => {
-        console.log('data', data.results)
         // check again for number in state
         // if equal to const set earlier, update the state
         // otherwise, do nothing
@@ -113,7 +110,6 @@ export const initializeSubscription = (qid:string) => {
       Pusher.logToConsole = true;
     }
     if (!window.pusher) {
-      console.log('pusher key', process.env.PUSHER_KEY)
       window.pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
     }
     const channel = window.pusher.subscribe(`admin-${qid}`);
