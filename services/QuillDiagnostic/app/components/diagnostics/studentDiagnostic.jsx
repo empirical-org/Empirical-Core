@@ -12,6 +12,7 @@ import _ from 'underscore';
 import SessionActions from '../../actions/sessions.js';
 import PlaySentenceFragment from './sentenceFragment.jsx';
 import PlayDiagnosticQuestion from './sentenceCombining.jsx';
+import PlayFillInTheBlankQuestion from '../fillInBlank/PlayFillInTheBlankQuestion';
 import TitleCard from '../studentLessons/titleCard.tsx';
 import LandingPage from './landing.jsx';
 import FinishedDiagnostic from './finishedDiagnostic.jsx';
@@ -280,6 +281,12 @@ const StudentDiagnostic = React.createClass({
     return questionType
   },
 
+  landingPageHtml() {
+    const { data, } = this.props.lessons,
+      { diagnosticID, } = this.props.params;
+    return data[diagnosticID].landingPageHtml
+  },
+
   render() {
     const questionType = this.props.playDiagnostic.currentQuestion ? this.props.playDiagnostic.currentQuestion.type : ''
     let component;
@@ -304,6 +311,14 @@ const StudentDiagnostic = React.createClass({
             nextQuestion={this.nextQuestion} markIdentify={this.markIdentify}
             updateAttempts={this.submitResponse}
           />);
+        } else if (questionType === 'FB') {
+          component = (<PlayFillInTheBlankQuestion
+            question={this.props.playDiagnostic.currentQuestion.data}
+            currentKey={this.props.playDiagnostic.currentQuestion.data.key}
+            key={this.props.playDiagnostic.currentQuestion.data.key}
+            dispatch={this.props.dispatch}
+            nextQuestion={this.nextQuestion}
+          )
         } else if (questionType === 'TL') {
           component = (
             <PlayTitleCard
@@ -317,7 +332,13 @@ const StudentDiagnostic = React.createClass({
       } else if (this.props.playDiagnostic.answeredQuestions.length > 0 && this.props.playDiagnostic.unansweredQuestions.length === 0) {
         component = (<FinishedDiagnostic saveToLMS={this.saveToLMS} saved={this.state.saved} error={this.state.error} />);
       } else {
-        component = <LandingPage begin={() => { this.startActivity('John'); }} session={this.getPreviousSessionData()} resumeActivity={this.resumeSession} questionCount={this.getQuestionCount()} />;
+        component = <LandingPage
+          begin={() => { this.startActivity('John'); }}
+          session={this.getPreviousSessionData()}
+          resumeActivity={this.resumeSession}
+          questionCount={this.getQuestionCount()}
+          landingPageHtml={this.landingPageHtml()}
+        />;
       }
     } else {
       component = (<SmartSpinner message={'Loading Your Lesson 25%'} onMount={() => {}} key="step1" />);
@@ -344,6 +365,7 @@ function select(state) {
     questions: state.questions,
     playDiagnostic: state.playDiagnostic,
     sentenceFragments: state.sentenceFragments,
+    fillInBlank: state.fillInBlank,
     // responses: state.responses,
     sessions: state.sessions,
     lessons: state.lessons,

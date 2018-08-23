@@ -25,9 +25,11 @@ export default React.createClass({
     );
   },
 
-  render() {
-    return (
-      <div className="landing-page">
+  getLandingPageHTML() {
+    if (this.props.landingPageHtml) {
+      return this.props.landingPageHtml
+    } else {
+      return (<div>
         <h1>You're working on the Quill Placement Activity </h1>
         <p>
           You're about to answer {this.props.questionCount || '22'} questions about writing sentences.
@@ -38,6 +40,14 @@ export default React.createClass({
           Just answer them as best as you can.
           Once you're finished, Quill will create a learning plan just for you!
         </p>
+      </div>)
+    }
+  },
+
+  render() {
+    return (
+      <div className="landing-page">
+        <div dangerouslySetInnerHTML={{ __html: this.getLandingPageHTML(), }} />
         {this.renderButton()}
       </div>
     );
