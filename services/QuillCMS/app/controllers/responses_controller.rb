@@ -153,6 +153,14 @@ class ResponsesController < ApplicationController
     render json: {questionsWithResponses: questions_with_responses}.to_json
   end
 
+  def clone_responses
+    Response.where(question_uid: params[:original_question_uid]).each do |r|
+      new_record = r.dup
+      new_record.update(question_uid: params[:new_question_uid])
+    end
+    render json: :ok
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_response

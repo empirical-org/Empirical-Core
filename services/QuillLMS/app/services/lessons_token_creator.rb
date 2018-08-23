@@ -1,9 +1,9 @@
 require 'jwt'
 
 class LessonsTokenCreator
-  def initialize(user, classroom_activity_id)
+  def initialize(user, classroom_unit_id)
     @user = user
-    @classroom_activity_id = classroom_activity_id
+    @classroom_unit_id = classroom_unit_id
   end
 
   def create
@@ -20,14 +20,14 @@ class LessonsTokenCreator
   end
 
   def exp
-    Time.now.to_i + 4 * 3600
+    Time.now.to_i + 48 * 3600
   end
 
   def data
     {
       user_id:               user_id,
       role:                  user_role,
-      classroom_activity_id: classroom_activity_id
+      classroom_unit_id: classroom_unit_id
     }
   end
 
@@ -47,28 +47,28 @@ class LessonsTokenCreator
     end
   end
 
-  def classroom_activity_id
-    if valid_classroom_activity?
-      classroom_activity.id
+  def classroom_unit_id
+    if valid_classroom_unit?
+      classroom_unit.id
     else
       ''
     end
   end
 
-  def valid_classroom_activity?
-    classroom_activity.present? && (student_assigned? || teachers_activity?)
+  def valid_classroom_unit?
+    classroom_unit.present? && (student_assigned? || teachers_activity?)
   end
 
   def student_assigned?
-    classroom_activity.assigned_student_ids.include? user_id
+    classroom_unit.assigned_student_ids.include? user_id
   end
 
   def teachers_activity?
-    classroom_activity.classroom.teachers.pluck(:id).include? user_id
+    classroom_unit.classroom.teachers.pluck(:id).include? user_id
   end
 
-  def classroom_activity
-    @classroom_activity ||= ClassroomActivity.find_by(id: @classroom_activity_id)
+  def classroom_unit
+    @classroom_unit ||= ClassroomUnit.find_by(id: @classroom_unit_id)
   end
 
   def private_key

@@ -28,6 +28,20 @@ class FactoriesController < ApplicationController
     end
   end
 
+  def destroy_all_assignments
+    unless Rails.env.production? || Rails.env.development?
+      Unit.all.destroy_all
+      ClassroomUnit.all.destroy_all
+      UnitActivity.all.destroy_all
+      ClassroomUnitActivityState.all.destroy_all
+      ActivitySession.all.destroy_all
+      render json: {}, status: 204
+    else
+      render json: { error: "Cannot clean database in #{Rails.env} environment" },
+        status: 500
+    end
+  end
+
   private
 
   def traits

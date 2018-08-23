@@ -10,7 +10,7 @@ console.log('in prod: ', live);
 const webpack = require('webpack');
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
+// const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 
 module.exports = {
   mode: 'development',
@@ -29,7 +29,7 @@ module.exports = {
   context: path.resolve(__dirname, 'app'),
   entry: {
     polyfills: ['babel-polyfill', 'whatwg-fetch'],
-    vendor: ['pos', 'draft-js'],
+    vendor: ['draft-js'],
     javascript: './app.jsx',
   },
   output: {
@@ -71,6 +71,13 @@ module.exports = {
         }
         return 0;
       },
+    }),
+    new CompressionPlugin({
+      asset: '[path].gz[query]',
+      algorithm: 'gzip',
+      test: /\.js$/,
+      threshold: 10240,
+      minRatio: 0.8,
     })
   ],
   module: {
@@ -103,17 +110,33 @@ module.exports = {
       },
       {
         test: /\.svg$/,
-        loader: 'file-loader',
         include: /app\/img/,
+        use: [
+          'file-loader'
+        ],
       },
       {
         test: /\.(jpg|png)$/,
-        loader: 'url-loader?limit=25000',
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 25000,
+            },
+          }
+        ],
         include: /app\/img/,
       },
       {
         test: /\.(eot|woff|woff2|ttf|png|jpe?g|gif|svg)(\?\S*)?$/,
-        loader: 'url-loader?limit=25000',
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 25000,
+            },
+          }
+        ],
         exclude: /app\/img/,
       }
     ],

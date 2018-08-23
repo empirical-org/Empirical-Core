@@ -24,5 +24,4 @@ module GoogleIntegration::Classroom::Main
       GoogleIntegration::Classroom::Parsers::Courses.run(user, course_response)
     end
   end
-
 end

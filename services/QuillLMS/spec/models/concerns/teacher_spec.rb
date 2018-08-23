@@ -383,9 +383,9 @@ describe User, type: :model do
         first_classroom = teacher.classrooms_i_teach.first
         second_classroom = teacher.classrooms_i_teach.second
 
-        # Make some classroom_activities for these classrooms
-        first_classroom_cas = create_list(:classroom_activity_with_activity_sessions, 5, classroom: first_classroom)
-        second_classroom_cas = create_list(:classroom_activity_with_activity_sessions, 3, classroom: second_classroom)
+        # Make some classroom_units for these classrooms
+        first_classroom_cas = create_list(:classroom_unit_with_activity_sessions, 5, classroom: first_classroom)
+        second_classroom_cas = create_list(:classroom_unit_with_activity_sessions, 3, classroom: second_classroom)
 
         # Make some stuff not visible to ensure we're not returning it in the query.
         first_classroom.activity_sessions.sample.update(visible: false)
@@ -425,7 +425,7 @@ describe User, type: :model do
 
     describe '#affiliated_with_unit' do
       let!(:unit) { create(:unit, user: teacher) }
-      let!(:ca) { create(:classroom_activity, unit: unit, classroom: classroom) }
+      let!(:ca) { create(:classroom_unit, unit: unit, classroom: classroom) }
 
       it 'should return true if the teacher owns the unit' do
         expect(teacher.affiliated_with_unit(unit.id)).to be

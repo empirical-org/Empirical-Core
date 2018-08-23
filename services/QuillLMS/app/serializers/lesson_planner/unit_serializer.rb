@@ -4,22 +4,20 @@ class LessonPlanner::UnitSerializer < ActiveModel::Serializer
   private
 
   def selectedActivities
-    classroom_activities.map(&:activity).uniq.map{|a| ActivitySerializer.new(a, root: false).as_json }
-  end
-
-  def classroom_activities
-    object.classroom_activities.to_a
+    object.activities.uniq.map do |activity|
+      ActivitySerializer.new(activity, root: false).as_json
+    end
   end
 
   def classrooms
-    first_ca = classroom_activities.first
-    if first_ca.nil?
+    first_classroom_unit = object.classroom_units.first
+    if first_classroom_unit.nil?
       c = []
     else
-      c = first_ca.classroom.owner.classrooms_i_teach
+      c = first_classroom_unit.classroom.owner.classrooms_i_teach
     end
 
-    sc = classroom_activities.map(&:classroom).uniq
+    sc = object.classroom_units.map(&:classroom).uniq
     uc = c - sc
     ucd = unselectedClassroomData(uc)
     scd = selectedClassroomData
@@ -28,20 +26,26 @@ class LessonPlanner::UnitSerializer < ActiveModel::Serializer
   end
 
   def unselectedClassroomData(classrooms)
-    classrooms.map do |c|
-      students = c.students.map{ |s| {id: s.id, name: s.name, isSelected: false} }
+    classrooms.map do |classroom|
+      students = classroom.students.map do|student|
+        { id: student.id, name: student.name, isSelected: false }
+      end
+
       {
-        classroom: c,
+        classroom: classroom,
         students: students
       }
     end
   end
 
   def selectedClassroomData
-    classroom_activities.uniq(&:classroom).map do |ca|
+    object.classroom_units.map do |classroom_unit|
       {
-        classroom: ca.classroom,
-        students: students_result(ca.classroom.students, ca.assigned_student_ids)
+        classroom: classroom_unit.classroom,
+        students: students_result(
+          classroom_unit.classroom.students,
+          classroom_unit.assigned_student_ids
+        )
       }
     end
   end
@@ -69,8 +73,8 @@ class LessonPlanner::UnitSerializer < ActiveModel::Serializer
   end
 
   def dueDates
-    classroom_activities.uniq(&:activity).reduce({}) do |acc, ca|
-      acc[ca.activity.id] = ca.formatted_due_date
+    object.reload.unit_activities.uniq(&:activity).reduce({}) do |acc, unit_activity|
+      acc[unit_activity.activity.id] = unit_activity.formatted_due_date
       acc
     end
   end

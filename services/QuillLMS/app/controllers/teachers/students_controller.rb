@@ -10,8 +10,8 @@ class Teachers::StudentsController < ApplicationController
       render status: 400, json: {error: valid_names[:notice]}.to_json
     else
       @student = Creators::StudentCreator.create_student(user_params, @classroom.id)
-      classroom_activities = ClassroomActivity.where(classroom_id: @classroom.id)
-      classroom_activities.each { |ca| ca.validate_assigned_student(@student.id) }
+      classroom_units = ClassroomUnit.where(classroom_id: @classroom.id)
+      classroom_units.each { |cu| cu.validate_assigned_student(@student.id) }
       Associators::StudentsToClassrooms.run(@student, @classroom)
       render json: @student
     end
