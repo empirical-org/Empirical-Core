@@ -86,7 +86,7 @@ class Concept extends React.Component<ConceptProps, ConceptState> {
         flag: this.state.flag,
         rule_description: this.state.rule_description,
         answers: this.state.answers
-      })
+      }))
     }
   }
 
