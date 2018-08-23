@@ -30,7 +30,9 @@ class ChooseModelContainer extends React.Component<ChooseModelContainerProps, Ch
     if (props.lessons.data) {
       const lessonUID = Object.keys(props.lessons.data).find((uid) => {
         const lesson = props.lessons.data[uid]
-        return lesson.questions.find(q => q.key === props.match.params.questionID)
+        if (lesson && lesson.questions) {
+          return lesson.questions.find(q => q.key === props.match.params.questionID)
+        }
       })
       lessonModelConceptUID = lessonUID && props.lessons.data[lessonUID] ? props.lessons.data[lessonUID].modelConceptUID : null
     }
