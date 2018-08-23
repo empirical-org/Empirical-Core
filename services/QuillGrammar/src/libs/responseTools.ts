@@ -1,5 +1,5 @@
-import _ from 'underscore';
 import Levenshtein from 'levenshtein';
+import { Response } from 'quill-marking-logic'
 
 export function getStatusForResponse(response = {}) {
   if (!response.feedback) {
@@ -11,13 +11,14 @@ export function getStatusForResponse(response = {}) {
 }
 
 export default function responsesWithStatus(responses = {}) {
-  return _.mapObject(responses, (value, key) => {
+  return Object.keys(responses).map(key => {
+    const value = responses[key]
     const statusCode = getStatusForResponse(value);
     return Object.assign({}, value, { statusCode, });
   });
 }
 
-export function sortByLevenshteinAndOptimal(userString, responses) {
+export function sortByLevenshteinAndOptimal(userString: string, responses: Array<Response>) {
   responses.forEach((res) => { res.levenshtein = new Levenshtein(res.text, userString).distance; });
   return responses.sort((a, b) => {
     if ((a.levenshtein - b.levenshtein) != 0) {
