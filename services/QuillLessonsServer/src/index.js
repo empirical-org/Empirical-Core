@@ -178,8 +178,7 @@ function registerConnection(socket) {
 
 function verifyToken(token) {
   const options      = { algorithms: ['RS256'] }
-  const pathToCert   = path.resolve(__dirname + '/..') + '/jwt-public-key.crt';
-  const pkey         = fs.readFileSync(pathToCert);
+  const pkey         = Buffer.from(process.env.JWT_PUBLIC_KEY, 'utf8');
 
   jwt.verify(token, pkey, options, (err, decodedToken) => {
     if (err) {
