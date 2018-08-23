@@ -95,7 +95,6 @@ export default class extends React.Component {
       const keysToOmit = [
         'is_a_completed_lesson',
         'completed_at',
-        'activity_id',
         'classroom_activity_id',
         'activity_classification_id',
         'activity_sessions_id'

@@ -137,8 +137,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     const newErrors = new Set(this.state.inputErrors);
     const inputVal = this.state.inputVals[i] || '';
     const inputSufficient = this.state.blankAllowed ? true : inputVal;
-    const cueMatch = inputVal && this.state.cues.some(c => c.toLowerCase() === inputVal.toLowerCase())
-
+    const cueMatch = (inputVal && this.state.cues.some(c => c.toLowerCase() === inputVal.toLowerCase())) || inputVal === ''
     if (inputSufficient && cueMatch) {
       newErrors.delete(i);
     } else {
@@ -316,14 +315,17 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
   }
 
   customText() {
-    // HARDCODED
-    // this code should be deprecated once cuesLabels are launched and the
-    let text = translations.english['add word bank cue'];
-    text = `${text}${this.state.blankAllowed ? ' or leave blank' : ''}`;
-    if (this.props.language && this.props.language !== 'english') {
-      text += ` / ${translations[this.props.language]['add word bank cue']}`;
+    const cuesLabel = this.getQuestion().cuesLabel
+    if (cuesLabel) {
+      return cuesLabel
+    } else {
+      let text = translations.english['add word bank cue'];
+      text = `${text}${this.state.blankAllowed ? ' or leave blank' : ''}`;
+      if (this.props.language && this.props.language !== 'english') {
+        text += ` / ${translations[this.props.language]['add word bank cue']}`;
+      }
+      return text;
     }
-    return text;
   }
 
   getSubmitButtonText() {

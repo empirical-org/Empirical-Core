@@ -46,7 +46,7 @@ const Navbar = React.createClass({
   customizeNavbar: function() {
     if (this.props.params.editionID) {
       return <CustomizeNavbar params={this.props.params} goToSuccessPage={this.props.goToSuccessPage}/>
-    } else if (getParameterByName('classroom_activity_id') || getParameterByName('preview')) {
+    } else if (getParameterByName('classroom_unit_id') || getParameterByName('preview')) {
       return <LaunchEditionNavbar params={this.props.params}/>
     } else {
       return <CreateCustomizedEditionNavbar />

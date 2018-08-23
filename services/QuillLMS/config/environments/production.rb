@@ -56,7 +56,7 @@ EmpiricalGrammar::Application.configure do
   config.cache_store = :redis_store, ENV["REDISCLOUD_URL"]
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
-  config.action_controller.asset_host = ENV["CLOUDFRONT_CACHE_URL"] #'//assets.quill.org'
+  config.action_controller.asset_host = ENV["CLOUDFRONT_CACHE_URL"] #'//cdn.quill.org'
 
   # Precompile additional assets.
   # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
@@ -111,6 +111,7 @@ EmpiricalGrammar::Application.configure do
   end
 
   config.middleware.use Rack::HostRedirect, {
+    'www.quill.org.' => 'www.quill.org',
     'quill.org' => 'www.quill.org'
   }
 end

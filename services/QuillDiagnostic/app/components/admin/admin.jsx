@@ -11,6 +11,9 @@ import diagnosticQuestionActions from '../../actions/diagnosticQuestions';
 import sentenceFragmentActions from '../../actions/sentenceFragments';
 import levelActions from '../../actions/item-levels';
 import * as titleCardActions from '../../actions/titleCards.ts';
+import * as connectSentenceCombiningActions from '../../actions/connectSentenceCombining.ts';
+import * as connectFillInBlankActions from '../../actions/connectFillInBlank.ts';
+import * as connectSentenceFragmentActions from '../../actions/connectSentenceFragments.ts';
 
 const TabLink = props => (
   <li>
@@ -31,6 +34,9 @@ const adminContainer = React.createClass({
     this.props.dispatch(sentenceFragmentActions.startListeningToSentenceFragments());
     this.props.dispatch(levelActions.startListeningToItemLevels());
     this.props.dispatch(titleCardActions.startListeningToTitleCards());
+    this.props.dispatch(connectSentenceCombiningActions.startListeningToConnectQuestions())
+    this.props.dispatch(connectFillInBlankActions.startListeningToConnectFillInBlankQuestions())
+    this.props.dispatch(connectSentenceFragmentActions.startListeningToConnectSentenceFragments())
   },
 
   render() {
@@ -50,6 +56,7 @@ const adminContainer = React.createClass({
               Questions
             </p>
             <ul className="menu-list">
+              <TabLink to={'/admin/clone_questions'} activeClassName="is-active">Clone Connect Questions</TabLink>
               <TabLink to={'/admin/questions'} activeClassName="is-active">Diagnostic Sentence Combining</TabLink>
               <TabLink to={'/admin/sentence-fragments'} activeClassName="is-active">Diagnostic Sentence Fragments</TabLink>
               <TabLink to={'/admin/fill-in-the-blanks'} activeClassName="is-active">Diagnostic Fill In The Blanks</TabLink>

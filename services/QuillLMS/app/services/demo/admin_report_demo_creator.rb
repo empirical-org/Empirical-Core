@@ -49,14 +49,15 @@ module Demo::AdminReportDemoCreator
     unit_template_ids = [20, 3, 4, 46, 44]
     unit_templates = unit_template_ids.map { |id| UnitTemplate.find(id) }
 
-    # Add teachers to the school, units to each teacher, and classroom activities to the units
+    # Add teachers to the school, units to each teacher, and classroom units and unit activities to the units
     teachers.each do |teacher|
       SchoolsUsers.create!(school_id: school.id, user_id: teacher.id)
       units = unit_templates.map { |unit_template| Unit.create!(name: unit_template.name, user_id: teacher.id) }
       teacher.classrooms_i_teach.each do |classroom|
         units.each_with_index do |unit, index|
+          ClassroomUnit.find_or_create_by(classroom_id: classroom.id, unit_id: unit.id, assign_on_join: true)
           unit_templates[index].activities.to_a.uniq.each do |activity|
-            ClassroomActivity.create!(classroom_id: classroom.id, activity_id: activity.id, unit_id: unit.id, assign_on_join: true)
+            UnitActivity.find_or_create_by(activity_id: activity.id, unit_id: unit.id)
           end
         end
       end
@@ -135,16 +136,17 @@ module Demo::AdminReportDemoCreator
     # Add activity sessions and concept results for students of all but one teacher
     teachers[1..-1].each do |teacher|
       teacher.students.each do |student|
-        teacher.classroom_activities.each do |classroom_activity|
-          we_want_to_create_another_activity_session_for_this_student_and_classroom_activity = true
+        teacher.unit_activities.each do |unit_activity|
+          we_want_to_create_another_activity_session_for_this_student_and_unit_activity = true
           # We want to ensure that activity 567 shows as in progress for demoing purposes
-          the_activity_session_should_be_marked_as_in_progress = classroom_activity.activity.id === 567 ? true : false
-          while we_want_to_create_another_activity_session_for_this_student_and_classroom_activity do
-            exemplar_activity_session = ActivitySession.unscoped.find(exemplar_activity_sessions[classroom_activity.activity_id].sample)
+          the_activity_session_should_be_marked_as_in_progress = unit_activity.activity.id === 567 ? true : false
+          classroom_unit = ClassroomUnit.find_by(unit_id: unit_activity.unit_id, classroom_id: [student.classroom_ids])
+          while we_want_to_create_another_activity_session_for_this_student_and_unit_activity do
+            exemplar_activity_session = ActivitySession.unscoped.find(exemplar_activity_sessions[unit_activity.activity_id].sample)
             activity_session = ActivitySession.create!(
-              classroom_activity_id: classroom_activity.id,
+              classroom_unit: classroom_unit,
               user_id: student.id,
-              activity_id: classroom_activity.activity_id,
+              activity_id: unit_activity.activity_id,
               state: the_activity_session_should_be_marked_as_in_progress ? 'started' : 'finished',
               percentage: exemplar_activity_session.percentage,
             )
@@ -156,12 +158,12 @@ module Demo::AdminReportDemoCreator
                 question_type: cr.question_type
               )
             end
-            we_want_to_create_another_activity_session_for_this_student_and_classroom_activity = false
+            we_want_to_create_another_activity_session_for_this_student_and_unit_activity = false
             # diagnostics and lessons cannot be repeated
-            this_activity_can_be_repeated = ![4, 6].include?(classroom_activity.activity.activity_classification_id)
+            this_activity_can_be_repeated = ![4, 6].include?(unit_activity.activity.activity_classification_id)
             # we want to show that some of these activities have been attempted more than once
             if this_activity_can_be_repeated && !the_activity_session_should_be_marked_as_in_progress
-              we_want_to_create_another_activity_session_for_this_student_and_classroom_activity = true if Random.rand <= 0.25
+              we_want_to_create_another_activity_session_for_this_student_and_unit_activity = true if Random.rand <= 0.25
               the_activity_session_should_be_marked_as_in_progress = true if Random.rand <= 0.25
             end
           end

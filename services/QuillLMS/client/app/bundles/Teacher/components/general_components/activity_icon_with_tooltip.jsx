@@ -18,12 +18,13 @@ export default class ActivityIconWithTooltip extends React.Component {
     this.checkForStudentReport = this.checkForStudentReport.bind(this)
     this.showToolTipAndGetConceptResultInfo = this.showToolTipAndGetConceptResultInfo.bind(this)
     this.hideTooltip = this.hideTooltip.bind(this)
+    this.activityId = this.activityId.bind(this)
   }
 
   getConceptResultInfo() {
     const that = this;
     request.get({
-      url: `${process.env.DEFAULT_URL}/grades/tooltip/classroom_activity_id/${this.props.data.caId}/user_id/${this.props.data.userId}/completed/${!!this.props.data.percentage}`,
+      url: `${process.env.DEFAULT_URL}/grades/tooltip/classroom_unit_id/${this.props.data.cuId}/user_id/${this.props.data.userId}/activity_id/${this.activityId()}/completed/${!!this.props.data.percentage}`,
     }, (error, httpStatus, body) => {
       const parsedBody = JSON.parse(body);
       that.loadTooltipTitle(parsedBody);
@@ -31,7 +32,7 @@ export default class ActivityIconWithTooltip extends React.Component {
   }
 
   goToReport() {
-      window.location = `/teachers/progress_reports/report_from_classroom_activity_and_user/ca/${this.props.data.caId}/user/${this.props.data.userId}`
+      window.location = `/teachers/progress_reports/report_from_classroom_unit_activity_and_user/cu/${this.props.data.cuId}/user/${this.props.data.userId}/a/${this.activityId()}`
   }
 
   loadTooltipTitle(crData) {
@@ -57,6 +58,11 @@ export default class ActivityIconWithTooltip extends React.Component {
       return d.activity.classification.id;
     }
     return null;
+  }
+
+  activityId() {
+    const d = this.props.data;
+    return d.activityId
   }
 
   showToolTipAndGetConceptResultInfo() {
@@ -107,11 +113,11 @@ export default class ActivityIconWithTooltip extends React.Component {
   statusIndicator() {
     const {started, completed_attempts} = this.props.data
     if (started) {
-      return <img className="in-progress-symbol" src="https://assets.quill.org/images/scorebook/blue-circle-sliced.svg"/>
+      return <img className="in-progress-symbol" src="http://assets.quill.org/images/scorebook/blue-circle-sliced.svg"/>
     } else if (completed_attempts > 1) {
       const completedNumber = completed_attempts > 9 ? '+' : completed_attempts
       return <span>
-        <img className="attempt-symbol" src="https://assets.quill.org/images/scorebook/blue-circle-solid.svg"/>
+        <img className="attempt-symbol" src="http://assets.quill.org/images/scorebook/blue-circle-solid.svg"/>
         <span className="attempt-count">{completedNumber}</span>
       </span>
     }

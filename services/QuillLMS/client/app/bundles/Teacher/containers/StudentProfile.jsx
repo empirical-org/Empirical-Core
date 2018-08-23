@@ -48,7 +48,7 @@ class StudentProfile extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.selectedClassroomId !== this.props.selectedClassroomId) {
       if (!window.location.href.includes(nextProps.selectedClassroomId)) {
-        this.props.history.push(`/classrooms/${nextProps.selectedClassroomId}`)
+        window.location.href = `${process.env.DEFAULT_URL}/classrooms/${nextProps.selectedClassroomId}`
       }
     }
   }
@@ -113,6 +113,7 @@ class StudentProfile extends React.Component {
         hasActivities={scores.length > 0}
         name={nextActivitySession.name}
         caId={nextActivitySession.ca_id}
+        activityId={nextActivitySession.activity_id}
         activityClassificationId={nextActivitySession.activity_classification_id}
         maxPercentage={nextActivitySession.max_percentage}
       />) : null;

@@ -102,7 +102,7 @@ class Api::V1::ActivitySessionsController < Api::ApiController
                   :state,
                   :question_type,
                   :completed_at,
-                  :classroom_activity_id,
+                  :classroom_unit_id,
                   :activity_uid,
                   :activity_id,
                   :anonymous,
