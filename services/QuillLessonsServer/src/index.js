@@ -13,7 +13,7 @@ dotenv.config();
 
 const app = http.createServer(requestHandler);
 const io = socketio(app);
-const port = process.env.NODE_PORT;
+const port = process.env.PORT;
 
 import {
   subscribeToClassroomLessonSession,
