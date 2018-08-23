@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Route, Switch, withRouter } from "react-router-dom";
+import { Route, Switch, withRouter, RouteComponentProps } from "react-router-dom";
 import { connect } from 'react-redux';
 import * as grammarActivitiesActions from '../../actions/grammarActivities'
 import * as questionsActions from '../../actions/questions'
@@ -15,8 +15,14 @@ import ConceptsFeedback from '../conceptsFeedback/conceptsFeedback'
 import ConceptFeedback from '../conceptsFeedback/conceptFeedback'
 import TabLink from './tabLink'
 
-class adminContainer extends React.Component {
-  constructor(props) {
+type PathParamsType = {
+  [key:string]: string,
+}
+
+type AdminContainerProps = RouteComponentProps<PathParamsType> & { dispatch: Function }
+
+class adminContainer extends React.Component<AdminContainerProps> {
+  constructor(props: AdminContainerProps) {
     super(props)
   }
 

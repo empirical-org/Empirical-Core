@@ -10,8 +10,9 @@ export interface Question {
   instructions: string;
   prompt: string;
   rule_description: string;
-  attempts?: Response[];
   uid: string;
+  attempts?: Response[];
+  modelConceptUID?: string;
   key?: string;
   flag?: string;
 }

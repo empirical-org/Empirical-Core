@@ -1,14 +1,14 @@
 import * as React from "react";
 import * as Redux from "redux";
 import { Row, Button } from "antd";
-import { Response } from 'quill-marking-logic'
+import { Response, ConceptResult } from 'quill-marking-logic'
 import { hashToCollection, ConceptExplanation } from 'quill-component-library/dist/componentLibrary'
 import { Question } from '../../interfaces/questions'
 import { GrammarActivity } from '../../interfaces/grammarActivities'
 import * as responseActions from '../../actions/responses'
 
 interface QuestionProps {
-  activity: GrammarActivity;
+  activity: GrammarActivity|null;
   answeredQuestions: Question[]|never;
   unansweredQuestions: Question[]|never;
   currentQuestion: Question;
@@ -100,11 +100,11 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
       this.setState({response: e.target.value})
     }
 
-    getNegativeConceptResultsForResponse(conceptResults) {
+    getNegativeConceptResultsForResponse(conceptResults: Array<ConceptResult>) {
       return hashToCollection(conceptResults).filter(cr => !cr.correct);
     }
 
-    getNegativeConceptResultForResponse(conceptResults) {
+    getNegativeConceptResultForResponse(conceptResults: Array<ConceptResult>) {
       const negCRs = this.getNegativeConceptResultsForResponse(conceptResults);
       return negCRs.length > 0 ? negCRs[0] : undefined;
     }
@@ -231,7 +231,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
           if (dataF) {
             return <ConceptExplanation {...dataF} />;
           }
-        } else if (this.currentQuestion().conceptID) {
+        } else if (this.currentQuestion().concept_uid) {
           const data = this.props.conceptsFeedback.data[this.currentQuestion().concept_uid];
           if (data) {
             return <ConceptExplanation {...data} />;

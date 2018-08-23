@@ -1,25 +1,40 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { withRouter, Link } from 'react-router-dom'
-import * as questionActions from '../../actions/questions';
+import { withRouter, Link, Route, Switch } from 'react-router-dom'
 import _ from 'underscore';
+import { Response } from 'quill-marking-logic'
 import { Modal } from 'quill-component-library/dist/componentLibrary';
-import EditForm from './questionForm';
+
 import { ActionTypes } from '../../actions/actionTypes'
-import getBoilerplateFeedback from './boilerplateFeedback';
-const icon = 'https://assets.quill.org/images/icons/question_icon.svg'
+import * as questionActions from '../../actions/questions';
 import {
   submitResponse
 } from '../../actions/responses';
-import activeComponent from 'react-router-active-component';
-import { Route, Switch, withRouter } from "react-router-dom";
+import EditForm from './questionForm';
+import getBoilerplateFeedback from './boilerplateFeedback';
+const icon = 'https://assets.quill.org/images/icons/question_icon.svg'
 import ResponseComponentWrapper from './responseRouteWrapper'
 import ChooseModelContainer from './chooseModelContainer'
 import TestQuestion from './testQuestion'
 import MassEditContainer from './massEditContainer'
+import { Match } from '../../interfaces/match'
+import { QuestionsReducerState } from '../../reducers/questions'
 
-class AdminQuestion extends React.Component {
-  constructor(props) {
+interface AdminQuestionProps {
+  dispatch: Function,
+  match: Match,
+  questions: QuestionsReducerState
+}
+
+interface AdminQuestionState {
+  selectedBoilerplateCategory: string,
+  responses: Array<Response>,
+  loadedResponses: boolean,
+  addingNewResponse: boolean
+}
+
+class AdminQuestion extends React.Component<AdminQuestionProps, AdminQuestionState> {
+  constructor(props: AdminQuestionProps) {
     super(props)
 
     this.state = {
