@@ -1,3 +1,4 @@
+import { Action } from "redux";
 import { ActionTypes } from "../actions/actionTypes";
 
 const initialState = {
@@ -5,7 +6,14 @@ const initialState = {
   error: ''
 }
 
-export default function(currentState, action) {
+interface DisplayReducerState {
+  message: string;
+  error: string;
+}
+
+type DisplayReducerActionType = Action & {message: string, error: string}
+
+export default function(currentState: DisplayReducerState, action: DisplayReducerActionType) {
   let newState = Object.assign({}, currentState || initialState);
   const message = action.message
   const error = action.error

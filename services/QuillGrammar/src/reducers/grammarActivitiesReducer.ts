@@ -2,7 +2,7 @@ import { Action } from "redux";
 import { ActionTypes } from "../actions/actionTypes";
 import { GrammarActivity, GrammarActivities } from '../interfaces/grammarActivities'
 
-type GrammarActivityStateAction = Action & {cid: string}
+type GrammarActivityStateAction = Action & {cid: string, data: GrammarActivities|GrammarActivity}
 
 export interface GrammarActivityState {
   hasreceiveddata: boolean;

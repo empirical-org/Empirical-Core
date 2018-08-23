@@ -149,6 +149,7 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
           goToNextQuestion={() => this.props.dispatch(goToNextQuestion())}
           checkAnswer={this.checkAnswer}
           conceptsFeedback={this.props.conceptsFeedback}
+          key={this.props.session.currentQuestion.key}
         />
       } else if (this.props.session.error) {
         return (

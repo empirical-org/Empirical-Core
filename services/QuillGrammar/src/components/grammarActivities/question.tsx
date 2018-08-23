@@ -69,6 +69,14 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
           }
         }
       }
+      if (this.props.currentQuestion.uid !== nextProps.currentQuestion.uid) {
+        responseActions.getGradedResponsesWithCallback(
+          nextProps.currentQuestion.uid,
+          (data) => {
+            this.setState({ responses: data, });
+          }
+        );
+      }
     }
 
     currentQuestion() {
@@ -101,7 +109,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
     }
 
     getNegativeConceptResultsForResponse(conceptResults: Array<ConceptResult>) {
-      return hashToCollection(conceptResults).filter(cr => !cr.correct);
+      return hashToCollection(conceptResults).filter((cr: ConceptResult) => !cr.correct);
     }
 
     getNegativeConceptResultForResponse(conceptResults: Array<ConceptResult>) {
@@ -215,7 +223,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
       return undefined
     }
 
-    renderConceptExplanation(): JSX.Element|undefined {
+    renderConceptExplanation(): JSX.Element|void {
       const latestAttempt:Response|undefined = this.getLatestAttempt(this.currentQuestion().attempts);
       if (latestAttempt && !latestAttempt.optimal) {
         if (latestAttempt.concept_results) {

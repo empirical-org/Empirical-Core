@@ -1,11 +1,19 @@
 import { ActionTypes } from "../actions/actionTypes";
+import { Action } from "redux";
+
+interface MassEditReducerState {
+  numSelectedResponses: number;
+  selectedResponses: Array<String>;
+}
+
+type MassEditAction = Action & { responseKey: string }
 
 const initialState = {
   selectedResponses: [],
   numSelectedResponses: 0
 }
 
-export default function(currentState, action) {
+export default function(currentState: MassEditReducerState, action: MassEditAction) {
   let newState = Object.assign({}, currentState || initialState);
   let responseKey = action.responseKey;
   switch(action.type) {

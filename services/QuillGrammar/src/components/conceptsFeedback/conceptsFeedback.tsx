@@ -1,12 +1,19 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 import * as actions from '../../actions/conceptsFeedback'
-import _ from 'underscore'
 import { Modal } from 'quill-component-library/dist/componentLibrary'
 import LinkListItem from '../shared/linkListItem'
+import { ConceptsFeedbackState } from '../../reducers/conceptsFeedbackReducer'
+import { ConceptReducerState } from '../../reducers/conceptsReducer'
 
-class ConceptsFeedback extends React.Component {
-  constructor(props) {
+interface ConceptsFeedbackProps {
+  dispatch: Function;
+  concepts: ConceptReducerState;
+  conceptsFeedback: ConceptsFeedbackState;
+}
+
+class ConceptsFeedback extends React.Component<ConceptsFeedbackProps> {
+  constructor(props: ConceptsFeedbackProps) {
     super(props)
   }
 
@@ -16,15 +23,15 @@ class ConceptsFeedback extends React.Component {
 
   submitNewConceptFeedback() {
     const newConcept = {name: this.refs.newConceptName.value}
-    this.props.dispatch(actions.submitNewConceptFeedback(newConcept))
+    this.props.dispatch(actions.submitNewConceptsFeedback(newConcept))
     this.refs.newConceptName.value = ""
     this.props.dispatch(actions.toggleNewConceptsFeedbackModal())
   }
 
-  renderConceptsFeedback() {
+  renderConceptsFeedback():Array<JSX.Element>|void {
     const data = this.props.concepts.data;
-    if (data && data["0"]) {
-      return data["0"].sort((a, b) => a.displayName.localeCompare(b.displayName)).map((concept) => {
+    if (data && data[0]) {
+      return data[0].sort((a, b) => a.displayName.localeCompare(b.displayName)).map((concept) => {
         const hasFeedback = !!this.props.conceptsFeedback.data[concept.uid];
         return <LinkListItem
           key={concept.uid}
@@ -38,7 +45,7 @@ class ConceptsFeedback extends React.Component {
     }
   }
 
-  renderModal() {
+  renderModal():JSX.Element|void {
     const {data, submittingnew} = this.props.conceptsFeedback;
     const stateSpecificClass = submittingnew ? 'is-loading' : '';
     if (this.props.conceptsFeedback.newConceptModalOpen) {
@@ -90,7 +97,7 @@ class ConceptsFeedback extends React.Component {
   }
 }
 
-function select(state) {
+function select(state: any) {
   return {
     concepts: state.concepts,
     conceptsFeedback: state.conceptsFeedback,
@@ -98,4 +105,8 @@ function select(state) {
   }
 }
 
-export default connect(select)(ConceptsFeedback)
+function mergeProps(stateProps: Object, dispatchProps: Object, ownProps: Object) {
+  return {...ownProps, ...stateProps, ...dispatchProps}
+}
+
+export default connect(select, dispatch => ({dispatch}), mergeProps)(ConceptsFeedback);

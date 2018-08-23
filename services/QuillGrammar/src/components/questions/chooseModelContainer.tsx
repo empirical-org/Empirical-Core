@@ -3,9 +3,26 @@ import { connect } from 'react-redux';
 import ConceptSelector from '../shared/conceptSelector';
 import { ConceptExplanation } from 'quill-component-library/dist/componentLibrary';
 import * as questionActions from '../../actions/questions';
+import { GrammarActivityState } from '../../reducers/grammarActivitiesReducer'
+import { QuestionsReducerState } from '../../reducers/questionsReducer'
+import { ConceptReducerState } from '../../reducers/conceptsReducer'
+import { Match } from '../../interfaces/match'
 
-class ChooseModelContainer extends React.Component {
-  constructor(props) {
+interface ChooseModelContainerState {
+  modelConceptUID: string;
+  lessonModelConceptUID: string;
+}
+
+interface ChooseModelContainerProps {
+  lessons: GrammarActivityState;
+  questions: QuestionsReducerState;
+  match: Match;
+  dispatch: Function;
+  concepts: ConceptReducerState;
+}
+
+class ChooseModelContainer extends React.Component<ChooseModelContainerProps, ChooseModelContainerState> {
+  constructor(props: ChooseModelContainerProps) {
     super(props);
     const modelConceptUID = props.questions.data[props.match.params.questionID].modelConceptUID
 
@@ -54,7 +71,7 @@ class ChooseModelContainer extends React.Component {
         <button
           className={'button is-primary'}
           onClick={this.saveModelConcept}
-          disabled={this.state.modelConceptUID == this.props.questions.data[this.props.match.params.questionID].modelConceptUID ? 'true' : null}>
+          disabled={this.state.modelConceptUID == this.props.questions.data[this.props.match.params.questionID].modelConceptUID ? true : false}>
           Save Model Concept
         </button>
         <button
@@ -73,7 +90,7 @@ class ChooseModelContainer extends React.Component {
     )
   }
 
-  renderLessonModelNote() {
+  renderLessonModelNote(): JSX.Element|void {
     if (this.state.lessonModelConceptUID && this.state.lessonModelConceptUID !== this.state.modelConceptUID) {
       const concept = this.props.concepts.data['0'].find(c => c.uid === this.state.lessonModelConceptUID)
       if (concept) {

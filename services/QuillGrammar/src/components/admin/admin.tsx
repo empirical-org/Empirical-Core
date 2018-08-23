@@ -82,4 +82,9 @@ function select(state) {
   };
 }
 
-export default withRouter(connect(select)(adminContainer));
+
+function mergeProps(stateProps: Object, dispatchProps: Object, ownProps: Object) {
+  return {...ownProps, ...stateProps, ...dispatchProps}
+}
+
+export default withRouter(connect(select, dispatch => ({dispatch}), mergeProps)(adminContainer));
