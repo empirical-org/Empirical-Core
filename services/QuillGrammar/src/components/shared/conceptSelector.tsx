@@ -1,7 +1,6 @@
-import React from 'react'
+import * as React from 'react'
 import { connect } from 'react-redux'
 // import Select from 'react-select-search'
-import _ from 'underscore'
 import Select from 'react-select';
 
 // TODO: delete everywhere else that we use conceptsToOptions
@@ -19,8 +18,8 @@ class ConceptSelector extends React.Component {
   conceptsToOptions () {
     let concepts = this.props.concepts.data["0"];
     if(this.props.onlyShowConceptsWithConceptFeedback) {
-      concepts = _.filter(concepts, (concept) => {
-        return _.keys(this.props.conceptsFeedback.data).includes(concept.uid);
+      concepts = concepts.filter((concept) => {
+        return Object.keys(this.props.conceptsFeedback.data).includes(concept.uid);
       });
     }
     return concepts.sort((a, b) => a.displayName.localeCompare(b.displayName)).map(concept =>{
@@ -31,7 +30,7 @@ class ConceptSelector extends React.Component {
   }
 
   currentConcept () {
-    return _.find(this.props.concepts.data["0"], {uid: this.props.currentConceptUID})
+    return this.props.concepts.data[0].find(c => c.uid === this.props.currentConceptUID)
   }
 
   placeholder () {
