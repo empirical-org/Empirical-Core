@@ -17,7 +17,7 @@ function _reportError(errorText, data, token, client) {
   client.emit(errorText, { data, token });
 }
  
-function _checkToken(data, token, callback) {
+function _checkToken(data, token, client, callback) {
   if (token.isValid) {
     callback();
   } else {
@@ -26,7 +26,7 @@ function _checkToken(data, token, callback) {
 }
  
 export function authorizeSession(data, token, client, callback) {
-  _checkToken(data, token, () => {
+  _checkToken(data, token, client, () => {
     const belongsToSession = _belongsToSession(data, token)
  
     if (belongsToSession || _isPreviewSession(data)) {
@@ -38,7 +38,7 @@ export function authorizeSession(data, token, client, callback) {
 }
  
 export function authorizeTeacherSession(data, token, client, callback) {
-  _checkToken(data, token, () => {
+  _checkToken(data, token, client, () => {
     const userIsTeacher    = _isRoleAuthorized(['staff', 'teacher'], token.data.role);
     const belongsToSession = _belongsToSession(data, token);
     const isValidSession   = userIsTeacher && belongsToSession;
@@ -52,7 +52,7 @@ export function authorizeTeacherSession(data, token, client, callback) {
 }
  
 export function authorizeRole(permittedRoles, data, token, client, callback) {
-  _checkToken(token, () => {
+  _checkToken(data, token, client, () => {
     const isRoleAuthorized = _isRoleAuthorized(permittedRoles, token.data.role);
  
     if (isRoleAuthorized || _isPreviewSession(data)) {
