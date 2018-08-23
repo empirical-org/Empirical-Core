@@ -239,7 +239,11 @@ class ResponseComponent extends React.Component {
   }
 
   responsesByStatusCodeAndResponseCount() {
-    return _.mapObject(this.responsesGroupedByStatus(), (val, key) => _.reduce(val, (memo, resp) => memo + (resp.count || 0), 0));
+    const responsesGroupedByStatus = this.responsesGroupedByStatus()
+    return Object.keys(responsesGroupedByStatus).map(key => {
+      const val = responsesGroupedByStatus[key]
+      return _.reduce(val, (memo, resp) => memo + (resp.count || 0), 0)
+    })
   }
 
   formatForQuestionBar() {
@@ -251,10 +255,13 @@ class ResponseComponent extends React.Component {
         color: '#eeeeee',
       }];
     }
-    return _.mapObject(this.state.gradeBreakdown, (val, key) => ({
-      value: val / totalResponseCount * 100,
-      color: colors[qualityLabels.indexOf(key)],
-    }));
+    return Object.keys(this.state.gradeBreakdown).map(key => {
+      const val = this.state.gradeBreakdown[key]
+      return {
+        value: val / totalResponseCount * 100,
+        color: colors[qualityLabels.indexOf(key)],
+      }
+    })
   }
 
   gatherVisibleResponses() {
@@ -451,11 +458,15 @@ class ResponseComponent extends React.Component {
   }
 
   mapCountToToResponse(rid) {
-    const mapped = _.mapObject(this.getUniqAndCountedToResponsePathways(rid), (value, key) => {
-      const response = this.props.responses[key];
-      // response.pathCount = value
-      return response;
-    });
+    const uniqAndCountedResponsePathways = this.getUniqAndCountedToResponsePathways(rid)
+    const mapped = Object.keys(uniqAndCountedResponsePathways).map(key => {
+      return this.props.responses[key]
+    })
+    // const mapped = _.mapObject(this.getUniqAndCountedToResponsePathways(rid), (value, key) => {
+    //   const response = this.props.responses[key];
+    //   // response.pathCount = value
+    //   return response;
+    // });
     return _.values(mapped);
   }
 
@@ -513,7 +524,9 @@ class ResponseComponent extends React.Component {
   }
 
   mapCountToResponse(rid) {
-    const mapped = _.mapObject(this.getUniqAndCountedResponsePathways(rid), (value, key) => {
+    const uniqAndCountedResponsePathways = this.getUniqAndCountedResponsePathways(rid)
+    const mapped = Object.keys(uniqAndCountedResponsePathways).map(key => {
+      const value = uniqAndCountedResponsePathways[key]
       let response = this.props.responses[key];
       if (response) {
         response.pathCount = value;
@@ -525,7 +538,20 @@ class ResponseComponent extends React.Component {
         };
       }
       return response;
-    });
+    })
+    // const mapped = _.mapObject(this.getUniqAndCountedResponsePathways(rid), (value, key) => {
+    //   let response = this.props.responses[key];
+    //   if (response) {
+    //     response.pathCount = value;
+    //   } else {
+    //     response = {
+    //       initial: true,
+    //       pathCount: value,
+    //       key: 'initial',
+    //     };
+    //   }
+    //   return response;
+    // });
     return _.values(mapped);
   }
 
