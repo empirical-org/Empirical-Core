@@ -76,7 +76,7 @@ class Lesson extends React.Component<LessonProps> {
         conceptSections.push(<br/>)
         conceptSections.push(<h3>{concept.displayName} - {quantitySpan}</h3>)
         conceptSections.push(<ul>{conceptIds[conceptId]}</ul>)
-      }
+      })
       return conceptSections
     }
     return (
