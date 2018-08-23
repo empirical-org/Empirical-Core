@@ -1,6 +1,6 @@
 import { ConceptResult } from 'quill-marking-logic'
 import * as _ from 'lodash'
-import { Question, FormattedConceptResult, ConceptResultMetadata } from '../interfaces/questions'
+import { Question, FormattedConceptResult } from '../interfaces/questions'
 
 export function getConceptResultsForQuestion(question: Question): FormattedConceptResult[]|undefined {
   const prompt = question.prompt.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, '');

@@ -17,7 +17,7 @@ interface LessonFormProps {
   submit: Function;
   concepts: ConceptReducerState;
   stateSpecificClass?: string;
-  currentValues: LessonFormState|null;
+  currentValues?: LessonFormState|null;
   lesson: LessonFormState|null;
 }
 

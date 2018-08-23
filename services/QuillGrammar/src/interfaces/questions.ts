@@ -1,4 +1,6 @@
-import { Response } from 'quill-marking-logic'
+import { Response, ConceptResult } from 'quill-marking-logic'
+
+type ResponseAttempt = Response & { conceptResults: { [key:string]: ConceptResult } }
 
 export interface Questions {
   [key:string]: Question
@@ -11,7 +13,7 @@ export interface Question {
   prompt: string;
   rule_description: string;
   uid: string;
-  attempts?: Response[];
+  attempts?: ResponseAttempt[];
   modelConceptUID?: string;
   key?: string;
   flag?: string;

@@ -2,11 +2,23 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 // import Select from 'react-select-search'
 import Select from 'react-select';
+import { Concept } from '../../interfaces/concepts'
+import { ConceptReducerState } from '../../reducers/conceptsReducer'
+import { ConceptsFeedbackState } from '../../reducers/conceptsFeedbackReducer'
 
 // TODO: delete everywhere else that we use conceptsToOptions
 
-class ConceptSelector extends React.Component {
-  constructor(props) {
+interface ConceptSelectorProps {
+  concepts: ConceptReducerState;
+  conceptsFeedback: ConceptsFeedbackState;
+  onlyShowConceptsWithConceptFeedback?: boolean;
+  currentConceptUID: string;
+  selectorDisabled: boolean;
+  handleSelectorChange: Function;
+}
+
+class ConceptSelector extends React.Component<ConceptSelectorProps> {
+  constructor(props: ConceptSelectorProps) {
     super(props)
 
     this.conceptsToOptions = this.conceptsToOptions.bind(this)
@@ -16,9 +28,9 @@ class ConceptSelector extends React.Component {
   }
 
   conceptsToOptions () {
-    let concepts = this.props.concepts.data["0"];
+    let concepts = this.props.concepts.data[0];
     if(this.props.onlyShowConceptsWithConceptFeedback) {
-      concepts = concepts.filter((concept) => {
+      concepts = concepts.filter((concept: Concept) => {
         return Object.keys(this.props.conceptsFeedback.data).includes(concept.uid);
       });
     }
@@ -34,8 +46,9 @@ class ConceptSelector extends React.Component {
   }
 
   placeholder () {
-    if (this.props.currentConceptUID && this.props.currentConceptUID.length > 0 && this.currentConcept()) {
-      return this.currentConcept().displayName
+    const currentConcept = this.currentConcept()
+    if (this.props.currentConceptUID && this.props.currentConceptUID.length > 0 && currentConcept) {
+      return currentConcept.displayName
     } else {
       return 'Please select a concept.'
     }

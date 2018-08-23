@@ -9,9 +9,21 @@ import {
 } from 'quill-component-library/dist/componentLibrary';
 import LinkListItem from '../shared/linkListItem'
 import EditLessonForm from './lessonForm';
+import { GrammarActivityState } from '../../reducers/grammarActivitiesReducer'
+import { GrammarActivity } from '../../interfaces/grammarActivities'
 
-class Lessons extends React.Component {
-  constructor(props) {
+interface LessonsProps {
+  dispatch: Function;
+  lessons: GrammarActivityState;
+}
+
+interface LessonsState {
+  lessonFlags: string;
+  showOnlyArchived: boolean;
+}
+
+class Lessons extends React.Component<LessonsProps, LessonsState> {
+  constructor(props: LessonsProps) {
     super(props)
 
     this.state = {
@@ -31,7 +43,7 @@ class Lessons extends React.Component {
     this.props.dispatch(actions.toggleNewLessonModal());
   }
 
-  submitNewLesson(data) {
+  submitNewLesson(data: GrammarActivity) {
     this.props.dispatch(actions.submitNewLesson(data));
     // this.props.dispatch(actions.toggleNewLessonModal())
   }
@@ -46,12 +58,12 @@ class Lessons extends React.Component {
     const { data, } = this.props.lessons;
     let keys = _.keys(data);
     if (this.state.lessonFlags !== 'All Flags') {
-      keys = _.filter(keys, key => data[key].flag === this.state.lessonFlags);
+      keys = keys.filter((key: string) => data[key].flag === this.state.lessonFlags);
     }
     if (this.state.showOnlyArchived) {
-      keys = keys.filter(key => data[key].questions && data[key].questions.some(q => q.flag === 'archived'))
+      keys = keys.filter((key: string) => data[key].questions && data[key].questions.some(q => q.flag === 'archived'))
     }
-    return keys.map(key => (
+    return keys.map((key: string) => (
       <LinkListItem
         key={key}
         itemKey={key}
