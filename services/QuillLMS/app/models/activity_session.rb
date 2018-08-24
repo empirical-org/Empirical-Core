@@ -57,32 +57,10 @@ class ActivitySession < ActiveRecord::Base
   end
 
   def timespent
-    first_item = nil
-    last_item = nil
-    max_item = nil
-    time_spent = 0.0
-    activity_session_interaction_logs.each do |interaction_log|
-      item = interaction_log.date
-      if not last_item
-          first_item = item
-          max_item = item
-          last_item = item
-      elsif item - last_item <= 2 * 60
-          max_item = item
-          last_item = item
-      elsif item - last_item > 2 * 60
-          time_spent += max_item - first_item
-          first_item = item
-          last_item = item
-          max_item = item
-      end
-    end
-
-    unless max_item.nil? or first_item.nil?
-      time_spent += max_item - first_item
-    end
-
-    time_spent
+    # database level function
+    ActiveRecord::Base.connection.execute(
+        "SELECT * FROM timespent_activity_session(#{id})"
+    )[0]["timespent_activity_session"].to_i
   end
 
   def eligible_for_tracking?
