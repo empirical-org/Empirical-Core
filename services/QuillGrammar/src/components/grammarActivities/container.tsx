@@ -19,7 +19,12 @@ import { SessionState } from '../../reducers/sessionReducer'
 import { GrammarActivityState } from '../../reducers/grammarActivitiesReducer'
 import { Question, FormattedConceptResult } from '../../interfaces/questions'
 import QuestionComponent from './question'
+import TurkCodePage from './turkCodePage'
 import LoadingSpinner from '../shared/loading_spinner'
+
+interface PlayGrammarContainerState {
+  showTurkCode: boolean;
+}
 
 interface PlayGrammarContainerProps {
   grammarActivities: GrammarActivityState;
@@ -27,9 +32,13 @@ interface PlayGrammarContainerProps {
   dispatch: Function;
 }
 
-export class PlayGrammarContainer extends React.Component<PlayGrammarContainerProps, any> {
+export class PlayGrammarContainer extends React.Component<PlayGrammarContainerProps, PlayGrammarContainerState> {
     constructor(props: any) {
       super(props);
+
+      this.state = {
+        showTurkCode: false
+      }
 
       this.saveToLMS = this.saveToLMS.bind(this)
       this.finishActivitySession = this.finishActivitySession.bind(this)
@@ -80,6 +89,9 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
       const score = calculateScoreForLesson(questions.answeredQuestions);
       const activityUID = getParameterByName('uid', window.location.href)
       const sessionID = getParameterByName('student', window.location.href)
+      if (window.location.href.includes('turk')) {
+        this.setState({showTurkCode: true})
+      }
       if (sessionID) {
         this.finishActivitySession(sessionID, results, score);
       } else if (activityUID) {
@@ -127,8 +139,9 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
         },
         (err, httpResponse, body) => {
           if (httpResponse.statusCode === 200) {
-            document.location.href = `${process.env.EMPIRICAL_BASE_URL}/activity_sessions/${body.activity_session.uid}`;
-            this.setState({ saved: true, });
+            if (!this.state.showTurkCode) {
+              document.location.href = `${process.env.EMPIRICAL_BASE_URL}/activity_sessions/${body.activity_session.uid}`;
+            }
           }
         }
       );
@@ -140,6 +153,9 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
 
 
     render(): JSX.Element {
+      if (this.state.showTurkCode) {
+        return <TurkCodePage/>
+      }
       if (this.props.grammarActivities.hasreceiveddata && this.props.session.hasreceiveddata && this.props.session.currentQuestion) {
         return <QuestionComponent
           activity={this.props.grammarActivities.currentActivity}

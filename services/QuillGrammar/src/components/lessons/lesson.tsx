@@ -74,7 +74,7 @@ class Lesson extends React.Component<LessonProps> {
       Object.keys(conceptIds).forEach(conceptId => {
         const lessonConcept = lesson ? lesson.concepts[conceptId] : null
         const quantity = lessonConcept ? lessonConcept.quantity : null
-        const concept = this.props.concepts.data[0].find(c => c.uid === conceptId)
+        const concept = this.props.concepts.data[0] ? this.props.concepts.data[0].find(c => c.uid === conceptId) : null
         const quantitySpan = <span style={{ fontStyle: 'italic' }}>{quantity} {quantity === 1 ? 'Question' : 'Questions'} Chosen at Random</span>
         conceptSections.push(<br/>)
         conceptSections.push(<h3>{concept ? concept.displayName : null} - {quantitySpan}</h3>)

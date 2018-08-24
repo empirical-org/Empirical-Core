@@ -16,6 +16,10 @@ export const routes: RouteConfig[] = [
     {
       path: "/admin",
       component: () => (<Admin />)
+    },
+    {
+      path: "/turk",
+      component: () => (<PlayGrammar />)
     }
     // {
     //     path: "/home",
