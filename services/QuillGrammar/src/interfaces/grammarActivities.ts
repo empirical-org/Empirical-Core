@@ -6,6 +6,7 @@ export interface GrammarActivity {
   concepts: Concepts;
   description: string;
   title: string;
+  flag?: string;
 }
 
 export interface Concepts {

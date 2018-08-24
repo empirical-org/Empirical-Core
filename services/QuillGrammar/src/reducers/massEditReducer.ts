@@ -1,7 +1,7 @@
 import { ActionTypes } from "../actions/actionTypes";
 import { Action } from "redux";
 
-interface MassEditReducerState {
+export interface MassEditReducerState {
   numSelectedResponses: number;
   selectedResponses: Array<String>;
 }

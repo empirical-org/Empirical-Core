@@ -7,9 +7,9 @@ interface FeedbackFormProps {
   submitNewFeedback: Function;
   cancelEdit: Function;
   conceptFeedbackID: string;
-  description: string;
-  leftBox: string;
-  rightBox: string;
+  description?: string;
+  leftBox?: string;
+  rightBox?: string;
 }
 
 interface FeedbackFormState {
@@ -24,9 +24,9 @@ export default class FeedbackForm extends React.Component<FeedbackFormProps, Fee
     super(props)
 
     this.state = {
-      description: this.props.description,
-      leftBox: this.props.leftBox,
-      rightBox: this.props.rightBox,
+      description: this.props.description || '',
+      leftBox: this.props.leftBox || '',
+      rightBox: this.props.rightBox || '',
       editing: "title"
     }
 

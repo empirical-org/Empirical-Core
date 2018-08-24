@@ -1,8 +1,8 @@
 import * as React from "react";
 import * as Redux from "redux";
 import {connect} from "react-redux";
-import request from 'request';
-import _ from 'lodash';
+import * as request from 'request';
+import * as _ from 'lodash';
 import { Response } from 'quill-marking-logic'
 import getParameterByName from '../../helpers/getParameterByName';
 import { startListeningToActivity } from "../../actions/grammarActivities";
@@ -17,6 +17,7 @@ import { startListeningToConceptsFeedback } from '../../actions/conceptsFeedback
 import { getConceptResultsForAllQuestions, calculateScoreForLesson } from '../../helpers/conceptResultsGenerator'
 import { SessionState } from '../../reducers/sessionReducer'
 import { GrammarActivityState } from '../../reducers/grammarActivitiesReducer'
+import { ConceptsFeedbackState } from '../../reducers/conceptsFeedbackReducer'
 import { Question, FormattedConceptResult } from '../../interfaces/questions'
 import QuestionComponent from './question'
 import TurkCodePage from './turkCodePage'
@@ -24,10 +25,13 @@ import LoadingSpinner from '../shared/loading_spinner'
 
 interface PlayGrammarContainerState {
   showTurkCode: boolean;
+  saved: boolean;
+  error: boolean;
 }
 
 interface PlayGrammarContainerProps {
   grammarActivities: GrammarActivityState;
+  conceptsFeedback: ConceptsFeedbackState;
   session: SessionState;
   dispatch: Function;
 }
@@ -37,7 +41,9 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
       super(props);
 
       this.state = {
-        showTurkCode: false
+        showTurkCode: false,
+        saved: false,
+        error: false
       }
 
       this.saveToLMS = this.saveToLMS.bind(this)

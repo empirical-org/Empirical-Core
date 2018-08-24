@@ -34,7 +34,7 @@ export default class TextEditor extends React.Component <any, any> {
 
   componentWillReceiveProps(nextProps: any) {
     if (nextProps.boilerplate !== this.props.boilerplate) {
-      this.setState({text: this.props.EditorState.createWithContent(this.props.ContentState.createFromBlockArray(convertFromHTML(nextProps.boilerplate)))},
+      this.setState({text: this.props.EditorState.createWithContent(convertFromHTML(nextProps.boilerplate))},
       () => {
         this.props.handleTextChange(convertToHTML(this.state.text.getCurrentContent()))
       }
