@@ -31,7 +31,7 @@ class Scorebook::Query
            acts.classroom_unit_id = cu.id
            AND acts.user_id = students.id
            AND acts.activity_id = activity.id
-           AND acts.visible = true
+           AND acts.visible
            )
      LEFT JOIN classroom_unit_activity_states AS cuas ON cuas.unit_activity_id = unit_activities.id AND cuas.classroom_unit_id = cu.id
      WHERE cu.classroom_id = #{classroom_id}
@@ -43,7 +43,7 @@ class Scorebook::Query
      #{self.date_conditional_string(begin_date, end_date, offset)}
      GROUP BY
       students.id,
-       students.name, cu.id, activity.activity_classification_id, activity.name, activity.description, cuas.completed, activity.id, acts.id
+       students.name, cu.id, activity.activity_classification_id, activity.name, activity.description, cuas.completed, activity.id
      ORDER BY split_part( students.name, ' ' , 2),
        CASE WHEN SUM(CASE WHEN acts.percentage IS NOT NULL THEN 1 ELSE 0 END) > 0 THEN true ELSE false END DESC,
        MIN(acts.completed_at),

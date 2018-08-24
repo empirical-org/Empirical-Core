@@ -3,6 +3,12 @@ require 'staff_constraint'
 
 EmpiricalGrammar::Application.routes.draw do
 
+  if Rails.env.development?
+    mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/graphql"
+  end
+
+  post "/graphql", to: "graphql#execute"
+
   mount RailsAdmin::Engine => '/staff', as: 'rails_admin'
   use_doorkeeper
 
@@ -113,7 +119,7 @@ EmpiricalGrammar::Application.routes.draw do
 
   resources :grades, only: [:index]
 
-  get 'grades/tooltip/classroom_unit_id/:classroom_unit_id/user_id/:user_id/completed/:completed' => 'grades#tooltip'
+  get 'grades/tooltip/classroom_unit_id/:classroom_unit_id/user_id/:user_id/activity_id/:activity_id/completed/:completed' => 'grades#tooltip'
 
   get :current_user_json, controller: 'teachers', action: 'current_user_json'
 
