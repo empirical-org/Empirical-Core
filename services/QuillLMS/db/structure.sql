@@ -146,16 +146,16 @@ CREATE FUNCTION public.timespent_activity_session(act_sess integer) RETURNS inte
           last_item := NULL;
           max_item := NULL;
           time_spent := 0.0;
-          FOR arow IN (SELECT date FROM activity_session_interaction_logs WHERE activity_session_id = act_sess) LOOP
+          FOR arow IN (SELECT date FROM activity_session_interaction_logs WHERE activity_session_id = act_sess order by date) LOOP
             item := arow;
             IF last_item IS NULL THEN
               first_item := item;
               max_item := item;
               last_item := item;
-            ELSIF EXTRACT( EPOCH FROM item - last_item ) <= 2 * 60 THEN
+            ELSIF item - last_item <= '2 minute'::interval THEN
               max_item := item;
               last_item := item;
-            ELSIF EXTRACT( EPOCH FROM item - last_item ) > 2 * 60 THEN
+            ELSE
               time_spent := time_spent + EXTRACT( EPOCH FROM max_item - first_item );
               first_item := item;
               last_item := item;
@@ -410,7 +410,8 @@ CREATE TABLE public.activity_sessions (
     is_retry boolean DEFAULT false,
     is_final_score boolean DEFAULT false,
     visible boolean DEFAULT true NOT NULL,
-    classroom_unit_id integer
+    classroom_unit_id integer,
+    timespent integer
 );
 
 
@@ -5351,4 +5352,8 @@ INSERT INTO schema_migrations (version) VALUES ('20180822144355');
 INSERT INTO schema_migrations (version) VALUES ('20180822155024');
 
 INSERT INTO schema_migrations (version) VALUES ('20180822155243');
+
+INSERT INTO schema_migrations (version) VALUES ('20180824185130');
+
+INSERT INTO schema_migrations (version) VALUES ('20180824185824');
 
