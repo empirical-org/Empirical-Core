@@ -1,5 +1,4 @@
 import * as React from "react";
-import * as Redux from "redux";
 import { Row, Button } from "antd";
 import { Response, ConceptResult } from 'quill-marking-logic'
 import { hashToCollection, ConceptExplanation } from 'quill-component-library/dist/componentLibrary'
@@ -72,7 +71,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
       if (this.props.currentQuestion.uid !== nextProps.currentQuestion.uid) {
         responseActions.getGradedResponsesWithCallback(
           nextProps.currentQuestion.uid,
-          (data) => {
+          (data: Array<Response>) => {
             this.setState({ responses: data, });
           }
         );
@@ -104,7 +103,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
       this.setState({ showExample: !this.state.showExample })
     }
 
-    updateResponse(e) {
+    updateResponse(e: React.ChangeEvent<HTMLTextAreaElement>) {
       this.setState({response: e.target.value})
     }
 
@@ -159,7 +158,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
           align="middle"
           justify="space-between"
           >
-          <h1>{this.props.activity.title}</h1>
+          <h1>{this.props.activity ? this.props.activity.title : null}</h1>
           <div>
             <p>Sentences Completed: {answeredQuestionCount} of {totalQuestionCount}</p>
             <div className="progress-bar-indication">
@@ -215,7 +214,9 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
             className = 'try-again'
           }
         }
-        return <div className={`feedback ${className}`}><div dangerouslySetInnerHTML={{__html: feedback}}/></div>
+        if (typeof feedback === 'string') {
+          return <div className={`feedback ${className}`}><div dangerouslySetInnerHTML={{__html: feedback}}/></div>
+        }
       } else if (this.state.submittedEmptyString) {
         return <div className={`feedback try-again`}><div dangerouslySetInnerHTML={{__html: 'You must enter a sentence for us to check.'}}/></div>
 

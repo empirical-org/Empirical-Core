@@ -9,7 +9,7 @@ import { ConceptReducerState } from '../../reducers/conceptsReducer'
 interface LessonFormState {
   title: string;
   description: string;
-  flag: string;
+  flag?: string;
   concepts: Concepts;
 }
 

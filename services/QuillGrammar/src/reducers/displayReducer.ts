@@ -6,7 +6,7 @@ const initialState = {
   error: ''
 }
 
-interface DisplayReducerState {
+export interface DisplayReducerState {
   message: string;
   error: string;
 }

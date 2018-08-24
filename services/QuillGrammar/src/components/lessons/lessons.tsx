@@ -4,7 +4,6 @@ import * as actions from '../../actions/grammarActivities';
 import _ from 'underscore';
 import {
   Modal,
-  ArchivedButton,
   FlagDropdown
 } from 'quill-component-library/dist/componentLibrary';
 import LinkListItem from '../shared/linkListItem'
@@ -19,7 +18,6 @@ interface LessonsProps {
 
 interface LessonsState {
   lessonFlags: string;
-  showOnlyArchived: boolean;
 }
 
 class Lessons extends React.Component<LessonsProps, LessonsState> {
@@ -27,13 +25,11 @@ class Lessons extends React.Component<LessonsProps, LessonsState> {
     super(props)
 
     this.state = {
-      lessonFlags: 'All Flags',
-      showOnlyArchived: false,
+      lessonFlags: 'All Flags'
     }
 
     this.createNew = this.createNew.bind(this)
     this.submitNewLesson = this.submitNewLesson.bind(this)
-    this.toggleShowArchived = this.toggleShowArchived.bind(this)
     this.renderLessons = this.renderLessons.bind(this)
     this.renderModal = this.renderModal.bind(this)
     this.handleSelect = this.handleSelect.bind(this)
@@ -48,20 +44,11 @@ class Lessons extends React.Component<LessonsProps, LessonsState> {
     // this.props.dispatch(actions.toggleNewLessonModal())
   }
 
-  toggleShowArchived() {
-    this.setState({
-      showOnlyArchived: !this.state.showOnlyArchived,
-    });
-  }
-
   renderLessons() {
     const { data, } = this.props.lessons;
     let keys = _.keys(data);
     if (this.state.lessonFlags !== 'All Flags') {
       keys = keys.filter((key: string) => data[key].flag === this.state.lessonFlags);
-    }
-    if (this.state.showOnlyArchived) {
-      keys = keys.filter((key: string) => data[key].questions && data[key].questions.some(q => q.flag === 'archived'))
     }
     return keys.map((key: string) => (
       <LinkListItem
@@ -98,7 +85,6 @@ class Lessons extends React.Component<LessonsProps, LessonsState> {
           <div style={{display: 'inline-block'}}>
             <FlagDropdown flag={this.state.lessonFlags} handleFlagChange={this.handleSelect} isLessons={true}/>
           </div>
-          <ArchivedButton showOnlyArchived={this.state.showOnlyArchived} toggleShowArchived={this.toggleShowArchived} lessons={true} />
           <div className="columns">
             <div className="column">
               <aside className="menu">

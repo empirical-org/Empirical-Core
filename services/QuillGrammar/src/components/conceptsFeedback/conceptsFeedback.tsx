@@ -28,7 +28,7 @@ class ConceptsFeedback extends React.Component<ConceptsFeedbackProps> {
     this.props.dispatch(actions.toggleNewConceptsFeedbackModal())
   }
 
-  renderConceptsFeedback():Array<JSX.Element>|void {
+  renderConceptsFeedback():Array<JSX.Element> {
     const data = this.props.concepts.data;
     if (data && data[0]) {
       return data[0].sort((a, b) => a.displayName.localeCompare(b.displayName)).map((concept) => {
@@ -42,11 +42,13 @@ class ConceptsFeedback extends React.Component<ConceptsFeedbackProps> {
           text={concept.displayName}
         />
       })
+    } else {
+      return [<li/>]
     }
   }
 
   renderModal():JSX.Element|void {
-    const {data, submittingnew} = this.props.conceptsFeedback;
+    const {submittingnew} = this.props.conceptsFeedback;
     const stateSpecificClass = submittingnew ? 'is-loading' : '';
     if (this.props.conceptsFeedback.newConceptModalOpen) {
         return (

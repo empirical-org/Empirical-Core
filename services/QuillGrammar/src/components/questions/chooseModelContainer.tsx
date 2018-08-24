@@ -5,12 +5,12 @@ import { ConceptExplanation } from 'quill-component-library/dist/componentLibrar
 import * as questionActions from '../../actions/questions';
 import { GrammarActivityState } from '../../reducers/grammarActivitiesReducer'
 import { QuestionsReducerState } from '../../reducers/questionsReducer'
+import { ConceptsFeedbackState } from '../../reducers/conceptsFeedbackReducer'
 import { ConceptReducerState } from '../../reducers/conceptsReducer'
 import { Match } from '../../interfaces/match'
 
 interface ChooseModelContainerState {
-  modelConceptUID: string;
-  lessonModelConceptUID: string;
+  modelConceptUID: string|undefined;
 }
 
 interface ChooseModelContainerProps {
@@ -19,27 +19,18 @@ interface ChooseModelContainerProps {
   match: Match;
   dispatch: Function;
   concepts: ConceptReducerState;
+  conceptsFeedback: ConceptsFeedbackState;
 }
 
 class ChooseModelContainer extends React.Component<ChooseModelContainerProps, ChooseModelContainerState> {
   constructor(props: ChooseModelContainerProps) {
     super(props);
-    const modelConceptUID = props.questions.data[props.match.params.questionID].modelConceptUID
 
-    let lessonModelConceptUID
-    if (props.lessons.data) {
-      const lessonUID = Object.keys(props.lessons.data).find((uid) => {
-        const lesson = props.lessons.data[uid]
-        if (lesson && lesson.questions) {
-          return lesson.questions.find(q => q.key === props.match.params.questionID)
-        }
-      })
-      lessonModelConceptUID = lessonUID && props.lessons.data[lessonUID] ? props.lessons.data[lessonUID].modelConceptUID : null
-    }
+    const { questionID } = props.match.params
+    const modelConceptUID = questionID ? props.questions.data[questionID].modelConceptUID : undefined
 
     this.state = {
       modelConceptUID,
-      lessonModelConceptUID
     }
 
     this.setState = this.setState.bind(this);
@@ -49,31 +40,41 @@ class ChooseModelContainer extends React.Component<ChooseModelContainerProps, Ch
   }
 
   getModelConceptUID() {
-    return this.state.modelConceptUID || this.props.questions.data[this.props.match.params.questionID].modelConceptUID;
+    const { questionID } = this.props.match.params
+    const questionModelConceptUID = questionID ? this.props.questions.data[questionID].modelConceptUID : null
+    return this.state.modelConceptUID || questionModelConceptUID;
   }
 
   saveModelConcept() {
-    this.props.dispatch(questionActions.submitQuestionEdit(this.props.match.params.questionID,
-      Object.assign({}, this.props.questions.data[this.props.match.params.questionID], {modelConceptUID: this.state.modelConceptUID})));
-    window.history.back();
+    const { questionID } = this.props.match.params
+    if (questionID) {
+      this.props.dispatch(questionActions.submitQuestionEdit(questionID,
+        Object.assign({}, this.props.questions.data[questionID], {modelConceptUID: this.state.modelConceptUID})));
+      window.history.back();
+    }
   }
 
   removeModelConcept() {
-    let questionData = Object.assign({}, this.props.questions.data[this.props.match.params.questionID], {modelConceptUID: null});
-    this.props.dispatch(questionActions.submitQuestionEdit(this.props.match.params.questionID, questionData));
+    const { questionID } = this.props.match.params
+    if (questionID) {
+      let questionData = Object.assign({}, this.props.questions.data[questionID], {modelConceptUID: null});
+      this.props.dispatch(questionActions.submitQuestionEdit(questionID, questionData));
+    }
   }
 
-  selectConcept(e) {
+  selectConcept(e: {value: string}) {
     this.setState({ modelConceptUID: e.value });
   }
 
   renderButtons() {
+    const { questionID } = this.props.match.params
+    const disabled = questionID && this.state.modelConceptUID == this.props.questions.data[questionID].modelConceptUID
     return(
       <p className="control">
         <button
           className={'button is-primary'}
           onClick={this.saveModelConcept}
-          disabled={this.state.modelConceptUID == this.props.questions.data[this.props.match.params.questionID].modelConceptUID ? true : false}>
+          disabled={!!disabled}>
           Save Model Concept
         </button>
         <button
@@ -92,26 +93,22 @@ class ChooseModelContainer extends React.Component<ChooseModelContainerProps, Ch
     )
   }
 
-  renderLessonModelNote(): JSX.Element|void {
-    if (this.state.lessonModelConceptUID && this.state.lessonModelConceptUID !== this.state.modelConceptUID) {
-      const concept = this.props.concepts.data['0'].find(c => c.uid === this.state.lessonModelConceptUID)
-      if (concept) {
-        return <div style={{ marginBottom: '10px' }}>
-          <p>The activity that this question belongs to has the following Model Concept:</p>
-          <p><i>"{concept.displayName}"</i></p>
-        </div>
-      }
-    }
-  }
-
   render() {
+    const modelConceptUID = this.getModelConceptUID()
+    let conceptFeedback
+    if (modelConceptUID) {
+      conceptFeedback = this.props.conceptsFeedback.data[modelConceptUID]
+    }
     return(
       <div className="box">
         <h4 className="title">Choose Model</h4>
-        {this.renderLessonModelNote()}
         <div className="control">
-          <ConceptSelector onlyShowConceptsWithConceptFeedback currentConceptUID={this.getModelConceptUID()} handleSelectorChange={this.selectConcept} />
-          <ConceptExplanation {...this.props.conceptsFeedback.data[this.getModelConceptUID()]} />
+          <ConceptSelector
+            onlyShowConceptsWithConceptFeedback
+            currentConceptUID={this.getModelConceptUID() || ''}
+            handleSelectorChange={this.selectConcept}
+          />
+          <ConceptExplanation {...conceptFeedback} />
           {this.props.children}
         </div>
         {this.renderButtons()}
@@ -121,7 +118,7 @@ class ChooseModelContainer extends React.Component<ChooseModelContainerProps, Ch
 
 }
 
-function select(props) {
+function select(props: any) {
   return {
     lessons: props.grammarActivities,
     questions: props.questions,
@@ -130,4 +127,8 @@ function select(props) {
   };
 }
 
-export default connect(select)(ChooseModelContainer);
+function mergeProps(stateProps: Object, dispatchProps: Object, ownProps: Object) {
+  return {...ownProps, ...stateProps, ...dispatchProps}
+}
+
+export default connect(select, dispatch => ({dispatch}), mergeProps)(ChooseModelContainer);

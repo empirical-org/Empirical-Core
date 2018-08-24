@@ -13,7 +13,7 @@ interface ConceptSelectorProps {
   conceptsFeedback: ConceptsFeedbackState;
   onlyShowConceptsWithConceptFeedback?: boolean;
   currentConceptUID: string;
-  selectorDisabled: boolean;
+  selectorDisabled?: boolean;
   handleSelectorChange: Function;
 }
 

@@ -89,33 +89,39 @@ class Lesson extends React.Component<LessonProps> {
 
   deleteLesson():void {
     const lessonID: string|undefined = this.props.match.params.lessonID;
-    if (confirm('do you want to do this?')) {
+    if (lessonID && confirm('do you want to do this?')) {
       this.props.dispatch(lessonActions.deleteLesson(lessonID));
     }
   }
 
   cancelEditingLesson():void {
-    this.props.dispatch(lessonActions.cancelLessonEdit(this.props.match.params.lessonID));
+    const { lessonID } = this.props.match.params
+    if (lessonID) {
+      this.props.dispatch(lessonActions.cancelLessonEdit(lessonID));
+    }
   }
 
   saveLessonEdits(vals: GrammarActivity):void {
-    const { data, } = this.props.lessons
     const lessonID: string|undefined = this.props.match.params.lessonID;
-    this.props.dispatch(lessonActions.submitLessonEdit(lessonID, vals));
+    if (lessonID) {
+      this.props.dispatch(lessonActions.submitLessonEdit(lessonID, vals));
+    }
   }
 
   editLesson():void {
     const { lessonID, } = this.props.match.params;
-    this.props.dispatch(lessonActions.startLessonEdit(lessonID));
+    if (lessonID) {
+      this.props.dispatch(lessonActions.startLessonEdit(lessonID));
+    }
     // // console.log("Edit button clicked");
   }
 
   renderEditLessonForm():JSX.Element|void {
-    const { data, } = this.props.lessons
+    const { data, states } = this.props.lessons
     const lessonID: string|undefined = this.props.match.params.lessonID;
     if (lessonID) {
       const lesson = data ? data[lessonID] : null
-      if (this.props.lessons.states && this.props.lessons.states[lessonID] === ActionTypes.EDITING_LESSON) {
+      if (lesson && states && states[lessonID] === ActionTypes.EDITING_LESSON) {
         return (
           <Modal close={this.cancelEditingLesson}>
             <EditLessonForm

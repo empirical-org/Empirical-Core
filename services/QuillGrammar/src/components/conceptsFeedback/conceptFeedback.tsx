@@ -6,11 +6,14 @@ import FeedbackForm from './feedbackForm'
 import { ConceptExplanation } from 'quill-component-library/dist/componentLibrary';
 import { ConceptFeedback } from '../../interfaces/conceptsFeedback'
 import { Match } from '../../interfaces/match'
+import { Concept } from '../../interfaces/concepts'
 import { ConceptsFeedbackState } from '../../reducers/conceptsFeedbackReducer'
+import { ConceptReducerState } from '../../reducers/conceptsReducer'
 
 interface ConceptFeedbackComponentProps {
   dispatch: Function;
   conceptsFeedback: ConceptsFeedbackState;
+  concepts: ConceptReducerState;
   match: Match;
 }
 
@@ -52,7 +55,7 @@ class ConceptFeedbackComponent extends React.Component<ConceptFeedbackComponentP
     return this.props.concepts.hasreceiveddata ? this.props.concepts.data[0].find((c: Concept) => c.uid === conceptFeedbackID) : null
   }
 
-  render(){
+  render() {
     const {data, states} = this.props.conceptsFeedback;
     const {conceptFeedbackID} = this.props.match.params;
     const concept = this.concept()
@@ -66,9 +69,9 @@ class ConceptFeedbackComponent extends React.Component<ConceptFeedbackComponentP
             <FeedbackForm {...data[conceptFeedbackID]} conceptFeedbackID={conceptFeedbackID} submitNewFeedback={this.submitNewFeedback} cancelEdit={this.cancelEdit}/>
           </div>
         )
-      } else {
+      } else if (conceptFeedbackID) {
         return (
-          <div key={this.props.match.params.conceptFeedbackID}>
+          <div key={conceptFeedbackID}>
             {conceptName}
             <ConceptExplanation {...data[conceptFeedbackID]}/>
             <p className="control">
@@ -80,24 +83,26 @@ class ConceptFeedbackComponent extends React.Component<ConceptFeedbackComponentP
 
     } else if (this.props.concepts.hasreceiveddata === false){
       return (<p>Loading...</p>)
-    } else {
+    } else if (conceptFeedbackID) {
       return (
-        <div key={this.props.match.params.conceptFeedbackID} className="container">
+        <div key={conceptFeedbackID} className="container">
           {conceptName}
           <p>404: No Concept Feedback Found... So let's make one! 🙌 🖋 🇬🇧 🇮🇳</p>
           <FeedbackForm
-            conceptFeedbackID={this.props.match.params.conceptFeedbackID}
+            conceptFeedbackID={conceptFeedbackID}
             submitNewFeedback={this.submitNewFeedback}
             cancelEdit={this.cancelEdit}
           />
         </div>
       )
+    } else {
+      return <p>We could not find this concept.</p>
     }
 
   }
 }
 
-function select(state) {
+function select(state: any) {
   return {
     concepts: state.concepts,
     conceptsFeedback: state.conceptsFeedback,

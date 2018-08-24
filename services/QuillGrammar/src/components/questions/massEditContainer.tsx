@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as request from 'request';
 import { connect } from 'react-redux';
+import { Response } from 'quill-marking-logic'
 import * as massEdit from '../../actions/massEdit';
 import TextEditor from '../shared/textEditor';
 import { EditorState, ContentState } from 'draft-js'
@@ -12,11 +13,46 @@ import {
   submitMassEditConceptResults,
   massEditDeleteResponses
 } from '../../actions/responses';
+import { Match } from '../../interfaces/match'
+import { DisplayReducerState } from '../../reducers/displayReducer'
+import { MassEditReducerState } from '../../reducers/massEditReducer'
 
 import { clearDisplayMessageAndError } from '../../actions/display';
 
-class MassEditContainer extends React.Component<any, any> {
-  constructor(props) {
+interface Feedback {
+  key: string;
+  description: string;
+  name: string;
+}
+
+interface BoilerplateCategory {
+  key: string;
+  description: string;
+  name: string;
+  children: Array<Feedback>
+}
+
+interface MassEditState {
+  responses: {[key:string]: Response},
+  selectedMassEditBoilerplateCategory: string,
+  newMassEditConceptResultConceptUID: string,
+  newMassEditConceptResultCorrect: boolean,
+  massEditSummaryListDisplay: string,
+  massEditSummaryListButtonText: string,
+  conceptResults?: {[key:string]: boolean}
+  massEditFeedback?: string;
+  selectedMassEditBoilerplate?: string;
+}
+
+interface MassEditProps {
+  display: DisplayReducerState;
+  massEdit: MassEditReducerState;
+  match: Match;
+  dispatch: Function;
+}
+
+class MassEditContainer extends React.Component<MassEditProps, MassEditState> {
+  constructor(props: MassEditProps) {
     super(props);
 
     this.state = {
@@ -30,13 +66,18 @@ class MassEditContainer extends React.Component<any, any> {
 
     this.handleMassEditFeedbackTextChange = this.handleMassEditFeedbackTextChange.bind(this);
     this.updateConceptResults = this.updateConceptResults.bind(this);
+    this.toggleMassEditSummaryList = this.toggleMassEditSummaryList.bind(this)
+    this.getResponses = this.getResponses.bind(this)
+    this.chooseMassEditBoilerplateCategory = this.chooseMassEditBoilerplateCategory.bind(this)
+    this.updateConceptResults = this.updateConceptResults.bind(this)
+    this.chooseMassEditSpecificBoilerplateFeedback = this.chooseMassEditSpecificBoilerplateFeedback.bind(this)
   }
 
   componentWillMount() {
     this.getResponses();
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps: MassEditProps, prevState: MassEditState) {
     if (this.props.display.message !== prevProps.display.message || this.props.display.error !== prevProps.display.error) {
       this.displayMessage();
     }
@@ -58,11 +99,11 @@ class MassEditContainer extends React.Component<any, any> {
       );
   }
 
-  chooseMassEditBoilerplateCategory(e) {
+  chooseMassEditBoilerplateCategory(e: React.ChangeEvent<HTMLSelectElement>) {
     this.setState({ selectedMassEditBoilerplateCategory: e.target.value, });
   }
 
-  chooseMassEditSpecificBoilerplateFeedback(e) {
+  chooseMassEditSpecificBoilerplateFeedback(e: React.ChangeEvent<HTMLSelectElement>) {
     if (e.target.value === 'Select specific boilerplate feedback') {
       this.setState({ selectedMassEditBoilerplate: '', });
     } else {
@@ -75,13 +116,13 @@ class MassEditContainer extends React.Component<any, any> {
     this.goBackToResponses();
   }
 
-  removeResponseFromMassEditArray(responseKey) {
+  removeResponseFromMassEditArray(responseKey: string) {
     this.props.dispatch(massEdit.removeResponseFromMassEditArray(responseKey));
   }
 
   goBackToResponses() {
     const newLocation = window.location.hash.replace('mass-edit', 'responses');
-    window.location = newLocation;
+    window.location.href = newLocation;
   }
 
   updateResponseFeedbackInMassEditArray() {
@@ -108,7 +149,7 @@ class MassEditContainer extends React.Component<any, any> {
     }
   }
 
-  updateConceptResults(conceptResults) {
+  updateConceptResults(conceptResults: {[key:string]: boolean}) {
     this.setState({ conceptResults, });
   }
 
@@ -128,7 +169,7 @@ class MassEditContainer extends React.Component<any, any> {
     }
   }
 
-  handleMassEditFeedbackTextChange(value) {
+  handleMassEditFeedbackTextChange(value: string) {
     this.setState({ massEditFeedback: value, });
   }
 
@@ -145,7 +186,7 @@ class MassEditContainer extends React.Component<any, any> {
     });
   }
 
-  renderMassEditSummaryListResponse(response) {
+  renderMassEditSummaryListResponse(response: string) {
     return (
       <p><input type="checkbox" defaultChecked checked style={{ marginRight: '0.5em', }} onClick={() => this.removeResponseFromMassEditArray(response)} />{this.state.responses[response].text}</p>
     );
@@ -162,13 +203,13 @@ class MassEditContainer extends React.Component<any, any> {
         ));
   }
 
-  boilerplateSpecificFeedbackToOptions(selectedCategory) {
-    return selectedCategory.children.map(childFeedback => (
+  boilerplateSpecificFeedbackToOptions(selectedCategory: any) {
+    return selectedCategory.children.map((childFeedback: {[key:string]: string}) => (
       <option key={childFeedback.key} className="boilerplate-feedback-dropdown-option">{childFeedback.description}</option>
         ));
   }
 
-  renderBoilerplateCategoryDropdown(onChangeEvent) {
+  renderBoilerplateCategoryDropdown(onChangeEvent: ((event: React.ChangeEvent<HTMLSelectElement>) => void)) {
     const style = { marginRight: '20px', };
     return (
       <span className="select" style={style}>
@@ -180,7 +221,7 @@ class MassEditContainer extends React.Component<any, any> {
     );
   }
 
-  renderBoilerplateCategoryOptionsDropdown(onChangeEvent, description) {
+  renderBoilerplateCategoryOptionsDropdown(onChangeEvent: ((event: React.ChangeEvent<HTMLSelectElement>) => void), description: string) {
     const selectedCategory = _.find(getBoilerplateFeedback(), { description, });
     if (selectedCategory) {
       return (
@@ -224,7 +265,7 @@ class MassEditContainer extends React.Component<any, any> {
               <TextEditor
                 text={this.state.massEditFeedback || ''}
                 handleTextChange={this.handleMassEditFeedbackTextChange}
-                boilerplate={this.state.selectedMassEditBoilerplate}
+                boilerplate={this.state.selectedMassEditBoilerplate || ''}
                 ContentState={ContentState}
                 EditorState={EditorState}
               />
@@ -276,7 +317,7 @@ class MassEditContainer extends React.Component<any, any> {
   }
 }
 
-function select(state) {
+function select(state: any) {
   return {
     massEdit: state.massEdit,
     display: state.display,
