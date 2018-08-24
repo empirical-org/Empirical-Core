@@ -14,7 +14,8 @@ class Api::V1::ActivitySessionsController < Api::ApiController
   def update
     # FIXME: ignore id because it's related to inconsistency between
     # naming - id in app and uid here
-    if @activity_session.update(activity_session_params.except(:id, :concept_results))
+    if @activity_session.update(activity_session_params.except(:id, :concept_results).merge
+      (:timespent => @activity_session.timespent))
       if @concept_results
         handle_concept_results
       end
