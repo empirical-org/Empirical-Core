@@ -36,8 +36,7 @@ export default React.createClass({
     let arrowPicture,
       text;
     if (this.props.displayArrowAndText) {
-      const arrow = 'https://assets.quill.org/images/icons/arrow_icon.svg';
-      arrowPicture = <img src={arrow} />
+      arrowPicture = this.props.getQuestion().cuesLabel !== ' ' ? <img src={arrow} /> : null
       text = this.renderExplanation()
     } else {
       arrowPicture = <span />;
