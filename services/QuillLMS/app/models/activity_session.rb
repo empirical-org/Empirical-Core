@@ -57,6 +57,14 @@ class ActivitySession < ActiveRecord::Base
   end
 
   def timespent
+    if read_attribute(:timespent).present?
+      read_attribute(:timespent)
+    else
+      self.calculate_timespent
+    end
+  end
+
+  def calculate_timespent
     # database level function
     ActiveRecord::Base.connection.execute(
         "SELECT * FROM timespent_activity_session(#{id})"
