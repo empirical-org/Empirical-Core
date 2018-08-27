@@ -2,7 +2,7 @@ import React from 'react';
 
 const Notification = ({ text, href }) => {
   return(
-    <a href={href}>{text}</a>
+    <a style={{color: 'rgb(2, 115, 96)'}} href={href}>{text}</a>
   );
 };
 
