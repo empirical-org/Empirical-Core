@@ -41,7 +41,12 @@ class StudentProfile extends React.Component {
       fetchStudentProfile();
       fetchStudentsClassrooms();
     }
-    fetchNotifications();
+
+    // Remove following conditional when student notifications are ready to display
+    const displayFeature = false;
+    if (displayFeature) {
+      fetchNotifications();
+    }
 
     window.addEventListener('resize', () => {
       updateNumberOfClassroomTabs(window.innerWidth);
