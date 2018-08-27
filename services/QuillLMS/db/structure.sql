@@ -135,13 +135,33 @@ CREATE FUNCTION public.timespent_activity_session(act_sess integer) RETURNS inte
     LANGUAGE plpgsql
     AS $$
         DECLARE
-          first_item timestamp;
+            first_item timestamp;
           last_item timestamp;
           max_item timestamp;
+          as_created_at timestamp;
           arow record;
           time_spent float;
           item timestamp;
         BEGIN
+          -- backward compatibility block
+          SELECT created_at INTO as_created_at FROM activity_sessions WHERE id = act_sess;
+          IF as_created_at IS NULL OR as_created_at < timestamp '2018-08-25 00:00:00.000000' THEN
+            SELECT SUM(
+                  CASE
+                  WHEN (activity_sessions.started_at IS NULL)
+                    OR (activity_sessions.completed_at IS NULL)
+                    OR (activity_sessions.completed_at - activity_sessions.started_at < interval '1 minute')
+                    OR (activity_sessions.completed_at - activity_sessions.started_at > interval '30 minutes')
+                  THEN 441
+                  ELSE
+                    EXTRACT (
+                      'epoch' FROM (activity_sessions.completed_at - activity_sessions.started_at)
+                    )
+                END) INTO time_spent FROM activity_sessions WHERE id = act_sess AND state='finished';
+                
+                RETURN COALESCE(time_spent,0);
+          END IF;
+          -- modern calculation (using activity session interaction logs) 
           first_item := NULL;
           last_item := NULL;
           max_item := NULL;
@@ -5356,4 +5376,6 @@ INSERT INTO schema_migrations (version) VALUES ('20180822155243');
 INSERT INTO schema_migrations (version) VALUES ('20180824185130');
 
 INSERT INTO schema_migrations (version) VALUES ('20180824185824');
+
+INSERT INTO schema_migrations (version) VALUES ('20180824195642');
 
