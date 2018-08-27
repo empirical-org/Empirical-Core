@@ -1305,7 +1305,9 @@ CREATE TABLE notifications (
     id integer NOT NULL,
     text text NOT NULL,
     user_id integer NOT NULL,
-    meta jsonb DEFAULT '{}'::jsonb NOT NULL
+    meta jsonb DEFAULT '{}'::jsonb NOT NULL,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
 );
 
 
@@ -5175,4 +5177,6 @@ INSERT INTO schema_migrations (version) VALUES ('20180815180204');
 INSERT INTO schema_migrations (version) VALUES ('20180816210411');
 
 INSERT INTO schema_migrations (version) VALUES ('20180820154444');
+
+INSERT INTO schema_migrations (version) VALUES ('20180827212450');
 
