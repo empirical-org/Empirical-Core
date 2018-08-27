@@ -177,22 +177,22 @@ function registerConnection(socket) {
 }
 
 function verifyToken(token) {
-  const options      = { algorithms: ['RS256'] }
-  const pkey         = Buffer.from(process.env.JWT_PUBLIC_KEY, 'utf8');
-  let isValid; 
+  const options = { algorithms: ['RS256'] }
+  const pkey = Buffer.from(process.env.JWT_PUBLIC_KEY, 'utf8');
+  let isValid;
   let tokenData;
 
   jwt.verify(token, pkey, options, (err, decodedToken) => {
     if (err) {
       newrelic.noticeError(err)
-      isValid = false; 
+      isValid = false;
     } else {
-      tokenData = decodedToken.data; 
-      isValid   = true; 
+      tokenData = decodedToken.data;
+      isValid   = true;
     }
   });
 
-  return { isValid: isValid, data: tokenData }; 
+  return { isValid: isValid, data: tokenData };
 }
 
 r.connect(rethinkdbConfig, (err, connection) => {
