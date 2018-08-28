@@ -11,12 +11,12 @@
     margin: 15px 30px;
     display: flex;
     flex-direction: column;
-    max-width: 56em;
+    max-width: 896px;
     width: 100%;
   }
   h1 {
     line-height: 1.25;
-    font-size: 2.25em;
+    font-size: 36px;
     font-weight: 700;
   }
   .instructions {
@@ -56,14 +56,17 @@
   }
 
   .quill {
-    max-width: 56em;
+    max-width: 896px;
     margin: auto;
     line-height: 2.0;
     font-size: 16px;
     font-family: courier new;
     color: #888;
     font-weight: 400;
-    padding: 0px 50px;
+    // padding: 0px 50px;
+    strong {
+      color: #333;
+    }
   }
 
   .ql-editor:focus {
