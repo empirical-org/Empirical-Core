@@ -35,14 +35,17 @@ class TextEditor extends React.Component <any, any> {
   }
 
   handlePassageChange(value: string) {
-    const strippedOriginal = this.standardizedPassage(this.state.text)
+    console.log('original', this.props.text)
+    console.log('new', value)
+    const strippedOriginal = this.standardizedPassage(this.props.text)
     const strippedNew = this.standardizedPassage(value)
+    console.log('strippedOriginal', strippedOriginal)
+    console.log('strippedNew', strippedNew)
+
     //
     const diff = jsdiff.diffWords(strippedOriginal, strippedNew)
     const relevantDiff = diff.filter(d => d.added || d.removed)
     if (relevantDiff.length) {
-      console.log('diff', diff)
-      console.log('relevantDiff', relevantDiff)
       let valueWithHighlightedChanges = ''
       diff.forEach(diff => {
         console.log(diff)
@@ -58,7 +61,7 @@ class TextEditor extends React.Component <any, any> {
 
   standardizedPassage(string: string) {
     // return string
-    return string.replace(/<(?:p|\/p|\n)*?>/gm, '').replace(/&#x27;/gm, "'")
+    return string.replace(/<(?:p|\/p|strong|\/strong|\n)*?>/gm, '').replace(/&#x27;/gm, "'").replace(/<br\/><br\/>/gm, '<br>')
   }
 
 
