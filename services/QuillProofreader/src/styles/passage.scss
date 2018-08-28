@@ -20,15 +20,38 @@
     font-weight: 700;
   }
   .instructions {
-    justify-content: left;
+    justify-content: space-between;
     align-items: center;
     display: flex;
     margin-right: 2.35765%;
     img {
       width: 4%;
+      margin-right: 10px;
     }
     p {
       margin: 0px;
+    }
+    div {
+      display: flex;
+      align-items: center;
+    }
+    .edits-made {
+      flex-direction: column;
+      max-width: 200px;
+      width: 100%;
+      align-items: flex-end;
+      p {
+        font-size: 12px;
+      }
+      .progress-bar-indication {
+        background-color: #f2f2f2;
+        border-radius: 6px;
+        border: 1px solid #DDD;
+        box-shadow: inset 0 0 3px 0 rgba(115,115,115,.15);
+        margin: 0 auto;
+        width: 100%;
+        height: 10px;
+      }
     }
   }
 
@@ -36,7 +59,11 @@
     max-width: 56em;
     margin: auto;
     line-height: 2.0;
-    font-family: courier;
+    font-size: 16px;
+    font-family: courier new;
+    color: #888;
+    font-weight: 400;
+    padding: 0px 50px;
   }
 
   .ql-editor:focus {

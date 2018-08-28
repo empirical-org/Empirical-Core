@@ -9,6 +9,7 @@ interface PassageEditorState {
 }
 
 interface PassageEditorProps {
+  handleTextChange: Function;
   text: string;
 }
 
