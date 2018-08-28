@@ -5,6 +5,7 @@ import * as request from 'request';
 import * as jsdiff from 'diff'
 import _ from 'lodash';
 import { EditorState, ContentState } from 'draft-js'
+const questionIconSrc = 'https://assets.quill.org/images/icons/question_icon.svg'
 
 import getParameterByName from '../../helpers/getParameterByName';
 import { startListeningToActivity } from "../../actions/proofreaderActivities";
@@ -19,7 +20,7 @@ import { getConceptResultsForAllQuestions, calculateScoreForLesson } from '../..
 import { SessionState } from '../../reducers/sessionReducer'
 import { ProofreaderActivityState } from '../../reducers/proofreaderActivitiesReducer'
 import { Question, FormattedConceptResult } from '../../interfaces/questions'
-import TextEditor from '../shared/textEditor'
+import PassageEditor from './passageEditor'
 import LoadingSpinner from '../shared/loading_spinner'
 
 
@@ -198,13 +199,24 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
     }
 
     render(): JSX.Element {
+      const { currentActivity } = this.props.proofreaderActivities
       if (this.props.proofreaderActivities.hasreceiveddata) {
-        return <div>
-          <p>{this.props.proofreaderActivities.currentActivity.title}</p>
-          <TextEditor
-            text={this.state.originalPassage}
-            handleTextChange={this.handlePassageChange}
-          />
+        return <div className="passage-container">
+          <div className="header-section">
+            <div className="inner-header">
+              <h1>{currentActivity.title}</h1>
+              <div className="instructions">
+                <img src={questionIconSrc} />
+                <p>{currentActivity.description}</p>
+              </div>
+            </div>
+          </div>
+          <div className="passage">
+            <PassageEditor
+              text={this.state.originalPassage}
+              handleTextChange={this.handlePassageChange}
+            />
+          </div>
 
         </div>
         // return <QuestionComponent
