@@ -202,10 +202,8 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
         return <div>
           <p>{this.props.proofreaderActivities.currentActivity.title}</p>
           <TextEditor
-            text={this.state.passage}
+            text={this.state.originalPassage}
             handleTextChange={this.handlePassageChange}
-            ContentState={ContentState}
-            EditorState={EditorState}
           />
 
         </div>
