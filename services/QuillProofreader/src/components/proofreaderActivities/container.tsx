@@ -79,22 +79,25 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
     // }
     //
     formatInitialPassage(passage: string) {
+      let numberOfErrors = 0
       passage.replace(/{\+([^-]+)-([^|]+)\|([^}]+)}/g, (key: string, plus: string, minus: string, conceptUID: string) => {
         passage = passage.replace(key, minus);
+        numberOfErrors++
       });
-      return passage
+      return {passage, numberOfErrors}
 
     }
 
     componentWillReceiveProps(nextProps: PlayProofreaderContainerProps) {
       if (nextProps.proofreaderActivities.hasreceiveddata) {
         const { passage } = nextProps.proofreaderActivities.currentActivity
-        const formattedPassage = this.formatInitialPassage(passage)
+        const initialPassageData = this.formatInitialPassage(passage)
+        const formattedPassage = initialPassageData.passage
         // let uneditedPassage = passage
         // passage.replace(/{\+([^-]+)-([^|]+)\|([^}]+)}/g, (key, plus, minus, conceptUID) => {
         //   uneditedPassage = passage.replace(key, minus);
         // });
-        this.setState({passage: formattedPassage, originalPassage: formattedPassage})
+        this.setState({passage: formattedPassage, originalPassage: formattedPassage, numberOfErrors: initialPassageData.numberOfErrors})
 
         // const passageWithEdits = this.extractEditsFromPassage(nextProps.proofreaderActivities.currentActivity.passage)
       }
@@ -176,26 +179,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
     }
 
     handlePassageChange(value: string) {
-      // const strippedOriginal = this.standardizedPassage(this.state.originalPassage)
-      // const strippedNew = this.standardizedPassage(value)
-      // const diff = jsdiff.diffWords(strippedOriginal, strippedNew)
-      // const relevantDiff = diff.filter(d => d.added || d.removed)
-      // if (relevantDiff.length) {
-      //   let valueWithHighlightedChanges = ''
-      //   diff.forEach(diff => {
-      //     if (diff.added) {
-      //       valueWithHighlightedChanges += ` <b>${diff.value}</b> `
-      //     } else if (!diff.removed) {
-      //       valueWithHighlightedChanges += diff.value
-      //     }
-      //   })
-      //   console.log('valueWithHighlightedChanges', valueWithHighlightedChanges)
         this.setState({ passage: value})
-      // }
-    }
-
-    standardizedPassage(string: string) {
-      return string.replace(/<(?:.|\n)*?>/gm, '').replace(/&#x27;/gm, "'")
     }
 
     render(): JSX.Element {
@@ -206,8 +190,14 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
             <div className="inner-header">
               <h1>{currentActivity.title}</h1>
               <div className="instructions">
-                <img src={questionIconSrc} />
-                <p>{currentActivity.description}</p>
+                <div>
+                  <img src={questionIconSrc} />
+                  <p>{currentActivity.description}</p>
+                </div>
+                <div className="edits-made">
+                  <p>Edits Made: 0 of {this.state.numberOfErrors}</p>
+                  <div className="progress-bar-indication" />
+                </div>
               </div>
             </div>
           </div>
@@ -219,14 +209,6 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
           </div>
 
         </div>
-        // return <QuestionComponent
-        //   activity={this.props.proofreaderActivities.currentActivity}
-        //   answeredQuestions={this.props.session.answeredQuestions}
-        //   unansweredQuestions={this.props.session.unansweredQuestions}
-        //   currentQuestion={this.props.session.currentQuestion}
-        //   goToNextQuestion={() => this.props.dispatch(goToNextQuestion())}
-        //   checkAnswer={(response: string, question: Question) => this.props.dispatch(checkAnswer(response, question))}
-        // />
       } else if (this.props.session.error) {
         return (
           <div>{this.props.session.error}</div>
