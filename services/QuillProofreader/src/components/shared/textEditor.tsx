@@ -60,8 +60,8 @@ class TextEditor extends React.Component <any, any> {
   }
 
   standardizedPassage(string: string) {
-    // return string
-    return string.replace(/<(?:p|\/p|strong|\/strong|\n)*?>/gm, '').replace(/&#x27;/gm, "'").replace(/<br\/><br\/>/gm, '<br>')
+    return string.replace(/<(?:strong|\/strong)>/gm, '').replace(/<br>/gm, '').replace(/\s+(\.)/gm, '.')
+    // return string.replace(/<(?:p|\/p|strong|\/strong)>/gm, '').replace(/&#x27;/gm, "'").replace(/&gt;/, '<br/>')
   }
 
 
@@ -73,6 +73,7 @@ class TextEditor extends React.Component <any, any> {
       if (newText) {
         // this.setState({text: newText})
         this.setState({text: newText }, () => {
+        console.log('newState', newText)
           this.props.handleTextChange(newText)
           // this.setState({selection: this.state.lastSelectionIndex})
           const quillRef = this.refs.myQuillRef.getEditor();
