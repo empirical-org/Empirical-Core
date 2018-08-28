@@ -1,0 +1,50 @@
+.passage-container {
+  .header-section {
+    background-color: #ededed;
+    height: 130px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    padding: 15px 30px;
+  }
+  .inner-header {
+    margin: 15px 30px;
+    display: flex;
+    flex-direction: column;
+    max-width: 56em;
+    width: 100%;
+  }
+  h1 {
+    line-height: 1.25;
+    font-size: 2.25em;
+    font-weight: 700;
+  }
+  .instructions {
+    justify-content: left;
+    align-items: center;
+    display: flex;
+    margin-right: 2.35765%;
+    img {
+      width: 4%;
+    }
+    p {
+      margin: 0px;
+    }
+  }
+
+  .quill {
+    max-width: 56em;
+    margin: auto;
+    line-height: 2.0;
+    font-family: courier;
+  }
+
+  .ql-editor:focus {
+    outline: none;
+  }
+
+  .passage {
+    background-color: white;
+    padding-top: 30px;
+  }
+}

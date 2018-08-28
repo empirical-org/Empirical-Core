@@ -1,18 +1,19 @@
 import * as React from 'react';
-import * as ReactQuill from 'react-quill'; // Typescript
+import ReactQuill from 'react-quill'; // Typescript
 import * as jsdiff from 'diff'
+import * as _ from 'underscore'
 
-interface TextEditorState {
+interface PassageEditorState {
   text: string;
   lastSelectionIndex?: number;
 }
 
-interface TextEditorProps {
+interface PassageEditorProps {
   text: string;
 }
 
-class TextEditor extends React.Component <TextEditorProps, TextEditorState> {
-  constructor(props: TextEditorProps) {
+class PassageEditor extends React.Component <PassageEditorProps, PassageEditorState> {
+  constructor(props: PassageEditorProps) {
     super(props)
 
     this.state = {
@@ -81,9 +82,10 @@ class TextEditor extends React.Component <TextEditorProps, TextEditorState> {
 
   render() {
     return (
+      // onChange={_.debounce(this.handleTextChange, 5000)}
+
       <ReactQuill
-        modules={{toolbar: null, syntax: false, spellcheck: false}}
-        spellcheck={false}
+        modules={{toolbar: null}}
         value={this.state.text}
         onChange={this.handleTextChange}
         ref={'editor'}
@@ -94,4 +96,4 @@ class TextEditor extends React.Component <TextEditorProps, TextEditorState> {
 
 }
 
-export default TextEditor
+export default PassageEditor
