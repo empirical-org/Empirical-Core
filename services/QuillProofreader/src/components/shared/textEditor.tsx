@@ -1,32 +1,23 @@
 import * as React from 'react';
 import * as ReactQuill from 'react-quill'; // Typescript
-// const { convertFromHTML, convertToHTML } = require('draft-convert')
 import * as jsdiff from 'diff'
-// import createRichButtonsPlugin from 'draft-js-richbuttons-plugin'
 
-// const richButtonsPlugin = createRichButtonsPlugin();
-// const {
-//   // inline buttons
-//   ItalicButton, BoldButton, UnderlineButton,
-//   // block buttons
-//   BlockquoteButton, ULButton, H3Button
-// } = richButtonsPlugin;
-//
-// interface TextEditorProps {
-//   text: string;
-//   boilerplate: string;
-//   handleTextChange: Function;
-// }
-//
-// interface TextEditorState {
-//   text: any;
-// }
+interface TextEditorState {
+  text: string;
+  lastSelectionIndex?: number;
+}
 
-class TextEditor extends React.Component <any, any> {
-  constructor(props: any) {
+interface TextEditorProps {
+  text: string;
+}
+
+class TextEditor extends React.Component <TextEditorProps, TextEditorState> {
+  constructor(props: TextEditorProps) {
     super(props)
 
-    this.state = { text: props.text }
+    this.state = {
+      text: props.text
+    }
 
     this.handleTextChange = this.handleTextChange.bind(this)
     this.handlePassageChange = this.handlePassageChange.bind(this)
@@ -34,23 +25,23 @@ class TextEditor extends React.Component <any, any> {
     this.onChangeSelection = this.onChangeSelection.bind(this)
   }
 
-  handlePassageChange(value: string) {
-    console.log('original', this.props.text)
-    console.log('new', value)
+  componentDidMount() {
+    const quillRef = document.getElementsByClassName('ql-editor')
+    if (quillRef && quillRef[0]) {
+      quillRef[0].setAttribute("spellcheck", "false")
+    }
+  }
+
+  handlePassageChange(value: string):string|void {
     const strippedOriginal = this.standardizedPassage(this.props.text)
     const strippedNew = this.standardizedPassage(value)
-    console.log('strippedOriginal', strippedOriginal)
-    console.log('strippedNew', strippedNew)
-
-    //
     const diff = jsdiff.diffWords(strippedOriginal, strippedNew)
-    const relevantDiff = diff.filter(d => d.added || d.removed)
+    const relevantDiff = diff.filter((d: { added?: boolean, removed?: boolean, value?: string }) => d.added || d.removed)
     if (relevantDiff.length) {
       let valueWithHighlightedChanges = ''
       diff.forEach(diff => {
-        console.log(diff)
         if (diff.added) {
-          valueWithHighlightedChanges += ` <strong>${diff.value}</strong> `
+          valueWithHighlightedChanges += `<strong>${diff.value}</strong>`
         } else if (!diff.removed) {
           valueWithHighlightedChanges += diff.value
         }
@@ -59,50 +50,43 @@ class TextEditor extends React.Component <any, any> {
     }
   }
 
-  standardizedPassage(string: string) {
+  standardizedPassage(string: string):string {
     return string.replace(/<(?:strong|\/strong)>/gm, '').replace(/<br>/gm, '').replace(/\s+(\.)/gm, '.')
-    // return string.replace(/<(?:p|\/p|strong|\/strong)>/gm, '').replace(/&#x27;/gm, "'").replace(/&gt;/, '<br/>')
   }
 
 
-  handleTextChange(e) {
-    const html = e
+  handleTextChange(text: string) {
+    const html = text
     if (html !== this.state.text) {
       const newText = this.handlePassageChange(html)
-      console.log('newText', newText)
       if (newText) {
-        // this.setState({text: newText})
         this.setState({text: newText }, () => {
-        console.log('newState', newText)
           this.props.handleTextChange(newText)
-          // this.setState({selection: this.state.lastSelectionIndex})
-          const quillRef = this.refs.myQuillRef.getEditor();
+          const quillRef = this.refs.editor.getEditor();
+          // have to wait to make sure new text has rendered
           setTimeout(() => {
-            // this.setState({selection: newText.selectionIndex})
-            // quillRef.focus();
             quillRef.setSelection(this.state.lastSelectionIndex, 0);
           }, 100);
 
         })
-        // this.props.handleTextChange(newText)
       }
     }
   }
 
-  onChangeSelection(range) {
+  onChangeSelection(range: null|{ index: number, length: number }) {
     if (range && range.index !== 0) {
       this.setState({lastSelectionIndex: range.index })
     }
-    console.log('range', range)
   }
 
   render() {
-    // const selectionObj = this.state.selectionIndex ? { start: this.state.selectionIndex } : {}
     return (
       <ReactQuill
+        modules={{toolbar: null, syntax: false, spellcheck: false}}
+        spellcheck={false}
         value={this.state.text}
         onChange={this.handleTextChange}
-        ref={'myQuillRef'}
+        ref={'editor'}
         onChangeSelection={this.onChangeSelection}
       />
     )
