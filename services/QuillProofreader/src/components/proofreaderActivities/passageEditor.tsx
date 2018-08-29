@@ -37,15 +37,22 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
   handlePassageChange(value: string):string|void {
     const strippedOriginal = this.standardizedPassage(this.props.text)
     const strippedNew = this.standardizedPassage(value)
-    const diff = jsdiff.diffWords(strippedOriginal, strippedNew)
-    const relevantDiff = diff.filter((d: { added?: boolean, removed?: boolean, value?: string }) => d.added || d.removed)
-    if (relevantDiff.length) {
+    const diffs = jsdiff.diffWords(strippedOriginal, strippedNew)
+    const relevantDiffs = diffs.filter((d: { added?: boolean, removed?: boolean, value?: string }) => d.added || d.removed)
+    if (relevantDiffs.length) {
       let valueWithHighlightedChanges = ''
-      diff.forEach(diff => {
+      diffs.forEach((diff: { added?: boolean, removed?: boolean, value?: string }, index: number) => {
+        const nextDiff = diffs[index + 1]
+        let diffVal
+        // if (nextDiff && nextDiff.value === '<u>') {
+        //   diffVal = '<u>' + diff.value
+        // } else if (diff.value !== '<u>') {
+          diffVal = diff.value
+        // }
         if (diff.added) {
-          valueWithHighlightedChanges += `<strong>${diff.value}</strong>`
+          valueWithHighlightedChanges += `<strong>${diffVal}</strong>`
         } else if (!diff.removed) {
-          valueWithHighlightedChanges += diff.value
+          valueWithHighlightedChanges += diffVal
         }
       })
       return valueWithHighlightedChanges

@@ -76,5 +76,14 @@
   .passage {
     background-color: white;
     padding-top: 30px;
+    u {
+      text-decoration: none;
+    }
+  }
+
+  .passage.underline-errors {
+    u {
+      text-decoration: underline;
+    }
   }
 }
