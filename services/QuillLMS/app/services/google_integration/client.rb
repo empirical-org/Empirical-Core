@@ -2,10 +2,12 @@ require 'google/api_client'
 
 class GoogleIntegration::Client
 
-  def initialize(user, api_client = nil, token_refresher = nil)
+  def initialize(user, api_client = nil, token_refresher = nil, api_version = nil, os_version = nil)
     @user            = user
     @api_client      = api_client || Google::APIClient
     @token_refresher = token_refresher || GoogleIntegration::RefreshAccessToken
+    @api_version     = api_version || Google::APIClient::VERSION::STRING
+    @os_version      = os_version || Google::APIClient::ENV::OS_VERSION
   end
 
   def create
@@ -33,8 +35,8 @@ class GoogleIntegration::Client
   def user_agent
     [
       "quill/0.0.0",
-      "google-api-ruby-client/#{Google::APIClient::VERSION::STRING}",
-      Google::APIClient::ENV::OS_VERSION,
+      "google-api-ruby-client/#{@api_version}",
+      @os_version,
       '(gzip)'
     ].join(' ').delete("\n")
   end
