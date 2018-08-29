@@ -81,11 +81,10 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
     formatInitialPassage(passage: string) {
       let numberOfErrors = 0
       passage.replace(/{\+([^-]+)-([^|]+)\|([^}]+)}/g, (key: string, plus: string, minus: string, conceptUID: string) => {
-        passage = passage.replace(key, minus);
+        passage = passage.replace(key, `<u>${minus}</u>`);
         numberOfErrors++
       });
       return {passage, numberOfErrors}
-
     }
 
     componentWillReceiveProps(nextProps: PlayProofreaderContainerProps) {
@@ -185,6 +184,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
     render(): JSX.Element {
       const { currentActivity } = this.props.proofreaderActivities
       if (this.props.proofreaderActivities.hasreceiveddata) {
+        const className = currentActivity.underlineErrorsInProofreader ? 'underline-errors' : ''
         return <div className="passage-container">
           <div className="header-section">
             <div className="inner-header">
@@ -201,7 +201,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
               </div>
             </div>
           </div>
-          <div className="passage">
+          <div className={`passage ${className}`}>
             <PassageEditor
               text={this.state.originalPassage}
               handleTextChange={this.handlePassageChange}
