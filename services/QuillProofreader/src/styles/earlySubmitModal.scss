@@ -1,0 +1,73 @@
+.early-submit-modal-container {
+
+  .early-submit-modal-background {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 99;
+    background-color: #3f3f3f;
+    opacity: 0.9;
+  }
+
+  .early-submit-modal {
+    width: 385px;
+    border-radius: 6px;
+    background-color: #ffffff;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 100;
+    line-height: 1.56;
+    .top-section {
+      padding: 39px 35px;
+      text-align: center;
+      p {
+        margin: 22px 0px;
+      }
+    }
+    .exit {
+      right: 12px;
+      top: 12px;
+      position: absolute;
+      cursor: pointer;
+    }
+    span {
+      font-weight: bold;
+    }
+    h1 {
+      font-size: 20px;
+      font-weight: 600px;
+      color: #000000;
+    }
+
+    p {
+      font-size: 16px;
+      span {
+        font-weight: bold;
+      }
+    }
+
+    button {
+      width: 147px;
+    	height: 40px;
+    	border-radius: 3px;
+    	background-color: #00c2a2;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      margin-top: 8px;
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+
+}
