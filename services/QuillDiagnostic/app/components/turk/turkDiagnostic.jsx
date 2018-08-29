@@ -284,7 +284,6 @@ const TurkDiagnostic = React.createClass({
   landingPageHtml() {
     const { data, } = this.props.lessons,
       { diagnosticID, } = this.props.params;
-      debugger;
     return data[diagnosticID].landingPageHtml
   },
 
