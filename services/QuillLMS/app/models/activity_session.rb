@@ -13,6 +13,7 @@ class ActivitySession < ActiveRecord::Base
   belongs_to :activity
   has_one :unit, through: :classroom_unit
   has_many :concept_results
+  has_many :activity_session_interaction_logs, dependent: :destroy
   has_many :concepts, -> { uniq }, through: :concept_results
 
   validate :correctly_assigned, :on => :create
@@ -53,6 +54,21 @@ class ActivitySession < ActiveRecord::Base
 
   def self.with_best_scores
     where(is_final_score: true)
+  end
+
+  def timespent
+    if read_attribute(:timespent).present?
+      read_attribute(:timespent)
+    else
+      self.calculate_timespent
+    end
+  end
+
+  def calculate_timespent
+    # database level function
+    ActiveRecord::Base.connection.execute(
+        "SELECT * FROM timespent_activity_session(#{id})"
+    )[0]["timespent_activity_session"].to_i
   end
 
   def eligible_for_tracking?
@@ -354,6 +370,13 @@ class ActivitySession < ActiveRecord::Base
         started_at: Time.now
       )
     end
+  end
+
+  def add_interaction_log(meta={},date=DateTime.now)
+    # NOTE: the below won't work because activity session interaction logs have no primary key, this is ok
+    # `self.activity_session_interaction_logs << ActivitySessionInteractionLog.create(meta: meta, date: date)`
+    ActivitySessionInteractionLog.create(meta: meta, date: date, activity_session_id: self.id)
+    # Dually, please do not add reload here, the db cost is not worth it
   end
 
   private

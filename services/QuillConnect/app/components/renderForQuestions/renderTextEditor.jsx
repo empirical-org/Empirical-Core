@@ -2,11 +2,16 @@ import React from 'react';
 import _ from 'underscore';
 import Textarea from 'react-textarea-autosize';
 import { generateStyleObjects } from '../../libs/markupUserResponses';
+import { getParameterByName } from '../../libs/getParameterByName';
+import { sendActivitySessionInteractionLog } from '../../libs/sendActivitySessionInteractionLog';
+
 const C = require('../../constants').default;
 
 const noUnderlineErrors = [];
 
 const feedbackStrings = C.FEEDBACK_STRINGS;
+
+const timeBetweenActivitySessionInteractionLogsInMS = 5000;
 
 export default React.createClass({
   getInitialState() {
@@ -17,6 +22,18 @@ export default React.createClass({
 
   getErrorsForAttempt(attempt) {
     return _.pick(attempt, ...C.ERROR_TYPES);
+  },
+
+  reportActivtySessionTextBoxInteraction() {
+    sendActivitySessionInteractionLog(getParameterByName('student'), { info: 'textbox interaction', });
+  },
+
+  componentWillMount() {
+    this.reportActivtySessionTextBoxInteraction = _.debounce(
+      this.reportActivtySessionTextBoxInteraction,
+      timeBetweenActivitySessionInteractionLogsInMS,
+      true
+    );
   },
 
   componentWillReceiveProps(nextProps) {
@@ -128,6 +145,7 @@ export default React.createClass({
               value={this.props.value}
               onInput={this.handleTextChange}
               onKeyDown={this.handleKeyDown}
+              onKeyUp={this.reportActivtySessionTextBoxInteraction}
               placeholder={this.props.placeholder}
               ref="answerBox"
               className="connect-text-area"
