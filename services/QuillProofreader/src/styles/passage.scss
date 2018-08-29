@@ -75,7 +75,7 @@
 
   .passage {
     background-color: white;
-    padding-top: 30px;
+    padding: 30px 60px 0px;
     u {
       text-decoration: none;
     }
@@ -102,6 +102,9 @@
       border-radius: 6px;
       height: 40px;
       width: 135px;
+      &:focus {
+        outline: none;
+      }
     }
   }
 }
