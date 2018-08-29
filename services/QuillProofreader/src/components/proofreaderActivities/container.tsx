@@ -21,8 +21,9 @@ import { SessionState } from '../../reducers/sessionReducer'
 import { ProofreaderActivityState } from '../../reducers/proofreaderActivitiesReducer'
 import { Question, FormattedConceptResult } from '../../interfaces/questions'
 import PassageEditor from './passageEditor'
+import PassageReviewer from './passageReviewer'
+import EarlySubmitModal from './earlySubmitModal'
 import LoadingSpinner from '../shared/loading_spinner'
-
 
 interface PlayProofreaderContainerProps {
   proofreaderActivities: ProofreaderActivityState;
@@ -32,8 +33,12 @@ interface PlayProofreaderContainerProps {
 
 interface PlayProofreaderContainerState {
   edits: Array<string>;
+  reviewing: boolean;
+  showEarlySubmitModal: boolean;
+  numberOfErrors?: number;
   passage?: string;
   originalPassage?: string;
+  reviewablePassage?: string;
 }
 
 export class PlayProofreaderContainer extends React.Component<PlayProofreaderContainerProps, PlayProofreaderContainerState> {
@@ -41,7 +46,9 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       super(props);
 
       this.state = {
-        edits: []
+        edits: [],
+        reviewing: false,
+        showEarlySubmitModal: false
       }
 
       this.saveToLMS = this.saveToLMS.bind(this)
@@ -49,6 +56,8 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       this.createAnonActivitySession = this.createAnonActivitySession.bind(this)
       this.handlePassageChange = this.handlePassageChange.bind(this)
       this.checkWork = this.checkWork.bind(this)
+      this.renderShowEarlySubmitModal = this.renderShowEarlySubmitModal.bind(this)
+      this.closeEarlySubmitModal = this.closeEarlySubmitModal.bind(this)
     }
 
     componentWillMount() {
@@ -201,42 +210,51 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
     }
 
     checkWork() {
-      const editedPassage = this.state.passage
-      // const { edits } = this.state
-      const { passage } = this.props.proofreaderActivities.currentActivity
-      const correctEdits = passage.match(/{\+([^-]+)-([^|]+)\|([^}]+)}/g) || []
-      if (editedPassage) {
-        const newPassage = editedPassage.replace(/<strong>(.*?)<\/strong>/gm , (key, edit) => {
-          console.log('edit', edit)
-          const match = correctEdits.find(correctEdit => {
-            const attemptedMatch = correctEdit.match(/([^-]+)-/g)
-            const correctText = attemptedMatch && attemptedMatch[0] ? attemptedMatch[0].replace(/{|\+|\-/g, '') : null
-            console.log('correctText', correctText)
-            if (edit === correctText) {
-              return correctEdit
+      const { edits, numberOfErrors } = this.state
+      const requiredEditCount = numberOfErrors ? Math.floor(numberOfErrors/2) : 5
+      if (numberOfErrors && edits.length === 0 || edits.length < requiredEditCount) {
+        this.setState({showEarlySubmitModal: true})
+      } else {
+        const editedPassage = this.state.passage
+        // const { edits } = this.state
+        const { passage } = this.props.proofreaderActivities.currentActivity
+        const correctEdits = passage.match(/{\+([^-]+)-([^|]+)\|([^}]+)}/g) || []
+        if (editedPassage) {
+          const reviewablePassage = editedPassage.replace(/<strong>(.*?)<\/strong>/gm , (key, edit) => {
+            console.log('edit', edit)
+            const match = correctEdits.find(correctEdit => {
+              const attemptedMatch = correctEdit.match(/([^-]+)-/g)
+              const correctText = attemptedMatch && attemptedMatch[0] ? attemptedMatch[0].replace(/{|\+|\-/g, '') : null
+              console.log('correctText', correctText)
+              if (edit === correctText) {
+                return correctEdit
+              }
+            })
+            console.log('match', match)
+            if (match) {
+              return match
+            } else {
+              return `{+${edit}|unnecessary}`
             }
           })
-          console.log('match', match)
-          if (match) {
-            return match
-            // editedPassage.replace(key, match)
-          } else {
-            return `{+${edit}|unnecessary}`
-            // editedPassage.replace(key, `+${edit}|unnecessary`)
-          }
-        })
+          this.setState({ reviewablePassage, reviewing: true })
+        }
       }
-      debugger;
-      //   passage.replace(/{\+([^-]+)-([^|]+)\|([^}]+)}/g, (key, plus, minus, conceptUID) => {
-      //     const genKey = Math.random();
-      //     edits[genKey] = {
-      //       plus: plus,
-      //       minus: minus,
-      //       conceptUID: conceptUID
-      //     };
-      //     passage = passage.replace(key, genKey);
-      //   });
+    }
 
+    renderShowEarlySubmitModal() {
+      const { showEarlySubmitModal, numberOfErrors } = this.state
+      const requiredEditCount = numberOfErrors ? Math.floor(numberOfErrors/2) : 5
+      if (showEarlySubmitModal) {
+        return <EarlySubmitModal
+          requiredEditCount={requiredEditCount}
+          closeModal={this.closeEarlySubmitModal}
+        />
+      }
+    }
+
+    closeEarlySubmitModal() {
+      this.setState({ showEarlySubmitModal: false })
     }
 
     render(): JSX.Element {
@@ -259,14 +277,16 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
               </div>
             </div>
           </div>
+          {this.renderShowEarlySubmitModal()}
           <div className={`passage ${className}`}>
             <PassageEditor
               text={this.state.originalPassage}
               handleTextChange={this.handlePassageChange}
             />
           </div>
-          <button onClick={this.checkWork}>Check Work</button>
-
+          <div className="bottom-section">
+            <button onClick={this.checkWork}>Check Work</button>
+          </div>
         </div>
       } else if (this.props.session.error) {
         return (
