@@ -14,7 +14,9 @@ describe GoogleIntegration::Client do
     )
 
     expect(api_client)
-      .to receive_message_chain(:new).with(application_name: 'quill', :user_agent=>"quill/0.0.0 google-api-ruby-client/0.8.6 Linux/4.4.0-130-generic (gzip)")
+      .to receive_message_chain(:new).with(
+        application_name: 'quill',
+        user_agent: "quill/0.0.0 google-api-ruby-client/1.2.3 Linux/4.4.0-130-generic (gzip)")
       .and_return(api_client_instance)
 
     expect(token_refresher).to receive_message_chain(:new, :refresh)
@@ -24,7 +26,8 @@ describe GoogleIntegration::Client do
       .to receive_message_chain(:authorization, :access_token=)
       .with(access_token)
 
-    GoogleIntegration::Client.new(user, api_client, token_refresher)
+    GoogleIntegration::Client
+      .new(user, api_client, token_refresher, '1.2.3', 'Linux/4.4.0-130-generic')
       .create
   end
 
