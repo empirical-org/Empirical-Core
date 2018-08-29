@@ -92,11 +92,11 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
     formatInitialPassage(passage: string, underlineErrors: boolean) {
       let numberOfErrors = 0
       passage.replace(/{\+([^-]+)-([^|]+)\|([^}]+)}/g, (key: string, plus: string, minus: string, conceptUID: string) => {
-        if (underlineErrors) {
-          passage = passage.replace(key, `<u>${minus}</u>`);
-        } else {
+        // if (underlineErrors) {
+        //   passage = passage.replace(key, `<u>${minus}</u>`);
+        // } else {
           passage = passage.replace(key, minus);
-        }
+        // }
         numberOfErrors++
       });
       return {passage, numberOfErrors}
@@ -202,8 +202,41 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
 
     checkWork() {
       const editedPassage = this.state.passage
+      // const { edits } = this.state
       const { passage } = this.props.proofreaderActivities.currentActivity
-      const correctEdits = passage.match(/{\+([^-]+)-([^|]+)\|([^}]+)}/g)
+      const correctEdits = passage.match(/{\+([^-]+)-([^|]+)\|([^}]+)}/g) || []
+      if (editedPassage) {
+        const newPassage = editedPassage.replace(/<strong>(.*?)<\/strong>/gm , (key, edit) => {
+          console.log('edit', edit)
+          const match = correctEdits.find(correctEdit => {
+            const attemptedMatch = correctEdit.match(/([^-]+)-/g)
+            const correctText = attemptedMatch && attemptedMatch[0] ? attemptedMatch[0].replace(/{|\+|\-/g, '') : null
+            console.log('correctText', correctText)
+            if (edit === correctText) {
+              return correctEdit
+            }
+          })
+          console.log('match', match)
+          if (match) {
+            return match
+            // editedPassage.replace(key, match)
+          } else {
+            return `{+${edit}|unnecessary}`
+            // editedPassage.replace(key, `+${edit}|unnecessary`)
+          }
+        })
+      }
+      debugger;
+      //   passage.replace(/{\+([^-]+)-([^|]+)\|([^}]+)}/g, (key, plus, minus, conceptUID) => {
+      //     const genKey = Math.random();
+      //     edits[genKey] = {
+      //       plus: plus,
+      //       minus: minus,
+      //       conceptUID: conceptUID
+      //     };
+      //     passage = passage.replace(key, genKey);
+      //   });
+
     }
 
     render(): JSX.Element {
