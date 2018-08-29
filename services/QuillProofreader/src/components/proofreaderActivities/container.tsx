@@ -38,6 +38,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       this.finishActivitySession = this.finishActivitySession.bind(this)
       this.createAnonActivitySession = this.createAnonActivitySession.bind(this)
       this.handlePassageChange = this.handlePassageChange.bind(this)
+      this.checkWork = this.checkWork.bind(this)
     }
 
     componentWillMount() {
@@ -78,10 +79,14 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
     //   return [edits, passage];
     // }
     //
-    formatInitialPassage(passage: string) {
+    formatInitialPassage(passage: string, underlineErrors: boolean) {
       let numberOfErrors = 0
       passage.replace(/{\+([^-]+)-([^|]+)\|([^}]+)}/g, (key: string, plus: string, minus: string, conceptUID: string) => {
-        passage = passage.replace(key, `<u>${minus}</u>`);
+        if (underlineErrors) {
+          passage = passage.replace(key, `<u>${minus}</u>`);
+        } else {
+          passage = passage.replace(key, minus);
+        }
         numberOfErrors++
       });
       return {passage, numberOfErrors}
@@ -89,8 +94,8 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
 
     componentWillReceiveProps(nextProps: PlayProofreaderContainerProps) {
       if (nextProps.proofreaderActivities.hasreceiveddata) {
-        const { passage } = nextProps.proofreaderActivities.currentActivity
-        const initialPassageData = this.formatInitialPassage(passage)
+        const { passage, underlineErrorsInProofreader } = nextProps.proofreaderActivities.currentActivity
+        const initialPassageData = this.formatInitialPassage(passage, underlineErrorsInProofreader)
         const formattedPassage = initialPassageData.passage
         // let uneditedPassage = passage
         // passage.replace(/{\+([^-]+)-([^|]+)\|([^}]+)}/g, (key, plus, minus, conceptUID) => {
@@ -178,7 +183,18 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
     }
 
     handlePassageChange(value: string) {
-        this.setState({ passage: value})
+      const regex = /<strong>.*?<\/strong>/gm
+      const edits = value.match(regex)
+      console.log('edits', edits)
+      if (edits) {
+        // this.setState({ passage: value })
+      }
+    }
+
+    checkWork() {
+      const editedPassage = this.state.passage
+      const { passage } = this.props.proofreaderActivities.currentActivity
+      const correctEdits = passage.match(/{\+([^-]+)-([^|]+)\|([^}]+)}/g)
     }
 
     render(): JSX.Element {
@@ -207,6 +223,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
               handleTextChange={this.handlePassageChange}
             />
           </div>
+          <button onClick={this.checkWork}>Check Work</button>
 
         </div>
       } else if (this.props.session.error) {
