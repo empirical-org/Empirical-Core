@@ -30,9 +30,19 @@ interface PlayProofreaderContainerProps {
   dispatch: Function;
 }
 
-export class PlayProofreaderContainer extends React.Component<PlayProofreaderContainerProps, any> {
+interface PlayProofreaderContainerState {
+  edits: Array<string>;
+  passage?: string;
+  originalPassage?: string;
+}
+
+export class PlayProofreaderContainer extends React.Component<PlayProofreaderContainerProps, PlayProofreaderContainerState> {
     constructor(props: any) {
       super(props);
+
+      this.state = {
+        edits: []
+      }
 
       this.saveToLMS = this.saveToLMS.bind(this)
       this.finishActivitySession = this.finishActivitySession.bind(this)
@@ -185,9 +195,8 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
     handlePassageChange(value: string) {
       const regex = /<strong>.*?<\/strong>/gm
       const edits = value.match(regex)
-      console.log('edits', edits)
-      if (edits) {
-        // this.setState({ passage: value })
+      if (edits && !_.isEqual(edits, this.state.edits)) {
+        this.setState({ passage: value, edits })
       }
     }
 
@@ -211,7 +220,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
                   <p>{currentActivity.description}</p>
                 </div>
                 <div className="edits-made">
-                  <p>Edits Made: 0 of {this.state.numberOfErrors}</p>
+                  <p>Edits Made: {this.state.edits.length} of {this.state.numberOfErrors}</p>
                   <div className="progress-bar-indication" />
                 </div>
               </div>
