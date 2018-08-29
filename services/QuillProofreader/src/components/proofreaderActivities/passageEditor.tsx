@@ -49,7 +49,7 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
         // } else if (diff.value !== '<u>') {
           diffVal = diff.value
         // }
-        if (diff.added) {
+        if (diff.added && diffVal && !/<p>|<\/p>/.test(diffVal)) {
           valueWithHighlightedChanges += `<strong>${diffVal}</strong>`
         } else if (!diff.removed) {
           valueWithHighlightedChanges += diffVal
@@ -60,7 +60,7 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
   }
 
   standardizedPassage(string: string):string {
-    return string.replace(/<(?:strong|\/strong)>/gm, '').replace(/<br>/gm, '').replace(/\s+(\.)/gm, '.')
+    return string.replace(/<(?:strong|\/strong)>|<br>/gm, '').replace(/\s+(\.)/gm, '.')
   }
 
 
