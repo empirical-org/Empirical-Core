@@ -204,6 +204,7 @@ EmpiricalGrammar::Application.routes.draw do
     put 'units/:id/hide' => 'units#hide', as: 'hide_units_path'
     get 'progress_reports/landing_page' => 'progress_reports#landing_page'
     get 'progress_reports/activities_scores_by_classroom' => 'progress_reports#activities_scores_by_classroom'
+    get 'progress_reports/real_time' => 'progress_reports#real_time'
     # in actual use with progress_reports/student_overview, pass the query string ?classroom_id=x&student_id=y
     get 'progress_reports/student_overview' => 'progress_reports#student_overview'
 
