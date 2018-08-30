@@ -23,6 +23,10 @@ class Teachers::ProgressReportsController < ApplicationController
     render 'activities_scores_by_classroom'
   end
 
+  def real_time
+    render 'real_time'
+  end
+
   def student_overview
     render 'student_overview'
   end
