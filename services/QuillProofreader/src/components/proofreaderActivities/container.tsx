@@ -102,9 +102,9 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       let numberOfErrors = 0
       passage.replace(/{\+([^-]+)-([^|]+)\|([^}]+)}/g, (key: string, plus: string, minus: string, conceptUID: string) => {
         // if (underlineErrors) {
-        //   passage = passage.replace(key, `<u>${minus}</u>`);
+          passage = passage.replace(key, `<span id="${key}">${minus}</span>`);
         // } else {
-          passage = passage.replace(key, minus);
+          // passage = passage.replace(key, minus);
         // }
         numberOfErrors++
       });
@@ -204,6 +204,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
     handlePassageChange(value: string) {
       const regex = /<strong>.*?<\/strong>/gm
       const edits = value.match(regex)
+      console.log('edits', edits)
       if (edits && !_.isEqual(edits, this.state.edits)) {
         this.setState({ passage: value, edits })
       }

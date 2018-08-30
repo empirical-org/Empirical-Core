@@ -1,7 +1,32 @@
 import * as React from 'react';
-import ReactQuill from 'react-quill'; // Typescript
+import ReactQuill, { Quill } from 'react-quill'; // Typescript
+
 import * as jsdiff from 'diff'
-import * as _ from 'underscore'
+
+let Inline = Quill.import('blots/inline');
+class SpanBlot extends Inline {
+  static create(value) {
+    let node = super.create();
+    node.setAttribute('id', value.id);
+    return node;
+  }
+
+  public formats(): any {
+    let formats = super.formats();
+    formats["span"] = SpanBlot.formats(this.domNode);
+    return formats;
+}
+
+  static value(node) {
+    return {
+      id: node.getAttribute('id')
+    };
+  }
+}
+SpanBlot.blotName = 'span';
+SpanBlot.tagName = 'span';
+Quill.register('formats/span', SpanBlot);
+
 
 interface PassageEditorState {
   text: string;
@@ -28,11 +53,28 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
   }
 
   componentDidMount() {
+    this.registerFormats()
     const quillRef = document.getElementsByClassName('ql-editor')
     if (quillRef && quillRef[0]) {
       quillRef[0].setAttribute("spellcheck", "false")
     }
   }
+
+  registerFormats () {
+  // Ensure React-Quill references is available:
+    if (typeof this.refs.editor.getEditor !== 'function') return;
+    // Skip if Quill reference is defined:
+    if (this.quillRef != null) return;
+
+    console.log('Registering formats...', this.refs.editor)
+    const quillRef = this.refs.editor.getEditor() // could still be null
+
+    if (quillRef != null) {
+      this.quillRef = quillRef;
+      console.log(Quill.imports)
+    }
+}
+
 
   handlePassageChange(value: string):string|void {
     const strippedOriginal = this.standardizedPassage(this.props.text)
@@ -49,6 +91,8 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
         // } else if (diff.value !== '<u>') {
           diffVal = diff.value
         // }
+        //
+        console.log('diff', diff)
         if (diff.added && diffVal && !/<p>|<\/p>/.test(diffVal)) {
           valueWithHighlightedChanges += `<strong>${diffVal}</strong>`
         } else if (!diff.removed) {
@@ -98,6 +142,7 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
         onChange={this.handleTextChange}
         ref={'editor'}
         onChangeSelection={this.onChangeSelection}
+        formats={['formats/span', 'span', 'id', 'key', 'bold', 'underline', 'link']}
       />
     )
   }
