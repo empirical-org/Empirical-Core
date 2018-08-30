@@ -1,5 +1,8 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React from 'react'
+import {connect} from 'react-redux'
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import {clearData, loadData, nextQuestion, submitResponse, updateName, updateCurrentQuestion} from '../../actions/diagnostics.js'
+import _ from 'underscore'
 import {
   CarouselAnimation,
   hashToCollection,
@@ -7,21 +10,18 @@ import {
   PlayTitleCard,
   DiagnosticProgressBar
 } from 'quill-component-library/dist/componentLibrary';
-import { clearData, loadData, nextQuestion, nextQuestionWithoutSaving, submitResponse, updateName, updateCurrentQuestion, resumePreviousDiagnosticSession } from '../../actions/diagnostics.js';
-import _ from 'underscore';
-import SessionActions from '../../actions/sessions.js';
-import PlaySentenceFragment from './sentenceFragment.jsx';
-import PlayDiagnosticQuestion from './sentenceCombining.jsx';
+import diagnosticQuestions from './diagnosticQuestions.jsx'
+import PlaySentenceFragment from '../diagnostics/sentenceFragment.jsx'
+import PlayDiagnosticQuestion from '../diagnostics/sentenceCombining.jsx';
 import PlayFillInTheBlankQuestion from '../fillInBlank/playFillInTheBlankQuestion';
 import TitleCard from '../studentLessons/titleCard.tsx';
-import LandingPage from './landing.jsx';
-import FinishedDiagnostic from './finishedDiagnostic.jsx';
-import { getConceptResultsForAllQuestions } from '../../libs/conceptResults/diagnostic';
+import LandingPage from './landing.jsx'
+import FinishedDiagnostic from './finishedDiagnostic.jsx'
+import {getConceptResultsForAllQuestions} from '../../libs/conceptResults/diagnostic'
+const request = require('request');
 import { getParameterByName } from '../../libs/getParameterByName';
 
-const request = require('request');
-
-const StudentDiagnostic = React.createClass({
+const TurkDiagnostic = React.createClass({
 
   getInitialState() {
     return {
@@ -366,10 +366,9 @@ function select(state) {
     playDiagnostic: state.playDiagnostic,
     sentenceFragments: state.sentenceFragments,
     fillInBlank: state.fillInBlank,
-    // responses: state.responses,
     sessions: state.sessions,
     lessons: state.lessons,
     titleCards: state.titleCards
   };
 }
-export default connect(select)(StudentDiagnostic);
+export default connect(select)(TurkDiagnostic);
