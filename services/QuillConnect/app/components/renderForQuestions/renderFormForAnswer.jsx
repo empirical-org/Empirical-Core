@@ -87,6 +87,7 @@ export default React.createClass({
           <TextEditor
             disabled={this.props.disabled} defaultValue={this.props.initialValue}
             key={this.props.questionID}
+            questionID={this.props.questionID}
             checkAnswer={this.props.checkAnswer}
             handleChange={this.props.handleChange}
             value={this.props.value}

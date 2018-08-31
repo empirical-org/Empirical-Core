@@ -10,6 +10,7 @@ class Api::V1::ProgressReportsController < Api::ApiController
 
   def real_time_data
     student_ids = current_user.students.map(&:id)
+    puts student_ids
     data = ProgressReports::RealTime.results(student_ids)
     render json: { data: data }
   end

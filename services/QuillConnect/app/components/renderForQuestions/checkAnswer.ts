@@ -7,7 +7,7 @@ import { sendActivitySessionInteractionLog } from '../../libs/sendActivitySessio
 
 
 export default function checkAnswer(question, response, responses, mode='default') {
-  sendActivitySessionInteractionLog(getParameterByName('student'), { info: 'answer check' })
+  sendActivitySessionInteractionLog(getParameterByName('student'), { info: 'answer check', current_question: question.key })
   const fields = {
     responses: responses ? hashToCollection(responses) : [],
     questionUID: question.key,

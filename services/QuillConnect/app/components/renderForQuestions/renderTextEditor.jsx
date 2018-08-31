@@ -25,7 +25,7 @@ export default React.createClass({
   },
 
   reportActivtySessionTextBoxInteraction() {
-    sendActivitySessionInteractionLog(getParameterByName('student'), { info: 'textbox interaction', });
+    sendActivitySessionInteractionLog(getParameterByName('student'), { info: 'textbox interaction', current_question: this.props.questionID, });
   },
 
   componentWillMount() {
