@@ -245,7 +245,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
               return `{+${edit}-|unnecessary}`
             }
           })
-          this.setState({ reviewablePassage, reviewing: true, showReviewModal: true, numberOfCorrectChanges: numberOfCorrectChanges})
+          this.setState({ reviewablePassage, showReviewModal: true, numberOfCorrectChanges: numberOfCorrectChanges})
         }
       }
     }
@@ -294,7 +294,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
     }
 
     closeReviewModal() {
-      this.setState({ showReviewModal: false })
+      this.setState({ showReviewModal: false, reviewing: true })
     }
 
     render(): JSX.Element {

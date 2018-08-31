@@ -1,9 +1,9 @@
 import * as React from 'react'
 
 import { Concept } from '../../interfaces/concepts'
-const notNecessaryIconSrc = 'https://localhost:45537/images/icons/not_necessary_icon.png'
-const incorrectIconSrc = 'https://localhost:45537/images/icons/incorrect_icon.png'
-const correctIconSrc = 'https://localhost:45537/images/icons/correct_icon.png'
+const notNecessaryIconSrc = 'http://localhost:45537/images/icons/not_necessary_icon.png'
+const incorrectIconSrc = 'http://localhost:45537/images/icons/incorrect_icon.png'
+const correctIconSrc = 'http://localhost:45537/images/icons/correct_icon.png'
 
 interface EditProps {
   displayText: string;
@@ -31,23 +31,23 @@ export default class Edit extends React.Component<EditProps> {
       case 'correct':
         src = correctIconSrc;
         headerText = 'Correct'
-        return
+        break
       case 'incorrect':
         src = incorrectIconSrc;
         headerText = 'Incorrect'
-        return
+        break
       case 'unnecessary':
         src = notNecessaryIconSrc
         headerText = 'Not Necessary'
-        return
+        break
     }
-    return <div className={`edit-tooltip ${state} ${visible}`}>
+    return <div className={`edit-tooltip ${visible}`}>
       <div className="top-section">
         <div className="header">
           <img src={src}/>
           <h1>{headerText}</h1>
         </div>
-        <p>Edit {index} of {numberOfEdits}</p>
+        <p>Edit {index + 1} of {numberOfEdits}</p>
       </div>
       <div className="button-section">
         <button onClick={next}>Next Edit ➞</button>
@@ -56,11 +56,12 @@ export default class Edit extends React.Component<EditProps> {
   }
 
   render() {
-    const { activeIndex, index } = this.props
+    const { activeIndex, index, state } = this.props
     const className = activeIndex === index ? 'active' : ''
-    return <div className="edit">
-      <strong className={className}>{this.props.displayText}</strong>
-      {this.renderTooltip()}
+    const tooltip = this.renderTooltip()
+    return <div className={`edit ${className} ${state}`}>
+      <strong>{this.props.displayText}</strong>
+      {tooltip}
     </div>
   }
 }
