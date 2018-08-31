@@ -659,9 +659,10 @@ export function loadSupportingInfo(
   };
 }
 
-export function createPreviewSession(editionId?:string) {
+export function createPreviewSession(lessonId: string, editionId?:string) {
   const previewIdPrefix = 'prvw-';
-  const classroomSessionId = `${previewIdPrefix}${uuid()}`;
+  const uuidString = uuid();
+  const classroomSessionId = `${previewIdPrefix}${uuidString}${lessonId}`;
   let previewSessionData;
 
   if (editionId) {
@@ -671,7 +672,7 @@ export function createPreviewSession(editionId?:string) {
       'public': true,
       'preview': true,
       'edition_id': editionId,
-      'id': classroomSessionId,
+      'id': `${classroomSessionId}`,
     };
   } else {
     previewSessionData = {
@@ -685,7 +686,7 @@ export function createPreviewSession(editionId?:string) {
 
   socket.instance.emit('createPreviewSession', { previewSessionData });
 
-  return classroomSessionId;
+  return `${previewIdPrefix}${uuidString}`;
 }
 
 export function saveReview(activityId:string, classroomSessionId:ClassroomSessionId, value:number) {

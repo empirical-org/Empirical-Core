@@ -1,10 +1,10 @@
-import React from 'react'
-import { render } from 'react-dom'
-import { Router, Route, IndexRoute, browserHistory } from 'react-router'
-import TutorialIndex from '../components/tutorials/TutorialIndex'
+import React from 'react';
+import { render } from 'react-dom';
+import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+import TutorialIndex from '../components/tutorials/TutorialIndex';
 
 export default React.createClass({
-	render: function() {
+  render() {
 		return (
 			<Router Router history={browserHistory}>
         <Route path="/tutorials" component={TutorialIndex}>
@@ -14,5 +14,5 @@ export default React.createClass({
         </Route>
 			</Router>
 		);
-	}
+	},
 });

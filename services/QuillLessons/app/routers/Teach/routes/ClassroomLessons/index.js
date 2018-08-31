@@ -6,11 +6,12 @@ import { createPreviewSession } from '../../../../actions/classroomSessions'
 const previewEditionRoute = {
   path: ':lessonID/preview/:editionID',
   onEnter: (nextState, replaceWith) => {
-    const classroomUnitId = createPreviewSession(nextState.params.editionID)
+    const { lessonID, editionID } = nextState.params;
+    const classroomUnitId = createPreviewSession(lessonID, editionID)
     const modalQSValue = getParameterByName('modal')
     const modalQS = modalQSValue ? `&modal=${modalQSValue}` : ''
     if (classroomUnitId) {
-      document.location.href = `${document.location.origin + document.location.pathname}#/teach/class-lessons/${nextState.params.lessonID}?&classroom_unit_id=${classroomUnitId}${modalQS}`;
+      document.location.href = `${document.location.origin + document.location.pathname}#/teach/class-lessons/${lessonID}?&classroom_unit_id=${classroomUnitId}${modalQS}`;
     }
   }
 };
@@ -18,11 +19,12 @@ const previewEditionRoute = {
 const previewRoute = {
   path: ':lessonID/preview',
   onEnter: (nextState, replaceWith) => {
-    const classroomUnitId = createPreviewSession()
+    const { lessonID } = nextState.params;
+    const classroomUnitId = createPreviewSession(lessonID)
     const modalQSValue = getParameterByName('modal')
     const modalQS = modalQSValue ? `&modal=${modalQSValue}` : ''
     if (classroomUnitId) {
-      document.location.href = `${document.location.origin + document.location.pathname}#/teach/class-lessons/${nextState.params.lessonID}?&classroom_unit_id=${classroomUnitId}${modalQS}`;
+      document.location.href = `${document.location.origin + document.location.pathname}#/teach/class-lessons/${lessonID}?&classroom_unit_id=${classroomUnitId}${modalQS}`;
     }
   }
 };

@@ -1,3 +1,4 @@
+import newrelic from 'newrelic';
 import dotenv from 'dotenv';
 import r from 'rethinkdb';
 import socketio from 'socket.io';
@@ -12,7 +13,7 @@ dotenv.config();
 
 const app = http.createServer(requestHandler);
 const io = socketio(app);
-const port = process.env.NODE_PORT;
+const port = process.env.PORT;
 
 import {
   subscribeToClassroomLessonSession,
@@ -80,7 +81,6 @@ import {
 
 import {
   authorizeSession,
-  authorizeTeacherSession,
   authorizeRole,
 } from './handlers/authorization';
 
@@ -177,15 +177,14 @@ function registerConnection(socket) {
 }
 
 function verifyToken(token) {
-  const options      = { algorithms: ['RS256'] }
-  const pathToCert   = path.resolve(__dirname + '/..') + '/jwt-public-key.crt';
-  const pkey         = fs.readFileSync(pathToCert);
+  const options = { algorithms: ['RS256'] }
+  const pkey = Buffer.from(process.env.JWT_PUBLIC_KEY, 'utf8');
   let isValid;
   let tokenData;
 
   jwt.verify(token, pkey, options, (err, decodedToken) => {
     if (err) {
-      console.error(err);
+      newrelic.noticeError(err)
       isValid = false;
     } else {
       tokenData = decodedToken.data;
@@ -198,6 +197,7 @@ function verifyToken(token) {
 
 r.connect(rethinkdbConfig, (err, connection) => {
   if (err) {
+    newrelic.noticeError(err)
     console.error(err)
   } else {
     io.on('connection', (client) => {
