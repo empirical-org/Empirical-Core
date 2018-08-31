@@ -1298,6 +1298,40 @@ ALTER SEQUENCE milestones_id_seq OWNED BY milestones.id;
 
 
 --
+-- Name: notifications; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE notifications (
+    id integer NOT NULL,
+    text text NOT NULL,
+    user_id integer NOT NULL,
+    meta jsonb DEFAULT '{}'::jsonb NOT NULL,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: notifications_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE notifications_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: notifications_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE notifications_id_seq OWNED BY notifications.id;
+
+
+--
 -- Name: oauth_access_grants; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -2569,6 +2603,13 @@ ALTER TABLE ONLY milestones ALTER COLUMN id SET DEFAULT nextval('milestones_id_s
 
 
 --
+-- Name: notifications id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY notifications ALTER COLUMN id SET DEFAULT nextval('notifications_id_seq'::regclass);
+
+
+--
 -- Name: oauth_access_grants id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -3044,6 +3085,14 @@ ALTER TABLE ONLY milestones
 
 
 --
+-- Name: notifications notifications_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY notifications
+    ADD CONSTRAINT notifications_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: oauth_access_grants oauth_access_grants_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3353,6 +3402,13 @@ CREATE INDEX index_activity_sessions_on_classroom_activity_id ON public.activity
 
 
 --
+-- Name: index_activity_sessions_on_classroom_unit_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_activity_sessions_on_classroom_unit_id ON public.activity_sessions USING btree (classroom_unit_id);
+
+
+--
 -- Name: index_activity_sessions_on_completed_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -3556,6 +3612,13 @@ CREATE INDEX index_classroom_units_on_classroom_id ON public.classroom_units USI
 
 
 --
+-- Name: index_classroom_units_on_classroom_id_and_unit_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_classroom_units_on_classroom_id_and_unit_id ON public.classroom_units USING btree (classroom_id, unit_id);
+
+
+--
 -- Name: index_classroom_units_on_unit_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -3742,6 +3805,13 @@ CREATE INDEX index_ip_locations_on_zip ON public.ip_locations USING btree (zip);
 --
 
 CREATE INDEX index_milestones_on_name ON public.milestones USING btree (name);
+
+
+--
+-- Name: index_notifications_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_notifications_on_user_id ON public.notifications USING btree (user_id);
 
 
 --
@@ -4022,6 +4092,13 @@ CREATE INDEX index_topics_on_topic_category_id ON public.topics USING btree (top
 --
 
 CREATE INDEX index_unit_activities_on_activity_id ON public.unit_activities USING btree (activity_id);
+
+
+--
+-- Name: index_unit_activities_on_activity_id_and_unit_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_unit_activities_on_activity_id_and_unit_id ON public.unit_activities USING btree (activity_id, unit_id);
 
 
 --
@@ -4431,6 +4508,14 @@ ALTER TABLE ONLY sales_stages
 
 ALTER TABLE ONLY criteria
     ADD CONSTRAINT fk_rails_ada79930c6 FOREIGN KEY (concept_id) REFERENCES concepts(id);
+
+
+--
+-- Name: notifications fk_rails_b080fb4855; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY notifications
+    ADD CONSTRAINT fk_rails_b080fb4855 FOREIGN KEY (user_id) REFERENCES users(id);
 
 
 --
@@ -5079,5 +5164,19 @@ INSERT INTO schema_migrations (version) VALUES ('20180709190427');
 
 INSERT INTO schema_migrations (version) VALUES ('20180709192646');
 
+INSERT INTO schema_migrations (version) VALUES ('20180716134958');
+
+INSERT INTO schema_migrations (version) VALUES ('20180716153046');
+
 INSERT INTO schema_migrations (version) VALUES ('20180718195853');
+
+INSERT INTO schema_migrations (version) VALUES ('20180815174156');
+
+INSERT INTO schema_migrations (version) VALUES ('20180815180204');
+
+INSERT INTO schema_migrations (version) VALUES ('20180816210411');
+
+INSERT INTO schema_migrations (version) VALUES ('20180820154444');
+
+INSERT INTO schema_migrations (version) VALUES ('20180827212450');
 

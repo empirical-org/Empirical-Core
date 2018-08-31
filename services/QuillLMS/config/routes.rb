@@ -14,14 +14,6 @@ EmpiricalGrammar::Application.routes.draw do
 
   mount Sidekiq::Web => '/sidekiq', constraints: StaffConstraint.new
 
-  if Rails.env.test? || Rails.env == 'cypress'
-    resources :factories, only: :create do
-      post 'create_list', on: :collection
-      delete 'destroy_all', on: :collection
-      delete 'destroy_all_assignments', on: :collection
-    end
-  end
-
   get '/classrooms/:classroom', to: 'students#index', as: :classroom
   get '/add_classroom', to: 'students#index'
 
@@ -74,6 +66,7 @@ EmpiricalGrammar::Application.routes.draw do
   end
   resources :assessments
   resources :assignments
+  resources :notifications, only: :index, format: :json
   resource :profile
   resources :password_reset
   resources :schools, only: [:index], format: 'json'

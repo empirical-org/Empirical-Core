@@ -15,6 +15,8 @@ class Api::V1::ActivitySessionsController < Api::ApiController
     # FIXME: ignore id because it's related to inconsistency between
     # naming - id in app and uid here
     if @activity_session.update(activity_session_params.except(:id, :concept_results))
+      NotifyOfCompletedActivity.new(@activity_session).call
+
       if @concept_results
         handle_concept_results
       end

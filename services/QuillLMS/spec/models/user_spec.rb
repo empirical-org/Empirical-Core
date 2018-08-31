@@ -11,6 +11,7 @@ describe User, type: :model do
   #TODO the validation uses a proc, figure out how to stub that
   #it { is_expected.to callback(:update_invitiee_email_address).after(:save).if(proc) }
 
+  it { should have_many(:notifications) }
   it { should have_many(:checkboxes) }
   it { should have_many(:invitations).with_foreign_key('inviter_id') }
   it { should have_many(:objectives).through(:checkboxes) }

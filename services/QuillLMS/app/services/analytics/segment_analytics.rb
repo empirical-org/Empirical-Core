@@ -9,10 +9,12 @@ class SegmentAnalytics
 
   def initialize
     # Do not clobber the backend object if we already set a fake one under test
-    self.backend ||= Segment::Analytics.new({
-      write_key: SegmentIo.configuration.write_key,
-      on_error: Proc.new { |status, msg| print msg }
-    })
+    unless Rails.env.test?
+      self.backend ||= Segment::Analytics.new({
+        write_key: SegmentIo.configuration.write_key,
+        on_error: Proc.new { |status, msg| print msg }
+      })
+    end
   end
 
   def track_event_from_string(event_name, user_id)
@@ -67,12 +69,16 @@ class SegmentAnalytics
   end
 
   def track(options)
-    backend.track(options)
+    if backend.present?
+      backend.track(options)
+    end
   end
 
 
   def identify(user)
-    backend.identify(identify_params(user))
+    if backend.present?
+      backend.identify(identify_params(user))
+    end
   end
 
   private
@@ -95,7 +101,7 @@ class SegmentAnalytics
   def identify_params(user)
     params = {
       user_id: user.id,
-      traits: {premium_state: user.premium_state, auditor: user.auditor?}, 
+      traits: {premium_state: user.premium_state, auditor: user.auditor?},
       integrations: integration_rules(user)
     }
   end

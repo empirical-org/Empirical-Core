@@ -1,4 +1,6 @@
 FactoryBot.define do
+  factory :simple_unit_template, class: 'UnitTemplate' do; end
+
   factory :unit_template do
     sequence(:name) do |i|
       loop do
