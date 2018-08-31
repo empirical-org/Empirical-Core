@@ -336,7 +336,6 @@ EmpiricalGrammar::Application.routes.draw do
       resources :activity_sessions,       except: [:index, :new, :edit] do
         resources :activity_session_interaction_logs, only: :create
       end
-      resources 
       resources :lessons_tokens,          only: [:create]
       resources :sections,                only: [:index]
       resources :topics,                  only: [:index]
