@@ -4,28 +4,28 @@ import ReactQuill, { Quill } from 'react-quill'; // Typescript
 import * as jsdiff from 'diff'
 
 let Inline = Quill.import('blots/inline');
-class SpanBlot extends Inline {
-  static create(value) {
-    let node = super.create();
-    node.setAttribute('id', value.id);
-    return node;
-  }
-
-  public formats(): any {
-    let formats = super.formats();
-    formats["span"] = SpanBlot.formats(this.domNode);
-    return formats;
-}
-
-  static value(node) {
-    return {
-      id: node.getAttribute('id')
-    };
-  }
-}
-SpanBlot.blotName = 'span';
-SpanBlot.tagName = 'span';
-Quill.register('formats/span', SpanBlot);
+// class SpanBlot extends Inline {
+//   static create(value) {
+//     let node = super.create();
+//     node.setAttribute('id', value.id);
+//     return node;
+//   }
+//
+//   public formats(): any {
+//     let formats = super.formats();
+//     formats["span"] = SpanBlot.formats(this.domNode);
+//     return formats;
+// }
+//
+//   static value(node) {
+//     return {
+//       id: node.getAttribute('id')
+//     };
+//   }
+// }
+// SpanBlot.blotName = 'span';
+// SpanBlot.tagName = 'span';
+// Quill.register('formats/span', SpanBlot);
 
 
 interface PassageEditorState {

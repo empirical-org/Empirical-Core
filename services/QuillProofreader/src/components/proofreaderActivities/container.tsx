@@ -36,8 +36,8 @@ interface PlayProofreaderContainerState {
   reviewing: boolean;
   showEarlySubmitModal: boolean;
   showReviewModal: boolean;
-  numberOfErrors?: number;
-  numberOfCorrectEdits?: number;
+  correctEdits?: Array<String>;
+  numberOfCorrectChanges?: number;
   passage?: string;
   originalPassage?: string;
   reviewablePassage?: string;
@@ -105,16 +105,16 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
     // }
     //
     formatInitialPassage(passage: string, underlineErrors: boolean) {
-      let numberOfErrors = 0
+      let correctEdits = []
       passage.replace(/{\+([^-]+)-([^|]+)\|([^}]+)}/g, (key: string, plus: string, minus: string, conceptUID: string) => {
         // if (underlineErrors) {
           // passage = passage.replace(key, `<span id="${key}">${minus}</span>`);
         // } else {
           passage = passage.replace(key, minus);
         // }
-        numberOfErrors++
+        correctEdits.push(key)
       });
-      return {passage, numberOfErrors}
+      return {passage, correctEdits}
     }
 
     componentWillReceiveProps(nextProps: PlayProofreaderContainerProps) {
@@ -126,7 +126,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
         // passage.replace(/{\+([^-]+)-([^|]+)\|([^}]+)}/g, (key, plus, minus, conceptUID) => {
         //   uneditedPassage = passage.replace(key, minus);
         // });
-        this.setState({passage: formattedPassage, originalPassage: formattedPassage, numberOfErrors: initialPassageData.numberOfErrors})
+        this.setState({passage: formattedPassage, originalPassage: formattedPassage, correctEdits: initialPassageData.correctEdits})
 
         // const passageWithEdits = this.extractEditsFromPassage(nextProps.proofreaderActivities.currentActivity.passage)
       }
@@ -217,16 +217,15 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
     }
 
     checkWork() {
-      const { edits, numberOfErrors } = this.state
-      const requiredEditCount = numberOfErrors ? Math.floor(numberOfErrors/2) : 5
-      if (numberOfErrors && edits.length === 0 || edits.length < requiredEditCount) {
+      const { edits, correctEdits } = this.state
+      const requiredEditCount = correctEdits && correctEdits.length ? Math.floor(correctEdits.length/2) : 5
+      if (correctEdits && correctEdits.length && edits.length === 0 || edits.length < requiredEditCount) {
         this.setState({showEarlySubmitModal: true})
       } else {
         const editedPassage = this.state.passage
         // const { edits } = this.state
         const { passage } = this.props.proofreaderActivities.currentActivity
-        const correctEdits = passage.match(/{\+([^-]+)-([^|]+)\|([^}]+)}/g) || []
-        let numberOfCorrectEdits = 0
+        let numberOfCorrectChanges = 0
         if (editedPassage) {
           const reviewablePassage = editedPassage.replace(/<strong>(.*?)<\/strong>/gm , (key, edit) => {
             console.log('edit', edit)
@@ -240,20 +239,20 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
             })
             console.log('match', match)
             if (match) {
-              numberOfCorrectEdits++
+              numberOfCorrectChanges++
               return match
             } else {
-              return `{+${edit}|unnecessary}`
+              return `{+${edit}-|unnecessary}`
             }
           })
-          this.setState({ reviewablePassage, reviewing: true, showReviewModal: true, numberOfCorrectEdits: numberOfCorrectEdits})
+          this.setState({ reviewablePassage, reviewing: true, showReviewModal: true, numberOfCorrectChanges: numberOfCorrectChanges})
         }
       }
     }
 
     renderShowEarlySubmitModal() {
-      const { showEarlySubmitModal, numberOfErrors } = this.state
-      const requiredEditCount = numberOfErrors ? Math.floor(numberOfErrors/2) : 5
+      const { showEarlySubmitModal, correctEdits } = this.state
+      const requiredEditCount = correctEdits && correctEdits.length ? Math.floor(correctEdits.length/2) : 5
       if (showEarlySubmitModal) {
         return <EarlySubmitModal
           requiredEditCount={requiredEditCount}
@@ -263,11 +262,12 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
     }
 
     renderShowReviewModal() {
-      const { showReviewModal, numberOfErrors, numberOfCorrectEdits } = this.state
+      const { showReviewModal, correctEdits, numberOfCorrectChanges } = this.state
+      const numberOfErrors = correctEdits && correctEdits.length ? correctEdits.length : 0
       if (showReviewModal) {
         return <ReviewModal
           numberOfErrors={numberOfErrors}
-          numberOfCorrectEdits={numberOfCorrectEdits}
+          numberOfCorrectChanges={numberOfCorrectChanges || 0}
           closeModal={this.closeReviewModal}
         />
       }
@@ -276,8 +276,10 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
     renderPassage() {
       const { reviewing, reviewablePassage, originalPassage } = this.state
       if (reviewing) {
+        const text = reviewablePassage ? reviewablePassage : ''
         return <PassageReviewer
-          text={reviewablePassage}
+          text={text}
+          concepts={this.props.concepts.data[0]}
         />
       } else if (originalPassage) {
         return <PassageEditor
@@ -309,7 +311,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
                   <p>{currentActivity.description}</p>
                 </div>
                 <div className="edits-made">
-                  <p>Edits Made: {this.state.edits.length} of {this.state.numberOfErrors}</p>
+                  <p>Edits Made: {this.state.edits.length} of {this.state.correctEdits.length}</p>
                   <div className="progress-bar-indication" />
                 </div>
               </div>
