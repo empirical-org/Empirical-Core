@@ -1,8 +1,7 @@
-import Turk from 'components/turk/sentenceFragmentsQuiz.jsx';
-import { getParameterByName } from 'libs/getParameterByName';
+import Turk from 'components/turk/turkDiagnostic.jsx';
 
 const route = {
-  path: 'turk/:lessonID',
+  path: 'turk/:diagnosticID',
   component: Turk,
 };
 

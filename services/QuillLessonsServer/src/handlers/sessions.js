@@ -23,7 +23,7 @@ export function subscribeToClassroomLessonSession({
 
 export function createPreviewSession({ connection, previewSessionData }) {
   r.table('classroom_lesson_sessions')
-  .insert(previewSessionData)
+  .insert(previewSessionData, { conflict: 'update' })
   .run(connection)
 }
 
@@ -48,7 +48,7 @@ export function createOrUpdateClassroomLessonSession({
     session.id = session && session.id ? session.id : classroomSessionId;
 
     r.table('classroom_lesson_sessions')
-    .insert(session, { conflict: 'replace' })
+    .insert(session, { conflict: 'update' })
     .run(connection)
   });
 };
