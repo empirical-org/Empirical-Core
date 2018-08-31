@@ -16,6 +16,9 @@ export const ActionTypes = {
 
     // SESSIONS
     SET_SESSION: 'SET_SESSION',
+
+    // CONCEPTS,
+    RECEIVE_CONCEPTS_DATA: 'RECEIVE_CONCEPTS_DATA',
 };
 //
 export interface IInitStoreAction extends Action {

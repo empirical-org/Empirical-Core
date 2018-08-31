@@ -9,6 +9,7 @@ const questionIconSrc = 'https://assets.quill.org/images/icons/question_icon.svg
 
 import getParameterByName from '../../helpers/getParameterByName';
 import { startListeningToActivity } from "../../actions/proofreaderActivities";
+import { startListeningToConcepts } from "../../actions/concepts";
 import {
   updateSessionOnFirebase,
   startListeningToQuestions,
@@ -64,6 +65,8 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       const activityUID = getParameterByName('uid', window.location.href)
       const sessionID = getParameterByName('student', window.location.href)
 
+      this.props.dispatch(startListeningToConcepts())
+
       if (sessionID) {
         this.props.dispatch(setSessionReducerToSavedSession(sessionID))
       }
@@ -102,9 +105,9 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       let numberOfErrors = 0
       passage.replace(/{\+([^-]+)-([^|]+)\|([^}]+)}/g, (key: string, plus: string, minus: string, conceptUID: string) => {
         // if (underlineErrors) {
-          passage = passage.replace(key, `<span id="${key}">${minus}</span>`);
+          // passage = passage.replace(key, `<span id="${key}">${minus}</span>`);
         // } else {
-          // passage = passage.replace(key, minus);
+          passage = passage.replace(key, minus);
         // }
         numberOfErrors++
       });
@@ -254,6 +257,20 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       }
     }
 
+    renderPassage() {
+      const { reviewing, reviewablePassage, originalPassage } = this.state
+      if (reviewing) {
+        return <PassageReviewer
+          text={reviewablePassage}
+        />
+      } else if (originalPassage) {
+        return <PassageEditor
+          text={originalPassage}
+          handleTextChange={this.handlePassageChange}
+        />
+      }
+    }
+
     closeEarlySubmitModal() {
       this.setState({ showEarlySubmitModal: false })
     }
@@ -280,10 +297,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
           </div>
           {this.renderShowEarlySubmitModal()}
           <div className={`passage ${className}`}>
-            <PassageEditor
-              text={this.state.originalPassage}
-              handleTextChange={this.handlePassageChange}
-            />
+            {this.renderPassage()}
           </div>
           <div className="bottom-section">
             <button onClick={this.checkWork}>Check Work</button>
@@ -302,7 +316,8 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
 const mapStateToProps = (state: any) => {
     return {
         proofreaderActivities: state.proofreaderActivities,
-        session: state.session
+        session: state.session,
+        concepts: state.concepts
     };
 };
 
