@@ -3,6 +3,7 @@ import { IState } from "../store/configStore";
 // import { todos } from "./todosReducer";
 import proofreaderActivities from './proofreaderActivitiesReducer'
 import session from './sessionReducer'
+import concepts from './conceptsReducer'
 
 export const initState: IState = {
     proofreaderActivities: {},
@@ -11,5 +12,6 @@ export const initState: IState = {
 
 export const rootReducer = combineReducers({
     proofreaderActivities,
-    session
+    session,
+    concepts
 });
