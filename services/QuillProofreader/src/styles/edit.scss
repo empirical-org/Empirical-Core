@@ -2,8 +2,87 @@
   position: relative;
   display: inline;
 
+  &.active {
+    strong {
+      font-weight: 700px;
+      font-size: 18px;
+    }
+  }
+
+  &.unnecessary {
+    background-color: #f4d4ff;
+    .top-section {
+      background-color: #f4d4ff;
+    }
+    &.active {
+      background-color: #e7a1ff;
+    }
+  }
+
+  &.correct {
+    background-color: #d2ffe8;
+    .top-section {
+      background-color: #d2ffe8;
+    }
+    &.active {
+      background-color: #9fffce;
+    }
+  }
+
   .edit-tooltip {
+    background-color: white;
+    left: 0px;
+    top: 30px;
     position: absolute;
+    box-shadow: 0 2px 2px silver;
+    border-radius: 6px;
     width: 341px;
+    z-index: 100;
+    font-family: "Monospaced Number", "Chinese Quote", -apple-system, system-ui, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+    .top-section {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 15px;
+      padding: 10px 20px 0px;
+    }
+
+    .header {
+      display: flex;
+    }
+
+    .button-section {
+      padding: 20px;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    img {
+      margin-right: 10px;
+    }
+
+    h1 {
+      font-size: 18px;
+    }
+
+    button {
+      height: 40px;
+      border-radius: 3px;
+      background-color: #00c2a2;
+      color: white;
+      width: 140px;
+      font-size: 14px;
+      border: none;
+      cursor: pointer;
+      margin-top: 8px;
+      &:focus {
+        outline: none;
+      }
+    }
+
+    &.invisible {
+      display: none;
+    }
   }
 }
