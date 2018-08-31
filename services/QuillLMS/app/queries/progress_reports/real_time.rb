@@ -8,22 +8,18 @@ class ProgressReports::RealTime
 
   def self.query(classroom_ids)
     <<~SQL
-      SELECT classrooms.name AS classroom_name,
-        students.id AS student_id,students.last_active,
-        students.name,
-        AVG(activity_sessions.percentage)
-        FILTER(WHERE activities.activity_classification_id <> 6 AND activities.activity_classification_id <> 4) AS average_score,
-        COUNT(activity_sessions.id) AS activity_count,
-        classrooms.id AS classroom_id
-      FROM classroom_units
-      JOIN activity_sessions ON classroom_units.id = activity_sessions.classroom_unit_id
-      JOIN activities ON activity_sessions.activity_id = activities.id
-      JOIN classrooms ON classrooms.id = classroom_units.classroom_id
-      JOIN users AS students ON students.id = activity_sessions.user_id
-      WHERE classroom_units.classroom_id IN (#{classroom_ids})
-      AND activity_sessions.is_final_score = TRUE
-      AND classroom_units.visible = true
-      GROUP BY classrooms.name, students.id, students.name, classrooms.id, last_active
+      SELECT name, activity_name, asil.meta -> 'current_question' as current_question, timespent_activity_session, last_interaction, activity_sess_id FROM
+      (SELECT users.id as user_id, users.name as name, activities.id as activity_id, activities.name as activity_name, timespent_activity_session(activity_sessions.id), max(activity_session_interaction_logs.date) as last_interaction, max(activity_session_interaction_logs.id) as asil_id, activity_sessions.id as activity_sess_id
+        FROM users
+        join activity_sessions on activity_sessions.user_id = users.id
+        join activity_session_interaction_logs on activity_sessions.id = activity_session_interaction_logs.activity_session_id
+        join activities on activity_sessions.activity_id = activities.id
+
+        where users.id in (#{student_ids})
+        group by users.id, activity_sessions.id, activities.id	--group by user_id, activity_name, activity_sessions.id
+        order by last_interaction) as tab
+      JOIN activity_session_interaction_logs as asil on asil.id=asil_id
+      WHERE current_timestamp - last_interaction  < interval '2 hours'
     SQL
   end
 end
