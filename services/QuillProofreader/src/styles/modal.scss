@@ -1,6 +1,6 @@
-.early-submit-modal-container {
+.early-submit-modal-container, .review-modal-container {
 
-  .early-submit-modal-background {
+  .early-submit-modal-background, .review-modal-background {
     width: 100%;
     height: 100%;
     position: fixed;
@@ -13,6 +13,13 @@
 
   .early-submit-modal {
     width: 385px;
+  }
+
+  .review-modal {
+    max-width: 800px;
+  }
+
+  .early-submit-modal, .review-modal {
     border-radius: 6px;
     background-color: #ffffff;
     position: fixed;
@@ -54,7 +61,6 @@
     }
 
     button {
-      width: 147px;
     	height: 40px;
     	border-radius: 3px;
     	background-color: #00c2a2;
@@ -68,6 +74,14 @@
         outline: none;
       }
     }
+  }
+
+  .early-submit-modal button {
+    width: 147px;
+  }
+
+  .review-modal button {
+    width: 165px;
   }
 
 }

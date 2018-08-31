@@ -2,9 +2,7 @@ import * as React from "react";
 import * as Redux from "redux";
 import {connect} from "react-redux";
 import * as request from 'request';
-import * as jsdiff from 'diff'
 import _ from 'lodash';
-import { EditorState, ContentState } from 'draft-js'
 const questionIconSrc = 'https://assets.quill.org/images/icons/question_icon.svg'
 
 import getParameterByName from '../../helpers/getParameterByName';
@@ -24,6 +22,7 @@ import { Question, FormattedConceptResult } from '../../interfaces/questions'
 import PassageEditor from './passageEditor'
 import PassageReviewer from './passageReviewer'
 import EarlySubmitModal from './earlySubmitModal'
+import ReviewModal from './reviewModal'
 import LoadingSpinner from '../shared/loading_spinner'
 
 interface PlayProofreaderContainerProps {
@@ -36,7 +35,9 @@ interface PlayProofreaderContainerState {
   edits: Array<string>;
   reviewing: boolean;
   showEarlySubmitModal: boolean;
+  showReviewModal: boolean;
   numberOfErrors?: number;
+  numberOfCorrectEdits?: number;
   passage?: string;
   originalPassage?: string;
   reviewablePassage?: string;
@@ -59,6 +60,8 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       this.checkWork = this.checkWork.bind(this)
       this.renderShowEarlySubmitModal = this.renderShowEarlySubmitModal.bind(this)
       this.closeEarlySubmitModal = this.closeEarlySubmitModal.bind(this)
+      this.renderShowReviewModal = this.renderShowReviewModal.bind(this)
+      this.closeReviewModal = this.closeReviewModal.bind(this)
     }
 
     componentWillMount() {
@@ -223,6 +226,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
         // const { edits } = this.state
         const { passage } = this.props.proofreaderActivities.currentActivity
         const correctEdits = passage.match(/{\+([^-]+)-([^|]+)\|([^}]+)}/g) || []
+        let numberOfCorrectEdits = 0
         if (editedPassage) {
           const reviewablePassage = editedPassage.replace(/<strong>(.*?)<\/strong>/gm , (key, edit) => {
             console.log('edit', edit)
@@ -236,12 +240,13 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
             })
             console.log('match', match)
             if (match) {
+              numberOfCorrectEdits++
               return match
             } else {
               return `{+${edit}|unnecessary}`
             }
           })
-          this.setState({ reviewablePassage, reviewing: true })
+          this.setState({ reviewablePassage, reviewing: true, showReviewModal: true, numberOfCorrectEdits: numberOfCorrectEdits})
         }
       }
     }
@@ -253,6 +258,17 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
         return <EarlySubmitModal
           requiredEditCount={requiredEditCount}
           closeModal={this.closeEarlySubmitModal}
+        />
+      }
+    }
+
+    renderShowReviewModal() {
+      const { showReviewModal, numberOfErrors, numberOfCorrectEdits } = this.state
+      if (showReviewModal) {
+        return <ReviewModal
+          numberOfErrors={numberOfErrors}
+          numberOfCorrectEdits={numberOfCorrectEdits}
+          closeModal={this.closeReviewModal}
         />
       }
     }
@@ -273,6 +289,10 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
 
     closeEarlySubmitModal() {
       this.setState({ showEarlySubmitModal: false })
+    }
+
+    closeReviewModal() {
+      this.setState({ showReviewModal: false })
     }
 
     render(): JSX.Element {
@@ -296,6 +316,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
             </div>
           </div>
           {this.renderShowEarlySubmitModal()}
+          {this.renderShowReviewModal()}
           <div className={`passage ${className}`}>
             {this.renderPassage()}
           </div>

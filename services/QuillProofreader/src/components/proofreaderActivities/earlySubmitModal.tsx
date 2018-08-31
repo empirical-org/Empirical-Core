@@ -1,7 +1,7 @@
 import * as React from 'react'
 
-// const ProjectorModal: React.SFC<{closeModal: ((event: MouseEvent) => void), requiredEditCount:number}> = (props) => {
-const ProjectorModal: React.SFC<{closeModal: any, requiredEditCount:number}> = (props) => {
+// const EarlySubmitModal: React.SFC<{closeModal: ((event: MouseEvent) => void), requiredEditCount:number}> = (props) => {
+const EarlySubmitModal: React.SFC<{closeModal: any, requiredEditCount:number}> = (props) => {
  return <div className="early-submit-modal-container">
     <div className="early-submit-modal-background" />
      <div className="early-submit-modal">
@@ -14,4 +14,4 @@ const ProjectorModal: React.SFC<{closeModal: any, requiredEditCount:number}> = (
      </div>
 }
 
-export default ProjectorModal
+export default EarlySubmitModal
