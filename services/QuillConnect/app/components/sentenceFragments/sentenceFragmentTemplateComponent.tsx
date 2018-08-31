@@ -234,6 +234,7 @@ const PlaySentenceFragment = React.createClass<any, any>({
         />
         <TextEditor
           value={this.state.response}
+          questionID={this.props.question.key}
           handleChange={this.handleChange}
           disabled={this.showNextQuestionButton()}
           checkAnswer={this.checkAnswer}

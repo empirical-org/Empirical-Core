@@ -42,28 +42,28 @@ export default class extends React.Component {
           <a>{row.original.name}</a>
         ),
       }, {
-        Header: 'Tool',
-        accessor: 'tool',
+        Header: 'Activity',
+        accessor: 'activity_name',
         resizable: false,
         minWidth: 120,
         Cell: row => (
-          <a>{row.original.tool}</a>
+          <a>{row.original.activity_name}</a>
         ),
       }, {
         Header: 'Current Question',
-        accessor: 'current_question_time',
+        accessor: 'timespent_question',
         resizable: false,
         minWidth: 90,
         Cell: row => (
-          <a>{row.original.current_question_time}</a>
+          <a>{row.original.timespent_question}</a>
         ),
       }, {
         Header: 'Session Length',
-        accessor: 'session_time',
+        accessor: 'timespent_activity_session',
         resizable: false,
         minWidth: 90,
         Cell: row => (
-          <a>{row.original.session_time}</a>
+          <a>{row.original.timespent_activity_session}</a>
         ),
       }
     ])
