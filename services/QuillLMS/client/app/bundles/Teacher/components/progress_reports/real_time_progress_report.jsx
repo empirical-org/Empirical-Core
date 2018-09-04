@@ -82,7 +82,7 @@ export default class extends React.Component {
         resizable: false,
         minWidth: 90,
         Cell: row => (
-          <a>{row.original.timespent_activity_session}</a>
+          <a>{moment.duration(parseInt(row.original.timespent_activity_session), 'seconds').humanize()}</a>
         ),
       }
     ])
