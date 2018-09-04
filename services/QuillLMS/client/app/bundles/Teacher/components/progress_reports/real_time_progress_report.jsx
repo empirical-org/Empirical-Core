@@ -2,32 +2,51 @@ import React from 'react'
 import request from 'request'
 import ReactTable from 'react-table'
 import 'react-table/react-table.css'
+import _ from 'underscore';
 import LoadingSpinner from '../shared/loading_indicator.jsx'
-import {sortByLastName} from '../../../../modules/sortingMethods.js'
+import { sortByLastName } from '../../../../modules/sortingMethods.js'
 import moment from 'moment'
 import EmptyStateForReport from './empty_state_for_report'
-
-import _ from 'underscore'
-
 
 export default class extends React.Component {
 
   constructor() {
-    super()
+    super();
     this.state = {
       loading: true,
       errors: false,
-    }
+    };
+    this.initializePusher = this.initializePusher.bind(this);
   }
 
   componentDidMount() {
     const that = this;
     request.get({
-      url: `${process.env.DEFAULT_URL}/api/v1/progress_reports/real_time_data`
+      url: `${process.env.DEFAULT_URL}/api/v1/progress_reports/real_time_data`,
     }, (e, r, body) => {
-      const data = JSON.parse(body).data
+      const data = JSON.parse(body).data;
       const studentsData = data;
-      that.setState({loading: false, errors: body.errors, studentsData});
+      that.setState({ loading: false, errors: body.errors, studentsData, });
+    });
+  }
+
+  componentDidUpdate() {
+    this.initializePusher();
+  }
+
+  initializePusher() {
+    /* TODO */
+    const { currentUser, } = this.props;
+    const teacherId = currentUser.id;
+    if (process.env.RAILS_ENV === 'development') {
+      Pusher.logToConsole = true;
+    }
+    const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
+    const channel = pusher.subscribe(teacherId.toString());
+    channel.bind('as-interaction-log-pushed', (pushedData) => {
+      //const data = JSON.parse(pushedData).data
+      const studentsData = pushedData.data;
+      this.setState({ studentsData, });
     });
   }
 

@@ -18,7 +18,7 @@ import ReactDOM from 'react-dom'
 require('../../../assets/styles/app-variables.scss')
 
 
-var renderRightComponentHack = function() {
+var renderRightComponentHack = function(currentUser) {
   var ele = $('.student-reports-subnav.tab-subnavigation-wrapper');
   let path = window.location.pathname;
   let shouldHaveBanner = !path.includes('/landing_page') && !path.includes('diagnostic_report');
@@ -48,7 +48,8 @@ var renderRightComponentHack = function() {
       $.get('/teachers/classrooms/premium.json').done(function(data) {
         var props = {
           sourceUrl: $el.data('url'),
-          premiumStatus: data.hasPremium
+          premiumStatus: data.hasPremium,
+          currentUser: currentUser,
         };
         ReactDOM.render(React.createElement(component, props), $el[0]);
       });
@@ -59,7 +60,7 @@ var renderRightComponentHack = function() {
 export default React.createClass({
 
   componentDidMount: function(){
-   renderRightComponentHack();
+   renderRightComponentHack(this.props.current_user);
   },
 
 
