@@ -110,7 +110,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
         // if (underlineErrors) {
           // passage = passage.replace(key, `<span id="${key}">${minus}</span>`);
         // } else {
-          passage = passage.replace(key, minus);
+          passage = passage.replace(key, `<u id="${correctEdits.length}">${minus}</u>`);
         // }
         correctEdits.push(key)
       });
