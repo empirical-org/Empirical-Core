@@ -8,6 +8,7 @@ import { sortByLastName } from '../../../../modules/sortingMethods.js'
 import moment from 'moment'
 import EmptyStateForReport from './empty_state_for_report'
 
+
 export default class extends React.Component {
 
   constructor() {
