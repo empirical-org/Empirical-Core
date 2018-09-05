@@ -37,7 +37,7 @@ const rules = [
       }
     },
     serialize(obj, children) {
-      if (obj.object == 'block') {
+      if (obj.object == 'block' || obj.object == 'inline') {
         switch (obj.type) {
           case 'code':
             return (
@@ -49,6 +49,8 @@ const rules = [
             return <p className={obj.data.get('className')}>{children}</p>
           case 'quote':
             return <blockquote>{children}</blockquote>
+          case 'span':
+            return <span>{children}</span>
         }
       }
     },
@@ -80,33 +82,12 @@ const rules = [
     },
   },
 
-  // {
-  //   deserialize(el) {
-  //     if (el.tagName !== 'br') return;
-  //
-  //     return {
-  //       kind: 'text',
-  //       text: '\n',
-  //     };
-  //   },
-  //   serialize(object, children) {
-  //     if (object.type !== 'text') return;
-  //     if (children !== '\n') return;
-  //
-  //     return (
-  //       <br/>
-  //     );
-  //   },
-  // },
-
 ]
 
 const html = new Html({ rules })
 
 const plugins = [
   StickyInlines({
-    allowedTypes: ['underline', 'bold'],
-    bannedTypes: [],
     canBeEmpty: true,
     hasStickyBoundaries: true,
     stickOnDelete: true,
@@ -132,9 +113,6 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
     }
 
     this.handleTextChange = this.handleTextChange.bind(this)
-    // this.handlePassageChange = this.handlePassageChange.bind(this)
-    // this.standardizedPassage = this.standardizedPassage.bind(this)
-    this.onChangeSelection = this.onChangeSelection.bind(this)
   }
 
   paragraphWrappedText(text: string) {
@@ -143,67 +121,18 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
     let spannedText = ''
     let index = 0
     brStrippedText.split(/<u.+?<\/u>/gm).forEach(span => {
-      span.split(' ').forEach(word => spannedText += `<span>${word}</span> `)
-      spannedText += `<span>${uTags[index]}</span>`
+      span.split(' ').forEach(word => {
+        const trimmedWord = word.trim()
+        console.log('word', word)
+        if (trimmedWord.length) {
+          spannedText += `<span>${trimmedWord} </span>`
+        }
+      })
+      uTags && uTags[index] ? spannedText += `<span>${uTags[index]} </span>` : null
       index++
     })
     return /^<p>/.test(spannedText) ? spannedText : `<p>${spannedText}</p>`
   }
-
-  componentDidMount() {
-    // this.registerFormats()
-    // const quillRef = document.getElementsByClassName('ql-editor')
-    // if (quillRef && quillRef[0]) {
-    //   quillRef[0].setAttribute("spellcheck", "false")
-    // }
-  }
-
-//   registerFormats () {
-//   // Ensure React-Quill references is available:
-//     if (typeof this.refs.editor.getEditor !== 'function') return;
-//     // Skip if Quill reference is defined:
-//     if (this.quillRef != null) return;
-//
-//     console.log('Registering formats...', this.refs.editor)
-//     const quillRef = this.refs.editor.getEditor() // could still be null
-//
-//     if (quillRef != null) {
-//       this.quillRef = quillRef;
-//       console.log(Quill.imports)
-//     }
-// }
-
-
-  // handlePassageChange(value: string):string|void {
-  //   const strippedOriginal = this.standardizedPassage(this.paragraphWrappedText(this.props.text))
-  //   const strippedNew = this.standardizedPassage(value)
-  //   const diffs = jsdiff.diffWords(strippedOriginal, strippedNew)
-  //   const relevantDiffs = diffs.filter((d: { added?: boolean, removed?: boolean, value?: string }) => d.added || d.removed)
-  //   if (relevantDiffs.length) {
-  //     let valueWithHighlightedChanges = ''
-  //     diffs.forEach((diff: { added?: boolean, removed?: boolean, value?: string }, index: number) => {
-  //       const nextDiff = diffs[index + 1]
-  //       let diffVal
-  //       // if (nextDiff && nextDiff.value === '<u>') {
-  //       //   diffVal = '<u>' + diff.value
-  //       // } else if (diff.value !== '<u>') {
-  //         diffVal = diff.value
-  //       // }
-  //       //
-  //       if (diff.added) {
-  //       // if (diff.added && diffVal && !/<p>|<\/p>/.test(diffVal)) {
-  //         valueWithHighlightedChanges += `<strong>${diffVal}</strong>`
-  //       } else if (!diff.removed) {
-  //         valueWithHighlightedChanges += diffVal
-  //       }
-  //     })
-  //     return valueWithHighlightedChanges
-  //   }
-  // }
-  //
-  // standardizedPassage(string: string):string {
-  //   return string.replace(/<(?:strong|\/strong)>/gm, '').replace(/\s+(\.)/gm, '.').replace(/<br\/>/gm, '')
-  // }
 
   renderNode = (args) => {
     switch (args.node.type) {
@@ -229,8 +158,6 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
 // Add a `renderMark` method to render marks.
   renderMark = (args) => {
     const { mark, attributes } = args
-    console.log('mark', mark)
-    console.log('attributes', attributes)
     switch (mark.type) {
       case 'bold':
         return <strong {...attributes} id={mark.get('key')}>{args.children}</strong>
@@ -242,67 +169,34 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
   }
 
   handleTextChange({value}) {
-    this.setState({text: value})
-    // const clonedValue = _.cloneDeep(value)
-    // const serializedHtml = html.serialize(clonedValue)
-    // const serializedState = html.serialize(this.state.text)
-    // console.log('original value', serializedHtml)
-    // // if (serializedHtml !== html.serialize(this.state.text)) {
-    //   const newHtml = this.handlePassageChange(serializedHtml)
-    //   if (newHtml && (newHtml !== serializedState)) {
-    //     console.log('new vlaue', newHtml)
-    //     const unserializedNewHtml = html.deserialize(newHtml)
-    //     this.setState({text: unserializedNewHtml }, () => {
-    //       // this.props.handleTextChange(newHtml)
-    //       // const quillRef = this.refs.editor.getEditor();
-    //       // have to wait to make sure new text has rendered
-    //       // setTimeout(() => {
-    //       //   quillRef.setSelection(this.state.lastSelectionIndex, 0);
-    //       // }, 100);
-    //
-    //     })
-    //   }
-    // }
-  }
-
-  onChangeSelection(range: null|{ index: number, length: number }) {
-    if (range && range.index !== 0) {
-      this.setState({lastSelectionIndex: range.index })
-    }
+    this.setState({text: value}, () => this.props.handleTextChange(html.serialize(this.state.text)))
   }
 
   onKeyUp(event, change, editor) {
     const { value } = change
-    // value.focusInline.addMark('bold')
     const originalSelection = value.selection
-    change
-    .moveToRangeOfNode(value.startInline.nodes.first())
-    .addMark('bold')
-    .setStart(originalSelection.start)
-    .setEnd(originalSelection.end)
-    // change.addMarkByKey(key, 'bold')
+    if (value.startInline && value.startInline.nodes) {
+      change.moveToRangeOfNode(value.startInline.nodes.first())
+      .addMark('bold')
+      .setStart(originalSelection.start)
+      .setEnd(originalSelection.end)
+    } else {
+      change.addMark('bold')
+    }
   }
 
   render() {
     if (this.state.text) {
       return (
-        // onChange={_.debounce(this.handleTextChange, 5000)}
-
-        // <Editor
-        //   modules={{toolbar: null}}
-        //   value={this.state.text}
-        //   onChange={this.handleTextChange}
-        //   ref={'editor'}
-        //   onChangeSelection={this.onChangeSelection}
-        // />
         <Editor
+          className='editor'
           value={this.state.text}
           onChange={this.handleTextChange}
           renderNode={this.renderNode}
           renderMark={this.renderMark}
           onKeyUp={this.onKeyUp}
           plugins={plugins}
-          spellcheck={false}
+          spellCheck={false}
         />)
     } else {
       return <span/>

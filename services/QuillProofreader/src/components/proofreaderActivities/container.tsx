@@ -207,9 +207,15 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       );
     }
 
+    formatReceivedPassage(value: string) {
+      const stringWithoutUnnecessaryHtml = value.replace(/<span>|<\/span>|<strong> <\/strong>/gm, '')
+      return stringWithoutUnnecessaryHtml
+    }
+
     handlePassageChange(value: string) {
+      const formattedValue = this.formatReceivedPassage(value)
       const regex = /<strong>.*?<\/strong>/gm
-      const edits = value.match(regex)
+      const edits = formattedValue.match(regex)
       console.log('edits', edits)
       if (edits && !_.isEqual(edits, this.state.edits)) {
         this.setState({ passage: value, edits })
