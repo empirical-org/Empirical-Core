@@ -126,6 +126,14 @@ export default class extends React.Component {
           showPaginationBottom={false}
           showPageSizeOptions={false}
           defaultPageSize={filteredStudentsData.length}
+          getTrProps={(state, rowInfo, column) => {
+            return {
+              style: {
+                background: rowInfo.row.timespent_question > 90 ? '#ff7a7a' : 'inherit',
+                color: rowInfo.row.timespent_question > 90 ? '#ffffff' : 'inherit',
+              },
+            };
+          }}
           className='progress-report has-green-arrow'/>
         </div>)
     } else {
