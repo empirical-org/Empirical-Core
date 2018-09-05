@@ -3,6 +3,7 @@ import * as React from 'react';
 import { Editor } from 'slate-react'
 import { Value } from 'slate'
 import Html from 'slate-html-serializer'
+import StickyInlines from 'slate-sticky-inlines'
 
 import * as jsdiff from 'diff'
 
@@ -10,14 +11,14 @@ const BLOCK_TAGS = {
   blockquote: 'quote',
   p: 'paragraph',
   pre: 'code',
+  span: 'span'
 }
 ​
 // Add a dictionary of mark tags.
 const MARK_TAGS = {
   em: 'italic',
   strong: 'bold',
-  u: 'underline',
-  span: 'span'
+  u: 'underline'
 }
 ​
 const rules = [
@@ -26,7 +27,7 @@ const rules = [
       const type = BLOCK_TAGS[el.tagName.toLowerCase()]
       if (type) {
         return {
-          object: 'block',
+          object: type === 'span' ? 'inline': 'block',
           type: type,
           data: {
             className: el.getAttribute('class'),
@@ -102,6 +103,16 @@ const rules = [
 
 const html = new Html({ rules })
 
+const plugins = [
+  StickyInlines({
+    allowedTypes: ['underline', 'bold'],
+    bannedTypes: [],
+    canBeEmpty: true,
+    hasStickyBoundaries: true,
+    stickOnDelete: true,
+  })
+]
+
 interface PassageEditorState {
   text: any;
   lastSelectionIndex?: number;
@@ -121,8 +132,8 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
     }
 
     this.handleTextChange = this.handleTextChange.bind(this)
-    this.handlePassageChange = this.handlePassageChange.bind(this)
-    this.standardizedPassage = this.standardizedPassage.bind(this)
+    // this.handlePassageChange = this.handlePassageChange.bind(this)
+    // this.standardizedPassage = this.standardizedPassage.bind(this)
     this.onChangeSelection = this.onChangeSelection.bind(this)
   }
 
@@ -133,7 +144,7 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
     let index = 0
     brStrippedText.split(/<u.+?<\/u>/gm).forEach(span => {
       span.split(' ').forEach(word => spannedText += `<span>${word}</span> `)
-      spannedText += uTags[index]
+      spannedText += `<span>${uTags[index]}</span>`
       index++
     })
     return /^<p>/.test(spannedText) ? spannedText : `<p>${spannedText}</p>`
@@ -163,36 +174,36 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
 // }
 
 
-  handlePassageChange(value: string):string|void {
-    const strippedOriginal = this.standardizedPassage(this.paragraphWrappedText(this.props.text))
-    const strippedNew = this.standardizedPassage(value)
-    const diffs = jsdiff.diffWords(strippedOriginal, strippedNew)
-    const relevantDiffs = diffs.filter((d: { added?: boolean, removed?: boolean, value?: string }) => d.added || d.removed)
-    if (relevantDiffs.length) {
-      let valueWithHighlightedChanges = ''
-      diffs.forEach((diff: { added?: boolean, removed?: boolean, value?: string }, index: number) => {
-        const nextDiff = diffs[index + 1]
-        let diffVal
-        // if (nextDiff && nextDiff.value === '<u>') {
-        //   diffVal = '<u>' + diff.value
-        // } else if (diff.value !== '<u>') {
-          diffVal = diff.value
-        // }
-        //
-        if (diff.added) {
-        // if (diff.added && diffVal && !/<p>|<\/p>/.test(diffVal)) {
-          valueWithHighlightedChanges += `<strong>${diffVal}</strong>`
-        } else if (!diff.removed) {
-          valueWithHighlightedChanges += diffVal
-        }
-      })
-      return valueWithHighlightedChanges
-    }
-  }
-
-  standardizedPassage(string: string):string {
-    return string.replace(/<(?:strong|\/strong)>/gm, '').replace(/\s+(\.)/gm, '.').replace(/<br\/>/gm, '')
-  }
+  // handlePassageChange(value: string):string|void {
+  //   const strippedOriginal = this.standardizedPassage(this.paragraphWrappedText(this.props.text))
+  //   const strippedNew = this.standardizedPassage(value)
+  //   const diffs = jsdiff.diffWords(strippedOriginal, strippedNew)
+  //   const relevantDiffs = diffs.filter((d: { added?: boolean, removed?: boolean, value?: string }) => d.added || d.removed)
+  //   if (relevantDiffs.length) {
+  //     let valueWithHighlightedChanges = ''
+  //     diffs.forEach((diff: { added?: boolean, removed?: boolean, value?: string }, index: number) => {
+  //       const nextDiff = diffs[index + 1]
+  //       let diffVal
+  //       // if (nextDiff && nextDiff.value === '<u>') {
+  //       //   diffVal = '<u>' + diff.value
+  //       // } else if (diff.value !== '<u>') {
+  //         diffVal = diff.value
+  //       // }
+  //       //
+  //       if (diff.added) {
+  //       // if (diff.added && diffVal && !/<p>|<\/p>/.test(diffVal)) {
+  //         valueWithHighlightedChanges += `<strong>${diffVal}</strong>`
+  //       } else if (!diff.removed) {
+  //         valueWithHighlightedChanges += diffVal
+  //       }
+  //     })
+  //     return valueWithHighlightedChanges
+  //   }
+  // }
+  //
+  // standardizedPassage(string: string):string {
+  //   return string.replace(/<(?:strong|\/strong)>/gm, '').replace(/\s+(\.)/gm, '.').replace(/<br\/>/gm, '')
+  // }
 
   renderNode = (args) => {
     switch (args.node.type) {
@@ -210,6 +221,8 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
         )
       case 'quote':
         return <blockquote {...args.attributes}>{args.children}</blockquote>
+      case 'span':
+        return <span {...args.attributes}>{args.children}</span>
     }
   }
 ​
@@ -225,8 +238,6 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
         return <em {...attributes} id={mark.get('key')}>{args.children}</em>
       case 'underline':
         return <u {...attributes} id={mark.get('key')}>{args.children}</u>
-      case 'span':
-        return <span {...attributes} id={mark.get('key')}>{args.children}</span>
     }
   }
 
@@ -260,14 +271,16 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
     }
   }
 
-  onKeyDown(event, change, editor) {
+  onKeyUp(event, change, editor) {
     const { value } = change
-    const { selection, startBlock } = value
     // value.focusInline.addMark('bold')
-    debugger;
+    const originalSelection = value.selection
     change
-    .moveToRangeOfInline()
+    .moveToRangeOfNode(value.startInline.nodes.first())
     .addMark('bold')
+    .setStart(originalSelection.start)
+    .setEnd(originalSelection.end)
+    // change.addMarkByKey(key, 'bold')
   }
 
   render() {
@@ -287,7 +300,9 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
           onChange={this.handleTextChange}
           renderNode={this.renderNode}
           renderMark={this.renderMark}
-          onKeyDown={this.onKeyDown}
+          onKeyUp={this.onKeyUp}
+          plugins={plugins}
+          spellcheck={false}
         />)
     } else {
       return <span/>
