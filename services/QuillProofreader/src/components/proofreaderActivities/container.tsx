@@ -210,8 +210,8 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
     formatReceivedPassage(value: string) {
       // this method handles the fact that Slate will sometimes create additional strong tags rather than adding text inside of one
       let string = value.replace(/<span>|<\/span>|<strong> <\/strong>/gm, '')
-      const doubleStrongTagWithURegex = /<strong>(.+?)<\/strong><strong>(<u id="\d">)(.+?)<\/u><\/strong>/gm
-      const doubleStrongTagRegex = /<strong>.+?<\/strong><strong>.+?<\/strong>/gm
+      const doubleStrongTagWithURegex = /<strong>([^(<\/strong>)]+?)<\/strong><strong>(<u id="\d">)(.+?)<\/u><\/strong>/gm
+      const doubleStrongTagRegex = /<strong>[^(<\/strong>)]+?<\/strong><strong>[^(<\/strong>)]+?<\/strong>/gm
       if (doubleStrongTagWithURegex.test(string)) {
         string = string.replace(doubleStrongTagWithURegex, (key, contentA, uTag, contentB) => {
           return `<strong>${uTag}${contentA}${contentB}</u></strong>`
