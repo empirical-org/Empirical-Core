@@ -229,7 +229,6 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       const formattedValue = this.formatReceivedPassage(value)
       const regex = /<strong>.*?<\/strong>/gm
       const edits = formattedValue.match(regex)
-      console.log('edits', edits)
       if (edits && !_.isEqual(edits, this.state.edits)) {
         this.setState({ passage: formattedValue, edits })
       }
@@ -243,26 +242,46 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       } else {
         const editedPassage = this.state.passage
         // const { edits } = this.state
-        const { passage } = this.props.proofreaderActivities.currentActivity
         let numberOfCorrectChanges = 0
+        const correctEditRegex = /\+([^-]+)-/m
+        const conceptUIDRegex = /\|([^-]+)}/m
         if (editedPassage) {
           const reviewablePassage = editedPassage.replace(/<strong>(.*?)<\/strong>/gm , (key, edit) => {
-            console.log('edit', edit)
-            const match = correctEdits.find(correctEdit => {
-              const attemptedMatch = correctEdit.match(/([^-]+)-/g)
-              const correctText = attemptedMatch && attemptedMatch[0] ? attemptedMatch[0].replace(/{|\+|\-/g, '') : null
-              console.log('correctText', correctText)
-              if (edit === correctText) {
-                return correctEdit
+            const uTag = edit.match(/<u id="(\d)">(.+)<\/u>/m)
+            if (uTag && uTag.length) {
+              const id = uTag[1]
+              const text = uTag[2]
+              if (correctEdits && correctEdits[id]) {
+                const correctEdit = correctEdits[id].match(correctEditRegex) ? correctEdits[id].match(correctEditRegex)[1] : ''
+                const conceptUID = correctEdits[id].match(conceptUIDRegex) ? correctEdits[id].match(conceptUIDRegex)[1] : ''
+                if (text === correctEdit) {
+                  numberOfCorrectChanges++
+                  return `{+${text}-|${conceptUID}}`
+                } else {
+                  return `{+${correctEdit}-${text}|${conceptUID}}`
+                }
+              } else {
+                return `{+${text}-|unnecessary}`
               }
-            })
-            console.log('match', match)
-            if (match) {
-              numberOfCorrectChanges++
-              return match
             } else {
               return `{+${edit}-|unnecessary}`
             }
+            // console.log('edit', edit)
+            // const match = correctEdits.find(correctEdit => {
+            //   const attemptedMatch = correctEdit.match(/([^-]+)-/g)
+            //   const correctText = attemptedMatch && attemptedMatch[0] ? attemptedMatch[0].replace(/{|\+|\-/g, '') : null
+            //   console.log('correctText', correctText)
+            //   if (edit === correctText) {
+            //     return correctEdit
+            //   }
+            // })
+            // console.log('match', match)
+            // if (match) {
+            //   numberOfCorrectChanges++
+            //   return match
+            // } else {
+            //   return `{+${edit}-|unnecessary}`
+            // }
           })
           this.setState({ reviewablePassage, showReviewModal: true, numberOfCorrectChanges: numberOfCorrectChanges})
         }
