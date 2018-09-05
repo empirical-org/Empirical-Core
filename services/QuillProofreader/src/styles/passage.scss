@@ -1,7 +1,7 @@
 .passage-container {
   .header-section {
     background-color: #ededed;
-    height: 130px;
+    min-height: 130px;
     align-items: center;
     justify-content: center;
     display: flex;
@@ -55,7 +55,7 @@
     }
   }
 
-  .quill, .reviewer {
+  .editor, .reviewer {
     max-width: 896px;
     margin: auto;
     line-height: 2.0;
