@@ -11,7 +11,7 @@ const noUnderlineErrors = [];
 
 const feedbackStrings = C.FEEDBACK_STRINGS;
 
-const timeBetweenActivitySessionInteractionLogsInMS = 5000;
+const timeBetweenActivitySessionInteractionLogsInMS = 2000;
 
 export default React.createClass({
   getInitialState() {

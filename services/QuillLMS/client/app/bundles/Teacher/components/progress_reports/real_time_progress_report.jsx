@@ -18,6 +18,7 @@ export default class extends React.Component {
       errors: false,
     };
     this.initializePusher = this.initializePusher.bind(this);
+    this.clearStudentData = this.clearStudentData.bind(this);
   }
 
   componentDidMount() {
@@ -29,10 +30,12 @@ export default class extends React.Component {
       const studentsData = data;
       that.setState({ loading: false, errors: body.errors, studentsData, });
     });
+    this.initializePusher();
   }
 
-  componentDidUpdate() {
-    this.initializePusher();
+  clearStudentData() {
+    const studentsData = { data: {}, };
+    this.setState({ studentsData, });
   }
 
   initializePusher() {
@@ -44,11 +47,30 @@ export default class extends React.Component {
     }
     const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
     const channel = pusher.subscribe(teacherId.toString());
+    const maxIntervalWithoutInteractionBeforeClearing = 30000;
+    let clearStudentDataAfterPause = setTimeout(
+      this.clearStudentData,
+      maxIntervalWithoutInteractionBeforeClearing
+    );
     channel.bind('as-interaction-log-pushed', (pushedData) => {
-      //const data = JSON.parse(pushedData).data
+      // reset clock on table
+      clearTimeout(clearStudentDataAfterPause);
+      clearStudentDataAfterPause = setTimeout(
+        this.clearStudentData,
+        maxIntervalWithoutInteractionBeforeClearing
+      );
       const studentsData = pushedData.data;
       this.setState({ studentsData, });
     });
+  }
+
+  humanTime(timeInSeconds) {
+    let result = '';
+    if (timeInSeconds / 60 > 1) {
+      result += `${moment.duration(timeInSeconds / 60, 'minutes').humanize()} and `;
+    }
+    result += `${timeInSeconds % 60} seconds`;
+    return result;
   }
 
   columns() {
@@ -59,7 +81,7 @@ export default class extends React.Component {
         resizable: false,
         sortMethod: sortByLastName,
         Cell: row => (
-          <a>{row.original.name}</a>
+          row.original.name
         ),
       }, {
         Header: 'Activity',
@@ -67,7 +89,7 @@ export default class extends React.Component {
         resizable: false,
         minWidth: 120,
         Cell: row => (
-          <a>{row.original.activity_name}</a>
+          row.original.activity_name
         ),
       }, {
         Header: 'Current Question',
@@ -75,7 +97,7 @@ export default class extends React.Component {
         resizable: false,
         minWidth: 90,
         Cell: row => (
-          <a>{row.original.timespent_question}</a>
+          this.humanTime(parseInt(row.original.timespent_question))
         ),
       }, {
         Header: 'Session Length',
@@ -83,7 +105,7 @@ export default class extends React.Component {
         resizable: false,
         minWidth: 90,
         Cell: row => (
-          <a>{moment.duration(parseInt(row.original.timespent_activity_session), 'seconds').humanize()}</a>
+          moment.duration(parseInt(row.original.timespent_activity_session), 'seconds').humanize()
         ),
       }
     ])
