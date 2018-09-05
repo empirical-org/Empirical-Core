@@ -53,10 +53,6 @@ class StudentProfile extends React.Component {
     }
   }
 
-  componentDidUpdate() {
-    this.initializePusher();
-  }
-
   componentWillUnmount() {
     window.removeEventListener('resize');
   }
