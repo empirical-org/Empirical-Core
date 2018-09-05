@@ -121,7 +121,6 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
     brStrippedText.split(/<u.+?<\/u>/gm).forEach(span => {
       span.split(' ').forEach(word => {
         const trimmedWord = word.trim()
-        console.log('word', word)
         if (trimmedWord.length) {
           spannedText += `<span>${trimmedWord} </span>`
         }
