@@ -20,7 +20,7 @@ export default class PassageReviewer extends React.Component<PassageReviewerProp
   constructor(props: PassageReviewerProps) {
     super(props)
 
-    const matches = props.text ? props.text.match(/{\+([^-]+)-([^|]+)\|([^}]+)}/g) : []
+    const matches = props.text ? props.text.match(/{\+([^-]+)-([^|]*)\|([^}]+)}/g) : []
     const numberOfEdits = matches ? matches.length : 0
 
     this.state = {
@@ -45,18 +45,26 @@ export default class PassageReviewer extends React.Component<PassageReviewerProp
       const parts:Array<string|JSX.Element> = paragraph.replace(/<p>|<\/p>/g, '').split(/{|}/g)
       for (let i = 0; i < parts.length; i ++) {
         if (typeof parts[i] === "string" && parts[i][0] === '+') {
-          const plusMatch = parts[i].match(/\+([^-]+)-/)
-          const plus = plusMatch ? plusMatch[0].replace(/\+|-/g, '') : ''
-          const conceptUIDMatch = parts[i].match(/\|([^}]+)/)
-          const conceptUID = conceptUIDMatch ? conceptUIDMatch[0].replace(/\|/, '') : ''
+          const plusMatch = parts[i].match(/\+([^-]+)-/m)
+          const plus = plusMatch ? plusMatch[1] : ''
+          const conceptUIDMatch = parts[i].match(/\|([^-]+)/m)
+          const conceptUID = conceptUIDMatch ? conceptUIDMatch[1] : ''
+          const negativeMatch = parts[i].match(/\-([^-]+)\|/m)
+          const negative = negativeMatch ? negativeMatch[1] : null
           const concept = this.props.concepts.find(concept => concept.uid === conceptUID)
           const indexToPass = index
-          const state = conceptUID === 'unnecessary' ? 'unnecessary' : 'correct'
+          let state = 'correct'
+          if (negative) {
+            state = 'incorrect'
+          } else if (conceptUID === 'unnecessary') {
+            state = 'unnecessary'
+          }
           index++
           parts[i] = <Edit
             state={state}
             concept={concept}
             displayText={plus}
+            incorrectText={negative}
             index={indexToPass}
             activeIndex={activeIndex}
             next={this.next}

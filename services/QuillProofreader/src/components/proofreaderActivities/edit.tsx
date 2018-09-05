@@ -13,6 +13,7 @@ interface EditProps {
   index: number;
   numberOfEdits: number;
   next: any;
+  incorrectText: string|null;
 }
 
 export default class Edit extends React.Component<EditProps> {
@@ -60,7 +61,7 @@ export default class Edit extends React.Component<EditProps> {
     const className = activeIndex === index ? 'active' : ''
     const tooltip = this.renderTooltip()
     return <div className={`edit ${className} ${state}`}>
-      <strong>{this.props.displayText}</strong>
+      <strong>{this.props.incorrectText || this.props.displayText}</strong>
       {tooltip}
     </div>
   }
