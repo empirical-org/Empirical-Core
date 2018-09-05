@@ -60,6 +60,7 @@
     "sass-loader": "^7.0.1",
     "slate": "^0.40.2",
     "slate-html-serializer": "^0.7.2",
+    "slate-instant-replace": "^0.1.8",
     "slate-react": "^0.18.4",
     "slate-sticky-inlines": "^0.8.0",
     "style-loader": "^0.21.0",
