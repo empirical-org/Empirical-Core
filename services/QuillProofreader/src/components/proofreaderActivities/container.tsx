@@ -209,8 +209,8 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
 
     formatReceivedPassage(value: string) {
       // this method handles the fact that Slate will sometimes create additional strong tags rather than adding text inside of one
-      let string = value.replace(/<span>|<\/span>|<strong> <\/strong>/gm, '')
-      const doubleStrongTagWithURegex = /<strong>([^(<\/strong>)]+?)<\/strong><strong>(<u id="\d">)(.+?)<\/u><\/strong>/gm
+      let string = value.replace(/<span>|<\/span>|<strong> <\/strong>/gm, '').replace(/&#x27;/g, "'")
+      const doubleStrongTagWithURegex = /<strong>([^(<\/strong>)]+?)<\/strong><strong>(<u id="\d+">)(.+?)<\/u><\/strong>/gm
       const doubleStrongTagRegex = /<strong>[^(<\/strong>)]+?<\/strong><strong>[^(<\/strong>)]+?<\/strong>/gm
       if (doubleStrongTagWithURegex.test(string)) {
         string = string.replace(doubleStrongTagWithURegex, (key, contentA, uTag, contentB) => {
@@ -244,10 +244,10 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
         // const { edits } = this.state
         let numberOfCorrectChanges = 0
         const correctEditRegex = /\+([^-]+)-/m
-        const conceptUIDRegex = /\|([^-]+)}/m
+        const conceptUIDRegex = /\|([^}]+)}/m
         if (editedPassage) {
-          const reviewablePassage = editedPassage.replace(/<strong>(.*?)<\/strong>/gm , (key, edit) => {
-            const uTag = edit.match(/<u id="(\d)">(.+)<\/u>/m)
+          const gradedPassage = editedPassage.replace(/<strong>(.*?)<\/strong>/gm , (key, edit) => {
+            const uTag = edit.match(/<u id="(\d+)">(.+)<\/u>/m)
             if (uTag && uTag.length) {
               const id = uTag[1]
               const text = uTag[2]
@@ -256,33 +256,24 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
                 const conceptUID = correctEdits[id].match(conceptUIDRegex) ? correctEdits[id].match(conceptUIDRegex)[1] : ''
                 if (text === correctEdit) {
                   numberOfCorrectChanges++
-                  return `{+${text}-|${conceptUID}}`
+                  return `{+${text}-|${conceptUID}} `
                 } else {
-                  return `{+${correctEdit}-${text}|${conceptUID}}`
+                  return `{+${correctEdit}-${text}|${conceptUID}} `
                 }
               } else {
-                return `{+${text}-|unnecessary}`
+                return `{+${text}-|unnecessary} `
               }
             } else {
-              return `{+${edit}-|unnecessary}`
+              return `{+${edit}-|unnecessary} `
             }
-            // console.log('edit', edit)
-            // const match = correctEdits.find(correctEdit => {
-            //   const attemptedMatch = correctEdit.match(/([^-]+)-/g)
-            //   const correctText = attemptedMatch && attemptedMatch[0] ? attemptedMatch[0].replace(/{|\+|\-/g, '') : null
-            //   console.log('correctText', correctText)
-            //   if (edit === correctText) {
-            //     return correctEdit
-            //   }
-            // })
-            // console.log('match', match)
-            // if (match) {
-            //   numberOfCorrectChanges++
-            //   return match
-            // } else {
-            //   return `{+${edit}-|unnecessary}`
-            // }
           })
+          const reviewablePassage = gradedPassage.replace(/<u id="(\d+)">(.+?)<\/u>/gm, (key, id, text) => {
+            if (correctEdits && correctEdits[id]) {
+              return correctEdits[id]
+            } else {
+              return `${text} `
+            }
+          }).replace(/<br\/>/gm, '')
           this.setState({ reviewablePassage, showReviewModal: true, numberOfCorrectChanges: numberOfCorrectChanges})
         }
       }

@@ -29,6 +29,16 @@
     }
   }
 
+  &.incorrect {
+    background-color: #ffdede;
+    .top-section {
+      background-color: #ffdede;
+    }
+    &.active {
+      background-color: #ffabab;
+    }
+  }
+
   .edit-tooltip {
     background-color: white;
     left: 0px;
