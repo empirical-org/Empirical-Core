@@ -5,8 +5,6 @@ import { Value } from 'slate'
 import Html from 'slate-html-serializer'
 import StickyInlines from 'slate-sticky-inlines'
 
-import * as jsdiff from 'diff'
-
 const BLOCK_TAGS = {
   blockquote: 'quote',
   p: 'paragraph',
