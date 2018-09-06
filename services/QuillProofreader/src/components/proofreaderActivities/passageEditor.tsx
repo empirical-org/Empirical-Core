@@ -87,11 +87,11 @@ const rules = [
 const html = new Html({ rules })
 
 const plugins = [
-  StickyInlines({
-    canBeEmpty: true,
-    hasStickyBoundaries: true,
-    stickOnDelete: true,
-  })
+  // StickyInlines({
+  //   canBeEmpty: true,
+  //   hasStickyBoundaries: true,
+  //   stickOnDelete: true,
+  // })
 ]
 
 interface PassageEditorState {

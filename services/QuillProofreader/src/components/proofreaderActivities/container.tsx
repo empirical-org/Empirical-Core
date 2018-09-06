@@ -209,7 +209,9 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
 
     formatReceivedPassage(value: string) {
       // this method handles the fact that Slate will sometimes create additional strong tags rather than adding text inside of one
+      console.log('not span stripped string', value)
       let string = value.replace(/<span data-original-index="\d+">|<\/span>|<strong> <\/strong>/gm, '').replace(/&#x27;/g, "'")
+      console.log('string', string)
       // regex below matches case that looks like this: <strong><u id="3">Addison</u></strong><strong><u id="3">,</u></strong><strong><u id="3"> Parker, and Julian,</u></strong>
       const tripleStrongTagWithThreeMatchingURegex = /<strong>(<u id="\d+">)([^(<]+?)<\/u><\/strong><strong>(<u id="\d+">)([^(<]+?)<\/u><\/strong><strong>(<u id="\d+">)([^(<]+?)<\/u><\/strong>/gm
       // regex below matches case that looks like this: <strong><u id="3">Addison</u></strong><strong>,</strong><strong><u id="3"> Parker, and Julian,</u></strong>
@@ -217,7 +219,9 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       // regex below matches case that looks like this: <strong><u id="3">Addison</u></strong><strong><u id="3">, Parker, and Julian,</u></strong>
       const doubleStrongTagWithTwoMatchingURegex = /<strong>(<u id="\d+">)([^(<]+?)<\/u><\/strong><strong>(<u id="\d+">)([^(<]+?)<\/u><\/strong>/gm
       // regex below matches case that looks like this: <strong>Addison</strong><strong><u id="3">, Parker, and Julian,</u></strong>
-      const doubleStrongTagWithURegex = /<strong>([^(<)]+?)<\/strong><strong>(<u id="\d+">)(.+?)<\/u><\/strong>/gm
+      const doubleStrongTagWithUOnSecondTagRegex = /<strong>([^(<)]+?)<\/strong><strong>(<u id="\d+">)(.+?)<\/u><\/strong>/gm
+      // regex below matches case that looks like this: <strong><u id="3">Addison</u></strong><strong>, Parker, and Julian,</strong>
+      const doubleStrongTagWithUOnFirstTagRegex = /<strong>(<u id="\d+">)([^(<)]+?)<\/u><\/strong><strong>=(.+?)<\/strong>/gm
       // regex below matches case that looks like this: <strong>A</strong><strong>ntartctic</strong>
       const doubleStrongTagRegex = /<strong>[^(<)]+?<\/strong><strong>[^(<)]+?<\/strong>/gm
       if (tripleStrongTagWithThreeMatchingURegex.test(string)) {
@@ -247,9 +251,24 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
           }
         })
       }
-      if (doubleStrongTagWithURegex.test(string)) {
-        string = string.replace(doubleStrongTagWithURegex, (key, contentA, uTag, contentB) => {
-          return `<strong>${uTag}${contentA}${contentB}</u></strong>`
+      if (doubleStrongTagWithUOnSecondTagRegex.test(string)) {
+        string = string.replace(doubleStrongTagWithUOnSecondTagRegex, (key, contentA, uTag, contentB) => {
+          if (contentA.includes(' ')) {
+            const splitA = contentA.split(' ')
+            return `<strong>${splitA[0]}</strong> <strong>${uTag}${splitA[1]}${contentB}</u></strong>`
+          } else {
+            return `<strong>${uTag}${contentA}${contentB}</u></strong>`
+          }
+        })
+      }
+      if (doubleStrongTagWithUOnFirstTagRegex.test(string)) {
+        string = string.replace(doubleStrongTagWithUOnSecondTagRegex, (key, uTag, contentA, contentB) => {
+          if (contentB.includes(' ')) {
+            const splitB = contentB.split(' ')
+            return `<strong>${uTag}${contentA}${splitB[0]}</u></strong> <strong>${splitB[1]}</strong>`
+          } else {
+            return `<strong>${uTag}${contentA}${contentB}</u></strong>`
+          }
         })
       }
       if (doubleStrongTagRegex.test(string)) {
@@ -291,15 +310,15 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
                 const conceptUID = correctEdits[id].match(conceptUIDRegex) ? correctEdits[id].match(conceptUIDRegex)[1] : ''
                 if (text === correctEdit) {
                   numberOfCorrectChanges++
-                  return `{+${text}-|${conceptUID}} `
+                  return `{+${text}-|${conceptUID}}`
                 } else {
-                  return `{+${correctEdit}-${text}|${conceptUID}} `
+                  return `{+${correctEdit}-${text}|${conceptUID}}`
                 }
               } else {
-                return `{+${text}-|unnecessary} `
+                return `{+${text}-|unnecessary}`
               }
             } else {
-              return `{+${edit}-|unnecessary} `
+              return `{+${edit}-|unnecessary}`
             }
           })
           const reviewablePassage = gradedPassage.replace(/<u id="(\d+)">(.+?)<\/u>/gm, (key, id, text) => {
