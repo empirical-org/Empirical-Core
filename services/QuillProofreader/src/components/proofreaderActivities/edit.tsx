@@ -22,6 +22,17 @@ export default class Edit extends React.Component<EditProps> {
     super(props)
 
     this.renderTooltip = this.renderTooltip.bind(this)
+    this.renderGrammaticalConcept = this.renderGrammaticalConcept.bind(this)
+  }
+
+  renderGrammaticalConcept() {
+    const { concept } = this.props
+    if (concept) {
+      return <div>
+        <p className="label">Grammatical Concept:</p>
+        <p>{concept.name}</p>
+      </div>
+    }
   }
 
   renderTooltip() {
@@ -49,6 +60,13 @@ export default class Edit extends React.Component<EditProps> {
           <h1>{headerText}</h1>
         </div>
         <p>Edit {index + 1} of {numberOfEdits}</p>
+      </div>
+      <div className="middle-section">
+        <div>
+          <p className="label">Correct Edit:</p>
+          <p>{this.props.displayText}</p>
+        </div>
+        {this.renderGrammaticalConcept()}
       </div>
       <div className="button-section">
         <button onClick={next}>Next Edit ➞</button>

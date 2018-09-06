@@ -58,6 +58,22 @@
       padding: 10px 20px 0px;
     }
 
+    .middle-section {
+      font-size: 15px;
+      padding: 10px 20px 0px;
+      color: #333;
+
+      p {
+        margin: 0px;
+      }
+    }
+
+    .label {
+      font-weight: 700;
+      margin-top: 20px;
+      margin-bottom: 5px;
+    }
+
     .header {
       display: flex;
     }
@@ -78,7 +94,7 @@
 
     button {
       height: 40px;
-      border-radius: 3px;
+      border-radius: 6px;
       background-color: #00c2a2;
       color: white;
       width: 140px;

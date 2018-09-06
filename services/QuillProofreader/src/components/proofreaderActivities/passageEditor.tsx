@@ -113,19 +113,39 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
     this.handleTextChange = this.handleTextChange.bind(this)
   }
 
+  trimWord(word: string) {
+    return word.trim().replace(/\n/gm, '')
+  }
+
   paragraphWrappedText(text: string) {
     const brStrippedText = text.replace(/(<br\/>)+/gm, '</p><p>')
     const uTags = brStrippedText.match(/<u.+?<\/u>/gm)
+    const punctuationRegex = /^[.,:;]/
     let spannedText = ''
     let index = 0
-    brStrippedText.split(/<u.+?<\/u>/gm).forEach(span => {
-      span.split(' ').forEach(word => {
-        const trimmedWord = word.trim()
+    const spans = brStrippedText.split(/<u.+?<\/u>/gm)
+    spans.forEach((span, spanIndex) => {
+      const words = span.trim().split(' ')
+      words.forEach((word, wordIndex) => {
+        const trimmedWord = this.trimWord(word)
+        const trimmedNextWord = words[wordIndex + 1] ? this.trimWord(words[wordIndex + 1]) : ''
         if (trimmedWord.length) {
-          spannedText += `<span>${trimmedWord} </span>`
+          // don't add a space after the  word if the next word starts with punctuation
+          if (punctuationRegex.test(trimmedNextWord)) {
+            spannedText += `<span>${trimmedWord}</span>`
+          } else {
+            spannedText += `<span>${trimmedWord} </span>`
+          }
         }
       })
-      uTags && uTags[index] ? spannedText += `<span>${uTags[index]} </span>` : null
+      if (uTags && uTags[index]) {
+        // don't add a space after the tag if the next word starts with punctuation
+        if (spans[index + 1] && punctuationRegex.test(spans[index + 1].trim())) {
+          spannedText += `<span>${uTags[index]}</span>`
+        } else {
+          spannedText += `<span>${uTags[index]} </span>`
+        }
+      }
       index++
     })
     return /^<p>/.test(spannedText) ? spannedText : `<p>${spannedText}</p>`
