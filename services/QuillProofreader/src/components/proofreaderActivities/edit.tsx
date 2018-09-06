@@ -16,8 +16,7 @@ interface EditProps {
   incorrectText: string|null;
 }
 
-export default class Edit extends React.Component<EditProps> {
-
+export default class Edit extends React.Component<EditProps, any> {
   constructor(props: EditProps) {
     super(props)
 
