@@ -39,35 +39,47 @@ interface QueryResult {
 }
 
 
+interface AppState {
+  visible: boolean,
+  searchValue: string,
+  fuse?: any
+}
 
-class App extends React.Component {
+
+class App extends React.Component<any, AppState> {
   constructor(props){
     super(props)
 
     this.state = {
       visible: true,
-      searchValue: ''
+      searchValue: '',
     }
     this.updateSearchValue = this.updateSearchValue.bind(this)
   }
 
   filterConcepts(concepts:Array<Concept>, searchValue:string):Array<Concept>{
     if (searchValue == '') {return concepts};
-    const options = {
-      shouldSort: true,
-      threshold: 0.6,
-      location: 0,
-      distance: 100,
-      maxPatternLength: 32,
-      minMatchCharLength: 1,
-      keys: [
-        "name",
-        "parent.name",
-        "parent.parent.name"
-      ]
-    };
-    const fuse = new Fuse(concepts, options);
-    return fuse.search(searchValue)
+    if (this.state.fuse) {
+      return this.state.fuse.search(searchValue)
+    } else {
+      const options = {
+        shouldSort: true,
+        caseSensitive: false,
+        tokenize: true,
+        maxPatternLength: 32,
+        minMatchCharLength: 3,
+        keys: [
+          "name",
+          "parent.name",
+          "parent.parent.name"
+        ]
+      };
+      const fuse = new Fuse(concepts, options);
+      this.setState({fuse});
+      return concepts;
+    }
+    
+    
     // const results:Array<any>|null = fs.get(searchValue);
     // const resultsNames:Array<string> = results ? results.map(result => result[1]) : [];
   
@@ -77,7 +89,7 @@ class App extends React.Component {
     // })
   }
 
-  updateSearchValue(searchValue) {
+  updateSearchValue(searchValue:string):void {
     this.setState({searchValue})
   }
 
