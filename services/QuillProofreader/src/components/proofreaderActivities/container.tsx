@@ -209,7 +209,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
 
     formatReceivedPassage(value: string) {
       // this method handles the fact that Slate will sometimes create additional strong tags rather than adding text inside of one
-      let string = value.replace(/<span>|<\/span>|<strong> <\/strong>/gm, '').replace(/&#x27;/g, "'")
+      let string = value.replace(/<span data-original-index="\d+">|<\/span>|<strong> <\/strong>/gm, '').replace(/&#x27;/g, "'")
       // regex below matches case that looks like this: <strong><u id="3">Addison</u></strong><strong><u id="3">,</u></strong><strong><u id="3"> Parker, and Julian,</u></strong>
       const tripleStrongTagWithThreeMatchingURegex = /<strong>(<u id="\d+">)([^(<]+?)<\/u><\/strong><strong>(<u id="\d+">)([^(<]+?)<\/u><\/strong><strong>(<u id="\d+">)([^(<]+?)<\/u><\/strong>/gm
       // regex below matches case that looks like this: <strong><u id="3">Addison</u></strong><strong>,</strong><strong><u id="3"> Parker, and Julian,</u></strong>

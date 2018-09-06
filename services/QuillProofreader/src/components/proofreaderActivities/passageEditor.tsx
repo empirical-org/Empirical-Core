@@ -4,6 +4,7 @@ import { Editor } from 'slate-react'
 import { Value } from 'slate'
 import Html from 'slate-html-serializer'
 import StickyInlines from 'slate-sticky-inlines'
+import { stringNormalize } from 'quill-string-normalizer'
 
 const BLOCK_TAGS = {
   blockquote: 'quote',
@@ -29,6 +30,7 @@ const rules = [
           type: type,
           data: {
             className: el.getAttribute('class'),
+            dataOriginalIndex: el.getAttribute('data-original-index')
           },
           nodes: next(el.childNodes),
         }
@@ -48,7 +50,7 @@ const rules = [
           case 'quote':
             return <blockquote>{children}</blockquote>
           case 'span':
-            return <span>{children}</span>
+            return <span data-original-index={obj.data.get('dataOriginalIndex')}>{children}</span>
         }
       }
     },
@@ -94,7 +96,7 @@ const plugins = [
 
 interface PassageEditorState {
   text: any;
-  lastSelectionIndex?: number;
+  originalTextArray: Array<string>
 }
 
 interface PassageEditorProps {
@@ -106,11 +108,15 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
   constructor(props: PassageEditorProps) {
     super(props)
 
+    const { text, originalTextArray } = this.paragraphWrappedText(props.text)
+
     this.state = {
-      text: html.deserialize(this.paragraphWrappedText(props.text))
+      text: html.deserialize(text),
+      originalTextArray
     }
 
     this.handleTextChange = this.handleTextChange.bind(this)
+    this.onKeyUp = this.onKeyUp.bind(this)
   }
 
   trimWord(word: string) {
@@ -121,6 +127,7 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
     const brStrippedText = text.replace(/(<br\/>)+/gm, '</p><p>')
     const uTags = brStrippedText.match(/<u.+?<\/u>/gm)
     const punctuationRegex = /^[.,:;]/
+    const originalTextArray: Array<string> = []
     let spannedText = ''
     let index = 0
     const spans = brStrippedText.split(/<u.+?<\/u>/gm)
@@ -132,23 +139,27 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
         if (trimmedWord.length) {
           // don't add a space after the  word if the next word starts with punctuation
           if (punctuationRegex.test(trimmedNextWord)) {
-            spannedText += `<span>${trimmedWord}</span>`
+            spannedText += `<span> data-original-index=${index}${trimmedWord}</span>`
           } else {
-            spannedText += `<span>${trimmedWord} </span>`
+            spannedText += `<span data-original-index=${index}>${trimmedWord} </span>`
           }
+          originalTextArray.push(trimmedWord)
+          index++
         }
       })
-      if (uTags && uTags[index]) {
+      if (uTags && uTags[spanIndex]) {
         // don't add a space after the tag if the next word starts with punctuation
-        if (spans[index + 1] && punctuationRegex.test(spans[index + 1].trim())) {
-          spannedText += `<span>${uTags[index]}</span>`
+        if (spans[spanIndex + 1] && punctuationRegex.test(spans[spanIndex + 1].trim())) {
+          spannedText += `<span data-original-index=${index}>${uTags[spanIndex]}</span>`
         } else {
-          spannedText += `<span>${uTags[index]} </span>`
+          spannedText += `<span data-original-index=${index}>${uTags[spanIndex]} </span>`
         }
+        const text = uTags[spanIndex].match(/<u id="\d+">(.*)<\/u>/) ? uTags[spanIndex].match(/<u id="\d+">(.*)<\/u>/)[1] : ''
+        originalTextArray.push(text)
+        index++
       }
-      index++
     })
-    return /^<p>/.test(spannedText) ? spannedText : `<p>${spannedText}</p>`
+    return { text: /^<p>/.test(spannedText) ? spannedText : `<p>${spannedText}</p>`, originalTextArray }
   }
 
   renderNode = (args) => {
@@ -168,7 +179,7 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
       case 'quote':
         return <blockquote {...args.attributes}>{args.children}</blockquote>
       case 'span':
-        return <span {...args.attributes}>{args.children}</span>
+        return <span {...args.attributes} data-original-index={args.node.data.get('dataOriginalIndex')}>{args.children}</span>
     }
   }
 ​
@@ -177,11 +188,11 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
     const { mark, attributes } = args
     switch (mark.type) {
       case 'bold':
-        return <strong {...attributes} id={mark.get('key')}>{args.children}</strong>
+        return <strong {...attributes}>{args.children}</strong>
       case 'italic':
-        return <em {...attributes} id={mark.get('key')}>{args.children}</em>
+        return <em {...attributes}>{args.children}</em>
       case 'underline':
-        return <u {...attributes} id={mark.get('key')}>{args.children}</u>
+        return <u {...attributes}>{args.children}</u>
     }
   }
 
@@ -193,10 +204,21 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
     const { value } = change
     const originalSelection = value.selection
     if (value.startInline && value.startInline.nodes) {
-      change.moveToRangeOfNode(value.startInline.nodes.first())
-      .addMark('bold')
-      .setStart(originalSelection.start)
-      .setEnd(originalSelection.end)
+      const dataOriginalIndex = value.startInline.data.get('dataOriginalIndex')
+      const originalText = this.state.originalTextArray[dataOriginalIndex]
+      console.log('currentText', value.startInline.text)
+      console.log('originalText', originalText)
+      if (stringNormalize(value.startInline.text).trim() === stringNormalize(originalText).trim()) {
+        change.moveToRangeOfNode(value.startInline.nodes.first())
+        .removeMark('bold')
+        .setStart(originalSelection.start)
+        .setEnd(originalSelection.end)
+      } else {
+        change.moveToRangeOfNode(value.startInline.nodes.first())
+        .addMark('bold')
+        .setStart(originalSelection.start)
+        .setEnd(originalSelection.end)
+      }
     } else {
       change.addMark('bold')
     }
