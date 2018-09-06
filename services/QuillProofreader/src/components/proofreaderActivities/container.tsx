@@ -210,8 +210,43 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
     formatReceivedPassage(value: string) {
       // this method handles the fact that Slate will sometimes create additional strong tags rather than adding text inside of one
       let string = value.replace(/<span>|<\/span>|<strong> <\/strong>/gm, '').replace(/&#x27;/g, "'")
-      const doubleStrongTagWithURegex = /<strong>([^(<\/strong>)]+?)<\/strong><strong>(<u id="\d+">)(.+?)<\/u><\/strong>/gm
-      const doubleStrongTagRegex = /<strong>[^(<\/strong>)]+?<\/strong><strong>[^(<\/strong>)]+?<\/strong>/gm
+      // regex below matches case that looks like this: <strong><u id="3">Addison</u></strong><strong><u id="3">,</u></strong><strong><u id="3"> Parker, and Julian,</u></strong>
+      const tripleStrongTagWithThreeMatchingURegex = /<strong>(<u id="\d+">)([^(<]+?)<\/u><\/strong><strong>(<u id="\d+">)([^(<]+?)<\/u><\/strong><strong>(<u id="\d+">)([^(<]+?)<\/u><\/strong>/gm
+      // regex below matches case that looks like this: <strong><u id="3">Addison</u></strong><strong>,</strong><strong><u id="3"> Parker, and Julian,</u></strong>
+      const tripleStrongTagWithTwoMatchingURegex = /<strong>(<u id="\d+">)([^(<]+?)<\/u><\/strong><strong>([^(<]+?)<\/strong><strong>(<u id="\d+">)([^(<]+?)<\/u><\/strong>/gm
+      // regex below matches case that looks like this: <strong><u id="3">Addison</u></strong><strong><u id="3">, Parker, and Julian,</u></strong>
+      const doubleStrongTagWithTwoMatchingURegex = /<strong>(<u id="\d+">)([^(<]+?)<\/u><\/strong><strong>(<u id="\d+">)([^(<]+?)<\/u><\/strong>/gm
+      // regex below matches case that looks like this: <strong>Addison</strong><strong><u id="3">, Parker, and Julian,</u></strong>
+      const doubleStrongTagWithURegex = /<strong>([^(<)]+?)<\/strong><strong>(<u id="\d+">)(.+?)<\/u><\/strong>/gm
+      // regex below matches case that looks like this: <strong>A</strong><strong>ntartctic</strong>
+      const doubleStrongTagRegex = /<strong>[^(<)]+?<\/strong><strong>[^(<)]+?<\/strong>/gm
+      if (tripleStrongTagWithThreeMatchingURegex.test(string)) {
+        string = string.replace(tripleStrongTagWithThreeMatchingURegex, (key, uTagA, contentA, uTagB, contentB, uTagC, contentC) => {
+          if (uTagA === uTagB && uTagB === uTagC) {
+            return `<strong>${uTagA}${contentA}${contentB}${contentC}</u></strong>`
+          } else {
+            return key
+          }
+        })
+      }
+      if (tripleStrongTagWithTwoMatchingURegex.test(string)) {
+        string = string.replace(tripleStrongTagWithTwoMatchingURegex, (key, uTagA, contentA, contentB, uTagC, contentC) => {
+          if (uTagA === uTagC) {
+            return `<strong>${uTagA}${contentA}${contentB}${contentC}</u></strong>`
+          } else {
+            return key
+          }
+        })
+      }
+      if (doubleStrongTagWithTwoMatchingURegex.test(string)) {
+        string = string.replace(doubleStrongTagWithTwoMatchingURegex, (key, uTagA, contentA, uTagB, contentB) => {
+          if (uTagA === uTagB) {
+            return `<strong>${uTagA}${contentA}${contentB}</u></strong>`
+          } else {
+            return key
+          }
+        })
+      }
       if (doubleStrongTagWithURegex.test(string)) {
         string = string.replace(doubleStrongTagWithURegex, (key, contentA, uTag, contentB) => {
           return `<strong>${uTag}${contentA}${contentB}</u></strong>`
@@ -327,9 +362,11 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
     }
 
     render(): JSX.Element {
+      const { edits, correctEdits} = this.state
       const { currentActivity } = this.props.proofreaderActivities
       if (this.props.proofreaderActivities.hasreceiveddata) {
         const className = currentActivity.underlineErrorsInProofreader ? 'underline-errors' : ''
+        const meterWidth = edits.length / correctEdits.length * 100
         return <div className="passage-container">
           <div className="header-section">
             <div className="inner-header">
@@ -340,8 +377,12 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
                   <p>{currentActivity.description}</p>
                 </div>
                 <div className="edits-made">
-                  <p>Edits Made: {this.state.edits.length} of {this.state.correctEdits.length}</p>
-                  <div className="progress-bar-indication" />
+                  <p>Edits Made: {edits.length} of {correctEdits.length}</p>
+                  <div className="progress-bar-indication">
+                    <span className="meter"
+                      style={{width: `${meterWidth}%`}}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
