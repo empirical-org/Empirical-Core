@@ -102,13 +102,16 @@ interface PassageEditorState {
 interface PassageEditorProps {
   handleTextChange: Function;
   text: string;
+  savedText?: string;
 }
 
 class PassageEditor extends React.Component <PassageEditorProps, PassageEditorState> {
   constructor(props: PassageEditorProps) {
     super(props)
 
-    const { text, originalTextArray } = this.paragraphWrappedText(props.text)
+    const { paragraphWrappedText, originalTextArray } = this.paragraphWrappedText(props.text)
+
+    const text = props.savedText ? props.savedText : paragraphWrappedText
 
     this.state = {
       text: html.deserialize(text),
@@ -159,7 +162,7 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
         index++
       }
     })
-    return { text: /^<p>/.test(spannedText) ? spannedText : `<p>${spannedText}</p>`, originalTextArray }
+    return { paragraphWrappedText: /^<p>/.test(spannedText) ? spannedText : `<p>${spannedText}</p>`, originalTextArray }
   }
 
   renderNode = (args) => {
@@ -206,8 +209,6 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
     if (value.startInline && value.startInline.nodes) {
       const dataOriginalIndex = value.startInline.data.get('dataOriginalIndex')
       const originalText = this.state.originalTextArray[dataOriginalIndex]
-      console.log('currentText', value.startInline.text)
-      console.log('originalText', originalText)
       if (stringNormalize(value.startInline.text).trim() === stringNormalize(originalText).trim()) {
         change.moveToRangeOfNode(value.startInline.nodes.first())
         .removeMark('bold')
