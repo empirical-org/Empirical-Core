@@ -4,6 +4,7 @@ class ChampionsController < ApplicationController
   def index
     @referral_link = current_user.referral_link
     @referral_count = current_user.referrals
+    @earned_months = current_user.earned_months
   end
 
   def invite
