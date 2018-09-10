@@ -16,10 +16,12 @@ const ConceptShow: React.SFC<ConceptShowProps> = ({concept}) => {
       <p>{concept.uid}</p>
       <Button.Group>
         <Link to={`${concept.id}/edit`}>
-        <Button type="default" icon="edit">Edit</Button>
+          <Button type="default" icon="edit">Edit</Button>
         </Link>
         <ConceptArchiveButton id={concept.id} visible={concept.visible}/>
-        <Button type="default" icon="fork">Find & Replace</Button>
+        <Link to={`${concept.id}/replace`}>
+          <Button type="default" icon="fork">Find & Replace</Button>
+        </Link>
       </Button.Group>
       <Row gutter={16}>
         <Col span={12}><ConceptsList concepts={concept.siblings} title={"Siblings"}/></Col>

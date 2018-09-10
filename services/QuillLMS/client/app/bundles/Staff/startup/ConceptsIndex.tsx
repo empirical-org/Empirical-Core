@@ -3,6 +3,7 @@ import ConceptsIndex from '../containers/ConceptsIndex';
 import ConceptsShow from '../containers/ConceptsShow';
 import ConceptsNew from '../containers/ConceptsNew';
 import ConceptsEdit from '../containers/ConceptsEdit';
+import ConceptsReplace from '../containers/ConceptsReplace';
 import { Router, Route, IndexRoute, hashHistory } from 'react-router'
 import { ApolloProvider } from "react-apollo";
 import client from '../../../modules/apollo';
@@ -19,6 +20,7 @@ export default () => (
         <Route path="new" component={ConceptsNew}/>
         <Route path=":id" component={ConceptsShow}/>
         <Route path=":id/edit" component={ConceptsEdit}/>
+        <Route path=":id/replace" component={ConceptsReplace}/>
       </Route>
     </Router>
   </ApolloProvider>
