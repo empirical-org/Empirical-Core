@@ -9,7 +9,7 @@ export default React.createClass({
   },
 
   urlEncodedMessage() {
-    return encodeURI(this.props.text);
+    return encodeURI(this.props.text) ;
   },
 
   render() {
@@ -19,7 +19,7 @@ export default React.createClass({
       {
         icon: 'fa-twitter',
         className: 'btn-twitter',
-        href: `http://twitter.com/home?status=${this.urlEncodedMessage()}`,
+        href: `http://twitter.com/home?status=${encodeURIComponent(this.props.text)}`,
         title: 'Share on Twitter',
         action: 'Tweet',
       },

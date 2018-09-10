@@ -92,13 +92,8 @@ protected
   end
 
   def create_referral_if_teacher_and_referrer
-    puts 'entering create_referral_if_teahcher'
-    puts "envar #{request.env['affiliate.tag']}"
-    puts "teacher #{@user.teacher?}"
     if @user.teacher? && request.env['affiliate.tag']
-      puts 'app/controllers/accounts_controller.rb:create_referral_if_teacher_and_referrer (yo)'
       referrer_user_id = ReferrerUser.find_by(referral_code: request.env['affiliate.tag'])&.user&.id
-      puts "creating ReferralsUser w referrer_user_id: #{referrer_user_id}, referred_user_id: #{@user.id}"
       ReferralsUser.create(user_id: referrer_user_id, referred_user_id: @user.id) if referrer_user_id
     end
   end

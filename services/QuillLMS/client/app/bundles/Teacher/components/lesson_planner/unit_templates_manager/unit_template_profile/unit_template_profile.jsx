@@ -71,7 +71,7 @@ export default class UnitTemplateProfile extends React.Component {
   }
 
   socialText() {
-    return `Check out the '${data.name}' activity pack I just assigned on Quill.org! ${this.socialShareUrl()}`
+    return `Check out the '${this.state.data.name}' activity pack I just assigned on Quill.org! ${this.socialShareUrl()}`
   }
 
   getMetaText(data) {
