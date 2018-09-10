@@ -472,6 +472,10 @@ module Teacher
     self.referrals_users.count
   end
 
+  def earned_months
+    self.referrals_users.where(activated: true ).count
+  end
+
   def teaches_student?(student_id)
     ActiveRecord::Base.connection.execute("
       SELECT 1
