@@ -1,0 +1,235 @@
+#champion-container {
+  margin: 0 auto;
+  width: 950px;
+
+  #champion-hero {
+    background: #c5e4ff;
+    border: solid 1px rgba(90, 174, 246, 0.32);
+    border-radius: 3px;
+    margin: 26px 0 39px;
+    padding: 30px 10px;
+    text-align: center;
+
+    img {
+      height: 75px;
+      width: 83px;
+    }
+
+    h1 {
+      color: #014f92;
+      font-size: 24px;
+      margin: 17px 0 12px;
+    }
+
+    h2 {
+      color: #348fdf;
+      font-size: 16px;
+    }
+
+    form {
+      padding: 34px 0 0;
+
+      input {
+        border-radius: 6px;
+        font-size: 16px;
+      }
+
+      input[type='text'] {
+        border: none;
+        margin-right: 10px;
+        width: 332px;
+      }
+
+      input[type='button'] {
+        background: #348fdf;
+        border: none;
+        color: #ffffff;
+        font-weight: 600;
+      }
+    }
+  }
+
+  #steps {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 75px;
+
+    &::before {
+      border: 1px dashed #348fdf;
+      content: '';
+      height: 1px;
+      margin-top: 20px;
+      overflow: hidden;
+      position: absolute;
+      width: 650px;
+    }
+
+    .step {
+      text-align: center;
+      width: 190px;
+
+      .circle-icon {
+        align-items: center;
+        background: #348fdf;
+        border-radius: 50%;
+        color: #ffffff;
+        display: flex;
+        font-size: 20px;
+        font-weight: 600;
+        height: 40px;
+        justify-content: center;
+        left: 0;
+        margin: 0 auto;
+        position: relative;
+        top: 0;
+        width: 40px;
+
+        .offset {
+          margin-top: -2px;
+        }
+      }
+
+      h2, p {
+        color: #666666;
+      }
+
+      p {
+        font-size: 16px;
+        line-height: 1.56;
+      }
+
+      h2 {
+        font-size: 18px;
+        font-weight: 600;
+        margin: 22px 0 8px;
+      }
+    }
+  }
+
+  #callout-box {
+    background: #ffffff;
+    border-radius: 6px;
+    box-shadow: 0 2px 2px 0 #e9e9e9;
+    display: flex;
+    margin-bottom: 50px;
+    padding: 22px 30px;
+
+    .half {
+      padding: 10px 0;
+      width: 50%;
+    }
+
+    .left {
+      border-right: 1px solid #e9e9e9;
+
+      img {
+        float: left;
+        height: 35px;
+        margin: -4px 10px 0 0;
+        width: 35px;
+      }
+
+      h2 {
+        color: #00c2a2;
+        font-size: 24px;
+      }
+
+      div {
+        display: flex;
+        margin-top: 20px;
+
+        a {
+          color: #027360;
+          font-size: 14px;
+
+          &:first-of-type {
+            margin-right: 24px;
+          }
+        }
+      }
+    }
+
+    .right {
+      color: #3b3b3b;
+      display: flex;
+      font-size: 20px;
+      justify-content: space-around;
+
+      div p:first-of-type {
+        color: #c0c0c0;
+        font-size: 16px;
+      }
+
+      .number {
+        font-size: 30px;
+        font-weight: 600;
+      }
+    }
+  }
+
+  #share-box {
+    color: #666666;
+    border-top: 1px solid #e9e9e9;
+    font-size: 16px;
+    padding: 40px 0 80px;
+    text-align: center;
+
+    h2 {
+      color: #3b3b3b;
+      font-size: 24px;
+      font-weight: 600;
+    }
+
+    p {
+      margin: 8px 0 22px;
+    }
+
+    input[type='text'] {
+      font-size: 16px;
+      color: #666666;
+      width: 481px;
+    }
+
+    #copy-button {
+      background: #00c2a2;
+      border: none;
+      color: #ffffff;
+      font-family: $family-sans-serif;
+      font-weight: 600;
+      margin-left: 10px;
+      padding: 11px 20px;
+    }
+
+    .share-links {
+      margin-top: 16px;
+
+      p {
+        display: inline-block;
+        margin-right: 5px;
+        vertical-align: middle;
+      }
+
+      ul {
+        display: inline-block;
+        list-style-type: none;
+        padding: 0;
+
+        li {
+          display: inline-block;
+          margin: 0 5px;
+
+          a {
+            color: #027360;
+            display: inline-block;
+            font-size: 25px;
+            transition: all 0.3s ease;
+
+            &:hover {
+              transform: scale(1.1);
+            }
+          }
+        }
+      }
+    }
+  }
+}

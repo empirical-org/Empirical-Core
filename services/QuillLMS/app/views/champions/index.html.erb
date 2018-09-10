@@ -1,0 +1,115 @@
+<%= render partial: 'teachers/shared/scorebook_tabs' %>
+
+<div id='champion-container'>
+  <div id='champion-hero'>
+    <img src='http://placehold.it/300' />
+    <h1>Refer Quill And Receive <strong>3 Months</strong> Of Premium Credit</h1>
+    <h2>Once your colleague signs up to Quill, you will receive Quill Premium Credit that you can </h2>
+    <form>
+      <input type='text' placeholder="Enter friend's email address" id='referral-email' />
+      <input type='button' value='Refer Friend' onClick="sendReferralEmail()" />
+    </form>
+    <h2 id='success-message' style='display: none;'>Invitation sent successfully!</h2>
+  </div>
+
+  <div id='steps'>
+    <div class='step'>
+      <span class='circle-icon'>
+        <span class='offset'>1</span>
+      </span>
+      <h2>Invite Teachers</h2>
+      <p>Another teacher joins through your link.</p>
+    </div>
+    <div class='step'>
+      <span class='circle-icon'>
+        <span class='offset'>2</span>
+      </span>
+      <h2>Invite Teachers</h2>
+      <p>Their students complete an activity.</p>
+    </div>
+    <div class='step'>
+      <span class='circle-icon'>
+        <span class='offset'>3</span>
+      </span>
+      <h2>Invite Teachers</h2>
+      <p>You earn Quill Premium credit for being awesome!</p>
+    </div>
+  </div>
+
+  <div id='callout-box'>
+    <div class='half left'>
+      <img src='http://placehold.it/35' />
+      <h2>You are a <strong>Quill Champion!</strong></h2>
+      <div>
+        <a href='#'>Get Your Teacher Champion Sticker</a>
+        <a href='#'>Earn More Credits</a>
+      </div>
+    </div>
+
+    <div class='half right'>
+      <div>
+        <p>You have invited</p>
+        <p><span class='number'><%= @referral_count %></span> teachers</p>
+      </div>
+      <div>
+        <p>You have (Quill Premium Credit)</p>
+        <p><span class='number'>##</span> months of credit</p>
+      </div>
+    </div>
+  </div>
+
+  <div id='share-box'>
+    <h2>Copy and share this link with your colleagues.</h2>
+    <p>Teachers that you refer will receive a one month free of Quill Teacher Premium.</p>
+    <input type='text' value='<%= @referral_link %>' id='referral-input' />
+    <input type='button' id='copy-button' value='Copy Link' />
+
+    <div class='share-links'>
+      <p>Or share it on: </p>
+      <ul>
+        <li><a href="https://twitter.com/home?status=I'm using @quill_org to help my students become better writers and critical thinkers. Want to join me? <%= @referral_link %>"><i class="fa fa-twitter-square"></i></a></li>
+        <li><a href='https://www.facebook.com/share.php?u=<%= @referral_link %>'><i class="fa fa-facebook-square"></i></a></li>
+        <li><a href='https://plus.google.com/share?url=<%= @referral_link %>'><i class="fa fa-google-plus-square"></i></a></li>
+        <li><a href="https://pinterest.com/pin/create/button/?url=<%= @referral_link %>&media=https%3A//s-media-cache-ak0.pinimg.com/736x/92/46/50/9246509b2ad54a3c2ad97e21976b9176.jpg&description=I'm using free tools from Quill.org to help my students become better writers and critical thinkers. Want to join me?"><i class="fa fa-pinterest-square"></i></a></li>
+        <li><a href="mailto:mailto:?subject=Free tool to help your students become better writers&body=Hi! I've been using this free tool called Quill.org to help my students become better writers and critical thinkers, and I wanted to let you know about it. Hopefully it helps your students as much as it's helped mine! <%= @referral_link %>"><i class="fa fa-envelope-square"></i></a></li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function copy() {
+    document.querySelector('#referral-input').select();
+    document.execCommand('copy');
+  }
+
+  document.querySelector('#referral-input').addEventListener('click', function(event) {
+    copy();
+  });
+
+  document.querySelector('#copy-button').addEventListener('click', function(event) {
+    copy();
+  });
+
+  document.querySelector('#referral-input').addEventListener('input', function(event) {
+    document.querySelector('#referral-input').value = '<%= @referral_link %>';
+  });
+
+  function displaySuccessMessage() {
+    document.getElementById('success-message').style.display = 'block';
+    window.setTimeout(function() {
+      document.getElementById('success-message').style.display = 'none';
+    }, 5000);
+  }
+
+  function sendReferralEmail() {
+    $.post('<%= invite_champions_path %>', {
+      email: document.getElementById('referral-email').value
+    }).success(function(data) {
+      displaySuccessMessage();
+    }).fail(function() {
+      alert('Whoops, looks like something went wrong. Please try again, or contact support.');
+    });
+  }
+</script>

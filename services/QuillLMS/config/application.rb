@@ -62,7 +62,7 @@ module EmpiricalGrammar
     config.action_dispatch.perform_deep_munge = false
 
     config.middleware.use Rack::Attack
-    config.middleware.use Rack::Affiliates, { param: 'champion' }
+    config.middleware.use 'AffiliateMiddleware'
 
     config.middleware.insert_before 0, "Rack::Cors" do
       allow do

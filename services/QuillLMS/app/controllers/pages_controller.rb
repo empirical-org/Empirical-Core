@@ -18,6 +18,10 @@ class PagesController < ApplicationController
     end
     @title = 'Quill.org — Interactive Writing and Grammar'
     @description = 'Quill provides free writing and grammar activities for middle and high school students.'
+    if request.env[ReferrerUser::ENV_VARIABLE_NAME]
+      name = ReferrerUser.find_by(referral_code: request.env[ReferrerUser::ENV_VARIABLE_NAME])&.user&.name
+      flash.now[:info] = "<strong>#{name}</strong> invited you to help your students become better writers with Quill!" if name
+    end
   end
 
   def develop
