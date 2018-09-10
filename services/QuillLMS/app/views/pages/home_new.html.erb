@@ -1,4 +1,7 @@
 <!-- <%= render partial: 'application/notification_bar' %> -->
+<% flash.each do |key, value| %>
+  <%= content_tag(:div, "<p>#{value}</p><i class='fa fa-times-circle' aria-hidden='true'></i>".html_safe, {class: "flash homepage-flash #{key}", onClick: "$(this).slideUp(300)"}) %>
+<% end %>
 
 <section class="q-hero bg-quillgreen flex-column space-between">
   <%= render partial: 'pages/shared/navbar' %>
@@ -12,7 +15,7 @@
   </div>
   <div class="q-hero-footer">
     <p class="text-white">
-      <span class="hero-footer-underline">735,000</span> students have answered <span class="hero-footer-underline">70 million</span> questions on Quill.
+      <span class="hero-footer-underline">Over a million</span> students have answered <span class="hero-footer-underline">70 million</span> questions on Quill.
     </p>
   </div>
 </section>

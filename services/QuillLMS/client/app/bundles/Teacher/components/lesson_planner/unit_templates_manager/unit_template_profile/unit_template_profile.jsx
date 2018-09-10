@@ -52,13 +52,26 @@ export default class UnitTemplateProfile extends React.Component {
   }
 
   displayUnit(response) {
-    this.setState({ data: response.data, relatedModels: response.related_models, loading: false, });
+    this.setState({
+      data: response.data,
+      relatedModels: response.related_models,
+      referralCode: response.referral_code,
+      loading: false
+    })
   }
 
   indexLink() {
     return this.state.data.non_authenticated
       ? '/activities/packs'
       : '/teachers/classrooms/assign_activities/featured-activity-packs';
+  }
+
+  socialShareUrl() {
+    return `${window.location}${this.state.referralCode ? '?champion=' + this.state.referralCode : ''}`
+  }
+
+  socialText() {
+    return `Check out the '${data.name}' activity pack I just assigned on Quill.org! ${this.socialShareUrl()}`
   }
 
   getMetaText(data) {
@@ -88,7 +101,7 @@ export default class UnitTemplateProfile extends React.Component {
               <div className="assign-buttons-and-standards">
                 <UnitTemplateProfileAssignButton data={this.state.data}  />
                 <UnitTemplateProfileStandards data={this.state.data}  />
-                <UnitTemplateProfileShareButtons url={window.location.href} text={this.getMetaText(this.state.data)} data={this.state.data}  />
+                <UnitTemplateProfileShareButtons data={this.state.data} url={this.socialShareUrl()} text={this.socialText()}/>
               </div>
             </div>
             <div className="related-activity-packs">

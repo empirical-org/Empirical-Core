@@ -74,7 +74,7 @@ describe AccountsController, type: :controller do
 
             before do
               allow(user).to receive(:teacher?) { true }
-              request.env["affiliate.tag"] = "some code"
+              request.env[ReferrerUser::ENV_VARIABLE_NAME] = create(:teacher).referral_code
             end
 
             it 'should create the referralsuser' do

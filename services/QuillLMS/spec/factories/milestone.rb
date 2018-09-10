@@ -18,6 +18,10 @@ FactoryBot.define do
       name { 'Complete Customized Lesson' }
     end
 
+    factory :refer_an_active_teacher do
+      name { 'Refer an Active Teacher' }
+    end
+
     factory :invite_a_coteacher do
       name { 'Invite a Co-Teacher' }
     end
