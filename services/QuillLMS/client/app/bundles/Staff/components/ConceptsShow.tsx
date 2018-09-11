@@ -3,8 +3,8 @@ import {Row, Col, Button} from 'antd';
 import {Link} from 'react-router';
 import ConceptsList from './ConceptsList';
 import ConceptArchiveButton from './ConceptArchiveButton';
-import {Concept} from '../containers/ConceptsIndex'
-
+import {Concept} from '../containers/ConceptsIndex';
+import ArchivedTag from './ArchivedTag';
 export interface ConceptShowProps {
   concept: Concept
 }
@@ -12,7 +12,7 @@ export interface ConceptShowProps {
 const ConceptShow: React.SFC<ConceptShowProps> = ({concept}) => {
   return (
     <div>
-      <h3>{concept.name}</h3>
+      <h3>{concept.name} <ArchivedTag concept={concept}/></h3>
       <p>{concept.description}</p>
       <p>UID: {concept.uid}</p>
       <Button.Group>

@@ -24,6 +24,7 @@ function conceptQuery(id){
       name
       description
       visible
+      replacementId
       parent {
         id
         name

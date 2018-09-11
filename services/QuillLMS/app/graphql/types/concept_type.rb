@@ -8,6 +8,7 @@ class Types::ConceptType < Types::BaseObject
   field :parent_id, ID, null: true
   field :created_at, Int, null: false
   field :visible, Boolean, null: false
+  field :replacement_id, ID, null: true
   
   field :parent, Types::ConceptType, null: true
   field :children, [Types::ConceptType, null: true], null: true
