@@ -51,8 +51,7 @@ class ConceptReplaceForm extends React.Component<AppProps, any> {
   }
 
   redirectToShow = (data) => {
-    
-    this.props.redirectToShow(data.editConcept.concept)
+    this.props.redirectToShow(data.replaceConcept.concept)
   }
 
   render() {
