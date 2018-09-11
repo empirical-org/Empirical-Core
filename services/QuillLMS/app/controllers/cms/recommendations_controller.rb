@@ -13,7 +13,7 @@ class Cms::RecommendationsController < Cms::CmsController
   end
 
   def new
-    @concepts = Concept.all
+    @concepts = Concept.where(visible: true)
     @recommendation = Recommendation.new
   end
 
