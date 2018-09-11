@@ -3,7 +3,7 @@ import {Link} from "react-router";
 import { Query, Mutation } from "react-apollo";
 import gql from "graphql-tag";
 import { Concept } from "../containers/ConceptsShow";
-import ConceptReplaceForm from './ConceptReplaceForm';
+import ConceptReplaceFormFields from './ConceptReplaceFormFields';
 
 const REPLACE_CONCEPT = gql`
   mutation replaceConcept($id: ID! $replacementId: ID!){
@@ -30,7 +30,7 @@ class ConceptReplaceForm extends React.Component<AppProps, any> {
     super(props)
     this.state = {
       fields: {
-        parentId: {
+        replacementId: {
           value: null,
         },
       },
@@ -60,9 +60,9 @@ class ConceptReplaceForm extends React.Component<AppProps, any> {
     return (
       <Mutation mutation={REPLACE_CONCEPT} onCompleted={this.redirectToShow}>
         {(replaceConcept, { data }) => (
-          <ConceptReplaceForm {...fields} onChange={this.handleFormChange} formSubmitCopy={"Edit"} onSubmit={(e) => {
+          <ConceptReplaceFormFields {...fields} onChange={this.handleFormChange} formSubmitCopy={"Replace"} onSubmit={(e) => {
             e.preventDefault();
-            editConcept({ variables: {id: this.props.concept.id, replacementId: this.state.fields.replacementId.value[this.state.fields.parentId.value.length - 1]}});
+            replaceConcept({ variables: {id: this.props.concept.id, replacementId: this.state.fields.replacementId.value[this.state.fields.replacementId.value.length - 1]}});
           }} />
         )}
       </Mutation>
@@ -70,4 +70,4 @@ class ConceptReplaceForm extends React.Component<AppProps, any> {
   }
 };
 
-export default ConceptEditForm
+export default ConceptReplaceForm
