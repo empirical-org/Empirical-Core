@@ -51,7 +51,7 @@ const ConceptReplaceFormFields = Form.create({
               label="Replacement Concept"
             >
               {getFieldDecorator('replacementId', {
-                rules: [{ type: 'array', required: false }],
+                rules: [{ type: 'array', required: true }],
               })(
                 <Cascader options={concepts}/>
               )}
