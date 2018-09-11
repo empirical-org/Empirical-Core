@@ -6,6 +6,8 @@ import RadioGroup from "../../../../node_modules/antd/lib/radio/group";
 import RadioButton from "../../../../node_modules/antd/lib/radio/radioButton";
 import ConceptSearch from "../components/ConceptsSearch";
 import Fuse from 'fuse.js'
+import { Button } from "antd";
+import { Link } from 'react-router';
 const conceptsIndexQuery:string = `
   {
     concepts(childlessOnly: true) {
@@ -98,9 +100,7 @@ class App extends React.Component<any, AppState> {
   render() {
     return  (
       <div>
-        <h3>Concepts</h3>
-        
-        
+        <h3>Concepts <Link to="/new"><Button icon="plus" shape="circle" /></Link></h3>
         <Query
           query={gql(conceptsIndexQuery)}
         >
@@ -119,7 +119,6 @@ class App extends React.Component<any, AppState> {
                 </div>
                 <ConceptsTable concepts={this.filterConcepts(data.concepts, this.state.searchValue)} visible={this.state.visible}/>
               </div>
-              
             )
           }}
         </Query>
