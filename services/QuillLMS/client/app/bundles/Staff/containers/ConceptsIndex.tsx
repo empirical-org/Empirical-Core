@@ -34,6 +34,7 @@ export interface Concept {
   visible?:boolean;
   siblings?:Array<Concept>;
   children?:Array<Concept>;
+  replacementId?:string;
 }
 interface QueryResult {
   concepts: Array<Concept>
