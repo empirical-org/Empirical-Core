@@ -6,12 +6,13 @@ import { Concept } from "../containers/ConceptsShow";
 import ConceptForm from './ConceptForm';
 
 const EDIT_CONCEPT = gql`
-mutation editConcept($id: ID! $name: String, $parentId: ID){
-    editConcept(input: {id: $id, name: $name, parentId: $parentId}){
+mutation editConcept($id: ID! $name: String, $parentId: ID, $description: String){
+    editConcept(input: {id: $id, name: $name, parentId: $parentId, description: $description}){
       concept {
         id
         uid
         name
+        description
         parentId
         visible
       }
@@ -39,6 +40,9 @@ class ConceptEditForm extends React.Component<AppProps, any> {
       fields: {
         name: {
           value: props.concept.name,
+        },
+        description: {
+          value: props.concept.description,
         },
         parentId: {
           value: getParentIdArray(props.concept),
@@ -72,7 +76,12 @@ class ConceptEditForm extends React.Component<AppProps, any> {
         {(editConcept, { data }) => (
           <ConceptForm {...fields} onChange={this.handleFormChange} formSubmitCopy={"Edit"} onSubmit={(e) => {
             e.preventDefault();
-            editConcept({ variables: {id: this.props.concept.id, name: this.state.fields.name.value, parentId: this.state.fields.parentId.value[this.state.fields.parentId.value.length - 1]}});
+            editConcept({ variables: {
+              id: this.props.concept.id, 
+              name: this.state.fields.name.value, 
+              parentId: this.state.fields.parentId.value[this.state.fields.parentId.value.length - 1],
+              description: this.state.fields.description.value
+            }});
           }} />
         )}
       </Mutation>

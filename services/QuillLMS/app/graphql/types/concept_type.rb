@@ -4,6 +4,7 @@ class Types::ConceptType < Types::BaseObject
   field :id, ID, null: false
   field :uid, String, null: false
   field :name, String, null: false
+  field :description, String, null: true
   field :parent_id, ID, null: true
   field :created_at, Int, null: false
   field :visible, Boolean, null: false
