@@ -43,7 +43,7 @@ module.exports = {
   //   extensions: ['.ts', '.tsx', '.js', '.jsx', '.ejs'],
   // },
   plugins: [
-    new HardSourceWebpackPlugin(),
+    //new HardSourceWebpackPlugin(),
     assetsPluginInstance,
     new ExtractTextPlugin('style.css'),
     new webpack.EnvironmentPlugin({
