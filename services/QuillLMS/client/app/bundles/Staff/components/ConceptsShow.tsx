@@ -13,7 +13,8 @@ const ConceptShow: React.SFC<ConceptShowProps> = ({concept}) => {
   return (
     <div>
       <h3>{concept.name}</h3>
-      <p>{concept.uid}</p>
+      <p>{concept.description}</p>
+      <p>UID: {concept.uid}</p>
       <Button.Group>
         <Link to={`${concept.id}/edit`}>
           <Button type="default" icon="edit">Edit</Button>

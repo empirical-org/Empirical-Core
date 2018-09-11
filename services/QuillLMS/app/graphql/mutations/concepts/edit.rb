@@ -11,6 +11,7 @@ class Mutations::Concepts::Edit < Mutations::BaseMutation
 
   argument :id, ID, required: true
   argument :name, String, required: false
+  argument :description, String, required: false
   argument :parent_id, ID, required: false
   argument :visible, Boolean, required: false
 

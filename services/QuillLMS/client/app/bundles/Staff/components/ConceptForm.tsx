@@ -29,6 +29,10 @@ const ConceptForm = Form.create({
         ...props.name,
         value: props.name.value,
       }),
+      description: Form.createFormField({
+        ...props.description,
+        value: props.description.value,
+      }),
       parentId: Form.createFormField({
         ...props.parentId,
         value: props.parentId.value,
@@ -43,6 +47,11 @@ const ConceptForm = Form.create({
         {getFieldDecorator('name', {
           rules: [{ required: true, message: 'Concept Name is required!' }],
         })(<Input />)}
+      </FormItem>
+      <FormItem label="Concept Description">
+        {getFieldDecorator('description', {
+          rules: [{ required: false }],
+        })(<Input.TextArea autosize={{minRows: 2}} />)}
       </FormItem>
       <Query
         query={gql(parentConceptsQuery())}

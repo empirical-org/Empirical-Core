@@ -28,6 +28,7 @@ export interface Concept {
   id:string;
   uid?:string
   name:string;
+  description?:string;
   createdAt?:number;
   parent?:Concept;
   visible?:boolean;

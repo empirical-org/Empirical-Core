@@ -33,6 +33,7 @@ function conceptQuery(id){
       id
       uid
       name
+      description
       parent {
         id
         name
@@ -61,6 +62,9 @@ class App extends React.Component {
     this.state = {
       fields: {
         name: {
+          value: null,
+        },
+        description: {
           value: null,
         },
         parentId: {

@@ -926,7 +926,8 @@ CREATE TABLE concepts (
     parent_id integer,
     uid character varying(255) NOT NULL,
     replacement_id integer,
-    visible boolean DEFAULT true
+    visible boolean DEFAULT true,
+    description text
 );
 
 
@@ -5163,4 +5164,6 @@ INSERT INTO schema_migrations (version) VALUES ('20180709192646');
 INSERT INTO schema_migrations (version) VALUES ('20180718195853');
 
 INSERT INTO schema_migrations (version) VALUES ('20180810181001');
+
+INSERT INTO schema_migrations (version) VALUES ('20180911171536');
 
