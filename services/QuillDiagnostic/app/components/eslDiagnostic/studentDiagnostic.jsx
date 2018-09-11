@@ -203,13 +203,6 @@ const StudentDiagnostic = React.createClass({
     return component
   },
 
-  questionsForDiagnostic() {
-    const questionsCollection = hashToCollection(this.props.questions.data);
-    const { data, } = this.props.lessons,
-      { lessonID, } = this.props.params;
-    return data[lessonID].questions.map(id => _.find(questionsCollection, { key: id, }));
-  },
-
   startActivity(data) {
     const action = loadData(data);
     this.props.dispatch(action);
@@ -327,6 +320,11 @@ const StudentDiagnostic = React.createClass({
     return this.props.playDiagnostic.language;
   },
 
+  landingPageHtml() {
+    const { data, } = this.props.lessons
+    return data['ell'].landingPageHtml
+  },
+
   render() {
     let component;
     if (this.props.questions.hasreceiveddata && this.props.sentenceFragments.hasreceiveddata && this.props.fillInBlank.hasreceiveddata) {
@@ -347,6 +345,8 @@ const StudentDiagnostic = React.createClass({
             session={this.getPreviousSessionData()}
             resumeActivity={this.resumeSession}
             language={this.language()}
+            landingPageHtml={this.landingPageHtml()}
+
           />);
         } else {
           component = (<LanguagePage
