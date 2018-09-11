@@ -26,8 +26,8 @@ function parentConceptsQuery(){
 }
 
 const CREATE_CONCEPT = gql`
-  mutation createConcept($name: String!, $parentId: ID){
-    createConcept(input: {name: $name, parentId: $parentId}){
+  mutation createConcept($name: String!, $parentId: ID, $description: String){
+    createConcept(input: {name: $name, parentId: $parentId, description: $description}){
       concept {
         id
         uid
@@ -48,6 +48,10 @@ const CustomizedForm = Form.create({
         ...props.name,
         value: props.name.value,
       }),
+      description: Form.createFormField({
+        ...props.description,
+        value: props.description.value,
+      }),
       parentId: Form.createFormField({
         ...props.parentId,
         value: props.parentId.value,
@@ -62,6 +66,11 @@ const CustomizedForm = Form.create({
         {getFieldDecorator('name', {
           rules: [{ required: true, message: 'Concept Name is required!' }],
         })(<Input />)}
+      </FormItem>
+      <FormItem label="Concept Description">
+        {getFieldDecorator('description', {
+          rules: [{ required: false }],
+        })(<Input.TextArea autosize={{minRows: 2}} />)}
       </FormItem>
       <Query
         query={gql(parentConceptsQuery())}
@@ -96,6 +105,9 @@ class App extends React.Component {
     this.state = {
       fields: {
         name: {
+          value: null,
+        },
+        description: {
           value: null,
         },
         parentId: {
@@ -139,7 +151,11 @@ class App extends React.Component {
           {(createConcept, { data }) => (
             <CustomizedForm {...fields} onChange={this.handleFormChange} onSubmit={(e) => {
               e.preventDefault();
-              createConcept({ variables: {name: this.state.fields.name.value, parentId: this.state.fields.parentId.value[this.state.fields.parentId.value.length - 1]}});
+              createConcept({ variables: {
+                name: this.state.fields.name.value, 
+                parentId: this.state.fields.parentId.value[this.state.fields.parentId.value.length - 1],
+                description: this.state.fields.description.value,
+              }});
             }} />
           )}
         </Mutation>

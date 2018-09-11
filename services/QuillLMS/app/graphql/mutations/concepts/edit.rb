@@ -1,4 +1,4 @@
-class Mutations::Concepts::Create < Mutations::BaseMutation
+class Mutations::Concepts::Edit < Mutations::BaseMutation
   def self.authorized?(value, context)
     if !context[:current_user].staff?
       raise GraphQL::ExecutionError, "Only staff can run this mutation"
@@ -7,19 +7,22 @@ class Mutations::Concepts::Create < Mutations::BaseMutation
     end
   end
 
-  null true
+  null false
 
-  argument :name, String, required: true
-  argument :parent_id, ID, required: false
+  argument :id, ID, required: true
+  argument :name, String, required: false
   argument :description, String, required: false
+  argument :parent_id, ID, required: false
+  argument :visible, Boolean, required: false
 
   field :concept, Types::ConceptType, null: true
   field :errors, [String], null: false
 
-  def resolve(name:, parent_id: nil, description: nil)
-    concept = Concept.new(name: name, parent_id: parent_id, description: description)
-    if concept.save
-      # Successful creation, return the created object with no errors
+  def resolve(inputs)
+    concept = Concept.find(inputs[:id])
+    values = inputs.reject{|k,v| k == :id}
+    if concept.update(values)
+      # Successful update, return the updated object with no errors
       {
         concept: concept,
         errors: [],
@@ -27,7 +30,7 @@ class Mutations::Concepts::Create < Mutations::BaseMutation
     else
       # Failed save, return the errors to the client
       {
-        concept: nil,
+        concept: concept,
         errors: concept.errors.full_messages
       }
     end

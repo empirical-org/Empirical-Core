@@ -8,7 +8,7 @@ import {
 } from "antd";
 import { CascaderOptionType } from "../../../../node_modules/antd/lib/cascader";
 import ConceptBreadCrumb from "../components/ConceptBreadCrumb";
-import ConceptEditForm from "../components/ConceptEditForm";
+import ConceptReplaceForm from '../components/ConceptReplaceForm';
 
 const FormItem = Form.Item;
 
@@ -33,7 +33,6 @@ function conceptQuery(id){
       id
       uid
       name
-      description
       parent {
         id
         name
@@ -61,13 +60,7 @@ class App extends React.Component {
     super(props)
     this.state = {
       fields: {
-        name: {
-          value: null,
-        },
-        description: {
-          value: null,
-        },
-        parentId: {
+        replacementId: {
           value: [],
         },
       },
@@ -112,10 +105,10 @@ class App extends React.Component {
               <ConceptBreadCrumb concept={concept.parent ? concept.parent.parent : null} />
               <ConceptBreadCrumb concept={concept.parent} />
               <ConceptBreadCrumb concept={concept} />
-              <Breadcrumb.Item>Edit</Breadcrumb.Item>
+              <Breadcrumb.Item>Replace</Breadcrumb.Item>
             </Breadcrumb>
             <Divider></Divider>
-            <ConceptEditForm concept={concept} redirectToShow ={this.redirectToShow}/>
+            <ConceptReplaceForm concept={concept} redirectToShow={this.redirectToShow}/>
           </div>
           )
         }}
