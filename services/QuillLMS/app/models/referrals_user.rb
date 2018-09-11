@@ -43,7 +43,7 @@ class ReferralsUser < ActiveRecord::Base
     ").to_a.map(&:values).flatten
 
     classroom_unit_ids =ActiveRecord::Base.connection.execute("
-      SELECT classroom_unit_id FROM activity_sessions WHERE classroom_unit_id IN (#{act_sess_ids})
+      SELECT classroom_unit_id FROM activity_sessions WHERE classroom_unit_id IN (#{act_sess_ids.join(',')})
       AND activity_sessions.completed_at IS NOT NULL
     ").to_a.map(&:values).flatten
 
@@ -51,7 +51,7 @@ class ReferralsUser < ActiveRecord::Base
       SELECT DISTINCT referrals_users.id FROM referrals_users
         JOIN classrooms_teachers ON referrals_users.referred_user_id = classrooms_teachers.user_id
         JOIN classroom_units ON classrooms_teachers.classroom_id = classroom_units.classroom_id
-        WHERE classroom_units.id IN (#{classroom_unit_ids})
+        WHERE classroom_units.id IN (#{classroom_unit_ids.join(',')})
     ").to_a.map(&:values).flatten
   end
 
