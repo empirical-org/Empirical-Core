@@ -13,7 +13,7 @@ class GradesController < ApplicationController
   private
 
   def tooltip_params
-    params.permit(:classroom_unit_id, :user_id, :completed)
+    params.permit(:classroom_unit_id, :user_id, :completed, :activity_id)
   end
 
   def tooltip_query
@@ -33,7 +33,9 @@ class GradesController < ApplicationController
         JOIN unit_activities ON activities.id = unit_activities.activity_id AND unit_activities.unit_id = classroom_units.unit_id
         WHERE activity_sessions.classroom_unit_id = #{ActiveRecord::Base.sanitize(tooltip_params[:classroom_unit_id].to_i)}
         AND activity_sessions.user_id = #{ActiveRecord::Base.sanitize(tooltip_params[:user_id].to_i)}
+        AND activity_sessions.activity_id = #{ActiveRecord::Base.sanitize(tooltip_params[:activity_id].to_i)}
         AND activity_sessions.is_final_score IS true
+        AND activity_sessions.visible
         ").to_a
     end
   end
@@ -46,7 +48,9 @@ class GradesController < ApplicationController
       FROM activity_sessions
       WHERE activity_sessions.classroom_unit_id = #{ActiveRecord::Base.sanitize(tooltip_params[:classroom_unit_id].to_i)}
       AND activity_sessions.user_id = #{ActiveRecord::Base.sanitize(tooltip_params[:user_id].to_i)}
-      And activity_sessions.percentage IS NOT NULL
+      AND activity_sessions.activity_id = #{ActiveRecord::Base.sanitize(tooltip_params[:activity_id].to_i)}
+      AND activity_sessions.percentage IS NOT NULL
+      AND activity_sessions.visible
       ORDER BY activity_sessions.completed_at
       ").to_a
   end
