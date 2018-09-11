@@ -46,3 +46,7 @@
   align-items: center;
   margin-bottom: 1em;
 }
+
+.ant-input-affix-wrapper .ant-input {
+  min-height: 0;
+}
