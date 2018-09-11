@@ -60,7 +60,7 @@ class App extends React.Component {
     super(props)
     this.state = {
       fields: {
-        replaceWithId: {
+        replacementId: {
           value: [],
         },
       },
