@@ -1,6 +1,6 @@
 import * as React from "react";
 import {Link} from "react-router";
-import { ApolloProvider, Query } from "react-apollo";
+import { Query } from "react-apollo";
 import gql from "graphql-tag";
 
 import client from '../../../modules/apollo';

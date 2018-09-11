@@ -5,6 +5,7 @@ import ConceptsList from './ConceptsList';
 import ConceptArchiveButton from './ConceptArchiveButton';
 import {Concept} from '../containers/ConceptsIndex';
 import ArchivedTag from './ArchivedTag';
+import ReplacedWithLink from './ReplacedWithLink';
 export interface ConceptShowProps {
   concept: Concept
 }
@@ -12,7 +13,7 @@ export interface ConceptShowProps {
 const ConceptShow: React.SFC<ConceptShowProps> = ({concept}) => {
   return (
     <div>
-      <h3>{concept.name} <ArchivedTag concept={concept}/></h3>
+      <h3>{concept.name} <ArchivedTag concept={concept}/><ReplacedWithLink concept={concept}/></h3>
       <p>{concept.description}</p>
       <p>UID: {concept.uid}</p>
       <Button.Group>
