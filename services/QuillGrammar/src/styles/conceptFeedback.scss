@@ -1,0 +1,45 @@
+.concept-explanation {
+  font-family: $family-monospace;
+  font-size: 20px;
+  margin: auto;
+  max-width: 49em;
+  padding: 20px 30px;
+  .concept-explanation-title {
+    font-weight: bold;
+    padding-left: 15px;
+    padding-right: 15px;
+    // font-size: 20px;
+    // margin-bottom: 0.5em;
+  }
+  .concept-explanation-description {
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-bottom: 15px;
+  }
+
+  .concept-explanation-see-write {
+    display: flex;
+    background-color: #fefefe;
+    padding: 15px 25px;
+    border: 1px dashed #cecece;
+    // border-radius: 5px;
+    margin-bottom: 0.5em;
+    .concept-explanation-see {
+      flex-grow: 1;
+      flex-basis: 0;
+    }
+    .concept-explanation-write {
+      flex-grow: 1;
+      flex-basis: 0;
+    }
+  }
+  .concept-explanation-remember {
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-bottom: 0.5em;
+    ul {
+      margin: 10px 30px;
+      list-style: circle;
+    }
+  }
+}

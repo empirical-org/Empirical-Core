@@ -1,7 +1,12 @@
+export interface GrammarActivities {
+  [key:string]: GrammarActivity
+}
+
 export interface GrammarActivity {
   concepts: Concepts;
   description: string;
   title: string;
+  flag?: string;
 }
 
 export interface Concepts {

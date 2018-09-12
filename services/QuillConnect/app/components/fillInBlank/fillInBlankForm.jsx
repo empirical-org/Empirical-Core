@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {hashToCollection} from '../../libs/hashToCollection';
-import TextEditor from '../questions/textEditor.jsx';
+import { hashToCollection, TextEditor, FlagDropdown } from 'quill-component-library/dist/componentLibrary';
+import { EditorState, ContentState } from 'draft-js'
 import ConceptSelector from '../shared/conceptSelector.jsx';
-import FlagDropdown from '../shared/flagDropdown.jsx';
 
 
 class FillInBlankForm extends Component {
@@ -130,13 +129,18 @@ class FillInBlankForm extends Component {
       <form className="box" onSubmit={this.submit}>
         <h6 className="control subtitle">Create a new question</h6>
         <label className="label">Prompt</label>
-        <TextEditor text={this.state.prompt} handleTextChange={this.handlePromptChange} />
+        <TextEditor
+          text={this.state.prompt}
+          handleTextChange={this.handlePromptChange}
+          ContentState={ContentState}
+          EditorState={EditorState}
+        />
         <br />
         <label className="label">Instructions for student</label>
         <p className="control">
           <textarea className="input" type="text" value={this.state.instructions} onChange={this.handleInstructionsChange}></textarea>
         </p>
-        <label className="label">Cues Label (default is "joining words" for multiple cues and "joining word" for single cues)</label>
+        <label className="label">Cues Label (default is "joining words"/"joining word" for single cues, enter a space to have no label)</label>
         <p className="control">
           <input className="input" type="text" value={this.state.cuesLabel} onChange={this.handleCuesLabelChange}></input>
         </p>

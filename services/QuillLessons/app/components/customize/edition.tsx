@@ -31,13 +31,27 @@ import {
   getStoredEditionMetadata,
   getIncompleteQuestions,
   getStoredEditionQuestions,
+  getStoredOriginalEditionQuestions,
 } from '../../reducers/combined'
+
+import {
+  ClassroomSessionId,
+  ClassroomUnitId
+} from '../classroomLessons/interfaces'
+
 
 class CustomizeEdition extends React.Component<any, any> {
   constructor(props) {
     super(props)
 
-    this.state = { showEditModal: false };
+    const classroomUnitId: ClassroomUnitId|null = getParameterByName('classroom_unit_id')
+    const activityUid = props.params.lessonID
+
+    this.state = {
+      showEditModal: false,
+      classroomUnitId,
+      classroomSessionId: classroomUnitId ? classroomUnitId.concat(activityUid) : null
+    };
 
     this.updateQuestion = this.updateQuestion.bind(this)
     this.publish = this.publish.bind(this)
@@ -52,9 +66,9 @@ class CustomizeEdition extends React.Component<any, any> {
   }
 
   componentWillMount() {
-    const classroomActivityId = getParameterByName('classroom_activity_id');
-    if (classroomActivityId) {
-      setEditionId(classroomActivityId, this.props.params.editionID);
+    const classroomSessionId: ClassroomSessionId = this.state.classroomSessionId;
+    if (classroomSessionId) {
+      setEditionId(classroomSessionId, this.props.params.editionID);
     }
 
     this.props.dispatch(getEditionMetadata(
@@ -63,6 +77,7 @@ class CustomizeEdition extends React.Component<any, any> {
     ));
 
     this.props.dispatch(getEditionQuestions(this.props.params.editionID));
+    this.props.dispatch(setOriginalEditionQuestions(this.props.editionQuestions));
   }
 
   componentWillReceiveProps(nextProps) {
@@ -70,6 +85,7 @@ class CustomizeEdition extends React.Component<any, any> {
       nextProps.editionMetadata,
       this.props.editionMetadata
     );
+
     const isEditionUndefined = this.props.editionMetadata === undefined;
     const isMissingQuestions = !this.props.editionQuestions.questions;
 
@@ -82,10 +98,6 @@ class CustomizeEdition extends React.Component<any, any> {
     if (hasNewEdition && isMissingQuestions) {
       this.props.dispatch(setEditionQuestions(nextProps.editionQuestions));
       this.props.dispatch(setWorkingEditionQuestions(nextProps.editionQuestions));
-    }
-
-    if (hasNewEdition) {
-      this.props.dispatch(setOriginalEditionQuestions(nextProps.editionQuestions));
     }
   }
 
@@ -120,6 +132,10 @@ class CustomizeEdition extends React.Component<any, any> {
 
   resetSlide(questionIndex: number) {
     const question = this.props.originalEditionQuestions.questions[questionIndex].data
+    if (question) {
+      question.reset = true
+    }
+
     this.updateQuestion(question, questionIndex)
   }
 
@@ -185,22 +201,22 @@ class CustomizeEdition extends React.Component<any, any> {
   }
 
   afterPublishing() {
-    const classroomActivityId = getParameterByName('classroom_activity_id')
-    setTeacherModels(classroomActivityId, this.props.params.editionID)
+    const classroomSessionId:ClassroomSessionId = this.state.classroomSessionId
+    setTeacherModels(classroomSessionId, this.props.params.editionID)
     this.goToSuccessPage()
   }
 
   goToSuccessPage() {
-    const classroomActivityId = getParameterByName('classroom_activity_id')
+    const classroomUnitId = getParameterByName('classroom_unit_id')
     let link = `/customize/${this.props.params.lessonID}/${this.props.params.editionID}/success`
-    link = classroomActivityId ? link.concat(`?&classroom_activity_id=${classroomActivityId}`) : link
+    link = classroomUnitId ? link.concat(`?&classroom_unit_id=${classroomUnitId}`) : link
     this.props.router.push(link)
   }
 
   followUpLink() {
     const {lessonID, editionID} = this.props.params
-    const classroomActivityID = getParameterByName('classroom_activity_id')
-    return classroomActivityID ? `teach/class-lessons/${lessonID}?&classroom_activity_id=${classroomActivityID}` : `teach/class-lessons/${lessonID}/preview/${editionID}`
+    const classroomUnitId = getParameterByName('classroom_unit_id')
+    return classroomUnitId ? `teach/class-lessons/${lessonID}?&classroom_unit_id=${classroomUnitId}` : `teach/class-lessons/${lessonID}/preview/${editionID}`
   }
 
   renderPublishSection() {
@@ -253,9 +269,9 @@ class CustomizeEdition extends React.Component<any, any> {
 
   renderSuccessModal() {
     if (window.location.href.indexOf('success') !== -1) {
-      const classroomActivityId = getParameterByName('classroom_activity_id')
-      const backLink = classroomActivityId
-        ? `customize/${this.props.params.lessonID}/${this.props.params.editionID}?&classroom_activity_id=${classroomActivityId}`
+      const classroomUnitId = getParameterByName('classroom_unit_id')
+      const backLink = classroomUnitId
+        ? `customize/${this.props.params.lessonID}/${this.props.params.editionID}?&classroom_unit_id=${classroomUnitId}`
         : `customize/${this.props.params.lessonID}/${this.props.params.editionID}`
       return <SuccessModal
         editionName={this.props.editionMetadata.name}
@@ -294,6 +310,7 @@ function mapStateToProps(state, props) {
     customize: state.customize,
     classroomLesson: state.classroomLesson,
     incompleteQuestions: getIncompleteQuestions(state),
+    originalEditionQuestions: getStoredOriginalEditionQuestions(state),
     editionMetadata: getStoredEditionMetadata(state, props),
     editionQuestions: getStoredEditionQuestions(state),
   }

@@ -1,14 +1,14 @@
 class Auth::GoogleController < ApplicationController
-  before_action :follow_google_redirect,       only: :google
-  before_action :set_profile,                  only: :google
-  before_action :set_user,                     only: :google
-  before_action :check_if_email_matches,       only: :google
-  before_action :handle_google_teacher_signup, only: :google
+  before_action :follow_google_redirect,          only: :google
+  before_action :set_profile,                     only: :google
+  before_action :set_user,                        only: :google
+  before_action :check_if_email_matches,          only: :google
+  before_action :save_teacher_from_google_signup, only: :google
   before_action :save_student_from_google_signup, only: :google
 
   def google
     if @user.teacher?
-      GoogleStudentImporterWorker.perform_async(@user.id)
+      GoogleStudentImporterWorker.perform_async(@user.id, 'Auth::GoogleController')
     end
 
     if @user.student?
@@ -49,21 +49,27 @@ class Auth::GoogleController < ApplicationController
   end
 
   def save_student_from_google_signup
-    if @user.new_record? && @user.student?
-      render 'accounts/new' unless @user.save
+    return unless @user.new_record? && @user.student?
+
+    unless @user.save
+      redirect_to new_account_path
     end
   end
 
-  def handle_google_teacher_signup
+  def save_teacher_from_google_signup
     return unless @user.new_record? && @user.teacher?
+
+    @js_file = 'session'
 
     if @user.save
       AccountCreationCallbacks.new(@user, request.remote_ip).trigger
       @user.subscribe_to_newsletter
       @teacherFromGoogleSignUp = true
-      @js_file = 'session'
 
       sign_in(@user)
+    else
+      @teacherFromGoogleSignUp = false
+      flash.now[:error] = @user.errors.full_messages.join(', ')
     end
 
     render 'accounts/new'

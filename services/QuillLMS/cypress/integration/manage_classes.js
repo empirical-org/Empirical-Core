@@ -181,7 +181,7 @@ describe('Manage Classrooms', function() {
       })
 
       it('allows me to enter an email of a coteacher', ()=> {
-        cy.get(':nth-child(1) > input').type(coteacherEmail)
+        cy.get('#co-teacher-email').type(coteacherEmail)
       })
 
       describe('after I click save', ()=>{
@@ -257,9 +257,9 @@ describe('Manage Classrooms', function() {
     })
 
 
-    describe('when I want to withdraw a coteacher invitation', ()=>{
-      it('allows me to do so')
-    })
+    // describe('when I want to withdraw a coteacher invitation', ()=>{
+    //   it('allows me to do so')
+    // })
 
   })
 

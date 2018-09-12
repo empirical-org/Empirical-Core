@@ -3,12 +3,21 @@ import { push } from 'react-router-redux';
 import rootRef from '../libs/firebase';
 
 const	titleCardsRef = rootRef.child('titleCards')
-// const moment = require('moment');
 const C = require('../constants').default;
 
 function startListeningToTitleCards() {
   return (dispatch) => {
     titleCardsRef.on('value', (snapshot) => {
+      if (snapshot) {
+        dispatch({ type: C.RECEIVE_TITLE_CARDS_DATA, data: snapshot.val(), });
+      }
+    });
+  };
+}
+
+function loadTitleCards() {
+  return (dispatch) => {
+    titleCardsRef.once('value', (snapshot) => {
       dispatch({ type: C.RECEIVE_TITLE_CARDS_DATA, data: snapshot.val(), });
     });
   };
@@ -41,4 +50,4 @@ function submitTitleCardEdit(qid, content) {
   };
 }
 
-export { submitNewTitleCard, startListeningToTitleCards, submitTitleCardEdit }
+export { submitNewTitleCard, loadTitleCards, startListeningToTitleCards, submitTitleCardEdit }

@@ -40,8 +40,26 @@ export default React.createClass({
       startDate: this.dueDate() ? moment(this.dueDate()) : undefined,
       showModal: false,
       showCustomizeTooltip: false,
-      showLessonPlanTooltip: false
+      showLessonPlanTooltip: false,
+      diagnosticIds: []
     }
+  },
+
+  componentDidMount() {
+    fetch(`${process.env.DEFAULT_URL}/teachers/progress_reports/activity_with_recommendations_ids`, {
+      method: 'GET',
+      mode: 'cors',
+      credentials: 'include'
+    }).then((response) => {
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
+      return response.json();
+    }).then((response) => {
+      this.setState({ activityWithRecommendationsIds: response.activityWithRecommendationsIds })
+    }).catch((error) => {
+      console.log('error', error)
+    })
   },
 
   componentWillReceiveProps(nextProps) {
@@ -52,16 +70,16 @@ export default React.createClass({
     }
   },
 
-  hideClassroomActivity() {
+  hideUnitActivity() {
     const x = confirm('Are you sure you want to delete this assignment?')
     if (x) {
-      this.props.hideClassroomActivity(this.caId(), this.unitId())
+      this.props.hideUnitActivity(this.uaId(), this.unitId())
     }
   },
 
   handleChange(date) {
     this.setState({ startDate: date, })
-    this.props.updateDueDate(this.caId(), date.format())
+    this.props.updateDueDate(this.uaId(), date.format())
   },
 
   toggleCustomizeTooltip() {
@@ -81,22 +99,22 @@ export default React.createClass({
   },
 
   renderCustomizeTooltip() {
-  if (this.state.showCustomizeTooltip) {
-    return <div className="customize-tooltip">
-      <i className="fa fa-caret-up"/>
-      Customize
-    </div>
-  }
-},
+    if (this.state.showCustomizeTooltip) {
+      return <div className="customize-tooltip">
+        <i className="fa fa-caret-up"/>
+        Customize
+      </div>
+    }
+  },
 
-renderLessonPlanTooltip() {
-  if (this.state.showLessonPlanTooltip) {
-    return <div className="lesson-plan-tooltip">
-      <i className="fa fa-caret-up"/>
-      Download Lesson Plan
-    </div>
-  }
-},
+  renderLessonPlanTooltip() {
+    if (this.state.showLessonPlanTooltip) {
+      return <div className="lesson-plan-tooltip">
+        <i className="fa fa-caret-up"/>
+        Download Lesson Plan
+      </div>
+    }
+  },
 
   goToRecommendations() {
     const link = `/teachers/progress_reports/diagnostic_reports#/u/${this.unitId()}/a/${this.activityId()}/c/${this.classroomId()}/recommendations`
@@ -104,8 +122,8 @@ renderLessonPlanTooltip() {
   },
 
   buttonForRecommendations() {
-    const diagnosticIds = [413, 447, 602]
-    if (diagnosticIds.includes(this.activityId()) && window.location.pathname.includes('diagnostic_reports')) {
+    const activityWithRecommendationIds = this.state.activityWithRecommendationsIds
+    if (activityWithRecommendationIds && activityWithRecommendationIds.includes(this.activityId()) && window.location.pathname.includes('diagnostic_reports')) {
       return (
         <div onClick={this.goToRecommendations} className="recommendations-button">
           Recommendations
@@ -116,10 +134,12 @@ renderLessonPlanTooltip() {
 
   renderLessonsAction() {
     if (window.location.pathname.includes('lessons')) {
-      if (this.props.data.completed) {
+      if (this.props.data.completed === 't') {
         return <p className="lesson-completed"><i className="fa fa-icon fa-check-circle" />Lesson Complete</p>
       } else if (this.props.data.started) {
-        return <a className="mark-completed" target="_blank" href={`/teachers/classroom_activities/${this.props.data.caId}/mark_lesson_as_completed/${this.activityId()}`}>Mark As Complete</a>
+        let href = `/teachers/classroom_units/${this.classroomUnitId()}/mark_lesson_as_completed/${this.activityId()}`;
+
+        return <a className="mark-completed" target="_blank" href={href}>Mark As Complete</a>
       }
     }
   },
@@ -178,7 +198,7 @@ renderLessonPlanTooltip() {
         <img key='chevron-right' className='chevron-right' src="https://assets.quill.org/images/icons/chevron-dark-green.svg" />
       ]
     } else if (this.props.report) {
-      return [<a key="this.props.data.activity.anonymous_path" href={this.anonymousPath()} target="_blank">Preview</a>, <a key={`report-url-${this.caId()}`} onClick={this.urlForReport}>View Report</a>]
+      return [<a key="this.props.data.activity.anonymous_path" href={this.anonymousPath()} target="_blank">Preview</a>, <a key={`report-url-${this.classroomUnitId()}`} onClick={this.urlForReport}>View Report</a>]
     } else if (this.isLesson()) {
        return this.lessonFinalCell()
     }
@@ -205,8 +225,12 @@ renderLessonPlanTooltip() {
     )
   },
 
-  caId() {
-    return this.props.data.caId || this.props.data.id
+  classroomUnitId() {
+    return this.props.data.cuId || this.props.data.classroom_unit_id
+  },
+
+  uaId() {
+    return this.props.data.uaId || this.props.data.ua_id
   },
 
   unitId() {
@@ -245,23 +269,23 @@ renderLessonPlanTooltip() {
   },
 
   lessonCompletedOrLaunch() {
-    if (this.props.data.completed) {
-      return <a className="report-link" target="_blank" href={`/teachers/progress_reports/report_from_classroom_activity/${this.props.data.caId}`}>View Report</a>
+    if (this.props.data.completed === 't') {
+      return <a className="report-link" target="_blank" href={`/teachers/progress_reports/report_from_classroom_unit_and_activity/${this.classroomUnitId()}/a/${this.activityId()}`}>View Report</a>
     }
     if (this.props.data.studentCount === 0) {
       return <a onClick={this.noStudentsWarning} id="launch-lesson">{this.props.data.started ? 'Resume Lesson' : 'Launch Lesson'}</a>
     } else {
       if (this.props.data.started) {
-        return <a href={`${process.env.DEFAULT_URL}/teachers/classroom_activities/${this.caId()}/launch_lesson/${this.activityId()}`} className="resume-lesson">Resume Lesson</a>
+        return <a href={`${process.env.DEFAULT_URL}/teachers/classroom_units/${this.classroomUnitId()}/launch_lesson/${this.activityId()}`} className="resume-lesson">Resume Lesson</a>
       } else {
-        return <a href={`${process.env.DEFAULT_URL}/teachers/classroom_activities/${this.caId()}/launch_lesson/${this.activityId()}`} id="launch-lesson">Launch Lesson</a>
+        return <a href={`${process.env.DEFAULT_URL}/teachers/classroom_units/${this.classroomUnitId()}/launch_lesson/${this.activityId()}`} id="launch-lesson">Launch Lesson</a>
       }
     }
   },
 
   noStudentsWarning() {
     if (window.confirm("You have no students in this class. Quill Lessons is a collaborative tool for teachers and students to work together. If you'd like to launch this lesson anyway, click OK below. Otherwise, click Cancel.")) {
-      window.location.href = `${process.env.DEFAULT_URL}/teachers/classroom_activities/${this.caId()}/launch_lesson/${this.activityId()}`
+      window.location.href = `${process.env.DEFAULT_URL}/teachers/classroom_units/${this.classroomUnitId()}/launch_lesson/${this.activityId()}`
     }
   },
 
@@ -272,7 +296,7 @@ renderLessonPlanTooltip() {
   deleteRow() {
     if (!this.props.report && !(this.isLesson())) {
       const style = !this.props.data.ownedByCurrentUser ? {visibility: 'hidden'} : null
-      return <div className="pull-right" style={style}><img className="delete-classroom-activity h-pointer" onClick={this.hideClassroomActivity} src="/images/x.svg" /></div>
+      return <div className="pull-right" style={style}><img className="delete-classroom-activity h-pointer" onClick={this.hideUnitActivity} src="/images/x.svg" /></div>
     }
   },
 
@@ -288,7 +312,7 @@ renderLessonPlanTooltip() {
     if (this.state.showModal) {
       return (<PreviewOrLaunchModal
         lessonID={this.activityId()}
-        classroomActivityID={this.caId()}
+        classroomUnitId={this.classroomUnitId()}
         closeModal={this.closeModal}
         completed={this.props.data.completed}
       />)
@@ -310,7 +334,6 @@ renderLessonPlanTooltip() {
     }
     return (
       <div className="row activity" style={this.props.activityReport ? Object.assign({}, styles.row, {cursor: 'pointer'}) : styles.row} onClick={this.props.activityReport ? this.urlForReport : null}>
-        {this.renderModal()}
         <div className="starting-row">
           <div className="cell">
             <div className={`pull-left icon-wrapper ${this.icon()}`} />
@@ -321,6 +344,7 @@ renderLessonPlanTooltip() {
             {this.buttonForRecommendations()}
           </div>
         </div>
+        {this.renderModal()}
         <div className={this.props.activityReport ? 'cell activity-analysis-row-right' : 'cell'} style={endRow}>
           {this.renderLessonsAction()}
           {this.finalCell()}

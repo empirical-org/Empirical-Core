@@ -7,7 +7,7 @@ EmpiricalGrammar::Application.configure do
   config.cache_classes = false
 
   # Do not eager load code on boot.
-  config.eager_load = true
+  config.eager_load = false
 
   # Show full error reports and disable caching.
   config.consider_all_requests_local       = true
@@ -40,6 +40,8 @@ EmpiricalGrammar::Application.configure do
   config.active_support.deprecation = :log
   config.log_level = :debug
 
+  config.logger = Logger.new(STDOUT)
+  
   # Raise an error on page load if there are pending migrations
   config.active_record.migration_error = :page_load
 

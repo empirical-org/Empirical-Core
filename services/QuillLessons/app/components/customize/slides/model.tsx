@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import * as CLIntF from '../../../interfaces/ClassroomLessons';
+import * as CLIntF from '../../../interfaces/classroomLessons';
 import _ from 'lodash'
 import PromptField from './slideComponents/promptField'
 import StudentModel from '../../classroomLessons/play/modelQuestion'
@@ -68,6 +68,7 @@ class CustomizeModel extends Component<CustomizeModelProps, {}>{
           <PromptField
             incompletePrompt={this.props.incompletePrompt}
             text={this.props.question.play.prompt}
+            reset={this.props.question.reset}
             handleTextChange={(e) => this.handlePromptChange(e)}
             showBlockquote={true}
           />

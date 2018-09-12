@@ -9,7 +9,7 @@ import GoogleClassroomModal from '../components/dashboard/google_classroom_modal
 export default React.createClass({
 
   propTypes: {
-    hasClassroomActivities: React.PropTypes.bool,
+    hasActivities: React.PropTypes.bool,
   },
 
   componentDidMount() {
@@ -86,7 +86,7 @@ export default React.createClass({
           if (that.props.closeModal) {
               // only used if it is rendered within a modal
             that.props.closeModal('because class added');
-          } else if (that.props.hasClassroomActivities === false) {
+          } else if (that.props.hasActivities === false) {
             window.location.assign('/teachers/classrooms/assign_activities');
           } else if (data.toInviteStudents) {
             window.location.assign('/teachers/classrooms/invite_students');

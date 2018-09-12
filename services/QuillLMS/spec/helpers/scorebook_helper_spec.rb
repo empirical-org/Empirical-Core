@@ -49,4 +49,44 @@ describe ScorebookHelper, type: :helper do
       end
     end
   end
+
+  describe '#icon_for_classification' do
+    it 'should give the correct values' do
+      expect(icon_for_classification(double(:classification, id: 1))).to eq "flag"
+      expect(icon_for_classification(double(:classification, id: 2))).to eq "puzzle"
+      expect(icon_for_classification(double(:classification, id: 4))).to eq "diagnostic"
+      expect(icon_for_classification(double(:classification, id: 5))).to eq "connect"
+      expect(icon_for_classification(double(:classification, id: 6))).to eq ""
+    end
+  end
+
+  describe '#icon_for_classification_by_id' do
+    it 'should give the right values' do
+      expect(icon_for_classification_by_id(1)).to eq "flag"
+      expect(icon_for_classification_by_id(2)).to eq "puzzle"
+      expect(icon_for_classification_by_id(4)).to eq "diagnostic"
+      expect(icon_for_classification_by_id(5)).to eq "connect"
+      expect(icon_for_classification_by_id(6)).to eq ""
+    end
+  end
+
+  describe '#scorebook_path' do
+    before do
+      allow(helper).to receive(:scorebook_teachers_classrooms_path) { "path" }
+    end
+
+    it 'should give path if teacher has classrooms' do
+      expect(helper.scorebook_path(double(:teacher, has_classrooms?: true))).to eq "path"
+      expect(helper.scorebook_path(double(:teacher, has_classrooms?: false))).to eq ""
+    end
+  end
+
+  describe '#alias_by_id' do
+    it 'should give the correct values' do
+      expect(alias_by_id(1)).to eq "Quill Proofreader"
+      expect(alias_by_id(2)).to eq "Quill Grammar"
+      expect(alias_by_id(4)).to eq "Quill Diagnostic"
+      expect(alias_by_id(5)).to eq "Quill Connect"
+    end
+  end
 end

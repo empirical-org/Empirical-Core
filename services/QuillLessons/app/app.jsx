@@ -1,4 +1,4 @@
-import 'babel-polyfill';
+// import 'babel-polyfill';
 import Promise from 'promise-polyfill';
 import BackOff from './utils/backOff';
 import React from 'react';

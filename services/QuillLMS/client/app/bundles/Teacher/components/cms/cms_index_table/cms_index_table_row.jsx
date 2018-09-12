@@ -30,7 +30,7 @@ export default React.createClass({
   },
 
   goToActivities: function() {
-    window.location = `/cms/activity_type/${this.props.data.resource.id}/activities`
+    window.location = `/cms/activity_classifications/${this.props.data.resource.id}/activities`
   },
 
   render: function () {

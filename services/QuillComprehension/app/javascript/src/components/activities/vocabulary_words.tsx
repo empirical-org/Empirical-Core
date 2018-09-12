@@ -1,5 +1,6 @@
 import React from 'react'
 import Modal from '../modals'
+
 export interface VocabularyWord {
   id:number
   text:string
@@ -9,7 +10,7 @@ export interface VocabularyWord {
 
 export interface Props {
   vocabWords: Array<VocabularyWord>
-} 
+}
 
 export interface State {
   readonly activeVocabWord: VocabularyWord|null
@@ -40,7 +41,7 @@ export default class VocabularyWords extends React.Component<Props, State> {
           <div className="card mw-50">
             <div className="card-header"><h3>{this.state.activeVocabWord.text}</h3></div>
             <div className="card-body">
-              <p><strong>Definition</strong>: {this.state.activeVocabWord.description}</p>
+              <p><strong>Definition</strong>: <span dangerouslySetInnerHTML={{__html: this.state.activeVocabWord.description}}/></p>
               <p><strong>Sample Sentence</strong>: <span dangerouslySetInnerHTML={{__html: this.state.activeVocabWord.example}}/></p>
             </div>
             <div className="card-footer"><button className="btn btn-primary" onClick={e => this.clearVocabWord()}>Done</button></div>
@@ -49,7 +50,7 @@ export default class VocabularyWords extends React.Component<Props, State> {
       )
     }
   }
-  
+
   render() {
     return (
       <div className="d-fl-r ai-c">

@@ -30,19 +30,19 @@ describe('Teacher Navbar', function() {
       })
       it('has a link to the All Resources page', function() {
         cy.get('#teacher-center').contains('All Resources').click({force: true})
-        cy.url().should('include', '/teacher_resources')
+        cy.url().should('include', '/teacher-center')
       })
       it('has a link to the Getting Started page', function() {
         cy.get('#teacher-center').contains('Getting Started').click({force: true})
-        cy.url().should('include', '/teacher_resources/topic/getting_started')
+        cy.url().should('include', '/teacher-center/topic/getting-started')
       })
       it('has a link to the Teacher Stories Page page', function() {
         cy.get('#teacher-center').contains('Teacher Stories').click({force: true})
-        cy.url().should('include', '/teacher_resources/topic/teacher_stories')
+        cy.url().should('include', '/teacher-center/topic/teacher-stories')
       })
       it('has a link to the Writing Instruction Research page', function() {
         cy.get('#teacher-center').contains('Writing Instruction Research').click({force: true})
-        cy.url().should('include', '/teacher_resources/topic/writing_instruction_research')
+        cy.url().should('include', '/teacher-center/topic/writing-instruction-research')
       })
       it('has a link to the FAQ page', function() {
         cy.get('#teacher-center').contains('FAQ').click({force: true})

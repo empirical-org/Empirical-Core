@@ -1,10 +1,10 @@
-import * as React from 'react' 
+import * as React from 'react'
 
 function fontSizeToClass(fontSize:number):string  {
   switch (fontSize) {
-    case 1: 
+    case 1:
       return 'fs-sm'
-    case 2: 
+    case 2:
       return 'fs-md'
     case 3:
       return 'fs-lg'
@@ -20,7 +20,7 @@ const Article = ({activity_id, article, title, markAsRead, fontSize}): JSX.Eleme
       <h3 className="card-title">Read The Following Passage Carefully</h3>
     </div>
     <div className="card-body article-body">
-      <h2 className="mb3">{title}</h2>  
+      <h2 className="mb3">{title}</h2>
       <p className={fontSizeToClass(fontSize)} onSelect={(e) => console.log(e)} dangerouslySetInnerHTML={{__html: article}}></p>
     </div>
     <div className="card-footer d-fl-r jc-sb">

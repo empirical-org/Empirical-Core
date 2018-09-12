@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import ScriptComponent from '../shared/scriptComponent'
 import SlideHTMLEditor from './slideHTMLEditor'
 import _ from 'lodash'
-import * as CLIntF from '../../../interfaces/ClassroomLessons';
+import * as CLIntF from '../../../interfaces/classroomLessons';
 
 interface EditScriptItemProps {
   scriptItem: CLIntF.ScriptItem,

@@ -113,4 +113,8 @@ EmpiricalGrammar::Application.configure do
     end
     { "params" => params }
   end
+
+  config.middleware.use Rack::HostRedirect, {
+    'staging.quill.org.' => 'staging.quill.org'
+  }
 end

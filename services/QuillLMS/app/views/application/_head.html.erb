@@ -2,6 +2,9 @@
   <% if Rails.env.development? %>
     <title>[DEV] Quill.org &mdash; <%= @title || 'Interactive Writing and Grammar' %></title>
     <%= favicon_link_tag 'favicon-dev.ico' %>
+  <% elsif Rails.env.staging? %>
+    <title>[Staging] Quill.org &mdash; <%= @title || 'Interactive Writing and Grammar' %></title>
+    <%= favicon_link_tag 'favicon-staging.ico' %>
   <% else %>
     <title>Quill.org &mdash; <%= @title || 'Interactive Writing and Grammar' %></title>
     <%= favicon_link_tag 'favicon.ico' %>
@@ -23,7 +26,11 @@
 
   <%= render partial: 'typekit' unless Rails.env.test? %>
   <%= stylesheet_pack_tag('app') %>
-  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
+  <% if @style_file %>
+    <%= stylesheet_pack_tag(@style_file) %>
+  <% else %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
+  <% end %>
   <%= javascript_pack_tag('vendor') %>
   <%= javascript_pack_tag(@js_file || 'app') %>
   <%= csrf_meta_tags %>

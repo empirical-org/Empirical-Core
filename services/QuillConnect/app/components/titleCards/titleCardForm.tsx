@@ -1,12 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import TextEditor from '../questions/textEditor.jsx';
-import {hashToCollection} from '../../libs/hashToCollection'
+import {
+  TextEditor,
+} from 'quill-component-library/dist/componentLibrary';
+import { EditorState, ContentState } from 'draft-js'
 import {
   submitNewTitleCard,
-  updateTitleCard,
   submitTitleCardEdit
-} from '../../actions/titleCards.ts'
+} from '../../actions/titleCards'
 import _ from 'lodash'
 
 interface TitleCardFormState {
@@ -14,7 +15,14 @@ interface TitleCardFormState {
   content: string
 }
 
-class TitleCardForm extends React.Component<any, TitleCardFormState> {
+export interface TitleCardFormProps {
+  titleCards: any
+  routing: any
+  routeParams: any
+  dispatch(any): void 
+}
+
+class TitleCardForm extends React.Component<TitleCardFormProps, TitleCardFormState> {
   constructor(props) {
     super(props)
 
@@ -86,10 +94,15 @@ class TitleCardForm extends React.Component<any, TitleCardFormState> {
         <h6 className="control subtitle">{this.renderHeaderText()}</h6>
         <br/>
         <label className="label">Title</label>
-        <textarea className="input" type="text" value={this.state.title || ""} onChange={this.handleTitleChange}/>
+        <textarea className="input" value={this.state.title || ""} onChange={this.handleTitleChange}/>
         <br/>
         <label className="label">Content</label>
-        <TextEditor text={this.state.content || ""} handleTextChange={this.handleContentChange}/>
+        <TextEditor
+          text={this.state.content || ""}
+          handleTextChange={this.handleContentChange}
+          EditorState={EditorState}
+          ContentState={ContentState}
+        />
         <br/>
         <button className="button is-primary" onClick={this.submit}>Save Question</button>
       </div>

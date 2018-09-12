@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import ResumeOrBeginButton from '../resumeOrBeginButton.jsx';
+import { ResumeOrBeginButton } from 'quill-component-library/dist/componentLibrary';
 
 describe('ResumeOrBeginButton component', () => {
   const clickMock = jest.fn()

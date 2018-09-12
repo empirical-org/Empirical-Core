@@ -18,7 +18,7 @@ class Teachers::ClassroomsController < ApplicationController
   def new
     class_ids = current_user.classrooms_i_teach.map(&:id)
     @user = current_user
-    @has_activities = ClassroomActivity.where(classroom_id: class_ids).exists?
+    @has_activities = ClassroomUnit.where(classroom_id: class_ids).exists?
   end
 
   def classrooms_i_teach
@@ -102,7 +102,11 @@ class Teachers::ClassroomsController < ApplicationController
         ClassroomsTeacher.find_by(user_id: current_user.id, classroom_id: @classroom.id, role: owner_role).update(role: coteacher_role)
         ClassroomsTeacher.find_by(user_id: requested_new_owner_id, classroom_id: @classroom.id, role: coteacher_role).update(role: owner_role)
       end
-      CoteacherAnalytics.new.track_transfer_classroom(current_user, requested_new_owner_id)
+      Analyzer.new.track_with_attributes(
+          current_user,
+          SegmentIo::Events::TRANSFER_OWNERSHIP,
+{ properties: { new_owner_id: requested_new_owner_id } }
+      )
     rescue
       return render json: { error: 'Please ensure this teacher is a co-teacher before transferring ownership.' }, status: 401
     end

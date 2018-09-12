@@ -5,14 +5,14 @@ module LessonsRecommendations
 
     def get_recommended_lessons unit_id, classroom_id, activity_id
       @activity_id = activity_id
-      @classroom_activity = ClassroomActivity.find_by(classroom_id: classroom_id, unit_id: unit_id, activity_id: activity_id)
+      @classroom_unit = ClassroomUnit.find_by(classroom_id: classroom_id, unit_id: unit_id)
       @activity_sessions_with_counted_concepts = act_sesh_with_counted_concepts
       get_recommendations
     end
 
     def get_activity_sessions
       ActivitySession.includes(concept_results: :concept)
-                      .where(classroom_activity_id: @classroom_activity.id, is_final_score: true)
+                      .where(classroom_unit_id: @classroom_unit.id, is_final_score: true, activity: @activity_id)
     end
 
     def act_sesh_with_counted_concepts
@@ -21,7 +21,10 @@ module LessonsRecommendations
     end
 
     def get_recommendations
-      LessonRecommendations.new.send("recs_for_activity", @activity_id, @classroom_activity.classroom_id).map do |lessons_rec|
+      LessonRecommendationsQuery.new(
+        @activity_id,
+        @classroom_unit.classroom_id
+      ).activity_recommendations.map do |lessons_rec|
         fail_count = 0
         @activity_sessions_with_counted_concepts.each do |activity_session|
           lessons_rec[:requirements].each do |req|
@@ -55,7 +58,7 @@ module LessonsRecommendations
         ((fail_count.to_f/@total_count.to_f)*100).round
       rescue FloatDomainError => e
         NewRelic::Agent.add_custom_attributes({
-          classroom_id: @classroom_activity.classroom_id,
+          classroom_id: @classroom_unit.classroom_id,
           activity_id: @activity_id
         })
         NewRelic::Agent.notice_error(e)

@@ -1,8 +1,7 @@
-Types::ResponseLabelTagType = GraphQL::ObjectType.define do
-  name 'ResponseLabelTag'
+class Types::ResponseLabelTagType < Types::BaseObject
   description 'A tag for a response label'
 
-  field :response_label_id, types.ID
-  field :response_id, types.ID
-  field :score, types.Int
+  field :response_label_id, ID, null: true
+  field :response_id, ID, null: true
+  field :score, Integer, null: true
 end

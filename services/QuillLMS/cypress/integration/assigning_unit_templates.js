@@ -43,7 +43,7 @@ describe('Assigning unit templates flow', () => {
   describe('assigning the unit template to some students', function() {
     it('clicking the customize students button will take me to the customize students page', function() {
       cy.visit('/teachers/classrooms/assign_activities/featured-activity-packs')
-      cy.get('.unit-template-mini').eq(2).click()
+      cy.get('.unit-template-mini').eq(3).click()
       cy.contains('Customize Students').click()
       cy.url().should('include', '/teachers/classrooms/assign_activities/new_unit/students/edit/name')
     })
@@ -56,7 +56,6 @@ describe('Assigning unit templates flow', () => {
       cy.contains('Add Students Before Assigning').click()
       cy.url().should('include', '/teachers/classrooms/assign_activities/new_unit/students/edit/name')
     })
-
 
     it('allows me to select an entire classroom', function() {
       cy.get('.panel-group').first().find('.panel-heading > .title > div > .css-label').click()

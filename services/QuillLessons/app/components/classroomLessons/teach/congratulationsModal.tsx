@@ -1,8 +1,9 @@
 import * as React from 'react'
 import { saveReview } from '../../../actions/classroomSessions';
+import { ClassroomSessionId } from '../interfaces'
 import { getParameterByName } from '../../../libs/getParameterByName';
 
-export default class CongratulationsModal extends React.Component<{closeModal: any, lessonId:string}, {selectedEmoji: number|null}> {
+export default class CongratulationsModal extends React.Component<{closeModal: any, lessonId:string, classroomSessionId:ClassroomSessionId}, {selectedEmoji: number|null}> {
   constructor(props) {
     super(props)
 
@@ -16,9 +17,9 @@ export default class CongratulationsModal extends React.Component<{closeModal: a
 
   selectEmoji(value:number) {
     this.setState({selectedEmoji: value})
-    const classroomActivityId = getParameterByName('classroom_activity_id')
-    if (classroomActivityId) {
-      saveReview(this.props.lessonId, classroomActivityId, value)
+    const classroomSessionId = this.props.classroomSessionId
+    if (classroomSessionId) {
+      saveReview(this.props.lessonId, classroomSessionId, value)
     }
   }
 
@@ -59,8 +60,8 @@ export default class CongratulationsModal extends React.Component<{closeModal: a
     return <div className="congratulations-modal-container">
          <div className="congratulations-modal-background" onClick={this.props.closeModal}/>
         <div className="congratulations-modal">
-           <img onClick={this.props.closeModal} className="exit" src="http://assets.quill.org/images/icons/CloseIcon.svg"/>
-           <img className="illustration" src="http://assets.quill.org/images/illustrations/congratulations_illustration.svg" />
+           <img onClick={this.props.closeModal} className="exit" src="https://assets.quill.org/images/icons/CloseIcon.svg"/>
+           <img className="illustration" src="https://assets.quill.org/images/illustrations/congratulations_illustration.svg" />
            <h1 className="congratulations">Congratulations!</h1>
            <h1>You've completed a Quill Lessons Activity.</h1>
            <p>This lesson will be marked as complete for your students.</p>

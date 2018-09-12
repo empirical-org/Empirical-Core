@@ -3,15 +3,18 @@ Rails.application.routes.draw do
   resources :activities, shallow: true do
     resources :question_sets
     resources :vocabulary_words
+    get 'play', on: :member
   end
   resources :question_sets, only: [], shallow: true do
     resources :questions
   end
   resources :questions, only: [], shallow: true do
-    resources :responses
+    resources :responses do
+      post 'reset_tags', on: :member
+    end
   end
-  
-  
+
+
   if Rails.env.development?
     mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/graphql"
   end

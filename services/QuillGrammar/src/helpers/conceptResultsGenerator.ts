@@ -1,5 +1,6 @@
 import { ConceptResult } from 'quill-marking-logic'
-import { Question, FormattedConceptResult, ConceptResultMetadata } from '../interfaces/questions'
+import * as _ from 'lodash'
+import { Question, FormattedConceptResult } from '../interfaces/questions'
 
 export function getConceptResultsForQuestion(question: Question): FormattedConceptResult[]|undefined {
   const prompt = question.prompt.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, '');
@@ -7,10 +8,11 @@ export function getConceptResultsForQuestion(question: Question): FormattedConce
     const answer = question.attempts[0].text;
     let conceptResults: ConceptResult[]|never = [];
     if (question.attempts[0]) {
-      conceptResults = question.attempts[0].concept_results || [];
+      conceptResults = question.attempts[0].concept_results || question.attempts[0].conceptResults || [];
     } else {
       conceptResults = [];
     }
+    conceptResults = Array.isArray(conceptResults) ? conceptResults : _.values(conceptResults)
     if (conceptResults.length === 0) {
       conceptResults = [{
         conceptUID: question.concept_uid,

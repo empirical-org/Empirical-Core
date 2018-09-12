@@ -55,7 +55,7 @@ pipeline {
         stage('test-lms-ruby') {
           agent {
             dockerfile {
-              filename 'services/QuillJenkins/agents/QuillLMS/Dockerfile.test-ruby'
+              filename 'services/QuillJenkins/agents/QuillLMS/Dockerfile.2.5.1'
               dir '.'
               args "-u root:sudo -v \$HOME/workspace/myproject:/myproject --name test-lms-ruby${env.BUILD_TAG} --network jnk-net${env.BUILD_TAG}"
             }
@@ -67,10 +67,13 @@ pipeline {
             PROGRESS_REPORT_FOG_DIRECTORY = 'empirical-progress-report-dev'
             FOG_DIRECTORY = 'empirical-core-staging'
             CONTINUOUS_INTEGRATION = true
+            SALESMACHINE_API_KEY = 'SALESMACHINE_API_KEY'
           }
           steps {
             echo 'Beginnning TEST...'
             dir(path: 'services/QuillLMS') {
+              echo 'Installing Deps'
+              sh 'bundle install'
               echo 'Rspec:'
               echo 'Setting up rspec...'
               //sh 'cp config/database.yml.jenkins config/database.yml'
@@ -78,6 +81,7 @@ pipeline {
               echo 'Running rspec'
               sh 'bundle exec rake parallel:create'
               sh 'bundle exec rake parallel:load_structure'
+              sh 'bundle exec rake db:migrate'
               sh 'bundle exec rake parallel:spec'
               withCredentials(bindings: [string(credentialsId: 'codecov-token', variable: 'CODECOV_TOKEN')]) {
                 sh "curl -s https://codecov.io/bash | bash -s - -cF rspec -f coverage/coverage.json -t $CODECOV_TOKEN"
@@ -87,10 +91,12 @@ pipeline {
               echo 'Test successful!'
 
               echo 'Beginnning front-end tests...'
-              /*
+
               echo 'Installing necessary packages...'
-              sh 'npm install'
-              sh 'ls'
+              sh 'npm install --unsafe-perm'
+              // sh 'mkdir client/config'
+              // sh 'mkdir client/config/webpack'
+              // sh 'cp config/webpack/* client/config/webpack/.'
               echo 'Building test distribution'
               sh 'npm run build:test'
               echo 'Running jest...'
@@ -98,20 +104,13 @@ pipeline {
               withCredentials(bindings: [string(credentialsId: 'codecov-token', variable: 'CODECOV_TOKEN')]) {
                 sh "curl -s https://codecov.io/bash | bash -s - -cF jest -t $CODECOV_TOKEN"
               }
-
-              dir(path: 'services/QuillJenkins/scripts') {
-                // Check that code coverage has not decreased
-                sh "python -c'import codecov; codecov.fail_on_decrease(\"develop\", $env.BRANCH_NAME )' || exit"
-              }
-              */
-              echo 'Front end tests disabled for now.  moving on!'
             }
           }
         }
         stage('test-comprehension') {
           agent {
             dockerfile {
-              filename 'services/QuillJenkins/agents/QuillComprehension/Dockerfile.test-ruby'
+              filename 'services/QuillJenkins/agents/QuillComprehension/Dockerfile.2.5.1'
               dir '.'
               args "-u root:sudo -v \$HOME/workspace/myproject:/myproject --name test-comprehension${env.BUILD_TAG} --network jnk-net${env.BUILD_TAG}"
             }
@@ -217,6 +216,54 @@ pipeline {
               sh 'npm install'
               echo 'Running Mocha'
               sh 'npm run test'
+              echo 'Building App'
+              sh 'npm run build:jenkins'
+              echo 'Test successful!'
+            }
+          }
+        }
+        stage('test-diagnostic') {
+          agent {
+            dockerfile {
+              filename 'services/QuillJenkins/agents/QuillConnect/Dockerfile.test'
+              dir '.'
+              args "-u root:sudo -v \$HOME/workspace/myproject:/myproject --name test-diagnostic${env.BUILD_TAG}"
+            }
+          }
+          environment {
+            NODE_ENV = 'test'
+          }
+          steps {
+            echo 'Beginnning TEST...'
+            dir(path: 'services/QuillDiagnostic') {
+              sh 'npm install'
+              echo 'Running Mocha'
+              sh 'npm run test'
+              echo 'Building App'
+              sh 'npm run build:jenkins'
+              echo 'Test successful!'
+            }
+          }
+        }
+        stage('test-lessons') {
+          agent {
+            dockerfile {
+              filename 'services/QuillJenkins/agents/QuillConnect/Dockerfile.test'
+              dir '.'
+              args "-u root:sudo -v \$HOME/workspace/myproject:/myproject --name test-lessons${env.BUILD_TAG}"
+            }
+          }
+          environment {
+            NODE_ENV = 'test'
+          }
+          steps {
+            echo 'Beginnning TEST...'
+            dir(path: 'services/QuillLessons') {
+              sh 'npm install'
+              echo 'Running Mocha'
+              sh 'npm run test'
+              echo 'Building App'
+              sh 'npm run build:jenkins'
               echo 'Test successful!'
             }
           }
@@ -261,9 +308,9 @@ pipeline {
 
               /* ensure branch to merge into is not master */
               /* CHANGE_BRANCH is the source branch for a PR */
-              if (env.CHANGE_BRANCH != 'develop') {
+              if (env.CHANGE_BRANCH != 'fake-develop') {
                 if (env.MERGING_INTO == 'master') {
-                  error("Only pull requests from the develop branch can merge directly into master!")
+                  error("Only pull requests from the fake-develop branch can merge directly into master!")
                 }
               }
 
@@ -293,7 +340,7 @@ pipeline {
             script {
               withCredentials([usernamePassword(credentialsId: 'robot-butler', usernameVariable: 'U', passwordVariable: 'T')]) {
                 if (env.GIT_BRANCH == 'develop') {
-                  echo "Automatically deploying develop to staging..."
+                  echo "Automatically deploying fake-develop to staging..."
                   /* heroku allows authentication through 'heroku login', http basic
                    * auth, and SSH keys.  Since right now this stage runs only on the
                    * Jenkins master node, we have simply pre-logged in the user with
@@ -309,7 +356,7 @@ pipeline {
                   echo "Warning: This behavior is not yet enabled with this pipeline."
                 }
                 else {
-                  echo "No deploy stage for non-master / non-develop branch. If you submitted a PR to one of these branches, a build will be triggered."
+                  echo "No deploy stage for non-master / non-fake-develop branch. If you submitted a PR to one of these branches, a build will be triggered."
                 }
               }
             }
@@ -324,27 +371,109 @@ pipeline {
             }
           }
           environment {
+            AWS_ACCESS_KEY_ID=credentials('AWS_ACCESS_KEY_ID')
+            AWS_SECRET_ACCESS_KEY=credentials('AWS_SECRET_ACCESS_KEY')
             QUILL_CMS='https://cms.quill.org'
-            NODE_ENV='production'
-            EMPIRICAL_BASE='https://www.quill.org'
+            NODE_ENV='staging'
+            EMPIRICAL_BASE='https://staging.quill.org'
             PUSHER_KEY=credentials('pusher-key-connect')
           }
           steps {
-            echo "Beginnning connect deploy..."
-            script {
-              withCredentials([usernamePassword(credentialsId: 'robot-butler', usernameVariable: 'U', passwordVariable: 'T')]) {
+            dir (path: 'services/QuillConnect') {
+              echo "Beginnning connect deploy..."
+              script {
+                withCredentials([usernamePassword(credentialsId: 'robot-butler', usernameVariable: 'U', passwordVariable: 'T')]) {
+                  if (env.GIT_BRANCH == 'develop') {
+                    echo "Building packages..."
+                    sh 'npm run build:jenkins'
+                    echo "Deploying to S3..."
+                    sh 'aws s3 sync ./dist s3://aws-website-quill-connect-staging --delete'
+                  }
+                  else if (env.GIT_BRANCH == 'master') {
+                    echo "Automatically deploying master to production..."
+                    echo "Warning: This behavior is not yet enabled with this pipeline."
+                  }
+                  else {
+                    echo "No deploy stage for non-master / non-fake-develop branch. If you submitted a PR to one of these branches, a build will be triggered."
+                  }
+                }
+              }
+            }
+          }
+        }
+        stage('deploy-lessons') {
+          agent {
+            dockerfile {
+              filename 'services/QuillJenkins/agents/QuillConnect/Dockerfile.deploy'
+              dir '.'
+              args "-u root:sudo -v \$HOME/workspace/myproject:/myproject --name deploy-connect${env.BUILD_TAG} --network jnk-net${env.BUILD_TAG}"
+            }
+          }
+          environment {
+            PUSHER_KEY=credentials('pusher-key-connect')
+            AWS_ACCESS_KEY_ID=credentials('AWS_ACCESS_KEY_ID')
+            AWS_SECRET_ACCESS_KEY=credentials('AWS_SECRET_ACCESS_KEY')
+            EMPIRICAL_BASE_URL=credentials('STAGING_LMS_URL')
+            LESSONS_WEBSOCKETS_URL=credentials('STAGING_LESSONS_WEBSOCKETS_URL')
+            NODE_ENV='staging'
+            QUILL_CMS=credentials('CMS_URL')
+          }
+          steps {
+            dir (path: 'services/QuillLessons') {
+              echo "Beginnning lessons deploy..."
+              script {
                 if (env.GIT_BRANCH == 'develop') {
-                  echo "Adding staging.sh script to be run in the npm context..."
-                  sh "echo 'webpack --optimize-minimize; firebase deploy --project production' > staging.sh"
+                  echo "Installing dependencies..."
+                  sh "npm install"
                   echo "Deploying connect to staging..."
-                  sh 'npm run deploy:staging'
+                  sh 'npm run build:jenkins'
+                  sh 'aws s3 sync ./dist s3://aws-website-quill-lessons-staging --delete'
                 }
                 else if (env.GIT_BRANCH == 'master') {
                   echo "Automatically deploying master to production..."
                   echo "Warning: This behavior is not yet enabled with this pipeline."
                 }
                 else {
-                  echo "No deploy stage for non-master / non-develop branch. If you submitted a PR to one of these branches, a build will be triggered."
+                  echo "No deploy stage for non-master / non-fake-develop branch. If you submitted a PR to one of these branches, a build will be triggered."
+                }
+              }
+            }
+          }
+        }
+        stage('deploy-diagnostic') {
+          agent {
+            dockerfile {
+              filename 'services/QuillJenkins/agents/QuillConnect/Dockerfile.deploy'
+              dir '.'
+              args "-u root:sudo -v \$HOME/workspace/myproject:/myproject --name deploy-connect${env.BUILD_TAG} --network jnk-net${env.BUILD_TAG}"
+            }
+          }
+          environment {
+            PUSHER_KEY=credentials('pusher-key-connect')
+            AWS_ACCESS_KEY_ID=credentials('AWS_ACCESS_KEY_ID')
+            AWS_SECRET_ACCESS_KEY=credentials('AWS_SECRET_ACCESS_KEY')
+            EMPIRICAL_BASE_URL=credentials('STAGING_LMS_URL')
+            LESSONS_WEBSOCKETS_URL=credentials('STAGING_LESSONS_WEBSOCKETS_URL')
+            NODE_ENV='staging'
+            QUILL_CMS=credentials('CMS_URL')
+          }
+          steps {
+            dir (path: 'services/QuillDiagnostic') {
+              echo "Beginnning diagnostic deploy..."
+              script {
+                if (env.GIT_BRANCH == 'develop') {
+                  echo "Installing dependencies..."
+                  sh "npm install"
+                  echo "Deploying connect to staging..."
+                  sh 'npm run build:jenkins'
+                  sh 'aws s3 sync ./dist s3://aws-website-quill-diagnostic-staging --delete'
+                }
+                else if (env.GIT_BRANCH == 'master') {
+                  echo "Automatically deploying master to production..."
+                  echo "Warning: This behavior is not yet enabled with this pipeline."
+                }
+                else {
+                  echo "No deploy stage for non-master / non-fake-develop branch. If you submitted a PR to one of these branches, a build will be triggered."
                 }
               }
             }
@@ -357,14 +486,14 @@ pipeline {
       /* https://www.ittybittytalks.com/how-to-automate-your-jenkins-build-script/ */
       steps {
         script {
-          if(env.MERGING_INTO in ['master', 'develop']) {
+          if(env.MERGING_INTO in ['master', 'fake-develop']) {
             echo "${env.MERGING_INTO} will be built automatically by Jenkins; nothing to do now."
           }
           else if (env.IS_PR == 'True') {
             withCredentials([usernamePassword(credentialsId: 'jenkins-api', usernameVariable: 'U', passwordVariable: 'T')]) {
               echo "Trigging destination branch build for ${env.MERGING_INTO}..."
               sh "curl -X POST -u ${U}:${T} https://jenkins.quill.org/job/quill.org/job/${env.MERGING_INTO}/build || exit"
-              // https://jenkins.quill.org/job/quill.org/job/develop/build?delay=0sec
+              // https://jenkins.quill.org/job/quill.org/job/fake-develop/build?delay=0sec
             }
           }
           else {
@@ -380,6 +509,8 @@ pipeline {
       sh "docker stop lms-testdb${env.BUILD_TAG}"
       sh "docker rm lms-testdb${env.BUILD_TAG}"
       sh "docker network rm jnk-net${env.BUILD_TAG}"
+      echo "Removing workspace"
+      cleanWs()
     }
   }
 }
