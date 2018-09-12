@@ -2,48 +2,54 @@ require 'rails_helper'
 
 describe UserLoginWorker, type: :worker do
   let(:worker) { UserLoginWorker.new }
-  let(:analytics) { SegmentAnalytics.new }
+  let(:analyzer) { double(:analyzerm ,track: true, track_with_attributes: true) }
   let(:classroom) { create(:classroom) }
   let(:teacher) { classroom.owner }
   let(:student) { create(:student, classrooms: [classroom]) }
 
-
-  it 'sends a segment.io event when a teacher logs in' do
-    worker.perform(teacher.id, "127.0.0.1")
-
-    expect(analytics.backend.track_calls.size).to eq(1)
-    expect(analytics.backend.track_calls[0][:event]).to eq(SegmentIo::Events::TEACHER_SIGNIN)
-    expect(analytics.backend.track_calls[0][:user_id]).to eq(teacher.id)
+  before do
+    allow(Analyzer).to receive(:new) { analyzer }
   end
 
-  context 'student with teacher logs in' do
-    before :each do
+  context 'when a teacher logs in' do
+    it 'track teacher sign in' do
+      expect(analyzer).to receive(:track).with(teacher, SegmentIo::Events::TEACHER_SIGNIN)
+      worker.perform(teacher.id, "127.0.0.1")
+    end
+  end
+
+  context 'when student with teacher logs in' do
+
+    it 'track teacher student sign in and student sign in' do
+      expect(analyzer).to receive(:track).with(teacher, SegmentIo::Events::TEACHERS_STUDENT_SIGNIN)
       worker.perform(student.id, "127.0.0.1")
-    end
-
-    it 'sends two segment.io event' do
-      expect(analytics.backend.track_calls.size).to eq(2)
-    end
-
-    it 'sends segment.io event TEACHERS_STUDENT_SIGNIN when a student logs in, identifying the teacher' do
-      expect(analytics.backend.track_calls[0][:event]).to eq(SegmentIo::Events::TEACHERS_STUDENT_SIGNIN)
-      expect(analytics.backend.track_calls[0][:user_id]).to eq(teacher.id)
-    end
-
-    it 'sends segment.io event STUDENT_SIGNIN when a student logs in, identifying the student (AS THE SECOND EVENT)' do
-      expect(analytics.backend.track_calls[1][:event]).to eq(SegmentIo::Events::STUDENT_SIGNIN)
-      expect(analytics.backend.track_calls[1][:user_id]).to eq(student.id)
+      expect(analyzer).to have_received(:track_with_attributes).with(
+          student.reload,
+          SegmentIo::Events::STUDENT_SIGNIN,
+          {
+              context: { :ip => student.reload.ip_address },
+              integrations: { all: true, Intercom: false }
+          }
+      )
     end
   end
 
   context 'student with no teacher logs in' do
     before :each do
-      student.update_attributes(classcode: nil)
-      worker.perform(student.id, "127.0.0.1")
+      allow(StudentsTeacher).to receive(:run) { nil }
     end
 
-    it 'only sends 1 event' do
-      expect(analytics.backend.track_calls.size).to eq(2)
+    it 'should track student signin' do
+      expect(analyzer).to_not receive(:track)
+      worker.perform(student.id, "127.0.0.1")
+      expect(analyzer).to have_received(:track_with_attributes).with(
+          student.reload,
+          SegmentIo::Events::STUDENT_SIGNIN,
+          {
+              context: { :ip => student.reload.ip_address },
+              integrations: { all: true, Intercom: false }
+          }
+      )
     end
   end
 end

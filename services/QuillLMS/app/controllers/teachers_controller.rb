@@ -36,7 +36,7 @@ class TeachersController < ApplicationController
 
   # Called when a teacher accepts an invite to the school. This is sent to them via email.
   def add_school
-    if current_user && current_user == User.find_by(id: params[:id])
+    if current_user.present? && current_user == User.find_by(id: params[:id])
       # Current user is the user that was invited.
       school = School.find(params[:school_id])
       # User should only belong to one school, so we find their existing link and update the school.
@@ -56,7 +56,7 @@ class TeachersController < ApplicationController
   end
 
   def admin_dashboard
-    if current_user.admin?
+    if current_user.present? && current_user.admin?
       render 'admin'
     else
       redirect_to profile_path
@@ -79,8 +79,10 @@ class TeachersController < ApplicationController
     classrooms =  ActiveRecord::Base.connection.execute(
       "SELECT DISTINCT classrooms.* FROM classrooms
        JOIN classrooms_teachers ON classrooms_teachers.classroom_id = classrooms.id
-       JOIN classroom_activities ON classroom_activities.classroom_id = classrooms.id
-       JOIN activities ON activities.id = classroom_activities.activity_id
+       JOIN classroom_units ON classroom_units.classroom_id = classrooms.id
+       JOIN units ON classroom_units.unit_id = units.id
+       JOIN unit_activities ON unit_activities.unit_id = units.id
+       JOIN activities ON activities.id = unit_activities.activity_id
        WHERE activities.activity_classification_id = 6
             AND classrooms_teachers.user_id = #{current_user.id}"
     ).to_a
@@ -97,9 +99,8 @@ class TeachersController < ApplicationController
 
   def get_completed_diagnostic_unit_info
     begin
-      unit_id = current_user.finished_diagnostic_unit_ids.first.id
-      ca = ClassroomActivity.find_by(unit_id: unit_id, activity_id: [413, 447, 602])
-      unit_info = { unit_id: unit_id, classroom_id: ca.classroom_id, activity_id: ca.activity_id }
+      last_finished_diagnostic = current_user.finished_diagnostic_unit_ids_with_classroom_id_and_activity_id.first
+      unit_info = { unit_id: last_finished_diagnostic.unit_id, classroom_id: last_finished_diagnostic.classroom_id, activity_id: last_finished_diagnostic.activity_id }
     rescue
       unit_info = {}
     end
@@ -107,11 +108,15 @@ class TeachersController < ApplicationController
   end
 
   def get_diagnostic_info_for_dashboard_mini
-    records = ActiveRecord::Base.connection.execute("SELECT ca.id AS classroom_activity_id, units.id AS unit_id, classroom.id AS classroom_id, acts.id AS activity_id, actsesh.completed_at FROM classroom_activities ca
-               JOIN units ON ca.unit_id = units.id
-               JOIN activities AS acts ON ca.activity_id = acts.id
-               JOIN classrooms AS classroom ON ca.classroom_id = classroom.id
-               JOIN activity_sessions AS actsesh ON actsesh.classroom_activity_id = ca.id
+    records = ActiveRecord::Base.connection.execute("SELECT cu.id AS classroom_unit_id,
+      units.id AS unit_id,
+      classroom.id AS classroom_id,
+      acts.id AS activity_id,
+      actsesh.completed_at FROM classroom_units cu
+               JOIN units ON cu.unit_id = units.id
+               JOIN classrooms AS classroom ON cu.classroom_id = classroom.id
+               JOIN activity_sessions AS actsesh ON actsesh.classroom_unit_id = cu.id
+               JOIN activities AS acts ON actsesh.activity_id = acts.id
                WHERE units.user_id = #{current_user.id}
                AND acts.activity_classification_id = 4
                ORDER BY actsesh.completed_at DESC").to_a
@@ -120,11 +125,11 @@ class TeachersController < ApplicationController
       # checks to see if the diagnostic was completed within a week
       if most_recently_completed && 1.week.ago < most_recently_completed['completed_at']
         number_of_finished_students = ActiveRecord::Base.connection.execute("SELECT COUNT(actsesh.id) FROM activity_sessions actsesh
-                              JOIN classroom_activities AS ca ON actsesh.classroom_activity_id = ca.id
-                              WHERE ca.id = #{ActiveRecord::Base.sanitize(most_recently_completed['classroom_activity_id'])}
+                              JOIN classroom_units AS cu ON actsesh.classroom_unit_id = cu.id
+                              WHERE cu.id = #{ActiveRecord::Base.sanitize(most_recently_completed['classroom_unit_id'])}
                               AND actsesh.state = 'finished'
                               AND actsesh.visible = 'true'
-                              AND ca.visible = 'true'").to_a.first['count']
+                              AND cu.visible = 'true'").to_a.first['count']
         render json: {status: 'recently completed', unit_info: most_recently_completed, number_of_finished_students: number_of_finished_students }
       elsif most_recently_completed
         render json: {status: 'completed'}

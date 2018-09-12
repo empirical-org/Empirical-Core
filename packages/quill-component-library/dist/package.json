@@ -1,0 +1,18 @@
+{
+  "name": "quill-component-library",
+  "version": "0.1.20",
+  "description": "A library for components shared between Quill apps.",
+  "main": "componentLibrary.js",
+  "module": "componentLibrary.module.js",
+  "homepage": "https://github.com/empirical-org/empirical-core/packages/quill-component-library#readme",
+  "author": "Quill.org",
+  "license": "AGPL-3.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/empirical-org/quill-component-library.git"
+  },
+  "bugs": {
+    "url": "https://github.com/empirical-org/quill-component-library/issues"
+  },
+  "private": false
+}

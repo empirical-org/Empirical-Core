@@ -40,3 +40,7 @@ export function getStoredEditionMetadata(store, props) {
 export function getStoredEditionQuestions(store) {
   return FromCustomize.getEditionQuestions(store.customize);
 }
+
+export function getStoredOriginalEditionQuestions(store) {
+  return FromCustomize.getOriginalEditionQuestions(store.customize);
+}

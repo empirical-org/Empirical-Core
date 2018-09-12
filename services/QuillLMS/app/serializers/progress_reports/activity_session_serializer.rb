@@ -44,19 +44,19 @@ class ProgressReports::ActivitySessionSerializer  < ActiveModel::Serializer
   # Following fields are used by the filters
 
   def classroom_id
-    object.classroom_activity.try(:classroom_id)
+    object.classroom_unit.try(:classroom_id)
   end
 
   def classroom_name
-    object.classroom_activity.try(:classroom).try(:name)
+    object.classroom_unit.try(:classroom).try(:name)
   end
 
   def unit_id
-    object.classroom_activity.try(:unit).try(:id)
+    object.classroom_unit.try(:unit).try(:id)
   end
 
   def unit_name
-    object.classroom_activity.try(:unit).try(:name)
+    object.classroom_unit.try(:unit).try(:name)
   end
 
   def student_name

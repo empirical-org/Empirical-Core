@@ -111,6 +111,7 @@ EmpiricalGrammar::Application.configure do
   end
 
   config.middleware.use Rack::HostRedirect, {
+    'www.quill.org.' => 'www.quill.org',
     'quill.org' => 'www.quill.org'
   }
 end

@@ -260,6 +260,32 @@ CREATE TABLE activity_sessions (
     user_id integer,
     pairing_id character varying(255),
     percentage double precision,
+    state character varying(255),
+    completed_at timestamp without time zone,
+    uid character varying(255),
+    temporary boolean,
+    data hstore,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    started_at timestamp without time zone,
+    is_retry boolean,
+    is_final_score boolean,
+    visible boolean,
+    classroom_unit_id integer
+);
+
+
+--
+-- Name: old_activity_sessions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE old_activity_sessions (
+    id integer NOT NULL,
+    classroom_activity_id integer,
+    activity_id integer,
+    user_id integer,
+    pairing_id character varying(255),
+    percentage double precision,
     state character varying(255) DEFAULT 'unstarted'::character varying NOT NULL,
     completed_at timestamp without time zone,
     uid character varying(255),
@@ -270,7 +296,8 @@ CREATE TABLE activity_sessions (
     started_at timestamp without time zone,
     is_retry boolean DEFAULT false,
     is_final_score boolean DEFAULT false,
-    visible boolean DEFAULT true NOT NULL
+    visible boolean DEFAULT true NOT NULL,
+    classroom_unit_id integer
 );
 
 
@@ -290,7 +317,7 @@ CREATE SEQUENCE activity_sessions_id_seq
 -- Name: activity_sessions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE activity_sessions_id_seq OWNED BY activity_sessions.id;
+ALTER SEQUENCE activity_sessions_id_seq OWNED BY old_activity_sessions.id;
 
 
 --
@@ -674,6 +701,79 @@ ALTER SEQUENCE classroom_activities_id_seq OWNED BY classroom_activities.id;
 
 
 --
+-- Name: classroom_unit_activity_states; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE classroom_unit_activity_states (
+    id integer NOT NULL,
+    classroom_unit_id integer NOT NULL,
+    unit_activity_id integer NOT NULL,
+    completed boolean DEFAULT false,
+    pinned boolean DEFAULT false,
+    locked boolean DEFAULT false,
+    data json DEFAULT '{}'::json,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: classroom_unit_activity_states_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE classroom_unit_activity_states_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: classroom_unit_activity_states_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE classroom_unit_activity_states_id_seq OWNED BY classroom_unit_activity_states.id;
+
+
+--
+-- Name: classroom_units; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE classroom_units (
+    id integer NOT NULL,
+    classroom_id integer NOT NULL,
+    unit_id integer NOT NULL,
+    visible boolean DEFAULT true,
+    assigned_student_ids integer[] DEFAULT '{}'::integer[],
+    assign_on_join boolean DEFAULT false,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: classroom_units_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE classroom_units_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: classroom_units_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE classroom_units_id_seq OWNED BY classroom_units.id;
+
+
+--
 -- Name: classrooms; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -824,7 +924,10 @@ CREATE TABLE concepts (
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     parent_id integer,
-    uid character varying(255) NOT NULL
+    uid character varying(255) NOT NULL,
+    replacement_id integer,
+    visible boolean DEFAULT true,
+    description text
 );
 
 
@@ -912,6 +1015,39 @@ CREATE SEQUENCE credit_transactions_id_seq
 --
 
 ALTER SEQUENCE credit_transactions_id_seq OWNED BY credit_transactions.id;
+
+
+--
+-- Name: criteria; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE criteria (
+    id integer NOT NULL,
+    concept_id integer NOT NULL,
+    count integer DEFAULT 0 NOT NULL,
+    recommendation_id integer NOT NULL,
+    no_incorrect boolean DEFAULT false NOT NULL
+);
+
+
+--
+-- Name: criteria_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE criteria_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: criteria_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE criteria_id_seq OWNED BY criteria.id;
 
 
 --
@@ -1191,6 +1327,58 @@ ALTER SEQUENCE milestones_id_seq OWNED BY milestones.id;
 
 
 --
+-- Name: new_activity_sessions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE new_activity_sessions (
+    id integer NOT NULL,
+    classroom_activity_id integer,
+    activity_id integer,
+    user_id integer,
+    pairing_id character varying(255),
+    percentage double precision,
+    state character varying(255) NOT NULL,
+    completed_at timestamp without time zone,
+    uid character varying(255),
+    temporary boolean,
+    data hstore,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    started_at timestamp without time zone,
+    is_retry boolean,
+    is_final_score boolean,
+    visible boolean NOT NULL,
+    classroom_unit_id integer
+);
+
+
+--
+-- Name: newer_activity_sessions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE newer_activity_sessions (
+    id integer,
+    classroom_activity_id integer,
+    activity_id integer,
+    user_id integer,
+    pairing_id character varying(255),
+    percentage double precision,
+    state character varying(255),
+    completed_at timestamp without time zone,
+    uid character varying(255),
+    temporary boolean,
+    data hstore,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    started_at timestamp without time zone,
+    is_retry boolean,
+    is_final_score boolean,
+    visible boolean,
+    classroom_unit_id integer
+);
+
+
+--
 -- Name: oauth_access_grants; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1363,6 +1551,40 @@ CREATE SEQUENCE page_areas_id_seq
 --
 
 ALTER SEQUENCE page_areas_id_seq OWNED BY page_areas.id;
+
+
+--
+-- Name: recommendations; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE recommendations (
+    id integer NOT NULL,
+    name character varying NOT NULL,
+    activity_id integer NOT NULL,
+    unit_template_id integer NOT NULL,
+    category integer NOT NULL,
+    "order" integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: recommendations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE recommendations_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: recommendations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE recommendations_id_seq OWNED BY recommendations.id;
 
 
 --
@@ -1939,6 +2161,41 @@ ALTER SEQUENCE topics_id_seq OWNED BY topics.id;
 
 
 --
+-- Name: unit_activities; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE unit_activities (
+    id integer NOT NULL,
+    unit_id integer NOT NULL,
+    activity_id integer NOT NULL,
+    visible boolean DEFAULT true,
+    due_date timestamp without time zone,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: unit_activities_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE unit_activities_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: unit_activities_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE unit_activities_id_seq OWNED BY unit_activities.id;
+
+
+--
 -- Name: unit_template_categories; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -2183,13 +2440,6 @@ ALTER TABLE ONLY activity_classifications ALTER COLUMN id SET DEFAULT nextval('a
 
 
 --
--- Name: activity_sessions id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY activity_sessions ALTER COLUMN id SET DEFAULT nextval('activity_sessions_id_seq'::regclass);
-
-
---
 -- Name: admin_accounts id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -2267,6 +2517,20 @@ ALTER TABLE ONLY classroom_activities ALTER COLUMN id SET DEFAULT nextval('class
 
 
 --
+-- Name: classroom_unit_activity_states id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY classroom_unit_activity_states ALTER COLUMN id SET DEFAULT nextval('classroom_unit_activity_states_id_seq'::regclass);
+
+
+--
+-- Name: classroom_units id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY classroom_units ALTER COLUMN id SET DEFAULT nextval('classroom_units_id_seq'::regclass);
+
+
+--
 -- Name: classrooms id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -2313,6 +2577,13 @@ ALTER TABLE ONLY coteacher_classroom_invitations ALTER COLUMN id SET DEFAULT nex
 --
 
 ALTER TABLE ONLY credit_transactions ALTER COLUMN id SET DEFAULT nextval('credit_transactions_id_seq'::regclass);
+
+
+--
+-- Name: criteria id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY criteria ALTER COLUMN id SET DEFAULT nextval('criteria_id_seq'::regclass);
 
 
 --
@@ -2400,10 +2671,24 @@ ALTER TABLE ONLY objectives ALTER COLUMN id SET DEFAULT nextval('objectives_id_s
 
 
 --
+-- Name: old_activity_sessions id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY old_activity_sessions ALTER COLUMN id SET DEFAULT nextval('activity_sessions_id_seq'::regclass);
+
+
+--
 -- Name: page_areas id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY page_areas ALTER COLUMN id SET DEFAULT nextval('page_areas_id_seq'::regclass);
+
+
+--
+-- Name: recommendations id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY recommendations ALTER COLUMN id SET DEFAULT nextval('recommendations_id_seq'::regclass);
 
 
 --
@@ -2519,6 +2804,13 @@ ALTER TABLE ONLY topics ALTER COLUMN id SET DEFAULT nextval('topics_id_seq'::reg
 
 
 --
+-- Name: unit_activities id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY unit_activities ALTER COLUMN id SET DEFAULT nextval('unit_activities_id_seq'::regclass);
+
+
+--
 -- Name: unit_template_categories id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -2593,10 +2885,10 @@ ALTER TABLE ONLY activity_classifications
 
 
 --
--- Name: activity_sessions activity_sessions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: old_activity_sessions activity_sessions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY activity_sessions
+ALTER TABLE ONLY old_activity_sessions
     ADD CONSTRAINT activity_sessions_pkey PRIMARY KEY (id);
 
 
@@ -2689,6 +2981,22 @@ ALTER TABLE ONLY classroom_activities
 
 
 --
+-- Name: classroom_unit_activity_states classroom_unit_activity_states_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY classroom_unit_activity_states
+    ADD CONSTRAINT classroom_unit_activity_states_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: classroom_units classroom_units_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY classroom_units
+    ADD CONSTRAINT classroom_units_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: classrooms classrooms_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2742,6 +3050,14 @@ ALTER TABLE ONLY coteacher_classroom_invitations
 
 ALTER TABLE ONLY credit_transactions
     ADD CONSTRAINT credit_transactions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: criteria criteria_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY criteria
+    ADD CONSTRAINT criteria_pkey PRIMARY KEY (id);
 
 
 --
@@ -2809,6 +3125,14 @@ ALTER TABLE ONLY milestones
 
 
 --
+-- Name: activity_sessions newest_activity_sessions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY activity_sessions
+    ADD CONSTRAINT newest_activity_sessions_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: oauth_access_grants oauth_access_grants_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2846,6 +3170,14 @@ ALTER TABLE ONLY objectives
 
 ALTER TABLE ONLY page_areas
     ADD CONSTRAINT page_areas_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: recommendations recommendations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY recommendations
+    ADD CONSTRAINT recommendations_pkey PRIMARY KEY (id);
 
 
 --
@@ -2977,6 +3309,14 @@ ALTER TABLE ONLY topics
 
 
 --
+-- Name: unit_activities unit_activities_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY unit_activities
+    ADD CONSTRAINT unit_activities_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: unit_template_categories unit_template_categories_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3022,6 +3362,13 @@ ALTER TABLE ONLY user_subscriptions
 
 ALTER TABLE ONLY users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: activity_sessions_classroom_activity_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX activity_sessions_classroom_activity_id_idx ON public.old_activity_sessions USING btree (classroom_activity_id);
 
 
 --
@@ -3085,62 +3432,6 @@ CREATE UNIQUE INDEX index_activity_classifications_on_key ON public.activity_cla
 --
 
 CREATE UNIQUE INDEX index_activity_classifications_on_uid ON public.activity_classifications USING btree (uid);
-
-
---
--- Name: index_activity_sessions_on_activity_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_activity_sessions_on_activity_id ON public.activity_sessions USING btree (activity_id);
-
-
---
--- Name: index_activity_sessions_on_classroom_activity_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_activity_sessions_on_classroom_activity_id ON public.activity_sessions USING btree (classroom_activity_id);
-
-
---
--- Name: index_activity_sessions_on_completed_at; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_activity_sessions_on_completed_at ON public.activity_sessions USING btree (completed_at);
-
-
---
--- Name: index_activity_sessions_on_pairing_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_activity_sessions_on_pairing_id ON public.activity_sessions USING btree (pairing_id);
-
-
---
--- Name: index_activity_sessions_on_started_at; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_activity_sessions_on_started_at ON public.activity_sessions USING btree (started_at);
-
-
---
--- Name: index_activity_sessions_on_state; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_activity_sessions_on_state ON public.activity_sessions USING btree (state);
-
-
---
--- Name: index_activity_sessions_on_uid; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_activity_sessions_on_uid ON public.activity_sessions USING btree (uid);
-
-
---
--- Name: index_activity_sessions_on_user_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_activity_sessions_on_user_id ON public.activity_sessions USING btree (user_id);
 
 
 --
@@ -3284,6 +3575,41 @@ CREATE INDEX index_classroom_activities_on_updated_at ON public.classroom_activi
 
 
 --
+-- Name: index_classroom_unit_activity_states_on_classroom_unit_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_classroom_unit_activity_states_on_classroom_unit_id ON public.classroom_unit_activity_states USING btree (classroom_unit_id);
+
+
+--
+-- Name: index_classroom_unit_activity_states_on_unit_activity_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_classroom_unit_activity_states_on_unit_activity_id ON public.classroom_unit_activity_states USING btree (unit_activity_id);
+
+
+--
+-- Name: index_classroom_units_on_classroom_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_classroom_units_on_classroom_id ON public.classroom_units USING btree (classroom_id);
+
+
+--
+-- Name: index_classroom_units_on_unit_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_classroom_units_on_unit_id ON public.classroom_units USING btree (unit_id);
+
+
+--
+-- Name: index_classroom_units_on_unit_id_and_classroom_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_classroom_units_on_unit_id_and_classroom_id ON public.classroom_units USING btree (unit_id, classroom_id);
+
+
+--
 -- Name: index_classrooms_on_code; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -3389,6 +3715,20 @@ CREATE INDEX index_credit_transactions_on_user_id ON public.credit_transactions 
 
 
 --
+-- Name: index_criteria_on_concept_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_criteria_on_concept_id ON public.criteria USING btree (concept_id);
+
+
+--
+-- Name: index_criteria_on_recommendation_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_criteria_on_recommendation_id ON public.criteria USING btree (recommendation_id);
+
+
+--
 -- Name: index_districts_users_on_district_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -3477,6 +3817,20 @@ CREATE UNIQUE INDEX index_oauth_access_tokens_on_token ON public.oauth_access_to
 --
 
 CREATE UNIQUE INDEX index_oauth_applications_on_uid ON public.oauth_applications USING btree (uid);
+
+
+--
+-- Name: index_recommendations_on_activity_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_recommendations_on_activity_id ON public.recommendations USING btree (activity_id);
+
+
+--
+-- Name: index_recommendations_on_unit_template_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_recommendations_on_unit_template_id ON public.recommendations USING btree (unit_template_id);
 
 
 --
@@ -3704,6 +4058,27 @@ CREATE INDEX index_topics_on_topic_category_id ON public.topics USING btree (top
 
 
 --
+-- Name: index_unit_activities_on_activity_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_unit_activities_on_activity_id ON public.unit_activities USING btree (activity_id);
+
+
+--
+-- Name: index_unit_activities_on_unit_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_unit_activities_on_unit_id ON public.unit_activities USING btree (unit_id);
+
+
+--
+-- Name: index_unit_activities_on_unit_id_and_activity_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_unit_activities_on_unit_id_and_activity_id ON public.unit_activities USING btree (unit_id, activity_id);
+
+
+--
 -- Name: index_unit_templates_on_activity_info; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -3851,10 +4226,59 @@ CREATE INDEX name_idx ON public.users USING gin (name gin_trgm_ops);
 
 
 --
+-- Name: newest_activity_sessions_activity_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX newest_activity_sessions_activity_id_idx ON public.activity_sessions USING btree (activity_id);
+
+
+--
+-- Name: newest_activity_sessions_classroom_unit_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX newest_activity_sessions_classroom_unit_id_idx ON public.activity_sessions USING btree (classroom_unit_id);
+
+
+--
+-- Name: newest_activity_sessions_state_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX newest_activity_sessions_state_idx ON public.activity_sessions USING btree (state);
+
+
+--
+-- Name: newest_activity_sessions_uid_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX newest_activity_sessions_uid_idx ON public.activity_sessions USING btree (uid);
+
+
+--
+-- Name: newest_activity_sessions_user_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX newest_activity_sessions_user_id_idx ON public.activity_sessions USING btree (user_id);
+
+
+--
+-- Name: newest_activity_sessions_visible_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX newest_activity_sessions_visible_idx ON public.activity_sessions USING btree (visible);
+
+
+--
 -- Name: tsv_idx; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX tsv_idx ON public.blog_posts USING gin (tsv);
+
+
+--
+-- Name: unique_classroom_and_activity_for_cua_state; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX unique_classroom_and_activity_for_cua_state ON public.classroom_unit_activity_states USING btree (classroom_unit_id, unit_activity_id);
 
 
 --
@@ -4020,6 +4444,14 @@ ALTER TABLE ONLY units
 
 
 --
+-- Name: classroom_units fk_rails_3e1ff09783; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY classroom_units
+    ADD CONSTRAINT fk_rails_3e1ff09783 FOREIGN KEY (unit_id) REFERENCES units(id);
+
+
+--
 -- Name: sales_stages fk_rails_41082adef9; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -4028,11 +4460,75 @@ ALTER TABLE ONLY sales_stages
 
 
 --
+-- Name: classroom_unit_activity_states fk_rails_457a11a3eb; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY classroom_unit_activity_states
+    ADD CONSTRAINT fk_rails_457a11a3eb FOREIGN KEY (classroom_unit_id) REFERENCES classroom_units(id);
+
+
+--
+-- Name: unit_activities fk_rails_48bcb0b8a0; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY unit_activities
+    ADD CONSTRAINT fk_rails_48bcb0b8a0 FOREIGN KEY (unit_id) REFERENCES units(id);
+
+
+--
+-- Name: criteria fk_rails_63b994bcda; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY criteria
+    ADD CONSTRAINT fk_rails_63b994bcda FOREIGN KEY (recommendation_id) REFERENCES recommendations(id);
+
+
+--
+-- Name: recommendations fk_rails_6745e4bc86; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY recommendations
+    ADD CONSTRAINT fk_rails_6745e4bc86 FOREIGN KEY (unit_template_id) REFERENCES unit_templates(id);
+
+
+--
+-- Name: classroom_units fk_rails_a3c514fc6d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY classroom_units
+    ADD CONSTRAINT fk_rails_a3c514fc6d FOREIGN KEY (classroom_id) REFERENCES classrooms(id);
+
+
+--
 -- Name: sales_stages fk_rails_a8025d2621; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY sales_stages
     ADD CONSTRAINT fk_rails_a8025d2621 FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
+-- Name: criteria fk_rails_ada79930c6; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY criteria
+    ADD CONSTRAINT fk_rails_ada79930c6 FOREIGN KEY (concept_id) REFERENCES concepts(id);
+
+
+--
+-- Name: unit_activities fk_rails_b921d87b04; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY unit_activities
+    ADD CONSTRAINT fk_rails_b921d87b04 FOREIGN KEY (activity_id) REFERENCES activities(id);
+
+
+--
+-- Name: classroom_unit_activity_states fk_rails_bab346c597; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY classroom_unit_activity_states
+    ADD CONSTRAINT fk_rails_bab346c597 FOREIGN KEY (unit_activity_id) REFERENCES unit_activities(id);
 
 
 --
@@ -4049,6 +4545,14 @@ ALTER TABLE ONLY concept_results
 
 ALTER TABLE ONLY sales_contacts
     ADD CONSTRAINT fk_rails_d6738e130a FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
+-- Name: recommendations fk_rails_dc326309ed; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY recommendations
+    ADD CONSTRAINT fk_rails_dc326309ed FOREIGN KEY (activity_id) REFERENCES activities(id);
 
 
 --
@@ -4626,4 +5130,40 @@ INSERT INTO schema_migrations (version) VALUES ('20180502152419');
 INSERT INTO schema_migrations (version) VALUES ('20180517045137');
 
 INSERT INTO schema_migrations (version) VALUES ('20180530145153');
+
+INSERT INTO schema_migrations (version) VALUES ('20180625211305');
+
+INSERT INTO schema_migrations (version) VALUES ('20180627183421');
+
+INSERT INTO schema_migrations (version) VALUES ('20180627184008');
+
+INSERT INTO schema_migrations (version) VALUES ('20180627200532');
+
+INSERT INTO schema_migrations (version) VALUES ('20180628161337');
+
+INSERT INTO schema_migrations (version) VALUES ('20180628182314');
+
+INSERT INTO schema_migrations (version) VALUES ('20180628191240');
+
+INSERT INTO schema_migrations (version) VALUES ('20180629151757');
+
+INSERT INTO schema_migrations (version) VALUES ('20180702201017');
+
+INSERT INTO schema_migrations (version) VALUES ('20180703154253');
+
+INSERT INTO schema_migrations (version) VALUES ('20180703154718');
+
+INSERT INTO schema_migrations (version) VALUES ('20180709190219');
+
+INSERT INTO schema_migrations (version) VALUES ('20180709190257');
+
+INSERT INTO schema_migrations (version) VALUES ('20180709190427');
+
+INSERT INTO schema_migrations (version) VALUES ('20180709192646');
+
+INSERT INTO schema_migrations (version) VALUES ('20180718195853');
+
+INSERT INTO schema_migrations (version) VALUES ('20180810181001');
+
+INSERT INTO schema_migrations (version) VALUES ('20180911171536');
 

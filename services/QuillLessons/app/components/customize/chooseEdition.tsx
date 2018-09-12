@@ -1,30 +1,39 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import * as _ from 'lodash'
+import * as _ from 'lodash';
 import {
   createNewEdition,
   saveEditionName,
   archiveEdition,
   deleteEdition
-} from '../../actions/customize'
+} from '../../actions/customize';
 import {
   setEditionId
-} from '../../actions/classroomSessions'
-import EditionNamingModal from './editionNamingModal'
-import EditionRow from './editionRow'
-import SignupModal from '../classroomLessons/teach/signupModal'
-import { getParameterByName } from '../../libs/getParameterByName'
-import * as CustomizeIntF from '../../interfaces/customize'
+} from '../../actions/classroomSessions';
+import {
+  ClassroomSessionId,
+  ClassroomUnitId
+} from '../classroomLessons/interfaces'
+import EditionNamingModal from './editionNamingModal';
+import EditionRow from './editionRow';
+import SignupModal from '../classroomLessons/teach/signupModal';
+import { getParameterByName } from '../../libs/getParameterByName';
+import * as CustomizeIntF from '../../interfaces/customize';
 
 class ChooseEdition extends React.Component<any, any> {
   constructor(props) {
     super(props)
+
+    const classroomUnitId: ClassroomUnitId|null = getParameterByName('classroom_unit_id')
+    const activityUid = props.params.lessonID
+
     this.state = {
       showNamingModal: false,
       newEditionUid: '',
       newEditionName: '',
-      selectState: getParameterByName('preview') || getParameterByName('classroom_activity_id'),
-      showSignupModal: false
+      showSignupModal: false,
+      classroomUnitId,
+      classroomSessionId: classroomUnitId ? classroomUnitId.concat(activityUid) : null
     }
 
     this.makeNewEdition = this.makeNewEdition.bind(this)
@@ -66,9 +75,9 @@ class ChooseEdition extends React.Component<any, any> {
 
   editEdition(editionUid:string) {
     let route
-    const classroomActivityId = getParameterByName('classroom_activity_id')
-    if (classroomActivityId) {
-      route = `/customize/${this.props.params.lessonID}/${editionUid}?&classroom_activity_id=${classroomActivityId}`
+    const classroomUnitId = getParameterByName('classroom_unit_id')
+    if (classroomUnitId) {
+      route = `/customize/${this.props.params.lessonID}/${editionUid}?&classroom_unit_id=${classroomUnitId}`
     } else {
       route = `/customize/${this.props.params.lessonID}/${editionUid}`
     }
@@ -91,9 +100,9 @@ class ChooseEdition extends React.Component<any, any> {
     if (this.state.newEditionName) {
       saveEditionName(this.state.newEditionUid, this.state.newEditionName)
       let route
-      const classroomActivityId = getParameterByName('classroom_activity_id')
-      if (classroomActivityId) {
-        route = `/customize/${this.props.params.lessonID}/${this.state.newEditionUid}?&classroom_activity_id=${classroomActivityId}`
+      const classroomUnitId = getParameterByName('classroom_unit_id')
+      if (classroomUnitId) {
+        route = `/customize/${this.props.params.lessonID}/${this.state.newEditionUid}?&classroom_unit_id=${classroomUnitId}`
       } else {
         route = `/customize/${this.props.params.lessonID}/${this.state.newEditionUid}`
       }
@@ -102,14 +111,11 @@ class ChooseEdition extends React.Component<any, any> {
   }
 
   selectAction(editionKey: string) {
-    const lessonId = this.props.params.lessonID
-    const classroomActivityId = getParameterByName('classroom_activity_id')
-    if (getParameterByName('preview')) {
-      const editionId = editionKey ? editionKey : ''
-      return this.props.router.push(`teach/class-lessons/${lessonId}/preview/${editionId}`)
-    } else if (classroomActivityId) {
-      return setEditionId(classroomActivityId, editionKey, () => window.location.href = `#/teach/class-lessons/${lessonId}?&classroom_activity_id=${classroomActivityId}`)
-    }
+    const lessonId = this.props.params.lessonID;
+    const classroomSessionId:ClassroomSessionId = this.state.classroomSessionId || '';
+    const classroomUnitId:ClassroomUnitId = this.state.classroomUnitId || '';
+
+    return setEditionId(classroomSessionId, editionKey, () => window.location.href = `#/teach/class-lessons/${lessonId}?&classroom_unit_id=${classroomUnitId}`)
   }
 
   renderBackButton() {
@@ -122,11 +128,13 @@ class ChooseEdition extends React.Component<any, any> {
   }
 
   renderLessonInfo() {
-    const lessonData = this.props.classroomLesson.data
+    const lessonData = this.props.classroomLesson.data;
+    const { preview } = this.props.classroomSessions.data;
+
     let text
-    if (getParameterByName('preview')) {
+    if (preview) {
       text = 'You are previewing this lesson:'
-    } else if (getParameterByName('classroom_activity_id')) {
+    } else if (getParameterByName('classroom_unit_id')) {
       text = 'You are launching this lesson:'
     } else {
       text = 'You are customizing this lesson:'
@@ -138,7 +146,10 @@ class ChooseEdition extends React.Component<any, any> {
   }
 
   renderHeader() {
-    if (this.state.selectState) {
+    const selectState = this.props.classroomSessions.data.preview ||
+      getParameterByName('classroom_unit_id');
+
+    if (selectState) {
       return <h1>Select Edition of Lesson</h1>
     } else {
       return <h1>Customize Edition of Lesson</h1>
@@ -146,7 +157,11 @@ class ChooseEdition extends React.Component<any, any> {
   }
 
   renderExplanation() {
-    if (this.state.selectState) {
+    const selectState = this.props.classroomSessions.data.preview ||
+      getParameterByName('classroom_unit_id');
+
+
+    if (selectState) {
       return <p className="explanation">By clicking <span>“Customize”</span> and then selecting <span>“Make Copy,”</span> you will be able to customize the lesson with your own content. You can update your own editions at any time by clicking on <span>“Customize”</span> and then selecting <span>“Edit Edition”</span>. If you decide to customize a lesson now, your launched lesson will be paused until you publish your new edition.</p>
     } else {
       return <p className="explanation">By clicking <span>“Customize”</span> and then selecting <span>“Make Copy,”</span> you will be able to customize the lesson with your own content. You can update your own editions at any time by clicking on <span>“Customize”</span> and then selecting <span>“Edit Edition”</span>.</p>
@@ -166,7 +181,9 @@ class ChooseEdition extends React.Component<any, any> {
   }
 
   renderEditions() {
-    const {editions, user_id} = this.props.customize
+    const selectState = this.props.classroomSessions.data.preview ||
+      getParameterByName('classroom_unit_id');
+    const { editions, user_id } = this.props.customize
     const sessionEditionId:string|undefined = this.props.classroomSessions.data ? this.props.classroomSessions.data.edition_id : undefined
     if (Object.keys(editions).length > 0) {
       const quillEditions:Array<JSX.Element>  = []
@@ -185,7 +202,7 @@ class ChooseEdition extends React.Component<any, any> {
               archiveEdition={this.archiveEdition}
               creator='user'
               selectAction={this.selectAction}
-              selectState={this.state.selectState}
+              selectState={selectState}
               selectedEdition={sessionEditionId === e}
               />
             myEditions.push(editionRow)
@@ -196,7 +213,7 @@ class ChooseEdition extends React.Component<any, any> {
               makeNewEdition={this.makeNewEdition}
               creator='quill'
               selectAction={this.selectAction}
-              selectState={this.state.selectState}
+              selectState={selectState}
               selectedEdition={sessionEditionId === e}
             />
             quillEditions.push(editionRow)
@@ -207,7 +224,7 @@ class ChooseEdition extends React.Component<any, any> {
               makeNewEdition={this.makeNewEdition}
               creator='coteacher'
               selectAction={this.selectAction}
-              selectState={this.state.selectState}
+              selectState={selectState}
               selectedEdition={sessionEditionId === e}
             />
             coteacherEditions.push(editionRow)

@@ -2,37 +2,46 @@ import React from 'react';
 import { connect } from 'react-redux';
 import actions from '../../actions/lessons';
 import _ from 'underscore';
-import { Link } from 'react-router';
-import Modal from '../modal/modal.jsx';
-import { hashToCollection } from '../../libs/hashToCollection';
+import {
+  Modal,
+  LinkListItem,
+  ArchivedButton,
+  FlagDropdown
+} from 'quill-component-library/dist/componentLibrary';
 import EditLessonForm from './lessonForm.jsx';
-import LinkListItem from '../shared/linkListItem.jsx';
-import ArchivedButton from '../shared/archivedButton.jsx';
-import FlagDropdown from '../shared/flagDropdown.jsx';
 
-const Lessons = React.createClass({
+class Lessons extends React.Component {
+  constructor(props) {
+    super(props)
 
-  getInitialState() {
-    return {
+    this.state = {
       lessonFlags: 'production',
       showOnlyArchived: false,
-    };
-  },
+    }
+
+    this.createNew = this.createNew.bind(this)
+    this.submitNewLesson = this.submitNewLesson.bind(this)
+    this.toggleShowArchived = this.toggleShowArchived.bind(this)
+    this.renderLessons = this.renderLessons.bind(this)
+    this.renderModal = this.renderModal.bind(this)
+    this.handleSelect = this.handleSelect.bind(this)
+
+  }
 
   createNew() {
     this.props.dispatch(actions.toggleNewLessonModal());
-  },
+  }
 
   submitNewLesson(data) {
     this.props.dispatch(actions.submitNewLesson(data));
     // this.props.dispatch(actions.toggleNewLessonModal())
-  },
+  }
 
   toggleShowArchived() {
     this.setState({
       showOnlyArchived: !this.state.showOnlyArchived,
     });
-  },
+  }
 
   renderLessons() {
     const { data, } = this.props.lessons;
@@ -41,13 +50,7 @@ const Lessons = React.createClass({
       keys = _.filter(keys, key => data[key].flag === this.state.lessonFlags);
     }
     if (this.state.showOnlyArchived) {
-      const { questions } = this.props;
-      keys = _.filter(keys, key => (data[key].questions.filter((question) => {
-        const currentQuestion = questions.data[question.key];
-        if (currentQuestion && currentQuestion.flag === "archived") {
-          return question;
-        }
-      })).length > 0);
+      keys = keys.filter(key => data[key].questions && data[key].questions.some(q => q.flag === 'archived'))
     }
     return keys.map(key => (
       <LinkListItem
@@ -58,7 +61,7 @@ const Lessons = React.createClass({
         text={data[key].name || 'No name'}
       />
     ));
-  },
+  }
 
   renderModal() {
     const stateSpecificClass = this.props.lessons.submittingnew ? 'is-loading' : '';
@@ -69,11 +72,11 @@ const Lessons = React.createClass({
         </Modal>
       );
     }
-  },
+  }
 
   handleSelect(e) {
     this.setState({ lessonFlags: e.target.value, });
-  },
+  }
 
   render() {
     return (
@@ -101,9 +104,9 @@ const Lessons = React.createClass({
       </section>
 
     );
-  },
+  }
 
-});
+}
 
 function select(state) {
   return {

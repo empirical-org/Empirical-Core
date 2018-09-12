@@ -1,6 +1,6 @@
 .container
   article.activity-form.activity-data.simple-rounded-box
-    form.box-full-form.form-vertical data-redirect=cms_activities_path(@activity.classification.key, flag: @activity.flag) action="/"
+    form.box-full-form.form-vertical data-redirect=cms_activity_classifications_path action="/"
       .l-section
         h4 Vendor properties
         iframe#activity-iframe scrolling="no" src=@activity.form_url

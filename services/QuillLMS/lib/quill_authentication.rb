@@ -37,7 +37,10 @@ module QuillAuthentication
   end
 
   def classroom_teacher!(classroom_id)
-    return if ClassroomsTeacher.exists?(classroom_id: classroom_id, user: current_user)
+    return if ClassroomsTeacher.exists?(
+      classroom_id: classroom_id,
+      user: current_user
+    )
     auth_failed
   end
 
@@ -79,7 +82,7 @@ module QuillAuthentication
   def auth_failed
     sign_out
     session[:attempted_path] = request.fullpath
-    redirect_to new_session_path, status: :see_other
+    redirect_to(new_session_path, status: :see_other)
   end
 
   def signed_out!

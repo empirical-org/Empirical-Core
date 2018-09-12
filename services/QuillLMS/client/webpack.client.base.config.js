@@ -10,10 +10,13 @@ const firebaseDatabaseUrl = process.env.FIREBASE_DATABASE_URL;
 const pusherKey = process.env.PUSHER_KEY;
 const defaultUrl = process.env.DEFAULT_URL;
 const cdnUrl = process.env.CDN_URL;
-const { resolve, } = require('path');
+const { resolve, join, } = require('path');
 const webpackConfigLoader = require('react-on-rails/webpackConfigLoader');
 
-const configPath = resolve('..', 'config');
+console.log('Directory: ', __dirname);
+
+const configPath = join(__dirname, '..', 'config');
+console.log('Directory: ', configPath);
 const { output, } = webpackConfigLoader(configPath);
 const nodeEnv = devBuild ? 'development' : 'production';
 
@@ -41,11 +44,6 @@ const basePlugins = [new webpack.DefinePlugin({
     options: {
       postcss: [autoprefixer],
     },
-  }),
-  new webpack.optimize.CommonsChunkPlugin({
-    name: 'vendor',
-    filename: 'vendor-bundle-[chunkhash].js',
-    minChunks: Infinity,
   }),
   new ManifestPlugin({
     publicPath: output.publicPath,
@@ -94,7 +92,9 @@ module.exports = {
     tools: [
       './app/bundles/Tools/tools.js'
     ],
-
+    staff: [
+      './app/bundles/Staff/startup/clientRegistration.js'
+    ],
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx'],

@@ -10,9 +10,11 @@ class Activity < ActiveRecord::Base
 
   belongs_to :follow_up_activity, class_name: "Activity", foreign_key: "follow_up_activity_id"
 
-  has_many :classroom_activities, dependent: :destroy
-  has_many :classrooms, through: :classroom_activities
-  has_many :units, through: :classroom_activities
+  has_many :unit_activities, dependent: :destroy
+  has_many :units, through: :unit_activities
+  has_many :classroom_units, through: :units
+  has_many :classrooms, through: :classroom_units
+  has_many :recommendations, dependent: :destroy
   has_many :activity_category_activities, dependent: :destroy
   has_many :activity_categories, through: :activity_category_activities
   before_create :flag_as_beta, unless: :flags?
@@ -31,7 +33,25 @@ class Activity < ActiveRecord::Base
 
   scope :with_classification, -> { includes(:classification).joins(:classification) }
 
-  DIAGNOSTIC_ACTIVITY_IDS = [413, 447, 602]
+  def self.diagnostic_activity_ids
+    ActivityClassification.find_by(key: 'diagnostic')&.activities&.pluck(:id) || []
+  end
+
+  def self.activity_with_recommendations_ids
+    Recommendation.all.map(&:activity_id).uniq
+  end
+
+  def self.find_by_id_or_uid(arg)
+    begin
+      find(arg)
+    rescue ActiveRecord::RecordNotFound
+      find_by(uid: arg)
+    rescue ActiveRecord::RecordNotFound
+      raise ActiveRecord::RecordNotFound.new(
+        "Couldn't find Activity with 'id' or 'uid'=#{arg}"
+      )
+    end
+  end
 
   def topic_uid= uid
     self.topic_id = Topic.find_by_uid(uid).id
@@ -108,6 +128,10 @@ class Activity < ActiveRecord::Base
     $redis.set('default_activity_search', ActivitySearchWrapper.new.search.to_json)
   end
 
+  def is_lesson?
+    self.activity_classification_id == 6
+  end
+
   private
 
   def flag_as_beta
@@ -117,9 +141,9 @@ class Activity < ActiveRecord::Base
   def lesson_url_helper
     base = classification.module_url
     lesson = uid + '?'
-    classroom_activity_id = @activity_session.classroom_activity.id.to_s
+    classroom_unit_id = @activity_session.classroom_unit.id.to_s
     student_id = @activity_session.uid
-    url = base + lesson + 'classroom_activity_id=' + classroom_activity_id + '&student=' + student_id
+    url = base + lesson + 'classroom_unit_id=' + classroom_unit_id + '&student=' + student_id
     @url = Addressable::URI.parse(url)
   end
 
@@ -144,7 +168,4 @@ class Activity < ActiveRecord::Base
 
     return @url
   end
-
-
-
 end

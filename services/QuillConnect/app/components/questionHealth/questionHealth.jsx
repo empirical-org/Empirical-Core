@@ -4,9 +4,8 @@ import {
   loadScoreData,
   checkTimeout
 } from '../../actions/scoreAnalysis.js';
-import LoadingSpinner from '../shared/spinner.jsx';
-import { hashToCollection } from '../../libs/hashToCollection.js';
-import {oldFlagToNew} from '../../libs/flagMap'
+import { Spinner } from 'quill-component-library/dist/componentLibrary'
+import { oldFlagToNew } from '../../libs/flagMap'
 import _ from 'lodash';
 
 class questionHealth extends Component {
@@ -17,14 +16,13 @@ class questionHealth extends Component {
       loading: true,
       sc: {},
       sf: {},
-      dq: {},
       fib: {},
       flag: 'production'
     }
 
     this.updateFlag = this.updateFlag.bind(this)
     this.filterByFlag = this.filterByFlag.bind(this)
-    this.filterQuestionsByFlag = this.filterQuestionsByFlag.bind(this)
+    this.filterQuestions = this.filterQuestions.bind(this)
   }
 
   componentWillMount() {
@@ -36,18 +34,17 @@ class questionHealth extends Component {
     if (nextState.loading) {
       const sc = Object.keys(nextState.sc)
       const sf = Object.keys(nextState.sf)
-      const dq = Object.keys(nextState.dq)
       const fib = Object.keys(nextState.fib)
-      if (sc && sc.length && sf && sf.length && dq && dq.length && fib && fib.length) {
+      if (sc && sc.length && sf && sf.length && fib && fib.length) {
         this.setState({loading: false})
       }
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    const { scoreAnalysis, questions, diagnosticQuestions, sentenceFragments, fillInBlank } = nextProps
-    if (scoreAnalysis.hasreceiveddata && questions.hasreceiveddata && diagnosticQuestions.hasreceiveddata && sentenceFragments.hasreceiveddata && fillInBlank.hasreceiveddata) {
-      this.filterQuestionsByFlag(scoreAnalysis, questions, diagnosticQuestions, sentenceFragments, fillInBlank)
+    const { scoreAnalysis, questions, sentenceFragments, fillInBlank } = nextProps
+    if (scoreAnalysis.hasreceiveddata && questions.hasreceiveddata && sentenceFragments.hasreceiveddata && fillInBlank.hasreceiveddata) {
+      this.filterQuestions(scoreAnalysis, questions, sentenceFragments, fillInBlank)
       // if (nextProps.questions.hasreceiveddata) {
       //   this.setSentenceCombiningQuestions(nextProps.scoreAnalysis.data, nextProps.questions.data)
       // }
@@ -64,38 +61,37 @@ class questionHealth extends Component {
   }
 
   updateFlag(e) {
-    const { scoreAnalysis, questions, diagnosticQuestions, sentenceFragments, fillInBlank } = this.props
+    const { scoreAnalysis, questions, sentenceFragments, fillInBlank } = this.props
     const flag = e.target.value === 'all' ? null : e.target.value
-    this.setState({flag: flag}, () => this.filterQuestionsByFlag(scoreAnalysis, questions, diagnosticQuestions, sentenceFragments, fillInBlank))
+    this.setState({flag: flag}, () => this.filterQuestions(scoreAnalysis, questions, sentenceFragments, fillInBlank))
   }
 
   filterByFlag(q) {
     return q.flag === this.state.flag || q.flag === oldFlagToNew[this.state.flag]
   }
 
-  filterQuestionsByFlag(
+  filterQuestions(
     scoreAnalysis,
     questions,
-    diagnosticQuestions,
     sentenceFragments,
     fillInBlank
   ) {
-    let questionData, diagnosticQuestionData, sentenceFragmentData, fillInBlankQuestionData
+    const questionData = questions.data
+    const sentenceFragmentData = sentenceFragments.data
+    const fillInBlankData = fillInBlank.data
+    let filteredQuestionData, filteredSentenceFragmentData, filteredFillInBlankQuestionData
     if (this.state.flag) {
-      questionData = _.pickBy(questions.data, this.filterByFlag)
-      diagnosticQuestionData = _.pickBy(diagnosticQuestions.data, this.filterByFlag)
-      sentenceFragmentData = _.pickBy(sentenceFragments.data, this.filterByFlag)
-      fillInBlankQuestionData = _.pickBy(fillInBlank.data, this.filterByFlag)
+      filteredQuestionData = _.pickBy(questionData, this.filterByFlag)
+      filteredSentenceFragmentData = _.pickBy(sentenceFragmentData, this.filterByFlag)
+      filteredFillInBlankQuestionData = _.pickBy(fillInBlankData, this.filterByFlag)
     } else {
-      questionData = questions.data
-      diagnosticQuestionData = diagnosticQuestions.data
-      sentenceFragmentData = sentenceFragments.data
-      fillInBlankQuestionData = fillInBlank.data
+      filteredQuestionData = questionData
+      filteredSentenceFragmentData = sentenceFragmentData
+      filteredFillInBlankQuestionData = fillInBlankData
     }
-    this.setSentenceCombiningQuestions(scoreAnalysis.data, questionData)
-    this.setDiagnosticQuestions(scoreAnalysis.data, diagnosticQuestionData)
-    this.setSentenceFragments(scoreAnalysis.data, sentenceFragmentData)
-    this.setFillInBlankQuestions(scoreAnalysis.data, fillInBlankQuestionData)
+    this.setSentenceCombiningQuestions(scoreAnalysis.data, filteredQuestionData)
+    this.setSentenceFragments(scoreAnalysis.data, filteredSentenceFragmentData)
+    this.setFillInBlankQuestions(scoreAnalysis.data, filteredFillInBlankQuestionData)
   }
 
   setSentenceCombiningQuestions(analyzedQuestions, sentenceCombiningQuestions) {
@@ -109,19 +105,6 @@ class questionHealth extends Component {
       }
     })
     this.analyzeQuestions(sc, 'sc')
-  }
-
-  setDiagnosticQuestions(analyzedQuestions, diagnosticQuestions) {
-    const dq = []
-    const diagnosticKeys = Object.keys(diagnosticQuestions)
-    diagnosticKeys.forEach((uid) => {
-      if (analyzedQuestions[uid]) {
-        const scoredQuestion = analyzedQuestions[uid]
-        scoredQuestion.flag = diagnosticQuestions[uid].flag
-        dq.push(scoredQuestion)
-      }
-    })
-    this.analyzeQuestions(dq, 'dq')
   }
 
   setSentenceFragments(analyzedQuestions, sentenceFragmentQuestions) {
@@ -202,8 +185,6 @@ class questionHealth extends Component {
         return 'Sentence Combining'
       case 'sf':
         return 'Sentence Fragments'
-      case 'dq':
-        return 'Diagnostic Questions'
       case 'fib':
         return 'Fill In Blank'
     }
@@ -214,7 +195,6 @@ class questionHealth extends Component {
       <h2>Question Type Status</h2>
       {this.renderQuestionTypeRow('sc')}
       {this.renderQuestionTypeRow('sf')}
-      {this.renderQuestionTypeRow('dq')}
       {this.renderQuestionTypeRow('fib')}
     </div>
   }
@@ -298,7 +278,7 @@ class questionHealth extends Component {
 
   render() {
     if (this.state.loading) {
-      return <LoadingSpinner />
+      return <Spinner />
     } else {
       return <div className="question-health">
         <h1>Data Dashboard - Health of Questions</h1>
@@ -306,7 +286,6 @@ class questionHealth extends Component {
         {this.renderQuestionTypeStatusTable()}
         {this.renderQuestionTypeTable('sc')}
         {this.renderQuestionTypeTable('sf')}
-        {this.renderQuestionTypeTable('dq')}
         {this.renderQuestionTypeTable('fib')}
       </div>
     }
@@ -317,7 +296,6 @@ function select(state) {
   return {
     questions: state.questions,
     scoreAnalysis: state.scoreAnalysis,
-    diagnosticQuestions: state.diagnosticQuestions,
     sentenceFragments: state.sentenceFragments,
     fillInBlank: state.fillInBlank
   };

@@ -5,11 +5,11 @@ import SentenceFragmentTemplate from '../sentenceFragments/sentenceFragmentTempl
 
 class PlaySentenceFragment extends Component {
   constructor(props) {
-    super();
+    super(props);
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    if (nextProps.question !== this.props.question) {
+  shouldComponentUpdate(nextProps) {
+    if (nextProps.question.key !== this.props.question.key) {
       return true;
     }
     return false;

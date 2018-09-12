@@ -1,9 +1,9 @@
 source 'https://rubygems.org'
 
-ruby '2.3.1'
+ruby '2.5.1'
 
 # CORE DEPS
-gem 'rails', '=4.2.7.1'
+gem 'rails', '=4.2.10'
 gem 'puma', '~> 3.10.0'
 
 # EARLY TO APPLY TO OTHER GEMS
@@ -97,6 +97,7 @@ gem 'salesmachine-ruby', '~> 1.0.0'
 
 # API
 gem 'active_model_serializers', '~> 0.9.0'
+gem 'graphql'
 
 # UI HELPERS
 gem 'sass'
@@ -104,6 +105,7 @@ gem 'sass-rails'
 
 gem 'coffee-rails'
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 
 gem 'slim-rails'
 gem 'haml-rails'
@@ -156,7 +158,7 @@ gem 'awesome_print'
 
 group :test, :development do
   gem 'quiet_assets'
-  gem 'parallel_tests', '~> 2.21.3'
+  gem 'parallel_tests'
   gem 'pry'
   gem 'pry-rails'
   gem 'pry-remote'
@@ -182,7 +184,7 @@ group :test, :development, :cypress do
 end
 
 group :test do
-  gem 'shoulda-matchers', '~> 3.1'
+  gem 'shoulda-matchers', '~> 3.1.2'
   gem 'shoulda-callback-matchers', '~> 1.1.1'
   gem 'capybara'
   gem 'poltergeist'
@@ -201,3 +203,5 @@ gem 'sqreen'
 
 # temp for migrations
 gem 'paperclip'
+
+gem 'graphiql-rails', group: :development

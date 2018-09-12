@@ -8,14 +8,14 @@ export default class ClassroomsWithStudents extends React.Component {
   constructor() {
     super();
     this.ajaxData = this.ajaxData.bind(this);
-    this.classroomActivityUpdates = this.classroomActivityUpdates.bind(this);
+    this.classroomUpdates = this.classroomUpdates.bind(this);
   }
 
   resetPage() {
     window.location = '/teachers/classrooms/lesson_planner';
   }
 
-  classroomActivityUpdates() {
+  classroomUpdates() {
     const classrooms_data = [];
     let classroomsWithNoAssignedStudents = 0;
     this.props.classrooms.forEach((classy) => {
@@ -49,7 +49,7 @@ export default class ClassroomsWithStudents extends React.Component {
   }
 
   ajaxData = () => {
-    const data = { classrooms: JSON.stringify(this.classroomActivityUpdates()), };
+    const data = { classrooms: JSON.stringify(this.classroomUpdates()), };
     if (this.props.createOrEdit === 'create') {
       data.create = true,
       data.unit_template_id = getParameterByName('unit_template_id');
@@ -79,7 +79,7 @@ export default class ClassroomsWithStudents extends React.Component {
         enabled={this.props.isSaveButtonEnabled}
         disabledText={'Edit Students Before Saving'}
         requestType={'PUT'}
-        url={`/teachers/units/${this.props.unitId}/update_classroom_activities_assigned_students`}
+        url={`/teachers/units/${this.props.unitId}/update_classroom_unit_assigned_students`}
         successCallback={this.resetPage}
         buttonText={'Update Students'}
         dataFunc={this.ajaxData}

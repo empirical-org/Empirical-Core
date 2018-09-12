@@ -1,17 +1,19 @@
 import * as React from "react";
-import * as Redux from "redux";
 import { Row, Button } from "antd";
-
+import { Response, ConceptResult } from 'quill-marking-logic'
+import { hashToCollection, ConceptExplanation } from 'quill-component-library/dist/componentLibrary'
 import { Question } from '../../interfaces/questions'
 import { GrammarActivity } from '../../interfaces/grammarActivities'
+import * as responseActions from '../../actions/responses'
 
 interface QuestionProps {
-  activity: GrammarActivity;
+  activity: GrammarActivity|null;
   answeredQuestions: Question[]|never;
   unansweredQuestions: Question[]|never;
   currentQuestion: Question;
   goToNextQuestion: Function;
   checkAnswer: Function;
+  conceptsFeedback: any;
 }
 
 interface QuestionState {
@@ -19,6 +21,7 @@ interface QuestionState {
   response: string;
   questionStatus: string;
   submittedEmptyString: boolean
+  responses: Array<Response>
 }
 
 export class QuestionComponent extends React.Component<QuestionProps, QuestionState> {
@@ -29,13 +32,23 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
           showExample: true,
           response: '',
           questionStatus: 'unanswered',
-          submittedEmptyString: false
+          submittedEmptyString: false,
+          responses: []
         }
 
         this.toggleExample = this.toggleExample.bind(this)
         this.updateResponse = this.updateResponse.bind(this)
         this.checkAnswer = this.checkAnswer.bind(this)
         this.goToNextQuestion = this.goToNextQuestion.bind(this)
+    }
+
+    componentDidMount() {
+      responseActions.getGradedResponsesWithCallback(
+        this.props.currentQuestion.uid,
+        (data) => {
+          this.setState({ responses: data, });
+        }
+      );
     }
 
     componentWillReceiveProps(nextProps: QuestionProps) {
@@ -55,7 +68,14 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
           }
         }
       }
-
+      if (this.props.currentQuestion.uid !== nextProps.currentQuestion.uid) {
+        responseActions.getGradedResponsesWithCallback(
+          nextProps.currentQuestion.uid,
+          (data: Array<Response>) => {
+            this.setState({ responses: data, });
+          }
+        );
+      }
     }
 
     currentQuestion() {
@@ -64,8 +84,10 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
 
     checkAnswer() {
       const response = this.state.response
+      const question = this.currentQuestion()
+      const isFirstAttempt = !question.attempts || question.attempts.length === 0
       if (this.state.response !== '') {
-        this.props.checkAnswer(response, this.currentQuestion())
+        this.props.checkAnswer(response, question, this.state.responses, isFirstAttempt)
         this.setState({submittedEmptyString: false})
       } else {
         this.setState({submittedEmptyString: true})
@@ -81,8 +103,22 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
       this.setState({ showExample: !this.state.showExample })
     }
 
-    updateResponse(e) {
+    updateResponse(e: React.ChangeEvent<HTMLTextAreaElement>) {
       this.setState({response: e.target.value})
+    }
+
+    getNegativeConceptResultsForResponse(conceptResults: Array<ConceptResult>) {
+      return hashToCollection(conceptResults).filter((cr: ConceptResult) => !cr.correct);
+    }
+
+    getNegativeConceptResultForResponse(conceptResults: Array<ConceptResult>) {
+      const negCRs = this.getNegativeConceptResultsForResponse(conceptResults);
+      return negCRs.length > 0 ? negCRs[0] : undefined;
+    }
+
+    getLatestAttempt(attempts:Array<Response> = []):Response|undefined {
+      const lastIndex = attempts.length - 1;
+      return attempts[lastIndex];
     }
 
     renderExample(): JSX.Element|undefined {
@@ -122,7 +158,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
           align="middle"
           justify="space-between"
           >
-          <h1>{this.props.activity.title}</h1>
+          <h1>{this.props.activity ? this.props.activity.title : null}</h1>
           <div>
             <p>Sentences Completed: {answeredQuestionCount} of {totalQuestionCount}</p>
             <div className="progress-bar-indication">
@@ -178,7 +214,9 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
             className = 'try-again'
           }
         }
-        return <div className={`feedback ${className}`}><div dangerouslySetInnerHTML={{__html: feedback}}/></div>
+        if (typeof feedback === 'string') {
+          return <div className={`feedback ${className}`}><div dangerouslySetInnerHTML={{__html: feedback}}/></div>
+        }
       } else if (this.state.submittedEmptyString) {
         return <div className={`feedback try-again`}><div dangerouslySetInnerHTML={{__html: 'You must enter a sentence for us to check.'}}/></div>
 
@@ -186,11 +224,37 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
       return undefined
     }
 
+    renderConceptExplanation(): JSX.Element|void {
+      const latestAttempt:Response|undefined = this.getLatestAttempt(this.currentQuestion().attempts);
+      if (latestAttempt && !latestAttempt.optimal) {
+        if (latestAttempt.concept_results) {
+          const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.concept_results);
+          if (conceptID) {
+            const data = this.props.conceptsFeedback.data[conceptID.conceptUID];
+            if (data) {
+              return <ConceptExplanation {...data} />;
+            }
+          }
+        } else if (this.currentQuestion() && this.currentQuestion().modelConceptUID) {
+          const dataF = this.props.conceptsFeedback.data[this.currentQuestion().modelConceptUID];
+          if (dataF) {
+            return <ConceptExplanation {...dataF} />;
+          }
+        } else if (this.currentQuestion().concept_uid) {
+          const data = this.props.conceptsFeedback.data[this.currentQuestion().concept_uid];
+          if (data) {
+            return <ConceptExplanation {...data} />;
+          }
+        }
+      }
+    }
+
     render(): JSX.Element {
       return <div className="question">
         {this.renderTopSection()}
         {this.renderQuestionSection()}
         {this.renderFeedbackSection()}
+        {this.renderConceptExplanation()}
       </div>
     }
 }

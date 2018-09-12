@@ -1,5 +1,5 @@
 class ActivitiesController < ApplicationController
-  before_action :set_activity, only: [:show, :edit, :update, :destroy]
+  before_action :set_activity, only: [:show, :edit, :update, :destroy, :play]
 
   # GET /activities
   # GET /activities.json
@@ -10,16 +10,19 @@ class ActivitiesController < ApplicationController
   # GET /activities/1
   # GET /activities/1.json
   def show
-    @page_js_bundle = 'play_activity'
   end
 
   # GET /activities/new
   def new
     @activity = Activity.new
+    @page_js_bundle = 'text_editor'
+    @page_style_bundle = 'text_editor'
   end
 
   # GET /activities/1/edit
   def edit
+    @page_js_bundle = 'text_editor'
+    @page_style_bundle = 'text_editor'
   end
 
   # POST /activities
@@ -62,9 +65,17 @@ class ActivitiesController < ApplicationController
     end
   end
 
+  def play
+    @page_js_bundle = 'play_activity'
+  end
+
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_activity
+      if (params[:id] == 'any')
+        return redirect_to play_activity_path(Activity.order("RANDOM()").first)
+      end
       @activity = Activity.find(params[:id])
     end
 
