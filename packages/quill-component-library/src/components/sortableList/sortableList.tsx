@@ -45,6 +45,7 @@ class SortableList extends React.Component<any, any> {
 			return (
 				<SortableListItem
           key={i}
+          onSortItems={this.updateState}
           updateState={this.updateState}
           items={this.state.data.items}
           draggingIndex={this.state.draggingIndex}
