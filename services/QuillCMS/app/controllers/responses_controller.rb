@@ -20,7 +20,8 @@ class ResponsesController < ApplicationController
 
   # POST /responses
   def create
-    @response = Response.new(response_params)
+    new_vals = transformed_new_vals(response_params)
+    @response = Response.new(new_vals)
     if @response.save
       AdminUpdates.run(@response.question_uid)
       render json: @response, status: :created, location: @response
@@ -33,7 +34,8 @@ class ResponsesController < ApplicationController
   def create_or_increment
     response = Response.where(text: response_params[:text], question_uid: response_params[:question_uid])[0]
     if !response
-      response = Response.new(params_for_create)
+      new_vals = transformed_new_vals(params_for_create)
+      response = Response.new(new_vals)
       if response.save
         AdminUpdates.run(response.question_uid)
         render json: response, status: :created, location: response
@@ -45,14 +47,7 @@ class ResponsesController < ApplicationController
 
   # PATCH/PUT /responses/1
   def update
-    new_vals = response_params
-    if new_vals[:concept_results]
-      if new_vals[:concept_results].empty?
-        new_vals[:concept_results] = nil
-      else
-        new_vals[:concept_results] = concept_results_to_boolean(new_vals[:concept_results])
-      end
-    end
+    new_vals = transformed_new_vals(response_params)
     if @response.update(new_vals)
       render json: @response
     else
@@ -253,9 +248,15 @@ class ResponsesController < ApplicationController
     end
 
     def concept_results_to_boolean(concept_results)
+      new_concept_results = {}
       concept_results.each do |key, val|
-        concept_results[key] = val == 'true' || val == true
+        if val.respond_to?(:keys)
+          new_concept_results[val['conceptUID']] = val['correct'] == 'true' || val == true
+        else
+          new_concept_results[key] = val == 'true' || val == true
+        end
       end
+      new_concept_results
     end
 
     def increment_child_count_of_parent(response)
@@ -269,5 +270,17 @@ class ResponsesController < ApplicationController
         parent = find_by_id_or_uid(id)
         parent.increment!(:child_count) unless parent.nil?
       end
+    end
+
+    def transformed_new_vals(response_params)
+      new_vals = response_params
+      if new_vals[:concept_results]
+        if new_vals[:concept_results].empty?
+          new_vals[:concept_results] = nil
+        else
+          new_vals[:concept_results] = concept_results_to_boolean(new_vals[:concept_results])
+        end
+      end
+      return new_vals
     end
 end
