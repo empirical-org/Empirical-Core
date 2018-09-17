@@ -271,25 +271,27 @@ export default React.createClass({
     let components
     if (conceptResults) {
       if (mode === 'Editing') {
-      const conceptResultsPlus = Object.assign(conceptResults, {null: this.props.response.optimal})
-      components = Object.keys(conceptResultsPlus).map(uid => {
-        const concept = _.find(this.props.concepts.data['0'], { uid, });
-          return <ConceptSelectorWithCheckbox
-            key={uid}
-            handleSelectorChange={this.handleConceptChange}
-            currentConceptUID={uid}
-            checked={conceptResults[uid]}
-            onCheckboxChange={() => this.toggleCheckboxCorrect(uid)}
-            selectorDisabled={uid === null || uid === 'null' ? false : true}
-            deleteConceptResult={() => this.deleteConceptResult(uid)}
-          />
+        const conceptResultsPlus = Object.assign(conceptResults, {null: this.props.response.optimal})
+        components = Object.keys(conceptResultsPlus).map(uid => {
+          const concept = _.find(this.props.concepts.data['0'], { uid, });
+            return <ConceptSelectorWithCheckbox
+              key={uid}
+              handleSelectorChange={this.handleConceptChange}
+              currentConceptUID={uid}
+              checked={conceptResults[uid]}
+              onCheckboxChange={() => this.toggleCheckboxCorrect(uid)}
+              selectorDisabled={uid === null || uid === 'null' ? false : true}
+              deleteConceptResult={() => this.deleteConceptResult(uid)}
+            />
       });
     } else {
       components = Object.keys(conceptResults).map(uid => {
+        console.log(this.props.concepts.data['0'])
         const concept = _.find(this.props.concepts.data['0'], { uid, });
         if (concept) {
+          // hacky fix for the problem where concept result uids are being returned with string value 'false' rather than false
           return  <li key={uid}>
-            {concept.displayName} {conceptResults[uid] ? <span className="tag is-small is-success">Correct</span> : <span className="tag is-small is-danger">Incorrect</span>}
+            {concept.displayName} {conceptResults[uid] && conceptResults[uid] !== 'false' ? <span className="tag is-small is-success">Correct</span> : <span className="tag is-small is-danger">Incorrect</span>}
             {'\t'}
           </li>
         }
