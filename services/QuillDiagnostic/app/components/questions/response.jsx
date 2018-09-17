@@ -290,8 +290,9 @@ export default React.createClass({
       components = Object.keys(conceptResults).map(uid => {
         const concept = _.find(this.props.concepts.data['0'], { uid, });
         if (concept) {
+          // hacky fix for the problem where concept result uids are being returned with string value 'false' rather than false
           return  <li key={uid}>
-            {concept.displayName} {conceptResults[uid] ? <span className="tag is-small is-success">Correct</span> : <span className="tag is-small is-danger">Incorrect</span>}
+            {concept.displayName} {conceptResults[uid] && conceptResults[uid] !== 'false' ? <span className="tag is-small is-success">Correct</span> : <span className="tag is-small is-danger">Incorrect</span>}
             {'\t'}
           </li>
         }

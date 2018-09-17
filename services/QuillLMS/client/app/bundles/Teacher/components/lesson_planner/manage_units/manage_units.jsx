@@ -20,10 +20,12 @@ export default React.createClass({
       loaded: false,
       classrooms: this.getClassrooms(),
       selectedClassroomId: getParameterByName('classroom_id'),
+      activityWithRecommendationsIds: [],
     };
   },
 
   componentDidMount() {
+    this.getRecommendationIds();
     window.onpopstate = () => {
       this.setState({ loaded: false, selectedClassroomId: getParameterByName('classroom_id'), });
       this.getUnitsForCurrentClass();
@@ -34,6 +36,23 @@ export default React.createClass({
     request.get(`${process.env.DEFAULT_URL}/teachers/classrooms/classrooms_i_teach`, (error, httpStatus, body) => {
       const classrooms = JSON.parse(body).classrooms;
       this.handleClassrooms(classrooms);
+    });
+  },
+
+  getRecommendationIds() {
+    fetch(`${process.env.DEFAULT_URL}/teachers/progress_reports/activity_with_recommendations_ids`, {
+      method: 'GET',
+      mode: 'cors',
+      credentials: 'include',
+    }).then((response) => {
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
+      return response.json();
+    }).then((response) => {
+      this.setState({ activityWithRecommendationsIds: response.activityWithRecommendationsIds, });
+    }).catch((error) => {
+      console.log('error', error);
     });
   },
 
@@ -90,7 +109,7 @@ export default React.createClass({
       dueDate: u.due_date,
       ownedByCurrentUser: u.owned_by_current_user === 't',
       ownerName: u.owner_name,
-      uaId: u.unit_activity_id
+      uaId: u.unit_activity_id,
     });
     return caObj;
   },
@@ -121,7 +140,7 @@ export default React.createClass({
             dueDate: u.due_date,
             ownedByCurrentUser: u.owned_by_current_user === 't',
             ownerName: u.owner_name,
-            uaId: u.unit_activity_id
+            uaId: u.unit_activity_id,
           });
       }
     });
@@ -159,7 +178,7 @@ export default React.createClass({
         if (httpStatus && httpStatus.statusCode === 200) {
           const units = this.state.units;
           const modifiedUnits = _.map(units, (unit) => {
-            const modifiedUnit = unit
+            const modifiedUnit = unit;
             if (this.getIdFromUnit(modifiedUnit) === unitId) {
               if (modifiedUnit.classroom_activities) {
                 modifiedUnit.classroom_activities = _.reject(modifiedUnit.classroom_activities, ca => ca.ua_id === uaId);
@@ -172,7 +191,7 @@ export default React.createClass({
           this.setState({ units: modifiedUnits, });
         }
       }
-    )
+    );
   },
 
   updateDueDate(ua_id, date) {
@@ -214,6 +233,7 @@ export default React.createClass({
         hideUnit={this.hideUnit}
         data={this.state.units}
         updateMultipleDueDates={this.updateMultipleDueDates}
+        activityWithRecommendationsIds={this.state.activityWithRecommendationsIds}
       />);
     }
     const allClassroomsClassroom = { name: allClassroomKey, id: allClassroomKey, };
