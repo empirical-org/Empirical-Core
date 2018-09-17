@@ -5,14 +5,14 @@ import TutorialIndex from '../components/tutorials/TutorialIndex';
 
 export default React.createClass({
   render() {
-		return (
-			<Router Router history={browserHistory}>
+    return (
+      <Router history={browserHistory}>
         <Route path="/tutorials" component={TutorialIndex}>
-					<IndexRoute component={TutorialIndex}/>
-					<Route path=":tool" component={TutorialIndex}/>
-					<Route path=":tool/:slideNumber" component={TutorialIndex}/>
+          <IndexRoute component={TutorialIndex} />
+          <Route path=":tool" component={TutorialIndex} />
+          <Route path=":tool/:slideNumber" component={TutorialIndex} />
         </Route>
-			</Router>
-		);
-	},
+      </Router>
+    );
+  },
 });
