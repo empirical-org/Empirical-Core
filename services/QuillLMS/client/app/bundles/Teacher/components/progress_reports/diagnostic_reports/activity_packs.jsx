@@ -16,6 +16,7 @@ export default React.createClass({
       units: [],
       loaded: false,
       selectedClassroomId: getParameterByName('classroom_id'),
+      activityWithRecommendationsIds: [],
     };
   },
 
@@ -27,10 +28,28 @@ export default React.createClass({
   componentDidMount() {
     this.getClassrooms();
     this.getUnits();
+    this.getRecommendationIds();
     window.onpopstate = () => {
       this.setState({ loaded: false, selectedClassroomId: getParameterByName('classroom_id'), });
       this.getUnitsForCurrentClass();
     };
+  },
+
+  getRecommendationIds() {
+    fetch(`${process.env.DEFAULT_URL}/teachers/progress_reports/activity_with_recommendations_ids`, {
+    method: 'GET',
+    mode: 'cors',
+    credentials: 'include',
+  }).then((response) => {
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
+      return response.json();
+    }).then((response) => {
+      this.setState({ activityWithRecommendationsIds: response.activityWithRecommendationsIds, });
+    }).catch((error) => {
+      console.log('error', error);
+    });
   },
 
   getClassrooms() {
@@ -172,34 +191,34 @@ export default React.createClass({
 
     if (this.state.units.length === 0 && this.state.selectedClassroomId) {
       content = (
-    <EmptyProgressReport
-    missing="activitiesForSelectedClassroom"
-    onButtonClick={() => {
-    this.setState({ selectedClassroomId: null, loaded: false, });
-    this.getUnitsForCurrentClass();
-  }}
-  />
+        <EmptyProgressReport
+          missing="activitiesForSelectedClassroom"
+          onButtonClick={() => {
+        this.setState({ selectedClassroomId: null, loaded: false, });
+        this.getUnitsForCurrentClass();
+      }}
+        />
 				);
     } else if (this.state.units.length === 0) {
-  content = <EmptyProgressReport missing="activities" />;
-} else {
-  content = <Units report={Boolean(true)} activityReport={Boolean(true)} data={this.state.units} />;
-}
+      content = <EmptyProgressReport missing="activities" />;
+    } else {
+      content = <Units report={Boolean(true)} activityReport={Boolean(true)} data={this.state.units} activityWithRecommendationsIds={this.state.activityWithRecommendationsIds} />;
+    }
 
     return (
       <div className="activity-analysis">
-    <h1>Activity Analysis</h1>
-    <p>Open an activity analysis to view students' responses, the overall results on each question, and the concepts students need to practice.</p>
-    <div className="classroom-selector">
-    <p>Select a classroom:</p>
-    <ItemDropdown
-    items={classrooms}
-    callback={this.switchClassrooms}
-    selectedItem={selectedClassroom}
-  />
-  </div>
-    {content}
-  </div>
+        <h1>Activity Analysis</h1>
+        <p>Open an activity analysis to view students' responses, the overall results on each question, and the concepts students need to practice.</p>
+        <div className="classroom-selector">
+          <p>Select a classroom:</p>
+          <ItemDropdown
+        items={classrooms}
+        callback={this.switchClassrooms}
+        selectedItem={selectedClassroom}
+      />
+        </div>
+        {content}
+      </div>
     );
   },
 

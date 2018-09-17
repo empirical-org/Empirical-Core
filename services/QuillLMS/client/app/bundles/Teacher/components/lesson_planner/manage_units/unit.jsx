@@ -36,17 +36,17 @@ export default React.createClass({
   },
 
   deleteOrLockedInfo() {
-    const firstCa = this.props.data.classroomActivities.values().next().value
-    const ownedByCurrentUser = firstCa.ownedByCurrentUser
+    const firstCa = this.props.data.classroomActivities.values().next().value;
+    const ownedByCurrentUser = firstCa.ownedByCurrentUser;
     if (!this.props.report && !this.props.lesson && ownedByCurrentUser) {
       return <span className="delete-unit" onClick={this.hideUnit}>Delete</span>;
     } else if (!ownedByCurrentUser) {
-      return <span className='locked-unit'>  <img src="https://assets.quill.org/images/icons/lock-activity-pack-icon.svg"/>Created By {firstCa.ownerName}</span>
+      return <span className="locked-unit">   <img src="https://assets.quill.org/images/icons/lock-activity-pack-icon.svg"  />Created By {firstCa.ownerName}</span>;
     }
   },
 
   editName() {
-    if(this.props.data.classroomActivities.values().next().value.ownedByCurrentUser) {
+    if (this.props.data.classroomActivities.values().next().value.ownedByCurrentUser) {
       let text,
         classy,
         inlineStyle;
@@ -137,7 +137,7 @@ export default React.createClass({
   },
 
   addClassroomActivityRow() {
-    if(this.props.data.classroomActivities.values().next().value.ownedByCurrentUser) {
+    if (this.props.data.classroomActivities.values().next().value.ownedByCurrentUser) {
       return this.props.report || this.props.lesson ? null : <AddClassroomActivityRow unitId={this.getUnitId()} unitName={this.props.data.unitName || this.props.data.unit.name} />;
     }
   },
@@ -155,6 +155,7 @@ export default React.createClass({
             hideClassroomActivity={this.props.hideClassroomActivity}
             unitId={this.props.data.unit.id}
             data={ca}
+            activityWithRecommendationsIds={this.state.activityWithRecommendationsIds}
           />
         );
       });
@@ -169,6 +170,7 @@ export default React.createClass({
             hideClassroomActivity={this.props.hideClassroomActivity}
             unitId={this.props.data.unitId}
             data={ca}
+            activityWithRecommendationsIds={this.state.activityWithRecommendationsIds}
           />
         );
       }
