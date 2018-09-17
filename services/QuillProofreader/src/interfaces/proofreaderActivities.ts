@@ -26,3 +26,13 @@ export interface TopicCategory {
   name: string;
   uid: string;
 }
+
+export interface ConceptResultObject {
+  answer: string,
+  correct: 0|1,
+  instructions: string,
+  prompt: string,
+  questionNumber: number,
+  unchanged: boolean,
+  conceptUID: string
+}
