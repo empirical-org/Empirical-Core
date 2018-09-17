@@ -1,14 +1,21 @@
 import rootRef from '../firebase';
 import { ActionTypes } from './actionTypes'
 const sessionsRef = rootRef.child('proofreaderSessions')
-import { Question } from '../interfaces/questions'
-import { SessionState } from '../reducers/sessionReducer'
-import { checkGrammarQuestion, Response } from 'quill-marking-logic'
-import { shuffle } from '../helpers/shuffle';
-import _ from 'lodash';
+import { ConceptResultObject } from '../interfaces/proofreaderActivities'
 
 export const updateSessionOnFirebase = (sessionID: string, passage: string) => {
   sessionsRef.child(sessionID).set({ passage: passage })
+}
+
+export const updateConceptResultsOnFirebase = (sessionID: string|null, conceptResults: Array<ConceptResultObject>) => {
+  const conceptResultsObj = { conceptResults }
+  if (sessionID) {
+    sessionsRef.child(sessionID).set(conceptResultsObj)
+    return sessionID
+  } else {
+    const anonymousSession = sessionsRef.push(conceptResultsObj)
+    return anonymousSession.key
+  }
 }
 
 export const updateSession = (passage: string) => {
@@ -22,7 +29,6 @@ export const setSessionReducerToSavedSession = (sessionID: string) => {
     sessionsRef.child(sessionID).once('value', (snapshot) => {
       const session = snapshot.val()
       if (session && !session.error) {
-        debugger;
         dispatch(setSessionReducer(session.passage))
       }
     })
