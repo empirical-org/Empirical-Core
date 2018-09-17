@@ -27,11 +27,11 @@ class StudentProfile extends React.Component {
       updateNumberOfClassroomTabs,
       fetchStudentProfile,
       fetchStudentsClassrooms,
-      classroomId
+      classroomId,
     } = this.props;
 
     if (classroomId) {
-      handleClassroomClick(classroomId)
+      handleClassroomClick(classroomId);
       fetchStudentProfile(classroomId);
       fetchStudentsClassrooms();
     } else {
@@ -48,7 +48,7 @@ class StudentProfile extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.selectedClassroomId !== this.props.selectedClassroomId) {
       if (!window.location.href.includes(nextProps.selectedClassroomId)) {
-        window.location.href = `${process.env.DEFAULT_URL}/classrooms/${nextProps.selectedClassroomId}`
+        this.props.router.push(`classrooms/${nextProps.selectedClassroomId}`);
       }
     }
   }
@@ -62,15 +62,11 @@ class StudentProfile extends React.Component {
   }
 
   handleClassroomTabClick(classroomId) {
-    const { loading, handleClassroomClick, fetchStudentProfile, history} = this.props;
+    const { loading, handleClassroomClick, fetchStudentProfile, history, } = this.props;
 
     if (!loading) {
-      const newUrl = `/classrooms/${classroomId}`
-      if (history) {
-        history.push(newUrl)
-      } else {
-        window.location.href = newUrl
-      }
+      const newUrl = `/classrooms/${classroomId}`;
+      this.props.router.push(newUrl);
       handleClassroomClick(classroomId);
       fetchStudentProfile(classroomId);
     }
