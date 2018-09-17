@@ -18,6 +18,7 @@ import updateResponseResource from '../renderForQuestions/updateResponseResource
 import Cues from '../renderForQuestions/cues.jsx';
 import translations from '../../libs/translations/index.js';
 import translationMap from '../../libs/translations/ellQuestionMapper.js';
+import { stringNormalize } from 'quill-string-normalizer'
 
 const styles = {
   container: {
@@ -64,9 +65,10 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
   setQuestionValues(question) {
     const q = question;
     const splitPrompt = q.prompt.replace(/<p>/g, '').replace(/<\/p>/g, '').split('___');
+    const numberOfInputVals = q.prompt.match(/___/g).length
     this.setState({
       splitPrompt,
-      inputVals: this.generateInputs(splitPrompt),
+      inputVals: this.generateInputs(numberOfInputVals),
       inputErrors: new Set(),
       cues: q.cues,
       blankAllowed: q.blankAllowed,
@@ -103,9 +105,9 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     return (<p dangerouslySetInnerHTML={{ __html: text, }} />);
   }
 
-  generateInputs(promptArray) {
+  generateInputs(numberOfInputVals: number) {
     const inputs:Array<string> = [];
-    for (let i = 0; i < promptArray.length - 2; i++) {
+    for (let i = 0; i < numberOfInputVals; i++) {
       inputs.push('');
     }
     return inputs;
@@ -137,17 +139,15 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     const newErrors = new Set(this.state.inputErrors);
     const inputVal = this.state.inputVals[i] || '';
     const inputSufficient = this.state.blankAllowed ? true : inputVal;
-    const cueMatch = (inputVal && this.state.cues.some(c => c.toLowerCase() === inputVal.toLowerCase())) || inputVal === ''
+    const cueMatch = (inputVal && this.state.cues.some(c => stringNormalize(c).toLowerCase() === stringNormalize(inputVal).toLowerCase())) || inputVal === ''
     if (inputSufficient && cueMatch) {
       newErrors.delete(i);
     } else {
       newErrors.add(i);
     }
-
     // following condition will return false if no new errors
     if (newErrors.size) {
       const newInputVals = this.state.inputVals
-      newInputVals[i] = ''
       this.setState({ inputErrors: newErrors, inputVals: newInputVals })
     } else {
       this.setState({ inputErrors: newErrors });
@@ -271,9 +271,9 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
   checkAnswer() {
     if (!this.state.inputErrors.size) {
       if (!this.state.blankAllowed) {
-        if (this.state.inputVals.length === 0) {
-          this.validateInput(0);
-          return;
+        if (this.state.inputVals.filter(Boolean).length !== this.state.inputVals.length) {
+          this.state.inputVals.forEach((val, i) => this.validateInput(i))
+          return
         }
       }
       const zippedAnswer = this.zipInputsAndText();

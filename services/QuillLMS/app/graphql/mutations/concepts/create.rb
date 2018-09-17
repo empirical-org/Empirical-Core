@@ -11,12 +11,13 @@ class Mutations::Concepts::Create < Mutations::BaseMutation
 
   argument :name, String, required: true
   argument :parent_id, ID, required: false
+  argument :description, String, required: false
 
   field :concept, Types::ConceptType, null: true
   field :errors, [String], null: false
 
-  def resolve(name:, parent_id: nil)
-    concept = Concept.new(name: name, parent_id: parent_id)
+  def resolve(name:, parent_id: nil, description: nil)
+    concept = Concept.new(name: name, parent_id: parent_id, description: description)
     if concept.save
       # Successful creation, return the created object with no errors
       {

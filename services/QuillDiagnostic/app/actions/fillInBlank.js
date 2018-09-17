@@ -34,7 +34,8 @@ const actions = {
   submitQuestionEdit(qid, content) {
     return function (dispatch, getState) {
       dispatch({ type: C.SUBMIT_FILL_IN_BLANK_QUESTION_EDIT, qid, });
-      fillInBlankQuestionsRef.child(qid).update(content, (error) => {
+      const cleanedContent = _.pickBy(content)
+      fillInBlankQuestionsRef.child(qid).update(cleanedContent, (error) => {
         dispatch({ type: C.FINISH_FILL_IN_BLANK_QUESTION_EDIT, qid, });
         if (error) {
           dispatch({ type: C.DISPLAY_ERROR, error: `Update failed! ${error}`, });

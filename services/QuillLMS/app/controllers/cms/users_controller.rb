@@ -10,7 +10,7 @@ class Cms::UsersController < Cms::CmsController
 
   def index
     @user_search_query = {sort: 'last_sign_in', sort_direction: 'desc'}
-    @user_search_query_results = user_query(user_query_params)
+    @user_search_query_results = []
     @user_flags = User::VALID_FLAGS
     @number_of_pages = 0
   end
