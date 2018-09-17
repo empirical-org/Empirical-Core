@@ -63,18 +63,18 @@ module PagesHelper
 			      title: 'Executive Director, Cofounder',
 			      desc: "Peter designs the user experience, manages the team, and leads fundraising. Peter found his passion for writing as a journalist at his high school's newspaper, and studied philosophy at Bates College. By teaching students how to write, we teach them how to organize and articulate their ideas. With Quill, he aims to help millions of people improve their writing and thinking skills. In 2016, he was awarded Forbes' 30 Under 30 for education."
 					},
-					{
-						img: 'thumb-donald.png',
-			      name: 'Donald McKendrick',
-			      title: 'Technology Director, Cofounder',
-			      desc: "Donald leads Quill’s engineering team and has a master’s degree in chemistry with a specialization in computer aided modeling and statistical analysis. Donald has previously led financial services and e-commerce startups and is inspired by the opportunity to help educate millions of students through educational technology."
-					},
           {
             img: 'thumb-sara.jpg',
             name: 'Sara Jeruss',
             title: 'Chief Operating Officer',
             desc: "Sara provides day-to-day leadership and management for Quill. She has 9+ years of tech industry experience, most recently as the Chief Product Officer for Climb Credit. Sara spent 3 years at Facebook, managing an internal product and advising product teams about privacy. Prior to Facebook, Sara was a product director at Lex Machina, a leading machine learning startup that was acquired by LexisNexis. Sara is a graduate of Yale Law School and Cornell University."
           },
+					{
+						img: 'thumb-donald.png',
+			      name: 'Donald McKendrick',
+			      title: 'Technology Director, Cofounder',
+			      desc: "Donald leads Quill’s engineering team and has a master’s degree in chemistry with a specialization in computer aided modeling and statistical analysis. Donald has previously led financial services and e-commerce startups and is inspired by the opportunity to help educate millions of students through educational technology."
+					},
 					{
 			      img: 'thumb-hannah.png',
 			      name: "Hannah Monk",
