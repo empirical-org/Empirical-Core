@@ -341,11 +341,11 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       const { conceptResultsObjects, necessaryEdits, numberOfCorrectChanges } = this.state
       if (conceptResultsObjects) {
         const firebaseSessionID = updateConceptResultsOnFirebase(sessionID, conceptResultsObjects)
-      }
-      if (necessaryEdits && (necessaryEdits.length === numberOfCorrectChanges)) {
-        this.saveToLMS()
-      } else if (firebaseSessionID) {
-        
+        if (necessaryEdits && (necessaryEdits.length === numberOfCorrectChanges)) {
+          this.saveToLMS()
+        } else if (firebaseSessionID) {
+          window.location.href = `${process.env.QUILL_GRAMMAR_URL}/play/sw?proofreaderSessionId=${firebaseSessionID}`
+        }
       }
     }
 
