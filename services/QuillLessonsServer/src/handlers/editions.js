@@ -1,7 +1,7 @@
 import r from 'rethinkdb';
 
 export function setTeacherModels({
-  classroomUnitId,
+  classroomSessionId,
   editionId,
   connection,
 }) {
@@ -12,7 +12,7 @@ export function setTeacherModels({
   .then(editionsArray => {
     const questions = editionsArray.length === 1 ? editionsArray[0].questions : null
     r.table('classroom_lesson_sessions')
-    .filter(r.row("id").eq(classroomUnitId))
+    .filter(r.row("id").eq(classroomSessionId))
     .run(connection)
     .then(cursor => cursor.toArray())
     .then(sessionsArray => {
@@ -29,7 +29,7 @@ export function setTeacherModels({
 
             if (shouldUpdate) {
               r.table('classroom_lesson_sessions')
-              .get(classroomUnitId)
+              .get(classroomSessionId)
               .update({
                 prompts: {
                   [key]: questions[key].data.play.prompt
@@ -38,7 +38,7 @@ export function setTeacherModels({
               .run(connection)
 
               r.table('classroom_lesson_sessions')
-              .get(classroomUnitId)
+              .get(classroomSessionId)
               .replace(r.row.without({
                 models: {
                   [key]: true

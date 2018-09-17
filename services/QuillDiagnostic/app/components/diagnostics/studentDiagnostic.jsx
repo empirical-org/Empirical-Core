@@ -12,7 +12,7 @@ import _ from 'underscore';
 import SessionActions from '../../actions/sessions.js';
 import PlaySentenceFragment from './sentenceFragment.jsx';
 import PlayDiagnosticQuestion from './sentenceCombining.jsx';
-import PlayFillInTheBlankQuestion from '../fillInBlank/PlayFillInTheBlankQuestion';
+import PlayFillInTheBlankQuestion from '../fillInBlank/playFillInTheBlankQuestion';
 import TitleCard from '../studentLessons/titleCard.tsx';
 import LandingPage from './landing.jsx';
 import FinishedDiagnostic from './finishedDiagnostic.jsx';
