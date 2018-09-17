@@ -90,7 +90,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
     }
 
     componentWillReceiveProps(nextProps: PlayProofreaderContainerProps) {
-      if (nextProps.proofreaderActivities.hasreceiveddata) {
+      if (nextProps.proofreaderActivities.hasreceiveddata && !this.state.passage) {
         const { passage, underlineErrorsInProofreader } = nextProps.proofreaderActivities.currentActivity
         const initialPassageData = this.formatInitialPassage(passage, underlineErrorsInProofreader)
         const formattedPassage = initialPassageData.passage
@@ -248,8 +248,8 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       const formattedValue = this.formatReceivedPassage(value)
       const regex = /<strong>.*?<\/strong>/gm
       const edits = formattedValue.match(regex)
-      if (edits && !_.isEqual(edits, this.state.edits)) {
-        this.setState({ passage: formattedValue, edits })
+      if (edits) {
+        this.setState({ passage: formattedValue, edits }, () => console.log('this.state.passage', this.state.passage))
       }
     }
 

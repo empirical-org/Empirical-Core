@@ -37,7 +37,7 @@ const rules = [
       }
     },
     serialize(obj, children) {
-      if (obj.object == 'block' || obj.object == 'inline') {
+      if (obj.object === 'block' || obj.object === 'inline') {
         switch (obj.type) {
           case 'code':
             return (
