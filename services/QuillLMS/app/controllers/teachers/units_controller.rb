@@ -170,9 +170,12 @@ class Teachers::UnitsController < ApplicationController
     teach_own_or_coteach_classrooms_array = current_user.send("classrooms_i_#{teach_own_or_coteach}").map(&:id)
     if teach_own_or_coteach_classrooms_array.any?
       if report
+        scores = "(SELECT COUNT(id) FROM activity_sessions WHERE is_final_score = true AND classroom_unit_id = cu.id AND activity_sessions.visible AND activity_sessions.activity_id = activities.id)  AS completed_count,
+        (SELECT (SUM(percentage)*100) FROM activity_sessions WHERE is_final_score = true AND classroom_unit_id = cu.id AND activity_sessions.activity_id = activities.id AND activity_sessions.visible)  AS classroom_cumulative_score,
+        (SELECT COUNT(DISTINCT user_id) FROM activity_sessions WHERE state = 'started' AND classroom_unit_id = cu.id AND activity_sessions.activity_id = activities.id AND activity_sessions.visible)  AS started_count,"
         completed = lessons ? "HAVING ca.completed" : "HAVING SUM(CASE WHEN act_sesh.visible = true AND act_sesh.state = 'finished' THEN 1 ELSE 0 END) > 0"
       else
-        completed = ''
+        scores, completed = ''
       end
       if lessons
         lessons = "AND activities.activity_classification_id = 6"
@@ -194,9 +197,7 @@ class Teachers::UnitsController < ApplicationController
          state.completed,
          activities.id AS activity_id,
          activities.uid as activity_uid,
-         (SELECT COUNT(id) FROM activity_sessions WHERE is_final_score = true AND classroom_unit_id = cu.id AND activity_sessions.visible AND activity_sessions.activity_id = activities.id)  AS completed_count,
-         (SELECT (SUM(percentage)*100) FROM activity_sessions WHERE is_final_score = true AND classroom_unit_id = cu.id AND activity_sessions.activity_id = activities.id AND activity_sessions.visible)  AS classroom_cumulative_score,
-         (SELECT COUNT(DISTINCT user_id) FROM activity_sessions WHERE state = 'started' AND classroom_unit_id = cu.id AND activity_sessions.activity_id = activities.id AND activity_sessions.visible)  AS started_count,
+         #{scores}
          EXTRACT(EPOCH FROM units.created_at) AS unit_created_at,
          EXTRACT(EPOCH FROM ua.created_at) AS unit_activity_created_at,
          #{ActiveRecord::Base.sanitize(teach_own_or_coteach)} AS teach_own_or_coteach,
