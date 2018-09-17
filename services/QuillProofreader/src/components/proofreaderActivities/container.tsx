@@ -23,6 +23,16 @@ import EarlySubmitModal from './earlySubmitModal'
 import ReviewModal from './reviewModal'
 import LoadingSpinner from '../shared/loading_spinner'
 
+interface ConceptResultObject {
+  answer: string,
+  correct: 0|1,
+  instructions: string,
+  prompt: string,
+  questionNumber: number,
+  unchanged: boolean,
+  conceptUID: string
+}
+
 interface PlayProofreaderContainerProps {
   proofreaderActivities: ProofreaderActivityState;
   session: SessionState;
@@ -243,16 +253,16 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       }
     }
 
-    checkWork(): { reviewablePassage: string, numberOfCorrectChanges: number}|undefined {
+    checkWork(): { reviewablePassage: string, numberOfCorrectChanges: number}|void {
       const { currentActivity } = this.props.proofreaderActivities
       const { correctEdits, passage } = this.state
       let numberOfCorrectChanges = 0
       const correctEditRegex = /\+([^-]+)-/m
       const originalTextRegex = /\-([^|]+)\|/m
       const conceptUIDRegex = /\|([^}]+)}/m
-      const conceptResultsObjects = []
-      if (editedPassage) {
-        const gradedPassage = editedPassage.replace(/<strong>(.*?)<\/strong>/gm , (key, edit) => {
+      const conceptResultsObjects: Array<ConceptResultObject> = []
+      if (passage && correctEdits) {
+        const gradedPassage = passage.replace(/<strong>(.*?)<\/strong>/gm , (key, edit) => {
           const uTag = edit.match(/<u id="(\d+)">(.+)<\/u>/m)
           if (uTag && uTag.length) {
             const id = uTag[1]
@@ -325,7 +335,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       }
     }
 
-    renderShowEarlySubmitModal() {
+    renderShowEarlySubmitModal(): JSX.Element|void {
       const { showEarlySubmitModal, correctEdits } = this.state
       const requiredEditCount = correctEdits && correctEdits.length ? Math.floor(correctEdits.length/2) : 5
       if (showEarlySubmitModal) {
@@ -336,7 +346,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       }
     }
 
-    renderShowReviewModal() {
+    renderShowReviewModal(): JSX.Element|void {
       const { showReviewModal, correctEdits, numberOfCorrectChanges } = this.state
       const numberOfErrors = correctEdits && correctEdits.length ? correctEdits.length : 0
       if (showReviewModal) {
@@ -348,7 +358,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       }
     }
 
-    renderPassage() {
+    renderPassage(): JSX.Element|void {
       const { reviewing, reviewablePassage, originalPassage } = this.state
       const { passageFromFirebase } = this.props.session
       if (reviewing) {
@@ -377,6 +387,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
     render(): JSX.Element {
       const { edits, correctEdits} = this.state
       const { currentActivity } = this.props.proofreaderActivities
+      const numberOfCorrectEdits = correctEdits ? correctEdits.length : 0
       if (this.props.proofreaderActivities.hasreceiveddata) {
         const className = currentActivity.underlineErrorsInProofreader ? 'underline-errors' : ''
         const meterWidth = edits.length / correctEdits.length * 100
@@ -390,7 +401,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
                   <p>{currentActivity.description}</p>
                 </div>
                 <div className="edits-made">
-                  <p>Edits Made: {edits.length} of {correctEdits.length}</p>
+                  <p>Edits Made: {edits.length} of {numberOfCorrectEdits}</p>
                   <div className="progress-bar-indication">
                     <span className="meter"
                       style={{width: `${meterWidth}%`}}
