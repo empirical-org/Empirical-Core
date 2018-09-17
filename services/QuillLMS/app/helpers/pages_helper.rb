@@ -69,6 +69,12 @@ module PagesHelper
 			      title: 'Technology Director, Cofounder',
 			      desc: "Donald leads Quill’s engineering team and has a master’s degree in chemistry with a specialization in computer aided modeling and statistical analysis. Donald has previously led financial services and e-commerce startups and is inspired by the opportunity to help educate millions of students through educational technology."
 					},
+          {
+            img: 'thumb-sara.jpg',
+            name: 'Sara Jeruss',
+            title: 'Chief Operating Officer',
+            desc: "Sara provides day-to-day leadership and management for Quill. She has 9+ years of tech industry experience, most recently as the Chief Product Officer for Climb Credit. Sara spent 3 years at Facebook, managing an internal product and advising product teams about privacy. Prior to Facebook, Sara was a product director at Lex Machina, a leading machine learning startup that was acquired by LexisNexis. Sara is a graduate of Yale Law School and Cornell University."
+          },
 					{
 			      img: 'thumb-hannah.png',
 			      name: "Hannah Monk",
@@ -88,15 +94,9 @@ module PagesHelper
             desc: "Max is a software developer with a passion for writing. Before joining Quill, Max studied Computer Science at Ohio State University, worked for a number of different startups, and travelled around the country in a gutted Toyota 4Runner."
           },
           {
-						img: 'thumb-tom-conroy.jpg',
-						name: 'Tom Conroy',
-						title: 'Software Developer',
-						desc: 'Tom is a software developer who joined Quill to help struggling student writers. Before joining our team, he studied at the University of Maryland, College Park and worked for several startups.'
-					},
-          {
 						img: 'thumb-maddy.jpg',
 						name: 'Maddy Maher',
-						title: 'Outreach Associate',
+						title: 'Outreach Lead',
 						desc: "Maddy is an outreach associate who joined Quill full-time after contributing as an Education Team intern. She is passionate about education and holds an Undergraduate degree in English Literature from Hamilton College."
 					},
           {
