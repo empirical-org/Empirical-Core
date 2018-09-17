@@ -103,8 +103,9 @@ class ActivitySessionsController < ApplicationController
   end
 
   def authorize_student_belongs_to_classroom_unit!
+    return auth_failed if current_user.nil?
     @classroom_unit = ClassroomUnit.find params[:classroom_unit_id]
-    if current_user.classrooms.exclude?(@classroom_unit.classroom) then auth_failed end
+    if current_user.classrooms.exclude?(@classroom_unit.classroom) then auth_failed(hard: false) end
   end
 
 end
