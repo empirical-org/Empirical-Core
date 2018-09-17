@@ -11,7 +11,8 @@ import {
   startListeningToQuestions,
   goToNextQuestion,
   checkAnswer,
-  setSessionReducerToSavedSession
+  setSessionReducerToSavedSession,
+  startListeningToFollowUpQuestionsForProofreaderSession
 } from "../../actions/session";
 import { startListeningToConceptsFeedback } from '../../actions/conceptsFeedback'
 import { getConceptResultsForAllQuestions, calculateScoreForLesson } from '../../helpers/conceptResultsGenerator'
@@ -55,13 +56,17 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
     componentWillMount() {
       const activityUID = getParameterByName('uid', window.location.href)
       const sessionID = getParameterByName('student', window.location.href)
-
+      const proofreaderSessionId = getParameterByName('proofreaderSessionId', window.location.href)
       if (sessionID) {
         this.props.dispatch(setSessionReducerToSavedSession(sessionID))
       }
 
       if (activityUID) {
         this.props.dispatch(startListeningToActivity(activityUID))
+      }
+
+      if (proofreaderSessionId) {
+        this.props.dispatch(startListeningToFollowUpQuestionsForProofreaderSession(proofreaderSessionId))
       }
 
     }
@@ -159,12 +164,14 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
 
 
     render(): JSX.Element {
+      const proofreaderSessionId = getParameterByName('proofreaderSessionId', window.location.href)
+
       if (this.state.showTurkCode) {
         return <TurkCodePage/>
       }
-      if (this.props.grammarActivities.hasreceiveddata && this.props.session.hasreceiveddata && this.props.session.currentQuestion) {
+      if ((this.props.grammarActivities.hasreceiveddata || proofreaderSessionId) && this.props.session.hasreceiveddata && this.props.session.currentQuestion) {
         return <QuestionComponent
-          activity={this.props.grammarActivities.currentActivity}
+          activity={this.props.grammarActivities ? this.props.grammarActivities.currentActivity : null}
           answeredQuestions={this.props.session.answeredQuestions}
           unansweredQuestions={this.props.session.unansweredQuestions}
           currentQuestion={this.props.session.currentQuestion}

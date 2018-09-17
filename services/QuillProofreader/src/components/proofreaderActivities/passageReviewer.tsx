@@ -9,6 +9,7 @@ import Edit from './edit'
 interface PassageReviewerProps {
   text: string;
   concepts: Array<Concept>;
+  finishReview: Function;
 }
 
 interface PassageReviewerState {
@@ -33,7 +34,14 @@ export default class PassageReviewer extends React.Component<PassageReviewerProp
   }
 
   next() {
-    this.setState({activeIndex: this.state.activeIndex + 1})
+    const { activeIndex, numberOfEdits } = this.state
+    console.log('activeIndex', activeIndex + 1)
+    console.log('numberOfEdits', numberOfEdits)
+    if (activeIndex + 1 === numberOfEdits) {
+      this.props.finishReview()
+    } else {
+      this.setState({activeIndex: activeIndex + 1})
+    }
   }
 
   renderFormattedText() {
