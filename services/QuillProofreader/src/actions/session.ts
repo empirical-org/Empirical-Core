@@ -37,7 +37,6 @@ export const setSessionReducerToSavedSession = (sessionID: string) => {
 
 export const setSessionReducer = (passage: string) => {
   return (dispatch) => {
-    debugger;
     dispatch({ type: ActionTypes.SET_FIREBASE_PASSAGE, passage})
   }
 }

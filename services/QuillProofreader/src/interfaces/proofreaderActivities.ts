@@ -28,11 +28,16 @@ export interface TopicCategory {
 }
 
 export interface ConceptResultObject {
+  metadata: ConceptResultMetadata,
+  concept_uid: string,
+  question_type: "passage-proofreader"
+}
+
+export interface ConceptResultMetadata {
   answer: string,
   correct: 0|1,
   instructions: string,
   prompt: string,
   questionNumber: number,
   unchanged: boolean,
-  conceptUID: string
 }
