@@ -76,11 +76,12 @@ module Units::Updater
     activities_data.each do |activity|
       self.matching_or_new_unit_activity(activity, extant_unit_activities, new_uas, hidden_ua_ids, unit_id)
     end
-    new_cus.uniq.each{|cu| ClassroomUnit.create(cu)}
-    hidden_cus_ids.each{|cu_id| ClassroomUnit.find_by_id(cu_id)&.update(visible: false)}
-    new_uas.uniq.each{|ua| UnitActivity.create(ua)}
-    hidden_ua_ids.each{|ua_id| UnitActivity.find_by_id(ua_id)&.update(visible: false)}
-    unit = Unit.find unit_id
+    ClassroomUnit.create(new_cus)
+    ClassroomUnit.where(id: hidden_cus_ids).update_all(visible: false)
+    UnitActivity.create(new_uas)
+    UnitActivity.where(id: hidden_ua_ids).update_all(visible: false)
+    unit = Unit.find(unit_id)
+    unit.save()
     if (hidden_ua_ids.any?) && (new_uas.none?)
       unit.hide_if_no_visible_unit_activities
     end

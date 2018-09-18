@@ -2,6 +2,7 @@ import newrelic from 'newrelic';
 import dotenv from 'dotenv';
 import r from 'rethinkdb';
 import socketio from 'socket.io';
+import redis from 'socket.io-redis';
 import fs from 'fs';
 import jwt from 'jsonwebtoken';
 import http from 'http';
@@ -13,6 +14,7 @@ dotenv.config();
 
 const app = http.createServer(requestHandler);
 const io = socketio(app);
+io.adapter(redis(process.env.REDISTOGO_URL));
 const port = process.env.PORT;
 
 import {
