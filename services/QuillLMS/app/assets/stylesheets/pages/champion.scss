@@ -3,28 +3,37 @@
   width: 950px;
 
   #champion-hero {
-    background: #c5e4ff;
-    border: solid 1px rgba(90, 174, 246, 0.32);
-    border-radius: 3px;
+    background: #fff;
+    border: solid 1px #e0e0e0;
+    border-radius: 4px;
     margin: 26px 0 39px;
     padding: 30px 10px;
     text-align: center;
+
+    .ui_share {
+      width: 32px;
+      height: 32px;
+      object-fit: contain;
+    }
+
+    h1 {
+      font-weight: bold;
+      color: #000000;
+      font-size: 24px;
+      padding-top: 16px;
+    }
+    h2,p.share-text {
+      color: #7f7f7f;
+      font-size: 16px;
+      padding-top: 8px;
+    }
 
     img {
       height: 75px;
       width: 83px;
     }
 
-    h1 {
-      color: #014f92;
-      font-size: 24px;
-      margin: 17px 0 12px;
-    }
-
-    h2 {
-      color: #348fdf;
-      font-size: 16px;
-    }
+    margin: 17px 0 12px;
 
     form {
       padding: 34px 0 0;
@@ -55,7 +64,6 @@
     margin-bottom: 75px;
 
     &::before {
-      border: 1px dashed #348fdf;
       content: '';
       height: 1px;
       margin-top: 20px;
@@ -70,10 +78,11 @@
 
       .circle-icon {
         align-items: center;
-        background: #348fdf;
+        background: #f7f5f5;
         border-radius: 50%;
-        color: #ffffff;
+        color: #666666;
         display: flex;
+        border: 1px solid;
         font-size: 20px;
         font-weight: 600;
         height: 40px;
@@ -107,64 +116,25 @@
   }
 
   #callout-box {
-    background: #ffffff;
-    border-radius: 6px;
-    box-shadow: 0 2px 2px 0 #e9e9e9;
-    display: flex;
-    margin-bottom: 50px;
-    padding: 22px 30px;
 
-    .half {
-      padding: 10px 0;
-      width: 50%;
+    background: #fff;
+    border: solid 1px #e0e0e0;
+    border-radius: 4px;
+    margin: 26px 0 39px;
+    padding: 30px 10px;
+    text-align: center;
+
+    h2 {
+      color: #000000;
+      font-size: 16px;
+      font-weight: bold;
+    }
+    p {
+      color: #7f7f7f;
+      font-size: 16px;
+      padding-top: 8px;
     }
 
-    .left {
-      border-right: 1px solid #e9e9e9;
-
-      img {
-        float: left;
-        height: 35px;
-        margin: -4px 10px 0 0;
-        width: 35px;
-      }
-
-      h2 {
-        color: #00c2a2;
-        font-size: 24px;
-      }
-
-      div {
-        display: flex;
-        margin-top: 20px;
-
-        a {
-          color: #027360;
-          font-size: 14px;
-
-          &:first-of-type {
-            margin-right: 24px;
-          }
-        }
-      }
-    }
-
-    .right {
-      color: #3b3b3b;
-      display: flex;
-      font-size: 20px;
-      justify-content: space-around;
-
-      div p:first-of-type {
-        color: #c0c0c0;
-        font-size: 16px;
-      }
-
-      .number {
-        font-size: 30px;
-        font-weight: 600;
-      }
-    }
   }
 
   #share-box {
@@ -172,6 +142,7 @@
     font-size: 16px;
     padding: 40px 0 40px;
     text-align: center;
+
 
     h2 {
       color: #3b3b3b;
