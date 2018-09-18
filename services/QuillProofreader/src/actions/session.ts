@@ -7,13 +7,13 @@ export const updateSessionOnFirebase = (sessionID: string, passage: string) => {
   sessionsRef.child(sessionID).set({ passage: passage })
 }
 
-export const updateConceptResultsOnFirebase = (sessionID: string|null, conceptResults: Array<ConceptResultObject>) => {
-  const conceptResultsObj = { conceptResults }
+export const updateConceptResultsOnFirebase = (sessionID: string|null, activityUID: string, conceptResults: Array<ConceptResultObject>) => {
+  const sessionObj = { conceptResults, activityUID, anonymous: !!sessionID }
   if (sessionID) {
-    sessionsRef.child(sessionID).set(conceptResultsObj)
+    sessionsRef.child(sessionID).set(sessionObj)
     return sessionID
   } else {
-    const anonymousSession = sessionsRef.push(conceptResultsObj)
+    const anonymousSession = sessionsRef.push(sessionObj)
     return anonymousSession.key
   }
 }
