@@ -266,7 +266,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
         const gradedPassage = passage.replace(/<strong>(.*?)<\/strong>/gm , (key, edit) => {
           const uTag = edit.match(/<u id="(\d+)">(.+)<\/u>/m)
           if (uTag && uTag.length) {
-            const id = uTag[1]
+            const id = Number(uTag[1])
             const text = uTag[2]
             if (necessaryEdits && necessaryEdits[id]) {
               const correctEdit = necessaryEdits[id].match(correctEditRegex) ? necessaryEdits[id].match(correctEditRegex)[1] : ''
@@ -275,24 +275,30 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
               if (text === correctEdit) {
                 numberOfCorrectChanges++
                 conceptResultsObjects.push({
-                  answer: text,
-                  correct: 1,
-                  instructions: currentActivity.description,
-                  prompt: originalText,
-                  questionNumber: id + 1,
-                  unchanged: false,
-                  conceptUID: conceptUID
+                  metadata: {
+                    answer: text,
+                    correct: 1,
+                    instructions: currentActivity.description,
+                    prompt: originalText,
+                    questionNumber: id + 1,
+                    unchanged: false,
+                  },
+                  concept_uid: conceptUID,
+                  question_type: "passage-proofreader"
                 })
                 return `{+${text}-|${conceptUID}}`
               } else {
                 conceptResultsObjects.push({
-                  answer: text,
-                  correct: 0,
-                  instructions: currentActivity.description,
-                  prompt: originalText,
-                  questionNumber: id + 1,
-                  unchanged: false,
-                  conceptUID: conceptUID
+                  metadata: {
+                    answer: text,
+                    correct: 0,
+                    instructions: currentActivity.description,
+                    prompt: originalText,
+                    questionNumber: id + 1,
+                    unchanged: false,
+                  },
+                  concept_uid: conceptUID,
+                  question_type: "passage-proofreader"
                 })
                 return `{+${correctEdit}-${text}|${conceptUID}}`
               }
@@ -308,13 +314,16 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
             const conceptUID = necessaryEdits[id].match(conceptUIDRegex) ? necessaryEdits[id].match(conceptUIDRegex)[1] : ''
             const originalText = necessaryEdits[id].match(originalTextRegex) ? necessaryEdits[id].match(originalTextRegex)[1] : ''
             conceptResultsObjects.push({
-              answer: text,
-              correct: 0,
-              instructions: currentActivity.description,
-              prompt: originalText,
-              questionNumber: id + 1,
-              unchanged: false,
-              conceptUID: conceptUID
+              metadata: {
+                answer: text,
+                correct: 0,
+                instructions: currentActivity.description,
+                prompt: originalText,
+                questionNumber: id + 1,
+                unchanged: false,
+              },
+              concept_uid: conceptUID,
+              question_type: "passage-proofreader"
             })
             return necessaryEdits[id]
           } else {

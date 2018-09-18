@@ -35,16 +35,16 @@ export const startListeningToFollowUpQuestionsForProofreaderSession = (proofread
       const proofreaderSession = snapshot.val()
       if (proofreaderSession) {
         const concepts: { [key:string]: { quantity: 1|2|3 } } = {}
-        const incorrectConcepts = proofreaderSession.conceptResults.filter(cr => cr.correct === 0)
+        const incorrectConcepts = proofreaderSession.conceptResults.filter(cr => cr.metadata.correct === 0)
         let quantity = 3
-        if (incorrectConcepts.length > 10) {
+        if (incorrectConcepts.length > 9) {
           quantity = 1
-        } else if (incorrectConcepts.length > 5) {
+        } else if (incorrectConcepts.length > 4) {
           quantity = 2
         }
         proofreaderSession.conceptResults.forEach(cr => {
           if (cr.correct === 0) {
-            concepts[cr.conceptUID] = { quantity }
+            concepts[cr.concept_uid] = { quantity }
           }
         })
         dispatch(startListeningToQuestions(concepts))
