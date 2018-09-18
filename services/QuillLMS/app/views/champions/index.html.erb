@@ -2,19 +2,20 @@
 
 <div id='champion-container'>
   <div id='champion-hero'>
-    <h1>Refer Quill And Receive <strong>3 Months</strong> Of Premium Credit</h1>
-    <h2>When your colleague signs up, you'll receive your Quill Premium Credit</h2>
+    <%= image_tag "gift.svg" %>
+    <h1>Invite your friends, get free Quill Premium.</h1>
+    <h2>When your friend signs up, you’ll receive 4 weeks<br/> of premium credit.</h2>
     <div id='share-box'>
     <input type='text' value='<%= @referral_link %>' id='referral-input' />
     <input type='button' id='copy-button' value='Copy Link' />
+    <p class="share-text">Or share it on: </p>
     <div class='share-links'>
-      <p>Or share it on: </p>
       <ul>
-        <li><a href="https://twitter.com/home?status=I'm using @quill_org to help my students become better writers and critical thinkers. Want to join me? <%= @referral_link %>"><i class="fa fa-twitter-square"></i></a></li>
-        <li><a href='https://www.facebook.com/share.php?u=<%= @referral_link %>'><i class="fa fa-facebook-square"></i></a></li>
-        <li><a href='https://plus.google.com/share?url=<%= @referral_link %>'><i class="fa fa-google-plus-square"></i></a></li>
-        <li><a href="https://pinterest.com/pin/create/button/?url=<%= @referral_link %>&media=https%3A//s-media-cache-ak0.pinimg.com/736x/92/46/50/9246509b2ad54a3c2ad97e21976b9176.jpg&description=I'm using free tools from Quill.org to help my students become better writers and critical thinkers. Want to join me?"><i class="fa fa-pinterest-square"></i></a></li>
-        <li><a href="mailto:mailto:?subject=Free tool to help your students become better writers&body=Hi! I've been using this free tool called Quill.org to help my students become better writers and critical thinkers, and I wanted to let you know about it. Hopefully it helps your students as much as it's helped mine! <%= @referral_link %>"><i class="fa fa-envelope-square"></i></a></li>
+        <li><a href="https://twitter.com/home?status=I'm using @quill_org to help my students become better writers and critical thinkers. Want to join me? <%= @referral_link %>"><%= image_tag("ui-share-twitter-copy.svg", class: "ui_share") %>
+     </a></li>
+     <li><a href='https://www.facebook.com/share.php?u=<%= @referral_link %>'><%= image_tag("ui-share-facebook-copy.svg", class: "ui_share") %></a></li>
+        <li><a href='https://plus.google.com/share?url=<%= @referral_link %>'><%= image_tag("ui-share-google-copy.svg", class: "ui_share") %></a></li>
+        <li><a href="mailto:mailto:?subject=Free tool to help your students become better writers&body=Hi! I've been using this free tool called Quill.org to help my students become better writers and critical thinkers, and I wanted to let you know about it. Hopefully it helps your students as much as it's helped mine! <%= @referral_link %>"><%= image_tag("ui-share-email-copy.svg", class: "ui_share") %></i></a></li>
       </ul>
     </div>
     </div>
@@ -26,45 +27,38 @@
       <span class='circle-icon'>
         <span class='offset'>1</span>
       </span>
-      <h2>You Invite a Teacher</h2>
-      <p>A teacher (or teachers!) signs up for Quill using your referral code.</p>
+      <h2>Invite Friends</h2>
+      <p>Share your referral link and get friends to sign up for Quill.</p>
     </div>
     <div class='step'>
       <span class='circle-icon'>
         <span class='offset'>2</span>
       </span>
-      <h2>They Assign Work</h2>
-      <p>The teacher you invited assigns an activity, and their first student completes it.</p>
+      <h2>Your Friends Sign Up</h2>
+      <p>Once your friend signs up, all they need to do is assign an activity.</p>
     </div>
     <div class='step'>
       <span class='circle-icon'>
         <span class='offset'>3</span>
       </span>
-      <h2>You Get Some Quill Cash!</h2>
-      <p>You earn Quill Premium credit for being awesome! 🎉</p>
+      <h2>Get Free Premium</h2>
+      <p>You receive 4 weeks of premium credit.</p>
     </div>
   </div>
 
   <div id='callout-box'>
-    <div class='half left'>
-      <img src='http://placehold.it/35' />
-      <h2>You are a <strong>Quill Champion!</strong></h2>
-      <div>
-        <a href='#'>Get Your Teacher Champion Sticker</a>
-        <a href='#'>Earn More Credits</a>
-      </div>
-    </div>
 
-    <div class='half right'>
-      <div>
-        <p>You have invited</p>
-        <p><span class='number'><%= @referral_count %></span> teachers</p>
-      </div>
-      <div>
-        <p>You have (Quill Premium Credit)</p>
-        <p><span class='number'><%= @earned_months %></span> months of credit</p>
-      </div>
-    </div>
+    <h2>Track Your Invites</h2>
+    <p><%= @referral_count %> friends have joined. <%= @earned_months %> friends have assigned activities.<br/>
+    You have <%= @earned_months %> months of credit.
+
+    <% if @earned_months > 0 %>
+      Redeem at <%= link_to "My Subscriptions", subscriptions_path %>.
+    <% end %>
+    
+    
+    </p>
+
   </div>
 
 
