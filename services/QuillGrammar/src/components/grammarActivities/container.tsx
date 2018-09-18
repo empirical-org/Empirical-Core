@@ -117,7 +117,7 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
         const proofreaderAndGrammarResults = proofreaderConceptResults.concat(results)
         const correctProofreaderQuestions = proofreaderConceptResults.filter(cr => cr.metadata.correct === 1)
         const proofreaderScore = correctProofreaderQuestions.length / numberOfProofreaderQuestions
-        const totalScore = (proofreaderScore * numberOfProofreaderQuestions) + (score * numberOfGrammarQuestions) / (numberOfGrammarQuestions + numberOfProofreaderQuestions)
+        const totalScore = ((proofreaderScore * numberOfProofreaderQuestions) + (score * numberOfGrammarQuestions)) / (numberOfGrammarQuestions + numberOfProofreaderQuestions)
         if (proofreaderSession.anonymous) {
           const proofreaderActivityUID = proofreaderSession.activityUID
           this.createAnonActivitySession(proofreaderActivityUID, proofreaderAndGrammarResults, totalScore)
@@ -140,8 +140,7 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
         },
         (err, httpResponse, body) => {
           if (httpResponse && httpResponse.statusCode === 200) {
-            const sessionID = getParameterByName('student', window.location.href)
-            document.location.href = `${process.env.EMPIRICAL_BASE_URL}/activity_sessions/${sessionID}`;
+            document.location.href = `${process.env.EMPIRICAL_BASE_URL}/activity_sessions/${body.activity_session.uid}`;
             this.setState({ saved: true, });
           } else {
             this.setState({
