@@ -761,7 +761,7 @@ DEPENDENCIES
   puma_worker_killer
   pusher
   quiet_assets
-  rack-affiliates (~> 0.4.0)
+  rack-affiliates (= 0.4.0)
   rack-attack
   rack-cache (~> 1.6.1)
   rack-cors
@@ -820,4 +820,4 @@ RUBY VERSION
    ruby 2.5.1p57
 
 BUNDLED WITH
-   1.16.2
+   1.16.3

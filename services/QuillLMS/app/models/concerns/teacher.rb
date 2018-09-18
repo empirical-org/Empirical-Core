@@ -464,8 +464,16 @@ module Teacher
     self.referrer_user.referral_code
   end
 
+   def referral_link
+    Rails.application.routes.url_helpers.root_url(champion: self.referrer_user.referral_code)
+  end
+
   def referrals
     self.referrals_users.count
+  end
+
+  def earned_months
+    self.referrals_users.where(activated: true ).count
   end
 
   def teaches_student?(student_id)

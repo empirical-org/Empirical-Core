@@ -9,6 +9,7 @@ import CoteachingAnnouncement from './coteaching_announcement_mini.jsx';
 import PremiumPromo from './premium_promo.jsx';
 import LessonsList from './lessons_list.jsx';
 import DiagnosticMini from './diagnostic_mini.jsx'
+import ChampionInvitationMini from './champion_invitation_mini.jsx'
 
 export default React.createClass({
   propTypes: {
@@ -59,6 +60,7 @@ export default React.createClass({
   announcementMini() {
     const announcements = [];
     announcements.push(<CoteachingAnnouncement key="coteaching-announcement" />);
+    // announcements.push(<ChampionInvitationMini key="champion-invitation-mini" />);
     return announcements;
   },
 
