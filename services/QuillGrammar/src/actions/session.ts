@@ -43,10 +43,11 @@ export const startListeningToFollowUpQuestionsForProofreaderSession = (proofread
           quantity = 2
         }
         proofreaderSession.conceptResults.forEach(cr => {
-          if (cr.correct === 0) {
+          if (cr.metadata.correct === 0) {
             concepts[cr.concept_uid] = { quantity }
           }
         })
+        dispatch(saveProofreaderSessionToReducer(proofreaderSession))
         dispatch(startListeningToQuestions(concepts))
       }
     })
@@ -117,5 +118,11 @@ export const submitResponse = (response: Response) => {
 export const setSessionReducer = (session: SessionState) => {
   return dispatch => {
     dispatch({ type: ActionTypes.SET_SESSION, session})
+  }
+}
+
+export const saveProofreaderSessionToReducer = (proofreaderSession) => {
+  return dispatch => {
+    dispatch({ type: ActionTypes.SET_PROOFREADER_SESSION_TO_REDUCER, data: proofreaderSession})
   }
 }

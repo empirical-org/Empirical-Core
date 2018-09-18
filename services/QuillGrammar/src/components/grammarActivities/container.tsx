@@ -96,10 +96,12 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
     }
 
     saveToLMS(questions: SessionState) {
-      const results = getConceptResultsForAllQuestions(questions.answeredQuestions);
-      const score = calculateScoreForLesson(questions.answeredQuestions);
+      const { answeredQuestions } = questions
+      const results = getConceptResultsForAllQuestions(answeredQuestions);
+      const score = calculateScoreForLesson(answeredQuestions);
       const activityUID = getParameterByName('uid', window.location.href)
       const sessionID = getParameterByName('student', window.location.href)
+      const proofreaderSessionId = getParameterByName('proofreaderSessionId', window.location.href)
       if (window.location.href.includes('turk')) {
         this.setState({showTurkCode: true})
       }
@@ -107,6 +109,21 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
         this.finishActivitySession(sessionID, results, score);
       } else if (activityUID) {
         this.createAnonActivitySession(activityUID, results, score);
+      } else if (proofreaderSessionId) {
+        const { proofreaderSession } = this.props.session
+        const proofreaderConceptResults = proofreaderSession.conceptResults
+        const numberOfGrammarQuestions = answeredQuestions.length
+        const numberOfProofreaderQuestions = proofreaderConceptResults.length
+        const proofreaderAndGrammarResults = proofreaderConceptResults.concat(results)
+        const correctProofreaderQuestions = proofreaderConceptResults.filter(cr => cr.metadata.correct === 1)
+        const proofreaderScore = correctProofreaderQuestions.length / numberOfProofreaderQuestions
+        const totalScore = (proofreaderScore * numberOfProofreaderQuestions) + (score * numberOfGrammarQuestions) / (numberOfGrammarQuestions + numberOfProofreaderQuestions)
+        if (proofreaderSession.anonymous) {
+          const proofreaderActivityUID = proofreaderSession.activityUID
+          this.createAnonActivitySession(proofreaderActivityUID, proofreaderAndGrammarResults, totalScore)
+        } else {
+          this.finishActivitySession(proofreaderSessionId, proofreaderAndGrammarResults, totalScore)
+        }
       }
     }
 
