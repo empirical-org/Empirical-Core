@@ -315,6 +315,36 @@ CREATE FUNCTION public.timespent_teacher(teacher integer) RETURNS bigint
       $$;
 
 
+--
+-- Name: xx(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.xx() RETURNS integer[]
+    LANGUAGE plpgsql
+    AS $$
+DECLARE
+	act_sess_ids int[];
+	classroom_unit_ids int[];
+	result int[];
+BEGIN
+	act_sess_ids := ARRAY(SELECT DISTINCT classroom_units.id as classroom_unit_id FROM referrals_users
+		JOIN classrooms_teachers ON referrals_users.referred_user_id = classrooms_teachers.user_id
+		JOIN classroom_units ON classrooms_teachers.classroom_id = classroom_units.classroom_id
+		WHERE referrals_users.activated = FALSE
+	);
+	classroom_unit_ids := ARRAY(SELECT classroom_unit_id FROM activity_sessions WHERE classroom_unit_id = ANY (act_sess_ids)
+		AND activity_sessions.completed_at IS NOT NULL);
+	
+	return ARRAY(SELECT DISTINCT referrals_users.id FROM referrals_users
+		JOIN classrooms_teachers ON referrals_users.referred_user_id = classrooms_teachers.user_id
+		JOIN classroom_units ON classrooms_teachers.classroom_id = classroom_units.classroom_id
+		WHERE classroom_units.id = ANY (classroom_unit_ids));
+	
+END
+
+$$;
+
+
 SET default_tablespace = '';
 
 SET default_with_oids = false;
@@ -1160,7 +1190,8 @@ CREATE TABLE public.concepts (
     parent_id integer,
     uid character varying(255) NOT NULL,
     replacement_id integer,
-    visible boolean DEFAULT true
+    visible boolean DEFAULT true,
+    description text
 );
 
 
@@ -3117,6 +3148,14 @@ ALTER TABLE ONLY public.activity_sessions
 
 
 --
+-- Name: activity_sessions activity_sessions_uid_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.activity_sessions
+    ADD CONSTRAINT activity_sessions_uid_key UNIQUE (uid);
+
+
+--
 -- Name: admin_accounts_admins admin_accounts_admins_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3346,14 +3385,6 @@ ALTER TABLE ONLY public.ip_locations
 
 ALTER TABLE ONLY public.milestones
     ADD CONSTRAINT milestones_pkey PRIMARY KEY (id);
-
-
---
--- Name: activity_sessions new_activity_sessions_uid_key; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.activity_sessions
-    ADD CONSTRAINT new_activity_sessions_uid_key UNIQUE (uid);
 
 
 --
@@ -3589,6 +3620,13 @@ ALTER TABLE ONLY public.users
 
 
 --
+-- Name: activity_sessions_classroom_unit_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX activity_sessions_classroom_unit_id_idx ON public.activity_sessions USING btree (classroom_unit_id);
+
+
+--
 -- Name: aut; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -3673,13 +3711,6 @@ CREATE INDEX index_activity_sessions_on_classroom_activity_id ON public.activity
 
 
 --
--- Name: index_activity_sessions_on_classroom_unit_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_activity_sessions_on_classroom_unit_id ON public.activity_sessions USING btree (classroom_unit_id);
-
-
---
 -- Name: index_activity_sessions_on_completed_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -3705,13 +3736,6 @@ CREATE INDEX index_activity_sessions_on_started_at ON public.activity_sessions U
 --
 
 CREATE INDEX index_activity_sessions_on_state ON public.activity_sessions USING btree (state);
-
-
---
--- Name: index_activity_sessions_on_uid; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_activity_sessions_on_uid ON public.activity_sessions USING btree (uid);
 
 
 --
@@ -4517,55 +4541,6 @@ CREATE INDEX index_users_on_username ON public.users USING btree (username);
 --
 
 CREATE INDEX name_idx ON public.users USING gin (name public.gin_trgm_ops);
-
-
---
--- Name: new_activity_sessions_activity_id_idx; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX new_activity_sessions_activity_id_idx ON public.activity_sessions USING btree (activity_id);
-
-
---
--- Name: new_activity_sessions_classroom_unit_id_idx; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX new_activity_sessions_classroom_unit_id_idx ON public.activity_sessions USING btree (classroom_unit_id);
-
-
---
--- Name: new_activity_sessions_completed_at_idx; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX new_activity_sessions_completed_at_idx ON public.activity_sessions USING btree (completed_at);
-
-
---
--- Name: new_activity_sessions_started_at_idx; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX new_activity_sessions_started_at_idx ON public.activity_sessions USING btree (started_at);
-
-
---
--- Name: new_activity_sessions_state_idx; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX new_activity_sessions_state_idx ON public.activity_sessions USING btree (state);
-
-
---
--- Name: new_activity_sessions_uid_idx; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX new_activity_sessions_uid_idx ON public.activity_sessions USING btree (uid);
-
-
---
--- Name: new_activity_sessions_user_id_idx; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX new_activity_sessions_user_id_idx ON public.activity_sessions USING btree (user_id);
 
 
 --
@@ -5505,4 +5480,6 @@ INSERT INTO schema_migrations (version) VALUES ('20180831194317');
 INSERT INTO schema_migrations (version) VALUES ('20180831194810');
 
 INSERT INTO schema_migrations (version) VALUES ('20180910152342');
+
+INSERT INTO schema_migrations (version) VALUES ('20180911171536');
 

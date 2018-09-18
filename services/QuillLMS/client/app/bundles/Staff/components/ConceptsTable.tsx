@@ -3,9 +3,11 @@ import { Table } from 'antd';
 import {Link} from 'react-router';
 import { Concept } from '../containers/ConceptsIndex';
 import moment from 'moment';
+import _ from 'lodash';
 
 interface ConceptsTableProps {
   concepts: Array<Concept>
+  visible: Boolean
 }
 
 interface ConceptRow {
@@ -67,8 +69,12 @@ function prepareRow(concept:Concept):ConceptRow {
   }
 }
 
-const ConceptsTable: React.SFC<ConceptsTableProps> = ({concepts}) => {
-  const data = prepareData(concepts);
+function filterData(concepts:Array<Concept>, visible:Boolean):Array<Concept> {
+  return concepts.filter(concept => concept.visible == visible)
+}
+
+const ConceptsTable: React.SFC<ConceptsTableProps> = ({concepts, visible}) => {
+  const data = prepareData(filterData(concepts, visible));
   return (
     <Table 
       columns={columns} 
