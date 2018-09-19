@@ -55,7 +55,7 @@ module Units::Creator
     classrm_units.each do |classroom_unit|
       GoogleIntegration::UnitAnnouncement.new(classroom_unit).post
     end
-
+    unit.create_any_new_classroom_unit_activity_states
     unit.email_lesson_plan
     # unit.hide_if_no_visible_unit_activities
     # activity_sessions in the state of 'unstarted' are automatically created in an after_create callback in the classroom_activity model
