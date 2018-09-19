@@ -88,7 +88,7 @@ const html = new Html({ rules })
 
 const plugins = [
   StickyInlines({
-    stickOnDelete: false
+    // stickOnDelete: false
   //   canBeEmpty: true,
   //   hasStickyBoundaries: true,
   //   stickOnDelete: true,
@@ -219,13 +219,19 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
     if (value.startInline && value.startInline.nodes) {
       const dataOriginalIndex = value.startInline.data.get('dataOriginalIndex')
       const originalText = this.state.originalTextArray[dataOriginalIndex]
-      if (stringNormalize(value.startInline.text).trim() === stringNormalize(originalText).trim()) {
-        change.moveToRangeOfNode(value.startInline.nodes.first())
+      const normalizedAndTrimmedNewText = stringNormalize(value.startInline.text).trim()
+      let node = change.moveToRangeOfNode(value.startInline)
+      // if (this.state.indicesOfUTags[dataOriginalIndex] && !value.marks.find((mark: any) => mark.type === 'underline')) {
+      //   const id = this.state.indicesOfUTags[dataOriginalIndex]
+      //   node = node.removeMark({type: 'underline', data: {id}}).addMark({type: 'underline', data: {id}})
+      // }
+      if (normalizedAndTrimmedNewText === stringNormalize(originalText).trim()) {
+        node
         .removeMark('bold')
         .setStart(originalSelection.start)
         .setEnd(originalSelection.end)
       } else {
-        change.moveToRangeOfNode(value.startInline.nodes.first())
+        node
         .addMark('bold')
         .setStart(originalSelection.start)
         .setEnd(originalSelection.end)
