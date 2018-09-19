@@ -2,7 +2,9 @@ import * as React from "react";
 import * as Redux from "redux";
 import {connect} from "react-redux";
 import * as request from 'request';
-import _ from 'lodash';
+import * as _ from 'lodash';
+import { stringNormalize } from 'quill-string-normalizer'
+
 const questionIconSrc = 'https://assets.quill.org/images/icons/question_icon.svg'
 
 import getParameterByName from '../../helpers/getParameterByName';
@@ -99,7 +101,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
 
     formatInitialPassage(passage: string, underlineErrors: boolean) {
       let necessaryEdits = []
-      passage.replace(/{\+([^-]+)-([^|]+)\|([^}]+)}/g, (key: string, plus: string, minus: string, conceptUID: string) => {
+      passage.replace(/{\+([^-]+)-([^|]+)\|([^}]*)}/g, (key: string, plus: string, minus: string, conceptUID: string) => {
         passage = passage.replace(key, `<u id="${necessaryEdits.length}">${minus}</u>`);
         necessaryEdits.push(key)
       });
@@ -267,11 +269,13 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
           const uTag = edit.match(/<u id="(\d+)">(.+)<\/u>/m)
           if (uTag && uTag.length) {
             const id = Number(uTag[1])
-            const text = uTag[2]
+            const text = stringNormalize(uTag[2]).trim()
             if (necessaryEdits && necessaryEdits[id]) {
-              const correctEdit = necessaryEdits[id].match(correctEditRegex) ? necessaryEdits[id].match(correctEditRegex)[1] : ''
+              const correctEdit = necessaryEdits[id].match(correctEditRegex) ? stringNormalize(necessaryEdits[id].match(correctEditRegex)[1]) : ''
               const conceptUID = necessaryEdits[id].match(conceptUIDRegex) ? necessaryEdits[id].match(conceptUIDRegex)[1] : ''
               const originalText = necessaryEdits[id].match(originalTextRegex) ? necessaryEdits[id].match(originalTextRegex)[1] : ''
+              console.log('text', text)
+              console.log('correctEdit', correctEdit)
               if (text === correctEdit) {
                 numberOfCorrectChanges++
                 conceptResultsObjects.push({
