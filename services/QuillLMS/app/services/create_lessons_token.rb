@@ -27,7 +27,7 @@ class CreateLessonsToken
   end
 
   def exp
-    Time.now.to_i + 48 * 3600
+    Time.now.to_i + 365 * 24 * 3600
   end
 
   def data
