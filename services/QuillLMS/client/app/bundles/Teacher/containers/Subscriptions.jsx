@@ -194,6 +194,11 @@ export default class extends React.Component {
           premiumCredits={this.props.premiumCredits}
           authorityLevel={this.state.authorityLevel}
         />
+        <AvailableCredits userHasValidSub={userHasValidSub} availableCredits={this.state.availableCredits} redeemPremiumCredits={this.redeemPremiumCredits} />
+        <PremiumCreditsTable
+          earnedCredits={this.state.earnedCredits}
+          premiumCredits={this.props.premiumCredits}
+        />
         <RefundPolicy />
         <PremiumConfirmationModal
           show={this.state.showPremiumConfirmationModal}
@@ -212,8 +217,4 @@ export default class extends React.Component {
   }
 }
 
-// <AvailableCredits userHasValidSub={userHasValidSub} availableCredits={this.state.availableCredits} redeemPremiumCredits={this.redeemPremiumCredits} />
-// <PremiumCreditsTable
-//   earnedCredits={this.state.earnedCredits}
-//   premiumCredits={this.props.premiumCredits}
-// />
+
