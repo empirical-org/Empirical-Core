@@ -54,7 +54,7 @@ class SubscriptionsController < ApplicationController
 
   def set_index_variables
     @subscriptions = current_user.subscriptions
-    @premium_credits = current_user.credit_transactions
+    @premium_credits = current_user.credit_transactions.map {|x| x.serializable_hash(methods: :action)}.compact
     subscription_status
     @school_subscription_types = Subscription::OFFICIAL_SCHOOL_TYPES
     @last_four = current_user&.last_four
