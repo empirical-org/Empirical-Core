@@ -15,6 +15,7 @@ interface PassageReviewerProps {
 interface PassageReviewerState {
   activeIndex: number;
   numberOfEdits: number;
+  currentEdit?: HTMLElement;
 }
 
 export default class PassageReviewer extends React.Component<PassageReviewerProps, PassageReviewerState> {
@@ -31,6 +32,7 @@ export default class PassageReviewer extends React.Component<PassageReviewerProp
 
     this.next = this.next.bind(this)
     this.renderFormattedText = this.renderFormattedText.bind(this)
+    this.scrollToPosition = this.scrollToPosition.bind(this)
   }
 
   next() {
@@ -40,8 +42,35 @@ export default class PassageReviewer extends React.Component<PassageReviewerProp
     if (activeIndex + 1 === numberOfEdits) {
       this.props.finishReview()
     } else {
-      this.setState({activeIndex: activeIndex + 1})
+      const el = document.getElementById(String(activeIndex + 1))
+      const reviewer = document.getElementsByClassName("side-bar")[0];
+      if (el && reviewer) {
+        this.setState({
+          currentEdit: el,
+          activeIndex: activeIndex + 1
+        })
+        this.scrollToPosition(reviewer, el.offsetTop - 65, 0)
+      } else {
+        this.setState({
+          activeIndex: activeIndex + 1
+        })
+      }
     }
+  }
+
+  // borrowed from https://stackoverflow.com/questions/12102118/scrollintoview-animation/32484034
+  scrollToPosition(elem, pos, count) {
+    if (count > 15) {
+      return;
+    }
+    var y = elem.scrollTop;
+    y += Math.round( ( pos - y ) * 0.3 );
+    if (Math.abs(y-pos) <= 2) {
+      elem.scrollTop = pos;
+      return;
+    }
+    elem.scrollTop = y;
+    setTimeout(() => {this.scrollToPosition(elem, this.state.currentEdit.offsetTop - 105, count+1)}, 40);
   }
 
   renderFormattedText() {
@@ -78,6 +107,7 @@ export default class PassageReviewer extends React.Component<PassageReviewerProp
             activeIndex={activeIndex}
             next={this.next}
             numberOfEdits={numberOfEdits}
+            id={`${index}`}
           />
           if (punctuationRegex.test(parts[i+1])) {
             parts[i+1] = `${parts[i+1]}`

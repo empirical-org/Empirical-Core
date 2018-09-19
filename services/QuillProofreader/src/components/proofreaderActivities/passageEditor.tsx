@@ -248,17 +248,17 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
       const normalizedText = stringNormalize(value.startInline.text)
       const normalizedAndTrimmedNewText = normalizedText.trim()
       let node = change.moveToRangeOfNode(value.startInline)
-      if (this.state.indicesOfUTags[dataOriginalIndex] && normalizedAndTrimmedNewText && normalizedAndTrimmedNewText.length) {
-        const id = this.state.indicesOfUTags[dataOriginalIndex]
-        node = node
-        .insertText(normalizedAndTrimmedNewText)
-        .removeMark({type: 'underline', data: {id}})
-        .addMark({type: 'underline', data: {id}})
-        // just need to figure out how to move the points to the correct position and this should work
-        if (normalizedAndTrimmedNewText !== normalizedText) {
-          node = node.setStart(node.value.selection.end).setEnd(node.value.selection.end).insertText(' ').moveToRangeOfNode(value.startInline)
-        }
-      }
+      // if (this.state.indicesOfUTags[dataOriginalIndex] && normalizedAndTrimmedNewText && normalizedAndTrimmedNewText.length) {
+      //   const id = this.state.indicesOfUTags[dataOriginalIndex]
+      //   node = node
+      //   .insertText(normalizedAndTrimmedNewText)
+      //   .removeMark({type: 'underline', data: {id}})
+      //   .addMark({type: 'underline', data: {id}})
+      //   // just need to figure out how to move the points to the correct position and this should work
+      //   if (normalizedAndTrimmedNewText !== normalizedText) {
+      //     node = node.setStart(node.value.selection.end).setEnd(node.value.selection.end).insertText(' ').moveToRangeOfNode(value.startInline)
+      //   }
+      // }
       console.log('why not bold', normalizedAndTrimmedNewText === stringNormalize(originalText).trim())
       if (normalizedAndTrimmedNewText === stringNormalize(originalText).trim()) {
         node

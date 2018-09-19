@@ -49,6 +49,12 @@
     width: 341px;
     z-index: 100;
     font-family: "Monospaced Number", "Chinese Quote", -apple-system, system-ui, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    &.offset {
+      left: -130px;
+      @media (max-width: 850px) {
+        left: -160px;
+      }
+    }
 
     .top-section {
       display: flex;
