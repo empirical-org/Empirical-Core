@@ -5,6 +5,7 @@ class ChampionsController < ApplicationController
     @referral_link = current_user.referral_link
     @referral_count = current_user.referrals
     @earned_months = current_user.earned_months
+    @unredeemed_credits = current_user.unredeemed_credits
   end
 
   def invite

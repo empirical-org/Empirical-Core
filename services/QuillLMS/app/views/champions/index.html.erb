@@ -50,9 +50,9 @@
 
     <h2>Track Your Invites</h2>
     <p><%= @referral_count %> friends have joined. <%= @earned_months %> friends have assigned activities.<br/>
-    You have <%= @earned_months %> months of credit.
+    You have <%= @unredeemed_credits %> months of credit.
 
-    <% if @earned_months > 0 %>
+    <% if @unredeemed_credits > 0 %>
       Redeem at <%= link_to "My Subscriptions", subscriptions_path %>.
     <% end %>
     
