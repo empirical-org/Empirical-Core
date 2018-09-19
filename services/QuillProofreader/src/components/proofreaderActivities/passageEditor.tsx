@@ -87,16 +87,18 @@ const rules = [
 const html = new Html({ rules })
 
 const plugins = [
-  // StickyInlines({
+  StickyInlines({
+    stickOnDelete: false
   //   canBeEmpty: true,
   //   hasStickyBoundaries: true,
   //   stickOnDelete: true,
-  // })
+  })
 ]
 
 interface PassageEditorState {
   text: any;
-  originalTextArray: Array<string>
+  originalTextArray: Array<string>,
+  indicesOfUTags: {[key:number]: number}
 }
 
 interface PassageEditorProps {
@@ -109,13 +111,14 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
   constructor(props: PassageEditorProps) {
     super(props)
 
-    const { paragraphWrappedText, originalTextArray } = this.paragraphWrappedText(props.text)
+    const { paragraphWrappedText, originalTextArray, indicesOfUTags } = this.paragraphWrappedText(props.text)
 
     const text = props.savedText ? props.savedText : paragraphWrappedText
 
     this.state = {
       text: html.deserialize(text),
-      originalTextArray
+      originalTextArray,
+      indicesOfUTags
     }
 
     this.handleTextChange = this.handleTextChange.bind(this)
@@ -134,6 +137,8 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
     let spannedText = ''
     let index = 0
     const spans = brStrippedText.split(/<u.+?<\/u>/gm)
+    // { index: uTagId }
+    const indicesOfUTags: {[key:number]: number} = {}
     spans.forEach((span, spanIndex) => {
       const words = span.trim().split(' ')
       words.forEach((word, wordIndex) => {
@@ -151,6 +156,11 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
         }
       })
       if (uTags && uTags[spanIndex]) {
+        const openingUTag = uTags[spanIndex].match(/<u id="(\d+)">/m)
+        if (openingUTag) {
+          const id = Number(openingUTag[1])
+          indicesOfUTags[index] = id
+        }
         // don't add a space after the tag if the next word starts with punctuation
         if (spans[spanIndex + 1] && punctuationRegex.test(spans[spanIndex + 1].trim())) {
           spannedText += `<span data-original-index=${index}>${uTags[spanIndex]}</span>`
@@ -162,7 +172,7 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
         index++
       }
     })
-    return { paragraphWrappedText: /^<p>/.test(spannedText) ? spannedText : `<p>${spannedText}</p>`, originalTextArray }
+    return { paragraphWrappedText: /^<p>/.test(spannedText) ? spannedText : `<p>${spannedText}</p>`, originalTextArray, indicesOfUTags }
   }
 
   renderNode = (args) => {
