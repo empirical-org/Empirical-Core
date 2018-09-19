@@ -28,6 +28,7 @@ module Units::Creator
   private
 
   def self.create_helper(teacher, name, activities_data, classrooms, unit_template_id=nil, current_user_id)
+    puts "*** This is being called"
     unit = Unit.create!(
       name: name,
       user: teacher,
@@ -55,7 +56,8 @@ module Units::Creator
     classrm_units.each do |classroom_unit|
       GoogleIntegration::UnitAnnouncement.new(classroom_unit).post
     end
-
+    unit.reload
+    unit.save
     unit.email_lesson_plan
     # unit.hide_if_no_visible_unit_activities
     # activity_sessions in the state of 'unstarted' are automatically created in an after_create callback in the classroom_activity model
