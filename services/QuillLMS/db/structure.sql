@@ -250,32 +250,6 @@ ALTER SEQUENCE activity_classifications_id_seq OWNED BY activity_classifications
 
 
 --
--- Name: activity_sessions; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE activity_sessions (
-    id integer NOT NULL,
-    classroom_activity_id integer,
-    activity_id integer,
-    user_id integer,
-    pairing_id character varying(255),
-    percentage double precision,
-    state character varying(255),
-    completed_at timestamp without time zone,
-    uid character varying(255),
-    temporary boolean,
-    data hstore,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
-    started_at timestamp without time zone,
-    is_retry boolean,
-    is_final_score boolean,
-    visible boolean,
-    classroom_unit_id integer
-);
-
-
---
 -- Name: old_activity_sessions; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -318,6 +292,32 @@ CREATE SEQUENCE activity_sessions_id_seq
 --
 
 ALTER SEQUENCE activity_sessions_id_seq OWNED BY old_activity_sessions.id;
+
+
+--
+-- Name: activity_sessions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE activity_sessions (
+    id integer DEFAULT nextval('activity_sessions_id_seq'::regclass) NOT NULL,
+    classroom_activity_id integer,
+    activity_id integer,
+    user_id integer,
+    pairing_id character varying(255),
+    percentage double precision,
+    state character varying(255),
+    completed_at timestamp without time zone,
+    uid character varying(255),
+    temporary boolean,
+    data hstore,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    started_at timestamp without time zone,
+    is_retry boolean,
+    is_final_score boolean,
+    visible boolean,
+    classroom_unit_id integer
+);
 
 
 --
@@ -1376,6 +1376,40 @@ CREATE TABLE newer_activity_sessions (
     visible boolean,
     classroom_unit_id integer
 );
+
+
+--
+-- Name: notifications; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE notifications (
+    id integer NOT NULL,
+    text text NOT NULL,
+    user_id integer NOT NULL,
+    meta jsonb DEFAULT '{}'::jsonb NOT NULL,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: notifications_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE notifications_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: notifications_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE notifications_id_seq OWNED BY notifications.id;
 
 
 --
@@ -2643,6 +2677,13 @@ ALTER TABLE ONLY milestones ALTER COLUMN id SET DEFAULT nextval('milestones_id_s
 
 
 --
+-- Name: notifications id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY notifications ALTER COLUMN id SET DEFAULT nextval('notifications_id_seq'::regclass);
+
+
+--
 -- Name: oauth_access_grants id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -3130,6 +3171,14 @@ ALTER TABLE ONLY milestones
 
 ALTER TABLE ONLY activity_sessions
     ADD CONSTRAINT newest_activity_sessions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: notifications notifications_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY notifications
+    ADD CONSTRAINT notifications_pkey PRIMARY KEY (id);
 
 
 --
@@ -3782,6 +3831,13 @@ CREATE INDEX index_ip_locations_on_zip ON public.ip_locations USING btree (zip);
 --
 
 CREATE INDEX index_milestones_on_name ON public.milestones USING btree (name);
+
+
+--
+-- Name: index_notifications_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_notifications_on_user_id ON public.notifications USING btree (user_id);
 
 
 --
@@ -4516,6 +4572,14 @@ ALTER TABLE ONLY criteria
 
 
 --
+-- Name: notifications fk_rails_b080fb4855; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY notifications
+    ADD CONSTRAINT fk_rails_b080fb4855 FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
 -- Name: unit_activities fk_rails_b921d87b04; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5164,6 +5228,16 @@ INSERT INTO schema_migrations (version) VALUES ('20180709192646');
 INSERT INTO schema_migrations (version) VALUES ('20180718195853');
 
 INSERT INTO schema_migrations (version) VALUES ('20180810181001');
+
+INSERT INTO schema_migrations (version) VALUES ('20180815174156');
+
+INSERT INTO schema_migrations (version) VALUES ('20180815180204');
+
+INSERT INTO schema_migrations (version) VALUES ('20180816210411');
+
+INSERT INTO schema_migrations (version) VALUES ('20180820154444');
+
+INSERT INTO schema_migrations (version) VALUES ('20180827212450');
 
 INSERT INTO schema_migrations (version) VALUES ('20180911171536');
 

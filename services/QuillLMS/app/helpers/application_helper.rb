@@ -48,4 +48,14 @@ module ApplicationHelper
              end
     "#{n}#{ending}"
   end
+
+  def activity_student_report_path(activity_session)
+    unit_id      = activity_session.unit.id
+    activity_id  = activity_session.activity.id
+    classroom_id = activity_session.classroom.id
+
+    "/teachers/progress_reports/diagnostic_reports#/" +
+    "u/#{unit_id}/a/#{activity_id}/c/#{classroom_id}/student_report/" +
+    "#{activity_session.id}"
+  end
 end

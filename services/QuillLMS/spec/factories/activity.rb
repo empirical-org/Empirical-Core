@@ -1,4 +1,6 @@
 FactoryBot.define do
+  factory :simple_activity, class: 'Activity' do; end
+
   factory :activity do
     sequence(:name) do |n|
       loop do
