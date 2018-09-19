@@ -213,30 +213,31 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
     this.setState({text: value}, () => this.props.handleTextChange(html.serialize(this.state.text)))
   }
 
-  onKeyDown(event, change, editor) {
-    if (event.which === 8) {
-      if (change.value.isExpanded) return null
-
-      // Logic for backspacing "into" a sticky inline
-      const isAtStartOfCurrentTextNode = !change.value.focusInline && change.value.selection.focusOffset === 0
-
-      if (isAtStartOfCurrentTextNode) {
-        const textNodeIndex = change.value.focusBlock.nodes.findIndex((node) => { return node.key === change.value.focusText.key })
-        const upcomingNode = change.value.focusBlock.nodes.get(textNodeIndex - 1)
-
-        event.preventDefault()
-        return change.collapseToEndOf(upcomingNode).deleteBackward()
-      }
-
-      // Logic for deleting inside the sticky inline
-      if (!change.value.focusInline) return null
-      if (change.value.focusInline.text.length === 1 && change.value.focusInline.text === '\u200b') return null
-
-      if (change.value.focusInline.text.length !== 1) return null
-      event.preventDefault()
-      return change.insertText('\u200b').moveBackward(1).deleteBackward().moveForward(1)
-    }
-  }
+  // onKeyDown(event, change, editor) {
+  //   if (event.which === 8) {
+  //     if (change.value.isExpanded) return null
+  //
+  //     // Logic for backspacing "into" a sticky inline
+  //     const isAtStartOfCurrentTextNode = !change.value.focusInline && change.value.selection.focusOffset === 0
+  //
+  //     if (isAtStartOfCurrentTextNode) {
+  //       const textNodeIndex = change.value.focusBlock.nodes.findIndex((node) => { return node.key === change.value.focusText.key })
+  //       const upcomingNode = change.value.focusBlock.nodes.get(textNodeIndex - 1)
+  //
+  //       event.preventDefault()
+  //       return change.collapseToEndOf(upcomingNode).deleteBackward()
+  //     }
+  //
+  //     // Logic for deleting inside the sticky inline
+  //     if (!change.value.focusInline) return null
+  //     if (change.value.focusInline.text.length === 1 && change.value.focusInline.text === '\u200b') return null
+  //
+  //     if (change.value.focusInline.text.length !== 1) return null
+  //     event.preventDefault()
+  //     console.log('is this happening')
+  //     return change.insertText('\u200b').moveBackward(1).deleteBackward().moveForward(1)
+  //   }
+  // }
 
   onKeyUp(event, change, editor) {
     const { value } = change
@@ -244,12 +245,21 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
     if (value.startInline && value.startInline.nodes) {
       const dataOriginalIndex = value.startInline.data.get('dataOriginalIndex')
       const originalText = this.state.originalTextArray[dataOriginalIndex]
-      const normalizedAndTrimmedNewText = stringNormalize(value.startInline.text).trim()
+      const normalizedText = stringNormalize(value.startInline.text)
+      const normalizedAndTrimmedNewText = normalizedText.trim()
       let node = change.moveToRangeOfNode(value.startInline)
-      // if (this.state.indicesOfUTags[dataOriginalIndex] && !value.marks.find((mark: any) => mark.type === 'underline')) {
-      //   const id = this.state.indicesOfUTags[dataOriginalIndex]
-      //   node = node.removeMark({type: 'underline', data: {id}}).addMark({type: 'underline', data: {id}})
-      // }
+      if (this.state.indicesOfUTags[dataOriginalIndex] && normalizedAndTrimmedNewText && normalizedAndTrimmedNewText.length) {
+        const id = this.state.indicesOfUTags[dataOriginalIndex]
+        node = node
+        .insertText(normalizedAndTrimmedNewText)
+        .removeMark({type: 'underline', data: {id}})
+        .addMark({type: 'underline', data: {id}})
+        // just need to figure out how to move the points to the correct position and this should work
+        if (normalizedAndTrimmedNewText !== normalizedText) {
+          node = node.setStart(node.value.selection.end).setEnd(node.value.selection.end).insertText(' ').moveToRangeOfNode(value.startInline)
+        }
+      }
+      console.log('why not bold', normalizedAndTrimmedNewText === stringNormalize(originalText).trim())
       if (normalizedAndTrimmedNewText === stringNormalize(originalText).trim()) {
         node
         .removeMark('bold')
@@ -276,7 +286,6 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
           renderNode={this.renderNode}
           renderMark={this.renderMark}
           onKeyUp={this.onKeyUp}
-          onKeyDown={this.onKeyDown}
           spellCheck={false}
         />)
     } else {
