@@ -35,9 +35,7 @@ describe UserLoginWorker, type: :worker do
   end
 
   context 'student with no teacher logs in' do
-    before :each do
-      allow(StudentsTeacher).to receive(:run) { nil }
-    end
+    let(:student) { create(:student, classrooms: []) }
 
     it 'should track student signin' do
       expect(analyzer).to_not receive(:track)

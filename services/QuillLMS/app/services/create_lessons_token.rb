@@ -1,16 +1,23 @@
 require 'jwt'
 
-class LessonsTokenCreator
+class CreateLessonsToken
+
   def initialize(user, classroom_unit_id)
     @user = user
     @classroom_unit_id = classroom_unit_id
   end
 
-  def create
-    JWT.encode(payload, private_key, 'RS256')
+  def call
+    create_token
   end
 
   private
+
+  attr_reader :user, :classroom_unit_id
+
+  def create_token
+    JWT.encode(payload, private_key, 'RS256')
+  end
 
   def payload
     {
@@ -32,16 +39,16 @@ class LessonsTokenCreator
   end
 
   def user_id
-    if @user.present?
-      @user.id
+    if user.present?
+      user.id
     else
       ''
     end
   end
 
   def user_role
-    if @user.present?
-      @user.role
+    if user.present?
+      user.role
     else
       'anonymous'
     end
@@ -68,7 +75,7 @@ class LessonsTokenCreator
   end
 
   def classroom_unit
-    @classroom_unit ||= ClassroomUnit.find_by(id: @classroom_unit_id)
+    @classroom_unit ||= ClassroomUnit.find_by(id: classroom_unit_id)
   end
 
   def private_key

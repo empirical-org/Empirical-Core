@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'SalesContactSyncer' do
+describe SyncSalesContact do
   it 'syncs salesmachine with teacher data' do
     user                = create(:user, role: 'teacher')
     serializer_instance = double('serializer_instance')
@@ -12,7 +12,7 @@ describe 'SalesContactSyncer' do
     allow(serializer_instance).to receive(:data) { data }
     expect(client).to receive(:batch).with([data])
 
-    SalesContactSyncer.new(user.id, serializer, client).sync
+    SyncSalesContact.new(user.id, serializer, client).call
   end
 
   it 'only syncs if contact is a teacher' do
@@ -21,6 +21,6 @@ describe 'SalesContactSyncer' do
 
     expect(client).to_not receive(:batch)
 
-    SalesContactSyncer.new(student.id, nil, client).sync
+    SyncSalesContact.new(student.id, nil, client).call
   end
 end
