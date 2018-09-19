@@ -21,6 +21,8 @@ class SessionsController < ApplicationController
       sign_in(@user)
       if params[:redirect].present?
         redirect_to URI.parse(params[:redirect]).path
+      elsif session[:attempted_path]
+        redirect_to URI.parse(session.delete(:attempted_path)).path
       else
         redirect_to profile_path
       end
@@ -46,6 +48,8 @@ class SessionsController < ApplicationController
         render json: {redirect: url}
       elsif params[:redirect].present?
         render json: {redirect: URI.parse(params[:redirect]).path}
+      elsif session[:attempted_path]
+        render json: {redirect: URI.parse(session.delete(:attempted_path)).path}
       elsif @user.auditor? && @user.subscription&.school_subscription?
         render json: {redirect: '/subscriptions'}
       else

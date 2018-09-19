@@ -10,29 +10,38 @@ import {
 } from 'quill-component-library/dist/componentLibrary';
 import EditLessonForm from './lessonForm.jsx';
 
-const Lessons = React.createClass({
+class Lessons extends React.Component {
+  constructor(props) {
+    super(props)
 
-  getInitialState() {
-    return {
+    this.state = {
       lessonFlags: 'production',
       showOnlyArchived: false,
-    };
-  },
+    }
+
+    this.createNew = this.createNew.bind(this)
+    this.submitNewLesson = this.submitNewLesson.bind(this)
+    this.toggleShowArchived = this.toggleShowArchived.bind(this)
+    this.renderLessons = this.renderLessons.bind(this)
+    this.renderModal = this.renderModal.bind(this)
+    this.handleSelect = this.handleSelect.bind(this)
+
+  }
 
   createNew() {
     this.props.dispatch(actions.toggleNewLessonModal());
-  },
+  }
 
   submitNewLesson(data) {
     this.props.dispatch(actions.submitNewLesson(data));
     // this.props.dispatch(actions.toggleNewLessonModal())
-  },
+  }
 
   toggleShowArchived() {
     this.setState({
       showOnlyArchived: !this.state.showOnlyArchived,
     });
-  },
+  }
 
   renderLessons() {
     const { data, } = this.props.lessons;
@@ -52,7 +61,7 @@ const Lessons = React.createClass({
         text={data[key].name || 'No name'}
       />
     ));
-  },
+  }
 
   renderModal() {
     const stateSpecificClass = this.props.lessons.submittingnew ? 'is-loading' : '';
@@ -63,11 +72,11 @@ const Lessons = React.createClass({
         </Modal>
       );
     }
-  },
+  }
 
   handleSelect(e) {
     this.setState({ lessonFlags: e.target.value, });
-  },
+  }
 
   render() {
     return (
@@ -95,9 +104,9 @@ const Lessons = React.createClass({
       </section>
 
     );
-  },
+  }
 
-});
+}
 
 function select(state) {
   return {
