@@ -2,6 +2,6 @@ class SyncSalesAccountWorker
   include Sidekiq::Worker
 
   def perform(school_id)
-    SalesAccountSyncer.new(school_id).sync
+    SyncSalesAccount.new(school_id).call
   end
 end

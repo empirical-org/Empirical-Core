@@ -1,4 +1,4 @@
-class RecommendationsOrderer
+class OrderRecommendations
 
   def initialize(recommendation_ids)
     @recommendation_ids = recommendation_ids

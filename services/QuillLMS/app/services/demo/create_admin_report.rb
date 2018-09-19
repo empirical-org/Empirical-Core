@@ -1,5 +1,20 @@
-module Demo::AdminReportDemoCreator
-  def self.create_demo(name, email_safe_school_name, teacher_email)
+class Demo::CreateAdminReport
+
+  def initialize(name, email_safe_school_name, teacher_email)
+    @name = name
+    @email_safe_school_name = email_safe_school_name
+    @teacher_email = teacher_email
+  end
+
+  def call
+    create_demo
+  end
+
+  private
+
+  attr_reader :name, :email_safe_school_name, :teacher_email
+
+  def create_demo
     # Create the school
     school = School.create!(name: name)
 
