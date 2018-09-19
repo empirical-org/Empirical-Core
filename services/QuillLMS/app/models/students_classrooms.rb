@@ -28,7 +28,8 @@ class StudentsClassrooms < ActiveRecord::Base
   end
 
   def invalidate_classroom_minis
-    $redis.del("user_id:#{self.classroom.owner.id}_classroom_minis")
+    if classroom.owner.present?
+      $redis.del("user_id:#{self.classroom.owner.id}_classroom_minis")
+    end
   end
-
 end

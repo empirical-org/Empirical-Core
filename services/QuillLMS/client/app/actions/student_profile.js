@@ -7,6 +7,18 @@ export const receiveStudentProfile = (data) => {
   };
 };
 
+export const fetchNotifications = () => {
+  return (dispatch) => {
+    $.ajax({
+      url: '/notifications',
+      format: 'json',
+      success: (data) => {
+        dispatch(receiveNotifications(data));
+      }
+    });
+  }
+}
+
 export const fetchStudentProfile = (classroomId) => {
   return (dispatch) => {
     $.ajax({
@@ -26,6 +38,13 @@ export const toggleDropdown = () => {
 
 export const hideDropdown = () => {
   return { type: 'HIDE_DROPDOWN' };
+};
+
+export const receiveNotifications = (notifications) => {
+  return {
+    type: 'RECEIVE_NOTIFICATIONS',
+    notifications,
+  }
 };
 
 export const receiveStudentsClassrooms = (classrooms) => {

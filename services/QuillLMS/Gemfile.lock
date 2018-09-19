@@ -113,6 +113,8 @@ GEM
     crass (1.0.3)
     css_parser (1.6.0)
       addressable
+    cypress-on-rails (1.1.1)
+      rack
     database_cleaner (1.6.2)
     debug_inspector (0.0.3)
     diff-lcs (1.3)
@@ -703,12 +705,12 @@ DEPENDENCIES
   codeclimate-test-reporter
   codecov
   coffee-rails
+  cypress-on-rails (~> 1.0)
   database_cleaner
   doorkeeper (= 1.4.1)
   dotenv-rails
   es5-shim-rails
-  factory_bot
-  factory_bot_rails
+  factory_bot_rails (~> 4.8.2)
   faker
   fakeredis (~> 0.7.0)
   faraday_middleware
@@ -820,4 +822,4 @@ RUBY VERSION
    ruby 2.5.1p57
 
 BUNDLED WITH
-   1.16.2
+   1.16.3

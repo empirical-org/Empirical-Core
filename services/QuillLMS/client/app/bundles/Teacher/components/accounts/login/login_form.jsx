@@ -82,6 +82,7 @@ class LoginFormApp extends Component {
           <label>Email or username</label>
           <input
             placeholder="Email or Username"
+            id="email"
             name="user[email]"
             value={this.state.email}
             onChange={this.handleEmailChange}
@@ -90,6 +91,7 @@ class LoginFormApp extends Component {
           <label>Password</label>
           <div className="login-password">
             <input
+              id="password"
               placeholder="Password"
               className="password-input"
               name="user[password]"

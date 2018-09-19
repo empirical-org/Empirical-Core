@@ -1,5 +1,6 @@
 import React from 'react';
 import _ from 'underscore';
+import NotificationFeed from './notification_feed'
 import OverviewMini from './overview_mini';
 import PremiumMini from './premium_mini';
 import TeacherGuide from '../teacher_guide/teacher_guide';
@@ -80,6 +81,7 @@ export default React.createClass({
         {this.announcementMini()}
         {this.overviewMinis()}
         {this.betaMini()}
+        <NotificationFeed notifications={this.props.notifications} />
       </div>
     );
   },
