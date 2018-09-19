@@ -476,6 +476,10 @@ module Teacher
     self.referrals_users.where(activated: true ).count
   end
 
+  def unredeemed_credits
+    self.credit_transactions.sum(:amount)
+  end
+
   def teaches_student?(student_id)
     ActiveRecord::Base.connection.execute("
       SELECT 1
