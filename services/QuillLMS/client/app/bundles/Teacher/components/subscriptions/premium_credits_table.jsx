@@ -7,14 +7,21 @@ export default class extends React.Component {
   premiumCreditsTable() {
     const creditRows = this.props.premiumCredits.map((credit) => {
       // if it is less than one week, we round up to 1
-      const amountCredited = credit.amount > 6
-        ? Math.round(credit.amount / 7)
-        : 1;
+      let amountCredited = credit.amount;
+      if (amountCredited > 0) {
+        amountCredited = credit.amount > 6
+          ? Math.round(credit.amount / 7)
+          : 1;
+      } else {
+        amountCredited = credit.amount < -6
+          ? Math.round(credit.amount / 7)
+          : -1;
+      }
       return (
         <tr key={`credit-${credit.id}-premium-credit-table`}>
           <td className="date-received">{moment(credit.created_at).format('MMMM Do, YYYY')}</td>
           <td className="amount-credited">{`${amountCredited} ${pluralize('week', amountCredited)}`}</td>
-          <td className="action">{credit.action || 'Lorem ipsum dolor sit amet, consectetur adipisicing elit!'}</td>
+          <td className="action">{credit.action}</td>
         </tr>
       );
     });
