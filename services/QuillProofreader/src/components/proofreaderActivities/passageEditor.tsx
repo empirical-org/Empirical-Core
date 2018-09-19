@@ -89,9 +89,9 @@ const html = new Html({ rules })
 const plugins = [
   StickyInlines({
     // stickOnDelete: false
-  //   canBeEmpty: true,
-  //   hasStickyBoundaries: true,
-  //   stickOnDelete: true,
+    canBeEmpty: true,
+    hasStickyBoundaries: true,
+    stickOnDelete: true,
   })
 ]
 
@@ -213,6 +213,31 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
     this.setState({text: value}, () => this.props.handleTextChange(html.serialize(this.state.text)))
   }
 
+  onKeyDown(event, change, editor) {
+    if (event.which === 8) {
+      if (change.value.isExpanded) return null
+
+      // Logic for backspacing "into" a sticky inline
+      const isAtStartOfCurrentTextNode = !change.value.focusInline && change.value.selection.focusOffset === 0
+
+      if (isAtStartOfCurrentTextNode) {
+        const textNodeIndex = change.value.focusBlock.nodes.findIndex((node) => { return node.key === change.value.focusText.key })
+        const upcomingNode = change.value.focusBlock.nodes.get(textNodeIndex - 1)
+
+        event.preventDefault()
+        return change.collapseToEndOf(upcomingNode).deleteBackward()
+      }
+
+      // Logic for deleting inside the sticky inline
+      if (!change.value.focusInline) return null
+      if (change.value.focusInline.text.length === 1 && change.value.focusInline.text === '\u200b') return null
+
+      if (change.value.focusInline.text.length !== 1) return null
+      event.preventDefault()
+      return change.insertText('\u200b').moveBackward(1).deleteBackward().moveForward(1)
+    }
+  }
+
   onKeyUp(event, change, editor) {
     const { value } = change
     const originalSelection = value.selection
@@ -251,7 +276,7 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
           renderNode={this.renderNode}
           renderMark={this.renderMark}
           onKeyUp={this.onKeyUp}
-          plugins={plugins}
+          onKeyDown={this.onKeyDown}
           spellCheck={false}
         />)
     } else {
