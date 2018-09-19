@@ -14,6 +14,7 @@ interface EditProps {
   numberOfEdits: number;
   next: any;
   incorrectText: string|null;
+  id: string;
 }
 
 export default class Edit extends React.Component<EditProps, any> {
@@ -35,8 +36,11 @@ export default class Edit extends React.Component<EditProps, any> {
   }
 
   renderTooltip() {
-    const { activeIndex, index, state, numberOfEdits, next } = this.props
+    const { activeIndex, index, state, numberOfEdits, next, id } = this.props
     const visible = activeIndex === index ? 'visible' : 'invisible'
+    console.log('this.props.id', this.props.id)
+    const element = document.getElementById(id)
+    const offset = element && ((window.innerWidth - element.offsetLeft) < 350) ? 'offset' : ''
     let src, headerText
     switch (state) {
       case 'correct':
@@ -52,7 +56,7 @@ export default class Edit extends React.Component<EditProps, any> {
         headerText = 'Not Necessary'
         break
     }
-    return <div className={`edit-tooltip ${visible}`}>
+    return <div className={`edit-tooltip ${visible} ${offset}`}>
       <div className="top-section">
         <div className="header">
           <img src={src}/>
@@ -77,7 +81,7 @@ export default class Edit extends React.Component<EditProps, any> {
     const { activeIndex, index, state } = this.props
     const className = activeIndex === index ? 'active' : ''
     const tooltip = this.renderTooltip()
-    return <div className={`edit ${className} ${state}`}>
+    return <div className={`edit ${className} ${state}`} id={this.props.id}>
       <strong>{this.props.incorrectText || this.props.displayText}</strong>
       {tooltip}
     </div>
