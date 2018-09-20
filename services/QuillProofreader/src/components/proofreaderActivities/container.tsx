@@ -33,7 +33,7 @@ interface PlayProofreaderContainerProps {
 }
 
 interface PlayProofreaderContainerState {
-  passage: string;
+  passage?: string;
   edits: Array<string>;
   reviewing: boolean;
   showEarlySubmitModal: boolean;
@@ -52,7 +52,8 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       this.state = {
         edits: [],
         reviewing: false,
-        showEarlySubmitModal: false
+        showEarlySubmitModal: false,
+        showReviewModal: false
       }
 
       this.saveToLMS = this.saveToLMS.bind(this)
@@ -109,7 +110,8 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
     }
 
     saveToLMS() {
-      const results = this.state.conceptResultsObjects;
+      const results: Array<ConceptResultObject>|undefined = this.state.conceptResultsObjects;
+      if (results) {
       const score = this.calculateScoreForLesson();
       const activityUID = getParameterByName('uid', window.location.href)
       const sessionID = getParameterByName('student', window.location.href)
@@ -117,6 +119,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
         this.finishActivitySession(sessionID, results, score);
       } else if (activityUID) {
         this.createAnonActivitySession(activityUID, results, score);
+      }
       }
     }
 
@@ -144,12 +147,6 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
           if (httpResponse && httpResponse.statusCode === 200) {
             const sessionID = getParameterByName('student', window.location.href)
             document.location.href = `${process.env.EMPIRICAL_BASE_URL}/activity_sessions/${sessionID}`;
-            this.setState({ saved: true, });
-          } else {
-            this.setState({
-              saved: false,
-              error: true,
-            });
           }
         }
       );
@@ -170,7 +167,6 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
         (err, httpResponse, body) => {
           if (httpResponse.statusCode === 200) {
             document.location.href = `${process.env.EMPIRICAL_BASE_URL}/activity_sessions/${body.activity_session.uid}`;
-            this.setState({ saved: true, });
           }
         }
       );
@@ -278,7 +274,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       }
     }
 
-    checkWork(): { reviewablePassage: string, numberOfCorrectChanges: number}|void {
+    checkWork(): { reviewablePassage: string, numberOfCorrectChanges: number, conceptResultsObjects: Array<ConceptResultObject>}|void {
       const { currentActivity } = this.props.proofreaderActivities
       const { necessaryEdits, passage } = this.state
       let numberOfCorrectChanges = 0
@@ -296,8 +292,6 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
               const correctEdit = necessaryEdits[id].match(correctEditRegex) ? stringNormalize(necessaryEdits[id].match(correctEditRegex)[1]) : ''
               const conceptUID = necessaryEdits[id].match(conceptUIDRegex) ? necessaryEdits[id].match(conceptUIDRegex)[1] : ''
               const originalText = necessaryEdits[id].match(originalTextRegex) ? necessaryEdits[id].match(originalTextRegex)[1] : ''
-              console.log('text', text)
-              console.log('correctEdit', correctEdit)
               if (text === correctEdit) {
                 numberOfCorrectChanges++
                 conceptResultsObjects.push({

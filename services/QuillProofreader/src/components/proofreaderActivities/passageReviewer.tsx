@@ -34,10 +34,7 @@ export default class PassageReviewer extends React.Component<PassageReviewerProp
   }
 
   componentDidMount() {
-    const el = document.getElementById(String(this.state.activeIndex))
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth', block: 'center' })
-    }
+    window.scrollTo(0, 0)
   }
 
   next() {
