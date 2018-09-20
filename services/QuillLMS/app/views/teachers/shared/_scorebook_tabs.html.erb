@@ -60,6 +60,7 @@
         <% end %>
 
         <% if student_reports_page_should_be_active? %>
+          <li><%= active_link_to 'Real-time', '/teachers/progress_reports/real_time', class: 'default'%></li>
           <li><%= active_link_to 'Activity Summary', scorebook_teachers_classrooms_path, class: 'default'%></li>
           <li><%= active_link_to 'Activity Analysis', '/teachers/progress_reports/diagnostic_reports/#/activity_packs', class: 'default activity-analysis-tab'%></li>
           <li><%= active_link_to 'Diagnostics', '/teachers/progress_reports/diagnostic_reports/#/diagnostics', class: 'default diagnostic-tab'%></li>

@@ -114,7 +114,7 @@ RSpec.describe NotifyOfCompletedActivity do
     notification = teacher.notifications.last
     expected_path = "/teachers/progress_reports/diagnostic_reports#" +
       "/u/#{unit.id}/a/#{activity.id}/c/#{classroom.id}/student_report" +
-      "/#{activity_session.id}"
+      "/#{activity_session.user_id}"
 
 
     expect(notification.activity_student_report_path).to eq(expected_path)

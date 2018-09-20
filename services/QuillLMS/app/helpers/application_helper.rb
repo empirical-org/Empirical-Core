@@ -56,6 +56,6 @@ module ApplicationHelper
 
     "/teachers/progress_reports/diagnostic_reports#/" +
     "u/#{unit_id}/a/#{activity_id}/c/#{classroom_id}/student_report/" +
-    "#{activity_session.id}"
+    "#{activity_session.user_id}"
   end
 end
