@@ -205,7 +205,6 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
       case 'italic':
         return <em {...attributes}>{args.children}</em>
       case 'underline':
-        console.log('children', args.children)
         if (args.children.trim && !args.children.trim().length) {
           return args.children
         } else {
@@ -218,32 +217,6 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
     this.setState({text: value}, () => this.props.handleTextChange(html.serialize(this.state.text)))
   }
 
-  // onKeyDown(event, change, editor) {
-  //   if (event.which === 8) {
-  //     if (change.value.isExpanded) return null
-  //
-  //     // Logic for backspacing "into" a sticky inline
-  //     const isAtStartOfCurrentTextNode = !change.value.focusInline && change.value.selection.focusOffset === 0
-  //
-  //     if (isAtStartOfCurrentTextNode) {
-  //       const textNodeIndex = change.value.focusBlock.nodes.findIndex((node) => { return node.key === change.value.focusText.key })
-  //       const upcomingNode = change.value.focusBlock.nodes.get(textNodeIndex - 1)
-  //
-  //       event.preventDefault()
-  //       return change.collapseToEndOf(upcomingNode).deleteBackward()
-  //     }
-  //
-  //     // Logic for deleting inside the sticky inline
-  //     if (!change.value.focusInline) return null
-  //     if (change.value.focusInline.text.length === 1 && change.value.focusInline.text === '\u200b') return null
-  //
-  //     if (change.value.focusInline.text.length !== 1) return null
-  //     event.preventDefault()
-  //     console.log('is this happening')
-  //     return change.insertText('\u200b').moveBackward(1).deleteBackward().moveForward(1)
-  //   }
-  // }
-
   onKeyUp(event, change, editor) {
     const { value } = change
     const originalSelection = value.selection
@@ -252,18 +225,14 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
       const originalText = this.state.originalTextArray[dataOriginalIndex]
       const normalizedText = stringNormalize(value.startInline.text)
       const normalizedAndTrimmedNewText = normalizedText.trim()
-      console.log('normalizedAndTrimmedNewText', normalizedAndTrimmedNewText)
-      console.log('this.state.indicesOfUTags[dataOriginalIndex]', this.state.indicesOfUTags[dataOriginalIndex])
       let node = change.moveToRangeOfNode(value.startInline)
       if (this.state.indicesOfUTags[dataOriginalIndex]) {
-        console.log('wtf')
         const id = this.state.indicesOfUTags[dataOriginalIndex]
         node = node.addMark({type: 'underline', data: {id}})
       }
       // if (normalizedAndTrimmedNewText !== normalizedText) {
       //   node = node.moveEndBackward(1)
       // }
-      console.log('normalizedAndTrimmedNewText', normalizedAndTrimmedNewText)
       if (normalizedAndTrimmedNewText === stringNormalize(originalText).trim()) {
         node
         .removeMark('bold')
@@ -277,16 +246,37 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
       }
     } else {
       const nextInline = change.moveEndForward(1).value.endInline
+      const previousInline = change.moveStartBackward(1).value.startInline
       console.log('nextInline', nextInline)
-      if (nextInline) {
-        const dataOriginalIndex = nextInline.data.get('dataOriginalIndex')
-        if (this.state.indicesOfUTags[dataOriginalIndex]) {
-          const id = this.state.indicesOfUTags[dataOriginalIndex]
-          change
-          .setStart(originalSelection.start)
-          .setEnd(originalSelection.end)
-          .addMark({type: 'underline', data: {id}})
-          .addMark('bold')
+      console.log('previousInline', previousInline)
+      if (nextInline || previousInline) {
+        if (nextInline) {
+          const dataOriginalIndex = nextInline.data.get('dataOriginalIndex')
+          const originalNextInlineText = this.state.originalTextArray[dataOriginalIndex]
+          if (this.state.indicesOfUTags[dataOriginalIndex]) {
+            const id = this.state.indicesOfUTags[dataOriginalIndex]
+            let node = change
+            .setStart(originalSelection.start)
+            .setEnd(originalSelection.end)
+            .addMark({type: 'underline', data: {id}})
+            if (stringNormalize(nextInline.text).trim() !== stringNormalize(originalNextInlineText).trim()) {
+              node.addMark('bold')
+            }
+          }
+        }
+        if (previousInline) {
+          const dataOriginalIndex = previousInline.data.get('dataOriginalIndex')
+          const originalPreviousInlineText = this.state.originalTextArray[dataOriginalIndex]
+          if (this.state.indicesOfUTags[dataOriginalIndex]) {
+            const id = this.state.indicesOfUTags[dataOriginalIndex]
+            let node = change
+            .setStart(originalSelection.start)
+            .setEnd(originalSelection.end)
+            .addMark({type: 'underline', data: {id}})
+            if (stringNormalize(previousInline.text).trim() !== stringNormalize(originalPreviousInlineText).trim()) {
+              node.addMark('bold')
+            }
+          }
         }
       } else {
         change.addMark('bold')
