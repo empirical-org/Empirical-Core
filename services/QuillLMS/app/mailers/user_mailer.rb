@@ -9,7 +9,7 @@ class UserMailer < ActionMailer::Base
   end
 
   def invitation_to_non_existing_user invitation_email_hash
-    @email_hash = invitation_email_hash.merge(support_article_link: COTEACHER_SUPPORT_ARTICLE, join_link: new_account_url).stringify_keys
+    @email_hash = invitation_email_hash.merge(support_article_link: COTEACHER_SUPPORT_ARTICLE, join_link: new_account_url(champion: @email_hash['referral_code'])).stringify_keys
     mail from: "Quill Team <hello@quill.org>", 'reply-to': @email_hash["inviter_email"], to: @email_hash["invitee_email"], subject: "#{@email_hash['inviter_name']} has invited you to co-teach on Quill.org!"
   end
 
@@ -62,6 +62,17 @@ class UserMailer < ActionMailer::Base
     @user = user
     @school = school
     mail from: "Becca Garrison <becca@quill.org>", to: user.email, subject: "#{user.first_name}, you are now an admin on Quill!"
+  end
+
+  def activated_referral_email(referrer_hash, referral_hash)
+    @referrer = referrer_hash
+    @referral = referral_hash
+    mail from: "Quill Team <hello@quill.org>", 'reply-to': @referral['email'], to: @referrer['email'], subject: "#{@referral['name']} just activated their account on Quill!"
+  end
+
+  def referral_invitation_email(inviter_hash, invitee_email)
+    @inviter = inviter_hash
+    mail from: "Quill Team <hello@quill.org>", 'reply-to': @inviter['email'], to: invitee_email, subject: "#{@inviter['name']} invites you to join Quill.org!"
   end
 
   def premium_missing_school_email(user)

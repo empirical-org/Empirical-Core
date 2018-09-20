@@ -54,7 +54,11 @@ export default  React.createClass({
         url: '/teachers/last_assigned_unit_id',
         dataType: 'json',
         success: function(data) {
-          that.setState({loading: false, lastUnitId: data.id });
+          that.setState({
+            loading: false,
+            lastUnitId: data.id,
+            referralCode: data.referral_code
+          });
         }
       });
   },
@@ -64,7 +68,7 @@ export default  React.createClass({
   },
 
   socialShareUrl: function() {
-    return `${window.location.origin}/activities/packs/${this.props.params.activityPackId}`;
+    return `${window.location.origin}/activities/packs/${this.props.params.activityPackId}${this.state.referralCode ? '?champion=' + this.state.referralCode : ''}`;
   },
 
   socialShareCopy: function() {
