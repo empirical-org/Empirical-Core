@@ -1,7 +1,0 @@
-import React from 'react';
-
-const Notification = ({ text, href, }) => (
-    <a style={{color: 'rgb(2, 115, 96)'}} href={href}>{text}</a>
-  );
-
-export default Notification;
