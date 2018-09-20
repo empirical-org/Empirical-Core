@@ -205,7 +205,12 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
       case 'italic':
         return <em {...attributes}>{args.children}</em>
       case 'underline':
-        return <u {...attributes}>{args.children}</u>
+        console.log('children', args.children)
+        if (args.children.trim && !args.children.trim().length) {
+          return args.children
+        } else {
+          return <u {...attributes}>{args.children}</u>
+        }
     }
   }
 
@@ -247,19 +252,18 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
       const originalText = this.state.originalTextArray[dataOriginalIndex]
       const normalizedText = stringNormalize(value.startInline.text)
       const normalizedAndTrimmedNewText = normalizedText.trim()
+      console.log('normalizedAndTrimmedNewText', normalizedAndTrimmedNewText)
+      console.log('this.state.indicesOfUTags[dataOriginalIndex]', this.state.indicesOfUTags[dataOriginalIndex])
       let node = change.moveToRangeOfNode(value.startInline)
-      // if (this.state.indicesOfUTags[dataOriginalIndex] && normalizedAndTrimmedNewText && normalizedAndTrimmedNewText.length) {
-      //   const id = this.state.indicesOfUTags[dataOriginalIndex]
-      //   node = node
-      //   .insertText(normalizedAndTrimmedNewText)
-      //   .removeMark({type: 'underline', data: {id}})
-      //   .addMark({type: 'underline', data: {id}})
-      //   // just need to figure out how to move the points to the correct position and this should work
-      //   if (normalizedAndTrimmedNewText !== normalizedText) {
-      //     node = node.setStart(node.value.selection.end).setEnd(node.value.selection.end).insertText(' ').moveToRangeOfNode(value.startInline)
-      //   }
+      if (this.state.indicesOfUTags[dataOriginalIndex]) {
+        console.log('wtf')
+        const id = this.state.indicesOfUTags[dataOriginalIndex]
+        node = node.addMark({type: 'underline', data: {id}})
+      }
+      // if (normalizedAndTrimmedNewText !== normalizedText) {
+      //   node = node.moveEndBackward(1)
       // }
-      console.log('why not bold', normalizedAndTrimmedNewText === stringNormalize(originalText).trim())
+      console.log('normalizedAndTrimmedNewText', normalizedAndTrimmedNewText)
       if (normalizedAndTrimmedNewText === stringNormalize(originalText).trim()) {
         node
         .removeMark('bold')
@@ -272,7 +276,21 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
         .setEnd(originalSelection.end)
       }
     } else {
-      change.addMark('bold')
+      const nextInline = change.moveEndForward(1).value.endInline
+      console.log('nextInline', nextInline)
+      if (nextInline) {
+        const dataOriginalIndex = nextInline.data.get('dataOriginalIndex')
+        if (this.state.indicesOfUTags[dataOriginalIndex]) {
+          const id = this.state.indicesOfUTags[dataOriginalIndex]
+          change
+          .setStart(originalSelection.start)
+          .setEnd(originalSelection.end)
+          .addMark({type: 'underline', data: {id}})
+          .addMark('bold')
+        }
+      } else {
+        change.addMark('bold')
+      }
     }
   }
 

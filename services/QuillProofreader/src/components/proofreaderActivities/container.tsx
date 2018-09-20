@@ -179,6 +179,8 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
     formatReceivedPassage(value: string) {
       // this method handles the fact that Slate will sometimes create additional strong tags rather than adding text inside of one
       let string = value.replace(/<span data-original-index="\d+">|<\/span>|<strong> <\/strong>/gm, '').replace(/&#x27;/g, "'").replace(/&quot;/g, '"')
+      // regex below matches case that looks like this: <strong><u id="10">A</u></strong><strong><u id="10"><u id="10">sia,</u></u></strong><strong><u id="10"> </u></strong>
+      const tripleStrongTagWithThreeMatchingNestedURegex = /<strong>(<u id="\d+">)([^(<]+?)<\/u><\/strong><strong>(<u id="\d+">)(<u id="\d+">)([^(<]+?)<\/u><\/u><\/strong><strong>(<u id="\d+">)([^(<]+?)<\/u><\/strong>/gm
       // regex below matches case that looks like this: <strong><u id="3">Addison</u></strong><strong><u id="3">,</u></strong><strong><u id="3"> Parker, and Julian,</u></strong>
       const tripleStrongTagWithThreeMatchingURegex = /<strong>(<u id="\d+">)([^(<]+?)<\/u><\/strong><strong>(<u id="\d+">)([^(<]+?)<\/u><\/strong><strong>(<u id="\d+">)([^(<]+?)<\/u><\/strong>/gm
       // regex below matches case that looks like this: <strong><u id="3">Addison</u></strong><strong>,</strong><strong><u id="3"> Parker, and Julian,</u></strong>
@@ -191,6 +193,16 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       const doubleStrongTagWithUOnFirstTagRegex = /<strong>(<u id="\d+">)([^(<)]+?)<\/u><\/strong><strong>=(.+?)<\/strong>/gm
       // regex below matches case that looks like this: <strong>A</strong><strong>ntartctic</strong>
       const doubleStrongTagRegex = /<strong>[^(<)]+?<\/strong><strong>[^(<)]+?<\/strong>/gm
+      if (tripleStrongTagWithThreeMatchingNestedURegex.test(string)) {
+        string = string.replace(tripleStrongTagWithThreeMatchingNestedURegex, (key, uTagA, contentA, uTagB, uTagC, contentB, uTagD, contentC) => {
+          console.log('key', key)
+          if (uTagA === uTagB && uTagB === uTagC && uTagC === uTagD) {
+            return `<strong>${uTagA}${contentA}${contentB}${contentC}</u></strong>`
+          } else {
+            return key
+          }
+        })
+      }
       if (tripleStrongTagWithThreeMatchingURegex.test(string)) {
         string = string.replace(tripleStrongTagWithThreeMatchingURegex, (key, uTagA, contentA, uTagB, contentB, uTagC, contentC) => {
           if (uTagA === uTagB && uTagB === uTagC) {
