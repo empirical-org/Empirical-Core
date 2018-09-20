@@ -31,7 +31,7 @@ class NotifyOfCompletedActivity
     teachers.each do |teacher|
       Notification.create!(
         text: "#{student.name} completed #{activity.name}",
-        meta: { activity_student_report_path: report_path },
+        meta: { href: report_path },
         user: teacher
       )
     end

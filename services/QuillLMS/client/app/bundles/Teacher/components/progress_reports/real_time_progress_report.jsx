@@ -137,7 +137,7 @@ export default class extends React.Component {
           className='progress-report has-green-arrow'/>
         </div>)
     } else {
-      return <EmptyStateForReport/>
+      return <EmptyStateForReport title={"You have no students playing activities."} body={"When students are online, you can use this report to see how long students are taking on each question."}/>
     }
   }
 
