@@ -7,4 +7,11 @@ class Types::UserType < Types::BaseObject
   field :username, String, null: true
   field :role, String, null: false
   field :time_zone, String, null: true
+
+  field :notifications, [Types::NotificationType], null: true
+
+  def notifications
+    object.notifications.limit(10).reverse
+  end
+
 end
