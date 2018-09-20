@@ -55,7 +55,9 @@ module EmpiricalGrammar
     #   ApplicationController.action(:show_errors).call(env)
     # end
 
-    # CHange schema format so that we can use trigrams.
+    # CHange schema format so that we can use trigrams. [and SQL functions,
+    # https://stackoverflow.com/questions/31953498/can-i-write-postgresql-functions-on-ruby-on-rails
+    # Aug 21, 2018 Max Buck]
     config.active_record.schema_format = :sql
 
     # http://stackoverflow.com/questions/14647731/rails-converts-empty-arrays-into-nils-in-params-of-the-request
