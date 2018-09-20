@@ -473,10 +473,31 @@ ALTER SEQUENCE activity_classifications_id_seq OWNED BY activity_classifications
 --
 
 CREATE TABLE activity_session_interaction_logs (
+    id integer NOT NULL,
     date timestamp without time zone,
     meta jsonb,
     activity_session_id integer
 );
+
+
+--
+-- Name: activity_session_interaction_logs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE activity_session_interaction_logs_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: activity_session_interaction_logs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE activity_session_interaction_logs_id_seq OWNED BY activity_session_interaction_logs.id;
 
 
 --
@@ -2705,6 +2726,13 @@ ALTER TABLE ONLY activity_classifications ALTER COLUMN id SET DEFAULT nextval('a
 
 
 --
+-- Name: activity_session_interaction_logs id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY activity_session_interaction_logs ALTER COLUMN id SET DEFAULT nextval('activity_session_interaction_logs_id_seq'::regclass);
+
+
+--
 -- Name: admin_accounts id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -3154,6 +3182,14 @@ ALTER TABLE ONLY activity_category_activities
 
 ALTER TABLE ONLY activity_classifications
     ADD CONSTRAINT activity_classifications_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: activity_session_interaction_logs activity_session_interaction_logs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY activity_session_interaction_logs
+    ADD CONSTRAINT activity_session_interaction_logs_pkey PRIMARY KEY (id);
 
 
 --
