@@ -130,7 +130,7 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
   }
 
   paragraphWrappedText(text: string) {
-    const brStrippedText = text.replace(/(<br\/>)+/gm, '</p><p>')
+    const brStrippedText = text.replace(/(<br\/>)+/gm, '</p><p>').replace(/(\s<\/p><p>){2,}/gm, '</p><p>')
     const uTags = brStrippedText.match(/<u.+?<\/u>/gm)
     const punctuationRegex = /^[.,:;]/
     const originalTextArray: Array<string> = []
