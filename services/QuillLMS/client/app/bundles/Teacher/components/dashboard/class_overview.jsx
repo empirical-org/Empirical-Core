@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'underscore';
-import NotificationFeed from './notification_feed'
+import NotificationFeed from './notifications/container';
 import OverviewMini from './overview_mini';
 import PremiumMini from './premium_mini';
 import TeacherGuide from '../teacher_guide/teacher_guide';
@@ -9,7 +9,7 @@ import NewTools from './new_tools_mini.jsx';
 import CoteachingAnnouncement from './coteaching_announcement_mini.jsx';
 import PremiumPromo from './premium_promo.jsx';
 import LessonsList from './lessons_list.jsx';
-import DiagnosticMini from './diagnostic_mini.jsx'
+import DiagnosticMini from './diagnostic_mini.jsx';
 
 export default React.createClass({
   propTypes: {
@@ -29,12 +29,12 @@ export default React.createClass({
   },
 
   overviewMinis() {
-    const minis = _.map(this.props.data, overviewObj => {
+    const minis = _.map(this.props.data, (overviewObj) => {
       if (overviewObj.results && overviewObj.results !== 'insufficient data') {
-        return <OverviewMini overviewObj={overviewObj} key={overviewObj.header} />
+        return <OverviewMini overviewObj={overviewObj} key={overviewObj.header} />;
       }
     });
-    return _.compact(minis)
+    return _.compact(minis);
   },
 
   betaMini() {
@@ -68,7 +68,7 @@ export default React.createClass({
   },
 
   diagnosticMini() {
-    return <DiagnosticMini />
+    return <DiagnosticMini />;
   },
 
   render() {

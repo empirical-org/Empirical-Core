@@ -11,7 +11,7 @@ class Types::UserType < Types::BaseObject
   field :notifications, [Types::NotificationType], null: true
 
   def notifications
-    object.notifications.limit(10).reverse
+    object.notifications.order("created_at DESC").limit(10)
   end
 
 end
