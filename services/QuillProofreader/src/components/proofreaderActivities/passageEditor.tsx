@@ -226,7 +226,7 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
       const normalizedText = stringNormalize(value.startInline.text)
       const normalizedAndTrimmedNewText = normalizedText.trim()
       let node = change.moveToRangeOfNode(value.startInline)
-      if (this.state.indicesOfUTags[dataOriginalIndex]) {
+      if (this.state.indicesOfUTags[dataOriginalIndex] || this.state.indicesOfUTags[dataOriginalIndex] === 0) {
         const id = this.state.indicesOfUTags[dataOriginalIndex]
         node = node.addMark({type: 'underline', data: {id}})
       }
@@ -253,7 +253,7 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
         if (nextInline) {
           const dataOriginalIndex = nextInline.data.get('dataOriginalIndex')
           const originalNextInlineText = this.state.originalTextArray[dataOriginalIndex]
-          if (this.state.indicesOfUTags[dataOriginalIndex]) {
+          if (this.state.indicesOfUTags[dataOriginalIndex] || this.state.indicesOfUTags[dataOriginalIndex] === 0) {
             const id = this.state.indicesOfUTags[dataOriginalIndex]
             let node = change
             .setStart(originalSelection.start)
@@ -267,7 +267,7 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
         if (previousInline) {
           const dataOriginalIndex = previousInline.data.get('dataOriginalIndex')
           const originalPreviousInlineText = this.state.originalTextArray[dataOriginalIndex]
-          if (this.state.indicesOfUTags[dataOriginalIndex]) {
+          if (this.state.indicesOfUTags[dataOriginalIndex] || this.state.indicesOfUTags[dataOriginalIndex] === 0) {
             const id = this.state.indicesOfUTags[dataOriginalIndex]
             let node = change
             .setStart(originalSelection.start)
