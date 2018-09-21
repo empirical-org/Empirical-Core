@@ -130,7 +130,7 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
   }
 
   paragraphWrappedText(text: string) {
-    const brStrippedText = text.replace(/(<br\/>)+/gm, '</p><p>').replace(/(\s<\/p><p>){2,}/gm, '</p><p>')
+    const brStrippedText = text.replace(/(<br\/>)+/gm, '</p><p>').replace(/((<\/p><p>)(\s)*)(<\/p><p>)/gm, '</p><p>')
     const uTags = brStrippedText.match(/<u.+?<\/u>/gm)
     const punctuationRegex = /^[.,:;]/
     const originalTextArray: Array<string> = []
@@ -218,21 +218,21 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
   }
 
   onKeyUp(event, change, editor) {
+    if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') return
+
     const { value } = change
     const originalSelection = value.selection
     const { startInline } = value
-    let currentInline
-    const previousInline = change.moveStartBackward(1).value.startInline
-    console.log('startInline', startInline)
-    console.log('previousInline', previousInline)
-    console.log('equal', startInline === previousInline)
+    let currentInline = startInline
 
+    // const previousInline = change.moveStartBackward(2).value.startInline
+    const previousInline = change.moveStartBackward(1).value.inlines.first()
+    console.log('previousInline', previousInline)
+    console.log('equality', previousInline !== startInline)
     // if there is a previous inline which is not the same as the start inline,
     // you have crossed the boundary into the previous span
     if (previousInline !== startInline && previousInline) {
       currentInline = previousInline
-    } else if (startInline) {
-      currentInline = startInline
     }
 
     if (currentInline && currentInline.nodes) {
@@ -241,7 +241,7 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
       const newText = currentInline.text
       const normalizedText = stringNormalize(newText)
       const normalizedAndTrimmedNewText = normalizedText.trim()
-      let node = change.moveToRangeOfNode(value.startInline)
+      let node = change.moveToRangeOfNode(currentInline)
 
       if (newText.substr(newText.length - 1) === ' ') {
         node.moveEndBackward(1)
@@ -267,8 +267,6 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
     } else {
       const nextInline = change.moveEndForward(1).value.endInline
       const previousInline = change.moveStartBackward(1).value.startInline
-      console.log('nextInline', nextInline)
-      console.log('previousInline', previousInline)
       if (nextInline || previousInline) {
         if (nextInline) {
           const dataOriginalIndex = nextInline.data.get('dataOriginalIndex')
