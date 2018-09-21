@@ -220,10 +220,25 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
   onKeyUp(event, change, editor) {
     const { value } = change
     const originalSelection = value.selection
-    if (value.startInline && value.startInline.nodes) {
-      const dataOriginalIndex = value.startInline.data.get('dataOriginalIndex')
+    const { startInline } = value
+    let currentInline
+    const previousInline = change.moveStartBackward(1).value.startInline
+    console.log('startInline', startInline)
+    console.log('previousInline', previousInline)
+    console.log('equal', startInline === previousInline)
+
+    // if there is a previous inline which is not the same as the start inline,
+    // you have crossed the boundary into the previous span
+    if (previousInline !== startInline && previousInline) {
+      currentInline = previousInline
+    } else if (startInline) {
+      currentInline = startInline
+    }
+
+    if (currentInline && currentInline.nodes) {
+      const dataOriginalIndex = currentInline.data.get('dataOriginalIndex')
       const originalText = this.state.originalTextArray[dataOriginalIndex]
-      const newText = value.startInline.text
+      const newText = currentInline.text
       const normalizedText = stringNormalize(newText)
       const normalizedAndTrimmedNewText = normalizedText.trim()
       let node = change.moveToRangeOfNode(value.startInline)
@@ -236,9 +251,7 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
         const id = this.state.indicesOfUTags[dataOriginalIndex]
         node = node.addMark({type: 'underline', data: {id}})
       }
-      // if (normalizedAndTrimmedNewText !== normalizedText) {
-      //   node = node.moveEndBackward(1)
-      // }
+
       if (normalizedAndTrimmedNewText === stringNormalize(originalText).trim()) {
         node
         .removeMark('bold')
@@ -250,6 +263,7 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
         .setStart(originalSelection.start)
         .setEnd(originalSelection.end)
       }
+
     } else {
       const nextInline = change.moveEndForward(1).value.endInline
       const previousInline = change.moveStartBackward(1).value.startInline
