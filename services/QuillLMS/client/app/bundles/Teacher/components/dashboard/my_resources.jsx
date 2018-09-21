@@ -1,28 +1,29 @@
 import React from 'react';
 import TeacherResourcesMini from './teacher_resources_mini';
-import GoogleClassroomMini from './google_classroom_mini';
 import TeacherBestPracticesMini from './teacher_best_practices_mini';
+import ChampionInvitationMini from './champion_invitation_mini';
 
 export default React.createClass({
 
   createMinis() {
     return (
-       <div>
+      <div>
         <TeacherResourcesMini />
         <TeacherBestPracticesMini />
-        <GoogleClassroomMini />
-      </div>);
+        <ChampionInvitationMini />
+      </div>
+    );
   },
 
   render() {
     return (
-       <div className="dashboard-section-container">
+      <div className="dashboard-section-container">
         <h3 className="dashboard-header">My Resources</h3>
         <div className="row">
-          {this.createMinis()}
-        </div>
+           {this.createMinis()}
+         </div>
       </div>
-     );
+    );
   },
 
 });
