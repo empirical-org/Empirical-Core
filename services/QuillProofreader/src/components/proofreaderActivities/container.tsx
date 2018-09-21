@@ -175,22 +175,37 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
     // this method handles weirdness created by HTML formatting in Slate
     formatReceivedPassage(value: string) {
       let string = value.replace(/<span data-original-index="\d+">|<\/span>|<strong> <\/strong>/gm, '').replace(/&#x27;/g, "'").replace(/&quot;/g, '"')
+
       // regex below matches case that looks like this: <strong><u id="10">A</u></strong><strong><u id="10"><u id="10">sia,</u></u></strong><strong><u id="10"> </u></strong>
       const tripleStrongTagWithThreeMatchingNestedURegex = /<strong>(<u id="\d+">)([^(<]+?)<\/u><\/strong><strong>(<u id="\d+">)(<u id="\d+">)([^(<]+?)<\/u><\/u><\/strong><strong>(<u id="\d+">)([^(<]+?)<\/u><\/strong>/gm
+
       // regex below matches case that looks like this: <strong><u id="3">Addison</u></strong><strong><u id="3">,</u></strong><strong><u id="3"> Parker, and Julian,</u></strong>
       const tripleStrongTagWithThreeMatchingURegex = /<strong>(<u id="\d+">)([^(<]+?)<\/u><\/strong><strong>(<u id="\d+">)([^(<]+?)<\/u><\/strong><strong>(<u id="\d+">)([^(<]+?)<\/u><\/strong>/gm
+
       // regex below matches case that looks like this: <strong><u id="3">Addison</u></strong><strong>,</strong><strong><u id="3"> Parker, and Julian,</u></strong>
       const tripleStrongTagWithTwoMatchingURegex = /<strong>(<u id="\d+">)([^(<]+?)<\/u><\/strong><strong>([^(<]+?)<\/strong><strong>(<u id="\d+">)([^(<]+?)<\/u><\/strong>/gm
+
       // regex below matches case that looks like this: <strong><u id="3"><u id="3">shows.</u></u></strong><strong><u id="3"> </u></strong>
-      const doubleStrongTagWithThreeMatchingNestedURegex = /<strong>(<u id="\d+">)(<u id="\d+">)([^(<]+?)<\/u><\/u><\/strong><strong>(<u id="\d+">)([^(<]+?)<\/u><\/strong>/gm
+      const doubleStrongTagWithThreeMatchingNestedUOnFirstTagRegex = /<strong>(<u id="\d+">)(<u id="\d+">)([^(<]+?)<\/u><\/u><\/strong><strong>(<u id="\d+">)([^(<]+?)<\/u><\/strong>/gm
+
+      // regex below matches case that looks like this: <strong><u id="6">Y</u></strong><strong><u id="6"><u id="6">ellowstone</u></u></strong>
+      const doubleStrongTagWithThreeMatchingNestedUOnSecondTagRegex = /<strong>(<u id="\d+">)([^(<]+?)<\/u><\/strong><strong>(<u id="\d+">)(<u id="\d+">)([^(<]+?)<\/u><\/u><\/strong>/gm
+
       // regex below matches case that looks like this: <strong>Addison</strong><strong><u id="3">, Parker, and Julian,</u></strong>
       const doubleStrongTagWithTwoMatchingURegex = /<strong>(<u id="\d+">)([^(<]+?)<\/u><\/strong><strong>(<u id="\d+">)([^(<]+?)<\/u><\/strong>/gm
+
       // regex below matches case that looks like this: <strong>Addison</strong><strong><u id="3">, Parker, and Julian,</u></strong>
       const doubleStrongTagWithUOnSecondTagRegex = /<strong>([^(<)]+?)<\/strong><strong>(<u id="\d+">)(.+?)<\/u><\/strong>/gm
+
       // regex below matches case that looks like this: <strong><u id="3">Addison</u></strong><strong>, Parker, and Julian,</strong>
       const doubleStrongTagWithUOnFirstTagRegex = /<strong>(<u id="\d+">)([^(<)]+?)<\/u><\/strong><strong>=(.+?)<\/strong>/gm
+
       // regex below matches case that looks like this: <strong>A</strong><strong>ntartctic</strong>
       const doubleStrongTagRegex = /<strong>[^(<)]+?<\/strong><strong>[^(<)]+?<\/strong>/gm
+
+      // regex below matches case that looks like this: <strong><u id="3"><u id="3">are</u></u></strong>
+      const singleStrongTagWithTwoMatchingNestedURegex = /<strong>(<u id="\d+">)(<u id="\d+">)([^(<]+?)<\/u><\/u><\/strong>/gm
+
       if (tripleStrongTagWithThreeMatchingNestedURegex.test(string)) {
         string = string.replace(tripleStrongTagWithThreeMatchingNestedURegex, (key, uTagA, contentA, uTagB, uTagC, contentB, uTagD, contentC) => {
           if (uTagA === uTagB && uTagB === uTagC && uTagC === uTagD) {
@@ -200,6 +215,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
           }
         })
       }
+
       if (tripleStrongTagWithThreeMatchingURegex.test(string)) {
         string = string.replace(tripleStrongTagWithThreeMatchingURegex, (key, uTagA, contentA, uTagB, contentB, uTagC, contentC) => {
           if (uTagA === uTagB && uTagB === uTagC) {
@@ -218,15 +234,27 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
           }
         })
       }
-      if (doubleStrongTagWithThreeMatchingNestedURegex.test(string)) {
-        string = string.replace(doubleStrongTagWithThreeMatchingNestedURegex, (key, uTagA, uTagB, contentA, uTagC, contentB) => {
-          if (uTagA === uTagB) {
+
+      if (doubleStrongTagWithThreeMatchingNestedUOnFirstTagRegex.test(string)) {
+        string = string.replace(doubleStrongTagWithThreeMatchingNestedUOnFirstTagRegex, (key, uTagA, uTagB, contentA, uTagC, contentB) => {
+          if (uTagA === uTagB && uTagB === uTagC) {
             return `<strong>${uTagA}${contentA}${contentB}</u></strong>`
           } else {
             return key
           }
         })
       }
+
+      if (doubleStrongTagWithThreeMatchingNestedUOnSecondTagRegex.test(string)) {
+        string = string.replace(doubleStrongTagWithThreeMatchingNestedUOnSecondTagRegex, (key, uTagA, contentA, uTagB, uTagC, contentB) => {
+          if (uTagA === uTagB && uTagB === uTagC) {
+            return `<strong>${uTagA}${contentA}${contentB}</u></strong>`
+          } else {
+            return key
+          }
+        })
+      }
+
       if (doubleStrongTagWithTwoMatchingURegex.test(string)) {
         string = string.replace(doubleStrongTagWithTwoMatchingURegex, (key, uTagA, contentA, uTagB, contentB) => {
           if (uTagA === uTagB) {
@@ -236,6 +264,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
           }
         })
       }
+
       if (doubleStrongTagWithUOnSecondTagRegex.test(string)) {
         string = string.replace(doubleStrongTagWithUOnSecondTagRegex, (key, contentA, uTag, contentB) => {
           if (contentA.includes(' ')) {
@@ -246,6 +275,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
           }
         })
       }
+
       if (doubleStrongTagWithUOnFirstTagRegex.test(string)) {
         string = string.replace(doubleStrongTagWithUOnSecondTagRegex, (key, uTag, contentA, contentB) => {
           if (contentB.includes(' ')) {
@@ -256,11 +286,23 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
           }
         })
       }
+
       if (doubleStrongTagRegex.test(string)) {
         string = string.replace(doubleStrongTagRegex, (key) => {
           return key.replace(/<\/strong><strong>/, '')
         })
       }
+
+      if (singleStrongTagWithTwoMatchingNestedURegex.test(string)) {
+        string = string.replace(doubleStrongTagRegex, (key, uTagA, uTagB, content) => {
+          if (uTagA === uTagB) {
+            return `<strong>${uTagA}${content}</u></strong>`
+          } else {
+            return key
+          }
+        })
+      }
+
       return string
     }
 

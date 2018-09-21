@@ -223,9 +223,15 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
     if (value.startInline && value.startInline.nodes) {
       const dataOriginalIndex = value.startInline.data.get('dataOriginalIndex')
       const originalText = this.state.originalTextArray[dataOriginalIndex]
-      const normalizedText = stringNormalize(value.startInline.text)
+      const newText = value.startInline.text
+      const normalizedText = stringNormalize(newText)
       const normalizedAndTrimmedNewText = normalizedText.trim()
       let node = change.moveToRangeOfNode(value.startInline)
+
+      if (newText.substr(newText.length - 1) === ' ') {
+        node.moveEndBackward(1)
+      }
+
       if (this.state.indicesOfUTags[dataOriginalIndex] || this.state.indicesOfUTags[dataOriginalIndex] === 0) {
         const id = this.state.indicesOfUTags[dataOriginalIndex]
         node = node.addMark({type: 'underline', data: {id}})

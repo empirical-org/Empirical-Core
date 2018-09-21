@@ -21,7 +21,7 @@ export default class PassageReviewer extends React.Component<PassageReviewerProp
   constructor(props: PassageReviewerProps) {
     super(props)
 
-    const matches = props.text ? props.text.match(/{\+([^-]+)-([^|]*)\|([^}]+)}/g) : []
+    const matches = props.text ? props.text.match(/{\+([^-]+)-([^|]*)\|([^}]*)}/g) : []
     const numberOfEdits = matches ? matches.length : 0
 
     this.state = {
