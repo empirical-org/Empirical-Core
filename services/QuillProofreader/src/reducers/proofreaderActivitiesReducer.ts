@@ -25,6 +25,19 @@ export default (
           return Object.assign({}, currentState, { data: action.data}, {hasreceiveddata: true})
         case ActionTypes.NO_PROOFREADER_ACTIVITIES_FOUND:
             return Object.assign({}, currentState, { error: 'No activities found.'})
+        case ActionTypes.TOGGLE_NEW_LESSON_MODAL:
+            return Object.assign({}, currentState, {
+                newLessonModalOpen: !currentState.newLessonModalOpen
+            });
+        case ActionTypes.AWAIT_NEW_LESSON_RESPONSE:
+            return Object.assign({}, currentState, {
+                submittingnew: true
+            });
+        case ActionTypes.RECEIVE_NEW_LESSON_RESPONSE:
+            return Object.assign({}, currentState, {
+                submittingnew: false,
+                newLessonModalOpen: false
+            });
         default:
             return currentState;
     }

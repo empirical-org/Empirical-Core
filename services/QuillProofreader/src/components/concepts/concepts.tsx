@@ -18,7 +18,7 @@ class Concepts extends React.Component<ConceptsProps> {
     // const keys = _.keys(data["0"]);
     if (data) {
       return data.sort((a: Concept, b: Concept) => a.displayName.localeCompare(b.displayName)).map((concept: Concept) =>
-        (<span>{concept.displayName}</span>)
+        (<li>{concept.displayName}</li>)
       )
     }
   }
