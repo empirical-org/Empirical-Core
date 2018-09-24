@@ -1,6 +1,18 @@
 .progress-reports-landing-page-container {
   margin: auto;
   max-width: 1025px;
+
+  .generic-minis {
+    justify-content: flex-start
+  }
+
+  @media screen and (max-width: 1020px) {
+    .generic-minis {
+      justify-content: center;
+    }
+  }
+
+
   a {
     text-decoration: none;
   }
