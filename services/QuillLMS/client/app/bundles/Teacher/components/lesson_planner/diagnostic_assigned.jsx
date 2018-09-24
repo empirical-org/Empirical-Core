@@ -69,7 +69,7 @@ export default  React.createClass({
   },
 
   socialShareUrl: function() {
-    return `${window.location.origin}/activities/packs/${this.props.data.id}${this.state.referralCode ? '?champion=' + this.state.referralCode : ''}`;
+    return `${window.location.origin}/activities/packs/${this.props.data.id}${this.state.referralCode ? '?referral_code=' + this.state.referralCode : ''}`;
   },
 
   socialShareCopy: function() {
