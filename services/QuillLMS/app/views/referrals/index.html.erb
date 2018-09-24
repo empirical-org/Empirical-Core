@@ -90,7 +90,7 @@
   }
 
   function sendReferralEmail() {
-    $.post('<%= invite_champions_path %>', {
+    $.post('<%= invite_referrals_path %>', {
       email: document.getElementById('referral-email').value
     }).success(function(data) {
       displaySuccessMessage();
