@@ -39,6 +39,7 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
     this.handleStateChange = this.handleStateChange.bind(this)
     this.handleDescriptionChange = this.handleDescriptionChange.bind(this)
     this.handleFlagSelect = this.handleFlagSelect.bind(this)
+    this.toggleUnderline = this.toggleUnderline.bind(this)
   }
 
   submit() {
@@ -61,9 +62,9 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
     this.setState({ flag: e.target.value, });
   }
 
-  handleUnderlineChange(e: React.ChangeEvent<HTMLInputElement>) {
-    debugger;
-    this.setState({ underlineErrorsInProofreader: !!e.target.value, });
+  toggleUnderline(e: React.ChangeEvent<HTMLInputElement>) {
+    console.log(e.target.value)
+    this.setState({ underlineErrorsInProofreader: !this.state.underlineErrorsInProofreader });
   }
 
   handleDescriptionChange(e: string) {
@@ -111,7 +112,7 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
             name="showUnderlines"
             type="checkbox"
             checked={this.state.underlineErrorsInProofreader}
-            onChange={this.handleUnderlineChange}
+            onChange={this.toggleUnderline}
           />
         </p>
         <p className="control">
