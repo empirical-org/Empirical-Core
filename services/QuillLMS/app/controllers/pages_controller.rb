@@ -358,6 +358,9 @@ class PagesController < ApplicationController
     @blog_posts = BlogPost.where(draft: false, topic: 'Announcements').order('order_number')
   end
 
+  def referrals_toc
+  end
+
   private
 
   def determine_layout
