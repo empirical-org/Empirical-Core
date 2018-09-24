@@ -25,7 +25,7 @@
     h2,p.share-text {
       color: #7f7f7f;
       font-size: 16px;
-      padding-top: 8px;
+      margin-top: 32px;
     }
 
     img {
@@ -62,6 +62,7 @@
     display: flex;
     justify-content: space-around;
     margin-bottom: 75px;
+    margin-top: 45px;
 
     &::before {
       content: '';
@@ -120,7 +121,7 @@
     background: #fff;
     border: solid 1px #e0e0e0;
     border-radius: 4px;
-    margin: 26px 0 39px;
+    margin: 26px 0 40px 0;
     padding: 30px 10px;
     text-align: center;
 
@@ -140,7 +141,7 @@
   #share-box {
     color: #666666;
     font-size: 16px;
-    padding: 40px 0 40px;
+    padding-top: 40px;
     text-align: center;
 
 
