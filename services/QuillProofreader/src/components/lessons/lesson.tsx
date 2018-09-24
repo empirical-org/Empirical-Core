@@ -147,7 +147,7 @@ class Lesson extends React.Component<LessonProps> {
           <h4 className="title">{data[lessonID].title}</h4>
 
           <h6 className="subtitle">{data[lessonID].flag}</h6>
-          <h6 className="subtitle"><Link to={`/play/sw?anonymous=true&uid=${lessonID}`}>Play Proofreader Activity</Link></h6>
+          <h6 className="subtitle"><Link to={`/play/pf?anonymous=true&uid=${lessonID}`}>Play Proofreader Activity</Link></h6>
           <p className="control">
             <button className="button is-info" onClick={this.editLesson}>Edit Lesson</button> <button className="button is-danger" onClick={this.deleteLesson}>Delete Lesson</button>
           </p>
