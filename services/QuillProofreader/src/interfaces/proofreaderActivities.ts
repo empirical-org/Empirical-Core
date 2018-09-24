@@ -41,3 +41,11 @@ export interface ConceptResultMetadata {
   questionNumber: number,
   unchanged: boolean,
 }
+
+export interface Concepts {
+  [key:string]: Concept
+}
+
+export interface Concept {
+  quantity: number;
+}
