@@ -128,10 +128,10 @@ export default class extends React.Component {
           defaultPageSize={filteredStudentsData.length}
           getTrProps={(state, rowInfo, column) => ({
             style: {
-                background: rowInfo.row.timespent_question > 180 ? '#FEEDF0' : 'inherit',
-              },
+              background: rowInfo.row.timespent_question > 180 ? '#FEEDF0' : 'inherit',
+            },
           })}
-          className="progress-report has-green-arrow"
+          className="progress-report"
         />
       </div>);
     }
