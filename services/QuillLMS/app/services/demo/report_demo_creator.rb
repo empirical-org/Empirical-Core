@@ -8,6 +8,7 @@ module Demo::ReportDemoCreator
     classroom_units = self.create_classroom_units(classroom, unit)
     unit_activities = self.create_unit_activities(unit)
     activity_sessions = self.create_activity_sessions(students)
+    subscription = self.create_subscription(teacher)
   end
 
   def self.create_teacher(name)
@@ -37,6 +38,14 @@ module Demo::ReportDemoCreator
       user: teacher,
     }
     unit = Unit.create(values)
+  end
+
+  def self.create_subscription(teacher)
+    attributes = {
+      purchaser_id: teacher.id,
+      account_type: 'Teacher Trial'
+    }
+    Subscription.create_with_user_join(teacher.id, attributes)
   end
 
   def self.create_students(classroom)
