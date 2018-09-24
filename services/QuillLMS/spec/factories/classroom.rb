@@ -1,4 +1,8 @@
 FactoryBot.define do
+  factory :simple_classroom, class: Classroom do
+    name 'a'
+  end
+
   factory :classroom do
     name  { "#{['Period', 'Block', 'Class', 'Classroom'].sample} #{(1..100).to_a.sample}#{('A'..'Z').to_a.sample}" }
     grade { [(1..12).to_a, 'University', 'Kindergarten', 'Other'].flatten.sample.to_s }
@@ -69,5 +73,9 @@ FactoryBot.define do
         create(:classrooms_teacher, classroom: classroom, user: create(:teacher))
       end
     end
+  end
+
+  factory :simple_classroom, class: Classroom do
+    name 'CalCOOLus'
   end
 end
