@@ -1,4 +1,4 @@
-class ChampionsController < ApplicationController
+class ReferralsController < ApplicationController
   before_action :teacher!
 
   def index

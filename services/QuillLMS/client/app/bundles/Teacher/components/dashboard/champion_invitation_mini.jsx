@@ -16,7 +16,7 @@ class ChampionInvitationMini extends React.Component {
           <p style={{ padding: '0px 15px', lineHeight: '1.57', fontFamily: 'lucida-grande, adelle-sans, helvetica', }}>
             With the new Quill Referral program, you can earn rewards for helping fellow educators discover Quill.
           </p>
-          <a style={{ display: 'block', marginBottom: '12px', }} href="/champions"><button style={{ maxWidth: '233px', width: '100%', paddingBottom: '13px', marginTop: '15px', }} className="button button-white beta">Earn Rewards</button></a>
+          <a style={{ display: 'block', marginBottom: '12px', }} href="/referrals"><button style={{ maxWidth: '233px', width: '100%', paddingBottom: '13px', marginTop: '15px', }} className="button button-white beta">Earn Rewards</button></a>
           <a style={{ color: '#027360', }} target="_blank" href="/referrals_toc">Learn more about the Referral program ></a>
         </div>
       </div>

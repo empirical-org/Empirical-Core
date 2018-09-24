@@ -470,7 +470,7 @@ EmpiricalGrammar::Application.routes.draw do
     resources :announcements, only: [:index, :new, :create, :update, :edit]
   end
 
-  resources :champions, only: [:index] do
+  resources :referrals, only: [:index] do
     collection do
       post :invite
     end
