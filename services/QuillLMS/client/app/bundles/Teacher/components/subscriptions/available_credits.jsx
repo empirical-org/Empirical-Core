@@ -13,7 +13,7 @@ export default class extends React.Component {
     if (this.props.userHasValidSub) {
       alert('You cannot redeem credits while you have a valid subscription. You must wait until your current subscription has expired to redeem them.');
     } else {
-      this.props.redeemPremiumCredits;
+      this.props.redeemPremiumCredits();
     }
   }
 

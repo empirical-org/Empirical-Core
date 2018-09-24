@@ -90,6 +90,225 @@ CREATE FUNCTION blog_posts_search_trigger() RETURNS trigger
       $$;
 
 
+--
+-- Name: old_timespent_teacher(integer); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION old_timespent_teacher(teacher integer) RETURNS bigint
+    LANGUAGE sql
+    AS $$
+        SELECT COALESCE(MAX(time_spent)::BIGINT, 0) FROM
+        (SELECT MAX(time_spent_query.time_spent) AS time_spent
+          FROM users
+          LEFT OUTER JOIN (SELECT acss_ids.teacher_id, SUM (
+              CASE
+              WHEN (activity_sessions.started_at IS NULL)
+                OR (activity_sessions.completed_at IS NULL)
+                OR (activity_sessions.completed_at - activity_sessions.started_at < interval '1 minute')
+                OR (activity_sessions.completed_at - activity_sessions.started_at > interval '30 minutes')
+              THEN 441
+              ELSE
+                EXTRACT (
+                  'epoch' FROM (activity_sessions.completed_at - activity_sessions.started_at)
+                )
+              END) AS time_spent FROM activity_sessions
+            INNER JOIN (SELECT users.id AS teacher_id, activity_sessions.id AS activity_session_id FROM users
+            INNER JOIN units ON users.id = units.user_id
+            INNER JOIN classroom_units ON units.id = classroom_units.unit_id
+            INNER JOIN activity_sessions ON classroom_units.id = activity_sessions.classroom_unit_id
+            INNER JOIN concept_results ON activity_sessions.id = concept_results.activity_session_id
+            WHERE users.id = teacher
+            AND activity_sessions.completed_at < timestamp '2018-08-21 00:00:00.000000'
+            AND activity_sessions.state = 'finished'
+            GROUP BY users.id, activity_sessions.id) AS acss_ids ON activity_sessions.id = acss_ids.activity_session_id
+            GROUP BY acss_ids.teacher_id
+          ) AS time_spent_query ON users.id = time_spent_query.teacher_id
+          WHERE users.id = teacher
+          GROUP BY users.id) as times_spent;
+      $$;
+
+
+--
+-- Name: timespent_activity_session(integer); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION timespent_activity_session(act_sess integer) RETURNS integer
+    LANGUAGE plpgsql
+    AS $$
+        DECLARE
+            first_item timestamp;
+          last_item timestamp;
+          max_item timestamp;
+          as_created_at timestamp;
+          arow record;
+          time_spent float;
+          item timestamp;
+        BEGIN
+          -- backward compatibility block
+          SELECT created_at INTO as_created_at FROM activity_sessions WHERE id = act_sess;
+          IF as_created_at IS NULL OR as_created_at < timestamp '2018-08-25 00:00:00.000000' THEN
+            SELECT SUM(
+                  CASE
+                  WHEN (activity_sessions.started_at IS NULL)
+                    OR (activity_sessions.completed_at IS NULL)
+                    OR (activity_sessions.completed_at - activity_sessions.started_at < interval '1 minute')
+                    OR (activity_sessions.completed_at - activity_sessions.started_at > interval '30 minutes')
+                  THEN 441
+                  ELSE
+                    EXTRACT (
+                      'epoch' FROM (activity_sessions.completed_at - activity_sessions.started_at)
+                    )
+                END) INTO time_spent FROM activity_sessions WHERE id = act_sess AND state='finished';
+                
+                RETURN COALESCE(time_spent,0);
+          END IF;
+          -- modern calculation (using activity session interaction logs) 
+          first_item := NULL;
+          last_item := NULL;
+          max_item := NULL;
+          time_spent := 0.0;
+          FOR arow IN (SELECT date FROM activity_session_interaction_logs WHERE activity_session_id = act_sess order by date) LOOP
+            item := arow;
+            IF last_item IS NULL THEN
+              first_item := item;
+              max_item := item;
+              last_item := item;
+            ELSIF item - last_item <= '2 minute'::interval THEN
+              max_item := item;
+              last_item := item;
+            ELSE
+              time_spent := time_spent + EXTRACT( EPOCH FROM max_item - first_item );
+              first_item := item;
+              last_item := item;
+              max_item := item;
+            END IF;
+          END LOOP;
+          IF max_item IS NOT NULL AND first_item IS NOT NULL THEN
+            time_spent := time_spent + EXTRACT( EPOCH FROM max_item - first_item );
+          END IF;
+          RETURN time_spent;
+        END;
+      $$;
+
+
+--
+-- Name: timespent_question(integer, character varying); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION timespent_question(act_sess integer, question character varying) RETURNS integer
+    LANGUAGE plpgsql
+    AS $$
+        DECLARE
+            first_item timestamp;
+          last_item timestamp;
+          max_item timestamp;
+          as_created_at timestamp;
+          arow record;
+          time_spent float;
+          item timestamp;
+        BEGIN
+          SELECT created_at INTO as_created_at FROM activity_sessions WHERE id = act_sess;
+          
+          -- backward compatibility block
+          IF as_created_at IS NULL OR as_created_at < timestamp '2013-08-25 00:00:00.000000' THEN
+            SELECT SUM(
+                  CASE
+                  WHEN (activity_sessions.started_at IS NULL)
+                    OR (activity_sessions.completed_at IS NULL)
+                    OR (activity_sessions.completed_at - activity_sessions.started_at < interval '1 minute')
+                    OR (activity_sessions.completed_at - activity_sessions.started_at > interval '30 minutes')
+                  THEN 441
+                  ELSE
+                    EXTRACT (
+                      'epoch' FROM (activity_sessions.completed_at - activity_sessions.started_at)
+                    )
+                END) INTO time_spent FROM activity_sessions WHERE id = act_sess AND state='finished';
+                
+                RETURN COALESCE(time_spent,0);
+          END IF;
+          
+          
+          first_item := NULL;
+          last_item := NULL;
+          max_item := NULL;
+          time_spent := 0.0;
+          FOR arow IN (SELECT date FROM activity_session_interaction_logs WHERE activity_session_id = act_sess AND meta ->> 'current_question' = question order by date) LOOP
+            item := arow;
+            IF last_item IS NULL THEN
+              first_item := item;
+              max_item := item;
+              last_item := item;
+
+            ELSIF item - last_item <= '2 minute'::interval THEN
+              max_item := item;
+              last_item := item;
+
+            ELSE
+              time_spent := time_spent + EXTRACT( EPOCH FROM max_item - first_item );
+              first_item := item;
+              last_item := item;
+              max_item := item;
+
+            END IF;
+          END LOOP;
+          
+          IF max_item IS NOT NULL AND first_item IS NOT NULL THEN
+            time_spent := time_spent + EXTRACT( EPOCH FROM max_item - first_item );
+          END IF;
+          
+          RETURN time_spent;
+        END;
+      $$;
+
+
+--
+-- Name: timespent_student(integer); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION timespent_student(student integer) RETURNS bigint
+    LANGUAGE sql
+    AS $$
+        SELECT COALESCE(SUM(time_spent),0) FROM (
+          SELECT id,timespent_activity_session(id) AS time_spent FROM activity_sessions
+          WHERE activity_sessions.user_id = student 
+          GROUP BY id) as as_ids;
+
+      $$;
+
+
+--
+-- Name: timespent_student_for_teacher(integer, integer); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION timespent_student_for_teacher(student integer, teacher integer) RETURNS bigint
+    LANGUAGE sql
+    AS $$
+        SELECT COALESCE(SUM(time_spent),0) FROM (SELECT activity_sessions.id AS activity_session_id, timespent_activity_session(activity_sessions.id) as time_spent FROM users
+          INNER JOIN classrooms_teachers ON users.id = classrooms_teachers.user_id
+          INNER JOIN classroom_units ON classrooms_teachers.classroom_id = classroom_units.classroom_id
+          INNER JOIN activity_sessions ON classroom_units.id = activity_sessions.classroom_unit_id
+          WHERE users.id = teacher
+          AND activity_sessions.user_id = student
+          GROUP BY users.id, activity_sessions.id) as times_spent;
+      $$;
+
+
+--
+-- Name: timespent_teacher(integer); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION timespent_teacher(teacher integer) RETURNS bigint
+    LANGUAGE sql
+    AS $$
+        SELECT COALESCE(SUM(time_spent),0) FROM (SELECT activity_sessions.id AS activity_session_id, timespent_activity_session(activity_sessions.id) as time_spent FROM users
+          INNER JOIN classrooms_teachers ON users.id = classrooms_teachers.user_id
+          INNER JOIN classroom_units ON classrooms_teachers.classroom_id = classroom_units.classroom_id
+          INNER JOIN activity_sessions ON classroom_units.id = activity_sessions.classroom_unit_id
+          WHERE users.id = teacher
+          GROUP BY users.id, activity_sessions.id) as times_spent;
+      $$;
+
+
 SET default_tablespace = '';
 
 SET default_with_oids = false;
@@ -250,29 +469,35 @@ ALTER SEQUENCE activity_classifications_id_seq OWNED BY activity_classifications
 
 
 --
--- Name: activity_sessions; Type: TABLE; Schema: public; Owner: -
+-- Name: activity_session_interaction_logs; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE activity_sessions (
+CREATE TABLE activity_session_interaction_logs (
     id integer NOT NULL,
-    classroom_activity_id integer,
-    activity_id integer,
-    user_id integer,
-    pairing_id character varying(255),
-    percentage double precision,
-    state character varying(255),
-    completed_at timestamp without time zone,
-    uid character varying(255),
-    temporary boolean,
-    data hstore,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
-    started_at timestamp without time zone,
-    is_retry boolean,
-    is_final_score boolean,
-    visible boolean,
-    classroom_unit_id integer
+    date timestamp without time zone,
+    meta jsonb,
+    activity_session_id integer
 );
+
+
+--
+-- Name: activity_session_interaction_logs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE activity_session_interaction_logs_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: activity_session_interaction_logs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE activity_session_interaction_logs_id_seq OWNED BY activity_session_interaction_logs.id;
 
 
 --
@@ -318,6 +543,33 @@ CREATE SEQUENCE activity_sessions_id_seq
 --
 
 ALTER SEQUENCE activity_sessions_id_seq OWNED BY old_activity_sessions.id;
+
+
+--
+-- Name: activity_sessions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE activity_sessions (
+    id integer DEFAULT nextval('activity_sessions_id_seq'::regclass) NOT NULL,
+    classroom_activity_id integer,
+    activity_id integer,
+    user_id integer,
+    pairing_id character varying(255),
+    percentage double precision,
+    state character varying(255),
+    completed_at timestamp without time zone,
+    uid character varying(255),
+    temporary boolean,
+    data hstore,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    started_at timestamp without time zone,
+    is_retry boolean,
+    is_final_score boolean,
+    visible boolean,
+    classroom_unit_id integer,
+    timespent integer
+);
 
 
 --
@@ -1379,6 +1631,40 @@ CREATE TABLE newer_activity_sessions (
 
 
 --
+-- Name: notifications; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE notifications (
+    id integer NOT NULL,
+    text text NOT NULL,
+    user_id integer NOT NULL,
+    meta jsonb DEFAULT '{}'::jsonb NOT NULL,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: notifications_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE notifications_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: notifications_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE notifications_id_seq OWNED BY notifications.id;
+
+
+--
 -- Name: oauth_access_grants; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1596,7 +1882,8 @@ CREATE TABLE referrals_users (
     user_id integer NOT NULL,
     referred_user_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    activated boolean DEFAULT false
 );
 
 
@@ -2440,6 +2727,13 @@ ALTER TABLE ONLY activity_classifications ALTER COLUMN id SET DEFAULT nextval('a
 
 
 --
+-- Name: activity_session_interaction_logs id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY activity_session_interaction_logs ALTER COLUMN id SET DEFAULT nextval('activity_session_interaction_logs_id_seq'::regclass);
+
+
+--
 -- Name: admin_accounts id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -2640,6 +2934,13 @@ ALTER TABLE ONLY ip_locations ALTER COLUMN id SET DEFAULT nextval('ip_locations_
 --
 
 ALTER TABLE ONLY milestones ALTER COLUMN id SET DEFAULT nextval('milestones_id_seq'::regclass);
+
+
+--
+-- Name: notifications id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY notifications ALTER COLUMN id SET DEFAULT nextval('notifications_id_seq'::regclass);
 
 
 --
@@ -2882,6 +3183,14 @@ ALTER TABLE ONLY activity_category_activities
 
 ALTER TABLE ONLY activity_classifications
     ADD CONSTRAINT activity_classifications_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: activity_session_interaction_logs activity_session_interaction_logs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY activity_session_interaction_logs
+    ADD CONSTRAINT activity_session_interaction_logs_pkey PRIMARY KEY (id);
 
 
 --
@@ -3130,6 +3439,14 @@ ALTER TABLE ONLY milestones
 
 ALTER TABLE ONLY activity_sessions
     ADD CONSTRAINT newest_activity_sessions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: notifications notifications_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY notifications
+    ADD CONSTRAINT notifications_pkey PRIMARY KEY (id);
 
 
 --
@@ -3432,6 +3749,13 @@ CREATE UNIQUE INDEX index_activity_classifications_on_key ON public.activity_cla
 --
 
 CREATE UNIQUE INDEX index_activity_classifications_on_uid ON public.activity_classifications USING btree (uid);
+
+
+--
+-- Name: index_activity_session_interaction_logs_on_activity_session_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_activity_session_interaction_logs_on_activity_session_id ON public.activity_session_interaction_logs USING btree (activity_session_id);
 
 
 --
@@ -3785,6 +4109,13 @@ CREATE INDEX index_milestones_on_name ON public.milestones USING btree (name);
 
 
 --
+-- Name: index_notifications_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_notifications_on_user_id ON public.notifications USING btree (user_id);
+
+
+--
 -- Name: index_oauth_access_grants_on_token; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -3831,6 +4162,13 @@ CREATE INDEX index_recommendations_on_activity_id ON public.recommendations USIN
 --
 
 CREATE INDEX index_recommendations_on_unit_template_id ON public.recommendations USING btree (unit_template_id);
+
+
+--
+-- Name: index_referrals_users_on_activated; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_referrals_users_on_activated ON public.referrals_users USING btree (activated);
 
 
 --
@@ -4444,6 +4782,14 @@ ALTER TABLE ONLY units
 
 
 --
+-- Name: activity_session_interaction_logs fk_rails_1ac1e7b3b5; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY activity_session_interaction_logs
+    ADD CONSTRAINT fk_rails_1ac1e7b3b5 FOREIGN KEY (activity_session_id) REFERENCES activity_sessions(id);
+
+
+--
 -- Name: classroom_units fk_rails_3e1ff09783; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -4513,6 +4859,14 @@ ALTER TABLE ONLY sales_stages
 
 ALTER TABLE ONLY criteria
     ADD CONSTRAINT fk_rails_ada79930c6 FOREIGN KEY (concept_id) REFERENCES concepts(id);
+
+
+--
+-- Name: notifications fk_rails_b080fb4855; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY notifications
+    ADD CONSTRAINT fk_rails_b080fb4855 FOREIGN KEY (user_id) REFERENCES users(id);
 
 
 --
@@ -5164,6 +5518,46 @@ INSERT INTO schema_migrations (version) VALUES ('20180709192646');
 INSERT INTO schema_migrations (version) VALUES ('20180718195853');
 
 INSERT INTO schema_migrations (version) VALUES ('20180810181001');
+
+INSERT INTO schema_migrations (version) VALUES ('20180815174156');
+
+INSERT INTO schema_migrations (version) VALUES ('20180815180204');
+
+INSERT INTO schema_migrations (version) VALUES ('20180816210411');
+
+INSERT INTO schema_migrations (version) VALUES ('20180817171936');
+
+INSERT INTO schema_migrations (version) VALUES ('20180820154444');
+
+INSERT INTO schema_migrations (version) VALUES ('20180821200652');
+
+INSERT INTO schema_migrations (version) VALUES ('20180821201236');
+
+INSERT INTO schema_migrations (version) VALUES ('20180821201559');
+
+INSERT INTO schema_migrations (version) VALUES ('20180821202836');
+
+INSERT INTO schema_migrations (version) VALUES ('20180821213520');
+
+INSERT INTO schema_migrations (version) VALUES ('20180822144355');
+
+INSERT INTO schema_migrations (version) VALUES ('20180822155024');
+
+INSERT INTO schema_migrations (version) VALUES ('20180822155243');
+
+INSERT INTO schema_migrations (version) VALUES ('20180824185130');
+
+INSERT INTO schema_migrations (version) VALUES ('20180824185824');
+
+INSERT INTO schema_migrations (version) VALUES ('20180824195642');
+
+INSERT INTO schema_migrations (version) VALUES ('20180827212450');
+
+INSERT INTO schema_migrations (version) VALUES ('20180831194317');
+
+INSERT INTO schema_migrations (version) VALUES ('20180831194810');
+
+INSERT INTO schema_migrations (version) VALUES ('20180910152342');
 
 INSERT INTO schema_migrations (version) VALUES ('20180911171536');
 

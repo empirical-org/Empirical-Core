@@ -14,14 +14,6 @@ EmpiricalGrammar::Application.routes.draw do
 
   mount Sidekiq::Web => '/sidekiq', constraints: StaffConstraint.new
 
-  if Rails.env.test? || Rails.env == 'cypress'
-    resources :factories, only: :create do
-      post 'create_list', on: :collection
-      delete 'destroy_all', on: :collection
-      delete 'destroy_all_assignments', on: :collection
-    end
-  end
-
   get '/classrooms/:classroom', to: 'students#index', as: :classroom
   get '/add_classroom', to: 'students#index'
 
@@ -74,6 +66,7 @@ EmpiricalGrammar::Application.routes.draw do
   end
   resources :assessments
   resources :assignments
+  resources :notifications, only: :index, format: :json
   resource :profile
   resources :password_reset
   resources :schools, only: [:index], format: 'json'
@@ -204,6 +197,7 @@ EmpiricalGrammar::Application.routes.draw do
     put 'units/:id/hide' => 'units#hide', as: 'hide_units_path'
     get 'progress_reports/landing_page' => 'progress_reports#landing_page'
     get 'progress_reports/activities_scores_by_classroom' => 'progress_reports#activities_scores_by_classroom'
+    get 'progress_reports/real_time' => 'progress_reports#real_time'
     # in actual use with progress_reports/student_overview, pass the query string ?classroom_id=x&student_id=y
     get 'progress_reports/student_overview' => 'progress_reports#student_overview'
 
@@ -332,7 +326,9 @@ EmpiricalGrammar::Application.routes.draw do
       get 'activities/uids_and_flags' => 'activities#uids_and_flags'
       resources :activities,              except: [:index, :new, :edit]
       resources :activity_flags,          only: [:index]
-      resources :activity_sessions,       except: [:index, :new, :edit]
+      resources :activity_sessions,       except: [:index, :new, :edit] do
+        resources :activity_session_interaction_logs, only: :create
+      end
       resources :lessons_tokens,          only: [:create]
       resources :sections,                only: [:index]
       resources :topics,                  only: [:index]
@@ -363,6 +359,7 @@ EmpiricalGrammar::Application.routes.draw do
       get 'users/current_user_and_coteachers', to: 'users#current_user_and_coteachers'
       post 'published_edition' => 'activities#published_edition'
       get 'progress_reports/activities_scores_by_classroom_data' => 'progress_reports#activities_scores_by_classroom_data'
+      get 'progress_reports/real_time_data' => 'progress_reports#real_time_data'
       get 'progress_reports/district_activity_scores' => 'progress_reports#district_activity_scores'
       get 'progress_reports/district_concept_reports' => 'progress_reports#district_concept_reports'
       get 'progress_reports/district_standards_reports' => 'progress_reports#district_standards_reports'
@@ -473,7 +470,14 @@ EmpiricalGrammar::Application.routes.draw do
     resources :announcements, only: [:index, :new, :create, :update, :edit]
   end
 
-  other_pages = %w(beta ideas board press partners develop mission faq tos privacy activities impact stats team premium media_kit play news home_new map firewall_info announcements)
+  resources :referrals, only: [:index] do
+    collection do
+      post :invite
+    end
+  end
+
+  other_pages = %w(beta ideas board press partners develop mission faq tos privacy activities impact stats team premium teacher_resources media_kit play news home_new map firewall_info referrals_toc)
+
   all_pages = other_pages
   all_pages.each do |page|
     get page => "pages##{page}", as: "#{page}"

@@ -18,6 +18,10 @@ class PagesController < ApplicationController
     end
     @title = 'Quill.org — Interactive Writing and Grammar'
     @description = 'Quill provides free writing and grammar activities for middle and high school students.'
+    if request.env['affiliate.tag']
+      name = ReferrerUser.find_by(referral_code: request.env['affiliate.tag'])&.user&.name
+      flash.now[:info] = "<strong>#{name}</strong> invited you to help your students become better writers with Quill!" if name
+    end
   end
 
   def develop
@@ -352,6 +356,9 @@ class PagesController < ApplicationController
 
   def announcements
     @blog_posts = BlogPost.where(draft: false, topic: 'Announcements').order('order_number')
+  end
+
+  def referrals_toc
   end
 
   private
