@@ -67,7 +67,7 @@ export default class UnitTemplateProfile extends React.Component {
   }
 
   socialShareUrl() {
-    return `${window.location}${this.state.referralCode ? '?champion=' + this.state.referralCode : ''}`
+    return `${window.location}${this.state.referralCode ? '?referral_code=' + this.state.referralCode : ''}`
   }
 
   socialText() {
