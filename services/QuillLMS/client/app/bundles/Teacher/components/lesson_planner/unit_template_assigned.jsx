@@ -68,7 +68,7 @@ export default  React.createClass({
   },
 
   socialShareUrl: function() {
-    return `${window.location.origin}/activities/packs/${this.props.params.activityPackId}${this.state.referralCode ? '?champion=' + this.state.referralCode : ''}`;
+    return `${window.location.origin}/activities/packs/${this.props.params.activityPackId}${this.state.referralCode ? '?referral_code=' + this.state.referralCode : ''}`;
   },
 
   socialShareCopy: function() {
