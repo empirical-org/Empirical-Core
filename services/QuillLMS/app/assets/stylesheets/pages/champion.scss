@@ -26,6 +26,7 @@
       color: #7f7f7f;
       font-size: 16px;
       margin-top: 32px;
+      line-height: 24px;
     }
 
     img {
@@ -99,7 +100,13 @@
         }
       }
 
-      h2, p {
+      h2 {
+        color: #000;
+        height: 16px;
+        font-weight: 700;
+      } 
+      
+      p {
         color: #666666;
       }
 
@@ -156,8 +163,8 @@
     }
 
     input[type='text'] {
-      font-size: 16px;
-      color: #666666;
+      font-size: 14px;
+      color: #000;
       width: 481px;
     }
 
