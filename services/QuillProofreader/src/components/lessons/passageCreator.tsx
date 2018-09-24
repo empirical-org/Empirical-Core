@@ -17,6 +17,9 @@ class HoverForm extends React.Component {
   onClickMark(event, type) {
     const { value, onChange } = this.props
     event.preventDefault()
+    debugger;
+    // const change = value.change().toggleMark(type)
+    // onChange(change)
   }
 
   changeDisplayText(e) {
@@ -88,20 +91,21 @@ class PassageCreator extends React.Component {
   }
 
   render() {
-    return (
-      <div>
-        <HoverForm
-          value={this.state.value}
-          onChange={this.onChange}
-          ref={menu => (this.menu = menu)}
-        />
-        <Editor
-          placeholder="Enter some text..."
-          value={this.state.value}
-          onChange={this.onChange}
-        />
-      </div>
-    )
+    return <span>Something else will go here</span>
+    // return (
+    //   <div>
+    //     <HoverForm
+    //       value={this.state.value}
+    //       onChange={this.onChange}
+    //       ref={menu => (this.menu = menu)}
+    //     />
+    //     <Editor
+    //       placeholder="Enter some text..."
+    //       value={this.state.value}
+    //       onChange={this.onChange}
+    //     />
+    //   </div>
+    // )
   }
 }
 
