@@ -15,6 +15,8 @@ class Api::V1::ActivitySessionsController < Api::ApiController
     # FIXME: ignore id because it's related to inconsistency between
     # naming - id in app and uid here
     if @activity_session.update(activity_session_params.except(:id, :concept_results))
+      NotifyOfCompletedActivity.new(@activity_session).call if @activity_session.classroom_unit_id
+
       if @concept_results
         handle_concept_results
       end
@@ -108,6 +110,7 @@ class Api::V1::ActivitySessionsController < Api::ApiController
                   :anonymous,
                   :temporary)
       .merge(data: @data).reject {|k,v| v.nil? }
+      .merge(timespent: @activity_session.calculate_timespent)
   end
 
   def transform_incoming_request

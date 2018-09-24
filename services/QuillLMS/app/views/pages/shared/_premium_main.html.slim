@@ -15,10 +15,11 @@
     | Teachers, use our interface to dive into the data. You can also download
     br
     | reports as a spreadsheet and import them into your gradebook.
-  .preview-btns
-    a href="/demo?name=demoaccount" target='_new'
-      .btn.try-the-demo
-        | Try the Demo
+  - unless current_user 
+    .preview-btns
+      a href="/demo" target='_new'
+        .btn.try-the-demo
+          | Try the Demo
   .preview-image
     = image_tag 'premium_preview/premium_screenshot.png'
 

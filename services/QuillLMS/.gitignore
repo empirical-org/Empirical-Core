@@ -18,6 +18,7 @@ public/assets
 
 # misc
 log/*.log
+/*.log
 tmp
 coverage
 snapshot.dump
@@ -43,7 +44,8 @@ activity-sessions*.json
 # React on Rails
 npm-debug.log*
 node_modules
-/public/webpack/*
+/public/webpack
+/public/webpack-test
 
 # Generated js bundles
 /app/assets/webpack/*

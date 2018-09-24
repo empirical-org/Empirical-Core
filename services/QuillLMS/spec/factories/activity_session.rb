@@ -1,4 +1,6 @@
 FactoryBot.define do
+  factory :simple_activity_session, class: 'ActivitySession' do; end
+
   factory :activity_session do
     activity            { create(:activity, :production) }
     uid                 { SecureRandom.urlsafe_base64 }

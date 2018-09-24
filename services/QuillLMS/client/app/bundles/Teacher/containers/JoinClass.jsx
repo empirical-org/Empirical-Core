@@ -69,7 +69,7 @@ export default class JoinClass extends React.Component {
           <h1>Join a New Class</h1>
           <span>Add Your Class Code</span>
           <br/>
-          <input className='class-input' onChange={e => this.setState({classCodeInput: e.target.value})} placeholder='e.g. fresh-bread'></input>
+          <input id='class_code' className='class-input' onChange={e => this.setState({classCodeInput: e.target.value})} placeholder='e.g. fresh-bread'></input>
           <br/>
           {this.errorMessage()}
           <button className='button-green' onClick={this.addClassroom}>Join Your Class</button>
