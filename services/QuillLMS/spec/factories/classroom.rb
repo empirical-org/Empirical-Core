@@ -74,4 +74,8 @@ FactoryBot.define do
       end
     end
   end
+
+  factory :simple_classroom, class: Classroom do
+    name 'CalCOOLus'
+  end
 end
