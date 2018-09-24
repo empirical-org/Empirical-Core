@@ -5,12 +5,13 @@ import TextEditor from '../shared/textEditor'
 import ConceptSelector from '../shared/conceptSelector'
 import { ProofreaderActivity, Concepts, Concept } from '../../interfaces/proofreaderActivities'
 import { ConceptReducerState } from '../../reducers/conceptsReducer'
+import PassageCreator from './passageCreator'
 
 interface LessonFormState {
   title: string;
   description: string;
   flag?: string;
-  concepts: Concepts;
+  underlineErrorsInProofreader: boolean;
 }
 
 interface LessonFormProps {
@@ -31,17 +32,13 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
       title: currentValues ? currentValues.title : '',
       description: currentValues ? currentValues.description || '' : '',
       flag: currentValues ? currentValues.flag : 'alpha',
-      concepts: currentValues ? currentValues.concepts : {}
+      underlineErrorsInProofreader: false
     }
 
     this.submit = this.submit.bind(this)
     this.handleStateChange = this.handleStateChange.bind(this)
     this.handleDescriptionChange = this.handleDescriptionChange.bind(this)
     this.handleFlagSelect = this.handleFlagSelect.bind(this)
-    this.addConcept = this.addConcept.bind(this)
-    this.renderConceptRows = this.renderConceptRows.bind(this)
-    this.removeConcept = this.removeConcept.bind(this)
-    this.changeConceptQuantity = this.changeConceptQuantity.bind(this)
   }
 
   submit() {
@@ -60,63 +57,17 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
     this.setState(changes);
   }
 
-  addConcept(concept: { value: string }) {
-    const { value } = concept
-    if (value) {
-      const currentSelectedConcepts = this.state.concepts;
-      let newSelectedConcepts = currentSelectedConcepts;
-      newSelectedConcepts[value] = { quantity: 0 }
-      this.setState({ concepts: newSelectedConcepts, });
-    }
-  }
-
-  changeConceptQuantity(conceptUid: string, e: React.ChangeEvent<{value: string}>) {
-    const number = e.target.value ? parseInt(e.target.value) : 0
-    const newSelectedConcepts = this.state.concepts;
-    newSelectedConcepts[conceptUid] = { quantity: number }
-    this.setState({ concepts: newSelectedConcepts, });
-  }
-
-  removeConcept(conceptUid: string) {
-    let newSelectedConcepts = this.state.concepts;
-    delete newSelectedConcepts[conceptUid]
-    this.setState({ concepts: newSelectedConcepts, });
-  }
-
   handleFlagSelect(e: React.ChangeEvent<{value: string}>) {
     this.setState({ flag: e.target.value, });
   }
 
-  handleDescriptionChange(e: string) {
-    this.setState({ description: e, });
+  handleUnderlineChange(e: React.ChangeEvent<HTMLInputElement>) {
+    debugger;
+    this.setState({ underlineErrorsInProofreader: !!e.target.value, });
   }
 
-  renderConceptRows(): Array<JSX.Element|undefined>|void {
-    const conceptUids = Object.keys(this.state.concepts)
-    if (conceptUids.length > 0) {
-      return conceptUids.map(c => {
-        const conceptVal = this.state.concepts[c]
-        const conceptAttributes = this.props.concepts.data['0'].find((concept: Concept) => concept.uid === c)
-        if (conceptVal && conceptAttributes) {
-          return <div key={c} style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <span>{conceptAttributes.displayName}</span>
-            <span style={{ display: 'flex', justifyContent: 'space-between' }}>
-              <span>
-                <span>Quantity: </span>
-                <input
-                  defaultValue={conceptVal.quantity.toString()}
-                  style={{ width: '50px' }}
-                  onChange={(e) => this.changeConceptQuantity(c, e)}>
-                </input>
-              </span>
-              <span style={{ cursor: 'pointer' }} onClick={() => this.removeConcept(c)}>X</span>
-            </span>
-          </div>
-        } else {
-          return undefined
-        }
-      })
-    }
+  handleDescriptionChange(e: string) {
+    this.setState({ description: e, });
   }
   //
   render() {
@@ -155,10 +106,18 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
           </span>
         </p>
         <p className="control">
-          <label className="label">Concept Selector</label>
-          <ConceptSelector handleSelectorChange={this.addConcept}/>
+          <label className="label">Show Underlines</label>
+          <input
+            name="showUnderlines"
+            type="checkbox"
+            checked={this.state.underlineErrorsInProofreader}
+            onChange={this.handleUnderlineChange}
+          />
         </p>
-        {this.renderConceptRows()}
+        <p className="control">
+          <label className="label">Passage</label>
+          <PassageCreator />
+        </p>
         <p className="control">
           <button className={`button is-primary ${this.props.stateSpecificClass}`} onClick={this.submit}>Submit</button>
         </p>
