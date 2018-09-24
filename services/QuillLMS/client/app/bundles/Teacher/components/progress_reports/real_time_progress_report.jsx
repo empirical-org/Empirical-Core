@@ -46,7 +46,7 @@ export default class extends React.Component {
     }
     const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
     const channel = pusher.subscribe(teacherId.toString());
-    const maxIntervalWithoutInteractionBeforeClearing = 30000;
+    const maxIntervalWithoutInteractionBeforeClearing = 60000;
     let clearStudentDataAfterPause = setTimeout(
       this.clearStudentData,
       maxIntervalWithoutInteractionBeforeClearing
