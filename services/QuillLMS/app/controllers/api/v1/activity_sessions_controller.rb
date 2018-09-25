@@ -110,7 +110,8 @@ class Api::V1::ActivitySessionsController < Api::ApiController
                   :anonymous,
                   :temporary)
       .merge(data: @data).reject {|k,v| v.nil? }
-      .merge(timespent: @activity_session.calculate_timespent)
+    params.merge(timespent: @activity_session.calculate_timespent) if @activity_session
+    params
   end
 
   def transform_incoming_request
