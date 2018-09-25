@@ -6,10 +6,10 @@ import {
   Spinner,
   CarouselAnimation
 } from 'quill-component-library/dist/componentLibrary';
-import { clearData, loadData, nextQuestion, submitResponse, updateName, updateCurrentQuestion } from '../../actions/diagnostics.js';
+import { clearData, loadData, nextQuestion, submitResponse, updateName, updateCurrentQuestion } from '../../actions/turk.js';
 import diagnosticQuestions from './diagnosticQuestions.jsx';
 import PlaySentenceFragment from '../studentLessons/sentenceFragment.jsx';
-import PlayDiagnosticQuestion from '../studentLessons/question.tsx';
+import PlayTurkQuestion from '../studentLessons/question.tsx';
 import LandingPage from './landing.jsx';
 import FinishedDiagnostic from './finishedDiagnostic.jsx';
 
@@ -115,8 +115,8 @@ const StudentDiagnostic = React.createClass({
   },
 
   getProgressPercent() {
-    if (this.props.playDiagnostic && this.props.playDiagnostic.answeredQuestions && this.props.playDiagnostic.questionSet) {
-      return this.props.playDiagnostic.answeredQuestions.length / this.props.playDiagnostic.questionSet.length * 100;
+    if (this.props.playTurk && this.props.playTurk.answeredQuestions && this.props.playTurk.questionSet) {
+      return this.props.playTurk.answeredQuestions.length / this.props.playTurk.questionSet.length * 100;
     }
     0;
   },
@@ -145,18 +145,18 @@ const StudentDiagnostic = React.createClass({
     let component;
     if (this.props.questions.hasreceiveddata && this.props.sentenceFragments.hasreceiveddata) {
       if (data[lessonID]) {
-        if (this.props.playDiagnostic.currentQuestion) {
-          if (this.props.playDiagnostic.currentQuestion.type === 'SC') {
-            component = (<PlayDiagnosticQuestion question={this.props.playDiagnostic.currentQuestion.data} nextQuestion={this.nextQuestion} key={this.props.playDiagnostic.currentQuestion.data.key} dispatch={this.props.dispatch} />);
+        if (this.props.playTurk.currentQuestion) {
+          if (this.props.playTurk.currentQuestion.type === 'SC') {
+            component = (<PlayTurkQuestion question={this.props.playTurk.currentQuestion.data} nextQuestion={this.nextQuestion} key={this.props.playTurk.currentQuestion.data.key} dispatch={this.props.dispatch} />);
           } else {
             component = (<PlaySentenceFragment
-              question={this.props.playDiagnostic.currentQuestion.data} currentKey={this.props.playDiagnostic.currentQuestion.data.key}
-              key={this.props.playDiagnostic.currentQuestion.data.key}
+              question={this.props.playTurk.currentQuestion.data} currentKey={this.props.playTurk.currentQuestion.data.key}
+              key={this.props.playTurk.currentQuestion.data.key}
               nextQuestion={this.nextQuestion} markIdentify={this.markIdentify}
               updateAttempts={this.submitResponse} dispatch={this.props.dispatch}
             />);
           }
-        } else if (this.props.playDiagnostic.answeredQuestions.length > 0 && this.props.playDiagnostic.unansweredQuestions.length === 0) {
+        } else if (this.props.playTurk.answeredQuestions.length > 0 && this.props.playTurk.unansweredQuestions.length === 0) {
           component = (<FinishedDiagnostic saveToLMS={this.saveToLMS} saved={this.state.saved} />);
         } else {
           component = <LandingPage lesson={this.getLesson()} begin={() => { this.startActivity('John'); }} />;
@@ -191,7 +191,7 @@ function select(state) {
     lessons: state.lessons,
     routing: state.routing,
     questions: state.questions,
-    playDiagnostic: state.playDiagnostic,
+    playTurk: state.playTurk,
     sentenceFragments: state.sentenceFragments,
   };
 }
