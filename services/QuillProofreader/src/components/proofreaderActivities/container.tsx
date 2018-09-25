@@ -87,7 +87,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
     }
 
     componentWillReceiveProps(nextProps: PlayProofreaderContainerProps) {
-      if (nextProps.proofreaderActivities.hasreceiveddata && !this.state.passage) {
+      if (nextProps.proofreaderActivities.currentActivity && !this.state.passage) {
         const { passage, underlineErrorsInProofreader } = nextProps.proofreaderActivities.currentActivity
         const initialPassageData = this.formatInitialPassage(passage, underlineErrorsInProofreader)
         const formattedPassage = initialPassageData.passage
@@ -475,7 +475,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       const { edits, necessaryEdits} = this.state
       const { currentActivity } = this.props.proofreaderActivities
       const numberOfCorrectEdits = necessaryEdits ? necessaryEdits.length : 0
-      if (this.props.proofreaderActivities.hasreceiveddata) {
+      if (currentActivity) {
         const className = currentActivity.underlineErrorsInProofreader ? 'underline-errors' : ''
         const meterWidth = edits.length / necessaryEdits.length * 100
         return <div className="passage-container">

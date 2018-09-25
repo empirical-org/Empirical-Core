@@ -1,7 +1,5 @@
 import * as React from 'react';
-// import ReactQuill, { Quill } from 'react-quill'; // Typescript
 import { Editor } from 'slate-react'
-import { Value } from 'slate'
 import Html from 'slate-html-serializer'
 import StickyInlines from 'slate-sticky-inlines'
 import { stringNormalize } from 'quill-string-normalizer'

@@ -1,4 +1,5 @@
 import { Editor } from 'slate-react'
+import Plain from 'slate-plain-serializer'
 import * as React from 'react'
 
 class HoverForm extends React.Component {
@@ -17,9 +18,8 @@ class HoverForm extends React.Component {
   onClickMark(event, type) {
     const { value, onChange } = this.props
     event.preventDefault()
-    debugger;
-    // const change = value.change().toggleMark(type)
-    // onChange(change)
+    const change = value.change().toggleMark(type)
+    onChange(change)
   }
 
   changeDisplayText(e) {
@@ -50,17 +50,17 @@ class PassageCreator extends React.Component {
     super(props)
 
     this.state = {
-      value: ''
+      value: Plain.deserialize('')
     }
   }
 
-  componentDidMount() {
-    this.updateForm()
-  }
-
-  componentDidUpdate() {
-    this.updateForm()
-  }
+  // componentDidMount() {
+  //   this.updateForm()
+  // }
+  //
+  // componentDidUpdate() {
+  //   this.updateForm()
+  // }
 
   updateForm = () => {
     const menu = this.menu
@@ -70,7 +70,7 @@ class PassageCreator extends React.Component {
     const { fragment, selection } = value
 
     if (selection.isBlurred || selection.isCollapsed || fragment.text === '') {
-      menu.removeAttribute('style')
+      menu.style = {}
       return
     }
 
@@ -87,25 +87,27 @@ class PassageCreator extends React.Component {
   }
 
   onChange = ({ value }) => {
+    console.log('wtf')
     this.setState({ value })
   }
 
   render() {
-    return <span>Something else will go here</span>
-    // return (
-    //   <div>
-    //     <HoverForm
-    //       value={this.state.value}
-    //       onChange={this.onChange}
-    //       ref={menu => (this.menu = menu)}
-    //     />
-    //     <Editor
-    //       placeholder="Enter some text..."
-    //       value={this.state.value}
-    //       onChange={this.onChange}
-    //     />
-    //   </div>
-    // )
+    // <HoverForm
+    //   value={this.state.value}
+    //   onChange={this.onChange}
+    //   ref={menu => (this.menu = menu)}
+    // />
+
+    return (
+      <div>
+        <Editor
+          placeholder="Enter some text..."
+          value={this.state.value}
+          onChange={this.onChange}
+          style={{minHeight: '50px', border: '1px solid black'}}
+        />
+      </div>
+    )
   }
 }
 
