@@ -6,7 +6,7 @@ namespace :referrals do
       referred_user.update(activated: true)
       referring_user = referred_user.user
       referring_user.credit_transactions << CreditTransaction.new(
-        amount: 30,
+        amount: 28,
         source: referred_user
       )
     end

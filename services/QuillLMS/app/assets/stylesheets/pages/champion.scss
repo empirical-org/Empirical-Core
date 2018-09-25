@@ -26,11 +26,12 @@
       color: #7f7f7f;
       font-size: 16px;
       margin-top: 32px;
+      line-height: 24px;
     }
 
     img {
-      height: 75px;
-      width: 83px;
+      height: 48px;
+      width: 48px;
     }
 
     margin: 17px 0 12px;
@@ -75,7 +76,7 @@
 
     .step {
       text-align: center;
-      width: 190px;
+      width: 240px;
 
       .circle-icon {
         align-items: center;
@@ -99,7 +100,13 @@
         }
       }
 
-      h2, p {
+      h2 {
+        color: #000;
+        height: 16px;
+        font-weight: 700;
+      } 
+      
+      p {
         color: #666666;
       }
 
@@ -156,8 +163,8 @@
     }
 
     input[type='text'] {
-      font-size: 16px;
-      color: #666666;
+      font-size: 14px;
+      color: #000;
       width: 481px;
     }
 
