@@ -8,6 +8,7 @@ module Demo::ReportDemoCreator
     classroom_units = self.create_classroom_units(classroom, unit)
     unit_activities = self.create_unit_activities(unit)
     activity_sessions = self.create_activity_sessions(students)
+    subscription = self.create_subscription(teacher)
   end
 
   def self.create_teacher(name)
@@ -37,6 +38,14 @@ module Demo::ReportDemoCreator
       user: teacher,
     }
     unit = Unit.create(values)
+  end
+
+  def self.create_subscription(teacher)
+    attributes = {
+      purchaser_id: teacher.id,
+      account_type: 'Teacher Trial'
+    }
+    Subscription.create_with_user_join(teacher.id, attributes)
   end
 
   def self.create_students(classroom)
@@ -170,20 +179,8 @@ module Demo::ReportDemoCreator
     ]
 
     students.each_with_index do |student, num|
-      puts student
       templates[num].each do |act_id, user_id|
-        # lst = templates[num]
-        # puts "List"
-        # puts lst
-        # puts "act"
-        # puts act_session, activity_id
-        # usr = User.find(user_id)
-        # puts usr
-        # usr.activity_sessions.each do |ast|
-        #   puts ast.attributes
-        # end
-        temp = ActivitySession.unscoped.where({activity_id: act_id, user_id: user_id, is_final_score: true}).first #ActivitySession.find(tempates[index][act_session.activity_id])
-        puts temp
+        temp = ActivitySession.unscoped.where({activity_id: act_id, user_id: user_id, is_final_score: true}).first 
         cu = ClassroomUnit.where("#{student.id} = ANY (assigned_student_ids)").to_a.first
         act_session = ActivitySession.create({activity_id: act_id, classroom_unit_id: cu.id, user_id: student.id, state: "finished", percentage: temp.percentage})
         temp.concept_results.each do |cr|

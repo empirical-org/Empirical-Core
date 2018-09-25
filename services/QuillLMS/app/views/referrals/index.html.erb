@@ -1,0 +1,102 @@
+<%= render partial: 'teachers/shared/scorebook_tabs' %>
+
+<div id='champion-container'>
+  <div id='champion-hero'>
+    <%= image_tag "gift.svg" %>
+    <h1>Get 4 weeks of Premium for every teacher you refer.</h1>
+    <h2>The teacher you refer sets up a class. New students complete an assignment. You receive 4 weeks of Premium.</h2>
+    <div id='share-box'>
+    <input type='text' value='<%= @referral_link %>' id='referral-input' />
+    <input type='button' id='copy-button' value='Copy Link' />
+    <p class="share-text">More ways to share: </p>
+    <div class='share-links'>
+      <ul>
+        <li><a href="https://twitter.com/home?status=I'm using @quill_org to help my students become better writers and critical thinkers. Want to join me? <%= @referral_link %>"><%= image_tag("ui-share-twitter-copy.svg", class: "ui_share") %>
+     </a></li>
+     <li><a href='https://www.facebook.com/share.php?u=<%= @referral_link %>'><%= image_tag("ui-share-facebook-copy.svg", class: "ui_share") %></a></li>
+        <li><a href='https://plus.google.com/share?url=<%= @referral_link %>'><%= image_tag("ui-share-google-copy.svg", class: "ui_share") %></a></li>
+        <li><a href="mailto:mailto:?subject=Free tool to help your students become better writers&body=Hi! I've been using this free tool called Quill.org to help my students become better writers and critical thinkers, and I wanted to let you know about it. Hopefully it helps your students as much as it's helped mine! <%= @referral_link %>"><%= image_tag("ui-share-email-copy.svg", class: "ui_share") %></i></a></li>
+      </ul>
+    </div>
+    </div>
+    <h2 id='success-message' style='display: none;'>Invitation sent successfully!</h2>
+  </div>
+
+  <div id='steps'>
+    <div class='step'>
+      <span class='circle-icon'>
+        <span class='offset'>1</span>
+      </span>
+      <h2>Invite Teachers</h2>
+      <p>Share your referral link with teachers who have not yet signed up for Quill yet.</p>
+    </div>
+    <div class='step'>
+      <span class='circle-icon'>
+        <span class='offset'>2</span>
+      </span>
+      <h2>Referred Teachers Sign Up</h2>
+      <p>Referred teachers create a class, assign activities, and have students practice skills on Quill.</p>
+    </div>
+    <div class='step'>
+      <span class='circle-icon'>
+        <span class='offset'>3</span>
+      </span>
+      <h2>Get Free Premium</h2>
+      <p>You receive 4 weeks of free Premium.</p>
+    </div>
+  </div>
+
+  <div id='callout-box'>
+
+    <h2>Track your Premium Credits</h2>
+    <p><%= @referral_count %> teachers have joined. <%= @earned_months %> teachers have assigned activities.<br/>
+    You have <%= @unredeemed_credits / 7 %> weeks of credit.
+
+    <% if @unredeemed_credits > 0 %>
+      Redeem at <%= link_to "My Subscriptions", subscriptions_path %>.
+    <% end %>
+    
+    
+    </p>
+
+  </div>
+
+
+</div>
+
+<script>
+  function copy() {
+    document.querySelector('#referral-input').select();
+    document.execCommand('copy');
+  }
+
+  document.querySelector('#referral-input').addEventListener('click', function(event) {
+    copy();
+  });
+
+  document.querySelector('#copy-button').addEventListener('click', function(event) {
+    copy();
+  });
+
+  document.querySelector('#referral-input').addEventListener('input', function(event) {
+    document.querySelector('#referral-input').value = '<%= @referral_link %>';
+  });
+
+  function displaySuccessMessage() {
+    document.getElementById('success-message').style.display = 'block';
+    window.setTimeout(function() {
+      document.getElementById('success-message').style.display = 'none';
+    }, 5000);
+  }
+
+  function sendReferralEmail() {
+    $.post('<%= invite_referrals_path %>', {
+      email: document.getElementById('referral-email').value
+    }).success(function(data) {
+      displaySuccessMessage();
+    }).fail(function() {
+      alert('Whoops, looks like something went wrong. Please try again, or contact support.');
+    });
+  }
+
+</script>

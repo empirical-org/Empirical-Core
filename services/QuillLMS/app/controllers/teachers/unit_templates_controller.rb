@@ -37,7 +37,9 @@ class Teachers::UnitTemplatesController < ApplicationController
 
   def profile_info
     ut = UnitTemplate.find(params[:id])
-    render json: {data: format_unit_template(ut.id), related_models: related_models(ut)}
+    response = {data: format_unit_template(ut.id), related_models: related_models(ut)}
+    response = response.merge({ referral_code: current_user.referral_code }) if current_user && current_user.teacher?
+    render json: response
   end
 
   def assigned_info

@@ -1,11 +1,13 @@
 import React from 'react';
 import StudentsClassroomsHeader from '../components/student_profile/students_classrooms/students_classrooms_header.jsx';
 import NextActivity from '../components/student_profile/next_activity.jsx';
+import NotificationFeed  from '../components/student_profile/notification_feed';
 import StudentProfileUnits from '../components/student_profile/student_profile_units.jsx';
 import StudentProfileHeader from '../components/student_profile/student_profile_header';
 import Pusher from 'pusher-js';
 import { connect } from 'react-redux';
 import {
+  fetchNotifications,
   fetchStudentProfile,
   fetchStudentsClassrooms,
   updateNumberOfClassroomTabs,
@@ -25,6 +27,7 @@ class StudentProfile extends React.Component {
   componentDidMount() {
     const {
       updateNumberOfClassroomTabs,
+      fetchNotifications,
       fetchStudentProfile,
       fetchStudentsClassrooms,
       classroomId,
@@ -39,6 +42,12 @@ class StudentProfile extends React.Component {
       fetchStudentsClassrooms();
     }
 
+    // Remove following conditional when student notifications are ready to display
+    const displayFeature = false;
+    if (displayFeature) {
+      fetchNotifications();
+    }
+
     window.addEventListener('resize', () => {
       updateNumberOfClassroomTabs(window.innerWidth);
     });
@@ -51,10 +60,6 @@ class StudentProfile extends React.Component {
         this.props.router.push(`classrooms/${nextProps.selectedClassroomId}`);
       }
     }
-  }
-
-  componentDidUpdate() {
-    this.initializePusher();
   }
 
   componentWillUnmount() {
@@ -92,6 +97,7 @@ class StudentProfile extends React.Component {
   render() {
     const {
       classrooms,
+      notifications,
       numberOfClassroomTabs,
       student,
       selectedClassroomId,
@@ -129,6 +135,7 @@ class StudentProfile extends React.Component {
             classroomName={student.classroom.name}
             teacherName={student.classroom.teacher.name}
           />
+          <NotificationFeed notifications={notifications} />
           {nextActivity}
           <StudentProfileUnits
             data={scores}
@@ -142,6 +149,7 @@ class StudentProfile extends React.Component {
 
 const mapStateToProps = state => state;
 const mapDispatchToProps = dispatch => ({
+  fetchNotifications: () => dispatch(fetchNotifications()),
   fetchStudentProfile: classroomId => dispatch(fetchStudentProfile(classroomId)),
   updateNumberOfClassroomTabs: screenWidth => dispatch(updateNumberOfClassroomTabs(screenWidth)),
   fetchStudentsClassrooms: () => dispatch(fetchStudentsClassrooms()),
