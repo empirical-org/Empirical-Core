@@ -4,12 +4,14 @@ import _ from 'underscore';
 import {
   hashToCollection,
   Spinner,
-  CarouselAnimation
+  CarouselAnimation,
+  PlayTitleCard
 } from 'quill-component-library/dist/componentLibrary';
 import { clearData, loadData, nextQuestion, submitResponse, updateName, updateCurrentQuestion } from '../../actions/turk.js';
 import diagnosticQuestions from './diagnosticQuestions.jsx';
-import PlaySentenceFragment from '../studentLessons/sentenceFragment.jsx';
-import PlayTurkQuestion from '../studentLessons/question.tsx';
+import PlaySentenceFragment from './sentenceFragment.jsx';
+import PlayFillInTheBlankQuestion from './fillInBlank.tsx';
+import PlayTurkQuestion from './question.tsx';
 import LandingPage from './landing.jsx';
 import FinishedDiagnostic from './finishedDiagnostic.jsx';
 
@@ -142,21 +144,48 @@ const StudentDiagnostic = React.createClass({
   render() {
     const { data, } = this.props.lessons,
       { lessonID, } = this.props.params;
+    const questionType = this.props.playTurk.currentQuestion ? this.props.playTurk.currentQuestion.type : ''
     let component;
     if (this.props.questions.hasreceiveddata && this.props.sentenceFragments.hasreceiveddata) {
       if (data[lessonID]) {
         if (this.props.playTurk.currentQuestion) {
-          if (this.props.playTurk.currentQuestion.type === 'SC') {
-            component = (<PlayTurkQuestion question={this.props.playTurk.currentQuestion.data} nextQuestion={this.nextQuestion} key={this.props.playTurk.currentQuestion.data.key} dispatch={this.props.dispatch} />);
-          } else {
+          if (questionType === 'SC') {
+            component = (<PlayTurkQuestion
+              question={this.props.playTurk.currentQuestion.data}
+              nextQuestion={this.nextQuestion}
+              dispatch={this.props.dispatch}
+              // responses={this.props.responses.data[this.props.playTurk.currentQuestion.data.key]}
+              key={this.props.playTurk.currentQuestion.data.key}
+              submitResponse={this.submitResponse}
+            />);
+          } else if (questionType === 'SF') {
             component = (<PlaySentenceFragment
               question={this.props.playTurk.currentQuestion.data} currentKey={this.props.playTurk.currentQuestion.data.key}
               key={this.props.playTurk.currentQuestion.data.key}
+              // responses={this.props.responses.data[this.props.playTurk.currentQuestion.data.key]}
+              dispatch={this.props.dispatch}
               nextQuestion={this.nextQuestion} markIdentify={this.markIdentify}
-              updateAttempts={this.submitResponse} dispatch={this.props.dispatch}
+              updateAttempts={this.submitResponse}
             />);
-          }
-        } else if (this.props.playTurk.answeredQuestions.length > 0 && this.props.playTurk.unansweredQuestions.length === 0) {
+          } else if (questionType === 'FB') {
+            component = (<PlayFillInTheBlankQuestion
+              question={this.props.playTurk.currentQuestion.data}
+              currentKey={this.props.playTurk.currentQuestion.data.key}
+              key={this.props.playTurk.currentQuestion.data.key}
+              dispatch={this.props.dispatch}
+              nextQuestion={this.nextQuestion}
+              submitResponse={this.submitResponse}
+            )
+          } else if (questionType === 'TL') {
+            component = (
+              <PlayTitleCard
+                data={this.props.playTurk.currentQuestion.data}
+                currentKey={this.props.playTurk.currentQuestion.data.key}
+                dispatch={this.props.dispatch}
+                nextQuestion={this.nextQuestionWithoutSaving}
+              />
+            );
+          }        } else if (this.props.playTurk.answeredQuestions.length > 0 && this.props.playTurk.unansweredQuestions.length === 0) {
           component = (<FinishedDiagnostic saveToLMS={this.saveToLMS} saved={this.state.saved} />);
         } else {
           component = <LandingPage lesson={this.getLesson()} begin={() => { this.startActivity('John'); }} />;
@@ -193,6 +222,8 @@ function select(state) {
     questions: state.questions,
     playTurk: state.playTurk,
     sentenceFragments: state.sentenceFragments,
+    titleCards: state.titleCards,
+    fillInBlank: state.fillInBlank
   };
 }
 export default connect(select)(StudentDiagnostic);
