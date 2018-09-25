@@ -8,17 +8,53 @@ class HoverForm extends React.Component {
 
     this.state = {
       displayText: '',
-      correctText: ''
+      correctText: '',
+      visible: false
     }
 
     this.changeDisplayText = this.changeDisplayText.bind(this)
     this.changeCorrectText = this.changeCorrectText.bind(this)
   }
 
-  onClickMark(event, type) {
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.value.selection.isExpanded) {
+      this.setState({ visible: true })
+    } else {
+      this.setState({ visible: false })
+    }
+    console.log('nextProps.value.selection.isExpanded', nextProps.value.selection.isExpanded)
+  }
+
+  style = () => {
+    let style = {}
+    const { visible } = this.state
+    if (!visible) return { display: 'none' }
+
+    const { value } = this.props
+    const { fragment, selection } = value
+
+    if (selection.isBlurred || selection.isCollapsed || fragment.text === '') {
+      return { display: 'none' }
+    }
+
+    const native = window.getSelection()
+    const range = native.getRangeAt(0)
+    const rect = range.getBoundingClientRect()
+    style.opacity = 1
+    style.top = `${rect.top + window.pageYOffset - style.offsetHeight}px`
+
+    style.left = `${rect.left +
+      window.pageXOffset -
+      style.offsetWidth / 2 +
+      rect.width / 2}px`
+
+    return style
+  }
+
+  onClickSubmit() {
     const { value, onChange } = this.props
-    event.preventDefault()
-    const change = value.change().toggleMark(type)
+    const edit = `{+${this.state.correctText}-${this.state.displayText}|}`
+    const change = value.change().insertText(edit)
     onChange(change)
   }
 
@@ -31,15 +67,15 @@ class HoverForm extends React.Component {
   }
 
   render() {
-    const { className, ref } = this.props
+    const { className } = this.props
     const root = window.document.getElementById('root')
 
-    return <div className={className} ref={ref}>
+    return <div className={className} style={this.style()}>
       <label>Display Text</label>
       <input onChange={this.changeDisplayText} value={this.state.displayText}/>
       <label>Correct Text</label>
       <input onChange={this.changeCorrectText} value={this.state.correctText}/>
-
+      <button onClick={this.onClickSubmit}>Submit</button>
     </div>
   }
 
@@ -50,40 +86,8 @@ class PassageCreator extends React.Component {
     super(props)
 
     this.state = {
-      value: Plain.deserialize('')
+      value: Plain.deserialize(' ')
     }
-  }
-
-  // componentDidMount() {
-  //   this.updateForm()
-  // }
-  //
-  // componentDidUpdate() {
-  //   this.updateForm()
-  // }
-
-  updateForm = () => {
-    const menu = this.menu
-    if (!menu) return
-
-    const { value } = this.state
-    const { fragment, selection } = value
-
-    if (selection.isBlurred || selection.isCollapsed || fragment.text === '') {
-      menu.style = {}
-      return
-    }
-
-    const native = window.getSelection()
-    const range = native.getRangeAt(0)
-    const rect = range.getBoundingClientRect()
-    menu.style.opacity = 1
-    menu.style.top = `${rect.top + window.pageYOffset - menu.offsetHeight}px`
-
-    menu.style.left = `${rect.left +
-      window.pageXOffset -
-      menu.offsetWidth / 2 +
-      rect.width / 2}px`
   }
 
   onChange = ({ value }) => {
@@ -92,16 +96,13 @@ class PassageCreator extends React.Component {
   }
 
   render() {
-    // <HoverForm
-    //   value={this.state.value}
-    //   onChange={this.onChange}
-    //   ref={menu => (this.menu = menu)}
-    // />
-
     return (
       <div>
+        <HoverForm
+          value={this.state.value}
+          onChange={this.onChange}
+        />
         <Editor
-          placeholder="Enter some text..."
           value={this.state.value}
           onChange={this.onChange}
           style={{minHeight: '50px', border: '1px solid black'}}
@@ -110,9 +111,5 @@ class PassageCreator extends React.Component {
     )
   }
 }
-
-/**
- * Export.
- */
 
 export default PassageCreator
