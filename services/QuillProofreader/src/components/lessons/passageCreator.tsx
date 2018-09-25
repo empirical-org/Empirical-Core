@@ -19,8 +19,6 @@ class HoverForm extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.value.selection.isExpanded) {
       this.setState({ visible: true })
-    } else {
-      this.setState({ visible: false })
     }
     console.log('nextProps.value.selection.isExpanded', nextProps.value.selection.isExpanded)
   }
@@ -56,6 +54,7 @@ class HoverForm extends React.Component {
     const edit = `{+${this.state.correctText}-${this.state.displayText}|}`
     const change = value.change().insertText(edit)
     onChange(change)
+    this.setState({ visible: false })
   }
 
   changeDisplayText(e) {
