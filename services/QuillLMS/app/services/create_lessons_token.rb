@@ -75,7 +75,7 @@ class CreateLessonsToken
   end
 
   def classroom_unit
-    @classroom_unit ||= ClassroomUnit.find_by(id: classroom_unit_id)
+    @classroom_unit ||= ClassroomUnit.find_by(id: @classroom_unit_id)
   end
 
   def private_key
