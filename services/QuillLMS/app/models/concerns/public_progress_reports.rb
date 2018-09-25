@@ -81,7 +81,7 @@ module PublicProgressReports
         cuas = ClassroomUnitActivityState.find_by(unit_activity: unit_activity, classroom_unit: cu)
         classroom = cu.classroom.attributes
         activity_sessions = cu.activity_sessions.completed
-        if activity_sessions || cuas&.completed
+        if activity_sessions.present? || cuas&.completed
           class_id = classroom['id']
           h[class_id] ||= classroom
           h[class_id][:classroom_unit_id] = cu.id

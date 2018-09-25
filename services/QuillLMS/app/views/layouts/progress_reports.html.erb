@@ -4,7 +4,7 @@
     <%= render partial: 'header', media: 'all', 'data-turbolinks-track' => true %>
     <%= render partial: 'admin_dashboard_header' %>
     <%= render partial: 'teachers/shared/scorebook_tabs' %>
-        <%= react_component('ProgressReportApp')%>
+        <%= react_component('ProgressReportApp', props: { current_user: current_user })%>
 
 
 

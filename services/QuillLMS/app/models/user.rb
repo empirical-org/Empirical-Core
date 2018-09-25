@@ -21,17 +21,18 @@ class User < ActiveRecord::Base
   has_many :user_subscriptions
   has_many :subscriptions, through: :user_subscriptions
   has_many :activity_sessions
+  has_many :notifications, dependent: :delete_all
   has_one :schools_users
   has_one :sales_contact
   has_one :school, through: :schools_users
   has_many :schools_i_coordinate, class_name: 'School', foreign_key: 'coordinator_id'
   has_many :schools_i_authorize, class_name: 'School', foreign_key: 'authorizer_id'
 
-
   has_many :schools_admins, class_name: 'SchoolsAdmins'
   has_many :administered_schools, through: :schools_admins, source: :school, foreign_key: :user_id
   has_many :classrooms_teachers
   has_many :classrooms_i_teach, through: :classrooms_teachers, source: :classroom
+  has_many :students_i_teach, through: :classrooms_i_teach, source: :students
 
   has_and_belongs_to_many :districts
   has_one :ip_location
@@ -392,6 +393,12 @@ class User < ActiveRecord::Base
     clever_user.district.id
   end
 
+  def teacher_of_student
+    unless classrooms.empty?
+      classrooms.first.owner
+    end
+  end
+
   def send_welcome_email
     UserMailer.welcome_email(self).deliver_now! if email.present? && !auditor?
   end
@@ -587,7 +594,11 @@ private
   end
 
   def generate_username(classroom_id=nil)
-    self.username = UsernameGenerator.run(self.first_name, self.last_name, get_class_code(classroom_id))
+    self.username = GenerateUsername.new(
+      self.first_name,
+      self.last_name,
+      get_class_code(classroom_id)
+    ).call
   end
 
   def update_invitee_email_address
