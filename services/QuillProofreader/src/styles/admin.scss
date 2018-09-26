@@ -40,3 +40,19 @@
 .menu-list a.no-feedback  {
   color: red;
 }
+
+#hover-form {
+  display: flex;
+  flex-direction: column;
+  padding: 8px 7px 6px;
+  position: absolute;
+  z-index: 1;
+  top: 129px;
+  left: 165.5px;
+  margin-top: -6px;
+  opacity: 1;
+  border: black 1px solid;
+  background-color: white;
+  border-radius: 4px;
+  transition: opacity 0.75s ease 0s;
+}
