@@ -6,8 +6,10 @@ class PassageCreator extends React.Component {
   constructor(props) {
     super(props)
 
+    const text = props.originalPassage ? props.originalPassage : ' '
+
     this.state = {
-      value: Plain.deserialize(' ')
+      value: Plain.deserialize(text)
     }
   }
 

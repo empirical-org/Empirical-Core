@@ -7,15 +7,17 @@ export interface ProofreaderActivityState {
   currentActivity: ProofreaderActivity;
   data: ProofreaderActivities;
   error?: string;
+  states: {[key:string]: string}
 }
 
-type ProofreaderActivityAction = Action & { data: ProofreaderActivity }
+type ProofreaderActivityAction = Action & { data: ProofreaderActivity } & { cid: string }
 
 export default (
-    currentState = {hasreceiveddata: false},
+    currentState = {hasreceiveddata: false, states: {}},
     action: ProofreaderActivityAction,
     data: {}
 ) => {
+    let statesObj: {[key:string]: string} = currentState.states
     switch (action.type) {
         case ActionTypes.RECEIVE_PROOFREADER_ACTIVITY_DATA:
             return Object.assign({}, currentState, { currentActivity: action.data }, {hasreceiveddata: true});
@@ -38,6 +40,15 @@ export default (
                 submittingnew: false,
                 newLessonModalOpen: false
             });
+        case ActionTypes.START_LESSON_EDIT:
+            statesObj[action.cid] = ActionTypes.EDITING_LESSON
+            return Object.assign({}, currentState, statesObj)
+        case ActionTypes.FINISH_LESSON_EDIT:
+            delete statesObj[action.cid];
+            return Object.assign({}, currentState, statesObj)
+        case ActionTypes.SUBMIT_LESSON_EDIT:
+            statesObj[action.cid] = ActionTypes.SUBMITTING_LESSON
+            return Object.assign({}, currentState, statesObj)
         default:
             return currentState;
     }
