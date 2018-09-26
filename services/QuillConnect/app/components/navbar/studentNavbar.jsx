@@ -81,7 +81,7 @@ const Navbar = React.createClass({
 function select(state) {
   return {
     routing: state.routing,
-    playDiagnostic: state.playDiagnostic
+    playTurk: state.playTurk
   };
 }
 
