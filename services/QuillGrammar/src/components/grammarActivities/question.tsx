@@ -26,20 +26,20 @@ interface QuestionState {
 
 export class QuestionComponent extends React.Component<QuestionProps, QuestionState> {
     constructor(props: QuestionProps) {
-        super(props);
+      super(props);
 
-        this.state = {
-          showExample: true,
-          response: '',
-          questionStatus: 'unanswered',
-          submittedEmptyString: false,
-          responses: []
-        }
+      this.state = {
+        showExample: true,
+        response: '',
+        questionStatus: 'unanswered',
+        submittedEmptyString: false,
+        responses: []
+      }
 
-        this.toggleExample = this.toggleExample.bind(this)
-        this.updateResponse = this.updateResponse.bind(this)
-        this.checkAnswer = this.checkAnswer.bind(this)
-        this.goToNextQuestion = this.goToNextQuestion.bind(this)
+      this.toggleExample = this.toggleExample.bind(this)
+      this.updateResponse = this.updateResponse.bind(this)
+      this.checkAnswer = this.checkAnswer.bind(this)
+      this.goToNextQuestion = this.goToNextQuestion.bind(this)
     }
 
     componentDidMount() {

@@ -2,6 +2,7 @@ import rootRef from '../firebase';
 import { ActionTypes } from './actionTypes'
 const questionsRef = rootRef.child('questions')
 const sessionsRef = rootRef.child('sessions')
+const proofreaderSessionsRef = rootRef.child('proofreaderSessions')
 import * as responseActions from './responses'
 import { Question } from '../interfaces/questions'
 import { SessionState } from '../reducers/sessionReducer'
@@ -23,6 +24,31 @@ export const setSessionReducerToSavedSession = (sessionID: string) => {
       const session = snapshot.val()
       if (session && !session.error) {
         dispatch(setSessionReducer(session))
+      }
+    })
+  }
+}
+
+export const startListeningToFollowUpQuestionsForProofreaderSession = (proofreaderSessionID: string) => {
+  return dispatch => {
+    proofreaderSessionsRef.child(proofreaderSessionID).once('value', (snapshot) => {
+      const proofreaderSession = snapshot.val()
+      if (proofreaderSession) {
+        const concepts: { [key:string]: { quantity: 1|2|3 } } = {}
+        const incorrectConcepts = proofreaderSession.conceptResults.filter(cr => cr.metadata.correct === 0)
+        let quantity = 3
+        if (incorrectConcepts.length > 9) {
+          quantity = 1
+        } else if (incorrectConcepts.length > 4) {
+          quantity = 2
+        }
+        proofreaderSession.conceptResults.forEach(cr => {
+          if (cr.metadata.correct === 0) {
+            concepts[cr.concept_uid] = { quantity }
+          }
+        })
+        dispatch(saveProofreaderSessionToReducer(proofreaderSession))
+        dispatch(startListeningToQuestions(concepts))
       }
     })
   }
@@ -92,5 +118,11 @@ export const submitResponse = (response: Response) => {
 export const setSessionReducer = (session: SessionState) => {
   return dispatch => {
     dispatch({ type: ActionTypes.SET_SESSION, session})
+  }
+}
+
+export const saveProofreaderSessionToReducer = (proofreaderSession) => {
+  return dispatch => {
+    dispatch({ type: ActionTypes.SET_PROOFREADER_SESSION_TO_REDUCER, data: proofreaderSession})
   }
 }

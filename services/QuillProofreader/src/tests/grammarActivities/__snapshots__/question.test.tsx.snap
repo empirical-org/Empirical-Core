@@ -1,0 +1,1459 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<PlayGrammarContainer /> should render 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <QuestionComponent
+    activity={
+      Object {
+        "concepts": Object {
+          "1ohLyApTz7lZ3JszrA98Xg": Object {
+            "quantity": 9,
+          },
+        },
+        "description": "Write nine sentences using parallel structure.",
+        "title": "Parallel Structure",
+      }
+    }
+    answeredQuestions={Array []}
+    checkAnswer={[Function]}
+    currentQuestion={
+      Object {
+        "answers": Array [
+          Object {
+            "text": "The team stretched their legs, {practiced} their drills, and then rehearsed their set plays.",
+          },
+        ],
+        "attempts": Array [],
+        "concept_uid": "1ohLyApTz7lZ3JszrA98Xg",
+        "instructions": "Rewrite the sentence so that it has proper parallel structure.",
+        "prompt": "The team stretched their legs, practice their drills, and then rehearsed their set plays.",
+        "rule_description": "<b>Correct:</b> I laughed, I cried, and I shouted during the performance.
+<b>Incorrect:</b> I laughed, I was crying, and I shout during the performance.
+Sentences flow easily when all the actions in a list have the same ending. This means that each and every action in a list stays in the past, present, or future tense.",
+        "uid": "-Jzw0qjO5owyFPUAwDGx",
+      }
+    }
+    goToNextQuestion={[Function]}
+    unansweredQuestions={
+      Array [
+        Object {
+          "answers": Array [
+            Object {
+              "text": "I prefer {reading the book than watching the movie adaptation}.",
+            },
+          ],
+          "concept_uid": "1ohLyApTz7lZ3JszrA98Xg",
+          "instructions": "Rewrite the sentence with the correct parallel structure.",
+          "prompt": "I prefer <u>reading the book than to watch the movie adaptation</u>.",
+          "rule_description": "<b>Correct: </b> I laughed, I cried, and I shouted during the performance.
+<b>Incorrect: </b> I laughed, I was crying, and I shout during the performance.
+Sentences flow easily when all the actions in a list have the same ending. This means that each and every action in a list stays in the past, present, or future tense.",
+          "uid": "-KAg9xwXu4o93MS_0NjR",
+        },
+        Object {
+          "answers": Array [
+            Object {
+              "text": "The crossing guard {was holding out his stop sign and ushering} students across the street.",
+            },
+          ],
+          "concept_uid": "1ohLyApTz7lZ3JszrA98Xg",
+          "instructions": "Rewrite the sentence with the correct parallel structure.",
+          "prompt": "The crossing guard <u>was holding out his stop sign and ushered</u> students across the street.",
+          "rule_description": "<b>Correct:</b> I laughed, I cried, and I shouted during the performance.
+<b>Incorrect:</b> I laughed, I was crying, and I shout during the performance.
+Sentences flow easily when all the actions in a list have the same ending. This means that each and every action in a list stays in the past, present, or future tense.",
+          "uid": "-KAg9y8hvHU0-OXp1Buq",
+        },
+        Object {
+          "answers": Array [
+            Object {
+              "text": "On my vacation to Universal Studios, I will {ride roller coasters and play carnival games}.",
+            },
+          ],
+          "concept_uid": "1ohLyApTz7lZ3JszrA98Xg",
+          "instructions": "Rewrite the sentence with the correct parallel structure.",
+          "prompt": "On my vacation to Universal Studios, I will <u>ride roller coasters and playing carnival games</u>.",
+          "rule_description": "<b>Correct:</b> I laughed, I cried, and I shouted during the performance.
+<b>Incorrect:</b> I laughed, I was crying, and I shout during the performance.
+Sentences flow easily when all the actions in a list have the same ending. This means that each and every action in a list stays in the past, present, or future tense.",
+          "uid": "-KAg9yDOc5nKBI-kEeHI",
+        },
+        Object {
+          "answers": Array [
+            Object {
+              "text": "Shannon loves to play the flute, march in the band, and {watch} the football games.",
+            },
+            Object {
+              "text": "Shannon loves {playing the flute, marching in the band, and} watching the football games.",
+            },
+          ],
+          "concept_uid": "1ohLyApTz7lZ3JszrA98Xg",
+          "instructions": "Rewrite the sentence so that it has proper parallel structure.",
+          "prompt": "Shannon loves to play the flute, march in the band, and watching the football games.",
+          "rule_description": "<b>Correct:</b> I laughed, I cried, and I shouted during the performance.
+<b>Incorrect:</b> I laughed, I was crying, and I shout during the performance.
+Sentences flow easily when all the actions in a list have the same ending. This means that each and every action in a list stays in the past, present, or future tense.",
+          "uid": "-KAfz8_NHXJ2hrQZRyxU",
+        },
+        Object {
+          "answers": Array [
+            Object {
+              "text": "The boss wanted to hire people who arrived on time, {smiled} at customers, and didn't take too many breaks.",
+            },
+          ],
+          "concept_uid": "1ohLyApTz7lZ3JszrA98Xg",
+          "instructions": "Rewrite the sentence so that it has proper parallel structure.",
+          "prompt": "The boss wanted to hire people who arrived on time, would smile at customers, and didn't take too many breaks.",
+          "rule_description": "<b>Correct:</b> I laughed, I cried, and I shouted during the performance.
+<b>Incorrect:</b> I laughed, I was crying, and I shout during the performance.
+Sentences flow easily when all the actions in a list have the same ending. This means that each and every action in a list stays in the past, present, or future tense.",
+          "uid": "-KAfxB8z_R1vkm8-WuWY",
+        },
+        Object {
+          "answers": Array [
+            Object {
+              "text": "The Rocky Mountains are a great place {for skiing, hiking, and mountain biking}.",
+            },
+            Object {
+              "text": "The Rocky Mountains are a great place {to ski, hike, and to mountain bike}.",
+            },
+          ],
+          "concept_uid": "1ohLyApTz7lZ3JszrA98Xg",
+          "instructions": "Rewrite the sentence with the correct parallel structure.",
+          "prompt": "The Rocky Mountains are a great place <u>for skiing, hiking, and to mountain bike</u>.",
+          "rule_description": "<b>Correct:</b> I laughed, I cried, and I shouted during the performance.
+<b>Incorrect:</b> I laughed, I was crying, and I shout during the performance.
+Sentences flow easily when all the actions in a list have the same ending. This means that each and every action in a list stays in the past, present, or future tense.",
+          "uid": "-KAg9yAQ_YyWuT9x4e17",
+        },
+        Object {
+          "answers": Array [
+            Object {
+              "text": "During a conversation, talking is just as important as {listening}.",
+            },
+          ],
+          "concept_uid": "1ohLyApTz7lZ3JszrA98Xg",
+          "instructions": "Rewrite the sentence so that it has proper parallel structure.",
+          "prompt": "During a conversation, talking is just as important as to listen.",
+          "rule_description": "<b>Correct:</b> I laughed, I cried, and I shouted during the performance.
+<b>Incorrect:</b> I laughed, I was crying, and I shout during the performance.
+Sentences flow easily when all the actions in a list have the same ending. This means that each and every action in a list stays in the past, present, or future tense.",
+          "uid": "-KAfwKGn8uN5BGLgXEDa",
+        },
+        Object {
+          "answers": Array [
+            Object {
+              "text": "The teacher graded the students' work quickly, accurately, and {thoroughly.}",
+            },
+          ],
+          "concept_uid": "1ohLyApTz7lZ3JszrA98Xg",
+          "instructions": "Rewrite the sentence so that it has proper parallel structure.",
+          "prompt": "The teacher graded the students' work quickly, accurately, and thorough.",
+          "rule_description": "<b>Correct:</b> I laughed, I cried, and I shouted during the performance.
+<b>Incorrect:</b> I laughed, I was crying, and I shout during the performance.
+Sentences flow easily when all the actions in a list have the same ending. This means that each and every action in a list stays in the past, present, or future tense.",
+          "uid": "-KAfwjD8pcldAXkHjxA8",
+        },
+      ]
+    }
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": Array [
+        <div
+          className="top-section"
+        >
+          <Row
+            align="middle"
+            gutter={0}
+            justify="space-between"
+            type="flex"
+          >
+            <h1>
+              Parallel Structure
+            </h1>
+            <div>
+              <p>
+                Sentences Completed: 
+                0
+                 of 
+                9
+              </p>
+              <div
+                className="progress-bar-indication"
+              >
+                <span
+                  className="meter"
+                  style={
+                    Object {
+                      "width": "0%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </Row>
+          <Row
+            align="middle"
+            gutter={0}
+            justify="start"
+            type="flex"
+          >
+            <Button
+              className="example-button"
+              ghost={false}
+              loading={false}
+              onClick={[Function]}
+              prefixCls="ant-btn"
+            >
+              Hide Example
+            </Button>
+          </Row>
+          <Row
+            align="middle"
+            className="example-container show"
+            gutter={0}
+            justify="start"
+            type="flex"
+          >
+            <div
+              className="example"
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "<b>Correct:</b> I laughed, I cried, and I shouted during the performance.<br /><b>Incorrect:</b> I laughed, I was crying, and I shout during the performance.<br />Sentences flow easily when all the actions in a list have the same ending. This means that each and every action in a list stays in the past, present, or future tense.",
+                }
+              }
+            />
+          </Row>
+          <Row
+            align="middle"
+            gutter={0}
+            justify="start"
+            type="flex"
+          >
+            <div
+              className="instructions"
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "Rewrite the sentence so that it has proper parallel structure.",
+                }
+              }
+            />
+          </Row>
+        </div>,
+        <div
+          className="question-section"
+        >
+          <Row
+            align="middle"
+            gutter={0}
+            justify="start"
+            type="flex"
+          >
+            <div
+              className="prompt"
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "The team stretched their legs, practice their drills, and then rehearsed their set plays.",
+                }
+              }
+            />
+          </Row>
+          <Row
+            align="middle"
+            gutter={0}
+            justify="start"
+            type="flex"
+          >
+            <textarea
+              className="input-field"
+              onChange={[Function]}
+              value=""
+            />
+          </Row>
+          <Row
+            align="middle"
+            gutter={0}
+            justify="end"
+            type="flex"
+          >
+            <Button
+              className="check-answer-button"
+              ghost={false}
+              loading={false}
+              onClick={[Function]}
+              prefixCls="ant-btn"
+            >
+              Check Work
+            </Button>
+          </Row>
+        </div>,
+        undefined,
+      ],
+      "className": "question",
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": Array [
+            <Row
+              align="middle"
+              gutter={0}
+              justify="space-between"
+              type="flex"
+            >
+              <h1>
+                Parallel Structure
+              </h1>
+              <div>
+                <p>
+                  Sentences Completed: 
+                  0
+                   of 
+                  9
+                </p>
+                <div
+                  className="progress-bar-indication"
+                >
+                  <span
+                    className="meter"
+                    style={
+                      Object {
+                        "width": "0%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </Row>,
+            <Row
+              align="middle"
+              gutter={0}
+              justify="start"
+              type="flex"
+            >
+              <Button
+                className="example-button"
+                ghost={false}
+                loading={false}
+                onClick={[Function]}
+                prefixCls="ant-btn"
+              >
+                Hide Example
+              </Button>
+            </Row>,
+            <Row
+              align="middle"
+              className="example-container show"
+              gutter={0}
+              justify="start"
+              type="flex"
+            >
+              <div
+                className="example"
+                dangerouslySetInnerHTML={
+                  Object {
+                    "__html": "<b>Correct:</b> I laughed, I cried, and I shouted during the performance.<br /><b>Incorrect:</b> I laughed, I was crying, and I shout during the performance.<br />Sentences flow easily when all the actions in a list have the same ending. This means that each and every action in a list stays in the past, present, or future tense.",
+                  }
+                }
+              />
+            </Row>,
+            <Row
+              align="middle"
+              gutter={0}
+              justify="start"
+              type="flex"
+            >
+              <div
+                className="instructions"
+                dangerouslySetInnerHTML={
+                  Object {
+                    "__html": "Rewrite the sentence so that it has proper parallel structure.",
+                  }
+                }
+              />
+            </Row>,
+          ],
+          "className": "top-section",
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "align": "middle",
+              "children": Array [
+                <h1>
+                  Parallel Structure
+                </h1>,
+                <div>
+                  <p>
+                    Sentences Completed: 
+                    0
+                     of 
+                    9
+                  </p>
+                  <div
+                    className="progress-bar-indication"
+                  >
+                    <span
+                      className="meter"
+                      style={
+                        Object {
+                          "width": "0%",
+                        }
+                      }
+                    />
+                  </div>
+                </div>,
+              ],
+              "gutter": 0,
+              "justify": "space-between",
+              "type": "flex",
+            },
+            "ref": null,
+            "rendered": Array [
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": "Parallel Structure",
+                },
+                "ref": null,
+                "rendered": "Parallel Structure",
+                "type": "h1",
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": Array [
+                    <p>
+                      Sentences Completed: 
+                      0
+                       of 
+                      9
+                    </p>,
+                    <div
+                      className="progress-bar-indication"
+                    >
+                      <span
+                        className="meter"
+                        style={
+                          Object {
+                            "width": "0%",
+                          }
+                        }
+                      />
+                    </div>,
+                  ],
+                },
+                "ref": null,
+                "rendered": Array [
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": Array [
+                        "Sentences Completed: ",
+                        0,
+                        " of ",
+                        9,
+                      ],
+                    },
+                    "ref": null,
+                    "rendered": Array [
+                      "Sentences Completed: ",
+                      0,
+                      " of ",
+                      9,
+                    ],
+                    "type": "p",
+                  },
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": <span
+                        className="meter"
+                        style={
+                          Object {
+                            "width": "0%",
+                          }
+                        }
+                      />,
+                      "className": "progress-bar-indication",
+                    },
+                    "ref": null,
+                    "rendered": Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "className": "meter",
+                        "style": Object {
+                          "width": "0%",
+                        },
+                      },
+                      "ref": null,
+                      "rendered": null,
+                      "type": "span",
+                    },
+                    "type": "div",
+                  },
+                ],
+                "type": "div",
+              },
+            ],
+            "type": [Function],
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "align": "middle",
+              "children": <Button
+                className="example-button"
+                ghost={false}
+                loading={false}
+                onClick={[Function]}
+                prefixCls="ant-btn"
+              >
+                Hide Example
+              </Button>,
+              "gutter": 0,
+              "justify": "start",
+              "type": "flex",
+            },
+            "ref": null,
+            "rendered": Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "children": "Hide Example",
+                "className": "example-button",
+                "ghost": false,
+                "loading": false,
+                "onClick": [Function],
+                "prefixCls": "ant-btn",
+              },
+              "ref": null,
+              "rendered": "Hide Example",
+              "type": [Function],
+            },
+            "type": [Function],
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "align": "middle",
+              "children": <div
+                className="example"
+                dangerouslySetInnerHTML={
+                  Object {
+                    "__html": "<b>Correct:</b> I laughed, I cried, and I shouted during the performance.<br /><b>Incorrect:</b> I laughed, I was crying, and I shout during the performance.<br />Sentences flow easily when all the actions in a list have the same ending. This means that each and every action in a list stays in the past, present, or future tense.",
+                  }
+                }
+              />,
+              "className": "example-container show",
+              "gutter": 0,
+              "justify": "start",
+              "type": "flex",
+            },
+            "ref": null,
+            "rendered": Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "className": "example",
+                "dangerouslySetInnerHTML": Object {
+                  "__html": "<b>Correct:</b> I laughed, I cried, and I shouted during the performance.<br /><b>Incorrect:</b> I laughed, I was crying, and I shout during the performance.<br />Sentences flow easily when all the actions in a list have the same ending. This means that each and every action in a list stays in the past, present, or future tense.",
+                },
+              },
+              "ref": null,
+              "rendered": null,
+              "type": "div",
+            },
+            "type": [Function],
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "align": "middle",
+              "children": <div
+                className="instructions"
+                dangerouslySetInnerHTML={
+                  Object {
+                    "__html": "Rewrite the sentence so that it has proper parallel structure.",
+                  }
+                }
+              />,
+              "gutter": 0,
+              "justify": "start",
+              "type": "flex",
+            },
+            "ref": null,
+            "rendered": Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "className": "instructions",
+                "dangerouslySetInnerHTML": Object {
+                  "__html": "Rewrite the sentence so that it has proper parallel structure.",
+                },
+              },
+              "ref": null,
+              "rendered": null,
+              "type": "div",
+            },
+            "type": [Function],
+          },
+        ],
+        "type": "div",
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": Array [
+            <Row
+              align="middle"
+              gutter={0}
+              justify="start"
+              type="flex"
+            >
+              <div
+                className="prompt"
+                dangerouslySetInnerHTML={
+                  Object {
+                    "__html": "The team stretched their legs, practice their drills, and then rehearsed their set plays.",
+                  }
+                }
+              />
+            </Row>,
+            <Row
+              align="middle"
+              gutter={0}
+              justify="start"
+              type="flex"
+            >
+              <textarea
+                className="input-field"
+                onChange={[Function]}
+                value=""
+              />
+            </Row>,
+            <Row
+              align="middle"
+              gutter={0}
+              justify="end"
+              type="flex"
+            >
+              <Button
+                className="check-answer-button"
+                ghost={false}
+                loading={false}
+                onClick={[Function]}
+                prefixCls="ant-btn"
+              >
+                Check Work
+              </Button>
+            </Row>,
+          ],
+          "className": "question-section",
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "align": "middle",
+              "children": <div
+                className="prompt"
+                dangerouslySetInnerHTML={
+                  Object {
+                    "__html": "The team stretched their legs, practice their drills, and then rehearsed their set plays.",
+                  }
+                }
+              />,
+              "gutter": 0,
+              "justify": "start",
+              "type": "flex",
+            },
+            "ref": null,
+            "rendered": Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "className": "prompt",
+                "dangerouslySetInnerHTML": Object {
+                  "__html": "The team stretched their legs, practice their drills, and then rehearsed their set plays.",
+                },
+              },
+              "ref": null,
+              "rendered": null,
+              "type": "div",
+            },
+            "type": [Function],
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "align": "middle",
+              "children": <textarea
+                className="input-field"
+                onChange={[Function]}
+                value=""
+              />,
+              "gutter": 0,
+              "justify": "start",
+              "type": "flex",
+            },
+            "ref": null,
+            "rendered": Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "className": "input-field",
+                "onChange": [Function],
+                "value": "",
+              },
+              "ref": null,
+              "rendered": null,
+              "type": "textarea",
+            },
+            "type": [Function],
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "align": "middle",
+              "children": <Button
+                className="check-answer-button"
+                ghost={false}
+                loading={false}
+                onClick={[Function]}
+                prefixCls="ant-btn"
+              >
+                Check Work
+              </Button>,
+              "gutter": 0,
+              "justify": "end",
+              "type": "flex",
+            },
+            "ref": null,
+            "rendered": Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "children": "Check Work",
+                "className": "check-answer-button",
+                "ghost": false,
+                "loading": false,
+                "onClick": [Function],
+                "prefixCls": "ant-btn",
+              },
+              "ref": null,
+              "rendered": "Check Work",
+              "type": [Function],
+            },
+            "type": [Function],
+          },
+        ],
+        "type": "div",
+      },
+      undefined,
+    ],
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <div
+            className="top-section"
+          >
+            <Row
+              align="middle"
+              gutter={0}
+              justify="space-between"
+              type="flex"
+            >
+              <h1>
+                Parallel Structure
+              </h1>
+              <div>
+                <p>
+                  Sentences Completed: 
+                  0
+                   of 
+                  9
+                </p>
+                <div
+                  className="progress-bar-indication"
+                >
+                  <span
+                    className="meter"
+                    style={
+                      Object {
+                        "width": "0%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </Row>
+            <Row
+              align="middle"
+              gutter={0}
+              justify="start"
+              type="flex"
+            >
+              <Button
+                className="example-button"
+                ghost={false}
+                loading={false}
+                onClick={[Function]}
+                prefixCls="ant-btn"
+              >
+                Hide Example
+              </Button>
+            </Row>
+            <Row
+              align="middle"
+              className="example-container show"
+              gutter={0}
+              justify="start"
+              type="flex"
+            >
+              <div
+                className="example"
+                dangerouslySetInnerHTML={
+                  Object {
+                    "__html": "<b>Correct:</b> I laughed, I cried, and I shouted during the performance.<br /><b>Incorrect:</b> I laughed, I was crying, and I shout during the performance.<br />Sentences flow easily when all the actions in a list have the same ending. This means that each and every action in a list stays in the past, present, or future tense.",
+                  }
+                }
+              />
+            </Row>
+            <Row
+              align="middle"
+              gutter={0}
+              justify="start"
+              type="flex"
+            >
+              <div
+                className="instructions"
+                dangerouslySetInnerHTML={
+                  Object {
+                    "__html": "Rewrite the sentence so that it has proper parallel structure.",
+                  }
+                }
+              />
+            </Row>
+          </div>,
+          <div
+            className="question-section"
+          >
+            <Row
+              align="middle"
+              gutter={0}
+              justify="start"
+              type="flex"
+            >
+              <div
+                className="prompt"
+                dangerouslySetInnerHTML={
+                  Object {
+                    "__html": "The team stretched their legs, practice their drills, and then rehearsed their set plays.",
+                  }
+                }
+              />
+            </Row>
+            <Row
+              align="middle"
+              gutter={0}
+              justify="start"
+              type="flex"
+            >
+              <textarea
+                className="input-field"
+                onChange={[Function]}
+                value=""
+              />
+            </Row>
+            <Row
+              align="middle"
+              gutter={0}
+              justify="end"
+              type="flex"
+            >
+              <Button
+                className="check-answer-button"
+                ghost={false}
+                loading={false}
+                onClick={[Function]}
+                prefixCls="ant-btn"
+              >
+                Check Work
+              </Button>
+            </Row>
+          </div>,
+          undefined,
+        ],
+        "className": "question",
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": Array [
+              <Row
+                align="middle"
+                gutter={0}
+                justify="space-between"
+                type="flex"
+              >
+                <h1>
+                  Parallel Structure
+                </h1>
+                <div>
+                  <p>
+                    Sentences Completed: 
+                    0
+                     of 
+                    9
+                  </p>
+                  <div
+                    className="progress-bar-indication"
+                  >
+                    <span
+                      className="meter"
+                      style={
+                        Object {
+                          "width": "0%",
+                        }
+                      }
+                    />
+                  </div>
+                </div>
+              </Row>,
+              <Row
+                align="middle"
+                gutter={0}
+                justify="start"
+                type="flex"
+              >
+                <Button
+                  className="example-button"
+                  ghost={false}
+                  loading={false}
+                  onClick={[Function]}
+                  prefixCls="ant-btn"
+                >
+                  Hide Example
+                </Button>
+              </Row>,
+              <Row
+                align="middle"
+                className="example-container show"
+                gutter={0}
+                justify="start"
+                type="flex"
+              >
+                <div
+                  className="example"
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "<b>Correct:</b> I laughed, I cried, and I shouted during the performance.<br /><b>Incorrect:</b> I laughed, I was crying, and I shout during the performance.<br />Sentences flow easily when all the actions in a list have the same ending. This means that each and every action in a list stays in the past, present, or future tense.",
+                    }
+                  }
+                />
+              </Row>,
+              <Row
+                align="middle"
+                gutter={0}
+                justify="start"
+                type="flex"
+              >
+                <div
+                  className="instructions"
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "Rewrite the sentence so that it has proper parallel structure.",
+                    }
+                  }
+                />
+              </Row>,
+            ],
+            "className": "top-section",
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "align": "middle",
+                "children": Array [
+                  <h1>
+                    Parallel Structure
+                  </h1>,
+                  <div>
+                    <p>
+                      Sentences Completed: 
+                      0
+                       of 
+                      9
+                    </p>
+                    <div
+                      className="progress-bar-indication"
+                    >
+                      <span
+                        className="meter"
+                        style={
+                          Object {
+                            "width": "0%",
+                          }
+                        }
+                      />
+                    </div>
+                  </div>,
+                ],
+                "gutter": 0,
+                "justify": "space-between",
+                "type": "flex",
+              },
+              "ref": null,
+              "rendered": Array [
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": "Parallel Structure",
+                  },
+                  "ref": null,
+                  "rendered": "Parallel Structure",
+                  "type": "h1",
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": Array [
+                      <p>
+                        Sentences Completed: 
+                        0
+                         of 
+                        9
+                      </p>,
+                      <div
+                        className="progress-bar-indication"
+                      >
+                        <span
+                          className="meter"
+                          style={
+                            Object {
+                              "width": "0%",
+                            }
+                          }
+                        />
+                      </div>,
+                    ],
+                  },
+                  "ref": null,
+                  "rendered": Array [
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": Array [
+                          "Sentences Completed: ",
+                          0,
+                          " of ",
+                          9,
+                        ],
+                      },
+                      "ref": null,
+                      "rendered": Array [
+                        "Sentences Completed: ",
+                        0,
+                        " of ",
+                        9,
+                      ],
+                      "type": "p",
+                    },
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": <span
+                          className="meter"
+                          style={
+                            Object {
+                              "width": "0%",
+                            }
+                          }
+                        />,
+                        "className": "progress-bar-indication",
+                      },
+                      "ref": null,
+                      "rendered": Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "host",
+                        "props": Object {
+                          "className": "meter",
+                          "style": Object {
+                            "width": "0%",
+                          },
+                        },
+                        "ref": null,
+                        "rendered": null,
+                        "type": "span",
+                      },
+                      "type": "div",
+                    },
+                  ],
+                  "type": "div",
+                },
+              ],
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "align": "middle",
+                "children": <Button
+                  className="example-button"
+                  ghost={false}
+                  loading={false}
+                  onClick={[Function]}
+                  prefixCls="ant-btn"
+                >
+                  Hide Example
+                </Button>,
+                "gutter": 0,
+                "justify": "start",
+                "type": "flex",
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {
+                  "children": "Hide Example",
+                  "className": "example-button",
+                  "ghost": false,
+                  "loading": false,
+                  "onClick": [Function],
+                  "prefixCls": "ant-btn",
+                },
+                "ref": null,
+                "rendered": "Hide Example",
+                "type": [Function],
+              },
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "align": "middle",
+                "children": <div
+                  className="example"
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "<b>Correct:</b> I laughed, I cried, and I shouted during the performance.<br /><b>Incorrect:</b> I laughed, I was crying, and I shout during the performance.<br />Sentences flow easily when all the actions in a list have the same ending. This means that each and every action in a list stays in the past, present, or future tense.",
+                    }
+                  }
+                />,
+                "className": "example-container show",
+                "gutter": 0,
+                "justify": "start",
+                "type": "flex",
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "className": "example",
+                  "dangerouslySetInnerHTML": Object {
+                    "__html": "<b>Correct:</b> I laughed, I cried, and I shouted during the performance.<br /><b>Incorrect:</b> I laughed, I was crying, and I shout during the performance.<br />Sentences flow easily when all the actions in a list have the same ending. This means that each and every action in a list stays in the past, present, or future tense.",
+                  },
+                },
+                "ref": null,
+                "rendered": null,
+                "type": "div",
+              },
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "align": "middle",
+                "children": <div
+                  className="instructions"
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "Rewrite the sentence so that it has proper parallel structure.",
+                    }
+                  }
+                />,
+                "gutter": 0,
+                "justify": "start",
+                "type": "flex",
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "className": "instructions",
+                  "dangerouslySetInnerHTML": Object {
+                    "__html": "Rewrite the sentence so that it has proper parallel structure.",
+                  },
+                },
+                "ref": null,
+                "rendered": null,
+                "type": "div",
+              },
+              "type": [Function],
+            },
+          ],
+          "type": "div",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": Array [
+              <Row
+                align="middle"
+                gutter={0}
+                justify="start"
+                type="flex"
+              >
+                <div
+                  className="prompt"
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "The team stretched their legs, practice their drills, and then rehearsed their set plays.",
+                    }
+                  }
+                />
+              </Row>,
+              <Row
+                align="middle"
+                gutter={0}
+                justify="start"
+                type="flex"
+              >
+                <textarea
+                  className="input-field"
+                  onChange={[Function]}
+                  value=""
+                />
+              </Row>,
+              <Row
+                align="middle"
+                gutter={0}
+                justify="end"
+                type="flex"
+              >
+                <Button
+                  className="check-answer-button"
+                  ghost={false}
+                  loading={false}
+                  onClick={[Function]}
+                  prefixCls="ant-btn"
+                >
+                  Check Work
+                </Button>
+              </Row>,
+            ],
+            "className": "question-section",
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "align": "middle",
+                "children": <div
+                  className="prompt"
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "The team stretched their legs, practice their drills, and then rehearsed their set plays.",
+                    }
+                  }
+                />,
+                "gutter": 0,
+                "justify": "start",
+                "type": "flex",
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "className": "prompt",
+                  "dangerouslySetInnerHTML": Object {
+                    "__html": "The team stretched their legs, practice their drills, and then rehearsed their set plays.",
+                  },
+                },
+                "ref": null,
+                "rendered": null,
+                "type": "div",
+              },
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "align": "middle",
+                "children": <textarea
+                  className="input-field"
+                  onChange={[Function]}
+                  value=""
+                />,
+                "gutter": 0,
+                "justify": "start",
+                "type": "flex",
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "className": "input-field",
+                  "onChange": [Function],
+                  "value": "",
+                },
+                "ref": null,
+                "rendered": null,
+                "type": "textarea",
+              },
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "align": "middle",
+                "children": <Button
+                  className="check-answer-button"
+                  ghost={false}
+                  loading={false}
+                  onClick={[Function]}
+                  prefixCls="ant-btn"
+                >
+                  Check Work
+                </Button>,
+                "gutter": 0,
+                "justify": "end",
+                "type": "flex",
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {
+                  "children": "Check Work",
+                  "className": "check-answer-button",
+                  "ghost": false,
+                  "loading": false,
+                  "onClick": [Function],
+                  "prefixCls": "ant-btn",
+                },
+                "ref": null,
+                "rendered": "Check Work",
+                "type": [Function],
+              },
+              "type": [Function],
+            },
+          ],
+          "type": "div",
+        },
+        undefined,
+      ],
+      "type": "div",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;

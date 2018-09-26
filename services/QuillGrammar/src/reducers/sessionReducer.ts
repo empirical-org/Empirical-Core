@@ -7,6 +7,7 @@ export interface SessionState {
   answeredQuestions: Question[]|never;
   unansweredQuestions: Question[]|never;
   currentQuestion: Question|null;
+  proofreaderSession?: any;
   error?: string;
 }
 
@@ -37,6 +38,8 @@ export default (
             currentQuestion = Object.assign({}, currentState.currentQuestion)
             currentQuestion.attempts = currentQuestion.attempts ? currentQuestion.attempts.concat([action.response]) : [action.response]
             return Object.assign({}, currentState, {currentQuestion})
+        case ActionTypes.SET_PROOFREADER_SESSION_TO_REDUCER:
+            return Object.assign({}, currentState, {proofreaderSession: action.data})
         default:
             return currentState;
     }
