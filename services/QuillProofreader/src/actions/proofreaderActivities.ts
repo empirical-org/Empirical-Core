@@ -1,4 +1,6 @@
 import rootRef from '../firebase';
+import * as _ from 'underscore'
+import { push } from 'react-router-redux';
 import { ActionTypes } from './actionTypes'
 const activitiesRef = rootRef.child('passageProofreadings')
 import { ProofreaderActivities } from '../interfaces/proofreaderActivities'
@@ -35,7 +37,7 @@ export const toggleNewLessonModal = () => {
   return { type: ActionTypes.TOGGLE_NEW_LESSON_MODAL, };
 }
 
-export const submitNewLesson = (content:GrammarActivity) => {
+export const submitNewLesson = (content:ProofreaderActivity) => {
   const cleanedContent = _.pickBy(content)
   return (dispatch:Function) => {
     dispatch({ type: ActionTypes.AWAIT_NEW_LESSON_RESPONSE, });
