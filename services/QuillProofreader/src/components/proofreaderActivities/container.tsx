@@ -485,7 +485,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
               <div className="instructions">
                 <div>
                   <img src={questionIconSrc} />
-                  <p>{currentActivity.description}</p>
+                  <div dangerouslySetInnerHTML={{__html: currentActivity.description}}/>
                 </div>
                 <div className="edits-made">
                   <p>Edits Made: {edits.length} of {numberOfCorrectEdits}</p>
