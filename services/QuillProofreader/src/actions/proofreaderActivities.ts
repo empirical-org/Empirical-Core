@@ -1,5 +1,5 @@
 import rootRef from '../firebase';
-import * as _ from 'underscore'
+import * as _ from 'lodash'
 import { push } from 'react-router-redux';
 import { ActionTypes } from './actionTypes'
 const activitiesRef = rootRef.child('passageProofreadings')

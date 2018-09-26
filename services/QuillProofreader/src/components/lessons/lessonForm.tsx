@@ -68,7 +68,6 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
   }
 
   toggleUnderline(e: React.ChangeEvent<HTMLInputElement>) {
-    console.log(e.target.value)
     this.setState({ underlineErrorsInProofreader: !this.state.underlineErrorsInProofreader });
   }
 
@@ -77,7 +76,7 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
   }
 
   handlePassageChange(e: string) {
-    this.setState({ description: e, });
+    this.setState({ passage: e, });
   }
   //
   render() {
@@ -127,7 +126,7 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
         <EditGenerator/>
         <p className="control">
           <label className="label">Passage</label>
-          <PassageCreator onChange={this.handlePassageChange}/>
+          <PassageCreator onChange={this.handlePassageChange} originalPassage={this.props.currentValues.passage}/>
         </p>
         <p className="control">
           <button className={`button is-primary ${this.props.stateSpecificClass}`} onClick={this.submit}>Submit</button>

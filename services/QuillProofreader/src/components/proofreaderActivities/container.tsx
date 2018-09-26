@@ -89,7 +89,6 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
     componentWillReceiveProps(nextProps: PlayProofreaderContainerProps) {
       if (nextProps.proofreaderActivities.currentActivity && !this.state.passage) {
         const { passage, underlineErrorsInProofreader } = nextProps.proofreaderActivities.currentActivity
-        debugger;
         const initialPassageData = this.formatInitialPassage(passage, underlineErrorsInProofreader)
         const formattedPassage = initialPassageData.passage
         this.setState({ passage: formattedPassage, originalPassage: formattedPassage, necessaryEdits: initialPassageData.necessaryEdits })
