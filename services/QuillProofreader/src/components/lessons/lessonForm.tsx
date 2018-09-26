@@ -1,17 +1,19 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { EditorState, ContentState } from 'draft-js'
-import TextEditor from '../shared/textEditor'
 import ConceptSelector from '../shared/conceptSelector'
+import TextEditor from '../shared/textEditor'
 import { ProofreaderActivity, Concepts, Concept } from '../../interfaces/proofreaderActivities'
 import { ConceptReducerState } from '../../reducers/conceptsReducer'
 import PassageCreator from './passageCreator'
+import EditGenerator from './editGenerator'
 
 interface LessonFormState {
   title: string;
   description: string;
   flag?: string;
   underlineErrorsInProofreader: boolean;
+  passage: string;
 }
 
 interface LessonFormProps {
@@ -32,7 +34,8 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
       title: currentValues ? currentValues.title : '',
       description: currentValues ? currentValues.description || '' : '',
       flag: currentValues ? currentValues.flag : 'alpha',
-      underlineErrorsInProofreader: false
+      passage: currentValues ? currentValues.passage : '',
+      underlineErrorsInProofreader: currentValues ? currentValues.underlineErrorsInProofreader : false
     }
 
     this.submit = this.submit.bind(this)
@@ -40,15 +43,17 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
     this.handleDescriptionChange = this.handleDescriptionChange.bind(this)
     this.handleFlagSelect = this.handleFlagSelect.bind(this)
     this.toggleUnderline = this.toggleUnderline.bind(this)
+    this.handlePassageChange = this.handlePassageChange.bind(this)
   }
 
   submit() {
-    const { title, concepts, description, flag, } = this.state
+    const { title, description, flag, passage, underlineErrorsInProofreader } = this.state
     this.props.submit({
       title,
-      concepts,
       description,
-      flag
+      flag,
+      passage,
+      underlineErrorsInProofreader
     });
   }
 
@@ -68,6 +73,10 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
   }
 
   handleDescriptionChange(e: string) {
+    this.setState({ description: e, });
+  }
+
+  handlePassageChange(e: string) {
     this.setState({ description: e, });
   }
   //
@@ -115,9 +124,10 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
             onChange={this.toggleUnderline}
           />
         </p>
+        <EditGenerator/>
         <p className="control">
           <label className="label">Passage</label>
-          <PassageCreator />
+          <PassageCreator onChange={this.handlePassageChange}/>
         </p>
         <p className="control">
           <button className={`button is-primary ${this.props.stateSpecificClass}`} onClick={this.submit}>Submit</button>
