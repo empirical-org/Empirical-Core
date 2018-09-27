@@ -71,7 +71,7 @@ export default React.createClass({
 			<tr key={attemptNum + answer}className={ScoreColor(averageScore)}>
 				<td>{`${NumberSuffix(attemptNum)} Submission`}</td>
 				<td />
-				<td>{answer}</td>
+				<td><span style={{ whiteSpace: 'pre' }} >{answer}</span></td>
 			</tr>
 		)
 	},
