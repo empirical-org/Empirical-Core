@@ -128,13 +128,14 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
   }
 
   paragraphWrappedText(text: string) {
-    const brStrippedText = text.replace(/(<br\/>)+/gm, '</p><p>').replace(/((<\/p><p>)(\s)*)(<\/p><p>)/gm, '</p><p>')
-    const uTags = brStrippedText.match(/<u.+?<\/u>/gm)
+    const brStrippedText = text.replace(/(<br\/>|\/n|↵)+/gm, '</p><p>').replace(/((<\/p><p>)(\s)*)(<\/p><p>)/gm, '</p><p>')
+    const extraPTagStrippedText = brStrippedText.replace(/^<p>/, '').replace(/<\/p>$/, '')
+    const uTags = extraPTagStrippedText.match(/<u.+?<\/u>/gm)
     const punctuationRegex = /^[.,:;]/
     const originalTextArray: Array<string> = []
     let spannedText = ''
     let index = 0
-    const spans = brStrippedText.split(/<u.+?<\/u>/gm)
+    const spans = extraPTagStrippedText.split(/<u.+?<\/u>/gm)
     // { index: uTagId }
     const indicesOfUTags: {[key:number]: number} = {}
     spans.forEach((span, spanIndex) => {

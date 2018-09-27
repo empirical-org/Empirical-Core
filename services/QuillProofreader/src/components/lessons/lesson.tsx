@@ -141,7 +141,7 @@ class Lesson extends React.Component<LessonProps> {
     if (data && lessonID && data[lessonID]) {
       return (
         <div>
-          <Link to={'admin/lessons'}>Return to All Lessons</Link>
+          <Link to={'admin/lessons'}>Return to All Activities</Link>
           <br />
           {this.renderEditLessonForm()}
           <h4 className="title">{data[lessonID].title}</h4>
@@ -149,7 +149,7 @@ class Lesson extends React.Component<LessonProps> {
           <h6 className="subtitle">{data[lessonID].flag}</h6>
           <h6 className="subtitle"><Link to={`/play/pf?anonymous=true&uid=${lessonID}`}>Play Proofreader Activity</Link></h6>
           <p className="control">
-            <button className="button is-info" onClick={this.editLesson}>Edit Lesson</button> <button className="button is-danger" onClick={this.deleteLesson}>Delete Lesson</button>
+            <button className="button is-info" onClick={this.editLesson}>Edit Activity</button> <button className="button is-danger" onClick={this.deleteLesson}>Delete Activity</button>
           </p>
           {this.renderQuestionsForLesson()}
         </div>
