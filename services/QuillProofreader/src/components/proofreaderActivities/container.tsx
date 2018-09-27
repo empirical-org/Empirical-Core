@@ -174,6 +174,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
 
     // this method handles weirdness created by HTML formatting in Slate
     formatReceivedPassage(value: string) {
+      console.log('value', value)
       let string = value.replace(/<span data-original-index="\d+">|<\/span>|<strong> <\/strong>/gm, '').replace(/&#x27;/g, "'").replace(/&quot;/g, '"')
 
       // regex below matches case that looks like this: <strong><u id="10">A</u></strong><strong><u id="10"><u id="10">sia,</u></u></strong><strong><u id="10"> </u></strong>
@@ -294,7 +295,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       }
 
       if (singleStrongTagWithTwoMatchingNestedURegex.test(string)) {
-        string = string.replace(doubleStrongTagRegex, (key, uTagA, uTagB, content) => {
+        string = string.replace(singleStrongTagWithTwoMatchingNestedURegex, (key, uTagA, uTagB, content) => {
           if (uTagA === uTagB) {
             return `<strong>${uTagA}${content}</u></strong>`
           } else {
@@ -477,7 +478,8 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       const numberOfCorrectEdits = necessaryEdits ? necessaryEdits.length : 0
       if (currentActivity) {
         const className = currentActivity.underlineErrorsInProofreader ? 'underline-errors' : ''
-        const meterWidth = edits.length / necessaryEdits.length * 100
+        const necessaryEditsLength = necessaryEdits ? necessaryEdits.length : 1
+        const meterWidth = edits.length / necessaryEditsLength * 100
         return <div className="passage-container">
           <div className="header-section">
             <div className="inner-header">
