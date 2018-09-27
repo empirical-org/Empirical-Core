@@ -52,10 +52,10 @@ export default React.createClass({
 									<tbody>
 										{this.directions()}
 										{this.prompt()}
-										<tr className={ScoreColor(data.score)}>
+										<tr className={ScoreColor(data.score)}>å
 											<td>Submission</td>
 											<td></td>
-											<td>{this.answer()}</td>
+											<td><span style={{ whiteSpace: 'pre' }}>{this.answer()}</span></td>
 										</tr>
 										{this.concepts()}
 	        				</tbody>
