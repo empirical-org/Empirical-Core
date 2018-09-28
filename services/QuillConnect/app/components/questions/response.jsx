@@ -467,7 +467,7 @@ export default React.createClass({
           <div className="content">
             <div className="media">
               <div className="media-content">
-                <p>{response.text} {author}</p>
+                <p><span style={{ whiteSpace: 'pre' }}>{response.text}</span> {author}</p>
               </div>
               <div className="media-right" style={{ textAlign: 'right', }}>
                 <figure className="image is-32x32">
