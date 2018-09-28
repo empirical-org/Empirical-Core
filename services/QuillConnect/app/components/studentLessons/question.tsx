@@ -137,7 +137,6 @@ const playLessonQuestion = React.createClass<any, any>({
 
   renderFeedback(override) {
     let sentence;
-    console.log('override', override)
     if (override) {
       sentence = override;
     } else if (this.getQuestion() && this.getQuestion().modelConceptUID) {
