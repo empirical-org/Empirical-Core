@@ -168,7 +168,7 @@ function determineDelta(response, newResponse) {
   const parentIDChanged = (newResponse.response.parent_id? parseInt(newResponse.response.parent_id) : null) !== response.parent_id;
   const authorChanged = newResponse.response.author != response.author;
   const feedbackChanged = newResponse.response.feedback != response.feedback;
-  const conceptResultsChanged = _.isEqual(convertResponsesArrayToHash(newResponse.response.concept_results), response.concept_results);
+  const conceptResultsChanged = !_.isEqual(convertResponsesArrayToHash(newResponse.response.concept_results), response.concept_results);
   const changed = parentIDChanged || authorChanged || feedbackChanged || conceptResultsChanged;
   // console.log(response.id, parentIDChanged, authorChanged, feedbackChanged, conceptResultsChanged);
   // console.log(response, newResponse.response);
