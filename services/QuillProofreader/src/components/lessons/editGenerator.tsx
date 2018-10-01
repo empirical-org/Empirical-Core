@@ -32,7 +32,6 @@ export default class EditGenerator extends React.Component {
   }
 
   changeConcept(e) {
-    console.log('e', e)
     this.setState({ conceptUID: e.value} )
   }
 
