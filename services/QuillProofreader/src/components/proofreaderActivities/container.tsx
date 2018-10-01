@@ -337,7 +337,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
               const correctEdit = necessaryEdits[id].match(correctEditRegex) ? stringNormalize(necessaryEdits[id].match(correctEditRegex)[1]) : ''
               const conceptUID = necessaryEdits[id].match(conceptUIDRegex) ? necessaryEdits[id].match(conceptUIDRegex)[1] : ''
               const originalText = necessaryEdits[id].match(originalTextRegex) ? necessaryEdits[id].match(originalTextRegex)[1] : ''
-              if (text === correctEdit) {
+              if (correctEdit.split('~').includes(text)) {
                 numberOfCorrectChanges++
                 conceptResultsObjects.push({
                   metadata: {

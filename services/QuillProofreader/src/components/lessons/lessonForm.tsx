@@ -83,9 +83,10 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
   }
   //
   render() {
+    const addOrEdit = this.props.currentValues ? 'Edit' : 'Add'
     return (
       <div className="box">
-        <h4 className="title">Add New Lesson</h4>
+        <h4 className="title">{addOrEdit} Activity</h4>
         <p className="control">
           <label className="label">Name</label>
           <input
