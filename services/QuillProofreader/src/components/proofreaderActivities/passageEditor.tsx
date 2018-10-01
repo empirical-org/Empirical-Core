@@ -218,7 +218,7 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
   }
 
   onKeyUp(event, change, editor) {
-    if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') return
+    if (['ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown'].includes(event.key)) return
 
     const { value } = change
     const originalSelection = value.selection
@@ -251,15 +251,29 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
       }
 
       if (normalizedAndTrimmedNewText === stringNormalize(originalText).trim()) {
-        node
-        .removeMark('bold')
-        .setStart(originalSelection.start)
-        .setEnd(originalSelection.end)
+        if (normalizedAndTrimmedNewText.length === 0) {
+          node
+          .removeMark('bold')
+          .setStart(originalSelection.end)
+          .setEnd(originalSelection.end)
+        } else {
+          node
+          .removeMark('bold')
+          .setStart(originalSelection.start)
+          .setEnd(originalSelection.end)
+        }
       } else {
-        node
-        .addMark('bold')
-        .setStart(originalSelection.start)
-        .setEnd(originalSelection.end)
+        if (normalizedAndTrimmedNewText.length === 0) {
+          node
+          .addMark('bold')
+          .setStart(originalSelection.end)
+          .setEnd(originalSelection.end)
+        } else {
+          node
+          .addMark('bold')
+          .setStart(originalSelection.start)
+          .setEnd(originalSelection.end)
+        }
       }
 
     } else {
@@ -290,12 +304,15 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
             .setEnd(originalSelection.end)
             .addMark({type: 'underline', data: {id}})
             if (stringNormalize(previousInline.text).trim() !== stringNormalize(originalPreviousInlineText).trim()) {
+              console.log('previous Inline, adding bold')
               node.addMark('bold')
             }
           }
         }
       } else {
         change.addMark('bold')
+        .setStart(originalSelection.start)
+        .setEnd(originalSelection.end)
       }
     }
   }
