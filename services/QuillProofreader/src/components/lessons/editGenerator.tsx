@@ -55,7 +55,7 @@ export default class EditGenerator extends React.Component {
         </p>
         <p>
           <label className="label">Correct Text</label>
-          <i style={{ display: 'block' }}>If there are multiple correct edits, type them into the following field separated by a tilde (~). Example: if "loves" and "adores" are both correct, you would enter <code>loves~adores</code>.</i>
+          <i style={{ display: 'block' }}>If there are multiple correct edits, type them into the following field separated by a tilde (~). Example: if "loves" and "adores" are both correct, you would enter <code style={{ color: 'black', fontStyle: 'normal' }}>loves~adores</code>.</i>
           <input onChange={this.changeCorrectText} value={this.state.correctText} className="input"/>
         </p>
         <p>

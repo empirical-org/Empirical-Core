@@ -61,7 +61,10 @@
       justify-content: space-between;
       align-items: center;
       font-size: 15px;
-      padding: 10px 20px 0px;
+      padding: 10px 20px;
+      p {
+        margin-bottom: 0px;
+      }
     }
 
     .middle-section {
@@ -71,6 +74,14 @@
 
       p {
         margin: 0px;
+      }
+
+      .label {
+        font-size: 15px;
+      }
+
+      div:not(:first-of-type) {
+        margin-top: 20px;
       }
     }
 
@@ -82,6 +93,7 @@
 
     .header {
       display: flex;
+      align-items: center;
     }
 
     .button-section {
