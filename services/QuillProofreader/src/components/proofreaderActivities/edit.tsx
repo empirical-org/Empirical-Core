@@ -38,7 +38,6 @@ export default class Edit extends React.Component<EditProps, any> {
   renderTooltip() {
     const { activeIndex, index, state, numberOfEdits, next, id } = this.props
     const visible = activeIndex === index ? 'visible' : 'invisible'
-    console.log('this.props.id', this.props.id)
     const element = document.getElementById(id)
     const offset = element && ((window.innerWidth - element.offsetLeft) < 350) ? 'offset' : ''
     let src, headerText

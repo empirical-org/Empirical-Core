@@ -176,7 +176,6 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
 
     // this method handles weirdness created by HTML formatting in Slate
     formatReceivedPassage(value: string) {
-      console.log('value', value)
       let string = value.replace(/<span data-original-index="\d+">|<\/span>|<strong> <\/strong>/gm, '').replace(/&#x27;/g, "'").replace(/&quot;/g, '"')
 
       // regex below matches case that looks like this: <strong><u id="10">A</u></strong><strong><u id="10"><u id="10">sia,</u></u></strong><strong><u id="10"> </u></strong>
@@ -315,7 +314,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       const regex = /<strong>.*?<\/strong>/gm
       const edits = formattedValue.match(regex)
       if (edits) {
-        this.setState({ passage: formattedValue, edits }, () => console.log('this.state.passage', this.state.passage))
+        this.setState({ passage: formattedValue, edits })
       }
     }
 

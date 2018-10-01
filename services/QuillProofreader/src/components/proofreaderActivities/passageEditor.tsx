@@ -227,8 +227,6 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
 
     // const previousInline = change.moveStartBackward(2).value.startInline
     const previousInline = change.moveStartBackward(1).value.inlines.first()
-    console.log('previousInline', previousInline)
-    console.log('equality', previousInline !== startInline)
     // if there is a previous inline which is not the same as the start inline,
     // you have crossed the boundary into the previous span
     if (previousInline !== startInline && previousInline) {
