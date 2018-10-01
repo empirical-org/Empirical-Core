@@ -132,6 +132,7 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
     const extraPTagStrippedText = brStrippedText.replace(/^<p>/, '').replace(/<\/p>$/, '')
     const uTags = extraPTagStrippedText.match(/<u.+?<\/u>/gm)
     const punctuationRegex = /^[.,:;]/
+    const beginningOfParagraphRegex = /<p>$/
     const originalTextArray: Array<string> = []
     let spannedText = ''
     let index = 0
@@ -145,8 +146,8 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
         const trimmedNextWord = words[wordIndex + 1] ? this.trimWord(words[wordIndex + 1]) : ''
         if (trimmedWord.length) {
           // don't add a space after the  word if the next word starts with punctuation
-          if (punctuationRegex.test(trimmedNextWord)) {
-            spannedText += `<span> data-original-index=${index}${trimmedWord}</span>`
+          if (punctuationRegex.test(trimmedNextWord) || beginningOfParagraphRegex.test(trimmedWord)) {
+            spannedText += `<span data-original-index=${index}>${trimmedWord}</span>`
           } else {
             spannedText += `<span data-original-index=${index}>${trimmedWord} </span>`
           }
