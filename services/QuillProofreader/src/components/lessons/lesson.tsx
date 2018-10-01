@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import * as lessonActions from '../../actions/proofreaderActivities';
 import { Modal, hashToCollection } from 'quill-component-library/dist/componentLibrary';
+import ProofreaderActivityContainer from '../proofreaderActivities/container'
 import EditLessonForm from './lessonForm';
 import { ActionTypes } from '../../actions/actionTypes'
 import { Question, Questions } from '../../interfaces/questions'
@@ -10,6 +11,7 @@ import { ProofreaderActivityState } from '../../reducers/proofreaderActivitiesRe
 import { ConceptReducerState } from '../../reducers/conceptsReducer'
 import { ProofreaderActivity } from '../../interfaces/proofreaderActivities'
 import { Match } from '../../interfaces/match'
+
 
 String.prototype.toKebab = function () {
   return this.replace(/([A-Z])/g, char => `-${char.toLowerCase()}`);
@@ -28,7 +30,6 @@ class Lesson extends React.Component<LessonProps> {
     super(props)
 
     this.questionsForLesson = this.questionsForLesson.bind(this)
-    this.renderQuestionsForLesson = this.renderQuestionsForLesson.bind(this)
     this.deleteLesson = this.deleteLesson.bind(this)
     this.cancelEditingLesson = this.cancelEditingLesson.bind(this)
     this.saveLessonEdits = this.saveLessonEdits.bind(this)
@@ -55,37 +56,37 @@ class Lesson extends React.Component<LessonProps> {
     }
   }
 
-  renderQuestionsForLesson():Array<JSX.Element>|JSX.Element {
-    const questionsForLesson = this.questionsForLesson();
-    if (questionsForLesson) {
-      const conceptIds: {[key:string]: Array<JSX.Element>} = {}
-      questionsForLesson.forEach((question: Question) => {
-        const { prompt, key, concept_uid} = question
-        const displayName = prompt || 'No question prompt';
-        const questionLink = <li key={key}><Link to={`/admin/questions/${question.key}`}>{displayName.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, '')}</Link></li>
-        if (conceptIds[concept_uid]) {
-          conceptIds[concept_uid].push(questionLink)
-        } else {
-          conceptIds[concept_uid] = [questionLink]
-        }
-      });
-      const conceptSections:Array<JSX.Element> = []
-      const lesson = this.lesson()
-      Object.keys(conceptIds).forEach(conceptId => {
-        const lessonConcept = lesson ? lesson.concepts[conceptId] : null
-        const quantity = lessonConcept ? lessonConcept.quantity : null
-        const concept = this.props.concepts.data[0] ? this.props.concepts.data[0].find(c => c.uid === conceptId) : null
-        const quantitySpan = <span style={{ fontStyle: 'italic' }}>{quantity} {quantity === 1 ? 'Question' : 'Questions'} Chosen at Random</span>
-        conceptSections.push(<br/>)
-        conceptSections.push(<h3>{concept ? concept.displayName : null} - {quantitySpan}</h3>)
-        conceptSections.push(<ul>{conceptIds[conceptId]}</ul>)
-      })
-      return conceptSections
-    }
-    return (
-      <ul>No questions</ul>
-    );
-  }
+  // renderQuestionsForLesson():Array<JSX.Element>|JSX.Element {
+  //   const questionsForLesson = this.questionsForLesson();
+  //   if (questionsForLesson) {
+  //     const conceptIds: {[key:string]: Array<JSX.Element>} = {}
+  //     questionsForLesson.forEach((question: Question) => {
+  //       const { prompt, key, concept_uid} = question
+  //       const displayName = prompt || 'No question prompt';
+  //       const questionLink = <li key={key}><Link to={`/admin/questions/${question.key}`}>{displayName.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, '')}</Link></li>
+  //       if (conceptIds[concept_uid]) {
+  //         conceptIds[concept_uid].push(questionLink)
+  //       } else {
+  //         conceptIds[concept_uid] = [questionLink]
+  //       }
+  //     });
+  //     const conceptSections:Array<JSX.Element> = []
+  //     const lesson = this.lesson()
+  //     Object.keys(conceptIds).forEach(conceptId => {
+  //       const lessonConcept = lesson ? lesson.concepts[conceptId] : null
+  //       const quantity = lessonConcept ? lessonConcept.quantity : null
+  //       const concept = this.props.concepts.data[0] ? this.props.concepts.data[0].find(c => c.uid === conceptId) : null
+  //       const quantitySpan = <span style={{ fontStyle: 'italic' }}>{quantity} {quantity === 1 ? 'Question' : 'Questions'} Chosen at Random</span>
+  //       conceptSections.push(<br/>)
+  //       conceptSections.push(<h3>{concept ? concept.displayName : null} - {quantitySpan}</h3>)
+  //       conceptSections.push(<ul>{conceptIds[conceptId]}</ul>)
+  //     })
+  //     return conceptSections
+  //   }
+  //   return (
+  //     <ul>No questions</ul>
+  //   );
+  // }
 
   deleteLesson():void {
     const lessonID: string|undefined = this.props.match.params.lessonID;
@@ -135,6 +136,13 @@ class Lesson extends React.Component<LessonProps> {
     }
   }
 
+  renderActivity() {
+    const lessonID: string|undefined = this.props.match.params.lessonID;
+    return <div style={{marginTop: '50px', border: '1px solid black'}}>
+      <ProofreaderActivityContainer activityUID={lessonID} admin={true}/>
+    </div>
+  }
+
   render() {
     const { data, } = this.props.lessons
     const lessonID: string|undefined = this.props.match.params.lessonID;
@@ -151,7 +159,7 @@ class Lesson extends React.Component<LessonProps> {
           <p className="control">
             <button className="button is-info" onClick={this.editLesson}>Edit Activity</button> <button className="button is-danger" onClick={this.deleteLesson}>Delete Activity</button>
           </p>
-          {this.renderQuestionsForLesson()}
+          {this.renderActivity()}
         </div>
       );
     } else if (this.props.lessons.hasreceiveddata === false) {
