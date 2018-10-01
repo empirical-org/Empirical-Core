@@ -14,6 +14,7 @@ interface LessonFormState {
   flag?: string;
   underlineErrorsInProofreader: boolean;
   passage: string;
+  readingLevel?: string;
 }
 
 interface LessonFormProps {
@@ -35,7 +36,8 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
       description: currentValues ? currentValues.description || '' : '',
       flag: currentValues ? currentValues.flag : 'alpha',
       passage: currentValues ? currentValues.passage : '',
-      underlineErrorsInProofreader: currentValues ? currentValues.underlineErrorsInProofreader : false
+      underlineErrorsInProofreader: currentValues ? currentValues.underlineErrorsInProofreader : false,
+      readingLevel: currentValues ? currentValues.readingLevel : ''
     }
 
     this.submit = this.submit.bind(this)
@@ -47,13 +49,14 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
   }
 
   submit() {
-    const { title, description, flag, passage, underlineErrorsInProofreader } = this.state
+    const { title, description, flag, passage, underlineErrorsInProofreader, readingLevel } = this.state
     this.props.submit({
       title,
       description,
       flag,
       passage,
-      underlineErrorsInProofreader
+      underlineErrorsInProofreader,
+      readingLevel
     });
   }
 
@@ -91,6 +94,16 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
             placeholder="Text input"
             value={this.state.title}
             onChange={this.handleStateChange.bind(null, 'title')}
+          />
+        </p>
+        <p className="control">
+          <label className="label">Reading Level</label>
+          <input
+            className="input"
+            type="text"
+            placeholder="Text input"
+            value={this.state.readingLevel}
+            onChange={this.handleStateChange.bind(null, 'readingLevel')}
           />
         </p>
         <p className="control">
