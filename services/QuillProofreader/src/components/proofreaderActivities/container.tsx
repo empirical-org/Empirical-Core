@@ -30,6 +30,8 @@ interface PlayProofreaderContainerProps {
   proofreaderActivities: ProofreaderActivityState;
   session: SessionState;
   dispatch: Function;
+  admin?: Boolean;
+  activityUID?: string;
 }
 
 interface PlayProofreaderContainerState {
@@ -71,7 +73,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
     }
 
     componentWillMount() {
-      const activityUID = getParameterByName('uid', window.location.href)
+      const activityUID = getParameterByName('uid', window.location.href) || this.props.activityUID
       const sessionID = getParameterByName('student', window.location.href)
 
       this.props.dispatch(startListeningToConcepts())
@@ -412,7 +414,18 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       const activityUID = getParameterByName('uid', window.location.href)
       const sessionID = getParameterByName('student', window.location.href)
       const { conceptResultsObjects, necessaryEdits, numberOfCorrectChanges } = this.state
-      if (conceptResultsObjects) {
+      if (this.props.admin) {
+        this.setState({
+          passage: this.state.originalPassage,
+          edits: [],
+          reviewing: false,
+          showEarlySubmitModal: false,
+          showReviewModal: false,
+          numberOfCorrectChanges: undefined,
+          reviewablePassage: undefined,
+          conceptResultsObjects: undefined
+        })
+      } else if (conceptResultsObjects && activityUID) {
         const firebaseSessionID = updateConceptResultsOnFirebase(sessionID, activityUID, conceptResultsObjects)
         if (necessaryEdits && (necessaryEdits.length === numberOfCorrectChanges)) {
           this.saveToLMS()
