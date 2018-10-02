@@ -7,7 +7,7 @@ import {
 import SelectUserType from './select_user_type';
 import SignUpTeacher from './sign_up_teacher';
 import SelectSchoolType from './select_school_type';
-import UsK12View from './select_us_k12'
+import SelectUSK12 from './select_us_k12'
 
 
 class App extends Component {

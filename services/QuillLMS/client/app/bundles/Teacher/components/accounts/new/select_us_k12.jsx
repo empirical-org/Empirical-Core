@@ -1,5 +1,4 @@
 'use strict'
-import React from 'react'
 import $ from 'jquery'
 import SelectSchool from './select_us_k12_helper'
 import {
@@ -14,11 +13,36 @@ class SelectUSK12 extends Component {
       selectedSchool: {},
       schoolOptions: []
     }
+    this.UNLISTED_SCHOOL = 'not listed';
+
     this.requestSchools = this.requestSchools.bind(this);
     this.populateSchools = this.populateSchools.bind(this);
-    this.updateSchool = this.updateSchoool.bind(this);
+    this.updateSchool = this.updateSchool.bind(this);
     this.skipSelectSchool = this.skipSelectSchool.bind(this);
     this.submitSchool = this.submitSchool.bind(this);
+    this.selectSchool = this.selectSchool.bind(this);
+    this.submitUnlisted = this.submitUnlisted.bind(this);
+
+  }
+
+  uponSelectSchool() {
+    window.location = '/teachers/classrooms/new'
+  }
+  selectSchoolError() {
+    alert('There was an error, if this problem persists, please let us know.');
+  }
+
+  selectSchool(school_id_or_type) {
+    $.ajax({
+      type: 'PUT',
+      dataType: "json",
+      url: '/select_school',
+      data: {
+        school_id_or_type: school_id_or_type
+      },
+      success: this.uponSelectSchool,
+      error: this.selectSchoolError
+    });
   }
 
   requestSchools(zip) {
@@ -47,9 +71,13 @@ class SelectUSK12 extends Component {
     if (this.state.selectedSchool && this.state.selectedSchool.id) {
       school = this.state.selectedSchool.id;
     } else {
-      school = 'not listed';
+      school = this.UNLISTED_SCHOOL;
     }
-    this.props.selectSchool(school);
+    this.selectSchool(school);
+  }
+
+  submitUnlisted() {
+    this.selectSchool(this.UNLISTED_SCHOOL);
   }
   
   showButton() {
@@ -73,7 +101,7 @@ class SelectUSK12 extends Component {
                                isForSignUp={true}/>
           {this.showButton()}
           <div className='row'>
-            <div className='col-xs-12 no-pl school_not_listed'><a id='school_not_listed' onClick={this.submitSchool}>My school is not listed</a></div>
+            <div className='col-xs-12 no-pl school_not_listed'><a id='school_not_listed' onClick={this.submitUnlisted}>My school is not listed</a></div>
           </div>
       </div>
     );
