@@ -218,12 +218,20 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
   }
 
   onKeyUp(event, change, editor) {
+    console.log('_________')
     if (['ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown'].includes(event.key)) return
 
     const { value } = change
     const originalSelection = value.selection
+
+    if (event.key === ' ' && originalSelection.focus.offset !== originalSelection.anchor.offset) return
+
     const { startInline } = value
     let currentInline = startInline
+
+    console.log('event key', event.key)
+    console.log('originalSelection', originalSelection)
+    console.log('startInline', startInline)
 
     // const previousInline = change.moveStartBackward(2).value.startInline
     const previousInline = change.moveStartBackward(1).value.inlines.first()
@@ -233,6 +241,8 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
       currentInline = previousInline
     }
 
+    console.log('previousInline', previousInline)
+
     if (currentInline && currentInline.nodes) {
       const dataOriginalIndex = currentInline.data.get('dataOriginalIndex')
       const originalText = this.state.originalTextArray[dataOriginalIndex]
@@ -241,8 +251,21 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
       const normalizedAndTrimmedNewText = normalizedText.trim()
       let node = change.moveToRangeOfNode(currentInline)
 
-      if (newText.substr(newText.length - 1) === ' ') {
+      const lastCharacterIsSpace = newText.substr(newText.length - 1) === ' '
+
+      // if (event.key === 'Backspace' && lastCharacterIsSpace && originalSelection.focus.offset === newText.length && originalSelection.anchor.offset === newText.length) {
+      //   console.log('this weird return statement')
+      //   return
+      // }
+
+      if (lastCharacterIsSpace) {
+        console.log('end got moved backward')
         node.moveEndBackward(1)
+      }
+
+      if (newText.substr(0) === ' ') {
+        console.log('start got moved forward')
+        node.moveStartForward(1)
       }
 
       if (this.state.indicesOfUTags[dataOriginalIndex] || this.state.indicesOfUTags[dataOriginalIndex] === 0) {
@@ -251,18 +274,20 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
       }
 
       if (normalizedAndTrimmedNewText === stringNormalize(originalText).trim()) {
-        if (normalizedAndTrimmedNewText.length === 0) {
+        console.log('removing')
+        if (event.key !== ' ' || (originalSelection.focus.offset !== 0 && originalSelection.anchor.offset !== 0)) {
+        //   node
+        //   .removeMark('bold')
+        //   .setStart(originalSelection.end)
+        //   .setEnd(originalSelection.end)
+        // } else {
           node
           .removeMark('bold')
-          .setStart(originalSelection.end)
-          .setEnd(originalSelection.end)
-        } else {
-          node
-          .removeMark('bold')
-          .setStart(originalSelection.start)
-          .setEnd(originalSelection.end)
+          .setAnchor(originalSelection.anchor)
+          .setFocus(originalSelection.focus)
         }
       } else {
+        console.log('adding')
         if (normalizedAndTrimmedNewText.length === 0) {
           node
           .addMark('bold')
