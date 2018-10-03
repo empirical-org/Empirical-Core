@@ -1,7 +1,7 @@
 'use strict';
 import React from 'react'
 import _ from 'underscore'
-import EducatorType from '../new/educator_type';
+import SelectSchoolType from './select_school_type';
 import AnalyticsWrapper from '../../shared/analytics_wrapper'
 
 export default React.createClass({
@@ -34,7 +34,7 @@ export default React.createClass({
                       <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i className="fa fa-close"></i></span></button>
                   </div>
                   <div className="modal-body csv-email-modal">
-                    <div className='account-form'><EducatorType analytics={new AnalyticsWrapper()} modal='true'/></div>
+                    <div className='account-form'><SelectSchoolType modal='true'/></div>
                   </div>
                 </div>
               </div>

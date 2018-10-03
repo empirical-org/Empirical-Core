@@ -16,7 +16,7 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <div>
+        <div className='container account-form' id='sign-up'>
           <Route exact path="/account/new" component={SelectUserType}/>
 
           <Route path="/sign-up/teacher" component={SignUpTeacher}/>
