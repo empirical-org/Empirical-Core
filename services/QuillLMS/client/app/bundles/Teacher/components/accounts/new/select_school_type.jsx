@@ -14,7 +14,7 @@ class SelectSchoolType extends Component {
               Yes
             </button>
           </Link>
-          <Link to="/sign-up/teacher/add-non-k12">
+          <Link to="/sign-up/add-non-k12">
             <button className='button-green'>
               No
             </button>

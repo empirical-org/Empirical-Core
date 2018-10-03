@@ -391,6 +391,7 @@ EmpiricalGrammar::Application.routes.draw do
   get '/sign-up/student', to: 'accounts#new'
   get '/sign-up/pick-school-type', to: 'accounts#new'
   get '/sign-up/add-k12', to: 'accounts#new'
+  get '/sign-up/add-non-k12', to: 'accounts#new'
 
   namespace :auth do
     get "/google_email_mismatch" => 'google#google_email_mismatch'
