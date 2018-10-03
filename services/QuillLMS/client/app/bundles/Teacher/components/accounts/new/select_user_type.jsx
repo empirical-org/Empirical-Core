@@ -4,6 +4,41 @@ import {
 import React, { Component } from 'react';
 
 class SelectUserType extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+    }
+
+    this.setTeacherRoleOnSession = this.setTeacherRoleOnSession.bind(this);
+    this.setStudentRoleOnSession = this.setStudentRoleOnSession.bind(this);
+    this.setRoleOnSession = this.setRoleOnSession.bind(this);
+    this.setRoleOnSessionError = this.setRoleOnSessionError.bind(this);
+  }
+  setRoleOnSessionError() {
+    alert('We had trouble setting your role. Please let us know if the problem persists.');
+  }
+  setStudentRoleOnSession() {
+    this.setRoleOnSession('student');
+  }
+  setTeacherRoleOnSession() {
+    this.setRoleOnSession('teacher');
+  }
+  setRoleOnSession(role) {
+    var that = this;
+    $.ajax({
+      type: 'POST',
+      url: '/account/role',
+      data: {
+        role: role,
+        authenticity_token: $('meta[name=csrf-token]').attr('content')
+      },
+      success: function () {
+          window.location = `/sign-up/${role}`;
+      },
+      error: this.setRoleOnSessionError
+    });
+  }
+
   render () {
     return (
       <div className='container account-form' id='sign-up'>
@@ -14,13 +49,13 @@ class SelectUserType extends Component {
               </h3>
             </div>
             <div className='option-wrapper'>
-              <Link to="/sign-up/teacher">
-                <button className='button-green'>
+              <Link to="#">
+                <button onClick={this.setTeacherRoleOnSession} className='button-green'>
                   Educator
                 </button>
               </Link>
-              <Link to="/sign-up/student">
-                <button className='button-green'>
+              <Link to="#">
+                <button onClick={this.setStudentRoleOnSession} className='button-green'>
                   Student
                 </button>
               </Link>
