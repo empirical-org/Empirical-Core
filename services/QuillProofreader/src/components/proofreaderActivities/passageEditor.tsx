@@ -230,10 +230,8 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
     let previousInline = change.moveBackward(1).value.inlines.first()
     while (!previousInline || (startInline && previousInline.text === startInline.text)) {
       previousInline = change.moveBackward(1).value.inlines.first()
-      console.log('previousInline in else', previousInline)
     }
     const text = previousInline.text
-    console.log('the text now', text)
     if (text.substr(text.length - 1) !== ' ') {
       event.preventDefault()
       change.moveToRangeOfNode(previousInline).insertText(previousInline.text + event.key)
@@ -257,24 +255,18 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
 
     if (event.key === 'Backspace') {
       const deletion = change.value.history.undos.first().find(operation => operation.type === 'remove_text')
-      console.log('deletion', deletion)
-      console.log('focus Offset', originalSelection.focus.offset)
-      console.log('anchor Offset', originalSelection.anchor.offset)
       previousInline = change.moveBackward(1).value.inlines.first()
       if (deletion && deletion.text === ' ' && originalSelection.focus.offset === 0 && originalSelection.anchor.offset === 0) {
         while (!previousInline || previousInline.text === startInline.text) {
           previousInline = change.moveBackward(1).value.startInline
-          console.log('previousInline in if', previousInline)
         }
       }
     } else {
       previousInline = change.moveBackward(1).value.inlines.first()
       while (!previousInline || (startInline && previousInline.text === startInline.text)) {
         previousInline = change.moveBackward(1).value.inlines.first()
-        console.log('previousInline in else', previousInline)
       }
       const text = previousInline.text
-      console.log('the text now', text)
       if (text.substr(text.length - 1) === ' ') {
         previousInline = null
       }
@@ -284,9 +276,8 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
       currentInline = previousInline
     }
 
-    // console.log('previousInline', previousInline)
-    if (previousInline) console.log('previousInline text', previousInline.text)
-    if (startInline) console.log('startInline text', startInline.text)
+    // if (previousInline) console.log('previousInline text', previousInline.text)
+    // if (startInline) console.log('startInline text', startInline.text)
 
     if (currentInline && currentInline.nodes) {
       const dataOriginalIndex = currentInline.data.get('dataOriginalIndex')
@@ -299,12 +290,10 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
       const lastCharacterIsSpace = newText.substr(newText.length - 1) === ' '
 
       if (lastCharacterIsSpace) {
-        console.log('end got moved backward')
         node.moveFocusBackward(1)
       }
 
       if (newText.substr(0, 1) === ' ') {
-        console.log('start got moved forward')
         node.moveAnchorForward(1)
       }
 
