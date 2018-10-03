@@ -388,7 +388,7 @@ EmpiricalGrammar::Application.routes.draw do
     post :role, on: :member
   end
   get '/sign-up/teacher', to: 'accounts#new'
-  #get '/sign-up/student', to: 'accounts#new'
+  get '/sign-up/student', to: 'accounts#new'
   get '/sign-up/pick-school-type', to: 'accounts#new'
   get '/sign-up/add-k12', to: 'accounts#new'
 
