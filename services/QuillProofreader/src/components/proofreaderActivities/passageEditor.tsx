@@ -217,6 +217,32 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
     this.setState({text: value}, () => this.props.handleTextChange(html.serialize(this.state.text)))
   }
 
+  onKeyDown(event, change, editor) {
+    if (['ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown', 'Backspace'].includes(event.key)) return
+
+    const { value } = change
+    let originalSelection = value.selection
+
+    if (event.key === ' ' && originalSelection.focus.offset !== originalSelection.anchor.offset) return
+
+    const { startInline } = value
+    let currentInline = startInline
+    let previousInline = change.moveBackward(1).value.inlines.first()
+    while (!previousInline || (startInline && previousInline.text === startInline.text)) {
+      previousInline = change.moveBackward(1).value.inlines.first()
+      console.log('previousInline in else', previousInline)
+    }
+    const text = previousInline.text
+    console.log('the text now', text)
+    if (text.substr(text.length - 1) !== ' ') {
+      event.preventDefault()
+      change.moveToRangeOfNode(previousInline).insertText(previousInline.text + event.key)
+    }
+    return change
+    .setAnchor(originalSelection.anchor)
+    .setFocus(originalSelection.focus)
+  }
+
   onKeyUp(event, change, editor) {
     if (['ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown'].includes(event.key)) return
 
@@ -249,9 +275,9 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
       }
       const text = previousInline.text
       console.log('the text now', text)
-      // if (text.substr(text.length - 1) === ' ') {
-      //   previousInline = null
-      // }
+      if (text.substr(text.length - 1) === ' ') {
+        previousInline = null
+      }
     }
 
     if (previousInline) {
@@ -277,7 +303,7 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
         node.moveFocusBackward(1)
       }
 
-      if (newText.substr(0) === ' ') {
+      if (newText.substr(0, 1) === ' ') {
         console.log('start got moved forward')
         node.moveAnchorForward(1)
       }
@@ -358,6 +384,7 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
           renderNode={this.renderNode}
           renderMark={this.renderMark}
           onKeyUp={this.onKeyUp}
+          onKeyDown={this.onKeyDown}
           spellCheck={false}
         />)
     } else {
