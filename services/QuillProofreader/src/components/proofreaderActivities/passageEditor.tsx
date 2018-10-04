@@ -218,14 +218,23 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
   }
 
   onKeyDown(event, change, editor) {
-    if (['ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown', 'Backspace', 'Shift', 'MetaShift'].includes(event.key)) return
+    if (['ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown', 'Backspace', 'Shift', 'MetaShift', 'Meta'].includes(event.key)) return
 
     const { value } = change
     const originalSelection = value.selection
+    const { startInline } = value
+    console.log('keydown startinline', startInline)
+    if (startInline) console.log(startInline.text.length)
+    console.log('focus offset', originalSelection.focus.offset)
+    console.log('anchor offset', originalSelection.anchor.offset)
 
-    if (event.key === ' ' && originalSelection.focus.offset !== originalSelection.anchor.offset) return
+    if (startInline && event.key === ' ' && originalSelection.focus.offset === startInline.text.length && originalSelection.anchor.offset === startInline.text.length) {
+      event.preventDefault()
+      console.log('is this happening')
+      change.moveToEndOfNode(startInline).insertText(' ')
+    }
+
     if (originalSelection.focus.offset === 0 || originalSelection.anchor.offset === 0) {
-      const { startInline } = value
       let previousInline = change.moveBackward(1).value.inlines.first()
       while (!previousInline || (startInline && previousInline.text === startInline.text)) {
         previousInline = change.moveBackward(1).value.inlines.first()
@@ -255,22 +264,26 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
     let currentInline = startInline
     let previousInline
 
-    if (event.key === 'Backspace') {
-      const deletion = change.value.history.undos.first().find(operation => operation.type === 'remove_text')
-      previousInline = change.moveBackward(1).value.inlines.first()
-      if (deletion && deletion.text === ' ' && originalSelection.focus.offset === 0 && originalSelection.anchor.offset === 0) {
-        while (!previousInline || startInline && previousInline.text === startInline.text) {
-          previousInline = change.moveBackward(1).value.startInline
-        }
-      }
-    } else {
-      previousInline = change.moveBackward(1).value.inlines.first()
-      while (!previousInline || (startInline && previousInline.text === startInline.text)) {
+    // don't try to find a previous inline if you've edited the first one
+    if (startInline && startInline.data.get('dataOriginalIndex') !== '0') {
+      if (event.key === 'Backspace') {
+        const deletion = change.value.history.undos.first().find(operation => operation.type === 'remove_text')
         previousInline = change.moveBackward(1).value.inlines.first()
-      }
-      const text = previousInline.text
-      if (text.substr(text.length - 1) === ' ') {
-        previousInline = null
+        if (deletion && originalSelection.focus.offset === 0 && originalSelection.anchor.offset === 0) {
+          while (!previousInline || startInline && previousInline.text === startInline.text) {
+            previousInline = change.moveBackward(1).value.startInline
+          }
+        }
+        console.log('previousInline', previousInline)
+      } else {
+        previousInline = change.moveBackward(1).value.inlines.first()
+        while (!previousInline || (startInline && previousInline.text === startInline.text)) {
+          previousInline = change.moveBackward(1).value.inlines.first()
+        }
+        const text = previousInline.text
+        if (text.substr(text.length - 1) === ' ') {
+          previousInline = null
+        }
       }
     }
 
@@ -278,10 +291,14 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
       currentInline = previousInline
     }
 
+    console.log('event key', event.key)
+    console.log('currentInline', currentInline)
+
     // if (previousInline) console.log('previousInline text', previousInline.text)
     // if (startInline) console.log('startInline text', startInline.text)
 
     if (currentInline && currentInline.nodes) {
+      console.log('current inline')
       const dataOriginalIndex = currentInline.data.get('dataOriginalIndex')
       const originalText = this.state.originalTextArray[dataOriginalIndex]
       const newText = currentInline.text
@@ -293,12 +310,13 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
 
       if (lastCharacterIsSpace) {
         console.log('moving end backward')
-        node.moveEndBackward(1)
+        node = node.moveFocusBackward(1)
+        console.log('node', node)
       }
 
       if (newText.substr(0, 1) === ' ') {
         console.log('moving anchor forward')
-        node.moveAnchorForward(1)
+        node = node.moveAnchorForward(1)
       }
 
       if (this.state.indicesOfUTags[dataOriginalIndex] || this.state.indicesOfUTags[dataOriginalIndex] === 0) {
@@ -315,26 +333,18 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
           .setFocus(originalSelection.focus)
         }
       } else {
-        console.log('adding mark')
-        // if (normalizedAndTrimmedNewText.length === 0) {
-        //   node
-        //   .addMark('bold')
-        //   .setAnchor(originalSelection.anchor)
-        //   .setFocus(originalSelection.focus)
-        // } else {
-          node
-          .addMark('bold')
-          .setAnchor(originalSelection.anchor)
-          .setFocus(originalSelection.focus)
-        // }
+        node
+        .addMark('bold')
+        .setAnchor(originalSelection.anchor)
+        .setFocus(originalSelection.focus)
       }
 
     } else {
+      console.log('no start inline')
       const nextInline = change.moveEndForward(1).value.endInline
       const previousInline = change.moveStartBackward(1).value.startInline
       if (nextInline || previousInline) {
         if (nextInline) {
-          console.log('nextINline')
           const dataOriginalIndex = nextInline.data.get('dataOriginalIndex')
           const originalNextInlineText = this.state.originalTextArray[dataOriginalIndex]
           if (this.state.indicesOfUTags[dataOriginalIndex] || this.state.indicesOfUTags[dataOriginalIndex] === 0) {
@@ -342,14 +352,26 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
             let node = change
             .setAnchor(originalSelection.anchor)
             .setFocus(originalSelection.focus)
-            .addMark({type: 'underline', data: {id}})
+
+            const newText = nextInline.text
+
+            const lastCharacterIsSpace = newText.substr(newText.length - 1) === ' '
+
+            if (lastCharacterIsSpace) {
+              node = node.moveFocusBackward(1)
+            }
+
+            if (newText.substr(0, 1) === ' ') {
+              node = node.moveAnchorForward(1)
+            }
+
+            node.addMark({type: 'underline', data: {id}})
             if (stringNormalize(nextInline.text).trim() !== stringNormalize(originalNextInlineText).trim()) {
-              node.addMark('bold')
+              node.addMark('bold').setAnchor(originalSelection.anchor).setFocus(originalSelection.focus)
             }
           }
         }
         if (previousInline) {
-          console.log('previousInline')
           const dataOriginalIndex = previousInline.data.get('dataOriginalIndex')
           const originalPreviousInlineText = this.state.originalTextArray[dataOriginalIndex]
           if (this.state.indicesOfUTags[dataOriginalIndex] || this.state.indicesOfUTags[dataOriginalIndex] === 0) {
@@ -357,9 +379,22 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
             let node = change
             .setAnchor(originalSelection.anchor)
             .setFocus(originalSelection.focus)
-            .addMark({type: 'underline', data: {id}})
+
+            const newText = previousInline.text
+
+            const lastCharacterIsSpace = newText.substr(newText.length - 1) === ' '
+
+            if (lastCharacterIsSpace) {
+              node = node.moveFocusBackward(1)
+            }
+
+            if (newText.substr(0, 1) === ' ') {
+              node = node.moveAnchorForward(1)
+            }
+
+            node.addMark({type: 'underline', data: {id}})
             if (stringNormalize(previousInline.text).trim() !== stringNormalize(originalPreviousInlineText).trim()) {
-              node.addMark('bold')
+              node.addMark('bold').setAnchor(originalSelection.anchor).setFocus(originalSelection.focus)
             }
           }
         }

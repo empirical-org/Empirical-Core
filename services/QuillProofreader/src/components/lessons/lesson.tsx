@@ -37,6 +37,10 @@ class Lesson extends React.Component<LessonProps> {
     this.renderEditLessonForm = this.renderEditLessonForm.bind(this)
   }
 
+  componentDidMount() {
+    window.scrollTo(0, 0)
+  }
+
   questionsForLesson(): Array<Question>|void {
     const { data, } = this.props.lessons
     const { lessonID, } = this.props.match.params
