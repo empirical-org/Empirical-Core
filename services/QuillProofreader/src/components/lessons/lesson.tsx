@@ -163,6 +163,7 @@ class Lesson extends React.Component<LessonProps> {
           <p className="control">
             <button className="button is-info" onClick={this.editLesson}>Edit Activity</button> <button className="button is-danger" onClick={this.deleteLesson}>Delete Activity</button>
           </p>
+          <p style={{marginTop: '50px'}}>Note: the activity below functions exactly like the real activity, except that you won't be directed to a results page or to a Grammar activity upon finishing the review. Instead, the activity will reset.</p>
           {this.renderActivity()}
         </div>
       );
