@@ -21,8 +21,9 @@
   }
   .instructions {
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     display: flex;
+    margin-top: 10px;
     margin-right: 2.35765%;
     img {
       width: 4%;
@@ -33,13 +34,14 @@
     }
     div {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
     }
     .edits-made {
       flex-direction: column;
       max-width: 200px;
       width: 100%;
       align-items: flex-end;
+      margin-left: 10px;
       p {
         font-size: 12px;
       }

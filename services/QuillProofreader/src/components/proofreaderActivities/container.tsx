@@ -377,14 +377,14 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
           if (necessaryEdits && necessaryEdits[id]) {
             const conceptUID = necessaryEdits[id].match(conceptUIDRegex) ? necessaryEdits[id].match(conceptUIDRegex)[1] : ''
             const originalText = necessaryEdits[id].match(originalTextRegex) ? necessaryEdits[id].match(originalTextRegex)[1] : ''
-            conceptResultsObjects.push({
+             conceptResultsObjects.push({
               metadata: {
                 answer: text,
                 correct: 0,
                 instructions: currentActivity.description,
                 prompt: originalText,
                 questionNumber: id + 1,
-                unchanged: false,
+                unchanged: true,
               },
               concept_uid: conceptUID,
               question_type: "passage-proofreader"
@@ -499,7 +499,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
               <div className="instructions">
                 <div>
                   <img src={questionIconSrc} />
-                  <div dangerouslySetInnerHTML={{__html: currentActivity.description}}/>
+                  <p dangerouslySetInnerHTML={{__html: currentActivity.description}}/>
                 </div>
                 <div className="edits-made">
                   <p>Edits Made: {edits.length} of {numberOfCorrectEdits}</p>
