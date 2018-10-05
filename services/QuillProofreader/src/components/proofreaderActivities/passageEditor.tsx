@@ -223,7 +223,8 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
     const { value } = change
     const originalSelection = value.selection
     const { startInline } = value
-    if (startInline) console.log(startInline.text.length)
+
+    if (!startInline) return
 
     if (startInline && event.key === ' ' && originalSelection.focus.offset === startInline.text.length && originalSelection.anchor.offset === startInline.text.length) {
       event.preventDefault()
@@ -275,6 +276,8 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
         if (startBlock.key !== change.value.startBlock.key) {
           previousInline = null
         }
+        console.log('startINline')
+        console.log('previous Inline a', previousInline)
       } else {
         previousInline = change.moveBackward(1).value.inlines.first()
         while (!previousInline || (startInline && previousInline.text === startInline.text)) {
@@ -284,6 +287,8 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
         if (text.substr(text.length - 1) === ' ' || startBlock.key !== change.value.startBlock.key) {
           previousInline = null
         }
+        console.log('startINline')
+        console.log('previous Inline b', previousInline)
       }
     }
 
@@ -306,10 +311,12 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
       const lastCharacterIsSpace = newText.substr(newText.length - 1) === ' '
 
       if (lastCharacterIsSpace) {
+        console.log('last character is space')
         node = node.moveFocusBackward(1)
       }
 
       if (newText.substr(0, 1) === ' ') {
+        console.log('first character is space')
         node = node.moveAnchorForward(1)
       }
 
@@ -320,12 +327,14 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
 
       if (normalizedAndTrimmedNewText === stringNormalize(originalText).trim()) {
         if (event.key !== ' ' || (originalSelection.focus.offset !== 0 && originalSelection.anchor.offset !== 0)) {
+          console.log('removing mark')
           node
           .removeMark('bold')
           .setAnchor(originalSelection.anchor)
           .setFocus(originalSelection.focus)
         }
       } else {
+        console.log('adding mark')
         node
         .addMark('bold')
         .setAnchor(originalSelection.anchor)
@@ -348,19 +357,23 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
             const newText = nextInline.text
 
             const lastCharacterIsSpace = newText.substr(newText.length - 1) === ' '
-
+            console.log('a')
             if (lastCharacterIsSpace) {
+              console.log('b')
               node = node.moveFocusBackward(1)
             }
 
             if (newText.substr(0, 1) === ' ') {
+              console.log('c')
               node = node.moveAnchorForward(1)
             }
 
             node.addMark({type: 'underline', data: {id}})
             if (stringNormalize(nextInline.text).trim() !== stringNormalize(originalNextInlineText).trim()) {
-              node.addMark('bold').setAnchor(originalSelection.anchor).setFocus(originalSelection.focus)
+              console.log('d')
+              node.addMark('bold')
             }
+            return node.setAnchor(originalSelection.anchor).setFocus(originalSelection.focus)
           }
         }
         if (previousInline) {
@@ -372,22 +385,29 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
             .setAnchor(originalSelection.anchor)
             .setFocus(originalSelection.focus)
 
+            console.log('e')
+
             const newText = previousInline.text
 
             const lastCharacterIsSpace = newText.substr(newText.length - 1) === ' '
 
             if (lastCharacterIsSpace) {
+              console.log('f')
               node = node.moveFocusBackward(1)
             }
 
             if (newText.substr(0, 1) === ' ') {
+              console.log('g')
               node = node.moveAnchorForward(1)
             }
 
             node.addMark({type: 'underline', data: {id}})
             if (stringNormalize(previousInline.text).trim() !== stringNormalize(originalPreviousInlineText).trim()) {
-              node.addMark('bold').setAnchor(originalSelection.anchor).setFocus(originalSelection.focus)
+              console.log('h')
+              node.addMark('bold')
             }
+
+            return node.setAnchor(originalSelection.anchor).setFocus(originalSelection.focus)
           }
         }
       } else {
@@ -396,6 +416,7 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
         .setFocus(originalSelection.focus)
       }
     }
+    change.setAnchor(originalSelection.anchor).setFocus(originalSelection.focus)
   }
 
   render() {
