@@ -218,29 +218,28 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
   }
 
   onKeyDown(event, change, editor) {
-    if (['ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown', 'Backspace', 'Shift', 'MetaShift', 'Meta'].includes(event.key)) return
+    if (['ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown', 'Backspace', 'Shift', 'MetaShift', 'Meta', 'Enter'].includes(event.key)) return
 
     const { value } = change
     const originalSelection = value.selection
     const { startInline } = value
-    console.log('keydown startinline', startInline)
     if (startInline) console.log(startInline.text.length)
-    console.log('focus offset', originalSelection.focus.offset)
-    console.log('anchor offset', originalSelection.anchor.offset)
 
     if (startInline && event.key === ' ' && originalSelection.focus.offset === startInline.text.length && originalSelection.anchor.offset === startInline.text.length) {
       event.preventDefault()
-      console.log('is this happening')
       change.moveToEndOfNode(startInline).insertText(' ')
     }
 
+    if (startInline.data.get('dataOriginalIndex') === '0') return
+
     if (originalSelection.focus.offset === 0 || originalSelection.anchor.offset === 0) {
+      const { startBlock } = change.value
       let previousInline = change.moveBackward(1).value.inlines.first()
       while (!previousInline || (startInline && previousInline.text === startInline.text)) {
         previousInline = change.moveBackward(1).value.inlines.first()
       }
       const text = previousInline.text
-      if (text.substr(text.length - 1) !== ' ') {
+      if (text.substr(text.length - 1) !== ' ' && (startBlock.key === change.value.startBlock.key)) {
         event.preventDefault()
         change.moveToRangeOfNode(previousInline).insertText(previousInline.text + event.key)
       }
@@ -252,7 +251,6 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
   }
 
   onKeyUp(event, change, editor) {
-    console.log('__________')
     if (['ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown'].includes(event.key)) return
 
     const { value } = change
@@ -260,7 +258,7 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
 
     if (event.key === ' ' && originalSelection.focus.offset !== originalSelection.anchor.offset) return
 
-    const { startInline } = value
+    const { startInline, startBlock } = value
     let currentInline = startInline
     let previousInline
 
@@ -274,14 +272,16 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
             previousInline = change.moveBackward(1).value.startInline
           }
         }
-        console.log('previousInline', previousInline)
+        if (startBlock.key !== change.value.startBlock.key) {
+          previousInline = null
+        }
       } else {
         previousInline = change.moveBackward(1).value.inlines.first()
         while (!previousInline || (startInline && previousInline.text === startInline.text)) {
           previousInline = change.moveBackward(1).value.inlines.first()
         }
         const text = previousInline.text
-        if (text.substr(text.length - 1) === ' ') {
+        if (text.substr(text.length - 1) === ' ' || startBlock.key !== change.value.startBlock.key) {
           previousInline = null
         }
       }
@@ -291,14 +291,11 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
       currentInline = previousInline
     }
 
-    console.log('event key', event.key)
-    console.log('currentInline', currentInline)
 
     // if (previousInline) console.log('previousInline text', previousInline.text)
     // if (startInline) console.log('startInline text', startInline.text)
 
     if (currentInline && currentInline.nodes) {
-      console.log('current inline')
       const dataOriginalIndex = currentInline.data.get('dataOriginalIndex')
       const originalText = this.state.originalTextArray[dataOriginalIndex]
       const newText = currentInline.text
@@ -309,13 +306,10 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
       const lastCharacterIsSpace = newText.substr(newText.length - 1) === ' '
 
       if (lastCharacterIsSpace) {
-        console.log('moving end backward')
         node = node.moveFocusBackward(1)
-        console.log('node', node)
       }
 
       if (newText.substr(0, 1) === ' ') {
-        console.log('moving anchor forward')
         node = node.moveAnchorForward(1)
       }
 
@@ -326,7 +320,6 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
 
       if (normalizedAndTrimmedNewText === stringNormalize(originalText).trim()) {
         if (event.key !== ' ' || (originalSelection.focus.offset !== 0 && originalSelection.anchor.offset !== 0)) {
-          console.log('removing mark')
           node
           .removeMark('bold')
           .setAnchor(originalSelection.anchor)
@@ -340,7 +333,6 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
       }
 
     } else {
-      console.log('no start inline')
       const nextInline = change.moveEndForward(1).value.endInline
       const previousInline = change.moveStartBackward(1).value.startInline
       if (nextInline || previousInline) {
@@ -399,7 +391,6 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
           }
         }
       } else {
-        console.log('else')
         change.addMark('bold')
         .setAnchor(originalSelection.anchor)
         .setFocus(originalSelection.focus)

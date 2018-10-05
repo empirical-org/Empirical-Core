@@ -77,6 +77,12 @@
     p {
       margin-bottom: 10px;
     }
+    ul {
+      list-style: disc;
+    }
+    li {
+      margin-left: 20px;
+    }
   }
 
   .ql-editor:focus {
@@ -86,9 +92,9 @@
   .passage {
     background-color: white;
     padding: 30px 60px;
-    // u {
-    //   text-decoration: none;
-    // }
+    u {
+      text-decoration: none;
+    }
   }
 
   .passage.underline-errors {
