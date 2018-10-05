@@ -187,6 +187,9 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       // regex below matches case that looks like this: <strong><u id="3">Addison</u></strong><strong>,</strong><strong><u id="3"> Parker, and Julian,</u></strong>
       const tripleStrongTagWithTwoMatchingURegex = /<strong>(<u id="\d+">)([^(<]+?)<\/u><\/strong><strong>([^(<]+?)<\/strong><strong>(<u id="\d+">)([^(<]+?)<\/u><\/strong>/gm
 
+      // regex below matches case that looks like this: <strong><u id="5"> </u></strong><strong><u id="5"></u></strong><u id="5">these?"</u>
+      const doubleStrongTagWithThreeMatchingURegex = /<strong>(<u id="\d+">)([^(<]*?)<\/u><\/strong><strong>(<u id="\d+">)([^(<]*?)<\/u><\/strong>(<u id="\d+">)([^(<]*?)<\/u>/
+
       // regex below matches case that looks like this: <strong><u id="3"><u id="3">shows.</u></u></strong><strong><u id="3"> </u></strong>
       const doubleStrongTagWithThreeMatchingNestedUOnFirstTagRegex = /<strong>(<u id="\d+">)(<u id="\d+">)([^(<]+?)<\/u><\/u><\/strong><strong>(<u id="\d+">)([^(<]+?)<\/u><\/strong>/gm
 
@@ -241,6 +244,16 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
         string = string.replace(doubleStrongTagWithThreeMatchingNestedUOnFirstTagRegex, (key, uTagA, uTagB, contentA, uTagC, contentB) => {
           if (uTagA === uTagB && uTagB === uTagC) {
             return `<strong>${uTagA}${contentA}${contentB}</u></strong>`
+          } else {
+            return key
+          }
+        })
+      }
+
+      if (doubleStrongTagWithThreeMatchingURegex.test(string)) {
+        string = string.replace(doubleStrongTagWithThreeMatchingURegex, (key, uTagA, contentA, uTagB, contentB, uTagC, contentC) => {
+          if (uTagA === uTagB && uTagB === uTagC) {
+            return `<strong>${uTagA}${contentA}${contentB}${contentC}</u></strong>`
           } else {
             return key
           }
@@ -377,19 +390,36 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
           if (necessaryEdits && necessaryEdits[id]) {
             const conceptUID = necessaryEdits[id].match(conceptUIDRegex) ? necessaryEdits[id].match(conceptUIDRegex)[1] : ''
             const originalText = necessaryEdits[id].match(originalTextRegex) ? necessaryEdits[id].match(originalTextRegex)[1] : ''
-             conceptResultsObjects.push({
-              metadata: {
-                answer: text,
-                correct: 0,
-                instructions: currentActivity.description,
-                prompt: originalText,
-                questionNumber: id + 1,
-                unchanged: true,
-              },
-              concept_uid: conceptUID,
-              question_type: "passage-proofreader"
-            })
-            return necessaryEdits[id]
+            const correctEdit = necessaryEdits[id].match(correctEditRegex) ? stringNormalize(necessaryEdits[id].match(correctEditRegex)[1]).replace(/&#x27;/g, "'") : ''
+            if (correctEdit.split('~').includes(text)) {
+              conceptResultsObjects.push({
+                metadata: {
+                  answer: text,
+                  correct: 1,
+                  instructions: currentActivity.description,
+                  prompt: originalText,
+                  questionNumber: id + 1,
+                  unchanged: true,
+                },
+                concept_uid: conceptUID,
+                question_type: "passage-proofreader"
+              })
+              return `{+${text}-|${conceptUID}}`
+            } else {
+              conceptResultsObjects.push({
+                metadata: {
+                  answer: text,
+                  correct: 0,
+                  instructions: currentActivity.description,
+                  prompt: originalText,
+                  questionNumber: id + 1,
+                  unchanged: true,
+                },
+                concept_uid: conceptUID,
+                question_type: "passage-proofreader"
+              })
+              return necessaryEdits[id]
+            }
           } else {
             return `${text} `
           }
