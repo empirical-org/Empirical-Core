@@ -1,5 +1,8 @@
 class ProgressReports::RealTime
   def self.results(student_ids)
+    if student_ids.empty?
+      student_ids = [0] # cannot do where in () in pg
+    end
     ids = student_ids.join(', ')
     ActiveRecord::Base.connection.execute(query(ids)).to_a
   end
