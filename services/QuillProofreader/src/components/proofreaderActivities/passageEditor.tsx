@@ -132,7 +132,7 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
     const extraPTagStrippedText = brStrippedText.replace(/^<p>/, '').replace(/<\/p>$/, '')
     const uTags = extraPTagStrippedText.match(/<u.+?<\/u>/gm)
     const punctuationRegex = /^[.,:;]/
-    const beginningOfParagraphRegex = /<p>$/
+    const beginningOfSomething = /(<p>|“)$/
     const originalTextArray: Array<string> = []
     let spannedText = ''
     let index = 0
@@ -146,7 +146,7 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
         const trimmedNextWord = words[wordIndex + 1] ? this.trimWord(words[wordIndex + 1]) : ''
         if (trimmedWord.length) {
           // don't add a space after the  word if the next word starts with punctuation
-          if (punctuationRegex.test(trimmedNextWord) || beginningOfParagraphRegex.test(trimmedWord)) {
+          if (punctuationRegex.test(trimmedNextWord) || beginningOfSomething.test(trimmedWord)) {
             spannedText += `<span data-original-index=${index}>${trimmedWord}</span>`
           } else {
             spannedText += `<span data-original-index=${index}>${trimmedWord} </span>`
@@ -175,7 +175,7 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
     return { paragraphWrappedText: /^<p>/.test(spannedText) ? spannedText : `<p>${spannedText}</p>`, originalTextArray, indicesOfUTags }
   }
 
-  renderNode = (args) => {
+  renderNode = (args: any) => {
     switch (args.node.type) {
       case 'code':
         return (
@@ -197,7 +197,7 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
   }
 ​
 // Add a `renderMark` method to render marks.
-  renderMark = (args) => {
+  renderMark = (args: any) => {
     const { mark, attributes } = args
     switch (mark.type) {
       case 'bold':
@@ -213,11 +213,11 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
     }
   }
 
-  handleTextChange({value}) {
+  handleTextChange({value}: any) {
     this.setState({text: value}, () => this.props.handleTextChange(html.serialize(this.state.text)))
   }
 
-  onKeyDown(event, change, editor) {
+  onKeyDown(event: any, change: any, editor: any) {
     if (['ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown', 'Backspace', 'Shift', 'MetaShift', 'Meta', 'Enter'].includes(event.key)) return
 
     const { value } = change
@@ -251,7 +251,7 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
     .setFocus(originalSelection.focus)
   }
 
-  onKeyUp(event, change, editor) {
+  onKeyUp(event: any, change: any, editor: any) {
     if (['ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown'].includes(event.key)) return
 
     const { value } = change
@@ -266,18 +266,17 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
     // don't try to find a previous inline if you've edited the first one
     if (startInline && startInline.data.get('dataOriginalIndex') !== '0') {
       if (event.key === 'Backspace') {
-        const deletion = change.value.history.undos.first().find(operation => operation.type === 'remove_text')
+        const deletion = change.value.history.undos.first().find(operation: any => operation.type === 'remove_text')
         previousInline = change.moveBackward(1).value.inlines.first()
         if (deletion && originalSelection.focus.offset === 0 && originalSelection.anchor.offset === 0) {
           while (!previousInline || startInline && previousInline.text === startInline.text) {
             previousInline = change.moveBackward(1).value.startInline
           }
         }
-        if (startBlock.key !== change.value.startBlock.key) {
+        const text = previousInline.text
+        if (text.substr(text.length - 1) === ' ' || startBlock.key !== change.value.startBlock.key) {
           previousInline = null
         }
-        console.log('startINline')
-        console.log('previous Inline a', previousInline)
       } else {
         previousInline = change.moveBackward(1).value.inlines.first()
         while (!previousInline || (startInline && previousInline.text === startInline.text)) {
@@ -287,8 +286,6 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
         if (text.substr(text.length - 1) === ' ' || startBlock.key !== change.value.startBlock.key) {
           previousInline = null
         }
-        console.log('startINline')
-        console.log('previous Inline b', previousInline)
       }
     }
 
@@ -311,12 +308,10 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
       const lastCharacterIsSpace = newText.substr(newText.length - 1) === ' '
 
       if (lastCharacterIsSpace) {
-        console.log('last character is space')
         node = node.moveFocusBackward(1)
       }
 
       if (newText.substr(0, 1) === ' ') {
-        console.log('first character is space')
         node = node.moveAnchorForward(1)
       }
 
@@ -327,18 +322,16 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
 
       if (normalizedAndTrimmedNewText === stringNormalize(originalText).trim()) {
         if (event.key !== ' ' || (originalSelection.focus.offset !== 0 && originalSelection.anchor.offset !== 0)) {
-          console.log('removing mark')
           node
           .removeMark('bold')
-          .setAnchor(originalSelection.anchor)
-          .setFocus(originalSelection.focus)
+          // .setAnchor(originalSelection.anchor)
+          // .setFocus(originalSelection.focus)
         }
       } else {
-        console.log('adding mark')
         node
         .addMark('bold')
-        .setAnchor(originalSelection.anchor)
-        .setFocus(originalSelection.focus)
+        // .setAnchor(originalSelection.anchor)
+        // .setFocus(originalSelection.focus)
       }
 
     } else {
@@ -357,23 +350,19 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
             const newText = nextInline.text
 
             const lastCharacterIsSpace = newText.substr(newText.length - 1) === ' '
-            console.log('a')
             if (lastCharacterIsSpace) {
-              console.log('b')
               node = node.moveFocusBackward(1)
             }
 
             if (newText.substr(0, 1) === ' ') {
-              console.log('c')
               node = node.moveAnchorForward(1)
             }
 
             node.addMark({type: 'underline', data: {id}})
             if (stringNormalize(nextInline.text).trim() !== stringNormalize(originalNextInlineText).trim()) {
-              console.log('d')
               node.addMark('bold')
             }
-            return node.setAnchor(originalSelection.anchor).setFocus(originalSelection.focus)
+            // return node.setAnchor(originalSelection.anchor).setFocus(originalSelection.focus)
           }
         }
         if (previousInline) {
@@ -385,35 +374,31 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
             .setAnchor(originalSelection.anchor)
             .setFocus(originalSelection.focus)
 
-            console.log('e')
 
             const newText = previousInline.text
 
             const lastCharacterIsSpace = newText.substr(newText.length - 1) === ' '
 
             if (lastCharacterIsSpace) {
-              console.log('f')
               node = node.moveFocusBackward(1)
             }
 
             if (newText.substr(0, 1) === ' ') {
-              console.log('g')
               node = node.moveAnchorForward(1)
             }
 
             node.addMark({type: 'underline', data: {id}})
             if (stringNormalize(previousInline.text).trim() !== stringNormalize(originalPreviousInlineText).trim()) {
-              console.log('h')
               node.addMark('bold')
             }
 
-            return node.setAnchor(originalSelection.anchor).setFocus(originalSelection.focus)
+            // return node.setAnchor(originalSelection.anchor).setFocus(originalSelection.focus)
           }
         }
       } else {
         change.addMark('bold')
-        .setAnchor(originalSelection.anchor)
-        .setFocus(originalSelection.focus)
+        // .setAnchor(originalSelection.anchor)
+        // .setFocus(originalSelection.focus)
       }
     }
     change.setAnchor(originalSelection.anchor).setFocus(originalSelection.focus)
