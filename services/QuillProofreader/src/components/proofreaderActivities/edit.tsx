@@ -23,6 +23,7 @@ export default class Edit extends React.Component<EditProps, any> {
 
     this.renderTooltip = this.renderTooltip.bind(this)
     this.renderGrammaticalConcept = this.renderGrammaticalConcept.bind(this)
+    this.renderCorrectAnswers = this.renderCorrectAnswers.bind(this)
   }
 
   renderGrammaticalConcept() {
@@ -35,11 +36,34 @@ export default class Edit extends React.Component<EditProps, any> {
     }
   }
 
+  renderCorrectAnswers() {
+    const { displayText } = this.props
+    const correctAnswerArray = displayText ? displayText.split('~') : []
+    let correctAnswers
+    let correctAnswerHTML
+    let labelText
+    if (correctAnswerArray.length > 1) {
+      correctAnswers = correctAnswerArray.map(ca => <li>{ca}</li>)
+      correctAnswerHTML = <ul>{correctAnswers}</ul>
+      labelText = 'Correct Edits'
+    } else {
+      correctAnswers = correctAnswerArray[0]
+      correctAnswerHTML = <p>{correctAnswers}</p>
+      labelText = 'Correct Edit'
+    }
+    return <div>
+      <p className="label">{labelText}</p>
+      {correctAnswerHTML}
+    </div>
+  }
+
+
   renderTooltip() {
     const { activeIndex, index, state, numberOfEdits, next, id } = this.props
     const visible = activeIndex === index ? 'visible' : 'invisible'
     const element = document.getElementById(id)
     const offset = element && ((window.innerWidth - element.offsetLeft) < 350) ? 'offset' : ''
+    const correctAnswers = this.props.displayText ? this.props.displayText.split('~') : ''
     let src, headerText
     switch (state) {
       case 'correct':
@@ -64,10 +88,7 @@ export default class Edit extends React.Component<EditProps, any> {
         <p>Edit {index + 1} of {numberOfEdits}</p>
       </div>
       <div className="middle-section">
-        <div>
-          <p className="label">Correct Edit:</p>
-          <p>{this.props.displayText}</p>
-        </div>
+        {this.renderCorrectAnswers()}
         {this.renderGrammaticalConcept()}
       </div>
       <div className="button-section">
