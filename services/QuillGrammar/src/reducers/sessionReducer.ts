@@ -11,9 +11,11 @@ export interface SessionState {
   error?: string;
 }
 
+type SessionAction = Action & { data: any, attempts: any, response: any, session: any }
+
 export default (
     currentState: SessionState = {hasreceiveddata: false, answeredQuestions: [], unansweredQuestions: [], currentQuestion: null},
-    action: Action,
+    action: SessionAction,
 ): SessionState => {
     let currentQuestion: Question|{}
     switch (action.type) {

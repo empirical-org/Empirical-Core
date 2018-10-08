@@ -39,7 +39,7 @@ class ChooseModelContainer extends React.Component<ChooseModelContainerProps, Ch
     this.removeModelConcept = this.removeModelConcept.bind(this);
   }
 
-  getModelConceptUID() {
+  getModelConceptUID(): string {
     const { questionID } = this.props.match.params
     const questionModelConceptUID = questionID ? this.props.questions.data[questionID].modelConceptUID : null
     return this.state.modelConceptUID || questionModelConceptUID;
