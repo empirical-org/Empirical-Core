@@ -20,6 +20,7 @@
   "author": "Quill.org",
   "license": "AGPL-3.0",
   "dependencies": {
+    "@types/enzyme-adapter-react-16": "^1.0.3",
     "@types/lodash": "^4.14.109",
     "@types/node": "^9.4.7",
     "@types/pusher-js": "^4.2.0",
@@ -32,6 +33,7 @@
     "@types/react-router-redux": "^5.0.15",
     "@types/react-select": "^2.0.2",
     "@types/request": "^2.47.0",
+    "@types/request-promise": "^4.1.42",
     "@types/underscore": "^1.8.9",
     "antd": "^3.3.1",
     "bulma": "^0.7.1",

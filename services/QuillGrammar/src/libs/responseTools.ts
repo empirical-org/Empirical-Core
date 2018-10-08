@@ -1,7 +1,9 @@
 import Levenshtein from 'levenshtein';
 import { Response } from 'quill-marking-logic'
 
-export function getStatusForResponse(response = {}) {
+type ResponseWithLevenshtein = Response & { levenshtein: any }
+
+export function getStatusForResponse(response: Response|{} = {}) {
   if (!response.feedback) {
     return 4;
   } else if (response.parent_id) {
@@ -18,7 +20,7 @@ export default function responsesWithStatus(responses = {}) {
   });
 }
 
-export function sortByLevenshteinAndOptimal(userString: string, responses: Response[]) {
+export function sortByLevenshteinAndOptimal(userString: string, responses: ResponseWithLevenshtein[]) {
   responses.forEach((res) => { res.levenshtein = new Levenshtein(res.text, userString).distance; });
   return responses.sort((a, b) => {
     if ((a.levenshtein - b.levenshtein) !== 0) {

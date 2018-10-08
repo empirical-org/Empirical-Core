@@ -1,5 +1,5 @@
-import React from 'react';
-import _ from 'underscore';
+import * as React from 'react';
+import * as _ from 'underscore';
 import * as questionActions from '../../actions/questions';
 import {
   Modal,
@@ -14,7 +14,6 @@ import ConceptSelectorWithCheckbox from '../shared/conceptSelectorWithCheckbox';
 import {
   deleteResponse,
   submitResponseEdit,
-  incrementResponseCount,
   updateConceptResults,
   getGradedResponsesWithCallback,
 } from '../../actions/responses';
@@ -22,10 +21,9 @@ import {
 import * as jsDiff from 'diff'
 import { ActionTypes } from '../../actions/actionTypes';
 
-const feedbackStrings = ActionTypes.FEEDBACK_STRINGS;
 
-export default class Response extends React.Component {
-  constructor(props) {
+export default class Response extends React.Component<any, any> {
+  constructor(props: any) {
     super(props)
 
     const response = this.props.response
