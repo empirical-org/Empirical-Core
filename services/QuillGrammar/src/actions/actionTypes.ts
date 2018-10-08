@@ -159,5 +159,3 @@ export const ActionTypes = {
 
 };
 //
-export interface IInitStoreAction extends Action {
-}

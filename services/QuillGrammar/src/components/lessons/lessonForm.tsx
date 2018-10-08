@@ -71,9 +71,9 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
   }
 
   changeConceptQuantity(conceptUid: string, e: React.ChangeEvent<{value: string}>) {
-    const number = e.target.value ? parseInt(e.target.value) : 0
+    const quantity = e.target.value ? Number(e.target.value) : 0
     const newSelectedConcepts = this.state.concepts;
-    newSelectedConcepts[conceptUid] = { quantity: number }
+    newSelectedConcepts[conceptUid] = { quantity }
     this.setState({ concepts: newSelectedConcepts, });
   }
 

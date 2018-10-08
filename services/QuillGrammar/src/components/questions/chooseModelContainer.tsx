@@ -68,7 +68,7 @@ class ChooseModelContainer extends React.Component<ChooseModelContainerProps, Ch
 
   renderButtons() {
     const { questionID } = this.props.match.params
-    const disabled = questionID && this.state.modelConceptUID == this.props.questions.data[questionID].modelConceptUID
+    const disabled = questionID && this.state.modelConceptUID === this.props.questions.data[questionID].modelConceptUID
     return(
       <p className="control">
         <button

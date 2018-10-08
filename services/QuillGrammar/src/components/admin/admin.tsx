@@ -21,7 +21,7 @@ interface PathParamsType {
 
 type AdminContainerProps = RouteComponentProps<PathParamsType> & { dispatch: Function }
 
-class adminContainer extends React.Component<AdminContainerProps> {
+class AdminContainer extends React.Component<AdminContainerProps> {
   constructor(props: AdminContainerProps) {
     super(props)
   }
@@ -86,4 +86,4 @@ function mergeProps(stateProps: Object, dispatchProps: Object, ownProps: Object)
   return {...ownProps, ...stateProps, ...dispatchProps}
 }
 
-export default withRouter(connect(select, dispatch => ({dispatch}), mergeProps)(adminContainer));
+export default withRouter(connect(select, dispatch => ({dispatch}), mergeProps)(AdminContainer));

@@ -1,5 +1,5 @@
 declare function require(name: string);
-const request = require('request-promise');
+import * as request from 'request-promise'
 import * as _ from 'underscore';
 import { hashToCollection } from 'quill-component-library/dist/componentLibrary';
 
@@ -165,9 +165,9 @@ function updateResponse(rid, content) {
 
 function determineDelta(response, newResponse) {
   const unmatched = !newResponse.response.author && !!response.author;
-  const parentIDChanged = (newResponse.response.parent_id ? parseInt(newResponse.response.parent_id) : null) !== response.parent_id;
-  const authorChanged = newResponse.response.author != response.author;
-  const feedbackChanged = newResponse.response.feedback != response.feedback;
+  const parentIDChanged = (newResponse.response.parent_id ? Number(newResponse.response.parent_id) : null) !== response.parent_id;
+  const authorChanged = newResponse.response.author !== response.author;
+  const feedbackChanged = newResponse.response.feedback !== response.feedback;
   const conceptResultsChanged = _.isEqual(convertResponsesArrayToHash(newResponse.response.concept_results), response.concept_results);
   const changed = parentIDChanged || authorChanged || feedbackChanged || conceptResultsChanged;
   // console.log(response.id, parentIDChanged, authorChanged, feedbackChanged, conceptResultsChanged);
@@ -245,10 +245,12 @@ function formatGradedResponses(jsonString): {[key: string]: Response} {
       resp.concept_results = JSON.parse(resp.concept_results);
     }
     for (const cr in resp.concept_results) {
-      const formatted_cr: any = {};
-      formatted_cr.conceptUID = cr;
-      formatted_cr.correct = resp.concept_results[cr];
-      resp.concept_results[cr] = formatted_cr;
+      if (resp.concept_results.hasOwnProperty(cr)) {
+        const formattedCr: any = {};
+        formattedCr.conceptUID = cr;
+        formattedCr.correct = resp.concept_results[cr];
+        resp.concept_results[cr] = formattedCr;
+      }
     }
     resp.conceptResults = resp.concept_results;
     delete resp.concept_results;
