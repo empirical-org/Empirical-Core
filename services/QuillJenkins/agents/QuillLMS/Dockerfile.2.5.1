@@ -19,7 +19,13 @@ RUN apt-get install -y autoconf \
   libyaml-dev libreadline6-dev git-core \
   zlib1g-dev libncurses5-dev curl \
   libffi-dev libgdbm3 libgdbm-dev \
-  postgresql-client-10 apt-transport-https
+  apt-transport-https
+
+RUN deb http://apt.postgresql.org/pub/repos/apt/ jessie-pgdg main
+
+RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -sudo apt-get update
+
+RUN apt-get install -y postgresql-client-10
 
 # Install Yarn 😻
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
