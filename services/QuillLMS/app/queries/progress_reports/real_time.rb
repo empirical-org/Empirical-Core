@@ -3,8 +3,15 @@ class ProgressReports::RealTime
     if student_ids.empty?
       student_ids = [0] # cannot do where in () in pg
     end
-    ids = student_ids.join(', ')
-    ActiveRecord::Base.connection.execute(query(ids)).to_a
+    ids = student_ids.join(',')
+    real_time_student_ids_json = $redis.get("REAL_TIME_STUDENT_#{ids}")
+    if real_time_student_ids_json.nil?
+      cache_life = 60*60*24*10 # => 10 days
+      real_time_student_ids_json = ActiveRecord::Base.connection.execute(self.query(ids)).to_json
+      $redis.set("REAL_TIME_STUDENT_#{ids}", real_time_student_ids_json)
+      $redis.expire("REAL_TIME_STUDENT_#{ids}", cache_life)
+    end
+    JSON.parse(real_time_student_ids_json)
   end
 
   private
