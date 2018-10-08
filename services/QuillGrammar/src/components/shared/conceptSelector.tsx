@@ -27,25 +27,25 @@ class ConceptSelector extends React.Component<ConceptSelectorProps> {
     this.handleSelectorChange = this.handleSelectorChange.bind(this)
   }
 
-  conceptsToOptions () {
+  conceptsToOptions() {
     let concepts = this.props.concepts.data[0];
-    if(this.props.onlyShowConceptsWithConceptFeedback) {
+    if (this.props.onlyShowConceptsWithConceptFeedback) {
       concepts = concepts.filter((concept: Concept) => {
         return Object.keys(this.props.conceptsFeedback.data).includes(concept.uid);
       });
     }
-    return concepts.sort((a, b) => a.displayName.localeCompare(b.displayName)).map(concept =>{
+    return concepts.sort((a, b) => a.displayName.localeCompare(b.displayName)).map(concept => {
       return (
         {label: concept.displayName, value: concept.uid, shortenedName: concept.name}
       )
     })
   }
 
-  currentConcept () {
+  currentConcept() {
     return this.props.concepts.data[0].find(c => c.uid === this.props.currentConceptUID)
   }
 
-  placeholder () {
+  placeholder() {
     const currentConcept = this.currentConcept()
     if (this.props.currentConceptUID && this.props.currentConceptUID.length > 0 && currentConcept) {
       return currentConcept.displayName
@@ -71,7 +71,7 @@ class ConceptSelector extends React.Component<ConceptSelectorProps> {
   }
 }
 
-function select (state) {
+function select(state) {
   return {
     concepts: state.concepts,
     conceptsFeedback: state.conceptsFeedback

@@ -1,4 +1,4 @@
-declare function require(name:string);
+declare function require(name: string);
 const request = require('request-promise');
 import * as _ from 'underscore';
 import { hashToCollection } from 'quill-component-library/dist/componentLibrary';
@@ -9,21 +9,21 @@ import objectWithSnakeKeysFromCamel from '../objectWithSnakeKeysFromCamel';
 
 interface Question {
   conceptID: string,
-  cues: Array<string>,
+  cues: string[],
   flag: string,
   focusPoints: FocusPoints,
-  incorrectSequences: Array<IncorrectSequence>,
+  incorrectSequences: IncorrectSequence[],
   instructions: string,
   itemLevel: string,
   prefilledText: string,
   prompt: string,
   key?: string,
-  wordCountChange?:object,
-  ignoreCaseAndPunc?:Boolean
+  wordCountChange?: object,
+  ignoreCaseAndPunc?: Boolean
 }
 
 interface FocusPoints {
-  [key:string]: FocusPoint
+  [key: string]: FocusPoint
 }
 
 interface FocusPoint {
@@ -39,7 +39,7 @@ interface IncorrectSequence {
 }
 
 interface ConceptResults {
-  [key:string]: ConceptResult
+  [key: string]: ConceptResult
 }
 
 // interface ConceptResult {
@@ -48,7 +48,7 @@ interface ConceptResults {
 //   name: string
 // }
 
-export function rematchAll(mode: string, question: Question, questionID: string, callback:Function) {
+export function rematchAll(mode: string, question: Question, questionID: string, callback: Function) {
   const matcher = getMatcher(mode);
   getGradedResponses(questionID).then((data) => {
     question.key = questionID
@@ -57,7 +57,7 @@ export function rematchAll(mode: string, question: Question, questionID: string,
   });
 }
 
-export function rematchOne(response: string, mode: string, question: Question, questionID: string, callback:Function) {
+export function rematchOne(response: string, mode: string, question: Question, questionID: string, callback: Function) {
   const matcher = getMatcher(mode);
   getGradedResponses(questionID).then((data) => {
     question.key = questionID
@@ -165,7 +165,7 @@ function updateResponse(rid, content) {
 
 function determineDelta(response, newResponse) {
   const unmatched = !newResponse.response.author && !!response.author;
-  const parentIDChanged = (newResponse.response.parent_id? parseInt(newResponse.response.parent_id) : null) !== response.parent_id;
+  const parentIDChanged = (newResponse.response.parent_id ? parseInt(newResponse.response.parent_id) : null) !== response.parent_id;
   const authorChanged = newResponse.response.author != response.author;
   const feedbackChanged = newResponse.response.feedback != response.feedback;
   const conceptResultsChanged = _.isEqual(convertResponsesArrayToHash(newResponse.response.concept_results), response.concept_results);
@@ -185,11 +185,11 @@ function saveResponses(responses) {
   return responses;
 }
 
-function getMatcher(mode:string):Function {
+function getMatcher(mode: string): Function {
   return checkGrammarQuestion;
 }
 
-function getMatcherFields(mode:string, question:Question, responses:{[key:string]: Response}) {
+function getMatcherFields(mode: string, question: Question, responses: {[key: string]: Response}) {
 
   const responseArray = hashToCollection(responses);
   const focusPoints = question.focusPoints ? hashToCollection(question.focusPoints) : [];
@@ -201,8 +201,8 @@ function getMatcherFields(mode:string, question:Question, responses:{[key:string
       question_uid: question.key,
       prompt: question.prompt,
       responses: responseArray,
-      focusPoints: focusPoints,
-      incorrectSequences: incorrectSequences,
+      focusPoints,
+      incorrectSequences,
       ignoreCaseAndPunc: question.ignoreCaseAndPunc,
       checkML: true,
       mlUrl: process.env.CMS_URL
@@ -215,7 +215,6 @@ function getMatcherFields(mode:string, question:Question, responses:{[key:string
     return [question.key, responseArray, focusPoints, incorrectSequences]
   }
 }
-
 
 function getResponseBody(pageNumber) {
   return {
@@ -238,7 +237,7 @@ function getGradedResponses(questionID) {
   return request(`https://cms.quill.org/questions/${questionID}/responses`);
 }
 
-function formatGradedResponses(jsonString):{[key:string]: Response} {
+function formatGradedResponses(jsonString): {[key: string]: Response} {
   const bodyToObj = {};
   JSON.parse(jsonString).forEach((resp) => {
     bodyToObj[resp.id] = resp;
@@ -246,7 +245,7 @@ function formatGradedResponses(jsonString):{[key:string]: Response} {
       resp.concept_results = JSON.parse(resp.concept_results);
     }
     for (const cr in resp.concept_results) {
-      const formatted_cr:any = {};
+      const formatted_cr: any = {};
       formatted_cr.conceptUID = cr;
       formatted_cr.correct = resp.concept_results[cr];
       resp.concept_results[cr] = formatted_cr;

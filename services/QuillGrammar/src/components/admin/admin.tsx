@@ -15,8 +15,8 @@ import ConceptsFeedback from '../conceptsFeedback/conceptsFeedback'
 import ConceptFeedback from '../conceptsFeedback/conceptFeedback'
 import TabLink from './tabLink'
 
-type PathParamsType = {
-  [key:string]: string,
+interface PathParamsType {
+  [key: string]: string,
 }
 
 type AdminContainerProps = RouteComponentProps<PathParamsType> & { dispatch: Function }
@@ -81,7 +81,6 @@ function select(state) {
   return {
   };
 }
-
 
 function mergeProps(stateProps: Object, dispatchProps: Object, ownProps: Object) {
   return {...ownProps, ...stateProps, ...dispatchProps}

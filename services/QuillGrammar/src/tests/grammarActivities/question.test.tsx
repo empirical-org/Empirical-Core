@@ -20,34 +20,34 @@ describe("<PlayGrammarContainer />", () => {
     checkAnswer={() => {}}
   />)
 
-    it("should render", () => {
+  it("should render", () => {
       expect(shallowWrapper).toMatchSnapshot();
     });
 
-    it("should render an h1 with the current activity's title", () => {
+  it("should render an h1 with the current activity's title", () => {
       const title = shallowWrapper.find('h1')
       expect(title.text()).toEqual(currentActivity.title)
     })
 
-    it("should render an example div with the html from the current question's rule description", () => {
+  it("should render an example div with the html from the current question's rule description", () => {
       const example = shallowWrapper.find('.example')
       const html = "<div class=\"example\">" + currentQuestion.rule_description.replace(/\n/g, '<br />') + "</div>"
       expect(example.html()).toEqual(html)
     })
 
-    it("should render an instructions div with the text from the current question's instructions", () => {
+  it("should render an instructions div with the text from the current question's instructions", () => {
       const instructions = shallowWrapper.find('.instructions')
       const html = "<div class=\"instructions\">" + currentQuestion.instructions + "</div>"
       expect(instructions.html()).toEqual(html)
     })
 
-    it("should render a prompt div with the text from the current question's prompt", () => {
+  it("should render a prompt div with the text from the current question's prompt", () => {
       const prompt = shallowWrapper.find('.prompt')
       const html = "<div class=\"prompt\">" + currentQuestion.prompt + "</div>"
       expect(prompt.html()).toEqual(html)
     })
 
-    describe("the Hide Example button", () => {
+  describe("the Hide Example button", () => {
 
       describe("before it is clicked", () => {
         const unclickedWrapper = shallow(<QuestionComponent
@@ -98,7 +98,7 @@ describe("<PlayGrammarContainer />", () => {
       })
     })
 
-    describe('the textarea', () => {
+  describe('the textarea', () => {
 
       describe('before it is typed in', () => {
         const untypedInWrapper = shallow(<QuestionComponent
@@ -142,7 +142,7 @@ describe("<PlayGrammarContainer />", () => {
 
     })
 
-    describe('feedback and the check answer button', () => {
+  describe('feedback and the check answer button', () => {
 
       describe("if state.questionStatus is 'unanswered'", () => {
 

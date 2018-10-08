@@ -10,11 +10,11 @@ describe("<PlayGrammarContainer />", () => {
     session={session}
    />)
 
-    it("should render", () => {
+  it("should render", () => {
       expect(wrapper).toMatchSnapshot();
     });
 
-    it("should render an example with the text from the current question's rule description", () => {
+  it("should render an example with the text from the current question's rule description", () => {
       expect(wrapper)
     })
 });

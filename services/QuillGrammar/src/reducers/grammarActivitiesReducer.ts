@@ -9,7 +9,7 @@ export interface GrammarActivityState {
   currentActivity: GrammarActivity|null;
   data: GrammarActivities
   newLessonModalOpen: boolean
-  states: {[key:string]: string}
+  states: {[key: string]: string}
   error?: string;
 }
 

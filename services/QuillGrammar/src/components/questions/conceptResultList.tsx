@@ -7,7 +7,7 @@ interface ConceptResultListProps {
 }
 
 interface ConceptResultListState {
-  conceptResults: { [key:string]: boolean}
+  conceptResults: { [key: string]: boolean}
 }
 
 export default class ConceptResultList extends React.Component<ConceptResultListProps, ConceptResultListState> {

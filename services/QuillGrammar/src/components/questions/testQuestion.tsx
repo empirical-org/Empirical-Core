@@ -58,7 +58,7 @@ class TestQuestion extends React.Component {
     return this.props.questions.data[this.props.match.params.questionID];
   }
 
-  checkAnswer(response:string, question, responses, isFirstAttempt:Boolean) {
+  checkAnswer(response: string, question, responses, isFirstAttempt: Boolean) {
     this.props.dispatch(checkAnswer(response, question, responses, isFirstAttempt))
   }
 

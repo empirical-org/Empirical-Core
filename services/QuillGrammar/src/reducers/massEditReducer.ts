@@ -3,7 +3,7 @@ import { Action } from "redux";
 
 export interface MassEditReducerState {
   numSelectedResponses: number;
-  selectedResponses: Array<String>;
+  selectedResponses: String[];
 }
 
 type MassEditAction = Action & { responseKey: string }
@@ -14,17 +14,17 @@ const initialState = {
 }
 
 export default function(currentState: MassEditReducerState, action: MassEditAction) {
-  let newState = Object.assign({}, currentState || initialState);
-  let responseKey = action.responseKey;
-  switch(action.type) {
+  const newState = Object.assign({}, currentState || initialState);
+  const responseKey = action.responseKey;
+  switch (action.type) {
     case ActionTypes.ADD_RESPONSE_TO_MASS_EDIT_ARRAY:
-      if(newState.selectedResponses.indexOf(responseKey) < 0) {
+      if (newState.selectedResponses.indexOf(responseKey) < 0) {
         newState.selectedResponses.push(responseKey);
         newState.numSelectedResponses = newState.selectedResponses.length
       }
       return newState;
     case ActionTypes.REMOVE_RESPONSE_FROM_MASS_EDIT_ARRAY:
-      if(newState.selectedResponses.indexOf(responseKey) > -1) {
+      if (newState.selectedResponses.indexOf(responseKey) > -1) {
         newState.selectedResponses.splice(newState.selectedResponses.indexOf(responseKey), 1);
         newState.numSelectedResponses = newState.selectedResponses.length
       }

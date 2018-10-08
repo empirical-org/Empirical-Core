@@ -21,7 +21,7 @@ interface QuestionState {
   response: string;
   questionStatus: string;
   submittedEmptyString: boolean
-  responses: Array<Response>
+  responses: Response[]
 }
 
 export class QuestionComponent extends React.Component<QuestionProps, QuestionState> {
@@ -71,7 +71,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
       if (this.props.currentQuestion.uid !== nextProps.currentQuestion.uid) {
         responseActions.getGradedResponsesWithCallback(
           nextProps.currentQuestion.uid,
-          (data: Array<Response>) => {
+          (data: Response[]) => {
             this.setState({ responses: data, });
           }
         );
@@ -107,16 +107,16 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
       this.setState({response: e.target.value})
     }
 
-    getNegativeConceptResultsForResponse(conceptResults: Array<ConceptResult>) {
+    getNegativeConceptResultsForResponse(conceptResults: ConceptResult[]) {
       return hashToCollection(conceptResults).filter((cr: ConceptResult) => !cr.correct);
     }
 
-    getNegativeConceptResultForResponse(conceptResults: Array<ConceptResult>) {
+    getNegativeConceptResultForResponse(conceptResults: ConceptResult[]) {
       const negCRs = this.getNegativeConceptResultsForResponse(conceptResults);
       return negCRs.length > 0 ? negCRs[0] : undefined;
     }
 
-    getLatestAttempt(attempts:Array<Response> = []):Response|undefined {
+    getLatestAttempt(attempts: Response[] = []): Response|undefined {
       const lastIndex = attempts.length - 1;
       return attempts[lastIndex];
     }
@@ -129,7 +129,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
           componentClasses += ' show'
         }
         return <Row className={componentClasses} type="flex" align="middle" justify="start">
-          <div className="example" dangerouslySetInnerHTML={{__html: example.replace(/\n/g,"<br />")}} />
+          <div className="example" dangerouslySetInnerHTML={{__html: example.replace(/\n/g, "<br />")}} />
         </Row>
 
       } else {
@@ -151,7 +151,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
     renderTopSection(): JSX.Element {
       const answeredQuestionCount = this.props.answeredQuestions.length
       const totalQuestionCount = answeredQuestionCount + this.props.unansweredQuestions.length + 1
-      const meterWidth = answeredQuestionCount/totalQuestionCount * 100
+      const meterWidth = answeredQuestionCount / totalQuestionCount * 100
       return <div className="top-section">
         <Row
           type="flex"
@@ -225,7 +225,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
     }
 
     renderConceptExplanation(): JSX.Element|void {
-      const latestAttempt:Response|undefined = this.getLatestAttempt(this.currentQuestion().attempts);
+      const latestAttempt: Response|undefined = this.getLatestAttempt(this.currentQuestion().attempts);
       if (latestAttempt && !latestAttempt.optimal) {
         if (latestAttempt.concept_results) {
           const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.concept_results);
