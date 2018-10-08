@@ -506,9 +506,9 @@ pipeline {
   post {
     always {
       echo 'Stopping postgres docker container...'
-      sh "docker stop lms-testdb${env.BUILD_TAG}"
-      sh "docker rm lms-testdb${env.BUILD_TAG}"
-      sh "docker network rm jnk-net${env.BUILD_TAG}"
+      // sh "docker stop lms-testdb${env.BUILD_TAG}"
+      // sh "docker rm lms-testdb${env.BUILD_TAG}"
+      // sh "docker network rm jnk-net${env.BUILD_TAG}"
       echo "Removing workspace"
       cleanWs()
     }
