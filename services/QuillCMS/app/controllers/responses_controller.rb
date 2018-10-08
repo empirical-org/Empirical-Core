@@ -88,7 +88,7 @@ class ResponsesController < ApplicationController
     non_blank_selected_sequences = selected_sequences.select { |ss| ss.length > 0}
     matched_responses_count = 0
     responses.each do |response|
-      no_matching_used_sequences = used_sequences.none? { |us| s.length > 0 && Regexp.new(us).match(response.text) }
+      no_matching_used_sequences = used_sequences.none? { |us| us.length > 0 && Regexp.new(us).match(response.text) }
       matching_selected_sequence = non_blank_selected_sequences.any? do |ss|
         sequence_particles = ss.split('&&')
         sequence_particles.all? { |sp| sp.length > 0 && Regexp.new(sp).match(response.text)}
