@@ -46,6 +46,19 @@ class TeacherFixController < ApplicationController
     end
   end
 
+  def recover_unit_activities
+    user = User.find_by_email(params['email'])
+    if user && user.role == 'teacher'
+      units = Unit.where(user_id: user.id)
+      units.each do |u|
+        u.unit_activities.update_all(visible: true)
+      end
+      render json: {}, status: 200
+    else
+      render json: {error: "Cannot find a teacher with the email #{params['email']}."}
+    end
+  end
+
   def recover_activity_sessions
     user = User.find_by_email(params['email'])
     if user && user.role == 'teacher'
