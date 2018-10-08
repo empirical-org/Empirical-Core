@@ -57,7 +57,6 @@ export default class Edit extends React.Component<EditProps, any> {
     </div>
   }
 
-
   renderTooltip() {
     const { activeIndex, index, state, numberOfEdits, next, id } = this.props
     const visible = activeIndex === index ? 'visible' : 'invisible'

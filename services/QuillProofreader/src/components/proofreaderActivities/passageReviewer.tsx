@@ -8,7 +8,7 @@ import Edit from './edit'
 
 interface PassageReviewerProps {
   text: string;
-  concepts: Array<Concept>;
+  concepts: Concept[];
   finishReview: Function;
 }
 
@@ -26,7 +26,7 @@ export default class PassageReviewer extends React.Component<PassageReviewerProp
 
     this.state = {
       activeIndex: 0,
-      numberOfEdits: numberOfEdits
+      numberOfEdits
     }
 
     this.next = this.next.bind(this)
@@ -59,7 +59,7 @@ export default class PassageReviewer extends React.Component<PassageReviewerProp
     const { activeIndex, numberOfEdits } = this.state
     let index = 0
     return paragraphs.map((paragraph: string) => {
-      const parts:Array<string|JSX.Element> = paragraph.replace(/<p>|<\/p>/g, '').split(/{|}/g)
+      const parts: Array<string|JSX.Element> = paragraph.replace(/<p>|<\/p>/g, '').split(/{|}/g)
       for (let i = 0; i < parts.length; i ++) {
         if (typeof parts[i] === "string" && parts[i][0] === '+') {
           const plusMatch = parts[i].match(/\+([^-]+)-/m)
@@ -68,7 +68,7 @@ export default class PassageReviewer extends React.Component<PassageReviewerProp
           const conceptUID = conceptUIDMatch ? conceptUIDMatch[1] : ''
           const negativeMatch = parts[i].match(/\-([^-]+)\|/m)
           const negative = negativeMatch ? negativeMatch[1] : null
-          const concept = this.props.concepts.find(concept => concept.uid === conceptUID)
+          const concept = this.props.concepts.find(c => c.uid === conceptUID)
           const indexToPass = index
           let state = 'correct'
           if (negative) {
@@ -88,10 +88,10 @@ export default class PassageReviewer extends React.Component<PassageReviewerProp
             numberOfEdits={numberOfEdits}
             id={`${index}`}
           />
-          if (punctuationRegex.test(parts[i+1])) {
-            parts[i+1] = `${parts[i+1]}`
+          if (punctuationRegex.test(parts[i + 1])) {
+            parts[i + 1] = `${parts[i + 1]}`
           } else {
-            parts[i+1] = ` ${parts[i+1]}`
+            parts[i + 1] = ` ${parts[i + 1]}`
           }
         }
       }

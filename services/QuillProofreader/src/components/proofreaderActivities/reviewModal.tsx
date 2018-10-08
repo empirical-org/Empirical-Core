@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-const ReviewModal: React.SFC<{closeModal: any, numberOfErrors:number, numberOfCorrectChanges:number}> = (props) => {
+const ReviewModal: React.SFC<{closeModal: any, numberOfErrors: number, numberOfCorrectChanges: number}> = (props) => {
  return <div className="review-modal-container">
     <div className="review-modal-background" />
      <div className="review-modal">

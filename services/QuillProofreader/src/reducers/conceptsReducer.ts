@@ -2,14 +2,14 @@ import { Action } from "redux";
 import { ActionTypes } from "../actions/actionTypes";
 import { Concept } from '../interfaces/concepts'
 
- type ConceptReducerAction = Action & {data: Array<Array<Concept>>}
- export interface ConceptReducerState {
+type ConceptReducerAction = Action & {data: Concept[][]}
+export interface ConceptReducerState {
   hasreceiveddata: boolean;
   submittingnew: boolean;
   states: any;
-  data: Array<Array<Concept>>
+  data: Concept[][]
 }
- const initialState = {
+const initialState = {
   concepts: {
     hasreceiveddata: false,
     submittingnew: false,
@@ -17,9 +17,8 @@ import { Concept } from '../interfaces/concepts'
     data: {} // this will contain firebase data
   }
 }
- export default function(currentstate: ConceptReducerState, action: ConceptReducerAction) {
-    let newstate: ConceptReducerState;
-    switch(action.type){
+export default function(currentstate: ConceptReducerState, action: ConceptReducerAction) {
+    switch (action.type) {
         case ActionTypes.RECEIVE_CONCEPTS_DATA:
             return Object.assign({}, currentstate, {
                 hasreceiveddata: true,

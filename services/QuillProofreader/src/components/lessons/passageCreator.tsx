@@ -12,8 +12,8 @@ const rules = [
       const type = BLOCK_TAGS[el.tagName.toLowerCase()]
       if (type) {
         return {
-          object: type === 'span' ? 'inline': 'block',
-          type: type,
+          object: type === 'span' ? 'inline' : 'block',
+          type,
           data: {
             className: el.getAttribute('class'),
             dataOriginalIndex: el.getAttribute('data-original-index')

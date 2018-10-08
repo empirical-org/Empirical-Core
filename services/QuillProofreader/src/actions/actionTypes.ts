@@ -1,7 +1,7 @@
 import { Action } from "redux";
 
 export const ActionTypes = {
-    //INIT STORE
+    // INIT STORE
     INIT_STORE: 'INIT_STORE',
 
     // PROOFREADER ACTIVITIES
@@ -37,5 +37,3 @@ export const ActionTypes = {
     CLEAR_DISPLAY_MESSAGE_AND_ERROR: 'CLEAR_DISPLAY_MESSAGE_AND_ERROR',
 };
 //
-export interface IInitStoreAction extends Action {
-}

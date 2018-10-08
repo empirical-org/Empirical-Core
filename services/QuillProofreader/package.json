@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "lint": "tslint -c tslint.json 'src/**/*.{ts,tsx}' --exclude 'src/tests/*.{ts,tsx}'",
+    "lint:fix": "tslint -c tslint.json 'src/**/*.{ts,tsx}' --exclude 'src/tests/*.{ts,tsx}' --fix",
     "start": "EMPIRICAL_BASE_URL=localhost:3000 webpack-dev-server",
     "test": "jest",
     "build:jenkins": "tsc && webpack --optimize-minimize",

@@ -54,7 +54,7 @@ export function embedQuestionNumbers(nestedConceptResultArray: FormattedConceptR
   });
 }
 
-export function getConceptResultsForAllQuestions(questions: Question[]):FormattedConceptResult[] {
+export function getConceptResultsForAllQuestions(questions: Question[]): FormattedConceptResult[] {
   const nested = getNestedConceptResultsForAllQuestions(questions);
   const withKeys = embedQuestionNumbers(nested);
   return [].concat.apply([], withKeys); // Flatten array
