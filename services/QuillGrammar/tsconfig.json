@@ -19,8 +19,7 @@
         "noImplicitThis": true,
         "noImplicitAny": true,
         "strictNullChecks": true,
-        "noUnusedLocals": true,
-        "noConsole": false
+        "noUnusedLocals": true
     },
     "include": [
         "./src/**/*"

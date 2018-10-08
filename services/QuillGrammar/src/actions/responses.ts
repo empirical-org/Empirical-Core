@@ -5,7 +5,7 @@ import objectWithSnakeKeysFromCamel from '../libs/objectWithSnakeKeysFromCamel';
 import { Response, ConceptResult } from 'quill-marking-logic'
 
 import { ActionTypes } from './actionTypes'
-const moment = require('moment');
+import * as moment from 'moment'
 
 export function deleteStatus(questionId: string) {
   return { type: ActionTypes.DELETE_RESPONSE_STATUS, data: { questionId, }, };
@@ -53,10 +53,10 @@ export function submitResponse(content: Response, prid: string, isFirstAttempt: 
 
 export function submitMassEditFeedback(ids: string[], properties, qid: string) {
   return (dispatch: Function) => {
-    const updated_attribute = properties;
+    const updatedAttribute = properties;
     request.put({
       url: `${process.env.QUILL_CMS}/responses/mass_edit/edit_many`,
-      json: { ids, updated_attribute, }, },
+      json: { ids, updated_attribute: updatedAttribute, }, },
       (error, httpStatus, body) => {
         if (error) {
           dispatch({ type: ActionTypes.DISPLAY_ERROR, error: `Submission failed! ${error}`, });
@@ -72,12 +72,12 @@ export function submitMassEditFeedback(ids: string[], properties, qid: string) {
 
 export function submitMassEditConceptResults(ids: string[], conceptResults: ConceptResult[], qid: string) {
   return (dispatch: Function) => {
-    const updated_attribute = {
+    const updatedAttribute = {
       concept_results: conceptResults,
     };
     request.put({
       url: `${process.env.QUILL_CMS}/responses/mass_edit/edit_many`,
-      json: { ids, updated_attribute, }, },
+      json: { ids, updated_attribute: updatedAttribute, }, },
       (error, httpStatus, body) => {
         if (error) {
           dispatch({ type: ActionTypes.DISPLAY_ERROR, error: `Submission failed! ${error}`, });
@@ -210,10 +210,12 @@ export function getGradedResponsesWithCallback(questionID, callback) {
         resp.concept_results = JSON.parse(resp.concept_results);
       }
       for (const cr in resp.concept_results) {
-        const formatted_cr = {};
-        formatted_cr.conceptUID = cr;
-        formatted_cr.correct = resp.concept_results[cr];
-        resp.concept_results[cr] = formatted_cr;
+        if (resp.concept_results.hasOwnProperty(cr)) {
+          const formattedCr = {};
+          formattedCr.conceptUID = cr;
+          formattedCr.correct = resp.concept_results[cr];
+          resp.concept_results[cr] = formattedCr;
+        }
       }
       resp.conceptResults = resp.concept_results;
       delete resp.concept_results;
@@ -234,10 +236,13 @@ export function getGradedResponsesWithoutCallback(questionID) {
         resp.concept_results = JSON.parse(resp.concept_results);
       }
       for (const cr in resp.concept_results) {
-        const formatted_cr = {};
-        formatted_cr.conceptUID = cr;
-        formatted_cr.correct = resp.concept_results[cr];
-        resp.concept_results[cr] = formatted_cr;
+        if (resp.concept_results.hasOwnProperty(cr)) {
+
+          const formattedCr = {};
+          formattedCr.conceptUID = cr;
+          formattedCr.correct = resp.concept_results[cr];
+          resp.concept_results[cr] = formattedCr;
+        }
       }
       resp.conceptResults = resp.concept_results;
       delete resp.concept_results;

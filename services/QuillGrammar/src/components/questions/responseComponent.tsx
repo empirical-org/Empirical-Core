@@ -249,7 +249,7 @@ class ResponseComponent extends React.Component {
   formatForQuestionBar() {
     // {"human_optimal":153,"human_suboptimal":140,"algo_optimal":0,"algo_suboptimal":8780,"unmatched":28820}
     const totalResponseCount = this.state.health.total_number_of_attempts;
-    if (totalResponseCount == 0) {
+    if (totalResponseCount === 0) {
       return [{
         value: 100,
         color: '#eeeeee',
@@ -369,8 +369,8 @@ class ResponseComponent extends React.Component {
   expandAllResponses() {
     const responses = this.responsesWithStatus();
     const newExpandedState = this.props.filters.expanded;
-    for (let i = 0; i < responses.length; i++) {
-      newExpandedState[responses[i].key] = true;
+    for (const response of responses ) {
+      newExpandedState[response.key] = true;
     }
     this.props.dispatch(filterActions.expandAllResponses(newExpandedState));
   }
@@ -490,8 +490,8 @@ class ResponseComponent extends React.Component {
       return response;
     });
 
-    let posTagsList = {},
-      posTagsAsString = '';
+    const posTagsList = {}
+    let posTagsAsString = '';
     responses.forEach((response) => {
       posTagsAsString = response.posTags ? response.posTags.join() : '';
       if (posTagsList[posTagsAsString]) {
@@ -516,7 +516,7 @@ class ResponseComponent extends React.Component {
   }
 
   getFilteredResponses(responses) {
-    if (this.props.filters.stringFilter == '') {
+    if (this.props.filters.stringFilter === '') {
       return responses;
     }
     const that = this;
