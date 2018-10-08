@@ -224,6 +224,17 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
     const originalSelection = value.selection
     const { startInline } = value
 
+    if (!startInline && originalSelection.focus.offset === 0 && originalSelection.anchor.offset === 0) {
+      const nextInline = change.moveEndForward(1).value.endInline
+      if (nextInline) {
+        event.preventDefault()
+        return change.moveToStartOfNode(nextInline)
+        .insertText(event.key)
+        .moveStartForward(1)
+        .moveEndBackward(1)
+      }
+    }
+
     if (!startInline) return
 
     if (startInline && event.key === ' ' && originalSelection.focus.offset === startInline.text.length && originalSelection.anchor.offset === startInline.text.length) {
@@ -266,7 +277,7 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
     // don't try to find a previous inline if you've edited the first one
     if (startInline && startInline.data.get('dataOriginalIndex') !== '0') {
       if (event.key === 'Backspace') {
-        const deletion = change.value.history.undos.first().find(operation: any => operation.type === 'remove_text')
+        const deletion = change.value.history.undos.first().find((operation: any) => operation.type === 'remove_text')
         previousInline = change.moveBackward(1).value.inlines.first()
         if (deletion && originalSelection.focus.offset === 0 && originalSelection.anchor.offset === 0) {
           while (!previousInline || startInline && previousInline.text === startInline.text) {
@@ -292,10 +303,6 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
     if (previousInline) {
       currentInline = previousInline
     }
-
-
-    // if (previousInline) console.log('previousInline text', previousInline.text)
-    // if (startInline) console.log('startInline text', startInline.text)
 
     if (currentInline && currentInline.nodes) {
       const dataOriginalIndex = currentInline.data.get('dataOriginalIndex')
@@ -359,10 +366,14 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
             }
 
             node.addMark({type: 'underline', data: {id}})
-            if (stringNormalize(nextInline.text).trim() !== stringNormalize(originalNextInlineText).trim()) {
+
+            const normalizedAndTrimmedCurrentText = stringNormalize(nextInline.text).trim()
+            const normalizedAndTrimmedOriginalText = stringNormalize(originalNextInlineText).trim()
+
+            if (normalizedAndTrimmedCurrentText !== normalizedAndTrimmedOriginalText) {
               node.addMark('bold')
             }
-            // return node.setAnchor(originalSelection.anchor).setFocus(originalSelection.focus)
+            return node.setAnchor(originalSelection.anchor).setFocus(originalSelection.focus)
           }
         }
         if (previousInline) {
