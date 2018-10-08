@@ -57,7 +57,7 @@ class ChooseModelContainer extends React.Component<ChooseModelContainerProps, Ch
   removeModelConcept() {
     const { questionID } = this.props.match.params
     if (questionID) {
-      let questionData = Object.assign({}, this.props.questions.data[questionID], {modelConceptUID: null});
+      const questionData = Object.assign({}, this.props.questions.data[questionID], {modelConceptUID: null});
       this.props.dispatch(questionActions.submitQuestionEdit(questionID, questionData));
     }
   }

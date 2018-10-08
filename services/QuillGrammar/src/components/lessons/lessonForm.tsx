@@ -64,7 +64,7 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
     const { value } = concept
     if (value) {
       const currentSelectedConcepts = this.state.concepts;
-      let newSelectedConcepts = currentSelectedConcepts;
+      const newSelectedConcepts = currentSelectedConcepts;
       newSelectedConcepts[value] = { quantity: 0 }
       this.setState({ concepts: newSelectedConcepts, });
     }
@@ -78,7 +78,7 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
   }
 
   removeConcept(conceptUid: string) {
-    let newSelectedConcepts = this.state.concepts;
+    const newSelectedConcepts = this.state.concepts;
     delete newSelectedConcepts[conceptUid]
     this.setState({ concepts: newSelectedConcepts, });
   }

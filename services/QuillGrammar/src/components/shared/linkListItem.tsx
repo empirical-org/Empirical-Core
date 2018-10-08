@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 //   className?: string;
 // }
 
-const LinkListItem = (props:any) => (
+const LinkListItem = (props: any) => (
   <li>
     <Link
       to={'/admin/' + props.basePath + '/' + props.itemKey + '/' + (props.subpath || '')}

@@ -15,26 +15,26 @@ export function updateStatus(questionId: string, status: string) {
   return { type: ActionTypes.UPDATE_RESPONSE_STATUS, data: { questionId, status, }, };
 }
 
-export function updateData(questionId: string, responses: Array<Response>) {
+export function updateData(questionId: string, responses: Response[]) {
   return { type: ActionTypes.UPDATE_RESPONSE_DATA, data: { questionId, responses, }, };
 }
 
 function getQuestionLoadedStatusForGroupedResponses(groupedResponses) {
   const questionsKeys = _.keys(groupedResponses);
   const statuses = {};
-  questionsKeys.forEach((key:string) => {
+  questionsKeys.forEach((key: string) => {
     statuses[key] = 'LOADED';
   });
   return statuses;
 }
 
-export function submitResponse(content: Response, prid: string, isFirstAttempt:boolean) {
+export function submitResponse(content: Response, prid: string, isFirstAttempt: boolean) {
   delete content.gradeIndex;
   const rubyConvertedResponse: Response & { created_at: string, first_attempt_count: number, is_first_attempt: boolean} = objectWithSnakeKeysFromCamel(content);
   rubyConvertedResponse.created_at = moment().format('x');
   rubyConvertedResponse.first_attempt_count = isFirstAttempt ? 1 : 0;
   rubyConvertedResponse.is_first_attempt = isFirstAttempt;
-  return (dispatch:Function) => {
+  return (dispatch: Function) => {
     request.post({
       url: `${process.env.QUILL_CMS}/responses/create_or_increment`,
       form: { response: rubyConvertedResponse, }, },
@@ -51,8 +51,8 @@ export function submitResponse(content: Response, prid: string, isFirstAttempt:b
   };
 }
 
-export function submitMassEditFeedback(ids: Array<string>, properties, qid: string) {
-  return (dispatch:Function) => {
+export function submitMassEditFeedback(ids: string[], properties, qid: string) {
+  return (dispatch: Function) => {
     const updated_attribute = properties;
     request.put({
       url: `${process.env.QUILL_CMS}/responses/mass_edit/edit_many`,
@@ -70,8 +70,8 @@ export function submitMassEditFeedback(ids: Array<string>, properties, qid: stri
   };
 }
 
-export function submitMassEditConceptResults(ids: Array<string>, conceptResults: Array<ConceptResult>, qid: string) {
-  return (dispatch:Function) => {
+export function submitMassEditConceptResults(ids: string[], conceptResults: ConceptResult[], qid: string) {
+  return (dispatch: Function) => {
     const updated_attribute = {
       concept_results: conceptResults,
     };
@@ -91,8 +91,8 @@ export function submitMassEditConceptResults(ids: Array<string>, conceptResults:
   };
 }
 
-export function massEditDeleteResponses(ids:Array<string>, qid:string) {
-  return (dispatch:Function) => {
+export function massEditDeleteResponses(ids: string[], qid: string) {
+  return (dispatch: Function) => {
     request.post({
       url: `${process.env.QUILL_CMS}/responses/mass_edit/delete_many`,
       json: { ids, }, },
@@ -109,7 +109,7 @@ export function massEditDeleteResponses(ids:Array<string>, qid:string) {
   };
 }
 
-export function submitResponseEdit(rid:string, content: Response, qid:string) {
+export function submitResponseEdit(rid: string, content: Response, qid: string) {
   const rubyConvertedResponse = objectWithSnakeKeysFromCamel(content);
   return (dispatch: Function) => {
     request.put({

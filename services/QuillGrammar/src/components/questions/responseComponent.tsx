@@ -187,7 +187,7 @@ class ResponseComponent extends React.Component {
 
   getPercentageWeakResponses() {
     const { common_unmatched_responses, total_number_of_responses } = this.state.health
-    return common_unmatched_responses > 0 ? (common_unmatched_responses/total_number_of_responses * 100).toFixed(2) : 0.0
+    return common_unmatched_responses > 0 ? (common_unmatched_responses / total_number_of_responses * 100).toFixed(2) : 0.0
   }
 
   getErrorsForAttempt(attempt) {
@@ -378,7 +378,7 @@ class ResponseComponent extends React.Component {
   allClosed() {
     const expanded = this.props.filters.expanded;
     for (const i in expanded) {
-      if (expanded[i] === true) return false;
+      if (expanded[i] === true) { return false; }
     }
     return true;
   }

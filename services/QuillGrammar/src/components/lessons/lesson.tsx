@@ -11,7 +11,7 @@ import { ConceptReducerState } from '../../reducers/conceptsReducer'
 import { GrammarActivity } from '../../interfaces/grammarActivities'
 import { Match } from '../../interfaces/match'
 
-String.prototype.toKebab = function () {
+String.prototype.toKebab = function() {
   return this.replace(/([A-Z])/g, char => `-${char.toLowerCase()}`);
 };
 
@@ -36,7 +36,7 @@ class Lesson extends React.Component<LessonProps> {
     this.renderEditLessonForm = this.renderEditLessonForm.bind(this)
   }
 
-  questionsForLesson(): Array<Question>|void {
+  questionsForLesson(): Question[]|void {
     const { data, } = this.props.lessons
     const { lessonID, } = this.props.match.params
     const questions = this.props.questions ? hashToCollection(this.props.questions.data) : []
@@ -55,10 +55,10 @@ class Lesson extends React.Component<LessonProps> {
     }
   }
 
-  renderQuestionsForLesson():Array<JSX.Element>|JSX.Element {
+  renderQuestionsForLesson(): JSX.Element[]|JSX.Element {
     const questionsForLesson = this.questionsForLesson();
     if (questionsForLesson) {
-      const conceptIds: {[key:string]: Array<JSX.Element>} = {}
+      const conceptIds: {[key: string]: JSX.Element[]} = {}
       questionsForLesson.forEach((question: Question) => {
         const { prompt, key, concept_uid} = question
         const displayName = prompt || 'No question prompt';
@@ -69,7 +69,7 @@ class Lesson extends React.Component<LessonProps> {
           conceptIds[concept_uid] = [questionLink]
         }
       });
-      const conceptSections:Array<JSX.Element> = []
+      const conceptSections: JSX.Element[] = []
       const lesson = this.lesson()
       Object.keys(conceptIds).forEach(conceptId => {
         const lessonConcept = lesson ? lesson.concepts[conceptId] : null
@@ -87,28 +87,28 @@ class Lesson extends React.Component<LessonProps> {
     );
   }
 
-  deleteLesson():void {
+  deleteLesson(): void {
     const lessonID: string|undefined = this.props.match.params.lessonID;
     if (lessonID && confirm('do you want to do this?')) {
       this.props.dispatch(lessonActions.deleteLesson(lessonID));
     }
   }
 
-  cancelEditingLesson():void {
+  cancelEditingLesson(): void {
     const { lessonID } = this.props.match.params
     if (lessonID) {
       this.props.dispatch(lessonActions.cancelLessonEdit(lessonID));
     }
   }
 
-  saveLessonEdits(vals: GrammarActivity):void {
+  saveLessonEdits(vals: GrammarActivity): void {
     const lessonID: string|undefined = this.props.match.params.lessonID;
     if (lessonID) {
       this.props.dispatch(lessonActions.submitLessonEdit(lessonID, vals));
     }
   }
 
-  editLesson():void {
+  editLesson(): void {
     const { lessonID, } = this.props.match.params;
     if (lessonID) {
       this.props.dispatch(lessonActions.startLessonEdit(lessonID));
@@ -116,7 +116,7 @@ class Lesson extends React.Component<LessonProps> {
     // // console.log("Edit button clicked");
   }
 
-  renderEditLessonForm():JSX.Element|void {
+  renderEditLessonForm(): JSX.Element|void {
     const { data, states } = this.props.lessons
     const lessonID: string|undefined = this.props.match.params.lessonID;
     if (lessonID) {

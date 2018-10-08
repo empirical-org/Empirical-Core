@@ -6,7 +6,7 @@ export interface QuestionsReducerState {
   hasreceiveddata: boolean;
   data: Questions
   error?: string;
-  states: { [key:string]: string };
+  states: { [key: string]: string };
 }
 
 type QuestionReducerAction = Action & { data: Questions, qid: string }

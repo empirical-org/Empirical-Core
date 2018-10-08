@@ -209,9 +209,9 @@ export default class Response extends React.Component {
 
   deleteConceptResult(crid) {
     if (confirm('Are you sure?')) {
-      let conceptResults = Object.assign({}, this.state.conceptResults || {});
+      const conceptResults = Object.assign({}, this.state.conceptResults || {});
       delete conceptResults[crid];
-      this.setState({conceptResults: conceptResults})
+      this.setState({conceptResults})
     }
   }
 
@@ -261,7 +261,7 @@ export default class Response extends React.Component {
     this.setState(data);
   }
 
-  handleConceptChange(e){
+  handleConceptChange(e) {
     const concepts = this.state.conceptResults;
     if (Object.keys(concepts).length === 0 || !concepts.hasOwnProperty(e.value)) {
       concepts[e.value] = this.props.response.optimal;
@@ -313,7 +313,7 @@ export default class Response extends React.Component {
       const conceptResultsPlus = Object.assign(conceptResults, {null: this.props.response.optimal})
       components = Object.keys(conceptResultsPlus).map(uid => {
         const concept = _.find(this.props.concepts.data['0'], { uid, });
-          return <ConceptSelectorWithCheckbox
+        return <ConceptSelectorWithCheckbox
             key={uid}
             handleSelectorChange={this.handleConceptChange}
             currentConceptUID={uid}

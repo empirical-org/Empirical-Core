@@ -34,7 +34,7 @@ export const startListeningToFollowUpQuestionsForProofreaderSession = (proofread
     proofreaderSessionsRef.child(proofreaderSessionID).once('value', (snapshot) => {
       const proofreaderSession = snapshot.val()
       if (proofreaderSession) {
-        const concepts: { [key:string]: { quantity: 1|2|3 } } = {}
+        const concepts: { [key: string]: { quantity: 1|2|3 } } = {}
         const incorrectConcepts = proofreaderSession.conceptResults.filter(cr => cr.metadata.correct === 0)
         let quantity = 3
         if (incorrectConcepts.length > 9) {
@@ -92,7 +92,7 @@ export const startListeningToQuestions = (concepts: any) => {
   }
 }
 
-export const checkAnswer = (response:string, question:Question, responses:Array<Response>, isFirstAttempt:Boolean) => {
+export const checkAnswer = (response: string, question: Question, responses: Response[], isFirstAttempt: Boolean) => {
   return dispatch => {
     const questionUID: string = question.uid
     const responseObj = checkGrammarQuestion(questionUID, response, responses)

@@ -174,10 +174,9 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
       );
     }
 
-    checkAnswer(response:string, question:Question, responses:Array<Response>, isFirstAttempt:Boolean) {
+    checkAnswer(response: string, question: Question, responses: Response[], isFirstAttempt: Boolean) {
       this.props.dispatch(checkAnswer(response, question, responses, isFirstAttempt))
     }
-
 
     render(): JSX.Element {
       const proofreaderSessionId = getParameterByName('proofreaderSessionId', window.location.href)

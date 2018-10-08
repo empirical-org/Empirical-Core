@@ -6,7 +6,7 @@ const visibleStatuses = {
   'Human Sub-Optimal': true,
   'Algorithm Optimal': true,
   'Algorithm Sub-Optimal': true,
-  Unmatched: true,
+  "Unmatched": true,
 
   // "Focus Point Hint": true,
   // "Word Error Hint": true,
@@ -97,7 +97,7 @@ function getSort(state) {
   }
 }
 
-export default function (currentState, action) {
+export default function(currentState, action) {
   let newState;
   switch (action.type) {
     case ActionTypes.TOGGLE_EXPAND_SINGLE_RESPONSE:

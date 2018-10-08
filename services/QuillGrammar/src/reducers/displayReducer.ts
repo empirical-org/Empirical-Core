@@ -14,10 +14,10 @@ export interface DisplayReducerState {
 type DisplayReducerActionType = Action & {message: string, error: string}
 
 export default function(currentState: DisplayReducerState, action: DisplayReducerActionType) {
-  let newState = Object.assign({}, currentState || initialState);
+  const newState = Object.assign({}, currentState || initialState);
   const message = action.message
   const error = action.error
-  switch(action.type) {
+  switch (action.type) {
     case ActionTypes.DISPLAY_ERROR:
       newState.error = error
       return newState;
