@@ -15,7 +15,7 @@
   <%= form_for [:cms, @activity_classification, @activity, @recommendation, @criterion ] do |f| %>
     <%= f.label :concept_id, 'Concept' %>
     <%= f.collection_select :concept_id,
-      Concept.where(visible: true).sort_by { |c| c.lineage },
+      Concept.where("concepts.visible = 'true' and concepts.parent_id is not null").joins(:parent).where("parents_concepts.parent_id is not null").sort_by { |c| c.lineage },
       :id,
       :lineage
     %>
