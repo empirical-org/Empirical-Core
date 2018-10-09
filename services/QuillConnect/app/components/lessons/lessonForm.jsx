@@ -4,9 +4,9 @@ import QuestionSelector from 'react-select-search';
 import {
   hashToCollection,
   SortableList,
-  TextEditor
 } from 'quill-component-library/dist/componentLibrary';
-import { EditorState, ContentState } from 'draft-js'
+import TextEditor from './textEditor'
+import { EditorState, ContentState, Modifier } from 'draft-js'
 import ChooseModelContainer from './chooseModelContainer.jsx'
 import _ from 'underscore';
 
@@ -152,6 +152,7 @@ class LessonForm extends React.Component {
           handleTextChange={this.handleLPChange}
           EditorState={EditorState}
           ContentState={ContentState}
+          Modifier={Modifier}
         />
         <br />
         <p className="control">
