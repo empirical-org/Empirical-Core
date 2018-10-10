@@ -106,7 +106,7 @@ export default React.createClass({
       optimal: this.refs.newResponseOptimal.checked,
       author: null,
       parent_id: null,
-      concept_results: Object(this.state.conceptResults).keys && Object(this.state.conceptResults).keys.length ? this.state.conceptResults : null
+      concept_results: Object.keys(this.state.conceptResults) && Object.keys(this.state.conceptResults).length ? this.state.conceptResults : null
     };
     this.props.dispatch(submitResponseEdit(rid, newResp, this.props.questionID));
   },
