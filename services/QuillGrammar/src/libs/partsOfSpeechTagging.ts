@@ -13,7 +13,7 @@ export function getPartsOfSpeech(input) {
 }
 
 export function getPartsOfSpeechTags(input) {
-  let wordsTags = getPartsOfSpeech(input);
+  const wordsTags = getPartsOfSpeech(input);
   if (wordsTags) {
     return wordsTags.map((b) => {
       return b[1]
@@ -23,7 +23,7 @@ export function getPartsOfSpeechTags(input) {
 }
 
 export function getPartsOfSpeechWords(input) {
-  let wordsTags = getPartsOfSpeech(input);
+  const wordsTags = getPartsOfSpeech(input);
   if (wordsTags) {
     return wordsTags.map((b) => {
       return b[0]
@@ -32,7 +32,7 @@ export function getPartsOfSpeechWords(input) {
 }
 
 export function getPartsOfSpeechWordsWithTags(input) {
-  let wordsTags = getPartsOfSpeech(input);
+  const wordsTags = getPartsOfSpeech(input);
   if (wordsTags) {
     return wordsTags.map((b) => {
       return [b[0], b[1]]
@@ -54,9 +54,9 @@ export function getPOSTagPairs(input, target) {
 }
 
 export function getPOSTransformations(input, target) {
-  let arraytagger = getPOSTagPairs(input, target);
-  let arrayDifference = arraytagger.filter((b) => {
-    return b[0] != b[1];
+  const arraytagger = getPOSTagPairs(input, target);
+  const arrayDifference = arraytagger.filter((b) => {
+    return b[0] !== b[1];
   });
   return arrayDifference.map((b) => {
     return b[0] + "|" + b[1];

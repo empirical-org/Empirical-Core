@@ -7,7 +7,7 @@ export interface ProofreaderActivityState {
   currentActivity: ProofreaderActivity;
   data: ProofreaderActivities;
   error?: string;
-  states: {[key:string]: string}
+  states: {[key: string]: string}
 }
 
 type ProofreaderActivityAction = Action & { data: ProofreaderActivity } & { cid: string }
@@ -17,7 +17,7 @@ export default (
     action: ProofreaderActivityAction,
     data: {}
 ) => {
-    let statesObj: {[key:string]: string} = currentState.states
+    const statesObj: {[key: string]: string} = currentState.states
     switch (action.type) {
         case ActionTypes.RECEIVE_PROOFREADER_ACTIVITY_DATA:
             return Object.assign({}, currentState, { currentActivity: action.data }, {hasreceiveddata: true});

@@ -1,5 +1,5 @@
 export interface ProofreaderActivities {
-  [key:string]: ProofreaderActivity;
+  [key: string]: ProofreaderActivity;
 }
 
 export interface ProofreaderActivity {
@@ -43,7 +43,7 @@ export interface ConceptResultMetadata {
 }
 
 export interface Concepts {
-  [key:string]: Concept
+  [key: string]: Concept
 }
 
 export interface Concept {

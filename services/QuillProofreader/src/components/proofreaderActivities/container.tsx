@@ -36,15 +36,15 @@ interface PlayProofreaderContainerProps {
 
 interface PlayProofreaderContainerState {
   passage?: string;
-  edits: Array<string>;
+  edits: string[];
   reviewing: boolean;
   showEarlySubmitModal: boolean;
   showReviewModal: boolean;
-  necessaryEdits?: Array<String>;
+  necessaryEdits?: String[];
   numberOfCorrectChanges?: number;
   originalPassage?: string;
   reviewablePassage?: string;
-  conceptResultsObjects?: Array<ConceptResultObject>
+  conceptResultsObjects?: ConceptResultObject[]
 }
 
 export class PlayProofreaderContainer extends React.Component<PlayProofreaderContainerProps, PlayProofreaderContainerState> {
@@ -103,7 +103,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
     }
 
     formatInitialPassage(passage: string, underlineErrors: boolean) {
-      let necessaryEdits = []
+      const necessaryEdits = []
       passage.replace(/{\+([^-]+)-([^|]+)\|([^}]*)}/g, (key: string, plus: string, minus: string, conceptUID: string) => {
         passage = passage.replace(key, `<u id="${necessaryEdits.length}">${minus}</u>`);
         necessaryEdits.push(key)
@@ -112,7 +112,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
     }
 
     saveToLMS() {
-      const results: Array<ConceptResultObject>|undefined = this.state.conceptResultsObjects;
+      const results: ConceptResultObject[]|undefined = this.state.conceptResultsObjects;
       if (results) {
       const score = this.calculateScoreForLesson();
       const activityUID = getParameterByName('uid', window.location.href)
@@ -134,7 +134,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       }
     }
 
-    finishActivitySession(sessionID: string, results: Array<ConceptResultObject>, score: number) {
+    finishActivitySession(sessionID: string, results: ConceptResultObject[], score: number) {
       request(
         { url: `${process.env.EMPIRICAL_BASE_URL}/api/v1/activity_sessions/${sessionID}`,
           method: 'PUT',
@@ -147,14 +147,13 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
         },
         (err, httpResponse, body) => {
           if (httpResponse && httpResponse.statusCode === 200) {
-            const sessionID = getParameterByName('student', window.location.href)
             document.location.href = `${process.env.EMPIRICAL_BASE_URL}/activity_sessions/${sessionID}`;
           }
         }
       );
     }
 
-    createAnonActivitySession(lessonID: string, results: Array<ConceptResultObject>, score: number) {
+    createAnonActivitySession(lessonID: string, results: ConceptResultObject[], score: number) {
       request(
         { url: `${process.env.EMPIRICAL_BASE_URL}/api/v1/activity_sessions/`,
           method: 'POST',
@@ -176,7 +175,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
 
     // this method handles weirdness created by HTML formatting in Slate
     formatReceivedPassage(value: string) {
-      let string = value.replace(/<span data-original-index="\d+">|<\/span>|<strong> <\/strong>/gm, '').replace(/&#x27;/g, "'").replace(/&quot;/g, '"')
+      let fixedString = value.replace(/<span data-original-index="\d+">|<\/span>|<strong> <\/strong>/gm, '').replace(/&#x27;/g, "'").replace(/&quot;/g, '"')
 
       // regex below matches case that looks like this: <strong><u id="10">A</u></strong><strong><u id="10"><u id="10">sia,</u></u></strong><strong><u id="10"> </u></strong>
       const tripleStrongTagWithThreeMatchingNestedURegex = /<strong>(<u id="\d+">)([^(<]+?)<\/u><\/strong><strong>(<u id="\d+">)(<u id="\d+">)([^(<]+?)<\/u><\/u><\/strong><strong>(<u id="\d+">)([^(<]+?)<\/u><\/strong>/gm
@@ -213,8 +212,8 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       // regex below matches case that looks like this: <strong><u id="3"><u id="3">are</u></u></strong>
       const singleStrongTagWithTwoMatchingNestedURegex = /<strong>(<u id="\d+">)(<u id="\d+">)([^(<]+?)<\/u><\/u><\/strong>/gm
 
-      if (tripleStrongTagWithThreeMatchingNestedURegex.test(string)) {
-        string = string.replace(tripleStrongTagWithThreeMatchingNestedURegex, (key, uTagA, contentA, uTagB, uTagC, contentB, uTagD, contentC) => {
+      if (tripleStrongTagWithThreeMatchingNestedURegex.test(fixedString)) {
+        fixedString = fixedString.replace(tripleStrongTagWithThreeMatchingNestedURegex, (key, uTagA, contentA, uTagB, uTagC, contentB, uTagD, contentC) => {
           if (uTagA === uTagB && uTagB === uTagC && uTagC === uTagD) {
             return `<strong>${uTagA}${contentA}${contentB}${contentC}</u></strong>`
           } else {
@@ -223,8 +222,8 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
         })
       }
 
-      if (tripleStrongTagWithThreeMatchingURegex.test(string)) {
-        string = string.replace(tripleStrongTagWithThreeMatchingURegex, (key, uTagA, contentA, uTagB, contentB, uTagC, contentC) => {
+      if (tripleStrongTagWithThreeMatchingURegex.test(fixedString)) {
+        fixedString = fixedString.replace(tripleStrongTagWithThreeMatchingURegex, (key, uTagA, contentA, uTagB, contentB, uTagC, contentC) => {
           if (uTagA === uTagB && uTagB === uTagC) {
             return `<strong>${uTagA}${contentA}${contentB}${contentC}</u></strong>`
           } else {
@@ -232,8 +231,8 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
           }
         })
       }
-      if (tripleStrongTagWithTwoMatchingURegex.test(string)) {
-        string = string.replace(tripleStrongTagWithTwoMatchingURegex, (key, uTagA, contentA, contentB, uTagC, contentC) => {
+      if (tripleStrongTagWithTwoMatchingURegex.test(fixedString)) {
+        fixedString = fixedString.replace(tripleStrongTagWithTwoMatchingURegex, (key, uTagA, contentA, contentB, uTagC, contentC) => {
           if (uTagA === uTagC) {
             return `<strong>${uTagA}${contentA}${contentB}${contentC}</u></strong>`
           } else {
@@ -242,8 +241,8 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
         })
       }
 
-      if (doubleStrongTagWithThreeMatchingNestedUOnFirstTagRegex.test(string)) {
-        string = string.replace(doubleStrongTagWithThreeMatchingNestedUOnFirstTagRegex, (key, uTagA, uTagB, contentA, uTagC, contentB) => {
+      if (doubleStrongTagWithThreeMatchingNestedUOnFirstTagRegex.test(fixedString)) {
+        fixedString = fixedString.replace(doubleStrongTagWithThreeMatchingNestedUOnFirstTagRegex, (key, uTagA, uTagB, contentA, uTagC, contentB) => {
           if (uTagA === uTagB && uTagB === uTagC) {
             return `<strong>${uTagA}${contentA}${contentB}</u></strong>`
           } else {
@@ -252,8 +251,8 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
         })
       }
 
-      if (doubleStrongTagWithThreeMatchingURegex.test(string)) {
-        string = string.replace(doubleStrongTagWithThreeMatchingURegex, (key, uTagA, contentA, uTagB, contentB, uTagC, contentC) => {
+      if (doubleStrongTagWithThreeMatchingURegex.test(fixedString)) {
+        fixedString = fixedString.replace(doubleStrongTagWithThreeMatchingURegex, (key, uTagA, contentA, uTagB, contentB, uTagC, contentC) => {
           if (uTagA === uTagB && uTagB === uTagC) {
             return `<strong>${uTagA}${contentA}${contentB}${contentC}</u></strong>`
           } else {
@@ -262,8 +261,8 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
         })
       }
 
-      if (doubleStrongTagWithThreeMatchingNestedUOnSecondTagRegex.test(string)) {
-        string = string.replace(doubleStrongTagWithThreeMatchingNestedUOnSecondTagRegex, (key, uTagA, contentA, uTagB, uTagC, contentB) => {
+      if (doubleStrongTagWithThreeMatchingNestedUOnSecondTagRegex.test(fixedString)) {
+        fixedString = fixedString.replace(doubleStrongTagWithThreeMatchingNestedUOnSecondTagRegex, (key, uTagA, contentA, uTagB, uTagC, contentB) => {
           if (uTagA === uTagB && uTagB === uTagC) {
             return `<strong>${uTagA}${contentA}${contentB}</u></strong>`
           } else {
@@ -272,8 +271,8 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
         })
       }
 
-      if (doubleStrongTagWithTwoMatchingURegex.test(string)) {
-        string = string.replace(doubleStrongTagWithTwoMatchingURegex, (key, uTagA, contentA, uTagB, contentB) => {
+      if (doubleStrongTagWithTwoMatchingURegex.test(fixedString)) {
+        fixedString = fixedString.replace(doubleStrongTagWithTwoMatchingURegex, (key, uTagA, contentA, uTagB, contentB) => {
           if (uTagA === uTagB) {
             return `<strong>${uTagA}${contentA}${contentB}</u></strong>`
           } else {
@@ -282,8 +281,8 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
         })
       }
 
-      if (doubleStrongTagWithUOnSecondTagRegex.test(string)) {
-        string = string.replace(doubleStrongTagWithUOnSecondTagRegex, (key, contentA, uTag, contentB) => {
+      if (doubleStrongTagWithUOnSecondTagRegex.test(fixedString)) {
+        fixedString = fixedString.replace(doubleStrongTagWithUOnSecondTagRegex, (key, contentA, uTag, contentB) => {
           if (contentA.includes(' ')) {
             const splitA = contentA.split(' ')
             return `<strong>${splitA[0]}</strong> <strong>${uTag}${splitA[1]}${contentB}</u></strong>`
@@ -293,8 +292,8 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
         })
       }
 
-      if (doubleStrongTagWithUOnFirstTagRegex.test(string)) {
-        string = string.replace(doubleStrongTagWithUOnSecondTagRegex, (key, uTag, contentA, contentB) => {
+      if (doubleStrongTagWithUOnFirstTagRegex.test(fixedString)) {
+        fixedString = fixedString.replace(doubleStrongTagWithUOnSecondTagRegex, (key, uTag, contentA, contentB) => {
           if (contentB.includes(' ')) {
             const splitB = contentB.split(' ')
             return `<strong>${uTag}${contentA}${splitB[0]}</u></strong> <strong>${splitB[1]}</strong>`
@@ -304,14 +303,14 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
         })
       }
 
-      if (doubleStrongTagRegex.test(string)) {
-        string = string.replace(doubleStrongTagRegex, (key) => {
+      if (doubleStrongTagRegex.test(fixedString)) {
+        fixedString = fixedString.replace(doubleStrongTagRegex, (key) => {
           return key.replace(/<\/strong><strong>/, '')
         })
       }
 
-      if (singleStrongTagWithThreeMatchingURegex.test(string)) {
-        string = string.replace(singleStrongTagWithThreeMatchingURegex, (key, uTagA, contentA, uTagB, contentB, uTagC, contentC) => {
+      if (singleStrongTagWithThreeMatchingURegex.test(fixedString)) {
+        fixedString = fixedString.replace(singleStrongTagWithThreeMatchingURegex, (key, uTagA, contentA, uTagB, contentB, uTagC, contentC) => {
           if (uTagA === uTagB && uTagB === uTagC) {
             return `<strong>${uTagA}${contentA}${contentB}${contentC}</u></strong>`
           } else {
@@ -320,8 +319,8 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
         })
       }
 
-      if (singleStrongTagWithTwoMatchingNestedURegex.test(string)) {
-        string = string.replace(singleStrongTagWithTwoMatchingNestedURegex, (key, uTagA, uTagB, content) => {
+      if (singleStrongTagWithTwoMatchingNestedURegex.test(fixedString)) {
+        fixedString = fixedString.replace(singleStrongTagWithTwoMatchingNestedURegex, (key, uTagA, uTagB, content) => {
           if (uTagA === uTagB) {
             return `<strong>${uTagA}${content}</u></strong>`
           } else {
@@ -330,7 +329,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
         })
       }
 
-      return string
+      return fixedString
     }
 
     handlePassageChange(value: string) {
@@ -343,14 +342,14 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       }
     }
 
-    checkWork(): { reviewablePassage: string, numberOfCorrectChanges: number, conceptResultsObjects: Array<ConceptResultObject>}|void {
+    checkWork(): { reviewablePassage: string, numberOfCorrectChanges: number, conceptResultsObjects: ConceptResultObject[]}|void {
       const { currentActivity } = this.props.proofreaderActivities
       const { necessaryEdits, passage } = this.state
       let numberOfCorrectChanges = 0
       const correctEditRegex = /\+([^-]+)-/m
       const originalTextRegex = /\-([^|]+)\|/m
       const conceptUIDRegex = /\|([^}]+)}/m
-      const conceptResultsObjects: Array<ConceptResultObject> = []
+      const conceptResultsObjects: ConceptResultObject[] = []
       if (passage && necessaryEdits) {
         const gradedPassage = passage.replace(/<strong>(.*?)<\/strong>/gm , (key, edit) => {
           const uTag = edit.match(/<u id="(\d+)">(.+)<\/u>/m)
@@ -442,7 +441,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
 
     finishActivity() {
       const { edits, necessaryEdits } = this.state
-      const requiredEditCount = necessaryEdits && necessaryEdits.length ? Math.floor(necessaryEdits.length/2) : 5
+      const requiredEditCount = necessaryEdits && necessaryEdits.length ? Math.floor(necessaryEdits.length / 2) : 5
       if (necessaryEdits && necessaryEdits.length && edits.length === 0 || edits.length < requiredEditCount) {
         this.setState({showEarlySubmitModal: true})
       } else {
@@ -478,7 +477,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
 
     renderShowEarlySubmitModal(): JSX.Element|void {
       const { showEarlySubmitModal, necessaryEdits } = this.state
-      const requiredEditCount = necessaryEdits && necessaryEdits.length ? Math.floor(necessaryEdits.length/2) : 5
+      const requiredEditCount = necessaryEdits && necessaryEdits.length ? Math.floor(necessaryEdits.length / 2) : 5
       if (showEarlySubmitModal) {
         return <EarlySubmitModal
           requiredEditCount={requiredEditCount}

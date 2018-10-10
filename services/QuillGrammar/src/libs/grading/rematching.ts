@@ -1,5 +1,4 @@
-declare function require(name: string);
-const request = require('request-promise');
+import * as request from 'request-promise'
 import * as _ from 'underscore';
 import { hashToCollection } from 'quill-component-library/dist/componentLibrary';
 
@@ -50,7 +49,7 @@ interface ConceptResults {
 
 export function rematchAll(mode: string, question: Question, questionID: string, callback: Function) {
   const matcher = getMatcher(mode);
-  getGradedResponses(questionID).then((data) => {
+  getGradedResponses(questionID).then((data: any) => {
     question.key = questionID
     const matcherFields = getMatcherFields(mode, question, formatGradedResponses(data));
     paginatedNonHumanResponses(matcher, matcherFields, questionID, 1, callback);
@@ -59,7 +58,7 @@ export function rematchAll(mode: string, question: Question, questionID: string,
 
 export function rematchOne(response: string, mode: string, question: Question, questionID: string, callback: Function) {
   const matcher = getMatcher(mode);
-  getGradedResponses(questionID).then((data) => {
+  getGradedResponses(questionID).then((data: any) => {
     question.key = questionID
     const matcherFields = getMatcherFields(mode, question, formatGradedResponses(data));
     const promise = rematchResponse(matcher, matcherFields, response);
@@ -69,7 +68,7 @@ export function rematchOne(response: string, mode: string, question: Question, q
   });
 }
 
-export function paginatedNonHumanResponses(matcher, matcherFields, qid, page, callback) {
+export function paginatedNonHumanResponses(matcher: any, matcherFields: any, qid: string, page: any, callback: any) {
 
   return request(
     {
@@ -78,7 +77,7 @@ export function paginatedNonHumanResponses(matcher, matcherFields, qid, page, ca
       body: getResponseBody(page),
       json: true,
     },
-  ).then((data) => {
+  ).then((data: any) => {
     const parsedResponses = _.indexBy(data.results, 'id');
     const responseData = {
       responses: parsedResponses,
@@ -91,18 +90,18 @@ export function paginatedNonHumanResponses(matcher, matcherFields, qid, page, ca
       return paginatedNonHumanResponses(matcher, matcherFields, qid, page + 1, callback);
     }
     callback({ progress: undefined, }, true);
-  }).catch((err) => {
+  }).catch((err: string) => {
     console.log(err);
   });
 }
 
-function rematchResponses(matcher, matcherFields, responses) {
+function rematchResponses(matcher: any, matcherFields: any, responses: any) {
   _.each(hashToCollection(responses), (response) => {
     rematchResponse(matcher, matcherFields, response);
   });
 }
 
-function rematchResponse(matcher, matcherFields, response) {
+function rematchResponse(matcher: any, matcherFields: any, response: any) {
   let newResponse, fieldsWithResponse;
   if (Array.isArray(matcherFields)) {
     fieldsWithResponse = [...matcherFields]
@@ -125,7 +124,7 @@ function rematchResponse(matcher, matcherFields, response) {
   }
 }
 
-function unmatchRematchedResponse(response) {
+function unmatchRematchedResponse(response: any) {
   const newVals = {
     weak: false,
     feedback: null,
@@ -137,7 +136,7 @@ function unmatchRematchedResponse(response) {
   return updateResponse(response.id, newVals);
 }
 
-function updateRematchedResponse(response, newResponse) {
+function updateRematchedResponse(response: any, newResponse: any) {
   const newVals = {
     weak: false,
     parent_id: newResponse.response.parent_id,
@@ -148,12 +147,12 @@ function updateRematchedResponse(response, newResponse) {
   return updateResponse(response.id, newVals);
 }
 
-function deleteRematchedResponse(response) {
+function deleteRematchedResponse(response: any) {
   // deleteResponse(rid);
   console.log('Should be deleted');
 }
 
-function updateResponse(rid, content) {
+function updateResponse(rid: any, content: any) {
   const rubyConvertedResponse = objectWithSnakeKeysFromCamel(content);
   return request({
     method: 'PUT',
@@ -163,11 +162,11 @@ function updateResponse(rid, content) {
   });
 }
 
-function determineDelta(response, newResponse) {
+function determineDelta(response: any, newResponse: any) {
   const unmatched = !newResponse.response.author && !!response.author;
-  const parentIDChanged = (newResponse.response.parent_id ? parseInt(newResponse.response.parent_id) : null) !== response.parent_id;
-  const authorChanged = newResponse.response.author != response.author;
-  const feedbackChanged = newResponse.response.feedback != response.feedback;
+  const parentIDChanged = (newResponse.response.parent_id ? Number(newResponse.response.parent_id) : null) !== response.parent_id;
+  const authorChanged = newResponse.response.author !== response.author;
+  const feedbackChanged = newResponse.response.feedback !== response.feedback;
   const conceptResultsChanged = _.isEqual(convertResponsesArrayToHash(newResponse.response.concept_results), response.concept_results);
   const changed = parentIDChanged || authorChanged || feedbackChanged || conceptResultsChanged;
   // console.log(response.id, parentIDChanged, authorChanged, feedbackChanged, conceptResultsChanged);
@@ -181,7 +180,7 @@ function determineDelta(response, newResponse) {
   return 'unchanged';
 }
 
-function saveResponses(responses) {
+function saveResponses(responses: any) {
   return responses;
 }
 
@@ -216,7 +215,7 @@ function getMatcherFields(mode: string, question: Question, responses: {[key: st
   }
 }
 
-function getResponseBody(pageNumber) {
+function getResponseBody(pageNumber: number) {
   return {
     search: {
       filters: {
@@ -233,22 +232,24 @@ function getResponseBody(pageNumber) {
   };
 }
 
-function getGradedResponses(questionID) {
+function getGradedResponses(questionID: string) {
   return request(`https://cms.quill.org/questions/${questionID}/responses`);
 }
 
-function formatGradedResponses(jsonString): {[key: string]: Response} {
+function formatGradedResponses(jsonString: string): {[key: string]: Response} {
   const bodyToObj = {};
-  JSON.parse(jsonString).forEach((resp) => {
+  JSON.parse(jsonString).forEach((resp: any) => {
     bodyToObj[resp.id] = resp;
     if (typeof resp.concept_results === 'string') {
       resp.concept_results = JSON.parse(resp.concept_results);
     }
     for (const cr in resp.concept_results) {
-      const formatted_cr: any = {};
-      formatted_cr.conceptUID = cr;
-      formatted_cr.correct = resp.concept_results[cr];
-      resp.concept_results[cr] = formatted_cr;
+      if (resp.concept_results.hasOwnProperty(cr)) {
+        const formattedCr: any = {};
+        formattedCr.conceptUID = cr;
+        formattedCr.correct = resp.concept_results[cr];
+        resp.concept_results[cr] = formattedCr;
+      }
     }
     resp.conceptResults = resp.concept_results;
     delete resp.concept_results;
@@ -256,9 +257,9 @@ function formatGradedResponses(jsonString): {[key: string]: Response} {
   return bodyToObj;
 }
 
-function convertResponsesArrayToHash(crArray) {
+function convertResponsesArrayToHash(crArray: any) {
   const crs = _.values(crArray);
-  const newHash = {};
+  const newHash: {[key:string]: Boolean} = {};
   _.each(crs, (val) => {
     if (val.conceptUID && val.conceptUID.length > 0) {
       newHash[val.conceptUID] = val.correct;

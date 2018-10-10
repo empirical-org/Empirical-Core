@@ -12,7 +12,7 @@ import _ from 'lodash';
 
 export const updateSessionOnFirebase = (sessionID: string, session: SessionState) => {
   const cleanedSession = _.pickBy(session)
-  cleanedSession.currentQuestion ? cleanedSession.currentQuestion.attempts = _.compact(cleanedSession.currentQuestion.attempts) : null
+  // cleanedSession.currentQuestion ? cleanedSession.currentQuestion.attempts = _.compact(cleanedSession.currentQuestion.attempts) : null
   if (!cleanedSession.error) {
     sessionsRef.child(sessionID).set(cleanedSession)
   }

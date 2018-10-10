@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Editor from 'draft-js-plugins-editor'
-const { convertFromHTML, convertToHTML } = require('draft-convert')
+import { convertFromHTML, convertToHTML } from 'draft-convert'
 import createRichButtonsPlugin from 'draft-js-richbuttons-plugin'
 
 const richButtonsPlugin = createRichButtonsPlugin();
