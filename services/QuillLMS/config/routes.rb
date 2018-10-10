@@ -147,7 +147,7 @@ EmpiricalGrammar::Application.routes.draw do
     get 'lesson_units' => 'units#lesson_units'
     get 'units/select_lesson/:activity_id' => 'units#select_lesson_with_activity_id'
     get 'units/lesson_info_for_activity/:activity_id' => 'units#lesson_info_for_activity'
-
+    get 'units/score_info_for_activity/:activity_id' => 'units#score_info'
 
     resources :unit_templates, only: [:index] do
       collection do

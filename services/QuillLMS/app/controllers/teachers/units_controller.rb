@@ -128,6 +128,28 @@ class Teachers::UnitsController < ApplicationController
     render json: {}
   end
 
+  def score_info
+    unless params[:classroom_unit_id].present? and params[:activity_id].present?
+      score_info = {}
+    else
+      cuid = params[:classroom_unit_id]
+      aid = params[:activity_id]
+      score_info = ActiveRecord::Base.connection.execute(
+        """SELECT COUNT(id) as completed_count, COUNT(DISTINCT user_id) as started_count FROM activity_sessions WHERE
+        state='started' AND classroom_unit_id=#{cuid} AND
+        activity_sessions.activity_id=#{aid} AND activity_sessions.visible;""").to_a
+      cum_score = ActiveRecord::Base.connection.execute(
+        """SELECT SUM(percentage)*100 as cumulative_score FROM activity_sessions WHERE
+        is_final_score = true AND classroom_unit_id = #{cuid} AND
+        activity_sessions.activity_id = #{aid} AND
+        activity_sessions.visible;""").to_a
+      score_info[0]['cumulative_score'] = cum_score[0]['cumulative_score']
+      score_info = score_info[0]
+    end
+    #SELECT COUNT(DISTINCT user_id) FROM activity_sessions WHERE state = 'started' AND classroom_unit_id = 1706024 AND activity_sessions.activity_id = 79 AND activity_sessions.visible;
+    render json: score_info 
+  end
+
   private
 
   def lessons_with_current_user_and_activity
@@ -166,18 +188,14 @@ class Teachers::UnitsController < ApplicationController
   def units(report)
     units_i_teach_own_or_coteach('teach', report, false)
   end
-
+  
   def units_i_teach_own_or_coteach(teach_own_or_coteach, report, lessons)
     # returns an empty array if teach_own_or_coteach_classrooms_array is empty
     teach_own_or_coteach_classrooms_array = current_user.send("classrooms_i_#{teach_own_or_coteach}").map(&:id)
     if teach_own_or_coteach_classrooms_array.any?
+      scores, completed = ''
       if report
-        scores = "(SELECT COUNT(id) FROM activity_sessions WHERE is_final_score = true AND classroom_unit_id = cu.id AND activity_sessions.visible AND activity_sessions.activity_id = activities.id)  AS completed_count,
-        (SELECT (SUM(percentage)*100) FROM activity_sessions WHERE is_final_score = true AND classroom_unit_id = cu.id AND activity_sessions.activity_id = activities.id AND activity_sessions.visible)  AS classroom_cumulative_score,
-        (SELECT COUNT(DISTINCT user_id) FROM activity_sessions WHERE state = 'started' AND classroom_unit_id = cu.id AND activity_sessions.activity_id = activities.id AND activity_sessions.visible)  AS started_count,"
         completed = lessons ? "HAVING ca.completed" : "HAVING SUM(CASE WHEN act_sesh.visible = true AND act_sesh.state = 'finished' THEN 1 ELSE 0 END) > 0"
-      else
-        scores, completed = ''
       end
       if lessons
         lessons = "AND activities.activity_classification_id = 6"
