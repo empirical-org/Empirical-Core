@@ -19,7 +19,6 @@ import {
   submitResponseEdit,
   incrementResponseCount,
   removeLinkToParentID,
-  updateConceptResults,
   deleteConceptResult,
   getGradedResponsesWithCallback,
 } from '../../actions/responses';
@@ -108,6 +107,7 @@ export default React.createClass({
       optimal: this.refs.newResponseOptimal.checked,
       author: null,
       parent_id: null,
+      concept_results: Object(this.state.conceptResults).keys && Object(this.state.conceptResults).keys.length ? this.state.conceptResults : null
     };
     this.props.dispatch(submitResponseEdit(rid, newResp, this.props.questionID));
   },
@@ -163,11 +163,6 @@ export default React.createClass({
     } else {
       this.setState({ feedback: e, });
     }
-  },
-
-  updateConceptResults() {
-    const conceptResults = this.state.conceptResults || {};
-    this.props.dispatch(updateConceptResults(this.props.response.key, { conceptResults, }, this.props.questionID));
   },
 
   deleteConceptResult(crid) {
@@ -379,7 +374,6 @@ export default React.createClass({
           <div className="box">
             <label className="label">Concept Results</label>
             {this.renderConceptResults('Editing')}
-            <button className="button" onClick={this.updateConceptResults}>Save Concept Results</button>
           </div>
 
           <p className="control">

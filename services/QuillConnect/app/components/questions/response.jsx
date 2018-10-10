@@ -17,7 +17,6 @@ import {
   submitResponseEdit,
   incrementResponseCount,
   removeLinkToParentID,
-  updateConceptResults,
   deleteConceptResult,
   getGradedResponsesWithCallback,
 } from '../../actions/responses';
@@ -72,6 +71,7 @@ export default React.createClass({
   },
 
   cancelResponseEdit(rid) {
+    this.setState(this.getInitialState())
     this.props.dispatch(this.state.actions.cancelResponseEdit(this.props.questionID, rid));
   },
 
@@ -106,6 +106,7 @@ export default React.createClass({
       optimal: this.refs.newResponseOptimal.checked,
       author: null,
       parent_id: null,
+      concept_results: Object(this.state.conceptResults).keys && Object(this.state.conceptResults).keys.length ? this.state.conceptResults : null
     };
     this.props.dispatch(submitResponseEdit(rid, newResp, this.props.questionID));
   },
@@ -163,16 +164,11 @@ export default React.createClass({
     }
   },
 
-  updateConceptResults() {
-    const conceptResults = this.state.conceptResults || {};
-    this.props.dispatch(updateConceptResults(this.props.response.key, { conceptResults, }, this.props.questionID));
-  },
-
   deleteConceptResult(crid) {
     if (confirm('Are you sure?')) {
-      let conceptResults = Object.assign({}, this.state.conceptResults || {});
+      const conceptResults = Object.assign({}, this.state.conceptResults || {});
       delete conceptResults[crid];
-      this.setState({conceptResults: conceptResults})
+      this.setState({ conceptResults }, (() => { console.log('this.state.conceptResults', this.state.conceptResults) }))
     }
   },
 
@@ -378,7 +374,6 @@ export default React.createClass({
           <div className="box">
             <label className="label">Concept Results</label>
             {this.renderConceptResults('Editing')}
-            <button className="button" onClick={this.updateConceptResults}>Save Concept Results</button>
           </div>
 
           <p className="control">
