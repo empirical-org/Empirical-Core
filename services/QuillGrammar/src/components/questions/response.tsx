@@ -14,7 +14,6 @@ import ConceptSelectorWithCheckbox from '../shared/conceptSelectorWithCheckbox';
 import {
   deleteResponse,
   submitResponseEdit,
-  updateConceptResults,
   getGradedResponsesWithCallback,
 } from '../../actions/responses';
 
@@ -68,7 +67,6 @@ export default class Response extends React.Component<any, any> {
     this.removeLinkToParentID = this.removeLinkToParentID.bind(this)
     this.applyDiff = this.applyDiff.bind(this)
     this.handleFeedbackChange = this.handleFeedbackChange.bind(this)
-    this.updateConceptResults = this.updateConceptResults.bind(this)
     this.deleteConceptResult = this.deleteConceptResult.bind(this)
     this.chooseBoilerplateCategory = this.chooseBoilerplateCategory.bind(this)
     this.chooseSpecificBoilerplateFeedback = this.chooseSpecificBoilerplateFeedback.bind(this)
@@ -198,11 +196,6 @@ export default class Response extends React.Component<any, any> {
     } else {
       this.setState({ feedback: e, });
     }
-  }
-
-  updateConceptResults() {
-    const conceptResults = this.state.conceptResults || {};
-    this.props.dispatch(updateConceptResults(this.props.response.key, { conceptResults, }, this.props.questionID));
   }
 
   deleteConceptResult(crid) {
@@ -413,7 +406,6 @@ export default class Response extends React.Component<any, any> {
           <div className="box">
             <label className="label">Concept Results</label>
             {this.renderConceptResults('Editing')}
-            <button className="button" onClick={this.updateConceptResults}>Save Concept Results</button>
           </div>
 
           <p className="control">

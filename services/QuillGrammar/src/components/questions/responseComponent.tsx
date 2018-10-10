@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import * as filterActions from '../../actions/filters';
 import _ from 'underscore';
 import {
-  hashToCollection,
   ResponseSortFields,
   ResponseToggleFields,
-  QuestionBar
+  QuestionBar,
+  hashToCollection
 } from 'quill-component-library/dist/componentLibrary';
 import ResponseList from './responseList';
 import * as questionActions from '../../actions/questions';

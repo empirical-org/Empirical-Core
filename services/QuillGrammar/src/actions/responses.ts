@@ -19,6 +19,7 @@ export function updateData(questionId: string, responses: Response[]) {
   return { type: ActionTypes.UPDATE_RESPONSE_DATA, data: { questionId, responses, }, };
 }
 
+
 function getQuestionLoadedStatusForGroupedResponses(groupedResponses) {
   const questionsKeys = _.keys(groupedResponses);
   const statuses = {};
@@ -109,7 +110,7 @@ export function massEditDeleteResponses(ids: string[], qid: string) {
   };
 }
 
-export function submitResponseEdit(rid: string, content: Response, qid: string) {
+export function submitResponseEdit(rid: string, content: Response & { concept_results: any }, qid: string) {
   const rubyConvertedResponse = objectWithSnakeKeysFromCamel(content);
   return (dispatch: Function) => {
     request.put({
