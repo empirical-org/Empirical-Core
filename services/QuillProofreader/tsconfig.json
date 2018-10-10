@@ -20,7 +20,6 @@
         "noImplicitAny": true,
         "strictNullChecks": true,
         "noUnusedLocals": true,
-        "noConsole": false
     },
     "include": [
         "./src/**/*"
