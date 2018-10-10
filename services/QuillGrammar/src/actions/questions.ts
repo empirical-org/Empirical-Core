@@ -34,10 +34,12 @@ export const getGradedResponsesWithCallback = (questionID: string, callback: Fun
       }
       if (resp.concept_results) {
         for (const cr in resp.concept_results) {
-          const formatted_cr: ConceptResult = { conceptUID: '', correct: false};
-          formatted_cr.conceptUID = cr;
-          formatted_cr.correct = resp.concept_results[cr];
-          resp.concept_results[cr] = formatted_cr;
+          if (resp.concept_results.hasOwnProperty(cr)) {
+            const formattedCr: ConceptResult = { conceptUID: '', correct: false};
+            formattedCr.conceptUID = cr;
+            formattedCr.correct = resp.concept_results[cr];
+            resp.concept_results[cr] = formattedCr;
+          }
         }
         resp.conceptResults = resp.concept_results;
         delete resp.concept_results;

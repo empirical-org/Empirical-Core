@@ -16,7 +16,9 @@
       "one-variable-per-declaration": false,
       "missing-whitespace": false,
       "arrow-parens": false,
-      "ban-types": false
+      "ban-types": false,
+      "no-console": false,
+      "no-empty": false
     },
     "rulesDirectory": []
 }

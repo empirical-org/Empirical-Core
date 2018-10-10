@@ -1,21 +1,23 @@
 import { Action } from "redux";
 import { ActionTypes } from "../actions/actionTypes";
 import { Questions } from '../interfaces/questions'
+import * as _ from 'lodash'
 
 export interface QuestionsReducerState {
   hasreceiveddata: boolean;
-  data: Questions
+  data?: Questions
   error?: string;
   states: { [key: string]: string };
+  newConceptModalOpen: Boolean;
 }
 
-type QuestionReducerAction = Action & { data: Questions, qid: string }
+type QuestionReducerAction = Action & { data: Questions, qid: string, rid: string }
 
 export default (
-    currentState = {hasreceiveddata: false, states: {}},
+    currentState = {hasreceiveddata: false, states: {}, newConceptModalOpen: false},
     action: QuestionReducerAction,
 ) => {
-      let newstate
+      let newstate: QuestionsReducerState
       switch (action.type) {
         case ActionTypes.RECEIVE_QUESTIONS_DATA:
           return Object.assign({}, currentState, { data: action.data}, {hasreceiveddata: true})

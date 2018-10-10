@@ -1,5 +1,5 @@
-import React from 'react';
-import _ from 'underscore';
+import * as React from 'react';
+import * as _ from 'underscore';
 import * as questionActions from '../../actions/questions';
 import {
   Modal,
@@ -14,18 +14,16 @@ import ConceptSelectorWithCheckbox from '../shared/conceptSelectorWithCheckbox';
 import {
   deleteResponse,
   submitResponseEdit,
-  incrementResponseCount,
   updateConceptResults,
   getGradedResponsesWithCallback,
 } from '../../actions/responses';
 
-const jsDiff = require('diff');
+import * as jsDiff from 'diff'
 import { ActionTypes } from '../../actions/actionTypes';
 
-const feedbackStrings = ActionTypes.FEEDBACK_STRINGS;
 
-export default class Response extends React.Component {
-  constructor(props) {
+export default class Response extends React.Component<any, any> {
+  constructor(props: any) {
     super(props)
 
     const response = this.props.response
@@ -269,10 +267,10 @@ export default class Response extends React.Component {
     }
   }
 
-  getParentResponse(parent_id) {
+  getParentResponse(parentId) {
     const callback = (responses) => {
       this.setState({
-        parent: _.filter(responses, (resp) => resp.id === parent_id)[0]
+        parent: _.filter(responses, (resp) => resp.id === parentId)[0]
       })
     }
     return getGradedResponsesWithCallback(this.props.questionID, callback);
@@ -344,7 +342,6 @@ export default class Response extends React.Component {
     let parentDetails;
     let childDetails;
     let pathwayDetails;
-    let authorDetails;
     if (!this.props.expanded) {
       return;
     }
@@ -437,7 +434,6 @@ export default class Response extends React.Component {
           <ul>
             {this.renderConceptResults('Viewing')}
           </ul>
-          {authorDetails}
           {childDetails}
           {pathwayDetails}
         </div>);

@@ -12,8 +12,7 @@ import { ConceptReducerState } from '../../reducers/conceptsReducer'
 import { ProofreaderActivity } from '../../interfaces/proofreaderActivities'
 import { Match } from '../../interfaces/match'
 
-
-String.prototype.toKebab = function () {
+String.prototype.toKebab = function() {
   return this.replace(/([A-Z])/g, char => `-${char.toLowerCase()}`);
 };
 
@@ -41,7 +40,7 @@ class Lesson extends React.Component<LessonProps> {
     window.scrollTo(0, 0)
   }
 
-  questionsForLesson(): Array<Question>|void {
+  questionsForLesson(): Question[]|void {
     const { data, } = this.props.lessons
     const { lessonID, } = this.props.match.params
     const questions = this.props.questions ? hashToCollection(this.props.questions.data) : []
@@ -92,28 +91,28 @@ class Lesson extends React.Component<LessonProps> {
   //   );
   // }
 
-  deleteLesson():void {
+  deleteLesson(): void {
     const lessonID: string|undefined = this.props.match.params.lessonID;
     if (lessonID && confirm('do you want to do this?')) {
       this.props.dispatch(lessonActions.deleteLesson(lessonID));
     }
   }
 
-  cancelEditingLesson():void {
+  cancelEditingLesson(): void {
     const { lessonID } = this.props.match.params
     if (lessonID) {
       this.props.dispatch(lessonActions.cancelLessonEdit(lessonID));
     }
   }
 
-  saveLessonEdits(vals: ProofreaderActivity):void {
+  saveLessonEdits(vals: ProofreaderActivity): void {
     const lessonID: string|undefined = this.props.match.params.lessonID;
     if (lessonID) {
       this.props.dispatch(lessonActions.submitLessonEdit(lessonID, vals));
     }
   }
 
-  editLesson():void {
+  editLesson(): void {
     const { lessonID, } = this.props.match.params;
     if (lessonID) {
       this.props.dispatch(lessonActions.startLessonEdit(lessonID));
@@ -121,7 +120,7 @@ class Lesson extends React.Component<LessonProps> {
     // // console.log("Edit button clicked");
   }
 
-  renderEditLessonForm():JSX.Element|void {
+  renderEditLessonForm(): JSX.Element|void {
     const { data, states } = this.props.lessons
     const lessonID: string|undefined = this.props.match.params.lessonID;
     if (lessonID) {

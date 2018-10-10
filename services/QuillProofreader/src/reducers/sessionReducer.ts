@@ -12,7 +12,6 @@ export default (
     currentState: SessionState = { passage: '' },
     action: Action,
 ): SessionState => {
-    let currentQuestion: Question|{}
     switch (action.type) {
         case ActionTypes.SET_FIREBASE_PASSAGE:
             return Object.assign({}, currentState, {passageFromFirebase: action.passage})

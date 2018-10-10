@@ -21,7 +21,6 @@ const initialState = {
 }
 
 export default function(currentstate: ConceptReducerState, action: ConceptReducerAction) {
-    let newstate: ConceptReducerState;
     switch (action.type) {
         case ActionTypes.RECEIVE_CONCEPTS_DATA:
             return Object.assign({}, currentstate, {

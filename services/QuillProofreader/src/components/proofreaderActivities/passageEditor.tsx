@@ -24,8 +24,8 @@ const rules = [
       const type = BLOCK_TAGS[el.tagName.toLowerCase()]
       if (type) {
         return {
-          object: type === 'span' ? 'inline': 'block',
-          type: type,
+          object: type === 'span' ? 'inline' : 'block',
+          type,
           data: {
             className: el.getAttribute('class'),
             dataOriginalIndex: el.getAttribute('data-original-index')
@@ -60,7 +60,7 @@ const rules = [
       if (type) {
         return {
           object: 'mark',
-          type: type,
+          type,
           data: {
             id: el.getAttribute('id'),
           },
@@ -69,7 +69,7 @@ const rules = [
       }
     },
     serialize(obj, children) {
-      if (obj.object == 'mark') {
+      if (obj.object === 'mark') {
         switch (obj.type) {
           case 'bold':
             return <strong>{children}</strong>
@@ -95,8 +95,8 @@ const plugins = [
 
 interface PassageEditorState {
   text: any;
-  originalTextArray: Array<string>,
-  indicesOfUTags: {[key:number]: number}
+  originalTextArray: string[],
+  indicesOfUTags: {[key: number]: number}
 }
 
 interface PassageEditorProps {
@@ -133,12 +133,12 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
     const uTags = extraPTagStrippedText.match(/<u.+?<\/u>/gm)
     const punctuationRegex = /^[.,:;]/
     const beginningOfSomething = /(<p>|“)$/
-    const originalTextArray: Array<string> = []
+    const originalTextArray: string[] = []
     let spannedText = ''
     let index = 0
     const spans = extraPTagStrippedText.split(/<u.+?<\/u>/gm)
     // { index: uTagId }
-    const indicesOfUTags: {[key:number]: number} = {}
+    const indicesOfUTags: {[key: number]: number} = {}
     spans.forEach((span, spanIndex) => {
       const words = span.trim().split(' ')
       words.forEach((word, wordIndex) => {
@@ -167,8 +167,8 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
         } else {
           spannedText += `<span data-original-index=${index}>${uTags[spanIndex]} </span>`
         }
-        const text = uTags[spanIndex].match(/<u id="\d+">(.*)<\/u>/) ? uTags[spanIndex].match(/<u id="\d+">(.*)<\/u>/)[1] : ''
-        originalTextArray.push(text)
+        const content = uTags[spanIndex].match(/<u id="\d+">(.*)<\/u>/) ? uTags[spanIndex].match(/<u id="\d+">(.*)<\/u>/)[1] : ''
+        originalTextArray.push(content)
         index++
       }
     })
@@ -218,7 +218,7 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
   }
 
   onKeyDown(event: any, change: any, editor: any) {
-    if (['ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown', 'Backspace', 'Shift', 'MetaShift', 'Meta', 'Enter'].includes(event.key)) return
+    if (['ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown', 'Backspace', 'Shift', 'MetaShift', 'Meta', 'Enter'].includes(event.key)) { return }
 
     const { value } = change
     const originalSelection = value.selection
@@ -235,14 +235,14 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
       }
     }
 
-    if (!startInline) return
+    if (!startInline) { return }
 
     if (startInline && event.key === ' ' && originalSelection.focus.offset === startInline.text.length && originalSelection.anchor.offset === startInline.text.length) {
       event.preventDefault()
       change.moveToEndOfNode(startInline).insertText(' ')
     }
 
-    if (startInline.data.get('dataOriginalIndex') === '0') return
+    if (startInline.data.get('dataOriginalIndex') === '0') { return }
 
     if (originalSelection.focus.offset === 0 || originalSelection.anchor.offset === 0) {
       const { startBlock } = change.value
@@ -263,12 +263,12 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
   }
 
   onKeyUp(event: any, change: any, editor: any) {
-    if (['ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown'].includes(event.key)) return
+    if (['ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown'].includes(event.key)) { return }
 
     const { value } = change
     const originalSelection = value.selection
 
-    if (event.key === ' ' && originalSelection.focus.offset !== originalSelection.anchor.offset) return
+    if (event.key === ' ' && originalSelection.focus.offset !== originalSelection.anchor.offset) { return }
 
     const { startInline, startBlock } = value
     let currentInline = startInline
@@ -343,7 +343,7 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
 
     } else {
       const nextInline = change.moveEndForward(1).value.endInline
-      const previousInline = change.moveStartBackward(1).value.startInline
+      previousInline = change.moveStartBackward(1).value.startInline
       if (nextInline || previousInline) {
         if (nextInline) {
           const dataOriginalIndex = nextInline.data.get('dataOriginalIndex')
@@ -384,7 +384,6 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
             let node = change
             .setAnchor(originalSelection.anchor)
             .setFocus(originalSelection.focus)
-
 
             const newText = previousInline.text
 

@@ -23,7 +23,7 @@ class Concepts extends React.Component<ConceptsProps> {
     }
   }
 
-  render(){
+  render() {
     // // console.log("this.props.concepts", this.props.concepts)
     return (
       <section className="section">

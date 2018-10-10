@@ -129,12 +129,12 @@ class MassEditContainer extends React.Component<MassEditProps, MassEditState> {
     const selectedResponses = this.props.massEdit.selectedResponses;
     const feedback = this.state.massEditFeedback;
     const optimal = this.refs.massEditOptimal.checked || false;
-    const parent_id = null;
+    const parentId = null;
     const author = null;
     const payload = {
       feedback,
       optimal,
-      parent_id,
+      parent_id: parentId,
       author,
     };
     const qid = this.props.match.params.questionID;
@@ -176,7 +176,7 @@ class MassEditContainer extends React.Component<MassEditProps, MassEditState> {
   toggleMassEditSummaryList() {
     let display = 'none';
     let text = 'Expand List';
-    if (this.state.massEditSummaryListButtonText == 'Expand List') {
+    if (this.state.massEditSummaryListButtonText === 'Expand List') {
       display = 'block';
       text = 'Collapse List';
     }

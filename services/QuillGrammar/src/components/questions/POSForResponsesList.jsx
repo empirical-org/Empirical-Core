@@ -15,7 +15,7 @@ export default class POSForResponsesList extends React.Component {
   }
 
   renderPOSTagsList() {
-    let posTagsList = this.sortResponses(this.props.posTagsList)
+    const posTagsList = this.sortResponses(this.props.posTagsList)
 
     return _.map(posTagsList, (tag, index) => {
       let bgColor;
@@ -32,16 +32,16 @@ export default class POSForResponsesList extends React.Component {
         icon = "⚠️";
       }
 
-      let tagsToRender = [];
+      const tagsToRender = [];
       const posTagKeys = keysForPOS()
 
       if (tag.tags) {
-        tag.tags.forEach((index) => {
-          tagsToRender.push(posTagKeys[index])
+        tag.tags.forEach((i) => {
+          tagsToRender.push(posTagKeys[i])
         })
       }
 
-      let headerStyle = {
+      const headerStyle = {
         padding: "10px 20px",
         borderBottom: "0.2px solid #e6e6e6"
       }

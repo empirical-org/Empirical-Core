@@ -1,7 +1,7 @@
 import { ActionTypes } from "../actions/actionTypes";
-import _ from 'lodash';
+import * as _ from 'lodash';
 
-const visibleStatuses = {
+const visibleStatuses: {[key:string]: Boolean} = {
   'Human Optimal': true,
   'Human Sub-Optimal': true,
   'Algorithm Optimal': true,
@@ -54,7 +54,7 @@ const initialState = {
   },
 }
 
-function getFormattedFilterData(state) {
+function getFormattedFilterData(state: any) {
   return {
     filters: getFilters(state),
     sort: getSort(state),
@@ -62,7 +62,7 @@ function getFormattedFilterData(state) {
   };
 }
 
-function mapStatus() {
+function mapStatus(): {[key:string]: number} {
   return {
     'Human Optimal': 0,
     'Human Sub-Optimal': 1,
@@ -72,10 +72,10 @@ function mapStatus() {
   }
 }
 
-function getFilters(state) {
-  const ignoredAuthors = []
-  const ignoredStatuses = []
-  Object.entries(state.visibleStatuses).forEach(([key, value]) => {
+function getFilters(state: any) {
+  const ignoredAuthors: Array<string> = []
+  const ignoredStatuses: Array<number> = []
+  Object.entries(state.visibleStatuses).forEach(([key, value]: any) => {
     if (!value) {
       if (mapStatus()[key] !== undefined) {
         ignoredStatuses.push(mapStatus()[key])
@@ -90,15 +90,15 @@ function getFilters(state) {
   }
 }
 
-function getSort(state) {
+function getSort(state: any) {
   return {
     column: state.sorting,
     direction: state.ascending ? 'asc' : 'desc'
   }
 }
 
-export default function(currentState, action) {
-  let newState;
+export default function(currentState: any, action: any) {
+  let newState: any;
   switch (action.type) {
     case ActionTypes.TOGGLE_EXPAND_SINGLE_RESPONSE:
       newState = _.cloneDeep(currentState);
