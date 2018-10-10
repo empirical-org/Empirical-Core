@@ -10,6 +10,7 @@
     "test": "jest",
     "build:jenkins": "tsc && webpack --optimize-minimize",
     "build": "tsc && webpack --progress",
+    "build:staging": "webpack --progress --config webpack.staging.config.js",
     "clean": "rd /s/q built"
   },
   "keywords": [
@@ -37,6 +38,7 @@
     "antd": "^3.9.3",
     "bulma": "^0.7.1",
     "css-hot-loader": "^1.3.9",
+    "draft-convert": "^2.1.4",
     "enzyme-adapter-react-16": "^1.1.1",
     "firebase": "^5.0.2",
     "fs": "0.0.1-security",
@@ -56,6 +58,7 @@
     "react-router-dom": "^4.2.2",
     "react-router-redux": "^4.0.8",
     "react-select": "^2.0.0",
+    "react-sortable": "^2.0.0",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
     "request": "^2.87.0",
