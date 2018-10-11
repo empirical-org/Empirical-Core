@@ -12,12 +12,14 @@ export function getStatusForResponse(response: Response|{} = {}) {
   return (response.optimal ? 0 : 1);
 }
 
-export default function responsesWithStatus(responses = {}) {
-  return Object.keys(responses).map(key => {
+export default function responsesWithStatus(responses: {[key: string]: Response}|{} = {}) {
+  const responsesWithStatus: {[key: string]: Response} = {}
+  Object.keys(responses).forEach(key => {
     const value = responses[key]
     const statusCode = getStatusForResponse(value);
-    return Object.assign({}, value, { statusCode, });
+    responsesWithStatus[key] = Object.assign({}, value, { statusCode, });
   });
+  return responsesWithStatus
 }
 
 export function sortByLevenshteinAndOptimal(userString: string, responses: ResponseWithLevenshtein[]) {

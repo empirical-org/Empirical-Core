@@ -231,7 +231,8 @@ class ResponseComponent extends React.Component {
   }
 
   responsesWithStatus() {
-    return hashToCollection(respWithStatus(this.props.filters.responses));
+    const responsesWithStatus = respWithStatus(this.props.filters.responses)
+    return hashToCollection(responsesWithStatus);
   }
 
   responsesGroupedByStatus() {
@@ -602,7 +603,11 @@ class ResponseComponent extends React.Component {
     //   array = this.getPOSTagsList()
     // }
 
-    const pageNumbers = _.range(1, this.props.filters.numberOfPages + 1);
+    if (this.props.filters.numberOfPages) {
+      const pageNumbers = _.range(1, this.props.filters.numberOfPages + 1);
+    } else {
+      const pageNumbers = [1]
+    }
 
     let pageNumberStyle = {};
     const numbersToRender = pageNumbers.map((pageNumber, i) => {
