@@ -135,12 +135,14 @@ export default class Response extends React.Component<any, any> {
   }
 
   updateResponse(rid: string) {
+    const concept_results = this.state.conceptResults || {}
     const newResp = {
       weak: false,
       feedback: this.state.feedback !== '<br/>' ? this.state.feedback : '',
       optimal: this.refs.newResponseOptimal.checked,
       author: null,
       parent_id: null,
+      concept_results
     };
     this.props.dispatch(submitResponseEdit(rid, newResp, this.props.questionID));
   }
