@@ -8,6 +8,7 @@ export default function checkAnswer(question, response, responses, mode= 'defaul
     responses: responses ? hashToCollection(responses) : [],
     questionUID: question.key
   };
-  const newResponse = checkGrammarQuestion(fields.questionUID, response, fields.responses)
+  const defaultConceptUID = question.modelConceptUID || question.concept_uid
+  const responseObj = checkGrammarQuestion(questionUID, response, responses, defaultConceptUID)
   return {response: newResponse};
 }

@@ -191,28 +191,11 @@ function getMatcher(mode: string): Function {
 function getMatcherFields(mode: string, question: Question, responses: {[key: string]: Response}) {
 
   const responseArray = hashToCollection(responses);
-  const focusPoints = question.focusPoints ? hashToCollection(question.focusPoints) : [];
-  const incorrectSequences = question.incorrectSequences ? hashToCollection(question.incorrectSequences) : [];
+  // const focusPoints = question.focusPoints ? hashToCollection(question.focusPoints) : [];
+  // const incorrectSequences = question.incorrectSequences ? hashToCollection(question.incorrectSequences) : [];
 
-  if (mode === 'sentenceFragments') {
-    return {
-      wordCountChange: question.wordCountChange,
-      question_uid: question.key,
-      prompt: question.prompt,
-      responses: responseArray,
-      focusPoints,
-      incorrectSequences,
-      ignoreCaseAndPunc: question.ignoreCaseAndPunc,
-      checkML: true,
-      mlUrl: process.env.CMS_URL
-    };
-  } else if (mode === 'diagnosticQuestions') {
-    return [question.key, hashToCollection(responses)]
-  } else if (mode === 'fillInBlank') {
-    return [question.key, hashToCollection(responses)]
-  } else {
-    return [question.key, responseArray, focusPoints, incorrectSequences]
-  }
+  const defaultConceptUID = question.modelConceptUID || question.concept_uid
+  return [question.key, responseArray, defaultConceptUID]
 }
 
 function getResponseBody(pageNumber: number) {
