@@ -80,7 +80,7 @@ class Lessons extends React.Component<LessonsProps, LessonsState> {
     return (
       <section className="section">
         <div className="container">
-          <h1 className="title"><button className="button is-primary" onClick={this.createNew}>Create New Lesson</button></h1>
+          <h1 className="title"><button className="button is-primary" onClick={this.createNew}>Create New Activity</button></h1>
           { this.renderModal() }
           <div style={{display: 'inline-block'}}>
             <FlagDropdown flag={this.state.lessonFlags} handleFlagChange={this.handleSelect} isLessons={true}/>
@@ -89,7 +89,7 @@ class Lessons extends React.Component<LessonsProps, LessonsState> {
             <div className="column">
               <aside className="menu">
                 <p className="menu-label">
-                  Lessons
+                  Activities
                 </p>
                 <ul className="menu-list">
                   {this.renderLessons()}
