@@ -85,7 +85,7 @@ export default class Response extends React.Component<any, any> {
         conceptResults = response.concept_results
       }
     }
-    this.state = {
+    return {
       feedback: response.feedback || '',
       selectedBoilerplate: '',
       selectedBoilerplateCategory: response.selectedBoilerplateCategory || '',
@@ -112,9 +112,8 @@ export default class Response extends React.Component<any, any> {
   }
 
   cancelResponseEdit(rid: string) {
-    this.setState(this.initialState(), () => {
-      this.props.dispatch(this.state.actions.cancelResponseEdit(this.props.questionID, rid));
-    })
+    this.setState(this.initialState())
+    this.props.dispatch(this.state.actions.cancelResponseEdit(this.props.questionID, rid));
   }
 
   viewChildResponses(rid: string) {
@@ -142,14 +141,13 @@ export default class Response extends React.Component<any, any> {
   }
 
   updateResponse(rid: string) {
-    const concept_results = this.state.conceptResults || {}
     const newResp = {
       weak: false,
       feedback: this.state.feedback !== '<br/>' ? this.state.feedback : '',
       optimal: this.refs.newResponseOptimal.checked,
       author: null,
       parent_id: null,
-      concept_results
+      concept_results: Object.keys(this.state.conceptResults) && Object.keys(this.state.conceptResults).length ? this.state.conceptResults : null
     };
     this.props.dispatch(submitResponseEdit(rid, newResp, this.props.questionID));
   }
