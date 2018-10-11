@@ -25,30 +25,9 @@ export default class Response extends React.Component<any, any> {
   constructor(props: any) {
     super(props)
 
-    const response = this.props.response
-    const actions = questionActions
-    let conceptResults = {}
-    if (response.concept_results) {
-      if (typeof response.concept_results === 'string') {
-        conceptResults = JSON.parse(response.concept_results)
-      } else {
-        conceptResults = response.concept_results
-      }
-    }
-    this.state = {
-      feedback: response.feedback || '',
-      selectedBoilerplate: '',
-      selectedBoilerplateCategory: response.selectedBoilerplateCategory || '',
-      selectedConcept: response.concept || '',
-      actions,
-      parent: null,
-      newConceptResult: {
-        conceptUID: '',
-        correct: true,
-      },
-      conceptResults,
-    };
+    this.state = this.initialState()
 
+    this.initialState = this.initialState.bind(this)
     this.deleteResponse = this.deleteResponse.bind(this)
     this.editResponse = this.editResponse.bind(this)
     this.cancelResponseEdit = this.cancelResponseEdit.bind(this)
@@ -95,6 +74,32 @@ export default class Response extends React.Component<any, any> {
 
   }
 
+  initialState() {
+    const response = this.props.response
+    const actions = questionActions
+    let conceptResults = {}
+    if (response.concept_results) {
+      if (typeof response.concept_results === 'string') {
+        conceptResults = JSON.parse(response.concept_results)
+      } else {
+        conceptResults = response.concept_results
+      }
+    }
+    this.state = {
+      feedback: response.feedback || '',
+      selectedBoilerplate: '',
+      selectedBoilerplateCategory: response.selectedBoilerplateCategory || '',
+      selectedConcept: response.concept || '',
+      actions,
+      parent: null,
+      newConceptResult: {
+        conceptUID: '',
+        correct: true,
+      },
+      conceptResults,
+    };
+  }
+
   deleteResponse(rid: string) {
     if (window.confirm('Are you sure?')) {
       this.props.dispatch(deleteResponse(this.props.questionID, rid));
@@ -107,7 +112,9 @@ export default class Response extends React.Component<any, any> {
   }
 
   cancelResponseEdit(rid: string) {
-    this.props.dispatch(this.state.actions.cancelResponseEdit(this.props.questionID, rid));
+    this.setState(this.initialState(), () => {
+      this.props.dispatch(this.state.actions.cancelResponseEdit(this.props.questionID, rid));
+    })
   }
 
   viewChildResponses(rid: string) {
