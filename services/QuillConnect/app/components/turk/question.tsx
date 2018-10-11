@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'underscore';
-import { submitResponse, clearResponses } from '../../actions/diagnostics.js';
+import { submitResponse, clearResponses } from '../../actions/turk.js';
 import ReactTransition from 'react-addons-css-transition-group';
 import {
   getGradedResponsesWithCallback
