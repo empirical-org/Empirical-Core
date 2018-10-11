@@ -71,8 +71,17 @@ export default React.createClass({
   populateCompletionAndAverageScore(data) {
     //this.setState({ allUnits: this.parseUnits(data), }, this.getUnitsForCurrentClass);
     data.forEach((u) => {
-      console.log(u.unit_id);
-      console.log(u.activity_id);
+      request.get(`${process.env.DEFAULT_URL}/teachers/units/score_info_for_activity/${u.activity_id}?classroom_unit_id=${u.classroom_unit_id}`, (error, httpStatus, body) => {
+        //console.log(this.state.allUnits);
+        this.state.allUnits.forEach((stateUnit) => {
+          if (typeof stateUnit.classroomActivities.get(u.activity_id) != 'undefined' ) {
+            console.log(stateUnit.classroomActivities.get(u.activity_id));
+            stateUnit.classroomActivities.get(u.activity_id).cumulativeScore = 200;
+            stateUnit.classroomActivities.get(u.activity_id).completedCount = 3;
+            console.log(JSON.parse(body));
+          }
+        })
+      })
     });
   },
 
