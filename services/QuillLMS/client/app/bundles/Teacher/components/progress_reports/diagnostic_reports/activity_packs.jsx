@@ -64,10 +64,30 @@ export default React.createClass({
   	});
   },
 
+  sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  },
+
+  populateCompletionAndAverageScore(data) {
+    //this.setState({ allUnits: this.parseUnits(data), }, this.getUnitsForCurrentClass);
+    data.forEach((u) => {
+      console.log(u.unit_id);
+      console.log(u.activity_id);
+    });
+  },
+
+  demo() {
+    console.log('Taking a break...');
+    this.sleep(9000).then( () => {
+      console.log('Nine seconds later');
+    });
+  },
+
   getUnits() {
     request.get(`${process.env.DEFAULT_URL}/teachers/units?report=true`, (error, httpStatus, body) => {
       this.setAllUnits(JSON.parse(body));
-    });
+      this.populateCompletionAndAverageScore(JSON.parse(body));
+    })
   },
 
   getUnitsForCurrentClass() {
@@ -82,6 +102,9 @@ export default React.createClass({
 
   setAllUnits(data) {
     this.setState({ allUnits: this.parseUnits(data), }, this.getUnitsForCurrentClass);
+  },
+  addMissingInfo(data) {
+    alert('adding missing information');
   },
 
   generateNewCaUnit(u) {
@@ -137,6 +160,8 @@ export default React.createClass({
           cumulativeScore = Number(u.classroom_cumulative_score);
           completedCount = Number(u.completed_count);
         }
+        //completedCount = Number(4); // number of srudents who completed
+        //cumulativeScore = Number(332); // cumulative percentage for those //completed --- 83*4
         caUnit.classroomActivities.set(u.activity_id, this.classroomActivityData(u, assignedStudentCount, completedCount, cumulativeScore));
       }
     });
