@@ -8,9 +8,9 @@ import {
 import TextEditor from '../shared/textEditor'
 import { EditorState, ContentState } from 'draft-js'
 import ResponseList from './responseList';
+import ConceptResults from './conceptResults'
 import getBoilerplateFeedback from './boilerplateFeedback';
 import * as massEdit from '../../actions/massEdit';
-import ConceptSelectorWithCheckbox from '../shared/conceptSelectorWithCheckbox';
 import {
   deleteResponse,
   submitResponseEdit,
@@ -304,37 +304,16 @@ export default class Response extends React.Component<any, any> {
   }
 
   renderConceptResults(mode) {
-    const conceptResults = Object.assign({}, this.state.conceptResults)
-    let components
-    if (conceptResults) {
-      if (mode === 'Editing') {
-      const conceptResultsPlus = Object.assign(conceptResults, {null: this.props.response.optimal})
-      components = Object.keys(conceptResultsPlus).map(uid => {
-        const concept = _.find(this.props.concepts.data['0'], { uid, });
-        return <ConceptSelectorWithCheckbox
-            key={uid}
-            handleSelectorChange={this.handleConceptChange}
-            currentConceptUID={uid}
-            checked={conceptResults[uid]}
-            onCheckboxChange={() => this.toggleCheckboxCorrect(uid)}
-            selectorDisabled={uid === null || uid === 'null' ? false : true}
-            deleteConceptResult={() => this.deleteConceptResult(uid)}
-          />
-      });
-    } else {
-      components = Object.keys(conceptResults).map(uid => {
-        const concept = _.find(this.props.concepts.data['0'], { uid, });
-        if (concept) {
-          // hacky fix for the problem where concept result uids are being returned with string value 'false' rather than false
-          return  <li key={uid}>
-            {concept.displayName} {conceptResults[uid] && conceptResults[uid] !== 'false' ? <span className="tag is-small is-success">Correct</span> : <span className="tag is-small is-danger">Incorrect</span>}
-            {'\t'}
-          </li>
-        }
-      });
-    }
-      return _.values(components);
-    }
+    return <ConceptResults
+      key={Object.keys(this.state.conceptResults).length}
+      conceptResults={this.state.conceptResults}
+      concepts={this.props.concepts}
+      mode={mode}
+      handleConceptChange={this.handleConceptChange}
+      toggleCheckboxCorrect={this.toggleCheckboxCorrect}
+      deleteConceptResult={this.deleteConceptResult}
+      response={this.props.response}
+    />
   }
 
   renderResponseContent(isEditing, response) {
