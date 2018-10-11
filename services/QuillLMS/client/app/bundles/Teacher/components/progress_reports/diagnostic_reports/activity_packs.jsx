@@ -75,12 +75,14 @@ export default React.createClass({
         //console.log(this.state.allUnits);
         this.state.allUnits.forEach((stateUnit) => {
           if (typeof stateUnit.classroomActivities.get(u.activity_id) != 'undefined' ) {
-            console.log(stateUnit.classroomActivities.get(u.activity_id));
-            stateUnit.classroomActivities.get(u.activity_id).cumulativeScore = 200;
-            stateUnit.classroomActivities.get(u.activity_id).completedCount = 3;
-            console.log(JSON.parse(body));
+            console.log(JSON.parse(body).cumulative_score);
+            stateUnit.classroomActivities.get(u.activity_id).cumulativeScore = JSON.parse(body).cumulative_score;
+            stateUnit.classroomActivities.get(u.activity_id).completedCount = JSON.parse(body).completed_count;
+            console.log('d',stateUnit.classroomActivities.get(u.activity_id))
+            //console.log(JSON.parse(body));
           }
         })
+        this.forceUpdate();
       })
     });
   },
