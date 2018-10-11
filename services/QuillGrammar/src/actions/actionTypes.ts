@@ -119,8 +119,6 @@ export const ActionTypes = {
     ],
 
     ERROR_AUTHORS: [
-      'Focus Point Hint',
-      'Incorrect Sequence Hint',
       'Capitalization Hint',
       'Starting Capitalization Hint',
       'Punctuation Hint',
@@ -133,12 +131,6 @@ export const ActionTypes = {
       'Flexible Additional Word Hint',
       'Flexible Missing Word Hint',
       'Whitespace Hint',
-      'Missing Details Hint',
-      'Not Concise Hint',
-      'Required Words Hint',
-      'Too Short Hint',
-      'Too Long Hint',
-      'Parts of Speech',
       'Spelling Hint',
     ],
 
