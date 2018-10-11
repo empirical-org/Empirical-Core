@@ -1,7 +1,8 @@
 import React from 'react';
 import Editor from 'draft-js-plugins-editor'
-const { convertFromHTML, convertToHTML } = require('draft-convert')
+import { convertFromHTML, convertToHTML } from 'draft-convert'
 import createRichButtonsPlugin from 'draft-js-richbuttons-plugin'
+import Immutable from 'immutable'
 
 const richButtonsPlugin = createRichButtonsPlugin();
 const {
@@ -20,6 +21,14 @@ const {
 // interface TextEditorState {
 //   text: any;
 // }
+//
+const customRenderMap = Immutable.Map({
+  unstyled: {
+    element: 'div',
+    // will be used in convertFromHTMLtoContentBlocks
+    aliasedElements: ['p'],
+  },
+})
 
 class TextEditor extends React.Component <any, any> {
   constructor(props: any) {
@@ -64,7 +73,12 @@ class TextEditor extends React.Component <any, any> {
         </header>
         <div className="card-content">
           <div className="content landing-page-html-editor">
-            <Editor editorState={this.state.text} onChange={this.handleTextChange} plugins={[richButtonsPlugin]}/>
+            <Editor
+              editorState={this.state.text}
+              onChange={this.handleTextChange}
+              plugins={[richButtonsPlugin]}
+              blockRenderMap={customRenderMap}
+            />
           </div>
         </div>
       </div>
