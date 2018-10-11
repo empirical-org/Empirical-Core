@@ -64,33 +64,17 @@ export default React.createClass({
   	});
   },
 
-  sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  },
-
   populateCompletionAndAverageScore(data) {
-    //this.setState({ allUnits: this.parseUnits(data), }, this.getUnitsForCurrentClass);
     data.forEach((u) => {
       request.get(`${process.env.DEFAULT_URL}/teachers/units/score_info_for_activity/${u.activity_id}?classroom_unit_id=${u.classroom_unit_id}`, (error, httpStatus, body) => {
-        //console.log(this.state.allUnits);
         this.state.allUnits.forEach((stateUnit) => {
           if (typeof stateUnit.classroomActivities.get(u.activity_id) != 'undefined' ) {
-            console.log(JSON.parse(body).cumulative_score);
             stateUnit.classroomActivities.get(u.activity_id).cumulativeScore = JSON.parse(body).cumulative_score;
             stateUnit.classroomActivities.get(u.activity_id).completedCount = JSON.parse(body).completed_count;
-            console.log('d',stateUnit.classroomActivities.get(u.activity_id))
-            //console.log(JSON.parse(body));
           }
         })
         this.forceUpdate();
       })
-    });
-  },
-
-  demo() {
-    console.log('Taking a break...');
-    this.sleep(9000).then( () => {
-      console.log('Nine seconds later');
     });
   },
 
