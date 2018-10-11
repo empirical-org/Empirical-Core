@@ -223,3 +223,7 @@ export const startChildResponseView = (qid: string, rid: string) => {
 export const cancelChildResponseView = (qid: string, rid: string) => {
   return { type: ActionTypes.CANCEL_CHILD_RESPONSE_VIEW, qid, rid, };
 }
+
+export const cancelResponseEdit = (qid, rid) => {
+  return { type: ActionTypes.FINISH_RESPONSE_EDIT, qid, rid, };
+}
