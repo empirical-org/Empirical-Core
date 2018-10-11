@@ -227,7 +227,16 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
     renderConceptExplanation(): JSX.Element|void {
       const latestAttempt: Response|undefined = this.getLatestAttempt(this.currentQuestion().attempts);
       if (latestAttempt && !latestAttempt.optimal) {
-        if (latestAttempt.concept_results) {
+        if (latestAttempt.conceptResults) {
+          const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.conceptResults);
+          if (conceptID) {
+            const data = this.props.conceptsFeedback.data[conceptID.conceptUID];
+            if (data) {
+              return <ConceptExplanation {...data} />;
+            }
+          }
+          // pretty sure it is only conceptResults now, but trying to avoid further issues
+        } else if (latestAttempt.concept_results) {
           const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.concept_results);
           if (conceptID) {
             const data = this.props.conceptsFeedback.data[conceptID.conceptUID];
@@ -235,6 +244,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
               return <ConceptExplanation {...data} />;
             }
           }
+
         } else if (this.currentQuestion() && this.currentQuestion().modelConceptUID) {
           const dataF = this.props.conceptsFeedback.data[this.currentQuestion().modelConceptUID];
           if (dataF) {
