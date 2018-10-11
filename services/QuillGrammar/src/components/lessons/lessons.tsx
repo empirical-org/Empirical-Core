@@ -48,9 +48,17 @@ class Lessons extends React.Component<LessonsProps, LessonsState> {
     const { data, } = this.props.lessons;
     let keys = _.keys(data);
     if (this.state.lessonFlags !== 'All Flags') {
-      keys = keys.filter((key: string) => data[key].flag === this.state.lessonFlags);
+      keys = keys.filter((key: string) => data[key].flag === this.state.lessonFlags)
     }
-    return keys.map((key: string) => (
+    return keys.sort((a, b) => {
+      const aTitle = data[a].title
+      const bTitle = data[b].title
+      if (aTitle && bTitle) {
+        return aTitle.localeCompare(bTitle)
+      } else {
+        return a
+      }
+    }).map((key: string) => (
       <LinkListItem
         key={key}
         itemKey={key}
