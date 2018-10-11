@@ -134,20 +134,26 @@ class Teachers::UnitsController < ApplicationController
     else
       cuid = params[:classroom_unit_id]
       aid = params[:activity_id]
-      score_info = ActiveRecord::Base.connection.execute(
-        """SELECT COUNT(id) as completed_count, COUNT(DISTINCT user_id) as started_count FROM activity_sessions WHERE
-        state='started' AND classroom_unit_id=#{cuid} AND
-        activity_sessions.activity_id=#{aid} AND activity_sessions.visible;""").to_a
+      started_count = ActiveRecord::Base.connection.execute(
+        """SELECT COUNT(DISTINCT user_id) as started_count FROM activity_sessions WHERE state =
+        'started' AND classroom_unit_id = #{cuid} AND
+        activity_sessions.activity_id = #{aid} AND
+        activity_sessions.visible;""").to_a
+      completed_count = ActiveRecord::Base.connection.execute(
+        """SELECT COUNT(id) as completed_count FROM activity_sessions WHERE is_final_score = true
+        AND classroom_unit_id = #{cuid} AND activity_sessions.visible AND
+        activity_sessions.activity_id = #{aid};"""
+      ).to_a
       cum_score = ActiveRecord::Base.connection.execute(
         """SELECT SUM(percentage)*100 as cumulative_score FROM activity_sessions WHERE
         is_final_score = true AND classroom_unit_id = #{cuid} AND
         activity_sessions.activity_id = #{aid} AND
         activity_sessions.visible;""").to_a
-      score_info[0]['cumulative_score'] = cum_score[0]['cumulative_score']
-      score_info = score_info[0]
+      started_count[0]['cumulative_score'] = cum_score[0]['cumulative_score']
+      started_count[0]['completed_count'] = completed_count[0]['completed_count']
+      started_count = started_count[0]
     end
-    #SELECT COUNT(DISTINCT user_id) FROM activity_sessions WHERE state = 'started' AND classroom_unit_id = 1706024 AND activity_sessions.activity_id = 79 AND activity_sessions.visible;
-    render json: score_info 
+    render json: started_count
   end
 
   private
