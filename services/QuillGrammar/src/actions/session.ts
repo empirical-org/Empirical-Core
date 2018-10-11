@@ -95,7 +95,8 @@ export const startListeningToQuestions = (concepts: any) => {
 export const checkAnswer = (response: string, question: Question, responses: Response[], isFirstAttempt: Boolean) => {
   return dispatch => {
     const questionUID: string = question.uid
-    const responseObj = checkGrammarQuestion(questionUID, response, responses)
+    const defaultConceptUID = question.modelConceptUID || question.concept_uid
+    const responseObj = checkGrammarQuestion(questionUID, response, responses, defaultConceptUID)
     responseObj.feedback = responseObj.feedback && responseObj.feedback !== '<br/>' ? responseObj.feedback : "<b>Try again!</b> Unfortunately, that answer is not correct."
     dispatch(responseActions.submitResponse(responseObj, null, isFirstAttempt))
     delete responseObj.parent_id
