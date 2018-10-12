@@ -1,6 +1,6 @@
 {
   "name": "quill-component-library",
-  "version": "0.1.21",
+  "version": "0.1.29",
   "description": "A library for components shared between Quill apps.",
   "main": "componentLibrary.js",
   "module": "componentLibrary.module.js",
@@ -49,18 +49,21 @@
     "@types/lodash": "^4.14.110",
     "@types/react": "^16.4.0",
     "@types/react-router": "^3.0.5",
-    "draft-convert": "^2.1.2",
-    "draft-js": "^0.10.5",
+    "docs-soap": "^1.2.1",
+    "draft-convert": "2.0.1",
+    "draft-js": "0.10.4",
     "draft-js-export-html": "^0.6.0",
     "draft-js-plugins-editor": "^2.0.4",
     "draft-js-richbuttons-plugin": "^2.2.0",
     "lodash": "^4.17.10",
-    "react": "^15.6.1",
     "react-addons-css-transition-group": "^15.6.2",
+    "react-simple-pie-chart": "^0.5.0",
+    "rollup": "^0.60.7"
+  },
+  "peerDependencies": {
+    "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-router": "^3.0.5",
-    "react-simple-pie-chart": "^0.5.0",
-    "react-sortable": "^2.0.0",
-    "rollup": "^0.60.7"
+    "react-sortable": "^2.0.0"
   }
 }

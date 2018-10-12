@@ -28,7 +28,6 @@ module Units::Creator
   private
 
   def self.create_helper(teacher, name, activities_data, classrooms, unit_template_id=nil, current_user_id)
-    puts "*** This is being called"
     unit = Unit.create!(
       name: name,
       user: teacher,

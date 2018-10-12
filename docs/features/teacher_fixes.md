@@ -18,6 +18,12 @@ Use this when a teacher has archived and then unarchived a classroom and wants t
 
 This method will unarchive all of the classroom units and associated activity sessions for a given classroom, as well as any units (activity packs) that are associated with these classroom units in the event that they have been hidden.
 
+## [Restore Unit Activities](https://www.quill.org/teacher_fix/recover_unit_activities)
+
+Use this when a teacher has deleted an activity and wants their data back.
+
+This method will unarchive all of the unit activities associated with any of that teacher's visible units.
+
 ## [Restore Activity Sessions](https://www.quill.org/teacher_fix/recover_activity_sessions)
 
 Use as a first line of defense when teachers complain about missing activity sessions, frequently seen with the diagnostic.
