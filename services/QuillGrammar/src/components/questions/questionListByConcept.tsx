@@ -34,7 +34,7 @@ export default class QuestionListByConcept extends React.Component<QuestionListB
     );
   }
 
-  renderQuestionLinks(questions: Array<Question>):Array<JSX.Element|undefined> {
+  renderQuestionLinks(questions: Question[]): Array<JSX.Element|undefined> {
     let filtered;
     if (!this.props.showOnlyArchived) {
       filtered = questions.filter((question) => question.flag !== "archived" )
@@ -57,7 +57,7 @@ export default class QuestionListByConcept extends React.Component<QuestionListB
     });
   }
 
-  renderConceptWithQuestions(questions: Array<Question>, label: JSX.Element, index: number) {
+  renderConceptWithQuestions(questions: Question[], label: JSX.Element, index: number) {
     if (questions.length === 0) {
       return;
     }
@@ -84,7 +84,7 @@ export default class QuestionListByConcept extends React.Component<QuestionListB
   }
 
   renderQuestionsWithoutValidKey() {
-    if(!this.props.displayNoConceptQuestions) {
+    if (!this.props.displayNoConceptQuestions) {
       return (<div></div>)
     } else {
       const concepts = hashToCollection(this.props.concepts.data['0']);

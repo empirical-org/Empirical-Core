@@ -118,7 +118,7 @@ export function checkChangeObjectMatch(userString: string, responses: Array<Resp
     return matchedErrorType;
   });
   if (matched) {
-    const textChanges = getMissingAndAddedString(matched.text, userString);
+    const textChanges = getMissingAndAddedString(stringManipulationFn(matched.text), stringManipulationFn(userString));
     return Object.assign(
       {},
       {
@@ -167,9 +167,9 @@ const getErrorType = (targetString:string, userString:string, responses):string|
 
 const getMissingAndAddedString = (targetString: string, userString: string): TextChangesObject => {
   const changeObjects = getChangeObjects(targetString, userString);
-  const missingObject = changeObjects ? _.where(changeObjects, co => co.removed)[0] : null
+  const missingObject = changeObjects.find(change => change.removed)
   const missingText = missingObject ? missingObject.value : undefined;
-  const extraneousObject = changeObjects ? _.where(changeObjects, co => co.added)[0] : null
+  const extraneousObject = changeObjects ? changeObjects.find(change => change.added) : null
   const extraneousText = extraneousObject ? extraneousObject.value : undefined;
   return {
     missingText,

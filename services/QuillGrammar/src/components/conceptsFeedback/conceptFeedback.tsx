@@ -17,7 +17,7 @@ interface ConceptFeedbackComponentProps {
   match: Match;
 }
 
-class ConceptFeedbackComponent extends React.Component<ConceptFeedbackComponentProps>{
+class ConceptFeedbackComponent extends React.Component<ConceptFeedbackComponentProps> {
   constructor(props: ConceptFeedbackComponentProps) {
     super(props)
 
@@ -81,7 +81,7 @@ class ConceptFeedbackComponent extends React.Component<ConceptFeedbackComponentP
         )
       }
 
-    } else if (this.props.concepts.hasreceiveddata === false){
+    } else if (this.props.concepts.hasreceiveddata === false) {
       return (<p>Loading...</p>)
     } else if (conceptFeedbackID) {
       return (
