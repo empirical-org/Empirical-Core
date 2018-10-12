@@ -1,6 +1,7 @@
 import * as _ from 'underscore'
 import {Response, IncorrectSequence} from '../../interfaces'
 import {getOptimalResponses} from '../sharedResponseFunctions'
+import {conceptResultTemplate} from '../helpers/concept_result_template'
 
 import {exactMatch} from '../matchers/exact_match';
 import {incorrectSequenceChecker} from '../matchers/incorrect_sequence_match'
@@ -24,9 +25,10 @@ export async function checkDiagnosticSentenceFragment(hash:{
   incorrectSequences?: Array<IncorrectSequence>,
   prompt: string,
   checkML?: Boolean,
-  mlUrl?: string
+  mlUrl?: string,
+  defaultConceptUID?: string
 }): Promise<Response> {
-  
+
   const data = {
     response: hash.response.trim(),
     responses: _.sortBy(hash.responses, r => r.count).reverse(),
@@ -42,7 +44,8 @@ export async function checkDiagnosticSentenceFragment(hash:{
   const responseTemplate = {
     text: data.response,
     question_uid: hash.question_uid,
-    count: 1
+    count: 1,
+    concept_results: hash.defaultConceptUID ? [conceptResultTemplate(hash.defaultConceptUID)] : []
   };
 
   const firstPass = checkForMatches(data, firstPassMatchers)

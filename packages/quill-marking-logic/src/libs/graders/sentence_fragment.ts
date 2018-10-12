@@ -27,7 +27,7 @@ export async function checkSentenceFragment(hash:{
   prompt: string,
   checkML?: Boolean,
   mlUrl?: string,
-  defaultConceptUID: string
+  defaultConceptUID?: string
 }): Promise<Response> {
 
   const data = {
@@ -46,7 +46,7 @@ export async function checkSentenceFragment(hash:{
     text: data.response,
     question_uid: hash.question_uid,
     count: 1,
-    concept_results: [conceptResultTemplate(hash.defaultConceptUID)]
+    concept_results: hash.defaultConceptUID ? [conceptResultTemplate(hash.defaultConceptUID)] : []
   };
 
   const firstPass = checkForMatches(data, firstPassMatchers)
