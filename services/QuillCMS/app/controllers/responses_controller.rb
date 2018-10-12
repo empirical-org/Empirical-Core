@@ -49,6 +49,7 @@ class ResponsesController < ApplicationController
   def update
     new_vals = transformed_new_vals(response_params)
     if @response.update(new_vals)
+      Rails.cache.delete("questions/#{@response.question_uid}/responses")
       render json: @response
     else
       render json: @response.errors, status: :unprocessable_entity
@@ -62,7 +63,9 @@ class ResponsesController < ApplicationController
 
   # GET /questions/:question_uid/responses
   def responses_for_question
-    @responses = Response.where(question_uid: params[:question_uid]).where.not(optimal: nil).where(parent_id: nil)
+    @responses = Rails.cache.fetch("questions/#{params[:question_uid]}/responses", :expires_in => 900) do
+      Response.where(question_uid: params[:question_uid]).where.not(optimal: nil).where(parent_id: nil).to_a
+    end
     render json: @responses
   end
 
@@ -85,7 +88,7 @@ class ResponsesController < ApplicationController
     non_blank_selected_sequences = selected_sequences.select { |ss| ss.length > 0}
     matched_responses_count = 0
     responses.each do |response|
-      no_matching_used_sequences = used_sequences.none? { |us| s.length > 0 && Regexp.new(us).match(response.text) }
+      no_matching_used_sequences = used_sequences.none? { |us| us.length > 0 && Regexp.new(us).match(response.text) }
       matching_selected_sequence = non_blank_selected_sequences.any? do |ss|
         sequence_particles = ss.split('&&')
         sequence_particles.all? { |sp| sp.length > 0 && Regexp.new(sp).match(response.text)}
@@ -157,7 +160,7 @@ class ResponsesController < ApplicationController
       WHERE concept_results ->> '#{original_concept_uid}' IS NOT NULL
     ")
   end
-  
+
   def clone_responses
     Response.where(question_uid: params[:original_question_uid]).each do |r|
       new_record = r.dup
