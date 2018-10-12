@@ -5,6 +5,17 @@ class Concept < ActiveRecord::Base
   validates :name, presence: true
   has_many :concept_results
 
+  def lineage
+    family_tree = self.name
+    if self.parent
+      family_tree = self.parent.name+' | '+family_tree
+    end
+    if self.parent and self.parent.parent
+      family_tree = self.parent.parent.name+' | '+family_tree
+    end
+    family_tree
+  end
+
   # need the below because those making POST requests to /api/v1/concepts know only uids, not ids
   def parent_uid= uid
     self.parent_id = Concept.find_by(uid: uid).id

@@ -147,7 +147,7 @@ EmpiricalGrammar::Application.routes.draw do
     get 'lesson_units' => 'units#lesson_units'
     get 'units/select_lesson/:activity_id' => 'units#select_lesson_with_activity_id'
     get 'units/lesson_info_for_activity/:activity_id' => 'units#lesson_info_for_activity'
-
+    get 'units/score_info_for_activity/:activity_id' => 'units#score_info'
 
     resources :unit_templates, only: [:index] do
       collection do
@@ -508,6 +508,7 @@ EmpiricalGrammar::Application.routes.draw do
   get 'teacher_fix/merge_student_accounts' => 'teacher_fix#index'
   get 'teacher_fix/merge_teacher_accounts' => 'teacher_fix#index'
   get 'teacher_fix/recover_classroom_units' => 'teacher_fix#index'
+  get 'teacher_fix/recover_unit_activities' => 'teacher_fix#index'
   get 'teacher_fix/recover_activity_sessions' => 'teacher_fix#index'
   get 'teacher_fix/move_student' => 'teacher_fix#index'
   get 'teacher_fix/google_unsync' => 'teacher_fix#index'
@@ -516,6 +517,7 @@ EmpiricalGrammar::Application.routes.draw do
   get 'teacher_fix/delete_last_activity_session' => 'teacher_fix#index'
   get 'teacher_fix/get_archived_units' => 'teacher_fix#get_archived_units'
   post 'teacher_fix/recover_classroom_units' => 'teacher_fix#recover_classroom_units'
+  post 'teacher_fix/recover_unit_activities' => 'teacher_fix#recover_unit_activities'
   post 'teacher_fix/recover_activity_sessions' => 'teacher_fix#recover_activity_sessions'
   post 'teacher_fix/unarchive_units' => 'teacher_fix#unarchive_units'
   post 'teacher_fix/merge_student_accounts' => 'teacher_fix#merge_student_accounts'

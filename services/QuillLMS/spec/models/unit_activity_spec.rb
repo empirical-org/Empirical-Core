@@ -3,7 +3,7 @@ require 'rails_helper'
 describe UnitActivity, type: :model, redis: :true do
 
   it { should belong_to(:activity) }
-  it { should belong_to(:unit).touch(true) }
+  it { should belong_to(:unit) }
   it { should have_many(:classroom_unit_activity_states) }
 
   it { is_expected.to callback(:teacher_checkbox).after(:save) }
