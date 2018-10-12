@@ -155,9 +155,10 @@ class Lesson extends React.Component<LessonProps> {
           <Link to={'/admin/lessons'}>Return to All Activities</Link>
           <br />
           {this.renderEditLessonForm()}
-          <h4 className="title">{data[lessonID].title}</h4>
-
-          <h6 className="subtitle">{data[lessonID].flag}</h6>
+          <div style={{display: 'flex', justifyContent: 'space-between'}}>
+            <h4 className="title">{data[lessonID].title}</h4>
+            <h6 className="subtitle" style={{ color: 'rgb(0, 194, 162)', paddingRight: '20px' }}>Flag: {data[lessonID].flag}</h6>
+          </div>
           <h6 className="subtitle"><Link to={`/play/pf?anonymous=true&uid=${lessonID}`}>Play Proofreader Activity</Link></h6>
           <p className="control">
             <button className="button is-info" onClick={this.editLesson}>Edit Activity</button> <button className="button is-danger" onClick={this.deleteLesson}>Delete Activity</button>
