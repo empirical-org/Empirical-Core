@@ -27,7 +27,7 @@ export function checkSentenceCombining(
   responses: Array<Response>,
   focusPoints: Array<FocusPoint>|null,
   incorrectSequences: Array<IncorrectSequence>|null,
-  defaultConceptUID: string
+  defaultConceptUID?: string
 ): Response {
   const data = {
     response: response.trim(),
@@ -40,7 +40,7 @@ export function checkSentenceCombining(
     text: data.response,
     question_uid,
     count: 1,
-    concept_results: [conceptResultTemplate(defaultConceptUID)]
+    concept_results: defaultConceptUID ? [conceptResultTemplate(defaultConceptUID)] : []
   };
 
   const firstPass = checkForMatches(data, firstPassMatchers); // returns partial response or null

@@ -9,7 +9,7 @@ export function checkFillInTheBlankQuestion(
   question_uid: string,
   response: string,
   responses: Array<Response>,
-  defaultConceptUID: string
+  defaultConceptUID?: string
 ): Response {
   const data = {
     response: response.trim(),
@@ -19,7 +19,7 @@ export function checkFillInTheBlankQuestion(
     text: data.response,
     question_uid,
     count: 1,
-    concept_results: [conceptResultTemplate(defaultConceptUID)]
+    concept_results: defaultConceptUID ? [conceptResultTemplate(defaultConceptUID)] : []
   };
   const firstPass = checkForMatches(data, firstPassMatchers)
   if (firstPass) {
