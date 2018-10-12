@@ -107,7 +107,7 @@ const PlaySentenceFragment = React.createClass<any, any>({
       const key = this.props.currentKey;
       const { attempts, } = this.props.question;
       this.setState({ checkAnswerEnabled: false, }, () => {
-        const { prompt, wordCountChange, ignoreCaseAndPunc, incorrectSequences, focusPoints, modelConceptUID, concept_uid } = this.getQuestion();
+        const { prompt, wordCountChange, ignoreCaseAndPunc, incorrectSequences, focusPoints, modelConceptUID, concept_uid, conceptID } = this.getQuestion();
         const responses = hashToCollection(this.getResponses())
         const defaultConceptUID = modelConceptUID || concept_uid
         const fields = {
@@ -156,6 +156,14 @@ const PlaySentenceFragment = React.createClass<any, any>({
               return <ConceptExplanation {...data} />;
             }
           }
+        } else if (!latestAttempt.response.optimal && latestAttempt.response.conceptResults) {
+            const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.response.conceptResults);
+            if (conceptID) {
+              const data = this.props.conceptsFeedback.data[conceptID.conceptUID];
+              if (data) {
+                return <ConceptExplanation {...data} />;
+              }
+            }
         } else if (this.getQuestion() && this.getQuestion().modelConceptUID) {
           const dataF = this.props.conceptsFeedback.data[this.getQuestion().modelConceptUID];
           if (dataF) {
