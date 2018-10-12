@@ -1,5 +1,5 @@
-import React from 'react';
-import _ from 'underscore';
+import * as React from 'react';
+import * as _ from 'underscore';
 import * as questionActions from '../../actions/questions';
 import {
   Modal,
@@ -8,50 +8,26 @@ import {
 import TextEditor from '../shared/textEditor'
 import { EditorState, ContentState } from 'draft-js'
 import ResponseList from './responseList';
+import ConceptResults from './conceptResults'
 import getBoilerplateFeedback from './boilerplateFeedback';
 import * as massEdit from '../../actions/massEdit';
-import ConceptSelectorWithCheckbox from '../shared/conceptSelectorWithCheckbox';
 import {
   deleteResponse,
   submitResponseEdit,
-  incrementResponseCount,
-  updateConceptResults,
   getGradedResponsesWithCallback,
 } from '../../actions/responses';
 
-const jsDiff = require('diff');
+import * as jsDiff from 'diff'
 import { ActionTypes } from '../../actions/actionTypes';
 
-const feedbackStrings = ActionTypes.FEEDBACK_STRINGS;
 
-export default class Response extends React.Component {
-  constructor(props) {
+export default class Response extends React.Component<any, any> {
+  constructor(props: any) {
     super(props)
 
-    const response = this.props.response
-    const actions = questionActions
-    let conceptResults = {}
-    if (response.concept_results) {
-      if (typeof response.concept_results === 'string') {
-        conceptResults = JSON.parse(response.concept_results)
-      } else {
-        conceptResults = response.concept_results
-      }
-    }
-    this.state = {
-      feedback: response.feedback || '',
-      selectedBoilerplate: '',
-      selectedBoilerplateCategory: response.selectedBoilerplateCategory || '',
-      selectedConcept: response.concept || '',
-      actions,
-      parent: null,
-      newConceptResult: {
-        conceptUID: '',
-        correct: true,
-      },
-      conceptResults,
-    };
+    this.state = this.initialState()
 
+    this.initialState = this.initialState.bind(this)
     this.deleteResponse = this.deleteResponse.bind(this)
     this.editResponse = this.editResponse.bind(this)
     this.cancelResponseEdit = this.cancelResponseEdit.bind(this)
@@ -70,7 +46,6 @@ export default class Response extends React.Component {
     this.removeLinkToParentID = this.removeLinkToParentID.bind(this)
     this.applyDiff = this.applyDiff.bind(this)
     this.handleFeedbackChange = this.handleFeedbackChange.bind(this)
-    this.updateConceptResults = this.updateConceptResults.bind(this)
     this.deleteConceptResult = this.deleteConceptResult.bind(this)
     this.chooseBoilerplateCategory = this.chooseBoilerplateCategory.bind(this)
     this.chooseSpecificBoilerplateFeedback = this.chooseSpecificBoilerplateFeedback.bind(this)
@@ -99,6 +74,32 @@ export default class Response extends React.Component {
 
   }
 
+  initialState() {
+    const response = this.props.response
+    const actions = questionActions
+    let conceptResults = {}
+    if (response.concept_results) {
+      if (typeof response.concept_results === 'string') {
+        conceptResults = JSON.parse(response.concept_results)
+      } else {
+        conceptResults = response.concept_results
+      }
+    }
+    return {
+      feedback: response.feedback || '',
+      selectedBoilerplate: '',
+      selectedBoilerplateCategory: response.selectedBoilerplateCategory || '',
+      selectedConcept: response.concept || '',
+      actions,
+      parent: null,
+      newConceptResult: {
+        conceptUID: '',
+        correct: true,
+      },
+      conceptResults,
+    };
+  }
+
   deleteResponse(rid: string) {
     if (window.confirm('Are you sure?')) {
       this.props.dispatch(deleteResponse(this.props.questionID, rid));
@@ -111,6 +112,7 @@ export default class Response extends React.Component {
   }
 
   cancelResponseEdit(rid: string) {
+    this.setState(this.initialState())
     this.props.dispatch(this.state.actions.cancelResponseEdit(this.props.questionID, rid));
   }
 
@@ -145,6 +147,7 @@ export default class Response extends React.Component {
       optimal: this.refs.newResponseOptimal.checked,
       author: null,
       parent_id: null,
+      concept_results: Object.keys(this.state.conceptResults) && Object.keys(this.state.conceptResults).length ? this.state.conceptResults : null
     };
     this.props.dispatch(submitResponseEdit(rid, newResp, this.props.questionID));
   }
@@ -202,16 +205,11 @@ export default class Response extends React.Component {
     }
   }
 
-  updateConceptResults() {
-    const conceptResults = this.state.conceptResults || {};
-    this.props.dispatch(updateConceptResults(this.props.response.key, { conceptResults, }, this.props.questionID));
-  }
-
   deleteConceptResult(crid) {
     if (confirm('Are you sure?')) {
-      let conceptResults = Object.assign({}, this.state.conceptResults || {});
+      const conceptResults = Object.assign({}, this.state.conceptResults || {});
       delete conceptResults[crid];
-      this.setState({conceptResults: conceptResults})
+      this.setState({conceptResults})
     }
   }
 
@@ -261,7 +259,7 @@ export default class Response extends React.Component {
     this.setState(data);
   }
 
-  handleConceptChange(e){
+  handleConceptChange(e) {
     const concepts = this.state.conceptResults;
     if (Object.keys(concepts).length === 0 || !concepts.hasOwnProperty(e.value)) {
       concepts[e.value] = this.props.response.optimal;
@@ -269,10 +267,10 @@ export default class Response extends React.Component {
     }
   }
 
-  getParentResponse(parent_id) {
+  getParentResponse(parentId) {
     const callback = (responses) => {
       this.setState({
-        parent: _.filter(responses, (resp) => resp.id === parent_id)[0]
+        parent: _.filter(responses, (resp) => resp.id === parentId)[0]
       })
     }
     return getGradedResponsesWithCallback(this.props.questionID, callback);
@@ -306,37 +304,16 @@ export default class Response extends React.Component {
   }
 
   renderConceptResults(mode) {
-    const conceptResults = Object.assign({}, this.state.conceptResults)
-    let components
-    if (conceptResults) {
-      if (mode === 'Editing') {
-      const conceptResultsPlus = Object.assign(conceptResults, {null: this.props.response.optimal})
-      components = Object.keys(conceptResultsPlus).map(uid => {
-        const concept = _.find(this.props.concepts.data['0'], { uid, });
-          return <ConceptSelectorWithCheckbox
-            key={uid}
-            handleSelectorChange={this.handleConceptChange}
-            currentConceptUID={uid}
-            checked={conceptResults[uid]}
-            onCheckboxChange={() => this.toggleCheckboxCorrect(uid)}
-            selectorDisabled={uid === null || uid === 'null' ? false : true}
-            deleteConceptResult={() => this.deleteConceptResult(uid)}
-          />
-      });
-    } else {
-      components = Object.keys(conceptResults).map(uid => {
-        const concept = _.find(this.props.concepts.data['0'], { uid, });
-        if (concept) {
-          // hacky fix for the problem where concept result uids are being returned with string value 'false' rather than false
-          return  <li key={uid}>
-            {concept.displayName} {conceptResults[uid] && conceptResults[uid] !== 'false' ? <span className="tag is-small is-success">Correct</span> : <span className="tag is-small is-danger">Incorrect</span>}
-            {'\t'}
-          </li>
-        }
-      });
-    }
-      return _.values(components);
-    }
+    return <ConceptResults
+      key={Object.keys(this.state.conceptResults).length}
+      conceptResults={this.state.conceptResults}
+      concepts={this.props.concepts}
+      mode={mode}
+      handleConceptChange={this.handleConceptChange}
+      toggleCheckboxCorrect={this.toggleCheckboxCorrect}
+      deleteConceptResult={this.deleteConceptResult}
+      response={this.props.response}
+    />
   }
 
   renderResponseContent(isEditing, response) {
@@ -344,7 +321,6 @@ export default class Response extends React.Component {
     let parentDetails;
     let childDetails;
     let pathwayDetails;
-    let authorDetails;
     if (!this.props.expanded) {
       return;
     }
@@ -416,7 +392,6 @@ export default class Response extends React.Component {
           <div className="box">
             <label className="label">Concept Results</label>
             {this.renderConceptResults('Editing')}
-            <button className="button" onClick={this.updateConceptResults}>Save Concept Results</button>
           </div>
 
           <p className="control">
@@ -437,7 +412,6 @@ export default class Response extends React.Component {
           <ul>
             {this.renderConceptResults('Viewing')}
           </ul>
-          {authorDetails}
           {childDetails}
           {pathwayDetails}
         </div>);

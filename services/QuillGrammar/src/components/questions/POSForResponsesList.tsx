@@ -7,19 +7,19 @@ export default class POSForResponsesList extends React.Component {
 
   sortResponses(posTagsList) {
     _.each(posTagsList, (tag) => {
-      tag.responses.sort((a,b) => {
-        return b.count-a.count
+      tag.responses.sort((a, b) => {
+        return b.count - a.count
       })
     })
     return posTagsList
   }
 
   renderPOSTagsList() {
-    var posTagsList = this.sortResponses(this.props.posTagsList)
+    const posTagsList = this.sortResponses(this.props.posTagsList)
 
     return _.map(posTagsList, (tag, index) => {
-      var bgColor;
-      var icon;
+      let bgColor;
+      let icon;
       if (!tag.responses[0].feedback) {
         bgColor = "not-found-response";
       } else if (!!tag.responses[0].parentID) {
@@ -32,20 +32,20 @@ export default class POSForResponsesList extends React.Component {
         icon = "⚠️";
       }
 
-      var tagsToRender = [];
+      const tagsToRender = [];
       const posTagKeys = keysForPOS()
 
       if (tag.tags) {
-        tag.tags.forEach((index) => {
-          tagsToRender.push(posTagKeys[index])
+        tag.tags.forEach((i) => {
+          tagsToRender.push(posTagKeys[i])
         })
       }
 
-      var headerStyle = {
-        "padding": "10px 20px",
-        "borderBottom": "0.2px solid #e6e6e6"
+      const headerStyle = {
+        padding: "10px 20px",
+        borderBottom: "0.2px solid #e6e6e6"
       }
-      const contentStyle = {"marginBottom": "0px"}
+      const contentStyle = {marginBottom: "0px"}
 
       return (
         <POSForResponse bgColor={bgColor} headerStyle={headerStyle} contentStyle={contentStyle} tagsToRender={tagsToRender}
@@ -56,9 +56,9 @@ export default class POSForResponsesList extends React.Component {
 
   render() {
     const style = {
-      "borderTop": "0.2px solid #e6e6e6",
-      "borderLeft": "0.2px solid #e6e6e6",
-      "borderRight": "0.2px solid #e6e6e6",
+      borderTop: "0.2px solid #e6e6e6",
+      borderLeft: "0.2px solid #e6e6e6",
+      borderRight: "0.2px solid #e6e6e6",
     }
     return (
       <div style={style}>
