@@ -22,6 +22,8 @@ class Cms::UnitTemplatesController < Cms::CmsController
   def update
     params = unit_template_params
     params['flag'] = nil if params['flag'] == 'production'
+    @unit_template.activities = []
+    @unit_template.save
     if @unit_template.update_attributes(params)
       render json: @unit_template
     else
