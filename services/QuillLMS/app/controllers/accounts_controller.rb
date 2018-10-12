@@ -22,6 +22,10 @@ class AccountsController < ApplicationController
   # user record instead of creating a new one.
   def create
     role = params[:user].delete(:role)
+    puts 'some crap'
+    puts role
+    puts params[:user]
+    puts 'some crap end'
     @user.attributes = user_params
     @user.safe_role_assignment(role)
     @user.validate_username = true
@@ -62,14 +66,15 @@ protected
 
   def user_params
     params.require(:user).permit(
+                                 :account_type,
                                  :classcode,
                                  :email,
                                  :name,
-                                 :username,
                                  :password,
-                                 :terms_of_service,
+                                 :school_ids,
                                  :send_newsletter,
-                                 :school_ids)
+                                 :terms_of_service,
+                                 :username)
   end
 
   def creation_json

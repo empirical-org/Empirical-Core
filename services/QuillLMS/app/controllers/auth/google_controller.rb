@@ -15,6 +15,8 @@ class Auth::GoogleController < ApplicationController
       GoogleIntegration::Classroom::Main.join_existing_google_classrooms(@user)
     end
 
+    @user.account_type = '' # TODO: google vs google classroom?
+
     sign_in(@user)
     redirect_to profile_path
   end
