@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe ChampionsController, type: :controller do
+RSpec.describe ReferralsController, type: :controller do
   let(:inviting_teacher) { create(:teacher) }
 
   it 'should trigger mailer with appropriate data' do
