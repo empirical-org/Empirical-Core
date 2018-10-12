@@ -25,7 +25,7 @@ class Lessons extends React.Component<LessonsProps, LessonsState> {
     super(props)
 
     this.state = {
-      lessonFlags: 'All Flags'
+      lessonFlags: 'production'
     }
 
     this.createNew = this.createNew.bind(this)

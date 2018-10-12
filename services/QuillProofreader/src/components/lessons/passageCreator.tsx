@@ -39,7 +39,7 @@ class PassageCreator extends React.Component {
   constructor(props) {
     super(props)
 
-    const text = props.originalPassage ? props.originalPassage : ' '
+    const text = props.originalPassage ? props.originalPassage : '<p></p>'
 
     this.state = {
       value: html.deserialize(text)

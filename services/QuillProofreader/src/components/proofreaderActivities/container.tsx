@@ -96,6 +96,13 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
         this.setState({ passage: formattedPassage, originalPassage: formattedPassage, necessaryEdits: initialPassageData.necessaryEdits })
       }
 
+      if (!_.isEqual(nextProps.proofreaderActivities.currentActivity, this.props.proofreaderActivities.currentActivity)) {
+        const { passage, underlineErrorsInProofreader } = nextProps.proofreaderActivities.currentActivity
+        const initialPassageData = this.formatInitialPassage(passage, underlineErrorsInProofreader)
+        const formattedPassage = initialPassageData.passage
+        this.setState({ passage: formattedPassage, originalPassage: formattedPassage, necessaryEdits: initialPassageData.necessaryEdits })
+      }
+
       const sessionID = getParameterByName('student', window.location.href)
       if (sessionID && !_.isEqual(nextProps.session, this.props.session)) {
         updateSessionOnFirebase(sessionID, nextProps.session.passage)
@@ -510,6 +517,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
         />
       } else if (originalPassage) {
         return <PassageEditor
+          key={this.props.proofreaderActivities.currentActivity.passage}
           savedText={passageFromFirebase}
           text={originalPassage}
           handleTextChange={this.handlePassageChange}
