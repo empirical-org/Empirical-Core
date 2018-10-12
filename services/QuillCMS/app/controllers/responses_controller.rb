@@ -160,7 +160,7 @@ class ResponsesController < ApplicationController
       WHERE concept_results ->> '#{original_concept_uid}' IS NOT NULL
     ")
   end
-  
+
   def clone_responses
     Response.where(question_uid: params[:original_question_uid]).each do |r|
       new_record = r.dup
