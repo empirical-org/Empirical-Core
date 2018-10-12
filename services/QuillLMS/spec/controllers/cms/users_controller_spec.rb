@@ -22,7 +22,7 @@ describe Cms::UsersController do
     it 'should assign the search query, the results, user flags and number of spaces' do
       get :index
       expect(assigns(:user_search_query)).to eq({sort: 'last_sign_in', sort_direction: 'desc'})
-      expect(assigns(:user_search_query_results)).to eq ["results"]
+      expect(assigns(:user_search_query_results)).to eq []
       expect(assigns(:user_flags)).to eq User::VALID_FLAGS
     end
   end
