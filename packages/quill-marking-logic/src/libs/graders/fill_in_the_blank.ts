@@ -10,7 +10,7 @@ export function checkFillInTheBlankQuestion(
   responses: Array<Response>
 ): Response {
   const data = {
-    response: response.trim(),
+    response: response.trim().replace(/\s{2,}/g, ' '),
     responses
   }
   const responseTemplate = {

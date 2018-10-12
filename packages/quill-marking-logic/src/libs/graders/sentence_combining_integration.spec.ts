@@ -15,8 +15,20 @@ describe('The checking a sentence combining question', () => {
       assert.equal(matchedResponse.id, responses[0].id);
     });
 
+    it('should be able to find a match, even with trailing spaces', () => {
+      const questionString = 'Bats have wings, so they can fly. '
+      const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences);
+      assert.equal(matchedResponse.id, responses[1].id);
+    });
+
+    it('should be able to find a match, even with extra spaces', () => {
+      const questionString = 'Bats have wings, so  they can fly.'
+      const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences);
+      assert.equal(matchedResponse.id, responses[1].id);
+    });
+
     it('should be able to find a focus point match', () => {
-      const questionString = 'Bats have wings, but they can fly."'
+      const questionString = 'Bats have wings, but they can fly.'
       const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences);
       assert.equal(matchedResponse.feedback, focusPoints[0].feedback);
     });
