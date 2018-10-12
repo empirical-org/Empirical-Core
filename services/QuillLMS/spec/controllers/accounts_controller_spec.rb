@@ -74,13 +74,14 @@ describe AccountsController, type: :controller do
 
             before do
               allow(user).to receive(:teacher?) { true }
-              request.env['affiliate.tag'] = create(:teacher).referral_code
+              request.env['affiliate.tag'] = user.referral_code
             end
 
             it 'should create the referralsuser' do
-              post :create, user: { classcode: "code", email: "test@test.com", password: "test123", role: "teacher" }
-              expect(ReferralsUser.last.user_id).to eq user.id
-              expect(ReferralsUser.last.referred_user_id).to eq another_user.id
+              post :create, user: { email: "test@test.com", password: "test123", role: "teacher" }
+              new_user = User.find_by_email("test@test.com")
+              expect(ReferralsUser.find_by_user_id(user.id).present?).to eq true
+              expect(ReferralsUser.find_by_referred_user_id(new_user.id).present?).to eq true
             end
           end
         end

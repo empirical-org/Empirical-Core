@@ -3,12 +3,12 @@
 <div id='champion-container'>
   <div id='champion-hero'>
     <%= image_tag "gift.svg" %>
-    <h1>Invite your friends, get free Quill Premium.</h1>
-    <h2>When your friend signs up, you’ll receive 4 weeks<br/> of premium credit.</h2>
+    <h1>Get 4 weeks of Premium for every teacher you refer.</h1>
+    <h2>The teacher you refer sets up a class. New students complete an assignment. You receive 4 weeks of Premium.</h2>
     <div id='share-box'>
     <input type='text' value='<%= @referral_link %>' id='referral-input' />
     <input type='button' id='copy-button' value='Copy Link' />
-    <p class="share-text">Or share it on: </p>
+    <p class="share-text">More ways to share: </p>
     <div class='share-links'>
       <ul>
         <li><a href="https://twitter.com/home?status=I'm using @quill_org to help my students become better writers and critical thinkers. Want to join me? <%= @referral_link %>"><%= image_tag("ui-share-twitter-copy.svg", class: "ui_share") %>
@@ -27,36 +27,36 @@
       <span class='circle-icon'>
         <span class='offset'>1</span>
       </span>
-      <h2>Invite Friends</h2>
-      <p>Share your referral link and get friends to sign up for Quill.</p>
+      <h2>Invite Teachers</h2>
+      <p>Share your referral link with teachers who have not signed up for Quill yet.</p>
     </div>
     <div class='step'>
       <span class='circle-icon'>
         <span class='offset'>2</span>
       </span>
-      <h2>Your Friends Sign Up</h2>
-      <p>Once your friend signs up, all they need to do is assign an activity.</p>
+      <h2>Referred Teachers Sign Up</h2>
+      <p>Referred teachers create a class, assign activities, and have students practice skills on Quill.</p>
     </div>
     <div class='step'>
       <span class='circle-icon'>
         <span class='offset'>3</span>
       </span>
       <h2>Get Free Premium</h2>
-      <p>You receive 4 weeks of premium credit.</p>
+      <p>You receive 4 weeks of free Premium.</p>
     </div>
   </div>
 
   <div id='callout-box'>
 
-    <h2>Track Your Invites</h2>
-    <p><%= @referral_count %> friends have joined. <%= @earned_months %> friends have assigned activities.<br/>
-    You have <%= @unredeemed_credits / 30 %> months of credit.
+    <h2>Track your Premium Credits</h2>
+    <p><%= @referral_count %> teachers have joined. <%= @earned_months %> teachers have assigned activities.<br/>
+    You have <%= @unredeemed_credits / 7 %> weeks of credit.
 
     <% if @unredeemed_credits > 0 %>
       Redeem at <%= link_to "My Subscriptions", subscriptions_path %>.
     <% end %>
-    
-    
+
+
     </p>
 
   </div>

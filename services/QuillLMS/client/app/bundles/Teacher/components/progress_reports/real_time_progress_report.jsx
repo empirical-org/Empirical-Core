@@ -1,13 +1,12 @@
-import React from 'react'
-import request from 'request'
-import ReactTable from 'react-table'
-import 'react-table/react-table.css'
+import React from 'react';
+import request from 'request';
+import ReactTable from 'react-table';
+import 'react-table/react-table.css';
 import _ from 'underscore';
-import LoadingSpinner from '../shared/loading_indicator.jsx'
-import { sortByLastName } from '../../../../modules/sortingMethods.js'
-import moment from 'moment'
-import EmptyStateForReport from './empty_state_for_report'
-
+import LoadingSpinner from '../shared/loading_indicator.jsx';
+import { sortByLastName } from '../../../../modules/sortingMethods.js';
+import moment from 'moment';
+import EmptyStateForReport from './empty_state_for_report';
 
 export default class extends React.Component {
 
@@ -47,7 +46,7 @@ export default class extends React.Component {
     }
     const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
     const channel = pusher.subscribe(teacherId.toString());
-    const maxIntervalWithoutInteractionBeforeClearing = 30000;
+    const maxIntervalWithoutInteractionBeforeClearing = 60000;
     let clearStudentDataAfterPause = setTimeout(
       this.clearStudentData,
       maxIntervalWithoutInteractionBeforeClearing
@@ -108,56 +107,54 @@ export default class extends React.Component {
           moment.duration(parseInt(row.original.timespent_activity_session), 'seconds').humanize()
         ),
       }
-    ])
+    ]);
   }
 
   filteredStudentsData() {
-    return this.state.studentsData
+    return this.state.studentsData;
   }
 
-  tableOrEmptyMessage(filteredStudentsData){
+  tableOrEmptyMessage(filteredStudentsData) {
     if (filteredStudentsData.length) {
       return (<div key={`${filteredStudentsData.length}-length-for-real-time`}>
-        <ReactTable data={filteredStudentsData}
+        <ReactTable
+          data={filteredStudentsData}
           columns={this.columns()}
           showPagination={false}
-          defaultSorted={[{id: 'name', desc: true}]}
+          defaultSorted={[{ id: 'name', desc: true, }]}
           showPaginationTop={false}
           showPaginationBottom={false}
           showPageSizeOptions={false}
           defaultPageSize={filteredStudentsData.length}
-          getTrProps={(state, rowInfo, column) => {
-            return {
-              style: {
-                background: rowInfo.row.timespent_question > 90 ? '#ff7a7a' : 'inherit',
-                color: rowInfo.row.timespent_question > 90 ? '#ffffff' : 'inherit',
-              },
-            };
-          }}
-          className='progress-report has-green-arrow'/>
-        </div>)
-    } else {
-      return <EmptyStateForReport title={"You have no students playing activities."} body={"When students are online, you can use this report to see how long students are taking on each question."}/>
+          getTrProps={(state, rowInfo, column) => ({
+            style: {
+              background: rowInfo.row.timespent_question > 180 ? '#FEEDF0' : 'inherit',
+            },
+          })}
+          className="progress-report"
+        />
+      </div>);
     }
+    return <EmptyStateForReport title={'You have no students playing activities.'} body={'When students are online, you can use this report to see how long students are taking on each question.'} />;
   }
 
   render() {
-    let errors
+    let errors;
     if (this.state.errors) {
-      errors = <div className='errors'>{this.state.errors}</div>
+      errors = <div className="errors">{this.state.errors}</div>;
     }
     if (this.state.loading) {
-      return <LoadingSpinner/>
+      return <LoadingSpinner />;
     }
-    const filteredStudentsData = this.filteredStudentsData()
+    const filteredStudentsData = this.filteredStudentsData();
     return (
-      <div className='real-time progress-reports-2018'>
-        <div className='meta-overview flex-row space-between'>
-          <div className='header-and-info'>
+      <div className="real-time progress-reports-2018">
+        <div className="meta-overview flex-row space-between">
+          <div className="header-and-info">
             <h1>
               Real-time
             </h1>
-            <p></p>
+            <p />
           </div>
         </div>
         {this.tableOrEmptyMessage(filteredStudentsData)}

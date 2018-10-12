@@ -71,9 +71,10 @@ export default React.createClass({
   },
 
   componentDidMount() {
-    this.setStateFromLocalStorage(this.fetchData);
     if (this.props.selectedClassroom) {
       this.getUpdatedUnits(this.props.selectedClassroom.value);
+    } else {
+      this.setStateFromLocalStorage(this.fetchData);
     }
     this.modules.scrollify.scrollify('#page-content-wrapper', this);
   },
@@ -96,13 +97,21 @@ export default React.createClass({
       if (selectedClassroom) {
         state.selectedClassroom = selectedClassroom;
       }
+    } else {
+      state.selectedClassroom = this.props.allClassrooms[0]
     }
     if (dateFilterName) {
-      const beginDate = this.DATE_RANGE_FILTER_OPTIONS.find(o => o.title === dateFilterName).beginDate;
-      window.localStorage.setItem('scorebookBeginDate', beginDate);
-      state.beginDate = beginDate;
-      state.dateFilterName = dateFilterName;
-      this.setState(state, callback);
+      const dateRangeFilterOption = this.DATE_RANGE_FILTER_OPTIONS.find(o => o.title === dateFilterName)
+      if (dateRangeFilterOption) {
+        const beginDate = dateRangeFilterOption.beginDate
+        window.localStorage.setItem('scorebookBeginDate', beginDate);
+        state.beginDate = beginDate;
+        state.dateFilterName = dateFilterName;
+        this.setState(state, callback);
+      } else {
+        state.beginDate = this.convertStoredDateToMoment(window.localStorage.getItem('scorebookBeginDate'));
+        this.setState(state, callback);
+      }
     } else {
       state.beginDate = this.convertStoredDateToMoment(window.localStorage.getItem('scorebookBeginDate'));
       this.setState(state, callback);
