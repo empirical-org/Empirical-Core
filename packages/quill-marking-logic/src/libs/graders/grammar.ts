@@ -2,9 +2,9 @@ import * as _ from 'underscore';
 import {Response, PartialResponse, IncorrectSequence, FocusPoint, GradingObject} from '../../interfaces';
 import {correctSentenceFromSamples} from 'quill-spellchecker';
 import {getOptimalResponses} from '../sharedResponseFunctions';
+import {conceptResultTemplate} from '../helpers/concept_result_template'
 
 import {exactMatch} from '../matchers/exact_match';
-import {incorrectSequenceChecker} from '../matchers/incorrect_sequence_match';
 import {caseInsensitiveChecker} from '../matchers/case_insensitive_match';
 import {punctuationInsensitiveChecker} from '../matchers/punctuation_insensitive_match';
 import {punctuationAndCaseInsensitiveChecker} from '../matchers/punctuation_and_case_insensitive_match';
@@ -12,9 +12,6 @@ import {spacingBeforePunctuationChecker} from '../matchers/spacing_before_punctu
 import {spacingAfterCommaChecker} from '../matchers/spacing_after_comma_match';
 import {whitespaceChecker} from '../matchers/whitespace_match';
 import {rigidChangeObjectChecker, flexibleChangeObjectChecker} from '../matchers/change_object_match';
-import {requiredWordsChecker} from '../matchers/required_words_match';
-import {minLengthChecker} from '../matchers/min_length_match';
-import {maxLengthChecker} from '../matchers/max_length_match';
 import {caseStartChecker} from '../matchers/case_start_match';
 import {punctuationEndChecker} from '../matchers/punctuation_end_match';
 import {spellingFeedbackStrings} from '../constants/feedback_strings';
@@ -23,6 +20,7 @@ export function checkGrammarQuestion(
   question_uid: string,
   response: string,
   responses: Array<Response>,
+  defaultConceptUID
 ): Response {
   const data = {
     response: response.trim(),
@@ -32,7 +30,8 @@ export function checkGrammarQuestion(
   const responseTemplate = {
     text: data.response,
     question_uid,
-    count: 1
+    count: 1,
+    concept_results: [conceptResultTemplate(defaultConceptUID)]
   };
 
   const firstPass = checkForMatches(data, firstPassMatchers); // returns partial response or null

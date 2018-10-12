@@ -41,8 +41,13 @@ export function focusPointResponseBuilder(focusPointMatch:FocusPoint, responses:
       conceptResultTemplate(focusPointMatch.concept_uid)
     ];
   }
+
   if (focusPointMatch.concept_results) {
     res.concept_results = focusPointMatch.concept_results;
+  }
+
+  if (focusPointMatch.conceptResults) {
+    res.concept_results = focusPointMatch.conceptResults;
   }
   return res;
 }

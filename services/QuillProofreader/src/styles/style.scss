@@ -1,0 +1,13 @@
+@import './question.scss';
+@import './spinner.scss';
+@import './passage.scss';
+@import './modal.scss';
+@import './edit.scss';
+@import './admin.scss';
+@import './Header.scss';
+@import "./node_modules/bulma/bulma.sass";
+
+.ant-layout {
+  height: 100vw;
+  background-color: #ededed;
+}

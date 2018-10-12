@@ -20,7 +20,7 @@ interface ConceptState {
   instructions: string;
   flag: string;
   rule_description: string;
-  answers: Array<Answer>;
+  answers: Answer[];
 }
 
 interface ConceptProps {
@@ -77,7 +77,7 @@ class Concept extends React.Component<ConceptProps, ConceptState> {
     )
   }
 
-  submit():void {
+  submit(): void {
     if (this.state.prompt !== '') {
       this.props.dispatch(questionActions.submitNewQuestion({
         prompt: this.state.prompt,
@@ -90,7 +90,7 @@ class Concept extends React.Component<ConceptProps, ConceptState> {
     }
   }
 
-  handlePromptChange (e: string) {
+  handlePromptChange(e: string) {
     this.setState({prompt: e})
   }
 
@@ -118,7 +118,7 @@ class Concept extends React.Component<ConceptProps, ConceptState> {
     this.setState({ answers: [{ text: e.target.value }], });
   }
 
-  render () {
+  render() {
     const {data} = this.props.concepts, {conceptID} = this.props.match.params;
     if (this.props.concepts.hasreceiveddata && this.getConcept()) {
       return (

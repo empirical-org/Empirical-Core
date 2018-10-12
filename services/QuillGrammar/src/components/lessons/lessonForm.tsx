@@ -64,21 +64,21 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
     const { value } = concept
     if (value) {
       const currentSelectedConcepts = this.state.concepts;
-      let newSelectedConcepts = currentSelectedConcepts;
+      const newSelectedConcepts = currentSelectedConcepts;
       newSelectedConcepts[value] = { quantity: 0 }
       this.setState({ concepts: newSelectedConcepts, });
     }
   }
 
   changeConceptQuantity(conceptUid: string, e: React.ChangeEvent<{value: string}>) {
-    const number = e.target.value ? parseInt(e.target.value) : 0
+    const quantity = e.target.value ? Number(e.target.value) : 0
     const newSelectedConcepts = this.state.concepts;
-    newSelectedConcepts[conceptUid] = { quantity: number }
+    newSelectedConcepts[conceptUid] = { quantity }
     this.setState({ concepts: newSelectedConcepts, });
   }
 
   removeConcept(conceptUid: string) {
-    let newSelectedConcepts = this.state.concepts;
+    const newSelectedConcepts = this.state.concepts;
     delete newSelectedConcepts[conceptUid]
     this.setState({ concepts: newSelectedConcepts, });
   }
@@ -122,7 +122,7 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
   render() {
     return (
       <div className="box">
-        <h4 className="title">Add New Lesson</h4>
+        <h4 className="title">Add New Activity</h4>
         <p className="control">
           <label className="label">Name</label>
           <input
