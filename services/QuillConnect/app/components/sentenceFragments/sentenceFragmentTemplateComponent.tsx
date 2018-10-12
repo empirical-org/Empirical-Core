@@ -107,8 +107,9 @@ const PlaySentenceFragment = React.createClass<any, any>({
       const key = this.props.currentKey;
       const { attempts, } = this.props.question;
       this.setState({ checkAnswerEnabled: false, }, () => {
-        const { prompt, wordCountChange, ignoreCaseAndPunc, incorrectSequences, focusPoints } = this.getQuestion();
+        const { prompt, wordCountChange, ignoreCaseAndPunc, incorrectSequences, focusPoints, modelConceptUID, concept_uid } = this.getQuestion();
         const responses = hashToCollection(this.getResponses())
+        const defaultConceptUID = modelConceptUID || concept_uid
         const fields = {
           question_uid: key,
           response: this.state.response,
@@ -118,7 +119,8 @@ const PlaySentenceFragment = React.createClass<any, any>({
           prompt,
           incorrectSequences,
           focusPoints,
-          mlUrl: 'https://nlp.quill.org'
+          mlUrl: 'https://nlp.quill.org',
+          defaultConceptUID
         }
         checkSentenceFragment(fields).then((resp) => {
           const matched = {response: resp}
