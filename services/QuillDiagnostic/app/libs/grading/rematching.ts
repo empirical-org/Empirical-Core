@@ -201,6 +201,7 @@ function getMatcherFields(mode:string, question:Question, responses:{[key:string
   const responseArray = hashToCollection(responses);
   const focusPoints = question.focusPoints ? hashToCollection(question.focusPoints) : [];
   const incorrectSequences = question.incorrectSequences ? hashToCollection(question.incorrectSequences) : [];
+  const defaultConceptUID = question.modelConceptUID || question.concept_uid
 
   if (mode === 'sentenceFragments') {
     return {
@@ -212,14 +213,15 @@ function getMatcherFields(mode:string, question:Question, responses:{[key:string
       incorrectSequences: incorrectSequences,
       ignoreCaseAndPunc: question.ignoreCaseAndPunc,
       checkML: true,
-      mlUrl: process.env.CMS_URL
+      mlUrl: process.env.CMS_URL,
+      defaultConceptUID
     };
   } else if (mode === 'diagnosticQuestions') {
-    return [question.key, hashToCollection(responses)]
+    return [question.key, hashToCollection(responses), defaultConceptUID]
   } else if (mode === 'fillInBlank') {
-    return [question.key, hashToCollection(responses)]
+    return [question.key, hashToCollection(responses), defaultConceptUID]
   } else {
-    return [question.key, responseArray, focusPoints, incorrectSequences]
+    return [question.key, responseArray, focusPoints, incorrectSequences, defaultConceptUID]
   }
 }
 

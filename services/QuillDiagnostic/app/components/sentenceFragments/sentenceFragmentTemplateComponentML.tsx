@@ -112,7 +112,8 @@ const PlaySentenceFragment = React.createClass<any, any>({
       const key = this.props.currentKey;
       const { attempts, } = this.props.question;
       this.setState({ checkAnswerEnabled: false, }, () => {
-        const { prompt, wordCountChange, ignoreCaseAndPunc, incorrectSequences, focusPoints } = this.getQuestion();
+        const { prompt, wordCountChange, ignoreCaseAndPunc, incorrectSequences, focusPoints, modelConceptUID, concept_uid } = this.getQuestion();
+        const defaultConceptUID = modelConceptUID || concept_uid
         const responses = hashToCollection(this.getResponses())
         const fields = {
           question_uid: key,
@@ -124,7 +125,8 @@ const PlaySentenceFragment = React.createClass<any, any>({
           ignoreCaseAndPunc,
           prompt,
           focusPoints,
-          incorrectSequences
+          incorrectSequences,
+          defaultConceptUID
         }
         checkSentenceFragment(fields).then((resp) => {
           const matched = {response: resp}
