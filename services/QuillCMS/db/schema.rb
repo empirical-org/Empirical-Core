@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180214051916) do
+ActiveRecord::Schema.define(version: 20180809210431) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 20180214051916) do
     t.integer "child_count", default: 0
     t.boolean "optimal"
     t.boolean "weak"
-    t.json "concept_results"
+    t.jsonb "concept_results"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "spelling_error", default: false

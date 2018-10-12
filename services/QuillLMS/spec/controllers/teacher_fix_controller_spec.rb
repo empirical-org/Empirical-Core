@@ -102,6 +102,22 @@ describe TeacherFixController do
     end
   end
 
+  describe '#recover_unit_activities' do
+    context 'when user exists and role is teacher' do
+      let!(:user) { create(:teacher) }
+
+      let!(:unit) { create(:unit, user_id: user.id, name: "some name") }
+      let!(:classroom_unit) { create(:classroom_unit, unit_id: unit.id, visible: true) }
+      let!(:unit_activity) { create(:unit_activity, unit_id: unit.id, visible: false) }
+
+      it 'should update all the unit activities' do
+        post :recover_unit_activities, email: user.email
+        expect(unit_activity.reload.visible).to eq true
+        expect(response.code).to eq "200"
+      end
+    end
+  end
+
   describe '#recover_activity_sessions' do
     context 'when user exists and role is teacher' do
       let!(:user) { create(:teacher) }
