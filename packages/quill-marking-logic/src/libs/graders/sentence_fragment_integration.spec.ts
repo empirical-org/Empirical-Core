@@ -30,6 +30,28 @@ describe('The checking a sentence fragment', () => {
       })
     });
 
+    it('should be able to find a match, even with trailing spaces', () => {
+      const fields = {
+        ...initialFields,
+        response: 'Bats have wings, so they can fly. ',
+      };
+      const matchedResponse = checkSentenceFragment(fields);
+      matchedResponse.then(resp => {
+        assert.equal(resp.id, responses[0].id);
+      })
+    });
+
+    it('should be able to find a match, even with trailing spaces', () => {
+      const fields = {
+        ...initialFields,
+        response: 'Bats have wings,  so they can fly.',
+      };
+      const matchedResponse = checkSentenceFragment(fields);
+      matchedResponse.then(resp => {
+        assert.equal(resp.id, responses[0].id);
+      })
+    });
+
     it('should be able to find an incorrect sequence match', () => {
       // this is a little artificial, as the focus point (looking for the word 'so') encompasses the incorrect sequence (using the phrase 'and they')
       const fields = {

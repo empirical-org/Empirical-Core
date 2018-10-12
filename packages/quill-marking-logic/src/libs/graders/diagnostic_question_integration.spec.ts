@@ -13,6 +13,18 @@ describe('The checking a diagnostic question', () => {
       assert.equal(matchedResponse.id, responses[0].id);
     });
 
+    it('should be able to find a  match, ignoring trailing spaces', () => {
+      const questionString = "Bats have wings, so they can fly. "
+      const matchedResponse = checkDiagnosticQuestion(responses[0].question_uid, questionString, responses);
+      assert.equal(matchedResponse.id, responses[1].id);
+    });
+
+    it('should be able to find a  match, ignoring extra spaces', () => {
+      const questionString = "Bats have wings,  so they can fly."
+      const matchedResponse = checkDiagnosticQuestion(responses[0].question_uid, questionString, responses);
+      assert.equal(matchedResponse.id, responses[1].id);
+    });
+
     it('should be able to find a case insensitive match', () => {
       const questionString = "bats have wings, so they can fly."
       const matchedResponse = checkDiagnosticQuestion(responses[0].question_uid, questionString, responses);
