@@ -124,12 +124,14 @@ class TeachersController < ApplicationController
       most_recently_completed = records.find { |r| r['completed_at'] != nil }
       # checks to see if the diagnostic was completed within a week
       if most_recently_completed && 1.week.ago < most_recently_completed['completed_at']
-        number_of_finished_students = ActiveRecord::Base.connection.execute("SELECT COUNT(actsesh.id) FROM activity_sessions actsesh
+        number_of_finished_students = ActiveRecord::Base.connection.execute("SELECT COUNT(actsesh.user_id) FROM activity_sessions actsesh
                               JOIN classroom_units AS cu ON actsesh.classroom_unit_id = cu.id
                               WHERE cu.id = #{ActiveRecord::Base.sanitize(most_recently_completed['classroom_unit_id'])}
                               AND actsesh.state = 'finished'
                               AND actsesh.visible = 'true'
-                              AND cu.visible = 'true'").to_a.first['count']
+                              AND cu.visible = 'true'
+                              GROUP BY actsesh.user_id
+                              ").to_a.length
         render json: {status: 'recently completed', unit_info: most_recently_completed, number_of_finished_students: number_of_finished_students }
       elsif most_recently_completed
         render json: {status: 'completed'}

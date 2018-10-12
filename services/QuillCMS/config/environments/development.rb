@@ -16,14 +16,14 @@ Rails.application.configure do
   if Rails.root.join('tmp/caching-dev.txt').exist?
     config.action_controller.perform_caching = true
 
-    config.cache_store = :memory_store
+    config.cache_store = :dalli_store, { :pool_size => ENV.fetch("RAILS_MAX_THREADS") { 5 } }
     config.public_file_server.headers = {
-      'Cache-Control' => "public, max-age=#{2.days.seconds.to_i}"
+      'Cache-Control' => "public, max-age=#{10.minutes.seconds.to_i}"
     }
   else
     config.action_controller.perform_caching = false
 
-    config.cache_store = :null_store
+    config.cache_store = :dalli_store, { :pool_size => ENV.fetch("RAILS_MAX_THREADS") { 5 } }
   end
 
   # Don't care if the mailer can't send.

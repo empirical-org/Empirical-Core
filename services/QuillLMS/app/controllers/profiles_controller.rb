@@ -93,6 +93,7 @@ protected
       JOIN users AS teacher ON teacher.id = classrooms_teachers.user_id
       WHERE sc.student_id = #{current_user.id}
       AND classrooms.visible = true
+      AND students_classrooms.visible = true
       ORDER BY sc.created_at ASC").to_a
   end
 
