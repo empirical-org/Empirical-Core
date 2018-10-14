@@ -27,4 +27,10 @@ class Types::QueryType < Types::BaseObject
     return Activity.all
   end
 
+
+  field :activity_categories, [Types::ActivityCategoryType], null: false
+
+  def activity_categories
+    return ActivityCategory.all
+  end
 end
