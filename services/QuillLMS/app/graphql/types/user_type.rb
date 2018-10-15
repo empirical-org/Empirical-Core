@@ -11,6 +11,8 @@ class Types::UserType < Types::BaseObject
   field :notifications, [Types::NotificationType], null: true
 
   field :activity_scores, [Types::ActivityScoreType], null: true
+  field :recommended_activities, [Int], null: true
+  field :completed_diagnostic, Boolean, null: false
 
   def notifications
     object.notifications.order("created_at DESC").limit(10)
@@ -28,6 +30,14 @@ class Types::UserType < Types::BaseObject
       WHERE activity_sessions.user_id = #{object.id}
       GROUP BY activity_sessions.activity_id
     ")
+  end
+
+  def recommended_activities
+    return [1]
+  end
+
+  def completed_diagnostic
+    ActivitySession.where(user_id: object.id, activity_id: 413, state: "finished").any?
   end
 
 end
