@@ -14,6 +14,7 @@ interface QuestionProps {
   goToNextQuestion: Function;
   checkAnswer: Function;
   conceptsFeedback: any;
+  concepts: any;
 }
 
 interface QuestionState {
@@ -121,8 +122,17 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
       return attempts[lastIndex];
     }
 
+    getConcept() {
+      return this.props.concepts.data[0].find((c: any) => c.uid === this.currentQuestion().concept_uid)
+    }
+
     renderExample(): JSX.Element|undefined {
-      const example = this.currentQuestion().rule_description
+      let example
+      if (this.currentQuestion().rule_description && this.currentQuestion().rule_description.length && this.currentQuestion().rule_description !== "<br/>") {
+        example = this.currentQuestion().rule_description
+      } else if (this.getConcept() && this.getConcept().description) {
+        example = this.getConcept().description
+      }
       if (example) {
         let componentClasses = 'example-container'
         if (this.state.showExample) {
