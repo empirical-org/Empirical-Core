@@ -1,4 +1,4 @@
-export default function(camelObj) {
+export default function (camelObj: object): object {
   const snakeObj = {};
   // sample(10)
   for (const camelKey in camelObj) {

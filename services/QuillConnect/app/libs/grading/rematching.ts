@@ -1,5 +1,5 @@
 declare function require(name:string);
-import * as request from 'request-promise';
+const request = require('request-promise');
 import * as _ from 'underscore';
 import { hashToCollection } from 'quill-component-library/dist/componentLibrary';
 
@@ -19,7 +19,8 @@ interface Question {
   prompt: string,
   key?: string,
   wordCountChange?:object,
-  ignoreCaseAndPunc?:Boolean
+  ignoreCaseAndPunc?:Boolean,
+  modelConceptUID?: string
 }
 
 interface FocusPoints {
@@ -154,7 +155,7 @@ function deleteRematchedResponse(response) {
 }
 
 function updateResponse(rid, content) {
-  const rubyConvertedResponse = objectWithSnakeKeysFromCamel(content);
+  const rubyConvertedResponse = objectWithSnakeKeysFromCamel(content, false);
   return request({
     method: 'PUT',
     uri: `https://cms.quill.org/responses/${rid}`,
@@ -244,7 +245,7 @@ function getResponseBody(pageNumber) {
 }
 
 function getGradedResponses(questionID) {
-  return request(`https://cms.quill.org/questions/${questionID}/responses`);
+  return request(`${process.env.QUILL_CMS}/questions/${questionID}/responses`);
 }
 
 function formatGradedResponses(jsonString):{[key:string]: Response} {
