@@ -3,7 +3,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
 import * as _ from 'underscore';
-import {checkSentenceFragment, Response } from 'quill-marking-logic'
+import {checkDiagnosticSentenceFragment, Response } from 'quill-marking-logic'
 import {
   hashToCollection,
   ConceptExplanation,
@@ -119,10 +119,11 @@ const PlaySentenceFragment = React.createClass<any, any>({
           prompt,
           incorrectSequences,
           focusPoints,
+          checkML: false,
           mlUrl: 'https://nlp.quill.org',
           defaultConceptUID
         }
-        checkSentenceFragment(fields).then((resp) => {
+        checkDiagnosticSentenceFragment(fields).then((resp) => {
           const matched = {response: resp}
           if (typeof(matched) === 'object') {
             updateResponseResource(matched, key, attempts, this.props.dispatch, );
