@@ -4,7 +4,7 @@ import * as _ from 'underscore'
 import {checkSentenceCombining, checkDiagnosticQuestion} from 'quill-marking-logic'
 
 export default function checkAnswer(question, response, responses, mode='default') {
-  const defaultConceptUID = question.modelConceptUID || question.concept_uid
+  const defaultConceptUID = question.modelConceptUID || question.conceptID
   const fields = {
     responses: responses ? hashToCollection(responses) : [],
     questionUID: question.key,

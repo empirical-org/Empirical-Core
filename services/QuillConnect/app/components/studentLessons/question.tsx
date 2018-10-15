@@ -278,7 +278,7 @@ const playLessonQuestion = React.createClass<any, any>({
             return <ConceptExplanation {...data} />;
           }
         }
-      if (latestAttempt.response && !latestAttempt.response.optimal && latestAttempt.response.conceptResults) {
+      } else if (latestAttempt.response && !latestAttempt.response.optimal && latestAttempt.response.conceptResults) {
         const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.response.conceptResults);
         if (conceptID) {
           const data = this.props.conceptsFeedback.data[conceptID.conceptUID];
