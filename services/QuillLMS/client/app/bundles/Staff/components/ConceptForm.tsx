@@ -53,12 +53,14 @@ const ConceptForm = Form.create({
       <FormItem label="Concept Description">
         {getFieldDecorator('description', {
           rules: [{ required: false }],
-        })(<TextEditor
-                    text={props.description.value}
-                    handleTextChange={(e) => props.onChange({description: { value: e, name: 'description' }})}
-                    EditorState={EditorState}
-                    ContentState={ContentState}
-                  />)}
+        })(<div style={{ border: '1px solid #d9d9d9', padding: '4px 11px' }}>
+          <TextEditor
+            text={props.description.value}
+            handleTextChange={(e) => props.onChange({description: { value: e, name: 'description' }})}
+            EditorState={EditorState}
+            ContentState={ContentState}
+          />
+        </div>)}
       </FormItem>
       <Query
         query={gql(parentConceptsQuery())}
