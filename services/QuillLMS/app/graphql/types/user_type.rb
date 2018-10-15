@@ -33,11 +33,53 @@ class Types::UserType < Types::BaseObject
   end
 
   def recommended_activities
-    return [1]
+    if completed_diagnostic
+      diagnostic_session = ActivitySession.where(user_id: object.id, activity_id: 413, state: "finished").last
+      counted_concept_results = concept_results_by_count(diagnostic_session)
+      units = get_recommended_units(counted_concept_results)
+      return get_acts_from_recommended_units(units).flatten
+    else
+      return []
+    end
+   
   end
 
   def completed_diagnostic
     ActivitySession.where(user_id: object.id, activity_id: 413, state: "finished").any?
   end
 
+  private 
+
+  def get_recommended_units(concept_result_scores)
+    units = []
+    recommendations = Recommendation.where(activity_id: 413, category: 0).map do |activity_pack_recommendation|
+      activity_pack_recommendation.criteria.each do |req|
+        if req.no_incorrect && concept_result_scores[req[:concept_id]]["total"] > concept_result_scores[req[:concept_id]]["correct"]
+          units.pusharr(activity_pack_recommendation[:unit_template_id])
+          break
+        end
+        if concept_result_scores[req[:concept_id]]["correct"] < req[:count]
+          units.push(activity_pack_recommendation[:unit_template_id])
+          break
+        end
+      end
+      return units
+    end
+    units
+  end
+
+  def get_acts_from_recommended_units(units)
+    units.map do |actpackid|
+      UnitTemplate.find(actpackid).activities.map(&:id)
+    end 
+  end
+
+  def concept_results_by_count activity_session
+    hash = Hash.new { |h, k| h[k] = Hash.new { |j, l| j[l] = 0 } }
+    activity_session.concept_results.each do |concept_result|
+      hash[concept_result.concept.uid]["correct"] += concept_result["metadata"]["correct"]
+      hash[concept_result.concept.uid]["total"] += 1
+    end
+    hash
+  end
 end
