@@ -201,7 +201,7 @@ function getMatcherFields(mode:string, question:Question, responses:{[key:string
   const responseArray = hashToCollection(responses);
   const focusPoints = question.focusPoints ? hashToCollection(question.focusPoints) : [];
   const incorrectSequences = question.incorrectSequences ? hashToCollection(question.incorrectSequences) : [];
-  const defaultConceptUID = question.modelConceptUID || question.concept_uid
+  const defaultConceptUID = question.modelConceptUID || question.conceptID
 
   if (mode === 'sentenceFragments') {
     return {

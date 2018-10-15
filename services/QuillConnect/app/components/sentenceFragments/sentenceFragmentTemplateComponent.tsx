@@ -109,7 +109,7 @@ const PlaySentenceFragment = React.createClass<any, any>({
       this.setState({ checkAnswerEnabled: false, }, () => {
         const { prompt, wordCountChange, ignoreCaseAndPunc, incorrectSequences, focusPoints, modelConceptUID, concept_uid, conceptID } = this.getQuestion();
         const responses = hashToCollection(this.getResponses())
-        const defaultConceptUID = modelConceptUID || concept_uid
+        const defaultConceptUID = modelConceptUID || concept_uid || conceptID
         const fields = {
           question_uid: key,
           response: this.state.response,
