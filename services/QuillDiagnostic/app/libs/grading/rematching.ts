@@ -171,10 +171,6 @@ function determineDelta(response, newResponse) {
   const feedbackChanged = newResponse.response.feedback != response.feedback;
   const conceptResultsChanged = !_.isEqual(convertResponsesArrayToHash(newResponse.response.concept_results), response.concept_results);
   const changed = parentIDChanged || authorChanged || feedbackChanged || conceptResultsChanged;
-  console.log(response.id, parentIDChanged, authorChanged, feedbackChanged, conceptResultsChanged);
-  console.log('response', response);
-  console.log('new response', newResponse.response);
-  console.log('changed', changed)
   if (changed) {
     if (unmatched) {
       return 'tobeunmatched';
