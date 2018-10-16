@@ -12,6 +12,7 @@ class BlogPostsController < ApplicationController
     @blog_post = BlogPost.find_by!(find_by_hash)
     @topic = @blog_post.topic
     @display_paywall = true unless @blog_post.can_be_accessed_by(current_user)
+    @school_premium = @blog_post.school_premium
     @blog_post.increment_read_count
     @author = @blog_post.author
     @most_recent_posts = BlogPost.where("draft = false AND id != #{@blog_post.id}").order('updated_at DESC').limit(3)

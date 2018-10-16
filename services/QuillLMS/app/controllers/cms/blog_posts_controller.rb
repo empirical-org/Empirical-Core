@@ -62,7 +62,8 @@ class Cms::BlogPostsController < Cms::CmsController
                     :premium,
                     :external_link,
                     :published_at,
-                    :center_images
+                    :center_images,
+                    :school_premium
                   )
   end
 

@@ -8,14 +8,23 @@ export default class BlogPostContent extends React.Component {
 
     this.renderAvatar = this.renderAvatar.bind(this)
     this.renderName = this.renderName.bind(this)
+    this.renderPremiumType = this.renderPremiumType.bind(this)
+  }
+
+  renderPremiumType() {
+    if (this.props.schoolPremium) {
+      return 'School Premium'
+    } else {
+      return 'Premium'
+    }
   }
 
   renderBodyOrPaywall() {
     if(this.props.displayPaywall) {
       return (
         <div id='quill-article-paywall'>
-          <h2>This article is only for Premium users.</h2>
-          <p>Quill Premium users have access to a slew of awesome features, including premium reports, priority support, and enhanced professional development opportunities.</p>
+          <h2>This article is only for {this.renderPremiumType()} users.</h2>
+          <p>Quill {this.renderPremiumType()} users have access to a slew of awesome features, including premium reports, priority support, and enhanced professional development opportunities.</p>
           <a href='/premium'>Try Quill Premium <i className='fa fa-star'></i></a>
         </div>
       );

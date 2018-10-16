@@ -303,6 +303,10 @@ module Teacher
     !!(subscription && subscription.expiration >= Date.today)
   end
 
+  def is_school_premium?
+    !!(self.is_premium? && self.subscription.school_subscriptions.any?)
+  end
+
   def getting_started_info
     checkbox_data = {
       completed: self.checkboxes.map(&:objective_id),

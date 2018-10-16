@@ -69,6 +69,7 @@ export default class BlogPost extends React.Component {
             body={this.props.blogPost.body}
             author={this.props.author}
             displayPaywall={this.props.displayPaywall}
+            schoolPremium={this.props.schoolPremium}
             centerImages={this.props.blogPost.center_images}
           />
           <footer>

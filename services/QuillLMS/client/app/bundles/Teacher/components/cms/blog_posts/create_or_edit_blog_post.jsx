@@ -45,6 +45,7 @@ export default class extends React.Component {
       tweetText: '"Climbing up Ben Bloom’s learning hierarchy won’t be easy, but it is necessary if we want to build education technology capable of helping learners move beyond basic remembering and understanding."',
       tweetAuthor: 'EdSurge',
       premium: p ? p.premium : false,
+      schoolPremium: p ? p.school_premium : false,
       publishedAt: p ? p.published_at : null,
       externalLink: p ? p.external_link : null,
       centerImages: p ? p.center_images : false
@@ -73,6 +74,7 @@ export default class extends React.Component {
     this.updateTweetAuthor = this.updateTweetAuthor.bind(this)
     this.updatePreviewCardTweetContent = this.updatePreviewCardTweetContent.bind(this)
     this.handlePremiumChange = this.handlePremiumChange.bind(this)
+    this.handleSchoolPremiumChange = this.handleSchoolPremiumChange.bind(this)
     this.handleCenterImagesChange = this.handleCenterImagesChange.bind(this)
     this.renderArticleMarkdownOrPreview = this.renderArticleMarkdownOrPreview.bind(this)
     this.hideArticlePreview = this.hideArticlePreview.bind(this)
@@ -193,6 +195,7 @@ export default class extends React.Component {
           preview_card_content: this.state.preview_card_content,
           draft: !shouldPublish,
           premium: this.state.premium,
+          school_premium: this.state.schoolPremium,
           published_at: this.state.publishedAt ? moment(this.state.publishedAt).format() : null,
           external_link: this.state.externalLink,
           center_images: this.state.centerImages
@@ -560,6 +563,10 @@ export default class extends React.Component {
     this.setState({premium: !this.state.premium});
   }
 
+  handleSchoolPremiumChange() {
+    this.setState({schoolPremium: !this.state.schoolPremium});
+  }
+
   handleCenterImagesChange() {
     this.setState({centerImages: !this.state.centerImages});
   }
@@ -624,6 +631,12 @@ export default class extends React.Component {
             <label className="premium-label">Show Only to Premium Members:</label>
             <input className="premium-checkbox" type='checkbox' checked={this.state.premium} onClick={this.handlePremiumChange} />
           </div>
+
+          <div>
+            <label className="premium-label">Show Only to School Premium Members:</label>
+            <input className="premium-checkbox" type='checkbox' checked={this.state.schoolPremium} onClick={this.handleSchoolPremiumChange} />
+          </div>
+
 
           <div>
             <label className="center-images-label">Center Images:</label>
