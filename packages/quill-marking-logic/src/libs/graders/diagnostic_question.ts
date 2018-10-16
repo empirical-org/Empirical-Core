@@ -15,13 +15,16 @@ import {levenshteinMatchObjectChecker} from '../matchers/change_object_match'
 export function checkDiagnosticQuestion(
   question_uid: string,
   response: string,
-  defaultConceptUID?: string
-  incorrectSequences: Array<IncorrectSequence>|null
+  responses: Array<Response>,
   focusPoints: Array<FocusPoint>|null,
+  incorrectSequences: Array<IncorrectSequence>|null,
+  defaultConceptUID?: string
 ): Response {
   const data = {
     response: response.trim(),
-    responses
+    responses,
+    focusPoints,
+    incorrectSequences,
   };
 
   const responseTemplate = {
@@ -45,6 +48,8 @@ function* firstPassMatchers(data) {
   const {response, responses, focusPoints, incorrectSequences} = data;
   const submission = response
   yield exactMatch(submission, responses)
+  yield focusPointChecker(submission, focusPoints, responses);
+  yield incorrectSequenceChecker(submission, incorrectSequences, responses);
   yield caseInsensitiveChecker(submission, responses, true)
   yield punctuationInsensitiveChecker(submission, responses, true)
   yield punctuationAndCaseInsensitiveChecker(submission, responses, true)
