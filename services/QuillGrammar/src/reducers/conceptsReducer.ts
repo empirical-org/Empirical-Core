@@ -2,13 +2,13 @@ import { Action } from "redux";
 import { ActionTypes } from "../actions/actionTypes";
 import { Concept } from '../interfaces/concepts'
 
-type ConceptReducerAction = Action & {data: Array<Array<Concept>>}
+type ConceptReducerAction = Action & {data: Concept[][]}
 
 export interface ConceptReducerState {
   hasreceiveddata: boolean;
   submittingnew: boolean;
   states: any;
-  data: Array<Array<Concept>>
+  data: Concept[][]
 }
 
 const initialState = {
@@ -21,8 +21,7 @@ const initialState = {
 }
 
 export default function(currentstate: ConceptReducerState, action: ConceptReducerAction) {
-    let newstate: ConceptReducerState;
-    switch(action.type){
+    switch (action.type) {
         case ActionTypes.RECEIVE_CONCEPTS_DATA:
             return Object.assign({}, currentstate, {
                 hasreceiveddata: true,

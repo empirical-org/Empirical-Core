@@ -1,7 +1,7 @@
 import { Action } from "redux";
 
 export const ActionTypes = {
-    //INIT STORE
+    // INIT STORE
     INIT_STORE: 'INIT_STORE',
 
     // GRAMMAR ACTIVITIES
@@ -45,6 +45,7 @@ export const ActionTypes = {
 
     // SESSIONS
     SET_SESSION: 'SET_SESSION',
+    SET_PROOFREADER_SESSION_TO_REDUCER: 'SET_PROOFREADER_SESSION_TO_REDUCER',
 
     // DISPLAY
     DISPLAY_ERROR: 'DISPLAY_ERROR',
@@ -118,8 +119,6 @@ export const ActionTypes = {
     ],
 
     ERROR_AUTHORS: [
-      'Focus Point Hint',
-      'Incorrect Sequence Hint',
       'Capitalization Hint',
       'Starting Capitalization Hint',
       'Punctuation Hint',
@@ -132,12 +131,6 @@ export const ActionTypes = {
       'Flexible Additional Word Hint',
       'Flexible Missing Word Hint',
       'Whitespace Hint',
-      'Missing Details Hint',
-      'Not Concise Hint',
-      'Required Words Hint',
-      'Too Short Hint',
-      'Too Long Hint',
-      'Parts of Speech',
       'Spelling Hint',
     ],
 
@@ -158,5 +151,3 @@ export const ActionTypes = {
 
 };
 //
-export interface IInitStoreAction extends Action {
-}

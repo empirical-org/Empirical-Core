@@ -5,9 +5,9 @@ const activitiesRef = rootRef.child('grammarActivities')
 import { GrammarActivities, GrammarActivity } from '../interfaces/grammarActivities'
 
 export const startListeningToActivities = () => {
-  return (dispatch:Function) => {
-    activitiesRef.on('value', (snapshot:any) => {
-      const activities: Array<GrammarActivities> = snapshot.val()
+  return (dispatch: Function) => {
+    activitiesRef.on('value', (snapshot: any) => {
+      const activities: GrammarActivities[] = snapshot.val()
       if (activities) {
         dispatch({ type: ActionTypes.RECEIVE_GRAMMAR_ACTIVITIES_DATA, data: activities, });
       } else {
@@ -19,8 +19,8 @@ export const startListeningToActivities = () => {
 }
 
 export const startListeningToActivity = (activityUID: string) => {
-  return (dispatch:Function) => {
-    activitiesRef.child(activityUID).on('value', (snapshot:any) => {
+  return (dispatch: Function) => {
+    activitiesRef.child(activityUID).on('value', (snapshot: any) => {
       const activity: GrammarActivity = snapshot.val()
       if (activity) {
         dispatch({ type: ActionTypes.RECEIVE_GRAMMAR_ACTIVITY_DATA, data: activity, });
@@ -36,11 +36,11 @@ export const toggleNewLessonModal = () => {
   return { type: ActionTypes.TOGGLE_NEW_LESSON_MODAL, };
 }
 
-export const submitNewLesson = (content:GrammarActivity) => {
+export const submitNewLesson = (content: GrammarActivity) => {
   const cleanedContent = _.pickBy(content)
-  return (dispatch:Function) => {
+  return (dispatch: Function) => {
     dispatch({ type: ActionTypes.AWAIT_NEW_LESSON_RESPONSE, });
-    const newRef = activitiesRef.push(cleanedContent, (error:string) => {
+    const newRef = activitiesRef.push(cleanedContent, (error: string) => {
       dispatch({ type: ActionTypes.RECEIVE_NEW_LESSON_RESPONSE, });
       if (error) {
         dispatch({ type: ActionTypes.DISPLAY_ERROR, error: `Submission failed! ${error}`, });
@@ -53,19 +53,19 @@ export const submitNewLesson = (content:GrammarActivity) => {
   };
 }
 
-export const startLessonEdit = (cid:string) => {
+export const startLessonEdit = (cid: string) => {
   return { type: ActionTypes.START_LESSON_EDIT, cid, };
 }
 
-export const cancelLessonEdit = (cid:string) => {
+export const cancelLessonEdit = (cid: string) => {
   return { type: ActionTypes.FINISH_LESSON_EDIT, cid, };
 }
 
-export const submitLessonEdit = (cid:string, content:GrammarActivity) => {
-  return (dispatch:Function) => {
+export const submitLessonEdit = (cid: string, content: GrammarActivity) => {
+  return (dispatch: Function) => {
     dispatch({ type: ActionTypes.SUBMIT_LESSON_EDIT, cid, });
     const cleanedContent = _.pickBy(content)
-    activitiesRef.child(cid).set(cleanedContent, (error:string) => {
+    activitiesRef.child(cid).set(cleanedContent, (error: string) => {
       dispatch({ type: ActionTypes.FINISH_LESSON_EDIT, cid, });
       if (error) {
         dispatch({ type: ActionTypes.DISPLAY_ERROR, error: `Update failed! ${error}`, });
@@ -76,10 +76,10 @@ export const submitLessonEdit = (cid:string, content:GrammarActivity) => {
   };
 }
 
-export const deleteLesson = (cid:string) => {
-  return (dispatch:Function) => {
+export const deleteLesson = (cid: string) => {
+  return (dispatch: Function) => {
     dispatch({ type: ActionTypes.SUBMIT_LESSON_EDIT, cid, });
-    activitiesRef.child(cid).remove((error:string) => {
+    activitiesRef.child(cid).remove((error: string) => {
       dispatch({ type: ActionTypes.FINISH_LESSON_EDIT, cid, });
       if (error) {
         dispatch({ type: ActionTypes.DISPLAY_ERROR, error: `Deletion failed! ${error}`, });

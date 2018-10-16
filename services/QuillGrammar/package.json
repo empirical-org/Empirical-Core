@@ -5,10 +5,12 @@
   "main": "index.js",
   "scripts": {
     "lint": "tslint -c tslint.json 'src/**/*.{ts,tsx}' --exclude 'src/tests/*.{ts,tsx}'",
+    "lint:fix": "tslint -c tslint.json 'src/**/*.{ts,tsx}' --exclude 'src/tests/*.{ts,tsx}' --fix",
     "start": "EMPIRICAL_BASE_URL=localhost:3000 QUILL_CMS=localhost:3100 webpack-dev-server",
     "test": "jest",
     "build:jenkins": "tsc && webpack --optimize-minimize",
-    "build": "tsc && webpack --progress",
+    "build": "webpack --progress --config webpack.prod.config.js",
+    "build:staging": "webpack --progress --config webpack.staging.config.js",
     "clean": "rd /s/q built"
   },
   "keywords": [
@@ -19,6 +21,7 @@
   "author": "Quill.org",
   "license": "AGPL-3.0",
   "dependencies": {
+    "@types/enzyme-adapter-react-16": "^1.0.3",
     "@types/lodash": "^4.14.109",
     "@types/node": "^9.4.7",
     "@types/pusher-js": "^4.2.0",
@@ -31,6 +34,7 @@
     "@types/react-router-redux": "^5.0.15",
     "@types/react-select": "^2.0.2",
     "@types/request": "^2.47.0",
+    "@types/request-promise": "^4.1.42",
     "@types/underscore": "^1.8.9",
     "antd": "^3.3.1",
     "bulma": "^0.7.1",
@@ -43,7 +47,7 @@
     "node-sass": "^4.9.3",
     "pusher-js": "^4.3.0",
     "quill-component-library": "^0.1.29",
-    "quill-marking-logic": "^0.4.0",
+    "quill-marking-logic": "^0.7.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.7",

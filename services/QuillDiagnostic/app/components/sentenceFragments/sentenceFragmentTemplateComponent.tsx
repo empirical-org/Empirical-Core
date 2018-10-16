@@ -3,7 +3,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
 import * as _ from 'underscore';
-import {checkSentenceFragment, Response } from 'quill-marking-logic'
+import {checkDiagnosticSentenceFragment, Response } from 'quill-marking-logic'
 import {
   hashToCollection,
   ConceptExplanation,
@@ -107,7 +107,8 @@ const PlaySentenceFragment = React.createClass<any, any>({
       const key = this.props.currentKey;
       const { attempts, } = this.props.question;
       this.setState({ checkAnswerEnabled: false, }, () => {
-        const { prompt, wordCountChange, ignoreCaseAndPunc, incorrectSequences, focusPoints } = this.getQuestion();
+        const { prompt, wordCountChange, ignoreCaseAndPunc, incorrectSequences, focusPoints, concept_uid, modelConceptUID, conceptID } = this.getQuestion();
+        const defaultConceptUID = modelConceptUID || concept_uid || conceptID
         const responses = hashToCollection(this.getResponses())
         const fields = {
           question_uid: key,
@@ -118,9 +119,11 @@ const PlaySentenceFragment = React.createClass<any, any>({
           prompt,
           incorrectSequences,
           focusPoints,
-          mlUrl: 'https://nlp.quill.org'
+          checkML: false,
+          mlUrl: 'https://nlp.quill.org',
+          defaultConceptUID
         }
-        checkSentenceFragment(fields).then((resp) => {
+        checkDiagnosticSentenceFragment(fields).then((resp) => {
           const matched = {response: resp}
           if (typeof(matched) === 'object') {
             updateResponseResource(matched, key, attempts, this.props.dispatch, );
@@ -154,6 +157,14 @@ const PlaySentenceFragment = React.createClass<any, any>({
               return <ConceptExplanation {...data} />;
             }
           }
+        } else if (!latestAttempt.response.optimal && latestAttempt.response.conceptResults) {
+            const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.response.conceptResults);
+            if (conceptID) {
+              const data = this.props.conceptsFeedback.data[conceptID.conceptUID];
+              if (data) {
+                return <ConceptExplanation {...data} />;
+              }
+            }
         } else if (this.getQuestion() && this.getQuestion().modelConceptUID) {
           const dataF = this.props.conceptsFeedback.data[this.getQuestion().modelConceptUID];
           if (dataF) {
