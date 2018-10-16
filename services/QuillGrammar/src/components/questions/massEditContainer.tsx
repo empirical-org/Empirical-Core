@@ -29,17 +29,17 @@ interface BoilerplateCategory {
   key: string;
   description: string;
   name: string;
-  children: Array<Feedback>
+  children: Feedback[]
 }
 
 interface MassEditState {
-  responses: {[key:string]: Response},
+  responses: {[key: string]: Response},
   selectedMassEditBoilerplateCategory: string,
   newMassEditConceptResultConceptUID: string,
   newMassEditConceptResultCorrect: boolean,
   massEditSummaryListDisplay: string,
   massEditSummaryListButtonText: string,
-  conceptResults?: {[key:string]: boolean}
+  conceptResults?: {[key: string]: boolean}
   massEditFeedback?: string;
   selectedMassEditBoilerplate?: string;
 }
@@ -129,12 +129,12 @@ class MassEditContainer extends React.Component<MassEditProps, MassEditState> {
     const selectedResponses = this.props.massEdit.selectedResponses;
     const feedback = this.state.massEditFeedback;
     const optimal = this.refs.massEditOptimal.checked || false;
-    const parent_id = null;
+    const parentId = null;
     const author = null;
     const payload = {
       feedback,
       optimal,
-      parent_id,
+      parent_id: parentId,
       author,
     };
     const qid = this.props.match.params.questionID;
@@ -149,7 +149,7 @@ class MassEditContainer extends React.Component<MassEditProps, MassEditState> {
     }
   }
 
-  updateConceptResults(conceptResults: {[key:string]: boolean}) {
+  updateConceptResults(conceptResults: {[key: string]: boolean}) {
     this.setState({ conceptResults, });
   }
 
@@ -176,7 +176,7 @@ class MassEditContainer extends React.Component<MassEditProps, MassEditState> {
   toggleMassEditSummaryList() {
     let display = 'none';
     let text = 'Expand List';
-    if (this.state.massEditSummaryListButtonText == 'Expand List') {
+    if (this.state.massEditSummaryListButtonText === 'Expand List') {
       display = 'block';
       text = 'Collapse List';
     }
@@ -204,7 +204,7 @@ class MassEditContainer extends React.Component<MassEditProps, MassEditState> {
   }
 
   boilerplateSpecificFeedbackToOptions(selectedCategory: any) {
-    return selectedCategory.children.map((childFeedback: {[key:string]: string}) => (
+    return selectedCategory.children.map((childFeedback: {[key: string]: string}) => (
       <option key={childFeedback.key} className="boilerplate-feedback-dropdown-option">{childFeedback.description}</option>
         ));
   }

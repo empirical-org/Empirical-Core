@@ -28,7 +28,7 @@ class ConceptsFeedback extends React.Component<ConceptsFeedbackProps> {
     this.props.dispatch(actions.toggleNewConceptsFeedbackModal())
   }
 
-  renderConceptsFeedback():Array<JSX.Element> {
+  renderConceptsFeedback(): JSX.Element[] {
     const data = this.props.concepts.data;
     if (data && data[0]) {
       return data[0].sort((a, b) => a.displayName.localeCompare(b.displayName)).map((concept) => {
@@ -47,7 +47,7 @@ class ConceptsFeedback extends React.Component<ConceptsFeedbackProps> {
     }
   }
 
-  renderModal():JSX.Element|void {
+  renderModal(): JSX.Element|void {
     const {submittingnew} = this.props.conceptsFeedback;
     const stateSpecificClass = submittingnew ? 'is-loading' : '';
     if (this.props.conceptsFeedback.newConceptModalOpen) {
@@ -73,7 +73,7 @@ class ConceptsFeedback extends React.Component<ConceptsFeedbackProps> {
       }
   }
 
-  render(){
+  render() {
     //// console.log("Inside render for left panel, all concepts, this:\n ", this)
     return (
       <section className="section">
