@@ -92,7 +92,7 @@ export default class QuestionForm extends React.Component {
             <ConceptSelector currentConceptUID={this.state.concept_uid}
               handleSelectorChange={this.handleSelectorChange}/>
           </div>
-          <label className="label">Rule description</label>
+          <label className="label">Rule description (optional, will overwrite the concept's description for this question if set)</label>
           <p className="control">
             <TextEditor
               text={this.props.question.rule_description || ""}
