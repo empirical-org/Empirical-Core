@@ -28,7 +28,7 @@ interface AdminQuestionProps {
 
 interface AdminQuestionState {
   selectedBoilerplateCategory: string,
-  responses: Array<Response>,
+  responses: Response[],
   loadedResponses: boolean,
   addingNewResponse: boolean
 }

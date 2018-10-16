@@ -5,7 +5,7 @@ import { hashToCollection } from 'quill-component-library/dist/componentLibrary'
 
 // const qml = require('quill-marking-logic')
 import { checkSentenceCombining, checkSentenceFragment, checkDiagnosticQuestion, checkFillInTheBlankQuestion, ConceptResult } from 'quill-marking-logic'
-import objectWithSnakeKeysFromCamel from '../objectWithSnakeKeysFromCamel';
+import objectWithSnakeKeysFromCamel from '../objectWithSnakeKeysFromCamel.js';
 
 interface Question {
   conceptID: string,
@@ -19,7 +19,8 @@ interface Question {
   prompt: string,
   key?: string,
   wordCountChange?:object,
-  ignoreCaseAndPunc?:Boolean
+  ignoreCaseAndPunc?:Boolean,
+  modelConceptUID?: string
 }
 
 interface FocusPoints {
@@ -154,7 +155,7 @@ function deleteRematchedResponse(response) {
 }
 
 function updateResponse(rid, content) {
-  const rubyConvertedResponse = objectWithSnakeKeysFromCamel(content);
+  const rubyConvertedResponse = objectWithSnakeKeysFromCamel(content, false);
   return request({
     method: 'PUT',
     uri: `${process.env.QUILL_CMS}/responses/${rid}`,
@@ -168,10 +169,8 @@ function determineDelta(response, newResponse) {
   const parentIDChanged = (newResponse.response.parent_id? parseInt(newResponse.response.parent_id) : null) !== response.parent_id;
   const authorChanged = newResponse.response.author != response.author;
   const feedbackChanged = newResponse.response.feedback != response.feedback;
-  const conceptResultsChanged = _.isEqual(convertResponsesArrayToHash(newResponse.response.concept_results), response.concept_results);
+  const conceptResultsChanged = !_.isEqual(convertResponsesArrayToHash(newResponse.response.concept_results), response.concept_results);
   const changed = parentIDChanged || authorChanged || feedbackChanged || conceptResultsChanged;
-  // console.log(response.id, parentIDChanged, authorChanged, feedbackChanged, conceptResultsChanged);
-  // console.log(response, newResponse.response);
   if (changed) {
     if (unmatched) {
       return 'tobeunmatched';
@@ -201,6 +200,7 @@ function getMatcherFields(mode:string, question:Question, responses:{[key:string
   const responseArray = hashToCollection(responses);
   const focusPoints = question.focusPoints ? hashToCollection(question.focusPoints) : [];
   const incorrectSequences = question.incorrectSequences ? hashToCollection(question.incorrectSequences) : [];
+  const defaultConceptUID = question.modelConceptUID || question.conceptID
 
   if (mode === 'sentenceFragments') {
     return {
@@ -212,14 +212,15 @@ function getMatcherFields(mode:string, question:Question, responses:{[key:string
       incorrectSequences: incorrectSequences,
       ignoreCaseAndPunc: question.ignoreCaseAndPunc,
       checkML: true,
-      mlUrl: process.env.CMS_URL
+      mlUrl: process.env.CMS_URL,
+      defaultConceptUID
     };
   } else if (mode === 'diagnosticQuestions') {
-    return [question.key, hashToCollection(responses)]
+    return [question.key, hashToCollection(responses), defaultConceptUID]
   } else if (mode === 'fillInBlank') {
-    return [question.key, hashToCollection(responses)]
+    return [question.key, hashToCollection(responses), defaultConceptUID]
   } else {
-    return [question.key, responseArray, focusPoints, incorrectSequences]
+    return [question.key, responseArray, focusPoints, incorrectSequences, defaultConceptUID]
   }
 }
 
