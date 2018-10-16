@@ -139,7 +139,7 @@ class Concept extends React.Component<ConceptProps, ConceptState> {
               <textarea className="input" ref="instructions" onChange={this.handleInstructionsChange}></textarea>
             </p>
             <FlagDropdown flag={this.state.flag} handleFlagChange={this.handleFlagChange} isLessons={false}/>
-            <label className="label">Rule description</label>
+            <label className="label">Rule description (optional, will overwrite the concept's description for this question if set)</label>
             <p className="control">
               <TextEditor
                 handleTextChange={this.handleRuleDescriptionChange}

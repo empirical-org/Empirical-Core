@@ -14,7 +14,7 @@ const ConceptShow: React.SFC<ConceptShowProps> = ({concept}) => {
   return (
     <div>
       <h3>{concept.name} <ArchivedTag concept={concept}/><ReplacedWithLink concept={concept}/></h3>
-      <p>{concept.description}</p>
+      <p dangerouslySetInnerHTML={{ __html: concept.description}} />
       <p>UID: {concept.uid}</p>
       <Button.Group>
         <Link to={`${concept.id}/edit`}>
@@ -31,7 +31,7 @@ const ConceptShow: React.SFC<ConceptShowProps> = ({concept}) => {
       </Row>
     </div>
   )
-  
-} 
+
+}
 
 export default ConceptShow
