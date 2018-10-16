@@ -3,6 +3,8 @@ import {getOptimalResponses} from '../sharedResponseFunctions'
 import {conceptResultTemplate} from '../helpers/concept_result_template'
 
 import {exactMatch} from '../matchers/exact_match';
+import {focusPointChecker} from '../matchers/focus_point_match';
+import {incorrectSequenceChecker} from '../matchers/incorrect_sequence_match';
 import {caseInsensitiveChecker} from '../matchers/case_insensitive_match'
 import {punctuationInsensitiveChecker} from '../matchers/punctuation_insensitive_match';
 import {punctuationAndCaseInsensitiveChecker} from '../matchers/punctuation_and_case_insensitive_match'
@@ -13,8 +15,9 @@ import {levenshteinMatchObjectChecker} from '../matchers/change_object_match'
 export function checkDiagnosticQuestion(
   question_uid: string,
   response: string,
-  responses: Array<Response>,
   defaultConceptUID?: string
+  incorrectSequences: Array<IncorrectSequence>|null
+  focusPoints: Array<FocusPoint>|null,
 ): Response {
   const data = {
     response: response.trim(),
