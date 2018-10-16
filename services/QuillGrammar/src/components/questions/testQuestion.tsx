@@ -58,7 +58,7 @@ class TestQuestion extends React.Component {
     return this.props.questions.data[this.props.match.params.questionID];
   }
 
-  checkAnswer(response:string, question, responses, isFirstAttempt:Boolean) {
+  checkAnswer(response: string, question, responses, isFirstAttempt: Boolean) {
     this.props.dispatch(checkAnswer(response, question, responses, isFirstAttempt))
   }
 
@@ -75,6 +75,7 @@ class TestQuestion extends React.Component {
             activity={{title: 'Test Question', concepts: {}, description: ''}}
             checkAnswer={this.checkAnswer}
             conceptsFeedback={this.props.conceptsFeedback}
+            concepts={this.props.concepts}
           />
         </div>
       );
@@ -91,7 +92,8 @@ function select(props) {
   return {
     questions: props.questions,
     session: props.session,
-    conceptsFeedback: props.conceptsFeedback
+    conceptsFeedback: props.conceptsFeedback,
+    concepts: props.concepts
   };
 }
 
