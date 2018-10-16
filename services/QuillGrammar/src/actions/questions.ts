@@ -9,8 +9,8 @@ import * as responseActions from './responses'
 import { Response, ConceptResult } from 'quill-marking-logic'
 
 export const startListeningToQuestions = () => {
-  return (dispatch:Function) => {
-    questionsRef.on('value', (snapshot:any) => {
+  return (dispatch: Function) => {
+    questionsRef.on('value', (snapshot: any) => {
       const questions: Questions = snapshot.val()
       if (questions) {
         dispatch({ type: ActionTypes.RECEIVE_QUESTIONS_DATA, data: questions, });
@@ -21,12 +21,12 @@ export const startListeningToQuestions = () => {
   }
 }
 
-export const getGradedResponsesWithCallback = (questionID:string, callback:Function) => {
+export const getGradedResponsesWithCallback = (questionID: string, callback: Function) => {
   request(`${process.env.QUILL_CMS}/questions/${questionID}/responses`, (error, response, body) => {
     if (error) {
       console.log('error:', error); // Print the error if one occurred
     }
-    const bodyToObj: {[key:string]: Response} = {};
+    const bodyToObj: {[key: string]: Response} = {};
     JSON.parse(body).forEach((resp: Response) => {
       bodyToObj[resp.id] = resp;
       if (typeof resp.concept_results === 'string') {
@@ -34,10 +34,12 @@ export const getGradedResponsesWithCallback = (questionID:string, callback:Funct
       }
       if (resp.concept_results) {
         for (const cr in resp.concept_results) {
-          const formatted_cr: ConceptResult = { conceptUID: '', correct: false};
-          formatted_cr.conceptUID = cr;
-          formatted_cr.correct = resp.concept_results[cr];
-          resp.concept_results[cr] = formatted_cr;
+          if (resp.concept_results.hasOwnProperty(cr)) {
+            const formattedCr: ConceptResult = { conceptUID: '', correct: false};
+            formattedCr.conceptUID = cr;
+            formattedCr.correct = resp.concept_results[cr];
+            resp.concept_results[cr] = formattedCr;
+          }
         }
         resp.conceptResults = resp.concept_results;
         delete resp.concept_results;
@@ -48,8 +50,8 @@ export const getGradedResponsesWithCallback = (questionID:string, callback:Funct
 }
 
 export const updateFlag = (qid: string, flag: string) => {
-  return (dispatch:Function) => {
-    questionsRef.child(`${qid}/flag/`).set(flag, (error:string) => {
+  return (dispatch: Function) => {
+    questionsRef.child(`${qid}/flag/`).set(flag, (error: string) => {
       if (error) {
         alert(`Flag update failed! ${error}`);
       }
@@ -61,8 +63,8 @@ export const incrementRequestCount = () => {
   return { type: ActionTypes.INCREMENT_REQUEST_COUNT }
 }
 
-export const searchResponses = (qid:string) => {
-  return (dispatch:Function, getState:Function) => {
+export const searchResponses = (qid: string) => {
+  return (dispatch: Function, getState: Function) => {
     const requestNumber = getState().filters.requestCount
     // check for request number in state, save as const
     request(
@@ -93,19 +95,19 @@ export const searchResponses = (qid:string) => {
   };
 }
 
-export const getFormattedSearchData = (state) =>{
+export const getFormattedSearchData = (state) => {
   const searchData = state.filters.formattedFilterData;
   searchData.text = state.filters.stringFilter;
   searchData.pageNumber = state.filters.responsePageNumber;
   return searchData;
 }
 
-export const updateResponses = (data: Array<Response>) =>{
+export const updateResponses = (data: Response[]) => {
   return { type: ActionTypes.UPDATE_SEARCHED_RESPONSES, data, };
 }
 
-export const initializeSubscription = (qid:string) => {
-  return (dispatch:Function) => {
+export const initializeSubscription = (qid: string) => {
+  return (dispatch: Function) => {
     if (process.env.NODE_ENV === 'development') {
       Pusher.logToConsole = true;
     }
@@ -119,18 +121,18 @@ export const initializeSubscription = (qid:string) => {
   };
 }
 
-export const removeSubscription = (qid:string) => {
-  return (dispatch:Function) => {
+export const removeSubscription = (qid: string) => {
+  return (dispatch: Function) => {
     if (window.pusher) {
       window.pusher.unsubscribe(`admin-${qid}`);
     }
   };
 }
 
-export const submitNewQuestion = (content:Question) => {
-  return (dispatch:Function) => {
+export const submitNewQuestion = (content: Question) => {
+  return (dispatch: Function) => {
     dispatch({ type: ActionTypes.AWAIT_NEW_QUESTION_RESPONSE, });
-    const newRef = questionsRef.push(content, (error:string) => {
+    const newRef = questionsRef.push(content, (error: string) => {
       dispatch({ type: ActionTypes.RECEIVE_NEW_QUESTION_RESPONSE, });
       if (error) {
         dispatch({ type: ActionTypes.DISPLAY_ERROR, error: `Submission failed! ${error}`, });
@@ -168,7 +170,7 @@ export const submitQuestionEdit = (qid: string, content: Question) => {
 }
 
 export const saveOptimalResponse = (qid: string, conceptUid: string, answer: {text: string}) => {
-  return (dispatch:Function) => {
+  return (dispatch: Function) => {
     if (answer.text) {
       const conceptResults = [{[conceptUid]: true}]
       const formattedResponse = {
@@ -185,7 +187,7 @@ export const saveOptimalResponse = (qid: string, conceptUid: string, answer: {te
 }
 
 export const updateStringFilter = (stringFilter: string, qid: string) => {
-  return (dispatch:Function) => {
+  return (dispatch: Function) => {
     dispatch(setStringFilter(stringFilter));
     dispatch(searchResponses(qid));
   };
@@ -200,7 +202,7 @@ export const startResponseEdit = (qid: string, rid: string) => {
 }
 
 export const updatePageNumber = (pageNumber: Number, qid: string) => {
-  return (dispatch:Function) => {
+  return (dispatch: Function) => {
     dispatch(setPageNumber(pageNumber));
     dispatch(searchResponses(qid));
   };
@@ -220,4 +222,8 @@ export const startChildResponseView = (qid: string, rid: string) => {
 
 export const cancelChildResponseView = (qid: string, rid: string) => {
   return { type: ActionTypes.CANCEL_CHILD_RESPONSE_VIEW, qid, rid, };
+}
+
+export const cancelResponseEdit = (qid, rid) => {
+  return { type: ActionTypes.FINISH_RESPONSE_EDIT, qid, rid, };
 }

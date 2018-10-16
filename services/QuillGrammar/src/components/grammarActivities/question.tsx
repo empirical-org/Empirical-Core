@@ -14,6 +14,7 @@ interface QuestionProps {
   goToNextQuestion: Function;
   checkAnswer: Function;
   conceptsFeedback: any;
+  concepts: any;
 }
 
 interface QuestionState {
@@ -21,25 +22,25 @@ interface QuestionState {
   response: string;
   questionStatus: string;
   submittedEmptyString: boolean
-  responses: Array<Response>
+  responses: Response[]
 }
 
 export class QuestionComponent extends React.Component<QuestionProps, QuestionState> {
     constructor(props: QuestionProps) {
-        super(props);
+      super(props);
 
-        this.state = {
-          showExample: true,
-          response: '',
-          questionStatus: 'unanswered',
-          submittedEmptyString: false,
-          responses: []
-        }
+      this.state = {
+        showExample: true,
+        response: '',
+        questionStatus: 'unanswered',
+        submittedEmptyString: false,
+        responses: []
+      }
 
-        this.toggleExample = this.toggleExample.bind(this)
-        this.updateResponse = this.updateResponse.bind(this)
-        this.checkAnswer = this.checkAnswer.bind(this)
-        this.goToNextQuestion = this.goToNextQuestion.bind(this)
+      this.toggleExample = this.toggleExample.bind(this)
+      this.updateResponse = this.updateResponse.bind(this)
+      this.checkAnswer = this.checkAnswer.bind(this)
+      this.goToNextQuestion = this.goToNextQuestion.bind(this)
     }
 
     componentDidMount() {
@@ -71,7 +72,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
       if (this.props.currentQuestion.uid !== nextProps.currentQuestion.uid) {
         responseActions.getGradedResponsesWithCallback(
           nextProps.currentQuestion.uid,
-          (data: Array<Response>) => {
+          (data: Response[]) => {
             this.setState({ responses: data, });
           }
         );
@@ -107,29 +108,38 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
       this.setState({response: e.target.value})
     }
 
-    getNegativeConceptResultsForResponse(conceptResults: Array<ConceptResult>) {
+    getNegativeConceptResultsForResponse(conceptResults: ConceptResult[]) {
       return hashToCollection(conceptResults).filter((cr: ConceptResult) => !cr.correct);
     }
 
-    getNegativeConceptResultForResponse(conceptResults: Array<ConceptResult>) {
+    getNegativeConceptResultForResponse(conceptResults: ConceptResult[]) {
       const negCRs = this.getNegativeConceptResultsForResponse(conceptResults);
       return negCRs.length > 0 ? negCRs[0] : undefined;
     }
 
-    getLatestAttempt(attempts:Array<Response> = []):Response|undefined {
+    getLatestAttempt(attempts: Response[] = []): Response|undefined {
       const lastIndex = attempts.length - 1;
       return attempts[lastIndex];
     }
 
+    getConcept() {
+      return this.props.concepts.data[0].find((c: any) => c.uid === this.currentQuestion().concept_uid)
+    }
+
     renderExample(): JSX.Element|undefined {
-      const example = this.currentQuestion().rule_description
+      let example
+      if (this.currentQuestion().rule_description && this.currentQuestion().rule_description.length && this.currentQuestion().rule_description !== "<br/>") {
+        example = this.currentQuestion().rule_description
+      } else if (this.getConcept() && this.getConcept().description) {
+        example = this.getConcept().description
+      }
       if (example) {
         let componentClasses = 'example-container'
         if (this.state.showExample) {
           componentClasses += ' show'
         }
         return <Row className={componentClasses} type="flex" align="middle" justify="start">
-          <div className="example" dangerouslySetInnerHTML={{__html: example.replace(/\n/g,"<br />")}} />
+          <div className="example" dangerouslySetInnerHTML={{__html: example.replace(/\n/g, "<br />")}} />
         </Row>
 
       } else {
@@ -151,7 +161,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
     renderTopSection(): JSX.Element {
       const answeredQuestionCount = this.props.answeredQuestions.length
       const totalQuestionCount = answeredQuestionCount + this.props.unansweredQuestions.length + 1
-      const meterWidth = answeredQuestionCount/totalQuestionCount * 100
+      const meterWidth = answeredQuestionCount / totalQuestionCount * 100
       return <div className="top-section">
         <Row
           type="flex"
@@ -225,9 +235,18 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
     }
 
     renderConceptExplanation(): JSX.Element|void {
-      const latestAttempt:Response|undefined = this.getLatestAttempt(this.currentQuestion().attempts);
+      const latestAttempt: Response|undefined = this.getLatestAttempt(this.currentQuestion().attempts);
       if (latestAttempt && !latestAttempt.optimal) {
-        if (latestAttempt.concept_results) {
+        if (latestAttempt.conceptResults) {
+          const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.conceptResults);
+          if (conceptID) {
+            const data = this.props.conceptsFeedback.data[conceptID.conceptUID];
+            if (data) {
+              return <ConceptExplanation {...data} />;
+            }
+          }
+          // pretty sure it is only conceptResults now, but trying to avoid further issues
+        } else if (latestAttempt.concept_results) {
           const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.concept_results);
           if (conceptID) {
             const data = this.props.conceptsFeedback.data[conceptID.conceptUID];
@@ -235,6 +254,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
               return <ConceptExplanation {...data} />;
             }
           }
+
         } else if (this.currentQuestion() && this.currentQuestion().modelConceptUID) {
           const dataF = this.props.conceptsFeedback.data[this.currentQuestion().modelConceptUID];
           if (dataF) {

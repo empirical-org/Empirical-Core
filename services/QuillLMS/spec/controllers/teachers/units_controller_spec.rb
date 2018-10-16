@@ -53,7 +53,8 @@ describe Teachers::UnitsController, type: :controller do
     it 'should render the current json' do
       get :last_assigned_unit_id, format: :json
       expect(response.body).to eq({
-        id: Unit.where(user: teacher).last.id
+        id: Unit.where(user: teacher).last.id,
+        referral_code: teacher.referral_code
       }.to_json)
     end
   end

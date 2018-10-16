@@ -4,8 +4,6 @@ import rootRef from '../firebase';
 const	feedbackRef = rootRef.child('conceptsFeedback');
 import { push } from 'react-router-redux';
 
-	// called when the app starts. this means we immediately download all quotes, and
-	// then receive all quotes again as soon as anyone changes anything.
 export const startListeningToConceptsFeedback = () => {
   return (dispatch: Function) => {
     feedbackRef.on('value', (snapshot: any) => {
