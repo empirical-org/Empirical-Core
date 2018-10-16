@@ -14,7 +14,8 @@ describe('The checking a sentence fragment', () => {
     wordCountChange: {min: 1, max: 3},
     ignoreCaseAndPunc: false,
     incorrectSequences,
-    prompt: 'Bats have wings they can fly.'
+    prompt: 'Bats have wings they can fly.',
+    defaultConceptUID: responses[0].question_uid
   };
 
   describe('first matchers - original sentence', () => {

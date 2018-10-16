@@ -68,9 +68,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   def scorebook
     @classrooms = classrooms_with_data
     if params['classroom_id']
-      @classroom = @classrooms.find{|classroom| classroom["id"] == params['classroom_id'].to_i}
-    else
-      @classroom = @classrooms.first
+      @classroom = @classrooms.find{|classroom| classroom["id"].to_i == params['classroom_id'].to_i}
     end
     @classrooms = @classrooms.as_json
     @classroom = @classroom.as_json
