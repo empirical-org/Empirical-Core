@@ -604,8 +604,4 @@ private
   def update_invitee_email_address
     Invitation.where(invitee_email: self.email_was).update_all(invitee_email: self.email)
   end
-
-  def generate_referrer_id
-    ReferrerUser.create(user_id: self.id, referral_code: self.name.downcase.gsub(/[^a-z ]/, '').gsub(' ', '-') + '-' + self.id.to_s)
-  end
 end
