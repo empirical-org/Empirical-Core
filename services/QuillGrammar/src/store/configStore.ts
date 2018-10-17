@@ -12,11 +12,7 @@ export interface IState {
 
 export const initStore = () => {
     return (dispatch: Dispatch<{}>) => {
-        const initialState = {
-          questions: {},
-          grammarActivities: {}
-        }
-        return dispatch(initStoreAction(initialState));
+        return dispatch(initStoreAction());
     };
 };
 

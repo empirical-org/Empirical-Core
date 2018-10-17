@@ -223,7 +223,6 @@ class Questions extends React.Component {
     });
   }
 
-
   renderSearchBox() {
     return null
     // const options = hashToCollection(this.props.questions.data);

@@ -117,7 +117,7 @@ RSpec.describe NotifyOfCompletedActivity do
       "/#{activity_session.user_id}"
 
 
-    expect(notification.activity_student_report_path).to eq(expected_path)
+    expect(notification.meta["href"]).to eq(expected_path)
   end
 
   it 'does not notify if state has not changed to finish' do

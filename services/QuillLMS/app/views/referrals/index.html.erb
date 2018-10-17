@@ -4,7 +4,7 @@
   <div id='champion-hero'>
     <%= image_tag "gift.svg" %>
     <h1>Get 4 weeks of Premium for every teacher you refer.</h1>
-    <h2>The teacher you refer sets up a class. New students complete an assignment. You receive 4 weeks of Premium.</h2>
+    <h2 class="hero-subtitle">The teacher you refer sets up a class. New students complete an <br/>assignment. You receive 4 weeks of Premium.</h2>
     <div id='share-box'>
     <input type='text' value='<%= @referral_link %>' id='referral-input' />
     <input type='button' id='copy-button' value='Copy Link' />
@@ -20,6 +20,7 @@
     </div>
     </div>
     <h2 id='success-message' style='display: none;'>Invitation sent successfully!</h2>
+    <p class="terms-text"><a href="/referrals_toc">Terms Apply</a></p>
   </div>
 
   <div id='steps'>
@@ -28,7 +29,7 @@
         <span class='offset'>1</span>
       </span>
       <h2>Invite Teachers</h2>
-      <p>Share your referral link with teachers who have not yet signed up for Quill yet.</p>
+      <p>Share your referral link with teachers who have not signed up for Quill yet.</p>
     </div>
     <div class='step'>
       <span class='circle-icon'>
@@ -55,11 +56,13 @@
     <% if @unredeemed_credits > 0 %>
       Redeem at <%= link_to "My Subscriptions", subscriptions_path %>.
     <% end %>
-    
-    
+
+
     </p>
 
   </div>
+
+  
 
 
 </div>

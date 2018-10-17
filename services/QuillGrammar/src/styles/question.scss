@@ -11,6 +11,18 @@
     height: 100%;
     display: block;
   }
+
+  .progress-bar-section {
+    max-width: 210px;
+    width: 100%;
+
+    p {
+      text-align: right;
+      font-size: 10pt;
+      padding-bottom: 0.75em;
+    }
+  }
+
   .progress-bar-indication {
     background-color: #f2f2f2;
     border-radius: 6px;
@@ -25,6 +37,9 @@
   }
   h1 {
     margin-bottom: 0;
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 28px;
   }
   .example {
     border-bottom: 1px solid #DDD;
@@ -77,9 +92,14 @@
     padding: 25px 2.35765%;
     box-shadow: 0 500px 2px 500px #ededed;
     font-size: 18px;
-    div {
-      width: 44em;
+    .inner-container {
+      max-width: 50em;
+      display: flex;
+      align-items: center;
       margin: auto;
+    }
+    img {
+      margin-right: 15px;
     }
   }
 

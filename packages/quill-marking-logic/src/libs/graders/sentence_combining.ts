@@ -2,6 +2,7 @@ import * as _ from 'underscore';
 import {Response, PartialResponse, IncorrectSequence, FocusPoint, GradingObject} from '../../interfaces';
 import {correctSentenceFromSamples} from 'quill-spellchecker';
 import {getOptimalResponses} from '../sharedResponseFunctions';
+import {conceptResultTemplate} from '../helpers/concept_result_template'
 
 import {exactMatch} from '../matchers/exact_match';
 import {focusPointChecker} from '../matchers/focus_point_match';
@@ -25,7 +26,8 @@ export function checkSentenceCombining(
   response: string,
   responses: Array<Response>,
   focusPoints: Array<FocusPoint>|null,
-  incorrectSequences: Array<IncorrectSequence>|null
+  incorrectSequences: Array<IncorrectSequence>|null,
+  defaultConceptUID?: string
 ): Response {
   const data = {
     response: response.trim(),
@@ -37,7 +39,8 @@ export function checkSentenceCombining(
   const responseTemplate = {
     text: data.response,
     question_uid,
-    count: 1
+    count: 1,
+    concept_results: defaultConceptUID ? [conceptResultTemplate(defaultConceptUID)] : []
   };
 
   const firstPass = checkForMatches(data, firstPassMatchers); // returns partial response or null
