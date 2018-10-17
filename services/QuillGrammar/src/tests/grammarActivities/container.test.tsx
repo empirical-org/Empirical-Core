@@ -18,7 +18,4 @@ describe("<PlayGrammarContainer />", () => {
       expect(wrapper).toMatchSnapshot();
     });
 
-    it("should render an example with the text from the current question's rule description", () => {
-      expect(wrapper)
-    })
 });
