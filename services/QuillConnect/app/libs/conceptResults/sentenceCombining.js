@@ -6,7 +6,8 @@ export function getConceptResultsForSentenceCombining(question) {
   const answer = question.attempts[0].submitted;
   let conceptResults = [];
   if (question.attempts[0].response) {
-    conceptResults = hashToCollection(question.attempts[0].response.conceptResults) || [];
+    const conceptResultObject = question.attempts[0].response.conceptResults || question.attempts[0].response.concept_results
+    conceptResults = hashToCollection(conceptResultObject) || [];
   } else {
     conceptResults = [];
   }

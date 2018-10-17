@@ -29,8 +29,14 @@ export function incorrectSequenceResponseBuilder(incorrectSequenceMatch:Incorrec
     author: 'Incorrect Sequence Hint',
     parent_id: getTopOptimalResponse(responses).id
   }
-    if (incorrectSequenceMatch.concept_results) {
-      res.concept_results = incorrectSequenceMatch.concept_results;
-    }
+
+  if (incorrectSequenceMatch.concept_results) {
+    res.concept_results = incorrectSequenceMatch.concept_results;
+  }
+
+  if (incorrectSequenceMatch.conceptResults) {
+    res.concept_results = incorrectSequenceMatch.conceptResults;
+  }
+
   return res;
 }

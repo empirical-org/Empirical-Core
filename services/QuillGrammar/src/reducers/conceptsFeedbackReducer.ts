@@ -3,13 +3,13 @@ import { ActionTypes } from "../actions/actionTypes";
 import * as _ from 'lodash';
 import { ConceptFeedback } from '../interfaces/conceptsFeedback'
 
-type ConceptsFeedbackAction = Action & { data: Array<ConceptFeedback>, cid: string }
+type ConceptsFeedbackAction = Action & { data: ConceptFeedback[], cid: string }
 
 export interface ConceptsFeedbackState {
   hasreceiveddata: boolean,
   submittingnew: boolean,
-  data: Array<ConceptFeedback>,
-  states: {[key:string]: string},
+  data: ConceptFeedback[],
+  states: {[key: string]: string},
   newConceptModalOpen: boolean
 }
 
@@ -22,20 +22,20 @@ const initialState = {
   }
 }
 
-export default function(currentstate: ConceptsFeedbackState, action: ConceptsFeedbackAction){
+export default function(currentstate: ConceptsFeedbackState, action: ConceptsFeedbackAction) {
     let newstate;
-    switch(action.type){
+    switch (action.type) {
         case ActionTypes.RECEIVE_CONCEPTS_FEEDBACK_DATA:
-            return Object.assign({},currentstate,{
+            return Object.assign({}, currentstate, {
                 hasreceiveddata: true,
                 data: action.data
             });
         case ActionTypes.AWAIT_NEW_CONCEPTS_FEEDBACK_RESPONSE:
-            return Object.assign({},currentstate,{
+            return Object.assign({}, currentstate, {
                 submittingnew: true
             });
         case ActionTypes.RECEIVE_NEW_CONCEPTS_FEEDBACK_RESPONSE:
-            return Object.assign({},currentstate,{
+            return Object.assign({}, currentstate, {
                 submittingnew: false,
                 newConceptModalOpen: false
             });
@@ -52,7 +52,7 @@ export default function(currentstate: ConceptsFeedbackState, action: ConceptsFee
             newstate.states[action.cid] = ActionTypes.SUBMITTING_CONCEPTS_FEEDBACK;
             return newstate;
         case ActionTypes.TOGGLE_NEW_CONCEPTS_FEEDBACK_MODAL:
-            return Object.assign({},currentstate,{
+            return Object.assign({}, currentstate, {
                 newConceptModalOpen: !currentstate.newConceptModalOpen
             });
         default: return currentstate || initialState.conceptsFeedback;
