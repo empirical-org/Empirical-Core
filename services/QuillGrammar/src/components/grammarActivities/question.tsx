@@ -44,6 +44,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
       this.updateResponse = this.updateResponse.bind(this)
       this.checkAnswer = this.checkAnswer.bind(this)
       this.goToNextQuestion = this.goToNextQuestion.bind(this)
+      this.renderConceptExplanation = this.renderConceptExplanation.bind(this)
     }
 
     componentDidMount() {

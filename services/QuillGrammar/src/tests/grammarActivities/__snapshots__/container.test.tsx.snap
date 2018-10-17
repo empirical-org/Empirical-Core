@@ -5,6 +5,15 @@ ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <PlayGrammarContainer
+    conceptsFeedback={
+      Object {
+        "data": Object {},
+        "hasreceiveddata": false,
+        "newConceptModalOpen": false,
+        "states": Object {},
+        "submittingnew": false,
+      }
+    }
     dispatch={[Function]}
     grammarActivities={
       Object {
@@ -185,6 +194,14 @@ Sentences flow easily when all the actions in a list have the same ending. This 
       },
       "answeredQuestions": Array [],
       "checkAnswer": [Function],
+      "concepts": undefined,
+      "conceptsFeedback": Object {
+        "data": Object {},
+        "hasreceiveddata": false,
+        "newConceptModalOpen": false,
+        "states": Object {},
+        "submittingnew": false,
+      },
       "currentQuestion": Object {
         "answers": Array [
           Object {
@@ -343,6 +360,14 @@ Sentences flow easily when all the actions in a list have the same ending. This 
         },
         "answeredQuestions": Array [],
         "checkAnswer": [Function],
+        "concepts": undefined,
+        "conceptsFeedback": Object {
+          "data": Object {},
+          "hasreceiveddata": false,
+          "newConceptModalOpen": false,
+          "states": Object {},
+          "submittingnew": false,
+        },
         "currentQuestion": Object {
           "answers": Array [
             Object {
