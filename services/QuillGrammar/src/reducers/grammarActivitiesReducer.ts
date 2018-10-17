@@ -1,6 +1,7 @@
 import { Action } from "redux";
 import { ActionTypes } from "../actions/actionTypes";
 import { GrammarActivity, GrammarActivities } from '../interfaces/grammarActivities'
+import * as _ from 'lodash'
 
 type GrammarActivityStateAction = Action & {cid: string, data: GrammarActivities|GrammarActivity}
 
@@ -9,7 +10,7 @@ export interface GrammarActivityState {
   currentActivity: GrammarActivity|null;
   data: GrammarActivities
   newLessonModalOpen: boolean
-  states: {[key:string]: string}
+  states: {[key: string]: string}
   error?: string;
 }
 
