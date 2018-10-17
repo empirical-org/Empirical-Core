@@ -5,6 +5,9 @@ import { hashToCollection, ConceptExplanation } from 'quill-component-library/di
 import { Question } from '../../interfaces/questions'
 import { GrammarActivity } from '../../interfaces/grammarActivities'
 import * as responseActions from '../../actions/responses'
+const tryAgainIconSrc = 'https://assets.quill.org/images/icons/try_again_icon.png'
+const incorrectIconSrc = 'https://assets.quill.org/images/icons/incorrect_icon.png'
+const correctIconSrc = 'https://assets.quill.org/images/icons/correct_icon.png'
 
 interface QuestionProps {
   activity: GrammarActivity|null;
@@ -126,6 +129,18 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
       return this.props.concepts.data[0].find((c: any) => c.uid === this.currentQuestion().concept_uid)
     }
 
+    onPressEnter = (e: any) => {
+      if(e.keyCode == 13 && e.shiftKey == false) {
+        e.preventDefault();
+        const { questionStatus } = this.state
+        if (questionStatus === 'unanswered' || questionStatus === 'incorrectly answered') {
+          this.checkAnswer()
+        } else {
+          this.goToNextQuestion()
+        }
+      }
+    }
+
     renderExample(): JSX.Element|undefined {
       let example
       if (this.currentQuestion().rule_description && this.currentQuestion().rule_description.length && this.currentQuestion().rule_description !== "<br/>") {
@@ -169,7 +184,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
           justify="space-between"
           >
           <h1>{this.props.activity ? this.props.activity.title : null}</h1>
-          <div>
+          <div className="progress-bar-section">
             <p>Sentences Completed: {answeredQuestionCount} of {totalQuestionCount}</p>
             <div className="progress-bar-indication">
               <span className="meter"
@@ -195,7 +210,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
           <div className="prompt" dangerouslySetInnerHTML={{__html: prompt}} />
         </Row>
         <Row type="flex" align="middle" justify="start">
-          <textarea value={this.state.response} className="input-field" onChange={this.updateResponse}/>
+          <textarea value={this.state.response} className="input-field" onChange={this.updateResponse} onKeyDown={this.onPressEnter}/>
         </Row>
         <Row type="flex" align="middle" justify="end">
           {this.renderCheckAnswerButton()}
@@ -206,29 +221,33 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
     renderFeedbackSection(): JSX.Element|undefined {
       const question = this.currentQuestion()
       if (question && question.attempts && question.attempts.length > 0) {
-        let className: string, feedback: string|undefined|null
+        let className: string, feedback: string|undefined|null, imgSrc: string
         if (question.attempts[1]) {
           if (question.attempts[1].optimal) {
             feedback = question.attempts[1].feedback
             className = 'correct'
+            imgSrc = correctIconSrc
           } else {
             feedback = `<b>Your Response:</b> ${this.state.response} <br/> <b>Correct Response:</b> ${question.answers[0].text.replace(/{|}/gm, '')}`
             className = 'incorrect'
+            imgSrc = incorrectIconSrc
           }
         } else {
           if (question.attempts[0].optimal) {
             feedback = question.attempts[0].feedback
             className = 'correct'
+            imgSrc = correctIconSrc
           } else {
             feedback = question.attempts[0].feedback
             className = 'try-again'
+            imgSrc = tryAgainIconSrc
           }
         }
         if (typeof feedback === 'string') {
-          return <div className={`feedback ${className}`}><div dangerouslySetInnerHTML={{__html: feedback}}/></div>
+          return <div className={`feedback ${className}`}><div className="inner-container"><img src={imgSrc}/><div dangerouslySetInnerHTML={{__html: feedback}}/></div></div>
         }
       } else if (this.state.submittedEmptyString) {
-        return <div className={`feedback try-again`}><div dangerouslySetInnerHTML={{__html: 'You must enter a sentence for us to check.'}}/></div>
+        return <div className={`feedback try-again`}><div className="inner-container"><img src={tryAgainIconSrc}/><div dangerouslySetInnerHTML={{__html: 'You must enter a sentence for us to check.'}}/></div></div>
 
       }
       return undefined
