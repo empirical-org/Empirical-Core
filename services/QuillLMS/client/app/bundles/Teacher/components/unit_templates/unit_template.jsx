@@ -117,7 +117,8 @@ export default React.createClass({
       { name: 'activities', idName: 'activity_ids', flag: 'flag', }
       // {name: 'related_unit_templates', idName: 'related_unit_template_ids'}
     ];
-    this.modules.server.save(model, { callback: this.props.returnToIndex, fieldsToNormalize, });
+
+    this.modules.server.save(model, { callback: (() => { window.location.href = `${process.env.DEFAULT_URL}/cms/unit_templates` }), fieldsToNormalize ,});
   },
 
   determineErrorMessage() {

@@ -39,7 +39,7 @@ class ChooseModelContainer extends React.Component<ChooseModelContainerProps, Ch
     this.removeModelConcept = this.removeModelConcept.bind(this);
   }
 
-  getModelConceptUID() {
+  getModelConceptUID(): string {
     const { questionID } = this.props.match.params
     const questionModelConceptUID = questionID ? this.props.questions.data[questionID].modelConceptUID : null
     return this.state.modelConceptUID || questionModelConceptUID;
@@ -57,7 +57,7 @@ class ChooseModelContainer extends React.Component<ChooseModelContainerProps, Ch
   removeModelConcept() {
     const { questionID } = this.props.match.params
     if (questionID) {
-      let questionData = Object.assign({}, this.props.questions.data[questionID], {modelConceptUID: null});
+      const questionData = Object.assign({}, this.props.questions.data[questionID], {modelConceptUID: null});
       this.props.dispatch(questionActions.submitQuestionEdit(questionID, questionData));
     }
   }
@@ -68,7 +68,7 @@ class ChooseModelContainer extends React.Component<ChooseModelContainerProps, Ch
 
   renderButtons() {
     const { questionID } = this.props.match.params
-    const disabled = questionID && this.state.modelConceptUID == this.props.questions.data[questionID].modelConceptUID
+    const disabled = questionID && this.state.modelConceptUID === this.props.questions.data[questionID].modelConceptUID
     return(
       <p className="control">
         <button
