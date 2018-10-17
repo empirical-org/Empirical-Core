@@ -264,7 +264,7 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
 
   renderRightButton() {
     const currentSlide = Number(this.props.classroomSessions.data.current_slide)
-    if (getParameterByName('projector') && currentSlide !== this.props.classroomLesson.data.questions.length - 1) {
+    if (getParameterByName('projector') && currentSlide !== this.props.customize.editionQuestions.questions.length - 1) {
       const classroomSessionId: ClassroomSessionId|null = this.state.classroomSessionId;
       const sessionData: ClassroomLessonSession = this.props.classroomSessions.data;
       const editionData: CustomizeIntf.EditionQuestions = this.props.customize.editionQuestions;
