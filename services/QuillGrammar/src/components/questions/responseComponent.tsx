@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import * as filterActions from '../../actions/filters';
 import _ from 'underscore';
 import {
-  hashToCollection,
   ResponseSortFields,
   ResponseToggleFields,
-  QuestionBar
+  QuestionBar,
+  hashToCollection
 } from 'quill-component-library/dist/componentLibrary';
 import ResponseList from './responseList';
 import * as questionActions from '../../actions/questions';
@@ -187,7 +187,7 @@ class ResponseComponent extends React.Component {
 
   getPercentageWeakResponses() {
     const { common_unmatched_responses, total_number_of_responses } = this.state.health
-    return common_unmatched_responses > 0 ? (common_unmatched_responses/total_number_of_responses * 100).toFixed(2) : 0.0
+    return common_unmatched_responses > 0 ? (common_unmatched_responses / total_number_of_responses * 100).toFixed(2) : 0.0
   }
 
   getErrorsForAttempt(attempt) {
@@ -231,7 +231,8 @@ class ResponseComponent extends React.Component {
   }
 
   responsesWithStatus() {
-    return hashToCollection(respWithStatus(this.props.filters.responses));
+    const responsesWithStatus = respWithStatus(this.props.filters.responses)
+    return hashToCollection(responsesWithStatus);
   }
 
   responsesGroupedByStatus() {
@@ -249,7 +250,7 @@ class ResponseComponent extends React.Component {
   formatForQuestionBar() {
     // {"human_optimal":153,"human_suboptimal":140,"algo_optimal":0,"algo_suboptimal":8780,"unmatched":28820}
     const totalResponseCount = this.state.health.total_number_of_attempts;
-    if (totalResponseCount == 0) {
+    if (totalResponseCount === 0) {
       return [{
         value: 100,
         color: '#eeeeee',
@@ -369,8 +370,8 @@ class ResponseComponent extends React.Component {
   expandAllResponses() {
     const responses = this.responsesWithStatus();
     const newExpandedState = this.props.filters.expanded;
-    for (let i = 0; i < responses.length; i++) {
-      newExpandedState[responses[i].key] = true;
+    for (const response of responses ) {
+      newExpandedState[response.key] = true;
     }
     this.props.dispatch(filterActions.expandAllResponses(newExpandedState));
   }
@@ -378,7 +379,7 @@ class ResponseComponent extends React.Component {
   allClosed() {
     const expanded = this.props.filters.expanded;
     for (const i in expanded) {
-      if (expanded[i] === true) return false;
+      if (expanded[i] === true) { return false; }
     }
     return true;
   }
@@ -490,8 +491,8 @@ class ResponseComponent extends React.Component {
       return response;
     });
 
-    let posTagsList = {},
-      posTagsAsString = '';
+    const posTagsList = {}
+    let posTagsAsString = '';
     responses.forEach((response) => {
       posTagsAsString = response.posTags ? response.posTags.join() : '';
       if (posTagsList[posTagsAsString]) {
@@ -516,7 +517,7 @@ class ResponseComponent extends React.Component {
   }
 
   getFilteredResponses(responses) {
-    if (this.props.filters.stringFilter == '') {
+    if (this.props.filters.stringFilter === '') {
       return responses;
     }
     const that = this;
@@ -602,7 +603,11 @@ class ResponseComponent extends React.Component {
     //   array = this.getPOSTagsList()
     // }
 
-    const pageNumbers = _.range(1, this.props.filters.numberOfPages + 1);
+    if (this.props.filters.numberOfPages) {
+      const pageNumbers = _.range(1, this.props.filters.numberOfPages + 1);
+    } else {
+      const pageNumbers = [1]
+    }
 
     let pageNumberStyle = {};
     const numbersToRender = pageNumbers.map((pageNumber, i) => {

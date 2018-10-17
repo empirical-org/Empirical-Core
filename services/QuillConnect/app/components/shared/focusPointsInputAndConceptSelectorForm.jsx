@@ -17,12 +17,13 @@ export default class FocusPointsInputAndConceptResultSelectorForm extends React.
     this.state = {
       itemText: item ? `${item.text}|||` : '',
       itemFeedback: item ? item.feedback : '',
-      itemConcepts: item ? (item.conceptResults ? item.conceptResults : {}) : {},
+      itemConcepts: item && item.conceptResults ? item.conceptResults : {},
       matchedCount: 0
     }
 
     this.handleChange = this.handleChange.bind(this)
     this.handleFeedbackChange = this.handleFeedbackChange.bind(this)
+    this.handleConceptChange = this.handleConceptChange.bind(this)
     this.getNewAffectedCount = this.getNewAffectedCount.bind(this)
   }
 

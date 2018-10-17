@@ -43,7 +43,7 @@ export default class FeedbackForm extends React.Component<FeedbackFormProps, Fee
     this.setState(newState)
   }
 
-  submit(e){
+  submit(e) {
     const {
       description,
       leftBox,

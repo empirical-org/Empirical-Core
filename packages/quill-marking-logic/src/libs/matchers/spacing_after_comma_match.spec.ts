@@ -22,8 +22,14 @@ describe('The spacingAfterCommaMatch function', () => {
         assert.isOk(matchedResponse);
     });
 
-    it('Should take a response string and return true if the comma is surrounded by numbers', () => {
+    it('Should take a response string and return false if the comma is surrounded by numbers', () => {
         const responseString = "My dog took a 2,000 year nap, did yours?";
+        const matchedResponse = spacingAfterCommaMatch(responseString);
+        assert.notOk(matchedResponse);
+    });
+
+    it('Should take a response string and return false if the comma is followed by a quotation mark', () => {
+        const responseString = 'Get those blankets off of me," yelled my brother.'
         const matchedResponse = spacingAfterCommaMatch(responseString);
         assert.notOk(matchedResponse);
     });

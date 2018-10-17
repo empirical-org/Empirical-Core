@@ -5,6 +5,17 @@ class Concept < ActiveRecord::Base
   validates :name, presence: true
   has_many :concept_results
 
+  def lineage
+    family_tree = self.name
+    if self.parent
+      family_tree = self.parent.name+' | '+family_tree
+    end
+    if self.parent and self.parent.parent
+      family_tree = self.parent.parent.name+' | '+family_tree
+    end
+    family_tree
+  end
+
   # need the below because those making POST requests to /api/v1/concepts know only uids, not ids
   def parent_uid= uid
     self.parent_id = Concept.find_by(uid: uid).id
@@ -24,9 +35,9 @@ class Concept < ActiveRecord::Base
 
   def self.all_with_level
     # https://github.com/dockyard/postgres_ext/blob/master/docs/querying.md
-    concept2 = Concept.select(:id, :name, :uid, :parent_id, '2 AS level').where(parent_id: nil, visible: true)
-    concept1 = Concept.select(:id, :name, :uid, :parent_id, '1 AS level').where(parent_id: concept2.ids, visible: true)
-    concept0 = Concept.select(:id, :name, :uid, :parent_id, '0 AS level').where(parent_id: concept1.ids, visible: true)
+    concept2 = Concept.select(:id, :name, :uid, :parent_id, '2 AS level', :description).where(parent_id: nil, visible: true)
+    concept1 = Concept.select(:id, :name, :uid, :parent_id, '1 AS level', :description).where(parent_id: concept2.ids, visible: true)
+    concept0 = Concept.select(:id, :name, :uid, :parent_id, '0 AS level', :description).where(parent_id: concept1.ids, visible: true)
     concept2 + concept1 + concept0
   end
 
