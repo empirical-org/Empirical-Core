@@ -111,6 +111,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
 
     formatInitialPassage(passage: string, underlineErrors: boolean) {
       const necessaryEdits = []
+      passage = passage.replace(/&#x27;/g, "'").replace(/&quot;/g, '"')
       passage.replace(/{\+([^-]+)-([^|]+)\|([^}]*)}/g, (key: string, plus: string, minus: string, conceptUID: string) => {
         passage = passage.replace(key, `<u id="${necessaryEdits.length}">${minus}</u>`);
         necessaryEdits.push(key)
