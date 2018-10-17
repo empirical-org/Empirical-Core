@@ -4,6 +4,7 @@ export interface Response {
     first_attempt_count?: number | null;
     child_count?: number | null;
     concept_results?: Array<ConceptResult> | null;
+    conceptResults?: Array<ConceptResult> | null;
     count: number;
     created_at?: string;
     id?: number;
