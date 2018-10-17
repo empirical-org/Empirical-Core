@@ -5,9 +5,9 @@ class ChampionInvitationMini extends React.Component {
     return (
       <div className="mini_container results-overview-mini-container col-md-4 col-sm-5 text-center">
         <div className="mini_content">
-          <div className="gray-underline" style={{ position: 'relative', padding: '8px', }}>
-            <img className="mini-star-icon" src="/assets/icons/icon-star.svg" style={{ position: 'absolute', top: '-11px', right: '-22px', transform: 'rotate(-22deg)', height: '27px', width: '27px', }} />
-            <img className="mini-star-icon" src="/assets/icons/icon-star.svg" style={{ position: 'absolute', top: '-11px', right: '-3px', transform: 'rotate(-34deg)', height: '14px', width: '14px', }} />
+          <div className="gray-underline" style={{ padding: '8px', }}>
+          <img className="mini-star-icon" src="https://assets.quill.org/images/icons/icon-star.svg" style={{ position: 'absolute', top: '-11px', right: '6px', transform: 'rotate(-22deg)', height: '27px', width: '27px', }} />
+          <img className="mini-star-icon" src="https://assets.quill.org/images/icons/icon-star.svg" style={{ position: 'absolute', top: '-10px', right: '25px', transform: 'rotate(-4deg)', height: '14px', width: '14px', }} />
             <h3>Share Quill, Earn Free Premium!</h3>
           </div>
           <div>

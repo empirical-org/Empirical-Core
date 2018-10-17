@@ -4,7 +4,7 @@
   <div id='champion-hero'>
     <%= image_tag "gift.svg" %>
     <h1>Get 4 weeks of Premium for every teacher you refer.</h1>
-    <h2>The teacher you refer sets up a class. New students complete an assignment. You receive 4 weeks of Premium.</h2>
+    <h2 class="hero-subtitle">The teacher you refer sets up a class. New students complete an <br/>assignment. You receive 4 weeks of Premium.</h2>
     <div id='share-box'>
     <input type='text' value='<%= @referral_link %>' id='referral-input' />
     <input type='button' id='copy-button' value='Copy Link' />
@@ -20,6 +20,7 @@
     </div>
     </div>
     <h2 id='success-message' style='display: none;'>Invitation sent successfully!</h2>
+    <p class="terms-text"><a href="/referrals_toc">Terms Apply</a></p>
   </div>
 
   <div id='steps'>
@@ -60,6 +61,8 @@
     </p>
 
   </div>
+
+  
 
 
 </div>
