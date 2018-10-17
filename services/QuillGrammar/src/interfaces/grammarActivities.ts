@@ -1,5 +1,5 @@
 export interface GrammarActivities {
-  [key:string]: GrammarActivity
+  [key: string]: GrammarActivity
 }
 
 export interface GrammarActivity {
@@ -10,7 +10,7 @@ export interface GrammarActivity {
 }
 
 export interface Concepts {
-  [key:string]: Concept
+  [key: string]: Concept
 }
 
 export interface Concept {

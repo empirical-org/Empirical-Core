@@ -30,7 +30,7 @@ export default class QuestionForm extends React.Component {
     this.handleAnswersChange = this.handleAnswersChange.bind(this)
   }
 
-  submit () {
+  submit() {
     this.props.submit({
       prompt: this.state.prompt,
       concept_uid: this.state.concept_uid,
@@ -41,7 +41,7 @@ export default class QuestionForm extends React.Component {
     })
   }
 
-  handlePromptChange (e) {
+  handlePromptChange(e) {
     this.setState({prompt: e})
   }
 
@@ -69,8 +69,8 @@ export default class QuestionForm extends React.Component {
     this.setState({ answers: [{ text: e.target.value }], });
   }
 
-  render () {
-    if(this.props.concepts.hasreceiveddata) {
+  render() {
+    if (this.props.concepts.hasreceiveddata) {
       const optimalAnswer = this.props.question.answers[0] ? this.props.question.answers[0].text : ''
       return (
         <div className="box">
@@ -92,7 +92,7 @@ export default class QuestionForm extends React.Component {
             <ConceptSelector currentConceptUID={this.state.concept_uid}
               handleSelectorChange={this.handleSelectorChange}/>
           </div>
-          <label className="label">Rule description</label>
+          <label className="label">Rule description (optional, will overwrite the concept's description for this question if set)</label>
           <p className="control">
             <TextEditor
               text={this.props.question.rule_description || ""}
