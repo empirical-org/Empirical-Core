@@ -154,7 +154,7 @@ module PublicProgressReports
         time: get_time_in_minutes(final_activity_session),
         number_of_questions: formatted_concept_results.length,
         concept_results: formatted_concept_results,
-        score: get_average_score(formatted_concept_results),
+        score: (final_activity_session.percentage * 100).round,
         average_score_on_quill: student.get_student_average_score
       }
     end

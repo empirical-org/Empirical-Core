@@ -31,7 +31,7 @@ function getParentIdArray(concept:Concept):Array<Number>{
   concept.parent && concept.parent.parent ? parentIdArray.push(concept.parent.parent.id) : null;
   concept.parent ? parentIdArray.push(concept.parent.id) : null;
   return parentIdArray;
-} 
+}
 
 class ConceptEditForm extends React.Component<AppProps, any> {
   constructor(props){
@@ -65,7 +65,7 @@ class ConceptEditForm extends React.Component<AppProps, any> {
   }
 
   redirectToShow = (data) => {
-    
+
     this.props.redirectToShow(data.editConcept.concept)
   }
 
@@ -77,8 +77,8 @@ class ConceptEditForm extends React.Component<AppProps, any> {
           <ConceptForm {...fields} onChange={this.handleFormChange} formSubmitCopy={"Edit"} onSubmit={(e) => {
             e.preventDefault();
             editConcept({ variables: {
-              id: this.props.concept.id, 
-              name: this.state.fields.name.value, 
+              id: this.props.concept.id,
+              name: this.state.fields.name.value,
               parentId: this.state.fields.parentId.value[this.state.fields.parentId.value.length - 1],
               description: this.state.fields.description.value
             }});
