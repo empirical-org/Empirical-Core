@@ -16,7 +16,8 @@ class Api::V1::ActivitySessionInteractionLogsController < Api::ApiController
     end
 
     # write log, notify teachers
-    if ActivitySessionInteractionLog.create(activity_session_id: act_sess_id, meta: meta, date: DateTime.now)
+    interaction_log_creation_time = DateTime.now
+    if ActivitySessionInteractionLog.create(activity_session_id: act_sess_id, meta: meta, date: interaction_log_creation_time)
       classroom_id = $redis.get("CLASSROOM_ID_FROM_ACTIVITY_SESSION_#{act_sess_id}")
       if classroom_id.nil?
         if act_sess.nil?
@@ -40,7 +41,11 @@ class Api::V1::ActivitySessionInteractionLogsController < Api::ApiController
       end
       puts 'gonna push a log'
       puts teachers
-      PusherActivitySessionInteractionLogPosted.run(teachers)
+      PusherActivitySessionInteractionLogPosted.run(teachers,
+                                                    activity_session,
+                                                    interaction_log_creation_time,
+                                                    meta[:current_question],
+                                                   )
       puts 'pushed log'
 			render :nothing => true, :status => 204
 		else
