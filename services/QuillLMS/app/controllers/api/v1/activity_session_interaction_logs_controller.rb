@@ -28,17 +28,20 @@ class Api::V1::ActivitySessionInteractionLogsController < Api::ApiController
         $redis.expire("CLASSROOM_ID_FROM_ACTIVITY_SESSION_#{act_sess_id}", cache_life)
       end
 
-      teachers = $redis.get("#{classroom_id}_TEACHERS")
+      teachers = $redis.get("TEACHERS_FROM_CLASSROOM_ID_#{classroom_id}")
       if teachers.nil?
         classroom = Classroom.find(classroom_id)
         teachers = classroom.teachers.map{|t| t.id}
         cache_life = 60*60 # => an hour, maybe they added a coteacher!
-        $redis.set("CLASSROOM_#{classroom_id}_TEACHERS", teachers.join(','))
-        $redis.expire("CLASSROOM_#{classroom_id}_TEACHERS", cache_life)
+        $redis.set("TEACHERS_FROM_CLASSROOM_ID_#{classroom_id}", teachers.join(','))
+        $redis.expire("TEACHERS_FROM_CLASSROOM_ID_#{classroom_id}", cache_life)
       else
         teachers = teachers.split(',')
       end
+      puts 'gonna push a log'
+      puts teachers
       PusherActivitySessionInteractionLogPosted.run(teachers)
+      puts 'pushed log'
 			render :nothing => true, :status => 204
 		else
 			render_error(400)
