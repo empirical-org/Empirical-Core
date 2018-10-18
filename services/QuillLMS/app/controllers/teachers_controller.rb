@@ -84,7 +84,11 @@ class TeachersController < ApplicationController
        JOIN unit_activities ON unit_activities.unit_id = units.id
        JOIN activities ON activities.id = unit_activities.activity_id
        WHERE activities.activity_classification_id = 6
-            AND classrooms_teachers.user_id = #{current_user.id}"
+            AND classrooms_teachers.user_id = #{current_user.id}
+            AND classrooms.visible = true
+            AND classroom_units.visible = true
+            AND units.visible = true
+            AND unit_activities.visible = true"
     ).to_a
     render json: {classrooms: classrooms}
   end
