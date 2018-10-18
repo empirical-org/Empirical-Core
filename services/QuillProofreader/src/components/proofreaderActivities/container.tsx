@@ -5,7 +5,7 @@ import * as request from 'request';
 import * as _ from 'lodash';
 import { stringNormalize } from 'quill-string-normalizer'
 
-const questionIconSrc = 'https://assets.quill.org/images/icons/question_icon.svg'
+const questionIconSrc = `${process.env.QUILL_CDN_URL}/images/icons/question_icon.svg`
 
 import getParameterByName from '../../helpers/getParameterByName';
 import { startListeningToActivity } from "../../actions/proofreaderActivities";

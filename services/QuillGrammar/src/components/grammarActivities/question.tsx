@@ -5,9 +5,9 @@ import { hashToCollection, ConceptExplanation } from 'quill-component-library/di
 import { Question } from '../../interfaces/questions'
 import { GrammarActivity } from '../../interfaces/grammarActivities'
 import * as responseActions from '../../actions/responses'
-const tryAgainIconSrc = 'https://assets.quill.org/images/icons/try_again_icon.png'
-const incorrectIconSrc = 'https://assets.quill.org/images/icons/incorrect_icon.png'
-const correctIconSrc = 'https://assets.quill.org/images/icons/correct_icon.png'
+const tryAgainIconSrc = `${process.env.QUILL_CDN_URL}/images/icons/try_again_icon.png`
+const incorrectIconSrc = `${process.env.QUILL_CDN_URL}/images/icons/incorrect_icon.png`
+const correctIconSrc = `${process.env.QUILL_CDN_URL}/images/icons/correct_icon.png`
 
 interface QuestionProps {
   activity: GrammarActivity|null;
@@ -44,6 +44,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
       this.updateResponse = this.updateResponse.bind(this)
       this.checkAnswer = this.checkAnswer.bind(this)
       this.goToNextQuestion = this.goToNextQuestion.bind(this)
+      this.renderConceptExplanation = this.renderConceptExplanation.bind(this)
     }
 
     componentDidMount() {
@@ -210,7 +211,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
           <div className="prompt" dangerouslySetInnerHTML={{__html: prompt}} />
         </Row>
         <Row type="flex" align="middle" justify="start">
-          <textarea value={this.state.response} className="input-field" onChange={this.updateResponse} onKeyDown={this.onPressEnter}/>
+          <textarea value={this.state.response} spellcheck="false" className="input-field" onChange={this.updateResponse} onKeyDown={this.onPressEnter}/>
         </Row>
         <Row type="flex" align="middle" justify="end">
           {this.renderCheckAnswerButton()}
