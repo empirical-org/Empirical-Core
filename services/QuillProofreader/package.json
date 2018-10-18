@@ -109,6 +109,7 @@
       "tsx",
       "js",
       "json"
-    ]
+    ],
+    "testURL": "http://localhost:8070"
   }
 }
