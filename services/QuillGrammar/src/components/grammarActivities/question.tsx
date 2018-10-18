@@ -8,6 +8,7 @@ import * as responseActions from '../../actions/responses'
 const tryAgainIconSrc = `${process.env.QUILL_CDN_URL}/images/icons/try_again_icon.png`
 const incorrectIconSrc = `${process.env.QUILL_CDN_URL}/images/icons/incorrect_icon.png`
 const correctIconSrc = `${process.env.QUILL_CDN_URL}/images/icons/correct_icon.png`
+const questionIconSrc = `${process.env.QUILL_CDN_URL}/images/icons/question_icon.svg`
 
 interface QuestionProps {
   activity: GrammarActivity|null;
@@ -199,6 +200,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
       </Row>
       {this.renderExample()}
       <Row type="flex" align="middle" justify="start">
+        <img style={{ height: '22px', marginRight: '10px' }} src={questionIconSrc} />
         <div className="instructions" dangerouslySetInnerHTML={{__html: this.currentQuestion().instructions}} />
       </Row>
       </div>
