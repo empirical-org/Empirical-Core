@@ -1,15 +1,15 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import Question from './question.tsx'
+import Question from './question'
 import {
   cloneConnectSentenceCombiningQuestion
-} from '../../actions/connectSentenceCombining.ts'
+} from '../../actions/connectSentenceCombining'
 import {
   cloneConnectFillInBlankQuestion
-} from '../../actions/connectFillInBlank.ts'
+} from '../../actions/connectFillInBlank'
 import {
   cloneConnectSentenceFragment
-} from '../../actions/connectSentenceFragments.ts'
+} from '../../actions/connectSentenceFragments'
 
 class CloneConnectQuestions extends React.Component<any, any> {
   constructor(props) {
@@ -25,11 +25,13 @@ class CloneConnectQuestions extends React.Component<any, any> {
     } else if (connectFillInBlank.error !== this.props.connectFillInBlank.error) {
       window.alert(connectFillInBlank.error)
     } else if (connectFillInBlank.message !== this.props.connectFillInBlank.message) {
-      window.alert(connectSentenceFragments.message)
+      window.alert(connectFillInBlank.message)
     } else if (connectSentenceCombining.error !== this.props.connectSentenceCombining.error) {
+      debugger;
       window.alert(connectSentenceCombining.error)
     } else if (connectSentenceCombining.message !== this.props.connectSentenceCombining.message) {
-      window.alert(connectSentenceFragments.message)
+      debugger;
+      window.alert(connectSentenceCombining.message)
     }
   }
 
