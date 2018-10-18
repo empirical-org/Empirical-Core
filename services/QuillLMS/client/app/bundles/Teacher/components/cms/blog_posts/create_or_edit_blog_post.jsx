@@ -447,7 +447,7 @@ export default class extends React.Component {
         <input onChange={this.handleBlogPostPreviewTitleChange} type='text' value={this.state.blogPostPreviewTitle} />,
         <label>Description: <i>(Please, choose the juiciest quote from the article that makes you want to read it and you should aim for 200 characters for the card description., for example: "I put jazz on and my kids work on Quill.")</i></label>,
         <input onChange={this.handleBlogPostPreviewDescriptionChange} type='text' value={this.state.blogPostPreviewDescription} />,
-        <label>Button Text (button will link to whatever the external link is above):</label>,
+        <label>Button Text (button will link to whatever the external link is above, but the external link must be there prior to adding text here):</label>,
         <input onChange={this.handlePreviewCardButtonTextChange} type='text' value={this.state.previewCardButtonText} />
       ]
     } else if (preview_card_type === 'Custom HTML') {
