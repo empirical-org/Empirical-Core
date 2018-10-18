@@ -1,4 +1,5 @@
 import { ConceptResult } from 'quill-marking-logic'
+import { hashToCollection } from 'quill-component-library/dist/componentLibrary';
 import * as _ from 'lodash'
 import { Question, FormattedConceptResult } from '../interfaces/questions'
 
@@ -8,7 +9,8 @@ export function getConceptResultsForQuestion(question: Question): FormattedConce
     const answer = question.attempts[0].text;
     let conceptResults: ConceptResult[]|never = [];
     if (question.attempts[0]) {
-      conceptResults = question.attempts[0].concept_results || question.attempts[0].conceptResults || [];
+      const conceptResultObject = question.attempts[0].conceptResults || question.attempts[0].concept_results
+      conceptResults = hashToCollection(conceptResultObject) || [];
     } else {
       conceptResults = [];
     }
@@ -46,19 +48,19 @@ export function getNestedConceptResultsForAllQuestions(questions: Question[]) {
   return questions.map(questionObj => getConceptResultsForQuestion(questionObj));
 }
 
-export function embedQuestionNumbers(nestedConceptResultArray: FormattedConceptResult[][]): FormattedConceptResult[][] {
+export function embedQuestionNumbers(nestedConceptResultArray: FormattedConceptResult[][], startingNumber: number): FormattedConceptResult[][] {
   return nestedConceptResultArray.map((conceptResultArray, index) => {
     return conceptResultArray.map((conceptResult: FormattedConceptResult) => {
-      conceptResult.metadata.questionNumber = index + 1;
+      conceptResult.metadata.questionNumber = startingNumber + index + 1;
       conceptResult.metadata.questionScore = conceptResult.metadata.correct ? 1 : 0
       return conceptResult;
     })
   });
 }
 
-export function getConceptResultsForAllQuestions(questions: Question[]): FormattedConceptResult[] {
+export function getConceptResultsForAllQuestions(questions: Question[], startingNumber:number = 0): FormattedConceptResult[] {
   const nested = getNestedConceptResultsForAllQuestions(questions);
-  const withKeys = embedQuestionNumbers(nested);
+  const withKeys = embedQuestionNumbers(nested, startingNumber);
   return [].concat.apply([], withKeys); // Flatten array
 }
 
