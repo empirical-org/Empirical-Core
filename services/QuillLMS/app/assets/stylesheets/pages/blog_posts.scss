@@ -463,7 +463,7 @@ a.all-blog-posts-back-button {
   }
 }
 
-.article-cta-primary, .article-cta-primary:hover {
+.article-cta-primary, .article-cta-primary:hover, .article-cta-primary:focus {
   background: $quillgreen;
   color: #fff;
 }

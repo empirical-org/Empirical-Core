@@ -132,6 +132,17 @@
     border: 1px solid #cecece;
     background-color: #ffffff;
     margin-bottom: 40px;
+
+    &.notifications_content {
+      display: flex;
+      flex-direction: column;
+      overflow-y: unset;
+
+      ul {
+        overflow-y: scroll;
+      }
+    }
+
     &.premium-promo {
       color: #333;
       h3 {

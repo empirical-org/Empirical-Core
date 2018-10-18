@@ -107,7 +107,8 @@ module.exports = {
         new OpenBrowserPlugin({url: 'http://localhost:8070'}),
         new webpack.DefinePlugin({
           "process.env.EMPIRICAL_BASE_URL": JSON.stringify('http://localhost:3000'),
-          "process.env.QUILL_GRAMMAR_URL": JSON.stringify('http://localhost:7000/#')
+          "process.env.QUILL_GRAMMAR_URL": JSON.stringify('http://localhost:7000/#'),
+          "process.env.QUILL_CDN_URL": JSON.stringify('http://localhost:45537')
         })
     ],
     node: {
