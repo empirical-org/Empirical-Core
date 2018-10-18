@@ -479,7 +479,7 @@ export default class Response extends React.Component<any, any> {
           <div className="content">
             <div className="media">
               <div className="media-content">
-                <p><span style={{ whiteSpace: 'pre' }}>{response.text}</span> {author}</p>
+                <p><span style={{ whiteSpace: 'preWrap' }}>{response.text}</span> {author}</p>
               </div>
               <div className="media-right" style={{ textAlign: 'right', }}>
                 <figure className="image is-32x32">
