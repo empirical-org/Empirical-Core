@@ -27,10 +27,8 @@ class CloneConnectQuestions extends React.Component<any, any> {
     } else if (connectFillInBlank.message !== this.props.connectFillInBlank.message) {
       window.alert(connectFillInBlank.message)
     } else if (connectSentenceCombining.error !== this.props.connectSentenceCombining.error) {
-      debugger;
       window.alert(connectSentenceCombining.error)
     } else if (connectSentenceCombining.message !== this.props.connectSentenceCombining.message) {
-      debugger;
       window.alert(connectSentenceCombining.message)
     }
   }
