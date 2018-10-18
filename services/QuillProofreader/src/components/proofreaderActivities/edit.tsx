@@ -1,9 +1,9 @@
 import * as React from 'react'
 
 import { Concept } from '../../interfaces/concepts'
-const notNecessaryIconSrc = 'https://assets.quill.org/images/icons/not_necessary_icon.png'
-const incorrectIconSrc = 'https://assets.quill.org/images/icons/incorrect_icon.png'
-const correctIconSrc = 'https://assets.quill.org/images/icons/correct_icon.png'
+const notNecessaryIconSrc = `${process.env.QUILL_CDN_URL}/images/icons/not_necessary_icon.png`
+const incorrectIconSrc = `${process.env.QUILL_CDN_URL}/images/icons/incorrect_icon.png`
+const correctIconSrc = `${process.env.QUILL_CDN_URL}/images/icons/correct_icon.png`
 
 interface EditProps {
   displayText: string;
