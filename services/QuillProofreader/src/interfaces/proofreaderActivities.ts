@@ -10,6 +10,7 @@ export interface ProofreaderActivity {
   standardLevel: StandardLevel;
   topicCategory: TopicCategory;
   underlineErrorsInProofreader: boolean;
+  flag?: string;
 }
 
 export interface Standard {
