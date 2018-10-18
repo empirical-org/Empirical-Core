@@ -45,11 +45,11 @@ export default class Edit extends React.Component<EditProps, any> {
     if (correctAnswerArray.length > 1) {
       correctAnswers = correctAnswerArray.map(ca => <li>{ca}</li>)
       correctAnswerHTML = <ul>{correctAnswers}</ul>
-      labelText = 'Correct Edits'
+      labelText = 'Correct Edits:'
     } else {
       correctAnswers = correctAnswerArray[0]
       correctAnswerHTML = <p>{correctAnswers}</p>
-      labelText = 'Correct Edit'
+      labelText = 'Correct Edit:'
     }
     return <div>
       <p className="label">{labelText}</p>
