@@ -36,43 +36,25 @@ module PusherActivitySessionInteractionLogPosted
           else
             student_obj["current_question"] = current_question
             student_obj["timespent_question"] = 0
+          end
         else
-            student_obj["name"] = FETCH FROM DB
-            student_obj["activity_name"] = FETCH FROM DB
+            student_obj["name"] = activity_session.user.name 
+            student_obj["activity_name"] = activity_session.activity.name 
             student_obj["activity_sess_id"] = activity_sess_id
-            student_obj["timespent_activity_session"] = FETCH FROM DB
+            student_obj["timespent_activity_session"] = ActiveRecord::Base.connection.execute(
+              "SELECT timespent_activity_session(#{activity_sess_id})"
+            )
             student_obj["timespent_question"] = 0
             student_obj["current_question"] = current_question
         end
-
+        student_obj["last_interaction"] = current_time
+      end
+      $redis.set("TEACHER_OBJ_FOR_TEACHER_ID_#{tid}", teacher_obj.to_json)
+      $redis.expire("TEACHER_OBJ_FOR_TEACHER_ID_#{tid}", 60*60)
     end
+    # TODO: when you pick up tm, make response format match below, then delete
+    # below
 
-    # find teachers
-    #   for each teacher
-    #     unless there is a teacher object for the teacher in redis
-    #       add empty teacher object to redis
-    #       
-    #     unless there is a student object in the teacher object
-    #       add empty student object to teacher object
-    #  
-    #     if teacher_obj.student_obj and student_obj.activity_sess_id = activity_session
-    #       if current_time - student_obj.last_interaction <= '2 minute'::interval
-    #         student_obj.timespent_activity_session += seconds(current_time - student_obj.last_interaction)
-    #         if student_obj.current_question = question_id
-    #           student_obj.time_spent_question += seconds(current_time - student_obj.last_interaction)
-    #         else
-    #           student_obj.current_question = question_id
-    #           student_obj.time_spent_question = 0
-    #     else
-    #       student_object.name = FETCH FROM DB
-    #       student_object.activity_name = FETCH FROM DB
-    #       student_object.activity_sess_id = activity_session
-    #       student_object.timespent_activity_session = FETCH FROM DB
-    #       student_object.timespent_question = 0
-    #       student_obj.current_question = question_id
-    #     student_obj.last_interaction = current_time
-    #
-    
     
     for tid in teachers do
       teachers_students = $redis.get("STUDENT_IDS_FOR_TEACHER_#{tid}")
