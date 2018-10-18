@@ -94,7 +94,7 @@ module PagesHelper
             desc: "Max is a software developer with a passion for writing. Before joining Quill, Max studied Computer Science at Ohio State University, worked for a number of different startups, and travelled around the country in a gutted Toyota 4Runner."
           },
           {
-						img: 'thumb-maddy.jpg',
+						img: 'thumb-maddy.png',
 						name: 'Maddy Maher',
 						title: 'Outreach Lead',
 						desc: "Maddy is an outreach associate who joined Quill full-time after contributing as an Education Team intern. She is passionate about education and holds an Undergraduate degree in English Literature from Hamilton College."
@@ -105,6 +105,18 @@ module PagesHelper
             title: 'Product Designer',
             desc: "Tom is a designer who's passionate about building meaningful and magical products. He studied at the Fashion Institute of Technology with a Bachelor’s degree in Communication Design, as well as the School of Visual Arts with a Masters in Branding."
           },
+          {
+            img: 'thumb-alysia.jpg',
+            name: 'Alysia Belle',
+            title: 'Literacy Director',
+            desc: "Alysia develops content for Quill with a focus on building its forthcoming reading curriculum. She has experience teaching in a variety of settings, including 5 years as an ESL educator in the Bronx. Before joining Quill, Alysia wrote curricula and managed edtech-focused professional learning at Democracy Prep Public Schools. Prior to Democracy Prep, she led professional development initiatives at Newsela. Alysia holds an undergraduate degree in English and a master’s degree in education."
+          },
+          {
+            img: 'thumb-emma.png',
+            name: 'Emma Volk',
+            title: 'Editorial Associate',
+            desc: "Emma is an editorial associate with a love for writing. She has an undergraduate degree in English from Columbia University and a master’s degree in English from the University of Oxford."
+          }
 				]
 			},
 			{
