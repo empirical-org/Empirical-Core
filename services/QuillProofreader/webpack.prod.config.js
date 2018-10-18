@@ -64,7 +64,8 @@ module.exports = {
         new HtmlWebpackPlugin({template: resolve(__dirname, 'src/index.html')}),
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': '"production"',
-            'process.env.EMPIRICAL_BASE_URL': JSON.stringify('http://quill.org')
+            'process.env.EMPIRICAL_BASE_URL': JSON.stringify('http://quill.org'),
+            "process.env.QUILL_CDN_URL": JSON.stringify('https://assets.quill.org')
         }),
     ],
 };

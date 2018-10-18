@@ -29,9 +29,6 @@ export function cloneConnectSentenceCombiningQuestion(uid: string) {
             json: { original_question_uid: uid, new_question_uid: diagnosticSentenceCombiningQuestion.key, }
           },
           (err, httpResponse, data) => {
-            // check again for number in state
-            // if equal to const set earlier, update the state
-            // otherwise, do nothing
             if (err) {
               dispatch({ type: C.ERROR_CLONING_CONNECT_SENTENCE_COMBINING_QUESTION })
             } else {

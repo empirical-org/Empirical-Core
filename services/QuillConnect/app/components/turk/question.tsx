@@ -13,7 +13,7 @@ import submitQuestionResponse from '../renderForQuestions/submitResponse.js';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 import submitPathway from '../renderForQuestions/submitPathway.js';
 import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
-import { Error } from 'quill-component-library/dist/componentLibrary';
+import { Error, Response } from 'quill-component-library/dist/componentLibrary';
 
 const C = require('../../constants').default;
 
@@ -35,7 +35,7 @@ const PlayDiagnosticQuestion = React.createClass({
     );
   },
 
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps: any, nextState: any) {
     if (this.props.question !== nextProps.question) {
       return true;
     } else if (this.state.response !== nextState.response) {
@@ -151,7 +151,7 @@ const PlayDiagnosticQuestion = React.createClass({
   readyForNext() {
     if (this.props.question.attempts.length > 0) {
       const latestAttempt = getLatestAttempt(this.props.question.attempts);
-      if (latestAttempt.found) {
+      if (latestAttempt && latestAttempt.found) {
         const errors = _.keys(this.getErrorsForAttempt(latestAttempt));
         if (latestAttempt.response.optimal && errors.length === 0) {
           return true;
@@ -220,7 +220,7 @@ const PlayDiagnosticQuestion = React.createClass({
   },
 });
 
-const getLatestAttempt = function (attempts = []) {
+const getLatestAttempt = function (attempts = []): { found: any, response: Response } {
   const lastIndex = attempts.length - 1;
   return attempts[lastIndex];
 };
