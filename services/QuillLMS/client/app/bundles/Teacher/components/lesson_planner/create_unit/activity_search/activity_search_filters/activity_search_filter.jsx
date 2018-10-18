@@ -49,7 +49,7 @@ export default React.createClass({
       options.sort(function(a, b) {
         let textA = a.name.toUpperCase();
         let textB = b.name.toUpperCase();
-        return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+        return textA.localeCompare(textB, 'en', { numeric: true, })
       });
     }
     // ensure that the show all option is always on the top
