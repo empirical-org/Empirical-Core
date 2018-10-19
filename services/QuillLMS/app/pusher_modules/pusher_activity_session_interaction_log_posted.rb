@@ -40,38 +40,32 @@ module PusherActivitySessionInteractionLogPosted
         else
             student_obj["name"] = activity_session.user.name 
             student_obj["activity_name"] = activity_session.activity.name 
-            student_obj["activity_sess_id"] = activity_sess_id
+            student_obj["current_question"] = current_question
             student_obj["timespent_activity_session"] = ActiveRecord::Base.connection.execute(
               "SELECT timespent_activity_session(#{activity_sess_id})"
             )
             student_obj["timespent_question"] = 0
-            student_obj["current_question"] = current_question
+            student_obj["activity_sess_id"] = activity_sess_id
         end
         student_obj["last_interaction"] = current_time
       end
       $redis.set("TEACHER_OBJ_FOR_TEACHER_ID_#{tid}", teacher_obj.to_json)
       $redis.expire("TEACHER_OBJ_FOR_TEACHER_ID_#{tid}", 60*60)
-    end
-    # TODO: when you pick up tm, make response format match below, then delete
-    # below
-
-    
-    for tid in teachers do
-      teachers_students = $redis.get("STUDENT_IDS_FOR_TEACHER_#{tid}")
-      if teachers_students.nil?
-        cache_life = 60*10 #=> within x minutes of joining quill a student will be on real time dash
-        teachers_students = ActiveRecord::Base.connection.execute(
-          "SELECT students.id FROM users AS teacher
-          JOIN classrooms_teachers AS ct ON ct.user_id = teacher.id
-          JOIN classrooms ON classrooms.id = ct.classroom_id AND classrooms.visible = TRUE
-          JOIN students_classrooms AS sc ON sc.classroom_id = ct.classroom_id
-          JOIN users AS students ON students.id = sc.student_id
-          WHERE teacher.id = #{tid}"
-        ).to_a.map{|s| s['id']}.join(',')
-        $redis.set("STUDENT_IDS_FOR_TEACHER_#{tid}", teachers_students)
-        $redis.expire("STUDENT_IDS_FOR_TEACHER_#{tid}", cache_life)
+      # format data as follows,
+      # {"data":[{"name":"Joslin Waeko",
+      #           "activity_name":"And (Starter)",
+      #           "current_question":"-KRjF-lQ6hq-TqPQypuz",
+      #           "timespent_activity_session":"501",
+      #           "last_interaction":"2018-10-18 15:52:07.515624",
+      #           "timespent_question":"16",
+      #           "activity_sess_id":"34109609"}
+      #         ]}
+      # }
+      data = {'data':[]}
+      teacher_obj.keys.map do |k|
+        data['data'] << teacher_obj[k]
       end
-      data = ProgressReports::RealTime.results(teachers_students.split(','))
+
       pusher_client.trigger(tid.to_s, 'as-interaction-log-pushed', data: data )
     end
   end
