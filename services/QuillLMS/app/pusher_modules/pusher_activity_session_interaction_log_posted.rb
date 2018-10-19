@@ -13,18 +13,13 @@ module PusherActivitySessionInteractionLogPosted
     activity_sess_id = activity_session.id
 
     for tid in teachers do
-      teacher_obj_str = $redis.get("TEACHER_OBJ_FOR_TEACHER_ID_#{tid}")
-      if teacher_obj_str.nil? 
-        teacher_obj_str = {}.to_json
-        $redis.set("TEACHER_OBJ_FOR_TEACHER_ID_#{tid}", teacher_obj_str)
+      student_obj_str = $redis.hget("TEACHER_OBJ_FOR_TEACHER_ID_#{tid}", student_id)
+      if student_obj_str.nil?
+        $redis.hset("TEACHER_OBJ_FOR_TEACHER_ID_#{tid}", student_id, {}.to_json)
+        student_obj_str = $redis.hget("TEACHER_OBJ_FOR_TEACHER_ID_#{tid}", student_id)
       end
-      teacher_obj = JSON.parse(teacher_obj_str)
+      student_obj = JSON.parse(student_obj_str)
 
-      unless teacher_obj[student_id].present?
-        teacher_obj[student_id] = {}
-      end
-      
-      student_obj = teacher_obj[student_id]
       if student_obj["activity_sess_id"] == activity_sess_id and ((current_time - DateTime.parse(student_obj["last_interaction"])) *24*60).to_i <= 2
         # less than 2 minutes since last interaction log posted
         # add x SECONDS
@@ -43,11 +38,11 @@ module PusherActivitySessionInteractionLogPosted
         student_obj["timespent_activity_session"] = ActiveRecord::Base.connection.execute(
           "SELECT timespent_activity_session(#{activity_sess_id})"
         )[0]['timespent_activity_session'].to_i
-        student_obj["timespent_question"] = 0
+        student_obj["timespent_question"] = 0 # could be innaccurate at times, but rarely and performance is better
         student_obj["activity_sess_id"] = activity_sess_id
       end
       student_obj["last_interaction"] = current_time.to_s
-      $redis.set("TEACHER_OBJ_FOR_TEACHER_ID_#{tid}", teacher_obj.to_json)
+      $redis.hset("TEACHER_OBJ_FOR_TEACHER_ID_#{tid}", student_id, student_obj.to_json)
       $redis.expire("TEACHER_OBJ_FOR_TEACHER_ID_#{tid}", 60*60)
       # format data as follows,
       # {"data":[{"name":"Joslin Waeko",
@@ -60,10 +55,12 @@ module PusherActivitySessionInteractionLogPosted
       #         ]}
       # }
       data = [] 
+      teacher_obj = $redis.hgetall("TEACHER_OBJ_FOR_TEACHER_ID_#{tid}")
       teacher_obj.keys.map do |k|
-        last_interaction = ((DateTime.now - DateTime.parse(teacher_obj[k]["last_interaction"]))*24*60*60).to_i
+        student_obj = JSON.parse(teacher_obj[k])
+        last_interaction = ((DateTime.now - DateTime.parse(student_obj["last_interaction"]))*24*60*60).to_i
         if last_interaction < 60 
-          data << teacher_obj[k]
+          data << student_obj 
         end
       end
       pusher_client.trigger(tid.to_s, 'as-interaction-log-pushed', data: data )
