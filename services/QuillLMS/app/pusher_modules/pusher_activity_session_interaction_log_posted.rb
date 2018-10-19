@@ -14,7 +14,7 @@ module PusherActivitySessionInteractionLogPosted
 
     for tid in teachers do
       teacher_obj_str = $redis.get("TEACHER_OBJ_FOR_TEACHER_ID_#{tid}")
-      unless teacher_obj.nil? 
+      if teacher_obj_str.nil? 
         teacher_obj_str = {}.to_json
         $redis.set("TEACHER_OBJ_FOR_TEACHER_ID_#{tid}", teacher_obj_str)
       end
@@ -25,30 +25,28 @@ module PusherActivitySessionInteractionLogPosted
       end
       
       student_obj = teacher_obj[student_id]
-      if student_obj["activity_sess_id"] == activity_sess_id 
-        if ((current_time - DateTime.parse(student_obj["last_interaction"])*24*60).to_i <= 2
+      if student_obj["activity_sess_id"] == activity_sess_id and ((current_time - DateTime.parse(student_obj["last_interaction"])) *24*60).to_i <= 2
         # less than 2 minutes since last interaction log posted
-          # add x SECONDS
-          seconds_since_last_log = (current_time - DateTime.parse(student_obj["last_interaction"])*24*60*60).to_i
-          student_obj["timespent_activity_session"] += seconds_since_last_log 
-          if student_obj["current_question"] == current_question
-            student_obj["timespent_question"] += seconds_since_last_log 
-          else
-            student_obj["current_question"] = current_question
-            student_obj["timespent_question"] = 0
-          end
+        # add x SECONDS
+        seconds_since_last_log = ((current_time - DateTime.parse(student_obj["last_interaction"]))*24*60*60).to_i
+        student_obj["timespent_activity_session"] += seconds_since_last_log 
+        if student_obj["current_question"] == current_question
+          student_obj["timespent_question"] += seconds_since_last_log 
         else
-            student_obj["name"] = activity_session.user.name 
-            student_obj["activity_name"] = activity_session.activity.name 
-            student_obj["current_question"] = current_question
-            student_obj["timespent_activity_session"] = ActiveRecord::Base.connection.execute(
-              "SELECT timespent_activity_session(#{activity_sess_id})"
-            )
-            student_obj["timespent_question"] = 0
-            student_obj["activity_sess_id"] = activity_sess_id
+          student_obj["current_question"] = current_question
+          student_obj["timespent_question"] = 0
         end
-        student_obj["last_interaction"] = current_time
+      else
+        student_obj["name"] = activity_session.user.name 
+        student_obj["activity_name"] = activity_session.activity.name 
+        student_obj["current_question"] = current_question
+        student_obj["timespent_activity_session"] = ActiveRecord::Base.connection.execute(
+          "SELECT timespent_activity_session(#{activity_sess_id})"
+        )[0]['timespent_activity_session'].to_i
+        student_obj["timespent_question"] = 0
+        student_obj["activity_sess_id"] = activity_sess_id
       end
+      student_obj["last_interaction"] = current_time.to_s
       $redis.set("TEACHER_OBJ_FOR_TEACHER_ID_#{tid}", teacher_obj.to_json)
       $redis.expire("TEACHER_OBJ_FOR_TEACHER_ID_#{tid}", 60*60)
       # format data as follows,
@@ -61,11 +59,13 @@ module PusherActivitySessionInteractionLogPosted
       #           "activity_sess_id":"34109609"}
       #         ]}
       # }
-      data = {'data':[]}
+      data = [] 
       teacher_obj.keys.map do |k|
-        data['data'] << teacher_obj[k]
+        last_interaction = ((DateTime.now - DateTime.parse(teacher_obj[k]["last_interaction"]))*24*60*60).to_i
+        if last_interaction < 60 
+          data << teacher_obj[k]
+        end
       end
-
       pusher_client.trigger(tid.to_s, 'as-interaction-log-pushed', data: data )
     end
   end

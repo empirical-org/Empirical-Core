@@ -19,10 +19,10 @@ class Api::V1::ActivitySessionInteractionLogsController < Api::ApiController
     interaction_log_creation_time = DateTime.now
     if ActivitySessionInteractionLog.create(activity_session_id: act_sess_id, meta: meta, date: interaction_log_creation_time)
       classroom_id = $redis.get("CLASSROOM_ID_FROM_ACTIVITY_SESSION_#{act_sess_id}")
+      if act_sess.nil?
+        act_sess = ActivitySession.find(act_sess_id)
+      end
       if classroom_id.nil?
-        if act_sess.nil?
-          act_sess = ActivitySession.find(act_sess_id)
-        end
         classroom_id = act_sess.classroom_unit.classroom_id
         cache_life = 60*60 # => an hour, maybe they added a coteacher!
         $redis.set("CLASSROOM_ID_FROM_ACTIVITY_SESSION_#{act_sess_id}", classroom_id)
@@ -39,14 +39,11 @@ class Api::V1::ActivitySessionInteractionLogsController < Api::ApiController
       else
         teachers = teachers.split(',')
       end
-      puts 'gonna push a log'
-      puts teachers
       PusherActivitySessionInteractionLogPosted.run(teachers,
-                                                    activity_session,
+                                                    act_sess,
                                                     interaction_log_creation_time,
                                                     meta[:current_question],
                                                    )
-      puts 'pushed log'
 			render :nothing => true, :status => 204
 		else
 			render_error(400)
