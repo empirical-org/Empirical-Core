@@ -27,6 +27,7 @@ export default class extends React.Component {
       id: p ? p.id : null,
       title: p ? p.title : '',
       subtitle: p ? p.subtitle : '',
+      imageLink: p ? p.image_link : '',
       body: p ? p.body : '',
       author_id: p ? p.author_id : 11 /* Quill Staff */,
       topic: p ? p.topic : 'Webinars',
@@ -52,6 +53,7 @@ export default class extends React.Component {
 
     this.handleTitleChange = this.handleTitleChange.bind(this)
     this.handleSubtitleChange = this.handleSubtitleChange.bind(this)
+    this.handleImageLinkChange = this.handleImageLinkChange.bind(this)
     this.handleBodyChange = this.handleBodyChange.bind(this)
     this.handleSubmitClick = this.handleSubmitClick.bind(this)
     this.handleTopicChange = this.handleTopicChange.bind(this)
@@ -138,6 +140,19 @@ export default class extends React.Component {
     });
   }
 
+  handleImageLinkChange(e) {
+    const targetValue = e.target.value;
+    let state = { imageLink: targetValue };
+    if(!this.state.previewCardHasAlreadyBeenManuallyEdited) {
+      state['blogPostPreviewImage'] = targetValue;
+    }
+    this.setState(state, () => {
+      if(!this.state.previewCardHasAlreadyBeenManuallyEdited) {
+        this.updatePreviewCardFromBlogPostPreview();
+      }
+    });
+  }
+
   handleBodyChange(e) {
     this.setState({body: e.target.value})
     const container = document.getElementById('markdown-content');
@@ -187,6 +202,7 @@ export default class extends React.Component {
         blog_post: {
           title: this.state.title,
           subtitle: this.state.subtitle,
+          image_link: this.state.imageLink,
           body: this.state.body,
           topic: this.state.topic,
           author_id: this.state.author_id,
@@ -575,6 +591,9 @@ export default class extends React.Component {
 
           <label>SEO Meta Description:</label>
           <input type="text" value={this.state.subtitle} onChange={this.handleSubtitleChange} />
+
+          <label>SEO Meta Image:</label>
+          <input type="text" value={this.state.imageLink} onChange={this.handleImageLinkChange} />
 
           <div className='short-fields'>
             <div>
