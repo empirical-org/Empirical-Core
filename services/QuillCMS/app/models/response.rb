@@ -6,10 +6,16 @@ class Response < ApplicationRecord
   after_update_commit :update_index_in_elastic_search
   before_destroy :destroy_index_in_elastic_search
 
-  settings index: { number_of_shards: 1 } do
+  settings analysis: {
+    analyzer: {
+      custom_analyzer: {
+        tokenizer: "whitespace"
+      }
+    }
+  }, index: { number_of_shards: 1 } do
     mappings dynamic: 'false' do
-      indexes :text, type: 'string'
-      indexes :sortable_text, type: 'keyword', index: "not_analyzed"
+      indexes :text, type: 'string', analyzer: :custom_analyzer
+      indexes :sortable_text, type: 'keyword'
       indexes :id, type: 'integer'
       indexes :uid, type: 'string'
       indexes :question_uid, type: 'string', index: "not_analyzed"
