@@ -6,8 +6,15 @@ describe ProgressReports::Standards::TopicSerializer, type: :serializer do
   let!(:student) { classroom.students.first }
   let!(:topic) { create(:topic) }
   let(:activity) { create(:activity, topic: topic) }
-  let(:classroom_activity) { create(:classroom_activity, classroom: classroom, activity: activity) }
-  let(:topic_for_report) { ProgressReports::Standards::Topic.new(teacher).results({}).first }
+  let(:classroom_unit) do
+    create(:classroom_unit,
+      classroom: classroom,
+      assigned_student_ids: [student.id]
+    )
+  end
+  let(:topic_for_report) do
+    ProgressReports::Standards::Topic.new(teacher).results({}).first
+  end
   let(:serializer) do
     serializer = described_class.new(topic_for_report)
     serializer.classroom_id = 123
@@ -16,10 +23,11 @@ describe ProgressReports::Standards::TopicSerializer, type: :serializer do
 
   before do
     student.activity_sessions.create!(
-      classroom_activity: classroom_activity,
       percentage: 0.7547,
       state: 'finished',
-      completed_at: 5.minutes.ago
+      completed_at: 5.minutes.ago,
+      classroom_unit: classroom_unit,
+      activity: activity
     )
   end
 

@@ -167,6 +167,7 @@ export default class extends React.Component {
   }
 
   render() {
+    const userHasValidSub = this.state.subscriptionStatus && !this.state.subscriptionStatus.expired;
     const subId = `${_.get(this.state.subscriptionStatus, 'subscriptionStatus.id')}-subscription-status-id`;
     // don't show any last four unless they have an authority level with their purchase, or they don't have a sub
     const lastFour = (this.state.authorityLevel || !this.state.subscriptionStatus) ? this.props.lastFour : null;
@@ -194,6 +195,11 @@ export default class extends React.Component {
           premiumCredits={this.props.premiumCredits}
           authorityLevel={this.state.authorityLevel}
         />
+        <AvailableCredits userHasValidSub={userHasValidSub} availableCredits={this.state.availableCredits} redeemPremiumCredits={this.redeemPremiumCredits} />
+        <PremiumCreditsTable
+          earnedCredits={this.state.earnedCredits}
+          premiumCredits={this.props.premiumCredits}
+        />
         <RefundPolicy />
         <PremiumConfirmationModal
           show={this.state.showPremiumConfirmationModal}
@@ -212,8 +218,4 @@ export default class extends React.Component {
   }
 }
 
-// <AvailableCredits userHasValidSub={userHasValidSub} availableCredits={this.state.availableCredits} redeemPremiumCredits={this.redeemPremiumCredits} />
-// <PremiumCreditsTable
-//   earnedCredits={this.state.earnedCredits}
-//   premiumCredits={this.props.premiumCredits}
-// />
+

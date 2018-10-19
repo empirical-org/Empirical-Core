@@ -20,10 +20,9 @@ class AssignRecommendationsWorker
     PusherRecommendationCompleted.run(classroom, unit_template_id, lesson) if last
   end
 
-  private
   def assign_unit_to_one_class(unit, classroom_id, classroom_data, unit_template_id, teacher_id)
     if unit.present?
-      show_classroom_activities(unit.id, classroom_id)
+      show_classroom_units(unit.id, classroom_id)
       Units::Updater.assign_unit_template_to_one_class(unit.id, classroom_data, unit_template_id, teacher_id)
     else
       #  TODO: use a find or create for the unit var above.
@@ -34,9 +33,9 @@ class AssignRecommendationsWorker
     end
   end
 
-  def show_classroom_activities(unit_id, classroom_id)
-    ClassroomActivity.unscoped.where(unit_id: unit_id, classroom_id: classroom_id).each do |classroom_activity|
-      classroom_activity.update(visible: true)
+  def show_classroom_units(unit_id, classroom_id)
+    ClassroomUnit.unscoped.where(unit_id: unit_id, classroom_id: classroom_id).each do |classroom_unit|
+      classroom_unit.update(visible: true)
     end
   end
 

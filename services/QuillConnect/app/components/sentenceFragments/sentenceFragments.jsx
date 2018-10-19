@@ -6,7 +6,6 @@ import {
   ArchivedButton,
   QuestionList
 } from 'quill-component-library/dist/componentLibrary'
-import { getNonDiagnosticQuestions } from '../../libs/getNonDiagnosticQuestions'
 
 class SentenceFragments extends React.Component {
   constructor(props) {
@@ -21,10 +20,10 @@ class SentenceFragments extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { sentenceFragments, diagnosticLessons } = nextProps
-    if (sentenceFragments.hasreceiveddata && diagnosticLessons.hasreceiveddata) {
-      if (Object.keys(this.state.questions).length === 0 || !_.isEqual(this.props.sentenceFragments.data, sentenceFragments.data) || (!_.isEqual(this.props.diagnosticLessons.data, diagnosticLessons.data))) {
-        this.setState({ questions: getNonDiagnosticQuestions(diagnosticLessons.data, sentenceFragments.data) })
+    const { sentenceFragments } = nextProps
+    if (sentenceFragments.hasreceiveddata) {
+      if (Object.keys(this.state.questions).length === 0 || !_.isEqual(this.props.sentenceFragments.data, sentenceFragments.data)) {
+        this.setState({ questions: sentenceFragments.data })
       }
     }
   }
@@ -63,8 +62,7 @@ class SentenceFragments extends React.Component {
 function select(state) {
   return {
     sentenceFragments: state.sentenceFragments,
-    routing: state.routing,
-    diagnosticLessons: state.diagnosticLessons
+    routing: state.routing
   }
 }
 

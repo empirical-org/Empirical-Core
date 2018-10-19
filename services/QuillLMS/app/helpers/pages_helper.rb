@@ -64,11 +64,17 @@ module PagesHelper
 			      desc: "Peter designs the user experience, manages the team, and leads fundraising. Peter found his passion for writing as a journalist at his high school's newspaper, and studied philosophy at Bates College. By teaching students how to write, we teach them how to organize and articulate their ideas. With Quill, he aims to help millions of people improve their writing and thinking skills. In 2016, he was awarded Forbes' 30 Under 30 for education."
 					},
 					{
-						img: 'thumb-donald.png',
+			      img: 'thumb-donald.png',
 			      name: 'Donald McKendrick',
 			      title: 'Technology Director, Cofounder',
 			      desc: "Donald leads Quill’s engineering team and has a master’s degree in chemistry with a specialization in computer aided modeling and statistical analysis. Donald has previously led financial services and e-commerce startups and is inspired by the opportunity to help educate millions of students through educational technology."
 					},
+          {
+            img: 'thumb-sara.jpg',
+            name: 'Sara Jeruss',
+            title: 'Chief Operating Officer',
+            desc: "Sara provides day-to-day leadership and management for Quill. She has 9+ years of tech industry experience, most recently as the Chief Product Officer for Climb Credit. Sara spent 3 years at Facebook, managing an internal product and advising product teams about privacy. Prior to Facebook, Sara was a product director at Lex Machina, a leading machine learning startup that was acquired by LexisNexis. Sara is a graduate of Yale Law School and Cornell University."
+          },
 					{
 			      img: 'thumb-hannah.png',
 			      name: "Hannah Monk",
@@ -88,15 +94,9 @@ module PagesHelper
             desc: "Max is a software developer with a passion for writing. Before joining Quill, Max studied Computer Science at Ohio State University, worked for a number of different startups, and travelled around the country in a gutted Toyota 4Runner."
           },
           {
-						img: 'thumb-tom-conroy.jpg',
-						name: 'Tom Conroy',
-						title: 'Software Developer',
-						desc: 'Tom is a software developer who joined Quill to help struggling student writers. Before joining our team, he studied at the University of Maryland, College Park and worked for several startups.'
-					},
-          {
-						img: 'thumb-maddy.jpg',
+						img: 'thumb-maddy.png',
 						name: 'Maddy Maher',
-						title: 'Outreach Associate',
+						title: 'Outreach Lead',
 						desc: "Maddy is an outreach associate who joined Quill full-time after contributing as an Education Team intern. She is passionate about education and holds an Undergraduate degree in English Literature from Hamilton College."
 					},
           {
@@ -105,6 +105,18 @@ module PagesHelper
             title: 'Product Designer',
             desc: "Tom is a designer who's passionate about building meaningful and magical products. He studied at the Fashion Institute of Technology with a Bachelor’s degree in Communication Design, as well as the School of Visual Arts with a Masters in Branding."
           },
+          {
+            img: 'thumb-alysia.jpg',
+            name: 'Alysia Belle',
+            title: 'Literacy Director',
+            desc: "Alysia develops content for Quill with a focus on building its forthcoming reading curriculum. She has experience teaching in a variety of settings, including 5 years as an ESL educator in the Bronx. Before joining Quill, Alysia wrote curricula and managed edtech-focused professional learning at Democracy Prep Public Schools. Prior to Democracy Prep, she led professional development initiatives at Newsela. Alysia holds an undergraduate degree in English and a master’s degree in education."
+          },
+          {
+            img: 'thumb-emma.png',
+            name: 'Emma Volk',
+            title: 'Editorial Associate',
+            desc: "Emma is an editorial associate with a love for writing. She has an undergraduate degree in English from Columbia University and a master’s degree in English from the University of Oxford."
+          }
 				]
 			},
 			{

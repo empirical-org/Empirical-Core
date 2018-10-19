@@ -1,11 +1,13 @@
 import React from 'react';
 import StudentsClassroomsHeader from '../components/student_profile/students_classrooms/students_classrooms_header.jsx';
 import NextActivity from '../components/student_profile/next_activity.jsx';
+import NotificationFeed  from '../components/student_profile/notification_feed';
 import StudentProfileUnits from '../components/student_profile/student_profile_units.jsx';
 import StudentProfileHeader from '../components/student_profile/student_profile_header';
 import Pusher from 'pusher-js';
 import { connect } from 'react-redux';
 import {
+  fetchNotifications,
   fetchStudentProfile,
   fetchStudentsClassrooms,
   updateNumberOfClassroomTabs,
@@ -25,18 +27,25 @@ class StudentProfile extends React.Component {
   componentDidMount() {
     const {
       updateNumberOfClassroomTabs,
+      fetchNotifications,
       fetchStudentProfile,
       fetchStudentsClassrooms,
-      classroomId
+      classroomId,
     } = this.props;
 
     if (classroomId) {
-      handleClassroomClick(classroomId)
+      handleClassroomClick(classroomId);
       fetchStudentProfile(classroomId);
       fetchStudentsClassrooms();
     } else {
       fetchStudentProfile();
       fetchStudentsClassrooms();
+    }
+
+    // Remove following conditional when student notifications are ready to display
+    const displayFeature = false;
+    if (displayFeature) {
+      fetchNotifications();
     }
 
     window.addEventListener('resize', () => {
@@ -48,13 +57,9 @@ class StudentProfile extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.selectedClassroomId !== this.props.selectedClassroomId) {
       if (!window.location.href.includes(nextProps.selectedClassroomId)) {
-        this.props.history.push(`/classrooms/${nextProps.selectedClassroomId}`)
+        this.props.router.push(`classrooms/${nextProps.selectedClassroomId}`);
       }
     }
-  }
-
-  componentDidUpdate() {
-    this.initializePusher();
   }
 
   componentWillUnmount() {
@@ -62,15 +67,11 @@ class StudentProfile extends React.Component {
   }
 
   handleClassroomTabClick(classroomId) {
-    const { loading, handleClassroomClick, fetchStudentProfile, history} = this.props;
+    const { loading, handleClassroomClick, fetchStudentProfile, history, } = this.props;
 
     if (!loading) {
-      const newUrl = `/classrooms/${classroomId}`
-      if (history) {
-        history.push(newUrl)
-      } else {
-        window.location.href = newUrl
-      }
+      const newUrl = `/classrooms/${classroomId}`;
+      this.props.router.push(newUrl);
       handleClassroomClick(classroomId);
       fetchStudentProfile(classroomId);
     }
@@ -96,6 +97,7 @@ class StudentProfile extends React.Component {
   render() {
     const {
       classrooms,
+      notifications,
       numberOfClassroomTabs,
       student,
       selectedClassroomId,
@@ -113,6 +115,7 @@ class StudentProfile extends React.Component {
         hasActivities={scores.length > 0}
         name={nextActivitySession.name}
         caId={nextActivitySession.ca_id}
+        activityId={nextActivitySession.activity_id}
         activityClassificationId={nextActivitySession.activity_classification_id}
         maxPercentage={nextActivitySession.max_percentage}
       />) : null;
@@ -132,6 +135,7 @@ class StudentProfile extends React.Component {
             classroomName={student.classroom.name}
             teacherName={student.classroom.teacher.name}
           />
+          <NotificationFeed notifications={notifications} />
           {nextActivity}
           <StudentProfileUnits
             data={scores}
@@ -145,6 +149,7 @@ class StudentProfile extends React.Component {
 
 const mapStateToProps = state => state;
 const mapDispatchToProps = dispatch => ({
+  fetchNotifications: () => dispatch(fetchNotifications()),
   fetchStudentProfile: classroomId => dispatch(fetchStudentProfile(classroomId)),
   updateNumberOfClassroomTabs: screenWidth => dispatch(updateNumberOfClassroomTabs(screenWidth)),
   fetchStudentsClassrooms: () => dispatch(fetchStudentsClassrooms()),

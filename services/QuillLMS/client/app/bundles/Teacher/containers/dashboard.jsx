@@ -10,6 +10,7 @@ export default React.createClass({
     return ({
       classrooms: null,
       hasPremium: null,
+      notifications: [],
       performanceQuery: [
         {header: 'Lowest Performing Students', results: null},
         { header: 'Difficult Concepts', results: null, }],
@@ -27,6 +28,9 @@ export default React.createClass({
     this.ajax.performanceQuery = $.get('dashboard_query', (result) => {
       this.setState({ performanceQuery: result.performanceQuery, });
     });
+    this.ajax.notificationsQuery = $.get('/notifications', (results) => {
+      this.setState({ notifications: results })
+    })
   },
 
   componentWillUnmount() {
@@ -47,7 +51,12 @@ export default React.createClass({
   render() {
     return (
       <div id="dashboard">
-        <ClassOverview data={this.state.performanceQuery} premium={this.state.hasPremium} flag={JSON.parse(this.props.user).flag} />
+        <ClassOverview
+          data={this.state.performanceQuery}
+          premium={this.state.hasPremium}
+          flag={JSON.parse(this.props.user).flag}
+          notifications={this.state.notifications}
+        />
         {this.hasClasses()}
         <MyResources data={this.state} />
         <DashboardFooter />

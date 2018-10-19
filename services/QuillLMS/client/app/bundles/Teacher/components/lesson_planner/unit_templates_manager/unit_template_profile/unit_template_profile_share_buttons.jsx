@@ -5,11 +5,11 @@ export default React.createClass({
 
   propTypes: {
     url: React.PropTypes.string.isRequired,
-    text: React.PropTypes.string.isRequired
+    text: React.PropTypes.string.isRequired,
   },
 
   urlEncodedMessage() {
-    return encodeURI(this.props.text);
+    return encodeURI(this.props.text) ;
   },
 
   render() {
@@ -19,7 +19,7 @@ export default React.createClass({
       {
         icon: 'fa-twitter',
         className: 'btn-twitter',
-        href: `http://twitter.com/home?status=${this.urlEncodedMessage()}`,
+        href: `http://twitter.com/home?status=${encodeURIComponent(this.props.text)}`,
         title: 'Share on Twitter',
         action: 'Tweet',
       },
@@ -40,7 +40,7 @@ export default React.createClass({
       {
         icon: 'fa-pinterest',
         className: 'btn-linkedin',
-        href: `https://pinterest.com/pin/create/button/?url=www.quill.org/activities/packs/4&media=https%3A//s-media-cache-ak0.pinimg.com/736x/92/46/50/9246509b2ad54a3c2ad97e21976b9176.jpg&description=${this.urlEncodedMessage()}`,
+        href: `https://pinterest.com/pin/create/button/?url=${url}&media=https%3A%2F%2Fassets.quill.org%2Fimages%2Fshare%2Fpinterest.png&description=${this.urlEncodedMessage()}`,
         title: 'Share on Pinterest',
         action: 'Pin',
       }

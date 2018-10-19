@@ -86,3 +86,11 @@ Cypress.Commands.add('cleanDatabase', () => {
     failOnStatusCode: true,
   })
 })
+
+Cypress.Commands.add('destroyAllAssignments', () => {
+  cy.request({
+    url: '/factories/destroy_all_assignments',
+    method: 'delete',
+    failOnStatusCode: true,
+  })
+})

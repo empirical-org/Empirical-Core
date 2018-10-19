@@ -28,26 +28,38 @@ module Units::Creator
   private
 
   def self.create_helper(teacher, name, activities_data, classrooms, unit_template_id=nil, current_user_id)
-    unit = Unit.create!(name: name, user: teacher, unit_template_id: unit_template_id)
+    unit = Unit.create!(
+      name: name,
+      user: teacher,
+      unit_template_id: unit_template_id
+    )
     # makes a permutation of each classroom with each activity to
     # create all necessary activity sessions
-    classrooms.each do |classroom|
-      product = activities_data.product([classroom[:id].to_i]).uniq
-      product.each do |pair|
-        activity_data, classroom_id = pair
-        new_ca = unit.classroom_activities.create!(activity_id: activity_data[:id],
-                                          due_date: activity_data[:due_date],
-                                          classroom_id: classroom_id,
-                                          assigned_student_ids: classroom[:student_ids],
-                                          assign_on_join: classroom[:assign_on_join]
-                                        )
-      end
+    act_data = activities_data.uniq.map do |activity|
+      {
+        unit_id: unit.id,
+        activity_id: activity[:id],
+        due_date: activity[:due_date]
+      }
     end
-
+    UnitActivity.create(act_data)
+    class_data = classrooms.map do |classroom|
+      {
+        classroom_id: classroom[:id],
+        assigned_student_ids: classroom[:student_ids],
+        assign_on_join: classroom[:assign_on_join],
+        unit_id: unit.id
+      }
+    end
+    classrm_units = ClassroomUnit.create(class_data)
+    classrm_units.each do |classroom_unit|
+      GoogleIntegration::UnitAnnouncement.new(classroom_unit).post
+    end
+    unit.reload
+    unit.save
     unit.email_lesson_plan
-    # unit.hide_if_no_visible_classroom_activities
+    # unit.hide_if_no_visible_unit_activities
     # activity_sessions in the state of 'unstarted' are automatically created in an after_create callback in the classroom_activity model
     AssignActivityWorker.perform_async(current_user_id || teacher.id)
-    GoogleIntegration::Announcements.post_unit(unit)
   end
 end

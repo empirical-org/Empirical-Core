@@ -9,7 +9,7 @@ export function generate(lessonQuestionData, studentSessionData, modifications) 
 
 export function generateConceptResult(questionData, studentSubmission) {
   return {
-    concept_uid: 'X37oyfiNxSphA34npOb-Ig',
+    concept_id: 'X37oyfiNxSphA34npOb-Ig',
     question_type: 'lessons-slide',
     metadata: {
       correct: 1,

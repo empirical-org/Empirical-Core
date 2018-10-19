@@ -22,7 +22,7 @@ describe Cms::UsersController do
     it 'should assign the search query, the results, user flags and number of spaces' do
       get :index
       expect(assigns(:user_search_query)).to eq({sort: 'last_sign_in', sort_direction: 'desc'})
-      expect(assigns(:user_search_query_results)).to eq ["results"]
+      expect(assigns(:user_search_query_results)).to eq []
       expect(assigns(:user_flags)).to eq User::VALID_FLAGS
     end
   end
@@ -154,15 +154,15 @@ describe Cms::UsersController do
 
   describe '#complete_sales_stage' do
     let!(:another_user) { create(:user) }
-    let(:updater) { double(:updater, update: true) }
+    let(:updater) { double(:updater, call: true) }
 
     before do
-      allow(SalesContactUpdater).to receive(:new) { updater }
+      allow(UpdateSalesContact).to receive(:new) { updater }
     end
 
     it 'should create the sales contact updater' do
-      expect(SalesContactUpdater).to receive(:new).with(another_user.id, "2", user)
-      expect(updater).to receive(:update)
+      expect(UpdateSalesContact).to receive(:new).with(another_user.id, "2", user)
+      expect(updater).to receive(:call)
       post :complete_sales_stage, id: another_user.id, stage_number: 2
       expect(flash[:success]).to eq "Stage marked completed"
       expect(response).to redirect_to cms_user_path(another_user.id)

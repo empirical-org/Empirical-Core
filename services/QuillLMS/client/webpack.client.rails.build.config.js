@@ -4,7 +4,7 @@
 // Run like this:
 // cd client && yarn run build:client
 // Note that Foreman (Procfile.dev) has also been configured to take care of this.
-
+const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const merge = require('webpack-merge');
 const config = require('./webpack.client.base.config');
@@ -111,6 +111,12 @@ module.exports = merge(config, {
     new ExtractTextPlugin({
       filename: '[name]-bundle-[hash].css',
       allChunks: true
+    }),
+
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      filename: 'vendor-bundle-[chunkhash].js',
+      minChunks: Infinity,
     }),
   ],
 });

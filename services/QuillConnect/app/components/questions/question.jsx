@@ -7,7 +7,7 @@ import {
   listenToResponsesWithCallback
 } from '../../actions/responses';
 import { Modal } from 'quill-component-library/dist/componentLibrary';
-import EditFrom from './questionForm.jsx';
+import EditForm from './questionForm.jsx';
 import Response from './response.jsx';
 import C from '../../constants';
 import ResponseComponent from './responseComponent.jsx';
@@ -171,7 +171,7 @@ const Question = React.createClass({
     if (this.props.questions.states[questionID] === C.EDITING_QUESTION) {
       return (
         <Modal close={this.cancelEditingQuestion}>
-          <EditFrom question={question} submit={this.saveQuestionEdits} itemLevels={this.props.itemLevels} concepts={this.props.concepts} />
+          <EditForm question={question} submit={this.saveQuestionEdits} itemLevels={this.props.itemLevels} concepts={this.props.concepts} />
         </Modal>
       );
     }

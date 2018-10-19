@@ -91,5 +91,5 @@ Rails.application.configure do
   end
 
   # Use Redis for caching
-  config.cache_store = :redis_store, ENV["REDISCLOUD_URL"]
+  config.cache_store = :dalli_store, ENV["MEMCACHED_URL"], { :pool_size => ENV.fetch("RAILS_MAX_THREADS") { 5 } }
 end

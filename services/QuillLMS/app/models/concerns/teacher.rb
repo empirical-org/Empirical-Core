@@ -2,7 +2,7 @@ module Teacher
   extend ActiveSupport::Concern
 
   include CheckboxCallback
-
+  include LessonsCache
 
   TRIAL_LIMIT = 250
   TRIAL_START_DATE = Date.parse('1-9-2015') # September 1st 2015
@@ -80,8 +80,8 @@ module Teacher
 
   def affiliated_with_unit(unit_id)
     ActiveRecord::Base.connection.execute("SELECT units.id FROM units
-      JOIN classroom_activities ON classroom_activities.unit_id = units.id
-      JOIN classrooms_teachers ON classroom_activities.classroom_id = classrooms_teachers.classroom_id
+      JOIN classroom_units ON classroom_units.unit_id = units.id
+      JOIN classrooms_teachers ON classroom_units.classroom_id = classrooms_teachers.classroom_id
       WHERE classrooms_teachers.user_id = #{self.id} AND units.id = #{unit_id.to_i}
       LIMIT(1)").to_a.any?
   end
@@ -195,12 +195,12 @@ module Teacher
 			GROUP BY classrooms.name, classrooms.id"
     ).to_a
     counts = ActiveRecord::Base.connection.execute("SELECT classrooms.id AS id, COUNT(DISTINCT acts.id) FROM classrooms
-          FULL OUTER JOIN classroom_activities AS class_acts ON class_acts.classroom_id = classrooms.id
-          FULL OUTER JOIN activity_sessions AS acts ON acts.classroom_activity_id = class_acts.id
+          FULL OUTER JOIN classroom_units AS class_units ON class_units.classroom_id = classrooms.id
+          FULL OUTER JOIN activity_sessions AS acts ON acts.classroom_unit_id = class_units.id
           LEFT JOIN classrooms_teachers ON classrooms_teachers.classroom_id = classrooms.id
           WHERE classrooms_teachers.user_id = #{self.id}
           AND classrooms.visible
-          AND class_acts.visible
+          AND class_units.visible
           AND acts.visible
           AND acts.is_final_score = true
           GROUP BY classrooms.id").to_a
@@ -225,12 +225,12 @@ module Teacher
     TransferAccountWorker.perform_async(self.id, new_user.id);
   end
 
-  def classroom_activities(includes_value = nil)
+  def classroom_units(includes_value = nil)
     classroom_ids = classrooms_i_teach.map(&:id)
     if includes_value
-      ClassroomActivity.where(classroom_id: classroom_ids).includes(includes_value)
+      ClassroomUnit.where(classroom_id: classroom_ids).includes(includes_value)
     else
-      ClassroomActivity.where(classroom_id: classroom_ids)
+      ClassroomUnit.where(classroom_id: classroom_ids)
     end
   end
 
@@ -362,11 +362,21 @@ module Teacher
     Date.today >= TRIAL_START_DATE
   end
 
+  def finished_diagnostic_unit_ids_with_classroom_id_and_activity_id
+    Unit.find_by_sql("SELECT DISTINCT units.id AS unit_id, cu.classroom_id AS classroom_id, activities.id AS activity_id FROM units
+      JOIN classroom_units AS cu ON ca.unit_id = units.id
+      JOIN activity_sessions AS actsesh ON actsesh.classroom_unit_id = cu.id
+      JOIN activities AS acts ON actsesh.activity_id = acts.id
+      WHERE units.user_id = #{self.id}
+      AND acts.activity_classification_id = 4
+      AND actsesh.state = 'finished'")
+  end
+
   def finished_diagnostic_unit_ids
     Unit.find_by_sql("SELECT DISTINCT units.id FROM units
-      JOIN classroom_activities AS ca ON ca.unit_id = units.id
-      JOIN activities AS acts ON ca.activity_id = acts.id
-      JOIN activity_sessions AS actsesh ON actsesh.classroom_activity_id = ca.id
+      JOIN classroom_units AS cu ON ca.unit_id = units.id
+      JOIN activity_sessions AS actsesh ON actsesh.classroom_unit_id = cu.id
+      JOIN activities AS acts ON actsesh.activity_id = acts.id
       WHERE units.user_id = #{self.id}
       AND acts.activity_classification_id = 4
       AND actsesh.state = 'finished'")
@@ -386,11 +396,7 @@ module Teacher
   end
 
   def get_data_for_lessons_cache
-    lesson_classroom_activities = []
-    self.classrooms_i_teach.each do |classroom|
-      classroom_activities.select{|ca| ca.activity.activity_classification_id == 6}.each{|ca| lesson_classroom_activities.push(ca.lessons_cache_info_formatter)}
-    end
-    lesson_classroom_activities
+    format_initial_lessons_cache(self)
   end
 
   def classrooms_i_am_the_coteacher_for_with_a_specific_teacher(teacher_id)
@@ -455,11 +461,28 @@ module Teacher
   end
 
   def referral_code
-    self.referrer_user.referral_code
+    ru = self.referrer_user
+    if ru.present?
+      ru.referral_code
+    else
+      self.generate_referrer_id.referral_code
+    end
+  end
+
+   def referral_link
+    Rails.application.routes.url_helpers.root_url(referral_code: self.referral_code)
   end
 
   def referrals
     self.referrals_users.count
+  end
+
+  def earned_months
+    self.referrals_users.where(activated: true ).count
+  end
+
+  def unredeemed_credits
+    self.credit_transactions.sum(:amount)
   end
 
   def teaches_student?(student_id)
@@ -474,6 +497,10 @@ module Teacher
     ").to_a.any?
   end
 
+  def generate_referrer_id
+    ReferrerUser.create(user_id: self.id, referral_code: self.name.downcase.gsub(/[^a-z ]/, '').gsub(' ', '-') + '-' + self.id.to_s)
+  end
+
   private
 
   def base_sql_for_teacher_classrooms(only_visible_classrooms=true)
@@ -482,10 +509,6 @@ module Teacher
     WHERE ct.user_id = #{self.id}"
   end
 
-
-
-
-
-
+  
 
 end

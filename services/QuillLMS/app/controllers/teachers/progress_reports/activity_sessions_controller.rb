@@ -21,9 +21,9 @@ class Teachers::ProgressReports::ActivitySessionsController < Teachers::Progress
 
   private
   def return_data(should_return_json)
-    classroom_activities_filter = !params[:classroom_id].blank? ? "AND classroom_activities.classroom_id = #{params[:classroom_id].to_i}" : ''
+    classroom_units_filter = !params[:classroom_id].blank? ? "AND classroom_units.classroom_id = #{params[:classroom_id].to_i}" : ''
     student_filter = !params[:student_id].blank? ? " AND activity_sessions.user_id = #{params[:student_id].to_i}" : ''
-    unit_filter = !params[:unit_id].blank? ? " AND classroom_activities.unit_id = #{params[:unit_id].to_i}" : ''
+    unit_filter = !params[:unit_id].blank? ? " AND classroom_units.unit_id = #{params[:unit_id].to_i}" : ''
 
     case(params[:sort_param])
     when 'student_id'
@@ -63,24 +63,24 @@ class Teachers::ProgressReports::ActivitySessionsController < Teachers::Progress
       JOIN classrooms
         ON classrooms.id = classrooms_teachers.classroom_id
         AND classrooms.visible = TRUE
-      JOIN classroom_activities
-        ON classroom_activities.classroom_id = classrooms.id
-        #{classroom_activities_filter}
+      JOIN classroom_units
+        ON classroom_units.classroom_id = classrooms.id
+        #{classroom_units_filter}
         #{unit_filter}
-        AND classroom_activities.visible = TRUE
+        AND classroom_units.visible = TRUE
       JOIN students_classrooms
         ON students_classrooms.classroom_id = classrooms.id
         AND students_classrooms.visible = TRUE
       JOIN users
         ON users.id = students_classrooms.student_id
       JOIN activity_sessions
-        ON activity_sessions.classroom_activity_id = classroom_activities.id
+        ON activity_sessions.classroom_unit_id = classroom_units.id
         AND activity_sessions.state = 'finished'
         AND activity_sessions.visible = TRUE
         AND activity_sessions.user_id = users.id
        #{student_filter}
       JOIN activities
-        ON activities.id = classroom_activities.activity_id
+        ON activities.id = activity_sessions.activity_id
       JOIN activity_classifications
         ON activity_classifications.id = activities.activity_classification_id
       JOIN topics
@@ -97,18 +97,18 @@ class Teachers::ProgressReports::ActivitySessionsController < Teachers::Progress
         JOIN classrooms
           ON classrooms.id = classrooms_teachers.classroom_id
           AND classrooms.visible = TRUE
-        JOIN classroom_activities
-          ON classroom_activities.classroom_id = classrooms.id
-          #{classroom_activities_filter}
+        JOIN classroom_units
+          ON classroom_units.classroom_id = classrooms.id
+          #{classroom_units_filter}
           #{unit_filter}
-          AND classroom_activities.visible = TRUE
+          AND classroom_units.visible = TRUE
         JOIN students_classrooms
           ON students_classrooms.classroom_id = classrooms.id
           AND students_classrooms.visible = TRUE
         JOIN users
           ON users.id = students_classrooms.student_id
         JOIN activity_sessions
-          ON activity_sessions.classroom_activity_id = classroom_activities.id
+          ON activity_sessions.classroom_unit_id = classroom_units.id
           AND activity_sessions.state = 'finished'
           AND activity_sessions.visible = TRUE
           AND activity_sessions.user_id = users.id

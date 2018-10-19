@@ -35,7 +35,7 @@ pipeline {
               sh "curl -X GET -u ${U}:${T} '${teamEndpoint}' > team"
               sh "python -c \"import json;f=open('team');j=json.loads(f.read());print('${ghUser}' in [u['login'] for u in j])\" > tmp"
               def userOk = readFile 'tmp'
-              env.USER_IS_STAFF_MEMBER=userOk.trim() 
+              env.USER_IS_STAFF_MEMBER=userOk.trim()
             }
           }
         }
@@ -77,10 +77,11 @@ pipeline {
               echo 'Rspec:'
               echo 'Setting up rspec...'
               //sh 'cp config/database.yml.jenkins config/database.yml'
-              sh "config/generate_databaseyml.sh ${env.BUILD_TAG} config/database.yml" 
+              sh "config/generate_databaseyml.sh ${env.BUILD_TAG} config/database.yml"
               echo 'Running rspec'
               sh 'bundle exec rake parallel:create'
               sh 'bundle exec rake parallel:load_structure'
+              sh 'bundle exec rake db:migrate'
               sh 'bundle exec rake parallel:spec'
               withCredentials(bindings: [string(credentialsId: 'codecov-token', variable: 'CODECOV_TOKEN')]) {
                 sh "curl -s https://codecov.io/bash | bash -s - -cF rspec -f coverage/coverage.json -t $CODECOV_TOKEN"
@@ -124,7 +125,7 @@ pipeline {
               sh 'yarn install'
               echo 'DB:'
               //sh 'cp config/database.yml.jenkins config/database.yml'
-              sh "config/generate_databaseyml.sh ${env.BUILD_TAG} config/database.yml" 
+              sh "config/generate_databaseyml.sh ${env.BUILD_TAG} config/database.yml"
               sh 'bin/rails db:create'
               sh 'bin/rails db:schema:load'
               echo 'Running rspec'
@@ -149,6 +150,27 @@ pipeline {
           steps {
             echo 'Beginnning TEST...'
             dir(path: 'services/QuillGrammar') {
+              sh 'npm install'
+              echo 'Running Karma'
+              sh 'npm run test'
+              echo 'Test successful!'
+            }
+          }
+        }
+        stage('test-proofreader') {
+          agent {
+            dockerfile {
+              filename 'services/QuillJenkins/agents/Generic/Dockerfile.test-node'
+              dir '.'
+              args "-u root:sudo -v \$HOME/workspace/myproject:/myproject --name test-proofreader${env.BUILD_TAG}"
+            }
+          }
+          environment {
+            NODE_ENV = 'test'
+          }
+          steps {
+            echo 'Beginnning TEST...'
+            dir(path: 'services/QuillProofreader') {
               sh 'npm install'
               echo 'Running Karma'
               sh 'npm run test'
@@ -387,6 +409,86 @@ pipeline {
                     sh 'npm run build:jenkins'
                     echo "Deploying to S3..."
                     sh 'aws s3 sync ./dist s3://aws-website-quill-connect-staging --delete'
+                  }
+                  else if (env.GIT_BRANCH == 'master') {
+                    echo "Automatically deploying master to production..."
+                    echo "Warning: This behavior is not yet enabled with this pipeline."
+                  }
+                  else {
+                    echo "No deploy stage for non-master / non-fake-develop branch. If you submitted a PR to one of these branches, a build will be triggered."
+                  }
+                }
+              }
+            }
+          }
+        }
+        stage('deploy-grammar') {
+          agent {
+            dockerfile {
+              filename 'services/QuillJenkins/agents/Generic/Dockerfile.test-node'
+              dir '.'
+              args "-u root:sudo -v \$HOME/workspace/myproject:/myproject --name deploy-grammar${env.BUILD_TAG} --network jnk-net${env.BUILD_TAG}"
+            }
+          }
+          environment {
+            AWS_ACCESS_KEY_ID=credentials('AWS_ACCESS_KEY_ID')
+            AWS_SECRET_ACCESS_KEY=credentials('AWS_SECRET_ACCESS_KEY')
+            QUILL_CMS='https://cms.quill.org'
+            NODE_ENV='staging'
+            QUILL_CDN_URL='https://assets.quill.org'
+            EMPIRICAL_BASE='https://staging.quill.org'
+            PUSHER_KEY=credentials('pusher-key-connect')
+          }
+          steps {
+            dir (path: 'services/QuillGrammar') {
+              echo "Beginnning grammar deploy..."
+              script {
+                withCredentials([usernamePassword(credentialsId: 'robot-butler', usernameVariable: 'U', passwordVariable: 'T')]) {
+                  if (env.GIT_BRANCH == 'develop') {
+                    echo "Building packages..."
+                    sh 'npm run build:jenkins'
+                    echo "Deploying to S3..."
+                    sh 'aws s3 sync ./dist s3://aws-website-quill-grammar-staging --delete'
+                  }
+                  else if (env.GIT_BRANCH == 'master') {
+                    echo "Automatically deploying master to production..."
+                    echo "Warning: This behavior is not yet enabled with this pipeline."
+                  }
+                  else {
+                    echo "No deploy stage for non-master / non-fake-develop branch. If you submitted a PR to one of these branches, a build will be triggered."
+                  }
+                }
+              }
+            }
+          }
+        }
+        stage('deploy-proofreader') {
+          agent {
+            dockerfile {
+              filename 'services/QuillJenkins/agents/Generic/Dockerfile.test-node'
+              dir '.'
+              args "-u root:sudo -v \$HOME/workspace/myproject:/myproject --name deploy-proofreader${env.BUILD_TAG} --network jnk-net${env.BUILD_TAG}"
+            }
+          }
+          environment {
+            AWS_ACCESS_KEY_ID=credentials('AWS_ACCESS_KEY_ID')
+            AWS_SECRET_ACCESS_KEY=credentials('AWS_SECRET_ACCESS_KEY')
+            QUILL_GRAMMAR_URL='https://staging-grammar.quill.org/#'
+            NODE_ENV='staging'
+            QUILL_CDN_URL='https://assets.quill.org'
+            EMPIRICAL_BASE='https://staging.quill.org'
+            PUSHER_KEY=credentials('pusher-key-connect')
+          }
+          steps {
+            dir (path: 'services/QuillProofreader') {
+              echo "Beginnning proofreader deploy..."
+              script {
+                withCredentials([usernamePassword(credentialsId: 'robot-butler', usernameVariable: 'U', passwordVariable: 'T')]) {
+                  if (env.GIT_BRANCH == 'develop') {
+                    echo "Building packages..."
+                    sh 'npm run build:jenkins'
+                    echo "Deploying to S3..."
+                    sh 'aws s3 sync ./dist s3://aws-website-quill-proofreader-staging --delete'
                   }
                   else if (env.GIT_BRANCH == 'master') {
                     echo "Automatically deploying master to production..."

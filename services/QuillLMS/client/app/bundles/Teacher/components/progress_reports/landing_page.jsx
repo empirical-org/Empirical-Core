@@ -5,12 +5,20 @@ export default React.createClass({
 
   miniList() {
     return [
+      // {
+      //   title: 'Real-time',
+      //   href: '/teachers/progress_reports/real_time',
+      //   img: `${process.env.CDN_URL}/images/Illustrations/real-time-landing.svg`,
+      //   bodyText: 'See which students are online and which students are taking a long time to complete their question. ',
+      //   pStyle: { padding: '0px 2px', },
+      //   flag: null,
+      // },
       {
         title: 'Activity Summary',
         href: '/teachers/classrooms/scorebook',
         img: `${process.env.CDN_URL}/images/shared/visual_overview.svg`,
         bodyText: 'Quickly see which activities your students have completed with color coded icons that show level of proficiency.',
-        pStyle: {padding: '0px 2px'},
+        pStyle: { padding: '0px 2px', },
         flag: null,
       }, {
         title: 'Activity Analysis',
@@ -31,7 +39,7 @@ export default React.createClass({
         img: `${process.env.CDN_URL}/images/illustrations/activity-scores-illustration.svg`,
         bodyText: 'View and download the overall score and the individual scores on each activity in an activity pack as a CSV.',
         flag: null,
-        pStyle: {padding: '0px 7px'}
+        pStyle: { padding: '0px 7px', },
       }, {
         title: 'Concepts',
         premium: true,
@@ -53,7 +61,7 @@ export default React.createClass({
         img: `${process.env.CDN_URL}/images/shared/list_overview.svg`,
         bodyText: 'You can export the data as a CSV file by filtering for the classrooms, activity packs, or students you would like to export and then pressing "Download Report."',
         flag: null,
-        pStyle: {marginTop: '-17px'}
+        pStyle: { marginTop: '-17px', },
       }
     ];
   },

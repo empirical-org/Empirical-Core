@@ -59,10 +59,10 @@ class Dashboard
     ActiveRecord::Base.connection.execute("
     SELECT concepts.id, concepts.name, AVG((concept_results.metadata::json->>'correct')::int) * 100  AS score, (CASE WHEN AVG((concept_results.metadata::json->>'correct')::int) *100 > 0 THEN true ELSE false END) AS non_zero
       FROM activity_sessions as acts
-    JOIN classroom_activities ON classroom_activities.id = acts.classroom_activity_id
+    JOIN classroom_units ON classroom_units.id = acts.classroom_unit_id
     JOIN concept_results ON acts.id = concept_results.activity_session_id
     JOIN concepts ON concepts.id = concept_results.concept_id
-    JOIN classrooms_teachers ON classrooms_teachers.classroom_id = classroom_activities.classroom_id
+    JOIN classrooms_teachers ON classrooms_teachers.classroom_id = classroom_units.classroom_id
     WHERE classrooms_teachers.user_id = #{user_id} AND acts.percentage IS NOT null AND acts.visible IS true AND #{self.completed_since_sql}
     GROUP BY concepts.id
     ORDER BY non_zero DESC, score

@@ -1,8 +1,9 @@
 import * as React from "react";
 import * as Redux from "redux";
 import {connect} from "react-redux";
-import request from 'request';
-import _ from 'lodash';
+import * as request from 'request';
+import * as _ from 'lodash';
+import { Response } from 'quill-marking-logic'
 import getParameterByName from '../../helpers/getParameterByName';
 import { startListeningToActivity } from "../../actions/grammarActivities";
 import {
@@ -10,34 +11,52 @@ import {
   startListeningToQuestions,
   goToNextQuestion,
   checkAnswer,
-  setSessionReducerToSavedSession
+  setSessionReducerToSavedSession,
+  startListeningToFollowUpQuestionsForProofreaderSession
 } from "../../actions/session";
+import { startListeningToConceptsFeedback } from '../../actions/conceptsFeedback'
 import { getConceptResultsForAllQuestions, calculateScoreForLesson } from '../../helpers/conceptResultsGenerator'
 import { SessionState } from '../../reducers/sessionReducer'
 import { GrammarActivityState } from '../../reducers/grammarActivitiesReducer'
+import { ConceptsFeedbackState } from '../../reducers/conceptsFeedbackReducer'
 import { Question, FormattedConceptResult } from '../../interfaces/questions'
 import QuestionComponent from './question'
+import TurkCodePage from './turkCodePage'
 import LoadingSpinner from '../shared/loading_spinner'
+
+interface PlayGrammarContainerState {
+  showTurkCode: boolean;
+  saved: boolean;
+  error: boolean;
+}
 
 interface PlayGrammarContainerProps {
   grammarActivities: GrammarActivityState;
+  conceptsFeedback: ConceptsFeedbackState;
   session: SessionState;
   dispatch: Function;
 }
 
-export class PlayGrammarContainer extends React.Component<PlayGrammarContainerProps, any> {
+export class PlayGrammarContainer extends React.Component<PlayGrammarContainerProps, PlayGrammarContainerState> {
     constructor(props: any) {
       super(props);
+
+      this.state = {
+        showTurkCode: false,
+        saved: false,
+        error: false
+      }
 
       this.saveToLMS = this.saveToLMS.bind(this)
       this.finishActivitySession = this.finishActivitySession.bind(this)
       this.createAnonActivitySession = this.createAnonActivitySession.bind(this)
+      this.checkAnswer = this.checkAnswer.bind(this)
     }
 
     componentWillMount() {
       const activityUID = getParameterByName('uid', window.location.href)
       const sessionID = getParameterByName('student', window.location.href)
-
+      const proofreaderSessionId = getParameterByName('proofreaderSessionId', window.location.href)
       if (sessionID) {
         this.props.dispatch(setSessionReducerToSavedSession(sessionID))
       }
@@ -46,10 +65,17 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
         this.props.dispatch(startListeningToActivity(activityUID))
       }
 
+      if (proofreaderSessionId) {
+        this.props.dispatch(startListeningToFollowUpQuestionsForProofreaderSession(proofreaderSessionId))
+      }
+
+    }
+
+    componentDidMount() {
+      this.props.dispatch(startListeningToConceptsFeedback());
     }
 
     componentWillReceiveProps(nextProps: PlayGrammarContainerProps) {
-      console.log(JSON.stringify(nextProps))
       if (nextProps.grammarActivities.hasreceiveddata && !nextProps.session.hasreceiveddata && !nextProps.session.error) {
         const concepts = nextProps.grammarActivities.currentActivity.concepts
         this.props.dispatch(startListeningToQuestions(concepts))
@@ -69,14 +95,38 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
     }
 
     saveToLMS(questions: SessionState) {
-      const results = getConceptResultsForAllQuestions(questions.answeredQuestions);
-      const score = calculateScoreForLesson(questions.answeredQuestions);
+      const { answeredQuestions } = questions
+      const proofreaderSessionId = getParameterByName('proofreaderSessionId', window.location.href)
+      const score = calculateScoreForLesson(answeredQuestions);
       const activityUID = getParameterByName('uid', window.location.href)
       const sessionID = getParameterByName('student', window.location.href)
-      if (sessionID) {
-        this.finishActivitySession(sessionID, results, score);
-      } else if (activityUID) {
-        this.createAnonActivitySession(activityUID, results, score);
+      let results
+      if (window.location.href.includes('turk')) {
+        this.setState({showTurkCode: true})
+      }
+      if (proofreaderSessionId) {
+        const { proofreaderSession } = this.props.session
+        const proofreaderConceptResults = proofreaderSession.conceptResults
+        const numberOfGrammarQuestions = answeredQuestions.length
+        const numberOfProofreaderQuestions = proofreaderConceptResults.length
+        results = getConceptResultsForAllQuestions(answeredQuestions, numberOfProofreaderQuestions);
+        const proofreaderAndGrammarResults = proofreaderConceptResults.concat(results)
+        const correctProofreaderQuestions = proofreaderConceptResults.filter(cr => cr.metadata.correct === 1)
+        const proofreaderScore = correctProofreaderQuestions.length / numberOfProofreaderQuestions
+        const totalScore = ((proofreaderScore * numberOfProofreaderQuestions) + (score * numberOfGrammarQuestions)) / (numberOfGrammarQuestions + numberOfProofreaderQuestions)
+        if (proofreaderSession.anonymous) {
+          const proofreaderActivityUID = proofreaderSession.activityUID
+          this.createAnonActivitySession(proofreaderActivityUID, proofreaderAndGrammarResults, totalScore)
+        } else {
+          this.finishActivitySession(proofreaderSessionId, proofreaderAndGrammarResults, totalScore)
+        }
+      } else {
+        results = getConceptResultsForAllQuestions(answeredQuestions);
+        if (sessionID) {
+          this.finishActivitySession(sessionID, results, score);
+        } else if (activityUID) {
+          this.createAnonActivitySession(activityUID, results, score);
+        }
       }
     }
 
@@ -93,8 +143,7 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
         },
         (err, httpResponse, body) => {
           if (httpResponse && httpResponse.statusCode === 200) {
-            const sessionID = getParameterByName('student', window.location.href)
-            document.location.href = `${process.env.EMPIRICAL_BASE_URL}/activity_sessions/${sessionID}`;
+            document.location.href = `${process.env.EMPIRICAL_BASE_URL}/activity_sessions/${body.activity_session.uid}`;
             this.setState({ saved: true, });
           } else {
             this.setState({
@@ -120,22 +169,35 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
         },
         (err, httpResponse, body) => {
           if (httpResponse.statusCode === 200) {
-            document.location.href = `${process.env.EMPIRICAL_BASE_URL}/activity_sessions/${body.activity_session.uid}`;
-            this.setState({ saved: true, });
+            if (!this.state.showTurkCode) {
+              document.location.href = `${process.env.EMPIRICAL_BASE_URL}/activity_sessions/${body.activity_session.uid}`;
+            }
           }
         }
       );
     }
 
+    checkAnswer(response: string, question: Question, responses: Response[], isFirstAttempt: Boolean) {
+      this.props.dispatch(checkAnswer(response, question, responses, isFirstAttempt))
+    }
+
     render(): JSX.Element {
-      if (this.props.grammarActivities.hasreceiveddata && this.props.session.hasreceiveddata && this.props.session.currentQuestion) {
+      const proofreaderSessionId = getParameterByName('proofreaderSessionId', window.location.href)
+
+      if (this.state.showTurkCode) {
+        return <TurkCodePage/>
+      }
+      if ((this.props.grammarActivities.hasreceiveddata || proofreaderSessionId) && this.props.session.hasreceiveddata && this.props.session.currentQuestion) {
         return <QuestionComponent
-          activity={this.props.grammarActivities.currentActivity}
+          activity={this.props.grammarActivities ? this.props.grammarActivities.currentActivity : null}
           answeredQuestions={this.props.session.answeredQuestions}
           unansweredQuestions={this.props.session.unansweredQuestions}
           currentQuestion={this.props.session.currentQuestion}
           goToNextQuestion={() => this.props.dispatch(goToNextQuestion())}
-          checkAnswer={(response: string, question: Question) => this.props.dispatch(checkAnswer(response, question))}
+          checkAnswer={this.checkAnswer}
+          conceptsFeedback={this.props.conceptsFeedback}
+          key={this.props.session.currentQuestion.key}
+          concepts={this.props.concepts}
         />
       } else if (this.props.session.error) {
         return (
@@ -150,7 +212,9 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
 const mapStateToProps = (state: any) => {
     return {
         grammarActivities: state.grammarActivities,
-        session: state.session
+        session: state.session,
+        conceptsFeedback: state.conceptsFeedback,
+        concepts: state.concepts
     };
 };
 

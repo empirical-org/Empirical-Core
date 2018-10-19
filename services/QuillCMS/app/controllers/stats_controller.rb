@@ -1,7 +1,18 @@
 class StatsController < ApplicationController
 
   def question_health_index
+    question_health_index_helper('lessons', 'datadash')
+    render json: :ok
+  end
 
+  def diagnostic_question_health_index
+    question_health_index_helper('diagnostics', 'diagnostic_datadash')
+    render json: :ok
+  end
+
+  private
+
+  def question_health_index_helper(activities_endpoint, datadash_endpoint)
     sql = """
       SELECT
         question_uid,
@@ -20,7 +31,7 @@ class StatsController < ApplicationController
     dashboard_data_hash = {}
     firebase_url = ENV["FIREBASE_URL"] || 'https://quillconnectstaging.firebaseio.com'
 
-    activities = HTTParty.get("#{firebase_url}/v2/lessons.json")
+    activities = HTTParty.get("#{firebase_url}/v2/#{activities_endpoint}.json")
 
     dashboard_data.each do |x|
       question_uid = x["question_uid"]
@@ -42,8 +53,7 @@ class StatsController < ApplicationController
       end
     end
 
-    HTTParty.put("#{firebase_url}/v2/datadash.json", body: dashboard_data_hash.to_json).body
-    render json: :ok
+    HTTParty.put("#{firebase_url}/v2/#{datadash_endpoint}.json", body: dashboard_data_hash.to_json).body
   end
 
 end

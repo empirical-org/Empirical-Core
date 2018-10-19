@@ -19,7 +19,6 @@ import {
   submitResponseEdit,
   incrementResponseCount,
   removeLinkToParentID,
-  updateConceptResults,
   deleteConceptResult,
   getGradedResponsesWithCallback,
 } from '../../actions/responses';
@@ -108,6 +107,7 @@ export default React.createClass({
       optimal: this.refs.newResponseOptimal.checked,
       author: null,
       parent_id: null,
+      concept_results: Object.keys(this.state.conceptResults) && Object.keys(this.state.conceptResults).length ? this.state.conceptResults : null
     };
     this.props.dispatch(submitResponseEdit(rid, newResp, this.props.questionID));
   },
@@ -163,11 +163,6 @@ export default React.createClass({
     } else {
       this.setState({ feedback: e, });
     }
-  },
-
-  updateConceptResults() {
-    const conceptResults = this.state.conceptResults || {};
-    this.props.dispatch(updateConceptResults(this.props.response.key, { conceptResults, }, this.props.questionID));
   },
 
   deleteConceptResult(crid) {
@@ -290,8 +285,9 @@ export default React.createClass({
       components = Object.keys(conceptResults).map(uid => {
         const concept = _.find(this.props.concepts.data['0'], { uid, });
         if (concept) {
+          // hacky fix for the problem where concept result uids are being returned with string value 'false' rather than false
           return  <li key={uid}>
-            {concept.displayName} {conceptResults[uid] ? <span className="tag is-small is-success">Correct</span> : <span className="tag is-small is-danger">Incorrect</span>}
+            {concept.displayName} {conceptResults[uid] && conceptResults[uid] !== 'false' ? <span className="tag is-small is-success">Correct</span> : <span className="tag is-small is-danger">Incorrect</span>}
             {'\t'}
           </li>
         }
@@ -378,7 +374,6 @@ export default React.createClass({
           <div className="box">
             <label className="label">Concept Results</label>
             {this.renderConceptResults('Editing')}
-            <button className="button" onClick={this.updateConceptResults}>Save Concept Results</button>
           </div>
 
           <p className="control">
@@ -467,7 +462,7 @@ export default React.createClass({
           <div className="content">
             <div className="media">
               <div className="media-content">
-                <p>{response.text} {author}</p>
+                <p><span style={{ whiteSpace: 'preWrap' }}>{response.text}</span> {author}</p>
               </div>
               <div className="media-right" style={{ textAlign: 'right', }}>
                 <figure className="image is-32x32">

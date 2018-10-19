@@ -25,7 +25,7 @@ export default class extends React.Component {
   getListOfAssignedLessons() {
     const that = this;
     request.get({
-      url: `${process.env.DEFAULT_URL}/teachers/classroom_activities/lessons_units_and_activities`,
+      url: `${process.env.DEFAULT_URL}/teachers/classroom_units/lessons_units_and_activities`,
     },
     (e, r, lessons) => {
       that.setState({ lessons: JSON.parse(lessons).data, }, this.checkIfStillLoading);

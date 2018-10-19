@@ -12,7 +12,8 @@ export default {
       import(/* webpackChunkName: "admin-questions" */ './routes/Questions/index.js'),
       import(/* webpackChunkName: "admin-fill-in-the-blanks" */ './routes/FillInTheBlanks/index.js'),
       import(/* webpackChunkName: "admin-sentence-fragments" */ './routes/SentenceFragments/index.js'),
-      import(/* webpackChunkName: "admin-item-levels" */ './routes/ItemLevels/index.js')
+      import(/* webpackChunkName: "admin-item-levels" */ './routes/ItemLevels/index.js'),
+      import(/* webpackChunkName: "admin-item-levels" */ './routes/CloneConnectQuestions/index.js')
     ])
     .then(modules => cb(null, modules.map(module => module.default)))
     .catch(err => console.error('Dynamic page loading failed', err));

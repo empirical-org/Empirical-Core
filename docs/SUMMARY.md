@@ -13,7 +13,7 @@
   * [Teacher Fixes](features/teacher_fixes.md)
   * [Activity Packs Editor](features/activity_packs_editor.md)
   * [Unit Templates](features/unit_templates_index.md)
-  * [Pinning. Locking, and Completing Classroom Activities](features/pinning_locking_and_completing_classroom_activities.md)
+  * [Pinning. Locking, and Completing Classroom Unit Activity States](features/pinning_locking_and_completing_classroom_unit_activity_states.md)
   * [Activity Categorization](features/activities/categorization.md)
   * [Unit Templates](features/unit_templates.md)
   * [Assigning A Unit Template](features/assigning_a_unit_template.md)
