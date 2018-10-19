@@ -6,7 +6,7 @@ exports[`EducatorType component should render if stage is 1 1`] = `
 >
   <ScrollToTop />
   <h3>
-    Are you a faculty member at a U.S K-12 School?*
+    Are you a faculty member at a U.S. K-12 school?*
   </h3>
   <div
     className="option-wrapper"

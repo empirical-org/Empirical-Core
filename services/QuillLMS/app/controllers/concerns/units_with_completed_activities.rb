@@ -1,11 +1,13 @@
 module UnitsWithCompletedActivities
   extend ActiveSupport::Concern
 
-  def units_with_completed_activities(cas)
-    all_assigned_units = cas.group_by{|ca| ca.unit_id}
+  def units_with_completed_activities(cus)
+    all_assigned_units = cus.group_by{|cu| cu.unit_id}
     relevant_unit_ids = []
-    all_assigned_units.each do |unit_id, classroom_activities|
-      relevant_unit_ids << unit_id if classroom_activities.select { |ca| ca.has_a_completed_session? }.any?
+    all_assigned_units.each do |unit_id, classroom_units|
+      activity_ids = Unit.find(unit_id)&.unit_activities&.map(&:activity_id).flatten
+      classroom_unit_ids = classroom_units.map(&:id).flatten
+      relevant_unit_ids << unit_id if ActivitySession.has_a_completed_session?(activity_ids, classroom_unit_ids)
     end
     Unit.where(id: relevant_unit_ids)
   end

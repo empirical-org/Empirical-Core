@@ -28,7 +28,7 @@
        image = <img src="/images/pages/diagnostic_reports/diagnostic_gray.svg"/>
      }
  		return (
-        <div className="container">
+        <div className="container" style={{ margin: '44px' }}>
           <div className="row diagnostic-empty-state">
             <div className="col-xs-7">
               <h1>Quill Diagnostic Reports</h1>

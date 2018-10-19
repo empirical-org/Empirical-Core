@@ -1,17 +1,24 @@
 import * as React from "react";
-import * as Redux from "redux";
 import { Row, Button } from "antd";
-
+import { Response, ConceptResult } from 'quill-marking-logic'
+import { hashToCollection, ConceptExplanation } from 'quill-component-library/dist/componentLibrary'
 import { Question } from '../../interfaces/questions'
 import { GrammarActivity } from '../../interfaces/grammarActivities'
+import * as responseActions from '../../actions/responses'
+const tryAgainIconSrc = `${process.env.QUILL_CDN_URL}/images/icons/try_again_icon.png`
+const incorrectIconSrc = `${process.env.QUILL_CDN_URL}/images/icons/incorrect_icon.png`
+const correctIconSrc = `${process.env.QUILL_CDN_URL}/images/icons/correct_icon.png`
+const questionIconSrc = `${process.env.QUILL_CDN_URL}/images/icons/question_icon.svg`
 
 interface QuestionProps {
-  activity: GrammarActivity;
+  activity: GrammarActivity|null;
   answeredQuestions: Question[]|never;
   unansweredQuestions: Question[]|never;
   currentQuestion: Question;
   goToNextQuestion: Function;
   checkAnswer: Function;
+  conceptsFeedback: any;
+  concepts: any;
 }
 
 interface QuestionState {
@@ -19,23 +26,35 @@ interface QuestionState {
   response: string;
   questionStatus: string;
   submittedEmptyString: boolean
+  responses: Response[]
 }
 
 export class QuestionComponent extends React.Component<QuestionProps, QuestionState> {
     constructor(props: QuestionProps) {
-        super(props);
+      super(props);
 
-        this.state = {
-          showExample: true,
-          response: '',
-          questionStatus: 'unanswered',
-          submittedEmptyString: false
+      this.state = {
+        showExample: true,
+        response: '',
+        questionStatus: 'unanswered',
+        submittedEmptyString: false,
+        responses: []
+      }
+
+      this.toggleExample = this.toggleExample.bind(this)
+      this.updateResponse = this.updateResponse.bind(this)
+      this.checkAnswer = this.checkAnswer.bind(this)
+      this.goToNextQuestion = this.goToNextQuestion.bind(this)
+      this.renderConceptExplanation = this.renderConceptExplanation.bind(this)
+    }
+
+    componentDidMount() {
+      responseActions.getGradedResponsesWithCallback(
+        this.props.currentQuestion.uid,
+        (data) => {
+          this.setState({ responses: data, });
         }
-
-        this.toggleExample = this.toggleExample.bind(this)
-        this.updateResponse = this.updateResponse.bind(this)
-        this.checkAnswer = this.checkAnswer.bind(this)
-        this.goToNextQuestion = this.goToNextQuestion.bind(this)
+      );
     }
 
     componentWillReceiveProps(nextProps: QuestionProps) {
@@ -55,7 +74,14 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
           }
         }
       }
-
+      if (this.props.currentQuestion.uid !== nextProps.currentQuestion.uid) {
+        responseActions.getGradedResponsesWithCallback(
+          nextProps.currentQuestion.uid,
+          (data: Response[]) => {
+            this.setState({ responses: data, });
+          }
+        );
+      }
     }
 
     currentQuestion() {
@@ -64,8 +90,10 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
 
     checkAnswer() {
       const response = this.state.response
+      const question = this.currentQuestion()
+      const isFirstAttempt = !question.attempts || question.attempts.length === 0
       if (this.state.response !== '') {
-        this.props.checkAnswer(response, this.currentQuestion())
+        this.props.checkAnswer(response, question, this.state.responses, isFirstAttempt)
         this.setState({submittedEmptyString: false})
       } else {
         this.setState({submittedEmptyString: true})
@@ -81,19 +109,54 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
       this.setState({ showExample: !this.state.showExample })
     }
 
-    updateResponse(e) {
+    updateResponse(e: React.ChangeEvent<HTMLTextAreaElement>) {
       this.setState({response: e.target.value})
     }
 
+    getNegativeConceptResultsForResponse(conceptResults: ConceptResult[]) {
+      return hashToCollection(conceptResults).filter((cr: ConceptResult) => !cr.correct);
+    }
+
+    getNegativeConceptResultForResponse(conceptResults: ConceptResult[]) {
+      const negCRs = this.getNegativeConceptResultsForResponse(conceptResults);
+      return negCRs.length > 0 ? negCRs[0] : undefined;
+    }
+
+    getLatestAttempt(attempts: Response[] = []): Response|undefined {
+      const lastIndex = attempts.length - 1;
+      return attempts[lastIndex];
+    }
+
+    getConcept() {
+      return this.props.concepts.data[0].find((c: any) => c.uid === this.currentQuestion().concept_uid)
+    }
+
+    onPressEnter = (e: any) => {
+      if(e.keyCode == 13 && e.shiftKey == false) {
+        e.preventDefault();
+        const { questionStatus } = this.state
+        if (questionStatus === 'unanswered' || questionStatus === 'incorrectly answered') {
+          this.checkAnswer()
+        } else {
+          this.goToNextQuestion()
+        }
+      }
+    }
+
     renderExample(): JSX.Element|undefined {
-      const example = this.currentQuestion().rule_description
+      let example
+      if (this.currentQuestion().rule_description && this.currentQuestion().rule_description.length && this.currentQuestion().rule_description !== "<br/>") {
+        example = this.currentQuestion().rule_description
+      } else if (this.getConcept() && this.getConcept().description) {
+        example = this.getConcept().description
+      }
       if (example) {
         let componentClasses = 'example-container'
         if (this.state.showExample) {
           componentClasses += ' show'
         }
         return <Row className={componentClasses} type="flex" align="middle" justify="start">
-          <div className="example" dangerouslySetInnerHTML={{__html: example.replace(/\n/g,"<br />")}} />
+          <div className="example" dangerouslySetInnerHTML={{__html: example.replace(/\n/g, "<br />")}} />
         </Row>
 
       } else {
@@ -115,15 +178,15 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
     renderTopSection(): JSX.Element {
       const answeredQuestionCount = this.props.answeredQuestions.length
       const totalQuestionCount = answeredQuestionCount + this.props.unansweredQuestions.length + 1
-      const meterWidth = answeredQuestionCount/totalQuestionCount * 100
+      const meterWidth = answeredQuestionCount / totalQuestionCount * 100
       return <div className="top-section">
         <Row
           type="flex"
           align="middle"
           justify="space-between"
           >
-          <h1>{this.props.activity.title}</h1>
-          <div>
+          <h1>{this.props.activity ? this.props.activity.title : null}</h1>
+          <div className="progress-bar-section">
             <p>Sentences Completed: {answeredQuestionCount} of {totalQuestionCount}</p>
             <div className="progress-bar-indication">
               <span className="meter"
@@ -137,6 +200,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
       </Row>
       {this.renderExample()}
       <Row type="flex" align="middle" justify="start">
+        <img style={{ height: '22px', marginRight: '10px' }} src={questionIconSrc} />
         <div className="instructions" dangerouslySetInnerHTML={{__html: this.currentQuestion().instructions}} />
       </Row>
       </div>
@@ -149,7 +213,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
           <div className="prompt" dangerouslySetInnerHTML={{__html: prompt}} />
         </Row>
         <Row type="flex" align="middle" justify="start">
-          <textarea value={this.state.response} className="input-field" onChange={this.updateResponse}/>
+          <textarea value={this.state.response} spellcheck="false" className="input-field" onChange={this.updateResponse} onKeyDown={this.onPressEnter}/>
         </Row>
         <Row type="flex" align="middle" justify="end">
           {this.renderCheckAnswerButton()}
@@ -160,30 +224,71 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
     renderFeedbackSection(): JSX.Element|undefined {
       const question = this.currentQuestion()
       if (question && question.attempts && question.attempts.length > 0) {
-        let className: string, feedback: string|undefined|null
+        let className: string, feedback: string|undefined|null, imgSrc: string
         if (question.attempts[1]) {
           if (question.attempts[1].optimal) {
             feedback = question.attempts[1].feedback
             className = 'correct'
+            imgSrc = correctIconSrc
           } else {
             feedback = `<b>Your Response:</b> ${this.state.response} <br/> <b>Correct Response:</b> ${question.answers[0].text.replace(/{|}/gm, '')}`
             className = 'incorrect'
+            imgSrc = incorrectIconSrc
           }
         } else {
           if (question.attempts[0].optimal) {
             feedback = question.attempts[0].feedback
             className = 'correct'
+            imgSrc = correctIconSrc
           } else {
             feedback = question.attempts[0].feedback
             className = 'try-again'
+            imgSrc = tryAgainIconSrc
           }
         }
-        return <div className={`feedback ${className}`}><div dangerouslySetInnerHTML={{__html: feedback}}/></div>
+        if (typeof feedback === 'string') {
+          return <div className={`feedback ${className}`}><div className="inner-container"><img src={imgSrc}/><div dangerouslySetInnerHTML={{__html: feedback}}/></div></div>
+        }
       } else if (this.state.submittedEmptyString) {
-        return <div className={`feedback try-again`}><div dangerouslySetInnerHTML={{__html: 'You must enter a sentence for us to check.'}}/></div>
+        return <div className={`feedback try-again`}><div className="inner-container"><img src={tryAgainIconSrc}/><div dangerouslySetInnerHTML={{__html: 'You must enter a sentence for us to check.'}}/></div></div>
 
       }
       return undefined
+    }
+
+    renderConceptExplanation(): JSX.Element|void {
+      const latestAttempt: Response|undefined = this.getLatestAttempt(this.currentQuestion().attempts);
+      if (latestAttempt && !latestAttempt.optimal) {
+        if (latestAttempt.conceptResults) {
+          const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.conceptResults);
+          if (conceptID) {
+            const data = this.props.conceptsFeedback.data[conceptID.conceptUID];
+            if (data) {
+              return <ConceptExplanation {...data} />;
+            }
+          }
+          // pretty sure it is only conceptResults now, but trying to avoid further issues
+        } else if (latestAttempt.concept_results) {
+          const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.concept_results);
+          if (conceptID) {
+            const data = this.props.conceptsFeedback.data[conceptID.conceptUID];
+            if (data) {
+              return <ConceptExplanation {...data} />;
+            }
+          }
+
+        } else if (this.currentQuestion() && this.currentQuestion().modelConceptUID) {
+          const dataF = this.props.conceptsFeedback.data[this.currentQuestion().modelConceptUID];
+          if (dataF) {
+            return <ConceptExplanation {...dataF} />;
+          }
+        } else if (this.currentQuestion().concept_uid) {
+          const data = this.props.conceptsFeedback.data[this.currentQuestion().concept_uid];
+          if (data) {
+            return <ConceptExplanation {...data} />;
+          }
+        }
+      }
     }
 
     render(): JSX.Element {
@@ -191,6 +296,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
         {this.renderTopSection()}
         {this.renderQuestionSection()}
         {this.renderFeedbackSection()}
+        {this.renderConceptExplanation()}
       </div>
     }
 }

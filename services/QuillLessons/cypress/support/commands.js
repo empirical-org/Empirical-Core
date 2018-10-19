@@ -80,6 +80,6 @@ Cypress.Commands.add('createPreviewLesson', () => {
   })
 })
 
-Cypress.Commands.add('addStudent', (classroomActivityId, studentName) => {
-  socket.emit('addStudent', classroomActivityId, studentName)
+Cypress.Commands.add('addStudent', (classroomUnitId, studentName) => {
+  socket.emit('addStudent', classroomUnitId, studentName)
 })

@@ -46,9 +46,9 @@ class LessonRecommendationsQuery
 
   def previous_unit_names(classroom_id)
     ActiveRecord::Base.connection.execute("SELECT DISTINCT unit.name FROM units unit
-    LEFT JOIN classroom_activities as ca ON ca.unit_id = unit.id
-    WHERE ca.classroom_id = #{classroom_id}
-    AND ca.visible = true
+    LEFT JOIN classroom_units as cu ON cu.unit_id = unit.id
+    WHERE cu.classroom_id = #{classroom_id}
+    AND cu.visible = true
     AND unit.visible = true").to_a.map {|e| e['name']}
   end
 

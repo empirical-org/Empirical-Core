@@ -6,7 +6,7 @@ exports[`AssigningIndicator component should render 1`] = `
 >
   <img
     className="assigner"
-    src="https://assets.quill.org/images/shared/assigner_still.png"
+    src="http://cdn.quill.org/images/shared/assigner_still.png"
   />
 </span>
 `;

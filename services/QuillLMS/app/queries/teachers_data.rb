@@ -21,6 +21,7 @@ module TeachersData
       COUNT(DISTINCT students_classrooms.id) AS number_of_students,
       time_spent_query.number_of_questions_completed AS number_of_questions_completed,
       MAX(time_spent_query.time_spent) AS time_spent
+      -- old_timespent_teacher(users.id) + timespent_teacher(users.id) AS time_spent
     FROM users
     LEFT OUTER JOIN classrooms_teachers ON users.id = classrooms_teachers.user_id
     LEFT OUTER JOIN classrooms ON classrooms_teachers.classroom_id = classrooms.id
@@ -28,8 +29,8 @@ module TeachersData
     LEFT OUTER JOIN (SELECT acss_ids.teacher_id, #{time_spent}) AS time_spent, SUM(acss_ids.number_of_questions_completed) AS number_of_questions_completed FROM activity_sessions
       INNER JOIN (SELECT users.id AS teacher_id, COUNT(DISTINCT concept_results.id) AS number_of_questions_completed, activity_sessions.id AS activity_session_id FROM users
       INNER JOIN units ON users.id = units.user_id
-      INNER JOIN classroom_activities ON units.id = classroom_activities.unit_id
-      INNER JOIN activity_sessions ON classroom_activities.id = activity_sessions.classroom_activity_id
+      INNER JOIN classroom_units ON units.id = classroom_units.unit_id
+      INNER JOIN activity_sessions ON classroom_units.id = activity_sessions.classroom_unit_id
       INNER JOIN concept_results ON activity_sessions.id = concept_results.activity_session_id
       WHERE users.id IN (#{teacher_ids_str})
       AND activity_sessions.state = 'finished'
@@ -45,6 +46,7 @@ module TeachersData
   def self.time_spent
       "SUM (
         CASE
+        WHEN (activity_sessions.timespent IS NOT NULL) THEN activity_sessions.timespent
         WHEN (activity_sessions.started_at IS NULL)
           OR (activity_sessions.completed_at IS NULL)
           OR (activity_sessions.completed_at - activity_sessions.started_at < interval '1 minute')

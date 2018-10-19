@@ -9,6 +9,7 @@ import ConceptsConceptsProgressReport from '../components/progress_reports/conce
 import PremiumBannerBuilder from '../components/scorebook/premium_banners/premium_banner_builder'
 import LandingPageContainer from './LandingPageContainer.jsx'
 import ActivitiesScoresByClassroomProgressReport from '../components/progress_reports/activities_scores_by_classroom_progress_report.jsx'
+import RealTimeProgressReport from '../components/progress_reports/real_time_progress_report.jsx'
 import StudentOverview from '../components/progress_reports/student_overview.jsx'
 import $ from 'jquery'
 import _ from 'underscore'
@@ -17,7 +18,7 @@ import ReactDOM from 'react-dom'
 require('../../../assets/styles/app-variables.scss')
 
 
-var renderRightComponentHack = function() {
+var renderRightComponentHack = function(currentUser) {
   var ele = $('.student-reports-subnav.tab-subnavigation-wrapper');
   let path = window.location.pathname;
   let shouldHaveBanner = !path.includes('/landing_page') && !path.includes('diagnostic_report');
@@ -37,6 +38,7 @@ var renderRightComponentHack = function() {
     '.progress-reports-concepts-concepts': ConceptsConceptsProgressReport,
     '.progress-reports-landing-page-container': LandingPageContainer,
     '.progress-reports-activities-scores-by-classroom': ActivitiesScoresByClassroomProgressReport,
+    '.progress-reports-real-time': RealTimeProgressReport,
     '.progress-reports-student-overview': StudentOverview,
   };
 
@@ -46,7 +48,8 @@ var renderRightComponentHack = function() {
       $.get('/teachers/classrooms/premium.json').done(function(data) {
         var props = {
           sourceUrl: $el.data('url'),
-          premiumStatus: data.hasPremium
+          premiumStatus: data.hasPremium,
+          currentUser: currentUser,
         };
         ReactDOM.render(React.createElement(component, props), $el[0]);
       });
@@ -57,7 +60,7 @@ var renderRightComponentHack = function() {
 export default React.createClass({
 
   componentDidMount: function(){
-   renderRightComponentHack();
+   renderRightComponentHack(this.props.current_user);
   },
 
 

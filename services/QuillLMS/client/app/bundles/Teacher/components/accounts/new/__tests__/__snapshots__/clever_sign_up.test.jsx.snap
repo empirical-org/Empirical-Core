@@ -6,7 +6,7 @@ exports[`CleverSignUp component should render 1`] = `
   onClick={[Function]}
 >
   <img
-    src="https://assets.quill.org/images/shared/clever_icon.svg"
+    src="http://cdn.quill.org/images/shared/clever_icon.svg"
   />
   <span>
     Sign up with Clever

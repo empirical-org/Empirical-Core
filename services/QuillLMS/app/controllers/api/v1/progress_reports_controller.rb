@@ -8,6 +8,12 @@ class Api::V1::ProgressReportsController < Api::ApiController
     render json: { data: data }
   end
 
+  def real_time_data
+    student_ids = current_user.students.map(&:id)
+    data = ProgressReports::RealTime.results(student_ids)
+    render json: { data: data }
+  end
+
   def district_activity_scores
     if current_user.admin?
       data = ProgressReports::DistrictActivityScores.new(current_user.id).results

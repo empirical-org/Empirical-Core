@@ -6,7 +6,7 @@ class ProgressReports::DistrictStandardsReports
   end
 
   def results
-    # Uncomment the line below, and comment out the sql query, to bypass 
+    # Uncomment the line below, and comment out the sql query, to bypass
     # The database while testing
     # [{"id"=>"1", "name"=>"class 1b", "section_name"=>"how to tell cactus from cow", "total_activity_count"=>"2", "total_student_count"=>"33", "proficient_count"=>"15"}]
     ActiveRecord::Base.connection.execute(query).to_a
@@ -19,10 +19,10 @@ class ProgressReports::DistrictStandardsReports
     <<~SQL
     WITH final_activity_sessions AS (
       SELECT activity_sessions.*, activities.topic_id FROM activity_sessions
-        JOIN classroom_activities ON activity_sessions.classroom_activity_id = classroom_activities.id
-        JOIN activities ON classroom_activities.activity_id = activities.id
+        JOIN classroom_units ON activity_sessions.classroom_unit_id = classroom_units.id
+        JOIN activities ON activity_sessions.activity_id = activities.id
         JOIN topics ON topics.id = activities.topic_id
-        JOIN classrooms_teachers on classrooms_teachers.classroom_id = classroom_activities.classroom_id
+        JOIN classrooms_teachers on classrooms_teachers.classroom_id = classroom_units.classroom_id
         WHERE activity_sessions.is_final_score
         AND classrooms_teachers.user_id in (SELECT schools_users.user_id FROM users as researcher
           JOIN schools_admins ON schools_admins.user_id = researcher.id
@@ -31,7 +31,7 @@ class ProgressReports::DistrictStandardsReports
           WHERE researcher.id = #{admin_id}
         )
         AND activity_sessions.visible
-            AND classroom_activities.visible
+            AND classroom_units.visible
     ) SELECT
         topics.id,
         topics.name,
@@ -53,4 +53,3 @@ class ProgressReports::DistrictStandardsReports
   end
 
 end
-

@@ -37,10 +37,10 @@ When the user clicks 'Edit Edition', they are redirected to the Customize Editio
 When the user clicks 'Delete Edition', we fire a Redux action that puts an 'archived' flag on that edition in Firebase, which prompts the page to rerender without the archived edition.
 
 #### Select Version
-If the page is accessed by clicking on a launch or preview link from the LMS, or from the Switch Edition link inside a lesson, it will have a classroom_activity_id or preview query string passed to it. This tells the React component to render a version of the page with a 'Select' button for each edition component. If there is a classroom activity id parameter, pressing the select button will update the classroom lesson session associated with this classroom activity id to have an edition_id key with the selected edition, and direct the user back to the lesson. If there is a preview parameter, a new classroom lesson session will be created with the appropriate edition_id, and the user will be directed there.
+If the page is accessed by clicking on a launch or preview link from the LMS, or from the Switch Edition link inside a lesson, it will have a classroom_unit_id or preview query string passed to it. This tells the React component to render a version of the page with a 'Select' button for each edition component. If there is a classroom activity id parameter, pressing the select button will update the classroom lesson session associated with this classroom activity id to have an edition_id key with the selected edition, and direct the user back to the lesson. If there is a preview parameter, a new classroom lesson session will be created with the appropriate edition_id, and the user will be directed there.
 
 #### Customize Version
-If the page is accessed by clicking the customize link from the Launch Lessons page on the LMS, it will not have a classroom_activity_id or preview query string passed to it. The page will be rendered with only the Customize dropdown, and not the Select button.
+If the page is accessed by clicking the customize link from the Launch Lessons page on the LMS, it will not have a classroom_unit_id or preview query string passed to it. The page will be rendered with only the Customize dropdown, and not the Select button.
 
 ### Customize Edition Page
 When the customize edition page is rendered, if it has a classroom activity id param, it fires the setEditionId Redux action to update the classroom lesson session with the edition_id from the URL.

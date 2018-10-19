@@ -1,26 +1,40 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import { connect } from 'react-redux';
 import { getParameterByName } from '../../../libs/getParameterByName';
 import { goToNextSlide } from '../../../actions/classroomSessions';
 import {
   ClassroomLessonSession,
+  ClassroomUnitId,
+  ClassroomSessionId
 } from '../interfaces'
 import {
   EditionQuestions
 } from '../../../interfaces/customize'
 
-class NextSlideButton extends Component<any, any> {
+interface NextSlideButtonProps {
+  [key:string]: any;
+}
+
+class NextSlideButton extends React.Component<StateFromProps & NextSlideButtonProps, any> {
   constructor(props) {
     super(props);
+
+    const classroomUnitId: ClassroomUnitId|null = getParameterByName('classroom_unit_id')
+    const activityUid = props.params.lessonID
+    this.state = {
+      classroomUnitId,
+      classroomSessionId: classroomUnitId ? classroomUnitId.concat(activityUid) : null
+    }
+
     this.goToNextSlide = this.goToNextSlide.bind(this);
   }
 
   goToNextSlide() {
-    const ca_id: string|null = getParameterByName('classroom_activity_id');
+    const classroomSessionId: ClassroomSessionId|null = this.state.classroomSessionId;
     const sessionData: ClassroomLessonSession = this.props.classroomSessions.data;
     const editionData: EditionQuestions = this.props.customize.editionQuestions;
-    if (ca_id) {
-      const updateInStore = goToNextSlide(ca_id, sessionData, editionData);
+    if (classroomSessionId) {
+      const updateInStore = goToNextSlide(sessionData, editionData, classroomSessionId);
       if (updateInStore) {
         this.props.dispatch(updateInStore);
       }
@@ -52,4 +66,14 @@ function mergeProps(stateProps: Object, dispatchProps: Object, ownProps: Object)
   return {...ownProps, ...stateProps, ...dispatchProps}
 }
 
-export default connect(select, dispatch => ({dispatch}), mergeProps)(NextSlideButton);
+export interface DispatchFromProps {
+
+}
+
+export interface StateFromProps {
+  customize: any
+  classroomSessions: any
+}
+
+
+export default connect<StateFromProps, DispatchFromProps, NextSlideButtonProps>(select, dispatch => ({dispatch}))(NextSlideButton);

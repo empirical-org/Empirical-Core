@@ -24,43 +24,48 @@ shared_context 'Topic Progress Report' do
   let!(:empty_unit) { create(:unit, user_id: teacher.id) }
   let!(:activity_for_second_grade_topic) { create(:activity,
     name: '2nd Grade Activity', topic: second_grade_topic) }
-  let!(:classroom_activity1) { create(:classroom_activity,
+  let!(:classroom_unit1) { create(:classroom_unit,
                                             classroom: full_classroom,
-                                            activity: activity_for_second_grade_topic,
                                             assign_on_join: true,
                                             unit: unit1) }
+  let!(:unit_activity1) {
+    create(:unit_activity,
+    activity: activity_for_second_grade_topic,
+    unit: unit1)
+  }
   let!(:activity_for_first_grade_topic) { create(:activity,
     name: '1st Grade Activity', topic: first_grade_topic) }
-  let!(:classroom_activity2) { create(:classroom_activity,
-                                            classroom: full_classroom,
-                                            activity: activity_for_first_grade_topic,
-                                            assign_on_join: true,
-                                            unit: unit1) }
+  let!(:unit_activity2) {
+    create(:unit_activity,
+    activity: activity_for_first_grade_topic,
+    unit: unit1)
+  }
+
 
   # NOTE: ClassroomActivity.create does not create new activity sessions for every student in the classroom.
   # Create new sessions for them
   let!(:alice_second_grade_topic_session) do
-    session = ActivitySession.create(user_id: alice.id, activity: activity_for_second_grade_topic, classroom_activity: classroom_activity1, state: 'finished', percentage: 1, completed_at: 1.month.ago)
+    session = ActivitySession.create(user_id: alice.id, activity: activity_for_second_grade_topic, classroom_unit: classroom_unit1, state: 'finished', percentage: 1, completed_at: 1.month.ago)
     session
   end
 
   let!(:fred_second_grade_topic_session) do
-    session = ActivitySession.create(user_id: fred.id, activity: activity_for_second_grade_topic, classroom_activity: classroom_activity1, state: 'finished', percentage: 1, completed_at: 1.month.ago)
+    session = ActivitySession.create(user_id: fred.id, activity: activity_for_second_grade_topic, classroom_unit: classroom_unit1, state: 'finished', percentage: 1, completed_at: 1.month.ago)
     session
   end
 
   let!(:zojirushi_second_grade_topic_session) do
-    session = ActivitySession.create(user_id: zojirushi.id, activity: activity_for_second_grade_topic, classroom_activity: classroom_activity1, state: 'finished', percentage: 0.49, completed_at: 25.days.ago)
+    session = ActivitySession.create(user_id: zojirushi.id, activity: activity_for_second_grade_topic, classroom_unit: classroom_unit1, state: 'finished', percentage: 0.49, completed_at: 25.days.ago)
     session
   end
 
   let!(:alice_first_grade_topic_session)  do
-    session = ActivitySession.create(user_id: alice.id, activity: activity_for_first_grade_topic, classroom_activity: classroom_activity2, state: 'finished', percentage: 0.70, completed_at: 28.days.ago)
+    session = ActivitySession.create(user_id: alice.id, activity: activity_for_first_grade_topic, classroom_unit: classroom_unit1, state: 'finished', percentage: 0.70, completed_at: 28.days.ago)
     session
   end
 
   let!(:fred_first_grade_topic_session) do
-    session = ActivitySession.create(user_id: fred.id, activity: activity_for_first_grade_topic, classroom_activity: classroom_activity2, state: 'finished', percentage: 0.70, completed_at: 2.days.ago)
+    session = ActivitySession.create(user_id: fred.id, activity: activity_for_first_grade_topic, classroom_unit: classroom_unit1, state: 'finished', percentage: 0.70, completed_at: 2.days.ago)
     session
   end
 

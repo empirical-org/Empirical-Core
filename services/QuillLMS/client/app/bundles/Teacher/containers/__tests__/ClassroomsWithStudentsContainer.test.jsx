@@ -403,7 +403,7 @@ const state = {
             'flag': null,
             'google_id': null
         }],
-        'classroom_activity': {
+        'classroom_unit': {
             'id': 1082553,
             'assigned_student_ids': [864075, 864076]
         }
@@ -459,9 +459,9 @@ describe('ClassroomsWithStudentsContainer container', () => {
 
   describe('selectPreviouslyAssignedStudents', ()=> {
     it('selectPreviouslyAssignedStudents marks a student as selected if they are an assigned student', () => {
-      const wrapper = shallow( < ClassroomsWithStudentsContainer {...props}/>);
+      const wrapper = shallow(<ClassroomsWithStudentsContainer {...props}/>);
         wrapper.setState(_.cloneDeep(state))
-        let assignedStudents = wrapper.state().classrooms[0].classroom_activity.assigned_student_ids
+        let assignedStudents = wrapper.state().classrooms[0].classroom_unit.assigned_student_ids
         let students = wrapper.state().classrooms[0].students
         wrapper.instance().selectPreviouslyAssignedStudents();
         let selectedStudents = []
@@ -475,7 +475,7 @@ describe('ClassroomsWithStudentsContainer container', () => {
     it('correctly marks when a missing student was assigned the activity', () => {
       const newWrapper = shallow( < ClassroomsWithStudentsContainer {...props}/>);
       newWrapper.setState(_.cloneDeep(state))
-        let assignedStudents = newWrapper.state().classrooms[0].classroom_activity.assigned_student_ids
+        let assignedStudents = newWrapper.state().classrooms[0].classroom_unit.assigned_student_ids
         newWrapper.instance().selectPreviouslyAssignedStudents();
         let students = newWrapper.state().classrooms[0].students
         let selectedStudents = []

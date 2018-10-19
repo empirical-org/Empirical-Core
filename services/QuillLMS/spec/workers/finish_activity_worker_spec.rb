@@ -4,8 +4,8 @@ describe FinishActivityWorker, type: :worker do
   let(:worker) { FinishActivityWorker.new }
   let(:classroom) { create(:classroom) }
   let!(:unit) {create(:unit)}
-  let(:classroom_activity) { create(:classroom_activity, classroom: classroom, unit: unit) }
-  let(:activity_session) { create(:activity_session,  classroom_activity: classroom_activity) }
+  let(:classroom_unit) { create(:classroom_unit, classroom: classroom, unit: unit) }
+  let(:activity_session) { create(:activity_session,  classroom_unit: classroom_unit) }
   let(:analyzer) { double(:analyzer) }
 
   before do

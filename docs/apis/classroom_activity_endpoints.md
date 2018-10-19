@@ -47,13 +47,6 @@ This method calls several others, which:
 It returns a hash with the following format:
 `{follow_up_url: #{follow up activity URL or the profile url}`
 
-## #pin_activity
-PUT `/api/v1/classroom_activities/:id/pin_activity`
-
-This method updates the classroom activity from the params to have pinned: true.
-
-It returns the new value of the classroom activity's pinned attribute.
-
 ## #unpin_and_lock_activity
 PUT `/api/v1/classroom_activities/:id/unpin_and_lock_activity`
 

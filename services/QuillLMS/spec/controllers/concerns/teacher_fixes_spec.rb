@@ -11,74 +11,74 @@ describe TeacherFixes do
       let! (:student2) {create(:student, classrooms: [classroom])}
       let! (:student3) {create(:student)}
       let! (:activity) {create(:activity)}
-      let! (:classroom_activity1) {create(:classroom_activity, classroom: classroom)}
-      let! (:classroom_activity2) {create(:classroom_activity, classroom: classroom)}
-      let! (:classroom_activity3) {create(:classroom_activity, classroom: classroom)}
-      let! (:classroom_activity4) {create(:classroom_activity, classroom: classroom, activity: activity)}
-      let! (:final_score) {create(:activity_session, user_id: student1.id, classroom_activity_id: classroom_activity1.id, is_final_score: true)}
-      let! (:not_final_score) {create(:activity_session, user_id: student1.id, classroom_activity_id: classroom_activity1.id)}
-      let! (:lower_percentage) {create(:activity_session, user_id: student1.id, classroom_activity_id: classroom_activity2.id, percentage: 0.3)}
-      let! (:higher_percentage) {create(:activity_session, user_id: student1.id, classroom_activity_id: classroom_activity2.id, percentage: 0.8)}
-      let! (:started) {create(:activity_session, user_id: student1.id, classroom_activity_id: classroom_activity3.id, started_at: Time.now)}
-      let! (:completed_earlier) {create(:activity_session, user_id: student1.id, classroom_activity_id: classroom_activity4.id, completed_at: Time.now - 5, state: 'finished', percentage: 0.7)}
-      let! (:completed_later) {create(:activity_session, user_id: student1.id, classroom_activity_id: classroom_activity4.id, completed_at: Time.now, state: 'finished', percentage: 0.7)}
-      let! (:classroom_activity_with_activity_sessions_1) {create(:classroom_activity_with_activity_sessions)}
-      let! (:classroom_activity_with_activity_sessions_2) {create(:classroom_activity_with_activity_sessions)}
+      let! (:classroom_unit1) {create(:classroom_unit, classroom: classroom)}
+      let! (:classroom_unit2) {create(:classroom_unit, classroom: classroom)}
+      let! (:classroom_unit3) {create(:classroom_unit, classroom: classroom)}
+      let! (:classroom_unit4) {create(:classroom_unit, classroom: classroom)}
+      let! (:final_score) {create(:activity_session, user_id: student1.id, classroom_unit_id: classroom_unit1.id, is_final_score: true)}
+      let! (:not_final_score) {create(:activity_session, user_id: student1.id, classroom_unit_id: classroom_unit1.id)}
+      let! (:lower_percentage) {create(:activity_session, user_id: student1.id, classroom_unit_id: classroom_unit2.id, percentage: 0.3)}
+      let! (:higher_percentage) {create(:activity_session, user_id: student1.id, classroom_unit_id: classroom_unit2.id, percentage: 0.8)}
+      let! (:started) {create(:activity_session, user_id: student1.id, classroom_unit_id: classroom_unit3.id, started_at: Time.now)}
+      let! (:completed_earlier) {create(:activity_session, user_id: student1.id, classroom_unit_id: classroom_unit4.id, completed_at: Time.now - 5, state: 'finished', percentage: 0.7, activity: activity)}
+      let! (:completed_later) {create(:activity_session, user_id: student1.id, classroom_unit_id: classroom_unit4.id, completed_at: Time.now, state: 'finished', percentage: 0.7, activity: activity)}
+      let! (:classroom_unit_with_activity_sessions_1) {create(:classroom_unit_with_activity_sessions)}
+      let! (:classroom_unit_with_activity_sessions_2) {create(:classroom_unit_with_activity_sessions)}
 
-      describe '#merge_activity_sessions_between_two_classroom_activities' do
-        it 'moves all activity sessions from the first classroom activity to the second' do
-          old_ca_1_activity_session_ids = classroom_activity_with_activity_sessions_1.activity_sessions.ids
-          expect(old_ca_1_activity_session_ids).not_to be_empty
-          old_ca_2_activity_session_ids = classroom_activity_with_activity_sessions_2.activity_sessions.ids
-          TeacherFixes::merge_activity_sessions_between_two_classroom_activities(classroom_activity_with_activity_sessions_1.reload, classroom_activity_with_activity_sessions_2.reload)
-          new_ca_1_activity_session_ids = classroom_activity_with_activity_sessions_1.reload.activity_sessions.ids
-          new_ca_2_activity_session_ids = classroom_activity_with_activity_sessions_2.reload.activity_sessions.ids
-          expect(new_ca_1_activity_session_ids).to be_empty
-          expect(new_ca_2_activity_session_ids).to match_array(old_ca_2_activity_session_ids.concat(old_ca_1_activity_session_ids))
+      describe '#merge_activity_sessions_between_two_classroom_units' do
+        it 'moves all activity sessions from the first classroom unit to the second' do
+          old_cu_1_activity_session_ids = classroom_unit_with_activity_sessions_1.activity_sessions.ids
+          expect(old_cu_1_activity_session_ids).not_to be_empty
+          old_cu_2_activity_session_ids = classroom_unit_with_activity_sessions_2.activity_sessions.ids
+          TeacherFixes::merge_activity_sessions_between_two_classroom_units(classroom_unit_with_activity_sessions_1.reload, classroom_unit_with_activity_sessions_2.reload)
+          new_cu_1_activity_session_ids = classroom_unit_with_activity_sessions_1.reload.activity_sessions.ids
+          new_cu_2_activity_session_ids = classroom_unit_with_activity_sessions_2.reload.activity_sessions.ids
+          expect(new_cu_1_activity_session_ids).to be_empty
+          expect(new_cu_2_activity_session_ids).to match_array(old_cu_2_activity_session_ids.concat(old_cu_1_activity_session_ids))
         end
 
-        # it 'hides the first passed classroom activity' do
-        #   TeacherFixes::merge_activity_sessions_between_two_classroom_activities(classroom_activity_with_activity_sessions_1.reload, classroom_activity_with_activity_sessions_2.reload)
-        #   expect(classroom_activity_with_activity_sessions_1.reload.visible).not_to be
+        # it 'hides the first passed classroom unit' do
+        #   TeacherFixes::merge_activity_sessions_between_two_classroom_units(classroom_unit_with_activity_sessions_1.reload, classroom_unit_with_activity_sessions_2.reload)
+        #   expect(classroom_unit_with_activity_sessions_1.reload.visible).not_to be
         # end
       end
 
       describe "#hide_extra_activity_sessions" do
         context "there is an activity session with a final score" do
           it "leaves the activity session with a final score" do
-            TeacherFixes::hide_extra_activity_sessions(classroom_activity1.id, student1.id)
+            TeacherFixes::hide_extra_activity_sessions(classroom_unit1.id, student1.id)
             expect(final_score.visible).to be true
           end
 
-          it "hides all other activity sessions with that user id and classroom activity id" do
-            TeacherFixes::hide_extra_activity_sessions(classroom_activity1.id, student1.id)
-            expect(ActivitySession.where(classroom_activity_id: classroom_activity1.id, user_id: student1.id).length).to be 1
+          it "hides all other activity sessions with that user id and classroom unit id" do
+            TeacherFixes::hide_extra_activity_sessions(classroom_unit1.id, student1.id)
+            expect(ActivitySession.where(classroom_unit_id: classroom_unit1.id, user_id: student1.id).length).to be 1
           end
 
         end
 
         context "there are activities with percentages assigned" do
           it "leaves the activity session with the highest percentage" do
-            TeacherFixes::hide_extra_activity_sessions(classroom_activity2.id, student1.id)
+            TeacherFixes::hide_extra_activity_sessions(classroom_unit2.id, student1.id)
             expect(higher_percentage.visible).to be true
           end
 
-          it "hides all other activity sessions with that user id and classroom activity id" do
-            TeacherFixes::hide_extra_activity_sessions(classroom_activity2.id, student1.id)
-            expect(ActivitySession.where(classroom_activity_id: classroom_activity2.id, user_id: student1.id).length).to be 1
+          it "hides all other activity sessions with that user id and classroom unit id" do
+            TeacherFixes::hide_extra_activity_sessions(classroom_unit2.id, student1.id)
+            expect(ActivitySession.where(classroom_unit_id: classroom_unit2.id, user_id: student1.id).length).to be 1
           end
 
         end
 
         context "there are activities that have been started" do
           it "leaves the activity session that was started most recently" do
-            TeacherFixes::hide_extra_activity_sessions(classroom_activity3.id, student1.id)
+            TeacherFixes::hide_extra_activity_sessions(classroom_unit3.id, student1.id)
             expect(started.visible).to be true
           end
 
-          it "hides all other activity sessions with that user id and classroom activity id" do
-            TeacherFixes::hide_extra_activity_sessions(classroom_activity3.id, student1.id)
-            expect(ActivitySession.where(classroom_activity_id: classroom_activity3.id, user_id: student1.id).length).to be 1
+          it "hides all other activity sessions with that user id and classroom unit id" do
+            TeacherFixes::hide_extra_activity_sessions(classroom_unit3.id, student1.id)
+            expect(ActivitySession.where(classroom_unit_id: classroom_unit3.id, user_id: student1.id).length).to be 1
           end
 
         end
@@ -95,10 +95,10 @@ describe TeacherFixes do
       end
 
       describe("#move_activity_sessions") do
-        it 'finds or creates a classroom activity for the new classroom with that student assigned' do
+        it 'finds or creates a classroom unit for the new classroom with that student assigned' do
           TeacherFixes::move_activity_sessions(student1, classroom, classroom2)
           started.reload
-          new_ca = started.classroom_activity
+          new_ca = started.classroom_unit
           expect(new_ca.classroom).to eq(classroom2)
           expect(new_ca.assigned_student_ids).to include(student1.id)
           # expect(TeacherFixes::same_classroom?(student1.id, student2.id)).to be true
@@ -128,10 +128,10 @@ describe TeacherFixes do
           expect(classroom2.reload.students.length).to eq(all_students.length)
         end
 
-        it 'should move classroom activities to new classroom' do
-          all_classroom_activities = classroom.classroom_activities + classroom2.classroom_activities
+        it 'should move classroom units to new classroom' do
+          all_classroom_units = classroom.classroom_units + classroom2.classroom_units
           TeacherFixes::merge_two_classrooms(classroom.id, classroom2.id)
-          expect(classroom2.reload.classroom_activities.length).to eq(all_classroom_activities.length)
+          expect(classroom2.reload.classroom_units.length).to eq(all_classroom_units.length)
         end
 
         it 'should move teachers to new classroom' do
@@ -168,26 +168,26 @@ describe TeacherFixes do
         end
       end
 
-  describe '#merge_two_units and #merge_two_classroom_activities' do
+  describe '#merge_two_units and #merge_two_classroom_units' do
     let (:student_a) {create(:student)}
     let (:student_b) {create(:student)}
-    let! (:classroom_with_classroom_activities) {create(:classroom_with_classroom_activities, students: [student_a, student_b])}
-    let! (:unit_1) {create(:unit, user_id: classroom_with_classroom_activities.owner.id)}
-    let! (:unit_2) {create(:unit, user_id: classroom_with_classroom_activities.owner.id)}
-    let (:activity_session_1) {create(:activity_session, classroom_activity: classroom_with_classroom_activities.classroom_activities.first, user_id: student_a.id)}
-    let (:activity_session_2) {create(:activity_session, classroom_activity: classroom_with_classroom_activities.classroom_activities.last, user_id: student_b.id)}
+    let! (:classroom_with_classroom_units) {create(:classroom_with_classroom_units, students: [student_a, student_b])}
+    let! (:unit_1) {create(:unit, user_id: classroom_with_classroom_units.owner.id)}
+    let! (:unit_2) {create(:unit, user_id: classroom_with_classroom_units.owner.id)}
+    let (:activity_session_1) {create(:activity_session, classroom_unit: classroom_with_classroom_units.classroom_units.first, user_id: student_a.id)}
+    let (:activity_session_2) {create(:activity_session, classroom_unit: classroom_with_classroom_units.classroom_units.last, user_id: student_b.id)}
 
-    def ca_1
-      classroom_with_classroom_activities.classroom_activities.first
+    def cu_1
+      classroom_with_classroom_units.classroom_units.first
     end
 
-    def ca_2
-      classroom_with_classroom_activities.classroom_activities.last
+    def cu_2
+      classroom_with_classroom_units.classroom_units.last
     end
 
     def prep
-      ca_1.update(assigned_student_ids: [student_a.id], unit_id: unit_1.id)
-      ca_2.update(assigned_student_ids: [student_b.id], unit_id: unit_2.id, activity_id: ca_1.activity_id + 1)
+      cu_1.update(assigned_student_ids: [student_a.id], unit_id: unit_1.id)
+      cu_2.update(assigned_student_ids: [student_b.id], unit_id: unit_2.id)
       activity_session_1
       activity_session_2
     end
@@ -204,50 +204,42 @@ describe TeacherFixes do
         #   expect(unit_1.reload.visible).not_to be
         # end
 
-        it 'has no classroom activities' do
+        it 'has no classroom units' do
             TeacherFixes::merge_two_units(unit_1, unit_2)
-            expect(unit_1.reload.classroom_activities).to be_empty
+            expect(unit_1.reload.classroom_units.where(visible: true)).to be_empty
         end
       end
 
-      describe '#self.merge_two_classroom_activities' do
-        it 'is called when both units have a classroom activity with the same activity and classroom' do
-          ca_1.update(activity_id: ca_2.activity_id)
-          TeacherFixes.should receive(:merge_two_classroom_activities).with(ca_1.reload, ca_2.reload)
+      describe '#self.merge_two_classroom_units' do
+        it 'is called when both units have a classroom unit with the same classroom' do
+          TeacherFixes.should receive(:merge_two_classroom_units).with(cu_1.reload, cu_2)
           TeacherFixes::merge_two_units(unit_1, unit_2)
         end
 
-        it 'is not called when both units do not have a classroom activity with the same activity and classroom' do
-          TeacherFixes.should_not receive(:merge_two_classroom_activities).with(ca_1, ca_2)
+        it 'is not called when both units do not have a classroom unit with the same classroom' do
+          cu_2.update(classroom: classroom2)
+          TeacherFixes.should_not receive(:merge_two_classroom_units).with(cu_1, cu_2.reload)
           TeacherFixes::merge_two_units(unit_1, unit_2)
         end
       end
-
-      it "changes first unit's Classroom Activities' unit_ids to unit_two if they have a different activity_id than classroom_activities in unit two" do
-        expect(ca_1.unit_id).not_to eq(unit_2.id)
-        ca_1.update(activity_id: ca_2.activity_id + 1)
-        TeacherFixes::merge_two_units(unit_1, unit_2)
-        expect(ca_1.reload.unit_id).to eq(unit_2.id)
-      end
-
     end
 
 
 
-    describe '#merge_two_classroom_activities' do
+    describe '#merge_two_classroom_units' do
 
       it 'moves all assigned students from the first activity to the second' do
         prep
-        expect(ca_1.assigned_student_ids).not_to be_empty
-        all_assigned_students = ca_1.assigned_student_ids.push(ca_2.assigned_student_ids).flatten.uniq
-        TeacherFixes::merge_two_classroom_activities(ca_1.reload, ca_2.reload)
-        expect(ca_2.reload.assigned_student_ids).to eq(all_assigned_students)
+        expect(cu_1.assigned_student_ids).not_to be_empty
+        all_assigned_students = cu_1.assigned_student_ids.push(cu_2.assigned_student_ids).flatten.uniq
+        TeacherFixes::merge_two_classroom_units(cu_1.reload, cu_2.reload)
+        expect(cu_2.reload.assigned_student_ids).to eq(all_assigned_students)
       end
 
-      it 'calls #self.merge_activity_sessions_between_two_classroom_activities' do
+      it 'calls #self.merge_activity_sessions_between_two_classroom_units' do
         prep
-        TeacherFixes.should receive(:merge_activity_sessions_between_two_classroom_activities).with(ca_1, ca_2)
-        TeacherFixes::merge_two_classroom_activities(ca_1.reload, ca_2.reload)
+        TeacherFixes.should receive(:merge_activity_sessions_between_two_classroom_units).with(cu_1, cu_2)
+        TeacherFixes::merge_two_classroom_units(cu_1.reload, cu_2.reload)
       end
     end
   end

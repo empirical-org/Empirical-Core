@@ -15,9 +15,9 @@
   <%= form_for [:cms, @activity_classification, @activity, @recommendation, @criterion ] do |f| %>
     <%= f.label :concept_id, 'Concept' %>
     <%= f.collection_select :concept_id,
-      Concept.all.sort_by { |c| c.name },
+      Concept.where("concepts.visible = 'true' and concepts.parent_id is not null").joins(:parent).where("parents_concepts.parent_id is not null").sort_by { |c| c.lineage },
       :id,
-      :name
+      :lineage
     %>
     <%= f.label :no_incorrect %>
     <%= f.check_box :no_incorrect, {}, 'true', 'false' %>

@@ -27,6 +27,9 @@ import scoreAnalysis from './scoreAnalysis';
 import sentenceFragments from './sentenceFragments';
 import sessions from './sessions';
 import titleCards from './titleCards';
+import connectSentenceCombining from './connectSentenceCombining';
+import connectSentenceFragments from './connectSentenceFragments';
+import connectFillInBlank from './connectFillInBlank';
 
 const combinedReducers = combineReducers({
   classroomLesson,
@@ -55,7 +58,10 @@ const combinedReducers = combineReducers({
   scoreAnalysis,
   sentenceFragments,
   sessions,
-  titleCards
+  titleCards,
+  connectSentenceCombining,
+  connectSentenceFragments,
+  connectFillInBlank
 });
 
 export default combinedReducers;
