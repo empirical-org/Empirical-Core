@@ -22,7 +22,8 @@ export default class DiagnosticMini extends React.Component {
       const parsedResponse = JSON.parse(response)
       that.setState({
         unitInfo: parsedResponse.unit_info,
-        numberOfFinishedStudents: parsedResponse.number_of_finished_students
+        numberOfFinishedStudents: parsedResponse.number_of_finished_students,
+        status: parsedResponse.status
       });
     });
   }
