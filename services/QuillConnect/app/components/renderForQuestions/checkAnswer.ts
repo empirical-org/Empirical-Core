@@ -16,8 +16,6 @@ export default function checkAnswer(question, response, responses, mode='default
     incorrectSequences: question.incorrectSequences ? hashToCollection(_.compact(question.incorrectSequences)) : [],
     defaultConceptUID
   };
-  const newResponse = mode === 'default'
-    ? checkSentenceCombining(fields.questionUID, response, fields.responses, fields.focusPoints, fields.incorrectSequences, fields.defaultConceptUID)
-    : checkDiagnosticQuestion(fields.questionUID, response, fields.responses, fields.defaultConceptUID)
+  const newResponse = checkSentenceCombining(fields.questionUID, response, fields.responses, fields.focusPoints, fields.incorrectSequences, fields.defaultConceptUID)
   return {response: newResponse};
 }
