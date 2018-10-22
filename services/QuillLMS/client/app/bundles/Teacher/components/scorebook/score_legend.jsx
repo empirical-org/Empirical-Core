@@ -38,7 +38,7 @@ export default React.createClass({
 								</div>
 								<div className="icon">
 									<div className="icon-wrapper icon-progress">
-										<img className="in-progress-symbol" src="http://assets.quill.org/images/scorebook/blue-circle-sliced.svg" />
+										<img className="in-progress-symbol" src="https://assets.quill.org/images/scorebook/blue-circle-sliced.svg" />
 									</div>
 									<div className="icons-description-wrapper">
 										<p className="title">In Progress</p>
