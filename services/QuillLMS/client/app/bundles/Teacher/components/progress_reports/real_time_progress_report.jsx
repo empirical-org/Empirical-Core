@@ -65,7 +65,7 @@ export default class extends React.Component {
 
   humanTime(timeInSeconds) {
     let result = '';
-    if (timeInSeconds / 60 > 1) {
+    if (timeInSeconds / 60 >= 1) {
       result += `${moment.duration(timeInSeconds / 60, 'minutes').humanize()} and `;
     }
     result += `${timeInSeconds % 60} seconds`;
