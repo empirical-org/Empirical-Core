@@ -5,7 +5,7 @@ import * as request from 'request';
 import * as _ from 'lodash';
 import { stringNormalize } from 'quill-string-normalizer'
 
-const questionIconSrc = 'https://assets.quill.org/images/icons/question_icon.svg'
+const questionIconSrc = `${process.env.QUILL_CDN_URL}/images/icons/question_icon.svg`
 
 import getParameterByName from '../../helpers/getParameterByName';
 import { startListeningToActivity } from "../../actions/proofreaderActivities";
@@ -417,7 +417,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
                   correct: 1,
                   instructions: currentActivity.description,
                   prompt: originalText,
-                  questionNumber: id + 1,
+                  questionNumber: Number(id) + 1,
                   unchanged: true,
                 },
                 concept_uid: conceptUID,
@@ -431,7 +431,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
                   correct: 0,
                   instructions: currentActivity.description,
                   prompt: originalText,
-                  questionNumber: id + 1,
+                  questionNumber: Number(id) + 1,
                   unchanged: true,
                 },
                 concept_uid: conceptUID,
