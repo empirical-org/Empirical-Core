@@ -107,7 +107,8 @@ const PlaySentenceFragment = React.createClass<any, any>({
       const key = this.props.currentKey;
       const { attempts, } = this.props.question;
       this.setState({ checkAnswerEnabled: false, }, () => {
-        const { prompt, wordCountChange, ignoreCaseAndPunc, incorrectSequences, focusPoints } = this.getQuestion();
+        const { prompt, wordCountChange, ignoreCaseAndPunc, incorrectSequences, focusPoints, concept_uid, modelConceptUID, conceptID } = this.getQuestion();
+        const defaultConceptUID = modelConceptUID || concept_uid || conceptID
         const responses = hashToCollection(this.getResponses())
         const fields = {
           question_uid: key,
@@ -119,7 +120,8 @@ const PlaySentenceFragment = React.createClass<any, any>({
           incorrectSequences,
           focusPoints,
           checkML: false,
-          mlUrl: 'https://nlp.quill.org'
+          mlUrl: 'https://nlp.quill.org',
+          defaultConceptUID
         }
         checkDiagnosticSentenceFragment(fields).then((resp) => {
           const matched = {response: resp}
@@ -155,6 +157,14 @@ const PlaySentenceFragment = React.createClass<any, any>({
               return <ConceptExplanation {...data} />;
             }
           }
+        } else if (!latestAttempt.response.optimal && latestAttempt.response.conceptResults) {
+            const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.response.conceptResults);
+            if (conceptID) {
+              const data = this.props.conceptsFeedback.data[conceptID.conceptUID];
+              if (data) {
+                return <ConceptExplanation {...data} />;
+              }
+            }
         } else if (this.getQuestion() && this.getQuestion().modelConceptUID) {
           const dataF = this.props.conceptsFeedback.data[this.getQuestion().modelConceptUID];
           if (dataF) {

@@ -99,7 +99,7 @@ exports[`ScoreLegend component should render 1`] = `
       >
         <img
           className="in-progress-symbol"
-          src="http://assets.quill.org/images/scorebook/blue-circle-sliced.svg"
+          src="https://assets.quill.org/images/scorebook/blue-circle-sliced.svg"
         />
       </div>
       <div

@@ -8,7 +8,7 @@ type ConceptsFeedbackAction = Action & { data: ConceptFeedback[], cid: string }
 export interface ConceptsFeedbackState {
   hasreceiveddata: boolean,
   submittingnew: boolean,
-  data: ConceptFeedback[],
+  data: {[key:string]: ConceptFeedback},
   states: {[key: string]: string},
   newConceptModalOpen: boolean
 }
