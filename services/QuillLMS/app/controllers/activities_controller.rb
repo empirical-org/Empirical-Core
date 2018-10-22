@@ -1,7 +1,7 @@
 class ActivitiesController < ApplicationController
   before_action :activity, only: [:update]
   before_filter :set_activity_by_lesson_id, only: [:preview_lesson]
-  before_filter :set_activity, only: [:supporting_info, :customize_lesson]
+  before_filter :set_activity, only: [:supporting_info, :customize_lesson, :name_and_id, :last_unit_template]
 
   def search
     search_result = $redis.get("default_#{current_user&.testing_flag ? current_user&.testing_flag + '_' : nil}activity_search") || custom_search
@@ -15,6 +15,21 @@ class ActivitiesController < ApplicationController
 
   def diagnostic
     render 'pages/diagnostic'
+  end
+
+  def name_and_id
+    if @activity
+      render json: { name: @activity.name, id: @activity.id }
+    end
+  end
+
+  def last_unit_template
+    if @activity
+      unit_template = @activity.unit_templates&.last
+      if unit_template
+        render json: { name: unit_template.name, id: unit_template.id }
+      end
+    end
   end
 
   def preview_lesson
@@ -64,7 +79,7 @@ protected
   end
 
   def activity
-    @activity ||= Activity.find(params[:id])
+    @activity ||= Activity.find_by_id_or_uid(params[:id])
   end
 
   def search_params
