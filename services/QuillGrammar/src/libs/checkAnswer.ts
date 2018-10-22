@@ -9,6 +9,6 @@ export default function checkAnswer(question, response, responses, mode= 'defaul
     questionUID: question.key
   };
   const defaultConceptUID = question.modelConceptUID || question.concept_uid
-  const responseObj = checkGrammarQuestion(questionUID, response, responses, defaultConceptUID)
-  return {response: newResponse};
+  const responseObj = checkGrammarQuestion(fields.questionUID, response, fields.responses, defaultConceptUID)
+  return {response: responseObj};
 }
