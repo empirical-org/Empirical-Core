@@ -1,9 +1,9 @@
 import * as React from 'react'
 
 import { Concept } from '../../interfaces/concepts'
-const notNecessaryIconSrc = 'http://localhost:45537/images/icons/not_necessary_icon.png'
-const incorrectIconSrc = 'http://localhost:45537/images/icons/incorrect_icon.png'
-const correctIconSrc = 'http://localhost:45537/images/icons/correct_icon.png'
+const notNecessaryIconSrc = `${process.env.QUILL_CDN_URL}/images/icons/not_necessary_icon.png`
+const incorrectIconSrc = `${process.env.QUILL_CDN_URL}/images/icons/incorrect_icon.png`
+const correctIconSrc = `${process.env.QUILL_CDN_URL}/images/icons/correct_icon.png`
 
 interface EditProps {
   displayText: string;
@@ -45,11 +45,11 @@ export default class Edit extends React.Component<EditProps, any> {
     if (correctAnswerArray.length > 1) {
       correctAnswers = correctAnswerArray.map(ca => <li>{ca}</li>)
       correctAnswerHTML = <ul>{correctAnswers}</ul>
-      labelText = 'Correct Edits'
+      labelText = 'Correct Edits:'
     } else {
       correctAnswers = correctAnswerArray[0]
       correctAnswerHTML = <p>{correctAnswers}</p>
-      labelText = 'Correct Edit'
+      labelText = 'Correct Edit:'
     }
     return <div>
       <p className="label">{labelText}</p>
