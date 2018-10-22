@@ -28,7 +28,11 @@ class ActivitiesController < ApplicationController
       unit_template = @activity.unit_templates&.last
       if unit_template
         render json: { name: unit_template.name, id: unit_template.id }
+      else
+        render json: {}
       end
+    else
+      render json: {}
     end
   end
 
