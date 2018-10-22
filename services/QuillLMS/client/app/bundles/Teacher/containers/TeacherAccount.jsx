@@ -1,6 +1,6 @@
 import React from 'react';
 import MySubscription from '../components/subscriptions/my_subscription.jsx';
-import SelectSchool from '../components/accounts/school/select_school';
+import SelectSchoolType from '../components/accounts/new/select_school_type';
 import ItemDropdown from '../components/general_components/dropdown_selectors/item_dropdown.jsx'
 import $ from 'jquery';
 import LoadingSpinner from '../components/shared/loading_indicator.jsx';
