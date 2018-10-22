@@ -461,11 +461,16 @@ module Teacher
   end
 
   def referral_code
-    self.referrer_user.referral_code
+    ru = self.referrer_user
+    if ru.present?
+      ru.referral_code
+    else
+      self.generate_referrer_id.referral_code
+    end
   end
 
    def referral_link
-    Rails.application.routes.url_helpers.root_url(referral_code: self.referrer_user.referral_code)
+    Rails.application.routes.url_helpers.root_url(referral_code: self.referral_code)
   end
 
   def referrals
@@ -492,6 +497,10 @@ module Teacher
     ").to_a.any?
   end
 
+  def generate_referrer_id
+    ReferrerUser.create(user_id: self.id, referral_code: self.name.downcase.gsub(/[^a-z ]/, '').gsub(' ', '-') + '-' + self.id.to_s)
+  end
+
   private
 
   def base_sql_for_teacher_classrooms(only_visible_classrooms=true)
@@ -499,5 +508,7 @@ module Teacher
     JOIN classrooms ON ct.classroom_id = classrooms.id #{only_visible_classrooms ? ' AND classrooms.visible = TRUE' : nil}
     WHERE ct.user_id = #{self.id}"
   end
+
+  
 
 end
