@@ -8,14 +8,14 @@ import { sendActivitySessionInteractionLog } from '../../libs/sendActivitySessio
 
 export default function checkAnswer(question, response, responses, mode='default') {
   sendActivitySessionInteractionLog(getParameterByName('student'), { info: 'answer check', current_question: question.key })
+  const defaultConceptUID = question.modelConceptUID || question.conceptID
   const fields = {
     responses: responses ? hashToCollection(responses) : [],
     questionUID: question.key,
     focusPoints: question.focusPoints ? hashToCollection(question.focusPoints): [],
     incorrectSequences: question.incorrectSequences ? hashToCollection(_.compact(question.incorrectSequences)) : [],
+    defaultConceptUID
   };
-  const newResponse = mode === 'default'
-    ? checkSentenceCombining(fields.questionUID, response, fields.responses, fields.focusPoints, fields.incorrectSequences)
-    : checkDiagnosticQuestion(fields.questionUID, response, fields.responses)
+  const newResponse = checkSentenceCombining(fields.questionUID, response, fields.responses, fields.focusPoints, fields.incorrectSequences, fields.defaultConceptUID)
   return {response: newResponse};
 }

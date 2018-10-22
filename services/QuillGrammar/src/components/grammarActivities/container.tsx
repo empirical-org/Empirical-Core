@@ -76,7 +76,6 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
     }
 
     componentWillReceiveProps(nextProps: PlayGrammarContainerProps) {
-      console.log(JSON.stringify(nextProps))
       if (nextProps.grammarActivities.hasreceiveddata && !nextProps.session.hasreceiveddata && !nextProps.session.error) {
         const concepts = nextProps.grammarActivities.currentActivity.concepts
         this.props.dispatch(startListeningToQuestions(concepts))
@@ -97,23 +96,20 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
 
     saveToLMS(questions: SessionState) {
       const { answeredQuestions } = questions
-      const results = getConceptResultsForAllQuestions(answeredQuestions);
+      const proofreaderSessionId = getParameterByName('proofreaderSessionId', window.location.href)
       const score = calculateScoreForLesson(answeredQuestions);
       const activityUID = getParameterByName('uid', window.location.href)
       const sessionID = getParameterByName('student', window.location.href)
-      const proofreaderSessionId = getParameterByName('proofreaderSessionId', window.location.href)
+      let results
       if (window.location.href.includes('turk')) {
         this.setState({showTurkCode: true})
       }
-      if (sessionID) {
-        this.finishActivitySession(sessionID, results, score);
-      } else if (activityUID) {
-        this.createAnonActivitySession(activityUID, results, score);
-      } else if (proofreaderSessionId) {
+      if (proofreaderSessionId) {
         const { proofreaderSession } = this.props.session
         const proofreaderConceptResults = proofreaderSession.conceptResults
         const numberOfGrammarQuestions = answeredQuestions.length
         const numberOfProofreaderQuestions = proofreaderConceptResults.length
+        results = getConceptResultsForAllQuestions(answeredQuestions, numberOfProofreaderQuestions);
         const proofreaderAndGrammarResults = proofreaderConceptResults.concat(results)
         const correctProofreaderQuestions = proofreaderConceptResults.filter(cr => cr.metadata.correct === 1)
         const proofreaderScore = correctProofreaderQuestions.length / numberOfProofreaderQuestions
@@ -123,6 +119,13 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
           this.createAnonActivitySession(proofreaderActivityUID, proofreaderAndGrammarResults, totalScore)
         } else {
           this.finishActivitySession(proofreaderSessionId, proofreaderAndGrammarResults, totalScore)
+        }
+      } else {
+        results = getConceptResultsForAllQuestions(answeredQuestions);
+        if (sessionID) {
+          this.finishActivitySession(sessionID, results, score);
+        } else if (activityUID) {
+          this.createAnonActivitySession(activityUID, results, score);
         }
       }
     }
@@ -194,6 +197,7 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
           checkAnswer={this.checkAnswer}
           conceptsFeedback={this.props.conceptsFeedback}
           key={this.props.session.currentQuestion.key}
+          concepts={this.props.concepts}
         />
       } else if (this.props.session.error) {
         return (
@@ -209,7 +213,8 @@ const mapStateToProps = (state: any) => {
     return {
         grammarActivities: state.grammarActivities,
         session: state.session,
-        conceptsFeedback: state.conceptsFeedback
+        conceptsFeedback: state.conceptsFeedback,
+        concepts: state.concepts
     };
 };
 

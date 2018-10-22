@@ -1,6 +1,8 @@
 import React from 'react';
 import {Form, Input, Cascader, Button} from 'antd';
 import { Query } from "react-apollo";
+import { TextEditor } from 'quill-component-library/dist/componentLibrary'
+import { EditorState, ContentState } from 'draft-js'
 import gql from '../../../../node_modules/graphql-tag';
 const FormItem = Form.Item;
 
@@ -51,7 +53,14 @@ const ConceptForm = Form.create({
       <FormItem label="Concept Description">
         {getFieldDecorator('description', {
           rules: [{ required: false }],
-        })(<Input.TextArea autosize={{minRows: 2}} />)}
+        })(<div style={{ border: '1px solid #d9d9d9', padding: '4px 11px' }}>
+          <TextEditor
+            text={props.description.value}
+            handleTextChange={(e) => props.onChange({description: { value: e, name: 'description' }})}
+            EditorState={EditorState}
+            ContentState={ContentState}
+          />
+        </div>)}
       </FormItem>
       <Query
         query={gql(parentConceptsQuery())}

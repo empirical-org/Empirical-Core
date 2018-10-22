@@ -26,7 +26,7 @@ export default React.createClass({
   },
 
   getLandingPageHTML() {
-    if (this.props.landingPageHtml) {
+    if (this.props.landingPageHtml && this.props.landingPageHtml !== '<br/>') {
       return this.props.landingPageHtml
     } else {
       return (<div>
