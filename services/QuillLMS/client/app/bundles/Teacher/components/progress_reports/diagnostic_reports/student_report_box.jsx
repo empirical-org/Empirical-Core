@@ -55,7 +55,7 @@ export default React.createClass({
 										<tr className={ScoreColor(data.score)}>
 											<td>Submission</td>
 											<td></td>
-											<td><span style={{ whiteSpace: 'preWrap' }}>{this.answer()}</span></td>
+											<td><span style={{ whiteSpace: 'pre-wrap' }}>{this.answer()}</span></td>
 										</tr>
 										{this.concepts()}
 	        				</tbody>
