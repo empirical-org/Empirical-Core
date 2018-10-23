@@ -2624,8 +2624,9 @@ CREATE TABLE users (
     last_active timestamp without time zone,
     stripe_customer_id character varying,
     flags character varying[] DEFAULT '{}'::character varying[] NOT NULL,
+    title character varying,
     time_zone character varying,
-    title character varying
+    account_type character varying DEFAULT 'unknown'::character varying
 );
 
 

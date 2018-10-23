@@ -78,6 +78,7 @@ export default React.createClass({
       user: {
         first_name: firstName,
         last_name: lastName,
+        account_type: 'Teacher Created Account'
       },
     })
 

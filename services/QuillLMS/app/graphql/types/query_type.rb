@@ -20,4 +20,17 @@ class Types::QueryType < Types::BaseObject
     return Concept.where(parent_id: nil) if level_two_only
     return Concept.all
   end
+
+  field :activities, [Types::ActivityType], null: false
+
+  def activities
+    return Activity.all
+  end
+
+
+  field :activity_categories, [Types::ActivityCategoryType], null: false
+
+  def activity_categories
+    return ActivityCategory.all
+  end
 end
