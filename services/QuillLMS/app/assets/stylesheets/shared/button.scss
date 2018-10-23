@@ -64,8 +64,6 @@
 }
 
 .button {
-  font-style: normal;
-  font-stretch: normal;
   line-height: 1;
   letter-spacing: normal;
   text-align: center;
@@ -99,35 +97,43 @@
       width: 121px;
     }
   }
+  &.outlined {
+    border: solid 1px #bdbdbd;
+    background-color: white;
+    font-weight: 600;
+  }
+  &.contained {
+    font-weight: bold;
+  }
   &.primary {
     &.contained {
       color: #ffffff;
       background-color: #01c2a2;
-      font-weight: bold;
       &:hover, &:focus {
         background-color: #00a47c;
       }
     }
     &.outlined {
-      border: solid 1px #bdbdbd;
       background-color: #ffffff;
       color: #009a80;
-      font-weight: 600;
       &:hover, &:focus {
         background-color: #f6fcfa;
+        font-weight: bold;
       }
     }
   }
   &.secondary {
     &.outlined {
-      border: solid 1px #bdbdbd;
       color: #000;
       &:hover, &:focus {
         background-color: #f5f5f5;
       }
     }
+  }
+  &.disabled {
+    color: #878787;
     &.contained {
-
+      background-color: #cccccc;
     }
   }
 
