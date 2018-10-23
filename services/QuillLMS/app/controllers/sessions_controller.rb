@@ -35,11 +35,13 @@ class SessionsController < ApplicationController
     params[:user][:email].downcase! unless params[:user][:email].nil?
     @user =  User.find_by_username_or_email(params[:user][:email])
     if @user.nil?
-      render json: {message: 'Incorrect username/email or password'}, status: 401
+      render json: {message: 'An account with this email or username does not exist. Try again.', type: 'email'}, status: 401
     elsif @user.signed_up_with_google
-      render json: {message: 'You signed up with Google, please log in with Google using the link above.'}, status: 401
+      render json: {message: 'Oops! You have a Google account. Log in that way instead.', type: 'email'}, status: 401
+    elsif @user.clever_id
+      render json: {message: 'Oops! You have a Clever account. Log in that way instead.', type: 'email'}, status: 401
     elsif @user.password_digest.nil?
-      render json: {message: 'Did you sign up with Google? If so, please log in with Google using the link above.'}, status: 401
+      render json: {message: 'Did you sign up with Google? If so, please log in with Google using the link above.', type: 'email'}, status: 401
     elsif @user.authenticate(params[:user][:password])
       sign_in(@user)
       if session[:post_auth_redirect].present?
@@ -56,7 +58,7 @@ class SessionsController < ApplicationController
         render json: {redirect: '/'}
       end
     else
-      render json: {message: 'Incorrect username/email or password'}, status: 401
+      render json: {message: 'Wrong password. Try again or click Forgot password to reset it.', type: 'password'}, status: 401
     end
   end
 
