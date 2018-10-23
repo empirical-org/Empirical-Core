@@ -43,9 +43,9 @@ class Activity < ActiveRecord::Base
 
   def self.find_by_id_or_uid(arg)
     begin
-      find(arg)
+      find_by!(uid: arg)
     rescue ActiveRecord::RecordNotFound
-      find_by(uid: arg)
+      find(arg)
     rescue ActiveRecord::RecordNotFound
       raise ActiveRecord::RecordNotFound.new(
         "Couldn't find Activity with 'id' or 'uid'=#{arg}"
