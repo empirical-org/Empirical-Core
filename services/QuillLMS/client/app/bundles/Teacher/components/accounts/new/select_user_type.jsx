@@ -66,32 +66,6 @@ class SelectUserType extends React.Component {
         <p className="return-to-login">Already have an account? <a href="/session/new">Log in</a></p>
       </div>
     )
-    // return (
-    //   <div className='container account-form' id='sign-up'>
-    //     <div className='row sign_up_select_role'>
-    //         <div className='row'>
-    //           <h3 className='col-xs-12'>
-    //             Sign up for Quill as:
-    //           </h3>
-    //         </div>
-    //         <div className='option-wrapper'>
-    //           <Link to="#">
-    //             <button onClick={this.setTeacherRoleOnSession} className='button-green'>
-    //               Educator
-    //             </button>
-    //           </Link>
-    //           <Link to="#">
-    //             <button onClick={this.setStudentRoleOnSession} className='button-green'>
-    //               Student
-    //             </button>
-    //           </Link>
-    //         </div>
-    //         <div className='row'>
-    //           <div className='col-xs-12'>Already signed up? <a href='/session/new'>Return to Login</a></div>
-    //         </div>
-    //     </div>
-    //   </div>
-    // )
   }
 }
 export default SelectUserType

@@ -104,6 +104,7 @@
   }
   &.contained {
     font-weight: bold;
+    border: none;
   }
   &.primary {
     &.contained {
@@ -131,7 +132,7 @@
     }
   }
   &.disabled {
-    color: #878787;
+    color: #878787 !important;
     &.contained {
       background-color: #cccccc;
     }

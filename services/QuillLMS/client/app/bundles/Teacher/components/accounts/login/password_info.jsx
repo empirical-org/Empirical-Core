@@ -1,47 +1,30 @@
-import React, { Component } from 'react';
-import ReactOnRails from 'react-on-rails';
+import React from 'react';
+const bulbSrc = `${process.env.CDN_URL}/images/onboarding/bulb.svg`
 
-class PasswordInfo extends Component {
+export default class PasswordInfo extends React.Component {
   passwordHintBox() {
     if (this.props.showHintBox) {
       return (
         <div className="password-hint">
-          <h4>Password not working? Here is a hint:</h4>
-          <p>
-            If your teacher created your account, your username is your first
-            and last name combined with your classcode. For example:
-          </p>
-          <div>
-            <code>
-              John.Smith@magic-apple
-            </code>
+          <h3><span>Having trouble signing in? Here's a hint:</span> <img src={bulbSrc}/></h3>
+          <div className="username">
+            <p>Example username:</p>
+            <p className="example">jane.smith@magic-apple</p>
+            <p>Your username is your first and last name combined with your class code.</p>
           </div>
-          <p>
-            Your password is your last name with the first letter capitalized.
-          <br />
-            For example:
-            <div>
-              <code>
-                Smith
-              </code>
-            </div>
-          </p>
+          <div className="password">
+            <p>Example password:</p>
+            <p>Smith</p>
+            <p>Your password might be your last name with the first letter capitalized.</p>
+          </div>
         </div>
       );
+    } else {
+      return <span/>
     }
   }
 
   render() {
-    return (
-      <div>
-        <div className="password-and-signup">
-          <a href="/password_reset">Forgot your password?</a>
-          <a href="/account/new">New to Quill? Sign up here</a>
-        </div>
-        {this.passwordHintBox()}
-      </div>
-    );
+    return this.passwordHintBox();
   }
 }
-
-export default PasswordInfo;
