@@ -59,8 +59,13 @@ module GoogleIntegration::Classroom::Creators::Students
                        role: 'student',
                        password: data[:last_name],
                        username: username,
-                       signed_up_with_google: true)
+                       signed_up_with_google: true,
+                       account_type: 'Google Classroom'
+                      )
+      else
+        student.update(account_type: 'Google Classroom')
       end
+
       if student.errors.any?
         student = self.create_student(data, counter += 1)
       else
