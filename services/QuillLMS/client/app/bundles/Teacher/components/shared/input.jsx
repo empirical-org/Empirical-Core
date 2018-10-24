@@ -13,6 +13,12 @@ export default class Input extends React.Component {
     this.acknowledgeError = this.acknowledgeError.bind(this)
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.error !== this.props.error && this.state.errorAcknowledged) {
+      this.setState({ errorAcknowledged: false, })
+    }
+  }
+
   activateInput() {
     this.setState({ inactive: false, }, () => this.input.focus())
   }
@@ -39,7 +45,6 @@ export default class Input extends React.Component {
 
   renderErrorText() {
     const { error } = this.props
-    const { errorAcknowledged } = this.state
     if (error) {
       return <span className="error-text">{error}</span>
     }
