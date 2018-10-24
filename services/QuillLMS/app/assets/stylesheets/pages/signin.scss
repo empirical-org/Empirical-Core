@@ -1,6 +1,10 @@
 // SIGN IN
+//
+.account-form {
+  padding-bottom: 140px;
+}
 
-.password-hint {
+#password-hint {
   width: 444px;
   height: 380px;
   border-radius: 6px;
@@ -9,7 +13,31 @@
   margin: auto;
   h3 {
     font-size: 16px;
+    display: flex;
+    justify-content: space-between;
     font-weight: bold;
+    align-items: flex-start;
+  }
+  div {
+    margin-top: 32px;
+    &:first-of-type {
+      margin-top: 24px;
+    }
+    p {
+      font-size: 14px;
+      line-height: 1.57;
+      color: #646464;
+      margin-bottom: 8px
+    }
+    .example {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 14px;
+      line-height: 1.0;
+      color: #000000;
+      border-bottom: 1px solid #d0d0d0;
+      padding-bottom: 8px;
+      display: inline-block;
+    }
   }
 }
 
@@ -125,11 +153,6 @@
     label {
       margin-top: 34px;
     }
-    &.email {
-      label {
-        margin-top: 13px;
-      }
-    }
   }
 
   .forget-and-show-password {
@@ -157,6 +180,8 @@
   margin: 32px 0px;
   font-size: 14px;
   color: #646464;
+  display: flex;
+  justify-content: center;
   a {
     color: #009a80;
   }
