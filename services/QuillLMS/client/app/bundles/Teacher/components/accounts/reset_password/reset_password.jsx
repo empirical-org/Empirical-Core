@@ -8,14 +8,16 @@ const bulbSrc = `${process.env.CDN_URL}/images/onboarding/bulb.svg`
 export default class ForgotPassword extends React.Component {
   constructor() {
     super();
-    this.handlePasswordChange = this.handlePasswordChange.bind(this);
-    this.handlePasswordConfirmationChange = this.handlePasswordConfirmationChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+
     this.state = {
       password: '',
       passwordConfirmation: '',
       errors: {}
     };
+
+    this.handlePasswordChange = this.handlePasswordChange.bind(this);
+    this.handlePasswordConfirmationChange = this.handlePasswordConfirmationChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handlePasswordChange(e) {
@@ -37,7 +39,7 @@ export default class ForgotPassword extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     request({
-      url: `${process.env.DEFAULT_URL}/password_reset/${this.props.user.id}`,
+      url: window.location.href,
       method: 'PUT',
       json: {
         user: {
@@ -58,7 +60,7 @@ export default class ForgotPassword extends React.Component {
           errors[body.type] = body.message
           state = { lastUpdate: new Date(), errors, }
         } else {
-          let message = 'An account with this email does not exist. Try again.';
+          let message = "Those passwords didn't match. Try again.";
           if (httpResponse.statusCode === 429) {
             message = 'Too many failed attempts. Please wait one minute and try again.';
           }
@@ -72,42 +74,30 @@ export default class ForgotPassword extends React.Component {
   render() {
     return (
       <div className="container account-form reset-password">
-        <h3>Reset Your Password</h3>
+        <h1>Reset Password</h1>
 
-        <div>
-          <div>
-            <form onSubmit={this.handleSubmit} acceptCharset="UTF-8" >
-              <input name="utf8" type="hidden" value="✓" />
-              <input value={this.state.authToken} type="hidden" name="authenticity_token" />
-              <Input
-                label="Password"
-                value={this.state.password}
-                handleChange={this.handlePasswordChange}
-                type="text"
-                className="password"
-                error={this.state.errors.password}
-              />
-              <Input
-                label="Confirm password"
-                value={this.state.passwordConfirmation}
-                handleChange={this.handlePasswordConfirmationChange}
-                type="text"
-                className="password-confirmation"
-                error={this.state.errors.password_confirmation}
-              />
-              <input type="submit" name="commit" value="Save and log in" className={this.submitClass()} />
-            </form>
-          </div>
-        </div>
-
-        <div className="student-info-box">
-          <h3><span>Need your teacher to reset your password? Share these instructions:</span> <img src={bulbSrc}/></h3>
-          <ol>
-            <li>Sign in to your teacher account</li>
-            <li>Click on the "Classes" tab, and then click on "Edit Students"</li>
-            <li>Find the student, and click on "Edit Account"</li>
-            <li>Click on "Reset password to last name"</li>
-          </ol>
+        <div className="reset-password-form-container">
+          <form onSubmit={this.handleSubmit} acceptCharset="UTF-8" >
+            <input name="utf8" type="hidden" value="✓" />
+            <input value={this.state.authToken} type="hidden" name="authenticity_token" />
+            <Input
+              label="Password"
+              value={this.state.password}
+              handleChange={this.handlePasswordChange}
+              type="password"
+              className="password"
+              error={this.state.errors.password}
+            />
+            <Input
+              label="Confirm password"
+              value={this.state.passwordConfirmation}
+              handleChange={this.handlePasswordConfirmationChange}
+              type="password"
+              className="password-confirmation"
+              error={this.state.errors.password_confirmation}
+            />
+            <input type="submit" name="commit" value="Save and log in" className={this.submitClass()} />
+          </form>
         </div>
 
       </div>
