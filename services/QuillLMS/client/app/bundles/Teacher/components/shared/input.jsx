@@ -21,6 +21,15 @@ export default class Input extends React.Component {
     this.setState({ errorAcknowledged: true }, () => this.input.focus())
   }
 
+  handleTab(event) {
+    if (event.key === 'Tab') {
+      const form = event.target.form;
+      const index = Array.prototype.indexOf.call(form, event.target);
+      form.elements[index + 1].focus();
+      event.preventDefault();
+    }
+  }
+
   renderHelperText() {
     const { helperText } = this.props
     if (helperText) {
@@ -44,6 +53,7 @@ export default class Input extends React.Component {
         <label>{label}</label>
         <input
           ref={(input) => { this.input = input; }}
+          onFocus={this.activateInput}
         />
         {this.renderHelperText()}
       </div>)
@@ -81,6 +91,7 @@ export default class Input extends React.Component {
           value={value}
           type={type}
           placeholder={placeholder}
+          onKeyDown={this.handleTab}
         />
       </div>)
     }

@@ -110,8 +110,10 @@
     &.contained {
       color: #ffffff;
       background-color: #01c2a2;
-      &:hover, &:focus {
-        background-color: #00a47c;
+      &:not(.disabled) {
+        &:hover, &:focus {
+          background-color: #00a47c;
+        }
       }
     }
     &.outlined {

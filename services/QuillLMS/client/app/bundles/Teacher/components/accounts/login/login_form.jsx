@@ -66,17 +66,19 @@ class LoginFormApp extends React.Component {
         // console.log(body);
         window.location = `${process.env.DEFAULT_URL}${body.redirect}`;
       } else {
+        let state
         if (body.type && body.message) {
           const errors = {}
           errors[body.type] = body.message
-          this.setState({ lastUpdate: new Date(), errors, });
+          state = { lastUpdate: new Date(), errors, }
         } else {
           let message = 'You have entered an incorrect email/username or password.';
           if (httpResponse.statusCode === 429) {
             message = 'Too many failed attempts. Please wait one minute and try again.';
           }
-          this.setState({ lastUpdate: new Date(), message: (body.message || message), });
+          state = { lastUpdate: new Date(), message: (body.message || message), }
         }
+        this.setState(state)
       }
     });
   }
@@ -131,7 +133,7 @@ class LoginFormApp extends React.Component {
             </div>
           </div>
         </div>
-        <p className="sign-up-link">Don't have an account? <a href="/account/new">Sign up</a></p>
+        <p className="sign-up-link">Don't have an account?&nbsp;<a href="/account/new">Sign up</a></p>
         <PasswordInfo showHintBox={Object.keys(this.state.errors).length} />
       </div>
     );
