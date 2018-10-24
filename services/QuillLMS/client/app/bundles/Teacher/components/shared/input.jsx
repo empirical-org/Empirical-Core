@@ -52,11 +52,12 @@ export default class Input extends React.Component {
 
   renderInput() {
     const { inactive, errorAcknowledged} = this.state
-    const { className, label, handleChange, value, placeholder, error, type } = this.props
+    const { className, label, handleChange, value, placeholder, error, type, id } = this.props
     if (inactive) {
       return (<div className={`input-container inactive ${this.props.className}`} onClick={this.activateInput}>
         <label>{label}</label>
         <input
+          id={id}
           ref={(input) => { this.input = input; }}
           onFocus={this.activateInput}
         />
@@ -67,6 +68,7 @@ export default class Input extends React.Component {
         return (<div className={`input-container error ${className}`}>
           <label>{label}</label>
           <input
+            id={id}
             ref={(input) => { this.input = input; }}
             onChange={handleChange}
             value={value}
@@ -78,6 +80,7 @@ export default class Input extends React.Component {
         return (<div className={`input-container error unacknowledged ${className}`} onClick={this.acknowledgeError}>
           <label>{label}</label>
           <input
+            id={id}
             ref={(input) => { this.input = input; }}
             onChange={handleChange}
             value={value}
@@ -91,6 +94,7 @@ export default class Input extends React.Component {
       return (<div className={`input-container active ${className}`}>
         <label>{label}</label>
         <input
+          id={id}
           ref={(input) => { this.input = input; }}
           onChange={handleChange}
           value={value}

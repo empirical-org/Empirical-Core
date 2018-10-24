@@ -3,19 +3,43 @@
   flex-direction: column;
   display: flex;
   h1 {
-    width: 546px;
-    height: 64px;
-    font-family: AdelleSans;
-    font-size: 24px;
-    font-weight: bold;
-    margin: 48px auto 40px;
     line-height: 1.33;
-    text-align: center;
   }
   .card {
     margin-bottom: 24px;
     padding: 40px 32px;
     width: 546px;
     height: 158px;
+  }
+}
+
+.agreements-and-link-to-login {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.student-sign-up {
+  h1 {
+    margin-bottom: 4px !important;
+  }
+  .sub-header {
+    a {
+      color: #009a80;
+    }
+  }
+  .account-container {
+    margin: 40px auto 32px !important;
+    .button {
+      margin-top: 48px;
+    }
+  }
+  .name {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    .input-container {
+      width: 182px;
+    }
   }
 }
