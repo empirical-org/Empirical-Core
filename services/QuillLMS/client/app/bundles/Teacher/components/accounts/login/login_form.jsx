@@ -86,21 +86,19 @@ class LoginFormApp extends React.Component {
   render() {
     return (
       <div className="container account-form">
-        <div className="sign-in-header text-center">
-          <h3>Good to see you again!</h3>
-        </div>
-        <div className="login-container text-center">
+        <h1>Good to see you again!</h1>
+        <div className="account-container text-center">
           <div className="auth-section">
             <a href='/auth/google_oauth2?prompt=consent'>
-              <img src='/images/google_icon.svg' alt="google icon"/>
+              <img src='/images/google_icon.svg' alt="google icon" />
               <span>Log In with Google</span>
             </a>
             <a href={this.props.cleverLink}>
-              <img src={`${process.env.CDN_URL}/images/shared/clever_icon.svg`} alt="clever icon"/>
+              <img src={`${process.env.CDN_URL}/images/shared/clever_icon.svg`} alt="clever icon" />
               <span>Log In with Clever</span>
             </a>
           </div>
-          <div className='break'><span></span>or<span></span></div>
+          <div className='break'><span/>or<span/></div>
           <div className="login-form">
             <div>
               <form onSubmit={this.handleSubmit} acceptCharset="UTF-8" >

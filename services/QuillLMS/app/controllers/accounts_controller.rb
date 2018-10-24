@@ -22,10 +22,6 @@ class AccountsController < ApplicationController
   # user record instead of creating a new one.
   def create
     role = params[:user].delete(:role)
-    puts 'some crap'
-    puts role
-    puts params[:user]
-    puts 'some crap end'
     @user.attributes = user_params
     @user.safe_role_assignment(role)
     @user.validate_username = true
@@ -79,11 +75,11 @@ protected
 
   def creation_json
     if session[:post_sign_up_redirect]
-      { redirectPath: session.delete(:post_sign_up_redirect) }
+      { redirect: session.delete(:post_sign_up_redirect) }
     elsif @user.has_outstanding_coteacher_invitation?
-      { redirectPath: teachers_classrooms_path }
+      { redirect: teachers_classrooms_path }
     else
-      @user
+      { redirect: '/profile'}
     end
   end
 
