@@ -65,7 +65,7 @@ export default class ForgotPassword extends React.Component {
 
   render() {
     return (
-      <div className="container account-form reset-password">
+      <div className="container account-form forgot-password">
         <h1>Reset Your Password</h1>
         <p className="sub-header">We'll email you a link to reset your password. You can also ask your teacher to reset it for you.</p>
         <div className="reset-password-form-container">

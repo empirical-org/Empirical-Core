@@ -38,10 +38,11 @@ class PasswordResetController < ApplicationController
       @user.update_attributes params[:user].permit(:password, :password_confirmation)
       @user.save validate: false
       sign_in @user
-      redirect_to profile_path, notice: 'Your password has been updated.'
+      flash[:notice] = 'Your password has been updated.'
+      flash.keep(:notice)
+      return render json: { redirect: '/profile'}
     else
-      flash.now[:error] = 'Please make sure the passwords you entered match.'
-      render :show
+      return render json: { message: "Those passwords didn't match. Try again.", type: 'password_confirmation' }, status: 401
     end
   end
 end
