@@ -1,0 +1,21 @@
+#user-type {
+  align-items: center;
+  flex-direction: column;
+  display: flex;
+  h1 {
+    width: 546px;
+    height: 64px;
+    font-family: AdelleSans;
+    font-size: 24px;
+    font-weight: bold;
+    margin: 48px auto 40px;
+    line-height: 1.33;
+    text-align: center;
+  }
+  .card {
+    margin-bottom: 24px;
+    padding: 40px 32px;
+    width: 546px;
+    height: 158px;
+  }
+}
