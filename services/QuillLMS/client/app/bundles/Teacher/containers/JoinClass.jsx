@@ -76,7 +76,7 @@ export default class JoinClass extends React.Component {
     return (
       <div className="container account-form" id="add-class">
         <h1>Join Your Class</h1>
-        <p className="sub-header">Add the class code to join your teacher's class.</p>
+        <p className="sub-header">Add the class code to join your teacher's&nbsp;class.</p>
         <div className="form-container">
           <form onSubmit={this.addClassroom} acceptCharset="UTF-8" >
             <input name="utf8" type="hidden" value="✓" />
@@ -94,9 +94,9 @@ export default class JoinClass extends React.Component {
         </div>
 
         <div className="student-info-box">
-          <h3><span>Don't have a class code?</span> <img src={bulbSrc} alt="lightbulb" /></h3>
-          <p>Ask your teacher to share the class code with you.</p>
-          <p>To use Quill, a teacher must create a class for you.</p>
+          <h3><span>Don't have a class&nbsp;code?</span> <img src={bulbSrc} alt="lightbulb" /></h3>
+          <p>Ask your teacher to share the class code with&nbsp;you.</p>
+          <p>To use Quill, a teacher must create a class for&nbsp;you.</p>
         </div>
 
       </div>
