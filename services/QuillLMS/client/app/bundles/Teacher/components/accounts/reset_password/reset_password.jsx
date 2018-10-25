@@ -76,7 +76,7 @@ export default class ForgotPassword extends React.Component {
       <div className="container account-form reset-password">
         <h1>Reset Password</h1>
 
-        <div className="reset-password-form-container">
+        <div className="form-container">
           <form onSubmit={this.handleSubmit} acceptCharset="UTF-8" >
             <input name="utf8" type="hidden" value="✓" />
             <input value={this.state.authToken} type="hidden" name="authenticity_token" />
