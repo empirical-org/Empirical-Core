@@ -1,6 +1,9 @@
 import React from 'react'
 import getAuthToken from '../components/modules/get_auth_token'
+import Input from '../components/shared/input'
 import LoadingIndicator from '../components/shared/loading_indicator'
+
+const bulbSrc = `${process.env.CDN_URL}/images/onboarding/bulb.svg`
 
 export default class JoinClass extends React.Component {
 
@@ -8,16 +11,26 @@ export default class JoinClass extends React.Component {
     super(props)
 
     this.state = {
-      error: null,
+      errors: {},
       classCodeInput: '',
       loading: false
     }
 
     this.addClassroom = this.addClassroom.bind(this)
+    this.updateClassCode = this.updateClassCode.bind(this)
   }
 
-  addClassroom() {
-    this.setState({loading: true})
+  submitClass() {
+    let buttonClass = "button contained primary medium"
+    if (!this.state.classCodeInput.length) {
+      buttonClass += ' disabled'
+    }
+    return buttonClass
+  }
+
+  addClassroom(e) {
+    e.preventDefault();
+    // this.setState({ loading: true, })
     const data = new FormData()
     data.append('classcode', this.state.classCodeInput)
     fetch(`${process.env.DEFAULT_URL}/students_classrooms`, {
@@ -31,10 +44,10 @@ export default class JoinClass extends React.Component {
     })
     .then(response => response.json()) // if the response is a JSON object
     .catch((error) => {
-      return { error: 'Oops! You need to be signed in to join a class.' }
+      return { error: 'Oops! You need to be signed in to join a class.', }
     })
     .then((response) => {
-      this.setState({loading: false})
+      // this.setState({ loading: false, })
       if (response.error) {
         let error
         switch (response.error) {
@@ -45,38 +58,47 @@ export default class JoinClass extends React.Component {
             error = 'Oops! Looks like that isn\'t a valid class code. Please try again.'
             break
         }
-        this.setState({ error })
+        this.setState({ errors: { classCode: error, }, })
       } else {
         window.location.href = `/classrooms/${response.id}?joined=success`
       }
     })
   }
 
-  errorMessage() {
-    if (this.state.error !== null) {
-      return <div><span className='error-message'>{this.state.error}</span></div>;
-    }
+  updateClassCode(e) {
+    this.setState({ classCodeInput: e.target.value, })
   }
-
 
   render() {
     if (this.state.loading) {
       return <LoadingIndicator />
     }
     return (
-      <div id='add-additional-class'>
-        <div className='additional-class stage-1 text-center'>
-          <h1>Join a New Class</h1>
-          <span>Add Your Class Code</span>
-          <br/>
-          <input id='class_code' className='class-input' onChange={e => this.setState({classCodeInput: e.target.value})} placeholder='e.g. fresh-bread'></input>
-          <br/>
-          {this.errorMessage()}
-          <button className='button-green' onClick={this.addClassroom}>Join Your Class</button>
-          <br/>
-          <span>Don't know your classcode?<br/>
-            You can ask your teacher for it.</span>
+      <div className="container account-form" id="add-class">
+        <h1>Join Your Class</h1>
+        <p className="sub-header">Add the class code to join your teacher's class.</p>
+        <div className="form-container">
+          <form onSubmit={this.addClassroom} acceptCharset="UTF-8" >
+            <input name="utf8" type="hidden" value="✓" />
+            <input value={this.state.authToken} type="hidden" name="authenticity_token" />
+            <Input
+              label="Add your class code"
+              value={this.state.classCodeInput}
+              handleChange={this.updateClassCode}
+              type="text"
+              className="class-code"
+              error={this.state.errors.classCode}
+            />
+            <input type="submit" name="commit" value="Join your class" className={this.submitClass()} />
+          </form>
         </div>
+
+        <div className="student-info-box">
+          <h3><span>Don't have a class code?</span> <img src={bulbSrc} alt="lightbulb" /></h3>
+          <p>Ask your teacher to share the class code with you.</p>
+          <p>To use Quill, a teacher must create a class for you.</p>
+        </div>
+
       </div>
     );
   }
