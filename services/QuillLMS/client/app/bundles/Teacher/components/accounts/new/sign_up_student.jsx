@@ -87,7 +87,7 @@ class SignUpStudent extends React.Component {
     return (
       <div className="container account-form student-sign-up">
         <h1>Create a student account</h1>
-        <p className="sub-header">Are you a teacher? <a href="">Sign up here</a></p>
+        <p className="sub-header">Are you a teacher? <a href="/sign-up/teacher">Sign up here</a></p>
         <div className="account-container text-center">
           <AuthSignUp />
           <div className='break'><span/>or<span/></div>

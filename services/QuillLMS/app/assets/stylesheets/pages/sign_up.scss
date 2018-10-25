@@ -20,17 +20,17 @@
   flex-direction: column;
 }
 
-.student-sign-up {
+.account-form.student-sign-up, .account-form.teacher-sign-up {
   h1 {
     margin-bottom: 4px !important;
   }
   .sub-header {
     a {
       color: #009a80;
+      font-weight: 600;
     }
   }
   .account-container {
-    margin: 40px auto 32px !important;
     .button {
       margin-top: 48px;
     }
@@ -42,5 +42,73 @@
     .input-container {
       width: 182px;
     }
+  }
+}
+
+.account-form.teacher-sign-up {
+  .info-and-form-container {
+    display: flex;
+    justify-content: center;
+    margin: 40px 0px 32px;
+    .account-container {
+      border-radius: 0px 6px 6px 0px;
+      margin: 0px;
+      height: 584px;
+      border-left: none;
+      .newsletter-row {
+        display: flex;
+        margin-top: 37px;
+        p {
+          font-size: 14px;
+          line-height: 1;
+          color: #646464;
+          margin-left: 26px;
+        }
+      }
+    }
+    .info {
+      max-width: 427px;
+      width: 100%;
+      height: 584px;
+      border-radius: 6px 0px 0px 6px;
+      border: solid 1px #e0e0e0;
+      border-right: none;
+      background-color: #666666;
+      color: #ffffff;
+      padding: 40px 64px;
+      h2 {
+        font-size: 24px;
+        font-weight: bold;
+        line-height: 1.33;
+        margin-bottom: 16px;
+      }
+      li {
+        font-size: 16px;
+        line-height: 1.63;
+        list-style: none;
+      }
+      li:before {
+        content: "";
+        border: 2px #fff solid !important;
+        border-radius: 50px;
+        margin-top: 11px;
+        margin-left: -25px;
+        position: absolute;
+      }
+    }
+    @media (max-width: 1000px) {
+      flex-direction: column;
+      .account-container, .info {
+        border-radius: 6px;
+        border: solid 1px #e0e0e0;
+        margin: 0px auto 20px;
+      }
+    }
+  }
+}
+
+.account-form.student-sign-up {
+  .account-container {
+    margin: 40px auto 32px;
   }
 }
