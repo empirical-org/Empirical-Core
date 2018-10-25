@@ -82,8 +82,12 @@
     }
 
     .input-container {
-      label {
+      margin-top: 10px;
+      &.inactive {
         margin-top: 34px;
+      }
+      .error-text {
+        margin-bottom: 0px;
       }
     }
 
