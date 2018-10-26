@@ -67,7 +67,7 @@ class SignUpTeacher extends React.Component {
     (err, httpResponse, body) => {
       if (httpResponse.statusCode === 200) {
         // console.log(body);
-        window.location = '/sign-up/pick-school-type'
+        window.location = '/sign-up/add-k12'
       } else {
         let state
         if (body.errors) {
