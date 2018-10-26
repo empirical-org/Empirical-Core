@@ -1,111 +1,111 @@
-'use strict'
-import $ from 'jquery'
-import SelectSchool from './select_us_k12_helper'
-import {
-  Link,
-} from 'react-router-dom';
-import React, { Component } from 'react';
+import React from 'react';
+import request from 'request'
+import AuthSignUp from './auth_sign_up'
+import Input from '../../shared/input'
+import AnalyticsWrapper from '../../shared/analytics_wrapper'
+import AgreementsAndLinkToLogin from './agreements_and_link_to_login'
+import getAuthToken from '../../modules/get_auth_token';
 
-class SelectUSK12 extends Component {
+const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
+
+class SignUpTeacher extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedSchool: {},
-      schoolOptions: []
+      firstName: '',
+      lastName: '',
+      email: null,
+      password: '',
+      sendNewsletter: true,
+      errors: {},
+      analytics: new AnalyticsWrapper()
     }
-    this.UNLISTED_SCHOOL = 'not listed';
 
-    this.requestSchools = this.requestSchools.bind(this);
-    this.populateSchools = this.populateSchools.bind(this);
-    this.updateSchool = this.updateSchool.bind(this);
-    this.skipSelectSchool = this.skipSelectSchool.bind(this);
-    this.submitSchool = this.submitSchool.bind(this);
-    this.selectSchool = this.selectSchool.bind(this);
-    this.submitUnlisted = this.submitUnlisted.bind(this);
-
+    this.updateKeyValue = this.updateKeyValue.bind(this);
+    this.update = this.update.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this)
+    this.submitClass = this.submitClass.bind(this)
+    this.toggleNewsletter = this.toggleNewsletter.bind(this)
   }
 
-  uponSelectSchool() {
-    window.location = '/teachers/classrooms/new'
-  }
-  selectSchoolError() {
-    alert('There was an error, if this problem persists, please let us know.');
+  updateKeyValue(key, value) {
+    const newState = Object.assign({}, this.state);
+    newState[key] = value;
+    this.setState(newState);
   }
 
-  selectSchool(school_id_or_type) {
-    $.ajax({
-      type: 'PUT',
-      dataType: "json",
-      url: '/select_school',
-      data: {
-        school_id_or_type: school_id_or_type
+  update(e) {
+    this.updateKeyValue(e.target.id, e.target.value)
+  }
+
+  submitClass() {
+    const { password, firstName, lastName, email } = this.state
+    let buttonClass = "button contained primary medium"
+    if (!password.length || !firstName.length || !lastName.length || !email.length) {
+      buttonClass += ' disabled'
+    }
+    return buttonClass
+  }
+
+  handleSubmit(e) {
+    const { firstName, lastName, email, password, sendNewsletter } = this.state
+    e.preventDefault();
+    request({
+      url: `${process.env.DEFAULT_URL}/account`,
+      method: 'POST',
+      json: {
+        user: {
+          name: `${firstName} ${lastName}`,
+          password,
+          email,
+          role: 'teacher',
+          send_newsletter: sendNewsletter,
+        },
+        authenticity_token: getAuthToken(),
       },
-      success: this.uponSelectSchool,
-      error: this.selectSchoolError
+    },
+    (err, httpResponse, body) => {
+      if (httpResponse.statusCode === 200) {
+        // console.log(body);
+        window.location = '/sign-up/add-k12'
+      } else {
+        let state
+        if (body.errors) {
+          state = { lastUpdate: new Date(), errors: body.errors, }
+        } else {
+          let message = 'You have entered an incorrect email or password.';
+          if (httpResponse.statusCode === 429) {
+            message = 'Too many failed attempts. Please wait one minute and try again.';
+          }
+          state = { lastUpdate: new Date(), message: (body.message || message), }
+        }
+        this.setState(state)
+      }
     });
   }
 
-  requestSchools(zip) {
-    $.ajax({
-      url: '/schools.json',
-      data: {zipcode: zip},
-      success: this.populateSchools
-    });
+  toggleNewsletter() {
+    this.setState({ sendNewsletter: !this.state.sendNewsletter, })
   }
 
-  populateSchools(data) {
-    this.setState({schoolOptions: data});
-  }
-
-  updateSchool(school) {
-    this.setState({selectedSchool: school});
-  }
-
-  skipSelectSchool() {
-    this.props.analytics.track('skip select school');
-    this.props.finish();
-  }
-  
-  submitSchool() {
-    let school;
-    if (this.state.selectedSchool && this.state.selectedSchool.id) {
-      school = this.state.selectedSchool.id;
+  renderNewsletterRow() {
+    let checkbox
+    if (this.state.sendNewsletter) {
+      checkbox = <div className="quill-checkbox selected" onClick={this.toggleNewsletter}><img src={smallWhiteCheckSrc} /></div>
     } else {
-      school = this.UNLISTED_SCHOOL;
+      checkbox = <div className="quill-checkbox unselected" onClick={this.toggleNewsletter} />
     }
-    this.selectSchool(school);
+    return <div className="newsletter-row">{checkbox} <p>Send me a monthly update on new&nbsp;content</p></div>
   }
 
-  submitUnlisted() {
-    this.selectSchool(this.UNLISTED_SCHOOL);
-  }
-  
-  showButton() {
-    let content;
-    if ($.isEmptyObject(this.state.selectedSchool)) {
-      content = <span/>;
-    } else {
-      content = <button onClick={this.submitSchool} className='button-green select_school_button'>Confirm School</button>;
-    }
-    return content;
-  }
-
-  render() {
+  render () {
     return (
-      <div className='row text-center'>
-            <h3 className='sign-up-header col-xs-12'>{"Let's find your school"}</h3>
-              <SelectSchool selectedSchool={this.state.selectedSchool}
-                               schoolOptions={this.state.schoolOptions}
-                               requestSchools={this.requestSchools}
-                               updateSchool={this.updateSchool}
-                               isForSignUp={true}/>
-          {this.showButton()}
-          <div className='row'>
-            <div className='col-xs-12 no-pl school_not_listed'><a id='school_not_listed' onClick={this.submitUnlisted}>My school is not listed</a></div>
-          </div>
+      <div className="container account-form select-k12">
+        <h1>Let's find your school</h1>
+        <a href="/sign-up/add-k12"
       </div>
-    );
+    )
   }
 }
 
-export default SelectUSK12
+export default SignUpTeacher
