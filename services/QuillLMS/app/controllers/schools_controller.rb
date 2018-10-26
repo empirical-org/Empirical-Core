@@ -2,8 +2,11 @@ class SchoolsController < ApplicationController
   include CheckboxCallback
 
   def index
-    if params[:zipcode]
-      @schools = School.where(zipcode: params[:zipcode])
+    if params[:text]
+      if params[:lat] and params[:lon]
+        @schools = School.where(zipcode: params[:zipcode])
+      else
+      end
     else
       render status: 400, json: {'error' => 'You must enter a zipcode.'}
     end
