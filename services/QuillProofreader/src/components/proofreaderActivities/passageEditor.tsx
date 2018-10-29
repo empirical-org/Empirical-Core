@@ -97,7 +97,7 @@ interface PassageEditorState {
   text: any;
   originalTextArray: string[],
   indicesOfUTags: {[key: number]: number},
-  editsWithOriginalValue: Array<{key: string, originalText: string, currentText: string}>
+  editsWithOriginalValue: Array<{index: string, originalText: string, currentText: string}>
 }
 
 interface PassageEditorProps {
@@ -221,19 +221,19 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
     this.setState({text: value}, () => this.props.handleTextChange(html.serialize(this.state.text), this.state.editsWithOriginalValue))
   }
 
-  removeEditFromEditsWithOriginalValue(key: string) {
-    this.setState({ editsWithOriginalValue: this.state.editsWithOriginalValue.filter(edit => edit.key !== key)})
+  removeEditFromEditsWithOriginalValue(index: string) {
+    this.setState({ editsWithOriginalValue: this.state.editsWithOriginalValue.filter(edit => edit.index !== index)})
   }
 
-  updateEditsWithOriginalValue(key: string, currentText: string, originalText: string) {
+  updateEditsWithOriginalValue(index: string, currentText: string, originalText: string) {
     const { editsWithOriginalValue } = this.state
-    const newUnnecessaryEdits = editsWithOriginalValue.filter(edit => edit.key !== key).concat({ key, currentText, originalText }).sort((editA, editB) => {
-      const editAKey = Number(editA.key)
-      const editBKey = Number(editB.key)
-      if (editAKey < editBKey) {
+    const newUnnecessaryEdits = editsWithOriginalValue.filter(edit => edit.index !== index).concat({ index, currentText, originalText }).sort((editA, editB) => {
+      const editAIndex = Number(editA.index)
+      const editBIndex = Number(editB.index)
+      if (editAIndex < editBIndex) {
         return -1;
       }
-      if (editAKey > editBKey) {
+      if (editAIndex > editBIndex) {
         return 1;
       }
       return 0;
@@ -244,9 +244,26 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
   onKeyDown(event: any, change: any, editor: any) {
     if (['ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown', 'Backspace', 'Shift', 'MetaShift', 'Meta', 'Enter'].includes(event.key)) { return }
 
+    // const initialFocus = change.value.selection.focus
+    // const initialAnchor = change.value.selection.anchor
+    //
+    // if (initialFocus.offset === 0 && initialAnchor.offset !== 0 && initialAnchor.key !== initialFocus.key) {
+    //   console.log('this did get triggered')
+    //   change.moveAnchorTo(change.value.selection.focus.path)
+    //   // if (change.value.selection.focus.offset !== initialAnchorOffset) {
+    //   //   console.log('we did this too')
+    //   //   change.moveForward(1)
+    //   // }
+    // }
+
     const { value } = change
     const originalSelection = value.selection
     const { startInline } = value
+    // console.log(('key down'))
+    // console.log('originalSelection.focus.key', originalSelection.focus.key)
+    // console.log('originalSelection.anchor.key', originalSelection.anchor.key)
+    // console.log('originalSelection.focus.offset', originalSelection.focus.offset)
+    // console.log('originalSelection.anchor.offset', originalSelection.anchor.offset)
 
     if (!startInline && originalSelection.focus.offset === 0 && originalSelection.anchor.offset === 0) {
       const nextInline = change.moveEndForward(1).value.endInline
@@ -287,10 +304,30 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
   }
 
   onKeyUp(event: any, change: any, editor: any) {
+    console.log('___________________')
+    console.log('eventkey', event.key)
     if (['ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown'].includes(event.key)) { return }
+
+    const initialFocusOffset = change.value.selection.focus.offset
+    const initialAnchorOffset = change.value.selection.anchor.offset
+    console.log('initialAnchorOffset', initialAnchorOffset)
+    if (initialFocusOffset === 0 && initialAnchorOffset !== 0) {
+      console.log('this did get triggered')
+      change.moveAnchorTo(change.value.selection.focus.path)
+      if (change.value.selection.focus.offset !== initialAnchorOffset) {
+        console.log('we did this too')
+        // change.moveFocusForward(1).moveAnchorForward(1)
+      }
+    }
+
+    console.log('change.value.inlines', change.value.inlines)
 
     const { value } = change
     const originalSelection = value.selection
+    console.log('originalSelection.focus.key', originalSelection.focus.key)
+    console.log('originalSelection.anchor.key', originalSelection.anchor.key)
+    console.log('originalSelection.focus.offset', originalSelection.focus.offset)
+    console.log('originalSelection.anchor.offset', originalSelection.anchor.offset)
 
     if (event.key === ' ' && originalSelection.focus.offset !== originalSelection.anchor.offset) { return }
 
@@ -310,6 +347,7 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
         }
         const text = previousInline.text
         if (text.substr(text.length - 1) === ' ' || startBlock.key !== change.value.startBlock.key) {
+          console.log('backspace - previous getting nulled')
           previousInline = null
         }
       } else {
@@ -319,6 +357,7 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
         }
         const text = previousInline.text
         if (text.substr(text.length - 1) === ' ' || startBlock.key !== change.value.startBlock.key) {
+          console.log('not backspace - previous getting nulled')
           previousInline = null
         }
       }
@@ -327,6 +366,11 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
     if (previousInline) {
       currentInline = previousInline
     }
+
+    console.log('previousInline', previousInline)
+    console.log('startInline', startInline)
+
+    console.log('currentInline', currentInline)
 
     if (currentInline && currentInline.nodes) {
       const dataOriginalIndex = currentInline.data.get('dataOriginalIndex')
@@ -371,6 +415,8 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
     } else {
       const nextInline = change.moveEndForward(1).value.endInline
       previousInline = change.moveStartBackward(1).value.startInline
+      console.log('nextInline', nextInline)
+      console.log('previousInline', previousInline)
       if (nextInline || previousInline) {
         if (nextInline) {
           const dataOriginalIndex = nextInline.data.get('dataOriginalIndex')
@@ -396,6 +442,10 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
 
             const normalizedAndTrimmedCurrentText = stringNormalize(nextInline.text).trim()
             const normalizedAndTrimmedOriginalText = stringNormalize(originalNextInlineText).trim()
+            console.log('come on man')
+            console.log('normalizedAndTrimmedCurrentText', normalizedAndTrimmedCurrentText)
+            console.log('nextInline.text', nextInline.text)
+            console.log('normalizedAndTrimmedOriginalText', normalizedAndTrimmedOriginalText)
 
             if (normalizedAndTrimmedCurrentText !== normalizedAndTrimmedOriginalText) {
               node.addMark('bold')
@@ -403,6 +453,8 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
             }
             return node.setAnchor(originalSelection.anchor).setFocus(originalSelection.focus)
           }
+        } else {
+          change.addMark('bold')
         }
         if (previousInline) {
           const dataOriginalIndex = previousInline.data.get('dataOriginalIndex')
@@ -435,8 +487,11 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
 
             // return node.setAnchor(originalSelection.anchor).setFocus(originalSelection.focus)
           }
+        } else {
+          change.addMark('bold')
         }
       } else {
+        console.log('final else')
         change.addMark('bold')
         // .setAnchor(originalSelection.anchor)
         // .setFocus(originalSelection.focus)
@@ -455,7 +510,7 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
           renderNode={this.renderNode}
           renderMark={this.renderMark}
           onKeyUp={this.onKeyUp}
-          onKeyDown={this.onKeyDown}
+          onKeyDown={_.debounce(this.onKeyDown, 300)}
           spellCheck={false}
         />)
     } else {

@@ -40,7 +40,7 @@ interface PlayProofreaderContainerState {
   reviewing: boolean;
   showEarlySubmitModal: boolean;
   showReviewModal: boolean;
-  editsWithOriginalValue: Array<{key: string, originalText: string, currentText: string}>;
+  editsWithOriginalValue: Array<{index: string, originalText: string, currentText: string}>;
   necessaryEdits?: String[];
   numberOfCorrectChanges?: number;
   originalPassage?: string;
@@ -185,8 +185,9 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
 
     // this method handles weirdness created by HTML formatting in Slate
     formatReceivedPassage(value: string) {
+    // console.log('value', value)
       let fixedString = value.replace(/<span data-original-index="\d+">|<\/span>|<strong> <\/strong>/gm, '').replace(/&#x27;/g, "'").replace(/&quot;/g, '"')
-
+    // console.log('fixedString', fixedString)
       // regex below matches case that looks like this: <strong><u id="10">A</u></strong><strong><u id="10"><u id="10">sia,</u></u></strong><strong><u id="10"> </u></strong>
       const tripleStrongTagWithThreeMatchingNestedURegex = /<strong>(<u id="\d+">)([^(<]+?)<\/u><\/strong><strong>(<u id="\d+">)(<u id="\d+">)([^(<]+?)<\/u><\/u><\/strong><strong>(<u id="\d+">)([^(<]+?)<\/u><\/strong>/gm
 
@@ -342,7 +343,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       return fixedString
     }
 
-    handlePassageChange(value: string, editsWithOriginalValue: Array<{key: string, originalText: string, currentText: string}>) {
+    handlePassageChange(value: string, editsWithOriginalValue: Array<{index: string, originalText: string, currentText: string}>) {
       this.props.dispatch(updateSession(value))
       const formattedValue = this.formatReceivedPassage(value)
       const regex = /<strong>.*?<\/strong>/gm
@@ -404,14 +405,14 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
             } else {
               const editObject = remainingEditsWithOriginalValue.find(editObj => editObj.currentText === edit)
               if (editObject) {
-                remainingEditsWithOriginalValue = remainingEditsWithOriginalValue.filter(edit => edit.key !== editObject.key)
+                remainingEditsWithOriginalValue = remainingEditsWithOriginalValue.filter(edit => edit.index !== editObject.index)
               }
               return `{+${editObject.originalText}-${text}|unnecessary}`
             }
           } else {
             const editObject = remainingEditsWithOriginalValue.find(editObj => editObj.currentText === edit)
             if (editObject) {
-              remainingEditsWithOriginalValue = remainingEditsWithOriginalValue.filter(edit => edit.key !== editObject.key)
+              remainingEditsWithOriginalValue = remainingEditsWithOriginalValue.filter(edit => edit.index !== editObject.index)
             }
             return `{+${editObject.originalText}-${edit}|unnecessary}`
           }
@@ -537,6 +538,12 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       }
     }
 
+    renderButton() {
+      if (!this.state.reviewing) {
+        return <button onClick={this.finishActivity}>Check Work</button>
+      }
+    }
+
     closeEarlySubmitModal() {
       this.setState({ showEarlySubmitModal: false })
     }
@@ -579,7 +586,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
             {this.renderPassage()}
           </div>
           <div className="bottom-section">
-            <button onClick={this.finishActivity}>Check Work</button>
+            {this.renderButton()}
           </div>
         </div>
       } else if (this.props.session.error) {
