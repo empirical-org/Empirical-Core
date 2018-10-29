@@ -93,7 +93,7 @@ protected
       JOIN users AS teacher ON teacher.id = classrooms_teachers.user_id
       WHERE sc.student_id = #{current_user.id}
       AND classrooms.visible = true
-      AND students_classrooms.visible = true
+      AND sc.visible = true
       ORDER BY sc.created_at ASC").to_a
   end
 
@@ -143,7 +143,8 @@ protected
     can_display_next_activity = begin
       @act_sesh_records.any? &&
       @act_sesh_records.first['locked'] == 'f' &&
-      @act_sesh_records.first['marked_complete'] == 'f'
+      @act_sesh_records.first['marked_complete'] == 'f' &&
+      !@act_sesh_records.first['max_percentage']
     end
 
     if can_display_next_activity
