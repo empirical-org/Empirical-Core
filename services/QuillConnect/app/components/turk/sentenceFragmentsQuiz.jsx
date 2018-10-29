@@ -175,7 +175,7 @@ const StudentDiagnostic = React.createClass({
               dispatch={this.props.dispatch}
               nextQuestion={this.nextQuestion}
               submitResponse={this.submitResponse}
-            )
+            />)
           } else if (questionType === 'TL') {
             component = (
               <PlayTitleCard

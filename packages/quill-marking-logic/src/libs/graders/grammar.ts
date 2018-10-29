@@ -31,7 +31,7 @@ export function checkGrammarQuestion(
     text: data.response,
     question_uid,
     count: 1,
-    concept_results: [conceptResultTemplate(defaultConceptUID)]
+    concept_results: defaultConceptUID ? [conceptResultTemplate(defaultConceptUID)] : []
   };
 
   const firstPass = checkForMatches(data, firstPassMatchers); // returns partial response or null

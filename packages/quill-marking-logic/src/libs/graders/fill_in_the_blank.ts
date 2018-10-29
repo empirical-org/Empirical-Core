@@ -1,5 +1,6 @@
 import {Response, IncorrectSequence, FocusPoint, GradingObject} from '../../interfaces'
 import {getOptimalResponses} from '../sharedResponseFunctions'
+import {conceptResultTemplate} from '../helpers/concept_result_template'
 
 import {exactMatch} from '../matchers/exact_match';
 import {caseInsensitiveChecker} from '../matchers/case_insensitive_match'
@@ -7,7 +8,8 @@ import {caseInsensitiveChecker} from '../matchers/case_insensitive_match'
 export function checkFillInTheBlankQuestion(
   question_uid: string,
   response: string,
-  responses: Array<Response>
+  responses: Array<Response>,
+  defaultConceptUID?: string
 ): Response {
   const data = {
     response: response.trim().replace(/\s{2,}/g, ' '),
@@ -16,7 +18,8 @@ export function checkFillInTheBlankQuestion(
   const responseTemplate = {
     text: data.response,
     question_uid,
-    count: 1
+    count: 1,
+    concept_results: defaultConceptUID ? [conceptResultTemplate(defaultConceptUID)] : []
   };
   const firstPass = checkForMatches(data, firstPassMatchers)
   if (firstPass) {

@@ -16,14 +16,16 @@ module CleverIntegration::Creators::Students
       name: parsed_student_response[:name],
       username: parsed_student_response[:username],
       email: parsed_student_response[:email],
-      role: 'student'
+      role: 'student',
+      account_type: 'Clever'
     })
     if student.errors.any?
       student.update({
         name: parsed_student_response[:name],
         username: parsed_student_response[:username],
         email: nil,
-        role: 'student'
+        role: 'student',
+        account_type: 'Clever'
       })
     end
     if student.errors.any?
@@ -31,7 +33,8 @@ module CleverIntegration::Creators::Students
         name: parsed_student_response[:name],
         username: nil,
         email: parsed_student_response[:email],
-        role: 'student'
+        role: 'student',
+        account_type: 'Clever'
       })
     end
     student.reload if student.id?

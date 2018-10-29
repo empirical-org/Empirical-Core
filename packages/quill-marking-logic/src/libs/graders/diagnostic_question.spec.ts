@@ -25,7 +25,7 @@ describe('The checking a diagnostic question', () => {
             question_uid: 'questionOne'
           }
         ]
-        const matchedResponse = checkDiagnosticQuestion('questionOne', responseString, savedResponses);
+        const matchedResponse = checkDiagnosticQuestion('questionOne', responseString, savedResponses, null, null);
         assert.equal(matchedResponse.id, savedResponses[0].id);
     });
 
@@ -50,7 +50,7 @@ describe('The checking a diagnostic question', () => {
           question_uid: 'questionOne'
         }
       ]
-      const matchedResponse = checkDiagnosticQuestion('questionOne', responseString, savedResponses);
+      const matchedResponse = checkDiagnosticQuestion('questionOne', responseString, savedResponses, null, null);
       assert.equal(matchedResponse.id, savedResponses[0].id);
   });
 
@@ -75,7 +75,7 @@ describe('The checking a diagnostic question', () => {
         question_uid: 'questionOne'
       }
     ]
-    const matchedResponse = checkDiagnosticQuestion('questionOne', responseString, savedResponses);
+    const matchedResponse = checkDiagnosticQuestion('questionOne', responseString, savedResponses, null, null);
     assert.equal(matchedResponse.id, savedResponses[0].id);
 });
 

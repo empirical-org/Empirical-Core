@@ -17,6 +17,7 @@ class BlogPostsController < ApplicationController
     @most_recent_posts = BlogPost.where("draft = false AND id != #{@blog_post.id}").order('updated_at DESC').limit(3)
     @title = @blog_post.title
     @description = @blog_post.subtitle || @title
+    @image_link = @blog_post.image_link
   end
 
   def search

@@ -107,8 +107,9 @@ const PlaySentenceFragment = React.createClass<any, any>({
       const key = this.props.currentKey;
       const { attempts, } = this.props.question;
       this.setState({ checkAnswerEnabled: false, }, () => {
-        const { prompt, wordCountChange, ignoreCaseAndPunc, incorrectSequences, focusPoints } = this.getQuestion();
+        const { prompt, wordCountChange, ignoreCaseAndPunc, incorrectSequences, focusPoints, modelConceptUID, concept_uid, conceptID } = this.getQuestion();
         const responses = hashToCollection(this.getResponses())
+        const defaultConceptUID = modelConceptUID || concept_uid || conceptID
         const fields = {
           question_uid: key,
           response: this.state.response,
@@ -118,7 +119,8 @@ const PlaySentenceFragment = React.createClass<any, any>({
           prompt,
           incorrectSequences,
           focusPoints,
-          mlUrl: 'https://nlp.quill.org'
+          mlUrl: 'https://nlp.quill.org',
+          defaultConceptUID
         }
         checkSentenceFragment(fields).then((resp) => {
           const matched = {response: resp}
@@ -146,7 +148,15 @@ const PlaySentenceFragment = React.createClass<any, any>({
     if (!this.showNextQuestionButton()) {
       const latestAttempt:{response: Response}|undefined = getLatestAttempt(this.props.question.attempts);
       if (latestAttempt && latestAttempt.response) {
-        if (!latestAttempt.response.optimal && latestAttempt.response.concept_results) {
+        if (!latestAttempt.response.optimal && latestAttempt.response.conceptResults) {
+            const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.response.conceptResults);
+            if (conceptID) {
+              const data = this.props.conceptsFeedback.data[conceptID.conceptUID];
+              if (data) {
+                return <ConceptExplanation {...data} />;
+              }
+            }
+        } else if (latestAttempt.response && !latestAttempt.response.optimal && latestAttempt.response.concept_results) {
           const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.response.concept_results);
           if (conceptID) {
             const data = this.props.conceptsFeedback.data[conceptID.conceptUID];
