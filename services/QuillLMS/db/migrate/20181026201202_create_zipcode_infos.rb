@@ -14,7 +14,7 @@ class CreateZipcodeInfos < ActiveRecord::Migration
       t.integer :estimated_population
       t.text :_area_codes
 
-      t.timestamps null: false
+      #t.timestamps null: false
     end
     Rake::Task['zipcode:populate'].invoke
   end
