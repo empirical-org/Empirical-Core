@@ -23,7 +23,7 @@ export function checkGrammarQuestion(
   defaultConceptUID
 ): Response {
   const data = {
-    response: response.trim(),
+    response: response.trim().replace(/\s{2,}/g, ' '),
     responses,
   };
 
