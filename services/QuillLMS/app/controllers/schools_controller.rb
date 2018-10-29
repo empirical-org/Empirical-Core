@@ -2,10 +2,19 @@ class SchoolsController < ApplicationController
   include CheckboxCallback
 
   def index
+    # TODO: return here
+    radius = params[:radius].presence || 5
     if params[:text]
-      if params[:lat] and params[:lon]
-        @schools = School.where(zipcode: params[:zipcode])
+      if params[:lat] and params[:lng]
+        zip_arr = ZipcodeInfo.isinradius([params[:lat].to_f, params[:lng].to_f], radius.to_i).map {|z| z.zipcode}
+        prefix = params[:text]
+        @schools = School.where(zipcode: zip_arr 
+         ).where(
+         "lower(name) LIKE :prefix", prefix: "#{prefix.downcase}%"
+        )
       else
+        # TODO: lookup lat and lng by ip
+        return []
       end
     else
       render status: 400, json: {'error' => 'You must enter a zipcode.'}
