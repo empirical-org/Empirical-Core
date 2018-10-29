@@ -3,37 +3,42 @@ class SchoolsController < ApplicationController
   MIN_PREFIX_LENGHT_WHEN_LAT_LON_NOT_PRESENT = 4
 
   def index
-    # TODO: return here
     @radius = params[:radius].presence || 5
     @limit = params[:limit].presence || 10
     @lat, @lng, @prefix = params[:lat],params[:lng], params[:prefix]
     @schools = []
 
     unless @prefix.blank?
+      school_ids = []
       if @lat.present? and @lng.present?
         school_ids = JSON.load($redis.get("LAT_LNG_RADIUS_TO_SCHOOL_#{@lat}_#{@lng}_#{@radius}"))
       else
         school_ids = JSON.load($redis.get("PREFIX_TO_SCHOOL_#{@prefix}"))
+        @schools = School.where(id: school_ids)
+        puts 'CACHE HIT 1'
       end
 
-      unless school_ids.blank? 
+      if @schools.empty? and school_ids.present? 
         @schools = School.where(id: school_ids).where(
           "lower(name) LIKE :prefix", prefix: "#{@prefix.downcase}%"
         ).limit(@limit)
         unless @schools.empty?
-          puts 'CACHE HIT'
+          puts 'CACHE HIT 2'
         end
       end
 
       if @lat.present? and @lng.present? and @schools.empty?
         zip_arr = ZipcodeInfo.isinradius([@lat.to_f, @lng.to_f], @radius.to_i).map {|z| z.zipcode}
-        @schools = School.where(zipcode: zip_arr 
-         ).where(
-         "lower(name) LIKE :prefix", prefix: "#{@prefix.downcase}%"
-         ).limit(@limit)
-         $redis.set("LAT_LNG_RADIUS_TO_SCHOOL_#{@lat}_#{@lng}_#{@radius}", @schools.map {|s| s.id}.to_json)
-         # short cache, highly specific
-        $redis.expire("LAT_LNG_RADIUS_TO_SCHOOL_#{@lat}_#{@lng}_#{@radius}", 60*5)
+        if zip_arr.present?
+          @schools = School.where(
+            "zipcode in (#{zip_arr.to_s.sub(']','').sub('[','')}) OR mail_zipcode in (#{zip_arr.to_s.sub(']','').sub('[','')})"
+           ).where(
+           "lower(name) LIKE :prefix", prefix: "#{@prefix.downcase}%"
+           ).limit(@limit)
+           $redis.set("LAT_LNG_RADIUS_TO_SCHOOL_#{@lat}_#{@lng}_#{@radius}", @schools.map {|s| s.id}.to_json)
+           # short cache, highly specific
+          $redis.expire("LAT_LNG_RADIUS_TO_SCHOOL_#{@lat}_#{@lng}_#{@radius}", 60*5)
+        end
       end
 
       if @schools.empty? and @prefix.length < MIN_PREFIX_LENGHT_WHEN_LAT_LON_NOT_PRESENT
