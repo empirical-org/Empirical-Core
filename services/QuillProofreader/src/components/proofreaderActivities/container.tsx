@@ -40,11 +40,12 @@ interface PlayProofreaderContainerState {
   reviewing: boolean;
   showEarlySubmitModal: boolean;
   showReviewModal: boolean;
+  editsWithOriginalValue: Array<{key: string, originalText: string, currentText: string}>;
   necessaryEdits?: String[];
   numberOfCorrectChanges?: number;
   originalPassage?: string;
   reviewablePassage?: string;
-  conceptResultsObjects?: ConceptResultObject[]
+  conceptResultsObjects?: ConceptResultObject[];
 }
 
 export class PlayProofreaderContainer extends React.Component<PlayProofreaderContainerProps, PlayProofreaderContainerState> {
@@ -55,7 +56,8 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
         edits: [],
         reviewing: false,
         showEarlySubmitModal: false,
-        showReviewModal: false
+        showReviewModal: false,
+        editsWithOriginalValue: []
       }
 
       this.saveToLMS = this.saveToLMS.bind(this)
@@ -340,19 +342,20 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       return fixedString
     }
 
-    handlePassageChange(value: string) {
+    handlePassageChange(value: string, editsWithOriginalValue: Array<{key: string, originalText: string, currentText: string}>) {
       this.props.dispatch(updateSession(value))
       const formattedValue = this.formatReceivedPassage(value)
       const regex = /<strong>.*?<\/strong>/gm
       const edits = formattedValue.match(regex)
       if (edits) {
-        this.setState({ passage: formattedValue, edits })
+        this.setState({ passage: formattedValue, edits, editsWithOriginalValue })
       }
     }
 
     checkWork(): { reviewablePassage: string, numberOfCorrectChanges: number, conceptResultsObjects: ConceptResultObject[]}|void {
       const { currentActivity } = this.props.proofreaderActivities
-      const { necessaryEdits, passage } = this.state
+      const { necessaryEdits, passage, editsWithOriginalValue } = this.state
+      let remainingEditsWithOriginalValue = editsWithOriginalValue
       let numberOfCorrectChanges = 0
       const correctEditRegex = /\+([^-]+)-/m
       const originalTextRegex = /\-([^|]+)\|/m
@@ -399,10 +402,18 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
                 return `{+${correctEdit}-${text}|${conceptUID}}`
               }
             } else {
-              return `{+${text}-|unnecessary}`
+              const editObject = remainingEditsWithOriginalValue.find(editObj => editObj.currentText === edit)
+              if (editObject) {
+                remainingEditsWithOriginalValue = remainingEditsWithOriginalValue.filter(edit => edit.key !== editObject.key)
+              }
+              return `{+${editObject.originalText}-${text}|unnecessary}`
             }
           } else {
-            return `{+${edit}-|unnecessary}`
+            const editObject = remainingEditsWithOriginalValue.find(editObj => editObj.currentText === edit)
+            if (editObject) {
+              remainingEditsWithOriginalValue = remainingEditsWithOriginalValue.filter(edit => edit.key !== editObject.key)
+            }
+            return `{+${editObject.originalText}-${edit}|unnecessary}`
           }
         })
         const reviewablePassage = gradedPassage.replace(/<u id="(\d+)">(.+?)<\/u>/gm, (key, id, text) => {
