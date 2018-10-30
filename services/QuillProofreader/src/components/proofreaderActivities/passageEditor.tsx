@@ -375,7 +375,6 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
           // .setFocus(originalSelection.focus)
         }
       } else {
-        console.log('well is this happening')
         node
         .addMark('bold')
         this.updateEditsWithOriginalValue(dataOriginalIndex, normalizedAndTrimmedNewText, normalizedAndTrimmedOriginalText)
@@ -418,8 +417,6 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
             }
             return node.setAnchor(originalSelection.anchor).setFocus(originalSelection.focus)
           }
-        } else {
-          change.addMark('bold')
         }
         if (previousInline) {
           const dataOriginalIndex = previousInline.data.get('dataOriginalIndex')
@@ -452,8 +449,6 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
 
             // return node.setAnchor(originalSelection.anchor).setFocus(originalSelection.focus)
           }
-        } else {
-          change.addMark('bold')
         }
       } else {
         change.addMark('bold')
@@ -474,7 +469,7 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
           renderNode={this.renderNode}
           renderMark={this.renderMark}
           onKeyUp={this.onKeyUp}
-          onKeyDown={_.debounce(this.onKeyDown, 300)}
+          onKeyDown={this.onKeyDown}
           spellCheck={false}
         />)
     } else {
