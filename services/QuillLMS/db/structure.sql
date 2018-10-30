@@ -4467,6 +4467,13 @@ CREATE INDEX index_schools_admins_on_user_id ON public.schools_admins USING btre
 
 
 --
+-- Name: index_schools_on_mail_zipcode; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_schools_on_mail_zipcode ON public.schools USING btree (mail_zipcode);
+
+
+--
 -- Name: index_schools_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -5734,4 +5741,6 @@ INSERT INTO schema_migrations (version) VALUES ('20181023173450');
 INSERT INTO schema_migrations (version) VALUES ('20181025181015');
 
 INSERT INTO schema_migrations (version) VALUES ('20181026201202');
+
+INSERT INTO schema_migrations (version) VALUES ('20181030155356');
 
