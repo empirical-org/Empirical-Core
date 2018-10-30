@@ -31,9 +31,9 @@ class SchoolsController < ApplicationController
         zip_arr = ZipcodeInfo.isinradius([@lat.to_f, @lng.to_f], @radius.to_i).map {|z| z.zipcode}
         if zip_arr.present?
           @schools = School.where(
-            "zipcode in (#{zip_arr.to_s.sub(']','').sub('[','')}) OR mail_zipcode in (#{zip_arr.to_s.sub(']','').sub('[','')})"
+            "zipcode in #{self.array_to_postgres_array_helper(zip_arr)} OR mail_zipcode in #{self.array_to_postgres_array_helper(zip_arr)}"
            ).where(
-           "lower(name) LIKE :prefix", prefix: "#{@prefix.downcase}%"
+           "lower(name) LIKE :prefix", prefix: "%#{@prefix.downcase}%"
            ).limit(@limit)
            $redis.set("LAT_LNG_RADIUS_TO_SCHOOL_#{@lat}_#{@lng}_#{@radius}", @schools.map {|s| s.id}.to_json)
            # short cache, highly specific
@@ -83,7 +83,17 @@ class SchoolsController < ApplicationController
     end
   end
 
+  def array_to_postgres_array_helper(ruby_array)
+    array_encoder = PG::TextEncoder::Array.new
+    literal_encoder = PG::TextEncoder::QuotedLiteral.new
+    r = array_encoder.encode(ruby_array.map {|v| literal_encoder.encode(v)})
+    r.sub('{','(').sub('}', ')')
+  end
+
+
   private
+
+
 
   def school_params
     params.permit(:school_id_or_type)
