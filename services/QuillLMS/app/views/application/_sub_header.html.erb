@@ -38,7 +38,6 @@
 			<%= render 'navbar/learning_tools', active_tab: active_tab  %>
 			<%= render 'navbar/teacher_center', active_tab: active_tab  %>
 			<%= render 'navbar/quill_support', active_tab: active_tab  %>
-			<%= render 'navbar/active_students', active_tab: active_tab  %>
  		<% end %>
 
 		<%- if current_user.nil? %>
@@ -46,6 +45,7 @@
 		<a href="/account/new" class="sign-up-button text-white nav-element">Sign Up</a>
 		<%- elsif current_user.role == 'teacher' %>
 			<div class='navigation-vertical-rule hide-on-mobile nav-element'></div>
+			<%= render 'navbar/active_students', active_tab: active_tab  %>
 			<div id="nav-user-dropdown" class="dropdown-closed hide-on-mobile nav-element <%= user_dropdown_class %>">
 				<span onclick="toggleDropdown()" class='user-dropdown-button'><img class='user-dropdown-button-img' src=<%="#{user_dropdown_img}"%>></img><%="#{current_user.name}"%></span>
 				<div>
