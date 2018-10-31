@@ -13,4 +13,4 @@
 <div id="active-students" class="navbar-tooltip-trigger" tabindex="1">
   <span class="Oval-2-Copy-8"></span><span>10 Students</span>
 </div> -->
-<%= react_component("NumberOfActiveStudentsApp") %>
+<%= react_component("NumberOfActiveStudentsApp", props: { currentUserID: current_user.id } ) %>

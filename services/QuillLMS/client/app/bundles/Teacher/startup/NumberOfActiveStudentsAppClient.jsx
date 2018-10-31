@@ -27,13 +27,15 @@ export default class NumberOfActiveStudents extends React.Component {
   }
 
   clearStudentData() {
-    const studentsData = { data: {}, };
+    //const studentsData = { data: {}, };
+    const studentsData = [];
     this.setState({ studentsData, });
   }
 
   initializePusher() {
-    const { currentUser, } = this.props;
-    const teacherId = currentUser.id;
+
+    const { currentUserID, } = this.props;
+    const teacherId = currentUserID
     if (process.env.RAILS_ENV === 'development') {
       Pusher.logToConsole = true;
     }
@@ -58,15 +60,18 @@ export default class NumberOfActiveStudents extends React.Component {
   //<input onClick={this.search} type="submit" value="Submit" />
 
   render() {
-    console.log('ok');
-    const numStudentsOnline = (typeof this.state.studentsData === 'undefined') ? 0 : this.state.studentsData.length;
-    console.log(numStudentsOnline);
-    console.log('ok end');
-    return (
-
+    let numStudentsOnline = (typeof this.state.studentsData === 'undefined') ? 0 : this.state.studentsData.length;
+    if (numStudentsOnline == 0) {
+      return (
+        <span></span>
+      );
+      
+    } else {
+      return (
       <div id="active-students" className="navbar-tooltip-trigger" tabIndex="1">
-        <span className="Oval-2-Copy-8"></span><span>10 Students</span>
+        <span className="Oval-2-Copy-8"></span><span><a href='/teachers/progress_reports/real_time'><span>{numStudentsOnline} Students Online</span></a></span>
       </div>
-    );
+      );
+    }
   }
 }
