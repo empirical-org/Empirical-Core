@@ -36,7 +36,7 @@ export default class DiagnosticMini extends React.Component {
         <h3>{numberOfFinishedDiagnostics} Completed Diagnostic{Number(numberOfFinishedDiagnostics) === 1 ? '' : 's'}</h3>
       </div>
       <img src={`${process.env.CDN_URL}/images/shared/diagnostics_completed.svg`} />
-      <p>Your students have been recommended activities such as <span>Compound Sentences</span> and <span>Fragments</span>.</p>
+      <p>View our recommendations for each student and assign their personalized learning&nbsp;plans.</p>
       <a href={`/teachers/progress_reports/diagnostic_reports#/u/${unitInfo.unit_id}/a/${unitInfo.activity_id}/c/${unitInfo.classroom_id}/recommendations`} className="bg-quillgreen text-white">View Recommended Activities</a>
     </div>);
   }
@@ -48,7 +48,7 @@ export default class DiagnosticMini extends React.Component {
       </div>
 
       <img alt="" src={`${process.env.CDN_URL}/images/shared/new_diagnostic.svg`} />
-      <p>Ask your students to login and complete the diagnostic so you can assign recommended activities. You can also <a href="/teachers/classrooms/activity_planner">set due dates here</a>.</p>
+      <p>The diagnostic is waiting for students on their dashboards. Have students log in to complete it so you can assign their&nbsp;recommended&nbsp;activities.</p>
     </div>);
   }
 
@@ -59,7 +59,7 @@ export default class DiagnosticMini extends React.Component {
       </div>
 
       <img alt="" src={`${process.env.CDN_URL}/images/shared/new_diagnostic.svg`} />
-      <p>See which skills students need to work on and get recommended learning plans.</p>
+      <p>See which skills students need to work on and get recommended learning&nbsp;plans.</p>
       <a href={'/teachers/classrooms/assign_activities/assign-a-diagnostic'} className="bg-quillgreen text-white">Assign Diagnostic</a>
     </div>);
   }
