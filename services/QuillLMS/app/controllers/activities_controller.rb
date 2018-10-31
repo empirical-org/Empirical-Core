@@ -57,11 +57,11 @@ class ActivitiesController < ApplicationController
 protected
 
   def set_activity
-    @activity = Activity.find_by(id: params[:id]) || Activity.find_by(uid: params[:id])
+    @activity = Activity.find_by(uid: params[:id]) || Activity.find_by(id: params[:id])
   end
 
   def set_activity_by_lesson_id
-    @activity = Activity.find_by(id: params[:lesson_id]) || Activity.find_by(uid: params[:lesson_id])
+    @activity = Activity.find_by_id_or_uid(params[:lesson_id])
   end
 
   def user_completed_view_lessons_tutorial?
