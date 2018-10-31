@@ -22,22 +22,22 @@ export default class DiagnosticMini extends React.Component {
       const parsedResponse = JSON.parse(response)
       that.setState({
         unitInfo: parsedResponse.unit_info,
-        numberOfFinishedStudents: parsedResponse.number_of_finished_students,
+        numberOfFinishedDiagnostics: parsedResponse.number_of_finished_students,
         status: parsedResponse.status
       });
     });
   }
 
   assignRecommendationsMini() {
-    const { unitInfo, numberOfFinishedStudents, } = this.state;
+    const { unitInfo, numberOfFinishedDiagnostics, } = this.state;
 
     return (<div className="mini_content diagnostic-mini assign-recommendations">
       <div className="gray-underline">
-        <h3>{numberOfFinishedStudents} Student{Number(numberOfFinishedStudents) === 1 ? '' : 's'} Completed Diagnostic</h3>
+        <h3>{numberOfFinishedDiagnostics} Completed Diagnostic{Number(numberOfFinishedDiagnostics) === 1 ? '' : 's'}</h3>
       </div>
       <img src={`${process.env.CDN_URL}/images/shared/diagnostics_completed.svg`} />
       <p>Your students have been recommended activities such as <span>Compound Sentences</span> and <span>Fragments</span>.</p>
-      <a href={`/teachers/progress_reports/diagnostic_reports#/u/${unitInfo.unit_id}/a/${unitInfo.activity_id}/c/${unitInfo.classroom_id}/recommendations`} className="bg-quillgreen text-white">View and Assign Recommendations</a>
+      <a href={`/teachers/progress_reports/diagnostic_reports#/u/${unitInfo.unit_id}/a/${unitInfo.activity_id}/c/${unitInfo.classroom_id}/recommendations`} className="bg-quillgreen text-white">View Recommended Activities</a>
     </div>);
   }
 
@@ -55,11 +55,11 @@ export default class DiagnosticMini extends React.Component {
   assignDiagnosticMini() {
     return (<div className="mini_content diagnostic-mini assign-diagnostic">
       <div className="gray-underline">
-        <h3>Assign Entry Diagnostic</h3>
+        <h3>Assign A Diagnostic</h3>
       </div>
 
       <img alt="" src={`${process.env.CDN_URL}/images/shared/new_diagnostic.svg`} />
-      <p>Determine which skills your students need to work on.</p>
+      <p>See which skills students need to work on and get recommended learning plans.</p>
       <a href={'/teachers/classrooms/assign_activities/assign-a-diagnostic'} className="bg-quillgreen text-white">Assign Diagnostic</a>
     </div>);
   }
