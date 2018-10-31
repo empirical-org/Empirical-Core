@@ -10,6 +10,7 @@ json.data do
       json.street school.street || school.mail_street
       json.city school.city || school.mail_city
       json.state school.state || school.mail_state
+      json.number_of_teachers school.number_of_teachers
     end
   end
 end

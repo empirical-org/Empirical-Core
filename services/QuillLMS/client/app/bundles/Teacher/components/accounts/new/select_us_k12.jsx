@@ -1,9 +1,7 @@
 import React from 'react';
 import request from 'request'
-import AuthSignUp from './auth_sign_up'
 import Input from '../../shared/input'
 import AnalyticsWrapper from '../../shared/analytics_wrapper'
-import AgreementsAndLinkToLogin from './agreements_and_link_to_login'
 import getAuthToken from '../../modules/get_auth_token';
 
 const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
@@ -12,42 +10,27 @@ class SignUpTeacher extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      firstName: '',
-      lastName: '',
-      email: null,
-      password: '',
-      sendNewsletter: true,
-      errors: {},
-      analytics: new AnalyticsWrapper()
+      search: '',
+      schools: []
     }
 
     this.updateKeyValue = this.updateKeyValue.bind(this);
     this.update = this.update.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this)
-    this.submitClass = this.submitClass.bind(this)
+    this.search = this.search.bind(this)
     this.toggleNewsletter = this.toggleNewsletter.bind(this)
   }
 
   updateKeyValue(key, value) {
     const newState = Object.assign({}, this.state);
     newState[key] = value;
-    this.setState(newState);
+    this.setState(newState, this.search);
   }
 
   update(e) {
     this.updateKeyValue(e.target.id, e.target.value)
   }
 
-  submitClass() {
-    const { password, firstName, lastName, email } = this.state
-    let buttonClass = "button contained primary medium"
-    if (!password.length || !firstName.length || !lastName.length || !email.length) {
-      buttonClass += ' disabled'
-    }
-    return buttonClass
-  }
-
-  handleSubmit(e) {
+  search(e) {
     const { firstName, lastName, email, password, sendNewsletter } = this.state
     e.preventDefault();
     request({
@@ -84,25 +67,22 @@ class SignUpTeacher extends React.Component {
     });
   }
 
-  toggleNewsletter() {
-    this.setState({ sendNewsletter: !this.state.sendNewsletter, })
-  }
-
-  renderNewsletterRow() {
-    let checkbox
-    if (this.state.sendNewsletter) {
-      checkbox = <div className="quill-checkbox selected" onClick={this.toggleNewsletter}><img src={smallWhiteCheckSrc} /></div>
-    } else {
-      checkbox = <div className="quill-checkbox unselected" onClick={this.toggleNewsletter} />
-    }
-    return <div className="newsletter-row">{checkbox} <p>Send me a monthly update on new&nbsp;content</p></div>
-  }
-
   render () {
     return (
       <div className="container account-form select-k12">
         <h1>Let's find your school</h1>
-        <a href="/sign-up/add-k12"
+        <div className="school-search-container">
+          <Input
+            label="Search by school name or zip code"
+            value={this.state.search}
+            handleChange={this.update}
+            type="text"
+            className="search"
+            error={this.state.errors.search}
+            id="search"
+          />
+        </div>
+        <a href="/sign-up/add-non-k12">I don't teach at a U.S. K-12 school</a>
       </div>
     )
   }
