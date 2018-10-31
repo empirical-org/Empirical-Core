@@ -406,15 +406,19 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
               const editObject = remainingEditsWithOriginalValue.find(editObj => editObj.currentText === edit)
               if (editObject) {
                 remainingEditsWithOriginalValue = remainingEditsWithOriginalValue.filter(edit => edit.index !== editObject.index)
+                return `{+${editObject.originalText}-${text}|unnecessary}`
+              } else {
+                return `{+-${edit}|unnecessary}`
               }
-              return `{+${editObject.originalText}-${text}|unnecessary}`
             }
           } else {
             const editObject = remainingEditsWithOriginalValue.find(editObj => editObj.currentText === edit)
             if (editObject) {
               remainingEditsWithOriginalValue = remainingEditsWithOriginalValue.filter(edit => edit.index !== editObject.index)
+              return `{+${editObject.originalText}-${edit}|unnecessary}`
+            } else {
+              return `{+-${edit}|unnecessary}`
             }
-            return `{+${editObject.originalText}-${edit}|unnecessary}`
           }
         })
         const reviewablePassage = gradedPassage.replace(/<u id="(\d+)">(.+?)<\/u>/gm, (key, id, text) => {

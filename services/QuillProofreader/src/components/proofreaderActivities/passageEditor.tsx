@@ -278,6 +278,10 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
       if (text.substr(text.length - 1) !== ' ' && (startBlock.key === change.value.startBlock.key)) {
         event.preventDefault()
         change.moveToRangeOfNode(previousInline).insertText(previousInline.text + event.key)
+      } else {
+        event.preventDefault()
+        return change.moveToStartOfNode(startInline)
+        .insertText(event.key)
       }
     }
 
@@ -289,9 +293,10 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
   onKeyUp(event: any, change: any, editor: any) {
     if (['ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown'].includes(event.key)) { return }
 
-    // handles some truly bizarre Firefox shenanigans
     const initialFocus = change.value.selection.focus
     const initialAnchor = change.value.selection.anchor
+
+    // handles Firefox shenanigans
     if (initialFocus.offset === 0 && initialAnchor.offset !== 0) {
       const badNode = change.value.blocks.first().nodes.find(node => node.key == initialAnchor.key)
       if (badNode) {
@@ -311,7 +316,6 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
     const { startInline, startBlock } = value
     let currentInline = startInline
     let previousInline
-
     // don't try to find a previous inline if you've edited the first one
     if (startInline && startInline.data.get('dataOriginalIndex') !== '0') {
       if (event.key === 'Backspace') {
