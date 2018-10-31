@@ -14,14 +14,22 @@ class SchoolsController < ApplicationController
         school_ids = JSON.load($redis.get("LAT_LNG_RADIUS_TO_SCHOOL_#{@lat}_#{@lng}_#{@radius}"))
       else
         school_ids = JSON.load($redis.get("PREFIX_TO_SCHOOL_#{@prefix}"))
-        @schools = School.where(id: school_ids)
+        @schools = School.select("*, COUNT(DISTINCT schools_users.id) AS number_of_teachers")
+        .joins('JOIN schools_users ON schools_users.school_id = schools.id')
+        .where(id: school_ids)
+        .group("schools.id, schools_users.school_id, schools_users.user_id, schools_users.id")
+        .limit(@limit)
         puts 'CACHE HIT 1'
       end
 
-      if @schools.empty? and school_ids.present? 
-        @schools = School.where(id: school_ids).where(
+      if @schools.empty? and school_ids.present?
+        @schools = School.select("*, COUNT(DISTINCT schools_users.id) AS number_of_teachers")
+        .joins('JOIN schools_users ON schools_users.school_id = schools.id')
+        .where(id: school_ids)
+        .where(
           "lower(name) LIKE :prefix", prefix: "#{@prefix.downcase}%"
-        ).limit(@limit)
+        ).group("schools.id, schools_users.school_id, schools_users.user_id, schools_users.id")
+        .limit(@limit)
         unless @schools.empty?
           puts 'CACHE HIT 2'
         end
@@ -30,11 +38,14 @@ class SchoolsController < ApplicationController
       if @lat.present? and @lng.present? and @schools.empty?
         zip_arr = ZipcodeInfo.isinradius([@lat.to_f, @lng.to_f], @radius.to_i).map {|z| z.zipcode}
         if zip_arr.present?
-          @schools = School.where(
+          @schools = School.select("*, COUNT(DISTINCT schools_users.id) AS number_of_teachers")
+          .joins('JOIN schools_users ON schools_users.school_id = schools.id')
+          .where(
             "zipcode in #{self.array_to_postgres_array_helper(zip_arr)} OR mail_zipcode in #{self.array_to_postgres_array_helper(zip_arr)}"
            ).where(
            "lower(name) LIKE :prefix", prefix: "%#{@prefix.downcase}%"
-           ).limit(@limit)
+          ).group("schools.id, schools_users.school_id, schools_users.user_id, schools_users.id")
+           .limit(@limit)
            $redis.set("LAT_LNG_RADIUS_TO_SCHOOL_#{@lat}_#{@lng}_#{@radius}", @schools.map {|s| s.id}.to_json)
            # short cache, highly specific
           $redis.expire("LAT_LNG_RADIUS_TO_SCHOOL_#{@lat}_#{@lng}_#{@radius}", 60*5)
@@ -44,15 +55,19 @@ class SchoolsController < ApplicationController
       if @schools.empty? and @prefix.length < MIN_PREFIX_LENGHT_WHEN_LAT_LON_NOT_PRESENT
         @schools = []
       elsif @schools.empty?
-        @schools = School.where(
-           "lower(name) LIKE :prefix", prefix: "#{@prefix.downcase}%"
-         ).limit(@limit)
+        @schools = School
+          .select("*, COUNT(DISTINCT schools_users.id) AS number_of_teachers")
+          .joins('JOIN schools_users ON schools_users.school_id = schools.id')
+          .where(
+             "lower(name) LIKE :prefix", prefix: "#{@prefix.downcase}%"
+           ).group("schools.id, schools_users.school_id, schools_users.user_id, schools_users.id")
+           .limit(@limit)
         $redis.set("PREFIX_TO_SCHOOL_#{@prefix}", @schools.map {|s| s.id}.to_json)
         # longer cache, more general
         $redis.expire("PREFIX_TO_SCHOOL_#{@prefix}", 60*60)
       end
     end
-    
+
   end
 
   def new
