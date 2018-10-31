@@ -279,9 +279,11 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
         event.preventDefault()
         change.moveToRangeOfNode(previousInline).insertText(previousInline.text + event.key)
       } else {
-        event.preventDefault()
-        return change.moveToStartOfNode(startInline)
-        .insertText(event.key)
+        if (originalSelection.focus.offset === 0 && originalSelection.anchor.offset === 0) {
+          event.preventDefault()
+          return change.moveToStartOfNode(startInline)
+          .insertText(event.key)
+        }
       }
     }
 
