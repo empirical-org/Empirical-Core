@@ -29,10 +29,7 @@ export default class DiagnosticMini extends React.Component {
   }
 
   assignRecommendationsMini() {
-    // const { unitInfo, numberOfFinishedDiagnostics, } = this.state;
-    const numberOfFinishedDiagnostics = 1
-    const unitInfo = {}
-
+    const { unitInfo, numberOfFinishedDiagnostics, } = this.state;
 
     return (<div className="mini_content diagnostic-mini assign-recommendations">
       <div className="gray-underline">
@@ -58,7 +55,7 @@ export default class DiagnosticMini extends React.Component {
   assignDiagnosticMini() {
     return (<div className="mini_content diagnostic-mini assign-diagnostic">
       <div className="gray-underline">
-        <h3>Assign A Diagnostic</h3>
+        <h3>Assign a Diagnostic</h3>
       </div>
 
       <img alt="" src={`${process.env.CDN_URL}/images/shared/new_diagnostic.svg`} />
@@ -69,20 +66,20 @@ export default class DiagnosticMini extends React.Component {
 
   renderDiagnosticMini() {
     let miniContent;
-    // switch (this.state.status) {
-    //   case 'recently completed':
+    switch (this.state.status) {
+      case 'recently completed':
         miniContent = this.assignRecommendationsMini();
-      //   break;
-      // case 'assigned':
-      //   miniContent = this.awaitingStudentsMini();
-      //   break;
-      // case 'unassigned':
-      //   miniContent = this.assignDiagnosticMini();
-      //   break;
-      // case 'completed':
-      // default:
-        // return <span />;
-    // }
+        break;
+      case 'assigned':
+        miniContent = this.awaitingStudentsMini();
+        break;
+      case 'unassigned':
+        miniContent = this.assignDiagnosticMini();
+        break;
+      case 'completed':
+      default:
+        return <span />;
+    }
     return (<div className="mini_container results-overview-mini-container col-md-4 col-sm-5 text-center">
       {miniContent}
     </div>);
