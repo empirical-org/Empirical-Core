@@ -5,7 +5,97 @@ class Cms::UnitTemplatesController < Cms::CmsController
     respond_to do |format|
       format.html
       format.json do
+        # UnitTemplate.order(order_number: :asc) # very fast
         render json: UnitTemplate.order(order_number: :asc).map{|u| Cms::UnitTemplateSerializer.new(u).as_json(root: false)}
+        # get main data (unit templates) ~20ms
+        # SELECT * FROM unit_templates  ORDER BY order_number ASC;
+        # 
+        # get included activities ~20ms
+        # SELECT * FROM activities_unit_templates JOIN activities on activity_id = activities.id where unit_template_id in (SELECT id FROM unit_templates);
+        #
+        # get activity classifications ~7ms
+        # SELECT * FROM activity_classifications WHERE activity_classifications.id IN (
+        #  SELECT DISTINCT activity_classification_id FROM activities_unit_templates JOIN activities on activity_id = activities.id where unit_template_id in (SELECT id FROM unit_templates)
+        # );
+        #
+        # get topics ~9ms
+        # SELECT * FROM topics WHERE topics.id IN (
+        #  SELECT DISTINCT topic_id FROM activities_unit_templates JOIN activities on activity_id = activities.id where unit_template_id in (SELECT id FROM unit_templates)
+        # );
+        #
+        # get sections ~9ms
+        # SELECT * FROM sections WHERE sections.id IN (
+        #  SELECT DISTINCT section_id FROM topics WHERE topics.id IN (
+        #   SELECT DISTINCT topic_id FROM activities_unit_templates JOIN activities on activity_id = activities.id where unit_template_id in (SELECT id FROM unit_templates)
+        #  )
+        # );
+        #
+        # get topic_categories ~7ms
+        # SELECT * FROM topic_categories WHERE topic_categories.id IN (
+        #   SELECT DISTINCT topic_category_id FROM topics WHERE topics.id IN (
+        #    SELECT DISTINCT topic_id FROM activities_unit_templates JOIN activities on activity_id = activities.id where unit_template_id in (SELECT id FROM unit_templates)
+        #  )
+        # );
+        #
+        #{
+        # data: [
+        #  {
+        #    id
+        #    type
+        #    attributes:{ name, unit_template_category, time, grades, author_id, flag, order_number, activity_info}
+        #    relationships: {
+        #      activities: {
+        #        data: [
+        #          {type, id}, ...
+        #        ]
+        #      }
+        #    }
+        #  },
+        #  ...
+        # ]
+        # included: [
+        #   {
+        #     id
+        #     type: activities
+        #     attributes { uid, name, description, data, flags, supporting_info, created_at, updated_at, anonymous_path* }
+        #     relationships: {
+        #       activity_classification: {
+        #         data: { type, id}
+        #       }
+        #       topic: {
+        #         data: { type, id}
+        #       }
+        #     }
+        #   },
+        #   {
+        #     id
+        #     type: activity_classifications
+        #     attributes: { uid, key, form_url, module_url, created_at, updated_at, green_image_class, alias, scorebook_icon_class, app_name, order_number, instructor_mode, locked_by_default }
+        #   },
+        #   {
+        #     id
+        #     type: topics
+        #     attributes: { uid, name, created_at, updated_at }
+        #     relationships: {
+        #       section: {
+        #         data: { type, id}
+        #       }
+        #       topic_category: {
+        #         data: { type, id}
+        #       }
+        #     }
+        #   },
+        #   {
+        #     id
+        #     type: sections
+        #     attributes: { uid, name, position, created_at, updated_at }
+        #   },
+        #   {
+        #     id
+        #     type: topic_categories
+        #     attributes: { uid, name, created_at, updated_at }
+        #   }
+        # ]
       end
     end
   end
