@@ -13,12 +13,12 @@ class Cms::UnitTemplatesController < Cms::CmsController
       format.html
       format.json do
         # UnitTemplate.order(order_number: :asc) # very fast
-        render json: UnitTemplate.order(order_number: :asc).map{|u| Cms::UnitTemplateSerializer.new(u).as_json(root: false)}
+        #render json: UnitTemplate.order(order_number: :asc).map{|u| Cms::UnitTemplateSerializer.new(u).as_json(root: false)}
         #NOTE: See this thread to properly interpret the included array client side https://discuss.jsonapi.org/t/why-is-included-an-array/76
 
-        result = {'data':[], 'included':[]}
+        result = {"data":[], "included":[]}
         # get main data (unit templates) ~20ms
-        result["data"] = ActiveRecord::Base.connection.execute("
+        result[:data] = ActiveRecord::Base.connection.execute("
          SELECT DISTINCT id,name,unit_template_category_id,time,grades,author_id,flag,order_number,activity_info,created_at,updated_at, array_to_string(array_agg(activity_id),',') as activity_ids
           FROM unit_templates JOIN activities_unit_templates ON unit_templates.id = unit_template_id
           GROUP BY id
@@ -31,7 +31,7 @@ class Cms::UnitTemplatesController < Cms::CmsController
               "name":ut["name"],
               "unit_template_category":ut["unit_template_category"],
               "time":ut["time"],
-              "grades":ut["grades"].split("\n- "),
+              "grades":(ut["grades"].split("\n- ") unless ut["graded"].nil?),
               "author_id":ut["author_id"],
               "flag":ut["flag"],
               "order_number":ut["order_number"],
@@ -45,29 +45,31 @@ class Cms::UnitTemplatesController < Cms::CmsController
           }
         }
         # get included activities ~20ms
-        result["included"] << ActiveRecord::Base.connection.execute("
+        result[:included] += ActiveRecord::Base.connection.execute("
           SELECT DISTINCT * FROM activities_unit_templates JOIN activities on activity_id = activities.id where unit_template_id in (SELECT id FROM unit_templates);
         ").map { |act|
-          "type":"activities",
-          "id":act["id"],
-          "attributes":{
-            "uid":act["uid"],
-            "name":act["name"],
-            "description":act["description"],
-            "data":act["data"],
-            "flags":act["flags"].sub("{","").sub("}","").split(","),
-            "supporting_info":act["supporting_info"],
-            "created_at":act["created_at"],
-            "updated_at":act["updated_at"],
-            "anonymous_path": Rails.application.routes.url_helpers.anonymous_activity_sessions_path(activity_id: act["id"])
-          },
-          "relationships": {
-            "topic":{"data":{"type":"topics", "id":act["topic_id"]}},
-            "activity_classification":{"data":{"type":"activity_classifications", "id":act["activity_classification_id"]}}
+          {
+            "type":"activities",
+            "id":act["id"],
+            "attributes":{
+              "uid":act["uid"],
+              "name":act["name"],
+              "description":act["description"],
+              "data":act["data"],
+              "flags":act["flags"].sub("{","").sub("}","").split(","),
+              "supporting_info":act["supporting_info"],
+              "created_at":act["created_at"],
+              "updated_at":act["updated_at"],
+              "anonymous_path": Rails.application.routes.url_helpers.anonymous_activity_sessions_path(activity_id: act["id"])
+            },
+            "relationships": {
+              "topic":{"data":{"type":"topics", "id":act["topic_id"]}},
+              "activity_classification":{"data":{"type":"activity_classifications", "id":act["activity_classification_id"]}}
+            }
           }
         }
         # get activity classifications ~7ms
-        result["included"] << ActiveRecord::Base.connection.execute("
+        result[:included] += ActiveRecord::Base.connection.execute("
          SELECT * FROM activity_classifications WHERE activity_classifications.id IN (
           SELECT DISTINCT activity_classification_id FROM activities_unit_templates JOIN activities on activity_id = activities.id where unit_template_id in (SELECT id FROM unit_templates)
          );
@@ -94,23 +96,71 @@ class Cms::UnitTemplatesController < Cms::CmsController
         }
         #
         # get topics ~9ms
-        # SELECT * FROM topics WHERE topics.id IN (
-        #  SELECT DISTINCT topic_id FROM activities_unit_templates JOIN activities on activity_id = activities.id where unit_template_id in (SELECT id FROM unit_templates)
-        # );
-        #
+        result[:included] += ActiveRecord::Base.connection.execute("
+          SELECT * FROM topics WHERE topics.id IN (
+           SELECT DISTINCT topic_id FROM activities_unit_templates JOIN activities on activity_id = activities.id where unit_template_id in (SELECT id FROM unit_templates)
+          );
+        ").map { |t|
+          { 
+            "id":t["id"],
+            "type":"topics",
+            "attributes": {
+              "uid":t["uid"],
+              "name":t["name"],
+              "created_at":t["created_at"],
+              "updated_at":t["updated_at"]
+            },
+            "relationships":{
+              "section": {
+                "data":{"type":"sections","id":t["section_id"]}
+              },
+              "topic_category":{
+                "data":{"type":"topic_categories","id":t["topic_category_id"]}
+              }
+            }
+          }
+        }
         # get sections ~9ms
-        # SELECT * FROM sections WHERE sections.id IN (
-        #  SELECT DISTINCT section_id FROM topics WHERE topics.id IN (
-        #   SELECT DISTINCT topic_id FROM activities_unit_templates JOIN activities on activity_id = activities.id where unit_template_id in (SELECT id FROM unit_templates)
-        #  )
-        # );
+        result[:included] += ActiveRecord::Base.connection.execute("
+          SELECT * FROM sections WHERE sections.id IN (
+           SELECT DISTINCT section_id FROM topics WHERE topics.id IN (
+            SELECT DISTINCT topic_id FROM activities_unit_templates JOIN activities on activity_id = activities.id where unit_template_id in (SELECT id FROM unit_templates)
+           )
+          );
+        ").map { |s|
+          {
+            "id":s["id"],
+            "type":"sections",
+            "attributes": {
+              "uid":s["uid"],
+              "name":s["name"],
+              "position":s["position"],
+              "created_at":s["created_at"],
+              "updated_at":s["updated_at"]
+            }
+          }
+        }
         #
         # get topic_categories ~7ms
-        # SELECT * FROM topic_categories WHERE topic_categories.id IN (
-        #   SELECT DISTINCT topic_category_id FROM topics WHERE topics.id IN (
-        #    SELECT DISTINCT topic_id FROM activities_unit_templates JOIN activities on activity_id = activities.id where unit_template_id in (SELECT id FROM unit_templates)
-        #  )
-        # );
+        result[:included] += ActiveRecord::Base.connection.execute("
+          SELECT * FROM topic_categories WHERE topic_categories.id IN (
+            SELECT DISTINCT topic_category_id FROM topics WHERE topics.id IN (
+             SELECT DISTINCT topic_id FROM activities_unit_templates JOIN activities on activity_id = activities.id where unit_template_id in (SELECT id FROM unit_templates)
+           )
+          );
+        ").map { |tc|
+          {
+            "id":tc["id"],
+            "type":"topic_categories",
+            "attributes":{
+              "uid":tc["uid"],
+              "name":tc["name"],
+              "created_at":tc["created_at"],
+              "updated_at":tc["updated_at"]
+            }
+          }
+        }
+        render json: result 
         #
         #{
         # data: [
