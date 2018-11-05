@@ -16,6 +16,12 @@ class Cms::UnitTemplatesController < Cms::CmsController
         #render json: UnitTemplate.order(order_number: :asc).map{|u| Cms::UnitTemplateSerializer.new(u).as_json(root: false)}
         #NOTE: See this thread to properly interpret the included array client side https://discuss.jsonapi.org/t/why-is-included-an-array/76
 
+        result = $redis.get('UNIT_TEMPLATES_JSON')
+        unless result.nil?
+          render json: result
+          return
+        end
+
         result = {"data":[], "included":[]}
         # get main data (unit templates) ~20ms
         result[:data] = ActiveRecord::Base.connection.execute("
@@ -160,6 +166,9 @@ class Cms::UnitTemplatesController < Cms::CmsController
             }
           }
         }
+        result = result.to_json
+        $redis.set('UNIT_TEMPLATES_JSON', result)
+        $redis.expire('UNIT_TEMPLATES_JSON', 60*5) # five minutes should be fine
         render json: result 
         #
         #{
