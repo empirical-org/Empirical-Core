@@ -6,9 +6,12 @@ module Units::Creator
   def self.fast_assign_unit_template(teacher_id, unit_template_id, current_user_id=nil)
     # unit fix: pass whole teacher object
     teacher = User.find(teacher_id)
-    # this call is unnecessary as we can do sql without it
-    unit_template = UnitTemplate.find(unit_template_id)
-    activities_data = unit_template.activities.map{ |a| {id: a.id, due_date: nil} }
+    activities_data = ActiveRecord::Base.connection.execute("
+      SELECT activities.id FROM activities JOIN activities_unit_templates ON
+      activities.id = activity_id WHERE unit_template_id = #{unit_template_id} 
+      ORDER BY activities_unit_templates.id;
+    ").map { |a| {id: a["id"].to_i, due_date: nil}}
+
     # unit fix: may be able to better optimize this one, but possibly not
     classrooms_data = teacher.classrooms_i_teach.map{ |c| {id: c.id, student_ids: [], assign_on_join: true} }
     self.create_helper(teacher, unit_template.name, activities_data, classrooms_data, unit_template_id, current_user_id)
@@ -19,9 +22,11 @@ module Units::Creator
     # converted to array so we can map in helper function as we would otherwise
     # unit fix: pass whole teacher object
     teacher = User.find(teacher_id)
-    # this call is unnecessary as we can do sql without it
-    unit_template = UnitTemplate.find(unit_template_id)
-    activities_data = unit_template.activities.map{ |a| {id: a.id, due_date: nil} }
+    activities_data = ActiveRecord::Base.connection.execute("
+      SELECT activities.id FROM activities JOIN activities_unit_templates ON
+      activities.id = activity_id WHERE unit_template_id = #{unit_template_id} 
+      ORDER BY activities_unit_templates.id;
+    ").map { |a| {id: a["id"].to_i, due_date: nil}}
     self.create_helper(teacher, unit_template.name, activities_data, classroom_array, unit_template_id, current_user_id)
   end
 
