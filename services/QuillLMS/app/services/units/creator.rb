@@ -4,6 +4,7 @@ module Units::Creator
   end
 
   def self.fast_assign_unit_template(teacher_id, unit_template_id, current_user_id=nil)
+    unit_template = UnitTemplate.find(unit_template_id)
     # unit fix: pass whole teacher object
     teacher = User.find(teacher_id)
     activities_data = ActiveRecord::Base.connection.execute("
@@ -18,6 +19,7 @@ module Units::Creator
   end
 
   def self.assign_unit_template_to_one_class(teacher_id, unit_template_id, classroom, current_user_id=nil)
+    unit_template = UnitTemplate.find(unit_template_id)
     classroom_array = [classroom]
     # converted to array so we can map in helper function as we would otherwise
     # unit fix: pass whole teacher object
