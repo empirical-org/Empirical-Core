@@ -116,18 +116,38 @@
 
 .school-search-container {
   max-width: 577px;
-  height: 523px;
   border-radius: 6px;
   border: solid 1px #e0e0e0;
   background-color: #ffffff;
   margin: auto;
-  padding: 18px 32px;
+  padding: 11px 32px 0px;
   .schools-list-section {
+    margin: 38px 0px;
     max-width: 513px;
     border-radius: 6px;
     border: solid 1px #e0e0e0;
-    background-color: #ffffff;
-
+    .title {
+      padding: 18px 16px;
+      line-height: 1px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #888888;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    .list {
+      overflow: scroll;
+      height: 286px;
+    }
+    .school-not-listed {
+      border-top: 1px solid #e0e0e0;
+      font-size: 14px;
+      padding: 16px 16px 18px;
+      line-height: 1;
+      span {
+        color: #009a80;
+        font-weight: 600;
+      }
+    }
   }
 }
 

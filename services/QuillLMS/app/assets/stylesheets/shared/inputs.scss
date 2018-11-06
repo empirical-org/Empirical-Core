@@ -137,6 +137,10 @@ select {
 }
 
 .input-container {
+  min-height: 58px;
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
   input {
     margin-bottom: 8px;
     border: 2px #009a80;
