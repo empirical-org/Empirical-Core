@@ -30,11 +30,13 @@ class SignUpTeacher extends React.Component {
   }
 
   getLocation(position) {
+    console.log('hi')
     const { latitude, longitude, } = position.coords
     this.setState({ latitude, longitude, }, this.search)
   }
 
   enableLocationAccess() {
+    console.log('yo')
     navigator.geolocation.getCurrentPosition(this.getLocation);
   }
 
@@ -131,7 +133,9 @@ class SignUpTeacher extends React.Component {
 
   locationServicesLink() {
     const { userAgent } = navigator
-    if (navigator.userAgent.indexOf("Chrom") !== -1){
+    if (navigator.userAgent.indexOf("OPR") !== -1){
+      return 'https://help.opera.com/en/geolocation/'
+    } else if (navigator.userAgent.indexOf("Chrom") !== -1){
       return 'https://support.google.com/chrome/answer/114662?visit_id=636771351335585730-3894756667&rd=1'
     } else if (navigator.userAgent.indexOf("Firefox") !== -1){
       return 'https://yandex.com/support/common/browsers-settings/geo-firefox.html'
@@ -139,8 +143,6 @@ class SignUpTeacher extends React.Component {
       return 'https://www.seamonkey-project.org/doc/2.0/geolocation'
     } else if (navigator.userAgent.indexOf("Safari") !== -1){
       return 'https://support.apple.com/en-us/HT204690'
-    } else if (navigator.userAgent.indexOf("Opera") !== -1){
-      return 'https://help.opera.com/en/geolocation/'
       // internet explorer
     } else if (navigator.userAgent.indexOf("MSIE") !== -1){
       return 'https://support.microsoft.com/en-us/help/17479/windows-internet-explorer-11-change-security-privacy-settings'
