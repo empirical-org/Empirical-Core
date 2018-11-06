@@ -110,10 +110,10 @@ class SignUpTeacher extends React.Component {
           <span className="primary-text">{text}</span>
           <span className="secondary-text">{secondaryText}</span>
         </span>
-        <span>{number_of_teachers} Quill Teacher{number_of_teachers === 1 ? '' : 's'}</span>
+        <span className="metadata">{number_of_teachers} Quill Teacher{number_of_teachers === 1 ? '' : 's'}</span>
       </li>)
     })
-    return <ul className="list">{schoolItems}</ul>
+    return <ul className="list double-line">{schoolItems}</ul>
   }
 
   renderSchoolsListSection() {
