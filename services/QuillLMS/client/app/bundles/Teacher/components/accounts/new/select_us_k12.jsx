@@ -4,7 +4,7 @@ import Input from '../../shared/input'
 import AnalyticsWrapper from '../../shared/analytics_wrapper'
 import getAuthToken from '../../modules/get_auth_token';
 
-const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
+const mapSearchSrc = `${process.env.CDN_URL}/images/onboarding/map-search.svg`
 
 class SignUpTeacher extends React.Component {
   constructor(props) {
@@ -18,6 +18,7 @@ class SignUpTeacher extends React.Component {
     this.updateKeyValue = this.updateKeyValue.bind(this);
     this.update = this.update.bind(this);
     this.search = this.search.bind(this)
+    this.enableLocationAccess = this.enableLocationAccess.bind(this)
     this.getLocation = this.getLocation.bind(this)
     this.renderSchoolsList = this.renderSchoolsList.bind(this)
     this.renderSchoolsListSection = this.renderSchoolsListSection.bind(this)
@@ -25,12 +26,16 @@ class SignUpTeacher extends React.Component {
   }
 
   componentDidMount() {
-    navigator.geolocation.getCurrentPosition(this.getLocation);
+    this.enableLocationAccess()
   }
 
   getLocation(position) {
     const { latitude, longitude, } = position.coords
     this.setState({ latitude, longitude, }, this.search)
+  }
+
+  enableLocationAccess() {
+    navigator.geolocation.getCurrentPosition(this.getLocation);
   }
 
   updateKeyValue(key, value) {
@@ -116,20 +121,59 @@ class SignUpTeacher extends React.Component {
     return <ul className="list double-line">{schoolItems}</ul>
   }
 
+  renderNoSchoolFound() {
+    return <div className="no-school-found">
+      <img src={mapSearchSrc} alt="map search image"/>
+      <p className="message">We couldn't find your school</p>
+      <p className="sub-text">Try another search, or click skip for now below.</p>
+    </div>
+  }
+
+  locationServicesLink() {
+    const { userAgent } = navigator
+    if (navigator.userAgent.indexOf("Chrom") !== -1){
+      return 'https://support.google.com/chrome/answer/114662?visit_id=636771351335585730-3894756667&rd=1'
+    } else if (navigator.userAgent.indexOf("Firefox") !== -1){
+      return 'https://yandex.com/support/common/browsers-settings/geo-firefox.html'
+    } else if (navigator.userAgent.indexOf("Seamonkey") !== -1){
+      return 'https://www.seamonkey-project.org/doc/2.0/geolocation'
+    } else if (navigator.userAgent.indexOf("Safari") !== -1){
+      return 'https://support.apple.com/en-us/HT204690'
+    } else if (navigator.userAgent.indexOf("Opera") !== -1){
+      return 'https://help.opera.com/en/geolocation/'
+      // internet explorer
+    } else if (navigator.userAgent.indexOf("MSIE") !== -1){
+      return 'https://support.microsoft.com/en-us/help/17479/windows-internet-explorer-11-change-security-privacy-settings'
+    }
+  }
+
+  renderNoLocationFound() {
+    return <div className="no-location-found">
+      <img src={mapSearchSrc} alt="map search image"/>
+      <p className="message">We couldn't find your location</p>
+      <p className="sub-text"><a target="_blank" href={this.locationServicesLink()}>Enable location</a> access or search for your school above.</p>
+    </div>
+  }
+
   renderSchoolsListSection() {
     const { schools, search, latitude, longitude } = this.state
-    let title, schoolsList
-    if (schools) {
-      schoolsList = this.renderSchoolsList(schools)
+    let title
+    let schoolsListOrEmptyState
+    if (search.length < 4 && !latitude && !longitude) {
+      schoolsListOrEmptyState = this.renderNoLocationFound()
+    } else if (schools && schools.length) {
+      schoolsListOrEmptyState = this.renderSchoolsList(schools)
+    } else {
+      schoolsListOrEmptyState = this.renderNoSchoolFound()
     }
-    if (!search && latitude && longitude) {
+    if (search.length < 4) {
       title = 'Schools near you'
-    } else if (search) {
+    } else {
       title = 'Results'
     }
     return <div className="schools-list-section">
       <div className="title">{title}</div>
-      {schoolsList}
+      {schoolsListOrEmptyState}
       <div className="school-not-listed">School not listed? <span onClick={() => this.selectSchool('not listed')}>Skip for now</span></div>
     </div>
   }
