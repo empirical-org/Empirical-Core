@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import {clearData, loadData, nextQuestion, submitResponse, updateName, updateCurrentQuestion} from '../../actions/diagnostics.js'
+import {clearData, loadData, nextQuestion, nextQuestionWithoutSaving, submitResponse, updateName, updateCurrentQuestion} from '../../actions/diagnostics.js'
 import _ from 'underscore'
 import {
   CarouselAnimation,
