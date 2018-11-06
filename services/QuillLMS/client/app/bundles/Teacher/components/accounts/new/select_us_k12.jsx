@@ -11,13 +11,26 @@ class SignUpTeacher extends React.Component {
     super(props);
     this.state = {
       search: '',
-      schools: []
+      schools: [],
+      errors: {}
     }
 
     this.updateKeyValue = this.updateKeyValue.bind(this);
     this.update = this.update.bind(this);
     this.search = this.search.bind(this)
-    this.toggleNewsletter = this.toggleNewsletter.bind(this)
+    this.getLocation = this.getLocation.bind(this)
+    this.renderSchoolsList = this.renderSchoolsList.bind(this)
+    this.renderSchoolsListSection = this.renderSchoolsListSection.bind(this)
+    this.selectSchool = this.selectSchool.bind(this)
+  }
+
+  componentDidMount() {
+    navigator.geolocation.getCurrentPosition(this.getLocation);
+  }
+
+  getLocation(position) {
+    const { latitude, longitude, } = position.coords
+    this.setState({ latitude, longitude, }, this.search)
   }
 
   updateKeyValue(key, value) {
@@ -30,41 +43,95 @@ class SignUpTeacher extends React.Component {
     this.updateKeyValue(e.target.id, e.target.value)
   }
 
-  search(e) {
-    const { firstName, lastName, email, password, sendNewsletter } = this.state
-    e.preventDefault();
+  search() {
+    const { search, latitude, longitude } = this.state
     request({
-      url: `${process.env.DEFAULT_URL}/account`,
-      method: 'POST',
-      json: {
-        user: {
-          name: `${firstName} ${lastName}`,
-          password,
-          email,
-          role: 'teacher',
-          send_newsletter: sendNewsletter,
-        },
-        authenticity_token: getAuthToken(),
-      },
+      url: `${process.env.DEFAULT_URL}/schools`,
+      qs: { prefix: search, lat: latitude, lng: longitude, },
+      method: 'GET',
     },
     (err, httpResponse, body) => {
       if (httpResponse.statusCode === 200) {
+        const schools = JSON.parse(body).data
+        this.setState({ schools, })
+        console.log('body', body)
         // console.log(body);
-        window.location = '/sign-up/add-k12'
-      } else {
-        let state
-        if (body.errors) {
-          state = { lastUpdate: new Date(), errors: body.errors, }
-        } else {
-          let message = 'You have entered an incorrect email or password.';
-          if (httpResponse.statusCode === 429) {
-            message = 'Too many failed attempts. Please wait one minute and try again.';
-          }
-          state = { lastUpdate: new Date(), message: (body.message || message), }
-        }
-        this.setState(state)
+      //   window.location = '/sign-up/add-k12'
+      // } else {
+      //   let state
+      //   if (body.errors) {
+      //     state = { lastUpdate: new Date(), errors: body.errors, }
+      //   } else {
+      //     let message = 'You have entered an incorrect email or password.';
+      //     if (httpResponse.statusCode === 429) {
+      //       message = 'Too many failed attempts. Please wait one minute and try again.';
+      //     }
+      //     state = { lastUpdate: new Date(), message: (body.message || message), }
+      //   }
+      //   this.setState(state)
       }
     });
+  }
+
+  selectSchool(idOrType) {
+    request({
+      url: `${process.env.DEFAULT_URL}/select_school`,
+      json: {
+        school_id_or_type: idOrType,
+        authenticity_token: getAuthToken(),
+      },
+      method: 'POST',
+    },
+    (err, httpResponse, body) => {
+      if (httpResponse.statusCode === 200) {
+        window.location = '/profile'
+      }
+    });
+  }
+
+  renderSchoolsList(schools) {
+    const schoolItems = schools.map(school => {
+      const { city, number_of_teachers, state, street, text, zipcode } = school.attributes
+      let secondaryText = ''
+      if (street) {
+        secondaryText = `${street}, `
+      }
+      if (city) {
+        secondaryText += `${city}, `
+      }
+      if (state) {
+        secondaryText += `${state} `
+      }
+      if (zipcode) {
+        secondaryText += zipcode
+      }
+      return (<li onClick={() => this.selectSchool(school.id)}>
+        <span className="text">
+          <span className="primary-text">{text}</span>
+          <span className="secondary-text">{secondaryText}</span>
+        </span>
+        <span>{number_of_teachers} Quill Teacher{number_of_teachers === 1 ? '' : 's'}</span>
+      </li>)
+    })
+    return <ul className="list">{schoolItems}</ul>
+  }
+
+  renderSchoolsListSection() {
+    const { schools, search, latitude, longitude } = this.state
+    let title, schoolsList
+    if (schools) {
+      schoolsList = this.renderSchoolsList(schools)
+    }
+    if (!search && latitude && longitude) {
+      title = 'Schools near you'
+    } else if (search) {
+      title = 'Results'
+    }
+    return <div className="schools-list-section">
+      <div className="title">{title}</div>
+      {schoolsList}
+      <div className="school-not-listed">School not listed? <span onClick={() => this.selectSchool('not listed')}>Skip for now</span></div>
+    </div>
   }
 
   render () {
@@ -81,8 +148,9 @@ class SignUpTeacher extends React.Component {
             error={this.state.errors.search}
             id="search"
           />
+          {this.renderSchoolsListSection()}
         </div>
-        <a href="/sign-up/add-non-k12">I don't teach at a U.S. K-12 school</a>
+        <a className="non-k12-link" href="/sign-up/add-non-k12">I don't teach at a U.S. K-12 school</a>
       </div>
     )
   }
