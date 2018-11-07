@@ -5,12 +5,16 @@ class SchoolsController < ApplicationController
   def index
     @radius = params[:radius].presence || 5
     @limit = params[:limit].presence || 10
-    @lat, @lng, @prefix = params[:lat],params[:lng], params[:prefix]
+    @lat, @lng = params[:lat],params[:lng]
+    @search = params[:search]
+    @prefix,@zipcode = get_prefix_and_zipcode(@search)
     @schools = []
 
     school_ids = []
     if @lat.present? and @lng.present?
       school_ids = JSON.load($redis.get("LAT_LNG_RADIUS_TO_SCHOOL_#{@lat}_#{@lng}_#{@radius}"))
+    elsif @zipcode.present?
+      school_ids = JSON.load($redis.get("ZIPCODE_RADIUS_TO_SCHOOL_#{@zipcode}_#{@radius}"))
     else
       school_ids = JSON.load($redis.get("PREFIX_TO_SCHOOL_#{@prefix}"))
       @schools = School.select("schools.id, name, zipcode, mail_zipcode, street, mail_street, city, mail_city, state, mail_state, COUNT(schools_users.id) AS number_of_teachers")
@@ -30,8 +34,16 @@ class SchoolsController < ApplicationController
       .limit(@limit)
     end
 
-    if @lat.present? and @lng.present? and @schools.empty?
-      zip_arr = ZipcodeInfo.isinradius([@lat.to_f, @lng.to_f], @radius.to_i).map {|z| z.zipcode}
+    if ((@lat.present? and @lng.present?) or @zipcode.present?) and @schools.empty?
+      zip_arr = []
+      cache_id = "LAT_LNG"
+      if @zipcode.present?
+        zip_arr << @zipcode
+      cache_id = "ZIPCODE"
+      else
+        zip_arr += ZipcodeInfo.isinradius([@lat.to_f, @lng.to_f], @radius.to_i).map {|z| z.zipcode}
+      end
+
       if zip_arr.present?
         @schools = School.select("schools.id, name, zipcode, mail_zipcode, street, mail_street, city, mail_city, state, mail_state, COUNT(schools_users.id) AS number_of_teachers")
         .joins('LEFT JOIN schools_users ON schools_users.school_id = schools.id')
@@ -41,9 +53,9 @@ class SchoolsController < ApplicationController
          "lower(name) LIKE :prefix", prefix: "%#{@prefix.downcase}%"
          ).group("schools.id")
          .limit(@limit)
-         $redis.set("LAT_LNG_RADIUS_TO_SCHOOL_#{@lat}_#{@lng}_#{@radius}", @schools.map {|s| s.id}.to_json)
+         $redis.set("#{cache_id}_RADIUS_TO_SCHOOL_#{@lat}_#{@lng}_#{@radius}", @schools.map {|s| s.id}.to_json)
          # short cache, highly specific
-        $redis.expire("LAT_LNG_RADIUS_TO_SCHOOL_#{@lat}_#{@lng}_#{@radius}", 60*5)
+        $redis.expire("#{cache_id}_RADIUS_TO_SCHOOL_#{@lat}_#{@lng}_#{@radius}", 60*5)
       end
     end
 
@@ -101,7 +113,17 @@ class SchoolsController < ApplicationController
 
   private
 
-
+  def get_prefix_and_zipcode(search) 
+    prefix, zipcode = nil,nil
+    if search.present?
+      zipcode = search.match(/\d{5}/).to_s
+      prefix = search.gsub(/\d{5}/, "").strip()
+    end
+    unless zipcode.present?
+      zipcode = nil
+    end
+    return prefix,zipcode
+  end
 
   def school_params
     params.permit(:school_id_or_type, :prefix, :lat, :lng, :limit, :radius)
