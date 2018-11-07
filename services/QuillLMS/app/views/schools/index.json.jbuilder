@@ -20,7 +20,9 @@ json.ignore_nil! false
 json.meta do
   json.lat @lat
   json.lng @lng
+  json.search @search
   json.prefix @prefix
+  json.zipcode @zipcode
   json.radius @radius
   json.limit @limit
   json.request_time DateTime.now.to_s
