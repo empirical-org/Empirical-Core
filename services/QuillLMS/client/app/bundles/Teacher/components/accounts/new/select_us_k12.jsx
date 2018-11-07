@@ -1,18 +1,19 @@
 import React from 'react';
 import request from 'request'
 import Input from '../../shared/input'
-import AnalyticsWrapper from '../../shared/analytics_wrapper'
 import getAuthToken from '../../modules/get_auth_token';
+import LoadingIndicator from '../../shared/loading_indicator.jsx';
 
 const mapSearchSrc = `${process.env.CDN_URL}/images/onboarding/map-search.svg`
 
-class SignUpTeacher extends React.Component {
+class SelectUSK12 extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       search: '',
       schools: [],
-      errors: {}
+      errors: {},
+      loading: true
     }
 
     this.updateKeyValue = this.updateKeyValue.bind(this);
@@ -20,6 +21,7 @@ class SignUpTeacher extends React.Component {
     this.search = this.search.bind(this)
     this.enableLocationAccess = this.enableLocationAccess.bind(this)
     this.getLocation = this.getLocation.bind(this)
+    this.noLocation = this.noLocation.bind(this)
     this.renderSchoolsList = this.renderSchoolsList.bind(this)
     this.renderSchoolsListSection = this.renderSchoolsListSection.bind(this)
     this.selectSchool = this.selectSchool.bind(this)
@@ -30,14 +32,16 @@ class SignUpTeacher extends React.Component {
   }
 
   getLocation(position) {
-    console.log('hi')
     const { latitude, longitude, } = position.coords
-    this.setState({ latitude, longitude, }, this.search)
+    this.setState({ latitude, longitude, loading: true, }, this.search)
+  }
+
+  noLocation() {
+    this.setState({ loading: false, })
   }
 
   enableLocationAccess() {
-    console.log('yo')
-    navigator.geolocation.getCurrentPosition(this.getLocation);
+    navigator.geolocation.getCurrentPosition(this.getLocation, this.noLocation);
   }
 
   updateKeyValue(key, value) {
@@ -54,13 +58,13 @@ class SignUpTeacher extends React.Component {
     const { search, latitude, longitude } = this.state
     request({
       url: `${process.env.DEFAULT_URL}/schools`,
-      qs: { prefix: search, lat: latitude, lng: longitude, },
+      qs: { search, lat: latitude, lng: longitude, },
       method: 'GET',
     },
     (err, httpResponse, body) => {
       if (httpResponse.statusCode === 200) {
         const schools = JSON.parse(body).data
-        this.setState({ schools, })
+        this.setState({ schools, loading: false})
         console.log('body', body)
         // console.log(body);
       //   window.location = '/sign-up/add-k12'
@@ -87,7 +91,7 @@ class SignUpTeacher extends React.Component {
         school_id_or_type: idOrType,
         authenticity_token: getAuthToken(),
       },
-      method: 'POST',
+      method: 'PUT',
     },
     (err, httpResponse, body) => {
       if (httpResponse.statusCode === 200) {
@@ -99,7 +103,9 @@ class SignUpTeacher extends React.Component {
   renderSchoolsList(schools) {
     const schoolItems = schools.map(school => {
       const { city, number_of_teachers, state, street, text, zipcode } = school.attributes
+      const numberOfTeachers = number_of_teachers
       let secondaryText = ''
+      let numberOfTeachersText = ''
       if (street) {
         secondaryText = `${street}, `
       }
@@ -112,15 +118,24 @@ class SignUpTeacher extends React.Component {
       if (zipcode) {
         secondaryText += zipcode
       }
+      if (numberOfTeachers) {
+        numberOfTeachersText = `${numberOfTeachers} Quill Teacher${numberOfTeachers === 1 ? '' : 's'}`
+      }
       return (<li onClick={() => this.selectSchool(school.id)}>
         <span className="text">
           <span className="primary-text">{text}</span>
           <span className="secondary-text">{secondaryText}</span>
         </span>
-        <span className="metadata">{number_of_teachers} Quill Teacher{number_of_teachers === 1 ? '' : 's'}</span>
+        <span className="metadata">{numberOfTeachersText}</span>
       </li>)
     })
     return <ul className="list double-line">{schoolItems}</ul>
+  }
+
+  renderLoading() {
+    return <div className="loading">
+      <LoadingIndicator/>
+    </div>
   }
 
   renderNoSchoolFound() {
@@ -158,10 +173,12 @@ class SignUpTeacher extends React.Component {
   }
 
   renderSchoolsListSection() {
-    const { schools, search, latitude, longitude } = this.state
+    const { schools, search, latitude, longitude, loading } = this.state
     let title
     let schoolsListOrEmptyState
-    if (search.length < 4 && !latitude && !longitude) {
+    if (loading) {
+      schoolsListOrEmptyState = this.renderLoading()
+    } else if (search.length < 4 && !latitude && !longitude) {
       schoolsListOrEmptyState = this.renderNoLocationFound()
     } else if (schools && schools.length) {
       schoolsListOrEmptyState = this.renderSchoolsList(schools)
@@ -202,4 +219,4 @@ class SignUpTeacher extends React.Component {
   }
 }
 
-export default SignUpTeacher
+export default SelectUSK12

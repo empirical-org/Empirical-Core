@@ -81,7 +81,7 @@ export default class ForgotPassword extends React.Component {
             <input name="utf8" type="hidden" value="✓" />
             <input value={this.state.authToken} type="hidden" name="authenticity_token" />
             <Input
-              label="Password"
+              label="New password"
               value={this.state.password}
               handleChange={this.handlePasswordChange}
               type="password"

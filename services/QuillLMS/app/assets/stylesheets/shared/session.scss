@@ -25,7 +25,7 @@
     background-color: #ffffff;
     margin: auto;
     min-height: 480px;
-    padding: 40px 32px;
+    padding: 40px 32px 20px;
 
     form {
       display: flex;
@@ -83,11 +83,11 @@
 
     .input-container {
       margin-top: 10px;
-      &.inactive {
-        margin-top: 34px;
-      }
       .error-text {
         margin-bottom: 0px;
+      }
+      &.password {
+        margin-bottom: 10px;
       }
     }
 
