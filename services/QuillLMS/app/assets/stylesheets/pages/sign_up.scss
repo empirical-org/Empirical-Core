@@ -30,11 +30,6 @@
       font-weight: 600;
     }
   }
-  .account-container {
-    .button {
-      margin-top: 48px;
-    }
-  }
   .name {
     display: flex;
     justify-content: space-between;
@@ -55,9 +50,12 @@
       margin: 0px;
       height: 584px;
       border-left: none;
+      .button {
+        margin-top: 46px;
+      }
       .newsletter-row {
         display: flex;
-        margin-top: 37px;
+        margin-top: 32px;
         p {
           font-size: 14px;
           line-height: 1;
@@ -111,6 +109,9 @@
 .account-form.student-sign-up {
   .account-container {
     margin: 40px auto 32px;
+    .button {
+      margin-top: 32px;
+    }
   }
 }
 
@@ -120,7 +121,7 @@
   border: solid 1px #e0e0e0;
   background-color: #ffffff;
   margin: auto;
-  padding: 11px 32px 0px;
+  padding: 14px 32px 0px;
   .schools-list-section {
     margin: 38px 0px;
     max-width: 513px;
