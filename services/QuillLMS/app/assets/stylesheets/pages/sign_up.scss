@@ -138,6 +138,9 @@
     .list {
       overflow: scroll;
       height: 286px;
+      li {
+        cursor: pointer;
+      }
     }
     .school-not-listed {
       border-top: 1px solid #e0e0e0;
@@ -188,4 +191,16 @@
   margin-top: 32px;
   display: flex;
   justify-content: center;
+}
+
+.select-non-k12 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .card {
+    max-width: 546px;
+    min-height: 158px;
+    margin-bottom: 24px;
+    padding: 40px 32px;
+  }
 }
