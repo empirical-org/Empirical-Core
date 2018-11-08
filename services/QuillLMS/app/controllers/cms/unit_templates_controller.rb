@@ -45,7 +45,7 @@ class Cms::UnitTemplatesController < Cms::CmsController
             },
             "relationships":{
               "activities":{
-                "data":ut["activity_ids"].split(",").map {|ai| {'id':ai, 'type':'activities'}}
+                "data":ut["activity_ids"].split(",").uniq.map {|ai| {'id':ai, 'type':'activities'}}
               }
             }
           }
