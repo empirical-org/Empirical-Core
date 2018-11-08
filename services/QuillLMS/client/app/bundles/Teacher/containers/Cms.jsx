@@ -48,10 +48,66 @@ export default React.createClass({
     this.modules.server.getStateFromServer(this.props.resourceNamePlural, this.indexUrl(), this.populateResources);
   },
 
+  serializeRecievedData: function (data) {
+    let includedObj = {};
+    let x;
+    for (x = 0; x < data.included.length; x++) {
+      includedObj[data.included[x].type + data.included[x].id] = data.included[x];
+    }
+    let actOrTopicObj;
+    for (x = 0; x < data.included.length; x++) {
+      if (data.included[x].type == 'activities') {
+        actOrTopicObj = data.included[x].attributes;
+        actOrTopicObj.topic = includedObj[data.included[x].relationships.topic.type + data.included[x].relationships.topic.id].attributes;
+        actOrTopicObj.classification = includedObj[data.included[x].relationships.classification.type + data.included[x].relationships.classification.id].attributes;;
+        includedObj[data.included[x].type + data.included[x].id] = actOrTopicObj;
+      } else if (data.included[x].type == 'topics') {
+        actOrTopicObj = data.included[x].attributes;
+        actOrTopicObj.section = includedObj[data.included[x].relationships.section.type + data.included[x].relationships.section.id].attributes;
+        actOrTopicObj.topic_category = includedObj[data.included[x].relationships.topic_category.type + data.included[x].relationships.topic_category.id].attributes;
+        includedObj[data.included[x].type + data.included[x].id] = actOrTopicObj;
+      } else {
+        includedObj[data.included[x].type + data.included[x].id] = data.included[x].attributes;
+      }
+    }
+
+    let newData = [];
+    let newObj;
+    let i;
+    for (i = 0; i < data.data.length; i++) {
+      console.log(data.data[i]);
+      newObj = {
+        name:data.data[i].attributes.name,
+        unit_template_category: data.data[i].attributes.unit_template_category,
+        time: data.data[i].attributes.time,
+        grades:  data.data[i].attributes.grades,
+        author_id: data.data[i].attributes.author_id,
+        flag: data.data[i].attributes.flag,
+        order_number: data.data[i].attributes.order_number,
+        activity_info:  data.data[i].attributes.activity_info,
+        activities: data.data[i].relationships.activities.map(
+          function (rel) {
+            let result = includedObj[rel.type + rel.id];
+            result.topic = includedObj[
+            return includedObj[rel.type + rel.id] 
+          }
+        )
+
+      };
+      //data.data[i].name, data.data[i].unit_template_category, data.data[i].time, data.data[i].grades,
+      //data.data[i].author_id, data.data[i].flag, data.data[i].order_number, data.data[i].activity_info,
+      newData.push(newObj);
+    }
+    console.log('data');
+    console.log(newData);
+    //return newData; // array
+  },
+
   populateResources: function (resource) {
     // FIXME this fn does not have to be so complicated, need to change server module
     let that = this;
     return function (data) {
+      that.serializeRecievedData(data);
       var newState = that.state;
       newState[that.props.resourceNamePlural] = data[that.props.resourceNamePlural];
       that.setState(newState);
