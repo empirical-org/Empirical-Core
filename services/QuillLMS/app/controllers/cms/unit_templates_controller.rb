@@ -25,9 +25,9 @@ class Cms::UnitTemplatesController < Cms::CmsController
         result = {"data":[], "included":[]}
         # get main data (unit templates) ~20ms
         result[:data] = ActiveRecord::Base.connection.execute("
-         SELECT DISTINCT id,name,unit_template_category_id,time,grades,author_id,flag,order_number,activity_info,created_at,updated_at, array_to_string(array_agg(activity_id),',') as activity_ids
+         SELECT DISTINCT unit_templates.id,name,unit_template_category_id,time,grades,author_id,flag,order_number,activity_info,created_at,updated_at, array_to_string(array_agg(activity_id),',') as activity_ids
           FROM unit_templates JOIN activities_unit_templates ON unit_templates.id = unit_template_id
-          GROUP BY id
+          GROUP BY unit_templates.id
           ORDER BY order_number ASC;"
         ).map {|ut| 
           {
