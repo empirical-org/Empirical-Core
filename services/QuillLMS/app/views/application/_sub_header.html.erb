@@ -21,7 +21,7 @@
 <% end %>
 
 <nav class="q-navbar-home">
-  <% if ['account', 'session', 'password_reset'].any? { |str| current_path.include?(str)} %>
+  <% if ['account', 'session', 'password_reset', 'sign-up'].any? { |str| current_path.include?(str)} %>
     <div class="logo-only">
       <a href=<%= root_path %>>
         <img src="/images/quill_header_logo.svg" alt="Quill Logo">

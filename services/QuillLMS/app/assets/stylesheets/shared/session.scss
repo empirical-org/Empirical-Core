@@ -12,9 +12,14 @@
   padding-top: 48px;
   h1 {
     font-weight: bold;
-    margin: 0px 0px 46px;
+    margin: 0px auto 46px;
     text-align: center;
     font-size: 24px;
+    max-width: 546px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    line-height: 32px;
   }
 
   .account-container {
@@ -45,7 +50,6 @@
         border-radius: 4px;
         border: solid 1px #bdbdbd;
         background-color: #ffffff;
-        font-family: AdelleSans;
         font-size: 15px;
         font-weight: 600;
         color: #000;

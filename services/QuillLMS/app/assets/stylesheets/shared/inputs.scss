@@ -187,6 +187,19 @@ select {
     }
   }
   &.inactive {
+    &.has-text {
+      input {
+        height: inherit;
+        padding: 3px 0px;
+      }
+      label {
+        font-size: 12px;
+        font-weight: 600;
+        color: #7f7f7f;
+        display: flex;
+        margin-bottom: 5px;
+      }
+    }
     input {
       border: 1px #e0e0e0;
       height: 1px;

@@ -121,7 +121,7 @@ class LoginFormApp extends React.Component {
                   error={this.state.errors.password}
                 />
                 <div className="forget-and-show-password">
-                  <a href="/password_reset">Forgot password</a>
+                  <a href="/password_reset">Forgot password?</a>
                   <span onClick={() => { this.clickHandler(); }}>
                     {this.toggleButtonText()} password
                   </span>

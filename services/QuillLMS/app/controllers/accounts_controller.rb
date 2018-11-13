@@ -34,7 +34,15 @@ class AccountsController < ApplicationController
       create_referral_if_teacher_and_referrer
       render json: creation_json
     else
-      render json: {errors: @user.errors}, status: 422
+      errors = {}
+      if @user.errors['username']&.include?('has already been taken')
+        errors['username'] = ['That username is taken. Try another.']
+      elsif @user.errors['email']&.include?('has already been taken')
+        errors['email'] = ['That email is taken. Try another.']
+      elsif @user.errors['email']&.include?('does not appear to be a valid e-mail address')
+        errors['email'] = ['Enter a valid email']
+      end
+      render json: {errors: errors}, status: 422
     end
   end
 
