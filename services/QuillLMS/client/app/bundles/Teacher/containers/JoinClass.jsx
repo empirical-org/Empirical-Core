@@ -55,7 +55,7 @@ export default class JoinClass extends React.Component {
             error = 'Oops! That class has been archived. Please try a different class code.'
             break
           default:
-            error = 'Oops! Looks like that isn\'t a valid class code. Please try again.'
+            error = 'Enter a valid class code. Ask your teacher for help.'
             break
         }
         this.setState({ errors: { classCode: error, }, })
