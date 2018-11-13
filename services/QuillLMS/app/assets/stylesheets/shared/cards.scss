@@ -1,6 +1,6 @@
 .card {
   border-radius: 6px;
-  border: solid 1px #e0e0e0;
+  box-shadow: 0 0 0 1px #e0e0e0;
   background-color: #ffffff;
   display: flex;
   align-items: center;
@@ -19,6 +19,6 @@
     margin-right: 32px;
   }
   &:hover, &:focus {
-    border: solid 2px #01c2a2;
+    box-shadow: 0 0 0 2px #01c2a2;
   }
 }
