@@ -1,7 +1,6 @@
 import * as React from 'react'
 import request from 'request'
 import getAuthToken from '../../../components/modules/get_auth_token'
-import AgreementsAndLinkToLogin from './agreements_and_link_to_login'
 
 const studentPencilImg = `${process.env.CDN_URL}/images/onboarding/student-pencil.svg`
 const teacherChalkboardImg = `${process.env.CDN_URL}/images/onboarding/teacher-chalkboard.svg`
@@ -64,7 +63,9 @@ class SelectUserType extends React.Component {
             </div>
           </div>
         </div>
-        <AgreementsAndLinkToLogin />
+        <div className="agreements-and-link-to-login">
+          <p className="return-to-login">Already have an account? <a href="/session/new">Log in</a></p>
+        </div>
       </div>
     )
   }

@@ -11,6 +11,13 @@ export default class Input extends React.Component {
 
     this.activateInput = this.activateInput.bind(this)
     this.acknowledgeError = this.acknowledgeError.bind(this)
+    this.handleClick = this.handleClick.bind(this)
+    this.handleTab = this.handleTab.bind(this)
+    this.deactivateInput = this.deactivateInput.bind(this)
+  }
+
+  componentWillMount() {
+    document.addEventListener('mousedown', this.handleClick, false)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -19,8 +26,22 @@ export default class Input extends React.Component {
     }
   }
 
+  componentWillUnmount() {
+    document.removeEventListener('mousedown', this.handleClick, false)
+  }
+
   activateInput() {
     this.setState({ inactive: false, }, () => this.input.focus())
+  }
+
+  deactivateInput() {
+    this.setState({ inactive: true, })
+  }
+
+  handleClick(e) {
+    if (!this.node.contains(e.target)) {
+      this.deactivateInput()
+    }
   }
 
   acknowledgeError() {
@@ -33,6 +54,7 @@ export default class Input extends React.Component {
       const index = Array.prototype.indexOf.call(form, event.target);
       form.elements[index + 1].focus();
       event.preventDefault();
+      this.deactivateInput()
     }
   }
 
@@ -53,31 +75,64 @@ export default class Input extends React.Component {
   renderInput() {
     const { inactive, errorAcknowledged} = this.state
     const { className, label, handleChange, value, placeholder, error, type, id } = this.props
-    if (inactive) {
-      return (<div className={`input-container inactive ${this.props.className}`} onClick={this.activateInput}>
-        <label>{label}</label>
-        <input
-          id={id}
-          ref={(input) => { this.input = input; }}
-          onFocus={this.activateInput}
-        />
-        {this.renderHelperText()}
-      </div>)
-    } else if (error ) {
+    const hasText = value ? 'has-text' : ''
+    if (error) {
       if (errorAcknowledged) {
-        return (<div className={`input-container error ${className}`}>
-          <label>{label}</label>
-          <input
-            id={id}
-            ref={(input) => { this.input = input; }}
-            onChange={handleChange}
-            value={value}
-            type={type}
-            placeholder={placeholder}
-          />
+        return (<div
+            className={`input-container error ${hasText} ${className}`}
+            ref={node => this.node = node}
+          >
+            <label>{label}</label>
+            <input
+              id={id}
+              ref={(input) => { this.input = input; }}
+              onChange={handleChange}
+              value={value}
+              type={type}
+              placeholder={placeholder}
+            />
         </div>)
       } else {
-        return (<div className={`input-container error unacknowledged ${className}`} onClick={this.acknowledgeError}>
+        return (
+          <div
+            className={`input-container error unacknowledged ${hasText} ${className}`}
+            onClick={this.acknowledgeError}
+            ref={node => this.node = node}
+          >
+            <label>{label}</label>
+            <input
+              id={id}
+              ref={(input) => { this.input = input; }}
+              onChange={handleChange}
+              value={value}
+              type={type}
+              placeholder={placeholder}
+            />
+            {this.renderErrorText()}
+        </div>)
+      }
+    } else if (inactive) {
+      return (
+        <div
+          className={`input-container inactive ${hasText} ${this.props.className}`}
+          onClick={this.activateInput}
+          ref={node => this.node = node}
+        >
+          <label>{label}</label>
+          <input
+            id={id}
+            ref={(input) => { this.input = input; }}
+            onFocus={this.activateInput}
+            type={type}
+          />
+          {this.renderHelperText()}
+      </div>)
+    } else {
+      return (
+        <div
+          className={`input-container active ${hasText} ${className}`}
+          ref={node => this.node = node}
+        >
           <label>{label}</label>
           <input
             id={id}
@@ -86,22 +141,8 @@ export default class Input extends React.Component {
             value={value}
             type={type}
             placeholder={placeholder}
+            onKeyDown={this.handleTab}
           />
-          {this.renderErrorText()}
-        </div>)
-      }
-    } else {
-      return (<div className={`input-container active ${className}`}>
-        <label>{label}</label>
-        <input
-          id={id}
-          ref={(input) => { this.input = input; }}
-          onChange={handleChange}
-          value={value}
-          type={type}
-          placeholder={placeholder}
-          onKeyDown={this.handleTab}
-        />
       </div>)
     }
   }
