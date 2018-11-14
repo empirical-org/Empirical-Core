@@ -129,7 +129,7 @@ class SchoolSelector extends React.Component {
     return <div className="no-school-found">
       <img src={mapSearchSrc} alt="map search image"/>
       <p className="message">We couldn't find your school</p>
-      <p className="sub-text">Try another search, or click skip for now below.</p>
+      <p className="sub-text">Try another search or click skip for now below.</p>
     </div>
   }
 
@@ -137,7 +137,7 @@ class SchoolSelector extends React.Component {
     return <div className="no-location-found">
       <img src={mapSearchSrc} alt="map search image"/>
       <p className="message">We couldn't find your location</p>
-      <p className="sub-text"><a target="_blank" href={this.locationServicesLink()}>Enable location</a> access or search for your school above.</p>
+      <p className="sub-text"><a target="_blank" href={this.locationServicesLink()}>Enable location access</a> or search for your school above.</p>
     </div>
   }
 

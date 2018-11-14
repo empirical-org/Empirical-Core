@@ -91,11 +91,11 @@ class LoginFormApp extends React.Component {
           <div className="auth-section">
             <a href='/auth/google_oauth2?prompt=consent'>
               <img src='/images/google_icon.svg' alt="google icon" />
-              <span>Log In with Google</span>
+              <span>Log in with Google</span>
             </a>
             <a href={this.props.cleverLink}>
               <img src={`${process.env.CDN_URL}/images/shared/clever_icon.svg`} alt="clever icon" />
-              <span>Log In with Clever</span>
+              <span>Log in with Clever</span>
             </a>
           </div>
           <div className='break'><span/>or<span/></div>
