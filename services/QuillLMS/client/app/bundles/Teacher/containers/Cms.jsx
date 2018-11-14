@@ -49,25 +49,36 @@ export default React.createClass({
   },
 
   serializeRecievedData: function (data) {
+    // build map of included objects
     let includedObj = {};
     let x;
     for (x = 0; x < data.included.length; x++) {
-      includedObj[data.included[x].type + data.included[x].id] = data.included[x];
+      if (data.included[x].type == 'topics' || data.included[x].type == 'activities') {
+        includedObj[data.included[x].type + data.included[x].id] = data.included[x].attributes;
+      } else {
+        includedObj[data.included[x].type + data.included[x].id] = data.included[x];
+      }
     }
-    let actOrTopicObj;
+    // nest object under activities
+
+    // nest section and topic category on topic object 
+    let topicObj
+    for (x = 0; x < data.included.length; x++) {
+      if (data.included[x].type == 'topics') {
+        topicObj = data.included[x].attributes;
+        topicObj.section = includedObj[data.included[x].relationships.section.type + data.included[x].relationships.section.id];
+        topicObj.topic_category = includedObj[data.included[x].relationships.topic_category.type + data.included[x].relationships.topic_category.id];
+        includedObj[data.included[x].type + data.included[x].id] = topicObj;
+      } 
+    }
+    // nest topic on activities 
+    let actObj
     for (x = 0; x < data.included.length; x++) {
       if (data.included[x].type == 'activities') {
-        actOrTopicObj = data.included[x].attributes;
-        actOrTopicObj.topic = includedObj[data.included[x].relationships.topic.type + data.included[x].relationships.topic.id].attributes;
-        actOrTopicObj.classification = includedObj[data.included[x].relationships.classification.type + data.included[x].relationships.classification.id].attributes;;
-        includedObj[data.included[x].type + data.included[x].id] = actOrTopicObj;
-      } else if (data.included[x].type == 'topics') {
-        actOrTopicObj = data.included[x].attributes;
-        actOrTopicObj.section = includedObj[data.included[x].relationships.section.type + data.included[x].relationships.section.id].attributes;
-        actOrTopicObj.topic_category = includedObj[data.included[x].relationships.topic_category.type + data.included[x].relationships.topic_category.id].attributes;
-        includedObj[data.included[x].type + data.included[x].id] = actOrTopicObj;
-      } else {
-        includedObj[data.included[x].type + data.included[x].id] = data.included[x].attributes;
+        actObj = data.included[x].attributes;
+        actObj.topic = includedObj[data.included[x].relationships.topic.type + data.included[x].relationships.topic.id];
+        actObj.classification = includedObj[data.included[x].relationships.activity_classification.type + data.included[x].relationships.activity_classification.id];
+        includedObj[data.included[x].type + data.included[x].id] = actObj;
       }
     }
 
@@ -75,7 +86,6 @@ export default React.createClass({
     let newObj;
     let i;
     for (i = 0; i < data.data.length; i++) {
-      console.log(data.data[i]);
       newObj = {
         name:data.data[i].attributes.name,
         unit_template_category: data.data[i].attributes.unit_template_category,
@@ -85,31 +95,24 @@ export default React.createClass({
         flag: data.data[i].attributes.flag,
         order_number: data.data[i].attributes.order_number,
         activity_info:  data.data[i].attributes.activity_info,
-        activities: data.data[i].relationships.activities.map(
+        activities: data.data[i].relationships.activities.data.map(
           function (rel) {
-            let result = includedObj[rel.type + rel.id];
-            result.topic = includedObj[
             return includedObj[rel.type + rel.id] 
           }
         )
-
       };
-      //data.data[i].name, data.data[i].unit_template_category, data.data[i].time, data.data[i].grades,
-      //data.data[i].author_id, data.data[i].flag, data.data[i].order_number, data.data[i].activity_info,
       newData.push(newObj);
     }
-    console.log('data');
-    console.log(newData);
-    //return newData; // array
+    return newData;
   },
 
   populateResources: function (resource) {
     // FIXME this fn does not have to be so complicated, need to change server module
     let that = this;
     return function (data) {
-      that.serializeRecievedData(data);
+      let newData = that.serializeRecievedData(data);
       var newState = that.state;
-      newState[that.props.resourceNamePlural] = data[that.props.resourceNamePlural];
+      newState[that.props.resourceNamePlural] = newData;
       that.setState(newState);
     }
   },
