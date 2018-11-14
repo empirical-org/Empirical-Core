@@ -34,7 +34,7 @@ const actions = {
   submitQuestionEdit(qid, content) {
     return function (dispatch, getState) {
       dispatch({ type: C.SUBMIT_FILL_IN_BLANK_QUESTION_EDIT, qid, });
-      const cleanedContent = _.pickBy(content)
+      const cleanedContent = _.pickBy(content, value => !!value || value === false)
       fillInBlankQuestionsRef.child(qid).update(cleanedContent, (error) => {
         dispatch({ type: C.FINISH_FILL_IN_BLANK_QUESTION_EDIT, qid, });
         if (error) {
