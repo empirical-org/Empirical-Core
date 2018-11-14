@@ -314,8 +314,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
   showNextQuestionButton() {
     const { question, } = this.props;
     const latestAttempt = this.getLatestAttempt();
-    const readyForNext =
-      question.attempts ? question.attempts.length > 4 : false || (latestAttempt && latestAttempt.response.optimal);
+    const readyForNext = question.attempts.length > 4 || (latestAttempt && latestAttempt.response.optimal);
     if (readyForNext) {
       return true;
     } else {
