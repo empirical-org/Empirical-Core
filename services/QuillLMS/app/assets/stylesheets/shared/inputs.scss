@@ -163,29 +163,6 @@ select {
     -o-transition: all 0.2s ease-in;
     transition: all 0.2s ease-in;
   }
-  &.error {
-    input {
-      border: 2px #ff0000;
-      border-style: none none solid none;
-    }
-    .error-text {
-      font-size: 12px;
-      font-weight: 600;
-      line-height: 1.33;
-      letter-spacing: normal;
-      color: #ff0000;
-      display: flex;
-      margin-bottom: 10px;
-    }
-    label {
-      color: #ff0000;
-    }
-    &.unacknowledged {
-      label {
-        color: #7f7f7f;
-      }
-    }
-  }
   &.inactive {
     &.has-text {
       input {
@@ -216,6 +193,36 @@ select {
       font-size: 12px;
       font-weight: 600;
       color: #7f7f7f;
+    }
+  }
+  &.error {
+    input {
+      border: 2px #ff0000;
+      border-style: none none solid none;
+    }
+    .error-text {
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 1.33;
+      letter-spacing: normal;
+      color: #ff0000;
+      display: flex;
+      margin-bottom: 10px;
+    }
+    &.active {
+      label {
+        color: #ff0000;
+      }
+    }
+    &.inactive {
+      label {
+        color: #7f7f7f;
+      }
+    }
+    &.unacknowledged {
+      label {
+        color: #7f7f7f;
+      }
     }
   }
 }
