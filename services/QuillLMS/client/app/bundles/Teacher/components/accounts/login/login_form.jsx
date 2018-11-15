@@ -14,7 +14,8 @@ class LoginFormApp extends React.Component {
       showPass: false,
       email: '',
       password: '',
-      errors: {}
+      errors: {},
+      timesSubmitted: 0
     };
   }
 
@@ -49,14 +50,15 @@ class LoginFormApp extends React.Component {
   }
 
   handleSubmit(e) {
+    const { timesSubmitted, email, password } = this.state
     e.preventDefault();
     request({
       url: `${process.env.DEFAULT_URL}/session/login_through_ajax`,
       method: 'POST',
       json: {
         user: {
-          email: this.state.email,
-          password: this.state.password,
+          email,
+          password,
         },
         authenticity_token: getAuthToken(),
       },
@@ -70,7 +72,7 @@ class LoginFormApp extends React.Component {
         if (body.type && body.message) {
           const errors = {}
           errors[body.type] = body.message
-          state = { lastUpdate: new Date(), errors, }
+          state = { lastUpdate: new Date(), errors, timesSubmitted: timesSubmitted + 1 }
         } else {
           let message = 'You have entered an incorrect email/username or password.';
           if (httpResponse.statusCode === 429) {
@@ -84,6 +86,7 @@ class LoginFormApp extends React.Component {
   }
 
   render() {
+    const { errors, email, password, timesSubmitted, authToken } = this.state
     return (
       <div className="container account-form">
         <h1>Good to see you again!</h1>
@@ -103,22 +106,24 @@ class LoginFormApp extends React.Component {
             <div>
               <form onSubmit={this.handleSubmit} acceptCharset="UTF-8" >
                 <input name="utf8" type="hidden" value="✓" />
-                <input value={this.state.authToken} type="hidden" name="authenticity_token" />
+                <input value={authToken} type="hidden" name="authenticity_token" />
                 <Input
                   label="Email or username"
-                  value={this.state.email}
+                  value={email}
                   handleChange={this.handleEmailChange}
                   type="text"
                   className="email"
-                  error={this.state.errors.email}
+                  error={errors.email}
+                  timesSubmitted={timesSubmitted}
                 />
                 <Input
                   label="Password"
-                  value={this.state.password}
+                  value={password}
                   handleChange={this.handlePasswordChange}
                   type={this.togglePass()}
                   className="password"
-                  error={this.state.errors.password}
+                  error={errors.password}
+                  timesSubmitted={timesSubmitted}
                 />
                 <div className="forget-and-show-password">
                   <a href="/password_reset">Forgot password?</a>
