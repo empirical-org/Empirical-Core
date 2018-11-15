@@ -12,7 +12,8 @@ export default class ForgotPassword extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
       email: '',
-      errors: {}
+      errors: {},
+      timesSubmitted: 0,
     };
   }
 
@@ -29,14 +30,15 @@ export default class ForgotPassword extends React.Component {
   }
 
   handleSubmit(e) {
+    const { email, password, timesSubmitted, } = this.state
     e.preventDefault();
     request({
       url: `${process.env.DEFAULT_URL}/password_reset`,
       method: 'POST',
       json: {
         user: {
-          email: this.state.email,
-          password: this.state.password,
+          email,
+          password,
         },
         authenticity_token: getAuthToken(),
       },
@@ -50,7 +52,7 @@ export default class ForgotPassword extends React.Component {
         if (body.type && body.message) {
           const errors = {}
           errors[body.type] = body.message
-          state = { lastUpdate: new Date(), errors, }
+          state = { lastUpdate: new Date(), errors, timesSubmitted: timesSubmitted + 1, }
         } else {
           let message = 'An account with this email does not exist. Try again.';
           if (httpResponse.statusCode === 429) {
@@ -64,6 +66,7 @@ export default class ForgotPassword extends React.Component {
   }
 
   render() {
+    const { timesSubmitted, email, authToken, errors, } = this.state
     return (
       <div className="container account-form forgot-password">
         <h1>Reset Password</h1>
@@ -71,14 +74,15 @@ export default class ForgotPassword extends React.Component {
         <div className="form-container">
           <form onSubmit={this.handleSubmit} acceptCharset="UTF-8" >
             <input name="utf8" type="hidden" value="✓" />
-            <input value={this.state.authToken} type="hidden" name="authenticity_token" />
+            <input value={authToken} type="hidden" name="authenticity_token" />
             <Input
               label="Email"
-              value={this.state.email}
+              value={email}
               handleChange={this.handleEmailChange}
               type="text"
               className="email"
-              error={this.state.errors.email}
+              error={errors.email}
+              timesSubmitted={timesSubmitted}
             />
             <input type="submit" name="commit" value="Reset password" className={this.submitClass()} />
           </form>

@@ -13,7 +13,8 @@ export default class JoinClass extends React.Component {
     this.state = {
       errors: {},
       classCodeInput: '',
-      loading: false
+      loading: false,
+      timesSubmitted: 0,
     }
 
     this.addClassroom = this.addClassroom.bind(this)
@@ -29,10 +30,11 @@ export default class JoinClass extends React.Component {
   }
 
   addClassroom(e) {
+    const { timesSubmitted, classCodeInput, } = this.state
     e.preventDefault();
     // this.setState({ loading: true, })
     const data = new FormData()
-    data.append('classcode', this.state.classCodeInput)
+    data.append('classcode', classCodeInput)
     fetch(`${process.env.DEFAULT_URL}/students_classrooms`, {
       method: 'POST',
       mode: 'cors',
@@ -58,7 +60,7 @@ export default class JoinClass extends React.Component {
             error = 'Enter a valid class code. Ask your teacher for help.'
             break
         }
-        this.setState({ errors: { classCode: error, }, })
+        this.setState({ errors: { classCode: error, }, timesSubmitted: timesSubmitted + 1, })
       } else {
         window.location.href = `/classrooms/${response.id}?joined=success`
       }
@@ -70,7 +72,8 @@ export default class JoinClass extends React.Component {
   }
 
   render() {
-    if (this.state.loading) {
+    const { loading, authToken, classCodeInput, timesSubmitted, errors, } = this.state
+    if (loading) {
       return <LoadingIndicator />
     }
     return (
@@ -80,14 +83,15 @@ export default class JoinClass extends React.Component {
         <div className="form-container">
           <form onSubmit={this.addClassroom} acceptCharset="UTF-8" >
             <input name="utf8" type="hidden" value="✓" />
-            <input value={this.state.authToken} type="hidden" name="authenticity_token" />
+            <input value={authToken} type="hidden" name="authenticity_token" />
             <Input
               label="Add your class code"
-              value={this.state.classCodeInput}
+              value={classCodeInput}
               handleChange={this.updateClassCode}
               type="text"
               className="class-code"
-              error={this.state.errors.classCode}
+              error={errors.classCode}
+              timesSubmitted={timesSubmitted}
             />
             <input type="submit" name="commit" value="Join your class" className={this.submitClass()} />
           </form>

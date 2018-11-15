@@ -18,7 +18,8 @@ class SignUpTeacher extends React.Component {
       password: '',
       sendNewsletter: true,
       errors: {},
-      analytics: new AnalyticsWrapper()
+      analytics: new AnalyticsWrapper(),
+      timesSubmitted: 0
     }
 
     this.updateKeyValue = this.updateKeyValue.bind(this);
@@ -39,7 +40,7 @@ class SignUpTeacher extends React.Component {
   }
 
   submitClass() {
-    const { password, firstName, lastName, email } = this.state
+    const { password, firstName, lastName, email, } = this.state
     let buttonClass = "button contained primary medium"
     if (!password.length || !firstName.length || !lastName.length || !email.length) {
       buttonClass += ' disabled'
@@ -48,7 +49,7 @@ class SignUpTeacher extends React.Component {
   }
 
   handleSubmit(e) {
-    const { firstName, lastName, email, password, sendNewsletter } = this.state
+    const { firstName, lastName, email, password, sendNewsletter, timesSubmitted, } = this.state
     e.preventDefault();
     request({
       url: `${process.env.DEFAULT_URL}/account`,
@@ -71,7 +72,7 @@ class SignUpTeacher extends React.Component {
       } else {
         let state
         if (body.errors) {
-          state = { lastUpdate: new Date(), errors: body.errors, }
+          state = { lastUpdate: new Date(), errors: body.errors, timesSubmitted: timesSubmitted + 1}
         } else {
           let message = 'You have entered an incorrect email or password.';
           if (httpResponse.statusCode === 429) {
@@ -99,6 +100,7 @@ class SignUpTeacher extends React.Component {
   }
 
   render () {
+    const { authToken, timesSubmitted, firstName, errors, lastName, email, password, } = this.state
     return (
       <div className="container account-form teacher-sign-up">
         <h1>Create a teacher account</h1>
@@ -119,44 +121,48 @@ class SignUpTeacher extends React.Component {
                 <div>
                   <form onSubmit={this.handleSubmit} acceptCharset="UTF-8" >
                     <input name="utf8" type="hidden" value="✓" />
-                    <input value={this.state.authToken} type="hidden" name="authenticity_token" />
+                    <input value={authToken} type="hidden" name="authenticity_token" />
                     <div className="name">
                       <Input
                         label="First name"
-                        value={this.state.firstName}
+                        value={firstName}
                         handleChange={this.update}
                         type="text"
                         className="first-name"
                         id="firstName"
-                        error={this.state.errors.first_name}
+                        error={errors.first_name}
+                        timesSubmitted={timesSubmitted}
                       />
                       <Input
                         label="Last name"
-                        value={this.state.lastName}
+                        value={lastName}
                         handleChange={this.update}
                         type="text"
                         className="last-name"
                         id="lastName"
-                        error={this.state.errors.last_name}
+                        error={errors.last_name}
+                        timesSubmitted={timesSubmitted}
                       />
                     </div>
                     <Input
                       label="Email"
-                      value={this.state.email}
+                      value={email}
                       handleChange={this.update}
                       type="text"
                       className="email"
                       id="email"
-                      error={this.state.errors.email}
+                      error={errors.email}
+                      timesSubmitted={timesSubmitted}
                     />
                     <Input
                       label="Password"
-                      value={this.state.password}
+                      value={password}
                       handleChange={this.update}
                       type='password'
                       className="password"
-                      error={this.state.errors.password}
+                      error={errors.password}
                       id="password"
+                      timesSubmitted={timesSubmitted}
                     />
                     {this.renderNewsletterRow()}
                     <input type="submit" name="commit" value="Sign up" className={this.submitClass()} />

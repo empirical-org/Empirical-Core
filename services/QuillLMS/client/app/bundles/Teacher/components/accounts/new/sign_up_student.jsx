@@ -16,7 +16,8 @@ class SignUpStudent extends React.Component {
       email: null,
       password: '',
       errors: {},
-      analytics: new AnalyticsWrapper()
+      analytics: new AnalyticsWrapper(),
+      timesSubmitted: 0
     }
 
     this.updateKeyValue = this.updateKeyValue.bind(this);
@@ -45,7 +46,7 @@ class SignUpStudent extends React.Component {
   }
 
   handleSubmit(e) {
-    const { firstName, lastName, username, password } = this.state
+    const { firstName, lastName, username, password, timesSubmitted, } = this.state
     const email = this.state.email && this.state.email.length ? this.state.email : null
     e.preventDefault();
     request({
@@ -70,7 +71,7 @@ class SignUpStudent extends React.Component {
       } else {
         let state
         if (body.errors) {
-          state = { lastUpdate: new Date(), errors: body.errors, }
+          state = { lastUpdate: new Date(), errors: body.errors, timesSubmitted: timesSubmitted + 1}
         } else {
           let message = 'You have entered an incorrect email/username or password.';
           if (httpResponse.statusCode === 429) {
@@ -84,6 +85,7 @@ class SignUpStudent extends React.Component {
   }
 
   render () {
+    const { authToken, firstName, lastName, username, timesSubmitted, email, errors, password, } = this.state
     return (
       <div className="container account-form student-sign-up">
         <h1>Create a student account</h1>
@@ -95,53 +97,58 @@ class SignUpStudent extends React.Component {
             <div>
               <form onSubmit={this.handleSubmit} acceptCharset="UTF-8" >
                 <input name="utf8" type="hidden" value="✓" />
-                <input value={this.state.authToken} type="hidden" name="authenticity_token" />
+                <input value={authToken} type="hidden" name="authenticity_token" />
                 <div className="name">
                   <Input
                     label="First name"
-                    value={this.state.firstName}
+                    value={firstName}
                     handleChange={this.update}
                     type="text"
                     className="first-name"
                     id="firstName"
-                    error={this.state.errors.first_name}
+                    error={errors.first_name}
+                    timesSubmitted={timesSubmitted}
                   />
                   <Input
                     label="Last name"
-                    value={this.state.lastName}
+                    value={lastName}
                     handleChange={this.update}
                     type="text"
                     className="last-name"
                     id="lastName"
-                    error={this.state.errors.last_name}
+                    error={errors.last_name}
+                    timesSubmitted={timesSubmitted}
                   />
                 </div>
                 <Input
                   label="Username"
-                  value={this.state.username}
+                  value={username}
                   handleChange={this.update}
                   type="text"
                   className="username"
                   id="username"
-                  error={this.state.errors.username}
+                  error={errors.username}
+                  timesSubmitted={timesSubmitted}
                 />
                 <Input
                   label="Email (optional)"
-                  value={this.state.email}
+                  value={email}
                   handleChange={this.update}
                   type="text"
                   className="email"
                   id="email"
-                  error={this.state.errors.email}
+                  error={errors.email}
+                  timesSubmitted={timesSubmitted}
                 />
                 <Input
                   label="Password"
-                  value={this.state.password}
+                  value={password}
                   handleChange={this.update}
                   type='password'
                   className="password"
-                  error={this.state.errors.password}
+                  error={errors.password}
                   id="password"
+                  timesSubmitted={timesSubmitted}
                 />
                 <input type="submit" name="commit" value="Sign up" className={this.submitClass()} />
               </form>
