@@ -3,8 +3,6 @@ import request from 'request'
 import Input from '../../shared/input'
 import getAuthToken from '../../modules/get_auth_token';
 
-const bulbSrc = `${process.env.CDN_URL}/images/onboarding/bulb.svg`
-
 export default class ForgotPassword extends React.Component {
   constructor() {
     super();
@@ -12,7 +10,8 @@ export default class ForgotPassword extends React.Component {
     this.state = {
       password: '',
       passwordConfirmation: '',
-      errors: {}
+      errors: {},
+      timesSubmitted: 0,
     };
 
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
@@ -37,14 +36,15 @@ export default class ForgotPassword extends React.Component {
   }
 
   handleSubmit(e) {
+    const { timesSubmitted, password, passwordConfirmation, } = this.state
     e.preventDefault();
     request({
       url: window.location.href,
       method: 'PUT',
       json: {
         user: {
-          password: this.state.password,
-          password_confirmation: this.state.passwordConfirmation,
+          password,
+          password_confirmation: passwordConfirmation,
         },
         authenticity_token: getAuthToken(),
       },
@@ -58,7 +58,7 @@ export default class ForgotPassword extends React.Component {
         if (body.type && body.message) {
           const errors = {}
           errors[body.type] = body.message
-          state = { lastUpdate: new Date(), errors, }
+          state = { lastUpdate: new Date(), errors, timesSubmitted: timesSubmitted + 1, }
         } else {
           let message = "Those passwords didn't match. Try again.";
           if (httpResponse.statusCode === 429) {
@@ -72,6 +72,7 @@ export default class ForgotPassword extends React.Component {
   }
 
   render() {
+    const { authToken, password, passwordConfirmation, errors, timesSubmitted, } = this.state
     return (
       <div className="container account-form reset-password">
         <h1>Reset Password</h1>
@@ -79,22 +80,24 @@ export default class ForgotPassword extends React.Component {
         <div className="form-container">
           <form onSubmit={this.handleSubmit} acceptCharset="UTF-8" >
             <input name="utf8" type="hidden" value="✓" />
-            <input value={this.state.authToken} type="hidden" name="authenticity_token" />
+            <input value={authToken} type="hidden" name="authenticity_token" />
             <Input
               label="New password"
-              value={this.state.password}
+              value={password}
               handleChange={this.handlePasswordChange}
               type="password"
               className="password"
-              error={this.state.errors.password}
+              error={errors.password}
+              timesSubmitted={timesSubmitted}
             />
             <Input
               label="Confirm password"
-              value={this.state.passwordConfirmation}
+              value={passwordConfirmation}
               handleChange={this.handlePasswordConfirmationChange}
               type="password"
               className="password-confirmation"
-              error={this.state.errors.password_confirmation}
+              error={errors.password_confirmation}
+              timesSubmitted={timesSubmitted}
             />
             <input type="submit" name="commit" value="Save and log in" className={this.submitClass()} />
           </form>
