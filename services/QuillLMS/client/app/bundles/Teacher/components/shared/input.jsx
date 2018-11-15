@@ -47,7 +47,7 @@ export default class Input extends React.Component {
   }
 
   acknowledgeError() {
-    this.setState({ errorAcknowledged: true }, () => this.input.focus())
+    this.setState({ errorAcknowledged: true, inactive: false, }, () => this.input.focus())
   }
 
   handleTab(event) {
@@ -78,11 +78,13 @@ export default class Input extends React.Component {
     const { inactive, errorAcknowledged} = this.state
     const { className, label, handleChange, value, placeholder, error, type, id } = this.props
     const hasText = value ? 'has-text' : ''
+    const inactiveOrActive = inactive ? 'inactive' : 'active'
     if (error) {
       if (errorAcknowledged) {
         return (<div
-            className={`input-container error ${hasText} ${className}`}
+            className={`input-container error ${inactiveOrActive} ${hasText} ${className}`}
             ref={node => this.node = node}
+            onClick={this.activateInput}
           >
             <label>{label}</label>
             <input
@@ -97,7 +99,7 @@ export default class Input extends React.Component {
       } else {
         return (
           <div
-            className={`input-container error unacknowledged ${hasText} ${className}`}
+            className={`input-container error unacknowledged ${inactiveOrActive} ${hasText} ${className}`}
             onClick={this.acknowledgeError}
             ref={node => this.node = node}
           >
@@ -116,7 +118,7 @@ export default class Input extends React.Component {
     } else if (inactive) {
       return (
         <div
-          className={`input-container inactive ${hasText} ${this.props.className}`}
+          className={`input-container ${inactiveOrActive} ${hasText} ${this.props.className}`}
           onClick={this.activateInput}
           ref={node => this.node = node}
         >
@@ -132,7 +134,7 @@ export default class Input extends React.Component {
     } else {
       return (
         <div
-          className={`input-container active ${hasText} ${className}`}
+          className={`input-container ${inactiveOrActive} ${hasText} ${className}`}
           ref={node => this.node = node}
         >
           <label>{label}</label>
