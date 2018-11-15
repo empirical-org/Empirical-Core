@@ -50,7 +50,7 @@ class ResponsesController < ApplicationController
     new_vals = transformed_new_vals(response_params)
     updated_response = @response.update(new_vals)
     if updated_response
-      if updated_response['optimal'] != nil
+      if @response.optimal != nil
         Rails.cache.delete("questions/#{@response.question_uid}/responses")
       end
       render json: @response
