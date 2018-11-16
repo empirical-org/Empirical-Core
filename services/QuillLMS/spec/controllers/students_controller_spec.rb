@@ -54,19 +54,9 @@ describe StudentsController do
   end
 
   describe '#update_email' do
-    context 'when params role student' do
-      it 'should update the role and email' do
-        post :update_email, email: "test@email.com"
-        expect(user.reload.email).to eq "test@email.com"
-        expect(user.reload.role).to eq "teacher"
-      end
-    end
-
-    context 'when params role not student' do
-      it 'should set the role as student if given' do
-        post :update_email, role: "student", email: "test@email.com"
-        expect(user.reload.role).to eq "student"
-      end
+    it 'should update the role and email' do
+      post :update_email, email: "test@email.com"
+      expect(user.reload.email).to eq "test@email.com"
     end
   end
 end
