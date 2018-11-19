@@ -107,6 +107,29 @@ pipeline {
             }
           }
         }
+        stage('test-lms-cypress') {
+          agent {
+            dockerfile {
+              filename 'services/QuillJenkins/agents/QuillLMS/Dockerfile.cypress'
+              dir '.'
+              args "-u root:sudo -v \$HOME/workspace/myproject:/myproject --name test-lms-cypress${env.BUILD_TAG} --network jnk-net${env.BUILD_TAG}"
+            }
+          }
+          environment {
+            REDISCLOUD_URL = 'redis://localhost:6379/0'
+            REDISCLOUD_NAMESPACE = 'test'
+            RACK_ENV = 'test'
+            PROGRESS_REPORT_FOG_DIRECTORY = 'empirical-progress-report-dev'
+            FOG_DIRECTORY = 'empirical-core-staging'
+            CONTINUOUS_INTEGRATION = true
+            SALESMACHINE_API_KEY = 'SALESMACHINE_API_KEY'
+          }
+          steps {
+            echo 'Beginnning TEST...'
+            dir(path: 'services/QuillLMS') {
+            }
+          }
+        }
         stage('test-comprehension') {
           agent {
             dockerfile {
