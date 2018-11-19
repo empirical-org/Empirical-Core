@@ -154,7 +154,6 @@ end
 gem 'awesome_print'
 
 group :test, :development do
-  gem 'cypress-on-rails', '~> 1.0'
   gem 'quiet_assets'
   gem 'parallel_tests'
   gem 'pry'
@@ -179,6 +178,7 @@ group :test, :development do
 end
 
 group :test, :development, :cypress do
+  gem 'cypress-on-rails', '~> 1.0'
   gem 'faker'
 end
 
