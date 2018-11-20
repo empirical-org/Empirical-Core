@@ -107,6 +107,43 @@ pipeline {
             }
           }
         }
+        stage('test-lms-cypress') {
+          agent {
+            dockerfile {
+              filename 'services/QuillJenkins/agents/QuillLMS/Dockerfile.2.5.2'
+              dir '.'
+              args "-u root:sudo -v \$HOME/workspace/myproject:/myproject --name test-lms-cypress${env.BUILD_TAG} --network jnk-net${env.BUILD_TAG}"
+            }
+          }
+          environment {
+            REDISCLOUD_URL = 'redis://localhost:6379/0'
+            REDISCLOUD_NAMESPACE = 'test'
+            RACK_ENV = 'test'
+            PROGRESS_REPORT_FOG_DIRECTORY = 'empirical-progress-report-dev'
+            FOG_DIRECTORY = 'empirical-core-staging'
+            CONTINUOUS_INTEGRATION = true
+            SALESMACHINE_API_KEY = 'SALESMACHINE_API_KEY'
+
+            CYPRESS_trashAssetsBeforeRuns = 'false'
+          }
+          steps {
+            echo 'Beginnning TEST...'
+            dir(path: 'services/QuillLMS') {
+              echo 'Installing Dependencies'
+              sh 'bundle install'
+              sh "config/generate_databaseyml.sh ${env.BUILD_TAG} config/database.yml"
+              sh 'bundle exec rake parallel:create'
+              sh 'bundle exec rake parallel:load_structure'
+              sh 'bundle exec rake db:migrate'
+              sh 'bundle exec rake parallel:spec'
+              sh 'foreman start -f Procfile.cypress' // start lms server
+              sleep 60 // wait a minute to ensure server is up
+
+              echo 'Beginnning cypress tests...'
+              sh 'npm run cypress:run'
+            }
+          }
+        }
         stage('test-comprehension') {
           agent {
             dockerfile {
@@ -612,6 +649,9 @@ pipeline {
       sh "docker network rm jnk-net${env.BUILD_TAG}"
       echo "Removing workspace"
       cleanWs()
+
+      echo 'Stopping local lms server'
+      sh 'pkill -f foreman'
     }
   }
 }
