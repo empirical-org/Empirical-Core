@@ -1,7 +1,7 @@
 'use strict'
 import React from 'react'
 import $ from 'jquery'
-import UsK12View from '../school/us_k12_view'
+import SchoolSelector from '../../shared/school_selector'
 import NotUsK12View from '../school/not_us_k12_view'
 import ScrollToTop from '../../shared/scroll_to_top'
 export default React.createClass({
@@ -51,10 +51,10 @@ export default React.createClass({
           <ScrollToTop />
           <h3>Are you a faculty member at a U.S. K-12 school?*</h3>
            <div className='option-wrapper'>
-             <button className='button-green' onClick={() => this.goToStage(2)}>Yes</button>
-             <button className='button-green' onClick={() => this.goToStage(3)}>No</button>
+             <button className='button contained primary large' onClick={() => this.goToStage(2)}>Yes</button>
+             <button className='button contained primary large' onClick={() => this.goToStage(3)}>No</button>
            </div>
-           <div>
+           <div className="explanation">
              *K-12 is a term for school grades prior to college.<br/>
              These grades span from kindergarten through the 12th grade.
            </div>
@@ -62,11 +62,15 @@ export default React.createClass({
       );
     } else if (this.state.stage === 2) {
       return (
-        <UsK12View analytics={this.props.analytics} finish={this.finish} selectSchool={this.selectSchool} />
+        <div className='educator-type'>
+          <SchoolSelector selectSchool={this.selectSchool} />
+        </div>
       );
     } else if (this.state.stage === 3) {
       return (
-        <NotUsK12View analytics={this.props.analytics} selectSchool={this.selectSchool}/>
+        <div className='educator-type'>
+          <NotUsK12View analytics={this.props.analytics} selectSchool={this.selectSchool}/>
+        </div>
       )
     }
   },

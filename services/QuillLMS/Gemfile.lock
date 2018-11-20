@@ -228,6 +228,7 @@ GEM
     hashdiff (0.3.7)
     hashery (2.1.2)
     hashie (3.5.7)
+    haversine (0.3.2)
     html2haml (2.2.0)
       erubis (~> 2.7.0)
       haml (>= 4.0, < 6)
@@ -726,6 +727,7 @@ DEPENDENCIES
   guard-rspec
   guard-shell
   haml-rails
+  haversine
   httparty
   intercom (~> 3.5.23)
   jbuilder
@@ -822,4 +824,4 @@ RUBY VERSION
    ruby 2.5.1p57
 
 BUNDLED WITH
-   1.16.3
+   1.16.4

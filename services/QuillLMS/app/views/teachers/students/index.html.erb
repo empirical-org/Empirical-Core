@@ -52,6 +52,7 @@
                   <thead>
                     <tr>
                       <th>Student Name</th>
+                      <th>Account Type</th>
                       <th>Username</th>
                       <th>Activities Completed</th>
                       <th></th>
@@ -61,6 +62,7 @@
                     <% @classroom.students.sort_by(&:sorting_name).each do |student| %>
                       <tr class=<%dom_class(student)%> id=<% dom_id(student)%> >
                         <td class="name"> <%=student.name %> </td>
+                        <td class="account_type"> <%=student.account_type %> </td>
                         <td class="username"> <%= student.username %> </td>
                         <td class="activities_completed"> <%= student.finished_activities(@classroom).count %> </td>
                         <td> <%= link_to 'Edit Account',
