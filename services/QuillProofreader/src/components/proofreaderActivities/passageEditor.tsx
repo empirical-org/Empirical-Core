@@ -96,7 +96,8 @@ const plugins = [
 interface PassageEditorState {
   text: any;
   originalTextArray: string[],
-  indicesOfUTags: {[key: number]: number}
+  indicesOfUTags: {[key: number]: number},
+  editsWithOriginalValue: Array<{index: string, originalText: string, currentText: string}>
 }
 
 interface PassageEditorProps {
@@ -116,11 +117,14 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
     this.state = {
       text: html.deserialize(text),
       originalTextArray,
-      indicesOfUTags
+      indicesOfUTags,
+      editsWithOriginalValue: []
     }
 
     this.handleTextChange = this.handleTextChange.bind(this)
     this.onKeyUp = this.onKeyUp.bind(this)
+    this.updateEditsWithOriginalValue = this.updateEditsWithOriginalValue.bind(this)
+    this.removeEditFromEditsWithOriginalValue = this.removeEditFromEditsWithOriginalValue.bind(this)
   }
 
   trimWord(word: string) {
@@ -214,7 +218,27 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
   }
 
   handleTextChange({value}: any) {
-    this.setState({text: value}, () => this.props.handleTextChange(html.serialize(this.state.text)))
+    this.setState({text: value}, () => this.props.handleTextChange(html.serialize(this.state.text), this.state.editsWithOriginalValue))
+  }
+
+  removeEditFromEditsWithOriginalValue(index: string) {
+    this.setState({ editsWithOriginalValue: this.state.editsWithOriginalValue.filter(edit => edit.index !== index)})
+  }
+
+  updateEditsWithOriginalValue(index: string, currentText: string, originalText: string) {
+    const { editsWithOriginalValue } = this.state
+    const newUnnecessaryEdits = editsWithOriginalValue.filter(edit => edit.index !== index).concat({ index, currentText, originalText }).sort((editA, editB) => {
+      const editAIndex = Number(editA.index)
+      const editBIndex = Number(editB.index)
+      if (editAIndex < editBIndex) {
+        return -1;
+      }
+      if (editAIndex > editBIndex) {
+        return 1;
+      }
+      return 0;
+    })
+    this.setState({ editsWithOriginalValue: newUnnecessaryEdits })
   }
 
   onKeyDown(event: any, change: any, editor: any) {
@@ -254,6 +278,12 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
       if (text.substr(text.length - 1) !== ' ' && (startBlock.key === change.value.startBlock.key)) {
         event.preventDefault()
         change.moveToRangeOfNode(previousInline).insertText(previousInline.text + event.key)
+      } else {
+        if (originalSelection.focus.offset === 0 && originalSelection.anchor.offset === 0) {
+          event.preventDefault()
+          return change.moveToStartOfNode(startInline)
+          .insertText(event.key)
+        }
       }
     }
 
@@ -265,6 +295,21 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
   onKeyUp(event: any, change: any, editor: any) {
     if (['ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown'].includes(event.key)) { return }
 
+    const initialFocus = change.value.selection.focus
+    const initialAnchor = change.value.selection.anchor
+
+    // handles Firefox shenanigans
+    if (initialFocus.offset === 0 && initialAnchor.offset !== 0) {
+      const badNode = change.value.blocks.first().nodes.find(node => node.key == initialAnchor.key)
+      if (badNode) {
+        change.moveToRangeOfNode(badNode).insertText('')
+      }
+      change.moveTo(initialFocus.path)
+      if (change.value.startInline && !change.value.startInline.text.trim().length) {
+        change.moveToStartOfNode(change.value.startInline).insertText(event.key)
+      }
+    }
+
     const { value } = change
     const originalSelection = value.selection
 
@@ -273,7 +318,6 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
     const { startInline, startBlock } = value
     let currentInline = startInline
     let previousInline
-
     // don't try to find a previous inline if you've edited the first one
     if (startInline && startInline.data.get('dataOriginalIndex') !== '0') {
       if (event.key === 'Backspace') {
@@ -327,16 +371,19 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
         node = node.addMark({type: 'underline', data: {id}})
       }
 
-      if (normalizedAndTrimmedNewText === stringNormalize(originalText).trim()) {
+      const normalizedAndTrimmedOriginalText = stringNormalize(originalText).trim()
+      if (normalizedAndTrimmedNewText === normalizedAndTrimmedOriginalText) {
         if (event.key !== ' ' || (originalSelection.focus.offset !== 0 && originalSelection.anchor.offset !== 0)) {
           node
           .removeMark('bold')
+          this.removeEditFromEditsWithOriginalValue(dataOriginalIndex)
           // .setAnchor(originalSelection.anchor)
           // .setFocus(originalSelection.focus)
         }
       } else {
         node
         .addMark('bold')
+        this.updateEditsWithOriginalValue(dataOriginalIndex, normalizedAndTrimmedNewText, normalizedAndTrimmedOriginalText)
         // .setAnchor(originalSelection.anchor)
         // .setFocus(originalSelection.focus)
       }
@@ -372,6 +419,7 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
 
             if (normalizedAndTrimmedCurrentText !== normalizedAndTrimmedOriginalText) {
               node.addMark('bold')
+              this.updateEditsWithOriginalValue(dataOriginalIndex, normalizedAndTrimmedCurrentText, normalizedAndTrimmedOriginalText)
             }
             return node.setAnchor(originalSelection.anchor).setFocus(originalSelection.focus)
           }
@@ -398,8 +446,11 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
             }
 
             node.addMark({type: 'underline', data: {id}})
-            if (stringNormalize(previousInline.text).trim() !== stringNormalize(originalPreviousInlineText).trim()) {
+            const normalizedAndTrimmedCurrentText = stringNormalize(previousInline.text).trim()
+            const normalizedAndTrimmedOriginalText = stringNormalize(originalPreviousInlineText).trim()
+            if (normalizedAndTrimmedCurrentText !== normalizedAndTrimmedOriginalText) {
               node.addMark('bold')
+              this.updateEditsWithOriginalValue(dataOriginalIndex, normalizedAndTrimmedCurrentText, normalizedAndTrimmedOriginalText)
             }
 
             // return node.setAnchor(originalSelection.anchor).setFocus(originalSelection.focus)
