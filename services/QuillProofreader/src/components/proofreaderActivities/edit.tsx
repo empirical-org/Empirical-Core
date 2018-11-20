@@ -38,23 +38,27 @@ export default class Edit extends React.Component<EditProps, any> {
 
   renderCorrectAnswers() {
     const { displayText } = this.props
-    const correctAnswerArray = displayText ? displayText.split('~') : []
-    let correctAnswers
-    let correctAnswerHTML
-    let labelText
-    if (correctAnswerArray.length > 1) {
-      correctAnswers = correctAnswerArray.map(ca => <li>{ca}</li>)
-      correctAnswerHTML = <ul>{correctAnswers}</ul>
-      labelText = 'Correct Edits:'
+    if (displayText) {
+      const correctAnswerArray = displayText ? displayText.split('~') : []
+      let correctAnswers
+      let correctAnswerHTML
+      let labelText
+      if (correctAnswerArray.length > 1) {
+        correctAnswers = correctAnswerArray.map(ca => <li>{ca}</li>)
+        correctAnswerHTML = <ul>{correctAnswers}</ul>
+        labelText = 'Correct Edits:'
+      } else {
+        correctAnswers = correctAnswerArray[0]
+        correctAnswerHTML = <p>{correctAnswers}</p>
+        labelText = 'Correct Edit:'
+      }
+      return <div>
+        <p className="label">{labelText}</p>
+        {correctAnswerHTML}
+      </div>
     } else {
-      correctAnswers = correctAnswerArray[0]
-      correctAnswerHTML = <p>{correctAnswers}</p>
-      labelText = 'Correct Edit:'
+      return <span/>
     }
-    return <div>
-      <p className="label">{labelText}</p>
-      {correctAnswerHTML}
-    </div>
   }
 
   renderTooltip() {

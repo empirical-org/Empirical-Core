@@ -159,6 +159,12 @@ nav.q-navbar-home {
   position:relative;
   margin: 0px auto;
 
+  .logo-only {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
   .logo-img-new {
     margin-top: 20px;
     height: 35px;
