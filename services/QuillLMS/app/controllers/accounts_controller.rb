@@ -5,7 +5,6 @@ class AccountsController < ApplicationController
 
   def new
     ClickSignUpWorker.perform_async
-    session[:role] = nil
     session[:post_sign_up_redirect] = params[:redirect]
     @teacherFromGoogleSignUp = false
     @js_file = 'session'
@@ -29,11 +28,21 @@ class AccountsController < ApplicationController
     if @user.save
       sign_in @user
       trigger_account_creation_callbacks
-      @user.subscribe_to_newsletter
+      if @user.send_newsletter
+        @user.subscribe_to_newsletter
+      end
       create_referral_if_teacher_and_referrer
       render json: creation_json
     else
-      render json: {errors: @user.errors}, status: 422
+      errors = {}
+      if @user.errors['username']&.include?('has already been taken')
+        errors['username'] = ['That username is taken. Try another.']
+      elsif @user.errors['email']&.include?('has already been taken')
+        errors['email'] = ['That email is taken. Try another.']
+      elsif @user.errors['email']&.include?('does not appear to be a valid e-mail address')
+        errors['email'] = ['Enter a valid email']
+      end
+      render json: {errors: errors}, status: 422
     end
   end
 
@@ -63,23 +72,24 @@ protected
 
   def user_params
     params.require(:user).permit(
+                                 :account_type,
                                  :classcode,
                                  :email,
                                  :name,
-                                 :username,
                                  :password,
-                                 :terms_of_service,
+                                 :school_ids,
                                  :send_newsletter,
-                                 :school_ids)
+                                 :terms_of_service,
+                                 :username)
   end
 
   def creation_json
     if session[:post_sign_up_redirect]
-      { redirectPath: session.delete(:post_sign_up_redirect) }
+      { redirect: session.delete(:post_sign_up_redirect) }
     elsif @user.has_outstanding_coteacher_invitation?
-      { redirectPath: teachers_classrooms_path }
+      { redirect: teachers_classrooms_path }
     else
-      @user
+      { redirect: '/profile'}
     end
   end
 

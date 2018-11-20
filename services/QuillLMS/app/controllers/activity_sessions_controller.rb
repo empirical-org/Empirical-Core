@@ -22,7 +22,7 @@ class ActivitySessionsController < ApplicationController
   end
 
   def anonymous
-    @activity = Activity.find(params[:activity_id])
+    @activity = Activity.find_by_id_or_uid(params[:activity_id])
     redirect_to anonymous_return_url
   end
 

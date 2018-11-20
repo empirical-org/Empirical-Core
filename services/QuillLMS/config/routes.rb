@@ -16,6 +16,7 @@ EmpiricalGrammar::Application.routes.draw do
 
   get '/classrooms/:classroom', to: 'students#index', as: :classroom
   get '/add_classroom', to: 'students#index'
+  get '/study', to: "students#index"
 
   resources :admins, only: [:show], format: 'json' do
     resources :teachers, only: [:index, :create]
@@ -387,6 +388,11 @@ EmpiricalGrammar::Application.routes.draw do
   resource :account, only: [:new, :create, :edit, :update] do
     post :role, on: :member
   end
+  get '/sign-up/teacher', to: 'accounts#new'
+  get '/sign-up/student', to: 'accounts#new'
+  get '/sign-up/pick-school-type', to: 'accounts#new'
+  get '/sign-up/add-k12', to: 'accounts#new'
+  get '/sign-up/add-non-k12', to: 'accounts#new'
 
   namespace :auth do
     get "/google_email_mismatch" => 'google#google_email_mismatch'
@@ -476,7 +482,7 @@ EmpiricalGrammar::Application.routes.draw do
     end
   end
 
-  other_pages = %w(beta ideas board press partners develop mission faq tos privacy activities impact stats team premium teacher_resources media_kit play news home_new map firewall_info referrals_toc)
+  other_pages = %w(beta ideas board press partners develop mission faq tos privacy activities impact stats team premium teacher_resources media_kit play news home_new map firewall_info referrals_toc announcements)
 
   all_pages = other_pages
   all_pages.each do |page|
