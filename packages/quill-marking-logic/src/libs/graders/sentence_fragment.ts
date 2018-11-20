@@ -31,7 +31,7 @@ export async function checkSentenceFragment(hash:{
 }): Promise<Response> {
 
   const data = {
-    response: hash.response.trim(),
+    response: hash.response.trim().replace(/\s{2,}/g, ' '),
     responses: _.sortBy(hash.responses, r => r.count).reverse(),
     incorrectSequences: hash.incorrectSequences,
     wordCountChange: hash.wordCountChange,

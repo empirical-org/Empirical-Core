@@ -21,82 +21,90 @@
 <% end %>
 
 <nav class="q-navbar-home">
-	<div class="navbar-header">
-		<a class="navbar-brand" href=<%= root_path %>>
-			<img src="/images/quill_header_logo.svg" alt="Quill Logo">
-		</a>
-	</div>
+  <% if ['account/new', 'session', 'password_reset', 'sign-up'].any? { |str| current_path.include?(str)} %>
+    <div class="logo-only">
+      <a href=<%= root_path %>>
+        <img src="/images/quill_header_logo.svg" alt="Quill Logo">
+      </a>
+    </div>
+  <% else %>
+	  <div class="navbar-header">
+  		<a class="navbar-brand" href=<%= root_path %>>
+  			<img src="/images/quill_header_logo.svg" alt="Quill Logo">
+  		</a>
+  	</div>
 
-		<div class='home-nav-right wide' >
+  		<div class='home-nav-right wide' >
 
-		<% if !current_user %>
-	    <%= render 'navbar/learning_tools', active_tab: active_tab %>
-	    <%= render 'navbar/explore_curriculum', active_tab: active_tab %>
-	    <%= render 'navbar/teacher_center', active_tab: active_tab %>
-	    <%= render 'navbar/our_story', active_tab: active_tab %>
-		<% elsif current_user.role != 'student' %>
-			<%= render 'navbar/learning_tools', active_tab: active_tab  %>
-			<%= render 'navbar/teacher_center', active_tab: active_tab  %>
-			<%= render 'navbar/quill_support', active_tab: active_tab  %>
- 		<% end %>
+  		<% if !current_user %>
+  	    <%= render 'navbar/learning_tools', active_tab: active_tab %>
+  	    <%= render 'navbar/explore_curriculum', active_tab: active_tab %>
+  	    <%= render 'navbar/teacher_center', active_tab: active_tab %>
+  	    <%= render 'navbar/our_story', active_tab: active_tab %>
+  		<% elsif current_user.role != 'student' %>
+  			<%= render 'navbar/learning_tools', active_tab: active_tab  %>
+  			<%= render 'navbar/teacher_center', active_tab: active_tab  %>
+  			<%= render 'navbar/quill_support', active_tab: active_tab  %>
+   		<% end %>
 
-		<%- if current_user.nil? %>
-		<a href="/session/new" class="text-white nav-element">Log In</a>
-		<a href="/account/new" class="sign-up-button text-white nav-element">Sign Up</a>
-		<%- elsif current_user.role == 'teacher' %>
-			<div class='navigation-vertical-rule hide-on-mobile nav-element'></div>
-			<div id="nav-user-dropdown" class="dropdown-closed hide-on-mobile nav-element <%= user_dropdown_class %>">
-				<span onclick="toggleDropdown()" class='user-dropdown-button'><img class='user-dropdown-button-img' src=<%="#{user_dropdown_img}"%>></img><%="#{current_user.name}"%></span>
-				<div>
-					<i class="fa fa-caret-up"></i>
-					<%= link_to raw(
-						"<span class='image-container'><img class='static' src='https://assets.quill.org/images/navbar/navbar-dashboard-gradient.svg'></img>
-						<img class='hover' src='https://assets.quill.org/images/navbar/navbar-dashboard-solid.svg'></img></span>
-						My Dashboard"
-					),
-						dashboard_teachers_classrooms_path
- 					%>
-					<%= link_to raw(
-						"<span class='image-container'><img class='static' src='https://assets.quill.org/images/navbar/navbar-account-gradient-1.svg'></img>
-						<img class='hover' src='https://assets.quill.org/images/navbar/navbar-account-solid-1.svg'></img></span>
-						My Account"
-					),
-						teachers_my_account_path
-					%>
-					<%= link_to raw(
-						"<span class='image-container'><img class='static' src='https://assets.quill.org/images/navbar/navbar-support-gradient-1.svg'></img>
-						<img class='hover' src='https://assets.quill.org/images/navbar/navbar-support-solid-1.svg'></img></span>
-						Support"
-					),
-						'https://support.quill.org',
-						target: "_blank"
-					%>
-					<%= link_to raw(
-						"<span class='image-container'><img class='static' src='https://assets.quill.org/images/navbar/navbar-refer-gradient-1.svg'></img>
-						<img class='hover' src='https://assets.quill.org/images/navbar/navbar-refer-solid-1.svg'></img></span>
-						Refer a Teacher"
-					),
-            referrals_path
-					%>
-					<%= link_to raw(
-						"<span class='image-container'><img class='static' src='https://assets.quill.org/images/navbar/navbar-logout-gradient-1.svg'></img>
-						<img class='hover' src='https://assets.quill.org/images/navbar/navbar-logout-solid-1.svg'></img></span>
-						Logout"
-					),
-						'/session',
-						onmouseover: "changeImageOnMouseOver('logout-img', 'https://assets.quill.org/images/navbar/navbar-logout-solid.svg')",
-						onmouseout: "changeImageOnMouseOut('logout-img', 'https://assets.quill.org/images/navbar/navbar-logout-gradient.svg')"
-					%>
-				</div>
-			</div>
-		<%- elsif current_user.role == 'student' %>
-			<%= link_to raw("<i class='fa fa-fw fa-plus-circle' aria-hidden='true'></i>  Join a Class"), '/add_classroom', class: "text-white nav-element" %>
-			<%= link_to raw("<i class='fa fa-fw fa-cog' aria-hidden='true'></i>  Account Settings"), account_settings_path, class: "text-white nav-element" %>
-			<%= link_to "Logout", '/session' , class: "text-white nav-element"%>
-		<% else %>
-		<%= link_to "Logout", '/session', class: "text-white nav-element"%>
-		<% end %>
-  </div>
+  		<%- if current_user.nil? %>
+  		<a href="/session/new" class="text-white nav-element">Log In</a>
+  		<a href="/account/new" class="sign-up-button text-white nav-element">Sign Up</a>
+  		<%- elsif current_user.role == 'teacher' %>
+  			<div class='navigation-vertical-rule hide-on-mobile nav-element'></div>
+  			<div id="nav-user-dropdown" class="dropdown-closed hide-on-mobile nav-element <%= user_dropdown_class %>">
+  				<span onclick="toggleDropdown()" class='user-dropdown-button'><img class='user-dropdown-button-img' src=<%="#{user_dropdown_img}"%>></img><%="#{current_user.name}"%></span>
+  				<div>
+  					<i class="fa fa-caret-up"></i>
+  					<%= link_to raw(
+  						"<span class='image-container'><img class='static' src='https://assets.quill.org/images/navbar/navbar-dashboard-gradient.svg'></img>
+  						<img class='hover' src='https://assets.quill.org/images/navbar/navbar-dashboard-solid.svg'></img></span>
+  						My Dashboard"
+  					),
+  						dashboard_teachers_classrooms_path
+   					%>
+  					<%= link_to raw(
+  						"<span class='image-container'><img class='static' src='https://assets.quill.org/images/navbar/navbar-account-gradient-1.svg'></img>
+  						<img class='hover' src='https://assets.quill.org/images/navbar/navbar-account-solid-1.svg'></img></span>
+  						My Account"
+  					),
+  						teachers_my_account_path
+  					%>
+  					<%= link_to raw(
+  						"<span class='image-container'><img class='static' src='https://assets.quill.org/images/navbar/navbar-support-gradient-1.svg'></img>
+  						<img class='hover' src='https://assets.quill.org/images/navbar/navbar-support-solid-1.svg'></img></span>
+  						Support"
+  					),
+  						'https://support.quill.org',
+  						target: "_blank"
+  					%>
+  					<%= link_to raw(
+  						"<span class='image-container'><img class='static' src='https://assets.quill.org/images/navbar/navbar-refer-gradient-1.svg'></img>
+  						<img class='hover' src='https://assets.quill.org/images/navbar/navbar-refer-solid-1.svg'></img></span>
+  						Refer a Teacher"
+  					),
+              referrals_path
+  					%>
+  					<%= link_to raw(
+  						"<span class='image-container'><img class='static' src='https://assets.quill.org/images/navbar/navbar-logout-gradient-1.svg'></img>
+  						<img class='hover' src='https://assets.quill.org/images/navbar/navbar-logout-solid-1.svg'></img></span>
+  						Logout"
+  					),
+  						'/session',
+  						onmouseover: "changeImageOnMouseOver('logout-img', 'https://assets.quill.org/images/navbar/navbar-logout-solid.svg')",
+  						onmouseout: "changeImageOnMouseOut('logout-img', 'https://assets.quill.org/images/navbar/navbar-logout-gradient.svg')"
+  					%>
+  				</div>
+  			</div>
+  		<%- elsif current_user.role == 'student' %>
+  			<%= link_to raw("<i class='fa fa-fw fa-plus-circle' aria-hidden='true'></i>  Join a Class"), '/add_classroom', class: "text-white nav-element" %>
+  			<%= link_to raw("<i class='fa fa-fw fa-cog' aria-hidden='true'></i>  Account Settings"), account_settings_path, class: "text-white nav-element" %>
+  			<%= link_to "Logout", '/session' , class: "text-white nav-element"%>
+  		<% else %>
+  		<%= link_to "Logout", '/session', class: "text-white nav-element"%>
+  		<% end %>
+    </div>
+  <% end %>
 
   <nav class="home-nav-dropdown" role="home-custom-dropdown">
     <input class="home-nav-checkbox" type="checkbox" id="button-nav">
