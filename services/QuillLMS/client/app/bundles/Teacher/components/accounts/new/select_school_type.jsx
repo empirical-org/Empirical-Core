@@ -1,6 +1,3 @@
-import {
-  Link,
-} from 'react-router-dom';
 import React, { Component } from 'react';
 
 class SelectSchoolType extends Component {
@@ -9,16 +6,16 @@ class SelectSchoolType extends Component {
       <div className='educator-type'>
         <h3>Are you a faculty member at a U.S. K-12 school?*</h3>
          <div className='option-wrapper'>
-          <Link to="/sign-up/add-k12">
+          <a href="/sign-up/add-k12">
             <button className='button-green'>
               Yes
             </button>
-          </Link>
-          <Link to="/sign-up/add-non-k12">
+          </a>
+          <a href="/sign-up/add-non-k12">
             <button className='button-green'>
               No
             </button>
-          </Link>
+          </a>
          </div>
          <div>
            *K-12 is a term for school grades prior to college.<br/>
