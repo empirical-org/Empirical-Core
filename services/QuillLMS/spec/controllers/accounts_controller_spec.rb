@@ -17,7 +17,7 @@ describe AccountsController, type: :controller do
 
     it 'should kick off the background job, set the session values and variables' do
       get :new, redirect: "www.test.com"
-      expect(session[:role]).to eq nil
+      expect(session[:role]).to eq 'something'
       expect(session[:post_sign_up_redirect]).to eq "www.test.com"
       expect(assigns(:teacherFromGoogleSignUp)).to eq false
       expect(assigns(:js_file)).to eq "session"
