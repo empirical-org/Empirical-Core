@@ -1,3 +1,4 @@
+import 'isomorphic-fetch'
 import React from 'react';
 import { shallow } from 'enzyme';
 
@@ -19,6 +20,7 @@ describe('dashboard container', () => {
     expect(wrapper.state()).toEqual({
       classrooms: null,
       hasPremium: null,
+      notifications: [],
       performanceQuery: [
         { header: 'Lowest Performing Students', results: null},
         { header: 'Difficult Concepts', results: null, }],
