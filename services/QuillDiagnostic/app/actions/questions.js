@@ -9,6 +9,7 @@ const moment = require('moment');
 import Pusher from 'pusher-js';
 import request from 'request';
 import _ from 'underscore';
+import _l from 'lodash';
 import { push } from 'react-router-redux';
 import pathwaysActions from './pathways';
 import { submitResponse } from './responses';
@@ -42,7 +43,7 @@ function cancelQuestionEdit(qid) {
 function submitQuestionEdit(qid, content) {
   return (dispatch, getState) => {
     dispatch({ type: C.SUBMIT_QUESTION_EDIT, qid, });
-    const cleanedContent = _.pickBy(content)
+    const cleanedContent = _l.pickBy(content)
     questionsRef.child(qid).update(cleanedContent, (error) => {
       dispatch({ type: C.FINISH_QUESTION_EDIT, qid, });
       if (error) {

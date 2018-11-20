@@ -824,7 +824,8 @@ CREATE TABLE blog_posts (
     published_at timestamp without time zone,
     external_link character varying,
     center_images boolean,
-    order_number integer
+    order_number integer,
+    image_link character varying
 );
 
 
@@ -2675,7 +2676,8 @@ CREATE TABLE users (
     stripe_customer_id character varying,
     flags character varying[] DEFAULT '{}'::character varying[] NOT NULL,
     title character varying,
-    time_zone character varying
+    time_zone character varying,
+    account_type character varying DEFAULT 'unknown'::character varying
 );
 
 
@@ -5560,4 +5562,8 @@ INSERT INTO schema_migrations (version) VALUES ('20180831194810');
 INSERT INTO schema_migrations (version) VALUES ('20180910152342');
 
 INSERT INTO schema_migrations (version) VALUES ('20180911171536');
+
+INSERT INTO schema_migrations (version) VALUES ('20181012155250');
+
+INSERT INTO schema_migrations (version) VALUES ('20181018195753');
 
