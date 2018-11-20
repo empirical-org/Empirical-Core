@@ -592,8 +592,8 @@ class ResponseComponent extends React.Component {
     // } else {
     //   array = this.getPOSTagsList()
     // }
-
-    const pageNumbers = _.range(1, this.props.filters.numberOfPages + 1);
+    const numberOfPages = this.props.filters.numberOfPages || 0
+    const pageNumbers = _.range(1, numberOfPages + 1);
 
     let pageNumberStyle = {};
     const numbersToRender = pageNumbers.map((pageNumber, i) => {
