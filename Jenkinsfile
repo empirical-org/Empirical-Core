@@ -123,6 +123,8 @@ pipeline {
             FOG_DIRECTORY = 'empirical-core-staging'
             CONTINUOUS_INTEGRATION = true
             SALESMACHINE_API_KEY = 'SALESMACHINE_API_KEY'
+
+            CYPRESS_trashAssetsBeforeRuns = 'false'
           }
           steps {
             echo 'Beginnning TEST...'
@@ -135,34 +137,9 @@ pipeline {
               sh 'bundle exec rake db:migrate'
               sh 'bundle exec rake parallel:spec'
               sh 'foreman start -f Procfile.cypress' // start lms server
+              sleep 60 // wait a minute to ensure server is up
 
               echo 'Beginnning cypress tests...'
-              sh 'npm run cypress:run'
-            }
-          }
-        }
-        stage('test-lms-cypress') {
-          agent {
-            dockerfile {
-              filename 'services/QuillJenkins/agents/QuillLMS/Dockerfile.cypress'
-              dir '.'
-              args "-u root:sudo -v \$HOME/workspace/myproject:/myproject --name test-lms-cypress${env.BUILD_TAG} --network jnk-net${env.BUILD_TAG}"
-            }
-          }
-          environment {
-            // we will be recordint test results and video on Cypress dashboard
-            // to record we need to set an environment variable
-            // we can load the record key variable from credentials store
-            // see https://jenkins.io/doc/book/using/using-credentials/
-            CYPRESS_RECORD_KEY = credentials('cypress-lms-record-key')
-            // because parallel steps share the workspace they might race to delete
-            // screenshots and videos folders. Tell Cypress not to delete these folders
-            CYPRESS_trashAssetsBeforeRuns = 'false'
-          }
-          steps {
-            echo 'Beginnning  LMS Cypress tests...'
-            sh 'nohup npm start &' # start local server
-            dir(path: 'services/QuillLMS') {
               sh 'npm run cypress:run'
             }
           }
@@ -673,8 +650,8 @@ pipeline {
       echo "Removing workspace"
       cleanWs()
 
-      echo 'Stopping local lms frontend server'
-      sh 'pkill -f http-server'
+      echo 'Stopping local lms server'
+      sh 'pkill -f foreman'
     }
   }
 }
