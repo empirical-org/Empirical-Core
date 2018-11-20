@@ -75,7 +75,7 @@ describe SessionsController, type: :controller do
     context 'when user is nil' do
       it 'should report login failiure' do
         post :login_through_ajax, user: { email: "test@whatever.com" }, format: :json
-        expect(response.body).to eq({message: 'Incorrect username/email or password'}.to_json)
+        expect(response.body).to eq({message: 'An account with this email or username does not exist. Try again.', type: 'email'}.to_json)
       end
     end
 
@@ -86,7 +86,7 @@ describe SessionsController, type: :controller do
 
       it 'should report login failiure' do
         post :login_through_ajax, user: { email: user.email }, format: :json
-        expect(response.body).to eq({message: 'You signed up with Google, please log in with Google using the link above.'}.to_json)
+        expect(response.body).to eq({message: 'Oops! You have a Google account. Log in that way instead.', type: 'email'}.to_json)
       end
     end
 
@@ -97,7 +97,7 @@ describe SessionsController, type: :controller do
 
       it 'should report login failiure' do
         post :login_through_ajax, user: { email: user.email }, format: :json
-        expect(response.body).to eq({message: 'Did you sign up with Google? If so, please log in with Google using the link above.'}.to_json)
+        expect(response.body).to eq({message: 'Did you sign up with Google? If so, please log in with Google using the link above.', type: 'email'}.to_json)
       end
     end
 
@@ -164,7 +164,7 @@ describe SessionsController, type: :controller do
     end
 
     context 'when session staff id is present' do
-      context 'when staff exists' do  
+      context 'when staff exists' do
         let!(:staff) { create(:staff) }
 
         before do
@@ -190,7 +190,7 @@ describe SessionsController, type: :controller do
       end
     end
   end
-  
+
   describe '#new' do
     it 'should set the js file, role in session  and post auth redirect in session' do
       session[:role] = "something"
