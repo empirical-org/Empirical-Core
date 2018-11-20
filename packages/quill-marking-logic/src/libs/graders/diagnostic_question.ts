@@ -21,7 +21,7 @@ export function checkDiagnosticQuestion(
   defaultConceptUID?: string
 ): Response {
   const data = {
-    response: response.trim(),
+    response: response.trim().replace(/\s{2,}/g, ' '),
     responses,
     focusPoints,
     incorrectSequences,
