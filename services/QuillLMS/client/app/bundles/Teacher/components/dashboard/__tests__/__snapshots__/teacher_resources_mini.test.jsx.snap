@@ -12,7 +12,7 @@ exports[`TeacherResourcesMini component should render 1`] = `
       onClick={[Function]}
     >
       <h4>
-        Teacher Resources
+        Teacher Center
       </h4>
       <img
         src="/teacher_resources_icons.png"
