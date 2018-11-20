@@ -212,17 +212,28 @@ module PagesHelper
 					}
 				]
 			},
-			{
-				team: 'Interns and Volunteers',
-				members: [
+      {
+        team: 'Marketing Advisory Board',
+        members: [
           {
-            img: 'thumb-eric.jpg',
-            name: 'Eric Tang',
-            title: 'Software Development Intern',
-            desc: "Eric is a rising sophomore at Stanford University who enjoys reading novels, tutoring students and fiddling with Natural Language Processing algorithms. He’s working at Quill this summer because he’s excited to help students become better writers and communicators!"
+            img: 'thumb-jane.jpg',
+            name: 'Jane Nevins',
+            title: 'Marketing Advisor',
+            desc: 'Before moving to New York, Jane worked in Silicon Valley for 10 years. She was one of the first 11 employees at Lyft and has worked at other noteworthy startups like SolarCity and SunRun. In 2017 she received a master’s degree from the Communication Department of Stanford University, where she studied journalism, data analysis and the economics of news. She also earned a Bachelor of Arts degree from Stanford in 2005. '
           }
-				]
-			}
+        ]
+      }
+			# {
+			# 	team: 'Interns and Volunteers',
+			# 	members: [
+      #     {
+      #       img: 'thumb-eric.jpg',
+      #       name: 'Eric Tang',
+      #       title: 'Software Development Intern',
+      #       desc: "Eric is a rising sophomore at Stanford University who enjoys reading novels, tutoring students and fiddling with Natural Language Processing algorithms. He’s working at Quill this summer because he’s excited to help students become better writers and communicators!"
+      #     }
+			# 	]
+			# }
 		]
 	end
 end
