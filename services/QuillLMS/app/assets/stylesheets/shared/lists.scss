@@ -1,0 +1,37 @@
+.list {
+  list-style: none;
+  padding-left: 0px;
+  margin-bottom: 0px;
+  &.single-line {
+    li {
+      padding: 16px;
+    }
+  }
+  &.double-line {
+    li {
+      padding: 12px 16px 13px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      line-height: 1;
+      .text {
+        display: flex;
+        flex-direction: column;
+      }
+      .secondary-text {
+        font-size: 14px;
+        color: #888888;
+        margin-top: 8px;
+      }
+      .metadata {
+        font-size: 14px;
+      }
+    }
+  }
+  li {
+    font-size: 16px;
+    &:hover, &:focus {
+      background-color: #f2f2f2;
+    }
+  }
+}
