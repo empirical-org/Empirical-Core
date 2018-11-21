@@ -3,50 +3,42 @@ import DropdownButton from 'react-bootstrap/lib/DropdownButton';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
 import $ from 'jquery';
 
-export default React.createClass({
+export default class StudentAccountForm extends React.Component {
+  constructor(props) {
+    super(props)
 
-  getInitialState: function () {
-    return {role: this.props.role,
-            email: this.props.email,
-            notGoogleUser: (!this.props.googleId && !this.props.signedUpWithGoogle),
-            errors: []
-          }
-  },
-
-  handleSelect: function(role){
-    if (window.confirm('Are you sure you want to change your account type?')) {
-      if (this.props.updateRole) {
-        this.props.updateRole(role)
-      }
-      this.setState({role})
+    this.state = {
+      email: this.props.email,
+      notGoogleUser: (!props.googleId && !props.signedUpWithGoogle),
+      errors: []
     }
-  },
+  }
 
-  updateEmail: function(e){
+  updateEmail(e){
     this.setState({email: e.target.value})
-  },
+  }
 
-  handleClick: function(){
+  handleClick(){
     let that = this
     $.ajax({
-      url: '/make_teacher',
+      url: '/update_email',
       method: 'PUT',
-      data: {email: this.state.email, role: this.state.role},
+      data: { email: this.state.email, role: this.state.role },
       statusCode: {
-        200: function() {
+        200() {
           window.location = '/profile'        },
-        400: function(response) {
+        400(response) {
           that.setState({errors: response.responseJSON.errors})
         }
       }
     })
-  },
+  }
 
-  showErrors: function(){
+  showErrors(){
     return this.state.errors ? <span>{this.state.errors}</span> : null
-  },
+  }
 
-  render: function () {
+  render () {
     let submitButton, email
     // email and submitButton should only show for the student page
     if (window.location.pathname === '/account_settings') {
@@ -79,20 +71,10 @@ export default React.createClass({
     return (
       <div>
         {email}
-        <div className="row">
-          <div className="form-label col-xs-2">
-            Role
-          </div>
-          <div className="col-xs-4">
-            <DropdownButton bsStyle='default' title={this.state.role[0].toUpperCase() + this.state.role.slice(1)} id='select-role-dropdown' onSelect={this.handleSelect}>
-              <MenuItem key='student' eventKey='student'>Student</MenuItem>
-              <MenuItem key='teacher' eventKey='teacher'>Teacher</MenuItem>
-            </DropdownButton>
-          </div>
-        </div>
         {submitButton}
+        <p><strong>Need to change your account type?</strong> Email us at <a style={{ color: '#00c2a2' }} href="mailto:support@quill.org">support@quill.org</a>, and we'll help you sort it out.</p>
         {this.showErrors()}
       </div>
     );
   }
-});
+}

@@ -3,6 +3,7 @@
 exports[`NewAccountStage1 component should render  1`] = `
 <BrowserRouter>
   <div
+    className="container account-form"
     id="sign-up"
   >
     <Route
