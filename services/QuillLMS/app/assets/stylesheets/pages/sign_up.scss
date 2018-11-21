@@ -1,0 +1,206 @@
+#user-type {
+  align-items: center;
+  flex-direction: column;
+  display: flex;
+  h1 {
+    line-height: 1.33;
+  }
+  .card {
+    margin-bottom: 24px;
+    padding: 40px 32px;
+    max-width: 546px;
+    width: 100%;
+    height: 158px;
+  }
+}
+
+.agreements-and-link-to-login {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.account-form.student-sign-up, .account-form.teacher-sign-up {
+  h1 {
+    margin-bottom: 4px !important;
+  }
+  .sub-header {
+    a {
+      color: #009a80;
+      font-weight: 600;
+    }
+  }
+  .name {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    .input-container {
+      width: 182px;
+    }
+  }
+}
+
+.account-form.teacher-sign-up {
+  .info-and-form-container {
+    display: flex;
+    justify-content: center;
+    margin: 40px 0px 32px;
+    .account-container {
+      border-radius: 0px 6px 6px 0px;
+      margin: 0px;
+      height: 584px;
+      border-left: none;
+      .button {
+        margin-top: 46px;
+      }
+      .newsletter-row {
+        display: flex;
+        margin-top: 32px;
+        p {
+          font-size: 14px;
+          line-height: 1;
+          color: #646464;
+          margin-left: 26px;
+          text-align: left;
+        }
+      }
+    }
+    .info {
+      max-width: 427px;
+      width: 100%;
+      height: 584px;
+      border-radius: 6px 0px 0px 6px;
+      border: solid 1px #e0e0e0;
+      border-right: none;
+      background-color: #666666;
+      color: #ffffff;
+      padding: 40px 64px;
+      h2 {
+        font-size: 24px;
+        font-weight: bold;
+        line-height: 1.33;
+        margin-bottom: 16px;
+      }
+      li {
+        font-size: 16px;
+        line-height: 1.63;
+        list-style: none;
+      }
+      li:before {
+        content: "";
+        border: 2px #fff solid !important;
+        border-radius: 50px;
+        margin-top: 11px;
+        margin-left: -25px;
+        position: absolute;
+      }
+    }
+    @media (max-width: 1000px) {
+      flex-direction: column;
+      .account-container, .info {
+        border-radius: 6px;
+        border: solid 1px #e0e0e0;
+        margin: 0px auto 20px;
+      }
+    }
+  }
+}
+
+.account-form.student-sign-up {
+  .account-container {
+    margin: 40px auto 32px;
+    .button {
+      margin-top: 32px;
+    }
+  }
+}
+
+.school-search-container {
+  max-width: 577px;
+  border-radius: 6px;
+  border: solid 1px #e0e0e0;
+  background-color: #ffffff;
+  margin: auto;
+  padding: 14px 32px 0px;
+  .schools-list-section {
+    margin: 38px 0px;
+    max-width: 513px;
+    border-radius: 6px;
+    border: solid 1px #e0e0e0;
+    .title {
+      padding: 18px 16px;
+      line-height: 1px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #888888;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    .list {
+      overflow: scroll;
+      height: 286px;
+      li {
+        cursor: pointer;
+      }
+    }
+    .school-not-listed {
+      border-top: 1px solid #e0e0e0;
+      font-size: 14px;
+      padding: 16px 16px 18px;
+      line-height: 1;
+      span {
+        cursor: pointer;
+        color: #009a80;
+        font-weight: 600;
+      }
+    }
+    .no-school-found, .no-location-found {
+      height: 258px;
+      justify-content: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      img {
+        margin-bottom: 21px;
+      }
+      .sub-text {
+        color: #888888;
+        a {
+          cursor: pointer;
+          color: #009a80;
+          font-weight: 600;
+        }
+      }
+      .message {
+        font-size: 16px;
+        margin-bottom: 8px;
+      }
+    }
+    .no-location-found {
+      .message {
+        font-weight: 600;
+      }
+    }
+  }
+}
+
+.non-k12-link {
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  color: #009a80;
+  margin-top: 32px;
+  display: flex;
+  justify-content: center;
+}
+
+.select-non-k12 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .card {
+    max-width: 546px;
+    min-height: 158px;
+    margin-bottom: 24px;
+    padding: 40px 32px;
+  }
+}
