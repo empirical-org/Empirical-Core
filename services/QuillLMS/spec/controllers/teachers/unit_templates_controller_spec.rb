@@ -79,11 +79,12 @@ describe  Teachers::UnitTemplatesController, type: :controller do
         data: {
           non_authenticated: false
         },
-        related_models: []
+        related_models: [],
+        referral_code: teacher.referral_code
       }.to_json)
     end
   end
-  
+
   describe '#assigned_info' do
     it 'should render the correct json' do
       get :assigned_info , id: unit_template1.id, format: :json
