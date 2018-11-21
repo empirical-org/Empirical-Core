@@ -33,9 +33,7 @@ export default React.createClass({
                   <div className="modal-header">
                       <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i className="fa fa-close"></i></span></button>
                   </div>
-                  <div className="modal-body csv-email-modal">
-                    <div className='account-form'><EducatorType analytics={new AnalyticsWrapper()} modal='true'/></div>
-                  </div>
+                    <EducatorType analytics={new AnalyticsWrapper()} modal='true'/>
                 </div>
               </div>
               </div>
