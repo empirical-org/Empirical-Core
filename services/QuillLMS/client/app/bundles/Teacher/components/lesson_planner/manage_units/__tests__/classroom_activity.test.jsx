@@ -17,7 +17,7 @@ describe('ClassroomActivity component', () => {
                 scorebook_icon_class: '',
               },
             },
-              activityId: 412, }}  
+              activityId: 412, }}
         />
       );
     expect(wrapper.find('.recommendations-button')).toHaveLength(0);
@@ -33,25 +33,10 @@ describe('ClassroomActivity component', () => {
                 scorebook_icon_class: '',
               },
           },
-            activityId: 413 ,}}  
+            activityId: 413 ,}}
         />
       );
     expect(wrapper.find('.recommendations-button')).toHaveLength(0);
-  });
-
-  it('should render Recommendations div if data.activityId is diagnostic id and it is on the activity analysis page', () => {
-    window.location.pathname = '/teachers/progress_reports/diagnostic_reports/';
-    const wrapper = shallow(
-      <ClassroomActivity
-        data={{ activity:
-        { anonymous_path: '',
-          classification: { scorebook_icon_class: '', },
-        },
-          activityId: 413 ,}}  
-      />
-    );
-    wrapper.setState({ activityWithRecommendationsIds: [413], });
-    expect(wrapper.find('.recommendations-button')).toHaveLength(1);
   });
 
   it('should render the Lessons End Row div if it is not a report and it gets the lesson prop', () => {
