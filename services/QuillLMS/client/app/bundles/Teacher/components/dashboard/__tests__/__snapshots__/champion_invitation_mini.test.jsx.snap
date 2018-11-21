@@ -12,18 +12,17 @@ exports[`ChampionInvitationMini component should render 1`] = `
       style={
         Object {
           "padding": "8px",
-          "position": "relative",
         }
       }
     >
       <img
         className="mini-star-icon"
-        src="/assets/icons/icon-star.svg"
+        src="https://assets.quill.org/images/icons/icon-star.svg"
         style={
           Object {
             "height": "27px",
             "position": "absolute",
-            "right": "-22px",
+            "right": "6px",
             "top": "-11px",
             "transform": "rotate(-22deg)",
             "width": "27px",
@@ -32,20 +31,20 @@ exports[`ChampionInvitationMini component should render 1`] = `
       />
       <img
         className="mini-star-icon"
-        src="/assets/icons/icon-star.svg"
+        src="https://assets.quill.org/images/icons/icon-star.svg"
         style={
           Object {
             "height": "14px",
             "position": "absolute",
-            "right": "-3px",
-            "top": "-11px",
-            "transform": "rotate(-34deg)",
+            "right": "25px",
+            "top": "-10px",
+            "transform": "rotate(-4deg)",
             "width": "14px",
           }
         }
       />
       <h3>
-        Become a Quill Champion!
+        Share Quill, Earn Free Premium!
       </h3>
     </div>
     <div>
@@ -69,10 +68,10 @@ exports[`ChampionInvitationMini component should render 1`] = `
         }
       }
     >
-      With the new Quill Champion program, you can earn rewards for helping fellow educators discover Quill.
+      With the new Quill Referral Program, you can earn rewards for helping fellow educators discover Quill.
     </p>
     <a
-      href="/champions"
+      href="/referrals"
       style={
         Object {
           "display": "block",
@@ -95,7 +94,7 @@ exports[`ChampionInvitationMini component should render 1`] = `
       </button>
     </a>
     <a
-      href="https://support.quill.org/getting-started-for-teachers/how-does-the-quill-champion-program-work"
+      href="/referrals_toc"
       style={
         Object {
           "color": "#027360",
@@ -103,7 +102,7 @@ exports[`ChampionInvitationMini component should render 1`] = `
       }
       target="_blank"
     >
-      Learn more about the Champion program &gt;
+      Learn more about the Referral Program &gt;
     </a>
   </div>
 </div>

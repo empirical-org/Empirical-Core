@@ -50,12 +50,14 @@ export default class ClassroomLessons extends React.Component {
     request.get(`${process.env.FIREBASE_DATABASE_URL}/v2/lessons_editions.json`, (error, httpStatus, body) => {
       const editions = JSON.parse(body)
       const lessonUidsWithEditions = []
-      Object.keys(editions).forEach(e => {
-        const edition = editions[e]
-        if (edition.user_id === teacherId && lessonUidsWithEditions.indexOf(edition.lesson_id) === -1) {
-          lessonUidsWithEditions.push(edition.lesson_id)
-        }
-      })
+      if (editions) {
+        Object.keys(editions).forEach(e => {
+          const edition = editions[e]
+          if (edition.user_id === teacherId && lessonUidsWithEditions.indexOf(edition.lesson_id) === -1) {
+            lessonUidsWithEditions.push(edition.lesson_id)
+          }
+        })
+      }
       this.setState({lessonUidsWithEditions: lessonUidsWithEditions, loaded: true})
     })
   }

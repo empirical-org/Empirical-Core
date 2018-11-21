@@ -1,30 +1,34 @@
-import React from 'react'
-import RoleOption from './role_option'
+import React, { Component } from 'react'
+import {
+  BrowserRouter as Router,
+  Route,
+  Link
+} from 'react-router-dom'
+import SelectUserType from './select_user_type';
+import SignUpTeacher from './sign_up_teacher';
+import SignUpStudent from './sign_up_student';
+import SelectSchoolType from './select_school_type';
+import SelectUSK12 from './select_us_k12';
+import SelectNonUSK12 from './select_non_us_k12';
 
 
-export default React.createClass({
-  propTypes: {
-    selectRole: React.PropTypes.func.isRequired
-  },
-
-  render: function () {
+class App extends Component {
+  render() {
     return (
-      <div className='container account-form' id='sign-up'>
-        <div className='row sign_up_select_role'>
-            <div className='row'>
-              <h3 className='col-xs-12'>
-                Sign up for Quill as:
-              </h3>
-            </div>
-            <div className='option-wrapper'>
-                <RoleOption selectRole={this.props.selectRole} role={'educator'}/>
-                <RoleOption selectRole={this.props.selectRole} role={'student'}/>
-            </div>
-            <div className='row'>
-              <div className='col-xs-12'>Already signed up? <a href='/session/new'>Return to Login</a></div>
-            </div>
+      <Router>
+        <div id='sign-up'>
+          <Route exact path="/account/new" component={SelectUserType}/>
+
+          <Route path="/sign-up/teacher" component={SignUpTeacher}/>
+          <Route path="/sign-up/student" component={SignUpStudent}/>
+
+          <Route path="/sign-up/pick-school-type" component={SelectSchoolType}/>
+          <Route path="/sign-up/add-k12" component={SelectUSK12}/>
+          <Route path="/sign-up/add-non-k12" component={SelectNonUSK12}/>
         </div>
-        </div>
-      );
+      </Router>
+    )
   }
-});
+}
+
+export default App

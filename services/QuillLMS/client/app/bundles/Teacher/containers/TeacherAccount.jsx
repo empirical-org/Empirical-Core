@@ -1,6 +1,6 @@
 import React from 'react';
 import MySubscription from '../components/subscriptions/my_subscription.jsx';
-import SelectSchool from '../components/accounts/school/select_school';
+import SelectSchool from '../components/accounts/school/select_school.jsx';
 import ItemDropdown from '../components/general_components/dropdown_selectors/item_dropdown.jsx'
 import $ from 'jquery';
 import LoadingSpinner from '../components/shared/loading_indicator.jsx';
@@ -257,7 +257,13 @@ export default React.createClass({
             </div>
           </div>
 
-          <SelectSchool errors={this.state.errors.school} selectedSchool={this.state.selectedSchool} schoolOptions={this.state.schoolOptions} requestSchools={this.requestSchools} updateSchool={this.updateSchool}/>
+          <SelectSchool
+            errors={this.state.errors.school}
+            selectedSchool={this.state.selectedSchool}
+            schoolOptions={this.state.schoolOptions}
+            requestSchools={this.requestSchools}
+            updateSchool={this.updateSchool}
+          />
 
         </div>
 
