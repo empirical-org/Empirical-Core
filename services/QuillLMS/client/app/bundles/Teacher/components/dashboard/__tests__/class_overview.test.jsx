@@ -1,14 +1,13 @@
+import 'isomorphic-fetch'
+
 import React from 'react';
 import { shallow } from 'enzyme';
-import MockDate from 'mockdate';
 
 import ClassOverview from '../class_overview';
 
-import NewTools from '../new_tools_mini';
 import OverviewMini from '../overview_mini';
 import TeacherGuide from '../../teacher_guide/teacher_guide';
 import PremiumPromo from '../premium_promo';
-import PremiumMini from '../premium_mini';
 import CoteachingAnnouncement from '../coteaching_announcement_mini.jsx';
 import LessonsList from '../lessons_list.jsx';
 import DiagnosticMini from '../diagnostic_mini.jsx'
