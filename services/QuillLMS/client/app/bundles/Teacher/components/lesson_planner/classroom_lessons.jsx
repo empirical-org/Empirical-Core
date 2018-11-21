@@ -92,7 +92,7 @@ export default class ClassroomLessons extends React.Component {
   }
 
   switchClassrooms(classroom) {
-    window.location.href = (`${process.env.DEFAULT_URL}/teachers/classrooms/activity_planner/lessons/${classroom.id}`);
+    this.props.router.push(`${process.env.DEFAULT_URL}/teachers/classrooms/activity_planner/lessons/${classroom.id}`);
     this.setState({ selectedClassroomId: `${classroom.id}`, }, () => this.getLessonsForCurrentClass());
   }
 
