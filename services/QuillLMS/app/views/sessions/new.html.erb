@@ -1,27 +1,2 @@
-<div class="container account-form">
-  <div class="sign-in-header text-center">
-  <h3>Welcome Back to Quill</h3>
-    <div class="text-center">
-      <div class="auth-section">
-        <a href='/auth/google_oauth2?prompt=consent'>
-          <button class="google-login">
-            <img src='/images/google_icon.svg'/>
-            <span>Log In with Google</span>
-          </button>
-        </a>
-        <a href=<%="https://clever.com/oauth/authorize?#{ {response_type: 'code', redirect_uri: Clever::REDIRECT_URL, client_id: Clever::CLIENT_ID, scope: QuillClever.scope}.to_param }"%>>
-          <button class="clever-login">
-            <img src=<%= "#{ENV['CDN_URL']}/images/shared/clever_icon.svg" %>>
-            <span>Log In with Clever</span>
-          </button>
-        </a>
-      </div>
-      <div class='need-a-border'></div>
-      <br/>
-      <div class="login-form">
-        <%= react_component('LoginFormApp') %>
-      </div>
-    </div>
-  </div>
-</div>
+<%= react_component('LoginFormApp', props: { cleverLink: "https://clever.com/oauth/authorize?#{ {response_type: 'code', redirect_uri: Clever::REDIRECT_URL, client_id: Clever::CLIENT_ID, scope: QuillClever.scope}.to_param }" }) %>
 <%= javascript_include_tag('cookie_warning.js') %>

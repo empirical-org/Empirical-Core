@@ -271,13 +271,13 @@ describe Teachers::ClassroomManagerController, type: :controller do
       end
     end
 
-    context 'when classroom id is not passed' do
-      it 'should assign the classrooms and classroom' do
-        get :scorebook
-        expect(assigns(:classrooms)).to eq ([classroom, classroom1].as_json)
-        expect(assigns(:classroom)).to eq (classroom.as_json)
-      end
-    end
+    # context 'when classroom id is not passed' do
+    #   it 'should assign the classrooms and classroom' do
+    #     get :scorebook
+    #     expect(assigns(:classrooms)).to eq ([classroom, classroom1].as_json)
+    #     expect(assigns(:classroom)).to eq (classroom.as_json)
+    #   end
+    # end
   end
 
   describe '#dashboard' do
@@ -459,7 +459,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
 
   describe '#dashboard_query' do
     let(:teacher) { create(:teacher) }
-    
+
     before do
       allow(Dashboard).to receive(:queries) { "queries" }
       allow(controller).to receive(:current_user) { teacher }
