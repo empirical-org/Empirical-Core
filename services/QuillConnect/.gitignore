@@ -49,4 +49,7 @@ webpack-assets.json
 
 .vscode
 
+production.sh
+staging.sh
+
 .env
