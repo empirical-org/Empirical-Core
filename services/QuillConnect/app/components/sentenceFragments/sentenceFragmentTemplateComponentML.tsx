@@ -249,7 +249,7 @@ const PlaySentenceFragment = React.createClass<any, any>({
           handleChange={this.handleChange}
           disabled={this.showNextQuestionButton()}
           checkAnswer={this.checkAnswer}
-          placeholder="Type your answer here. Remember, your answer should be just one sentence."
+          placeholder="Type your answer here."
         />
         <div className="question-button-group">
           {this.renderButton()}
