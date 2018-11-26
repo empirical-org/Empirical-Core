@@ -10,12 +10,8 @@ export default React.createClass({
   },
 
   furnishRows: function () {
-    if (this.props.data.resources) {
-      var rows = this.props.data.resources.map((resource, index) => this.furnishRow(resource, index) );
-      return rows;
-    } else {
-      return []
-    }
+    var rows = this.props.data.resources.map((resource, index) => this.furnishRow(resource, index) );
+    return rows;
   },
 
   furnishRow: function (resource, index) {
