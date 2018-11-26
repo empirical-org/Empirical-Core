@@ -12,7 +12,7 @@ exports[`DashboardFooter component should render 1`] = `
     />
       Love Quill? 
     <a
-      href="https://www.graphite.org/website/quill"
+      href="https://www.commonsense.org/education/website/quill"
     >
       Please write a review.
     </a>
@@ -24,7 +24,7 @@ exports[`DashboardFooter component should render 1`] = `
       href="https://chrome.google.com/webstore/detail/quill/bponbohdnbmecjheeeagoigamblomimg"
     >
       <img
-        src="/chrome_badge.png"
+        src="https://developer.chrome.com/webstore/images/ChromeWebStore_Badge_v2_206x58.png"
       />
     </a>
   </div>

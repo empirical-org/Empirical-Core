@@ -12,7 +12,6 @@ exports[`CoteachingAnnouncementMini component should render 1`] = `
       style={
         Object {
           "padding": "8px",
-          "position": "relative",
         }
       }
     >
@@ -23,7 +22,7 @@ exports[`CoteachingAnnouncementMini component should render 1`] = `
           Object {
             "height": "27px",
             "position": "absolute",
-            "right": "-22px",
+            "right": "6px",
             "top": "-11px",
             "transform": "rotate(-22deg)",
             "width": "27px",
@@ -37,9 +36,9 @@ exports[`CoteachingAnnouncementMini component should render 1`] = `
           Object {
             "height": "14px",
             "position": "absolute",
-            "right": "-3px",
-            "top": "-11px",
-            "transform": "rotate(-34deg)",
+            "right": "25px",
+            "top": "-10px",
+            "transform": "rotate(-4deg)",
             "width": "14px",
           }
         }
@@ -84,9 +83,8 @@ exports[`CoteachingAnnouncementMini component should render 1`] = `
         className="button button-white beta"
         style={
           Object {
-            "marginTop": "15px",
+            "margin": "15px auto 0px",
             "maxWidth": "233px",
-            "paddingBottom": "13px",
             "width": "100%",
           }
         }
