@@ -3,7 +3,7 @@ import { shallow, mount } from 'enzyme';
 
 import EducatorType from '../educator_type';
 
-import UsK12View from '../../school/us_k12_view'
+import SchoolSelector from '../../../shared/school_selector'
 import NotUsK12View from '../../school/not_us_k12_view'
 
 describe('EducatorType component', () => {
@@ -15,12 +15,12 @@ describe('EducatorType component', () => {
       expect(wrapper).toMatchSnapshot();
   });
 
-  it('should render UsK12View if stage state is 2', () => {
+  it('should render SchoolSelector if stage state is 2', () => {
       const wrapper = shallow(
         <EducatorType />
       );
       wrapper.setState({ stage: 2 });
-      expect(wrapper.find(UsK12View)).toHaveLength(1);
+      expect(wrapper.find(SchoolSelector)).toHaveLength(1);
   });
 
   it('should render NotUsK12View if stage state is 3', () => {

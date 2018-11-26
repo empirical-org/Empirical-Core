@@ -292,11 +292,21 @@ const StudentDiagnostic = React.createClass({
     let component;
     if (this.props.questions.hasreceiveddata && this.props.sentenceFragments.hasreceiveddata) {
       if (!this.props.playDiagnostic.questionSet) {
-        component = (<SmartSpinner message={'Loading Your Lesson 50%'} onMount={this.loadQuestionSet} key="step2" />);
+        return (
+          <div>
+            <DiagnosticProgressBar percent={this.getProgressPercent()} />
+            <section className="section is-fullheight minus-nav student">
+              <div className="student-container student-container-diagnostic">
+                <SmartSpinner message={'Loading Your Lesson 50%'} onMount={this.loadQuestionSet} key="step2" />
+              </div>
+            </section>
+          </div>
+        );
       } else if (this.props.playDiagnostic.currentQuestion) {
         if (questionType === 'SC') {
           component = (<PlayDiagnosticQuestion
-            question={this.props.playDiagnostic.currentQuestion.data} nextQuestion={this.nextQuestion}
+            question={this.props.playDiagnostic.currentQuestion.data}
+            nextQuestion={this.nextQuestion}
             dispatch={this.props.dispatch}
             // responses={this.props.responses.data[this.props.playDiagnostic.currentQuestion.data.key]}
             key={this.props.playDiagnostic.currentQuestion.data.key}
@@ -318,7 +328,7 @@ const StudentDiagnostic = React.createClass({
             key={this.props.playDiagnostic.currentQuestion.data.key}
             dispatch={this.props.dispatch}
             nextQuestion={this.nextQuestion}
-          )
+          />)
         } else if (questionType === 'TL') {
           component = (
             <PlayTitleCard
@@ -330,18 +340,31 @@ const StudentDiagnostic = React.createClass({
           );
         }
       } else if (this.props.playDiagnostic.answeredQuestions.length > 0 && this.props.playDiagnostic.unansweredQuestions.length === 0) {
-        component = (<FinishedDiagnostic saveToLMS={this.saveToLMS} saved={this.state.saved} error={this.state.error} />);
+        component = (<FinishedDiagnostic
+          saveToLMS={this.saveToLMS}
+          saved={this.state.saved}
+          error={this.state.error}
+        />);
       } else {
-        component = <LandingPage
+        component = (<LandingPage
           begin={() => { this.startActivity('John'); }}
           session={this.getPreviousSessionData()}
           resumeActivity={this.resumeSession}
           questionCount={this.getQuestionCount()}
           landingPageHtml={this.landingPageHtml()}
-        />;
+        />);
       }
     } else {
-      component = (<SmartSpinner message={'Loading Your Lesson 25%'} onMount={() => {}} key="step1" />);
+      return (
+        <div>
+          <DiagnosticProgressBar percent={this.getProgressPercent()} />
+          <section className="section is-fullheight minus-nav student">
+            <div className="student-container student-container-diagnostic">
+              <SmartSpinner message={'Loading Your Lesson 25%'} onMount={() => {}} key="step1" />
+            </div>
+          </section>
+        </div>
+      );
     }
     // component = (<SmartSpinner message={'Loading Your Lesson 33%'} onMount={() => {}} />);
     return (

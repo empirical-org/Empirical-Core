@@ -71,10 +71,10 @@ export default class PassageReviewer extends React.Component<PassageReviewerProp
           const concept = this.props.concepts.find(c => c.uid === conceptUID)
           const indexToPass = index
           let state = 'correct'
-          if (negative) {
-            state = 'incorrect'
-          } else if (conceptUID === 'unnecessary') {
+          if (conceptUID === 'unnecessary') {
             state = 'unnecessary'
+          } else if (negative) {
+            state = 'incorrect'
           }
           index++
           parts[i] = <Edit

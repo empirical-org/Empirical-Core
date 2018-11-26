@@ -14,7 +14,7 @@ class Teachers::ClassroomUnitsController < ApplicationController
       unit_id: @classroom_unit.unit_id,
       activity: @lesson.id
     )
-    cuas = ClassroomUnitActivityState.find_by(
+    cuas = ClassroomUnitActivityState.find_or_create_by(
       classroom_unit: @classroom_unit,
       unit_activity: @unit_activity
     )
