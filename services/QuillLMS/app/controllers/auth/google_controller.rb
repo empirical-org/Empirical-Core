@@ -15,7 +15,6 @@ class Auth::GoogleController < ApplicationController
       GoogleIntegration::Classroom::Main.join_existing_google_classrooms(@user)
     end
 
-
     sign_in(@user)
     redirect_to profile_path
   end
@@ -68,6 +67,7 @@ class Auth::GoogleController < ApplicationController
       @teacherFromGoogleSignUp = true
 
       sign_in(@user)
+      return redirect_to '/sign-up/add-k12'
     else
       @teacherFromGoogleSignUp = false
       flash.now[:error] = @user.errors.full_messages.join(', ')

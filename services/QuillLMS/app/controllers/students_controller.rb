@@ -29,9 +29,8 @@ class StudentsController < ApplicationController
     end
   end
 
-  def make_teacher
-    params[:role] = 'teacher' unless params[:role] == 'student'
-    if current_user.update(role: params[:role], email: params[:email])
+  def update_email
+    if current_user.update(email: params[:email])
       render json: {status: 200}
     else
       render json: {errors: 'Please enter a valid email address.'}, status: 422
