@@ -16,7 +16,8 @@ export default React.createClass({
         <p style={{ padding: '0px 15px', lineHeight: '1.57', fontFamily: 'lucida-grande, adelle-sans, helvetica', }}>
         You can now invite co-teachers to your classes. Co-teachers can manage classes, assign activities and view reports.
       </p>
-        <a style={{ display: 'block', marginBottom: '12px', }} href="/teachers/classrooms#invite-coteachers"><button style={{ maxWidth: '233px', width: '100%', paddingBottom: '13px', marginTop: '15px', }} className="button button-white beta">Invite Co-Teachers</button></a>
+        <a style={{ display: 'block', marginBottom: '12px', }} href="/teachers/classrooms#invite-coteachers">
+          <button style={{ maxWidth: '233px', width: '100%', margin: '15px auto 0px', }} className="button button-white beta">Invite Co-Teachers</button></a>
         <a style={{ color: '#027360', }} target="_blank" href="http://support.quill.org/getting-started-for-teachers/manage-classes/how-do-i-share-a-class-with-my-co-teacher">Learn more about co-teaching ></a>
       </div>
     );

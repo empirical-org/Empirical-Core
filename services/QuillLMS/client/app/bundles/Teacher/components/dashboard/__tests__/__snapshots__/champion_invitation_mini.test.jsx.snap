@@ -83,9 +83,8 @@ exports[`ChampionInvitationMini component should render 1`] = `
         className="button button-white beta"
         style={
           Object {
-            "marginTop": "15px",
+            "margin": "15px auto 0px",
             "maxWidth": "233px",
-            "paddingBottom": "13px",
             "width": "100%",
           }
         }
