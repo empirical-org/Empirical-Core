@@ -18,6 +18,8 @@ class PagesController < ApplicationController
     end
     @title = 'Quill.org — Interactive Writing and Grammar'
     @description = 'Quill provides free writing and grammar activities for middle and high school students.'
+    @number_of_students = number_of_students
+    @number_of_activities = number_of_activities
     if request.env['affiliate.tag']
       name = ReferrerUser.find_by(referral_code: request.env['affiliate.tag'])&.user&.name
       flash.now[:info] = "<strong>#{name}</strong> invited you to help your students become better writers with Quill!" if name
@@ -391,6 +393,28 @@ class PagesController < ApplicationController
   def add_cards(list_response)
     list_response.each{|list| list["cards"] = HTTParty.get("https://api.trello.com/1/lists/#{list["id"]}/cards/?fields=name,url")}
     list_response
+  end
+
+  def number_of_students
+    number_of_students = $redis.get("NUMBER_OF_STUDENTS")
+    if number_of_students.nil?
+      number_of_students = User.where(role: 'student').joins(:activity_sessions).group('users.id').length.round(-3)
+      cache_life = 60*60 # => an hour
+      $redis.set("NUMBER_OF_STUDENTS", number_of_students)
+      $redis.expire("NUMBER_OF_STUDENTS", cache_life)
+    end
+    number_of_students
+  end
+
+  def number_of_activities
+    number_of_activities = $redis.get("NUMBER_OF_ACTIVITIES")
+    if number_of_activities.nil?
+      number_of_activities = (ActivitySession.where(state: 'finished').count * 10).round(-6)
+      cache_life = 60*60 # => an hour
+      $redis.set("NUMBER_OF_ACTIVITIES", number_of_activities)
+      $redis.expire("NUMBER_OF_ACTIVITIES", cache_life)
+    end
+    number_of_activities
   end
 
 end
