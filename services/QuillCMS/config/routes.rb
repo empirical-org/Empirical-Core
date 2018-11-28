@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   post 'questions/:question_uid/responses/search' => 'responses#search'
   post 'responses/batch_responses_for_lesson' => 'responses#batch_responses_for_lesson'
   put 'responses/replace_concept_uids' => 'responses#replace_concept_uids'
+  put 'question/:question_uid/reindex_responses_updated_today_for_given_question' => 'responses#reindex_responses_updated_today_for_given_question'
   post 'responses/clone_responses' => 'responses#clone_responses'
   # Stats controller
   get 'stats/question_health_index' => 'stats#question_health_index'
