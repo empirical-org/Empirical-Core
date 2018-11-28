@@ -263,7 +263,6 @@ module Teacher
       end
     end
     if !are_there_school_related_errors
-      binding.pry
       if self.update_attributes(username: params[:username] || self.username,
                                         email: params[:email] || self.email,
                                         name: params[:name] || self.name,
