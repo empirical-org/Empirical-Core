@@ -1,25 +1,34 @@
 class UnsubscribeFromNewsletterWorker
   include Sidekiq::Worker
 
-  SENDGRID_NEWSLETTER_LIST = '1372437'
-
   def perform(recipient_id)
     @recipient = User.find recipient_id
     remove_recipient_from_list
   end
 
   def remove_recipient_from_list
-    url = URI("https://api.sendgrid.com/v3/contactdb/lists/#{SENDGRID_NEWSLETTER_LIST}/recipients/#{@recipient_id}")
-
-    http = Net::HTTP.new(url.host, url.port)
+    get_url = URI("https://api.sendgrid.com/v3/contactdb/recipients/search?email=#{self.email}")
+    http = Net::HTTP.new(get_url.host, get_url.port)
     http.use_ssl = true
     http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
-    request = Net::HTTP::Delete.new(url)
-    request["authorization"] = "Bearer #{ENV['SENDGRID_KEY']}"
-    request.body = "null"
+    get_request = Net::HTTP::Get.new(get_url)
+    get_request["authorization"] = "Bearer #{ENV['SENDGRID_KEY']}"
+    get_request.body = "null"
 
-    response = http.request(request)
+    get_response = http.request(get_request)
+    sendgrid_recipient = JSON.parse(get_response.body)['recipients'].first
+
+    delete_url = URI("https://api.sendgrid.com/v3/contactdb/recipients/#{sendgrid_recipient['id']}")
+    http = Net::HTTP.new(delete_url.host, delete_url.port)
+    http.use_ssl = true
+    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+
+    delete_request = Net::HTTP::Delete.new(delete_url)
+    delete_request["authorization"] = "Bearer #{ENV['SENDGRID_KEY']}"
+    delete_request.body = "null"
+
+    response = http.request(delete_request)
   end
 
 end
