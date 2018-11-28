@@ -446,6 +446,12 @@ class User < ActiveRecord::Base
     end
   end
 
+  def unsubscribe_from_newsletter
+    if self.role == "teacher"
+      UnsubscribeFromNewsletterWorker.perform_async(self.id)
+    end
+  end
+
   ransacker :created_at_date, type: :date do |parent|
     Arel::Nodes::SqlLiteral.new "date(items.created_at)"
   end
