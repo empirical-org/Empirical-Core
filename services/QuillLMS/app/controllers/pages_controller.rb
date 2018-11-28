@@ -18,8 +18,7 @@ class PagesController < ApplicationController
     end
     @title = 'Quill.org — Interactive Writing and Grammar'
     @description = 'Quill provides free writing and grammar activities for middle and high school students.'
-    @number_of_students = number_of_students
-    @number_of_activities = number_of_activities
+    get_number_of_activities_and_students
     if request.env['affiliate.tag']
       name = ReferrerUser.find_by(referral_code: request.env['affiliate.tag'])&.user&.name
       flash.now[:info] = "<strong>#{name}</strong> invited you to help your students become better writers with Quill!" if name
@@ -395,26 +394,32 @@ class PagesController < ApplicationController
     list_response
   end
 
-  def number_of_students
-    number_of_students = $redis.get("NUMBER_OF_STUDENTS")
-    if number_of_students.nil?
-      number_of_students = User.where(role: 'student').joins(:activity_sessions).group('users.id').length.round(-3)
-      cache_life = 60*60 # => an hour
-      $redis.set("NUMBER_OF_STUDENTS", number_of_students)
-      $redis.expire("NUMBER_OF_STUDENTS", cache_life)
-    end
-    number_of_students
-  end
-
-  def number_of_activities
+  def get_number_of_activities_and_students
     number_of_activities = $redis.get("NUMBER_OF_ACTIVITIES")
+    number_of_students_and_activities_last_set = $redis.get("NUMBER_OF_STUDENTS_AND_ACTIVITES_LAST_SET")
+    number_of_students = $redis.get("NUMBER_OF_STUDENTS")
+
     if number_of_activities.nil?
-      number_of_activities = (ActivitySession.where(state: 'finished').count * 10).round(-6)
-      cache_life = 60*60 # => an hour
+      activity_sessions = ActivitySession.where(state: 'finished')
+      number_of_activities = activity_sessions.count.round(-6)
       $redis.set("NUMBER_OF_ACTIVITIES", number_of_activities)
-      $redis.expire("NUMBER_OF_ACTIVITIES", cache_life)
+      $redis.set("NUMBER_OF_STUDENTS_AND_ACTIVITES_LAST_SET", Time.now)
     end
-    number_of_activities
+
+    if number_of_students.nil?
+      number_of_students = User.joins(:activity_sessions).where("activity_sessions.state = 'finished'").group_by("users.id").length.round(-3)
+      $redis.set("NUMBER_OF_STUDENTS", number_of_activities)
+      $redis.set("NUMBER_OF_STUDENTS_AND_ACTIVITIES_LAST_SET", Time.now)
+    end
+
+
+    # cache was set less recently than an hour ago
+    if number_of_students_and_activities_last_set < 1.hour.ago
+      SetNumberOfStudentsAndActivitiesWorker.perform_async
+    end
+
+    @number_of_activities = number_of_activities
+    @number_of_students = number_of_activities
   end
 
 end
