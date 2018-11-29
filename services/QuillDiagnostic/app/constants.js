@@ -159,7 +159,7 @@ export default {
     typingError: 'Try again. There may be a spelling mistake.',
     caseError: 'Proofread your work. There may be a capitalization error.',
     minLengthError: 'Revise your work. Do you have all of the information from the prompt?',
-    maxLengthError: 'Revise your work. How could this sentence be shorter and more concise?',
+    maxLengthError: 'Revise your work. How could your response be shorter and more concise?',
     modifiedWordError: 'Revise your work. You may have mixed up or misspelled a word.',
     additionalWordError: 'Revise your work. You may have added an extra word.',
     missingWordError: 'Revise your work. You may have left out an important word.',
