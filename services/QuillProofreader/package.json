@@ -11,6 +11,7 @@
     "build:jenkins": "tsc && webpack --optimize-minimize",
     "build": "tsc && webpack --progress",
     "build:staging": "webpack --progress --config webpack.staging.config.js",
+    "build:prod": "webpack --progress --config webpack.prod.config.js",
     "clean": "rd /s/q built"
   },
   "keywords": [
