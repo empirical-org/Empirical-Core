@@ -44,10 +44,10 @@ class LoginPdf < Prawn::Document
   end
 
   def render_cover_page_table
-    header = [["<b><font size='12'>Name</font></b>", "<b><font size='12'>Username</font></b>", "<b><font size='12'> Default Password</font></b>"]]
+    header = [["<b><font size='12'>Name</font></b>", "<b><font size='12'>Account Type</font></b>", "<b><font size='12'>Username</font></b>", "<b><font size='12'> Default Password</font></b>"]]
     body = []
-    @classroom.students.each do |student|
-      body << [student.name, username_or_email_value_for_student(student), render_password_for_student(student)]
+    @classroom.students.sort_by { |s| s.name.split(' ')[1]}.each do |student|
+      body << [student.name, student.account_type, username_or_email_value_for_student(student), render_password_for_student(student)]
     end
     table(header, cell_style: {
       inline_format: true,
@@ -55,13 +55,13 @@ class LoginPdf < Prawn::Document
       background_color: 'EFEFEF',
       borders: [:top],
       border_color: 'DDDDDD'
-    }, column_widths: [182, 242, 140])
+    }, column_widths: [140, 140, 140, 140])
     table(body, cell_style: {
       padding: 10,
       size: 10,
       border_color: 'DDDDDD',
       borders: [:top, :bottom]
-    }, column_widths: [182, 242, 140])
+    }, column_widths: [140, 140, 140, 140])
   end
 
   def render_section_for_one_student(student)
