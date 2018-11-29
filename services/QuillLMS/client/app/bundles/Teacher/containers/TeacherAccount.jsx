@@ -5,6 +5,7 @@ import ItemDropdown from '../components/general_components/dropdown_selectors/it
 import $ from 'jquery';
 import LoadingSpinner from '../components/shared/loading_indicator.jsx';
 import ButtonLoadingIndicator from '../components/shared/button_loading_indicator';
+const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
 
 export default React.createClass({
   propTypes: {
@@ -17,6 +18,7 @@ export default React.createClass({
       name: '',
       username: '',
       email: '',
+      sendNewsletter: false,
       isSaving: false,
       selectedSchool: null,
       originalSelectedSchool: null,
@@ -63,6 +65,7 @@ export default React.createClass({
       googleId: data.google_id,
       signedUpWithGoogle: data.signed_up_with_google,
       time_zone: data.time_zone ? data.time_zone.replace(/_/g, ' ') : data.time_zone,
+      sendNewsletter: data.send_newsletter,
       selectedSchool: schoolData,
       originalSelectedSchoolId,
       schoolOptionsDoNotApply: (originalSelectedSchoolId == null),
@@ -95,7 +98,8 @@ export default React.createClass({
         ? null
         : this.state.selectedSchool.id),
       original_selected_school_id: this.state.originalSelectedSchoolId,
-      school_options_do_not_apply: this.state.schoolOptionsDoNotApply
+      school_options_do_not_apply: this.state.schoolOptionsDoNotApply,
+      send_newsletter: this.state.sendNewsletter
     };
     $.ajax({type: 'PUT', data, url: '/teachers/update_my_account', success: this.uponUpdateAttempt});
   },
@@ -213,6 +217,20 @@ export default React.createClass({
     this.setState({time_zone: tz});
   },
 
+  toggleNewsletter() {
+    this.setState({ sendNewsletter: !this.state.sendNewsletter, })
+  },
+
+  renderNewsletterRow() {
+    let checkbox
+    if (!this.state.sendNewsletter) {
+      checkbox = <div className="quill-checkbox unselected" onClick={this.toggleNewsletter} />
+    } else {
+      checkbox = <div className="quill-checkbox selected" onClick={this.toggleNewsletter}><img src={smallWhiteCheckSrc} /></div>
+    }
+    return <div className="newsletter-row">{checkbox} <p>Monthly updates on new&nbsp;content</p></div>
+  },
+
   render() {
     if (this.state.loading) {
       return <LoadingSpinner/>;
@@ -264,6 +282,13 @@ export default React.createClass({
             requestSchools={this.requestSchools}
             updateSchool={this.updateSchool}
           />
+
+          <div className="form-row">
+            <div className="form-label">
+              Newsletter
+            </div>
+            {this.renderNewsletterRow()}
+          </div>
 
         </div>
 
