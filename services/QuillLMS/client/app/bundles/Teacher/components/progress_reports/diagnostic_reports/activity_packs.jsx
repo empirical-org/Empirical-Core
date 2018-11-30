@@ -206,7 +206,7 @@ export default React.createClass({
 
     const allClassroomsClassroom = { name: 'All Classrooms', };
     const classrooms = [allClassroomsClassroom].concat(this.state.classrooms);
-    const classroomWithSelectedId = classrooms.find(classroom => classroom.id === Number(this.state.selectedClassroomId));
+    const classroomWithSelectedId = classrooms.find(classroom => classroom && classroom.id === Number(this.state.selectedClassroomId));
     const selectedClassroom = classroomWithSelectedId || allClassroomsClassroom;
 
     if (this.state.units.length === 0 && this.state.selectedClassroomId) {
@@ -221,7 +221,7 @@ export default React.createClass({
 				);
     } else if (this.state.units.length === 0) {
       content = <EmptyProgressReport missing="activities" />;
-    } else {
+    } else if {
       content = <Units report={Boolean(true)} activityReport={Boolean(true)} data={this.state.units} activityWithRecommendationsIds={this.state.activityWithRecommendationsIds} />;
     }
 
@@ -232,10 +232,10 @@ export default React.createClass({
         <div className="classroom-selector">
           <p>Select a classroom:</p>
           <ItemDropdown
-        items={classrooms}
-        callback={this.switchClassrooms}
-        selectedItem={selectedClassroom}
-      />
+            items={classrooms.filter(Boolean)}
+            callback={this.switchClassrooms}
+            selectedItem={selectedClassroom}
+          />
         </div>
         {content}
       </div>
