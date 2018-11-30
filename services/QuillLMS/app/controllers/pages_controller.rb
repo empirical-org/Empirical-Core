@@ -397,12 +397,12 @@ class PagesController < ApplicationController
   def get_number_of_activities_and_students
     number_of_activities = $redis.get("NUMBER_OF_ACTIVITIES")
     number_of_students = $redis.get("NUMBER_OF_STUDENTS")
-    number_of_students_and_activities_last_set = $redis.get("NUMBER_OF_STUDENTS_AND_ACTIVITES_LAST_SET")
+    number_of_students_and_activities_last_set = $redis.get("NUMBER_OF_STUDENTS_AND_ACTIVITIES_LAST_SET")
 
     # cache was set less recently than an hour ago
-    if number_of_activities && number_of_students && number_of_students_and_activities_last_set < 1.hour.ago
+    if number_of_activities && number_of_students && number_of_students_and_activities_last_set && number_of_students_and_activities_last_set < 1.hour.ago
       SetNumberOfStudentsAndActivitiesWorker.perform_async
-    else
+    elsif !number_of_activities || !number_of_students
       query = ActiveRecord::Base.connection.execute("SELECT COUNT(DISTINCT user_id) AS number_of_students, COUNT(DISTINCT activity_sessions.id) AS number_of_activities FROM activity_sessions WHERE activity_sessions.state = 'finished'")
       number_of_activities = query.to_a[0]['number_of_activities'].to_i.round(-6)
       $redis.set("NUMBER_OF_ACTIVITIES", number_of_activities)
@@ -412,7 +412,7 @@ class PagesController < ApplicationController
     end
 
     @number_of_activities = number_of_activities
-    @number_of_students = number_of_activities
+    @number_of_students = number_of_students
   end
 
 end
