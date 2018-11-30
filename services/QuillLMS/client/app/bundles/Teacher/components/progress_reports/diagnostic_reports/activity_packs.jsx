@@ -206,23 +206,31 @@ export default React.createClass({
 
     const allClassroomsClassroom = { name: 'All Classrooms', };
     const classrooms = [allClassroomsClassroom].concat(this.state.classrooms);
-    const classroomWithSelectedId = classrooms.find(classroom => classroom && classroom.id === Number(this.state.selectedClassroomId));
+    const classroomWithSelectedId = classrooms.find(classroom =>
+      classroom && classroom.id === Number(this.state.selectedClassroomId)
+    );
     const selectedClassroom = classroomWithSelectedId || allClassroomsClassroom;
 
-    if (this.state.units.length === 0 && this.state.selectedClassroomId) {
+    if (!this.state.classrooms || this.state.classrooms.filter(Boolean).length === 0) {
+      content = <EmptyProgressReport missing="classrooms" />;
+    } else if (this.state.units.length === 0 && this.state.selectedClassroomId) {
       content = (
         <EmptyProgressReport
           missing="activitiesForSelectedClassroom"
           onButtonClick={() => {
-        this.setState({ selectedClassroomId: null, loaded: false, });
-        this.getUnitsForCurrentClass();
-      }}
-        />
-				);
+            this.setState({ selectedClassroomId: null, loaded: false, });
+            this.getUnitsForCurrentClass();
+          }}
+        />);
     } else if (this.state.units.length === 0) {
       content = <EmptyProgressReport missing="activities" />;
-    } else if {
-      content = <Units report={Boolean(true)} activityReport={Boolean(true)} data={this.state.units} activityWithRecommendationsIds={this.state.activityWithRecommendationsIds} />;
+    } else {
+      content = (<Units
+        report={Boolean(true)}
+        activityReport={Boolean(true)}
+        data={this.state.units}
+        activityWithRecommendationsIds={this.state.activityWithRecommendationsIds}
+      />);
     }
 
     return (
