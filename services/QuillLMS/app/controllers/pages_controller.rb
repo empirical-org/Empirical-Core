@@ -396,26 +396,19 @@ class PagesController < ApplicationController
 
   def get_number_of_activities_and_students
     number_of_activities = $redis.get("NUMBER_OF_ACTIVITIES")
-    number_of_students_and_activities_last_set = $redis.get("NUMBER_OF_STUDENTS_AND_ACTIVITES_LAST_SET")
     number_of_students = $redis.get("NUMBER_OF_STUDENTS")
-
-    if number_of_activities.nil?
-      activity_sessions = ActivitySession.where(state: 'finished')
-      number_of_activities = activity_sessions.count.round(-6)
-      $redis.set("NUMBER_OF_ACTIVITIES", number_of_activities)
-      $redis.set("NUMBER_OF_STUDENTS_AND_ACTIVITES_LAST_SET", Time.now)
-    end
-
-    if number_of_students.nil?
-      number_of_students = User.joins(:activity_sessions).where("activity_sessions.state = 'finished'").group_by("users.id").length.round(-3)
-      $redis.set("NUMBER_OF_STUDENTS", number_of_activities)
-      $redis.set("NUMBER_OF_STUDENTS_AND_ACTIVITIES_LAST_SET", Time.now)
-    end
-
+    number_of_students_and_activities_last_set = $redis.get("NUMBER_OF_STUDENTS_AND_ACTIVITES_LAST_SET")
 
     # cache was set less recently than an hour ago
-    if number_of_students_and_activities_last_set < 1.hour.ago
+    if number_of_activities && number_of_students && number_of_students_and_activities_last_set < 1.hour.ago
       SetNumberOfStudentsAndActivitiesWorker.perform_async
+    else
+      query = ActiveRecord::Base.connection.execute("SELECT COUNT(DISTINCT user_id) AS number_of_students, COUNT(DISTINCT activity_sessions.id) AS number_of_activities FROM activity_sessions WHERE activity_sessions.state = 'finished'")
+      number_of_activities = query.to_a[0]['number_of_activities'].to_i.round(-6)
+      $redis.set("NUMBER_OF_ACTIVITIES", number_of_activities)
+      number_of_students = query.to_a[0]['number_of_students'].to_i.round(-3)
+      $redis.set("NUMBER_OF_STUDENTS", number_of_students)
+      $redis.set("NUMBER_OF_STUDENTS_AND_ACTIVITIES_LAST_SET", Time.now)
     end
 
     @number_of_activities = number_of_activities
