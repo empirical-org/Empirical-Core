@@ -172,6 +172,11 @@ class ResponsesController < ApplicationController
     render json: :ok
   end
 
+  def reindex_responses_updated_today_for_given_question
+    question_uid = params[:question_uid]
+    Response.__elasticsearch__.import query: -> { where("question_uid = ? AND updated_at >= ?", question_uid, Time.zone.now.beginning_of_day) }
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_response

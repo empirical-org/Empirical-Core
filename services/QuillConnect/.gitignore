@@ -53,3 +53,6 @@ production.sh
 staging.sh
 
 .env
+
+/staging.sh
+/production.sh
