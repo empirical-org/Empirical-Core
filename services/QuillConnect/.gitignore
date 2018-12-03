@@ -51,5 +51,5 @@ webpack-assets.json
 
 .env
 
-staging.sh
-production.sh
+/staging.sh
+/production.sh
