@@ -86,7 +86,7 @@ export default React.createClass({
       schoolOptions = _.map(this.props.schoolOptions, function (schoolOption) {
         return <option key={schoolOption.id} value={schoolOption.id}>{schoolOption.text}</option>;
       });
-      if ((this.props.selectedSchool != null) && (this.props.selectedSchool.zipcode == this.props.schoolOptions[0].zipcode)) {
+      if ((this.props.selectedSchool != null) && (this.props.schoolOptions[0] != null) && (this.props.selectedSchool.zipcode == this.props.schoolOptions[0].zipcode)) {
         initialValue = this.props.selectedSchool.id;
       } else {
         var defaultOption = <option key='choose' value="choose">Choose Your School</option>;
