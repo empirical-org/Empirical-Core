@@ -4,8 +4,12 @@ class Api::V1::ProgressReportsController < Api::ApiController
 
   def activities_scores_by_classroom_data
     classroom_ids = current_user.classrooms_i_teach.map(&:id)
-    data = ProgressReports::ActivitiesScoresByClassroom.results(classroom_ids)
-    render json: { data: data }
+    if classroom_ids.length > 0
+      data = ProgressReports::ActivitiesScoresByClassroom.results(classroom_ids)
+      render json: { data: data }
+    else
+      render json: { data: [] }
+    end
   end
 
   def real_time_data
