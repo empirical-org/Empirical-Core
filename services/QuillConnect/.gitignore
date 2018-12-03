@@ -50,3 +50,6 @@ webpack-assets.json
 .vscode
 
 .env
+
+/staging.sh
+/production.sh
