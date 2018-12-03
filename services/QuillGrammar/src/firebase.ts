@@ -4,9 +4,9 @@ import firebase from 'firebase';
 let config = {};
 if (prod) {
   config = {
-    apiKey: 'AIzaSyC2AuCgUeBthS4Itw45UaLAooa6wvhyjGE',
-    authDomain: 'quillgrammar.firebaseapp.com',
-    databaseURL: 'https://quillgrammar.firebaseio.com',
+    apiKey: 'AIzaSyC6mYwIeRVh3B1d0fuvXH6oKekFtSCg-IE',
+    authDomain: 'quillconnect.firebaseapp.com',
+    databaseURL: 'https://quillconnect.firebaseio.com',
     // storageBucket: 'quillgrammar.appspot.com',
   };
 } else {
