@@ -1,4 +1,4 @@
-import { rematchAllQuestionsOfAType, rematchIndividualQuestion } from './rematch'
+const { rematchAllQuestionsOfAType, rematchIndividualQuestion } =  require('./rematch')
 
 exports.handler = async (event) => {
   const { uid, type } = event
