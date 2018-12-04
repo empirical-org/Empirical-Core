@@ -1,11 +1,11 @@
 import React from 'react'
-import UserAccessibleSelectRole from '../components/accounts/edit/user_accessible_select_role.jsx'
+import StudentAccountForm from '../components/accounts/edit/student_account_form.jsx'
 export default React.createClass({
 
   render: function () {
     return (
       <div className="container user-select-role">
-        <UserAccessibleSelectRole {...this.props}/>
+        <StudentAccountForm {...this.props}/>
       </div>
     );
   }

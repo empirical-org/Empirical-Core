@@ -209,15 +209,9 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
       styling.borderWidth = '2px';
       delete styling.borderImageSource;
     }
-    if (this.state.cues.some(c => c.length > 15)) {
-      styling.width = '200px'
-    } else if (this.state.cues.some(c => c.length > 10)) {
-      styling.width = '150px'
-    } else if (this.state.cues.some(c => c.length > 5)) {
-      styling.width = '100px'
-    } else {
-      styling.width = '50px'
-    }
+    const longestCue = this.state.cues && this.state.cues.length ? this.state.cues.sort((a, b) => b.length - a.length)[0] : null
+    const width = longestCue ? (longestCue.length * 15) + 10 : 50
+    styling.width = `${width}px`
     return (
       <span key={`span${i}`}>
         <div style={{ position: 'relative', height: 0, width: 0, }}>

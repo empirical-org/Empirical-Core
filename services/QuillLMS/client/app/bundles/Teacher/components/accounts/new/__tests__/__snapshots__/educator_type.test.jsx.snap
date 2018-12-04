@@ -12,19 +12,21 @@ exports[`EducatorType component should render if stage is 1 1`] = `
     className="option-wrapper"
   >
     <button
-      className="button-green"
+      className="button contained primary large"
       onClick={[Function]}
     >
       Yes
     </button>
     <button
-      className="button-green"
+      className="button contained primary large"
       onClick={[Function]}
     >
       No
     </button>
   </div>
-  <div>
+  <div
+    className="explanation"
+  >
     *K-12 is a term for school grades prior to college.
     <br />
     These grades span from kindergarten through the 12th grade.

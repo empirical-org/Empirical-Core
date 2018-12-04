@@ -48,8 +48,11 @@ class ResponsesController < ApplicationController
   # PATCH/PUT /responses/1
   def update
     new_vals = transformed_new_vals(response_params)
-    if @response.update(new_vals)
-      Rails.cache.delete("questions/#{@response.question_uid}/responses")
+    updated_response = @response.update(new_vals)
+    if updated_response
+      if @response.optimal != nil
+        Rails.cache.delete("questions/#{@response.question_uid}/responses")
+      end
       render json: @response
     else
       render json: @response.errors, status: :unprocessable_entity
@@ -167,6 +170,11 @@ class ResponsesController < ApplicationController
       new_record.update(question_uid: params[:new_question_uid])
     end
     render json: :ok
+  end
+
+  def reindex_responses_updated_today_for_given_question
+    question_uid = params[:question_uid]
+    Response.__elasticsearch__.import query: -> { where("question_uid = ? AND updated_at >= ?", question_uid, Time.zone.now.beginning_of_day) }
   end
 
   private
