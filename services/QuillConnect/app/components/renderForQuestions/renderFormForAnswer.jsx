@@ -94,7 +94,7 @@ export default React.createClass({
             latestAttempt={getLatestAttempt(this.props.question.attempts)}
             getResponse={this.props.getResponse}
             spellCheck={this.props.spellCheck}
-            placeholder="Type your answer here. Remember, your answer should be just one sentence."
+            placeholder="Type your answer here."
           />
           <div className="question-button-group button-group">
             {this.getHelpModal()}

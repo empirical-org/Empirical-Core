@@ -77,7 +77,7 @@ class User < ActiveRecord::Base
   SAFE_ROLES = %w(student teacher temporary)
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
 
-  TESTING_FLAGS = %w(alpha beta)
+  TESTING_FLAGS = %w(alpha beta private)
   PERMISSIONS_FLAGS = %w(auditor purchaser school_point_of_contact)
   VALID_FLAGS = TESTING_FLAGS.dup.concat(PERMISSIONS_FLAGS)
 
@@ -443,6 +443,12 @@ class User < ActiveRecord::Base
   def subscribe_to_newsletter
     if self.role == "teacher"
       SubscribeToNewsletterWorker.perform_async(self.id)
+    end
+  end
+
+  def unsubscribe_from_newsletter
+    if self.role == "teacher"
+      UnsubscribeFromNewsletterWorker.perform_async(self.id)
     end
   end
 

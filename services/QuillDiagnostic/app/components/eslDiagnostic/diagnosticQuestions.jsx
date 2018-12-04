@@ -11,7 +11,7 @@ export default function diagnosticQuestions() {
     },
     {
       type: 'SF',
-      key: '-Ke_Lw0PG3zy5QodpFdo', // the family from China
+      key: '-LP2d-AypvpZosEnFVv4', // my friend from school
     },
     {
       type: 'SF',

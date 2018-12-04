@@ -22,21 +22,27 @@ class AccountsController < ApplicationController
   # user record instead of creating a new one.
   def create
     role = params[:user].delete(:role)
-    puts 'some crap'
-    puts role
-    puts params[:user]
-    puts 'some crap end'
     @user.attributes = user_params
     @user.safe_role_assignment(role)
     @user.validate_username = true
     if @user.save
       sign_in @user
       trigger_account_creation_callbacks
-      @user.subscribe_to_newsletter
+      if @user.send_newsletter
+        @user.subscribe_to_newsletter
+      end
       create_referral_if_teacher_and_referrer
       render json: creation_json
     else
-      render json: {errors: @user.errors}, status: 422
+      errors = {}
+      if @user.errors['username']&.include?('has already been taken')
+        errors['username'] = ['That username is taken. Try another.']
+      elsif @user.errors['email']&.include?('has already been taken')
+        errors['email'] = ['That email is taken. Try another.']
+      elsif @user.errors['email']&.include?('does not appear to be a valid e-mail address')
+        errors['email'] = ['Enter a valid email']
+      end
+      render json: {errors: errors}, status: 422
     end
   end
 
@@ -48,6 +54,12 @@ class AccountsController < ApplicationController
       validate_username = false
     else
       validate_username = true
+    end
+
+    if @user.send_newsletter
+      @user.subscribe_to_newsletter
+    else
+      @user.unsubscribe_from_newsletter
     end
 
     user_params.merge! validate_username: validate_username
@@ -79,11 +91,11 @@ protected
 
   def creation_json
     if session[:post_sign_up_redirect]
-      { redirectPath: session.delete(:post_sign_up_redirect) }
+      { redirect: session.delete(:post_sign_up_redirect) }
     elsif @user.has_outstanding_coteacher_invitation?
-      { redirectPath: teachers_classrooms_path }
+      { redirect: teachers_classrooms_path }
     else
-      @user
+      { redirect: '/profile'}
     end
   end
 
