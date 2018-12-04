@@ -7,8 +7,8 @@ const { checkSentenceCombining, checkSentenceFragment, checkDiagnosticQuestion, 
 const CMS_URL = 'https://cms.quill.org'
 const FIREBASE_NAME = 'quillconnect'
 
-const sequelize = new Sequelize(DATABASE, USERNAME, PASSWORD, {
-  host: HOST,
+const sequelize = new Sequelize(process.env.DATABASE, process.env.USERNAME, process.env.PASSWORD, {
+  host: process.env.HOST,
   dialect: 'postgres',
   port: 5432,
   logging: false,
@@ -377,7 +377,7 @@ function convertResponsesArrayToHash(crArray) {
   return newHash;
 }
 
-export function rematchAllQuestionsOfAType(type) {
+function rematchAllQuestionsOfAType(type) {
   return request(
     {
       uri: `https://${FIREBASE_NAME}.firebaseio.com/v2/${type}.json`,
@@ -394,7 +394,7 @@ export function rematchAllQuestionsOfAType(type) {
   });
 }
 
-export function rematchIndividualQuestion(question_uid, type) {
+function rematchIndividualQuestion(question_uid, type) {
   return request(
     {
       uri: `https://${FIREBASE_NAME}.firebaseio.com/v2/${type}/${question_uid}.json`,
@@ -405,4 +405,9 @@ export function rematchIndividualQuestion(question_uid, type) {
   }).catch((err) => {
     console.log(err);
   });
+}
+
+module.exports = {
+  rematchAllQuestionsOfAType,
+  rematchIndividualQuestion
 }
