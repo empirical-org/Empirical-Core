@@ -1,0 +1,8 @@
+type Lesson {
+  id: String!
+}
+
+type Query {
+  lesson(id: String!): Lesson!
+  lessons: [Lesson]!
+}

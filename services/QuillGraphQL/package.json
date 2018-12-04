@@ -1,0 +1,24 @@
+{
+  "name": "QuillGraphQL",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "ts-node-dev src/index.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "graphql-yoga": "^1.16.7",
+    "merge-graphql-schemas": "^1.5.8"
+  },
+  "devDependencies": {
+    "@types/node": "^10.12.12",
+    "graphql-playground-middleware-express": "^1.7.8",
+    "nodemon": "^1.18.7",
+    "ts-node": "^7.0.1",
+    "ts-node-dev": "^1.0.0-pre.31",
+    "typescript": "^3.2.1"
+  }
+}
