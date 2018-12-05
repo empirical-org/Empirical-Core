@@ -1,11 +1,14 @@
 declare function require(name:string);
 const request = require('request-promise');
+// import AWS from 'aws-sdk'
 import * as _ from 'underscore';
 import { hashToCollection } from 'quill-component-library/dist/componentLibrary';
 
 // const qml = require('quill-marking-logic')
 import { checkSentenceCombining, checkSentenceFragment, checkDiagnosticQuestion, checkFillInTheBlankQuestion, ConceptResult } from 'quill-marking-logic'
 import objectWithSnakeKeysFromCamel from '../objectWithSnakeKeysFromCamel';
+
+// AWS.config.update({ region:'us-east-1', accessKeyId: 'akid', secretAccessKey: 'secret' });
 
 interface Question {
   conceptID: string,
@@ -49,13 +52,39 @@ interface ConceptResults {
 //   name: string
 // }
 
-export function rematchAll(mode: string, question: Question, questionID: string, callback:Function) {
-  const matcher = getMatcher(mode);
-  getGradedResponses(questionID).then((data) => {
-    question.key = questionID
-    const matcherFields = getMatcherFields(mode, question, formatGradedResponses(data));
-    paginatedNonHumanResponses(matcher, matcherFields, questionID, 1, callback);
-  });
+export function rematchAll(mode: string, questionID: string, callback:Function) {
+  let type
+  if (mode === 'sentenceFragments') {
+    type = 'diagnostic_sentenceFragments';
+  } else if (mode === 'diagnosticQuestions' || mode === 'questions') {
+    type = 'diagnostic_questions';
+  } else if (mode === 'fillInBlank') {
+    type = 'diagnostic_fillInBlankQuestions';
+  }
+  request.post({
+      url: 'https://p8147zy7qj.execute-api.us-east-1.amazonaws.com/prod',
+      json: {type, uid: questionID},
+    },
+    (error, httpStatus, body) => {
+      debugger;
+      if (error) {
+        console.log('error', error)
+      } else if (httpStatus.statusCode === 204 || httpStatus.statusCode === 200) {
+        console.log('success');
+        debugger;
+      } else {
+        console.log(body);
+      }
+    },
+  );
+
+  // https://p8147zy7qj.execute-api.us-east-1.amazonaws.com/prod
+  // const matcher = getMatcher(mode);
+  // getGradedResponses(questionID).then((data) => {
+  //   question.key = questionID
+  //   const matcherFields = getMatcherFields(mode, question, formatGradedResponses(data));
+  //   paginatedNonHumanResponses(matcher, matcherFields, questionID, 1, callback);
+  // });
 }
 
 export function rematchOne(response: string, mode: string, question: Question, questionID: string, callback:Function) {

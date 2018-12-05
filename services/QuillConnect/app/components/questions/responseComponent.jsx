@@ -239,7 +239,7 @@ class ResponseComponent extends React.Component {
         this.getGradeBreakdown();
       }
     };
-    const weak = rematchAll(this.props.mode, this.props.question, this.props.questionID, callback);
+    const weak = rematchAll(this.props.mode, this.props.questionID, callback);
     // weak.forEach((resp, index) => {
     //   const percentage = index / weak.length * 100;
     //   console.log('Rematching: ', resp.key, percentage, '% complete');
