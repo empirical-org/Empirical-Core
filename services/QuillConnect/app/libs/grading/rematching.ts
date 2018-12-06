@@ -63,7 +63,7 @@ export function rematchAll(mode: string, questionID: string, callback:Function) 
   }
   request.post({
       url: 'https://p8147zy7qj.execute-api.us-east-1.amazonaws.com/prod',
-      json: {type, uid: questionID},
+      json: {type, uid: questionID}
     },
     (error, httpStatus, body) => {
       debugger;
