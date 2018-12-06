@@ -55,28 +55,47 @@ interface ConceptResults {
 export function rematchAll(mode: string, questionID: string, callback:Function) {
   let type
   if (mode === 'sentenceFragments') {
-    type = 'diagnostic_sentenceFragments';
-  } else if (mode === 'diagnosticQuestions' || mode === 'questions') {
-    type = 'diagnostic_questions';
+    type = 'sentenceFragments';
+  } else if (mode === 'questions') {
+    type = 'questions';
   } else if (mode === 'fillInBlank') {
-    type = 'diagnostic_fillInBlankQuestions';
+    type = 'fillInBlankQuestions';
   }
-  request.post({
-      url: 'https://p8147zy7qj.execute-api.us-east-1.amazonaws.com/prod',
-      json: {type, uid: questionID}
+
+  fetch('https://p8147zy7qj.execute-api.us-east-1.amazonaws.com/prod', {
+    method: 'POST',
+    body: JSON.stringify({type, uid: questionID}),
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
     },
-    (error, httpStatus, body) => {
-      debugger;
-      if (error) {
-        console.log('error', error)
-      } else if (httpStatus.statusCode === 204 || httpStatus.statusCode === 200) {
-        console.log('success');
-        debugger;
-      } else {
-        console.log(body);
-      }
-    },
-  );
+  }).then((response) => {
+    if (!response.ok) {
+      throw Error(response.statusText);
+    }
+    return response.json();
+  }).then((response) => {
+    console.log('success');
+  }).catch((error) => {
+    console.log('error', error);
+  });
+
+  // request.post({
+  //     url: 'https://p8147zy7qj.execute-api.us-east-1.amazonaws.com/prod',
+  //     json: {type, uid: questionID}
+  //   },
+  //   (error, httpStatus, body) => {
+  //     debugger;
+  //     if (error) {
+  //       console.log('error', error)
+  //     } else if (httpStatus.statusCode === 204 || httpStatus.statusCode === 200) {
+  //       console.log('success');
+  //       debugger;
+  //     } else {
+  //       console.log(body);
+  //     }
+  //   },
+  // );
 
   // https://p8147zy7qj.execute-api.us-east-1.amazonaws.com/prod
   // const matcher = getMatcher(mode);
