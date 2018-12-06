@@ -3,7 +3,7 @@ const _ = require('lodash');
 const u = require('underscore');
 const Sequelize = require('sequelize');
 
-const { checkSentenceCombining, checkSentenceFragment, checkDiagnosticQuestion, checkFillInTheBlankQuestion, checkDiagnosticSentenceFragment, ConceptResult } = require('quill-marking-logic')
+const { checkSentenceCombining, checkSentenceFragment, checkDiagnosticQuestion, checkFillInTheBlankQuestion, checkDiagnosticSentenceFragment, checkGrammarQuestion, ConceptResult } = require('quill-marking-logic')
 const CMS_URL = 'https://cms.quill.org'
 const FIREBASE_NAME = 'quillconnect'
 
@@ -313,6 +313,8 @@ function getMatcher(type) {
     return checkDiagnosticQuestion;
   } else if (type === 'fillInBlankQuestions' || type === 'diagnostic_fillInBlankQuestions') {
     return checkFillInTheBlankQuestion;
+  } else if (type === 'grammar_questions') {
+    return checkGrammarQuestion;
   }
   return checkSentenceCombining;
 }
@@ -336,7 +338,7 @@ function getMatcherFields(type, question, responses) {
       mlUrl: CMS_URL,
       defaultConceptUID
     };
-  } else if (type === 'fillInBlankQuestions' || type === 'diagnostic_fillInBlankQuestions') {
+  } else if (type === 'fillInBlankQuestions' || type === 'diagnostic_fillInBlankQuestions' || type === 'grammar_questions') {
     return [question.key, hashToCollection(responses), defaultConceptUID]
   } else {
     return [question.key, responseArray, focusPoints, incorrectSequences, defaultConceptUID]
@@ -378,9 +380,15 @@ function convertResponsesArrayToHash(crArray) {
 }
 
 function rematchAllQuestionsOfAType(type) {
+  let uri
+  if (type === 'grammar_questions') {
+    uri = `https://${FIREBASE_NAME}.firebaseio.com/v3/questions.json`
+  } else {
+    uri = `https://${FIREBASE_NAME}.firebaseio.com/v2/${type}.json`
+  }
   return request(
     {
-      uri: `https://${FIREBASE_NAME}.firebaseio.com/v2/${type}.json`,
+      uri,
       method: 'GET'
     },
   ).then((data) => {
@@ -395,9 +403,15 @@ function rematchAllQuestionsOfAType(type) {
 }
 
 function rematchIndividualQuestion(question_uid, type) {
+  let uri
+  if (type === 'grammar_questions') {
+    uri = `https://${FIREBASE_NAME}.firebaseio.com/v3/questions/${question_uid}.json`
+  } else {
+    uri = `https://${FIREBASE_NAME}.firebaseio.com/v2/${type}/${question_uid}.json`
+  }
   return request(
     {
-      uri: `https://${FIREBASE_NAME}.firebaseio.com/v2/${type}/${question_uid}.json`,
+      uri,
       method: 'GET'
     },
   ).then((data) => {

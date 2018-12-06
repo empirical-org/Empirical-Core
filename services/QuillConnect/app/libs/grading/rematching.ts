@@ -80,30 +80,6 @@ export function rematchAll(mode: string, questionID: string, callback:Function) 
     console.log('error', error);
   });
 
-  // request.post({
-  //     url: 'https://p8147zy7qj.execute-api.us-east-1.amazonaws.com/prod',
-  //     json: {type, uid: questionID}
-  //   },
-  //   (error, httpStatus, body) => {
-  //     debugger;
-  //     if (error) {
-  //       console.log('error', error)
-  //     } else if (httpStatus.statusCode === 204 || httpStatus.statusCode === 200) {
-  //       console.log('success');
-  //       debugger;
-  //     } else {
-  //       console.log(body);
-  //     }
-  //   },
-  // );
-
-  // https://p8147zy7qj.execute-api.us-east-1.amazonaws.com/prod
-  // const matcher = getMatcher(mode);
-  // getGradedResponses(questionID).then((data) => {
-  //   question.key = questionID
-  //   const matcherFields = getMatcherFields(mode, question, formatGradedResponses(data));
-  //   paginatedNonHumanResponses(matcher, matcherFields, questionID, 1, callback);
-  // });
 }
 
 export function rematchOne(response: string, mode: string, question: Question, questionID: string, callback:Function) {
