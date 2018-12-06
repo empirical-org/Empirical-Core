@@ -1,5 +1,6 @@
 import * as _ from 'underscore'
 import {getTopOptimalResponse} from '../sharedResponseFunctions'
+import {stringNormalize} from 'quill-string-normalizer'
 import {Response, FocusPoint, PartialResponse} from '../../interfaces'
 import {conceptResultTemplate} from '../helpers/concept_result_template'
 
@@ -16,7 +17,7 @@ export function focusPointMatch(responseString:string, focusPoints:Array<FocusPo
   // focusPts = [(Bob|||Katherine),(is|||was)]
   return _.find(focusPoints, (focusPoint) => {
     const options = focusPoint.text.split('|||');
-    const anyMatches = _.any(options, particle => focusPointMatchHelper(responseString, particle));
+    const anyMatches = _.any(options, particle => focusPointMatchHelper(stringNormalize(responseString), particle));
     return !anyMatches;
   }); // => null (1), (Bob|||Katherine) (2)
 
