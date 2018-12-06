@@ -1,5 +1,8 @@
 import * as request from 'superagent'
-
+import {
+  embedIdInFirebaseObject,
+  convertFirebaseIndexToFirebaseCollection
+} from '../utils/firebase'
 declare interface Lesson {
   flag: string
   introURL: string
@@ -9,29 +12,25 @@ declare interface Lesson {
 
 export default {
   Query: {
-    lesson: (_, {id}) => {return getLesson(id)},
-    lessons: () => getLessons()
+    lesson: (_, {id}) => getLesson(id),
+    lessons: getLessons
   }
 }
 
 function getLesson(id: string) {
-  request
+  return request
     .get(`${process.env.FIREBASE_URL}/v2/lessons/${id}.json`)
-    .end((err, res) => {
-      const val = embedIDInLesson(res.body, id);
-      console.log(val);
-      return val;
+    .then((res) => {
+      const val = embedIdInFirebaseObject(res.body, id);
+      return res.body;
     });
 }
 
 function getLessons() {
-  request
+  return request
     .get(`${process.env.FIREBASE_URL}/v2/lessons.json`)
-    .end((err, res) => {
-      return res.body
+    .then((res) => {
+      return convertFirebaseIndexToFirebaseCollection(res.body)
     });
 }
-
-function embedIDInLesson(lesson: Lesson, id: string):Lesson {
-  return Object.assign({}, lesson, {id});
-}
+ 

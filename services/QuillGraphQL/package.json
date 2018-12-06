@@ -17,9 +17,12 @@
     "superagent": "^4.0.0"
   },
   "devDependencies": {
+    "@types/jest": "^23.3.10",
     "@types/node": "^10.12.12",
     "graphql-playground-middleware-express": "^1.7.8",
+    "jest": "^23.6.0",
     "nodemon": "^1.18.7",
+    "ts-jest": "^23.10.5",
     "ts-node": "^7.0.1",
     "ts-node-dev": "^1.0.0-pre.31",
     "typescript": "^3.2.1"

@@ -77,3 +77,4 @@ nohup\.out
 
 # Ignore generated python files
 *.pyc
+localhost.key
