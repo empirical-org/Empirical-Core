@@ -386,7 +386,7 @@ function rematchAllQuestionsOfAType(type) {
   ).then((data) => {
     const questions = JSON.parse(data)
     const filteredQuestions = _.pickBy(questions, (q) => q.flag !== 'archived' && q.prompt)
-    filteredQuestions.forEach((key, index) => {
+    Object.keys(filteredQuestions).forEach((key, index) => {
       setTimeout(rematchIndividualQuestionHelper, 1, key, type, filteredQuestions[key], index);
     })
   }).catch((err) => {

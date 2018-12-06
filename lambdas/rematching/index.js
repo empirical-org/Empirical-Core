@@ -9,7 +9,7 @@ exports.handler = async (event) => {
     }
     const response = {
         statusCode: 200,
-        body: JSON.stringify('success'),
+        body: JSON.stringify('something else'),
         headers: {
           'Content-Type': 'application/json',
           'Access-Control-Allow-Origin': '*'
