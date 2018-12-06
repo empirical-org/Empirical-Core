@@ -47,15 +47,29 @@ interface ConceptResults {
 //   name: string
 // }
 
-export function rematchAll(mode: string, question: Question, questionID: string, callback: Function) {
-  const matcher = getMatcher(mode);
-  getGradedResponses(questionID).then((data: any) => {
-    question.key = questionID
-    const matcherFields = getMatcherFields(mode, question, formatGradedResponses(data));
-    paginatedNonHumanResponses(matcher, matcherFields, questionID, 1, callback);
-  });
-}
+export function rematchAll(mode: string, questionID: string, callback:Function) {
+  let type
+  debugger;
 
+  fetch('https://p8147zy7qj.execute-api.us-east-1.amazonaws.com/prod', {
+    method: 'POST',
+    body: JSON.stringify({type, uid: questionID}),
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    },
+  }).then((response) => {
+    if (!response.ok) {
+      throw Error(response.statusText);
+    }
+    return response.json();
+  }).then((response) => {
+    console.log('success');
+  }).catch((error) => {
+    console.log('error', error);
+  });
+
+}
 export function rematchOne(response: string, mode: string, question: Question, questionID: string, callback: Function) {
   const matcher = getMatcher(mode);
   getGradedResponses(questionID).then((data: any) => {
