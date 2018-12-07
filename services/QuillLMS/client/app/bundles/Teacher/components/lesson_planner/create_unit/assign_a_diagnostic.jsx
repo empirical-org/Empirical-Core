@@ -30,7 +30,7 @@ export default React.createClass({
             title={'Intermediate Diagnostic'}
             img={`${process.env.CDN_URL}/images/shared/new_diagnostic.svg`}
             link="/diagnostic/-LKbzH_Er916zGjgHk5U/stage/1"
-            bodyText={'Covers sentence construction skills like forming compound and complex sentences.'}
+            bodyText={'Covers sentence construction skills like forming compound sentences.'}
             directions={'use intermittently'}
             quantity={1}
             unit={'Diagnostic'}
