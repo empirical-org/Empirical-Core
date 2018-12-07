@@ -194,7 +194,7 @@ class Teachers::UnitsController < ApplicationController
   def units(report)
     units_i_teach_own_or_coteach('teach', report, false)
   end
-  
+
   def units_i_teach_own_or_coteach(teach_own_or_coteach, report, lessons)
     # returns an empty array if teach_own_or_coteach_classrooms_array is empty
     teach_own_or_coteach_classrooms_array = current_user.send("classrooms_i_#{teach_own_or_coteach}").map(&:id)
