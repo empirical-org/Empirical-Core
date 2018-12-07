@@ -48,12 +48,9 @@ interface ConceptResults {
 // }
 
 export function rematchAll(mode: string, questionID: string, callback:Function) {
-  let type
-  debugger;
-
   fetch('https://p8147zy7qj.execute-api.us-east-1.amazonaws.com/prod', {
     method: 'POST',
-    body: JSON.stringify({type, uid: questionID}),
+    body: JSON.stringify({ type: 'grammar_questions', uid: questionID}),
     headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
