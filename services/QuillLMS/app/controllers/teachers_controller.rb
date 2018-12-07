@@ -118,9 +118,10 @@ class TeachersController < ApplicationController
       acts.id AS activity_id,
       actsesh.completed_at FROM classroom_units cu
                JOIN units ON cu.unit_id = units.id
+               JOIN unit_activities ON units.id = unit_activities.unit_id
                JOIN classrooms AS classroom ON cu.classroom_id = classroom.id
-               JOIN activity_sessions AS actsesh ON actsesh.classroom_unit_id = cu.id
-               JOIN activities AS acts ON actsesh.activity_id = acts.id
+               LEFT JOIN activity_sessions AS actsesh ON actsesh.classroom_unit_id = cu.id
+               JOIN activities AS acts ON unit_activities.activity_id = acts.id
                WHERE units.user_id = #{current_user.id}
                AND acts.activity_classification_id = 4
                ORDER BY actsesh.completed_at DESC").to_a
