@@ -1,5 +1,5 @@
 import * as request from 'superagent'
-
+import { RESTDataSource } from 'apollo-datasource-rest'
 declare interface FirebaseObject {
   id: string;
   [propName: string]: any;
@@ -33,4 +33,21 @@ export function fetchFirebaseObject(resourcePath:string, objectId:string):Promis
     .then((res) => {
       return embedIdInFirebaseObject(res.body, objectId);
     });
+}
+
+export class FirebaseAPI extends RESTDataSource {
+  constructor() {
+    super();
+    this.baseURL = `${process.env.FIREBASE_URL}/`
+  }
+
+  async getObject(resourcePath:string, objectId:string):Promise<FirebaseObject> {
+    const data = await this.get(`${resourcePath}/${objectId}.json`)
+    return embedIdInFirebaseObject(data.results, objectId);
+  }
+
+  async getIndex(resourcePath:string) {
+    const data = await this.get(`${resourcePath}.json`)
+    return convertFirebaseIndexToFirebaseCollection(data.results);
+  }
 }

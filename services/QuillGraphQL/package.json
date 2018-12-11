@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node-dev src/index.ts", 
+    "start": "ts-node-dev src/index.ts",
     "test": "jest --watch"
   },
   "keywords": [],
@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "@types/superagent": "^3.8.5",
+    "apollo-datasource-rest": "^0.2.1",
     "dotenv": "^6.1.0",
     "graphql-yoga": "^1.16.7",
     "merge-graphql-schemas": "^1.5.8",
