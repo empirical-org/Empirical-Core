@@ -62,6 +62,7 @@ export function rematchAll(mode: string, questionID: string, callback:Function) 
     return response.json();
   }).then((response) => {
     console.log('success');
+    callback('done')
   }).catch((error) => {
     console.log('error', error);
   });
