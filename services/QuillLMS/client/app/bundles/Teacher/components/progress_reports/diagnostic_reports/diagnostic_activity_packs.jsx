@@ -116,7 +116,7 @@ export default React.createClass({
 				return (
 					<EmptyDiagnosticProgressReport status={this.state.diagnosticStatus}/>
 				);
-			} else if (this.state.units.length === 1) {
+			} else if (this.state.units.length === 1 && this.state.units[0].classroomActivities.size === 1) {
 				this.goToDiagnosticReport()
       } else {
 				return (
