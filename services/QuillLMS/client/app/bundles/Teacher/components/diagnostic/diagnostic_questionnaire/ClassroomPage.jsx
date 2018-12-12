@@ -110,6 +110,8 @@ export default React.createClass({
     } else if (this.props.diagnosticActivityId === 447) {
       unit_template_id = 34;
       name = 'ELL Diagnostic';
+    } else {
+      name = this.props.diagnosticName
     }
 
     return ({
