@@ -18,9 +18,9 @@ export const startListeningToActivities = () => {
   }
 }
 
-export const startListeningToActivity = (activityUID: string) => {
+export const getActivity = (activityUID: string) => {
   return (dispatch: Function) => {
-    activitiesRef.child(activityUID).on('value', (snapshot: any) => {
+    activitiesRef.child(activityUID).once('value', (snapshot: any) => {
       const activity: GrammarActivity = snapshot.val()
       if (activity) {
         dispatch({ type: ActionTypes.RECEIVE_GRAMMAR_ACTIVITY_DATA, data: activity, });
