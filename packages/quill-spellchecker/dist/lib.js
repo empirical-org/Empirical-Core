@@ -1,5 +1,5 @@
 /*!
- * {LIB} v0.1.4
+ * {LIB} v0.1.7
  * (c) 2018 {NAME}
  * Released under the MIT License.
  */
@@ -14,7 +14,7 @@ function train(text, existingDictionary) {
     }
     var dictionary = existingDictionary ? Object.assign({}, existingDictionary) : {};
     var word, m;
-    var r = /[a-z]+/gi;
+    var r = /[a-z0-9]+/gi;
     text = text;
     while (m = r.exec(text)) {
         word = m[0];
@@ -23,7 +23,7 @@ function train(text, existingDictionary) {
     return dictionary;
 }
 
-var letters = "abcdefghijklmnopqrstuvwxyz".split("");
+var letters = "abcdefghijklmnopqrstuvwxyz0123456789".split("");
 
 function edits(word) {
     var i, results = [];

@@ -1,6 +1,6 @@
 import { Response, ConceptResult } from 'quill-marking-logic'
 
-type ResponseAttempt = Response & { conceptResults: { [key: string]: ConceptResult } }
+export type ResponseAttempt = Response & { conceptResults: { [key: string]: ConceptResult } }
 
 export interface Questions {
   [key: string]: Question
