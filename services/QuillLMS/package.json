@@ -45,6 +45,7 @@
   ],
   "dependencies": {
     "faker": "^4.1.0",
+    "foreman": "^3.0.1",
     "gitbook-plugin-rss": "git+https://git@github.com/ddmck/gitbook-plugin-rss.git",
     "isomorphic-fetch": "^2.2.1",
     "istanbul-lib-instrument": "^1.9.1",
