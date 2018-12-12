@@ -103,8 +103,12 @@ module TeacherFixes
       new_unit_name = "#{user.name}'s Activities from #{classroom_1.name}"
       unit = Unit.create(user_id: classroom_2.owner.id, name: new_unit_name)
       classroom_units.each do |ca|
-        new_ca = ClassroomUnit.find_or_create_by(unit_id: unit.id, classroom_id: classroom_2_id, assigned_student_ids: [user_id])
-        ActivitySession.where(classroom_unit_id: ca.id, user_id: user_id).each { |as| as.update(classroom_unit_id: new_ca.id)}
+        new_cu = ClassroomUnit.find_or_create_by(unit_id: unit.id, classroom_id: classroom_2_id, assigned_student_ids: [user_id])
+
+        ActivitySession.where(classroom_unit_id: ca.id, user_id: user_id).each do |as|
+          as.update(classroom_unit_id: new_cu.id)
+          UnitActivity.find_or_create_by(unit_id: unit.id, activity_id: as.activity_id)
+        end
         hide_extra_activity_sessions(ca.id, user_id)
       end
     end
