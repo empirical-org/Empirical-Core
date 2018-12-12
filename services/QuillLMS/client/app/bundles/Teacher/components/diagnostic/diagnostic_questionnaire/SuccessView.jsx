@@ -1,20 +1,30 @@
 import React from 'react'
+import request from 'request'
 import UnitTemplateAssigned from '../../lesson_planner/diagnostic_assigned.jsx'
 
 
-export default React.createClass({
+export default class SuccessView extends React.Component {
+  constructor(props) {
+    super(props)
 
-  render: function() {
-    let name, id
-    if (this.props.params.activityId == 447) {
-      name = 'ELL Diagnostic'
-      id = 34
-    } else if (this.props.params.activityId == 413) {
-      name = 'Sentence Structure Diagnostic'
-      id = 20
-    }
+    this.state = {}
+  }
+
+  componentWillMount() {
+    request.get({
+      url: `${process.env.DEFAULT_URL}/activities/${this.props.params.activityId}/last_unit_template`
+    },
+    (e, r, body) => {
+      const parsedBody = JSON.parse(body)
+      this.setState(parsedBody)
+    });
+
+  }
+
+  render() {
+    const { name, id, } = this.state
     return (
       <UnitTemplateAssigned data={{name, id}} type={'diagnostic'}/>
     );
    }
- });
+ }

@@ -15,6 +15,7 @@ import {
   startListeningToFollowUpQuestionsForProofreaderSession
 } from "../../actions/session";
 import { startListeningToConceptsFeedback } from '../../actions/conceptsFeedback'
+import { startListeningToConcepts } from '../../actions/concepts'
 import { getConceptResultsForAllQuestions, calculateScoreForLesson } from '../../helpers/conceptResultsGenerator'
 import { SessionState } from '../../reducers/sessionReducer'
 import { GrammarActivityState } from '../../reducers/grammarActivitiesReducer'
@@ -73,6 +74,7 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
 
     componentDidMount() {
       this.props.dispatch(startListeningToConceptsFeedback());
+      this.props.dispatch(startListeningToConcepts());
     }
 
     componentWillReceiveProps(nextProps: PlayGrammarContainerProps) {
