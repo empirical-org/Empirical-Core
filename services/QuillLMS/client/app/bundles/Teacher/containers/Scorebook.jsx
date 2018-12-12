@@ -122,7 +122,7 @@ export default React.createClass({
     const newCurrentPage = this.state.currentPage + 1;
     this.setState({ loading: true, currentPage: newCurrentPage, });
     if (!this.state.selectedClassroom) {
-      this.setState({ missing: 'classrooms', });
+      this.setState({ missing: 'classrooms', loading: false, });
       return;
     }
     $.ajax({
