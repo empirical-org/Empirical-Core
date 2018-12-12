@@ -8,6 +8,7 @@ class ConceptReplacementWorker
     ConceptReplacementLMSWorker.perform_async(original_concept_id, new_concept_id)
     ConceptReplacementCMSWorker.perform_async(original_concept.uid, new_concept.uid)
     ConceptReplacementGrammarWorker.perform_async(original_concept.uid, new_concept.uid)
+    ConceptReplacementProofreaderWorker.perform_async(original_concept.uid, new_concept.uid)
     ConceptReplacementConnectWorker.perform_async(original_concept.uid, new_concept.uid)
   end
 
