@@ -194,7 +194,7 @@ const StudentDiagnostic = React.createClass({
           question={this.props.playDiagnostic.currentQuestion.data}
           currentKey={this.props.playDiagnostic.currentQuestion.data.key}
           dispatch={this.props.dispatch}
-          nextQuestion={this.nextQuestionWithoutSaving}
+          nextQuestion={this.nextQuestion}
           language={this.language()}
           key={this.props.playDiagnostic.currentQuestion.data.key}
         />

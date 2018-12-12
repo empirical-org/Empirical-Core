@@ -323,7 +323,7 @@ function getMatcherFields(type, question, responses) {
   const responseArray = hashToCollection(responses);
   const focusPoints = question.focusPoints ? hashToCollection(question.focusPoints) : [];
   const incorrectSequences = question.incorrectSequences ? hashToCollection(question.incorrectSequences) : [];
-  const defaultConceptUID = question.modelConceptUID || question.conceptID
+  const defaultConceptUID = question.modelConceptUID || question.conceptID || question.concept_uid
 
   if (type === 'sentenceFragments' || type === 'diagnostic_sentenceFragments') {
     return {
