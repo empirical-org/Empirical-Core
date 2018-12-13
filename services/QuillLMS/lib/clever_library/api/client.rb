@@ -10,6 +10,10 @@ class CleverLibrary::Api::Client
     }
   end
 
+  def get_user()
+    self.class.get('/me', @options).parsed_response["data"]
+  end
+
   def get_teacher(teacher_id:)
     self.class.get('/teachers/' + teacher_id, @options).parsed_response["data"]
   end
