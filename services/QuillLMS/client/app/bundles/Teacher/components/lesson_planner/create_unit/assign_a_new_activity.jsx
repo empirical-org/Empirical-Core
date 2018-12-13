@@ -12,9 +12,9 @@ export default React.createClass({
             key={'diagnostics'}
             title={'Entry Diagnostics'}
             img={`${process.env.CDN_URL}/images/shared/diagnostic_icon.svg`}
-            bodyText={[<span key={1}>Find your students’ writing abilities with</span>, <br key={2}></br>, <span key={3}>a 22 question diagnostic.</span>]}
+            bodyText={[<span key={1}>Identify the skills each student needs to work on with one of our 3 diagnostics.</span>]}
             directions={'use intermittently'}
-            quantity={2}
+            quantity={3}
             unit={'Diagnostic'}
             timeDuration={'~20 Min.'}
           />,
