@@ -6,7 +6,7 @@ module CleverIntegration::Importers::Library
       teacher = self.import_teacher(client)
       classrooms = self.import_classrooms(client, teacher.clever_id)
       CleverIntegration::Associators::ClassroomsToTeacher.run(classrooms, teacher)
-      self.import_students(client, classrooms)
+      CleverLibraryStudentImporterWorker.perform_async(classrooms.map(&:id), auth_hash.credentials.token)
       return {type: 'user_success', data: teacher}
     end
   rescue
@@ -26,20 +26,6 @@ module CleverIntegration::Importers::Library
   def self.import_classrooms(client, teacher_id)
     classrooms_data = client.get_teacher_sections(teacher_id: teacher_id)
     CleverIntegration::Creators::Classrooms.run(classrooms_data.map{|classroom| {clever_id: classroom["id"], name: classroom["name"], grade: classroom["grade"]} })
-  end
-
-  def self.import_students(client, classrooms)
-    classrooms.each do |classroom|
-      students_data = client.get_section_students(section_id: classroom.clever_id)
-      students = CleverIntegration::Creators::Students.run(students_data.map do |student_data|
-        {
-          clever_id: student_data["id"],
-          name: "#{student_data['name']['first']} #{student_data['name']['middle']} #{student_data['name']['last']}".squish,
-          username: student_data["id"]
-        }
-      end)
-      CleverIntegration::Associators::StudentsToClassroom.run(students, classroom)
-    end
   end
 
 end
