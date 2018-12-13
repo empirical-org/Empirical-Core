@@ -135,7 +135,7 @@ const StudentDiagnostic = React.createClass({
         json:
         {
           state: 'finished',
-          activity_uid: lessonID,
+          activity_uid: 'ell',
           concept_results: results,
           percentage: score,
         },
