@@ -13,7 +13,7 @@ export function getConceptResultsForQuestion(question: Question): FormattedConce
   if (question.attempts && question.attempts.length) {
     const conceptResults = question.attempts.map((a, i) => getConceptResultsForAttempt(a, question, prompt, i))
     if (conceptResults && conceptResults.length) {
-      return conceptResults.flat(2)
+      return _.flatten(conceptResults)
     } else {
       return undefined
     }
