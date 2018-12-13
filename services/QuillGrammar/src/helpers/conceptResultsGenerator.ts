@@ -10,8 +10,13 @@ const scoresForNAttempts = {
 
 export function getConceptResultsForQuestion(question: Question): FormattedConceptResult[]|undefined {
   const prompt = question.prompt.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, '');
-  if (question.attempts) {
-    return question.attempts.map((a, i) => getConceptResultsForAttempt(a, question, prompt, i)).flat(2)
+  if (question.attempts && question.attempts.length) {
+    const conceptResults = question.attempts.map((a, i) => getConceptResultsForAttempt(a, question, prompt, i))
+    if (conceptResults && conceptResults.length) {
+      return conceptResults.flat(2)
+    } else {
+      return undefined
+    }
   } else {
     return undefined
   }
@@ -70,7 +75,7 @@ export function embedQuestionNumbers(nestedConceptResultArray: FormattedConceptR
 }
 
 export function getConceptResultsForAllQuestions(questions: Question[], startingNumber:number = 0): FormattedConceptResult[] {
-  const nested = getNestedConceptResultsForAllQuestions(questions);
+  const nested = getNestedConceptResultsForAllQuestions(questions).filter(Boolean);
   const withKeys = embedQuestionNumbers(nested, startingNumber);
   return [].concat.apply([], withKeys); // Flatten array
 }
