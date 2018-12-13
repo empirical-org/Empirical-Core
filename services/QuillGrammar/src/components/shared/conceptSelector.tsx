@@ -47,7 +47,7 @@ class ConceptSelector extends React.Component<ConceptSelectorProps> {
 
   placeholder() {
     const currentConcept = this.currentConcept()
-    if (this.props.currentConceptUID !== 'null' && this.props.currentConceptUID.length > 0 && currentConcept) {
+    if (this.props.currentConceptUID && this.props.currentConceptUID.length > 0 && currentConcept) {
       return currentConcept.displayName
     } else {
       return 'Please select a concept.'

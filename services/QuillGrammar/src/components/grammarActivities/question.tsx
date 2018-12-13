@@ -42,6 +42,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
       }
 
       this.toggleExample = this.toggleExample.bind(this)
+      this.example = this.example.bind(this)
       this.updateResponse = this.updateResponse.bind(this)
       this.checkAnswer = this.checkAnswer.bind(this)
       this.goToNextQuestion = this.goToNextQuestion.bind(this)
@@ -128,7 +129,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
     }
 
     getConcept() {
-      return this.props.concepts.data[0].find((c: any) => c.uid === this.currentQuestion().concept_uid)
+      return this.props.concepts && this.props.concepts.data && this.props.concepts.data[0] ? this.props.concepts.data[0].find((c: any) => c.uid === this.currentQuestion().concept_uid) : null
     }
 
     onPressEnter = (e: any) => {
@@ -143,13 +144,16 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
       }
     }
 
-    renderExample(): JSX.Element|undefined {
-      let example
+    example(): JSX.Element|string|void {
       if (this.currentQuestion().rule_description && this.currentQuestion().rule_description.length && this.currentQuestion().rule_description !== "<br/>") {
-        example = this.currentQuestion().rule_description
+        return this.currentQuestion().rule_description
       } else if (this.getConcept() && this.getConcept().description) {
-        example = this.getConcept().description
+        return this.getConcept().description
       }
+    }
+
+    renderExample(): JSX.Element|undefined {
+      const example = this.example()
       if (example) {
         let componentClasses = 'example-container'
         if (this.state.showExample) {
@@ -161,6 +165,14 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
 
       } else {
         return undefined
+      }
+    }
+
+    renderExampleButton(): JSX.Element|void {
+      if (this.example()) {
+        return <Row type="flex" align="middle" justify="start">
+          <Button className="example-button" onClick={this.toggleExample}>{this.state.showExample ? 'Hide Example' : 'Show Example'}</Button>
+        </Row>
       }
     }
 
@@ -195,9 +207,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
             </div>
         </div>
       </Row>
-      <Row type="flex" align="middle" justify="start">
-        <Button className="example-button" onClick={this.toggleExample}>{this.state.showExample ? 'Hide Example' : 'Show Example'}</Button>
-      </Row>
+      {this.renderExampleButton()}
       {this.renderExample()}
       <Row type="flex" align="middle" justify="start">
         <img style={{ height: '22px', marginRight: '10px' }} src={questionIconSrc} />
