@@ -4,7 +4,7 @@ class ConceptReplacementGrammarWorker
   def perform(original_concept_uid, new_concept_uid)
     activities = HTTParty.get("#{ENV['FIREBASE_DATABASE_URL']}/v3/grammarActivities.json").parsed_response
     activities.each do |key, act|
-      if act['concepts'] && acts['concepts'].keys.include?(original_concept_uid)
+      if act['concepts'] && act['concepts'].keys.include?(original_concept_uid)
         new_concepts = act['concepts'].dup
         new_concepts[new_concept_uid] = new_concepts[original_concept_uid]
         new_concepts.delete(original_concept_uid)
