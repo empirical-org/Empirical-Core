@@ -11,7 +11,7 @@ class ConceptReplacementConnectWorker
   end
 
   def replace_questions_in_connect(endpoint, original_concept_uid, new_concept_uid)
-    questions = HTTParty.get("#{ENV['FIREBASE_DATABASE_URL']}/v2/#{endpoint}").parsed_response
+    questions = HTTParty.get("#{ENV['FIREBASE_DATABASE_URL']}/v2/#{endpoint}.json").parsed_response
     questions.each do |key, q|
       data = {}
 
@@ -38,7 +38,7 @@ class ConceptReplacementConnectWorker
       end
 
       if data.length > 0
-        HTTParty.put("#{ENV['FIREBASE_DATABASE_URL']}/v2/#{endpoint}/#{key}", body: data.to_json)
+        HTTParty.put("#{ENV['FIREBASE_DATABASE_URL']}/v2/#{endpoint}/#{key}.json", body: data.to_json)
       end
 
     end
