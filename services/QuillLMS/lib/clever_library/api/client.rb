@@ -10,6 +10,14 @@ class CleverLibrary::Api::Client
     }
   end
 
+  def get_path(path:)
+    self.class.get(path, @options).parsed_response["data"]
+  end
+
+  def get_district(district_id:)
+    self.class.get('/districts/' + district_id, @options).parsed_response["data"]
+  end
+
   def get_user()
     self.class.get('/me', @options).parsed_response["data"]
   end

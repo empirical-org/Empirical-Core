@@ -2,9 +2,9 @@ module CleverIntegration::SignUp::Teacher
 
   def self.run(auth_hash, requesters)
     parsed_data = self.parse_data(auth_hash)
-    district = District.find_by(clever_id: parsed_data[:district_id])
 
-    if district
+    if parsed_data[:district_id]
+      district = self.import_district(parsed_data[:district_id])
       self.district_integration(parsed_data, requesters, district)
     else
       self.library_integration(auth_hash)
@@ -40,6 +40,10 @@ module CleverIntegration::SignUp::Teacher
 
   def self.associate_teacher_to_district(teacher, district)
     CleverIntegration::Associators::TeacherToDistrict.run(teacher, district)
+  end
+
+  def self.import_district(district_id)
+    CleverIntegration::Importers::CleverDistrict.run(district_id: district_id)
   end
 
   def self.import_school(teacher, district_token, requesters)
