@@ -45,7 +45,7 @@ class ConceptReplacementConnectWorker
   end
 
   def replace_focus_points_or_incorrect_sequences_for_question(fp_or_is, original_concept_uid, new_concept_uid)
-    if fp_or_is.any? { |k, v| v['conceptResults'] && v['conceptResults'].any { |cr| cr['conceptUID'] == original_concept_uid} }
+    if fp_or_is.any? { |k, v| v['conceptResults'] && v['conceptResults'].any? { |cr| cr['conceptUID'] == original_concept_uid } }
       new_fp_or_is = fp_or_is.dup
       fp_or_is.each do |k, v|
         v['conceptResults'].each do |crkey, cr|
