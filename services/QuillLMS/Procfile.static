@@ -1,5 +1,5 @@
 # Run Rails without hot reloading (static assets).
-rails: rails s -b 'ssl://localhost:3000?key=localhost.key&cert=localhost.crt'
+rails: rails s -b 0.0.0.0
 
 worker: bundle exec sidekiq -c 5 -v
 
