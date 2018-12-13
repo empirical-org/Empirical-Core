@@ -4,25 +4,31 @@ module CleverIntegration::SignUp::Teacher
     parsed_data = self.parse_data(auth_hash)
     district = District.find_by(clever_id: parsed_data[:district_id])
 
-    # TODO: error message for no district found (district has not authorized this school yet)
-    if district.nil?
-      result = {type: 'user_failure', data: "District has not authorized this school yet"}
+    if district
+      self.district_integration(parsed_data, requesters, district)
     else
-      teacher = self.create_teacher(parsed_data)
-      if teacher.present?
-        self.associate_teacher_to_district(teacher, district)
-        school = self.import_school(teacher, district.token, requesters)
-        classrooms = self.import_classrooms(teacher, district.token, requesters)
-        students = self.import_students(classrooms, district.token)
-        result = {type: 'user_success', data: teacher}
-      else
-        result = {type: 'user_failure', data: "No Teacher Present"}
-      end
+      self.library_integration(auth_hash)
     end
-    result
   end
 
   private
+
+  def self.library_integration(auth_hash)
+    CleverIntegration::Importers::Library.run(auth_hash)
+  end
+
+  def self.district_integration(auth_hash, requesters, district)
+    teacher = self.create_teacher(auth_hash)
+    if teacher.present?
+      self.associate_teacher_to_district(teacher, district)
+      school = self.import_school(teacher, district.token, requesters)
+      classrooms = self.import_classrooms(teacher, district.token, requesters)
+      students = self.import_students(classrooms, district.token)
+      {type: 'user_success', data: teacher}
+    else
+      {type: 'user_failure', data: "No Teacher Present"}
+    end
+  end
 
   def self.parse_data(auth_hash)
     CleverIntegration::Parsers::TeacherFromAuth.run(auth_hash)
