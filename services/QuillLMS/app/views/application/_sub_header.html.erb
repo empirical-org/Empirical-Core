@@ -171,7 +171,7 @@
 
 	function closeDropdownIfOpen(e) {
 		const dropdown = document.querySelector('#nav-user-dropdown');
-		if (e.target.classList.value !== 'user-dropdown-button' && e.target.classList.value !== 'user-dropdown-button-img' && dropdown && dropdown.classList.contains('dropdown-open')) {
+		if (e.target.classList.value !== 'user-dropdown-button' && e.target.classList.value !== 'user-dropdown-button-img' && e.target.parentElement.classList.value !== 'user-dropdown-button' && dropdown && dropdown.classList.contains('dropdown-open')) {
 				dropdown.classList.remove('dropdown-open');
 				dropdown.classList.add('dropdown-closed');
 		}
