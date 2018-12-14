@@ -34,7 +34,7 @@ export default function districtStandardsReports(state = initialState, action) {
       return updateObject(state, {
         loading: false,
         errors: action.body.errors,
-        standardsReportsData: JSON.parse(action.body).data,
+        standardsReportsData: action.body.data,
       });
     default:
       return state;
