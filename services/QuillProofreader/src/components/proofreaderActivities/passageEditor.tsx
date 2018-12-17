@@ -242,7 +242,6 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
   }
 
   onKeyDown(event: any, change: any, editor: any) {
-    console.log('change.value.history.undos', change.value.history.undos)
     if (event.key === 'z' && (event.ctrlKey || event.metaKey)) {
       return
     }
@@ -297,7 +296,6 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
   }
 
   onKeyUp(event: any, change: any, editor: any) {
-    console.log(event.key, event.ctrlKey, event.metaKey)
     if (['ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown'].includes(event.key)) { return }
 
     const initialFocus = change.value.selection.focus
@@ -307,14 +305,29 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
       const lastUndo = change.value.history.undos.first()
       const lastChange = lastUndo ? lastUndo.find((operation) => !['set_selection', 'add_mark', 'remove_mark'].includes(operation.type)) : null
       if (lastChange) {
-        const dataOriginalIndex = lastChange.value.startInline.data.get('dataOriginalIndex')
+        const dataOriginalIndex = lastChange.value.startInline ? lastChange.value.startInline.data.get('dataOriginalIndex') : null
         const originalText = this.state.originalTextArray[dataOriginalIndex]
         const hasNoBoldMarks = !lastChange.value.marks.find(mark => mark.type === 'bold')
-        if (hasNoBoldMarks && originalText !== lastChange.value.startInline.text) {
+        console.log('lastChange.type', lastChange.type)
+        if (!lastChange.value.startInline) {
+          debugger;
+        }
+        if (dataOriginalIndex && hasNoBoldMarks && originalText !== lastChange.value.startInline.text) {
+          console.log('so did this happen')
           const initialFocus = change.value.selection.focus
           const initialAnchor = change.value.selection.anchor
-          const newText = originalText[-1] === ' ' ? originalText : `${originalText} `
-          return change.moveToRangeOfNode(lastChange.value.startInline).insertText(newText).setAnchor(initialAnchor).setFocus(initialFocus)
+          let node = change.moveToRangeOfNode(lastChange.value.startInline)
+          console.log('marks', lastChange.value.marks)
+          if (this.state.indicesOfUTags[dataOriginalIndex] || this.state.indicesOfUTags[dataOriginalIndex] === 0) {
+            const id = this.state.indicesOfUTags[dataOriginalIndex]
+            node = node.addMark({type: 'underline', data: {id}})
+          }
+          node = node.insertText(originalText)
+          if (lastChange.type === 'remove_text') {
+            debugger;
+            node = node.moveToEndOfNode(lastChange.value.startInline).insertText(' ')
+          }
+          return node.setAnchor(initialAnchor).setFocus(initialFocus)
         } else {
           return lastChange.value
         }
