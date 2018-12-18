@@ -63,7 +63,7 @@ export const getQuestionsForConcepts = (concepts: any) => {
       const questions = snapshot.val()
       const questionsForConcepts = {}
       Object.keys(questions).map(q => {
-        if (conceptUIDs.includes(questions[q].concept_uid)) {
+        if (conceptUIDs.includes(questions[q].concept_uid) && questions[q].prompt && questions[q].answers && questions[q].flag !== 'archived') {
           const question = questions[q]
           question.uid = q
           if (questionsForConcepts.hasOwnProperty(question.concept_uid)) {
