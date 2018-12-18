@@ -13,7 +13,7 @@ class ConceptReplacementConnectWorker
   def replace_questions_in_connect(endpoint, original_concept_uid, new_concept_uid)
     questions = HTTParty.get("#{ENV['FIREBASE_DATABASE_URL']}/v2/#{endpoint}.json").parsed_response
     questions.each do |key, q|
-      data = {}
+      data = q.dup
 
       if q['conceptID'] && q['conceptID'] == original_concept_uid
         data['conceptID'] = new_concept_uid
