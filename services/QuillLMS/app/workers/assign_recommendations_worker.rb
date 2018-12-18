@@ -1,5 +1,6 @@
 class AssignRecommendationsWorker
   include Sidekiq::Worker
+  sidekiq_options queue: 'critical'
 
   def perform(unit_template_id, classroom_id, student_id_array, last, lesson, assign_on_join=false)
     classroom = Classroom.find(classroom_id)
