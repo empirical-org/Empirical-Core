@@ -1,6 +1,8 @@
 class FastAssignWorker
   include Sidekiq::Worker
   include Units
+  sidekiq_options queue: 'critical'
+
 
   def unit_with_same_name(unit_template_id, teacher_id)
     @unit_template  = UnitTemplate.find(unit_template_id)
