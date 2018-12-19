@@ -63,8 +63,12 @@ export default React.createClass({
   indexTable: function () {
     const resourceName = this.props.resourceNamePlural
     let resources
-    if (resourceName === 'unit_templates' && this.state.flag && this.state.flag !== 'All') {
-      resources = this.state[resourceName].filter(resource => resource.flag === this.state.flag.toLowerCase())
+    if (resourceName === 'unit_templates' && this.state.flag !== 'All') {
+      if (this.state.flag === 'Not Archived') {
+        resources = this.state[resourceName].filter(resource => resource.flag !== 'archived')
+      } else {
+        resources = this.state[resourceName].filter(resource => resource.flag === this.state.flag.toLowerCase())
+      }
     } else {
       resources = this.state[resourceName]
     }
@@ -115,7 +119,10 @@ export default React.createClass({
 
   updateOrder: function (sortInfo) {
     if(this.isSortable()) {
-      const originalOrder = this.state[this.props.resourceNamePlural];
+      let originalOrder = this.state[this.props.resourceNamePlural]
+      if (this.state.flag === 'Not Archived') {
+        originalOrder = originalOrder.filter(resource => resource.flag !== 'archived')
+      }
       const newOrder = sortInfo.data.items.map(item => item.key);
       const newOrderedResources = newOrder.map((key, i) => {
         const newResource = originalOrder[key];
@@ -153,7 +160,7 @@ export default React.createClass({
   renderFlagDropdown: function () {
     const resourceName = this.props.resourceNamePlural;
     if (resourceName === 'unit_templates') {
-      const options = ['All', 'Archived', 'Alpha', 'Beta', 'Production']
+      const options = ['All', 'Not Archived', 'Archived', 'Alpha', 'Beta', 'Production']
       return <div style={{ marginLeft: '10px', display: 'inline', }}>
         <ItemDropdown
           items={options}
@@ -169,7 +176,7 @@ export default React.createClass({
   },
 
   isSortable: function () {
-    if(this.state[this.props.resourceNamePlural].length == 0 || this.state.flag && this.state.flag !== 'All') { return false }
+    if(this.state[this.props.resourceNamePlural].length == 0 || (this.state.flag && !['All', 'Not Archived'].includes(this.state.flag))) { return false }
     const sortableResources = ['activity_classifications', 'unit_templates'];
     return sortableResources.includes(this.props.resourceNamePlural);
   },
