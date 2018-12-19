@@ -33,7 +33,7 @@ export default function districtActivityScores(state = initialState, action) {
       return updateObject(state, {
         loading: false,
         errors: action.body.errors,
-        classroomsData: JSON.parse(action.body).data,
+        classroomsData: action.body.data,
       });
     default:
       return state;
