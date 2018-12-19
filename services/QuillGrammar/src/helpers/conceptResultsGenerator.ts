@@ -10,8 +10,13 @@ const scoresForNAttempts = {
 
 export function getConceptResultsForQuestion(question: Question): FormattedConceptResult[]|undefined {
   const prompt = question.prompt.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, '');
-  if (question.attempts) {
-    return question.attempts.map((a, i) => getConceptResultsForAttempt(a, question, prompt, i)).flat(2)
+  if (question.attempts && question.attempts.length) {
+    const conceptResults = question.attempts.map((a, i) => getConceptResultsForAttempt(a, question, prompt, i))
+    if (conceptResults && conceptResults.length) {
+      return _.flatten(conceptResults)
+    } else {
+      return undefined
+    }
   } else {
     return undefined
   }
@@ -62,20 +67,15 @@ export function getNestedConceptResultsForAllQuestions(questions: Question[]) {
 export function embedQuestionNumbers(nestedConceptResultArray: FormattedConceptResult[][], startingNumber: number): FormattedConceptResult[][] {
   return nestedConceptResultArray.map((conceptResultArray, index) => {
     return conceptResultArray.map((conceptResult: FormattedConceptResult) => {
-      const lastAttempt = _.sortBy(conceptResultArray, (conceptResult) => {
-        return conceptResult.metadata.attemptNumber;
-      }).reverse()[0]
-      const maxAttemptNo = lastAttempt && lastAttempt.optimal ? lastAttempt.metadata.attemptNumber : undefined;
-      const questionScore = scoresForNAttempts[maxAttemptNo] || 0;
       conceptResult.metadata.questionNumber = startingNumber + index + 1;
-      conceptResult.metadata.questionScore = questionScore
+      conceptResult.metadata.questionScore = conceptResult.metadata.correct ? 1 : 0
       return conceptResult;
     })
   });
 }
 
 export function getConceptResultsForAllQuestions(questions: Question[], startingNumber:number = 0): FormattedConceptResult[] {
-  const nested = getNestedConceptResultsForAllQuestions(questions);
+  const nested = getNestedConceptResultsForAllQuestions(questions).filter(Boolean);
   const withKeys = embedQuestionNumbers(nested, startingNumber);
   return [].concat.apply([], withKeys); // Flatten array
 }

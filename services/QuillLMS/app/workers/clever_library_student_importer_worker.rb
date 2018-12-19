@@ -1,5 +1,6 @@
 class CleverLibraryStudentImporterWorker
   include Sidekiq::Worker
+  sidekiq_options queue: 'critical'
 
   def perform(classroom_ids, token)
     client = CleverLibrary::Api::Client.new(token)
