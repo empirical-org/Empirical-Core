@@ -6,7 +6,7 @@ class UnitTemplate < ActiveRecord::Base
   has_many :recommendations, dependent: :destroy
   serialize :grades, Array
 
-  validates :flag,                  inclusion: { in: %w(alpha beta production),
+  validates :flag,                  inclusion: { in: %w(archived alpha beta production),
                                     message: "%{value} is not a valid flag" }, :allow_nil => true
 
 

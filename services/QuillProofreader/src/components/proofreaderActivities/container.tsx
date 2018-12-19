@@ -8,7 +8,7 @@ import { stringNormalize } from 'quill-string-normalizer'
 const questionIconSrc = `${process.env.QUILL_CDN_URL}/images/icons/question_icon.svg`
 
 import getParameterByName from '../../helpers/getParameterByName';
-import { startListeningToActivity } from "../../actions/proofreaderActivities";
+import { getActivity } from "../../actions/proofreaderActivities";
 import { startListeningToConcepts } from "../../actions/concepts";
 import {
   updateConceptResultsOnFirebase,
@@ -85,7 +85,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       }
 
       if (activityUID) {
-        this.props.dispatch(startListeningToActivity(activityUID))
+        this.props.dispatch(getActivity(activityUID))
       }
 
     }

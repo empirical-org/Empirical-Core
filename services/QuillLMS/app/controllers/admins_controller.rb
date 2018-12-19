@@ -10,7 +10,16 @@ class AdminsController < ApplicationController
     }
 
   def show
-    render json: UserAdminSerializer.new(current_user, root: false)
+    serialized_admin_users_json = $redis.get("SERIALIZED_ADMIN_USERS_FOR_#{current_user.id}")
+    if serialized_admin_users_json
+      serialized_admin_users = JSON.parse(serialized_admin_users_json)
+    end
+    if serialized_admin_users.nil?
+      FindAdminUsersWorker.perform_async(current_user.id)
+      render json: { id: current_user.id }
+    else
+      render json: serialized_admin_users
+    end
   end
 
   def sign_in_classroom_manager

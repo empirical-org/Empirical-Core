@@ -8,6 +8,7 @@
 
 # ruby configs
 .bundle
+lambdas/*.zip
 
 # database
 config/database.yml

@@ -48,22 +48,22 @@ export const startListeningToFollowUpQuestionsForProofreaderSession = (proofread
           }
         })
         dispatch(saveProofreaderSessionToReducer(proofreaderSession))
-        dispatch(startListeningToQuestions(concepts))
+        dispatch(getQuestionsForConcepts(concepts))
       }
     })
   }
 }
 
 // typescript this
-export const startListeningToQuestions = (concepts: any) => {
+export const getQuestionsForConcepts = (concepts: any) => {
   return dispatch => {
 
     const conceptUIDs = Object.keys(concepts)
-    questionsRef.orderByChild('concept_uid').on('value', (snapshot) => {
+    questionsRef.orderByChild('concept_uid').once('value', (snapshot) => {
       const questions = snapshot.val()
       const questionsForConcepts = {}
       Object.keys(questions).map(q => {
-        if (conceptUIDs.includes(questions[q].concept_uid)) {
+        if (conceptUIDs.includes(questions[q].concept_uid) && questions[q].prompt && questions[q].answers && questions[q].flag !== 'archived') {
           const question = questions[q]
           question.uid = q
           if (questionsForConcepts.hasOwnProperty(question.concept_uid)) {

@@ -45,6 +45,7 @@
   ],
   "dependencies": {
     "faker": "^4.1.0",
+    "foreman": "^3.0.1",
     "gitbook-plugin-rss": "git+https://git@github.com/ddmck/gitbook-plugin-rss.git",
     "isomorphic-fetch": "^2.2.1",
     "istanbul-lib-instrument": "^1.9.1",
@@ -59,7 +60,6 @@
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
-    "cypress": "^3.0.3",
     "eslint": "^4.6.1",
     "eslint-config-airbnb": "^15.1.0",
     "eslint-plugin-import": "^2.7.0",

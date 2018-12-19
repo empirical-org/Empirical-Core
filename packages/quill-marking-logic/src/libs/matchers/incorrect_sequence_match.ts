@@ -1,6 +1,7 @@
 import * as _ from 'underscore'
 import {getTopOptimalResponse} from '../sharedResponseFunctions'
 import {Response, IncorrectSequence, PartialResponse} from '../../interfaces'
+import {stringNormalize} from 'quill-string-normalizer'
 import {conceptResultTemplate} from '../helpers/concept_result_template'
 
 export function incorrectSequenceMatchHelper(responseString:string, incorrectSequenceParticle:string):boolean {
@@ -17,7 +18,7 @@ export function incorrectSequenceMatch(responseString: string, incorrectSequence
 }
 
 export function incorrectSequenceChecker(responseString: string, incorrectSequences:Array<IncorrectSequence>, responses:Array<Response>):PartialResponse|undefined {
-  const match = incorrectSequenceMatch(responseString, incorrectSequences);
+  const match = incorrectSequenceMatch(stringNormalize(responseString), incorrectSequences);
   if (match) {
     return incorrectSequenceResponseBuilder(match, responses)
   }
