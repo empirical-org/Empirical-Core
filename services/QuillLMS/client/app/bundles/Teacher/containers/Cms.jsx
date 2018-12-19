@@ -1,6 +1,7 @@
 import React from 'react'
 import request from 'request'
 import CmsIndexTable from '../components/cms/cms_index_table/cms_index_table.jsx'
+import ItemDropdown from '../components/general_components/dropdown_selectors/item_dropdown';
 import Server from '../components/modules/server/server'
 import getAuthToken from '../components/modules/get_auth_token'
 
@@ -30,7 +31,8 @@ export default React.createClass({
     this.initializeModules()
     var hash1 = {
       crudState: 'index',
-      resourceToEdit: null
+      resourceToEdit: null,
+      flag: 'All'
     };
     hash1[this.props.resourceNamePlural] = [];
     return hash1;
@@ -59,17 +61,25 @@ export default React.createClass({
   },
 
   indexTable: function () {
+    const resourceName = this.props.resourceNamePlural
+    let resources
+    if (resourceName === 'unit_templates' && this.state.flag && this.state.flag !== 'All') {
+      resources = this.state[resourceName].filter(resource => resource.flag === this.state.flag.toLowerCase())
+    } else {
+      resources = this.state[resourceName]
+    }
     return (
       <span>
         <div className='row'>
           <div className='col-xs-12'>
             <button className='button-green button-top' onClick={this.crudNew}>New</button>
             {this.renderSaveButton()}
+            {this.renderFlagDropdown()}
           </div>
         </div>
         <div className='row'>
           <div className='col-xs-12'>
-            <CmsIndexTable data={{resources: this.state[this.props.resourceNamePlural] }}
+            <CmsIndexTable data={{ resources, }}
                               actions={{edit: this.edit, delete: this.delete}}
                               isSortable={this.isSortable()}
                               updateOrder={this.updateOrder}
@@ -140,8 +150,26 @@ export default React.createClass({
     return this.isSortable() ? <button className='button-green button-top save-button' onClick={this.saveOrder}>Save Order</button> : null
   },
 
+  renderFlagDropdown: function () {
+    const resourceName = this.props.resourceNamePlural;
+    if (resourceName === 'unit_templates') {
+      const options = ['All', 'Archived', 'Alpha', 'Beta', 'Production']
+      return <div style={{ marginLeft: '10px', display: 'inline', }}>
+        <ItemDropdown
+          items={options}
+          callback={this.switchFlag}
+          selectedItem={this.state.flag}
+        />
+      </div>
+    }
+  },
+
+  switchFlag: function(flag) {
+    this.setState({flag: flag})
+  },
+
   isSortable: function () {
-    if(this.state[this.props.resourceNamePlural].length == 0) { return false }
+    if(this.state[this.props.resourceNamePlural].length == 0 || this.state.flag && this.state.flag !== 'All') { return false }
     const sortableResources = ['activity_classifications', 'unit_templates'];
     return sortableResources.includes(this.props.resourceNamePlural);
   },
