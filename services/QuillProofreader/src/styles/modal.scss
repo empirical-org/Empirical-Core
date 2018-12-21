@@ -1,6 +1,6 @@
-.early-submit-modal-container, .review-modal-container {
+.early-submit-modal-container, .review-modal-container, .reset-modal-container {
 
-  .early-submit-modal-background, .review-modal-background {
+  .early-submit-modal-background, .review-modal-background, .reset-modal-background {
     width: 100%;
     height: 100%;
     position: fixed;
@@ -8,7 +8,7 @@
     left: 0;
     z-index: 99;
     background-color: #3f3f3f;
-    opacity: 0.9;
+    opacity: 0.8;
   }
 
   .early-submit-modal {
@@ -19,7 +19,12 @@
     max-width: 800px;
   }
 
-  .early-submit-modal, .review-modal {
+  .reset-modal {
+    width: 560px;
+    height: 214px;
+  }
+
+  .reset-modal, .early-submit-modal, .review-modal {
     border-radius: 6px;
     background-color: #ffffff;
     position: fixed;
@@ -27,9 +32,51 @@
     left: 50%;
     transform: translate(-50%, -50%);
     display: flex;
-    flex-direction: column;
-    align-items: center;
     z-index: 100;
+    flex-direction: column;
+  }
+
+  .reset-modal {
+    padding: 32px;
+    justify-content: space-between;
+    h1 {
+      font-size: 24px;
+      font-weight: bold;
+      line-height: 1.33;
+    }
+    p {
+      font-size: 14px;
+      font-weight: normal;
+      line-height: 1.57;
+      color: #646464;
+      margin-top: 8px;
+    }
+    .button-section {
+      display: flex;
+      justify-content: flex-end;
+      .cancel {
+        width: 80px;
+        height: 40px;
+        border-radius: 4px;
+        font-size: 15px;
+        font-weight: 600;
+        margin-right: 24px;
+      }
+      .reset {
+        width: 72px;
+        height: 40px;
+        border-radius: 4px;
+        background-color: #01c2a2;
+        font-size: 15px;
+        font-weight: bold;
+        color: #ffffff;
+        border: none;
+      }
+    }
+  }
+
+  .early-submit-modal, .review-modal {
+    align-items: center;
     line-height: 1.56;
     .top-section {
       padding: 39px 35px;

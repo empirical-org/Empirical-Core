@@ -6,6 +6,7 @@ import * as _ from 'lodash';
 import { stringNormalize } from 'quill-string-normalizer'
 
 const questionIconSrc = `${process.env.QUILL_CDN_URL}/images/icons/question_icon.svg`
+const refreshIconSrc = `${process.env.QUILL_CDN_URL}/images/icons/refresh.svg`
 
 import getParameterByName from '../../helpers/getParameterByName';
 import { getActivity } from "../../actions/proofreaderActivities";
@@ -23,6 +24,7 @@ import { ConceptResultObject } from '../../interfaces/proofreaderActivities'
 import PassageEditor from './passageEditor'
 import PassageReviewer from './passageReviewer'
 import EarlySubmitModal from './earlySubmitModal'
+import ResetModal from './resetModal'
 import ReviewModal from './reviewModal'
 import LoadingSpinner from '../shared/loading_spinner'
 
@@ -38,8 +40,10 @@ interface PlayProofreaderContainerState {
   passage?: string;
   edits: string[];
   reviewing: boolean;
+  resetting: boolean;
   showEarlySubmitModal: boolean;
   showReviewModal: boolean;
+  showResetModal: boolean;
   editsWithOriginalValue: Array<{index: string, originalText: string, currentText: string}>;
   necessaryEdits?: String[];
   numberOfCorrectChanges?: number;
@@ -57,7 +61,9 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
         reviewing: false,
         showEarlySubmitModal: false,
         showReviewModal: false,
-        editsWithOriginalValue: []
+        showResetModal: false,
+        editsWithOriginalValue: [],
+        resetting: false
       }
 
       this.saveToLMS = this.saveToLMS.bind(this)
@@ -72,6 +78,10 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       this.closeReviewModal = this.closeReviewModal.bind(this)
       this.checkWork = this.checkWork.bind(this)
       this.calculateScoreForLesson = this.calculateScoreForLesson.bind(this)
+      this.openResetModal = this.openResetModal.bind(this)
+      this.closeResetModal = this.closeResetModal.bind(this)
+      this.reset = this.reset.bind(this)
+      this.finishReset = this.finishReset.bind(this)
     }
 
     componentWillMount() {
@@ -523,6 +533,41 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       }
     }
 
+    openResetModal() {
+      this.setState({ showResetModal: true })
+    }
+
+    closeResetModal() {
+      this.setState({ showResetModal: false })
+    }
+
+    closeEarlySubmitModal() {
+      this.setState({ showEarlySubmitModal: false })
+    }
+
+    closeReviewModal() {
+      this.setState({ showReviewModal: false, reviewing: true })
+    }
+
+    reset() {
+      const { passage, underlineErrorsInProofreader } = this.props.proofreaderActivities.currentActivity
+      const initialPassageData = this.formatInitialPassage(passage, underlineErrorsInProofreader)
+      const formattedPassage = initialPassageData.passage
+      this.setState({
+        passage: formattedPassage,
+        originalPassage: formattedPassage,
+        necessaryEdits: initialPassageData.necessaryEdits,
+        edits: [],
+        editsWithOriginalValue: [],
+        resetting: true,
+        showResetModal: false
+      })
+    }
+
+    finishReset() {
+      this.setState({ resetting: false} )
+    }
+
     renderShowEarlySubmitModal(): JSX.Element|void {
       const { showEarlySubmitModal, necessaryEdits } = this.state
       const requiredEditCount = necessaryEdits && necessaryEdits.length ? Math.floor(necessaryEdits.length / 2) : 5
@@ -530,6 +575,16 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
         return <EarlySubmitModal
           requiredEditCount={requiredEditCount}
           closeModal={this.closeEarlySubmitModal}
+        />
+      }
+    }
+
+    renderShowResetModal(): JSX.Element|void {
+      const { showResetModal, } = this.state
+      if (showResetModal) {
+        return <ResetModal
+          reset={this.reset}
+          closeModal={this.closeResetModal}
         />
       }
     }
@@ -547,7 +602,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
     }
 
     renderPassage(): JSX.Element|void {
-      const { reviewing, reviewablePassage, originalPassage } = this.state
+      const { reviewing, reviewablePassage, originalPassage, resetting } = this.state
       const { passageFromFirebase } = this.props.session
       if (reviewing) {
         const text = reviewablePassage ? reviewablePassage : ''
@@ -562,22 +617,22 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
           savedText={passageFromFirebase}
           text={originalPassage}
           handleTextChange={this.handlePassageChange}
+          resetting={resetting}
+          finishReset={this.finishReset}
         />
       }
     }
 
-    renderButton() {
+    renderCheckWorkButton(): JSX.Element|void {
       if (!this.state.reviewing) {
-        return <button onClick={this.finishActivity}>Check Work</button>
+        return <button className="check-work" onClick={this.finishActivity}>Check Work</button>
       }
     }
 
-    closeEarlySubmitModal() {
-      this.setState({ showEarlySubmitModal: false })
-    }
-
-    closeReviewModal() {
-      this.setState({ showReviewModal: false, reviewing: true })
+    renderResetButton(): JSX.Element|void {
+      if (!this.state.reviewing) {
+        return <button className="reset-button" onClick={this.openResetModal}><img src={refreshIconSrc} /> Reset</button>
+      }
     }
 
     render(): JSX.Element {
@@ -609,12 +664,14 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
             </div>
           </div>
           {this.renderShowEarlySubmitModal()}
+          {this.renderShowResetModal()}
           {this.renderShowReviewModal()}
           <div className={`passage ${className}`}>
             {this.renderPassage()}
           </div>
           <div className="bottom-section">
-            {this.renderButton()}
+            {this.renderResetButton()}
+            {this.renderCheckWorkButton()}
           </div>
         </div>
       } else if (this.props.session.error) {
