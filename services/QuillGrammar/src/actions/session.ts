@@ -57,7 +57,7 @@ export const startListeningToFollowUpQuestionsForProofreaderSession = (proofread
 // typescript this
 export const getQuestionsForConcepts = (concepts: any) => {
   return dispatch => {
-
+    dispatch({ type: ActionTypes.SET_SESSION_PENDING, pending: true })
     const conceptUIDs = Object.keys(concepts)
     questionsRef.orderByChild('concept_uid').once('value', (snapshot) => {
       const questions = snapshot.val()
@@ -87,6 +87,7 @@ export const getQuestionsForConcepts = (concepts: any) => {
       } else {
         dispatch({ type: ActionTypes.NO_QUESTIONS_FOUND_FOR_SESSION})
       }
+      dispatch({ type: ActionTypes.SET_SESSION_PENDING, pending: false })
     });
 
   }
