@@ -215,7 +215,22 @@ function incrementQuestionCountAndReindexResponses(qid) {
     method: 'PUT',
     json: true,
   })
-  .then(() => console.log('reindex responses'))
+  .then(() => {
+    console.log('reindex responses')
+    QuestionResponse.findOne({
+      where: { question_uid: qid, optimal: true },
+    }).then(response => {
+      console.log('response.id', response.id)
+      request({
+        method: 'PUT',
+        uri: `${CMS_URL}/responses/${response.id}`,
+        body: { response },
+        json: true,
+      })
+      .then(() => console.log('update document'))
+      .catch(err => console.log(err))
+    })
+  })
   .catch(err => console.log(err))
 }
 
