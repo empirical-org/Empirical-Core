@@ -366,7 +366,6 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       if (singleStrongTagWithTwoMatchingURegex.test(fixedString)) {
         fixedString = fixedString.replace(singleStrongTagWithTwoMatchingURegex, (key, uTagA, contentA, uTagB, contentB) => {
           if (uTagA === uTagB) {
-            console.log('what is up', contentA, contentB)
             return `<strong>${uTagA}${contentA}${contentB}</u></strong>`
           } else {
             return key
