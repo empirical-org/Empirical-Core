@@ -299,6 +299,7 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
 
   onKeyDown(event: any, change: any, editor: any) {
     if (event.key === 'z' && (event.ctrlKey || event.metaKey)) {
+      event.preventDefault()
       return
     }
     if (['ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown', 'Backspace', 'Shift', 'MetaShift', 'Meta', 'Enter', 'CapsLock', 'Escape', 'Alt', 'Control'].includes(event.key)) { return }
@@ -354,11 +355,13 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
   onKeyUp(event: any, change: any, editor: any) {
     if (['ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown'].includes(event.key)) { return }
     console.log('eventkey', event.key)
+    console.log('event.metaKey', event.metaKey)
+    console.log('event.ctrlKey', event.ctrlKey)
 
     const initialFocus = change.value.selection.focus
     const initialAnchor = change.value.selection.anchor
 
-    if (event.key === 'Meta') {
+    if ((event.key === 'z' && (event.ctrlKey || event.metaKey)) || event.key === 'Meta') {
       console.log('------------')
       const lastUndo = change.value.history.undos.first()
       const lastChange = lastUndo ? lastUndo.find((operation) => !['set_selection', 'add_mark', 'remove_mark'].includes(operation.type)) : null
@@ -389,10 +392,18 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
           return node.setAnchor(initialAnchor).setFocus(initialFocus)
         } else {
           console.log('unchanged text')
-          return lastChange.value
+          if (change.value.texts.size > 1) {
+            return lastChange.value
+          } else {
+            return
+          }
         }
       } else {
         console.log('no last change')
+        console.log('texts size', change.value.texts.size)
+        if (change.value.texts.size > 1) {
+          return change.value
+        }
       }
     }
 
@@ -560,7 +571,7 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
         // .setFocus(originalSelection.focus)
       }
     }
-    change.setAnchor(originalSelection.anchor).setFocus(originalSelection.focus)
+    return change.setAnchor(originalSelection.anchor).setFocus(originalSelection.focus)
   }
 
   render() {
