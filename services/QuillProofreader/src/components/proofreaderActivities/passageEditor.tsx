@@ -234,6 +234,7 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
   }
 
   handleTextChange({value}: any) {
+    console.log('handleTextChangeGotCalled')
     this.setState({text: value}, () => this.props.handleTextChange(html.serialize(this.state.text), this.state.editsWithOriginalValue))
   }
 
@@ -257,7 +258,7 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
     this.setState({ editsWithOriginalValue: newUnnecessaryEdits })
   }
 
-  // we are not going to use this button now but I am leaving this code in case we decide we want to build that feature after all
+  // we are not going to use this button now but I am leaving this partially-working code in case we decide we want to build that feature after all
   // undo() {
   //   let value
   //   const undos = this.state.text.history.get('undos')
@@ -352,37 +353,46 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
 
   onKeyUp(event: any, change: any, editor: any) {
     if (['ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown'].includes(event.key)) { return }
+    console.log('eventkey', event.key)
 
     const initialFocus = change.value.selection.focus
     const initialAnchor = change.value.selection.anchor
 
     if (event.key === 'Meta') {
+      console.log('------------')
       const lastUndo = change.value.history.undos.first()
       const lastChange = lastUndo ? lastUndo.find((operation) => !['set_selection', 'add_mark', 'remove_mark'].includes(operation.type)) : null
       if (lastChange) {
+        console.log('lastChange')
         const dataOriginalIndex = lastChange.value.startInline ? lastChange.value.startInline.data.get('dataOriginalIndex') : null
         const originalText = this.state.originalTextArray[dataOriginalIndex]
         if (!lastChange.value.startInline) {
+          console.log('no startInline')
           return lastChange.value
         }
         if (dataOriginalIndex && originalText !== lastChange.value.startInline.text) {
+          console.log('changed text')
           const initialFocus = change.value.selection.focus
           const initialAnchor = change.value.selection.anchor
           let node = change.moveToRangeOfNode(lastChange.value.startInline)
-          node = node.insertText(originalText).removeMark('bold')
+          node = node.removeMark('bold').insertText(originalText)
           if (this.state.indicesOfUTags[dataOriginalIndex] || this.state.indicesOfUTags[dataOriginalIndex] === 0) {
+            console.log('underlining')
             const id = this.state.indicesOfUTags[dataOriginalIndex]
             node = node.addMark({type: 'underline', data: {id}})
           }
           if (lastChange.type === 'remove_text') {
+            console.log('adding space')
             node = node.moveToEndOfNode(lastChange.value.startInline).moveForward(1).insertText(' ')
           }
+          this.removeEditFromEditsWithOriginalValue(dataOriginalIndex)
           return node.setAnchor(initialAnchor).setFocus(initialFocus)
         } else {
+          console.log('unchanged text')
           return lastChange.value
         }
       } else {
-        return change.value
+        console.log('no last change')
       }
     }
 
