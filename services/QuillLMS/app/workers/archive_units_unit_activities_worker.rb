@@ -1,5 +1,6 @@
 class ArchiveUnitsUnitActivitiesWorker
   include Sidekiq::Worker
+  sidekiq_options queue: 'critical'
 
   def perform(id)
     @unit = Unit.unscoped.find id
