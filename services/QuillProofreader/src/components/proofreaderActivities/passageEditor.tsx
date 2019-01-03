@@ -234,7 +234,6 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
   }
 
   handleTextChange({value}: any) {
-    console.log('handleTextChangeGotCalled')
     this.setState({text: value}, () => this.props.handleTextChange(html.serialize(this.state.text), this.state.editsWithOriginalValue))
   }
 
@@ -298,15 +297,20 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
   // }
 
   onKeyDown(event: any, change: any, editor: any) {
+    const { value } = change
+    const originalSelection = value.selection
+    const { startInline, texts } = value
+
     if (event.key === 'z' && (event.ctrlKey || event.metaKey)) {
       event.preventDefault()
       return
     }
-    if (['ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown', 'Backspace', 'Shift', 'MetaShift', 'Meta', 'Enter', 'CapsLock', 'Escape', 'Alt', 'Control'].includes(event.key)) { return }
 
-    const { value } = change
-    const originalSelection = value.selection
-    const { startInline } = value
+    if (texts.size > 3) {
+      return false
+    }
+
+    if (['ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown', 'Backspace', 'Shift', 'MetaShift', 'Meta', 'Enter', 'CapsLock', 'Escape', 'Alt', 'Control'].includes(event.key)) { return }
 
     if (!startInline && originalSelection.focus.offset === 0 && originalSelection.anchor.offset === 0) {
       const nextInline = change.moveEndForward(1).value.endInline
@@ -354,44 +358,42 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
 
   onKeyUp(event: any, change: any, editor: any) {
     if (['ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown'].includes(event.key)) { return }
-    console.log('eventkey', event.key)
-    console.log('event.metaKey', event.metaKey)
-    console.log('event.ctrlKey', event.ctrlKey)
+
+    if (change.value.texts.size > 3) {
+      return false
+    }
 
     const initialFocus = change.value.selection.focus
     const initialAnchor = change.value.selection.anchor
 
     if ((event.key === 'z' && (event.ctrlKey || event.metaKey)) || event.key === 'Meta') {
-      console.log('------------')
       const lastUndo = change.value.history.undos.first()
       const lastChange = lastUndo ? lastUndo.find((operation) => !['set_selection', 'add_mark', 'remove_mark'].includes(operation.type)) : null
       if (lastChange) {
-        console.log('lastChange')
         const dataOriginalIndex = lastChange.value.startInline ? lastChange.value.startInline.data.get('dataOriginalIndex') : null
         const originalText = this.state.originalTextArray[dataOriginalIndex]
         if (!lastChange.value.startInline) {
-          console.log('no startInline')
           return lastChange.value
         }
-        if (dataOriginalIndex && originalText !== lastChange.value.startInline.text) {
-          console.log('changed text')
+        const text = lastChange.value.startInline.text
+        if (dataOriginalIndex && originalText !== text) {
           const initialFocus = change.value.selection.focus
           const initialAnchor = change.value.selection.anchor
           let node = change.moveToRangeOfNode(lastChange.value.startInline)
-          node = node.removeMark('bold').insertText(originalText)
           if (this.state.indicesOfUTags[dataOriginalIndex] || this.state.indicesOfUTags[dataOriginalIndex] === 0) {
-            console.log('underlining')
             const id = this.state.indicesOfUTags[dataOriginalIndex]
             node = node.addMark({type: 'underline', data: {id}})
           }
-          if (lastChange.type === 'remove_text') {
-            console.log('adding space')
-            node = node.moveToEndOfNode(lastChange.value.startInline).moveForward(1).insertText(' ')
+          if (lastChange.text.trim()) {
+            node = node.removeMark('bold').insertText(originalText)
+            if (lastChange.type === 'remove_text') {
+              node = node.moveToEndOfNode(lastChange.value.startInline).moveForward(1).insertText(' ')
+            }
           }
           this.removeEditFromEditsWithOriginalValue(dataOriginalIndex)
-          return node.setAnchor(initialAnchor).setFocus(initialFocus)
+          // node = node.setAnchor(initialAnchor).setFocus(initialFocus)
+          return node
         } else {
-          console.log('unchanged text')
           if (change.value.texts.size > 1) {
             return lastChange.value
           } else {
@@ -399,8 +401,6 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
           }
         }
       } else {
-        console.log('no last change')
-        console.log('texts size', change.value.texts.size)
         if (change.value.texts.size > 1) {
           return change.value
         }
