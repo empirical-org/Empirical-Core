@@ -91,7 +91,7 @@ function hashToCollection(hash) {
   return _.compact(array)
 }
 
-function rematchIndividualQuestionHelper(questionID, type, question, index) {
+function rematchIndividualQuestionHelper(questionID, type, question, index, finishRematching) {
   if (index == questionCount) {
     console.log('questionID', questionID)
     const matcher = getMatcher(type);
@@ -101,7 +101,7 @@ function rematchIndividualQuestionHelper(questionID, type, question, index) {
       if (_.values(formattedData).find(resp => resp.optimal)) {
         question.key = questionID
         const matcherFields = getMatcherFields(type, question, formattedData);
-        paginatedNonHumanResponses(matcher, matcherFields, questionID, 1);
+        paginatedNonHumanResponses(matcher, matcherFields, questionID, 1, finishRematching);
       } else {
         questionCount ++
         console.log('questionCount', questionCount)
@@ -109,7 +109,7 @@ function rematchIndividualQuestionHelper(questionID, type, question, index) {
     });
   } else {
     const timeoutLength = (index - questionCount) * 10
-    setTimeout(rematchIndividualQuestionHelper, timeoutLength, questionID, type, question, index)
+    setTimeout(rematchIndividualQuestionHelper, timeoutLength, questionID, type, question, index, finishRematching)
   }
 }
 
@@ -155,21 +155,21 @@ function whereStatementForNonHumanGradedResponsesByQuestionId(qid) {
   }
 }
 
-function paginatedNonHumanResponses(matcher, matcherFields, qid, page) {
+function paginatedNonHumanResponses(matcher, matcherFields, qid, page, finishRematching) {
   const numberOfResponsesForQuestion = numberOfResponses[qid]
   if (!numberOfResponsesForQuestion) {
     QuestionResponse.count(
       { where: whereStatementForNonHumanGradedResponsesByQuestionId(qid)}
     ).then(count => {
       numberOfResponses[qid] = count
-      paginatedNonHumanResponsesHelper(count, matcher, matcherFields, qid, page)
+      paginatedNonHumanResponsesHelper(count, matcher, matcherFields, qid, page, finishRematching)
     })
   } else {
-    paginatedNonHumanResponsesHelper(numberOfResponsesForQuestion, matcher, matcherFields, qid, page)
+    paginatedNonHumanResponsesHelper(numberOfResponsesForQuestion, matcher, matcherFields, qid, page, finishRematching)
   }
 }
 
-function paginatedNonHumanResponsesHelper(numberOfResponses, matcher, matcherFields, qid, page) {
+function paginatedNonHumanResponsesHelper(numberOfResponses, matcher, matcherFields, qid, page, finishRematching) {
   if (page < 51) {
     QuestionResponse.findAll({
       where: whereStatementForNonHumanGradedResponsesByQuestionId(qid),
@@ -190,24 +190,24 @@ function paginatedNonHumanResponsesHelper(numberOfResponses, matcher, matcherFie
       const rematchedResponses = rematchResponses(matcher, matcherFields, responseData.responses);
       if (page < responseData.numberOfPages) {
         console.log('page', page)
-        return paginatedNonHumanResponses(matcher, matcherFields, qid, page + 1);
+        return paginatedNonHumanResponses(matcher, matcherFields, qid, page + 1, finishRematching);
       } else {
-        incrementQuestionCountAndReindexResponses(qid)
+        incrementQuestionCountAndReindexResponses(qid, finishRematching)
       }
     }).catch((err) => {
       console.log(err);
     }).catch((err) => {
       console.log(err)
       console.log('moving to next question')
-      incrementQuestionCountAndReindexResponses(qid)
+      incrementQuestionCountAndReindexResponses(qid, finishRematching)
     });
   } else {
     console.log('too many responses, stopped on page 50')
-    incrementQuestionCountAndReindexResponses(qid)
+    incrementQuestionCountAndReindexResponses(qid, finishRematching)
   }
 }
 
-function incrementQuestionCountAndReindexResponses(qid) {
+function incrementQuestionCountAndReindexResponses(qid, finishRematching) {
   questionCount++
   console.log('completed questions: ', questionCount)
   request({
@@ -227,7 +227,10 @@ function incrementQuestionCountAndReindexResponses(qid) {
         body: { response },
         json: true,
       })
-      .then(() => console.log('update document'))
+      .then(() => {
+        console.log('update document')
+        finishRematching()
+      })
       .catch(err => console.log(err))
     })
   })
@@ -315,10 +318,6 @@ function determineDelta(response, newResponse) {
   return 'unchanged';
 }
 
-function saveResponses(responses) {
-  return responses;
-}
-
 function getMatcher(type) {
   if (type === 'sentenceFragments') {
     return checkSentenceFragment;
@@ -394,7 +393,7 @@ function convertResponsesArrayToHash(crArray) {
   return newHash;
 }
 
-function rematchAllQuestionsOfAType(type) {
+function rematchAllQuestionsOfAType(type, finishRematching) {
   let uri
   if (type === 'grammar_questions') {
     uri = `https://${FIREBASE_NAME}.firebaseio.com/v3/questions.json`
@@ -410,14 +409,14 @@ function rematchAllQuestionsOfAType(type) {
     const questions = JSON.parse(data)
     const filteredQuestions = _.pickBy(questions, (q) => q.flag !== 'archived' && q.prompt)
     Object.keys(filteredQuestions).forEach((key, index) => {
-      setTimeout(rematchIndividualQuestionHelper, 1, key, type, filteredQuestions[key], index);
+      setTimeout(rematchIndividualQuestionHelper, 1, key, type, filteredQuestions[key], index, finishRematching);
     })
   }).catch((err) => {
     console.log(err);
   });
 }
 
-function rematchIndividualQuestion(question_uid, type) {
+function rematchIndividualQuestion(question_uid, type, finishRematching) {
   let uri
   if (type === 'grammar_questions') {
     uri = `https://${FIREBASE_NAME}.firebaseio.com/v3/questions/${question_uid}.json`
@@ -430,7 +429,7 @@ function rematchIndividualQuestion(question_uid, type) {
       method: 'GET'
     },
   ).then((data) => {
-    rematchIndividualQuestionHelper(question_uid, type, JSON.parse(data), 0)
+    rematchIndividualQuestionHelper(question_uid, type, JSON.parse(data), 0, finishRematching)
   }).catch((err) => {
     console.log(err);
   });
