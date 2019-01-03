@@ -57,13 +57,13 @@ export const startListeningToFollowUpQuestionsForProofreaderSession = (proofread
 // typescript this
 export const getQuestionsForConcepts = (concepts: any) => {
   return dispatch => {
-
+    dispatch({ type: ActionTypes.SET_SESSION_PENDING, pending: true })
     const conceptUIDs = Object.keys(concepts)
     questionsRef.orderByChild('concept_uid').once('value', (snapshot) => {
       const questions = snapshot.val()
       const questionsForConcepts = {}
       Object.keys(questions).map(q => {
-        if (conceptUIDs.includes(questions[q].concept_uid)) {
+        if (conceptUIDs.includes(questions[q].concept_uid) && questions[q].prompt && questions[q].answers && questions[q].flag !== 'archived') {
           const question = questions[q]
           question.uid = q
           if (questionsForConcepts.hasOwnProperty(question.concept_uid)) {
@@ -87,6 +87,7 @@ export const getQuestionsForConcepts = (concepts: any) => {
       } else {
         dispatch({ type: ActionTypes.NO_QUESTIONS_FOUND_FOR_SESSION})
       }
+      dispatch({ type: ActionTypes.SET_SESSION_PENDING, pending: false })
     });
 
   }
