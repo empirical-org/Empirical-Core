@@ -306,7 +306,7 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
       return
     }
 
-    if (texts.size > 3) {
+    if (texts.size > 5) {
       return false
     }
 
@@ -359,7 +359,7 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
   onKeyUp(event: any, change: any, editor: any) {
     if (['ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown'].includes(event.key)) { return }
 
-    if (change.value.texts.size > 3) {
+    if (change.value.texts.size > 5) {
       return false
     }
 
