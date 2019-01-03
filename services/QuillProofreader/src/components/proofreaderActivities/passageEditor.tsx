@@ -306,7 +306,7 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
       return
     }
 
-    if (texts.size > 5) {
+    if (texts.size > 20) {
       return false
     }
 
@@ -359,7 +359,7 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
   onKeyUp(event: any, change: any, editor: any) {
     if (['ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown'].includes(event.key)) { return }
 
-    if (change.value.texts.size > 5) {
+    if (change.value.texts.size > 20) {
       return false
     }
 
@@ -391,7 +391,7 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
             }
           }
           this.removeEditFromEditsWithOriginalValue(dataOriginalIndex)
-          // node = node.setAnchor(initialAnchor).setFocus(initialFocus)
+          node = node.setAnchor(initialAnchor).setFocus(initialFocus)
           return node
         } else {
           if (change.value.texts.size > 1) {
