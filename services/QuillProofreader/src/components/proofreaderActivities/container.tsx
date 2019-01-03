@@ -383,6 +383,8 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       const edits = formattedValue.match(regex)
       if (edits) {
         this.setState({ passage: formattedValue, edits, editsWithOriginalValue })
+      } else if (this.state.edits) {
+        this.setState({ passage: formattedValue, edits: [], editsWithOriginalValue })
       }
     }
 
