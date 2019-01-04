@@ -14,8 +14,8 @@ declare interface Lesson {
 
 export default {
   Query: {
-    lesson: (_, {id}) => fetchFirebaseObject('v2/lessons', id),
-    lessons: () => fetchFirebaseIndex('v2/lessons')
+    connectActivity: (_, {id}) => fetchFirebaseObject('v2/lessons', id),
+    connectActivities: () => fetchFirebaseIndex('v2/lessons')
   }
 }
  
