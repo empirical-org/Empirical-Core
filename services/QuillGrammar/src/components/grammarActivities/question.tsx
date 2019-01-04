@@ -26,6 +26,7 @@ interface QuestionState {
   response: string;
   questionStatus: string;
   submittedEmptyString: boolean
+  submittedSameResponseTwice: boolean
   responses: {[key:number]: Response}
 }
 
@@ -38,6 +39,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
         response: '',
         questionStatus: 'unanswered',
         submittedEmptyString: false,
+        submittedSameResponseTwice: false,
         responses: {}
       }
 
@@ -95,8 +97,12 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
       const isFirstAttempt = !question.attempts || question.attempts.length === 0
       if (Object.keys(responses).length) {
         if (response !== '') {
-          this.props.checkAnswer(response, question, responses, isFirstAttempt)
-          this.setState({submittedEmptyString: false})
+          if (!isFirstAttempt && response === question.attempts[0].text) {
+            this.setState({ submittedSameResponseTwice: true})
+          } else {
+            this.props.checkAnswer(response, question, responses, isFirstAttempt)
+            this.setState({submittedEmptyString: false, submittedSameResponseTwice: false})
+          }
         } else {
           this.setState({submittedEmptyString: true})
         }
@@ -237,7 +243,11 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
 
     renderFeedbackSection(): JSX.Element|undefined {
       const question = this.currentQuestion()
-      if (question && question.attempts && question.attempts.length > 0) {
+      if (this.state.submittedEmptyString) {
+        return <div className={`feedback try-again`}><div className="inner-container"><img src={tryAgainIconSrc}/><div dangerouslySetInnerHTML={{__html: 'You must enter a sentence for us to check.'}}/></div></div>
+      } else if (this.state.submittedSameResponseTwice) {
+        return <div className={`feedback try-again`}><div className="inner-container"><img src={tryAgainIconSrc}/><div dangerouslySetInnerHTML={{__html: 'You must enter a different response.'}}/></div></div>
+      } else if (question && question.attempts && question.attempts.length > 0) {
         let className: string, feedback: string|undefined|null, imgSrc: string
         if (question.attempts[1]) {
           if (question.attempts[1].optimal) {
@@ -263,9 +273,6 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
         if (typeof feedback === 'string') {
           return <div className={`feedback ${className}`}><div className="inner-container"><img src={imgSrc}/><div dangerouslySetInnerHTML={{__html: feedback}}/></div></div>
         }
-      } else if (this.state.submittedEmptyString) {
-        return <div className={`feedback try-again`}><div className="inner-container"><img src={tryAgainIconSrc}/><div dangerouslySetInnerHTML={{__html: 'You must enter a sentence for us to check.'}}/></div></div>
-
       }
       return undefined
     }
