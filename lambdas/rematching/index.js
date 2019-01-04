@@ -1,6 +1,6 @@
 const { rematchAllQuestionsOfAType, rematchIndividualQuestion } =  require('./rematch')
 
-exports.handler = async (event, context, callback) => {
+exports.handler = (event, context, callback) => {
   const { uid, type } = event
 
   function finishRematching() {
