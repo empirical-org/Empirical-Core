@@ -233,6 +233,9 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       // regex below matches case that looks like this: <strong><u id="3"><u id="3">are</u></u></strong>
       const singleStrongTagWithTwoMatchingNestedURegex = /<strong>(<u id="\d+">)(<u id="\d+">)([^(<]+?)<\/u><\/u><\/strong>/gm
 
+      // regex below matches case that looks like this: <strong><u id="4">"That's</u></strong><u id="4"><u id="4"> </u></u>
+      const singleStrongTagWithThreeMatchingURegexAtEnd = /<strong>(<u id="\d+">)([^(<]+?)<\/u><\/strong>(<u id="\d+">)(<u id="\d+">)([^(<]+?)<\/u><\/u>/gm
+
       // regex below matches case that looks like this: <strong><u id="6">John</u></strong><u id="6"> </u>
       const singleStrongTagWithTwoMatchingURegex = /<strong>(<u id="\d+">)([^(<]+?)<\/u><\/strong>(<u id="\d+">)([^(<]+?)<\/u>/gm
 
@@ -357,6 +360,16 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
         fixedString = fixedString.replace(singleStrongTagWithTwoMatchingNestedURegex, (key, uTagA, uTagB, content) => {
           if (uTagA === uTagB) {
             return `<strong>${uTagA}${content}</u></strong>`
+          } else {
+            return key
+          }
+        })
+      }
+
+      if (singleStrongTagWithThreeMatchingURegexAtEnd.test(fixedString)) {
+        fixedString = fixedString.replace(singleStrongTagWithThreeMatchingURegexAtEnd, (key, uTagA, contentA, uTagB, uTagC, contentB) => {
+          if (uTagA === uTagB && uTagB === uTagC) {
+            return `<strong>${uTagA}${contentA}${contentB}</u></strong>`
           } else {
             return key
           }
