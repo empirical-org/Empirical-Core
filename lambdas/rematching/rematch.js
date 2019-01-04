@@ -98,6 +98,7 @@ function rematchIndividualQuestionHelper(questionID, type, question, index, fini
     console.log('matcher', matcher)
     return getGradedResponses(questionID).then((data) => {
       const formattedData = formatGradedResponses(data)
+      console.log('formattedData', formattedData)
       if (_.values(formattedData).find(resp => resp.optimal)) {
         question.key = questionID
         const matcherFields = getMatcherFields(type, question, formattedData);
@@ -161,6 +162,7 @@ function paginatedNonHumanResponses(matcher, matcherFields, qid, page, finishRem
     QuestionResponse.count(
       { where: whereStatementForNonHumanGradedResponsesByQuestionId(qid)}
     ).then(count => {
+      console.log('numberOfResponses', count)
       numberOfResponses[qid] = count
       paginatedNonHumanResponsesHelper(count, matcher, matcherFields, qid, page, finishRematching)
     })

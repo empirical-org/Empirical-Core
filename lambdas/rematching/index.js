@@ -1,8 +1,6 @@
 const { rematchAllQuestionsOfAType, rematchIndividualQuestion } =  require('./rematch')
 
 exports.handler = async (event, context, callback) => {
-  context.callbackWaitsForEmptyEventLoop = false;
-
   const { uid, type } = event
 
   function finishRematching() {
@@ -18,8 +16,8 @@ exports.handler = async (event, context, callback) => {
   }
 
   if (uid) {
-    return rematchIndividualQuestion(uid, type, finishRematching)
+    rematchIndividualQuestion(uid, type, finishRematching)
   } else {
-    return rematchAllQuestionsOfAType(type, finishRematching)
+    rematchAllQuestionsOfAType(type, finishRematching)
   }
 };
