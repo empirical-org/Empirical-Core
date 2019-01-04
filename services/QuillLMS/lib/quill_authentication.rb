@@ -58,6 +58,8 @@ module QuillAuthentication
     end
     session[:user_id] = user.id
     session[:admin_id] = user.id if user.admin?
+    session[:name] = user.name
+    session[:role] = user.role
     @current_user = user
   end
 

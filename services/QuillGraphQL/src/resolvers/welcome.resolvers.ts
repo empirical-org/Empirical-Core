@@ -1,5 +1,9 @@
 export default {
   Query: {
-    welcome: (_, { yourNickname }) => `Welcome, ${yourNickname || "here"}!`
+    welcome: (_, { yourNickname }, {user}) => {
+      console.log(user);
+     
+      return `Welcome, ${user.name || "here"}!`
+    }
   }
 };

@@ -1,0 +1,9 @@
+type CurrentUser {
+  id: Number
+  name: String
+  role: String
+}
+
+type Query {
+  currentUser: CurrentUser
+}
