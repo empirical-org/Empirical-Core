@@ -12,3 +12,10 @@
   background-color: #ededed;
   font-family: adelle-sans,Helvetica,Arial,sans-serif;
 }
+
+button {
+  cursor: pointer;
+  &:focus {
+    outline: none;
+  }
+}
