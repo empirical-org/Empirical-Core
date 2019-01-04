@@ -26,7 +26,7 @@ interface QuestionState {
   response: string;
   questionStatus: string;
   submittedEmptyString: boolean
-  responses: Response[]
+  responses: {[key:number]: Response}
 }
 
 export class QuestionComponent extends React.Component<QuestionProps, QuestionState> {
@@ -38,7 +38,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
         response: '',
         questionStatus: 'unanswered',
         submittedEmptyString: false,
-        responses: []
+        responses: {}
       }
 
       this.toggleExample = this.toggleExample.bind(this)
@@ -90,14 +90,16 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
     }
 
     checkAnswer() {
-      const response = this.state.response
+      const { response, responses } = this.state
       const question = this.currentQuestion()
       const isFirstAttempt = !question.attempts || question.attempts.length === 0
-      if (this.state.response !== '') {
-        this.props.checkAnswer(response, question, this.state.responses, isFirstAttempt)
-        this.setState({submittedEmptyString: false})
-      } else {
-        this.setState({submittedEmptyString: true})
+      if (Object.keys(responses).length) {
+        if (response !== '') {
+          this.props.checkAnswer(response, question, responses, isFirstAttempt)
+          this.setState({submittedEmptyString: false})
+        } else {
+          this.setState({submittedEmptyString: true})
+        }
       }
     }
 
@@ -176,14 +178,16 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
       }
     }
 
-    renderCheckAnswerButton(): JSX.Element {
-      const { questionStatus } = this.state
-      if (questionStatus === 'unanswered') {
-        return <Button className="check-answer-button" onClick={this.checkAnswer}>Check Work</Button>
-      } else if (questionStatus === 'incorrectly answered') {
-        return <Button className="check-answer-button" onClick={this.checkAnswer}>Recheck Work</Button>
-      } else {
-        return <Button className="check-answer-button" onClick={this.goToNextQuestion}>Next Problem</Button>
+    renderCheckAnswerButton(): JSX.Element|void {
+      const { questionStatus, responses } = this.state
+      if (Object.keys(responses).length) {
+        if (questionStatus === 'unanswered') {
+          return <Button className="check-answer-button" onClick={this.checkAnswer}>Check Work</Button>
+        } else if (questionStatus === 'incorrectly answered') {
+          return <Button className="check-answer-button" onClick={this.checkAnswer}>Recheck Work</Button>
+        } else {
+          return <Button className="check-answer-button" onClick={this.goToNextQuestion}>Next Problem</Button>
+        }
       }
     }
 
