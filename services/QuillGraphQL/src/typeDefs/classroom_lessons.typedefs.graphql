@@ -1,0 +1,12 @@
+type ClassroomLesson {
+  id: String
+  lesson: String
+  title: String
+  topic: String
+  unit: String
+}
+
+type Query {
+  classroomLesson(id: String!): ClassroomLesson
+  classroomLessons: [ClassroomLesson]!
+}

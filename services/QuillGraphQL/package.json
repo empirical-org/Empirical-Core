@@ -19,6 +19,8 @@
     "memcached": "^2.2.2",
     "merge-graphql-schemas": "^1.5.8",
     "rails-session-decoder": "^1.0.4",
+    "rethinkdb": "^2.3.3",
+    "rethinkdbdash": "^2.3.31",
     "superagent": "^4.0.0"
   },
   "devDependencies": {
