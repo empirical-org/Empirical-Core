@@ -7,15 +7,21 @@ exports.handler = (event, context, callback) => {
   lambda.invoke({
       FunctionName: 'rematch_lambda',
       InvocationType: 'Event',
-      Payload: JSON.stringify(event, context, callback)
-  }, function(err,data){});
-
-  return JSON.stringify({
-      statusCode: 200,
-      body: JSON.stringify(`uid: ${uid}, type: ${type}`),
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*'
-      },
+      Payload: JSON.stringify(event)
+  }, function(err,data) {
+    console.log('invoked the rematch lambda')
+    if (err) {
+      callback(err)
+    } else {
+      const response = {
+          statusCode: 200,
+          body: JSON.stringify(`uid: ${uid}, type: ${type}`),
+          headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*'
+          },
+      };
+      callback(null, response)
+    }
   });
 };
