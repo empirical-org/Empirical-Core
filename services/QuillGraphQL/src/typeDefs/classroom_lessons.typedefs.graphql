@@ -1,9 +1,19 @@
-type ClassroomLesson {
+type Edition {
   id: String
+  lesson_id: String
+  flags: [String]
+  name: String
+  user_id: Int
+}
+
+type ClassroomLesson {
+  id: String!
   lesson: String
   title: String
   topic: String
   unit: String
+  edition(id: String!): Edition
+  editions: [Edition]
 }
 
 type Query {
