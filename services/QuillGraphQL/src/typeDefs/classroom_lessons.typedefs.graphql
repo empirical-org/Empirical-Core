@@ -47,7 +47,28 @@ type ClassroomLesson {
   editions: [Edition]
 }
 
+type ClassroomLessonSession {
+  absentTeacherState: Boolean
+  classroom_name: String
+  current_slide: String
+  edition_id: ID
+  followUpActivityName: String
+  followUpOption: String
+  followUpUrl: String
+  id: ID
+  models: JSON
+  prompts: JSON
+  startTime: Int
+  student_ids: JSON
+  students: JSON
+  supportingInfo: String
+  teacher_ids: JSON
+  teacher_name: String
+  timestamps: JSON
+}
+
 type Query {
   classroomLesson(id: String!): ClassroomLesson
   classroomLessons: [ClassroomLesson]!
+  classroomLessonSession(id: String!): ClassroomLessonSession
 }
