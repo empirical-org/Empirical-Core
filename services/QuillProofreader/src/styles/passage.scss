@@ -46,7 +46,7 @@
         padding-bottom: 0.75em;
       }
       .progress-bar-indication {
-        background-color: #f2f2f2;
+        background-color: white;
         border-radius: 6px;
         border: 1px solid #DDD;
         box-shadow: inset 0 0 3px 0 rgba(115,115,115,.15);
@@ -63,6 +63,16 @@
       }
     }
   }
+
+  // .editor, span, p {
+  //   -webkit-touch-callout: none; /* iOS Safari */
+  //     -webkit-user-select: none; /* Safari */
+  //      -khtml-user-select: none; /* Konqueror HTML */
+  //        -moz-user-select: none; /* Firefox */
+  //         -ms-user-select: none; /* Internet Explorer/Edge */
+  //             user-select: none; /* Non-prefixed version, currently
+  //                                   supported by Chrome and Opera */
+  // }
 
   .editor, .reviewer {
     max-width: 896px;
@@ -110,14 +120,15 @@
     max-width: 896px;
     margin: auto;
     display: flex;
-    justify-content: flex-end;
-    button {
+    justify-content: space-between;
+    align-items: flex-end;
+    .check-work {
       background-color: #00c2a2;
       color: white;
       border: none;
       box-shadow: none;
       margin-top: 37px;
-      font-size: 16px;
+      font-size: 15px;
       border-radius: 6px;
       height: 40px;
       width: 135px;
@@ -126,6 +137,19 @@
       &:focus {
         outline: none;
       }
+    }
+    .reset-button {
+      width: 104px;
+      height: 40px;
+      border-radius: 4px;
+      background-color: #ffffff;
+      font-size: 15px;
+      font-weight: 600;
+      padding: 8px 16px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      color: #000000;
     }
   }
 }
