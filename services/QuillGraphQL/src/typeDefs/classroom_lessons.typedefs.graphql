@@ -1,9 +1,40 @@
+scalar JSON
+
+type ScriptItem {
+  type: String
+  data: JSON
+}
+
+type TeachData {
+  script: [ScriptItem]
+  title: String
+}
+
+type PlayData {
+  html: String
+  intructions: String
+  cues: [String]
+  prompt: String
+  stepLabels: [String]
+}
+
+type QuestionData {
+  teach: TeachData
+  play: PlayData
+}
+
+type Question {
+  data: QuestionData
+  type: String
+}
+
 type Edition {
   id: String
   lesson_id: String
   flags: [String]
-  name: String
-  user_id: Int
+  name: String 
+  user_id: ID
+  questions: [Question]
 }
 
 type ClassroomLesson {
