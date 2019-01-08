@@ -10,6 +10,9 @@ module.exports = {
   removeResponseFromMassEditArray: function(key) {
     return { type: C.REMOVE_RESPONSE_FROM_MASS_EDIT_ARRAY, responseKey: key };
   },
+  removeResponsesFromMassEditArray: function(keys) {
+    return { type: C.REMOVE_RESPONSES_FROM_MASS_EDIT_ARRAY, keys };
+  },
   clearResponsesFromMassEditArray: function() {
     return { type: C.CLEAR_RESPONSES_FROM_MASS_EDIT_ARRAY }
   }

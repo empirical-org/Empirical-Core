@@ -8,7 +8,19 @@ export default class ResponseList extends React.Component {
   constructor(props) {
     super(props)
 
+    this.allResponsesChecked = this.allResponsesChecked.bind(this)
     this.addAllResponsesToMassEdit = this.addAllResponsesToMassEdit.bind(this)
+    this.removeAllResponsesFromMassEdit = this.removeAllResponsesFromMassEdit.bind(this)
+    this.addOrRemoveAllResponsesFromMassEdit = this.addOrRemoveAllResponsesFromMassEdit.bind(this)
+  }
+
+  allResponsesChecked() {
+    return !this.props.responses.some((r) => {
+      return !(
+        this.props.massEdit.selectedResponses.includes(r.key) ||
+        this.props.massEdit.selectedResponses.includes(r.id)
+      )
+    })
   }
 
   incorrectSequenceMatchHelper(responseString, sequenceParticle) {
@@ -21,9 +33,22 @@ export default class ResponseList extends React.Component {
     return _.every(matchList, m => new RegExp(m, 'i').test(responseString));
   }
 
-  addAllResponsesToMassEdit(event) {
+  addAllResponsesToMassEdit() {
     const keys = this.props.responses.map(r => r.key)
     this.props.dispatch(massEdit.addResponsesToMassEditArray(keys))
+  }
+
+  removeAllResponsesFromMassEdit() {
+    const keys = this.props.responses.map(r => r.key)
+    this.props.dispatch(massEdit.removeResponsesFromMassEditArray(keys))
+  }
+
+  addOrRemoveAllResponsesFromMassEdit() {
+    if (this.allResponsesChecked()) {
+      this.removeAllResponsesFromMassEdit()
+    } else {
+      this.addAllResponsesToMassEdit()
+    }
   }
 
   renderResponse(resp) {
@@ -75,7 +100,15 @@ export default class ResponseList extends React.Component {
 
     return (
       <div style={{ marginTop: '20px', }}>
-        <span style={{ paddingLeft: '15px', fontWeight: 'semibold', }}><input style={{ marginRight: '14px', }} type="checkbox" onChange={this.addAllResponsesToMassEdit} />Check All</span>
+        <span style={{ paddingLeft: '15px', fontWeight: 'semibold', }}>
+          <input
+            style={{ marginRight: '14px', }}
+            type="checkbox"
+            checked={this.allResponsesChecked()}
+            onChange={this.addOrRemoveAllResponsesFromMassEdit}
+          />
+          Check All
+        </span>
         <div>
           {responseListItems}
         </div>

@@ -10,7 +10,7 @@ export default function(currentState, action) {
   let responseKey = action.responseKey;
   switch(action.type) {
     case C.ADD_RESPONSES_TO_MASS_EDIT_ARRAY:
-      newState.selectedResponses = newState.selectedResponses.concat(action.keys)
+      newState.selectedResponses = _.uniq(newState.selectedResponses.concat(action.keys))
       newState.numSelectedResponses = newState.selectedResponses.length
       return newState
     case C.ADD_RESPONSE_TO_MASS_EDIT_ARRAY:
@@ -24,6 +24,10 @@ export default function(currentState, action) {
         newState.selectedResponses.splice(newState.selectedResponses.indexOf(responseKey), 1);
         newState.numSelectedResponses = newState.selectedResponses.length
       }
+      return newState;
+    case C.REMOVE_RESPONSES_FROM_MASS_EDIT_ARRAY:
+      newState.selectedResponses = newState.selectedResponses.filter(r => !(action.keys.includes(Number(r)) || action.keys.includes(String(r))))
+      newState.numSelectedResponses = newState.selectedResponses.length
       return newState;
     case C.CLEAR_RESPONSES_FROM_MASS_EDIT_ARRAY:
       newState.selectedResponses = [];
