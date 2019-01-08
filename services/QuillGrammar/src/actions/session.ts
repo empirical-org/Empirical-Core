@@ -23,7 +23,24 @@ export const setSessionReducerToSavedSession = (sessionID: string) => {
     sessionsRef.child(sessionID).once('value', (snapshot) => {
       const session = snapshot.val()
       if (session && !session.error) {
-        dispatch(setSessionReducer(session))
+        questionsRef.orderByChild('concept_uid').once('value', (questionsSnapshot) => {
+          const allQuestions = questionsSnapshot.val()
+          if (!session.currentQuestion.prompt || !session.currentQuestion.answers) {
+            const currentQuestion = allQuestions[session.currentQuestion.uid]
+            currentQuestion.uid = session.currentQuestion.uid
+            session.currentQuestion = currentQuestion
+          }
+          session.unansweredQuestions = session.unansweredQuestions.map((q) => {
+            if (q.prompt && q.answers && q.uid) {
+              return q
+            } else {
+              const question = allQuestions[q.uid]
+              question.uid = q.uid
+              return question
+            }
+          })
+          dispatch(setSessionReducer(session))
+        })
       }
     })
   }
