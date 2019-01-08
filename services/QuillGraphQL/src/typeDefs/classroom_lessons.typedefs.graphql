@@ -72,3 +72,7 @@ type Query {
   classroomLessons: [ClassroomLesson]!
   classroomLessonSession(id: String!): ClassroomLessonSession
 }
+
+type Mutation {
+  setSessionCurrentSlide(id: String!, slideNumber: String!): ClassroomLessonSession 
+}

@@ -12,6 +12,9 @@ export default {
   },
   Edition: {
     questions: editionQuestions
+  },
+  Mutation: {
+    setSessionCurrentSlide
   }
 }
 
@@ -38,4 +41,8 @@ async function editionQuestions(parent, args, ctx) {
 
 function classroomLessonSession(parent, {id}, ctx) {
   return rethinkClient.db('quill_lessons').table('classroom_lesson_sessions').get(id).run();
+}
+
+function setSessionCurrentSlide(parent, {id, slideNumber}, ctx) {
+  return rethinkClient.db('quill_lessons').table('classroom_lesson_sessions').get(id).update({current_slide: slideNumber}).run();
 }
