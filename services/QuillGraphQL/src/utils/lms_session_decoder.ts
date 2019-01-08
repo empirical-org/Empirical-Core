@@ -1,6 +1,3 @@
-const  sessionDecoder = require('rails-session-decoder');
-const decoder = sessionDecoder(process.env.SESSION_SECRET)
-const cookieParser = require('cookie-parser');
 const crypto = require('crypto')
 const secret = process.env.SESSION_SECRET;
 var salt = 'encrypted cookie';
@@ -14,9 +11,18 @@ export interface DecodedCookie {
   role?: string
 }
 
-
+export function parseCookiesString(cookies: string): any {
+  const cookiesArray:string[] = cookies.split("; ")
+  const cookieHash = {};
+  cookiesArray.forEach((cookie) => {
+    const kvPair = cookie.split("=")
+    cookieHash[kvPair[0]] = kvPair[1]
+  })
+  return cookieHash
+}
 
 function decodeLmsSession(req): DecodedCookie {
+  if (req == undefined) { return {} }
   const cookie = req.cookies[process.env.SESSION_NAME];
 
   if (cookie) {
