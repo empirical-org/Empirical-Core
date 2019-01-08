@@ -1,6 +1,9 @@
 import C from '../constants';
 
 module.exports = {
+  addResponsesToMassEditArray: function(keys) {
+    return { type: C.ADD_RESPONSES_TO_MASS_EDIT_ARRAY, keys };
+  },
   addResponseToMassEditArray: function(key) {
     return { type: C.ADD_RESPONSE_TO_MASS_EDIT_ARRAY, responseKey: key };
   },

@@ -9,6 +9,10 @@ export default function(currentState, action) {
   let newState = Object.assign({}, currentState || initialState);
   let responseKey = action.responseKey;
   switch(action.type) {
+    case C.ADD_RESPONSES_TO_MASS_EDIT_ARRAY:
+      newState.selectedResponses = newState.selectedResponses.concat(action.keys)
+      newState.numSelectedResponses = newState.selectedResponses.length
+      return newState
     case C.ADD_RESPONSE_TO_MASS_EDIT_ARRAY:
       if(newState.selectedResponses.indexOf(responseKey) < 0) {
         newState.selectedResponses.push(responseKey);
