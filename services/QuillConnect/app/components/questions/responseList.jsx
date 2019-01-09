@@ -34,12 +34,12 @@ export default class ResponseList extends React.Component {
   }
 
   addAllResponsesToMassEdit() {
-    const keys = this.props.responses.map(r => r.key)
+    const keys = this.props.responses.map(r => r.id)
     this.props.dispatch(massEdit.addResponsesToMassEditArray(keys))
   }
 
   removeAllResponsesFromMassEdit() {
-    const keys = this.props.responses.map(r => r.key)
+    const keys = this.props.responses.map(r => r.id)
     this.props.dispatch(massEdit.removeResponsesFromMassEditArray(keys))
   }
 
@@ -107,7 +107,7 @@ export default class ResponseList extends React.Component {
             checked={this.allResponsesChecked()}
             onChange={this.addOrRemoveAllResponsesFromMassEdit}
           />
-          Check All
+          Check All Responses On Page
         </span>
         <div>
           {responseListItems}
