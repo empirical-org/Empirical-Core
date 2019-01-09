@@ -19,6 +19,14 @@
   @media screen and (max-width: 501px) {
     display: none;
   }
+
+  &.google-issue {
+    p {
+      max-width: 955px;
+      line-height: inherit;
+      padding: 10px;
+    }
+  }
 }
 
 .upgraded-bar {
