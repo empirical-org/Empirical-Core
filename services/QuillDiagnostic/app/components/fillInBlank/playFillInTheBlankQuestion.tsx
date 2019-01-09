@@ -42,7 +42,7 @@ const styles = {
     borderImageSlice: 1,
   },
   text: {
-    marginRight: 10,
+    marginRight: 5,
   },
 };
 
@@ -132,7 +132,12 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     if (text.length > 0) {
       style = styles.text;
     }
-    return <span key={i} style={style}>{text}</span>;
+    const textArray = text.split(' ')
+    const spanArray:Array<JSX.Element> = []
+    textArray.forEach((word, index) => {
+      spanArray.push(<span key={`${i}-${index}`} style={style}>{word}</span>)
+    })
+    return spanArray;
   }
 
   validateInput(i) {
@@ -220,8 +225,6 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
       delete styling.borderImageSource;
     }
     const longestCue = this.state.cues && this.state.cues.length ? this.state.cues.sort((a, b) => b.length - a.length)[0] : null
-    console.log('longestCue', longestCue)
-    console.log('longestCueLength', longestCue.length)
     const width = longestCue ? (longestCue.length * 15) + 10 : 50
     styling.width = `${width}px`
     return (
@@ -246,7 +249,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     if (this.state.splitPrompt) {
       const { splitPrompt, } = this.state;
       const l = splitPrompt.length;
-      const splitPromptWithInput:Array<JSX.Element> = [];
+      const splitPromptWithInput:Array<JSX.Element|Array<JSX.Element>> = [];
       splitPrompt.forEach((section, i) => {
         if (i !== l - 1) {
           splitPromptWithInput.push(this.renderText(section, i));
@@ -255,7 +258,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
           splitPromptWithInput.push(this.renderText(section, i));
         }
       });
-      return splitPromptWithInput;
+      return _.flatten(splitPromptWithInput);
     }
   }
 

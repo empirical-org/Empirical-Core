@@ -41,7 +41,7 @@ const styles = {
     borderImageSlice: 1,
   },
   text: {
-    marginRight: 10,
+    marginRight: 5,
   },
 };
 
@@ -134,7 +134,12 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     if (text.length > 0) {
       style = styles.text;
     }
-    return <span key={i} style={style}>{text}</span>;
+    const textArray = text.split(' ')
+    const spanArray = []
+    textArray.forEach((word, index) => {
+      spanArray.push(<span key={`${i}-${index}`} style={style}>{word}</span>)
+    })
+    return spanArray;
   }
 
   validateInput(i) {
@@ -223,6 +228,9 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
       styling.borderWidth = '2px';
       delete styling.borderImageSource;
     }
+    const longestCue = this.state.cues && this.state.cues.length ? this.state.cues.sort((a, b) => b.length - a.length)[0] : null
+    const width = longestCue ? (longestCue.length * 15) + 10 : 50
+    styling.width = `${width}px`
     return (
       <span key={`span${i}`}>
         <div style={{ position: 'relative', height: 0, width: 0, }}>
@@ -254,7 +262,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
           splitPromptWithInput.push(this.renderText(section, i));
         }
       });
-      return splitPromptWithInput;
+      return _.flatten(splitPromptWithInput);
     }
   }
 
