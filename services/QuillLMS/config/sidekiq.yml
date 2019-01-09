@@ -5,6 +5,6 @@ staging:
 production:
   :concurrency: 5
 :queues:
-  - [critical, 3] 
+  - [critical, 10] 
   - [default, 2]
   - [low, 1]
