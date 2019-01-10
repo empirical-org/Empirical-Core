@@ -18,6 +18,7 @@ import {
 import Feedback from '../renderForQuestions/feedback'
 import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
 import { Attempt } from '../renderForQuestions/answerState.js';
+import { stringNormalize } from 'quill-string-normalizer';
 
 const styles = {
   container: {
@@ -117,7 +118,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
 
   handleChange(i, e) {
     const existing = [...this.state.inputVals];
-    existing[i] = e.target.value.trim();
+    existing[i] = e.target.value;
     this.setState({
       inputVals: existing,
     });
@@ -141,11 +142,11 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     const newErrors = new Set(this.state.inputErrors);
     const inputVal = this.state.inputVals[i] || '';
     const inputSufficient = this.state.blankAllowed ? true : inputVal;
-
-    if (!inputSufficient || (inputVal && this.state.cues.indexOf(inputVal.toLowerCase()) === -1)) {
-      newErrors.add(i);
-    } else {
+    const cueMatch = (inputVal && this.state.cues.some(c => stringNormalize(c).toLowerCase() === stringNormalize(inputVal).toLowerCase().trim())) || inputVal === ''
+    if (inputSufficient && cueMatch) {
       newErrors.delete(i);
+    } else {
+      newErrors.add(i);
     }
 
     // following condition will return false if no new errors
