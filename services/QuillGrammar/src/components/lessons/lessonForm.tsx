@@ -147,7 +147,6 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
   renderSearchBox() {
     // options changes based on whether we are looking at 'questions' (should be refactored to sentenceCombining) or sentenceFragments
     let options = hashToCollection(this.props.questions.data);
-    console.log('Options: ', options);
     let formatted
     if (options.length > 0) {
         options = _.filter(options, option => option.flag !== "archived"); // filter out questions with no valid concept
