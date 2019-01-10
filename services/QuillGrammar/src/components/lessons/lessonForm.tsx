@@ -149,7 +149,7 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
     let options = hashToCollection(this.props.questions.data);
     let formatted
     if (options.length > 0) {
-        options = _.filter(options, option => option.flag !== "archived"); // filter out questions with no valid concept
+        options = _.filter(options, option => option.flag !== "archived" && option.prompt); // filter out questions with no valid concept
         formatted = options.map(opt => ({ name: opt.prompt.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, ''), value: opt.key, }));
       return (<QuestionSelector
         options={formatted} placeholder="Search for a question"
