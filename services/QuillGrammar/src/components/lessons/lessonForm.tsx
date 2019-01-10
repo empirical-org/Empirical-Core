@@ -1,16 +1,21 @@
 import * as React from 'react';
+import QuestionSelector from 'react-select-search';
 import { connect } from 'react-redux';
 import { EditorState, ContentState } from 'draft-js'
 import TextEditor from '../shared/textEditor'
 import ConceptSelector from '../shared/conceptSelector'
+import SortableList from '../shared/sortableList'
+import { hashToCollection } from '../../helpers/hashToCollection'
 import { GrammarActivity, Concepts, Concept } from '../../interfaces/grammarActivities'
+import { Question } from '../../interfaces/questions'
 import { ConceptReducerState } from '../../reducers/conceptsReducer'
 
 interface LessonFormState {
   title: string;
   description: string;
   flag?: string;
-  concepts: Concepts;
+  concepts?: Concepts;
+  questions?: Array<Question>;
 }
 
 interface LessonFormProps {
@@ -31,7 +36,8 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
       title: currentValues ? currentValues.title : '',
       description: currentValues ? currentValues.description || '' : '',
       flag: currentValues ? currentValues.flag : 'alpha',
-      concepts: currentValues ? currentValues.concepts : {}
+      concepts: currentValues ? currentValues.concepts : {},
+      questions: currentValues && currentValues.questions ? currentValues.questions : [],
     }
 
     this.submit = this.submit.bind(this)
@@ -42,15 +48,20 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
     this.renderConceptRows = this.renderConceptRows.bind(this)
     this.removeConcept = this.removeConcept.bind(this)
     this.changeConceptQuantity = this.changeConceptQuantity.bind(this)
+    this.renderQuestionSelect = this.renderQuestionSelect.bind(this)
+    this.sortCallback = this.sortCallback.bind(this)
+    this.renderSearchBox = this.renderSearchBox.bind(this)
+    this.handleSearchChange = this.handleSearchChange.bind(this)
   }
 
   submit() {
-    const { title, concepts, description, flag, } = this.state
+    const { title, concepts, description, flag, questions, } = this.state
     this.props.submit({
       title,
       concepts,
       description,
-      flag
+      flag,
+      questions
     });
   }
 
@@ -58,6 +69,10 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
     const changes: LessonFormState = {};
     changes[key] = event.target.value;
     this.setState(changes);
+  }
+
+  handleSearchChange(e) {
+    this.handleQuestionChange(e.value);
   }
 
   addConcept(concept: { value: string }) {
@@ -91,8 +106,61 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
     this.setState({ description: e, });
   }
 
+  handleQuestionChange(value) {
+    const currentQuestions = this.state.questions;
+    let newQuestions;
+    const changedQuestion = currentQuestions.find(q => q.key === value);
+    if (!changedQuestion) {
+      newQuestions = currentQuestions.concat([{ key: value }]);
+    } else {
+      newQuestions = _.without(currentQuestions, changedQuestion);
+    }
+    this.setState({ questions: newQuestions, });
+  }
+
+  sortCallback(sortInfo) {
+    const newOrder = sortInfo.data.items.map(item => Object.assign({key: item.key}));
+    this.setState({ questions: newOrder, });
+  }
+
+  renderQuestionSelect() {
+    let questions;
+    // select changes based on whether we are looking at 'questions' (should be refactored to sentenceCombining) or sentenceFragments
+    if (this.state.questions && this.state.questions.length) {
+      const questionsList = this.state.questions.map((question) => {
+        const questionobj = this.props.questions.data[question.key];
+        const prompt = questionobj ? questionobj.prompt : 'Question No Longer Exists';
+        const promptOrTitle = questionobj.title || questionobj.prompt
+        return (<p className="sortable-list-item" key={question.key}>
+          {promptOrTitle}
+          {'\t\t'}
+          <button onClick={this.handleQuestionChange.bind(null, question.key)}>Delete</button>
+        </p>
+        );
+      });
+      return <SortableList key={Object.keys(this.state.questions).length} sortCallback={this.sortCallback} data={questionsList} />;
+    } else {
+      return <div>No questions</div>;
+    }
+  }
+
+  renderSearchBox() {
+    // options changes based on whether we are looking at 'questions' (should be refactored to sentenceCombining) or sentenceFragments
+    let options = hashToCollection(this.props.questions.data);
+    console.log('Options: ', options);
+    let formatted
+    if (options.length > 0) {
+        options = _.filter(options, option => option.flag !== "archived"); // filter out questions with no valid concept
+        formatted = options.map(opt => ({ name: opt.prompt.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, ''), value: opt.key, }));
+      return (<QuestionSelector
+        options={formatted} placeholder="Search for a question"
+        onChange={this.handleSearchChange}
+      />);
+    }
+  }
+
   renderConceptRows(): Array<JSX.Element|undefined>|void {
-    const conceptUids = Object.keys(this.state.concepts)
+    const conceptUids = this.state.concepts ? Object.keys(this.state.concepts) : []
     if (conceptUids.length > 0) {
       return conceptUids.map(c => {
         const conceptVal = this.state.concepts[c]
@@ -159,6 +227,13 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
           <ConceptSelector handleSelectorChange={this.addConcept}/>
         </p>
         {this.renderConceptRows()}
+        <div className="control">
+          <label className="label">Currently Selected Questions -- {`Total: ${this.state.questions.length}`}</label>
+          {this.renderQuestionSelect()}
+        </div>
+        <label className="label">All Questions</label>
+        {this.renderSearchBox()}
+        <br />
         <p className="control">
           <button className={`button is-primary ${this.props.stateSpecificClass}`} onClick={this.submit}>Submit</button>
         </p>
@@ -169,7 +244,8 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
 
 function select(state) {
   return {
-    concepts: state.concepts
+    concepts: state.concepts,
+    questions: state.questions
   };
 }
 

@@ -110,6 +110,26 @@ export const getQuestionsForConcepts = (concepts: any) => {
   }
 }
 
+export const getQuestions = (questions: any) => {
+  return dispatch => {
+    dispatch({ type: ActionTypes.SET_SESSION_PENDING, pending: true })
+    questionsRef.once('value', (snapshot) => {
+      const allQuestions = snapshot.val()
+      const arrayOfQuestions = questions.map(q => {
+        const question = allQuestions[q.key]
+        question.uid = q.key
+        return question
+      })
+      if (arrayOfQuestions.length > 0) {
+        dispatch({ type: ActionTypes.RECEIVE_QUESTION_DATA, data: arrayOfQuestions, });
+      } else {
+        dispatch({ type: ActionTypes.NO_QUESTIONS_FOUND_FOR_SESSION})
+      }
+      dispatch({ type: ActionTypes.SET_SESSION_PENDING, pending: false })
+    })
+  }
+}
+
 export const checkAnswer = (response: string, question: Question, responses: Response[], isFirstAttempt: Boolean) => {
   return dispatch => {
     const questionUID: string = question.uid
