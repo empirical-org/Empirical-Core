@@ -27,7 +27,6 @@ class Lesson extends React.Component<LessonProps> {
   constructor(props: LessonProps) {
     super(props)
 
-    this.questionsForLesson = this.questionsForLesson.bind(this)
     this.renderQuestionsForLesson = this.renderQuestionsForLesson.bind(this)
     this.deleteLesson = this.deleteLesson.bind(this)
     this.cancelEditingLesson = this.cancelEditingLesson.bind(this)
@@ -36,16 +35,6 @@ class Lesson extends React.Component<LessonProps> {
     this.renderEditLessonForm = this.renderEditLessonForm.bind(this)
   }
 
-  questionsForLesson(): Question[]|void {
-    const { data, } = this.props.lessons
-    const { lessonID, } = this.props.match.params
-    const questions = this.props.questions ? hashToCollection(this.props.questions.data) : []
-    const lessonConcepts = data[lessonID].concepts
-    if (lessonConcepts) {
-      const conceptUids = Object.keys(data[lessonID].concepts)
-      return questions.filter(q => conceptUids.includes(q.concept_uid))
-    }
-  }
 
   lesson(): GrammarActivity|void {
     const { data, } = this.props.lessons
@@ -55,32 +44,58 @@ class Lesson extends React.Component<LessonProps> {
     }
   }
 
+  renderQuestionsByConcept(questionsForLesson) {
+    const conceptIds: {[key: string]: JSX.Element[]} = {}
+    questionsForLesson.forEach((question: Question) => {
+      const { prompt, key, concept_uid} = question
+      const displayName = prompt || 'No question prompt';
+      const questionLink = <li key={key}><Link to={`/admin/questions/${question.key}`}>{displayName.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, '')}</Link></li>
+      if (conceptIds[concept_uid]) {
+        conceptIds[concept_uid].push(questionLink)
+      } else {
+        conceptIds[concept_uid] = [questionLink]
+      }
+    });
+    const conceptSections: JSX.Element[] = []
+    const lesson = this.lesson()
+    Object.keys(conceptIds).forEach(conceptId => {
+      const lessonConcept = lesson ? lesson.concepts[conceptId] : null
+      const quantity = lessonConcept ? lessonConcept.quantity : null
+      const concept = this.props.concepts.data[0] ? this.props.concepts.data[0].find(c => c.uid === conceptId) : null
+      const quantitySpan = <span style={{ fontStyle: 'italic' }}>{quantity} {quantity === 1 ? 'Question' : 'Questions'} Chosen at Random</span>
+      conceptSections.push(<br/>)
+      conceptSections.push(<h3>{concept ? concept.displayName : null} - {quantitySpan}</h3>)
+      conceptSections.push(<ul>{conceptIds[conceptId]}</ul>)
+    })
+    return conceptSections
+  }
+
+  renderQuestionsAsList(questionsForLesson) {
+    return questionsForLesson.map((question: Question) => {
+      const { prompt, key, concept_uid} = question
+      const displayName = prompt || 'No question prompt';
+      return <p key={key}><Link to={`/admin/questions/${question.key}`}>{displayName.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, '')}</Link></p>
+    })
+  }
+
   renderQuestionsForLesson(): JSX.Element[]|JSX.Element {
-    const questionsForLesson = this.questionsForLesson();
-    if (questionsForLesson) {
-      const conceptIds: {[key: string]: JSX.Element[]} = {}
-      questionsForLesson.forEach((question: Question) => {
-        const { prompt, key, concept_uid} = question
-        const displayName = prompt || 'No question prompt';
-        const questionLink = <li key={key}><Link to={`/admin/questions/${question.key}`}>{displayName.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, '')}</Link></li>
-        if (conceptIds[concept_uid]) {
-          conceptIds[concept_uid].push(questionLink)
-        } else {
-          conceptIds[concept_uid] = [questionLink]
-        }
-      });
-      const conceptSections: JSX.Element[] = []
-      const lesson = this.lesson()
-      Object.keys(conceptIds).forEach(conceptId => {
-        const lessonConcept = lesson ? lesson.concepts[conceptId] : null
-        const quantity = lessonConcept ? lessonConcept.quantity : null
-        const concept = this.props.concepts.data[0] ? this.props.concepts.data[0].find(c => c.uid === conceptId) : null
-        const quantitySpan = <span style={{ fontStyle: 'italic' }}>{quantity} {quantity === 1 ? 'Question' : 'Questions'} Chosen at Random</span>
-        conceptSections.push(<br/>)
-        conceptSections.push(<h3>{concept ? concept.displayName : null} - {quantitySpan}</h3>)
-        conceptSections.push(<ul>{conceptIds[conceptId]}</ul>)
+    const { data, } = this.props.lessons
+    const { lessonID, } = this.props.match.params
+    const lessonQuestions = data[lessonID].questions
+    const lessonConcepts = data[lessonID].concepts
+    let questionsForLesson
+    if (lessonQuestions) {
+      questionsForLesson = lessonQuestions.map(q => {
+        const question = this.props.questions.data[q.key]
+        question.key = q.key
+        return question
       })
-      return conceptSections
+      return this.renderQuestionsAsList(questionsForLesson)
+    } else if (lessonConcepts) {
+      const questions = this.props.questions ? hashToCollection(this.props.questions.data) : []
+      const conceptUids = Object.keys(data[lessonID].concepts)
+      questionsForLesson = questions.filter(q => conceptUids.includes(q.concept_uid))
+      return this.renderQuestionsByConcept(questionsForLesson)
     }
     return (
       <ul>No questions</ul>
