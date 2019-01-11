@@ -9,13 +9,17 @@ class ProgressReports::DistrictStandardsReports
     # Uncomment the line below, and comment out the sql query, to bypass
     # The database while testing
     # [{"id"=>"1", "name"=>"class 1b", "section_name"=>"how to tell cactus from cow", "total_activity_count"=>"2", "total_student_count"=>"33", "proficient_count"=>"15"}]
-    ActiveRecord::Base.connection.execute(query).to_a
 
+    if user_ids.length > 0
+      ActiveRecord::Base.connection.execute(query(user_ids)).to_a
+    else
+      []
+    end
   end
 
   private
 
-  def query
+  def query(user_ids)
     <<~SQL
     WITH final_activity_sessions AS (
       SELECT activity_sessions.*, activities.topic_id FROM activity_sessions
@@ -24,12 +28,7 @@ class ProgressReports::DistrictStandardsReports
         JOIN topics ON topics.id = activities.topic_id
         JOIN classrooms_teachers on classrooms_teachers.classroom_id = classroom_units.classroom_id
         WHERE activity_sessions.is_final_score
-        AND classrooms_teachers.user_id in (SELECT schools_users.user_id FROM users as researcher
-          JOIN schools_admins ON schools_admins.user_id = researcher.id
-          JOIN schools ON schools.id = schools_admins.school_id
-          JOIN schools_users ON schools_users.school_id = schools.id
-          WHERE researcher.id = #{admin_id}
-        )
+        AND classrooms_teachers.user_id in (#{user_ids})
         AND activity_sessions.visible
             AND classroom_units.visible
     ) SELECT
@@ -50,6 +49,17 @@ class ProgressReports::DistrictStandardsReports
       GROUP BY topics.id, sections.name
       ORDER BY topics.name ASC;
    SQL
+  end
+
+  def user_ids
+    user_id_query = <<~SQL
+      SELECT schools_users.user_id FROM users as researcher
+        JOIN schools_admins ON schools_admins.user_id = researcher.id
+        JOIN schools ON schools.id = schools_admins.school_id
+        JOIN schools_users ON schools_users.school_id = schools.id
+        WHERE researcher.id = #{admin_id}
+    SQL
+    ActiveRecord::Base.connection.execute(user_id_query).to_a.join(',')
   end
 
 end
