@@ -9,9 +9,9 @@ class ProgressReports::DistrictStandardsReports
     # Uncomment the line below, and comment out the sql query, to bypass
     # The database while testing
     # [{"id"=>"1", "name"=>"class 1b", "section_name"=>"how to tell cactus from cow", "total_activity_count"=>"2", "total_student_count"=>"33", "proficient_count"=>"15"}]
-
-    if user_ids.length > 0
-      ActiveRecord::Base.connection.execute(query(user_ids)).to_a
+    ids = user_ids(admin_id)
+    if ids.length > 0
+      ActiveRecord::Base.connection.execute(query(ids)).to_a
     else
       []
     end
@@ -51,7 +51,7 @@ class ProgressReports::DistrictStandardsReports
    SQL
   end
 
-  def user_ids
+  def user_ids(admin_id)
     user_id_query = <<~SQL
       SELECT schools_users.user_id FROM users as researcher
         JOIN schools_admins ON schools_admins.user_id = researcher.id
@@ -59,7 +59,7 @@ class ProgressReports::DistrictStandardsReports
         JOIN schools_users ON schools_users.school_id = schools.id
         WHERE researcher.id = #{admin_id}
     SQL
-    ActiveRecord::Base.connection.execute(user_id_query).to_a.join(',')
+    ActiveRecord::Base.connection.execute(user_id_query).to_a.map {|h| h["user_id"] }.join(',')
   end
 
 end
