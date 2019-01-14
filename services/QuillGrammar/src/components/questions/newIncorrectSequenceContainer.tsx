@@ -24,18 +24,17 @@ class NewIncorrectSequencesContainer extends React.Component {
   }
 
   render() {
-    const {generatedIncorrectSequences, params, questions, fillInBlank, sentenceFragments, diagnosticQuestions, states} = this.props
+    const {generatedIncorrectSequences, match, questions} = this.props
     return (
       <div>
         <IncorrectSequencesInputAndConceptSelectorForm
           itemLabel='Incorrect Sequence'
           onSubmit={this.submitSequenceForm}
-          suggestedSequences={this.props.generatedIncorrectSequences.suggested[this.props.match.params.questionID]}
-          usedSequences={this.props.generatedIncorrectSequences.used[this.props.match.params.questionID]}
-          coveredSequences={this.props.generatedIncorrectSequences.covered[this.props.match.params.questionID]}
-          questions={this.props.questions}
-          questionID={this.props.match.params.questionID}
-          states
+          suggestedSequences={generatedIncorrectSequences.suggested[match.params.questionID]}
+          usedSequences={generatedIncorrectSequences.used[match.params.questionID]}
+          coveredSequences={generatedIncorrectSequences.covered[match.params.questionID]}
+          questions={questions}
+          questionID={match.params.questionID}
         />
         {this.props.children}
       </div>
@@ -46,8 +45,7 @@ class NewIncorrectSequencesContainer extends React.Component {
 function select(props) {
   return {
     questions: props.questions,
-    generatedIncorrectSequences: props.generatedIncorrectSequences,
-    states: props.states
+    generatedIncorrectSequences: props.generatedIncorrectSequences
   };
 }
 

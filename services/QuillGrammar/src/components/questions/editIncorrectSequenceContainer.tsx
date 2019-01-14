@@ -28,7 +28,7 @@ class EditIncorrectSequencesContainer extends React.Component {
   }
 
   render() {
-    const {generatedIncorrectSequences, match, questions, states} = this.props
+    const {generatedIncorrectSequences, match, questions} = this.props
     return (
       <div>
         <IncorrectSequencesInputAndConceptSelectorForm
@@ -40,7 +40,6 @@ class EditIncorrectSequencesContainer extends React.Component {
           item={Object.assign(this.getIncorrectSequence(), { id: match.params.incorrectSequenceID, })}
           questions={questions}
           questionID={match.params.questionID}
-          states
         />
         {this.props.children}
       </div>
@@ -51,11 +50,7 @@ class EditIncorrectSequencesContainer extends React.Component {
 function select(props) {
   return {
     questions: props.questions,
-    generatedIncorrectSequences: props.generatedIncorrectSequences,
-    fillInBlank: props.fillInBlank,
-    sentenceFragments: props.sentenceFragments,
-    diagnosticQuestions: props.diagnosticQuestions,
-    states: props.states
+    generatedIncorrectSequences: props.generatedIncorrectSequences
   };
 }
 

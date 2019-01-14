@@ -4,7 +4,7 @@ import { push } from 'react-router-redux';
 import rootRef from '../firebase';
 import { ActionTypes } from './actionTypes'
 const questionsRef = rootRef.child('questions')
-import { Questions, Question } from '../interfaces/questions'
+import { Questions, Question, FocusPoint, IncorrectSequence } from '../interfaces/questions'
 import * as responseActions from './responses'
 import { Response, ConceptResult } from 'quill-marking-logic'
 
@@ -186,9 +186,9 @@ export const saveOptimalResponse = (qid: string, conceptUid: string, answer: {te
   }
 }
 
-export const submitNewIncorrectSequence = (qid: string, data) => {
+export const submitNewIncorrectSequence = (qid: string, data: IncorrectSequence) => {
   return (dispatch: Function) => {
-    questionsRef.child(`${qid}/incorrectSequences`).push(data, (error) => {
+    questionsRef.child(`${qid}/incorrectSequences`).push(data, (error: string) => {
       if (error) {
         alert(`Submission failed! ${error}`);
       }
@@ -196,9 +196,9 @@ export const submitNewIncorrectSequence = (qid: string, data) => {
   };
 }
 
-export const submitEditedIncorrectSequence = (qid: string, data, seqid: string) => {
+export const submitEditedIncorrectSequence = (qid: string, data: IncorrectSequence, seqid: string) => {
   return (dispatch: Function) => {
-    questionsRef.child(`${qid}/incorrectSequences/${seqid}`).update(data, (error) => {
+    questionsRef.child(`${qid}/incorrectSequences/${seqid}`).update(data, (error: string) => {
       if (error) {
         alert(`Submission failed! ${error}`);
       }
@@ -208,7 +208,7 @@ export const submitEditedIncorrectSequence = (qid: string, data, seqid: string) 
 
 export const deleteIncorrectSequence = (qid: string, seqid: string) => {
   return (dispatch: Function) => {
-    questionsRef.child(`${qid}/incorrectSequences/${seqid}`).remove((error) => {
+    questionsRef.child(`${qid}/incorrectSequences/${seqid}`).remove((error: string) => {
       if (error) {
         alert(`Delete failed! ${error}`);
       }
@@ -216,12 +216,50 @@ export const deleteIncorrectSequence = (qid: string, seqid: string) => {
   };
 }
 
-export const updateIncorrectSequences = (qid: string, data) => {
-  questionsRef.child(`${qid}/incorrectSequences`).set(data, (error) => {
+export const updateIncorrectSequences = (qid: string, data: Array<IncorrectSequence>) => {
+  questionsRef.child(`${qid}/incorrectSequences`).set(data, (error: string) => {
     if (error) {
       alert(`Order update failed! ${error}`);
     }
   });
+}
+
+export const submitNewFocusPoint = (qid:string, data: FocusPoint) => {
+  questionsRef.child(`${qid}/focusPoints`).push(data, (error: string) => {
+    if (error) {
+      alert(`Submission failed! ${error}`);
+    }
+  });
+}
+
+export const submitEditedFocusPoint = (qid:string, data: FocusPoint, fpid: string) => {
+  return (dispatch: Function) => {
+    questionsRef.child(`${qid}/focusPoints/${fpid}`).update(data, (error: string) => {
+      if (error) {
+        alert(`Submission failed! ${error}`);
+      }
+    });
+  };
+}
+
+export const submitBatchEditedFocusPoint = (qid:string, data: Array<FocusPoint>) => {
+  return (dispatch: Function) => {
+    questionsRef.child(`${qid}/focusPoints/`).set(data, (error: string) => {
+      if (error) {
+        alert(`Submission failed! ${error}`);
+      }
+    });
+  };
+}
+
+export const deleteFocusPoint = (qid:string, fpid: string) => {
+  return (dispatch: Function) => {
+    questionsRef.child(`${qid}/focusPoints/${fpid}`).remove((error: string) => {
+      if (error) {
+        alert(`Delete failed! ${error}`);
+      }
+    });
+  };
 }
 
 export const getSuggestedSequences = (qid: string) => {
