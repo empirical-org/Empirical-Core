@@ -57,7 +57,7 @@ class ProgressReports::DistrictStandardsReports
         JOIN schools_admins ON schools_admins.user_id = researcher.id
         JOIN schools ON schools.id = schools_admins.school_id
         JOIN schools_users ON schools_users.school_id = schools.id
-        WHERE researcher.id = #{admin_id}
+        WHERE researcher.id = #{@admin_id}
     SQL
     ActiveRecord::Base.connection.execute(user_id_query).to_a.join(',')
   end
