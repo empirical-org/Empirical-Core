@@ -80,7 +80,10 @@ module Units::Updater
     end
     new_cus = new_cus.uniq { |cu| cu['classroom_id'] || cu[:classroom_id] }
     new_uas = new_uas.uniq { |ua| ua['activity_id'] || ua[:activity_id] }
-    ClassroomUnit.create(new_cus)
+    new_cus.each do |cu|
+      classroom_unit = ClassroomUnit.create(cu)
+      GoogleIntegration::UnitAnnouncement.new(classroom_unit).post
+    end
     ClassroomUnit.where(id: hidden_cus_ids).update_all(visible: false)
     UnitActivity.create(new_uas)
     UnitActivity.where(id: hidden_ua_ids).update_all(visible: false)
