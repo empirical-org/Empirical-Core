@@ -33,7 +33,9 @@ module Units::Updater
         hidden_cus_ids.push(matching_cu.id)
       elsif (matching_cu.assigned_student_ids != classroom[:student_ids]) || matching_cu.assign_on_join != classroom[:assign_on_join]
         # then something changed and we should update
+        google_unit_announcement = GoogleIntegration::UnitAnnouncement.new(matching_cu)
         matching_cu.update!(assign_on_join: classroom[:assign_on_join], assigned_student_ids: classroom[:student_ids], visible: true)
+        google_unit_announcement.update_recipients(classroom[:student_ids])
       elsif !matching_cu.visible
         matching_cu.update!(visible: true)
       end
