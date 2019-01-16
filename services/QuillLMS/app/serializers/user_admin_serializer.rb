@@ -4,8 +4,12 @@ class UserAdminSerializer < ActiveModel::Serializer
 
   def teachers
     teacher_ids = User.find(object.id).admins_teachers
-    teachers_data = TeachersData.run(teacher_ids)
-    teachers_data.map{|t| Admin::TeacherSerializer.new(t, root: false) }
+    if teacher_ids
+      teachers_data = TeachersData.run(teacher_ids)
+      teachers_data.map{|t| Admin::TeacherSerializer.new(t, root: false) }
+    else
+      []
+    end
   end
 
   def valid_subscription
