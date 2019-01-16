@@ -8,7 +8,9 @@ export default function checkAnswer(question, response, responses, mode= 'defaul
     responses: responses ? hashToCollection(responses) : [],
     questionUID: question.key
   };
+  const focusPoints = question.focusPoints ? hashToCollection(question.focusPoints) : [];
+  const incorrectSequences = question.incorrectSequences ? hashToCollection(question.incorrectSequences) : [];
   const defaultConceptUID = question.modelConceptUID || question.concept_uid
-  const responseObj = checkGrammarQuestion(fields.questionUID, response, fields.responses, defaultConceptUID)
+  const responseObj = checkGrammarQuestion(fields.questionUID, response, fields.responses, focusPoints, incorrectSequences, defaultConceptUID)
   return {response: responseObj};
 }
