@@ -9,6 +9,7 @@ import { getActivity } from "../../actions/grammarActivities";
 import {
   updateSessionOnFirebase,
   getQuestionsForConcepts,
+  getQuestions,
   goToNextQuestion,
   checkAnswer,
   setSessionReducerToSavedSession,
@@ -78,9 +79,13 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
     }
 
     componentWillReceiveProps(nextProps: PlayGrammarContainerProps) {
-      if (nextProps.grammarActivities.hasreceiveddata && !nextProps.session.hasreceiveddata && !nextProps.session.error) {
-        const concepts = nextProps.grammarActivities.currentActivity.concepts
-        this.props.dispatch(getQuestionsForConcepts(concepts))
+      if (nextProps.grammarActivities.hasreceiveddata && !nextProps.session.hasreceiveddata && !nextProps.session.pending && !nextProps.session.error) {
+        const { questions, concepts } = nextProps.grammarActivities.currentActivity
+        if (questions) {
+          this.props.dispatch(getQuestions(questions))
+        } else {
+          this.props.dispatch(getQuestionsForConcepts(concepts))
+        }
       }
 
       if (nextProps.session.hasreceiveddata && !nextProps.session.currentQuestion && nextProps.session.unansweredQuestions.length === 0 && nextProps.session.answeredQuestions.length > 0) {

@@ -3,9 +3,9 @@ FactoryBot.define do
     unit            { create(:unit) }
     activity        { create(:activity, :production) }
 
-	  factory :unit_activity_with_activity do
-	     activity { Activity.first || create(:activity) }
-	  end
+    factory :unit_activity_with_activity do
+       activity { Activity.first || create(:activity) }
+    end
 
     trait :diagnostic_unit_activity do
       activity { create(:diagnostic_activity, :production) }
