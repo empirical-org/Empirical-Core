@@ -12,8 +12,6 @@ export default class ResponseList extends React.Component {
       responses={this.props.responses}
       getResponse={this.props.getResponse}
       getChildResponses={this.props.getChildResponses}
-      states={this.props.states}
-      state={this.props.states[this.props.questionID]}
       questionID={this.props.questionID}
       dispatch={this.props.dispatch}
       readOnly={this.props.admin}
