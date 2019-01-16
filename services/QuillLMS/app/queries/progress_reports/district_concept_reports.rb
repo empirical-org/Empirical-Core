@@ -38,8 +38,8 @@ class ProgressReports::DistrictConceptReports
         JOIN users AS students ON students.id = activity_sessions.user_id
         JOIN concept_results ON concept_results.activity_session_id =
           activity_sessions.id
-        WHERE schools_admins.user_id = #{admin_id}
-        GROUP BY students.id, teachers.name, classrooms.name, schools.name
+        WHERE schools_admins.user_id = #{@admin_id}
+        GROUP BY student_id, teacher_name, classroom_name, school_name
     )
     SELECT
       school_name,
