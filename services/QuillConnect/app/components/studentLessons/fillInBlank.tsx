@@ -13,7 +13,8 @@ import {
   WarningDialogue,
   Prompt,
   Instructions,
-  hashToCollection
+  hashToCollection,
+  ConceptExplanation
 } from 'quill-component-library/dist/componentLibrary'
 import Feedback from '../renderForQuestions/feedback'
 import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
@@ -249,6 +250,48 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     );
   }
 
+  getNegativeConceptResultsForResponse(conceptResults) {
+    return hashToCollection(conceptResults).filter(cr => !cr.correct);
+  }
+
+  getNegativeConceptResultForResponse(conceptResults) {
+    const negCRs = this.getNegativeConceptResultsForResponse(conceptResults);
+    return negCRs.length > 0 ? negCRs[0] : undefined;
+  }
+
+  renderConceptExplanation() {
+    const latestAttempt:{response: Response}|undefined = this.getLatestAttempt(this.props.question.attempts);
+    if (latestAttempt) {
+      if (!latestAttempt.response.optimal && latestAttempt.response.conceptResults) {
+          const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.response.conceptResults);
+          if (conceptID) {
+            const data = this.props.conceptsFeedback.data[conceptID.conceptUID];
+            if (data) {
+              return <ConceptExplanation {...data} />;
+            }
+          }
+      } else if (latestAttempt.response && !latestAttempt.response.optimal && latestAttempt.response.concept_results) {
+        const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.response.concept_results);
+        if (conceptID) {
+          const data = this.props.conceptsFeedback.data[conceptID.conceptUID];
+          if (data) {
+            return <ConceptExplanation {...data} />;
+          }
+        }
+      } else if (this.getQuestion() && this.getQuestion().modelConceptUID) {
+        const dataF = this.props.conceptsFeedback.data[this.getQuestion().modelConceptUID];
+        if (dataF) {
+          return <ConceptExplanation {...dataF} />;
+        }
+      } else if (this.getQuestion().conceptID) {
+        const data = this.props.conceptsFeedback.data[this.getQuestion().conceptID];
+        if (data) {
+          return <ConceptExplanation {...data} />;
+        }
+      }
+    }
+  }
+
   getPromptElements() {
     if (this.state.splitPrompt) {
       const { splitPrompt, } = this.state;
@@ -382,14 +425,16 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
         <div style={{marginTop: 20}} className="question-button-group button-group">
           {this.renderButton()}
         </div>
+        {this.renderConceptExplanation()}
       </div>
     );
   }
 
 }
 
-function select(props) {
+function select(state) {
   return {
+    conceptsFeedback: state.conceptsFeedback,
   };
 }
 
