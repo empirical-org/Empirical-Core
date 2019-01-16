@@ -354,7 +354,7 @@ function getMatcherFields(type, question, responses) {
       mlUrl: CMS_URL,
       defaultConceptUID
     };
-  } else if (type === 'fillInBlankQuestions' || type === 'diagnostic_fillInBlankQuestions' || type === 'grammar_questions') {
+  } else if (type === 'fillInBlankQuestions' || type === 'diagnostic_fillInBlankQuestions') {
     return [question.key, hashToCollection(responses), defaultConceptUID]
   } else {
     return [question.key, responseArray, focusPoints, incorrectSequences, defaultConceptUID]
