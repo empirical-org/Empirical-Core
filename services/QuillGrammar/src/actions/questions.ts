@@ -172,7 +172,7 @@ export const submitQuestionEdit = (qid: string, content: Question) => {
 export const saveOptimalResponse = (qid: string, conceptUid: string, answer: {text: string}) => {
   return (dispatch: Function) => {
     if (answer.text) {
-      const conceptResults = [{[conceptUid]: true}]
+      const conceptResults = [{ conceptUID: conceptUid, correct: true }]
       const formattedResponse = {
         optimal: true,
         count: 1,

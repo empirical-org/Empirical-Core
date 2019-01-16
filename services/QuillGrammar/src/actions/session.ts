@@ -23,7 +23,24 @@ export const setSessionReducerToSavedSession = (sessionID: string) => {
     sessionsRef.child(sessionID).once('value', (snapshot) => {
       const session = snapshot.val()
       if (session && !session.error) {
-        dispatch(setSessionReducer(session))
+        questionsRef.orderByChild('concept_uid').once('value', (questionsSnapshot) => {
+          const allQuestions = questionsSnapshot.val()
+          if (!session.currentQuestion.prompt || !session.currentQuestion.answers) {
+            const currentQuestion = allQuestions[session.currentQuestion.uid]
+            currentQuestion.uid = session.currentQuestion.uid
+            session.currentQuestion = currentQuestion
+          }
+          session.unansweredQuestions = session.unansweredQuestions.map((q) => {
+            if (q.prompt && q.answers && q.uid) {
+              return q
+            } else {
+              const question = allQuestions[q.uid]
+              question.uid = q.uid
+              return question
+            }
+          })
+          dispatch(setSessionReducer(session))
+        })
       }
     })
   }
@@ -57,7 +74,7 @@ export const startListeningToFollowUpQuestionsForProofreaderSession = (proofread
 // typescript this
 export const getQuestionsForConcepts = (concepts: any) => {
   return dispatch => {
-
+    dispatch({ type: ActionTypes.SET_SESSION_PENDING, pending: true })
     const conceptUIDs = Object.keys(concepts)
     questionsRef.orderByChild('concept_uid').once('value', (snapshot) => {
       const questions = snapshot.val()
@@ -87,8 +104,29 @@ export const getQuestionsForConcepts = (concepts: any) => {
       } else {
         dispatch({ type: ActionTypes.NO_QUESTIONS_FOUND_FOR_SESSION})
       }
+      dispatch({ type: ActionTypes.SET_SESSION_PENDING, pending: false })
     });
 
+  }
+}
+
+export const getQuestions = (questions: any) => {
+  return dispatch => {
+    dispatch({ type: ActionTypes.SET_SESSION_PENDING, pending: true })
+    questionsRef.once('value', (snapshot) => {
+      const allQuestions = snapshot.val()
+      const arrayOfQuestions = questions.map(q => {
+        const question = allQuestions[q.key]
+        question.uid = q.key
+        return question
+      })
+      if (arrayOfQuestions.length > 0) {
+        dispatch({ type: ActionTypes.RECEIVE_QUESTION_DATA, data: arrayOfQuestions, });
+      } else {
+        dispatch({ type: ActionTypes.NO_QUESTIONS_FOUND_FOR_SESSION})
+      }
+      dispatch({ type: ActionTypes.SET_SESSION_PENDING, pending: false })
+    })
   }
 }
 
