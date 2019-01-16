@@ -1,11 +1,14 @@
+import { Questions } from './questions'
+
 export interface GrammarActivities {
   [key: string]: GrammarActivity
 }
 
 export interface GrammarActivity {
-  concepts: Concepts;
   description: string;
   title: string;
+  questions?: Questions;
+  concepts?: Concepts;
   flag?: string;
 }
 
