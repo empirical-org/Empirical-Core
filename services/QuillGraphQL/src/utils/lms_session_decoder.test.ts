@@ -13,3 +13,8 @@ test('parsing a cookies string', () => {
   }
   expect(parseCookiesString(testCookie)).toEqual(expected)
 });
+
+test('retrieving a token from a parsed cookie', () => {
+  const parsed = parseCookiesString(testCookie);
+  expect(parsed["a"]).toEqual("1");
+});
