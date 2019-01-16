@@ -1,6 +1,7 @@
 class ConceptReplacementCMSWorker
   include Sidekiq::Worker
-
+  sidekiq_options queue: 'low'
+  
   def perform(original_concept_uid, new_concept_uid)
     data = {
       new_concept_uid: new_concept_uid,
