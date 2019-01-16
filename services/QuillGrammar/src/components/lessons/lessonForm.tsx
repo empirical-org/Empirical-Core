@@ -52,6 +52,7 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
     this.sortCallback = this.sortCallback.bind(this)
     this.renderSearchBox = this.renderSearchBox.bind(this)
     this.handleSearchChange = this.handleSearchChange.bind(this)
+    this.handleQuestionChange = this.handleQuestionChange.bind(this)
   }
 
   submit() {
