@@ -133,6 +133,8 @@ export const ActionTypes = {
       'Flexible Missing Word Hint',
       'Whitespace Hint',
       'Spelling Hint',
+      'Focus Point Hint',
+      'Incorrect Sequence Hint'
     ],
 
     // STATE
