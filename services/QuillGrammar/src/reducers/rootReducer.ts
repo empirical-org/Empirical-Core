@@ -10,6 +10,7 @@ import responses from './responsesReducer'
 import massEdit from './massEditReducer'
 import filters from './filtersReducer'
 import conceptsFeedback from './conceptsFeedbackReducer'
+import generatedIncorrectSequences from './generatedIncorrectSequencesReducer'
 
 export const initState: IState = {
     grammarActivities: {},
@@ -20,7 +21,8 @@ export const initState: IState = {
     responses: {},
     massEdit: {},
     filters: {},
-    conceptsFeedback: {}
+    conceptsFeedback: {},
+    generatedIncorrectSequences: {}
 };
 
 export const rootReducer = combineReducers({
@@ -32,5 +34,6 @@ export const rootReducer = combineReducers({
     responses,
     massEdit,
     filters,
-    conceptsFeedback
+    conceptsFeedback,
+    generatedIncorrectSequences
 });
