@@ -6,9 +6,10 @@ import UnitTemplateProfileShareButtons from './unit_templates_manager/unit_templ
 import LoadingIndicator from '../shared/loading_indicator'
 
 export default class UnitTemplateAssigned extends React.Component {
+  constructor(props) {
+    super(props)
 
-  getInitialState() {
-    return {
+    this.state = {
       loading: true,
       data: null,
       lastUnitId: ''
@@ -99,28 +100,25 @@ export default class UnitTemplateAssigned extends React.Component {
   }
 
   renderSharingContainer() {
-    const { name, id } = this.state.data
-    if (name && id) {
-      return <div className='sharing-container'>
-        <h2>
-          Share Quill With Your Colleagues
-        </h2>
-        <p className='nonprofit-copy'>
-          We’re a nonprofit providing free literacy activities. The more people <br></br>
-          who use Quill, the more free activities we can create.
-        </p>
-        <p className='social-copy'>
-          <i>{this.socialShareCopy()}</i>
-        </p>
-        <div className='container'>
-          <UnitTemplateProfileShareButtons text={this.socialShareCopy()} url={this.socialShareUrl()} />
-        </div>
+    return <div className='sharing-container'>
+      <h2>
+        Share Quill With Your Colleagues
+      </h2>
+      <p className='nonprofit-copy'>
+        We’re a nonprofit providing free literacy activities. The more people <br></br>
+        who use Quill, the more free activities we can create.
+      </p>
+      <p className='social-copy'>
+        <i>{this.socialShareCopy()}</i>
+      </p>
+      <div className='container'>
+        <UnitTemplateProfileShareButtons text={this.socialShareCopy()} url={this.socialShareUrl()} />
       </div>
-    }
+    </div>
   }
 
   render() {
-    if(this.state.loading) {
+    if (this.state.loading) {
       return(<LoadingIndicator />);
     }
 
@@ -139,7 +137,7 @@ export default class UnitTemplateAssigned extends React.Component {
         </div>
       </div>
     </div>
-    {this.renderSharingContainer}
+    {this.renderSharingContainer()}
     </div>
   );
   }
