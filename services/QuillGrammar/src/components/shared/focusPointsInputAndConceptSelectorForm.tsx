@@ -181,6 +181,7 @@ export default class FocusPointsInputAndConceptResultSelectorForm extends React.
             question={dataset}
             mode={mode}
             questionID={this.props.questionID}
+            states={this.props.questions.states}
           />
         </div>
       </div>

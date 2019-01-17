@@ -28,12 +28,26 @@ export default class ResponseList extends React.Component {
 
   incorrectSequenceMatchHelper(responseString, sequenceParticle) {
     const matchList = sequenceParticle.split('&&');
-    return _.every(matchList, m => new RegExp(m).test(responseString));
+    return _.every(matchList, m => {
+      try {
+        return new RegExp(m).test(responseString)
+      } catch(e) {
+        console.log('e', e)
+        return false;
+      }
+    })
   }
 
   focusPointMatchHelper(responseString, sequenceParticle) {
     const matchList = sequenceParticle.split('&&');
-    return _.every(matchList, m => new RegExp(m, 'i').test(responseString));
+    return _.every(matchList, m => {
+      try {
+        return new RegExp(m).test(responseString)
+      } catch(e) {
+        console.log('e', e)
+        return false;
+      }
+    })
   }
 
   addAllResponsesToMassEdit() {
@@ -76,6 +90,8 @@ export default class ResponseList extends React.Component {
       concepts={this.props.concepts}
       conceptID={this.props.conceptID}
       massEdit={this.props.massEdit}
+      states={this.props.states}
+      state={this.props.states[this.props.questionID]}
     />
   }
 
