@@ -253,7 +253,7 @@ export default class IncorrectSequencesInputAndConceptSelectorForm extends React
             selectedIncorrectSequences={this.state.itemText.split(/\|{3}(?!\|)/)}
             question={dataset}
             mode={mode}
-            states={this.props.states}
+            states={this.props.questions.states}
             questionID={this.props.questionID}
           />
         </div>
