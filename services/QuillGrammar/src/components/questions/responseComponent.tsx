@@ -116,6 +116,9 @@ class ResponseComponent extends React.Component {
   componentDidUpdate(prevProps) {
     if (!_.isEqual(this.props.filters.formattedFilterData, prevProps.filters.formattedFilterData)) {
       this.searchResponses();
+    } else if (this.props.states && this.props.states[this.props.questionID] === ActionTypes.SHOULD_RELOAD_RESPONSES && prevProps.states[prevProps.questionID] !== ActionTypes.SHOULD_RELOAD_RESPONSES) {
+      this.props.dispatch(questionActions.clearQuestionState(this.props.questionID));
+      this.searchResponses();
     }
   }
 
