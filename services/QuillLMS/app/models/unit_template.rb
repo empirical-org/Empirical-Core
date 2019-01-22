@@ -6,13 +6,14 @@ class UnitTemplate < ActiveRecord::Base
   has_many :recommendations, dependent: :destroy
   serialize :grades, Array
 
-  validates :flag,                  inclusion: { in: %w(archived alpha beta production),
+  validates :flag,                  inclusion: { in: %w(archived alpha beta production private),
                                     message: "%{value} is not a valid flag" }, :allow_nil => true
 
 
   scope :production, -> {where("unit_templates.flag IN('production') OR unit_templates.flag IS null")}
   scope :beta_user, -> { where("unit_templates.flag IN('production','beta') OR unit_templates.flag IS null")}
   scope :alpha_user, -> { where("unit_templates.flag IN('production','beta','alpha') OR unit_templates.flag IS null")}
+  scope :private_user, -> { where("unit_templates.flag IN('private', 'production','beta','alpha') OR unit_templates.flag IS null")}
   around_save :delete_relevant_caches
 
 
@@ -39,7 +40,9 @@ class UnitTemplate < ActiveRecord::Base
   # end
 
   def self.user_scope(user_flag)
-    if user_flag == 'alpha'
+    if user_flag == 'private'
+      UnitTemplate.private_user
+    elsif user_flag == 'alpha'
       UnitTemplate.alpha_user
     elsif user_flag == 'beta'
       UnitTemplate.beta_user
