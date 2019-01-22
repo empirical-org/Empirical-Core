@@ -50,11 +50,32 @@ interface ConceptResults {
 // }
 
 export function rematchAll(mode: string, question: Question, questionID: string, callback:Function) {
-  const matcher = getMatcher(mode);
-  getGradedResponses(questionID).then((data) => {
-    question.key = questionID
-    const matcherFields = getMatcherFields(mode, question, formatGradedResponses(data));
-    paginatedNonHumanResponses(matcher, matcherFields, questionID, 1, callback);
+  let type
+  if (mode === 'sentenceFragments') {
+    type = 'diagnostic_sentenceFragments';
+  } else if (mode === 'questions') {
+    type = 'diagnostic_questions';
+  } else if (mode === 'fillInBlank') {
+    type = 'diagnostic_fillInBlankQuestions';
+  }
+
+  fetch('https://p8147zy7qj.execute-api.us-east-1.amazonaws.com/prod', {
+    method: 'POST',
+    body: JSON.stringify({type, uid: questionID}),
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    },
+  }).then((response) => {
+    if (!response.ok) {
+      throw Error(response.statusText);
+    }
+    return response.json();
+  }).then((response) => {
+    console.log('success');
+    callback('done')
+  }).catch((error) => {
+    console.log('error', error);
   });
 }
 

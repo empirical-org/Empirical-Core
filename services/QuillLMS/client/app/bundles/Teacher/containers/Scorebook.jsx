@@ -96,9 +96,14 @@ export default React.createClass({
       const selectedClassroom = this.state.classrooms.find(c => c.id === selectedClassroomId);
       if (selectedClassroom) {
         state.selectedClassroom = selectedClassroom;
+      } else {
+        state.selectedClassroom = this.props.allClassrooms[0]
       }
     } else {
       state.selectedClassroom = this.props.allClassrooms[0]
+    }
+    if (state.selectedClassroom) {
+      this.getUpdatedUnits(state.selectedClassroom.id)
     }
     if (dateFilterName) {
       const dateRangeFilterOption = this.DATE_RANGE_FILTER_OPTIONS.find(o => o.title === dateFilterName)
@@ -122,7 +127,7 @@ export default React.createClass({
     const newCurrentPage = this.state.currentPage + 1;
     this.setState({ loading: true, currentPage: newCurrentPage, });
     if (!this.state.selectedClassroom) {
-      this.setState({ missing: 'classrooms', });
+      this.setState({ missing: 'classrooms', loading: false, });
       return;
     }
     $.ajax({

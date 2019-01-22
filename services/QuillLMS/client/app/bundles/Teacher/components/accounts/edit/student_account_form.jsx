@@ -41,7 +41,7 @@ export default class StudentAccountForm extends React.Component {
   render () {
     let submitButton, email
     // email and submitButton should only show for the student page
-    if (window.location.pathname === '/account_settings') {
+    if (window.location.pathname === '/account_settings' && this.state.notGoogleUser) {
       submitButton = (
         <div className="row">
           <div className="col-xs-4 offset-xs-2">

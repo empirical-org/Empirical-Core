@@ -4,8 +4,12 @@ class Api::V1::ProgressReportsController < Api::ApiController
 
   def activities_scores_by_classroom_data
     classroom_ids = current_user.classrooms_i_teach.map(&:id)
-    data = ProgressReports::ActivitiesScoresByClassroom.results(classroom_ids)
-    render json: { data: data }
+    if classroom_ids.length > 0
+      data = ProgressReports::ActivitiesScoresByClassroom.results(classroom_ids)
+      render json: { data: data }
+    else
+      render json: { data: [] }
+    end
   end
 
   def real_time_data
@@ -16,22 +20,46 @@ class Api::V1::ProgressReportsController < Api::ApiController
 
   def district_activity_scores
     if current_user.admin?
-      data = ProgressReports::DistrictActivityScores.new(current_user.id).results
-      render json: { data: data }
+      serialized_district_activity_scores_json = $redis.get("SERIALIZED_DISTRICT_ACTIVITY_SCORES_FOR_#{current_user.id}")
+      if serialized_district_activity_scores_json
+        serialized_district_activity_scores = JSON.parse(serialized_district_activity_scores_json)
+      end
+      if serialized_district_activity_scores.nil?
+        FindDistrictActivityScoresWorker.perform_async(current_user.id)
+        render json: { id: current_user.id }
+      else
+        render json: { data: serialized_district_activity_scores }
+      end
     end
   end
 
   def district_concept_reports
     if current_user.admin?
-      data = ProgressReports::DistrictConceptReports.new(current_user.id).results
-      render json: { data: data }
+      serialized_district_concept_reports_json = $redis.get("SERIALIZED_DISTRICT_CONCEPT_REPORTS_FOR_#{current_user.id}")
+      if serialized_district_concept_reports_json
+        serialized_district_concept_reports = JSON.parse(serialized_district_concept_reports_json)
+      end
+      if serialized_district_concept_reports.nil?
+        FindDistrictConceptReportsWorker.perform_async(current_user.id)
+        render json: { id: current_user.id }
+      else
+        render json: { data: serialized_district_concept_reports }
+      end
     end
   end
 
   def district_standards_reports
     if current_user.admin?
-      data = ProgressReports::DistrictStandardsReports.new(current_user.id).results
-      render json: { data: data }
+      serialized_district_standards_reports_json = $redis.get("SERIALIZED_DISTRICT_STANDARDS_REPORTS_FOR_#{current_user.id}")
+      if serialized_district_standards_reports_json
+        serialized_district_standards_reports = JSON.parse(serialized_district_standards_reports_json)
+      end
+      if serialized_district_standards_reports.nil?
+        FindDistrictStandardsReportsWorker.perform_async(current_user.id)
+        render json: { id: current_user.id }
+      else
+        render json: { data: serialized_district_standards_reports }
+      end
     end
   end
 

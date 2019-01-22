@@ -21,7 +21,7 @@
 <% end %>
 
 <nav class="q-navbar-home">
-  <% if ['account/new', 'session', 'password_reset', 'sign-up'].any? { |str| current_path.include?(str)} %>
+  <% if ['account/new', '/session', 'password_reset', 'sign-up'].any? { |str| current_path.include?(str)} %>
     <div class="logo-only">
       <a href=<%= root_path %>>
         <img src="/images/quill_header_logo.svg" alt="Quill Logo">
@@ -171,7 +171,7 @@
 
 	function closeDropdownIfOpen(e) {
 		const dropdown = document.querySelector('#nav-user-dropdown');
-		if (e.target.classList.value !== 'user-dropdown-button' && e.target.classList.value !== 'user-dropdown-button-img' && dropdown && dropdown.classList.contains('dropdown-open')) {
+		if (e.target.classList.value !== 'user-dropdown-button' && e.target.classList.value !== 'user-dropdown-button-img' && e.target.parentElement.classList.value !== 'user-dropdown-button' && dropdown && dropdown.classList.contains('dropdown-open')) {
 				dropdown.classList.remove('dropdown-open');
 				dropdown.classList.add('dropdown-closed');
 		}
