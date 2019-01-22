@@ -41,3 +41,23 @@
     cursor: pointer;
   }
 }
+
+.quill-checkbox.selected {
+  width: 16px;
+  height: 16px;
+  border-radius: 1px;
+  background-color: #01c2a2;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.quill-checkbox.unselected {
+  width: 16px;
+  height: 16px;
+  border-radius: 1px;
+  border: solid 2px #646464;
+  cursor: pointer;
+}

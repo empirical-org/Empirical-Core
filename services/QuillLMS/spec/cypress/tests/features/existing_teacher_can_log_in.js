@@ -16,9 +16,9 @@ describe('Teacher enters credentials in log-in form', () => {
     cy.visit('/')
     cy.contains('Log In').click()
 
-    cy.get('input#email').type('cool@dude.com')
-    cy.get('input#password').type('password')
-    cy.get('input').contains('Log In').last().click()
+    cy.get('.email > input').type('cool@dude.com')
+    cy.get('.password > input').type('password')
+    cy.get('input').contains('Log in').last().click()
 
     cy.contains('Jane Doe').click()
     cy.contains('Logout').should('be.visible')

@@ -359,8 +359,29 @@ ALTER SEQUENCE activities_id_seq OWNED BY activities.id;
 
 CREATE TABLE activities_unit_templates (
     unit_template_id integer NOT NULL,
-    activity_id integer NOT NULL
+    activity_id integer NOT NULL,
+    id integer NOT NULL
 );
+
+
+--
+-- Name: activities_unit_templates_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE activities_unit_templates_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: activities_unit_templates_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE activities_unit_templates_id_seq OWNED BY activities_unit_templates.id;
 
 
 --
@@ -824,7 +845,8 @@ CREATE TABLE blog_posts (
     published_at timestamp without time zone,
     external_link character varying,
     center_images boolean,
-    order_number integer
+    order_number integer,
+    image_link character varying
 );
 
 
@@ -2675,7 +2697,8 @@ CREATE TABLE users (
     stripe_customer_id character varying,
     flags character varying[] DEFAULT '{}'::character varying[] NOT NULL,
     title character varying,
-    time_zone character varying
+    time_zone character varying,
+    account_type character varying DEFAULT 'unknown'::character varying
 );
 
 
@@ -2699,10 +2722,58 @@ ALTER SEQUENCE users_id_seq OWNED BY users.id;
 
 
 --
+-- Name: zipcode_infos; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE zipcode_infos (
+    id integer NOT NULL,
+    zipcode text,
+    zipcode_type text,
+    city text,
+    state text,
+    timezone text,
+    lat double precision,
+    lng double precision,
+    _secondary_cities text,
+    county text,
+    decommissioned boolean,
+    estimated_population integer,
+    _area_codes text
+);
+
+
+--
+-- Name: zipcode_infos_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE zipcode_infos_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: zipcode_infos_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE zipcode_infos_id_seq OWNED BY zipcode_infos.id;
+
+
+--
 -- Name: activities id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY activities ALTER COLUMN id SET DEFAULT nextval('activities_id_seq'::regclass);
+
+
+--
+-- Name: activities_unit_templates id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY activities_unit_templates ALTER COLUMN id SET DEFAULT nextval('activities_unit_templates_id_seq'::regclass);
 
 
 --
@@ -3154,11 +3225,26 @@ ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regcl
 
 
 --
+-- Name: zipcode_infos id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY zipcode_infos ALTER COLUMN id SET DEFAULT nextval('zipcode_infos_id_seq'::regclass);
+
+
+--
 -- Name: activities activities_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY activities
     ADD CONSTRAINT activities_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: activities_unit_templates activities_unit_templates_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY activities_unit_templates
+    ADD CONSTRAINT activities_unit_templates_pkey PRIMARY KEY (id);
 
 
 --
@@ -3682,6 +3768,14 @@ ALTER TABLE ONLY users
 
 
 --
+-- Name: zipcode_infos zipcode_infos_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY zipcode_infos
+    ADD CONSTRAINT zipcode_infos_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: activity_sessions_classroom_activity_id_idx; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -3735,13 +3829,6 @@ CREATE INDEX index_activities_on_topic_id ON public.activities USING btree (topi
 --
 
 CREATE UNIQUE INDEX index_activities_on_uid ON public.activities USING btree (uid);
-
-
---
--- Name: index_activity_classifications_on_key; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_activity_classifications_on_key ON public.activity_classifications USING btree (key);
 
 
 --
@@ -4270,6 +4357,13 @@ CREATE INDEX index_schools_admins_on_user_id ON public.schools_admins USING btre
 
 
 --
+-- Name: index_schools_on_mail_zipcode; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_schools_on_mail_zipcode ON public.schools USING btree (mail_zipcode);
+
+
+--
 -- Name: index_schools_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -4501,6 +4595,13 @@ CREATE INDEX index_users_on_classcode ON public.users USING btree (classcode);
 
 
 --
+-- Name: index_users_on_clever_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_users_on_clever_id ON public.users USING btree (clever_id);
+
+
+--
 -- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -4554,6 +4655,13 @@ CREATE INDEX index_users_on_token ON public.users USING btree (token);
 --
 
 CREATE INDEX index_users_on_username ON public.users USING btree (username);
+
+
+--
+-- Name: index_zipcode_infos_on_zipcode; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_zipcode_infos_on_zipcode ON public.zipcode_infos USING btree (zipcode);
 
 
 --
@@ -5560,4 +5668,18 @@ INSERT INTO schema_migrations (version) VALUES ('20180831194810');
 INSERT INTO schema_migrations (version) VALUES ('20180910152342');
 
 INSERT INTO schema_migrations (version) VALUES ('20180911171536');
+
+INSERT INTO schema_migrations (version) VALUES ('20181012155250');
+
+INSERT INTO schema_migrations (version) VALUES ('20181018195753');
+
+INSERT INTO schema_migrations (version) VALUES ('20181026201202');
+
+INSERT INTO schema_migrations (version) VALUES ('20181030155356');
+
+INSERT INTO schema_migrations (version) VALUES ('20181105212102');
+
+INSERT INTO schema_migrations (version) VALUES ('20181203161708');
+
+INSERT INTO schema_migrations (version) VALUES ('20181214192858');
 

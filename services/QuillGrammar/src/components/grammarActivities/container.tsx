@@ -5,16 +5,18 @@ import * as request from 'request';
 import * as _ from 'lodash';
 import { Response } from 'quill-marking-logic'
 import getParameterByName from '../../helpers/getParameterByName';
-import { startListeningToActivity } from "../../actions/grammarActivities";
+import { getActivity } from "../../actions/grammarActivities";
 import {
   updateSessionOnFirebase,
-  startListeningToQuestions,
+  getQuestionsForConcepts,
+  getQuestions,
   goToNextQuestion,
   checkAnswer,
   setSessionReducerToSavedSession,
   startListeningToFollowUpQuestionsForProofreaderSession
 } from "../../actions/session";
 import { startListeningToConceptsFeedback } from '../../actions/conceptsFeedback'
+import { startListeningToConcepts } from '../../actions/concepts'
 import { getConceptResultsForAllQuestions, calculateScoreForLesson } from '../../helpers/conceptResultsGenerator'
 import { SessionState } from '../../reducers/sessionReducer'
 import { GrammarActivityState } from '../../reducers/grammarActivitiesReducer'
@@ -62,7 +64,7 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
       }
 
       if (activityUID) {
-        this.props.dispatch(startListeningToActivity(activityUID))
+        this.props.dispatch(getActivity(activityUID))
       }
 
       if (proofreaderSessionId) {
@@ -73,12 +75,17 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
 
     componentDidMount() {
       this.props.dispatch(startListeningToConceptsFeedback());
+      this.props.dispatch(startListeningToConcepts());
     }
 
     componentWillReceiveProps(nextProps: PlayGrammarContainerProps) {
-      if (nextProps.grammarActivities.hasreceiveddata && !nextProps.session.hasreceiveddata && !nextProps.session.error) {
-        const concepts = nextProps.grammarActivities.currentActivity.concepts
-        this.props.dispatch(startListeningToQuestions(concepts))
+      if (nextProps.grammarActivities.hasreceiveddata && !nextProps.session.hasreceiveddata && !nextProps.session.pending && !nextProps.session.error) {
+        const { questions, concepts } = nextProps.grammarActivities.currentActivity
+        if (questions) {
+          this.props.dispatch(getQuestions(questions))
+        } else {
+          this.props.dispatch(getQuestionsForConcepts(concepts))
+        }
       }
 
       if (nextProps.session.hasreceiveddata && !nextProps.session.currentQuestion && nextProps.session.unansweredQuestions.length === 0 && nextProps.session.answeredQuestions.length > 0) {

@@ -4,7 +4,8 @@ class ProgressReports::RealTime
       student_ids = [0] # cannot do where in () in pg
     end
     ids = student_ids.join(',')
-    real_time_student_ids_json = $redis.get("REAL_TIME_STUDENT_#{ids}")
+    #real_time_student_ids_json = $redis.get("REAL_TIME_STUDENT_#{ids}")
+    real_time_student_ids_json = nil 
     if real_time_student_ids_json.nil?
       cache_life = 60*60*24*10 # => 10 days
       real_time_student_ids_json = ActiveRecord::Base.connection.execute(self.query(ids)).to_json

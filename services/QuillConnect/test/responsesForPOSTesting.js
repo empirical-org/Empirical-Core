@@ -206,7 +206,7 @@ export function getPOSTestingData() {
       "-KEJUdJZO1duYoVuPkG-" : {
         "author" : "Not Concise Hint",
         "count" : 1,
-        "feedback" : "Try again. How could this sentence be shorter and more concise?",
+        "feedback" : "Try again. How could your response be shorter and more concise?",
         "parentID" : "-KEJIkxrav0DJLtIoqDK",
         "text" : "Andy painted the walls then after bill swept the floor."
       },
@@ -638,7 +638,7 @@ export function getPOSTestingData() {
         "author" : "Not Concise Hint",
         "count" : 1,
         "createdAt" : "1464112226168",
-        "feedback" : "Try again. How could this sentence be shorter and more concise?",
+        "feedback" : "Try again. How could your response be shorter and more concise?",
         "parentID" : "-KEJIkxrav0DJLtIoqDK",
         "text" : "Bill swept the floor and , Andy painted the walls."
       },
@@ -662,7 +662,7 @@ export function getPOSTestingData() {
         "author" : "Not Concise Hint",
         "count" : 1,
         "createdAt" : "1464112404231",
-        "feedback" : "Try again. How could this sentence be shorter and more concise?",
+        "feedback" : "Try again. How could your response be shorter and more concise?",
         "parentID" : "-KEJIkxrav0DJLtIoqDK",
         "text" : "Bill swept the floors , and Andy painted the walls."
       },
@@ -798,7 +798,7 @@ export function getPOSTestingData() {
         "author" : "Not Concise Hint",
         "count" : 1,
         "createdAt" : "1464278210913",
-        "feedback" : "You have made a Try again. How could this sentence be shorter and more concise?.",
+        "feedback" : "You have made a Try again. How could your response be shorter and more concise?.",
         "parentID" : "-KEJIkxrav0DJLtIoqDK",
         "text" : "When Bill was done sweeping the floor, he painted the walls."
       },
@@ -891,7 +891,7 @@ export function getPOSTestingData() {
         "author" : "Not Concise Hint",
         "count" : 1,
         "createdAt" : "1464791669372",
-        "feedback" : "You have made a Try again. How could this sentence be shorter and more concise?.",
+        "feedback" : "You have made a Try again. How could your response be shorter and more concise?.",
         "parentID" : "-KEJIkxrav0DJLtIoqDK",
         "text" : "Bill swept the floor while Andy painted the house walls."
       },
@@ -899,7 +899,7 @@ export function getPOSTestingData() {
         "author" : "Not Concise Hint",
         "count" : 1,
         "createdAt" : "1464877886493",
-        "feedback" : "Try again. How could this sentence be shorter and more concise?",
+        "feedback" : "Try again. How could your response be shorter and more concise?",
         "parentID" : "-KEJIkxrav0DJLtIoqDK",
         "text" : "Bill swept the floor then andy painted the walls because his mom told him so."
       },
@@ -915,7 +915,7 @@ export function getPOSTestingData() {
         "author" : "Not Concise Hint",
         "count" : 1,
         "createdAt" : "1464927894865",
-        "feedback" : "You have made a Try again. How could this sentence be shorter and more concise?.",
+        "feedback" : "You have made a Try again. How could your response be shorter and more concise?.",
         "parentID" : "-KEJIkxrav0DJLtIoqDK",
         "text" : "Bill swept the floor while, at the same time, Andy painted the walls."
       },
@@ -963,7 +963,7 @@ export function getPOSTestingData() {
         "author" : "Not Concise Hint",
         "count" : 1,
         "createdAt" : "1466704196520",
-        "feedback" : "Try again. How could this sentence be shorter and more concise?",
+        "feedback" : "Try again. How could your response be shorter and more concise?",
         "parentID" : "-KEJIkxrav0DJLtIoqDK",
         "text" : "As soon as Bill swept the floor, Andy painted the walls a bright aqua."
       },
@@ -971,7 +971,7 @@ export function getPOSTestingData() {
         "author" : "Not Concise Hint",
         "count" : 1,
         "createdAt" : "1466704212435",
-        "feedback" : "Try again. How could this sentence be shorter and more concise?",
+        "feedback" : "Try again. How could your response be shorter and more concise?",
         "parentID" : "-KEJIkxrav0DJLtIoqDK",
         "text" : "As soon as Bill swept the floor, Andy painted the walls."
       },
@@ -979,7 +979,7 @@ export function getPOSTestingData() {
         "author" : "Not Concise Hint",
         "count" : 1,
         "createdAt" : "1466704242586",
-        "feedback" : "Try again. How could this sentence be shorter and more concise?",
+        "feedback" : "Try again. How could your response be shorter and more concise?",
         "parentID" : "-KEJIkxrav0DJLtIoqDK",
         "text" : "As soon as Bill swept the floor, Andy painted the walls."
       },

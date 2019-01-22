@@ -46,6 +46,7 @@ export const ActionTypes = {
     // SESSIONS
     SET_SESSION: 'SET_SESSION',
     SET_PROOFREADER_SESSION_TO_REDUCER: 'SET_PROOFREADER_SESSION_TO_REDUCER',
+    SET_SESSION_PENDING: 'SET_SESSION_PENDING',
 
     // DISPLAY
     DISPLAY_ERROR: 'DISPLAY_ERROR',
@@ -68,6 +69,8 @@ export const ActionTypes = {
     ADD_RESPONSE_TO_MASS_EDIT_ARRAY: 'ADD_RESPONSE_TO_MASS_EDIT_ARRAY',
     REMOVE_RESPONSE_FROM_MASS_EDIT_ARRAY: 'REMOVE_RESPONSE_FROM_MASS_EDIT_ARRAY',
     CLEAR_RESPONSES_FROM_MASS_EDIT_ARRAY: 'CLEAR_RESPONSES_FROM_MASS_EDIT_ARRAY',
+    ADD_RESPONSES_TO_MASS_EDIT_ARRAY: 'ADD_RESPONSES_TO_MASS_EDIT_ARRAY',
+    REMOVE_RESPONSES_FROM_MASS_EDIT_ARRAY: 'REMOVE_RESPONSES_FROM_MASS_EDIT_ARRAY',
 
     // FILTERS
     TOGGLE_EXPAND_SINGLE_RESPONSE: 'TOGGLE_EXPAND_SINGLE_RESPONSE',
@@ -89,7 +92,7 @@ export const ActionTypes = {
       typingError: 'Try again. There may be a spelling mistake.',
       caseError: 'Proofread your work. There may be a capitalization error.',
       minLengthError: 'Revise your work. Do you have all of the information from the prompt?',
-      maxLengthError: 'Revise your work. How could this sentence be shorter and more concise?',
+      maxLengthError: 'Revise your work. How could your response be shorter and more concise?',
       modifiedWordError: 'Revise your work. You may have mixed up or misspelled a word.',
       additionalWordError: 'Revise your work. You may have added an extra word.',
       missingWordError: 'Revise your work. You may have left out an important word.',
@@ -132,6 +135,8 @@ export const ActionTypes = {
       'Flexible Missing Word Hint',
       'Whitespace Hint',
       'Spelling Hint',
+      'Focus Point Hint',
+      'Incorrect Sequence Hint'
     ],
 
     // STATE
@@ -147,7 +152,11 @@ export const ActionTypes = {
     TOGGLE_NEW_CONCEPTS_FEEDBACK_MODAL: 'TOGGLE_NEW_CONCEPTS_FEEDBACK_MODAL',
     AWAIT_NEW_CONCEPTS_FEEDBACK_RESPONSE: 'AWAIT_NEW_CONCEPTS_FEEDBACK_RESPONSE',
     RECEIVE_NEW_CONCEPTS_FEEDBACK_RESPONSE: 'RECEIVE_NEW_CONCEPTS_FEEDBACK_RESPONSE',
-    SUBMITTING_CONCEPTS_FEEDBACK: 'SUBMITTING_CONCEPTS_FEEDBACK'
+    SUBMITTING_CONCEPTS_FEEDBACK: 'SUBMITTING_CONCEPTS_FEEDBACK',
 
+    // INCORRECT SEQUENCES
+    SET_SUGGESTED_SEQUENCES: 'SET_SUGGESTED_SEQUENCES',
+    SET_USED_SEQUENCES: 'SET_USED_SEQUENCES',
+    SET_COVERED_SEQUENCES: 'SET_COVERED_SEQUENCES'
 };
 //

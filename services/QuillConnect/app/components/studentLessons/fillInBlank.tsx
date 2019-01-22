@@ -13,11 +13,13 @@ import {
   WarningDialogue,
   Prompt,
   Instructions,
-  hashToCollection
+  hashToCollection,
+  ConceptExplanation
 } from 'quill-component-library/dist/componentLibrary'
 import Feedback from '../renderForQuestions/feedback'
 import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
 import { Attempt } from '../renderForQuestions/answerState.js';
+import { stringNormalize } from 'quill-string-normalizer';
 
 const styles = {
   container: {
@@ -41,7 +43,7 @@ const styles = {
     borderImageSlice: 1,
   },
   text: {
-    marginRight: 10,
+    marginRight: 5,
   },
 };
 
@@ -117,7 +119,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
 
   handleChange(i, e) {
     const existing = [...this.state.inputVals];
-    existing[i] = e.target.value.trim();
+    existing[i] = e.target.value;
     this.setState({
       inputVals: existing,
     });
@@ -134,18 +136,23 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     if (text.length > 0) {
       style = styles.text;
     }
-    return <span key={i} style={style}>{text}</span>;
+    const textArray = text.split(' ')
+    const spanArray = []
+    textArray.forEach((word, index) => {
+      spanArray.push(<span key={`${i}-${index}`} style={style}>{word}</span>)
+    })
+    return spanArray;
   }
 
   validateInput(i) {
     const newErrors = new Set(this.state.inputErrors);
     const inputVal = this.state.inputVals[i] || '';
     const inputSufficient = this.state.blankAllowed ? true : inputVal;
-
-    if (!inputSufficient || (inputVal && this.state.cues.indexOf(inputVal.toLowerCase()) === -1)) {
-      newErrors.add(i);
-    } else {
+    const cueMatch = (inputVal && this.state.cues.some(c => stringNormalize(c).toLowerCase() === stringNormalize(inputVal).toLowerCase().trim())) || inputVal === ''
+    if (inputSufficient && cueMatch) {
       newErrors.delete(i);
+    } else {
+      newErrors.add(i);
     }
 
     // following condition will return false if no new errors
@@ -223,6 +230,9 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
       styling.borderWidth = '2px';
       delete styling.borderImageSource;
     }
+    const longestCue = this.state.cues && this.state.cues.length ? this.state.cues.sort((a, b) => b.length - a.length)[0] : null
+    const width = longestCue ? (longestCue.length * 15) + 10 : 50
+    styling.width = `${width}px`
     return (
       <span key={`span${i}`}>
         <div style={{ position: 'relative', height: 0, width: 0, }}>
@@ -241,6 +251,48 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     );
   }
 
+  getNegativeConceptResultsForResponse(conceptResults) {
+    return hashToCollection(conceptResults).filter(cr => !cr.correct);
+  }
+
+  getNegativeConceptResultForResponse(conceptResults) {
+    const negCRs = this.getNegativeConceptResultsForResponse(conceptResults);
+    return negCRs.length > 0 ? negCRs[0] : undefined;
+  }
+
+  renderConceptExplanation() {
+    const latestAttempt:{response: Response}|undefined = this.getLatestAttempt(this.props.question.attempts);
+    if (latestAttempt) {
+      if (!latestAttempt.response.optimal && latestAttempt.response.conceptResults) {
+          const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.response.conceptResults);
+          if (conceptID) {
+            const data = this.props.conceptsFeedback.data[conceptID.conceptUID];
+            if (data) {
+              return <ConceptExplanation {...data} />;
+            }
+          }
+      } else if (latestAttempt.response && !latestAttempt.response.optimal && latestAttempt.response.concept_results) {
+        const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.response.concept_results);
+        if (conceptID) {
+          const data = this.props.conceptsFeedback.data[conceptID.conceptUID];
+          if (data) {
+            return <ConceptExplanation {...data} />;
+          }
+        }
+      } else if (this.getQuestion() && this.getQuestion().modelConceptUID) {
+        const dataF = this.props.conceptsFeedback.data[this.getQuestion().modelConceptUID];
+        if (dataF) {
+          return <ConceptExplanation {...dataF} />;
+        }
+      } else if (this.getQuestion().conceptID) {
+        const data = this.props.conceptsFeedback.data[this.getQuestion().conceptID];
+        if (data) {
+          return <ConceptExplanation {...data} />;
+        }
+      }
+    }
+  }
+
   getPromptElements() {
     if (this.state.splitPrompt) {
       const { splitPrompt, } = this.state;
@@ -254,7 +306,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
           splitPromptWithInput.push(this.renderText(section, i));
         }
       });
-      return splitPromptWithInput;
+      return _.flatten(splitPromptWithInput);
     }
   }
 
@@ -314,8 +366,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
   showNextQuestionButton() {
     const { question, } = this.props;
     const latestAttempt = this.getLatestAttempt();
-    const readyForNext =
-      question.attempts ? question.attempts.length > 4 : false || (latestAttempt && latestAttempt.response.optimal);
+    const readyForNext = (question.attempts && question.attempts.length > 4) || (latestAttempt && latestAttempt.response.optimal);
     if (readyForNext) {
       return true;
     } else {
@@ -375,14 +426,16 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
         <div style={{marginTop: 20}} className="question-button-group button-group">
           {this.renderButton()}
         </div>
+        {this.renderConceptExplanation()}
       </div>
     );
   }
 
 }
 
-function select(props) {
+function select(state) {
   return {
+    conceptsFeedback: state.conceptsFeedback,
   };
 }
 

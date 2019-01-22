@@ -47,8 +47,14 @@ class Dashboard
   def self.body_of_sql_search(user_id)
     "JOIN users AS students ON students.id = acts.user_id
      JOIN students_classrooms AS sc ON sc.student_id = students.id
-     JOIN classrooms_teachers ON classrooms_teachers.classroom_id = sc.classroom_id
-     WHERE classrooms_teachers.user_id = #{user_id} AND acts.percentage IS NOT null AND acts.visible IS true AND #{self.completed_since_sql}"
+     JOIN classrooms ON sc.classroom_id = classrooms.id
+     JOIN classrooms_teachers ON classrooms_teachers.classroom_id = classrooms.id
+     WHERE classrooms_teachers.user_id = #{user_id}
+     AND sc.visible = true
+     AND classrooms.visible = true
+     AND acts.percentage IS NOT null
+     AND acts.visible IS true
+     AND #{self.completed_since_sql}"
   end
 
   def self.completed_since_sql

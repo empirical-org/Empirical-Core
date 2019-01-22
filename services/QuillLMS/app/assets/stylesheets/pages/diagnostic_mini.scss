@@ -2,11 +2,10 @@
   p {
     font-size: 14px;
   }
+  .gray-underline {
+    padding: 13px 0px !important;
+  }
   &.assign-recommendations {
-    padding: 0px 13px;
-    .gray-underline {
-      padding: 10px 0px !important;
-    }
     img {
       margin: 15px auto 10px;
     }
@@ -18,25 +17,35 @@
       width: 265px;
       margin: 10px auto;
     }
+    p {
+      width: 268px;
+      margin: 5px auto 15px;
+    }
   }
   &.awaiting-students {
-    padding: 0px 10px;
+    padding: 0px 8px;
+    p {
+      padding: 0px 12px;
+    }
     a {
       color: #027360;
       text-decoration: underline;
     }
     img {
-      margin: 20px auto;
+      margin: 15px auto;
     }
   }
   &.assign-diagnostic {
     img {
       margin: 15px auto;
     }
+    p {
+      padding: 0px 15px;
+    }
   }
   &.assign-diagnostic, &.awaiting-students {
     img {
-      height: 70px;
+      height: 80px;
     }
     a {
       margin: 15px auto;

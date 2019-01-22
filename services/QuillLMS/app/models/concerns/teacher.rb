@@ -247,6 +247,7 @@ module Teacher
                   :password,
                   :school_options_do_not_apply,
                   :school_id,
+                  :send_newsletter,
                   :original_selected_school_id)
 
     self.validate_username = true
@@ -267,13 +268,20 @@ module Teacher
                                         name: params[:name] || self.name,
                                         time_zone: params[:time_zone] || self.time_zone,
                                         password: params[:password] || self.password,
-                                        role: params[:role] || self.role)
+                                        role: params[:role] || self.role,
+                                        send_newsletter: params[:send_newsletter] || self.send_newsletter
+                                      )
         are_there_non_school_related_errors = false
       else
         are_there_non_school_related_errors = true
       end
     end
 
+    if self.send_newsletter
+      self.subscribe_to_newsletter
+    else
+      self.unsubscribe_from_newsletter
+    end
 
     if are_there_school_related_errors
       response = {errors: {school: "can't be blank"}}
@@ -509,6 +517,6 @@ module Teacher
     WHERE ct.user_id = #{self.id}"
   end
 
-  
+
 
 end
