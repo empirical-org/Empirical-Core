@@ -122,7 +122,7 @@ module PublicProgressReports
       }
       classroom_unit.assigned_student_ids.each do |student_id|
         student = User.find_by(id: student_id)
-        if student
+        if student && student.classroom_ids.include?(classroom.id)
           final_activity_session = ActivitySession.find_by(user_id: student_id, is_final_score: true, classroom_unit_id: cu_id, activity_id: activity_id)
           if final_activity_session
             scores[:students].push(formatted_score_obj(final_activity_session, activity, student))
