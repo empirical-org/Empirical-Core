@@ -30,7 +30,6 @@ export default {
               if (err) throw err
               let session = document.new_val;
               if (session) {
-                console.log("ctx: ", ctx)
                 ctx.pubSub.publish(channel, {classroomLessonSession: session})
               }
             }

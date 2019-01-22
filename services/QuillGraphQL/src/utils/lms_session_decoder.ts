@@ -1,6 +1,7 @@
 const crypto = require('crypto')
 const secret = process.env.SESSION_SECRET;
 var salt = process.env.SESSION_SALT;
+const lmsCookieName = process.env.SESSION_NAME;
 export interface DecodedCookie {
   session_id?: string
   _csrf_token?: string
@@ -25,9 +26,13 @@ export function parseCookiesString(cookies: string): any {
   return cookieHash
 }
 
-export function decodeLMSWebsocketSession(cookieName:string, cookies:string):DecodedCookie {
-  const cookie = parseCookiesString(cookies)[cookieName];
-  return cookie ? lmsCookieToJSON(cookie) : {};
+export function httpOrSocket(){
+
+}
+
+export function decodeLMSWebsocketSession(cookies:string):DecodedCookie|null {
+  const cookie = parseCookiesString(cookies)[lmsCookieName];
+  return cookie ? lmsCookieToJSON(cookie) : null;
 }
 
 export function lmsCookieToJSON(cookie: string): DecodedCookie {
@@ -52,14 +57,14 @@ export function lmsCookieToJSON(cookie: string): DecodedCookie {
   return JSON.parse(decryptedData)
 }
 
-function decodeLmsSession(req): DecodedCookie {
+function decodeLmsSession(req): DecodedCookie|null {
   if (req == undefined) { return {} }
   const cookie = req.cookies[process.env.SESSION_NAME];
 
   if (cookie) {
     return lmsCookieToJSON(cookie)
   } else {
-    return {}
+    return null
   }
 
   
