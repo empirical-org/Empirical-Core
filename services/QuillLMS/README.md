@@ -12,10 +12,6 @@ QuillLMS is the Learning Management System that powers Quill.org, a free writing
 
 **Fork and Clone this repository to submit a Pull Request**.
 
-**Getting Started:** [Visit our Community Page](http://community.quill.org/teams/quill-lms/). The Mailing List, Chat, Issues, and Docs can all be accessed from the community page.
-
-**CLA:** [Please register an account & sign our CLA](http://community.quill.org/signup/cla/).
-
 ## Install QuillLMS
 
 QuillLMS is the Learning Management System that powers Quill.org. It is part of Empirical-Core Here's how to get QuillLMS running on your system:
@@ -30,7 +26,7 @@ QuillLMS is the Learning Management System that powers Quill.org. It is part of 
     4. Close and reopen your terminal.
 
 
-2. Download and install [postgres](http://www.postgresql.org/), the database engine Empirical Core uses. The easiest way to get started with this is to download [postgres.app](http://postgresapp.com/).
+2. Download and install [postgres](http://www.postgresql.org/) version 10.5, the database engine Empirical Core uses. The easiest way to get started with this is to download [postgres.app](http://postgresapp.com/).
 
     If you're more comfortable with installing custom software, you can use [homebrew](http://brew.sh/) to download and install postgres instead using the following commands:
 
@@ -61,13 +57,19 @@ QuillLMS is the Learning Management System that powers Quill.org. It is part of 
 
 10. Install node modules by running `npm install`.
 
-11. Run `rake empirical:setup` to automagically get all of your dependencies and databases configured.
+11. Run `bundle exec rake empirical:setup` to automagically get all of your dependencies and databases configured.
 
-12. You're ready to run QuillLMS!
+12. Switch into the client directory `cd client/`
+
+13. Run `npm rebuild node-sass`
+
+14. You're ready to run QuillLMS! Switch back into the QuillLMS directory `cd ..`
 
     1. Run the server using the command `foreman start -f Procfile.static`.
     2. Navigate your browser to [localhost:3000](http://localhost:3000).
     3. When you're done with the server, use Ctrl-C to break it and return to your command line.
 
 
-For more information on setting up and launching QuillLMS, visit the [docs](docs.quill.org/misc/setting_up.html).
+In case you are unable to start QuillLMS on your computer, please submit and issue. If you found a work around, we would also love to read your suggestions! 
+
+For more information on setting up and launching QuillLMS, visit the [docs](https://docs.quill.org/misc/setting_up.html). 

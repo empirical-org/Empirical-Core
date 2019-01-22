@@ -5,6 +5,8 @@ import {getOptimalResponses} from '../sharedResponseFunctions';
 import {conceptResultTemplate} from '../helpers/concept_result_template'
 
 import {exactMatch} from '../matchers/exact_match';
+import {focusPointChecker} from '../matchers/focus_point_match';
+import {incorrectSequenceChecker} from '../matchers/incorrect_sequence_match';
 import {caseInsensitiveChecker} from '../matchers/case_insensitive_match';
 import {punctuationInsensitiveChecker} from '../matchers/punctuation_insensitive_match';
 import {punctuationAndCaseInsensitiveChecker} from '../matchers/punctuation_and_case_insensitive_match';
@@ -20,11 +22,15 @@ export function checkGrammarQuestion(
   question_uid: string,
   response: string,
   responses: Array<Response>,
+  focusPoints: Array<FocusPoint>|null,
+  incorrectSequences: Array<IncorrectSequence>|null,
   defaultConceptUID
 ): Response {
   const data = {
-    response: response.trim(),
+    response: response.trim().replace(/\s{2,}/g, ' '),
     responses,
+    focusPoints,
+    incorrectSequences,
   };
 
   const responseTemplate = {
@@ -56,9 +62,11 @@ export function checkGrammarQuestion(
 }
 
 function* firstPassMatchers(data: GradingObject, spellCorrected=false) {
-  const {response, spellCorrectedResponse, responses} = data;
+  const { response, spellCorrectedResponse, responses, focusPoints, incorrectSequences, } = data;
   const submission = spellCorrected ? spellCorrectedResponse : response;
   yield exactMatch(submission, responses);
+  yield focusPointChecker(submission, focusPoints, responses);
+  yield incorrectSequenceChecker(submission, incorrectSequences, responses);
   yield caseInsensitiveChecker(submission, responses);
   yield punctuationInsensitiveChecker(submission, responses);
   yield punctuationAndCaseInsensitiveChecker(submission, responses);
@@ -69,7 +77,7 @@ function* firstPassMatchers(data: GradingObject, spellCorrected=false) {
 }
 
 function* secondPassMatchers(data: GradingObject, spellCorrected=false) {
-  const {response, spellCorrectedResponse, responses} = data;
+  const { response, spellCorrectedResponse, responses } = data;
   yield flexibleChangeObjectChecker(response, responses);
   yield caseStartChecker(response, responses);
   yield punctuationEndChecker(response, responses);
@@ -78,12 +86,14 @@ function* secondPassMatchers(data: GradingObject, spellCorrected=false) {
 function checkForMatches(data: GradingObject, matchingFunction: Function, spellCorrected=false): PartialResponse|null {
   const gen = matchingFunction(data, spellCorrected);
   let next = gen.next();
+
   while (true) {
     if (next.value || next.done) {
       break;
     }
     next = gen.next();
   }
+
   if (next.value) {
     return next.value;
   }

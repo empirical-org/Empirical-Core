@@ -389,7 +389,7 @@ export default [
 //         "-KQfa4KqEfSAnINPeYr9": {
 //             "author": "Not Concise Hint",
 //             "count": 1,
-//             "feedback": "Try again. How could this sentence be shorter and more concise?",
+//             "feedback": "Try again. How could your response be shorter and more concise?",
 //             "parentID": "-KQfYWZYu-ImJKT0TsKD",
 //             "text": "I will collect a brown coconut,which is mature as soon as possible.",
 //             "weak": false,
@@ -1398,7 +1398,7 @@ export default [
 //         "found": true,
 //         "submitted": "The weather is cold, so coconut trees palms grow as soon as it is warm.",
 //         "maxLengthError": true,
-//         "feedback": "Try again. How could this sentence be shorter and more concise?",
+//         "feedback": "Try again. How could your response be shorter and more concise?",
 //         "author": "Not Concise Hint",
 //         "response": {
 //             "conceptResults": {
@@ -1423,7 +1423,7 @@ export default [
 //         "found": true,
 //         "submitted": "The weather is cold, so coconut trees palms grow as soon as it is warm again.",
 //         "maxLengthError": true,
-//         "feedback": "Try again. How could this sentence be shorter and more concise?",
+//         "feedback": "Try again. How could your response be shorter and more concise?",
 //         "author": "Not Concise Hint",
 //         "response": {
 //             "conceptResults": {
@@ -1448,7 +1448,7 @@ export default [
 //         "found": true,
 //         "submitted": "The weather is freezing, so coconut trees palms grow as soon as it is warm again.",
 //         "maxLengthError": true,
-//         "feedback": "Try again. How could this sentence be shorter and more concise?",
+//         "feedback": "Try again. How could your response be shorter and more concise?",
 //         "author": "Not Concise Hint",
 //         "response": {
 //             "conceptResults": {

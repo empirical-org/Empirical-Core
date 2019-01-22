@@ -479,7 +479,7 @@ export default class Response extends React.Component<any, any> {
           <div className="content">
             <div className="media">
               <div className="media-content">
-                <p><span style={{ whiteSpace: 'preWrap' }}>{response.text}</span> {author}</p>
+                <p><span style={{ whiteSpace: 'pre-wrap' }}>{response.text}</span> {author}</p>
               </div>
               <div className="media-right" style={{ textAlign: 'right', }}>
                 <figure className="image is-32x32">
@@ -599,7 +599,7 @@ export default class Response extends React.Component<any, any> {
 
   render() {
     const { response, state, } = this.props;
-    const isEditing = (state === (`${ActionTypes.START_RESPONSE_EDIT}_${response.key}`));
+    const isEditing = (state === (`${ActionTypes.START_RESPONSE_EDIT}_${response.id}`));
     const isViewingChildResponses = (state === (`${ActionTypes.START_CHILD_RESPONSE_VIEW}_${response.key}`));
     const isViewingFromResponses = (state === (`${ActionTypes.START_FROM_RESPONSE_VIEW}_${response.key}`));
     const isViewingToResponses = (state === (`${ActionTypes.START_TO_RESPONSE_VIEW}_${response.key}`));

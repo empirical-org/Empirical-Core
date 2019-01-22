@@ -135,7 +135,7 @@ const StudentDiagnostic = React.createClass({
         json:
         {
           state: 'finished',
-          activity_uid: lessonID,
+          activity_uid: 'ell',
           concept_results: results,
           percentage: score,
         },
@@ -194,7 +194,7 @@ const StudentDiagnostic = React.createClass({
           question={this.props.playDiagnostic.currentQuestion.data}
           currentKey={this.props.playDiagnostic.currentQuestion.data.key}
           dispatch={this.props.dispatch}
-          nextQuestion={this.nextQuestionWithoutSaving}
+          nextQuestion={this.nextQuestion}
           language={this.language()}
           key={this.props.playDiagnostic.currentQuestion.data.key}
         />

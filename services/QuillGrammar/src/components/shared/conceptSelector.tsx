@@ -34,11 +34,13 @@ class ConceptSelector extends React.Component<ConceptSelectorProps> {
         return Object.keys(this.props.conceptsFeedback.data).includes(concept.uid);
       });
     }
-    return concepts.sort((a, b) => a.displayName.localeCompare(b.displayName)).map(concept => {
-      return (
-        {label: concept.displayName, value: concept.uid, shortenedName: concept.name}
-      )
-    })
+    if (concepts) {
+      return concepts.sort((a, b) => a.displayName.localeCompare(b.displayName)).map(concept => {
+        return (
+          {label: concept.displayName, value: concept.uid, shortenedName: concept.name}
+        )
+      })
+    }
   }
 
   currentConcept() {
@@ -47,7 +49,7 @@ class ConceptSelector extends React.Component<ConceptSelectorProps> {
 
   placeholder() {
     const currentConcept = this.currentConcept()
-    if (this.props.currentConceptUID !== 'null' && this.props.currentConceptUID.length > 0 && currentConcept) {
+    if (this.props.currentConceptUID && this.props.currentConceptUID.length > 0 && currentConcept) {
       return currentConcept.displayName
     } else {
       return 'Please select a concept.'

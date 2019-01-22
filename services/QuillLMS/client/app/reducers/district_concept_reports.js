@@ -33,7 +33,7 @@ export default function districtConceptReports(state = initialState, action) {
       return updateObject(state, {
         loading: false,
         errors: action.body.errors,
-        conceptReportsData: JSON.parse(action.body).data,
+        conceptReportsData: action.body.data,
       });
     default:
       return state;

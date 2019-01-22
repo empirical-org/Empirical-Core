@@ -3,6 +3,16 @@
   h3 {
     margin: 30px 0px;
   }
+  .newsletter-row {
+    display: flex;
+    p {
+      font-size: 14px;
+      line-height: 1;
+      color: #646464;
+      margin-left: 26px;
+      text-align: left;
+    }
+  }
   .form-row {
     display: flex;
     margin: 20px 0px;

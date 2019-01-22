@@ -271,7 +271,7 @@ protected
   def set_search_inputs
     @text_search_inputs = ['user_name', 'user_username', 'user_email', 'user_ip', 'school_name']
     @school_premium_types = Subscription.account_types
-    @user_role_types = User.select('DISTINCT role').map { |r| r.role }
+    @user_role_types = User::ROLES
     @all_search_inputs = @text_search_inputs + ['user_premium_status', 'user_role', 'page', 'user_flag']
   end
 
