@@ -31,9 +31,8 @@ import submitQuestionResponse from '../renderForQuestions/submitResponse.js';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 import submitPathway from '../renderForQuestions/submitPathway.js';
 import AnswerForm from '../renderForQuestions/renderFormForAnswer.jsx';
-import { getOptimalResponses, getSubOptimalResponses, getTopOptimalResponse } from '../../libs/sharedResponseFunctions';
 import {
-  getResponsesWithCallback,
+  getMultipleChoiceResponseOptionsWithCallback,
   getGradedResponsesWithCallback
 } from '../../actions/responses.js';
 import {Response} from 'quill-marking-logic'
@@ -55,6 +54,12 @@ const playLessonQuestion = React.createClass<any, any>({
       this.props.question.key,
       (data) => {
         this.setState({ responses: data, });
+      }
+    );
+    getMultipleChoiceResponseOptionsWithCallback(
+      this.props.question.key,
+      (data) => {
+        this.setState({ multipleChoiceResponseOptions: _.shuffle(data), });
       }
     );
   },
@@ -106,20 +111,6 @@ const playLessonQuestion = React.createClass<any, any>({
   getNewQuestionMarker() {
     const fields = this.getQuestionMarkerFields();
     return new Question(fields);
-  },
-
-  getOptimalResponses() {
-    return getOptimalResponses(hashToCollection(this.getResponses()));
-  },
-
-  getSubOptimalResponses() {
-    return getSubOptimalResponses(hashToCollection(this.getResponses()));
-  },
-
-  get4MarkedResponses() {
-    const twoOptimal = _.first(_.shuffle(this.getOptimalResponses()), 2);
-    const twoSubOptimal = _.first(_.shuffle(this.getSubOptimalResponses()), 2);
-    return _.shuffle(twoOptimal.concat(twoSubOptimal));
   },
 
   submitResponse(response) {
@@ -337,7 +328,7 @@ const playLessonQuestion = React.createClass<any, any>({
         component = (
           <MultipleChoice
             prompt={this.renderSentenceFragments()}
-            answers={this.get4MarkedResponses()}
+            answers={this.state.multipleChoiceResponseOptions}
             next={this.multipleChoiceFinishQuestion}
           />
         );
