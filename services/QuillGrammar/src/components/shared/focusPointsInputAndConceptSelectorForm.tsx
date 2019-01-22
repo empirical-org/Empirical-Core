@@ -1,13 +1,11 @@
-import React from 'react';
+import * as React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
-import _ from 'underscore';
-import C from '../../constants';
-import ConceptSelectorWithCheckbox from './conceptSelectorWithCheckbox.jsx';
-import { TextEditor } from 'quill-component-library/dist/componentLibrary';
+import * as _ from 'underscore';
+import ConceptSelectorWithCheckbox from './conceptSelectorWithCheckbox';
+import TextEditor from './textEditor';
 import { EditorState, ContentState } from 'draft-js'
 import ResponseComponent from '../questions/responseComponent'
-import request from 'request'
+import * as request from 'request'
 
 export default class FocusPointsInputAndConceptResultSelectorForm extends React.Component {
   constructor(props) {
@@ -126,15 +124,8 @@ export default class FocusPointsInputAndConceptResultSelectorForm extends React.
 
   returnAppropriateDataset() {
     const questionID = this.props.questionID
-    const datasets = ['fillInBlank', 'sentenceFragments'];
     let theDatasetYouAreLookingFor = this.props.questions.data[questionID];
     let mode = 'questions';
-    datasets.forEach((dataset) => {
-      if (this.props[dataset].data && this.props[dataset].data[questionID]) {
-        theDatasetYouAreLookingFor = this.props[dataset].data[questionID];
-        mode = dataset;
-      }
-    });
     return { dataset: theDatasetYouAreLookingFor, mode, }; // "These are not the datasets you're looking for."
   }
 
@@ -189,8 +180,8 @@ export default class FocusPointsInputAndConceptResultSelectorForm extends React.
             selectedFocusPoints={this.state.itemText.split(/\|{3}(?!\|)/)}
             question={dataset}
             mode={mode}
-            states={this.props.states}
             questionID={this.props.questionID}
+            states={this.props.questions.states}
           />
         </div>
       </div>

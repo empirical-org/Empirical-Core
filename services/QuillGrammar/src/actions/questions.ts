@@ -4,7 +4,7 @@ import { push } from 'react-router-redux';
 import rootRef from '../firebase';
 import { ActionTypes } from './actionTypes'
 const questionsRef = rootRef.child('questions')
-import { Questions, Question } from '../interfaces/questions'
+import { Questions, Question, FocusPoint, IncorrectSequence } from '../interfaces/questions'
 import * as responseActions from './responses'
 import { Response, ConceptResult } from 'quill-marking-logic'
 
@@ -185,6 +185,131 @@ export const saveOptimalResponse = (qid: string, conceptUid: string, answer: {te
     }
   }
 }
+
+export const submitNewIncorrectSequence = (qid: string, data: IncorrectSequence) => {
+  return (dispatch: Function) => {
+    questionsRef.child(`${qid}/incorrectSequences`).push(data, (error: string) => {
+      if (error) {
+        alert(`Submission failed! ${error}`);
+      }
+    });
+  };
+}
+
+export const submitEditedIncorrectSequence = (qid: string, data: IncorrectSequence, seqid: string) => {
+  return (dispatch: Function) => {
+    questionsRef.child(`${qid}/incorrectSequences/${seqid}`).update(data, (error: string) => {
+      if (error) {
+        alert(`Submission failed! ${error}`);
+      }
+    });
+  };
+}
+
+export const deleteIncorrectSequence = (qid: string, seqid: string) => {
+  return (dispatch: Function) => {
+    questionsRef.child(`${qid}/incorrectSequences/${seqid}`).remove((error: string) => {
+      if (error) {
+        alert(`Delete failed! ${error}`);
+      }
+    });
+  };
+}
+
+export const updateIncorrectSequences = (qid: string, data: Array<IncorrectSequence>) => {
+  questionsRef.child(`${qid}/incorrectSequences`).set(data, (error: string) => {
+    if (error) {
+      alert(`Order update failed! ${error}`);
+    }
+  });
+}
+
+export const submitNewFocusPoint = (qid:string, data: FocusPoint) => {
+  questionsRef.child(`${qid}/focusPoints`).push(data, (error: string) => {
+    if (error) {
+      alert(`Submission failed! ${error}`);
+    }
+  });
+}
+
+export const submitEditedFocusPoint = (qid:string, data: FocusPoint, fpid: string) => {
+  return (dispatch: Function) => {
+    questionsRef.child(`${qid}/focusPoints/${fpid}`).update(data, (error: string) => {
+      if (error) {
+        alert(`Submission failed! ${error}`);
+      }
+    });
+  };
+}
+
+export const submitBatchEditedFocusPoint = (qid:string, data: Array<FocusPoint>) => {
+  return (dispatch: Function) => {
+    questionsRef.child(`${qid}/focusPoints/`).set(data, (error: string) => {
+      if (error) {
+        alert(`Submission failed! ${error}`);
+      }
+    });
+  };
+}
+
+export const deleteFocusPoint = (qid:string, fpid: string) => {
+  return (dispatch: Function) => {
+    questionsRef.child(`${qid}/focusPoints/${fpid}`).remove((error: string) => {
+      if (error) {
+        alert(`Delete failed! ${error}`);
+      }
+    });
+  };
+}
+
+export const getSuggestedSequences = (qid: string) => {
+  return (dispatch: Function, getState: Function) => {
+    request(
+      {
+        url: `${process.env.QUILL_CMS}/responses/${qid}/incorrect_sequences`,
+        method: 'GET',
+      },
+      (err, httpResponse, data) => {
+        const suggestedSeqs = JSON.parse(data)
+        const existingIncorrectSeqs = getState().questions.data[qid].incorrectSequences
+        const usedSeqs: Array<string> = []
+        const coveredSeqs: Array<string> = []
+        if (existingIncorrectSeqs) {
+          Object.values(existingIncorrectSeqs).forEach(inSeq => {
+            const phrases = inSeq.text.split('|||')
+            phrases.forEach((p) => {
+              usedSeqs.push(p)
+              const index = suggestedSeqs.forEach((seq, i) => {
+                if (seq === p) {
+                  suggestedSeqs.splice(i, 1)
+                } else if (seq.includes(p)) {
+                  coveredSeqs.push(seq)
+                  suggestedSeqs.splice(i, 1)
+                }
+              })
+            })
+          })
+        }
+        dispatch(setSuggestedSequences(qid, suggestedSeqs));
+        dispatch(setUsedSequences(qid, usedSeqs));
+        dispatch(setCoveredSequences(qid, coveredSeqs));
+      }
+    );
+  }
+}
+
+export const setSuggestedSequences = (qid: string, seq: Array<string>) => {
+  return {type: ActionTypes.SET_SUGGESTED_SEQUENCES, qid, seq}
+}
+
+export const setUsedSequences = (qid: string, seq: Array<string>) => {
+  return {type: ActionTypes.SET_USED_SEQUENCES, qid, seq}
+}
+
+export const setCoveredSequences = (qid: string, seq: Array<string>) => {
+  return {type: ActionTypes.SET_COVERED_SEQUENCES, qid, seq}
+}
+
 
 export const updateStringFilter = (stringFilter: string, qid: string) => {
   return (dispatch: Function) => {

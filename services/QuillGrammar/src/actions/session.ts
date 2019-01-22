@@ -7,6 +7,7 @@ import * as responseActions from './responses'
 import { Question } from '../interfaces/questions'
 import { SessionState } from '../reducers/sessionReducer'
 import { checkGrammarQuestion, Response } from 'quill-marking-logic'
+import { hashToCollection } from '../helpers/hashToCollection'
 import { shuffle } from '../helpers/shuffle';
 import _ from 'lodash';
 
@@ -133,8 +134,10 @@ export const getQuestions = (questions: any) => {
 export const checkAnswer = (response: string, question: Question, responses: Response[], isFirstAttempt: Boolean) => {
   return dispatch => {
     const questionUID: string = question.uid
+    const focusPoints = question.focusPoints ? hashToCollection(question.focusPoints) : [];
+    const incorrectSequences = question.incorrectSequences ? hashToCollection(question.incorrectSequences) : [];
     const defaultConceptUID = question.modelConceptUID || question.concept_uid
-    const responseObj = checkGrammarQuestion(questionUID, response, responses, defaultConceptUID)
+    const responseObj = checkGrammarQuestion(questionUID, response, responses, focusPoints, incorrectSequences, defaultConceptUID)
     responseObj.feedback = responseObj.feedback && responseObj.feedback !== '<br/>' ? responseObj.feedback : "<b>Try again!</b> Unfortunately, that answer is not correct."
     dispatch(responseActions.submitResponse(responseObj, null, isFirstAttempt))
     delete responseObj.parent_id
