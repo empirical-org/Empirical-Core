@@ -103,6 +103,8 @@ interface PassageEditorState {
 interface PassageEditorProps {
   handleTextChange: Function;
   text: string;
+  resetting: boolean;
+  finishReset: Function;
   savedText?: string;
 }
 
@@ -125,6 +127,20 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
     this.onKeyUp = this.onKeyUp.bind(this)
     this.updateEditsWithOriginalValue = this.updateEditsWithOriginalValue.bind(this)
     this.removeEditFromEditsWithOriginalValue = this.removeEditFromEditsWithOriginalValue.bind(this)
+    // this.undo = this.undo.bind(this)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.resetting) {
+      const { paragraphWrappedText, originalTextArray, indicesOfUTags } = this.paragraphWrappedText(this.props.text)
+
+      this.setState({
+        text: html.deserialize(paragraphWrappedText),
+        originalTextArray,
+        indicesOfUTags,
+        editsWithOriginalValue: []
+      }, this.props.finishReset)
+    }
   }
 
   trimWord(word: string) {
@@ -241,12 +257,60 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
     this.setState({ editsWithOriginalValue: newUnnecessaryEdits })
   }
 
-  onKeyDown(event: any, change: any, editor: any) {
-    if (['ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown', 'Backspace', 'Shift', 'MetaShift', 'Meta', 'Enter'].includes(event.key)) { return }
+  // we are not going to use this button now but I am leaving this partially-working code in case we decide we want to build that feature after all
+  // undo() {
+  //   let value
+  //   const undos = this.state.text.history.get('undos')
+  //   const lastUndo = undos.find(undo => undo.find((operation) => !['set_selection', 'add_mark', 'remove_mark'].includes(operation.type)))
+  //   const lastChange = lastUndo ? lastUndo.find((operation) => !['set_selection', 'add_mark', 'remove_mark'].includes(operation.type)) : null
+  //   console.log('lastChange', lastChange)
+  //   if (lastChange) {
+  //     const dataOriginalIndex = lastChange.value.startInline ? lastChange.value.startInline.data.get('dataOriginalIndex') : null
+  //     const originalText = this.state.originalTextArray[dataOriginalIndex]
+  //     if (!lastChange.value.startInline) {
+  //       value = lastChange.value
+  //     }
+  //     console.log('originalText', originalText)
+  //     console.log('lastChange.value.startInline.text', lastChange.value.startInline.text)
+  //     if (dataOriginalIndex && originalText !== lastChange.value.startInline.text) {
+  //       const initialFocus = lastChange.value.selection.focus
+  //       const initialAnchor = lastChange.value.selection.anchor
+  //       let node = this.state.text.selection.moveToRangeOfNode(lastChange.value.startInline)
+  //       debugger;
+  //       console.log('marks', lastChange.value.marks)
+  //       node = node.insertText(originalText).removeMark('bold')
+  //       if (this.state.indicesOfUTags[dataOriginalIndex] || this.state.indicesOfUTags[dataOriginalIndex] === 0) {
+  //         const id = this.state.indicesOfUTags[dataOriginalIndex]
+  //         node = node.addMark({type: 'underline', data: {id}})
+  //       }
+  //       if (lastChange.type === 'remove_text') {
+  //         node = node.moveToEndOfNode(lastChange.value.startInline).moveForward(1).insertText(' ')
+  //       }
+  //       value = node.setAnchor(initialAnchor).setFocus(initialFocus)
+  //     } else {
+  //       value = lastChange.value
+  //     }
+  //   } else {
+  //     return
+  //   }
+  //   this.setState({ text: value, })
+  // }
 
+  onKeyDown(event: any, change: any, editor: any) {
     const { value } = change
     const originalSelection = value.selection
-    const { startInline } = value
+    const { startInline, texts } = value
+
+    if (event.key === 'z' && (event.ctrlKey || event.metaKey)) {
+      event.preventDefault()
+      return
+    }
+
+    if (texts.size > 20) {
+      return false
+    }
+
+    if (['ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown', 'Backspace', 'Shift', 'MetaShift', 'Meta', 'Enter', 'CapsLock', 'Escape', 'Alt', 'Control'].includes(event.key)) { return }
 
     if (!startInline && originalSelection.focus.offset === 0 && originalSelection.anchor.offset === 0) {
       const nextInline = change.moveEndForward(1).value.endInline
@@ -295,8 +359,53 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
   onKeyUp(event: any, change: any, editor: any) {
     if (['ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown'].includes(event.key)) { return }
 
+    if (change.value.texts.size > 20) {
+      return false
+    }
+
     const initialFocus = change.value.selection.focus
     const initialAnchor = change.value.selection.anchor
+
+    if ((event.key === 'z' && (event.ctrlKey || event.metaKey)) || event.key === 'Meta') {
+      const lastUndo = change.value.history.undos.first()
+      const lastChange = lastUndo ? lastUndo.find((operation) => !['set_selection', 'add_mark', 'remove_mark'].includes(operation.type)) : null
+      if (lastChange) {
+        const dataOriginalIndex = lastChange.value.startInline ? lastChange.value.startInline.data.get('dataOriginalIndex') : null
+        const originalText = this.state.originalTextArray[dataOriginalIndex]
+        if (!lastChange.value.startInline) {
+          return lastChange.value
+        }
+        const text = lastChange.value.startInline.text
+        if (dataOriginalIndex && originalText !== text) {
+          const initialFocus = change.value.selection.focus
+          const initialAnchor = change.value.selection.anchor
+          let node = change.moveToRangeOfNode(lastChange.value.startInline)
+          if (this.state.indicesOfUTags[dataOriginalIndex] || this.state.indicesOfUTags[dataOriginalIndex] === 0) {
+            const id = this.state.indicesOfUTags[dataOriginalIndex]
+            node = node.addMark({type: 'underline', data: {id}})
+          }
+          if (lastChange.text.trim()) {
+            node = node.removeMark('bold').insertText(originalText)
+            if (lastChange.type === 'remove_text') {
+              node = node.moveToEndOfNode(lastChange.value.startInline).moveForward(1).insertText(' ')
+            }
+          }
+          this.removeEditFromEditsWithOriginalValue(dataOriginalIndex)
+          node = node.setAnchor(initialAnchor).setFocus(initialFocus)
+          return node
+        } else {
+          if (change.value.texts.size > 1) {
+            return lastChange.value
+          } else {
+            return
+          }
+        }
+      } else {
+        if (change.value.texts.size > 1) {
+          return change.value
+        }
+      }
+    }
 
     // handles Firefox shenanigans
     if (initialFocus.offset === 0 && initialAnchor.offset !== 0) {
@@ -462,22 +571,25 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
         // .setFocus(originalSelection.focus)
       }
     }
-    change.setAnchor(originalSelection.anchor).setFocus(originalSelection.focus)
+    return change.setAnchor(originalSelection.anchor).setFocus(originalSelection.focus)
   }
 
   render() {
     if (this.state.text) {
       return (
-        <Editor
-          className='editor'
-          value={this.state.text}
-          onChange={this.handleTextChange}
-          renderNode={this.renderNode}
-          renderMark={this.renderMark}
-          onKeyUp={this.onKeyUp}
-          onKeyDown={this.onKeyDown}
-          spellCheck={false}
-        />)
+        <div>
+          <Editor
+            className='editor'
+            value={this.state.text}
+            onChange={this.handleTextChange}
+            renderNode={this.renderNode}
+            renderMark={this.renderMark}
+            onKeyUp={this.onKeyUp}
+            onKeyDown={this.onKeyDown}
+            spellCheck={false}
+          />
+        </div>
+        )
     } else {
       return <span/>
     }

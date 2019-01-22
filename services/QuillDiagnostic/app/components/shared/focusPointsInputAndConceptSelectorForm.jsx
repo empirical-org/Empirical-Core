@@ -33,7 +33,7 @@ export default class FocusPointsInputAndConceptResultSelectorForm extends React.
 
   getNewAffectedCount() {
     const qid = this.props.questionID
-    const newSeqs = this.state.itemText.split('|||')
+    const newSeqs = this.state.itemText.split(/\|{3}(?!\|)/)
     request(
       {
         url: `${process.env.QUILL_CMS}/responses/${qid}/focus_point_affected_count`,
@@ -72,7 +72,7 @@ export default class FocusPointsInputAndConceptResultSelectorForm extends React.
 
   submit(focusPoint) {
     const data = {
-      text: this.state.itemText.split('|||').filter(val => val !== '').join('|||'),
+      text: this.state.itemText.split(/\|{3}(?!\|)/).filter(val => val !== '').join('|||'),
       feedback: this.state.itemFeedback,
       conceptResults: this.state.itemConcepts,
     };
@@ -80,7 +80,7 @@ export default class FocusPointsInputAndConceptResultSelectorForm extends React.
   }
 
   renderTextInputFields() {
-    return this.state.itemText.split('|||').map(text => (
+    return this.state.itemText.split(/\|{3}(?!\|)/).map(text => (
       <input className="input focus-point-text" style={{ marginBottom: 5, }} onChange={this.handleChange.bind(null, 'itemText')} onBlur={this.getNewAffectedCount} type="text" value={text || ''} />
     ));
   }
@@ -113,7 +113,7 @@ export default class FocusPointsInputAndConceptResultSelectorForm extends React.
 
   toggleSuggestedSequence(text) {
     let newFocusPoints
-    const focusPoints = this.state.itemText.split('|||')
+    const focusPoints = this.state.itemText.split(/\|{3}(?!\|)/)
     const index = focusPoints.indexOf(`${text}`)
     if (index !== -1) {
       focusPoints.splice(index, 1).join('|||')
@@ -186,7 +186,7 @@ export default class FocusPointsInputAndConceptResultSelectorForm extends React.
         <div>
           <label className="label">{this.state.matchedCount} {this.state.matchedCount === 1 ? 'sequence' : 'sequences'} affected</label>
           <ResponseComponent
-            selectedFocusPoints={this.state.itemText.split('|||')}
+            selectedFocusPoints={this.state.itemText.split(/\|{3}(?!\|)/)}
             question={dataset}
             mode={mode}
             states={this.props.states}

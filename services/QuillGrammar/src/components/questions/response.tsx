@@ -599,7 +599,7 @@ export default class Response extends React.Component<any, any> {
 
   render() {
     const { response, state, } = this.props;
-    const isEditing = (state === (`${ActionTypes.START_RESPONSE_EDIT}_${response.key}`));
+    const isEditing = (state === (`${ActionTypes.START_RESPONSE_EDIT}_${response.id}`));
     const isViewingChildResponses = (state === (`${ActionTypes.START_CHILD_RESPONSE_VIEW}_${response.key}`));
     const isViewingFromResponses = (state === (`${ActionTypes.START_FROM_RESPONSE_VIEW}_${response.key}`));
     const isViewingToResponses = (state === (`${ActionTypes.START_TO_RESPONSE_VIEW}_${response.key}`));
