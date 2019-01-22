@@ -41,6 +41,12 @@ class AccountsController < ApplicationController
         errors['email'] = ['That email is taken. Try another.']
       elsif @user.errors['email']&.include?('does not appear to be a valid e-mail address')
         errors['email'] = ['Enter a valid email']
+      elsif @user.errors['username']&.include?('cannot contain spaces')
+        errors['username'] = ['That username is not valid because it has a space. Try another.']
+      elsif @user.errors['username']
+        errors['username'] = ['That username is invalid. Try another.']
+      else @user.errors['email']
+        errors['email'] = ['That email is invalid. Try another.']
       end
       render json: {errors: errors}, status: 422
     end
