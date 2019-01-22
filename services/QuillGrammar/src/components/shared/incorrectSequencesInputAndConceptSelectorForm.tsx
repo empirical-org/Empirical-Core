@@ -1,30 +1,31 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router';
-import _ from 'underscore';
-import C from '../../constants';
-import ConceptSelectorWithCheckbox from './conceptSelectorWithCheckbox.jsx';
-import { TextEditor } from 'quill-component-library/dist/componentLibrary';
+import * as React from 'react';
+import * as _ from 'underscore';
+import ConceptSelectorWithCheckbox from './conceptSelectorWithCheckbox';
+import TextEditor from './textEditor';
 import { EditorState, ContentState } from 'draft-js'
 import ResponseComponent from '../questions/responseComponent'
-import request from 'request'
+import * as request from 'request'
 
-export default class FocusPointsInputAndConceptResultSelectorForm extends React.Component {
+export default class IncorrectSequencesInputAndConceptSelectorForm extends React.Component {
   constructor(props) {
     super(props)
 
-    const item = this.props.item;
+    const { item } = props
+
     this.state = {
       itemText: item ? `${item.text}|||` : '',
       itemFeedback: item ? item.feedback : '',
-      itemConcepts: item && item.conceptResults ? item.conceptResults : {},
+      itemConcepts: item ? (item.conceptResults ? item.conceptResults : {}) : {},
       matchedCount: 0
     }
 
-    this.handleChange = this.handleChange.bind(this)
-    this.handleFeedbackChange = this.handleFeedbackChange.bind(this)
-    this.handleConceptChange = this.handleConceptChange.bind(this)
     this.getNewAffectedCount = this.getNewAffectedCount.bind(this)
+    this.handleChange = this.handleChange.bind(this)
+    this.handleConceptChange = this.handleConceptChange.bind(this)
+    this.handleFeedbackChange = this.handleFeedbackChange.bind(this)
+    this.deleteConceptResult = this.deleteConceptResult.bind(this)
+    this.toggleCheckboxCorrect = this.toggleCheckboxCorrect.bind(this)
+    this.toggleSuggestedSequence = this.toggleSuggestedSequence.bind(this)
   }
 
   addOrEditItemLabel() {
@@ -33,18 +34,19 @@ export default class FocusPointsInputAndConceptResultSelectorForm extends React.
 
   getNewAffectedCount() {
     const qid = this.props.questionID
+    const usedSeqs = this.props.usedSequences
     const newSeqs = this.state.itemText.split(/\|{3}(?!\|)/)
     request(
       {
-        url: `${process.env.QUILL_CMS}/responses/${qid}/focus_point_affected_count`,
+        url: `${process.env.QUILL_CMS}/responses/${qid}/incorrect_sequence_affected_count`,
         method: 'POST',
-        json: {data: {selected_sequences: newSeqs}},
+        json: {data: {used_sequences: usedSeqs, selected_sequences: newSeqs}}
       },
       (err, httpResponse, data) => {
         this.setState({matchedCount: data.matchedCount})
-        }
-      );
-    }
+      }
+    );
+  }
 
   handleChange(stateKey, e) {
     const obj = {};
@@ -112,30 +114,81 @@ export default class FocusPointsInputAndConceptResultSelectorForm extends React.
   }
 
   toggleSuggestedSequence(text) {
-    let newFocusPoints
-    const focusPoints = this.state.itemText.split(/\|{3}(?!\|)/)
-    const index = focusPoints.indexOf(`${text}`)
+    let newIncorrectSequences
+    const incorrectSequences = this.state.itemText.split(/\|{3}(?!\|)/)
+    const index = incorrectSequences.indexOf(`${text}`)
     if (index !== -1) {
-      focusPoints.splice(index, 1).join('|||')
-      newFocusPoints = focusPoints.join('|||')
+      incorrectSequences.splice(index, 1).join('|||')
+      newIncorrectSequences = incorrectSequences.join('|||')
     } else {
-      newFocusPoints = focusPoints.join('|||') + `${text}|||`
+      newIncorrectSequences = incorrectSequences.join('|||') + `${text}|||`
     }
-    this.setState({itemText: newFocusPoints}, this.getNewAffectedCount)
+    this.setState({itemText: newIncorrectSequences}, this.getNewAffectedCount)
   }
 
   returnAppropriateDataset() {
     const questionID = this.props.questionID
-    const datasets = ['fillInBlank', 'sentenceFragments'];
     let theDatasetYouAreLookingFor = this.props.questions.data[questionID];
     let mode = 'questions';
-    datasets.forEach((dataset) => {
-      if (this.props[dataset].data && this.props[dataset].data[questionID]) {
-        theDatasetYouAreLookingFor = this.props[dataset].data[questionID];
-        mode = dataset;
-      }
-    });
     return { dataset: theDatasetYouAreLookingFor, mode, }; // "These are not the datasets you're looking for."
+  }
+
+  renderSuggestedIncorrectSequences() {
+    if (this.props.suggestedSequences && this.props.suggestedSequences.length > 0) {
+      const suggestedSequences = []
+      const coveredSequences = []
+      this.props.suggestedSequences.forEach((seq, i) => {
+        const incorrectSequences = this.state.itemText.split(/\|{3}(?!\|)/)
+        const added = incorrectSequences.includes(`${seq}`)
+        const covered = _.any(incorrectSequences, inSeq => inSeq.length > 0 && seq.includes(inSeq));
+        let color
+        if (added) {
+          color = '#c0c0c0'
+        } else if (covered) {
+          color = '#969696'
+        } else {
+          color = '#3b3b3b'
+        }
+        const seqTag = this.renderSequenceTag(seq, color, i)
+        covered && !added ? coveredSequences.push(seqTag) : suggestedSequences.push(seqTag)
+      })
+      const suggestedSequencesDiv = suggestedSequences.length > 0 ? <div>
+        <label className="label">Suggested Sequences</label>
+        <div>{suggestedSequences}</div>
+      </div> : null
+      const coveredSequencesDiv = coveredSequences.length > 0 ? <div>
+        <label className="label">Covered by Selected Sequences</label>
+        <div>{coveredSequences}</div>
+      </div> : null
+      return <div>
+        {suggestedSequencesDiv}
+        {coveredSequencesDiv}
+      </div>
+    }
+  }
+
+  renderUsedIncorrectSequences() {
+    if (this.props.usedSequences && this.props.usedSequences.length > 0) {
+      const usedSequences = this.props.usedSequences.map((seq, i) => this.renderSequenceTag(seq, '#c0c0c0', i))
+        return <div>
+          <label className="label">Previously Used Sequences</label>
+          <div>
+            {usedSequences}
+          </div>
+        </div>
+    }
+  }
+
+  renderCoveredByUsedIncorrectSequences() {
+    if (this.props.coveredSequences && this.props.coveredSequences.length > 0) {
+      const coveredSequences = this.props.coveredSequences.map((seq, i) => this.renderSequenceTag(seq, '#969696', i))
+        return <div>
+          <label className="label">Covered by Previously Used Sequences</label>
+          <div>
+            {coveredSequences}
+          </div>
+        </div>
+    }
   }
 
   renderSequenceTag(seq, backgroundColor, i) {
@@ -148,13 +201,23 @@ export default class FocusPointsInputAndConceptResultSelectorForm extends React.
       </span>
    }
 
-   renderExplanatoryNote() {
-     return <div style={{ marginBottom: '10px' }}>
-       <p>Focus points can contain regular expressions. See <a href="https://www.regextester.com/">this page</a> to test regular expressions, and access the cheat sheet on the right. <b>Note:</b> any periods need to be prefaced with a backslash ("\") in order to be evaluated correctly. Example: "walked\."</p>
-       <br />
-       <p>In order to indicate that two or more words or phrases must appear in the response together, you can separate them using "&&". Example: "running&&dancing&&swimming", "run&&dance&&swim".</p>
-     </div>
-   }
+  renderSuggestedIncorrectSequencesSection() {
+    if (this.props.suggestedSequences && this.props.suggestedSequences.length > 0) {
+      return <div>
+        {this.renderSuggestedIncorrectSequences()}
+        {this.renderUsedIncorrectSequences()}
+        {this.renderCoveredByUsedIncorrectSequences()}
+      </div>
+    }
+  }
+
+  renderExplanatoryNote() {
+    return <div style={{ marginBottom: '10px' }}>
+      <p>Focus points can contain regular expressions. See <a href="https://www.regextester.com/">this page</a> to test regular expressions, and access the cheat sheet on the right. <b>Note:</b> any periods need to be prefaced with a backslash ("\") in order to be evaluated correctly. Example: "walked\."</p>
+      <br />
+      <p>In order to indicate that two or more words or phrases must appear in the response together, you can separate them using "&&". Example: "running&&dancing&&swimming", "run&&dance&&swim".</p>
+    </div>
+  }
 
   render() {
     const appropriateData = this.returnAppropriateDataset();
@@ -167,6 +230,7 @@ export default class FocusPointsInputAndConceptResultSelectorForm extends React.
           <div className="control">
             <label className="label">{this.props.itemLabel} Text</label>
             {this.renderTextInputFields()}
+            {this.renderSuggestedIncorrectSequencesSection()}
             <label className="label" style={{ marginTop: 10, }}>Feedback</label>
             <TextEditor
               text={this.state.itemFeedback || ""}
@@ -186,10 +250,10 @@ export default class FocusPointsInputAndConceptResultSelectorForm extends React.
         <div>
           <label className="label">{this.state.matchedCount} {this.state.matchedCount === 1 ? 'sequence' : 'sequences'} affected</label>
           <ResponseComponent
-            selectedFocusPoints={this.state.itemText.split(/\|{3}(?!\|)/)}
+            selectedIncorrectSequences={this.state.itemText.split(/\|{3}(?!\|)/)}
             question={dataset}
             mode={mode}
-            states={this.props.states}
+            states={this.props.questions.states}
             questionID={this.props.questionID}
           />
         </div>
@@ -197,4 +261,4 @@ export default class FocusPointsInputAndConceptResultSelectorForm extends React.
     );
   }
 
-};
+}
