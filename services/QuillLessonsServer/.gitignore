@@ -7,3 +7,4 @@ lib/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
 *.log
+dev.sh

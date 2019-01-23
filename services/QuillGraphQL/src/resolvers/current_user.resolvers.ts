@@ -17,6 +17,7 @@ export default {
 };
 
 function convertCookieToUser(decodedCookie:DecodedCookie): CurrentUserData|AnonymousUser {
+  console.log(decodedCookie);
   if (decodedCookie["user_id"]) {
     return {
       id: decodedCookie["user_id"],
