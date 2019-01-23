@@ -106,8 +106,10 @@
     "webpack-error-notification": "^0.1.6"
   },
   "dependencies": {
+    "@types/graphql": "^14.0.5",
     "actioncable": "^5.1.1",
     "animejs": "^2.2.0",
+    "apollo-boost": "^0.1.27",
     "babel-polyfill": "^6.23.0",
     "babel-runtime": "^6.26.0",
     "caniuse-db": "^1.0.30000693",
@@ -123,6 +125,7 @@
     "font-awesome": "^4.7.0",
     "fuse.js": "^3.0.5",
     "fuzzyset.js": "0.0.3",
+    "graphql": "^14.1.1",
     "immutable": "^3.8.1",
     "jwt-decode": "^2.2.0",
     "levenshtein": "^1.0.5",
@@ -136,6 +139,7 @@
     "react": "15.6.2",
     "react-addons-css-transition-group": "^15.6.0",
     "react-addons-shallow-compare": "^15.6.0",
+    "react-apollo": "^2.4.0",
     "react-dom": "15.6.2",
     "react-onclickout": "^2.0.4",
     "react-redux": "^5.0.5",

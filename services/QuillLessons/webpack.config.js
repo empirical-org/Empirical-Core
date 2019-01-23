@@ -23,7 +23,8 @@ module.exports = {
       '.js',
       '.jsx',
       '.ts',
-      '.tsx'
+      '.tsx',
+      '.mjs'
     ],
   },
   context: path.resolve(__dirname, 'app'),
@@ -83,6 +84,11 @@ module.exports = {
   module: {
     noParse: /node_modules\/json-schema\/lib\/validate\.js/,
     rules: [
+      {
+        test: /\.mjs$/,
+        include: /node_modules/,
+        type: 'javascript/auto',
+      },
       {
         test: /\.(t|j)sx?$/,
         exclude: /node_modules/,

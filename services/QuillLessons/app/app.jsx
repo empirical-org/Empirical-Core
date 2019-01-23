@@ -5,6 +5,8 @@ import React from 'react';
 import { render } from 'react-dom';
 import createStore from './utils/configureStore';
 import { Provider } from 'react-redux';
+import { ApolloProvider } from 'react-apollo';
+import apolloClient from './utils/apollo';
 import { Router, Route, IndexRoute, } from 'react-router';
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
 import createHashHistory from 'history/lib/createHashHistory';
@@ -52,9 +54,11 @@ const rootRoute = {
 
 render((
   <Provider store={store}>
-    <SocketProvider>
-      <Router history={history} routes={rootRoute} />
-    </SocketProvider>
+    <ApolloProvider client={apolloClient}>
+      <SocketProvider>
+        <Router history={history} routes={rootRoute} />
+      </SocketProvider>
+    </ApolloProvider>
   </Provider>),
   root
 );
