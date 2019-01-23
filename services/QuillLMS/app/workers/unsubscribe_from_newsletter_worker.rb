@@ -7,7 +7,7 @@ class UnsubscribeFromNewsletterWorker
   end
 
   def remove_recipient_from_list
-    get_url = URI("https://api.sendgrid.com/v3/contactdb/recipients/search?email=#{self.email}")
+    get_url = URI("https://api.sendgrid.com/v3/contactdb/recipients/search?email=#{@recipient.email}")
     http = Net::HTTP.new(get_url.host, get_url.port)
     http.use_ssl = true
     http.verify_mode = OpenSSL::SSL::VERIFY_NONE
