@@ -2,12 +2,14 @@ class UnsubscribeFromNewsletterWorker
   include Sidekiq::Worker
 
   def perform(recipient_id)
-    @recipient = User.find recipient_id
-    remove_recipient_from_list
+    recipient = User.find_by(id: recipient_id)
+    if recipient
+      remove_recipient_from_list(recipient)
+    end
   end
 
-  def remove_recipient_from_list
-    get_url = URI("https://api.sendgrid.com/v3/contactdb/recipients/search?email=#{@recipient.email}")
+  def remove_recipient_from_list(recipient)
+    get_url = URI("https://api.sendgrid.com/v3/contactdb/recipients/search?email=#{recipient.email}")
     http = Net::HTTP.new(get_url.host, get_url.port)
     http.use_ssl = true
     http.verify_mode = OpenSSL::SSL::VERIFY_NONE
