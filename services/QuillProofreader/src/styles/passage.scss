@@ -150,6 +150,13 @@
       align-items: flex-start;
       justify-content: space-between;
       color: #000000;
+      &.disabled {
+        border: solid 1px #bdbdbd;
+        color: #878787;
+        img {
+          filter: invert(.5);
+        }
+      }
     }
   }
 }
