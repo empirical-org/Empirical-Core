@@ -13,7 +13,8 @@ import {
   goToNextQuestion,
   checkAnswer,
   setSessionReducerToSavedSession,
-  startListeningToFollowUpQuestionsForProofreaderSession
+  startListeningToFollowUpQuestionsForProofreaderSession,
+  setSessionPending
 } from "../../actions/session";
 import { startListeningToConceptsFeedback } from '../../actions/conceptsFeedback'
 import { startListeningToConcepts } from '../../actions/concepts'
@@ -61,6 +62,8 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
       const proofreaderSessionId = getParameterByName('proofreaderSessionId', window.location.href)
       if (sessionID) {
         this.props.dispatch(setSessionReducerToSavedSession(sessionID))
+      } else {
+        this.props.dispatch(setSessionPending(false))
       }
 
       if (activityUID) {
