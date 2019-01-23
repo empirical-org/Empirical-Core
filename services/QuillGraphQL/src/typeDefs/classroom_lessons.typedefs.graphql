@@ -35,6 +35,7 @@ type Edition {
   name: String 
   user_id: ID
   questions: [Question]
+  lesson: ClassroomLesson
 }
 
 type ClassroomLesson {
@@ -52,6 +53,7 @@ type ClassroomLessonSession {
   classroom_name: String
   current_slide: String
   edition_id: ID
+  edition: Edition
   followUpActivityName: String
   followUpOption: String
   followUpUrl: String

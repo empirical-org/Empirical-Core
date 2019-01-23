@@ -11,7 +11,11 @@ export default {
     edition: edition
   },
   Edition: {
-    questions: editionQuestions
+    questions: editionQuestions,
+    lesson: editionLesson
+  },
+  ClassroomLessonSession: {
+    edition: sessionEdition
   },
   Mutation: {
     setSessionCurrentSlide
@@ -53,6 +57,10 @@ function editions(parent, args, ctx) {
   return rethinkClient.db('quill_lessons').table('lesson_edition_metadata').filter({lesson_id:  parent.id}).run()
 }
 
+function sessionEdition({edition_id}, args, ctx) {
+  return rethinkClient.db('quill_lessons').table('lesson_edition_metadata').get(edition_id).run()
+}
+
 function edition(parent, {id}, ctx) {
   return rethinkClient.db('quill_lessons').table('lesson_edition_metadata').get(id).run()
 }
@@ -60,6 +68,10 @@ function edition(parent, {id}, ctx) {
 async function editionQuestions(parent, args, ctx) {
   const questionsData = await rethinkClient.db('quill_lessons').table('lesson_edition_questions').get(parent.id).run();
   return questionsData.questions
+}
+
+function editionLesson({lesson_id}, args, ctx) {
+  return rethinkClient.db('quill_lessons').table('classroom_lessons').get(lesson_id).run()
 }
 
 function classroomLessonSession(parent, {id}, ctx) {
