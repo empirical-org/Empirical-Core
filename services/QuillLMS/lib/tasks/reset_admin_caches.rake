@@ -2,7 +2,7 @@ namespace :admin_caches do
   desc 'reset caches for district admin reports'
   task :reset => :environment do
     SchoolsAdmins.all.each do |sa|
-      if sa.user
+      if sa.user && sa.user_id
         FindAdminUsersWorker.perform_async(sa.user_id)
         FindDistrictConceptReportsWorker.perform_async(sa.user_id)
         FindDistrictStandardsReportsWorker.perform_async(sa.user_id)
