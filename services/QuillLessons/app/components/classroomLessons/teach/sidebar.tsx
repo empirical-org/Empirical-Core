@@ -26,12 +26,12 @@ const studentIcon = 'https://assets.quill.org/images/icons/student_icon.svg'
 
 interface ReducerSidebarProps extends React.Props<any> {
   classroomSessions: any,
-  classroomLesson: any,
   customize: any,
 }
 
 interface PassedSidebarProps extends React.Props<any> {
   params: any
+  classroomLesson: ClassroomLesson
 }
 
 class Sidebar extends React.Component<ReducerSidebarProps & PassedSidebarProps & DispatchFromProps, any> {
@@ -102,109 +102,114 @@ class Sidebar extends React.Component<ReducerSidebarProps & PassedSidebarProps &
   }
 
   render() {
-    const { data, hasreceiveddata, }: { data: ClassroomLessonSession, hasreceiveddata: boolean } = this.props.classroomSessions;
-    const lessonData: ClassroomLesson = this.props.classroomLesson.data;
-    const lessonDataLoaded: boolean = this.props.classroomLesson.hasreceiveddata;
-    const editionData: CustomizeIntf.EditionQuestions = this.props.customize.editionQuestions;
-    if (hasreceiveddata && data && lessonDataLoaded) {
-      const questions = editionData.questions;
-      const length = questions ? Number(questions.length) - 1 : 0;
-      const currentSlide = data.current_slide;
-      const components: JSX.Element[] = [];
-      let counter = 0;
-      for (const slide in questions) {
-        counter += 1;
-        const activeClass = currentSlide === slide ? 'active' : '';
-        let thumb;
-        let title = editionData.questions[slide].data.teach.title
-        let titleSection = title ? <span> - {title}</span> : <span/>
-        let prompt = data.prompts && data.prompts[slide] ? data.prompts[slide] : null;
-        let model: string|null = data.models && data.models[slide] ? data.models[slide] : null;
-        let mode: string | null = data.modes && data.modes[slide] ? data.modes[slide] : null;
-        let submissions: QuestionSubmissionsList | null = data.submissions && data.submissions[slide] ? data.submissions[slide] : null;
-        let selected_submissions = data.selected_submissions && data.selected_submissions[slide] ? data.selected_submissions[slide] : null;
-        let selected_submission_order: Array<string>|null = data.selected_submission_order && data.selected_submission_order[slide] ? data.selected_submission_order[slide] : null;
-        let props = { mode, submissions, selected_submissions, selected_submission_order};
-        switch (questions[slide].type) {
-          case 'CL-LB':
-            thumb = (
-              <CLStudentLobby data={data} title={lessonData.title}/>
-            );
-            break;
-          case 'CL-ST':
-            thumb = (
-              <CLStudentStatic data={questions[slide].data} />
-            );
-            break;
-          case 'CL-MD':
-            thumb = (
-              <CLStudentModelQuestion data={questions[slide].data} model={model} prompt={prompt}/>
-            );
-            break;
-          case 'CL-SA':
-            thumb = (
-              <CLStudentSingleAnswer data={questions[slide].data} handleStudentSubmission={() => {}} {...props} />
-            );
-          break
-          case 'CL-FB':
-            thumb = (
-              <CLStudentFillInTheBlank data={questions[slide].data} handleStudentSubmission={() => {}} {...props} />
-            );
-            break;
-          case 'CL-FL':
-            thumb = (
-              <CLStudentListBlanks data={questions[slide].data} handleStudentSubmission={() => {}} {...props} />
-            );
-            break;
-          case 'CL-EX':
-            thumb = (
-              <CLStudentStatic data={questions[slide].data} />
-            );
-            break;
-          case 'CL-MS':
-            thumb = (
-              <CLStudentMultistep data={questions[slide].data} handleStudentSubmission={() => {}} {...props} />
-            )
-            break;
-          default:
-            thumb = questions[slide].type;
-        }
-        const headerText = slide === '0'
-        ? <span>Title Slide{titleSection}</span>
-        : <span>Slide {slide} / {length}{titleSection}</span>
-        components.push((
-          <div key={counter} onClick={() => this.goToSlide(slide)} id={slide}>
-            <div className="sidebar-header">
-            <p className={`slide-number ${activeClass}`}>{headerText}</p>
-            {currentSlide === slide ? this.presentStudents() : null}
-            </div>
-            <div className={`slide-preview ${activeClass}`}>
-              <div className="scaler">
-                {thumb}
-              </div>
-            </div>
-          </div>
-        ));
-      }
-      return (
-        <div className="side-bar">
-          {components}
-        </div>
-      );
-    }
     return (
-      <div className="side-bar">
-          Loading...
-        </div>
-    );
+      <div>Hello</div>
+    )
   }
+
+//   oldRender() {
+//     const { data, hasreceiveddata, }: { data: ClassroomLessonSession, hasreceiveddata: boolean } = this.props.classroomSessions;
+//     const lessonData: ClassroomLesson|null = null; // Replace with Apollo
+//     const lessonDataLoaded: boolean = false; // Replace with Apollo
+//     const editionData: CustomizeIntf.EditionQuestions = this.props.customize.editionQuestions;
+//     if (hasreceiveddata && data && lessonDataLoaded) {
+//       const questions = editionData.questions;
+//       const length = questions ? Number(questions.length) - 1 : 0;
+//       const currentSlide = data.current_slide;
+//       const components: JSX.Element[] = [];
+//       let counter = 0;
+//       for (const slide in questions) {
+//         counter += 1;
+//         const activeClass = currentSlide === slide ? 'active' : '';
+//         let thumb;
+//         let title = editionData.questions[slide].data.teach.title
+//         let titleSection = title ? <span> - {title}</span> : <span/>
+//         let prompt = data.prompts && data.prompts[slide] ? data.prompts[slide] : null;
+//         let model: string|null = data.models && data.models[slide] ? data.models[slide] : null;
+//         let mode: string | null = data.modes && data.modes[slide] ? data.modes[slide] : null;
+//         let submissions: QuestionSubmissionsList | null = data.submissions && data.submissions[slide] ? data.submissions[slide] : null;
+//         let selected_submissions = data.selected_submissions && data.selected_submissions[slide] ? data.selected_submissions[slide] : null;
+//         let selected_submission_order: Array<string>|null = data.selected_submission_order && data.selected_submission_order[slide] ? data.selected_submission_order[slide] : null;
+//         let props = { mode, submissions, selected_submissions, selected_submission_order};
+//         switch (questions[slide].type) {
+//           case 'CL-LB':
+//             thumb = (
+//               <CLStudentLobby data={data} title={lessonData.title}/>
+//             );
+//             break;
+//           case 'CL-ST':
+//             thumb = (
+//               <CLStudentStatic data={questions[slide].data} />
+//             );
+//             break;
+//           case 'CL-MD':
+//             thumb = (
+//               <CLStudentModelQuestion data={questions[slide].data} model={model} prompt={prompt}/>
+//             );
+//             break;
+//           case 'CL-SA':
+//             thumb = (
+//               <CLStudentSingleAnswer data={questions[slide].data} handleStudentSubmission={() => {}} {...props} />
+//             );
+//           break
+//           case 'CL-FB':
+//             thumb = (
+//               <CLStudentFillInTheBlank data={questions[slide].data} handleStudentSubmission={() => {}} {...props} />
+//             );
+//             break;
+//           case 'CL-FL':
+//             thumb = (
+//               <CLStudentListBlanks data={questions[slide].data} handleStudentSubmission={() => {}} {...props} />
+//             );
+//             break;
+//           case 'CL-EX':
+//             thumb = (
+//               <CLStudentStatic data={questions[slide].data} />
+//             );
+//             break;
+//           case 'CL-MS':
+//             thumb = (
+//               <CLStudentMultistep data={questions[slide].data} handleStudentSubmission={() => {}} {...props} />
+//             )
+//             break;
+//           default:
+//             thumb = questions[slide].type;
+//         }
+//         const headerText = slide === '0'
+//         ? <span>Title Slide{titleSection}</span>
+//         : <span>Slide {slide} / {length}{titleSection}</span>
+//         components.push((
+//           <div key={counter} onClick={() => this.goToSlide(slide)} id={slide}>
+//             <div className="sidebar-header">
+//             <p className={`slide-number ${activeClass}`}>{headerText}</p>
+//             {currentSlide === slide ? this.presentStudents() : null}
+//             </div>
+//             <div className={`slide-preview ${activeClass}`}>
+//               <div className="scaler">
+//                 {thumb}
+//               </div>
+//             </div>
+//           </div>
+//         ));
+//       }
+//       return (
+//         <div className="side-bar">
+//           {components}
+//         </div>
+//       );
+//     }
+//     return (
+//       <div className="side-bar">
+//           Loading...
+//         </div>
+//     );
+//   }
 
 }
 
 function select(props) {
   return {
     classroomSessions: props.classroomSessions,
-    classroomLesson: props.classroomLesson,
     customize: props.customize
   };
 }
