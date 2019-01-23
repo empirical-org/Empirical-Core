@@ -153,6 +153,7 @@
       &.disabled {
         border: solid 1px #bdbdbd;
         color: #878787;
+        cursor: default;
         img {
           filter: invert(.5);
         }
