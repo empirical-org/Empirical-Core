@@ -137,7 +137,7 @@ protected
 
       ORDER BY pinned DESC, locked ASC, max_percentage DESC, ua.due_date ASC, unit.created_at ASC, ua.id ASC").to_a
     else
-      []
+      @act_sesh_records = []
     end
   end
 
