@@ -161,7 +161,7 @@ protected
     if !classroom_id
        current_user.classrooms.last
     else
-      current_user.classrooms.find(classroom_id.to_i) if !!classroom_id
+      current_user.classrooms.find_by(id: classroom_id.to_i) if !!classroom_id
     end
   end
 end
