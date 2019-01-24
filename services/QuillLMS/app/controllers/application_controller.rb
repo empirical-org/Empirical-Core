@@ -74,10 +74,12 @@ class ApplicationController < ActionController::Base
   end
 
   def should_load_intercom
+    current_path = request.env['PATH_INFO']
     user_is_logged_in_teacher = current_user && current_user.role == 'teacher'
     user_is_not_a_staff_member = session[:staff_id].nil?
     user_is_not_a_demo_account = current_user && /hello\+(.)*@quill.org/.match(current_user.email).nil?
-    @should_load_intercom = user_is_logged_in_teacher && user_is_not_a_staff_member && user_is_not_a_demo_account
+    not_on_sign_up = !current_path.include?('sign-up')
+    @should_load_intercom = user_is_logged_in_teacher && user_is_not_a_staff_member && user_is_not_a_demo_account && not_on_sign_up
   end
 
   protected
