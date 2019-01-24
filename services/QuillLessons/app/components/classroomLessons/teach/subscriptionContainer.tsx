@@ -1,10 +1,11 @@
 import React from 'react';
 import gql from 'graphql-tag';
 // import  GetLessonQuery  from '../queries/getLessonQuery';
-import { ChildDataProps, graphql } from "react-apollo";
+import { ChildDataProps, graphql, Subscription } from "react-apollo";
 import { ClassroomLesson } from '../../../interfaces/classroomLessons';
 import { ClassroomLessonSession } from '../interfaces';
 import { getParameterByName } from '../../../libs/getParameterByName';
+import dataContainer from './dataContainer';
 
 const QUERY = gql`
   subscription GetLessonSession($id: String!) {
@@ -76,20 +77,43 @@ type InputProps = {
 
 type ChildProps = ChildDataProps<InputProps, Response, Variables>;
 
-const withLesson = graphql<InputProps, Response, Variables, ChildProps>(QUERY, {
-  options: ({params}) => ({
-    variables: {
-      id: getParameterByName('classroom_unit_id') + params.lessonID
-    }
-  })
-})
+// const withLesson = graphql<InputProps, Response, Variables, ChildProps>(QUERY, {
+//   options: ({params}) => ({
+//     variables: {
+//       id: getParameterByName('classroom_unit_id') + params.lessonID
+//     }
+//   })
+// })
 
-export default withLesson(({ data: {loading, classroomLessonSession, error}}) => {
-  if (loading) return <div>Loading</div>;
-  if (error) return <h1>DATA ERROR</h1>;
+// export default withLesson(({ data: {loading, classroomLessonSession, error}}) => {
+  // if (loading) return <div>Loading</div>;
+  // if (error) return <h1>ERROR</h1>;
 
-  if (classroomLessonSession) return (
-    <div>{classroomLessonSession.current_slide}</div>
+  // if (classroomLessonSession) return (
+  //   <div>{classroomLessonSession.current_slide}</div>
+  // )
+  // return (<div>Loading</div>)
+// })
+
+const Session: React.SFC<InputProps> = props => {
+  const id = getParameterByName('classroom_unit_id') + props.params.lessonID;
+  return (
+    <Subscription<Response, Variables> subscription={QUERY} variables={{id}}>
+      {
+        ({ data, loading, error }) => {
+          console.log(data, loading, error)
+          if (loading) return <div>Loading</div>;
+          if (error) return <h1>Subscription ERROR</h1>;
+        
+          if (data.classroomLessonSession) return (
+            <div>Data loaded</div>
+          )
+          return (<div>Loading</div>)
+        }
+      }
+    </Subscription>
   )
-  return (<div>Loading</div>)
-})
+
+}
+
+export default Session;

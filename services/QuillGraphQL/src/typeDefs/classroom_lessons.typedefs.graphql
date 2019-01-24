@@ -12,7 +12,7 @@ type TeachData {
 
 type PlayData {
   html: String
-  intructions: String
+  instructions: String
   cues: [String]
   prompt: String
   stepLabels: [String]
@@ -60,7 +60,7 @@ type ClassroomLessonSession {
   id: ID
   models: JSON
   prompts: JSON
-  startTime: Int
+  startTime: String
   student_ids: JSON
   students: JSON
   supportingInfo: String
