@@ -63,8 +63,6 @@ module PusherActivitySessionInteractionLogPosted
           if last_interaction < 60
             data << student_obj
           end
-        else
-          data << student_obj
         end
       end
       pusher_client.trigger(tid.to_s, 'as-interaction-log-pushed', data: data )
