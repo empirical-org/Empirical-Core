@@ -24,16 +24,16 @@ module PusherActivitySessionInteractionLogPosted
         # less than 2 minutes since last interaction log posted
         # add x SECONDS
         seconds_since_last_log = ((current_time - DateTime.parse(student_obj["last_interaction"]))*24*60*60).to_i
-        student_obj["timespent_activity_session"] += seconds_since_last_log 
+        student_obj["timespent_activity_session"] += seconds_since_last_log
         if student_obj["current_question"] == current_question
-          student_obj["timespent_question"] += seconds_since_last_log 
+          student_obj["timespent_question"] += seconds_since_last_log
         else
           student_obj["current_question"] = current_question
           student_obj["timespent_question"] = 0
         end
       else
-        student_obj["name"] = activity_session.user.name 
-        student_obj["activity_name"] = activity_session.activity.name 
+        student_obj["name"] = activity_session.user.name
+        student_obj["activity_name"] = activity_session.activity.name
         student_obj["current_question"] = current_question
         student_obj["timespent_activity_session"] = ActiveRecord::Base.connection.execute(
           "SELECT timespent_activity_session(#{activity_sess_id})"
@@ -54,13 +54,17 @@ module PusherActivitySessionInteractionLogPosted
       #           "activity_sess_id":"34109609"}
       #         ]}
       # }
-      data = [] 
+      data = []
       teacher_obj = $redis.hgetall("TEACHER_OBJ_FOR_TEACHER_ID_#{tid}")
       teacher_obj.keys.map do |k|
         student_obj = JSON.parse(teacher_obj[k])
-        last_interaction = ((DateTime.now - DateTime.parse(student_obj["last_interaction"]))*24*60*60).to_i
-        if last_interaction < 60 
-          data << student_obj 
+        if student_obj["last_interaction"]
+          last_interaction = ((DateTime.now - DateTime.parse(student_obj["last_interaction"]))*24*60*60).to_i
+          if last_interaction < 60
+            data << student_obj
+          end
+        else
+          data << student_obj
         end
       end
       pusher_client.trigger(tid.to_s, 'as-interaction-log-pushed', data: data )
