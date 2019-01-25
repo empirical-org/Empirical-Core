@@ -98,7 +98,7 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
       }
 
       const sessionID = getParameterByName('student', window.location.href)
-      if (sessionID && !_.isEqual(nextProps.session, this.props.session && !nextProps.session.pending)) {
+      if (sessionID && !_.isEqual(nextProps.session, this.props.session) && !nextProps.session.pending) {
         updateSessionOnFirebase(sessionID, nextProps.session)
       }
 
