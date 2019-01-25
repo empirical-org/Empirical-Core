@@ -74,12 +74,12 @@ protected
 
   def student_data
     {
-      name: current_user.name,
+      name: current_user&.name,
       classroom: {
-        name: @current_classroom.name,
-        id: @current_classroom.id,
+        name: @current_classroom&.name,
+        id: @current_classroom&.id,
         teacher: {
-          name: @current_classroom.owner.name
+          name: @current_classroom&.owner&.name
         }
       },
     }
