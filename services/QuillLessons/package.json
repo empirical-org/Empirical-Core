@@ -107,6 +107,7 @@
   },
   "dependencies": {
     "@types/graphql": "^14.0.5",
+    "@types/ramda": "^0.25.47",
     "actioncable": "^5.1.1",
     "animejs": "^2.2.0",
     "apollo-boost": "^0.1.27",
@@ -137,6 +138,7 @@
     "pusher-js": "^4.1.0",
     "quill-component-library": "^0.1.29",
     "quill-marking-logic": "^0.7.14",
+    "ramda": "^0.26.1",
     "raven-js": "^3.17.0",
     "react": "15.6.2",
     "react-addons-css-transition-group": "^15.6.0",

@@ -23,6 +23,7 @@ export default {
   Subscription: {
     classroomLessonSession: {
       subscribe: (parent, {id}, ctx) => {
+        console.log("context: ", ctx)
         const channel = id;
         rethinkClient
           .db('quill_lessons')
