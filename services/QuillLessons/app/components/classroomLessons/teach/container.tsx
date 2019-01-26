@@ -2,8 +2,6 @@ declare function require(name:string);
 import * as React from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash'
-import gql from "graphql-tag";
-import { Query } from "react-apollo";
 const WakeLock: any = require('react-wakelock').default;
 import {
   startListeningToSessionForTeacher,
@@ -12,7 +10,10 @@ import {
   registerTeacherPresence,
   startLesson
 } from '../../../actions/classroomSessions';
-
+import {
+  getClassLesson,
+  clearClassroomLessonFromStore
+} from '../../../actions/classroomLesson';
 import {
   getCurrentUserAndCoteachersFromLMS,
   getEditionMetadataForUserIds,
@@ -38,18 +39,6 @@ import {
 } from '../../../interfaces/classroomLessons'
 import * as CustomizeIntf from '../../../interfaces/customize'
 
-const GET_LESSON = gql`
-  query Lesson($id: String!) {
-     classroomLesson(id: $id) {
-       id
-       lesson
-       title
-       unit
-     }
-  }
-`;
-
-
 class TeachClassroomLessonContainer extends React.Component<any, any> {
   constructor(props) {
     super(props);
@@ -74,6 +63,10 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
       });
       registerTeacherPresence(classroomSessionId);
     }
+    if (this.props.classroomLesson.hasreceiveddata) {
+      this.props.dispatch(clearClassroomLessonFromStore());
+      this.props.dispatch(clearEditionQuestions());
+    }
     document.getElementsByTagName("html")[0].style.overflowY = "hidden";
   }
 
@@ -88,6 +81,9 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
       }
       if (nextProps.classroomSessions.data.edition_id && Object.keys(nextProps.customize.editionQuestions).length === 0) {
         this.props.dispatch(getEditionQuestions(nextProps.classroomSessions.data.edition_id))
+      }
+      if (!nextProps.classroomLesson.hasreceiveddata) {
+        this.props.dispatch(getClassLesson(lessonId));
       }
       if (nextProps.classroomSessions.data.edition_id !== this.props.classroomSessions.data.edition_id && nextProps.classroomSessions.data.edition_id) {
         this.props.dispatch(getEditionQuestions(nextProps.classroomSessions.data.edition_id))
@@ -126,10 +122,9 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
     document.removeEventListener("keydown", this.handleKeyDown.bind(this));
   }
 
-
   render() {
     const classroomActivityError = this.props.classroomSessions.error;
-    const lessonError = false;
+    const lessonError = this.props.classroomLesson.error;
     const teachLessonContainerStyle = this.props.classroomSessions.data && this.props.classroomSessions.data.preview
     ? {'height': 'calc(100vh - 113px)'}
     : {'height': 'calc(100vh - 60px)'}
@@ -139,33 +134,20 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
       return <ErrorPage text={lessonError} />
     }  else {
       return (
-        
-          <Query query={GET_LESSON} variables={{id: this.props.params.lessonId}}>
-            {({ loading, error, data }) => {
-              if (loading) return null;
-              if (error) return `Error!: ${error}`;
-
-              return (
-                <div className="teach-lesson-container" style={teachLessonContainerStyle}>
-                  <WakeLock />
-                  <Sidebar params={this.props.params} classroomLesson={data.classroomLesson}/>
-                </div>
-              );
-            }}
-            
-          </Query>
-          
-        
+        <div className="teach-lesson-container" style={teachLessonContainerStyle}>
+          <WakeLock />
+          <Sidebar params={this.props.params}/>
+          <MainContentContainer params={this.props.params}/>
+        </div>
       );
     }
   }
 }
 
-// {/* <MainContentContainer params={this.props.params}/> */}
-
 function select(props) {
   return {
     classroomSessions: props.classroomSessions,
+    classroomLesson: props.classroomLesson,
     customize: props.customize
   };
 }

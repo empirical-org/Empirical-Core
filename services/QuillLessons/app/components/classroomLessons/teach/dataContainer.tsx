@@ -3,9 +3,11 @@ import gql from 'graphql-tag';
 // import  GetLessonQuery  from '../queries/getLessonQuery';
 import { ChildDataProps, graphql } from "react-apollo";
 import { ClassroomLesson } from '../../../interfaces/classroomLessons';
-import { Question } from '../interfaces';
+import { Question, ClassroomLessonSession } from '../interfaces';
 import { getParameterByName } from '../../../libs/getParameterByName';
 import * as R from 'ramda';
+import Sidebar from './sidebar';
+import MainContentContainer from './mainContentContainer';
 
 const QUERY = gql`
   subscription GetLessonSession($id: String!) {
@@ -58,32 +60,12 @@ const QUERY = gql`
   }
 `
 
-type ClassroomLessonSession = {
-  absentTeacherState: boolean
-  classroom_name: string
-  current_slide: string
-  edition_id: string
-  followUpActivityName: string
-  followUpOption: string
-  followUpUrl: string
-  id: string
-  models: any
-  prompts: any
-  startTime: string
-  student_ids: any
-  students: any
-  supportingInfo: string
-  teacher_ids: any
-  teacher_name: string
-  timestamps: any
-}
-
-type Edition = {
+export type Edition = {
   name: string
   questions: [Question]
 }
 
-type Lesson = {
+export type Lesson = {
   lesson: string
   title: string
   topic: string
@@ -147,15 +129,15 @@ function splitPayload(payloadSession: SubscribedSession):SplitPayloadResult {
 
 type ChildProps = ChildDataProps<InputProps, Response, Variables>;
 
-const withLesson = graphql<InputProps, Response, Variables, ChildProps>(QUERY, {
+const withLesson = graphql<InputProps, Response, Variables, ChildDataProps>(QUERY, {
   options: ({params}) => ({
     variables: {
       id: getParameterByName('classroom_unit_id') + params.lessonID
     }
-  })
+  }),
 })
 
-export default withLesson(({ data: {loading, classroomLessonSession, error}}) => {
+export default withLesson(({ data: {loading, classroomLessonSession, error}, params}) => {
   if (loading) return <div>Loading</div>;
   if (error) return <h1>DATA ERROR</h1>;
 
@@ -165,15 +147,20 @@ export default withLesson(({ data: {loading, classroomLessonSession, error}}) =>
       return (<h1>{data.error}</h1>)
     } else if ( data.isError === false ){
       const {session, edition, lesson} = data.value;
+      const teachLessonContainerStyle = session.preview
+    ? {'height': 'calc(100vh - 113px)'}
+    : {'height': 'calc(100vh - 60px)'}
       return (
-        <div>
-          <p>Current Slide {session.current_slide}</p>
+        <div className="teach-lesson-container" style={teachLessonContainerStyle}>
+          {/* <p>Current Slide {session.current_slide}</p>
           <p>Edition Name: {edition.name}</p>
-          <p>Lesson Title: {lesson.title}</p>
+          <p>Lesson Title: {lesson.title}</p> */}
+          <Sidebar params={params} session={session} edition={edition} lesson={lesson}></Sidebar>
+          <MainContentContainer params={params} session={session} edition={edition} lesson={lesson}/>
         </div>
       )
     }
-    
+    return (<div>Loading</div>)
   }
   return (<div>Loading</div>)
 })
