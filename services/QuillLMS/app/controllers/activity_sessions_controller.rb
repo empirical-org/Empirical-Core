@@ -13,7 +13,7 @@ class ActivitySessionsController < ApplicationController
     @module_url = @activity.module_url(@activity_session)
     path_request_to_firebase if @activity.activity_classification_id == 6
     # Create Cookie Data for Lessons API
-    session[:lesson_session] = CreateLessonsAuthHash.new(current_user, @activity_session.classroom_unit_id).call if @activity.activity_classification_id == 6
+    session[:lesson_session] = CreateLessonsAuthHash.new(current_user, @activity_session.classroom_unit_id, @activity).call if @activity.activity_classification_id == 6
     redirect_to(@module_url.to_s)
   end
 

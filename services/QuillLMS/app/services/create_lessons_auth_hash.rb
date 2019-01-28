@@ -1,8 +1,9 @@
 class CreateLessonsAuthHash
   
-  def initialize(user, classroom_unit_id)
+  def initialize(user, classroom_unit_id, activity)
     @user = user
     @classroom_unit_id = classroom_unit_id
+    @activity = activity
   end
 
   def call
@@ -15,7 +16,8 @@ class CreateLessonsAuthHash
     {
       user_id:               user_id,
       role:                  user_role,
-      classroom_unit_id: classroom_unit_id
+      classroom_unit_id: classroom_unit_id,
+      classroom_session_id: classroom_session_id,
     }
   end
 
@@ -57,6 +59,10 @@ class CreateLessonsAuthHash
 
   def classroom_unit
     @classroom_unit ||= ClassroomUnit.find_by(id: @classroom_unit_id)
+  end
+
+  def classroom_session_id
+    classroom_unit_id.to_s + @activity.uid
   end
 
 end

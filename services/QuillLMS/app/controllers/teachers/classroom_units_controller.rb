@@ -18,7 +18,7 @@ class Teachers::ClassroomUnitsController < ApplicationController
       classroom_unit: @classroom_unit,
       unit_activity: @unit_activity
     )
-    session[:lesson_session] = CreateLessonsAuthHash.new(current_user, @classroom_unit.id).call
+    session[:lesson_session] = CreateLessonsAuthHash.new(current_user, @classroom_unit.id, @lesson).call
     if lesson_tutorial_completed?
       if cuas && cuas.update(locked: false, pinned: true)
         find_or_create_lesson_activity_sessions_for_classroom
