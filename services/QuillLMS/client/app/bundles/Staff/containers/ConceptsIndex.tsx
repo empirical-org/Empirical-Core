@@ -5,9 +5,8 @@ import ConceptsTable from "../components/ConceptsTable";
 import RadioGroup from "../../../../node_modules/antd/lib/radio/group";
 import RadioButton from "../../../../node_modules/antd/lib/radio/radioButton";
 import ConceptSearch from "../components/ConceptsSearch";
+import ConceptManagerNav from "../components/ConceptManagerNav";
 import Fuse from 'fuse.js'
-import { Button } from "antd";
-import { Link } from 'react-router';
 const conceptsIndexQuery:string = `
   {
     concepts(childlessOnly: true) {
@@ -98,13 +97,15 @@ class ConceptsIndex extends React.Component<any, AppState> {
   }
 
   render() {
+    let activeLink = 'concepts'
+    if (window.location.href.includes('find_and_replace')) {
+      activeLink = 'find_and_replace'
+    } else if (window.location.href.includes('new')) {
+      activeLink = "new"
+    }
     return  (
       <div>
-        <div className="concept-manager-nav">
-          <Link to ="/">Concepts</Link>
-          <Link to ="/new">Add Concepts</Link>
-          <Link to ="/find_and_replace">Find & Replace</Link>
-        </div>
+        <ConceptManagerNav />
         <Query
           query={gql(conceptsIndexQuery)}
         >
