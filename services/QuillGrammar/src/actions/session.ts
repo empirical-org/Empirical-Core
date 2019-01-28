@@ -23,7 +23,7 @@ export const setSessionReducerToSavedSession = (sessionID: string) => {
   return dispatch => {
     sessionsRef.child(sessionID).once('value', (snapshot) => {
       const session = snapshot.val()
-      if (session && !session.error) {
+      if (session && Object.keys(session).length > 1 && !session.error) {
         questionsRef.orderByChild('concept_uid').once('value', (questionsSnapshot) => {
           const allQuestions = questionsSnapshot.val()
           if (!session.currentQuestion.prompt || !session.currentQuestion.answers) {

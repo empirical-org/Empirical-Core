@@ -37,7 +37,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
       this.state = {
         showExample: true,
         response: '',
-        questionStatus: 'unanswered',
+        questionStatus: this.getCurrentQuestionStatus(props.currentQuestion),
         submittedEmptyString: false,
         submittedSameResponseTwice: false,
         responses: {}
@@ -63,19 +63,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
     componentWillReceiveProps(nextProps: QuestionProps) {
       const currentQuestion = nextProps.currentQuestion
       if (currentQuestion && currentQuestion.attempts && currentQuestion.attempts.length > 0) {
-        if (currentQuestion.attempts[1]) {
-          if (currentQuestion.attempts[1].optimal) {
-            this.setState({questionStatus: 'correctly answered'})
-          } else {
-            this.setState({questionStatus: 'final attempt'})
-          }
-        } else {
-          if (currentQuestion.attempts[0] && currentQuestion.attempts[0].optimal) {
-            this.setState({questionStatus: 'correctly answered'})
-          } else {
-            this.setState({questionStatus: 'incorrectly answered'})
-          }
-        }
+        this.setState({ questionStatus: this.getCurrentQuestionStatus(currentQuestion) })
       }
       if (this.props.currentQuestion.uid !== nextProps.currentQuestion.uid) {
         responseActions.getGradedResponsesWithCallback(
@@ -84,6 +72,26 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
             this.setState({ responses: data, });
           }
         );
+      }
+    }
+
+    getCurrentQuestionStatus(currentQuestion) {
+      if (currentQuestion.attempts && currentQuestion.attempts.length) {
+        if (currentQuestion.attempts[1]) {
+          if (currentQuestion.attempts[1].optimal) {
+            return 'correctly answered'
+          } else {
+            return 'final attempt'
+          }
+        } else {
+          if (currentQuestion.attempts[0] && currentQuestion.attempts[0].optimal) {
+            return 'correctly answered'
+          } else {
+            return 'incorrectly answered'
+          }
+        }
+      } else {
+        return 'unanswered'
       }
     }
 
@@ -111,7 +119,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
 
     goToNextQuestion() {
       this.props.goToNextQuestion()
-      this.setState({response: '', questionStatus: 'unanswered'})
+      this.setState({response: '', questionStatus: 'unanswered', responses: {}})
     }
 
     toggleExample() {
