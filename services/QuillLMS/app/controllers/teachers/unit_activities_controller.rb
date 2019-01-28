@@ -44,7 +44,7 @@ private
 
   def authorize!
     @unit_activity = UnitActivity.find params[:id]
-    if !@unit_activity || !@unit_activity.unit || !@unit_activity.unit.classrooms || !@unit_activity.unit.classrooms.find { |c| c.teacher_ids.include?(current_user.id) }
+    if @unit_activity && @unit_activity.unit && @unit_activity.unit.classrooms && !@unit_activity.unit.classrooms.find { |c| c.teacher_ids.include?(current_user.id) }
       auth_failed
     end
   end
