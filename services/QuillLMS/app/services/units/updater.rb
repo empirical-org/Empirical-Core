@@ -48,22 +48,20 @@ module Units::Updater
     end
   end
 
-  def self.matching_or_new_unit_activity(activity_data, extant_unit_activities, new_uas, hidden_ua_ids, unit_id)
+  def self.matching_or_new_unit_activity(activity_data, extant_unit_activities, new_uas, hidden_ua_ids, unit_id, order_number)
     activity_data_id = activity_data[:id].to_i || activity_data['id'].to_i
     activity_data_due_date = activity_data[:due_date] || activity_data['due_date']
     matching_ua = extant_unit_activities.find{|ua| (ua.activity_id == activity_data_id )}
     if matching_ua
-      if matching_ua[:due_date] != activity_data_due_date
-        # then something changed and we should update
-        matching_ua.update!(due_date: activity_data_due_date, visible: true)
-      elsif !matching_ua.visible
-        matching_ua.update!(visible: true)
-      end
+      matching_ua.update!(visible: true,
+        due_date: activity_data_due_date || matching_ua.due_date,
+        order_number: order_number)
     elsif activity_data_id
       # making an array of hashes to create in one bulk option
       new_uas.push({activity_id: activity_data_id,
          unit_id: unit_id,
-         due_date: activity_data_due_date})
+         due_date: activity_data_due_date,
+         order_number: order_number})
     end
   end
 
@@ -77,8 +75,9 @@ module Units::Updater
     classrooms_data.each do |classroom|
       self.matching_or_new_classroom_unit(classroom, extant_classroom_units, new_cus, hidden_cus_ids, unit_id)
     end
-    activities_data.each do |activity|
-      self.matching_or_new_unit_activity(activity, extant_unit_activities, new_uas, hidden_ua_ids, unit_id)
+    activities_data.each do |activity, index|
+      order_number = index + 1
+      self.matching_or_new_unit_activity(activity, extant_unit_activities, new_uas, hidden_ua_ids, unit_id, order_number)
     end
     new_cus = new_cus.uniq { |cu| cu['classroom_id'] || cu[:classroom_id] }
     new_uas = new_uas.uniq { |ua| ua['activity_id'] || ua[:activity_id] }

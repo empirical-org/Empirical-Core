@@ -42,11 +42,12 @@ module Units::Creator
     )
     # makes a permutation of each classroom with each activity to
     # create all necessary activity sessions
-    act_data = activities_data.uniq.map do |activity|
+    act_data = activities_data.uniq.map do |activity, index|
       {
         unit_id: unit.id,
         activity_id: activity[:id],
-        due_date: activity[:due_date]
+        due_date: activity[:due_date],
+        order_number: index + 1
       }
     end
     UnitActivity.create(act_data)
