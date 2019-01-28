@@ -148,7 +148,7 @@ module PublicProgressReports
     def formatted_score_obj(final_activity_session, activity, student)
       formatted_concept_results = get_concept_results(final_activity_session)
       activity_classification_key = ActivityClassification.find(activity.activity_classification_id).key
-      if ['lessons', 'diagnostic'].includes?(key)
+      if ['lessons', 'diagnostic'].includes?(activity_classification_key)
         score = get_average_score(formatted_concept_results)
       else
         score = final_activity_session.score
