@@ -1,4 +1,8 @@
-import { teacherHasPermission, userHasPermission } from "./permissions";
+import { 
+  teacherHasPermission, 
+  userHasPermission,
+  studentHasPermission
+ } from "./permissions";
 
 const exampleSession = {
   id: "abc-123",
@@ -55,4 +59,17 @@ test('checking lessons permissions for a user', () => {
   expect(userHasPermission(publicSession, teacherWithIncorrectPermissions)).toBe(true)
   expect(userHasPermission(publicSession, {})).toBe(true)
   expect(userHasPermission(publicSession, studentInSession)).toBe(true)
+})
+
+test('checking lessons permissions for a student', () => {
+  // Private Session
+  expect(studentHasPermission(exampleSession, teacherWithCorrectPermissions)).toBe(false)
+  expect(studentHasPermission(exampleSession, teacherWithIncorrectPermissions)).toBe(false)
+  expect(studentHasPermission(exampleSession, {})).toBe(false)
+  expect(studentHasPermission(exampleSession, studentInSession)).toBe(true)
+  // Public Session
+  expect(studentHasPermission(publicSession, teacherWithCorrectPermissions)).toBe(true)
+  expect(studentHasPermission(publicSession, teacherWithIncorrectPermissions)).toBe(true)
+  expect(studentHasPermission(publicSession, {})).toBe(true)
+  expect(studentHasPermission(publicSession, studentInSession)).toBe(true)
 })
