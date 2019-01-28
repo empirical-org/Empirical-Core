@@ -33,6 +33,10 @@ const ConceptReplaceFormFields = Form.create({
         ...props.replacementId,
         value: props.replacementId.value,
       }),
+      replacedId: Form.createFormField({
+        ...props.replacedId,
+        value: props.replacedId.value,
+      }),
     };
   },
 })((props) => {
@@ -46,9 +50,10 @@ const ConceptReplaceFormFields = Form.create({
           if (loading) return <p>Loading...</p>;
           if (error) return <p>Error :(</p>;
           const concepts:CascaderOptionType[] = data.concepts;
-          return (
-            <FormItem 
-              label="Replacement Concept"
+          let replacedConceptField
+          const replacementConceptField = (
+            <FormItem
+              label="Replace with this tag"
             >
               {getFieldDecorator('replacementId', {
                 rules: [{ type: 'array', required: true }],
@@ -57,6 +62,23 @@ const ConceptReplaceFormFields = Form.create({
               )}
             </FormItem>
           )
+          if (!props.onConceptPage) {
+            replacedConceptField = (
+              <FormItem
+                label="Find this tag"
+              >
+                {getFieldDecorator('replacedId', {
+                  rules: [{ type: 'array', required: true }],
+                })(
+                  <Cascader options={concepts}/>
+                )}
+              </FormItem>
+            )
+          }
+          return <div>
+            {replacedConceptField}
+            {replacementConceptField}
+          </div>
         }}
       </Query>
       <Button type="primary" htmlType="submit">
