@@ -10,6 +10,7 @@ import customize, * as FromCustomize from './customize';
 import display from './display';
 import filters from './filtersReducer';
 import massEdit from './massEdit';
+import teacher from './teacher';
 
 const combinedReducers = combineReducers({
   classroomLesson,
@@ -22,6 +23,7 @@ const combinedReducers = combineReducers({
   filters,
   massEdit,
   routing: routerReducer,
+  teacher,
 });
 
 export default combinedReducers;

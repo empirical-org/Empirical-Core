@@ -41,6 +41,7 @@ import {
 import * as CustomizeIntf from '../../../interfaces/customize'
 import {generate} from '../../../libs/conceptResults/classroomLessons.js';
 import { Lesson, Edition } from './dataContainer';
+import { TeacherReducer } from '../../../reducers/teacher';
 
 interface CurrentSlideProps {
   params: any,
@@ -102,7 +103,7 @@ class CurrentSlide extends React.Component<CurrentSlideProps & StateFromProps, a
     if (element && (nextProps.session.current_slide !== this.props.session.current_slide)) {
       element.scrollTop = 0;
     }
-    if (nextProps.classroomSessions.hasreceiveddata && nextProps.classroomLesson.hasreceiveddata) {
+    if (nextProps.session && nextProps.edition) {
       const data: ClassroomLessonSession = nextProps.session;
       const editionData: CustomizeIntf.EditionQuestions = nextProps.edition;
       const script: Array<ScriptItem> = editionData && editionData.questions && editionData.questions[data.current_slide] ? editionData.questions[data.current_slide].data.teach.script : []
@@ -224,7 +225,7 @@ class CurrentSlide extends React.Component<CurrentSlideProps & StateFromProps, a
     const questions = this.props.edition.questions;
     const submissions = this.props.session.submissions;
     const followUp = this.props.session.followUpActivityName && this.state.selectedOptionKey !== 'No Follow Up Practice';
-    const activityId = this.props.classroomLesson.data.id;
+    const activityId = this.props.params.lessonID;
     const classroomUnitId = this.state.classroomUnitId || '';
     const classroomSessionId = this.state.classroomSessionId || '';
     const conceptResults = generate(questions, submissions);
@@ -274,7 +275,7 @@ class CurrentSlide extends React.Component<CurrentSlideProps & StateFromProps, a
   }
 
   renderSignupModal() {
-    if (this.props.classroomSessions.showSignupModal) {
+    if (this.props.teacher.showSignupModal) {
       return <SignupModal
         closeModal={this.closeSignupModal}
         lessonId={this.props.lessonId}
@@ -302,7 +303,7 @@ class CurrentSlide extends React.Component<CurrentSlideProps & StateFromProps, a
               data={data}
               editionData={editionData}
               toggleOnlyShowHeaders={this.toggleOnlyShowHeaders}
-              onlyShowHeaders={this.props.classroomSessions.onlyShowHeaders}
+              onlyShowHeaders={this.props.teacher.onlyShowHeaders}
               updateToggledHeaderCount={this.updateToggledHeaderCount}
             />
           break
@@ -321,7 +322,7 @@ class CurrentSlide extends React.Component<CurrentSlideProps & StateFromProps, a
               toggleOnlyShowHeaders={this.toggleOnlyShowHeaders}
               clearAllSelectedSubmissions={this.clearAllSelectedSubmissions}
               clearAllSubmissions={this.clearAllSubmissions}
-              onlyShowHeaders={this.props.classroomSessions.onlyShowHeaders}
+              onlyShowHeaders={this.props.teacher.onlyShowHeaders}
               updateToggledHeaderCount={this.updateToggledHeaderCount}
               saveModel={this.saveModel}
               clearStudentSubmission={this.clearStudentSubmission}
@@ -368,9 +369,7 @@ class CurrentSlide extends React.Component<CurrentSlideProps & StateFromProps, a
 
 function select(props) {
   return {
-    classroomSessions: props.classroomSessions,
-    classroomLesson : props.classroomLesson,
-    customize: props.customize
+    teacher: props.teacher
   };
 }
 
@@ -383,9 +382,7 @@ export interface DispatchFromProps {
 }
 
 export interface StateFromProps {
-  customize: any
-  classroomLesson: any
-  classroomSessions: any
+  teacher: TeacherReducer
 }
 
 export default connect<StateFromProps, DispatchFromProps, CurrentSlideProps>(select, dispatch => ({dispatch}))(CurrentSlide);

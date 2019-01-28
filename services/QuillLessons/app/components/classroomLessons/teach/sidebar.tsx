@@ -108,7 +108,6 @@ class Sidebar extends React.Component<ReducerSidebarProps & PassedSidebarProps &
     const data = this.props.session;
     const lessonData = this.props.lesson; // Replace with Apollo
     const editionData = this.props.edition;
-    console.log(editionData && data && lessonData);
     if (editionData && data && lessonData) {
       const questions = editionData.questions;
       const length = questions ? Number(questions.length) - 1 : 0;
