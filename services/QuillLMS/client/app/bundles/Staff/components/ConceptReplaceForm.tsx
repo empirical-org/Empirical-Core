@@ -33,6 +33,9 @@ class ConceptReplaceForm extends React.Component<AppProps, any> {
         replacementId: {
           value: null,
         },
+        replacedId: {
+          value: null,
+        },
       },
     };
   }
@@ -59,9 +62,10 @@ class ConceptReplaceForm extends React.Component<AppProps, any> {
     return (
       <Mutation mutation={REPLACE_CONCEPT} onCompleted={this.redirectToShow}>
         {(replaceConcept, { data }) => (
-          <ConceptReplaceFormFields {...fields} onChange={this.handleFormChange} formSubmitCopy={"Replace"} onSubmit={(e) => {
+          <ConceptReplaceFormFields {...fields} onConceptPage={!!(this.props.concept && this.props.concept.id)} onChange={this.handleFormChange} formSubmitCopy={"Replace"} onSubmit={(e) => {
             e.preventDefault();
-            replaceConcept({ variables: {id: this.props.concept.id, replacementId: this.state.fields.replacementId.value[this.state.fields.replacementId.value.length - 1]}});
+            const replacedId = fields.replacedId.value[fields.replacedId.value.length - 1] || this.props.concept.id
+            replaceConcept({ variables: {id: replacedId, replacementId: fields.replacementId.value[fields.replacementId.value.length - 1]}});
           }} />
         )}
       </Mutation>
