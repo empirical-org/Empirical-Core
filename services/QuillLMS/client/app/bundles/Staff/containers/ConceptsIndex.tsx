@@ -50,7 +50,7 @@ interface AppState {
 }
 
 
-class App extends React.Component<any, AppState> {
+class ConceptsIndex extends React.Component<any, AppState> {
   constructor(props){
     super(props)
 
@@ -82,11 +82,11 @@ class App extends React.Component<any, AppState> {
       this.setState({fuse});
       return concepts;
     }
-    
-    
+
+
     // const results:Array<any>|null = fs.get(searchValue);
     // const resultsNames:Array<string> = results ? results.map(result => result[1]) : [];
-  
+
     // console.log("fuzzy = ", results, fs);
     // return concepts.filter((concept) => {
     //   return resultsNames.indexOf(getSearchableConceptName(concept)) != -1
@@ -100,7 +100,11 @@ class App extends React.Component<any, AppState> {
   render() {
     return  (
       <div>
-        <h3>Concepts <Link to="/new"><Button icon="plus" shape="circle" /></Link></h3>
+        <div className="concept-manager-nav">
+          <Link to ="/">Concepts</Link>
+          <Link to ="/new">Add Concepts</Link>
+          <Link to ="/find_and_replace">Find & Replace</Link>
+        </div>
         <Query
           query={gql(conceptsIndexQuery)}
         >
@@ -123,10 +127,10 @@ class App extends React.Component<any, AppState> {
           }}
         </Query>
       </div>
-      
+
     )
   }
-  
+
 };
 
-export default App
+export default ConceptsIndex
