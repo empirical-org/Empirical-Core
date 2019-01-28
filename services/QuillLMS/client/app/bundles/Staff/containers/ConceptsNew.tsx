@@ -2,8 +2,9 @@ import * as React from "react";
 import {Link} from "react-router";
 import { Query, Mutation } from "react-apollo";
 import gql from "graphql-tag";
+import ConceptManagerNav from "../components/ConceptManagerNav";
 
-import { 
+import {
   Breadcrumb, Divider, Form, Input, Cascader, Button
 } from "antd";
 import { CascaderOptionType } from "../../../../node_modules/antd/lib/cascader";
@@ -142,6 +143,7 @@ class App extends React.Component {
     const fields = this.state.fields;
     return  (
       <div>
+        <ConceptManagerNav />
         <Breadcrumb>
           <Breadcrumb.Item><Link to="/">Home</Link></Breadcrumb.Item>
           <Breadcrumb.Item>Create A New Concept</Breadcrumb.Item>
@@ -152,7 +154,7 @@ class App extends React.Component {
             <CustomizedForm {...fields} onChange={this.handleFormChange} onSubmit={(e) => {
               e.preventDefault();
               createConcept({ variables: {
-                name: this.state.fields.name.value, 
+                name: this.state.fields.name.value,
                 parentId: this.state.fields.parentId.value[this.state.fields.parentId.value.length - 1],
                 description: this.state.fields.description.value,
               }});
@@ -162,7 +164,7 @@ class App extends React.Component {
       </div>
     )
   }
-  
+
 };
 
 export default App
