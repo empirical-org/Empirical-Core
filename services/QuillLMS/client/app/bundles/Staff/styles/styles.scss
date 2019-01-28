@@ -55,3 +55,24 @@
   position: sticky;
   top: 0;
 }
+
+.concept-manager-nav {
+  width: 500px;
+  margin-bottom: 20px;
+  .concept-manager-links {
+    width: 500px;
+    border-bottom: 2px lightgray solid;
+    display: flex;
+    justify-content: space-around;
+    a {
+      font-weight: 500;
+      color: black;
+      padding: 10px;
+      border-bottom: 3px solid white;
+    }
+    a.active {
+      color: green;
+      border-bottom: 3px solid green;
+    }
+  }
+}

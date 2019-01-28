@@ -9,6 +9,7 @@ import {
 import { CascaderOptionType } from "../../../../node_modules/antd/lib/cascader";
 import ConceptBreadCrumb from "../components/ConceptBreadCrumb";
 import ConceptReplaceForm from '../components/ConceptReplaceForm';
+import ConceptManagerNav from "../components/ConceptManagerNav";
 
 const FormItem = Form.Item;
 
@@ -90,6 +91,7 @@ class ConceptsFindAndReplace extends React.Component {
   render() {
     return (
       <div>
+        <ConceptManagerNav />
         <Breadcrumb>
           <Breadcrumb.Item><Link to="/">Home</Link></Breadcrumb.Item>
           <Breadcrumb.Item>Find & Replace</Breadcrumb.Item>
