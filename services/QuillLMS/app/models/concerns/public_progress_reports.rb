@@ -71,32 +71,36 @@ module PublicProgressReports
 
     def classrooms_with_students_that_completed_activity(unit_id, activity_id)
       h = {}
-      unit = Unit.find(unit_id)
-      class_ids = current_user.classrooms_i_teach.map(&:id)
-      #without definining class ids, it may default to a classroom activity from a non-existant classroom
-      class_units = unit.classroom_units.where(classroom_id: class_ids)
-      unit_activity = UnitActivity.find_by(activity_id: activity_id, unit: unit)
+      unit = Unit.find_by(id: unit_id)
+      if unit
+        class_ids = current_user.classrooms_i_teach.map(&:id)
+        #without definining class ids, it may default to a classroom activity from a non-existant classroom
+        class_units = unit.classroom_units.where(classroom_id: class_ids)
+        unit_activity = UnitActivity.find_by(activity_id: activity_id, unit: unit)
 
-      class_units.each do |cu|
-        cuas = ClassroomUnitActivityState.find_by(unit_activity: unit_activity, classroom_unit: cu)
-        classroom = cu.classroom.attributes
-        activity_sessions = cu.activity_sessions.completed
-        if activity_sessions.present? || cuas&.completed
-          class_id = classroom['id']
-          h[class_id] ||= classroom
-          h[class_id][:classroom_unit_id] = cu.id
-          activity_sessions.each do |activity_session|
-            h[class_id][:students] ||= []
-            if h[class_id][:students].exclude? activity_session.user
-               h[class_id][:students] << activity_session.user
+        class_units.each do |cu|
+          cuas = ClassroomUnitActivityState.find_by(unit_activity: unit_activity, classroom_unit: cu)
+          classroom = cu.classroom.attributes
+          activity_sessions = cu.activity_sessions.completed
+          if activity_sessions.present? || cuas&.completed
+            class_id = classroom['id']
+            h[class_id] ||= classroom
+            h[class_id][:classroom_unit_id] = cu.id
+            activity_sessions.each do |activity_session|
+              h[class_id][:students] ||= []
+              if h[class_id][:students].exclude? activity_session.user
+                 h[class_id][:students] << activity_session.user
+              end
             end
           end
         end
-      end
 
-      # TODO: change the diagnostic reports so they take in a hash of classrooms -- this is just
-      # being converted to an array because that is what the diagnostic reports expect
-      h.map{|k,v| v}
+        # TODO: change the diagnostic reports so they take in a hash of classrooms -- this is just
+        # being converted to an array because that is what the diagnostic reports expect
+        h.map{|k,v| v}
+      else
+        []
+      end
     end
 
     def results_for_classroom(unit_id, activity_id, classroom_id)
