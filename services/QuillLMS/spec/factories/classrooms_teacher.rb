@@ -1,6 +1,5 @@
 FactoryBot.define do
   factory :classrooms_teacher do
-    sequence(:id)
     user          { create(:teacher) }
     classroom     { create(:classroom) }
     role          ClassroomsTeacher::ROLE_TYPES[:owner]

@@ -50,9 +50,12 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
       classroom_hash = ActiveRecord::Base.connection.execute("
         SELECT classroom_units.classroom_id from classroom_units
         LEFT JOIN activity_sessions ON classroom_units.id = activity_sessions.classroom_unit_id
+        JOIN classrooms ON classroom_units.classroom_id = classrooms.id
         WHERE classroom_units.unit_id = #{ActiveRecord::Base.sanitize(unit_id)}
           AND activity_sessions.activity_id = #{ActiveRecord::Base.sanitize(activity_id)}
           AND classroom_units.visible = TRUE
+          AND activity_sessions.visible = TRUE
+          AND classrooms.visible = TRUE
           AND activity_sessions.is_final_score = TRUE
         ORDER BY activity_sessions.updated_at DESC
         LIMIT 1;").to_a
