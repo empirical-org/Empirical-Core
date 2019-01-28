@@ -31,8 +31,8 @@ class NextSlideButton extends React.Component<StateFromProps & NextSlideButtonPr
 
   goToNextSlide() {
     const classroomSessionId: ClassroomSessionId|null = this.state.classroomSessionId;
-    const sessionData: ClassroomLessonSession = this.props.classroomSessions.data;
-    const editionData: EditionQuestions = this.props.customize.editionQuestions;
+    const sessionData: ClassroomLessonSession = this.props.session;
+    const editionData: EditionQuestions = this.props.edition;
     if (classroomSessionId) {
       const updateInStore = goToNextSlide(sessionData, editionData, classroomSessionId);
       if (updateInStore) {
@@ -42,8 +42,8 @@ class NextSlideButton extends React.Component<StateFromProps & NextSlideButtonPr
   }
 
   render() {
-    const data = this.props.classroomSessions.data;
-    const editionData = this.props.customize.editionQuestions
+    const data = this.props.session;
+    const editionData = this.props.edition;
     if (editionData.questions && Number(data.current_slide) === editionData.questions.length - 1) {
       return <span />;
     } else if (Number(data.current_slide) === 0) {
@@ -57,8 +57,6 @@ class NextSlideButton extends React.Component<StateFromProps & NextSlideButtonPr
 
 function select(props) {
   return {
-    classroomSessions: props.classroomSessions,
-    customize: props.customize,
   };
 }
 
@@ -71,8 +69,6 @@ export interface DispatchFromProps {
 }
 
 export interface StateFromProps {
-  customize: any
-  classroomSessions: any
 }
 
 
