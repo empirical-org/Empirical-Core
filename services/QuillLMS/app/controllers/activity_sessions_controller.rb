@@ -41,7 +41,7 @@ class ActivitySessionsController < ApplicationController
   end
 
   def activity_session_from_uid
-    @activity_session ||= ActivitySession.unscoped.find_by_uid!(params[:uid])
+    @activity_session ||= ActivitySession.unscoped.find_by(uid: params[:uid])
   end
 
   def path_request_to_firebase
