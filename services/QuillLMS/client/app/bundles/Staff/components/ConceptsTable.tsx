@@ -23,21 +23,21 @@ interface ConceptRow {
 
 const columns = [
   {
-    title: 'Grandparent Name',
+    title: 'Level 2',
     dataIndex: 'grandparentConceptName',
     key: 'grandparentConceptName',
     render: (text, record:ConceptRow) => (<Link to={record.grandparentConceptId}>{text}</Link>),
     sorter:  (a, b) => a.grandparentConceptName.localeCompare(b.grandparentConceptName),
   },
   {
-    title: 'Parent Name',
+    title: 'Level 1',
     dataIndex: 'parentConceptName',
     key: 'parentConceptName',
     render: (text, record:ConceptRow) => (<Link to={record.parentConceptId}>{text}</Link>),
     sorter:  (a, b) => a.parentConceptName.localeCompare(b.parentConceptName),
   },
   {
-    title: 'Name',
+    title: 'Level 0',
     dataIndex: 'conceptName',
     key: 'conceptName',
     render: (text, record:ConceptRow) => (<Link to={record.conceptId}>{text}</Link>),
@@ -76,12 +76,13 @@ function filterData(concepts:Array<Concept>, visible:Boolean):Array<Concept> {
 const ConceptsTable: React.SFC<ConceptsTableProps> = ({concepts, visible}) => {
   const data = prepareData(filterData(concepts, visible));
   return (
-    <Table 
-      columns={columns} 
+    <Table
+      columns={columns}
       dataSource={data}
-      size="middle" 
-      bordered 
-      pagination={{ pageSize: 20 }}
+      size="middle"
+      bordered
+      pagination={false}
+      className="concepts-table"
     />
   );
 };
