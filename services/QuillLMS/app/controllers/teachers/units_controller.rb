@@ -215,6 +215,7 @@ class Teachers::UnitsController < ApplicationController
          classrooms.name AS class_name,
          classrooms.id AS classroom_id,
          activities.activity_classification_id,
+         ua.order_number,
          cu.id AS classroom_unit_id,
          cu.unit_id AS unit_id,
          COALESCE(array_length(cu.assigned_student_ids, 1), 0) AS number_of_assigned_students,
@@ -249,7 +250,7 @@ class Teachers::UnitsController < ApplicationController
         #{lessons}
         GROUP BY units.name, units.created_at, cu.id, classrooms.name, classrooms.id, activities.name, activities.activity_classification_id, activities.id, activities.uid, unit_owner.name, unit_owner.id, ua.due_date, ua.created_at, unit_activity_id, state.completed, ua.id
         #{completed}
-        ORDER BY unit_activity_id
+        ORDER BY ua.order_number, unit_activity_id
         ").to_a
     else
       []
