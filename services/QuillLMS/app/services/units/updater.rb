@@ -75,7 +75,7 @@ module Units::Updater
     classrooms_data.each do |classroom|
       self.matching_or_new_classroom_unit(classroom, extant_classroom_units, new_cus, hidden_cus_ids, unit_id)
     end
-    activities_data.each do |activity, index|
+    activities_data.each_with_index do |activity, index|
       order_number = index + 1
       self.matching_or_new_unit_activity(activity, extant_unit_activities, new_uas, hidden_ua_ids, unit_id, order_number)
     end
