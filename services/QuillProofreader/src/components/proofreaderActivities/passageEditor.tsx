@@ -297,7 +297,6 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
   // }
 
   onKeyDown(event: any, change: any, editor: any) {
-    console.log('event.key in onkeydown', event.key)
     const { value } = change
     const originalSelection = value.selection
     const { startInline, texts } = value
@@ -358,8 +357,6 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
   }
 
   onKeyUp(event: any, change: any, editor: any) {
-    console.log('event.key in onkeyup', event.key)
-    console.log('event', event)
     if (['ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown', 'Dead'].includes(event.key)) { return }
 
     if (change.value.texts.size > 20) {
