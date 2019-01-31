@@ -74,12 +74,12 @@ protected
 
   def student_data
     {
-      name: current_user.name,
+      name: current_user&.name,
       classroom: {
-        name: @current_classroom.name,
-        id: @current_classroom.id,
+        name: @current_classroom&.name,
+        id: @current_classroom&.id,
         teacher: {
-          name: @current_classroom.owner.name
+          name: @current_classroom&.owner&.name
         }
       },
     }
@@ -99,42 +99,46 @@ protected
 
   def student_profile_data_sql(classroom_id=nil)
     @current_classroom = current_classroom(classroom_id)
-    @act_sesh_records = ActiveRecord::Base.connection.execute(
-      "SELECT unit.name,
-       activity.name,
-       activity.description,
-       activity.repeatable,
-       activity.activity_classification_id,
-       unit.id AS unit_id,
-       ua.id AS ua_id,
-       unit.created_at AS unit_created_at,
-       unit.name AS unit_name,
-       cu.id AS ca_id,
-       COALESCE(cuas.completed, 'f') AS marked_complete,
-       ua.activity_id,
-       MAX(acts.updated_at) AS act_sesh_updated_at,
-       ua.due_date,
-       cu.created_at AS unit_activity_created_at,
-       COALESCE(cuas.locked, 'f') AS locked,
-       COALESCE(cuas.pinned, 'f') AS pinned,
-       MAX(acts.percentage) AS max_percentage,
-       SUM(CASE WHEN acts.state = 'started' THEN 1 ELSE 0 END) AS resume_link
-    FROM unit_activities AS ua
-    JOIN units AS unit ON unit.id = ua.unit_id
-    JOIN classroom_units AS cu ON unit.id = cu.unit_id
-    LEFT JOIN activity_sessions AS acts ON cu.id = acts.classroom_unit_id AND acts.activity_id = ua.activity_id AND acts.visible = true
-    AND acts.user_id = #{current_user.id}
-    JOIN activities AS activity ON activity.id = ua.activity_id
-    LEFT JOIN classroom_unit_activity_states AS cuas ON ua.id = cuas.unit_activity_id
-    AND cu.id = cuas.classroom_unit_id
-    WHERE #{current_user.id} = ANY (cu.assigned_student_ids::int[])
-    AND cu.classroom_id = #{@current_classroom.id}
-    AND cu.visible = true
-    AND unit.visible = true
-    AND ua.visible = true
-    GROUP BY unit.id, unit.name, unit.created_at, cu.id, activity.name, activity.activity_classification_id, activity.id, activity.uid, ua.due_date, ua.created_at, unit_activity_id, cuas.completed, cuas.locked, cuas.pinned, ua.id
+    if @current_classroom && current_user
+      @act_sesh_records = ActiveRecord::Base.connection.execute(
+        "SELECT unit.name,
+         activity.name,
+         activity.description,
+         activity.repeatable,
+         activity.activity_classification_id,
+         unit.id AS unit_id,
+         ua.id AS ua_id,
+         unit.created_at AS unit_created_at,
+         unit.name AS unit_name,
+         cu.id AS ca_id,
+         COALESCE(cuas.completed, 'f') AS marked_complete,
+         ua.activity_id,
+         MAX(acts.updated_at) AS act_sesh_updated_at,
+         ua.due_date,
+         cu.created_at AS unit_activity_created_at,
+         COALESCE(cuas.locked, 'f') AS locked,
+         COALESCE(cuas.pinned, 'f') AS pinned,
+         MAX(acts.percentage) AS max_percentage,
+         SUM(CASE WHEN acts.state = 'started' THEN 1 ELSE 0 END) AS resume_link
+      FROM unit_activities AS ua
+      JOIN units AS unit ON unit.id = ua.unit_id
+      JOIN classroom_units AS cu ON unit.id = cu.unit_id
+      LEFT JOIN activity_sessions AS acts ON cu.id = acts.classroom_unit_id AND acts.activity_id = ua.activity_id AND acts.visible = true
+      AND acts.user_id = #{current_user.id}
+      JOIN activities AS activity ON activity.id = ua.activity_id
+      LEFT JOIN classroom_unit_activity_states AS cuas ON ua.id = cuas.unit_activity_id
+      AND cu.id = cuas.classroom_unit_id
+      WHERE #{current_user.id} = ANY (cu.assigned_student_ids::int[])
+      AND cu.classroom_id = #{@current_classroom.id}
+      AND cu.visible = true
+      AND unit.visible = true
+      AND ua.visible = true
+      GROUP BY unit.id, unit.name, unit.created_at, cu.id, activity.name, activity.activity_classification_id, activity.id, activity.uid, ua.due_date, ua.created_at, unit_activity_id, cuas.completed, cuas.locked, cuas.pinned, ua.id
 
-    ORDER BY pinned DESC, locked ASC, max_percentage DESC, ua.due_date ASC, unit.created_at ASC, ua.id ASC").to_a
+      ORDER BY pinned DESC, locked ASC, max_percentage DESC, ua.due_date ASC, unit.created_at ASC, ua.id ASC").to_a
+    else
+      @act_sesh_records = []
+    end
   end
 
   def next_activity_session
@@ -161,7 +165,7 @@ protected
     if !classroom_id
        current_user.classrooms.last
     else
-      current_user.classrooms.find(classroom_id.to_i) if !!classroom_id
+      current_user.classrooms.find_by(id: classroom_id.to_i) if !!classroom_id
     end
   end
 end
