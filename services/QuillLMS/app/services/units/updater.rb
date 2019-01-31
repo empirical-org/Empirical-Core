@@ -33,7 +33,9 @@ module Units::Updater
         hidden_cus_ids.push(matching_cu.id)
       elsif (matching_cu.assigned_student_ids != classroom[:student_ids]) || matching_cu.assign_on_join != classroom[:assign_on_join]
         # then something changed and we should update
+        google_unit_announcement = GoogleIntegration::UnitAnnouncement.new(matching_cu)
         matching_cu.update!(assign_on_join: classroom[:assign_on_join], assigned_student_ids: classroom[:student_ids], visible: true)
+        google_unit_announcement.update_recipients(classroom[:student_ids])
       elsif !matching_cu.visible
         matching_cu.update!(visible: true)
       end
@@ -80,7 +82,10 @@ module Units::Updater
     end
     new_cus = new_cus.uniq { |cu| cu['classroom_id'] || cu[:classroom_id] }
     new_uas = new_uas.uniq { |ua| ua['activity_id'] || ua[:activity_id] }
-    ClassroomUnit.create(new_cus)
+    new_cus.each do |cu|
+      classroom_unit = ClassroomUnit.create(cu)
+      GoogleIntegration::UnitAnnouncement.new(classroom_unit).post
+    end
     ClassroomUnit.where(id: hidden_cus_ids).update_all(visible: false)
     UnitActivity.create(new_uas)
     UnitActivity.where(id: hidden_ua_ids).update_all(visible: false)

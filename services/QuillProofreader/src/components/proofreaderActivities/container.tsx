@@ -644,8 +644,13 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
     }
 
     renderResetButton(): JSX.Element|void {
-      if (!this.state.reviewing) {
-        return <button className="reset-button" onClick={this.openResetModal}><img src={refreshIconSrc} /> Reset</button>
+      const { reviewing, edits, } = this.state
+      if (!reviewing) {
+        if (edits.length) {
+          return <button className="reset-button" onClick={this.openResetModal}><img src={refreshIconSrc} /> Reset</button>
+        } else {
+          return <button className="reset-button disabled"><img src={refreshIconSrc} /> Reset</button>
+        }
       }
     }
 

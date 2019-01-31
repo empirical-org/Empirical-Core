@@ -67,7 +67,7 @@ class GoogleIntegration::RefreshAccessToken
   end
 
   def should_refresh?
-    current_credentials.refresh_token.present? && (
+    current_credentials && current_credentials.refresh_token.present? && (
       current_credentials.expires_at.nil? ||
       Time.now > current_credentials.expires_at
     )
