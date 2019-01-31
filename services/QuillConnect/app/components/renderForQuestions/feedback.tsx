@@ -65,7 +65,12 @@ class FeedbackComponent extends React.Component<any, any> {
         returnVal = (<p>{data.getQuestion().instructions}</p>);
         break;
       case "default-with-cues":
-        returnVal = (<p>Combine the sentences using {data.listCuesAsString(data.getQuestion().cues)}</p>);
+        const cues = data.getQuestion().cues
+        if (cues.length === 1) {
+          returnVal = (<p>Combine the sentences into one sentence. Use the joining word.</p>)
+        } else {
+          returnVal = (<p>Combine the sentences into one sentence. Use one of the joining words.</p>)
+        }
         break;
       case "default":
         returnVal = (<p>Combine the sentences into one sentence.</p>)
