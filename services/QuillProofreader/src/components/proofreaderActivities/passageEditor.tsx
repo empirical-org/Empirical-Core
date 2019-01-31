@@ -310,7 +310,7 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
       return false
     }
 
-    if (['ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown', 'Backspace', 'Shift', 'MetaShift', 'Meta', 'Enter', 'CapsLock', 'Escape', 'Alt', 'Control'].includes(event.key)) { return }
+    if (['ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown', 'Backspace', 'Shift', 'MetaShift', 'Meta', 'Enter', 'CapsLock', 'Escape', 'Alt', 'Control', 'Dead', 'Unidentified'].includes(event.key)) { return }
 
     if (!startInline && originalSelection.focus.offset === 0 && originalSelection.anchor.offset === 0) {
       const nextInline = change.moveEndForward(1).value.endInline
