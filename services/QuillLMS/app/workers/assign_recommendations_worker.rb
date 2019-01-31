@@ -68,39 +68,32 @@ class AssignRecommendationsWorker
   end
 
   def handle_error_tracking_for_diagnostic_recommendation_assignment_time(teacher_id, lesson)
-    if lesson
-      start_time = $redis.get("user_id:#{teacher_id}_lesson_diagnostic_recommendations_start_time")
-    else
-      start_time = $redis.get("user_id:#{teacher_id}_diagnostic_recommendations_start_time")
-    end
+    lesson_text = lesson ? "lesson_" : ''
+    start_time = $redis.get("user_id:#{teacher_id}_#{lesson_text}diagnostic_recommendations_start_time")
     if start_time
       elapsed_time = Time.now - start_time.to_time
       if elapsed_time > 10
-        diagnostic_recommendations_over_ten_seconds_count = $redis.get("diagnostic_recommendations_over_ten_seconds_count")
+        diagnostic_recommendations_over_ten_seconds_count = $redis.get("#{lesson_text}diagnostic_recommendations_over_ten_seconds_count")
         if diagnostic_recommendations_over_ten_seconds_count
-          $redis.set("diagnostic_recommendations_over_ten_seconds_count", diagnostic_recommendations_over_ten_seconds_count.to_i + 1)
+          $redis.set("#{lesson_text}diagnostic_recommendations_over_ten_seconds_count", diagnostic_recommendations_over_ten_seconds_count.to_i + 1)
         else
-          $redis.set("diagnostic_recommendations_over_ten_seconds_count", 1)
+          $redis.set("#{lesson_text}diagnostic_recommendations_over_ten_seconds_count", 1)
         end
         begin
-          raise "#{elapsed_time} for #{teacher_id} to assign recommendations"
+          raise "#{elapsed_time} seconds for user #{teacher_id} to assign #{lesson_text} recommendations"
         rescue => e
           NewRelic::Agent.notice_error(e)
-          errors.add(:long_assigning_time, "#{elapsed_time} for #{teacher_id} to assign recommendations")
+          errors.add(:long_assigning_time, "#{elapsed_time} seconds for user #{teacher_id} to assign #{lesson_text} recommendations")
         end
       else
         diagnostic_recommendations_under_ten_seconds_count = $redis.get("diagnostic_recommendations_under_ten_seconds_count")
         if diagnostic_recommendations_under_ten_seconds_count
-          $redis.set("diagnostic_recommendations_under_ten_seconds_count", diagnostic_recommendations_under_ten_seconds_count.to_i + 1)
+          $redis.set("#{lesson_text}diagnostic_recommendations_under_ten_seconds_count", diagnostic_recommendations_under_ten_seconds_count.to_i + 1)
         else
-          $redis.set("diagnostic_recommendations_under_ten_seconds_count", 1)
+          $redis.set("#{lesson_text}diagnostic_recommendations_under_ten_seconds_count", 1)
         end
       end
-      if lesson
-        $redis.del("user_id:#{teacher_id}_lesson_diagnostic_recommendations_start_time")
-      else
-        $redis.del("user_id:#{teacher_id}_diagnostic_recommendations_start_time")
-      end
+      $redis.del("user_id:#{teacher_id}_#{lesson_text}diagnostic_recommendations_start_time")
     end
   end
 end
