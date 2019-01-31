@@ -240,6 +240,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
           onChange={this.getChangeHandler(i)}
           value={this.state.inputVals[i]}
           onBlur={() => this.validateInput(i)}
+          autoComplete="off"
         />
       </span>
     );
