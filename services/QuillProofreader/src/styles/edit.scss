@@ -51,8 +51,11 @@
     font-family: "Monospaced Number", "Chinese Quote", -apple-system, system-ui, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
     &.offset {
       left: -130px;
-      @media (max-width: 850px) {
+      @media (max-width: 900px) {
         left: -160px;
+      }
+      @media (max-width: 750px) {
+        left: -200px;
       }
     }
 
