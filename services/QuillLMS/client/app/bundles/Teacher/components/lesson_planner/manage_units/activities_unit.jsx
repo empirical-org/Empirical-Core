@@ -1,5 +1,6 @@
 import React from 'react';
 import _ from 'underscore';
+import SortableList from '../../shared/sortableList'
 import ClassroomActivity from './classroom_activity';
 import Pluralize from 'pluralize';
 import AddClassroomActivityRow from './add_classroom_activity_row.jsx';
@@ -14,6 +15,7 @@ export default React.createClass({
       error: false,
       showTooltip: false,
       classroomActivities: (this.props.data.classroomActivities || this.props.data.classroom_activities),
+      activityOrder: Array.from(this.props.data.classroomActivities.keys())
     };
   },
 
@@ -183,6 +185,34 @@ export default React.createClass({
     }
   },
 
+  saveSortOrder() {
+    let payload = {
+      data: JSON.stringify({
+        activities_data: this.state.activityOrder.map( (act) => ({
+          id: act,
+          due_date: this.props.data.classroomActivities[act] || null
+        }))
+      })
+    };
+    this.updateActivitiesApi(this.props.data.unitId, payload);
+  },
+
+  updateActivitiesApi(unitId, payload, success, error) {
+    $.ajax({
+      type: 'PUT',
+      url: `/teachers/units/${unitId}/update_activities`,
+      data: payload,
+      statusCode: {
+        200(response) {
+          if (success) success(response);
+        },
+        422(response) {
+          if (error) error(response);
+        },
+      }
+    });
+  },
+
   updateAllDueDates(date) {
     const newClassroomActivities = new Map(this.state.classroomActivities);
     const uaIds = [];
@@ -207,35 +237,50 @@ export default React.createClass({
     return numberOfStudentsAssignedToUnit;
   },
 
+  updateSortOrder(sortableListState) {
+    if (sortableListState.items) {
+      this.setState({ activityOrder: sortableListState.items.map( (i) => i.props.data.activityId )});
+    }
+  },
+
   renderClassroomActivities() {
     const classroomActivitiesArr = [];
     let i = 0;
-    for (const [key, ca] of this.state.classroomActivities) {
-        classroomActivitiesArr.push(
-          <ClassroomActivity
-            key={`${this.props.data.unitId}-${key}`}
-            report={this.props.report}
-            activityReport={this.props.activityReport}
-            lesson={this.props.lesson}
-            updateDueDate={this.props.updateDueDate}
-            hideUnitActivity={this.props.hideUnitActivity}
-            unitId={this.props.data.unitId}
-            data={ca}
-            updateAllDueDates={this.updateAllDueDates}
-            isFirst={i === 0}
-            numberOfStudentsAssignedToUnit={this.numberOfStudentsAssignedToUnit()}
-            activityWithRecommendationsIds={this.props.activityWithRecommendationsIds}
-          />
-        );
-        i += 1;
-      }
-    return classroomActivitiesArr;
+    for (let key of this.state.activityOrder) {
+      let ca = this.state.classroomActivities.get(key);
+      classroomActivitiesArr.push(
+        <ClassroomActivity
+          key={`${this.props.data.unitId}-${key}`}
+          report={this.props.report}
+          activityReport={this.props.activityReport}
+          lesson={this.props.lesson}
+          updateDueDate={this.props.updateDueDate}
+          hideUnitActivity={this.props.hideUnitActivity}
+          unitId={this.props.data.unitId}
+          data={ca}
+          updateAllDueDates={this.updateAllDueDates}
+          isFirst={i === 0}
+          numberOfStudentsAssignedToUnit={this.numberOfStudentsAssignedToUnit()}
+          activityWithRecommendationsIds={this.props.activityWithRecommendationsIds}
+        />
+      );
+      i++;
+    }
+    return <SortableList data={classroomActivitiesArr} sortCallback={this.updateSortOrder} />
   },
 
   render() {
     if (this.state.classroomActivities.size === 0) {
       return null;
     }
+
+    let row_style = {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      height: '60px',
+      border: '1px dashed #cecece',
+    };
 
     return (
       <section className="activities-unit">
@@ -257,6 +302,12 @@ export default React.createClass({
         <div className="table assigned-activities">
           {this.renderClassroomActivities()}
           {this.addClassroomActivityRow()}
+
+          <div className="row" style={row_style}>
+            <button className="q-button bg-white text-black" onClick={this.saveSortOrder}>
+              <span className="fa fa-plus" />Save Updated Activity Order
+            </button>
+          </div>
         </div>
       </section>
     );
