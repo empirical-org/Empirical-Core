@@ -10,20 +10,29 @@ class GoogleIntegration::UnitAnnouncement
   end
 
   def post
-    if can_post_to_google_classroom?
-      handle_response { request }
-    end
+    make_request(classroom_unit.assigned_student_ids)
+  end
+
+  def update_recipients(new_recipients)
+    recipients = new_recipients - classroom_unit.assigned_student_ids
+    make_request(recipients)
   end
 
   private
 
-  def request
+  def make_request(recipients)
+    if can_post_to_google_classroom?
+      handle_response { request(recipients) }
+    end
+  end
+
+  def request(recipient_ids)
     client.execute(
       api_method: api_method,
       parameters: {
         courseId: google_course_id,
       },
-      body: body.to_json,
+      body: body(recipient_ids).to_json,
       headers: {"Content-Type": 'application/json'}
     )
   end
@@ -37,9 +46,9 @@ class GoogleIntegration::UnitAnnouncement
     end
   end
 
-  def body
+  def body(recipient_ids)
     if individual_students?
-      base_body.merge(individual_students_body)
+      base_body.merge(individual_students_body(recipient_ids))
     else
       base_body
     end
@@ -78,17 +87,17 @@ class GoogleIntegration::UnitAnnouncement
     !classroom_unit.assign_on_join
   end
 
-  def individual_students_body
+  def individual_students_body(recipient_ids)
     {
       assigneeMode: "INDIVIDUAL_STUDENTS",
       individualStudentsOptions: {
-        studentIds: assigned_student_ids_as_google_ids
+        studentIds: assigned_student_ids_as_google_ids(recipient_ids)
       }
     }
   end
 
-  def assigned_student_ids_as_google_ids
-    User.where(id: classroom_unit.assigned_student_ids)
+  def assigned_student_ids_as_google_ids(assigned_student_ids)
+    User.where(id: assigned_student_ids)
       .pluck(:google_id)
       .compact
   end
@@ -102,6 +111,6 @@ class GoogleIntegration::UnitAnnouncement
   end
 
   def can_post_to_google_classroom?
-    classroom.google_classroom_id.present?
+    classroom && classroom.google_classroom_id.present?
   end
 end
