@@ -359,7 +359,8 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
 
   onKeyUp(event: any, change: any, editor: any) {
     console.log('event.key in onkeyup', event.key)
-    if (['ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown', 'Unidentified', 'Dead'].includes(event.key)) { return }
+    console.log('event', event)
+    if (['ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown', 'Dead'].includes(event.key)) { return }
 
     if (change.value.texts.size > 20) {
       return false
@@ -410,7 +411,7 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
     }
 
     // handles Firefox shenanigans
-    if (initialFocus.offset === 0 && initialAnchor.offset !== 0) {
+    if (initialFocus.offset === 0 && initialAnchor.offset !== 0 && event.key !== 'Unidentified') {
       const badNode = change.value.blocks.first().nodes.find(node => node.key == initialAnchor.key)
       if (badNode) {
         change.moveToRangeOfNode(badNode).insertText('')
