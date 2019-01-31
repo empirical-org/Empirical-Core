@@ -272,7 +272,7 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
   renderWarning() {
     return (
       <div className="warning-dialogue">
-        <span>Use one of the words below.</span>
+        <span>Use one of the options below.</span>
         <i className="fa fa-caret-down"/>
     </div>
     );
