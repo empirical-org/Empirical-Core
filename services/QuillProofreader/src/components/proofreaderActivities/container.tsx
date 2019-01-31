@@ -518,6 +518,8 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
         this.setState({showEarlySubmitModal: true})
       } else {
         const { reviewablePassage, numberOfCorrectChanges, conceptResultsObjects } = this.checkWork()
+        console.log('conceptResultsObjects', conceptResultsObjects)
+        console.log('numberOfCorrectChanges', numberOfCorrectChanges)
         this.setState( { reviewablePassage, showReviewModal: true, numberOfCorrectChanges, conceptResultsObjects } )
       }
     }
