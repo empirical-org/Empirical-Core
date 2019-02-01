@@ -114,6 +114,7 @@ protected
          COALESCE(cuas.completed, 'f') AS marked_complete,
          ua.activity_id,
          MAX(acts.updated_at) AS act_sesh_updated_at,
+         ua.order_number,
          ua.due_date,
          cu.created_at AS unit_activity_created_at,
          COALESCE(cuas.locked, 'f') AS locked,
