@@ -83,7 +83,6 @@ class AssignRecommendationsWorker
           raise "#{elapsed_time} seconds for user #{teacher_id} to assign #{lesson_text} recommendations"
         rescue => e
           NewRelic::Agent.notice_error(e)
-          errors.add(:long_assigning_time, "#{elapsed_time} seconds for user #{teacher_id} to assign #{lesson_text} recommendations")
         end
       else
         diagnostic_recommendations_under_ten_seconds_count = $redis.get("diagnostic_recommendations_under_ten_seconds_count")
