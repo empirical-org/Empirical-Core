@@ -13,9 +13,13 @@ const opts = {
     onConnect: (a, socket, c) => {
       return {
         req: socket.upgradeReq,
-        user: decodeLMSWebsocketSession(socket.upgradeReq.headers.cookie)
+        user: decodeLMSWebsocketSession(socket.upgradeReq.headers.cookie),
+        socket
       }
     },
+    onDisconnect: (socket, ctx) => {
+      if (socket.onDisconnect) return socket.onDisconnect();
+    } 
   },
   playground: '/playground',
 }

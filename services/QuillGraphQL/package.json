@@ -13,6 +13,7 @@
   "dependencies": {
     "@types/superagent": "^3.8.5",
     "apollo-datasource-rest": "^0.2.1",
+    "apollo-server-errors": "^2.2.0",
     "cookie-parser": "^1.4.3",
     "dotenv": "^6.1.0",
     "graphql-redis-subscriptions": "^2.0.0",

@@ -67,12 +67,13 @@ type ClassroomLessonSession {
   teacher_ids: JSON
   teacher_name: String
   timestamps: JSON
+  presence: JSON
 }
 
 type Query {
   classroomLesson(id: String!): ClassroomLesson
   classroomLessons: [ClassroomLesson]!
-  classroomLessonSession(id: String!): ClassroomLessonSession
+  classroomLessonSession(id: String!, studentId: String): ClassroomLessonSession
 }
 
 type Mutation {
@@ -80,5 +81,5 @@ type Mutation {
 }
 
 type Subscription {
-  classroomLessonSession(id: String!): ClassroomLessonSession
+  classroomLessonSession(id: String!, studentId: String): ClassroomLessonSession
 }

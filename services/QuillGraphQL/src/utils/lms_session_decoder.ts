@@ -8,6 +8,12 @@ export interface DecodedCookie {
   user_id?: number
   name?: string
   role?: string
+  lesson_session?: {
+    user_id?: number
+    role?: string 
+    classroom_unit_id?: number
+    classroom_session_id?: string
+  }
 }
 
 export function createDerivedKey(secret:string, salt:string):Buffer{

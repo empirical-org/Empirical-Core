@@ -1,4 +1,6 @@
 import rethinkClient from '../utils/rethinkdb';
+import { teacherHasPermission, userHasPermission, studentHasPermission } from '../utils/permissions';
+import {ForbiddenError} from 'apollo-server-errors';
 
 export default {
   Query: {
@@ -22,13 +24,12 @@ export default {
   },
   Subscription: {
     classroomLessonSession: {
-      subscribe: (parent, {id}, ctx) => {
-        console.log("context: ", ctx.user)
+      subscribe: async (parent, {id, studentId}, ctx) => {
+        const sess = await getClassroomLessonSession(id);
         const channel = id;
-        rethinkClient
-          .db('quill_lessons')
-          .table('classroom_lesson_sessions')
-          .get(id)
+        if (!userHasPermission(sess, ctx.user)) return new ForbiddenError("You don't have access to this session.")
+        if (teacherHasPermission(sess, ctx.user)) {
+          getSessionRethinkRoot(id)
           .changes({ includeInitial: true })
           .run((err, cursor) => {
             cursor.each((err, document) => {
@@ -37,14 +38,29 @@ export default {
               if (session) {
                 ctx.pubSub.publish(channel, {classroomLessonSession: session})
               }
+            })
+            setAbsentTeacherState(id, false);
+            ctx.socket.onDisconnect = () => {
+              setAbsentTeacherState(id, true);
+              cursor.close()
             }
-          ) 
-        })
-        return ctx.pubSub.asyncIterator(channel);
+          })
+        }
+        else if (studentId && studentHasPermission(sess, ctx.user)) {
+          setTimeout(() => {
+            setStudentPresence(id, studentId, true);
+          }, 1000)
+          
+          ctx.socket.onDisconnect = () => {
+            setStudentPresence(id, studentId, false);
+          }
+        }
+        return ctx.pubSub.asyncIterator(channel)
+      }
     }
   }
 }
-}
+
 
 function classroomLessonsIndex(parent, args, ctx) {
   return rethinkClient.db('quill_lessons').table('classroom_lessons').run()
@@ -75,10 +91,40 @@ function editionLesson({lesson_id}, args, ctx) {
   return rethinkClient.db('quill_lessons').table('classroom_lessons').get(lesson_id).run()
 }
 
-function classroomLessonSession(parent, {id}, ctx) {
-  return rethinkClient.db('quill_lessons').table('classroom_lesson_sessions').get(id).run();
+async function classroomLessonSession(parent, {id}, ctx) {
+  const sessionData = await getClassroomLessonSession(id)
+  if (userHasPermission(sessionData, ctx.user)) {
+    return sessionData
+  } else {
+    return new ForbiddenError("You don't have access to this session.")
+  }
+  
 }
 
 function setSessionCurrentSlide(parent, {id, slideNumber}, ctx) {
-  return rethinkClient.db('quill_lessons').table('classroom_lesson_sessions').get(id).update({current_slide: slideNumber}).run();
+  if (teacherHasPermission(parent, ctx.user)) {
+    return rethinkClient.db('quill_lessons').table('classroom_lesson_sessions').get(id).update({current_slide: slideNumber}).run();
+  } else {
+    return new ForbiddenError("You are not the teacher of this session")
+  }
 }
+
+async function getClassroomLessonSession(id: string) {
+  return await getSessionRethinkRoot(id).run();
+}
+
+function getSessionRethinkRoot(id: string) {
+  return rethinkClient.db('quill_lessons').table('classroom_lesson_sessions').get(id)
+}
+
+function setAbsentTeacherState(id: string, value: boolean) {
+  getSessionRethinkRoot(id)
+    .update({absentTeacherState: value})
+    .run()
+}
+
+function setStudentPresence(id: string, studentId: string, value: boolean) {
+  getSessionRethinkRoot(id).update({'presence': {
+    [studentId]: value
+  }}).run()
+} 

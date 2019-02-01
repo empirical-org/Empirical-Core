@@ -27,6 +27,7 @@ const QUERY = gql`
       teacher_ids
       teacher_name
       timestamps
+      presence
       edition {
         name
         questions {
