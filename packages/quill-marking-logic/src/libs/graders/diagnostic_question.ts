@@ -38,7 +38,7 @@ export function checkDiagnosticQuestion(
   const firstPass = checkForMatches(data, firstPassMatchers)
   if (firstPass) {
     const newResponse = Object.assign(responseTemplate, firstPass)
-    if (['Modified Word Hint', 'Spelling Hint', 'Additional Word Hint', 'Missing Word Hint', 'Whitespace Hint'].includes(newResponse.author)) {
+    if (['Modified Word Hint', 'Spelling Hint', 'Additional Word Hint', 'Missing Word Hint', 'Whitespace Hint', 'Missing Details Hint'].includes(newResponse.author)) {
       newResponse.concept_results = defaultConceptUID ? [conceptResultTemplate(defaultConceptUID)] : []
     }
     return newResponse
