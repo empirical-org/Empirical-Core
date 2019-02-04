@@ -52,7 +52,7 @@ export default {
           }, 1000)
           
           ctx.socket.onDisconnect = () => {
-            setStudentPresence(id, studentId, false);
+            removeValueFromSession(id, {'presence': {[studentId]: true}})
           }
         }
         return ctx.pubSub.asyncIterator(channel)
@@ -127,4 +127,15 @@ function setStudentPresence(id: string, studentId: string, value: boolean) {
   getSessionRethinkRoot(id).update({'presence': {
     [studentId]: value
   }}).run()
-} 
+}
+
+function removeValueFromSession(id: string, valueToRemove: any):void {
+  getSessionRethinkRoot(id)
+    .replace(rethinkClient.row.without(valueToRemove))
+    .run()
+    .then(result => {
+      console.log("Returned: ", result)
+    })
+  
+}
+
