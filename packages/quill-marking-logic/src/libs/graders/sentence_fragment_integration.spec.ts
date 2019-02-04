@@ -1,4 +1,4 @@
-import {responses, incorrectSequences} from '../../../test/data/batswings'
+import { responses, incorrectSequences, focusPoints } from '../../../test/data/batswings'
 import { assert } from 'chai';
 // import {checkSentenceFragment} from './sentence_fragment'
 import {checkSentenceFragment} from '../../../dist/lib'
@@ -14,6 +14,7 @@ describe('The checking a sentence fragment', () => {
     wordCountChange: {min: 1, max: 3},
     ignoreCaseAndPunc: false,
     incorrectSequences,
+    focusPoints,
     prompt: 'Bats have wings they can fly.',
     defaultConceptUID: responses[0].question_uid
   };
@@ -42,7 +43,7 @@ describe('The checking a sentence fragment', () => {
       })
     });
 
-    it('should be able to find a match, even with trailing spaces', () => {
+    it('should be able to find a match, even with extra spaces', () => {
       const fields = {
         ...initialFields,
         response: 'Bats have wings,  so they can fly.',
@@ -64,11 +65,23 @@ describe('The checking a sentence fragment', () => {
         assert.equal(resp.feedback, incorrectSequences[0].feedback);
       })
     });
+
+    it('should be able to find a focus point match', () => {
+      // this is a little artificial, as the focus point (looking for the word 'so') encompasses the incorrect sequence (using the phrase 'and they')
+      const fields = {
+        ...initialFields,
+        response: 'Bats have wings which means that they can fly.',
+      };
+      const matchedResponse = checkSentenceFragment(fields);
+      matchedResponse.then(resp => {
+        assert.equal(resp.feedback, focusPoints[0].feedback);
+      })
+    });
     //
     it('should be able to find a length match', () => {
       const fields = {
         ...initialFields,
-        response: 'Bats have wings, which means that they can fly very far.',
+        response: 'Bats have wings, so means that they can fly very far.',
       };
       const matchedResponse = checkSentenceFragment(fields);
       matchedResponse.then(resp => {

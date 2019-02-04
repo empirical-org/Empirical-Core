@@ -68,8 +68,8 @@ function* firstPassMatchers(data, spellCorrected=false) {
   const submission =  response;
 
   yield exactMatch(submission, responses)
-  yield incorrectSequenceChecker(submission, incorrectSequences, responses)
   yield focusPointChecker(submission, focusPoints, responses)
+  yield incorrectSequenceChecker(submission, incorrectSequences, responses)
   yield partsOfSpeechChecker(submission, responses)
   if (!ignoreCaseAndPunc) {
     yield lengthChecker(submission, responses, prompt, wordCountChange)
