@@ -53,6 +53,7 @@ describe('The checking a diagnostic question', () => {
       const questionString = "Bats have swings, so they can fly."
       const matchedResponse = checkDiagnosticQuestion(responses[0].question_uid, questionString, responses, null, null, responses[0].question_uid);
       assert.equal(matchedResponse.author, 'Spelling Hint');
+      assert.equal(matchedResponse.concept_results[0].conceptUID, responses[0].question_uid);
     });
 
   })
