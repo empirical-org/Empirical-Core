@@ -79,3 +79,4 @@ nohup\.out
 # Ignore generated python files
 *.pyc
 localhost.key
+services/QuillGraphQL/yarn-error.log
