@@ -4,7 +4,7 @@ import * as _ from 'underscore';
 import { hashToCollection } from 'quill-component-library/dist/componentLibrary';
 
 // const qml = require('quill-marking-logic')
-import { checkSentenceCombining, checkDiagnosticSentenceFragment, checkDiagnosticQuestion, checkFillInTheBlankQuestion, ConceptResult } from 'quill-marking-logic'
+import { checkDiagnosticSentenceFragment, checkDiagnosticQuestion, checkFillInTheBlankQuestion, ConceptResult } from 'quill-marking-logic'
 import objectWithSnakeKeysFromCamel from '../objectWithSnakeKeysFromCamel.js';
 
 interface Question {
@@ -210,12 +210,10 @@ function saveResponses(responses) {
 function getMatcher(mode:string):Function {
   if (mode === 'sentenceFragments') {
     return checkDiagnosticSentenceFragment;
-  } else if (mode === 'diagnosticQuestions') {
-    return checkDiagnosticQuestion;
   } else if (mode === 'fillInBlank') {
     return checkFillInTheBlankQuestion;
   }
-  return checkSentenceCombining;
+  return checkDiagnosticQuestion;
 }
 
 function getMatcherFields(mode:string, question:Question, responses:{[key:string]: Response}) {
