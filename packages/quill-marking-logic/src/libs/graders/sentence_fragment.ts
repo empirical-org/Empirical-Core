@@ -1,10 +1,11 @@
 import * as _ from 'underscore'
-import {Response, IncorrectSequence} from '../../interfaces'
+import {Response, IncorrectSequence, FocusPoint} from '../../interfaces'
 import {getOptimalResponses} from '../sharedResponseFunctions'
 import {conceptResultTemplate} from '../helpers/concept_result_template'
 
 import {exactMatch} from '../matchers/exact_match';
 import {incorrectSequenceChecker} from '../matchers/incorrect_sequence_match'
+import {focusPointChecker} from '../matchers/focus_point_match';
 import {lengthChecker} from '../matchers/length_match'
 import {punctuationEndChecker} from '../matchers/punctuation_end_match'
 import {caseStartChecker} from '../matchers/case_start_match'
@@ -24,6 +25,7 @@ export async function checkSentenceFragment(hash:{
   wordCountChange?: Object,
   ignoreCaseAndPunc?: Boolean,
   incorrectSequences?: Array<IncorrectSequence>,
+  focusPoints?: Array<FocusPoint>,
   prompt: string,
   checkML?: Boolean,
   mlUrl?: string,
@@ -34,6 +36,7 @@ export async function checkSentenceFragment(hash:{
     response: hash.response.trim().replace(/\s{2,}/g, ' '),
     responses: _.sortBy(hash.responses, r => r.count).reverse(),
     incorrectSequences: hash.incorrectSequences,
+    focusPoints: hash.focusPoints,
     wordCountChange: hash.wordCountChange,
     ignoreCaseAndPunc: hash.ignoreCaseAndPunc,
     prompt: hash.prompt,
@@ -68,11 +71,12 @@ export async function checkSentenceFragment(hash:{
 }
 
 function* firstPassMatchers(data, spellCorrected=false) {
-  const {response, responses, incorrectSequences, ignoreCaseAndPunc, wordCountChange, prompt, checkML, mlUrl} = data;
+  const {response, responses, incorrectSequences, focusPoints, ignoreCaseAndPunc, wordCountChange, prompt, checkML, mlUrl} = data;
   const submission =  response;
 
   yield exactMatch(submission, responses)
   yield incorrectSequenceChecker(submission, incorrectSequences, responses)
+  yield focusPointChecker(submission, focusPoints, responses)
   if (!ignoreCaseAndPunc) {
     yield lengthChecker(submission, responses, prompt, wordCountChange)
     yield punctuationEndChecker(submission, responses)
