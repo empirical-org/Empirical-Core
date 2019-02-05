@@ -11,15 +11,37 @@ describe ProfilesController, type: :controller do
       )
     end
     let!(:other_student) {create(:student)}
-    let!(:activity) { create(:activity) }
     let!(:unit) { create(:unit) }
-    let!(:unit_activity) { create(:unit_activity, unit: unit, activity: activity) }
+    let!(:activities) do [
+        create(:activity),
+        create(:activity),
+        create(:activity),
+        create(:activity),
+        create(:activity)
+      ]
+    end
+    let!(:unit_activities) do [
+        create(:unit_activity, unit: unit, activity: activities[0], order_number: 5),
+        create(:unit_activity, unit: unit, activity: activities[1], order_number: 4),
+        create(:unit_activity, unit: unit, activity: activities[2], order_number: 3),
+        create(:unit_activity, unit: unit, activity: activities[3], order_number: 2),
+        create(:unit_activity, unit: unit, activity: activities[4], order_number: 1),
+      ]
+    end
     let!(:classroom_unit) do
       create(:classroom_unit,
         unit: unit,
         classroom: classroom,
         assigned_student_ids: [student.id]
       )
+    end
+    let!(:classroom_unit_activity_states) do [
+        create(:classroom_unit_activity_state, unit_activity: unit_activities[0], classroom_unit: classroom_unit, locked: true),
+        create(:classroom_unit_activity_state, unit_activity: unit_activities[1], classroom_unit: classroom_unit),
+        create(:classroom_unit_activity_state, unit_activity: unit_activities[2], classroom_unit: classroom_unit, pinned: true),
+        create(:classroom_unit_activity_state, unit_activity: unit_activities[3], classroom_unit: classroom_unit, locked: true),
+        create(:classroom_unit_activity_state, unit_activity: unit_activities[4], classroom_unit: classroom_unit)
+      ]
     end
 
     before do
@@ -128,8 +150,8 @@ describe ProfilesController, type: :controller do
                 'act_sesh_updated_at' => activity_session&.updated_at,
                 'due_date' => unit_activity.due_date,
                 'unit_activity_created_at' => classroom_unit.created_at,
-                'locked' => 'f',
-                'pinned' => 'f',
+                'locked' => unit_activity.classroom_unit_activity_states[0].locked ? 't' : 'f',
+                'pinned' => unit_activity.classroom_unit_activity_states[0].pinned ? 't' : 'f',
                 'max_percentage' => activity_session&.percentage,
                 'resume_link' => activity_session&.state == 'started' ? 1 : 0
               }
@@ -139,9 +161,9 @@ describe ProfilesController, type: :controller do
           # This sort emulates the sort we are doing in the student_profile_data_sql method.
           sorted_scores = scores_array.sort { |a, b|
             [
-              b['pinned'], a['locked'], b['max_percentage'] == nil ? 1.01 : b['max_percentage'], a['unit_created_at'], a['unit_activity_created_at']
+              b['pinned'], a['locked'], a['order_number'], b['max_percentage'] == nil ? 1.01 : b['max_percentage'], a['unit_created_at'], a['unit_activity_created_at']
             ] <=> [
-              a['pinned'], b['locked'], a['max_percentage'] == nil ? 1.01 : a['max_percentage'], b['unit_created_at'], b['unit_activity_created_at']
+              a['pinned'], b['locked'], b['order_number'], a['max_percentage'] == nil ? 1.01 : a['max_percentage'], b['unit_created_at'], b['unit_activity_created_at']
             ]
           }
           expect(scores).to eq(sanitize_hash_array_for_comparison_with_sql(sorted_scores))
