@@ -136,7 +136,7 @@ protected
       AND ua.visible = true
       GROUP BY unit.id, unit.name, unit.created_at, cu.id, activity.name, activity.activity_classification_id, activity.id, activity.uid, ua.due_date, ua.created_at, unit_activity_id, cuas.completed, cuas.locked, cuas.pinned, ua.id
 
-      ORDER BY pinned DESC, locked ASC, max_percentage DESC, ua.due_date ASC, unit.created_at ASC, ua.order_number ASC, ua.id ASC").to_a
+      ORDER BY pinned DESC, locked ASC, ua.order_number ASC, max_percentage DESC, ua.due_date ASC, unit.created_at ASC, ua.id ASC").to_a
     else
       @act_sesh_records = []
     end
