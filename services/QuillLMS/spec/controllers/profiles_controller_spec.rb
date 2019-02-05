@@ -119,6 +119,7 @@ describe ProfilesController, type: :controller do
                 'activity_classification_id' => activity.activity_classification_id,
                 'unit_id' => unit.id,
                 'ua_id' => unit_activity.id,
+                'order_number' => unit_activity.order_number,
                 'unit_created_at' => unit.created_at,
                 'unit_name' => unit.name,
                 'ca_id' => classroom_unit.id,
