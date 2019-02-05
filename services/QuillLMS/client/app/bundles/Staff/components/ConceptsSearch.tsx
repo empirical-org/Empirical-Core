@@ -22,7 +22,7 @@ class ConceptSearch extends React.Component<ConceptSearchProps, ConceptSearchSta
     return (
       <div className="certain-category-search-wrapper">
         <Search
-          placeholder="Search for a concept"
+          placeholder="Search concepts"
           onSearch={this.props.updateSearchValue}
           style={{ width: 300 }}
           enterButton
@@ -30,7 +30,7 @@ class ConceptSearch extends React.Component<ConceptSearchProps, ConceptSearchSta
       </div>
     )
   }
-  
+
 }
 
 export default ConceptSearch
