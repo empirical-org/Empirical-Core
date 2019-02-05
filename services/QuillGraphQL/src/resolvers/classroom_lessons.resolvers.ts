@@ -20,7 +20,8 @@ export default {
     edition: sessionEdition
   },
   Mutation: {
-    setSessionCurrentSlide
+    setSessionCurrentSlide,
+    setEditionId
   },
   Subscription: {
     classroomLessonSession: {
@@ -102,6 +103,7 @@ async function classroomLessonSession(parent, {id}, ctx) {
 }
 
 function setSessionCurrentSlide(parent, {id, slideNumber}, ctx) {
+  console.log("setting current slide");
   if (teacherHasPermission(parent, ctx.user)) {
     return rethinkClient.db('quill_lessons').table('classroom_lesson_sessions').get(id).update({current_slide: slideNumber}).run();
   } else {
@@ -129,6 +131,15 @@ function setStudentPresence(id: string, studentId: string, value: boolean) {
   }}).run()
 }
 
+function setEditionId(_, {id, editionId}, ctx):void {
+  // if (teacherHasPermission())
+  // updateValuesForSession(id, {'edition_id': editionId})
+} 
+
+function updateValuesForSession(id: string, values: any, authorized: boolean):void {
+  getSessionRethinkRoot(id).update(values).run()
+}
+
 function removeValueFromSession(id: string, valueToRemove: any):void {
   getSessionRethinkRoot(id)
     .replace(rethinkClient.row.without(valueToRemove))
@@ -137,5 +148,20 @@ function removeValueFromSession(id: string, valueToRemove: any):void {
       console.log("Returned: ", result)
     })
   
+}
+
+async function authHelper(sessionId: string, role: string, ctx: any):boolean {
+  const session = await getSessionRethinkRoot(sessionId).run()
+  switch(role) {
+    case 'user':
+      return userHasPermission(session, ctx.user)
+    case 'teacher':
+      return userHasPermission(session, ctx.user)
+    case 'student':
+      return userHasPermission(session, ctx.user)
+    default:
+      
+  }
+  return true
 }
 

@@ -77,7 +77,8 @@ type Query {
 }
 
 type Mutation {
-  setSessionCurrentSlide(id: String!, slideNumber: String!): ClassroomLessonSession 
+  setSessionCurrentSlide(id: String!, slideNumber: String!): ClassroomLessonSession
+  setEditionId(id: String!, editionId: String!): ClassroomLessonSession 
 }
 
 type Subscription {
