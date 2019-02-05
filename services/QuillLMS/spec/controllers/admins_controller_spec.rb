@@ -21,7 +21,7 @@ describe AdminsController  do
 
     it 'should render the correct json' do
       get :show, id: teacher.id
-      expect(response.body).to eq "some json"
+      expect(response.body).to eq(({id: user.id}).to_json)
     end
   end
 
