@@ -6,6 +6,7 @@ import RadioGroup from "../../../../node_modules/antd/lib/radio/group";
 import RadioButton from "../../../../node_modules/antd/lib/radio/radioButton";
 import ConceptSearch from "../components/ConceptsSearch";
 import ConceptManagerNav from "../components/ConceptManagerNav";
+import ConceptBox from "../components/ConceptBox";
 import Fuse from 'fuse.js'
 const conceptsIndexQuery:string = `
   {
@@ -45,6 +46,7 @@ interface QueryResult {
 interface AppState {
   visible: boolean,
   searchValue: string,
+  selectedConcept: { levelNumber?: Number, conceptID?: Number},
   fuse?: any
 }
 
@@ -56,8 +58,10 @@ class ConceptsIndex extends React.Component<any, AppState> {
     this.state = {
       visible: true,
       searchValue: '',
+      selectedConcept: {}
     }
     this.updateSearchValue = this.updateSearchValue.bind(this)
+    this.selectConcept = this.selectConcept.bind(this)
   }
 
   filterConcepts(concepts:Array<Concept>, searchValue:string):Array<Concept>{
@@ -96,6 +100,17 @@ class ConceptsIndex extends React.Component<any, AppState> {
     this.setState({searchValue})
   }
 
+  selectConcept(conceptID, levelNumber) {
+    this.setState({ selectedConcept: { conceptID, levelNumber }})
+  }
+
+  renderConceptBox() {
+    const { conceptID, levelNumber } = this.state.selectedConcept
+    if (conceptID && levelNumber) {
+      return <ConceptBox conceptID={conceptID} levelNumber={levelNumber}/>
+    }
+  }
+
   render() {
     let activeLink = 'concepts'
     if (window.location.href.includes('find_and_replace')) {
@@ -114,15 +129,28 @@ class ConceptsIndex extends React.Component<any, AppState> {
             if (error) return <p>Error :(</p>;
 
             return (
-              <div>
-                <div className="concepts-index-tools">
-                  <RadioGroup onChange={(e) => this.setState({visible: e.target.value})} defaultValue={this.state.visible}>
-                    <RadioButton value={true}>Live</RadioButton>
-                    <RadioButton value={false}>Archived</RadioButton>
-                  </RadioGroup>
-                  <ConceptSearch concepts={this.filterConcepts(data.concepts, this.state.searchValue)} searchValue={this.state.searchValue} updateSearchValue={this.updateSearchValue}/>
+              <div className="concepts-index">
+              <div className="concepts-table-container">
+                  <div className="concepts-index-tools">
+                    <RadioGroup onChange={(e) => this.setState({visible: e.target.value})} defaultValue={this.state.visible}>
+                      <RadioButton value={true}>Live</RadioButton>
+                      <RadioButton value={false}>Archived</RadioButton>
+                    </RadioGroup>
+                    <ConceptSearch
+                      concepts={this.filterConcepts(data.concepts, this.state.searchValue)}
+                      searchValue={this.state.searchValue}
+                      updateSearchValue={this.updateSearchValue}
+                    />
+                  </div>
+                  <div>
+                    <ConceptsTable
+                      concepts={this.filterConcepts(data.concepts, this.state.searchValue)}
+                      visible={this.state.visible}
+                      selectConcept={this.selectConcept}
+                    />
+                  </div>
                 </div>
-                <ConceptsTable concepts={this.filterConcepts(data.concepts, this.state.searchValue)} visible={this.state.visible}/>
+                {this.renderConceptBox()}
               </div>
             )
           }}
