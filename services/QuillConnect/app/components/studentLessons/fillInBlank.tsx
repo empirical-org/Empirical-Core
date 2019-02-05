@@ -198,7 +198,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
   }
 
   warningText() {
-    const text = 'Use one of the words below';
+    const text = 'Use one of the options below';
     return `${text}${this.state.blankAllowed ? ' or leave blank.' : '.'}`;
   }
 
@@ -246,6 +246,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
           onChange={this.getChangeHandler(i)}
           value={this.state.inputVals[i]}
           onBlur={() => this.validateInput(i)}
+          autoComplete="off"
         />
       </span>
     );
@@ -262,8 +263,8 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
 
   renderConceptExplanation() {
     const latestAttempt:{response: Response}|undefined = this.getLatestAttempt(this.props.question.attempts);
-    if (latestAttempt) {
-      if (!latestAttempt.response.optimal && latestAttempt.response.conceptResults) {
+    if (latestAttempt && latestAttempt.response && !latestAttempt.response.optimal ) {
+      if (latestAttempt.response.conceptResults) {
           const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.response.conceptResults);
           if (conceptID) {
             const data = this.props.conceptsFeedback.data[conceptID.conceptUID];
@@ -271,7 +272,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
               return <ConceptExplanation {...data} />;
             }
           }
-      } else if (latestAttempt.response && !latestAttempt.response.optimal && latestAttempt.response.concept_results) {
+      } else if (latestAttempt.response.concept_results) {
         const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.response.concept_results);
         if (conceptID) {
           const data = this.props.conceptsFeedback.data[conceptID.conceptUID];
