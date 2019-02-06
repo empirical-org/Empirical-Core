@@ -5,9 +5,9 @@ import ConceptsTable from "../components/ConceptsTable";
 import RadioGroup from "../../../../node_modules/antd/lib/radio/group";
 import RadioButton from "../../../../node_modules/antd/lib/radio/radioButton";
 import ConceptSearch from "../components/ConceptsSearch";
+import ConceptManagerNav from "../components/ConceptManagerNav";
+import ConceptBox from "../components/ConceptBox";
 import Fuse from 'fuse.js'
-import { Button } from "antd";
-import { Link } from 'react-router';
 const conceptsIndexQuery:string = `
   {
     concepts(childlessOnly: true) {
@@ -46,19 +46,22 @@ interface QueryResult {
 interface AppState {
   visible: boolean,
   searchValue: string,
+  selectedConcept: { levelNumber?: Number, conceptID?: Number},
   fuse?: any
 }
 
 
-class App extends React.Component<any, AppState> {
+class ConceptsIndex extends React.Component<any, AppState> {
   constructor(props){
     super(props)
 
     this.state = {
       visible: true,
       searchValue: '',
+      selectedConcept: {}
     }
     this.updateSearchValue = this.updateSearchValue.bind(this)
+    this.selectConcept = this.selectConcept.bind(this)
   }
 
   filterConcepts(concepts:Array<Concept>, searchValue:string):Array<Concept>{
@@ -82,11 +85,11 @@ class App extends React.Component<any, AppState> {
       this.setState({fuse});
       return concepts;
     }
-    
-    
+
+
     // const results:Array<any>|null = fs.get(searchValue);
     // const resultsNames:Array<string> = results ? results.map(result => result[1]) : [];
-  
+
     // console.log("fuzzy = ", results, fs);
     // return concepts.filter((concept) => {
     //   return resultsNames.indexOf(getSearchableConceptName(concept)) != -1
@@ -97,10 +100,27 @@ class App extends React.Component<any, AppState> {
     this.setState({searchValue})
   }
 
+  selectConcept(conceptID, levelNumber) {
+    this.setState({ selectedConcept: { conceptID, levelNumber }})
+  }
+
+  renderConceptBox() {
+    const { conceptID, levelNumber } = this.state.selectedConcept
+    if (conceptID && levelNumber) {
+      return <ConceptBox conceptID={conceptID} levelNumber={levelNumber}/>
+    }
+  }
+
   render() {
+    let activeLink = 'concepts'
+    if (window.location.href.includes('find_and_replace')) {
+      activeLink = 'find_and_replace'
+    } else if (window.location.href.includes('new')) {
+      activeLink = "new"
+    }
     return  (
       <div>
-        <h3>Concepts <Link to="/new"><Button icon="plus" shape="circle" /></Link></h3>
+        <ConceptManagerNav />
         <Query
           query={gql(conceptsIndexQuery)}
         >
@@ -109,24 +129,37 @@ class App extends React.Component<any, AppState> {
             if (error) return <p>Error :(</p>;
 
             return (
-              <div>
-                <div className="concepts-index-tools">
-                  <RadioGroup onChange={(e) => this.setState({visible: e.target.value})} defaultValue={this.state.visible}>
-                    <RadioButton value={true}>Live</RadioButton>
-                    <RadioButton value={false}>Archived</RadioButton>
-                  </RadioGroup>
-                  <ConceptSearch concepts={this.filterConcepts(data.concepts, this.state.searchValue)} searchValue={this.state.searchValue} updateSearchValue={this.updateSearchValue}/>
+              <div className="concepts-index">
+              <div className="concepts-table-container">
+                  <div className="concepts-index-tools">
+                    <RadioGroup onChange={(e) => this.setState({visible: e.target.value})} defaultValue={this.state.visible}>
+                      <RadioButton value={true}>Live</RadioButton>
+                      <RadioButton value={false}>Archived</RadioButton>
+                    </RadioGroup>
+                    <ConceptSearch
+                      concepts={this.filterConcepts(data.concepts, this.state.searchValue)}
+                      searchValue={this.state.searchValue}
+                      updateSearchValue={this.updateSearchValue}
+                    />
+                  </div>
+                  <div>
+                    <ConceptsTable
+                      concepts={this.filterConcepts(data.concepts, this.state.searchValue)}
+                      visible={this.state.visible}
+                      selectConcept={this.selectConcept}
+                    />
+                  </div>
                 </div>
-                <ConceptsTable concepts={this.filterConcepts(data.concepts, this.state.searchValue)} visible={this.state.visible}/>
+                {this.renderConceptBox()}
               </div>
             )
           }}
         </Query>
       </div>
-      
+
     )
   }
-  
+
 };
 
-export default App
+export default ConceptsIndex

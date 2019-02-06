@@ -4,10 +4,10 @@ import { Query } from "react-apollo";
 import gql from "graphql-tag";
 
 import client from '../../../modules/apollo';
-import { 
-  Breadcrumb, 
-  Divider, 
-  Card, 
+import {
+  Breadcrumb,
+  Divider,
+  Card,
   List,
   Row,
   Col,
@@ -69,6 +69,7 @@ class App extends React.Component {
         query={gql(conceptQuery(this.props.params.id))}
       >
         {({ loading, error, data }) => {
+          debugger;
           if (loading) return <p>Loading...</p>;
           if (error) return <p>Error :(</p>;
           const concept:QueryResult = data.concept;
@@ -83,14 +84,14 @@ class App extends React.Component {
               <Divider />
 
               <ConceptsShow concept={concept}/>
-              
+
             </div>
           )
         }}
       </Query>
     )
   }
-  
+
 };
 
 export default App
