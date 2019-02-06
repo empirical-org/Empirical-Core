@@ -170,12 +170,6 @@ module PagesHelper
 				team: 'Education Advisory Board',
 				members: [
 					{
-						img: 'thumb-daniel.jpg',
-						name: 'Daniel Scibienski',
-						title: "Advisory Board Member",
-						desc: "Daniel Scibienski is the founder of ELL Consulting.  He has been involved in English language education for over 14 years as a teacher, trainer, and program administrator."
-					},
-					{
 						img: 'thumb-peg.jpg',
 						name: 'Peg Tyre',
 						title: "Advisory Board Member",
@@ -192,12 +186,6 @@ module PagesHelper
 						name: 'John Silberstein',
 						title: 'Advisory Board Member',
 						desc: "After beginning his career as a real estate lawyer at Skadden Arps, John Silberstein pursued an entrepreneurial path in real estate and technology. John then taught middle school English at The Dalton School in New York City and The Rivers School in Weston, MA. John is currently on the Board of Snap Interactive, a publicly traded social media company and is on the Advisory Board of Will Power Labs, which makes Meal Enders, a dietary lozenge."
-					},
-					{
-						img: 'thumb-deborah.jpg',
-						name: 'Deborah Chang',
-						title: 'Advisory Board Member',
-						desc: "Deborah Chang is an educator and an entrepreneur. She co-founded Nexus Works, a community of people working with purpose and is also a community organizer of #NYCEDU, an organization that curates, coaches, and connects community organizers."
 					}
 				]
 			},
