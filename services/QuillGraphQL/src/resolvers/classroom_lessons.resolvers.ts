@@ -102,9 +102,8 @@ async function classroomLessonSession(parent, {id}, ctx) {
   
 }
 
-function setSessionCurrentSlide(parent, {id, slideNumber}, ctx) {
-  console.log("setting current slide");
-  if (teacherHasPermission(parent, ctx.user)) {
+async function setSessionCurrentSlide(parent, {id, slideNumber}, ctx):Promise<boolean|Error> {
+  if (await authHelper(id, 'teacher', ctx)) {
     return rethinkClient.db('quill_lessons').table('classroom_lesson_sessions').get(id).update({current_slide: slideNumber}).run();
   } else {
     return new ForbiddenError("You are not the teacher of this session")
@@ -131,12 +130,15 @@ function setStudentPresence(id: string, studentId: string, value: boolean) {
   }}).run()
 }
 
-function setEditionId(_, {id, editionId}, ctx):void {
-  // if (teacherHasPermission())
-  // updateValuesForSession(id, {'edition_id': editionId})
+async function setEditionId(_, {id, editionId}, ctx):Promise<void|Error> {
+  if (await authHelper(id, 'teacher', ctx)) {
+    return updateValuesForSession(id, {'edition_id': editionId})
+  } else {
+    return new ForbiddenError("You are not the teacher of this session")
+  }
 } 
 
-function updateValuesForSession(id: string, values: any, authorized: boolean):void {
+function updateValuesForSession(id: string, values: any):void {
   getSessionRethinkRoot(id).update(values).run()
 }
 
@@ -150,7 +152,7 @@ function removeValueFromSession(id: string, valueToRemove: any):void {
   
 }
 
-async function authHelper(sessionId: string, role: string, ctx: any):boolean {
+async function authHelper(sessionId: string, role: string, ctx: any):Promise<boolean> {
   const session = await getSessionRethinkRoot(sessionId).run()
   switch(role) {
     case 'user':
