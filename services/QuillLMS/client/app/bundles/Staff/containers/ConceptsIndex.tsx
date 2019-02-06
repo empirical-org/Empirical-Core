@@ -6,7 +6,7 @@ import RadioGroup from "../../../../node_modules/antd/lib/radio/group";
 import RadioButton from "../../../../node_modules/antd/lib/radio/radioButton";
 import ConceptSearch from "../components/ConceptsSearch";
 import ConceptManagerNav from "../components/ConceptManagerNav";
-import ConceptBox from "../components/ConceptBox";
+import ConceptBoxContainer from "./ConceptBoxContainer";
 import Fuse from 'fuse.js'
 const conceptsIndexQuery:string = `
   {
@@ -107,7 +107,8 @@ class ConceptsIndex extends React.Component<any, AppState> {
   renderConceptBox() {
     const { conceptID, levelNumber } = this.state.selectedConcept
     if (conceptID && levelNumber) {
-      return <ConceptBox conceptID={conceptID} levelNumber={levelNumber}/>
+      console.log('HELLO')
+      return <ConceptBoxContainer conceptID={conceptID} levelNumber={levelNumber}/>
     }
   }
 
