@@ -1,3 +1,5 @@
+@import '../../../../../app/assets/stylesheets/shared/inputs.scss';
+
 .certain-category-search.ant-select-auto-complete .ant-input-affix-wrapper .ant-input-suffix {
   right: 12px;
 }
@@ -49,4 +51,57 @@
 
 .ant-input-affix-wrapper .ant-input {
   min-height: 0;
+}
+
+.concepts-table th {
+  position: sticky;
+  position: -webkit-sticky; /* Safari */
+  top: 0;
+}
+
+.concept-manager-nav {
+  width: 100%;
+  border-bottom: 1px solid #d3d3d3;
+  .concept-manager-links {
+    width: 500px;
+    display: flex;
+    justify-content: space-around;
+    a {
+      font-weight: 500;
+      color: black;
+      padding: 10px;
+      border-bottom: 3px solid white;
+    }
+    a.active {
+      color: green;
+      border-bottom: 3px solid green;
+    }
+  }
+}
+
+.concepts-index {
+  padding: 20px 30px;
+  background-color: #f8f8f8;
+  display: flex;
+  justify-content: space-between;
+}
+
+.concepts-table-container {
+  width: 885px;
+  padding: 30px 20px;
+  background-color: white;
+  border: 1px solid #d3d3d3;
+  border-radius: 6px;
+}
+
+.concept-box {
+  padding: 30px 20px;
+  background-color: #fff;
+  border: 1px solid #d3d3d3;
+  border-radius: 6px;
+  width: 380px;
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: 0;
+  height: 400px;
 }
