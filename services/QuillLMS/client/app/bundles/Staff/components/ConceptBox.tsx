@@ -5,6 +5,7 @@ import gql from "graphql-tag";
 
 import client from '../../../modules/apollo';
 import Input from '../../Teacher/components/shared/input'
+import DropdownInput from '../../Teacher/components/shared/dropdown_input'
 import {
   Breadcrumb,
   Divider,
@@ -15,19 +16,9 @@ import {
 } from "antd";
 import ConceptsShow from "../components/ConceptsShow";
 import ConceptBreadCrumb from '../components/ConceptBreadCrumb';
+import ItemDropdown from '../../Teacher/components/general_components/dropdown_selectors/item_dropdown'
 
 function levelTwoConceptsQuery(){
-  return `
-  {
-    concepts(levelTwoOnly: true) {
-      value: id
-      label: name
-    }
-  }
-`
-}
-
-function levelOneConceptsQuery(){
   return `
   {
     concepts(levelTwoOnly: true) {
@@ -115,6 +106,14 @@ class ConceptBox extends React.Component {
     } else if (this.props.levelNumber === 1) {
       return <div>
         <Input
+          label='Level 2'
+          value={concept.parent.parent.name}
+          type='text'
+        />
+        <DropdownInput
+          label='Level 1'
+        />
+        <Input
           label='Level 1'
           value={concept.name}
           type='text'
@@ -122,6 +121,15 @@ class ConceptBox extends React.Component {
       </div>
     } else if (this.props.levelNumber === 0) {
       return <div>
+        <Input
+          disabled={true}
+          label='Level 2'
+          value={concept.parent.parent.name}
+          type='text'
+        />
+        <DropdownInput
+          label='Level 1'
+        />
         <Input
           label='Level 0'
           value={concept.name}
