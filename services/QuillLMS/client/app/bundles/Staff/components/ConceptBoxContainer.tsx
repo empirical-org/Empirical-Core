@@ -3,7 +3,7 @@ import { Query } from "react-apollo";
 import gql from "graphql-tag";
 
 import client from '../../../modules/apollo';
-import ConceptBox from "../components/ConceptBox";
+import ConceptBox from "./ConceptBox";
 
 function levelTwoConceptsQuery(){
   return `
@@ -92,7 +92,6 @@ class ConceptBoxContainer extends React.Component {
         query={gql(conceptQuery(this.props.conceptID))}
       >
         {({ loading, error, data }) => {
-          debugger;
           if (loading) return <p>Loading...</p>;
           if (error) return <p>Error :(</p>;
           const concept:QueryResult = data.concept;

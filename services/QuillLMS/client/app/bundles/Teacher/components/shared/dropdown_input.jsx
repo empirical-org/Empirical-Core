@@ -1,18 +1,20 @@
 import React from 'react';
+import Select from 'react-select';
 
-export default class Input extends React.Component {
+export default class DropdownInput extends React.Component {
   constructor(props) {
     super(props)
 
     this.state = {
       inactive: true,
-      errorAcknowledged: false
+      errorAcknowledged: false,
+      menuIsOpen: false
     }
 
     this.activateInput = this.activateInput.bind(this)
     this.acknowledgeError = this.acknowledgeError.bind(this)
     this.handleClick = this.handleClick.bind(this)
-    this.handleTab = this.handleTab.bind(this)
+    this.onKeyDown = this.onKeyDown.bind(this)
     this.deactivateInput = this.deactivateInput.bind(this)
   }
 
@@ -52,13 +54,15 @@ export default class Input extends React.Component {
     this.setState({ errorAcknowledged: true, inactive: false, }, () => this.input.focus())
   }
 
-  handleTab(event) {
+  onKeyDown(event) {
     if (event.key === 'Tab') {
       const form = event.target.form;
       const index = Array.prototype.indexOf.call(form, event.target);
       form.elements[index + 1].focus();
       event.preventDefault();
       this.deactivateInput()
+    } else {
+      this.setState({ menuIsOpen: true })
     }
   }
 
@@ -77,48 +81,11 @@ export default class Input extends React.Component {
   }
 
   renderInput() {
-    const { inactive, errorAcknowledged} = this.state
-    const { className, label, handleChange, value, placeholder, error, type, id } = this.props
+    const { inactive, errorAcknowledged, menuIsOpen } = this.state
+    const { className, label, handleChange, value, placeholder, error, type, id, options } = this.props
     const hasText = value ? 'has-text' : ''
     const inactiveOrActive = inactive ? 'inactive' : 'active'
-    if (error) {
-      if (errorAcknowledged) {
-        return (<div
-            className={`input-container error ${inactiveOrActive} ${hasText} ${className}`}
-            ref={node => this.node = node}
-            onClick={this.activateInput}
-          >
-            <label>{label}</label>
-            <input
-              id={id}
-              ref={(input) => { this.input = input; }}
-              onChange={handleChange}
-              value={value}
-              type={type}
-              placeholder={placeholder}
-              disabled
-            />
-        </div>)
-      } else {
-        return (
-          <div
-            className={`input-container error unacknowledged ${inactiveOrActive} ${hasText} ${className}`}
-            onClick={this.acknowledgeError}
-            ref={node => this.node = node}
-          >
-            <label>{label}</label>
-            <input
-              id={id}
-              ref={(input) => { this.input = input; }}
-              onChange={handleChange}
-              value={value}
-              type={type}
-              placeholder={placeholder}
-            />
-            {this.renderErrorText()}
-        </div>)
-      }
-    } else if (inactive) {
+    if (inactive) {
       return (
         <div
           className={`input-container ${inactiveOrActive} ${hasText} ${this.props.className}`}
@@ -126,30 +93,33 @@ export default class Input extends React.Component {
           ref={node => this.node = node}
         >
           <label>{label}</label>
-          <input
+          <Select
             id={id}
             ref={(input) => { this.input = input; }}
             onFocus={this.activateInput}
             type={type}
             value={value}
+            menuIsOpen={false}
           />
           {this.renderHelperText()}
       </div>)
     } else {
       return (
         <div
-          className={`input-container ${inactiveOrActive} ${hasText} ${className}`}
+          className={`input-container dropdown ${inactiveOrActive} ${hasText} ${className}`}
           ref={node => this.node = node}
         >
           <label>{label}</label>
-          <input
+          <Select
             id={id}
             ref={(input) => { this.input = input; }}
             onChange={handleChange}
             value={value}
             type={type}
             placeholder={placeholder}
-            onKeyDown={this.handleTab}
+            onKeyDown={this.onKeyDown}
+            menuIsOpen={this.state.menuIsOpen}
+            options={options}
           />
       </div>)
     }
