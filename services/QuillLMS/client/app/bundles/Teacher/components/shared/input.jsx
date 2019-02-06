@@ -128,6 +128,7 @@ export default class Input extends React.Component {
             ref={(input) => { this.input = input; }}
             onFocus={this.activateInput}
             type={type}
+            value={value}
           />
           {this.renderHelperText()}
       </div>)
