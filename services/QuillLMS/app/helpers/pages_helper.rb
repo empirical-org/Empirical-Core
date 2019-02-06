@@ -176,6 +176,12 @@ module PagesHelper
 						desc: "Daniel Scibienski is the founder of ELL Consulting.  He has been involved in English language education for over 14 years as a teacher, trainer, and program administrator."
 					},
 					{
+						img: 'thumb-peg.jpg',
+						name: 'Peg Tyre',
+						title: "Advisory Board Member",
+						desc: "Peg Tyre is a longtime education journalist and the best-selling author of two books on education. She is also director of strategy for The Edwin Gould Foundation, which invests in organizations that get low-income students to and through college. Tyre is currently at work on a book about literacy."
+					},
+					{
 						img: 'thumb-emily.jpg',
 						name: 'Emily Dalton Smith',
 						title: 'Advisory Board Member',
