@@ -46,6 +46,7 @@ interface QueryResult {
 interface AppState {
   visible: boolean,
   searchValue: string,
+  showEditSuccessBanner: boolean,
   selectedConcept: { levelNumber?: Number, conceptID?: Number},
   fuse?: any
 }
@@ -58,10 +59,20 @@ class ConceptsIndex extends React.Component<any, AppState> {
     this.state = {
       visible: true,
       searchValue: '',
-      selectedConcept: {}
+      selectedConcept: {},
+      showEditSuccessBanner: false
     }
     this.updateSearchValue = this.updateSearchValue.bind(this)
     this.selectConcept = this.selectConcept.bind(this)
+    this.finishEditingConcept = this.finishEditingConcept.bind(this)
+  }
+
+  finishEditingConcept() {
+    this.setState({ showEditSuccessBanner: true })
+  }
+
+  closeEditSuccessBanner() {
+    this.setState({ showEditSuccessBanner: false })
   }
 
   filterConcepts(concepts:Array<Concept>, searchValue:string):Array<Concept>{
@@ -107,8 +118,17 @@ class ConceptsIndex extends React.Component<any, AppState> {
   renderConceptBox() {
     const { conceptID, levelNumber } = this.state.selectedConcept
     if (conceptID && (levelNumber || levelNumber === 0)) {
-      console.log('HELLO')
-      return <ConceptBoxContainer conceptID={conceptID} levelNumber={levelNumber}/>
+      return <ConceptBoxContainer
+        conceptID={conceptID}
+        levelNumber={levelNumber}
+        finishEditingConcept={this.finishEditingConcept}
+      />
+    }
+  }
+
+  renderEditSuccessBanner() {
+    if (this.state.showEditSuccessBanner) {
+      return <div className="success-banner"><span>You saved a concept.</span><i className="fa fa-close" onClick={this.closeEditSuccessBanner}/></div>
     }
   }
 
@@ -122,6 +142,7 @@ class ConceptsIndex extends React.Component<any, AppState> {
     return  (
       <div>
         <ConceptManagerNav />
+        {this.renderEditSuccessBanner()}
         <Query
           query={gql(conceptsIndexQuery)}
         >
