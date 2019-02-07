@@ -49,6 +49,15 @@ class Concept < ActiveRecord::Base
     ")
   end
 
+  def self.level_one_only
+    Concept.find_by_sql("
+      SELECT concepts.id, concepts.name, concepts.uid, concepts.parent_id, concepts.created_at, concepts.visible::BOOLEAN FROM concepts
+      JOIN concepts AS parents ON concepts.parent_id = parents.id
+      WHERE parents.parent_id IS NULL
+      AND concepts.parent_id IS NOT NULL
+    ")
+  end
+
   def self.find_by_id_or_uid(arg)
     begin
       find(arg)

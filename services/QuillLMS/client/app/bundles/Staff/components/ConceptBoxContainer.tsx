@@ -5,42 +5,6 @@ import gql from "graphql-tag";
 import client from '../../../modules/apollo';
 import ConceptBox from "./ConceptBox";
 
-function levelTwoConceptsQuery(){
-  return `
-  {
-    concepts(levelTwoOnly: true) {
-      value: id
-      label: name
-    }
-  }
-`
-}
-
-function levelOneConceptsQuery(){
-  return `
-  {
-    concepts(levelTwoOnly: true) {
-      value: id
-      label: name
-    }
-  }
-`
-}
-
-const EDIT_CONCEPT = gql`
-mutation editConcept($id: ID! $name: String, $parentId: ID, $description: String){
-    editConcept(input: {id: $id, name: $name, parentId: $parentId, description: $description}){
-      concept {
-        id
-        uid
-        name
-        description
-        parentId
-        visible
-      }
-    }
-  }
-`;
 
 function conceptQuery(id){
   return `
@@ -58,10 +22,6 @@ function conceptQuery(id){
         parent {
           id
           name
-          children {
-            id
-            name
-          }
         }
       }
     }
@@ -97,7 +57,11 @@ class ConceptBoxContainer extends React.Component {
           const concept:QueryResult = data.concept;
           console.log('concept', concept)
           return (
-            <ConceptBox concept={concept} levelNumber={this.props.levelNumber} />
+            <ConceptBox
+              concept={concept}
+              levelNumber={this.props.levelNumber}
+              finishEditingConcept={this.props.finishEditingConcept}
+            />
           )
         }}
       </Query>

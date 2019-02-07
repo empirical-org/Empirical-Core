@@ -100,6 +100,8 @@ export default class DropdownInput extends React.Component {
             type={type}
             value={value}
             menuIsOpen={false}
+            isClearable={false}
+            className="dropdown"
           />
           {this.renderHelperText()}
       </div>)
@@ -120,6 +122,8 @@ export default class DropdownInput extends React.Component {
             onKeyDown={this.onKeyDown}
             menuIsOpen={this.state.menuIsOpen}
             options={options}
+            isClearable={false}
+            className="dropdown"
           />
       </div>)
     }

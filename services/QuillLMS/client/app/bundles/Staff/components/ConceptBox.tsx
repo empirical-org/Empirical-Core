@@ -1,22 +1,10 @@
 import * as React from "react";
-import {Link} from "react-router";
-import { Query } from "react-apollo";
+import { Query, Mutation } from "react-apollo";
 import gql from "graphql-tag";
+import _ from 'lodash'
 
-import client from '../../../modules/apollo';
 import Input from '../../Teacher/components/shared/input'
 import DropdownInput from '../../Teacher/components/shared/dropdown_input'
-import {
-  Breadcrumb,
-  Divider,
-  Card,
-  List,
-  Row,
-  Col,
-} from "antd";
-import ConceptsShow from "../components/ConceptsShow";
-import ConceptBreadCrumb from '../components/ConceptBreadCrumb';
-import ItemDropdown from '../../Teacher/components/general_components/dropdown_selectors/item_dropdown'
 
 function levelTwoConceptsQuery(){
   return `
@@ -24,6 +12,21 @@ function levelTwoConceptsQuery(){
     concepts(levelTwoOnly: true) {
       value: id
       label: name
+    }
+  }
+`
+}
+
+function levelOneConceptsQuery(){
+  return `
+  {
+    concepts(levelOneOnly: true) {
+      value: id
+      label: name
+      parent {
+        value: id
+        label: name
+      }
     }
   }
 `
@@ -44,32 +47,6 @@ mutation editConcept($id: ID! $name: String, $parentId: ID, $description: String
   }
 `;
 
-function conceptQuery(id){
-  return `
-  {
-    concept(id: ${id}) {
-      id
-      uid
-      name
-      description
-      visible
-      replacementId
-      parent {
-        id
-        name
-        parent {
-          id
-          name
-          children {
-            id
-            name
-          }
-        }
-      }
-    }
-  }
-`
-}
 export interface Concept {
   id:string;
   name:string;
@@ -91,6 +68,86 @@ class ConceptBox extends React.Component {
       concept: props.concept,
       originalConcept: props.concept
     }
+
+    this.changeLevel1 = this.changeLevel1.bind(this)
+    this.changeLevel2 = this.changeLevel2.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
+  handleSubmit(e, editConcept) {
+    e.preventDefault()
+    const { concept } = this.state
+    editConcept({ variables: {
+      id: concept.id,
+      name: concept.name,
+      parentId: concept.parent.id,
+      visible: concept.visible
+    }})
+  }
+
+  changeLevel1(level1Concept) {
+    const newParent = {
+      id: level1Concept.value,
+      name: level1Concept.label,
+      parent: {
+        id: level1Concept.parent.value,
+        name: level1Concept.parent.label
+      }
+    }
+    const newConcept = Object.assign({}, this.state.concept, { parent: newParent })
+    this.setState({ concept: newConcept })
+  }
+
+  changeLevel2(level2Concept) {
+    const newParent = {
+      id: level2Concept.value,
+      name: level2Concept.label,
+    }
+    const newConcept = Object.assign({}, this.state.concept, { parent: newParent })
+    this.setState({ concept: newConcept })
+  }
+
+  renderDropdownInput() {
+    const { concept } = this.state
+    if (this.props.levelNumber === 0) {
+      return <Query
+        query={gql(levelOneConceptsQuery())}
+      >
+        {({ loading, error, data }) => {
+          console.log('error', error)
+          if (loading) return <p>Loading...</p>;
+          if (error) return <p>Error :(</p>;
+          const possibleConcepts:CascaderOptionType[] = data.concepts;
+          const options = possibleConcepts.map(c => {return { label: c.label, value: c.value }})
+          const value = possibleConcepts.find(opt => opt.value === concept.parent.id)
+          return <DropdownInput
+            label="Level 1"
+            value={value}
+            options={possibleConcepts}
+            handleChange={this.changeLevel1}
+          />
+        }}
+      </Query>
+    } else {
+      return <Query
+        query={gql(levelTwoConceptsQuery())}
+      >
+        {({ loading, error, data }) => {
+          if (loading) return <p>Loading...</p>;
+          if (error) return <p>Error :(</p>;
+          const possibleConcepts:CascaderOptionType[] = data.concepts;
+          const options = possibleConcepts.map(c => {return { label: c.label, value: c.value }})
+          const value = possibleConcepts.find(opt => opt.value === concept.parent.id)
+          return <DropdownInput
+            label="Level 2"
+            value={value}
+            options={possibleConcepts}
+            handleChange={this.changeLevel2}
+          />
+        }}
+      </Query>
+
+    }
   }
 
   renderLevels() {
@@ -105,14 +162,7 @@ class ConceptBox extends React.Component {
       </div>
     } else if (this.props.levelNumber === 1) {
       return <div>
-        <Input
-          label='Level 2'
-          value={concept.parent.parent.name}
-          type='text'
-        />
-        <DropdownInput
-          label='Level 1'
-        />
+        {this.renderDropdownInput()}
         <Input
           label='Level 1'
           value={concept.name}
@@ -127,9 +177,7 @@ class ConceptBox extends React.Component {
           value={concept.parent.parent.name}
           type='text'
         />
-        <DropdownInput
-          label='Level 1'
-        />
+        {this.renderDropdownInput()}
         <Input
           label='Level 0'
           value={concept.name}
@@ -139,14 +187,32 @@ class ConceptBox extends React.Component {
     }
   }
 
+  renderSaveButton() {
+    const { concept, originalConcept } = this.state
+    if (!_.isEqual(concept, originalConcept)) {
+      return <input
+        type="submit"
+        value="Save"
+        className="button contained primary medium"
+      />
+    }
+  }
+
   render() {
     return  (
-      <div className="concept-box">
-        <p>Level {this.props.levelNumber}</p>
-        <h1>{this.state.concept.name}</h1>
-        <p>UID: {this.state.concept.uid}</p>
-        {this.renderLevels()}
-      </div>
+      <Mutation mutation={EDIT_CONCEPT} onCompleted={this.props.finishEditingConcept}>
+        {(editConcept, {}) => (
+          <div className="concept-box">
+            <form onSubmit={(e) => this.handleSubmit(e, editConcept)} acceptCharset="UTF-8" >
+              <p>Level {this.props.levelNumber}</p>
+              <h1>{this.state.concept.name}</h1>
+              <p>UID: {this.state.concept.uid}</p>
+              {this.renderLevels()}
+              {this.renderSaveButton()}
+            </form>
+          </div>
+        )}
+      </Mutation>
     )
   }
 
