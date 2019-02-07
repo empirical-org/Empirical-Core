@@ -1,4 +1,6 @@
+@import '../../../../../app/assets/stylesheets/variables.scss';
 @import '../../../../../app/assets/stylesheets/shared/inputs.scss';
+@import '../../../../../app/assets/stylesheets/shared/button.scss';
 
 .certain-category-search.ant-select-auto-complete .ant-input-affix-wrapper .ant-input-suffix {
   right: 12px;
@@ -92,6 +94,9 @@
   background-color: white;
   border: 1px solid #d3d3d3;
   border-radius: 6px;
+  td div {
+    cursor: pointer;
+  }
 }
 
 .concept-box {
@@ -104,4 +109,21 @@
   position: sticky;
   top: 0;
   height: 400px;
+  .button {
+    width: 100% !important;
+  }
+}
+
+.success-banner {
+  color: black;
+  background-color: #E9FCD3;
+  height: 30px;
+  padding: 0px 31px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 14px;
+  i {
+    cursor: pointer;
+  }
 }
