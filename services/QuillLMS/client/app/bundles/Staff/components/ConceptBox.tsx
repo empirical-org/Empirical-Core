@@ -71,6 +71,7 @@ class ConceptBox extends React.Component {
 
     this.changeLevel1 = this.changeLevel1.bind(this)
     this.changeLevel2 = this.changeLevel2.bind(this)
+    this.archiveConcept = this.archiveConcept.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
@@ -105,6 +106,16 @@ class ConceptBox extends React.Component {
     }
     const newConcept = Object.assign({}, this.state.concept, { parent: newParent })
     this.setState({ concept: newConcept })
+  }
+
+  archiveConcept() {
+    const newConcept = Object.assign({}, this.state.concept, { visible: false })
+    this.setState({ concept: newConcept })
+  }
+
+
+  activateConceptInput() {
+    document.getElementById('concept-name').focus()
   }
 
   renderDropdownInput() {
@@ -150,24 +161,45 @@ class ConceptBox extends React.Component {
     }
   }
 
+  renderRenameAndArchiveSection() {
+    return <div>
+      <span onClick={this.activateConceptInput}>
+        <i className="fas fa-edit"></i>
+        <span>Rename</span>
+      </span>
+      <span onClick={this.archiveConcept}>
+        <i className="fas fa-archive"></i>
+        <span>Archive</span>
+      </span>
+  </div>
+  }
+
   renderLevels() {
     const { concept } = this.state
     if (this.props.levelNumber === 2) {
       return <div>
-        <Input
-          label='Level 2'
-          value={concept.name}
-          type='text'
-        />
+        <div>
+          <Input
+            label='Level 2'
+            value={concept.name}
+            type='search'
+            id='concept-name'
+          />
+          {this.renderRenameAndArchiveSection()}
+        </div>
       </div>
     } else if (this.props.levelNumber === 1) {
       return <div>
         {this.renderDropdownInput()}
-        <Input
-          label='Level 1'
-          value={concept.name}
-          type='text'
-        />
+        <div>
+          <Input
+            label='Level 1'
+            value={concept.name}
+            type='search'
+            id='concept-name'
+          />
+          {this.renderRenameAndArchiveSection()}
+        </div>
       </div>
     } else if (this.props.levelNumber === 0) {
       return <div>
@@ -178,11 +210,15 @@ class ConceptBox extends React.Component {
           type='text'
         />
         {this.renderDropdownInput()}
-        <Input
-          label='Level 0'
-          value={concept.name}
-          type='text'
-        />
+        <div>
+          <Input
+            label='Level 0'
+            value={concept.name}
+            type='search'
+            id='concept-name'
+          />
+          {this.renderRenameAndArchiveSection()}
+        </div>
       </div>
     }
   }
