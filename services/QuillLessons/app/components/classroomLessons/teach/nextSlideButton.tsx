@@ -10,6 +10,8 @@ import {
 import {
   EditionQuestions
 } from '../../../interfaces/customize'
+import {Mutation} from 'react-apollo'
+import CHANGE_SLIDE_NUMBER from '../mutations/changeSlideNumber';
 
 interface NextSlideButtonProps {
   [key:string]: any;
@@ -41,17 +43,33 @@ class NextSlideButton extends React.Component<StateFromProps & NextSlideButtonPr
     }
   }
 
+  renderNextSlideButton() {
+    return (
+      <Mutation mutation={CHANGE_SLIDE_NUMBER}>
+        {(ChangeSlideNumber, {data}) => (
+          <button onClick={
+            e => {
+              ChangeSlideNumber({variables: {
+                id: this.state.classroomSessionId,
+                slideNumber: `${parseInt(this.props.session.current_slide) + 1}`
+              }})
+            }
+          }>Next Slide</button>
+        )}
+        
+      </Mutation>
+    )
+  }
+
   render() {
     const data = this.props.session;
     const editionData = this.props.edition;
     if (editionData.questions && Number(data.current_slide) === editionData.questions.length - 1) {
       return <span />;
     } else if (Number(data.current_slide) === 0) {
-      return <span>Press the <span>right arrow key</span> to continue to the next slide.<button onClick={this.goToNextSlide}>Next Slide</button></span>
+      return <span>Press the <span>right arrow key</span> to continue to the next slide.{this.renderNextSlideButton()}</span>
     }
-    return (
-      <button onClick={this.goToNextSlide}>Next Slide</button>
-    );
+    return this.renderNextSlideButton();
   }
 }
 
