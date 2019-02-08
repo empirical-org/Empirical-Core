@@ -17,7 +17,7 @@ export type ClassroomLessonSession = {
   teacher_ids: any
   teacher_name: string
   students: Students;
-  presence: Presence;
+  presence?: Presence|null;
   current_slide: string;
   modes: Modes;
   submissions: Submissions;

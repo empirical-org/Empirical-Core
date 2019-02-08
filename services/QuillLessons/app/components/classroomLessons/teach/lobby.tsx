@@ -29,8 +29,7 @@ class Lobby extends React.Component<LobbyProps, LobbyState> {
   renderPresentStudents(presence, students) {
     // Want to order students by last name alphabetically.
     // Then display if connected or recently disconnected
-    if (presence !== undefined) {
-
+    if (!!presence) {
       const sortedNames = Object.keys(presence).sort((key1, key2) => {
         return sortByLastName(key1, key2, students);
       })
@@ -48,12 +47,7 @@ class Lobby extends React.Component<LobbyProps, LobbyState> {
   };
 
   renderNumberPresentStudents(presence) {
-    let numPresent;
-    if (presence === undefined) {
-      numPresent = 0;
-    } else {
-      numPresent = Object.keys(presence).length;
-    }
+    const numPresent = !!presence ?  Object.keys(presence).length : 0
     return (
       <p>
         <strong>{numPresent} student{numPresent === 1 ? '': 's'}</strong> connected.

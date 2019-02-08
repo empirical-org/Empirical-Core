@@ -54,6 +54,7 @@ type ClassroomLessonSession {
   current_slide: String
   edition_id: ID
   edition: Edition
+  flaggedStudents: JSON
   followUpActivityName: String
   followUpOption: String
   followUpUrl: String
@@ -63,12 +64,27 @@ type ClassroomLessonSession {
   startTime: String
   student_ids: JSON
   students: JSON
+  submissions: JSON
+  selected_submissions: JSON
+  selected_submission_order: JSON
   supportingInfo: String
   teacher_ids: JSON
   teacher_name: String
   timestamps: JSON
   presence: JSON
 }
+
+type RethinkChangeObject {
+  errors: Int
+  inserted: Int
+  first_error: String
+  deleted: Int
+  replaced: Int
+  unchanged: Int
+  skipped: Int
+}
+
+
 
 type Query {
   classroomLesson(id: String!): ClassroomLesson
@@ -78,7 +94,9 @@ type Query {
 
 type Mutation {
   setSessionCurrentSlide(id: String!, slideNumber: String!): ClassroomLessonSession
-  setEditionId(id: String!, editionId: String!): ClassroomLessonSession 
+  setEditionId(id: String!, editionId: String!): RethinkChangeObject
+  flagStudent(id: String!, studentId: String!): RethinkChangeObject
+  createPreviewSession(lessonId: String!, editionId: String!): String!
 }
 
 type Subscription {

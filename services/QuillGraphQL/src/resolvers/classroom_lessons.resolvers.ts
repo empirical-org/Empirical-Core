@@ -1,6 +1,17 @@
 import rethinkClient from '../utils/rethinkdb';
 import { teacherHasPermission, userHasPermission, studentHasPermission } from '../utils/permissions';
 import {ForbiddenError} from 'apollo-server-errors';
+import * as uuid from 'uuid/v4';
+
+type RethinkChangeObject = {
+  errors?: number
+  inserted?: number
+  first_error?: string
+  deleted?: number
+  replaced?: number
+  unchanged?: number
+  skipped?: number
+}
 
 export default {
   Query: {
@@ -21,7 +32,9 @@ export default {
   },
   Mutation: {
     setSessionCurrentSlide,
-    setEditionId
+    setEditionId,
+    flagStudent,
+    createPreviewSession
   },
   Subscription: {
     classroomLessonSession: {
@@ -127,19 +140,43 @@ function setAbsentTeacherState(id: string, value: boolean) {
 function setStudentPresence(id: string, studentId: string, value: boolean) {
   getSessionRethinkRoot(id).update({'presence': {
     [studentId]: value
-  }}).run()
+  }}).run() 
 }
 
-async function setEditionId(_, {id, editionId}, ctx):Promise<void|Error> {
+function createPreviewSession(_, {lessonId, editionId}) {
+  const previewSession = `prvw-${uuid()}`
+  const sessionId = `${previewSession}${lessonId}`;
+  return rethinkClient.db('quill_lessons').table('classroom_lesson_sessions')
+  .insert({
+    'id': sessionId,
+    'students': { 'student': 'James Joyce' },
+    'current_slide': '0',
+    'public': true,
+    'preview': true,
+    'edition_id': editionId,
+  })
+  .run()
+  .then( () => previewSession )
+}
+
+async function setEditionId(_, {id, editionId}, ctx):Promise<RethinkChangeObject|Error> {
   if (await authHelper(id, 'teacher', ctx)) {
     return updateValuesForSession(id, {'edition_id': editionId})
   } else {
     return new ForbiddenError("You are not the teacher of this session")
   }
-} 
+}
 
-function updateValuesForSession(id: string, values: any):void {
-  getSessionRethinkRoot(id).update(values).run()
+async function flagStudent(_, {id, studentId}, ctx):Promise<RethinkChangeObject|Error> {
+  if (await authHelper(id, 'teacher', ctx)) {
+    return updateValuesForSession(id, {'flaggedStudents': {[studentId]: true}})
+  } else {
+    return new ForbiddenError("You are not the teacher of this session")
+  }
+}
+
+function updateValuesForSession(id: string, values: any):RethinkChangeObject {
+  return getSessionRethinkRoot(id).update(values).run()
 }
 
 function removeValueFromSession(id: string, valueToRemove: any):void {

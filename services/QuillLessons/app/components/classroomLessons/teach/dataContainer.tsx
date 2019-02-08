@@ -15,14 +15,18 @@ const QUERY = gql`
       absentTeacherState
       classroom_name
       current_slide
+      flaggedStudents
       followUpActivityName
       followUpOption
       followUpUrl
       models
       prompts
+      selected_submissions
+      selected_submission_order
       startTime
       student_ids
       students
+      submissions
       supportingInfo
       teacher_ids
       teacher_name
@@ -140,7 +144,7 @@ const withLesson = graphql<InputProps, Response, Variables, ChildDataProps>(QUER
 
 export default withLesson(({ data: {loading, classroomLessonSession, error}, params}) => {
   if (loading) return <div>Loading</div>;
-  if (error) return <h1>DATA ERROR</h1>;
+  if (error) return <h1>DATA ERROR ${error}</h1>;
 
   if (classroomLessonSession) {
     const data = splitPayload(classroomLessonSession);
