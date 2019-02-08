@@ -12,6 +12,7 @@ import MainContentContainer from './mainContentContainer';
 const QUERY = gql`
   subscription GetLessonSession($id: String!) {
     classroomLessonSession(id: $id) {
+      id
       absentTeacherState
       classroom_name
       current_slide
