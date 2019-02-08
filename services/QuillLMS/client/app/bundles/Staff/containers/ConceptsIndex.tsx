@@ -65,10 +65,11 @@ class ConceptsIndex extends React.Component<any, AppState> {
     this.updateSearchValue = this.updateSearchValue.bind(this)
     this.selectConcept = this.selectConcept.bind(this)
     this.finishEditingConcept = this.finishEditingConcept.bind(this)
+    this.closeEditSuccessBanner = this.closeEditSuccessBanner.bind(this)
   }
 
-  finishEditingConcept() {
-    this.setState({ showEditSuccessBanner: true })
+  finishEditingConcept(refetch) {
+    this.setState({ showEditSuccessBanner: true, selectedConcept: {} }, () => refetch())
   }
 
   closeEditSuccessBanner() {
@@ -115,13 +116,13 @@ class ConceptsIndex extends React.Component<any, AppState> {
     this.setState({ selectedConcept: { conceptID, levelNumber }})
   }
 
-  renderConceptBox() {
+  renderConceptBox(refetch) {
     const { conceptID, levelNumber } = this.state.selectedConcept
     if (conceptID && (levelNumber || levelNumber === 0)) {
       return <ConceptBoxContainer
         conceptID={conceptID}
         levelNumber={levelNumber}
-        finishEditingConcept={this.finishEditingConcept}
+        finishEditingConcept={() => this.finishEditingConcept(refetch)}
       />
     }
   }
@@ -145,8 +146,10 @@ class ConceptsIndex extends React.Component<any, AppState> {
         {this.renderEditSuccessBanner()}
         <Query
           query={gql(conceptsIndexQuery)}
+          notifyOnNetworkStatusChange
         >
-          {({ loading, error, data }) => {
+          {({ loading, error, data, refetch, networkStatus }) => {
+            if (networkStatus === 4) return <p>Refetching!</p>;
             if (loading) return <p>Loading...</p>;
             if (error) return <p>Error :(</p>;
 
@@ -172,7 +175,7 @@ class ConceptsIndex extends React.Component<any, AppState> {
                     />
                   </div>
                 </div>
-                {this.renderConceptBox()}
+                {this.renderConceptBox(refetch)}
               </div>
             )
           }}
