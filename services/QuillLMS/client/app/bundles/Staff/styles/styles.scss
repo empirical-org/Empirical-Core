@@ -63,27 +63,41 @@
 
 .concept-manager-nav {
   width: 100%;
-  border-bottom: 1px solid #d3d3d3;
+  border-bottom: 1px solid #ebebeb;
+  background-color: #f8f8f8;
+  height: 70px;
   .concept-manager-links {
     width: 500px;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: space-around;
-    a {
+    -ms-flex-pack: distribute;
+    height: 100%;
+    margin-left: 31px;
+   a {
       font-weight: 500;
-      color: black;
+      color: #000;
+      width: 136px;
+      display: flex;
+      border-collapse: collapse;
+      align-items: center;
+      justify-content: center;
+      border-left: 1px solid #ebebeb;
       padding: 10px;
-      border-bottom: 3px solid white;
+      &:last-of-type {
+        border-right: 1px solid #ebebeb;
+      }
     }
     a.active {
       color: green;
-      border-bottom: 3px solid green;
+      background-color: white;
+      height: 70px;
     }
   }
 }
 
 .concepts-index {
   padding: 20px 30px;
-  background-color: #f8f8f8;
+  background-color: white;
   display: flex;
   justify-content: space-between;
 }
@@ -92,7 +106,7 @@
   width: 885px;
   padding: 30px 20px;
   background-color: white;
-  border: 1px solid #d3d3d3;
+  border: 1px solid #ebebeb;
   border-radius: 6px;
   td div {
     cursor: pointer;
@@ -102,7 +116,7 @@
 .concept-box {
   padding: 30px 20px;
   background-color: #fff;
-  border: 1px solid #d3d3d3;
+  border: 1px solid #ebebeb;
   border-radius: 6px;
   width: 380px;
   position: -webkit-sticky; /* Safari */
@@ -117,13 +131,14 @@
 .success-banner {
   color: black;
   background-color: #E9FCD3;
-  height: 30px;
+  height: 53px;
+  font-weight: 500;
   padding: 0px 31px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   font-size: 14px;
-  i {
+  i, svg {
     cursor: pointer;
   }
 }

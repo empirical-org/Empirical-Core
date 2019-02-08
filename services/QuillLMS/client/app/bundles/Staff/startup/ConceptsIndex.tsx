@@ -10,7 +10,7 @@ import { ApolloProvider } from "react-apollo";
 import client from '../../../modules/apollo';
 
 const container = (props) => (
-  <div style={{paddingTop: 25}}>{props.children}</div>
+  <div>{props.children}</div>
 )
 
 export default () => (
