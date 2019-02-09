@@ -3,10 +3,9 @@ import CurrentSlide from './currentSlide';
 import NextSlideButton from './nextSlideButton';
 import { Lesson, Edition } from './dataContainer';
 import {ClassroomLessonSession} from '../interfaces';
-import {graphql, withApollo} from 'react-apollo';
+import {withApollo} from 'react-apollo';
 import CHANGE_CURRENT_SLIDE from "../mutations/changeSlideNumber";
-import ApolloClient from 'apollo-client';
-
+import gql from "graphql-tag";
 interface MainContentContainerProps extends React.Props<any> {
   params: any
   lesson: Lesson
@@ -53,15 +52,26 @@ class MainContentContainer extends React.Component<MainContentContainerProps, an
           variables: {
             id: session.id,
             slideNumber: `${slideNumber}`
+          },
+          optimisticResponse: {
+            __typename: "Mutation",
+            setSessionCurrentSlide: {
+              id: session.id,
+              __typename: "ClassroomLessonSession",
+              current_slide: `${slideNumber}`
+            }
           }
+          
+          
         });
-        
+       
       }
     }
   }
 
   render() {
     const {params, session, edition, lesson} = this.props
+    console.log("Current Slide", session.current_slide)
     return (
       <div className="main-content">
         <div className="main-content-wrapper">

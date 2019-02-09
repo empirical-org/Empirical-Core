@@ -5,8 +5,6 @@ export default gql`
     setSessionCurrentSlide(
       id: $id,
       slideNumber: $slideNumber
-    ) {
-      id
-    }
+    )
   }
 `;

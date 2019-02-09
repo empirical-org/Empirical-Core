@@ -93,7 +93,7 @@ type Query {
 }
 
 type Mutation {
-  setSessionCurrentSlide(id: String!, slideNumber: String!): ClassroomLessonSession
+  setSessionCurrentSlide(id: String!, slideNumber: String!): Boolean
   setEditionId(id: String!, editionId: String!): RethinkChangeObject
   flagStudent(id: String!, studentId: String!): RethinkChangeObject
   createPreviewSession(lessonId: String!, editionId: String!): String!

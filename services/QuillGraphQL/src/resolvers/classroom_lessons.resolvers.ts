@@ -117,7 +117,10 @@ async function classroomLessonSession(parent, {id}, ctx) {
 
 async function setSessionCurrentSlide(parent, {id, slideNumber}, ctx):Promise<boolean|Error> {
   if (await authHelper(id, 'teacher', ctx)) {
-    return rethinkClient.db('quill_lessons').table('classroom_lesson_sessions').get(id).update({current_slide: slideNumber}).run();
+    
+    rethinkClient.db('quill_lessons').table('classroom_lesson_sessions').get(id).update({current_slide: slideNumber}).run();
+    
+    return true;
   } else {
     return new ForbiddenError("You are not the teacher of this session")
   }
