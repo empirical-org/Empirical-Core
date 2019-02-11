@@ -141,6 +141,7 @@ select {
   display: flex;
   justify-content: flex-end;
   flex-direction: column;
+  position: relative;
   input {
     margin-bottom: 8px;
     border: 2px #009a80;
@@ -277,5 +278,10 @@ select {
         color: #7f7f7f;
       }
     }
+  }
+  .cancel {
+    position: absolute;
+    bottom: 16px;
+    right: 0px;
   }
 }

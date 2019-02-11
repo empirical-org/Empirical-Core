@@ -76,9 +76,17 @@ export default class Input extends React.Component {
     }
   }
 
+  renderCancelSymbol() {
+    const { inactive } = this.state
+    const { handleCancel } = this.props
+    if (!inactive && handleCancel) {
+      return <div className="cancel"  onClick={handleCancel}><i className="fas fa-times"></i></div>
+    }
+  }
+
   renderInput() {
     const { inactive, errorAcknowledged} = this.state
-    const { className, label, handleChange, value, placeholder, error, type, id } = this.props
+    const { className, label, handleChange, value, placeholder, error, type, id, disabled } = this.props
     const hasText = value ? 'has-text' : ''
     const inactiveOrActive = inactive ? 'inactive' : 'active'
     if (error) {
@@ -96,8 +104,9 @@ export default class Input extends React.Component {
               value={value}
               type={type}
               placeholder={placeholder}
-              disabled
+              disabled={disabled}
             />
+            {this.renderCancelSymbol()}
         </div>)
       } else {
         return (
@@ -115,6 +124,7 @@ export default class Input extends React.Component {
               type={type}
               placeholder={placeholder}
             />
+            {this.renderCancelSymbol()}
             {this.renderErrorText()}
         </div>)
       }
@@ -132,6 +142,7 @@ export default class Input extends React.Component {
             onFocus={this.activateInput}
             type={type}
             value={value}
+            disabled={disabled}
           />
           {this.renderHelperText()}
       </div>)
@@ -151,6 +162,7 @@ export default class Input extends React.Component {
             placeholder={placeholder}
             onKeyDown={this.handleTab}
           />
+          {this.renderCancelSymbol()}
       </div>)
     }
   }
