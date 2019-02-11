@@ -123,6 +123,39 @@
   position: sticky;
   top: 0;
   height: 400px;
+  .static {
+    p {
+      font-size: 12px;
+      margin-bottom: 6px;
+      color: #7f7f7f;
+      font-weight: 600;
+    }
+    h1 {
+      font-size: 16px;
+      color: black;
+    }
+  }
+  .fields {
+    margin-left: 15px;
+    margin-top: 35px;
+    .concept-input-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+    .rename-and-archive {
+      color: #7f7f7f;
+      margin-bottom: 14px;
+      width: 152px;
+      display: flex;
+      justify-content: space-between;
+      .rename, .archive {
+        svg {
+          margin-right: 5px;
+        }
+      }
+    }
+  }
   .button {
     width: 100% !important;
   }

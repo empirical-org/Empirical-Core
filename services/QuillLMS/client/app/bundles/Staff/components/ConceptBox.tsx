@@ -162,12 +162,12 @@ class ConceptBox extends React.Component {
   }
 
   renderRenameAndArchiveSection() {
-    return <div>
-      <span onClick={this.activateConceptInput}>
+    return <div className="rename-and-archive">
+      <span className="rename" onClick={this.activateConceptInput}>
         <i className="fas fa-edit"></i>
         <span>Rename</span>
       </span>
-      <span onClick={this.archiveConcept}>
+      <span className="archive" onClick={this.archiveConcept}>
         <i className="fas fa-archive"></i>
         <span>Archive</span>
       </span>
@@ -175,10 +175,10 @@ class ConceptBox extends React.Component {
   }
 
   renderLevels() {
-    const { concept } = this.state
+    const { concept, } = this.state
     if (this.props.levelNumber === 2) {
       return <div>
-        <div>
+        <div className="concept-input-container">
           <Input
             label='Level 2'
             value={concept.name}
@@ -191,7 +191,7 @@ class ConceptBox extends React.Component {
     } else if (this.props.levelNumber === 1) {
       return <div>
         {this.renderDropdownInput()}
-        <div>
+        <div className="concept-input-container">
           <Input
             label='Level 1'
             value={concept.name}
@@ -210,7 +210,7 @@ class ConceptBox extends React.Component {
           type='text'
         />
         {this.renderDropdownInput()}
-        <div>
+        <div className="concept-input-container">
           <Input
             label='Level 0'
             value={concept.name}
@@ -240,11 +240,15 @@ class ConceptBox extends React.Component {
         {(editConcept, {}) => (
           <div className="concept-box">
             <form onSubmit={(e) => this.handleSubmit(e, editConcept)} acceptCharset="UTF-8" >
-              <p>Level {this.props.levelNumber}</p>
-              <h1>{this.state.concept.name}</h1>
-              <p>UID: {this.state.concept.uid}</p>
-              {this.renderLevels()}
-              {this.renderSaveButton()}
+              <div className="static">
+                <p>Level {this.props.levelNumber}</p>
+                <h1>{this.state.concept.name}</h1>
+                <p>UID: {this.state.concept.uid}</p>
+              </div>
+              <div className="fields">
+                {this.renderLevels()}
+                {this.renderSaveButton()}
+              </div>
             </form>
           </div>
         )}
