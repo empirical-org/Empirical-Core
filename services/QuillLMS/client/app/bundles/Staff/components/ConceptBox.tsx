@@ -72,6 +72,8 @@ class ConceptBox extends React.Component {
     this.changeLevel1 = this.changeLevel1.bind(this)
     this.changeLevel2 = this.changeLevel2.bind(this)
     this.archiveConcept = this.archiveConcept.bind(this)
+    this.renameConcept = this.renameConcept.bind(this)
+    this.cancelRename = this.cancelRename.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
@@ -113,6 +115,16 @@ class ConceptBox extends React.Component {
     this.setState({ concept: newConcept })
   }
 
+  renameConcept(e) {
+    const newConcept = Object.assign({}, this.state.concept, { name: e.target.value })
+    this.setState({ concept: newConcept })
+  }
+
+  cancelRename(e) {
+    const { originalConcept, concept } = this.state
+    const newConcept = Object.assign({}, concept, { name: originalConcept.name })
+    this.setState({ concept: newConcept })
+  }
 
   activateConceptInput() {
     document.getElementById('concept-name').focus()
@@ -182,8 +194,10 @@ class ConceptBox extends React.Component {
           <Input
             label='Level 2'
             value={concept.name}
-            type='search'
+            type='text'
             id='concept-name'
+            handleCancel={this.cancelRename}
+            handleChange={this.renameConcept}
           />
           {this.renderRenameAndArchiveSection()}
         </div>
@@ -195,8 +209,10 @@ class ConceptBox extends React.Component {
           <Input
             label='Level 1'
             value={concept.name}
-            type='search'
+            type='text'
             id='concept-name'
+            handleCancel={this.cancelRename}
+            handleChange={this.renameConcept}
           />
           {this.renderRenameAndArchiveSection()}
         </div>
@@ -214,8 +230,10 @@ class ConceptBox extends React.Component {
           <Input
             label='Level 0'
             value={concept.name}
-            type='search'
+            type='text'
             id='concept-name'
+            handleCancel={this.cancelRename}
+            handleChange={this.renameConcept}
           />
           {this.renderRenameAndArchiveSection()}
         </div>
