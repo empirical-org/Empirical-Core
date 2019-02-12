@@ -84,8 +84,9 @@ class CreateConceptBox extends React.Component<CreateConceptBoxProps, CreateConc
     const { concept } = this.state
     createConcept({ variables: {
       name: concept.name,
-      parentId: concept.parent.id,
+      parentId: concept.parent.id
     }})
+    this.setState({ concept: { name: '', parent: {}}})
   }
 
   changeLevel1(level1Concept) {
