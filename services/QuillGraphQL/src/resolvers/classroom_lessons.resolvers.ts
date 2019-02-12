@@ -2,6 +2,7 @@ import rethinkClient from '../utils/rethinkdb';
 import { teacherHasPermission, userHasPermission, studentHasPermission } from '../utils/permissions';
 import {ForbiddenError} from 'apollo-server-errors';
 import * as uuid from 'uuid/v4';
+import { keyArrayToRemovalHash } from '../utils/rethinkdb_helpers';
 
 type RethinkChangeObject = {
   errors?: number
@@ -181,13 +182,7 @@ async function flagStudent(_, {id, studentId}, ctx):Promise<RethinkChangeObject|
 
 async function deleteStudentSubmissionForSlide(_, {id, studentId, slideNumber}, ctx):Promise<RethinkChangeObject|Error> {
   if (await authHelper(id, 'teacher', ctx)) {
-    const payload  = {
-      submissions: {
-        [slideNumber]: {
-          [studentId]: true
-        }
-      }
-    };
+    const payload = keyArrayToRemovalHash(["submissions", slideNumber, studentId]) 
     return removeValueFromSession(id, payload)
   } else {
     return new ForbiddenError("You are not the teacher of this session")
