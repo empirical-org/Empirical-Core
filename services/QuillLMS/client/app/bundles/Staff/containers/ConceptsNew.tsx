@@ -65,6 +65,7 @@ class AddConcept extends React.Component {
       query={gql(allConceptsQuery)}
     >
     {({ loading, error, data, refetch, networkStatus }) => {
+        console.log('networkStatus', networkStatus)
         if (networkStatus === 4) return <p>Refetching!</p>;
         if (loading) return <p>Loading...</p>;
         if (error) return <p>Error :(</p>;
@@ -86,7 +87,7 @@ class AddConcept extends React.Component {
       return <ConceptBoxContainer
         conceptID={conceptID}
         levelNumber={levelNumber}
-        finishEditingOrCreatingConcept={() => this.finishEditingOrCreatingConcept(refetch)}
+        finishEditingConcept={() => this.finishEditingOrCreatingConcept(refetch)}
       />
     } else {
       return this.renderAddNewConceptsForms(refetch)
