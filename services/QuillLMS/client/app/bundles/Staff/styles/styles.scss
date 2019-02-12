@@ -148,10 +148,12 @@
   border: 1px solid #ebebeb;
   border-radius: 6px;
   width: 500px;
-  position: -webkit-sticky; /* Safari */
-  position: sticky;
-  top: 0;
-  height: 400px;
+  &:not(.create-concept-box) {
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: 0;
+    height: 400px;
+  }
   .static {
     p {
       font-size: 12px;
@@ -270,4 +272,8 @@
 
 .new-concept-container {
   padding: 30px;
+}
+
+.concept-levels-and-forms-container {
+  display: flex;
 }
