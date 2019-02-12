@@ -66,7 +66,10 @@ class Lobby extends React.Component<LobbyProps, LobbyState> {
   }
 
   renderScript() {
-    return (<ScriptComponent script={this.props.slideData.data.teach.script} />)
+    return (<ScriptComponent 
+      sessionId={this.props.data.id}
+      script={this.props.slideData.data.teach.script} 
+    />)
   }
 
   renderPresence() {

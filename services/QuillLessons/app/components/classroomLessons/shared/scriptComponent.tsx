@@ -1,5 +1,6 @@
 declare function require(name:string);
 import * as React from 'react'
+import {Mutation} from 'react-apollo';
 import { sortByLastName, sortByDisplayed, sortByTime, sortByFlag, sortByAnswer } from './studentSorts'
 import MultipleTextEditor from './multipleTextEditor'
 import StepHtml from './stepHtml'
@@ -22,6 +23,8 @@ import {
 import {
   ScriptItem
 } from '../../../interfaces/classroomLessons'
+import deleteAllSubmissionsForSlide from "../mutations/deleteAllSubmissionsForSlide"
+import deleteStudentSubmissionForSlide from "../mutations/deleteStudentSubmissionForSlide"
 const uncheckedGrayCheckbox = 'https://assets.quill.org/images/icons/box_gray_unchecked.svg'
 const checkedGrayCheckbox = 'https://assets.quill.org/images/icons/box_gray_checked.svg'
 const uncheckedGreenCheckbox = 'https://assets.quill.org/images/icons/box_green_unchecked.svg'
@@ -34,6 +37,7 @@ interface ScriptContainerProps {
   script: Array<ScriptItem>,
   onlyShowHeaders?: boolean,
   updateToggledHeaderCount?: Function,
+  sessionId: string,
   [key: string]: any,
 }
 
@@ -157,7 +161,16 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
   }
 
   renderRetryQuestionButton() {
-    return <p onClick={this.retryQuestion}><i className="fa fa-refresh"/>Retry Question</p>
+    return (
+      <Mutation mutation={deleteAllSubmissionsForSlide}>
+        {(deleteAllSubmissionsForSlide, {data}) => (
+          <p onClick={() => deleteAllSubmissionsForSlide({variables: {
+            id: this.props.sessionId,
+            slideNumber: this.props.current_slide
+          }})}><i className="fa fa-refresh"/>Retry Question</p>
+        )}
+      </Mutation>
+    )
   }
 
   retryQuestion() {
@@ -310,7 +323,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     const { selected_submissions, submissions, current_slide, students, presence, sampleCorrectAnswer } = this.props;
     const numStudents: number = presence ? Object.keys(presence).length : 0;
     const correctAnswerRow = sampleCorrectAnswer ? this.renderCorrectAnswerRow() : <span/>
-    if (submissions && submissions[current_slide]) {
+    if (submissions && Object.keys(submissions[current_slide]).length > 0) {
       const numAnswers: number = Object.keys(submissions[current_slide]).length;
 
       return (
@@ -468,7 +481,21 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
           </label>
         </td>
         <td><span className={`answer-number-container ${studentNumberClassName}`}>{studentNumber}</span></td>
-        <td className="retry-question-cell"><i className="fa fa-refresh student-retry-question" onClick={() => this.retryQuestionForStudent(studentKey)}/></td>
+        <Mutation mutation={deleteStudentSubmissionForSlide}>
+          {(deleteStudentSubmissionForSlide, {data}) => (
+            <td className="retry-question-cell">
+            <i 
+              className="fa fa-refresh student-retry-question" 
+              onClick={() => deleteStudentSubmissionForSlide({variables: {
+                id: this.props.sessionId,
+                slideNumber: this.props.current_slide,
+                studentId: studentKey
+              }})}
+            />
+            </td>
+          )}
+        </Mutation>
+        
       </tr>
 
   }
