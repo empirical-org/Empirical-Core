@@ -3712,6 +3712,10 @@ rails-session-decoder@^1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/rails-session-decoder/-/rails-session-decoder-1.0.4.tgz#7af5f15e7eec418f6225b01e4b9a5e7ccfc8a647"
 
+ramda@^0.26.1:
+  version "0.26.1"
+  resolved "https://registry.yarnpkg.com/ramda/-/ramda-0.26.1.tgz#8d41351eb8111c55353617fc3bbffad8e4d35d06"
+
 randomatic@^3.0.0:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/randomatic/-/randomatic-3.1.1.tgz#b776efc59375984e36c537b2f51a1f0aff0da1ed"

@@ -34,7 +34,8 @@ export default {
     setSessionCurrentSlide,
     setEditionId,
     flagStudent,
-    createPreviewSession
+    createPreviewSession,
+    deleteStudentSubmissionForSlide,
   },
   Subscription: {
     classroomLessonSession: {
@@ -178,18 +179,32 @@ async function flagStudent(_, {id, studentId}, ctx):Promise<RethinkChangeObject|
   }
 }
 
+async function deleteStudentSubmissionForSlide(_, {id, studentId, slideNumber}, ctx):Promise<RethinkChangeObject|Error> {
+  if (await authHelper(id, 'teacher', ctx)) {
+    const payload  = {
+      submissions: {
+        [slideNumber]: {
+          [studentId]: true
+        }
+      }
+    };
+    return removeValueFromSession(id, payload)
+  } else {
+    return new ForbiddenError("You are not the teacher of this session")
+  }
+}
+
 function updateValuesForSession(id: string, values: any):RethinkChangeObject {
   return getSessionRethinkRoot(id).update(values).run()
 }
 
-function removeValueFromSession(id: string, valueToRemove: any):void {
-  getSessionRethinkRoot(id)
+async function removeValueFromSession(id: string, valueToRemove: any):Promise<RethinkChangeObject> {
+  return getSessionRethinkRoot(id)
     .replace(rethinkClient.row.without(valueToRemove))
     .run()
     .then(result => {
-      console.log("Returned: ", result)
+      return result
     })
-  
 }
 
 async function authHelper(sessionId: string, role: string, ctx: any):Promise<boolean> {
