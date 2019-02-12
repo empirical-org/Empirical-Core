@@ -323,7 +323,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     const { selected_submissions, submissions, current_slide, students, presence, sampleCorrectAnswer } = this.props;
     const numStudents: number = presence ? Object.keys(presence).length : 0;
     const correctAnswerRow = sampleCorrectAnswer ? this.renderCorrectAnswerRow() : <span/>
-    if (submissions && Object.keys(submissions[current_slide]).length > 0) {
+    if (submissions && submissions[current_slide] && Object.keys(submissions[current_slide]).length > 0) {
       const numAnswers: number = Object.keys(submissions[current_slide]).length;
 
       return (
