@@ -37,6 +37,7 @@ export default {
     flagStudent,
     createPreviewSession,
     deleteStudentSubmissionForSlide,
+    deleteAllSubmissionsForSlide,
   },
   Subscription: {
     classroomLessonSession: {
@@ -183,6 +184,15 @@ async function flagStudent(_, {id, studentId}, ctx):Promise<RethinkChangeObject|
 async function deleteStudentSubmissionForSlide(_, {id, studentId, slideNumber}, ctx):Promise<RethinkChangeObject|Error> {
   if (await authHelper(id, 'teacher', ctx)) {
     const payload = keyArrayToRemovalHash(["submissions", slideNumber, studentId]) 
+    return removeValueFromSession(id, payload)
+  } else {
+    return new ForbiddenError("You are not the teacher of this session")
+  }
+}
+
+async function deleteAllSubmissionsForSlide(_, {id, slideNumber}, ctx):Promise<RethinkChangeObject|Error> {
+  if (await authHelper(id, 'teacher', ctx)) {
+    const payload = keyArrayToRemovalHash(["submissions", slideNumber]) 
     return removeValueFromSession(id, payload)
   } else {
     return new ForbiddenError("You are not the teacher of this session")
