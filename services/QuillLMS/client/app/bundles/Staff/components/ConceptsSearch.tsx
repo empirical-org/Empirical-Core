@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Input} from 'antd'
+import { Input, Icon } from 'antd'
 import { Concept } from '../containers/ConceptsEdit';
 
 const Search = Input.Search;
@@ -22,10 +22,10 @@ class ConceptSearch extends React.Component<ConceptSearchProps, ConceptSearchSta
     return (
       <div className="certain-category-search-wrapper">
         <Search
-          placeholder="Search concepts"
+          placeholder="Search by concept name or UID"
           onSearch={this.props.updateSearchValue}
-          style={{ width: 300 }}
-          enterButton
+          style={{ width: '100%' }}
+          prefix={<i className="fas fa-search" style={{color: '#d9d9d9'}}></i>}
         />
       </div>
     )

@@ -15,12 +15,15 @@ const conceptsIndexQuery:string = `
       name
       createdAt
       visible
+      uid
       parent {
         id
         name
+        uid
         parent {
           id
           name
+          uid
         }
       }
     }
@@ -66,6 +69,7 @@ class ConceptsIndex extends React.Component<any, AppState> {
     this.selectConcept = this.selectConcept.bind(this)
     this.finishEditingConcept = this.finishEditingConcept.bind(this)
     this.closeEditSuccessBanner = this.closeEditSuccessBanner.bind(this)
+    this.setVisible = this.setVisible.bind(this)
   }
 
   finishEditingConcept(refetch) {
@@ -74,6 +78,10 @@ class ConceptsIndex extends React.Component<any, AppState> {
 
   closeEditSuccessBanner() {
     this.setState({ showEditSuccessBanner: false })
+  }
+
+  setVisible(visible) {
+    this.setState({ visible })
   }
 
   filterConcepts(concepts:Array<Concept>, searchValue:string):Array<Concept>{
@@ -90,7 +98,10 @@ class ConceptsIndex extends React.Component<any, AppState> {
         keys: [
           "name",
           "parent.name",
-          "parent.parent.name"
+          "parent.parent.name",
+          "uid",
+          "parent.uid",
+          "parent.parent.uid"
         ]
       };
       const fuse = new Fuse(concepts, options);
@@ -133,6 +144,14 @@ class ConceptsIndex extends React.Component<any, AppState> {
     }
   }
 
+  renderLiveAndArchivedTabs() {
+    const { visible } = this.state
+    return <div className="concepts-index-tools">
+      <p onClick={() => this.setVisible(true)} className={visible ? 'active' : ''}>Live</p>
+      <p onClick={() => this.setVisible(false)} className={visible ? '' : 'active'}>Archived</p>
+    </div>
+  }
+
   render() {
     let activeLink = 'concepts'
     if (window.location.href.includes('find_and_replace')) {
@@ -155,29 +174,27 @@ class ConceptsIndex extends React.Component<any, AppState> {
 
             return (
               <div className="concepts-index">
-              <div className="concepts-table-container">
-                  <div className="concepts-index-tools">
-                    <RadioGroup onChange={(e) => this.setState({visible: e.target.value})} defaultValue={this.state.visible}>
-                      <RadioButton value={true}>Live</RadioButton>
-                      <RadioButton value={false}>Archived</RadioButton>
-                    </RadioGroup>
-                    <ConceptSearch
-                      concepts={this.filterConcepts(data.concepts, this.state.searchValue)}
-                      searchValue={this.state.searchValue}
-                      updateSearchValue={this.updateSearchValue}
-                    />
-                  </div>
-                  <div>
-                    <ConceptsTable
-                      concepts={this.filterConcepts(data.concepts, this.state.searchValue)}
-                      visible={this.state.visible}
-                      selectConcept={this.selectConcept}
-                    />
-                  </div>
+                <div className="concepts-index-top">
+                  <ConceptSearch
+                    concepts={this.filterConcepts(data.concepts, this.state.searchValue)}
+                    searchValue={this.state.searchValue}
+                    updateSearchValue={this.updateSearchValue}
+                  />
+                  {this.renderLiveAndArchivedTabs()}
+                </div>
+                <div className="concepts-index-bottom">
+                  <div className="concepts-table-container">
+                    <div>
+                      <ConceptsTable
+                        concepts={this.filterConcepts(data.concepts, this.state.searchValue)}
+                        visible={this.state.visible}
+                        selectConcept={this.selectConcept}
+                      />
+                    </div>
                 </div>
                 {this.renderConceptBox(refetch)}
               </div>
-            )
+            </div>)
           }}
         </Query>
       </div>
