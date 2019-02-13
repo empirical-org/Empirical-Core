@@ -25,6 +25,10 @@ const allConceptsQuery:string = `
       parent {
         id
         name
+        parent {
+          id
+          name
+        }
       }
       children {
         id
@@ -75,13 +79,13 @@ class AddConcept extends React.Component {
             concepts={concepts}
             selectConcept={this.selectConcept}
           />
-          {this.renderConceptForms(refetch)}
+          {this.renderConceptForms(refetch, concepts)}
         </div>
       }}
     </Query>
   }
 
-  renderConceptForms(refetch) {
+  renderConceptForms(refetch, concepts) {
     const { conceptID, levelNumber } = this.state.selectedConcept
     if (conceptID && (levelNumber || levelNumber === 0)) {
       return <ConceptBoxContainer
@@ -90,22 +94,25 @@ class AddConcept extends React.Component {
         finishEditingConcept={() => this.finishEditingOrCreatingConcept(refetch)}
       />
     } else {
-      return this.renderAddNewConceptsForms(refetch)
+      return this.renderAddNewConceptsForms(refetch, concepts)
     }
   }
 
-  renderAddNewConceptsForms(refetch) {
+  renderAddNewConceptsForms(refetch, concepts) {
     return <div className="new-concept-forms">
       <CreateConceptBox
         levelNumber={2}
+        concepts={concepts}
         finishEditingOrCreatingConcept={() => this.finishEditingOrCreatingConcept(refetch)}
       />
       <CreateConceptBox
         levelNumber={1}
+        concepts={concepts}
         finishEditingOrCreatingConcept={() => this.finishEditingOrCreatingConcept(refetch)}
       />
       <CreateConceptBox
         levelNumber={0}
+        concepts={concepts}
         finishEditingOrCreatingConcept={() => this.finishEditingOrCreatingConcept(refetch)}
       />
     </div>

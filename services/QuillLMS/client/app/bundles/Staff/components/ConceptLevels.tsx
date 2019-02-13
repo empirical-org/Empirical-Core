@@ -13,10 +13,10 @@ export default class ConceptLevels extends React.Component {
     const levelZeroConcepts = []
     this.props.concepts.forEach(c => {
       if (c.parent) {
-        if (c.children.length) {
-          levelOneConcepts.push(c)
-        } else {
+        if (c.parent.parent) {
           levelZeroConcepts.push(c)
+        } else {
+          levelOneConcepts.push(c)
         }
       } else {
         levelTwoConcepts.push(c)
