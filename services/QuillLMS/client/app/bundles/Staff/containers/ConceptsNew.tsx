@@ -44,7 +44,7 @@ class AddConcept extends React.Component {
 
     this.state = {
       selectedConcept: {},
-      showEditSuccessBanner: false
+      showSuccessBanner: false
     }
 
     this.selectConcept = this.selectConcept.bind(this)
@@ -57,11 +57,11 @@ class AddConcept extends React.Component {
   }
 
   finishEditingOrCreatingConcept(refetch) {
-    this.setState({ showEditSuccessBanner: true, selectedConcept: {} }, () => refetch())
+    this.setState({ showSuccessBanner: true, selectedConcept: {} }, () => refetch())
   }
 
   closeEditSuccessBanner() {
-    this.setState({ showEditSuccessBanner: false })
+    this.setState({ showSuccessBanner: false })
   }
 
   renderContent() {
@@ -73,7 +73,7 @@ class AddConcept extends React.Component {
         if (networkStatus === 4) return <p>Refetching!</p>;
         if (loading) return <p>Loading...</p>;
         if (error) return <p>Error :(</p>;
-        const concepts:CascaderOptionType[] = data.concepts;
+        const concepts:CascaderOptionType[] = data.concepts.filter(c => c.visible);
         return <div className="concept-levels-and-forms-container">
           <ConceptLevels
             concepts={concepts}
@@ -119,8 +119,8 @@ class AddConcept extends React.Component {
   }
 
   renderEditSuccessBanner() {
-    if (this.state.showEditSuccessBanner) {
-      return <div className="success-banner"><span>You saved a concept.</span><i className="fa fa-close" onClick={this.closeEditSuccessBanner}/></div>
+    if (this.state.showSuccessBanner) {
+      return <div className="success-banner"><span>You saved a concept.</span><span onClick={this.closeEditSuccessBanner}><i className="fa fa-close"/></span></div>
     }
   }
 
