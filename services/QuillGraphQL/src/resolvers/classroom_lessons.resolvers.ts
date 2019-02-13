@@ -183,8 +183,12 @@ async function flagStudent(_, {id, studentId}, ctx):Promise<RethinkChangeObject|
 
 async function deleteStudentSubmissionForSlide(_, {id, studentId, slideNumber}, ctx):Promise<RethinkChangeObject|Error> {
   if (await authHelper(id, 'teacher', ctx)) {
-    const payload = keyArrayToRemovalHash(["submissions", slideNumber, studentId]) 
-    return removeValueFromSession(id, payload)
+    const payload =  Object.assign(
+      keyArrayToRemovalHash(["submissions", slideNumber, studentId]), 
+      keyArrayToRemovalHash(["selected_submissions", slideNumber, studentId])
+    );
+    removeValueFromSession(id, payload);
+    return getSessionRethinkRoot(id)("selected_submission_order")(slideNumber).difference([studentId]).run()
   } else {
     return new ForbiddenError("You are not the teacher of this session")
   }
@@ -192,7 +196,11 @@ async function deleteStudentSubmissionForSlide(_, {id, studentId, slideNumber}, 
 
 async function deleteAllSubmissionsForSlide(_, {id, slideNumber}, ctx):Promise<RethinkChangeObject|Error> {
   if (await authHelper(id, 'teacher', ctx)) {
-    const payload = keyArrayToRemovalHash(["submissions", slideNumber]) 
+    const payload = Object.assign(
+      keyArrayToRemovalHash(["submissions", slideNumber]),
+      keyArrayToRemovalHash(["selected_submissions", slideNumber]),
+      keyArrayToRemovalHash(["selected_submission_order", slideNumber])
+    )
     return removeValueFromSession(id, payload)
   } else {
     return new ForbiddenError("You are not the teacher of this session")
