@@ -2,8 +2,7 @@ import * as React from "react";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import ConceptsTable from "../components/ConceptsTable";
-import RadioGroup from "../../../../node_modules/antd/lib/radio/group";
-import RadioButton from "../../../../node_modules/antd/lib/radio/radioButton";
+import ConceptLevels from "../components/ConceptLevels";
 import ConceptSearch from "../components/ConceptsSearch";
 import ConceptManagerNav from "../components/ConceptManagerNav";
 import ConceptBoxContainer from "../components/ConceptBoxContainer";
@@ -128,11 +127,13 @@ class ConceptsIndex extends React.Component<any, AppState> {
   }
 
   renderConceptBox(refetch) {
-    const { conceptID, levelNumber } = this.state.selectedConcept
+    const { selectedConcept, visible } = this.state
+    const { conceptID, levelNumber } = selectedConcept
     if (conceptID && (levelNumber || levelNumber === 0)) {
       return <ConceptBoxContainer
         conceptID={conceptID}
         levelNumber={levelNumber}
+        visible={visible}
         finishEditingConcept={() => this.finishEditingConcept(refetch)}
       />
     }
@@ -150,6 +151,21 @@ class ConceptsIndex extends React.Component<any, AppState> {
       <p onClick={() => this.setVisible(true)} className={visible ? 'active' : ''}>Live</p>
       <p onClick={() => this.setVisible(false)} className={visible ? '' : 'active'}>Archived</p>
     </div>
+  }
+
+  renderConcepts(data) {
+    if (this.state.visible) {
+      return <ConceptsTable
+        concepts={this.filterConcepts(data.concepts, this.state.searchValue)}
+        visible={this.state.visible}
+        selectConcept={this.selectConcept}
+      />
+    } else {
+      return <ConceptLevels
+        concepts={this.filterConcepts(data.concepts, this.state.searchValue).filter(c => !c.visible)}
+        selectConcept={this.selectConcept}
+      />
+    }
   }
 
   render() {
@@ -185,11 +201,7 @@ class ConceptsIndex extends React.Component<any, AppState> {
                 <div className="concepts-index-bottom">
                   <div className="concepts-table-container">
                     <div>
-                      <ConceptsTable
-                        concepts={this.filterConcepts(data.concepts, this.state.searchValue)}
-                        visible={this.state.visible}
-                        selectConcept={this.selectConcept}
-                      />
+                      {this.renderConcepts(data)}
                     </div>
                 </div>
                 {this.renderConceptBox(refetch)}

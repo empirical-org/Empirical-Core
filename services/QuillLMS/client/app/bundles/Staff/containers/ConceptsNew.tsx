@@ -100,6 +100,13 @@ class AddConcept extends React.Component {
 
   renderAddNewConceptsForms(refetch, concepts) {
     return <div className="new-concept-forms">
+      <div className="concept-guide-section">
+        <i className="fas fa-book-open"></i>
+        <div>
+          <a target="_blank" href="https://docs.google.com/document/d/1pWdDMGlqpoIjO75lIe6gfYMo3v4L7mAZjN2VBpwehhk/edit#heading=h.5sblht1hha9p">Concept Guide</a>
+          <p>Are you an intern, or not sure how to create a Concept? Then please read our documentation.</p>
+        </div>
+      </div>
       <CreateConceptBox
         levelNumber={2}
         concepts={concepts}
