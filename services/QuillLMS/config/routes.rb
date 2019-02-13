@@ -426,6 +426,7 @@ EmpiricalGrammar::Application.routes.draw do
     resources :admins, only: [:index, :create, :update, :destroy]
     resources :categories
     resources :concepts
+    get '/concepts/concepts_in_use', to: 'concepts#concepts_in_use'
     resources :sections
     resources :topics
     resources :subscriptions

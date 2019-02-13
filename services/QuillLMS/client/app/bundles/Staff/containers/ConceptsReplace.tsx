@@ -3,7 +3,7 @@ import {Link} from "react-router";
 import { Query, Mutation } from "react-apollo";
 import gql from "graphql-tag";
 
-import { 
+import {
   Breadcrumb, Divider, Form, Input, Cascader, Button
 } from "antd";
 import { CascaderOptionType } from "../../../../node_modules/antd/lib/cascader";
@@ -100,22 +100,15 @@ class App extends React.Component {
         return (
 
           <div>
-            <Breadcrumb>
-              <Breadcrumb.Item><Link to="/">Home</Link></Breadcrumb.Item>
-              <ConceptBreadCrumb concept={concept.parent ? concept.parent.parent : null} />
-              <ConceptBreadCrumb concept={concept.parent} />
-              <ConceptBreadCrumb concept={concept} />
-              <Breadcrumb.Item>Replace</Breadcrumb.Item>
-            </Breadcrumb>
             <Divider></Divider>
             <ConceptReplaceForm concept={concept} redirectToShow={this.redirectToShow}/>
           </div>
           )
         }}
       </Query>
-    ) 
+    )
   }
-  
+
 };
 
 export default App
