@@ -6,36 +6,6 @@ import _ from 'lodash'
 import Input from '../../Teacher/components/shared/input'
 import DropdownInput from '../../Teacher/components/shared/dropdown_input'
 
-function levelTwoConceptsQuery() {
-  return `
-  {
-    concepts(levelTwoOnly: true) {
-      value: id
-      label: name,
-      children: {
-        value: id
-        label: id
-      }
-    }
-  }
-`
-}
-
-function levelOneConceptsQuery() {
-  return `
-  {
-    concepts(levelOneOnly: true) {
-      value: id
-      label: name
-      parent {
-        value: id
-        label: name
-      }
-    }
-  }
-`
-}
-
 const CREATE_CONCEPT = gql`
   mutation createConcept($name: String!, $parentId: ID, $description: String){
     createConcept(input: {name: $name, parentId: $parentId, description: $description}){
@@ -147,7 +117,6 @@ class CreateConceptBox extends React.Component<CreateConceptBoxProps, CreateConc
   }
 
   renderDropdownInput(dropdownLevel) {
-    console.log('dropdownLevel', dropdownLevel)
     const { concept, level1Concepts, level2Concepts } = this.state
     const { levelNumber} = this.props
     if (dropdownLevel === 1) {
