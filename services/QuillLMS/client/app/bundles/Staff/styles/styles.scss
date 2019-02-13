@@ -196,6 +196,11 @@
   .button {
     width: 100% !important;
   }
+  &.create-concept-box {
+    .input-container {
+      width: 100%;
+    }
+  }
 }
 
 .success-banner {
