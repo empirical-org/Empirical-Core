@@ -70,8 +70,8 @@
     justify-content: center;
     &.active {
       font-weight: 600;
-      color: #00c2a2;
-      border-bottom: 4px solid #00c2a2;
+      color: #189A6B;
+      border-bottom: 4px solid #189A6B;
     }
   }
 }
@@ -114,7 +114,7 @@
     }
     a.active {
       font-weight: 600;
-      color: #00c2a2;
+      color: #189A6B;
       background-color: white;
       height: 70px;
     }
@@ -225,6 +225,7 @@
 .concept-column {
   border: 1px solid #ebebeb;
   width: 300px;
+  height: 450px;
   border-radius: 6px;
   margin-right: 20px;
   padding: 10px 0px;
@@ -281,4 +282,26 @@
 
 .concept-levels-and-forms-container {
   display: flex;
+}
+
+.concept-guide-section {
+  display: flex;
+  width: 369px;
+  align-items: flex-start;
+  svg {
+    margin-top: 4px;
+    color: #9D9D9D;
+  }
+  div {
+    margin-left: 5px;
+    a {
+      color: #189A6B;
+      font-weight: 500;
+    }
+    p {
+      color: #9D9D9D;
+      font-size: 12px;
+      line-height: 16px;
+    }
+  }
 }
