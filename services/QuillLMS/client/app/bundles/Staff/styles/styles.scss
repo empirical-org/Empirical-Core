@@ -154,6 +154,14 @@
     top: 0;
     height: 400px;
   }
+  &.archived-concept-box {
+    .concept-input-container {
+      align-items: center !important;
+    }
+    .input-container {
+      width: 220px;
+    }
+  }
   .static {
     p {
       font-size: 12px;
@@ -303,5 +311,27 @@
       font-size: 12px;
       line-height: 16px;
     }
+  }
+}
+
+.live-or-archived {
+  color: #7f7f7f;
+  font-size: 12px;
+  width: 65px;
+  .date {
+    padding-left: 16px;
+  }
+  .live, .archived {
+    border-radius: 50%;
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin-right: 5px;
+  }
+  .archived {
+    background-color: #FF8A83;
+  }
+  .live {
+    background-color: #92D36E;
   }
 }

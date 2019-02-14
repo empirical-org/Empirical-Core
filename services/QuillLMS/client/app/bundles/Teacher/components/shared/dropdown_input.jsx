@@ -81,11 +81,55 @@ export default class DropdownInput extends React.Component {
   }
 
   renderInput() {
-    const { inactive, errorAcknowledged, menuIsOpen } = this.state
-    const { className, label, handleChange, value, placeholder, error, type, id, options } = this.props
+    const { inactive, errorAcknowledged, menuIsOpen, } = this.state
+    const { className, label, handleChange, value, placeholder, error, type, id, options, } = this.props
     const hasText = value ? 'has-text' : ''
     const inactiveOrActive = inactive ? 'inactive' : 'active'
-    if (inactive) {
+    if (error) {
+      if (errorAcknowledged) {
+        return (
+          <div
+            className={`input-container error ${inactiveOrActive} ${hasText} ${className}`}
+            ref={node => this.node = node}
+            onClick={this.activateInput}
+          >
+            <label>{label}</label>
+            <Select
+              id={id}
+              ref={(input) => { this.input = input; }}
+              onChange={handleChange}
+              value={value}
+              type={type}
+              placeholder={placeholder}
+              onKeyDown={this.onKeyDown}
+              menuIsOpen={menuIsOpen}
+              options={options}
+              isClearable={false}
+              className="dropdown"
+            />
+          </div>)
+      } else {
+        return (
+          <div
+            className={`input-container error unacknowledged ${inactiveOrActive} ${hasText} ${className}`}
+            onClick={this.acknowledgeError}
+            ref={node => this.node = node}
+          >
+            <label>{label}</label>
+            <Select
+              id={id}
+              ref={(input) => { this.input = input; }}
+              onFocus={this.activateInput}
+              type={type}
+              value={value}
+              menuIsOpen={false}
+              isClearable={false}
+              className="dropdown"
+            />
+            {this.renderErrorText()}
+        </div>)
+      }
+    } else if (inactive) {
       return (
         <div
           className={`input-container ${inactiveOrActive} ${hasText} ${this.props.className}`}
@@ -120,7 +164,7 @@ export default class DropdownInput extends React.Component {
             type={type}
             placeholder={placeholder}
             onKeyDown={this.onKeyDown}
-            menuIsOpen={this.state.menuIsOpen}
+            menuIsOpen={menuIsOpen}
             options={options}
             isClearable={false}
             className="dropdown"

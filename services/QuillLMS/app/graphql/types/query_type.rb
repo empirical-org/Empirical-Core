@@ -11,13 +11,13 @@ class Types::QueryType < Types::BaseObject
   end
 
   field :concepts, [Types::ConceptType], null: false do
-    argument :childless_only, Boolean, "Select only concepts with no children", required: false
+    argument :level_zero_only, Boolean, "Select only concepts with a parent and grandparent", required: false
     argument :level_two_only, Boolean, "Select only concepts with no parent id", required: false
     argument :level_one_only, Boolean, "Select only concepts with a parent and no grandparent", required: false
   end
 
-  def concepts(childless_only: false, level_two_only: false, level_one_only: false)
-    return Concept.childless_only if childless_only
+  def concepts(level_zero_only: false, level_two_only: false, level_one_only: false)
+    return Concept.level_zero_only if level_zero_only
     return Concept.where(parent_id: nil) if level_two_only
     return Concept.level_one_only if level_one_only
     return Concept.all
