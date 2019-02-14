@@ -2,7 +2,8 @@ import rethinkClient from '../utils/rethinkdb';
 import { teacherHasPermission, userHasPermission, studentHasPermission } from '../utils/permissions';
 import {ForbiddenError} from 'apollo-server-errors';
 import * as uuid from 'uuid/v4';
-import { keyArrayToRemovalHash } from '../utils/rethinkdb_helpers';
+import { keyArrayToRemovalHash, keysArrayAndValueToNestedValue } from '../utils/rethinkdb_helpers';
+import * as R from "ramda";
 
 type RethinkChangeObject = {
   errors?: number
@@ -38,6 +39,9 @@ export default {
     createPreviewSession,
     deleteStudentSubmissionForSlide,
     deleteAllSubmissionsForSlide,
+    selectStudentSubmission,
+    deselectStudentSubmission,
+    deselectAllStudentSubmissions,
   },
   Subscription: {
     classroomLessonSession: {
@@ -207,6 +211,43 @@ async function deleteAllSubmissionsForSlide(_, {id, slideNumber}, ctx):Promise<R
   }
 }
 
+async function selectStudentSubmission(_, {id, studentId, slideNumber}, ctx):Promise<RethinkChangeObject|Error> {
+  if (await authHelper(id, 'teacher', ctx)) {
+    const payload =  Object.assign(
+      keyArrayToRemovalHash(["selected_submissions", slideNumber, studentId])
+    );
+    updateValuesForSession(id, payload);
+    return await rethinkPathAppenderHelper(getSessionRethinkRoot(id), ["selected_submission_order",slideNumber], studentId)
+  } else {
+    return new ForbiddenError("You are not the teacher of this session")
+  }
+}
+
+async function deselectStudentSubmission(_, {id, studentId, slideNumber}, ctx):Promise<RethinkChangeObject|Error> {
+  if (await authHelper(id, 'teacher', ctx)) {
+    const payload =  Object.assign(
+      keyArrayToRemovalHash(["selected_submissions", slideNumber, studentId]),
+      keysArrayAndValueToNestedValue(["selected_submission_order", slideNumber], rethinkClient.row("selected_submission_order")(slideNumber).without([studentId]))
+    );
+    removeValueFromSession(id, keyArrayToRemovalHash(["selected_submissions", slideNumber, studentId]));
+    return updateValuesForSession(id, keysArrayAndValueToNestedValue(["selected_submission_order", slideNumber], rethinkClient.row("selected_submission_order")(slideNumber).difference([studentId])))
+  } else {
+    return new ForbiddenError("You are not the teacher of this session")
+  }
+}
+
+async function deselectAllStudentSubmissions(_, {id, studentId, slideNumber}, ctx):Promise<RethinkChangeObject|Error> {
+  if (await authHelper(id, 'teacher', ctx)) {
+    const payload =  Object.assign( 
+      keyArrayToRemovalHash(["selected_submissions", slideNumber, studentId]),
+      keyArrayToRemovalHash(["selected_submission_order", slideNumber])
+    );
+    return removeValueFromSession(id, payload);
+  } else {
+    return new ForbiddenError("You are not the teacher of this session")
+  }
+}
+
 function updateValuesForSession(id: string, values: any):RethinkChangeObject {
   return getSessionRethinkRoot(id).update(values).run()
 }
@@ -235,3 +276,14 @@ async function authHelper(sessionId: string, role: string, ctx: any):Promise<boo
   return true
 }
 
+async function rethinkPathAppenderHelper(documentRoot, path: string[], valueToAppend:any):Promise<RethinkChangeObject|Error>{
+  const appendFn = R.reduce((a, b) => a(b), rethinkClient.row, path).default([]).append(valueToAppend)
+  return documentRoot.update(keysArrayAndValueToNestedValue(path, appendFn))
+}
+
+async function rethinkPathExists(documentRoot, path: string[]):Promise<any>{
+  const pathToTraverse = R.dropLast(1, path);
+  const objectToCheck = R.takeLast(1, path);
+  const fullPath = R.reduce((a, b) => a(b), documentRoot, pathToTraverse)
+  return fullPath.hasFields(objectToCheck).run()
+} 

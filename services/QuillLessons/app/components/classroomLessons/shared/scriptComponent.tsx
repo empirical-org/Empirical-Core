@@ -25,6 +25,11 @@ import {
 } from '../../../interfaces/classroomLessons'
 import deleteAllSubmissionsForSlide from "../mutations/deleteAllSubmissionsForSlide"
 import deleteStudentSubmissionForSlide from "../mutations/deleteStudentSubmissionForSlide"
+import {
+  selectStudentSubmission,
+  deselectStudentSubmission,
+  deselectAllStudentSubmissions
+} from '../mutations/selectingStudents'
 const uncheckedGrayCheckbox = 'https://assets.quill.org/images/icons/box_gray_unchecked.svg'
 const checkedGrayCheckbox = 'https://assets.quill.org/images/icons/box_gray_checked.svg'
 const uncheckedGreenCheckbox = 'https://assets.quill.org/images/icons/box_green_unchecked.svg'
@@ -460,6 +465,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     const submittedTimestamp: string = submissions[current_slide][studentKey].timestamp
     const elapsedTime: any = this.formatElapsedTime(moment(submittedTimestamp))
     const checked: boolean = selected_submissions && selected_submissions[current_slide] ? selected_submissions[current_slide][studentKey] : false
+    const selectionMutation = checked ? deselectStudentSubmission : selectStudentSubmission;
     const checkbox = this.determineCheckbox(checked)
     const studentNumber: number | null = checked === true && selected_submission_order && selected_submission_order[current_slide] ? selected_submission_order[current_slide].indexOf(studentKey) + 1 : null
     const studentNumberClassName: string = checked === true ? 'answer-number' : ''
@@ -476,9 +482,17 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
             type="checkbox"
             defaultChecked={checked}
           />
-          <label htmlFor={studentName} onClick={(e) => { this.props.toggleSelected(e, current_slide, studentKey); }}>
-            {checkbox}
-          </label>
+          <Mutation mutation={selectionMutation}>
+            {(mutFn, {data}) => (
+              <label htmlFor={studentName} onClick={(e) => { mutFn({variables: {
+                id: this.props.sessionId,
+                slideNumber: this.props.current_slide,
+                studentId: studentKey
+              }}); }}>
+                {checkbox}
+              </label>
+            )}
+          </Mutation>
         </td>
         <td><span className={`answer-number-container ${studentNumberClassName}`}>{studentNumber}</span></td>
         <Mutation mutation={deleteStudentSubmissionForSlide}>

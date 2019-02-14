@@ -99,6 +99,9 @@ type Mutation {
   createPreviewSession(lessonId: String!, editionId: String!): String!
   deleteStudentSubmissionForSlide(id: String!, slideNumber: String!, studentId: String!): RethinkChangeObject
   deleteAllSubmissionsForSlide(id: String!, slideNumber: String!): RethinkChangeObject
+  selectStudentSubmission(id: String!, slideNumber: String!, studentId: String!): RethinkChangeObject
+  deselectStudentSubmission(id: String!, slideNumber: String!, studentId: String!): RethinkChangeObject
+  deselectAllStudentSubmissions(id: String!, slideNumber: String!): RethinkChangeObject
 }
 
 type Subscription {
