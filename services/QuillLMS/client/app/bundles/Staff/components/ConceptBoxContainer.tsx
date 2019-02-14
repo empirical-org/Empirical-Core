@@ -4,6 +4,7 @@ import gql from "graphql-tag";
 
 import client from '../../../modules/apollo';
 import ConceptBox from "./ConceptBox";
+import ArchivedConceptBox from "./ArchivedConceptBox";
 
 
 function conceptQuery(id){
@@ -15,13 +16,20 @@ function conceptQuery(id){
       name
       description
       visible
-      replacementId
+      updatedAt
+      replacement {
+        name
+      }
       parent {
         id
         name
+        visible
+        updatedAt
         parent {
           id
           name
+          visible
+          updatedAt
         }
       }
     }
@@ -41,28 +49,47 @@ interface QueryResult {
   siblings: Array<Concept>;
 }
 
-class ConceptBoxContainer extends React.Component {
+interface ConceptBoxContainerProps {
+  conceptID: Number;
+  visible: Boolean;
+  levelNumber: Number;
+  finishEditingConcept: Function;
+}
+
+class ConceptBoxContainer extends React.Component<any, ConceptBoxContainerProps> {
   constructor(props){
     super(props)
   }
 
   render() {
+    const { conceptID, visible, levelNumber, finishEditingConcept } = this.props
     return  (
       <Query
-        query={gql(conceptQuery(this.props.conceptID))}
+        query={gql(conceptQuery(conceptID))}
       >
         {({ loading, error, data }) => {
+          console.log('error', error)
           if (loading) return <p>Loading...</p>;
           if (error) return <p>Error :(</p>;
           const concept:QueryResult = data.concept;
           console.log('concept', concept)
-          return (
-            <ConceptBox
-              concept={concept}
-              levelNumber={this.props.levelNumber}
-              finishEditingConcept={this.props.finishEditingConcept}
-            />
-          )
+          if (visible) {
+            return (
+              <ConceptBox
+                concept={concept}
+                levelNumber={levelNumber}
+                finishEditingConcept={finishEditingConcept}
+              />
+            )
+          } else {
+            return (
+              <ArchivedConceptBox
+                concept={concept}
+                levelNumber={levelNumber}
+                finishEditingConcept={finishEditingConcept}
+              />
+            )
+          }
         }}
       </Query>
     )

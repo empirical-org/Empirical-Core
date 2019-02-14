@@ -12,6 +12,7 @@ function levelTwoConceptsQuery(){
     concepts(levelTwoOnly: true) {
       value: id
       label: name
+      visible: visible
     }
   }
 `
@@ -23,9 +24,11 @@ function levelOneConceptsQuery(){
     concepts(levelOneOnly: true) {
       value: id
       label: name
+      visible: visible
       parent {
         value: id
         label: name
+        visible: visible
       }
     }
   }
@@ -33,8 +36,8 @@ function levelOneConceptsQuery(){
 }
 
 const EDIT_CONCEPT = gql`
-mutation editConcept($id: ID! $name: String, $parentId: ID, $description: String){
-    editConcept(input: {id: $id, name: $name, parentId: $parentId, description: $description}){
+mutation editConcept($id: ID! $name: String, $parentId: ID, $visible: Boolean){
+    editConcept(input: {id: $id, name: $name, parentId: $parentId, visible: $visible}){
       concept {
         id
         uid
@@ -140,8 +143,7 @@ class ConceptBox extends React.Component {
           console.log('error', error)
           if (loading) return <p>Loading...</p>;
           if (error) return <p>Error :(</p>;
-          const possibleConcepts:CascaderOptionType[] = data.concepts;
-          const options = possibleConcepts.map(c => {return { label: c.label, value: c.value }})
+          const possibleConcepts:CascaderOptionType[] = data.concepts.filter(c => c.visible && c.parent.visible);
           const value = possibleConcepts.find(opt => opt.value === concept.parent.id)
           return <DropdownInput
             label="Level 1"
@@ -158,8 +160,7 @@ class ConceptBox extends React.Component {
         {({ loading, error, data }) => {
           if (loading) return <p>Loading...</p>;
           if (error) return <p>Error :(</p>;
-          const possibleConcepts:CascaderOptionType[] = data.concepts;
-          const options = possibleConcepts.map(c => {return { label: c.label, value: c.value }})
+          const possibleConcepts:CascaderOptionType[] = data.concepts.filter(c => c.visible);
           const value = possibleConcepts.find(opt => opt.value === concept.parent.id)
           return <DropdownInput
             label="Level 2"

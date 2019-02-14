@@ -9,7 +9,7 @@ import ConceptBoxContainer from "../components/ConceptBoxContainer";
 import Fuse from 'fuse.js'
 const conceptsIndexQuery:string = `
   {
-    concepts(childlessOnly: true) {
+    concepts {
       id
       name
       createdAt
@@ -28,6 +28,7 @@ const conceptsIndexQuery:string = `
     }
   }
 `
+
 export interface Concept {
   id:string;
   uid?:string
@@ -80,7 +81,7 @@ class ConceptsIndex extends React.Component<any, AppState> {
   }
 
   setVisible(visible) {
-    this.setState({ visible })
+    this.setState({ visible, selectedConcept: {} })
   }
 
   filterConcepts(concepts:Array<Concept>, searchValue:string):Array<Concept>{
