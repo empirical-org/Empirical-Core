@@ -17,8 +17,10 @@ class ActivitySessionsController < ApplicationController
   end
 
   def result
-    @partner_name = session[:partner_session]["partner_name"]
-    @partner_session_id = session[:partner_session]["session_id"]
+    if session[:partner_session]
+      @partner_name = session[:partner_session]["partner_name"]
+      @partner_session_id = session[:partner_session]["session_id"]
+    end
     if @partner_name && @partner_session_id
       # TODO: trigger results background job
     end
@@ -117,10 +119,12 @@ class ActivitySessionsController < ApplicationController
   end
 
   def determine_layout
-    @partner_name = session[:partner_session]["partner_name"]
-    @partner_session_id = session[:partner_session]["session_id"]
-    if @partner_name && @partner_session_id
-      "integrations"
+    if session[:partner_session]
+      @partner_name = session[:partner_session]["partner_name"]
+      @partner_session_id = session[:partner_session]["session_id"]
+      if @partner_name && @partner_session_id
+        "integrations"
+      end
     end
   end
 
