@@ -73,7 +73,7 @@ class ConceptsIndex extends React.Component<any, AppState> {
   }
 
   finishEditingConcept(refetch) {
-    this.setState({ showEditSuccessBanner: true, selectedConcept: {} }, () => refetch())
+    this.setState({ showEditSuccessBanner: true, selectedConcept: {}, searchValue: '' }, () => refetch())
   }
 
   closeEditSuccessBanner() {
@@ -81,7 +81,7 @@ class ConceptsIndex extends React.Component<any, AppState> {
   }
 
   setVisible(visible) {
-    this.setState({ visible, selectedConcept: {} })
+    this.setState({ visible, selectedConcept: {}, searchValue: '' })
   }
 
   filterConcepts(concepts:Array<Concept>, searchValue:string):Array<Concept>{
