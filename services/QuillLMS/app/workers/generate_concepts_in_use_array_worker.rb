@@ -15,7 +15,7 @@ class GenerateConceptsInUseArrayWorker
   end
 
   def get_concepts_in_use
-    concepts = ActiveRecord::Base.connection.execute('
+    concepts = ActiveRecord::Base.connection.execute("
       SELECT concepts.name AS concept_name,
       concepts.uid AS concept_uid,
       activities.name AS activity_name,
@@ -33,10 +33,10 @@ class GenerateConceptsInUseArrayWorker
       LEFT JOIN criteria ON criteria.concept_id = concepts.id
       LEFT JOIN recommendations ON criteria.recommendation_id = recommendations.id
       WHERE concepts.visible
-      AND concept_results.created_at > (CURRENT_DATE - INTERVAL "3 months")
+      AND activity_sessions.completed_at > (CURRENT_DATE - INTERVAL '3 months')
       GROUP BY concept_name, parent_concepts.name, grandparent_concepts.name, activity_name, concept_uid, classification_name, recommendations.name
       ORDER BY concept_name, classification_name
-    ').to_a
+    ").to_a
 
     organized_concepts = []
 
@@ -65,6 +65,7 @@ class GenerateConceptsInUseArrayWorker
         new_oc["grades_connect_activities"] = [],
         new_oc["grades_grammar_activities"] = [],
         new_oc["grades_proofreader_activities"] = []
+        new_oc["diagnostic_recommendations"] = []
         new_oc["name"] = grandparent_name + parent_name + c["concept_name"]
         new_oc["uid"] = uid
 
@@ -79,7 +80,6 @@ class GenerateConceptsInUseArrayWorker
           new_oc["grades_proofreader_activities"] << (c["activity_name"])
         end
 
-        new_oc["rule_number"] = find_rule_number(uid)
         new_oc["categorized_connect_questions"] = find_categorized_connect_questions(uid)
         new_oc["categorized_diagnostic_questions"] = find_categorized_diagnostic_questions(uid)
         new_oc["diagnostic_recommendations"] << (c['recommendation_name'])
