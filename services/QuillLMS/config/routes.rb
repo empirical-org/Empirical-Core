@@ -425,8 +425,8 @@ EmpiricalGrammar::Application.routes.draw do
     resources :admin_accounts, only: [:index, :create, :update, :destroy]
     resources :admins, only: [:index, :create, :update, :destroy]
     resources :categories
+    get '/concepts/concepts_in_use', to: 'concepts#concepts_in_use', only: [:csv], defaults: { format: 'csv' }
     resources :concepts
-    get '/concepts/concepts_in_use', to: 'concepts#concepts_in_use'
     resources :sections
     resources :topics
     resources :subscriptions

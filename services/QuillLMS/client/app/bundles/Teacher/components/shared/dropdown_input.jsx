@@ -100,7 +100,7 @@ export default class DropdownInput extends React.Component {
               onChange={handleChange}
               value={value}
               type={type}
-              placeholder={placeholder}
+              placeholder={placeholder || ''}
               onKeyDown={this.onKeyDown}
               menuIsOpen={menuIsOpen}
               options={options}
@@ -146,6 +146,7 @@ export default class DropdownInput extends React.Component {
             menuIsOpen={false}
             isClearable={false}
             className="dropdown"
+            placeholder={placeholder || ''}
           />
           {this.renderHelperText()}
       </div>)
@@ -162,7 +163,7 @@ export default class DropdownInput extends React.Component {
             onChange={handleChange}
             value={value}
             type={type}
-            placeholder={placeholder}
+            placeholder={placeholder || ''}
             onKeyDown={this.onKeyDown}
             menuIsOpen={menuIsOpen}
             options={options}
