@@ -47,6 +47,9 @@ class ConceptsFindAndReplace extends React.Component {
     super(props)
 
     this.state = { showSuccessBanner: false }
+
+    this.closeSuccessBanner = this.closeSuccessBanner.bind(this)
+    this.showSuccessBanner = this.showSuccessBanner.bind(this)
   }
 
   renderSuccessBanner() {
@@ -67,7 +70,7 @@ class ConceptsFindAndReplace extends React.Component {
     return (
       <div>
         <ConceptManagerNav />
-        {this.showSuccessBanner()}
+        {this.renderSuccessBanner()}
         <Query
           query={gql(levelZeroConcepts)}
         >
