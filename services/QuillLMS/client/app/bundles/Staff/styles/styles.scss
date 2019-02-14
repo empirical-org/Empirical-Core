@@ -335,3 +335,39 @@
     background-color: #92D36E;
   }
 }
+
+.find-and-replace {
+  .section-number {
+    padding: 3px 10px;
+    border: 1px solid #c0c0c1;
+    border-radius: 50px;
+    color: #c0c0c1;
+    margin-right: 20px;
+    height: 30px;
+  }
+  .find-and-replace-section {
+    padding: 30px;
+    border-bottom: 1px solid #c0c0c1;
+  }
+  .find-and-replace-section-header {
+    display: flex;
+    align-items: center;
+    a {
+      color: #189a6b
+    }
+    a, h2 {
+      font-size: 20px;
+    }
+  }
+  .input-container.inactive label {
+    font-size: 12px;
+  }
+  .input-container {
+    margin-top: 30px;
+  }
+
+  .button {
+    width: 100%;
+    margin: 30px;
+  }
+}

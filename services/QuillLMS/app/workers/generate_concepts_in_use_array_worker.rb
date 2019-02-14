@@ -10,7 +10,7 @@ class GenerateConceptsInUseArrayWorker
     @d_fib_questions = HTTParty.get("https://quillconnect.firebaseio.com/v2/diagnostic_fillInBlankQuestions.json").parsed_response
     @d_sf_questions = HTTParty.get("https://quillconnect.firebaseio.com/v2/diagnostic_sentenceFragments.json").parsed_response
     concepts_in_use = get_concepts_in_use
-    $redis.set("CONCEPTS_IN_USE", concepts_in_use)
+    $redis.set("CONCEPTS_IN_USE", concepts_in_use.to_json)
     $redis.expire("CONCEPTS_IN_USE", concepts_in_use_cache_life)
   end
 

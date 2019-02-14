@@ -7,7 +7,6 @@ import {
   Breadcrumb, Divider, Form, Input, Cascader, Button
 } from "antd";
 import { CascaderOptionType } from "../../../../node_modules/antd/lib/cascader";
-import ConceptBreadCrumb from "../components/ConceptBreadCrumb";
 import ConceptReplaceForm from '../components/ConceptReplaceForm';
 import ConceptManagerNav from "../components/ConceptManagerNav";
 
@@ -27,77 +26,59 @@ interface QueryResult {
   siblings: Array<Concept>;
 }
 
-function conceptQuery(id){
-  return `
+const levelZeroConcepts:string = `
   {
-    concept(id: ${id}) {
+    concepts(levelZeroOnly: true) {
       id
-      uid
       name
       parent {
-        id
         name
         parent {
-          id
           name
         }
-      }
-      children {
-        id
-        name
-      }
-      siblings {
-        id
-        name
       }
     }
   }
 `
-}
 
 
 class ConceptsFindAndReplace extends React.Component {
   constructor(props){
     super(props)
-    this.state = {
-      fields: {
-        replacementId: {
-          value: [],
-        },
-      },
-    };
+
+    this.state = { showSuccessBanner: false }
   }
 
-  handleFormChange = (changedFields) => {
-    console.log(changedFields)
-    this.setState(({ fields }) => {
-      const newState =  {
-        fields: { ...fields, ...changedFields },
-      }
-      console.log("new: ", newState)
-      return newState;
-    });
+  renderSuccessBanner() {
+    if (this.state.showSuccessBanner) {
+      return <div className="success-banner"><span>You replaced a concept.</span><i className="fa fa-close" onClick={this.closeEditSuccessBanner}/></div>
+    }
   }
 
-  handleFormSubmit = (e) => {
-    e.preventDefault()
-    console.log('submitting', this.state);
+  closeSuccessBanner() {
+    this.setState({ closeSuccessBanner: false })
   }
 
-  redirectToShow = (concept:Concept) => {
-    this.props.router.push(concept.id)
+  showSuccessBanner() {
+    this.setState({ closeSuccessBanner: true })
   }
 
   render() {
     return (
       <div>
         <ConceptManagerNav />
-        <Breadcrumb>
-          <Breadcrumb.Item><Link to="/">Home</Link></Breadcrumb.Item>
-          <Breadcrumb.Item>Find & Replace</Breadcrumb.Item>
-        </Breadcrumb>
-        <Divider></Divider>
-        <ConceptReplaceForm concept={{}} redirectToShow={this.redirectToShow}/>
+        {this.showSuccessBanner()}
+        <Query
+          query={gql(levelZeroConcepts)}
+        >
+          {({ loading, error, data }) => {
+            console.log('error', error)
+            if (loading) return <p>Loading...</p>;
+            if (error) return <p>Error :(</p>;
+
+            return <ConceptReplaceForm showSuccessBanner={this.showSuccessBanner} concepts={data.concepts}/>
+          }}
+        </Query>
       </div>
       )
   }
