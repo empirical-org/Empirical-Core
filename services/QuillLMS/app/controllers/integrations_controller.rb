@@ -4,7 +4,6 @@ class IntegrationsController < ApplicationController
 
   def amplify
     store_partner_session()
-    logger.debug(session[:partner_session])
     @body_class = 'full-width-page white-page'
     @js_file = 'public'
     # get list of activities to pass to view
