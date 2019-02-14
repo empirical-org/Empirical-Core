@@ -33,6 +33,7 @@ class GenerateConceptsInUseArrayWorker
       LEFT JOIN criteria ON criteria.concept_id = concepts.id
       LEFT JOIN recommendations ON criteria.recommendation_id = recommendations.id
       WHERE concepts.visible
+      AND concept_results.created_at > (CURRENT_DATE - INTERVAL "3 months")
       GROUP BY concept_name, parent_concepts.name, grandparent_concepts.name, activity_name, concept_uid, classification_name, recommendations.name
       ORDER BY concept_name, classification_name
     ').to_a
