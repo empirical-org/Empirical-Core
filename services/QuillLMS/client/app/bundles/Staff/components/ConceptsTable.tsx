@@ -48,7 +48,7 @@ function columns(selectConcept) {
       title: 'Created At',
       dataIndex: 'createdAt',
       key: 'createdAt',
-      render: (text) => moment(text* 1000).format('MMMM Do YYYY'),
+      render: (text) => moment(text* 1000).format('M/D/YY'),
       sorter:  (a, b) => (a.createdAt - b.createdAt),
     },
   ];
@@ -72,7 +72,7 @@ function prepareRow(concept:Concept):ConceptRow {
 }
 
 function filterData(concepts:Array<Concept>, visible:Boolean):Array<Concept> {
-  return concepts.filter(concept => concept.visible == visible)
+  return concepts.filter(concept => concept.visible === visible && concept.parent && concept.parent.parent)
 }
 
 const ConceptsTable: React.SFC<ConceptsTableProps> = ({concepts, visible, selectConcept}) => {
