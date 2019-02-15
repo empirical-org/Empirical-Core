@@ -1,13 +1,12 @@
 import * as React from 'react';
 import { Table } from 'antd';
-import {div} from 'react-router';
 import { Concept } from '../containers/ConceptsIndex';
 import moment from 'moment';
-import _ from 'lodash';
 
 interface ConceptsTableProps {
   concepts: Array<Concept>
-  visible: Boolean
+  visible: Boolean,
+  selectConcept: Function;
 }
 
 interface ConceptRow {
