@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
-import { Concept } from "../containers/ConceptsShow";
+import { Concept } from '../interfaces/interfaces'
 
 import DropdownInput from '../../Teacher/components/shared/dropdown_input'
 
@@ -20,11 +20,17 @@ const REPLACE_CONCEPT = gql`
 `;
 
 
-export interface AppProps {
-  concepts: Array<Concept>
+interface ConceptReplaceFormProps {
+  concepts: Array<Concept>,
+  showSuccessBanner(data: any): void
 }
 
-class ConceptReplaceForm extends React.Component<AppProps, any> {
+interface ConceptReplaceFormState {
+  replacedId: string|null,
+  replacementId: string|null
+}
+
+class ConceptReplaceForm extends React.Component<ConceptReplaceFormProps, any> {
   constructor(props){
     super(props)
     this.state = {

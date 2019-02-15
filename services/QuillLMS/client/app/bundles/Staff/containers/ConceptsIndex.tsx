@@ -41,12 +41,8 @@ export interface Concept {
   children?:Array<Concept>;
   replacementId?:string;
 }
-interface QueryResult {
-  concepts: Array<Concept>
-}
 
-
-interface AppState {
+interface ConceptsIndexState {
   visible: boolean,
   searchValue: string,
   showEditSuccessBanner: boolean,
@@ -55,7 +51,7 @@ interface AppState {
 }
 
 
-class ConceptsIndex extends React.Component<any, AppState> {
+class ConceptsIndex extends React.Component<any, ConceptsIndexState> {
   constructor(props){
     super(props)
 

@@ -173,6 +173,7 @@ select {
       border: none;
       outline: none !important;
       box-shadow: none !important;
+      border-radius: 0px !important;
     }
     .Select-value {
       border: solid 2px #009a80;
@@ -242,7 +243,7 @@ select {
     .dropdown {
       border-bottom: 1px solid #e0e0e0;
       .Select-value {
-        border-width: 1px;
+        border-width: 0px;
         border-color: #e0e0e0;
       }
     }
@@ -281,5 +282,6 @@ select {
     position: absolute;
     bottom: 16px;
     right: 0px;
+    cursor: pointer;
   }
 }

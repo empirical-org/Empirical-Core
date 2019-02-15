@@ -1,7 +1,7 @@
 import * as React from "react";
-import { Query, Mutation } from "react-apollo";
+import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
-import _ from 'lodash'
+import { Concept } from '../interfaces/interfaces'
 
 import Input from '../../Teacher/components/shared/input'
 import DropdownInput from '../../Teacher/components/shared/dropdown_input'
@@ -19,22 +19,17 @@ const CREATE_CONCEPT = gql`
   }
 `;
 
-export interface Concept {
-  id:string;
-  name:string;
-  parent?:Concept;
-}
 
 interface CreateConceptBoxProps {
   levelNumber: Number;
-  finishEditingOrCreatingConcept: Function;
-  concepts: [Concept];
+  finishEditingOrCreatingConcept(data: any): void;
+  concepts: Array<Concept>;
 }
 
 interface CreateConceptBoxState {
-  concept: { parent: Concept|{}, name: string }
-  level1Concepts: [Concept],
-  level2Concepts: [Concept]
+  concept: { parent: Concept, name: string }
+  level1Concepts: Array<Concept>,
+  level2Concepts: Array<Concept>
 }
 
 class CreateConceptBox extends React.Component<CreateConceptBoxProps, CreateConceptBoxState> {
@@ -55,9 +50,9 @@ class CreateConceptBox extends React.Component<CreateConceptBoxProps, CreateConc
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  sortConcepts(props):{level2Concepts: [Concept], level1Concepts: [Concept]} {
-    let level1Concepts:[Concept] = []
-    let level2Concepts:[Concept] = []
+  sortConcepts(props):{level2Concepts: Array<Concept>, level1Concepts: Array<Concept>} {
+    let level1Concepts:Array<Concept> = []
+    let level2Concepts:Array<Concept> = []
     props.concepts.forEach(c => {
       if (c.parent && !c.parent.parent) {
         level1Concepts.push(c)

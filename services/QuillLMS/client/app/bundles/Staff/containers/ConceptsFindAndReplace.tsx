@@ -1,48 +1,37 @@
 import * as React from "react";
-import {Link} from "react-router";
-import { Query, Mutation } from "react-apollo";
+import { Query } from "react-apollo";
 import gql from "graphql-tag";
 
-import {
-  Breadcrumb, Divider, Form, Input, Cascader, Button
-} from "antd";
-import { CascaderOptionType } from "../../../../node_modules/antd/lib/cascader";
 import ConceptReplaceForm from '../components/ConceptReplaceForm';
 import ConceptManagerNav from "../components/ConceptManagerNav";
-
-const FormItem = Form.Item;
-
-export interface Concept {
-  id:string;
-  name:string;
-  parent?:Concept;
-}
-
-interface QueryResult {
-  id:string;
-  name:string;
-  parent?:Concept;
-  children: Array<Concept>;
-  siblings: Array<Concept>;
-}
 
 const levelZeroConcepts:string = `
   {
     concepts(levelZeroOnly: true) {
       id
       name
+      uid
       parent {
         name
+        id
         parent {
           name
+          id
         }
       }
     }
   }
 `
 
+interface ConceptsFindAndReplaceState {
+  showSuccessBanner: Boolean;
+}
 
-class ConceptsFindAndReplace extends React.Component {
+interface ConceptsFindAndReplaceProps {
+}
+
+
+class ConceptsFindAndReplace extends React.Component<ConceptsFindAndReplaceProps, ConceptsFindAndReplaceState> {
   constructor(props){
     super(props)
 
@@ -54,16 +43,16 @@ class ConceptsFindAndReplace extends React.Component {
 
   renderSuccessBanner() {
     if (this.state.showSuccessBanner) {
-      return <div className="success-banner"><span>You replaced a concept.</span><i className="fa fa-close" onClick={this.closeEditSuccessBanner}/></div>
+      return <div className="success-banner"><span>You replaced a concept.</span><i className="fa fa-close" onClick={this.closeSuccessBanner}/></div>
     }
   }
 
   closeSuccessBanner() {
-    this.setState({ closeSuccessBanner: false })
+    this.setState({ showSuccessBanner: false })
   }
 
   showSuccessBanner() {
-    this.setState({ closeSuccessBanner: true })
+    this.setState({ showSuccessBanner: true })
   }
 
   render() {

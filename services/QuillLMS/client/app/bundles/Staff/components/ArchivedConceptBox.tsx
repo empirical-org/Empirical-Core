@@ -2,10 +2,10 @@ import * as React from "react";
 import { Query, Mutation } from "react-apollo";
 import gql from "graphql-tag";
 import moment from 'moment'
-import _ from 'lodash'
 
 import Input from '../../Teacher/components/shared/input'
 import DropdownInput from '../../Teacher/components/shared/dropdown_input'
+import { Concept } from '../interfaces/interfaces'
 
 function levelTwoConceptsQuery(){
   return `
@@ -54,32 +54,35 @@ mutation editConcept($id: ID! $name: String, $parentId: ID, $visible: Boolean){
   }
 `;
 
-export interface Concept {
-  id:string;
-  name:string;
-  parent?:Concept;
-}
-interface QueryResult {
-  id:string;
-  name:string;
-  parent?:Concept;
-  children: Array<Concept>;
-  siblings: Array<Concept>;
+interface ArchivedConceptBoxProps {
+  levelNumber: Number;
+  concept: Concept;
+  finishEditingConcept(data:any): void;
 }
 
-class ArchivedConceptBox extends React.Component {
+interface ArchivedConceptBoxState {
+  concept: Concept;
+  errors: { level1?: string; level2?: string;}
+}
+
+class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, ArchivedConceptBoxState> {
   constructor(props){
     super(props)
 
     this.state = {
       concept: props.concept,
-      originalConcept: props.concept,
       errors: {}
     }
 
     this.changeLevel1 = this.changeLevel1.bind(this)
     this.changeLevel2 = this.changeLevel2.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (!_.isEqual(this.props.concept, nextProps.concept)) {
+      this.setState({ concept: nextProps.concept, })
+    }
   }
 
   handleSubmit(e, editConcept) {
@@ -167,7 +170,7 @@ class ArchivedConceptBox extends React.Component {
           console.log('error', error)
           if (loading) return <p>Loading...</p>;
           if (error) return <p>Error :(</p>;
-          const possibleConcepts:CascaderOptionType[] = data.concepts;
+          const possibleConcepts = data.concepts;
           const options = possibleConcepts.map(c => {return { label: c.label, value: c.value, visible: c.visible, updatedAt: c.updatedAt, parent: c.parent }})
           const value = options.find(opt => opt.value === concept.parent.id)
           return <div className="concept-input-container">
@@ -189,7 +192,7 @@ class ArchivedConceptBox extends React.Component {
         {({ loading, error, data }) => {
           if (loading) return <p>Loading...</p>;
           if (error) return <p>Error :(</p>;
-          const possibleConcepts:CascaderOptionType[] = data.concepts;
+          const possibleConcepts = data.concepts;
           const options = possibleConcepts.map(c => {return { label: c.label, value: c.value, visible: c.visible, updatedAt: c.updatedAt }})
           const value = options.find(opt => opt.value === concept.parent.id)
           return <div className="concept-input-container">
@@ -262,7 +265,7 @@ class ArchivedConceptBox extends React.Component {
 
   renderSaveButton() {
     const { levelNumber } = this.props
-    const { concept, originalConcept } = this.state
+    const { concept } = this.state
     if (levelNumber === 2) {
       return <input
         type="submit"
