@@ -3,6 +3,7 @@ import { Query, Mutation } from "react-apollo";
 import gql from "graphql-tag";
 import _ from 'lodash'
 
+import { Concept } from '../interfaces/interfaces'
 import Input from '../../Teacher/components/shared/input'
 import DropdownInput from '../../Teacher/components/shared/dropdown_input'
 
@@ -50,20 +51,18 @@ mutation editConcept($id: ID! $name: String, $parentId: ID, $visible: Boolean){
   }
 `;
 
-export interface Concept {
-  id:string;
-  name:string;
-  parent?:Concept;
-}
-interface QueryResult {
-  id:string;
-  name:string;
-  parent?:Concept;
-  children: Array<Concept>;
-  siblings: Array<Concept>;
+interface ConceptBoxState {
+  concept: Concept,
+  originalConcept: Concept
 }
 
-class ConceptBox extends React.Component {
+interface ConceptBoxProps {
+  concept: Concept;
+  levelNumber: Number;
+  finishEditingConcept(data: any): void;
+}
+
+class ConceptBox extends React.Component<ConceptBoxProps, ConceptBoxState> {
   constructor(props){
     super(props)
 
@@ -78,6 +77,12 @@ class ConceptBox extends React.Component {
     this.renameConcept = this.renameConcept.bind(this)
     this.cancelRename = this.cancelRename.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (!_.isEqual(this.props.concept, nextProps.concept)) {
+      this.setState({ concept: nextProps.concept, originalConcept: nextProps.concept })
+    }
   }
 
   handleSubmit(e, editConcept) {
@@ -143,7 +148,7 @@ class ConceptBox extends React.Component {
           console.log('error', error)
           if (loading) return <p>Loading...</p>;
           if (error) return <p>Error :(</p>;
-          const possibleConcepts:CascaderOptionType[] = data.concepts.filter(c => c.visible && c.parent.visible);
+          const possibleConcepts = data.concepts.filter(c => c.visible && c.parent.visible);
           const value = possibleConcepts.find(opt => opt.value === concept.parent.id)
           return <DropdownInput
             label="Level 1"
@@ -160,7 +165,7 @@ class ConceptBox extends React.Component {
         {({ loading, error, data }) => {
           if (loading) return <p>Loading...</p>;
           if (error) return <p>Error :(</p>;
-          const possibleConcepts:CascaderOptionType[] = data.concepts.filter(c => c.visible);
+          const possibleConcepts = data.concepts.filter(c => c.visible);
           const value = possibleConcepts.find(opt => opt.value === concept.parent.id)
           return <DropdownInput
             label="Level 2"
@@ -189,7 +194,8 @@ class ConceptBox extends React.Component {
 
   renderLevels() {
     const { concept, } = this.state
-    if (this.props.levelNumber === 2) {
+    const { levelNumber, } = this.props
+    if (levelNumber === 2) {
       return <div>
         <div className="concept-input-container">
           <Input
@@ -203,7 +209,7 @@ class ConceptBox extends React.Component {
           {this.renderRenameAndArchiveSection()}
         </div>
       </div>
-    } else if (this.props.levelNumber === 1) {
+    } else if (levelNumber === 1) {
       return <div>
         {this.renderDropdownInput()}
         <div className="concept-input-container">
@@ -218,7 +224,7 @@ class ConceptBox extends React.Component {
           {this.renderRenameAndArchiveSection()}
         </div>
       </div>
-    } else if (this.props.levelNumber === 0) {
+    } else if (levelNumber === 0) {
       return <div>
         <Input
           disabled={true}
@@ -254,15 +260,17 @@ class ConceptBox extends React.Component {
   }
 
   render() {
+    const { finishEditingConcept, levelNumber } = this.props
+    const { concept } = this.state
     return  (
-      <Mutation mutation={EDIT_CONCEPT} onCompleted={this.props.finishEditingConcept}>
+      <Mutation mutation={EDIT_CONCEPT} onCompleted={finishEditingConcept}>
         {(editConcept, {}) => (
           <div className="concept-box">
             <form onSubmit={(e) => this.handleSubmit(e, editConcept)} acceptCharset="UTF-8" >
               <div className="static">
-                <p>Level {this.props.levelNumber}</p>
-                <h1>{this.state.concept.name}</h1>
-                <p>UID: {this.state.concept.uid}</p>
+                <p>Level {levelNumber}</p>
+                <h1>{concept.name}</h1>
+                <p>UID: {concept.uid}</p>
               </div>
               <div className="fields">
                 {this.renderLevels()}

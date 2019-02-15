@@ -5,7 +5,7 @@ import gql from "graphql-tag";
 import client from '../../../modules/apollo';
 import ConceptBox from "./ConceptBox";
 import ArchivedConceptBox from "./ArchivedConceptBox";
-
+import { Concept } from '../interfaces/interfaces'
 
 function conceptQuery(id){
   return `
@@ -36,11 +36,7 @@ function conceptQuery(id){
   }
 `
 }
-export interface Concept {
-  id:string;
-  name:string;
-  parent?:Concept;
-}
+
 interface QueryResult {
   id:string;
   name:string;
@@ -72,7 +68,6 @@ class ConceptBoxContainer extends React.Component<any, ConceptBoxContainerProps>
           if (loading) return <p>Loading...</p>;
           if (error) return <p>Error :(</p>;
           const concept:QueryResult = data.concept;
-          console.log('concept', concept)
           if (visible) {
             return (
               <ConceptBox

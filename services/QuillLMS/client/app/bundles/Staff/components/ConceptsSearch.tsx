@@ -1,6 +1,6 @@
-import React, {Component} from 'react'
-import { Input, Icon } from 'antd'
-import { Concept } from '../containers/ConceptsEdit';
+import React from 'react'
+import { Input } from 'antd'
+import { Concept } from '../interfaces/interfaces'
 
 const Search = Input.Search;
 

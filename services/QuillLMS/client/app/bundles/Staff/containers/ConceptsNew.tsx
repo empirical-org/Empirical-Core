@@ -1,18 +1,11 @@
 import * as React from "react";
-import {Link} from "react-router";
-import { Query, Mutation } from "react-apollo";
+import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import ConceptManagerNav from "../components/ConceptManagerNav";
 import ConceptBoxContainer from "../components/ConceptBoxContainer"
 import CreateConceptBox from "../components/CreateConceptBox"
 import ConceptLevels from "../components/ConceptLevels";
-
-import {
-  Breadcrumb, Divider, Form, Input, Cascader, Button
-} from "antd";
-import { CascaderOptionType } from "../../../../node_modules/antd/lib/cascader";
-
-const FormItem = Form.Item;
+import { Concept } from '../interfaces/interfaces'
 
 const allConceptsQuery:string = `
   {
@@ -38,7 +31,12 @@ const allConceptsQuery:string = `
   }
 `
 
-class AddConcept extends React.Component {
+interface AddConceptState {
+  selectedConcept: { conceptID?: Number, levelNumber?: Number };
+  showSuccessBanner: Boolean;
+}
+
+class AddConcept extends React.Component<{}, AddConceptState> {
   constructor(props){
     super(props)
 
@@ -69,11 +67,10 @@ class AddConcept extends React.Component {
       query={gql(allConceptsQuery)}
     >
     {({ loading, error, data, refetch, networkStatus }) => {
-        console.log('networkStatus', networkStatus)
         if (networkStatus === 4) return <p>Refetching!</p>;
         if (loading) return <p>Loading...</p>;
         if (error) return <p>Error :(</p>;
-        const concepts:CascaderOptionType[] = data.concepts.filter(c => c.visible);
+        const concepts:Array<Concept> = data.concepts.filter(c => c.visible);
         return <div className="concept-levels-and-forms-container">
           <ConceptLevels
             concepts={concepts}
@@ -92,6 +89,7 @@ class AddConcept extends React.Component {
         conceptID={conceptID}
         levelNumber={levelNumber}
         finishEditingConcept={() => this.finishEditingOrCreatingConcept(refetch)}
+        visible={true}
       />
     } else {
       return this.renderAddNewConceptsForms(refetch, concepts)
@@ -131,51 +129,8 @@ class AddConcept extends React.Component {
     }
   }
 
-  // handleFormChange = (changedFields) => {
-  //   console.log(changedFields)
-  //   this.setState(({ fields }) => {
-  //     const newState =  {
-  //       fields: { ...fields, ...changedFields },
-  //     }
-  //     console.log("new: ", newState)
-  //     return newState;
-  //   });
-  // }
-  //
-  // handleFormSubmit = (e) => {
-  //   e.preventDefault()
-  //   console.log('submitting', this.state);
-  // }
-  //
-  // redirectToShow = (data) => {
-  //   console.log("Called")
-  //   this.props.router.push(data.createConcept.concept.id)
-  // }
-
-  // render() {
-  //   const fields = this.state.fields;
-  //   return  (
-  //     <div>
-  //       <ConceptManagerNav />
-  //       <Divider></Divider>
-  //       <Mutation mutation={CREATE_CONCEPT} onCompleted={this.redirectToShow}>
-  //         {(createConcept, { data }) => (
-  //           <CustomizedForm {...fields} onChange={this.handleFormChange} onSubmit={(e) => {
-  //             e.preventDefault();
-  //             createConcept({ variables: {
-  //               name: this.state.fields.name.value,
-  //               parentId: this.state.fields.parentId.value[this.state.fields.parentId.value.length - 1],
-  //               description: this.state.fields.description.value,
-  //             }});
-  //           }} />
-  //         )}
-  //       </Mutation>
-  //     </div>
-  //   )
-  // }
 
   render() {
-    // const fields = this.state.fields;
     return  (
       <div>
         <ConceptManagerNav />

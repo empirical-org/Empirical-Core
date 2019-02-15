@@ -1,8 +1,19 @@
 import * as React from "react";
-import _ from 'lodash'
 import Select from 'react-select';
+import { Concept } from '../interfaces/interfaces'
 
-export default class ConceptColumn extends React.Component {
+interface ConceptColumnProps {
+  concepts: Array<Concept>;
+  selectConcept: Function;
+  levelNumber: Number;
+}
+
+interface ConceptColumnState {
+  sortField: string;
+  sortOrder: string;
+}
+
+export default class ConceptColumn extends React.Component<ConceptColumnProps, ConceptColumnState> {
   constructor(props) {
     super(props)
 
@@ -42,17 +53,18 @@ export default class ConceptColumn extends React.Component {
     if (sortOrder === 'desc') {
       sortedData = sortedData.reverse()
     }
-    const concepts = sortedData.map(c => {
+    const conceptItems = sortedData.map(c => {
       return <div onClick={() => selectConcept(c.id, levelNumber)} className="concept-list-item">{c.name}</div>
     })
-    return <div className="concept-list">{concepts}</div>
+    return <div className="concept-list">{conceptItems}</div>
   }
 
   renderSorter() {
     const options = [{ value: 'name', label: 'Sort by A-Z'}, { value: 'createdAt', label: 'Date Created'}]
+    const value = options.find(o => o.value === this.state.sortField)
     return <Select
       onChange={this.changeSort}
-      value={this.state.sortField}
+      value={value}
       options={options}
       isClearable={false}
       isSearchable={false}

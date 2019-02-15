@@ -2,7 +2,14 @@ import * as React from "react";
 import _ from 'lodash'
 import ConceptColumn from './ConceptColumn'
 
-export default class ConceptLevels extends React.Component {
+import { Concept } from '../interfaces/interfaces'
+
+interface ConceptLevelsProps {
+  concepts: Array<Concept>;
+  selectConcept: Function;
+}
+
+export default class ConceptLevels extends React.Component<ConceptLevelsProps, any> {
   constructor(props) {
     super(props)
   }
