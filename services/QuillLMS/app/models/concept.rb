@@ -79,32 +79,27 @@ class Concept < ActiveRecord::Base
     @d_fib_questions = HTTParty.get("https://quillconnect.firebaseio.com/v2/diagnostic_fillInBlankQuestions.json").parsed_response
     @d_sf_questions = HTTParty.get("https://quillconnect.firebaseio.com/v2/diagnostic_sentenceFragments.json").parsed_response
 
-    if $redis.get('concepts')
-      concepts = JSON.parse($redis.get('concepts'))
-    else
-      concepts = ActiveRecord::Base.connection.execute("
-        SELECT concepts.name AS concept_name,
-        concepts.uid AS concept_uid,
-        activities.name AS activity_name,
-        activity_classifications.name AS classification_name,
-        parent_concepts.name AS parent_name,
-        grandparent_concepts.name AS grandparent_name,
-        recommendations.name AS recommendation_name
-        FROM concepts
-        LEFT JOIN concepts AS parent_concepts ON concepts.parent_id = parent_concepts.id
-        LEFT JOIN concepts AS grandparent_concepts ON parent_concepts.parent_id = grandparent_concepts.id
-        LEFT JOIN concept_results ON concept_results.concept_id = concepts.id
-        LEFT JOIN activity_sessions ON concept_results.activity_session_id = activity_sessions.id AND activity_sessions.completed_at > (CURRENT_DATE - INTERVAL '1 months')
-        LEFT JOIN activities on activity_sessions.activity_id = activities.id
-        LEFT JOIN activity_classifications ON activities.activity_classification_id = activity_classifications.id
-        LEFT JOIN criteria ON criteria.concept_id = concepts.id
-        LEFT JOIN recommendations ON criteria.recommendation_id = recommendations.id
-        WHERE concepts.visible
-        GROUP BY concept_name, parent_concepts.name, grandparent_concepts.name, activity_name, concept_uid, classification_name, recommendations.name
-        ORDER BY grandparent_concepts.name, parent_concepts.name, concept_name, classification_name
-      ").to_a
-      $redis.set('concepts', concepts.to_json)
-    end
+    concepts = ActiveRecord::Base.connection.execute("
+      SELECT concepts.name AS concept_name,
+      concepts.uid AS concept_uid,
+      activities.name AS activity_name,
+      activity_classifications.name AS classification_name,
+      parent_concepts.name AS parent_name,
+      grandparent_concepts.name AS grandparent_name,
+      recommendations.name AS recommendation_name
+      FROM concepts
+      LEFT JOIN concepts AS parent_concepts ON concepts.parent_id = parent_concepts.id
+      LEFT JOIN concepts AS grandparent_concepts ON parent_concepts.parent_id = grandparent_concepts.id
+      LEFT JOIN concept_results ON concept_results.concept_id = concepts.id
+      LEFT JOIN activity_sessions ON concept_results.activity_session_id = activity_sessions.id AND activity_sessions.completed_at > (CURRENT_DATE - INTERVAL '1 months')
+      LEFT JOIN activities on activity_sessions.activity_id = activities.id
+      LEFT JOIN activity_classifications ON activities.activity_classification_id = activity_classifications.id
+      LEFT JOIN criteria ON criteria.concept_id = concepts.id
+      LEFT JOIN recommendations ON criteria.recommendation_id = recommendations.id
+      WHERE concepts.visible
+      GROUP BY concept_name, parent_concepts.name, grandparent_concepts.name, activity_name, concept_uid, classification_name, recommendations.name
+      ORDER BY grandparent_concepts.name, parent_concepts.name, concept_name, classification_name
+    ").to_a
 
     organized_concepts = []
 
@@ -114,10 +109,7 @@ class Concept < ActiveRecord::Base
 
       if existing_oc
         new_oc = existing_oc
-        puts 'classification name existing', c['classification_name']
-        if c["classification_name"] == ''
-        elsif c["classification_name"] == 'Quill Connect'
-          puts 'I am in here for some reason new'
+        if c["classification_name"] == 'Quill Connect'
           new_oc["grades_connect_activities"] << (c["activity_name"])
         elsif c["classification_name"] == "Quill Diagnostic"
           new_oc["grades_diagnostic_activities"] << (c["activity_name"])
@@ -143,11 +135,7 @@ class Concept < ActiveRecord::Base
           last_retrieved: Time.now.strftime("%m/%d/%y")
         }.stringify_keys
 
-        puts 'classification name new', c['classification_name']
-        puts new_oc
-        if c["classification_name"] == ''
-        elsif c["classification_name"] == 'Quill Connect'
-          puts 'I am in here for some reason new'
+        if c["classification_name"] == 'Quill Connect'
           new_oc["grades_connect_activities"] << (c["activity_name"])
         elsif c["classification_name"] == "Quill Diagnostic"
           new_oc["grades_diagnostic_activities"] << (c["activity_name"])
@@ -159,12 +147,11 @@ class Concept < ActiveRecord::Base
 
         new_oc["categorized_connect_questions"] = find_categorized_connect_questions(uid)
         new_oc["categorized_diagnostic_questions"] = find_categorized_diagnostic_questions(uid)
-        # new_oc["diagnostic_recommendations"] << (c['recommendation_name'])
+        new_oc["diagnostic_recommendations"] << (c['recommendation_name'])
 
         organized_concepts << (new_oc)
       end
     end
-    puts organized_concepts.select { |organized_c|  organized_c['grades_grammar_activities'].any? }
 
     concepts_in_use = []
     headers = %w(name uid grades_proofreader_activities grades_grammar_activities grades_connect_activities grades_diagnostic_activities categorized_connect_questions categorized_diagnostic_questions part_of_diagnostic_recommendations last_retrieved)
