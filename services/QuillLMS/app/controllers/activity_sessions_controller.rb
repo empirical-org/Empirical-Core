@@ -22,7 +22,8 @@ class ActivitySessionsController < ApplicationController
       @partner_session_id = session[:partner_session]["session_id"]
     end
     if @partner_name && @partner_session_id
-      # TODO: trigger results background job
+      @results_url = url_for(action: 'result', uid: @activity_session.uid)
+      AmplifyReportActivityWorker.perform_async(@partner_session_id, @activity_session.activity.name, @activity_session.percentage, @results_url, @activity_session.activity.description)
     end
     @activity = @activity_session
     @results  = @activity_session.parse_for_results
