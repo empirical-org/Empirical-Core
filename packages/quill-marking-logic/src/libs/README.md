@@ -7,30 +7,61 @@ Infer whether an error exists in the student’s string as compared to the pre-e
 
 Here is the order of algorithms in the sequence. 
 
-## Quill Diagnostic
+## Quill Diagnostic Sentence Combining
 
 1. Exact Match to Optimal or Sub-Optimal Response
-2. Period
-3. Capitalization 
-4. Spacing 
-5. Period, Capitalization, and Spacing
-6. One character difference. 
-7. Period, Capitalization, Spacing + One Character Difference. 
+2. Focus Point (looks for the absence of a specific text string)
+3. Incorrect Sequence (looks for a specific text string)
+4. Case Insensitive Match (ignores case)
+5. Punctuation Insensitive Match (ignores punctuation)
+6. Punctuation and Case Insensitive Match (ignores Case and Punctuation) 
+7. Min Length Matcher (see if response is shorter than all optimal responses)
+8. One character difference. 
+9. Spacing (ignores all whitespace)
 
-## Quill Connect
+## Quill Connect Sentence Combining
 
 1. Exact Match to Optimal or Sub-Optimal Response
-2. Focus Point (looks for a specific text string)
-3. Punctuation and Case Insensitive Match (ignores Case and Punctuation) 
-4. Fuzzy Match (looks for a two character difference between users and ours). 
-5. Modified Word Match (looks for a string where one word is different).
-6. Missing Word Hint (looks for a string where everything is the same exact for a missing word). 
-7. Additional Word Hint (looks for a string where everything is the same except for an extra word). 
-8. Whitespace Hint (ignores all whitespace). 
-9. Missing Details Hint (The student’s sentence is shorter than the shortest acceptable answer). 
-10. Not Concise Hint (The student’s sentence is longer than the longest acceptable answer). 
-11. Case Insensitive Algorithm (ignores capitalization) 
-12. Punctuation Insensitive Match (ignores punctuation) 
+2. Focus Point (looks for the absence of a specific text string)
+3. Incorrect Sequence (looks for a specific text string)
+4. Case Insensitive Match (ignores case)
+5. Punctuation Insensitive Match (ignores punctuation)
+6. Punctuation and Case Insensitive Match (ignores Case and Punctuation) 
+7. Spacing Before Punctuation
+8. Spacing After Commas
+9. Spacing (ignores all whitespace)
+10. Modified Word Match (looks for a string where one word is different).
+11. Missing Word Hint (looks for a string where everything is the same exact for a missing word). 
+12. Additional Word Hint (looks for a string where everything is the same except for an extra word). 
+13. Missing Details Hint (The student’s sentence is shorter than the shortest acceptable answer). 
+14. 1-13 but with normalized spelling
+15. Flexible Change Object (10-13 but lowercased and with no punctuation)
+16. Required Words Match (checks to see if any words present in all optimal answers are missing here)
+17. Min Length Matcher (see if response is shorter than all optimal responses)
+18. Max Length Matcher (see if response is longer than all optimal responses)
+19. Case Start Checker (see if response starts with a capital letter)
+20. Punctuation End Checker (see if response ends with punctuation)
+
+## Quill Grammar Questions
+
+1. Exact Match to Optimal or Sub-Optimal Response
+2. Focus Point (looks for the absence of a specific text string)
+3. Incorrect Sequence (looks for a specific text string)
+4. Case Insensitive Match (ignores case)
+5. Punctuation Insensitive Match (ignores punctuation)
+6. Punctuation and Case Insensitive Match (ignores Case and Punctuation) 
+7. Spacing Before Punctuation
+8. Spacing After Commas
+9. Spacing (ignores all whitespace)
+10. Modified Word Match (looks for a string where one word is different).
+11. Missing Word Hint (looks for a string where everything is the same exact for a missing word). 
+12. Additional Word Hint (looks for a string where everything is the same except for an extra word). 
+13. Missing Details Hint (The student’s sentence is shorter than the shortest acceptable answer). 
+14. 1-13 but with normalized spelling
+15. Flexible Change Object (10-13 but lowercased and with no punctuation)
+16. Case Start Checker (see if response starts with a capital letter)
+27. Punctuation End Checker (see if response ends with punctuation)
+
 
 ### Question Class
 
