@@ -433,6 +433,10 @@
     height: 52px;
     .lesson-name {
       cursor: pointer;
+      width: 410px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
   }
 }
