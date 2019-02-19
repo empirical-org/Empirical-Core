@@ -79,27 +79,34 @@ class Concept < ActiveRecord::Base
     @d_fib_questions = HTTParty.get("https://quillconnect.firebaseio.com/v2/diagnostic_fillInBlankQuestions.json").parsed_response
     @d_sf_questions = HTTParty.get("https://quillconnect.firebaseio.com/v2/diagnostic_sentenceFragments.json").parsed_response
 
-    concepts = ActiveRecord::Base.connection.execute("
-      SELECT concepts.name AS concept_name,
-      concepts.uid AS concept_uid,
-      activities.name AS activity_name,
-      activity_classifications.name AS classification_name,
-      parent_concepts.name AS parent_name,
-      grandparent_concepts.name AS grandparent_name,
-      recommendations.name AS recommendation_name
-      FROM concepts
-      LEFT JOIN concepts AS parent_concepts ON concepts.parent_id = parent_concepts.id
-      LEFT JOIN concepts AS grandparent_concepts ON parent_concepts.parent_id = grandparent_concepts.id
-      LEFT JOIN concept_results ON concept_results.concept_id = concepts.id
-      LEFT JOIN activity_sessions ON concept_results.activity_session_id = activity_sessions.id AND activity_sessions.completed_at > (CURRENT_DATE - INTERVAL '1 months')
-      LEFT JOIN activities on activity_sessions.activity_id = activities.id
-      LEFT JOIN activity_classifications ON activities.activity_classification_id = activity_classifications.id
-      LEFT JOIN criteria ON criteria.concept_id = concepts.id
-      LEFT JOIN recommendations ON criteria.recommendation_id = recommendations.id
-      WHERE concepts.visible
-      GROUP BY concept_name, parent_concepts.name, grandparent_concepts.name, activity_name, concept_uid, classification_name, recommendations.name
-      ORDER BY grandparent_concepts.name, parent_concepts.name, concept_name, classification_name
-    ").to_a
+    concepts = []
+
+    self.visible_level_zero_concept_ids.each do |id|
+      concept_rows = ActiveRecord::Base.connection.execute("
+        SELECT concepts.name AS concept_name,
+        concepts.uid AS concept_uid,
+        activities.name AS activity_name,
+        activity_classifications.name AS classification_name,
+        parent_concepts.name AS parent_name,
+        grandparent_concepts.name AS grandparent_name,
+        recommendations.name AS recommendation_name
+        FROM concepts
+        LEFT JOIN concepts AS parent_concepts ON concepts.parent_id = parent_concepts.id
+        LEFT JOIN concepts AS grandparent_concepts ON parent_concepts.parent_id = grandparent_concepts.id
+        LEFT JOIN concept_results ON concept_results.concept_id = concepts.id
+        LEFT JOIN activity_sessions ON concept_results.activity_session_id = activity_sessions.id AND activity_sessions.completed_at > (CURRENT_DATE - INTERVAL '1 months')
+        LEFT JOIN activities on activity_sessions.activity_id = activities.id
+        LEFT JOIN activity_classifications ON activities.activity_classification_id = activity_classifications.id
+        LEFT JOIN criteria ON criteria.concept_id = concepts.id
+        LEFT JOIN recommendations ON criteria.recommendation_id = recommendations.id
+        WHERE concepts.id = #{id}
+        GROUP BY concept_name, parent_concepts.name, grandparent_concepts.name, activity_name, concept_uid, classification_name, recommendations.name
+        ORDER BY grandparent_concepts.name, parent_concepts.name, concept_name, classification_name
+      ").to_a
+      concepts.push(concept_rows)
+    end
+
+    concepts = concepts.flatten
 
     organized_concepts = []
 
@@ -202,6 +209,17 @@ class Concept < ActiveRecord::Base
     end
 
     questions
+  end
+
+  def self.visible_level_zero_concept_ids
+    ActiveRecord::Base.connection.execute("
+      SELECT concepts.id FROM concepts
+      JOIN concepts AS parents ON concepts.parent_id = parents.id
+      WHERE parents.parent_id IS NOT NULL
+      AND concepts.parent_id IS NOT NULL
+      AND concepts.visible
+      ORDER BY grandparent_concepts.name, parent_concepts.name, concept_name
+    ").to_a.map { |id| id['id'] }
   end
 
 end
