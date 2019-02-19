@@ -31,16 +31,15 @@ Here is the order of algorithms in the sequence.
 8. Spacing After Commas
 9. Spacing (ignores all whitespace)
 10. Modified Word Match (looks for a string where one word is different).
-11. Missing Word Hint (looks for a string where everything is the same exact for a missing word). 
+11. Missing Word Hint (looks for a string where everything is the same except for a missing word). 
 12. Additional Word Hint (looks for a string where everything is the same except for an extra word). 
-13. Missing Details Hint (The student’s sentence is shorter than the shortest acceptable answer). 
-14. 1-13 but with normalized spelling
-15. Flexible Change Object (10-13 but lowercased and with no punctuation)
-16. Required Words Match (checks to see if any words present in all optimal answers are missing here)
-17. Min Length Matcher (see if response is shorter than all optimal responses)
-18. Max Length Matcher (see if response is longer than all optimal responses)
-19. Case Start Checker (see if response starts with a capital letter)
-20. Punctuation End Checker (see if response ends with punctuation)
+13. 1-12 but with normalized spelling
+14. Flexible Change Object (10-13 but lowercased and with no punctuation)
+15. Required Words Match (checks to see if any words present in all optimal answers are missing here)
+16. Min Length Matcher (see if response is shorter than all optimal responses)
+17. Max Length Matcher (see if response is longer than all optimal responses)
+18. Case Start Checker (see if response starts with a capital letter)
+19. Punctuation End Checker (see if response ends with punctuation)
 
 ## Quill Grammar Questions
 
@@ -54,13 +53,12 @@ Here is the order of algorithms in the sequence.
 8. Spacing After Commas
 9. Spacing (ignores all whitespace)
 10. Modified Word Match (looks for a string where one word is different).
-11. Missing Word Hint (looks for a string where everything is the same exact for a missing word). 
+11. Missing Word Hint (looks for a string where everything is the same except for a missing word). 
 12. Additional Word Hint (looks for a string where everything is the same except for an extra word). 
-13. Missing Details Hint (The student’s sentence is shorter than the shortest acceptable answer). 
-14. 1-13 but with normalized spelling
-15. Flexible Change Object (10-13 but lowercased and with no punctuation)
-16. Case Start Checker (see if response starts with a capital letter)
-27. Punctuation End Checker (see if response ends with punctuation)
+13. 1-12 but with normalized spelling
+14. Flexible Change Object (10-13 but lowercased and with no punctuation)
+15. Case Start Checker (see if response starts with a capital letter)
+16. Punctuation End Checker (see if response ends with punctuation)
 
 
 ### Question Class
