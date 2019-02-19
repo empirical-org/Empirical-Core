@@ -98,6 +98,10 @@
     }
   }
 
+  .reviewer {
+    padding-bottom: 300px;
+  }
+
   .ql-editor:focus {
     outline: none;
   }
@@ -158,6 +162,9 @@
           filter: invert(.5);
         }
       }
+    }
+    @media (max-width: 1000px) {
+      padding: 0px 60px 20px;
     }
   }
 }
