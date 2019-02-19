@@ -73,37 +73,37 @@ The class requires a submission to be graded and a bank of responses for it to b
 
 The checkMatch function returns an object with at minimum the response submitted and whether it was matched to anything in the responses array.
 
-Below is an example of a failure to match the "nonMatchingResponseString" to any of the responses in the
+If the string matches a response the returned object will match the response in the database
+
+
 ```
 {
-  found: false,
-  submitted: "nonMatchingResponseString"
+  child_count: 2885,
+  count: 3484,
+  feedback: "<p>That&#x27;s a strong sentence!</p>",
+  first_attempt_count: 2123,
+  id: 8991322,
+  optimal: true
+  parent_id: null,
+  question_uid: "-LOsT5EN98Lai5yuavG8"
+  text: "The friends laughed at the neighbor’s and their joke."
 }
 ```
-If the string matches a response the response will be embedded in the returned object
-```
-{
-  found: true,
-  submitted: "matchingString",
-  response: {
-    ...,
-    text: "matchingString",
-    ...
-  }
-}
-```
+
+
 If the string returns a matching that is non exact an error type will be embedded in the returned object.
+
 ```
-  found: true,
-  submitted: "matchingstring",
-  caseError: true,
-  response: {
-    ...,
-    text: "matchingString",
-    ...
-  }
+{
+  author: "Focus Point Hint",
+  count: 1,
+  feedback: "<p>Revise your work. Make sure your sentence tells that the joke was by <em>the neighbor and them</em>.</p>",
+  parent_id: 8991322,
+  question_uid: "-LOsT5EN98Lai5yuavG8"
+  text: "The friends laughed at the neighbor's joke."
 }
 ```
+
 ###### Improvements
 
 Instead of having the match keys be unique they should be constants attached to the returned object like so.
