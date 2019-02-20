@@ -1,18 +1,19 @@
 class AmplifyReportActivityWorker
   include Sidekiq::Worker
 
-  def perform(amplify_session_id, activity_name, score, results_url, description)
-    @payload = generate_payload(amplify_session_id, activity_name, score, results_url, description)
+  def perform(amplify_session_id, activity_name, description, score, activity_url, results_url)
+    @payload = generate_payload(amplify_session_id, activity_name, description, score, activity_url, results_url)
     submit_payload_to_amplify(@payload)
   end
 
-  def generate_payload(amplify_session_id, activity_name, score, results_url, description)
+  def generate_payload(amplify_session_id, activity_name, description, score, activity_url, results_url)
     return {
-      "amplify_session_id" => amplify_session_id,
-      "activity_name" => activity_name,
+      "amplify_user_id" => amplify_session_id,
+      "quill_activity_name" => activity_name,
+      "quill_activity_description" => description,
       "score" => score,
-      "results_url" => results_url,
-      "activity_description" => description
+      "activity_url" => activity_url,
+      "results_url" => results_url
     }
   end
 

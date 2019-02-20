@@ -22,8 +22,9 @@ class ActivitySessionsController < ApplicationController
       @partner_session_id = session[:partner_session]["session_id"]
     end
     if @partner_name && @partner_session_id
+      @activity_url = @activity_session.activity.anonymous_module_url.to_s
       @results_url = url_for(action: 'result', uid: @activity_session.uid)
-      AmplifyReportActivityWorker.perform_async(@partner_session_id, @activity_session.activity.name, @activity_session.percentage, @results_url, @activity_session.activity.description)
+      AmplifyReportActivityWorker.perform_async(@partner_session_id, @activity_session.activity.name, @activity_session.activity.description, @activity_session.percentage, @activity_url, @results_url)
     end
     @activity = @activity_session
     @results  = @activity_session.parse_for_results
