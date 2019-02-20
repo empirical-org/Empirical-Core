@@ -1,13 +1,35 @@
-<% @active_tab = 'ELA Standards' %>
-<%= render partial: 'pages/shared/explore_curriculum_navbar', active_tab: @active_tab  %>
+<div class="subnav">
+  <div class="container">
+  <% tabs = [
+    {name: 'Featured Activities', url: 'amplify'},
+    {name: 'Explore All Activities', url: 'amplify/all'},
+  ]
+    @tabs = tabs
+    @mobile = false
+  %>
+
+  <div class="full-screen">
+    <%= render partial: "pages/shared/generic_tabs", locals: { tabs: @tabs, active_tab: @active_tab, mobile: @mobile } %>
+  </div>
+
+
+  <div class="small-screen">
+    <%= render partial: "pages/shared/generic_tabs", locals: { tabs: @tabs, active_tab:  @active_tab, mobile: @mobile} %>
+  </div>
+
+  </div>
+</div>
 
 <div class="container pages-activities">
 
-  <h1>ELA Standards</h1>
-  <p>
-  We've built over 300 research-based writing, grammar, and proofreading activities organized by the Common Core standards. We are a nonprofit organization, and all of our activities are and will always be free. Each of our activities takes approximately 10-15 minutes. Teachers using Quill in a 1:1 classroom tend to assign Quill activities as a warm up exercise at the beginning of a class or as a group activity with the whole class.
-  </p>
-
+<% if @active_tab == 'Featured Activities' %>
+  <div>
+    <h1>Quill.org for Amplify Students</h1>
+    <p>
+    Choose your learning acticity by clicking on start acticity.  When you complete the activity, your score will be shared with your teacher in his or her Amplify gradebook.
+    </p>
+  </div>
+<% elsif @active_tab == 'Explore All Activities' %>
   <div class="dropdown-container">
     <div>
       <div class="button select-mixin select-gray button-select button-select-wrapper" type='button' data-toggle='dropdown'>
@@ -21,6 +43,7 @@
       </ul>
     </div>
   </div>
+<% end %>
 
   <% @topics.each do |topic, activities| %>
     <div class="topic">

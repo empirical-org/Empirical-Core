@@ -6,6 +6,7 @@ class IntegrationsController < ApplicationController
     store_partner_session()
     @body_class = 'full-width-page white-page'
     @js_file = 'public'
+    @active_tab = 'Featured Activities'
     # get list of activities to pass to view
     # @section = if params[:section_id].present? then Section.find(params[:section_id]) else Section.first end
     @section = Section.first
