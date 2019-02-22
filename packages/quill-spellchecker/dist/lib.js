@@ -1,6 +1,6 @@
 /*!
- * {LIB} v0.1.7
- * (c) 2018 {NAME}
+ * {LIB} v0.1.8
+ * (c) 2019 {NAME}
  * Released under the MIT License.
  */
 'use strict';
@@ -23,7 +23,7 @@ function train(text, existingDictionary) {
     return dictionary;
 }
 
-var letters = "abcdefghijklmnopqrstuvwxyz0123456789".split("");
+var letters = "abcdefghijklmnopqrstuvwxyz0123456789'$%-".split("");
 
 function edits(word) {
     var i, results = [];
@@ -82,7 +82,7 @@ function correct(dictionary, potentialWord) {
 
 function processSentence(sentence) {
     if (sentence) {
-        return sentence.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, '').replace(/\s/g, '\n');
+        return sentence.replace(/[.,\/#!\^&\*;:{}=_`~()]/g, '').replace(/\s/g, '\n');
     }
     return '';
 }
