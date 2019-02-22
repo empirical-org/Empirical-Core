@@ -43,7 +43,7 @@ class Auth::GoogleController < ApplicationController
   end
 
   def check_if_email_matches
-    if current_user && current_user.email.downcase != @user.email
+    if current_user && current_user.email && current_user.email.downcase != @user.email
       redirect_to auth_google_email_mismatch_path(google_email: @user.email)
     end
   end

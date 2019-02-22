@@ -4,7 +4,7 @@ describe ErrorsController do
   describe '#error_404' do
     it 'should set not found path' do
       get :error_404, not_found: "www.test.com"
-      expect(assigns(:not_found_path)).to eq "www.test.com"
+      assert_response :not_found
     end
   end
 
