@@ -347,6 +347,10 @@
 }
 
 .find-and-replace {
+  max-width: 1200px;
+  border: 1px solid #c0c0c1;
+  margin: 30px;
+  border-radius: 6px;
   .section-number {
     padding: 3px 10px;
     border: 1px solid #c0c0c1;
@@ -357,7 +361,9 @@
   }
   .find-and-replace-section {
     padding: 30px;
-    border-bottom: 1px solid #c0c0c1;
+    &:not(.replace-section) {
+      border-bottom: 1px solid #c0c0c1;
+    }
   }
   .find-and-replace-section-header {
     display: flex;
