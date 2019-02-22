@@ -113,7 +113,7 @@ class ConceptReplaceForm extends React.Component<ConceptReplaceFormProps, any> {
                 </div>
                 {this.renderDropdownInput('replaced')}
               </div>
-              <div className="find-and-replace-section">
+              <div className="find-and-replace-section replace-section">
                 <div className="find-and-replace-section-header">
                   <div className="section-number">3</div>
                   <h2>Replace with this tag</h2>
