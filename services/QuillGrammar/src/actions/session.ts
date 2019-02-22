@@ -141,7 +141,7 @@ export const getQuestions = (questions: any) => {
 export const checkAnswer = (response: string, question: Question, responses: Response[], isFirstAttempt: Boolean) => {
   return dispatch => {
     const questionUID: string = question.uid
-    const focusPoints = question.focusPoints ? hashToCollection(question.focusPoints) : [];
+    const focusPoints = question.focusPoints ? hashToCollection(question.focusPoints).sort((a, b) => a.order - b.order) : [];
     const incorrectSequences = question.incorrectSequences ? hashToCollection(question.incorrectSequences) : [];
     const defaultConceptUID = question.modelConceptUID || question.concept_uid
     const responseObj = checkGrammarQuestion(questionUID, response, responses, focusPoints, incorrectSequences, defaultConceptUID)
