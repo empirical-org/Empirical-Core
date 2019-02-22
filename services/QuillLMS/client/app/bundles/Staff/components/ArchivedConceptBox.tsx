@@ -58,6 +58,7 @@ interface ArchivedConceptBoxProps {
   levelNumber: Number;
   concept: Concept;
   finishEditingConcept(data:any): void;
+  closeConceptBox(event:any): void;
 }
 
 interface ArchivedConceptBoxState {
@@ -298,6 +299,7 @@ class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, Archiv
       <Mutation mutation={EDIT_CONCEPT} onCompleted={this.props.finishEditingConcept}>
         {(editConcept, {}) => (
           <div className="concept-box archived-concept-box">
+          <span className="close-concept-box" onClick={this.props.closeConceptBox}><i className="fas fa-times"/></span>
             <form onSubmit={(e) => this.handleSubmit(e, editConcept)} acceptCharset="UTF-8" >
               <div className="static">
                 <p>Level {this.props.levelNumber}</p>

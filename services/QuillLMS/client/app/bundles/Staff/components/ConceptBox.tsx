@@ -60,6 +60,7 @@ interface ConceptBoxProps {
   concept: Concept;
   levelNumber: Number;
   finishEditingConcept(data: any): void;
+  closeConceptBox(event): void;
 }
 
 class ConceptBox extends React.Component<ConceptBoxProps, ConceptBoxState> {
@@ -260,12 +261,13 @@ class ConceptBox extends React.Component<ConceptBoxProps, ConceptBoxState> {
   }
 
   render() {
-    const { finishEditingConcept, levelNumber } = this.props
+    const { finishEditingConcept, levelNumber, closeConceptBox } = this.props
     const { concept } = this.state
     return  (
       <Mutation mutation={EDIT_CONCEPT} onCompleted={finishEditingConcept}>
         {(editConcept, {}) => (
           <div className="concept-box">
+            <span className="close-concept-box" onClick={closeConceptBox}><i className="fas fa-times"/></span>
             <form onSubmit={(e) => this.handleSubmit(e, editConcept)} acceptCharset="UTF-8" >
               <div className="static">
                 <p>Level {levelNumber}</p>
