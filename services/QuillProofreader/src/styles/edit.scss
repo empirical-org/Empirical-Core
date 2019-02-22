@@ -51,12 +51,6 @@
     font-family: "Monospaced Number", "Chinese Quote", -apple-system, system-ui, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
     &.offset {
       left: -130px;
-      @media (max-width: 900px) {
-        left: -160px;
-      }
-      @media (max-width: 750px) {
-        left: -200px;
-      }
     }
 
     .top-section {
@@ -131,6 +125,19 @@
 
     &.invisible {
       display: none;
+    }
+    @media (max-width: 900px) {
+      width: 230px;
+      .top-section {
+        flex-direction: column;
+        align-items: flex-start;
+        p {
+          margin-left: 43px;
+        }
+      }
+      .button-section {
+        justify-content: flex-start;
+      }
     }
   }
 }

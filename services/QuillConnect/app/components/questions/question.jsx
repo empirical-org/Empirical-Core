@@ -196,7 +196,7 @@ const Question = React.createClass({
       let instructionText = 'Combine the sentences into one sentence.'
       if (instructions) {
         instructionText = instructions
-      } else if (cues) {
+      } else if (cues && cues.length > 0 && cues[0] !== "") {
         if (cues.length === 1) {
           instructionText = "Combine the sentences into one sentence. Use the joining word."
         } else {
