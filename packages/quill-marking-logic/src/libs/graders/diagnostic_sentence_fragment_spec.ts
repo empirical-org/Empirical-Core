@@ -1,7 +1,7 @@
 import { responses, incorrectSequences, focusPoints } from '../../../test/data/batswings'
 import { assert } from 'chai';
-// import {checkSentenceFragment} from './sentence_fragment'
-import {checkSentenceFragment} from '../../../dist/lib'
+// import {checkDiagnosticSentenceFragment} from './sentence_fragment'
+import {checkDiagnosticSentenceFragment} from '../../../dist/lib'
 import {Response} from '../../interfaces';
 import { feedbackStrings } from '../constants/feedback_strings';
 import {spacingBeforePunctuation} from '../algorithms/spacingBeforePunctuation'
@@ -26,7 +26,7 @@ describe('The checking a sentence fragment', () => {
         question_uid: responses[0].question_uid,
         wordCountChange: {min: 1, max: 4}
       };
-      const matchedResponse = checkSentenceFragment(fields);
+      const matchedResponse = checkDiagnosticSentenceFragment(fields);
       matchedResponse.then(resp => {
         assert.equal(resp.id, responses[0].id);
       })
@@ -37,7 +37,7 @@ describe('The checking a sentence fragment', () => {
         ...initialFields,
         response: 'Bats have wings, so they can fly. ',
       };
-      const matchedResponse = checkSentenceFragment(fields);
+      const matchedResponse = checkDiagnosticSentenceFragment(fields);
       matchedResponse.then(resp => {
         assert.equal(resp.id, responses[0].id);
       })
@@ -48,7 +48,7 @@ describe('The checking a sentence fragment', () => {
         ...initialFields,
         response: 'Bats have wings,  so they can fly.',
       };
-      const matchedResponse = checkSentenceFragment(fields);
+      const matchedResponse = checkDiagnosticSentenceFragment(fields);
       matchedResponse.then(resp => {
         assert.equal(resp.id, responses[0].id);
       })
@@ -60,7 +60,7 @@ describe('The checking a sentence fragment', () => {
         ...initialFields,
         response: 'So bats have wings and they can fly.',
       };
-      const matchedResponse = checkSentenceFragment(fields);
+      const matchedResponse = checkDiagnosticSentenceFragment(fields);
       matchedResponse.then(resp => {
         assert.equal(resp.feedback, incorrectSequences[0].feedback);
       })
@@ -72,7 +72,7 @@ describe('The checking a sentence fragment', () => {
         ...initialFields,
         response: 'Bats have wings which means that they can fly.',
       };
-      const matchedResponse = checkSentenceFragment(fields);
+      const matchedResponse = checkDiagnosticSentenceFragment(fields);
       matchedResponse.then(resp => {
         assert.equal(resp.feedback, focusPoints[0].feedback);
       })
@@ -83,7 +83,7 @@ describe('The checking a sentence fragment', () => {
         ...initialFields,
         response: 'Bats have wings, so means that they can fly very far.',
       };
-      const matchedResponse = checkSentenceFragment(fields);
+      const matchedResponse = checkDiagnosticSentenceFragment(fields);
       matchedResponse.then(resp => {
         assert.equal(resp.feedback, 'Revise your work. Add one to three words to the prompt to make the sentence complete.');
       })
@@ -94,9 +94,10 @@ describe('The checking a sentence fragment', () => {
         ...initialFields,
         response: "bats have wings, so they can fly.",
       };
-      const matchedResponse = checkSentenceFragment(fields);
+      const matchedResponse = checkDiagnosticSentenceFragment(fields);
       matchedResponse.then(resp => {
-        assert.equal(resp.feedback, feedbackStrings.caseError);
+        assert.equal(resp.feedback, feedbackStrings.caseError)
+        assert.equal(resp.concept_results[0].conceptUID, responses[0].question_uid);
       })
     });
 
@@ -105,15 +106,16 @@ describe('The checking a sentence fragment', () => {
         ...initialFields,
         response: "Bats have wings so they can fly far",
       };
-      const matchedResponse = checkSentenceFragment(fields);
+      const matchedResponse = checkDiagnosticSentenceFragment(fields);
       matchedResponse.then(resp => {
         assert.equal(resp.feedback, feedbackStrings.punctuationError);
+        assert.equal(resp.concept_results[0].conceptUID, responses[0].question_uid);
       })
     });
 
     it('should be able to find a punctuation and case insensitive match', () => {
       // const responseString = "bats have wings so they can fly."
-      // const matchedResponse = checkSentenceFragment('questionOne', responseString, responses, {min: 1, max: 3}, false, incorrectSequences, 'Bats have wings they can fly.');
+      // const matchedResponse = checkDiagnosticSentenceFragment('questionOne', responseString, responses, {min: 1, max: 3}, false, incorrectSequences, 'Bats have wings they can fly.');
       // assert.equal(matchedResponse.feedback, feedbackStrings.punctuationAndCaseError);
     });
 
@@ -122,9 +124,10 @@ describe('The checking a sentence fragment', () => {
         ...initialFields,
         response: "Bats have wings so they can fly far .",
       };
-      const matchedResponse = checkSentenceFragment(fields);
+      const matchedResponse = checkDiagnosticSentenceFragment(fields);
       matchedResponse.then(resp => {
         assert.equal(resp.feedback, spacingBeforePunctuation("Bats have wings so they can fly far .").feedback);
+        assert.equal(resp.concept_results[0].conceptUID, responses[0].question_uid);
       });
     });
 
@@ -133,9 +136,10 @@ describe('The checking a sentence fragment', () => {
         ...initialFields,
         response: "Bats have wings,so they can fly far.",
       };
-      const matchedResponse = checkSentenceFragment(fields);
+      const matchedResponse = checkDiagnosticSentenceFragment(fields);
       matchedResponse.then(resp => {
         assert.equal(resp.feedback, feedbackStrings.spacingAfterCommaError);
+        assert.equal(resp.concept_results[0].conceptUID, responses[0].question_uid);
       });
     });
   });
