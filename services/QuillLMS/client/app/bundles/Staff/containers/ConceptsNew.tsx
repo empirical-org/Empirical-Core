@@ -56,7 +56,8 @@ class AddConcept extends React.Component<{}, AddConceptState> {
   }
 
   finishEditingOrCreatingConcept(refetch) {
-    this.setState({ showSuccessBanner: true, selectedConcept: {} }, () => refetch())
+    refetch()
+    this.setState({ showSuccessBanner: true, selectedConcept: {} })
   }
 
   closeEditSuccessBanner() {
