@@ -48,6 +48,7 @@ class AddConcept extends React.Component<{}, AddConceptState> {
     this.selectConcept = this.selectConcept.bind(this)
     this.finishEditingOrCreatingConcept = this.finishEditingOrCreatingConcept.bind(this)
     this.closeEditSuccessBanner = this.closeEditSuccessBanner.bind(this)
+    this.closeConceptBox = this.closeConceptBox.bind(this)
   }
 
   selectConcept(conceptID, levelNumber) {
@@ -60,6 +61,10 @@ class AddConcept extends React.Component<{}, AddConceptState> {
 
   closeEditSuccessBanner() {
     this.setState({ showSuccessBanner: false })
+  }
+
+  closeConceptBox() {
+    this.setState({ selectedConcept: {} })
   }
 
   renderContent() {
@@ -90,6 +95,7 @@ class AddConcept extends React.Component<{}, AddConceptState> {
         levelNumber={levelNumber}
         finishEditingConcept={() => this.finishEditingOrCreatingConcept(refetch)}
         visible={true}
+        closeConceptBox={this.closeConceptBox}
       />
     } else {
       return this.renderAddNewConceptsForms(refetch, concepts)

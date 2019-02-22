@@ -50,6 +50,7 @@ interface ConceptBoxContainerProps {
   visible: Boolean;
   levelNumber: Number;
   finishEditingConcept: Function;
+  closeConceptBox: Function;
 }
 
 class ConceptBoxContainer extends React.Component<any, ConceptBoxContainerProps> {
@@ -58,7 +59,7 @@ class ConceptBoxContainer extends React.Component<any, ConceptBoxContainerProps>
   }
 
   render() {
-    const { conceptID, visible, levelNumber, finishEditingConcept } = this.props
+    const { conceptID, visible, levelNumber, finishEditingConcept, closeConceptBox } = this.props
     return  (
       <Query
         query={gql(conceptQuery(conceptID))}
@@ -74,6 +75,7 @@ class ConceptBoxContainer extends React.Component<any, ConceptBoxContainerProps>
                 concept={concept}
                 levelNumber={levelNumber}
                 finishEditingConcept={finishEditingConcept}
+                closeConceptBox={closeConceptBox}
               />
             )
           } else {
@@ -82,6 +84,7 @@ class ConceptBoxContainer extends React.Component<any, ConceptBoxContainerProps>
                 concept={concept}
                 levelNumber={levelNumber}
                 finishEditingConcept={finishEditingConcept}
+                closeConceptBox={closeConceptBox}
               />
             )
           }

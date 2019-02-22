@@ -63,6 +63,7 @@ class ConceptsIndex extends React.Component<any, ConceptsIndexState> {
     }
     this.updateSearchValue = this.updateSearchValue.bind(this)
     this.selectConcept = this.selectConcept.bind(this)
+    this.closeConceptBox = this.closeConceptBox.bind(this)
     this.finishEditingConcept = this.finishEditingConcept.bind(this)
     this.closeEditSuccessBanner = this.closeEditSuccessBanner.bind(this)
     this.setVisible = this.setVisible.bind(this)
@@ -123,6 +124,10 @@ class ConceptsIndex extends React.Component<any, ConceptsIndexState> {
     this.setState({ selectedConcept: { conceptID, levelNumber }})
   }
 
+  closeConceptBox() {
+    this.setState({ selectedConcept: {} })
+  }
+
   renderConceptBox(refetch) {
     const { selectedConcept, visible } = this.state
     const { conceptID, levelNumber } = selectedConcept
@@ -132,6 +137,7 @@ class ConceptsIndex extends React.Component<any, ConceptsIndexState> {
         levelNumber={levelNumber}
         visible={visible}
         finishEditingConcept={() => this.finishEditingConcept(refetch)}
+        closeConceptBox={this.closeConceptBox}
       />
     }
   }
