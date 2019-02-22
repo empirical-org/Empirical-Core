@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
+  get '/' => 'stats#up'
 
   resources :responses
   get  'questions/:question_uid/responses' => 'responses#responses_for_question'
+  get  'questions/:question_uid/multiple_choice_options' => 'responses#multiple_choice_options'
   get  'questions/:question_uid/health' => 'responses#get_health_of_question'
   get  'questions/:question_uid/grade_breakdown' => 'responses#get_grade_breakdown'
   post 'responses/create_or_increment'

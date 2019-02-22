@@ -121,6 +121,10 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       }
     }
 
+    defaultInstructions() {
+      return 'Find and correct the errors in the passage. To edit a word, click on it and re-type it.'
+    }
+
     formatInitialPassage(passage: string, underlineErrors: boolean) {
       const necessaryEdits = []
       passage = passage.replace(/&#x27;/g, "'").replace(/&quot;/g, '"')
@@ -426,7 +430,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
                   metadata: {
                     answer: text,
                     correct: 1,
-                    instructions: currentActivity.description,
+                    instructions: currentActivity.description || this.defaultInstructions(),
                     prompt: originalText,
                     questionNumber: id + 1,
                     unchanged: false,
@@ -440,7 +444,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
                   metadata: {
                     answer: text,
                     correct: 0,
-                    instructions: currentActivity.description,
+                    instructions: currentActivity.description || this.defaultInstructions(),
                     prompt: originalText,
                     questionNumber: id + 1,
                     unchanged: false,
@@ -479,7 +483,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
                 metadata: {
                   answer: text,
                   correct: 1,
-                  instructions: currentActivity.description,
+                  instructions: currentActivity.description || this.defaultInstructions(),
                   prompt: originalText,
                   questionNumber: Number(id) + 1,
                   unchanged: true,
@@ -493,7 +497,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
                 metadata: {
                   answer: text,
                   correct: 0,
-                  instructions: currentActivity.description,
+                  instructions: currentActivity.description || this.defaultInstructions(),
                   prompt: originalText,
                   questionNumber: Number(id) + 1,
                   unchanged: true,
@@ -671,7 +675,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
               <div className="instructions">
                 <div>
                   <img src={questionIconSrc} />
-                  <p dangerouslySetInnerHTML={{__html: currentActivity.description}}/>
+                  <p dangerouslySetInnerHTML={{__html: currentActivity.description || this.defaultInstructions()}}/>
                 </div>
                 <div className="edits-made">
                   <p>Edits Made: {edits.length} of {numberOfCorrectEdits}</p>
