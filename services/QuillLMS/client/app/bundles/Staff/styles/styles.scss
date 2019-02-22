@@ -36,6 +36,7 @@
 
 .certain-category-search-wrapper {
   margin-bottom: 20px;
+  max-width: 1200px;
   .anticon-search:before {
     display: none;
   }
@@ -124,19 +125,21 @@
 .concepts-index {
   padding: 30px;
   background-color: white;
+  min-width: 2000px;
 }
 
 .concepts-index-bottom {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 
 .concepts-table-container {
-  width: 885px;
+  width: 1200px;
   padding: 30px 20px;
   background-color: white;
   border: 1px solid #ebebeb;
   border-radius: 6px;
+  margin-right: 20px;
   td div {
     cursor: pointer;
   }
@@ -161,6 +164,12 @@
     .input-container {
       width: 220px;
     }
+  }
+  .close-concept-box {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    cursor: pointer;
   }
   .static {
     p {
