@@ -53,7 +53,8 @@ const posConceptResults = {
 
 export function getCommonWords(sentences: Array<string>):Array<string> {
   const words = _.map(sentences, sentence => normalizeString(sentence).split(' '));
-  return _.intersection(...words);
+  const commonWords =  _.intersection(...words)
+  return commonWords.filter(word => !/%|'/g.test(word))
 }
 
 export function getCommonWordsWithImportantPOS(sentences: Array<string>):Array<string> {
