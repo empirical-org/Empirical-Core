@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get '/' => 'stats#up'
 
   resources :responses
   get  'questions/:question_uid/responses' => 'responses#responses_for_question'
