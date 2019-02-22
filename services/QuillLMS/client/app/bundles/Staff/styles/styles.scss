@@ -151,6 +151,7 @@
   border: 1px solid #ebebeb;
   border-radius: 6px;
   width: 500px;
+  margin-bottom: 10px;
   &:not(.create-concept-box) {
     position: -webkit-sticky; /* Safari */
     position: sticky;
@@ -242,7 +243,7 @@
 .concept-column {
   border: 1px solid #ebebeb;
   width: 300px;
-  height: 450px;
+  height: 863px;
   border-radius: 6px;
   margin-right: 20px;
   padding: 10px 0px;
@@ -280,7 +281,7 @@
 
 .concept-list {
   padding: 0px 20px;
-  height: 400px;
+  height: 815px;
   overflow: scroll;
 }
 
