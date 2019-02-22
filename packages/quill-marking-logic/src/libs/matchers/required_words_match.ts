@@ -5,7 +5,6 @@ import {getOptimalResponses, getTopOptimalResponse} from '../sharedResponseFunct
 import {Response, FeedbackObject, PartialResponse} from '../../interfaces'
 import {conceptResultTemplate} from '../helpers/concept_result_template'
 
-
 export function requiredWordsMatch(responseString: string, responses:Array<Response>):FeedbackObject {
   return checkForMissingWords(stringNormalize(responseString), getOptimalResponses(responses));
 }
