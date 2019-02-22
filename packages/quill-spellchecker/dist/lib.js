@@ -1,5 +1,5 @@
 /*!
- * {LIB} v0.1.10
+ * {LIB} v0.1.11
  * (c) 2019 {NAME}
  * Released under the MIT License.
  */
@@ -14,7 +14,7 @@ function train(text, existingDictionary) {
     }
     var dictionary = existingDictionary ? Object.assign({}, existingDictionary) : {};
     var word, m;
-    var r = /[a-z0-9]+/gi;
+    var r = /[a-z0-9%\-'$]+/gi;
     text = text;
     while (m = r.exec(text)) {
         word = m[0];
