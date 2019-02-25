@@ -47,7 +47,6 @@ interface ScriptContainerProps {
 }
 
 interface ScriptContainerState {
-  projecting: boolean,
   showAllStudents: boolean,
   sort: string,
   sortDirection: string,
@@ -66,7 +65,6 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     const prompt = this.props.prompt;
     const promptNotEmpty = textEditorInputNotEmpty(prompt);
     this.state = {
-      projecting: this.props.modes && (this.props.modes[this.props.current_slide] === "PROJECT") ? true : false,
       showAllStudents: false,
       sort: 'time',
       sortDirection: 'desc',
@@ -90,9 +88,6 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState( {
-      projecting: nextProps.modes && (nextProps.modes[nextProps.current_slide] === "PROJECT") ? true : false
-    })
     if (this.props.current_slide !== nextProps.current_slide) {
       const models = nextProps.models;
       const current = nextProps.current_slide;
@@ -114,6 +109,13 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
       }
     }
   }
+
+  getCurrentSlideMode():string|null {
+    if (this.props.modes) {
+      return this.props.modes[this.props.current_slide]
+    }
+  }
+
 
   renderScript(script: Array<ScriptItem>) {
     return script.map((item, index) => {
@@ -148,7 +150,6 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
   }
 
   startDisplayingAnswers() {
-    this.setState({projecting: true})
     this.props.startDisplayingAnswers();
   }
 
@@ -161,7 +162,6 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
   }
 
   stopDisplayingAnswers() {
-    this.setState({projecting: false})
     this.props.stopDisplayingAnswers();
   }
 
@@ -195,7 +195,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
   }
 
   renderDisplayButton() {
-    if (this.state.projecting) {
+    if (this.getCurrentSlideMode() === "PROJECT") {
       return (
         <button className={"show-prompt-button "} onClick={this.stopDisplayingAnswers}>Stop Displaying Answers</button>
       )

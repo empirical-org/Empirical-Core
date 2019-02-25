@@ -60,6 +60,7 @@ type ClassroomLessonSession {
   followUpUrl: String
   id: ID
   models: JSON
+  modes: JSON
   prompts: JSON
   startTime: String
   student_ids: JSON

@@ -21,6 +21,7 @@ const QUERY = gql`
       followUpOption
       followUpUrl
       models
+      modes
       prompts
       selected_submissions
       selected_submission_order
