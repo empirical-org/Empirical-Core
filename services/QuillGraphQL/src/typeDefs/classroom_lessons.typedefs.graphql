@@ -103,6 +103,7 @@ type Mutation {
   selectStudentSubmission(id: String!, slideNumber: String!, studentId: String!): RethinkChangeObject
   deselectStudentSubmission(id: String!, slideNumber: String!, studentId: String!): RethinkChangeObject
   deselectAllStudentSubmissions(id: String!, slideNumber: String!): RethinkChangeObject
+  setModeForSlide(id: String!, slideNumber: String!, value: String): RethinkChangeObject
 }
 
 type Subscription {

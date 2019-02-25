@@ -30,6 +30,9 @@ import {
   deselectStudentSubmission,
   deselectAllStudentSubmissions
 } from '../mutations/selectingStudents'
+import {
+  setModeForSlide
+} from '../mutations/setModeForSlide'; 
 const uncheckedGrayCheckbox = 'https://assets.quill.org/images/icons/box_gray_unchecked.svg'
 const checkedGrayCheckbox = 'https://assets.quill.org/images/icons/box_gray_checked.svg'
 const uncheckedGreenCheckbox = 'https://assets.quill.org/images/icons/box_green_unchecked.svg'
@@ -195,23 +198,37 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
   }
 
   renderDisplayButton() {
-    if (this.getCurrentSlideMode() === "PROJECT") {
-      return (
-        <button className={"show-prompt-button "} onClick={this.stopDisplayingAnswers}>Stop Displaying Answers</button>
-      )
-    } else {
-      const selected_submissions: SelectedSubmissions = this.props.selected_submissions;
-      const current_slide: string = this.props.current_slide;
-      let buttonInactive: boolean = true;
-      let buttonClass: string = "inactive";
-      if (selected_submissions && selected_submissions[current_slide]) {
-        buttonInactive = false;
-        buttonClass = "active";
+    return (
+      <Mutation mutation={setModeForSlide}>
+        {(setModeForSlide, {data}) => {
+          if (this.getCurrentSlideMode() === "PROJECT") {
+            return (
+              <button className={"show-prompt-button "} onClick={() => setModeForSlide({variables: {
+                id: this.props.sessionId,
+                slideNumber: this.props.current_slide
+              }})}>Stop Displaying Answers</button>
+            )
+          } else {
+            const selected_submissions: SelectedSubmissions = this.props.selected_submissions;
+            const current_slide: string = this.props.current_slide;
+            let buttonInactive: boolean = true;
+            let buttonClass: string = "inactive";
+            if (selected_submissions && selected_submissions[current_slide]) {
+              buttonInactive = false;
+              buttonClass = "active";
+            }
+            return (
+              <button className={"display-button " + buttonClass} disabled={buttonInactive} onClick={() => setModeForSlide({variables: {
+                id: this.props.sessionId,
+                slideNumber: this.props.current_slide,
+                value: "PROJECT"
+              }})}>Display Selected Answers</button>
+            )
+          }
+        }
       }
-      return (
-        <button className={"display-button " + buttonClass} disabled={buttonInactive} onClick={this.startDisplayingAnswers}>Display Selected Answers</button>
-      )
-    }
+      </Mutation>
+    )
   }
 
   renderShowRemainingStudentsButton() {

@@ -42,6 +42,7 @@ export default {
     selectStudentSubmission,
     deselectStudentSubmission,
     deselectAllStudentSubmissions,
+    setModeForSlide
   },
   Subscription: {
     classroomLessonSession: {
@@ -243,6 +244,19 @@ async function deselectAllStudentSubmissions(_, {id, studentId, slideNumber}, ct
       keyArrayToRemovalHash(["selected_submission_order", slideNumber])
     );
     return removeValueFromSession(id, payload);
+  } else {
+    return new ForbiddenError("You are not the teacher of this session")
+  }
+}
+
+async function setModeForSlide(_, {id, slideNumber, value}, ctx):Promise<RethinkChangeObject|Error> {
+  if (await authHelper(id, 'teacher', ctx)) {
+    if (value) {
+      const payload = keysArrayAndValueToNestedValue(["modes", slideNumber], value)
+      return updateValuesForSession(id, payload)
+    }
+    const payload = keyArrayToRemovalHash(["modes", slideNumber])
+    return removeValueFromSession(id, payload)
   } else {
     return new ForbiddenError("You are not the teacher of this session")
   }
