@@ -111,7 +111,7 @@ const Lesson = React.createClass({
         } else {
           this.setState({
             saved: false,
-            error: true,
+            error: body.meta.message,
           });
         }
       }

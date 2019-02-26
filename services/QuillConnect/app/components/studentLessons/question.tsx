@@ -175,7 +175,7 @@ const playLessonQuestion = React.createClass<any, any>({
   },
 
   checkAnswer(e) {
-    if (this.state.editing) {
+    if (this.state.editing && this.getResponses() && Object.keys(this.getResponses()).length) {
       this.removePrefilledUnderscores();
       const response = getResponse(this.getQuestion(), this.state.response, this.getResponses());
       this.updateResponseResource(response);
@@ -189,7 +189,7 @@ const playLessonQuestion = React.createClass<any, any>({
   },
 
   toggleDisabled() {
-    if (this.state.editing) {
+    if (this.state.editing && this.getResponses() && Object.keys(this.getResponses()).length) {
       return '';
     }
     return 'is-disabled';
