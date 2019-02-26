@@ -108,7 +108,7 @@ const StudentDiagnostic = React.createClass({
           console.log('Finished Saving');
           console.log(err, httpResponse, body);
           SessionActions.delete(this.state.sessionID);
-          document.location.href = `${process.env.EMPIRICAL_BASE_URL}/activity_sessions/${this.state.sessionID}`;
+          document.location.href = process.env.EMPIRICAL_BASE_URL
           this.setState({ saved: true, });
         } else {
           this.setState({
