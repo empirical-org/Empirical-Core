@@ -93,12 +93,11 @@ const StudentDiagnostic = React.createClass({
     this.setState({ error: false, });
     const results = getConceptResultsForAllQuestions(this.props.playDiagnostic.answeredQuestions);
 
-    const { diagnosticID, } = this.props.params;
     const sessionID = this.state.sessionID;
     if (sessionID) {
       this.finishActivitySession(sessionID, results, 1);
     } else {
-      this.createAnonActivitySession(diagnosticID, results, 1);
+      this.createAnonActivitySession('ell', results, 1);
     }
   },
 
@@ -118,11 +117,13 @@ const StudentDiagnostic = React.createClass({
           console.log('Finished Saving');
           console.log(err, httpResponse, body);
           SessionActions.delete(this.state.sessionID);
-          document.location.href = process.env.EMPIRICAL_BASE_URL;
+          document.location.href = `${process.env.EMPIRICAL_BASE_URL}/activity_sessions/${this.state.sessionID}`;
           this.setState({ saved: true, });
         } else {
-          console.log('Save not successful');
-          this.setState({ saved: false, error: true, });
+          this.setState({
+            saved: false,
+            error: body.meta.message,
+          });
         }
       }
     );

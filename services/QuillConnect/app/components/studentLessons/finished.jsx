@@ -44,7 +44,7 @@ export default React.createClass({
         Please provide the following URL to help us solve the problem.
         </p>)
     } else {
-      header = "We Couldn't Save Your Lesson."
+      header = "We Couldn't Save Your Activity Session."
       message = (<p>Your results could not be saved. <br />
         Make sure you are connected to the internet.<br />
         You can attempt to save again using the button below.<br />
