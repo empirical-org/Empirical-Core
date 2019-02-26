@@ -558,6 +558,8 @@ EmpiricalGrammar::Application.routes.draw do
 
   # Integration routes (which should look pretty, and thus need some specifying)
   get 'amplify' => 'integrations#amplify'
+  get 'amplify/all' => 'integrations#amplify_all'
+  get 'amplify/section/:section_id' => 'integrations#amplify_all', as: "amplify_browse_section"
 
 
   # Count route to get quantities
