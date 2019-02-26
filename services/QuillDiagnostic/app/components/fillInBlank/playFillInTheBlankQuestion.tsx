@@ -269,7 +269,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
   }
 
   checkAnswer() {
-    if (!this.state.inputErrors.size) {
+    if (!this.state.inputErrors.size && this.state.responses) {
       if (!this.state.blankAllowed) {
         if (this.state.inputVals.filter(Boolean).length !== this.state.inputVals.length) {
           this.state.inputVals.forEach((val, i) => this.validateInput(i))
