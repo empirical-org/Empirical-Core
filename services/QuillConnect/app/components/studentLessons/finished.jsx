@@ -33,15 +33,29 @@ export default React.createClass({
   },
 
   renderErrorState() {
+    let header
+    let message
+    if (this.props.error === "Activity Session Already Completed") {
+      header = "This Activity Session Has Already Been Completed"
+      message = (<p>
+        The activity session with this unique identifier has already been&nbsp;completed.<br />
+        In order to redo this activity, you must return to your dashboard and click "Replay Activity".<br />
+        If you believe that you have received this message in error, ask your teacher to contact Quill.<br />
+        Please provide the following URL to help us solve the problem.
+        </p>)
+    } else {
+      header = "We Couldn't Save Your Lesson."
+      message = (<p>Your results could not be saved. <br />
+        Make sure you are connected to the internet.<br />
+        You can attempt to save again using the button below.<br />
+        If the issue persists, ask your teacher to contact Quill.<br />
+        Please provide the following URL to help us solve the problem.
+      </p>)
+    }
     return (
       <div className="landing-page">
-        <h1>We Couldn't Save Your Lesson.</h1>
-        <p>
-          Your results could not be saved. <br />Make sure you are connected to the internet.<br />
-          You can attempt to save again using the button below.<br />
-          If the issue persists, ask your teacher to contact Quill.<br />
-          Please provide the following URL to help us solve the problem.
-        </p>
+        <h1>{header}</h1>
+        {message}
         <p><code style={{ fontSize: 14, }}>
           {window.location.href}
         </code></p>
