@@ -7,6 +7,8 @@ import { Concept } from '../interfaces/interfaces'
 interface ConceptLevelsProps {
   concepts: Array<Concept>;
   selectConcept: Function;
+  unselectConcept(any): void;
+  selectedConcept: { levelNumber?: Number, conceptID?: Number},
 }
 
 export default class ConceptLevels extends React.Component<ConceptLevelsProps, any> {
@@ -34,16 +36,22 @@ export default class ConceptLevels extends React.Component<ConceptLevelsProps, a
         concepts={levelTwoConcepts}
         levelNumber={2}
         selectConcept={this.props.selectConcept}
+        unselectConcept={this.props.unselectConcept}
+        selectedConcept={this.props.selectedConcept}
       />
       <ConceptColumn
         concepts={levelOneConcepts}
         levelNumber={1}
         selectConcept={this.props.selectConcept}
+        unselectConcept={this.props.unselectConcept}
+        selectedConcept={this.props.selectedConcept}
       />
       <ConceptColumn
         concepts={levelZeroConcepts}
         levelNumber={0}
         selectConcept={this.props.selectConcept}
+        unselectConcept={this.props.unselectConcept}
+        selectedConcept={this.props.selectedConcept}
       />
     </div>
   }

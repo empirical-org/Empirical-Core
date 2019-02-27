@@ -149,7 +149,7 @@ class ConceptBox extends React.Component<ConceptBoxProps, ConceptBoxState> {
           console.log('error', error)
           if (loading) return <p>Loading...</p>;
           if (error) return <p>Error :(</p>;
-          const possibleConcepts = data.concepts.filter(c => c.visible && c.parent.visible);
+          const possibleConcepts = data.concepts.filter(c => c.visible && c.parent.visible).sort((a, b) => a.label.localeCompare(b.label));
           const value = possibleConcepts.find(opt => opt.value === concept.parent.id)
           return <DropdownInput
             label="Level 1"
@@ -166,7 +166,7 @@ class ConceptBox extends React.Component<ConceptBoxProps, ConceptBoxState> {
         {({ loading, error, data }) => {
           if (loading) return <p>Loading...</p>;
           if (error) return <p>Error :(</p>;
-          const possibleConcepts = data.concepts.filter(c => c.visible);
+          const possibleConcepts = data.concepts.filter(c => c.visible).sort((a, b) => a.label.localeCompare(b.label));
           const value = possibleConcepts.find(opt => opt.value === concept.parent.id)
           return <DropdownInput
             label="Level 2"
