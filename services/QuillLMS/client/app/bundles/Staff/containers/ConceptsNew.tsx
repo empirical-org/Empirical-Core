@@ -51,10 +51,6 @@ class AddConcept extends React.Component<{}, AddConceptState> {
     this.closeConceptBox = this.closeConceptBox.bind(this)
   }
 
-  selectConcept(conceptID, levelNumber) {
-    this.setState({ selectedConcept: { conceptID, levelNumber }})
-  }
-
   finishEditingOrCreatingConcept(refetch) {
     refetch()
     this.setState({ showSuccessBanner: true, selectedConcept: {} })
@@ -64,7 +60,13 @@ class AddConcept extends React.Component<{}, AddConceptState> {
     this.setState({ showSuccessBanner: false })
   }
 
+  selectConcept(conceptID, levelNumber) {
+    console.log('conceptSelected')
+    this.setState({ selectedConcept: { conceptID, levelNumber }})
+  }
+
   closeConceptBox() {
+    console.log('concept unselected')
     this.setState({ selectedConcept: {} })
   }
 
@@ -81,6 +83,8 @@ class AddConcept extends React.Component<{}, AddConceptState> {
           <ConceptLevels
             concepts={concepts}
             selectConcept={this.selectConcept}
+            selectedConcept={this.state.selectedConcept}
+            unselectConcept={this.closeConceptBox}
           />
           {this.renderConceptForms(refetch, concepts)}
         </div>

@@ -119,7 +119,7 @@ class CreateConceptBox extends React.Component<CreateConceptBoxProps, CreateConc
       if (concept.parent && concept.parent.parent && concept.parent.parent.id) {
         possibleConcepts = level1Concepts.filter(c => c.parent.id === concept.parent.parent.id)
       }
-      const options = possibleConcepts.map(c => {return { label: c.name, value: c.id }})
+      const options = possibleConcepts.map(c => {return { label: c.name, value: c.id }}).sort((a, b) => a.label.localeCompare(b.label))
       const value = options.find(opt => opt.value === concept.parent.id)
       return <DropdownInput
         label="Level 1"
@@ -132,7 +132,7 @@ class CreateConceptBox extends React.Component<CreateConceptBoxProps, CreateConc
       if (levelNumber === 0 && concept.parent.id) {
         possibleConcepts = [concept.parent.parent]
       }
-      const options = possibleConcepts.map(c => {return { label: c.name, value: c.id }})
+      const options = possibleConcepts.map(c => {return { label: c.name, value: c.id }}).sort((a, b) => a.label.localeCompare(b.label))
       let value
       if (levelNumber === 0 && concept.parent.parent) {
         value = options.find(opt => opt.value === concept.parent.parent.id)

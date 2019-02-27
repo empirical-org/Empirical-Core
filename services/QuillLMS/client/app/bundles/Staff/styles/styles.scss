@@ -288,9 +288,15 @@
 .concept-list-item {
   padding: 15px 10px;
   border-bottom: 1px solid #ebebeb;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   cursor: pointer;
-  &:hover {
+  &:hover, &.selected {
     background-color: #E8F6F3
+  }
+  .fa-times {
+    cursor: pointer;
   }
 }
 

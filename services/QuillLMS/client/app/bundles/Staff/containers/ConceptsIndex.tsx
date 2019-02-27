@@ -92,6 +92,7 @@ class ConceptsIndex extends React.Component<any, ConceptsIndexState> {
         tokenize: true,
         maxPatternLength: 32,
         minMatchCharLength: 3,
+        threshold: 0.0,
         keys: [
           "name",
           "parent.name",
@@ -167,6 +168,8 @@ class ConceptsIndex extends React.Component<any, ConceptsIndexState> {
       return <ConceptLevels
         concepts={this.filterConcepts(data.concepts, this.state.searchValue).filter(c => !c.visible)}
         selectConcept={this.selectConcept}
+        selectedConcept={this.state.selectedConcept}
+        unselectConcept={this.closeConceptBox}
       />
     }
   }
