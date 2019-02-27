@@ -5,6 +5,8 @@ import { Concept } from '../interfaces/interfaces'
 interface ConceptColumnProps {
   concepts: Array<Concept>;
   selectConcept: Function;
+  unselectConcept(any): void;
+  selectedConcept: { levelNumber?: Number, conceptID?: Number},
   levelNumber: Number;
 }
 
@@ -41,8 +43,14 @@ export default class ConceptColumn extends React.Component<ConceptColumnProps, C
     })
   }
 
+  selectConcept(e, conceptID, levelNumber) {
+    if (e.target.classList.value.includes('concept-list-item')) {
+      this.props.selectConcept(conceptID, levelNumber)
+    }
+  }
+
   renderConceptList() {
-    const { concepts, selectConcept, levelNumber } = this.props
+    const { concepts, levelNumber, selectedConcept } = this.props
     const { sortField, sortOrder } = this.state
     let sortedData
     if (sortField === 'name') {
@@ -54,7 +62,13 @@ export default class ConceptColumn extends React.Component<ConceptColumnProps, C
       sortedData = sortedData.reverse()
     }
     const conceptItems = sortedData.map(c => {
-      return <div onClick={() => selectConcept(c.id, levelNumber)} className="concept-list-item">{c.name}</div>
+      let selected = ''
+      let removeSelectionIcon = <span />
+      if (selectedConcept.conceptID === c.id) {
+        selected = 'selected'
+        removeSelectionIcon = <div onClick={this.props.unselectConcept}><i className="fas fa-times" /></div>
+      }
+      return <div onClick={(e) => this.selectConcept(e, c.id, levelNumber)} className={`concept-list-item ${selected}`}>{c.name}{removeSelectionIcon}</div>
     })
     return <div className="concept-list">{conceptItems}</div>
   }

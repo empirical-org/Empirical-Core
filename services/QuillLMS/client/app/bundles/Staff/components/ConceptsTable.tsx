@@ -1,5 +1,7 @@
 import * as React from 'react';
 import { Table } from 'antd';
+import { firstBy } from "thenby";
+
 import { Concept } from '../containers/ConceptsIndex';
 import moment from 'moment';
 
@@ -27,21 +29,21 @@ function columns(selectConcept) {
       dataIndex: 'grandparentConceptName',
       key: 'grandparentConceptName',
       render: (text, record:ConceptRow) => (<div onClick={() => selectConcept(record.grandparentConceptId, 2)}>{text}</div>),
-      sorter:  (a, b) => a.grandparentConceptName.localeCompare(b.grandparentConceptName),
+      sorter: firstBy('grandparentConceptName').thenBy('parentConceptName').thenBy('conceptName'),
     },
     {
       title: 'Level 1',
       dataIndex: 'parentConceptName',
       key: 'parentConceptName',
       render: (text, record:ConceptRow) => (<div onClick={() => selectConcept(record.parentConceptId, 1)}>{text}</div>),
-      sorter:  (a, b) => a.parentConceptName.localeCompare(b.parentConceptName),
+      sorter: firstBy('parentConceptName').thenBy('conceptName'),
     },
     {
       title: 'Level 0',
       dataIndex: 'conceptName',
       key: 'conceptName',
       render: (text, record:ConceptRow) => (<div onClick={() => selectConcept(record.conceptId, 0)}>{text}</div>),
-      sorter:  (a, b) => a.conceptName.localeCompare(b.conceptName),
+      sorter: firstBy('conceptName'),
     },
     {
       title: 'Created At',

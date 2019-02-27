@@ -172,7 +172,7 @@ class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, Archiv
           if (loading) return <p>Loading...</p>;
           if (error) return <p>Error :(</p>;
           const possibleConcepts = data.concepts;
-          const options = possibleConcepts.map(c => {return { label: c.label, value: c.value, visible: c.visible, updatedAt: c.updatedAt, parent: c.parent }})
+          const options = possibleConcepts.map(c => {return { label: c.label, value: c.value, visible: c.visible, updatedAt: c.updatedAt, parent: c.parent }}).sort((a, b) => a.label.localeCompare(b.label))
           const value = options.find(opt => opt.value === concept.parent.id)
           return <div className="concept-input-container">
             <DropdownInput
@@ -194,7 +194,7 @@ class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, Archiv
           if (loading) return <p>Loading...</p>;
           if (error) return <p>Error :(</p>;
           const possibleConcepts = data.concepts;
-          const options = possibleConcepts.map(c => {return { label: c.label, value: c.value, visible: c.visible, updatedAt: c.updatedAt }})
+          const options = possibleConcepts.map(c => {return { label: c.label, value: c.value, visible: c.visible, updatedAt: c.updatedAt }}).sort((a, b) => a.label.localeCompare(b.label))
           const value = options.find(opt => opt.value === concept.parent.id)
           return <div className="concept-input-container">
             <DropdownInput

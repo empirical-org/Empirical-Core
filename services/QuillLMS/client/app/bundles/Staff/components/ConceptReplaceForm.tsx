@@ -74,7 +74,7 @@ class ConceptReplaceForm extends React.Component<ConceptReplaceFormProps, any> {
   renderDropdownInput(replacedOrReplacement) {
     const { replacementId, replacedId} = this.state
     const { concepts } = this.props
-    const options = concepts.map(c => { return { label: `${c.parent.parent.name} | ${c.parent.name} | ${c.name}`, value: c.id }})
+    const options = concepts.map(c => { return { label: `${c.parent.parent.name} | ${c.parent.name} | ${c.name}`, value: c.id }}).sort((a, b) => a.label.localeCompare(b.label))
     if (replacedOrReplacement === 'replaced') {
       const value = options.find(o => o.value === replacedId)
       return <DropdownInput
