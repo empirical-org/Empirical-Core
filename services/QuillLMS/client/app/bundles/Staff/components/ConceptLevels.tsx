@@ -17,10 +17,12 @@ export default class ConceptLevels extends React.Component<ConceptLevelsProps, a
   }
 
   renderConceptLevels() {
-    const levelTwoConcepts = []
-    const levelOneConcepts = []
-    const levelZeroConcepts = []
-    this.props.concepts.forEach(c => {
+    const { concepts, selectedConcept } = this.props
+    const completeSelectedConcept = concepts.find(c => Number(c.id) === Number(selectedConcept.conceptID)) || {}
+    let levelTwoConcepts = []
+    let levelOneConcepts = []
+    let levelZeroConcepts = []
+    concepts.forEach(c => {
       if (c.parent) {
         if (c.parent.parent) {
           levelZeroConcepts.push(c)
@@ -31,27 +33,35 @@ export default class ConceptLevels extends React.Component<ConceptLevelsProps, a
         levelTwoConcepts.push(c)
       }
     })
+    if (selectedConcept) {
+      if (selectedConcept.levelNumber === 2) {
+        levelOneConcepts = levelOneConcepts.filter(c => c.parent.id === selectedConcept.conceptID)
+        levelZeroConcepts = levelZeroConcepts.filter(c => c.parent.parent ? c.parent.parent.id === selectedConcept.conceptID : false)
+      } else if (selectedConcept.levelNumber === 1) {
+        levelZeroConcepts = levelZeroConcepts.filter(c => c.parent.id === selectedConcept.conceptID)
+      }
+    }
     return <div className="concept-level-columns">
       <ConceptColumn
         concepts={levelTwoConcepts}
         levelNumber={2}
         selectConcept={this.props.selectConcept}
         unselectConcept={this.props.unselectConcept}
-        selectedConcept={this.props.selectedConcept}
+        selectedConcept={completeSelectedConcept}
       />
       <ConceptColumn
         concepts={levelOneConcepts}
         levelNumber={1}
         selectConcept={this.props.selectConcept}
         unselectConcept={this.props.unselectConcept}
-        selectedConcept={this.props.selectedConcept}
+        selectedConcept={completeSelectedConcept}
       />
       <ConceptColumn
         concepts={levelZeroConcepts}
         levelNumber={0}
         selectConcept={this.props.selectConcept}
         unselectConcept={this.props.unselectConcept}
-        selectedConcept={this.props.selectedConcept}
+        selectedConcept={completeSelectedConcept}
       />
     </div>
   }

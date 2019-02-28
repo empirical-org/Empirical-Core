@@ -6,7 +6,7 @@ interface ConceptColumnProps {
   concepts: Array<Concept>;
   selectConcept: Function;
   unselectConcept(any): void;
-  selectedConcept: { levelNumber?: Number, conceptID?: Number},
+  selectedConcept: Concept,
   levelNumber: Number;
 }
 
@@ -64,9 +64,11 @@ export default class ConceptColumn extends React.Component<ConceptColumnProps, C
     const conceptItems = sortedData.map(c => {
       let selected = ''
       let removeSelectionIcon = <span />
-      if (selectedConcept.conceptID === c.id) {
+      if (selectedConcept.id === c.id) {
         selected = 'selected'
         removeSelectionIcon = <div onClick={this.props.unselectConcept}><i className="fas fa-times" /></div>
+      } else if (selectedConcept && selectedConcept.parent && (selectedConcept.parent.id === c.id || (selectedConcept.parent.parent && c.id === selectedConcept.parent.parent.id))) {
+        selected = 'selected'
       }
       return <div onClick={(e) => this.selectConcept(e, c.id, levelNumber)} className={`concept-list-item ${selected}`}>{c.name}{removeSelectionIcon}</div>
     })
