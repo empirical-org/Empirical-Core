@@ -57,8 +57,8 @@ class CurrentSlide extends React.Component<CurrentSlideProps & StateFromProps, a
 
     const data: ClassroomLessonSession = props.session;
     const lessonData: Lesson = props.lesson;
-    const edition: Edition = props.edition
-    const script: Array<ScriptItem> =  edition.questions[data.current_slide].data.teach.script || []
+    const edition: Edition = props.edition;
+    const script: Array<ScriptItem> =  edition.questions[data.current_slide || "0"].data.teach.script || []
     const classroomUnitId: ClassroomUnitId|null = getParameterByName('classroom_unit_id')
     const activityUid = props.params.lessonID
 
