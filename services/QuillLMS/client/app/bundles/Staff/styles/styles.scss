@@ -302,6 +302,9 @@
 
 .new-concept-container {
   padding: 30px;
+  .concept-box {
+    position: inherit;
+  }
 }
 
 .concept-levels-and-forms-container {
