@@ -4,6 +4,9 @@ import gql from "graphql-tag";
 import _ from 'lodash'
 
 import { Concept } from '../interfaces/interfaces'
+
+import RuleDescriptionField from './RuleDescriptionField'
+
 import Input from '../../Teacher/components/shared/input'
 import DropdownInput from '../../Teacher/components/shared/dropdown_input'
 
@@ -37,8 +40,8 @@ function levelOneConceptsQuery(){
 }
 
 const EDIT_CONCEPT = gql`
-mutation editConcept($id: ID! $name: String, $parentId: ID, $visible: Boolean){
-    editConcept(input: {id: $id, name: $name, parentId: $parentId, visible: $visible}){
+mutation editConcept($id: ID! $name: String, $parentId: ID, $visible: Boolean, $description: String){
+    editConcept(input: {id: $id, name: $name, parentId: $parentId, visible: $visible, description: $description}){
       concept {
         id
         uid
@@ -78,6 +81,7 @@ class ConceptBox extends React.Component<ConceptBoxProps, ConceptBoxState> {
     this.renameConcept = this.renameConcept.bind(this)
     this.cancelRename = this.cancelRename.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.changeDescription = this.changeDescription.bind(this)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -93,7 +97,8 @@ class ConceptBox extends React.Component<ConceptBoxProps, ConceptBoxState> {
       id: concept.id,
       name: concept.name,
       parentId: concept.parent.id,
-      visible: concept.visible
+      visible: concept.visible,
+      description: concept.description && concept.description.length && concept.description !== '<br/>' ? concept.description : null
     }})
   }
 
@@ -127,6 +132,13 @@ class ConceptBox extends React.Component<ConceptBoxProps, ConceptBoxState> {
   renameConcept(e) {
     const newConcept = Object.assign({}, this.state.concept, { name: e.target.value })
     this.setState({ concept: newConcept })
+  }
+
+  changeDescription(description) {
+    if (description !== this.state.concept.description) {
+      const newConcept = Object.assign({}, this.state.concept, { description })
+      this.setState({ concept: newConcept })
+    }
   }
 
   cancelRename(e) {
@@ -245,6 +257,7 @@ class ConceptBox extends React.Component<ConceptBoxProps, ConceptBoxState> {
           />
           {this.renderRenameAndArchiveSection()}
         </div>
+        <RuleDescriptionField ruleDescription={concept.description} handleChange={this.changeDescription}/>
       </div>
     }
   }
