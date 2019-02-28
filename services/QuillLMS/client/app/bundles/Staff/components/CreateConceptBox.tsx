@@ -1,7 +1,9 @@
 import * as React from "react";
 import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
+
 import { Concept } from '../interfaces/interfaces'
+import RuleDescriptionField from './RuleDescriptionField'
 
 import Input from '../../Teacher/components/shared/input'
 import DropdownInput from '../../Teacher/components/shared/dropdown_input'
@@ -27,7 +29,7 @@ interface CreateConceptBoxProps {
 }
 
 interface CreateConceptBoxState {
-  concept: { parent: Concept, name: string }
+  concept: { parent: Concept, name: string, description: string }
   level1Concepts: Array<Concept>,
   level2Concepts: Array<Concept>
 }
@@ -39,7 +41,7 @@ class CreateConceptBox extends React.Component<CreateConceptBoxProps, CreateConc
     const { level2Concepts, level1Concepts } = this.sortConcepts(props)
 
     this.state = {
-      concept: { name: '', parent: {}},
+      concept: { name: '', parent: {}, description: '' },
       level2Concepts,
       level1Concepts
     }
@@ -47,6 +49,7 @@ class CreateConceptBox extends React.Component<CreateConceptBoxProps, CreateConc
     this.changeLevel1 = this.changeLevel1.bind(this)
     this.changeLevel2 = this.changeLevel2.bind(this)
     this.renameConcept = this.renameConcept.bind(this)
+    this.changeDescription = this.changeDescription.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
@@ -68,14 +71,22 @@ class CreateConceptBox extends React.Component<CreateConceptBoxProps, CreateConc
     this.setState({ concept: newConcept })
   }
 
+  changeDescription(description) {
+    if (description !== this.state.concept.description) {
+      const newConcept = Object.assign({}, this.state.concept, { description })
+      this.setState({ concept: newConcept })
+    }
+  }
+
   handleSubmit(e, createConcept) {
     e.preventDefault()
     const { concept } = this.state
     createConcept({ variables: {
       name: concept.name,
-      parentId: concept.parent.id
+      parentId: concept.parent.id,
+      description: concept.description.length && concept.description !== '<br/>' ? concept.description : null
     }})
-    this.setState({ concept: { name: '', parent: {}}})
+    this.setState({ concept: { name: '', parent: {}, description: '' }})
   }
 
   changeLevel1(level1Concept) {
@@ -185,6 +196,7 @@ class CreateConceptBox extends React.Component<CreateConceptBoxProps, CreateConc
             handleChange={this.renameConcept}
           />
         </div>
+        <RuleDescriptionField new={true} ruleDescription='' handleChange={this.changeDescription}/>
       </div>
     }
   }
