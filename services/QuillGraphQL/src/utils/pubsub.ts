@@ -11,8 +11,8 @@ const options = {
 };
 
 const pubSub = new RedisPubSub({
-  publisher: new Redis(options),
-  subscriber: new Redis(options)
+  publisher: new Redis(process.env.REDIS_CONNECTION_STRING),
+  subscriber: new Redis(process.env.REDIS_CONNECTION_STRING)
 });
 
 export default pubSub
