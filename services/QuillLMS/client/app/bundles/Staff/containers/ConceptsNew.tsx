@@ -95,13 +95,16 @@ class AddConcept extends React.Component<{}, AddConceptState> {
   renderConceptForms(refetch, concepts) {
     const { conceptID, levelNumber } = this.state.selectedConcept
     if (conceptID && (levelNumber || levelNumber === 0)) {
-      return <ConceptBoxContainer
-        conceptID={conceptID}
-        levelNumber={levelNumber}
-        finishEditingConcept={() => this.finishEditingOrCreatingConcept(refetch)}
-        visible={true}
-        closeConceptBox={this.closeConceptBox}
-      />
+      return (<div>
+        <ConceptBoxContainer
+          conceptID={conceptID}
+          levelNumber={levelNumber}
+          finishEditingConcept={() => this.finishEditingOrCreatingConcept(refetch)}
+          visible={true}
+          closeConceptBox={this.closeConceptBox}
+        />
+        {this.renderAddNewConceptsForms(refetch, concepts)}
+      </div>)
     } else {
       return this.renderAddNewConceptsForms(refetch, concepts)
     }
