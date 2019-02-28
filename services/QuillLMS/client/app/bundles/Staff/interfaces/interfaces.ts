@@ -8,4 +8,5 @@ export interface Concept {
   uid?: string;
   parent?:Concept;
   replacement?: Concept;
+  description?: string;
 }

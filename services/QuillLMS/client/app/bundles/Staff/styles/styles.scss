@@ -156,7 +156,7 @@
     position: -webkit-sticky; /* Safari */
     position: sticky;
     top: 0;
-    height: 400px;
+    min-height: 400px;
   }
   &.archived-concept-box {
     .concept-input-container {
@@ -394,5 +394,58 @@
   .button {
     width: 100%;
     margin: 30px;
+  }
+}
+
+.rule-description {
+  border-top: 1px solid #ebebeb;
+  border-bottom: 1px solid #ebebeb;
+  width: 498px;
+  position: relative;
+  right: 35px;
+  padding: 15px 35px;
+  margin: 20px 0px;;
+  .add-rule-description {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    p {
+      margin-left: 20px;
+      margin-bottom: 0px;
+      font-weight: 600;
+    }
+  }
+  .cancel-rule-description {
+    color: #2AA276;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+    cursor: pointer;
+  }
+  .rule-description-editor {
+    p {
+      font-weight: 600;
+    }
+    .rule-description-editor-header {
+      display: flex;
+      justify-content: space-between;
+      .remove-rule-description {
+        color: #A7A7A7;
+        cursor: pointer;
+        svg {
+          margin-right: 5px;
+        }
+      }
+    }
+  }
+  .card {
+    border: 1px solid #ebebeb;
+    .card-header {
+      border-bottom: 1px solid #ebebeb;
+    }
+    .card-content {
+      min-height: 60px;
+      padding: 20px;
+    }
   }
 }
