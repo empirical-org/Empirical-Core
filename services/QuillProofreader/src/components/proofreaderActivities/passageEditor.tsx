@@ -297,6 +297,7 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
   // }
 
   onKeyDown(event: any, change: any, editor: any) {
+    console.log('event.key', event.key)
     const { value } = change
     const originalSelection = value.selection
     const { startInline, texts } = value
@@ -409,6 +410,7 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
 
     // handles Firefox shenanigans
     if (initialFocus.offset === 0 && initialAnchor.offset !== 0 && event.key !== 'Unidentified') {
+      console.log('handling firefox nonsense')
       const badNode = change.value.blocks.first().nodes.find(node => node.key == initialAnchor.key)
       if (badNode) {
         change.moveToRangeOfNode(badNode).insertText('')
@@ -430,6 +432,7 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
     // don't try to find a previous inline if you've edited the first one
     if (startInline && startInline.data.get('dataOriginalIndex') !== '0') {
       if (event.key === 'Backspace') {
+        console.log('is it doing something weird in the backspace')
         const deletion = change.value.history.undos.first().find((operation: any) => operation.type === 'remove_text')
         previousInline = change.moveBackward(1).value.inlines.first()
         if (deletion && originalSelection.focus.offset === 0 && originalSelection.anchor.offset === 0) {
@@ -458,6 +461,7 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
     }
 
     if (currentInline && currentInline.nodes) {
+      console.log('current inline and current inline nodes')
       const dataOriginalIndex = currentInline.data.get('dataOriginalIndex')
       const originalText = this.state.originalTextArray[dataOriginalIndex]
       const newText = currentInline.text
@@ -498,10 +502,12 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
       }
 
     } else {
+      console.log('no current inline and/or no current inline nodes')
       const nextInline = change.moveEndForward(1).value.endInline
       previousInline = change.moveStartBackward(1).value.startInline
       if (nextInline || previousInline) {
         if (nextInline) {
+          console.log('nextInline', nextInline)
           const dataOriginalIndex = nextInline.data.get('dataOriginalIndex')
           const originalNextInlineText = this.state.originalTextArray[dataOriginalIndex]
           if (this.state.indicesOfUTags[dataOriginalIndex] || this.state.indicesOfUTags[dataOriginalIndex] === 0) {
@@ -534,6 +540,7 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
           }
         }
         if (previousInline) {
+          console.log('previousINline', previousINline)
           const dataOriginalIndex = previousInline.data.get('dataOriginalIndex')
           const originalPreviousInlineText = this.state.originalTextArray[dataOriginalIndex]
           if (this.state.indicesOfUTags[dataOriginalIndex] || this.state.indicesOfUTags[dataOriginalIndex] === 0) {
