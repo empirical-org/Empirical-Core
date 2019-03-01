@@ -540,7 +540,7 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
           }
         }
         if (previousInline) {
-          console.log('previousINline', previousINline)
+          console.log('previousINline', previousInline)
           const dataOriginalIndex = previousInline.data.get('dataOriginalIndex')
           const originalPreviousInlineText = this.state.originalTextArray[dataOriginalIndex]
           if (this.state.indicesOfUTags[dataOriginalIndex] || this.state.indicesOfUTags[dataOriginalIndex] === 0) {
