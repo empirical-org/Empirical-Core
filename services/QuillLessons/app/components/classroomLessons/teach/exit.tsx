@@ -70,6 +70,7 @@ class ExitSlide extends React.Component<any, any> {
           </h1>
         </div>
         <ScriptComponent
+          sessionId={this.props.data.id}
           script={this.props.script}
           onlyShowHeaders={this.props.onlyShowHeaders}
           updateToggledHeaderCount={this.props.updateToggledHeaderCount}

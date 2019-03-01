@@ -1,0 +1,10 @@
+type ConnectActivity {
+  id: String
+  name: String
+  introURL: String
+}
+
+type Query {
+  connectActivity(id: String!): ConnectActivity
+  connectActivities: [ConnectActivity]!
+}

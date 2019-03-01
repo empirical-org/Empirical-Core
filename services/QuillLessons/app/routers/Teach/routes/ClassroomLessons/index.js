@@ -1,32 +1,32 @@
 import { Passthrough } from 'quill-component-library/dist/componentLibrary';
 
 import { getParameterByName } from 'libs/getParameterByName';
-import { createPreviewSession } from '../../../../actions/classroomSessions'
+import { createPreviewSession } from '../../../../actions/classroomSessions';
 
 const previewEditionRoute = {
   path: ':lessonID/preview/:editionID',
   onEnter: (nextState, replaceWith) => {
-    const { lessonID, editionID } = nextState.params;
-    const classroomUnitId = createPreviewSession(lessonID, editionID)
-    const modalQSValue = getParameterByName('modal')
-    const modalQS = modalQSValue ? `&modal=${modalQSValue}` : ''
+    const { lessonID, editionID, } = nextState.params;
+    const classroomUnitId = createPreviewSession(lessonID, editionID);
+    const modalQSValue = getParameterByName('modal');
+    const modalQS = modalQSValue ? `&modal=${modalQSValue}` : '';
     if (classroomUnitId) {
       document.location.href = `${document.location.origin + document.location.pathname}#/teach/class-lessons/${lessonID}?&classroom_unit_id=${classroomUnitId}${modalQS}`;
     }
-  }
+  },
 };
 
 const previewRoute = {
   path: ':lessonID/preview',
   onEnter: (nextState, replaceWith) => {
-    const { lessonID } = nextState.params;
-    const classroomUnitId = createPreviewSession(lessonID)
-    const modalQSValue = getParameterByName('modal')
-    const modalQS = modalQSValue ? `&modal=${modalQSValue}` : ''
+    const { lessonID, } = nextState.params;
+    const classroomUnitId = createPreviewSession(lessonID);
+    const modalQSValue = getParameterByName('modal');
+    const modalQS = modalQSValue ? `&modal=${modalQSValue}` : '';
     if (classroomUnitId) {
       document.location.href = `${document.location.origin + document.location.pathname}#/teach/class-lessons/${lessonID}?&classroom_unit_id=${classroomUnitId}${modalQS}`;
     }
-  }
+  },
 };
 
 const markingLessonAsCompletedRoute = {
@@ -42,7 +42,7 @@ const markingLessonAsCompletedRoute = {
 const teachRoute = {
   path: ':lessonID',
   getComponent: (nextState, cb) => {
-    import(/* webpackChunkName: "teach-classroom-lesson" */'components/classroomLessons/teach/container.tsx')
+    import(/* webpackChunkName: "teach-classroom-lesson" */'components/classroomLessons/teach/dataContainer.tsx')
     .then((component) => {
       cb(null, component.default);
     });

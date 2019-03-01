@@ -13,25 +13,28 @@ import CLStudentFillInTheBlank from '../play/fillInTheBlank';
 import CLStudentModelQuestion from '../play/modelQuestion';
 import CLStudentMultistep from '../play/multistep';
 import {
-  ClassroomLessonSession,
   QuestionSubmissionsList,
   ClassroomSessionId,
-  ClassroomUnitId
+  ClassroomUnitId,
+  ClassroomLessonSession
 } from '../interfaces';
 import {
   ClassroomLesson
 } from '../../../interfaces/classroomLessons';
 import * as CustomizeIntf from '../../../interfaces/customize'
+import { Lesson, Edition } from './dataContainer';
 const studentIcon = 'https://assets.quill.org/images/icons/student_icon.svg'
 
 interface ReducerSidebarProps extends React.Props<any> {
-  classroomSessions: any,
-  classroomLesson: any,
-  customize: any,
+  // classroomSessions: any,
+  // customize: any,
 }
 
 interface PassedSidebarProps extends React.Props<any> {
   params: any
+  lesson: Lesson
+  edition: Edition
+  session: ClassroomLessonSession
 }
 
 class Sidebar extends React.Component<ReducerSidebarProps & PassedSidebarProps & DispatchFromProps, any> {
@@ -50,13 +53,13 @@ class Sidebar extends React.Component<ReducerSidebarProps & PassedSidebarProps &
 
   componentWillUpdate(prevProps, prevState) {
     if (!this.state.currentSlide) {
-      this.scrollToSlide(this.props.classroomSessions.data.current_slide)
+      this.scrollToSlide(this.props.session.current_slide)
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.classroomSessions.data.current_slide !== this.props.classroomSessions.data.current_slide) {
-      this.scrollToSlide(nextProps.classroomSessions.data.current_slide)
+    if (nextProps.session.current_slide !== this.props.session.current_slide) {
+      this.scrollToSlide(nextProps.session.current_slide)
     }
   }
 
@@ -94,19 +97,18 @@ class Sidebar extends React.Component<ReducerSidebarProps & PassedSidebarProps &
   }
 
   presentStudents() {
-    const presence = this.props.classroomSessions.data.presence
-    const numPresent = presence === undefined ? 0 : Object.keys(presence).filter((id) => presence[id] === true ).length
+    const {presence} = this.props.session
+    const numPresent = !!presence ?  Object.keys(presence).filter((id) => presence[id] === true ).length : 0
     return (
       <div className="present-students"><img src={studentIcon}/><span> {numPresent} Student{numPresent === 1 ? '': 's'} Viewing</span></div>
     )
   }
 
   render() {
-    const { data, hasreceiveddata, }: { data: ClassroomLessonSession, hasreceiveddata: boolean } = this.props.classroomSessions;
-    const lessonData: ClassroomLesson = this.props.classroomLesson.data;
-    const lessonDataLoaded: boolean = this.props.classroomLesson.hasreceiveddata;
-    const editionData: CustomizeIntf.EditionQuestions = this.props.customize.editionQuestions;
-    if (hasreceiveddata && data && lessonDataLoaded) {
+    const data = this.props.session;
+    const lessonData = this.props.lesson; // Replace with Apollo
+    const editionData = this.props.edition;
+    if (editionData && data && lessonData) {
       const questions = editionData.questions;
       const length = questions ? Number(questions.length) - 1 : 0;
       const currentSlide = data.current_slide;
@@ -203,9 +205,6 @@ class Sidebar extends React.Component<ReducerSidebarProps & PassedSidebarProps &
 
 function select(props) {
   return {
-    classroomSessions: props.classroomSessions,
-    classroomLesson: props.classroomLesson,
-    customize: props.customize
   };
 }
 

@@ -1,0 +1,111 @@
+scalar JSON
+
+type ScriptItem {
+  type: String
+  data: JSON
+}
+
+type TeachData {
+  script: [ScriptItem]
+  title: String
+}
+
+type PlayData {
+  html: String
+  instructions: String
+  cues: [String]
+  prompt: String
+  stepLabels: [String]
+}
+
+type QuestionData {
+  teach: TeachData
+  play: PlayData
+}
+
+type Question {
+  data: QuestionData
+  type: String
+}
+
+type Edition {
+  id: String
+  lesson_id: String
+  flags: [String]
+  name: String 
+  user_id: ID
+  questions: [Question]
+  lesson: ClassroomLesson
+}
+
+type ClassroomLesson {
+  id: String!
+  lesson: String
+  title: String
+  topic: String
+  unit: String
+  edition(id: String!): Edition
+  editions: [Edition]
+}
+
+type ClassroomLessonSession {
+  absentTeacherState: Boolean
+  classroom_name: String
+  current_slide: String
+  edition_id: ID
+  edition: Edition
+  flaggedStudents: JSON
+  followUpActivityName: String
+  followUpOption: String
+  followUpUrl: String
+  id: ID
+  models: JSON
+  modes: JSON
+  prompts: JSON
+  startTime: String
+  student_ids: JSON
+  students: JSON
+  submissions: JSON
+  selected_submissions: JSON
+  selected_submission_order: JSON
+  supportingInfo: String
+  teacher_ids: JSON
+  teacher_name: String
+  timestamps: JSON
+  presence: JSON
+}
+
+type RethinkChangeObject {
+  errors: Int
+  inserted: Int
+  first_error: String
+  deleted: Int
+  replaced: Int
+  unchanged: Int
+  skipped: Int
+}
+
+
+
+type Query {
+  classroomLesson(id: String!): ClassroomLesson
+  classroomLessons: [ClassroomLesson]!
+  classroomLessonSession(id: String!, studentId: String): ClassroomLessonSession
+}
+
+type Mutation {
+  setSessionCurrentSlide(id: String!, slideNumber: String!): Boolean
+  setEditionId(id: String!, editionId: String!): RethinkChangeObject
+  flagStudent(id: String!, studentId: String!): RethinkChangeObject
+  createPreviewSession(lessonId: String!, editionId: String!): String!
+  deleteStudentSubmissionForSlide(id: String!, slideNumber: String!, studentId: String!): RethinkChangeObject
+  deleteAllSubmissionsForSlide(id: String!, slideNumber: String!): RethinkChangeObject
+  selectStudentSubmission(id: String!, slideNumber: String!, studentId: String!): RethinkChangeObject
+  deselectStudentSubmission(id: String!, slideNumber: String!, studentId: String!): RethinkChangeObject
+  deselectAllStudentSubmissions(id: String!, slideNumber: String!): RethinkChangeObject
+  setModeForSlide(id: String!, slideNumber: String!, value: String): RethinkChangeObject
+}
+
+type Subscription {
+  classroomLessonSession(id: String!, studentId: String): ClassroomLessonSession
+}

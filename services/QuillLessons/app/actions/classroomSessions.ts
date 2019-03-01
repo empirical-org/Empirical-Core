@@ -108,6 +108,32 @@ export function toggleOnlyShowHeaders() {
   }
 }
 
+export function legacyGetInitialData(
+  activityId: string,
+  classroomUnitId: ClassroomUnitId,
+  classroomSessionId: ClassroomSessionId
+) {
+  return function (dispatch, getState) {
+    let initialized = false;
+
+    socket.instance.on(`classroomLessonSession:${classroomSessionId}`, (session) => {
+      if (session) {
+        dispatch(getInitialData(
+          activityId,
+          initialized,
+          session.preview,
+          classroomSessionId,
+          classroomUnitId
+        ))
+        initialized = true
+      } else {
+        dispatch({type: C.NO_CLASSROOM_UNIT, data: classroomSessionId})
+      }
+    });
+    socket.instance.emit('subscribeToClassroomLessonSession', { classroomSessionId });
+  }
+} 
+
 export function startListeningToSessionForTeacher(
   activityId: string,
   classroomUnitId: ClassroomUnitId,

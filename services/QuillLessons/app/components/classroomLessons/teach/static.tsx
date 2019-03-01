@@ -37,6 +37,7 @@ class Static extends Component<StaticProps, StaticState> {
         </div>
         <ul>
           <ScriptComponent
+            sessionId={this.props.data.id}
             script={this.props.editionData.questions[this.props.data.current_slide].data.teach.script}
             onlyShowHeaders={this.props.onlyShowHeaders}
             updateToggledHeaderCount={this.props.updateToggledHeaderCount}

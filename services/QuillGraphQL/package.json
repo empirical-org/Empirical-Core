@@ -1,0 +1,45 @@
+{
+  "name": "QuillGraphQL",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "ts-node src/index.ts",
+    "start:dev": "ts-node-dev src/index.ts",
+    "test": "jest --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/jest": "^23.3.10",
+    "@types/node": "^10.12.12",
+    "@types/superagent": "^3.8.5",
+    "apollo-datasource-rest": "^0.2.1",
+    "apollo-server-errors": "^2.2.0",
+    "cookie-parser": "^1.4.3",
+    "core-js": "^2.6.5",
+    "dotenv": "^6.1.0",
+    "graphql-redis-subscriptions": "^2.0.0",
+    "graphql-type-json": "^0.2.1",
+    "graphql-yoga": "^1.16.7",
+    "ioredis": "^4.3.0",
+    "memcached": "^2.2.2",
+    "merge-graphql-schemas": "^1.5.8",
+    "rails-session-decoder": "^1.0.4",
+    "ramda": "^0.26.1",
+    "rethinkdb": "^2.3.3",
+    "rethinkdbdash": "^2.3.31",
+    "superagent": "^4.0.0",
+    "ts-node": "^7.0.1",
+    "typescript": "^3.2.1",
+    "uuid": "^3.3.2"
+  },
+  "devDependencies": {
+    "graphql-playground-middleware-express": "^1.7.8",
+    "jest": "^23.6.0",
+    "nodemon": "^1.18.7",
+    "ts-jest": "^23.10.5",
+    "ts-node-dev": "^1.0.0-pre.31"
+  }
+}

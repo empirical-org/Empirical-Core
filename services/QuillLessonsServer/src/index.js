@@ -1,4 +1,4 @@
-import newrelic from 'newrelic';
+// import newrelic from 'newrelic';
 import dotenv from 'dotenv';
 import r from 'rethinkdb';
 import socketio from 'socket.io';
@@ -186,7 +186,7 @@ function verifyToken(token) {
 
   jwt.verify(token, pkey, options, (err, decodedToken) => {
     if (err) {
-      newrelic.noticeError(err)
+      // newrelic.noticeError(err)
       isValid = false;
     } else {
       tokenData = decodedToken.data;
@@ -199,7 +199,7 @@ function verifyToken(token) {
 
 r.connect(rethinkdbConfig, (err, connection) => {
   if (err) {
-    newrelic.noticeError(err)
+    // newrelic.noticeError(err)
     console.error(err)
   } else {
     io.on('connection', (client) => {

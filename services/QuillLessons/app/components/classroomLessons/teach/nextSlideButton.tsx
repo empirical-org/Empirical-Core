@@ -10,70 +10,50 @@ import {
 import {
   EditionQuestions
 } from '../../../interfaces/customize'
+import {Mutation} from 'react-apollo'
+import CHANGE_SLIDE_NUMBER from '../mutations/changeSlideNumber';
+import { Lesson, Edition } from './dataContainer';
 
 interface NextSlideButtonProps {
-  [key:string]: any;
+  params: any
+  lesson: Lesson
+  edition: Edition
+  session: ClassroomLessonSession
 }
 
-class NextSlideButton extends React.Component<StateFromProps & NextSlideButtonProps, any> {
+class NextSlideButton extends React.Component<NextSlideButtonProps, any> {
   constructor(props) {
     super(props);
-
-    const classroomUnitId: ClassroomUnitId|null = getParameterByName('classroom_unit_id')
-    const activityUid = props.params.lessonID
-    this.state = {
-      classroomUnitId,
-      classroomSessionId: classroomUnitId ? classroomUnitId.concat(activityUid) : null
-    }
-
-    this.goToNextSlide = this.goToNextSlide.bind(this);
   }
 
-  goToNextSlide() {
-    const classroomSessionId: ClassroomSessionId|null = this.state.classroomSessionId;
-    const sessionData: ClassroomLessonSession = this.props.classroomSessions.data;
-    const editionData: EditionQuestions = this.props.customize.editionQuestions;
-    if (classroomSessionId) {
-      const updateInStore = goToNextSlide(sessionData, editionData, classroomSessionId);
-      if (updateInStore) {
-        this.props.dispatch(updateInStore);
-      }
-    }
+  renderNextSlideButton() {
+    return (
+      <Mutation mutation={CHANGE_SLIDE_NUMBER}>
+        {(ChangeSlideNumber, {data}) => (
+          <button onClick={
+            e => {
+              ChangeSlideNumber({variables: {
+                id: this.props.session.id,
+                slideNumber: `${parseInt(this.props.session.current_slide) + 1}`
+              }})
+            }
+          }>Next Slide</button>
+        )}
+        
+      </Mutation>
+    )
   }
 
   render() {
-    const data = this.props.classroomSessions.data;
-    const editionData = this.props.customize.editionQuestions
-    if (editionData.questions && Number(data.current_slide) === editionData.questions.length - 1) {
+    const {current_slide} = this.props.session;
+    const {questions} = this.props.edition;
+    if (questions && Number(current_slide) === questions.length - 1) {
       return <span />;
-    } else if (Number(data.current_slide) === 0) {
-      return <span>Press the <span>right arrow key</span> to continue to the next slide.<button onClick={this.goToNextSlide}>Next Slide</button></span>
+    } else if (Number(current_slide) === 0) {
+      return <span>Press the <span>right arrow key</span> to continue to the next slide.{this.renderNextSlideButton()}</span>
     }
-    return (
-      <button onClick={this.goToNextSlide}>Next Slide</button>
-    );
+    return this.renderNextSlideButton();
   }
 }
 
-function select(props) {
-  return {
-    classroomSessions: props.classroomSessions,
-    customize: props.customize,
-  };
-}
-
-function mergeProps(stateProps: Object, dispatchProps: Object, ownProps: Object) {
-  return {...ownProps, ...stateProps, ...dispatchProps}
-}
-
-export interface DispatchFromProps {
-
-}
-
-export interface StateFromProps {
-  customize: any
-  classroomSessions: any
-}
-
-
-export default connect<StateFromProps, DispatchFromProps, NextSlideButtonProps>(select, dispatch => ({dispatch}))(NextSlideButton);
+export default NextSlideButton;

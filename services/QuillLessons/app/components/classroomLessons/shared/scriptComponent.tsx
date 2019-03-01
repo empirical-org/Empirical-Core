@@ -1,5 +1,6 @@
 declare function require(name:string);
 import * as React from 'react'
+import {Mutation} from 'react-apollo';
 import { sortByLastName, sortByDisplayed, sortByTime, sortByFlag, sortByAnswer } from './studentSorts'
 import MultipleTextEditor from './multipleTextEditor'
 import StepHtml from './stepHtml'
@@ -22,6 +23,16 @@ import {
 import {
   ScriptItem
 } from '../../../interfaces/classroomLessons'
+import deleteAllSubmissionsForSlide from "../mutations/deleteAllSubmissionsForSlide"
+import deleteStudentSubmissionForSlide from "../mutations/deleteStudentSubmissionForSlide"
+import {
+  selectStudentSubmission,
+  deselectStudentSubmission,
+  deselectAllStudentSubmissions
+} from '../mutations/selectingStudents'
+import {
+  setModeForSlide
+} from '../mutations/setModeForSlide'; 
 const uncheckedGrayCheckbox = 'https://assets.quill.org/images/icons/box_gray_unchecked.svg'
 const checkedGrayCheckbox = 'https://assets.quill.org/images/icons/box_gray_checked.svg'
 const uncheckedGreenCheckbox = 'https://assets.quill.org/images/icons/box_green_unchecked.svg'
@@ -34,11 +45,11 @@ interface ScriptContainerProps {
   script: Array<ScriptItem>,
   onlyShowHeaders?: boolean,
   updateToggledHeaderCount?: Function,
+  sessionId: string,
   [key: string]: any,
 }
 
 interface ScriptContainerState {
-  projecting: boolean,
   showAllStudents: boolean,
   sort: string,
   sortDirection: string,
@@ -57,7 +68,6 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     const prompt = this.props.prompt;
     const promptNotEmpty = textEditorInputNotEmpty(prompt);
     this.state = {
-      projecting: this.props.modes && (this.props.modes[this.props.current_slide] === "PROJECT") ? true : false,
       showAllStudents: false,
       sort: 'time',
       sortDirection: 'desc',
@@ -81,9 +91,6 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState( {
-      projecting: nextProps.modes && (nextProps.modes[nextProps.current_slide] === "PROJECT") ? true : false
-    })
     if (this.props.current_slide !== nextProps.current_slide) {
       const models = nextProps.models;
       const current = nextProps.current_slide;
@@ -105,6 +112,13 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
       }
     }
   }
+
+  getCurrentSlideMode():string|null {
+    if (this.props.modes) {
+      return this.props.modes[this.props.current_slide]
+    }
+  }
+
 
   renderScript(script: Array<ScriptItem>) {
     return script.map((item, index) => {
@@ -139,7 +153,6 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
   }
 
   startDisplayingAnswers() {
-    this.setState({projecting: true})
     this.props.startDisplayingAnswers();
   }
 
@@ -152,12 +165,20 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
   }
 
   stopDisplayingAnswers() {
-    this.setState({projecting: false})
     this.props.stopDisplayingAnswers();
   }
 
   renderRetryQuestionButton() {
-    return <p onClick={this.retryQuestion}><i className="fa fa-refresh"/>Retry Question</p>
+    return (
+      <Mutation mutation={deleteAllSubmissionsForSlide}>
+        {(deleteAllSubmissionsForSlide, {data}) => (
+          <p onClick={() => deleteAllSubmissionsForSlide({variables: {
+            id: this.props.sessionId,
+            slideNumber: this.props.current_slide
+          }})}><i className="fa fa-refresh"/>Retry Question</p>
+        )}
+      </Mutation>
+    )
   }
 
   retryQuestion() {
@@ -177,23 +198,37 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
   }
 
   renderDisplayButton() {
-    if (this.state.projecting) {
-      return (
-        <button className={"show-prompt-button "} onClick={this.stopDisplayingAnswers}>Stop Displaying Answers</button>
-      )
-    } else {
-      const selected_submissions: SelectedSubmissions = this.props.selected_submissions;
-      const current_slide: string = this.props.current_slide;
-      let buttonInactive: boolean = true;
-      let buttonClass: string = "inactive";
-      if (selected_submissions && selected_submissions[current_slide]) {
-        buttonInactive = false;
-        buttonClass = "active";
+    return (
+      <Mutation mutation={setModeForSlide}>
+        {(setModeForSlide, {data}) => {
+          if (this.getCurrentSlideMode() === "PROJECT") {
+            return (
+              <button className={"show-prompt-button "} onClick={() => setModeForSlide({variables: {
+                id: this.props.sessionId,
+                slideNumber: this.props.current_slide
+              }})}>Stop Displaying Answers</button>
+            )
+          } else {
+            const selected_submissions: SelectedSubmissions = this.props.selected_submissions;
+            const current_slide: string = this.props.current_slide;
+            let buttonInactive: boolean = true;
+            let buttonClass: string = "inactive";
+            if (selected_submissions && selected_submissions[current_slide]) {
+              buttonInactive = false;
+              buttonClass = "active";
+            }
+            return (
+              <button className={"display-button " + buttonClass} disabled={buttonInactive} onClick={() => setModeForSlide({variables: {
+                id: this.props.sessionId,
+                slideNumber: this.props.current_slide,
+                value: "PROJECT"
+              }})}>Display Selected Answers</button>
+            )
+          }
+        }
       }
-      return (
-        <button className={"display-button " + buttonClass} disabled={buttonInactive} onClick={this.startDisplayingAnswers}>Display Selected Answers</button>
-      )
-    }
+      </Mutation>
+    )
   }
 
   renderShowRemainingStudentsButton() {
@@ -310,7 +345,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     const { selected_submissions, submissions, current_slide, students, presence, sampleCorrectAnswer } = this.props;
     const numStudents: number = presence ? Object.keys(presence).length : 0;
     const correctAnswerRow = sampleCorrectAnswer ? this.renderCorrectAnswerRow() : <span/>
-    if (submissions && submissions[current_slide]) {
+    if (submissions && submissions[current_slide] && Object.keys(submissions[current_slide]).length > 0) {
       const numAnswers: number = Object.keys(submissions[current_slide]).length;
 
       return (
@@ -447,6 +482,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     const submittedTimestamp: string = submissions[current_slide][studentKey].timestamp
     const elapsedTime: any = this.formatElapsedTime(moment(submittedTimestamp))
     const checked: boolean = selected_submissions && selected_submissions[current_slide] ? selected_submissions[current_slide][studentKey] : false
+    const selectionMutation = checked ? deselectStudentSubmission : selectStudentSubmission;
     const checkbox = this.determineCheckbox(checked)
     const studentNumber: number | null = checked === true && selected_submission_order && selected_submission_order[current_slide] ? selected_submission_order[current_slide].indexOf(studentKey) + 1 : null
     const studentNumberClassName: string = checked === true ? 'answer-number' : ''
@@ -463,12 +499,34 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
             type="checkbox"
             defaultChecked={checked}
           />
-          <label htmlFor={studentName} onClick={(e) => { this.props.toggleSelected(e, current_slide, studentKey); }}>
-            {checkbox}
-          </label>
+          <Mutation mutation={selectionMutation}>
+            {(mutFn, {data}) => (
+              <label htmlFor={studentName} onClick={(e) => { mutFn({variables: {
+                id: this.props.sessionId,
+                slideNumber: this.props.current_slide,
+                studentId: studentKey
+              }}); }}>
+                {checkbox}
+              </label>
+            )}
+          </Mutation>
         </td>
         <td><span className={`answer-number-container ${studentNumberClassName}`}>{studentNumber}</span></td>
-        <td className="retry-question-cell"><i className="fa fa-refresh student-retry-question" onClick={() => this.retryQuestionForStudent(studentKey)}/></td>
+        <Mutation mutation={deleteStudentSubmissionForSlide}>
+          {(deleteStudentSubmissionForSlide, {data}) => (
+            <td className="retry-question-cell">
+            <i 
+              className="fa fa-refresh student-retry-question" 
+              onClick={() => deleteStudentSubmissionForSlide({variables: {
+                id: this.props.sessionId,
+                slideNumber: this.props.current_slide,
+                studentId: studentKey
+              }})}
+            />
+            </td>
+          )}
+        </Mutation>
+        
       </tr>
 
   }

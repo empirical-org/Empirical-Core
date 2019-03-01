@@ -28,7 +28,7 @@ class Lobby extends React.Component<LobbyProps, LobbyState> {
   }
 
   renderPresentStudents(presence: Presence, students: Students) {
-    if (presence !== undefined) {
+    if (!!presence) {
       const sortedNames: Array<string> = Object.keys(presence).sort((key1, key2) => {
         return sortByLastName(key1, key2, students);
       })

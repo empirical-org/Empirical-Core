@@ -4,9 +4,20 @@ export type ClassroomSessionId = string
 
 export type ClassroomUnitId = string
 
-export interface ClassroomLessonSession {
+export type ClassroomLessonSession = {
+  absentTeacherState: boolean
+  classroom_name: string
+  edition_id: string
+  followUpOption: string
+  followUpUrl: string
+  id: string
+  startTime: string
+  student_ids: any
+  supportingInfo: string
+  teacher_ids: any
+  teacher_name: string
   students: Students;
-  presence: Presence;
+  presence?: Presence|null;
   current_slide: string;
   modes: Modes;
   submissions: Submissions;
@@ -18,6 +29,7 @@ export interface ClassroomLessonSession {
   models: Models;
   prompts: Prompts;
   followUpActivityName: string | null;
+  preview: Boolean | null
 }
 
 export interface ClassroomLessonSessions {
