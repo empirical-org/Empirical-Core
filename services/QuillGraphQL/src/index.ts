@@ -6,7 +6,7 @@ import { default as resolvers } from './resolvers'
 import decodeLmsSession, {decodeLMSWebsocketSession} from './utils/lms_session_decoder'
 
 const opts = {
-  port: 7777,
+  port: process.env.PORT || 7777,
   endpoint: '/graphql',
   subscriptions: { 
     path: '/subscriptions',
