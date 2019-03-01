@@ -98,7 +98,7 @@
       &.dropdown-tab {
         color: #00c2a2;
         position: relative;
-        i {
+        i, svg {
           font-weight: bold;
           font-size: 16px;
           margin-left: 8px;
@@ -201,7 +201,7 @@
       .tooltip-header {
         font-weight: bold;
       }
-      i {
+      i, svg {
         position: absolute;
         color: #348fdf;
         top: 51px;
