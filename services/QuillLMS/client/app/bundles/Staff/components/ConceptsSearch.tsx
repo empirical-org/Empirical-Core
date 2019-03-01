@@ -1,6 +1,6 @@
-import React, {Component} from 'react'
-import {Input} from 'antd'
-import { Concept } from '../containers/ConceptsEdit';
+import React from 'react'
+import { Input } from 'antd'
+import { Concept } from '../interfaces/interfaces'
 
 const Search = Input.Search;
 
@@ -22,15 +22,15 @@ class ConceptSearch extends React.Component<ConceptSearchProps, ConceptSearchSta
     return (
       <div className="certain-category-search-wrapper">
         <Search
-          placeholder="Search for a concept"
+          placeholder="Search by concept name or UID"
           onSearch={this.props.updateSearchValue}
-          style={{ width: 300 }}
-          enterButton
+          style={{ width: '100%' }}
+          prefix={<i className="fas fa-search" style={{color: '#d9d9d9'}}></i>}
         />
       </div>
     )
   }
-  
+
 }
 
 export default ConceptSearch
