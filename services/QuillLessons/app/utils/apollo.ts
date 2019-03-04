@@ -9,12 +9,12 @@ const cache = new InMemoryCache();
 
 // Create an http link:
 const httpLink = new HttpLink({
-  uri: `${process.env.GRAPHQL_URL}/graphql`
+  uri: `https://${process.env.GRAPHQL_URL}/graphql`
 });
 
 // Create a WebSocket link:
 const wsLink = new WebSocketLink({
-  uri: `${process.env.LESSONS_WEBSOCKETS_URL}/subscriptions`,
+  uri: `wss://${process.env.GRAPHQL_URL}/subscriptions`,
   options: {
     reconnect: true
   }
