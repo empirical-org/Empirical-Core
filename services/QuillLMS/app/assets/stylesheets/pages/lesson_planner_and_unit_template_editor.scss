@@ -156,8 +156,11 @@
   &.scorebook-filters {
     display: flex;
     padding-left: 15px;
+    .fa-caret-down {
+      margin-bottom: 5px;
+    }
   }
-  .scorebook-dropdown-icon.fa {
+  .scorebook-dropdown-icon {
     float: left;
     margin-right: 10px;
     color: #000000;
