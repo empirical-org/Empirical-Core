@@ -175,6 +175,18 @@ class Concept < ActiveRecord::Base
     $redis.set("CONCEPTS_IN_USE", concepts_in_use.to_json)
   end
 
+  def self.visible_level_zero_concept_ids
+    ActiveRecord::Base.connection.execute("
+      SELECT concepts.id FROM concepts
+      JOIN concepts AS parent_concepts ON concepts.parent_id = parent_concepts.id
+      JOIN concepts AS grandparent_concepts ON parent_concepts.parent_id = grandparent_concepts.id
+      WHERE parent_concepts.parent_id IS NOT NULL
+      AND concepts.parent_id IS NOT NULL
+      AND concepts.visible
+      ORDER BY grandparent_concepts.name, parent_concepts.name, concepts.name
+    ").to_a.map { |id| id['id'] }
+  end
+
   private
 
   def self.find_categorized_connect_questions(uid)
@@ -209,17 +221,6 @@ class Concept < ActiveRecord::Base
     end
 
     questions
-  end
-
-  def self.visible_level_zero_concept_ids
-    ActiveRecord::Base.connection.execute("
-      SELECT concepts.id FROM concepts
-      JOIN concepts AS parents ON concepts.parent_id = parents.id
-      WHERE parents.parent_id IS NOT NULL
-      AND concepts.parent_id IS NOT NULL
-      AND concepts.visible
-      ORDER BY grandparent_concepts.name, parent_concepts.name, concept_name
-    ").to_a.map { |id| id['id'] }
   end
 
 end
