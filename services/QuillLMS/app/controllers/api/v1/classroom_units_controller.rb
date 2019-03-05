@@ -81,7 +81,6 @@ class Api::V1::ClassroomUnitsController < Api::ApiController
       end
     end
 
-    response.headers['Access-Control-Allow-Credentials'] = 'true'
     render json: { follow_up_url: url }
   end
 
