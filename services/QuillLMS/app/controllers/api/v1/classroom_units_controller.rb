@@ -18,6 +18,7 @@ class Api::V1::ClassroomUnitsController < Api::ApiController
   end
 
   def finish_lesson
+    response.headers['Access-Control-Allow-Credentials'] = 'true'
     activity = Activity.find_by_id_or_uid(params[:activity_id])
     classroom_unit = ClassroomUnit.find(params[:classroom_unit_id])
 
