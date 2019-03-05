@@ -6,6 +6,7 @@ class Api::ApiController < ActionController::Base
   # load_and_authorize_resource
   #
   before_filter :add_platform_doc_header
+  before_filter :add_access_control_credentials_header
 
   # rescue_from ActionController::RoutingError do
   #   render json: { error_message: 'The resource you were looking for does not exist' }, status: 404
@@ -26,6 +27,11 @@ class Api::ApiController < ActionController::Base
   def add_platform_doc_header
     response.headers['X-Platform-Spec'] = 'https://github.com/interagent/http-api-design'
     response.headers['X-API-Reference'] = 'http://docs.empirical.org/api-reference/'
+  end
+
+  def add_access_control_credentials_header
+    # This header needs to be set for calls made by the JS fetch librar
+    response.headers['Access-Control-Allow-Credentials'] = 'true'
   end
 
   def current_user
