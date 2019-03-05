@@ -99,6 +99,23 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
       return this.props.currentQuestion
     }
 
+    correctResponse() {
+      const { responses} = this.state
+      const question = this.currentQuestion()
+      let text
+      if (Object.keys(responses).length) {
+        const responseArray = hashToCollection(responses).sort((a: Response, b: Response) => b.count - a.count)
+        const correctResponse = responseArray.find((r: Response) => r.optimal)
+        if (correctResponse) {
+          text = correctResponse.text
+        }
+      }
+      if (!text) {
+        text = question.answers[0].text.replace(/{|}/gm, '')
+      }
+      return text
+    }
+
     checkAnswer() {
       const { response, responses } = this.state
       const question = this.currentQuestion()
@@ -263,7 +280,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
             className = 'correct'
             imgSrc = correctIconSrc
           } else {
-            feedback = `<b>Your Response:</b> ${this.state.response} <br/> <b>Correct Response:</b> ${question.answers[0].text.replace(/{|}/gm, '')}`
+            feedback = `<b>Your Response:</b> ${this.state.response} <br/> <b>Correct Response:</b> ${this.correctResponse()}`
             className = 'incorrect'
             imgSrc = incorrectIconSrc
           }
