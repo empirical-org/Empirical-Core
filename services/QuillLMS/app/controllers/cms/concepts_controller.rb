@@ -19,6 +19,18 @@ class Cms::ConceptsController < Cms::CmsController
     end
   end
 
+  def concepts_in_use
+    stored_concepts_in_use = $redis.get('CONCEPTS_IN_USE')
+    if stored_concepts_in_use
+      concepts_in_use = JSON.parse(stored_concepts_in_use)
+      csv_str = concepts_in_use.inject([]) { |csv, rows|  csv << CSV.generate_line(rows) }.join("")
+      respond_to do |format|
+        format.html
+        format.csv { render csv: csv_str, filename: 'concepts_in_use'}
+      end
+    end
+  end
+
   private
   def concept_params
     params.require(:concept).permit(:name, :parent_id)

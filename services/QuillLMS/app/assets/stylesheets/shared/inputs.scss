@@ -141,6 +141,7 @@ select {
   display: flex;
   justify-content: flex-end;
   flex-direction: column;
+  position: relative;
   input {
     margin-bottom: 8px;
     border: 2px #009a80;
@@ -162,6 +163,51 @@ select {
     -moz-transition: all 0.2s ease-in;
     -o-transition: all 0.2s ease-in;
     transition: all 0.2s ease-in;
+  }
+  .dropdown {
+    margin-bottom: 8px;
+    &:focus {
+      outline: none;
+    }
+    .Select-control {
+      border: none;
+      outline: none !important;
+      box-shadow: none !important;
+      border-radius: 0px !important;
+    }
+    .Select-value {
+      border: solid 2px #009a80;
+      border-style: none none solid none;
+      border-radius: 0px;
+      padding-left: 0px;
+      &:focus {
+        outline: none;
+      }
+    }
+    .Select-value-label {
+      color: #000;
+    }
+    .Select-multi-value-wrapper {
+      &:focus {
+        outline: none;
+      }
+    }
+    .Select-clear-zone {
+      display: none;
+    }
+    .Select-control {
+      &:hover {
+        box-shadow: none;
+      }
+    }
+    .Select-input {
+      padding: 8px 0px 0px;
+      input {
+        border: none;
+        margin-bottom: 0px;
+        padding: 0px;
+      }
+    }
   }
   &.inactive {
     &.has-text {
@@ -194,6 +240,13 @@ select {
       font-weight: 600;
       color: #7f7f7f;
     }
+    .dropdown {
+      border-bottom: 1px solid #e0e0e0;
+      .Select-value {
+        border-width: 0px;
+        border-color: #e0e0e0;
+      }
+    }
   }
   &.error {
     input {
@@ -224,5 +277,11 @@ select {
         color: #7f7f7f;
       }
     }
+  }
+  .cancel {
+    position: absolute;
+    bottom: 16px;
+    right: 0px;
+    cursor: pointer;
   }
 }

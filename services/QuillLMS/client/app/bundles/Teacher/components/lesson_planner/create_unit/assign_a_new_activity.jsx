@@ -12,11 +12,11 @@ export default React.createClass({
             key={'diagnostics'}
             title={'Entry Diagnostics'}
             img={`${process.env.CDN_URL}/images/shared/diagnostic_icon.svg`}
-            bodyText={[<span key={1}>Identify the skills each student needs to work on with one of our 3 diagnostics.</span>]}
+            bodyText={[<span key={1}>Identify the skills each student needs to work on with one of our 4 diagnostics.</span>]}
             directions={'use intermittently'}
-            quantity={3}
+            quantity={4}
             unit={'Diagnostic'}
-            timeDuration={'~20 Min.'}
+            timeDuration={'~30 Min.'}
           />,
             <AssignmentTypeMini
               link='/teachers/classrooms/assign_activities/featured-activity-packs'
