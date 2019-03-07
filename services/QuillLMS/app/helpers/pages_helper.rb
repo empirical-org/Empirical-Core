@@ -63,12 +63,6 @@ module PagesHelper
 			      title: 'Executive Director, Cofounder',
 			      desc: "Peter designs the user experience, manages the team, and leads fundraising. Peter found his passion for writing as a journalist at his high school's newspaper, and studied philosophy at Bates College. By teaching students how to write, we teach them how to organize and articulate their ideas. With Quill, he aims to help millions of people improve their writing and thinking skills. In 2016, he was awarded Forbes' 30 Under 30 for education."
 					},
-					{
-			      img: 'thumb-donald.png',
-			      name: 'Donald McKendrick',
-			      title: 'Technology Director, Cofounder',
-			      desc: "Donald leads Quill’s engineering team and has a master’s degree in chemistry with a specialization in computer aided modeling and statistical analysis. Donald has previously led financial services and e-commerce startups and is inspired by the opportunity to help educate millions of students through educational technology."
-					},
           {
             img: 'thumb-sara.jpg',
             name: 'Sara Jeruss',
@@ -192,6 +186,12 @@ module PagesHelper
 			{
 				team: 'Technical Advisory Board',
 				members: [
+          {
+            img: 'thumb-donald.png',
+            name: 'Donald McKendrick',
+            title: 'Advisory Board Member',
+            desc: "Donald is a Software Engineer at One Medical. He previously served as Quill's Technology Director. Prior to that, he led financial services and e-commerce startups. He is inspired by the opportunity to help educate millions of students through educational technology."
+          },
 					{
 						img: 'thumb-alex.png',
 						name: "Alex Redmon",
