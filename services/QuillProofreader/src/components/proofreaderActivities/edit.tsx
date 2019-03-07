@@ -17,13 +17,24 @@ interface EditProps {
   id: string;
 }
 
-export default class Edit extends React.Component<EditProps, any> {
+export default class Edit extends React.Component<EditProps, {offset: string}> {
   constructor(props: EditProps) {
     super(props)
+
+    this.state = { offset: ''}
 
     this.renderTooltip = this.renderTooltip.bind(this)
     this.renderGrammaticalConcept = this.renderGrammaticalConcept.bind(this)
     this.renderCorrectAnswers = this.renderCorrectAnswers.bind(this)
+  }
+
+  componentDidMount() {
+    const { id } = this.props
+    const element = document.getElementById(id)
+    console.log('window.innerWidth', window.innerWidth)
+    console.log('element.offsetLeft', element? element.offsetLeft : '')
+    const offset = element && ((window.innerWidth - element.offsetLeft) < 340) ? 'offset' : ''
+    this.setState({ offset })
   }
 
   renderGrammaticalConcept() {
@@ -62,11 +73,9 @@ export default class Edit extends React.Component<EditProps, any> {
   }
 
   renderTooltip() {
-    const { activeIndex, index, state, numberOfEdits, next, id } = this.props
+    const { activeIndex, index, state, numberOfEdits, next } = this.props
+    const { offset } = this.state
     const visible = activeIndex === index ? 'visible' : 'invisible'
-    const element = document.getElementById(id)
-    const offset = element && ((window.innerWidth - element.offsetLeft) < 350) ? 'offset' : ''
-    const correctAnswers = this.props.displayText ? this.props.displayText.split('~') : ''
     let src, headerText
     switch (state) {
       case 'correct':
@@ -101,10 +110,10 @@ export default class Edit extends React.Component<EditProps, any> {
   }
 
   render() {
-    const { activeIndex, index, state } = this.props
+    const { activeIndex, index, state, id } = this.props
     const className = activeIndex === index ? 'active' : ''
     const tooltip = this.renderTooltip()
-    return <div className={`edit ${className} ${state}`} id={this.props.id}>
+    return <div className={`edit ${className} ${state}`} id={id}>
       <strong>{this.props.incorrectText || this.props.displayText}</strong>
       {tooltip}
     </div>

@@ -337,7 +337,7 @@ function getMatcher(type) {
 
 function getMatcherFields(type, question, responses) {
   const responseArray = hashToCollection(responses);
-  const focusPoints = question.focusPoints ? hashToCollection(question.focusPoints) : [];
+  const focusPoints = question.focusPoints ? hashToCollection(question.focusPoints).sort((a, b) => a.order - b.order) : [];
   const incorrectSequences = question.incorrectSequences ? hashToCollection(question.incorrectSequences) : [];
   const defaultConceptUID = question.modelConceptUID || question.conceptID || question.concept_uid
 
