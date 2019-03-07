@@ -121,7 +121,7 @@ class LoginFormApp extends React.Component {
                   value={password}
                   handleChange={this.handlePasswordChange}
                   type={this.togglePass()}
-                  className="password"
+                  className="password inspectletIgnore"
                   error={errors.password}
                   timesSubmitted={timesSubmitted}
                 />
