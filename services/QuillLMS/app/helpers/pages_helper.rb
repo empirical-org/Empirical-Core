@@ -63,12 +63,6 @@ module PagesHelper
 			      title: 'Executive Director, Cofounder',
 			      desc: "Peter designs the user experience, manages the team, and leads fundraising. Peter found his passion for writing as a journalist at his high school's newspaper, and studied philosophy at Bates College. By teaching students how to write, we teach them how to organize and articulate their ideas. With Quill, he aims to help millions of people improve their writing and thinking skills. In 2016, he was awarded Forbes' 30 Under 30 for education."
 					},
-					{
-			      img: 'thumb-donald.png',
-			      name: 'Donald McKendrick',
-			      title: 'Technology Director, Cofounder',
-			      desc: "Donald leads Quill’s engineering team and has a master’s degree in chemistry with a specialization in computer aided modeling and statistical analysis. Donald has previously led financial services and e-commerce startups and is inspired by the opportunity to help educate millions of students through educational technology."
-					},
           {
             img: 'thumb-sara.jpg',
             name: 'Sara Jeruss',
@@ -87,12 +81,6 @@ module PagesHelper
 			      title: "Software Developer",
 			      desc: "Emilia is a software developer who is passionate about education. Before joining Quill, Emilia taught at an elementary school in Arizona and tutored students at Breakthrough Santa Fe. As a developer, the first program she built was Word by Word, a grammar tool that teaches students how to identify parts of speech in a sentence."
 			    },
-          {
-            img: 'thumb-max.jpg',
-            name: 'Max Buck',
-            title: 'Software Developer',
-            desc: "Max is a software developer with a passion for writing. Before joining Quill, Max studied Computer Science at Ohio State University, worked for a number of different startups, and travelled around the country in a gutted Toyota 4Runner."
-          },
           {
 						img: 'thumb-maddy.png',
 						name: 'Maddy Maher',
@@ -116,7 +104,13 @@ module PagesHelper
             name: 'Emma Volk',
             title: 'Editorial Associate',
             desc: "Emma is an editorial associate with a love for writing. She has an undergraduate degree in English from Columbia University and a master’s degree in English from the University of Oxford."
-          }
+          },
+					{
+						img: 'thumb-thomas.jpg',
+						name: 'Thomas Robertson',
+						title: 'Senior Web Developer',
+						desc: "Thomas brings his decade of software development experience to Quill with a focus on technological and operational scalability.  He is deeply committed to using technology to improve public education by empowering teachers to do more in their classrooms.  Thomas has spent most of his career working at a combination of education companies and small start-ups, which makes Quill a natural fit for his experience and skills."
+					}
 				]
 			},
 			{
@@ -138,7 +132,7 @@ module PagesHelper
 						img: 'thumb_ben.png',
 						name: "Ben Sussman",
 						title: "Board Member",
-						desc: "Ben Sussman is a Lead Engineer at Betterment and is a technical advisor to Quill. He has 10+ years of experience as a computer programmer and entrepreneur. On the weekends, Ben volunteers with Nanohackers to teach programming to kids."
+						desc: "Ben Sussman is an Engineer at Spell and is a technical advisor to Quill. He has 10+ years of experience as a computer programmer and entrepreneur. On the weekends, Ben volunteers with Nanohackers to teach programming to kids."
 					},
 					{
 						img: 'thumb_rubin.png',
@@ -192,17 +186,17 @@ module PagesHelper
 			{
 				team: 'Technical Advisory Board',
 				members: [
+          {
+            img: 'thumb-donald.png',
+            name: 'Donald McKendrick',
+            title: 'Advisory Board Member',
+            desc: "Donald is a Software Engineer at One Medical. He previously served as Quill's Technology Director. Prior to that, he led financial services and e-commerce startups. He is inspired by the opportunity to help educate millions of students through educational technology."
+          },
 					{
 						img: 'thumb-alex.png',
 						name: "Alex Redmon",
-						title: "Open Source Developer",
+						title: "Advisory Board Member",
 						desc: "Alex is an art collector, I.T. professional, and entrepreneur living in Brooklyn who enjoys reading, writing, photography, and music."
-					},
-					{
-	  				img: "thumb-oliver.jpg",
-	  				name: "Oliver Hurst Hiller",
-	  				title: "Advisory Board Member",
-	  				desc: "Oliver is the CTO and Head of Product at DonorsChoose.org. Previously, he managed product engineering projects for Microsoft's new search engine, now called Bing."
 					}
 				]
 			},
