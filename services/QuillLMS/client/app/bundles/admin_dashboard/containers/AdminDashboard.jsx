@@ -5,6 +5,7 @@ import PremiumFeatures from '../components/premium_features.tsx';
 import CreateNewAccounts from '../components/create_new_accounts.tsx';
 import LoadingSpinner from '../../Teacher/components/shared/loading_indicator';
 import QuestionsAndAnswers from '../../Teacher/containers/QuestionsAndAnswers';
+import Pusher from 'pusher-js';
 
 import getAuthToken from '../../Teacher/components/modules/get_auth_token';
 
@@ -41,7 +42,24 @@ export default React.createClass({
   },
 
   receiveData(data) {
-    this.setState({ model: data, loading: false, });
+    if (Object.keys(data).length > 1) {
+      this.setState({ model: data, loading: false, });
+    } else {
+      this.setState({ model: data}, this.initializePusher)
+    }
+  },
+
+  initializePusher() {
+    if (process.env.RAILS_ENV === 'development') {
+      Pusher.logToConsole = true;
+    }
+    const adminId = String(this.state.model.id)
+    const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
+    const channel = pusher.subscribe(adminId);
+    const that = this;
+    channel.bind('admin-users-found', () => {
+      that.getData()
+    });
   },
 
   addTeacherAccount(data) {

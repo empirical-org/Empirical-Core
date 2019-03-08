@@ -76,6 +76,12 @@
     padding: 0px 12px;
     font-size: 14px;
     cursor: pointer;
+    min-width: 144px;
+    justify-content: space-between;
+    span {
+      display: flex;
+      align-items: center;
+    }
     img {
       margin-right: 12px;
     }
@@ -135,7 +141,8 @@
     .user-dropdown-button::after {
       margin-left: 10px;
       content: "\f078";
-      font-family: "FontAwesome";
+      font-family: "Font Awesome\ 5 Free";  /* updated font-family */
+      font-weight: 900; /* regular style/weight */
     }
     div {
       display: none;
@@ -145,7 +152,8 @@
     .user-dropdown-button::after {
       margin-left: 10px;
       content: "\f077";
-      font-family: "FontAwesome";
+      font-family: "Font Awesome\ 5 Free";  /* updated font-family */
+      font-weight: 900; /* regular style/weight */
     }
   }
 }
@@ -158,6 +166,13 @@ nav.q-navbar-home {
   align-content: center;
   position:relative;
   margin: 0px auto;
+
+  .logo-only {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
   .logo-img-new {
     margin-top: 20px;

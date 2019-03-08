@@ -50,12 +50,14 @@ export default class ClassroomLessons extends React.Component {
     request.get(`${process.env.FIREBASE_DATABASE_URL}/v2/lessons_editions.json`, (error, httpStatus, body) => {
       const editions = JSON.parse(body)
       const lessonUidsWithEditions = []
-      Object.keys(editions).forEach(e => {
-        const edition = editions[e]
-        if (edition.user_id === teacherId && lessonUidsWithEditions.indexOf(edition.lesson_id) === -1) {
-          lessonUidsWithEditions.push(edition.lesson_id)
-        }
-      })
+      if (editions) {
+        Object.keys(editions).forEach(e => {
+          const edition = editions[e]
+          if (edition.user_id === teacherId && lessonUidsWithEditions.indexOf(edition.lesson_id) === -1) {
+            lessonUidsWithEditions.push(edition.lesson_id)
+          }
+        })
+      }
       this.setState({lessonUidsWithEditions: lessonUidsWithEditions, loaded: true})
     })
   }
@@ -82,7 +84,7 @@ export default class ClassroomLessons extends React.Component {
         <p>With Quill Lessons, teachers can use Quill to lead whole-class lessons and to see and display student responses in real-time.</p>
         <div className="buttons">
           <a target="_blank" href="/teachers/classrooms/assign_activities/create-unit?tool=lessons" className="bg-quillgreen text-white">Assign Lessons</a>
-          <a target="_blank" href="/tool/lessons" className="bg-white text-quillgreen">Learn More</a>
+          <a target="_blank" href="/tools/lessons" className="bg-white text-quillgreen">Learn More</a>
         </div>
       </div>
       <img src={`${process.env.CDN_URL}/images/illustrations/empty_state_illustration_lessons.svg`} />
@@ -90,7 +92,7 @@ export default class ClassroomLessons extends React.Component {
   }
 
   switchClassrooms(classroom) {
-    window.location.href = (`${process.env.DEFAULT_URL}/teachers/classrooms/activity_planner/lessons/${classroom.id}`);
+    this.props.router.push(`${process.env.DEFAULT_URL}/teachers/classrooms/activity_planner/lessons/${classroom.id}`);
     this.setState({ selectedClassroomId: `${classroom.id}`, }, () => this.getLessonsForCurrentClass());
   }
 

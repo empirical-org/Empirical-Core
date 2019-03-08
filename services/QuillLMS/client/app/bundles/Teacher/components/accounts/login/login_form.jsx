@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import request from 'request';
 import PasswordInfo from './password_info.jsx';
+import Input from '../../shared/input';
 import getAuthToken from '../../modules/get_auth_token';
-import queryString from 'query-string';
 
-class LoginFormApp extends Component {
+class LoginFormApp extends React.Component {
   constructor() {
     super();
     this.handleEmailChange = this.handleEmailChange.bind(this);
@@ -14,6 +14,8 @@ class LoginFormApp extends Component {
       showPass: false,
       email: '',
       password: '',
+      errors: {},
+      timesSubmitted: 0,
     };
   }
 
@@ -31,8 +33,12 @@ class LoginFormApp extends Component {
     return !this.state.showPass ? 'Show' : 'Hide';
   }
 
-  toggleButtonClass() {
-    return !this.state.showPass ? 'not-showing' : 'showing-password';
+  submitClass() {
+    let buttonClass = 'button contained primary medium';
+    if (!this.state.password.length || !this.state.email.length) {
+      buttonClass += ' disabled';
+    }
+    return buttonClass;
   }
 
   handleEmailChange(e) {
@@ -44,14 +50,15 @@ class LoginFormApp extends Component {
   }
 
   handleSubmit(e) {
+    const { timesSubmitted, email, password, } = this.state;
     e.preventDefault();
     request({
       url: `${process.env.DEFAULT_URL}/session/login_through_ajax`,
       method: 'POST',
       json: {
         user: {
-          email: this.state.email,
-          password: this.state.password,
+          email,
+          password,
         },
         authenticity_token: getAuthToken(),
       },
@@ -61,54 +68,76 @@ class LoginFormApp extends Component {
         // console.log(body);
         window.location = `${process.env.DEFAULT_URL}${body.redirect}`;
       } else {
-        let message = 'You have entered an incorrect email/username or password.';
-        if (httpResponse.statusCode === 429) {
-          message = 'Too many failed attempts. Please wait one minute and try again.';
+        let state;
+        if (body.type && body.message) {
+          const errors = {};
+          errors[body.type] = body.message;
+          state = { lastUpdate: new Date(), errors, timesSubmitted: timesSubmitted + 1, };
+        } else {
+          let message = 'You have entered an incorrect email/username or password.';
+          if (httpResponse.statusCode === 429) {
+            message = 'Too many failed attempts. Please wait one minute and try again.';
+          }
+          state = { lastUpdate: new Date(), message: (body.message || message), };
         }
-        this.setState({ lastUpdate: new Date(), message: (body.message || message), });
+        this.setState(state);
       }
     });
   }
 
   render() {
+    const { errors, email, password, timesSubmitted, authToken, } = this.state;
     return (
-      <div>
-        <div key={this.state.lastUpdate} className={`error ${this.state.message ? 'shake' : null}`}>
-          {this.state.message}
-        </div>
-        <form id="new_user" className="new_user" onSubmit={this.handleSubmit} acceptCharset="UTF-8" >
-          <input name="utf8" type="hidden" value="✓" />
-          <input value={this.state.authToken} type="hidden" name="authenticity_token" />
-          <label>Email or username</label>
-          <input
-            placeholder="Email or Username"
-            id="email"
-            name="user[email]"
-            value={this.state.email}
-            onChange={this.handleEmailChange}
-            type="text"
-          />
-          <label>Password</label>
-          <div className="login-password">
-            <input
-              id="password"
-              placeholder="Password"
-              className="password-input"
-              name="user[password]"
-              value={this.state.password}
-              onChange={this.handlePasswordChange}
-              type={this.togglePass()}
-            />
-            <div
-              onClick={() => { this.clickHandler(); }}
-              className={this.toggleButtonClass()}
-            >
-              {this.toggleButtonText()}
+      <div className="container account-form">
+        <h1>Good to see you again!</h1>
+        <div className="account-container text-center">
+          <div className="auth-section">
+            <a href="/auth/google_oauth2">
+              <img src="/images/google_icon.svg" alt="google icon" />
+              <span>Log in with Google</span>
+            </a>
+            <a href={this.props.cleverLink}>
+              <img src={`${process.env.CDN_URL}/images/shared/clever_icon.svg`} alt="clever icon" />
+              <span>Log in with Clever</span>
+            </a>
+          </div>
+          <div className="break"><span  />or<span  /></div>
+          <div className="login-form">
+            <div>
+              <form onSubmit={this.handleSubmit} acceptCharset="UTF-8" >
+                <input name="utf8" type="hidden" value="✓" />
+                <input value={authToken} type="hidden" name="authenticity_token" />
+                <Input
+                  label="Email or username"
+                  value={email}
+                  handleChange={this.handleEmailChange}
+                  type="text"
+                  className="email"
+                  error={errors.email}
+                  timesSubmitted={timesSubmitted}
+                />
+                <Input
+                  label="Password"
+                  value={password}
+                  handleChange={this.handlePasswordChange}
+                  type={this.togglePass()}
+                  className="password inspectletIgnore"
+                  error={errors.password}
+                  timesSubmitted={timesSubmitted}
+                />
+                <div className="forget-and-show-password">
+                  <a href="/password_reset">Forgot password?</a>
+                  <span onClick={() => { this.clickHandler(); }}>
+                    {this.toggleButtonText()} password
+                  </span>
+                </div>
+                <input type="submit" name="commit" value="Log in" className={this.submitClass()} />
+              </form>
             </div>
           </div>
-          <input type="submit" name="commit" value="Log In" />
-        </form>
-        <PasswordInfo showHintBox={!!this.state.message} />
+        </div>
+        <p className="sign-up-link">Don't have an account?&nbsp;<a href="/account/new">Sign up</a></p>
+        <PasswordInfo showHintBox={Object.keys(this.state.errors).length} />
       </div>
     );
   }

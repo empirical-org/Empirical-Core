@@ -72,6 +72,15 @@ class ResponsesController < ApplicationController
     render json: @responses
   end
 
+  def multiple_choice_options
+    multiple_choice_options = Rails.cache.fetch("questions/#{params[:question_uid]}/multiple_choice_options", :expires_in => 900) do
+      optimal_responses = Response.where(question_uid: params[:question_uid], optimal: true).order('count DESC').limit(2).to_a
+      sub_optimal_responses = Response.where(question_uid: params[:question_uid], optimal: false).order('count DESC').limit(2).to_a
+      optimal_responses.concat(sub_optimal_responses)
+    end
+    render json: multiple_choice_options
+  end
+
   def get_health_of_question
     render json: health_of_question(params[:question_uid])
   end
@@ -170,6 +179,11 @@ class ResponsesController < ApplicationController
       new_record.update(question_uid: params[:new_question_uid])
     end
     render json: :ok
+  end
+
+  def reindex_responses_updated_today_for_given_question
+    question_uid = params[:question_uid]
+    Response.__elasticsearch__.import query: -> { where("question_uid = ? AND updated_at >= ?", question_uid, Time.zone.now.beginning_of_day) }
   end
 
   private

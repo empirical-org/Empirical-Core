@@ -7,6 +7,6 @@ module CleverIntegration::Creators::Teacher
       name: hash[:name],
       role: 'teacher'
     )
-    teacher.reload
+    teacher
   end
 end

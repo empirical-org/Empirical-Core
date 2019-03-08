@@ -9,18 +9,19 @@ export interface SessionState {
   currentQuestion: Question|null;
   proofreaderSession?: any;
   error?: string;
+  pending: boolean;
 }
 
 type SessionAction = Action & { data: any, attempts: any, response: any, session: any }
 
 export default (
-    currentState: SessionState = {hasreceiveddata: false, answeredQuestions: [], unansweredQuestions: [], currentQuestion: null},
+    currentState: SessionState = {hasreceiveddata: false, answeredQuestions: [], unansweredQuestions: [], currentQuestion: null, pending: true},
     action: SessionAction,
 ): SessionState => {
     let currentQuestion: Question|{}
     switch (action.type) {
         case ActionTypes.SET_SESSION:
-            return Object.assign({}, currentState, action.session)
+            return Object.assign({}, currentState, action.session, { pending: false, hasreceiveddata: true })
         case ActionTypes.RECEIVE_QUESTION_DATA:
             currentQuestion = action.data.splice(0, 1)[0]
             return Object.assign({}, currentState, { unansweredQuestions: action.data, currentQuestion, hasreceiveddata: true});
@@ -42,6 +43,8 @@ export default (
             return Object.assign({}, currentState, {currentQuestion})
         case ActionTypes.SET_PROOFREADER_SESSION_TO_REDUCER:
             return Object.assign({}, currentState, {proofreaderSession: action.data})
+        case ActionTypes.SET_SESSION_PENDING:
+            return Object.assign({}, currentState, {pending: action.pending})
         default:
             return currentState;
     }

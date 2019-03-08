@@ -25,7 +25,7 @@ module Units::Updater
   private
 
   def self.matching_or_new_classroom_unit(classroom, extant_classroom_units, new_cus, hidden_cus_ids, unit_id)
-    classroom_id = classroom[:id].to_i
+    classroom_id = classroom[:id].to_i || classroom['id'].to_i
     matching_cu = extant_classroom_units.find{|cu| cu.classroom_id == classroom_id}
     if matching_cu
       if classroom[:student_ids] == false
@@ -33,7 +33,9 @@ module Units::Updater
         hidden_cus_ids.push(matching_cu.id)
       elsif (matching_cu.assigned_student_ids != classroom[:student_ids]) || matching_cu.assign_on_join != classroom[:assign_on_join]
         # then something changed and we should update
+        google_unit_announcement = GoogleIntegration::UnitAnnouncement.new(matching_cu)
         matching_cu.update!(assign_on_join: classroom[:assign_on_join], assigned_student_ids: classroom[:student_ids], visible: true)
+        google_unit_announcement.update_recipients(classroom[:student_ids])
       elsif !matching_cu.visible
         matching_cu.update!(visible: true)
       end
@@ -47,19 +49,21 @@ module Units::Updater
   end
 
   def self.matching_or_new_unit_activity(activity_data, extant_unit_activities, new_uas, hidden_ua_ids, unit_id)
-    matching_ua = extant_unit_activities.find{|ua| (ua.activity_id == activity_data[:id])}
+    activity_data_id = activity_data[:id].to_i || activity_data['id'].to_i
+    activity_data_due_date = activity_data[:due_date] || activity_data['due_date']
+    matching_ua = extant_unit_activities.find{|ua| (ua.activity_id == activity_data_id )}
     if matching_ua
-      if matching_ua[:due_date] != activity_data[:due_date]
+      if matching_ua[:due_date] != activity_data_due_date
         # then something changed and we should update
-        matching_ua.update!(due_date: activity_data[:due_date], visible: true)
+        matching_ua.update!(due_date: activity_data_due_date, visible: true)
       elsif !matching_ua.visible
         matching_ua.update!(visible: true)
       end
-    elsif activity_data[:id]
+    elsif activity_data_id
       # making an array of hashes to create in one bulk option
-      new_uas.push({activity_id: activity_data[:id],
+      new_uas.push({activity_id: activity_data_id,
          unit_id: unit_id,
-         due_date: activity_data[:due_date]})
+         due_date: activity_data_due_date})
     end
   end
 
@@ -76,7 +80,12 @@ module Units::Updater
     activities_data.each do |activity|
       self.matching_or_new_unit_activity(activity, extant_unit_activities, new_uas, hidden_ua_ids, unit_id)
     end
-    ClassroomUnit.create(new_cus)
+    new_cus = new_cus.uniq { |cu| cu['classroom_id'] || cu[:classroom_id] }
+    new_uas = new_uas.uniq { |ua| ua['activity_id'] || ua[:activity_id] }
+    new_cus.each do |cu|
+      classroom_unit = ClassroomUnit.create(cu)
+      GoogleIntegration::UnitAnnouncement.new(classroom_unit).post
+    end
     ClassroomUnit.where(id: hidden_cus_ids).update_all(visible: false)
     UnitActivity.create(new_uas)
     UnitActivity.where(id: hidden_ua_ids).update_all(visible: false)

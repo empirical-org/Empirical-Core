@@ -103,8 +103,12 @@ module TeacherFixes
       new_unit_name = "#{user.name}'s Activities from #{classroom_1.name}"
       unit = Unit.create(user_id: classroom_2.owner.id, name: new_unit_name)
       classroom_units.each do |ca|
-        new_ca = ClassroomUnit.find_or_create_by(unit_id: unit.id, classroom_id: classroom_2_id, assigned_student_ids: [user_id])
-        ActivitySession.where(classroom_unit_id: ca.id, user_id: user_id).each { |as| as.update(classroom_unit_id: new_ca.id)}
+        new_cu = ClassroomUnit.find_or_create_by(unit_id: unit.id, classroom_id: classroom_2_id, assigned_student_ids: [user_id])
+
+        ActivitySession.where(classroom_unit_id: ca.id, user_id: user_id).each do |as|
+          as.update(classroom_unit_id: new_cu.id)
+          UnitActivity.find_or_create_by(unit_id: unit.id, activity_id: as.activity_id)
+        end
         hide_extra_activity_sessions(ca.id, user_id)
       end
     end
@@ -125,7 +129,7 @@ module TeacherFixes
 
   def self.move_students_from_one_class_to_another(class_id_1, class_id_2)
     StudentsClassrooms.where(classroom_id: class_id_1).each do |sc|
-      if StudentsClassrooms.find_by(classroom_id: class_id_2, student_id: sc.student_id)
+      if StudentsClassrooms.unscoped.find_by(classroom_id: class_id_2, student_id: sc.student_id)
         sc.update(visible: false)
       else
         sc.update(classroom_id: class_id_2)
@@ -162,6 +166,7 @@ module TeacherFixes
   def self.delete_last_activity_session(user_id, activity_id)
     last_activity_session = get_all_completed_activity_sessions_for_a_given_user_and_activity(user_id, activity_id).order("activity_sessions.completed_at DESC").limit(1)[0]
     if last_activity_session
+      last_activity_session.activity_session_interaction_logs.delete_all
       last_activity_session.delete
     else
       raise 'This activity session does not exist'

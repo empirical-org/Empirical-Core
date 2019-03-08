@@ -47,15 +47,27 @@ interface ConceptResults {
 //   name: string
 // }
 
-export function rematchAll(mode: string, question: Question, questionID: string, callback: Function) {
-  const matcher = getMatcher(mode);
-  getGradedResponses(questionID).then((data: any) => {
-    question.key = questionID
-    const matcherFields = getMatcherFields(mode, question, formatGradedResponses(data));
-    paginatedNonHumanResponses(matcher, matcherFields, questionID, 1, callback);
+export function rematchAll(mode: string, questionID: string, callback:Function) {
+  fetch('https://p8147zy7qj.execute-api.us-east-1.amazonaws.com/prod', {
+    method: 'POST',
+    body: JSON.stringify({ type: 'grammar_questions', uid: questionID}),
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    },
+  }).then((response) => {
+    if (!response.ok) {
+      throw Error(response.statusText);
+    }
+    return response.json();
+  }).then((response) => {
+    console.log('success');
+    callback('done')
+  }).catch((error) => {
+    console.log('error', error);
   });
-}
 
+}
 export function rematchOne(response: string, mode: string, question: Question, questionID: string, callback: Function) {
   const matcher = getMatcher(mode);
   getGradedResponses(questionID).then((data: any) => {
@@ -189,13 +201,11 @@ function getMatcher(mode: string): Function {
 }
 
 function getMatcherFields(mode: string, question: Question, responses: {[key: string]: Response}) {
-
   const responseArray = hashToCollection(responses);
-  // const focusPoints = question.focusPoints ? hashToCollection(question.focusPoints) : [];
-  // const incorrectSequences = question.incorrectSequences ? hashToCollection(question.incorrectSequences) : [];
-
+  const focusPoints = question.focusPoints ? hashToCollection(question.focusPoints).sort((a, b) => a.order - b.order) : [];
+  const incorrectSequences = question.incorrectSequences ? hashToCollection(question.incorrectSequences) : [];
   const defaultConceptUID = question.modelConceptUID || question.concept_uid
-  return [question.key, responseArray, defaultConceptUID]
+  return [question.key, responseArray, focusPoints, incorrectSequences, defaultConceptUID]
 }
 
 function getResponseBody(pageNumber: number) {
