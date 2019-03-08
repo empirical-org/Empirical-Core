@@ -123,7 +123,7 @@ const PlayDiagnosticQuestion = React.createClass({
   },
 
   checkAnswer(e) {
-    if (this.state.editing) {
+    if (this.state.editing && this.state.responses) {
       this.removePrefilledUnderscores();
       const response = getResponse(this.getQuestion(), this.state.response, this.getResponses(), this.props.marking || 'diagnostic');
       this.updateResponseResource(response);
@@ -211,10 +211,14 @@ const PlayDiagnosticQuestion = React.createClass({
   render() {
     let button;
     const fullPageInstructions = this.props.language === 'arabic' ? { maxWidth: 800, width: '100%', } : { display: 'block', };
-    if (this.props.question.attempts.length > 0) {
-      button = <button className="button student-submit" onClick={this.nextQuestion}>{this.getSubmitButtonText()}</button>;
+    if (this.state.responses && Object.keys(this.state.responses).length) {
+      if (this.props.question.attempts.length > 0) {
+        button = <button className="button student-submit" onClick={this.nextQuestion}>{this.getSubmitButtonText()}</button>;
+      } else {
+        button = <button className="button student-submit" onClick={this.checkAnswer}>{this.getSubmitButtonText()}</button>;
+      }
     } else {
-      button = <button className="button student-submit" onClick={this.checkAnswer}>{this.getSubmitButtonText()}</button>;
+      button = <button className="button student-submit is-disabled">{this.getSubmitButtonText()}</button>;
     }
     if (this.props.question) {
       const instructions = (this.props.question.instructions && this.props.question.instructions !== '') ? this.props.question.instructions : 'Combine the sentences into one sentence. Combinar las frases en una frase.';

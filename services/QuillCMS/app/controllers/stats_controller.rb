@@ -10,6 +10,10 @@ class StatsController < ApplicationController
     render json: :ok
   end
 
+  def up
+    render json: :ok
+  end
+
   private
 
   def question_health_index_helper(activities_endpoint, datadash_endpoint)

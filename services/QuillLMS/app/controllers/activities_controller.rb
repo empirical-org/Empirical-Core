@@ -4,7 +4,7 @@ class ActivitiesController < ApplicationController
   before_filter :set_activity, only: [:supporting_info, :customize_lesson, :name_and_id, :last_unit_template]
 
   def search
-    search_result = $redis.get("default_#{current_user&.testing_flag ? current_user&.testing_flag + '_' : nil}activity_search") || custom_search
+    search_result = $redis.get("default_#{flag ? flag + '_' : nil}activity_search") || custom_search
     render json: search_result
   end
 
@@ -73,11 +73,10 @@ protected
   end
 
   def custom_search
-    flag = current_user&.testing_flag
     substring = flag ? flag + "_" : ""
     activity_search_results = $redis.get("default_#{substring}activity_search")
     unless activity_search_results
-      activity_search_results = JSON.parse(ActivitySearchWrapper.set_and_return_search_cache_data(current_user&.testing_flag))
+      activity_search_results = JSON.parse(ActivitySearchWrapper.set_and_return_search_cache_data(flag))
     end
     activity_search_results
   end
@@ -88,6 +87,16 @@ protected
 
   def search_params
     params.require(:search).permit([:search_query, {sort: [:field, :asc_or_desc]},  {filters: [:field, :selected]}])
+  end
+
+  def flag
+    if current_user
+      if current_user.role == 'staff'
+        return 'private'
+      elsif current_user.testing_flag
+        return current_user.testing_flag
+      end
+    end
   end
 
 end

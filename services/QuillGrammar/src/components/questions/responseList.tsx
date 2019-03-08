@@ -1,9 +1,72 @@
 import * as React from 'react'
 import Response from './response'
 import { AffectedResponse } from 'quill-component-library/dist/componentLibrary'
+import {
+  addResponsesToMassEditArray,
+  removeResponsesFromMassEditArray
+} from '../../actions/massEdit';
 import _ from 'underscore'
 
 export default class ResponseList extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.allResponsesChecked = this.allResponsesChecked.bind(this)
+    this.addAllResponsesToMassEdit = this.addAllResponsesToMassEdit.bind(this)
+    this.removeAllResponsesFromMassEdit = this.removeAllResponsesFromMassEdit.bind(this)
+    this.addOrRemoveAllResponsesFromMassEdit = this.addOrRemoveAllResponsesFromMassEdit.bind(this)
+  }
+
+  allResponsesChecked() {
+    return !this.props.responses.some((r) => {
+      return !(
+        this.props.massEdit.selectedResponses.includes(r.key) ||
+        this.props.massEdit.selectedResponses.includes(r.id)
+      )
+    })
+  }
+
+  incorrectSequenceMatchHelper(responseString, sequenceParticle) {
+    const matchList = sequenceParticle.split('&&');
+    return _.every(matchList, m => {
+      try {
+        return new RegExp(m).test(responseString)
+      } catch(e) {
+        console.log('e', e)
+        return false;
+      }
+    })
+  }
+
+  focusPointMatchHelper(responseString, sequenceParticle) {
+    const matchList = sequenceParticle.split('&&');
+    return _.every(matchList, m => {
+      try {
+        return new RegExp(m).test(responseString)
+      } catch(e) {
+        console.log('e', e)
+        return false;
+      }
+    })
+  }
+
+  addAllResponsesToMassEdit() {
+    const keys = this.props.responses.map(r => r.id)
+    this.props.dispatch(addResponsesToMassEditArray(keys))
+  }
+
+  removeAllResponsesFromMassEdit() {
+    const keys = this.props.responses.map(r => r.id)
+    this.props.dispatch(removeResponsesFromMassEditArray(keys))
+  }
+
+  addOrRemoveAllResponsesFromMassEdit() {
+    if (this.allResponsesChecked()) {
+      this.removeAllResponsesFromMassEdit()
+    } else {
+      this.addAllResponsesToMassEdit()
+    }
+  }
 
   renderResponse(resp) {
     return <Response
@@ -12,8 +75,6 @@ export default class ResponseList extends React.Component {
       responses={this.props.responses}
       getResponse={this.props.getResponse}
       getChildResponses={this.props.getChildResponses}
-      states={this.props.states}
-      state={this.props.states[this.props.questionID]}
       questionID={this.props.questionID}
       dispatch={this.props.dispatch}
       readOnly={this.props.admin}
@@ -29,17 +90,9 @@ export default class ResponseList extends React.Component {
       concepts={this.props.concepts}
       conceptID={this.props.conceptID}
       massEdit={this.props.massEdit}
+      states={this.props.states}
+      state={this.props.states[this.props.questionID]}
     />
-  }
-
-  incorrectSequenceMatchHelper(responseString, sequenceParticle) {
-    const matchList = sequenceParticle.split('&&');
-    return _.every(matchList, m => new RegExp(m).test(responseString));
-  }
-
-  focusPointMatchHelper(responseString, sequenceParticle) {
-    const matchList = sequenceParticle.split('&&');
-    return _.every(matchList, m => new RegExp(m, 'i').test(responseString));
   }
 
   render() {
@@ -63,8 +116,19 @@ export default class ResponseList extends React.Component {
     });
 
     return (
-      <div>
-        {responseListItems}
+      <div style={{ marginTop: '20px', }}>
+        <span style={{ paddingLeft: '15px', }}>
+          <input
+            style={{ marginRight: '14px', }}
+            type="checkbox"
+            checked={this.allResponsesChecked()}
+            onChange={this.addOrRemoveAllResponsesFromMassEdit}
+          />
+          Check All Responses On Page
+        </span>
+        <div>
+          {responseListItems}
+        </div>
       </div>
     );
   }

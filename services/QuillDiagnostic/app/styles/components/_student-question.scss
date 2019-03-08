@@ -282,6 +282,7 @@ progress[value]::-webkit-progress-value {
 
 .landing-page {
   padding-top: 20px;
+  font-size: 20px;
   h1, h3 {
     font-size: 30px;
     font-family: $family-sans-serif;
@@ -290,11 +291,14 @@ progress[value]::-webkit-progress-value {
   p {
     max-width: 600px;
     margin-top: 13px;
-    font-size: 20px;
     color: #464646;
     &.second-p {
       margin-top: 25px;
     }
+  }
+  ul {
+    list-style: disc;
+    margin-left: 25px;
   }
   button {
     margin-top: 40px;
@@ -302,6 +306,10 @@ progress[value]::-webkit-progress-value {
       margin-top: -2px;
       margin-left: 10px;
     }
+  }
+  blockquote {
+    padding: 20px;
+    background-color: white;
   }
 }
 

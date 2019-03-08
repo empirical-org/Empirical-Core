@@ -1,168 +1,161 @@
 import * as React from "react";
-import {Link} from "react-router";
-import { Query, Mutation } from "react-apollo";
+import { Query } from "react-apollo";
 import gql from "graphql-tag";
+import ConceptManagerNav from "../components/ConceptManagerNav";
+import ConceptBoxContainer from "../components/ConceptBoxContainer"
+import CreateConceptBox from "../components/CreateConceptBox"
+import ConceptLevels from "../components/ConceptLevels";
+import { Concept } from '../interfaces/interfaces'
 
-import { 
-  Breadcrumb, Divider, Form, Input, Cascader, Button
-} from "antd";
-import { CascaderOptionType } from "../../../../node_modules/antd/lib/cascader";
-
-const FormItem = Form.Item;
-
-function parentConceptsQuery(){
-  return `
+const allConceptsQuery:string = `
   {
-    concepts(levelTwoOnly: true) {
-      value: id
-      label: name
+    concepts {
+      id
+      name
+      createdAt
+      visible
+      uid
+      parent {
+        id
+        name
+        parent {
+          id
+          name
+        }
+      }
       children {
-        value: id
-        label: name
+        id
+        name
       }
     }
   }
 `
+
+interface AddConceptState {
+  selectedConcept: { conceptID?: Number, levelNumber?: Number };
+  showSuccessBanner: Boolean;
 }
 
-const CREATE_CONCEPT = gql`
-  mutation createConcept($name: String!, $parentId: ID, $description: String){
-    createConcept(input: {name: $name, parentId: $parentId, description: $description}){
-      concept {
-        id
-        uid
-        name
-        parentId
-      }
-    }
-  }
-`;
-
-const CustomizedForm = Form.create({
-  onFieldsChange(props, changedFields) {
-    props.onChange(changedFields);
-  },
-  mapPropsToFields(props) {
-    return {
-      name: Form.createFormField({
-        ...props.name,
-        value: props.name.value,
-      }),
-      description: Form.createFormField({
-        ...props.description,
-        value: props.description.value,
-      }),
-      parentId: Form.createFormField({
-        ...props.parentId,
-        value: props.parentId.value,
-      }),
-    };
-  },
-})((props) => {
-  const { getFieldDecorator } = props.form;
-  return (
-    <Form onSubmit={props.onSubmit}>
-      <FormItem label="Concept Name">
-        {getFieldDecorator('name', {
-          rules: [{ required: true, message: 'Concept Name is required!' }],
-        })(<Input />)}
-      </FormItem>
-      <FormItem label="Concept Description">
-        {getFieldDecorator('description', {
-          rules: [{ required: false }],
-        })(<Input.TextArea autosize={{minRows: 2}} />)}
-      </FormItem>
-      <Query
-        query={gql(parentConceptsQuery())}
-      >
-        {({ loading, error, data }) => {
-          if (loading) return <p>Loading...</p>;
-          if (error) return <p>Error :(</p>;
-          const concepts:CascaderOptionType[] = data.concepts;
-          return (
-            <FormItem
-              label="Parent Concept"
-            >
-              {getFieldDecorator('parentId', {
-                rules: [{ type: 'array', required: false }],
-              })(
-                <Cascader options={concepts} changeOnSelect/>
-              )}
-            </FormItem>
-          )
-        }}
-      </Query>
-      <Button type="primary" htmlType="submit">
-        Create New Level {2 - props.parentId.value.length} Concept
-      </Button>
-    </Form>
-  );
-});
-
-class App extends React.Component {
+class AddConcept extends React.Component<{}, AddConceptState> {
   constructor(props){
     super(props)
+
     this.state = {
-      fields: {
-        name: {
-          value: null,
-        },
-        description: {
-          value: null,
-        },
-        parentId: {
-          value: [],
-        },
-      },
-    };
+      selectedConcept: {},
+      showSuccessBanner: false
+    }
+
+    this.selectConcept = this.selectConcept.bind(this)
+    this.finishEditingOrCreatingConcept = this.finishEditingOrCreatingConcept.bind(this)
+    this.closeEditSuccessBanner = this.closeEditSuccessBanner.bind(this)
+    this.closeConceptBox = this.closeConceptBox.bind(this)
   }
 
-  handleFormChange = (changedFields) => {
-    console.log(changedFields)
-    this.setState(({ fields }) => {
-      const newState =  {
-        fields: { ...fields, ...changedFields },
-      }
-      console.log("new: ", newState)
-      return newState;
-    });
+  finishEditingOrCreatingConcept(refetch) {
+    refetch()
+    this.setState({ showSuccessBanner: true, selectedConcept: {} })
   }
 
-  handleFormSubmit = (e) => {
-    e.preventDefault()
-    console.log('submitting', this.state);
+  closeEditSuccessBanner() {
+    this.setState({ showSuccessBanner: false })
   }
 
-  redirectToShow = (data) => {
-    console.log("Called")
-    this.props.router.push(data.createConcept.concept.id)
+  selectConcept(conceptID, levelNumber) {
+    console.log('conceptSelected')
+    this.setState({ selectedConcept: { conceptID, levelNumber }})
   }
+
+  closeConceptBox() {
+    console.log('concept unselected')
+    this.setState({ selectedConcept: {} })
+  }
+
+  renderContent() {
+    return <Query
+      query={gql(allConceptsQuery)}
+    >
+    {({ loading, error, data, refetch, networkStatus }) => {
+        if (networkStatus === 4) return <p>Refetching!</p>;
+        if (loading) return <p>Loading...</p>;
+        if (error) return <p>Error :(</p>;
+        const concepts:Array<Concept> = data.concepts.filter(c => c.visible);
+        return <div className="concept-levels-and-forms-container">
+          <ConceptLevels
+            concepts={concepts}
+            selectConcept={this.selectConcept}
+            selectedConcept={this.state.selectedConcept}
+            unselectConcept={this.closeConceptBox}
+          />
+          {this.renderConceptForms(refetch, concepts)}
+        </div>
+      }}
+    </Query>
+  }
+
+  renderConceptForms(refetch, concepts) {
+    const { conceptID, levelNumber } = this.state.selectedConcept
+    if (conceptID && (levelNumber || levelNumber === 0)) {
+      return (<div>
+        <ConceptBoxContainer
+          conceptID={conceptID}
+          levelNumber={levelNumber}
+          finishEditingConcept={() => this.finishEditingOrCreatingConcept(refetch)}
+          visible={true}
+          closeConceptBox={this.closeConceptBox}
+        />
+        {this.renderAddNewConceptsForms(refetch, concepts)}
+      </div>)
+    } else {
+      return this.renderAddNewConceptsForms(refetch, concepts)
+    }
+  }
+
+  renderAddNewConceptsForms(refetch, concepts) {
+    return <div className="new-concept-forms">
+      <div className="concept-guide-section">
+        <i className="fas fa-book-open"></i>
+        <div>
+          <a target="_blank" href="https://docs.google.com/document/d/1pWdDMGlqpoIjO75lIe6gfYMo3v4L7mAZjN2VBpwehhk/edit#heading=h.5sblht1hha9p">Concept Guide</a>
+          <p>Are you an intern, or not sure how to create a Concept? Then please read our documentation.</p>
+        </div>
+      </div>
+      <CreateConceptBox
+        levelNumber={2}
+        concepts={concepts}
+        finishEditingOrCreatingConcept={() => this.finishEditingOrCreatingConcept(refetch)}
+      />
+      <CreateConceptBox
+        levelNumber={1}
+        concepts={concepts}
+        finishEditingOrCreatingConcept={() => this.finishEditingOrCreatingConcept(refetch)}
+      />
+      <CreateConceptBox
+        levelNumber={0}
+        concepts={concepts}
+        finishEditingOrCreatingConcept={() => this.finishEditingOrCreatingConcept(refetch)}
+      />
+    </div>
+  }
+
+  renderEditSuccessBanner() {
+    if (this.state.showSuccessBanner) {
+      return <div className="success-banner"><span>You saved a concept.</span><span onClick={this.closeEditSuccessBanner}><i className="fa fa-close"/></span></div>
+    }
+  }
+
 
   render() {
-    const fields = this.state.fields;
     return  (
       <div>
-        <Breadcrumb>
-          <Breadcrumb.Item><Link to="/">Home</Link></Breadcrumb.Item>
-          <Breadcrumb.Item>Create A New Concept</Breadcrumb.Item>
-        </Breadcrumb>
-        <Divider></Divider>
-        <Mutation mutation={CREATE_CONCEPT} onCompleted={this.redirectToShow}>
-          {(createConcept, { data }) => (
-            <CustomizedForm {...fields} onChange={this.handleFormChange} onSubmit={(e) => {
-              e.preventDefault();
-              createConcept({ variables: {
-                name: this.state.fields.name.value, 
-                parentId: this.state.fields.parentId.value[this.state.fields.parentId.value.length - 1],
-                description: this.state.fields.description.value,
-              }});
-            }} />
-          )}
-        </Mutation>
+        <ConceptManagerNav />
+        {this.renderEditSuccessBanner()}
+        <div className="new-concept-container">
+          {this.renderContent()}
+        </div>
       </div>
     )
   }
-  
+
 };
 
-export default App
+export default AddConcept
