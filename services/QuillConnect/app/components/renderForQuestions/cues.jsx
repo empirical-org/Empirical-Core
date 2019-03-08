@@ -8,6 +8,8 @@ export default React.createClass({
     let text
     if (this.props.getQuestion().cues && this.props.getQuestion().cuesLabel) {
       return this.props.getQuestion().cuesLabel
+    } else if (this.props.customText) {
+      text = this.props.customText;
     } else if (this.props.getQuestion().cues && this.props.getQuestion().cues.length === 1) {
       text = 'joining word'
       return text;
@@ -18,12 +20,7 @@ export default React.createClass({
   },
 
   renderExplanation() {
-    let text;
-    if (this.props.customText) {
-      text = this.props.customText;
-    } else {
-      text = this.getJoiningWordsText();
-    }
+    const text = this.getJoiningWordsText()
     return (
       <CueExplanation text={text} />
     );

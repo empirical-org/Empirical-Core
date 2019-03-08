@@ -545,10 +545,10 @@ export default class extends React.Component {
         </article>
         </div>
     } else {
-        toolbarLeft = <div>
-          <i onClick={() => this.insertMarkdown('# ')} className="fa">H1</i>
-          <i onClick={() => this.insertMarkdown('## ')} className="fa">H2</i>
-          <i onClick={() => this.insertMarkdown('### ')} className="fa">H3</i>
+        toolbarLeft = <div className="toolbar-left">
+          <p onClick={() => this.insertMarkdown('# ')}>H1</p>
+          <p onClick={() => this.insertMarkdown('## ')}>H2</p>
+          <p onClick={() => this.insertMarkdown('### ')}>H3</p>
           <i onClick={() => this.insertMarkdown('**', '**')} className="fa fa-bold" />
           <i onClick={() => this.insertMarkdown('*', '*')} className="fa fa-italic" />
           <i onClick={() => this.insertMarkdown('* ')} className="fa fa-list-ul" />

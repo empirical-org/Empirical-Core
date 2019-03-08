@@ -58,7 +58,7 @@ describe Teachers::ClassroomUnitsController, type: :controller do
 
     context 'when milestone exists and activity could not get updated' do
       let!(:user_milestone) { create(:user_milestone, milestone: milestone, user: teacher) }
-
+      
       before do
         allow_any_instance_of(ClassroomUnit).to receive(:update) { false }
       end

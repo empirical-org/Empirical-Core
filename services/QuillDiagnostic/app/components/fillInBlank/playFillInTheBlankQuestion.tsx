@@ -192,7 +192,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
   }
 
   warningText() {
-    const text = 'Use one of the words below';
+    const text = 'Use one of the options below';
     return `${text}${this.state.blankAllowed ? ' or leave blank.' : '.'}`;
   }
 
@@ -240,6 +240,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
           onChange={this.getChangeHandler(i)}
           value={this.state.inputVals[i]}
           onBlur={() => this.validateInput(i)}
+          autoComplete="off"
         />
       </span>
     );
@@ -268,7 +269,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
   }
 
   checkAnswer() {
-    if (!this.state.inputErrors.size) {
+    if (!this.state.inputErrors.size && this.state.responses) {
       if (!this.state.blankAllowed) {
         if (this.state.inputVals.filter(Boolean).length !== this.state.inputVals.length) {
           this.state.inputVals.forEach((val, i) => this.validateInput(i))
