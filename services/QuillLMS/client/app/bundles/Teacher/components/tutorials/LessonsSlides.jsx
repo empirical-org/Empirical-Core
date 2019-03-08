@@ -69,7 +69,7 @@ const SlideSix =() => {
     </div>
     <div className="text">
       <h1>Navigation Bar Links</h1>
-      <p>The icons at the top of the page allow you to see flagged students, open a new window to project lesson, freeze students’ screen, exit the lesson, and view this guide.</p>
+      <p>The icons at the top of the page allow you to see flagged students, open a new window to project the lesson, freeze students’ screen, exit the lesson, and view this guide.</p>
     </div>
   </div>
 }
