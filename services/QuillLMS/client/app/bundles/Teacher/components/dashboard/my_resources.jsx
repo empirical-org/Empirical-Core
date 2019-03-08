@@ -1,32 +1,29 @@
-'use strict'
+import React from 'react';
+import TeacherResourcesMini from './teacher_resources_mini';
+import TeacherBestPracticesMini from './teacher_best_practices_mini';
+import ChampionInvitationMini from './champion_invitation_mini';
 
- import React from 'react'
- import VideoMini from './video_mini'
- import TeacherResourcesMini from './teacher_resources_mini'
- import GoogleClassroomMini from './google_classroom_mini'
- import TeacherBestPracticesMini from './teacher_best_practices_mini'
+export default React.createClass({
 
- export default React.createClass({
-
-  createMinis: function() {
-    return(
-      <div>
-        <VideoMini videoCode='https://www.youtube.com/embed/i-clKDhqrqQ'/>
-        <TeacherResourcesMini/>
-        <TeacherBestPracticesMini/>
-        <GoogleClassroomMini/>
-      </div>);
-  },
-
-  render: function() {
+  createMinis() {
     return (
-      <div className='dashboard-section-container'>
-        <h3 className='dashboard-header'>My Resources</h3>
-        <div className='row'>
-          {this.createMinis()}
-        </div>
+      <div>
+        <TeacherResourcesMini />
+        <TeacherBestPracticesMini />
+        <ChampionInvitationMini />
       </div>
     );
-  }
+  },
+
+  render() {
+    return (
+      <div className="dashboard-section-container">
+        <h3 className="dashboard-header">My Resources</h3>
+        <div className="row">
+           {this.createMinis()}
+         </div>
+      </div>
+    );
+  },
 
 });

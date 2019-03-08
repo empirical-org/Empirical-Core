@@ -45,7 +45,7 @@ describe 'SerializeSalesContact' do
   it 'presents sales stage timestamps' do
     teacher = create(:user, role: 'teacher')
     notifier = double('notifier', perform_async: nil)
-    SalesContactUpdater.new(teacher.id, '1', nil, notifier).update
+    UpdateSalesContact.new(teacher.id, '1', nil, notifier).call
     teacher_data = SerializeSalesContact.new(teacher.id).data
 
     expect(teacher_data[:params][:basic_subscription])
@@ -56,7 +56,7 @@ describe 'SerializeSalesContact' do
     school = create(:school)
     teacher = create(:user, role: 'teacher')
     school.users << teacher
-    SalesContactCreator.new(teacher.id).create
+    CreateSalesContact.new(teacher.id).call
     account_data = SerializeSalesContact.new(teacher.id).account_data
 
     expect(account_data).to be nil
@@ -67,7 +67,7 @@ describe 'SerializeSalesContact' do
     teacher = create(:user, role: 'teacher')
     school.users << teacher
     notifier = double('notifier', perform_async: nil)
-    SalesContactUpdater.new(teacher.id, '1', nil, notifier).update
+    UpdateSalesContact.new(teacher.id, '1', nil, notifier).call
     account_data = SerializeSalesContact.new(teacher.id).account_data
 
     expect(account_data).to include(account_uid:
@@ -122,17 +122,17 @@ describe 'SerializeSalesContact' do
     teacher = create(:user, role: 'teacher')
     school.users << teacher
     classroom = create(:classroom)
-    classroom_activity = create(:classroom_activity, classroom: classroom)
+    classroom_unit = create(:classroom_unit, classroom: classroom)
     student = create(:user, role: 'student')
     create(:classrooms_teacher, user: teacher, classroom: classroom)
     create(:students_classrooms, student: student, classroom: classroom)
     create(:activity_session,
-      classroom_activity: classroom_activity,
+      classroom_unit: classroom_unit,
       user: student,
       state: 'finished',
     )
     create(:activity_session,
-      classroom_activity: classroom_activity,
+      classroom_unit: classroom_unit,
       user: student,
       state: 'started',
     )

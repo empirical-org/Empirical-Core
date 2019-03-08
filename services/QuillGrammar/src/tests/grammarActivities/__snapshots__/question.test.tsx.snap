@@ -18,6 +18,16 @@ ShallowWrapper {
     }
     answeredQuestions={Array []}
     checkAnswer={[Function]}
+    concepts={Object {}}
+    conceptsFeedback={
+      Object {
+        "data": Object {},
+        "hasreceiveddata": false,
+        "newConceptModalOpen": false,
+        "states": Object {},
+        "submittingnew": false,
+      }
+    }
     currentQuestion={
       Object {
         "answers": Array [
@@ -184,7 +194,9 @@ Sentences flow easily when all the actions in a list have the same ending. This 
             <h1>
               Parallel Structure
             </h1>
-            <div>
+            <div
+              className="progress-bar-section"
+            >
               <p>
                 Sentences Completed: 
                 0
@@ -280,6 +292,8 @@ Sentences flow easily when all the actions in a list have the same ending. This 
             <textarea
               className="input-field"
               onChange={[Function]}
+              onKeyDown={[Function]}
+              spellcheck="false"
               value=""
             />
           </Row>
@@ -301,6 +315,7 @@ Sentences flow easily when all the actions in a list have the same ending. This 
           </Row>
         </div>,
         undefined,
+        undefined,
       ],
       "className": "question",
     },
@@ -321,7 +336,9 @@ Sentences flow easily when all the actions in a list have the same ending. This 
               <h1>
                 Parallel Structure
               </h1>
-              <div>
+              <div
+                className="progress-bar-section"
+              >
                 <p>
                   Sentences Completed: 
                   0
@@ -404,7 +421,9 @@ Sentences flow easily when all the actions in a list have the same ending. This 
                 <h1>
                   Parallel Structure
                 </h1>,
-                <div>
+                <div
+                  className="progress-bar-section"
+                >
                   <p>
                     Sentences Completed: 
                     0
@@ -467,6 +486,7 @@ Sentences flow easily when all the actions in a list have the same ending. This 
                       />
                     </div>,
                   ],
+                  "className": "progress-bar-section",
                 },
                 "ref": null,
                 "rendered": Array [
@@ -671,6 +691,8 @@ Sentences flow easily when all the actions in a list have the same ending. This 
               <textarea
                 className="input-field"
                 onChange={[Function]}
+                onKeyDown={[Function]}
+                spellcheck="false"
                 value=""
               />
             </Row>,
@@ -739,6 +761,8 @@ Sentences flow easily when all the actions in a list have the same ending. This 
               "children": <textarea
                 className="input-field"
                 onChange={[Function]}
+                onKeyDown={[Function]}
+                spellcheck="false"
                 value=""
               />,
               "gutter": 0,
@@ -753,6 +777,8 @@ Sentences flow easily when all the actions in a list have the same ending. This 
               "props": Object {
                 "className": "input-field",
                 "onChange": [Function],
+                "onKeyDown": [Function],
+                "spellcheck": "false",
                 "value": "",
               },
               "ref": null,
@@ -803,6 +829,7 @@ Sentences flow easily when all the actions in a list have the same ending. This 
         "type": "div",
       },
       undefined,
+      undefined,
     ],
     "type": "div",
   },
@@ -825,7 +852,9 @@ Sentences flow easily when all the actions in a list have the same ending. This 
               <h1>
                 Parallel Structure
               </h1>
-              <div>
+              <div
+                className="progress-bar-section"
+              >
                 <p>
                   Sentences Completed: 
                   0
@@ -921,6 +950,8 @@ Sentences flow easily when all the actions in a list have the same ending. This 
               <textarea
                 className="input-field"
                 onChange={[Function]}
+                onKeyDown={[Function]}
+                spellcheck="false"
                 value=""
               />
             </Row>
@@ -942,6 +973,7 @@ Sentences flow easily when all the actions in a list have the same ending. This 
             </Row>
           </div>,
           undefined,
+          undefined,
         ],
         "className": "question",
       },
@@ -962,7 +994,9 @@ Sentences flow easily when all the actions in a list have the same ending. This 
                 <h1>
                   Parallel Structure
                 </h1>
-                <div>
+                <div
+                  className="progress-bar-section"
+                >
                   <p>
                     Sentences Completed: 
                     0
@@ -1045,7 +1079,9 @@ Sentences flow easily when all the actions in a list have the same ending. This 
                   <h1>
                     Parallel Structure
                   </h1>,
-                  <div>
+                  <div
+                    className="progress-bar-section"
+                  >
                     <p>
                       Sentences Completed: 
                       0
@@ -1108,6 +1144,7 @@ Sentences flow easily when all the actions in a list have the same ending. This 
                         />
                       </div>,
                     ],
+                    "className": "progress-bar-section",
                   },
                   "ref": null,
                   "rendered": Array [
@@ -1312,6 +1349,8 @@ Sentences flow easily when all the actions in a list have the same ending. This 
                 <textarea
                   className="input-field"
                   onChange={[Function]}
+                  onKeyDown={[Function]}
+                  spellcheck="false"
                   value=""
                 />
               </Row>,
@@ -1380,6 +1419,8 @@ Sentences flow easily when all the actions in a list have the same ending. This 
                 "children": <textarea
                   className="input-field"
                   onChange={[Function]}
+                  onKeyDown={[Function]}
+                  spellcheck="false"
                   value=""
                 />,
                 "gutter": 0,
@@ -1394,6 +1435,8 @@ Sentences flow easily when all the actions in a list have the same ending. This 
                 "props": Object {
                   "className": "input-field",
                   "onChange": [Function],
+                  "onKeyDown": [Function],
+                  "spellcheck": "false",
                   "value": "",
                 },
                 "ref": null,
@@ -1443,6 +1486,7 @@ Sentences flow easily when all the actions in a list have the same ending. This 
           ],
           "type": "div",
         },
+        undefined,
         undefined,
       ],
       "type": "div",

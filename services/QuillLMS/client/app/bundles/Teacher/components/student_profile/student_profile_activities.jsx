@@ -13,7 +13,7 @@ export default React.createClass({
   },
 
   render() {
-    const activities = this.props.data.map(ele => <StudentProfileActivity key={ele.ca_id} data={ele} />);
+    const activities = this.props.data.map(ele => <StudentProfileActivity key={ele.ua_id} data={ele} />);
     if (this.props.data.length > 0) {
       return (<div className="fake-table">
         <div className="header">

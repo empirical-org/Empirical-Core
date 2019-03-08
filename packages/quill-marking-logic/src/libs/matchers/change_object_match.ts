@@ -44,6 +44,7 @@ export function levenshteinMatchObjectChecker(responseString: string, responses:
 
 export function rigidChangeObjectMatchResponseBuilder(match: ChangeObjectMatch, copyMatchConceptResults:Boolean=false): PartialResponse|null {
   const res: PartialResponse = {}
+  const matchConceptResults = match.response.concept_results || match.response.conceptResults
   switch (match.errorType) {
     case ERROR_TYPES.INCORRECT_WORD:
       const missingWord = match.missingText;
@@ -51,7 +52,7 @@ export function rigidChangeObjectMatchResponseBuilder(match: ChangeObjectMatch, 
       res.feedback = missingTextFeedback || feedbackStrings.modifiedWordError;
       res.author = 'Modified Word Hint';
       res.parent_id = match.response.key;
-      res.concept_results = copyMatchConceptResults ? match.response.concept_results : [
+      res.concept_results = copyMatchConceptResults && matchConceptResults ? matchConceptResults : [
         conceptResultTemplate('H-2lrblngQAQ8_s-ctye4g')
       ];
       return res;
@@ -59,7 +60,7 @@ export function rigidChangeObjectMatchResponseBuilder(match: ChangeObjectMatch, 
       res.feedback = spellingFeedbackStrings['Spelling Hint'];
       res.author = 'Spelling Hint';
       res.parent_id = match.response.key;
-      res.concept_results = copyMatchConceptResults ? match.response.concept_results : [
+      res.concept_results = copyMatchConceptResults && matchConceptResults ? matchConceptResults : [
         conceptResultTemplate('H-2lrblngQAQ8_s-ctye4g')
       ];
       return res;
@@ -67,16 +68,15 @@ export function rigidChangeObjectMatchResponseBuilder(match: ChangeObjectMatch, 
       res.feedback = feedbackStrings.additionalWordError;
       res.author = 'Additional Word Hint';
       res.parent_id = match.response.key;
-      res.concept_results = copyMatchConceptResults ? match.response.concept_results : [
+      res.concept_results = copyMatchConceptResults && matchConceptResults ? matchConceptResults : [
         conceptResultTemplate('QYHg1tpDghy5AHWpsIodAg')
       ];
       return res;
     case ERROR_TYPES.MISSING_WORD:
-
       res.feedback = feedbackStrings.missingWordError;
       res.author = 'Missing Word Hint';
       res.parent_id = match.response.key;
-      res.concept_results = copyMatchConceptResults ? match.response.concept_results : [
+      res.concept_results = copyMatchConceptResults && matchConceptResults ? matchConceptResults : [
         conceptResultTemplate('N5VXCdTAs91gP46gATuvPQ')
       ];
       return res;
@@ -118,7 +118,7 @@ export function checkChangeObjectMatch(userString: string, responses: Array<Resp
     return matchedErrorType;
   });
   if (matched) {
-    const textChanges = getMissingAndAddedString(matched.text, userString);
+    const textChanges = getMissingAndAddedString(stringManipulationFn(matched.text), stringManipulationFn(userString));
     return Object.assign(
       {},
       {
@@ -167,9 +167,9 @@ const getErrorType = (targetString:string, userString:string, responses):string|
 
 const getMissingAndAddedString = (targetString: string, userString: string): TextChangesObject => {
   const changeObjects = getChangeObjects(targetString, userString);
-  const missingObject = changeObjects ? _.where(changeObjects, co => co.removed)[0] : null
+  const missingObject = changeObjects.find(change => change.removed)
   const missingText = missingObject ? missingObject.value : undefined;
-  const extraneousObject = changeObjects ? _.where(changeObjects, co => co.added)[0] : null
+  const extraneousObject = changeObjects ? changeObjects.find(change => change.added) : null
   const extraneousText = extraneousObject ? extraneousObject.value : undefined;
   return {
     missingText,

@@ -23,7 +23,7 @@ gem 'atomic_arrays'
 gem 'bcrypt'
 gem 'doorkeeper', '1.4.1'
 gem 'omniauth'
-gem 'omniauth-google-oauth2'
+gem 'omniauth-google-oauth2', '0.6.0'
 gem 'omniauth-clever'
 gem 'cancancan'
 gem 'firebase_token_generator'
@@ -66,6 +66,7 @@ gem 'scout_apm'
 gem 'rubyzip'
 gem 'httparty'
 gem 'intercom', '~> 3.5.23'
+gem 'haversine'
 
 # WEBSOCKETS
 gem 'pusher'
@@ -97,6 +98,7 @@ gem 'salesmachine-ruby', '~> 1.0.0'
 
 # API
 gem 'active_model_serializers', '~> 0.9.0'
+gem 'graphql'
 
 # UI HELPERS
 gem 'sass'
@@ -118,15 +120,11 @@ gem 'therubyracer', require: false
 gem 'uglifier',     require: false
 gem 'kaminari'
 
-# FACTORY BOT (because Cypress needs it not to scoped to test)
-gem 'factory_bot', require: false
-gem 'factory_bot_rails', require: false
-
 # MIDDLEWARE
 gem 'rack-cache', '~> 1.6.1', require: 'rack/cache'
 gem 'rack-cors', require: 'rack/cors'
 gem 'rack-host-redirect'
-gem 'rack-affiliates', '~> 0.4.0'
+gem 'rack-affiliates', '= 0.4.0'
 
 # DEPLOYMENT
 gem 'sentry-raven', '>= 0.12.2'
@@ -165,6 +163,7 @@ group :test, :development do
   gem 'pry-coolline'
   gem 'pry-rescue'
   gem 'rspec-rails', '~> 3.7.2'
+  gem 'factory_bot_rails', '~> 4.8.2', require: false
   gem 'fuubar', '~> 2.0.0.rc1'
   gem 'timecop'
   gem 'database_cleaner'
@@ -179,6 +178,7 @@ group :test, :development do
 end
 
 group :test, :development, :cypress do
+  gem 'cypress-on-rails', '~> 1.0'
   gem 'faker'
 end
 
@@ -202,3 +202,5 @@ gem 'sqreen'
 
 # temp for migrations
 gem 'paperclip'
+
+gem 'graphiql-rails', group: :development

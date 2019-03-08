@@ -2,8 +2,8 @@ class Teachers::ClassroomManagerController < ApplicationController
   respond_to :json, :html
   before_filter :teacher_or_public_activity_packs
   # WARNING: these filter methods check against classroom_id, not id.
-  before_filter :authorize_owner!, except: [:scores, :scorebook]
-  before_filter :authorize_teacher!, only: [:scores, :scorebook]
+  before_filter :authorize_owner!, except: [:scores, :scorebook, :lesson_planner]
+  before_filter :authorize_teacher!, only: [:scores, :scorebook, :lesson_planner]
   include ScorebookHelper
 
   def lesson_planner
@@ -68,9 +68,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   def scorebook
     @classrooms = classrooms_with_data
     if params['classroom_id']
-      @classroom = @classrooms.find{|classroom| classroom["id"] == params['classroom_id'].to_i}
-    else
-      @classroom = @classrooms.first
+      @classroom = @classrooms.find{|classroom| classroom["id"].to_i == params['classroom_id'].to_i}
     end
     @classrooms = @classrooms.as_json
     @classroom = @classroom.as_json

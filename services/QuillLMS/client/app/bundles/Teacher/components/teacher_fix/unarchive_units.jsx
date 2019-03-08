@@ -118,7 +118,7 @@ export default class UnarchiveUnits extends React.Component {
       <div>
         <h1><a href="/teacher_fix">Teacher Fixes</a></h1>
         <h2>Unarchive Units</h2>
-        <p>All archived units are selected by default. Unarchiving a unit will also unarchive all of that unit's classroom activities and activity sessions.</p>
+        <p>All archived units are selected by default. Unarchiving a unit will also unarchive all of that unit's classroom units, unit activities, and activity sessions.</p>
         <p>If the input field for a unit name is outlined in red, that means that it shares a name with one of that teacher's visible units. <strong>If you are going to unarchive this unit, make sure you change the name.</strong> Appending a number to the unit's name is a good way to handle this.</p>
         {this.renderTeacherForm()}
         {this.renderError()}

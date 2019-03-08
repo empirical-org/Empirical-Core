@@ -6,18 +6,21 @@ class UnitTemplate < ActiveRecord::Base
   has_many :recommendations, dependent: :destroy
   serialize :grades, Array
 
-  validates :flag,                  inclusion: { in: %w(alpha beta production),
+  validates :flag,                  inclusion: { in: %w(archived alpha beta production private),
                                     message: "%{value} is not a valid flag" }, :allow_nil => true
 
 
   scope :production, -> {where("unit_templates.flag IN('production') OR unit_templates.flag IS null")}
   scope :beta_user, -> { where("unit_templates.flag IN('production','beta') OR unit_templates.flag IS null")}
   scope :alpha_user, -> { where("unit_templates.flag IN('production','beta','alpha') OR unit_templates.flag IS null")}
+  scope :private_user, -> { where("unit_templates.flag IN('private', 'production','beta','alpha') OR unit_templates.flag IS null")}
   around_save :delete_relevant_caches
 
 
   def activity_ids= activity_ids
-    self.activities = Activity.find(activity_ids)
+    # getting around rails defaulting to activities being set in order of the activity id rather than the selected order
+    new_activities = activity_ids.map { |id| Activity.find(id) }
+    self.activities = new_activities
   end
 
   def related_models(flag)
@@ -28,16 +31,18 @@ class UnitTemplate < ActiveRecord::Base
     self.activities.ids
   end
 
-  def activities
-    Activity.joins('INNER JOIN activity_category_activities AS aca ON aca.activity_id = activities.id')
-    .joins('INNER JOIN activity_categories AS ac ON ac.id = aca.activity_category_id')
-    .joins('INNER JOIN activities_unit_templates ON activities.id = activities_unit_templates.activity_id')
-    .where("activities_unit_templates.unit_template_id = #{self.id}")
-    .order('ac.order_number, aca.order_number')
-  end
+  # def activities
+  #   Activity.joins('INNER JOIN activity_category_activities AS aca ON aca.activity_id = activities.id')
+  #   .joins('INNER JOIN activity_categories AS ac ON ac.id = aca.activity_category_id')
+  #   .joins('INNER JOIN activities_unit_templates ON activities.id = activities_unit_templates.activity_id')
+  #   .where("activities_unit_templates.unit_template_id = #{self.id}")
+  #   .order('ac.order_number, aca.order_number')
+  # end
 
   def self.user_scope(user_flag)
-    if user_flag == 'alpha'
+    if user_flag == 'private'
+      UnitTemplate.private_user
+    elsif user_flag == 'alpha'
       UnitTemplate.alpha_user
     elsif user_flag == 'beta'
       UnitTemplate.beta_user

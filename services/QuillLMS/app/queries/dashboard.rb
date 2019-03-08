@@ -47,8 +47,14 @@ class Dashboard
   def self.body_of_sql_search(user_id)
     "JOIN users AS students ON students.id = acts.user_id
      JOIN students_classrooms AS sc ON sc.student_id = students.id
-     JOIN classrooms_teachers ON classrooms_teachers.classroom_id = sc.classroom_id
-     WHERE classrooms_teachers.user_id = #{user_id} AND acts.percentage IS NOT null AND acts.visible IS true AND #{self.completed_since_sql}"
+     JOIN classrooms ON sc.classroom_id = classrooms.id
+     JOIN classrooms_teachers ON classrooms_teachers.classroom_id = classrooms.id
+     WHERE classrooms_teachers.user_id = #{user_id}
+     AND sc.visible = true
+     AND classrooms.visible = true
+     AND acts.percentage IS NOT null
+     AND acts.visible IS true
+     AND #{self.completed_since_sql}"
   end
 
   def self.completed_since_sql
@@ -59,10 +65,10 @@ class Dashboard
     ActiveRecord::Base.connection.execute("
     SELECT concepts.id, concepts.name, AVG((concept_results.metadata::json->>'correct')::int) * 100  AS score, (CASE WHEN AVG((concept_results.metadata::json->>'correct')::int) *100 > 0 THEN true ELSE false END) AS non_zero
       FROM activity_sessions as acts
-    JOIN classroom_activities ON classroom_activities.id = acts.classroom_activity_id
+    JOIN classroom_units ON classroom_units.id = acts.classroom_unit_id
     JOIN concept_results ON acts.id = concept_results.activity_session_id
     JOIN concepts ON concepts.id = concept_results.concept_id
-    JOIN classrooms_teachers ON classrooms_teachers.classroom_id = classroom_activities.classroom_id
+    JOIN classrooms_teachers ON classrooms_teachers.classroom_id = classroom_units.classroom_id
     WHERE classrooms_teachers.user_id = #{user_id} AND acts.percentage IS NOT null AND acts.visible IS true AND #{self.completed_since_sql}
     GROUP BY concepts.id
     ORDER BY non_zero DESC, score

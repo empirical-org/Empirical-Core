@@ -39,7 +39,7 @@ export default React.createClass({
       return this.formFields.map(function(field) {
         const type = field.name === 'password' ? 'password' : 'text'
         const error = that.props.errors[field.name]
-          ? <div className="error">{field.errorLabel} {that.props.errors[field.name]}.</div>
+          ? <div className="error">{field.errorLabel} {that.props.errors[field.name].join(", ")}.</div>
           : <span />
         return <div className="text-input-row" key={field.name}>
           <div className="form-label">{field.label}</div>

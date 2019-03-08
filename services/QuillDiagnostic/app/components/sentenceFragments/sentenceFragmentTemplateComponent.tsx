@@ -3,7 +3,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
 import * as _ from 'underscore';
-import {checkSentenceFragment, Response } from 'quill-marking-logic'
+import {checkDiagnosticSentenceFragment, Response } from 'quill-marking-logic'
 import {
   hashToCollection,
   ConceptExplanation,
@@ -107,7 +107,8 @@ const PlaySentenceFragment = React.createClass<any, any>({
       const key = this.props.currentKey;
       const { attempts, } = this.props.question;
       this.setState({ checkAnswerEnabled: false, }, () => {
-        const { prompt, wordCountChange, ignoreCaseAndPunc, incorrectSequences, focusPoints } = this.getQuestion();
+        const { prompt, wordCountChange, ignoreCaseAndPunc, incorrectSequences, focusPoints, concept_uid, modelConceptUID, conceptID } = this.getQuestion();
+        const defaultConceptUID = modelConceptUID || concept_uid || conceptID
         const responses = hashToCollection(this.getResponses())
         const fields = {
           question_uid: key,
@@ -118,9 +119,11 @@ const PlaySentenceFragment = React.createClass<any, any>({
           prompt,
           incorrectSequences,
           focusPoints,
-          mlUrl: 'https://nlp.quill.org'
+          checkML: false,
+          mlUrl: 'https://nlp.quill.org',
+          defaultConceptUID
         }
-        checkSentenceFragment(fields).then((resp) => {
+        checkDiagnosticSentenceFragment(fields).then((resp) => {
           const matched = {response: resp}
           if (typeof(matched) === 'object') {
             updateResponseResource(matched, key, attempts, this.props.dispatch, );
@@ -146,7 +149,15 @@ const PlaySentenceFragment = React.createClass<any, any>({
     if (!this.showNextQuestionButton()) {
       const latestAttempt:{response: Response}|undefined = getLatestAttempt(this.props.question.attempts);
       if (latestAttempt && latestAttempt.response) {
-        if (!latestAttempt.response.optimal && latestAttempt.response.concept_results) {
+        if (!latestAttempt.response.optimal && latestAttempt.response.conceptResults) {
+            const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.response.conceptResults);
+            if (conceptID) {
+              const data = this.props.conceptsFeedback.data[conceptID.conceptUID];
+              if (data) {
+                return <ConceptExplanation {...data} />;
+              }
+            }
+        } else if (latestAttempt.response && !latestAttempt.response.optimal && latestAttempt.response.concept_results) {
           const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.response.concept_results);
           if (conceptID) {
             const data = this.props.conceptsFeedback.data[conceptID.conceptUID];
@@ -237,7 +248,7 @@ const PlaySentenceFragment = React.createClass<any, any>({
           handleChange={this.handleChange}
           disabled={this.showNextQuestionButton()}
           checkAnswer={this.checkAnswer}
-          placeholder="Type your answer here. Remember, your answer should be just one sentence."
+          placeholder="Type your answer here."
         />
         <div className="question-button-group">
           {this.renderButton()}

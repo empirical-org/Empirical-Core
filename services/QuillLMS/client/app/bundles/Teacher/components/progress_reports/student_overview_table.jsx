@@ -50,7 +50,7 @@ export default class extends React.Component {
 
   greenArrow(row) {
     if (row.completed_at) {
-      return (<a href={`/teachers/progress_reports/report_from_classroom_activity_and_user/ca/${row.classroom_activity_id}/user/${this.props.studentId}`}>
+      return (<a href={`/teachers/progress_reports/report_from_classroom_unit_activity_and_user/cu/${row.classroom_unit_id}/user/${this.props.studentId}/a/${row.activity_id}`}>
         <img src="https://assets.quill.org/images/icons/chevron-dark-green.svg" alt=""/>
       </a>)
     }
@@ -73,7 +73,7 @@ export default class extends React.Component {
   tableRow(row) {
     const scoreInfo = this.score(row);
     const blurIfNotPremium = this.state.userIsPremium ?  '' : 'non-premium-blur'
-    const onClickFunction = row.completed_at ? () => window.location.href = `/teachers/progress_reports/report_from_classroom_activity_and_user/ca/${row.classroom_activity_id}/user/${this.props.studentId}` : () => {}
+    const onClickFunction = row.completed_at ? () => window.location.href = `/teachers/progress_reports/report_from_classroom_unit_activity_and_user/cu/${row.classroom_unit_id}/user/${this.props.studentId}/a/${row.activity_id}` : () => {}
 
     return (
       <tr onClick={onClickFunction} className={row.completed_at ? 'clickable' : ''}>

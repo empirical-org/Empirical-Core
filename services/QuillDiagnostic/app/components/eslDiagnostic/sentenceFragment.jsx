@@ -166,7 +166,12 @@ const PlaySentenceFragment = React.createClass({
 
   renderPlaySentenceFragmentMode(fragment) {
     // HARDCODED
-    const button = <button className="button student-submit" onClick={this.checkAnswer}>{this.getSubmitButtonText()}</button>;
+    let button
+    if (this.state.responses) {
+      button = <button className="button student-submit" onClick={this.checkAnswer}>{this.getSubmitButtonText()}</button>;
+    } else {
+      button = <button className="button student-submit is-disabled">{this.getSubmitButtonText()}</button>;
+    }
 
     if (!this.choosingSentenceOrFragment()) {
       const component = (
@@ -188,7 +193,7 @@ const PlaySentenceFragment = React.createClass({
               handleChange={this.handleChange}
               disabled={this.showNextQuestionButton()}
               checkAnswer={this.checkAnswer}
-              placeholder="Type your answer here. Remember, your answer should be just one sentence."
+              placeholder="Type your answer here."
             />
             <div className="question-button-group">
               {button}

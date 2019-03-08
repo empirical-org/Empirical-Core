@@ -60,7 +60,7 @@ export default React.createClass({
 		caObj.classroomActivities.set(u.activity_id, {
 			name: u.activity_name,
 			activityId: u.activity_id,
-			created_at: u.classroom_activity_created_at,
+			created_at: u.unit_activity_created_at,
 			caId: u.classroom_activity_id,
 			unitId: u.unit_id,
 			activityClassificationId: u.activity_classification_id,
@@ -88,10 +88,11 @@ export default React.createClass({
 				caUnit.classroomActivities.set(u.activity_id,
 					caUnit.classroomActivities[u.activity_id] || {
 					name: u.activity_name,
-					caId: u.classroom_activity_id,
+					uaId: u.unit_activity_id,
+          cuId: u.classroom_unit_id,
 					activityId: u.activity_id,
 					unitId: u.unit_id,
-					created_at: u.classroom_activity_created_at,
+					created_at: u.unit_activity_created_at,
 					activityClassificationId: u.activity_classification_id,
 					ownedByCurrentUser: u.owned_by_current_user === 't',
 					ownerName: u.owner_name,
@@ -115,7 +116,7 @@ export default React.createClass({
 				return (
 					<EmptyDiagnosticProgressReport status={this.state.diagnosticStatus}/>
 				);
-			} else if (this.state.units.length === 1) {
+			} else if (this.state.units.length === 1 && this.state.units[0].classroomActivities.size === 1) {
 				this.goToDiagnosticReport()
       } else {
 				return (

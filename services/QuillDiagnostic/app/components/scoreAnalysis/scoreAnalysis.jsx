@@ -10,7 +10,6 @@ import {
   hashToCollection
 } from 'quill-component-library/dist/componentLibrary'
 import { getParameterByName } from '../../libs/getParameterByName'
-import { getDiagnosticQuestions } from '../../libs/getDiagnosticQuestions'
 import _ from 'underscore';
 import {oldFlagToNew} from '../../libs/flagMap'
 
@@ -83,11 +82,10 @@ class ScoreAnalysis extends Component {
   }
 
   formatDataForQuestionType(questionData, scoreAnalysis, typeName, pathName) {
-    const diagnosticQuestions = getDiagnosticQuestions(this.props.lessons.data, questionData)
+    const diagnosticQuestions = questionData
     return _.map(hashToCollection(diagnosticQuestions), (question) => {
       const scoreData = scoreAnalysis.data[question.key];
       if (scoreData) {
-        console.log('scoreData', scoreData.activities)
         const percentageWeakResponses = Math.round(scoreData.common_unmatched_responses/scoreData.responses * 100)
         return {
           key: `${question.key}-${typeName}`,
@@ -117,7 +115,9 @@ class ScoreAnalysis extends Component {
       filteredData = filteredData.filter((q) => q && q.status === this.state.status)
     }
     if (this.state.flag) {
-      filteredData = filteredData.filter((q) => q && q.flag === this.state.flag || q.flag === oldFlagToNew[this.state.flag])
+      if (this.state.flag !== 'all') {
+        filteredData = filteredData.filter((q) => q && q.flag === this.state.flag || q.flag === oldFlagToNew[this.state.flag])
+      }
     }
     return _.compact(filteredData);
   }

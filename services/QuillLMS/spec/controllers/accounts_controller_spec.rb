@@ -17,7 +17,7 @@ describe AccountsController, type: :controller do
 
     it 'should kick off the background job, set the session values and variables' do
       get :new, redirect: "www.test.com"
-      expect(session[:role]).to eq nil
+      expect(session[:role]).to eq 'something'
       expect(session[:post_sign_up_redirect]).to eq "www.test.com"
       expect(assigns(:teacherFromGoogleSignUp)).to eq false
       expect(assigns(:js_file)).to eq "session"
@@ -52,20 +52,20 @@ describe AccountsController, type: :controller do
       end
 
       context 'when user is saved' do
-        let(:callbacks) { double(:callbacks, trigger: true) }
+        let(:callbacks) { double(:callbacks, call: true) }
 
         before do
-          allow(AccountCreationCallbacks).to receive(:new) { callbacks }
+          allow(CompleteAccountCreation).to receive(:new) { callbacks }
         end
 
         it 'should kick off the account creation callback' do
-          expect(callbacks).to receive(:trigger)
+          expect(callbacks).to receive(:call)
           post :create, user: { classcode: "code", email: "test@test.com", password: "test123", role: "student" }
         end
 
         it 'should subscribe the user to the newsletter' do
           expect_any_instance_of(User).to receive(:subscribe_to_newsletter)
-          post :create, user: { classcode: "code", email: "test@test.com", password: "test123", role: "student" }
+          post :create, user: { classcode: "code", email: "test@test.com", password: "test123", role: "teacher", send_newsletter: true }
         end
 
         context 'when user is a teacher and affliate tag present' do
@@ -74,13 +74,14 @@ describe AccountsController, type: :controller do
 
             before do
               allow(user).to receive(:teacher?) { true }
-              request.env["affiliate.tag"] = "some code"
+              request.env['affiliate.tag'] = user.referral_code
             end
 
             it 'should create the referralsuser' do
-              post :create, user: { classcode: "code", email: "test@test.com", password: "test123", role: "teacher" }
-              expect(ReferralsUser.last.user_id).to eq user.id
-              expect(ReferralsUser.last.referred_user_id).to eq another_user.id
+              post :create, user: { email: "test@test.com", password: "test123", role: "teacher" }
+              new_user = User.find_by_email("test@test.com")
+              expect(ReferralsUser.find_by_user_id(user.id).present?).to eq true
+              expect(ReferralsUser.find_by_referred_user_id(new_user.id).present?).to eq true
             end
           end
         end
@@ -93,7 +94,7 @@ describe AccountsController, type: :controller do
           it 'should render the json' do
             post :create, user: { classcode: "code", email: "test@test.com", password: "test123", role: "student" }
             expect(response.body).to eq({
-              redirectPath: "www.test.com"
+              redirect: "www.test.com"
             }.to_json)
             expect(session[:post_sign_up_redirect]).to eq nil
           end
@@ -107,16 +108,10 @@ describe AccountsController, type: :controller do
 
             it 'should render the teachers classroom path json' do
               post :create, user: { classcode: "code", email: "test@test.com", password: "test123", role: "student" }
-              expect(response.body).to eq({redirectPath: teachers_classrooms_path}.to_json)
+              expect(response.body).to eq({redirect: teachers_classrooms_path}.to_json)
             end
           end
 
-          context 'when user has no outstanding coteacher invitation' do
-            it 'should render the user' do
-              post :create, user: { classcode: "code", email: "test@test.com", password: "test123", role: "user" }
-              expect(response.body).to eq(another_user.reload.serialized.to_json)
-            end
-          end
         end
       end
 
@@ -124,7 +119,7 @@ describe AccountsController, type: :controller do
         it 'should render the errors json' do
           post :create, user: { classcode: "code", email: "test", role: "user" }
           expect(response.status).to eq 422
-          expect(response.body).to eq({errors: {email: ["does not appear to be a valid e-mail address"]}}.to_json)
+          expect(response.body).to eq({errors: {email: ["Enter a valid email"]}}.to_json)
         end
       end
     end

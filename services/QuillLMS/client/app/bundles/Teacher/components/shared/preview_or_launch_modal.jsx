@@ -7,9 +7,9 @@ export default class PreviewOrLaunchModal extends React.Component {
   }
 
   launchLessonLink() {
-    const { classroomActivityID, lessonUID, lessonID, unitID, } = this.props;
-    if (classroomActivityID && (lessonUID || lessonID)) {
-      return `/teachers/classroom_activities/${classroomActivityID}/launch_lesson/${lessonUID || lessonID}`;
+    const { classroomUnitId, lessonUID, lessonID, unitID, } = this.props;
+    if (classroomUnitId && (lessonUID || lessonID)) {
+      return `/teachers/classroom_units/${classroomUnitId}/launch_lesson/${lessonUID || lessonID}`;
     } else if (lessonID) {
       return `/teachers/units/select_lesson/${lessonID}`;
     }
@@ -21,8 +21,7 @@ export default class PreviewOrLaunchModal extends React.Component {
   }
 
   render() {
-    const { classroomActivityID, } = this.props;
-    const launchLessonButton = !this.props.completed ? <a href={this.launchLessonLink()} className="bg-quillgreen">Launch Lesson</a> : null;
+    const launchLessonButton = this.props.completed === 'f' ? <a href={this.launchLessonLink()} className="bg-quillgreen">Launch Lesson</a> : null;
     return (
       <div>
         <div className="preview-or-launch-modal-background" />

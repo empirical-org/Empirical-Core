@@ -18,6 +18,10 @@ class PagesController < ApplicationController
     end
     @title = 'Quill.org — Interactive Writing and Grammar'
     @description = 'Quill provides free writing and grammar activities for middle and high school students.'
+    if request.env['affiliate.tag']
+      name = ReferrerUser.find_by(referral_code: request.env['affiliate.tag'])&.user&.name
+      flash.now[:info] = "<strong>#{name}</strong> invited you to help your students become better writers with Quill!" if name
+    end
   end
 
   def develop
@@ -231,7 +235,7 @@ class PagesController < ApplicationController
           },
           {
             question: "How can I get started with Quill?",
-            answer: "<p>Teachers create teacher accounts and students create student accounts by clicking <a href='http://www.quill.org/account/new'>here</a>. Teachers are given a class code for each class. Students join their teacher's class by plugging in their teacher's class code. Teachers may also manually create accounts for their students. If you have a Google Classroom account, you can sign up with Google and import your students. For more information about getting started, please visit our <a href='https://www.quill.org/teacher-center'>Teacher Resources</a> page. You can also download our <a href='https://d1yxac6hjodhgc.cloudfront.net/wp-content/uploads/2015/11/Quill-Getting-Started-Guide-for-Teachers.pdf'>Getting Started Guide for Teachers.</a></p>"
+            answer: "<p>Teachers create teacher accounts and students create student accounts by clicking <a href='https://www.quill.org/account/new'>here</a>. Teachers are given a class code for each class. Students join their teacher's class by plugging in their teacher's class code. Teachers may also manually create accounts for their students. If you have a Google Classroom account, you can sign up with Google and import your students. For more information about getting started, please visit our <a href='https://www.quill.org/teacher-center'>Teacher Resources</a> page. You can also download our <a href='https://d1yxac6hjodhgc.cloudfront.net/wp-content/uploads/2015/11/Quill-Getting-Started-Guide-for-Teachers.pdf'>Getting Started Guide for Teachers.</a></p>"
           },
         ]
       },
@@ -337,7 +341,8 @@ class PagesController < ApplicationController
   def premium
     @user_is_eligible_for_new_subscription= current_user&.eligible_for_new_subscription?
     @user_is_eligible_for_trial = current_user&.subscriptions&.none?
-    @user_has_school = !!current_user&.school
+
+    @user_has_school = !!current_user&.school && ['home school', 'us higher ed', 'international', 'other', 'not listed'].exclude?(current_user&.school&.name)
     @user_belongs_to_school_that_has_paid = current_user&.school ? Subscription.school_or_user_has_ever_paid?(current_user&.school) : false
     @last_four = current_user&.last_four
   end
@@ -351,6 +356,9 @@ class PagesController < ApplicationController
 
   def announcements
     @blog_posts = BlogPost.where(draft: false, topic: 'Announcements').order('order_number')
+  end
+
+  def referrals_toc
   end
 
   private

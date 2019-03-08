@@ -7,8 +7,12 @@ import {
   currentQuestion,
   currentQuestionWithOneIncorrectAttempt,
   currentQuestionWithTwoIncorrectAttempts,
-  currentQuestionWithOneCorrectAttempt
+  currentQuestionWithOneCorrectAttempt,
+  conceptsFeedback
 } from './data'
+
+process.env.EMPIRICAL_BASE_URL = 'https://staging.quill.org'
+process.env.QUILL_CMS = 'https://cms.quill.org'
 
 describe("<PlayGrammarContainer />", () => {
   const shallowWrapper = shallow(<QuestionComponent
@@ -18,6 +22,8 @@ describe("<PlayGrammarContainer />", () => {
     currentQuestion={currentQuestion}
     goToNextQuestion={() => {}}
     checkAnswer={() => {}}
+    conceptsFeedback={conceptsFeedback}
+    concepts={{}}
   />)
 
     it("should render", () => {
@@ -57,6 +63,8 @@ describe("<PlayGrammarContainer />", () => {
           currentQuestion={currentQuestion}
           goToNextQuestion={() => {}}
           checkAnswer={() => {}}
+          conceptsFeedback={conceptsFeedback}
+          concepts={{}}
         />)
 
         it ("renders with the text 'Hide Example'", () => {
@@ -80,6 +88,8 @@ describe("<PlayGrammarContainer />", () => {
           currentQuestion={currentQuestion}
           goToNextQuestion={() => {}}
           checkAnswer={() => {}}
+          concepts={{}}
+          conceptsFeedback={conceptsFeedback}
         />)
 
         clickedWrapper.find('.example-button').simulate('click')
@@ -108,6 +118,8 @@ describe("<PlayGrammarContainer />", () => {
           currentQuestion={currentQuestion}
           goToNextQuestion={() => {}}
           checkAnswer={() => {}}
+          conceptsFeedback={conceptsFeedback}
+          concepts={{}}
         />)
         const textArea = untypedInWrapper.find('textarea')
         it ('should not have any text', () => {
@@ -127,6 +139,8 @@ describe("<PlayGrammarContainer />", () => {
           currentQuestion={currentQuestion}
           goToNextQuestion={() => {}}
           checkAnswer={() => {}}
+          concepts={{}}
+          conceptsFeedback={conceptsFeedback}
         />)
         const typedText = 'Hello'
         typedInWrapper.find('textarea').simulate('change', { target: { value: typedText } })
@@ -163,6 +177,8 @@ describe("<PlayGrammarContainer />", () => {
           currentQuestion={currentQuestionWithOneIncorrectAttempt}
           goToNextQuestion={() => {}}
           checkAnswer={() => {}}
+          conceptsFeedback={conceptsFeedback}
+          concepts={{}}
         />)
 
         wrapperWithOneIncorrectAttempt.setState({questionStatus: 'incorrectly answered'})
@@ -184,6 +200,8 @@ describe("<PlayGrammarContainer />", () => {
           currentQuestion={currentQuestionWithTwoIncorrectAttempts}
           goToNextQuestion={() => {}}
           checkAnswer={() => {}}
+          conceptsFeedback={conceptsFeedback}
+          concepts={{}}
         />)
 
         wrapperWithTwoIncorrectAttempts.setState({questionStatus: 'incorrectly answered'})
@@ -205,6 +223,8 @@ describe("<PlayGrammarContainer />", () => {
           currentQuestion={currentQuestionWithOneCorrectAttempt}
           goToNextQuestion={() => {}}
           checkAnswer={() => {}}
+          conceptsFeedback={conceptsFeedback}
+          concepts={{}}
         />)
 
         wrapperWithOneCorrectAttempt.setState({questionStatus: 'correct'})

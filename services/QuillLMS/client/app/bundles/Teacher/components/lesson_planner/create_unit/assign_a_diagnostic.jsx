@@ -8,34 +8,61 @@ export default React.createClass({
     const minis =
       [
         (<a
-          href={`${process.env.DEFAULT_URL}/diagnostic/413/stage/1`}
+          href={`${process.env.DEFAULT_URL}/diagnostic/-LKX2sTTnPVhTOrWyUx9/stage/2`}
           key={1}
         >
           <AssignmentTypeMini
-            title={'Sentence Structure Diagnostic'}
-            img={`${process.env.CDN_URL}/images/shared/diagnostic_icon.svg`}
-            link="/diagnostic/413/stage/1"
-            bodyText={'Find your students’ writing abilities with a 22 question diagnostic.'}
+            title={'Starter Diagnostic'}
+            img={`${process.env.CDN_URL}/images/shared/new_diagnostic.svg`}
+            link="/diagnostic/-LKX2sTTnPVhTOrWyUx9/stage/2"
+            bodyText={'Covers foundational writing skills like using proper capitalization and adverbs.'}
             directions={'use intermittently'}
             quantity={1}
             unit={'Diagnostic'}
             timeDuration={'~20 Min.'}
           />
         </a>),
-        (<a key={2} href={`${process.env.DEFAULT_URL}/diagnostic/447/stage/2`}>
+        (<a
+          href={`${process.env.DEFAULT_URL}/diagnostic/-LKbzH_Er916zGjgHk5U/stage/2`}
+          key={2}
+        >
+          <AssignmentTypeMini
+            title={'Intermediate Diagnostic'}
+            img={`${process.env.CDN_URL}/images/shared/new_diagnostic.svg`}
+            link="/diagnostic/-LKbzH_Er916zGjgHk5U/stage/2"
+            bodyText={'Covers sentence construction skills like forming compound sentences.'}
+            directions={'use intermittently'}
+            quantity={1}
+            unit={'Diagnostic'}
+            timeDuration={'~20 Min.'}
+          />
+        </a>),
+        (<a
+          href={`${process.env.DEFAULT_URL}/diagnostic/-LVxlcVPdW5DvAh_xgnj/stage/2`}
+          key={3}
+        >
+          <AssignmentTypeMini
+            title={'Advanced Diagnostic'}
+            img={`${process.env.CDN_URL}/images/shared/new_diagnostic.svg`}
+            link="/diagnostic/-LVxlcVPdW5DvAh_xgnj/stage/1"
+            bodyText={'Covers advanced sentence skills like using appositive and participial phrases.'}
+            directions={'use intermittently'}
+            quantity={1}
+            unit={'Diagnostic'}
+            timeDuration={'~30 Min.'}
+          />
+        </a>),
+        (<a key={4} href={`${process.env.DEFAULT_URL}/diagnostic/ell/stage/2`}>
           <AssignmentTypeMini
             title={'ELL Diagnostic'}
-            img={`${process.env.CDN_URL}/images/shared/ell_diagnostic_icon.svg`}
-            link="/diagnostic/447/stage/2"
-            bodyText={'Find your students’ writing abilities with a 22 question diagnostic for language learners.'}
-            directions={'use continuously'}
+            img={`${process.env.CDN_URL}/images/shared/diagnostic_ell.svg`}
+            link="/diagnostic/ell/stage/2"
+            bodyText={'Covers areas specific to language learners like articles and subject-verb agreement.'}
+            directions={'use intermittently'}
             quantity={1}
             unit={'Diagnostic'}
             timeDuration={'~25 Min.'}
           />
-        </a>),
-        (<a key={3}>
-          <LaunchingSoonMini />
         </a>)
       ];
     return minis;

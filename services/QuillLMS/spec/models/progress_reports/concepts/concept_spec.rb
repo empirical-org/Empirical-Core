@@ -3,7 +3,7 @@ require 'rails_helper'
 describe ProgressReports::Concepts::Concept do
   include_context 'Concept Progress Report'
 
-  let!(:classroom) {create(:classroom_with_classroom_activities)}
+  let!(:classroom) {create(:classroom_with_classroom_units)}
   let!(:teacher) { classroom.owner }
   # described_class is an rspec method that references ProgressReports::Concepts::Concept
   subject { described_class.results(teacher, filters).to_a }

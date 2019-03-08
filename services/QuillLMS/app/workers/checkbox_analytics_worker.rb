@@ -2,7 +2,7 @@ class CheckboxAnalyticsWorker
   include Sidekiq::Worker
 
   def perform(user_id, name)
-    user = User.find(user_id)
+    user = User.find_by(id: user_id)
     analytics = SegmentAnalytics.new
     if report_to_segment?(name)
       constanty_name = name.upcase.gsub(' ', '_')

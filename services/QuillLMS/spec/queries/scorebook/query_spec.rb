@@ -20,13 +20,13 @@ describe 'ScorebookQuery' do
 
   let!(:unit) {create(:unit)}
 
-  let!(:classroom_activity1) {create(:classroom_activity, activity: activity1, classroom: classroom, unit: unit, assigned_student_ids: [student.id]  )}
-  let!(:classroom_activity2) {create(:classroom_activity, activity: activity2, classroom: classroom, unit: unit, assigned_student_ids: [student.id] )}
+  let!(:classroom_unit) {create(:classroom_unit, classroom: classroom, unit: unit, assigned_student_ids: [student.id]  )}
 
-  let!(:activity_session1) {create(:activity_session,  completed_at: Time.now, percentage: 1.0, user: student, classroom_activity: classroom_activity1, activity: activity1, is_final_score: true)}
-  let!(:activity_session2) {create(:activity_session,  completed_at: Time.now, percentage: 0.2, user: student, classroom_activity: classroom_activity2, activity: activity2, is_final_score: false)}
+  let!(:unit_activity1) {create(:unit_activity, activity: activity1, unit: unit  )}
+  let!(:unit_activity2) {create(:unit_activity, activity: activity2, unit: unit )}
 
-
+  let!(:activity_session1) {create(:activity_session,  completed_at: Time.now, percentage: 1.0, user: student, classroom_unit: classroom_unit, activity: activity1, is_final_score: true)}
+  let!(:activity_session2) {create(:activity_session,  completed_at: Time.now, percentage: 0.2, user: student, classroom_unit: classroom_unit, activity: activity2, is_final_score: true)}
 
   it 'returns a completed activity that is a final scores' do
     results = Scorebook::Query.run(classroom.id)

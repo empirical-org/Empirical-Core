@@ -29,9 +29,9 @@ export default function (currentState = initialState, action) {
         onlyShowHeaders: !currentState.onlyShowHeaders,
       });
       return newState;
-    case C.NO_CLASSROOM_ACTIVITY:
+    case C.NO_CLASSROOM_UNIT:
       newState = Object.assign({}, currentState, {
-        error: 'missing classroom activity'
+        error: 'missing classroom unit'
       });
       return newState;
     case C.NO_STUDENT_ID:

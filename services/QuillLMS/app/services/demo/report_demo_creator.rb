@@ -5,8 +5,10 @@ module Demo::ReportDemoCreator
     classroom = self.create_classroom(teacher)
     students = self.create_students(classroom)
     unit = self.create_unit(teacher)
-    classroom_activities = self.create_classroom_activities(classroom, unit)
+    classroom_units = self.create_classroom_units(classroom, unit)
+    unit_activities = self.create_unit_activities(unit)
     activity_sessions = self.create_activity_sessions(students)
+    subscription = self.create_subscription(teacher)
   end
 
   def self.create_teacher(name)
@@ -36,6 +38,14 @@ module Demo::ReportDemoCreator
       user: teacher,
     }
     unit = Unit.create(values)
+  end
+
+  def self.create_subscription(teacher)
+    attributes = {
+      purchaser_id: teacher.id,
+      account_type: 'Teacher Trial'
+    }
+    Subscription.create_with_user_join(teacher.id, attributes)
   end
 
   def self.create_students(classroom)
@@ -90,20 +100,25 @@ module Demo::ReportDemoCreator
     students
   end
 
-  def self.create_classroom_activities(classroom, unit)
+  def self.create_unit_activities(unit)
     activities = [413, 437, 434, 215, 41, 386, 289, 295, 418]
-    classroom_activities = []
+    unit_activities = []
     activities.each do |act_id|
       values = {
         activity_id: act_id,
+        unit: unit,
+      }
+      ua = UnitActivity.create(values)
+      unit_activities.push(ua)
+    end
+    unit_activities
+  end
+
+  def self.create_classroom_units(classroom, unit)
+    ClassroomUnit.create(
         classroom: classroom,
         unit: unit,
-        assign_on_join: true
-      }
-      ca = ClassroomActivity.create(values)
-      classroom_activities.push(ca)
-    end
-    classroom_activities
+        assign_on_join: true)
   end
 
   def self.create_activity_sessions(students)
@@ -164,22 +179,10 @@ module Demo::ReportDemoCreator
     ]
 
     students.each_with_index do |student, num|
-      puts student
       templates[num].each do |act_id, user_id|
-        # lst = templates[num]
-        # puts "List"
-        # puts lst
-        # puts "act"
-        # puts act_session, activity_id
-        # usr = User.find(user_id)
-        # puts usr
-        # usr.activity_sessions.each do |ast|
-        #   puts ast.attributes
-        # end
-        temp = ActivitySession.unscoped.where({activity_id: act_id, user_id: user_id, is_final_score: true}).first #ActivitySession.find(tempates[index][act_session.activity_id])
-        puts temp
-        ca = ClassroomActivity.where("#{student.id} = ANY (assigned_student_ids) AND activity_id = #{act_id}").to_a.first
-        act_session = ActivitySession.create({activity_id: act_id, classroom_activity_id: ca.id, user_id: student.id, state: "finished", percentage: temp.percentage})
+        temp = ActivitySession.unscoped.where({activity_id: act_id, user_id: user_id, is_final_score: true}).first 
+        cu = ClassroomUnit.where("#{student.id} = ANY (assigned_student_ids)").to_a.first
+        act_session = ActivitySession.create({activity_id: act_id, classroom_unit_id: cu.id, user_id: student.id, state: "finished", percentage: temp.percentage})
         temp.concept_results.each do |cr|
           values = {
             activity_session_id: act_session.id,

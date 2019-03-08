@@ -55,31 +55,31 @@ describe('StudentProfileActivity component', () => {
   it('should render "Replay Activity" link if activity is finished and repeatable', () => {
     const wrapper = shallow(
       <StudentProfileActivity
-        data={{max_percentage: '1', repeatable: 't', name: 'Activity', ca_id: '1024'}}
+        data={{max_percentage: '1', repeatable: 't', name: 'Activity', ca_id: '1024', activity_id: '100'}}
       />
     );
     expect(wrapper.find('.row-list-end').text()).toMatch('Replay Activity');
-    expect(wrapper.find('a').prop('href')).toBe('/teachers/classroom_activities/1024/activity_from_classroom_activity');
+    expect(wrapper.find('a').prop('href')).toBe('/activity_sessions/classroom_units/1024/activities/100');
   });
 
   it('should render "Resume Activity" link', () => {
     const wrapper = shallow(
       <StudentProfileActivity
-        data={{resume_link: '1', ca_id: '1024', name: 'Activity'}}
+        data={{resume_link: '1', ca_id: '1024', name: 'Activity', activity_id: '100'}}
       />
     );
     expect(wrapper.find('.row-list-end').text()).toMatch('Resume Activity');
-    expect(wrapper.find('a').prop('href')).toBe('/teachers/classroom_activities/1024/activity_from_classroom_activity');
+    expect(wrapper.find('a').prop('href')).toBe('/activity_sessions/classroom_units/1024/activities/100');
   });
 
   it('should render "Start Activity" link', () => {
     const wrapper = shallow(
       <StudentProfileActivity
-        data={{resume_link: '0', ca_id: '1024', name: 'Activity'}}
+        data={{resume_link: '0', ca_id: '1024', name: 'Activity', activity_id: '100'}}
       />
     );
     expect(wrapper.find('.row-list-end').text()).toMatch('Start Activity');
-    expect(wrapper.find('a').prop('href')).toBe('/teachers/classroom_activities/1024/activity_from_classroom_activity');
+    expect(wrapper.find('a').prop('href')).toBe('/activity_sessions/classroom_units/1024/activities/100');
   });
 
   it('should render "Needs Teacher" if activity is locked', () => {
@@ -95,21 +95,21 @@ describe('StudentProfileActivity component', () => {
   it('should render "Join Lesson" if activity is a Lesson', () => {
     const wrapper = shallow(
       <StudentProfileActivity
-        data={{activity_classification_id: '6', ca_id: '1024', name: 'Activity'}}
+        data={{activity_classification_id: '6', ca_id: '1024', name: 'Activity', activity_id: '100'}}
       />
     );
     expect(wrapper.find('.row-list-end').text()).toMatch('Join Lesson');
-    expect(wrapper.find('a').prop('href')).toBe('/teachers/classroom_activities/1024/activity_from_classroom_activity');
+    expect(wrapper.find('a').prop('href')).toBe('/activity_sessions/classroom_units/1024/activities/100');
   });
 
   it('should render "Join Lesson" if activity is a Lesson, even if in progress', () => {
     const wrapper = shallow(
       <StudentProfileActivity
-        data={{activity_classification_id: '6', resume_link: '1', ca_id: '1024', name: 'Activity'}}
+        data={{activity_classification_id: '6', resume_link: '1', ca_id: '1024', name: 'Activity', activity_id: '100'}}
       />
     );
     expect(wrapper.find('.row-list-end').text()).toMatch('Join Lesson');
-    expect(wrapper.find('a').prop('href')).toBe('/teachers/classroom_activities/1024/activity_from_classroom_activity');
+    expect(wrapper.find('a').prop('href')).toBe('/activity_sessions/classroom_units/1024/activities/100');
   });
 
 });

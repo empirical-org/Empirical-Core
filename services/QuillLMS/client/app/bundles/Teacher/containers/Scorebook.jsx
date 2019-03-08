@@ -71,9 +71,10 @@ export default React.createClass({
   },
 
   componentDidMount() {
-    this.setStateFromLocalStorage(this.fetchData);
     if (this.props.selectedClassroom) {
       this.getUpdatedUnits(this.props.selectedClassroom.value);
+    } else {
+      this.setStateFromLocalStorage(this.fetchData);
     }
     this.modules.scrollify.scrollify('#page-content-wrapper', this);
   },
@@ -95,14 +96,27 @@ export default React.createClass({
       const selectedClassroom = this.state.classrooms.find(c => c.id === selectedClassroomId);
       if (selectedClassroom) {
         state.selectedClassroom = selectedClassroom;
+      } else {
+        state.selectedClassroom = this.props.allClassrooms[0]
       }
+    } else {
+      state.selectedClassroom = this.props.allClassrooms[0]
+    }
+    if (state.selectedClassroom) {
+      this.getUpdatedUnits(state.selectedClassroom.id)
     }
     if (dateFilterName) {
-      const beginDate = this.DATE_RANGE_FILTER_OPTIONS.find(o => o.title === dateFilterName).beginDate;
-      window.localStorage.setItem('scorebookBeginDate', beginDate);
-      state.beginDate = beginDate;
-      state.dateFilterName = dateFilterName;
-      this.setState(state, callback);
+      const dateRangeFilterOption = this.DATE_RANGE_FILTER_OPTIONS.find(o => o.title === dateFilterName)
+      if (dateRangeFilterOption) {
+        const beginDate = dateRangeFilterOption.beginDate
+        window.localStorage.setItem('scorebookBeginDate', beginDate);
+        state.beginDate = beginDate;
+        state.dateFilterName = dateFilterName;
+        this.setState(state, callback);
+      } else {
+        state.beginDate = this.convertStoredDateToMoment(window.localStorage.getItem('scorebookBeginDate'));
+        this.setState(state, callback);
+      }
     } else {
       state.beginDate = this.convertStoredDateToMoment(window.localStorage.getItem('scorebookBeginDate'));
       this.setState(state, callback);
@@ -113,7 +127,7 @@ export default React.createClass({
     const newCurrentPage = this.state.currentPage + 1;
     this.setState({ loading: true, currentPage: newCurrentPage, });
     if (!this.state.selectedClassroom) {
-      this.setState({ missing: 'classrooms', });
+      this.setState({ missing: 'classrooms', loading: false, });
       return;
     }
     $.ajax({
@@ -186,8 +200,9 @@ export default React.createClass({
       newScores.has(s.user_id) || newScores.set(s.user_id, { name: s.name, scores: [], });
       const scores = newScores.get(s.user_id).scores;
       scores.push({
-        caId: s.ca_id,
+        cuId: s.cu_id,
         // activitySessionId: s.id,
+        activityId: s.activity_id,
         userId: s.user_id,
         updated: s.updated_at,
         name: s.activity_name,
@@ -238,9 +253,9 @@ export default React.createClass({
   convertStoredDateToMoment(savedString) {
     if(savedString && savedString !== 'null') {
       return moment(savedString)
-    } 
+    }
       return null;
-    
+
   },
 
   render() {

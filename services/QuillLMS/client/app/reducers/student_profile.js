@@ -2,6 +2,7 @@ const initialState = {
   classrooms: null,
   selectedClassroomId: null,
   showDropdown: false,
+  notifications: [],
   numberOfClassroomTabs: 1,
   loading: true,
   scores: null,
@@ -23,6 +24,8 @@ export default (state, action) => {
       });
     case 'HIDE_DROPDOWN':
       return Object.assign({}, state, { showDropdown: false });
+    case 'RECEIVE_NOTIFICATIONS':
+      return Object.assign({}, state, { notifications: action.notifications });
     case 'RECEIVE_STUDENTS_CLASSROOMS':
       return Object.assign({}, state, { classrooms: action.classrooms });
     case 'RECEIVE_STUDENT_PROFILE':

@@ -87,13 +87,14 @@ export default React.createClass({
           <TextEditor
             disabled={this.props.disabled} defaultValue={this.props.initialValue}
             key={this.props.questionID}
+            questionID={this.props.questionID}
             checkAnswer={this.props.checkAnswer}
             handleChange={this.props.handleChange}
             value={this.props.value}
             latestAttempt={getLatestAttempt(this.props.question.attempts)}
             getResponse={this.props.getResponse}
             spellCheck={this.props.spellCheck}
-            placeholder="Type your answer here. Remember, your answer should be just one sentence."
+            placeholder="Type your answer here."
           />
           <div className="question-button-group button-group">
             {this.getHelpModal()}

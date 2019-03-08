@@ -1,7 +1,12 @@
 @import './question.scss';
 @import './spinner.scss';
+@import "./node_modules/bulma/bulma.sass";
+@import './admin.scss';
+@import './conceptFeedback.scss';
+@import './selectSearch.scss';
 
 .ant-layout {
   height: 100vw;
   background-color: #ededed;
+  font-family: adelle-sans,Helvetica,Arial,sans-serif;
 }

@@ -2,8 +2,8 @@ const C = require('../constants').default;
 
 import rootRef from '../libs/firebase';
 
-const	scoreAnalysisRef = rootRef.child('datadash');
-const setTimeoutRef = rootRef.child('timeouts/datadash');
+const	scoreAnalysisRef = rootRef.child('diagnostic_datadash');
+const setTimeoutRef = rootRef.child('timeouts/diagnostic_datadash');
 import _ from 'lodash';
 import request from 'request';
 
@@ -20,7 +20,7 @@ export function loadScoreData() {
 }
 
 export function updateData() {
-  request(`${process.env.QUILL_CMS}/stats/question_health_index`, (error, response, body) => {
+  request(`${process.env.QUILL_CMS}/stats/diagnostic_question_health_index`, (error, response, body) => {
     if (error) {
       console.log('error:', error); // Print the error if one occurred
     } else {

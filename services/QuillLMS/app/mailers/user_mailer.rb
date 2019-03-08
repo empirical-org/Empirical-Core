@@ -64,9 +64,32 @@ class UserMailer < ActionMailer::Base
     mail from: "Becca Garrison <becca@quill.org>", to: user.email, subject: "#{user.first_name}, you are now an admin on Quill!"
   end
 
+  def activated_referral_email(referrer_hash, referral_hash)
+    @referrer = referrer_hash
+    @referral = referral_hash
+    mail from: "Quill Team <hello@quill.org>", 'reply-to': @referral['email'], to: @referrer['email'], subject: "#{@referral['name']} just activated their account on Quill!"
+  end
+
+  def referral_invitation_email(inviter_hash, invitee_email)
+    @inviter = inviter_hash
+    mail from: "Quill Team <hello@quill.org>", 'reply-to': @inviter['email'], to: invitee_email, subject: "#{@inviter['name']} invites you to join Quill.org!"
+  end
+
   def premium_missing_school_email(user)
     @user = user
     mail to: ["Becca Garrison <becca@quill.org>", "Amr Thameen <amr@quill.org>", "Emilia Friedberg <emilia@quill.org>"], subject: "#{user.name} has purchased School Premium for a missing school"
+  end
+
+  def recommendations_assignment_report_email
+    @independent_less_than_ten_seconds = $redis.get("diagnostic_recommendations_under_ten_seconds_count") || 0
+    @group_less_than_ten_seconds = $redis.get("lesson_diagnostic_recommendations_under_ten_seconds_count") || 0
+    @independent_more_than_ten_seconds = $redis.get("diagnostic_recommendations_over_ten_seconds_count") || 0
+    @group_more_than_ten_seconds = $redis.get("lesson_diagnostic_recommendations_over_ten_seconds_count") || 0
+    independent_total_recommendations = @independent_more_than_ten_seconds.to_i + @independent_less_than_ten_seconds.to_i
+    group_total_recommendations = @group_more_than_ten_seconds.to_i + @group_less_than_ten_seconds.to_i
+    @percentage_of_independent_less_than_ten_seconds = independent_total_recommendations > 0 ? (@independent_less_than_ten_seconds.to_f/independent_total_recommendations) * 100 : 100
+    @percentage_of_group_less_than_ten_seconds = group_total_recommendations > 0 ? (@group_less_than_ten_seconds.to_f/group_total_recommendations) * 100 : 100
+    mail to: ["Dev Tools <devtools@quill.org>", "Emilia Friedberg <emilia@quill.org>", "Thomas Robertson <thomasrobertson@quill.org>"], subject: "Recommendations Assignment Report"
   end
 
 end

@@ -68,10 +68,10 @@ export default React.createClass({
 
 	scoreRow: function(answer, attemptNum, averageScore) {
 		return (
-			<tr key={attemptNum + answer}className={ScoreColor(averageScore)}>
+			<tr key={attemptNum + answer} className={ScoreColor(averageScore)}>
 				<td>{`${NumberSuffix(attemptNum)} Submission`}</td>
 				<td />
-				<td>{answer}</td>
+				<td><span style={{ whiteSpace: 'pre-wrap' }}>{answer}</span></td>
 			</tr>
 		)
 	},
@@ -81,11 +81,19 @@ export default React.createClass({
 		// don't just do ...questionData && ...questionData.questionScore because
 		// if it questionScore is zero it will evaluate to false
 		if (typeof this.props.questionData.questionScore !== undefined) {
+      let score
+      if (this.props.questionData.questionScore) {
+        score = this.props.questionData.questionScore * 100
+      } else if (this.props.questionData.score) {
+        score = this.props.questionData.score
+      } else {
+        score = 0
+      }
 			return (
 						<tr>
 							<td>Score</td>
 							<td/>
-							<td>{this.props.questionData.questionScore * 100}%</td>
+							<td>{score}%</td>
 						</tr>
 			);
 		}

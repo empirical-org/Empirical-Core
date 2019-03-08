@@ -92,7 +92,7 @@ let diagnosticActivity = () => [
     "flags": "{production}",
     "id": 413,
     "uid": "fNAwNLJDkc2T8O5lBeJQwg",
-    "anonymous_path": "/activity_sessions/anonymous?activity_id=413",
+    "anonymous_path": "/activity_sessions/anonymous?activity_id=-LKbzH_Er916zGjgHk5U",
     "activity_classification": {
       "alias": "Quill Diagnostic",
       "description": "Identify Learning Gaps",

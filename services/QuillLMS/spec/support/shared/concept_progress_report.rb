@@ -12,10 +12,13 @@ shared_context 'Concept Progress Report' do
   let!(:student) { create(:student) }
   let!(:classroom) { create(:classroom, students: [student]) }
   let!(:unit) { create(:unit) }
-  let!(:classroom_activity) { create(:classroom_activity,
+  let!(:classroom_unit) { create(:classroom_unit,
                                           classroom: classroom,
-                                          activity: activity,
                                           unit: unit) }
+  let!(:unit_activity) { create(:unit_activity,
+    unit: unit,
+    activity: activity
+  )}
 
   let!(:writing_grandparent_concept) { create(:concept, name: 'Writing Grandparent') }
   let!(:writing_parent_concept) { create(:concept, name: 'Writing Parent', parent: writing_grandparent_concept)}
@@ -23,7 +26,7 @@ shared_context 'Concept Progress Report' do
   let!(:grammar_tag) { create(:concept, name: "Grammar Tag") }
 
   let!(:activity_session) { create(:activity_session,
-                                        classroom_activity: classroom_activity,
+                                        classroom_unit: classroom_unit,
                                         user: student,
                                         activity: activity,
                                         state: 'finished',
@@ -71,12 +74,16 @@ shared_context 'Concept Progress Report' do
   let!(:other_classroom) { create(:classroom) }
   let!(:other_teacher) { other_classroom.owner }
   let!(:other_unit) { create(:unit) }
-  let!(:other_classroom_activity) { create(:classroom_activity,
+  let!(:other_classroom_unit) { create(:classroom_unit,
     classroom: other_classroom,
+    unit: other_unit
+  )}
+  let!(:other_unit_activity) { create(:unit_activity,
     unit: other_unit,
-    activity: activity) }
+    activity: activity
+  )}
   let!(:other_activity_session) { create(:activity_session,
-    classroom_activity: other_classroom_activity,
+    classroom_unit: other_classroom_unit,
     user: other_student,
     state: 'finished',
     percentage: 0.75) }

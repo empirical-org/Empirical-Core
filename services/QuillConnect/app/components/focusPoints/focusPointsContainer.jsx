@@ -63,7 +63,12 @@ export class FocusPointsContainer extends Component {
   }
   //
   fPsortedByOrder() {
-    return hashToCollection(this.getFocusPoints()).sort((a, b) => a.order - b.order);
+    if (this.state.fpOrderedIds) {
+      const focusPoints = hashToCollection(this.getFocusPoints())
+      return this.state.fpOrderedIds.map(id => focusPoints.find(fp => fp.key === id))
+    } else {
+      return hashToCollection(this.getFocusPoints()).sort((a, b) => a.order - b.order);
+    }
   }
 
   renderFocusPointsList() {
@@ -95,10 +100,8 @@ export class FocusPointsContainer extends Component {
   }
 
   sortCallback(sortInfo) {
-    if (sortInfo.draggingIndex !== null) {
-      const fpOrderedIds = sortInfo.data.items.map(item => item.key);
-      this.setState({ fpOrderedIds, });
-    }
+    const fpOrderedIds = sortInfo.data.items.map(item => item.key);
+    this.setState({ fpOrderedIds, });
   }
 
   updatefpOrder() {

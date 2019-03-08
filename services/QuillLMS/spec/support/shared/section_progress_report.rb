@@ -18,13 +18,12 @@ shared_context 'Section Progress Report' do
       topic = create(:topic, section: section)
       topics << topic
       activity = create(:activity, topic: topic)
-      classroom_activity = create(:classroom_activity,
+      classroom_unit = create(:classroom_unit,
                                               classroom: classroom,
-                                              activity: activity,
                                               unit: unit)
       3.times do |j|
-        activity_session = create(:activity_session, 
-                                              classroom_activity: classroom_activity,
+        activity_session = create(:activity_session,
+                                              classroom_unit: classroom_unit,
                                               user: student,
                                               activity: activity,
                                               percentage: i / 3.0)

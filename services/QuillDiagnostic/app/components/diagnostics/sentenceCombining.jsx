@@ -114,7 +114,7 @@ const PlayDiagnosticQuestion = React.createClass({
   },
 
   checkAnswer(e) {
-    if (this.state.editing) {
+    if (this.state.editing && this.state.responses) {
       this.removePrefilledUnderscores();
       const response = getResponse(this.getQuestion(), this.state.response, this.getResponses(), this.props.marking || 'diagnostic');
       this.updateResponseResource(response);
@@ -203,7 +203,7 @@ const PlayDiagnosticQuestion = React.createClass({
               handleChange={this.handleChange} value={this.state.response} getResponse={this.getResponse2}
               disabled={this.readyForNext()} checkAnswer={this.checkAnswer}
               hasError={this.state.error}
-              placeholder="Type your answer here. Remember, your answer should be just one sentence."
+              placeholder="Type your answer here."
             />
             <div className="button-and-error-row">
               <Error error={this.state.error} />

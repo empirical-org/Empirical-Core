@@ -7,7 +7,7 @@ import {
   listenToResponsesWithCallback
 } from '../../actions/responses';
 import { Modal } from 'quill-component-library/dist/componentLibrary';
-import EditFrom from './questionForm.jsx';
+import EditForm from './questionForm.jsx';
 import Response from './response.jsx';
 import C from '../../constants';
 import ResponseComponent from './responseComponent.jsx';
@@ -171,7 +171,7 @@ const Question = React.createClass({
     if (this.props.questions.states[questionID] === C.EDITING_QUESTION) {
       return (
         <Modal close={this.cancelEditingQuestion}>
-          <EditFrom question={question} submit={this.saveQuestionEdits} itemLevels={this.props.itemLevels} concepts={this.props.concepts} />
+          <EditForm question={question} submit={this.saveQuestionEdits} itemLevels={this.props.itemLevels} concepts={this.props.concepts} />
         </Modal>
       );
     }
@@ -192,6 +192,17 @@ const Question = React.createClass({
       ? <NavLink activeClassName="is-active" to={`/admin/questions/${questionID}/mass-edit`}>Mass Edit ({this.props.massEdit.numSelectedResponses})</NavLink>
       : <li style={{color: "#a2a1a1"}}>Mass Edit ({this.props.massEdit.numSelectedResponses})</li>
 
+      const { instructions, cues } = data[questionID]
+      let instructionText = 'Combine the sentences into one sentence.'
+      if (instructions) {
+        instructionText = instructions
+      } else if (cues && cues.length > 0 && cues[0] !== "") {
+        if (cues.length === 1) {
+          instructionText = "Combine the sentences into one sentence. Use the joining word."
+        } else {
+          instructionText = "Combine the sentences into one sentence. Use one of the joining words."
+        }
+      }
       return (
         <div>
           {this.renderEditForm()}
@@ -206,7 +217,7 @@ const Question = React.createClass({
           />
           <div className="feedback-row student-feedback-inner-container admin-feedback-row">
             <img className="info" src={icon} />
-            <p>{data[questionID].instructions || 'Combine the sentences into one sentence.'}</p>
+            <p>{instructionText}</p>
           </div>
           <p className="control button-group" style={{ marginTop: 10, }}>
 

@@ -2,8 +2,8 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 const WakeLock: any = require('react-wakelock').default;
 import {
-  startListeningToSession,
   startListeningToSessionForTeacher,
+  finishActivity,
 } from '../../../actions/classroomSessions';
 import {
   getClassLesson
@@ -12,24 +12,37 @@ import { getParameterByName } from '../../../libs/getParameterByName';
 import {
   ClassroomLessonSessions,
   ClassroomLessonSession,
+  ClassroomUnitId,
+  ClassroomSessionId
 } from '../interfaces';
 import {
   ClassroomLesson
 } from '../../../interfaces/classroomLessons'
 import {generate} from '../../../libs/conceptResults/classroomLessons.js';
 
+interface MarkingLessonsAsCompletedState {
+  classroomUnitId: ClassroomUnitId|null,
+  classroomSessionId: ClassroomSessionId|null
+}
 
-class MarkingLessonAsCompleted extends React.Component<any, any> {
+class MarkingLessonAsCompleted extends React.Component<any, MarkingLessonsAsCompletedState> {
   constructor(props) {
     super(props);
+
+    const classroomUnitId: ClassroomUnitId|null = getParameterByName('classroom_unit_id')
+    const activityUid = props.params.lessonID
+    this.state = {
+      classroomUnitId,
+      classroomSessionId: classroomUnitId ? classroomUnitId.concat(activityUid) : null
+    }
   }
 
   componentDidMount() {
-    const ca_id: string|null = getParameterByName('classroom_activity_id')
-    const lesson_id: string = this.props.params.lessonID
-    if (ca_id) {
-      this.props.dispatch(getClassLesson(lesson_id));
-      this.props.dispatch(startListeningToSessionForTeacher(ca_id, lesson_id));
+    const { classroomUnitId, classroomSessionId } = this.state
+    const activityId: string = this.props.params.lessonID;
+    if (classroomUnitId && classroomSessionId) {
+      this.props.dispatch(getClassLesson(activityId));
+      this.props.dispatch(startListeningToSessionForTeacher(activityId, classroomUnitId, classroomSessionId));
     }
   }
 
@@ -42,28 +55,19 @@ class MarkingLessonAsCompleted extends React.Component<any, any> {
   }
 
   finishLesson(nextProps) {
-    const questions = nextProps.classroomLesson.data.questions
-    const submissions = nextProps.classroomSessions.data.submissions
-    const caId: string|null = getParameterByName('classroom_activity_id');
-    const concept_results = generate(questions, submissions)
-    const edition_id: string|undefined = nextProps.classroomSessions.data.edition_id
-    const data = new FormData();
-    data.append( "json", JSON.stringify( {follow_up: false, concept_results} ) );
-    fetch(`${process.env.EMPIRICAL_BASE_URL}/api/v1/classroom_activities/${caId}/finish_lesson`, {
-      method: 'PUT',
-      mode: 'cors',
-      credentials: 'include',
-      body: data
-    }).then((response) => {
-      if (!response.ok) {
-        throw Error(response.statusText);
-      }
-      return response.json();
-    }).then((response) => {
-      window.location.href = `${process.env.EMPIRICAL_BASE_URL}/teachers/classrooms/activity_planner/lessons`
-    }).catch((error) => {
-      console.log('error', error)
-    })
+    const questions = nextProps.classroomLesson.data.questions;
+    const submissions = nextProps.classroomSessions.data.submissions;
+    const activityId = this.props.params.lessonID;
+    const classroomUnitId:ClassroomUnitId|null = this.state.classroomUnitId;
+    const conceptResults = generate(questions, submissions);
+
+    if (classroomUnitId) {
+      finishActivity(false, conceptResults, null, activityId, classroomUnitId,
+        (response) => {
+          window.location.href = `${process.env.EMPIRICAL_BASE_URL}/teachers/classrooms/activity_planner/lessons`;
+        }
+      );
+    }
   }
 
   render() {

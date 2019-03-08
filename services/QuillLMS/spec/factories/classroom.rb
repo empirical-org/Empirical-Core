@@ -1,4 +1,8 @@
 FactoryBot.define do
+  factory :simple_classroom, class: Classroom do
+    name 'a'
+  end
+
   factory :classroom do
     name  { "#{['Period', 'Block', 'Class', 'Classroom'].sample} #{(1..100).to_a.sample}#{('A'..'Z').to_a.sample}" }
     grade { [(1..12).to_a, 'University', 'Kindergarten', 'Other'].flatten.sample.to_s }
@@ -23,21 +27,21 @@ FactoryBot.define do
       students { create_list(:student_with_many_activities, 5) }
     end
 
-    factory :classroom_with_classroom_activities do
+    factory :classroom_with_classroom_units do
       after(:create) do |classroom|
-        create_list(:classroom_activity_with_activity_sessions, 5, classroom: classroom)
+        create_list(:classroom_unit_with_activity_sessions, 5, classroom: classroom)
       end
     end
 
-    factory :classroom_with_35_classroom_activities do
+    factory :classroom_with_35_classroom_units do
       after(:create) do |classroom|
-        create_list(:classroom_activity_with_activity_sessions, 35, classroom: classroom)
+        create_list(:classroom_unit_with_activity_sessions, 35, classroom: classroom)
       end
     end
 
-    factory :classroom_with_lesson_classroom_activities do
+    factory :classroom_with_lesson_classroom_units do
        after(:create) do |classroom|
-         create_list(:lesson_classroom_activity_with_activity_sessions, 5, classroom: classroom)
+         create_list(:lesson_classroom_unit_with_activity_sessions, 5, classroom: classroom)
        end
      end
 
@@ -70,4 +74,5 @@ FactoryBot.define do
       end
     end
   end
+
 end

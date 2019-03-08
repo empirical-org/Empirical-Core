@@ -8,6 +8,7 @@
 
 # ruby configs
 .bundle
+lambdas/*.zip
 
 # database
 config/database.yml
@@ -77,3 +78,4 @@ nohup\.out
 
 # Ignore generated python files
 *.pyc
+services/QuillLessonsServer/dev.sh

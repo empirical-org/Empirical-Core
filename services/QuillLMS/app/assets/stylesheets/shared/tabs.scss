@@ -85,7 +85,7 @@
         color: #3b3b3b;
         font-size: 13px;
         height: 35px;
-        padding: 5px 17px;
+        padding: 5px 12px;
 
         &.active {
           background: #e6e6e6;
@@ -112,12 +112,12 @@
       background: $orange;
       color: white;
 
-      i {
+      i, svg {
         color: white;
       }
     }
 
-    i {
+    i, svg {
       color: $orange;
     }
 
@@ -126,7 +126,7 @@
       background: $orange;
       color: white;
 
-      i {
+      i, svg {
         color: white;
       }
     }

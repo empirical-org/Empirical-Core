@@ -139,7 +139,7 @@ const playLessonQuestion = React.createClass<any, any>({
     if (override) {
       sentence = override;
     } else if (this.getQuestion() && this.getQuestion().modelConceptUID) {
-      sentence = 'Revise your work. Use the model below as an example.';
+      sentence = 'Revise your work. Use the hint below as an example.';
     } else {
       sentence = 'Keep writing! Revise your sentence by changing the order of the ideas.';
     }
@@ -269,7 +269,15 @@ const playLessonQuestion = React.createClass<any, any>({
   renderConceptExplanation() {
     const latestAttempt:{response: Response}|undefined = getLatestAttempt(this.props.question.attempts);
     if (latestAttempt) {
-      if (latestAttempt.response && !latestAttempt.response.optimal && latestAttempt.response.concept_results) {
+      if (!latestAttempt.response.optimal && latestAttempt.response.conceptResults) {
+          const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.response.conceptResults);
+          if (conceptID) {
+            const data = this.props.conceptsFeedback.data[conceptID.conceptUID];
+            if (data) {
+              return <ConceptExplanation {...data} />;
+            }
+          }
+      } else if (latestAttempt.response && !latestAttempt.response.optimal && latestAttempt.response.concept_results) {
         const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.response.concept_results);
         if (conceptID) {
           const data = this.props.conceptsFeedback.data[conceptID.conceptUID];

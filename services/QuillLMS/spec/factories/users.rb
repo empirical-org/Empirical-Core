@@ -1,4 +1,10 @@
 FactoryBot.define do
+  factory :simple_user, class: 'User' do
+    name 'Jane Doe'
+    email 'fake@example.com'
+    password 'password'
+  end
+
   factory :user do
     name       { "#{Faker::Name.unique.first_name} #{Faker::Name.last_name}" }
     username   { name.gsub(' ', '-') }
@@ -39,7 +45,7 @@ FactoryBot.define do
         after(:create) do |teacher|
           classrooms = create_pair(:classroom_with_a_couple_students, :with_no_teacher)
           classrooms.each do |classroom|
-            create(:classrooms_teacher, user_id: teacher.id, classroom: classroom, role: 'owner')
+            create(:classrooms_teacher, user: teacher, classroom: classroom, role: 'owner')
           end
         end
       end
@@ -93,11 +99,26 @@ FactoryBot.define do
             students = create_list(:student, 3)
             activities.each_with_index do |a, i|
               if i < 3
-                create(:classroom_activity, unit: unit1, classroom: c, assigned_student_ids: students.map { |s| s[:id]}, activity: a)
+                unless UnitActivity.find_by(unit: unit1, activity: a)
+                  create(:unit_activity, unit: unit1, activity: a)
+                end
+                unless (ClassroomUnit.find_by(unit: unit1, classroom: c))
+                  create(:classroom_unit, unit: unit1, classroom: c, assigned_student_ids: students.map { |s| s[:id]})
+                end
               elsif i < 6
-                create(:classroom_activity, unit: unit2, classroom: c, assigned_student_ids: students.map { |s| s[:id]}, activity: a)
+                unless UnitActivity.find_by(unit: unit2, activity: a)
+                  create(:unit_activity, unit: unit2, activity: a)
+                end
+                unless (ClassroomUnit.find_by(unit: unit2, classroom: c))
+                  create(:classroom_unit, unit: unit2, classroom: c, assigned_student_ids: students.map { |s| s[:id]})
+                end
               else
-                create(:classroom_activity, unit: unit3, classroom: c, assigned_student_ids: students.map { |s| s[:id]}, activity: a)
+                unless UnitActivity.find_by(unit: unit3, activity: a)
+                  create(:unit_activity, unit: unit3, activity: a)
+                end
+                unless (ClassroomUnit.find_by(unit: unit3, classroom: c))
+                  create(:classroom_unit, unit: unit3, classroom: c, assigned_student_ids: students.map { |s| s[:id]})
+                end
               end
             end
             students.each do |s|
@@ -154,8 +175,9 @@ FactoryBot.define do
           classrooms.each do |classroom|
             units = create_pair(:unit, user: classroom.owner)
             units.each do |unit|
-              classroom_activities = create_pair(:classroom_activity, unit: unit, classroom: classroom, assigned_student_ids: [student.id])
-              create(:activity_session, classroom_activity: classroom_activities.first, user: student, activity: classroom_activities.first.activity)
+              unit_activity = create(:unit_activity, unit: unit)
+              classroom_unit = create(:classroom_unit, unit: unit, classroom: classroom, assigned_student_ids: [student.id])
+              create(:activity_session, classroom_unit: classroom_unit, user: student, activity: unit_activity.activity)
             end
           end
         end

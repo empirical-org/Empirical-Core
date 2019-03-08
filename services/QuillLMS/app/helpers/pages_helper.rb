@@ -63,12 +63,12 @@ module PagesHelper
 			      title: 'Executive Director, Cofounder',
 			      desc: "Peter designs the user experience, manages the team, and leads fundraising. Peter found his passion for writing as a journalist at his high school's newspaper, and studied philosophy at Bates College. By teaching students how to write, we teach them how to organize and articulate their ideas. With Quill, he aims to help millions of people improve their writing and thinking skills. In 2016, he was awarded Forbes' 30 Under 30 for education."
 					},
-					{
-						img: 'thumb-donald.png',
-			      name: 'Donald McKendrick',
-			      title: 'Technology Director, Cofounder',
-			      desc: "Donald leads Quill’s engineering team and has a master’s degree in chemistry with a specialization in computer aided modeling and statistical analysis. Donald has previously led financial services and e-commerce startups and is inspired by the opportunity to help educate millions of students through educational technology."
-					},
+          {
+            img: 'thumb-sara.jpg',
+            name: 'Sara Jeruss',
+            title: 'Chief Operating Officer',
+            desc: "Sara provides day-to-day leadership and management for Quill. She has 9+ years of tech industry experience, most recently as the Chief Product Officer for Climb Credit. Sara spent 3 years at Facebook, managing an internal product and advising product teams about privacy. Prior to Facebook, Sara was a product director at Lex Machina, a leading machine learning startup that was acquired by LexisNexis. Sara is a graduate of Yale Law School and Cornell University."
+          },
 					{
 			      img: 'thumb-hannah.png',
 			      name: "Hannah Monk",
@@ -82,21 +82,9 @@ module PagesHelper
 			      desc: "Emilia is a software developer who is passionate about education. Before joining Quill, Emilia taught at an elementary school in Arizona and tutored students at Breakthrough Santa Fe. As a developer, the first program she built was Word by Word, a grammar tool that teaches students how to identify parts of speech in a sentence."
 			    },
           {
-            img: 'thumb-max.jpg',
-            name: 'Max Buck',
-            title: 'Software Developer',
-            desc: "Max is a software developer with a passion for writing. Before joining Quill, Max studied Computer Science at Ohio State University, worked for a number of different startups, and travelled around the country in a gutted Toyota 4Runner."
-          },
-          {
-						img: 'thumb-tom-conroy.jpg',
-						name: 'Tom Conroy',
-						title: 'Software Developer',
-						desc: 'Tom is a software developer who joined Quill to help struggling student writers. Before joining our team, he studied at the University of Maryland, College Park and worked for several startups.'
-					},
-          {
-						img: 'thumb-maddy.jpg',
+						img: 'thumb-maddy.png',
 						name: 'Maddy Maher',
-						title: 'Outreach Associate',
+						title: 'Outreach Lead',
 						desc: "Maddy is an outreach associate who joined Quill full-time after contributing as an Education Team intern. She is passionate about education and holds an Undergraduate degree in English Literature from Hamilton College."
 					},
           {
@@ -105,6 +93,24 @@ module PagesHelper
             title: 'Product Designer',
             desc: "Tom is a designer who's passionate about building meaningful and magical products. He studied at the Fashion Institute of Technology with a Bachelor’s degree in Communication Design, as well as the School of Visual Arts with a Masters in Branding."
           },
+          {
+            img: 'thumb-alysia.jpg',
+            name: 'Alysia Belle',
+            title: 'Literacy Director',
+            desc: "Alysia develops content for Quill with a focus on building its forthcoming reading curriculum. She has experience teaching in a variety of settings, including 5 years as an ESL educator in the Bronx. Before joining Quill, Alysia wrote curricula and managed edtech-focused professional learning at Democracy Prep Public Schools. Prior to Democracy Prep, she led professional development initiatives at Newsela. Alysia holds an undergraduate degree in English and a master’s degree in education."
+          },
+          {
+            img: 'thumb-emma.png',
+            name: 'Emma Volk',
+            title: 'Editorial Associate',
+            desc: "Emma is an editorial associate with a love for writing. She has an undergraduate degree in English from Columbia University and a master’s degree in English from the University of Oxford."
+          },
+					{
+						img: 'thumb-thomas.jpg',
+						name: 'Thomas Robertson',
+						title: 'Senior Web Developer',
+						desc: "Thomas brings his decade of software development experience to Quill with a focus on technological and operational scalability.  He is deeply committed to using technology to improve public education by empowering teachers to do more in their classrooms.  Thomas has spent most of his career working at a combination of education companies and small start-ups, which makes Quill a natural fit for his experience and skills."
+					}
 				]
 			},
 			{
@@ -126,7 +132,7 @@ module PagesHelper
 						img: 'thumb_ben.png',
 						name: "Ben Sussman",
 						title: "Board Member",
-						desc: "Ben Sussman is a Lead Engineer at Betterment and is a technical advisor to Quill. He has 10+ years of experience as a computer programmer and entrepreneur. On the weekends, Ben volunteers with Nanohackers to teach programming to kids."
+						desc: "Ben Sussman is an Engineer at Spell and is a technical advisor to Quill. He has 10+ years of experience as a computer programmer and entrepreneur. On the weekends, Ben volunteers with Nanohackers to teach programming to kids."
 					},
 					{
 						img: 'thumb_rubin.png',
@@ -158,10 +164,10 @@ module PagesHelper
 				team: 'Education Advisory Board',
 				members: [
 					{
-						img: 'thumb-daniel.jpg',
-						name: 'Daniel Scibienski',
+						img: 'thumb-peg.jpg',
+						name: 'Peg Tyre',
 						title: "Advisory Board Member",
-						desc: "Daniel Scibienski is the founder of ELL Consulting.  He has been involved in English language education for over 14 years as a teacher, trainer, and program administrator."
+						desc: "Peg Tyre is a longtime education journalist and the best-selling author of two books on education. She is also director of strategy for The Edwin Gould Foundation, which invests in organizations that get low-income students to and through college. Tyre is currently at work on a book about literacy."
 					},
 					{
 						img: 'thumb-emily.jpg',
@@ -174,43 +180,48 @@ module PagesHelper
 						name: 'John Silberstein',
 						title: 'Advisory Board Member',
 						desc: "After beginning his career as a real estate lawyer at Skadden Arps, John Silberstein pursued an entrepreneurial path in real estate and technology. John then taught middle school English at The Dalton School in New York City and The Rivers School in Weston, MA. John is currently on the Board of Snap Interactive, a publicly traded social media company and is on the Advisory Board of Will Power Labs, which makes Meal Enders, a dietary lozenge."
-					},
-					{
-						img: 'thumb-deborah.jpg',
-						name: 'Deborah Chang',
-						title: 'Advisory Board Member',
-						desc: "Deborah Chang is an educator and an entrepreneur. She co-founded Nexus Works, a community of people working with purpose and is also a community organizer of #NYCEDU, an organization that curates, coaches, and connects community organizers."
 					}
 				]
 			},
 			{
 				team: 'Technical Advisory Board',
 				members: [
+          {
+            img: 'thumb-donald.png',
+            name: 'Donald McKendrick',
+            title: 'Advisory Board Member',
+            desc: "Donald is a Software Engineer at One Medical. He previously served as Quill's Technology Director. Prior to that, he led financial services and e-commerce startups. He is inspired by the opportunity to help educate millions of students through educational technology."
+          },
 					{
 						img: 'thumb-alex.png',
 						name: "Alex Redmon",
-						title: "Open Source Developer",
+						title: "Advisory Board Member",
 						desc: "Alex is an art collector, I.T. professional, and entrepreneur living in Brooklyn who enjoys reading, writing, photography, and music."
-					},
-					{
-	  				img: "thumb-oliver.jpg",
-	  				name: "Oliver Hurst Hiller",
-	  				title: "Advisory Board Member",
-	  				desc: "Oliver is the CTO and Head of Product at DonorsChoose.org. Previously, he managed product engineering projects for Microsoft's new search engine, now called Bing."
 					}
 				]
 			},
-			{
-				team: 'Interns and Volunteers',
-				members: [
+      {
+        team: 'Marketing Advisory Board',
+        members: [
           {
-            img: 'thumb-eric.jpg',
-            name: 'Eric Tang',
-            title: 'Software Development Intern',
-            desc: "Eric is a rising sophomore at Stanford University who enjoys reading novels, tutoring students and fiddling with Natural Language Processing algorithms. He’s working at Quill this summer because he’s excited to help students become better writers and communicators!"
+            img: 'thumb-jane.jpg',
+            name: 'Jane Nevins',
+            title: 'Marketing Advisor',
+            desc: 'Before moving to New York, Jane worked in Silicon Valley for 10 years. She was one of the first 11 employees at Lyft and has worked at other noteworthy startups like SolarCity and SunRun. In 2017 she received a master’s degree from the Communication Department of Stanford University, where she studied journalism, data analysis and the economics of news. She also earned a Bachelor of Arts degree from Stanford in 2005. '
           }
-				]
-			}
+        ]
+      }
+			# {
+			# 	team: 'Interns and Volunteers',
+			# 	members: [
+      #     {
+      #       img: 'thumb-eric.jpg',
+      #       name: 'Eric Tang',
+      #       title: 'Software Development Intern',
+      #       desc: "Eric is a rising sophomore at Stanford University who enjoys reading novels, tutoring students and fiddling with Natural Language Processing algorithms. He’s working at Quill this summer because he’s excited to help students become better writers and communicators!"
+      #     }
+			# 	]
+			# }
 		]
 	end
 end

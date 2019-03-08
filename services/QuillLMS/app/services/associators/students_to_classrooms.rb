@@ -7,12 +7,12 @@ module Associators::StudentsToClassrooms
       if sc.new_record?
         sc.visible = true
         if sc.save!
-          update_classroom_activities(sc)
+          update_classroom_units(sc)
           StudentJoinedClassroomWorker.perform_async(@@classroom.owner.id, student.id)
         end
       end
       if !sc.visible
-        update_classroom_activities(sc)
+        update_classroom_units(sc)
         sc.update(visible: true)
       end
       student.reload
@@ -22,9 +22,9 @@ module Associators::StudentsToClassrooms
 
   private
 
-  def self.update_classroom_activities(sc)
-    cas = ClassroomActivity.where(classroom_id: sc.classroom_id)
-    cas.each{|ca| ca.validate_assigned_student(sc.student_id)}
+  def self.update_classroom_units(sc)
+    cus = ClassroomUnit.where(classroom_id: sc.classroom_id)
+    cus.each{|cu| cu.validate_assigned_student(sc.student_id)}
   end
 
   def self.legit_classroom

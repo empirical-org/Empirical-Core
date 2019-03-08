@@ -50,12 +50,14 @@ export default class ClassroomLessons extends React.Component {
     request.get(`${process.env.FIREBASE_DATABASE_URL}/v2/lessons_editions.json`, (error, httpStatus, body) => {
       const editions = JSON.parse(body)
       const lessonUidsWithEditions = []
-      Object.keys(editions).forEach(e => {
-        const edition = editions[e]
-        if (edition.user_id === teacherId && lessonUidsWithEditions.indexOf(edition.lesson_id) === -1) {
-          lessonUidsWithEditions.push(edition.lesson_id)
-        }
-      })
+      if (editions) {
+        Object.keys(editions).forEach(e => {
+          const edition = editions[e]
+          if (edition.user_id === teacherId && lessonUidsWithEditions.indexOf(edition.lesson_id) === -1) {
+            lessonUidsWithEditions.push(edition.lesson_id)
+          }
+        })
+      }
       this.setState({lessonUidsWithEditions: lessonUidsWithEditions, loaded: true})
     })
   }
@@ -82,7 +84,7 @@ export default class ClassroomLessons extends React.Component {
         <p>With Quill Lessons, teachers can use Quill to lead whole-class lessons and to see and display student responses in real-time.</p>
         <div className="buttons">
           <a target="_blank" href="/teachers/classrooms/assign_activities/create-unit?tool=lessons" className="bg-quillgreen text-white">Assign Lessons</a>
-          <a target="_blank" href="/tool/lessons" className="bg-white text-quillgreen">Learn More</a>
+          <a target="_blank" href="/tools/lessons" className="bg-white text-quillgreen">Learn More</a>
         </div>
       </div>
       <img src={`${process.env.CDN_URL}/images/illustrations/empty_state_illustration_lessons.svg`} />
@@ -90,7 +92,7 @@ export default class ClassroomLessons extends React.Component {
   }
 
   switchClassrooms(classroom) {
-    this.props.history.push(`/teachers/classrooms/activity_planner/lessons/${classroom.id}`);
+    this.props.router.push(`${process.env.DEFAULT_URL}/teachers/classrooms/activity_planner/lessons/${classroom.id}`);
     this.setState({ selectedClassroomId: `${classroom.id}`, }, () => this.getLessonsForCurrentClass());
   }
 
@@ -109,8 +111,9 @@ export default class ClassroomLessons extends React.Component {
       name: u.activity_name,
       activityId: u.activity_id,
       activityUid: u.activity_uid,
-      created_at: u.classroom_activity_created_at,
-      caId: u.classroom_activity_id,
+      created_at: u.unit_activity_created_at,
+      cuId: u.classroom_unit_id,
+      uaId: u.unit_activity_id,
       activityClassificationId: u.activity_classification_id,
 			classroomId: u.classroom_id,
       dueDate: u.due_date,
@@ -144,19 +147,21 @@ export default class ClassroomLessons extends React.Component {
         caUnit.classroomActivities.set(u.activity_id,
           caUnit.classroomActivities[u.activity_id] || {
           name: u.activity_name,
-          caId: u.classroom_activity_id,
+          activityId: u.activity_id,
           activityUid: u.activity_uid,
-          created_at: u.classroom_activity_created_at,
+          created_at: u.unit_activity_created_at,
+          cuId: u.classroom_unit_id,
+          uaId: u.unit_activity_id,
           activityClassificationId: u.activity_classification_id,
-					classroomId: u.classroom_id,
-          createdAt: u.ca_created_at,
+          classroomId: u.classroom_id,
           dueDate: u.due_date,
           supportingInfo: u.supporting_info,
           completed: u.completed,
           studentCount: studentCount,
           started: u.started_count > 0,
           hasEditions: hasEditions,
-          ownedByCurrentUser: u.owned_by_current_user === 't'
+          ownedByCurrentUser: u.owned_by_current_user === 't',
+          ownerName: u.owner_name
         });
       }
     });
@@ -173,7 +178,6 @@ export default class ClassroomLessons extends React.Component {
     if (this.state.empty) {
       return this.renderEmptyState();
     } else if (this.state.loaded) {
-
       return (
         <div id="lesson_planner">
           <div className="container my-lessons manage-units">

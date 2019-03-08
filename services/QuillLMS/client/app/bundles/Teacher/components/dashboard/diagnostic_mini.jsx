@@ -19,20 +19,25 @@ export default class DiagnosticMini extends React.Component {
       url: `${process.env.DEFAULT_URL}/teachers/get_diagnostic_info_for_dashboard_mini`,
     },
     (e, r, response) => {
-      that.setState(JSON.parse(response));
+      const parsedResponse = JSON.parse(response)
+      that.setState({
+        unitInfo: parsedResponse.unit_info,
+        numberOfFinishedDiagnostics: parsedResponse.number_of_finished_students,
+        status: parsedResponse.status
+      });
     });
   }
 
   assignRecommendationsMini() {
-    const { unit_info, number_of_finished_students, } = this.state;
+    const { unitInfo, numberOfFinishedDiagnostics, } = this.state;
 
     return (<div className="mini_content diagnostic-mini assign-recommendations">
       <div className="gray-underline">
-        <h3>{number_of_finished_students} Student{number_of_finished_students === '1' ? '' : 's'} Completed Diagnostic</h3>
+        <h3>{numberOfFinishedDiagnostics} Completed Diagnostic{Number(numberOfFinishedDiagnostics) === 1 ? '' : 's'}</h3>
       </div>
-      <img src={`${process.env.CDN_URL}/images/pages/diagnostic_reports/Diagnostic_Completion.svg`} />
-      <p>Your students have been recommended activities such as <span>Compound Sentences</span> and <span>Fragments</span>.</p>
-      <a href={`/teachers/progress_reports/diagnostic_reports#/u/${unit_info.unit_id}/a/${unit_info.activity_id}/c/${unit_info.classroom_id}/recommendations`} className="bg-quillgreen text-white">View and Assign Recommendations</a>
+      <img src={`${process.env.CDN_URL}/images/shared/diagnostics_completed.svg`} />
+      <p>View our recommendations for each&nbsp;student.</p>
+      <a href={`/teachers/progress_reports/diagnostic_reports#/u/${unitInfo.unit_id}/a/${unitInfo.activity_id}/c/${unitInfo.classroom_id}/recommendations`} className="bg-quillgreen text-white">View Recommended Activities</a>
     </div>);
   }
 
@@ -42,20 +47,20 @@ export default class DiagnosticMini extends React.Component {
         <h3>Diagnostic Assigned</h3>
       </div>
 
-      <img src={`${process.env.CDN_URL}/images/pages/diagnostic_reports/diagnostic_colored.svg`} />
-      <p>Once your students log in and complete the diagnostic, you can assign the recommended follow up activities. You can also <a href="/teachers/classrooms/activity_planner">set due dates here</a>.</p>
+      <img alt="" src={`${process.env.CDN_URL}/images/shared/new_diagnostic.svg`} />
+      <p>The diagnostic is waiting for students on their dashboards. Have students log in to complete it so you can assign their recommended&nbsp;activities.</p>
     </div>);
   }
 
   assignDiagnosticMini() {
     return (<div className="mini_content diagnostic-mini assign-diagnostic">
       <div className="gray-underline">
-        <h3>Assign Entry Diagnostic</h3>
+        <h3>Assign a Diagnostic</h3>
       </div>
 
-      <img src={`${process.env.CDN_URL}/images/pages/diagnostic_reports/diagnostic_colored.svg`} />
-      <p>Determine which skills your students need to work on.</p>
-      <a href={'/teachers/classrooms/assign_activities/assign-a-diagnostic'} className="bg-quillgreen text-white">View and Assign Diagnostic</a>
+      <img alt="" src={`${process.env.CDN_URL}/images/shared/new_diagnostic.svg`} />
+      <p>See which skills students need to work on and get recommended learning&nbsp;plans.</p>
+      <a href={'/teachers/classrooms/assign_activities/assign-a-diagnostic'} className="bg-quillgreen text-white">Assign Diagnostic</a>
     </div>);
   }
 

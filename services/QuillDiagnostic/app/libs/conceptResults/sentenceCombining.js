@@ -3,10 +3,11 @@ import { formattedCues } from '../formattedCues';
 
 export function getConceptResultsForSentenceCombining(question) {
   const prompt = question.prompt.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, '');
-  const answer = question.attempts[0].submitted;
+  const answer = question.attempts[0].response.text;
   let conceptResults = [];
   if (question.attempts[0].response) {
-    conceptResults = hashToCollection(question.attempts[0].response.conceptResults) || [];
+    const conceptResultObject = question.attempts[0].response.conceptResults || question.attempts[0].response.concept_results
+    conceptResults = hashToCollection(conceptResultObject) || [];
   } else {
     conceptResults = [];
   }

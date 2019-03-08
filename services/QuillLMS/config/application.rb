@@ -55,19 +55,21 @@ module EmpiricalGrammar
     #   ApplicationController.action(:show_errors).call(env)
     # end
 
-    # CHange schema format so that we can use trigrams.
+    # CHange schema format so that we can use trigrams. [and SQL functions,
+    # https://stackoverflow.com/questions/31953498/can-i-write-postgresql-functions-on-ruby-on-rails
+    # Aug 21, 2018 Max Buck]
     config.active_record.schema_format = :sql
 
     # http://stackoverflow.com/questions/14647731/rails-converts-empty-arrays-into-nils-in-params-of-the-request
     config.action_dispatch.perform_deep_munge = false
 
     config.middleware.use Rack::Attack
-    config.middleware.use Rack::Affiliates, { param: 'champion' }
+    config.middleware.use Rack::Affiliates, { param: 'referral_code' }
 
     config.middleware.insert_before 0, "Rack::Cors" do
       allow do
         origins 'quill.org', /https:\/\/(.)*.quill.org/, /localhost:.*/, /127.0.0.1:.*/
-        resource '/api/*', headers: :any, methods: [:get, :post, :patch, :put, :options], expose: ['Access-Control-Allow-Credentials'], credentials: true
+        resource '/api/*', headers: :any, methods: [:get, :post, :patch, :put, :options], credentials: true
       end
     end
   end
