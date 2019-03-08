@@ -66,6 +66,10 @@ export default React.createClass({
     }
   },
 
+  isSelectedForMassEdit() {
+    return this.props.massEdit.selectedResponses.includes(this.props.response.id) || this.props.massEdit.selectedResponses.includes(this.props.response.key)
+  },
+
   editResponse(rid) {
     this.props.dispatch(this.state.actions.startResponseEdit(this.props.questionID, rid));
   },
@@ -205,7 +209,7 @@ export default React.createClass({
   },
 
   onMassSelectCheckboxToggle(responseKey) {
-    if (this.props.massEdit.selectedResponses.includes(responseKey)) {
+    if (this.isSelectedForMassEdit()) {
       this.removeResponseFromMassEditArray(responseKey);
     } else {
       this.addResponseToMassEditArray(responseKey);
@@ -454,7 +458,7 @@ export default React.createClass({
     const authorStyle = { marginLeft: '10px', };
     const showTag = response.author && (response.statusCode === 2 || response.statusCode === 3)
     const author = showTag ? <span style={authorStyle} className="tag is-dark">{response.author}</span> : undefined;
-    const checked = this.props.massEdit.selectedResponses.includes(response.id) ? 'checked' : '';
+    const checked = this.isSelectedForMassEdit() ? 'checked' : '';
     return (
       <div style={{ display: 'flex', alignItems: 'center', }} className={bgColor}>
         <input type="checkbox" checked={checked} onChange={() => this.onMassSelectCheckboxToggle(response.id)} style={{ marginLeft: '15px', }} />

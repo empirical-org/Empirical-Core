@@ -425,6 +425,7 @@ EmpiricalGrammar::Application.routes.draw do
     resources :admin_accounts, only: [:index, :create, :update, :destroy]
     resources :admins, only: [:index, :create, :update, :destroy]
     resources :categories
+    get '/concepts/concepts_in_use', to: 'concepts#concepts_in_use', only: [:csv], defaults: { format: 'csv' }
     resources :concepts
     resources :sections
     resources :topics
@@ -567,6 +568,8 @@ EmpiricalGrammar::Application.routes.draw do
   get 'customize/:id' => 'activities#customize_lesson'
   get 'preview_lesson/:lesson_id' => 'activities#preview_lesson'
   get 'activities/:id/supporting_info' => 'activities#supporting_info'
+  get 'activities/:id/name_and_id' => 'activities#name_and_id'
+  get 'activities/:id/last_unit_template' => 'activities#last_unit_template'
 
   get 'demo' => 'teachers/progress_reports#demo'
   get 'student_demo' => 'students#student_demo'

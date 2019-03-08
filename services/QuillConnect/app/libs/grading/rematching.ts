@@ -1,11 +1,14 @@
 declare function require(name:string);
 const request = require('request-promise');
+// import AWS from 'aws-sdk'
 import * as _ from 'underscore';
 import { hashToCollection } from 'quill-component-library/dist/componentLibrary';
 
 // const qml = require('quill-marking-logic')
 import { checkSentenceCombining, checkSentenceFragment, checkDiagnosticQuestion, checkFillInTheBlankQuestion, ConceptResult } from 'quill-marking-logic'
 import objectWithSnakeKeysFromCamel from '../objectWithSnakeKeysFromCamel';
+
+// AWS.config.update({ region:'us-east-1', accessKeyId: 'akid', secretAccessKey: 'secret' });
 
 interface Question {
   conceptID: string,
@@ -49,13 +52,35 @@ interface ConceptResults {
 //   name: string
 // }
 
-export function rematchAll(mode: string, question: Question, questionID: string, callback:Function) {
-  const matcher = getMatcher(mode);
-  getGradedResponses(questionID).then((data) => {
-    question.key = questionID
-    const matcherFields = getMatcherFields(mode, question, formatGradedResponses(data));
-    paginatedNonHumanResponses(matcher, matcherFields, questionID, 1, callback);
+export function rematchAll(mode: string, questionID: string, callback:Function) {
+  let type
+  if (mode === 'sentenceFragments') {
+    type = 'sentenceFragments';
+  } else if (mode === 'questions') {
+    type = 'questions';
+  } else if (mode === 'fillInBlank') {
+    type = 'fillInBlankQuestions';
+  }
+
+  fetch('https://p8147zy7qj.execute-api.us-east-1.amazonaws.com/prod', {
+    method: 'POST',
+    body: JSON.stringify({type, uid: questionID}),
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    },
+  }).then((response) => {
+    if (!response.ok) {
+      throw Error(response.statusText);
+    }
+    return response.json();
+  }).then((response) => {
+    console.log('success');
+    callback('done')
+  }).catch((error) => {
+    console.log('error', error);
   });
+
 }
 
 export function rematchOne(response: string, mode: string, question: Question, questionID: string, callback:Function) {
@@ -200,7 +225,7 @@ function getMatcher(mode:string):Function {
 function getMatcherFields(mode:string, question:Question, responses:{[key:string]: Response}) {
 
   const responseArray = hashToCollection(responses);
-  const focusPoints = question.focusPoints ? hashToCollection(question.focusPoints) : [];
+  const focusPoints = question.focusPoints ? hashToCollection(question.focusPoints).sort((a, b) => a.order - b.order) : [];
   const incorrectSequences = question.incorrectSequences ? hashToCollection(question.incorrectSequences) : [];
   const defaultConceptUID = question.modelConceptUID || question.conceptID
 

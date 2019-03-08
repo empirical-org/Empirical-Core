@@ -17,7 +17,7 @@ describe('The checking a grammar question', () => {
             feedback: "<b>Well done!</b> That's the correct answer."
           }
         ]
-        const matchedResponse = checkGrammarQuestion('questionOne', responseString, savedResponses, 'conceptOne');
+        const matchedResponse = checkGrammarQuestion('questionOne', responseString, savedResponses, [], [], 'conceptOne');
         assert.equal(matchedResponse.id, savedResponses[0].id);
     });
 
@@ -33,7 +33,7 @@ describe('The checking a grammar question', () => {
           feedback: "<b>Well done!</b> That's the correct answer."
         }
       ]
-      const matchedResponse = checkGrammarQuestion('questionOne', responseString, savedResponses, 'conceptOne');
+      const matchedResponse = checkGrammarQuestion('questionOne', responseString, savedResponses, [], [], 'conceptOne');
       assert.equal(matchedResponse.id, savedResponses[0].id);
   });
 
@@ -49,7 +49,7 @@ describe('The checking a grammar question', () => {
           feedback: "<b>Well done!</b> That's the correct answer."
         }
       ]
-      const matchedResponse = checkGrammarQuestion('questionOne', responseString, savedResponses, 'conceptOne');
+      const matchedResponse = checkGrammarQuestion('questionOne', responseString, savedResponses, [], [], 'conceptOne');
       assert.equal(matchedResponse.id, savedResponses[0].id);
   });
 
@@ -65,7 +65,7 @@ describe('The checking a grammar question', () => {
           feedback: "<b>Well done!</b> That's the correct answer."
         }
       ]
-      assert.ok(checkGrammarQuestion('questionOne', responseString, savedResponses, 'conceptOne'));
+      assert.ok(checkGrammarQuestion('questionOne', responseString, savedResponses, [], [], 'conceptOne'));
   });
 
 
@@ -81,7 +81,7 @@ describe('The checking a grammar question', () => {
         feedback: "<b>Well done!</b> That's the correct answer."
       }
     ]
-    assert.ok(checkGrammarQuestion('questionOne', responseString, savedResponses, 'conceptOne'));
+    assert.ok(checkGrammarQuestion('questionOne', responseString, savedResponses, [], [], 'conceptOne'));
   });
 
   it('it should return a concept result with the default concept uid if nothing matches.', () => {
@@ -96,7 +96,7 @@ describe('The checking a grammar question', () => {
         feedback: "<b>Well done!</b> That's the correct answer."
       }
     ]
-    const matchedResponse = checkGrammarQuestion('questionOne', responseString, savedResponses, 'conceptOne');
+    const matchedResponse = checkGrammarQuestion('questionOne', responseString, savedResponses, [], [], 'conceptOne');
     assert.equal(matchedResponse.concept_results[0].conceptUID, 'conceptOne');
   });
 

@@ -4,9 +4,9 @@ import { Response } from 'quill-marking-logic'
 type ResponseWithLevenshtein = Response & { levenshtein: any }
 
 export function getStatusForResponse(response: Response|{} = {}) {
-  if (!response.feedback) {
+  if (response.optimal === null && !response.parent_id && !response.author) {
     return 4;
-  } else if (response.parent_id) {
+  } else if (response.parent_id || response.author) {
     return (response.optimal ? 2 : 3);
   }
   return (response.optimal ? 0 : 1);

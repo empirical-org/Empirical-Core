@@ -1,7 +1,7 @@
 import React from 'react';
 import request from 'request';
 import PasswordInfo from './password_info.jsx';
-import Input from '../../shared/input'
+import Input from '../../shared/input';
 import getAuthToken from '../../modules/get_auth_token';
 
 class LoginFormApp extends React.Component {
@@ -15,7 +15,7 @@ class LoginFormApp extends React.Component {
       email: '',
       password: '',
       errors: {},
-      timesSubmitted: 0
+      timesSubmitted: 0,
     };
   }
 
@@ -34,11 +34,11 @@ class LoginFormApp extends React.Component {
   }
 
   submitClass() {
-    let buttonClass = "button contained primary medium"
+    let buttonClass = 'button contained primary medium';
     if (!this.state.password.length || !this.state.email.length) {
-      buttonClass += ' disabled'
+      buttonClass += ' disabled';
     }
-    return buttonClass
+    return buttonClass;
   }
 
   handleEmailChange(e) {
@@ -50,7 +50,7 @@ class LoginFormApp extends React.Component {
   }
 
   handleSubmit(e) {
-    const { timesSubmitted, email, password } = this.state
+    const { timesSubmitted, email, password, } = this.state;
     e.preventDefault();
     request({
       url: `${process.env.DEFAULT_URL}/session/login_through_ajax`,
@@ -68,32 +68,32 @@ class LoginFormApp extends React.Component {
         // console.log(body);
         window.location = `${process.env.DEFAULT_URL}${body.redirect}`;
       } else {
-        let state
+        let state;
         if (body.type && body.message) {
-          const errors = {}
-          errors[body.type] = body.message
-          state = { lastUpdate: new Date(), errors, timesSubmitted: timesSubmitted + 1 }
+          const errors = {};
+          errors[body.type] = body.message;
+          state = { lastUpdate: new Date(), errors, timesSubmitted: timesSubmitted + 1, };
         } else {
           let message = 'You have entered an incorrect email/username or password.';
           if (httpResponse.statusCode === 429) {
             message = 'Too many failed attempts. Please wait one minute and try again.';
           }
-          state = { lastUpdate: new Date(), message: (body.message || message), }
+          state = { lastUpdate: new Date(), message: (body.message || message), };
         }
-        this.setState(state)
+        this.setState(state);
       }
     });
   }
 
   render() {
-    const { errors, email, password, timesSubmitted, authToken } = this.state
+    const { errors, email, password, timesSubmitted, authToken, } = this.state;
     return (
       <div className="container account-form">
         <h1>Good to see you again!</h1>
         <div className="account-container text-center">
           <div className="auth-section">
-            <a href='/auth/google_oauth2?prompt=consent'>
-              <img src='/images/google_icon.svg' alt="google icon" />
+            <a href="/auth/google_oauth2">
+              <img src="/images/google_icon.svg" alt="google icon" />
               <span>Log in with Google</span>
             </a>
             <a href={this.props.cleverLink}>
@@ -101,7 +101,7 @@ class LoginFormApp extends React.Component {
               <span>Log in with Clever</span>
             </a>
           </div>
-          <div className='break'><span/>or<span/></div>
+          <div className="break"><span  />or<span  /></div>
           <div className="login-form">
             <div>
               <form onSubmit={this.handleSubmit} acceptCharset="UTF-8" >
@@ -121,7 +121,7 @@ class LoginFormApp extends React.Component {
                   value={password}
                   handleChange={this.handlePasswordChange}
                   type={this.togglePass()}
-                  className="password"
+                  className="password inspectletIgnore"
                   error={errors.password}
                   timesSubmitted={timesSubmitted}
                 />

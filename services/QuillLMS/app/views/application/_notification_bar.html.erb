@@ -1,7 +1,6 @@
-<% if !current_user || current_user.role == "teacher" %>
-<div class="notification-bar">
+<% current_path = request.env['PATH_INFO'] %>
+<div class="notification-bar google-issue">
   <p>
-    We've launched <a href="/tools/lessons">Quill Lessons</a> to support group writing! 🎉
+    Quill is currently experiencing issues with our Lessons tool. It will be back up and running as quickly as possible. We&nbsp;apologize&nbsp;for&nbsp;the&nbsp;inconvenience!
   </p>
 </div>
-<% end %>
