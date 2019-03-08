@@ -42,7 +42,7 @@ const styles = {
     borderImageSlice: 1,
   },
   text: {
-    marginRight: 10,
+    marginRight: 5,
   },
 };
 
@@ -132,14 +132,19 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     if (text.length > 0) {
       style = styles.text;
     }
-    return <span key={i} style={style}>{text}</span>;
+    const textArray = text.split(' ')
+    const spanArray:Array<JSX.Element> = []
+    textArray.forEach((word, index) => {
+      spanArray.push(<span key={`${i}-${index}`} style={style}>{word}</span>)
+    })
+    return spanArray;
   }
 
   validateInput(i) {
     const newErrors = new Set(this.state.inputErrors);
     const inputVal = this.state.inputVals[i] || '';
     const inputSufficient = this.state.blankAllowed ? true : inputVal;
-    const cueMatch = (inputVal && this.state.cues.some(c => stringNormalize(c).toLowerCase() === stringNormalize(inputVal).toLowerCase())) || inputVal === ''
+    const cueMatch = (inputVal && this.state.cues.some(c => stringNormalize(c).toLowerCase() === stringNormalize(inputVal).toLowerCase().trim())) || inputVal === ''
     if (inputSufficient && cueMatch) {
       newErrors.delete(i);
     } else {
@@ -187,7 +192,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
   }
 
   warningText() {
-    const text = 'Use one of the words below';
+    const text = 'Use one of the options below';
     return `${text}${this.state.blankAllowed ? ' or leave blank.' : '.'}`;
   }
 
@@ -220,8 +225,6 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
       delete styling.borderImageSource;
     }
     const longestCue = this.state.cues && this.state.cues.length ? this.state.cues.sort((a, b) => b.length - a.length)[0] : null
-    console.log('longestCue', longestCue)
-    console.log('longestCueLength', longestCue.length)
     const width = longestCue ? (longestCue.length * 15) + 10 : 50
     styling.width = `${width}px`
     return (
@@ -237,6 +240,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
           onChange={this.getChangeHandler(i)}
           value={this.state.inputVals[i]}
           onBlur={() => this.validateInput(i)}
+          autoComplete="off"
         />
       </span>
     );
@@ -246,7 +250,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     if (this.state.splitPrompt) {
       const { splitPrompt, } = this.state;
       const l = splitPrompt.length;
-      const splitPromptWithInput:Array<JSX.Element> = [];
+      const splitPromptWithInput:Array<JSX.Element|Array<JSX.Element>> = [];
       splitPrompt.forEach((section, i) => {
         if (i !== l - 1) {
           splitPromptWithInput.push(this.renderText(section, i));
@@ -255,7 +259,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
           splitPromptWithInput.push(this.renderText(section, i));
         }
       });
-      return splitPromptWithInput;
+      return _.flatten(splitPromptWithInput);
     }
   }
 
@@ -265,7 +269,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
   }
 
   checkAnswer() {
-    if (!this.state.inputErrors.size) {
+    if (!this.state.inputErrors.size && this.state.responses) {
       if (!this.state.blankAllowed) {
         if (this.state.inputVals.filter(Boolean).length !== this.state.inputVals.length) {
           this.state.inputVals.forEach((val, i) => this.validateInput(i))

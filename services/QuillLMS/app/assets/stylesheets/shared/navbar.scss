@@ -141,7 +141,8 @@
     .user-dropdown-button::after {
       margin-left: 10px;
       content: "\f078";
-      font-family: "FontAwesome";
+      font-family: "Font Awesome\ 5 Free";  /* updated font-family */
+      font-weight: 900; /* regular style/weight */
     }
     div {
       display: none;
@@ -151,7 +152,8 @@
     .user-dropdown-button::after {
       margin-left: 10px;
       content: "\f077";
-      font-family: "FontAwesome";
+      font-family: "Font Awesome\ 5 Free";  /* updated font-family */
+      font-weight: 900; /* regular style/weight */
     }
   }
 }
@@ -169,6 +171,7 @@ nav.q-navbar-home {
     width: 100%;
     display: flex;
     justify-content: center;
+    align-items: center;
   }
 
   .logo-img-new {

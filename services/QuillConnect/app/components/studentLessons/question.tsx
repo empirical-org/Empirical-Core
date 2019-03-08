@@ -31,9 +31,8 @@ import submitQuestionResponse from '../renderForQuestions/submitResponse.js';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 import submitPathway from '../renderForQuestions/submitPathway.js';
 import AnswerForm from '../renderForQuestions/renderFormForAnswer.jsx';
-import { getOptimalResponses, getSubOptimalResponses, getTopOptimalResponse } from '../../libs/sharedResponseFunctions';
 import {
-  getResponsesWithCallback,
+  getMultipleChoiceResponseOptionsWithCallback,
   getGradedResponsesWithCallback
 } from '../../actions/responses.js';
 import {Response} from 'quill-marking-logic'
@@ -55,6 +54,12 @@ const playLessonQuestion = React.createClass<any, any>({
       this.props.question.key,
       (data) => {
         this.setState({ responses: data, });
+      }
+    );
+    getMultipleChoiceResponseOptionsWithCallback(
+      this.props.question.key,
+      (data) => {
+        this.setState({ multipleChoiceResponseOptions: _.shuffle(data), });
       }
     );
   },
@@ -106,20 +111,6 @@ const playLessonQuestion = React.createClass<any, any>({
   getNewQuestionMarker() {
     const fields = this.getQuestionMarkerFields();
     return new Question(fields);
-  },
-
-  getOptimalResponses() {
-    return getOptimalResponses(hashToCollection(this.getResponses()));
-  },
-
-  getSubOptimalResponses() {
-    return getSubOptimalResponses(hashToCollection(this.getResponses()));
-  },
-
-  get4MarkedResponses() {
-    const twoOptimal = _.first(_.shuffle(this.getOptimalResponses()), 2);
-    const twoSubOptimal = _.first(_.shuffle(this.getSubOptimalResponses()), 2);
-    return _.shuffle(twoOptimal.concat(twoSubOptimal));
   },
 
   submitResponse(response) {
@@ -184,7 +175,7 @@ const playLessonQuestion = React.createClass<any, any>({
   },
 
   checkAnswer(e) {
-    if (this.state.editing) {
+    if (this.state.editing && this.getResponses() && Object.keys(this.getResponses()).length) {
       this.removePrefilledUnderscores();
       const response = getResponse(this.getQuestion(), this.state.response, this.getResponses());
       this.updateResponseResource(response);
@@ -198,7 +189,7 @@ const playLessonQuestion = React.createClass<any, any>({
   },
 
   toggleDisabled() {
-    if (this.state.editing) {
+    if (this.state.editing && this.getResponses() && Object.keys(this.getResponses()).length) {
       return '';
     }
     return 'is-disabled';
@@ -269,8 +260,8 @@ const playLessonQuestion = React.createClass<any, any>({
 
   renderConceptExplanation() {
     const latestAttempt:{response: Response}|undefined = getLatestAttempt(this.props.question.attempts);
-    if (latestAttempt) {
-      if (!latestAttempt.response.optimal && latestAttempt.response.conceptResults) {
+    if (latestAttempt && latestAttempt.response && !latestAttempt.response.optimal ) {
+      if (latestAttempt.response.conceptResults) {
           const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.response.conceptResults);
           if (conceptID) {
             const data = this.props.conceptsFeedback.data[conceptID.conceptUID];
@@ -278,7 +269,7 @@ const playLessonQuestion = React.createClass<any, any>({
               return <ConceptExplanation {...data} />;
             }
           }
-      } else if (latestAttempt.response && !latestAttempt.response.optimal && latestAttempt.response.concept_results) {
+      } else if (latestAttempt.response.concept_results) {
         const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.response.concept_results);
         if (conceptID) {
           const data = this.props.conceptsFeedback.data[conceptID.conceptUID];
@@ -337,7 +328,7 @@ const playLessonQuestion = React.createClass<any, any>({
         component = (
           <MultipleChoice
             prompt={this.renderSentenceFragments()}
-            answers={this.get4MarkedResponses()}
+            answers={this.state.multipleChoiceResponseOptions}
             next={this.multipleChoiceFinishQuestion}
           />
         );

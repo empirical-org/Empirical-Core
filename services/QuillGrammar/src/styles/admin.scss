@@ -40,3 +40,32 @@
 .menu-list a.no-feedback  {
   color: red;
 }
+
+.response-pagination-container {
+  padding: 10px;
+  border: 1px solid #bfbfbf;
+  border-radius: 3px;
+  .response-pagination {
+    display: flex;
+    justify-content: flex-start;
+    overflow: scroll;
+  }
+  ul {
+    align-items: center;
+    display: flex;
+    flex-grow: 1;
+    flex-shrink: 0;
+    justify-content: center;
+  }
+  @media screen and (min-width: 769px) {
+    .pagination>a:not(:first-child) {
+      order: 1;
+    }
+  }
+}
+
+.sortable-list-item {
+  border: 1px dashed gray;
+  padding: .5em;
+  margin: .5em;
+}

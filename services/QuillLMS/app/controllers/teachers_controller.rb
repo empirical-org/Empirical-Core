@@ -112,38 +112,43 @@ class TeachersController < ApplicationController
   end
 
   def get_diagnostic_info_for_dashboard_mini
-    records = ActiveRecord::Base.connection.execute("SELECT cu.id AS classroom_unit_id,
-      units.id AS unit_id,
-      classroom.id AS classroom_id,
-      acts.id AS activity_id,
-      actsesh.completed_at FROM classroom_units cu
-               JOIN units ON cu.unit_id = units.id
-               JOIN classrooms AS classroom ON cu.classroom_id = classroom.id
-               JOIN activity_sessions AS actsesh ON actsesh.classroom_unit_id = cu.id
-               JOIN activities AS acts ON actsesh.activity_id = acts.id
-               WHERE units.user_id = #{current_user.id}
-               AND acts.activity_classification_id = 4
-               ORDER BY actsesh.completed_at DESC").to_a
-    if records.length > 0
-      most_recently_completed = records.find { |r| r['completed_at'] != nil }
-      # checks to see if the diagnostic was completed within a week
-      if most_recently_completed && 1.week.ago < most_recently_completed['completed_at']
-        number_of_finished_students = ActiveRecord::Base.connection.execute("SELECT COUNT(actsesh.user_id) FROM activity_sessions actsesh
-                              JOIN classroom_units AS cu ON actsesh.classroom_unit_id = cu.id
-                              WHERE cu.id = #{ActiveRecord::Base.sanitize(most_recently_completed['classroom_unit_id'])}
-                              AND actsesh.state = 'finished'
-                              AND actsesh.visible = 'true'
-                              AND cu.visible = 'true'
-                              GROUP BY actsesh.user_id
-                              ").to_a.length
-        render json: {status: 'recently completed', unit_info: most_recently_completed, number_of_finished_students: number_of_finished_students }
-      elsif most_recently_completed
-        render json: {status: 'completed'}
+    if current_user
+      records = ActiveRecord::Base.connection.execute("SELECT cu.id AS classroom_unit_id,
+        units.id AS unit_id,
+        classroom.id AS classroom_id,
+        acts.id AS activity_id,
+        actsesh.completed_at FROM classroom_units cu
+                 JOIN units ON cu.unit_id = units.id
+                 JOIN unit_activities ON units.id = unit_activities.unit_id
+                 JOIN classrooms AS classroom ON cu.classroom_id = classroom.id
+                 LEFT JOIN activity_sessions AS actsesh ON actsesh.classroom_unit_id = cu.id
+                 JOIN activities AS acts ON unit_activities.activity_id = acts.id
+                 WHERE units.user_id = #{current_user.id}
+                 AND acts.activity_classification_id = 4
+                 ORDER BY actsesh.completed_at DESC").to_a
+      if records.length > 0
+        most_recently_completed = records.find { |r| r['completed_at'] != nil }
+        # checks to see if the diagnostic was completed within a week
+        if most_recently_completed && 1.week.ago < most_recently_completed['completed_at']
+          number_of_finished_students = ActiveRecord::Base.connection.execute("SELECT COUNT(actsesh.user_id) FROM activity_sessions actsesh
+                                JOIN classroom_units AS cu ON actsesh.classroom_unit_id = cu.id
+                                WHERE cu.id = #{ActiveRecord::Base.sanitize(most_recently_completed['classroom_unit_id'])}
+                                AND actsesh.state = 'finished'
+                                AND actsesh.visible = 'true'
+                                AND cu.visible = 'true'
+                                GROUP BY actsesh.user_id
+                                ").to_a.length
+          render json: {status: 'recently completed', unit_info: most_recently_completed, number_of_finished_students: number_of_finished_students }
+        elsif most_recently_completed
+          render json: {status: 'completed'}
+        else
+          render json: {status: 'assigned'}
+        end
       else
-        render json: {status: 'assigned'}
+        render json: {status: 'unassigned'}
       end
     else
-      render json: {status: 'unassigned'}
+      render json: {}
     end
   end
 

@@ -73,15 +73,13 @@ class User < ActiveRecord::Base
   validate :validate_flags
 
 
-  ROLES      = %w(student teacher temporary user admin staff)
-  SAFE_ROLES = %w(student teacher temporary)
+  ROLES      = %w(student teacher staff)
+  SAFE_ROLES = %w(student teacher)
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
 
-  TESTING_FLAGS = %w(alpha beta)
+  TESTING_FLAGS = %w(alpha beta private)
   PERMISSIONS_FLAGS = %w(auditor purchaser school_point_of_contact)
   VALID_FLAGS = TESTING_FLAGS.dup.concat(PERMISSIONS_FLAGS)
-
-  default_scope -> { where('users.role != ?', 'temporary') }
 
   scope :teacher, lambda { where(role: 'teacher') }
   scope :student, lambda { where(role: 'student') }

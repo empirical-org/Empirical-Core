@@ -54,7 +54,7 @@ export default React.createClass({
 
   submit(focusPoint) {
     const data = {
-      text: this.state.itemText.split('|||').filter(val => val !== '').join('|||'),
+      text: this.state.itemText.split(/\|{3}(?!\|)/).filter(val => val !== '').join('|||'),
       feedback: this.state.itemFeedback,
       conceptResults: this.state.itemConcepts,
     };
@@ -62,7 +62,7 @@ export default React.createClass({
   },
 
   renderTextInputFields() {
-    return this.state.itemText.split('|||').map(text => (
+    return this.state.itemText.split(/\|{3}(?!\|)/).map(text => (
       <input className="input focus-point-text" style={{ marginBottom: 5, }} onChange={this.handleChange.bind(null, 'itemText')} type="text" value={text || ''} />
     ));
   },

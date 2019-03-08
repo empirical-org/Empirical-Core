@@ -8,7 +8,7 @@ export default React.createClass({
       // {
       //   title: 'Real-time',
       //   href: '/teachers/progress_reports/real_time',
-      //   img: `${process.env.CDN_URL}/images/Illustrations/real-time-landing.svg`,
+      //   img: `${process.env.CDN_URL}/images/illustrations/real-time-landing.svg`,
       //   bodyText: 'See which students are online and which students are taking a long time to complete their question. ',
       //   pStyle: { padding: '0px 2px', },
       //   flag: null,

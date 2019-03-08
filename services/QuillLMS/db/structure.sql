@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 10.3 (Ubuntu 10.3-1.pgdg16.04+1)
--- Dumped by pg_dump version 10.3
+-- Dumped from database version 10.5
+-- Dumped by pg_dump version 11.1
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -14,20 +14,6 @@ SELECT pg_catalog.set_config('search_path', '', false);
 SET check_function_bodies = false;
 SET client_min_messages = warning;
 SET row_security = off;
-
---
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: -
---
-
-CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
-
-
---
--- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: -
---
-
-COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
-
 
 --
 -- Name: hstore; Type: EXTENSION; Schema: -; Owner: -
@@ -41,20 +27,6 @@ CREATE EXTENSION IF NOT EXISTS hstore WITH SCHEMA public;
 --
 
 COMMENT ON EXTENSION hstore IS 'data type for storing sets of (key, value) pairs';
-
-
---
--- Name: pg_stat_statements; Type: EXTENSION; Schema: -; Owner: -
---
-
-CREATE EXTENSION IF NOT EXISTS pg_stat_statements WITH SCHEMA public;
-
-
---
--- Name: EXTENSION pg_stat_statements; Type: COMMENT; Schema: -; Owner: -
---
-
-COMMENT ON EXTENSION pg_stat_statements IS 'track execution statistics of all SQL statements executed';
 
 
 --
@@ -134,67 +106,60 @@ CREATE FUNCTION public.old_timespent_teacher(teacher integer) RETURNS bigint
 CREATE FUNCTION public.timespent_activity_session(act_sess integer) RETURNS integer
     LANGUAGE plpgsql
     AS $$
-	DECLARE
-    	first_item timestamp;
-		last_item timestamp;
-		max_item timestamp;
-		as_created_at timestamp;
-		arow record;
-		time_spent float;
-		item timestamp;
-	BEGIN
-		SELECT created_at INTO as_created_at FROM activity_sessions WHERE id = act_sess;
-		
-		-- backward compatibility block
-		IF as_created_at IS NULL OR as_created_at < timestamp '2013-08-25 00:00:00.000000' THEN
-			SELECT SUM(
-		        CASE
-		        WHEN (activity_sessions.started_at IS NULL)
-		          OR (activity_sessions.completed_at IS NULL)
-		          OR (activity_sessions.completed_at - activity_sessions.started_at < interval '1 minute')
-		          OR (activity_sessions.completed_at - activity_sessions.started_at > interval '30 minutes')
-		        THEN 441
-		        ELSE
-		          EXTRACT (
-		            'epoch' FROM (activity_sessions.completed_at - activity_sessions.started_at)
-		          )
-	        END) INTO time_spent FROM activity_sessions WHERE id = act_sess AND state='finished';
-	        
-	        RETURN COALESCE(time_spent,0);
-		END IF;
-		
-		
-		first_item := NULL;
-		last_item := NULL;
-		max_item := NULL;
-		time_spent := 0.0;
-		FOR arow IN (SELECT date FROM activity_session_interaction_logs WHERE activity_session_id = act_sess order by date) LOOP
-			item := arow;
-			IF last_item IS NULL THEN
-				first_item := item;
-				max_item := item;
-				last_item := item;
-
-			ELSIF item - last_item <= '2 minute'::interval THEN
-				max_item := item;
-				last_item := item;
-
-			ELSE
-				time_spent := time_spent + EXTRACT( EPOCH FROM max_item - first_item );
-				first_item := item;
-				last_item := item;
-				max_item := item;
-
-			END IF;
-		END LOOP;
-		
-		IF max_item IS NOT NULL AND first_item IS NOT NULL THEN
-			time_spent := time_spent + EXTRACT( EPOCH FROM max_item - first_item );
-		END IF;
-		
-		RETURN time_spent;
-	END;
-$$;
+        DECLARE
+            first_item timestamp;
+          last_item timestamp;
+          max_item timestamp;
+          as_created_at timestamp;
+          arow record;
+          time_spent float;
+          item timestamp;
+        BEGIN
+          -- backward compatibility block
+          SELECT created_at INTO as_created_at FROM activity_sessions WHERE id = act_sess;
+          IF as_created_at IS NULL OR as_created_at < timestamp '2018-08-25 00:00:00.000000' THEN
+            SELECT SUM(
+                  CASE
+                  WHEN (activity_sessions.started_at IS NULL)
+                    OR (activity_sessions.completed_at IS NULL)
+                    OR (activity_sessions.completed_at - activity_sessions.started_at < interval '1 minute')
+                    OR (activity_sessions.completed_at - activity_sessions.started_at > interval '30 minutes')
+                  THEN 441
+                  ELSE
+                    EXTRACT (
+                      'epoch' FROM (activity_sessions.completed_at - activity_sessions.started_at)
+                    )
+                END) INTO time_spent FROM activity_sessions WHERE id = act_sess AND state='finished';
+                
+                RETURN COALESCE(time_spent,0);
+          END IF;
+          -- modern calculation (using activity session interaction logs) 
+          first_item := NULL;
+          last_item := NULL;
+          max_item := NULL;
+          time_spent := 0.0;
+          FOR arow IN (SELECT date FROM activity_session_interaction_logs WHERE activity_session_id = act_sess order by date) LOOP
+            item := arow;
+            IF last_item IS NULL THEN
+              first_item := item;
+              max_item := item;
+              last_item := item;
+            ELSIF item - last_item <= '2 minute'::interval THEN
+              max_item := item;
+              last_item := item;
+            ELSE
+              time_spent := time_spent + EXTRACT( EPOCH FROM max_item - first_item );
+              first_item := item;
+              last_item := item;
+              max_item := item;
+            END IF;
+          END LOOP;
+          IF max_item IS NOT NULL AND first_item IS NOT NULL THEN
+            time_spent := time_spent + EXTRACT( EPOCH FROM max_item - first_item );
+          END IF;
+          RETURN time_spent;
+        END;
+      $$;
 
 
 --
@@ -315,36 +280,6 @@ CREATE FUNCTION public.timespent_teacher(teacher integer) RETURNS bigint
       $$;
 
 
---
--- Name: xx(); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION public.xx() RETURNS integer[]
-    LANGUAGE plpgsql
-    AS $$
-DECLARE
-	act_sess_ids int[];
-	classroom_unit_ids int[];
-	result int[];
-BEGIN
-	act_sess_ids := ARRAY(SELECT DISTINCT classroom_units.id as classroom_unit_id FROM referrals_users
-		JOIN classrooms_teachers ON referrals_users.referred_user_id = classrooms_teachers.user_id
-		JOIN classroom_units ON classrooms_teachers.classroom_id = classroom_units.classroom_id
-		WHERE referrals_users.activated = FALSE
-	);
-	classroom_unit_ids := ARRAY(SELECT classroom_unit_id FROM activity_sessions WHERE classroom_unit_id = ANY (act_sess_ids)
-		AND activity_sessions.completed_at IS NOT NULL);
-	
-	return ARRAY(SELECT DISTINCT referrals_users.id FROM referrals_users
-		JOIN classrooms_teachers ON referrals_users.referred_user_id = classrooms_teachers.user_id
-		JOIN classroom_units ON classrooms_teachers.classroom_id = classroom_units.classroom_id
-		WHERE classroom_units.id = ANY (classroom_unit_ids));
-	
-END
-
-$$;
-
-
 SET default_tablespace = '';
 
 SET default_with_oids = false;
@@ -355,15 +290,15 @@ SET default_with_oids = false;
 
 CREATE TABLE public.activities (
     id integer NOT NULL,
-    name character varying(255),
+    name character varying,
     description text,
-    uid character varying(255) NOT NULL,
+    uid character varying NOT NULL,
     data public.hstore,
     activity_classification_id integer,
     topic_id integer,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    flags character varying(255)[] DEFAULT '{}'::character varying[] NOT NULL,
+    flags character varying[] DEFAULT '{}'::character varying[] NOT NULL,
     repeatable boolean DEFAULT true,
     follow_up_activity_id integer,
     supporting_info character varying
@@ -375,6 +310,7 @@ CREATE TABLE public.activities (
 --
 
 CREATE SEQUENCE public.activities_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -438,6 +374,7 @@ CREATE TABLE public.activity_categories (
 --
 
 CREATE SEQUENCE public.activity_categories_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -471,6 +408,7 @@ CREATE TABLE public.activity_category_activities (
 --
 
 CREATE SEQUENCE public.activity_category_activities_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -491,14 +429,14 @@ ALTER SEQUENCE public.activity_category_activities_id_seq OWNED BY public.activi
 
 CREATE TABLE public.activity_classifications (
     id integer NOT NULL,
-    name character varying(255),
-    key character varying(255) NOT NULL,
-    form_url character varying(255),
-    uid character varying(255) NOT NULL,
-    module_url character varying(255),
+    name character varying,
+    key character varying NOT NULL,
+    form_url character varying,
+    uid character varying NOT NULL,
+    module_url character varying,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    app_name character varying(255),
+    app_name character varying,
     order_number integer DEFAULT 999999999,
     instructor_mode boolean DEFAULT false,
     locked_by_default boolean DEFAULT false,
@@ -511,6 +449,7 @@ CREATE TABLE public.activity_classifications (
 --
 
 CREATE SEQUENCE public.activity_classifications_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -530,10 +469,10 @@ ALTER SEQUENCE public.activity_classifications_id_seq OWNED BY public.activity_c
 --
 
 CREATE TABLE public.activity_session_interaction_logs (
+    id integer NOT NULL,
     date timestamp without time zone,
     meta jsonb,
-    activity_session_id integer,
-    id integer NOT NULL
+    activity_session_id integer
 );
 
 
@@ -566,11 +505,11 @@ CREATE TABLE public.activity_sessions (
     classroom_activity_id integer,
     activity_id integer,
     user_id integer,
-    pairing_id character varying(255),
+    pairing_id character varying,
     percentage double precision,
-    state character varying(255) DEFAULT 'unstarted'::character varying NOT NULL,
+    state character varying DEFAULT 'unstarted'::character varying NOT NULL,
     completed_at timestamp without time zone,
-    uid character varying(255),
+    uid character varying,
     temporary boolean DEFAULT false,
     data public.hstore,
     created_at timestamp without time zone,
@@ -589,6 +528,7 @@ CREATE TABLE public.activity_sessions (
 --
 
 CREATE SEQUENCE public.activity_sessions_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -611,7 +551,7 @@ CREATE TABLE public.admin_accounts (
     id integer NOT NULL,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    name character varying(255)
+    name character varying
 );
 
 
@@ -633,6 +573,7 @@ CREATE TABLE public.admin_accounts_admins (
 --
 
 CREATE SEQUENCE public.admin_accounts_admins_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -652,6 +593,7 @@ ALTER SEQUENCE public.admin_accounts_admins_id_seq OWNED BY public.admin_account
 --
 
 CREATE SEQUENCE public.admin_accounts_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -684,6 +626,7 @@ CREATE TABLE public.admin_accounts_teachers (
 --
 
 CREATE SEQUENCE public.admin_accounts_teachers_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -775,7 +718,7 @@ ALTER SEQUENCE public.auth_credentials_id_seq OWNED BY public.auth_credentials.i
 
 CREATE TABLE public.authors (
     id integer NOT NULL,
-    name character varying(255),
+    name character varying,
     avatar text
 );
 
@@ -785,6 +728,7 @@ CREATE TABLE public.authors (
 --
 
 CREATE SEQUENCE public.authors_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -856,7 +800,6 @@ CREATE TABLE public.blog_posts (
     external_link character varying,
     center_images boolean,
     order_number integer,
-    school_premium boolean DEFAULT false,
     image_link character varying
 );
 
@@ -888,8 +831,8 @@ ALTER SEQUENCE public.blog_posts_id_seq OWNED BY public.blog_posts.id;
 CREATE TABLE public.categories (
     id integer NOT NULL,
     title text,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
 );
 
 
@@ -898,6 +841,7 @@ CREATE TABLE public.categories (
 --
 
 CREATE SEQUENCE public.categories_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -931,6 +875,7 @@ CREATE TABLE public.checkboxes (
 --
 
 CREATE SEQUENCE public.checkboxes_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -971,6 +916,7 @@ CREATE TABLE public.classroom_activities (
 --
 
 CREATE SEQUENCE public.classroom_activities_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1033,7 +979,6 @@ CREATE TABLE public.classroom_units (
     visible boolean DEFAULT true,
     assigned_student_ids integer[] DEFAULT '{}'::integer[],
     assign_on_join boolean DEFAULT false,
-    due_date timestamp without time zone,
     created_at timestamp without time zone,
     updated_at timestamp without time zone
 );
@@ -1065,13 +1010,13 @@ ALTER SEQUENCE public.classroom_units_id_seq OWNED BY public.classroom_units.id;
 
 CREATE TABLE public.classrooms (
     id integer NOT NULL,
-    name character varying(255),
-    code character varying(255),
+    name character varying,
+    code character varying,
     teacher_id integer,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    clever_id character varying(255),
-    grade character varying(255),
+    clever_id character varying,
+    grade character varying,
     visible boolean DEFAULT true NOT NULL,
     google_classroom_id bigint,
     grade_level integer
@@ -1083,6 +1028,7 @@ CREATE TABLE public.classrooms (
 --
 
 CREATE SEQUENCE public.classrooms_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1108,7 +1054,7 @@ CREATE TABLE public.classrooms_teachers (
     role character varying NOT NULL,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    CONSTRAINT check_role_is_valid CHECK ((((role)::text = ANY (ARRAY[('owner'::character varying)::text, ('coteacher'::character varying)::text])) AND (role IS NOT NULL)))
+    CONSTRAINT check_role_is_valid CHECK ((((role)::text = ANY ((ARRAY['owner'::character varying, 'coteacher'::character varying])::text[])) AND (role IS NOT NULL)))
 );
 
 
@@ -1117,6 +1063,7 @@ CREATE TABLE public.classrooms_teachers (
 --
 
 CREATE SEQUENCE public.classrooms_teachers_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1129,42 +1076,6 @@ CREATE SEQUENCE public.classrooms_teachers_id_seq
 --
 
 ALTER SEQUENCE public.classrooms_teachers_id_seq OWNED BY public.classrooms_teachers.id;
-
-
---
--- Name: comments; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.comments (
-    id integer NOT NULL,
-    title character varying(255),
-    body text,
-    user_id integer,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    ancestry character varying(255),
-    reply_type character varying(255),
-    lecture_chapter_id integer
-);
-
-
---
--- Name: comments_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.comments_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: comments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.comments_id_seq OWNED BY public.comments.id;
 
 
 --
@@ -1186,6 +1097,7 @@ CREATE TABLE public.concept_results (
 --
 
 CREATE SEQUENCE public.concept_results_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1206,11 +1118,11 @@ ALTER SEQUENCE public.concept_results_id_seq OWNED BY public.concept_results.id;
 
 CREATE TABLE public.concepts (
     id integer NOT NULL,
-    name character varying(255),
+    name character varying,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     parent_id integer,
-    uid character varying(255) NOT NULL,
+    uid character varying NOT NULL,
     replacement_id integer,
     visible boolean DEFAULT true,
     description text
@@ -1222,6 +1134,7 @@ CREATE TABLE public.concepts (
 --
 
 CREATE SEQUENCE public.concepts_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1254,6 +1167,7 @@ CREATE TABLE public.coteacher_classroom_invitations (
 --
 
 CREATE SEQUENCE public.coteacher_classroom_invitations_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1342,13 +1256,13 @@ ALTER SEQUENCE public.criteria_id_seq OWNED BY public.criteria.id;
 
 CREATE TABLE public.csv_exports (
     id integer NOT NULL,
-    export_type character varying(255),
+    export_type character varying,
     emailed_at timestamp without time zone,
     filters json,
     teacher_id integer,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    csv_file character varying(255)
+    csv_file character varying
 );
 
 
@@ -1357,6 +1271,7 @@ CREATE TABLE public.csv_exports (
 --
 
 CREATE SEQUENCE public.csv_exports_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1377,9 +1292,9 @@ ALTER SEQUENCE public.csv_exports_id_seq OWNED BY public.csv_exports.id;
 
 CREATE TABLE public.districts (
     id integer NOT NULL,
-    clever_id character varying(255),
-    name character varying(255),
-    token character varying(255),
+    clever_id character varying,
+    name character varying,
+    token character varying,
     created_at timestamp without time zone,
     updated_at timestamp without time zone
 );
@@ -1390,6 +1305,7 @@ CREATE TABLE public.districts (
 --
 
 CREATE SEQUENCE public.districts_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1420,11 +1336,11 @@ CREATE TABLE public.districts_users (
 
 CREATE TABLE public.file_uploads (
     id integer NOT NULL,
-    name character varying(255),
-    file character varying(255),
+    name character varying,
+    file character varying,
     description text,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
 );
 
 
@@ -1433,6 +1349,7 @@ CREATE TABLE public.file_uploads (
 --
 
 CREATE SEQUENCE public.file_uploads_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1453,8 +1370,8 @@ ALTER SEQUENCE public.file_uploads_id_seq OWNED BY public.file_uploads.id;
 
 CREATE TABLE public.firebase_apps (
     id integer NOT NULL,
-    name character varying(255),
-    secret character varying(255),
+    name character varying,
+    secret character varying,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     pkey text
@@ -1466,6 +1383,7 @@ CREATE TABLE public.firebase_apps (
 --
 
 CREATE SEQUENCE public.firebase_apps_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1532,6 +1450,7 @@ CREATE TABLE public.invitations (
 --
 
 CREATE SEQUENCE public.invitations_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1567,6 +1486,7 @@ CREATE TABLE public.ip_locations (
 --
 
 CREATE SEQUENCE public.ip_locations_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1598,6 +1518,7 @@ CREATE TABLE public.milestones (
 --
 
 CREATE SEQUENCE public.milestones_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1654,12 +1575,12 @@ CREATE TABLE public.oauth_access_grants (
     id integer NOT NULL,
     resource_owner_id integer NOT NULL,
     application_id integer NOT NULL,
-    token character varying(255) NOT NULL,
+    token character varying NOT NULL,
     expires_in integer NOT NULL,
     redirect_uri text NOT NULL,
     created_at timestamp without time zone NOT NULL,
     revoked_at timestamp without time zone,
-    scopes character varying(255)
+    scopes character varying
 );
 
 
@@ -1668,6 +1589,7 @@ CREATE TABLE public.oauth_access_grants (
 --
 
 CREATE SEQUENCE public.oauth_access_grants_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1690,12 +1612,12 @@ CREATE TABLE public.oauth_access_tokens (
     id integer NOT NULL,
     resource_owner_id integer,
     application_id integer,
-    token character varying(255) NOT NULL,
-    refresh_token character varying(255),
+    token character varying NOT NULL,
+    refresh_token character varying,
     expires_in integer,
     revoked_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
-    scopes character varying(255)
+    scopes character varying
 );
 
 
@@ -1704,6 +1626,7 @@ CREATE TABLE public.oauth_access_tokens (
 --
 
 CREATE SEQUENCE public.oauth_access_tokens_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1724,9 +1647,9 @@ ALTER SEQUENCE public.oauth_access_tokens_id_seq OWNED BY public.oauth_access_to
 
 CREATE TABLE public.oauth_applications (
     id integer NOT NULL,
-    name character varying(255) NOT NULL,
-    uid character varying(255) NOT NULL,
-    secret character varying(255) NOT NULL,
+    name character varying NOT NULL,
+    uid character varying NOT NULL,
+    secret character varying NOT NULL,
     redirect_uri text NOT NULL,
     created_at timestamp without time zone,
     updated_at timestamp without time zone
@@ -1738,6 +1661,7 @@ CREATE TABLE public.oauth_applications (
 --
 
 CREATE SEQUENCE public.oauth_applications_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1774,6 +1698,7 @@ CREATE TABLE public.objectives (
 --
 
 CREATE SEQUENCE public.objectives_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1789,43 +1714,16 @@ ALTER SEQUENCE public.objectives_id_seq OWNED BY public.objectives.id;
 
 
 --
--- Name: old_activity_sessions; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.old_activity_sessions (
-    id integer DEFAULT nextval('public.activity_sessions_id_seq'::regclass) NOT NULL,
-    classroom_activity_id integer,
-    activity_id integer,
-    user_id integer,
-    pairing_id character varying(255),
-    percentage double precision,
-    state character varying(255) DEFAULT 'unstarted'::character varying NOT NULL,
-    completed_at timestamp without time zone,
-    uid character varying(255),
-    temporary boolean DEFAULT false,
-    data public.hstore,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
-    started_at timestamp without time zone,
-    is_retry boolean DEFAULT false,
-    is_final_score boolean DEFAULT false,
-    visible boolean DEFAULT true NOT NULL,
-    classroom_unit_id integer
-)
-WITH (autovacuum_enabled='true', toast.autovacuum_enabled='true');
-
-
---
 -- Name: page_areas; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.page_areas (
     id integer NOT NULL,
-    name character varying(255),
-    description character varying(255),
+    name character varying,
+    description character varying,
     content text,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
 );
 
 
@@ -1834,6 +1732,7 @@ CREATE TABLE public.page_areas (
 --
 
 CREATE SEQUENCE public.page_areas_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1950,41 +1849,6 @@ ALTER SEQUENCE public.referrer_users_id_seq OWNED BY public.referrer_users.id;
 
 
 --
--- Name: rules_misseds; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.rules_misseds (
-    id integer NOT NULL,
-    rule_id integer,
-    user_id integer,
-    assessment_id integer,
-    time_take timestamp without time zone,
-    missed boolean,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: rules_misseds_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.rules_misseds_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: rules_misseds_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.rules_misseds_id_seq OWNED BY public.rules_misseds.id;
-
-
---
 -- Name: sales_contacts; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -2091,7 +1955,7 @@ ALTER SEQUENCE public.sales_stages_id_seq OWNED BY public.sales_stages.id;
 --
 
 CREATE TABLE public.schema_migrations (
-    version character varying(255) NOT NULL
+    version character varying NOT NULL
 );
 
 
@@ -2113,6 +1977,7 @@ CREATE TABLE public.school_subscriptions (
 --
 
 CREATE SEQUENCE public.school_subscriptions_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2133,24 +1998,24 @@ ALTER SEQUENCE public.school_subscriptions_id_seq OWNED BY public.school_subscri
 
 CREATE TABLE public.schools (
     id integer NOT NULL,
-    nces_id character varying(255),
-    lea_id character varying(255),
-    leanm character varying(255),
-    name character varying(255),
-    phone character varying(255),
-    mail_street character varying(255),
-    mail_city character varying(255),
-    mail_state character varying(255),
-    mail_zipcode character varying(255),
-    street character varying(255),
-    city character varying(255),
-    state character varying(255),
-    zipcode character varying(255),
-    nces_type_code character varying(255),
-    nces_status_code character varying(255),
-    magnet character varying(255),
-    charter character varying(255),
-    ethnic_group character varying(255),
+    nces_id character varying,
+    lea_id character varying,
+    leanm character varying,
+    name character varying,
+    phone character varying,
+    mail_street character varying,
+    mail_city character varying,
+    mail_state character varying,
+    mail_zipcode character varying,
+    street character varying,
+    city character varying,
+    state character varying,
+    zipcode character varying,
+    nces_type_code character varying,
+    nces_status_code character varying,
+    magnet character varying,
+    charter character varying,
+    ethnic_group character varying,
     longitude numeric(9,6),
     latitude numeric(9,6),
     ulocal integer,
@@ -2162,7 +2027,7 @@ CREATE TABLE public.schools (
     total_students integer,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    clever_id character varying(255),
+    clever_id character varying,
     ppin character varying,
     authorizer_id integer,
     coordinator_id integer
@@ -2187,6 +2052,7 @@ CREATE TABLE public.schools_admins (
 --
 
 CREATE SEQUENCE public.schools_admins_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2206,6 +2072,7 @@ ALTER SEQUENCE public.schools_admins_id_seq OWNED BY public.schools_admins.id;
 --
 
 CREATE SEQUENCE public.schools_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2236,6 +2103,7 @@ CREATE TABLE public.schools_users (
 --
 
 CREATE SEQUENCE public.schools_users_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2256,11 +2124,11 @@ ALTER SEQUENCE public.schools_users_id_seq OWNED BY public.schools_users.id;
 
 CREATE TABLE public.sections (
     id integer NOT NULL,
-    name character varying(255),
+    name character varying,
     "position" integer,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    uid character varying(255)
+    uid character varying
 );
 
 
@@ -2269,6 +2137,7 @@ CREATE TABLE public.sections (
 --
 
 CREATE SEQUENCE public.sections_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2302,6 +2171,7 @@ CREATE TABLE public.students_classrooms (
 --
 
 CREATE SEQUENCE public.students_classrooms_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2376,6 +2246,7 @@ CREATE TABLE public.subscriptions (
 --
 
 CREATE SEQUENCE public.subscriptions_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2396,10 +2267,10 @@ ALTER SEQUENCE public.subscriptions_id_seq OWNED BY public.subscriptions.id;
 
 CREATE TABLE public.topic_categories (
     id integer NOT NULL,
-    name character varying(255),
+    name character varying,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    uid character varying(255)
+    uid character varying
 );
 
 
@@ -2408,6 +2279,7 @@ CREATE TABLE public.topic_categories (
 --
 
 CREATE SEQUENCE public.topic_categories_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2428,12 +2300,12 @@ ALTER SEQUENCE public.topic_categories_id_seq OWNED BY public.topic_categories.i
 
 CREATE TABLE public.topics (
     id integer NOT NULL,
-    name character varying(255),
+    name character varying,
     section_id integer,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     topic_category_id integer,
-    uid character varying(255)
+    uid character varying
 );
 
 
@@ -2442,6 +2314,7 @@ CREATE TABLE public.topics (
 --
 
 CREATE SEQUENCE public.topics_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2497,9 +2370,9 @@ ALTER SEQUENCE public.unit_activities_id_seq OWNED BY public.unit_activities.id;
 
 CREATE TABLE public.unit_template_categories (
     id integer NOT NULL,
-    name character varying(255),
-    primary_color character varying(255),
-    secondary_color character varying(255)
+    name character varying,
+    primary_color character varying,
+    secondary_color character varying
 );
 
 
@@ -2508,6 +2381,7 @@ CREATE TABLE public.unit_template_categories (
 --
 
 CREATE SEQUENCE public.unit_template_categories_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2528,7 +2402,7 @@ ALTER SEQUENCE public.unit_template_categories_id_seq OWNED BY public.unit_templ
 
 CREATE TABLE public.unit_templates (
     id integer NOT NULL,
-    name character varying(255),
+    name character varying,
     unit_template_category_id integer,
     "time" integer,
     grades text,
@@ -2546,6 +2420,7 @@ CREATE TABLE public.unit_templates (
 --
 
 CREATE SEQUENCE public.unit_templates_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2566,7 +2441,7 @@ ALTER SEQUENCE public.unit_templates_id_seq OWNED BY public.unit_templates.id;
 
 CREATE TABLE public.units (
     id integer NOT NULL,
-    name character varying(255),
+    name character varying,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     visible boolean DEFAULT true NOT NULL,
@@ -2580,6 +2455,7 @@ CREATE TABLE public.units (
 --
 
 CREATE SEQUENCE public.units_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2612,6 +2488,7 @@ CREATE TABLE public.user_milestones (
 --
 
 CREATE SEQUENCE public.user_milestones_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2644,6 +2521,7 @@ CREATE TABLE public.user_subscriptions (
 --
 
 CREATE SEQUENCE public.user_subscriptions_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2664,18 +2542,18 @@ ALTER SEQUENCE public.user_subscriptions_id_seq OWNED BY public.user_subscriptio
 
 CREATE TABLE public.users (
     id integer NOT NULL,
-    name character varying(255),
-    email character varying(255),
-    password_digest character varying(255),
-    role character varying(255) DEFAULT 'user'::character varying,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    classcode character varying(255),
+    name character varying,
+    email character varying,
+    password_digest character varying,
+    role character varying DEFAULT 'user'::character varying,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    classcode character varying,
     active boolean DEFAULT false,
-    username character varying(255),
-    token character varying(255),
+    username character varying,
+    token character varying,
     ip_address inet,
-    clever_id character varying(255),
+    clever_id character varying,
     signed_up_with_google boolean DEFAULT false,
     send_newsletter boolean DEFAULT false,
     google_id character varying,
@@ -2683,8 +2561,8 @@ CREATE TABLE public.users (
     last_active timestamp without time zone,
     stripe_customer_id character varying,
     flags character varying[] DEFAULT '{}'::character varying[] NOT NULL,
-    title character varying,
     time_zone character varying,
+    title character varying,
     account_type character varying DEFAULT 'unknown'::character varying
 );
 
@@ -2694,6 +2572,7 @@ CREATE TABLE public.users (
 --
 
 CREATE SEQUENCE public.users_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2706,52 +2585,6 @@ CREATE SEQUENCE public.users_id_seq
 --
 
 ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
-
-
---
--- Name: uuid_vs_str; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.uuid_vs_str (
-    xuuid uuid,
-    xstr text
-);
-
-
---
--- Name: verification_tokens; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.verification_tokens (
-    id integer NOT NULL,
-    user_id integer,
-    token text,
-    email_verified text,
-    verified boolean,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    age_at_time_of_creation integer
-);
-
-
---
--- Name: verification_tokens_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.verification_tokens_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: verification_tokens_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.verification_tokens_id_seq OWNED BY public.verification_tokens.id;
 
 
 --
@@ -2793,26 +2626,6 @@ CREATE SEQUENCE public.zipcode_infos_id_seq
 --
 
 ALTER SEQUENCE public.zipcode_infos_id_seq OWNED BY public.zipcode_infos.id;
-
-
---
--- Name: zipcodes; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.zipcodes (
-    zipcode character varying NOT NULL,
-    zipcode_type character varying,
-    city character varying,
-    state character varying,
-    timezone character varying,
-    lat double precision,
-    lng double precision,
-    _secondary_cities character varying,
-    county character varying,
-    decommissioned boolean,
-    estimated_population integer,
-    _area_codes character varying
-);
 
 
 --
@@ -2970,13 +2783,6 @@ ALTER TABLE ONLY public.classrooms_teachers ALTER COLUMN id SET DEFAULT nextval(
 
 
 --
--- Name: comments id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.comments ALTER COLUMN id SET DEFAULT nextval('public.comments_id_seq'::regclass);
-
-
---
 -- Name: concept_results id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -3131,13 +2937,6 @@ ALTER TABLE ONLY public.referrer_users ALTER COLUMN id SET DEFAULT nextval('publ
 
 
 --
--- Name: rules_misseds id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.rules_misseds ALTER COLUMN id SET DEFAULT nextval('public.rules_misseds_id_seq'::regclass);
-
-
---
 -- Name: sales_contacts id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -3278,13 +3077,6 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 
 
 --
--- Name: verification_tokens id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.verification_tokens ALTER COLUMN id SET DEFAULT nextval('public.verification_tokens_id_seq'::regclass);
-
-
---
 -- Name: zipcode_infos id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -3345,14 +3137,6 @@ ALTER TABLE ONLY public.activity_session_interaction_logs
 
 ALTER TABLE ONLY public.activity_sessions
     ADD CONSTRAINT activity_sessions_pkey PRIMARY KEY (id);
-
-
---
--- Name: activity_sessions activity_sessions_uid_key; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.activity_sessions
-    ADD CONSTRAINT activity_sessions_uid_key UNIQUE (uid);
 
 
 --
@@ -3473,14 +3257,6 @@ ALTER TABLE ONLY public.classrooms
 
 ALTER TABLE ONLY public.classrooms_teachers
     ADD CONSTRAINT classrooms_teachers_pkey PRIMARY KEY (id);
-
-
---
--- Name: comments comments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.comments
-    ADD CONSTRAINT comments_pkey PRIMARY KEY (id);
 
 
 --
@@ -3660,14 +3436,6 @@ ALTER TABLE ONLY public.referrer_users
 
 
 --
--- Name: rules_misseds rules_misseds_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.rules_misseds
-    ADD CONSTRAINT rules_misseds_pkey PRIMARY KEY (id);
-
-
---
 -- Name: sales_contacts sales_contacts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3828,14 +3596,6 @@ ALTER TABLE ONLY public.users
 
 
 --
--- Name: verification_tokens verification_tokens_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.verification_tokens
-    ADD CONSTRAINT verification_tokens_pkey PRIMARY KEY (id);
-
-
---
 -- Name: zipcode_infos zipcode_infos_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3844,32 +3604,17 @@ ALTER TABLE ONLY public.zipcode_infos
 
 
 --
--- Name: zipcodes zipcodes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.zipcodes
-    ADD CONSTRAINT zipcodes_pkey PRIMARY KEY (zipcode);
-
-
---
--- Name: activity_sessions_classroom_unit_id_idx; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX activity_sessions_classroom_unit_id_idx ON public.activity_sessions USING btree (classroom_unit_id);
-
-
---
 -- Name: aut; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX aut ON activities_unit_templates USING btree (activity_id, unit_template_id);
+CREATE INDEX aut ON public.activities_unit_templates USING btree (activity_id, unit_template_id);
 
 
 --
 -- Name: classroom_invitee_index; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX classroom_invitee_index ON coteacher_classroom_invitations USING btree (invitation_id, classroom_id);
+CREATE UNIQUE INDEX classroom_invitee_index ON public.coteacher_classroom_invitations USING btree (invitation_id, classroom_id);
 
 
 --
@@ -3880,66 +3625,45 @@ CREATE INDEX email_idx ON public.users USING gin (email public.gin_trgm_ops);
 
 
 --
--- Name: idx_xstr; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX idx_xstr ON public.uuid_vs_str USING btree (xstr);
-
-
---
--- Name: idx_xuuid; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX idx_xuuid ON public.uuid_vs_str USING btree (xuuid);
-
-
---
 -- Name: index_act_category_acts_on_act_id_and_act_cat_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_act_category_acts_on_act_id_and_act_cat_id ON activity_category_activities USING btree (activity_id, activity_category_id);
+CREATE INDEX index_act_category_acts_on_act_id_and_act_cat_id ON public.activity_category_activities USING btree (activity_id, activity_category_id);
 
 
 --
 -- Name: index_activities_on_activity_classification_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_activities_on_activity_classification_id ON activities USING btree (activity_classification_id);
+CREATE INDEX index_activities_on_activity_classification_id ON public.activities USING btree (activity_classification_id);
 
 
 --
 -- Name: index_activities_on_topic_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_activities_on_topic_id ON activities USING btree (topic_id);
+CREATE INDEX index_activities_on_topic_id ON public.activities USING btree (topic_id);
 
 
 --
 -- Name: index_activities_on_uid; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_activities_on_uid ON activities USING btree (uid);
-
-
---
--- Name: index_activity_classifications_on_key; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_activity_classifications_on_key ON activity_classifications USING btree (key);
+CREATE UNIQUE INDEX index_activities_on_uid ON public.activities USING btree (uid);
 
 
 --
 -- Name: index_activity_classifications_on_uid; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_activity_classifications_on_uid ON activity_classifications USING btree (uid);
+CREATE UNIQUE INDEX index_activity_classifications_on_uid ON public.activity_classifications USING btree (uid);
 
 
 --
 -- Name: index_activity_session_interaction_logs_on_activity_session_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_activity_session_interaction_logs_on_activity_session_id ON activity_session_interaction_logs USING btree (activity_session_id);
+CREATE INDEX index_activity_session_interaction_logs_on_activity_session_id ON public.activity_session_interaction_logs USING btree (activity_session_id);
 
 
 --
@@ -3954,6 +3678,13 @@ CREATE INDEX index_activity_sessions_on_activity_id ON public.activity_sessions 
 --
 
 CREATE INDEX index_activity_sessions_on_classroom_activity_id ON public.activity_sessions USING btree (classroom_activity_id);
+
+
+--
+-- Name: index_activity_sessions_on_classroom_unit_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_activity_sessions_on_classroom_unit_id ON public.activity_sessions USING btree (classroom_unit_id);
 
 
 --
@@ -3985,6 +3716,13 @@ CREATE INDEX index_activity_sessions_on_state ON public.activity_sessions USING 
 
 
 --
+-- Name: index_activity_sessions_on_uid; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_activity_sessions_on_uid ON public.activity_sessions USING btree (uid);
+
+
+--
 -- Name: index_activity_sessions_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -3995,511 +3733,504 @@ CREATE INDEX index_activity_sessions_on_user_id ON public.activity_sessions USIN
 -- Name: index_admin_accounts_admins_on_admin_account_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_admin_accounts_admins_on_admin_account_id ON admin_accounts_admins USING btree (admin_account_id);
+CREATE INDEX index_admin_accounts_admins_on_admin_account_id ON public.admin_accounts_admins USING btree (admin_account_id);
 
 
 --
 -- Name: index_admin_accounts_admins_on_admin_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_admin_accounts_admins_on_admin_id ON admin_accounts_admins USING btree (admin_id);
+CREATE INDEX index_admin_accounts_admins_on_admin_id ON public.admin_accounts_admins USING btree (admin_id);
 
 
 --
 -- Name: index_admin_accounts_teachers_on_admin_account_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_admin_accounts_teachers_on_admin_account_id ON admin_accounts_teachers USING btree (admin_account_id);
+CREATE INDEX index_admin_accounts_teachers_on_admin_account_id ON public.admin_accounts_teachers USING btree (admin_account_id);
 
 
 --
 -- Name: index_admin_accounts_teachers_on_teacher_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_admin_accounts_teachers_on_teacher_id ON admin_accounts_teachers USING btree (teacher_id);
+CREATE INDEX index_admin_accounts_teachers_on_teacher_id ON public.admin_accounts_teachers USING btree (teacher_id);
 
 
 --
 -- Name: index_announcements_on_start_and_end; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_announcements_on_start_and_end ON announcements USING btree (start, "end" DESC);
+CREATE INDEX index_announcements_on_start_and_end ON public.announcements USING btree (start, "end" DESC);
 
 
 --
 -- Name: index_auth_credentials_on_access_token; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_auth_credentials_on_access_token ON auth_credentials USING btree (access_token);
+CREATE INDEX index_auth_credentials_on_access_token ON public.auth_credentials USING btree (access_token);
 
 
 --
 -- Name: index_auth_credentials_on_provider; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_auth_credentials_on_provider ON auth_credentials USING btree (provider);
+CREATE INDEX index_auth_credentials_on_provider ON public.auth_credentials USING btree (provider);
 
 
 --
 -- Name: index_auth_credentials_on_refresh_token; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_auth_credentials_on_refresh_token ON auth_credentials USING btree (refresh_token);
+CREATE INDEX index_auth_credentials_on_refresh_token ON public.auth_credentials USING btree (refresh_token);
 
 
 --
 -- Name: index_auth_credentials_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_auth_credentials_on_user_id ON auth_credentials USING btree (user_id);
+CREATE INDEX index_auth_credentials_on_user_id ON public.auth_credentials USING btree (user_id);
 
 
 --
 -- Name: index_blog_posts_on_author_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_blog_posts_on_author_id ON blog_posts USING btree (author_id);
+CREATE INDEX index_blog_posts_on_author_id ON public.blog_posts USING btree (author_id);
 
 
 --
 -- Name: index_blog_posts_on_read_count; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_blog_posts_on_read_count ON blog_posts USING btree (read_count);
+CREATE INDEX index_blog_posts_on_read_count ON public.blog_posts USING btree (read_count);
 
 
 --
 -- Name: index_blog_posts_on_slug; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_blog_posts_on_slug ON blog_posts USING btree (slug);
+CREATE UNIQUE INDEX index_blog_posts_on_slug ON public.blog_posts USING btree (slug);
 
 
 --
 -- Name: index_blog_posts_on_title; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_blog_posts_on_title ON blog_posts USING btree (title);
+CREATE INDEX index_blog_posts_on_title ON public.blog_posts USING btree (title);
 
 
 --
 -- Name: index_blog_posts_on_topic; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_blog_posts_on_topic ON blog_posts USING btree (topic);
+CREATE INDEX index_blog_posts_on_topic ON public.blog_posts USING btree (topic);
 
 
 --
 -- Name: index_checkboxes_on_user_id_and_objective_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_checkboxes_on_user_id_and_objective_id ON checkboxes USING btree (user_id, objective_id);
+CREATE UNIQUE INDEX index_checkboxes_on_user_id_and_objective_id ON public.checkboxes USING btree (user_id, objective_id);
 
 
 --
 -- Name: index_classroom_activities_on_activity_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_classroom_activities_on_activity_id ON classroom_activities USING btree (activity_id);
+CREATE INDEX index_classroom_activities_on_activity_id ON public.classroom_activities USING btree (activity_id);
 
 
 --
 -- Name: index_classroom_activities_on_classroom_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_classroom_activities_on_classroom_id ON classroom_activities USING btree (classroom_id);
+CREATE INDEX index_classroom_activities_on_classroom_id ON public.classroom_activities USING btree (classroom_id);
 
 
 --
 -- Name: index_classroom_activities_on_classroom_id_and_pinned; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_classroom_activities_on_classroom_id_and_pinned ON classroom_activities USING btree (classroom_id, pinned) WHERE (pinned = true);
+CREATE UNIQUE INDEX index_classroom_activities_on_classroom_id_and_pinned ON public.classroom_activities USING btree (classroom_id, pinned) WHERE (pinned = true);
 
 
 --
 -- Name: index_classroom_activities_on_unit_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_classroom_activities_on_unit_id ON classroom_activities USING btree (unit_id);
+CREATE INDEX index_classroom_activities_on_unit_id ON public.classroom_activities USING btree (unit_id);
 
 
 --
 -- Name: index_classroom_activities_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_classroom_activities_on_updated_at ON classroom_activities USING btree (updated_at);
+CREATE INDEX index_classroom_activities_on_updated_at ON public.classroom_activities USING btree (updated_at);
 
 
 --
 -- Name: index_classroom_unit_activity_states_on_classroom_unit_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_classroom_unit_activity_states_on_classroom_unit_id ON classroom_unit_activity_states USING btree (classroom_unit_id);
+CREATE INDEX index_classroom_unit_activity_states_on_classroom_unit_id ON public.classroom_unit_activity_states USING btree (classroom_unit_id);
 
 
 --
 -- Name: index_classroom_unit_activity_states_on_unit_activity_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_classroom_unit_activity_states_on_unit_activity_id ON classroom_unit_activity_states USING btree (unit_activity_id);
+CREATE INDEX index_classroom_unit_activity_states_on_unit_activity_id ON public.classroom_unit_activity_states USING btree (unit_activity_id);
 
 
 --
 -- Name: index_classroom_units_on_classroom_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_classroom_units_on_classroom_id ON classroom_units USING btree (classroom_id);
+CREATE INDEX index_classroom_units_on_classroom_id ON public.classroom_units USING btree (classroom_id);
 
 
 --
 -- Name: index_classroom_units_on_unit_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_classroom_units_on_unit_id ON classroom_units USING btree (unit_id);
+CREATE INDEX index_classroom_units_on_unit_id ON public.classroom_units USING btree (unit_id);
 
 
 --
 -- Name: index_classroom_units_on_unit_id_and_classroom_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_classroom_units_on_unit_id_and_classroom_id ON classroom_units USING btree (unit_id, classroom_id);
+CREATE UNIQUE INDEX index_classroom_units_on_unit_id_and_classroom_id ON public.classroom_units USING btree (unit_id, classroom_id);
 
 
 --
 -- Name: index_classrooms_on_code; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_classrooms_on_code ON classrooms USING btree (code);
+CREATE INDEX index_classrooms_on_code ON public.classrooms USING btree (code);
 
 
 --
 -- Name: index_classrooms_on_grade; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_classrooms_on_grade ON classrooms USING btree (grade);
+CREATE INDEX index_classrooms_on_grade ON public.classrooms USING btree (grade);
 
 
 --
 -- Name: index_classrooms_on_grade_level; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_classrooms_on_grade_level ON classrooms USING btree (grade_level);
+CREATE INDEX index_classrooms_on_grade_level ON public.classrooms USING btree (grade_level);
 
 
 --
 -- Name: index_classrooms_on_teacher_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_classrooms_on_teacher_id ON classrooms USING btree (teacher_id);
+CREATE INDEX index_classrooms_on_teacher_id ON public.classrooms USING btree (teacher_id);
 
 
 --
 -- Name: index_classrooms_teachers_on_classroom_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_classrooms_teachers_on_classroom_id ON classrooms_teachers USING btree (classroom_id);
+CREATE INDEX index_classrooms_teachers_on_classroom_id ON public.classrooms_teachers USING btree (classroom_id);
 
 
 --
 -- Name: index_classrooms_teachers_on_role; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_classrooms_teachers_on_role ON classrooms_teachers USING btree (role);
+CREATE INDEX index_classrooms_teachers_on_role ON public.classrooms_teachers USING btree (role);
 
 
 --
 -- Name: index_classrooms_teachers_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_classrooms_teachers_on_user_id ON classrooms_teachers USING btree (user_id);
-
-
---
--- Name: index_comments_on_ancestry; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_comments_on_ancestry ON comments USING btree (ancestry);
+CREATE INDEX index_classrooms_teachers_on_user_id ON public.classrooms_teachers USING btree (user_id);
 
 
 --
 -- Name: index_concept_results_on_activity_classification_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_concept_results_on_activity_classification_id ON concept_results USING btree (activity_classification_id);
+CREATE INDEX index_concept_results_on_activity_classification_id ON public.concept_results USING btree (activity_classification_id);
 
 
 --
 -- Name: index_concept_results_on_activity_session_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_concept_results_on_activity_session_id ON concept_results USING btree (activity_session_id);
+CREATE INDEX index_concept_results_on_activity_session_id ON public.concept_results USING btree (activity_session_id);
 
 
 --
 -- Name: index_concept_results_on_question_type; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_concept_results_on_question_type ON concept_results USING btree (question_type);
+CREATE INDEX index_concept_results_on_question_type ON public.concept_results USING btree (question_type);
 
 
 --
 -- Name: index_coteacher_classroom_invitations_on_classroom_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_coteacher_classroom_invitations_on_classroom_id ON coteacher_classroom_invitations USING btree (classroom_id);
+CREATE INDEX index_coteacher_classroom_invitations_on_classroom_id ON public.coteacher_classroom_invitations USING btree (classroom_id);
 
 
 --
 -- Name: index_coteacher_classroom_invitations_on_invitation_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_coteacher_classroom_invitations_on_invitation_id ON coteacher_classroom_invitations USING btree (invitation_id);
+CREATE INDEX index_coteacher_classroom_invitations_on_invitation_id ON public.coteacher_classroom_invitations USING btree (invitation_id);
 
 
 --
 -- Name: index_credit_transactions_on_source_type_and_source_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_credit_transactions_on_source_type_and_source_id ON credit_transactions USING btree (source_type, source_id);
+CREATE INDEX index_credit_transactions_on_source_type_and_source_id ON public.credit_transactions USING btree (source_type, source_id);
 
 
 --
 -- Name: index_credit_transactions_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_credit_transactions_on_user_id ON credit_transactions USING btree (user_id);
+CREATE INDEX index_credit_transactions_on_user_id ON public.credit_transactions USING btree (user_id);
 
 
 --
 -- Name: index_criteria_on_concept_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_criteria_on_concept_id ON criteria USING btree (concept_id);
+CREATE INDEX index_criteria_on_concept_id ON public.criteria USING btree (concept_id);
 
 
 --
 -- Name: index_criteria_on_recommendation_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_criteria_on_recommendation_id ON criteria USING btree (recommendation_id);
+CREATE INDEX index_criteria_on_recommendation_id ON public.criteria USING btree (recommendation_id);
 
 
 --
 -- Name: index_districts_users_on_district_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_districts_users_on_district_id ON districts_users USING btree (district_id);
+CREATE INDEX index_districts_users_on_district_id ON public.districts_users USING btree (district_id);
 
 
 --
 -- Name: index_districts_users_on_district_id_and_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_districts_users_on_district_id_and_user_id ON districts_users USING btree (district_id, user_id);
+CREATE INDEX index_districts_users_on_district_id_and_user_id ON public.districts_users USING btree (district_id, user_id);
 
 
 --
 -- Name: index_districts_users_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_districts_users_on_user_id ON districts_users USING btree (user_id);
+CREATE INDEX index_districts_users_on_user_id ON public.districts_users USING btree (user_id);
 
 
 --
 -- Name: index_invitations_on_invitee_email; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_invitations_on_invitee_email ON invitations USING btree (invitee_email);
+CREATE INDEX index_invitations_on_invitee_email ON public.invitations USING btree (invitee_email);
 
 
 --
 -- Name: index_invitations_on_inviter_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_invitations_on_inviter_id ON invitations USING btree (inviter_id);
+CREATE INDEX index_invitations_on_inviter_id ON public.invitations USING btree (inviter_id);
 
 
 --
 -- Name: index_ip_locations_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_ip_locations_on_user_id ON ip_locations USING btree (user_id);
+CREATE INDEX index_ip_locations_on_user_id ON public.ip_locations USING btree (user_id);
 
 
 --
 -- Name: index_ip_locations_on_zip; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_ip_locations_on_zip ON ip_locations USING btree (zip);
+CREATE INDEX index_ip_locations_on_zip ON public.ip_locations USING btree (zip);
 
 
 --
 -- Name: index_milestones_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_milestones_on_name ON milestones USING btree (name);
+CREATE INDEX index_milestones_on_name ON public.milestones USING btree (name);
 
 
 --
 -- Name: index_notifications_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_notifications_on_user_id ON notifications USING btree (user_id);
+CREATE INDEX index_notifications_on_user_id ON public.notifications USING btree (user_id);
 
 
 --
 -- Name: index_oauth_access_grants_on_token; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_oauth_access_grants_on_token ON oauth_access_grants USING btree (token);
+CREATE UNIQUE INDEX index_oauth_access_grants_on_token ON public.oauth_access_grants USING btree (token);
 
 
 --
 -- Name: index_oauth_access_tokens_on_refresh_token; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_oauth_access_tokens_on_refresh_token ON oauth_access_tokens USING btree (refresh_token);
+CREATE UNIQUE INDEX index_oauth_access_tokens_on_refresh_token ON public.oauth_access_tokens USING btree (refresh_token);
 
 
 --
 -- Name: index_oauth_access_tokens_on_resource_owner_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_oauth_access_tokens_on_resource_owner_id ON oauth_access_tokens USING btree (resource_owner_id);
+CREATE INDEX index_oauth_access_tokens_on_resource_owner_id ON public.oauth_access_tokens USING btree (resource_owner_id);
 
 
 --
 -- Name: index_oauth_access_tokens_on_token; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_oauth_access_tokens_on_token ON oauth_access_tokens USING btree (token);
+CREATE UNIQUE INDEX index_oauth_access_tokens_on_token ON public.oauth_access_tokens USING btree (token);
 
 
 --
 -- Name: index_oauth_applications_on_uid; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_oauth_applications_on_uid ON oauth_applications USING btree (uid);
+CREATE UNIQUE INDEX index_oauth_applications_on_uid ON public.oauth_applications USING btree (uid);
 
 
 --
 -- Name: index_recommendations_on_activity_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_recommendations_on_activity_id ON recommendations USING btree (activity_id);
+CREATE INDEX index_recommendations_on_activity_id ON public.recommendations USING btree (activity_id);
 
 
 --
 -- Name: index_recommendations_on_unit_template_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_recommendations_on_unit_template_id ON recommendations USING btree (unit_template_id);
+CREATE INDEX index_recommendations_on_unit_template_id ON public.recommendations USING btree (unit_template_id);
 
 
 --
 -- Name: index_referrals_users_on_activated; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_referrals_users_on_activated ON referrals_users USING btree (activated);
+CREATE INDEX index_referrals_users_on_activated ON public.referrals_users USING btree (activated);
 
 
 --
 -- Name: index_referrals_users_on_referred_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_referrals_users_on_referred_user_id ON referrals_users USING btree (referred_user_id);
+CREATE UNIQUE INDEX index_referrals_users_on_referred_user_id ON public.referrals_users USING btree (referred_user_id);
 
 
 --
 -- Name: index_referrals_users_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_referrals_users_on_user_id ON referrals_users USING btree (user_id);
+CREATE INDEX index_referrals_users_on_user_id ON public.referrals_users USING btree (user_id);
 
 
 --
 -- Name: index_referrer_users_on_referral_code; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_referrer_users_on_referral_code ON referrer_users USING btree (referral_code);
+CREATE UNIQUE INDEX index_referrer_users_on_referral_code ON public.referrer_users USING btree (referral_code);
 
 
 --
 -- Name: index_referrer_users_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_referrer_users_on_user_id ON referrer_users USING btree (user_id);
+CREATE UNIQUE INDEX index_referrer_users_on_user_id ON public.referrer_users USING btree (user_id);
 
 
 --
 -- Name: index_sales_contacts_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_sales_contacts_on_user_id ON sales_contacts USING btree (user_id);
+CREATE INDEX index_sales_contacts_on_user_id ON public.sales_contacts USING btree (user_id);
 
 
 --
 -- Name: index_sales_stage_types_on_name_and_order; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_sales_stage_types_on_name_and_order ON sales_stage_types USING btree (name, "order");
+CREATE UNIQUE INDEX index_sales_stage_types_on_name_and_order ON public.sales_stage_types USING btree (name, "order");
 
 
 --
 -- Name: index_sales_stages_on_sales_contact_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_sales_stages_on_sales_contact_id ON sales_stages USING btree (sales_contact_id);
+CREATE INDEX index_sales_stages_on_sales_contact_id ON public.sales_stages USING btree (sales_contact_id);
 
 
 --
 -- Name: index_sales_stages_on_sales_stage_type_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_sales_stages_on_sales_stage_type_id ON sales_stages USING btree (sales_stage_type_id);
+CREATE INDEX index_sales_stages_on_sales_stage_type_id ON public.sales_stages USING btree (sales_stage_type_id);
 
 
 --
 -- Name: index_sales_stages_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_sales_stages_on_user_id ON sales_stages USING btree (user_id);
+CREATE INDEX index_sales_stages_on_user_id ON public.sales_stages USING btree (user_id);
 
 
 --
 -- Name: index_school_subscriptions_on_school_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_school_subscriptions_on_school_id ON school_subscriptions USING btree (school_id);
+CREATE INDEX index_school_subscriptions_on_school_id ON public.school_subscriptions USING btree (school_id);
 
 
 --
 -- Name: index_school_subscriptions_on_subscription_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_school_subscriptions_on_subscription_id ON school_subscriptions USING btree (subscription_id);
+CREATE INDEX index_school_subscriptions_on_subscription_id ON public.school_subscriptions USING btree (subscription_id);
 
 
 --
 -- Name: index_schools_admins_on_school_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_schools_admins_on_school_id ON schools_admins USING btree (school_id);
+CREATE INDEX index_schools_admins_on_school_id ON public.schools_admins USING btree (school_id);
 
 
 --
 -- Name: index_schools_admins_on_school_id_and_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_schools_admins_on_school_id_and_user_id ON schools_admins USING btree (school_id, user_id);
+CREATE UNIQUE INDEX index_schools_admins_on_school_id_and_user_id ON public.schools_admins USING btree (school_id, user_id);
 
 
 --
 -- Name: index_schools_admins_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_schools_admins_on_user_id ON schools_admins USING btree (user_id);
+CREATE INDEX index_schools_admins_on_user_id ON public.schools_admins USING btree (user_id);
 
 
 --
@@ -4513,287 +4244,294 @@ CREATE INDEX index_schools_on_mail_zipcode ON public.schools USING btree (mail_z
 -- Name: index_schools_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_schools_on_name ON schools USING btree (name);
+CREATE INDEX index_schools_on_name ON public.schools USING btree (name);
 
 
 --
 -- Name: index_schools_on_nces_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_schools_on_nces_id ON schools USING btree (nces_id);
+CREATE INDEX index_schools_on_nces_id ON public.schools USING btree (nces_id);
 
 
 --
 -- Name: index_schools_on_state; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_schools_on_state ON schools USING btree (state);
+CREATE INDEX index_schools_on_state ON public.schools USING btree (state);
 
 
 --
 -- Name: index_schools_on_zipcode; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_schools_on_zipcode ON schools USING btree (zipcode);
+CREATE INDEX index_schools_on_zipcode ON public.schools USING btree (zipcode);
 
 
 --
 -- Name: index_schools_users_on_school_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_schools_users_on_school_id ON schools_users USING btree (school_id);
+CREATE INDEX index_schools_users_on_school_id ON public.schools_users USING btree (school_id);
 
 
 --
 -- Name: index_schools_users_on_school_id_and_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_schools_users_on_school_id_and_user_id ON schools_users USING btree (school_id, user_id);
+CREATE INDEX index_schools_users_on_school_id_and_user_id ON public.schools_users USING btree (school_id, user_id);
 
 
 --
 -- Name: index_schools_users_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_schools_users_on_user_id ON schools_users USING btree (user_id);
+CREATE UNIQUE INDEX index_schools_users_on_user_id ON public.schools_users USING btree (user_id);
 
 
 --
 -- Name: index_students_classrooms_on_classroom_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_students_classrooms_on_classroom_id ON students_classrooms USING btree (classroom_id);
+CREATE INDEX index_students_classrooms_on_classroom_id ON public.students_classrooms USING btree (classroom_id);
 
 
 --
 -- Name: index_students_classrooms_on_student_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_students_classrooms_on_student_id ON students_classrooms USING btree (student_id);
+CREATE INDEX index_students_classrooms_on_student_id ON public.students_classrooms USING btree (student_id);
 
 
 --
 -- Name: index_students_classrooms_on_student_id_and_classroom_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_students_classrooms_on_student_id_and_classroom_id ON students_classrooms USING btree (student_id, classroom_id);
+CREATE UNIQUE INDEX index_students_classrooms_on_student_id_and_classroom_id ON public.students_classrooms USING btree (student_id, classroom_id);
 
 
 --
 -- Name: index_subscription_types_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_subscription_types_on_name ON subscription_types USING btree (name);
+CREATE INDEX index_subscription_types_on_name ON public.subscription_types USING btree (name);
 
 
 --
 -- Name: index_subscriptions_on_de_activated_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_subscriptions_on_de_activated_date ON subscriptions USING btree (de_activated_date);
+CREATE INDEX index_subscriptions_on_de_activated_date ON public.subscriptions USING btree (de_activated_date);
 
 
 --
 -- Name: index_subscriptions_on_purchaser_email; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_subscriptions_on_purchaser_email ON subscriptions USING btree (purchaser_email);
+CREATE INDEX index_subscriptions_on_purchaser_email ON public.subscriptions USING btree (purchaser_email);
 
 
 --
 -- Name: index_subscriptions_on_purchaser_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_subscriptions_on_purchaser_id ON subscriptions USING btree (purchaser_id);
+CREATE INDEX index_subscriptions_on_purchaser_id ON public.subscriptions USING btree (purchaser_id);
 
 
 --
 -- Name: index_subscriptions_on_recurring; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_subscriptions_on_recurring ON subscriptions USING btree (recurring);
+CREATE INDEX index_subscriptions_on_recurring ON public.subscriptions USING btree (recurring);
 
 
 --
 -- Name: index_subscriptions_on_start_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_subscriptions_on_start_date ON subscriptions USING btree (start_date);
+CREATE INDEX index_subscriptions_on_start_date ON public.subscriptions USING btree (start_date);
 
 
 --
 -- Name: index_topic_categories_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_topic_categories_on_name ON topic_categories USING btree (name);
+CREATE INDEX index_topic_categories_on_name ON public.topic_categories USING btree (name);
 
 
 --
 -- Name: index_topics_on_topic_category_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_topics_on_topic_category_id ON topics USING btree (topic_category_id);
+CREATE INDEX index_topics_on_topic_category_id ON public.topics USING btree (topic_category_id);
 
 
 --
 -- Name: index_unit_activities_on_activity_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_unit_activities_on_activity_id ON unit_activities USING btree (activity_id);
+CREATE INDEX index_unit_activities_on_activity_id ON public.unit_activities USING btree (activity_id);
 
 
 --
 -- Name: index_unit_activities_on_unit_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_unit_activities_on_unit_id ON unit_activities USING btree (unit_id);
+CREATE INDEX index_unit_activities_on_unit_id ON public.unit_activities USING btree (unit_id);
 
 
 --
 -- Name: index_unit_activities_on_unit_id_and_activity_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_unit_activities_on_unit_id_and_activity_id ON unit_activities USING btree (unit_id, activity_id);
+CREATE UNIQUE INDEX index_unit_activities_on_unit_id_and_activity_id ON public.unit_activities USING btree (unit_id, activity_id);
 
 
 --
 -- Name: index_unit_templates_on_activity_info; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_unit_templates_on_activity_info ON unit_templates USING btree (activity_info);
+CREATE INDEX index_unit_templates_on_activity_info ON public.unit_templates USING btree (activity_info);
 
 
 --
 -- Name: index_unit_templates_on_author_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_unit_templates_on_author_id ON unit_templates USING btree (author_id);
+CREATE INDEX index_unit_templates_on_author_id ON public.unit_templates USING btree (author_id);
 
 
 --
 -- Name: index_unit_templates_on_unit_template_category_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_unit_templates_on_unit_template_category_id ON unit_templates USING btree (unit_template_category_id);
+CREATE INDEX index_unit_templates_on_unit_template_category_id ON public.unit_templates USING btree (unit_template_category_id);
 
 
 --
 -- Name: index_units_on_unit_template_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_units_on_unit_template_id ON units USING btree (unit_template_id);
+CREATE INDEX index_units_on_unit_template_id ON public.units USING btree (unit_template_id);
 
 
 --
 -- Name: index_units_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_units_on_user_id ON units USING btree (user_id);
+CREATE INDEX index_units_on_user_id ON public.units USING btree (user_id);
 
 
 --
 -- Name: index_user_milestones_on_milestone_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_user_milestones_on_milestone_id ON user_milestones USING btree (milestone_id);
+CREATE INDEX index_user_milestones_on_milestone_id ON public.user_milestones USING btree (milestone_id);
 
 
 --
 -- Name: index_user_milestones_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_user_milestones_on_user_id ON user_milestones USING btree (user_id);
+CREATE INDEX index_user_milestones_on_user_id ON public.user_milestones USING btree (user_id);
 
 
 --
 -- Name: index_user_milestones_on_user_id_and_milestone_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_user_milestones_on_user_id_and_milestone_id ON user_milestones USING btree (user_id, milestone_id);
+CREATE UNIQUE INDEX index_user_milestones_on_user_id_and_milestone_id ON public.user_milestones USING btree (user_id, milestone_id);
 
 
 --
 -- Name: index_user_subscriptions_on_subscription_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_user_subscriptions_on_subscription_id ON user_subscriptions USING btree (subscription_id);
+CREATE INDEX index_user_subscriptions_on_subscription_id ON public.user_subscriptions USING btree (subscription_id);
 
 
 --
 -- Name: index_user_subscriptions_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_user_subscriptions_on_user_id ON user_subscriptions USING btree (user_id);
+CREATE INDEX index_user_subscriptions_on_user_id ON public.user_subscriptions USING btree (user_id);
 
 
 --
 -- Name: index_users_on_active; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_users_on_active ON users USING btree (active);
+CREATE INDEX index_users_on_active ON public.users USING btree (active);
 
 
 --
 -- Name: index_users_on_classcode; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_users_on_classcode ON users USING btree (classcode);
+CREATE INDEX index_users_on_classcode ON public.users USING btree (classcode);
+
+
+--
+-- Name: index_users_on_clever_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_users_on_clever_id ON public.users USING btree (clever_id);
 
 
 --
 -- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_users_on_email ON users USING btree (email);
+CREATE INDEX index_users_on_email ON public.users USING btree (email);
 
 
 --
 -- Name: index_users_on_flags; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_users_on_flags ON users USING btree (flags);
+CREATE INDEX index_users_on_flags ON public.users USING btree (flags);
 
 
 --
 -- Name: index_users_on_google_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_users_on_google_id ON users USING btree (google_id);
+CREATE INDEX index_users_on_google_id ON public.users USING btree (google_id);
 
 
 --
 -- Name: index_users_on_role; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_users_on_role ON users USING btree (role);
+CREATE INDEX index_users_on_role ON public.users USING btree (role);
 
 
 --
 -- Name: index_users_on_stripe_customer_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_users_on_stripe_customer_id ON users USING btree (stripe_customer_id);
+CREATE INDEX index_users_on_stripe_customer_id ON public.users USING btree (stripe_customer_id);
 
 
 --
 -- Name: index_users_on_time_zone; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_users_on_time_zone ON users USING btree (time_zone);
+CREATE INDEX index_users_on_time_zone ON public.users USING btree (time_zone);
 
 
 --
 -- Name: index_users_on_token; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_users_on_token ON users USING btree (token);
+CREATE INDEX index_users_on_token ON public.users USING btree (token);
 
 
 --
 -- Name: index_users_on_username; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_users_on_username ON users USING btree (username);
+CREATE INDEX index_users_on_username ON public.users USING btree (username);
 
 
 --
@@ -4814,63 +4552,63 @@ CREATE INDEX name_idx ON public.users USING gin (name public.gin_trgm_ops);
 -- Name: tsv_idx; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX tsv_idx ON blog_posts USING gin (tsv);
+CREATE INDEX tsv_idx ON public.blog_posts USING gin (tsv);
 
 
 --
 -- Name: unique_classroom_and_activity_for_cua_state; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX unique_classroom_and_activity_for_cua_state ON classroom_unit_activity_states USING btree (classroom_unit_id, unit_activity_id);
+CREATE UNIQUE INDEX unique_classroom_and_activity_for_cua_state ON public.classroom_unit_activity_states USING btree (classroom_unit_id, unit_activity_id);
 
 
 --
 -- Name: unique_classroom_and_user_ids_on_classrooms_teachers; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX unique_classroom_and_user_ids_on_classrooms_teachers ON classrooms_teachers USING btree (user_id, classroom_id);
+CREATE UNIQUE INDEX unique_classroom_and_user_ids_on_classrooms_teachers ON public.classrooms_teachers USING btree (user_id, classroom_id);
 
 
 --
 -- Name: unique_index_schools_on_nces_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX unique_index_schools_on_nces_id ON schools USING btree (nces_id) WHERE ((nces_id)::text <> ''::text);
+CREATE UNIQUE INDEX unique_index_schools_on_nces_id ON public.schools USING btree (nces_id) WHERE ((nces_id)::text <> ''::text);
 
 
 --
 -- Name: unique_index_schools_on_ppin; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX unique_index_schools_on_ppin ON schools USING btree (ppin) WHERE ((ppin)::text <> ''::text);
+CREATE UNIQUE INDEX unique_index_schools_on_ppin ON public.schools USING btree (ppin) WHERE ((ppin)::text <> ''::text);
 
 
 --
 -- Name: unique_index_users_on_email; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX unique_index_users_on_email ON users USING btree (email) WHERE ((id > 1641954) AND (email IS NOT NULL) AND ((email)::text <> ''::text));
+CREATE UNIQUE INDEX unique_index_users_on_email ON public.users USING btree (email) WHERE ((id > 1641954) AND (email IS NOT NULL) AND ((email)::text <> ''::text));
 
 
 --
 -- Name: unique_index_users_on_google_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX unique_index_users_on_google_id ON users USING btree (google_id) WHERE ((id > 1641954) AND (google_id IS NOT NULL) AND ((google_id)::text <> ''::text));
+CREATE UNIQUE INDEX unique_index_users_on_google_id ON public.users USING btree (google_id) WHERE ((id > 1641954) AND (google_id IS NOT NULL) AND ((google_id)::text <> ''::text));
 
 
 --
 -- Name: unique_index_users_on_username; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX unique_index_users_on_username ON users USING btree (username) WHERE ((id > 1641954) AND (username IS NOT NULL) AND ((username)::text <> ''::text));
+CREATE UNIQUE INDEX unique_index_users_on_username ON public.users USING btree (username) WHERE ((id > 1641954) AND (username IS NOT NULL) AND ((username)::text <> ''::text));
 
 
 --
 -- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (version);
+CREATE UNIQUE INDEX unique_schema_migrations ON public.schema_migrations USING btree (version);
 
 
 --
@@ -4884,91 +4622,49 @@ CREATE INDEX username_idx ON public.users USING gin (username public.gin_trgm_op
 -- Name: users_to_tsvector_idx; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX users_to_tsvector_idx ON users USING gin (to_tsvector('english'::regconfig, (name)::text));
+CREATE INDEX users_to_tsvector_idx ON public.users USING gin (to_tsvector('english'::regconfig, (name)::text));
 
 
 --
 -- Name: users_to_tsvector_idx1; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX users_to_tsvector_idx1 ON users USING gin (to_tsvector('english'::regconfig, (email)::text));
-
-
---
--- Name: users_to_tsvector_idx10; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX users_to_tsvector_idx10 ON users USING gin (to_tsvector('english'::regconfig, (username)::text));
-
-
---
--- Name: users_to_tsvector_idx11; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX users_to_tsvector_idx11 ON users USING gin (to_tsvector('english'::regconfig, split_part((ip_address)::text, '/'::text, 1)));
+CREATE INDEX users_to_tsvector_idx1 ON public.users USING gin (to_tsvector('english'::regconfig, (email)::text));
 
 
 --
 -- Name: users_to_tsvector_idx2; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX users_to_tsvector_idx2 ON users USING gin (to_tsvector('english'::regconfig, (role)::text));
+CREATE INDEX users_to_tsvector_idx2 ON public.users USING gin (to_tsvector('english'::regconfig, (role)::text));
 
 
 --
 -- Name: users_to_tsvector_idx3; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX users_to_tsvector_idx3 ON users USING gin (to_tsvector('english'::regconfig, (classcode)::text));
+CREATE INDEX users_to_tsvector_idx3 ON public.users USING gin (to_tsvector('english'::regconfig, (classcode)::text));
 
 
 --
 -- Name: users_to_tsvector_idx4; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX users_to_tsvector_idx4 ON users USING gin (to_tsvector('english'::regconfig, (username)::text));
+CREATE INDEX users_to_tsvector_idx4 ON public.users USING gin (to_tsvector('english'::regconfig, (username)::text));
 
 
 --
 -- Name: users_to_tsvector_idx5; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX users_to_tsvector_idx5 ON users USING gin (to_tsvector('english'::regconfig, split_part((ip_address)::text, '/'::text, 1)));
-
-
---
--- Name: users_to_tsvector_idx6; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX users_to_tsvector_idx6 ON users USING gin (to_tsvector('english'::regconfig, (name)::text));
-
-
---
--- Name: users_to_tsvector_idx7; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX users_to_tsvector_idx7 ON users USING gin (to_tsvector('english'::regconfig, (email)::text));
-
-
---
--- Name: users_to_tsvector_idx8; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX users_to_tsvector_idx8 ON users USING gin (to_tsvector('english'::regconfig, (role)::text));
-
-
---
--- Name: users_to_tsvector_idx9; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX users_to_tsvector_idx9 ON users USING gin (to_tsvector('english'::regconfig, (classcode)::text));
+CREATE INDEX users_to_tsvector_idx5 ON public.users USING gin (to_tsvector('english'::regconfig, split_part((ip_address)::text, '/'::text, 1)));
 
 
 --
 -- Name: uta; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX uta ON activities_unit_templates USING btree (unit_template_id, activity_id);
+CREATE INDEX uta ON public.activities_unit_templates USING btree (unit_template_id, activity_id);
 
 
 --
@@ -5138,14 +4834,6 @@ SET search_path TO "$user", public;
 
 INSERT INTO schema_migrations (version) VALUES ('20121024193845');
 
-INSERT INTO schema_migrations (version) VALUES ('20121211230953');
-
-INSERT INTO schema_migrations (version) VALUES ('20121211231231');
-
-INSERT INTO schema_migrations (version) VALUES ('20121214024613');
-
-INSERT INTO schema_migrations (version) VALUES ('20121218155200');
-
 INSERT INTO schema_migrations (version) VALUES ('20130309011601');
 
 INSERT INTO schema_migrations (version) VALUES ('20130319203258');
@@ -5173,8 +4861,6 @@ INSERT INTO schema_migrations (version) VALUES ('20130426032817');
 INSERT INTO schema_migrations (version) VALUES ('20130426032952');
 
 INSERT INTO schema_migrations (version) VALUES ('20130429171512');
-
-INSERT INTO schema_migrations (version) VALUES ('20130510221334');
 
 INSERT INTO schema_migrations (version) VALUES ('20130517024024');
 
@@ -5690,8 +5376,6 @@ INSERT INTO schema_migrations (version) VALUES ('20180517045137');
 
 INSERT INTO schema_migrations (version) VALUES ('20180530145153');
 
-INSERT INTO schema_migrations (version) VALUES ('20180612212919');
-
 INSERT INTO schema_migrations (version) VALUES ('20180625211305');
 
 INSERT INTO schema_migrations (version) VALUES ('20180627183421');
@@ -5770,13 +5454,13 @@ INSERT INTO schema_migrations (version) VALUES ('20181012155250');
 
 INSERT INTO schema_migrations (version) VALUES ('20181018195753');
 
-INSERT INTO schema_migrations (version) VALUES ('20181023173450');
-
-INSERT INTO schema_migrations (version) VALUES ('20181025181015');
-
 INSERT INTO schema_migrations (version) VALUES ('20181026201202');
 
 INSERT INTO schema_migrations (version) VALUES ('20181030155356');
 
 INSERT INTO schema_migrations (version) VALUES ('20181105212102');
+
+INSERT INTO schema_migrations (version) VALUES ('20181203161708');
+
+INSERT INTO schema_migrations (version) VALUES ('20181214192858');
 

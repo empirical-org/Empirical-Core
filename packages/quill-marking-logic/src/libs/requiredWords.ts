@@ -3,6 +3,7 @@ import * as _ from 'underscore';
 //   getPartsOfSpeechWordsWithTags
 // } from './partsOfSpeechTagging';
 import {Response, FeedbackObject} from '../interfaces/index'
+import {stringNormalize} from 'quill-string-normalizer'
 
 const posTranslations = {
   JJ: 'Adjective',
@@ -99,7 +100,7 @@ export function checkForMissingWords(userString:string, responses:Array<Response
 }
 
 function normalizeString(string:string = ''):string {
-  return string.replace(/[.,?!;]/g, '').toLowerCase();
+  return stringNormalize(string).replace(/[.,?!;]/g, '').toLowerCase();
 }
 
 function removePunctuation(string:string = ''):string {

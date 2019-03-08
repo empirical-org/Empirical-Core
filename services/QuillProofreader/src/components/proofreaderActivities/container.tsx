@@ -6,9 +6,10 @@ import * as _ from 'lodash';
 import { stringNormalize } from 'quill-string-normalizer'
 
 const questionIconSrc = `${process.env.QUILL_CDN_URL}/images/icons/question_icon.svg`
+const refreshIconSrc = `${process.env.QUILL_CDN_URL}/images/icons/refresh.svg`
 
 import getParameterByName from '../../helpers/getParameterByName';
-import { startListeningToActivity } from "../../actions/proofreaderActivities";
+import { getActivity } from "../../actions/proofreaderActivities";
 import { startListeningToConcepts } from "../../actions/concepts";
 import {
   updateConceptResultsOnFirebase,
@@ -23,6 +24,7 @@ import { ConceptResultObject } from '../../interfaces/proofreaderActivities'
 import PassageEditor from './passageEditor'
 import PassageReviewer from './passageReviewer'
 import EarlySubmitModal from './earlySubmitModal'
+import ResetModal from './resetModal'
 import ReviewModal from './reviewModal'
 import LoadingSpinner from '../shared/loading_spinner'
 
@@ -38,8 +40,10 @@ interface PlayProofreaderContainerState {
   passage?: string;
   edits: string[];
   reviewing: boolean;
+  resetting: boolean;
   showEarlySubmitModal: boolean;
   showReviewModal: boolean;
+  showResetModal: boolean;
   editsWithOriginalValue: Array<{index: string, originalText: string, currentText: string}>;
   necessaryEdits?: String[];
   numberOfCorrectChanges?: number;
@@ -57,7 +61,9 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
         reviewing: false,
         showEarlySubmitModal: false,
         showReviewModal: false,
-        editsWithOriginalValue: []
+        showResetModal: false,
+        editsWithOriginalValue: [],
+        resetting: false
       }
 
       this.saveToLMS = this.saveToLMS.bind(this)
@@ -72,6 +78,10 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       this.closeReviewModal = this.closeReviewModal.bind(this)
       this.checkWork = this.checkWork.bind(this)
       this.calculateScoreForLesson = this.calculateScoreForLesson.bind(this)
+      this.openResetModal = this.openResetModal.bind(this)
+      this.closeResetModal = this.closeResetModal.bind(this)
+      this.reset = this.reset.bind(this)
+      this.finishReset = this.finishReset.bind(this)
     }
 
     componentWillMount() {
@@ -85,7 +95,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       }
 
       if (activityUID) {
-        this.props.dispatch(startListeningToActivity(activityUID))
+        this.props.dispatch(getActivity(activityUID))
       }
 
     }
@@ -109,6 +119,10 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       if (sessionID && !_.isEqual(nextProps.session, this.props.session)) {
         updateSessionOnFirebase(sessionID, nextProps.session.passage)
       }
+    }
+
+    defaultInstructions() {
+      return 'Find and correct the errors in the passage. To edit a word, click on it and re-type it.'
     }
 
     formatInitialPassage(passage: string, underlineErrors: boolean) {
@@ -186,7 +200,6 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
     // this method handles weirdness created by HTML formatting in Slate
     formatReceivedPassage(value: string) {
       let fixedString = value.replace(/<span data-original-index="\d+">|<\/span>|<strong> <\/strong>/gm, '').replace(/&#x27;/g, "'").replace(/&quot;/g, '"')
-      console.log('fixedString', fixedString)
     // regex below matches case that looks like this: <strong><u id="6"> </u></strong><strong><u id="6"></u></strong><strong><u id="6"><u id="6">delivering</u></u></strong>
       const tripleStrongTagWithFourMatchingNestedURegex = /<strong>(<u id="\d+">)([^(<]*?)<\/u><\/strong><strong>(<u id="\d+">)([^(<]*?)<\/u><\/strong><strong>(<u id="\d+">)(<u id="\d+">)([^(<]*?)<\/u><\/u><\/strong>/
       // regex below matches case that looks like this: <strong><u id="10">A</u></strong><strong><u id="10"><u id="10">sia,</u></u></strong><strong><u id="10"> </u></strong>
@@ -223,6 +236,12 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
 
       // regex below matches case that looks like this: <strong><u id="3"><u id="3">are</u></u></strong>
       const singleStrongTagWithTwoMatchingNestedURegex = /<strong>(<u id="\d+">)(<u id="\d+">)([^(<]+?)<\/u><\/u><\/strong>/gm
+
+      // regex below matches case that looks like this: <strong><u id="4">"That's</u></strong><u id="4"><u id="4"> </u></u>
+      const singleStrongTagWithThreeMatchingURegexAtEnd = /<strong>(<u id="\d+">)([^(<]+?)<\/u><\/strong>(<u id="\d+">)(<u id="\d+">)([^(<]+?)<\/u><\/u>/gm
+
+      // regex below matches case that looks like this: <strong><u id="6">John</u></strong><u id="6"> </u>
+      const singleStrongTagWithTwoMatchingURegex = /<strong>(<u id="\d+">)([^(<]+?)<\/u><\/strong>(<u id="\d+">)([^(<]+?)<\/u>/gm
 
       if (tripleStrongTagWithFourMatchingNestedURegex.test(fixedString)) {
         fixedString = fixedString.replace(tripleStrongTagWithFourMatchingNestedURegex, (key, uTagA, contentA, uTagB, contentB, uTagC, uTagD, contentC) => {
@@ -351,6 +370,26 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
         })
       }
 
+      if (singleStrongTagWithThreeMatchingURegexAtEnd.test(fixedString)) {
+        fixedString = fixedString.replace(singleStrongTagWithThreeMatchingURegexAtEnd, (key, uTagA, contentA, uTagB, uTagC, contentB) => {
+          if (uTagA === uTagB && uTagB === uTagC) {
+            return `<strong>${uTagA}${contentA}${contentB}</u></strong>`
+          } else {
+            return key
+          }
+        })
+      }
+
+      if (singleStrongTagWithTwoMatchingURegex.test(fixedString)) {
+        fixedString = fixedString.replace(singleStrongTagWithTwoMatchingURegex, (key, uTagA, contentA, uTagB, contentB) => {
+          if (uTagA === uTagB) {
+            return `<strong>${uTagA}${contentA}${contentB}</u></strong>`
+          } else {
+            return key
+          }
+        })
+      }
+
       return fixedString
     }
 
@@ -361,6 +400,8 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       const edits = formattedValue.match(regex)
       if (edits) {
         this.setState({ passage: formattedValue, edits, editsWithOriginalValue })
+      } else if (this.state.edits) {
+        this.setState({ passage: formattedValue, edits: [], editsWithOriginalValue })
       }
     }
 
@@ -389,7 +430,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
                   metadata: {
                     answer: text,
                     correct: 1,
-                    instructions: currentActivity.description,
+                    instructions: currentActivity.description || this.defaultInstructions(),
                     prompt: originalText,
                     questionNumber: id + 1,
                     unchanged: false,
@@ -403,7 +444,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
                   metadata: {
                     answer: text,
                     correct: 0,
-                    instructions: currentActivity.description,
+                    instructions: currentActivity.description || this.defaultInstructions(),
                     prompt: originalText,
                     questionNumber: id + 1,
                     unchanged: false,
@@ -442,7 +483,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
                 metadata: {
                   answer: text,
                   correct: 1,
-                  instructions: currentActivity.description,
+                  instructions: currentActivity.description || this.defaultInstructions(),
                   prompt: originalText,
                   questionNumber: Number(id) + 1,
                   unchanged: true,
@@ -456,7 +497,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
                 metadata: {
                   answer: text,
                   correct: 0,
-                  instructions: currentActivity.description,
+                  instructions: currentActivity.description || this.defaultInstructions(),
                   prompt: originalText,
                   questionNumber: Number(id) + 1,
                   unchanged: true,
@@ -481,6 +522,8 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
         this.setState({showEarlySubmitModal: true})
       } else {
         const { reviewablePassage, numberOfCorrectChanges, conceptResultsObjects } = this.checkWork()
+        console.log('conceptResultsObjects', conceptResultsObjects)
+        console.log('numberOfCorrectChanges', numberOfCorrectChanges)
         this.setState( { reviewablePassage, showReviewModal: true, numberOfCorrectChanges, conceptResultsObjects } )
       }
     }
@@ -510,6 +553,41 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       }
     }
 
+    openResetModal() {
+      this.setState({ showResetModal: true })
+    }
+
+    closeResetModal() {
+      this.setState({ showResetModal: false })
+    }
+
+    closeEarlySubmitModal() {
+      this.setState({ showEarlySubmitModal: false })
+    }
+
+    closeReviewModal() {
+      this.setState({ showReviewModal: false, reviewing: true })
+    }
+
+    reset() {
+      const { passage, underlineErrorsInProofreader } = this.props.proofreaderActivities.currentActivity
+      const initialPassageData = this.formatInitialPassage(passage, underlineErrorsInProofreader)
+      const formattedPassage = initialPassageData.passage
+      this.setState({
+        passage: formattedPassage,
+        originalPassage: formattedPassage,
+        necessaryEdits: initialPassageData.necessaryEdits,
+        edits: [],
+        editsWithOriginalValue: [],
+        resetting: true,
+        showResetModal: false
+      })
+    }
+
+    finishReset() {
+      this.setState({ resetting: false} )
+    }
+
     renderShowEarlySubmitModal(): JSX.Element|void {
       const { showEarlySubmitModal, necessaryEdits } = this.state
       const requiredEditCount = necessaryEdits && necessaryEdits.length ? Math.floor(necessaryEdits.length / 2) : 5
@@ -517,6 +595,16 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
         return <EarlySubmitModal
           requiredEditCount={requiredEditCount}
           closeModal={this.closeEarlySubmitModal}
+        />
+      }
+    }
+
+    renderShowResetModal(): JSX.Element|void {
+      const { showResetModal, } = this.state
+      if (showResetModal) {
+        return <ResetModal
+          reset={this.reset}
+          closeModal={this.closeResetModal}
         />
       }
     }
@@ -534,7 +622,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
     }
 
     renderPassage(): JSX.Element|void {
-      const { reviewing, reviewablePassage, originalPassage } = this.state
+      const { reviewing, reviewablePassage, originalPassage, resetting } = this.state
       const { passageFromFirebase } = this.props.session
       if (reviewing) {
         const text = reviewablePassage ? reviewablePassage : ''
@@ -549,22 +637,27 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
           savedText={passageFromFirebase}
           text={originalPassage}
           handleTextChange={this.handlePassageChange}
+          resetting={resetting}
+          finishReset={this.finishReset}
         />
       }
     }
 
-    renderButton() {
+    renderCheckWorkButton(): JSX.Element|void {
       if (!this.state.reviewing) {
-        return <button onClick={this.finishActivity}>Check Work</button>
+        return <button className="check-work" onClick={this.finishActivity}>Check Work</button>
       }
     }
 
-    closeEarlySubmitModal() {
-      this.setState({ showEarlySubmitModal: false })
-    }
-
-    closeReviewModal() {
-      this.setState({ showReviewModal: false, reviewing: true })
+    renderResetButton(): JSX.Element|void {
+      const { reviewing, edits, } = this.state
+      if (!reviewing) {
+        if (edits.length) {
+          return <button className="reset-button" onClick={this.openResetModal}><img src={refreshIconSrc} /> Reset</button>
+        } else {
+          return <button className="reset-button disabled"><img src={refreshIconSrc} /> Reset</button>
+        }
+      }
     }
 
     render(): JSX.Element {
@@ -582,7 +675,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
               <div className="instructions">
                 <div>
                   <img src={questionIconSrc} />
-                  <p dangerouslySetInnerHTML={{__html: currentActivity.description}}/>
+                  <p dangerouslySetInnerHTML={{__html: currentActivity.description || this.defaultInstructions()}}/>
                 </div>
                 <div className="edits-made">
                   <p>Edits Made: {edits.length} of {numberOfCorrectEdits}</p>
@@ -596,12 +689,14 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
             </div>
           </div>
           {this.renderShowEarlySubmitModal()}
+          {this.renderShowResetModal()}
           {this.renderShowReviewModal()}
           <div className={`passage ${className}`}>
             {this.renderPassage()}
           </div>
           <div className="bottom-section">
-            {this.renderButton()}
+            {this.renderResetButton()}
+            {this.renderCheckWorkButton()}
           </div>
         </div>
       } else if (this.props.session.error) {
