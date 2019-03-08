@@ -177,7 +177,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
   }
 
   warningText() {
-    const text = 'Use one of the words below';
+    const text = 'Use one of the options below';
     return `${text}${this.state.blankAllowed ? ' or leave blank.' : '.'}`;
   }
 

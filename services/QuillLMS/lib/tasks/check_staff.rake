@@ -38,8 +38,8 @@ namespace :staff do
     unless body.empty?
       body.prepend("Staff Account Changes:\n\n")
       ActionMailer::Base.mail(
-        from: 'donald@quill.org',
-        to: 'donald@quill.org',
+        from: 'devtools@quill.org',
+        to: 'devtools@quill.org',
         subject: 'SECURITY NOTIFICATION: Staff Account Updates',
         body: body
       ).deliver

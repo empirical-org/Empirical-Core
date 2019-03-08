@@ -172,7 +172,7 @@ export default React.createClass({
     if (action == 'pending_coteachers') {
       return <td className="edit-or-remove" onClick={() => { this.removePendingCoteacher(coteacher_email); }}><i className="fa fa-times-circle" aria-hidden="true" />Remove</td>;
     }
-    return <td className="edit-or-remove"><a href={`/classrooms_teachers/${coteacher_id}/edit_coteacher_form`}><i className="fa fa-pencil" aria-hidden="true" />Edit</a></td>;
+    return <td className="edit-or-remove"><a href={`/classrooms_teachers/${coteacher_id}/edit_coteacher_form`}><i className="fa fa-pencil" />Edit</a></td>;
   },
 
   removePendingCoteacher(coteacher_email) {

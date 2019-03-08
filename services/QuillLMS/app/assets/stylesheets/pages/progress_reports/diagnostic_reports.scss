@@ -324,7 +324,7 @@ $lightgray: #cecece;
       margin-right: 9px;
     }
     .assigned-recommendations-key-icon {
-      i {
+      i, svg {
         font-size: 35px;
         color: #82bf3c;
         margin-left: 44px;
@@ -444,13 +444,13 @@ $lightgray: #cecece;
           justify-content: space-between;
           align-items: center;
           width: 100%;
-          i {
+          i, svg {
             color: #c0c0c0;
             font-size: 10px;
           }
           &:hover {
             text-decoration: none;
-            i {
+            i, svg {
               color: #3b3b3b;
             }
             span {
@@ -497,7 +497,7 @@ $lightgray: #cecece;
         p {
           color: #737373 !important;
         }
-        i {
+        i, svg {
           font-size: 18px;
           color: #82bf3c;
           margin-right: 10px;

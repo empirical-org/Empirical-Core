@@ -310,7 +310,7 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
       return false
     }
 
-    if (['ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown', 'Backspace', 'Shift', 'MetaShift', 'Meta', 'Enter', 'CapsLock', 'Escape', 'Alt', 'Control'].includes(event.key)) { return }
+    if (['ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown', 'Backspace', 'Shift', 'MetaShift', 'Meta', 'Enter', 'CapsLock', 'Escape', 'Alt', 'Control', 'Dead', 'Unidentified'].includes(event.key)) { return }
 
     if (!startInline && originalSelection.focus.offset === 0 && originalSelection.anchor.offset === 0) {
       const nextInline = change.moveEndForward(1).value.endInline
@@ -357,7 +357,7 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
   }
 
   onKeyUp(event: any, change: any, editor: any) {
-    if (['ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown'].includes(event.key)) { return }
+    if (['ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown', 'Dead'].includes(event.key)) { return }
 
     if (change.value.texts.size > 20) {
       return false
@@ -408,7 +408,7 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
     }
 
     // handles Firefox shenanigans
-    if (initialFocus.offset === 0 && initialAnchor.offset !== 0) {
+    if (initialFocus.offset === 0 && initialAnchor.offset !== 0 && event.key !== 'Unidentified') {
       const badNode = change.value.blocks.first().nodes.find(node => node.key == initialAnchor.key)
       if (badNode) {
         change.moveToRangeOfNode(badNode).insertText('')

@@ -37,7 +37,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
       this.state = {
         showExample: true,
         response: '',
-        questionStatus: 'unanswered',
+        questionStatus: this.getCurrentQuestionStatus(props.currentQuestion),
         submittedEmptyString: false,
         submittedSameResponseTwice: false,
         responses: {}
@@ -63,19 +63,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
     componentWillReceiveProps(nextProps: QuestionProps) {
       const currentQuestion = nextProps.currentQuestion
       if (currentQuestion && currentQuestion.attempts && currentQuestion.attempts.length > 0) {
-        if (currentQuestion.attempts[1]) {
-          if (currentQuestion.attempts[1].optimal) {
-            this.setState({questionStatus: 'correctly answered'})
-          } else {
-            this.setState({questionStatus: 'final attempt'})
-          }
-        } else {
-          if (currentQuestion.attempts[0] && currentQuestion.attempts[0].optimal) {
-            this.setState({questionStatus: 'correctly answered'})
-          } else {
-            this.setState({questionStatus: 'incorrectly answered'})
-          }
-        }
+        this.setState({ questionStatus: this.getCurrentQuestionStatus(currentQuestion) })
       }
       if (this.props.currentQuestion.uid !== nextProps.currentQuestion.uid) {
         responseActions.getGradedResponsesWithCallback(
@@ -87,8 +75,45 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
       }
     }
 
+    getCurrentQuestionStatus(currentQuestion) {
+      if (currentQuestion.attempts && currentQuestion.attempts.length) {
+        if (currentQuestion.attempts[1]) {
+          if (currentQuestion.attempts[1].optimal) {
+            return 'correctly answered'
+          } else {
+            return 'final attempt'
+          }
+        } else {
+          if (currentQuestion.attempts[0] && currentQuestion.attempts[0].optimal) {
+            return 'correctly answered'
+          } else {
+            return 'incorrectly answered'
+          }
+        }
+      } else {
+        return 'unanswered'
+      }
+    }
+
     currentQuestion() {
       return this.props.currentQuestion
+    }
+
+    correctResponse() {
+      const { responses} = this.state
+      const question = this.currentQuestion()
+      let text
+      if (Object.keys(responses).length) {
+        const responseArray = hashToCollection(responses).sort((a: Response, b: Response) => b.count - a.count)
+        const correctResponse = responseArray.find((r: Response) => r.optimal)
+        if (correctResponse) {
+          text = correctResponse.text
+        }
+      }
+      if (!text) {
+        text = question.answers[0].text.replace(/{|}/gm, '')
+      }
+      return text
     }
 
     checkAnswer() {
@@ -111,7 +136,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
 
     goToNextQuestion() {
       this.props.goToNextQuestion()
-      this.setState({response: '', questionStatus: 'unanswered'})
+      this.setState({response: '', questionStatus: 'unanswered', responses: {}})
     }
 
     toggleExample() {
@@ -255,7 +280,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
             className = 'correct'
             imgSrc = correctIconSrc
           } else {
-            feedback = `<b>Your Response:</b> ${this.state.response} <br/> <b>Correct Response:</b> ${question.answers[0].text.replace(/{|}/gm, '')}`
+            feedback = `<b>Your Response:</b> ${this.state.response} <br/> <b>Correct Response:</b> ${this.correctResponse()}`
             className = 'incorrect'
             imgSrc = incorrectIconSrc
           }
