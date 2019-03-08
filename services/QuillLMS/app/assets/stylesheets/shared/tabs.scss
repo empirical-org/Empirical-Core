@@ -112,12 +112,12 @@
       background: $orange;
       color: white;
 
-      i {
+      i, svg {
         color: white;
       }
     }
 
-    i {
+    i, svg {
       color: $orange;
     }
 
@@ -126,7 +126,7 @@
       background: $orange;
       color: white;
 
-      i {
+      i, svg {
         color: white;
       }
     }

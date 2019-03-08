@@ -35,13 +35,8 @@ function getConceptResultsForAttempt(attempt: ResponseAttempt, question: Questio
   if (conceptResults.length === 0) {
     conceptResults = [{
       conceptUID: question.concept_uid,
-      correct: false,
+      correct: !!attempt.optimal
     }];
-  } else if (!conceptResults.find(cr => cr.conceptUID === question.concept_uid )) {
-    conceptResults.push({
-      conceptUID: question.concept_uid,
-      correct: false,
-    })
   }
   const directions = question.instructions;
   const attemptNumber = index + 1

@@ -12,7 +12,7 @@ export default function checkAnswer(question, response, responses, mode='default
   const fields = {
     responses: responses ? hashToCollection(responses) : [],
     questionUID: question.key,
-    focusPoints: question.focusPoints ? hashToCollection(question.focusPoints): [],
+    focusPoints: question.focusPoints ? hashToCollection(question.focusPoints).sort((a, b) => a.order - b.order) : [],
     incorrectSequences: question.incorrectSequences ? hashToCollection(_.compact(question.incorrectSequences)) : [],
     defaultConceptUID
   };

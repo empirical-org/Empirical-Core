@@ -9,10 +9,12 @@ import { getActivity } from "../../actions/grammarActivities";
 import {
   updateSessionOnFirebase,
   getQuestionsForConcepts,
+  getQuestions,
   goToNextQuestion,
   checkAnswer,
   setSessionReducerToSavedSession,
-  startListeningToFollowUpQuestionsForProofreaderSession
+  startListeningToFollowUpQuestionsForProofreaderSession,
+  setSessionPending
 } from "../../actions/session";
 import { startListeningToConceptsFeedback } from '../../actions/conceptsFeedback'
 import { startListeningToConcepts } from '../../actions/concepts'
@@ -60,6 +62,8 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
       const proofreaderSessionId = getParameterByName('proofreaderSessionId', window.location.href)
       if (sessionID) {
         this.props.dispatch(setSessionReducerToSavedSession(sessionID))
+      } else {
+        this.props.dispatch(setSessionPending(false))
       }
 
       if (activityUID) {
@@ -78,9 +82,13 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
     }
 
     componentWillReceiveProps(nextProps: PlayGrammarContainerProps) {
-      if (nextProps.grammarActivities.hasreceiveddata && !nextProps.session.hasreceiveddata && !nextProps.session.error) {
-        const concepts = nextProps.grammarActivities.currentActivity.concepts
-        this.props.dispatch(getQuestionsForConcepts(concepts))
+      if (nextProps.grammarActivities.hasreceiveddata && !nextProps.session.hasreceiveddata && !nextProps.session.pending && !nextProps.session.error) {
+        const { questions, concepts } = nextProps.grammarActivities.currentActivity
+        if (questions) {
+          this.props.dispatch(getQuestions(questions))
+        } else {
+          this.props.dispatch(getQuestionsForConcepts(concepts))
+        }
       }
 
       if (nextProps.session.hasreceiveddata && !nextProps.session.currentQuestion && nextProps.session.unansweredQuestions.length === 0 && nextProps.session.answeredQuestions.length > 0) {
@@ -90,7 +98,7 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
       }
 
       const sessionID = getParameterByName('student', window.location.href)
-      if (sessionID && !_.isEqual(nextProps.session, this.props.session)) {
+      if (sessionID && !_.isEqual(nextProps.session, this.props.session) && !nextProps.session.pending) {
         updateSessionOnFirebase(sessionID, nextProps.session)
       }
 
