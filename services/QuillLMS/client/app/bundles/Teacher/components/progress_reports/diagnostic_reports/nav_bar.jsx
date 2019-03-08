@@ -42,13 +42,25 @@ export default class Navbar extends React.Component {
 
   students() {
     const selectedClassroomId = parseInt(this.props.params.classroomId);
+    let students
     if (this.props.students) {
-      return this.props.students;
+      students = this.props.students;
     } else if (selectedClassroomId) {
-      return this.props.classrooms.find(cl => cl.id === selectedClassroomId).students || null;
+      students = this.props.classrooms.find(cl => cl.id === selectedClassroomId).students || null;
     } else if (this.props.classrooms) {
-      return this.props.classrooms[0].students;
+      students = this.props.classrooms[0].students;
     }
+    return students.sort((a, b) => {
+      const aLastName = a.name.split(' ')[1]
+      const bLastName = b.name.split(' ')[1]
+      if (aLastName > bLastName) {
+        return 1
+      } else if (aLastName < bLastName) {
+        return -1
+      } else {
+        return 0
+      }
+    })
   }
 
   studentDropdown() {

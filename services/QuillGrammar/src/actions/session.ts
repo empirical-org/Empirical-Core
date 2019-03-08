@@ -23,25 +23,32 @@ export const setSessionReducerToSavedSession = (sessionID: string) => {
   return dispatch => {
     sessionsRef.child(sessionID).once('value', (snapshot) => {
       const session = snapshot.val()
-      if (session && !session.error) {
+      if (session && Object.keys(session).length > 1 && !session.error) {
         questionsRef.orderByChild('concept_uid').once('value', (questionsSnapshot) => {
           const allQuestions = questionsSnapshot.val()
-          if (!session.currentQuestion.prompt || !session.currentQuestion.answers) {
-            const currentQuestion = allQuestions[session.currentQuestion.uid]
-            currentQuestion.uid = session.currentQuestion.uid
-            session.currentQuestion = currentQuestion
-          }
-          session.unansweredQuestions = session.unansweredQuestions.map((q) => {
-            if (q.prompt && q.answers && q.uid) {
-              return q
-            } else {
-              const question = allQuestions[q.uid]
-              question.uid = q.uid
-              return question
+          if (session.currentQuestion) {
+            if (!session.currentQuestion.prompt || !session.currentQuestion.answers) {
+              const currentQuestion = allQuestions[session.currentQuestion.uid]
+              currentQuestion.uid = session.currentQuestion.uid
+              session.currentQuestion = currentQuestion
             }
-          })
+          }
+          if (session.unansweredQuestions) {
+            session.unansweredQuestions = session.unansweredQuestions.map((q) => {
+              if (q.prompt && q.answers && q.uid) {
+                return q
+              } else {
+                const question = allQuestions[q.uid]
+                question.uid = q.uid
+                return question
+              }
+            })
+          }
           dispatch(setSessionReducer(session))
         })
+      } else {
+        console.log('there is no session')
+        dispatch(setSessionPending(false))
       }
     })
   }
@@ -75,7 +82,7 @@ export const startListeningToFollowUpQuestionsForProofreaderSession = (proofread
 // typescript this
 export const getQuestionsForConcepts = (concepts: any) => {
   return dispatch => {
-    dispatch({ type: ActionTypes.SET_SESSION_PENDING, pending: true })
+    dispatch(setSessionPending(true))
     const conceptUIDs = Object.keys(concepts)
     questionsRef.orderByChild('concept_uid').once('value', (snapshot) => {
       const questions = snapshot.val()
@@ -105,7 +112,7 @@ export const getQuestionsForConcepts = (concepts: any) => {
       } else {
         dispatch({ type: ActionTypes.NO_QUESTIONS_FOUND_FOR_SESSION})
       }
-      dispatch({ type: ActionTypes.SET_SESSION_PENDING, pending: false })
+      dispatch(setSessionPending(false))
     });
 
   }
@@ -113,7 +120,7 @@ export const getQuestionsForConcepts = (concepts: any) => {
 
 export const getQuestions = (questions: any) => {
   return dispatch => {
-    dispatch({ type: ActionTypes.SET_SESSION_PENDING, pending: true })
+    dispatch(setSessionPending(true))
     questionsRef.once('value', (snapshot) => {
       const allQuestions = snapshot.val()
       const arrayOfQuestions = questions.map(q => {
@@ -126,7 +133,7 @@ export const getQuestions = (questions: any) => {
       } else {
         dispatch({ type: ActionTypes.NO_QUESTIONS_FOUND_FOR_SESSION})
       }
-      dispatch({ type: ActionTypes.SET_SESSION_PENDING, pending: false })
+      dispatch(setSessionPending(false))
     })
   }
 }
@@ -134,7 +141,7 @@ export const getQuestions = (questions: any) => {
 export const checkAnswer = (response: string, question: Question, responses: Response[], isFirstAttempt: Boolean) => {
   return dispatch => {
     const questionUID: string = question.uid
-    const focusPoints = question.focusPoints ? hashToCollection(question.focusPoints) : [];
+    const focusPoints = question.focusPoints ? hashToCollection(question.focusPoints).sort((a, b) => a.order - b.order) : [];
     const incorrectSequences = question.incorrectSequences ? hashToCollection(question.incorrectSequences) : [];
     const defaultConceptUID = question.modelConceptUID || question.concept_uid
     const responseObj = checkGrammarQuestion(questionUID, response, responses, focusPoints, incorrectSequences, defaultConceptUID)
@@ -166,5 +173,11 @@ export const setSessionReducer = (session: SessionState) => {
 export const saveProofreaderSessionToReducer = (proofreaderSession) => {
   return dispatch => {
     dispatch({ type: ActionTypes.SET_PROOFREADER_SESSION_TO_REDUCER, data: proofreaderSession})
+  }
+}
+
+export const setSessionPending = (pendingStatus: boolean) => {
+  return dispatch => {
+    dispatch({ type: ActionTypes.SET_SESSION_PENDING, pending: pendingStatus })
   }
 }
