@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
+  get '/' => 'stats#up'
 
   resources :responses
   get  'questions/:question_uid/responses' => 'responses#responses_for_question'
+  get  'questions/:question_uid/multiple_choice_options' => 'responses#multiple_choice_options'
   get  'questions/:question_uid/health' => 'responses#get_health_of_question'
   get  'questions/:question_uid/grade_breakdown' => 'responses#get_grade_breakdown'
   post 'responses/create_or_increment'
@@ -14,6 +16,7 @@ Rails.application.routes.draw do
   post 'questions/:question_uid/responses/search' => 'responses#search'
   post 'responses/batch_responses_for_lesson' => 'responses#batch_responses_for_lesson'
   put 'responses/replace_concept_uids' => 'responses#replace_concept_uids'
+  put 'question/:question_uid/reindex_responses_updated_today_for_given_question' => 'responses#reindex_responses_updated_today_for_given_question'
   post 'responses/clone_responses' => 'responses#clone_responses'
   # Stats controller
   get 'stats/question_health_index' => 'stats#question_health_index'

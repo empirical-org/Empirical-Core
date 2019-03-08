@@ -23,7 +23,7 @@ gem 'atomic_arrays'
 gem 'bcrypt'
 gem 'doorkeeper', '1.4.1'
 gem 'omniauth'
-gem 'omniauth-google-oauth2'
+gem 'omniauth-google-oauth2', '0.6.0'
 gem 'omniauth-clever'
 gem 'cancancan'
 gem 'firebase_token_generator'
@@ -66,6 +66,7 @@ gem 'scout_apm'
 gem 'rubyzip'
 gem 'httparty'
 gem 'intercom', '~> 3.5.23'
+gem 'haversine'
 
 # WEBSOCKETS
 gem 'pusher'
@@ -153,7 +154,6 @@ end
 gem 'awesome_print'
 
 group :test, :development do
-  gem 'cypress-on-rails', '~> 1.0'
   gem 'quiet_assets'
   gem 'parallel_tests'
   gem 'pry'
@@ -178,6 +178,7 @@ group :test, :development do
 end
 
 group :test, :development, :cypress do
+  gem 'cypress-on-rails', '~> 1.0'
   gem 'faker'
 end
 

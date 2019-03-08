@@ -154,8 +154,8 @@ const PlaySentenceFragment = React.createClass<any, any>({
   renderConceptExplanation() {
     if (!this.showNextQuestionButton()) {
       const latestAttempt:{response: Response}|undefined  = getLatestAttempt(this.props.question.attempts);
-      if (latestAttempt && latestAttempt.response) {
-        if (!latestAttempt.response.optimal && latestAttempt.response.conceptResults) {
+      if (latestAttempt && latestAttempt.response && !latestAttempt.response.optimal) {
+        if (latestAttempt.response.conceptResults) {
             const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.response.conceptResults);
             if (conceptID) {
               const data = this.props.conceptsFeedback.data[conceptID.conceptUID];
@@ -163,7 +163,7 @@ const PlaySentenceFragment = React.createClass<any, any>({
                 return <ConceptExplanation {...data} />;
               }
             }
-        } else if (latestAttempt.response && !latestAttempt.response.optimal && latestAttempt.response.concept_results) {
+        } else if (latestAttempt.response.concept_results) {
           const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.response.concept_results);
           if (conceptID) {
             const data = this.props.conceptsFeedback.data[conceptID.conceptUID];
@@ -249,7 +249,7 @@ const PlaySentenceFragment = React.createClass<any, any>({
           handleChange={this.handleChange}
           disabled={this.showNextQuestionButton()}
           checkAnswer={this.checkAnswer}
-          placeholder="Type your answer here. Remember, your answer should be just one sentence."
+          placeholder="Type your answer here."
         />
         <div className="question-button-group">
           {this.renderButton()}

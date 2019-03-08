@@ -177,7 +177,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
   }
 
   warningText() {
-    const text = 'Use one of the words below';
+    const text = 'Use one of the options below';
     return `${text}${this.state.blankAllowed ? ' or leave blank.' : '.'}`;
   }
 
@@ -209,7 +209,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
       styling.borderWidth = '2px';
       delete styling.borderImageSource;
     }
-    const longestCue = this.state.cues && this.state.cues.length ? this.state.cues.sort((a, b) => a.length < b.length)[0] : null
+    const longestCue = this.state.cues && this.state.cues.length ? this.state.cues.sort((a, b) => b.length - a.length)[0] : null
     const width = longestCue ? (longestCue.length * 15) + 10 : 50
     styling.width = `${width}px`
     return (

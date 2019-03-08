@@ -4,6 +4,11 @@ include FactoryBot::Syntax::Methods
 # Generate a staff user with a known username and password
 create(:staff, username: 'staff', password: 'password')
 
+# Generate authors to be referred to by unit_template seed data
+20.times do
+  create(:author)
+end
+
 # Generate activity classifications
 create(:diagnostic)
 create(:proofreader)
@@ -86,13 +91,10 @@ end
 # Generate a shared diagnostic unit and a couple other units for the classrooms
 diagnostic_unit = create(:unit, :sentence_structure_diagnostic, user_id: teacher.id)
 diagnostic_activity = Activity.find(Activity.diagnostic_activity_ids.first)
+diagnostic_unit_activity = create(:unit_activity, unit: diagnostic_unit, activity: diagnostic_activity)
+
 classrooms.each do |classroom|
-  diagnostic_classroom_activity = create(:classroom_activity, activity: diagnostic_activity, unit: diagnostic_unit, classroom: classroom, assigned_student_ids: classroom.students.map(&:id))
-  classroom_activities = create_pair(:classroom_activity, unit: create(:unit, user_id: teacher.id), classroom: classroom, assigned_student_ids: classroom.students.map(&:id))
-  classroom.students.each do |student|
-    create(:activity_session, activity: diagnostic_activity, classroom_activity: diagnostic_classroom_activity, user: student)
-    create(:activity_session, activity: classroom_activities.first.activity, classroom_activity: classroom_activities.first, user: student)
-  end
+  classroom_diagnostic_unit = create(:classroom_unit, unit: diagnostic_unit, classroom: classroom, assign_on_join: true)
 end
 
 # Generate Firebase apps

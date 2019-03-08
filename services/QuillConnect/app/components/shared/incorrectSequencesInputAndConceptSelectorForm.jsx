@@ -33,7 +33,7 @@ export default React.createClass({
   getNewAffectedCount() {
     const qid = this.props.questionID
     const usedSeqs = this.props.usedSequences
-    const newSeqs = this.state.itemText.split('|||')
+    const newSeqs = this.state.itemText.split(/\|{3}(?!\|)/)
     request(
       {
         url: `${process.env.QUILL_CMS}/responses/${qid}/incorrect_sequence_affected_count`,
@@ -72,7 +72,7 @@ export default React.createClass({
 
   submit(focusPoint) {
     const data = {
-      text: this.state.itemText.split('|||').filter(val => val !== '').join('|||'),
+      text: this.state.itemText.split(/\|{3}(?!\|)/).filter(val => val !== '').join('|||'),
       feedback: this.state.itemFeedback,
       conceptResults: this.state.itemConcepts,
     };
@@ -80,7 +80,7 @@ export default React.createClass({
   },
 
   renderTextInputFields() {
-    return this.state.itemText.split('|||').map(text => (
+    return this.state.itemText.split(/\|{3}(?!\|)/).map(text => (
       <input className="input focus-point-text" style={{ marginBottom: 5, }} onChange={this.handleChange.bind(null, 'itemText')} onBlur={this.getNewAffectedCount} type="text" value={text || ''} />
     ));
   },
@@ -113,7 +113,7 @@ export default React.createClass({
 
   toggleSuggestedSequence(text) {
     let newIncorrectSequences
-    const incorrectSequences = this.state.itemText.split('|||')
+    const incorrectSequences = this.state.itemText.split(/\|{3}(?!\|)/)
     const index = incorrectSequences.indexOf(`${text}`)
     if (index !== -1) {
       incorrectSequences.splice(index, 1).join('|||')
@@ -143,7 +143,7 @@ export default React.createClass({
       const suggestedSequences = []
       const coveredSequences = []
       this.props.suggestedSequences.forEach((seq, i) => {
-        const incorrectSequences = this.state.itemText.split('|||')
+        const incorrectSequences = this.state.itemText.split(/\|{3}(?!\|)/)
         const added = incorrectSequences.includes(`${seq}`)
         const covered = _.any(incorrectSequences, inSeq => inSeq.length > 0 && seq.includes(inSeq));
         let color
@@ -255,7 +255,7 @@ export default React.createClass({
         <div>
           <label className="label">{this.state.matchedCount} {this.state.matchedCount === 1 ? 'sequence' : 'sequences'} affected</label>
           <ResponseComponent
-            selectedIncorrectSequences={this.state.itemText.split('|||')}
+            selectedIncorrectSequences={this.state.itemText.split(/\|{3}(?!\|)/)}
             question={dataset}
             mode={mode}
             states={this.props.states}

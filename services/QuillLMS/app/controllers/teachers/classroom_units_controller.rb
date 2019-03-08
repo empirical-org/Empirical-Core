@@ -10,22 +10,28 @@ class Teachers::ClassroomUnitsController < ApplicationController
   before_action :lesson, only: :launch_lesson
 
   def launch_lesson
+    begin
     @unit_activity = UnitActivity.find_by(
       unit_id: @classroom_unit.unit_id,
       activity: @lesson.id
     )
-    cuas = ClassroomUnitActivityState.find_by(
+    cuas = ClassroomUnitActivityState.find_or_create_by(
       classroom_unit: @classroom_unit,
       unit_activity: @unit_activity
     )
+    rescue ActiveRecord::StatementInvalid
+      flash.now[:error] = "We cannot launch this lesson. If the problem persists, please contact support."
+      redirect_to :back
+      return
+    end
 
     if lesson_tutorial_completed?
       if cuas && cuas.update(locked: false, pinned: true)
         find_or_create_lesson_activity_sessions_for_classroom
         PusherLessonLaunched.run(@classroom_unit.classroom)
-        if @classroom_unit.is_valid_for_google_announcement_with_specific_user?(current_user)
-          return post_to_google_classroom
-        end
+        # if @classroom_unit.is_valid_for_google_announcement_with_specific_user?(current_user)
+        #   return post_to_google_classroom
+        # end
         redirect_to lesson_url(lesson) and return
       else
         flash.now[:error] = "We cannot launch this lesson. If the problem persists, please contact support."
@@ -91,14 +97,14 @@ class Teachers::ClassroomUnitsController < ApplicationController
   end
 
   def post_to_google_classroom
-    google_response = GoogleIntegration::LessonAnnouncement
-      .new(@classroom_unit, @unit_activity).post
-    if google_response == 'UNAUTHENTICATED'
-      session[:google_redirect] = request.path
-      return redirect_to '/auth/google_oauth2'
-    else
-      redirect_to lesson_url(lesson)
-    end
+    # google_response = GoogleIntegration::LessonAnnouncement
+    #   .new(@classroom_unit, @unit_activity).post
+    # if google_response == 'UNAUTHENTICATED'
+    #   session[:google_redirect] = request.path
+    #   return redirect_to '/auth/google_oauth2'
+    # else
+    #   redirect_to lesson_url(lesson)
+    # end
   end
 
   def find_or_create_lesson_activity_sessions_for_classroom

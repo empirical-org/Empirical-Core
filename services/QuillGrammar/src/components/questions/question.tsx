@@ -17,8 +17,14 @@ import ResponseComponentWrapper from './responseRouteWrapper'
 import ChooseModelContainer from './chooseModelContainer'
 import TestQuestion from './testQuestion'
 import MassEditContainer from './massEditContainer'
+import NewIncorrectSequenceContainer from './newIncorrectSequenceContainer'
+import EditIncorrectSequenceContainer from './editIncorrectSequenceContainer'
+import IncorrectSequenceContainer from './incorrectSequenceContainer'
+import EditFocusPointsContainer from './editFocusPointsContainer'
+import NewFocusPointsContainer from './newFocusPointsContainer'
+import FocusPointsContainer from './focusPointsContainer'
 import { Match } from '../../interfaces/match'
-import { QuestionsReducerState } from '../../reducers/questions'
+import { QuestionsReducerState } from '../../reducers/questionsReducer'
 
 interface AdminQuestionProps {
   dispatch: Function,
@@ -238,6 +244,8 @@ class AdminQuestion extends React.Component<AdminQuestionProps, AdminQuestionSta
               <li><Link activeClassName="is-active" to={`/admin/questions/${questionID}/responses`}>Responses</Link></li>
               <li><Link activeClassName="is-active" to={`/admin/questions/${questionID}/test`}>Play Question</Link></li>
               <li><Link activeClassName="is-active" to={`/admin/questions/${questionID}/choose_model`}>{modelText}</Link></li>
+              <li><Link activeClassName="is-active" to={`/admin/questions/${questionID}/focus-points`}>{data[questionID].focusPoints ? 'Edit' : 'Add'} Focus Points</Link></li>
+              <li><Link activeClassName="is-active" to={`/admin/questions/${questionID}/incorrect-sequences`}>{data[questionID].incorrectSequences ? 'Edit' : 'Add'} Incorrect Sequences</Link></li>
               {activeLink}
             </ul>
           </div>
@@ -247,6 +255,12 @@ class AdminQuestion extends React.Component<AdminQuestionProps, AdminQuestionSta
             <Route path={`/admin/questions/:questionID/test`} component={TestQuestion}/>
             <Route path={`/admin/questions/:questionID/choose_model`} component={ChooseModelContainer}/>
             <Route path={`/admin/questions/:questionID/mass-edit`} component={MassEditContainer}/>
+            <Route path={`/admin/questions/:questionID/focus-points/:focusPointID/edit`} component={EditFocusPointsContainer}/>
+            <Route path={`/admin/questions/:questionID/focus-points/new`} component={NewFocusPointsContainer}/>
+            <Route path={`/admin/questions/:questionID/focus-points`} component={FocusPointsContainer}/>
+            <Route path={`/admin/questions/:questionID/incorrect-sequences/:incorrectSequenceID/edit`} component={EditIncorrectSequenceContainer}/>
+            <Route path={`/admin/questions/:questionID/incorrect-sequences/new`} component={NewIncorrectSequenceContainer}/>
+            <Route path={`/admin/questions/:questionID/incorrect-sequences`} component={IncorrectSequenceContainer}/>
           </Switch>
         </div>
       );

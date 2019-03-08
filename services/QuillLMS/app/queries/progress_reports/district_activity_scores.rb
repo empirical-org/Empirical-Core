@@ -6,7 +6,11 @@ class ProgressReports::DistrictActivityScores
   end
 
   def results
-    ActiveRecord::Base.connection.execute(query).to_a
+    if classroom_ids_for_admin.length > 0
+      ActiveRecord::Base.connection.execute(query).to_a
+    else
+      []
+    end
   end
 
   private

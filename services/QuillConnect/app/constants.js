@@ -145,7 +145,9 @@ export default {
 
   // mASS EDIT RESPONSE ACTIONS
   ADD_RESPONSE_TO_MASS_EDIT_ARRAY: 'ADD_RESPONSE_TO_MASS_EDIT_ARRAY',
+  ADD_RESPONSES_TO_MASS_EDIT_ARRAY: 'ADD_RESPONSES_TO_MASS_EDIT_ARRAY',
   REMOVE_RESPONSE_FROM_MASS_EDIT_ARRAY: 'REMOVE_RESPONSE_FROM_MASS_EDIT_ARRAY',
+  REMOVE_RESPONSES_FROM_MASS_EDIT_ARRAY: 'REMOVE_RESPONSES_FROM_MASS_EDIT_ARRAY',
   CLEAR_RESPONSES_FROM_MASS_EDIT_ARRAY: 'CLEAR_RESPONSES_FROM_MASS_EDIT_ARRAY',
 
   // qUESTION SELECT ACTIONS:
@@ -159,7 +161,7 @@ export default {
     typingError: 'Try again. There may be a spelling mistake.',
     caseError: 'Proofread your work. There may be a capitalization error.',
     minLengthError: 'Revise your work. Do you have all of the information from the prompt?',
-    maxLengthError: 'Revise your work. How could this sentence be shorter and more concise?',
+    maxLengthError: 'Revise your work. How could your response be shorter and more concise?',
     modifiedWordError: 'Revise your work. You may have mixed up or misspelled a word.',
     additionalWordError: 'Revise your work. You may have added an extra word.',
     missingWordError: 'Revise your work. You may have left out an important word.',
