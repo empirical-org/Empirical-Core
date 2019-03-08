@@ -12,7 +12,7 @@ class Auth::GoogleController < ApplicationController
     end
 
     if @user.student?
-      GoogleIntegration::Classroom::Main.join_existing_google_classrooms(@user)
+      # GoogleIntegration::Classroom::Main.join_existing_google_classrooms(@user)
     end
 
     sign_in(@user)
@@ -43,7 +43,7 @@ class Auth::GoogleController < ApplicationController
   end
 
   def check_if_email_matches
-    if current_user && current_user.email.downcase != @user.email
+    if current_user && current_user.email && current_user.email.downcase != @user.email
       redirect_to auth_google_email_mismatch_path(google_email: @user.email)
     end
   end
@@ -62,11 +62,12 @@ class Auth::GoogleController < ApplicationController
     @js_file = 'session'
 
     if @user.save
-      AccountCreationCallbacks.new(@user, request.remote_ip).trigger
+      CompleteAccountCreation.new(@user, request.remote_ip).call
       @user.subscribe_to_newsletter
       @teacherFromGoogleSignUp = true
 
       sign_in(@user)
+      return redirect_to '/sign-up/add-k12'
     else
       @teacherFromGoogleSignUp = false
       flash.now[:error] = @user.errors.full_messages.join(', ')

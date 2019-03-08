@@ -13,7 +13,7 @@ Defaults To:
 
 Allowed Values:
 
-#### classroom_activity_id
+#### classroom_unit_id
 Description Goes Here
 
 Type: Fixnum
@@ -193,11 +193,11 @@ Allowed Values:
 
 ## Relations
 
-belongs_to => classroom_activities
+belongs_to => classroom_unit
 
 belongs_to => activities
 
-has_one => units through classroom_activity
+has_one => units through classroom_unit
 
 has_many => concept_results
 

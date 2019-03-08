@@ -1,4 +1,6 @@
 FactoryBot.define do
+  factory :simple_activity, class: 'Activity' do; end
+
   factory :activity do
     sequence(:name) do |n|
       loop do
@@ -8,7 +10,7 @@ FactoryBot.define do
     end
     description             { "This is the description for the '#{name}' activity." }
     uid                     { SecureRandom.urlsafe_base64 }
-    topic                   { create(:topic) }
+    topic                   { Topic.first || create(:topic) }
     classification          { create(:classification) }
     activity_categories     { create_pair(:activity_category) }
     repeatable              true

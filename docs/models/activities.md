@@ -5,7 +5,7 @@
 #### id
 The primary key for the table.
 
-Type: integer 
+Type: integer
 
 Example: 1
 
@@ -18,7 +18,7 @@ Type: string
 Example: Shackleton Returns from the Antarctic
 
 
-#### description 
+#### description
 This gives teacher and students extra information on the activity, and is normally displayed in a drop-down.
 
 Type: text
@@ -92,7 +92,7 @@ Example: 2
 Defaults To: nil
 
 #### supporting_info
-With Lessons we started providing additonal information on how to deliver content to students. This value links to a file on our CDN. The url from this column should never been displayed on the frontend. We provide the route ```/activities/:id/supporting_info``` to redirect users to this value which allows us to avoid breaking links and to keep everything up to date. 
+With Lessons we started providing additional information on how to deliver content to students. This value links to a file on our CDN. The url from this column should never be displayed on the frontend. We provide the route ```/activities/:id/supporting_info``` to redirect users to this value which allows us to avoid breaking links and to keep everything up to date.
 
 Type: string
 
@@ -110,11 +110,13 @@ has_one => sections through topic
 
 belongs_to => activities
 
-has_many => classroom_activities
+has_many => unit_activities
 
-has_many => classrooms through classroom_activities
+has_many => units through unit_activities
 
-has_many => units through classroom_activities
+has_many => unit_classrooms through units
+
+has_many => classrooms through unit_classrooms
 
 has_many => activity_category_activities
 

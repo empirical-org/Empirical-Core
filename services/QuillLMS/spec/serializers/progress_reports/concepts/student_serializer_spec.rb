@@ -5,14 +5,21 @@ describe ProgressReports::Concepts::StudentSerializer, type: :serializer do
   let(:teacher) { classroom.owner }
   let!(:student) { create(:user, role: 'student', classrooms: [classroom])}
   let(:activity) { create(:activity) }
-  let(:classroom_activity) { create(:classroom_activity, classroom: classroom, activity: activity) }
+  let(:unit) { create(:unit) }
+  let(:classroom_unit) do
+    create(:classroom_unit,
+      unit: unit,
+      classroom: classroom,
+      assigned_student_ids: [student.id]
+    )
+  end
   let(:student_for_report) { ProgressReports::Concepts::User.results(teacher, {}).first }
   let(:concept) { create(:concept) }
   let(:serializer) { described_class.new(student_for_report) }
 
   before do
     activity_session = student.activity_sessions.create!(
-      classroom_activity: classroom_activity,
+      classroom_unit: classroom_unit,
       percentage: 0.7547,
       state: 'finished',
       completed_at: 5.minutes.ago,

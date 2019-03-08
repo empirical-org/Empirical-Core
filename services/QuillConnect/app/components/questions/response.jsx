@@ -17,7 +17,6 @@ import {
   submitResponseEdit,
   incrementResponseCount,
   removeLinkToParentID,
-  updateConceptResults,
   deleteConceptResult,
   getGradedResponsesWithCallback,
 } from '../../actions/responses';
@@ -67,11 +66,16 @@ export default React.createClass({
     }
   },
 
+  isSelectedForMassEdit() {
+    return this.props.massEdit.selectedResponses.includes(this.props.response.id) || this.props.massEdit.selectedResponses.includes(this.props.response.key)
+  },
+
   editResponse(rid) {
     this.props.dispatch(this.state.actions.startResponseEdit(this.props.questionID, rid));
   },
 
   cancelResponseEdit(rid) {
+    this.setState(this.getInitialState())
     this.props.dispatch(this.state.actions.cancelResponseEdit(this.props.questionID, rid));
   },
 
@@ -106,6 +110,7 @@ export default React.createClass({
       optimal: this.refs.newResponseOptimal.checked,
       author: null,
       parent_id: null,
+      concept_results: Object.keys(this.state.conceptResults) && Object.keys(this.state.conceptResults).length ? this.state.conceptResults : null
     };
     this.props.dispatch(submitResponseEdit(rid, newResp, this.props.questionID));
   },
@@ -163,16 +168,11 @@ export default React.createClass({
     }
   },
 
-  updateConceptResults() {
-    const conceptResults = this.state.conceptResults || {};
-    this.props.dispatch(updateConceptResults(this.props.response.key, { conceptResults, }, this.props.questionID));
-  },
-
   deleteConceptResult(crid) {
     if (confirm('Are you sure?')) {
-      let conceptResults = Object.assign({}, this.state.conceptResults || {});
+      const conceptResults = Object.assign({}, this.state.conceptResults || {});
       delete conceptResults[crid];
-      this.setState({conceptResults: conceptResults})
+      this.setState({ conceptResults }, (() => { console.log('this.state.conceptResults', this.state.conceptResults) }))
     }
   },
 
@@ -209,7 +209,7 @@ export default React.createClass({
   },
 
   onMassSelectCheckboxToggle(responseKey) {
-    if (this.props.massEdit.selectedResponses.includes(responseKey)) {
+    if (this.isSelectedForMassEdit()) {
       this.removeResponseFromMassEditArray(responseKey);
     } else {
       this.addResponseToMassEditArray(responseKey);
@@ -271,25 +271,27 @@ export default React.createClass({
     let components
     if (conceptResults) {
       if (mode === 'Editing') {
-      const conceptResultsPlus = Object.assign(conceptResults, {null: this.props.response.optimal})
-      components = Object.keys(conceptResultsPlus).map(uid => {
-        const concept = _.find(this.props.concepts.data['0'], { uid, });
-          return <ConceptSelectorWithCheckbox
-            key={uid}
-            handleSelectorChange={this.handleConceptChange}
-            currentConceptUID={uid}
-            checked={conceptResults[uid]}
-            onCheckboxChange={() => this.toggleCheckboxCorrect(uid)}
-            selectorDisabled={uid === null || uid === 'null' ? false : true}
-            deleteConceptResult={() => this.deleteConceptResult(uid)}
-          />
+        const conceptResultsPlus = Object.assign(conceptResults, {null: this.props.response.optimal})
+        components = Object.keys(conceptResultsPlus).map(uid => {
+          const concept = _.find(this.props.concepts.data['0'], { uid, });
+            return <ConceptSelectorWithCheckbox
+              key={uid}
+              handleSelectorChange={this.handleConceptChange}
+              currentConceptUID={uid}
+              checked={conceptResults[uid]}
+              onCheckboxChange={() => this.toggleCheckboxCorrect(uid)}
+              selectorDisabled={uid === null || uid === 'null' ? false : true}
+              deleteConceptResult={() => this.deleteConceptResult(uid)}
+            />
       });
     } else {
       components = Object.keys(conceptResults).map(uid => {
+        console.log(this.props.concepts.data['0'])
         const concept = _.find(this.props.concepts.data['0'], { uid, });
         if (concept) {
+          // hacky fix for the problem where concept result uids are being returned with string value 'false' rather than false
           return  <li key={uid}>
-            {concept.displayName} {conceptResults[uid] ? <span className="tag is-small is-success">Correct</span> : <span className="tag is-small is-danger">Incorrect</span>}
+            {concept.displayName} {conceptResults[uid] && conceptResults[uid] !== 'false' ? <span className="tag is-small is-success">Correct</span> : <span className="tag is-small is-danger">Incorrect</span>}
             {'\t'}
           </li>
         }
@@ -376,7 +378,6 @@ export default React.createClass({
           <div className="box">
             <label className="label">Concept Results</label>
             {this.renderConceptResults('Editing')}
-            <button className="button" onClick={this.updateConceptResults}>Save Concept Results</button>
           </div>
 
           <p className="control">
@@ -457,7 +458,7 @@ export default React.createClass({
     const authorStyle = { marginLeft: '10px', };
     const showTag = response.author && (response.statusCode === 2 || response.statusCode === 3)
     const author = showTag ? <span style={authorStyle} className="tag is-dark">{response.author}</span> : undefined;
-    const checked = this.props.massEdit.selectedResponses.includes(response.id) ? 'checked' : '';
+    const checked = this.isSelectedForMassEdit() ? 'checked' : '';
     return (
       <div style={{ display: 'flex', alignItems: 'center', }} className={bgColor}>
         <input type="checkbox" checked={checked} onChange={() => this.onMassSelectCheckboxToggle(response.id)} style={{ marginLeft: '15px', }} />
@@ -465,7 +466,7 @@ export default React.createClass({
           <div className="content">
             <div className="media">
               <div className="media-content">
-                <p>{response.text} {author}</p>
+                <p><span style={{ whiteSpace: 'pre-wrap' }}>{response.text}</span> {author}</p>
               </div>
               <div className="media-right" style={{ textAlign: 'right', }}>
                 <figure className="image is-32x32">

@@ -16,8 +16,6 @@ describe AssignRecommendationsWorker do
         let(:teacher) { classroom.owner }
         let(:student) { create(:student) }
         let!(:unit) { create(:unit, name: unit_template.name, user: teacher, visible: false) }
-        let!(:classroom_activity) { create(:classroom_activity, unit: unit, classroom: classroom) }
-
 
         let(:analyzer) { double(:analyzer, track: true) }
 

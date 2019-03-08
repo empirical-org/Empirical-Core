@@ -2,13 +2,14 @@ const C = require('../constants').default;
 
 import rootRef from '../libs/firebase';
 
-const	questionsRef = rootRef.child('questions');
+const	questionsRef = rootRef.child('diagnostic_questions');
 const	responsesRef = rootRef.child('responses');
 const moment = require('moment');
 
 import Pusher from 'pusher-js';
 import request from 'request';
 import _ from 'underscore';
+import _l from 'lodash';
 import { push } from 'react-router-redux';
 import pathwaysActions from './pathways';
 import { submitResponse } from './responses';
@@ -42,7 +43,8 @@ function cancelQuestionEdit(qid) {
 function submitQuestionEdit(qid, content) {
   return (dispatch, getState) => {
     dispatch({ type: C.SUBMIT_QUESTION_EDIT, qid, });
-    questionsRef.child(qid).update(content, (error) => {
+    const cleanedContent = _l.pickBy(content)
+    questionsRef.child(qid).update(cleanedContent, (error) => {
       dispatch({ type: C.FINISH_QUESTION_EDIT, qid, });
       if (error) {
         dispatch({ type: C.DISPLAY_ERROR, error: `Update failed! ${error}`, });

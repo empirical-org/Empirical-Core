@@ -2,8 +2,10 @@ import * as _ from 'underscore';
 import {Response, PartialResponse, IncorrectSequence, FocusPoint, GradingObject} from '../../interfaces';
 import {correctSentenceFromSamples} from 'quill-spellchecker';
 import {getOptimalResponses} from '../sharedResponseFunctions';
+import {conceptResultTemplate} from '../helpers/concept_result_template'
 
 import {exactMatch} from '../matchers/exact_match';
+import {focusPointChecker} from '../matchers/focus_point_match';
 import {incorrectSequenceChecker} from '../matchers/incorrect_sequence_match';
 import {caseInsensitiveChecker} from '../matchers/case_insensitive_match';
 import {punctuationInsensitiveChecker} from '../matchers/punctuation_insensitive_match';
@@ -12,9 +14,6 @@ import {spacingBeforePunctuationChecker} from '../matchers/spacing_before_punctu
 import {spacingAfterCommaChecker} from '../matchers/spacing_after_comma_match';
 import {whitespaceChecker} from '../matchers/whitespace_match';
 import {rigidChangeObjectChecker, flexibleChangeObjectChecker} from '../matchers/change_object_match';
-import {requiredWordsChecker} from '../matchers/required_words_match';
-import {minLengthChecker} from '../matchers/min_length_match';
-import {maxLengthChecker} from '../matchers/max_length_match';
 import {caseStartChecker} from '../matchers/case_start_match';
 import {punctuationEndChecker} from '../matchers/punctuation_end_match';
 import {spellingFeedbackStrings} from '../constants/feedback_strings';
@@ -23,16 +22,22 @@ export function checkGrammarQuestion(
   question_uid: string,
   response: string,
   responses: Array<Response>,
+  focusPoints: Array<FocusPoint>|null,
+  incorrectSequences: Array<IncorrectSequence>|null,
+  defaultConceptUID
 ): Response {
   const data = {
-    response: response.trim(),
+    response: response.trim().replace(/\s{2,}/g, ' '),
     responses,
+    focusPoints,
+    incorrectSequences,
   };
 
   const responseTemplate = {
     text: data.response,
     question_uid,
-    count: 1
+    count: 1,
+    concept_results: defaultConceptUID ? [conceptResultTemplate(defaultConceptUID)] : []
   };
 
   const firstPass = checkForMatches(data, firstPassMatchers); // returns partial response or null
@@ -57,9 +62,11 @@ export function checkGrammarQuestion(
 }
 
 function* firstPassMatchers(data: GradingObject, spellCorrected=false) {
-  const {response, spellCorrectedResponse, responses} = data;
+  const { response, spellCorrectedResponse, responses, focusPoints, incorrectSequences, } = data;
   const submission = spellCorrected ? spellCorrectedResponse : response;
   yield exactMatch(submission, responses);
+  yield focusPointChecker(submission, focusPoints, responses);
+  yield incorrectSequenceChecker(submission, incorrectSequences, responses);
   yield caseInsensitiveChecker(submission, responses);
   yield punctuationInsensitiveChecker(submission, responses);
   yield punctuationAndCaseInsensitiveChecker(submission, responses);
@@ -70,7 +77,7 @@ function* firstPassMatchers(data: GradingObject, spellCorrected=false) {
 }
 
 function* secondPassMatchers(data: GradingObject, spellCorrected=false) {
-  const {response, spellCorrectedResponse, responses} = data;
+  const { response, spellCorrectedResponse, responses } = data;
   yield flexibleChangeObjectChecker(response, responses);
   yield caseStartChecker(response, responses);
   yield punctuationEndChecker(response, responses);
@@ -79,12 +86,14 @@ function* secondPassMatchers(data: GradingObject, spellCorrected=false) {
 function checkForMatches(data: GradingObject, matchingFunction: Function, spellCorrected=false): PartialResponse|null {
   const gen = matchingFunction(data, spellCorrected);
   let next = gen.next();
+
   while (true) {
     if (next.value || next.done) {
       break;
     }
     next = gen.next();
   }
+
   if (next.value) {
     return next.value;
   }

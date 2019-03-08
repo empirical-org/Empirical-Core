@@ -21,17 +21,18 @@ class User < ActiveRecord::Base
   has_many :user_subscriptions
   has_many :subscriptions, through: :user_subscriptions
   has_many :activity_sessions
+  has_many :notifications, dependent: :delete_all
   has_one :schools_users
   has_one :sales_contact
   has_one :school, through: :schools_users
   has_many :schools_i_coordinate, class_name: 'School', foreign_key: 'coordinator_id'
   has_many :schools_i_authorize, class_name: 'School', foreign_key: 'authorizer_id'
 
-
   has_many :schools_admins, class_name: 'SchoolsAdmins'
   has_many :administered_schools, through: :schools_admins, source: :school, foreign_key: :user_id
   has_many :classrooms_teachers
   has_many :classrooms_i_teach, through: :classrooms_teachers, source: :classroom
+  has_many :students_i_teach, through: :classrooms_i_teach, source: :students
 
   has_and_belongs_to_many :districts
   has_one :ip_location
@@ -72,15 +73,13 @@ class User < ActiveRecord::Base
   validate :validate_flags
 
 
-  ROLES      = %w(student teacher temporary user admin staff)
-  SAFE_ROLES = %w(student teacher temporary)
+  ROLES      = %w(student teacher staff)
+  SAFE_ROLES = %w(student teacher)
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
 
-  TESTING_FLAGS = %w(alpha beta)
+  TESTING_FLAGS = %w(alpha beta private)
   PERMISSIONS_FLAGS = %w(auditor purchaser school_point_of_contact)
   VALID_FLAGS = TESTING_FLAGS.dup.concat(PERMISSIONS_FLAGS)
-
-  default_scope -> { where('users.role != ?', 'temporary') }
 
   scope :teacher, lambda { where(role: 'teacher') }
   scope :student, lambda { where(role: 'student') }
@@ -392,6 +391,12 @@ class User < ActiveRecord::Base
     clever_user.district.id
   end
 
+  def teacher_of_student
+    unless classrooms.empty?
+      classrooms.first.owner
+    end
+  end
+
   def send_welcome_email
     UserMailer.welcome_email(self).deliver_now! if email.present? && !auditor?
   end
@@ -436,6 +441,12 @@ class User < ActiveRecord::Base
   def subscribe_to_newsletter
     if self.role == "teacher"
       SubscribeToNewsletterWorker.perform_async(self.id)
+    end
+  end
+
+  def unsubscribe_from_newsletter
+    if self.role == "teacher"
+      UnsubscribeFromNewsletterWorker.perform_async(self.id)
     end
   end
 
@@ -587,14 +598,14 @@ private
   end
 
   def generate_username(classroom_id=nil)
-    self.username = UsernameGenerator.run(self.first_name, self.last_name, get_class_code(classroom_id))
+    self.username = GenerateUsername.new(
+      self.first_name,
+      self.last_name,
+      get_class_code(classroom_id)
+    ).call
   end
 
   def update_invitee_email_address
     Invitation.where(invitee_email: self.email_was).update_all(invitee_email: self.email)
-  end
-
-  def generate_referrer_id
-    ReferrerUser.create(user_id: self.id, referral_code: self.name.downcase.gsub(/[^a-z ]/, '').gsub(' ', '-') + '-' + self.id.to_s)
   end
 end

@@ -13,7 +13,7 @@ class Profile::ActivitySessionSerializer < ActiveModel::Serializer
   end
 
   def due_date
-    object.classroom_activity.formatted_due_date
+    object.formatted_due_date
   end
 
 end

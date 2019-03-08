@@ -36,7 +36,7 @@ exports[`the GoogleClassroomModal component should render 1`] = `
     <img
       alt="close-modal"
       className="pull-right react-bootstrap-close"
-      src="https://assets.quill.org/images/shared/close_x.svg"
+      src="http://cdn.quill.org/images/shared/close_x.svg"
     />
     <h1
       className="q-h2"

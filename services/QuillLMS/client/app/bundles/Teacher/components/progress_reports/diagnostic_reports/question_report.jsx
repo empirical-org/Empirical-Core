@@ -79,7 +79,7 @@ export default React.createClass({
                            columnDefinitions={this.columnDefinitions}
                            hideFaqLink={Boolean(true)}
                            pagination={false}
-                           sourceUrl={`/teachers/progress_reports/question_view/${unitActivityClassroom}`}
+                           sourceUrl={`/teachers/progress_reports/question_view${unitActivityClassroom}`}
                            sortDefinitions={this.sortDefinitions}
                            jsonResultsKey={'data'}
                            colorByScore={Boolean(true)}

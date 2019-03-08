@@ -140,7 +140,7 @@ class FillInBlankForm extends Component {
         <p className="control">
           <textarea className="input" type="text" value={this.state.instructions} onChange={this.handleInstructionsChange}></textarea>
         </p>
-        <label className="label">Cues Label (default is "joining words" for multiple cues and "joining word" for single cues)</label>
+        <label className="label">Cues Label (default is "joining words"/"joining word" for single cues, enter a space to have no label)</label>
         <p className="control">
           <input className="input" type="text" value={this.state.cuesLabel} onChange={this.handleCuesLabelChange}></input>
         </p>

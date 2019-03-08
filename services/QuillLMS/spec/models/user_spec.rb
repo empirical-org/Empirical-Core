@@ -11,6 +11,7 @@ describe User, type: :model do
   #TODO the validation uses a proc, figure out how to stub that
   #it { is_expected.to callback(:update_invitiee_email_address).after(:save).if(proc) }
 
+  it { should have_many(:notifications) }
   it { should have_many(:checkboxes) }
   it { should have_many(:invitations).with_foreign_key('inviter_id') }
   it { should have_many(:objectives).through(:checkboxes) }
@@ -239,8 +240,8 @@ describe User, type: :model do
 
   describe 'constants' do
     it "should give the correct value for all the contstants" do
-      expect(User::ROLES).to eq(%w(student teacher temporary user admin staff))
-      expect(User::SAFE_ROLES).to eq(%w(student teacher temporary))
+      expect(User::ROLES).to eq(%w(student teacher staff))
+      expect(User::SAFE_ROLES).to eq(%w(student teacher))
       expect(User::VALID_EMAIL_REGEX).to eq(/\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i)
     end
   end
@@ -516,7 +517,7 @@ describe User, type: :model do
   describe 'User scope' do
     describe '::ROLES' do
       it 'must contain all roles' do
-        %w(student teacher temporary user admin staff).each do |role|
+        %w(student teacher staff).each do |role|
           expect(User::ROLES).to include role
         end
       end
@@ -524,7 +525,7 @@ describe User, type: :model do
 
     describe '::SAFE_ROLES' do
       it 'must contain safe roles' do
-        %w(student teacher temporary).each do |role|
+        %w(student teacher).each do |role|
           expect(User::SAFE_ROLES).to include role
         end
       end
@@ -763,11 +764,6 @@ describe User, type: :model do
       user.safe_role_assignment 'student'
       expect(user).to be_permanent
     end
-
-    it 'must be false for temporary' do
-      user.safe_role_assignment 'temporary'
-      expect(user).to_not be_permanent
-    end
   end
 
   describe '#requires_password?' do
@@ -776,11 +772,6 @@ describe User, type: :model do
     it 'returns true for all roles but temporary' do
       user.safe_role_assignment 'user'
       expect(user.send(:requires_password?)).to eq(true)
-    end
-
-    it 'returns false for temporary role' do
-      user.safe_role_assignment 'temporary'
-      expect(user.send(:requires_password?)).to eq(false)
     end
   end
 
@@ -852,14 +843,6 @@ describe User, type: :model do
         it 'is valid with password' do
           user = build(:user, password: 'somepassword')
           user.safe_role_assignment 'student'
-          expect(user).to be_valid
-        end
-      end
-
-      context 'when role does not require password' do
-        it 'is valid without password' do
-          user = build(:user, password: nil)
-          user.safe_role_assignment 'temporary'
           expect(user).to be_valid
         end
       end

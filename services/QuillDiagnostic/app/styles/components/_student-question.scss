@@ -282,7 +282,8 @@ progress[value]::-webkit-progress-value {
 
 .landing-page {
   padding-top: 20px;
-  h1 {
+  font-size: 20px;
+  h1, h3 {
     font-size: 30px;
     font-family: $family-sans-serif;
     color: #2f2f2f;
@@ -290,11 +291,14 @@ progress[value]::-webkit-progress-value {
   p {
     max-width: 600px;
     margin-top: 13px;
-    font-size: 20px;
     color: #464646;
     &.second-p {
       margin-top: 25px;
     }
+  }
+  ul {
+    list-style: disc;
+    margin-left: 25px;
   }
   button {
     margin-top: 40px;
@@ -302,6 +306,10 @@ progress[value]::-webkit-progress-value {
       margin-top: -2px;
       margin-left: 10px;
     }
+  }
+  blockquote {
+    padding: 20px;
+    background-color: white;
   }
 }
 
@@ -334,14 +342,14 @@ progress[value]::-webkit-progress-value {
       color: #457818;
     }
 
-    animation: successpulse 0.8s 1; 
+    animation: successpulse 0.8s 1;
 
     @keyframes successpulse {
       0%  {
         background-color: #d3e7bd;
       }
       50% {
-        background-color: #c0e09c; 
+        background-color: #c0e09c;
       }
       100% {
         background-color: #d3e7bd;
@@ -353,14 +361,14 @@ progress[value]::-webkit-progress-value {
     background-color: #ffe4b7;
     padding: 13 17 16 20;
     border-left: 3px solid #f5ba5b;
-    animation: revisepulse 0.8s 1; 
+    animation: revisepulse 0.8s 1;
 
     @keyframes revisepulse {
       0%  {
         background-color: #ffe4b7;
       }
       50% {
-        background-color: #f5ba5b; 
+        background-color: #f5ba5b;
       }
       100% {
         background-color: #ffe4b7;

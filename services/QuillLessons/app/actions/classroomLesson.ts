@@ -72,14 +72,14 @@ export function updateClassroomLessons(data) {
 
 export function updateClassroomLessonsReviews(data) {
   const reviewsGroupedByClassroomLessonId = {}
-  const classroomActivityIds = Object.keys(data)
-  classroomActivityIds.forEach((ca_id) => {
-    const review = data[ca_id]
+  const classroomUnitIds = Object.keys(data)
+  classroomUnitIds.forEach((classroomUnitId) => {
+    const review = data[classroomUnitId]
     const lessonId = review.activity_id
     if (reviewsGroupedByClassroomLessonId[lessonId]) {
-      reviewsGroupedByClassroomLessonId[lessonId][ca_id] = review
+      reviewsGroupedByClassroomLessonId[lessonId][classroomUnitId] = review
     } else {
-      reviewsGroupedByClassroomLessonId[lessonId] = { [ca_id]: review }
+      reviewsGroupedByClassroomLessonId[lessonId] = { [classroomUnitId]: review }
     }
   })
   return ({type: C.RECEIVE_CLASSROOM_LESSONS_REVIEW_DATA, data: reviewsGroupedByClassroomLessonId})

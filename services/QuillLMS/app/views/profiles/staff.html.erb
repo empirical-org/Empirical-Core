@@ -4,7 +4,7 @@
       <table class="table">
       <thead><tr><th>Staff Console</th></tr></thead>
       <tbody>
-      <tr><td><%= link_to 'Rails Admin - Master CMS (Beta)', '/staff/user' %></td></tr>
+      <tr><td><%= link_to 'Rails Admin - Master CMS (Beta)', '/staff/activity' %></td></tr>
       <tr><td><%= link_to 'User Manager', cms_users_path %></td></tr>
       <tr><td><%= link_to 'School Manager', cms_schools_path %></td></tr>
       <tr><td><%= link_to 'Partnerships Page', 'https://sites.google.com/a/quill.org/quill-partnerships/teachers' %></td></tr>
@@ -58,11 +58,10 @@
       <table class="table">
       <thead><tr><th>Concept Management System</th></tr></thead>
       <tbody>
-      <tr><td><%= link_to 'Quill Rules Manager', ActivityClassification.find(1).module_url.sub('play/pf', 'cms') %></td></tr>
       <tr><td><%= link_to 'Sections Manager (Standard Level)', cms_sections_path %></td></tr>
       <tr><td><%= link_to "Topic Categories Manager", cms_topic_categories_path %></td></tr>
       <tr><td><%= link_to 'Topics Manager (Standard)', cms_topics_path %></td></tr>
-      <tr><td><%= link_to "Concepts Manager (Create level 2 & 1 here)", cms_concepts_path %></td></tr>
+      <tr><td><%= link_to "Concepts Manager", cms_concepts_path %></td></tr>
       <tr><td><%= link_to "Activity Category Manager", cms_activity_categories_path %></td></tr>
     </tbody>
       </table>

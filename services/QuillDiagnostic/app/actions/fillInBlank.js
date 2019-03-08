@@ -1,6 +1,6 @@
 const C = require('../constants').default;
 import rootRef from '../libs/firebase';
-const	fillInBlankQuestionsRef = rootRef.child('fillInBlankQuestions');
+const	fillInBlankQuestionsRef = rootRef.child('diagnostic_fillInBlankQuestions');
 const	responsesRef = rootRef.child('responses');
 const moment = require('moment');
 import _ from 'lodash';
@@ -34,7 +34,8 @@ const actions = {
   submitQuestionEdit(qid, content) {
     return function (dispatch, getState) {
       dispatch({ type: C.SUBMIT_FILL_IN_BLANK_QUESTION_EDIT, qid, });
-      fillInBlankQuestionsRef.child(qid).update(content, (error) => {
+      const cleanedContent = _.pickBy(content, value => !!value || value === false)
+      fillInBlankQuestionsRef.child(qid).update(cleanedContent, (error) => {
         dispatch({ type: C.FINISH_FILL_IN_BLANK_QUESTION_EDIT, qid, });
         if (error) {
           dispatch({ type: C.DISPLAY_ERROR, error: `Update failed! ${error}`, });

@@ -29,6 +29,7 @@ class EditFillInBlank extends Component {
       itemLevel: fillInBlankQuestion.itemLevel,
       conceptID: fillInBlankQuestion.conceptID,
       flag: fillInBlankQuestion.flag,
+      cuesLabel: fillInBlankQuestion.cuesLabel
     };
   }
 

@@ -2,7 +2,7 @@ import _ from 'lodash';
 import { push } from 'react-router-redux';
 import rootRef from '../libs/firebase';
 
-const	titleCardsRef = rootRef.child('titleCards')
+const	titleCardsRef = rootRef.child('diagnostic_titleCards')
 // const moment = require('moment');
 const C = require('../constants').default;
 

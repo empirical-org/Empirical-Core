@@ -46,8 +46,10 @@
         content: none;
       }
     }
-    .rt-th:last-of-type, .rt-td:last-of-type {
-      display: none;
+    &:not(.concept-student-concepts) {
+      .rt-th:last-of-type, .rt-td:last-of-type {
+        display: none;
+      }
     }
   }
 

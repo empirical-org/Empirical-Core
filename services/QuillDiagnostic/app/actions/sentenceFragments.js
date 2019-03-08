@@ -3,7 +3,7 @@ import pathwaysActions from './pathways.js';
 import rootRef from '../libs/firebase';
 import { submitResponse } from './responses';
 import { push } from 'react-router-redux';
-let	sentenceFragmentsRef = rootRef.child('sentenceFragments'),
+let	sentenceFragmentsRef = rootRef.child('diagnostic_sentenceFragments'),
 moment = require('moment');
 import _ from 'lodash';
 

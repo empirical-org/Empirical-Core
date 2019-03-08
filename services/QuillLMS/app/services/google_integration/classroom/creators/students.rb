@@ -50,13 +50,22 @@ module GoogleIntegration::Classroom::Creators::Students
       student = User.find_or_initialize_by(email: data[:email].downcase)
       if student.new_record?
         classroom = Classroom.unscoped.find(data[:classrooms].first)
-        username = UsernameGenerator.run(data[:first_name], data[:last_name], classroom.code)
+        username = GenerateUsername.new(
+          data[:first_name],
+          data[:last_name],
+          classroom.code
+        ).call
         student.update(name: data[:name],
                        role: 'student',
                        password: data[:last_name],
                        username: username,
-                       signed_up_with_google: true)
+                       signed_up_with_google: true,
+                       account_type: 'Google Classroom'
+                      )
+      else
+        student.update(account_type: 'Google Classroom')
       end
+
       if student.errors.any?
         student = self.create_student(data, counter += 1)
       else

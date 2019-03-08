@@ -20,7 +20,8 @@ class ResponsesController < ApplicationController
 
   # POST /responses
   def create
-    @response = Response.new(response_params)
+    new_vals = transformed_new_vals(response_params)
+    @response = Response.new(new_vals)
     if @response.save
       AdminUpdates.run(@response.question_uid)
       render json: @response, status: :created, location: @response
@@ -33,7 +34,8 @@ class ResponsesController < ApplicationController
   def create_or_increment
     response = Response.where(text: response_params[:text], question_uid: response_params[:question_uid])[0]
     if !response
-      response = Response.new(params_for_create)
+      new_vals = transformed_new_vals(params_for_create)
+      response = Response.new(new_vals)
       if response.save
         AdminUpdates.run(response.question_uid)
         render json: response, status: :created, location: response
@@ -45,15 +47,12 @@ class ResponsesController < ApplicationController
 
   # PATCH/PUT /responses/1
   def update
-    new_vals = response_params
-    if new_vals[:concept_results]
-      if new_vals[:concept_results].empty?
-        new_vals[:concept_results] = nil
-      else
-        new_vals[:concept_results] = concept_results_to_boolean(new_vals[:concept_results])
+    new_vals = transformed_new_vals(response_params)
+    updated_response = @response.update(new_vals)
+    if updated_response
+      if @response.optimal != nil
+        Rails.cache.delete("questions/#{@response.question_uid}/responses")
       end
-    end
-    if @response.update(new_vals)
       render json: @response
     else
       render json: @response.errors, status: :unprocessable_entity
@@ -67,8 +66,19 @@ class ResponsesController < ApplicationController
 
   # GET /questions/:question_uid/responses
   def responses_for_question
-    @responses = Response.where(question_uid: params[:question_uid]).where.not(optimal: nil).where(parent_id: nil)
+    @responses = Rails.cache.fetch("questions/#{params[:question_uid]}/responses", :expires_in => 900) do
+      Response.where(question_uid: params[:question_uid]).where.not(optimal: nil).where(parent_id: nil).to_a
+    end
     render json: @responses
+  end
+
+  def multiple_choice_options
+    multiple_choice_options = Rails.cache.fetch("questions/#{params[:question_uid]}/multiple_choice_options", :expires_in => 900) do
+      optimal_responses = Response.where(question_uid: params[:question_uid], optimal: true).order('count DESC').limit(2).to_a
+      sub_optimal_responses = Response.where(question_uid: params[:question_uid], optimal: false).order('count DESC').limit(2).to_a
+      optimal_responses.concat(sub_optimal_responses)
+    end
+    render json: multiple_choice_options
   end
 
   def get_health_of_question
@@ -90,7 +100,7 @@ class ResponsesController < ApplicationController
     non_blank_selected_sequences = selected_sequences.select { |ss| ss.length > 0}
     matched_responses_count = 0
     responses.each do |response|
-      no_matching_used_sequences = used_sequences.none? { |us| s.length > 0 && Regexp.new(us).match(response.text) }
+      no_matching_used_sequences = used_sequences.none? { |us| us.length > 0 && Regexp.new(us).match(response.text) }
       matching_selected_sequence = non_blank_selected_sequences.any? do |ss|
         sequence_particles = ss.split('&&')
         sequence_particles.all? { |sp| sp.length > 0 && Regexp.new(sp).match(response.text)}
@@ -151,6 +161,29 @@ class ResponsesController < ApplicationController
     question_uids = params[:question_uids]
     questions_with_responses = Response.where(question_uid: question_uids).where.not(optimal: nil).where(parent_id: nil).group_by(&:question_uid)
     render json: {questionsWithResponses: questions_with_responses}.to_json
+  end
+
+  def replace_concept_uids
+    original_concept_uid = params[:original_concept_uid]
+    new_concept_uid = params[:new_concept_uid]
+    ActiveRecord::Base.connection.execute("
+      UPDATE responses
+      SET concept_results = concept_results - '#{original_concept_uid}' || jsonb_build_object('#{new_concept_uid}', concept_results->'#{original_concept_uid}')
+      WHERE concept_results ->> '#{original_concept_uid}' IS NOT NULL
+    ")
+  end
+
+  def clone_responses
+    Response.where(question_uid: params[:original_question_uid]).each do |r|
+      new_record = r.dup
+      new_record.update(question_uid: params[:new_question_uid])
+    end
+    render json: :ok
+  end
+
+  def reindex_responses_updated_today_for_given_question
+    question_uid = params[:question_uid]
+    Response.__elasticsearch__.import query: -> { where("question_uid = ? AND updated_at >= ?", question_uid, Time.zone.now.beginning_of_day) }
   end
 
   private
@@ -235,9 +268,15 @@ class ResponsesController < ApplicationController
     end
 
     def concept_results_to_boolean(concept_results)
+      new_concept_results = {}
       concept_results.each do |key, val|
-        concept_results[key] = val == 'true' || val == true
+        if val.respond_to?(:keys)
+          new_concept_results[val['conceptUID']] = val['correct'] == 'true' || val == true
+        else
+          new_concept_results[key] = val == 'true' || val == true
+        end
       end
+      new_concept_results
     end
 
     def increment_child_count_of_parent(response)
@@ -251,5 +290,17 @@ class ResponsesController < ApplicationController
         parent = find_by_id_or_uid(id)
         parent.increment!(:child_count) unless parent.nil?
       end
+    end
+
+    def transformed_new_vals(response_params)
+      new_vals = response_params
+      if new_vals[:concept_results]
+        if new_vals[:concept_results].empty?
+          new_vals[:concept_results] = nil
+        else
+          new_vals[:concept_results] = concept_results_to_boolean(new_vals[:concept_results])
+        end
+      end
+      return new_vals
     end
 end

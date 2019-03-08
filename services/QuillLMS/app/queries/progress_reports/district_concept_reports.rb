@@ -31,15 +31,15 @@ class ProgressReports::DistrictConceptReports
         JOIN users AS teachers on teachers.id = schools_users.user_id
         JOIN classrooms_teachers ON classrooms_teachers.user_id = teachers.id AND classrooms_teachers.role = 'owner'
         JOIN classrooms ON classrooms.id = classrooms_teachers.classroom_id
-        JOIN classroom_activities ON classroom_activities.classroom_id =
+        JOIN classroom_units ON classroom_units.classroom_id =
           classrooms.id
-        JOIN activity_sessions ON activity_sessions.classroom_activity_id =
-          classroom_activities.id
+        JOIN activity_sessions ON activity_sessions.classroom_unit_id =
+          classroom_units.id
         JOIN users AS students ON students.id = activity_sessions.user_id
         JOIN concept_results ON concept_results.activity_session_id =
           activity_sessions.id
-        WHERE schools_admins.user_id = #{admin_id}
-        GROUP BY students.id, teachers.name, classrooms.name, schools.name
+        WHERE schools_admins.user_id = #{@admin_id}
+        GROUP BY student_id, teacher_name, classroom_name, school_name
     )
     SELECT
       school_name,
@@ -54,4 +54,3 @@ class ProgressReports::DistrictConceptReports
   end
 
 end
-

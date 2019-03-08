@@ -106,7 +106,10 @@ module.exports = {
         // inject <script> in html file.
         new OpenBrowserPlugin({url: 'http://localhost:7000'}),
         new webpack.DefinePlugin({
-          "process.env.EMPIRICAL_BASE_URL": JSON.stringify('http://localhost:3000')
+          "process.env.EMPIRICAL_BASE_URL": JSON.stringify('http://localhost:3000'),
+          "process.env.QUILL_CMS": JSON.stringify('http://localhost:3100'),
+          "process.env.PUSHER_KEY": JSON.stringify('a253169073ce7474f0ce'),
+          "process.env.QUILL_CDN_URL": JSON.stringify('http://localhost:45537')
         })
     ],
     node: {

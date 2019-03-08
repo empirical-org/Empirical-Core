@@ -8,7 +8,7 @@ export default class ChooseClassroomLesson extends React.Component {
     this.state = {
       loading: true,
       activityName: '',
-      classroomActivities: []
+      classroomUnits: []
     }
 
     this.getClassroomLessonInfo()
@@ -20,7 +20,7 @@ export default class ChooseClassroomLesson extends React.Component {
     request.get(`${process.env.DEFAULT_URL}/teachers/units/lesson_info_for_activity/${this.props.params.activityId}`, (error, httpStatus, body) => {
       const data = JSON.parse(body)
       this.setState({
-        classroomActivities: data.classroom_activities,
+        classroomUnits: data.classroom_units,
         activityName: data.activity_name[0].name,
         loading: false
       })
@@ -28,17 +28,17 @@ export default class ChooseClassroomLesson extends React.Component {
   }
 
   renderClasses() {
-    const classrooms = this.state.classroomActivities.map((ca, i) =>
+    const classrooms = this.state.classroomUnits.map((ca, i) =>
       this.renderClassroomRow(ca, i)
     )
     return <div>{classrooms}</div>
   }
 
-  renderClassroomRow(ca, i) {
-    const numberOfStudents = `${ca.number_of_assigned_students} student${ca.number_of_assigned_students === 1 ? '' : 's'}`
-    const selectedClassName = ca.id === this.state.selectedClassroomActivityId ? 'selected' : null
+  renderClassroomRow(cu, i) {
+    const numberOfStudents = `${cu.number_of_assigned_students} student${cu.number_of_assigned_students === 1 ? '' : 's'}`
+    const selectedClassName = cu.id === this.state.classroomUnitId ? 'selected' : null
     let completionText, completionClass, imgName, clickFunction
-    if (ca.completed) {
+    if (cu.completed) {
       completionText = <span className="completed-text"><i className="fa fa-check-circle" /> Lesson Completed*</span>
       completionClass = 'completed'
       imgName = "radio_button_light_gray"
@@ -46,25 +46,25 @@ export default class ChooseClassroomLesson extends React.Component {
       completionText = <span/>
       completionClass = 'incomplete'
       imgName = selectedClassName ? "radio_button_selected" : "radio_button_empty"
-      clickFunction = () => {this.setSelectedClassroomActivityId(ca.id)}
+      clickFunction = () => {this.setSelectedClassroomUnitId(cu.id)}
     }
     return <div key={i} onClick={clickFunction} className={`classroom-row ${selectedClassName} ${completionClass}`}>
       <div>
         <img src={`${process.env.CDN_URL}/images/shared/${imgName}.svg`}/>
-        <span>{ca.classroom_name}</span> ({numberOfStudents})
+        <span>{cu.classroom_name}</span> ({numberOfStudents})
       </div>
       {completionText}
     </div>
   }
 
-  setSelectedClassroomActivityId(id) {
-    this.setState({selectedClassroomActivityId: id})
+  setSelectedClassroomUnitId(id) {
+    this.setState({ classroomUnitId: id })
   }
 
   launchLessonLink() {
-    const classroomActivityId = this.state.selectedClassroomActivityId
+    const classroomUnitId = this.state.classroomUnitId
     const lessonId = this.props.routeParams.activityId
-    return `${process.env.DEFAULT_URL}/teachers/classroom_activities/${classroomActivityId}/launch_lesson/${lessonId}`
+    return `${process.env.DEFAULT_URL}/teachers/classroom_units/${classroomUnitId}/launch_lesson/${lessonId}`
   }
 
   goBack() {
@@ -72,8 +72,8 @@ export default class ChooseClassroomLesson extends React.Component {
   }
 
   render() {
-    const buttonClass = this.state.selectedClassroomActivityId ? 'bg-quillgreen' : ''
-    const text = this.state.selectedClassroomActivityId && this.state.classroomActivities.find(ca => ca.id === this.state.selectedClassroomActivityId).started === true
+    const buttonClass = this.state.classroomUnitId ? 'bg-quillgreen' : ''
+    const text = this.state.classroomUnitId && this.state.classroomUnits.find(cu => cu.id === this.state.classroomUnitId).started === true
           ? 'Resume Lesson'
           : 'Launch Lesson'
     if (this.state.loading) {

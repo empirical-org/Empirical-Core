@@ -7,15 +7,15 @@ class ProgressReports::Standards::AllClassroomsTopic
   def results(classroom_id, student_id)
     ActiveRecord::Base.connection.execute("WITH final_activity_sessions AS
      (SELECT activity_sessions.*, activities.topic_id FROM activity_sessions
-          JOIN classroom_activities ON activity_sessions.classroom_activity_id = classroom_activities.id
-          JOIN activities ON classroom_activities.activity_id = activities.id
+          JOIN classroom_units ON activity_sessions.classroom_unit_id = classroom_units.id
+          JOIN activities ON activity_sessions.activity_id = activities.id
           JOIN topics ON topics.id = activities.topic_id
           #{classroom_joins(classroom_id)}
           WHERE activity_sessions.is_final_score
           #{student_condition(student_id)}
           #{classroom_condition(classroom_id)}
           AND activity_sessions.visible
-          AND classroom_activities.visible)
+          AND classroom_units.visible)
       SELECT topics.id,
         topics.name,
         sections.name as section_name,
@@ -36,13 +36,13 @@ class ProgressReports::Standards::AllClassroomsTopic
 
   def classroom_joins(classroom_id)
     if !classroom_id
-      "JOIN classrooms ON classroom_activities.classroom_id = classrooms.id JOIN classrooms_teachers ON classrooms.id = classrooms_teachers.classroom_id AND classrooms_teachers.user_id = #{@teacher.id} AND classrooms.visible = true"
+      "JOIN classrooms ON classroom_units.classroom_id = classrooms.id JOIN classrooms_teachers ON classrooms.id = classrooms_teachers.classroom_id AND classrooms_teachers.user_id = #{@teacher.id} AND classrooms.visible = true"
     end
   end
 
   def classroom_condition(classroom_id)
     if classroom_id
-      "AND classroom_activities.classroom_id = #{classroom_id}"
+      "AND classroom_units.classroom_id = #{classroom_id}"
     end
   end
 

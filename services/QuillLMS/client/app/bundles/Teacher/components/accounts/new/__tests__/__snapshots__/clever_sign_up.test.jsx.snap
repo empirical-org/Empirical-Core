@@ -1,15 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`CleverSignUp component should render 1`] = `
-<button
+<a
   className="clever-sign-up"
-  onClick={[Function]}
+  href=""
 >
   <img
-    src="https://assets.quill.org/images/shared/clever_icon.svg"
+    src="http://cdn.quill.org/images/shared/clever_icon.svg"
   />
   <span>
     Sign up with Clever
   </span>
-</button>
+</a>
 `;

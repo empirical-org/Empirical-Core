@@ -13,7 +13,7 @@ class Cms::RecommendationsController < Cms::CmsController
   end
 
   def new
-    @concepts = Concept.all
+    @concepts = Concept.where(visible: true)
     @recommendation = Recommendation.new
   end
 
@@ -54,7 +54,7 @@ class Cms::RecommendationsController < Cms::CmsController
   def sort
     recommendation_ids = params[:order].split(',')
 
-    if RecommendationsOrderer.new(recommendation_ids).update_order
+    if OrderRecommendations.new(recommendation_ids).update_order
       flash[:notice] = 'Recommendation order updated!'
     else
       flash[:error] = 'Unable to update Recommendation order.'

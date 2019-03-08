@@ -44,4 +44,24 @@ describe Concept, type: :model do
       expect(root['level']).to eq(1)
     end
   end
+
+  describe ".find" do
+    it "can find by uid string" do
+      uid = 'a2423kahfadf32'
+      concept = create(:concept, id: '999', uid: uid)
+
+      result = Concept.find_by_id_or_uid(uid)
+
+      expect(result).to eq(concept)
+    end
+
+    it "can find by numeric id" do
+      id = 999
+      concept = create(:concept, id: id, uid: 'a2423kahfadf32')
+
+      result = Concept.find_by_id_or_uid(id)
+
+      expect(result).to eq(concept)
+    end
+  end
 end
