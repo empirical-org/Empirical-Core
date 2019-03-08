@@ -318,7 +318,7 @@
       span {
         padding-right: 5px;
       }
-      i {
+      i, svg {
         color: red;
       }
     }
@@ -433,6 +433,11 @@
     height: 52px;
     .lesson-name {
       cursor: pointer;
+      width: 410px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      text-align: left;
     }
   }
 }

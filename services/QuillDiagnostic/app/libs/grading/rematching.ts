@@ -4,7 +4,7 @@ import * as _ from 'underscore';
 import { hashToCollection } from 'quill-component-library/dist/componentLibrary';
 
 // const qml = require('quill-marking-logic')
-import { checkSentenceCombining, checkDiagnosticSentenceFragment, checkDiagnosticQuestion, checkFillInTheBlankQuestion, ConceptResult } from 'quill-marking-logic'
+import { checkDiagnosticSentenceFragment, checkDiagnosticQuestion, checkFillInTheBlankQuestion, ConceptResult } from 'quill-marking-logic'
 import objectWithSnakeKeysFromCamel from '../objectWithSnakeKeysFromCamel.js';
 
 interface Question {
@@ -160,12 +160,13 @@ function unmatchRematchedResponse(response) {
 }
 
 function updateRematchedResponse(response, newResponse) {
+  const conceptResults = newResponse.response.conceptResults || newResponse.response.concept_results
   const newVals = {
     weak: false,
     parent_id: newResponse.response.parent_id,
     author: newResponse.response.author,
     feedback: newResponse.response.feedback,
-    concept_results: convertResponsesArrayToHash(newResponse.response.concept_results),
+    concept_results: convertResponsesArrayToHash(conceptResults)
   };
   return updateResponse(response.id, newVals);
 }
@@ -187,10 +188,11 @@ function updateResponse(rid, content) {
 
 function determineDelta(response, newResponse) {
   const unmatched = !newResponse.response.author && !!response.author;
+  const conceptResults = newResponse.response.conceptResults || newResponse.response.concept_results
   const parentIDChanged = (newResponse.response.parent_id? parseInt(newResponse.response.parent_id) : null) !== response.parent_id;
   const authorChanged = newResponse.response.author != response.author;
   const feedbackChanged = newResponse.response.feedback != response.feedback;
-  const conceptResultsChanged = !_.isEqual(convertResponsesArrayToHash(newResponse.response.concept_results), response.concept_results);
+  const conceptResultsChanged = !_.isEqual(convertResponsesArrayToHash(conceptResults), response.concept_results);
   const changed = parentIDChanged || authorChanged || feedbackChanged || conceptResultsChanged;
   if (changed) {
     if (unmatched) {
@@ -208,18 +210,16 @@ function saveResponses(responses) {
 function getMatcher(mode:string):Function {
   if (mode === 'sentenceFragments') {
     return checkDiagnosticSentenceFragment;
-  } else if (mode === 'diagnosticQuestions') {
-    return checkDiagnosticQuestion;
   } else if (mode === 'fillInBlank') {
     return checkFillInTheBlankQuestion;
   }
-  return checkSentenceCombining;
+  return checkDiagnosticQuestion;
 }
 
 function getMatcherFields(mode:string, question:Question, responses:{[key:string]: Response}) {
 
   const responseArray = hashToCollection(responses);
-  const focusPoints = question.focusPoints ? hashToCollection(question.focusPoints) : [];
+  const focusPoints = question.focusPoints ? hashToCollection(question.focusPoints).sort((a, b) => a.order - b.order) : [];
   const incorrectSequences = question.incorrectSequences ? hashToCollection(question.incorrectSequences) : [];
   const defaultConceptUID = question.modelConceptUID || question.conceptID
 

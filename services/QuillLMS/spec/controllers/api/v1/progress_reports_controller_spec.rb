@@ -54,7 +54,7 @@ describe Api::V1::ProgressReportsController, type: :controller do
 
     it 'should return the district activit scores progress reports' do
       get :district_activity_scores, format: :json
-      expect(response.body).to eq({data: "some data"}.to_json)
+      expect(response.body).to eq({id: teacher.id}.to_json)
     end
   end
 
@@ -65,9 +65,9 @@ describe Api::V1::ProgressReportsController, type: :controller do
       allow_any_instance_of(ProgressReports::DistrictConceptReports).to receive(:results) { "some data" }
     end
 
-    it 'should return the district activit scores progress reports' do
+    it 'should return the district activity scores progress reports' do
       get :district_concept_reports, format: :json
-      expect(response.body).to eq({data: "some data"}.to_json)
+      expect(response.body).to eq({id: teacher.id}.to_json)
     end
   end
 
@@ -80,7 +80,7 @@ describe Api::V1::ProgressReportsController, type: :controller do
 
     it 'should return the district activit scores progress reports' do
       get :district_standards_reports, format: :json
-      expect(response.body).to eq({data: "some data"}.to_json)
+      expect(response.body).to eq({id: teacher.id}.to_json)
     end
   end
 end

@@ -80,4 +80,16 @@ class UserMailer < ActionMailer::Base
     mail to: ["Becca Garrison <becca@quill.org>", "Amr Thameen <amr@quill.org>", "Emilia Friedberg <emilia@quill.org>"], subject: "#{user.name} has purchased School Premium for a missing school"
   end
 
+  def recommendations_assignment_report_email
+    @independent_less_than_ten_seconds = $redis.get("diagnostic_recommendations_under_ten_seconds_count") || 0
+    @group_less_than_ten_seconds = $redis.get("lesson_diagnostic_recommendations_under_ten_seconds_count") || 0
+    @independent_more_than_ten_seconds = $redis.get("diagnostic_recommendations_over_ten_seconds_count") || 0
+    @group_more_than_ten_seconds = $redis.get("lesson_diagnostic_recommendations_over_ten_seconds_count") || 0
+    independent_total_recommendations = @independent_more_than_ten_seconds.to_i + @independent_less_than_ten_seconds.to_i
+    group_total_recommendations = @group_more_than_ten_seconds.to_i + @group_less_than_ten_seconds.to_i
+    @percentage_of_independent_less_than_ten_seconds = independent_total_recommendations > 0 ? (@independent_less_than_ten_seconds.to_f/independent_total_recommendations) * 100 : 100
+    @percentage_of_group_less_than_ten_seconds = group_total_recommendations > 0 ? (@group_less_than_ten_seconds.to_f/group_total_recommendations) * 100 : 100
+    mail to: ["Dev Tools <devtools@quill.org>", "Emilia Friedberg <emilia@quill.org>", "Thomas Robertson <thomasrobertson@quill.org>"], subject: "Recommendations Assignment Report"
+  end
+
 end

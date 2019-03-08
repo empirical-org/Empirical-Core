@@ -9,7 +9,7 @@ module Units::Creator
     teacher = User.find(teacher_id)
     activities_data = ActiveRecord::Base.connection.execute("
       SELECT activities.id FROM activities JOIN activities_unit_templates ON
-      activities.id = activity_id WHERE unit_template_id = #{unit_template_id} 
+      activities.id = activity_id WHERE unit_template_id = #{unit_template_id}
       ORDER BY activities_unit_templates.id;
     ").map { |a| {id: a["id"].to_i, due_date: nil}}
 
@@ -26,7 +26,7 @@ module Units::Creator
     teacher = User.find(teacher_id)
     activities_data = ActiveRecord::Base.connection.execute("
       SELECT activities.id FROM activities JOIN activities_unit_templates ON
-      activities.id = activity_id WHERE unit_template_id = #{unit_template_id} 
+      activities.id = activity_id WHERE unit_template_id = #{unit_template_id}
       ORDER BY activities_unit_templates.id;
     ").map { |a| {id: a["id"].to_i, due_date: nil}}
     self.create_helper(teacher, unit_template.name, activities_data, classroom_array, unit_template_id, current_user_id)
