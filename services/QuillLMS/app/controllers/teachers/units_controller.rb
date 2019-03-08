@@ -231,7 +231,8 @@ class Teachers::UnitsController < ApplicationController
          #{ActiveRecord::Base.sanitize(teach_own_or_coteach)} AS teach_own_or_coteach,
          unit_owner.name AS owner_name,
          ua.id AS unit_activity_id,
-         CASE WHEN unit_owner.id = #{current_user.id} THEN TRUE ELSE FALSE END AS owned_by_current_user
+         CASE WHEN unit_owner.id = #{current_user.id} THEN TRUE ELSE FALSE END AS owned_by_current_user,
+         (SELECT COUNT(DISTINCT user_id) FROM activity_sessions WHERE state = 'started' AND classroom_unit_id = cu.id AND activity_sessions.activity_id = activities.id AND activity_sessions.visible) AS started_count
       FROM units
         INNER JOIN classroom_units AS cu ON cu.unit_id = units.id
         INNER JOIN unit_activities AS ua ON ua.unit_id = units.id

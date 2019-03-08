@@ -49,12 +49,12 @@
    		<% end %>
 
   		<%- if current_user.nil? %>
-  		<a href="/session/new" class="text-white nav-element">Log In</a>
-  		<a href="/account/new" class="sign-up-button text-white nav-element">Sign Up</a>
+    		<a href="/session/new" class="text-white nav-element">Log In</a>
+    		<a href="/account/new" class="sign-up-button text-white nav-element">Sign Up</a>
   		<%- elsif current_user.role == 'teacher' %>
   			<div class='navigation-vertical-rule hide-on-mobile nav-element'></div>
   			<div id="nav-user-dropdown" class="dropdown-closed hide-on-mobile nav-element <%= user_dropdown_class %>">
-  				<span onclick="toggleDropdown()" class='user-dropdown-button'><span><img class='user-dropdown-button-img' src=<%="#{user_dropdown_img}"%>></img><%="#{current_user.name}"%></span></span>
+  				<span onclick="toggleDropdown()" class='user-dropdown-button'><img class='user-dropdown-button-img' src=<%="#{user_dropdown_img}"%>></img><%="#{current_user.name}"%></span>
   				<div>
   					<i class="fa fa-caret-up"></i>
   					<%= link_to raw(
@@ -98,13 +98,14 @@
   				</div>
   			</div>
   		<%- elsif current_user.role == 'student' %>
+  			<%= link_to raw("<i class='fa fa-fw fa-question-circle' aria-hidden='true'></i> Student Center"), '/student-center', class: "text-white nav-element" %>
   			<%= link_to raw("<i class='fa fa-fw fa-plus-circle' aria-hidden='true'></i>  Join a Class"), '/add_classroom', class: "text-white nav-element" %>
   			<%= link_to raw("<i class='fa fa-fw fa-cog' aria-hidden='true'></i>  Account Settings"), account_settings_path, class: "text-white nav-element" %>
   			<%= link_to "Logout", '/session' , class: "text-white nav-element"%>
   		<% else %>
   		<%= link_to "Logout", '/session', class: "text-white nav-element"%>
-  		<% end %>
-    </div>
+    <% end %>
+  </div>
   <% end %>
 
 	<% if !on_sign_up_or_log_in %>
