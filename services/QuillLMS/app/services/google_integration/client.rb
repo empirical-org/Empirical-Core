@@ -18,7 +18,7 @@ class GoogleIntegration::Client
   private
 
   def access_token
-    verified_credentials.access_token
+    verified_credentials&.access_token
   end
 
   def verified_credentials

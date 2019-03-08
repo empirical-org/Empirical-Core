@@ -20,10 +20,11 @@
   content: "\f0d7";
   font-size: 37px;
   position: absolute;
-  bottom: -20px; 
+  bottom: -20px;
   color: #c0c0c0;
   z-index: -1;
-  font-family: "FontAwesome";
+  font-family: "Font Awesome\ 5 Free";  /* updated font-family */
+  font-weight: 900; /* regular style/weight */
 }
 
 .react-lightbox, .react-lightbox-modal {

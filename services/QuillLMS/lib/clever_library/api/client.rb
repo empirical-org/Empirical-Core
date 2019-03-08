@@ -33,10 +33,12 @@ class CleverLibrary::Api::Client
   end
 
   def get_section_students(section_id:)
-    self.class.get('/sections/' + section_id + '/students', @options)
+    data = self.class.get('/sections/' + section_id + '/students', @options)
       .parsed_response["data"]
-      .map {|section| section["data"]}
+    if data && data.length
+      data.map {|section| section["data"]}
+    else
+      nil
+    end
   end
 end
-
-

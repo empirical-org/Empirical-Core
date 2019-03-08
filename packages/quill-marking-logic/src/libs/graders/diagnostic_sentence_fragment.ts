@@ -1,9 +1,10 @@
 import * as _ from 'underscore'
-import {Response, IncorrectSequence} from '../../interfaces'
+import {Response, IncorrectSequence, FocusPoint} from '../../interfaces'
 import {getOptimalResponses} from '../sharedResponseFunctions'
 import {conceptResultTemplate} from '../helpers/concept_result_template'
 
 import {exactMatch} from '../matchers/exact_match';
+import {focusPointChecker} from '../matchers/focus_point_match'
 import {incorrectSequenceChecker} from '../matchers/incorrect_sequence_match'
 import {lengthChecker} from '../matchers/length_match'
 import {punctuationEndChecker} from '../matchers/punctuation_end_match'
@@ -23,6 +24,7 @@ export async function checkDiagnosticSentenceFragment(hash:{
   wordCountChange?: Object,
   ignoreCaseAndPunc?: Boolean,
   incorrectSequences?: Array<IncorrectSequence>,
+  focusPoints?: Array<FocusPoint>,
   prompt: string,
   checkML?: Boolean,
   mlUrl?: string,
@@ -33,6 +35,7 @@ export async function checkDiagnosticSentenceFragment(hash:{
     response: hash.response.trim().replace(/\s{2,}/g, ' '),
     responses: _.sortBy(hash.responses, r => r.count).reverse(),
     incorrectSequences: hash.incorrectSequences,
+    focusPoints: hash.focusPoints,
     wordCountChange: hash.wordCountChange,
     ignoreCaseAndPunc: hash.ignoreCaseAndPunc,
     prompt: hash.prompt,
@@ -50,17 +53,22 @@ export async function checkDiagnosticSentenceFragment(hash:{
 
   const firstPass = checkForMatches(data, firstPassMatchers)
   if (firstPass) {
-    return Object.assign(responseTemplate, firstPass)
+    const newResponse = Object.assign(responseTemplate, firstPass)
+    if (['Punctuation End Hint', 'Capitalization Hint', 'Punctuation Hint', 'Punctuation and Case Hint', 'Spacing After Comma Hint'].includes(newResponse.author)) {
+      newResponse.concept_results = hash.defaultConceptUID ? [conceptResultTemplate(hash.defaultConceptUID)] : []
+    }
+    return newResponse
   } else {
     return responseTemplate;
   }
 }
 
 function* firstPassMatchers(data, spellCorrected=false) {
-  const {response, responses, incorrectSequences, ignoreCaseAndPunc, wordCountChange, prompt, checkML, mlUrl} = data;
+  const {response, responses, incorrectSequences, focusPoints, ignoreCaseAndPunc, wordCountChange, prompt, checkML, mlUrl} = data;
   const submission =  response;
 
   yield exactMatch(submission, responses)
+  yield focusPointChecker(submission, focusPoints, responses)
   yield incorrectSequenceChecker(submission, incorrectSequences, responses)
   yield partsOfSpeechChecker(submission, responses)
   if (!ignoreCaseAndPunc) {

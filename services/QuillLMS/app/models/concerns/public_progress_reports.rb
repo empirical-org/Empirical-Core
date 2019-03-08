@@ -71,32 +71,36 @@ module PublicProgressReports
 
     def classrooms_with_students_that_completed_activity(unit_id, activity_id)
       h = {}
-      unit = Unit.find(unit_id)
-      class_ids = current_user.classrooms_i_teach.map(&:id)
-      #without definining class ids, it may default to a classroom activity from a non-existant classroom
-      class_units = unit.classroom_units.where(classroom_id: class_ids)
-      unit_activity = UnitActivity.find_by(activity_id: activity_id, unit: unit)
+      unit = Unit.find_by(id: unit_id)
+      if unit
+        class_ids = current_user.classrooms_i_teach.map(&:id)
+        #without definining class ids, it may default to a classroom activity from a non-existant classroom
+        class_units = unit.classroom_units.where(classroom_id: class_ids)
+        unit_activity = UnitActivity.find_by(activity_id: activity_id, unit: unit)
 
-      class_units.each do |cu|
-        cuas = ClassroomUnitActivityState.find_by(unit_activity: unit_activity, classroom_unit: cu)
-        classroom = cu.classroom.attributes
-        activity_sessions = cu.activity_sessions.completed
-        if activity_sessions.present? || cuas&.completed
-          class_id = classroom['id']
-          h[class_id] ||= classroom
-          h[class_id][:classroom_unit_id] = cu.id
-          activity_sessions.each do |activity_session|
-            h[class_id][:students] ||= []
-            if h[class_id][:students].exclude? activity_session.user
-               h[class_id][:students] << activity_session.user
+        class_units.each do |cu|
+          cuas = ClassroomUnitActivityState.find_by(unit_activity: unit_activity, classroom_unit: cu)
+          classroom = cu.classroom.attributes
+          activity_sessions = cu.activity_sessions.completed
+          if activity_sessions.present? || cuas&.completed
+            class_id = classroom['id']
+            h[class_id] ||= classroom
+            h[class_id][:classroom_unit_id] = cu.id
+            activity_sessions.each do |activity_session|
+              h[class_id][:students] ||= []
+              if h[class_id][:students].exclude? activity_session.user
+                 h[class_id][:students] << activity_session.user
+              end
             end
           end
         end
-      end
 
-      # TODO: change the diagnostic reports so they take in a hash of classrooms -- this is just
-      # being converted to an array because that is what the diagnostic reports expect
-      h.map{|k,v| v}
+        # TODO: change the diagnostic reports so they take in a hash of classrooms -- this is just
+        # being converted to an array because that is what the diagnostic reports expect
+        h.map{|k,v| v}
+      else
+        []
+      end
     end
 
     def results_for_classroom(unit_id, activity_id, classroom_id)
@@ -122,7 +126,7 @@ module PublicProgressReports
       }
       classroom_unit.assigned_student_ids.each do |student_id|
         student = User.find_by(id: student_id)
-        if student
+        if student && student.classroom_ids.include?(classroom.id)
           final_activity_session = ActivitySession.find_by(user_id: student_id, is_final_score: true, classroom_unit_id: cu_id, activity_id: activity_id)
           if final_activity_session
             scores[:students].push(formatted_score_obj(final_activity_session, activity, student))
@@ -147,14 +151,20 @@ module PublicProgressReports
 
     def formatted_score_obj(final_activity_session, activity, student)
       formatted_concept_results = get_concept_results(final_activity_session)
+      activity_classification_key = ActivityClassification.find(activity.activity_classification_id).key
+      if ['lessons', 'diagnostic'].include?(activity_classification_key)
+        score = get_average_score(formatted_concept_results)
+      else
+        score = (final_activity_session.percentage * 100).round
+      end
       {
-        activity_classification: ActivityClassification.find(activity.activity_classification_id).key,
+        activity_classification: activity_classification_key,
         id: student.id,
         name: student.name,
         time: get_time_in_minutes(final_activity_session),
         number_of_questions: formatted_concept_results.length,
         concept_results: formatted_concept_results,
-        score: get_average_score(formatted_concept_results),
+        score: score,
         average_score_on_quill: student.get_student_average_score
       }
     end
@@ -177,7 +187,7 @@ module PublicProgressReports
       activity_session.concept_results.group_by{|cr| cr[:metadata]["questionNumber"]}.map { |key, cr|
         # if we don't sort them, we can't rely on the first result being the first attemptNum
         # however, it would be more efficient to make them a hash with attempt numbers as keys
-        cr.sort!{|x,y| x[:metadata]['attemptNumber'] <=> y[:metadata]['attemptNumber']}
+        cr.sort!{|x,y| (x[:metadata]['attemptNumber'] || 0) <=> (y[:metadata]['attemptNumber'] || 0)}
         directfirst = cr.first[:metadata]["directions"] || cr.first[:metadata]["instructions"] || ""
         hash = {
           directions: directfirst.gsub(/(<([^>]+)>)/i, "").gsub("()", "").gsub("&nbsp;", ""),
