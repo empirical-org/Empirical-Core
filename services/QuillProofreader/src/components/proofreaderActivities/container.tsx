@@ -526,6 +526,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
         const { reviewablePassage, numberOfCorrectChanges, conceptResultsObjects } = this.checkWork()
         console.log('conceptResultsObjects', conceptResultsObjects)
         console.log('numberOfCorrectChanges', numberOfCorrectChanges)
+        console.log('reviewablePassage', reviewablePassage)
         this.setState( { reviewablePassage, showReviewModal: true, numberOfCorrectChanges, conceptResultsObjects } )
       }
     }
