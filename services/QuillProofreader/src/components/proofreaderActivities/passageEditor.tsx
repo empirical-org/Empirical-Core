@@ -434,7 +434,12 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
       if (event.key === 'Backspace') {
         console.log('is it doing something weird in the backspace')
         const deletion = change.value.history.undos.first().find((operation: any) => operation.type === 'remove_text')
+        console.log('deletion', deletion)
         previousInline = change.moveBackward(1).value.inlines.first()
+        console.log('previousInline before loop', previousInline)
+        console.log('originalSelection.focus.offset', originalSelection.focus.offset)
+        console.log('originalSelection.anchor.offset', originalSelection.anchor.offset)
+        console.log('startInline', startInline)
         if (deletion && originalSelection.focus.offset === 0 && originalSelection.anchor.offset === 0) {
           while (!previousInline || startInline && previousInline.text === startInline.text) {
             previousInline = change.moveBackward(1).value.startInline
