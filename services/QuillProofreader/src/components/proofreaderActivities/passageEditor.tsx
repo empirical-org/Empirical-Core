@@ -364,6 +364,8 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
       return false
     }
 
+    console.log('--------')
+
     const initialFocus = change.value.selection.focus
     const initialAnchor = change.value.selection.anchor
 
@@ -429,6 +431,7 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
     const { startInline, startBlock } = value
     let currentInline = startInline
     let previousInline
+    console.log('startInline.text', startInline.text)
     // don't try to find a previous inline if you've edited the first one
     if (startInline && startInline.data.get('dataOriginalIndex') !== '0') {
       if (event.key === 'Backspace') {
