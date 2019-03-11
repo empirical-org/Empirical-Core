@@ -602,6 +602,7 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
             onKeyUp={this.onKeyUp}
             onKeyDown={this.onKeyDown}
             spellCheck={false}
+            autoCorrect={false}
           />
         </div>
         )
