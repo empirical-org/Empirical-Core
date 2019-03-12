@@ -51,7 +51,7 @@
         <h4><%=topic.name%></h4>
       </div>
 
-        <% activities.order('activities.name ASC').each do |activity| %>
+        <% activities.each do |activity| %>
           <div class="activity">
             <div class="name-and-description">
               <div class="name"><%= activity.name %></div>
