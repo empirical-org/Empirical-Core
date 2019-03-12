@@ -200,8 +200,9 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
     // this method handles weirdness created by HTML formatting in Slate
     formatReceivedPassage(value: string) {
       let fixedString = value.replace(/<span data-original-index="\d+">|<\/span>|<strong> <\/strong>/gm, '').replace(/&#x27;/g, "'").replace(/&quot;/g, '"')
+      console.log('fixedString', fixedString)
     // regex below matches case that looks like this: <strong><u id="6"> </u></strong><strong><u id="6"></u></strong><strong><u id="6"><u id="6">delivering</u></u></strong>
-      const tripleStrongTagWithFourMatchingNestedURegex = /<strong>(<u id="\d+">)([^(<]*?)<\/u><\/strong><strong>(<u id="\d+">)([^(<]*?)<\/u><\/strong><strong>(<u id="\d+">)(<u id="\d+">)([^(<]*?)<\/u><\/u><\/strong>/
+      const tripleStrongTagWithFourMatchingNestedURegex = /<strong>(<u id="\d+">)([^(<]*?)<\/u><\/strong><strong>(<u id="\d+">)([^(<]*?)<\/u><\/strong><strong>(<u id="\d+">)(<u id="\d+">)([^(<]*?)<\/u><\/u><\/strong>/gm
       // regex below matches case that looks like this: <strong><u id="10">A</u></strong><strong><u id="10"><u id="10">sia,</u></u></strong><strong><u id="10"> </u></strong>
       const tripleStrongTagWithThreeMatchingNestedURegex = /<strong>(<u id="\d+">)([^(<]+?)<\/u><\/strong><strong>(<u id="\d+">)(<u id="\d+">)([^(<]+?)<\/u><\/u><\/strong><strong>(<u id="\d+">)([^(<]+?)<\/u><\/strong>/gm
 
@@ -212,7 +213,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       const tripleStrongTagWithTwoMatchingURegex = /<strong>(<u id="\d+">)([^(<]+?)<\/u><\/strong><strong>([^(<]+?)<\/strong><strong>(<u id="\d+">)([^(<]+?)<\/u><\/strong>/gm
 
       // regex below matches case that looks like this: <strong><u id="5"> </u></strong><strong><u id="5"></u></strong><u id="5">these?"</u>
-      const doubleStrongTagWithThreeMatchingURegex = /<strong>(<u id="\d+">)([^(<]*?)<\/u><\/strong><strong>(<u id="\d+">)([^(<]*?)<\/u><\/strong>(<u id="\d+">)([^(<]*?)<\/u>/
+      const doubleStrongTagWithThreeMatchingURegex = /<strong>(<u id="\d+">)([^(<]*?)<\/u><\/strong><strong>(<u id="\d+">)([^(<]*?)<\/u><\/strong>(<u id="\d+">)([^(<]*?)<\/u>/gm
 
       // regex below matches case that looks like this: <strong><u id="3"><u id="3">shows.</u></u></strong><strong><u id="3"> </u></strong>
       const doubleStrongTagWithThreeMatchingNestedUOnFirstTagRegex = /<strong>(<u id="\d+">)(<u id="\d+">)([^(<]+?)<\/u><\/u><\/strong><strong>(<u id="\d+">)([^(<]+?)<\/u><\/strong>/gm
@@ -232,7 +233,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       // regex below matches case that looks like this: <strong>A</strong><strong>ntartctic</strong>
       const doubleStrongTagRegex = /<strong>[^(<)]+?<\/strong><strong>[^(<)]+?<\/strong>/gm
 
-      const singleStrongTagWithThreeMatchingURegex = /(<u id="\d+">)([^(<]*?)<\/u>(<u id="\d+">)([^(<]*?)<\/u><strong>(<u id="\d+">)([^(<]*?)<\/u><\/strong>/
+      const singleStrongTagWithThreeMatchingURegex = /(<u id="\d+">)([^(<]*?)<\/u>(<u id="\d+">)([^(<]*?)<\/u><strong>(<u id="\d+">)([^(<]*?)<\/u><\/strong>/gm
 
       // regex below matches case that looks like this: <strong><u id="3"><u id="3">are</u></u></strong>
       const singleStrongTagWithTwoMatchingNestedURegex = /<strong>(<u id="\d+">)(<u id="\d+">)([^(<]+?)<\/u><\/u><\/strong>/gm
@@ -419,7 +420,8 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
           const uTag = edit.match(/<u id="(\d+)">(.+)<\/u>/m)
           if (uTag && uTag.length) {
             const id = Number(uTag[1])
-            const text = stringNormalize(uTag[2]).trim()
+            const stringNormalizedText = stringNormalize(uTag[2])
+            const text = stringNormalizedText.trim()
             if (necessaryEdits && necessaryEdits[id]) {
               const correctEdit = necessaryEdits[id].match(correctEditRegex) ? stringNormalize(necessaryEdits[id].match(correctEditRegex)[1]).replace(/&#x27;/g, "'") : ''
               const conceptUID = necessaryEdits[id].match(conceptUIDRegex) ? necessaryEdits[id].match(conceptUIDRegex)[1] : ''
@@ -438,7 +440,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
                   concept_uid: conceptUID,
                   question_type: "passage-proofreader"
                 })
-                return `{+${text}-|${conceptUID}}`
+                return `{+${stringNormalizedText}-|${conceptUID}}`
               } else {
                 conceptResultsObjects.push({
                   metadata: {
@@ -452,13 +454,13 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
                   concept_uid: conceptUID,
                   question_type: "passage-proofreader"
                 })
-                return `{+${correctEdit}-${text}|${conceptUID}}`
+                return `{+${correctEdit}-${stringNormalizedText}|${conceptUID}}`
               }
             } else {
               const editObject = remainingEditsWithOriginalValue.find(editObj => editObj.currentText === edit)
               if (editObject) {
                 remainingEditsWithOriginalValue = remainingEditsWithOriginalValue.filter(edit => edit.index !== editObject.index)
-                return `{+${editObject.originalText}-${text}|unnecessary}`
+                return `{+${editObject.originalText}-${stringNormalizedText}|unnecessary}`
               } else {
                 return `{+-${edit}|unnecessary}`
               }
@@ -524,6 +526,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
         const { reviewablePassage, numberOfCorrectChanges, conceptResultsObjects } = this.checkWork()
         console.log('conceptResultsObjects', conceptResultsObjects)
         console.log('numberOfCorrectChanges', numberOfCorrectChanges)
+        console.log('reviewablePassage', reviewablePassage)
         this.setState( { reviewablePassage, showReviewModal: true, numberOfCorrectChanges, conceptResultsObjects } )
       }
     }

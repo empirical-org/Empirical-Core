@@ -565,6 +565,13 @@ EmpiricalGrammar::Application.routes.draw do
   get 'teachers/classrooms/assign_activities/featured-activity-packs/:activityPackId/assigned' => 'teachers/classroom_manager#assign_activities'
   get 'teachers/classrooms/assign_activities/new_unit/students/edit/name/:unitName/activity_ids/:activityIdsArray' => 'teachers/classroom_manager#assign_activities'
 
+
+  # Integration routes (which should look pretty, and thus need some specifying)
+  get 'amplify' => 'integrations#amplify'
+  get 'amplify/all' => 'integrations#amplify_all'
+  get 'amplify/section/:section_id' => 'integrations#amplify_all', as: "amplify_browse_section"
+
+
   # Count route to get quantities
   get 'count/featured_packs' => 'teachers/unit_templates#count'
   get 'count/activities' => 'activities#count'

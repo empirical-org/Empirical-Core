@@ -8,7 +8,14 @@ import StudentResultsTables from '../components/activities/results_page/student_
 
 export default React.createClass({
   headerButton: function () {
-    if (this.props.anonymous) {
+    if (this.props.integrationPartnerName && this.props.integrationPartnerSessionId) {
+      const link = `/${this.props.integrationPartnerName}?session_id=${this.props.integrationPartnerSessionId}`;
+      return (<a href={link}>
+        <button className='btn button-green'>
+          Back to Activity List<i className="fa fa-long-arrow-right" aria-hidden="true"></i>
+        </button>
+      </a>)
+    } else if (this.props.anonymous) {
       return (<a href='/account/new'>
         <button className='btn button-green'>
           Sign Up<i className="fa fa-long-arrow-right" aria-hidden="true"></i>
