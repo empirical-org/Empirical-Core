@@ -15,10 +15,13 @@ class SetNumberOfStudentsSentencesAndCitiesWorker
     ")
     cities_query = ActiveRecord::Base.connection.execute("
       SELECT COUNT(*) FROM (
-        SELECT
-          DISTINCT schools.city, schools.state, schools.mail_city, schools.mail_state
+        SELECT DISTINCT schools.city, schools.state, schools.mail_city, schools.mail_state
         FROM schools
         JOIN schools_users ON schools.id = schools_users.id
+        WHERE schools.city != '' OR schools.mail_city != ''
+        GROUP BY schools.city, schools.state, schools.mail_city, schools.mail_state
+        HAVING COUNT(DISTINCT(schools_users.id)) >= 10
+        ORDER BY schools.city, schools.mail_city, schools.state, schools.mail_state
         ) AS school_cities
       ")
     number_of_sentences = activity_sessions_query.to_a[0]['number_of_activities'].to_i.floor(-5) * 10
