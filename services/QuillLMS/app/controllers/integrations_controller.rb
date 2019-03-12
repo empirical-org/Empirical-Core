@@ -22,12 +22,12 @@ class IntegrationsController < ApplicationController
 
   def cached_amplify_activities
     Rails.cache.fetch(:selected_amplify_activities, :expires_in => 1.day) do
-      format_amplify_activities
+      format_amplify_activities()
     end
   end
 
   def format_amplify_activities
-    activities = selected_amplify_activities
+    activities = selected_amplify_activities()
     topics = activities.map{ |activity| activity.topic }.uniq
     # The template expects an array of [topic, [activities]] objects, so sort our
     # activities into the appropriate shape
@@ -42,9 +42,9 @@ class IntegrationsController < ApplicationController
 
   def selected_amplify_activities
     selected_activities = []
-    selected_amplify_activity_uids.each do |uid|
+    selected_amplify_activity_uids().each do |uid|
       begin
-        activity = Activity.where(uid: uid).first!
+        activity = Activity.find_by!(uid: uid)
         selected_activities << activity
       rescue ActiveRecord::RecordNotFound => e
         puts "NO RECORD FOUND FOR UID"
