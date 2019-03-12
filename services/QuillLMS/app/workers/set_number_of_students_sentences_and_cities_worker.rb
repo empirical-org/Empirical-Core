@@ -15,17 +15,19 @@ class SetNumberOfStudentsSentencesAndCitiesWorker
     ")
     cities_query = ActiveRecord::Base.connection.execute("
       SELECT COUNT(*) FROM (
-        SELECT DISTINCT schools.city, schools.state, COUNT(DISTINCT(students.id)) AS number_of_students
+        SELECT DISTINCT schools.city, schools.state, COUNT(DISTINCT(student_ids.user_id)) AS number_of_students
         FROM schools
         JOIN schools_users ON schools.id = schools_users.id
         JOIN users ON schools_users.user_id = users.id
         JOIN classrooms_teachers ON users.id = classrooms_teachers.user_id
         JOIN classrooms ON classrooms_teachers.classroom_id = classrooms.id
         JOIN students_classrooms ON students_classrooms.classroom_id = classrooms.id
-        JOIN users AS students ON students_classrooms.student_id = students.id
+        JOIN (
+        SELECT DISTINCT(activity_sessions.user_id) FROM activity_sessions WHERE activity_sessions.state = 'finished'
+        ) AS student_ids ON student_ids.user_id = students_classrooms.student_id
         WHERE schools.city != ''
         GROUP BY schools.city, schools.state
-        HAVING COUNT(DISTINCT(students.id)) >= 100
+        HAVING COUNT(DISTINCT(student_ids.user_id)) >= 100
         ORDER BY number_of_students DESC, schools.city, schools.state
       ) AS school_cities
     ")
