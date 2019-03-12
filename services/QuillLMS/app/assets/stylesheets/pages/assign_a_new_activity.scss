@@ -20,7 +20,7 @@
       display: flex;
       -webkit-box-pack: justify;
           -ms-flex-pack: justify;
-              justify-content: space-between;
+              justify-content: space-around;
       flex-wrap: wrap;
       padding: 40px 20px 40px 20px;
       margin: auto;
@@ -34,6 +34,7 @@
             border: solid 1px #cecece;
             padding: 10px;
             cursor: pointer;
+            margin-bottom: 40px;
             h3 {
               font-size: 19px;
           font-weight: 600;

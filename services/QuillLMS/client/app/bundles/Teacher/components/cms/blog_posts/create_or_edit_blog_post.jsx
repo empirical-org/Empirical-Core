@@ -249,7 +249,14 @@ export default class extends React.Component {
   }
 
   goToPreview() {
-    const url = this.state.externalLink ? this.state.externalLink : `/teacher-center/${this.state.slug}`
+    let url
+    if (this.state.externalLink) {
+      url = this.state.externalLink
+    } else if (this.props.studentTopics.includes(this.state.topic)) {
+      url = `/student-center/${this.state.slug}`
+    } else {
+      url = `/teacher-center/${this.state.slug}`
+    }
     window.open(url, '_blank')
   }
 
@@ -538,10 +545,10 @@ export default class extends React.Component {
         </article>
         </div>
     } else {
-        toolbarLeft = <div>
-          <i onClick={() => this.insertMarkdown('# ')} className="fa">H1</i>
-          <i onClick={() => this.insertMarkdown('## ')} className="fa">H2</i>
-          <i onClick={() => this.insertMarkdown('### ')} className="fa">H3</i>
+        toolbarLeft = <div className="toolbar-left">
+          <p onClick={() => this.insertMarkdown('# ')}>H1</p>
+          <p onClick={() => this.insertMarkdown('## ')}>H2</p>
+          <p onClick={() => this.insertMarkdown('### ')}>H3</p>
           <i onClick={() => this.insertMarkdown('**', '**')} className="fa fa-bold" />
           <i onClick={() => this.insertMarkdown('*', '*')} className="fa fa-italic" />
           <i onClick={() => this.insertMarkdown('* ')} className="fa fa-list-ul" />
@@ -582,6 +589,7 @@ export default class extends React.Component {
 
   render() {
     const nullAuthor = {id: null, name: 'None'}
+    const allTopics = this.props.topics.concat(this.props.studentTopics)
     return (
       <div>
         <a className='all-blog-posts-back-button' href='/cms/blog_posts'><i className='fa fa-chevron-left'></i> All Blog Posts</a>
@@ -603,7 +611,7 @@ export default class extends React.Component {
             </div>
             <div>
               <label>Topic:</label>
-              <ItemDropdown items={this.props.topics} callback={this.handleTopicChange} selectedItem={this.props.topics.find(t => t === this.state.topic)} />
+              <ItemDropdown items={allTopics} callback={this.handleTopicChange} selectedItem={this.props.topics.find(t => t === this.state.topic)} />
             </div>
           </div>
 

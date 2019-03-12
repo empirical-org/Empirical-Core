@@ -199,9 +199,11 @@ class Teachers::UnitsController < ApplicationController
     # returns an empty array if teach_own_or_coteach_classrooms_array is empty
     teach_own_or_coteach_classrooms_array = current_user.send("classrooms_i_#{teach_own_or_coteach}").map(&:id)
     if teach_own_or_coteach_classrooms_array.any?
-      scores, completed = ''
+      scores, completed, archived_activities = ''
       if report
         completed = lessons ? "HAVING ca.completed" : "HAVING SUM(CASE WHEN act_sesh.visible = true AND act_sesh.state = 'finished' THEN 1 ELSE 0 END) > 0"
+      else
+        archived_activities = "AND 'archived' != ANY(activities.flags)"
       end
       if lessons
         lessons = "AND activities.activity_classification_id = 6"
@@ -229,7 +231,8 @@ class Teachers::UnitsController < ApplicationController
          #{ActiveRecord::Base.sanitize(teach_own_or_coteach)} AS teach_own_or_coteach,
          unit_owner.name AS owner_name,
          ua.id AS unit_activity_id,
-         CASE WHEN unit_owner.id = #{current_user.id} THEN TRUE ELSE FALSE END AS owned_by_current_user
+         CASE WHEN unit_owner.id = #{current_user.id} THEN TRUE ELSE FALSE END AS owned_by_current_user,
+         (SELECT COUNT(DISTINCT user_id) FROM activity_sessions WHERE state = 'started' AND classroom_unit_id = cu.id AND activity_sessions.activity_id = activities.id AND activity_sessions.visible) AS started_count
       FROM units
         INNER JOIN classroom_units AS cu ON cu.unit_id = units.id
         INNER JOIN unit_activities AS ua ON ua.unit_id = units.id
@@ -246,6 +249,7 @@ class Teachers::UnitsController < ApplicationController
         AND units.visible = true
         AND cu.visible = true
         AND ua.visible = true
+        #{archived_activities}
         #{lessons}
         GROUP BY units.name, units.created_at, cu.id, classrooms.name, classrooms.id, activities.name, activities.activity_classification_id, activities.id, activities.uid, unit_owner.name, unit_owner.id, ua.due_date, ua.created_at, unit_activity_id, state.completed, ua.id
         #{completed}
