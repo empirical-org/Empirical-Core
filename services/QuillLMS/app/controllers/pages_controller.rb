@@ -18,6 +18,10 @@ class PagesController < ApplicationController
     end
     @title = 'Quill.org — Interactive Writing and Grammar'
     @description = 'Quill provides free writing and grammar activities for middle and high school students.'
+    # default numbers are current as of 03/12/19
+    @number_of_sentences = $redis.get("NUMBER_OF_SENTENCES") || 180000000
+    @number_of_students = $redis.get("NUMBER_OF_STUDENTS") || 1500000
+
     if request.env['affiliate.tag']
       name = ReferrerUser.find_by(referral_code: request.env['affiliate.tag'])&.user&.name
       flash.now[:info] = "<strong>#{name}</strong> invited you to help your students become better writers with Quill!" if name
@@ -287,6 +291,8 @@ class PagesController < ApplicationController
   end
 
   def impact
+    @number_of_students = $redis.get("NUMBER_OF_STUDENTS") || 1500000
+    @number_of_cities = $redis.get("NUMBER_OF_CITIES") || 4200
   end
 
   def team
