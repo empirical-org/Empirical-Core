@@ -1,6 +1,6 @@
 <div class="subnav teacher-center-navbar">
   <div class="container">
-    <% if current_user.role == 'student' %>
+    <% if current_user&.role == 'student' %>
       <% tabs = [
         {name: 'All Resources', url: 'student-center'},
         {name: 'Getting Started', url: 'student-center/topic/student-getting-started'},
