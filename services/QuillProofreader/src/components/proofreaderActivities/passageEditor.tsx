@@ -409,6 +409,7 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
 
     // handles Firefox shenanigans
     if (initialFocus.offset === 0 && initialAnchor.offset !== 0 && event.key !== 'Unidentified') {
+      console.log('handling firefox nonsense')
       const badNode = change.value.blocks.first().nodes.find(node => node.key == initialAnchor.key)
       if (badNode) {
         change.moveToRangeOfNode(badNode).insertText('')
@@ -587,6 +588,7 @@ class PassageEditor extends React.Component <PassageEditorProps, PassageEditorSt
             onKeyUp={this.onKeyUp}
             onKeyDown={this.onKeyDown}
             spellCheck={false}
+            autoCorrect={false}
           />
         </div>
         )
