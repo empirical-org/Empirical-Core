@@ -292,7 +292,7 @@ class PagesController < ApplicationController
 
   def impact
     @number_of_students = $redis.get("NUMBER_OF_STUDENTS") || 1500000
-    @number_of_cities = $redis.get("NUMBER_OF_CITIES") || 1300
+    @number_of_cities = $redis.get("NUMBER_OF_CITIES") || 7400
   end
 
   def team
