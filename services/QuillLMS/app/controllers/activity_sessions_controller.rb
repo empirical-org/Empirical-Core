@@ -1,5 +1,6 @@
 class ActivitySessionsController < ApplicationController
   include HTTParty
+  layout :determine_layout
   before_action :activity_session_from_id, only: [:play, :concept_results]
   before_action :activity_session_from_uid, only: [:result]
   before_action :activity_session_for_update, only: [:update]
@@ -16,6 +17,15 @@ class ActivitySessionsController < ApplicationController
   end
 
   def result
+    if session[:partner_session]
+      @partner_name = session[:partner_session]["partner_name"]
+      @partner_session_id = session[:partner_session]["session_id"]
+    end
+    if @partner_name && @partner_session_id
+      @activity_url = @activity_session.activity.anonymous_module_url.to_s
+      @results_url = url_for(action: 'result', uid: @activity_session.uid)
+      AmplifyReportActivityWorker.perform_async(@partner_session_id, @activity_session.activity.name, @activity_session.activity.description, @activity_session.percentage, @activity_url, @results_url)
+    end
     @activity = @activity_session
     @results  = @activity_session.parse_for_results
     @classroom_id = @activity_session&.classroom_unit&.classroom_id
@@ -108,6 +118,16 @@ class ActivitySessionsController < ApplicationController
     return auth_failed if current_user.nil?
     @classroom_unit = ClassroomUnit.find params[:classroom_unit_id]
     if current_user.classrooms.exclude?(@classroom_unit.classroom) then auth_failed(hard: false) end
+  end
+
+  def determine_layout
+    if session[:partner_session]
+      @partner_name = session[:partner_session]["partner_name"]
+      @partner_session_id = session[:partner_session]["session_id"]
+      if @partner_name && @partner_session_id
+        "integrations"
+      end
+    end
   end
 
 end

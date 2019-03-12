@@ -3,5 +3,7 @@
   activityName: @activity_session.activity.name,
   activityType: ActivityClassification.find(@activity_session.activity.activity_classification_id).key,
   anonymous: !@activity_session.user_id && current_user.nil?,
-  classroomId: @classroom_id
+  classroomId: @classroom_id,
+  integrationPartnerName: @partner_name,
+  integrationPartnerSessionId: @partner_session_id
 }) %>
