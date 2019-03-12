@@ -28,7 +28,7 @@ class SetNumberOfStudentsSentencesAndCitiesWorker
     $redis.set("NUMBER_OF_SENTENCES", number_of_sentences)
     number_of_students = activity_sessions_query.to_a[0]['number_of_students'].to_i.floor(-5)
     $redis.set("NUMBER_OF_STUDENTS", number_of_students)
-    number_of_cities = cities_query.to_a[0]['count'].to_i.floor(-3)
+    number_of_cities = cities_query.to_a[0]['count'].to_i.floor(-2)
     $redis.set("NUMBER_OF_CITIES", number_of_cities)
     $redis.set("NUMBER_OF_STUDENTS_SENTENCES_AND_CITIES_LAST_SET", Time.now)
   end
