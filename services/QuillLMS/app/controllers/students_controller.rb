@@ -47,9 +47,9 @@ class StudentsController < ApplicationController
       rescue NoMethodError => exception
         if Classroom.unscoped.find_by(code: classcode).nil?
           InvalidClasscodeWorker.perform_async(current_user.id, params[:classcode], classcode)
-          flash[:error] = 'Oops! That link had an invalid class code. Ask your teacher for help.'
+          flash[:error] = "Oops! There is no class with the code #{classcode}. Ask your teacher for help."
         else
-          flash[:error] = 'Oops! The class with that class code is archived. Ask your teacher for help.'
+          flash[:error] = "Oops! The class with the code #{classcode} is archived. Ask your teacher for help."
         end
         flash.keep(:error)
         redirect_to '/profile'
