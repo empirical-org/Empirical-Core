@@ -47,7 +47,7 @@ class BlogPostsController < ApplicationController
     # handling links that were possibly broken by changing slug function for topic names
     if params[:topic].include?('_')
       new_topic = params[:topic].gsub('_', '-')
-      if current_user.role == 'student'
+      if current_user&.role == 'student'
         redirect_to "/student-center/topic/#{new_topic}"
       else
         redirect_to "/teacher-center/topic/#{new_topic}"
