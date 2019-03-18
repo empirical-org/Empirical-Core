@@ -102,11 +102,11 @@ export const getQuestionsForConcepts = (concepts: any) => {
       const arrayOfQuestions = []
       Object.keys(questionsForConcepts).forEach(conceptUID => {
         const shuffledQuestionArray = shuffle(questionsForConcepts[conceptUID])
-        const numberOfQuestions = concepts[conceptUID].quantity
+        const numberOfQuestions = shuffledQuestionArray.length >= concepts[conceptUID].quantity ? concepts[conceptUID].quantity : shuffledQuestionArray.length
         arrayOfQuestions.push(shuffledQuestionArray.slice(0, numberOfQuestions))
       })
 
-      const flattenedArrayOfQuestions = _.flatten(arrayOfQuestions)
+      const flattenedArrayOfQuestions = shuffle(_.flatten(arrayOfQuestions))
       if (flattenedArrayOfQuestions.length > 0) {
         dispatch({ type: ActionTypes.RECEIVE_QUESTION_DATA, data: flattenedArrayOfQuestions, });
       } else {
