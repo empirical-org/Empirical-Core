@@ -47,9 +47,10 @@ class Lesson extends React.Component<LessonProps> {
   renderQuestionsByConcept(questionsForLesson) {
     const conceptIds: {[key: string]: JSX.Element[]} = {}
     questionsForLesson.forEach((question: Question) => {
-      const { prompt, key, concept_uid} = question
+      const { prompt, key, concept_uid, flag } = question
       const displayName = prompt || 'No question prompt';
-      const questionLink = <li key={key}><Link to={`/admin/questions/${question.key}`}>{displayName.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, '')}</Link></li>
+      const archivedTag = flag === 'archived' ? 'ARCHIVED - ' : ''
+      const questionLink = <li key={key}><Link to={`/admin/questions/${question.key}`}><strong>{archivedTag}</strong>{displayName.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, '')}</Link></li>
       if (conceptIds[concept_uid]) {
         conceptIds[concept_uid].push(questionLink)
       } else {
