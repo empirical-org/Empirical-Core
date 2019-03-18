@@ -93,6 +93,9 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
 
       if (nextProps.session.hasreceiveddata && !nextProps.session.currentQuestion && nextProps.session.unansweredQuestions.length === 0 && nextProps.session.answeredQuestions.length > 0) {
         this.saveToLMS(nextProps.session)
+        // handles case where proofreader has no follow-up questions
+      } else if (nextProps.session.hasreceiveddata && !nextProps.session.currentQuestion && nextProps.session.unansweredQuestions.length === 0 && nextProps.session.proofreaderSession) {
+        this.saveToLMS(nextProps.session)
       } else if (nextProps.session.hasreceiveddata && !nextProps.session.currentQuestion) {
         this.props.dispatch(goToNextQuestion())
       }
@@ -119,11 +122,15 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
         const proofreaderConceptResults = proofreaderSession.conceptResults
         const numberOfGrammarQuestions = answeredQuestions.length
         const numberOfProofreaderQuestions = proofreaderConceptResults.length
-        results = getConceptResultsForAllQuestions(answeredQuestions, numberOfProofreaderQuestions);
-        const proofreaderAndGrammarResults = proofreaderConceptResults.concat(results)
         const correctProofreaderQuestions = proofreaderConceptResults.filter(cr => cr.metadata.correct === 1)
         const proofreaderScore = correctProofreaderQuestions.length / numberOfProofreaderQuestions
-        const totalScore = ((proofreaderScore * numberOfProofreaderQuestions) + (score * numberOfGrammarQuestions)) / (numberOfGrammarQuestions + numberOfProofreaderQuestions)
+        let proofreaderAndGrammarResults = proofreaderConceptResults
+        let totalScore = proofreaderScore
+        if (numberOfGrammarQuestions) {
+          results = getConceptResultsForAllQuestions(answeredQuestions, numberOfProofreaderQuestions);
+          proofreaderAndGrammarResults = proofreaderConceptResults.concat(results)
+          totalScore = ((proofreaderScore * numberOfProofreaderQuestions) + (score * numberOfGrammarQuestions)) / (numberOfGrammarQuestions + numberOfProofreaderQuestions)
+        }
         if (proofreaderSession.anonymous) {
           const proofreaderActivityUID = proofreaderSession.activityUID
           this.createAnonActivitySession(proofreaderActivityUID, proofreaderAndGrammarResults, totalScore)
