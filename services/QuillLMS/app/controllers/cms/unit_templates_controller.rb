@@ -58,6 +58,7 @@ class Cms::UnitTemplatesController < Cms::CmsController
                     :time,
                     :order_number,
                     :unit_template_category_id,
+                    :image_link,
                     grades: [],
                     activity_ids: [])
   end
