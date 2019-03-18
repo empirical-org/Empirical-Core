@@ -21,7 +21,7 @@ export default class extends React.Component {
   pageTitle() {
     const { role } = this.props
     if (window.location.pathname.includes('topic')) {
-      const topicTitle = window.location.pathname.split('/')[3].split('-').map(topic => topic.charAt(0).toUpperCase() + topic.slice(1)).join(' ')
+      const topicTitle = window.location.pathname.split('/')[3].split('-').map(topic => topic.charAt(0).toUpperCase() + topic.slice(1)).join(' ').replace(/%27/g, "'")
       return role === 'student' ? topicTitle.replace('Student ', '') : topicTitle
     } else if (role === 'student') {
       return 'Student Center'
@@ -34,7 +34,7 @@ export default class extends React.Component {
     if (this.props.role === 'student') {
       return 'Everything you need to know about using Quill'
     }
-    
+
     switch (this.pageTitle()) {
       case 'Teacher Stories':
         return 'Read success stories about Quill in the class'
