@@ -52,7 +52,7 @@
     &.offset {
       left: -130px;
       @media (max-width: 600px) {
-        left: 0px;
+        left: -50px;
       }
     }
 
@@ -141,6 +141,9 @@
       .button-section {
         justify-content: flex-start;
       }
+    }
+    @media (max-width: 400px) {
+      width: 185px;
     }
   }
 }
