@@ -21,6 +21,7 @@ export {
   ArchivedButton,
   CarouselAnimation,
   DiagnosticProgressBar,
+  DropdownInput,
   Error,
   FlagDropdown,
   Input,

@@ -15,6 +15,10 @@ export {
 } from './diagnosticProgressBar'
 
 export {
+  DropdownInput
+} from './dropdownInput'
+
+export {
   Error
 } from './error'
 
