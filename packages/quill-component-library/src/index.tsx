@@ -1,4 +1,4 @@
-import './styles/button.scss'
+import './styles/styles.scss'
 
 export {
   QuestionList,
