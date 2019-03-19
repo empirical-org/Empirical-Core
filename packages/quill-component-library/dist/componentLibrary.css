@@ -1,0 +1,54 @@
+.button {
+  line-height: 1;
+  letter-spacing: normal;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px; }
+  .button.fun {
+    width: 76px;
+    height: 36px;
+    font-size: 13px; }
+  .button.small {
+    width: 44px;
+    height: 14px;
+    font-size: 14px; }
+  .button.medium {
+    width: 80px;
+    height: 40px;
+    font-size: 15px; }
+    .button.medium.icon {
+      width: 112px; }
+  .button.large {
+    width: 89px;
+    height: 48px;
+    font-size: 18px; }
+    .button.large.icon {
+      width: 121px; }
+  .button.outlined {
+    border: solid 1px #bdbdbd;
+    background-color: white;
+    font-weight: 600; }
+  .button.contained {
+    font-weight: bold;
+    border: none; }
+  .button.primary.contained {
+    color: #ffffff;
+    background-color: #01c2a2; }
+    .button.primary.contained:not(.disabled):hover, .button.primary.contained:not(.disabled):focus {
+      background-color: #00a47c; }
+  .button.primary.outlined {
+    background-color: #ffffff;
+    color: #009a80; }
+    .button.primary.outlined:hover, .button.primary.outlined:focus {
+      background-color: #f6fcfa;
+      font-weight: bold; }
+  .button.secondary.outlined {
+    color: #000; }
+    .button.secondary.outlined:hover, .button.secondary.outlined:focus {
+      background-color: #f5f5f5; }
+  .button.disabled {
+    color: #878787 !important; }
+    .button.disabled.contained {
+      background-color: #cccccc; }
