@@ -1,3 +1,5 @@
+import './styles/button.scss'
+
 export {
   QuestionList,
   LinkListItem,
