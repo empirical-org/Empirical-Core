@@ -35,6 +35,7 @@
     "rollup-plugin-generate-package-json": "^1.0.0",
     "rollup-plugin-node-resolve": "^3.0.2",
     "rollup-plugin-postcss": "^1.2.5",
+    "rollup-plugin-scss": "^1.0.1",
     "rollup-plugin-tslint": "^0.1.34",
     "rollup-plugin-typescript2": "^0.10.0",
     "ts-lint": "^4.5.1",
