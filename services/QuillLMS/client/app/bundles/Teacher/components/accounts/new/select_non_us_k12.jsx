@@ -30,29 +30,29 @@ class SelectUSNonK12 extends React.Component {
     return (
       <div className="container account-form select-non-k12">
         <h1>Where do you teach?</h1>
-        <div className="cards">
-          <div className="card" onClick={() => this.selectSchool('home school')}>
+        <div className="quill-cards">
+          <div className="quill-card" onClick={() => this.selectSchool('home school')}>
             <img src={homeSchoolSrc} alt="home"/>
             <div className="text">
               <h3>Home school</h3>
               <p>Tip: many home school teachers begin by assigning our Starter&nbsp;Diagnostic.</p>
             </div>
           </div>
-          <div className="card" onClick={() => this.selectSchool('international')}>
+          <div className="quill-card" onClick={() => this.selectSchool('international')}>
             <img src={internationalSrc} alt="globe"/>
             <div className="text">
               <h3>International institution</h3>
               <p>Tip: many international teachers begin by assigning our ELL&nbsp;Diagnostic.</p>
             </div>
           </div>
-          <div className="card" onClick={() => this.selectSchool('us higher ed')}>
+          <div className="quill-card" onClick={() => this.selectSchool('us higher ed')}>
             <img src={higherEdSrc} alt="college campus"/>
             <div className="text">
               <h3>U.S. higher education institution</h3>
               <p>Tip: many of our higher education educators begin by assigning our Quill Connect sentence combining&nbsp;activities.</p>
             </div>
           </div>
-          <div className="card" onClick={() => this.selectSchool('other')}>
+          <div className="quill-card" onClick={() => this.selectSchool('other')}>
             <img src={otherSrc} alt="office building"/>
             <div className="text">
               <h3>Other</h3>

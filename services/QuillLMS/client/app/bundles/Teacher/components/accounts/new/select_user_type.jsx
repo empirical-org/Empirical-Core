@@ -47,15 +47,15 @@ class SelectUserType extends React.Component {
     return (
       <div className="container account-form" id='user-type'>
         <h1>Welcome! Let's create your account. Are you a student or a teacher?</h1>
-        <div className="cards">
-          <div className="card" onClick={this.setStudentRoleOnSession}>
+        <div className="quill-cards">
+          <div className="quill-card" onClick={this.setStudentRoleOnSession}>
             <img src={studentPencilImg} />
             <div className="text">
               <h3>Student</h3>
               <p>Select this option to join your teacher’s class and complete assigned activities.</p>
             </div>
           </div>
-          <div className="card" onClick={this.setTeacherRoleOnSession}>
+          <div className="quill-card" onClick={this.setTeacherRoleOnSession}>
             <img src={teacherChalkboardImg} />
             <div className="text">
               <h3>Teacher</h3>
