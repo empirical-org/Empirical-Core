@@ -1,6 +1,7 @@
 import React from 'react'
 import request from 'request'
-import Input from '../../shared/input'
+import { Input } from 'quill-component-library/dist/componentLibrary'
+
 import getAuthToken from '../../modules/get_auth_token';
 
 export default class ForgotPassword extends React.Component {

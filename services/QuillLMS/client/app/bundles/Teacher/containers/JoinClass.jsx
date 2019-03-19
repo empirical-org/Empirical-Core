@@ -1,6 +1,7 @@
 import React from 'react'
+import { Input } from 'quill-component-library/dist/componentLibrary'
+
 import getAuthToken from '../components/modules/get_auth_token'
-import Input from '../components/shared/input'
 import LoadingIndicator from '../components/shared/loading_indicator'
 
 const bulbSrc = `${process.env.CDN_URL}/images/onboarding/bulb.svg`

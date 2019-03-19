@@ -1,9 +1,9 @@
 import * as React from "react";
 import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
-import { Concept } from '../interfaces/interfaces'
+import { DropdownInput } from 'quill-component-library/dist/componentLibrary'
 
-import DropdownInput from '../../Teacher/components/shared/dropdown_input'
+import { Concept } from '../interfaces/interfaces'
 
 const REPLACE_CONCEPT = gql`
   mutation replaceConcept($id: ID! $replacementId: ID!){

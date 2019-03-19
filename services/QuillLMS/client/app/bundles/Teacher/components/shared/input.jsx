@@ -171,5 +171,4 @@ export default class Input extends React.Component {
     return this.renderInput()
   }
 
-
 }
