@@ -4,7 +4,8 @@
   justify-content: flex-end;
   flex-direction: column;
   position: relative;
-  input {
+  input, input:focus {
+    outline: none;
     margin-bottom: 8px;
     border: 2px #009a80;
     border-style: none none solid none;

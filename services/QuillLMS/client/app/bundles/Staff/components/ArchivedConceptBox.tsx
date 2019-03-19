@@ -2,9 +2,8 @@ import * as React from "react";
 import { Query, Mutation } from "react-apollo";
 import gql from "graphql-tag";
 import moment from 'moment'
+import { Input, DropdownInput } from 'quill-component-library/dist/componentLibrary'
 
-import Input from '../../Teacher/components/shared/input'
-import DropdownInput from '../../Teacher/components/shared/dropdown_input'
 import { Concept } from '../interfaces/interfaces'
 
 function levelTwoConceptsQuery(){
