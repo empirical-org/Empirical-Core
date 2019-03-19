@@ -23,6 +23,10 @@ export {
 } from './flagDropdown'
 
 export {
+  Input
+} from './input'
+
+export {
   Passthrough
 } from './passthrough'
 

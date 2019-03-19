@@ -23,6 +23,7 @@ export {
   DiagnosticProgressBar,
   Error,
   FlagDropdown,
+  Input,
   Passthrough,
   ResumeOrBeginButton,
   SmartSpinner,
