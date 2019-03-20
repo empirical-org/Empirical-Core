@@ -19,7 +19,9 @@ class SessionsController < ApplicationController
       login_failure 'Login failed. Did you sign up with Google? If so, please log in with Google using the link above.'
     elsif @user.authenticate(params[:user][:password])
       sign_in(@user)
-      if params[:redirect].present?
+      if session[:post_auth_redirect].present?
+        redirect_to URI.parse(session.delete(:post_auth_redirect)).path
+      elsif params[:redirect].present?
         redirect_to URI.parse(params[:redirect]).path
       elsif session[:attempted_path]
         redirect_to URI.parse(session.delete(:attempted_path)).path
@@ -88,7 +90,9 @@ class SessionsController < ApplicationController
     @js_file = 'login'
     @user = User.new
     session[:role] = nil
-    session[:post_auth_redirect] = params[:redirect]
+    if params[:redirect]
+      session[:post_auth_redirect] = params[:redirect]
+    end
   end
 
   def failure
