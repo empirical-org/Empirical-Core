@@ -22,6 +22,9 @@
   .reset-modal {
     width: 560px;
     height: 214px;
+    @media (max-width: 600px) {
+      width: 90%;
+    }
   }
 
   .reset-modal, .early-submit-modal, .review-modal {
