@@ -21,11 +21,8 @@ class GenerateConceptsInUseArrayWorker
     d_sf_questions = HTTParty.get("https://quillconnect.firebaseio.com/v2/diagnostic_sentenceFragments.json").parsed_response
     $redis.set('D_SF_QUESTIONS', d_sf_questions.to_json)
 
-    Concept.visible_level_zero_concept_ids.each_slice(4).with_index do |batch, i|
-      sleep((i * 5).minutes)
-      batch.each do |id|
-        GetConceptsInUseIndividualConceptWorker.perform_async(id)
-      end
+    Concept.visible_level_zero_concept_ids.each do |id|
+      GetConceptsInUseIndividualConceptWorker.perform_async(id)
     end
   end
 end
