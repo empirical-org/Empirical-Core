@@ -25,6 +25,10 @@ export default React.createClass({
       name: 'name',
     },
     {
+      name: 'image_link',
+      label: 'Image Link for Social Media Meta Tag'
+    },
+    {
       name: 'activity_info',
       label: 'Activity Info',
       size: 'medium',
@@ -67,6 +71,7 @@ export default React.createClass({
       flag: this.props.unitTemplate.flag || null,
       author_id: null,
       order_number: this.props.unitTemplate.order_number || null,
+
     };
     model = _.extend(model, this.props.unitTemplate);
     const options = this.modules.optionsLoader.initialOptions();
