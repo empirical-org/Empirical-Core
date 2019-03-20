@@ -4,10 +4,10 @@ class SchoolsController < ApplicationController
 
   def index
     @radius = params[:radius].presence || 5
-    @limit = params[:limit].presence || 10
     @lat, @lng = params[:lat],params[:lng]
     @search = params[:search]
     @prefix,@zipcode = get_prefix_and_zipcode(@search)
+    @limit = @prefix || @zipcode ? nil : params[:limit].presence || 10
     @schools = []
 
     school_ids = []
