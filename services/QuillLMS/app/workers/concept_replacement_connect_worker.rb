@@ -47,17 +47,13 @@ class ConceptReplacementConnectWorker
 
   def replace_focus_points_or_incorrect_sequences_for_question(fp_or_is, original_concept_uid, new_concept_uid)
     if fp_or_is.any? { |k, v| v['conceptResults'] && v['conceptResults'].any? { |cr| cr['conceptUID'] == original_concept_uid } }
-      new_fp_or_is = fp_or_is.deep_dup
-      begin
-        fp_or_is.each do |k, v|
-          v['conceptResults'].each_with_index do |cr, i|
-            if cr['conceptUID'] == original_concept_uid
-              new_fp_or_is[k]['conceptResults'][i]['conceptUID'] = new_concept_uid
-            end
+      new_fp_or_is = fp_or_is.dup
+      fp_or_is.each do |k, v|
+        v['conceptResults'].each do |crkey, cr|
+          if cr['conceptUID'] == original_concept_uid
+            new_fp_or_is[k]['conceptResults'][crkey]['conceptUID'] = new_concept_uid
           end
         end
-      rescue => e
-        NewRelic::Agent.notice_error(e)
       end
       return new_fp_or_is
     else
