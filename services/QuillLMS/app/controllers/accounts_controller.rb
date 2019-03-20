@@ -5,7 +5,9 @@ class AccountsController < ApplicationController
 
   def new
     ClickSignUpWorker.perform_async
-    session[:post_sign_up_redirect] = params[:redirect]
+    if params[:redirect]
+      session[:post_sign_up_redirect] = params[:redirect]
+    end
     @teacherFromGoogleSignUp = false
     @js_file = 'session'
   end
