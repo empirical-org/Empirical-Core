@@ -81,7 +81,7 @@ export const startListeningToFollowUpQuestionsForProofreaderSession = (proofread
 
 // typescript this
 export const getQuestionsForConcepts = (concepts: any) => {
-  return dispatch => {
+  return (dispatch, getState) => {
     dispatch(setSessionPending(true))
     const conceptUIDs = Object.keys(concepts)
     questionsRef.orderByChild('concept_uid').once('value', (snapshot) => {
@@ -102,15 +102,20 @@ export const getQuestionsForConcepts = (concepts: any) => {
       const arrayOfQuestions = []
       Object.keys(questionsForConcepts).forEach(conceptUID => {
         const shuffledQuestionArray = shuffle(questionsForConcepts[conceptUID])
-        const numberOfQuestions = concepts[conceptUID].quantity
+        const numberOfQuestions = shuffledQuestionArray.length >= concepts[conceptUID].quantity ? concepts[conceptUID].quantity : shuffledQuestionArray.length
         arrayOfQuestions.push(shuffledQuestionArray.slice(0, numberOfQuestions))
       })
 
-      const flattenedArrayOfQuestions = _.flatten(arrayOfQuestions)
+      const flattenedArrayOfQuestions = shuffle(_.flatten(arrayOfQuestions))
       if (flattenedArrayOfQuestions.length > 0) {
         dispatch({ type: ActionTypes.RECEIVE_QUESTION_DATA, data: flattenedArrayOfQuestions, });
       } else {
-        dispatch({ type: ActionTypes.NO_QUESTIONS_FOUND_FOR_SESSION})
+        // we should only show no questions error if it is not a proofreader follow-up
+        if (getState().session.proofreaderSession) {
+          dispatch({ type: ActionTypes.RECEIVE_QUESTION_DATA, data: [] });
+        } else {
+          dispatch({ type: ActionTypes.NO_QUESTIONS_FOUND_FOR_SESSION})
+        }
       }
       dispatch(setSessionPending(false))
     });

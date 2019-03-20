@@ -31,9 +31,25 @@ export default class Edit extends React.Component<EditProps, {offset: string}> {
   componentDidMount() {
     const { id } = this.props
     const element = document.getElementById(id)
-    console.log('window.innerWidth', window.innerWidth)
-    console.log('element.offsetLeft', element? element.offsetLeft : '')
-    const offset = element && ((window.innerWidth - element.offsetLeft) < 340) ? 'offset' : ''
+    let tooltipWidth = 340
+    if (window.innerWidth <= 900) {
+      tooltipWidth = 230
+    } else if (window.innerWidth <= 400) {
+      tooltipWidth = 185
+    }
+    let remainingWidth
+    let offset = ''
+    if (element) {
+      // the following line handles the case where the element is split across two lines, because its offsetWidth will be roughly the width of the entire text area
+      if (window.innerWidth - 200 < element.offsetWidth) {
+        // if that's the case, we want to calculate the remaining width without reference to the element itself
+        remainingWidth = window.innerWidth - element.offsetLeft - tooltipWidth
+      } else {
+        // otherwise, since the tooltip begins where the element does, we can include the element's width as part of the space needed for the tooltip
+        remainingWidth = (window.innerWidth - element.offsetLeft - tooltipWidth) + element.offsetWidth
+      }
+      offset = remainingWidth < tooltipWidth ? 'offset' : ''
+    }
     this.setState({ offset })
   }
 
