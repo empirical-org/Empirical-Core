@@ -63,6 +63,8 @@ class ConceptReplacementConnectWorker
             end
           end
         end
+      rescue => e
+        NewRelic::Agent.notice_error(e)
       end
       return new_fp_obj
     else
