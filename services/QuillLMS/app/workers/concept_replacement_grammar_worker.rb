@@ -14,9 +14,60 @@ class ConceptReplacementGrammarWorker
     end
     questions = HTTParty.get("#{ENV['FIREBASE_DATABASE_URL']}/v3/questions.json").parsed_response
     questions.each do |key, q|
-      if q['concept_uid'] == original_concept_uid
-        HTTParty.put("#{ENV['FIREBASE_DATABASE_URL']}/v3/questions/#{key}/concept_uid.json", body: new_concept_uid.to_json)
+      data = q.deep_dup
+
+      if q['concept_uid'] && q['concept_uid'] == original_concept_uid
+        data['concept_uid'] = new_concept_uid
       end
+
+      if q['modelConceptUID'] && q['modelConceptUID'] == original_concept_uid
+        data['modelConceptUID'] = new_concept_uid
+      end
+
+      if q['focusPoints']
+        focus_points = replace_focus_points_or_incorrect_sequences_for_question(q['focusPoints'], original_concept_uid, new_concept_uid)
+        if focus_points
+          data['focusPoints'] = focus_points
+        end
+      end
+
+      if q['incorrectSequences']
+        incorrect_sequences = replace_focus_points_or_incorrect_sequences_for_question(q['incorrectSequences'], original_concept_uid, new_concept_uid)
+        if incorrect_sequences
+          data['incorrectSequences'] = incorrect_sequences
+        end
+      end
+
+      if data.length > 0
+        HTTParty.put("#{ENV['FIREBASE_DATABASE_URL']}/v3/questions/#{key}.json", body: data.to_json)
+      end
+    end
+  end
+
+  def replace_focus_points_or_incorrect_sequences_for_question(fp_or_is, original_concept_uid, new_concept_uid)
+    if fp_or_is.any? { |k, v| v['conceptResults'] && v['conceptResults'].any? { |crk, crv| crv['conceptUID'] == original_concept_uid } }
+      new_fp_or_is = fp_or_is.deep_dup
+      begin
+        fp_or_is.each do |k, v|
+          v['conceptResults'].each do |crk, crv|
+            if crv['conceptUID'] == original_concept_uid
+              concept = Concept.unscoped.find_by(uid: new_concept_uid)
+              parent_concept = concept.try(:parent)
+              grandparent_concept = parent_concept.try(:parent)
+              if concept && parent_concept && grandparent_concept
+                name = "#{grandparent_concept.name} | #{parent_concept.name} | #{concept.name}"
+                new_fp_or_is[k]['conceptResults'][crk]['name'] = name
+              end
+              new_fp_or_is[k]['conceptResults'][crk]['conceptUID'] = new_concept_uid
+            end
+          end
+        end
+      rescue => e
+        NewRelic::Agent.notice_error(e)
+      end
+      return new_fp_or_is
+    else
+      return nil
     end
   end
 
