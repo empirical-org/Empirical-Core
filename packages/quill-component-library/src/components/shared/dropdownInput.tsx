@@ -131,6 +131,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
               options={options}
               isClearable={false}
               className="dropdown"
+              classNamePrefix="dropdown"
             />
           </div>)
       } else {
@@ -150,6 +151,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
               menuIsOpen={false}
               isClearable={false}
               className="dropdown"
+              classNamePrefix="dropdown"
             />
             {this.renderErrorText()}
         </div>)
@@ -171,6 +173,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
             menuIsOpen={false}
             isClearable={false}
             className="dropdown"
+            classNamePrefix="dropdown"
             placeholder={placeholder || ''}
           />
           {this.renderHelperText()}
@@ -194,6 +197,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
             options={options}
             isClearable={false}
             className="dropdown"
+            classNamePrefix="dropdown"
           />
       </div>)
     }
