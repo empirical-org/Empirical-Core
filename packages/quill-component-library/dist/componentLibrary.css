@@ -1,4 +1,4 @@
-.button {
+.quill-button {
   line-height: 1;
   letter-spacing: normal;
   text-align: center;
@@ -6,51 +6,51 @@
   justify-content: center;
   align-items: center;
   border-radius: 4px; }
-  .button.fun {
+  .quill-button.fun {
     width: 76px;
     height: 36px;
     font-size: 13px; }
-  .button.small {
+  .quill-button.small {
     width: 44px;
     height: 14px;
     font-size: 14px; }
-  .button.medium {
+  .quill-button.medium {
     width: 80px;
     height: 40px;
     font-size: 15px; }
-    .button.medium.icon {
+    .quill-button.medium.icon {
       width: 112px; }
-  .button.large {
+  .quill-button.large {
     width: 89px;
     height: 48px;
     font-size: 18px; }
-    .button.large.icon {
+    .quill-button.large.icon {
       width: 121px; }
-  .button.outlined {
+  .quill-button.outlined {
     border: solid 1px #bdbdbd;
     background-color: white;
     font-weight: 600; }
-  .button.contained {
+  .quill-button.contained {
     font-weight: bold;
     border: none; }
-  .button.primary.contained {
+  .quill-button.primary.contained {
     color: #ffffff;
     background-color: #01c2a2; }
-    .button.primary.contained:not(.disabled):hover, .button.primary.contained:not(.disabled):focus {
+    .quill-button.primary.contained:not(.disabled):hover, .quill-button.primary.contained:not(.disabled):focus {
       background-color: #00a47c; }
-  .button.primary.outlined {
+  .quill-button.primary.outlined {
     background-color: #ffffff;
     color: #009a80; }
-    .button.primary.outlined:hover, .button.primary.outlined:focus {
+    .quill-button.primary.outlined:hover, .quill-button.primary.outlined:focus {
       background-color: #f6fcfa;
       font-weight: bold; }
-  .button.secondary.outlined {
+  .quill-button.secondary.outlined {
     color: #000; }
-    .button.secondary.outlined:hover, .button.secondary.outlined:focus {
+    .quill-button.secondary.outlined:hover, .quill-button.secondary.outlined:focus {
       background-color: #f5f5f5; }
-  .button.disabled {
+  .quill-button.disabled {
     color: #878787 !important; }
-    .button.disabled.contained {
+    .quill-button.disabled.contained {
       background-color: #cccccc; }
 
 .input-container {
@@ -59,7 +59,8 @@
   justify-content: flex-end;
   flex-direction: column;
   position: relative; }
-  .input-container input {
+  .input-container input, .input-container input:focus {
+    outline: none;
     margin-bottom: 8px;
     border: 2px #009a80;
     border-style: none none solid none;
@@ -160,22 +161,22 @@
     right: 0px;
     cursor: pointer; }
 
-.card {
+.quill-card {
   border-radius: 6px;
   box-shadow: 0 0 0 1px #e0e0e0;
   background-color: #ffffff;
   display: flex;
   align-items: center;
   cursor: pointer; }
-  .card h3 {
+  .quill-card h3 {
     font-size: 16px;
     font-weight: bold;
     margin-bottom: 8px; }
-  .card p {
+  .quill-card p {
     font-size: 14px;
     color: #646464;
     line-height: 1.57; }
-  .card img {
+  .quill-card img {
     margin-right: 32px; }
-  .card:hover, .card:focus {
+  .quill-card:hover, .quill-card:focus {
     box-shadow: 0 0 0 2px #01c2a2; }

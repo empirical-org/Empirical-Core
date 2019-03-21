@@ -63984,25 +63984,25 @@ var DropdownInput = (function (_super) {
             if (errorAcknowledged) {
                 return (React.createElement("div", { className: "input-container error " + inactiveOrActive + " " + hasText + " " + className, ref: function (node) { return _this.node = node; }, onClick: this.activateInput },
                     React.createElement("label", null, label),
-                    React.createElement(index$1$1, { id: id, ref: function (input) { _this.input = input; }, onChange: handleChange, value: value, type: type, placeholder: placeholder || '', onKeyDown: this.onKeyDown, menuIsOpen: menuIsOpen, options: options, isClearable: false, className: "dropdown" })));
+                    React.createElement(index$1$1, { id: id, ref: function (input) { _this.input = input; }, onChange: handleChange, value: value, type: type, placeholder: placeholder || '', onKeyDown: this.onKeyDown, menuIsOpen: menuIsOpen, options: options, isClearable: false, className: "dropdown", classNamePrefix: "dropdown" })));
             }
             else {
                 return (React.createElement("div", { className: "input-container error unacknowledged " + inactiveOrActive + " " + hasText + " " + className, onClick: this.acknowledgeError, ref: function (node) { return _this.node = node; } },
                     React.createElement("label", null, label),
-                    React.createElement(index$1$1, { id: id, ref: function (input) { _this.input = input; }, onFocus: this.activateInput, type: type, value: value, menuIsOpen: false, isClearable: false, className: "dropdown" }),
+                    React.createElement(index$1$1, { id: id, ref: function (input) { _this.input = input; }, onFocus: this.activateInput, type: type, value: value, menuIsOpen: false, isClearable: false, className: "dropdown", classNamePrefix: "dropdown" }),
                     this.renderErrorText()));
             }
         }
         else if (inactive) {
             return (React.createElement("div", { className: "input-container " + inactiveOrActive + " " + hasText + " " + this.props.className, onClick: this.activateInput, ref: function (node) { return _this.node = node; } },
                 React.createElement("label", null, label),
-                React.createElement(index$1$1, { id: id, ref: function (input) { _this.input = input; }, onFocus: this.activateInput, type: type, value: value, menuIsOpen: false, isClearable: false, className: "dropdown", placeholder: placeholder || '' }),
+                React.createElement(index$1$1, { id: id, ref: function (input) { _this.input = input; }, onFocus: this.activateInput, type: type, value: value, menuIsOpen: false, isClearable: false, className: "dropdown", classNamePrefix: "dropdown", placeholder: placeholder || '' }),
                 this.renderHelperText()));
         }
         else {
             return (React.createElement("div", { className: "input-container dropdown " + inactiveOrActive + " " + hasText + " " + className, ref: function (node) { return _this.node = node; } },
                 React.createElement("label", null, label),
-                React.createElement(index$1$1, { id: id, ref: function (input) { _this.input = input; }, onChange: handleChange, value: value, type: type, placeholder: placeholder || '', onKeyDown: this.onKeyDown, menuIsOpen: menuIsOpen, options: options, isClearable: false, className: "dropdown" })));
+                React.createElement(index$1$1, { id: id, ref: function (input) { _this.input = input; }, onChange: handleChange, value: value, type: type, placeholder: placeholder || '', onKeyDown: this.onKeyDown, menuIsOpen: menuIsOpen, options: options, isClearable: false, className: "dropdown", classNamePrefix: "dropdown" })));
         }
     };
     DropdownInput.prototype.render = function () {
