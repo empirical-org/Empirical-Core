@@ -1,6 +1,15 @@
 import React from 'react';
 import Select from 'react-select';
 
+const dropdownIndicatorStyles = (base, state) => {
+  const changes = {
+    backgroundColor: 'blue',
+  };
+  console.log('base', base)
+  return Object.assign(base, changes);
+};
+
+
 export default class DropdownInput extends React.Component {
   constructor(props) {
     super(props)
@@ -36,7 +45,7 @@ export default class DropdownInput extends React.Component {
 
   activateInput() {
     if (!this.props.disabled) {
-      this.setState({ inactive: false, }, () => this.input.focus())
+      this.setState({ inactive: false, menuIsOpen: true, }, () => this.input.focus())
     }
   }
 
@@ -106,6 +115,7 @@ export default class DropdownInput extends React.Component {
               options={options}
               isClearable={false}
               className="dropdown"
+              styles={{ dropdownIndicator: dropdownIndicatorStyles, }}
             />
           </div>)
       } else {
@@ -125,6 +135,7 @@ export default class DropdownInput extends React.Component {
               menuIsOpen={false}
               isClearable={false}
               className="dropdown"
+              styles={{ dropdownIndicator: dropdownIndicatorStyles, }}
             />
             {this.renderErrorText()}
         </div>)
@@ -147,6 +158,7 @@ export default class DropdownInput extends React.Component {
             isClearable={false}
             className="dropdown"
             placeholder={placeholder || ''}
+            styles={{ dropdownIndicator: dropdownIndicatorStyles, }}
           />
           {this.renderHelperText()}
       </div>)
@@ -169,6 +181,7 @@ export default class DropdownInput extends React.Component {
             options={options}
             isClearable={false}
             className="dropdown"
+            styles={{ dropdownIndicator: dropdownIndicatorStyles, }}
           />
       </div>)
     }
