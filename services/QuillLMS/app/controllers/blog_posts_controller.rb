@@ -3,13 +3,21 @@ class BlogPostsController < ApplicationController
   before_action :set_role
 
   def index
-    @topics = BlogPost::TOPICS
-    @blog_posts = BlogPost.where(draft: false, topic: @topics).order('order_number')
+    topic_names = BlogPost::TOPICS
+    @topics = []
+    topic_names.each do |name|
+      @topics.push({ name: name, slug: CGI::escape(name.downcase.gsub(' ','-'))})
+    end
+    @blog_posts = BlogPost.where(draft: false, topic: topic_names).order('order_number')
   end
 
   def student_center_index
-    @topics = BlogPost::STUDENT_TOPICS
-    @blog_posts = BlogPost.where(draft: false, topic: @topics)
+    topic_names = BlogPost::STUDENT_TOPICS
+    @topics = []
+    topic_names.each do |name|
+      @topics.push({ name: name, slug: CGI::escape(name.downcase.gsub(' ','-'))})
+    end
+    @blog_posts = BlogPost.where(draft: false, topic: topic_names)
     render :index
   end
 
@@ -53,7 +61,7 @@ class BlogPostsController < ApplicationController
         redirect_to "/teacher-center/topic/#{new_topic}"
       end
     else
-      topic = params[:topic].gsub('-', ' ').gsub("%27", "'").titleize
+      topic = CGI::unescape(params[:topic]).gsub('-', ' ').titleize
       if !BlogPost::TOPICS.include?(topic) && !BlogPost::STUDENT_TOPICS.include?(topic)
         raise ActionController::RoutingError.new('Topic Not Found')
       end
