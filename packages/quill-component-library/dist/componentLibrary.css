@@ -84,29 +84,29 @@
     margin-bottom: 8px; }
     .input-container .dropdown:focus {
       outline: none; }
-    .input-container .dropdown .Select-control {
+    .input-container .dropdown .dropdown__control {
       border: none;
       outline: none !important;
       box-shadow: none !important;
       border-radius: 0px !important; }
-    .input-container .dropdown .Select-value {
+    .input-container .dropdown .dropdown__value {
       border: solid 2px #009a80;
       border-style: none none solid none;
       border-radius: 0px;
       padding-left: 0px; }
-      .input-container .dropdown .Select-value:focus {
+      .input-container .dropdown .dropdown__value:focus {
         outline: none; }
-    .input-container .dropdown .Select-value-label {
+    .input-container .dropdown .dropdown__value-label {
       color: #000; }
-    .input-container .dropdown .Select-multi-value-wrapper:focus {
+    .input-container .dropdown .dropdown__multi-value-wrapper:focus {
       outline: none; }
-    .input-container .dropdown .Select-clear-zone {
+    .input-container .dropdown .dropdown__clear-zone {
       display: none; }
-    .input-container .dropdown .Select-control:hover {
+    .input-container .dropdown .dropdown__control:hover {
       box-shadow: none; }
-    .input-container .dropdown .Select-input {
+    .input-container .dropdown .dropdown__input {
       padding: 8px 0px 0px; }
-      .input-container .dropdown .Select-input input {
+      .input-container .dropdown .dropdown__input input {
         border: none;
         margin-bottom: 0px;
         padding: 0px; }
@@ -135,7 +135,7 @@
     color: #7f7f7f; }
   .input-container.inactive .dropdown {
     border-bottom: 1px solid #e0e0e0; }
-    .input-container.inactive .dropdown .Select-value {
+    .input-container.inactive .dropdown .dropdown__value {
       border-width: 0px;
       border-color: #e0e0e0; }
   .input-container.error input {
