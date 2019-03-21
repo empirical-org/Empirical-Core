@@ -23,14 +23,6 @@ interface DropdownInputState {
   menuIsOpen: boolean;
 }
 
-const dropdownIndicatorStyles = (base, state) => {
-  const changes = {
-    backgroundColor: 'blue',
-  };
-  console.log('base', base)
-  return Object.assign(base, changes);
-};
-
 export class DropdownInput extends React.Component<DropdownInputProps, DropdownInputState> {
   private input: any
   private node: any
@@ -69,7 +61,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
 
   activateInput() {
     if (!this.props.disabled) {
-      this.setState({ inactive: false, menuIsOpen: true }, () => this.input.focus())
+      this.setState({ inactive: false, menuIsOpen}, () => this.input.focus())
     }
   }
 
@@ -140,7 +132,6 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
               isClearable={false}
               className="dropdown"
               classNamePrefix="dropdown"
-              styles={{ dropdownIndicator: dropdownIndicatorStyles, }}
             />
           </div>)
       } else {
@@ -161,7 +152,6 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
               isClearable={false}
               className="dropdown"
               classNamePrefix="dropdown"
-              styles={{ dropdownIndicator: dropdownIndicatorStyles, }}
             />
             {this.renderErrorText()}
         </div>)
@@ -185,7 +175,6 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
             className="dropdown"
             classNamePrefix="dropdown"
             placeholder={placeholder || ''}
-            styles={{ dropdownIndicator: dropdownIndicatorStyles, }}
           />
           {this.renderHelperText()}
       </div>)
@@ -209,7 +198,6 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
             isClearable={false}
             className="dropdown"
             classNamePrefix="dropdown"
-            styles={{ dropdownIndicator: dropdownIndicatorStyles, }}
           />
       </div>)
     }
