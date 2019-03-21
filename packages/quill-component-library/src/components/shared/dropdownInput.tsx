@@ -61,7 +61,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
 
   activateInput() {
     if (!this.props.disabled) {
-      this.setState({ inactive: false, menuIsOpen}, () => this.input.focus())
+      this.setState({ inactive: false, menuIsOpen: true }, () => this.input.focus())
     }
   }
 
