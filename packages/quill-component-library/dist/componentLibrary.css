@@ -142,9 +142,21 @@
     .input-container.inactive .dropdown .dropdown__value {
       border-width: 0px;
       border-color: #e0e0e0; }
+    .input-container.inactive .dropdown .dropdown__dropdown-indicator {
+      width: 0;
+      height: 0;
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-top: 6px solid; }
   .input-container.active .dropdown__control {
     border: 2px #009a80;
     border-style: none none solid; }
+  .input-container.active .dropdown__dropdown-indicator {
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: 6px solid; }
   .input-container.error input {
     border: 2px #ff0000;
     border-style: none none solid none; }
