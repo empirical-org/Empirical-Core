@@ -47,6 +47,13 @@
         outline: none;
       }
     }
+    .dropdown__value-container {
+      padding-left: 0px;
+    }
+    .dropdown__indicator-separator {
+      display: none;
+    }
+
     .dropdown__value-label {
       color: #000;
     }
@@ -109,6 +116,12 @@
         border-width: 0px;
         border-color: #e0e0e0;
       }
+    }
+  }
+  &.active {
+    .dropdown__control {
+      border: 2px #009a80;
+      border-style: none none solid;
     }
   }
   &.error {
