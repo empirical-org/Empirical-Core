@@ -39,7 +39,7 @@ class SignUpStudent extends React.Component {
 
   submitClass() {
     const { password, firstName, lastName, username } = this.state
-    let buttonClass = "button contained primary medium"
+    let buttonClass = "quill-button contained primary medium"
     if (!password.length || !firstName.length || !lastName.length || !username.length) {
       buttonClass += ' disabled'
     }

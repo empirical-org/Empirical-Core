@@ -29,7 +29,7 @@ export default class ForgotPassword extends React.Component {
   }
 
   submitClass() {
-    let buttonClass = "button contained primary medium"
+    let buttonClass = "quill-button contained primary medium"
     if (!this.state.password.length || !this.state.passwordConfirmation.length) {
       buttonClass += ' disabled'
     }
