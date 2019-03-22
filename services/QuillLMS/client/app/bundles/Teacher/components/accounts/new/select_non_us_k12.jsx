@@ -1,6 +1,7 @@
 import React from 'react';
 import request from 'request'
 import getAuthToken from '../../modules/get_auth_token';
+import { Card } from 'quill-component-library/dist/componentLibrary'
 
 const homeSchoolSrc = `${process.env.CDN_URL}/images/onboarding/home-building.svg`
 const internationalSrc = `${process.env.CDN_URL}/images/onboarding/globe.svg`
@@ -31,34 +32,34 @@ class SelectUSNonK12 extends React.Component {
       <div className="container account-form select-non-k12">
         <h1>Where do you teach?</h1>
         <div className="quill-cards">
-          <div className="quill-card" onClick={() => this.selectSchool('home school')}>
-            <img src={homeSchoolSrc} alt="home"/>
-            <div className="text">
-              <h3>Home school</h3>
-              <p>Tip: many home school teachers begin by assigning our Starter&nbsp;Diagnostic.</p>
-            </div>
-          </div>
-          <div className="quill-card" onClick={() => this.selectSchool('international')}>
-            <img src={internationalSrc} alt="globe"/>
-            <div className="text">
-              <h3>International institution</h3>
-              <p>Tip: many international teachers begin by assigning our ELL&nbsp;Diagnostic.</p>
-            </div>
-          </div>
-          <div className="quill-card" onClick={() => this.selectSchool('us higher ed')}>
-            <img src={higherEdSrc} alt="college campus"/>
-            <div className="text">
-              <h3>U.S. higher education institution</h3>
-              <p>Tip: many of our higher education educators begin by assigning our Quill Connect sentence combining&nbsp;activities.</p>
-            </div>
-          </div>
-          <div className="quill-card" onClick={() => this.selectSchool('other')}>
-            <img src={otherSrc} alt="office building"/>
-            <div className="text">
-              <h3>Other</h3>
-              <p>Tip: many of our higher education educators begin by assigning our Quill Connect sentence combining&nbsp;activities.</p>
-            </div>
-          </div>
+          <Card
+            onClick={() => this.selectSchool('home school')}
+            imgSrc={homeSchoolSrc}
+            imgAlt="home"
+            header="Home school"
+            text="Tip: many home school teachers begin by assigning our Starter&nbsp;Diagnostic."
+          />
+          <Card
+            onClick={() => this.selectSchool('international')}
+            imgSrc={internationalSrc}
+            imgAlt="globe"
+            header="International institution"
+            text="Tip: many international teachers begin by assigning our ELL&nbsp;Diagnostic."
+          />
+          <Card
+            onClick={() => this.selectSchool('us higher ed')}
+            imgSrc={higherEdSrc}
+            imgAlt="college campus"
+            header="U.S. higher education institution"
+            text="Tip: many of our higher education educators begin by assigning our Quill Connect sentence combining&nbsp;activities."
+          />
+          <Card
+            onClick={() => this.selectSchool('other')}
+            imgSrc={otherSrc}
+            imgAlt="office building"
+            header="Other"
+            text="Tip: many non-traditional educators and learners begin by assigning our featured activity packs."
+          />
         </div>
       </div>
     )
