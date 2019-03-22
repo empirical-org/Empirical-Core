@@ -5,9 +5,8 @@
   h1 {
     line-height: 1.33;
   }
-  .card {
+  .quill-card {
     margin-bottom: 24px;
-    padding: 40px 32px;
     max-width: 546px;
     width: 100%;
     height: 158px;
@@ -197,10 +196,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  .card {
+  .quill-card {
     max-width: 546px;
     min-height: 158px;
     margin-bottom: 24px;
-    padding: 40px 32px;
   }
 }
