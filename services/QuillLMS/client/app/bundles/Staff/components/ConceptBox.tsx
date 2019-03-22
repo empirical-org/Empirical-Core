@@ -265,7 +265,7 @@ class ConceptBox extends React.Component<ConceptBoxProps, ConceptBoxState> {
       return <input
         type="submit"
         value="Save"
-        className="button contained primary medium"
+        className="quill-button contained primary medium"
       />
     }
   }

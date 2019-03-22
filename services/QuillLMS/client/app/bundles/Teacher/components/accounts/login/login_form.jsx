@@ -34,7 +34,7 @@ class LoginFormApp extends React.Component {
   }
 
   submitClass() {
-    let buttonClass = 'button contained primary medium';
+    let buttonClass = 'quill-button contained primary medium';
     if (!this.state.password.length || !this.state.email.length) {
       buttonClass += ' disabled';
     }
