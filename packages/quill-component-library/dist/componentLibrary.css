@@ -186,7 +186,8 @@
   background-color: #ffffff;
   display: flex;
   align-items: center;
-  cursor: pointer; }
+  cursor: pointer;
+  padding: 40px 32px; }
   .quill-card h3 {
     font-size: 16px;
     font-weight: bold;
