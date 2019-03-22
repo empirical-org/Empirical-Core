@@ -17,8 +17,8 @@ export {
 } from './components/feedback/conceptExplanation'
 
 export {
-  TextEditor,
   ArchivedButton,
+  Card,
   CarouselAnimation,
   DiagnosticProgressBar,
   DropdownInput,
@@ -28,7 +28,8 @@ export {
   Passthrough,
   ResumeOrBeginButton,
   SmartSpinner,
-  Spinner
+  Spinner,
+  TextEditor
 } from './components/shared/index'
 
 export {

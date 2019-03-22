@@ -3,8 +3,8 @@ export {
 } from './archivedButton'
 
 export {
-  TextEditor
-} from './textEditor'
+  Card
+} from './card'
 
 export {
   CarouselAnimation
@@ -45,3 +45,7 @@ export {
 export {
   Spinner
 } from './spinner'
+
+export {
+  TextEditor
+} from './textEditor'
