@@ -7,9 +7,11 @@ class Teachers::UnitTemplatesController < ApplicationController
   def index
     respond_to do |format|
       format.html do
-        unit_template = UnitTemplate.find(params[:id])
-        if unit_template&.image_link
-          @image_link = unit_template.image_link
+        if params[:id]
+          unit_template = UnitTemplate.find(params[:id])
+          if unit_template&.image_link
+            @image_link = unit_template.image_link
+          end
         end
         redirect_to "/teachers/classrooms/assign_activities/featured-activity-packs/#{params[:id]}" if @is_teacher
       end
