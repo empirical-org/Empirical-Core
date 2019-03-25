@@ -360,7 +360,6 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
       'time': 'Time',
       'displayed': 'Select to Display',
       'order': 1,
-      'retry': 'Have Student Retry',
     }
     const headers: Array<JSX.Element> = []
     for (let key in fields) {
@@ -468,7 +467,6 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
           </label>
         </td>
         <td><span className={`answer-number-container ${studentNumberClassName}`}>{studentNumber}</span></td>
-        <td className="retry-question-cell"><i className="fa fa-refresh student-retry-question" onClick={() => this.retryQuestionForStudent(studentKey)}/></td>
       </tr>
 
   }
