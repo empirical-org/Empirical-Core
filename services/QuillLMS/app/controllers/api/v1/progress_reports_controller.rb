@@ -83,7 +83,7 @@ class Api::V1::ProgressReportsController < Api::ApiController
   private
 
   def authorize!
-    return if current_user.admin? && authorize_admin
+    return if current_user&.admin? && authorize_admin
 
     authorize_classroom_and_student_teacher_relationship!
   end
