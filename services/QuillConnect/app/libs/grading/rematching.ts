@@ -99,7 +99,7 @@ export function paginatedNonHumanResponses(matcher, matcherFields, qid, page, ca
 
   return request(
     {
-      uri: `https://cms.quill.org/questions/${qid}/responses/search`,
+      uri: `${process.env.QUILL_CMS}/questions/${qid}/responses/search`,
       method: 'POST',
       body: getResponseBody(page),
       json: true,
@@ -183,7 +183,7 @@ function updateResponse(rid, content) {
   const rubyConvertedResponse = objectWithSnakeKeysFromCamel(content, false);
   return request({
     method: 'PUT',
-    uri: `https://cms.quill.org/responses/${rid}`,
+    uri: `${process.env.QUILL_CMS}/responses/${rid}`,
     body: { response: rubyConvertedResponse, },
     json: true,
   });
@@ -194,7 +194,7 @@ function determineDelta(response, newResponse) {
   const parentIDChanged = (newResponse.response.parent_id? Number(newResponse.response.parent_id) : null) !== response.parent_id;
   const authorChanged = newResponse.response.author !== response.author;
   const feedbackChanged = newResponse.response.feedback !== response.feedback;
-  const conceptResultsChanged = _.isEqual(convertResponsesArrayToHash(newResponse.response.concept_results), response.concept_results);
+  const conceptResultsChanged = !_.isEqual(convertResponsesArrayToHash(newResponse.response.concept_results), response.concept_results);
   const changed = parentIDChanged || authorChanged || feedbackChanged || conceptResultsChanged;
   // console.log(response.id, parentIDChanged, authorChanged, feedbackChanged, conceptResultsChanged);
   // console.log(response, newResponse.response);
