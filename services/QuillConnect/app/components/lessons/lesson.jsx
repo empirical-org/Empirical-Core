@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import _ from 'underscore';
 import lessonActions from '../../actions/lessons';
+import flagArray from '../../libs/flagArray'
 import { Modal } from 'quill-component-library/dist/componentLibrary';
 import C from '../../constants.js';
 import EditLessonForm from './lessonForm.jsx';
@@ -13,11 +14,15 @@ String.prototype.toKebab = function () {
 
 const Lesson = React.createClass({
 
-  questionsForLesson() {
+  lesson() {
     const { data, } = this.props.lessons,
       { lessonID, } = this.props.params;
-    if (data[lessonID].questions) {
-      return data[lessonID].questions.map((question) => {
+    return data[lessonID]
+  }
+
+  questionsForLesson() {
+    if (this.lesson().questions) {
+      return this.lesson().questions.map((question) => {
         const questions = this.props[question.questionType].data;
         const qFromDB = Object.assign({}, questions[question.key]);
         qFromDB.questionType = question.questionType;
@@ -29,12 +34,14 @@ const Lesson = React.createClass({
 
   renderQuestionsForLesson() {
     const questionsForLesson = this.questionsForLesson();
+    const lessonFlag = this.lesson().flag
     if (questionsForLesson) {
       const listItems = questionsForLesson.map((question) => {
-        const { questionType, title, prompt, key, } = question
+        const { questionType, title, prompt, key, flag } = question
         const displayName = (questionType === 'titleCards' ? title : prompt) || 'No question prompt';
         const questionTypeLink = questionType === 'fillInBlank' ? 'fill-in-the-blanks' : questionType.toKebab()
-        return (<li key={question.key}><Link to={`/admin/${questionTypeLink || 'questions'}/${question.key}`}>{displayName.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, '')}</Link></li>);
+        const flagTag = flagArray(lessonFlag).includes(flag) ? '' : <strong>{flag.toUpperCase()} - </strong>
+        return (<li key={key}><Link to={`/admin/${questionTypeLink || 'questions'}/${key}`}>{flagTag}{displayName.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, '')}</Link></li>);
       });
       return (
         <ul>{listItems}</ul>
@@ -53,12 +60,12 @@ const Lesson = React.createClass({
   },
 
   cancelEditingLesson() {
+    const { lessonID, } = this.props.params;
     this.props.dispatch(lessonActions.cancelLessonEdit(this.props.params.lessonID));
   },
 
   saveLessonEdits(vals) {
-    const { data, } = this.props.lessons,
-      { lessonID, } = this.props.params;
+    const { lessonID, } = this.props.params;
     const qids = vals.questions ? vals.questions.map(q => q.key) : []
     this.props.dispatch(lessonActions.submitLessonEdit(lessonID, vals, qids));
   },
@@ -70,9 +77,8 @@ const Lesson = React.createClass({
   },
 
   renderEditLessonForm() {
-    const { data, } = this.props.lessons,
-      { lessonID, } = this.props.params;
-    const lesson = (data[lessonID]);
+    const { lessonID, } = this.props.params;
+    const lesson = this.lesson();
     if (this.props.lessons.states[lessonID] === C.EDITING_LESSON) {
       return (
         <Modal close={this.cancelEditingLesson}>
@@ -83,18 +89,17 @@ const Lesson = React.createClass({
   },
 
   render() {
-    const { data, } = this.props.lessons,
-      { lessonID, } = this.props.params;
-    if (data[lessonID]) {
-      const numberOfQuestions = data[lessonID].questions ? data[lessonID].questions.length : 0;
+    const { lessonID, } = this.props.params;
+    if (this.lesson()) {
+      const numberOfQuestions = this.lesson().questions ? this.lesson().questions.length : 0;
       return (
         <div>
           <Link to={'admin/lessons'}>Return to All Lessons</Link>
           <br />
           {this.renderEditLessonForm()}
-          <h4 className="title">{data[lessonID].name}</h4>
+          <h4 className="title">{this.lesson().name}</h4>
 
-          <h6 className="subtitle">{data[lessonID].flag}</h6>
+          <h6 className="subtitle">{this.lesson().flag}</h6>
           <h6 className="subtitle">{numberOfQuestions} Questions</h6>
           <h6 className="subtitle"><Link to={`play/lesson/${lessonID}`}>{`quillconnect.firebaseapp.com/#/play/lesson/${lessonID}`}</Link></h6>
           <h6 className="subtitle"><Link to={`admin/lessons/${lessonID}/results`}>View Results</Link></h6>
