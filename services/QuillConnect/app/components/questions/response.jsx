@@ -59,6 +59,20 @@ export default React.createClass({
     };
   },
 
+  componentWillReceiveProps(nextProps: any) {
+    if (!_.isEqual(nextProps.response, this.props.response)) {
+      let conceptResults = {}
+      if (nextProps.response.concept_results) {
+        if (typeof nextProps.response.concept_results === 'string') {
+          conceptResults = JSON.parse(nextProps.response.concept_results)
+        } else {
+          conceptResults = nextProps.response.concept_results
+        }
+      }
+      this.setState({conceptResults})
+    }
+  },
+
   deleteResponse(rid) {
     if (window.confirm('Are you sure?')) {
       this.props.dispatch(deleteResponse(this.props.questionID, rid));
@@ -116,13 +130,15 @@ export default React.createClass({
   },
 
   unmatchResponse(rid) {
+    const { modelConceptUID, conceptID, } = this.props.question
+    const defaultConceptUID = modelConceptUID || conceptID
     const newResp = {
       weak: false,
       feedback: null,
       optimal: null,
       author: null,
       parent_id: null,
-      concept_results: null
+      concept_results: { [defaultConceptUID]: false, },
     }
     this.props.dispatch(submitResponseEdit(rid, newResp, this.props.questionID));
   },
