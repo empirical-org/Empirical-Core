@@ -80,6 +80,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       this.finishReview = this.finishReview.bind(this)
       this.createAnonActivitySession = this.createAnonActivitySession.bind(this)
       this.handlePassageChange = this.handlePassageChange.bind(this)
+      this.handleParagraphChange = this.handleParagraphChange.bind(this)
       this.finishActivity = this.finishActivity.bind(this)
       this.renderShowEarlySubmitModal = this.renderShowEarlySubmitModal.bind(this)
       this.closeEarlySubmitModal = this.closeEarlySubmitModal.bind(this)
@@ -400,7 +401,9 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
     }
 
     handleParagraphChange(i: Number, value: Array<any>) {
-
+      let newParagraphs = this.state.passage
+      newParagraphs[i] = value
+      this.setState({ passage: newParagraphs, })
     }
 
     openResetModal() {
