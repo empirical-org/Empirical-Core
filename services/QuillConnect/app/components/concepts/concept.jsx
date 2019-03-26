@@ -31,8 +31,8 @@ const Concept = React.createClass({
   },
 
   questionsForConcept: function () {
-    var questionsCollection = hashToCollection(this.props.questions.data)
-    return _.where(questionsCollection, {conceptID: this.props.params.conceptID})
+    const questionsCollection = hashToCollection(this.props.questions.data)
+    return questionsCollection.filter(q => q.conceptID === this.props.params.conceptID && q.flag !== 'archived')
   },
 
   renderQuestionsForConcept: function () {
