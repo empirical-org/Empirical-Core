@@ -115,6 +115,18 @@ export default React.createClass({
     this.props.dispatch(submitResponseEdit(rid, newResp, this.props.questionID));
   },
 
+  unmatchResponse(rid) {
+    const newResp = {
+      weak: false,
+      feedback: null,
+      optimal: null,
+      author: null,
+      parent_id: null,
+      concept_results: null
+    }
+    this.props.dispatch(submitResponseEdit(rid, newResp, this.props.questionID));
+  },
+
   getErrorsForAttempt(attempt) {
     return _.pick(attempt, ...C.ERROR_TYPES);
   },
@@ -420,6 +432,7 @@ export default React.createClass({
     if (isEditing) {
       buttons = [
         (<a className="card-footer-item" onClick={this.cancelResponseEdit.bind(null, response.key)} key="cancel" >Cancel</a>),
+        (<a className="card-footer-item" onClick={this.unmatchResponse.bind(null, response.key)} key="unmatch" >Unmatch</a>),
         (<a className="card-footer-item" onClick={this.incrementResponse.bind(null, response.key)} key="increment" >Increment</a>),
         (<a className="card-footer-item" onClick={this.updateResponse.bind(null, response.key)} key="update" >Update</a>)
       ];
