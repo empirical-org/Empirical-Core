@@ -72,7 +72,20 @@ export default class Response extends React.Component<any, any> {
     this.toResponsePathways = this.toResponsePathways.bind(this)
     this.renderToResponsePathways = this.renderToResponsePathways.bind(this)
     this.renderFromResponsePathways = this.renderFromResponsePathways.bind(this)
+  }
 
+  componentWillReceiveProps(nextProps: any) {
+    if (!_.isEqual(nextProps.response, this.props.response)) {
+      let conceptResults = {}
+      if (nextProps.response.concept_results) {
+        if (typeof nextProps.response.concept_results === 'string') {
+          conceptResults = JSON.parse(nextProps.response.concept_results)
+        } else {
+          conceptResults = nextProps.response.concept_results
+        }
+      }
+      this.setState({conceptResults})
+    }
   }
 
   initialState() {
@@ -154,13 +167,15 @@ export default class Response extends React.Component<any, any> {
   }
 
   unmatchResponse(rid: string) {
+    const { modelConceptUID, concept_uid } = this.props.question
+    const defaultConceptUID = modelConceptUID || concept_uid
     const newResp = {
       weak: false,
       feedback: null,
       optimal: null,
       author: null,
       parent_id: null,
-      concept_results: {}
+      concept_results: {[defaultConceptUID]: false}
     }
     this.props.dispatch(submitResponseEdit(rid, newResp, this.props.questionID));
   }
