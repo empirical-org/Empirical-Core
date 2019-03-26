@@ -64,7 +64,7 @@ class Concept extends React.Component<ConceptProps, ConceptState> {
 
   questionsForConcept() {
     const questionsCollection = hashToCollection(this.props.questions.data)
-    return _.where(questionsCollection, {concept_uid: this.props.match.params.conceptID})
+    return questionsCollection.filter(q => q.concept_uid === this.props.match.params.conceptID && q.flag !== 'archived')
   }
 
   renderQuestionsForConcept() {
