@@ -1,6 +1,6 @@
 # Changelog
 
-## Released on: TBD
+## Released on: 2019-03-27
 ### Removed
 - Removed the ability to reset a single, specific student's answer in a Lesson slide
 
