@@ -64,13 +64,14 @@ class Concept extends React.Component<ConceptProps, ConceptState> {
 
   questionsForConcept() {
     const questionsCollection = hashToCollection(this.props.questions.data)
-    return _.where(questionsCollection, {concept_uid: this.props.match.params.conceptID})
+    return questionsCollection.filter(q => q.concept_uid === this.props.match.params.conceptID && q.flag !== 'archived')
   }
 
   renderQuestionsForConcept() {
     const questionsForConcept = this.questionsForConcept()
     const listItems = questionsForConcept.map((question: Question) => {
-      return (<li key={question.key}><Link to={'/admin/questions/' + question.key + '/responses'}>{question.prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")}</Link></li>)
+      const archivedTag = question.flag === 'archived' ? <strong>ARCHIVED - </strong> : ''
+      return (<li key={question.key}><Link to={'/admin/questions/' + question.key + '/responses'}>{archivedTag}{question.prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")}</Link></li>)
     })
     return (
       <ul>{listItems}</ul>
