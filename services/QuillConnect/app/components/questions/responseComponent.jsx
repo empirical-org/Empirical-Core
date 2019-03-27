@@ -323,6 +323,7 @@ class ResponseComponent extends React.Component {
         concepts={this.props.concepts}
         conceptID={this.props.question.conceptID}
         massEdit={this.props.massEdit}
+        question={this.props.question}
       />);
     }
   }
