@@ -92,6 +92,7 @@ export default class ResponseList extends React.Component {
       massEdit={this.props.massEdit}
       states={this.props.states}
       state={this.props.states[this.props.questionID]}
+      question={this.props.question}
     />
   }
 
