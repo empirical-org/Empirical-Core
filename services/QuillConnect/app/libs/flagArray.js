@@ -1,4 +1,4 @@
-export default (flag) => {
+export const flagArray = (flag) => {
   let flagArray = ['production']
   if (flag === 'alpha') {
     flagArray = ['alpha', 'beta', 'production']
@@ -8,4 +8,10 @@ export default (flag) => {
     flagArray = ['archived', 'alpha', 'beta', 'production']
   }
   return flagArray
+}
+
+export const permittedFlag = (activityFlag, questionFlag) => {
+  const notNullActivityFlag = activityFlag || 'production'
+  const notNullQuestionFlag = questionFlag || 'production'
+  return flagArray(notNullActivityFlag).includes(notNullQuestionFlag)
 }
