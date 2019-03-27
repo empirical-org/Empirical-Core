@@ -251,19 +251,30 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
       </div>
     }
 
+    renderTextareaSection() {
+      const question = this.currentQuestion()
+      if (question.attempts && question.attempts[1]) {
+        return <Row type="flex" align="middle" justify="start">
+          <textarea value={this.state.response} className="input-field disabled" disabled/>
+        </Row>
+      } else {
+        return <Row type="flex" align="middle" justify="start">
+          <textarea value={this.state.response} spellcheck="false" className="input-field" onChange={this.updateResponse} onKeyDown={this.onPressEnter}/>
+        </Row>
+      }
+    }
+
     renderQuestionSection(): JSX.Element {
       const prompt = this.currentQuestion().prompt
-      return <div className="question-section">
+      return (<div className="question-section">
         <Row type="flex" align="middle" justify="start">
           <div className="prompt" dangerouslySetInnerHTML={{__html: prompt}} />
         </Row>
-        <Row type="flex" align="middle" justify="start">
-          <textarea value={this.state.response} spellcheck="false" className="input-field" onChange={this.updateResponse} onKeyDown={this.onPressEnter}/>
-        </Row>
+        {this.renderTextareaSection()}
         <Row type="flex" align="middle" justify="end">
           {this.renderCheckAnswerButton()}
         </Row>
-      </div>
+      </div>)
     }
 
     renderFeedbackSection(): JSX.Element|undefined {
