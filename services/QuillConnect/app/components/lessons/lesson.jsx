@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import _ from 'underscore';
 import lessonActions from '../../actions/lessons';
-import flagArray from '../../libs/flagArray'
+import { permittedFlag } from '../../libs/flagArray'
 import { Modal } from 'quill-component-library/dist/componentLibrary';
 import C from '../../constants.js';
 import EditLessonForm from './lessonForm.jsx';
@@ -15,10 +15,10 @@ String.prototype.toKebab = function () {
 const Lesson = React.createClass({
 
   lesson() {
-    const { data, } = this.props.lessons,
-      { lessonID, } = this.props.params;
+    const { data, } = this.props.lessons
+    const { lessonID, } = this.props.params;
     return data[lessonID]
-  }
+  },
 
   questionsForLesson() {
     if (this.lesson().questions) {
@@ -40,7 +40,7 @@ const Lesson = React.createClass({
         const { questionType, title, prompt, key, flag } = question
         const displayName = (questionType === 'titleCards' ? title : prompt) || 'No question prompt';
         const questionTypeLink = questionType === 'fillInBlank' ? 'fill-in-the-blanks' : questionType.toKebab()
-        const flagTag = flagArray(lessonFlag).includes(flag) ? '' : <strong>{flag.toUpperCase()} - </strong>
+        const flagTag = permittedFlag(lessonFlag, flag) ? '' : <strong>{flag.toUpperCase()} - </strong>
         return (
           <li key={key}>
             <Link to={`/admin/${questionTypeLink || 'questions'}/${key}`}>

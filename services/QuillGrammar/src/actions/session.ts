@@ -9,7 +9,7 @@ import { SessionState } from '../reducers/sessionReducer'
 import { checkGrammarQuestion, Response } from 'quill-marking-logic'
 import { hashToCollection } from '../helpers/hashToCollection'
 import { shuffle } from '../helpers/shuffle';
-import flagArray from '../helpers/flagArray'
+import { permittedFlag } from '../helpers/flagArray'
 import _ from 'lodash';
 
 export const updateSessionOnFirebase = (sessionID: string, session: SessionState) => {
@@ -89,7 +89,7 @@ export const getQuestionsForConcepts = (concepts: any, flag: string) => {
       const questions = snapshot.val()
       const questionsForConcepts = {}
       Object.keys(questions).map(q => {
-        if (conceptUIDs.includes(questions[q].concept_uid) && questions[q].prompt && questions[q].answers && flagArray(flag).includes(questions[q].flag)) {
+        if (conceptUIDs.includes(questions[q].concept_uid) && questions[q].prompt && questions[q].answers && permittedFlag(flag, questions[q].flag)) {
           const question = questions[q]
           question.uid = q
           if (questionsForConcepts.hasOwnProperty(question.concept_uid)) {
@@ -134,7 +134,7 @@ export const getQuestions = (questions: any, flag: string) => {
         question.uid = q.key
         return question
       })
-      const arrayOfQuestionsFilteredByFlag = arrayOfQuestions.filter(q => flagArray(flag).includes(q.flag))
+      const arrayOfQuestionsFilteredByFlag = arrayOfQuestions.filter(q => permittedFlag(flag, q.flag))
       if (arrayOfQuestionsFilteredByFlag.length > 0) {
         dispatch({ type: ActionTypes.RECEIVE_QUESTION_DATA, data: arrayOfQuestionsFilteredByFlag, });
       } else {
