@@ -7,17 +7,21 @@ QUILL_CMS=https://cms.quill.org
 case $1 in
   prod)
     # ENSURE THAT WE'RE ON MASTER FOR PRODUCTION DEPLOYS
-    git checkout master
-    git pull origin master
-    EMPIRICAL_BASE_URL=https://www.quill.org
-    LESSONS_WEBSOCKETS_URL=https://lessons-server.quill.org/
-    NODE_ENV=prod
+    current_branch=`git rev-parse --abbrev-ref HEAD`
+    if [ "$current_branch" != "master" ]
+    then
+      echo "You can not make a production deploy from a branch other than 'master'.  Don't forget to make sure you have the latest code pulled."
+      exit 1
+    fi
+    export EMPIRICAL_BASE_URL=https://www.quill.org
+    export LESSONS_WEBSOCKETS_URL=https://lessons-server.quill.org/
+    export NODE_ENV=prod
     S3_DEPLOY_BUCKET=s3://aws-website-quill-lessons
     ;;
   staging)
-    EMPIRICAL_BASE_URL=https://staging.quill.org
-    LESSONS_WEBSOCKETS_URL=https://staging-lessons-server.quill.org/
-    NODE_ENV=staging
+    export EMPIRICAL_BASE_URL=https://staging.quill.org
+    export LESSONS_WEBSOCKETS_URL=https://staging-lessons-server.quill.org/
+    export NODE_ENV=staging
     S3_DEPLOY_BUCKET=s3://aws-website-quill-lessons-staging
     ;;
   *)
