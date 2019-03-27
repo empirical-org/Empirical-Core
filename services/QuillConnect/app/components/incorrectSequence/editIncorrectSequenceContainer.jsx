@@ -14,7 +14,7 @@ class EditIncorrectSequencesContainer extends Component {
   componentWillMount() {
     const qid = this.props.params.questionID
     if (!this.props.generatedIncorrectSequences.suggested[qid]) {
-      this.props.dispatch(questionActions.getSuggestedSequences(qid))
+      this.props.dispatch(questionActions.getUsedSequences(qid))
     }
   }
 
@@ -35,9 +35,7 @@ class EditIncorrectSequencesContainer extends Component {
         <IncorrectSequencesInputAndConceptSelectorForm
           itemLabel='Incorrect Sequence'
           onSubmit={this.submitForm}
-          suggestedSequences={generatedIncorrectSequences.suggested[params.questionID]}
           usedSequences={generatedIncorrectSequences.used[params.questionID]}
-          coveredSequences={generatedIncorrectSequences.covered[params.questionID]}
           item={Object.assign(this.getIncorrectSequence(), { id: params.incorrectSequenceID, })}
           questions={questions}
           questionID={params.questionID}

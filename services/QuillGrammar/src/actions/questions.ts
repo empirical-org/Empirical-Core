@@ -262,54 +262,25 @@ export const deleteFocusPoint = (qid:string, fpid: string) => {
   };
 }
 
-export const getSuggestedSequences = (qid: string) => {
+export const getUsedSequences = (qid: string) => {
   return (dispatch: Function, getState: Function) => {
-    request(
-      {
-        url: `${process.env.QUILL_CMS}/responses/${qid}/incorrect_sequences`,
-        method: 'GET',
-      },
-      (err, httpResponse, data) => {
-        const suggestedSeqs = JSON.parse(data)
-        const existingIncorrectSeqs = getState().questions.data[qid].incorrectSequences
-        const usedSeqs: Array<string> = []
-        const coveredSeqs: Array<string> = []
-        if (existingIncorrectSeqs) {
-          Object.values(existingIncorrectSeqs).forEach(inSeq => {
-            const phrases = inSeq.text.split('|||')
-            phrases.forEach((p) => {
-              usedSeqs.push(p)
-              const index = suggestedSeqs.forEach((seq, i) => {
-                if (seq === p) {
-                  suggestedSeqs.splice(i, 1)
-                } else if (seq.includes(p)) {
-                  coveredSeqs.push(seq)
-                  suggestedSeqs.splice(i, 1)
-                }
-              })
-            })
-          })
-        }
-        dispatch(setSuggestedSequences(qid, suggestedSeqs));
-        dispatch(setUsedSequences(qid, usedSeqs));
-        dispatch(setCoveredSequences(qid, coveredSeqs));
-      }
-    );
+    const existingIncorrectSeqs = getState().questions.data[qid].incorrectSequences
+    const usedSeqs: Array<string> = []
+    if (existingIncorrectSeqs) {
+      Object.values(existingIncorrectSeqs).forEach(inSeq => {
+        const phrases = inSeq.text.split('|||')
+        phrases.forEach((p) => {
+          usedSeqs.push(p)
+        })
+      })
+    }
+    dispatch(setUsedSequences(qid, usedSeqs));
   }
-}
-
-export const setSuggestedSequences = (qid: string, seq: Array<string>) => {
-  return {type: ActionTypes.SET_SUGGESTED_SEQUENCES, qid, seq}
 }
 
 export const setUsedSequences = (qid: string, seq: Array<string>) => {
   return {type: ActionTypes.SET_USED_SEQUENCES, qid, seq}
 }
-
-export const setCoveredSequences = (qid: string, seq: Array<string>) => {
-  return {type: ActionTypes.SET_COVERED_SEQUENCES, qid, seq}
-}
-
 
 export const updateStringFilter = (stringFilter: string, qid: string) => {
   return (dispatch: Function) => {
