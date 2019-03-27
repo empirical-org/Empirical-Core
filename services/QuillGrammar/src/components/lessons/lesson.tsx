@@ -55,7 +55,13 @@ class Lesson extends React.Component<LessonProps> {
       const { prompt, key, concept_uid, flag } = question
       const displayName = prompt || 'No question prompt';
       const flagTag = flag && this.permittedFlags().includes(flag) ? '' : <strong>{flag.toUpperCase()} - </strong>
-      const questionLink = <li key={key}><Link to={`/admin/questions/${question.key}`}>{flagTag}{displayName.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, '')}</Link></li>
+      const questionLink = (
+        <li key={key}>
+          <Link to={`/admin/questions/${question.key}`}>
+            {flagTag}
+            {displayName.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, '')}
+          </Link>
+        </li>)
       if (conceptIds[concept_uid]) {
         conceptIds[concept_uid].push(questionLink)
       } else {
@@ -81,7 +87,13 @@ class Lesson extends React.Component<LessonProps> {
       const { prompt, key, concept_uid, flag, } = question
       const displayName = prompt || 'No question prompt';
       const flagTag = flag && this.permittedFlags().includes(flag) ? '' : <strong>{flag.toUpperCase()} - </strong>
-      return <li key={key}><Link to={`/admin/questions/${key}`}>{flagTag}{displayName.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, '')}</Link></li>
+      return (
+        <li key={key}>
+          <Link to={`/admin/questions/${key}`}>
+            {flagTag}
+            {displayName.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, '')}
+          </Link>
+        </li>)
     })
   }
 

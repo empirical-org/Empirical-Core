@@ -41,7 +41,13 @@ const Lesson = React.createClass({
         const displayName = (questionType === 'titleCards' ? title : prompt) || 'No question prompt';
         const questionTypeLink = questionType === 'fillInBlank' ? 'fill-in-the-blanks' : questionType.toKebab()
         const flagTag = flagArray(lessonFlag).includes(flag) ? '' : <strong>{flag.toUpperCase()} - </strong>
-        return (<li key={key}><Link to={`/admin/${questionTypeLink || 'questions'}/${key}`}>{flagTag}{displayName.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, '')}</Link></li>);
+        return (
+          <li key={key}>
+            <Link to={`/admin/${questionTypeLink || 'questions'}/${key}`}>
+              {flagTag}
+              {displayName.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, '')}
+            </Link>
+          </li>);
       });
       return (
         <ul>{listItems}</ul>
