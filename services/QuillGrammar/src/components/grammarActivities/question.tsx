@@ -252,8 +252,8 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
     }
 
     renderTextareaSection() {
-      const question = this.currentQuestion()
-      if (question.attempts && question.attempts[1]) {
+      const { questionStatus } = this.state
+      if (['correctly answered', 'final attempt'].includes(questionStatus)) {
         return <Row type="flex" align="middle" justify="start">
           <textarea value={this.state.response} className="input-field disabled" disabled/>
         </Row>
