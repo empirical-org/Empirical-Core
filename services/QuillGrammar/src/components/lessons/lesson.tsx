@@ -73,9 +73,10 @@ class Lesson extends React.Component<LessonProps> {
 
   renderQuestionsAsList(questionsForLesson) {
     return questionsForLesson.map((question: Question) => {
-      const { prompt, key, concept_uid} = question
+      const { prompt, key, concept_uid, flag, } = question
       const displayName = prompt || 'No question prompt';
-      return <p key={key}><Link to={`/admin/questions/${question.key}`}>{displayName.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, '')}</Link></p>
+      const archivedTag = flag === 'archived' ? 'ARCHIVED - ' : ''
+      return <li key={key}><Link to={`/admin/questions/${key}`}><strong>{archivedTag}</strong>{displayName.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, '')}</Link></li>
     })
   }
 
@@ -95,7 +96,7 @@ class Lesson extends React.Component<LessonProps> {
     } else if (lessonConcepts) {
       const questions = this.props.questions ? hashToCollection(this.props.questions.data) : []
       const conceptUids = Object.keys(data[lessonID].concepts)
-      questionsForLesson = questions.filter(q => conceptUids.includes(q.concept_uid))
+      questionsForLesson = questions.filter(q => conceptUids.includes(q.concept_uid) && q.flag !== 'archived')
       return this.renderQuestionsByConcept(questionsForLesson)
     }
     return (
