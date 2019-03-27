@@ -31,14 +31,15 @@ const Concept = React.createClass({
   },
 
   questionsForConcept: function () {
-    var questionsCollection = hashToCollection(this.props.questions.data)
-    return _.where(questionsCollection, {conceptID: this.props.params.conceptID})
+    const questionsCollection = hashToCollection(this.props.questions.data)
+    return questionsCollection.filter(q => q.conceptID === this.props.params.conceptID && q.flag !== 'archived')
   },
 
   renderQuestionsForConcept: function () {
     var questionsForConcept = this.questionsForConcept()
     var listItems = questionsForConcept.map((question) => {
-      return (<li key={question.key}><Link to={'/admin/questions/' + question.key}>{question.prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")}</Link></li>)
+      const archivedTag = question.flag === 'archived' ? <strong>ARCHIVED - </strong> : ''
+      return (<li key={question.key}><Link to={'/admin/questions/' + question.key + '/responses'}>{archivedTag}{question.prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")}</Link></li>)
     })
     return (
       <ul>{listItems}</ul>

@@ -83,11 +83,11 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
 
     componentWillReceiveProps(nextProps: PlayGrammarContainerProps) {
       if (nextProps.grammarActivities.hasreceiveddata && !nextProps.session.hasreceiveddata && !nextProps.session.pending && !nextProps.session.error) {
-        const { questions, concepts } = nextProps.grammarActivities.currentActivity
+        const { questions, concepts, flag } = nextProps.grammarActivities.currentActivity
         if (questions) {
-          this.props.dispatch(getQuestions(questions))
+          this.props.dispatch(getQuestions(questions, flag))
         } else {
-          this.props.dispatch(getQuestionsForConcepts(concepts))
+          this.props.dispatch(getQuestionsForConcepts(concepts, flag))
         }
       }
 
