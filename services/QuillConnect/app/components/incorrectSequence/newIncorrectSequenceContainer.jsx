@@ -13,7 +13,7 @@ class NewIncorrectSequencesContainer extends Component {
 
   componentWillMount() {
     const qid = this.props.params.questionID
-    if (!this.props.generatedIncorrectSequences.suggested[qid]) {
+    if (!this.props.generatedIncorrectSequences.used[qid]) {
       this.props.dispatch(questionActions.getUsedSequences(qid))
     }
   }

@@ -250,52 +250,24 @@ function updateStringFilter(stringFilter, qid) {
   };
 }
 
-function getSuggestedSequences(qid) {
+function getUsedSequences(qid) {
   return (dispatch, getState) => {
-    request(
-      {
-        url: `${process.env.QUILL_CMS}/responses/${qid}/incorrect_sequences`,
-        method: 'GET',
-      },
-      (err, httpResponse, data) => {
-        const suggestedSeqs = JSON.parse(data)
-        const existingIncorrectSeqs = getState().questions.data[qid].incorrectSequences
-        const usedSeqs = []
-        const coveredSeqs = []
-        if (existingIncorrectSeqs) {
-          Object.values(existingIncorrectSeqs).forEach(inSeq => {
-            const phrases = inSeq.text.split('|||')
-            phrases.forEach((p) => {
-              usedSeqs.push(p)
-              const index = suggestedSeqs.forEach((seq, i) => {
-                if (seq === p) {
-                  suggestedSeqs.splice(i, 1)
-                } else if (seq.includes(p)) {
-                  coveredSeqs.push(seq)
-                  suggestedSeqs.splice(i, 1)
-                }
-              })
-            })
-          })
-        }
-        dispatch(setSuggestedSequences(qid, suggestedSeqs));
-        dispatch(setUsedSequences(qid, usedSeqs));
-        dispatch(setCoveredSequences(qid, coveredSeqs));
-      }
-    );
+    const existingIncorrectSeqs = getState().questions.data[qid].incorrectSequences
+    const usedSeqs = []
+    if (existingIncorrectSeqs) {
+      Object.values(existingIncorrectSeqs).forEach(inSeq => {
+        const phrases = inSeq.text.split('|||')
+        phrases.forEach((p) => {
+          usedSeqs.push(p)
+        })
+      })
+    }
+    dispatch(setUsedSequences(qid, usedSeqs));
   }
-}
-
-function setSuggestedSequences(qid, seq) {
-  return {type: C.SET_SUGGESTED_SEQUENCES, qid, seq}
 }
 
 function setUsedSequences(qid, seq) {
   return {type: C.SET_USED_SEQUENCES, qid, seq}
-}
-
-function setCoveredSequences(qid, seq) {
-  return {type: C.SET_COVERED_SEQUENCES, qid, seq}
 }
 
 function startResponseEdit(qid, rid) {
@@ -385,6 +357,6 @@ module.exports = {
   setStringFilter,
   incrementRequestCount,
   updateFlag,
-  getSuggestedSequences,
+  getUsedSequences,
   updateModelConceptUID
 };
