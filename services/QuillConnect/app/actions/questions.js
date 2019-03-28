@@ -63,9 +63,11 @@ function submitNewQuestion(content, response) {
       if (error) {
         dispatch({ type: C.DISPLAY_ERROR, error: `Submission failed! ${error}`, });
       } else {
-        response.questionUID = newRef.key;
-        response.gradeIndex = `human${newRef.key}`;
-        dispatch(submitResponse(response));
+        if (response.text) {
+          response.questionUID = newRef.key;
+          response.gradeIndex = `human${newRef.key}`;
+          dispatch(submitResponse(response));
+        }
         dispatch({ type: C.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
         const action = push(`/admin/questions/${newRef.key}`);
         dispatch(action);

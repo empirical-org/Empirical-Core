@@ -105,9 +105,11 @@ function submitNewSentenceFragment(content, response) {
       if (error) {
         dispatch({ type: C.DISPLAY_ERROR, error: `Submission failed! ${error}`, });
       } else {
-        response.questionUID = newRef.key;
-        response.gradeIndex = `human${newRef.key}`;
-        dispatch(submitResponse(response));
+        if (response.text) {
+          response.questionUID = newRef.key;
+          response.gradeIndex = `human${newRef.key}`;
+          dispatch(submitResponse(response));
+        }
         const focusPoints = content.prompt.split(' ').map((w) => {
           const word = w.replace(/[^\w]|_/g, '')
           const caseModifiedWord = word.toLowerCase() !== word ? word.toLowerCase() : word.charAt(0).toUpperCase() + word.slice(1)
