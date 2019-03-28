@@ -61,7 +61,7 @@ const EndState = React.createClass({
   renderTopThreeResponses() {
     let responses = this.props.responses;
     responses = hashToCollection(responses);
-    responses = responses.filter(response => response.optimal).sort((a, b) => b.count - a.count);
+    responses = responses.filter(response => response.optimal && response.text.length).sort((a, b) => b.count - a.count);
     const responsesToRender = _.first(responses, 3);
     const sum = _.reduce(responsesToRender, (memo, response) => memo + response.count, 0);
     let attemptKey;
