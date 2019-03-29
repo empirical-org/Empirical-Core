@@ -102,6 +102,9 @@ export function checkForMissingWords(userString:string, responses:Array<Response
 }
 
 function normalizeString(string:string = ''):string {
+  console.log('string', string)
+  console.log('normalizedString', stringNormalize(string))
+  console.log('normalizedStringWithoutPunctuation', stringNormalize(string).replace(/[.,?!;]/g, ''))
   return stringNormalize(string).replace(/[.,?!;]/g, '').toLowerCase();
 }
 
