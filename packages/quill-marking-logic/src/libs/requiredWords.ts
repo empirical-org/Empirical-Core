@@ -64,6 +64,8 @@ export function getCommonWordsWithImportantPOS(sentences: Array<string>):Array<s
 export function getMissingWords(userString: string, sentences: Array<string>):Array<string> {
   const commonWords = getCommonWordsWithImportantPOS(sentences);
   const wordsFromUser = normalizeString(userString).split(' ');
+  console.log('commonWords', commonWords)
+  console.log('wordsFromUser', wordsFromUser)
   return _.reject(commonWords, commonWord => _.contains(wordsFromUser, commonWord));
 }
 
