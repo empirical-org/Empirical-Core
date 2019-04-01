@@ -38,6 +38,7 @@ export default class Response extends React.Component<any, any> {
     this.viewToResponses = this.viewToResponses.bind(this)
     this.cancelToResponseView = this.cancelToResponseView.bind(this)
     this.updateResponse = this.updateResponse.bind(this)
+    this.unmatchResponse = this.unmatchResponse.bind(this)
     this.getErrorsForAttempt = this.getErrorsForAttempt.bind(this)
     this.markAsWeak = this.markAsWeak.bind(this)
     this.unmarkAsWeak = this.unmarkAsWeak.bind(this)
@@ -71,7 +72,20 @@ export default class Response extends React.Component<any, any> {
     this.toResponsePathways = this.toResponsePathways.bind(this)
     this.renderToResponsePathways = this.renderToResponsePathways.bind(this)
     this.renderFromResponsePathways = this.renderFromResponsePathways.bind(this)
+  }
 
+  componentWillReceiveProps(nextProps: any) {
+    if (!_.isEqual(nextProps.response, this.props.response)) {
+      let conceptResults = {}
+      if (nextProps.response.concept_results) {
+        if (typeof nextProps.response.concept_results === 'string') {
+          conceptResults = JSON.parse(nextProps.response.concept_results)
+        } else {
+          conceptResults = nextProps.response.concept_results
+        }
+      }
+      this.setState({conceptResults})
+    }
   }
 
   initialState() {
@@ -149,6 +163,20 @@ export default class Response extends React.Component<any, any> {
       parent_id: null,
       concept_results: Object.keys(this.state.conceptResults) && Object.keys(this.state.conceptResults).length ? this.state.conceptResults : null
     };
+    this.props.dispatch(submitResponseEdit(rid, newResp, this.props.questionID));
+  }
+
+  unmatchResponse(rid: string) {
+    const { modelConceptUID, concept_uid } = this.props.question
+    const defaultConceptUID = modelConceptUID || concept_uid
+    const newResp = {
+      weak: false,
+      feedback: null,
+      optimal: null,
+      author: null,
+      parent_id: null,
+      concept_results: {[defaultConceptUID]: false}
+    }
     this.props.dispatch(submitResponseEdit(rid, newResp, this.props.questionID));
   }
 
@@ -433,6 +461,7 @@ export default class Response extends React.Component<any, any> {
     if (isEditing) {
       buttons = [
         (<a className="card-footer-item" onClick={this.cancelResponseEdit.bind(null, response.key)} key="cancel" >Cancel</a>),
+        (<a className="card-footer-item" onClick={this.unmatchResponse.bind(null, response.key)} key="unmatch" >Unmatch</a>),
         (<a className="card-footer-item" onClick={this.incrementResponse.bind(null, response.key)} key="increment" >Increment</a>),
         (<a className="card-footer-item" onClick={this.updateResponse.bind(null, response.key)} key="update" >Update</a>)
       ];
