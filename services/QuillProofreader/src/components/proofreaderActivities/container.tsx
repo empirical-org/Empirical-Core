@@ -24,6 +24,7 @@ import { ConceptResultObject } from '../../interfaces/proofreaderActivities'
 import PassageEditor from './passageEditor'
 import PassageReviewer from './passageReviewer'
 import EarlySubmitModal from './earlySubmitModal'
+import Paragraph from './paragraph'
 import ResetModal from './resetModal'
 import ReviewModal from './reviewModal'
 import LoadingSpinner from '../shared/loading_spinner'
@@ -141,12 +142,13 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       const necessaryEditRegex = /\+[^-]+-[^|]+\|[^}]*/
       const correctEditRegex = /\+([^-]+)-/m
       const originalTextRegex = /\-([^|]+)\|/m
-      const conceptUIDRegex = /\|([^}]+)}/m
+      const conceptUIDRegex = /\|([^}]+)/m
       const paragraphs = passage.split('<br/>')
       let necessaryEditCounter = 0
       const passageArray = paragraphs.map((paragraph, paragraphIndex) => {
-        return paragraph.split(/{|}/).map((text, i) => {
-          let wordObj
+        let i = 0
+        const paragraphArray = paragraph.split(/{|}/).map((text) => {
+          let wordObj, wordArray
           if (necessaryEditRegex.test(text)) {
             wordObj = {
               originalText: text.match(originalTextRegex) ? text.match(originalTextRegex)[1] : '',
@@ -158,19 +160,26 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
               wordIndex: i,
               paragraphIndex
             }
+            wordArray = [wordObj]
             necessaryEditCounter++
+            i++
           } else {
-            wordObj = {
-              originalText: text,
-              currentText: text,
-              correctText: text,
-              underlined: false,
-              wordIndex: i,
-              paragraphIndex
-            }
+            wordArray = text.split(' ').map(word => {
+              wordObj = {
+                originalText: word,
+                currentText: word,
+                correctText: word,
+                underlined: false,
+                wordIndex: i,
+                paragraphIndex
+              }
+              i++
+              return wordObj
+            })
           }
-          return wordObj
+          return wordArray
         })
+        return paragraphArray.flat()
       })
       return {passage: passageArray, necessaryEdits}
     }
@@ -423,8 +432,8 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
     }
 
     reset() {
-      const { passage, underlineErrorsInProofreader } = this.props.proofreaderActivities.currentActivity
-      const initialPassageData = this.formatInitialPassage(passage, underlineErrorsInProofreader)
+      const { passage } = this.props.proofreaderActivities.currentActivity
+      const initialPassageData = this.formatInitialPassage(passage)
       const formattedPassage = initialPassageData.passage
       this.setState({
         passage: formattedPassage,
@@ -476,6 +485,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
 
     renderPassage(): JSX.Element|void {
       const { reviewing, reviewablePassage, originalPassage, resetting, passage } = this.state
+      const { underlineErrorsInProofreader } = this.props.proofreaderActivities.currentActivity
       const { passageFromFirebase } = this.props.session
       if (reviewing) {
         const text = reviewablePassage ? reviewablePassage : ''
@@ -488,9 +498,12 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
         const paragraphs = passage.map((p, i) => {
           return <Paragraph
             words={p}
-            handleParagraphChange={(value) => this.handleParagraphChange(i. value)}
+            handleParagraphChange={this.handleParagraphChange}
             resetting={resetting}
             finishReset={this.finishReset}
+            underlineErrors={underlineErrorsInProofreader}
+            index={i}
+            key={i}
           />
         })
         return <div>{paragraphs}</div>
