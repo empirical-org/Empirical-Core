@@ -1,5 +1,5 @@
 import * as React from 'react'
-import _ from 'lodash'
+import * as _ from 'lodash'
 
 import EditInput from './editInput'
 import { WordObject } from '../../interfaces/proofreaderActivities'

@@ -1,5 +1,4 @@
 import * as React from 'react'
-import _ from 'lodash'
 
 import { WordObject } from '../../interfaces/proofreaderActivities'
 
@@ -12,7 +11,7 @@ export default class EditInput extends React.Component<EditInputProps, {}> {
     this.handleWordChange = this.handleWordChange.bind(this)
   }
 
-  handleWordChange(e) {
+  handleWordChange(e: any) {
     const { wordIndex, handleWordChange } = this.props
     handleWordChange(e.target.value, wordIndex)
   }
