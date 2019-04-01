@@ -6,7 +6,7 @@
   "scripts": {
     "build": "$(npm bin)/babel src --out-dir lib --presets es2015,stage-2",
     "start": "npm run build && node lib/index.js",
-    "start:dev": "nodemon src/index.js --exec babel-node --presets es2015,stage-2",
+    "start:dev": "RETHINKDB_HOST=aws-us-east-1-portal.27.dblayer.com RETHINKDB_PORT=28896 RETHINKDB_AUTH_KEY=15bbbd0f8bd9d569e095e71e4f569665 nodemon src/index.js --exec babel-node --presets es2015,stage-2",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
