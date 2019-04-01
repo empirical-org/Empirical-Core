@@ -14,13 +14,12 @@ import { startListeningToConcepts } from "../../actions/concepts";
 import {
   updateConceptResultsOnFirebase,
   updateSessionOnFirebase,
-  updateSession,
   setSessionReducerToSavedSession
 } from "../../actions/session";
 // import { getConceptResultsForAllQuestions, calculateScoreForLesson } from '../../helpers/conceptResultsGenerator'
 import { SessionState } from '../../reducers/sessionReducer'
 import { ProofreaderActivityState } from '../../reducers/proofreaderActivitiesReducer'
-import { ConceptResultObject } from '../../interfaces/proofreaderActivities'
+import { ConceptResultObject, WordObject } from '../../interfaces/proofreaderActivities'
 import PassageReviewer from './passageReviewer'
 import EarlySubmitModal from './earlySubmitModal'
 import Paragraph from './paragraph'
@@ -28,38 +27,28 @@ import ResetModal from './resetModal'
 import ReviewModal from './reviewModal'
 import LoadingSpinner from '../shared/loading_spinner'
 
-// interface PlayProofreaderContainerProps {
-//   proofreaderActivities: ProofreaderActivityState;
-//   session: SessionState;
-//   dispatch: Function;
-//   admin?: Boolean;
-//   activityUID?: string;
-// }
-//
-// interface PlayProofreaderContainerState {
-//   passage?: string;
-//   edits: string[];
-//   reviewing: boolean;
-//   resetting: boolean;
-//   showEarlySubmitModal: boolean;
-//   showReviewModal: boolean;
-//   showResetModal: boolean;
-//   editsWithOriginalValue: Array<{index: string, originalText: string, currentText: string}>;
-//   necessaryEdits?: String[];
-//   numberOfCorrectChanges?: number;
-//   originalPassage?: string;
-//   reviewablePassage?: string;
-//   conceptResultsObjects?: ConceptResultObject[];
-// }
-
 interface PlayProofreaderContainerProps {
-  [key: string]: any
-}
-//
-interface PlayProofreaderContainerState {
-  [key: string]: any
+  proofreaderActivities: ProofreaderActivityState;
+  session: SessionState;
+  dispatch: Function;
+  admin?: Boolean;
+  activityUID?: string;
 }
 
+interface PlayProofreaderContainerState {
+  passage?: Array<Array<WordObject>>;
+  edits: number;
+  reviewing: boolean;
+  resetting: boolean;
+  showEarlySubmitModal: boolean;
+  showReviewModal: boolean;
+  showResetModal: boolean;
+  necessaryEdits?: RegExpMatchArray|null;
+  numberOfCorrectChanges?: number;
+  originalPassage?: Array<Array<WordObject>>;
+  reviewablePassage?: string;
+  conceptResultsObjects?: ConceptResultObject[];
+}
 
 export class PlayProofreaderContainer extends React.Component<PlayProofreaderContainerProps, PlayProofreaderContainerState> {
     constructor(props: any) {
@@ -71,7 +60,6 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
         showEarlySubmitModal: false,
         showReviewModal: false,
         showResetModal: false,
-        editsWithOriginalValue: [],
         resetting: false
       }
 
@@ -247,7 +235,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       );
     }
 
-    checkWork(): { reviewablePassage: string, numberOfCorrectChanges: number, conceptResultsObjects: ConceptResultObject[]}|void {
+    checkWork(): { reviewablePassage: string, numberOfCorrectChanges: number, conceptResultsObjects: ConceptResultObject[]} {
       const { currentActivity } = this.props.proofreaderActivities
       const { necessaryEdits, passage } = this.state
       let numberOfCorrectChanges = 0
@@ -301,13 +289,15 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
           reviewablePassage = reviewablePassage.concat('<p>').concat(words.join(' ')).concat('</p>')
         })
         return { reviewablePassage, numberOfCorrectChanges, conceptResultsObjects }
+      } else {
+        return { reviewablePassage: '', numberOfCorrectChanges: 0, conceptResultsObjects: [] }
       }
     }
 
     finishActivity() {
       const { edits, necessaryEdits } = this.state
       const requiredEditCount = necessaryEdits && necessaryEdits.length ? Math.floor(necessaryEdits.length / 2) : 5
-      if (necessaryEdits && necessaryEdits.length && edits.length === 0 || edits.length < requiredEditCount) {
+      if (necessaryEdits && necessaryEdits.length && edits === 0 || edits < requiredEditCount) {
         this.setState({showEarlySubmitModal: true})
       } else {
         const { reviewablePassage, numberOfCorrectChanges, conceptResultsObjects } = this.checkWork()
@@ -325,7 +315,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       if (this.props.admin) {
         this.setState({
           passage: this.state.originalPassage,
-          edits: [],
+          edits: 0,
           reviewing: false,
           showEarlySubmitModal: false,
           showReviewModal: false,
@@ -345,12 +335,14 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
 
     handleParagraphChange(value: Array<any>, i: number) {
       let newParagraphs = this.state.passage
-      newParagraphs[i] = value
-      const sessionID = getParameterByName('student', window.location.href)
-      this.setState(
-        { passage: newParagraphs, edits: this.editCount(newParagraphs), },
-        () => sessionID ? updateSessionOnFirebase(sessionID, this.state.passage) : null
-      )
+      if (newParagraphs) {
+        newParagraphs[i] = value
+        const sessionID = getParameterByName('student', window.location.href)
+        this.setState(
+          { passage: newParagraphs, edits: this.editCount(newParagraphs), },
+          () => sessionID ? updateSessionOnFirebase(sessionID, this.state.passage) : null
+        )
+      }
     }
 
     editCount(paragraphs: Array<Array<any>>) {
@@ -388,7 +380,6 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
         originalPassage: formattedPassage,
         necessaryEdits: initialPassageData.necessaryEdits,
         edits: 0,
-        editsWithOriginalValue: [],
         resetting: true,
         showResetModal: false
       }, () => sessionID ? updateSessionOnFirebase(sessionID, this.state.passage) : null)
@@ -454,13 +445,6 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
           />
         })
         return <div className="editor">{paragraphs}</div>
-        // return <PassageEditor
-        //   key={this.props.proofreaderActivities.currentActivity.passage}
-        //   savedText={passageFromFirebase}
-        //   text={originalPassage}
-        //   resetting={resetting}
-        //   finishReset={this.finishReset}
-        // />
       }
     }
 
@@ -532,9 +516,9 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
 
 const mapStateToProps = (state: any) => {
     return {
-        proofreaderActivities: state.proofreaderActivities,
-        session: state.session,
-        concepts: state.concepts
+      proofreaderActivities: state.proofreaderActivities,
+      session: state.session,
+      concepts: state.concepts
     };
 };
 
