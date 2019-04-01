@@ -18,7 +18,7 @@ const rethinkdbConfig = (() => {
 
   if (process.env.RETHINKDB_USE_SSL === 'true') {
     const caCert  = Buffer.from(process.env.RETHINKDB_PUBLIC_KEY, 'utf8');
-    config['ssl'] = { ca: caCert }
+    config['ssl'] = { ca: fs.readFileSync('compose.io.rethink.cert') }
   }
 
   return config
