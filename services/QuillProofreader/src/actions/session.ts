@@ -18,7 +18,7 @@ export const updateConceptResultsOnFirebase = (sessionID: string|null, activityU
   }
 }
 
-export const updateSession = (passage: string) => {
+export const updateSession = (passage: Array<Array<string>>) => {
   return (dispatch) => {
     dispatch({ type: ActionTypes.SET_PASSAGE, passage})
   }
