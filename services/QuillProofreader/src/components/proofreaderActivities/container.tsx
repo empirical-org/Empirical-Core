@@ -110,23 +110,18 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
     }
 
     componentWillReceiveProps(nextProps: PlayProofreaderContainerProps) {
-      if (nextProps.proofreaderActivities.currentActivity && !this.state.passage) {
+      if (
+        (nextProps.proofreaderActivities.currentActivity && !this.state.passage)
+        || (!_.isEqual(nextProps.proofreaderActivities.currentActivity, this.props.proofreaderActivities.currentActivity))
+      ) {
         const { passage } = nextProps.proofreaderActivities.currentActivity
         const initialPassageData = this.formatInitialPassage(passage)
         const formattedPassage = initialPassageData.passage
-        this.setState({ passage: formattedPassage, originalPassage: formattedPassage, necessaryEdits: initialPassageData.necessaryEdits })
-      }
-
-      if (!_.isEqual(nextProps.proofreaderActivities.currentActivity, this.props.proofreaderActivities.currentActivity)) {
-        const { passage, underlineErrorsInProofreader } = nextProps.proofreaderActivities.currentActivity
-        const initialPassageData = this.formatInitialPassage(passage, underlineErrorsInProofreader)
-        const formattedPassage = initialPassageData.passage
-        this.setState({ passage: formattedPassage, originalPassage: formattedPassage, necessaryEdits: initialPassageData.necessaryEdits })
-      }
-
-      const sessionID = getParameterByName('student', window.location.href)
-      if (sessionID && !_.isEqual(nextProps.session, this.props.session)) {
-        updateSessionOnFirebase(sessionID, nextProps.session.passage)
+        let currentPassage = formattedPassage
+        if (nextProps.session.passageFromFirebase) {
+          currentPassage = nextProps.session.passageFromFirebase
+        }
+        this.setState({ passage: currentPassage, originalPassage: formattedPassage, necessaryEdits: initialPassageData.necessaryEdits, edits: this.editCount(currentPassage) })
       }
     }
 
@@ -252,19 +247,6 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       );
     }
 
-    // this method handles weirdness created by HTML formatting in Slate
-    // handlePassageChange(value: string, editsWithOriginalValue: Array<{index: string, originalText: string, currentText: string}>) {
-    //   this.props.dispatch(updateSession(value))
-      // const formattedValue = this.formatReceivedPassage(value)
-      // const regex = /<strong>.*?<\/strong>/gm
-      // const edits = formattedValue.match(regex)
-      // if (edits) {
-      //   this.setState({ passage: formattedValue, edits, editsWithOriginalValue })
-      // } else if (this.state.edits) {
-      //   this.setState({ passage: formattedValue, edits: [], editsWithOriginalValue })
-      // }
-    // }
-
     checkWork(): { reviewablePassage: string, numberOfCorrectChanges: number, conceptResultsObjects: ConceptResultObject[]}|void {
       const { currentActivity } = this.props.proofreaderActivities
       const { necessaryEdits, passage } = this.state
@@ -276,42 +258,44 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
           const words:Array<string> = []
           paragraph.forEach((word: any) => {
             const { necessaryEditIndex, correctText, conceptUID, originalText, currentText } = word
-            const stringNormalizedText = stringNormalize(currentText)
-            if (necessaryEditIndex) {
-              if (correctText.split('~').includes(stringNormalizedText)) {
+            const stringNormalizedCurrentText = stringNormalize(currentText)
+            const stringNormalizedCorrectText = stringNormalize(correctText)
+            const stringNormalizedOriginalText = stringNormalize(originalText)
+            if (necessaryEditIndex || necessaryEditIndex === 0) {
+              if (stringNormalizedCorrectText.split('~').includes(stringNormalizedCurrentText)) {
                 numberOfCorrectChanges++
                 conceptResultsObjects.push({
                   metadata: {
-                    answer: stringNormalizedText,
+                    answer: stringNormalizedCurrentText,
                     correct: 1,
                     instructions: currentActivity.description || this.defaultInstructions(),
-                    prompt: originalText,
+                    prompt: stringNormalizedOriginalText,
                     questionNumber: necessaryEditIndex + 1,
                     unchanged: false,
                   },
                   concept_uid: conceptUID,
                   question_type: "passage-proofreader"
                 })
-                words.push(`{+${stringNormalizedText}-|${conceptUID}}`)
+                words.push(`{+${stringNormalizedCurrentText}-|${conceptUID}}`)
               } else {
                 conceptResultsObjects.push({
                   metadata: {
-                    answer: stringNormalizedText,
+                    answer: stringNormalizedCurrentText,
                     correct: 0,
                     instructions: currentActivity.description || this.defaultInstructions(),
-                    prompt: originalText,
+                    prompt: stringNormalizedOriginalText,
                     questionNumber: necessaryEditIndex + 1,
-                    unchanged: false,
+                    unchanged: stringNormalizedCurrentText === stringNormalizedOriginalText,
                   },
                   concept_uid: conceptUID,
                   question_type: "passage-proofreader"
                 })
-                words.push(`{+${correctText}-${stringNormalizedText}|${conceptUID}}`)
+                words.push(`{+${correctText}-${stringNormalizedCurrentText}|${conceptUID}}`)
               }
-            } else if (originalText !== stringNormalizedText) {
-              words.push(`{+${originalText}-${stringNormalizedText}|unnecessary}`)
+            } else if (stringNormalizedOriginalText !== stringNormalizedCurrentText) {
+              words.push(`{+${stringNormalizedOriginalText}-${stringNormalizedCurrentText}|unnecessary}`)
             } else {
-              words.push(stringNormalizedText)
+              words.push(stringNormalizedCurrentText)
             }
           })
           reviewablePassage = reviewablePassage.concat('<p>').concat(words.join(' ')).concat('</p>')
@@ -362,16 +346,20 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
     handleParagraphChange(value: Array<any>, i: number) {
       let newParagraphs = this.state.passage
       newParagraphs[i] = value
+      const sessionID = getParameterByName('student', window.location.href)
+      this.setState(
+        { passage: newParagraphs, edits: this.editCount(newParagraphs), },
+        () => sessionID ? updateSessionOnFirebase(sessionID, this.state.passage) : null
+      )
+    }
+
+    editCount(paragraphs: Array<Array<any>>) {
       let editCount = 0
-      newParagraphs.forEach((p: Array<any>) => {
+      paragraphs.forEach((p: Array<any>) => {
         const changedWords = p.filter(word => word.currentText !== word.originalText)
         editCount+= changedWords.length
       })
-
-      this.setState(
-        { passage: newParagraphs, edits: editCount, },
-        () => this.props.dispatch(updateSession(this.state.passage))
-      )
+      return editCount
     }
 
     openResetModal() {
@@ -394,6 +382,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       const { passage } = this.props.proofreaderActivities.currentActivity
       const initialPassageData = this.formatInitialPassage(passage)
       const formattedPassage = initialPassageData.passage
+      const sessionID = getParameterByName('student', window.location.href)
       this.setState({
         passage: formattedPassage,
         originalPassage: formattedPassage,
@@ -402,7 +391,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
         editsWithOriginalValue: [],
         resetting: true,
         showResetModal: false
-      })
+      }, () => sessionID ? updateSessionOnFirebase(sessionID, this.state.passage) : null)
     }
 
     finishReset() {
@@ -443,9 +432,8 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
     }
 
     renderPassage(): JSX.Element|void {
-      const { reviewing, reviewablePassage, originalPassage, resetting, passage } = this.state
+      const { reviewing, reviewablePassage, resetting, passage } = this.state
       const { underlineErrorsInProofreader } = this.props.proofreaderActivities.currentActivity
-      const { passageFromFirebase } = this.props.session
       if (reviewing) {
         const text = reviewablePassage ? reviewablePassage : ''
         return <PassageReviewer
@@ -453,7 +441,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
           concepts={this.props.concepts.data[0]}
           finishReview={this.finishReview}
         />
-      } else if (originalPassage) {
+      } else if (passage) {
         const paragraphs = passage.map((p, i) => {
           return <Paragraph
             words={p}
