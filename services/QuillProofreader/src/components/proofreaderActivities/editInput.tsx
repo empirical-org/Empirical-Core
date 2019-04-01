@@ -8,6 +8,8 @@ type EditInputProps = WordObject & { handleWordChange: Function }
 export default class EditInput extends React.Component<EditInputProps, {}> {
   constructor(props: EditInputProps) {
     super(props)
+
+    this.handleWordChange = this.handleWordChange.bind(this)
   }
 
   handleWordChange(e) {
@@ -24,10 +26,14 @@ export default class EditInput extends React.Component<EditInputProps, {}> {
     if (currentText !== originalText) {
       className += ' bolded'
     }
+    const width = (currentText.length * 10) + 3
     return <input
       className={className}
       value={currentText}
+      onChange={this.handleWordChange}
       key={`${paragraphIndex}-${wordIndex}`}
+      style={{width: `${width}px`}}
+      spellCheck={false}
     />
   }
 }

@@ -16,6 +16,9 @@ interface ParagraphProps {
 export default class Paragraph extends React.Component<ParagraphProps, {}> {
   constructor(props: ParagraphProps) {
     super(props)
+
+    this.handleWordChange = this.handleWordChange.bind(this)
+    this.renderInputFields = this.renderInputFields.bind(this)
   }
 
   handleWordChange(text: string, i: number) {
@@ -27,12 +30,13 @@ export default class Paragraph extends React.Component<ParagraphProps, {}> {
 
   renderInputFields() {
     const { words, underlineErrors, } = this.props
-    let className = 'editor'
+    let className = 'paragraph'
     if (!underlineErrors) {
       className += ' no-underline'
     }
     const inputs = words.map((word: WordObject) => (
       <EditInput
+        key={word.wordIndex}
         {...word}
         handleWordChange={this.handleWordChange}
       />

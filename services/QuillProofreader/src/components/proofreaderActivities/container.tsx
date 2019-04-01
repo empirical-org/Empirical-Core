@@ -67,7 +67,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       super(props);
 
       this.state = {
-        edits: [],
+        edits: 0,
         reviewing: false,
         showEarlySubmitModal: false,
         showReviewModal: false,
@@ -80,7 +80,6 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       this.finishActivitySession = this.finishActivitySession.bind(this)
       this.finishReview = this.finishReview.bind(this)
       this.createAnonActivitySession = this.createAnonActivitySession.bind(this)
-      this.handlePassageChange = this.handlePassageChange.bind(this)
       this.handleParagraphChange = this.handleParagraphChange.bind(this)
       this.finishActivity = this.finishActivity.bind(this)
       this.renderShowEarlySubmitModal = this.renderShowEarlySubmitModal.bind(this)
@@ -145,7 +144,11 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       const conceptUIDRegex = /\|([^}]+)/m
       const paragraphs = passage.split('<br/>')
       let necessaryEditCounter = 0
-      const passageArray = paragraphs.map((paragraph, paragraphIndex) => {
+      let paragraphIndex = 0
+      const passageArray = paragraphs.map((paragraph: string) => {
+        if (paragraph.length === 0) {
+          return null
+        }
         let i = 0
         const paragraphArray = paragraph.split(/{|}/).map((text) => {
           let wordObj, wordArray
@@ -164,7 +167,10 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
             necessaryEditCounter++
             i++
           } else {
-            wordArray = text.split(' ').map(word => {
+            wordArray = text.split(/\s+/).map(word => {
+              if (word.length === 0) {
+                return null
+              }
               wordObj = {
                 originalText: word,
                 currentText: word,
@@ -177,11 +183,12 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
               return wordObj
             })
           }
-          return wordArray
+          return wordArray.filter(Boolean)
         })
+        paragraphIndex++
         return paragraphArray.flat()
       })
-      return {passage: passageArray, necessaryEdits}
+      return {passage: passageArray.filter(Boolean), necessaryEdits}
     }
 
     saveToLMS() {
@@ -247,8 +254,8 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
     }
 
     // this method handles weirdness created by HTML formatting in Slate
-    handlePassageChange(value: string, editsWithOriginalValue: Array<{index: string, originalText: string, currentText: string}>) {
-      this.props.dispatch(updateSession(value))
+    // handlePassageChange(value: string, editsWithOriginalValue: Array<{index: string, originalText: string, currentText: string}>) {
+    //   this.props.dispatch(updateSession(value))
       // const formattedValue = this.formatReceivedPassage(value)
       // const regex = /<strong>.*?<\/strong>/gm
       // const edits = formattedValue.match(regex)
@@ -257,7 +264,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       // } else if (this.state.edits) {
       //   this.setState({ passage: formattedValue, edits: [], editsWithOriginalValue })
       // }
-    }
+    // }
 
     checkWork(): { reviewablePassage: string, numberOfCorrectChanges: number, conceptResultsObjects: ConceptResultObject[]}|void {
       const { currentActivity } = this.props.proofreaderActivities
@@ -409,10 +416,19 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       }
     }
 
-    handleParagraphChange(i: Number, value: Array<any>) {
+    handleParagraphChange(value: Array<any>, i: number) {
       let newParagraphs = this.state.passage
       newParagraphs[i] = value
-      this.setState({ passage: newParagraphs, })
+      let editCount = 0
+      newParagraphs.forEach((p: Array<any>) => {
+        const changedWords = p.filter(word => word.currentText !== word.originalText)
+        editCount+= changedWords.length
+      })
+
+      this.setState(
+        { passage: newParagraphs, edits: editCount, },
+        () => this.props.dispatch(updateSession(this.state.passage))
+      )
     }
 
     openResetModal() {
@@ -439,7 +455,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
         passage: formattedPassage,
         originalPassage: formattedPassage,
         necessaryEdits: initialPassageData.necessaryEdits,
-        edits: [],
+        edits: 0,
         editsWithOriginalValue: [],
         resetting: true,
         showResetModal: false
@@ -506,12 +522,11 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
             key={i}
           />
         })
-        return <div>{paragraphs}</div>
+        return <div className="editor">{paragraphs}</div>
         // return <PassageEditor
         //   key={this.props.proofreaderActivities.currentActivity.passage}
         //   savedText={passageFromFirebase}
         //   text={originalPassage}
-        //   handleTextChange={this.handlePassageChange}
         //   resetting={resetting}
         //   finishReset={this.finishReset}
         // />
@@ -527,7 +542,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
     renderResetButton(): JSX.Element|void {
       const { reviewing, edits, } = this.state
       if (!reviewing) {
-        if (edits.length) {
+        if (edits) {
           return <button className="reset-button" onClick={this.openResetModal}><img src={refreshIconSrc} /> Reset</button>
         } else {
           return <button className="reset-button disabled"><img src={refreshIconSrc} /> Reset</button>
@@ -542,7 +557,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       if (currentActivity) {
         const className = currentActivity.underlineErrorsInProofreader ? 'underline-errors' : ''
         const necessaryEditsLength = necessaryEdits ? necessaryEdits.length : 1
-        const meterWidth = edits.length / necessaryEditsLength * 100
+        const meterWidth = edits / necessaryEditsLength * 100
         return <div className="passage-container">
           <div className="header-section">
             <div className="inner-header">
@@ -553,7 +568,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
                   <p dangerouslySetInnerHTML={{__html: currentActivity.description || this.defaultInstructions()}}/>
                 </div>
                 <div className="edits-made">
-                  <p>Edits Made: {edits.length} of {numberOfCorrectEdits}</p>
+                  <p>Edits Made: {edits} of {numberOfCorrectEdits}</p>
                   <div className="progress-bar-indication">
                     <span className="meter"
                       style={{width: `${meterWidth}%`}}
