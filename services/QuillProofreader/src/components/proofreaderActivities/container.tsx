@@ -21,7 +21,6 @@ import {
 import { SessionState } from '../../reducers/sessionReducer'
 import { ProofreaderActivityState } from '../../reducers/proofreaderActivitiesReducer'
 import { ConceptResultObject } from '../../interfaces/proofreaderActivities'
-import PassageEditor from './passageEditor'
 import PassageReviewer from './passageReviewer'
 import EarlySubmitModal from './earlySubmitModal'
 import Paragraph from './paragraph'
@@ -118,13 +117,13 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
         this.setState({ passage: formattedPassage, originalPassage: formattedPassage, necessaryEdits: initialPassageData.necessaryEdits })
       }
 
-      // if (!_.isEqual(nextProps.proofreaderActivities.currentActivity, this.props.proofreaderActivities.currentActivity)) {
-      //   const { passage, underlineErrorsInProofreader } = nextProps.proofreaderActivities.currentActivity
-      //   const initialPassageData = this.formatInitialPassage(passage, underlineErrorsInProofreader)
-      //   const formattedPassage = initialPassageData.passage
-      //   this.setState({ passage: formattedPassage, originalPassage: formattedPassage, necessaryEdits: initialPassageData.necessaryEdits })
-      // }
-      //
+      if (!_.isEqual(nextProps.proofreaderActivities.currentActivity, this.props.proofreaderActivities.currentActivity)) {
+        const { passage, underlineErrorsInProofreader } = nextProps.proofreaderActivities.currentActivity
+        const initialPassageData = this.formatInitialPassage(passage, underlineErrorsInProofreader)
+        const formattedPassage = initialPassageData.passage
+        this.setState({ passage: formattedPassage, originalPassage: formattedPassage, necessaryEdits: initialPassageData.necessaryEdits })
+      }
+
       const sessionID = getParameterByName('student', window.location.href)
       if (sessionID && !_.isEqual(nextProps.session, this.props.session)) {
         updateSessionOnFirebase(sessionID, nextProps.session.passage)
@@ -268,111 +267,55 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
 
     checkWork(): { reviewablePassage: string, numberOfCorrectChanges: number, conceptResultsObjects: ConceptResultObject[]}|void {
       const { currentActivity } = this.props.proofreaderActivities
-      const { necessaryEdits, passage, editsWithOriginalValue } = this.state
-      let remainingEditsWithOriginalValue = editsWithOriginalValue
+      const { necessaryEdits, passage } = this.state
       let numberOfCorrectChanges = 0
-      const correctEditRegex = /\+([^-]+)-/m
-      const originalTextRegex = /\-([^|]+)\|/m
-      const conceptUIDRegex = /\|([^}]+)}/m
       const conceptResultsObjects: ConceptResultObject[] = []
       if (passage && necessaryEdits) {
-        const gradedPassage = passage.replace(/<strong>(.*?)<\/strong>/gm , (key, edit) => {
-          const uTag = edit.match(/<u id="(\d+)">(.+)<\/u>/m)
-          if (uTag && uTag.length) {
-            const id = Number(uTag[1])
-            const stringNormalizedText = stringNormalize(uTag[2])
-            const text = stringNormalizedText.trim()
-            if (necessaryEdits && necessaryEdits[id]) {
-              const correctEdit = necessaryEdits[id].match(correctEditRegex) ? stringNormalize(necessaryEdits[id].match(correctEditRegex)[1]).replace(/&#x27;/g, "'") : ''
-              const conceptUID = necessaryEdits[id].match(conceptUIDRegex) ? necessaryEdits[id].match(conceptUIDRegex)[1] : ''
-              const originalText = necessaryEdits[id].match(originalTextRegex) ? necessaryEdits[id].match(originalTextRegex)[1] : ''
-              if (correctEdit.split('~').includes(text)) {
+        let reviewablePassage = ''
+        passage.forEach((paragraph: Array<any>) => {
+          const words:Array<string> = []
+          paragraph.forEach((word: any) => {
+            const { necessaryEditIndex, correctText, conceptUID, originalText, currentText } = word
+            const stringNormalizedText = stringNormalize(currentText)
+            if (necessaryEditIndex) {
+              if (correctText.split('~').includes(stringNormalizedText)) {
                 numberOfCorrectChanges++
                 conceptResultsObjects.push({
                   metadata: {
-                    answer: text,
+                    answer: stringNormalizedText,
                     correct: 1,
                     instructions: currentActivity.description || this.defaultInstructions(),
                     prompt: originalText,
-                    questionNumber: id + 1,
+                    questionNumber: necessaryEditIndex + 1,
                     unchanged: false,
                   },
                   concept_uid: conceptUID,
                   question_type: "passage-proofreader"
                 })
-                return `{+${stringNormalizedText}-|${conceptUID}}`
+                words.push(`{+${stringNormalizedText}-|${conceptUID}}`)
               } else {
                 conceptResultsObjects.push({
                   metadata: {
-                    answer: text,
+                    answer: stringNormalizedText,
                     correct: 0,
                     instructions: currentActivity.description || this.defaultInstructions(),
                     prompt: originalText,
-                    questionNumber: id + 1,
+                    questionNumber: necessaryEditIndex + 1,
                     unchanged: false,
                   },
                   concept_uid: conceptUID,
                   question_type: "passage-proofreader"
                 })
-                return `{+${correctEdit}-${stringNormalizedText}|${conceptUID}}`
+                words.push(`{+${correctText}-${stringNormalizedText}|${conceptUID}}`)
               }
+            } else if (originalText !== stringNormalizedText) {
+              words.push(`{+${originalText}-${stringNormalizedText}|unnecessary}`)
             } else {
-              const editObject = remainingEditsWithOriginalValue.find(editObj => editObj.currentText === edit)
-              if (editObject) {
-                remainingEditsWithOriginalValue = remainingEditsWithOriginalValue.filter(edit => edit.index !== editObject.index)
-                return `{+${editObject.originalText}-${stringNormalizedText}|unnecessary}`
-              } else {
-                return `{+-${edit}|unnecessary}`
-              }
+              words.push(stringNormalizedText)
             }
-          } else {
-            const editObject = remainingEditsWithOriginalValue.find(editObj => editObj.currentText === edit)
-            if (editObject) {
-              remainingEditsWithOriginalValue = remainingEditsWithOriginalValue.filter(edit => edit.index !== editObject.index)
-              return `{+${editObject.originalText}-${edit}|unnecessary}`
-            } else {
-              return `{+-${edit}|unnecessary}`
-            }
-          }
+          })
+          reviewablePassage = reviewablePassage.concat('<p>').concat(words.join(' ')).concat('</p>')
         })
-        const reviewablePassage = gradedPassage.replace(/<u id="(\d+)">(.+?)<\/u>/gm, (key, id, text) => {
-          if (necessaryEdits && necessaryEdits[id]) {
-            const conceptUID = necessaryEdits[id].match(conceptUIDRegex) ? necessaryEdits[id].match(conceptUIDRegex)[1] : ''
-            const originalText = necessaryEdits[id].match(originalTextRegex) ? necessaryEdits[id].match(originalTextRegex)[1] : ''
-            const correctEdit = necessaryEdits[id].match(correctEditRegex) ? stringNormalize(necessaryEdits[id].match(correctEditRegex)[1]).replace(/&#x27;/g, "'") : ''
-            if (correctEdit.split('~').includes(text)) {
-              conceptResultsObjects.push({
-                metadata: {
-                  answer: text,
-                  correct: 1,
-                  instructions: currentActivity.description || this.defaultInstructions(),
-                  prompt: originalText,
-                  questionNumber: Number(id) + 1,
-                  unchanged: true,
-                },
-                concept_uid: conceptUID,
-                question_type: "passage-proofreader"
-              })
-              return `{+${text}-|${conceptUID}}`
-            } else {
-              conceptResultsObjects.push({
-                metadata: {
-                  answer: text,
-                  correct: 0,
-                  instructions: currentActivity.description || this.defaultInstructions(),
-                  prompt: originalText,
-                  questionNumber: Number(id) + 1,
-                  unchanged: true,
-                },
-                concept_uid: conceptUID,
-                question_type: "passage-proofreader"
-              })
-              return necessaryEdits[id]
-            }
-          } else {
-            return `${text} `
-          }
-        }).replace(/<br\/>/gm, '')
         return { reviewablePassage, numberOfCorrectChanges, conceptResultsObjects }
       }
     }
