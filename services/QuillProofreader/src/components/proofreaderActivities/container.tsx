@@ -301,9 +301,6 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
         this.setState({showEarlySubmitModal: true})
       } else {
         const { reviewablePassage, numberOfCorrectChanges, conceptResultsObjects } = this.checkWork()
-        console.log('conceptResultsObjects', conceptResultsObjects)
-        console.log('numberOfCorrectChanges', numberOfCorrectChanges)
-        console.log('reviewablePassage', reviewablePassage)
         this.setState( { reviewablePassage, showReviewModal: true, numberOfCorrectChanges, conceptResultsObjects } )
       }
     }
@@ -314,7 +311,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       const { conceptResultsObjects, necessaryEdits, numberOfCorrectChanges } = this.state
       if (this.props.admin) {
         this.setState({
-          passage: this.state.originalPassage,
+          passage: _.cloneDeep(this.state.originalPassage),
           edits: 0,
           reviewing: false,
           showEarlySubmitModal: false,
@@ -371,14 +368,9 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
     }
 
     reset() {
-      const { passage } = this.props.proofreaderActivities.currentActivity
-      const initialPassageData = this.formatInitialPassage(passage)
-      const formattedPassage = initialPassageData.passage
       const sessionID = getParameterByName('student', window.location.href)
       this.setState({
-        passage: formattedPassage,
-        originalPassage: formattedPassage,
-        necessaryEdits: initialPassageData.necessaryEdits,
+        passage: _.cloneDeep(this.state.originalPassage),
         edits: 0,
         resetting: true,
         showResetModal: false
