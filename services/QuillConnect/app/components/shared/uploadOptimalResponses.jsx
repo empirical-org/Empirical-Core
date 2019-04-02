@@ -1,23 +1,26 @@
 import * as React from 'react'
-
-let fileReader
+import XLSX from 'xlsx'
 
 export default class UploadOptimalResponses extends React.Component {
   constructor(props) {
     super(props)
 
     this.state = { responses: [], }
-  }
 
-  handleFile() {
-    const content = fileReader.result;
-    this.setState({ responses: content.slice(1), })
+    this.handleChangeFile = this.handleChangeFile.bind(this)
+    this.submitResponses = this.submitResponses.bind(this)
   }
 
   handleChangeFile(file) {
-    fileReader = new FileReader();
-    fileReader.onloadend = this.handleFile;
-    fileReader.readAsText(file);
+    const fileReader = new FileReader();
+    fileReader.onload = (e) => {
+      const data = new Uint8Array(e.target.result);
+      const workbook = XLSX.read(data, { type: 'array', });
+      const sheet = workbook.Sheets[workbook.SheetNames[0]]
+      const responses = Object.values(sheet).map(value => value.v).filter(Boolean)
+      this.setState({ responses: responses.slice(1), })
+    };
+    fileReader.readAsArrayBuffer(file);
   }
 
   submitResponses() {
@@ -32,7 +35,7 @@ export default class UploadOptimalResponses extends React.Component {
       <p className="control">
         <input
           type="file"
-          accept=".txt"
+          accept=".xlsx"
           onChange={e => this.handleChangeFile(e.target.files[0])}
         />
       </p>
