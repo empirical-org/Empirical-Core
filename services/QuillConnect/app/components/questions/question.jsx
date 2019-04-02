@@ -1,29 +1,21 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
-import questionActions from '../../actions/questions';
 import _ from 'underscore';
-import {
-  listenToResponsesWithCallback
-} from '../../actions/responses';
 import { Modal } from 'quill-component-library/dist/componentLibrary';
-import EditForm from './questionForm.jsx';
-import Response from './response.jsx';
-import C from '../../constants';
-import ResponseComponent from './responseComponent.jsx';
-import getBoilerplateFeedback from './boilerplateFeedback.jsx';
-const icon = 'https://assets.quill.org/images/icons/question_icon.svg'
-import Cues from '../renderForQuestions/cues.jsx';
-import {
-  deleteResponse,
-  incrementResponseCount,
-  submitResponseEdit,
-  submitNewConceptResult,
-  deleteConceptResult,
-  removeLinkToParentID,
-  submitResponse
-} from '../../actions/responses';
 import activeComponent from 'react-router-active-component';
+
+import EditForm from './questionForm.jsx';
+import getBoilerplateFeedback from './boilerplateFeedback.jsx';
+import Cues from '../renderForQuestions/cues.jsx';
+import UploadOptimalResponses from '../shared/uploadOptimalResponses'
+import {
+  submitResponse,
+  submitOptimalResponses
+} from '../../actions/responses';
+import questionActions from '../../actions/questions';
+import C from '../../constants';
+
+const icon = 'https://assets.quill.org/images/icons/question_icon.svg'
 
 const NavLink = activeComponent('li');
 
@@ -35,6 +27,7 @@ const Question = React.createClass({
       responses: [],
       loadedResponses: false,
       addingNewResponse: false,
+      uploadingNewOptimalResponses: false
     };
   },
 
@@ -50,6 +43,11 @@ const Question = React.createClass({
     this.props.dispatch(questionActions.submitQuestionEdit(this.props.params.questionID, vals));
   },
 
+  submitOptimalResponses(responseStrings) {
+    submitOptimalResponses(this.props.params.questionID, responseStrings)
+    this.setState({ uploadingNewOptimalResponses: false, })
+  },
+
   getQuestion() {
     const { data, } = this.props.questions;
     const { questionID, } = this.props.params;
@@ -58,6 +56,10 @@ const Question = React.createClass({
 
   startAddingNewResponse() {
     this.setState({ addingNewResponse: true, });
+  },
+
+  startUploadingNewOptimalResponses() {
+    this.setState({ uploadingNewOptimalResponses: true, });
   },
 
   submitResponse() {
@@ -159,6 +161,16 @@ const Question = React.createClass({
             </p>
             <button className="button is-primary" onClick={this.submitResponse}>Add Response</button>
           </div>
+        </Modal>
+      );
+    }
+  },
+
+  renderUploadNewOptimalResponsesForm() {
+    if (this.state.uploadingNewOptimalResponses) {
+      return (
+        <Modal close={() => { this.setState({ uploadingNewOptimalResponses: false, }); }}>
+          <UploadOptimalResponses submitOptimalResponses={this.submitOptimalResponses}/>
         </Modal>
       );
     }
