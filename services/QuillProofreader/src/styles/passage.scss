@@ -101,6 +101,9 @@
         font-family: courier new;
         border: none;
         margin-right: 8px;
+        @media (max-width: 600px) {
+          margin-right: 3px;
+        }
         &:focus {
           outline: none;
         }
