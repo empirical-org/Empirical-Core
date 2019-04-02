@@ -32,7 +32,6 @@ class LessonRecommendationsQuery
     activities = ActiveRecord::Base.connection.execute("SELECT activities.name, activities.id
       FROM activities
       INNER JOIN activities_unit_templates ON activities.id = activities_unit_templates.activity_id
-      INNER JOIN activity_classifications ON activities.activity_classification_id = activity_classifications.id
       INNER JOIN activity_category_activities ON activities.id = activity_category_activities.activity_id
       INNER JOIN activity_categories ON activity_categories.id = activity_category_activities.activity_category_id
       WHERE activities_unit_templates.unit_template_id = #{rec_id}
