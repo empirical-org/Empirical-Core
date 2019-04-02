@@ -9,8 +9,8 @@
     "start": "webpack-dev-server",
     "test": "jest",
     "build:jenkins": "tsc && webpack --optimize-minimize",
-    "build": "webpack --progress --config webpack.prod.config.js",
-    "build:staging": "webpack --progress --config webpack.staging.config.js",
+    "build": "npm install && webpack --progress --config webpack.prod.config.js",
+    "build:staging": "npm install && webpack --progress --config webpack.staging.config.js",
     "clean": "rd /s/q built"
   },
   "keywords": [
@@ -47,7 +47,7 @@
     "node-sass": "^4.9.3",
     "pusher-js": "^4.3.0",
     "quill-component-library": "^0.1.29",
-    "quill-marking-logic": "^0.8.6",
+    "quill-marking-logic": "^0.8.8",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.7",
