@@ -25,7 +25,8 @@ export default class EditInput extends React.Component<EditInputProps, {}> {
     if (currentText !== originalText) {
       className += ' bolded'
     }
-    const width = (currentText.length * 10) + 3
+    const widthMultiplier = window.innerWidth > 600 ? 10 : 12
+    const width = (currentText.length * widthMultiplier) + 3
     return <input
       className={className}
       value={currentText}
