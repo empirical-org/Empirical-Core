@@ -109,7 +109,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
         if (nextProps.session.passageFromFirebase) {
           currentPassage = nextProps.session.passageFromFirebase
         }
-        this.setState({ passage: currentPassage, originalPassage: formattedPassage, necessaryEdits: initialPassageData.necessaryEdits, edits: this.editCount(currentPassage) })
+        this.setState({ passage: currentPassage, originalPassage: _.cloneDeep(formattedPassage), necessaryEdits: initialPassageData.necessaryEdits, edits: this.editCount(currentPassage) })
       }
     }
 
@@ -124,7 +124,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       const correctEditRegex = /\+([^-]+)-/m
       const originalTextRegex = /\-([^|]+)\|/m
       const conceptUIDRegex = /\|([^}]+)/m
-      const paragraphs = passage.split('<br/>')
+      const paragraphs = passage.replace('</p><p>', '<br/>').replace(/<p>|<\/p>/g, '').split('<br/>')
       let necessaryEditCounter = 0
       let paragraphIndex = 0
       const passageArray = paragraphs.map((paragraph: string) => {
