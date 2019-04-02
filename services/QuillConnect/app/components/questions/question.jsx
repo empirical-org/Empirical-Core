@@ -44,7 +44,7 @@ const Question = React.createClass({
   },
 
   submitOptimalResponses(responseStrings) {
-    submitOptimalResponses(this.props.params.questionID, responseStrings)
+    this.props.dispatch(submitOptimalResponses(this.props.params.questionID, responseStrings))
     this.setState({ uploadingNewOptimalResponses: false, })
   },
 
@@ -168,7 +168,7 @@ const Question = React.createClass({
 
   renderUploadNewOptimalResponsesForm() {
     if (this.state.uploadingNewOptimalResponses) {
-      return (
+        return (
         <Modal close={() => { this.setState({ uploadingNewOptimalResponses: false, }); }}>
           <UploadOptimalResponses submitOptimalResponses={this.submitOptimalResponses}/>
         </Modal>
@@ -219,6 +219,7 @@ const Question = React.createClass({
         <div>
           {this.renderEditForm()}
           {this.renderNewResponseForm()}
+          {this.renderUploadNewOptimalResponsesForm()}
           <div style={{display: 'flex', justifyContent: 'space-between'}}>
             <h4 className="title" dangerouslySetInnerHTML={{ __html: data[questionID].prompt, }}/>
             <h4 style={{color: '#00c2a2'}} className="title">Flag: {data[questionID].flag}</h4>
@@ -235,6 +236,7 @@ const Question = React.createClass({
 
             <a className="button is-outlined is-primary" onClick={this.startEditingQuestion}>Edit Question</a>
             <a className="button is-outlined is-primary" onClick={this.startAddingNewResponse}>Add New Response</a>
+            <a className="button is-outlined is-primary" onClick={this.startUploadingNewOptimalResponses}>Upload Optimal Responses</a>
           </p>
           <div className="tabs">
             <ul>
