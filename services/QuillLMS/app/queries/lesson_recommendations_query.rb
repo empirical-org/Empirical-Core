@@ -29,7 +29,7 @@ class LessonRecommendationsQuery
   end
 
   def get_activities(rec_id)
-    activities = ActiveRecord::Base.connection.execute("SELECT activities.name, activities.uid, activity_classifications.form_url
+    activities = ActiveRecord::Base.connection.execute("SELECT activities.name, activities.id
       FROM activities
       INNER JOIN activities_unit_templates ON activities.id = activities_unit_templates.activity_id
       INNER JOIN activity_classifications ON activities.activity_classification_id = activity_classifications.id
@@ -38,8 +38,7 @@ class LessonRecommendationsQuery
       WHERE activities_unit_templates.unit_template_id = #{rec_id}
       ORDER BY activity_categories.order_number, activity_category_activities.order_number").to_a
     activities.map do |act|
-      base_route = act['form_url']
-      url = "#{base_route}customize/#{act['uid']}?&preview=true"
+      url = "/activity_sessions/anonymous?activity_id=#{act['id']}"
       {name: act['name'], url: url}
     end
   end
