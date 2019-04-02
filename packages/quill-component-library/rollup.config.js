@@ -6,6 +6,7 @@ import postcss from 'rollup-plugin-postcss';
 import resolve from 'rollup-plugin-node-resolve';
 import tslint from 'rollup-plugin-tslint';
 import typescript from 'rollup-plugin-typescript2';
+import scss from 'rollup-plugin-scss';
 
 import pkg from './package.json';
 
@@ -35,9 +36,10 @@ export default {
         name: libraryName
     }],
     plugins: [
-        postcss({
-            modules: true
-        }),
+        scss(),
+        // postcss({
+        //     modules: true
+        // }),
         tslint({
             exclude: '!./src/**/*.tsx?',
             include: './src/**/*.tsx?'

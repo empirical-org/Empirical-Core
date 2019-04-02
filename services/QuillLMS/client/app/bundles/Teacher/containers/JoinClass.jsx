@@ -1,6 +1,7 @@
 import React from 'react'
+import { Input } from 'quill-component-library/dist/componentLibrary'
+
 import getAuthToken from '../components/modules/get_auth_token'
-import Input from '../components/shared/input'
 import LoadingIndicator from '../components/shared/loading_indicator'
 
 const bulbSrc = `${process.env.CDN_URL}/images/onboarding/bulb.svg`
@@ -22,7 +23,7 @@ export default class JoinClass extends React.Component {
   }
 
   submitClass() {
-    let buttonClass = "button contained primary medium"
+    let buttonClass = "quill-button contained primary medium"
     if (!this.state.classCodeInput.length) {
       buttonClass += ' disabled'
     }
