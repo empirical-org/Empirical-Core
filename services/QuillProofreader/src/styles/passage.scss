@@ -86,7 +86,7 @@
     strong {
       color: #333;
     }
-    p {
+    p, .paragraph {
       margin-bottom: 10px;
     }
     ul {
@@ -95,6 +95,27 @@
     li {
       margin-left: 20px;
       line-height: 23px;
+    }
+    .paragraph {
+      .edit-input {
+        font-family: courier new;
+        border: none;
+        margin-right: 8px;
+        &:focus {
+          outline: none;
+        }
+        &.underlined {
+          text-decoration: underline;
+        }
+        &.bolded {
+          font-weight: 700;
+        }
+      }
+      &.no-underline {
+        .underlined {
+          text-decoration: none !important;
+        }
+      }
     }
   }
 
