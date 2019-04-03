@@ -1,12 +1,10 @@
 import * as React from "react";
 import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
+import { Input, DropdownInput } from 'quill-component-library/dist/componentLibrary'
 
 import { Concept } from '../interfaces/interfaces'
 import RuleDescriptionField from './RuleDescriptionField'
-
-import Input from '../../Teacher/components/shared/input'
-import DropdownInput from '../../Teacher/components/shared/dropdown_input'
 
 const CREATE_CONCEPT = gql`
   mutation createConcept($name: String!, $parentId: ID, $description: String){
@@ -208,13 +206,13 @@ class CreateConceptBox extends React.Component<CreateConceptBoxProps, CreateConc
       return <input
         type="submit"
         value={`Add New Level ${this.props.levelNumber}`}
-        className="button contained primary medium"
+        className="quill-button contained primary medium"
       />
     } else if ((levelNumber === 1 || levelNumber === 0) && concept.parent.id) {
       return <input
         type="submit"
         value={`Add New Level ${this.props.levelNumber}`}
-        className="button contained primary medium"
+        className="quill-button contained primary medium"
       />
     }
   }
