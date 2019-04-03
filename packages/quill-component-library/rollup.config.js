@@ -37,9 +37,6 @@ export default {
     }],
     plugins: [
         scss(),
-        // postcss({
-        //     modules: true
-        // }),
         tslint({
             exclude: '!./src/**/*.tsx?',
             include: './src/**/*.tsx?'
