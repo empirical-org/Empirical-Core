@@ -1,11 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import ResponseComponent from '../questions/responseComponent.jsx';
-import { Modal } from 'quill-component-library/dist/componentLibrary';
-import EditForm from './sentenceFragmentForm.jsx';
-import fragmentActions from '../../actions/sentenceFragments.js';
-import C from '../../constants';
 import { Link } from 'react-router';
+import { Modal } from 'quill-component-library/dist/componentLibrary';
+
+import EditForm from './sentenceFragmentForm.jsx';
+import UploadOptimalResponses from '../shared/uploadOptimalResponses'
+import ResponseComponent from '../questions/responseComponent.jsx';
+import fragmentActions from '../../actions/sentenceFragments.js';
+import { submitOptimalResponses } from '../../actions/responses';
+import C from '../../constants';
+
 const icon = 'https://assets.quill.org/images/icons/question_icon.svg'
 
 import {
@@ -21,6 +25,7 @@ const SentenceFragment = React.createClass({
       selectedBoilerplateCategory: '',
       responses: [],
       loadedResponses: false,
+      uploadingNewOptimalResponses: false
     };
   },
 
@@ -37,8 +42,18 @@ const SentenceFragment = React.createClass({
     );
   },
 
+  getQuestion() {
+    const { data, } = this.props.sentenceFragments;
+    const { questionID, } = this.props.params;
+    return data[questionID];
+  },
+
   getResponses() {
     return this.state.responses;
+  },
+
+  startUploadingNewOptimalResponses() {
+    this.setState({ uploadingNewOptimalResponses: true, });
   },
 
   cancelEditingSentenceFragment() {
@@ -53,6 +68,12 @@ const SentenceFragment = React.createClass({
     this.props.dispatch(fragmentActions.submitSentenceFragmentEdit(this.props.params.questionID, data));
   },
 
+  submitOptimalResponses(responseStrings) {
+    const conceptUID = this.getQuestion().conceptID
+    this.props.dispatch(submitOptimalResponses(this.props.params.questionID, conceptUID, responseStrings))
+    this.setState({ uploadingNewOptimalResponses: false, })
+  },
+
   renderEditForm() {
     if (this.props.sentenceFragments.states[this.props.params.questionID] === C.EDITING_SENTENCE_FRAGMENT) {
       return (
@@ -64,6 +85,16 @@ const SentenceFragment = React.createClass({
               submit={this.saveSentenceFragmentEdits} concepts={this.props.concepts}
             />
           </div>
+        </Modal>
+      );
+    }
+  },
+
+  renderUploadNewOptimalResponsesForm() {
+    if (this.state.uploadingNewOptimalResponses) {
+        return (
+        <Modal close={() => { this.setState({ uploadingNewOptimalResponses: false, }); }}>
+          <UploadOptimalResponses submitOptimalResponses={this.submitOptimalResponses}/>
         </Modal>
       );
     }
@@ -100,6 +131,7 @@ const SentenceFragment = React.createClass({
       return (
         <div>
           {this.renderEditForm()}
+          {this.renderUploadNewOptimalResponsesForm()}
           <div style={{display: 'flex', justifyContent: 'space-between'}}>
             <h4 className="title" dangerouslySetInnerHTML={{ __html: data[questionID].prompt, }}/>
             <h4 style={{color: '#00c2a2'}} className="title">Flag: {data[questionID].flag}</h4>
@@ -110,6 +142,7 @@ const SentenceFragment = React.createClass({
           </div>
           <div className="button-group" style={{ marginTop: 10, }}>
             <button className="button is-info" onClick={this.startEditingSentenceFragment}>Edit Fragment</button>
+            <button className="button is-info" onClick={this.startUploadingNewOptimalResponses}>Upload Optimal Responses</button>
           </div>
 
           <div className="tabs">
