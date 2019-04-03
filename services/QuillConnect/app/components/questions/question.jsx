@@ -44,7 +44,8 @@ const Question = React.createClass({
   },
 
   submitOptimalResponses(responseStrings) {
-    this.props.dispatch(submitOptimalResponses(this.props.params.questionID, responseStrings))
+    const conceptUID = this.getQuestion().conceptID
+    this.props.dispatch(submitOptimalResponses(this.props.params.questionID, conceptUID, responseStrings))
     this.setState({ uploadingNewOptimalResponses: false, })
   },
 
