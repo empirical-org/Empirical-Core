@@ -1,23 +1,25 @@
 import { Action } from "redux";
 import { ActionTypes } from "../actions/actionTypes";
-import { Question } from '../interfaces/questions'
+import { WordObject } from '../interfaces/proofreaderActivities'
 
 export interface SessionState {
-  passage: string;
-  passageFromFirebase?: string;
+  passage: Array<Array<WordObject>>;
+  passageFromFirebase?: Array<Array<WordObject>>;
   error?: string;
 }
 
+type SessionAction = Action & { passage: Array<Array<WordObject>> }
+
 export default (
-    currentState: SessionState = { passage: '' },
-    action: Action,
+    currentState: SessionState = { passage: []},
+    action: SessionAction,
 ): SessionState => {
     switch (action.type) {
-        case ActionTypes.SET_FIREBASE_PASSAGE:
-            return Object.assign({}, currentState, {passageFromFirebase: action.passage})
-        case ActionTypes.SET_PASSAGE:
-            return Object.assign({}, currentState, {passage: action.passage})
-        default:
-            return currentState;
+      case ActionTypes.SET_FIREBASE_PASSAGE:
+          return Object.assign({}, currentState, {passageFromFirebase: action.passage})
+      case ActionTypes.SET_PASSAGE:
+          return Object.assign({}, currentState, {passage: action.passage})
+      default:
+          return currentState;
     }
 };
