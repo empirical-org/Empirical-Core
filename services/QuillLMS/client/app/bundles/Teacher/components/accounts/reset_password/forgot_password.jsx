@@ -1,6 +1,7 @@
 import React from 'react'
 import request from 'request'
-import Input from '../../shared/input'
+import { Input } from 'quill-component-library/dist/componentLibrary'
+
 import getAuthToken from '../../modules/get_auth_token';
 
 const bulbSrc = `${process.env.CDN_URL}/images/onboarding/bulb.svg`
@@ -22,7 +23,7 @@ export default class ForgotPassword extends React.Component {
   }
 
   submitClass() {
-    let buttonClass = "button contained primary medium"
+    let buttonClass = "quill-button contained primary medium"
     if (!this.state.email.length) {
       buttonClass += ' disabled'
     }

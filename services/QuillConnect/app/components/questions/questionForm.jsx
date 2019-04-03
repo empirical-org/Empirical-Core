@@ -31,7 +31,7 @@ export default React.createClass({
       cuesLabel: this.state.cuesLabel
     }
     if (this.props.new) {
-      const optimalResponseObj = {text: this.refs.newQuestionOptimalResponse.value.trim(), optimal: true, count: 0, feedback: "That's a great sentence!"}
+      const optimalResponseObj = {text: this.refs.newQuestionOptimalResponse.value.trim(), optimal: true, count: 0, feedback: "That's a strong sentence!"}
       this.props.submit(questionObj, optimalResponseObj)
     } else {
       questionObj.conceptID = this.state.concept
