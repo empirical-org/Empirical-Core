@@ -58,7 +58,6 @@ module.exports = {
             // },
             {
                 test:/\.(css|scss)$/,
-                // use: ['css-hot-loader']
                 use: ['css-hot-loader', 'style-loader', "css-loader", "sass-loader"]
             },
             { test: /\.png$/, loader: "url-loader?limit=100000" },

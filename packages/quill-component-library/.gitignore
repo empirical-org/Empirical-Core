@@ -1,4 +1,5 @@
 node_modules/
-dist/*
+dist/components
+dist/libs
 !dist/package.json
 .rpt2_cache/
