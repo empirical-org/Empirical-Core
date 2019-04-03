@@ -12,8 +12,8 @@ class EditIncorrectSequencesContainer extends React.Component {
 
   componentWillMount() {
     const qid = this.props.match.params.questionID
-    if (!this.props.generatedIncorrectSequences.suggested[qid]) {
-      this.props.dispatch(questionActions.getSuggestedSequences(qid))
+    if (!this.props.generatedIncorrectSequences.used[qid]) {
+      this.props.dispatch(questionActions.getUsedSequences(qid))
     }
   }
 
@@ -34,9 +34,7 @@ class EditIncorrectSequencesContainer extends React.Component {
         <IncorrectSequencesInputAndConceptSelectorForm
           itemLabel='Incorrect Sequence'
           onSubmit={this.submitForm}
-          suggestedSequences={generatedIncorrectSequences.suggested[match.params.questionID]}
           usedSequences={generatedIncorrectSequences.used[match.params.questionID]}
-          coveredSequences={generatedIncorrectSequences.covered[match.params.questionID]}
           item={Object.assign(this.getIncorrectSequence(), { id: match.params.incorrectSequenceID, })}
           questions={questions}
           questionID={match.params.questionID}

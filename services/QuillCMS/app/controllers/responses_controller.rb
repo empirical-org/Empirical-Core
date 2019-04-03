@@ -77,7 +77,7 @@ class ResponsesController < ApplicationController
   def multiple_choice_options
     multiple_choice_options = Rails.cache.fetch("questions/#{params[:question_uid]}/multiple_choice_options", :expires_in => 900) do
       optimal_responses = Response.where(question_uid: params[:question_uid], optimal: true).order('count DESC').limit(2).to_a
-      sub_optimal_responses = Response.where(question_uid: params[:question_uid], optimal: false).order('count DESC').limit(2).to_a
+      sub_optimal_responses = Response.where(question_uid: params[:question_uid], optimal: [false, nil]).order('count DESC').limit(2).to_a
       optimal_responses.concat(sub_optimal_responses)
     end
     render json: multiple_choice_options
