@@ -22,7 +22,7 @@ class ResponsesController < ApplicationController
   def create
     new_vals = transformed_new_vals(response_params)
     @response = Response.new(new_vals)
-    if @response.save
+    if !@response.text.blank? && @response.save
       AdminUpdates.run(@response.question_uid)
       render json: @response, status: :created, location: @response
     else
@@ -36,9 +36,11 @@ class ResponsesController < ApplicationController
     if !response
       new_vals = transformed_new_vals(params_for_create)
       response = Response.new(new_vals)
-      if response.save
+      if !response.text.blank? && response.save
         AdminUpdates.run(response.question_uid)
         render json: response, status: :created, location: response
+      else
+        render json: response.errors, status: :unprocessable_entity
       end
     else
       increment_counts(response)
