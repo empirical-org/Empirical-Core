@@ -1,3 +1,5 @@
+import './styles/styles.scss'
+
 export {
   QuestionList,
   LinkListItem,
@@ -15,16 +17,19 @@ export {
 } from './components/feedback/conceptExplanation'
 
 export {
-  TextEditor,
   ArchivedButton,
+  Card,
   CarouselAnimation,
   DiagnosticProgressBar,
+  DropdownInput,
   Error,
   FlagDropdown,
+  Input,
   Passthrough,
   ResumeOrBeginButton,
   SmartSpinner,
-  Spinner
+  Spinner,
+  TextEditor
 } from './components/shared/index'
 
 export {
