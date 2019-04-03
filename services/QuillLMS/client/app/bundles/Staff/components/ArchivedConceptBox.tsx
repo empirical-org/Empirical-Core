@@ -2,9 +2,8 @@ import * as React from "react";
 import { Query, Mutation } from "react-apollo";
 import gql from "graphql-tag";
 import moment from 'moment'
+import { Input, DropdownInput } from 'quill-component-library/dist/componentLibrary'
 
-import Input from '../../Teacher/components/shared/input'
-import DropdownInput from '../../Teacher/components/shared/dropdown_input'
 import { Concept } from '../interfaces/interfaces'
 
 function levelTwoConceptsQuery(){
@@ -271,25 +270,25 @@ class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, Archiv
       return <input
         type="submit"
         value="Unarchive, set live"
-        className="button contained primary medium"
+        className="quill-button contained primary medium"
       />
     } else if (levelNumber === 1 && concept.parent.visible) {
       return <input
         type="submit"
         value="Unarchive, set live"
-        className="button contained primary medium"
+        className="quill-button contained primary medium"
       />
     } else if (levelNumber === 0 && concept.parent.visible && concept.parent.parent.visible) {
       return <input
         type="submit"
         value="Unarchive, set live"
-        className="button contained primary medium"
+        className="quill-button contained primary medium"
       />
     } else {
       return <input
         type="submit"
         value="Unarchive, set live"
-        className="button contained disabled primary medium"
+        className="quill-button contained disabled primary medium"
       />
     }
   }
