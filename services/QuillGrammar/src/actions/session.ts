@@ -9,6 +9,7 @@ import { SessionState } from '../reducers/sessionReducer'
 import { checkGrammarQuestion, Response } from 'quill-marking-logic'
 import { hashToCollection } from '../helpers/hashToCollection'
 import { shuffle } from '../helpers/shuffle';
+import { permittedFlag } from '../helpers/flagArray'
 import _ from 'lodash';
 
 export const updateSessionOnFirebase = (sessionID: string, session: SessionState) => {
@@ -73,14 +74,14 @@ export const startListeningToFollowUpQuestionsForProofreaderSession = (proofread
           }
         })
         dispatch(saveProofreaderSessionToReducer(proofreaderSession))
-        dispatch(getQuestionsForConcepts(concepts))
+        dispatch(getQuestionsForConcepts(concepts, 'production'))
       }
     })
   }
 }
 
 // typescript this
-export const getQuestionsForConcepts = (concepts: any) => {
+export const getQuestionsForConcepts = (concepts: any, flag: string) => {
   return (dispatch, getState) => {
     dispatch(setSessionPending(true))
     const conceptUIDs = Object.keys(concepts)
@@ -88,7 +89,7 @@ export const getQuestionsForConcepts = (concepts: any) => {
       const questions = snapshot.val()
       const questionsForConcepts = {}
       Object.keys(questions).map(q => {
-        if (conceptUIDs.includes(questions[q].concept_uid) && questions[q].prompt && questions[q].answers && questions[q].flag !== 'archived') {
+        if (conceptUIDs.includes(questions[q].concept_uid) && questions[q].prompt && questions[q].answers && permittedFlag(flag, questions[q].flag)) {
           const question = questions[q]
           question.uid = q
           if (questionsForConcepts.hasOwnProperty(question.concept_uid)) {
@@ -123,7 +124,7 @@ export const getQuestionsForConcepts = (concepts: any) => {
   }
 }
 
-export const getQuestions = (questions: any) => {
+export const getQuestions = (questions: any, flag: string) => {
   return dispatch => {
     dispatch(setSessionPending(true))
     questionsRef.once('value', (snapshot) => {
@@ -133,8 +134,9 @@ export const getQuestions = (questions: any) => {
         question.uid = q.key
         return question
       })
-      if (arrayOfQuestions.length > 0) {
-        dispatch({ type: ActionTypes.RECEIVE_QUESTION_DATA, data: arrayOfQuestions, });
+      const arrayOfQuestionsFilteredByFlag = arrayOfQuestions.filter(q => permittedFlag(flag, q.flag))
+      if (arrayOfQuestionsFilteredByFlag.length > 0) {
+        dispatch({ type: ActionTypes.RECEIVE_QUESTION_DATA, data: arrayOfQuestionsFilteredByFlag, });
       } else {
         dispatch({ type: ActionTypes.NO_QUESTIONS_FOUND_FOR_SESSION})
       }

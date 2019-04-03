@@ -15,6 +15,7 @@ import _ from 'underscore';
 import { getConceptResultsForAllQuestions, calculateScoreForLesson } from '../../libs/conceptResults/lesson';
 import Finished from './finished.jsx';
 import { getParameterByName } from '../../libs/getParameterByName';
+import { permittedFlag } from '../../libs/flagArray'
 
 const request = require('request');
 
@@ -147,10 +148,12 @@ const Lesson = React.createClass({
   },
 
   questionsForLesson() {
-    const { data, } = this.props.lessons,
-      { lessonID, } = this.props.params;
-    const filteredQuestions = data[lessonID].questions.filter(ques =>
-       this.props[ques.questionType].data[ques.key]
+    const { data, } = this.props.lessons
+    const { lessonID, } = this.props.params;
+    const filteredQuestions = data[lessonID].questions.filter((ques) => {
+      const question = this.props[ques.questionType].data[ques.key]
+      return question && permittedFlag(data[lessonID].flag, question.flag)
+    }
     );
     // this is a quickfix for missing questions -- if we leave this in here
     // long term, we should return an array through a forloop to
