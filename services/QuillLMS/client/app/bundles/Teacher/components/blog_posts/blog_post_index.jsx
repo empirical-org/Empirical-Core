@@ -19,9 +19,9 @@ export default class extends React.Component {
   }
 
   pageTitle() {
-    const { role } = this.props
+    const { role, title, } = this.props
     if (window.location.pathname.includes('topic')) {
-      const topicTitle = window.location.pathname.split('/')[3].split('-').map(topic => topic.charAt(0).toUpperCase() + topic.slice(1)).join(' ')
+      const topicTitle = this.props.title
       return role === 'student' ? topicTitle.replace('Student ', '') : topicTitle
     } else if (role === 'student') {
       return 'Student Center'
@@ -34,7 +34,7 @@ export default class extends React.Component {
     if (this.props.role === 'student') {
       return 'Everything you need to know about using Quill'
     }
-    
+
     switch (this.pageTitle()) {
       case 'Teacher Stories':
         return 'Read success stories about Quill in the class'
@@ -79,12 +79,13 @@ export default class extends React.Component {
     let sections = [];
     const articlesByTopic = _.groupBy(this.props.blogPosts, "topic");
     this.props.topics.forEach(topic => {
-      const articlesInThisTopic = articlesByTopic[topic];
+      const articlesInThisTopic = articlesByTopic[topic.name];
       if (articlesInThisTopic) {
         sections.push(<TopicSection
           role={this.props.role}
-          key={topic}
-          title={topic}
+          key={topic.name}
+          title={topic.name}
+          slug={topic.slug}
           articles={articlesInThisTopic.sort((a, b) => a.order_number - b.order_number)}
           articleCount={articlesInThisTopic.length}
         />
