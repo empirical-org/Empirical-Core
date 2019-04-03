@@ -168,7 +168,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
           return wordArray.filter(Boolean)
         })
         paragraphIndex++
-        return paragraphArray.flat()
+        return _.flatten(paragraphArray)
       })
       return {passage: passageArray.filter(Boolean), necessaryEdits}
     }
