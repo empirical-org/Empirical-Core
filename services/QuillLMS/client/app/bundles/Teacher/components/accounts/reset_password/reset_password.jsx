@@ -1,6 +1,7 @@
 import React from 'react'
 import request from 'request'
-import Input from '../../shared/input'
+import { Input } from 'quill-component-library/dist/componentLibrary'
+
 import getAuthToken from '../../modules/get_auth_token';
 
 export default class ForgotPassword extends React.Component {
@@ -28,7 +29,7 @@ export default class ForgotPassword extends React.Component {
   }
 
   submitClass() {
-    let buttonClass = "button contained primary medium"
+    let buttonClass = "quill-button contained primary medium"
     if (!this.state.password.length || !this.state.passwordConfirmation.length) {
       buttonClass += ' disabled'
     }

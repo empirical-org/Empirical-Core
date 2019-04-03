@@ -13,8 +13,8 @@ class NewIncorrectSequencesContainer extends Component {
 
   componentWillMount() {
     const qid = this.props.params.questionID
-    if (!this.props.generatedIncorrectSequences.suggested[qid]) {
-      this.props.dispatch(questionActions.getSuggestedSequences(qid))
+    if (!this.props.generatedIncorrectSequences.used[qid]) {
+      this.props.dispatch(questionActions.getUsedSequences(qid))
     }
   }
 
@@ -31,9 +31,7 @@ class NewIncorrectSequencesContainer extends Component {
         <IncorrectSequencesInputAndConceptSelectorForm
           itemLabel='Incorrect Sequence'
           onSubmit={this.submitSequenceForm}
-          suggestedSequences={this.props.generatedIncorrectSequences.suggested[this.props.params.questionID]}
           usedSequences={this.props.generatedIncorrectSequences.used[this.props.params.questionID]}
-          coveredSequences={this.props.generatedIncorrectSequences.covered[this.props.params.questionID]}
           questions={this.props.questions}
           questionID={this.props.params.questionID}
           fillInBlank

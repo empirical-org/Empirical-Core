@@ -1,6 +1,5 @@
 @import '../../../../../app/assets/stylesheets/variables.scss';
-@import '../../../../../app/assets/stylesheets/shared/inputs.scss';
-@import '../../../../../app/assets/stylesheets/shared/button.scss';
+@import "../../../../../node_modules/quill-component-library/src/styles/styles.scss";
 
 .certain-category-search.ant-select-auto-complete .ant-input-affix-wrapper .ant-input-suffix {
   right: 12px;
@@ -211,7 +210,7 @@
       }
     }
   }
-  .button {
+  .quill-button {
     width: 100% !important;
   }
   &.create-concept-box {
@@ -391,7 +390,7 @@
     margin-top: 30px;
   }
 
-  .button {
+  .quill-button {
     width: 100%;
     margin: 30px;
   }
