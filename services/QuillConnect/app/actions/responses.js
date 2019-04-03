@@ -399,7 +399,7 @@ export function findResponseByText(text, questionUID, cb) {
   });
 }
 
-export function submitOptimalResponses(qid, responseStrings) {
+export function submitOptimalResponses(qid, conceptUID, responseStrings) {
   const responses = responseStrings.map((str) => {
     return {
       text: str,
@@ -408,6 +408,7 @@ export function submitOptimalResponses(qid, responseStrings) {
       questionUID: qid,
       gradeIndex: `human${qid}`,
       count: 1,
+      conceptResults: [{ conceptUID: [conceptUID], correct: true, }],
     }
   })
   return (dispatch) => {
