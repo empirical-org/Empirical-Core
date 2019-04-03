@@ -1,7 +1,8 @@
 import React from 'react';
 import request from 'request'
+import { Input } from 'quill-component-library/dist/componentLibrary'
+
 import AuthSignUp from './auth_sign_up'
-import Input from '../../shared/input'
 import AnalyticsWrapper from '../../shared/analytics_wrapper'
 import AgreementsAndLinkToLogin from './agreements_and_link_to_login'
 import getAuthToken from '../../modules/get_auth_token';
@@ -38,7 +39,7 @@ class SignUpStudent extends React.Component {
 
   submitClass() {
     const { password, firstName, lastName, username } = this.state
-    let buttonClass = "button contained primary medium"
+    let buttonClass = "quill-button contained primary medium"
     if (!password.length || !firstName.length || !lastName.length || !username.length) {
       buttonClass += ' disabled'
     }
