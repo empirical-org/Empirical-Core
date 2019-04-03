@@ -75,6 +75,7 @@ export default class ResponseList extends React.Component {
       concepts={this.props.concepts}
       conceptID={this.props.conceptID}
       massEdit={this.props.massEdit}
+      question={this.props.question}
     />
   }
 

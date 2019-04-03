@@ -95,6 +95,10 @@
     margin-top: 20px;
     border: 1px solid #DDD;
     border-radius: 6px;
+    resize: none;
+    &.disabled {
+      background-color: #eee;
+    }
   }
 
   .feedback {
