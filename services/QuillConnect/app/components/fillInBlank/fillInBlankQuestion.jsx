@@ -3,10 +3,6 @@ import activeComponent from 'react-router-active-component';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import Cues from '../renderForQuestions/cues.jsx';
-import UploadOptimalResponses from '../shared/uploadOptimalResponses'
-import {
-  submitOptimalResponses
-} from '../../actions/responses';
 import fillInTheBlankActions from '../../actions/fillInBlank';
 
 const icon = 'https://assets.quill.org/images/icons/question_icon.svg'

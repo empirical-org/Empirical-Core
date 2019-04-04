@@ -1,10 +1,9 @@
 import React from 'react';
 import activeComponent from 'react-router-active-component';
 import { connect } from 'react-redux';
-import { Modal } from 'quill-component-library/dist/componentLibrary';
+import { Modal, UploadOptimalResponses } from 'quill-component-library/dist/componentLibrary';
 
 import EditForm from './sentenceFragmentForm.jsx';
-import UploadOptimalResponses from '../shared/uploadOptimalResponses'
 import ResponseComponent from '../questions/responseComponent.jsx';
 import fragmentActions from '../../actions/sentenceFragments.js';
 import {
