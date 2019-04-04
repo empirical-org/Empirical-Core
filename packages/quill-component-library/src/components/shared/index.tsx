@@ -49,3 +49,7 @@ export {
 export {
   TextEditor
 } from './textEditor'
+
+export {
+  UploadOptimalResponses
+} from './uploadOptimalResponses'
