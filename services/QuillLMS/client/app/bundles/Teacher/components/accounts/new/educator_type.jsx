@@ -51,8 +51,8 @@ export default React.createClass({
           <ScrollToTop />
           <h3>Are you a faculty member at a U.S. K-12 school?*</h3>
            <div className='option-wrapper'>
-             <button className='button contained primary large' onClick={() => this.goToStage(2)}>Yes</button>
-             <button className='button contained primary large' onClick={() => this.goToStage(3)}>No</button>
+             <button className='quill-button contained primary large' onClick={() => this.goToStage(2)}>Yes</button>
+             <button className='quill-button contained primary large' onClick={() => this.goToStage(3)}>No</button>
            </div>
            <div className="explanation">
              *K-12 is a term for school grades prior to college.<br/>
