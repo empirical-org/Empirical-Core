@@ -62,7 +62,6 @@ export function submitResponse(content, prid, isFirstAttempt) {
   rubyConvertedResponse.first_attempt_count = isFirstAttempt ? 1 : 0;
   rubyConvertedResponse.is_first_attempt = isFirstAttempt;
   return (dispatch) => {
-    console.log('is this happening or what')
     request.post({
       url: `${process.env.QUILL_CMS}/responses/create_or_increment`,
       form: { response: rubyConvertedResponse, }, },
