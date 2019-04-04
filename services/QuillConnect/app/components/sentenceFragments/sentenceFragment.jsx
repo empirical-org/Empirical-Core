@@ -1,21 +1,20 @@
 import React from 'react';
+import activeComponent from 'react-router-active-component';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
 import { Modal } from 'quill-component-library/dist/componentLibrary';
 
 import EditForm from './sentenceFragmentForm.jsx';
 import UploadOptimalResponses from '../shared/uploadOptimalResponses'
 import ResponseComponent from '../questions/responseComponent.jsx';
 import fragmentActions from '../../actions/sentenceFragments.js';
-import { submitOptimalResponses } from '../../actions/responses';
+import {
+  submitOptimalResponses,
+  listenToResponsesWithCallback
+} from '../../actions/responses';
 import C from '../../constants';
 
 const icon = 'https://assets.quill.org/images/icons/question_icon.svg'
 
-import {
-  listenToResponsesWithCallback
-} from '../../actions/responses.js';
-import activeComponent from 'react-router-active-component';
 const NavLink = activeComponent('li');
 
 const SentenceFragment = React.createClass({
@@ -92,9 +91,9 @@ const SentenceFragment = React.createClass({
 
   renderUploadNewOptimalResponsesForm() {
     if (this.state.uploadingNewOptimalResponses) {
-        return (
+      return (
         <Modal close={() => { this.setState({ uploadingNewOptimalResponses: false, }); }}>
-          <UploadOptimalResponses submitOptimalResponses={this.submitOptimalResponses}/>
+          <UploadOptimalResponses submitOptimalResponses={this.submitOptimalResponses} />
         </Modal>
       );
     }
