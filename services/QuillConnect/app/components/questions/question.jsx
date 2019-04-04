@@ -45,7 +45,9 @@ const Question = React.createClass({
 
   submitOptimalResponses(responseStrings) {
     const conceptUID = this.getQuestion().conceptID
-    this.props.dispatch(submitOptimalResponses(this.props.params.questionID, conceptUID, responseStrings))
+    this.props.dispatch(
+      submitOptimalResponses(this.props.params.questionID, conceptUID, responseStrings)
+    )
     this.setState({ uploadingNewOptimalResponses: false, })
   },
 
@@ -169,9 +171,9 @@ const Question = React.createClass({
 
   renderUploadNewOptimalResponsesForm() {
     if (this.state.uploadingNewOptimalResponses) {
-        return (
+      return (
         <Modal close={() => { this.setState({ uploadingNewOptimalResponses: false, }); }}>
-          <UploadOptimalResponses submitOptimalResponses={this.submitOptimalResponses}/>
+          <UploadOptimalResponses submitOptimalResponses={this.submitOptimalResponses} />
         </Modal>
       );
     }
