@@ -1,13 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import _ from 'underscore';
-import { Modal } from 'quill-component-library/dist/componentLibrary';
+import { Modal, UploadOptimalResponses } from 'quill-component-library/dist/componentLibrary';
 import activeComponent from 'react-router-active-component';
 
 import EditForm from './questionForm.jsx';
 import getBoilerplateFeedback from './boilerplateFeedback.jsx';
 import Cues from '../renderForQuestions/cues.jsx';
-import UploadOptimalResponses from '../shared/uploadOptimalResponses'
 import {
   submitResponse,
   submitOptimalResponses
