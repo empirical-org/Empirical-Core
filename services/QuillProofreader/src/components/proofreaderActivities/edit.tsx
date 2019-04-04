@@ -53,7 +53,7 @@ export default class Edit extends React.Component<EditProps, {offset: string}> {
     this.setState({ offset })
   }
 
-  renderGrammaticalConcept() {
+  renderGrammaticalConcept():JSX.Element|void {
     const { concept } = this.props
     if (concept) {
       return <div>

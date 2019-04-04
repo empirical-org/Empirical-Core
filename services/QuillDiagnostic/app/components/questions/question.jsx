@@ -1,31 +1,21 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router';
-import questionActions from '../../actions/questions';
 import _ from 'underscore';
-import { Modal } from 'quill-component-library/dist/componentLibrary';
-import {
-  listenToResponsesWithCallback
-} from '../../actions/responses';
-import EditFrom from './questionForm.jsx';
-import Response from './response.jsx';
-import C from '../../constants';
-import ResponseComponent from './responseComponent.jsx';
-import getBoilerplateFeedback from './boilerplateFeedback.jsx';
-const icon = 'https://assets.quill.org/images/icons/question_icon.svg'
-import Cues from '../renderForQuestions/cues.jsx';
-import {
-  deleteResponse,
-  incrementResponseCount,
-  submitResponseEdit,
-  submitNewConceptResult,
-  deleteConceptResult,
-  removeLinkToParentID,
-  submitResponse
-} from '../../actions/responses';
+import { connect } from 'react-redux';
+import { Modal, UploadOptimalResponses } from 'quill-component-library/dist/componentLibrary';
 import activeComponent from 'react-router-active-component';
 
+import EditFrom from './questionForm.jsx';
+import getBoilerplateFeedback from './boilerplateFeedback.jsx';
+import Cues from '../renderForQuestions/cues.jsx';
+import questionActions from '../../actions/questions';
+import {
+  submitResponse,
+  submitOptimalResponses
+} from '../../actions/responses';
+import C from '../../constants';
+
 const NavLink = activeComponent('li');
+const icon = 'https://assets.quill.org/images/icons/question_icon.svg'
 
 const Question = React.createClass({
 
@@ -35,6 +25,7 @@ const Question = React.createClass({
       responses: [],
       loadedResponses: false,
       addingNewResponse: false,
+      uploadingNewOptimalResponses: false
     };
   },
 
@@ -50,6 +41,14 @@ const Question = React.createClass({
     this.props.dispatch(questionActions.submitQuestionEdit(this.props.params.questionID, vals));
   },
 
+  submitOptimalResponses(responseStrings) {
+    const conceptUID = this.getQuestion().conceptID
+    this.props.dispatch(
+      submitOptimalResponses(this.props.params.questionID, conceptUID, responseStrings)
+    )
+    this.setState({ uploadingNewOptimalResponses: false, })
+  },
+
   getQuestion() {
     const { data, } = this.props.questions;
     const { questionID, } = this.props.params;
@@ -58,6 +57,10 @@ const Question = React.createClass({
 
   startAddingNewResponse() {
     this.setState({ addingNewResponse: true, });
+  },
+
+  startUploadingNewOptimalResponses() {
+    this.setState({ uploadingNewOptimalResponses: true, });
   },
 
   submitResponse() {
@@ -177,6 +180,16 @@ const Question = React.createClass({
     }
   },
 
+  renderUploadNewOptimalResponsesForm() {
+    if (this.state.uploadingNewOptimalResponses) {
+      return (
+        <Modal close={() => { this.setState({ uploadingNewOptimalResponses: false, }); }}>
+          <UploadOptimalResponses submitOptimalResponses={this.submitOptimalResponses} />
+        </Modal>
+      );
+    }
+  },
+
   isLoading() {
     const loadingData = this.props.questions.hasreceiveddata === false;
     return loadingData;
@@ -196,6 +209,7 @@ const Question = React.createClass({
         <div>
           {this.renderEditForm()}
           {this.renderNewResponseForm()}
+          {this.renderUploadNewOptimalResponsesForm()}
           <div style={{display: 'flex', justifyContent: 'space-between'}}>
             <h4 className="title" dangerouslySetInnerHTML={{ __html: data[questionID].prompt, }}/>
             <h4 style={{color: '#00c2a2'}} className="title">Flag: {data[questionID].flag}</h4>
@@ -209,9 +223,9 @@ const Question = React.createClass({
             <p>{data[questionID].instructions || 'Combine the sentences into one sentence.'}</p>
           </div>
           <p className="control button-group" style={{ marginTop: 10, }}>
-
             <a className="button is-outlined is-primary" onClick={this.startEditingQuestion}>Edit Question</a>
             <a className="button is-outlined is-primary" onClick={this.startAddingNewResponse}>Add New Response</a>
+            <a className="button is-outlined is-primary" onClick={this.startUploadingNewOptimalResponses}>Upload Optimal Responses</a>
           </p>
           <div className="tabs">
             <ul>

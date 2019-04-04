@@ -12,5 +12,5 @@
 <% end %>
 <%= render partial: 'pages/shared/teacher_center_navbar', active_tab: @active_tab %>
 <div class="container">
-  <%= react_component('BlogPostsApp', props: {route: 'index', blogPosts: @blog_posts, announcement: @announcement, query: @query, topics: @topics, studentTopics: @student_topics, role: @role}) %>
+  <%= react_component('BlogPostsApp', props: {route: 'index', blogPosts: @blog_posts, announcement: @announcement, query: @query, topics: @topics, studentTopics: @student_topics, role: @role, title: @title}) %>
 </div>

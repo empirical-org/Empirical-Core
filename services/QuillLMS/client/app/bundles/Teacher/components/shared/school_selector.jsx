@@ -1,6 +1,6 @@
 import React from 'react';
 import request from 'request'
-import Input from './input'
+import { Input } from 'quill-component-library/dist/componentLibrary'
 import LoadingIndicator from './loading_indicator.jsx';
 
 const mapSearchSrc = `${process.env.CDN_URL}/images/onboarding/map-search.svg`
