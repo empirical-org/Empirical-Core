@@ -22,7 +22,7 @@ class ResponsesController < ApplicationController
   def create
     new_vals = transformed_new_vals(response_params)
     @response = Response.new(new_vals)
-    if @response.save
+    if !@response.text.blank? && @response.save
       AdminUpdates.run(@response.question_uid)
       render json: @response, status: :created, location: @response
     else
@@ -36,9 +36,11 @@ class ResponsesController < ApplicationController
     if !response
       new_vals = transformed_new_vals(params_for_create)
       response = Response.new(new_vals)
-      if response.save
+      if !response.text.blank? && response.save
         AdminUpdates.run(response.question_uid)
         render json: response, status: :created, location: response
+      else
+        render json: response.errors, status: :unprocessable_entity
       end
     else
       increment_counts(response)
@@ -75,7 +77,7 @@ class ResponsesController < ApplicationController
   def multiple_choice_options
     multiple_choice_options = Rails.cache.fetch("questions/#{params[:question_uid]}/multiple_choice_options", :expires_in => 900) do
       optimal_responses = Response.where(question_uid: params[:question_uid], optimal: true).order('count DESC').limit(2).to_a
-      sub_optimal_responses = Response.where(question_uid: params[:question_uid], optimal: false).order('count DESC').limit(2).to_a
+      sub_optimal_responses = Response.where(question_uid: params[:question_uid], optimal: [false, nil]).order('count DESC').limit(2).to_a
       optimal_responses.concat(sub_optimal_responses)
     end
     render json: multiple_choice_options

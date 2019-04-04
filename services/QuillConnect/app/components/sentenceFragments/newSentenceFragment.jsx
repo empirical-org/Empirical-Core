@@ -21,13 +21,13 @@ const newSentenceFragment = React.createClass({
       data.responses = [{
         text: newSentenceFragment.optimalResponseText,
         optimal: true,
-        feedback: "That's a great answer!",
+        feedback: "That's a strong sentence!",
       }];
     } else {
       data.responses = [{
         text: newSentenceFragment.prompt,
         optimal: true,
-        feedback: "That's a great answer!",
+        feedback: "That's a strong sentence!",
       }];
     }
 

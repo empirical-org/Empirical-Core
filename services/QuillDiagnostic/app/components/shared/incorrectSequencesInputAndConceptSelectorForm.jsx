@@ -111,19 +111,6 @@ export default React.createClass({
     this.setState(data);
   },
 
-  toggleSuggestedSequence(text) {
-    let newIncorrectSequences
-    const incorrectSequences = this.state.itemText.split(/\|{3}(?!\|)/)
-    const index = incorrectSequences.indexOf(`${text}`)
-    if (index !== -1) {
-      incorrectSequences.splice(index, 1).join('|||')
-      newIncorrectSequences = incorrectSequences.join('|||')
-    } else {
-      newIncorrectSequences = incorrectSequences.join('|||') + `${text}|||`
-    }
-    this.setState({itemText: newIncorrectSequences}, this.getNewAffectedCount)
-  },
-
   returnAppropriateDataset() {
     const questionID = this.props.questionID
     const datasets = ['fillInBlank', 'sentenceFragments', 'diagnosticQuestions'];
@@ -136,84 +123,6 @@ export default React.createClass({
       }
     });
     return { dataset: theDatasetYouAreLookingFor, mode, }; // "These are not the datasets you're looking for."
-  },
-
-  renderSuggestedIncorrectSequences() {
-    if (this.props.suggestedSequences && this.props.suggestedSequences.length > 0) {
-      const suggestedSequences = []
-      const coveredSequences = []
-      this.props.suggestedSequences.forEach((seq, i) => {
-        const incorrectSequences = this.state.itemText.split(/\|{3}(?!\|)/)
-        const added = incorrectSequences.includes(`${seq}`)
-        const covered = _.any(incorrectSequences, inSeq => inSeq.length > 0 && seq.includes(inSeq));
-        let color
-        if (added) {
-          color = '#c0c0c0'
-        } else if (covered) {
-          color = '#969696'
-        } else {
-          color = '#3b3b3b'
-        }
-        const seqTag = this.renderSequenceTag(seq, color, i)
-        covered && !added ? coveredSequences.push(seqTag) : suggestedSequences.push(seqTag)
-      })
-      const suggestedSequencesDiv = suggestedSequences.length > 0 ? <div>
-        <label className="label">Suggested Sequences</label>
-        <div>{suggestedSequences}</div>
-      </div> : null
-      const coveredSequencesDiv = coveredSequences.length > 0 ? <div>
-        <label className="label">Covered by Selected Sequences</label>
-        <div>{coveredSequences}</div>
-      </div> : null
-      return <div>
-        {suggestedSequencesDiv}
-        {coveredSequencesDiv}
-      </div>
-    }
-  },
-
-  renderUsedIncorrectSequences() {
-    if (this.props.usedSequences && this.props.usedSequences.length > 0) {
-      const usedSequences = this.props.usedSequences.map((seq, i) => this.renderSequenceTag(seq, '#c0c0c0', i))
-        return <div>
-          <label className="label">Previously Used Sequences</label>
-          <div>
-            {usedSequences}
-          </div>
-        </div>
-    }
-  },
-
-  renderCoveredByUsedIncorrectSequences() {
-    if (this.props.coveredSequences && this.props.coveredSequences.length > 0) {
-      const coveredSequences = this.props.coveredSequences.map((seq, i) => this.renderSequenceTag(seq, '#969696', i))
-        return <div>
-          <label className="label">Covered by Previously Used Sequences</label>
-          <div>
-            {coveredSequences}
-          </div>
-        </div>
-    }
-  },
-
-  renderSequenceTag(seq, backgroundColor, i) {
-    return <span
-        className="tag"
-        style={{margin: '5px', backgroundColor: backgroundColor, color: 'white'}}
-        key={i}
-        onClick={() => this.toggleSuggestedSequence(seq)}>
-      {seq}
-      </span>
-   },
-
-  renderSuggestedIncorrectSequencesSection() {
-    if (this.props.suggestedSequences && this.props.suggestedSequences.length > 0) {
-      return <div>
-        {this.renderSuggestedIncorrectSequences()}
-        {this.renderUsedIncorrectSequences()}
-        {this.renderCoveredByUsedIncorrectSequences()}
-      </div>
-    }
   },
 
   renderExplanatoryNote() {
@@ -235,7 +144,6 @@ export default React.createClass({
           <div className="control">
             <label className="label">{this.props.itemLabel} Text</label>
             {this.renderTextInputFields()}
-            {this.renderSuggestedIncorrectSequencesSection()}
             <label className="label" style={{ marginTop: 10, }}>Feedback</label>
             <TextEditor
               text={this.state.itemFeedback || ""}
