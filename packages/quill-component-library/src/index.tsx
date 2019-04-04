@@ -29,7 +29,8 @@ export {
   ResumeOrBeginButton,
   SmartSpinner,
   Spinner,
-  TextEditor
+  TextEditor,
+  UploadOptimalResponses
 } from './components/shared/index'
 
 export {
