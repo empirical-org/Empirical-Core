@@ -44,7 +44,7 @@ export default class TopicSection extends React.Component {
         <div className='meta'>
           <h1>{this.topicIcon()}{this.displayTitle()}</h1>
           <h2>{this.props.articleCount} {pluralize('article', this.props.articleCount)}</h2>
-          <a href={`/${this.sectionLink()}/topic/${this.props.title.toLowerCase().replace(/\s/g, '-')}`}>Show All</a>
+          <a href={`/${this.sectionLink()}/topic/${this.props.slug}`}>Show All</a>
         </div>
         <div id="preview-card-container">
           {this.renderArticleCards()}

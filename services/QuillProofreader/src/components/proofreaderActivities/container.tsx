@@ -14,16 +14,15 @@ import { startListeningToConcepts } from "../../actions/concepts";
 import {
   updateConceptResultsOnFirebase,
   updateSessionOnFirebase,
-  updateSession,
   setSessionReducerToSavedSession
 } from "../../actions/session";
 // import { getConceptResultsForAllQuestions, calculateScoreForLesson } from '../../helpers/conceptResultsGenerator'
 import { SessionState } from '../../reducers/sessionReducer'
 import { ProofreaderActivityState } from '../../reducers/proofreaderActivitiesReducer'
-import { ConceptResultObject } from '../../interfaces/proofreaderActivities'
-import PassageEditor from './passageEditor'
+import { ConceptResultObject, WordObject } from '../../interfaces/proofreaderActivities'
 import PassageReviewer from './passageReviewer'
 import EarlySubmitModal from './earlySubmitModal'
+import Paragraph from './paragraph'
 import ResetModal from './resetModal'
 import ReviewModal from './reviewModal'
 import LoadingSpinner from '../shared/loading_spinner'
@@ -37,17 +36,16 @@ interface PlayProofreaderContainerProps {
 }
 
 interface PlayProofreaderContainerState {
-  passage?: string;
-  edits: string[];
+  passage?: Array<Array<WordObject>>;
+  edits: number;
   reviewing: boolean;
   resetting: boolean;
   showEarlySubmitModal: boolean;
   showReviewModal: boolean;
   showResetModal: boolean;
-  editsWithOriginalValue: Array<{index: string, originalText: string, currentText: string}>;
-  necessaryEdits?: String[];
+  necessaryEdits?: RegExpMatchArray|null;
   numberOfCorrectChanges?: number;
-  originalPassage?: string;
+  originalPassage?: Array<Array<WordObject>>;
   reviewablePassage?: string;
   conceptResultsObjects?: ConceptResultObject[];
 }
@@ -57,12 +55,11 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       super(props);
 
       this.state = {
-        edits: [],
+        edits: 0,
         reviewing: false,
         showEarlySubmitModal: false,
         showReviewModal: false,
         showResetModal: false,
-        editsWithOriginalValue: [],
         resetting: false
       }
 
@@ -70,7 +67,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       this.finishActivitySession = this.finishActivitySession.bind(this)
       this.finishReview = this.finishReview.bind(this)
       this.createAnonActivitySession = this.createAnonActivitySession.bind(this)
-      this.handlePassageChange = this.handlePassageChange.bind(this)
+      this.handleParagraphChange = this.handleParagraphChange.bind(this)
       this.finishActivity = this.finishActivity.bind(this)
       this.renderShowEarlySubmitModal = this.renderShowEarlySubmitModal.bind(this)
       this.closeEarlySubmitModal = this.closeEarlySubmitModal.bind(this)
@@ -101,23 +98,21 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
     }
 
     componentWillReceiveProps(nextProps: PlayProofreaderContainerProps) {
-      if (nextProps.proofreaderActivities.currentActivity && !this.state.passage) {
-        const { passage, underlineErrorsInProofreader } = nextProps.proofreaderActivities.currentActivity
-        const initialPassageData = this.formatInitialPassage(passage, underlineErrorsInProofreader)
+      if (
+        (nextProps.proofreaderActivities.currentActivity && !this.state.passage)
+        || (!_.isEqual(nextProps.proofreaderActivities.currentActivity, this.props.proofreaderActivities.currentActivity))
+      ) {
+        const { passage } = nextProps.proofreaderActivities.currentActivity
+        const initialPassageData = this.formatInitialPassage(passage)
         const formattedPassage = initialPassageData.passage
-        this.setState({ passage: formattedPassage, originalPassage: formattedPassage, necessaryEdits: initialPassageData.necessaryEdits })
-      }
-
-      if (!_.isEqual(nextProps.proofreaderActivities.currentActivity, this.props.proofreaderActivities.currentActivity)) {
-        const { passage, underlineErrorsInProofreader } = nextProps.proofreaderActivities.currentActivity
-        const initialPassageData = this.formatInitialPassage(passage, underlineErrorsInProofreader)
-        const formattedPassage = initialPassageData.passage
-        this.setState({ passage: formattedPassage, originalPassage: formattedPassage, necessaryEdits: initialPassageData.necessaryEdits })
-      }
-
-      const sessionID = getParameterByName('student', window.location.href)
-      if (sessionID && !_.isEqual(nextProps.session, this.props.session)) {
-        updateSessionOnFirebase(sessionID, nextProps.session.passage)
+        let currentPassage = formattedPassage
+        if (
+          nextProps.session.passageFromFirebase
+          && typeof nextProps.session.passageFromFirebase !== 'string'
+        ) {
+          currentPassage = nextProps.session.passageFromFirebase
+        }
+        this.setState({ passage: currentPassage, originalPassage: _.cloneDeep(formattedPassage), necessaryEdits: initialPassageData.necessaryEdits, edits: this.editCount(currentPassage) })
       }
     }
 
@@ -125,14 +120,60 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       return 'Find and correct the errors in the passage. To edit a word, click on it and re-type it.'
     }
 
-    formatInitialPassage(passage: string, underlineErrors: boolean) {
-      const necessaryEdits = []
+    formatInitialPassage(passage: string) {
       passage = passage.replace(/&#x27;/g, "'").replace(/&quot;/g, '"')
-      passage.replace(/{\+([^-]+)-([^|]+)\|([^}]*)}/g, (key: string, plus: string, minus: string, conceptUID: string) => {
-        passage = passage.replace(key, `<u id="${necessaryEdits.length}">${minus}</u>`);
-        necessaryEdits.push(key)
-      });
-      return {passage, necessaryEdits}
+      const necessaryEdits = passage.match(/{\+[^-]+-[^|]+\|[^}]*}/g)
+      const necessaryEditRegex = /\+[^-]+-[^|]+\|[^}]*/
+      const correctEditRegex = /\+([^-]+)-/m
+      const originalTextRegex = /\-([^|]+)\|/m
+      const conceptUIDRegex = /\|([^}]+)/m
+      const paragraphs = passage.replace('</p><p>', '<br/>').replace(/<p>|<\/p>/g, '').split('<br/>')
+      let necessaryEditCounter = 0
+      let paragraphIndex = 0
+      const passageArray = paragraphs.map((paragraph: string) => {
+        if (paragraph.length === 0) {
+          return null
+        }
+        let i = 0
+        const paragraphArray = paragraph.split(/{|}/).map((text) => {
+          let wordObj, wordArray
+          if (necessaryEditRegex.test(text)) {
+            wordObj = {
+              originalText: text.match(originalTextRegex) ? text.match(originalTextRegex)[1] : '',
+              currentText: text.match(originalTextRegex) ? text.match(originalTextRegex)[1] : '',
+              necessaryEditIndex: necessaryEditCounter,
+              conceptUID: text.match(conceptUIDRegex) ? text.match(conceptUIDRegex)[1] : '',
+              correctText: text.match(correctEditRegex) ? text.match(correctEditRegex)[1] : '',
+              underlined: true,
+              wordIndex: i,
+              paragraphIndex
+            }
+            wordArray = [wordObj]
+            necessaryEditCounter++
+            i++
+          } else {
+            wordArray = text.split(/\s+/).map(word => {
+              if (word.length === 0) {
+                return null
+              }
+              wordObj = {
+                originalText: word,
+                currentText: word,
+                correctText: word,
+                underlined: false,
+                wordIndex: i,
+                paragraphIndex
+              }
+              i++
+              return wordObj
+            })
+          }
+          return wordArray.filter(Boolean)
+        })
+        paragraphIndex++
+        return _.flatten(paragraphArray)
+      })
+      return {passage: passageArray.filter(Boolean), necessaryEdits}
     }
 
     saveToLMS() {
@@ -197,336 +238,72 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       );
     }
 
-    // this method handles weirdness created by HTML formatting in Slate
-    formatReceivedPassage(value: string) {
-      let fixedString = value.replace(/<span data-original-index="\d+">|<\/span>|<strong> <\/strong>/gm, '').replace(/&#x27;/g, "'").replace(/&quot;/g, '"')
-      console.log('fixedString', fixedString)
-    // regex below matches case that looks like this: <strong><u id="6"> </u></strong><strong><u id="6"></u></strong><strong><u id="6"><u id="6">delivering</u></u></strong>
-      const tripleStrongTagWithFourMatchingNestedURegex = /<strong>(<u id="\d+">)([^(<]*?)<\/u><\/strong><strong>(<u id="\d+">)([^(<]*?)<\/u><\/strong><strong>(<u id="\d+">)(<u id="\d+">)([^(<]*?)<\/u><\/u><\/strong>/gm
-      // regex below matches case that looks like this: <strong><u id="10">A</u></strong><strong><u id="10"><u id="10">sia,</u></u></strong><strong><u id="10"> </u></strong>
-      const tripleStrongTagWithThreeMatchingNestedURegex = /<strong>(<u id="\d+">)([^(<]+?)<\/u><\/strong><strong>(<u id="\d+">)(<u id="\d+">)([^(<]+?)<\/u><\/u><\/strong><strong>(<u id="\d+">)([^(<]+?)<\/u><\/strong>/gm
-
-      // regex below matches case that looks like this: <strong><u id="3">Addison</u></strong><strong><u id="3">,</u></strong><strong><u id="3"> Parker, and Julian,</u></strong>
-      const tripleStrongTagWithThreeMatchingURegex = /<strong>(<u id="\d+">)([^(<]+?)<\/u><\/strong><strong>(<u id="\d+">)([^(<]+?)<\/u><\/strong><strong>(<u id="\d+">)([^(<]+?)<\/u><\/strong>/gm
-
-      // regex below matches case that looks like this: <strong><u id="3">Addison</u></strong><strong>,</strong><strong><u id="3"> Parker, and Julian,</u></strong>
-      const tripleStrongTagWithTwoMatchingURegex = /<strong>(<u id="\d+">)([^(<]+?)<\/u><\/strong><strong>([^(<]+?)<\/strong><strong>(<u id="\d+">)([^(<]+?)<\/u><\/strong>/gm
-
-      // regex below matches case that looks like this: <strong><u id="5"> </u></strong><strong><u id="5"></u></strong><u id="5">these?"</u>
-      const doubleStrongTagWithThreeMatchingURegex = /<strong>(<u id="\d+">)([^(<]*?)<\/u><\/strong><strong>(<u id="\d+">)([^(<]*?)<\/u><\/strong>(<u id="\d+">)([^(<]*?)<\/u>/gm
-
-      // regex below matches case that looks like this: <strong><u id="3"><u id="3">shows.</u></u></strong><strong><u id="3"> </u></strong>
-      const doubleStrongTagWithThreeMatchingNestedUOnFirstTagRegex = /<strong>(<u id="\d+">)(<u id="\d+">)([^(<]+?)<\/u><\/u><\/strong><strong>(<u id="\d+">)([^(<]+?)<\/u><\/strong>/gm
-
-      // regex below matches case that looks like this: <strong><u id="6">Y</u></strong><strong><u id="6"><u id="6">ellowstone</u></u></strong>
-      const doubleStrongTagWithThreeMatchingNestedUOnSecondTagRegex = /<strong>(<u id="\d+">)([^(<]+?)<\/u><\/strong><strong>(<u id="\d+">)(<u id="\d+">)([^(<]+?)<\/u><\/u><\/strong>/gm
-
-      // regex below matches case that looks like this: <strong>Addison</strong><strong><u id="3">, Parker, and Julian,</u></strong>
-      const doubleStrongTagWithTwoMatchingURegex = /<strong>(<u id="\d+">)([^(<]+?)<\/u><\/strong><strong>(<u id="\d+">)([^(<]+?)<\/u><\/strong>/gm
-
-      // regex below matches case that looks like this: <strong>Addison</strong><strong><u id="3">, Parker, and Julian,</u></strong>
-      const doubleStrongTagWithUOnSecondTagRegex = /<strong>([^(<)]+?)<\/strong><strong>(<u id="\d+">)(.+?)<\/u><\/strong>/gm
-
-      // regex below matches case that looks like this: <strong><u id="3">Addison</u></strong><strong>, Parker, and Julian,</strong>
-      const doubleStrongTagWithUOnFirstTagRegex = /<strong>(<u id="\d+">)([^(<)]+?)<\/u><\/strong><strong>=(.+?)<\/strong>/gm
-
-      // regex below matches case that looks like this: <strong>A</strong><strong>ntartctic</strong>
-      const doubleStrongTagRegex = /<strong>[^(<)]+?<\/strong><strong>[^(<)]+?<\/strong>/gm
-
-      const singleStrongTagWithThreeMatchingURegex = /(<u id="\d+">)([^(<]*?)<\/u>(<u id="\d+">)([^(<]*?)<\/u><strong>(<u id="\d+">)([^(<]*?)<\/u><\/strong>/gm
-
-      // regex below matches case that looks like this: <strong><u id="3"><u id="3">are</u></u></strong>
-      const singleStrongTagWithTwoMatchingNestedURegex = /<strong>(<u id="\d+">)(<u id="\d+">)([^(<]+?)<\/u><\/u><\/strong>/gm
-
-      // regex below matches case that looks like this: <strong><u id="4">"That's</u></strong><u id="4"><u id="4"> </u></u>
-      const singleStrongTagWithThreeMatchingURegexAtEnd = /<strong>(<u id="\d+">)([^(<]+?)<\/u><\/strong>(<u id="\d+">)(<u id="\d+">)([^(<]+?)<\/u><\/u>/gm
-
-      // regex below matches case that looks like this: <strong><u id="6">John</u></strong><u id="6"> </u>
-      const singleStrongTagWithTwoMatchingURegex = /<strong>(<u id="\d+">)([^(<]+?)<\/u><\/strong>(<u id="\d+">)([^(<]+?)<\/u>/gm
-
-      if (tripleStrongTagWithFourMatchingNestedURegex.test(fixedString)) {
-        fixedString = fixedString.replace(tripleStrongTagWithFourMatchingNestedURegex, (key, uTagA, contentA, uTagB, contentB, uTagC, uTagD, contentC) => {
-          if (uTagA === uTagB && uTagB === uTagC && uTagC === uTagD) {
-            return `<strong>${uTagA}${contentA}${contentB}${contentC}</u></strong>`
-          } else {
-            return key
-          }
-        })
-      }
-
-      if (tripleStrongTagWithThreeMatchingNestedURegex.test(fixedString)) {
-        fixedString = fixedString.replace(tripleStrongTagWithThreeMatchingNestedURegex, (key, uTagA, contentA, uTagB, uTagC, contentB, uTagD, contentC) => {
-          if (uTagA === uTagB && uTagB === uTagC && uTagC === uTagD) {
-            return `<strong>${uTagA}${contentA}${contentB}${contentC}</u></strong>`
-          } else {
-            return key
-          }
-        })
-      }
-
-      if (tripleStrongTagWithThreeMatchingURegex.test(fixedString)) {
-        fixedString = fixedString.replace(tripleStrongTagWithThreeMatchingURegex, (key, uTagA, contentA, uTagB, contentB, uTagC, contentC) => {
-          if (uTagA === uTagB && uTagB === uTagC) {
-            return `<strong>${uTagA}${contentA}${contentB}${contentC}</u></strong>`
-          } else {
-            return key
-          }
-        })
-      }
-      if (tripleStrongTagWithTwoMatchingURegex.test(fixedString)) {
-        fixedString = fixedString.replace(tripleStrongTagWithTwoMatchingURegex, (key, uTagA, contentA, contentB, uTagC, contentC) => {
-          if (uTagA === uTagC) {
-            return `<strong>${uTagA}${contentA}${contentB}${contentC}</u></strong>`
-          } else {
-            return key
-          }
-        })
-      }
-
-      if (doubleStrongTagWithThreeMatchingNestedUOnFirstTagRegex.test(fixedString)) {
-        fixedString = fixedString.replace(doubleStrongTagWithThreeMatchingNestedUOnFirstTagRegex, (key, uTagA, uTagB, contentA, uTagC, contentB) => {
-          if (uTagA === uTagB && uTagB === uTagC) {
-            return `<strong>${uTagA}${contentA}${contentB}</u></strong>`
-          } else {
-            return key
-          }
-        })
-      }
-
-      if (doubleStrongTagWithThreeMatchingURegex.test(fixedString)) {
-        fixedString = fixedString.replace(doubleStrongTagWithThreeMatchingURegex, (key, uTagA, contentA, uTagB, contentB, uTagC, contentC) => {
-          if (uTagA === uTagB && uTagB === uTagC) {
-            return `<strong>${uTagA}${contentA}${contentB}${contentC}</u></strong>`
-          } else {
-            return key
-          }
-        })
-      }
-
-      if (doubleStrongTagWithThreeMatchingNestedUOnSecondTagRegex.test(fixedString)) {
-        fixedString = fixedString.replace(doubleStrongTagWithThreeMatchingNestedUOnSecondTagRegex, (key, uTagA, contentA, uTagB, uTagC, contentB) => {
-          if (uTagA === uTagB && uTagB === uTagC) {
-            return `<strong>${uTagA}${contentA}${contentB}</u></strong>`
-          } else {
-            return key
-          }
-        })
-      }
-
-      if (doubleStrongTagWithTwoMatchingURegex.test(fixedString)) {
-        fixedString = fixedString.replace(doubleStrongTagWithTwoMatchingURegex, (key, uTagA, contentA, uTagB, contentB) => {
-          if (uTagA === uTagB) {
-            return `<strong>${uTagA}${contentA}${contentB}</u></strong>`
-          } else {
-            return key
-          }
-        })
-      }
-
-      if (doubleStrongTagWithUOnSecondTagRegex.test(fixedString)) {
-        fixedString = fixedString.replace(doubleStrongTagWithUOnSecondTagRegex, (key, contentA, uTag, contentB) => {
-          if (contentA.includes(' ')) {
-            const splitA = contentA.split(' ')
-            return `<strong>${splitA[0]}</strong> <strong>${uTag}${splitA[1]}${contentB}</u></strong>`
-          } else {
-            return `<strong>${uTag}${contentA}${contentB}</u></strong>`
-          }
-        })
-      }
-
-      if (doubleStrongTagWithUOnFirstTagRegex.test(fixedString)) {
-        fixedString = fixedString.replace(doubleStrongTagWithUOnSecondTagRegex, (key, uTag, contentA, contentB) => {
-          if (contentB.includes(' ')) {
-            const splitB = contentB.split(' ')
-            return `<strong>${uTag}${contentA}${splitB[0]}</u></strong> <strong>${splitB[1]}</strong>`
-          } else {
-            return `<strong>${uTag}${contentA}${contentB}</u></strong>`
-          }
-        })
-      }
-
-      if (doubleStrongTagRegex.test(fixedString)) {
-        fixedString = fixedString.replace(doubleStrongTagRegex, (key) => {
-          return key.replace(/<\/strong><strong>/, '')
-        })
-      }
-
-      if (singleStrongTagWithThreeMatchingURegex.test(fixedString)) {
-        fixedString = fixedString.replace(singleStrongTagWithThreeMatchingURegex, (key, uTagA, contentA, uTagB, contentB, uTagC, contentC) => {
-          if (uTagA === uTagB && uTagB === uTagC) {
-            return `<strong>${uTagA}${contentA}${contentB}${contentC}</u></strong>`
-          } else {
-            return key
-          }
-        })
-      }
-
-      if (singleStrongTagWithTwoMatchingNestedURegex.test(fixedString)) {
-        fixedString = fixedString.replace(singleStrongTagWithTwoMatchingNestedURegex, (key, uTagA, uTagB, content) => {
-          if (uTagA === uTagB) {
-            return `<strong>${uTagA}${content}</u></strong>`
-          } else {
-            return key
-          }
-        })
-      }
-
-      if (singleStrongTagWithThreeMatchingURegexAtEnd.test(fixedString)) {
-        fixedString = fixedString.replace(singleStrongTagWithThreeMatchingURegexAtEnd, (key, uTagA, contentA, uTagB, uTagC, contentB) => {
-          if (uTagA === uTagB && uTagB === uTagC) {
-            return `<strong>${uTagA}${contentA}${contentB}</u></strong>`
-          } else {
-            return key
-          }
-        })
-      }
-
-      if (singleStrongTagWithTwoMatchingURegex.test(fixedString)) {
-        fixedString = fixedString.replace(singleStrongTagWithTwoMatchingURegex, (key, uTagA, contentA, uTagB, contentB) => {
-          if (uTagA === uTagB) {
-            return `<strong>${uTagA}${contentA}${contentB}</u></strong>`
-          } else {
-            return key
-          }
-        })
-      }
-
-      return fixedString
-    }
-
-    handlePassageChange(value: string, editsWithOriginalValue: Array<{index: string, originalText: string, currentText: string}>) {
-      this.props.dispatch(updateSession(value))
-      const formattedValue = this.formatReceivedPassage(value)
-      const regex = /<strong>.*?<\/strong>/gm
-      const edits = formattedValue.match(regex)
-      if (edits) {
-        this.setState({ passage: formattedValue, edits, editsWithOriginalValue })
-      } else if (this.state.edits) {
-        this.setState({ passage: formattedValue, edits: [], editsWithOriginalValue })
-      }
-    }
-
-    checkWork(): { reviewablePassage: string, numberOfCorrectChanges: number, conceptResultsObjects: ConceptResultObject[]}|void {
+    checkWork(): { reviewablePassage: string, numberOfCorrectChanges: number, conceptResultsObjects: ConceptResultObject[]} {
       const { currentActivity } = this.props.proofreaderActivities
-      const { necessaryEdits, passage, editsWithOriginalValue } = this.state
-      let remainingEditsWithOriginalValue = editsWithOriginalValue
+      const { necessaryEdits, passage } = this.state
       let numberOfCorrectChanges = 0
-      const correctEditRegex = /\+([^-]+)-/m
-      const originalTextRegex = /\-([^|]+)\|/m
-      const conceptUIDRegex = /\|([^}]+)}/m
       const conceptResultsObjects: ConceptResultObject[] = []
       if (passage && necessaryEdits) {
-        const gradedPassage = passage.replace(/<strong>(.*?)<\/strong>/gm , (key, edit) => {
-          const uTag = edit.match(/<u id="(\d+)">(.+)<\/u>/m)
-          if (uTag && uTag.length) {
-            const id = Number(uTag[1])
-            const stringNormalizedText = stringNormalize(uTag[2])
-            const text = stringNormalizedText.trim()
-            if (necessaryEdits && necessaryEdits[id]) {
-              const correctEdit = necessaryEdits[id].match(correctEditRegex) ? stringNormalize(necessaryEdits[id].match(correctEditRegex)[1]).replace(/&#x27;/g, "'") : ''
-              const conceptUID = necessaryEdits[id].match(conceptUIDRegex) ? necessaryEdits[id].match(conceptUIDRegex)[1] : ''
-              const originalText = necessaryEdits[id].match(originalTextRegex) ? necessaryEdits[id].match(originalTextRegex)[1] : ''
-              if (correctEdit.split('~').includes(text)) {
+        let reviewablePassage = ''
+        passage.forEach((paragraph: Array<any>) => {
+          const words:Array<string> = []
+          paragraph.forEach((word: any) => {
+            const { necessaryEditIndex, correctText, conceptUID, originalText, currentText } = word
+            const stringNormalizedCurrentText = stringNormalize(currentText)
+            const stringNormalizedCorrectText = stringNormalize(correctText)
+            const stringNormalizedOriginalText = stringNormalize(originalText)
+            if (necessaryEditIndex || necessaryEditIndex === 0) {
+              if (stringNormalizedCorrectText.split('~').includes(stringNormalizedCurrentText)) {
                 numberOfCorrectChanges++
                 conceptResultsObjects.push({
                   metadata: {
-                    answer: text,
+                    answer: stringNormalizedCurrentText,
                     correct: 1,
                     instructions: currentActivity.description || this.defaultInstructions(),
-                    prompt: originalText,
-                    questionNumber: id + 1,
+                    prompt: stringNormalizedOriginalText,
+                    questionNumber: necessaryEditIndex + 1,
                     unchanged: false,
                   },
                   concept_uid: conceptUID,
                   question_type: "passage-proofreader"
                 })
-                return `{+${stringNormalizedText}-|${conceptUID}}`
+                words.push(`{+${stringNormalizedCurrentText}-|${conceptUID}}`)
               } else {
                 conceptResultsObjects.push({
                   metadata: {
-                    answer: text,
+                    answer: stringNormalizedCurrentText,
                     correct: 0,
                     instructions: currentActivity.description || this.defaultInstructions(),
-                    prompt: originalText,
-                    questionNumber: id + 1,
-                    unchanged: false,
+                    prompt: stringNormalizedOriginalText,
+                    questionNumber: necessaryEditIndex + 1,
+                    unchanged: stringNormalizedCurrentText === stringNormalizedOriginalText,
                   },
                   concept_uid: conceptUID,
                   question_type: "passage-proofreader"
                 })
-                return `{+${correctEdit}-${stringNormalizedText}|${conceptUID}}`
+                words.push(`{+${correctText}-${stringNormalizedCurrentText}|${conceptUID}}`)
               }
+            } else if (stringNormalizedOriginalText !== stringNormalizedCurrentText) {
+              words.push(`{+${stringNormalizedOriginalText}-${stringNormalizedCurrentText}|unnecessary}`)
             } else {
-              const editObject = remainingEditsWithOriginalValue.find(editObj => editObj.currentText === edit)
-              if (editObject) {
-                remainingEditsWithOriginalValue = remainingEditsWithOriginalValue.filter(edit => edit.index !== editObject.index)
-                return `{+${editObject.originalText}-${stringNormalizedText}|unnecessary}`
-              } else {
-                return `{+-${edit}|unnecessary}`
-              }
+              words.push(stringNormalizedCurrentText)
             }
-          } else {
-            const editObject = remainingEditsWithOriginalValue.find(editObj => editObj.currentText === edit)
-            if (editObject) {
-              remainingEditsWithOriginalValue = remainingEditsWithOriginalValue.filter(edit => edit.index !== editObject.index)
-              return `{+${editObject.originalText}-${edit}|unnecessary}`
-            } else {
-              return `{+-${edit}|unnecessary}`
-            }
-          }
+          })
+          reviewablePassage = reviewablePassage.concat('<p>').concat(words.join(' ')).concat('</p>')
         })
-        const reviewablePassage = gradedPassage.replace(/<u id="(\d+)">(.+?)<\/u>/gm, (key, id, text) => {
-          if (necessaryEdits && necessaryEdits[id]) {
-            const conceptUID = necessaryEdits[id].match(conceptUIDRegex) ? necessaryEdits[id].match(conceptUIDRegex)[1] : ''
-            const originalText = necessaryEdits[id].match(originalTextRegex) ? necessaryEdits[id].match(originalTextRegex)[1] : ''
-            const correctEdit = necessaryEdits[id].match(correctEditRegex) ? stringNormalize(necessaryEdits[id].match(correctEditRegex)[1]).replace(/&#x27;/g, "'") : ''
-            if (correctEdit.split('~').includes(text)) {
-              conceptResultsObjects.push({
-                metadata: {
-                  answer: text,
-                  correct: 1,
-                  instructions: currentActivity.description || this.defaultInstructions(),
-                  prompt: originalText,
-                  questionNumber: Number(id) + 1,
-                  unchanged: true,
-                },
-                concept_uid: conceptUID,
-                question_type: "passage-proofreader"
-              })
-              return `{+${text}-|${conceptUID}}`
-            } else {
-              conceptResultsObjects.push({
-                metadata: {
-                  answer: text,
-                  correct: 0,
-                  instructions: currentActivity.description || this.defaultInstructions(),
-                  prompt: originalText,
-                  questionNumber: Number(id) + 1,
-                  unchanged: true,
-                },
-                concept_uid: conceptUID,
-                question_type: "passage-proofreader"
-              })
-              return necessaryEdits[id]
-            }
-          } else {
-            return `${text} `
-          }
-        }).replace(/<br\/>/gm, '')
         return { reviewablePassage, numberOfCorrectChanges, conceptResultsObjects }
+      } else {
+        return { reviewablePassage: '', numberOfCorrectChanges: 0, conceptResultsObjects: [] }
       }
     }
 
     finishActivity() {
       const { edits, necessaryEdits } = this.state
       const requiredEditCount = necessaryEdits && necessaryEdits.length ? Math.floor(necessaryEdits.length / 2) : 5
-      if (necessaryEdits && necessaryEdits.length && edits.length === 0 || edits.length < requiredEditCount) {
+      if (necessaryEdits && necessaryEdits.length && edits === 0 || edits < requiredEditCount) {
         this.setState({showEarlySubmitModal: true})
       } else {
         const { reviewablePassage, numberOfCorrectChanges, conceptResultsObjects } = this.checkWork()
-        console.log('conceptResultsObjects', conceptResultsObjects)
-        console.log('numberOfCorrectChanges', numberOfCorrectChanges)
-        console.log('reviewablePassage', reviewablePassage)
         this.setState( { reviewablePassage, showReviewModal: true, numberOfCorrectChanges, conceptResultsObjects } )
       }
     }
@@ -537,8 +314,8 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       const { conceptResultsObjects, necessaryEdits, numberOfCorrectChanges } = this.state
       if (this.props.admin) {
         this.setState({
-          passage: this.state.originalPassage,
-          edits: [],
+          passage: _.cloneDeep(this.state.originalPassage),
+          edits: 0,
           reviewing: false,
           showEarlySubmitModal: false,
           showReviewModal: false,
@@ -554,6 +331,27 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
           window.location.href = `${process.env.QUILL_GRAMMAR_URL}/play/sw?proofreaderSessionId=${firebaseSessionID}`
         }
       }
+    }
+
+    handleParagraphChange(value: Array<any>, i: number) {
+      let newParagraphs = this.state.passage
+      if (newParagraphs) {
+        newParagraphs[i] = value
+        const sessionID = getParameterByName('student', window.location.href)
+        this.setState(
+          { passage: newParagraphs, edits: this.editCount(newParagraphs), },
+          () => sessionID ? updateSessionOnFirebase(sessionID, this.state.passage) : null
+        )
+      }
+    }
+
+    editCount(paragraphs: Array<Array<any>>) {
+      let editCount = 0
+      paragraphs.forEach((p: Array<any>) => {
+        const changedWords = p.filter(word => word.currentText !== word.originalText)
+        editCount+= changedWords.length
+      })
+      return editCount
     }
 
     openResetModal() {
@@ -573,18 +371,13 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
     }
 
     reset() {
-      const { passage, underlineErrorsInProofreader } = this.props.proofreaderActivities.currentActivity
-      const initialPassageData = this.formatInitialPassage(passage, underlineErrorsInProofreader)
-      const formattedPassage = initialPassageData.passage
+      const sessionID = getParameterByName('student', window.location.href)
       this.setState({
-        passage: formattedPassage,
-        originalPassage: formattedPassage,
-        necessaryEdits: initialPassageData.necessaryEdits,
-        edits: [],
-        editsWithOriginalValue: [],
+        passage: _.cloneDeep(this.state.originalPassage),
+        edits: 0,
         resetting: true,
         showResetModal: false
-      })
+      }, () => sessionID ? updateSessionOnFirebase(sessionID, this.state.passage) : null)
     }
 
     finishReset() {
@@ -625,8 +418,8 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
     }
 
     renderPassage(): JSX.Element|void {
-      const { reviewing, reviewablePassage, originalPassage, resetting } = this.state
-      const { passageFromFirebase } = this.props.session
+      const { reviewing, reviewablePassage, resetting, passage } = this.state
+      const { underlineErrorsInProofreader } = this.props.proofreaderActivities.currentActivity
       if (reviewing) {
         const text = reviewablePassage ? reviewablePassage : ''
         return <PassageReviewer
@@ -634,15 +427,19 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
           concepts={this.props.concepts.data[0]}
           finishReview={this.finishReview}
         />
-      } else if (originalPassage) {
-        return <PassageEditor
-          key={this.props.proofreaderActivities.currentActivity.passage}
-          savedText={passageFromFirebase}
-          text={originalPassage}
-          handleTextChange={this.handlePassageChange}
-          resetting={resetting}
-          finishReset={this.finishReset}
-        />
+      } else if (passage) {
+        const paragraphs = passage.map((p, i) => {
+          return <Paragraph
+            words={p}
+            handleParagraphChange={this.handleParagraphChange}
+            resetting={resetting}
+            finishReset={this.finishReset}
+            underlineErrors={underlineErrorsInProofreader}
+            index={i}
+            key={i}
+          />
+        })
+        return <div className="editor">{paragraphs}</div>
       }
     }
 
@@ -655,7 +452,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
     renderResetButton(): JSX.Element|void {
       const { reviewing, edits, } = this.state
       if (!reviewing) {
-        if (edits.length) {
+        if (edits) {
           return <button className="reset-button" onClick={this.openResetModal}><img src={refreshIconSrc} /> Reset</button>
         } else {
           return <button className="reset-button disabled"><img src={refreshIconSrc} /> Reset</button>
@@ -670,7 +467,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       if (currentActivity) {
         const className = currentActivity.underlineErrorsInProofreader ? 'underline-errors' : ''
         const necessaryEditsLength = necessaryEdits ? necessaryEdits.length : 1
-        const meterWidth = edits.length / necessaryEditsLength * 100
+        const meterWidth = edits / necessaryEditsLength * 100
         return <div className="passage-container">
           <div className="header-section">
             <div className="inner-header">
@@ -681,7 +478,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
                   <p dangerouslySetInnerHTML={{__html: currentActivity.description || this.defaultInstructions()}}/>
                 </div>
                 <div className="edits-made">
-                  <p>Edits Made: {edits.length} of {numberOfCorrectEdits}</p>
+                  <p>Edits Made: {edits} of {numberOfCorrectEdits}</p>
                   <div className="progress-bar-indication">
                     <span className="meter"
                       style={{width: `${meterWidth}%`}}
@@ -714,9 +511,9 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
 
 const mapStateToProps = (state: any) => {
     return {
-        proofreaderActivities: state.proofreaderActivities,
-        session: state.session,
-        concepts: state.concepts
+      proofreaderActivities: state.proofreaderActivities,
+      session: state.session,
+      concepts: state.concepts
     };
 };
 
