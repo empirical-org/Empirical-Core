@@ -14,7 +14,7 @@ class IncorrectSequencesContainer extends React.Component {
   }
 
   componentWillMount() {
-    this.props.dispatch(questionActions.getSuggestedSequences(this.props.match.params.questionID))
+    this.props.dispatch(questionActions.getUsedSequences(this.props.match.params.questionID))
   }
 
   getQuestion() {

@@ -50,3 +50,14 @@ export interface Concepts {
 export interface Concept {
   quantity: number;
 }
+
+export interface WordObject {
+  originalText: string;
+  currentText: string;
+  correctText: string;
+  underlined: Boolean;
+  wordIndex: number;
+  paragraphIndex: number;
+  necessaryEditIndex?: number;
+  conceptUID?: string;
+}
