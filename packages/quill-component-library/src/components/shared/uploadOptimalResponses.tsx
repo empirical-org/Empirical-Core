@@ -27,8 +27,10 @@ export class UploadOptimalResponses extends React.Component<UploadOptimalRespons
     fileReader.onload = (e) => {
       const data = new Uint8Array(e.target.result);
       const workbook = XLSX.read(data, { type: 'array', });
+      // get the first sheet of the excel workbook
       const sheet = workbook.Sheets[workbook.SheetNames[0]]
       const responses = _.values(sheet).map((value: any) => value.v).filter(Boolean)
+      // get every line after the first one, which should contain the prompt
       this.setState({ responses: responses.slice(1), })
     };
     fileReader.readAsArrayBuffer(file);
