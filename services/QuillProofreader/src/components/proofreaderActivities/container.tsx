@@ -106,7 +106,10 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
         const initialPassageData = this.formatInitialPassage(passage)
         const formattedPassage = initialPassageData.passage
         let currentPassage = formattedPassage
-        if (nextProps.session.passageFromFirebase) {
+        if (
+          nextProps.session.passageFromFirebase
+          && typeof nextProps.session.passageFromFirebase !== 'string'
+        ) {
           currentPassage = nextProps.session.passageFromFirebase
         }
         this.setState({ passage: currentPassage, originalPassage: _.cloneDeep(formattedPassage), necessaryEdits: initialPassageData.necessaryEdits, edits: this.editCount(currentPassage) })
