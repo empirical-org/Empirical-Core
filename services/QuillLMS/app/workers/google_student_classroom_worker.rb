@@ -2,7 +2,7 @@ class GoogleStudentClassroomWorker
   include Sidekiq::Worker
   sidekiq_options queue: 'critical'
 
-  def perform(student_id, context = "none")
+  def perform(student_id)
     begin
       student = User.find(student_id)
       GoogleIntegration::Classroom::Main.join_existing_google_classrooms(student)
