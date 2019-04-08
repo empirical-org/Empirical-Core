@@ -13,7 +13,7 @@ const authMiddleware = new ApolloLink((operation, forward) => {
   // add the authorization to the headers
   operation.setContext({
     headers: {
-      'x-csrf-token': document.getElementsByName('csrf-token')[0] ? document.getElementsByName('csrf-token')[0].content : 0
+      'x-csrf-token': document.getElementsByName('csrf-token')[0] ? document.getElementsByName('csrf-token')[0].getAttribute('content') : 0
     } 
   });
 
