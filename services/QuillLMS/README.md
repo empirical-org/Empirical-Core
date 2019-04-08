@@ -16,7 +16,7 @@ QuillLMS is the Learning Management System that powers Quill.org, a free writing
 
 QuillLMS is the Learning Management System that powers Quill.org. It is part of Empirical-Core Here's how to get QuillLMS running on your system:
 
-1. Download and install [rbenv](https://github.com/sstephenson/rbenv) (or another Ruby version manager of your choice). You need to have Ruby version 2.3.1 installed in order to use Empirical Core. The best way to make sure you have version 2.3.1 is to follow the README and wiki of the Ruby version manager that you download.
+1. Download and install [rbenv](https://github.com/sstephenson/rbenv) (or another Ruby version manager of your choice). You need to have Ruby version 2.5.1 installed in order to use Empirical Core. The best way to make sure you have version 2.5.1 is to follow the README and wiki of the Ruby version manager that you download.
 
     If you decide to use rbenv, then [homebrew](http://brew.sh/) has a really great and easy-to-use setup and install process:
 
