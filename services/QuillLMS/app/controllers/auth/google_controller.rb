@@ -12,7 +12,7 @@ class Auth::GoogleController < ApplicationController
     end
 
     if @user.student?
-      # GoogleIntegration::Classroom::Main.join_existing_google_classrooms(@user)
+      GoogleStudentClassroomWorker.perform_async(@user.id)
     end
 
     sign_in(@user)
