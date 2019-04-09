@@ -319,7 +319,7 @@ class CurrentSlide extends React.Component<CurrentSlideProps & StateFromProps, a
               onlyShowHeaders={this.props.classroomSessions.onlyShowHeaders}
               updateToggledHeaderCount={this.updateToggledHeaderCount}
               saveModel={this.saveModel}
-              clearStudentSubmission={this.clearStudentSubmission}
+              clearStudentSubmission={this.clearStudentSubmission.bind(this)}
               savePrompt={this.savePrompt}
             />
           break
