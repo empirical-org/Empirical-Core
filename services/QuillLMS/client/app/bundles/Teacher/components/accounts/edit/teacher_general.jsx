@@ -8,6 +8,12 @@ const schoolTypeOptions = ['U.S. K-12 school', 'Home school', 'International ins
   return { label: type, value: type, }
 })
 
+const timeZoneOptions = timezones.map((tz) => {
+  const newTz = tz
+  newTz.label = `(GMT${tz.offset}) ${tz.label}`
+  return newTz
+}).concat({ label: 'None selected', value: null, name: null, })
+
 export default class TeacherGeneralAccountInfo extends React.Component {
   constructor(props) {
     super(props)
@@ -50,7 +56,7 @@ export default class TeacherGeneralAccountInfo extends React.Component {
   }
 
   handleTimezoneChange(timeZone) {
-    this.setState({ timeZone: timeZone.value, });
+    this.setState({ timeZone: timeZone.name, });
   }
 
   handleSchoolTypeChange(schoolType) {
@@ -110,11 +116,12 @@ export default class TeacherGeneralAccountInfo extends React.Component {
       if (showSchoolSelector) {
         return <SchoolSelector selectSchool={this.handleSchoolChange} />
       } else {
+        const schoolName = ['home school', 'us higher ed', 'international', 'other', 'not listed'].includes(school.name) ? 'Not listed' : school.name
         return (
           <div className="school-container">
             <Input
               label="School"
-              value={school.name}
+              value={schoolName}
               type="text"
               className="school"
               disabled={true}
@@ -128,11 +135,7 @@ export default class TeacherGeneralAccountInfo extends React.Component {
 
   render() {
     const { name, timeZone, timesSubmitted, errors, schoolType, } = this.state
-    const timeZoneOptions = timezones.map((tz) => {
-      tz.label = `(GMT${tz.offset}) ${tz.label}`
-      return tz
-    }).concat({ label: 'None selected', value: null, })
-    const selectedTimeZone = timeZoneOptions.find(tz => tz.value === timeZone)
+    const selectedTimeZone = timeZoneOptions.find(tz => tz.name === timeZone)
     const selectedSchoolType = schoolTypeOptions.find(st => st.value === schoolType)
 
     return <div className="teacher-account-general teacher-account-section">
@@ -163,7 +166,7 @@ export default class TeacherGeneralAccountInfo extends React.Component {
           error={errors.schoolType}
         />
         {this.renderSchool()}
-        <input type="submit" name="commit" value="Log in" className={this.submitClass()} />
+        <input type="submit" name="commit" value="Save changes" className={this.submitClass()} />
       </form>
     </div>
   }
