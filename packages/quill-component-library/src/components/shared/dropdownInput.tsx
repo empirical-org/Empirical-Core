@@ -11,7 +11,7 @@ interface DropdownInputProps {
   value?: string;
   placeholder?: string;
   type?: string;
-  id?: string;
+  isSearchable?: boolean;
   handleCancel?: (event: any) => void;
   helperText?: string;
   handleChange?: (event: any) => void;
@@ -107,7 +107,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
 
   renderInput() {
     const { inactive, errorAcknowledged, menuIsOpen, } = this.state
-    const { className, label, handleChange, value, placeholder, error, type, id, options, } = this.props
+    const { className, label, handleChange, value, placeholder, error, type, id, options, isSearchable, } = this.props
     const hasText = value ? 'has-text' : ''
     const inactiveOrActive = inactive ? 'inactive' : 'active'
     if (error) {
@@ -132,6 +132,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
               isClearable={false}
               className="dropdown"
               classNamePrefix="dropdown"
+              isSearchable={isSearchable}
             />
           </div>)
       } else {
@@ -152,6 +153,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
               isClearable={false}
               className="dropdown"
               classNamePrefix="dropdown"
+              isSearchable={isSearchable}
             />
             {this.renderErrorText()}
         </div>)
@@ -175,6 +177,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
             className="dropdown"
             classNamePrefix="dropdown"
             placeholder={placeholder || ''}
+            isSearchable={isSearchable}
           />
           {this.renderHelperText()}
       </div>)
@@ -198,6 +201,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
             isClearable={false}
             className="dropdown"
             classNamePrefix="dropdown"
+            isSearchable={isSearchable}
           />
       </div>)
     }
