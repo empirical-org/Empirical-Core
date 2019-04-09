@@ -37,6 +37,14 @@ export default class TeacherGeneralAccountInfo extends React.Component {
     this.handleNameChange = this.handleNameChange.bind(this)
     this.handleTimezoneChange = this.handleTimezoneChange.bind(this)
     this.handleSchoolTypeChange = this.handleSchoolTypeChange.bind(this)
+    this.resetAndDeactivateSection = this.resetAndDeactivateSection.bind(this)
+    this.reset = this.reset.bind(this)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.active && !nextProps.active) {
+      this.reset()
+    }
   }
 
   showSchoolSelector() {
@@ -61,6 +69,18 @@ export default class TeacherGeneralAccountInfo extends React.Component {
 
   handleSchoolTypeChange(schoolType) {
     this.setState({ schoolType: schoolType.value, });
+  }
+
+  reset() {
+    const { email, name, timeZone, school, schoolType, } = this.props
+    this.setState({
+      name,
+      email,
+      timeZone,
+      school,
+      schoolType,
+      showSchoolSelector: false
+    })
   }
 
   submitClass() {
@@ -106,7 +126,7 @@ export default class TeacherGeneralAccountInfo extends React.Component {
         className="email"
         error={errors.email}
         timesSubmitted={timesSubmitted}
-      />)
+    />)
     }
   }
 
@@ -133,40 +153,56 @@ export default class TeacherGeneralAccountInfo extends React.Component {
     }
   }
 
+  resetAndDeactivateSection() {
+    this.reset()
+    this.props.deactivateSection()
+  }
+
+  renderButtonSection() {
+    if (this.props.active) {
+      return <div className="button-section">
+        <div className="quill-button outlined secondary medium" onClick={this.resetAndDeactivateSection}>Cancel</div>
+        <input type="submit" name="commit" value="Save changes" className={this.submitClass()} />
+      </div>
+    }
+  }
+
   render() {
     const { name, timeZone, timesSubmitted, errors, schoolType, } = this.state
     const selectedTimeZone = timeZoneOptions.find(tz => tz.name === timeZone)
     const selectedSchoolType = schoolTypeOptions.find(st => st.value === schoolType)
 
-    return <div className="teacher-account-general teacher-account-section">
+    return <div className="teacher-account-general teacher-account-section" onClick={this.props.activateSection}>
       <h1>General</h1>
       <form onSubmit={this.handleSubmit} acceptCharset="UTF-8" >
-        <Input
-          label="Full name"
-          value={name}
-          handleChange={this.handleNameChange}
-          type="text"
-          className="name"
-          error={errors.name}
-          timesSubmitted={timesSubmitted}
-        />
-        {this.renderEmail()}
-        <DropdownInput
-          label="Time zone"
-          value={selectedTimeZone}
-          options={timeZoneOptions}
-          handleChange={this.handleTimezoneChange}
-          error={errors.timeZone}
-        />
-        <DropdownInput
-          label="School type"
-          value={selectedSchoolType}
-          options={schoolTypeOptions}
-          handleChange={this.handleSchoolTypeChange}
-          error={errors.schoolType}
-        />
-        {this.renderSchool()}
-        <input type="submit" name="commit" value="Save changes" className={this.submitClass()} />
+        <div className="fields">
+          <Input
+            label="Full name"
+            value={name}
+            handleChange={this.handleNameChange}
+            type="text"
+            className="name"
+            error={errors.name}
+            timesSubmitted={timesSubmitted}
+          />
+          {this.renderEmail()}
+          <DropdownInput
+            label="Time zone"
+            value={selectedTimeZone}
+            options={timeZoneOptions}
+            handleChange={this.handleTimezoneChange}
+            error={errors.timeZone}
+          />
+          <DropdownInput
+            label="School type"
+            value={selectedSchoolType}
+            options={schoolTypeOptions}
+            handleChange={this.handleSchoolTypeChange}
+            error={errors.schoolType}
+          />
+          {this.renderSchool()}
+        </div>
+        {this.renderButtonSection()}
       </form>
     </div>
   }
