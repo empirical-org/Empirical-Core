@@ -201,7 +201,6 @@ EmpiricalGrammar::Application.routes.draw do
     get 'add_students' => 'classroom_manager#generic_add_students'
     get 'teacher_guide' => 'classroom_manager#teacher_guide'
     get 'my_account' => 'classroom_manager#my_account'
-    get 'my_account_data' => 'classroom_manager#my_account_data'
     put 'update_my_account' => 'classroom_manager#update_my_account'
     post 'clear_data/:id' => 'classroom_manager#clear_data'
     put 'units/:id/hide' => 'units#hide', as: 'hide_units_path'
