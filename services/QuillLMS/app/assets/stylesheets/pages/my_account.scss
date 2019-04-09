@@ -246,3 +246,25 @@
     }
   }
 }
+
+.teacher-account {
+  padding: 40px 0px;
+}
+
+.teacher-account-section {
+  width: 577px;
+  border-radius: 6px;
+  border: solid 1px #e0e0e0;
+  background-color: #ffffff;
+  margin: auto;
+  padding: 40px 32px;
+  h1 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 40px;
+    line-height: 1.33;
+  }
+  .input-container {
+    margin-bottom: 32px;
+  }
+}

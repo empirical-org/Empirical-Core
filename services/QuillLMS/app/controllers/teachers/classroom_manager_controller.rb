@@ -133,11 +133,25 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def my_account
-    @time_zones = [{name: 'Select Time Zone', id: 'Select Time Zone'}].concat(TZInfo::Timezone.all_country_zone_identifiers.sort.map{|tz| {name: tz.gsub('_', ' '), id: tz}})
-  end
-
-  def my_account_data
-    render json: current_user.generate_teacher_account_info
+    @account_info = current_user.generate_teacher_account_info
+    if @account_info['school'] && @account_info['school']['name']
+      case @account_info['school']['name']
+      when 'home school'
+        @account_info['school_type'] = 'Home school'
+      when 'us higher ed'
+        @account_info['school_type'] = 'U.S. higher education institution'
+      when 'international'
+        @account_info['school_type'] = 'International institution'
+      when 'other'
+        @account_info['school_type'] = 'Other'
+      when 'not listed'
+        @account_info['school_type'] = 'U.S. K-12 school'
+      else
+        @account_info['school_type'] = 'U.S. K-12 school'
+      end
+    else
+      @account_info['school_type'] = 'U.S. K-12 school'
+    end
   end
 
   def update_my_account
