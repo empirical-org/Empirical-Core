@@ -3,7 +3,7 @@
 # Set environment-specific values
 case $1 in
   start)
-    rethinkdb -d ~/rethinkdb_data/ --pid-file ~/rethinkdb.pid --daemon
+    rethinkdb -d ./rethinkdb_data/ --pid-file ~/rethinkdb.pid --daemon
     ;;
   stop)
     kill $(cat ~/rethinkdb.pid)
