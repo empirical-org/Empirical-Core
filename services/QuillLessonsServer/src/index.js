@@ -199,9 +199,8 @@ function verifyToken(token) {
 
 r.connect(rethinkdbConfig, (err, connection) => {
   if (err) {
-    console.error('I think this happens?')
-    console.error(err)
     newrelic.noticeError(err)
+    console.error(err)
   } else {
     io.on('connection', (client) => {
       client.on('authentication', (data) => {
