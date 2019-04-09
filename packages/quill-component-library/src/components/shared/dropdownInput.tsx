@@ -5,6 +5,7 @@ interface DropdownInputProps {
   timesSubmitted: Number;
   options: Array<any>;
   label: string;
+  id?: string;
   error?: string;
   disabled?: boolean;
   className?: string;
