@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --inline",
+    "start:dev": "QUILL_CMS=localhost:3100 EMPIRICAL_BASE_URL=http://localhost:3000 LESSONS_WEBSOCKETS_URL=http://localhost:3200 node_modules/.bin/webpack-dev-server --hot --inline",
     "test": "mocha --opts mocha.opts",
     "test:watch": "mocha --opts mocha.opts --watch --reporter dot",
     "storybook": "start-storybook -p 9001",
