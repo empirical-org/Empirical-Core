@@ -257,15 +257,19 @@
   border: solid 1px #e0e0e0;
   background-color: #ffffff;
   margin: auto;
-  padding: 40px 32px;
+  padding: 38px 32px;
   h1 {
     font-size: 24px;
     font-weight: bold;
-    margin-bottom: 40px;
-    line-height: 1.33;
+    margin-bottom: 42px;
   }
   .input-container {
-    margin-bottom: 32px;
+    margin-bottom: 20px;
+    // move the following code to the component library
+    input {
+      font-size: 16px;
+      padding: 0px 0px 3px;
+    }
     .dropdown {
       border-bottom: none !important;
     }
@@ -281,7 +285,11 @@
         border: 1px #e0e0e0;
         border-style: none none solid;
       }
+      &.has-text input {
+        padding: 0px 0px 4px;
+      }
     }
+    //
   }
   .dropdown__option {
     background-color: white;
@@ -293,6 +301,13 @@
   .dropdown__input {
     display: none !important;
   }
+
+  // also move this
+  .dropdown__single-value {
+    color: #000;
+    font-size: 16px;
+  }
+
   .school-container {
     display: flex;
     align-items: center;
@@ -305,12 +320,24 @@
       font-weight: 600;
       line-height: 1.57;
       color: #009a80;
-      margin-bottom: 20px;
+      margin-bottom: 7px;
       cursor: pointer;
     }
   }
-  .school-search-container {  
+  .school-search-container {
     border: none;
     padding: 0px;
+  }
+
+  .button-section {
+    display: flex;
+    justify-content: flex-end;
+    .secondary {
+      width: 80px;
+      margin-right: 24px;
+    }
+    .primary {
+      width: 127px;
+    }
   }
 }
