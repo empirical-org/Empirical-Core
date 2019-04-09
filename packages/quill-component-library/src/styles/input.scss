@@ -4,6 +4,7 @@
   justify-content: flex-end;
   flex-direction: column;
   position: relative;
+
   input, input:focus {
     outline: none;
     margin-bottom: 8px;
@@ -11,7 +12,8 @@
     border-style: none none solid none;
     border-radius: 0px;
     width: 100%;
-    padding: 3px 0px;
+    font-size: 16px;
+    padding: 0px 0px 3px;
     -webkit-transition: all 0.2s ease-in;
     -moz-transition: all 0.2s ease-in;
     -o-transition: all 0.2s ease-in;
@@ -39,7 +41,14 @@
       border-right: 6px solid transparent;
       padding: 0px;
     }
+    .dropdown {
+      border-bottom: none !important;
+    }
     .dropdown__control {
+      min-height: 0px;
+      padding: 3px 0px 6px;
+      margin-bottom: 4px;
+      margin-top: 3px;
       border: none;
       outline: none !important;
       box-shadow: none !important;
@@ -55,6 +64,8 @@
       }
     }
     .dropdown__single-value {
+      color: #000;
+      font-size: 16px;
       margin-left: 0px;
     }
     .dropdown__value-container {
@@ -87,12 +98,20 @@
         padding: 0px;
       }
     }
+    .dropdown__option {
+      background-color: white;
+      color: black;
+      &:active, &:hover {
+        background-color: #f2f2f2;
+      }
+    }
   }
+
   &.inactive {
     &.has-text {
       input {
         height: inherit;
-        padding: 3px 0px 4px;
+        padding: 0px 0px 4px;
       }
       label {
         font-size: 12px;
@@ -120,13 +139,18 @@
       color: #7f7f7f;
     }
     .dropdown {
-      border-bottom: 1px solid #e0e0e0;
+      border-bottom: none;
       .dropdown__value {
         border-width: 0px;
         border-color: #e0e0e0;
       }
       .dropdown__dropdown-indicator {
         border-top: 6px solid;
+      }
+      .dropdown__control {
+        padding: 3px 0px 7px;
+        border: 1px #e0e0e0;
+        border-style: none none solid;
       }
     }
   }
@@ -137,6 +161,14 @@
     }
     .dropdown__dropdown-indicator {
       border-bottom: 6px solid;
+    }
+    &.not-editable {
+      label, .dropdown__control {
+        display: none;
+      }
+      .input-container {
+        min-height: 0px;
+      }
     }
   }
   &.error {

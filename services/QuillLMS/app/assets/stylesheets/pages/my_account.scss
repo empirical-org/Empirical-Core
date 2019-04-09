@@ -266,48 +266,35 @@
   .input-container {
     margin-bottom: 20px;
     // move the following code to the component library
-    input {
-      font-size: 16px;
-      padding: 0px 0px 3px;
-    }
-    .dropdown {
-      border-bottom: none !important;
-    }
-    .dropdown__control {
-      min-height: 0px;
-      padding: 3px 0px 6px;
-      margin-bottom: 4px;
-      margin-top: 3px;
-    }
-    &.inactive {
-      .dropdown__control {
-        padding: 3px 0px 7px;
-        border: 1px #e0e0e0;
-        border-style: none none solid;
-      }
-      &.has-text input {
-        padding: 0px 0px 4px;
-      }
-    }
+    // input {
+    //   font-size: 16px;
+    //   padding: 0px 0px 3px;
+    // }
+    // .dropdown {
+    //   border-bottom: none !important;
+    // }
+    // .dropdown__control {
+    //   min-height: 0px;
+    //   padding: 3px 0px 6px;
+    //   margin-bottom: 4px;
+    //   margin-top: 3px;
+    // }
+    // &.inactive {
+    //   .dropdown__control {
+    //     padding: 3px 0px 7px;
+    //     border: 1px #e0e0e0;
+    //     border-style: none none solid;
+    //   }
+    //   &.has-text input {
+    //     padding: 0px 0px 4px;
+    //   }
+    // }
     //
   }
-  .dropdown__option {
-    background-color: white;
-    color: black;
-    &:active, &:hover {
-      background-color: #f2f2f2;
-    }
-  }
-  .dropdown__input {
-    display: none !important;
-  }
-
-  // also move this
-  .dropdown__single-value {
-    color: #000;
-    font-size: 16px;
-  }
-
+  // .dropdown__input {
+  //   display: none !important;
+  // }
+  //
   .school-container {
     display: flex;
     align-items: center;

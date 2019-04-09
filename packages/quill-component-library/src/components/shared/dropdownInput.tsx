@@ -111,11 +111,12 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
     const { className, label, handleChange, value, placeholder, error, type, id, options, isSearchable, } = this.props
     const hasText = value ? 'has-text' : ''
     const inactiveOrActive = inactive ? 'inactive' : 'active'
+    const isEditable = isSearchable ? '' : 'not-editable'
     if (error) {
       if (errorAcknowledged) {
         return (
           <div
-            className={`input-container error ${inactiveOrActive} ${hasText} ${className}`}
+            className={`input-container error ${inactiveOrActive} ${hasText} ${isEditable} ${className}`}
             ref={node => this.node = node}
             onClick={this.activateInput}
           >
@@ -139,7 +140,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
       } else {
         return (
           <div
-            className={`input-container error unacknowledged ${inactiveOrActive} ${hasText} ${className}`}
+            className={`input-container error unacknowledged ${inactiveOrActive} ${hasText} ${isEditable} ${className}`}
             onClick={this.acknowledgeError}
             ref={node => this.node = node}
           >
@@ -162,7 +163,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
     } else if (inactive) {
       return (
         <div
-          className={`input-container ${inactiveOrActive} ${hasText} ${this.props.className}`}
+          className={`input-container ${inactiveOrActive} ${hasText} ${isEditable} ${this.props.className}`}
           onClick={this.activateInput}
           ref={node => this.node = node}
         >
@@ -185,7 +186,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
     } else {
       return (
         <div
-          className={`input-container dropdown ${inactiveOrActive} ${hasText} ${className}`}
+          className={`input-container dropdown ${inactiveOrActive} ${hasText} ${isEditable} ${className}`}
           ref={node => this.node = node}
         >
           <label>{label}</label>
