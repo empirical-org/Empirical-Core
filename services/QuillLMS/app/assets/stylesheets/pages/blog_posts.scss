@@ -180,6 +180,7 @@ body {
     flex-direction: column;
     height: 100%;
     justify-content: space-between;
+    overflow: hidden;
   }
 
   .video-holder {
@@ -211,9 +212,13 @@ body {
 
     p {
       margin: 17px 0;
+      overflow: hidden;
 
       &:first-of-type {
         margin-top: 0;
+      }
+      &:last-of-type {
+        margin-bottom: 0px;
       }
     }
 
