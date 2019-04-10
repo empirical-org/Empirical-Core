@@ -1,6 +1,7 @@
 import React from 'react';
 import request from 'request';
 import TeacherGeneralAccountInfo from '../components/accounts/edit/teacher_general'
+import Snackbar from '../components/shared/snackbar'
 import getAuthToken from '../components/modules/get_auth_token'
 
 export default class TeacherAccount extends React.Component {
@@ -18,6 +19,7 @@ export default class TeacherAccount extends React.Component {
       googleId: google_id,
       cleverId: clever_id,
       snackbarCopy: '',
+      showSnackbar: false,
       errors: {},
       timesSubmitted: 0
     }
@@ -25,6 +27,8 @@ export default class TeacherAccount extends React.Component {
     this.activateSection = this.activateSection.bind(this)
     this.deactivateSection = this.deactivateSection.bind(this)
     this.updateUser = this.updateUser.bind(this)
+    this.showSnackbar = this.showSnackbar.bind(this)
+    this.renderSnackbar = this.renderSnackbar.bind(this)
   }
 
   activateSection(section) {
@@ -37,6 +41,12 @@ export default class TeacherAccount extends React.Component {
     }
   }
 
+  showSnackbar() {
+    this.setState({ showSnackbar: true, }, () => {
+      setTimeout(() => this.setState({ showSnackbar: false, }), 7000)
+    })
+  }
+
   updateUser(data) {
     const { timesSubmitted, } = this.state
     request.put({
@@ -44,7 +54,6 @@ export default class TeacherAccount extends React.Component {
       json: { ...data, authenticity_token: getAuthToken(), },
     }, (error, httpStatus, body) => {
       if (httpStatus && httpStatus.statusCode === 200) {
-        debugger;
         const { name, email, clever_id, google_id, time_zone, school, school_type, } = body
         this.setState({
           name,
@@ -55,11 +64,19 @@ export default class TeacherAccount extends React.Component {
           googleId: google_id,
           cleverId: clever_id,
           snackbarCopy: 'Settings saved'
-        }, () => this.setState({ activeSection: null, }))
+        }, () => {
+          this.showSnackbar()
+          this.setState({ activeSection: null, })
+        })
       } else if (body.errors) {
         this.setState({ errors: body.errors, timesSubmitted: timesSubmitted + 1, })
       }
     });
+  }
+
+  renderSnackbar() {
+    const { showSnackbar, snackbarCopy, } = this.state
+    return <Snackbar text={snackbarCopy} visible={showSnackbar} />
   }
 
   render() {
@@ -81,6 +98,7 @@ export default class TeacherAccount extends React.Component {
         updateUser={this.updateUser}
         errors={errors}
       />
+      {this.renderSnackbar()}
     </div>)
   }
 }

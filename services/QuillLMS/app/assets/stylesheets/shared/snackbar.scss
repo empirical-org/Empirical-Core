@@ -1,0 +1,45 @@
+#quill-snackbar {
+  opacity: 0;
+  border-radius: 4px;
+  box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.87);
+  color: #fff;
+  text-align: center;
+  padding: 13px 16px;
+  position: fixed;
+  z-index: 1;
+  bottom: 0;
+  left: 24px;
+  transition: bottom 0.5s, opacity 0.5s;
+}
+
+#quill-snackbar.visible {
+  left: 24px;
+  bottom: 24px;
+  opacity: 1;
+  transition: bottom 0.5s, opacity 0.5s;
+  // /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
+  // However, delay the fade out process for 2.5 seconds */
+  // -webkit-animation: fadein 0.5s, fadeout 0.5s;
+  // animation: fadein 0.5s, fadeout 0.5s;
+}
+
+// @-webkit-keyframes fadein {
+//   from {bottom: 0; opacity: 0;}
+//   to {bottom: 24px; opacity: 1;}
+// }
+//
+// @keyframes fadein {
+//   from {bottom: 0; opacity: 0;}
+//   to {bottom: 24px; opacity: 1;}
+// }
+//
+// @-webkit-keyframes fadeout {
+//   from {bottom: 24px; opacity: 1;}
+//   to {bottom: 0; opacity: 0;}
+// }
+//
+// @keyframes fadeout {
+//   from {bottom: 24px; opacity: 1;}
+//   to {bottom: 0; opacity: 0;}
+// }
