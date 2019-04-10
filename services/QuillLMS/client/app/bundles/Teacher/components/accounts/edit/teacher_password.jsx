@@ -12,9 +12,11 @@ export default class TeacherGeneralAccountInfo extends React.Component {
       showButtonSection: false
     }
 
+    this.activateSection = this.activateSection.bind(this)
     this.resetAndDeactivateSection = this.resetAndDeactivateSection.bind(this)
     this.reset = this.reset.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.renderContent = this.renderContent.bind(this)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -24,7 +26,7 @@ export default class TeacherGeneralAccountInfo extends React.Component {
   }
 
   activateSection(e) {
-    if (e.target.id !== 'cancel' && (!this.props.active || !this.state.showButtonSection)) {
+    if (!this.props.active || !this.state.showButtonSection) {
       this.setState({ showButtonSection: true, })
       this.props.activateSection()
     }
@@ -52,9 +54,9 @@ export default class TeacherGeneralAccountInfo extends React.Component {
   }
 
   submitClass() {
-    const { currentPassword, newPassword, confirmedNewPassword } = this.state
+    const { currentPassword, newPassword, confirmedNewPassword, } = this.state
     let buttonClass = 'quill-button contained primary medium';
-    if (currentPassword && newPassword && confirmedNewPassword ) {
+    if (currentPassword.length && newPassword.length && confirmedNewPassword.length ) {
       buttonClass += ' disabled';
     }
     return buttonClass;
@@ -120,13 +122,15 @@ export default class TeacherGeneralAccountInfo extends React.Component {
         </p>
       )
     } else {
-      return <div className="inactive-password-section">
+      return <div className="inactive-password-container">
         <Input
           label="Password"
           value="notapassword"
           type="password"
+          className="not-a-password"
           disabled={true}
         />
+        <div onClick={this.activateSection} className="change-password">Change password</div>
       </div>
     }
   }
