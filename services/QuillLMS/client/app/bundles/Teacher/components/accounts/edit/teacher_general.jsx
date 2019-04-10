@@ -28,9 +28,11 @@ export default class TeacherGeneralAccountInfo extends React.Component {
       schoolType,
       errors: {},
       timeSubmitted: 0,
-      showSchoolSelector: false
+      showSchoolSelector: false,
+      showButtonSection: false
     }
 
+    this.activateSection = this.activateSection.bind(this)
     this.showSchoolSelector = this.showSchoolSelector.bind(this)
     this.handleSchoolChange = this.handleSchoolChange.bind(this)
     this.handleEmailChange = this.handleEmailChange.bind(this)
@@ -44,6 +46,13 @@ export default class TeacherGeneralAccountInfo extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (this.props.active && !nextProps.active) {
       this.reset()
+    }
+  }
+
+  activateSection(e) {
+    if (e.target.id !== 'cancel' && (!this.props.active || !this.state.showButtonSection)) {
+      this.setState({ showButtonSection: true, })
+      this.props.activateSection()
     }
   }
 
@@ -79,7 +88,8 @@ export default class TeacherGeneralAccountInfo extends React.Component {
       timeZone,
       school,
       schoolType,
-      showSchoolSelector: false
+      showSchoolSelector: false,
+      showButtonSection: false
     })
   }
 
@@ -159,9 +169,9 @@ export default class TeacherGeneralAccountInfo extends React.Component {
   }
 
   renderButtonSection() {
-    if (this.props.active) {
+    if (this.state.showButtonSection) {
       return <div className="button-section">
-        <div className="quill-button outlined secondary medium" onClick={this.resetAndDeactivateSection}>Cancel</div>
+        <div id="cancel" className="quill-button outlined secondary medium" onClick={this.resetAndDeactivateSection}>Cancel</div>
         <input type="submit" name="commit" value="Save changes" className={this.submitClass()} />
       </div>
     }
@@ -172,7 +182,7 @@ export default class TeacherGeneralAccountInfo extends React.Component {
     const selectedTimeZone = timeZoneOptions.find(tz => tz.name === timeZone)
     const selectedSchoolType = schoolTypeOptions.find(st => st.value === schoolType)
 
-    return <div className="teacher-account-general teacher-account-section" onClick={this.props.activateSection}>
+    return <div className="teacher-account-general teacher-account-section" onClick={this.activateSection}>
       <h1>General</h1>
       <form onSubmit={this.handleSubmit} acceptCharset="UTF-8" >
         <div className="fields">

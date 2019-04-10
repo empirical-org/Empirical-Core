@@ -257,7 +257,7 @@
   border: solid 1px #e0e0e0;
   background-color: #ffffff;
   margin: auto;
-  padding: 38px 32px;
+  padding: 38px 32px 0px;
   h1 {
     font-size: 24px;
     font-weight: bold;
@@ -290,6 +290,7 @@
   .button-section {
     display: flex;
     justify-content: flex-end;
+    padding: 22px 0px 16px;
     .secondary {
       width: 80px;
       margin-right: 24px;
