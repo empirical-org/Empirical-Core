@@ -75,6 +75,7 @@ class CurrentSlide extends React.Component<CurrentSlideProps & StateFromProps, a
     this.toggleStudentFlag = this.toggleStudentFlag.bind(this);
     this.clearAllSelectedSubmissions = this.clearAllSelectedSubmissions.bind(this);
     this.clearAllSubmissions = this.clearAllSubmissions.bind(this);
+    this.clearStudentSubmission = this.clearStudentSubmission.bind(this)
     this.saveModel = this.saveModel.bind(this);
     this.savePrompt = this.savePrompt.bind(this);
     this.updateToggledHeaderCount = this.updateToggledHeaderCount.bind(this);
@@ -319,7 +320,7 @@ class CurrentSlide extends React.Component<CurrentSlideProps & StateFromProps, a
               onlyShowHeaders={this.props.classroomSessions.onlyShowHeaders}
               updateToggledHeaderCount={this.updateToggledHeaderCount}
               saveModel={this.saveModel}
-              clearStudentSubmission={this.clearStudentSubmission.bind(this)}
+              clearStudentSubmission={this.clearStudentSubmission}
               savePrompt={this.savePrompt}
             />
           break
