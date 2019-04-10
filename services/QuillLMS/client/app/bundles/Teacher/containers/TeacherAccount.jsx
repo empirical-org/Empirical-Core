@@ -105,6 +105,9 @@ export default class TeacherAccount extends React.Component {
         googleId={googleId}
         errors={errors}
         timesSubmitted={timesSubmitted}
+        activateSection={() => this.activateSection('password')}
+        deactivateSection={() => this.deactivateSection('password')}
+        active={this.state.activeSection === 'password'}
       />
       {this.renderSnackbar()}
     </div>)
