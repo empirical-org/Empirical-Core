@@ -4,10 +4,11 @@
 
 ### Configure everything for local execution
 - Get a dump of the RethinkDB to see your local database with.
-  1.  Log in to Compose.io.
+  1. Log in to Compose.io.
   1. Navigate to the production database instance ("quill-lessons")
   1. Select "Backups" from the side menu
   1. Click the download icon next to the most recent daily backup (technically you could pick any backup file you want, but no reason not to grab the latest).  Make sure that you know where this file ends up getting downloaded to.
+    - Note that the dump file you download must be in JSON format for `bootstrap.sh` to parse it properly.  JSON is currently the default (and only) option from Compose.io.
 - Run `./bootstrap.sh`
   1. You will be asked to provide the path to the RethinkDB dump file that you downloaded (it should be in .tar format).
 - Configure Local LMS to Launch Local Lessons
