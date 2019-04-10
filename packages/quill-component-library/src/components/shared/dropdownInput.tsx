@@ -108,7 +108,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
   }
 
   handleChange(e) {
-    this.setState({ menuIsOpen: false})
+    this.deactivateInput()
     this.props.handleChange(e)
   }
 
