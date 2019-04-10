@@ -28162,7 +28162,7 @@
           }
       };
       DropdownInput.prototype.handleChange = function (e) {
-          this.setState({ menuIsOpen: false });
+          this.deactivateInput();
           this.props.handleChange(e);
       };
       DropdownInput.prototype.renderInput = function () {
