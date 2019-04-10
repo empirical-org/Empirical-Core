@@ -42,6 +42,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
     this.handleClick = this.handleClick.bind(this)
     this.onKeyDown = this.onKeyDown.bind(this)
     this.deactivateInput = this.deactivateInput.bind(this)
+    this.handleChange = this.handleChange.bind(this)
   }
 
   componentWillMount() {
@@ -106,9 +107,14 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
     }
   }
 
+  handleChange(e) {
+    this.setState({ menuIsOpen: false})
+    this.props.handleChange(e)
+  }
+
   renderInput() {
     const { inactive, errorAcknowledged, menuIsOpen, } = this.state
-    const { className, label, handleChange, value, placeholder, error, type, id, options, isSearchable, } = this.props
+    const { className, label, value, placeholder, error, type, id, options, isSearchable, } = this.props
     const hasText = value ? 'has-text' : ''
     const inactiveOrActive = inactive ? 'inactive' : 'active'
     const isEditable = isSearchable ? '' : 'not-editable'
@@ -124,7 +130,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
             <Select
               id={id}
               ref={(input) => { this.input = input; }}
-              onChange={handleChange}
+              onChange={this.handleChange}
               value={value}
               type={type}
               placeholder={placeholder || ''}
@@ -193,7 +199,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
           <Select
             id={id}
             ref={(input) => { this.input = input; }}
-            onChange={handleChange}
+            onChange={this.handleChange}
             value={value}
             type={type}
             placeholder={placeholder || ''}

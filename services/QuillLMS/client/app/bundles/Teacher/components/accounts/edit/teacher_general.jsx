@@ -22,8 +22,6 @@ export default class TeacherGeneralAccountInfo extends React.Component {
       school,
       timeZone,
       schoolType,
-      errors: {},
-      timeSubmitted: 0,
       showSchoolSelector: false,
       showButtonSection: false
     }
@@ -136,8 +134,8 @@ export default class TeacherGeneralAccountInfo extends React.Component {
   }
 
   renderEmail() {
-    const { googleId, cleverId, } = this.props
-    const { email, timesSubmitted, errors, } = this.state
+    const { googleId, cleverId, timesSubmitted, errors, } = this.props
+    const { email, } = this.state
     if (googleId) {
       return (<Input
         label="Email"
@@ -165,7 +163,7 @@ export default class TeacherGeneralAccountInfo extends React.Component {
         className="email"
         error={errors.email}
         timesSubmitted={timesSubmitted}
-    />)
+      />)
     }
   }
 
@@ -207,7 +205,8 @@ export default class TeacherGeneralAccountInfo extends React.Component {
   }
 
   render() {
-    const { name, timeZone, timesSubmitted, errors, schoolType, } = this.state
+    const { name, timeZone, schoolType, } = this.state
+    const { errors, timesSubmitted, } = this.props
     const selectedTimeZone = timeZoneOptions.find(tz => tz.name === timeZone)
     const selectedSchoolType = this.schoolTypeOptions().find(st => st.value === schoolType)
 
