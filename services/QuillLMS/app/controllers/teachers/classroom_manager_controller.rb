@@ -139,7 +139,7 @@ class Teachers::ClassroomManagerController < ApplicationController
 
   def update_my_account
     response = current_user.update_teacher(params['classroom_manager'])
-    if response[:errors].any?
+    if response[:errors] && response[:errors].any?
       errors = {}
       if response[:errors]['email']&.include?('has already been taken')
         errors['email'] = ['That email is taken. Try another.']
