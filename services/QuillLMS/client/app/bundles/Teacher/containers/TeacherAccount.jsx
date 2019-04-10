@@ -1,6 +1,7 @@
 import React from 'react';
 import request from 'request';
 import TeacherGeneralAccountInfo from '../components/accounts/edit/teacher_general'
+import TeacherPasswordAccountInfo from '../components/accounts/edit/teacher_password'
 import Snackbar from '../components/shared/snackbar'
 import getAuthToken from '../components/modules/get_auth_token'
 
@@ -37,7 +38,7 @@ export default class TeacherAccount extends React.Component {
 
   deactivateSection(section) {
     if (this.state.activeSection === section) {
-      this.setState({ activeSection: null, })
+      this.setState({ activeSection: null, errors: {}, })
     }
   }
 
@@ -80,7 +81,7 @@ export default class TeacherAccount extends React.Component {
   }
 
   render() {
-    const { name, email, cleverId, googleId, timeZone, school, schoolType, errors, } = this.state
+    const { name, email, cleverId, googleId, timeZone, school, schoolType, errors, timesSubmitted, } = this.state
     return (<div className="teacher-account">
       <TeacherGeneralAccountInfo
         name={name}
@@ -97,6 +98,13 @@ export default class TeacherAccount extends React.Component {
         active={this.state.activeSection === 'general'}
         updateUser={this.updateUser}
         errors={errors}
+        timesSubmitted={timesSubmitted}
+      />
+      <TeacherPasswordAccountInfo
+        cleverId={cleverId}
+        googleId={googleId}
+        errors={errors}
+        timesSubmitted={timesSubmitted}
       />
       {this.renderSnackbar()}
     </div>)
