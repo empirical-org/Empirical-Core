@@ -16,5 +16,5 @@
 ### Running Lessons locally
 
 1. Start the Quill Lessons server by executing `npm run start:dev`.  This will spin up your local RethinkDB server, and then connect your local QuillLessons server to it.  Note that using ctrl-c to stop the server will also stop your local RethinkDB instance.
-1. You will also need the QuillLMS running to generate the JWT needed to authenticate connections to the QuillLessonsServer. In another terminal window, navigate to ../QuillLMS and execute `foremand start -f Procfile.static`
+1. You will also need the QuillLMS running to generate the JWT needed to authenticate connections to the QuillLessonsServer. In another terminal window, navigate to ../QuillLMS and execute `npm run start:dev`
 1. Once the two base servers are running, make sure that your local lessons client is also up.  In yet another terminal window navigate to ../QuillLessons and execute `npm run start:dev`.
