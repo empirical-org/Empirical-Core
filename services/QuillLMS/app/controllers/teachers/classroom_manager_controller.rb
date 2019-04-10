@@ -139,8 +139,16 @@ class Teachers::ClassroomManagerController < ApplicationController
 
   def update_my_account
     response = current_user.update_teacher(params['classroom_manager'])
-    if response.errors.any?
-      render json: { errors: response.errors }
+    if response[:errors].any?
+      errors = {}
+      if response[:errors]['email']&.include?('has already been taken')
+        errors['email'] = ['That email is taken. Try another.']
+      elsif response[:errors]['email']&.include?('does not appear to be a valid e-mail address')
+        errors['email'] = ['Enter a valid email']
+      elsif response[:errors]['name']&.include?('must include first and last name')
+        errors['name'] = ["Enter both a first and last name"]
+      end
+      render json: {errors: errors}, status: 422
     else
       render json: get_account_info
     end

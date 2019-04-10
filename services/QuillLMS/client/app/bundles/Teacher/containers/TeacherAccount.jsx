@@ -17,7 +17,9 @@ export default class TeacherAccount extends React.Component {
       schoolType: school_type,
       googleId: google_id,
       cleverId: clever_id,
-      snackbarCopy: ''
+      snackbarCopy: '',
+      errors: {},
+      timesSubmitted: 0
     }
 
     this.activateSection = this.activateSection.bind(this)
@@ -42,6 +44,7 @@ export default class TeacherAccount extends React.Component {
       json: { ...data, authenticity_token: getAuthToken(), },
     }, (error, httpStatus, body) => {
       if (httpStatus && httpStatus.statusCode === 200) {
+        debugger;
         const { name, email, clever_id, google_id, time_zone, school, school_type, } = body
         this.setState({
           name,
@@ -53,16 +56,14 @@ export default class TeacherAccount extends React.Component {
           cleverId: clever_id,
           snackbarCopy: 'Settings saved'
         }, () => this.setState({ activeSection: null, }))
-      } else if (body.type && body.message) {
-        const errors = {};
-        errors[body.type] = body.message;
-        this.setState({ errors, timesSubmitted: timesSubmitted + 1, })
+      } else if (body.errors) {
+        this.setState({ errors: body.errors, timesSubmitted: timesSubmitted + 1, })
       }
     });
   }
 
   render() {
-    const { name, email, cleverId, googleId, timeZone, school, schoolType, } = this.state
+    const { name, email, cleverId, googleId, timeZone, school, schoolType, errors, } = this.state
     return (<div className="teacher-account">
       <TeacherGeneralAccountInfo
         name={name}
@@ -78,6 +79,7 @@ export default class TeacherAccount extends React.Component {
         deactivateSection={() => this.deactivateSection('general')}
         active={this.state.activeSection === 'general'}
         updateUser={this.updateUser}
+        errors={errors}
       />
     </div>)
   }
