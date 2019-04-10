@@ -16,7 +16,6 @@ export default class TeacherAccount extends React.Component {
   }
 
   deactivateSection(section) {
-    debugger;
     if (this.state.activeSection === section) {
       this.setState({ activeSection: null, })
     }
