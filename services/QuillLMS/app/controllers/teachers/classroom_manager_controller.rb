@@ -4,6 +4,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   # WARNING: these filter methods check against classroom_id, not id.
   before_filter :authorize_owner!, except: [:scores, :scorebook, :lesson_planner]
   before_filter :authorize_teacher!, only: [:scores, :scorebook, :lesson_planner]
+  before_filter :set_alternative_schools, only: [:my_account, :update_my_account]
   include ScorebookHelper
 
   def lesson_planner
@@ -133,30 +134,16 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def my_account
-    @account_info = current_user.generate_teacher_account_info
-    if @account_info['school'] && @account_info['school']['name']
-      case @account_info['school']['name']
-      when 'home school'
-        @account_info['school_type'] = 'Home school'
-      when 'us higher ed'
-        @account_info['school_type'] = 'U.S. higher education institution'
-      when 'international'
-        @account_info['school_type'] = 'International institution'
-      when 'other'
-        @account_info['school_type'] = 'Other'
-      when 'not listed'
-        @account_info['school_type'] = 'U.S. K-12 school'
-      else
-        @account_info['school_type'] = 'U.S. K-12 school'
-      end
-    else
-      @account_info['school_type'] = 'U.S. K-12 school'
-    end
+    @account_info = get_account_info
   end
 
   def update_my_account
-    response = current_user.update_teacher params
-    render json: response
+    response = current_user.update_teacher(params['classroom_manager'])
+    if response.errors.any?
+      render json: { errors: response.errors }
+    else
+      render json: get_account_info
+    end
   end
 
   def clear_data
@@ -281,6 +268,27 @@ class Teachers::ClassroomManagerController < ApplicationController
     else
       teacher_or_staff!
     end
+  end
+
+  def set_alternative_schools
+    @alternative_schools = School.where(name: ['home school', 'us higher ed', 'international', 'not listed', 'other'])
+    @alternative_schools_name_map = {
+      'home school': 'Home school',
+      'us higher ed': 'U.S. higher education institution',
+      'other': 'Other',
+      'international': 'International instituion',
+      'not listed': 'U.S. K-12 school'
+    }.stringify_keys
+  end
+
+  def get_account_info
+    account_info = current_user.generate_teacher_account_info
+    if account_info[:school] && account_info[:school].name
+      account_info['school_type'] = @alternative_schools_name_map[account_info[:school].name] || 'U.S. K-12 school'
+    else
+      account_info['school_type'] = 'U.S. K-12 school'
+    end
+    account_info
   end
 
 end
