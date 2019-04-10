@@ -1,14 +1,28 @@
 import React from 'react';
+import request from 'request';
 import TeacherGeneralAccountInfo from '../components/accounts/edit/teacher_general'
+import getAuthToken from '../components/modules/get_auth_token'
 
 export default class TeacherAccount extends React.Component {
   constructor(props) {
     super(props)
 
-    this.state = { activeSection: null }
+    const { name, email, clever_id, google_id, time_zone, school, school_type } = props.accountInfo
+    this.state = {
+      activeSection: null,
+      name,
+      email,
+      timeZone: time_zone,
+      school,
+      schoolType: school_type,
+      googleId: google_id,
+      cleverId: clever_id,
+      snackbarCopy: ''
+    }
 
     this.activateSection = this.activateSection.bind(this)
     this.deactivateSection = this.deactivateSection.bind(this)
+    this.updateUser = this.updateUser.bind(this)
   }
 
   activateSection(section) {
@@ -21,20 +35,49 @@ export default class TeacherAccount extends React.Component {
     }
   }
 
+  updateUser(data) {
+    const { timesSubmitted, } = this.state
+    request.put({
+      url: `${process.env.DEFAULT_URL}/teachers/update_my_account`,
+      json: { ...data, authenticity_token: getAuthToken(), },
+    }, (error, httpStatus, body) => {
+      if (httpStatus && httpStatus.statusCode === 200) {
+        const { name, email, clever_id, google_id, time_zone, school, school_type, } = body
+        this.setState({
+          name,
+          email,
+          timeZone: time_zone,
+          school,
+          schoolType: school_type,
+          googleId: google_id,
+          cleverId: clever_id,
+          snackbarCopy: 'Settings saved'
+        }, () => this.setState({ activeSection: null, }))
+      } else if (body.type && body.message) {
+        const errors = {};
+        errors[body.type] = body.message;
+        this.setState({ errors, timesSubmitted: timesSubmitted + 1, })
+      }
+    });
+  }
+
   render() {
-    const { name, email, clever_id, google_id, time_zone, school, school_type } = this.props.accountInfo
+    const { name, email, cleverId, googleId, timeZone, school, schoolType, } = this.state
     return (<div className="teacher-account">
       <TeacherGeneralAccountInfo
         name={name}
         email={email}
         school={school}
-        timeZone={time_zone}
-        schoolType={school_type}
-        cleverId={clever_id}
-        googleId={google_id}
+        timeZone={timeZone}
+        schoolType={schoolType}
+        cleverId={cleverId}
+        googleId={googleId}
+        alternativeSchools={this.props.alternativeSchools}
+        alternativeSchoolsNameMap={this.props.alternativeSchoolsNameMap}
         activateSection={() => this.activateSection('general')}
         deactivateSection={() => this.deactivateSection('general')}
         active={this.state.activeSection === 'general'}
+        updateUser={this.updateUser}
       />
     </div>)
   }

@@ -4,10 +4,6 @@ import { Input, DropdownInput } from 'quill-component-library/dist/componentLibr
 import SchoolSelector from '../../shared/school_selector'
 import timezones from '../../../../../modules/timezones'
 
-const schoolTypeOptions = ['U.S. K-12 school', 'Home school', 'International institution', 'U.S. higher education institution', 'Other'].map((type) => {
-  return { label: type, value: type, }
-})
-
 const timeZoneOptions = timezones.map((tz) => {
   const newTz = tz
   newTz.label = `(GMT${tz.offset}) ${tz.label}`
@@ -40,7 +36,9 @@ export default class TeacherGeneralAccountInfo extends React.Component {
     this.handleTimezoneChange = this.handleTimezoneChange.bind(this)
     this.handleSchoolTypeChange = this.handleSchoolTypeChange.bind(this)
     this.resetAndDeactivateSection = this.resetAndDeactivateSection.bind(this)
+    this.schoolTypeOptions = this.schoolTypeOptions.bind(this)
     this.reset = this.reset.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -56,12 +54,30 @@ export default class TeacherGeneralAccountInfo extends React.Component {
     }
   }
 
+  handleSubmit(e) {
+    const { name, email, timeZone, school } = this.state
+    e.preventDefault()
+    const data = {
+      name,
+      email,
+      time_zone: timeZone,
+      school_id: school.id
+    };
+    this.props.updateUser(data)
+  }
+
   showSchoolSelector() {
     this.setState({ showSchoolSelector: true, })
   }
 
-  handleSchoolChange(id, school) {
-    this.setState({ school, })
+  handleSchoolChange(id, schoolObj) {
+    if (id === 'not listed') {
+      const notListedSchool = this.props.alternativeSchools.find(school => school.name === 'not listed')
+      this.setState({ school: notListedSchool, showSchoolSelector: false, })
+    } else {
+      const school = { name: schoolObj.attributes.text, id, }
+      this.setState({ school, showSchoolSelector: false, })
+    }
   }
 
   handleEmailChange(e) {
@@ -77,7 +93,10 @@ export default class TeacherGeneralAccountInfo extends React.Component {
   }
 
   handleSchoolTypeChange(schoolType) {
-    this.setState({ schoolType: schoolType.value, });
+    // we don't want teachers to set their school as "not-listed" if they already have a school selected
+    if (schoolType.value !== 'U.S. K-12 school' || this.state.schoolType !== 'U.S. K-12 school') {
+      this.setState({ schoolType: schoolType.value, school: schoolType, });
+    }
   }
 
   reset() {
@@ -90,6 +109,16 @@ export default class TeacherGeneralAccountInfo extends React.Component {
       schoolType,
       showSchoolSelector: false,
       showButtonSection: false
+    })
+  }
+
+  schoolTypeOptions() {
+    const { alternativeSchools, alternativeSchoolsNameMap, } = this.props
+    return alternativeSchools.map((school) => {
+      const schoolOption = school
+      schoolOption.label = alternativeSchoolsNameMap[school.name]
+      schoolOption.value = alternativeSchoolsNameMap[school.name]
+      return schoolOption
     })
   }
 
@@ -180,7 +209,7 @@ export default class TeacherGeneralAccountInfo extends React.Component {
   render() {
     const { name, timeZone, timesSubmitted, errors, schoolType, } = this.state
     const selectedTimeZone = timeZoneOptions.find(tz => tz.name === timeZone)
-    const selectedSchoolType = schoolTypeOptions.find(st => st.value === schoolType)
+    const selectedSchoolType = this.schoolTypeOptions().find(st => st.value === schoolType)
 
     return <div className="teacher-account-general teacher-account-section" onClick={this.activateSection}>
       <h1>General</h1>
@@ -206,7 +235,7 @@ export default class TeacherGeneralAccountInfo extends React.Component {
           <DropdownInput
             label="School type"
             value={selectedSchoolType}
-            options={schoolTypeOptions}
+            options={this.schoolTypeOptions()}
             handleChange={this.handleSchoolTypeChange}
             error={errors.schoolType}
           />
