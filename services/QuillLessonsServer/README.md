@@ -1,53 +1,21 @@
-# quill-connect-db
+# Quill Lessons Server
 
 ## Local Setup
 
-### Install RethinkDB
+### Configure everything for local execution
+- Get a dump of the RethinkDB to see your local database with.
+  1. Log in to Compose.io.
+  1. Navigate to the production database instance ("quill-lessons")
+  1. Select "Backups" from the side menu
+  1. Click the download icon next to the most recent daily backup (technically you could pick any backup file you want, but no reason not to grab the latest).  Make sure that you know where this file ends up getting downloaded to.
+    - Note that the dump file you download must be in JSON format for `bootstrap.sh` to parse it properly.  JSON is currently the default (and only) option from Compose.io.
+- Run `./bootstrap.sh`
+  1. You will be asked to provide the path to the RethinkDB dump file that you downloaded (it should be in .tar format).
+- Configure Local LMS to Launch Local Lessons
+  1. Using either the QuillLMS Rails Console, or a direct database connection, you need to update the values in the ActivityClassification records (SQL dtable name "activity_classification").  For the row corresponding to Lessons (name = "Quill Lessons"), update both the `form_url` and the `module_url` values so that their hosts point at `http://localhost:8090/`.
 
-Download and install [RethinkDB](https://www.rethinkdb.com/), the realtime database QuillLessonsServer uses. Installation instructions are available on the RethinkDB [installation guide](https://rethinkdb.com/docs/install/).
+### Running Lessons locally
 
-If you're more comfortable with installing custom software, you can use [homebrew](http://brew.sh/) to download and install RethinkDB instead using the following commands:
-
-    $ brew update
-    $ brew install rethinkdb
-
-### Generate RSA Keys
-Open ruby console `$ irb`
-Generate the keys in the irb console:
-```
-require 'OpenSSL'
-=> true
-keys = OpenSSL::PKey::RSA.new 2048
-=> #<OpenSSL::PKey::RSA:0x007fea56a71af0>
-```
-Get and copy the private key to an environment variable for the QuillLMS Rails app:
-```
-$ keys.to_s
-=> "-----BEGIN RSA PRIVATE KEY-----<private_key_here>-----END RSA PRIVATE KEY-----\n"
-```
-Copy the entire private key unaltered, including the double quotes and and paste it in `.env` file. The path of this file relative to Empirical-Core root directory is `services/QuillLMS/.env`.
-```
-LESSONS_PRIVATE_KEY="-----BEGIN RSA PRIVATE KEY-----<private_key_here>.-----END RSA PRIVATE KEY-----\n"
-```
-
-Write the public key to a file in the root directory of the QuillLessonsServer. Note path below is relative to root directory of the Empirical-Core mono-repo:
-
-```
-File.open("services/QuillLessonsServer/jwt-public-key.crt", 'w') do |file|
-  file.write(keys.public_key.to_s)
-end
-```
-### Start the Servers
-In the root directory of QuillLMS run the following to start all processes needed to run the lessons server.
-```
-$ foreman start -f Procfile.lessons
-```
-This will start RethinkDB listening at port 9000, the QuilLessonsServer Node process at port 8000, and a hot reloading QuillLessons client at port 8080.
-
-You will also need the QuillLMS to run to generate the JWT needed to authenticate connections to the QuillLessonsServer. In another terminal window run the following:
-```
-$ foreman start -f Procfile.static
-```
-Navigate your browser to `http://localhost:8080/#/admin` to confirm things are working.
-
-For more information, see the Quill [docs](https://docs.quill.org/tools/lessons_server.html).
+1. Start the Quill Lessons server by executing `npm run start:dev`.  This will spin up your local RethinkDB server, and then connect your local QuillLessons server to it.  Note that using ctrl-c to stop the server will also stop your local RethinkDB instance.
+1. You will also need the QuillLMS running to generate the JWT needed to authenticate connections to the QuillLessonsServer. In another terminal window, navigate to ../QuillLMS and execute `npm run start:dev`
+1. Once the two base servers are running, make sure that your local lessons client is also up.  In yet another terminal window navigate to ../QuillLessons and execute `npm run start:dev`.
