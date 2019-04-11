@@ -121,7 +121,7 @@ export default class extends React.Component{
     return (
       <div className='google-sync no-classrooms'>
         <h2>It seems that you don't have any Google Classrooms.</h2>
-        <p>If you believe this is an error, please contact us at <a href="www.support.quill.org">www.support.quill.org</a></p>
+        <p>If you believe this is an error, please contact us at <a href="https://support.quill.org">support.quill.org</a></p>
         <p>Otherwise, you can join Google Classroom or add classrooms <a href="https://classroom.google.com/h">here.</a></p>
       </div>)
   }
