@@ -37,7 +37,7 @@ export default React.createClass({
     return (
       <div>
         <h1>
-          Lesson Complete!
+          Activity Complete!
         </h1>
         <h3>
           You completed the activity: {this.props.activityName}
