@@ -26,6 +26,7 @@ case $1 in
     ;;
   *)
     echo "You must provide an environment argument of either 'staging' or 'prod'."
+    exit 1
 esac
 
 # Remove any old builds we have lying around
