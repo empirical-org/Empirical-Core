@@ -4,7 +4,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   # WARNING: these filter methods check against classroom_id, not id.
   before_filter :authorize_owner!, except: [:scores, :scorebook, :lesson_planner]
   before_filter :authorize_teacher!, only: [:scores, :scorebook, :lesson_planner]
-  before_filter :set_alternative_schools, only: [:my_account, :update_my_account]
+  before_filter :set_alternative_schools, only: [:my_account, :update_my_account, :update_my_password]
   include ScorebookHelper
 
   def lesson_planner
@@ -148,6 +148,24 @@ class Teachers::ClassroomManagerController < ApplicationController
       elsif response[:errors]['name']&.include?('must include first and last name')
         errors['name'] = ["Enter both a first and last name"]
       end
+      render json: {errors: errors}, status: 422
+    else
+      render json: get_account_info
+    end
+  end
+
+  def update_my_password
+    errors = {}
+    if current_user.authenticate(params[:current_password])
+      if params[:new_password] == params[:confirmed_new_password]
+        current_user.update(password: params[:new_password])
+      else
+        errors['confirmed_new_password'] = "Those passwords didn't match. Try again."
+      end
+    else
+      errors['current_password'] = 'Wrong password. Try again or click Forgot password to reset it.'
+    end
+    if errors.any?
       render json: {errors: errors}, status: 422
     else
       render json: get_account_info

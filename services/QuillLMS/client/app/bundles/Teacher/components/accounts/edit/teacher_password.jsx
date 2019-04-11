@@ -16,6 +16,7 @@ export default class TeacherGeneralAccountInfo extends React.Component {
     this.resetAndDeactivateSection = this.resetAndDeactivateSection.bind(this)
     this.reset = this.reset.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleChange = this.handleChange.bind(this)
     this.renderContent = this.renderContent.bind(this)
   }
 
@@ -33,15 +34,14 @@ export default class TeacherGeneralAccountInfo extends React.Component {
   }
 
   handleSubmit(e) {
-    const { name, email, timeZone, school } = this.state
+    const { currentPassword, newPassword, confirmedNewPassword, } = this.state
     e.preventDefault()
     const data = {
-      name,
-      email,
-      time_zone: timeZone,
-      school_id: school.id
+      current_password: currentPassword,
+      new_password: newPassword,
+      confirmed_new_password: confirmedNewPassword
     };
-    this.props.updateUser(data)
+    this.props.updateUser(data, '/teachers/update_my_password')
   }
 
 
@@ -53,10 +53,14 @@ export default class TeacherGeneralAccountInfo extends React.Component {
     })
   }
 
+  handleChange(field, e) {
+    this.setState({ [field]: e.target.value, })
+  }
+
   submitClass() {
     const { currentPassword, newPassword, confirmedNewPassword, } = this.state
     let buttonClass = 'quill-button contained primary medium';
-    if (currentPassword.length && newPassword.length && confirmedNewPassword.length ) {
+    if (!(currentPassword.length && newPassword.length && confirmedNewPassword.length)) {
       buttonClass += ' disabled';
     }
     return buttonClass;
@@ -87,7 +91,7 @@ export default class TeacherGeneralAccountInfo extends React.Component {
               label="Current password"
               value={currentPassword}
               handleChange={(e) => this.handleChange('currentPassword', e)}
-              type="text"
+              type="password"
               className="current-password"
               error={errors.current_password}
               timesSubmitted={timesSubmitted}
@@ -98,7 +102,7 @@ export default class TeacherGeneralAccountInfo extends React.Component {
             label="New password"
             value={newPassword}
             handleChange={(e) => this.handleChange('newPassword', e)}
-            type="text"
+            type="password"
             className="new-password"
             error={errors.new_password}
             timesSubmitted={timesSubmitted}
@@ -107,7 +111,7 @@ export default class TeacherGeneralAccountInfo extends React.Component {
             label="Confirm new password"
             value={confirmedNewPassword}
             handleChange={(e) => this.handleChange('confirmedNewPassword', e)}
-            type="text"
+            type="password"
             className="confirmed-new-password"
             error={errors.confirmed_new_password}
             timesSubmitted={timesSubmitted}
