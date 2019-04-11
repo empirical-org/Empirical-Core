@@ -414,19 +414,35 @@
     .primary {
       width: 129px;
     }
+    .quill-checkbox {
+      &.selected {
+        width: 23px;
+      }
+      &.unselected {
+        width: 20px;
+      }
+    }
+  }
+  &.clever {
+    height: 552px;
+    .primary {
+      width: 125px;
+    }
   }
   .checkbox-row {
     display: flex;
     align-items: flex-start;
+    margin-bottom: 12px;
+    span {
+      line-height: 1.57;
+    }
   }
   .quill-checkbox {
     margin-top: 2px;
     &.selected {
-      width: 23px;
       margin-right: 23px;
     }
     &.unselected {
-      width: 20px;
       margin-right: 24px;
     }
   }

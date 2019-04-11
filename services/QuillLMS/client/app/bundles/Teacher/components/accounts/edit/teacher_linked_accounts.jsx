@@ -67,14 +67,19 @@ export default class TeacherLinkedAccounts extends React.Component {
     let actionElement, copy
     const { cleverId, } = this.props
     if (!cleverId || !cleverId.length) {
-      return (<div className="clever-row">
-        <div className="first-half">
-          <img src={`${process.env.CDN_URL}/images/shared/clever_icon.svg`} alt="clever icon" />
-          <span>Clever is not linked</span>
-        </div>
-        <a className="google-or-clever-action" href={this.props.cleverLink}>Link your account</a>
-      </div>)
+      copy = 'Clever is not linked'
+      actionElement = <a className="google-or-clever-action" href={this.props.cleverLink}>Link your account</a>
+    } else {
+      copy = 'Clever account is linked'
+      actionElement = <span className="google-or-clever-action" onClick={this.showCleverModal}>Unlink</span>
     }
+    return (<div className="clever-row">
+      <div className="first-half">
+        <img src={`${process.env.CDN_URL}/images/shared/clever_icon.svg`} alt="clever icon" />
+        <span>{copy}</span>
+      </div>
+      {actionElement}
+    </div>)
   }
 
   renderModal() {
