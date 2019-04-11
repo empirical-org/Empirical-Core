@@ -6,8 +6,8 @@ class SessionsController < ApplicationController
   before_filter :set_cache_buster, only: [:new]
 
   def create
-    params[:user][:email].downcase! unless params[:user][:email].nil?
-    @user =  User.find_by_username_or_email(params[:user][:email])
+    email_or_username = params[:user][:email].downcase.strip unless params[:user][:email].nil?
+    @user =  User.find_by_username_or_email(email_or_username)
     if @user.nil?
       report_that_route_is_still_in_use
       login_failure_message
@@ -34,8 +34,8 @@ class SessionsController < ApplicationController
   end
 
   def login_through_ajax
-    params[:user][:email].downcase! unless params[:user][:email].nil?
-    @user =  User.find_by_username_or_email(params[:user][:email])
+    email_or_username = params[:user][:email].downcase.strip unless params[:user][:email].nil?
+    @user =  User.find_by_username_or_email(email_or_username)
     if @user.nil?
       render json: {message: 'An account with this email or username does not exist. Try again.', type: 'email'}, status: 401
     elsif @user.signed_up_with_google
