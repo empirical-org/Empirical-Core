@@ -35,12 +35,12 @@ export default class TeacherAccount extends React.Component {
 
   componentWillMount() {
     let snackbarCopy
-    const { googleOrCleverJustSet, googleId, cleverId, } = this.props
+    const { googleOrCleverJustSet, accountInfo, } = this.props
     if (this.props.googleOrCleverJustSet) {
-      if (googleId) {
+      if (accountInfo.googleId) {
         snackbarCopy = 'Google linked'
       }
-      if (cleverId) {
+      if (accountInfo.cleverId) {
         snackbarCopy = 'Clever linked'
       }
       this.setState({ snackbarCopy, }, this.showSnackbar)
@@ -79,7 +79,8 @@ export default class TeacherAccount extends React.Component {
           schoolType: school_type,
           googleId: google_id,
           cleverId: clever_id,
-          snackbarCopy
+          snackbarCopy,
+          errors: {}
         }, () => {
           this.showSnackbar()
           this.setState({ activeSection: null, })
