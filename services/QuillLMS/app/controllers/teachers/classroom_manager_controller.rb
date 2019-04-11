@@ -134,6 +134,10 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def my_account
+    session[:google_redirect] = request.env['PATH_INFO']
+    session[:clever_redirect] = request.env['PATH_INFO']
+    @google_or_clever_just_set = session[:google_or_clever_just_set]
+    session[:google_or_clever_just_set] = nil
     @account_info = get_account_info
   end
 

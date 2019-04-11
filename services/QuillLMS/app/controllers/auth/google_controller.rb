@@ -1,10 +1,10 @@
 class Auth::GoogleController < ApplicationController
-  before_action :follow_google_redirect,          only: :google
   before_action :set_profile,                     only: :google
   before_action :set_user,                        only: :google
   before_action :check_if_email_matches,          only: :google
   before_action :save_teacher_from_google_signup, only: :google
   before_action :save_student_from_google_signup, only: :google
+  before_action :follow_google_redirect,          only: :google
 
   def google
     if @user.teacher?
@@ -39,6 +39,10 @@ class Auth::GoogleController < ApplicationController
   end
 
   def set_user
+    if session[:google_redirect].include?('my_account')
+      current_user.update(email: @profile.email)
+    end
+    session[:google_or_clever_just_set] = true
     @user = GoogleIntegration::User.new(@profile).update_or_initialize
   end
 

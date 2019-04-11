@@ -248,7 +248,9 @@ module Teacher
                   :school_options_do_not_apply,
                   :school_id,
                   :send_newsletter,
-                  :original_selected_school_id)
+                  :original_selected_school_id,
+                  :google_id,
+                  :clever_id)
 
     self.validate_username = true
 
@@ -263,14 +265,16 @@ module Teacher
       end
     end
     if !are_there_school_related_errors
-      if self.update_attributes(username: params[:username] || self.username,
-                                        email: params[:email] || self.email,
-                                        name: params[:name] || self.name,
-                                        time_zone: params[:time_zone] || self.time_zone,
-                                        password: params[:password] || self.password,
-                                        role: params[:role] || self.role,
-                                        send_newsletter: params[:send_newsletter] || self.send_newsletter
-                                      )
+      if self.update_attributes(username: params.key?(:username) ? params[:username] : self.username,
+                                        email: params.key?(:email) ? params[:email] : self.email,
+                                        name: params.key?(:name) ? params[:name] : self.name,
+                                        time_zone: params.key?(:time_zone) ? params[:time_zone] : self.time_zone,
+                                        password: params.key?(:password) ? params[:password] : self.password,
+                                        role: params.key?(:role) ? params[:role] : self.role,
+                                        send_newsletter: params.key?(:send_newsletter) ? params[:send_newsletter] : self.send_newsletter,
+                                        google_id: params.key?(:google_id) ? params[:google_id] : self.google_id,
+                                        clever_id: params.key?(:clever_id) ? params[:clever_id] : self.clever_id
+                                )
         are_there_non_school_related_errors = false
       else
         are_there_non_school_related_errors = true
