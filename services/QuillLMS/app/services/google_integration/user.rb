@@ -34,6 +34,7 @@ class GoogleIntegration::User
       params[:email]     = data.email     if data.email.present?
       params[:google_id] = data.google_id if data.google_id.present?
       params[:role]      = data.role      if data.role.present?
+      params[:clever_id] = nil
 
       params
     end

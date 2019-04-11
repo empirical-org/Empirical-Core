@@ -61,7 +61,7 @@ export default class TeacherGeneralAccountInfo extends React.Component {
       time_zone: timeZone,
       school_id: school.id
     };
-    this.props.updateUser(data, '/teachers/update_my_account')
+    this.props.updateUser(data, '/teachers/update_my_account', 'Settings saved')
   }
 
   showSchoolSelector() {
@@ -141,7 +141,7 @@ export default class TeacherGeneralAccountInfo extends React.Component {
         label="Email"
         value={email}
         type="text"
-        className="email"
+        className="email google-or-clever"
         disabled={true}
         helperText={'Unlink your Google account below to change your email.'}
       />)
@@ -150,7 +150,7 @@ export default class TeacherGeneralAccountInfo extends React.Component {
         label="Email"
         value={email}
         type="text"
-        className="email"
+        className="email google-or-clever"
         disabled={true}
         helperText={'Unlink your Clever account below to change your email.'}
       />)

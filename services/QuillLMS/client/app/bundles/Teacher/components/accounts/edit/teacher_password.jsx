@@ -1,7 +1,7 @@
 import React from 'react';
 import { Input, } from 'quill-component-library/dist/componentLibrary'
 
-export default class TeacherGeneralAccountInfo extends React.Component {
+export default class TeacherPassword extends React.Component {
   constructor(props) {
     super(props)
 
@@ -41,7 +41,7 @@ export default class TeacherGeneralAccountInfo extends React.Component {
       new_password: newPassword,
       confirmed_new_password: confirmedNewPassword
     };
-    this.props.updateUser(data, '/teachers/update_my_password')
+    this.props.updateUser(data, '/teachers/update_my_password', 'Settings saved')
   }
 
 
@@ -122,7 +122,7 @@ export default class TeacherGeneralAccountInfo extends React.Component {
     } else if (googleId || cleverId) {
       return (
         <p className="google-or-clever-password">
-          Before you can create a password, you will need to unlink your {googleId ? 'Google' : 'Clever'} account below.
+          Before you can create a password, you will need to unlink your {googleId ? 'Google' : 'Clever'} account&nbsp;below.
         </p>
       )
     } else {

@@ -2,6 +2,7 @@ import React from 'react';
 import request from 'request';
 import TeacherGeneralAccountInfo from '../components/accounts/edit/teacher_general'
 import TeacherPasswordAccountInfo from '../components/accounts/edit/teacher_password'
+import TeacherLinkedAccounts from '../components/accounts/edit/teacher_linked_accounts'
 import Snackbar from '../components/shared/snackbar'
 import getAuthToken from '../components/modules/get_auth_token'
 
@@ -32,6 +33,20 @@ export default class TeacherAccount extends React.Component {
     this.renderSnackbar = this.renderSnackbar.bind(this)
   }
 
+  componentWillMount() {
+    let snackbarCopy
+    const { googleOrCleverJustSet, googleId, cleverId, } = this.props
+    if (this.props.googleOrCleverJustSet) {
+      if (googleId) {
+        snackbarCopy = 'Google linked'
+      }
+      if (cleverId) {
+        snackbarCopy = 'Clever linked'
+      }
+      this.setState({ snackbarCopy, }, this.showSnackbar)
+    }
+  }
+
   activateSection(section) {
     this.setState({ activeSection: section, })
   }
@@ -48,7 +63,7 @@ export default class TeacherAccount extends React.Component {
     })
   }
 
-  updateUser(data, url) {
+  updateUser(data, url, snackbarCopy) {
     const { timesSubmitted, } = this.state
     request.put({
       url: `${process.env.DEFAULT_URL}${url}`,
@@ -64,7 +79,7 @@ export default class TeacherAccount extends React.Component {
           schoolType: school_type,
           googleId: google_id,
           cleverId: clever_id,
-          snackbarCopy: 'Settings saved'
+          snackbarCopy
         }, () => {
           this.showSnackbar()
           this.setState({ activeSection: null, })
@@ -81,7 +96,8 @@ export default class TeacherAccount extends React.Component {
   }
 
   render() {
-    const { name, email, cleverId, googleId, timeZone, school, schoolType, errors, timesSubmitted, } = this.state
+    const { name, email, cleverId, googleId, timeZone, school, schoolType, errors, timesSubmitted, activeSection, } = this.state
+    const { alternativeSchools, alternativeSchoolsNameMap, cleverLink, } = this.props
     return (<div className="teacher-account">
       <TeacherGeneralAccountInfo
         name={name}
@@ -91,11 +107,11 @@ export default class TeacherAccount extends React.Component {
         schoolType={schoolType}
         cleverId={cleverId}
         googleId={googleId}
-        alternativeSchools={this.props.alternativeSchools}
-        alternativeSchoolsNameMap={this.props.alternativeSchoolsNameMap}
+        alternativeSchools={alternativeSchools}
+        alternativeSchoolsNameMap={alternativeSchoolsNameMap}
         activateSection={() => this.activateSection('general')}
         deactivateSection={() => this.deactivateSection('general')}
-        active={this.state.activeSection === 'general'}
+        active={activeSection === 'general'}
         updateUser={this.updateUser}
         errors={errors}
         timesSubmitted={timesSubmitted}
@@ -107,8 +123,17 @@ export default class TeacherAccount extends React.Component {
         timesSubmitted={timesSubmitted}
         activateSection={() => this.activateSection('password')}
         deactivateSection={() => this.deactivateSection('password')}
-        active={this.state.activeSection === 'password'}
+        active={activeSection === 'password'}
         updateUser={this.updateUser}
+      />
+      <TeacherLinkedAccounts
+        cleverId={cleverId}
+        googleId={googleId}
+        cleverLink={cleverLink}
+        updateUser={this.updateUser}
+        email={email}
+        errors={errors}
+        timesSubmitted={timesSubmitted}
       />
       {this.renderSnackbar()}
     </div>)
