@@ -19,7 +19,7 @@ export default React.createClass({
                   <h1 className='q-h2'><i className="fa fa-check" aria-hidden="true"></i>Great! You've synced {`${syncedCount} ${pluralize('class', syncedCount)}`}</h1>
                   <h3 className='subheader'>It may take up to <strong>5 minutes</strong> to import your students.</h3>
                   <p>
-                    Please have your students log in using their Google accounts. If you have any questions, you can check <a href='www.support.quill.org'>support.quill.org</a>
+                    Please have your students log in using their Google accounts. If you have any questions, you can check <a href='https://support.quill.org'>support.quill.org</a>
                   </p>
                     <a className="q-button cta-button bg-quillgreen text-white back-to-profile" href='/'>
                       Got It!
