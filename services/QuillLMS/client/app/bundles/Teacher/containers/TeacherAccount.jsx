@@ -48,10 +48,10 @@ export default class TeacherAccount extends React.Component {
     })
   }
 
-  updateUser(data) {
+  updateUser(data, url) {
     const { timesSubmitted, } = this.state
     request.put({
-      url: `${process.env.DEFAULT_URL}/teachers/update_my_account`,
+      url: `${process.env.DEFAULT_URL}${url}`,
       json: { ...data, authenticity_token: getAuthToken(), },
     }, (error, httpStatus, body) => {
       if (httpStatus && httpStatus.statusCode === 200) {
@@ -108,6 +108,7 @@ export default class TeacherAccount extends React.Component {
         activateSection={() => this.activateSection('password')}
         deactivateSection={() => this.deactivateSection('password')}
         active={this.state.activeSection === 'password'}
+        updateUser={this.updateUser}
       />
       {this.renderSnackbar()}
     </div>)

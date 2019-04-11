@@ -61,7 +61,7 @@ export default class TeacherGeneralAccountInfo extends React.Component {
       time_zone: timeZone,
       school_id: school.id
     };
-    this.props.updateUser(data)
+    this.props.updateUser(data, '/teachers/update_my_account')
   }
 
   showSchoolSelector() {
