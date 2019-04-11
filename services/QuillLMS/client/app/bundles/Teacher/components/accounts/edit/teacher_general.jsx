@@ -40,8 +40,25 @@ export default class TeacherGeneralAccountInfo extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.active && !nextProps.active) {
+    const { active, email, name, school, timeZone, schoolType, } = nextProps
+    
+    if (this.props.active && !active) {
       this.reset()
+    }
+
+    if (email !== this.props.email
+      || name !== this.props.name
+      || school !== this.props.school
+      || timeZone !== this.props.timeZone
+      || schoolType !== this.props.schoolType
+    ) {
+      this.setState({
+        email,
+        name,
+        school,
+        timeZone,
+        schoolType
+      })
     }
   }
 
