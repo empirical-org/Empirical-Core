@@ -29,14 +29,14 @@ function columns(selectConcept) {
       dataIndex: 'grandparentConceptName',
       key: 'grandparentConceptName',
       render: (text, record:ConceptRow) => (<div onClick={() => selectConcept(record.grandparentConceptId, 2)}>{text}</div>),
-      sorter: firstBy('grandparentConceptName').thenBy('parentConceptName').thenBy('conceptName'),
+      sorter: firstBy<ConceptRow>('grandparentConceptName').thenBy('parentConceptName').thenBy('conceptName'),
     },
     {
       title: 'Level 1',
       dataIndex: 'parentConceptName',
       key: 'parentConceptName',
       render: (text, record:ConceptRow) => (<div onClick={() => selectConcept(record.parentConceptId, 1)}>{text}</div>),
-      sorter: firstBy('parentConceptName').thenBy('conceptName'),
+      sorter: firstBy<ConceptRow>('parentConceptName').thenBy('conceptName'),
     },
     {
       title: 'Level 0',
