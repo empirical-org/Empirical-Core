@@ -92,7 +92,7 @@ export default class TeacherPassword extends React.Component {
               value={currentPassword}
               handleChange={(e) => this.handleChange('currentPassword', e)}
               type="password"
-              className="current-password"
+              className="current-password inspectletIgnore"
               error={errors.current_password}
               timesSubmitted={timesSubmitted}
             />
@@ -103,7 +103,7 @@ export default class TeacherPassword extends React.Component {
             value={newPassword}
             handleChange={(e) => this.handleChange('newPassword', e)}
             type="password"
-            className="new-password"
+            className="new-password inspectletIgnore"
             error={errors.new_password}
             timesSubmitted={timesSubmitted}
           />
@@ -112,7 +112,7 @@ export default class TeacherPassword extends React.Component {
             value={confirmedNewPassword}
             handleChange={(e) => this.handleChange('confirmedNewPassword', e)}
             type="password"
-            className="confirmed-new-password"
+            className="confirmed-new-password inspectletIgnore"
             error={errors.confirmed_new_password}
             timesSubmitted={timesSubmitted}
           />

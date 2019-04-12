@@ -122,7 +122,7 @@ export default class UnlinkModal extends React.Component {
             value={password}
             handleChange={(e) => this.handleChange('password', e)}
             type="password"
-            className="password"
+            className="password inspectletIgnore"
             error={errors.password}
             timesSubmitted={timesSubmitted}
           />
