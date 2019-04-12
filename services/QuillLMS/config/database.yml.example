@@ -1,11 +1,13 @@
 development:
   adapter: postgresql
   encoding: unicode
-  database: emp_gr_development
+  database: quill_lms_development
   host:     localhost
+  username: quill_dev
 
 test:
   adapter: postgresql
   encoding: unicode
-  database: emp_gr_test
+  database: quill_lms_test
   host:     localhost
+  username: quill_test
