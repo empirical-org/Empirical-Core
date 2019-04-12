@@ -33,6 +33,7 @@ export default class UnlinkModal extends React.Component {
     if (googleOrClever === 'Google') {
       data.google_id = null
       data.signed_up_with_google = false
+      data.post_google_classroom_assignments = false
     } else {
       data.clever_id = null
     }

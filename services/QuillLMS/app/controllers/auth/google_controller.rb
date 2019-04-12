@@ -39,7 +39,7 @@ class Auth::GoogleController < ApplicationController
   end
 
   def set_user
-    if session[:google_redirect].include?('my_account')
+    if session[:google_redirect]&.include?('my_account')
       current_user.update(email: @profile.email)
     end
     session[:google_or_clever_just_set] = true
