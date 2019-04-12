@@ -2,6 +2,7 @@ import * as React from "react";
 import { Query, Mutation } from "react-apollo";
 import gql from "graphql-tag";
 import moment from 'moment'
+import _ from 'underscore';
 import { Input, DropdownInput } from 'quill-component-library/dist/componentLibrary'
 
 import { Concept } from '../interfaces/interfaces'
