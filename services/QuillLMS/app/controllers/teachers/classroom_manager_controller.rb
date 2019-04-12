@@ -306,7 +306,7 @@ class Teachers::ClassroomManagerController < ApplicationController
       'home school': 'Home school',
       'us higher ed': 'U.S. higher education institution',
       'other': 'Other',
-      'international': 'International instituion',
+      'international': 'International institution',
       'not listed': 'U.S. K-12 school'
     }.stringify_keys
   end

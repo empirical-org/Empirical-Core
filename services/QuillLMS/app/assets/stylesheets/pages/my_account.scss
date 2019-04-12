@@ -404,7 +404,7 @@
   background-color: #000;
 }
 
-.unlink-modal {
+.unlink-modal, .delete-account-modal {
   width: 560px;
   border-radius: 6px;
   background-color: #ffffff;
@@ -447,8 +447,47 @@
       width: 125px;
     }
   }
+  &.delete-account-modal {
+    height: 382px;
+    .primary {
+      width: 138px;
+    }
+    p {
+      padding-top: 6px;
+      margin-bottom: 23px;
+    }
+    .checkbox-row {
+      margin-bottom: 17px;
+    }
+  }
 }
 
 .teacher-account-email-notifications {
   padding-bottom: 34px;
+}
+
+.teacher-account-danger-zone {
+  .secondary {
+    width: 162px;
+    cursor: pointer;
+  }
+  .danger-zone-description {
+    color: #646464;
+    margin-top: 16px;
+    margin-bottom: 40px;
+  }
+}
+
+.input-container:not(.has-text) {
+  label {
+    margin-bottom: -24px;
+    z-index: 1;
+  }
+  .dropdown__value-container {
+    height: 25px;
+  }
+}
+
+.input-container.inactive .dropdown .dropdown__dropdown-indicator {
+  color: #757575;
 }
