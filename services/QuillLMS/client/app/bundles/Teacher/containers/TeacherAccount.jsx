@@ -1,11 +1,12 @@
 import React from 'react';
 import request from 'request';
+import { Snackbar, } from 'quill-component-library/dist/componentLibrary'
+
 import TeacherGeneralAccountInfo from '../components/accounts/edit/teacher_general'
 import TeacherPasswordAccountInfo from '../components/accounts/edit/teacher_password'
 import TeacherLinkedAccounts from '../components/accounts/edit/teacher_linked_accounts'
 import TeacherEmailNotifications from '../components/accounts/edit/teacher_email_notifications'
 import TeacherDangerZone from '../components/accounts/edit/teacher_danger_zone'
-import Snackbar from '../components/shared/snackbar'
 import getAuthToken from '../components/modules/get_auth_token'
 
 export default class TeacherAccount extends React.Component {
