@@ -1,5 +1,6 @@
 import React from 'react';
 import UnlinkModal from './unlink_modal'
+const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
 
 export default class TeacherLinkedAccounts extends React.Component {
   constructor(props) {
@@ -14,6 +15,7 @@ export default class TeacherLinkedAccounts extends React.Component {
     this.hideCleverModal = this.hideCleverModal.bind(this)
     this.showGoogleModal = this.showGoogleModal.bind(this)
     this.showCleverModal = this.showCleverModal.bind(this)
+    this.toggleGoogleClassroomAssignments = this.toggleGoogleClassroomAssignments.bind(this)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -41,8 +43,26 @@ export default class TeacherLinkedAccounts extends React.Component {
     this.setState({ showCleverModal: true, })
   }
 
+  toggleGoogleClassroomAssignments() {
+    const { updateUser, postGoogleClassroomAssignments, } = this.props
+    const data = {
+      post_google_classroom_assignments: !postGoogleClassroomAssignments,
+      school_options_do_not_apply: true
+    };
+    updateUser(data, '/teachers/update_my_account', 'Settings saved')
+  }
+
+  renderCheckbox() {
+    const { postGoogleClassroomAssignments, } = this.props
+    if (postGoogleClassroomAssignments) {
+      return <div className="quill-checkbox selected" onClick={this.toggleGoogleClassroomAssignments}><img src={smallWhiteCheckSrc} alt="check" /></div>
+    } else {
+      return <div className="quill-checkbox unselected" onClick={this.toggleGoogleClassroomAssignments} />
+    }
+  }
+
   renderGoogleSection() {
-    let actionElement, copy
+    let actionElement, copy, checkboxRow
     const { googleId, } = this.props
     if (!googleId || !googleId.length) {
       copy = 'Google is not linked'
@@ -50,6 +70,11 @@ export default class TeacherLinkedAccounts extends React.Component {
     } else {
       copy = 'Google account is linked'
       actionElement = <span className="google-or-clever-action" onClick={this.showGoogleModal}>Unlink</span>
+      checkboxRow = (<div className="checkbox-row post-assignments">
+        {this.renderCheckbox()}
+        <span>Post assignments as announcements in Google Classroom</span>
+      </div>)
+
     }
     return (
       <div>
@@ -60,6 +85,7 @@ export default class TeacherLinkedAccounts extends React.Component {
           </div>
           {actionElement}
         </div>
+        {checkboxRow}
       </div>);
   }
 

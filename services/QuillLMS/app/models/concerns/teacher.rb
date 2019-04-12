@@ -251,7 +251,8 @@ module Teacher
                   :original_selected_school_id,
                   :google_id,
                   :clever_id,
-                  :signed_up_with_google)
+                  :signed_up_with_google,
+                  :post_google_classroom_assignments)
 
     self.validate_username = true
 
@@ -275,7 +276,8 @@ module Teacher
                                         send_newsletter: params.key?(:send_newsletter) ? params[:send_newsletter] : self.send_newsletter,
                                         google_id: params.key?(:google_id) ? params[:google_id] : self.google_id,
                                         clever_id: params.key?(:clever_id) ? params[:clever_id] : self.clever_id,
-                                        signed_up_with_google: params.key?(:signed_up_with_google) ? params[:signed_up_with_google] : self.signed_up_with_google
+                                        signed_up_with_google: params.key?(:signed_up_with_google) ? params[:signed_up_with_google] : self.signed_up_with_google,
+                                        post_google_classroom_assignments: params.key?(:post_google_classroom_assignments) ? params[:post_google_classroom_assignments] : self.post_google_classroom_assignments
                                 )
         are_there_non_school_related_errors = false
       else

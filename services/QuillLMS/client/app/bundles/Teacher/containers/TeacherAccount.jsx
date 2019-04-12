@@ -12,7 +12,17 @@ export default class TeacherAccount extends React.Component {
   constructor(props) {
     super(props)
 
-    const { name, email, clever_id, google_id, time_zone, school, school_type, send_newsletter, } = props.accountInfo
+    const {
+      name,
+      email,
+      clever_id,
+      google_id,
+      time_zone,
+      school,
+      school_type,
+      send_newsletter,
+      post_google_classroom_assignments,
+    } = props.accountInfo
     this.state = {
       activeSection: null,
       name,
@@ -23,6 +33,7 @@ export default class TeacherAccount extends React.Component {
       googleId: google_id,
       cleverId: clever_id,
       sendNewsletter: send_newsletter,
+      postGoogleClassroomAssignments: post_google_classroom_assignments,
       snackbarCopy: '',
       showSnackbar: false,
       errors: {},
@@ -73,7 +84,17 @@ export default class TeacherAccount extends React.Component {
       json: { ...data, authenticity_token: getAuthToken(), },
     }, (error, httpStatus, body) => {
       if (httpStatus && httpStatus.statusCode === 200) {
-        const { name, email, clever_id, google_id, time_zone, school, school_type, send_newsletter, } = body
+        const {
+          name,
+          email,
+          clever_id,
+          google_id,
+          time_zone,
+          school,
+          school_type,
+          send_newsletter,
+          post_google_classroom_assignments,
+        } = body
         this.setState({
           name,
           email,
@@ -83,6 +104,7 @@ export default class TeacherAccount extends React.Component {
           googleId: google_id,
           cleverId: clever_id,
           sendNewsletter: send_newsletter,
+          postGoogleClassroomAssignments: post_google_classroom_assignments,
           snackbarCopy,
           errors: {}
         }, () => {
@@ -111,7 +133,20 @@ export default class TeacherAccount extends React.Component {
   }
 
   render() {
-    const { name, email, cleverId, googleId, timeZone, school, schoolType, errors, timesSubmitted, activeSection, sendNewsletter, } = this.state
+    const {
+      name,
+      email,
+      cleverId,
+      googleId,
+      timeZone,
+      school,
+      schoolType,
+      errors,
+      timesSubmitted,
+      activeSection,
+      sendNewsletter,
+      postGoogleClassroomAssignments,
+    } = this.state
     const { alternativeSchools, alternativeSchoolsNameMap, cleverLink, } = this.props
     return (<div className="teacher-account">
       <TeacherGeneralAccountInfo
@@ -146,6 +181,7 @@ export default class TeacherAccount extends React.Component {
         googleId={googleId}
         cleverLink={cleverLink}
         updateUser={this.updateUser}
+        postGoogleClassroomAssignments={postGoogleClassroomAssignments}
         email={email}
         errors={errors}
         timesSubmitted={timesSubmitted}

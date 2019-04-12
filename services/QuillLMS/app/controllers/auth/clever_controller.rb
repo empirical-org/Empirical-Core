@@ -9,7 +9,7 @@ class Auth::CleverController < ApplicationController
   # since a teacher may have created more clever classrooms /students betwixt logins
   def clever
     auth_hash = request.env['omniauth.auth']
-    if session[:clever_redirect].include?('my_account')
+    if session[:clever_redirect]&.include?('my_account')
       current_user.update(email: auth_hash['info']['email'])
     end
     result = CleverIntegration::SignUp::Main.run(auth_hash)

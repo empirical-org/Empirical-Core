@@ -371,6 +371,16 @@
     height: 1px;
     background-color: #e0e0e0;
   }
+  .post-assignments {
+    color: #646464;
+    margin-top: 17px;
+    .selected {
+      margin-right: 17px;
+    }
+    .unselected {
+      margin-right: 18px;
+    }
+  }
   .google-row, .clever-row {
     display: flex;
     justify-content: space-between;
@@ -378,9 +388,6 @@
     .first-half {
       display: flex;
       align-items: center;
-    }
-    img {
-      margin-right: 16px;
     }
     span {
       color: #646464;
@@ -390,6 +397,12 @@
       color: #009a80;
       cursor: pointer;
     }
+  }
+  .clever-row img {
+    margin-right: 13px;
+  }
+  .google-row img {
+    margin-right: 16px;
   }
 }
 
