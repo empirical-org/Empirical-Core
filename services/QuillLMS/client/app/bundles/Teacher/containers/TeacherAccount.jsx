@@ -50,11 +50,11 @@ export default class TeacherAccount extends React.Component {
   componentWillMount() {
     let snackbarCopy
     const { googleOrCleverJustSet, accountInfo, } = this.props
-    if (this.props.googleOrCleverJustSet) {
-      if (accountInfo.googleId) {
+    if (googleOrCleverJustSet) {
+      if (accountInfo.google_id) {
         snackbarCopy = 'Google linked'
       }
-      if (accountInfo.cleverId) {
+      if (accountInfo.clever_id) {
         snackbarCopy = 'Clever linked'
       }
       this.setState({ snackbarCopy, }, this.showSnackbar)
