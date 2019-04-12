@@ -30,6 +30,17 @@
     -o-transition: all 0.2s ease-in;
     transition: all 0.2s ease-in;
   }
+  &.dropdown-container {
+    &:not(.has-text) {
+      label {
+        margin-bottom: -24px;
+        z-index: 1;
+      }
+      .dropdown__value-container {
+        height: 25px;
+      }
+    }
+  }
   .dropdown {
     margin-bottom: 8px;
     &:focus {
@@ -151,6 +162,7 @@
       }
       .dropdown__dropdown-indicator {
         border-top: 6px solid;
+        color: #757575;
       }
       .dropdown__control {
         padding: 0px 0px 3px;
