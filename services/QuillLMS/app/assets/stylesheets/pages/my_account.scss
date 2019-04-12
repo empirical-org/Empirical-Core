@@ -308,6 +308,24 @@
       margin-right: 24px;
     }
   }
+
+  .checkbox-row {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 12px;
+    span {
+      line-height: 1.57;
+    }
+  }
+  .quill-checkbox {
+    margin-top: 2px;
+    &.selected {
+      margin-right: 23px;
+    }
+    &.unselected {
+      margin-right: 24px;
+    }
+  }
 }
 
 .teacher-account-general {
@@ -429,21 +447,8 @@
       width: 125px;
     }
   }
-  .checkbox-row {
-    display: flex;
-    align-items: flex-start;
-    margin-bottom: 12px;
-    span {
-      line-height: 1.57;
-    }
-  }
-  .quill-checkbox {
-    margin-top: 2px;
-    &.selected {
-      margin-right: 23px;
-    }
-    &.unselected {
-      margin-right: 24px;
-    }
-  }
+}
+
+.teacher-account-email-notifications {
+  padding-bottom: 34px;
 }

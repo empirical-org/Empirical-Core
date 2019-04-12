@@ -226,7 +226,7 @@ export default React.createClass({
     if (!this.state.sendNewsletter) {
       checkbox = <div className="quill-checkbox unselected" onClick={this.toggleNewsletter} />
     } else {
-      checkbox = <div className="quill-checkbox selected" onClick={this.toggleNewsletter}><img src={smallWhiteCheckSrc} /></div>
+      checkbox = <div className="quill-checkbox selected" onClick={this.toggleNewsletter}><img src={smallWhiteCheckSrc} alt="check" /></div>
     }
     return <div className="newsletter-row">{checkbox} <p>Monthly updates on new&nbsp;content</p></div>
   },

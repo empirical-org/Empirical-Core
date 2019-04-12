@@ -3,6 +3,7 @@ import request from 'request';
 import TeacherGeneralAccountInfo from '../components/accounts/edit/teacher_general'
 import TeacherPasswordAccountInfo from '../components/accounts/edit/teacher_password'
 import TeacherLinkedAccounts from '../components/accounts/edit/teacher_linked_accounts'
+import TeacherEmailNotifications from '../components/accounts/edit/teacher_email_notifications'
 import Snackbar from '../components/shared/snackbar'
 import getAuthToken from '../components/modules/get_auth_token'
 
@@ -10,7 +11,7 @@ export default class TeacherAccount extends React.Component {
   constructor(props) {
     super(props)
 
-    const { name, email, clever_id, google_id, time_zone, school, school_type } = props.accountInfo
+    const { name, email, clever_id, google_id, time_zone, school, school_type, send_newsletter, } = props.accountInfo
     this.state = {
       activeSection: null,
       name,
@@ -20,6 +21,7 @@ export default class TeacherAccount extends React.Component {
       schoolType: school_type,
       googleId: google_id,
       cleverId: clever_id,
+      sendNewsletter: send_newsletter,
       snackbarCopy: '',
       showSnackbar: false,
       errors: {},
@@ -70,7 +72,7 @@ export default class TeacherAccount extends React.Component {
       json: { ...data, authenticity_token: getAuthToken(), },
     }, (error, httpStatus, body) => {
       if (httpStatus && httpStatus.statusCode === 200) {
-        const { name, email, clever_id, google_id, time_zone, school, school_type, } = body
+        const { name, email, clever_id, google_id, time_zone, school, school_type, send_newsletter, } = body
         this.setState({
           name,
           email,
@@ -79,6 +81,7 @@ export default class TeacherAccount extends React.Component {
           schoolType: school_type,
           googleId: google_id,
           cleverId: clever_id,
+          sendNewsletter: send_newsletter,
           snackbarCopy,
           errors: {}
         }, () => {
@@ -97,7 +100,7 @@ export default class TeacherAccount extends React.Component {
   }
 
   render() {
-    const { name, email, cleverId, googleId, timeZone, school, schoolType, errors, timesSubmitted, activeSection, } = this.state
+    const { name, email, cleverId, googleId, timeZone, school, schoolType, errors, timesSubmitted, activeSection, sendNewsletter, } = this.state
     const { alternativeSchools, alternativeSchoolsNameMap, cleverLink, } = this.props
     return (<div className="teacher-account">
       <TeacherGeneralAccountInfo
@@ -135,6 +138,10 @@ export default class TeacherAccount extends React.Component {
         email={email}
         errors={errors}
         timesSubmitted={timesSubmitted}
+      />
+      <TeacherEmailNotifications
+        updateUser={this.updateUser}
+        sendNewsletter={sendNewsletter}
       />
       {this.renderSnackbar()}
     </div>)
