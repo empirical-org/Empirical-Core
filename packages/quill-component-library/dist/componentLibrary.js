@@ -28362,6 +28362,10 @@
       return SmartSpinner;
   }(React__default.Component));
 
+  var Snackbar = function (props) {
+      return (React__default.createElement("div", { id: "quill-snackbar", className: props.visible ? 'visible' : '' }, props.text));
+  };
+
   var spinnerSrc = 'https://assets.quill.org/images/icons/loader_still.svg';
   var Spinner = function () { return (React__default.createElement("div", { className: "loading-spinner" },
       React__default.createElement("div", { className: "spinner-container" },
@@ -96144,6 +96148,7 @@
   exports.Passthrough = Passthrough;
   exports.ResumeOrBeginButton = ResumeOrBeginButton;
   exports.SmartSpinner = SmartSpinner;
+  exports.Snackbar = Snackbar;
   exports.Spinner = Spinner;
   exports.TextEditor = TextEditor;
   exports.UploadOptimalResponses = UploadOptimalResponses;

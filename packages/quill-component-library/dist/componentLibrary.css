@@ -82,6 +82,11 @@
     -moz-transition: all 0.2s ease-in;
     -o-transition: all 0.2s ease-in;
     transition: all 0.2s ease-in; }
+  .input-container.dropdown-container:not(.has-text) label {
+    margin-bottom: -24px;
+    z-index: 1; }
+  .input-container.dropdown-container:not(.has-text) .dropdown__value-container {
+    height: 25px; }
   .input-container .dropdown {
     margin-bottom: 8px; }
     .input-container .dropdown:focus {
@@ -169,7 +174,8 @@
       border-width: 0px;
       border-color: #e0e0e0; }
     .input-container.inactive .dropdown .dropdown__dropdown-indicator {
-      border-top: 6px solid; }
+      border-top: 6px solid;
+      color: #757575; }
     .input-container.inactive .dropdown .dropdown__control {
       padding: 0px 0px 3px;
       border: 1px #e0e0e0;
@@ -229,3 +235,23 @@
     margin-right: 32px; }
   .quill-card:hover, .quill-card:focus {
     box-shadow: 0 0 0 2px #01c2a2; }
+
+#quill-snackbar {
+  opacity: 0;
+  border-radius: 4px;
+  box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.87);
+  color: #fff;
+  text-align: center;
+  padding: 13px 16px;
+  position: fixed;
+  z-index: 1;
+  bottom: 0;
+  left: 24px;
+  transition: bottom 0.5s, opacity 0.5s; }
+
+#quill-snackbar.visible {
+  left: 24px;
+  bottom: 24px;
+  opacity: 1;
+  transition: bottom 0.5s, opacity 0.5s; }

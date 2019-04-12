@@ -28357,6 +28357,10 @@ var SmartSpinner = (function (_super) {
     return SmartSpinner;
 }(React__default.Component));
 
+var Snackbar = function (props) {
+    return (React__default.createElement("div", { id: "quill-snackbar", className: props.visible ? 'visible' : '' }, props.text));
+};
+
 var spinnerSrc = 'https://assets.quill.org/images/icons/loader_still.svg';
 var Spinner = function () { return (React__default.createElement("div", { className: "loading-spinner" },
     React__default.createElement("div", { className: "spinner-container" },
@@ -96121,4 +96125,4 @@ var PlayTitleCard = function (props) { return (React__default.createElement("div
 
 var TitleCard = function (props) { return React__default.createElement("div", { className: "landing-page-html", dangerouslySetInnerHTML: { __html: props.html } }); };
 
-export { QuestionList, LinkListItem, QuestionListByConcept, Instructions, WarningDialogue, Prompt, ConceptExplanation, ArchivedButton, Card, CarouselAnimation, DiagnosticProgressBar, DropdownInput, Error$1 as Error, FlagDropdown, Input$2 as Input, Passthrough, ResumeOrBeginButton, SmartSpinner, Spinner, TextEditor, UploadOptimalResponses, Modal, ListItem, SortableList, AffectedResponse, PieChart, QuestionBar, ResponseSortFields, ResponseToggleFields, Feedback, Cue, CueExplanation, ThankYou, SentenceFragments, QuestionRow, MultipleChoice, Register, PlayTitleCard, TitleCard, hashToCollection };
+export { QuestionList, LinkListItem, QuestionListByConcept, Instructions, WarningDialogue, Prompt, ConceptExplanation, ArchivedButton, Card, CarouselAnimation, DiagnosticProgressBar, DropdownInput, Error$1 as Error, FlagDropdown, Input$2 as Input, Passthrough, ResumeOrBeginButton, SmartSpinner, Snackbar, Spinner, TextEditor, UploadOptimalResponses, Modal, ListItem, SortableList, AffectedResponse, PieChart, QuestionBar, ResponseSortFields, ResponseToggleFields, Feedback, Cue, CueExplanation, ThankYou, SentenceFragments, QuestionRow, MultipleChoice, Register, PlayTitleCard, TitleCard, hashToCollection };
