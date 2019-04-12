@@ -40,9 +40,14 @@ class Auth::GoogleController < ApplicationController
 
   def set_user
     if session[:google_redirect]&.include?('my_account')
-      current_user.update(email: @profile.email)
+      user = current_user.update(email: @profile.email)
+      if user
+        session[:google_or_clever_just_set] = true
+      else
+        flash[:error] = "This Google account is already associated with another Quill account. Contact support@quill.org for further assistance."
+        flash.keep(:error)
+      end
     end
-    session[:google_or_clever_just_set] = true
     @user = GoogleIntegration::User.new(@profile).update_or_initialize
   end
 
