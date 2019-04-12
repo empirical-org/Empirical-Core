@@ -177,7 +177,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def clear_data
-    if params[:id] == current_user.id
+    if params[:id]&.to_i == current_user.id
       sign_out
       User.find(params[:id]).clear_data
       render json: {}

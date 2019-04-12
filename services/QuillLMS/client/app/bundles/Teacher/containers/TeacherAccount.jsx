@@ -43,6 +43,7 @@ export default class TeacherAccount extends React.Component {
 
     this.activateSection = this.activateSection.bind(this)
     this.deactivateSection = this.deactivateSection.bind(this)
+    this.deleteAccount = this.deleteAccount.bind(this)
     this.updateUser = this.updateUser.bind(this)
     this.showSnackbar = this.showSnackbar.bind(this)
     this.renderSnackbar = this.renderSnackbar.bind(this)
