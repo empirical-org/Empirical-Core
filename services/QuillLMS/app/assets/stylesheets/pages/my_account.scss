@@ -319,12 +319,7 @@
   }
   .quill-checkbox {
     margin-top: 2px;
-    &.selected {
-      margin-right: 23px;
-    }
-    &.unselected {
-      margin-right: 24px;
-    }
+    margin-right: 24px;
   }
 }
 
@@ -369,17 +364,11 @@
     width: 576px;
     margin: 25px 0px 25px -32px;
     height: 1px;
-    background-color: #e0e0e0;
   }
   .post-assignments {
     color: #646464;
     margin-top: 17px;
-    .selected {
-      margin-right: 17px;
-    }
-    .unselected {
-      margin-right: 18px;
-    }
+    margin-right: 18px;
   }
   .google-row, .clever-row {
     display: flex;
@@ -399,10 +388,10 @@
     }
   }
   .clever-row img {
-    margin-right: 13px;
+    margin-right: 19px;
   }
   .google-row img {
-    margin-right: 16px;
+    margin-right: 21px;
   }
 }
 
@@ -477,6 +466,9 @@
 
 .teacher-account-email-notifications {
   padding-bottom: 34px;
+  span {
+    color: #646464;
+  }
 }
 
 .teacher-account-danger-zone {
