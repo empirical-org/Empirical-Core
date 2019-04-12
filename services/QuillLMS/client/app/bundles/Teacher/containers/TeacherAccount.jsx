@@ -4,6 +4,7 @@ import TeacherGeneralAccountInfo from '../components/accounts/edit/teacher_gener
 import TeacherPasswordAccountInfo from '../components/accounts/edit/teacher_password'
 import TeacherLinkedAccounts from '../components/accounts/edit/teacher_linked_accounts'
 import TeacherEmailNotifications from '../components/accounts/edit/teacher_email_notifications'
+import TeacherDangerZone from '../components/accounts/edit/teacher_danger_zone'
 import Snackbar from '../components/shared/snackbar'
 import getAuthToken from '../components/modules/get_auth_token'
 
@@ -94,6 +95,16 @@ export default class TeacherAccount extends React.Component {
     });
   }
 
+  deleteAccount() {
+    const { id, } = this.props.accountInfo
+    request.post({
+      url: `${process.env.DEFAULT_URL}/teachers/clear_data/${id}`,
+      json: { authenticity_token: getAuthToken(), },
+    }, () => {
+      window.location.href = window.location.origin;
+    })
+  }
+
   renderSnackbar() {
     const { showSnackbar, snackbarCopy, } = this.state
     return <Snackbar text={snackbarCopy} visible={showSnackbar} />
@@ -142,6 +153,9 @@ export default class TeacherAccount extends React.Component {
       <TeacherEmailNotifications
         updateUser={this.updateUser}
         sendNewsletter={sendNewsletter}
+      />
+      <TeacherDangerZone
+        deleteAccount={this.deleteAccount}
       />
       {this.renderSnackbar()}
     </div>)
