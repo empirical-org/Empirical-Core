@@ -13,7 +13,7 @@ export default React.createClass({
                     <h1 className='q-h2'>First: Update Your Email</h1>
                     <p>Your Quill email address must be the same as your Google Classroom email. If your email is the same click Next. If it is different, you can update your Quill email below.</p>
                     <UpdateEmail email={this.props.user.email}/>
-                    <a className="q-button cta-button bg-quillgreen text-white" href='/auth/google_oauth2'>
+                    <a className="q-button cta-button bg-quillgreen text-white" href='/auth/google_oauth2?prompt=consent'>
                       Next: Choose Google Classrooms
                     </a>
                 </Modal.Body>

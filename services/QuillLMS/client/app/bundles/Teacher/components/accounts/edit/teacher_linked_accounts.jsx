@@ -66,7 +66,7 @@ export default class TeacherLinkedAccounts extends React.Component {
     const { googleId, } = this.props
     if (!googleId || !googleId.length) {
       copy = 'Google is not linked'
-      actionElement = <a className="google-or-clever-action" href="/auth/google_oauth2">Link your account</a>
+      actionElement = <a className="google-or-clever-action" href="/auth/google_oauth2?prompt=consent">Link your account</a>
     } else {
       copy = 'Google account is linked'
       actionElement = <span className="google-or-clever-action" onClick={this.showGoogleModal}>Unlink</span>
