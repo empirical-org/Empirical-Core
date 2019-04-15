@@ -259,6 +259,9 @@
   margin: auto;
   padding: 38px 32px 0px;
   margin-bottom: 24px;
+  .secondary {
+    cursor: pointer;
+  }
   h1 {
     font-size: 24px;
     font-weight: bold;
@@ -474,7 +477,6 @@
 .teacher-account-danger-zone {
   .secondary {
     width: 162px;
-    cursor: pointer;
   }
   .danger-zone-description {
     color: #646464;
