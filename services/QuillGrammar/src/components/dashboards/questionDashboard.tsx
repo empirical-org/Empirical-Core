@@ -2,59 +2,58 @@ import * as React from 'react';
 import ReactTable from 'react-table';
 import { connect } from 'react-redux';
 import LoadingSpinner from '../shared/loading_spinner'
+import * as QuestionAndConceptMapActions from '../../actions/questionAndConceptMap'
 
 class QuestionDashboard extends React.Component {
   constructor(props) {
     super(props)
   }
 
+  componentWillMount() {
+    this.props.dispatch(QuestionAndConceptMapActions.checkTimeout())
+  }
+
   columns() {
     return [
       {
-        Header: 'Student',
-        accessor: 'student_name',
+        Header: 'Question',
+        accessor: 'prompt',
         resizable: false,
-        Cell: row => row.original.student_name,
+        Cell: row => <a href={row.original.link}>{row.original.prompt}</a>,
       }, {
-        Header: 'Teacher',
-        accessor: 'teacher_name',
+        Header: 'Concept',
+        accessor: 'concept.name',
         resizable: false,
-        Cell: row => row.original.teacher_name,
+        Cell: row => <a href={row.original.concept.link}>{row.original.concept.name}</a>,
       }, {
-        Header: 'Classroom',
-        accessor: 'classroom_name',
+        Header: 'Explicitly Assigned Activities',
+        accessor: 'explicitlyAssignedActivities',
         resizable: false,
-        Cell: row => row.original.classroom_name,
+        Cell: row => {
+          return row.explicitlyAssignedActivities.map(act => <a href={act.link}>{act.title}</a>)
+        },
       }, {
-        Header: 'School',
-        accessor: 'school_name',
+        Header: 'Implicitly Assigned Activities',
+        accessor: 'implicitlyAssignedActivities',
         resizable: false,
-        Cell: row => row.original.school_name,
+        Cell: row => {
+          return row.implicitlyAssignedActivities.map(act => <a href={act.link}>{act.title}</a>)
+        },
       }, {
-        Header: 'Correct',
-        accessor: 'correct',
+        Header: 'No Activities',
+        accessor: 'noActivities',
         resizable: false,
-        Cell: row => Number(row.original.correct),
-      }, {
-        Header: 'Incorrect',
-        accessor: 'incorrect',
-        resizable: false,
-        Cell: row => Number(row.original.incorrect),
-      }, {
-        Header: 'Success Rate',
-        accessor: 'percentage',
-        resizable: false,
-        Cell: row => `${row.original.percentage}%`,
+        Cell: row => row.original.noActivities,
       }
     ];
   }
 
   render() {
-    if (props.questionRows && props.questionRows.length) {
-      return (<div key={`${data.length}-length-for-activities-scores-by-classroom`}>
+    if (this.props.questionRows && this.props.questionRows.length) {
+      return (<div key={`${this.props.questionRows.length}-length-for-activities-scores-by-classroom`}>
         <ReactTable
-          data={data}
-          columns={columns}
+          data={this.props.questionRows}
+          columns={this.columns()}
           showPagination
           defaultSorted={[{ id: 'last_active', desc: true, }]}
           showPaginationTop={false}
