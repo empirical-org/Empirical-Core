@@ -13,6 +13,7 @@ interface InputProps {
   handleCancel?: (event: any) => void;
   helperText?: string;
   handleChange?: (event: any) => void;
+  onClick?: (event: any) => void;
 }
 
 interface InputState {
@@ -191,7 +192,7 @@ export class Input extends React.Component<InputProps, InputState> {
   }
 
   render() {
-    return this.renderInput()
+    return <div onClick={this.props.onClick}>{this.renderInput()}</div>
   }
 
 }

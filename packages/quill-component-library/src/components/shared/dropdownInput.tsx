@@ -16,6 +16,7 @@ interface DropdownInputProps {
   handleCancel?: (event: any) => void;
   helperText?: string;
   handleChange?: (event: any) => void;
+  onClick?: (event: any) => void;
 }
 
 interface DropdownInputState {
@@ -216,6 +217,6 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
   }
 
   render() {
-    return this.renderInput()
+    return <div onClick={this.props.onClick}>{this.renderInput()}</div>
   }
 }

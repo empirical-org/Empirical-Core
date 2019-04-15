@@ -41,7 +41,7 @@ export default class TeacherGeneralAccountInfo extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     const { active, email, name, school, timeZone, schoolType, } = nextProps
-    
+
     if (this.props.active && !active) {
       this.reset()
     }
@@ -62,8 +62,8 @@ export default class TeacherGeneralAccountInfo extends React.Component {
     }
   }
 
-  activateSection(e) {
-    if (e.target.id !== 'cancel' && (!this.props.active || !this.state.showButtonSection)) {
+  activateSection() {
+    if (!this.props.active || !this.state.showButtonSection) {
       this.setState({ showButtonSection: true, })
       this.props.activateSection()
     }
@@ -82,6 +82,7 @@ export default class TeacherGeneralAccountInfo extends React.Component {
   }
 
   showSchoolSelector() {
+    this.activateSection()
     this.setState({ showSchoolSelector: true, })
   }
 
@@ -180,6 +181,7 @@ export default class TeacherGeneralAccountInfo extends React.Component {
         className="email"
         error={errors.email}
         timesSubmitted={timesSubmitted}
+        onClick={this.activateSection}
       />)
     }
   }
@@ -227,7 +229,7 @@ export default class TeacherGeneralAccountInfo extends React.Component {
     const selectedTimeZone = timeZoneOptions.find(tz => tz.name === timeZone)
     const selectedSchoolType = this.schoolTypeOptions().find(st => st.value === schoolType)
 
-    return <div className="teacher-account-general teacher-account-section" onClick={this.activateSection}>
+    return <div className="teacher-account-general teacher-account-section">
       <h1>General</h1>
       <form onSubmit={this.handleSubmit} acceptCharset="UTF-8" >
         <div className="fields">
@@ -239,6 +241,7 @@ export default class TeacherGeneralAccountInfo extends React.Component {
             className="name"
             error={errors.name}
             timesSubmitted={timesSubmitted}
+            onClick={this.activateSection}
           />
           {this.renderEmail()}
           <DropdownInput
@@ -247,6 +250,7 @@ export default class TeacherGeneralAccountInfo extends React.Component {
             options={timeZoneOptions}
             handleChange={this.handleTimezoneChange}
             error={errors.timeZone}
+            onClick={this.activateSection}
           />
           <DropdownInput
             label="School type"
@@ -254,6 +258,7 @@ export default class TeacherGeneralAccountInfo extends React.Component {
             options={this.schoolTypeOptions()}
             handleChange={this.handleSchoolTypeChange}
             error={errors.schoolType}
+            onClick={this.activateSection}
           />
           {this.renderSchool()}
         </div>
