@@ -59,6 +59,7 @@
     "react-select": "^2.0.0",
     "react-select-search": "^0.9.3",
     "react-sortable": "^2.0.0",
+    "react-table": "^6.9.2",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
     "request": "^2.88.0",
