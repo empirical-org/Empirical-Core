@@ -272,6 +272,9 @@
     &.unacknowledged {
       margin-bottom: 0px;
     }
+    &.active.not-editable {
+      margin-bottom: 78px;
+    }
   }
   .school-container, .inactive-password-container {
     display: flex;
