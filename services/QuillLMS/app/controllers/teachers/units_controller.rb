@@ -140,7 +140,7 @@ class Teachers::UnitsController < ApplicationController
     )
 
     completed_count = completed.count
-    cumulative_score = completed.sum("percentage") * 100
+    cumulative_score = completed.sum(:percentage) * 100
 
     render json: {cumulative_score: cumulative_score, completed_count: completed_count}
   end
