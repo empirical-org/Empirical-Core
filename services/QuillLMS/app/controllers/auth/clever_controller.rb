@@ -9,10 +9,10 @@ class Auth::CleverController < ApplicationController
   # since a teacher may have created more clever classrooms /students betwixt logins
   def clever
     auth_hash = request.env['omniauth.auth']
-    if session[:clever_redirect]&.include?('my_account')
+    if route_redirects_to_my_account?(session[ApplicationController::CLEVER_REDIRECT])
       user = current_user.update(email: auth_hash['info']['email'])
       if user
-        session[:google_or_clever_just_set] = true
+        session[ApplicationController::GOOGLE_OR_CLEVER_JUST_SET] = true
       else
         flash[:error] = "This Clever account is already associated with another Quill account. Contact support@quill.org for further assistance."
         flash.keep(:error)
@@ -31,9 +31,9 @@ class Auth::CleverController < ApplicationController
   def user_success(data) # data is a User record
     new_user = !data.previous_changes["id"].nil?
     data.update_attributes(ip_address: request.remote_ip)
-    if session[:clever_redirect]
-      redirect_route = session[:clever_redirect]
-      session[:clever_redirect] = nil
+    if session[ApplicationController::CLEVER_REDIRECT]
+      redirect_route = session[ApplicationController::CLEVER_REDIRECT]
+      session[ApplicationController::CLEVER_REDIRECT] = nil
       return redirect_to redirect_route
     else
       sign_in(data)

@@ -1,6 +1,6 @@
 import React from 'react'
 
 export const Snackbar = (props: {visible: boolean, text: string}) =>
-  (<div id="quill-snackbar" className={props.visible ? 'visible' : ''}>
+  (<div className={`quill-snackbar ${props.visible ? 'visible' : ''}`}>
     {props.text}
   </div>);

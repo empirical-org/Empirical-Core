@@ -118,12 +118,13 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
     const { className, label, value, placeholder, error, type, id, options, isSearchable, } = this.props
     const hasText = value ? 'has-text' : ''
     const inactiveOrActive = inactive ? 'inactive' : 'active'
-    const isEditable = isSearchable ? '' : 'not-editable'
+    const notEditable = isSearchable ? '' : 'not-editable'
+    const sharedClasses = `${inactiveOrActive} ${hasText} ${notEditable} ${className}`
     if (error) {
       if (errorAcknowledged) {
         return (
           <div
-            className={`input-container error ${inactiveOrActive} ${hasText} ${isEditable} ${className}`}
+            className={`input-container error ${sharedClasses}`}
             ref={node => this.node = node}
             onClick={this.activateInput}
           >
@@ -147,7 +148,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
       } else {
         return (
           <div
-            className={`input-container error unacknowledged ${inactiveOrActive} ${hasText} ${isEditable} ${className}`}
+            className={`input-container error unacknowledged ${sharedClasses}`}
             onClick={this.acknowledgeError}
             ref={node => this.node = node}
           >
@@ -170,7 +171,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
     } else if (inactive) {
       return (
         <div
-          className={`input-container ${inactiveOrActive} ${hasText} ${isEditable} ${this.props.className}`}
+          className={`input-container ${sharedClasses}`}
           onClick={this.activateInput}
           ref={node => this.node = node}
         >
@@ -193,7 +194,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
     } else {
       return (
         <div
-          className={`input-container dropdown ${inactiveOrActive} ${hasText} ${isEditable} ${className}`}
+          className={`input-container dropdown ${sharedClasses}`}
           ref={node => this.node = node}
         >
           <label>{label}</label>
