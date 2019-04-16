@@ -128,32 +128,21 @@ class Teachers::UnitsController < ApplicationController
     render json: {}
   end
 
+  # required params
+  # :activity_id (in url)
+  # :classroom_unit_id
   def score_info
-    unless params[:classroom_unit_id].present? and params[:activity_id].present?
-      score_info = {}
-    else
-      cuid = params[:classroom_unit_id]
-      aid = params[:activity_id]
-      started_count = ActiveRecord::Base.connection.execute(
-        """SELECT COUNT(DISTINCT user_id) as started_count FROM activity_sessions WHERE state =
-        'started' AND classroom_unit_id = #{cuid} AND
-        activity_sessions.activity_id = #{aid} AND
-        activity_sessions.visible;""").to_a
-      completed_count = ActiveRecord::Base.connection.execute(
-        """SELECT COUNT(id) as completed_count FROM activity_sessions WHERE is_final_score = true
-        AND classroom_unit_id = #{cuid} AND activity_sessions.visible AND
-        activity_sessions.activity_id = #{aid};"""
-      ).to_a
-      cum_score = ActiveRecord::Base.connection.execute(
-        """SELECT SUM(percentage)*100 as cumulative_score FROM activity_sessions WHERE
-        is_final_score = true AND classroom_unit_id = #{cuid} AND
-        activity_sessions.activity_id = #{aid} AND
-        activity_sessions.visible;""").to_a
-      started_count[0]['cumulative_score'] = cum_score[0]['cumulative_score']
-      started_count[0]['completed_count'] = completed_count[0]['completed_count']
-      started_count = started_count[0]
-    end
-    render json: started_count
+    completed = ActivitySession.where(
+      classroom_unit_id: params[:classroom_unit_id],
+      activity_id: params[:activity_id],
+      is_final_score: true,
+      visible: true
+    )
+
+    completed_count = completed.count
+    cumulative_score = completed.sum("percentage") * 100
+
+    render json: {cumulative_score: cumulative_score, completed_count: completed_count}
   end
 
   private
