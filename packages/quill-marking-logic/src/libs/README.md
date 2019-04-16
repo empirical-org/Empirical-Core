@@ -60,6 +60,10 @@ Here is the order of algorithms in the sequence.
 15. Case Start Checker (see if response starts with a capital letter)
 16. Punctuation End Checker (see if response ends with punctuation)
 
+## Connect and Diagnostic Fill in Blank Questions
+1. Exact Match to Optimal or Sub-Optimal Response
+2. Case Insensitive Match (ignores case)
+
 
 ### Question Class
 
