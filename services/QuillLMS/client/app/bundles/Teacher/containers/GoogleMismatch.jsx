@@ -18,7 +18,7 @@ export default class extends React.Component{
         <p>Your Google Classroom email must be the same as your Quill email. If you want to use a different Google Classroom account, please <a href="https://classroom.google.com/">sign in</a> to that Google account first and then come back to Quill.</p>
         <UpdateEmail />
         <p>Make sure to press the <strong>update email button</strong> before you press next.</p>
-        <a className="q-button cta-button bg-quillgreen text-white sync-button" href='/auth/google_oauth2'>
+        <a className="q-button cta-button bg-quillgreen text-white sync-button" href='/auth/google_oauth2?prompt=consent'>
           Next: Sync With Google Classrooms
         </a>
         <p>

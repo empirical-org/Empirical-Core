@@ -497,6 +497,11 @@ class User < ActiveRecord::Base
     user_attributes[:subscription] = subscription ? subscription.attributes : {}
     user_attributes[:subscription]['subscriptionType'] = premium_state
     user_attributes[:school] = school
+    if school && school.name
+      user_attributes[:school_type] = School::ALTERNATIVE_SCHOOLS_DISPLAY_NAME_MAP[school.name] || School::US_K12_SCHOOL_DISPLAY_NAME
+    else
+      user_attributes[:school_type] = School::US_K12_SCHOOL_DISPLAY_NAME
+    end
     user_attributes
   end
 
@@ -607,5 +612,9 @@ private
 
   def update_invitee_email_address
     Invitation.where(invitee_email: self.email_was).update_all(invitee_email: self.email)
+  end
+
+  def is_new_teacher_without_school?
+    self.role == 'teacher' && !self.school && self.previous_changes["id"]
   end
 end
