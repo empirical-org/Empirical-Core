@@ -17,11 +17,11 @@ class ClassroomUnit < ActiveRecord::Base
   end
 
   def is_valid_for_google_announcement_with_specific_user?(user)
-    !!self.classroom.google_classroom_id && !!user.google_id
+    !!self.classroom.google_classroom_id && !!user.google_id && !!user.post_google_classroom_assignments
   end
 
   def is_valid_for_google_announcement_with_owner?
-    !!self.classroom.google_classroom_id && !!self.classroom.owner.google_id
+    !!self.classroom.google_classroom_id && !!self.classroom.owner.google_id && !!self.classroom.owner.post_google_classroom_assignments
   end
 
   def validate_assigned_student(student_id)
