@@ -414,19 +414,6 @@ describe Teachers::ClassroomManagerController, type: :controller do
     end
   end
 
-  describe '#my_account_data' do
-    let(:teacher) { create(:teacher) }
-
-    before do
-      allow(controller).to receive(:current_user) { teacher }
-    end
-
-    it 'should render the correct json' do
-      get :my_account_data, format: :json
-      expect(response.body).to eq(teacher.generate_teacher_account_info.to_json)
-    end
-  end
-
   describe '#retreive_google_clasrooms' do
     let(:teacher) { create(:teacher) }
 
