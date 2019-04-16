@@ -233,7 +233,7 @@
   .quill-card:hover, .quill-card:focus {
     box-shadow: 0 0 0 2px #01c2a2; }
 
-#quill-snackbar {
+.quill-snackbar {
   opacity: 0;
   border-radius: 4px;
   box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2);
@@ -247,7 +247,7 @@
   left: 24px;
   transition: bottom 0.5s, opacity 0.5s; }
 
-#quill-snackbar.visible {
+.quill-snackbar.visible {
   left: 24px;
   bottom: 24px;
   opacity: 1;
