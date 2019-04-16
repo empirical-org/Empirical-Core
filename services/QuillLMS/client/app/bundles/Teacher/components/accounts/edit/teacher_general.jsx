@@ -1,5 +1,8 @@
 import React from 'react';
-import { Input, DropdownInput } from 'quill-component-library/dist/componentLibrary'
+import {
+  Input,
+  DropdownInput
+} from 'quill-component-library/dist/componentLibrary'
 
 import SchoolSelector from '../../shared/school_selector'
 import timezones from '../../../../../modules/timezones'

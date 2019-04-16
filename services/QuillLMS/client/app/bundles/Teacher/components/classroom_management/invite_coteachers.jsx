@@ -5,7 +5,6 @@ import request from 'request';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
 import AssigningIndicator from '../shared/button_loading_indicator';
 import Select from 'react-select';
-require('react-select/dist/react-select.css')
 
 export default class extends React.Component {
   constructor(props) {
