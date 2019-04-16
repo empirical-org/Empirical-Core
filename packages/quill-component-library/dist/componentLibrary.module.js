@@ -28193,7 +28193,7 @@ var DropdownInput = (function (_super) {
         }
     };
     DropdownInput.prototype.render = function () {
-        return this.renderInput();
+        return React__default.createElement("div", { onClick: this.props.onClick }, this.renderInput());
     };
     return DropdownInput;
 }(React__default.Component));
@@ -28325,7 +28325,7 @@ var Input$2 = (function (_super) {
         }
     };
     Input.prototype.render = function () {
-        return this.renderInput();
+        return React__default.createElement("div", { onClick: this.props.onClick }, this.renderInput());
     };
     return Input;
 }(React__default.Component));
