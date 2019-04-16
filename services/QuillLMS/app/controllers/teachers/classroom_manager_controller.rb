@@ -144,6 +144,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def update_my_account
+    # @TODO - refactor to replace the rails errors with the ones used here
     response = current_user.update_teacher(params['classroom_manager'])
     if response && response[:errors] && response[:errors].any?
       errors = {}
@@ -161,6 +162,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def update_my_password
+    # @TODO - move to the model in an update_password method that uses validations and returns the user record with errors if it's not successful.
     errors = {}
     if current_user.authenticate(params[:current_password])
       if params[:new_password] == params[:confirmed_new_password]
