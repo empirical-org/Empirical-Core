@@ -4,7 +4,10 @@ class Teachers::ClassroomManagerController < ApplicationController
   # WARNING: these filter methods check against classroom_id, not id.
   before_filter :authorize_owner!, except: [:scores, :scorebook, :lesson_planner]
   before_filter :authorize_teacher!, only: [:scores, :scorebook, :lesson_planner]
+  before_filter :set_alternative_schools, only: [:my_account, :update_my_account, :update_my_password]
   include ScorebookHelper
+
+  MY_ACCOUNT = 'my_account'
 
   def lesson_planner
     if current_user.classrooms_i_teach.empty?
@@ -133,20 +136,52 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def my_account
-    @time_zones = [{name: 'Select Time Zone', id: 'Select Time Zone'}].concat(TZInfo::Timezone.all_country_zone_identifiers.sort.map{|tz| {name: tz.gsub('_', ' '), id: tz}})
-  end
-
-  def my_account_data
-    render json: current_user.generate_teacher_account_info
+    session[GOOGLE_REDIRECT] = request.env['PATH_INFO']
+    session[:clever_redirect] = request.env['PATH_INFO']
+    @google_or_clever_just_set = session[ApplicationController::GOOGLE_OR_CLEVER_JUST_SET]
+    session[ApplicationController::GOOGLE_OR_CLEVER_JUST_SET] = nil
+    @account_info = current_user.generate_teacher_account_info
   end
 
   def update_my_account
-    response = current_user.update_teacher params
-    render json: response
+    # @TODO - refactor to replace the rails errors with the ones used here
+    response = current_user.update_teacher(params['classroom_manager'])
+    if response && response[:errors] && response[:errors].any?
+      errors = {}
+      if response[:errors]['email']&.include?('is being updated to a email that exists')
+        errors['email'] = ['That email is taken. Try another.']
+      elsif response[:errors]['email']&.include?('does not appear to be a valid e-mail address')
+        errors['email'] = ['Enter a valid email']
+      elsif response[:errors]['name']&.include?('must include first and last name')
+        errors['name'] = ["Enter both a first and last name"]
+      end
+      render json: {errors: errors}, status: 422
+    else
+      render json: current_user.generate_teacher_account_info
+    end
+  end
+
+  def update_my_password
+    # @TODO - move to the model in an update_password method that uses validations and returns the user record with errors if it's not successful.
+    errors = {}
+    if current_user.authenticate(params[:current_password])
+      if params[:new_password] == params[:confirmed_new_password]
+        current_user.update(password: params[:new_password])
+      else
+        errors['confirmed_new_password'] = "Those passwords didn't match. Try again."
+      end
+    else
+      errors['current_password'] = 'Wrong password. Try again or click Forgot password to reset it.'
+    end
+    if errors.any?
+      render json: {errors: errors}, status: 422
+    else
+      render json: current_user.generate_teacher_account_info
+    end
   end
 
   def clear_data
-    if params[:id] == current_user.id
+    if params[:id]&.to_i == current_user.id
       sign_out
       User.find(params[:id]).clear_data
       render json: {}
@@ -267,6 +302,11 @@ class Teachers::ClassroomManagerController < ApplicationController
     else
       teacher_or_staff!
     end
+  end
+
+  def set_alternative_schools
+    @alternative_schools = School.where(name: School::ALTERNATIVE_SCHOOL_NAMES)
+    @alternative_schools_name_map = School::ALTERNATIVE_SCHOOLS_DISPLAY_NAME_MAP
   end
 
 end

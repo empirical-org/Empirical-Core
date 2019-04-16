@@ -28097,6 +28097,7 @@ var DropdownInput = (function (_super) {
         _this.handleClick = _this.handleClick.bind(_this);
         _this.onKeyDown = _this.onKeyDown.bind(_this);
         _this.deactivateInput = _this.deactivateInput.bind(_this);
+        _this.handleChange = _this.handleChange.bind(_this);
         return _this;
     }
     DropdownInput.prototype.componentWillMount = function () {
@@ -28155,39 +28156,45 @@ var DropdownInput = (function (_super) {
             return React__default.createElement("span", { className: "error-text" }, error);
         }
     };
+    DropdownInput.prototype.handleChange = function (e) {
+        this.deactivateInput();
+        this.props.handleChange(e);
+    };
     DropdownInput.prototype.renderInput = function () {
         var _this = this;
         var _a = this.state, inactive = _a.inactive, errorAcknowledged = _a.errorAcknowledged, menuIsOpen = _a.menuIsOpen;
-        var _b = this.props, className = _b.className, label = _b.label, handleChange = _b.handleChange, value = _b.value, placeholder = _b.placeholder, error = _b.error, type = _b.type, id = _b.id, options = _b.options;
+        var _b = this.props, className = _b.className, label = _b.label, value = _b.value, placeholder = _b.placeholder, error = _b.error, type = _b.type, id = _b.id, options = _b.options, isSearchable = _b.isSearchable;
         var hasText = value ? 'has-text' : '';
         var inactiveOrActive = inactive ? 'inactive' : 'active';
+        var notEditable = isSearchable ? '' : 'not-editable';
+        var sharedClasses = inactiveOrActive + " " + hasText + " " + notEditable + " " + className;
         if (error) {
             if (errorAcknowledged) {
-                return (React__default.createElement("div", { className: "input-container error " + inactiveOrActive + " " + hasText + " " + className, ref: function (node) { return _this.node = node; }, onClick: this.activateInput },
+                return (React__default.createElement("div", { className: "input-container error " + sharedClasses, ref: function (node) { return _this.node = node; }, onClick: this.activateInput },
                     React__default.createElement("label", null, label),
-                    React__default.createElement(index$1$1, { id: id, ref: function (input) { _this.input = input; }, onChange: handleChange, value: value, type: type, placeholder: placeholder || '', onKeyDown: this.onKeyDown, menuIsOpen: menuIsOpen, options: options, isClearable: false, className: "dropdown", classNamePrefix: "dropdown" })));
+                    React__default.createElement(index$1$1, { id: id, ref: function (input) { _this.input = input; }, onChange: this.handleChange, value: value, type: type, placeholder: placeholder || '', onKeyDown: this.onKeyDown, menuIsOpen: menuIsOpen, options: options, isClearable: false, className: "dropdown", classNamePrefix: "dropdown", isSearchable: isSearchable })));
             }
             else {
-                return (React__default.createElement("div", { className: "input-container error unacknowledged " + inactiveOrActive + " " + hasText + " " + className, onClick: this.acknowledgeError, ref: function (node) { return _this.node = node; } },
+                return (React__default.createElement("div", { className: "input-container error unacknowledged " + sharedClasses, onClick: this.acknowledgeError, ref: function (node) { return _this.node = node; } },
                     React__default.createElement("label", null, label),
-                    React__default.createElement(index$1$1, { id: id, ref: function (input) { _this.input = input; }, onFocus: this.activateInput, type: type, value: value, menuIsOpen: false, isClearable: false, className: "dropdown", classNamePrefix: "dropdown" }),
+                    React__default.createElement(index$1$1, { id: id, ref: function (input) { _this.input = input; }, onFocus: this.activateInput, type: type, value: value, menuIsOpen: false, isClearable: false, className: "dropdown", classNamePrefix: "dropdown", isSearchable: isSearchable }),
                     this.renderErrorText()));
             }
         }
         else if (inactive) {
-            return (React__default.createElement("div", { className: "input-container " + inactiveOrActive + " " + hasText + " " + this.props.className, onClick: this.activateInput, ref: function (node) { return _this.node = node; } },
+            return (React__default.createElement("div", { className: "input-container " + sharedClasses, onClick: this.activateInput, ref: function (node) { return _this.node = node; } },
                 React__default.createElement("label", null, label),
-                React__default.createElement(index$1$1, { id: id, ref: function (input) { _this.input = input; }, onFocus: this.activateInput, type: type, value: value, menuIsOpen: false, isClearable: false, className: "dropdown", classNamePrefix: "dropdown", placeholder: placeholder || '' }),
+                React__default.createElement(index$1$1, { id: id, ref: function (input) { _this.input = input; }, onFocus: this.activateInput, type: type, value: value, menuIsOpen: false, isClearable: false, className: "dropdown", classNamePrefix: "dropdown", placeholder: placeholder || '', isSearchable: isSearchable }),
                 this.renderHelperText()));
         }
         else {
-            return (React__default.createElement("div", { className: "input-container dropdown " + inactiveOrActive + " " + hasText + " " + className, ref: function (node) { return _this.node = node; } },
+            return (React__default.createElement("div", { className: "input-container dropdown " + sharedClasses, ref: function (node) { return _this.node = node; } },
                 React__default.createElement("label", null, label),
-                React__default.createElement(index$1$1, { id: id, ref: function (input) { _this.input = input; }, onChange: handleChange, value: value, type: type, placeholder: placeholder || '', onKeyDown: this.onKeyDown, menuIsOpen: menuIsOpen, options: options, isClearable: false, className: "dropdown", classNamePrefix: "dropdown" })));
+                React__default.createElement(index$1$1, { id: id, ref: function (input) { _this.input = input; }, onChange: this.handleChange, value: value, type: type, placeholder: placeholder || '', onKeyDown: this.onKeyDown, menuIsOpen: menuIsOpen, options: options, isClearable: false, className: "dropdown", classNamePrefix: "dropdown", isSearchable: isSearchable })));
         }
     };
     DropdownInput.prototype.render = function () {
-        return this.renderInput();
+        return React__default.createElement("div", { onClick: this.props.onClick }, this.renderInput());
     };
     return DropdownInput;
 }(React__default.Component));
@@ -28319,7 +28326,7 @@ var Input$2 = (function (_super) {
         }
     };
     Input.prototype.render = function () {
-        return this.renderInput();
+        return React__default.createElement("div", { onClick: this.props.onClick }, this.renderInput());
     };
     return Input;
 }(React__default.Component));
@@ -28350,6 +28357,10 @@ var SmartSpinner = (function (_super) {
     };
     return SmartSpinner;
 }(React__default.Component));
+
+var Snackbar = function (props) {
+    return (React__default.createElement("div", { className: "quill-snackbar " + (props.visible ? 'visible' : '') }, props.text));
+};
 
 var spinnerSrc = 'https://assets.quill.org/images/icons/loader_still.svg';
 var Spinner = function () { return (React__default.createElement("div", { className: "loading-spinner" },
@@ -96115,4 +96126,4 @@ var PlayTitleCard = function (props) { return (React__default.createElement("div
 
 var TitleCard = function (props) { return React__default.createElement("div", { className: "landing-page-html", dangerouslySetInnerHTML: { __html: props.html } }); };
 
-export { QuestionList, LinkListItem, QuestionListByConcept, Instructions, WarningDialogue, Prompt, ConceptExplanation, ArchivedButton, Card, CarouselAnimation, DiagnosticProgressBar, DropdownInput, Error$1 as Error, FlagDropdown, Input$2 as Input, Passthrough, ResumeOrBeginButton, SmartSpinner, Spinner, TextEditor, UploadOptimalResponses, Modal, ListItem, SortableList, AffectedResponse, PieChart, QuestionBar, ResponseSortFields, ResponseToggleFields, Feedback, Cue, CueExplanation, ThankYou, SentenceFragments, QuestionRow, MultipleChoice, Register, PlayTitleCard, TitleCard, hashToCollection };
+export { QuestionList, LinkListItem, QuestionListByConcept, Instructions, WarningDialogue, Prompt, ConceptExplanation, ArchivedButton, Card, CarouselAnimation, DiagnosticProgressBar, DropdownInput, Error$1 as Error, FlagDropdown, Input$2 as Input, Passthrough, ResumeOrBeginButton, SmartSpinner, Snackbar, Spinner, TextEditor, UploadOptimalResponses, Modal, ListItem, SortableList, AffectedResponse, PieChart, QuestionBar, ResponseSortFields, ResponseToggleFields, Feedback, Cue, CueExplanation, ThankYou, SentenceFragments, QuestionRow, MultipleChoice, Register, PlayTitleCard, TitleCard, hashToCollection };

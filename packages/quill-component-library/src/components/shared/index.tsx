@@ -43,6 +43,10 @@ export {
 } from './smartSpinner'
 
 export {
+  Snackbar
+} from './snackbar'
+
+export {
   Spinner
 } from './spinner'
 
