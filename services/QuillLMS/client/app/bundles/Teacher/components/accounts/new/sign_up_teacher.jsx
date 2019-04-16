@@ -93,7 +93,7 @@ class SignUpTeacher extends React.Component {
   renderNewsletterRow() {
     let checkbox
     if (this.state.sendNewsletter) {
-      checkbox = <div className="quill-checkbox selected" onClick={this.toggleNewsletter}><img src={smallWhiteCheckSrc} /></div>
+      checkbox = <div className="quill-checkbox selected" onClick={this.toggleNewsletter}><img src={smallWhiteCheckSrc} alt="check" /></div>
     } else {
       checkbox = <div className="quill-checkbox unselected" onClick={this.toggleNewsletter} />
     }

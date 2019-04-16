@@ -100,7 +100,7 @@ class Teachers::ClassroomUnitsController < ApplicationController
     # google_response = GoogleIntegration::LessonAnnouncement
     #   .new(@classroom_unit, @unit_activity).post
     # if google_response == 'UNAUTHENTICATED'
-    #   session[:google_redirect] = request.path
+    #   session[GOOGLE_REDIRECT] = request.path
     #   return redirect_to '/auth/google_oauth2'
     # else
     #   redirect_to lesson_url(lesson)

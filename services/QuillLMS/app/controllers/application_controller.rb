@@ -2,6 +2,10 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   include QuillAuthentication
 
+  CLEVER_REDIRECT = :clever_redirect
+  GOOGLE_REDIRECT = :google_redirect
+  GOOGLE_OR_CLEVER_JUST_SET = :google_or_clever_just_set
+
   #helper CMS::Helper
 
   # FIXME: disabled till it's clear what this does
@@ -80,6 +84,10 @@ class ApplicationController < ActionController::Base
     user_is_not_a_demo_account = current_user && /hello\+(.)*@quill.org/.match(current_user.email).nil?
     not_on_sign_up = !current_path.include?('sign-up')
     @should_load_intercom = user_is_logged_in_teacher && user_is_not_a_staff_member && user_is_not_a_demo_account && not_on_sign_up
+  end
+
+  def route_redirects_to_my_account?(route)
+    route&.include?(Teachers::ClassroomManagerController::MY_ACCOUNT)
   end
 
   protected

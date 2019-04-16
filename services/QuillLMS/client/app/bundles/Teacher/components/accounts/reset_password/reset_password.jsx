@@ -87,7 +87,7 @@ export default class ForgotPassword extends React.Component {
               value={password}
               handleChange={this.handlePasswordChange}
               type="password"
-              className="password"
+              className="password inspectletIgnore"
               error={errors.password}
               timesSubmitted={timesSubmitted}
             />
@@ -96,7 +96,7 @@ export default class ForgotPassword extends React.Component {
               value={passwordConfirmation}
               handleChange={this.handlePasswordConfirmationChange}
               type="password"
-              className="password-confirmation"
+              className="password-confirmation inspectletIgnore"
               error={errors.password_confirmation}
               timesSubmitted={timesSubmitted}
             />

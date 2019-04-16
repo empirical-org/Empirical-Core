@@ -82,6 +82,7 @@ class ConceptReplaceForm extends React.Component<ConceptReplaceFormProps, any> {
         value={value}
         options={options}
         handleChange={this.changeReplacedId}
+        isSearchable={true}
       />
     } else {
       const value = options.find(o => o.value === replacementId)
@@ -90,6 +91,7 @@ class ConceptReplaceForm extends React.Component<ConceptReplaceFormProps, any> {
         value={value}
         options={options}
         handleChange={this.changeReplacementId}
+        isSearchable={true}
       />
     }
   }
