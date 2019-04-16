@@ -7,6 +7,8 @@ class Teachers::ClassroomManagerController < ApplicationController
   before_filter :set_alternative_schools, only: [:my_account, :update_my_account, :update_my_password]
   include ScorebookHelper
 
+  MY_ACCOUNT = 'my_account'
+
   def lesson_planner
     if current_user.classrooms_i_teach.empty?
       redirect_to new_teachers_classroom_path
@@ -134,11 +136,11 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def my_account
-    session[:google_redirect] = request.env['PATH_INFO']
+    session[GOOGLE_REDIRECT] = request.env['PATH_INFO']
     session[:clever_redirect] = request.env['PATH_INFO']
-    @google_or_clever_just_set = session[:google_or_clever_just_set]
-    session[:google_or_clever_just_set] = nil
-    @account_info = get_account_info
+    @google_or_clever_just_set = session[ApplicationController::GOOGLE_OR_CLEVER_JUST_SET]
+    session[ApplicationController::GOOGLE_OR_CLEVER_JUST_SET] = nil
+    @account_info = current_user.generate_teacher_account_info
   end
 
   def update_my_account
@@ -154,7 +156,7 @@ class Teachers::ClassroomManagerController < ApplicationController
       end
       render json: {errors: errors}, status: 422
     else
-      render json: get_account_info
+      render json: current_user.generate_teacher_account_info
     end
   end
 
@@ -172,7 +174,7 @@ class Teachers::ClassroomManagerController < ApplicationController
     if errors.any?
       render json: {errors: errors}, status: 422
     else
-      render json: get_account_info
+      render json: current_user.generate_teacher_account_info
     end
   end
 
@@ -301,24 +303,8 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def set_alternative_schools
-    @alternative_schools = School.where(name: ['home school', 'us higher ed', 'international', 'not listed', 'other'])
-    @alternative_schools_name_map = {
-      'home school': 'Home school',
-      'us higher ed': 'U.S. higher education institution',
-      'other': 'Other',
-      'international': 'International institution',
-      'not listed': 'U.S. K-12 school'
-    }.stringify_keys
-  end
-
-  def get_account_info
-    account_info = current_user.generate_teacher_account_info
-    if account_info[:school] && account_info[:school].name
-      account_info['school_type'] = @alternative_schools_name_map[account_info[:school].name] || 'U.S. K-12 school'
-    else
-      account_info['school_type'] = 'U.S. K-12 school'
-    end
-    account_info
+    @alternative_schools = School.where(name: School::ALTERNATIVE_SCHOOL_NAMES)
+    @alternative_schools_name_map = School::ALTERNATIVE_SCHOOLS_DISPLAY_NAME_MAP
   end
 
 end
