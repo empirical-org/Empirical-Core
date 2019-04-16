@@ -29,7 +29,6 @@ class Auth::CleverController < ApplicationController
   end
 
   def user_success(data) # data is a User record
-    new_user = !data.previous_changes["id"].nil?
     data.update_attributes(ip_address: request.remote_ip)
     if session[ApplicationController::CLEVER_REDIRECT]
       redirect_route = session[ApplicationController::CLEVER_REDIRECT]
@@ -37,7 +36,7 @@ class Auth::CleverController < ApplicationController
       return redirect_to redirect_route
     else
       sign_in(data)
-      if current_user.role === 'teacher' && !current_user.school && new_user
+      if current_user.is_new_teacher_without_school?
         # then the user does not have a school and needs one
         return redirect_to '/sign-up/add-k12'
       end
