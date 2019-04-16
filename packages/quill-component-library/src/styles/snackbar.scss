@@ -11,11 +11,10 @@
   bottom: 0;
   left: 24px;
   transition: bottom 0.5s, opacity 0.5s;
-}
-
-.quill-snackbar.visible {
-  left: 24px;
-  bottom: 24px;
-  opacity: 1;
-  transition: bottom 0.5s, opacity 0.5s;
+  &.visible {
+    left: 24px;
+    bottom: 24px;
+    opacity: 1;
+    transition: bottom 0.5s, opacity 0.5s;
+  }
 }
