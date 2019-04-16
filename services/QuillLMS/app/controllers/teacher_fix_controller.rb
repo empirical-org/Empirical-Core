@@ -164,9 +164,9 @@ class TeacherFixController < ApplicationController
     if user
       new_email = params['new_email']
       if new_email != ''
-        user.update(email: new_email, password: params['password'], google_id: nil, signed_up_with_google: false)
+        user.update(email: new_email, password: params['password'], google_id: nil, signed_up_with_google: false, post_google_classroom_assignments: false)
       else
-        user.update(password: params['password'], google_id: nil, signed_up_with_google: false)
+        user.update(password: params['password'], google_id: nil, signed_up_with_google: false, post_google_classroom_assignments: false)
       end
       if user.errors.any?
         render json: user.errors

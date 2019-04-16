@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --inline",
+    "start:dev": "QUILL_CMS=localhost:3100 EMPIRICAL_BASE_URL=http://localhost:3000 LESSONS_WEBSOCKETS_URL=http://localhost:3200 node_modules/.bin/webpack-dev-server --hot --inline",
     "test": "mocha --opts mocha.opts",
     "test:watch": "mocha --opts mocha.opts --watch --reporter dot",
     "storybook": "start-storybook -p 9001",
@@ -131,7 +132,7 @@
     "moment": "^2.18.1",
     "promise-polyfill": "^6.0.2",
     "pusher-js": "^4.1.0",
-    "quill-component-library": "^0.1.43",
+    "quill-component-library": "^0.1.52",
     "quill-marking-logic": "^0.8.6",
     "raven-js": "^3.17.0",
     "react": "15.6.2",
