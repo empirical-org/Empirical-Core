@@ -28,6 +28,7 @@ export {
   Passthrough,
   ResumeOrBeginButton,
   SmartSpinner,
+  Snackbar,
   Spinner,
   TextEditor,
   UploadOptimalResponses

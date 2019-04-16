@@ -9,6 +9,15 @@ class Auth::CleverController < ApplicationController
   # since a teacher may have created more clever classrooms /students betwixt logins
   def clever
     auth_hash = request.env['omniauth.auth']
+    if route_redirects_to_my_account?(session[ApplicationController::CLEVER_REDIRECT])
+      user = current_user.update(email: auth_hash['info']['email'])
+      if user
+        session[ApplicationController::GOOGLE_OR_CLEVER_JUST_SET] = true
+      else
+        flash[:error] = "This Clever account is already associated with another Quill account. Contact support@quill.org for further assistance."
+        flash.keep(:error)
+      end
+    end
     result = CleverIntegration::SignUp::Main.run(auth_hash)
     send(result[:type], result[:data])
   end
@@ -20,14 +29,19 @@ class Auth::CleverController < ApplicationController
   end
 
   def user_success(data) # data is a User record
-    new_user = !data.previous_changes["id"].nil?
     data.update_attributes(ip_address: request.remote_ip)
-    sign_in(data)
-    if current_user.role === 'teacher' && !current_user.school && new_user
-      # then the user does not have a school and needs one
-      return redirect_to '/sign-up/add-k12'
+    if session[ApplicationController::CLEVER_REDIRECT]
+      redirect_route = session[ApplicationController::CLEVER_REDIRECT]
+      session[ApplicationController::CLEVER_REDIRECT] = nil
+      return redirect_to redirect_route
+    else
+      sign_in(data)
+      if current_user.is_new_teacher_without_school?
+        # then the user does not have a school and needs one
+        return redirect_to '/sign-up/add-k12'
+      end
+      return redirect_to profile_url
     end
-    return redirect_to profile_url
   end
 
   def user_failure(data)

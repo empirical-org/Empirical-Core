@@ -1,6 +1,10 @@
 module QuillAuthentication
   extend ActiveSupport::Concern
 
+  CLEVER_REDIRECT = :clever_redirect
+  GOOGLE_REDIRECT = :google_redirect
+  GOOGLE_OR_CLEVER_JUST_SET = :google_or_clever_just_set
+
   included do
     helper_method :current_user, :signed_in?, :sign_out?, :admin?, :staff?
   end
@@ -84,10 +88,10 @@ module QuillAuthentication
       sign_out
       session[:attempted_path] = request.fullpath
       redirect_to(new_session_path, status: :see_other)
-    else 
+    else
       redirect_to(profile_path, notice: "404")
     end
-    
+
   end
 
   def signed_out!

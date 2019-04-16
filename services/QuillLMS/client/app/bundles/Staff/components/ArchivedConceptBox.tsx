@@ -181,6 +181,7 @@ class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, Archiv
               options={options}
               handleChange={this.changeLevel1}
               error={errors.level1}
+              isSearchable={true}
             />
             {this.renderArchivedOrLive(value)}
           </div>
@@ -203,6 +204,7 @@ class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, Archiv
               options={options}
               handleChange={this.changeLevel2}
               error={errors.level2}
+              isSearchable={true}
             />
             {this.renderArchivedOrLive(value)}
           </div>

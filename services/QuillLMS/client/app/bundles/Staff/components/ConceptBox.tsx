@@ -165,6 +165,7 @@ class ConceptBox extends React.Component<ConceptBoxProps, ConceptBoxState> {
             value={value}
             options={possibleConcepts}
             handleChange={this.changeLevel1}
+            isSearchable={true}
           />
         }}
       </Query>
@@ -182,6 +183,7 @@ class ConceptBox extends React.Component<ConceptBoxProps, ConceptBoxState> {
             value={value}
             options={possibleConcepts}
             handleChange={this.changeLevel2}
+            isSearchable={true}
           />
         }}
       </Query>
