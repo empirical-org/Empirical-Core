@@ -43,5 +43,14 @@ module SegmentIo
     REFERRAL_ACTIVATED ||= "One of this teacher's referrals is now active"
     COTEACHER_INVITATION ||= 'Teacher invited a coteacher'
     TRANSFER_OWNERSHIP ||= 'Teacher transferred ownership of a classroom'
+
+    # New events created as part of a sort of analytics reboot.
+    # Some of these may overlap with already-defined events, but we're currently
+    # comfortable with a discontinuity.
+    # Proposed event naming convention: UserType.SourceLocation.SpecificTarget.UserAction
+    ANON_HOMEPAGE_HEADER_CLICK_SIGN_UP ||= "Anonymous.Homepage.Header.ClickSignUp"
+    ANON_HOMEPAGE_MAIN_CTA_CLICK_SIGN_UP ||= "Anonymous.Homepage.MainCTA.ClickSignUp"
+    ANON_HOMEPAGE_FINAL_CTA_CLICK_SIGN_UP ||= "Anonymous.Homepage.FinalCTA.ClickSignUp"
+    ANON_HOMEPAGE_HEADER_CLICK_LOG_IN ||= "Anonymous.Homepage.Header.ClickLogIn"
   end
 end
