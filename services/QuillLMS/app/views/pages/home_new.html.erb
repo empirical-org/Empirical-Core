@@ -11,8 +11,12 @@
       Quill provides free writing and grammar activities
       for elementary, middle, and high school students.
     </p>
-    <a href="/account/new" class="q-button cta-button cta-home text-quillgreen bg-white">Sign Up</a>
+    <a id="MainCTA" href="/account/new" class="q-button cta-button cta-home text-quillgreen bg-white">Sign Up</a>
   </div>
+  <script type="text/javascript">
+    const MainCTA = document.getElementById('MainCTA');
+    analytics.trackLink(MainCTA, "<%= SegmentIo::Events::ANON_HOMEPAGE_MAIN_CTA_CLICK_SIGN_UP %>");
+  </script>
   <div class="q-hero-footer">
     <p class="text-white">
       <span class="hero-footer-underline"><%= number_to_human(@number_of_students).downcase %></span> students have written <span class="hero-footer-underline"><%= number_to_human(@number_of_sentences).downcase %></span> sentences on Quill.
@@ -372,8 +376,12 @@ Quill Grammar has over 150 sentence writing activities to help your students. Ou
     </div>
   </a>
   <div class="press-cta">
-    <a href="/account/new" class="q-button cta-button icon-button bg-quillgreen text-white">Join Now, It's Free <i class="fa fa-graduation-cap" aria-hidden="true"></i></a>
+    <a id="FinalCTA" href="/account/new" class="q-button cta-button icon-button bg-quillgreen text-white">Join Now, It's Free <i class="fa fa-graduation-cap" aria-hidden="true"></i></a>
   </div>
+  <script type="text/javascript">
+    const FinalCTA = document.getElementById('FinalCTA');
+    analytics.trackLink(FinalCTA, "<%= SegmentIo::Events::ANON_HOMEPAGE_FINAL_CTA_CLICK_SIGN_UP %>");
+  </script>
 </section>
 
 <%= render partial: 'pages/shared/footer' %>

@@ -49,8 +49,16 @@
    		<% end %>
 
   		<%- if current_user.nil? %>
-    		<a href="/session/new" class="text-white nav-element">Log In</a>
-    		<a href="/account/new" class="sign-up-button text-white nav-element">Sign Up</a>
+    		<a id="HeaderLogIn" href="/session/new" class="text-white nav-element">Log In</a>
+                <script type="text/javascript">
+                  const HeaderLogIn = document.getElementById('HeaderLogIn');
+                  analytics.trackLink(HeaderLogIn, "<%= SegmentIo::Events::ANON_HOMEPAGE_HEADER_CLICK_LOG_IN %>");
+                </script>
+    		<a id="HeaderSignUp" href="/account/new" class="sign-up-button text-white nav-element">Sign Up</a>
+                <script type="text/javascript">
+                  const HeaderSignUp = document.getElementById('HeaderSignUp');
+                  analytics.trackLink(HeaderSignUp, "<%= SegmentIo::Events::ANON_HOMEPAGE_HEADER_CLICK_SIGN_UP %>");
+                </script>
   		<%- elsif current_user.role == 'teacher' %>
   			<div class='navigation-vertical-rule hide-on-mobile nav-element'></div>
   			<div id="nav-user-dropdown" class="dropdown-closed hide-on-mobile nav-element <%= user_dropdown_class %>">
