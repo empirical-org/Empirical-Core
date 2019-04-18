@@ -261,4 +261,39 @@ describe Teachers::UnitsController, type: :controller do
     end
   end
 
+  describe '#score_info' do
+    let!(:activity) {create(:activity)}
+    let!(:classroom_unit) {create(:classroom_unit, unit: unit, classroom: classroom, assigned_student_ids: [student.id])}
+    let!(:activity_session) {create(:activity_session,
+      activity: activity,
+      classroom_unit: classroom_unit,
+      is_final_score: true,
+      percentage: 0.17,
+      visible: true
+    )}
+
+    it 'no classroom_unit_id should return empty hash' do
+      get :score_info, activity_id: 1
+      json = JSON.parse(response.body)
+
+      expect(json['cumulative_score']).to eq 0
+      expect(json['completed_count']).to eq 0
+    end
+
+    it 'basic response' do
+      get :score_info, activity_id: activity.id, classroom_unit_id: classroom_unit.id
+      json = JSON.parse(response.body)
+
+      expect(json['cumulative_score']).to eq 17
+      expect(json['completed_count']).to eq 1
+    end
+
+    it 'not found response returns 0' do
+      get :score_info, activity_id: 999999, classroom_unit_id: 9999999
+      json = JSON.parse(response.body)
+
+      expect(json['cumulative_score']).to eq 0
+      expect(json['completed_count']).to eq 0
+    end
+  end
 end
