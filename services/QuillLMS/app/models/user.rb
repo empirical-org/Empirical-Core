@@ -527,6 +527,10 @@ class User < ActiveRecord::Base
     Invitation.where(archived: false, invitation_type: 'coteacher', invitee_email: self.email)
   end
 
+  def is_new_teacher_without_school?
+    self.role == 'teacher' && !self.school && self.previous_changes["id"]
+  end
+
 private
   def validate_flags
     # ensures there are no items in the flags array that are not in the VALID_FLAGS const
@@ -612,9 +616,5 @@ private
 
   def update_invitee_email_address
     Invitation.where(invitee_email: self.email_was).update_all(invitee_email: self.email)
-  end
-
-  def is_new_teacher_without_school?
-    self.role == 'teacher' && !self.school && self.previous_changes["id"]
   end
 end

@@ -195,12 +195,13 @@ export default class TeacherGeneralAccountInfo extends React.Component {
       if (showSchoolSelector) {
         return <SchoolSelector selectSchool={this.handleSchoolChange} />
       } else {
-        const schoolName = ['home school', 'us higher ed', 'international', 'other', 'not listed'].includes(school.name) ? 'Not listed' : school.name
+        const schoolName = school && school.name ? school.name : ''
+        const schoolNameValue = ['home school', 'us higher ed', 'international', 'other', 'not listed'].includes(schoolName) ? 'Not listed' : schoolName
         return (
           <div className="school-container">
             <Input
               label="School"
-              value={schoolName}
+              value={schoolNameValue}
               type="text"
               className="school"
               disabled={true}
