@@ -7,6 +7,7 @@
 const Events = [
   'Anonymous.NewAccount.SelectUserType.ClickStudent',
   'Anonymous.NewAccount.SelectUserType.ClickTeacher',
+  'Anonymous.NewAccount.SelectUserType.ClickLogIn',
 ];
 
 export default Events;
