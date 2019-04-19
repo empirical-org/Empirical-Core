@@ -20,6 +20,7 @@ const Events = [
   'Anonymous.NewAccount.SelectUserType.ClickLogIn',
   'Anonymous.NewAccount.SelectUserType.ClickStudent',
   'Anonymous.NewAccount.SelectUserType.ClickTeacher',
+  'Student.JoinClass.EnterClassCode.ClickJoinClass',
   'Teacher.SelectSchool.SelectK12.ClickNonK12',
   'Teacher.SelectSchool.SelectK12.ClickSkipSelection',
   'Teacher.SelectSchool.SelectK12.SelectSchool',

@@ -20,6 +20,7 @@ function withSegmentMetricsFunc(segmentKey) {
   }
 
   const metrics_options = {
+    autoTrackPageView: false,
     useTrackBinding: false
   }
 

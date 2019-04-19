@@ -1,4 +1,5 @@
 import React from 'react'
+import { PropTypes } from 'react-metrics';
 import { Input } from 'quill-component-library/dist/componentLibrary'
 
 import getAuthToken from '../components/modules/get_auth_token'
@@ -7,6 +8,9 @@ import LoadingIndicator from '../components/shared/loading_indicator'
 const bulbSrc = `${process.env.CDN_URL}/images/onboarding/bulb.svg`
 
 export default class JoinClass extends React.Component {
+  static contextTypes = {
+    metrics: PropTypes.metrics
+  }
 
   constructor(props) {
     super(props)
@@ -33,6 +37,7 @@ export default class JoinClass extends React.Component {
   addClassroom(e) {
     const { timesSubmitted, classCodeInput, } = this.state
     e.preventDefault();
+    this.context.metrics.track('Student.JoinClass.EnterClassCode.ClickJoinClass');
     // this.setState({ loading: true, })
     const data = new FormData()
     data.append('classcode', classCodeInput)
