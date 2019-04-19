@@ -5,6 +5,11 @@
  */
 
 const Events = [
+  'Anonymous.NewAccount.NewStudent.ClickLogin',
+  'Anonymous.NewAccount.NewStudent.ClickSignUpAsTeacher',
+  'Anonymous.NewAccount.NewStudent.ClickSignUpWithClever',
+  'Anonymous.NewAccount.NewStudent.ClickSignUpWithGoogle',
+  'Anonymous.NewAccount.NewStudent.SubmitSignUpForm',
   'Anonymous.NewAccount.NewTeacher.ClickLogIn',
   'Anonymous.NewAccount.NewTeacher.ClickNewsletterOptIn',
   'Anonymous.NewAccount.NewTeacher.ClickNewsletterOptOut',

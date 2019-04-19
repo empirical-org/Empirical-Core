@@ -1,4 +1,5 @@
 import React from 'react';
+import { PropTypes } from 'react-metrics';
 import request from 'request'
 import { Input } from 'quill-component-library/dist/componentLibrary'
 
@@ -8,6 +9,10 @@ import AgreementsAndLinkToLogin from './agreements_and_link_to_login'
 import getAuthToken from '../../modules/get_auth_token';
 
 class SignUpStudent extends React.Component {
+  static contextTypes = {
+    metrics: PropTypes.metrics
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -50,6 +55,7 @@ class SignUpStudent extends React.Component {
     const { firstName, lastName, username, password, timesSubmitted, } = this.state
     const email = this.state.email && this.state.email.length ? this.state.email : null
     e.preventDefault();
+    this.context.metrics.track("Anonymous.NewAccount.NewStudent.SubmitSignUpForm");
     request({
       url: `${process.env.DEFAULT_URL}/account`,
       method: 'POST',
@@ -90,9 +96,11 @@ class SignUpStudent extends React.Component {
     return (
       <div className="container account-form student-sign-up">
         <h1>Create a student account</h1>
-        <p className="sub-header">Are you a teacher? <a href="/sign-up/teacher">Sign up here</a></p>
+        <p className="sub-header">Are you a teacher? <a href="/sign-up/teacher"
+           onClick={(e) => this.context.metrics.track('Anonymous.NewAccount.NewStudent.ClickSignUpAsTeacher')}>Sign up here</a></p>
         <div className="account-container text-center">
-          <AuthSignUp />
+          <AuthSignUp clickGoogleAnalyticsEvent="Anonymous.NewAccount.NewStudent.ClickSignUpWithGoogle"
+                      clickCleverAnalyticsEvent="Anonymous.NewAccount.NewStudent.ClickSignUpWithClever" />
           <div className='break'><span/>or<span/></div>
           <div className="student-signup-form">
             <div>
@@ -156,7 +164,7 @@ class SignUpStudent extends React.Component {
             </div>
           </div>
         </div>
-        <AgreementsAndLinkToLogin />
+        <AgreementsAndLinkToLogin clickLoginAnalyticsEvent="Anonymous.NewAccount.NewStudent.ClickLogin" />
       </div>
     )
   }
