@@ -1,4 +1,5 @@
 import React from 'react'
+import { PropTypes } from 'react-metrics';
 import request from 'request'
 import { Input } from 'quill-component-library/dist/componentLibrary'
 
@@ -7,6 +8,10 @@ import getAuthToken from '../../modules/get_auth_token';
 const bulbSrc = `${process.env.CDN_URL}/images/onboarding/bulb.svg`
 
 export default class ForgotPassword extends React.Component {
+  static contextTypes = {
+    metrics: PropTypes.metrics
+  }
+
   constructor() {
     super();
     this.handleEmailChange = this.handleEmailChange.bind(this);
@@ -33,6 +38,7 @@ export default class ForgotPassword extends React.Component {
   handleSubmit(e) {
     const { email, password, timesSubmitted, } = this.state
     e.preventDefault();
+    this.context.metrics.track('Anonymous.ForgotPassword.RequestReset.SubmitEmail');
     request({
       url: `${process.env.DEFAULT_URL}/password_reset`,
       method: 'POST',

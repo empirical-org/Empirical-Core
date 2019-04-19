@@ -1,2 +1,2 @@
-<%= react_component('ForgotPasswordApp')%>
+<%= react_component('ForgotPasswordApp', props: {segmentKey: ENV["SEGMENT_WRITE_KEY"]})%>
 <%= javascript_include_tag('cookie_warning.js') %>

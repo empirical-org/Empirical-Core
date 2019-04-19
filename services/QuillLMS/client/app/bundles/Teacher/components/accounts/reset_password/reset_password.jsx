@@ -1,10 +1,15 @@
 import React from 'react'
+import { PropTypes } from 'react-metrics';
 import request from 'request'
 import { Input } from 'quill-component-library/dist/componentLibrary'
 
 import getAuthToken from '../../modules/get_auth_token';
 
 export default class ForgotPassword extends React.Component {
+  static contextTypes = {
+    metrics: PropTypes.metrics
+  }
+
   constructor() {
     super();
 
@@ -39,6 +44,7 @@ export default class ForgotPassword extends React.Component {
   handleSubmit(e) {
     const { timesSubmitted, password, passwordConfirmation, } = this.state
     e.preventDefault();
+    this.context.metrics.track('Anonymous.ForgotPassword.ResetPassword.SubmitSaveNewPassword');
     request({
       url: window.location.href,
       method: 'PUT',

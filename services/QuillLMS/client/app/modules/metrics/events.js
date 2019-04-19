@@ -5,6 +5,8 @@
  */
 
 const Events = [
+  'Anonymous.ForgotPassword.RequestReset.SubmitEmail',
+  'Anonymous.ForgotPassword.ResetPassword.SubmitSaveNewPassword',
   'Anonymous.NewAccount.NewStudent.ClickLogin',
   'Anonymous.NewAccount.NewStudent.ClickSignUpAsTeacher',
   'Anonymous.NewAccount.NewStudent.ClickSignUpWithClever',
