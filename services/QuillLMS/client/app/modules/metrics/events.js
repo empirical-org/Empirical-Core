@@ -5,9 +5,17 @@
  */
 
 const Events = [
+  'Anonymous.NewAccount.NewTeacher.ClickLogIn',
+  'Anonymous.NewAccount.NewTeacher.ClickNewsletterOptIn',
+  'Anonymous.NewAccount.NewTeacher.ClickNewsletterOptOut',
+  'Anonymous.NewAccount.NewTeacher.ClickSignUpAsStudent',
+  'Anonymous.NewAccount.NewTeacher.ClickSignUpWithClever',
+  'Anonymous.NewAccount.NewTeacher.ClickSignUpWithGoogle',
+  'Anonymous.NewAccount.NewTeacher.SubmitSignUpForm',
+  'Anonymous.NewAccount.SelectUserType.ClickLogIn',
   'Anonymous.NewAccount.SelectUserType.ClickStudent',
   'Anonymous.NewAccount.SelectUserType.ClickTeacher',
-  'Anonymous.NewAccount.SelectUserType.ClickLogIn',
+
 ];
 
 export default Events;

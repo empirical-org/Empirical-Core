@@ -1,8 +1,13 @@
 'use strict';
 import $ from 'jquery'
 import React from 'react'
+import { PropTypes } from 'react-metrics';
 
 export default React.createClass({
+  contextTypes: {
+    metrics: PropTypes.metrics
+  },
+
   getInitialState: function () {
     return {
       redirectUri: null,
@@ -52,7 +57,9 @@ export default React.createClass({
     if (this.state.notAvailable) {
       result = <span></span>;
     } else {
-      result = (<a className='clever-sign-up' href={this.buildLink()}>
+      result = (
+      <a className='clever-sign-up' href={this.buildLink()}
+         onClick={(e) => this.context.metrics.track(this.props.clickAnalyticsEvent)}>
         <img src={`${process.env.CDN_URL}/images/shared/clever_icon.svg`}/>
         <span>Sign up with Clever</span>
       </a>)

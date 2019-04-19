@@ -1,4 +1,5 @@
 import React from 'react';
+import { PropTypes } from 'react-metrics';
 import request from 'request'
 import { Input } from 'quill-component-library/dist/componentLibrary'
 
@@ -10,6 +11,10 @@ import getAuthToken from '../../modules/get_auth_token';
 const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
 
 class SignUpTeacher extends React.Component {
+  static contextTypes = {
+    metrics: PropTypes.metrics
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -26,8 +31,13 @@ class SignUpTeacher extends React.Component {
     this.updateKeyValue = this.updateKeyValue.bind(this);
     this.update = this.update.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.setNewsletterClickEvent = this.setNewsletterClickEvent.bind(this);
     this.submitClass = this.submitClass.bind(this)
     this.toggleNewsletter = this.toggleNewsletter.bind(this)
+  }
+
+  componentDidMount() {
+    this.setNewsletterClickEvent();
   }
 
   updateKeyValue(key, value) {
@@ -52,6 +62,7 @@ class SignUpTeacher extends React.Component {
   handleSubmit(e) {
     const { firstName, lastName, email, password, sendNewsletter, timesSubmitted, } = this.state
     e.preventDefault();
+    this.context.metrics.track("Anonymous.NewAccount.NewTeacher.SubmitSignUpForm");
     request({
       url: `${process.env.DEFAULT_URL}/account`,
       method: 'POST',
@@ -87,7 +98,17 @@ class SignUpTeacher extends React.Component {
   }
 
   toggleNewsletter() {
-    this.setState({ sendNewsletter: !this.state.sendNewsletter, })
+    this.setState({ sendNewsletter: !this.state.sendNewsletter, });
+    this.setNewsletterClickEvent();
+    this.context.metrics.track(this.state.newsletterClickEvent);
+  }
+
+  setNewsletterClickEvent() {
+    if (this.state.sendNewsletter) {
+      this.setState({ newsletterClickEvent: 'Anonymous.NewAccount.NewTeacher.ClickNewsletterOptOut' });
+    } else {
+      this.setState({ newsletterClickEvent: 'Anonymous.NewAccount.NewTeacher.ClickNewsletterOptIn' });
+    }
   }
 
   renderNewsletterRow() {
@@ -97,7 +118,10 @@ class SignUpTeacher extends React.Component {
     } else {
       checkbox = <div className="quill-checkbox unselected" onClick={this.toggleNewsletter} />
     }
-    return <div className="newsletter-row">{checkbox} <p>Send me a monthly update on new&nbsp;content</p></div>
+    return (<div className="newsletter-row">
+              {checkbox}
+              <p>Send me a monthly update on new&nbsp;content</p>
+            </div>);
   }
 
   render () {
@@ -105,7 +129,9 @@ class SignUpTeacher extends React.Component {
     return (
       <div className="container account-form teacher-sign-up">
         <h1>Create a teacher account</h1>
-        <p className="sub-header">Are you a student? <a href="/sign-up/student">Sign up here</a></p>
+        <p className="sub-header">Are you a student? <a href="/sign-up/student"
+           onClick={(e) => this.context.metrics.track("Anonymous.NewAccount.NewTeacher.ClickSignUpAsStudent")>Sign up here</a>
+        </p>
         <div className="info-and-form-container">
           <div className="info">
             <h2>More than 5,000 schools use Quill's free online tools to help their students become strong&nbsp;writers.</h2>
@@ -116,7 +142,8 @@ class SignUpTeacher extends React.Component {
             </ul>
           </div>
           <div className="account-container text-center">
-            <AuthSignUp />
+            <AuthSignUp clickGoogleAnalyticsEvent="Anonymous.NewAccount.NewTeacher.ClickSignUpWithGoogle"
+                        clickCleverAnalyticsEvent="Anonymous.NewAccount.NewTeacher.ClickSignUpWithClever" />
             <div className='break'><span/>or<span/></div>
               <div className="teacher-signup-form">
                 <div>
@@ -172,7 +199,7 @@ class SignUpTeacher extends React.Component {
               </div>
           </div>
         </div>
-        <AgreementsAndLinkToLogin />
+        <AgreementsAndLinkToLogin clickLoginAnalyticsEvent="Anonymous.NewAccount.NewTeacher.ClickLogIn" />
       </div>
     )
   }
