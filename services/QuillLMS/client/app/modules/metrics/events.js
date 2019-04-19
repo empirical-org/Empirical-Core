@@ -15,7 +15,13 @@ const Events = [
   'Anonymous.NewAccount.SelectUserType.ClickLogIn',
   'Anonymous.NewAccount.SelectUserType.ClickStudent',
   'Anonymous.NewAccount.SelectUserType.ClickTeacher',
-
+  'Teacher.SelectSchool.SelectK12.ClickNonK12',
+  'Teacher.SelectSchool.SelectK12.ClickSkipSelection',
+  'Teacher.SelectSchool.SelectK12.SelectSchool',
+  'Teacher.SelectSchool.SelectNonK12.ClickHomeSchool',
+  'Teacher.SelectSchool.SelectNonK12.ClickInternational',
+  'Teacher.SelectSchool.SelectNonK12.ClickUSHigherEducation',
+  'Teacher.SelectSchool.SelectNonK12.ClickOther',
 ];
 
 export default Events;

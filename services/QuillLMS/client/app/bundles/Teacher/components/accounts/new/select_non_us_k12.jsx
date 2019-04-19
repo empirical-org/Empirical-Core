@@ -1,4 +1,5 @@
 import React from 'react';
+import { PropTypes } from 'react-metrics';
 import request from 'request'
 import getAuthToken from '../../modules/get_auth_token';
 import { Card } from 'quill-component-library/dist/componentLibrary'
@@ -9,7 +10,26 @@ const higherEdSrc = `${process.env.CDN_URL}/images/onboarding/school-campus.svg`
 const otherSrc = `${process.env.CDN_URL}/images/onboarding/business-building.svg`
 
 class SelectUSNonK12 extends React.Component {
+  static contextTypes = {
+    metrics: PropTypes.metrics
+  }
+
   selectSchool(idOrType) {
+    switch(idOrType) {
+      case 'home school':
+        this.context.metrics.track('Teacher.SelectSchool.SelectNonK12.ClickHomeSchool');
+        break;
+      case 'international':
+        this.context.metrics.track('Teacher.SelectSchool.SelectNonK12.ClickInternational');
+        break;
+      case 'us higher ed':
+        this.context.metrics.track('Teacher.SelectSchool.SelectNonK12.ClickUSHigherEducation');
+        break;
+      case 'other':
+        this.context.metrics.track('Teacher.SelectSchool.SelectNonK12.ClickOther');
+        break;
+    }
+
     request({
       url: `${process.env.DEFAULT_URL}/select_school`,
       json: {
