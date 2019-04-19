@@ -2,12 +2,16 @@ import * as React from 'react'
 import request from 'request'
 import getAuthToken from '../../../components/modules/get_auth_token'
 import { Card } from 'quill-component-library/dist/componentLibrary'
-import { MetricsElement } from 'react-metrics'
+import { PropTypes } from 'react-metrics'
 
 const studentPencilImg = `${process.env.CDN_URL}/images/onboarding/student-pencil.svg`
 const teacherChalkboardImg = `${process.env.CDN_URL}/images/onboarding/teacher-chalkboard.svg`
 
 class SelectUserType extends React.Component {
+  static contextTypes = {
+    metrics: PropTypes.metrics
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -23,10 +27,12 @@ class SelectUserType extends React.Component {
   }
 
   setStudentRoleOnSession() {
+    this.context.metrics.track("Anonymous.NewAccount.SelectUserType.ClickStudent");
     this.setRoleOnSession('student');
   }
 
   setTeacherRoleOnSession() {
+    this.context.metrics.track("Anonymous.NewAccount.SelectUserType.ClickTeacher");
     this.setRoleOnSession('teacher');
   }
 
@@ -50,28 +56,20 @@ class SelectUserType extends React.Component {
       <div className="container account-form" id='user-type'>
         <h1>Welcome! Let's create your account. Are you a student or a teacher?</h1>
         <div className="quill-cards">
-          <MetricsElement
-            element="Card"
-            data-metrics-event-name="Anonymous.NewAccount.SelectUserType.ClickStudent">
-            <Card
-              onClick={this.setStudentRoleOnSession}
-              imgSrc={studentPencilImg}
-              imgAlt="pencil"
-              header="Student"
-              text="Select this option to join your teacher’s class and complete assigned activities."
-            />
-          </MetricsElement>
-          <MetricsElement
-            element="Card"
-            data-metrics-event-name="Anonymous.NewAccount.SelectUserType.ClickTeacher">
-            <Card
-              onClick={this.setTeacherRoleOnSession}
-              imgSrc={teacherChalkboardImg}
-              imgAlt="chalkboard"
-              header="Teacher"
-              text="Select this option to create classes, assign activities, and view reports."
-            />
-          </MetricsElement>
+          <Card
+            onClick={this.setStudentRoleOnSession}
+            imgSrc={studentPencilImg}
+            imgAlt="pencil"
+            header="Student"
+            text="Select this option to join your teacher’s class and complete assigned activities."
+          />
+          <Card
+            onClick={this.setTeacherRoleOnSession}
+            imgSrc={teacherChalkboardImg}
+            imgAlt="chalkboard"
+            header="Teacher"
+            text="Select this option to create classes, assign activities, and view reports."
+          />
         </div>
         <div className="agreements-and-link-to-login">
           <p className="return-to-login">Already have an account? <a href="/session/new" data-metrics-event-name="Anonymous.NewAccount.SelectUserType.ClickLogIn">Log in</a></p>
