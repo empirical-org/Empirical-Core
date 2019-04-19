@@ -72,7 +72,7 @@ class SelectUserType extends React.Component {
           />
         </div>
         <div className="agreements-and-link-to-login">
-          <p className="return-to-login">Already have an account? <a href="/session/new" data-metrics-event-name="Anonymous.NewAccount.SelectUserType.ClickLogIn">Log in</a></p>
+          <p className="return-to-login">Already have an account? <a href="/session/new" onClick={(e) => this.context.metrics.track("Anonymous.NewAccount.SelectUserType.ClickLogIn")}>Log in</a></p>
         </div>
       </div>
     )

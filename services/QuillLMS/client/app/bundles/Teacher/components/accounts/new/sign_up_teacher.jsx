@@ -130,7 +130,7 @@ class SignUpTeacher extends React.Component {
       <div className="container account-form teacher-sign-up">
         <h1>Create a teacher account</h1>
         <p className="sub-header">Are you a student? <a href="/sign-up/student"
-           onClick={(e) => this.context.metrics.track("Anonymous.NewAccount.NewTeacher.ClickSignUpAsStudent")>Sign up here</a>
+           onClick={(e) => this.context.metrics.track("Anonymous.NewAccount.NewTeacher.ClickSignUpAsStudent")}>Sign up here</a>
         </p>
         <div className="info-and-form-container">
           <div className="info">
