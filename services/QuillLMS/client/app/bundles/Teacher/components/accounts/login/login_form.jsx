@@ -1,11 +1,17 @@
 import React from 'react';
+import { PropTypes } from 'react-metrics';
 import request from 'request';
 import { Input } from 'quill-component-library/dist/componentLibrary'
+import { withSegmentMetricsProps } from '../../../../../modules/metrics';
 
 import PasswordInfo from './password_info.jsx';
 import getAuthToken from '../../modules/get_auth_token';
 
 class LoginFormApp extends React.Component {
+  static contextTypes = {
+    metrics: PropTypes.metrics
+  }
+
   constructor() {
     super();
     this.handleEmailChange = this.handleEmailChange.bind(this);
@@ -24,6 +30,12 @@ class LoginFormApp extends React.Component {
     this.setState(prevState => ({
       showPass: !prevState.showPass,
     }));
+
+    if (this.state.showPass) {
+      this.context.metrics.track('Anonymous.NewSession.Login.ClickHidePassword');
+    } else {
+      this.context.metrics.track('Anonymous.NewSession.Login.ClickShowPassword');
+    }
   }
 
   togglePass() {
@@ -53,6 +65,7 @@ class LoginFormApp extends React.Component {
   handleSubmit(e) {
     const { timesSubmitted, email, password, } = this.state;
     e.preventDefault();
+    this.context.metrics.track('Anonymous.NewSession.Login.SubmitLogIn');
     request({
       url: `${process.env.DEFAULT_URL}/session/login_through_ajax`,
       method: 'POST',
@@ -93,11 +106,11 @@ class LoginFormApp extends React.Component {
         <h1>Good to see you again!</h1>
         <div className="account-container text-center">
           <div className="auth-section">
-            <a href="/auth/google_oauth2?prompt=consent">
+            <a href="/auth/google_oauth2?prompt=consent" onClick={(e) => this.context.metrics.track('Anonymous.NewSession.Login.ClickLogInWithGoogle')}>
               <img src="/images/google_icon.svg" alt="google icon" />
               <span>Log in with Google</span>
             </a>
-            <a href={this.props.cleverLink}>
+            <a href={this.props.cleverLink} onClick={(e) => this.context.metrics.track('Anonymous.NewSession.Login.ClickLogInWithClever')}>
               <img src={`${process.env.CDN_URL}/images/shared/clever_icon.svg`} alt="clever icon" />
               <span>Log in with Clever</span>
             </a>
@@ -127,7 +140,8 @@ class LoginFormApp extends React.Component {
                   timesSubmitted={timesSubmitted}
                 />
                 <div className="forget-and-show-password">
-                  <a href="/password_reset">Forgot password?</a>
+                  <a href="/password_reset"
+                     onClick={(e) => this.context.metrics.track('Anonymous.NewSession.Login.ClickForgotPassword')}>Forgot password?</a>
                   <span onClick={() => { this.clickHandler(); }}>
                     {this.toggleButtonText()} password
                   </span>
@@ -137,11 +151,14 @@ class LoginFormApp extends React.Component {
             </div>
           </div>
         </div>
-        <p className="sign-up-link">Don't have an account?&nbsp;<a href="/account/new">Sign up</a></p>
+        <p className="sign-up-link">Don't have an account?&nbsp;<a href="/account/new"
+           onClick={(e) => this.context.metrics.track('Anonymous.NewSession.Login.ClickSignUp')}>Sign up</a></p>
         <PasswordInfo showHintBox={Object.keys(this.state.errors).length} />
       </div>
     );
   }
 }
 
-export default LoginFormApp;
+const LoginFormAppWithMetrics = withSegmentMetricsProps(LoginFormApp);
+
+export default LoginFormAppWithMetrics;
