@@ -2,6 +2,8 @@
  * Any metrics tools we use are expected to validate any
  * event tracking requests against this list to ensure that
  * no events not in this list are allowed through
+ *
+ * Currently based on the list here: https://docs.google.com/spreadsheets/d/1IaZv8XVqgNbhwe31vUGMlAYFldKONutjT4ITXc9ntvw/edit?pli=1#gid=0
  */
 
 const Events = [
