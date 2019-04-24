@@ -9,3 +9,4 @@ test:
   encoding: unicode
   database: emp_gr_test
   host:     localhost
+  username: quill_test

@@ -6,12 +6,12 @@ jobs:
       - image: ruby:2.5.1
         environment:
           PG_HOST: localhost
-          PG_USER: root
+          PG_USER: quill_test
           RAILS_ENV: test
           RACK_ENV: test
       - image: postgres:10.5-alpine
         environment:
-          POSTGRES_USER: root
+          POSTGRES_USER: quill_test
           POSTGRES_DB: emp_gr_test
     steps:
       - checkout
