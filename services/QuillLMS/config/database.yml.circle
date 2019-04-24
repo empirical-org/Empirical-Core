@@ -1,0 +1,6 @@
+test:
+  adapter: postgresql
+  encoding: unicode
+  host:     localhost
+  database: <%= ENV.fetch("PG_DB") %>
+  user: <%= ENV.fetch("PGUSER") %>

@@ -5,9 +5,15 @@ jobs:
     docker:
       - image: ruby:2.5.1
         environment:
+          PG_DB: quill_test_db
+          PG_USER: quill_test_user
           RAILS_ENV: test
           RACK_ENV: test
       - image: postgres:10.5-alpine
+        environment:
+          POSTGRES_USER: quill_test_user
+          POSTGRES_DB: quill_test_db
+          POSTGRES_PASSWORD: ""
     steps:
       - checkout
       - run:
@@ -27,12 +33,15 @@ jobs:
             cp .env-sample .env
             cp config/database.yml.circle config/database.yml
       - run:
+          name: Wait for DB
+          command: dockerize -wait tcp://localhost:5432 -timeout 1m
+      - run:
           name: Set up DB
           command: |
             cd services/QuillLMS
             bundle exec rake db:structure:load
           environment:
-            DATABASE_URL: "postgres://ubuntu@localhost:5432/emp_gr_test"
+            DATABASE_URL: "postgres://ubuntu@localhost:5432/quill_test_db"
       - run:
           name: Run tests
           command: |
