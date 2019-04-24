@@ -38,8 +38,8 @@ jobs:
           command: |
             cd services/QuillLMS
             bundle exec rake db:migrate
-          # environment:
-          #   DATABASE_URL: "postgres://ubuntu@localhost:5432/quill_test_db"
+          environment:
+            DATABASE_URL: "postgres://ubuntu@localhost:5432/quill_test_db"
       - run:
           name: Run tests
           command: |
