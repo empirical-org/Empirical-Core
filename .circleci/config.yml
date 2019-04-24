@@ -6,12 +6,12 @@ jobs:
       - image: ruby:2.5.1
         environment:
           PG_DB: quill_test_db
-          PG_USER: quill_test_user
+          PG_USER: root
           RAILS_ENV: test
           RACK_ENV: test
       - image: postgres:10.5-alpine
         environment:
-          POSTGRES_USER: quill_test_user
+          POSTGRES_USER: ubuntu
           POSTGRES_DB: quill_test_db
           POSTGRES_PASSWORD: ""
     steps:
@@ -37,8 +37,9 @@ jobs:
           command: |
             cd services/QuillLMS
             bundle exec rake db:structure:load
+            bundle exec rake db:migrate
           environment:
-            DATABASE_URL: "postgres://quill_test_user@localhost:5432/quill_test_db"
+            DATABASE_URL: "postgres://ubuntu@localhost:5432/quill_test_db"
       - run:
           name: Run tests
           command: |
