@@ -22,7 +22,9 @@ jobs:
             bundle install
       - run:
           name: Install postgres dependencies
-          command: apt install -y postgresql-client
+          command: |
+            apt-get update
+            apt install -y postgresql-client
       - run:
           name: Copy Config files
           command: |
