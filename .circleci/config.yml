@@ -25,7 +25,7 @@ jobs:
           name: Install postgres dependencies
           command: |
             apt-get update
-            apt install -y postgresql-client
+            apt install -y postgresql-client-10.5
       - run:
           name: Copy Config files
           command: |
