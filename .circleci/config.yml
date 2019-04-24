@@ -14,7 +14,8 @@ jobs:
           POSTGRES_USER: ubuntu
           POSTGRES_DB: emp_gr_test
     steps:
-      - checkout
+      - checkout:
+          path: ~/services/QuillLMS
       - run:
           name: Install Ruby Dependencies
           command: bundle install
