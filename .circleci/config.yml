@@ -38,7 +38,7 @@ jobs:
             cd services/QuillLMS
             bundle exec rake db:structure:load
           environment:
-            DATABASE_URL: "postgres://ubuntu@localhost:5432/quill_test_db"
+            DATABASE_URL: "postgres://quill_test_user@localhost:5432/quill_test_db"
       - run:
           name: Run tests
           command: |
