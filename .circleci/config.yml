@@ -1,7 +1,7 @@
 version: 2
 jobs:
   build:
-    working_directory: ~/services/QuillLMS
+    # working_directory: services/QuillLMS/
     docker:
       - image: ruby:2.5.1-jessie
         environment:
@@ -24,4 +24,4 @@ jobs:
             bundle exec rake db:create db:schema:load --trace
             bundle exec rake db:migrate
         environment:
-          DATABASE_URL: "postgres://ubuntu@localhost:5432/db_name"
+          DATABASE_URL: "postgres://ubuntu@localhost:5432/emp_gr_test"
