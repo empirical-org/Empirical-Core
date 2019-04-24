@@ -1,41 +1,38 @@
-version: 2.0
-jobs:
- build:
-   docker:
-     - image: alpine:3.7
-   steps:
-     - run:
-         name: The First Step
-         command: |
-           echo 'Hello World!'
-           echo 'This is the delivery pipeline'
-
-
-
-# version: 2
+# version: 2.0
 # jobs:
-#   build:
-#     # working_directory: services/QuillLMS/
-#     docker:
-#       - image: ruby:2.5.1-jessie
-#         environment:
-#           PG_HOST: localhost
-#           PG_USER: ubuntu
-#           RAILS_ENV: test
-#           RACK_ENV: test
-#       - image: postgres:10.5-alpine
-#         environment:
-#           POSTGRES_USER: ubuntu
-#           POSTGRES_DB: emp_gr_test
-#     steps:
-#       - checkout
-#       - run:
-#           name: Install Ruby Dependencies
-#           command: bundle install
-#       - run:
-#           name: Set up DB
-#           command: |
-#             bundle exec rake db:create db:schema:load --trace
-#             bundle exec rake db:migrate
-#         environment:
-#           DATABASE_URL: "postgres://ubuntu@localhost:5432/emp_gr_test"
+#  build:
+#    docker:
+#      - image: alpine:3.7
+#    steps:
+#      - run:
+#          name: The First Step
+#          command: |
+#            echo 'Hello World!'
+#            echo 'This is the delivery pipeline'
+version: 2
+jobs:
+  build:
+    working_directory: services/QuillLMS/
+    docker:
+      - image: ruby:2.5.1-jessie
+        environment:
+          PG_HOST: localhost
+          PG_USER: ubuntu
+          RAILS_ENV: test
+          RACK_ENV: test
+      - image: postgres:10.5-alpine
+        environment:
+          POSTGRES_USER: ubuntu
+          POSTGRES_DB: emp_gr_test
+    steps:
+      - checkout
+      - run:
+          name: Install Ruby Dependencies
+          command: bundle install
+      - run:
+          name: Set up DB
+          command: |
+            bundle exec rake db:create db:schema:load --trace
+            bundle exec rake db:migrate
+        environment:
+          DATABASE_URL: "postgres://ubuntu@localhost:5432/emp_gr_test"
