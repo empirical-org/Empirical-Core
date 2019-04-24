@@ -21,8 +21,8 @@ jobs:
             cd services/QuillLMS
             bundle install
       - run:
-        name: Install postgres dependencies
-        command: apt install -y postgresql-client
+          name: Install postgres dependencies
+          command: apt install -y postgresql-client
       - run:
           name: Copy Config files
           command: |
