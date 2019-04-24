@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: ruby:2.5.1-jessie
+      - image: ruby:2.5.1
         environment:
           PG_HOST: localhost
           PG_USER: ubuntu
