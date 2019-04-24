@@ -20,6 +20,7 @@ jobs:
           command: |
             cd services/QuillLMS
             bundle install
+      - run: sudo apt install -y postgresql-client || true
       - run:
           name: Set up DB
           command: |
