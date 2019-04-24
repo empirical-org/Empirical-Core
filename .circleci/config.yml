@@ -1,6 +1,7 @@
 version: 2
 jobs:
   build:
+    working_directory: ~/Empirical-Core/services/QuillLMS
     docker:
       - image: ruby:2.5.1
         environment:
