@@ -6,7 +6,7 @@ jobs:
       - image: ruby:2.5.1
         environment:
           PG_DB: quill_test_db
-          PG_USER: root
+          PG_USER: ubuntu
           RAILS_ENV: test
           RACK_ENV: test
       - image: postgres:10.5-alpine
