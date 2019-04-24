@@ -28,8 +28,9 @@ jobs:
       - run:
           name: Copy Config files
           command: |
-            cd services/QuillLMS/config
-            cp database.yml.example database.yml
+            cd services/QuillLMS
+            cp .env-sample .env
+            cp config/database.yml.example config/database.yml
       - run:
           name: Set up DB
           command: |
