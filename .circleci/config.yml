@@ -16,11 +16,21 @@ jobs:
           POSTGRES_PASSWORD: ""
     steps:
       - checkout
+      # Restore bundle cache
+      - restore_cache:
+          keys:
+            - bundle-cache-{{ checksum "Gemfile.lock" }}
+            - bundle-cache-
       - run:
-          name: Install Ruby Dependencies
+          name: Bundle Install
           command: |
             cd services/QuillLMS
-            bundle install
+            bundle check || bundle install --path vendor/bundle
+      # Store bundle cache
+      - save_cache:
+          key: bundle-cache-{{ checksum "Gemfile.lock" }}
+          paths:
+            - services/QuillLMS/vendor/bundle
       - run:
           name: Install postgres dependencies
           command: |
