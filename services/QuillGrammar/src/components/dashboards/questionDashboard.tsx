@@ -19,25 +19,31 @@ class QuestionDashboard extends React.Component {
         Header: 'Question',
         accessor: 'prompt',
         resizable: false,
-        Cell: row => <a href={row.original.link}>{row.original.prompt}</a>,
+        Cell: row => <a href={row.original.link}>{row.original.prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")}</a>,
       }, {
         Header: 'Concept',
         accessor: 'concept.name',
         resizable: false,
-        Cell: row => <a href={row.original.concept.link}>{row.original.concept.name}</a>,
+        Cell: row => {
+          const link = row.original.concept ? row.original.concept.link : ''
+          const name = row.original.concept ? row.original.concept.name : ''
+          return <a href={link}>{name}</a>
+        },
       }, {
         Header: 'Explicitly Assigned Activities',
         accessor: 'explicitlyAssignedActivities',
         resizable: false,
         Cell: row => {
-          return row.explicitlyAssignedActivities.map(act => <a href={act.link}>{act.title}</a>)
+          const explicitlyAssignedActivities = row.explicitlyAssignedActivities || []
+          return explicitlyAssignedActivities.map(act => <a href={act.link}>{act.title}</a>)
         },
       }, {
         Header: 'Implicitly Assigned Activities',
         accessor: 'implicitlyAssignedActivities',
         resizable: false,
         Cell: row => {
-          return row.implicitlyAssignedActivities.map(act => <a href={act.link}>{act.title}</a>)
+          const implicitlyAssignedActivities = row.implicitlyAssignedActivities || []
+          return implicitlyAssignedActivities.map(act => <a href={act.link}>{act.title}</a>)
         },
       }, {
         Header: 'No Activities',
@@ -48,20 +54,28 @@ class QuestionDashboard extends React.Component {
     ];
   }
 
+  defaultSort(a, b) {
+    return a.replace('"', '').localeCompare(b.replace('"', ''))
+  }
+
   render() {
-    if (this.props.questionRows && this.props.questionRows.length) {
-      return (<div key={`${this.props.questionRows.length}-length-for-activities-scores-by-classroom`}>
+    const { questionAndConceptMap, } = this.props
+    if (questionAndConceptMap
+      && questionAndConceptMap.data
+      && questionAndConceptMap.data.questionRows
+      && questionAndConceptMap.data.questionRows.length
+    ) {
+      return (<div className="dashboard-table-container" key={`${questionAndConceptMap.data.questionRows.length}-length-for-activities-scores-by-classroom`}>
         <ReactTable
-          data={this.props.questionRows}
+          data={questionAndConceptMap.data.questionRows}
           columns={this.columns()}
-          showPagination
-          defaultSorted={[{ id: 'last_active', desc: true, }]}
-          showPaginationTop={false}
-          showPaginationBottom
+          showPagination={false}
+          defaultSorted={[{ id: 'prompt', desc: false, }]}
+          defaultSortMethod={this.defaultSort}
           showPageSizeOptions={false}
-          defaultPageSize={100}
+          defaultPageSize={questionAndConceptMap.data.questionRows.length}
           minRows={1}
-          className="progress-report has-green-arrow"
+          className="question-dashboard-table"
         />
       </div>);
     }
@@ -71,7 +85,7 @@ class QuestionDashboard extends React.Component {
 
 function select(state: any) {
   return {
-    concepts: state.grammarQuestionsAndConceptsMap
+    questionAndConceptMap: state.questionAndConceptMap
   };
 }
 
