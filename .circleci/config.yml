@@ -24,7 +24,7 @@ jobs:
           paths:
             - services/QuillLMS/vendor/bundle
       - run:
-          name: Bundle Install
+          name: Bundle Install if cache isn't present.
           command: |
             cd services/QuillLMS
             bundle check || bundle install --path vendor/bundle
