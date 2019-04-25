@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     working_directory: ~/Empirical-Core
-    parallelism: 3
+    parallelism: 1
     docker:
       - image: ruby:2.5.1
         environment:
