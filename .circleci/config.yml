@@ -19,8 +19,10 @@ jobs:
       # Restore bundle cache
       - restore_cache:
           keys:
-            - bundle-cache-{{ checksum "Gemfile.lock" }}
+            - bundle-cache-{{ checksum "services/QuillLMS/Gemfile.lock" }}
             - bundle-cache-
+          paths:
+            - services/QuillLMS/vendor/bundle
       - run:
           name: Bundle Install
           command: |
@@ -28,7 +30,7 @@ jobs:
             bundle check || bundle install --path vendor/bundle
       # Store bundle cache
       - save_cache:
-          key: bundle-cache-{{ checksum "Gemfile.lock" }}
+          key: bundle-cache-{{ checksum "services/QuillLMS/Gemfile.lock" }}
           paths:
             - services/QuillLMS/vendor/bundle
       - run:
