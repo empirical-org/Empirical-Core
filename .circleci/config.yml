@@ -2,7 +2,6 @@ version: 2
 jobs:
   build:
     working_directory: ~/Empirical-Core
-    parallelism: 1
     docker:
       - image: ruby:2.5.1
         environment:
@@ -58,10 +57,4 @@ jobs:
           name: Run tests
           command: |
             cd services/QuillLMS
-            bundle exec rspec --profile 10 \
-                              --format RspecJunitFormatter \
-                              --out test_results/rspec.xml \
-                              --format progress \
-                              $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
-      - store_test_results:
-          path: services/QuillLMS/test_results
+            bundle exec rake spec
