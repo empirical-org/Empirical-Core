@@ -61,18 +61,9 @@ export default class DashboardFilters extends React.Component {
     </div>
   }
 
-  render() {
-    const { allowedActivityFlags, allowedQuestionFlags, } = this.props
-    return <div className="dashboard-filters">
-      <div className="activity-filters">
-        <p>Activity Flags</p>
-        {this.renderCheckbox(ACTIVITY, PRODUCTION)}
-        {this.renderCheckbox(ACTIVITY, BETA)}
-        {this.renderCheckbox(ACTIVITY, ALPHA)}
-        {this.renderCheckbox(ACTIVITY, ARCHIVED)}
-        {this.renderCheckbox(ACTIVITY, NONE)}
-      </div>
-      <div className="question-filters">
+  renderQuestionFilters() {
+    if (this.props.allowedQuestionFlags) {
+      return <div className="question-filters">
         <p>Question Flags</p>
         {this.renderCheckbox(QUESTION, PRODUCTION)}
         {this.renderCheckbox(QUESTION, BETA)}
@@ -80,6 +71,26 @@ export default class DashboardFilters extends React.Component {
         {this.renderCheckbox(QUESTION, ARCHIVED)}
         {this.renderCheckbox(QUESTION, NONE)}
       </div>
+    }
+  }
+
+  renderActivityFilters() {
+    if (this.props.allowedActivityFlags) {
+      return <div className="activity-filters">
+        <p>Activity Flags</p>
+        {this.renderCheckbox(ACTIVITY, PRODUCTION)}
+        {this.renderCheckbox(ACTIVITY, BETA)}
+        {this.renderCheckbox(ACTIVITY, ALPHA)}
+        {this.renderCheckbox(ACTIVITY, ARCHIVED)}
+        {this.renderCheckbox(ACTIVITY, NONE)}
+      </div>
+    }
+  }
+
+  render() {
+    return <div className="dashboard-filters">
+      {this.renderActivityFilters()}
+      {this.renderQuestionFilters()}
     </div>
   }
 }

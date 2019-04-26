@@ -68,16 +68,20 @@ export function updateData() {
       const conceptRow = {}
       conceptRow.link = associatedQuestions[0].concept.link || ''
       conceptRow.name = associatedQuestions[0].concept.name || 'Missing Concept'
-      const explicitlyAssignedActivities = []
-      const implicitlyAssignedActivities = []
+      let explicitlyAssignedActivities = []
+      let implicitlyAssignedActivities = []
       associatedQuestions.forEach(q => {
         // explicit and implicitly assigned activities are inverted for questions and concepts
         // because if a concept is explicitly associated, its questions are implicitly associated, and vice versa
-        explicitlyAssignedActivities.concat(q.implicitlyAssignedActivities)
-        implicitlyAssignedActivities.concat(q.explicitlyAssignedActivities)
+        explicitlyAssignedActivities = explicitlyAssignedActivities.concat(q.implicitlyAssignedActivities)
+        implicitlyAssignedActivities = implicitlyAssignedActivities.concat(q.explicitlyAssignedActivities)
       })
-      conceptRow.explicitlyAssignedActivities = _.uniq(explicitlyAssignedActivities)
-      conceptRow.implicitlyAssignedActivities = _.uniq(implicitlyAssignedActivities)
+      const uniqueExplicitlyAssignedActivityLinks = Array.from(new Set(explicitlyAssignedActivities.map(a => a.link)))
+      const uniqueExplicitlyAssignedActivities = uniqueExplicitlyAssignedActivityLinks.map(link => explicitlyAssignedActivities.find(act => act.link === link))
+      const uniqueImplicitlyAssignedActivityLinks = Array.from(new Set(implicitlyAssignedActivities.map(a => a.link)))
+      const uniqueImplicitlyAssignedActivities = uniqueImplicitlyAssignedActivityLinks.map(link => implicitlyAssignedActivities.find(act => act.link === link))
+      conceptRow.explicitlyAssignedActivities = uniqueExplicitlyAssignedActivities
+      conceptRow.implicitlyAssignedActivities = uniqueImplicitlyAssignedActivities
       return conceptRow
     })
     grammarQuestionsAndConceptsRef.child('questionRows').set(questionRows)
