@@ -1,14 +1,14 @@
 import { Action } from "redux";
 import { ActionTypes } from "../actions/actionTypes";
-import { Questions } from '../interfaces/questions'
+import { DashboardConceptRow, DashboardQuestionRow } from '../interfaces/dashboards'
 import * as _ from 'lodash'
 
 export interface QuestionAndConceptMapReducerState {
   hasreceiveddata: boolean;
-  data?: { questionRows: Array<any>, conceptRows: Array<any>}
+  data?: { questionRows: Array<DashboardQuestionRow>, conceptRows: Array<DashboardConceptRow>}
 }
 
-type QuestionAndConceptMapReducerAction = Action & { data: { questionRows: Array<any>, conceptRows: Array<any>} }
+type QuestionAndConceptMapReducerAction = Action & { data: { questionRows: Array<DashboardQuestionRow>, conceptRows: Array<DashboardConceptRow>} }
 
 export default (
     currentState = {hasreceiveddata: false},

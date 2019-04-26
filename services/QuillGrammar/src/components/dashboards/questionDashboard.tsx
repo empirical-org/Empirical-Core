@@ -1,15 +1,28 @@
 import * as React from 'react';
+import * as Redux from "redux";
 import ReactTable from 'react-table';
 import { connect } from 'react-redux';
 import DashboardFilters from './dashboardFilters'
 import LoadingSpinner from '../shared/loading_spinner'
 import * as QuestionAndConceptMapActions from '../../actions/questionAndConceptMap'
+import { QuestionAndConceptMapReducerState } from '../../reducers/questionAndConceptMapReducer'
+import { DashboardConceptRow, DashboardQuestionRow, DashboardActivity } from '../../interfaces/dashboards'
 import Constants from '../../constants'
 
 const { PRODUCTION, BETA, ALPHA, ARCHIVED, NONE, } = Constants
 
-class QuestionDashboard extends React.Component {
-  constructor(props) {
+interface QuestionDashboardProps {
+  dispatch: Function;
+  questionAndConceptMap: QuestionAndConceptMapReducerState;
+}
+
+interface QuestionDashboardState {
+  allowedActivityFlags: Array<string>;
+  allowedQuestionFlags: Array<string>
+}
+
+class QuestionDashboard extends React.Component<QuestionDashboardProps, QuestionDashboardState> {
+  constructor(props: QuestionDashboardProps) {
     super(props)
 
     this.state = {
@@ -41,12 +54,12 @@ class QuestionDashboard extends React.Component {
         Header: 'Question',
         accessor: 'prompt',
         resizable: false,
-        Cell: row => <a href={row.original.link}>{row.original.prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")}</a>,
+        Cell: (row: { original: DashboardQuestionRow }) => <a href={row.original.link}>{row.original.prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")}</a>,
       }, {
         Header: 'Concept',
         accessor: 'concept.name',
         resizable: false,
-        Cell: row => {
+        Cell: (row: { original: DashboardQuestionRow}) => {
           const link = row.original.concept ? row.original.concept.link : ''
           const name = row.original.concept ? row.original.concept.name : ''
           return <a href={link}>{name}</a>
@@ -56,40 +69,40 @@ class QuestionDashboard extends React.Component {
         accessor: 'explicitlyAssignedActivities',
         resizable: false,
         sortMethod: this.sortActivityArray,
-        Cell: row => {
+        Cell: (row: { original: DashboardQuestionRow}) => {
           const explicitlyAssignedActivities = row.original.explicitlyAssignedActivities || []
-          return this.filterActivities(explicitlyAssignedActivities).map(act => <a className="activity-link" href={act.link}>{act.title}</a>)
+          return this.filterActivities(explicitlyAssignedActivities).map((act: DashboardActivity) => <a className="activity-link" href={act.link}>{act.title}</a>)
         },
       }, {
         Header: 'Implicitly Assigned Activities',
         accessor: 'implicitlyAssignedActivities',
         resizable: false,
         sortMethod: this.sortActivityArray,
-        Cell: row => {
+        Cell: (row: { original: DashboardQuestionRow}) => {
           const implicitlyAssignedActivities = row.original.implicitlyAssignedActivities || []
-          return this.filterActivities(implicitlyAssignedActivities).map(act => <a className="activity-link" href={act.link}>{act.title}</a>)
+          return this.filterActivities(implicitlyAssignedActivities).map((act: DashboardActivity) => <a className="activity-link" href={act.link}>{act.title}</a>)
         },
       }, {
         Header: 'No Activities',
         accessor: 'noActivities',
         resizable: false,
-        sortMethod: (a, b) => a ? 1 : -1,
-        Cell: row => <span>{String(row.original.noActivities)}</span>,
+        sortMethod: (a: boolean, b: boolean) => a ? 1 : -1,
+        Cell: (row: { original: DashboardQuestionRow}) => <span>{String(row.original.noActivities)}</span>,
       }
     ];
   }
 
-  filterActivities(activities) {
-    return activities.filter(act => {
+  filterActivities(activities: Array<DashboardActivity>) {
+    return activities.filter((act: DashboardActivity) => {
       return (this.state.allowedActivityFlags.includes(act.flag)
       || (!act.flag && this.state.allowedActivityFlags.includes(NONE)))
     })
   }
 
-  sortActivityArray(a, b) {
+  sortActivityArray(a: Array<DashboardActivity>, b: Array<DashboardActivity>) {
     if (a && a.length && b && b.length) {
-      const sortedA = a.sort(act => act.title)
-      const sortedB = b.sort(act => act.title)
+      const sortedA = a.sort((actA: DashboardActivity, actB: DashboardActivity) => actA.title > actB.title ? 1 : -1 )
+      const sortedB = b.sort((actA: DashboardActivity, actB: DashboardActivity) => actA.title > actB.title ? 1 : -1 )
       if (sortedA[0].title > sortedB[0].title) {
         return -1
       } else if (sortedA[0].title < sortedB[0].title) {
@@ -106,7 +119,7 @@ class QuestionDashboard extends React.Component {
     }
   }
 
-  normalizeStringForSorting(string) {
+  normalizeStringForSorting(string: string) {
     if (string) {
       return string.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "").replace(/"|“/g, '').replace(/_+/g, '_').trim()
     } else {
@@ -114,7 +127,7 @@ class QuestionDashboard extends React.Component {
     }
   }
 
-  defaultSort(a, b) {
+  defaultSort(a: string, b: string) {
     return this.normalizeStringForSorting(a).localeCompare(this.normalizeStringForSorting(b))
   }
 
@@ -130,7 +143,7 @@ class QuestionDashboard extends React.Component {
         return (allowedQuestionFlags.includes(q.flag)
         || (!q.flag && allowedQuestionFlags.includes(NONE)))
       })
-      return (<div className="dashboard-table-container" key={`${filteredData.length}-length-for-activities-scores-by-classroom`}>
+      return (<div className="dashboard-table-container question-dashboard" key={`${filteredData.length}-length-for-activities-scores-by-classroom`}>
         <DashboardFilters
           allowedQuestionFlags={allowedQuestionFlags}
           allowedActivityFlags={allowedActivityFlags}
@@ -154,10 +167,16 @@ class QuestionDashboard extends React.Component {
   };
 }
 
-function select(state: any) {
-  return {
-    questionAndConceptMap: state.questionAndConceptMap
-  };
-}
+const mapStateToProps = (state: any) => {
+    return {
+      questionAndConceptMap: state.questionAndConceptMap
+    };
+};
 
-export default connect(select)(QuestionDashboard);
+const mapDispatchToProps = (dispatch: Redux.Dispatch<any>) => {
+    return {
+        dispatch
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(QuestionDashboard);

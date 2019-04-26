@@ -1,4 +1,4 @@
-.question-dashboard-table {
+.question-dashboard-table, .concept-dashboard-table {
   width: 100%;
   .rt-td {
     white-space: normal;
@@ -12,12 +12,19 @@
   }
 }
 
+.concept-dashboard .dashboard-filters {
+  width: 150px;
+}
+
+.question-dashboard .dashboard-filters {
+  width: 300px;
+}
+
 .dashboard-filters {
   border: 1px solid rgba(0,0,0,0.1);
   border-radius: 6px;
   padding: 10px;
   display: flex;
-  width: 300px;
   justify-content: space-between;
   margin: 20px 0px;
   label {
