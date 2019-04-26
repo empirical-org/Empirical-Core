@@ -7,6 +7,9 @@ import * as QuestionAndConceptMapActions from '../../actions/questionAndConceptM
 class QuestionDashboard extends React.Component {
   constructor(props) {
     super(props)
+
+    this.defaultSort = this.defaultSort.bind(this)
+    this.normalizeStringForSorting = this.normalizeStringForSorting.bind(this)
   }
 
   componentWillMount() {
@@ -33,17 +36,19 @@ class QuestionDashboard extends React.Component {
         Header: 'Explicitly Assigned Activities',
         accessor: 'explicitlyAssignedActivities',
         resizable: false,
+        sortMethod: this.sortActivityArray,
         Cell: row => {
-          const explicitlyAssignedActivities = row.explicitlyAssignedActivities || []
-          return explicitlyAssignedActivities.map(act => <a href={act.link}>{act.title}</a>)
+          const explicitlyAssignedActivities = row.original.explicitlyAssignedActivities || []
+          return explicitlyAssignedActivities.map(act => <a className="activity-link" href={act.link}>{act.title}</a>)
         },
       }, {
         Header: 'Implicitly Assigned Activities',
         accessor: 'implicitlyAssignedActivities',
         resizable: false,
+        sortMethod: this.sortActivityArray,
         Cell: row => {
-          const implicitlyAssignedActivities = row.implicitlyAssignedActivities || []
-          return implicitlyAssignedActivities.map(act => <a href={act.link}>{act.title}</a>)
+          const implicitlyAssignedActivities = row.original.implicitlyAssignedActivities || []
+          return implicitlyAssignedActivities.map(act => <a className="activity-link" href={act.link}>{act.title}</a>)
         },
       }, {
         Header: 'No Activities',
@@ -54,8 +59,36 @@ class QuestionDashboard extends React.Component {
     ];
   }
 
+  sortActivityArray(a, b) {
+    if (a && a.length && b && b.length) {
+      const sortedA = a.sort(act => act.title)
+      const sortedB = b.sort(act => act.title)
+      if (sortedA[0].title > sortedB[0].title) {
+        return -1
+      } else if (sortedA[0].title < sortedB[0].title) {
+        return 1
+      } else {
+        return 0
+      }
+    } else if (a && a.length) {
+      return 1
+    } else if (b && b.length) {
+      return -1
+    } else {
+      return 0
+    }
+  }
+
+  normalizeStringForSorting(string) {
+    if (string) {
+      return string.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "").replace(/"|“/g, '').replace(/_+/g, '_').trim()
+    } else {
+      return ''
+    }
+  }
+
   defaultSort(a, b) {
-    return a.replace('"', '').localeCompare(b.replace('"', ''))
+    return this.normalizeStringForSorting(a).localeCompare(this.normalizeStringForSorting(b))
   }
 
   render() {
