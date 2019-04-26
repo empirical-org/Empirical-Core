@@ -59,4 +59,11 @@ module ApplicationHelper
     "u/#{unit_id}/a/#{activity_id}/c/#{classroom_id}/student_report/" +
     "#{user_id}"
   end
+
+  def format_analytics_properties (request, properties)
+    common_properties = { path: request.fullpath,
+                          referrer: request.referrer, }
+    custom_properties = properties.map{ |k,v| ["custom." + k.to_s, v] }.to_h
+    custom_properties.merge(common_properties)
+  end
 end
