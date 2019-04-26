@@ -11,3 +11,20 @@
     display: block;
   }
 }
+
+.dashboard-filters {
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 6px;
+  padding: 10px;
+  display: flex;
+  width: 300px;
+  justify-content: space-between;
+  margin: 20px 0px;
+  label {
+    margin-left: 5px;
+  }
+  p {
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+}

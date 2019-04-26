@@ -56,7 +56,7 @@ export function updateData() {
           implicitlyAssignedActivities.push(actObj)
         }
       })
-      questionRow.noActivities = !!(explicitlyAssignedActivities.length || implicitlyAssignedActivities.length)
+      questionRow.noActivities = !(explicitlyAssignedActivities.length || implicitlyAssignedActivities.length)
       questionRow.explicitlyAssignedActivities = explicitlyAssignedActivities
       questionRow.implicitlyAssignedActivities = implicitlyAssignedActivities
       return questionRow
