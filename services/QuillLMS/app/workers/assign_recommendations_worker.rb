@@ -45,7 +45,7 @@ class AssignRecommendationsWorker
 
   def track_recommendation_assignment(teacher)
     analytics = Analyzer.new
-    analytics.track(teacher, SegmentIo::Events::ASSIGN_RECOMMENDATIONS)
+    analytics.track(teacher, SegmentIo::BackgroundEvents::ASSIGN_RECOMMENDATIONS)
   end
 
   def find_unit(units)
