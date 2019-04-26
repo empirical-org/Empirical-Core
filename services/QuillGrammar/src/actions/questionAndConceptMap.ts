@@ -3,22 +3,14 @@ import * as _ from 'lodash'
 
 import rootRef from '../firebase';
 import { ActionTypes } from './actionTypes'
+import { DashboardConceptRow, DashboardActivity, DashboardQuestionRow } from '../interfaces/dashboards'
+import { GrammarActivity } from '../interfaces/grammarActivities'
+import { Concept } from '../interfaces/concepts'
 
 const	grammarQuestionsAndConceptsRef = rootRef.child('grammarQuestionsAndConceptsMap');
 const setTimeoutRef = rootRef.child('timeouts/grammarQuestionsAndConceptsMap');
 
 const moment = require('moment');
-
-interface QuestionRow {
-  prompt: string,
-  flag: string,
-  link: string,
-  concept_uid: string,
-  concept: { name: string, link: string, }|{},
-  explicitlyAssignedActivities: Array<{title: string, flag: string, link: string}>,
-  implicitlyAssignedActivities: Array<{title: string, flag: string, link: string}>,
-  noActivities: boolean,
-}
 
 export function startListeningToQuestionAndConceptMapData() {
   return function (dispatch: Function) {
@@ -34,17 +26,17 @@ export function updateData() {
     const conceptsArray = concepts.data[0]
     const questionsArray = hashToCollection(questions.data)
     const activitiesArray = hashToCollection(grammarActivities.data)
-    const questionRows: Array<QuestionRow> = questionsArray.map((q) => {
-      const questionRow:QuestionRow = {}
+    const questionRows: Array<DashboardQuestionRow> = questionsArray.map((q) => {
+      const questionRow:DashboardQuestionRow = {}
       questionRow.concept_uid = q.concept_uid
       questionRow.prompt = q.prompt
       questionRow.flag = q.flag
       questionRow.link = `/#/admin/questions/${q.key}/responses`
-      const concept = conceptsArray.find(c => c.uid === q.concept_uid)
+      const concept = conceptsArray.find((c: Concept) => c.uid === q.concept_uid)
       questionRow.concept = concept ? { name: concept.displayName, link: `/#/admin/concepts/${concept.uid}`} : {}
       const explicitlyAssignedActivities:Array<{title: string, flag: string, link: string}> = []
       const implicitlyAssignedActivities:Array<{title: string, flag: string, link: string}> = []
-      activitiesArray.forEach(act => {
+      activitiesArray.forEach((act: GrammarActivity) => {
         const actObj = _.pickBy({
           title: act.title || 'No Name',
           flag: act.flag,
@@ -65,11 +57,11 @@ export function updateData() {
     const groupedConcepts = _.groupBy(questionRows, 'concept_uid')
     const conceptRows = Object.keys(groupedConcepts).map(uid => {
       const associatedQuestions = groupedConcepts[uid]
-      const conceptRow = {}
+      const conceptRow:DashboardConceptRow = {}
       conceptRow.link = associatedQuestions[0].concept.link || ''
       conceptRow.name = associatedQuestions[0].concept.name || 'Missing Concept'
-      let explicitlyAssignedActivities = []
-      let implicitlyAssignedActivities = []
+      let explicitlyAssignedActivities:Array<DashboardActivity> = []
+      let implicitlyAssignedActivities:Array<DashboardActivity> = []
       associatedQuestions.forEach(q => {
         // explicit and implicitly assigned activities are inverted for questions and concepts
         // because if a concept is explicitly associated, its questions are implicitly associated, and vice versa

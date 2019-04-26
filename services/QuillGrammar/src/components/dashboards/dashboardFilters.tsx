@@ -49,7 +49,8 @@ export default class DashboardFilters extends React.Component<DashboardFiltersPr
 
   renderCheckbox(questionOrActivity: string, flag: string) {
     const { allowedActivityFlags, allowedQuestionFlags, } = this.props
-    let flagArray, updateFunction
+    let flagArray: Array<string>|undefined
+    let updateFunction: Function|undefined
     if (questionOrActivity === ACTIVITY) {
       flagArray = allowedActivityFlags
       updateFunction = this.updateActivityFlags
@@ -63,8 +64,8 @@ export default class DashboardFilters extends React.Component<DashboardFiltersPr
         name={flag}
         value={flag}
         id={`${questionOrActivity}-${flag}`}
-        checked={flagArray.includes(flag)}
-        onChange={() => updateFunction(flag)}
+        checked={flagArray ? flagArray.includes(flag) : false}
+        onChange={() => updateFunction ? updateFunction(flag) : null}
       />
       <label htmlFor={`${questionOrActivity}-${flag}`}>{flag}</label>
     </div>
