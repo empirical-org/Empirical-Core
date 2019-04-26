@@ -94,8 +94,7 @@ export function checkTimeout() {
     setTimeoutRef.once('value', (snapshot: any) => {
       console.log('time now: ', moment().format('x'));
       console.log('time at snapshot: ', snapshot.val());
-      if (moment().format('x') - (snapshot.val() || 0) > 3000) {
-      // if (moment().format('x') - (snapshot.val() || 0) > 300000) {
+      if (moment().format('x') - (snapshot.val() || 0) > 300000) {
         setTimeoutRef.set(moment().format('x'));
         dispatch(updateData())
       }

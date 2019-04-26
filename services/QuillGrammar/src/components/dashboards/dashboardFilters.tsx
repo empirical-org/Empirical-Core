@@ -7,8 +7,15 @@ const { PRODUCTION, BETA, ALPHA, ARCHIVED, NONE, } = Constants
 const ACTIVITY = 'activity'
 const QUESTION = 'question'
 
-export default class DashboardFilters extends React.Component {
-  constructor(props) {
+interface DashboardFiltersProps {
+  allowedActivityFlags: Array<string>;
+  allowedQuestionFlags?: Array<string>;
+  updateAllowedActivityFlags: Function;
+  updateAllowedQuestionFlags?: Function;
+}
+
+export default class DashboardFilters extends React.Component<DashboardFiltersProps> {
+  constructor(props: DashboardFiltersProps) {
     super(props)
 
     this.renderCheckbox = this.renderCheckbox.bind(this)
@@ -16,7 +23,7 @@ export default class DashboardFilters extends React.Component {
     this.updateQuestionFlags = this.updateQuestionFlags.bind(this)
   }
 
-  updateActivityFlags(flag) {
+  updateActivityFlags(flag: string) {
     const { allowedActivityFlags, updateAllowedActivityFlags, } = this.props
     let newAllowedActivityFlags
     if (allowedActivityFlags.includes(flag)) {
@@ -27,18 +34,20 @@ export default class DashboardFilters extends React.Component {
     updateAllowedActivityFlags(newAllowedActivityFlags)
   }
 
-  updateQuestionFlags(flag) {
+  updateQuestionFlags(flag: string) {
     const { allowedQuestionFlags, updateAllowedQuestionFlags, } = this.props
     let newAllowedQuestionFlags
-    if (allowedQuestionFlags.includes(flag)) {
+    if (allowedQuestionFlags && allowedQuestionFlags.includes(flag)) {
       newAllowedQuestionFlags = allowedQuestionFlags.filter(allowedFlag => allowedFlag !== flag)
     } else {
-      newAllowedQuestionFlags = allowedQuestionFlags.concat(flag)
+      newAllowedQuestionFlags = allowedQuestionFlags ? allowedQuestionFlags.concat(flag) : [flag]
     }
-    updateAllowedQuestionFlags(newAllowedQuestionFlags)
+    if (updateAllowedQuestionFlags) {
+      updateAllowedQuestionFlags(newAllowedQuestionFlags)
+    }
   }
 
-  renderCheckbox(questionOrActivity, flag) {
+  renderCheckbox(questionOrActivity: string, flag: string) {
     const { allowedActivityFlags, allowedQuestionFlags, } = this.props
     let flagArray, updateFunction
     if (questionOrActivity === ACTIVITY) {
@@ -61,7 +70,7 @@ export default class DashboardFilters extends React.Component {
     </div>
   }
 
-  renderQuestionFilters() {
+  renderQuestionFilters():JSX.Element|void {
     if (this.props.allowedQuestionFlags) {
       return <div className="question-filters">
         <p>Question Flags</p>
@@ -74,7 +83,7 @@ export default class DashboardFilters extends React.Component {
     }
   }
 
-  renderActivityFilters() {
+  renderActivityFilters():JSX.Element|void {
     if (this.props.allowedActivityFlags) {
       return <div className="activity-filters">
         <p>Activity Flags</p>
