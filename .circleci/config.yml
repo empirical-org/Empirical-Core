@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  build:
+  rails_build:
     working_directory: ~/Empirical-Core
     docker:
       - image: ruby:2.5.1
@@ -16,7 +16,6 @@ jobs:
           POSTGRES_PASSWORD: ""
     steps:
       - checkout
-      # Restore bundle cache
       - restore_cache:
           keys:
             - bundle-cache-{{ checksum "services/QuillLMS/Gemfile.lock" }}
@@ -28,7 +27,6 @@ jobs:
           command: |
             cd services/QuillLMS
             bundle check || bundle install --path vendor/bundle
-      # Store bundle cache
       - save_cache:
           key: bundle-cache-{{ checksum "services/QuillLMS/Gemfile.lock" }}
           paths:
@@ -58,3 +56,28 @@ jobs:
           command: |
             cd services/QuillLMS
             bundle exec rake spec
+
+  lms_react_build:
+    working_directory: ~/Empirical-Core
+    docker:
+      - image: circleci/node:8
+    steps:
+      - checkout
+      - restore_cache:
+          key: npm-cache-v1-{{ checksum "package-lock.json" }}
+          paths:
+            - /home/circleci/.npm/QuillLMS
+      - run:
+          name: Install Dependencies
+          command: |
+          cd services/QuillLMS
+          npm ci
+      - save_cache:
+          key: npm-cache-v1-{{ checksum "package-lock.json" }}
+          paths:
+            - /home/circleci/.npm/QuillLMS
+      - run:
+          name: Run Tests
+          command: |
+          cd services/QuillLMS
+          npm test
