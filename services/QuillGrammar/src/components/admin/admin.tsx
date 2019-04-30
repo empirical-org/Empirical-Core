@@ -5,6 +5,7 @@ import * as grammarActivitiesActions from '../../actions/grammarActivities'
 import * as questionsActions from '../../actions/questions'
 import * as conceptsActions from '../../actions/concepts'
 import * as conceptsFeedbackActions from '../../actions/conceptsFeedback'
+import * as questionAndConceptMapActions from '../../actions/questionAndConceptMap'
 import Questions from '../questions/questions'
 import Question from '../questions/question'
 import Lessons from '../lessons/lessons'
@@ -13,6 +14,8 @@ import Concepts from '../concepts/concepts'
 import Concept from '../concepts/concept'
 import ConceptsFeedback from '../conceptsFeedback/conceptsFeedback'
 import ConceptFeedback from '../conceptsFeedback/conceptFeedback'
+import QuestionDashboard from '../dashboards/questionDashboard'
+import ConceptDashboard from '../dashboards/conceptDashboard'
 import TabLink from './tabLink'
 
 interface PathParamsType {
@@ -31,6 +34,7 @@ class AdminContainer extends React.Component<AdminContainerProps> {
     this.props.dispatch(grammarActivitiesActions.startListeningToActivities());
     this.props.dispatch(conceptsActions.startListeningToConcepts());
     this.props.dispatch(conceptsFeedbackActions.startListeningToConceptsFeedback());
+    this.props.dispatch(questionAndConceptMapActions.startListeningToQuestionAndConceptMapData())
   }
 
   render() {
@@ -43,6 +47,8 @@ class AdminContainer extends React.Component<AdminContainerProps> {
             </p>
             <ul className="menu-list">
               <TabLink to={'/admin/lessons'} activeClassName="is-active">Grammar Activities</TabLink>
+              <TabLink to={'/admin/question_dashboard'} activeClassName="is-active">Question Dashboard</TabLink>
+              <TabLink to={'/admin/concept_dashboard'} activeClassName="is-active">Concept Dashboard</TabLink>
             </ul>
             <p className="menu-label">
               Questions
@@ -71,6 +77,8 @@ class AdminContainer extends React.Component<AdminContainerProps> {
           <Route path={`/admin/concepts`} component={Concepts}/>
           <Route path={`/admin/concepts_feedback/:conceptFeedbackID`} component={ConceptFeedback}/>
           <Route path={`/admin/concepts_feedback`} component={ConceptsFeedback}/>
+          <Route path={`/admin/question_dashboard`} component={QuestionDashboard} />
+          <Route path={`/admin/concept_dashboard`} component={ConceptDashboard} />
         </Switch>
       </div>
     );
