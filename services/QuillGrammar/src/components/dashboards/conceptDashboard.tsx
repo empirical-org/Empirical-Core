@@ -31,6 +31,7 @@ class ConceptDashboard extends React.Component<ConceptDashboardProps, ConceptDas
     this.defaultSort = this.defaultSort.bind(this)
     this.normalizeStringForSorting = this.normalizeStringForSorting.bind(this)
     this.updateAllowedActivityFlags = this.updateAllowedActivityFlags.bind(this)
+    this.sortActivityArray = this.sortActivityArray.bind(this)
   }
 
   componentWillMount() {
@@ -80,24 +81,14 @@ class ConceptDashboard extends React.Component<ConceptDashboardProps, ConceptDas
     })
   }
 
-  sortActivityArray(a: Array<DashboardActivity>, b: Array<DashboardActivity>) {
-    if (a && a.length && b && b.length) {
-      const sortedA = a.sort((actA: DashboardActivity, actB: DashboardActivity) => actA.title > actB.title ? 1 : -1 )
-      const sortedB = b.sort((actA: DashboardActivity, actB: DashboardActivity) => actA.title > actB.title ? 1 : -1 )
-      if (sortedA[0].title > sortedB[0].title) {
-        return -1
-      } else if (sortedA[0].title < sortedB[0].title) {
-        return 1
-      } else {
-        return 0
-      }
-    } else if (a && a.length) {
-      return 1
-    } else if (b && b.length) {
-      return -1
-    } else {
-      return 0
-    }
+  sortActivityArray(activityArrayA: Array<DashboardActivity>, activityArrayB: Array<DashboardActivity>) {
+    if (!(activityArrayB && activityArrayB.length)) { return 1 }
+    if (!(activityArrayA && activityArrayA.length)) { return -1 }
+
+    const firstActivityInArrayA = activityArrayA.map(act => act.title).sort(this.defaultSort)[0]
+    const firstActivityInArrayB = activityArrayB.map(act => act.title).sort(this.defaultSort)[0]
+
+    return this.defaultSort(firstActivityInArrayA, firstActivityInArrayB)
   }
 
   normalizeStringForSorting(string: string) {

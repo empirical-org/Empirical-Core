@@ -49,15 +49,9 @@ export default class DashboardFilters extends React.Component<DashboardFiltersPr
 
   renderCheckbox(questionOrActivity: string, flag: string) {
     const { allowedActivityFlags, allowedQuestionFlags, } = this.props
-    let flagArray: Array<string>|undefined
-    let updateFunction: Function|undefined
-    if (questionOrActivity === ACTIVITY) {
-      flagArray = allowedActivityFlags
-      updateFunction = this.updateActivityFlags
-    } else {
-      flagArray = allowedQuestionFlags
-      updateFunction = this.updateQuestionFlags
-    }
+    const isActivity = questionOrActivity === ACTIVITY
+    const flagArray = isActivity ? allowedActivityFlags : allowedQuestionFlags
+    const updateFunction = isActivity ? this.updateActivityFlags : this.updateQuestionFlags
     return <div>
       <input
         type="checkbox"
