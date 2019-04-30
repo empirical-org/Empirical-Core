@@ -10,6 +10,12 @@ class StudentsController < ApplicationController
       classroom = Classroom.find(params["classroom"])
       flash.now["join-class-notification"] = "You have joined #{classroom.name} 🎉🎊"
     end
+
+    if params["classroom"] && Classroom.find_by(id: params["classroom"]).nil?
+      flash[:error] = 'Oops! You are no longer part of that classroom. Your teacher may have archived the class or removed you.'
+      flash.keep(:error)
+      redirect_to '/profile'
+    end
   end
 
   def account_settings
