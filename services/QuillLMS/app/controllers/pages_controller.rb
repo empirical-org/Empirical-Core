@@ -26,7 +26,9 @@ class PagesController < ApplicationController
       name = ReferrerUser.find_by(referral_code: request.env['affiliate.tag'])&.user&.name
       flash.now[:info] = "<strong>#{name}</strong> invited you to help your students become better writers with Quill!" if name
     end
-    check_should_clear_segment_identity
+    if user_just_logged_out
+      set_just_logged_out_flag
+    end
   end
 
   def develop
@@ -400,10 +402,20 @@ class PagesController < ApplicationController
     list_response
   end
 
+  def set_just_logged_out_flag
+    session.delete("clear_analytics_session")
+    @logging_user_out = true
+  end
+
+  def user_just_logged_out
+    if check_should_clear_segment_identity
+      return true
+    end
+  end
+
   def check_should_clear_segment_identity
     if session.key?("clear_analytics_session")
-      session.delete("clear_analytics_session")
-      @logging_user_out = true
+      return true
     end
   end
 
