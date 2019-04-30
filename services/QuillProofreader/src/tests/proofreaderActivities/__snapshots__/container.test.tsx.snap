@@ -127,6 +127,7 @@ Over the years, Coney Island has expanded to have a few parks with rides. There 
         </div>,
         undefined,
         undefined,
+        undefined,
         <div
           className="passage "
         />,
@@ -134,6 +135,15 @@ Over the years, Coney Island has expanded to have a few parks with rides. There 
           className="bottom-section"
         >
           <button
+            className="reset-button disabled"
+          >
+            <img
+              src="undefined/images/icons/refresh.svg"
+            />
+             Reset
+          </button>
+          <button
+            className="check-work"
             onClick={[Function]}
           >
             Check Work
@@ -447,6 +457,7 @@ Over the years, Coney Island has expanded to have a few parks with rides. There 
       },
       undefined,
       undefined,
+      undefined,
       Object {
         "instance": null,
         "key": undefined,
@@ -464,26 +475,70 @@ Over the years, Coney Island has expanded to have a few parks with rides. There 
         "key": undefined,
         "nodeType": "host",
         "props": Object {
-          "children": <button
-            onClick={[Function]}
-          >
-            Check Work
-          </button>,
+          "children": Array [
+            <button
+              className="reset-button disabled"
+            >
+              <img
+                src="undefined/images/icons/refresh.svg"
+              />
+               Reset
+            </button>,
+            <button
+              className="check-work"
+              onClick={[Function]}
+            >
+              Check Work
+            </button>,
+          ],
           "className": "bottom-section",
         },
         "ref": null,
-        "rendered": Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "host",
-          "props": Object {
-            "children": "Check Work",
-            "onClick": [Function],
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": Array [
+                <img
+                  src="undefined/images/icons/refresh.svg"
+                />,
+                " Reset",
+              ],
+              "className": "reset-button disabled",
+            },
+            "ref": null,
+            "rendered": Array [
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "src": "undefined/images/icons/refresh.svg",
+                },
+                "ref": null,
+                "rendered": null,
+                "type": "img",
+              },
+              " Reset",
+            ],
+            "type": "button",
           },
-          "ref": null,
-          "rendered": "Check Work",
-          "type": "button",
-        },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": "Check Work",
+              "className": "check-work",
+              "onClick": [Function],
+            },
+            "ref": null,
+            "rendered": "Check Work",
+            "type": "button",
+          },
+        ],
         "type": "div",
       },
     ],
@@ -547,6 +602,7 @@ Over the years, Coney Island has expanded to have a few parks with rides. There 
           </div>,
           undefined,
           undefined,
+          undefined,
           <div
             className="passage "
           />,
@@ -554,6 +610,15 @@ Over the years, Coney Island has expanded to have a few parks with rides. There 
             className="bottom-section"
           >
             <button
+              className="reset-button disabled"
+            >
+              <img
+                src="undefined/images/icons/refresh.svg"
+              />
+               Reset
+            </button>
+            <button
+              className="check-work"
               onClick={[Function]}
             >
               Check Work
@@ -867,6 +932,7 @@ Over the years, Coney Island has expanded to have a few parks with rides. There 
         },
         undefined,
         undefined,
+        undefined,
         Object {
           "instance": null,
           "key": undefined,
@@ -884,26 +950,70 @@ Over the years, Coney Island has expanded to have a few parks with rides. There 
           "key": undefined,
           "nodeType": "host",
           "props": Object {
-            "children": <button
-              onClick={[Function]}
-            >
-              Check Work
-            </button>,
+            "children": Array [
+              <button
+                className="reset-button disabled"
+              >
+                <img
+                  src="undefined/images/icons/refresh.svg"
+                />
+                 Reset
+              </button>,
+              <button
+                className="check-work"
+                onClick={[Function]}
+              >
+                Check Work
+              </button>,
+            ],
             "className": "bottom-section",
           },
           "ref": null,
-          "rendered": Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "host",
-            "props": Object {
-              "children": "Check Work",
-              "onClick": [Function],
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": Array [
+                  <img
+                    src="undefined/images/icons/refresh.svg"
+                  />,
+                  " Reset",
+                ],
+                "className": "reset-button disabled",
+              },
+              "ref": null,
+              "rendered": Array [
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "src": "undefined/images/icons/refresh.svg",
+                  },
+                  "ref": null,
+                  "rendered": null,
+                  "type": "img",
+                },
+                " Reset",
+              ],
+              "type": "button",
             },
-            "ref": null,
-            "rendered": "Check Work",
-            "type": "button",
-          },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": "Check Work",
+                "className": "check-work",
+                "onClick": [Function],
+              },
+              "ref": null,
+              "rendered": "Check Work",
+              "type": "button",
+            },
+          ],
           "type": "div",
         },
       ],
