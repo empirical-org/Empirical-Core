@@ -6,12 +6,13 @@ class StudentsController < ApplicationController
   def index
     @current_user = current_user
     @js_file = 'student'
-    if params["joined"] == 'success' && params["classroom"]
-      classroom = Classroom.find(params["classroom"])
+    classroom_id = params["classroom"]
+    if params["joined"] == 'success' && classroom_id
+      classroom = Classroom.find(classroom_id)
       flash.now["join-class-notification"] = "You have joined #{classroom.name} 🎉🎊"
     end
 
-    if params["classroom"] && Classroom.find_by(id: params["classroom"]).nil?
+    if classroom_id && (Classroom.find_by(id: classroom_id).nil? || StudentsClassrooms.find_by(student_id: @current_user.id, classroom_id: classroom_id).nil?)
       flash[:error] = 'Oops! You are no longer part of that classroom. Your teacher may have archived the class or removed you.'
       flash.keep(:error)
       redirect_to '/profile'
