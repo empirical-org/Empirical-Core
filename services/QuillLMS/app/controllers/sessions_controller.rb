@@ -81,6 +81,10 @@ class SessionsController < ApplicationController
         redirect_to cms_users_path
       else
         sign_out
+        # Wherever our user eventually lands after logout, we want to do some special stuff
+        # So we set a session value here for the final controller to pick up and convert into
+        # a variable for the view
+        session[:clear_analytics_session] = true
         redirect_to signed_out_path
       end
     end
