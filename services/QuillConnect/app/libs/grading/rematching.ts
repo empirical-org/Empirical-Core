@@ -164,12 +164,13 @@ function unmatchRematchedResponse(response) {
 }
 
 function updateRematchedResponse(response, newResponse) {
+  const conceptResults = newResponse.response.conceptResults || newResponse.response.concept_results
   const newVals = {
     weak: false,
     parent_id: newResponse.response.parent_id,
     author: newResponse.response.author,
     feedback: newResponse.response.feedback,
-    concept_results: convertResponsesArrayToHash(newResponse.response.concept_results),
+    concept_results: convertResponsesArrayToHash(conceptResults),
   };
   return updateResponse(response.id, newVals);
 }
@@ -190,14 +191,13 @@ function updateResponse(rid, content) {
 }
 
 function determineDelta(response, newResponse) {
+  const conceptResults = newResponse.response.conceptResults || newResponse.response.concept_results
   const unmatched = !newResponse.response.author && !!response.author;
   const parentIDChanged = (newResponse.response.parent_id? Number(newResponse.response.parent_id) : null) !== response.parent_id;
   const authorChanged = newResponse.response.author !== response.author;
   const feedbackChanged = newResponse.response.feedback !== response.feedback;
-  const conceptResultsChanged = !_.isEqual(convertResponsesArrayToHash(newResponse.response.concept_results), response.concept_results);
+  const conceptResultsChanged = !_.isEqual(convertResponsesArrayToHash(conceptResults), response.concept_results);
   const changed = parentIDChanged || authorChanged || feedbackChanged || conceptResultsChanged;
-  // console.log(response.id, parentIDChanged, authorChanged, feedbackChanged, conceptResultsChanged);
-  // console.log(response, newResponse.response);
   if (changed) {
     if (unmatched) {
       return 'tobeunmatched';

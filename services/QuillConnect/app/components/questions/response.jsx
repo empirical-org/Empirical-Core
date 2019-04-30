@@ -62,6 +62,7 @@ export default React.createClass({
   componentWillReceiveProps(nextProps: any) {
     if (!_.isEqual(nextProps.response, this.props.response)) {
       let conceptResults = {}
+      let feedback = nextProps.response.feedback
       if (nextProps.response.concept_results) {
         if (typeof nextProps.response.concept_results === 'string') {
           conceptResults = JSON.parse(nextProps.response.concept_results)
@@ -69,7 +70,7 @@ export default React.createClass({
           conceptResults = nextProps.response.concept_results
         }
       }
-      this.setState({conceptResults})
+      this.setState({ conceptResults, feedback, })
     }
   },
 
