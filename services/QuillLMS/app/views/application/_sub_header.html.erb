@@ -50,16 +50,16 @@
 
   		<%- if current_user.nil? %>
                 <%= render layout: "tracked_link", locals: { href: "/session/new",
-                                                              classes: "text-white nav-element",
-                                                              event: SegmentIo::Events::CLICK_LOG_IN,
-                                                              properties: { location: "header" }
+                                                             classes: "text-white nav-element",
+                                                             event: SegmentIo::Events::CLICK_LOG_IN,
+                                                             properties: { location: "header" }
                                                             } do %>
                   Log In
                 <% end %>
                 <%= render layout: "tracked_link", locals: { href: "/account/new",
-                                                              classes: "sign-up-button text-white nav-element",
-                                                              event: SegmentIo::Events::CLICK_SIGN_UP,
-                                                              properties: { location: "header" }
+                                                             classes: "sign-up-button text-white nav-element",
+                                                             event: SegmentIo::Events::CLICK_SIGN_UP,
+                                                             properties: { location: "header" }
                                                             } do %>
                   Sign Up
                 <% end %>
@@ -140,18 +140,18 @@
 		      </li>
 		      <li>
                         <%= render layout: "tracked_link", locals: { href: "/session/new",
-                                                                      classes: "text-white",
-                                                                      event: SegmentIo::Events::CLICK_LOG_IN,
-                                                                      properties: { location: "header" }
+                                                                     classes: "text-white",
+                                                                     event: SegmentIo::Events::CLICK_LOG_IN,
+                                                                     properties: { location: "header" }
                                                                     } do %>
                           Log In
                         <% end %>
 		      </li>
 		      <li>
                         <%= render layout: "tracked_link", locals: { href: "/account/new",
-                                                                      classes: "text-white",
-                                                                      event: SegmentIo::Events::CLICK_SIGN_UP,
-                                                                      properties: { location: "header" }
+                                                                     classes: "text-white",
+                                                                     event: SegmentIo::Events::CLICK_SIGN_UP,
+                                                                     properties: { location: "header" }
                                                                     } do %>
                           Sign Up
                         <% end %>
