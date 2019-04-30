@@ -1,6 +1,6 @@
 class BlogPost < ActiveRecord::Base
-  TOPICS = ['Getting Started', 'Teacher Stories', 'Writing Instruction Research', 'Announcements', 'Press', 'Case Studies', 'Teacher Materials', 'Best Practices', 'Support', 'Webinars', 'Twitter Love', 'Video Tutorials']
-  TOPIC_SLUGS = TOPICS.map { |topic| topic.downcase.gsub(' ','-') }
+  TOPICS = ["Getting Started", "Teacher Stories", "Writing Instruction Research", "Announcements", "Press", "Case Studies", "Teacher Materials", "Best Practices", "Support", "Webinars", "Twitter Love", "Video Tutorials", "What's New"]
+  STUDENT_TOPICS = ['Student Getting Started', 'Student How To']
 
   before_create :generate_slug, :set_order_number
 
@@ -21,15 +21,23 @@ class BlogPost < ActiveRecord::Base
   end
 
   def path
-    '/teacher-center/' + self.slug
+    if TOPICS.includes(self.topic)
+      '/teacher-center/' + self.slug
+    else
+      '/student-center/' + self.slug
+    end
   end
 
   def topic_path
-    '/teacher-center/topic/' + self.topic_slug
+    if TOPICS.includes(self.topic)
+      '/teacher-center/topic/' + self.topic_slug
+    else
+      '/student-center/topic/' + self.topic_slug
+    end
   end
 
   def topic_slug
-    self.topic.downcase.gsub(' ', '_')
+    CGI::escape(self.topic.downcase.gsub(' ', '-'))
   end
 
   def can_be_accessed_by(user)

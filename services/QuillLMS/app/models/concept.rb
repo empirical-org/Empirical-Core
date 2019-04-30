@@ -41,11 +41,21 @@ class Concept < ActiveRecord::Base
     concept2 + concept1 + concept0
   end
 
-  def self.childless_only
+  def self.level_zero_only
     Concept.find_by_sql("
-      SELECT concepts.id, concepts.name, concepts.uid, concepts.parent_id, concepts.created_at, concepts.visible::BOOLEAN FROM concepts
-      LEFT JOIN concepts AS children ON children.parent_id = concepts.id
-      WHERE children.id is null
+      SELECT concepts.id, concepts.name, concepts.uid, concepts.parent_id, concepts.created_at, concepts.updated_at, concepts.visible::BOOLEAN FROM concepts
+      JOIN concepts AS parents ON concepts.parent_id = parents.id
+      WHERE parents.parent_id IS NOT NULL
+      AND concepts.parent_id IS NOT NULL
+    ")
+  end
+
+  def self.level_one_only
+    Concept.find_by_sql("
+      SELECT concepts.id, concepts.name, concepts.uid, concepts.parent_id, concepts.created_at, concepts.updated_at, concepts.visible::BOOLEAN FROM concepts
+      JOIN concepts AS parents ON concepts.parent_id = parents.id
+      WHERE parents.parent_id IS NULL
+      AND concepts.parent_id IS NOT NULL
     ")
   end
 
@@ -59,5 +69,17 @@ class Concept < ActiveRecord::Base
         "Couldn't find Concept with 'id' or 'uid'=#{arg}"
       )
     end
+  end
+
+  def self.visible_level_zero_concept_ids
+    ActiveRecord::Base.connection.execute("
+      SELECT concepts.id FROM concepts
+      JOIN concepts AS parent_concepts ON concepts.parent_id = parent_concepts.id
+      JOIN concepts AS grandparent_concepts ON parent_concepts.parent_id = grandparent_concepts.id
+      WHERE parent_concepts.parent_id IS NOT NULL
+      AND concepts.parent_id IS NOT NULL
+      AND concepts.visible
+      ORDER BY grandparent_concepts.name, parent_concepts.name, concepts.name
+    ").to_a.map { |id| id['id'] }
   end
 end

@@ -14,7 +14,7 @@ export default React.createClass({
           <AssignmentTypeMini
             title={'Starter Diagnostic'}
             img={`${process.env.CDN_URL}/images/shared/new_diagnostic.svg`}
-            link="/diagnostic/-LKX2sTTnPVhTOrWyUx9/stage/1"
+            link="/diagnostic/-LKX2sTTnPVhTOrWyUx9/stage/2"
             bodyText={'Covers foundational writing skills like using proper capitalization and adverbs.'}
             directions={'use intermittently'}
             quantity={1}
@@ -29,12 +29,27 @@ export default React.createClass({
           <AssignmentTypeMini
             title={'Intermediate Diagnostic'}
             img={`${process.env.CDN_URL}/images/shared/new_diagnostic.svg`}
-            link="/diagnostic/-LKbzH_Er916zGjgHk5U/stage/1"
+            link="/diagnostic/-LKbzH_Er916zGjgHk5U/stage/2"
             bodyText={'Covers sentence construction skills like forming compound sentences.'}
             directions={'use intermittently'}
             quantity={1}
             unit={'Diagnostic'}
             timeDuration={'~20 Min.'}
+          />
+        </a>),
+        (<a
+          href={`${process.env.DEFAULT_URL}/diagnostic/-LVxlcVPdW5DvAh_xgnj/stage/2`}
+          key={3}
+        >
+          <AssignmentTypeMini
+            title={'Advanced Diagnostic'}
+            img={`${process.env.CDN_URL}/images/shared/new_diagnostic.svg`}
+            link="/diagnostic/-LVxlcVPdW5DvAh_xgnj/stage/1"
+            bodyText={'Covers advanced sentence skills like using appositive and participial phrases.'}
+            directions={'use intermittently'}
+            quantity={1}
+            unit={'Diagnostic'}
+            timeDuration={'~30 Min.'}
           />
         </a>),
         (<a key={4} href={`${process.env.DEFAULT_URL}/diagnostic/ell/stage/2`}>

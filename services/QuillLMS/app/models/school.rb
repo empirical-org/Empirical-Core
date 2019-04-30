@@ -11,6 +11,29 @@ class School < ActiveRecord::Base
   validate :lower_grade_within_bounds, :upper_grade_within_bounds,
            :lower_grade_greater_than_upper_grade
 
+  ALTERNATIVE_SCHOOL_NAMES = [
+    HOME_SCHOOL_SCHOOL_NAME = 'home school',
+    US_HIGHER_ED_SCHOOL_NAME = 'us higher ed',
+    INTERNATIONAL_SCHOOL_NAME = 'international',
+    NOT_LISTED_SCHOOL_NAME = 'not listed',
+    OTHER_SCHOOL_NAME = 'other'
+  ]
+
+  US_K12_SCHOOL_DISPLAY_NAME = 'U.S. K-12 school'
+  INTERNATIONAL_SCHOOL_DISPLAY_NAME = 'International institution'
+  OTHER_SCHOOL_DISPLAY_NAME = 'Other'
+  HOME_SCHOOL_SCHOOL_DISPLAY_NAME = 'Home school'
+  US_HIGHER_ED_SCHOOL_DISPLAY_NAME = 'U.S. higher education institution'
+
+  # have to stringify keys because rails will convert them to symbols otherwise
+  ALTERNATIVE_SCHOOLS_DISPLAY_NAME_MAP = {
+    HOME_SCHOOL_SCHOOL_NAME => HOME_SCHOOL_SCHOOL_DISPLAY_NAME,
+    US_HIGHER_ED_SCHOOL_NAME => US_HIGHER_ED_SCHOOL_DISPLAY_NAME,
+    OTHER_SCHOOL_NAME => OTHER_SCHOOL_DISPLAY_NAME,
+    INTERNATIONAL_SCHOOL_NAME => INTERNATIONAL_SCHOOL_DISPLAY_NAME,
+    NOT_LISTED_SCHOOL_NAME => US_K12_SCHOOL_DISPLAY_NAME
+  }
+
   def subscription
    self.subscriptions.where("expiration > ? AND start_date <= ?", Date.today, Date.today).order(expiration: :desc).limit(1).first
   end

@@ -49,6 +49,15 @@ EmpiricalGrammar::Application.routes.draw do
     end
   end
 
+  resources :blog_posts, path: 'student-center', only: [], param: :slug do
+    collection do
+      get '/', to: 'blog_posts#student_center_index'
+      get '/:slug', to: 'blog_posts#show'
+      get '/topic/:topic', to: 'blog_posts#show_topic'
+      get 'search', to: 'blog_posts#search'
+    end
+  end
+
   post 'rate_blog_post', to: 'blog_post_user_ratings#create'
 
 
@@ -192,8 +201,8 @@ EmpiricalGrammar::Application.routes.draw do
     get 'add_students' => 'classroom_manager#generic_add_students'
     get 'teacher_guide' => 'classroom_manager#teacher_guide'
     get 'my_account' => 'classroom_manager#my_account'
-    get 'my_account_data' => 'classroom_manager#my_account_data'
     put 'update_my_account' => 'classroom_manager#update_my_account'
+    put 'update_my_password' => 'classroom_manager#update_my_password'
     post 'clear_data/:id' => 'classroom_manager#clear_data'
     put 'units/:id/hide' => 'units#hide', as: 'hide_units_path'
     get 'progress_reports/landing_page' => 'progress_reports#landing_page'
@@ -425,6 +434,7 @@ EmpiricalGrammar::Application.routes.draw do
     resources :admin_accounts, only: [:index, :create, :update, :destroy]
     resources :admins, only: [:index, :create, :update, :destroy]
     resources :categories
+    get '/concepts/concepts_in_use', to: 'concepts#concepts_in_use', only: [:csv], defaults: { format: 'csv' }
     resources :concepts
     resources :sections
     resources :topics
@@ -554,6 +564,13 @@ EmpiricalGrammar::Application.routes.draw do
   get 'teachers/classrooms/assign_activities/featured-activity-packs/:activityPackId' => 'teachers/classroom_manager#assign_activities'
   get 'teachers/classrooms/assign_activities/featured-activity-packs/:activityPackId/assigned' => 'teachers/classroom_manager#assign_activities'
   get 'teachers/classrooms/assign_activities/new_unit/students/edit/name/:unitName/activity_ids/:activityIdsArray' => 'teachers/classroom_manager#assign_activities'
+
+
+  # Integration routes (which should look pretty, and thus need some specifying)
+  get 'amplify' => 'integrations#amplify'
+  get 'amplify/all' => 'integrations#amplify_all'
+  get 'amplify/section/:section_id' => 'integrations#amplify_all', as: "amplify_browse_section"
+
 
   # Count route to get quantities
   get 'count/featured_packs' => 'teachers/unit_templates#count'

@@ -21,7 +21,6 @@ class Cms::UnitTemplatesController < Cms::CmsController
 
   def update
     params = unit_template_params
-    params['flag'] = nil if params['flag'] == 'production'
     @unit_template.activities = []
     @unit_template.save
     if @unit_template.update_attributes(params)
@@ -59,6 +58,7 @@ class Cms::UnitTemplatesController < Cms::CmsController
                     :time,
                     :order_number,
                     :unit_template_category_id,
+                    :image_link,
                     grades: [],
                     activity_ids: [])
   end

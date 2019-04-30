@@ -11,7 +11,7 @@
     "lint": "eslint app/app.jsx",
     "lint:fix": "eslint app/app.jsx --fix",
     "build:jenkins": "webpack --optimize-minimize",
-    "build:prod": "rm -r dist/; QUILL_CMS=https://cms.quill.org NODE_ENV=production EMPIRICAL_BASE_URL=https://www.quill.org webpack --optimize-minimize; open ./dist/index.html",
+    "build:prod": "npm install && rm -r dist/; QUILL_CMS=https://cms.quill.org NODE_ENV=production EMPIRICAL_BASE_URL=https://www.quill.org webpack --optimize-minimize; open ./dist/index.html",
     "cypress:open": "cypress open",
     "deploy:prod": "./production.sh",
     "deploy:lessons": "./deploy_lessons.sh",
@@ -131,8 +131,8 @@
     "pos": "^0.4.2",
     "promise-polyfill": "^6.0.2",
     "pusher-js": "^4.1.0",
-    "quill-component-library": "^0.1.29",
-    "quill-marking-logic": "^0.8.1",
+    "quill-component-library": "^0.1.52",
+    "quill-marking-logic": "^0.8.8",
     "raven-js": "^3.17.0",
     "react": "^15.6.2",
     "react-addons-css-transition-group": "^15.6.0",
@@ -159,7 +159,8 @@
     "underscore": "^1.8.3",
     "uuid": "^3.2.1",
     "warning": "^3.0.0",
-    "whatwg-fetch": "^2.0.3"
+    "whatwg-fetch": "^2.0.3",
+    "xlsx": "^0.14.2"
   },
   "jest": {
     "transform": {

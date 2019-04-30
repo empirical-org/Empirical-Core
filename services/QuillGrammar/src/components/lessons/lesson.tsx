@@ -10,6 +10,7 @@ import { GrammarActivityState } from '../../reducers/grammarActivitiesReducer'
 import { ConceptReducerState } from '../../reducers/conceptsReducer'
 import { GrammarActivity } from '../../interfaces/grammarActivities'
 import { Match } from '../../interfaces/match'
+import { permittedFlag } from '../../helpers/flagArray'
 
 String.prototype.toKebab = function() {
   return this.replace(/([A-Z])/g, char => `-${char.toLowerCase()}`);
@@ -35,21 +36,29 @@ class Lesson extends React.Component<LessonProps> {
     this.renderEditLessonForm = this.renderEditLessonForm.bind(this)
   }
 
-
-  lesson(): GrammarActivity|void {
+  lesson(): GrammarActivity|{} {
     const { data, } = this.props.lessons
     const lessonID: string|undefined = this.props.match.params.lessonID;
     if (lessonID) {
       return data[lessonID]
+    } else {
+      return {}
     }
   }
 
   renderQuestionsByConcept(questionsForLesson) {
     const conceptIds: {[key: string]: JSX.Element[]} = {}
     questionsForLesson.forEach((question: Question) => {
-      const { prompt, key, concept_uid} = question
+      const { prompt, key, concept_uid, flag } = question
       const displayName = prompt || 'No question prompt';
-      const questionLink = <li key={key}><Link to={`/admin/questions/${question.key}`}>{displayName.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, '')}</Link></li>
+      const flagTag = flag && permittedFlag(this.lesson().flag, flag) ? '' : <strong>{flag.toUpperCase()} - </strong>
+      const questionLink = (
+        <li key={key}>
+          <Link to={`/admin/questions/${question.key}`}>
+            {flagTag}
+            {displayName.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, '')}
+          </Link>
+        </li>)
       if (conceptIds[concept_uid]) {
         conceptIds[concept_uid].push(questionLink)
       } else {
@@ -72,17 +81,22 @@ class Lesson extends React.Component<LessonProps> {
 
   renderQuestionsAsList(questionsForLesson) {
     return questionsForLesson.map((question: Question) => {
-      const { prompt, key, concept_uid} = question
+      const { prompt, key, concept_uid, flag, } = question
       const displayName = prompt || 'No question prompt';
-      return <p key={key}><Link to={`/admin/questions/${question.key}`}>{displayName.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, '')}</Link></p>
+      const flagTag = flag && permittedFlag(this.lesson().flag, flag) ? '' : <strong>{flag.toUpperCase()} - </strong>
+      return (
+        <li key={key}>
+          <Link to={`/admin/questions/${key}`}>
+            {flagTag}
+            {displayName.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, '')}
+          </Link>
+        </li>)
     })
   }
 
   renderQuestionsForLesson(): JSX.Element[]|JSX.Element {
-    const { data, } = this.props.lessons
-    const { lessonID, } = this.props.match.params
-    const lessonQuestions = data[lessonID].questions
-    const lessonConcepts = data[lessonID].concepts
+    const lessonQuestions = this.lesson()? this.lesson().questions : null
+    const lessonConcepts = this.lesson()? this.lesson().concepts : null
     let questionsForLesson
     if (lessonQuestions) {
       questionsForLesson = lessonQuestions.map(q => {
@@ -93,8 +107,8 @@ class Lesson extends React.Component<LessonProps> {
       return this.renderQuestionsAsList(questionsForLesson)
     } else if (lessonConcepts) {
       const questions = this.props.questions ? hashToCollection(this.props.questions.data) : []
-      const conceptUids = Object.keys(data[lessonID].concepts)
-      questionsForLesson = questions.filter(q => conceptUids.includes(q.concept_uid))
+      const conceptUids = Object.keys(this.lesson().concepts)
+      questionsForLesson = questions.filter(q => conceptUids.includes(q.concept_uid) && permittedFlag(this.lesson().flag, q.flag))
       return this.renderQuestionsByConcept(questionsForLesson)
     }
     return (

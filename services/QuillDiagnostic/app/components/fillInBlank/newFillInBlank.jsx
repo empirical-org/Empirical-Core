@@ -19,7 +19,7 @@ class NewFillInBlank extends Component {
           text: newQuestionOptimalResponse.trim(),
           optimal: true,
           count: 0,
-          feedback: "That's a great sentence!"
+          feedback: "That's a strong sentence!"
         }
       ));
     }

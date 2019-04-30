@@ -128,32 +128,21 @@ class Teachers::UnitsController < ApplicationController
     render json: {}
   end
 
+  # required params
+  # :activity_id (in url)
+  # :classroom_unit_id
   def score_info
-    unless params[:classroom_unit_id].present? and params[:activity_id].present?
-      score_info = {}
-    else
-      cuid = params[:classroom_unit_id]
-      aid = params[:activity_id]
-      started_count = ActiveRecord::Base.connection.execute(
-        """SELECT COUNT(DISTINCT user_id) as started_count FROM activity_sessions WHERE state =
-        'started' AND classroom_unit_id = #{cuid} AND
-        activity_sessions.activity_id = #{aid} AND
-        activity_sessions.visible;""").to_a
-      completed_count = ActiveRecord::Base.connection.execute(
-        """SELECT COUNT(id) as completed_count FROM activity_sessions WHERE is_final_score = true
-        AND classroom_unit_id = #{cuid} AND activity_sessions.visible AND
-        activity_sessions.activity_id = #{aid};"""
-      ).to_a
-      cum_score = ActiveRecord::Base.connection.execute(
-        """SELECT SUM(percentage)*100 as cumulative_score FROM activity_sessions WHERE
-        is_final_score = true AND classroom_unit_id = #{cuid} AND
-        activity_sessions.activity_id = #{aid} AND
-        activity_sessions.visible;""").to_a
-      started_count[0]['cumulative_score'] = cum_score[0]['cumulative_score']
-      started_count[0]['completed_count'] = completed_count[0]['completed_count']
-      started_count = started_count[0]
-    end
-    render json: started_count
+    completed = ActivitySession.where(
+      classroom_unit_id: params[:classroom_unit_id],
+      activity_id: params[:activity_id],
+      is_final_score: true,
+      visible: true
+    )
+
+    completed_count = completed.count
+    cumulative_score = completed.sum(:percentage) * 100
+
+    render json: {cumulative_score: cumulative_score, completed_count: completed_count}
   end
 
   private
@@ -199,9 +188,11 @@ class Teachers::UnitsController < ApplicationController
     # returns an empty array if teach_own_or_coteach_classrooms_array is empty
     teach_own_or_coteach_classrooms_array = current_user.send("classrooms_i_#{teach_own_or_coteach}").map(&:id)
     if teach_own_or_coteach_classrooms_array.any?
-      scores, completed = ''
+      scores, completed, archived_activities = ''
       if report
         completed = lessons ? "HAVING ca.completed" : "HAVING SUM(CASE WHEN act_sesh.visible = true AND act_sesh.state = 'finished' THEN 1 ELSE 0 END) > 0"
+      else
+        archived_activities = "AND 'archived' != ANY(activities.flags)"
       end
       if lessons
         lessons = "AND activities.activity_classification_id = 6"
@@ -230,7 +221,8 @@ class Teachers::UnitsController < ApplicationController
          #{ActiveRecord::Base.sanitize(teach_own_or_coteach)} AS teach_own_or_coteach,
          unit_owner.name AS owner_name,
          ua.id AS unit_activity_id,
-         CASE WHEN unit_owner.id = #{current_user.id} THEN TRUE ELSE FALSE END AS owned_by_current_user
+         CASE WHEN unit_owner.id = #{current_user.id} THEN TRUE ELSE FALSE END AS owned_by_current_user,
+         (SELECT COUNT(DISTINCT user_id) FROM activity_sessions WHERE state = 'started' AND classroom_unit_id = cu.id AND activity_sessions.activity_id = activities.id AND activity_sessions.visible) AS started_count
       FROM units
         INNER JOIN classroom_units AS cu ON cu.unit_id = units.id
         INNER JOIN unit_activities AS ua ON ua.unit_id = units.id
@@ -247,6 +239,7 @@ class Teachers::UnitsController < ApplicationController
         AND units.visible = true
         AND cu.visible = true
         AND ua.visible = true
+        #{archived_activities}
         #{lessons}
         GROUP BY units.name, units.created_at, cu.id, classrooms.name, classrooms.id, activities.name, activities.activity_classification_id, activities.id, activities.uid, unit_owner.name, unit_owner.id, ua.due_date, ua.created_at, unit_activity_id, state.completed, ua.id
         #{completed}

@@ -19,14 +19,22 @@ export default class extends React.Component {
   }
 
   pageTitle() {
+    const { role, title, } = this.props
     if (window.location.pathname.includes('topic')) {
-      return window.location.pathname.split('/')[3].split('-').map(topic => topic.charAt(0).toUpperCase() + topic.slice(1)).join(' ')
+      const topicTitle = this.props.title
+      return role === 'student' ? topicTitle.replace('Student ', '') : topicTitle
+    } else if (role === 'student') {
+      return 'Student Center'
     } else {
       return 'Teacher Center'
     }
   }
 
   pageSubtitle() {
+    if (this.props.role === 'student') {
+      return 'Everything you need to know about using Quill'
+    }
+
     switch (this.pageTitle()) {
       case 'Teacher Stories':
         return 'Read success stories about Quill in the class'
@@ -45,11 +53,12 @@ export default class extends React.Component {
   }
 
   renderPreviewCards() {
+    const sectionLink = this.props.role === 'student' ? 'student-center' : 'teacher-center'
     return this.props.blogPosts.map(article =>
       <PreviewCard
         key={article.title}
         content={article.preview_card_content}
-        link={article.external_link ? article.external_link : `/teacher-center/${article.slug}`}
+        link={article.external_link ? article.external_link : `/${sectionLink}/${article.slug}`}
         externalLink={!!article.external_link}
       />
     )
@@ -70,17 +79,19 @@ export default class extends React.Component {
     let sections = [];
     const articlesByTopic = _.groupBy(this.props.blogPosts, "topic");
     this.props.topics.forEach(topic => {
-      const articlesInThisTopic = articlesByTopic[topic];
+      const articlesInThisTopic = articlesByTopic[topic.name];
       if (articlesInThisTopic) {
         sections.push(<TopicSection
-          key={topic}
-          title={topic}
+          role={this.props.role}
+          key={topic.name}
+          title={topic.name}
+          slug={topic.slug}
           articles={articlesInThisTopic.sort((a, b) => a.order_number - b.order_number)}
           articleCount={articlesInThisTopic.length}
         />
       );
       }
-  })
+    })
     return sections;
   }
 

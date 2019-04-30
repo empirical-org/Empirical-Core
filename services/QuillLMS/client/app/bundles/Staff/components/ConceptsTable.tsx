@@ -1,13 +1,14 @@
 import * as React from 'react';
 import { Table } from 'antd';
-import {Link} from 'react-router';
+import { firstBy } from "thenby";
+
 import { Concept } from '../containers/ConceptsIndex';
 import moment from 'moment';
-import _ from 'lodash';
 
 interface ConceptsTableProps {
   concepts: Array<Concept>
-  visible: Boolean
+  visible: Boolean,
+  selectConcept: Function;
 }
 
 interface ConceptRow {
@@ -21,36 +22,38 @@ interface ConceptRow {
   createdAt:number;
 }
 
-const columns = [
-  {
-    title: 'Grandparent Name',
-    dataIndex: 'grandparentConceptName',
-    key: 'grandparentConceptName',
-    render: (text, record:ConceptRow) => (<Link to={record.grandparentConceptId}>{text}</Link>),
-    sorter:  (a, b) => a.grandparentConceptName.localeCompare(b.grandparentConceptName),
-  },
-  {
-    title: 'Parent Name',
-    dataIndex: 'parentConceptName',
-    key: 'parentConceptName',
-    render: (text, record:ConceptRow) => (<Link to={record.parentConceptId}>{text}</Link>),
-    sorter:  (a, b) => a.parentConceptName.localeCompare(b.parentConceptName),
-  },
-  {
-    title: 'Name',
-    dataIndex: 'conceptName',
-    key: 'conceptName',
-    render: (text, record:ConceptRow) => (<Link to={record.conceptId}>{text}</Link>),
-    sorter:  (a, b) => a.conceptName.localeCompare(b.conceptName),
-  },
-  {
-    title: 'Created At',
-    dataIndex: 'createdAt',
-    key: 'createdAt',
-    render: (text) => moment(text* 1000).format('MMMM Do YYYY'),
-    sorter:  (a, b) => (a.createdAt - b.createdAt),
-  },
-];
+function columns(selectConcept) {
+  return [
+    {
+      title: 'Level 2',
+      dataIndex: 'grandparentConceptName',
+      key: 'grandparentConceptName',
+      render: (text, record:ConceptRow) => (<div onClick={() => selectConcept(record.grandparentConceptId, 2)}>{text}</div>),
+      sorter: firstBy<ConceptRow>('grandparentConceptName').thenBy('parentConceptName').thenBy('conceptName'),
+    },
+    {
+      title: 'Level 1',
+      dataIndex: 'parentConceptName',
+      key: 'parentConceptName',
+      render: (text, record:ConceptRow) => (<div onClick={() => selectConcept(record.parentConceptId, 1)}>{text}</div>),
+      sorter: firstBy<ConceptRow>('parentConceptName').thenBy('conceptName'),
+    },
+    {
+      title: 'Level 0',
+      dataIndex: 'conceptName',
+      key: 'conceptName',
+      render: (text, record:ConceptRow) => (<div onClick={() => selectConcept(record.conceptId, 0)}>{text}</div>),
+      sorter: firstBy('conceptName'),
+    },
+    {
+      title: 'Created At',
+      dataIndex: 'createdAt',
+      key: 'createdAt',
+      render: (text) => moment(text* 1000).format('M/D/YY'),
+      sorter:  (a, b) => (a.createdAt - b.createdAt),
+    },
+  ];
+}
 
 function prepareData(data:Array<Concept>):Array<ConceptRow> {
   return data.map((concept:Concept) => prepareRow(concept));
@@ -70,18 +73,19 @@ function prepareRow(concept:Concept):ConceptRow {
 }
 
 function filterData(concepts:Array<Concept>, visible:Boolean):Array<Concept> {
-  return concepts.filter(concept => concept.visible == visible)
+  return concepts.filter(concept => concept.visible === visible && concept.parent && concept.parent.parent)
 }
 
-const ConceptsTable: React.SFC<ConceptsTableProps> = ({concepts, visible}) => {
+const ConceptsTable: React.SFC<ConceptsTableProps> = ({concepts, visible, selectConcept}) => {
   const data = prepareData(filterData(concepts, visible));
   return (
-    <Table 
-      columns={columns} 
+    <Table
+      columns={columns(selectConcept)}
       dataSource={data}
-      size="middle" 
-      bordered 
-      pagination={{ pageSize: 20 }}
+      size="middle"
+      bordered
+      pagination={false}
+      className="concepts-table"
     />
   );
 };

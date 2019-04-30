@@ -10,6 +10,7 @@ class Teachers::ClassroomUnitsController < ApplicationController
   before_action :lesson, only: :launch_lesson
 
   def launch_lesson
+    begin
     @unit_activity = UnitActivity.find_by(
       unit_id: @classroom_unit.unit_id,
       activity: @lesson.id
@@ -18,6 +19,11 @@ class Teachers::ClassroomUnitsController < ApplicationController
       classroom_unit: @classroom_unit,
       unit_activity: @unit_activity
     )
+    rescue ActiveRecord::StatementInvalid
+      flash.now[:error] = "We cannot launch this lesson. If the problem persists, please contact support."
+      redirect_to :back
+      return
+    end
 
     if lesson_tutorial_completed?
       if cuas && cuas.update(locked: false, pinned: true)
@@ -94,7 +100,7 @@ class Teachers::ClassroomUnitsController < ApplicationController
     # google_response = GoogleIntegration::LessonAnnouncement
     #   .new(@classroom_unit, @unit_activity).post
     # if google_response == 'UNAUTHENTICATED'
-    #   session[:google_redirect] = request.path
+    #   session[GOOGLE_REDIRECT] = request.path
     #   return redirect_to '/auth/google_oauth2'
     # else
     #   redirect_to lesson_url(lesson)

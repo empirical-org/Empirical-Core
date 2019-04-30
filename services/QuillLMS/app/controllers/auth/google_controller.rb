@@ -1,10 +1,10 @@
 class Auth::GoogleController < ApplicationController
-  before_action :follow_google_redirect,          only: :google
   before_action :set_profile,                     only: :google
   before_action :set_user,                        only: :google
   before_action :check_if_email_matches,          only: :google
   before_action :save_teacher_from_google_signup, only: :google
   before_action :save_student_from_google_signup, only: :google
+  before_action :follow_google_redirect,          only: :google
 
   def google
     if @user.teacher?
@@ -12,7 +12,7 @@ class Auth::GoogleController < ApplicationController
     end
 
     if @user.student?
-      # GoogleIntegration::Classroom::Main.join_existing_google_classrooms(@user)
+      GoogleStudentClassroomWorker.perform_async(@user.id)
     end
 
     sign_in(@user)
@@ -27,9 +27,9 @@ class Auth::GoogleController < ApplicationController
   private
 
   def follow_google_redirect
-    if session[:google_redirect]
-      redirect_route = session[:google_redirect]
-      session[:google_redirect] = nil
+    if session[GOOGLE_REDIRECT]
+      redirect_route = session[GOOGLE_REDIRECT]
+      session[GOOGLE_REDIRECT] = nil
       redirect_to redirect_route
     end
   end
@@ -39,6 +39,15 @@ class Auth::GoogleController < ApplicationController
   end
 
   def set_user
+    if route_redirects_to_my_account?(session[GOOGLE_REDIRECT])
+      user = current_user.update(email: @profile.email)
+      if user
+        session[ApplicationController::GOOGLE_OR_CLEVER_JUST_SET] = true
+      else
+        flash[:error] = "This Google account is already associated with another Quill account. Contact support@quill.org for further assistance."
+        flash.keep(:error)
+      end
+    end
     @user = GoogleIntegration::User.new(@profile).update_or_initialize
   end
 

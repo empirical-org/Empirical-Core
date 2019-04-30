@@ -62,10 +62,15 @@
 
   .instructions {
     margin: 1em 0;
+    max-width: 80%;
   }
 
   .top-section, .question-section {
     padding: 20px 30px;
+  }
+
+  .top-section {
+    background-color: #ededed;
   }
 
   .question-section {
@@ -90,6 +95,10 @@
     margin-top: 20px;
     border: 1px solid #DDD;
     border-radius: 6px;
+    resize: none;
+    &.disabled {
+      background-color: #eee;
+    }
   }
 
   .feedback {

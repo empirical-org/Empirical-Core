@@ -9,6 +9,7 @@ import { SessionState } from '../reducers/sessionReducer'
 import { checkGrammarQuestion, Response } from 'quill-marking-logic'
 import { hashToCollection } from '../helpers/hashToCollection'
 import { shuffle } from '../helpers/shuffle';
+import { permittedFlag } from '../helpers/flagArray'
 import _ from 'lodash';
 
 export const updateSessionOnFirebase = (sessionID: string, session: SessionState) => {
@@ -73,22 +74,22 @@ export const startListeningToFollowUpQuestionsForProofreaderSession = (proofread
           }
         })
         dispatch(saveProofreaderSessionToReducer(proofreaderSession))
-        dispatch(getQuestionsForConcepts(concepts))
+        dispatch(getQuestionsForConcepts(concepts, 'production'))
       }
     })
   }
 }
 
 // typescript this
-export const getQuestionsForConcepts = (concepts: any) => {
-  return dispatch => {
+export const getQuestionsForConcepts = (concepts: any, flag: string) => {
+  return (dispatch, getState) => {
     dispatch(setSessionPending(true))
     const conceptUIDs = Object.keys(concepts)
     questionsRef.orderByChild('concept_uid').once('value', (snapshot) => {
       const questions = snapshot.val()
       const questionsForConcepts = {}
       Object.keys(questions).map(q => {
-        if (conceptUIDs.includes(questions[q].concept_uid) && questions[q].prompt && questions[q].answers && questions[q].flag !== 'archived') {
+        if (conceptUIDs.includes(questions[q].concept_uid) && questions[q].prompt && questions[q].answers && permittedFlag(flag, questions[q].flag)) {
           const question = questions[q]
           question.uid = q
           if (questionsForConcepts.hasOwnProperty(question.concept_uid)) {
@@ -102,15 +103,20 @@ export const getQuestionsForConcepts = (concepts: any) => {
       const arrayOfQuestions = []
       Object.keys(questionsForConcepts).forEach(conceptUID => {
         const shuffledQuestionArray = shuffle(questionsForConcepts[conceptUID])
-        const numberOfQuestions = concepts[conceptUID].quantity
+        const numberOfQuestions = shuffledQuestionArray.length >= concepts[conceptUID].quantity ? concepts[conceptUID].quantity : shuffledQuestionArray.length
         arrayOfQuestions.push(shuffledQuestionArray.slice(0, numberOfQuestions))
       })
 
-      const flattenedArrayOfQuestions = _.flatten(arrayOfQuestions)
+      const flattenedArrayOfQuestions = shuffle(_.flatten(arrayOfQuestions))
       if (flattenedArrayOfQuestions.length > 0) {
         dispatch({ type: ActionTypes.RECEIVE_QUESTION_DATA, data: flattenedArrayOfQuestions, });
       } else {
-        dispatch({ type: ActionTypes.NO_QUESTIONS_FOUND_FOR_SESSION})
+        // we should only show no questions error if it is not a proofreader follow-up
+        if (getState().session.proofreaderSession) {
+          dispatch({ type: ActionTypes.RECEIVE_QUESTION_DATA, data: [] });
+        } else {
+          dispatch({ type: ActionTypes.NO_QUESTIONS_FOUND_FOR_SESSION})
+        }
       }
       dispatch(setSessionPending(false))
     });
@@ -118,7 +124,7 @@ export const getQuestionsForConcepts = (concepts: any) => {
   }
 }
 
-export const getQuestions = (questions: any) => {
+export const getQuestions = (questions: any, flag: string) => {
   return dispatch => {
     dispatch(setSessionPending(true))
     questionsRef.once('value', (snapshot) => {
@@ -128,8 +134,9 @@ export const getQuestions = (questions: any) => {
         question.uid = q.key
         return question
       })
-      if (arrayOfQuestions.length > 0) {
-        dispatch({ type: ActionTypes.RECEIVE_QUESTION_DATA, data: arrayOfQuestions, });
+      const arrayOfQuestionsFilteredByFlag = arrayOfQuestions.filter(q => permittedFlag(flag, q.flag))
+      if (arrayOfQuestionsFilteredByFlag.length > 0) {
+        dispatch({ type: ActionTypes.RECEIVE_QUESTION_DATA, data: arrayOfQuestionsFilteredByFlag, });
       } else {
         dispatch({ type: ActionTypes.NO_QUESTIONS_FOUND_FOR_SESSION})
       }
@@ -141,7 +148,7 @@ export const getQuestions = (questions: any) => {
 export const checkAnswer = (response: string, question: Question, responses: Response[], isFirstAttempt: Boolean) => {
   return dispatch => {
     const questionUID: string = question.uid
-    const focusPoints = question.focusPoints ? hashToCollection(question.focusPoints) : [];
+    const focusPoints = question.focusPoints ? hashToCollection(question.focusPoints).sort((a, b) => a.order - b.order) : [];
     const incorrectSequences = question.incorrectSequences ? hashToCollection(question.incorrectSequences) : [];
     const defaultConceptUID = question.modelConceptUID || question.concept_uid
     const responseObj = checkGrammarQuestion(questionUID, response, responses, focusPoints, incorrectSequences, defaultConceptUID)

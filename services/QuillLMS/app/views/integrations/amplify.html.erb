@@ -1,0 +1,66 @@
+<div class="subnav">
+  <div class="container">
+  <% tabs = [
+    {name: 'Featured Activities', url: 'amplify'},
+    {name: 'Explore All Activities', url: 'amplify/all'},
+  ]
+    @tabs = tabs
+    @mobile = false
+  %>
+
+  <div class="full-screen">
+    <%= render partial: "pages/shared/generic_tabs", locals: { tabs: @tabs, active_tab: @active_tab, mobile: @mobile } %>
+  </div>
+
+
+  <div class="small-screen">
+    <%= render partial: "pages/shared/generic_tabs", locals: { tabs: @tabs, active_tab:  @active_tab, mobile: @mobile} %>
+  </div>
+
+  </div>
+</div>
+
+<div class="container pages-activities">
+
+<% if @active_tab == 'Featured Activities' %>
+  <div>
+    <h1>Quill.org for Amplify Students</h1>
+    <p>
+    Choose your learning acticity by clicking on start acticity.  When you complete the activity, your score will be shared with your teacher in his or her Amplify gradebook.
+    </p>
+  </div>
+<% elsif @active_tab == 'Explore All Activities' %>
+  <div class="dropdown-container">
+    <div>
+      <div class="button select-mixin select-gray button-select button-select-wrapper" type='button' data-toggle='dropdown'>
+        <%= @section.name %>
+        <i class="fa fa-caret-down"></i>
+      </div>
+      <ul class="dropdown-menu" role='menu'>
+        <% Section.all.sort_by(&:position).each do |section| %>
+          <li><%= link_to section.name, url_for(section_id: section.id) %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+<% end %>
+
+  <% @topics.each do |topic, activities| %>
+    <div class="topic">
+      <div>
+        <h4><%=topic.name%></h4>
+      </div>
+
+        <% activities.each do |activity| %>
+          <div class="activity">
+            <div class="name-and-description">
+              <div class="name"><%= activity.name %></div>
+              <div class="activity-description"><%= activity.description&.html_safe %></div>
+            </div>
+            <div class="activity-link"><%= link_to "View Activity", anonymous_activity_sessions_path(activity_id: activity.id), class: 'green-link', target: '_blank' %></div>
+          </div>
+
+        <% end %>
+    </div>
+  <% end %>
+</div>

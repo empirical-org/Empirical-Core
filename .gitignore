@@ -78,3 +78,7 @@ nohup\.out
 
 # Ignore generated python files
 *.pyc
+services/QuillLessonsServer/dev.sh
+
+# Ignore Python virtual environments
+**/venv

@@ -84,7 +84,7 @@ export function paginatedNonHumanResponses(matcher: any, matcherFields: any, qid
 
   return request(
     {
-      uri: `https://cms.quill.org/questions/${qid}/responses/search`,
+      uri: `${process.env.QUILL_CMS}/questions/${qid}/responses/search`,
       method: 'POST',
       body: getResponseBody(page),
       json: true,
@@ -168,7 +168,7 @@ function updateResponse(rid: any, content: any) {
   const rubyConvertedResponse = objectWithSnakeKeysFromCamel(content);
   return request({
     method: 'PUT',
-    uri: `https://cms.quill.org/responses/${rid}`,
+    uri: `${process.env.QUILL_CMS}/responses/${rid}`,
     body: { response: rubyConvertedResponse, },
     json: true,
   });
@@ -202,7 +202,7 @@ function getMatcher(mode: string): Function {
 
 function getMatcherFields(mode: string, question: Question, responses: {[key: string]: Response}) {
   const responseArray = hashToCollection(responses);
-  const focusPoints = question.focusPoints ? hashToCollection(question.focusPoints) : [];
+  const focusPoints = question.focusPoints ? hashToCollection(question.focusPoints).sort((a, b) => a.order - b.order) : [];
   const incorrectSequences = question.incorrectSequences ? hashToCollection(question.incorrectSequences) : [];
   const defaultConceptUID = question.modelConceptUID || question.concept_uid
   return [question.key, responseArray, focusPoints, incorrectSequences, defaultConceptUID]
@@ -226,7 +226,7 @@ function getResponseBody(pageNumber: number) {
 }
 
 function getGradedResponses(questionID: string) {
-  return request(`https://cms.quill.org/questions/${questionID}/responses`);
+  return request(`${process.env.QUILL_CMS}/questions/${questionID}/responses`);
 }
 
 function formatGradedResponses(jsonString: string): {[key: string]: Response} {

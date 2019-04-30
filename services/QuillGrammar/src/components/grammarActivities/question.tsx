@@ -99,6 +99,23 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
       return this.props.currentQuestion
     }
 
+    correctResponse() {
+      const { responses} = this.state
+      const question = this.currentQuestion()
+      let text
+      if (Object.keys(responses).length) {
+        const responseArray = hashToCollection(responses).sort((a: Response, b: Response) => b.count - a.count)
+        const correctResponse = responseArray.find((r: Response) => r.optimal)
+        if (correctResponse) {
+          text = correctResponse.text
+        }
+      }
+      if (!text) {
+        text = question.answers[0].text.replace(/{|}/gm, '')
+      }
+      return text
+    }
+
     checkAnswer() {
       const { response, responses } = this.state
       const question = this.currentQuestion()
@@ -234,19 +251,30 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
       </div>
     }
 
+    renderTextareaSection() {
+      const { questionStatus } = this.state
+      if (['correctly answered', 'final attempt'].includes(questionStatus)) {
+        return <Row type="flex" align="middle" justify="start">
+          <textarea value={this.state.response} className="input-field disabled" disabled/>
+        </Row>
+      } else {
+        return <Row type="flex" align="middle" justify="start">
+          <textarea value={this.state.response} spellcheck="false" className="input-field" onChange={this.updateResponse} onKeyDown={this.onPressEnter}/>
+        </Row>
+      }
+    }
+
     renderQuestionSection(): JSX.Element {
       const prompt = this.currentQuestion().prompt
-      return <div className="question-section">
+      return (<div className="question-section">
         <Row type="flex" align="middle" justify="start">
           <div className="prompt" dangerouslySetInnerHTML={{__html: prompt}} />
         </Row>
-        <Row type="flex" align="middle" justify="start">
-          <textarea value={this.state.response} spellcheck="false" className="input-field" onChange={this.updateResponse} onKeyDown={this.onPressEnter}/>
-        </Row>
+        {this.renderTextareaSection()}
         <Row type="flex" align="middle" justify="end">
           {this.renderCheckAnswerButton()}
         </Row>
-      </div>
+      </div>)
     }
 
     renderFeedbackSection(): JSX.Element|undefined {
@@ -263,7 +291,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
             className = 'correct'
             imgSrc = correctIconSrc
           } else {
-            feedback = `<b>Your Response:</b> ${this.state.response} <br/> <b>Correct Response:</b> ${question.answers[0].text.replace(/{|}/gm, '')}`
+            feedback = `<b>Your Response:</b> ${this.state.response} <br/> <b>Correct Response:</b> ${this.correctResponse()}`
             className = 'incorrect'
             imgSrc = incorrectIconSrc
           }

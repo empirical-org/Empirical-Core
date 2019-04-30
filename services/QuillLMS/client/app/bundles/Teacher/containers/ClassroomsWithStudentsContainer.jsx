@@ -147,7 +147,7 @@ export default class ClassroomsWithStudentsContainer extends React.Component {
     let updated;
     if (classy.classroom_unit) {
       const ca = classy.classroom_unit;
-      if (ca.assign_on_join) {
+      if (ca.assign_on_join && classy.students.length === ca.assigned_student_ids.length) {
 				// if everyone in class was assigned, check to see if assignedStudentIds length is equal to number of students in class
 				// if it is, there hasn't been an update unless there are no students in the class
         const equalLengths = assignedStudentIds.length === classy.students.length;

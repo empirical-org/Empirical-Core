@@ -59,6 +59,20 @@ export default React.createClass({
     };
   },
 
+  componentWillReceiveProps(nextProps: any) {
+    if (!_.isEqual(nextProps.response, this.props.response)) {
+      let conceptResults = {}
+      if (nextProps.response.concept_results) {
+        if (typeof nextProps.response.concept_results === 'string') {
+          conceptResults = JSON.parse(nextProps.response.concept_results)
+        } else {
+          conceptResults = nextProps.response.concept_results
+        }
+      }
+      this.setState({conceptResults})
+    }
+  },
+
   deleteResponse(rid) {
     if (window.confirm('Are you sure?')) {
       this.props.dispatch(deleteResponse(this.props.questionID, rid));
@@ -112,6 +126,20 @@ export default React.createClass({
       parent_id: null,
       concept_results: Object.keys(this.state.conceptResults) && Object.keys(this.state.conceptResults).length ? this.state.conceptResults : null
     };
+    this.props.dispatch(submitResponseEdit(rid, newResp, this.props.questionID));
+  },
+
+  unmatchResponse(rid) {
+    const { modelConceptUID, conceptID, } = this.props.question
+    const defaultConceptUID = modelConceptUID || conceptID
+    const newResp = {
+      weak: false,
+      feedback: null,
+      optimal: null,
+      author: null,
+      parent_id: null,
+      concept_results: { [defaultConceptUID]: false, },
+    }
     this.props.dispatch(submitResponseEdit(rid, newResp, this.props.questionID));
   },
 
@@ -420,6 +448,7 @@ export default React.createClass({
     if (isEditing) {
       buttons = [
         (<a className="card-footer-item" onClick={this.cancelResponseEdit.bind(null, response.key)} key="cancel" >Cancel</a>),
+        (<a className="card-footer-item" onClick={this.unmatchResponse.bind(null, response.key)} key="unmatch" >Unmatch</a>),
         (<a className="card-footer-item" onClick={this.incrementResponse.bind(null, response.key)} key="increment" >Increment</a>),
         (<a className="card-footer-item" onClick={this.updateResponse.bind(null, response.key)} key="update" >Update</a>)
       ];
