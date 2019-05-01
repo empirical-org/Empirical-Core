@@ -56,6 +56,11 @@ jobs:
       #     command: |
       #       cd services/QuillLMS
       #       bundle exec rake spec
+      - run:
+        name: Install Node
+        command: |
+          curl -sL https://deb.nodesource.com/setup_8.11.3 | bash -
+          apt-get install -y nodejs npm
       - restore_cache:
           key: npm-cache-v1-{{ checksum "services/QuillLMS/package-lock.json" }}
           paths:
