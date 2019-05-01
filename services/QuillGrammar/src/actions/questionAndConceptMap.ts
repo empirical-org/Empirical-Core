@@ -76,8 +76,8 @@ export function updateData() {
       conceptRow.implicitlyAssignedActivities = uniqueImplicitlyAssignedActivities
       return conceptRow
     })
-    grammarQuestionsAndConceptsRef.child('questionRows').set(questionRows)
-    grammarQuestionsAndConceptsRef.child('conceptRows').set(conceptRows)
+    grammarQuestionsAndConceptsRef.child('questionRows').set(_.pickBy(questionRows))
+    grammarQuestionsAndConceptsRef.child('conceptRows').set(_.pickBy(conceptRows))
   }
 }
 
