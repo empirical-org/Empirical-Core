@@ -51,11 +51,11 @@ jobs:
             bundle exec rake db:migrate
           environment:
             DATABASE_URL: "postgres://ubuntu@localhost:5432/quill_test_db"
-      - run:
-          name: Run tests
-          command: |
-            cd services/QuillLMS
-            bundle exec rake spec
+      # - run:
+      #     name: Run tests
+      #     command: |
+      #       cd services/QuillLMS
+      #       bundle exec rake spec
       - restore_cache:
           key: npm-cache-v1-{{ checksum "services/QuillLMS/package-lock.json" }}
           paths:
