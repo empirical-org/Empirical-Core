@@ -1,4 +1,7 @@
-<footer class='footer-white'>
+<% is_student = current_user&.role == 'student' %>
+<% footer_class = is_student ? 'footer-white student-footer' : 'footer-white' %>
+
+<footer class="<%=footer_class%>">
 
 	<div class="footer-content">
 		<div class="top-half">
@@ -19,10 +22,14 @@
 
 		<div class="bottom-half">
 			<ul class="footer-contacts">
-				<li><a href="mailto:hello@quill.org">hello@quill.org</a></li></li>
-				<li>1 (646) 442 1095</li>
-				<li><%= link_to "Our Story","#{root_path}mission" %></li>
-				<li><a href="http://support.quill.org">Support</a></li>
+				<% if is_student %>
+					<li><%= link_to "Our Story","#{root_path}mission" %></li>
+				<% else %>
+					<li><a href="mailto:hello@quill.org">hello@quill.org</a></li></li>
+					<li>1 (646) 442 1095</li>
+					<li><%= link_to "Our Story","#{root_path}mission" %></li>
+					<li><a href="http://support.quill.org">Support</a></li>
+				<% end %>
 				<li><%= link_to "Terms","#{root_path}tos" %></li>
 				<li><%= link_to "Privacy", "#{root_path}privacy" %></li>
 			</ul>
