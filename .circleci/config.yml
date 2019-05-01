@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  build:
+  lms_rails_build:
     working_directory: ~/Empirical-Core
     docker:
       - image: ruby:2.5.1
@@ -51,16 +51,17 @@ jobs:
             bundle exec rake db:migrate
           environment:
             DATABASE_URL: "postgres://ubuntu@localhost:5432/quill_test_db"
-      # - run:
-      #     name: Run tests
-      #     command: |
-      #       cd services/QuillLMS
-      #       bundle exec rake spec
       - run:
-          name: Install Node
+          name: Run tests
           command: |
-            curl -sL https://deb.nodesource.com/setup_8.11.3 | bash -
-            apt-get install -y nodejs npm
+            cd services/QuillLMS
+            bundle exec rake spec
+  lms_node_build:
+    working_directory: ~/Empirical-Core
+    docker:
+      - image: circleci/node:8.11.3
+    steps:
+      - checkout
       - restore_cache:
           key: npm-cache-v1-{{ checksum "services/QuillLMS/package-lock.json" }}
           paths:
@@ -79,3 +80,8 @@ jobs:
           command: |
             cd services/QuillLMS
             npm test
+workflows:
+  version: 2
+  build-test:
+    jobs:
+      - lms_node_build
