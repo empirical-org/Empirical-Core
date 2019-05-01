@@ -255,6 +255,15 @@ Sentences flow easily when all the actions in a list have the same ending. This 
             justify="start"
             type="flex"
           >
+            <img
+              src="undefined/images/icons/question_icon.svg"
+              style={
+                Object {
+                  "height": "22px",
+                  "marginRight": "10px",
+                }
+              }
+            />
             <div
               className="instructions"
               dangerouslySetInnerHTML={
@@ -397,6 +406,15 @@ Sentences flow easily when all the actions in a list have the same ending. This 
               justify="start"
               type="flex"
             >
+              <img
+                src="undefined/images/icons/question_icon.svg"
+                style={
+                  Object {
+                    "height": "22px",
+                    "marginRight": "10px",
+                  }
+                }
+              />
               <div
                 className="instructions"
                 dangerouslySetInnerHTML={
@@ -629,33 +647,61 @@ Sentences flow easily when all the actions in a list have the same ending. This 
             "nodeType": "class",
             "props": Object {
               "align": "middle",
-              "children": <div
-                className="instructions"
-                dangerouslySetInnerHTML={
-                  Object {
-                    "__html": "Rewrite the sentence so that it has proper parallel structure.",
+              "children": Array [
+                <img
+                  src="undefined/images/icons/question_icon.svg"
+                  style={
+                    Object {
+                      "height": "22px",
+                      "marginRight": "10px",
+                    }
                   }
-                }
-              />,
+                />,
+                <div
+                  className="instructions"
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "Rewrite the sentence so that it has proper parallel structure.",
+                    }
+                  }
+                />,
+              ],
               "gutter": 0,
               "justify": "start",
               "type": "flex",
             },
             "ref": null,
-            "rendered": Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "host",
-              "props": Object {
-                "className": "instructions",
-                "dangerouslySetInnerHTML": Object {
-                  "__html": "Rewrite the sentence so that it has proper parallel structure.",
+            "rendered": Array [
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "src": "undefined/images/icons/question_icon.svg",
+                  "style": Object {
+                    "height": "22px",
+                    "marginRight": "10px",
+                  },
                 },
+                "ref": null,
+                "rendered": null,
+                "type": "img",
               },
-              "ref": null,
-              "rendered": null,
-              "type": "div",
-            },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "className": "instructions",
+                  "dangerouslySetInnerHTML": Object {
+                    "__html": "Rewrite the sentence so that it has proper parallel structure.",
+                  },
+                },
+                "ref": null,
+                "rendered": null,
+                "type": "div",
+              },
+            ],
             "type": [Function],
           },
         ],
@@ -913,6 +959,15 @@ Sentences flow easily when all the actions in a list have the same ending. This 
               justify="start"
               type="flex"
             >
+              <img
+                src="undefined/images/icons/question_icon.svg"
+                style={
+                  Object {
+                    "height": "22px",
+                    "marginRight": "10px",
+                  }
+                }
+              />
               <div
                 className="instructions"
                 dangerouslySetInnerHTML={
@@ -1055,6 +1110,15 @@ Sentences flow easily when all the actions in a list have the same ending. This 
                 justify="start"
                 type="flex"
               >
+                <img
+                  src="undefined/images/icons/question_icon.svg"
+                  style={
+                    Object {
+                      "height": "22px",
+                      "marginRight": "10px",
+                    }
+                  }
+                />
                 <div
                   className="instructions"
                   dangerouslySetInnerHTML={
@@ -1287,33 +1351,61 @@ Sentences flow easily when all the actions in a list have the same ending. This 
               "nodeType": "class",
               "props": Object {
                 "align": "middle",
-                "children": <div
-                  className="instructions"
-                  dangerouslySetInnerHTML={
-                    Object {
-                      "__html": "Rewrite the sentence so that it has proper parallel structure.",
+                "children": Array [
+                  <img
+                    src="undefined/images/icons/question_icon.svg"
+                    style={
+                      Object {
+                        "height": "22px",
+                        "marginRight": "10px",
+                      }
                     }
-                  }
-                />,
+                  />,
+                  <div
+                    className="instructions"
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "Rewrite the sentence so that it has proper parallel structure.",
+                      }
+                    }
+                  />,
+                ],
                 "gutter": 0,
                 "justify": "start",
                 "type": "flex",
               },
               "ref": null,
-              "rendered": Object {
-                "instance": null,
-                "key": undefined,
-                "nodeType": "host",
-                "props": Object {
-                  "className": "instructions",
-                  "dangerouslySetInnerHTML": Object {
-                    "__html": "Rewrite the sentence so that it has proper parallel structure.",
+              "rendered": Array [
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "src": "undefined/images/icons/question_icon.svg",
+                    "style": Object {
+                      "height": "22px",
+                      "marginRight": "10px",
+                    },
                   },
+                  "ref": null,
+                  "rendered": null,
+                  "type": "img",
                 },
-                "ref": null,
-                "rendered": null,
-                "type": "div",
-              },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "className": "instructions",
+                    "dangerouslySetInnerHTML": Object {
+                      "__html": "Rewrite the sentence so that it has proper parallel structure.",
+                    },
+                  },
+                  "ref": null,
+                  "rendered": null,
+                  "type": "div",
+                },
+              ],
               "type": [Function],
             },
           ],
