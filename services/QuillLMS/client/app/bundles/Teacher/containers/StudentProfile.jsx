@@ -141,6 +141,7 @@ class StudentProfile extends React.Component {
             data={scores}
             loading={loading}
           />
+          <p className="student-disclaimer">The Quill Team personally reviews all support requests. If you send us a message or an email, please be kind and respectful!<br/>Inappropriate content will be reported to your&nbsp;teacher.</p>
         </div>
       );
     } return <span />;
