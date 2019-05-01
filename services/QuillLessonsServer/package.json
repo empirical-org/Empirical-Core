@@ -6,7 +6,7 @@
   "scripts": {
     "build": "$(npm bin)/babel src --out-dir lib --presets es2015,stage-2",
     "start": "npm run build && node lib/index.js",
-    "start:dev": "nodemon src/index.js --exec babel-node --presets es2015,stage-2",
+    "start:dev": "./rethink_local.sh start; PORT=3200 RETHINKDB_HOST=localhost RETHINK_DB_PORT=28015 nodemon src/index.js --exec babel-node --presets es2015,stage-2; ./rethink_local.sh stop",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

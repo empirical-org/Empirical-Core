@@ -111,6 +111,6 @@ class GoogleIntegration::UnitAnnouncement
   end
 
   def can_post_to_google_classroom?
-    classroom && classroom.google_classroom_id.present?
+    classroom && classroom.google_classroom_id.present? && classroom.owner.post_google_classroom_assignments
   end
 end
