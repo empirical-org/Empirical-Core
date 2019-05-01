@@ -51,7 +51,7 @@ export function updateData() {
       questionRow.noActivities = !(explicitlyAssignedActivities.length || implicitlyAssignedActivities.length)
       questionRow.explicitlyAssignedActivities = explicitlyAssignedActivities
       questionRow.implicitlyAssignedActivities = implicitlyAssignedActivities
-      return questionRow
+      return removeNullAndUndefinedValues(questionRow)
     })
 
     const groupedConcepts = _.groupBy(questionRows, 'concept_uid')
@@ -74,7 +74,7 @@ export function updateData() {
       const uniqueImplicitlyAssignedActivities = uniqueImplicitlyAssignedActivityLinks.map(link => implicitlyAssignedActivities.find(act => act.link === link))
       conceptRow.explicitlyAssignedActivities = uniqueExplicitlyAssignedActivities
       conceptRow.implicitlyAssignedActivities = uniqueImplicitlyAssignedActivities
-      return conceptRow
+      return removeNullAndUndefinedValues(conceptRow)
     })
     grammarQuestionsAndConceptsRef.child('questionRows').set(questionRows)
     grammarQuestionsAndConceptsRef.child('conceptRows').set(conceptRows)
@@ -90,4 +90,13 @@ export function checkTimeout() {
       }
     })
   };
+}
+
+function removeNullAndUndefinedValues(obj: any) {
+  Object.keys(obj).forEach((key: any) => {
+    if ([undefined, null].includes(obj[key])) {
+      delete obj[key]
+    }
+  })
+  return obj
 }
