@@ -70,7 +70,7 @@ jobs:
           name: Install NPM dependencies
           command: |
             cd services/QuillLMS
-            npm ci
+            npm install
       - save_cache:
           key: npm-cache-v1-{{ checksum "services/QuillLMS/package-lock.json" }}
           paths:
