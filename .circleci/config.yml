@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  rails_build:
+  build:
     working_directory: ~/Empirical-Core
     docker:
       - image: ruby:2.5.1
@@ -56,28 +56,21 @@ jobs:
           command: |
             cd services/QuillLMS
             bundle exec rake spec
-
-  lms_react_build:
-    working_directory: ~/Empirical-Core
-    docker:
-      - image: circleci/node:8
-    steps:
-      - checkout
       - restore_cache:
-          key: npm-cache-v1-{{ checksum "package-lock.json" }}
+          key: npm-cache-v1-{{ checksum "services/QuillLMS/package-lock.json" }}
           paths:
-            - /home/circleci/.npm/QuillLMS
+            - /services/QuillLMS/.npm
       - run:
-          name: Install Dependencies
+          name: Install NPM dependencies
           command: |
-          cd services/QuillLMS
-          npm ci
+            cd services/QuillLMS
+            npm ci
       - save_cache:
-          key: npm-cache-v1-{{ checksum "package-lock.json" }}
+          key: npm-cache-v1-{{ checksum "services/QuillLMS/package-lock.json" }}
           paths:
-            - /home/circleci/.npm/QuillLMS
+            - /services/QuillLMS/.npm
       - run:
-          name: Run Tests
+          name: Run LMS Tests
           command: |
-          cd services/QuillLMS
-          npm test
+            cd services/QuillLMS
+            npm test
