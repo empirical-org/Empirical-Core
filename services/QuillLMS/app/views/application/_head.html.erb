@@ -34,6 +34,7 @@
   <% else %>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
   <% end %>
+  <%= render partial: 'application/head_embed_codes' %>
   <%= javascript_pack_tag('vendor') %>
   <%= javascript_pack_tag(@js_file || 'app') %>
   <%= csrf_meta_tags %>
@@ -44,7 +45,6 @@
   <% unless Rails.env.test? %>
     <link href="//fonts.googleapis.com/css?family=Comfortaa:400,700" rel="stylesheet" type="text/css" />
   <% end %>
-  <%= render partial: 'application/head_embed_codes' %>
 
   <%= render :partial => 'firewall_test' if @firewall_test %>
 
