@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/Empirical-Core
     docker:
-      - image: ruby:2.5.1
+      - image: ruby:2.5.1-node
         environment:
           PG_DB: quill_test_db
           PG_USER: ubuntu
@@ -14,7 +14,6 @@ jobs:
           POSTGRES_USER: ubuntu
           POSTGRES_DB: quill_test_db
           POSTGRES_PASSWORD: ""
-      - image: circleci/node:8.11.3
     steps:
       - checkout
       - restore_cache:
