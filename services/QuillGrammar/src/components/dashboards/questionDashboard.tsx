@@ -55,7 +55,11 @@ class QuestionDashboard extends React.Component<QuestionDashboardProps, Question
         Header: 'Question',
         accessor: 'prompt',
         resizable: false,
-        Cell: (row: { original: DashboardQuestionRow }) => <a href={row.original.link}>{row.original.prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")}</a>,
+        Cell: (row: { original: DashboardQuestionRow }) => {
+          const prompt = row.original.prompt
+          const formattedPrompt = prompt ? prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "").replace(/&quot;/ig, '"').replace(/&#x27;/ig, "'") : 'No prompt'
+          return <a href={row.original.link}>{formattedPrompt}</a>
+        },
       }, {
         Header: 'Concept',
         accessor: 'concept.name',
