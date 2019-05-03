@@ -78,8 +78,8 @@ jobs:
       - run:
           name: Run LMS Tests
           command: |
-            cd services/QuillLMS
-            npm test
+            cd services/QuillLMS/client
+            npm run jest
 workflows:
   version: 2
   build-test:
