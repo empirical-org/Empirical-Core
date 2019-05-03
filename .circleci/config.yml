@@ -99,8 +99,8 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - bundle-cache-{{ checksum "services/QuillCMS/Gemfile.lock" }}
-            - bundle-cache-
+            - bundle-cache-cms{{ checksum "services/QuillCMS/Gemfile.lock" }}
+            - bundle-cache-cms
           paths:
             - services/QuillCMS/vendor/bundle
       - run:
@@ -109,7 +109,7 @@ jobs:
             cd services/QuillCMS
             bundle check || bundle install --path vendor/bundle
       - save_cache:
-          key: bundle-cache-{{ checksum "services/QuillCMS/Gemfile.lock" }}
+          key: bundle-cache-cms{{ checksum "services/QuillCMS/Gemfile.lock" }}
           paths:
             - services/QuillCMS/vendor/bundle
       # - run:
