@@ -76,7 +76,7 @@ jobs:
           paths:
             - /services/QuillLMS/.npm
       - run:
-          name: Run LMS Tests
+          name: Run LMS Frontend Tests
           command: |
             cd services/QuillLMS/client
             FORCE_COLOR=true npm run jest --colors
@@ -127,7 +127,7 @@ jobs:
           environment:
             DATABASE_URL: "postgres://ubuntu@localhost:5432/quill_cms_test_db"
       - run:
-          name: Run tests
+          name: Run CMS tests
           command: |
             cd services/QuillCMS
             bundle exec rake spec
@@ -151,7 +151,7 @@ jobs:
           paths:
             - /services/QuillConnect/.npm
       - run:
-          name: Run LMS Tests
+          name: Run QuillConnect Tests
           command: |
             cd services/QuillConnect
             FORCE_COLOR=true npm run jest --colors
