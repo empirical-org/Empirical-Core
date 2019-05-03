@@ -79,7 +79,7 @@ jobs:
           name: Run LMS Tests
           command: |
             cd services/QuillLMS/client
-            npm run jest --colors
+            FORCE_COLOR=true npm run jest --colors
 workflows:
   version: 2
   build-test:
