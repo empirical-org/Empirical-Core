@@ -83,7 +83,7 @@ jobs:
   cms_rails_build:
     working_directory: ~/Empirical-Core
     docker:
-      - image: ruby:2.3.1
+      - image: circleci/ruby:2.3.1
         environment:
           PG_DB: quill_cms_test_db
           PG_USER: ubuntu
@@ -94,6 +94,7 @@ jobs:
           POSTGRES_USER: ubuntu
           POSTGRES_DB: quill_cms_test_db
           POSTGRES_PASSWORD: ""
+      - image: elasticsearch:5.6.2
     steps:
       - checkout
       - restore_cache:
@@ -110,18 +111,17 @@ jobs:
       - save_cache:
           key: bundle-cache-{{ checksum "services/QuillCMS/Gemfile.lock" }}
           paths:
-            - services/QuillLMS/vendor/bundle
-      - run:
-          name: Install postgres dependencies
-          command: |
-            apt-get update
-            apt-cache search postgres
-            apt install -y postgresql-client
+            - services/QuillCMS/vendor/bundle
+      # - run:
+      #     name: Install postgres dependencies
+      #     command: |
+      #       apt-get update
+      #       apt-cache search postgres
+      #       apt install -y postgresql-client
       - run:
           name: Copy Config files
           command: |
             cd services/QuillCMS
-            cp .env-sample .env
             cp config/database.yml.circle config/database.yml
       - run:
           name: Set up DB
