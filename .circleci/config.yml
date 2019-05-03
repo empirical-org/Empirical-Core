@@ -80,8 +80,66 @@ jobs:
           command: |
             cd services/QuillLMS/client
             FORCE_COLOR=true npm run jest --colors
+  cms_rails_build:
+    working_directory: ~/Empirical-Core
+    docker:
+      - image: ruby:2.3.1
+        environment:
+          PG_DB: quill_cms_test_db
+          PG_USER: ubuntu
+          RAILS_ENV: test
+          RACK_ENV: test
+      - image: postgres:10.5-alpine
+        environment:
+          POSTGRES_USER: ubuntu
+          POSTGRES_DB: quill_cms_test_db
+          POSTGRES_PASSWORD: ""
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - bundle-cache-{{ checksum "services/QuillCMS/Gemfile.lock" }}
+            - bundle-cache-
+          paths:
+            - services/QuillCMS/vendor/bundle
+      - run:
+          name: Bundle Install if cache isn't present.
+          command: |
+            cd services/QuillCMS
+            bundle check || bundle install --path vendor/bundle
+      - save_cache:
+          key: bundle-cache-{{ checksum "services/QuillCMS/Gemfile.lock" }}
+          paths:
+            - services/QuillLMS/vendor/bundle
+      - run:
+          name: Install postgres dependencies
+          command: |
+            apt-get update
+            apt-cache search postgres
+            apt install -y postgresql-client
+      - run:
+          name: Copy Config files
+          command: |
+            cd services/QuillCMS
+            cp .env-sample .env
+            cp config/database.yml.circle config/database.yml
+      - run:
+          name: Set up DB
+          command: |
+            cd services/QuillCMS
+            bundle exec rake db:structure:load
+            bundle exec rake db:migrate
+          environment:
+            DATABASE_URL: "postgres://ubuntu@localhost:5432/quill_cms_test_db"
+      - run:
+          name: Run tests
+          command: |
+            cd services/QuillCMS
+            bundle exec rake spec
 workflows:
   version: 2
   build-test:
     jobs:
-      - lms_node_build
+      # - lms_rails_build
+      # - lms_node_build
+      - cms_rails_build
