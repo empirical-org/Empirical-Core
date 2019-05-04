@@ -240,7 +240,7 @@ jobs:
       - run:
           name: Install NPM dependencies
           command: |
-            cd services/QuillProofreaderc
+            cd services/QuillProofreader
             npm install
       - save_cache:
           key: npm-cache-proofreader-v1-{{ checksum "services/QuillProofreader/package-lock.json" }}
@@ -250,6 +250,30 @@ jobs:
           name: Run QuillProofreader Tests
           command: |
             cd services/QuillProofreader
+            FORCE_COLOR=true npm run test --colors
+  spellchecker_node_build:
+    working_directory: ~/Empirical-Core
+    docker:
+      - image: circleci/node:8.11.3
+    steps:
+      - checkout
+      - restore_cache:
+          key: npm-cache-spellchecker-v1-{{ checksum "packages/quill-spellchecker/package-lock.json" }}
+          paths:
+            - /packages/quill-spellchecker/.npm
+      - run:
+          name: Install NPM dependencies
+          command: |
+            cd packages/quill-spellchecker
+            npm install
+      - save_cache:
+          key: npm-cache-spellchecker-v1-{{ checksum "packages/quill-spellchecker/package-lock.json" }}
+          paths:
+            - /packages/quill-spellchecker/.npm
+      - run:
+          name: Run Spellchecker Tests
+          command: |
+            cd packages/quill-spellchecker
             FORCE_COLOR=true npm run test --colors
 workflows:
   version: 2
@@ -263,3 +287,4 @@ workflows:
       # - grammar_node_build
       # - diagnostic_node_build
       - proofreader_node_build
+      - spellchecker_node_build
