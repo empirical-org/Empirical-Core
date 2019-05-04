@@ -275,6 +275,30 @@ jobs:
           command: |
             cd packages/quill-spellchecker
             FORCE_COLOR=true npm run test --colors
+  marking_logic_node_build:
+    working_directory: ~/Empirical-Core
+    docker:
+      - image: circleci/node:8.11.3
+    steps:
+      - checkout
+      - restore_cache:
+          key: npm-cache-marking-logic-v1-{{ checksum "packages/quill-marking-logic/package-lock.json" }}
+          paths:
+            - /packages/quill-marking-logic/.npm
+      - run:
+          name: Install NPM dependencies
+          command: |
+            cd packages/quill-marking-logic
+            npm install
+      - save_cache:
+          key: npm-cache-marking-logic-v1-{{ checksum "packages/quill-marking-logic/package-lock.json" }}
+          paths:
+            - /packages/quill-marking-logic/.npm
+      - run:
+          name: Run Marking Logic Tests
+          command: |
+            cd packages/quill-marking-logic
+            FORCE_COLOR=true npm run test --colors
 workflows:
   version: 2
   build-test:
@@ -286,5 +310,6 @@ workflows:
       # - lessons_node_build
       # - grammar_node_build
       # - diagnostic_node_build
-      - proofreader_node_build
-      - spellchecker_node_build
+      # - proofreader_node_build
+      # - spellchecker_node_build
+      - marking_logic_node_build
