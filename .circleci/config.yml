@@ -227,6 +227,30 @@ jobs:
           command: |
             cd services/QuillDiagnostic
             FORCE_COLOR=true npm run test --colors
+  proofreader_node_build:
+    working_directory: ~/Empirical-Core
+    docker:
+      - image: circleci/node:8.11.2
+    steps:
+      - checkout
+      - restore_cache:
+          key: npm-cache-proofreader-v1-{{ checksum "services/QuillProofreader/package-lock.json" }}
+          paths:
+            - /services/QuillProofreader/.npm
+      - run:
+          name: Install NPM dependencies
+          command: |
+            cd services/QuillProofreaderc
+            npm install
+      - save_cache:
+          key: npm-cache-proofreader-v1-{{ checksum "services/QuillProofreader/package-lock.json" }}
+          paths:
+            - /services/QuillProofreader/.npm
+      - run:
+          name: Run QuillProofreader Tests
+          command: |
+            cd services/QuillProofreader
+            FORCE_COLOR=true npm run test --colors
 workflows:
   version: 2
   build-test:
@@ -237,4 +261,5 @@ workflows:
       # - connect_node_build
       # - lessons_node_build
       # - grammar_node_build
-      - diagnostic_node_build
+      # - diagnostic_node_build
+      - proofreader_node_build
