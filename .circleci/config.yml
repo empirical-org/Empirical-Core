@@ -195,14 +195,14 @@ jobs:
             cd services/QuillGrammar
             npm install
       - save_cache:
-          key: npm-cache-lessons-v1-{{ checksum "services/QuillGrammar/package-lock.json" }}
+          key: npm-cache-grammar-v1-{{ checksum "services/QuillGrammar/package-lock.json" }}
           paths:
             - /services/QuillGrammar/.npm
       - run:
           name: Run QuillGrammar Tests
           command: |
             cd services/QuillGrammar
-            FORCE_COLOR=true npm run jest --colors
+            FORCE_COLOR=true npm run test --colors
 workflows:
   version: 2
   build-test:
