@@ -203,6 +203,30 @@ jobs:
           command: |
             cd services/QuillGrammar
             FORCE_COLOR=true npm run test --colors
+  diagnostic_node_build:
+    working_directory: ~/Empirical-Core
+    docker:
+      - image: circleci/node:8.11.3
+    steps:
+      - checkout
+      - restore_cache:
+          key: npm-cache-diagnostic-v1-{{ checksum "services/QuillDiagnostic/package-lock.json" }}
+          paths:
+            - /services/QuillDiagnostic/.npm
+      - run:
+          name: Install NPM dependencies
+          command: |
+            cd services/QuillDiagnostic
+            npm install
+      - save_cache:
+          key: npm-cache-diagnostic-v1-{{ checksum "services/QuillDiagnostic/package-lock.json" }}
+          paths:
+            - /services/QuillDiagnostic/.npm
+      - run:
+          name: Run QuillDiagnostic Tests
+          command: |
+            cd services/QuillDiagnostic
+            FORCE_COLOR=true npm run test --colors
 workflows:
   version: 2
   build-test:
@@ -212,4 +236,5 @@ workflows:
       # - cms_rails_build
       # - connect_node_build
       # - lessons_node_build
-      - grammar_node_build
+      # - grammar_node_build
+      - diagnostic_node_build
