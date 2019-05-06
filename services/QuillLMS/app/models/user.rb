@@ -351,8 +351,10 @@ class User < ActiveRecord::Base
         name:      "Deleted User_#{self.id}",
         email:     "deleted_user_#{self.id}@example.com",
         username:  "deleted_user_#{self.id}",
-        google_id: nil
+        google_id: nil,
+        clever_id: nil
       )
+      StudentsClassrooms.where(student_id: self.id).update_all(visible: false)
       if auth_credential.present?
         auth_credential.destroy!
       end
