@@ -2,10 +2,10 @@ import { hashToCollection } from 'quill-component-library/dist/componentLibrary'
 import {Response, FocusPoint, IncorrectSequence, ConceptResult} from '../../src/interfaces/index'
 
 const rawData = {
-  '13157':
-    { 'id': 13157, 'text': 'Bats have wings, so they can fly.', 'optimal': true, 'feedback': '<p>That\'s a strong sentence!</p>', 'count': 113059, 'child_count': 45725, 'first_attempt_count': 43750, 'question_uid': '-KS7SchZ6efLRxPmvuqA', 'parent_id': null, 'concept_results': { 'R3sBcYAvoXP2_oNVXiA98g': { 'conceptUID': 'R3sBcYAvoXP2_oNVXiA98g', 'correct': true }, 'GiUZ6KPkH958AT8S413nJg': { 'conceptUID': 'GiUZ6KPkH958AT8S413nJg', 'correct': true } } },
   '13145':
     { 'id': 13145, 'text': 'Bats have wings and they can fly', 'optimal': false, 'feedback': '<p>Revise your work. Which joining word helps tell why or give a reason?</p>', 'count': 1302, 'child_count': null, 'first_attempt_count': 536, 'question_uid': '-KS7SchZ6efLRxPmvuqA', 'parent_id': null, 'concept_results': { 'R3sBcYAvoXP2_oNVXiA98g': { 'conceptUID': 'R3sBcYAvoXP2_oNVXiA98g', 'correct': false }, 'GiUZ6KPkH958AT8S413nJg': { 'conceptUID': 'GiUZ6KPkH958AT8S413nJg', 'correct': false }, 'JVJhNIHGZLbHF6LYw605XA': { 'conceptUID': 'JVJhNIHGZLbHF6LYw605XA', 'correct': false } } },
+  '13157':
+    { 'id': 13157, 'text': 'Bats have wings, so they can fly.', 'optimal': true, 'feedback': '<p>That\'s a strong sentence!</p>', 'count': 113059, 'child_count': 45725, 'first_attempt_count': 43750, 'question_uid': '-KS7SchZ6efLRxPmvuqA', 'parent_id': null, 'concept_results': { 'R3sBcYAvoXP2_oNVXiA98g': { 'conceptUID': 'R3sBcYAvoXP2_oNVXiA98g', 'correct': true }, 'GiUZ6KPkH958AT8S413nJg': { 'conceptUID': 'GiUZ6KPkH958AT8S413nJg', 'correct': true } } },
   '13166':
     { 'id': 13166, 'text': 'Bats have wings, and they can fly.', 'optimal': false, 'feedback': '<p><em>And</em> makes sense, but there is a stronger way of joining the sentences. Which joining word shows having wings is the reason bats can fly?</p>', 'count': 10530, 'child_count': 1, 'first_attempt_count': 4812, 'question_uid': '-KS7SchZ6efLRxPmvuqA', 'parent_id': null, 'concept_results': { 'GiUZ6KPkH958AT8S413nJg': { 'conceptUID': 'GiUZ6KPkH958AT8S413nJg', 'correct': true }, 'R3sBcYAvoXP2_oNVXiA98g': { 'conceptUID': 'R3sBcYAvoXP2_oNVXiA98g', 'correct': false } } },
   '13168':
