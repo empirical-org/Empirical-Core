@@ -302,7 +302,7 @@ jobs:
   comprehension_rails_build:
     working_directory: ~/Empirical-Core
     docker:
-      - image: ruby:2.5.1
+      - image: ruby:2.5.1-node
         environment:
           PG_DB: quill_comprehension_db
           PG_USER: ubuntu
