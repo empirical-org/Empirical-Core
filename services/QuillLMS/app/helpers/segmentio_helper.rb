@@ -1,9 +1,9 @@
 module SegmentioHelper
-  def generate_segment_identify_arguments (current_user)
+  def generate_segment_identify_arguments(current_user)
     "#{current_user.id}, #{serialize_user(current_user).to_json}, #{destination_properties(current_user)}"
   end
 
-  def serialize_user (current_user)
+  def serialize_user(current_user)
     SegmentAnalyticsUserSerializer.new(current_user).render
   end
 
@@ -16,7 +16,7 @@ module SegmentioHelper
     }.to_json
   end
 
-  def format_analytics_properties (request, properties)
+  def format_analytics_properties(request, properties)
     common_properties = { path: request.fullpath,
                           referrer: request.referrer, }
     custom_properties = properties.map{ |k,v| ["custom_" + k.to_s, v] }.to_h

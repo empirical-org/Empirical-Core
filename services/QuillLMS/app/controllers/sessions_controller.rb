@@ -2,6 +2,8 @@ require 'newrelic_rpm'
 require 'new_relic/agent'
 
 class SessionsController < ApplicationController
+  CLEAR_ANALYTICS_SESSION_KEY = "clear_analytics_session"
+
   before_filter :signed_in!, only: [:destroy]
   before_filter :set_cache_buster, only: [:new]
 
@@ -84,7 +86,7 @@ class SessionsController < ApplicationController
         # Wherever our user eventually lands after logout, we want to do some special stuff
         # So we set a session value here for the final controller to pick up and convert into
         # a variable for the view
-        session[:clear_analytics_session] = true
+        session[CLEAR_ANALYTICS_SESSION_KEY] = true
         redirect_to signed_out_path
       end
     end
