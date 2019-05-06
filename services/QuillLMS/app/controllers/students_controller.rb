@@ -2,12 +2,14 @@ class StudentsController < ApplicationController
   include QuillAuthentication
 
   before_filter :authorize!, except: [:student_demo, :join_classroom]
+  before_action :redirect_to_profile, only: [:index]
 
   def index
     @current_user = current_user
     @js_file = 'student'
-    if params["joined"] == 'success' && params["classroom"]
-      classroom = Classroom.find(params["classroom"])
+    classroom_id = params["classroom"]
+    if params["joined"] == 'success' && classroom_id
+      classroom = Classroom.find(classroom_id)
       flash.now["join-class-notification"] = "You have joined #{classroom.name} 🎉🎊"
     end
   end
@@ -72,6 +74,16 @@ class StudentsController < ApplicationController
 
   def authorize!
     auth_failed unless current_user
+  end
+
+  def redirect_to_profile
+    @current_user = current_user
+    classroom_id = params["classroom"]
+    if classroom_id && (Classroom.find_by(id: classroom_id).nil? || StudentsClassrooms.find_by(student_id: @current_user.id, classroom_id: classroom_id).nil?)
+      flash[:error] = 'Oops! You do not belong to that classroom. Your teacher may have archived the class or removed you.'
+      flash.keep(:error)
+      redirect_to '/profile'
+    end
   end
 
 end
