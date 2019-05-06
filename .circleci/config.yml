@@ -317,8 +317,8 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - bundle-cache-comprehension-{{ checksum "services/QuillComprehension/Gemfile.lock" }}
-            - bundle-cache-comprehension-
+            - bundle-cache-comprehension-v2-{{ checksum "services/QuillComprehension/Gemfile.lock" }}
+            - bundle-cache-comprehension-v2-
           paths:
             - services/QuillComprehension/vendor/bundle
       - run:
@@ -327,7 +327,7 @@ jobs:
             cd services/QuillComprehension
             bundle check || bundle install --path vendor/bundle
       - save_cache:
-          key: bundle-cache-comprehension-{{ checksum "services/QuillComprehension/Gemfile.lock" }}
+          key: bundle-cache-comprehension-v2-{{ checksum "services/QuillComprehension/Gemfile.lock" }}
           paths:
             - services/QuillComprehension/vendor/bundle
       - run:
