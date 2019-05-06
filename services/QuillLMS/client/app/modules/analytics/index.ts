@@ -26,7 +26,6 @@ class SegmentAnalytics {
       // Make sure that the event reference is one that's defined
       if (!event) {
         throw new Error('The event referenced does not exist.');
-        return
       }
 
       // Validate that required properties are present
