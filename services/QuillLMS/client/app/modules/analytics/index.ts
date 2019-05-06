@@ -1,20 +1,17 @@
-import { Event, Events, validateEvent } from './events';
+import { Event } from './event_definitions';
+import { Events } from './events';
 
 
 class SegmentAnalytics {
   analytics: Object;
 
   constructor() {
-    console.log(window);
-    console.log(window.analytics);
     try {
       this.analytics = (<any>window).analytics;
     } catch(e) {
-      console.log(e);
       this.reportError(e);
       this.analytics = null;
     }
-    console.log('done with analytics constructor');
   }
 
   attachAnalytis() {

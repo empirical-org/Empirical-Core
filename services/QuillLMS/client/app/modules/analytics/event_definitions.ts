@@ -1,6 +1,11 @@
 class Event {
   name: string;
   requiredProperties?: array;
+
+  constructor(name: string, requiredProperties: array) {
+    this.name = name;
+    this.requiredProperties = requiredProperties;
+  }
 }
 
 
@@ -10,19 +15,10 @@ class Event {
 // as the list gets longer we don't accidentally end up with a
 // name collision (see validation in the 'events.ts' file).
 const EventDefinitions = [
-  {
-    TEST_EVENT: <Event>({
-      name: 'Test Event'
-    })
-  },
-  {
-    TEST_EVENT2: <Event>({
-      name: 'Test Event 2',
-      requiredProperties: [
-        'prop1',
-        'prop2',
-      ],
-    })
-  },
+  {TEST_EVENT: new Event('Test Event')},
+  {TEST_EVENT2: new Event('Test Event 2', ['prop1', 'prop2'])},
 ];
-export default EventDefinitions;
+export {
+  Event,
+  EventDefinitions,
+};

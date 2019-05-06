@@ -1,4 +1,4 @@
-import EventDefinitions from './event_definitions';
+import { EventDefinitions } from './event_definitions';
 
 
 // Ensure that no two events accidentally share the same name,
@@ -29,8 +29,4 @@ function arrayToObject(sourceArray) {
 const Events = arrayToObject(EventDefinitions)
 
 
-export {
-  Event,
-  Events,
-  validateEvent as validateEvent,
-}
+export default Events;
