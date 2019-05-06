@@ -173,4 +173,10 @@
       display: none;
     }
   }
+
+  &.student-footer {
+    .footer-contacts {
+      max-width: 227px;
+    }
+  }
 }
