@@ -315,12 +315,12 @@ jobs:
           POSTGRES_PASSWORD: ""
     steps:
       - checkout
-      - restore_cache:
-          keys:
-            - bundle-cache-comprehension-{{ checksum "services/QuillComprehension/Gemfile.lock" }}
-            - bundle-cache-comprehension-
-          paths:
-            - services/QuillComprehension/vendor/bundle
+      # - restore_cache:
+      #     keys:
+      #       - bundle-cache-comprehension-{{ checksum "services/QuillComprehension/Gemfile.lock" }}
+      #       - bundle-cache-comprehension-
+      #     paths:
+      #       - services/QuillComprehension/vendor/bundle
       - run:
           name: Bundle Install if cache isn't present.
           command: |
