@@ -54,20 +54,20 @@ class User < ActiveRecord::Base
   validates :password,              presence:     { if: :requires_password? }
 
   validates :email,                 presence:     { if: :email_required? },
-                                    uniqueness:   { if: :email_required_or_present?, message: "That email is taken. Try another.", },
+                                    uniqueness:   { if: :email_required_or_present?},
                                     on: :create
 
   validate  :validate_username_and_email,  on: :update
   validate :username_cannot_be_an_email
 
   # gem validates_email_format_of
-  validates_email_format_of :email, if: :email_required_or_present?, :message => 'Enter a valid email'
+  validates_email_format_of :email, if: :email_required_or_present?, message: :invalid
 
 
 
   validates :username,              presence:     { if: ->(m) { m.email.blank? && m.permanent? } },
-                                    uniqueness:   { allow_blank: true, message: "That username is taken. Try another." },
-                                    format:       {without: /\s/, message: 'That username is not valid because it has a space. Try another.', if: :validate_username?},
+                                    uniqueness:   { allow_blank: true },
+                                    format:       {without: /\s/, message: :no_spaces_allowed, if: :validate_username?},
                                     on: :create
 
   validate :validate_flags
@@ -208,9 +208,9 @@ class User < ActiveRecord::Base
     if username =~ VALID_EMAIL_REGEX
       if self.id
         db_self = User.find(self.id)
-        errors.add(:username, 'That username is invalid. Try another.') unless db_self.username == username
+        errors.add(:username, :invalid) unless db_self.username == username
       else
-        errors.add(:username, 'That username is invalid. Try another.')
+        errors.add(:username, :invalid)
       end
     end
   end
@@ -549,7 +549,7 @@ private
     if change_field && self[change_field].present? && User.find_by(change_field => self[change_field])
       # if the field has been changed, to that of an existing record,
       # raise an error
-      errors.add(change_field, "That #{change_field} is taken. Try another.")
+      errors.add(change_field, :taken)
     end
   end
 
