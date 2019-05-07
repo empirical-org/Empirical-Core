@@ -37,6 +37,7 @@ describe InvitationEmailWorker do
           inviter_email: user.email,
           classroom_names: ["classroom"],
           coteacher_classroom_invitation_ids: ["id"],
+          referral_code: invitation1.inviter.referral_code
         }))
         subject.perform(invitation1.id)
       end
