@@ -45,6 +45,18 @@ describe PagesController do
         get :home_new
         expect(assigns(:title)).to eq 'Quill.org — Interactive Writing and Grammar'
         expect(assigns(:description)).to eq 'Quill provides free writing and grammar activities for middle and high school students.'
+        expect(assigns(:logging_user_out)).to eq nil
+      end
+    end
+
+    context 'when a user has just signed out' do
+      before do
+        allow(controller).to receive(:user_just_logged_out) { true }
+      end
+
+      it 'should set the @logging_user_out flag' do
+        get :home_new
+        expect(assigns(:logging_user_out)).to eq true
       end
     end
   end

@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
   GOOGLE_OR_CLEVER_JUST_SET = :google_or_clever_just_set
 
   #helper CMS::Helper
+  helper SegmentioHelper
 
   # FIXME: disabled till it's clear what this does
   # before_action :setup_visitor

@@ -11,7 +11,13 @@
       Quill provides free writing and grammar activities
       for elementary, middle, and high school students.
     </p>
-    <a href="/account/new" class="q-button cta-button cta-home text-quillgreen bg-white">Sign Up</a>
+    <%= render layout: "tracked_link", locals: { href: "/account/new",
+                                                 classes: "q-button cta-button cta-home text-quillgreen bg-white",
+                                                 event: SegmentIo::Events::CLICK_SIGN_UP,
+                                                 properties: { location: "mainCTA" }
+                                                } do %>
+      Sign Up
+    <% end %>
   </div>
   <div class="q-hero-footer">
     <p class="text-white">
@@ -372,7 +378,13 @@ Quill Grammar has over 150 sentence writing activities to help your students. Ou
     </div>
   </a>
   <div class="press-cta">
-    <a href="/account/new" class="q-button cta-button icon-button bg-quillgreen text-white">Join Now, It's Free <i class="fa fa-graduation-cap" aria-hidden="true"></i></a>
+    <%= render layout: "tracked_link", locals: { href: "/account/new",
+                                                 classes: "q-button cta-button icon-button bg-quillgreen text-white",
+                                                 event: SegmentIo::Events::CLICK_SIGN_UP,
+                                                 properties: { location: "finalCTA" }
+                                                } do %>
+      Join Now, It's Free <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+    <% end %>
   </div>
 </section>
 
