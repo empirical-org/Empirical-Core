@@ -39,7 +39,7 @@ jobs:
           command: |
             apt-get update
             apt-get install -y nodejs
-            curl -L https://npmjs.org/install.sh | sudo sh
+            curl -L https://npmjs.org/install.sh | sh
             cd services/QuillLMS
             npm install
       - save_cache:
