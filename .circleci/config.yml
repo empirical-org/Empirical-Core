@@ -14,6 +14,7 @@ jobs:
           POSTGRES_USER: ubuntu
           POSTGRES_DB: quill_test_db
           POSTGRES_PASSWORD: ""
+      - image: circleci/node:8.11.3
     steps:
       - checkout
       - restore_cache:
@@ -37,6 +38,7 @@ jobs:
       - run:
           name: NPM install, should be short-cutted if cache is present
           command: |
+            cd services/QuillLMS
             npm install
       - save_cache:
           key: bundle-cache-{{ checksum "services/QuillLMS/Gemfile.lock" }}
@@ -368,13 +370,13 @@ workflows:
   build-test:
     jobs:
       - lms_rails_build
-      - lms_node_build
-      - cms_rails_build
-      - connect_node_build
-      - lessons_node_build
-      - grammar_node_build
-      - diagnostic_node_build
-      - proofreader_node_build
-      - spellchecker_node_build
-      - marking_logic_node_build
-      - comprehension_rails_build
+#      - lms_node_build
+#      - cms_rails_build
+#      - connect_node_build
+#      - lessons_node_build
+#      - grammar_node_build
+#      - diagnostic_node_build
+#      - proofreader_node_build
+#      - spellchecker_node_build
+#      - marking_logic_node_build
+#      - comprehension_rails_build
