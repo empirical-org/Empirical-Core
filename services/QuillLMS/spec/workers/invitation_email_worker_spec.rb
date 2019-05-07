@@ -5,7 +5,7 @@ describe InvitationEmailWorker do
     context 'when invitee is a quill user' do
       let(:user) { create(:user) }
       let(:friend) { create(:user) }
-      let!(:invitation) { create(:invitation, inviter: user, invitee_email: friend.email) }
+      let!(:invitation) { create(:invitation, inviter: user, invitee_email: friend.email, created_at: DateTime.now, updated_at: DateTime.now) }
 
       before do
         allow_any_instance_of(Invitation).to receive(:coteacher_classroom_invitations) { [double(:invitation, classroom: double(:classroom, name: "classroom"), id: "id")] }
