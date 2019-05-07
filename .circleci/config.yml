@@ -39,9 +39,8 @@ jobs:
           command: |
             apt-get update
             apt-get install -y nodejs
+            curl -L https://npmjs.org/install.sh | sudo sh
             cd services/QuillLMS
-            node --version
-            npm --version
             npm install
       - save_cache:
           key: bundle-cache-{{ checksum "services/QuillLMS/Gemfile.lock" }}
