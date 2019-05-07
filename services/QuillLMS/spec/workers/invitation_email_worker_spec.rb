@@ -5,7 +5,7 @@ describe InvitationEmailWorker do
     context 'when invitee is a quill user' do
       let(:user) { create(:user) }
       let(:friend) { create(:user) }
-      let!(:invitation) { create(:invitation, inviter: user, invitee_email: friend.email, created_at: DateTime.now, updated_at: DateTime.now) }
+      let!(:invitation) { create(:invitation, inviter: user, invitee_email: friend.email, created_at: DateTime.now.change(usec: 0), updated_at: DateTime.now.change(usec: 0) }
 
       before do
         allow_any_instance_of(Invitation).to receive(:coteacher_classroom_invitations) { [double(:invitation, classroom: double(:classroom, name: "classroom"), id: "id")] }
@@ -19,6 +19,7 @@ describe InvitationEmailWorker do
            coteacher_classroom_invitation_ids: ["id"],
            invitee_first_name: friend.first_name
         }))
+        sleep 3
         subject.perform(invitation.id)
       end
     end
@@ -39,6 +40,7 @@ describe InvitationEmailWorker do
           coteacher_classroom_invitation_ids: ["id"],
           referral_code: invitation1.inviter.referral_code
         }))
+        sleep 3
         subject.perform(invitation1.id)
       end
     end
