@@ -75,6 +75,12 @@ module PagesHelper
 			      title: "Curriculum Director",
 			      desc: "Hannah designs the curriculum and works with educators to create new content. Before joining Quill, Hannah was a seventh grade English teacher at a low-income school in western Virginia. She has an undergraduate degree in English and a master’s degree in education."
 					},
+          {
+            img: 'thumb-dan.jpg',
+            name: 'Daniel Drabik',
+            title: 'Vice President of Engineering',
+            desc: "Daniel is responsible for the oversight and development of Quill’s technology. Daniel has over a decade of experience writing software, leading tech teams, and managing engineers. He was the lead developer for Kickstarter's international expansion, building a system that has processed over a billion dollars in pledges, and he was an engineer on the Data Infrastructure team for the Hillary For America Presidential Campaign. Daniel has a Master in Public Administration from the Harvard Kennedy School and a Mathematics degree from Villanova University."
+          },
 					{
 			      img: 'thumb-emilia.png',
 			      name: "Emilia Friedberg",
@@ -110,7 +116,13 @@ module PagesHelper
 						name: 'Thomas Robertson',
 						title: 'Senior Web Developer',
 						desc: "Thomas brings his decade of software development experience to Quill with a focus on technological and operational scalability.  He is deeply committed to using technology to improve public education by empowering teachers to do more in their classrooms.  Thomas has spent most of his career working at a combination of education companies and small start-ups, which makes Quill a natural fit for his experience and skills."
-					}
+					},
+          {
+            img: 'thumb-rachel.jpg',
+            name: 'Rachel Dantzler',
+            title: 'Editorial and Outreach Associate',
+            desc: "Rachel is a curriculum and outreach associate who joined Quill full-time after working as an education team intern. Rachel worked as an ELL teacher before her time at Quill, and she has an undergraduate degree in Mandarin Chinese and International Affairs from Wofford College."
+          },
 				]
 			},
 			{
