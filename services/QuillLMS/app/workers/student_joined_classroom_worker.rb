@@ -9,11 +9,11 @@ class StudentJoinedClassroomWorker
     analytics = Analyzer.new
     analytics.track_with_attributes(
       student,
-      SegmentIo::Events::STUDENT_ACCOUNT_CREATION,
+      SegmentIo::BackgroundEvents::STUDENT_ACCOUNT_CREATION,
       {
         context: {:ip => student.ip_address },
         integrations: { intercom: 'false' }
       })
-    analytics.track(teacher, SegmentIo::Events::TEACHERS_STUDENT_ACCOUNT_CREATION)
+    analytics.track(teacher, SegmentIo::BackgroundEvents::TEACHERS_STUDENT_ACCOUNT_CREATION)
   end
 end
