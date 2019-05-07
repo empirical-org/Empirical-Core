@@ -14,7 +14,6 @@ jobs:
           POSTGRES_USER: ubuntu
           POSTGRES_DB: quill_test_db
           POSTGRES_PASSWORD: ""
-      - image: circleci/node:8.11.3
     steps:
       - checkout
       - restore_cache:
@@ -38,6 +37,8 @@ jobs:
       - run:
           name: NPM install, should be short-cutted if cache is present
           command: |
+            apt-get update
+            apt install -y nodejs npm
             cd services/QuillLMS
             npm install
       - save_cache:
