@@ -26,7 +26,7 @@ describe('QuestionRow component', () => {
     expect(wrapper.find('tr')).toHaveLength(1)
   })
 
-  it('renders 9 td', () => {
+  it('renders 10 td', () => {
     expect(wrapper.find('td')).toHaveLength(10)
   })
 
@@ -57,7 +57,7 @@ describe('QuestionRow component', () => {
   it('renders its seventh td with the number of incorrectSequences', () => {
     expect(wrapper.find('td').at(6).text()).toEqual(question.incorrectSequences)
   })
-  
+
   it('renders its eighth td with the stringified text of hasModelConcept', () => {
     expect(wrapper.find('td').at(7).text()).toEqual(question.hasModelConcept)
   })

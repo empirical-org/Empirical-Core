@@ -26,7 +26,7 @@ describe('QuestionRow component', () => {
     expect(wrapper.find('tr')).toHaveLength(1)
   })
 
-  it('renders 9 td', () => {
+  it('renders 10 td', () => {
     expect(wrapper.find('td')).toHaveLength(10)
   })
 
@@ -45,23 +45,23 @@ describe('QuestionRow component', () => {
   it('renders its fourth td with the weakResponses percentage', () => {
     expect(wrapper.find('td').at(3).text()).toEqual(`${question.weakResponses}%`)
   })
-  
+
   it('renders its fifth td with the status', () => {
     expect(wrapper.find('td').at(4).text()).toEqual(question.status)
   })
-  
+
   it('renders its sixth td with the number of focusPoints', () => {
     expect(wrapper.find('td').at(5).text()).toEqual(question.focusPoints)
   })
-  
+
   it('renders its seventh td with the number of incorrectSequences', () => {
     expect(wrapper.find('td').at(6).text()).toEqual(question.incorrectSequences)
   })
-  
+
   it('renders its eighth td with the stringified text of hasModelConcept', () => {
     expect(wrapper.find('td').at(7).text()).toEqual(question.hasModelConcept)
   })
-  
+
   it('renders its ninth td with the the flag', () => {
     expect(wrapper.find('td').at(8).text()).toEqual(question.flag)
   })
