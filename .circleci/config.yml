@@ -3,6 +3,7 @@ jobs:
   lms_rails_build:
     working_directory: ~/Empirical-Core
     docker:
+      - image: circleci/node:8.11.3
       - image: ruby:2.5.1
         environment:
           PG_DB: quill_test_db
@@ -14,7 +15,6 @@ jobs:
           POSTGRES_USER: ubuntu
           POSTGRES_DB: quill_test_db
           POSTGRES_PASSWORD: ""
-      - image: circleci/node:8.11.3
     steps:
       - checkout
       - restore_cache:
@@ -25,8 +25,8 @@ jobs:
             - services/QuillLMS/vendor/bundle
       - restore_cache:
           keys:
-            - npm-cache-{{ checksum "services/QuillLMS/package-lock.json" }}
-            - npm-cache
+            - npm-cache-lms-rails-{{ checksum "services/QuillLMS/package-lock.json" }}
+            - npm-cache-lms-rails
           paths:
             - services/QuillLMS/node_modules
             - services/QuillLMS/client/node_modules
@@ -45,7 +45,7 @@ jobs:
           paths:
             - services/QuillLMS/vendor/bundle
       - save_cache:
-          key: npm-cache-{{ checksum "services/QuillLMS/package-lock.json" }}
+          key: npm-cache-lms-rails-{{ checksum "services/QuillLMS/package-lock.json" }}
           paths:
             - services/QuillLMS/node_modules
             - services/QuillLMS/client/node_modules
