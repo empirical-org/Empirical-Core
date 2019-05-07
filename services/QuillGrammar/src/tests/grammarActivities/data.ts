@@ -196,3 +196,7 @@ export const session: SessionState = {
   }
 
   export const conceptsFeedback = { hasreceiveddata: false, submittingnew: false, data: {}, states: {}, newConceptModalOpen: false }
+
+  export const responses = {
+    'a': {}
+  }
