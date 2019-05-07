@@ -49,12 +49,6 @@ jobs:
             - services/QuillLMS/node_modules
             - services/QuillLMS/client/node_modules
       - run:
-          name: Install postgres dependencies
-          command: |
-            apt-get update
-            apt-cache search postgres
-            apt install -y postgresql-client
-      - run:
           name: Copy Config files
           command: |
             cd services/QuillLMS
