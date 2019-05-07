@@ -15,6 +15,7 @@ class Event {
 // as the list gets longer we don't accidentally end up with a
 // name collision (see validation in the 'events.ts' file).
 const EventDefinitions = [
+  {CLICK_CHOOSE_SCHOOL_TYPE: new Event('ClickChooseSchoolType', ['schoolType'])},
   {CLICK_CREATE_STUDENT_USER: new Event('ClickCreateStudentUser')},
   {CLICK_CREATE_TEACHER_USER: new Event('ClickTeacherStudentUser')},
   {CLICK_FORGOT_PASSWORD: new Event('ClickForgotPassword')},
@@ -22,7 +23,6 @@ const EventDefinitions = [
   {CLICK_NEWSLETTER_OPT_IN_OUT: new Event('ClickNewsletterOptInOut', ['setState'])},
   {CLICK_NON_K12_SCHOOL: new Event('ClickNonK12School')},
   {CLICK_SELECT_SCHOOL: new Event('ClickSelectSchool', ['schoolSelected'])},
-  {CLICK_SELECT_SCHOOL_TYPE: new Event('ClickSelectSchoolType', ['schoolType'])},
   {CLICK_SHOW_HIDE_PASSWORD: new Event('ClickShowHidePassword', ['setState'])},
   {CLICK_SIGN_UP: new Event('ClickSignUp', ['location'])},
   {CLICK_SKIP_SELECT_SCHOOL: new Event('ClickSkipSelectSchool')},

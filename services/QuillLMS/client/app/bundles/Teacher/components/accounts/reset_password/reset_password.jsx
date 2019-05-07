@@ -1,5 +1,7 @@
 import React from 'react'
 import request from 'request'
+import SegmentAnalytics from '../../../../../modules/analytics'; 
+import Events from '../../../../../modules/analytics/events'; 
 import { Input } from 'quill-component-library/dist/componentLibrary'
 
 import getAuthToken from '../../modules/get_auth_token';
@@ -39,6 +41,7 @@ export default class ForgotPassword extends React.Component {
   handleSubmit(e) {
     const { timesSubmitted, password, passwordConfirmation, } = this.state
     e.preventDefault();
+    SegmentAnalytics.track(Events.SUBMIT_SAVE_NEW_PASSWORD);
     request({
       url: window.location.href,
       method: 'PUT',

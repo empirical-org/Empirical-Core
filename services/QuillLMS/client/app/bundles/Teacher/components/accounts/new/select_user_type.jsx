@@ -1,5 +1,7 @@
 import * as React from 'react'
 import request from 'request'
+import SegmentAnalytics from '../../../../../modules/analytics'; 
+import Events from '../../../../../modules/analytics/events'; 
 import getAuthToken from '../../../components/modules/get_auth_token'
 import { Card } from 'quill-component-library/dist/componentLibrary'
 
@@ -22,10 +24,12 @@ class SelectUserType extends React.Component {
   }
 
   setStudentRoleOnSession() {
+    SegmentAnalytics.track(Events.CLICK_CREATE_STUDENT_USER);
     this.setRoleOnSession('student');
   }
 
   setTeacherRoleOnSession() {
+    SegmentAnalytics.track(Events.CLICK_CREATE_TEACHER_USER);
     this.setRoleOnSession('teacher');
   }
 
@@ -65,7 +69,8 @@ class SelectUserType extends React.Component {
           />
         </div>
         <div className="agreements-and-link-to-login">
-          <p className="return-to-login">Already have an account? <a href="/session/new">Log in</a></p>
+          <p className="return-to-login">Already have an account?
+            <a href="/session/new" onClick={(e) => SegmentAnalytics.track(Events.CLICK_LOG_IN, {location: 'alreadyHaveAccount'})}>Log in</a></p>
         </div>
       </div>
     )
