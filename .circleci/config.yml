@@ -51,9 +51,9 @@ jobs:
       - run:
           name: Install postgres dependencies
           command: |
-            apt-get update
-            apt-cache search postgres
-            apt install -y postgresql-client
+            sudo apt-get update
+            sudo apt-cache search postgres
+            sudo apt install -y postgresql-client
       - run:
           name: Copy Config files
           command: |
