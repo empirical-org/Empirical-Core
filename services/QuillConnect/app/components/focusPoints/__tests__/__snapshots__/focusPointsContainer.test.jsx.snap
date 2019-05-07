@@ -27,7 +27,7 @@ exports[`The focusPointsContainer should render 1`] = `
       Add Focus Point
     </a>
   </div>
-  <sortableList
+  <SortableList
     data={
       Array [
         <div
@@ -66,13 +66,12 @@ exports[`The focusPointsContainer should render 1`] = `
           >
               <p
                   className="control title is-4"
-              >
-                  <strong>
-                      Feedback
-                  </strong>
-                  : 
-                  Who flew around the world.
-              </p>
+                  dangerouslySetInnerHTML={
+                      Object {
+                          "__html": "<strong>Feedback</strong>: Who flew around the world.",
+                        }
+                  }
+              />
               <p
                   className="control sub-title is-6"
               >
@@ -154,13 +153,12 @@ exports[`The focusPointsContainer should render 1`] = `
           >
               <p
                   className="control title is-4"
-              >
-                  <strong>
-                      Feedback
-                  </strong>
-                  : 
-                  Who did she fly around the world with?
-              </p>
+                  dangerouslySetInnerHTML={
+                      Object {
+                          "__html": "<strong>Feedback</strong>: Who did she fly around the world with?",
+                        }
+                  }
+              />
               <p
                   className="control sub-title is-6"
               >
@@ -242,13 +240,12 @@ exports[`The focusPointsContainer should render 1`] = `
           >
               <p
                   className="control title is-4"
-              >
-                  <strong>
-                      Feedback
-                  </strong>
-                  : 
-                  What could she do instead of fly?
-              </p>
+                  dangerouslySetInnerHTML={
+                      Object {
+                          "__html": "<strong>Feedback</strong>: What could she do instead of fly?",
+                        }
+                  }
+              />
               <p
                   className="control sub-title is-6"
               >
