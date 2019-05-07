@@ -38,7 +38,7 @@ jobs:
           name: NPM install, should be short-cutted if cache is present
           command: |
             apt-get update
-            apt-get install -y nodejs, npm-cli
+            apt-get install -y nodejs npm-cli
             cd services/QuillLMS
             npm install
       - save_cache:
