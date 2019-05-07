@@ -22,15 +22,31 @@ jobs:
             - bundle-cache-
           paths:
             - services/QuillLMS/vendor/bundle
+      - restore_cache:
+          keys:
+            - npm-cache-{{ checksum "services/QuillLMS/package-lock.json" }}
+            - npm-cache
+          paths:
+            - services/QuillLMS/node_modules
+            - services/QuillLMS/client/node_modules
       - run:
           name: Bundle Install if cache isn't present.
           command: |
             cd services/QuillLMS
             bundle check || bundle install --path vendor/bundle
+      - run:
+          name: NPM install, should be short-cutted if cache is present
+          command: |
+            npm install
       - save_cache:
           key: bundle-cache-{{ checksum "services/QuillLMS/Gemfile.lock" }}
           paths:
             - services/QuillLMS/vendor/bundle
+      - save_cache:
+          key: npm-cache-{{ checksum "services/QuillLMS/package-lock.json" }}
+          paths:
+            - services/QuillLMS/node_modules
+            - services/QuillLMS/client/node_modules
       - run:
           name: Install postgres dependencies
           command: |
