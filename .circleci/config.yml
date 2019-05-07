@@ -53,7 +53,7 @@ jobs:
           command: |
             apt-get update
             apt-cache search postgres
-            apt install -y postgresql-client
+            sudo apt install -y postgresql-client
       - run:
           name: Copy Config files
           command: |
