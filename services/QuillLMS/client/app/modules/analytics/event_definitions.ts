@@ -1,8 +1,8 @@
 class Event {
   name: string;
-  requiredProperties?: array;
+  requiredProperties?: Array<string>;
 
-  constructor(name: string, requiredProperties: array) {
+  constructor(name: string, requiredProperties?: Array<string>) {
     this.name = name;
     this.requiredProperties = requiredProperties;
   }
@@ -15,8 +15,22 @@ class Event {
 // as the list gets longer we don't accidentally end up with a
 // name collision (see validation in the 'events.ts' file).
 const EventDefinitions = [
-  {TEST_EVENT: new Event('Test Event')},
-  {TEST_EVENT2: new Event('Test Event 2', ['prop1', 'prop2'])},
+  {CLICK_CREATE_STUDENT_USER: new Event('ClickCreateStudentUser')},
+  {CLICK_CREATE_TEACHER_USER: new Event('ClickTeacherStudentUser')},
+  {CLICK_FORGOT_PASSWORD: new Event('ClickForgotPassword')},
+  {CLICK_LOG_IN: new Event('ClickLogIn', ['location'])},
+  {CLICK_NEWSLETTER_OPT_IN_OUT: new Event('ClickNewsletterOptInOut', ['setState'])},
+  {CLICK_NON_K12_SCHOOL: new Event('ClickNonK12School')},
+  {CLICK_SELECT_SCHOOL: new Event('ClickSelectSchool', ['schoolSelected'])},
+  {CLICK_SELECT_SCHOOL_TYPE: new Event('ClickSelectSchoolType', ['schoolType'])},
+  {CLICK_SHOW_HIDE_PASSWORD: new Event('ClickShowHidePassword', ['setState'])},
+  {CLICK_SIGN_UP: new Event('ClickSignUp', ['location'])},
+  {CLICK_SKIP_SELECT_SCHOOL: new Event('ClickSkipSelectSchool')},
+  {JOIN_CLASS: new Event('JoinClass', ['mechanism'])},
+  {SUBMIT_FORGOT_PASSWORD_EMAIL: new Event('SubmitForgotPasswordEmail')},
+  {SUBMIT_LOG_IN: new Event('SubmitLogIn', ['provider'])},
+  {SUBMIT_SAVE_NEW_PASSWORD: new Event('SubmitSaveNewPassword', ['source'])},
+  {SUBMIT_SIGN_UP: new Event('SubmitSignUp', ['provider'])},
 ];
 export {
   Event,
