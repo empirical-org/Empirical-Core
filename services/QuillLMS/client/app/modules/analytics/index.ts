@@ -18,7 +18,7 @@ class SegmentAnalytics {
     this.analytics = window.analytics;
   }
 
-  track(event: Event, properties: object): void {
+  track(event: Event, properties?: object): void {
     try {
       // Make sure that the event reference is one that's defined
       if (!event) {
@@ -34,7 +34,7 @@ class SegmentAnalytics {
       }
     } catch(e) {
       this.reportError(e);
-      return
+      return false;
     }
 
     const eventProperties = Object.assign(this.formatCustomProperties(properties), this.getDefaultProperties());

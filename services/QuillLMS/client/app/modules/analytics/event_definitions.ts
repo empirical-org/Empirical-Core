@@ -17,7 +17,7 @@ class Event {
 const EventDefinitions = [
   {CLICK_CHOOSE_SCHOOL_TYPE: new Event('ClickChooseSchoolType', ['schoolType'])},
   {CLICK_CREATE_STUDENT_USER: new Event('ClickCreateStudentUser')},
-  {CLICK_CREATE_TEACHER_USER: new Event('ClickTeacherStudentUser')},
+  {CLICK_CREATE_TEACHER_USER: new Event('ClickCreateTeacherUser')},
   {CLICK_FORGOT_PASSWORD: new Event('ClickForgotPassword')},
   {CLICK_LOG_IN: new Event('ClickLogIn', ['location'])},
   {CLICK_NEWSLETTER_OPT_IN_OUT: new Event('ClickNewsletterOptInOut', ['setState'])},

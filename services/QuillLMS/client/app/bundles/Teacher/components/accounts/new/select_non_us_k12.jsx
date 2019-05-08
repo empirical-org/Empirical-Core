@@ -23,7 +23,7 @@ class SelectUSNonK12 extends React.Component {
         SegmentAnalytics.track(Events.CLICK_CHOOSE_SCHOOL_TYPE, {schoolType: 'usHigherEducation'});
         break;
       case 'other':
-        SegmentAnalytics.track(Events.CLICK_CHOOSE_SCHOOL_TYPE, {shcoolType: 'other'});
+        SegmentAnalytics.track(Events.CLICK_CHOOSE_SCHOOL_TYPE, {schoolType: 'other'});
         break;
     }
     request({

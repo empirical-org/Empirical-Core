@@ -101,11 +101,11 @@ class LoginFormApp extends React.Component {
         <h1>Good to see you again!</h1>
         <div className="account-container text-center">
           <div className="auth-section">
-            <a href="/auth/google_oauth2?prompt=consent" onClick={(e) => SegmentAnalytics.track(Events.CLICK_LOG_IN, {provider: 'google'})}>
+            <a href="/auth/google_oauth2?prompt=consent" onClick={(e) => SegmentAnalytics.track(Events.SUBMIT_LOG_IN, {provider: 'google'})}>
               <img src="/images/google_icon.svg" alt="google icon" />
               <span>Log in with Google</span>
             </a>
-            <a href={this.props.cleverLink} onClick={(e) => SegmentAnalytics.track(Events.CLICK_LOG_IN, {provider: 'clever'})}>
+            <a href={this.props.cleverLink} onClick={(e) => SegmentAnalytics.track(Events.SUBMIT_LOG_IN, {provider: 'clever'})}>
               <img src={`${process.env.CDN_URL}/images/shared/clever_icon.svg`} alt="clever icon" />
               <span>Log in with Clever</span>
             </a>
