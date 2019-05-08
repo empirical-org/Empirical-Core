@@ -82,11 +82,6 @@
     -moz-transition: all 0.2s ease-in;
     -o-transition: all 0.2s ease-in;
     transition: all 0.2s ease-in; }
-  .input-container.dropdown-container:not(.has-text) label {
-    margin-bottom: -24px;
-    z-index: 1; }
-  .input-container.dropdown-container:not(.has-text) .dropdown__value-container {
-    height: 25px; }
   .input-container .dropdown {
     margin-bottom: 8px; }
     .input-container .dropdown:focus {
@@ -152,6 +147,14 @@
     color: #7f7f7f;
     display: flex;
     margin-bottom: 5px; }
+  .input-container.inactive:not(.has-text).dropdown-container label {
+    margin-bottom: -27px;
+    z-index: 1;
+    margin-top: 26px; }
+  .input-container.inactive:not(.has-text).dropdown-container .dropdown__value-container {
+    height: 25px; }
+  .input-container.inactive:not(.has-text).dropdown-container .dropdown__indicators {
+    padding-top: 7px; }
   .input-container.inactive input {
     border: 1px #e0e0e0;
     height: 1px;
@@ -174,7 +177,8 @@
     .input-container.inactive .dropdown .dropdown__control {
       padding: 0px 0px 3px;
       border: 1px #e0e0e0;
-      border-style: none none solid; }
+      border-style: none none solid;
+      height: 35px; }
   .input-container.active .dropdown__control {
     border: 2px #009a80;
     border-style: none none solid; }
@@ -227,7 +231,8 @@
   .quill-card p {
     font-size: 14px;
     color: #646464;
-    line-height: 1.57; }
+    line-height: 1.57;
+    margin-bottom: 0px; }
   .quill-card img {
     margin-right: 32px; }
   .quill-card:hover, .quill-card:focus {
@@ -251,3 +256,29 @@
     bottom: 24px;
     opacity: 1;
     transition: bottom 0.5s, opacity 0.5s; }
+
+.quill-list {
+  list-style: none;
+  padding-left: 0px;
+  margin-bottom: 0px; }
+  .quill-list.single-line li {
+    padding: 16px; }
+  .quill-list.double-line li {
+    padding: 12px 16px 13px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    line-height: 1; }
+    .quill-list.double-line li .text {
+      display: flex;
+      flex-direction: column; }
+    .quill-list.double-line li .secondary-text {
+      font-size: 14px;
+      color: #888888;
+      margin-top: 8px; }
+    .quill-list.double-line li .metadata {
+      font-size: 14px; }
+  .quill-list li {
+    font-size: 16px; }
+    .quill-list li:hover, .quill-list li:focus {
+      background-color: #f2f2f2; }
