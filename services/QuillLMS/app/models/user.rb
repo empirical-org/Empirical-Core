@@ -83,7 +83,7 @@ class User < ActiveRecord::Base
 
   SECONDS_PER_DAY = 24 * 60 * 60
 
-  STATUS_METER_MIN_ACCOUNT_DAYS = 5
+  SATISMETER_MIN_ACCOUNT_DAYS = 5
 
   scope :teacher, lambda { where(role: 'teacher') }
   scope :student, lambda { where(role: 'student') }
@@ -327,8 +327,8 @@ class User < ActiveRecord::Base
     !role.temporary?
   end
 
-  def show_status_meter?
-    teacher? && account_days_age >= STATUS_METER_MIN_ACCOUNT_DAYS
+  def show_satismeter?
+    teacher? && account_days_age >= SATISMETER_MIN_ACCOUNT_DAYS
   end
 
   # returns an int
