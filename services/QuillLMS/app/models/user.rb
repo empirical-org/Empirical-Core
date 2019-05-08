@@ -81,6 +81,10 @@ class User < ActiveRecord::Base
   PERMISSIONS_FLAGS = %w(auditor purchaser school_point_of_contact)
   VALID_FLAGS = TESTING_FLAGS.dup.concat(PERMISSIONS_FLAGS)
 
+  SECONDS_PER_DAY = 24 * 60 * 60
+
+  STATUS_METER_MIN_ACCOUNT_DAYS = 5
+
   scope :teacher, lambda { where(role: 'teacher') }
   scope :student, lambda { where(role: 'student') }
 
@@ -321,6 +325,15 @@ class User < ActiveRecord::Base
 
   def permanent?
     !role.temporary?
+  end
+
+  def show_status_meter?
+    teacher? && account_days_age >= STATUS_METER_MIN_ACCOUNT_DAYS
+  end
+
+  # returns an int
+  def account_days_age
+    (Time.zone.now - created_at).to_i / SECONDS_PER_DAY
   end
 
   def admins_teachers
