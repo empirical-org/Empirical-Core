@@ -50,6 +50,17 @@
   .quill-card p {
     margin-bottom: 0px;
   }
+
+  .big-element {
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    margin-right: 20px;
+    height: 400px;
+    pre {
+      height: 220px;
+    }
+  }
 }
 
 .menu {
