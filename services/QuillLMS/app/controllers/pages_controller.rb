@@ -370,6 +370,9 @@ class PagesController < ApplicationController
   def referrals_toc
   end
 
+  def style_guide
+  end
+
   private
 
   def determine_layout
