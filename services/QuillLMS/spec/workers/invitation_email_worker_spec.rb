@@ -5,13 +5,15 @@ describe InvitationEmailWorker do
     context 'when invitee is a quill user' do
       let(:user) { create(:user) }
       let(:friend) { create(:user) }
-      let!(:invitation) { create(:invitation, inviter: user, invitee_email: friend.email, created_at: nil, updated_at: nil) }
+      let!(:invitation) { create(:invitation, inviter: user, invitee_email: friend.email) }
 
       before do
         allow_any_instance_of(Invitation).to receive(:coteacher_classroom_invitations) { [double(:invitation, classroom: double(:classroom, name: "classroom"), id: "id")] }
       end
 
       it 'should send the invitation to existing user' do
+        invitation.created_at = nil
+        invitation.updated_at = nil
         expect_any_instance_of(User).to receive(:send_invitation_to_existing_user).with(invitation.attributes.merge({
            inviter_name: user.name,
            inviter_email: user.email,
