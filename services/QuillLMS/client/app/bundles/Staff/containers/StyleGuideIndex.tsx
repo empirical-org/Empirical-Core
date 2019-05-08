@@ -1,5 +1,6 @@
 import * as React from 'react'
 import Buttons from '../components/styleGuide/buttons'
+import Cards from '../components/styleGuide/cards'
 
 export default class StyleGuideIndex extends React.Component {
   renderLink(href, text) {
@@ -21,12 +22,14 @@ export default class StyleGuideIndex extends React.Component {
           React Components
         </p>
         <ul className="menu-list">
+          {this.renderLink('#cards', 'Cards')}
         </ul>
       </aside>
       <div className="style-guide">
         <h1>Quill Style Guide</h1>
         <p>For CSS elements, the text above the element is a list of class names necessary to apply the styles. For React components, the text is the code for rendering the component. All React components in the style guide are exportable from the quill-component-library node module.</p>
         <Buttons />
+        <Cards />
       </div>
     </div>
   }
