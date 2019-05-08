@@ -1,4 +1,4 @@
-require 'HTTParty'
+require 'net/http'
 require 'json'
 namespace :import_grammar_correct_responses_from_firebase do
   task :local => :environment do
