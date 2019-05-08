@@ -1,3 +1,7 @@
 <%= render partial: 'teachers/shared/scorebook_tabs' %>
 
 <%= react_component('DashboardApp', props: {user: current_user.to_json}) %>
+
+<% if current_user.show_status_meter? %>
+  <%= render partial: 'application/status_meter.html.erb' %>
+<% end %>
