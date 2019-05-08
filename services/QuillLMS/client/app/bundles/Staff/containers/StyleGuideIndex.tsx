@@ -1,22 +1,21 @@
 import * as React from 'react'
-import { Route, Switch, Link, } from "react-router-dom";
 import Buttons from '../components/styleGuide/buttons'
 
 export default class StyleGuideIndex extends React.Component {
   renderLink(href, text) {
     return <li>
-      <Link to={href} activeClassName="is-active">{text}</Link>
+      <a href={href}>{text}</a>
     </li>
   }
 
   render() {
     return <div className="style-guide-index">
-      <aside className="menu" style={{ minWidth: 220, borderRight: '1px solid #e3e3e3', padding: 15, paddingLeft: 0, }}>
+      <aside className="menu">
         <p className="menu-label">
           CSS Elements
         </p>
         <ul className="menu-list">
-          {this.renderLink('/buttons', 'Buttons')}
+          {this.renderLink('#buttons', 'Buttons')}
         </ul>
         <p className="menu-label">
           React Components
@@ -24,10 +23,11 @@ export default class StyleGuideIndex extends React.Component {
         <ul className="menu-list">
         </ul>
       </aside>
-      <h1>Quill Style Guide</h1>
-      <Switch>
-        <Route path={`/buttons`} component={Buttons}/>
-      </Switch>
+      <div className="style-guide">
+        <h1>Quill Style Guide</h1>
+        <p>For CSS elements, the text above the element is a list of class names necessary to apply the styles. For React components, the text is the code for rendering the component. All React components in the style guide are exportable from the quill-component-library node module.</p>
+        <Buttons />
+      </div>
     </div>
   }
 }

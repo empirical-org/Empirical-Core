@@ -5,6 +5,4 @@ import '../styles/styles.scss';
 import ConceptsIndex from './ConceptsIndex.tsx';
 import StyleGuideIndex from '../containers/StyleGuideIndex.tsx'
 
-// ReactOnRails.register({ ConceptsIndex, StyleGuideIndex, });
-
 ReactOnRails.register({ ConceptsIndex, StyleGuideIndex, });
