@@ -12,9 +12,8 @@ describe InvitationEmailWorker do
       end
 
       it 'should send the invitation to existing user' do
-        invitation.created_at = nil
-        invitation.updated_at = nil
-        expect_any_instance_of(User).to receive(:send_invitation_to_existing_user).with(invitation.attributes.merge({
+        db_invitation = Invitation.find_by(id: invitation.id)
+        expect_any_instance_of(User).to receive(:send_invitation_to_existing_user).with(db_invitation.attributes.merge({
            inviter_name: user.name,
            inviter_email: user.email,
            classroom_names: ["classroom"],
