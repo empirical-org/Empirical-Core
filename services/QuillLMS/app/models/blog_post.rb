@@ -21,7 +21,7 @@ class BlogPost < ActiveRecord::Base
   end
 
   def path
-    if TOPICS.includes(self.topic)
+    if TOPICS.include?(self.topic)
       '/teacher-center/' + self.slug
     else
       '/student-center/' + self.slug
@@ -29,7 +29,7 @@ class BlogPost < ActiveRecord::Base
   end
 
   def topic_path
-    if TOPICS.includes(self.topic)
+    if TOPICS.include?(self.topic)
       '/teacher-center/topic/' + self.topic_slug
     else
       '/student-center/topic/' + self.topic_slug

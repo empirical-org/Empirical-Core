@@ -39,7 +39,7 @@ describe('The checking a sentence fragment', () => {
       };
       const matchedResponse = checkSentenceFragment(fields);
       matchedResponse.then(resp => {
-        assert.equal(resp.id, responses[0].id);
+        assert.equal(resp.id, responses[1].id);
       })
     });
 
@@ -50,7 +50,7 @@ describe('The checking a sentence fragment', () => {
       };
       const matchedResponse = checkSentenceFragment(fields);
       matchedResponse.then(resp => {
-        assert.equal(resp.id, responses[0].id);
+        assert.equal(resp.id, responses[1].id);
       })
     });
 

@@ -8,7 +8,7 @@ class JoinClassroomWorker
     teacher = @user.teacher_of_student
     if teacher.present?
       analytics = Analyzer.new
-      analytics.track(teacher, SegmentIo::Events::TEACHERS_STUDENT_ACCOUNT_CREATION)
+      analytics.track(teacher, SegmentIo::BackgroundEvents::TEACHERS_STUDENT_ACCOUNT_CREATION)
     end
   end
 end
