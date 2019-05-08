@@ -17317,8 +17317,9 @@
   };
 
   var Card = function (props) {
+      var img = props.imgSrc ? React__default.createElement("img", { src: props.imgSrc, alt: props.imgAlt }) : null;
       return (React__default.createElement("div", { className: "quill-card", onClick: props.onClick },
-          React__default.createElement("img", { src: props.imgSrc, alt: props.imgAlt }),
+          img,
           React__default.createElement("div", { className: "text" },
               React__default.createElement("h3", null, props.header),
               React__default.createElement("p", null, props.text))));
