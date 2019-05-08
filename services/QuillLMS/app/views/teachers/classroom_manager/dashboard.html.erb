@@ -2,6 +2,6 @@
 
 <%= react_component('DashboardApp', props: {user: current_user.to_json}) %>
 
-<% if current_user.show_status_meter? %>
-  <%= render partial: 'application/status_meter.html.erb' %>
+<% if current_user.show_satismeter? %>
+  <%= render partial: 'application/satismeter.html.erb' %>
 <% end %>
