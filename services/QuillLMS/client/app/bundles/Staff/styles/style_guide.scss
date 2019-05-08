@@ -36,6 +36,20 @@
       }
     }
   }
+  .card-with-img-container {
+    .quill-card {
+      width: 546px;
+    }
+  }
+  .card-without-img-container {
+    .quill-card {
+      width: 166px;
+    }
+  }
+
+  .quill-card p {
+    margin-bottom: 0px;
+  }
 }
 
 .menu {
