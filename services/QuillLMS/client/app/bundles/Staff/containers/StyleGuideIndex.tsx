@@ -25,7 +25,7 @@ export default class StyleGuideIndex extends React.Component {
         </p>
         <ul className="menu-list">
           {this.renderLink('#cards', 'Cards')}
-          {this.renderLink('#menu', 'Menus')}
+          {this.renderLink('#menus', 'Menus')}
         </ul>
       </aside>
       <div className="style-guide">
