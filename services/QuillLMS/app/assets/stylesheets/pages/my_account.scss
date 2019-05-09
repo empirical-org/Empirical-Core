@@ -246,3 +246,244 @@
     }
   }
 }
+
+.teacher-account {
+  padding: 40px 0px;
+}
+
+.teacher-account-section {
+  width: 577px;
+  border-radius: 6px;
+  border: solid 1px #e0e0e0;
+  background-color: #ffffff;
+  margin: auto;
+  padding: 38px 32px 0px;
+  margin-bottom: 24px;
+  .secondary {
+    cursor: pointer;
+  }
+  h1 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 42px;
+  }
+  .input-container {
+    margin-bottom: 20px;
+    &.unacknowledged {
+      margin-bottom: 0px;
+    }
+    &.active.not-editable {
+      margin-bottom: 78px;
+    }
+  }
+  .school-container, .inactive-password-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .school, .not-a-password {
+      input {
+        border-bottom: none;
+      }
+    }
+    .school input {
+      width: 400px;
+    }
+    .not-a-password input {
+      width: 300px;
+    }
+    .change-password, .change-school {
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.57;
+      color: #009a80;
+      margin-bottom: 7px;
+      cursor: pointer;
+    }
+  }
+  .school-search-container {
+    border: none;
+    padding: 0px;
+  }
+
+  .button-section {
+    display: flex;
+    justify-content: flex-end;
+    padding: 22px 0px 16px;
+    .secondary {
+      width: 80px;
+      margin-right: 24px;
+    }
+  }
+
+  .checkbox-row {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 12px;
+    span {
+      line-height: 1.57;
+    }
+  }
+  .quill-checkbox {
+    margin-top: 2px;
+    margin-right: 24px;
+  }
+}
+
+.teacher-account-general {
+  .primary {
+    width: 127px;
+  }
+  .google-or-clever {
+    border-bottom: none !important;
+    margin-bottom: 32px;
+    input {
+      border-bottom: none !important;
+      padding: 0px !important;
+    }
+  }
+}
+
+.teacher-account-password {
+  .primary {
+    width: 156px;
+  }
+  .google-or-clever-password {
+    color: #646464;
+    margin-bottom: 40px;
+  }
+  .current-password-section {
+    margin-bottom: 10px;
+    a {
+      font-size: 14px;
+      font-weight: 600;
+      color: #009a80;
+    }
+    .current-password {
+      margin-bottom: 5px;
+    }
+  }
+}
+
+.teacher-account-linked-accounts {
+  padding-bottom: 42px;
+  hr {
+    width: 576px;
+    margin: 25px 0px 25px -32px;
+    height: 1px;
+  }
+  .post-assignments {
+    color: #646464;
+    margin-top: 17px;
+    margin-right: 18px;
+  }
+  .google-row, .clever-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .first-half {
+      display: flex;
+      align-items: center;
+    }
+    span {
+      color: #646464;
+    }
+    .google-or-clever-action {
+      font-weight: 600;
+      color: #009a80;
+      cursor: pointer;
+    }
+  }
+  .clever-row img {
+    margin-right: 19px;
+  }
+  .google-row img {
+    margin-right: 21px;
+  }
+}
+
+.modal-background {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 99;
+  opacity: 0.5;
+  background-color: #000;
+}
+
+.unlink-modal, .delete-account-modal {
+  width: 560px;
+  border-radius: 6px;
+  background-color: #ffffff;
+  z-index: 100;
+  position: fixed;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 32px;
+  display: block;
+  h1 {
+    margin-bottom: 24px;
+  }
+  p {
+    line-height: 1.57;
+    color: #646464;
+    margin-bottom: 32px;
+  }
+  .checkboxes {
+    margin-bottom: 26px;
+    padding-top: 12px;
+  }
+  &.google {
+    height: 484px;
+    .primary {
+      width: 129px;
+    }
+    .quill-checkbox {
+      &.selected {
+        width: 23px;
+      }
+      &.unselected {
+        width: 21px;
+      }
+    }
+  }
+  &.clever {
+    height: 552px;
+    .primary {
+      width: 125px;
+    }
+  }
+  &.delete-account-modal {
+    height: 382px;
+    .primary {
+      width: 138px;
+    }
+    p {
+      padding-top: 6px;
+      margin-bottom: 23px;
+    }
+    .checkbox-row {
+      margin-bottom: 17px;
+    }
+  }
+}
+
+.teacher-account-email-notifications {
+  padding-bottom: 34px;
+  span {
+    color: #646464;
+  }
+}
+
+.teacher-account-danger-zone {
+  .secondary {
+    width: 162px;
+  }
+  .danger-zone-description {
+    color: #646464;
+    margin-top: 16px;
+    margin-bottom: 40px;
+  }
+}

@@ -1,5 +1,9 @@
 # Changelog
 
+## Released on: 2019-04-11
+### Added
+- (Re)-Added the ability to reset a single, specific student's answer in a Lesson slide now that we've fixed that functionality to actually work
+
 ## Released on: 2019-03-27
 ### Removed
 - Removed the ability to reset a single, specific student's answer in a Lesson slide

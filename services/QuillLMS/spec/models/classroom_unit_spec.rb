@@ -44,10 +44,15 @@ describe ClassroomUnit, type: :model, redis: :true do
   end
 
   describe '#is_valid_for_google_announcement_with_specific_user?' do
-    it "returns true if the classroom_unit's classroom has a google_classroom_id and the passed user has a google_id" do
+    it "returns true if the classroom_unit's classroom has a google_classroom_id and the passed user has a google_id and post_google_classroom_assignments true" do
       classroom_unit.classroom.update(google_classroom_id: '3')
-      teacher.update(google_id: 10)
+      teacher.update(google_id: 10, post_google_classroom_assignments: true)
       expect(classroom_unit.reload.is_valid_for_google_announcement_with_specific_user?(teacher)).to be
+    end
+    it "returns false if the classroom_unit's classroom has a google_classroom_id and the passed user has a google_id and post_google_classroom_assignments false" do
+      classroom_unit.classroom.update(google_classroom_id: '3')
+      teacher.update(google_id: 10, post_google_classroom_assignments: false)
+      expect(classroom_unit.reload.is_valid_for_google_announcement_with_specific_user?(teacher)).not_to be
     end
     it "returns false if the classroom_unit's classroom does not a google_classroom_id and the passed user has a google_id" do
       classroom_unit.classroom.update(google_classroom_id: nil)

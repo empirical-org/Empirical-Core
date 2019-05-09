@@ -135,6 +135,7 @@ class CreateConceptBox extends React.Component<CreateConceptBoxProps, CreateConc
         value={value}
         options={options}
         handleChange={this.changeLevel1}
+        isSearchable={true}
       />
     } else {
       let possibleConcepts = level2Concepts
@@ -153,6 +154,7 @@ class CreateConceptBox extends React.Component<CreateConceptBoxProps, CreateConc
         value={value}
         options={options}
         handleChange={this.changeLevel2}
+        isSearchable={true}
       />
     }
   }

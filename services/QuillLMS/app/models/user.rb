@@ -351,8 +351,10 @@ class User < ActiveRecord::Base
         name:      "Deleted User_#{self.id}",
         email:     "deleted_user_#{self.id}@example.com",
         username:  "deleted_user_#{self.id}",
-        google_id: nil
+        google_id: nil,
+        clever_id: nil
       )
+      StudentsClassrooms.where(student_id: self.id).update_all(visible: false)
       if auth_credential.present?
         auth_credential.destroy!
       end
@@ -497,6 +499,11 @@ class User < ActiveRecord::Base
     user_attributes[:subscription] = subscription ? subscription.attributes : {}
     user_attributes[:subscription]['subscriptionType'] = premium_state
     user_attributes[:school] = school
+    if school && school.name
+      user_attributes[:school_type] = School::ALTERNATIVE_SCHOOLS_DISPLAY_NAME_MAP[school.name] || School::US_K12_SCHOOL_DISPLAY_NAME
+    else
+      user_attributes[:school_type] = School::US_K12_SCHOOL_DISPLAY_NAME
+    end
     user_attributes
   end
 
@@ -520,6 +527,10 @@ class User < ActiveRecord::Base
 
   def coteacher_invitations
     Invitation.where(archived: false, invitation_type: 'coteacher', invitee_email: self.email)
+  end
+
+  def is_new_teacher_without_school?
+    self.role == 'teacher' && !self.school && self.previous_changes["id"]
   end
 
 private

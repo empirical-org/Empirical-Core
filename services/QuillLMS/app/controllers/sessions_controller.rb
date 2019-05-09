@@ -2,12 +2,14 @@ require 'newrelic_rpm'
 require 'new_relic/agent'
 
 class SessionsController < ApplicationController
+  CLEAR_ANALYTICS_SESSION_KEY = "clear_analytics_session"
+
   before_filter :signed_in!, only: [:destroy]
   before_filter :set_cache_buster, only: [:new]
 
   def create
-    params[:user][:email].downcase! unless params[:user][:email].nil?
-    @user =  User.find_by_username_or_email(params[:user][:email])
+    email_or_username = params[:user][:email].downcase.strip unless params[:user][:email].nil?
+    @user =  User.find_by_username_or_email(email_or_username)
     if @user.nil?
       report_that_route_is_still_in_use
       login_failure_message
@@ -34,8 +36,8 @@ class SessionsController < ApplicationController
   end
 
   def login_through_ajax
-    params[:user][:email].downcase! unless params[:user][:email].nil?
-    @user =  User.find_by_username_or_email(params[:user][:email])
+    email_or_username = params[:user][:email].downcase.strip unless params[:user][:email].nil?
+    @user =  User.find_by_username_or_email(email_or_username)
     if @user.nil?
       render json: {message: 'An account with this email or username does not exist. Try again.', type: 'email'}, status: 401
     elsif @user.signed_up_with_google
@@ -81,6 +83,10 @@ class SessionsController < ApplicationController
         redirect_to cms_users_path
       else
         sign_out
+        # Wherever our user eventually lands after logout, we want to do some special stuff
+        # So we set a session value here for the final controller to pick up and convert into
+        # a variable for the view
+        session[CLEAR_ANALYTICS_SESSION_KEY] = true
         redirect_to signed_out_path
       end
     end

@@ -93,7 +93,7 @@ class LoginFormApp extends React.Component {
         <h1>Good to see you again!</h1>
         <div className="account-container text-center">
           <div className="auth-section">
-            <a href="/auth/google_oauth2">
+            <a href="/auth/google_oauth2?prompt=consent">
               <img src="/images/google_icon.svg" alt="google icon" />
               <span>Log in with Google</span>
             </a>

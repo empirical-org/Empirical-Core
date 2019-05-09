@@ -26,6 +26,9 @@ class PagesController < ApplicationController
       name = ReferrerUser.find_by(referral_code: request.env['affiliate.tag'])&.user&.name
       flash.now[:info] = "<strong>#{name}</strong> invited you to help your students become better writers with Quill!" if name
     end
+    if check_should_clear_segment_identity
+      set_just_logged_out_flag
+    end
   end
 
   def develop
@@ -398,5 +401,15 @@ class PagesController < ApplicationController
     list_response.each{|list| list["cards"] = HTTParty.get("https://api.trello.com/1/lists/#{list["id"]}/cards/?fields=name,url")}
     list_response
   end
+
+  def set_just_logged_out_flag
+    session.delete(SessionsController::CLEAR_ANALYTICS_SESSION_KEY)
+    @logging_user_out = true
+  end
+
+  def check_should_clear_segment_identity
+    return true if session.key?(SessionsController::CLEAR_ANALYTICS_SESSION_KEY)
+  end
+
 
 end
