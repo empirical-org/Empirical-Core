@@ -2,6 +2,7 @@ import * as React from 'react'
 import Buttons from '../components/styleGuide/buttons'
 import Cards from '../components/styleGuide/cards'
 import Menus from '../components/styleGuide/menus'
+import TextFields from '../components/styleGuide/textFields'
 
 export default class StyleGuideIndex extends React.Component {
   renderLink(href, text) {
@@ -26,6 +27,7 @@ export default class StyleGuideIndex extends React.Component {
         <ul className="menu-list">
           {this.renderLink('#cards', 'Cards')}
           {this.renderLink('#menus', 'Menus')}
+          {this.renderLink('#textFields', 'Text Fields')}
         </ul>
       </aside>
       <div className="style-guide">
@@ -34,6 +36,7 @@ export default class StyleGuideIndex extends React.Component {
         <Buttons />
         <Cards />
         <Menus />
+        <TextFields />
       </div>
     </div>
   }
