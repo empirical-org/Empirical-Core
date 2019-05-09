@@ -6,7 +6,7 @@ class InvalidClasscodeWorker
     analytics = Analyzer.new
     analytics.track_with_attributes(
       student,
-      SegmentIo::Events::STUDENT_ENTERED_INVALID_CLASSCODE,
+      SegmentIo::BackgroundEvents::STUDENT_ENTERED_INVALID_CLASSCODE,
       {
         properties: {
           user_inputted_classcode: user_inputted_classcode,
