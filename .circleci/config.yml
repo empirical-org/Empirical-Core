@@ -83,6 +83,7 @@ jobs:
           key: npm-cache-v1-{{ checksum "services/QuillLMS/package-lock.json" }}
           paths:
             - /services/QuillLMS/node_modules
+            - /services/QuillLMS/client/node_modules
       - run:
           name: Install NPM dependencies
           command: |
@@ -92,6 +93,7 @@ jobs:
           key: npm-cache-v1-{{ checksum "services/QuillLMS/package-lock.json" }}
           paths:
             - /services/QuillLMS/node_modules
+            - /services/QuillLMS/client/node_modules
       - run:
           name: Run LMS Frontend Tests
           command: |
