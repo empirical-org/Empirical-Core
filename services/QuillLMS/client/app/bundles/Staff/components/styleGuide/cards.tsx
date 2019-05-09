@@ -5,7 +5,7 @@ const Cards = () => {
   return (<div id="cards">
     <h2 className="style-guide-h2">Cards</h2>
     <div className="element-container">
-      <p>Note that there are no max widths set on these cards. For the purposes of this display, they are set to 546px and 166px respectively.</p>
+      <p>Note that there are no max widths set on these cards. For the purposes of this display, they are set to 546px and 167px respectively.</p>
       <h3 className="style-guide-h2">Card with image</h3>
       <div className="card-with-img-container element-row">
         <div className="extra-big-element">
