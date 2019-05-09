@@ -1177,7 +1177,7 @@ describe User, type: :model do
       expect(user.account_days_age).to be(0)
     end
 
-    it 'new user should have 0 days_age.' do
+    it 'should return an integer for an older user' do
       user = create(:user)
       user.created_at = Time.zone.now - 5.days - 10.minutes
       expect(user.account_days_age).to be(5)
