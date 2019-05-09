@@ -9,7 +9,7 @@ describe Api::V1::ActivitySessionsController, type: :controller do
 
     before do
       allow(controller).to receive(:doorkeeper_token) {token}
-      @activity_session = create(:activity_session, state: 'started', user: user)
+      @activity_session = create(:activity_session, state: 'started', user: user, completed_at: nil)
     end
 
     it 'passes activity session and user to notifier service' do
