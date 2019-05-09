@@ -1,5 +1,6 @@
 require 'rails_helper'
 
+
 describe StudentsController do
   it { should use_before_filter :authorize! }
 
@@ -11,6 +12,7 @@ describe StudentsController do
 
   describe '#index' do
     let!(:classroom) { create(:classroom) }
+    let!(:students_classrooms) { create(:students_classrooms, student_id: user.id, classroom_id: classroom.id) }
 
     it 'should set the current user and js file' do
       get :index
