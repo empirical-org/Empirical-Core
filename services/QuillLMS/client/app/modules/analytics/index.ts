@@ -1,5 +1,5 @@
 import { Event } from './event_definitions';
-import { Events } from './events';
+import Events from './events';
 
 
 class SegmentAnalytics {
@@ -15,10 +15,14 @@ class SegmentAnalytics {
   }
 
   attachAnalytis() {
-    this.analytics = window.analytics;
+    try {
+      this.analytics = window['analytics'];
+    } catch(e) {
+      this.reportError(e);
+    }
   }
 
-  track(event: Event, properties?: object): void {
+  track(event: Event, properties?: object): boolean {
     try {
       // Make sure that the event reference is one that's defined
       if (!event) {
@@ -39,7 +43,8 @@ class SegmentAnalytics {
 
     const eventProperties = Object.assign(this.formatCustomProperties(properties), this.getDefaultProperties());
 
-    this.analytics.track(event.name, eventProperties);
+    this.analytics['track'](event.name, eventProperties);
+    return true;
   }
 
   validateEvent (event: Event, properties?: object): void {
@@ -82,4 +87,7 @@ class SegmentAnalytics {
 
 const segmentInstance = new SegmentAnalytics();
 
-export default segmentInstance;
+export {
+  segmentInstance as SegmentAnalytics,
+  Events,
+};

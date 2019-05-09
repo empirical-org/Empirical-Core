@@ -1,7 +1,6 @@
 import React from 'react';
 import request from 'request'
-import SegmentAnalytics from '../../../../../modules/analytics'; 
-import Events from '../../../../../modules/analytics/events'; 
+import { SegmentAnalytics, Events } from '../../../../../modules/analytics'; 
 import getAuthToken from '../../modules/get_auth_token';
 import { Card } from 'quill-component-library/dist/componentLibrary'
 
@@ -12,20 +11,7 @@ const otherSrc = `${process.env.CDN_URL}/images/onboarding/business-building.svg
 
 class SelectUSNonK12 extends React.Component {
   selectSchool(idOrType) {
-    switch(idOrType) {
-      case 'home school':
-        SegmentAnalytics.track(Events.CLICK_CHOOSE_SCHOOL_TYPE, {schoolType: 'home'});
-        break;
-      case 'international':
-        SegmentAnalytics.track(Events.CLICK_CHOOSE_SCHOOL_TYPE, {schoolType: 'internationalInstitution'});
-        break;
-      case 'us higher ed':
-        SegmentAnalytics.track(Events.CLICK_CHOOSE_SCHOOL_TYPE, {schoolType: 'usHigherEducation'});
-        break;
-      case 'other':
-        SegmentAnalytics.track(Events.CLICK_CHOOSE_SCHOOL_TYPE, {schoolType: 'other'});
-        break;
-    }
+    SegmentAnalytics.track(Events.CLICK_CHOOSE_SCHOOL_TYPE, {schoolType: idOrType});
     request({
       url: `${process.env.DEFAULT_URL}/select_school`,
       json: {

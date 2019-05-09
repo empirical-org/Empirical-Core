@@ -1,6 +1,5 @@
 import React from 'react'
-import SegmentAnalytics from '../../../../../modules/analytics'; 
-import Events from '../../../../../modules/analytics/events'; 
+import { SegmentAnalytics, Events } from '../../../../../modules/analytics'; 
 
 export default () => (
   <div className="agreements-and-link-to-login">

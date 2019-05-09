@@ -1,7 +1,6 @@
 import React from 'react';
 import request from 'request'
-import SegmentAnalytics from '../../../../../modules/analytics'; 
-import Events from '../../../../../modules/analytics/events'; 
+import { SegmentAnalytics, Events } from '../../../../../modules/analytics'; 
 import { Input } from 'quill-component-library/dist/componentLibrary'
 
 import AuthSignUp from './auth_sign_up'
@@ -54,7 +53,7 @@ class SignUpTeacher extends React.Component {
   handleSubmit(e) {
     const { firstName, lastName, email, password, sendNewsletter, timesSubmitted, } = this.state
     e.preventDefault();
-    SegmentAnalytics.track(Events.SUBMIT_SIGN_UP, {provider: 'email'});
+    SegmentAnalytics.track(Events.SUBMIT_SIGN_UP, {provider: Events.providers.EMAIL});
     request({
       url: `${process.env.DEFAULT_URL}/account`,
       method: 'POST',
@@ -90,12 +89,10 @@ class SignUpTeacher extends React.Component {
   }
 
   toggleNewsletter() {
-    this.setState({ sendNewsletter: !this.state.sendNewsletter, })
-    if (this.state.sendNewsletter) {
-      SegmentAnalytics.track(Events.CLICK_NEWSLETTER_OPT_IN_OUT, {setState: 'optIn'});
-    } else {
-      SegmentAnalytics.track(Events.CLICK_NEWSLETTER_OPT_IN_OUT, {setState: 'optOut'});
-    }
+    this.setState({ sendNewsletter: !this.state.sendNewsletter, }, () => {
+      let setState = this.state.sendNewsletter ? 'optIn' : 'optOut';
+      SegmentAnalytics.track(Events.CLICK_NEWSLETTER_OPT_IN_OUT, {setState: setState});
+    });
   }
 
   renderNewsletterRow() {

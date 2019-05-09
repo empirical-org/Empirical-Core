@@ -1,7 +1,6 @@
 import React from 'react';
 import request from 'request';
-import SegmentAnalytics from '../../../../../modules/analytics'; 
-import Events from '../../../../../modules/analytics/events'; 
+import { SegmentAnalytics, Events } from '../../../../../modules/analytics'; 
 import { Input } from 'quill-component-library/dist/componentLibrary'
 
 import PasswordInfo from './password_info.jsx';
@@ -26,11 +25,8 @@ class LoginFormApp extends React.Component {
     this.setState(prevState => ({
       showPass: !prevState.showPass,
     }));
-    if (this.state.showPass) {
-      SegmentAnalytics.track(Events.CLICK_SHOW_HIDE_PASSWORD, {setState: 'showPassword'});
-    } else {
-      SegmentAnalytics.track(Events.CLICK_SHOW_HIDE_PASSWORD, {setState: 'hidePassword'});
-    }
+    let setState = this.state.showPass ? 'showPassword' : 'hidePassword';
+    SegmentAnalytics.track(Events.CLICK_SHOW_HIDE_PASSWORD, {setState: setState});
   }
 
   togglePass() {
@@ -60,7 +56,7 @@ class LoginFormApp extends React.Component {
   handleSubmit(e) {
     const { timesSubmitted, email, password, } = this.state;
     e.preventDefault();
-    SegmentAnalytics.track(Events.SUBMIT_LOG_IN, {provider: 'email'});
+    SegmentAnalytics.track(Events.SUBMIT_LOG_IN, {provider: Events.providers.EMAIL});
     request({
       url: `${process.env.DEFAULT_URL}/session/login_through_ajax`,
       method: 'POST',
@@ -101,11 +97,11 @@ class LoginFormApp extends React.Component {
         <h1>Good to see you again!</h1>
         <div className="account-container text-center">
           <div className="auth-section">
-            <a href="/auth/google_oauth2?prompt=consent" onClick={(e) => SegmentAnalytics.track(Events.SUBMIT_LOG_IN, {provider: 'google'})}>
+            <a href="/auth/google_oauth2?prompt=consent" onClick={(e) => SegmentAnalytics.track(Events.SUBMIT_LOG_IN, {provider: Events.providers.GOOGLE})}>
               <img src="/images/google_icon.svg" alt="google icon" />
               <span>Log in with Google</span>
             </a>
-            <a href={this.props.cleverLink} onClick={(e) => SegmentAnalytics.track(Events.SUBMIT_LOG_IN, {provider: 'clever'})}>
+            <a href={this.props.cleverLink} onClick={(e) => SegmentAnalytics.track(Events.SUBMIT_LOG_IN, {provider: Events.providers.CLEVER})}>
               <img src={`${process.env.CDN_URL}/images/shared/clever_icon.svg`} alt="clever icon" />
               <span>Log in with Clever</span>
             </a>

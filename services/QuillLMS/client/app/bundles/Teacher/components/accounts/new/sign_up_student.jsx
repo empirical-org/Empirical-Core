@@ -1,7 +1,6 @@
 import React from 'react';
 import request from 'request'
-import SegmentAnalytics from '../../../../../modules/analytics'; 
-import Events from '../../../../../modules/analytics/events'; 
+import { SegmentAnalytics, Events } from '../../../../../modules/analytics'; 
 import { Input } from 'quill-component-library/dist/componentLibrary'
 
 import AuthSignUp from './auth_sign_up'
@@ -52,7 +51,7 @@ class SignUpStudent extends React.Component {
     const { firstName, lastName, username, password, timesSubmitted, } = this.state
     const email = this.state.email && this.state.email.length ? this.state.email : null
     e.preventDefault();
-    SegmentAnalytics.track(Events.SUBMIT_SIGN_UP, {provider: 'email'});
+    SegmentAnalytics.track(Events.SUBMIT_SIGN_UP, {provider: Events.providers.EMAIL});
     request({
       url: `${process.env.DEFAULT_URL}/account`,
       method: 'POST',

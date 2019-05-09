@@ -1,8 +1,7 @@
 'use strict';
 import $ from 'jquery'
 import React from 'react'
-import SegmentAnalytics from '../../../../../modules/analytics'; 
-import Events from '../../../../../modules/analytics/events'; 
+import { SegmentAnalytics, Events } from '../../../../../modules/analytics'; 
 
 export default React.createClass({
   getInitialState: function () {
@@ -55,7 +54,7 @@ export default React.createClass({
       result = <span></span>;
     } else {
       result = (
-      <a className='clever-sign-up' href={this.buildLink()} onClick={(e) => SegmentAnalytics.track(Events.SUBMIT_SIGN_UP, {provider: 'clever'})}>
+      <a className='clever-sign-up' href={this.buildLink()} onClick={(e) => SegmentAnalytics.track(Events.SUBMIT_SIGN_UP, {provider: Events.providers.CLEVER})}>
         <img src={`${process.env.CDN_URL}/images/shared/clever_icon.svg`}/>
         <span>Sign up with Clever</span>
       </a>)
