@@ -3,6 +3,7 @@ import Buttons from '../components/styleGuide/buttons'
 import Cards from '../components/styleGuide/cards'
 import Menus from '../components/styleGuide/menus'
 import TextFields from '../components/styleGuide/textFields'
+import Snackbars from '../components/styleGuide/snackbars'
 
 export default class StyleGuideIndex extends React.Component {
   renderLink(href, text) {
@@ -19,7 +20,6 @@ export default class StyleGuideIndex extends React.Component {
         </p>
         <ul className="menu-list">
           {this.renderLink('#buttons', 'Buttons')}
-          {this.renderLink('#lists', 'Lists')}
         </ul>
         <p className="menu-label">
           React Components
@@ -28,6 +28,7 @@ export default class StyleGuideIndex extends React.Component {
           {this.renderLink('#cards', 'Cards')}
           {this.renderLink('#menus', 'Menus')}
           {this.renderLink('#textFields', 'Text Fields')}
+          {this.renderLink('#snackbars', 'Snackbars')}
         </ul>
       </aside>
       <div className="style-guide">
@@ -37,6 +38,7 @@ export default class StyleGuideIndex extends React.Component {
         <Cards />
         <Menus />
         <TextFields />
+        <Snackbars />
       </div>
     </div>
   }

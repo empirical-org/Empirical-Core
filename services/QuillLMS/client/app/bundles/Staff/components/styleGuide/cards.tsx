@@ -8,7 +8,8 @@ const Cards = () => {
       <p>Note that there are no max widths set on these cards. For the purposes of this display, they are set to 546px and 166px respectively.</p>
       <h3 className="style-guide-h2">Card with image</h3>
       <div className="card-with-img-container element-row">
-        <pre>
+        <div className="extra-big-element">
+          <pre>
 {`<Card
   onClick={() => {}}
   imgSrc={\`${process.env.CDN_URL}/images/onboarding/business-building.svg\`}
@@ -16,29 +17,32 @@ const Cards = () => {
   header="Other"
   text="Tip: many non-traditional educators and learners begin by assigning our featured activity packs."
 />`}
-        </pre>
-        <Card
-          onClick={() => {}}
-          imgSrc={`${process.env.CDN_URL}/images/onboarding/business-building.svg`}
-          imgAlt="office building"
-          header="Other"
-          text="Tip: many non-traditional educators and learners begin by assigning our featured activity packs."
-        />
+          </pre>
+          <Card
+            onClick={() => {}}
+            imgSrc={`${process.env.CDN_URL}/images/onboarding/business-building.svg`}
+            imgAlt="office building"
+            header="Other"
+            text="Tip: many non-traditional educators and learners begin by assigning our featured activity packs."
+          />
+        </div>
       </div>
       <h3 className="style-guide-h2">Card without image</h3>
       <div className="card-without-img-container element-row">
-        <pre>
+        <div className="extra-big-element">
+          <pre>
 {`<Card
   onClick={() => {}}
   header="Headline text"
   text="Secondary text"
 />`}
-        </pre>
-        <Card
-          onClick={() => {}}
-          header="Headline text"
-          text="Secondary text"
-        />
+          </pre>
+          <Card
+            onClick={() => {}}
+            header="Headline text"
+            text="Secondary text"
+          />
+        </div>
       </div>
     </div>
   </div>)

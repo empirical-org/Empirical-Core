@@ -67,12 +67,19 @@
       height: 120px;
     }
   }
+
+  .extra-big-element:last-of-type {
+    padding-bottom: 30px;
+  }
 }
 
 .menu {
   min-width: 220px;
   border-right: 1px solid rgb(227, 227, 227);
   padding: 15px;
+  position: sticky;
+  top: 0;
+  height: 400px;
   .menu-label {
     color: #7a7a7a;
     font-size: 12px;
