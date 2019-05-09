@@ -92,4 +92,4 @@ bundle exec rake db:setup RAILS_ENV=test
 bundle exec rake db:migrate RAILS_ENV=test
 
 echo 'start server'
-foreman start -f Procfile.static
+foreman start -f Procfile.dev
