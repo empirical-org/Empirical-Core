@@ -13,7 +13,7 @@ module SegmentIo
     yield(configuration)
   end
 
-  module Events
+  module BackgroundEvents
     CLICK_SIGN_UP ||= 'Click Sign Up'
     TEACHER_ACCOUNT_CREATION ||= 'Teacher created an account'
     TEACHER_SIGNED_UP_FOR_NEWSLETTER ||= 'Teacher signed up for newsletter'
@@ -44,4 +44,11 @@ module SegmentIo
     COTEACHER_INVITATION ||= 'Teacher invited a coteacher'
     TRANSFER_OWNERSHIP ||= 'Teacher transferred ownership of a classroom'
   end
+
+  module Events
+    # New events that may overlap with those defined in a front-end React module
+    CLICK_SIGN_UP = 'ClickSignUp'
+    CLICK_LOG_IN = 'ClickLogIn'
+  end
+
 end

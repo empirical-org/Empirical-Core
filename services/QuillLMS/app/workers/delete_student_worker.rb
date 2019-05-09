@@ -5,9 +5,9 @@ class DeleteStudentWorker
     teacher = User.find(teacher_id)
     analytics = Analyzer.new
     if referred_from_class_path
-      event = SegmentIo::Events::TEACHER_DELETED_STUDENT_ACCOUNT
+      event = SegmentIo::BackgroundEvents::TEACHER_DELETED_STUDENT_ACCOUNT
     else
-      event = SegmentIo::Events::MYSTERY_STUDENT_DELETION
+      event = SegmentIo::BackgroundEvents::MYSTERY_STUDENT_DELETION
     end
     # tell segment.io
     analytics.track(teacher, event)
