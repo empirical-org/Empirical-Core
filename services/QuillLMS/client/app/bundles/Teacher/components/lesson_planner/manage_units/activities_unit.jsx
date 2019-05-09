@@ -5,6 +5,7 @@ import ClassroomActivity from './classroom_activity';
 import Pluralize from 'pluralize';
 import AddClassroomActivityRow from './add_classroom_activity_row.jsx';
 import moment from 'moment';
+import { Snackbar } from 'quill-component-library/dist/componentLibrary';
 
 export default React.createClass({
   getInitialState() {
@@ -15,7 +16,9 @@ export default React.createClass({
       error: false,
       showTooltip: false,
       classroomActivities: (this.props.data.classroomActivities || this.props.data.classroom_activities),
-      activityOrder: Array.from(this.props.data.classroomActivities.keys())
+      activityOrder: Array.from(this.props.data.classroomActivities.keys()),
+      snackbarVisible: false,
+      snackbarFadeTimer: null,
     };
   },
 
@@ -194,7 +197,16 @@ export default React.createClass({
         }))
       })
     };
-    this.updateActivitiesApi(this.props.data.unitId, payload);
+    this.updateActivitiesApi(this.props.data.unitId, payload, this.displaySaveSnackbar);
+  },
+
+  displaySaveSnackbar() {
+    if (this.state.snackbarFadeTimer) {
+      clearTimeout(this.state.snackbarFadeTimer);
+    }
+    this.setState({snackbarVisible: true, snackbarFadeTimer: setTimeout(() => {
+      this.setState({snackbarVisible: false});
+    }, 3000)});
   },
 
   updateActivitiesApi(unitId, payload, success, error) {
@@ -239,7 +251,8 @@ export default React.createClass({
 
   updateSortOrder(sortableListState) {
     if (sortableListState.items) {
-      this.setState({ activityOrder: sortableListState.items.map( (i) => i.props.data.activityId )});
+      this.setState({ activityOrder: sortableListState.items.map( (i) => i.props.data.activityId )},
+                    this.saveSortOrder);
     }
   },
 
@@ -283,6 +296,7 @@ export default React.createClass({
     };
 
     return (
+      <div>
       <section className="activities-unit">
         <div className="row unit-header-row" id={this.getUnitId()}>
           <div className="left">
@@ -303,13 +317,10 @@ export default React.createClass({
           {this.renderClassroomActivities()}
           {this.addClassroomActivityRow()}
 
-          <div className="row" style={row_style}>
-            <button className="q-button bg-white text-black" onClick={this.saveSortOrder}>
-              <span className="fa fa-plus" />Save Updated Activity Order
-            </button>
-          </div>
         </div>
       </section>
+      <Snackbar text="Activity order saved." visible={this.state.snackbarVisible} />
+      </div>
     );
   },
 });
