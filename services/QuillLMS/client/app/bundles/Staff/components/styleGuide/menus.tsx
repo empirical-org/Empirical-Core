@@ -8,7 +8,7 @@ const options = [
   {value: 4, label: 'Four'}
 ]
 
-class Cards extends React.Component {
+class Menus extends React.Component {
 
   constructor(props) {
     super(props)
@@ -29,22 +29,21 @@ class Cards extends React.Component {
 
   render() {
     return (<div id="menus">
-      <h2>Menus</h2>
+      <h2 className="style-guide-h2">Menus</h2>
       <div className="element-container">
-        <h3>Dropdown Menu</h3>
+        <h3 className="style-guide-h3">Dropdown Menu</h3>
         <div className="element-row">
           <div className="big-element">
             <pre>
-              {`
-                const options = ${JSON.stringify(options)}
+{`const options = ${JSON.stringify(options)}
 
-                <DropdownInput
-                  label="Label"
-                  options={options}
-                  handleChange={(e) => {this.changeSavedValues('dropdownOne', e)}}
-                  isSearchable={false}
-                  value={this.state.dropdownOne}
-              />`}
+<DropdownInput
+  label="Label"
+  options={options}
+  handleChange={(e) => {this.changeSavedValues('dropdownOne', e)}}
+  isSearchable={false}
+  value={this.state.dropdownOne}
+/>`}
             </pre>
             <DropdownInput
               label="Label"
@@ -56,16 +55,15 @@ class Cards extends React.Component {
           </div>
           <div className="big-element">
             <pre>
-              {`
-                const options = ${JSON.stringify(options)}
+{`const options = ${JSON.stringify(options)}
 
-                <DropdownInput
-                  label="Label"
-                  value={this.state.dropdownTwo}
-                  options={options}
-                  handleChange={(e) => {this.changeSavedValues('dropdownTwo', e)}}
-                  isSearchable={false}
-              />`}
+<DropdownInput
+  label="Label"
+  value={this.state.dropdownTwo}
+  options={options}
+  handleChange={(e) => {this.changeSavedValues('dropdownTwo', e)}}
+  isSearchable={false}
+/>`}
             </pre>
             <DropdownInput
               label="Label"
@@ -76,21 +74,20 @@ class Cards extends React.Component {
             />
           </div>
         </div>
-        <h3>Exposed Editable Dropdown Menu</h3>
+        <h3 className="style-guide-h3">Exposed Editable Dropdown Menu</h3>
         <div className="element-row">
           <div className="big-element">
             <pre>
-              {`
-                const options = ${JSON.stringify(options)}
+{`const options = ${JSON.stringify(options)}
 
-                <DropdownInput
-                  label="Label"
-                  options={options}
-                  handleChange={(e) => {this.changeSavedValues('dropdownThree', e)}}
-                  value={this.state.dropdownThree}
-                  isSearchable={true}
-                  placeholder="Value goes here"
-              />`}
+<DropdownInput
+  label="Label"
+  options={options}
+  handleChange={(e) => {this.changeSavedValues('dropdownThree', e)}}
+  value={this.state.dropdownThree}
+  isSearchable={true}
+  placeholder="Value goes here"
+/>`}
             </pre>
             <DropdownInput
               label="Label"
@@ -103,16 +100,15 @@ class Cards extends React.Component {
           </div>
           <div className="big-element">
             <pre>
-              {`
-                const options = ${JSON.stringify(options)}
+{`const options = ${JSON.stringify(options)}
 
-                <DropdownInput
-                  label="Label"
-                  value={this.state.dropdownFour}
-                  isSearchable={true}
-                  options={options}
-                  handleChange={(e) => {this.changeSavedValues('dropdownFour', e)}}
-              />`}
+<DropdownInput
+  label="Label"
+  value={this.state.dropdownFour}
+  isSearchable={true}
+  options={options}
+  handleChange={(e) => {this.changeSavedValues('dropdownFour', e)}}
+/>`}
             </pre>
             <DropdownInput
               label="Label"
@@ -128,4 +124,4 @@ class Cards extends React.Component {
   }
 }
 
-export default Cards
+export default Menus

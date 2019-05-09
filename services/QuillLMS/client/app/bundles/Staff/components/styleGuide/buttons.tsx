@@ -20,7 +20,7 @@ const renderElementRow = (classNames) => (
 
 const Buttons = () => {
   return (<div id="buttons">
-    <h2>Buttons</h2>
+    <h2 className="style-guide-h2">Buttons</h2>
     <div className="element-container">
       {renderElementRow('primary contained')}
       {renderElementRow('primary outlined')}
