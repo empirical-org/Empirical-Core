@@ -80,7 +80,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: npm-cache-v1-{{ checksum "services/QuillLMS/package-lock.json" }}
+          key: npm-cache-v1-{{ checksum "services/QuillLMS/package-lock.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
           paths:
             - /services/QuillLMS/node_modules
             - /services/QuillLMS/client/node_modules
@@ -90,7 +90,7 @@ jobs:
             cd services/QuillLMS
             npm install
       - save_cache:
-          key: npm-cache-v1-{{ checksum "services/QuillLMS/package-lock.json" }}
+          key: npm-cache-v1-{{ checksum "services/QuillLMS/package-lock.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
           paths:
             - /services/QuillLMS/node_modules
             - /services/QuillLMS/client/node_modules
