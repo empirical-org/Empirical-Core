@@ -40,7 +40,7 @@ describe AssignRecommendationsWorker do
         end
 
         it 'should track the recommendation assignment' do
-          expect(analyzer).to receive(:track).with(teacher, SegmentIo::Events::ASSIGN_RECOMMENDATIONS)
+          expect(analyzer).to receive(:track).with(teacher, SegmentIo::BackgroundEvents::ASSIGN_RECOMMENDATIONS)
           call_method
         end
 
@@ -87,7 +87,7 @@ describe AssignRecommendationsWorker do
         end
 
         it 'should track the recommendation assignment' do
-          expect(analyzer).to receive(:track).with(teacher, SegmentIo::Events::ASSIGN_RECOMMENDATIONS)
+          expect(analyzer).to receive(:track).with(teacher, SegmentIo::BackgroundEvents::ASSIGN_RECOMMENDATIONS)
           call_method
         end
 
@@ -142,7 +142,7 @@ describe AssignRecommendationsWorker do
       end
 
       it 'should track the recommendation assignment' do
-        expect(analyzer).to receive(:track).with(teacher, SegmentIo::Events::ASSIGN_RECOMMENDATIONS)
+        expect(analyzer).to receive(:track).with(teacher, SegmentIo::BackgroundEvents::ASSIGN_RECOMMENDATIONS)
         call_method
       end
 
@@ -196,7 +196,7 @@ describe AssignRecommendationsWorker do
       end
 
       it 'should track the recommendation assignment' do
-        expect(analyzer).to receive(:track).with(teacher, SegmentIo::Events::ASSIGN_RECOMMENDATIONS)
+        expect(analyzer).to receive(:track).with(teacher, SegmentIo::BackgroundEvents::ASSIGN_RECOMMENDATIONS)
         call_method
       end
 
