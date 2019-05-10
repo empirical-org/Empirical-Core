@@ -1,5 +1,6 @@
 import React from 'react'
 import { Input } from 'quill-component-library/dist/componentLibrary'
+import { SegmentAnalytics, Events } from '../../../../../modules/analytics'; 
 
 import getAuthToken from '../components/modules/get_auth_token'
 import LoadingIndicator from '../components/shared/loading_indicator'
@@ -34,6 +35,7 @@ export default class JoinClass extends React.Component {
     const { timesSubmitted, classCodeInput, } = this.state
     e.preventDefault();
     // this.setState({ loading: true, })
+    SegmentAnalytics.track(Events.JOIN_CLASS, {mechanism: 'classCode'});
     const data = new FormData()
     data.append('classcode', classCodeInput)
     fetch(`${process.env.DEFAULT_URL}/students_classrooms`, {
