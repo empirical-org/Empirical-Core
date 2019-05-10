@@ -12,13 +12,13 @@ exports[`EducatorType component should render if stage is 1 1`] = `
     className="option-wrapper"
   >
     <button
-      className="button contained primary large"
+      className="quill-button contained primary large"
       onClick={[Function]}
     >
       Yes
     </button>
     <button
-      className="button contained primary large"
+      className="quill-button contained primary large"
       onClick={[Function]}
     >
       No

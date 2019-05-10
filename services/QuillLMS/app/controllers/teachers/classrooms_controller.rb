@@ -104,7 +104,7 @@ class Teachers::ClassroomsController < ApplicationController
       end
       Analyzer.new.track_with_attributes(
           current_user,
-          SegmentIo::Events::TRANSFER_OWNERSHIP,
+          SegmentIo::BackgroundEvents::TRANSFER_OWNERSHIP,
 { properties: { new_owner_id: requested_new_owner_id } }
       )
     rescue

@@ -51,20 +51,20 @@ exports[`the SyncSuccessModal component should render 1`] = `
         aria-hidden="true"
         className="fa fa-check"
       />
-      Great! You've synced
+      Great! You've synced 
       5 classes
     </h1>
     <h3
       className="subheader"
     >
-      It may take up to
+      It may take up to 
       <strong>
         5 minutes
       </strong>
        to import your students.
     </h3>
     <p>
-      Please have your students log in using their Google accounts. If you have any questions, you can check
+      Please have your students log in using their Google accounts. If you have any questions, you can check 
       <a
         href="https://support.quill.org"
       >
