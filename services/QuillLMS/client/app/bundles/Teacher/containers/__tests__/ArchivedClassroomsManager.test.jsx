@@ -8,7 +8,7 @@ import InviteCoteachers from '../../components/classroom_management/invite_cotea
 
 describe('ArchivedClassroomsManager container', () => {
   const wrapper = shallow(<ArchivedClassroomsManager role="teacher" />);
-  const response = require("../../../../../__mockdata__/teachers_classrooms_archived_classroom_manager_data.json");
+  const response = {"active":[{"classroom_invitation_id":"1","inviter_name":"Edmund Windler","classroom_name":"Classroom 42S","invitation":"t"},{"classroom_invitation_id":"2","inviter_name":"Edmund Windler","classroom_name":"Period 18A","invitation":"t"},{"createdDate":"05/07/2019","className":"Classroom 20N","id":247,"studentCount":0,"classcode":"simple-jelly","ownerName":"Winston Kessler","from_google":false,"coteachers":[]},{"createdDate":"05/07/2019","className":"Block 86X","id":248,"studentCount":0,"classcode":"silver-stand","ownerName":"Winston Kessler","from_google":false,"coteachers":[]}],"active_classrooms_i_own":[{"label":"Classroom 20N","value":247},{"label":"Block 86X","value":248}],"inactive":[{"createdDate":"05/07/2019","className":"Period 62L","id":249,"studentCount":0,"classcode":"respond-country","ownerName":"Winston Kessler","from_google":false,"coteachers":[]},{"createdDate":"05/07/2019","className":"Block 16Q","id":250,"studentCount":0,"classcode":"art-main","ownerName":"Winston Kessler","from_google":false,"coteachers":[]}],"coteachers":[],"pending_coteachers":[],"my_name":"Winston Kessler"};
   wrapper.instance().formatData(response);
 
   describe('initial state', () => {
