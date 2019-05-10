@@ -1,17 +1,17 @@
-import { EventDefinitions } from './event_definitions';
+import { Event, EventDefinitions } from './event_definitions';
 
 
 // Ensure that no two events accidentally share the same name,
 // either as the constant identifier, or as the literal passed
 // to analytics
-function validateEventsList(eventDefinitions: array): void {
-  function checkForDuplicates(target: array) {
+function validateEventsList(eventDefinitions: Array<any>): void {
+  function checkForDuplicates(target: Array<any>) {
     if (new Set(target).size != target.length) {
       throw new Error('There are duplicate values in the provided array.');
     }
   }
   let eventReferences = eventDefinitions.map((d) => Object.keys(d)[0]);
-  let eventNames = eventDefinitions.map((d) => Object.values(d)[0].name);
+  let eventNames = eventDefinitions.map((d) => Object.values(d)[0]['name']);
   try {
     checkForDuplicates(eventReferences);
     checkForDuplicates(eventNames);
@@ -26,7 +26,14 @@ validateEventsList(EventDefinitions);
 function arrayToObject(sourceArray) {
   return sourceArray.reduce((accumulator, eventDefinition) => Object.assign(accumulator, eventDefinition), {});
 }
-const Events = arrayToObject(EventDefinitions)
+
+let buildEvents = arrayToObject(EventDefinitions)
+buildEvents.providers = {
+  CLEVER: 'clever',
+  EMAIL: 'email',
+  GOOGLE: 'google',
+};
+const Events = buildEvents;
 
 
 export default Events;
