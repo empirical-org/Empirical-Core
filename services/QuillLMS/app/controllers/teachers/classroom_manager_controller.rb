@@ -147,14 +147,7 @@ class Teachers::ClassroomManagerController < ApplicationController
     # @TODO - refactor to replace the rails errors with the ones used here
     response = current_user.update_teacher(params['classroom_manager'])
     if response && response[:errors] && response[:errors].any?
-      errors = {}
-      if response[:errors]['email']&.include?('is being updated to a email that exists')
-        errors['email'] = ['That email is taken. Try another.']
-      elsif response[:errors]['email']&.include?('does not appear to be a valid e-mail address')
-        errors['email'] = ['Enter a valid email']
-      elsif response[:errors]['name']&.include?('must include first and last name')
-        errors['name'] = ["Enter both a first and last name"]
-      end
+      errors = response[:errors]
       render json: {errors: errors}, status: 422
     else
       render json: current_user.generate_teacher_account_info
