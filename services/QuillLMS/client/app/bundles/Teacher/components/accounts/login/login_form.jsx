@@ -1,5 +1,6 @@
 import React from 'react';
 import request from 'request';
+import { SegmentAnalytics, Events } from '../../../../../modules/analytics'; 
 import { Input } from 'quill-component-library/dist/componentLibrary'
 
 import PasswordInfo from './password_info.jsx';
@@ -24,6 +25,8 @@ class LoginFormApp extends React.Component {
     this.setState(prevState => ({
       showPass: !prevState.showPass,
     }));
+    let setState = this.state.showPass ? 'showPassword' : 'hidePassword';
+    SegmentAnalytics.track(Events.CLICK_SHOW_HIDE_PASSWORD, {setState: setState});
   }
 
   togglePass() {
@@ -53,6 +56,7 @@ class LoginFormApp extends React.Component {
   handleSubmit(e) {
     const { timesSubmitted, email, password, } = this.state;
     e.preventDefault();
+    SegmentAnalytics.track(Events.SUBMIT_LOG_IN, {provider: Events.providers.EMAIL});
     request({
       url: `${process.env.DEFAULT_URL}/session/login_through_ajax`,
       method: 'POST',
@@ -93,11 +97,11 @@ class LoginFormApp extends React.Component {
         <h1>Good to see you again!</h1>
         <div className="account-container text-center">
           <div className="auth-section">
-            <a href="/auth/google_oauth2?prompt=consent">
+            <a href="/auth/google_oauth2?prompt=consent" onClick={(e) => SegmentAnalytics.track(Events.SUBMIT_LOG_IN, {provider: Events.providers.GOOGLE})}>
               <img src="/images/google_icon.svg" alt="google icon" />
               <span>Log in with Google</span>
             </a>
-            <a href={this.props.cleverLink}>
+            <a href={this.props.cleverLink} onClick={(e) => SegmentAnalytics.track(Events.SUBMIT_LOG_IN, {provider: Events.providers.CLEVER})}>
               <img src={`${process.env.CDN_URL}/images/shared/clever_icon.svg`} alt="clever icon" />
               <span>Log in with Clever</span>
             </a>
@@ -137,7 +141,8 @@ class LoginFormApp extends React.Component {
             </div>
           </div>
         </div>
-        <p className="sign-up-link">Don't have an account?&nbsp;<a href="/account/new">Sign up</a></p>
+        <p className="sign-up-link">Don't have an account?&nbsp;<a href="/account/new"
+           onClick={(e) => SegmentAnalytics.track(Events.CLICK_SIGN_UP, {location: 'doNotHaveAccount'})}>Sign up</a></p>
         <PasswordInfo showHintBox={Object.keys(this.state.errors).length} />
       </div>
     );
