@@ -26,3 +26,17 @@ en:
     student: My Class
     teacher: My Lessons
     staff: Profile
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            name:
+              must_include_first_and_last_name: "Enter both a first and last name"
+            email:
+              invalid: "Enter a valid email"
+              taken: "That email is taken. Try another."
+            username:
+              invalid: "Enter a valid username"
+              taken: "That username is taken. Try another."
+              no_spaces_allowed: "That username is not valid because it has a space. Try another."

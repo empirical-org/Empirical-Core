@@ -1,5 +1,6 @@
 import React from 'react';
 import request from 'request'
+import { SegmentAnalytics, Events } from '../../../../../modules/analytics'; 
 import { Input } from 'quill-component-library/dist/componentLibrary'
 
 import AuthSignUp from './auth_sign_up'
@@ -52,6 +53,7 @@ class SignUpTeacher extends React.Component {
   handleSubmit(e) {
     const { firstName, lastName, email, password, sendNewsletter, timesSubmitted, } = this.state
     e.preventDefault();
+    SegmentAnalytics.track(Events.SUBMIT_SIGN_UP, {provider: Events.providers.EMAIL});
     request({
       url: `${process.env.DEFAULT_URL}/account`,
       method: 'POST',
@@ -87,7 +89,10 @@ class SignUpTeacher extends React.Component {
   }
 
   toggleNewsletter() {
-    this.setState({ sendNewsletter: !this.state.sendNewsletter, })
+    this.setState({ sendNewsletter: !this.state.sendNewsletter, }, () => {
+      let setState = this.state.sendNewsletter ? 'optIn' : 'optOut';
+      SegmentAnalytics.track(Events.CLICK_NEWSLETTER_OPT_IN_OUT, {setState: setState});
+    });
   }
 
   renderNewsletterRow() {
@@ -105,7 +110,9 @@ class SignUpTeacher extends React.Component {
     return (
       <div className="container account-form teacher-sign-up">
         <h1>Create a teacher account</h1>
-        <p className="sub-header">Are you a student? <a href="/sign-up/student">Sign up here</a></p>
+        <p className="sub-header">Are you a student?
+          <a href="/sign-up/student" onClick={(e) => SegmentAnalytics.track(Events.CLICK_CREATE_STUDENT_USER)}>Sign up here</a>
+        </p>
         <div className="info-and-form-container">
           <div className="info">
             <h2>More than 5,000 schools use Quill's free online tools to help their students become strong&nbsp;writers.</h2>
