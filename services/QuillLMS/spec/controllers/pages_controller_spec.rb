@@ -51,7 +51,7 @@ describe PagesController do
 
     context 'when a user has just signed out' do
       before do
-        allow(controller).to receive(:user_just_logged_out) { true }
+        allow(controller).to receive(:check_should_clear_segment_identity) { true }
       end
 
       it 'should set the @logging_user_out flag' do

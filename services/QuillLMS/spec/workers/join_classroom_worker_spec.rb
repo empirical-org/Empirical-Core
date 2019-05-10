@@ -12,7 +12,7 @@ describe JoinClassroomWorker, type: :worker do
   end
 
   it 'should track the teacher student account creation' do
-    expect(analyzer).to receive(:track).with(teacher, SegmentIo::Events::TEACHERS_STUDENT_ACCOUNT_CREATION)
+    expect(analyzer).to receive(:track).with(teacher, SegmentIo::BackgroundEvents::TEACHERS_STUDENT_ACCOUNT_CREATION)
     worker.perform(student.id)
   end
 end
