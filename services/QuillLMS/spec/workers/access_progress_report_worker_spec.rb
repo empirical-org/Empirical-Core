@@ -10,7 +10,7 @@ describe AccessProgressReportWorker, type: :worker do
   end
 
   it 'sends a segment.io event ' do
-    expect(analyzer).to receive(:track).with(teacher, SegmentIo::Events::ACCESS_PROGRESS_REPORT)
+    expect(analyzer).to receive(:track).with(teacher, SegmentIo::BackgroundEvents::ACCESS_PROGRESS_REPORT)
     worker.perform(teacher.id)
   end
 end

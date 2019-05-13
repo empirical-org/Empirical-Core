@@ -23,35 +23,35 @@ class SegmentAnalytics
     # i.e. "BUILD_YOUR_OWN_ACTIVITY_PACK"
     track({
        user_id: user_id,
-       event: "SegmentIo::Events::#{event_name}".constantize
+       event: "SegmentIo::BackgroundEvents::#{event_name}".constantize
       })
   end
 
   def track_activity_assignment(teacher_id)
     track({
       user_id: teacher_id,
-      event: SegmentIo::Events::ACTIVITY_ASSIGNMENT
+      event: SegmentIo::BackgroundEvents::ACTIVITY_ASSIGNMENT
     })
   end
 
   def track_classroom_creation(classroom)
     track({
       user_id: classroom&.owner&.id,
-      event: SegmentIo::Events::CLASSROOM_CREATION
+      event: SegmentIo::BackgroundEvents::CLASSROOM_CREATION
     })
   end
 
   def track_click_sign_up
     track({
       user_id: anonymous_uid,
-      event: SegmentIo::Events::CLICK_SIGN_UP
+      event: SegmentIo::BackgroundEvents::CLICK_SIGN_UP
     })
   end
 
   def track_activity_search(user_id, search_query)
     track({
       user_id: user_id,
-      event: SegmentIo::Events::ACTIVITY_SEARCH,
+      event: SegmentIo::BackgroundEvents::ACTIVITY_SEARCH,
       properties: {
         search_query: search_query
       }
@@ -61,7 +61,7 @@ class SegmentAnalytics
   def track_student_login_pdf_download(user_id, classroom_id)
     track({
       user_id: user_id,
-      event: SegmentIo::Events::STUDENT_LOGIN_PDF_DOWNLOAD,
+      event: SegmentIo::BackgroundEvents::STUDENT_LOGIN_PDF_DOWNLOAD,
       properties: {
         classroom_id: classroom_id
       }

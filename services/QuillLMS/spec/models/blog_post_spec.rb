@@ -25,7 +25,11 @@ describe BlogPost, type: :model do
 
   describe '#topic_slug' do
     it 'should return the slug of the associated topic' do
-      expect(blog_post.topic_slug).to eq(blog_post.topic.downcase.gsub(' ', '_'))
+      # The blog_post factory will assign a random valid topic, but many of them
+      # don't have spaces, so their slugs are just a an instance of downcasing.
+      # We want to guarantee that we're testing the space replacement functionality.
+      blog_post.topic = "Writing Instruction Research"
+      expect(blog_post.topic_slug).to eq(blog_post.topic.downcase.gsub(' ', '-'))
     end
   end
 

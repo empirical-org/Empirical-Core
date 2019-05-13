@@ -14,6 +14,15 @@ QuillLMS is the Learning Management System that powers Quill.org, a free writing
 
 ## Install QuillLMS
 
+### MacOS Install Instructions
+In your terminal:
+1. Clone the Empirical Core repo `git clone https://github.com/empirical-org/Empirical-Core.git`
+2. Navigate to LMS directory: `cd services/QuillLMS`
+3. Run install script: `sh bin/dev/bootstrap.sh`
+4. Open your browser to [localhost:3000](http://localhost:3000), the app should be running.
+
+### Manual Install Instructions
+
 QuillLMS is the Learning Management System that powers Quill.org. It is part of Empirical-Core Here's how to get QuillLMS running on your system:
 
 1. Download and install [rbenv](https://github.com/sstephenson/rbenv) (or another Ruby version manager of your choice). You need to have Ruby version 2.5.1 installed in order to use Empirical Core. The best way to make sure you have version 2.5.1 is to follow the README and wiki of the Ruby version manager that you download.
@@ -70,6 +79,6 @@ QuillLMS is the Learning Management System that powers Quill.org. It is part of 
     3. When you're done with the server, use Ctrl-C to break it and return to your command line.
 
 
-In case you are unable to start QuillLMS on your computer, please submit and issue. If you found a work around, we would also love to read your suggestions! 
+In case you are unable to start QuillLMS on your computer, please submit and issue. If you found a work around, we would also love to read your suggestions!
 
-For more information on setting up and launching QuillLMS, visit the [docs](https://docs.quill.org/misc/setting_up.html). 
+For more information on setting up and launching QuillLMS, visit the [docs](https://docs.quill.org/misc/setting_up.html).

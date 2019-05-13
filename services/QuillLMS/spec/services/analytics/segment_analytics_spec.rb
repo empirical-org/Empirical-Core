@@ -17,7 +17,7 @@ describe 'SegmentAnalytics' do
       analytics.track_classroom_creation(classroom)
       expect(identify_calls.size).to eq(0)
       expect(track_calls.size).to eq(1)
-      expect(track_calls[0][:event]).to eq(SegmentIo::Events::CLASSROOM_CREATION)
+      expect(track_calls[0][:event]).to eq(SegmentIo::BackgroundEvents::CLASSROOM_CREATION)
       expect(track_calls[0][:user_id]).to eq(classroom.owner.id)
     end
   end
@@ -29,7 +29,7 @@ describe 'SegmentAnalytics' do
       analytics.track_activity_assignment(teacher.id)
       expect(identify_calls.size).to eq(0)
       expect(track_calls.size).to eq(1)
-      expect(track_calls[0][:event]).to eq(SegmentIo::Events::ACTIVITY_ASSIGNMENT)
+      expect(track_calls[0][:event]).to eq(SegmentIo::BackgroundEvents::ACTIVITY_ASSIGNMENT)
       expect(track_calls[0][:user_id]).to eq(teacher.id)
     end
   end

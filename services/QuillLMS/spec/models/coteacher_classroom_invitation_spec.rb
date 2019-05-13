@@ -15,7 +15,7 @@ RSpec.describe CoteacherClassroomInvitation, type: :model do
     it 'should track coteacher invitation' do
       expect(analyzer).to receive(:track_with_attributes).with(
         invite_one.invitation.inviter,
-        SegmentIo::Events::COTEACHER_INVITATION,
+        SegmentIo::BackgroundEvents::COTEACHER_INVITATION,
         { properties: { invitee_email: invite_one.invitation.invitee_email } }
       )
       invite_one.save

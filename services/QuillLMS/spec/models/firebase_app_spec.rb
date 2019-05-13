@@ -96,7 +96,7 @@ describe FirebaseApp, type: :model do
     context 'when no user' do
       it 'should return the encoded payload with anonymous claims' do
         connect_token = firebase_app.connect_token_for(nil)
-        expect(JWT.decode(connect_token, key, true, { algorithm: 'RS256' })).to eq [payload_hash(nil, {'anonymous' => true}), {"typ"=>"JWT", "alg"=>"RS256"}]
+        expect(JWT.decode(connect_token, key, true, { algorithm: 'RS256' })).to eq [payload_hash(nil, {'anonymous' => true}), {"alg"=>"RS256"}]
       end
     end
 
@@ -105,7 +105,7 @@ describe FirebaseApp, type: :model do
 
       it 'should return the encoded payload with staff claims' do
         connect_token = firebase_app.connect_token_for(user)
-        expect(JWT.decode(connect_token, key, true, { algorithm: 'RS256' })).to eq [payload_hash(user, {'staff' => true}), {"typ"=>"JWT", "alg"=>"RS256"}]
+        expect(JWT.decode(connect_token, key, true, { algorithm: 'RS256' })).to eq [payload_hash(user, {'staff' => true}), {"alg"=>"RS256"}]
       end
     end
 
@@ -115,7 +115,7 @@ describe FirebaseApp, type: :model do
 
       it 'should return the encoded payload with admin claims' do
         connect_token = firebase_app.connect_token_for(user)
-        expect(JWT.decode(connect_token, key, true, { algorithm: 'RS256' })).to eq [payload_hash(user, {'admin' => true}), {"typ"=>"JWT", "alg"=>"RS256"}]
+        expect(JWT.decode(connect_token, key, true, { algorithm: 'RS256' })).to eq [payload_hash(user, {'admin' => true}), {"alg"=>"RS256"}]
       end
     end
 
@@ -124,7 +124,7 @@ describe FirebaseApp, type: :model do
 
       it 'should return the encoded payload with teacher claims' do
         connect_token = firebase_app.connect_token_for(user)
-        expect(JWT.decode(connect_token, key, true, { algorithm: 'RS256' })).to eq [payload_hash(user, {'teacher' => true}), {"typ"=>"JWT", "alg"=>"RS256"}]
+        expect(JWT.decode(connect_token, key, true, { algorithm: 'RS256' })).to eq [payload_hash(user, {'teacher' => true}), {"alg"=>"RS256"}]
       end
     end
 
@@ -133,7 +133,7 @@ describe FirebaseApp, type: :model do
 
       it 'should return the encoded payload with student claims' do
         connect_token = firebase_app.connect_token_for(user)
-        expect(JWT.decode(connect_token, key, true, { algorithm: 'RS256' })).to eq [payload_hash(user, {'student' => true}), {"typ"=>"JWT", "alg"=>"RS256"}]
+        expect(JWT.decode(connect_token, key, true, { algorithm: 'RS256' })).to eq [payload_hash(user, {'student' => true}), {"alg"=>"RS256"}]
       end
     end
   end

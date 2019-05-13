@@ -13,14 +13,14 @@ describe PremiumAnalyticsWorker do
 
     context 'when account type is paid' do
       it 'should track began premium' do
-        expect(analyzer).to receive(:track).with(user, SegmentIo::Events::BEGAN_PREMIUM)
+        expect(analyzer).to receive(:track).with(user, SegmentIo::BackgroundEvents::BEGAN_PREMIUM)
         subject.perform(user.id, "paid")
       end
     end
 
     context 'when account type is not paid' do
       it 'should track began trial' do
-        expect(analyzer).to receive(:track).with(user, SegmentIo::Events::BEGAN_TRIAL)
+        expect(analyzer).to receive(:track).with(user, SegmentIo::BackgroundEvents::BEGAN_TRIAL)
         subject.perform(user.id, "paid")
       end
     end
