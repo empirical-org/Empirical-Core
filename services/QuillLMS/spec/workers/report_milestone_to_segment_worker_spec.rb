@@ -15,7 +15,7 @@ describe ReportMilestoneToSegmentWorker do
       expect(analytics).to receive(:identify).with(user)
       expect(analytics).to receive(:track).with(
         user_id: user.id,
-        event: SegmentIo::Events::USER_COMPLETED_MILESTONE,
+        event: SegmentIo::BackgroundEvents::USER_COMPLETED_MILESTONE,
         context: { ip: user.ip_address },
         properties: { milestone_name: "milestone" }
       )

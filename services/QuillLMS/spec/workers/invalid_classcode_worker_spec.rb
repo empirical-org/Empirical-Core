@@ -13,7 +13,7 @@ describe InvalidClasscodeWorker do
     it 'should track the invalid classcode event' do
       expect(analyzer).to receive(:track_with_attributes).with(
         student,
-        SegmentIo::Events::STUDENT_ENTERED_INVALID_CLASSCODE,
+        SegmentIo::BackgroundEvents::STUDENT_ENTERED_INVALID_CLASSCODE,
         {
           properties: {
             user_inputted_classcode: "some_input",

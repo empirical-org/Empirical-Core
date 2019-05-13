@@ -8,14 +8,14 @@ class ReferrerAnalytics
   def track_referral_invited(referrer, referral_id)
     analytics_identify(referrer)
     analytics_track(user_id: referrer.id,
-                    event: SegmentIo::Events::REFERRAL_INVITED,
+                    event: SegmentIo::BackgroundEvents::REFERRAL_INVITED,
                     properties: { referral_id: referral_id })
   end
 
   def track_referral_activated(referrer, referral_id)
     analytics_identify(referrer)
     analytics_track(user_id: referrer.id,
-                    event: SegmentIo::Events::REFERRAL_ACTIVATED,
+                    event: SegmentIo::BackgroundEvents::REFERRAL_ACTIVATED,
                     properties: { referral_id: referral_id })
   end
 
