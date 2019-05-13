@@ -108,13 +108,13 @@ module PagesHelper
           {
             img: 'thumb-emma.png',
             name: 'Emma Volk',
-            title: 'Editorial Associate',
+            title: 'Curriculum Developer',
             desc: "Emma is an editorial associate with a love for writing. She has an undergraduate degree in English from Columbia University and a master’s degree in English from the University of Oxford."
           },
 					{
 						img: 'thumb-thomas.jpg',
 						name: 'Thomas Robertson',
-						title: 'Senior Web Developer',
+						title: 'Senior Software Developer',
 						desc: "Thomas brings his decade of software development experience to Quill with a focus on technological and operational scalability.  He is deeply committed to using technology to improve public education by empowering teachers to do more in their classrooms.  Thomas has spent most of his career working at a combination of education companies and small start-ups, which makes Quill a natural fit for his experience and skills."
 					},
           {
