@@ -1171,16 +1171,12 @@ describe User, type: :model do
     end
   end
 
-  describe '#account_days_age' do
-    it 'should be 0 for a new user' do
-      user = create(:user)
-      expect(user.account_days_age).to be(0)
-    end
-
-    it 'should return an integer for an older user' do
-      user = create(:user)
-      user.created_at = Time.zone.now - 5.days - 10.minutes
-      expect(user.account_days_age).to be(5)
+  describe 'satismeter' do
+    it 'should have basic working gate logic' do
+      teacher = create(:teacher)
+      expect(teacher.show_satismeter?).to be false
+      expect(teacher.satismeter_feature_enabled?).to be true
+      expect(teacher.satismeter_threshold_met?).to be false
     end
   end
 end
