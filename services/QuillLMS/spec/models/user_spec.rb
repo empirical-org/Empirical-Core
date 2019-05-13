@@ -473,11 +473,12 @@ describe User, type: :model do
   describe '#generate_teacher_account_info' do
     let(:user) { create(:user) }
     let(:premium_state) { double(:premium_state) }
-    let(:school) { double(:school) }
+    let(:school) { create(:school) }
     let(:hash) {
       user.attributes.merge!({
         subscription: {'subscriptionType' => premium_state},
-        school: school
+        school: school,
+        school_type: School::US_K12_SCHOOL_DISPLAY_NAME
         })
     }
 
