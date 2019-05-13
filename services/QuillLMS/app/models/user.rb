@@ -81,10 +81,6 @@ class User < ActiveRecord::Base
   PERMISSIONS_FLAGS = %w(auditor purchaser school_point_of_contact)
   VALID_FLAGS = TESTING_FLAGS.dup.concat(PERMISSIONS_FLAGS)
 
-  SECONDS_PER_DAY = 24 * 60 * 60
-
-  SATISMETER_MIN_ACCOUNT_DAYS = 5
-
   scope :teacher, lambda { where(role: 'teacher') }
   scope :student, lambda { where(role: 'student') }
 
@@ -327,14 +323,29 @@ class User < ActiveRecord::Base
     !role.temporary?
   end
 
+  ## Satismeter settings
+  SATISMETER_PERCENT_PER_DAY = 1.0
+  SATISMETER_ACTIVITIES_PER_STUDENT_THRESHOLD = 3.0
+  SATISMETER_NEW_USER_THRESHOLD = 60.days
+
   def show_satismeter?
-    teacher? && account_days_age >= SATISMETER_MIN_ACCOUNT_DAYS
+    teacher? && satismeter_feature_enabled? && satismeter_threshold_met?
   end
 
-  # returns an int
-  def account_days_age
-    (Time.zone.now - created_at).to_i / SECONDS_PER_DAY
+  def satismeter_threshold_met?
+    lessons_completed = ActivitySession.for_teacher(id).completed.count(:id)
+    student_count = students_i_teach.count('DISTINCT(users.id)')
+
+    (lessons_completed.to_f / student_count) >= SATISMETER_ACTIVITIES_PER_STUDENT_THRESHOLD
   end
+
+  # Enable for all new users and a small percentage of older users.
+  def satismeter_feature_enabled?
+    created_at >= SATISMETER_NEW_USER_THRESHOLD.ago ||
+    Feature.in_day_bucket?(id: id, percent_per_day: SATISMETER_PERCENT_PER_DAY)
+  end
+
+  ## End satismeter
 
   def admins_teachers
     schools = self.administered_schools.includes(:users)
