@@ -328,7 +328,7 @@ export default React.createClass({
 
         </div>
       </section>
-      <Snackbar text="Activity order saved." visible={this.state.snackbarVisible} />
+      <Snackbar text="Activity order saved" visible={this.state.snackbarVisible} />
       </div>
     );
   },
