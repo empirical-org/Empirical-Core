@@ -250,9 +250,18 @@ export default React.createClass({
   },
 
   updateSortOrder(sortableListState) {
-    if (sortableListState.items) {
-      this.setState({ activityOrder: sortableListState.items.map( (i) => i.props.data.activityId )},
-                    this.saveSortOrder);
+    // There are data states in which this update call is triggered with no items in the
+    // sortableListState.  If there are no items, there's nothing to do, so we bail
+    if (!sortableListState.items) return;
+
+    const startingSortOrder = this.state.activityOrder;
+    const newSortOrder = sortableListState.items.map( (i) => i.props.data.activityId );
+    // Check to see if the drag/drop action is completed
+    // (draggingIndex === null on drag initiation and termination, and a change in order
+    // guarantees that it isn't an initiation)
+    if (!startingSortOrder.every((e, i) => e == newSortOrder[i]) &&
+        sortableListState.draggingIndex === null) {
+      this.setState({activityOrder: newSortOrder}, this.saveSortOrder);
     }
   },
 
