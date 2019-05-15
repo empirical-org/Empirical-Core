@@ -13,7 +13,7 @@ describe UserLoginWorker, type: :worker do
 
   context 'when a teacher logs in' do
     it 'track teacher sign in' do
-      expect(analyzer).to receive(:track).with(teacher, SegmentIo::Events::TEACHER_SIGNIN)
+      expect(analyzer).to receive(:track).with(teacher, SegmentIo::BackgroundEvents::TEACHER_SIGNIN)
       worker.perform(teacher.id, "127.0.0.1")
     end
   end
@@ -21,11 +21,11 @@ describe UserLoginWorker, type: :worker do
   context 'when student with teacher logs in' do
 
     it 'track teacher student sign in and student sign in' do
-      expect(analyzer).to receive(:track).with(teacher, SegmentIo::Events::TEACHERS_STUDENT_SIGNIN)
+      expect(analyzer).to receive(:track).with(teacher, SegmentIo::BackgroundEvents::TEACHERS_STUDENT_SIGNIN)
       worker.perform(student.id, "127.0.0.1")
       expect(analyzer).to have_received(:track_with_attributes).with(
           student.reload,
-          SegmentIo::Events::STUDENT_SIGNIN,
+          SegmentIo::BackgroundEvents::STUDENT_SIGNIN,
           {
               context: { :ip => student.reload.ip_address },
               integrations: { all: true, Intercom: false }
@@ -42,7 +42,7 @@ describe UserLoginWorker, type: :worker do
       worker.perform(student.id, "127.0.0.1")
       expect(analyzer).to have_received(:track_with_attributes).with(
           student.reload,
-          SegmentIo::Events::STUDENT_SIGNIN,
+          SegmentIo::BackgroundEvents::STUDENT_SIGNIN,
           {
               context: { :ip => student.reload.ip_address },
               integrations: { all: true, Intercom: false }

@@ -108,7 +108,7 @@ describe Teachers::ClassroomsController, type: :controller do
       it 'should track the ownership transfer' do
         expect(analyzer).to receive(:track_with_attributes).with(
           owner,
-          SegmentIo::Events::TRANSFER_OWNERSHIP,
+          SegmentIo::BackgroundEvents::TRANSFER_OWNERSHIP,
           { properties: { new_owner_id: valid_coteacher.id.to_s } }
         )
         session[:user_id] = owner.id

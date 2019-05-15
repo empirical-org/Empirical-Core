@@ -13,7 +13,7 @@ describe FinishActivityWorker, type: :worker do
   end
 
   it 'sends a segment.io event' do
-    expect(analyzer).to receive(:track).with(activity_session.classroom_owner, SegmentIo::Events::ACTIVITY_COMPLETION)
+    expect(analyzer).to receive(:track).with(activity_session.classroom_owner, SegmentIo::BackgroundEvents::ACTIVITY_COMPLETION)
     worker.perform(activity_session.uid)
   end
 end
