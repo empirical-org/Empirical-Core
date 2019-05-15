@@ -13,6 +13,7 @@ import {punctuationAndCaseInsensitiveChecker} from '../matchers/punctuation_and_
 import {spacingBeforePunctuationChecker} from '../matchers/spacing_before_punctuation_match';
 import {spacingAfterCommaChecker} from '../matchers/spacing_after_comma_match';
 import {whitespaceChecker} from '../matchers/whitespace_match';
+import {wordsOutOfOrderChecker} from '../matchers/words_out_of_order_match';
 import {rigidChangeObjectChecker, flexibleChangeObjectChecker} from '../matchers/change_object_match';
 import {requiredWordsChecker} from '../matchers/required_words_match';
 import {minLengthChecker} from '../matchers/min_length_match';
@@ -70,6 +71,7 @@ function* firstPassMatchers(data: GradingObject, spellCorrected=false) {
   yield exactMatch(submission, responses);
   yield focusPointChecker(submission, focusPoints, responses);
   yield incorrectSequenceChecker(submission, incorrectSequences, responses);
+  yield wordsOutOfOrderChecker(submission, responses);
   yield caseInsensitiveChecker(submission, responses);
   yield punctuationInsensitiveChecker(submission, responses);
   yield punctuationAndCaseInsensitiveChecker(submission, responses);
