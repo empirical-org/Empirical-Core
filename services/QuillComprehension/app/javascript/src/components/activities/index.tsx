@@ -33,12 +33,14 @@ function activityQuery(activity_id:string) {
           id
           prompt
           order
+          instructions
         }
       }
       questions {
         id
         prompt
         order
+        instructions
       }
       vocabularyWords {
         id
