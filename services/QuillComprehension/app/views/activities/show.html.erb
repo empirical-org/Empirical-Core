@@ -49,7 +49,7 @@
     <%= link_to 'New Question Set', new_activity_question_set_path(@activity) %>
     </div>
   </div>
-  
+
 
   <h3>Questions</h3>
 
@@ -72,6 +72,7 @@
               <td><%= link_to 'Show', question %></td>
               <td><%= link_to 'Edit', edit_question_path(question) %></td>
               <td><%= link_to 'Destroy', question, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              <td><%= link_to 'Responses', question_responses_path(question) %></td>
             </tr>
           <% end %>
         </tbody>
@@ -114,6 +115,6 @@
     </div>
   </div>
 
-  
+
 
 </div>
