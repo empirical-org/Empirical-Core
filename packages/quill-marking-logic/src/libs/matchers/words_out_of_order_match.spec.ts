@@ -23,6 +23,10 @@ describe('The wordsOutOfOrderMatch function', () => {
       assert.equal(matchedResponse.id, savedResponses[0].id);
   });
 
+  if('Should not match a response when words are duplicated"', () => {
+      assert false;
+  }
+
 });
 
 describe('The wordsOutOfOrderChecker', () => {
