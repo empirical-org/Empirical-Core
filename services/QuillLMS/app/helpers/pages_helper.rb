@@ -127,7 +127,7 @@ module PagesHelper
 						img: 'thumb-rhea.png',
 						name: 'Rhea Wong',
 						title: 'Director of Strategic Initiatives',
-						desc: "Rhea supports Quill’s strategic partnerships, outreach and fundraising efforts. Rhea loves writing and wrote her first (self-published) book at the age of 8. She pursued her love of writing through college as the Editor in Chief of her campus paper. She was then called to mission-based work and has 15 years of experience in the nonprofit sector, 12 of them as Executive Director of Breakthrough New York. When she’s not at Quill, you can catch her on her podcast <a href='https://podcasts.apple.com/us/podcast/nonprofit-lowdown/id1436858854?ign-mpt=uo%3D4&mt=2'>Nonprofit Lowdown</a>. Rhea is a graduate of McGill University and has certificates in nonprofit management and fundraising from Columbia Business School and Harvard Kennedy School."
+						desc: "Rhea supports Quill’s strategic partnerships, outreach and fundraising efforts. Rhea loves writing and wrote her first (self-published) book at the age of 8. She pursued her love of writing through college as the Editor in Chief of her campus paper. She was then called to mission-based work and has 15 years of experience in the nonprofit sector, 12 of them as Executive Director of Breakthrough New York. When she’s not at Quill, you can catch her on her podcast #{link_to 'Nonprofit Lowdown', 'https://podcasts.apple.com/us/podcast/nonprofit-lowdown/id1436858854?ign-mpt=uo%3D4&mt=2'}. Rhea is a graduate of McGill University and has certificates in nonprofit management and fundraising from Columbia Business School and Harvard Kennedy School."
 					},
 				]
 			},
