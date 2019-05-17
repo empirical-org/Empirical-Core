@@ -101,7 +101,7 @@ module Demo::ReportDemoCreator
   end
 
   def self.create_unit_activities(unit)
-    activities = [413, 437, 434, 215, 41, 386, 289, 295, 418]
+    activities = [849, 437, 434, 215, 41, 386, 289, 295, 418]
     unit_activities = []
     activities.each do |act_id|
       values = {
@@ -123,7 +123,7 @@ module Demo::ReportDemoCreator
 
   def self.create_activity_sessions(students)
     templates = [
-      {413 => 657589,
+      {849 => 657589,
       437 => 313241,
       434 => 446637,
       215 => 369874,
@@ -134,7 +134,7 @@ module Demo::ReportDemoCreator
       418 => 662204},
 
 
-      {413 => 657588,
+      {849 => 657588,
       437 => 409030,
       434 => 313319,
       215 => 370995,
@@ -145,7 +145,7 @@ module Demo::ReportDemoCreator
       418 => 662204},
 
 
-      {413 => 657593,
+      {849 => 657593,
       437 => 446637,
       434 => 312664,
       215 => 369875,
@@ -156,7 +156,7 @@ module Demo::ReportDemoCreator
       418 => 662204},
 
 
-      {413 => 657586,
+      {849 => 657586,
       437 => 312664,
       434 => 313241,
       215 => 369883,
@@ -167,7 +167,7 @@ module Demo::ReportDemoCreator
       418 => 662204},
 
 
-      {413 => 657503,
+      {849 => 657503,
       437 => 446641,
       434 => 446641,
       215 => 369872,
@@ -180,17 +180,19 @@ module Demo::ReportDemoCreator
 
     students.each_with_index do |student, num|
       templates[num].each do |act_id, user_id|
-        temp = ActivitySession.unscoped.where({activity_id: act_id, user_id: user_id, is_final_score: true}).first 
-        cu = ClassroomUnit.where("#{student.id} = ANY (assigned_student_ids)").to_a.first
-        act_session = ActivitySession.create({activity_id: act_id, classroom_unit_id: cu.id, user_id: student.id, state: "finished", percentage: temp.percentage})
-        temp.concept_results.each do |cr|
-          values = {
-            activity_session_id: act_session.id,
-            concept_id: cr.concept_id,
-            metadata: cr.metadata,
-            question_type: cr.question_type
-          }
-          ConceptResult.create(values)
+        temp = ActivitySession.unscoped.where({activity_id: act_id, user_id: user_id, is_final_score: true}).first
+        if temp
+          cu = ClassroomUnit.where("#{student.id} = ANY (assigned_student_ids)").to_a.first
+          act_session = ActivitySession.create({activity_id: act_id, classroom_unit_id: cu.id, user_id: student.id, state: "finished", percentage: temp.percentage})
+          temp.concept_results.each do |cr|
+            values = {
+              activity_session_id: act_session.id,
+              concept_id: cr.concept_id,
+              metadata: cr.metadata,
+              question_type: cr.question_type
+            }
+            ConceptResult.create(values)
+          end
         end
       end
     end
