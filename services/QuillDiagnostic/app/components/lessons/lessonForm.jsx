@@ -133,7 +133,7 @@ class LessonForm extends React.Component {
   render() {
     return (
       <div className="box">
-        <h4 className="title">Add New Lesson</h4>
+        <h4 className="title">Add New Activity</h4>
         <p className="control">
           <label className="label">Name</label>
           <input
