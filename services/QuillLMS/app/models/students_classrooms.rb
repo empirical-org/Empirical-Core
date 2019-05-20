@@ -3,7 +3,7 @@ class StudentsClassrooms < ActiveRecord::Base
   belongs_to :student, class_name: "User"
   belongs_to :classroom, class_name: "Classroom"
   # validates uniqueness of student/classroom on db
-  after_save :checkbox, :run_associator, :archive_associations
+  after_save :checkbox, :run_associator, :archive_associations_if_archived
   after_commit :invalidate_classroom_minis
 
   default_scope { where(visible: true)}
@@ -12,18 +12,23 @@ class StudentsClassrooms < ActiveRecord::Base
     {joinDate: self.created_at.strftime("%m/%d/%Y"), className: self.classroom.name, teacherName: self.classroom.owner.name, id: self.id}
   end
 
-  def archive_associations
+  def archive_associations_if_archived
     if !self.visible && self.student && self.classroom
-      classroom_units = ClassroomUnit.where("classroom_id = ? AND ? = ANY (assigned_student_ids)", self.classroom_id, self.student_id)
-      classroom_unit_ids = []
-      classroom_units.each do |cu|
-        classroom_unit_ids.push(cu.id)
-        new_assigned_student_ids = cu.assigned_student_ids - [self.student_id]
-        cu.update(assigned_student_ids: new_assigned_student_ids)
-      end
-      activity_sessions = ActivitySession.where(user_id: self.student_id, classroom_unit_id: classroom_unit_ids)
-      activity_sessions.update_all(visible: false)
+      archive_associations
     end
+  end
+
+  def archive_associations
+    student_id = self.student_id
+    classroom_units = ClassroomUnit.where("classroom_id = ? AND ? = ANY (assigned_student_ids)", self.classroom_id, student_id)
+    classroom_unit_ids = []
+    classroom_units.each do |cu|
+      classroom_unit_ids.push(cu.id)
+      new_assigned_student_ids = cu.assigned_student_ids - [student_id]
+      cu.update(assigned_student_ids: new_assigned_student_ids)
+    end
+    activity_sessions = ActivitySession.where(user_id: student_id, classroom_unit_id: classroom_unit_ids)
+    activity_sessions.update_all(visible: false)
   end
 
   private
