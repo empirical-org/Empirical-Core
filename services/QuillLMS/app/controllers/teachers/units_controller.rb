@@ -132,15 +132,13 @@ class Teachers::UnitsController < ApplicationController
   # :activity_id (in url)
   # :classroom_unit_id
   def score_info
-    classroom_unit = ClassroomUnit.find(params[:classroom_unit_id])
-    student_ids = classroom_unit.classroom.student_ids
     completed = ActivitySession.where(
-      classroom_unit_id: classroom_unit.id,
+      classroom_unit_id: params[:classroom_unit_id],
       activity_id: params[:activity_id],
       is_final_score: true,
-      visible: true,
-      user_id: student_ids
+      visible: true
     )
+
     completed_count = completed.count
     cumulative_score = completed.sum(:percentage) * 100
 
