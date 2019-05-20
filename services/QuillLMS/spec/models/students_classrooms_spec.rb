@@ -4,7 +4,7 @@ describe StudentsClassrooms, type: :model, redis: :true do
   it { should belong_to(:student).class_name('User') }
   it { should belong_to(:classroom).class_name("Classroom") }
 
-  it { is_expected.to callback(:checkbox).after(:save) }  
+  it { is_expected.to callback(:checkbox).after(:save) }
   it { is_expected.to callback(:run_associator).after(:save) }
   it { is_expected.to callback(:invalidate_classroom_minis).after(:commit) }
 
@@ -38,6 +38,24 @@ describe StudentsClassrooms, type: :model, redis: :true do
       it 'should run the students to classrooms associator' do
         expect(Associators::StudentsToClassrooms).to receive(:run).with(students_classrooms.student, students_classrooms.classroom)
         students_classrooms.save
+      end
+    end
+
+    context '#archive_associations_if_archived' do
+      let(:student) { create(:student_in_two_classrooms_with_many_activities) }
+      let(:student_classroom) { StudentsClassrooms.find_by(student_id: student.id) }
+
+      it "should remove the student's id from assigned_student_ids array from that classroom's classroom units" do
+        student_classroom.update(visible: false)
+        classroom_units = ClassroomUnit.where("classroom_id = #{student_classroom.classroom_id} AND #{student.id} = ANY (assigned_student_ids)")
+        expect(classroom_units.length).to eq(0)
+      end
+
+      it "should archive the student's activity sessions for that classroom's classroom units" do
+        student_classroom.update(visible: false)
+        classroom_unit_ids = ClassroomUnit.where(classroom_id: student_classroom.classroom_id).ids
+        activity_sessions = ActivitySession.where(classroom_unit_id: classroom_unit_ids, user_id: student.id)
+        expect(activity_sessions.count).to eq(0)
       end
     end
 
