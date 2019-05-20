@@ -1,12 +1,12 @@
-### WHAT
+## WHAT
 
-### WHY
+## WHY
 
-### HOW
+## HOW
 
-### Screenshots
+## Screenshots
 (If applicable. Also, please censor any sensitive data)
 
-### Have you added and/or updated tests?
+## Have you added and/or updated tests?
 (The answer should mostly be 'YES'. If you answer 'NO', please justify.)
 
