@@ -1171,4 +1171,13 @@ describe User, type: :model do
       expect(ReferrerUser.count).to be(referrer_users)
     end
   end
+
+  describe 'satismeter' do
+    it 'should have basic working gate logic' do
+      teacher = create(:teacher)
+      expect(teacher.show_satismeter?).to be false
+      expect(teacher.satismeter_feature_enabled?).to be true
+      expect(teacher.satismeter_threshold_met?).to be false
+    end
+  end
 end
