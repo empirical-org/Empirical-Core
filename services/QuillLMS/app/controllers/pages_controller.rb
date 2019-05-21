@@ -370,6 +370,10 @@ class PagesController < ApplicationController
   def referrals_toc
   end
 
+  def style_guide
+    @style_file = 'staff'
+  end
+
   private
 
   def determine_layout
@@ -387,6 +391,8 @@ class PagesController < ApplicationController
       @js_file = 'public'
     when 'grammar_tool', 'connect_tool', 'grammar_tool', 'proofreader_tool', 'lessons_tool'
       @js_file = 'tools'
+    when 'style_guide'
+      @js_file = 'staff'
     end
   end
 
