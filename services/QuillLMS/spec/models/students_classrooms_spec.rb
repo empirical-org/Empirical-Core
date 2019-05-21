@@ -41,7 +41,7 @@ describe StudentsClassrooms, type: :model, redis: :true do
       end
     end
 
-    context '#archive_student_associations_for_classroom_if_archived' do
+    context '#archive_student_associations_for_classroom' do
       let(:student) { create(:student_in_two_classrooms_with_many_activities) }
       let(:student_classroom) { StudentsClassrooms.find_by(student_id: student.id) }
 
