@@ -37,8 +37,13 @@ class ActivitySession < ActiveRecord::Base
   # FIXME: do we need the below? if we omit it, may make things faster
   default_scope -> { joins(:activity) }
 
-  scope :completed,  -> { where('completed_at is not null') }
-  scope :incomplete, -> { where('completed_at is null').where('is_retry = false') }
+  scope :completed,  -> { where.not(completed_at: nil) }
+  scope :incomplete, -> { where(completed_at: nil, is_retry: false) }
+
+  scope :for_teacher, -> (teacher_id) {
+    joins(classroom_unit: {classroom: :teachers})
+    .where(users: { id: teacher_id})
+  }
   # scope :started_or_better, -> { where("state != 'unstarted'") }
   #
   # scope :current_session, -> {
