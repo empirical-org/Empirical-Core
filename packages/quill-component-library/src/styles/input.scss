@@ -15,6 +15,7 @@
     font-size: 16px;
     padding: 0px 0px 3px;
     color: #000;
+    height: 25px;
     -webkit-transition: all 0.2s ease-in;
     -moz-transition: all 0.2s ease-in;
     -o-transition: all 0.2s ease-in;
@@ -30,17 +31,6 @@
     -o-transition: all 0.2s ease-in;
     transition: all 0.2s ease-in;
   }
-  &.dropdown-container {
-    &:not(.has-text) {
-      label {
-        margin-bottom: -24px;
-        z-index: 1;
-      }
-      .dropdown__value-container {
-        height: 25px;
-      }
-    }
-  }
   .dropdown {
     margin-bottom: 8px;
     &:focus {
@@ -50,9 +40,15 @@
       background: url('https://assets.quill.org/images/icons/dropdown.svg');
       width: 0;
       height: 0;
+      margin-bottom: 10px;
     }
     .dropdown {
       border-bottom: none !important;
+    }
+    .dropdown__menu {
+      border-radius: 0px 0px 4px 4px;
+      margin-top: -4px;
+      box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0 1px 18px 0 rgba(0, 0, 0, 0.12), 0 6px 10px 0 rgba(0, 0, 0, 0.14);
     }
     .dropdown__control {
       min-height: 0px;
@@ -63,6 +59,13 @@
       outline: none !important;
       box-shadow: none !important;
       border-radius: 0px !important;
+    }
+    .dropdown__control--menu-is-open {
+      height: 24px;
+    }
+    .dropdown__placeholder {
+      top: 27%;
+      margin-left: 0px;
     }
     .dropdown__value {
       border: solid 2px #009a80;
@@ -77,6 +80,7 @@
       color: #000;
       font-size: 16px;
       margin-left: 0px;
+      top: 30%;
       .css-1g6gooi {
         margin: 0px;
         padding-top: 0px;
@@ -109,7 +113,8 @@
       input {
         border: none;
         margin-bottom: 0px;
-        padding: 0px;
+        box-sizing: border-box !important;
+        padding: 0px 0px 15px !important;
       }
     }
     .dropdown__option {
@@ -124,7 +129,6 @@
   &.inactive {
     &.has-text {
       input {
-        height: inherit;
         padding: 0px 0px 4px;
       }
       label {
@@ -135,9 +139,29 @@
         margin-bottom: 5px;
       }
     }
+    &:not(.has-text) {
+      input {
+        height: 1px;
+      }
+      &.dropdown-container {
+        label {
+          margin-bottom: -21px;
+          z-index: 1;
+          margin-top: 20px;
+        }
+        .dropdown__value-container {
+          height: 25px;
+        }
+        .dropdown__indicators {
+          padding-top: 4px;
+        }
+      }
+    }
+    .dropdown__placeholder {
+      display: none;
+    }
     input {
       border: 1px #e0e0e0;
-      height: 1px;
       padding: 0px;
       border-style: none none solid none;
     }
@@ -162,6 +186,7 @@
         padding: 0px 0px 3px;
         border: 1px #e0e0e0;
         border-style: none none solid;
+        height: 25px;
       }
     }
   }
@@ -177,6 +202,11 @@
     }
     &.not-editable {
       min-height: 0px;
+      .dropdown__menu {
+        border-radius: 4px;
+        margin-top: 8px;
+        box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0 1px 18px 0 rgba(0, 0, 0, 0.12), 0 6px 10px 0 rgba(0, 0, 0, 0.14);
+      }
       label, .dropdown__control {
         display: none;
       }
