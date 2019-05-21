@@ -181,18 +181,17 @@ module Demo::ReportDemoCreator
     students.each_with_index do |student, num|
       templates[num].each do |act_id, user_id|
         temp = ActivitySession.unscoped.where({activity_id: act_id, user_id: user_id, is_final_score: true}).first
-        if temp
-          cu = ClassroomUnit.where("#{student.id} = ANY (assigned_student_ids)").to_a.first
-          act_session = ActivitySession.create({activity_id: act_id, classroom_unit_id: cu.id, user_id: student.id, state: "finished", percentage: temp.percentage})
-          temp.concept_results.each do |cr|
-            values = {
-              activity_session_id: act_session.id,
-              concept_id: cr.concept_id,
-              metadata: cr.metadata,
-              question_type: cr.question_type
-            }
-            ConceptResult.create(values)
-          end
+        next unless temp
+        cu = ClassroomUnit.where("#{student.id} = ANY (assigned_student_ids)").to_a.first
+        act_session = ActivitySession.create({activity_id: act_id, classroom_unit_id: cu.id, user_id: student.id, state: "finished", percentage: temp.percentage})
+        temp.concept_results.each do |cr|
+          values = {
+            activity_session_id: act_session.id,
+            concept_id: cr.concept_id,
+            metadata: cr.metadata,
+            question_type: cr.question_type
+          }
+          ConceptResult.create(values)
         end
       end
     end
