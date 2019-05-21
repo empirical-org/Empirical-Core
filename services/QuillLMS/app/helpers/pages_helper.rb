@@ -108,8 +108,8 @@ module PagesHelper
           {
             img: 'thumb-emma.png',
             name: 'Emma Volk',
-            title: 'Editorial Associate',
-            desc: "Emma is an editorial associate with a love for writing. She has an undergraduate degree in English from Columbia University and a master’s degree in English from the University of Oxford."
+            title: 'Curriculum Developer',
+            desc: "Emma is a curriculum developer with a love for writing. She has an undergraduate degree in English from Columbia University and a master’s degree in English from the University of Oxford."
           },
 					{
 						img: 'thumb-thomas.jpg',
@@ -123,6 +123,12 @@ module PagesHelper
             title: 'Editorial and Outreach Associate',
             desc: "Rachel is a curriculum and outreach associate who joined Quill full-time after working as an education team intern. Rachel worked as an ELL teacher before her time at Quill, and she has an undergraduate degree in Mandarin Chinese and International Affairs from Wofford College."
           },
+					{
+						img: 'thumb-rhea.png',
+						name: 'Rhea Wong',
+						title: 'Director of Strategic Initiatives',
+						desc: "Rhea supports Quill’s strategic partnerships, outreach and fundraising efforts. Rhea loves writing and wrote her first (self-published) book at the age of 8. She pursued her love of writing through college as the Editor in Chief of her campus paper. She was then called to mission-based work and has 15 years of experience in the nonprofit sector, 12 of them as Executive Director of Breakthrough New York. When she’s not at Quill, you can catch her on her podcast #{link_to 'Nonprofit Lowdown', 'https://podcasts.apple.com/us/podcast/nonprofit-lowdown/id1436858854?ign-mpt=uo%3D4&mt=2'}. Rhea is a graduate of McGill University and has certificates in nonprofit management and fundraising from Columbia Business School and Harvard Kennedy School."
+					},
 				]
 			},
 			{

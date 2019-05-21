@@ -119,12 +119,12 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
     const hasText = value ? 'has-text' : ''
     const inactiveOrActive = inactive ? 'inactive' : 'active'
     const notEditable = isSearchable ? '' : 'not-editable'
-    const sharedClasses = `${inactiveOrActive} ${hasText} ${notEditable} ${className}`
+    const sharedClasses = `dropdown-container input-container ${inactiveOrActive} ${hasText} ${notEditable} ${className}`
     if (error) {
       if (errorAcknowledged) {
         return (
           <div
-            className={`input-container error ${sharedClasses}`}
+            className={`error ${sharedClasses}`}
             ref={node => this.node = node}
             onClick={this.activateInput}
           >
@@ -148,7 +148,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
       } else {
         return (
           <div
-            className={`input-container error unacknowledged ${sharedClasses}`}
+            className={`error unacknowledged ${sharedClasses}`}
             onClick={this.acknowledgeError}
             ref={node => this.node = node}
           >
@@ -171,7 +171,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
     } else if (inactive) {
       return (
         <div
-          className={`input-container ${sharedClasses}`}
+          className={`${sharedClasses}`}
           onClick={this.activateInput}
           ref={node => this.node = node}
         >
@@ -194,7 +194,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
     } else {
       return (
         <div
-          className={`input-container dropdown ${sharedClasses}`}
+          className={`dropdown ${sharedClasses}`}
           ref={node => this.node = node}
         >
           <label>{label}</label>
