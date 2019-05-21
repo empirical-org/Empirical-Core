@@ -116,7 +116,7 @@ class SchoolSelector extends React.Component {
         <span className="metadata">{numberOfTeachersText}</span>
       </li>)
     })
-    return <ul className="list double-line">{schoolItems}</ul>
+    return <ul className="list quill-list double-line">{schoolItems}</ul>
   }
 
   renderLoading() {
