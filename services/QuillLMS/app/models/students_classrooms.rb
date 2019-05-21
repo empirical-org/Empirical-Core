@@ -3,7 +3,8 @@ class StudentsClassrooms < ActiveRecord::Base
   belongs_to :student, class_name: "User"
   belongs_to :classroom, class_name: "Classroom"
   # validates uniqueness of student/classroom on db
-  after_save :checkbox, :run_associator, :archive_associations_if_archived
+  after_save :checkbox, :run_associator
+  after_save :archive_student_associations_for_classroom, if: Proc.new { |sc| !sc.visible && sc.student && sc.classroom }
   after_commit :invalidate_classroom_minis
 
   default_scope { where(visible: true)}
@@ -12,15 +13,9 @@ class StudentsClassrooms < ActiveRecord::Base
     {joinDate: self.created_at.strftime("%m/%d/%Y"), className: self.classroom.name, teacherName: self.classroom.owner.name, id: self.id}
   end
 
-  def archive_associations_if_archived
-    if !self.visible && self.student && self.classroom
-      archive_associations
-    end
-  end
-
-  def archive_associations
+  def archive_student_associations_for_classroom
     student_id = self.student_id
-    classroom_units = ClassroomUnit.where("classroom_id = ? AND ? = ANY (assigned_student_ids)", self.classroom_id, student_id)
+    classroom_units = ClassroomUnit.where(classroom_id: self.classroom_id).where.contains(assigned_student_ids: [student_id])
     classroom_unit_ids = []
     classroom_units.each do |cu|
       classroom_unit_ids.push(cu.id)
