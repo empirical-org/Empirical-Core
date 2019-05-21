@@ -1,6 +1,8 @@
 import ReactOnRails from 'react-on-rails';
-import ConceptsIndex from './ConceptsIndex';
 import 'antd/dist/antd.css';
-import '../styles/styles.scss';
 
-ReactOnRails.register({ ConceptsIndex, });
+import '../styles/styles.scss';
+import ConceptsIndex from './ConceptsIndex.tsx';
+import StyleGuideIndex from '../containers/StyleGuideIndex.tsx'
+
+ReactOnRails.register({ ConceptsIndex, StyleGuideIndex, });
