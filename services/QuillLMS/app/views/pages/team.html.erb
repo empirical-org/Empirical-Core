@@ -13,7 +13,7 @@
               <h4> <%= person[:name] %> </h4>
               <h5> <%= person[:title] %> </h5>
             </div>
-            <p> <%= person[:desc] %> </p>
+            <p> <%= raw person[:desc] %> </p>
           </div>
         <% end %>
       </div>
