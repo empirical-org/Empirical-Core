@@ -1,0 +1,11 @@
+<script>
+  (function() { window.satismeter = window.satismeter || function() {(window.satismeter.q = window.satismeter.q || []).push(arguments);};window.satismeter.l = 1 * new Date();var script = document.createElement("script");var parent = document.getElementsByTagName("script")[0].parentNode;script.async = 1;script.src = "https://app.satismeter.com/satismeter.js";parent.appendChild(script);})();
+
+  satismeter({
+    writeKey: "<%= ENV["SATISMETER_API_KEY"] %>",
+    userId: "<%= current_user.try!(:id) %>",
+    traits: {
+      createdAt: "<%= current_user.try!(:created_at).to_s(:iso8601) %>"
+    }
+  });
+</script>
