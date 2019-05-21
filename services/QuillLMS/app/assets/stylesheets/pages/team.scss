@@ -24,6 +24,10 @@
     border-radius: 5px;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
 
+    a {
+      color: $quillgreen;
+    }
+
     .meta-container {
       background: $quillgreen;
       border-radius: 5px 5px 0 0;

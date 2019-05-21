@@ -6,7 +6,7 @@ const ArchivedButton = (props) => {
     tagClass += ' is-info';
   }
 
-  const text = props.lessons ? "Lessons With Archived Questions" : "Archived Questions";
+  const text = props.lessons ? "Activities With Archived Questions" : "Archived Questions";
 
   return (
     <div style={{display: 'inline-block', paddingLeft: '50px'}}>
