@@ -44,9 +44,10 @@ class ClassroomUnit < ActiveRecord::Base
 
   def remove_assigned_student(student_id)
     new_assigned_student_ids = assigned_student_ids - [student_id]
-    self.update(assigned_student_ids: new_assigned_student_ids)
-    activity_sessions = ActivitySession.where(user_id: student_id, classroom_unit_id: self.id)
-    activity_sessions.update_all(visible: false)
+    # we need to set assign_on_join to false so that the student doesn't get added back
+    # in by the #check_for_assign_on_join_and_update_students_array_if_true method.
+    # if assign on join should still be true the aforementioned method will set it.
+    self.update(assigned_student_ids: new_assigned_student_ids, assign_on_join: false)
   end
 
   private
