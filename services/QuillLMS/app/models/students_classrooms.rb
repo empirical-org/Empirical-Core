@@ -14,16 +14,7 @@ class StudentsClassrooms < ActiveRecord::Base
   end
 
   def archive_student_associations_for_classroom
-    student_id = self.student_id
-    classroom_units = ClassroomUnit.where(classroom_id: self.classroom_id).where.contains(assigned_student_ids: [student_id])
-    classroom_unit_ids = []
-    classroom_units.each do |cu|
-      classroom_unit_ids.push(cu.id)
-      new_assigned_student_ids = cu.assigned_student_ids - [student_id]
-      cu.update(assigned_student_ids: new_assigned_student_ids)
-    end
-    activity_sessions = ActivitySession.where(user_id: student_id, classroom_unit_id: classroom_unit_ids)
-    activity_sessions.update_all(visible: false)
+    ArchiveStudentAssociationsForClassroomWorker.perform_async(student_id, classroom_id)
   end
 
   private

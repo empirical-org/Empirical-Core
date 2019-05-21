@@ -42,6 +42,13 @@ class ClassroomUnit < ActiveRecord::Base
     {teacher: self.classroom&.owner&.name, classroom: self.classroom&.name}
   end
 
+  def remove_assigned_student(student_id)
+    new_assigned_student_ids = assigned_student_ids - [student_id]
+    self.update(assigned_student_ids: new_assigned_student_ids)
+    activity_sessions = ActivitySession.where(user_id: student_id, classroom_unit_id: self.id)
+    activity_sessions.update_all(visible: false)
+  end
+
   private
 
   def hide_unassigned_activity_sessions
