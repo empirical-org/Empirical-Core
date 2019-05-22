@@ -110,9 +110,16 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
   }
 
   generateInputs(promptArray) {
-    const inputs:Array<string> = [];
-    for (let i = 0; i < promptArray.length - 2; i++) {
-      inputs.push('');
+    let inputs:Array<string> = [];
+    const latestAttempt = this.getLatestAttempt();
+    if (latestAttempt) {
+      const text = latestAttempt.response.text
+      const promptRegex = new RegExp(promptArray.join('|'), 'i')
+      inputs = text.split(promptRegex).filter(input => input.length)
+    } else {
+      for (let i = 0; i < promptArray.length - 2; i++) {
+        inputs.push('');
+      }
     }
     return inputs;
   }
