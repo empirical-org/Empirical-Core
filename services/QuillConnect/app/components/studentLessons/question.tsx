@@ -50,18 +50,24 @@ const playLessonQuestion = React.createClass<any, any>({
   },
 
   componentDidMount() {
+    const { question, } = this.props
     getGradedResponsesWithCallback(
-      this.props.question.key,
+      question.key,
       (data) => {
         this.setState({ responses: data, });
       }
     );
     getMultipleChoiceResponseOptionsWithCallback(
-      this.props.question.key,
+      question.key,
       (data) => {
         this.setState({ multipleChoiceResponseOptions: _.shuffle(data), });
       }
     );
+    const numberOfAttempts = question.attempts.length
+    if (numberOfAttempts) {
+      const lastSubmitted = question.attempts[numberOfAttempts - 1]
+      this.setState({ response: lastSubmitted.response.text, })
+    }
   },
 
   shouldComponentUpdate(nextProps, nextState) {
