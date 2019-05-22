@@ -8,13 +8,6 @@ class PlaySentenceFragment extends Component {
     super(props);
   }
 
-  shouldComponentUpdate(nextProps) {
-    if (nextProps.question.key !== this.props.question.key) {
-      return true;
-    }
-    return false;
-  }
-
   render() {
     return (
       <SentenceFragmentTemplate {...this.props} handleAttemptSubmission={() => {}} />
