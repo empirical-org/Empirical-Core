@@ -90,7 +90,7 @@ const Lesson = React.createClass({
       const numberOfQuestions = data[lessonID].questions ? data[lessonID].questions.length : 0;
       return (
         <div>
-          <Link to={'admin/lessons'}>Return to All Lessons</Link>
+          <Link to={'admin/lessons'}>Return to All Activities</Link>
           <br />
           {this.renderEditLessonForm()}
           <h4 className="title">{data[lessonID].name}</h4>
@@ -100,7 +100,7 @@ const Lesson = React.createClass({
           <h6 className="subtitle"><Link to={`play/diagnostic/${lessonID}`}>Play Diagnostic</Link></h6>
           <h6 className="subtitle"><Link to={`admin/lessons/${lessonID}/results`}>View Results</Link></h6>
           <p className="control">
-            <button className="button is-info" onClick={this.editLesson}>Edit Lesson</button> <button className="button is-danger" onClick={this.deleteLesson}>Delete Lesson</button>
+            <button className="button is-info" onClick={this.editLesson}>Edit Activity</button> <button className="button is-danger" onClick={this.deleteLesson}>Delete Activity</button>
           </p>
           {this.renderQuestionsForLesson()}
         </div>

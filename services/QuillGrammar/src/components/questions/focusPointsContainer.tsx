@@ -81,7 +81,7 @@ export class FocusPointsContainer extends React.Component {
               </p>
             </header>
             <div className="card-content">
-              <p className="control title is-4" dangerouslySetInnerHTML={{ __html: '<strong>Feedback</strong>: ' + fp.feedback, }} />
+              <p className="control" dangerouslySetInnerHTML={{ __html: '<strong>Feedback</strong>: ' + fp.feedback + '<br/>' }} />
               {this.renderConceptResults(fp.conceptResults, fp.key)}
             </div>
             <footer className="card-footer">
