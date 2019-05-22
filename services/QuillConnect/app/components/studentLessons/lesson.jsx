@@ -29,7 +29,11 @@ const Lesson = React.createClass({
   },
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.playLesson.answeredQuestions.length !== this.props.playLesson.answeredQuestions.length) {
+    const answeredQuestionsHasChanged = nextProps.playLesson.answeredQuestions.length !== this.props.playLesson.answeredQuestions.length
+    const nextPropsAttemptsLength = nextProps.playLesson.currentQuestion && nextProps.playLesson.currentQuestion.question && nextProps.playLesson.currentQuestion.question.attempts ? nextProps.playLesson.currentQuestion.question.attempts.length : 0
+    const thisPropsAttemptsLength = this.props.playLesson.currentQuestion && nextProps.playLesson.currentQuestion.question && this.props.playLesson.currentQuestion.question.attempts ? this.props.playLesson.currentQuestion.question.attempts.length : 0
+    const attemptsHasChanged = nextPropsAttemptsLength !== thisPropsAttemptsLength
+    if (answeredQuestionsHasChanged || attemptsHasChanged) {
       this.saveSessionData(nextProps.playLesson);
     }
   },
