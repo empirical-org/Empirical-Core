@@ -204,3 +204,5 @@ gem 'sqreen'
 gem 'paperclip'
 
 gem 'graphiql-rails', group: :development
+
+gem 'rb-readline'
