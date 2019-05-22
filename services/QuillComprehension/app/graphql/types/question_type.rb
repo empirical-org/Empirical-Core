@@ -5,6 +5,7 @@ class Types::QuestionType < Types::BaseObject
   field :activity_id, Integer, null: false
   field :order, Integer, null: false
   field :prompt, String, null: false
+  field :instructions, String, null: true
 
   field :responses, [Types::ResponseType, null: true], null: false
 
