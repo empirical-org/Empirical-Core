@@ -40,16 +40,25 @@ const PlaySentenceFragment = React.createClass<any, any>({
     return false;
   },
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.question && !this.state.responses) {
+  componentDidMount() {
+    const question = this.props.question
+    if (question && !this.state.responses) {
       getGradedResponsesWithCallback(
-        this.props.question.key,
+        question.key,
         (data) => {
           this.setState({ responses: data, });
         }
       )
     }
 
+    const attemptLength = question.attempts.length
+    if (attemptLength) {
+      const lastSubmission = question.attempts[attemptLength - 1]
+      this.setState({ response: lastSubmission.response.text })
+    }
+  },
+
+  componentWillReceiveProps(nextProps) {
     if (nextProps.question.attempts.length !== this.props.question.attempts.length) {
       this.setState({editing: false})
     }
