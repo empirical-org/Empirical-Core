@@ -61,6 +61,7 @@ RSpec.configure do |config|
   config.include SanitizationHelper
   config.include SessionHelper
   config.include FactoryBot::Syntax::Methods
+  config.include ActiveSupport::Testing::TimeHelpers
 
   # Ensure that if we are running js tests, we are using latest webpack assets
   # This will use the defaults of :js and :server_rendering meta tags
