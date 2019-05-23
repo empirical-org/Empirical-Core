@@ -30,9 +30,6 @@ export default class SortableList extends React.Component {
   }
 
   render() {
-    const childProps = {
-      className: 'myClass1'
-    };
     const listItems = this.state.data.items.map(function(item, i) {
       return (
         <SortableListItem
@@ -42,7 +39,6 @@ export default class SortableList extends React.Component {
           draggingIndex={this.state.draggingIndex}
           sortId={i}
           outline="list"
-          childProps={childProps}
           >
             {item}
           </SortableListItem>

@@ -296,14 +296,6 @@ export default React.createClass({
       return null;
     }
 
-    let row_style = {
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      height: '60px',
-      border: '1px dashed #cecece',
-    };
-
     return (
       <div>
       <section className="activities-unit">
