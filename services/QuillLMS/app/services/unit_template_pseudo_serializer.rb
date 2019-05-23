@@ -55,6 +55,7 @@ class UnitTemplatePseudoSerializer
         activities.description,
         activity_classifications.key,
         activity_classifications.id AS activity_classification_id,
+        activity_classifications.name AS activity_classification_name,
         topics.id AS topic_id,
         topics.name AS topic_name,
         sections.name AS section_name,
@@ -85,7 +86,7 @@ class UnitTemplatePseudoSerializer
             name: act['topic_category_name']
           }
         },
-        classification: {key: act['key'], id: act['activity_classification_id']}
+        classification: {key: act['key'], id: act['activity_classification_id'], name: act['activity_classification_name']}
       }
     end
   end
