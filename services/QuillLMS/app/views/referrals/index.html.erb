@@ -1,6 +1,9 @@
 <%= render partial: 'teachers/shared/scorebook_tabs' %>
 
 <div id='champion-container'>
+  <div id='snackbar' class='quill-snackbar'>
+    Link Copied!
+  </div>
   <div id='champion-hero'>
     <%= image_tag "gift.svg" %>
     <h1>Get 4 weeks of Premium for every teacher you refer.</h1>
@@ -71,6 +74,7 @@
   function copy() {
     document.querySelector('#referral-input').select();
     document.execCommand('copy');
+    showSnackbar()
   }
 
   document.querySelector('#referral-input').addEventListener('click', function(event) {
@@ -90,6 +94,15 @@
     window.setTimeout(function() {
       document.getElementById('success-message').style.display = 'none';
     }, 5000);
+  }
+
+  function showSnackbar() {
+    const snackbar = document.getElementById('snackbar')
+    const initialClasses = snackbar.className
+    snackbar.className = initialClasses.concat(' visible')
+    window.setTimeout(() => {
+      snackbar.className = initialClasses
+    }, 7000)
   }
 
   function sendReferralEmail() {
