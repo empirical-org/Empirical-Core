@@ -4893,6 +4893,9 @@ button.close {
 .tooltip-inner p {
   margin-top: 20px;
   font-weight: 300;
+  white-space: pre-wrap;
+  font-size: 14px;
+  color: #666;
 }
 .tooltip-inner h1 {
   font-size: 14px;
