@@ -206,7 +206,7 @@ export default React.createClass({
     }
     this.setState({snackbarVisible: true, snackbarFadeTimer: setTimeout(() => {
       this.setState({snackbarVisible: false});
-    }, 3000)});
+    }, 7000)});
   },
 
   updateActivitiesApi(unitId, payload, success, error) {
