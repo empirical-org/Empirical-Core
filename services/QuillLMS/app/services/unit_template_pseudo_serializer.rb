@@ -49,9 +49,20 @@ class UnitTemplatePseudoSerializer
   end
 
   def activities
-    activities = ActiveRecord::Base.connection.execute("SELECT activities.id, activities.name, activities.flags, activity_classifications.key, activity_classifications.id AS activity_classification_id, topics.id AS topic_id, topics.name AS topic_name, topic_categories.id AS topic_category_id, topic_categories.name AS topic_category_name
+    activities = ActiveRecord::Base.connection.execute("SELECT activities.id,
+        activities.name,
+        activities.flags,
+        activities.description,
+        activity_classifications.key,
+        activity_classifications.id AS activity_classification_id,
+        topics.id AS topic_id,
+        topics.name AS topic_name,
+        sections.name AS section_name,
+        topic_categories.id AS topic_category_id,
+        topic_categories.name AS topic_category_name
       FROM activities
       INNER JOIN topics ON topics.id = activities.topic_id
+      INNER JOIN sections ON topics.section_id = sections.id
       INNER JOIN topic_categories ON topics.topic_category_id = topic_categories.id
       INNER JOIN activities_unit_templates ON activities.id = activities_unit_templates.activity_id
       INNER JOIN activity_classifications ON activities.activity_classification_id = activity_classifications.id
@@ -64,6 +75,8 @@ class UnitTemplatePseudoSerializer
         id: act['id'],
         name: act['name'],
         flags: act['flags'],
+        description: act['description'],
+        section_name: act['section_name'],
         topic: {
           id: act['topic_id'],
           name: act['topic_name'],
