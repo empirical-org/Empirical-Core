@@ -25,14 +25,32 @@ const savedResponses: Array<Response> = [
 
 describe('The wordsOutOfOrderMatch function', () => {
 
-  it('Should match the optimal saved response when the words are rearranged', () => {
+  it('should match the optimal saved response when the words are rearranged', () => {
       const responseString:string = "My dog a took nap.";
+      const matchedResponse = wordsOutOfOrderMatch(responseString, savedResponses);
+      assert.equal(matchedResponse.id, savedResponses[0].id);
+  });
+
+  it('should match even if the swapped words are next to punctuation', () => {
+      const responseString:string = "My dog took nap a.";
+      const matchedResponse = wordsOutOfOrderMatch(responseString, savedResponses);
+      assert.equal(matchedResponse.id, savedResponses[0].id);
+  });
+
+  it('should match even if the swapped words involve swapped capitalization', () => {
+      const responseString:string = "Dog my took a nap.";
       const matchedResponse = wordsOutOfOrderMatch(responseString, savedResponses);
       assert.equal(matchedResponse.id, savedResponses[0].id);
   });
 
   it('Should not match a response when words are duplicated"', () => {
       const responseString:string = "My dog took a took nap.";
+      const matchedResponse = wordsOutOfOrderMatch(responseString, savedResponses);
+      assert.isUndefined(matchedResponse);
+  });
+
+  it('should not match a response if the words are in order', () => {
+      const responseString:string = "My dog took a nap.";
       const matchedResponse = wordsOutOfOrderMatch(responseString, savedResponses);
       assert.isUndefined(matchedResponse);
   });

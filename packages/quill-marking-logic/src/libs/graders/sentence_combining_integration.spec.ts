@@ -40,6 +40,12 @@ describe('The checking a sentence combining question', () => {
       assert.equal(matchedResponse.feedback, incorrectSequences[0].feedback);
     });
 
+    it('should be able to find a match even if some of the words are out of order.', () => {
+      const questionString: string = "Bats have fly, so they can wings.";
+      const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences, responses[0].question_uid);
+      assert.equal(matchedResponse.feedback, feedbackStrings.wordsOutOfOrderError);
+    });
+
     it('should be able to find a case insensitive match', () => {
       const questionString = "bats have wings, so they can fly."
       const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences, responses[0].question_uid);

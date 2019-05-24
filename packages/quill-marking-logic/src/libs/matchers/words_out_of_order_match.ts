@@ -4,18 +4,23 @@ import {stringNormalize} from 'quill-string-normalizer'
 import {Response, PartialResponse} from '../../interfaces'
 import {conceptResultTemplate} from '../helpers/concept_result_template'
 import {feedbackStrings} from '../constants/feedback_strings'
+import {removePunctuation} from './punctuation_and_case_insensitive_match'
 
 export function wordsOutOfOrderMatch (response:string, responses: Array<Response>): Response|undefined {
-  return _.find(getOptimalResponses(responses),
-    resp => identicalWordMaps(mapWordCounts(stringNormalize(response)), mapWordCounts(stringNormalize(resp.text)))
-  );
+  return _.find(getOptimalResponses(responses), resp => {
+    let normalizedSubmittedResponse = stringNormalize(response);
+    let normalizedStoredResponse = stringNormalize(resp.text);
+    return identicalWordMaps(mapWordCounts(normalizedSubmittedResponse), mapWordCounts(normalizedStoredResponse)) &&
+           !identicalNormalizedResponses(normalizedSubmittedResponse, normalizedStoredResponse)
+  });
 }
 
 function mapWordCounts(sentenceString: string): Object {
   const wordsArray = sentenceString.split(' ');
   return wordsArray.reduce((wordMap, word) => {
-    if (!wordMap[word]) wordMap[word] = 0;
-    wordMap[word]++;
+    let noPunctWord = removePunctuation(word).toLowerCase();
+    if (!wordMap[noPunctWord]) wordMap[noPunctWord] = 0;
+    wordMap[noPunctWord]++;
     return wordMap;
   }, {});
 }
@@ -25,6 +30,10 @@ function identicalWordMaps(wordMap1: object, wordMap2: object): boolean {
   const keys2 = Object.keys(wordMap2);
   if (keys1.length !== keys2.length) return false;
   return keys1.every((key) => wordMap1[key] === wordMap2[key]);
+}
+
+function identicalNormalizedResponses(response1: string, response2: string): boolean {
+  return removePunctuation(response1).toLowerCase() == removePunctuation(response2).toLowerCase();
 }
 
 export function wordsOutOfOrderChecker(responseString: string, responses:Array<Response>):PartialResponse|undefined {

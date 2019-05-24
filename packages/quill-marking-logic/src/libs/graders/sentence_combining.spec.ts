@@ -33,30 +33,16 @@ describe('The checking a sentence combining question', () => {
       const responseString: string = "My dog took a nap. ";
       const matchedResponse = checkSentenceCombining('questionOne', responseString, savedResponses, null, null);
       assert.equal(matchedResponse.id, savedResponses[0].id);
-  });
-
-    it('it should be able to grade it even if some of the words are out of order.', () => {
-      const responseString: string = "My dog a took nap.";
-      const matchedResponse = checkSentenceCombining('questionOne', responseString, savedResponses, null, null);
-      assert.equal(matchedResponse.parent_id, savedResponses[0].id, `Expected matchedResponse (${JSON.stringify(matchedResponse)} to recognize it's parent as ${JSON.stringify(savedResponses[0])}`);
-  });
+    });
 
     it('it should be able to grade it with spelling errors.', () => {
       const responseString: string = "My dg took a nap.";
       assert.ok(checkSentenceCombining('questionOne', responseString, savedResponses, null, null));
-  });
+    });
 
-    it('it should be able to grade it even with spelling errors and words out of order', () => {
-      const responseString: string = "My dg a took nap.";
-      const matchedResponse = checkSentenceCombining('questionOne', responseString, savedResponses, null, null);
-      assert.equal(matchedResponse.parent_id, savedResponses[0].id, `Expected matchedResponse (${JSON.stringify(matchedResponse)} to recognize it's parent as ${JSON.stringify(savedResponses[0])}`);
-  });
+    it('it should be able to grade it with spelling and punctuation errors.', () => {
+      const responseString: string = "My dg took a nap";
 
-
-  it('it should be able to grade it with spelling and punctuation errors.', () => {
-    const responseString: string = "My dg took a nap";
-
-    assert.ok(checkSentenceCombining('questionOne', responseString, savedResponses, null, null));
-  });
-
+      assert.ok(checkSentenceCombining('questionOne', responseString, savedResponses, null, null));
+    });
 });
