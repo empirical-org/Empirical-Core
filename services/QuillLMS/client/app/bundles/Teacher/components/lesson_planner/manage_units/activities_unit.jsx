@@ -6,6 +6,7 @@ import Pluralize from 'pluralize';
 import AddClassroomActivityRow from './add_classroom_activity_row.jsx';
 import moment from 'moment';
 import { Snackbar } from 'quill-component-library/dist/componentLibrary';
+import * as api from '../../modules/call_api';
 
 export default React.createClass({
   getInitialState() {
@@ -104,10 +105,6 @@ export default React.createClass({
     return <span className="edit-unit" onClick={this.handleSubmit}>Submit</span>;
   },
 
-  onSubmit() {
-    request.put('/teachers/units', { name: this.state.unitName, });
-  },
-
   toggleTooltip() {
     this.setState({ showTooltip: !this.state.showTooltip ,});
   },
@@ -140,23 +137,13 @@ export default React.createClass({
 
   handleSubmit() {
     const that = this;
-    $.ajax({
-      type: 'PUT',
-      url: `/teachers/units/${that.props.data.unitId}`,
-      data: { unit: { name: that.state.unitName, }, },
-      statusCode: {
-        200() {
-          that.setState({ edit: false,
-            errors: undefined,
-            savedUnitName: that.state.unitName, });
-        },
-        422(response) {
-          that.setState({ errors: response.responseJSON.errors,
-            edit: false,
-            unitName: that.state.savedUnitName, });
-        },
-      },
-    });
+    api.changeActivityPackName(that.props.data.unitId, that.state.unitName,
+                               () => that.setState({edit: false,
+                                                    errors: undefined,
+                                                    savedUnitName: that.state.unitName}),
+                               (response) => that.setState({errors: response.responseJSON.errors,
+                                                            edit: false,
+                                                            unitName: that.state.savedUnitName}));
   },
 
   showUnitName() {
@@ -189,15 +176,7 @@ export default React.createClass({
   },
 
   saveSortOrder() {
-    let payload = {
-      data: JSON.stringify({
-        activities_data: this.state.activityOrder.map( (act) => ({
-          id: act,
-          due_date: this.props.data.classroomActivities[act] || null
-        }))
-      })
-    };
-    this.updateActivitiesApi(this.props.data.unitId, payload, this.displaySaveSnackbar);
+    this.updateActivitiesApi(this.props.data.unitId, this.state.activityOrder, this.displaySaveSnackbar);
   },
 
   displaySaveSnackbar() {
@@ -209,20 +188,8 @@ export default React.createClass({
     }, 7000)});
   },
 
-  updateActivitiesApi(unitId, payload, success, error) {
-    $.ajax({
-      type: 'PUT',
-      url: `/teachers/units/${unitId}/update_activities`,
-      data: payload,
-      statusCode: {
-        200(response) {
-          if (success) success(response);
-        },
-        422(response) {
-          if (error) error(response);
-        },
-      }
-    });
+  updateActivitiesApi(unitId, activityIds, successHandler, errorHandler) {
+    api.changeActivityPackOrder(unitId, activityIds, successHandler, errorHandler);
   },
 
   updateAllDueDates(date) {
