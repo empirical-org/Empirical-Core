@@ -50,7 +50,7 @@ export function wordsOutOfOrderResponseBuilder(responses:Array<Response>, parent
     author: 'Words Out of Order Hint',
     parent_id,
     concept_results: [
-      conceptResultTemplate('5Yv4-kNHwwCO2p8HI90oqQ')
+      conceptResultTemplate('i491sVpiemTqA5Q0VAqTxA')
     ]
   }
   return res
