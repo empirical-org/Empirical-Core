@@ -39,8 +39,6 @@
         accessor: a => a,
         id: 'activityName',
         Cell: props => <a
-          onMouseEnter={(e) => this.tooltipTrigger(e, props.value.id)}
-          onMouseLeave={(e) => this.tooltipTriggerStop(e, props.value.id)}
           onClick={() => this.redirectToActivity(props.value.id)}
           className='row-link-disguise highlight-on-hover'
           target="_new"
@@ -86,7 +84,24 @@
         resizable={false}
         className='unit-template-profile-activities'
         sortable={false}
-        />
+        getTdProps={(state, rowInfo, column, instance) => {
+          return {
+            onMouseEnter: (e, handleOriginal) => {
+              if (handleOriginal) {
+                handleOriginal()
+              }
+              this.tooltipTrigger(e, rowInfo.original.id)
+            },
+            onMouseLeave: (e, handleOriginal) => {
+              if (handleOriginal) {
+                handleOriginal()
+              }
+              this.tooltipTriggerStop(e, rowInfo.original.id)
+            }
+          }
+        }
+      }
+      />
     )
   }
 });
