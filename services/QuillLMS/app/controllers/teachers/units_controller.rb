@@ -57,7 +57,7 @@ class Teachers::UnitsController < ApplicationController
   end
 
   def update_activities
-    data = JSON.parse(params[:data],symbolize_names: true)
+    data = params[:data]
     classrooms_data = formatted_classrooms_data(params[:id])
     if classrooms_data.any?
       Units::Updater.run(params[:id], data[:activities_data], classrooms_data, current_user.id)
