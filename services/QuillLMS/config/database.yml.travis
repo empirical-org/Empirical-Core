@@ -1,3 +1,0 @@
-test:
-  adapter: postgresql
-  database: empiricalgrammar_test<%= ENV['TEST_ENV_NUMBER'] %>
