@@ -25,6 +25,11 @@
     margin-bottom: 0px;
   }
 
+  .card-sub-header {
+    padding: 0.5rem 1.5rem;
+    background-color: lightgray;
+  }
+
   .card-title {
     font-size: 1.125rem;
     line-height: 1.2;
@@ -38,14 +43,14 @@
     padding: 1.5rem 1.5rem;
     position: relative;
   }
-  
+
   .card-footer {
     padding: 1rem 1.5rem;
     background: none;
     border-top: 1px solid rgba(0, 40, 100, 0.12);
     margin-top: 0px;
   }
- 
+
   .card-status {
     position: absolute;
     top: -1px;
@@ -53,9 +58,9 @@
     right: -1px;
     height: 3px;
     border-radius: 3px 3px 0 0;
-    background: rgba(0, 40, 100, 0.12); 
+    background: rgba(0, 40, 100, 0.12);
   }
-  
+
   .card-status-left {
     right: auto;
     bottom: 0;
@@ -63,5 +68,5 @@
     width: 3px;
     border-radius: 3px 0 0 3px;
   }
-  
+
 }
