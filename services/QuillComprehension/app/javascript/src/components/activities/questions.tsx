@@ -21,6 +21,7 @@ export interface Question {
   id:number;
   prompt:string;
   order:number;
+  instructions?:string;
 }
 
 export interface Submissions {
@@ -73,20 +74,20 @@ class QuestionComponent extends React.Component<AppProps, any> {
       return (
         <Mutation mutation={SUBMIT_RESPONSE} key={a.id}>
           {(submitResponse, { data }) => (
-            <QuestionCard 
-            question={a} 
-            submission={this.props.activities.submissions[a.id]} 
+            <QuestionCard
+            question={a}
+            submission={this.props.activities.submissions[a.id]}
             complete={this.props.activities.complete[a.id]}
             updateSubmission={this.updateSubmission}
             updateCompleteness={this.props.markQuestionAsComplete}
             submitResponse={submitResponse}
-            reset={() => {this.props.resetQuestion(a)} } 
+            reset={() => {this.props.resetQuestion(a)} }
             number={i}/>
           )}
         </Mutation>
       )
     })
-  } 
+  }
 
   render() {
     if (this.allComplete(this.props.questions, this.props.activities.complete)) {
