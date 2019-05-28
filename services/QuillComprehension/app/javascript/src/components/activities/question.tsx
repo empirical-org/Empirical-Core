@@ -5,6 +5,7 @@ export interface Question {
   id:number;
   prompt:string;
   order:number;
+  instructions?:string;
 }
 
 export interface Props {
@@ -12,7 +13,7 @@ export interface Props {
   number: number;
   submission: string;
   complete: boolean | null;
-  updateSubmission: Function; 
+  updateSubmission: Function;
   updateCompleteness: Function;
   submitResponse: Function;
   reset: Function;
@@ -51,6 +52,14 @@ class QuestionCard extends React.Component<Props, State> {
     return (<button className='btn btn-primary' onClick={clickSubmitButton}>Submit</button>)
   }
 
+  renderInstructions(question) {
+    if (question.instructions) {
+      return <div className="card-sub-header">
+        <p className="instructions">{question.instructions}</p>
+      </div>
+    }
+  }
+
   render() {
 
     const {number, question, submission, complete, updateSubmission, updateCompleteness, submitResponse, reset} = this.props;
@@ -69,6 +78,7 @@ class QuestionCard extends React.Component<Props, State> {
         <div className="card-header">
           <h3 className="card-title">Question {number + 1}</h3>
         </div>
+        {this.renderInstructions(question)}
         <div className="card-body p-0">
           <textarea className="form-control question" value={submission} onChange={e => updateSubmission(e.target.value, question)}/>
         </div>
