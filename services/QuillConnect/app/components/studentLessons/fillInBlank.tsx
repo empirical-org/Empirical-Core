@@ -59,7 +59,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     this.state = {}
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.setQuestionValues(this.props.question)
   }
 
@@ -439,10 +439,4 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
 
 }
 
-function select(state) {
-  return {
-    conceptsFeedback: state.conceptsFeedback,
-  };
-}
-
-export default connect(select)(PlayFillInTheBlankQuestion);
+export default PlayFillInTheBlankQuestion
