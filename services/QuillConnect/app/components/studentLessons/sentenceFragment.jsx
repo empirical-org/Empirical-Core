@@ -10,7 +10,10 @@ class PlaySentenceFragment extends Component {
 
   render() {
     return (
-      <SentenceFragmentTemplate {...this.props} handleAttemptSubmission={() => {}} />
+      <SentenceFragmentTemplate
+        {...this.props}
+        handleAttemptSubmission={() => {}}
+      />
     );
   }
 
