@@ -299,10 +299,4 @@ function getLatestAttempt(attempts:Array<{response: Response}> = []):{response: 
   return attempts[lastIndex];
 };
 
-function select(state) {
-  return {
-    conceptsFeedback: state.conceptsFeedback,
-  };
-}
-
-export default connect(select)(PlaySentenceFragment);
+export default PlaySentenceFragment
