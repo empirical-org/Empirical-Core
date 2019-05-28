@@ -22,8 +22,17 @@ const icon = 'https://assets.quill.org/images/icons/question_icon.svg'
 
 const PlaySentenceFragment = React.createClass<any, any>({
   getInitialState() {
+    const { question } = this.props
+    let response = ''
+    if (question && question.attempts.length) {
+      const attemptLength = question.attempts.length
+      const lastSubmission = question.attempts[attemptLength - 1]
+      response = lastSubmission.response.text
+    } else if (question) {
+      response = question.prompt
+    }
     return {
-      response: this.props.question ? this.props.question.prompt : '',
+      response,
       checkAnswerEnabled: true,
       editing: false,
     };
@@ -43,20 +52,12 @@ const PlaySentenceFragment = React.createClass<any, any>({
   componentDidMount() {
     const question = this.props.question
     if (question && !this.state.responses) {
-      if (!this.state.responses) {
-        getGradedResponsesWithCallback(
-          question.key,
-          (data) => {
-            this.setState({ responses: data, });
-          }
-        )
-      }
-
-      const attemptLength = question.attempts.length
-      if (attemptLength) {
-        const lastSubmission = question.attempts[attemptLength - 1]
-        this.setState({ response: lastSubmission.response.text })
-      }
+      getGradedResponsesWithCallback(
+        question.key,
+        (data) => {
+          this.setState({ responses: data, });
+        }
+      )
     }
   },
 
