@@ -41,9 +41,16 @@ const feedbackStrings = C.FEEDBACK_STRINGS;
 
 const playLessonQuestion = React.createClass<any, any>({
   getInitialState() {
+    const { question, } = this.props
+    let response = ''
+    const numberOfAttempts = question.attempts.length
+    if (numberOfAttempts) {
+      const lastSubmitted = question.attempts[numberOfAttempts - 1]
+      response =  lastSubmitted.response.text
+    }
     return {
       editing: false,
-      response: '',
+      response,
       finished: false,
       multipleChoice: false,
     };
@@ -63,11 +70,6 @@ const playLessonQuestion = React.createClass<any, any>({
         this.setState({ multipleChoiceResponseOptions: _.shuffle(data), });
       }
     );
-    const numberOfAttempts = question.attempts.length
-    if (numberOfAttempts) {
-      const lastSubmitted = question.attempts[numberOfAttempts - 1]
-      this.setState({ response: lastSubmitted.response.text, })
-    }
   },
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -405,9 +407,4 @@ function getLatestAttempt(attempts:Array<{response: Response}> = []):{response: 
   return attempts[lastIndex];
 };
 
-function select(state) {
-  return {
-    conceptsFeedback: state.conceptsFeedback,
-  };
-}
-export default connect(select)(playLessonQuestion);
+export default playLessonQuestion

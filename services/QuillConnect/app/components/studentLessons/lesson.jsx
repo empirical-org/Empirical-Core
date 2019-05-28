@@ -228,10 +228,11 @@ const Lesson = React.createClass({
   render() {
     const { data, } = this.props.lessons,
       { lessonID, } = this.props.params;
+    const { conceptsFeedback, playLesson, dispatch, } = this.props
     let component;
     if (data[lessonID]) {
-      if (this.props.playLesson.currentQuestion) {
-        const { type, question, } = this.props.playLesson.currentQuestion;
+      if (playLesson.currentQuestion) {
+        const { type, question, } = playLesson.currentQuestion;
 
         if (type === 'SF') {
           component = (
@@ -243,7 +244,8 @@ const Lesson = React.createClass({
               marking="diagnostic"
               updateAttempts={this.submitResponse}
               markIdentify={this.markIdentify}
-              dispatch={this.props.dispatch}
+              dispatch={dispatch}
+              conceptsFeedback={conceptsFeedback}
             />
           );
         } else if (type === 'FB') {
@@ -253,8 +255,9 @@ const Lesson = React.createClass({
               question={question}
               nextQuestion={this.nextQuestion}
               prefill={this.getLesson().prefill}
-              dispatch={this.props.dispatch}
+              dispatch={dispatch}
               submitResponse={this.submitResponse}
+              conceptsFeedback={conceptsFeedback}
             />
           );
         } else if (type === 'TL'){
@@ -271,7 +274,8 @@ const Lesson = React.createClass({
               question={question}
               nextQuestion={this.nextQuestion}
               prefill={this.getLesson().prefill}
-              dispatch={this.props.dispatch}
+              dispatch={dispatch}
+              conceptsFeedback={conceptsFeedback}
             />
           );
         }
@@ -316,7 +320,8 @@ function select(state) {
     playLesson: state.playLesson, // the questionReducer
     routing: state.routing,
     fillInBlank: state.fillInBlank,
-    titleCards: state.titleCards
+    titleCards: state.titleCards,
+    conceptsFeedback: state.conceptsFeedback
     // sessions: state.sessions,
     // responses: state.responses,
   };
