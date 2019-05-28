@@ -19,7 +19,7 @@ describe 'ReferrerAnalytics' do
     end
 
     it 'sends the event' do
-      expect(track_calls[0][:event]).to be(SegmentIo::Events::REFERRAL_INVITED)
+      expect(track_calls[0][:event]).to be(SegmentIo::BackgroundEvents::REFERRAL_INVITED)
       expect(track_calls[0][:user_id]).to be(referrer.id)
       expect(track_calls[0][:properties][:referral_id]).to be(referral.id)
     end
@@ -36,7 +36,7 @@ describe 'ReferrerAnalytics' do
     end
 
     it 'sends the event' do
-      expect(track_calls[0][:event]).to be(SegmentIo::Events::REFERRAL_ACTIVATED)
+      expect(track_calls[0][:event]).to be(SegmentIo::BackgroundEvents::REFERRAL_ACTIVATED)
       expect(track_calls[0][:user_id]).to be(referrer.id)
       expect(track_calls[0][:properties][:referral_id]).to be(referral.id)
     end

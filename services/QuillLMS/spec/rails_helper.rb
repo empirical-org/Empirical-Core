@@ -14,7 +14,7 @@ require 'sidekiq/testing'
 require 'factory_bot_rails'
 require 'spec_helper'
 
-# Use a fake Sidekiq for Travis (Redis not available)
+# Use a fake Sidekiq since we don't maintain redis for testing
 Sidekiq::Testing.fake!
 
 # Stub out web requests
@@ -36,8 +36,8 @@ end
 
 Capybara.configure do |config|
   # Use a high(er) timeout for JS-based UI -- e.g., React.js
-  # cf http://docs.travis-ci.com/user/common-build-problems/#Capybara%3A-I'm-getting-errors-about-elements-not-being-found
-  config.default_max_wait_time = 15  # increased from 15 since we were getting Net Timeout errors on Tracis CI (and not on local)
+  # Give Selenium a bit more time to render before declaring an async component test a failure
+  config.default_max_wait_time = 15
 
   Capybara.register_driver :poltergeist do |app|
     Capybara::Poltergeist::Driver.new(app, js_errors: false, timeout: 10)
@@ -61,6 +61,7 @@ RSpec.configure do |config|
   config.include SanitizationHelper
   config.include SessionHelper
   config.include FactoryBot::Syntax::Methods
+  config.include ActiveSupport::Testing::TimeHelpers
 
   # Ensure that if we are running js tests, we are using latest webpack assets
   # This will use the defaults of :js and :server_rendering meta tags

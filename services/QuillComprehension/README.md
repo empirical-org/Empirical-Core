@@ -9,20 +9,19 @@ $ yarn
 $ bundle update
 ```
 ### Database Creation/Initialization
-Quill Comprehension stores data in PostgreSQL. To run on your local machine, you'll have to  create the Postgres database and migrate the schema from Rails:
-
-In `config/database.yml`, change the development user to your own Postgres username.
-
-Create a Postgres database named
- `quill_comprehension_development`. In psql, this can be done with:
-
-```
-$ createdb quill_comprehension_development
-```
+Duplicate `config/database.yml.example` and rename it `config/database.yml`
 
 To set up the proper database schema, run:
 ```
+$ rails db:create
 $ rails db:migrate
+```
+
+## Seed data
+To get initial data in your db, run:
+
+```
+$ rails db:seed
 ```
 
 ### Launching

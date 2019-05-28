@@ -3,11 +3,6 @@
 Each package and service in our repository has its own idiosycracies that will
 be documented in it's own README.
 
-||Jenkins CI|
-|---|---|
-|**develop**|[![Build Status](https://jenkins.quill.org/buildStatus/icon?job=quill.org/develop)](https://jenkins.quill.org/job/quill.org/job/develop/)|
-|**master**|[![Build Status](https://jenkins.quill.org/buildStatus/icon?job=quill.org/master)](https://jenkins.quill.org/job/quill.org/job/master/)|
-
 ## Structure
 
 If you've installed the repository hooks, it's time to start writing code that

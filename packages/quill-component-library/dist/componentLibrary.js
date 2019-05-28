@@ -17317,8 +17317,9 @@
   };
 
   var Card = function (props) {
+      var img = props.imgSrc ? React__default.createElement("img", { src: props.imgSrc, alt: props.imgAlt }) : null;
       return (React__default.createElement("div", { className: "quill-card", onClick: props.onClick },
-          React__default.createElement("img", { src: props.imgSrc, alt: props.imgAlt }),
+          img,
           React__default.createElement("div", { className: "text" },
               React__default.createElement("h3", null, props.header),
               React__default.createElement("p", null, props.text))));
@@ -28172,28 +28173,28 @@
           var hasText = value ? 'has-text' : '';
           var inactiveOrActive = inactive ? 'inactive' : 'active';
           var notEditable = isSearchable ? '' : 'not-editable';
-          var sharedClasses = inactiveOrActive + " " + hasText + " " + notEditable + " " + className;
+          var sharedClasses = "dropdown-container input-container " + inactiveOrActive + " " + hasText + " " + notEditable + " " + className;
           if (error) {
               if (errorAcknowledged) {
-                  return (React__default.createElement("div", { className: "input-container error " + sharedClasses, ref: function (node) { return _this.node = node; }, onClick: this.activateInput },
+                  return (React__default.createElement("div", { className: "error " + sharedClasses, ref: function (node) { return _this.node = node; }, onClick: this.activateInput },
                       React__default.createElement("label", null, label),
                       React__default.createElement(index$1$1, { id: id, ref: function (input) { _this.input = input; }, onChange: this.handleChange, value: value, type: type, placeholder: placeholder || '', onKeyDown: this.onKeyDown, menuIsOpen: menuIsOpen, options: options, isClearable: false, className: "dropdown", classNamePrefix: "dropdown", isSearchable: isSearchable })));
               }
               else {
-                  return (React__default.createElement("div", { className: "input-container error unacknowledged " + sharedClasses, onClick: this.acknowledgeError, ref: function (node) { return _this.node = node; } },
+                  return (React__default.createElement("div", { className: "error unacknowledged " + sharedClasses, onClick: this.acknowledgeError, ref: function (node) { return _this.node = node; } },
                       React__default.createElement("label", null, label),
                       React__default.createElement(index$1$1, { id: id, ref: function (input) { _this.input = input; }, onFocus: this.activateInput, type: type, value: value, menuIsOpen: false, isClearable: false, className: "dropdown", classNamePrefix: "dropdown", isSearchable: isSearchable }),
                       this.renderErrorText()));
               }
           }
           else if (inactive) {
-              return (React__default.createElement("div", { className: "input-container " + sharedClasses, onClick: this.activateInput, ref: function (node) { return _this.node = node; } },
+              return (React__default.createElement("div", { className: "" + sharedClasses, onClick: this.activateInput, ref: function (node) { return _this.node = node; } },
                   React__default.createElement("label", null, label),
                   React__default.createElement(index$1$1, { id: id, ref: function (input) { _this.input = input; }, onFocus: this.activateInput, type: type, value: value, menuIsOpen: false, isClearable: false, className: "dropdown", classNamePrefix: "dropdown", placeholder: placeholder || '', isSearchable: isSearchable }),
                   this.renderHelperText()));
           }
           else {
-              return (React__default.createElement("div", { className: "input-container dropdown " + sharedClasses, ref: function (node) { return _this.node = node; } },
+              return (React__default.createElement("div", { className: "dropdown " + sharedClasses, ref: function (node) { return _this.node = node; } },
                   React__default.createElement("label", null, label),
                   React__default.createElement(index$1$1, { id: id, ref: function (input) { _this.input = input; }, onChange: this.handleChange, value: value, type: type, placeholder: placeholder || '', onKeyDown: this.onKeyDown, menuIsOpen: menuIsOpen, options: options, isClearable: false, className: "dropdown", classNamePrefix: "dropdown", isSearchable: isSearchable })));
           }
