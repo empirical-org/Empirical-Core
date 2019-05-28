@@ -117,9 +117,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
       const promptRegex = new RegExp(promptArray.join('|'), 'i')
       inputs = text.split(promptRegex).filter(input => input.length)
     } else {
-      for (let i = 0; i < promptArray.length - 2; i++) {
-        inputs.push('');
-      }
+      inputs = Array.from({length: promptArray.length - 2}, () => '')
     }
     return inputs;
   }
