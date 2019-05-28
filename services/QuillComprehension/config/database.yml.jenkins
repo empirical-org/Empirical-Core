@@ -1,6 +1,0 @@
-test:
-  adapter: postgresql
-  encoding: unicode
-  database: quill_comprehension_test
-  host:     lms-testdb
-  username: postgres

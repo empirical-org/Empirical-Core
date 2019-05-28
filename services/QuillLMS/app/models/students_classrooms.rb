@@ -4,6 +4,7 @@ class StudentsClassrooms < ActiveRecord::Base
   belongs_to :classroom, class_name: "Classroom"
   # validates uniqueness of student/classroom on db
   after_save :checkbox, :run_associator
+  after_save :archive_student_associations_for_classroom, if: Proc.new { |sc| !sc.visible && sc.student && sc.classroom }
   after_commit :invalidate_classroom_minis
 
   default_scope { where(visible: true)}
@@ -12,6 +13,9 @@ class StudentsClassrooms < ActiveRecord::Base
     {joinDate: self.created_at.strftime("%m/%d/%Y"), className: self.classroom.name, teacherName: self.classroom.owner.name, id: self.id}
   end
 
+  def archive_student_associations_for_classroom
+    ArchiveStudentAssociationsForClassroomWorker.perform_async(student_id, classroom_id)
+  end
 
   private
 
