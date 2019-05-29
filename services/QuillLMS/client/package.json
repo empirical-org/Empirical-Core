@@ -111,7 +111,6 @@
     "jscs": "^2.11.0",
     "memory-fs": "^0.4.1",
     "mime": "^2.2.0",
-    "moments": "0.0.2",
     "qs": "^6.5.1",
     "react-addons-test-utils": "^15.4.2",
     "react-test-renderer": "^15.4.2",
