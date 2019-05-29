@@ -8,8 +8,8 @@ import {removePunctuation} from './punctuation_and_case_insensitive_match'
 
 export function wordsOutOfOrderMatch (response:string, responses: Array<Response>): Response|undefined {
   return _.find(getOptimalResponses(responses), resp => {
-    let normalizedSubmittedResponse = stringNormalize(response);
-    let normalizedStoredResponse = stringNormalize(resp.text);
+    const normalizedSubmittedResponse = stringNormalize(response);
+    const normalizedStoredResponse = stringNormalize(resp.text);
     return identicalWordMaps(mapWordCounts(normalizedSubmittedResponse), mapWordCounts(normalizedStoredResponse)) &&
            !identicalNormalizedResponses(normalizedSubmittedResponse, normalizedStoredResponse)
   });
@@ -18,7 +18,7 @@ export function wordsOutOfOrderMatch (response:string, responses: Array<Response
 function mapWordCounts(sentenceString: string): Object {
   const wordsArray = sentenceString.split(' ');
   return wordsArray.reduce((wordMap, word) => {
-    let noPunctWord = removePunctuation(word).toLowerCase();
+    const noPunctWord = removePunctuation(word).toLowerCase();
     if (!wordMap[noPunctWord]) wordMap[noPunctWord] = 0;
     wordMap[noPunctWord]++;
     return wordMap;
