@@ -50,8 +50,10 @@ module.exports = merge(config, {
             {
               loader: 'css-loader',
               options: {
+                minimize: true,
                 modules: true,
-                importLoaders: 1
+                importLoaders: 1,
+                localIdentName: '[local]',
               },
             },
             'postcss-loader',
@@ -66,8 +68,10 @@ module.exports = merge(config, {
             {
               loader: 'css-loader',
               options: {
+                minimize: true,
                 modules: true,
-                importLoaders: 3
+                importLoaders: 3,
+                localIdentName: '[local]',
               },
             },
             'postcss-loader',
