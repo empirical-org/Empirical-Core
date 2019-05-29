@@ -86,7 +86,7 @@
     "style-loader": "^0.13.1",
     "underscore": "^1.8.3",
     "underscore.string": "^3.3.5",
-    "url-loader": "^0.5.7",
+    "url-loader": "^1.1.2",
     "webpack": "^3.8.1",
     "webpack-manifest-plugin": "^2.0.0-rc.2",
     "webpack-merge": "^4.1.2"
