@@ -155,11 +155,6 @@ tslint --init
 ```
 + extension: tsLint for Visual Studio Code
 
-### CI
-Travis
-
-Create ".travis.yml"
-
 ### LICENSE MIT
 
 ### gitignore

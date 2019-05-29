@@ -473,11 +473,12 @@ describe User, type: :model do
   describe '#generate_teacher_account_info' do
     let(:user) { create(:user) }
     let(:premium_state) { double(:premium_state) }
-    let(:school) { double(:school) }
+    let(:school) { create(:school) }
     let(:hash) {
       user.attributes.merge!({
         subscription: {'subscriptionType' => premium_state},
-        school: school
+        school: school,
+        school_type: School::US_K12_SCHOOL_DISPLAY_NAME
         })
     }
 
@@ -1168,6 +1169,15 @@ describe User, type: :model do
       referrer_users = ReferrerUser.count
       create(:student)
       expect(ReferrerUser.count).to be(referrer_users)
+    end
+  end
+
+  describe 'satismeter' do
+    it 'should have basic working gate logic' do
+      teacher = create(:teacher)
+      expect(teacher.show_satismeter?).to be false
+      expect(teacher.satismeter_feature_enabled?).to be true
+      expect(teacher.satismeter_threshold_met?).to be false
     end
   end
 end

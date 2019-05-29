@@ -51,7 +51,7 @@ exports[`the GoogleClassroomModal component should render 1`] = `
     />
     <a
       className="q-button cta-button bg-quillgreen text-white"
-      href="/auth/google_oauth2"
+      href="/auth/google_oauth2?prompt=consent"
     >
       Next: Choose Google Classrooms
     </a>

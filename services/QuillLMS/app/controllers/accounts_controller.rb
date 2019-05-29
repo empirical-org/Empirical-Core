@@ -36,20 +36,7 @@ class AccountsController < ApplicationController
       create_referral_if_teacher_and_referrer
       render json: creation_json
     else
-      errors = {}
-      if @user.errors['username']&.include?('has already been taken')
-        errors['username'] = ['That username is taken. Try another.']
-      elsif @user.errors['email']&.include?('has already been taken')
-        errors['email'] = ['That email is taken. Try another.']
-      elsif @user.errors['email']&.include?('does not appear to be a valid e-mail address')
-        errors['email'] = ['Enter a valid email']
-      elsif @user.errors['username']&.include?('cannot contain spaces')
-        errors['username'] = ['That username is not valid because it has a space. Try another.']
-      elsif @user.errors['username']
-        errors['username'] = ['That username is invalid. Try another.']
-      else @user.errors['email']
-        errors['email'] = ['That email is invalid. Try another.']
-      end
+      errors = @user.errors
       render json: {errors: errors}, status: 422
     end
   end
