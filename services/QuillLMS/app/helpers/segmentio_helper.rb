@@ -12,6 +12,8 @@ module SegmentioHelper
       all: true,
       Intercom: {
         user_hash: OpenSSL::HMAC.hexdigest('sha256', ENV['INTERCOM_APP_SECRET'], current_user.id.to_s),
+        name: current_user.name,
+        email: current_user.email,
       }
     }.to_json
   end
