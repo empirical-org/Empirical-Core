@@ -94,7 +94,6 @@
   "devDependencies": {
     "@types/jest": "^22.2.0",
     "awesome-typescript-loader": "^3.5.0",
-    "babel-cli": "^6.26.0",
     "babel-jest": "=19.0.0",
     "babel-plugin-react-transform": "^2.0.2",
     "body-parser": "^1.15.0",
