@@ -41,7 +41,7 @@ export default React.createClass({
 
   retrieveStudents(classroomId) {
     const that = this;
-    $.ajax({ url: `/teachers/classrooms/${classroomId}/students_list`, }).success((data) => {
+    $.ajax({ url: `/teachers/classrooms/${classroomId}/students_list`, }).done((data) => {
       that.setState({ students: data.students, loading: false, });
     });
   },
