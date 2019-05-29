@@ -78,7 +78,7 @@ class IncorrectSequencesContainer extends React.Component {
           </p>
         </header>
         <div className="card-content">
-          <p className="control title is-4" dangerouslySetInnerHTML={{ __html: '<strong>Feedback</strong>: ' + val.feedback, }} />
+          <p className="control" dangerouslySetInnerHTML={{ __html: '<strong>Feedback</strong>: ' + val.feedback + '<br/>'}} />
           {this.renderConceptResults(val.conceptResults, key)}
         </div>
         <footer className="card-footer">

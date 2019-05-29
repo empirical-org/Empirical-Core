@@ -139,4 +139,22 @@ describe ClassroomUnit, type: :model, redis: :true do
     end
   end
 
+  describe '#remove_assigned_student' do
+    let(:student) { create(:student_in_two_classrooms_with_many_activities) }
+    let(:student_classroom) { StudentsClassrooms.find_by(student_id: student.id) }
+    let(:classroom_unit) { ClassroomUnit.find_by(classroom_id: student_classroom.classroom_id)}
+
+    it "should remove the student's id from assigned_student_ids array from that classroom's classroom units" do
+      classroom_unit.remove_assigned_student(student.id)
+      expect(classroom_unit.assigned_student_ids).not_to include(student.id)
+    end
+
+    it "should archive the student's activity sessions for that classroom's classroom units" do
+      classroom_unit.remove_assigned_student(student.id)
+      activity_sessions = ActivitySession.where(classroom_unit_id: classroom_unit.id, user_id: student.id)
+      expect(activity_sessions.count).to eq(0)
+    end
+  end
+
+
 end

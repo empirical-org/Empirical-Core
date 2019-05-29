@@ -1,15 +1,12 @@
-Addresses issue #
+## WHAT
 
-**Changes proposed in this pull request:**
-- change one
-- change two
+## WHY
 
-**If this is a visual change please attach screencaps of the new branch, making sure to censor user data**
+## HOW
 
-**Has this branch been QA'd on staging?** yes/no
+## Screenshots
+(If applicable. Also, please censor any sensitive data)
 
-**Have you updated the docs?** yes/no
+## Have you added and/or updated tests?
+(The answer should mostly be 'YES'. If you answer 'NO', please justify.)
 
-**Have the tests been updated?** yes/no
-
-**Reviewer:** @emilia-friedberg/@anathomical

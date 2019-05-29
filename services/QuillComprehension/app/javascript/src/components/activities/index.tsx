@@ -5,7 +5,6 @@ import gql from "graphql-tag";
 import * as R from 'ramda';
 import Article from './article';
 import Questions from './questions';
-import QuestionSets from './question_sets';
 import VocabularyWords from './vocabulary_words';
 import {markArticleAsRead, chooseQuestionSet, setFontSize} from '../../actions/activities';
 import {ActivitiesState} from '../../reducers/activities';
@@ -33,12 +32,14 @@ function activityQuery(activity_id:string) {
           id
           prompt
           order
+          instructions
         }
       }
       questions {
         id
         prompt
         order
+        instructions
       }
       vocabularyWords {
         id
@@ -75,13 +76,7 @@ class ActivityContainer extends React.Component<AppProps, any> {
 
   renderQuestions(activity, questionSetId, read) {
     if (!read) return;
-    if (activity.questionSets.length > 1 && questionSetId === null) return
-    let questions;
-    if (activity.questionSets.length === 1) {
-      questions = activity.questionSets[0].questions;
-    } else {
-      questions = R.find(R.propEq('id', questionSetId))(activity.questionSets).questions
-    }
+    const questions = activity.questionSets[0].questions;
     return (
       <div>
         <h1 className="article-title">Now Complete The Following Sentences</h1>
@@ -89,14 +84,6 @@ class ActivityContainer extends React.Component<AppProps, any> {
       </div>
     )
 
-  }
-
-  renderQuestionSets(data, readArticle) {
-    if (readArticle && data.activity.questionSets.length > 1) {
-      return (
-        <QuestionSets questionSets={data.activity.questionSets} chooseQuestionSet={this.props.chooseQuestionSet} questionSetId={this.props.activities.questionSetId}/>
-      )
-    }
   }
 
   renderSubnav() {
@@ -134,7 +121,6 @@ class ActivityContainer extends React.Component<AppProps, any> {
                 <div className="article-container">
                   <VocabularyWords vocabWords={data.activity.vocabularyWords}/>
                   <Article activity_id={parseInt(this.props.activity_id)} article={data.activity.article} title={data.activity.title} markAsRead={this.props.markArticleAsRead} fontSize={this.props.activities.fontSize} />
-                  {this.renderQuestionSets(data, this.props.activities.readArticle)}
                   {this.renderQuestions(data.activity, this.props.activities.questionSetId, this.props.activities.readArticle)}
                 </div>
               </div>
