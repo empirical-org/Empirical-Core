@@ -42,6 +42,14 @@ class ClassroomUnit < ActiveRecord::Base
     {teacher: self.classroom&.owner&.name, classroom: self.classroom&.name}
   end
 
+  def remove_assigned_student(student_id)
+    new_assigned_student_ids = assigned_student_ids - [student_id]
+    # we need to set assign_on_join to false so that the student doesn't get added back
+    # in by the #check_for_assign_on_join_and_update_students_array_if_true method.
+    # if assign on join should still be true the aforementioned method will set it.
+    self.update(assigned_student_ids: new_assigned_student_ids, assign_on_join: false)
+  end
+
   private
 
   def hide_unassigned_activity_sessions
