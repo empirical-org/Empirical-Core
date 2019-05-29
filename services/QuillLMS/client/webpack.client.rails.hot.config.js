@@ -28,8 +28,7 @@ module.exports = merge(config, {
             loader: 'css-loader',
             options: {
               modules: true,
-              importLoaders: 0,
-              localIdentName: '[local]',
+              importLoaders: 0
             },
           },
           'postcss-loader'
@@ -43,8 +42,7 @@ module.exports = merge(config, {
             loader: 'css-loader',
             options: {
               modules: true,
-              importLoaders: 3,
-              localIdentName: '[local]',
+              importLoaders: 3
             },
           },
           'postcss-loader',
