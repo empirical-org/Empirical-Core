@@ -1,9 +1,12 @@
 import React from 'react';
 import _ from 'underscore';
-import ClassroomActivity from './classroom_activity';
-import Pluralize from 'pluralize';
-import AddClassroomActivityRow from './add_classroom_activity_row.jsx';
+import request from 'request'
 import moment from 'moment';
+import Pluralize from 'pluralize';
+
+import ClassroomActivity from './classroom_activity';
+import AddClassroomActivityRow from './add_classroom_activity_row.jsx';
+import getAuthToken from '../../modules/get_auth_token'
 
 export default React.createClass({
   getInitialState() {
@@ -51,9 +54,9 @@ export default React.createClass({
       const classroomsArray = classrooms.slice(0, 3).map((c, i) => <li key={i}>{c.name} <span>({c.assignedStudentCount}/{c.totalStudentCount} {Pluralize('student', c.totalStudentCount)})</span></li>)
       classroomsArray.push(<li className="see-all" onClick={() => this.setState({showAllClassrooms: true})}>Show all {classrooms.length} classes <i className="fa fa-icon fa-chevron-down"/></li>)
       return classroomsArray
-    } 
+    }
       return classrooms.map((c, i) => <li key={i}>{c.name} <span>({c.assignedStudentCount}/{c.totalStudentCount} {Pluralize('student', c.totalStudentCount)})</span></li>)
-    
+
   },
 
   editUnit() {
@@ -134,23 +137,27 @@ export default React.createClass({
   },
 
   handleSubmit() {
-    const that = this;
-    $.ajax({
-      type: 'PUT',
-      url: `/teachers/units/${that.props.data.unitId}`,
-      data: { unit: { name: that.state.unitName, }, },
-      statusCode: {
-        200() {
-          that.setState({ edit: false,
-            errors: undefined,
-            savedUnitName: that.state.unitName, });
-        },
-        422(response) {
-          that.setState({ errors: response.responseJSON.errors,
-            edit: false,
-            unitName: that.state.savedUnitName, });
-        },
-      },
+    request.put({
+      url: `${process.env.DEFAULT_URL}/teachers/units/${this.props.data.unitId}`,
+      json: {
+        unit: { name: this.state.unitName, },
+        authenticity_token: getAuthToken()
+      }
+    },
+    (e, r, body) => {
+      if (r.statusCode === 200) {
+        this.setState({
+          edit: false,
+          errors: undefined,
+          savedUnitName: this.state.unitName,
+        });
+      } else {
+        this.setState({
+          errors: body.errors,
+          edit: false,
+          unitName: this.state.savedUnitName,
+        });
+      }
     });
   },
 

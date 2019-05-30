@@ -155,19 +155,6 @@ export default React.createClass({
         })
       }
     })
-		 // const that = this;
-
-    // $.ajax({
-    //   url: '/teachers/classrooms/retrieve_classrooms_i_teach_for_custom_assigning_activities',
-    //   context: this,
-    //   success(data) {
-    //     that.setState({
-    //       options: {
-    //         classrooms: data.classrooms_and_their_students,
-    //       },
-    //     });
-    //   },
-    // });
   },
 
   resetWindowPosition() {
