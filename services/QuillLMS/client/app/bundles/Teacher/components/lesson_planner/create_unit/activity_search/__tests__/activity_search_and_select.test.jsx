@@ -1,16 +1,13 @@
 import React from 'react';
-import jest from 'jest'
 import { shallow } from 'enzyme';
 import request from 'request'
 import allActivities from '../../../../../../../test_data/activity_search_and_select'
 
 import ActivitySearchAndSelect from '../activity_search_and_select'
 
-// import processEnvMock from '../../../../../../../__mocks__/processEnvMock.js';
-// window.process = processEnvMock;
-jest.mock('request', () => {
-  return { request: jest.fn() }
-});
+import requestMock from '../../../../../../../../__mocks__/request.js';
+jest.mock('request')
+
 const commaUsageThirdGradeFilters = [
   {
     "field": "activity_category",
@@ -123,7 +120,7 @@ describe('ActivitySearchAndSelect component', () => {
   it('should trigger an ajax call upon calling searchRequest', () => {
     const wrapper = shallow(<ActivitySearchAndSelect selectedActivities={() => []}/>);
     wrapper.instance().searchRequest();
-    expect(request).toHaveBeenCalled();
+    expect(request.get).toHaveBeenCalled();
   })
 
   describe('searchRequestSuccess', () => {
