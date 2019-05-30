@@ -1,6 +1,6 @@
 'use strict'
 import React from 'react'
-import $ from 'jquery'
+import request from 'request'
 import Pluralize from 'pluralize'
 import LoadingIndicator from '../../shared/loading_indicator.jsx'
 export default React.createClass({
@@ -27,18 +27,13 @@ export default React.createClass({
 
     quantity: function() {
       if (this.props.routeToGetQuantity) {
-        var that = this;
-        that.ajax = {};
-        that.ajax.quantity = $.ajax({url: this.props.routeToGetQuantity})
-          .done(function(data) {
-              that.setState({count: data.count, loading: false});
-          });
-      }
-    },
-
-    componentWillUnmount: function() {
-      if (this.ajax && this.ajax.quantity){
-        this.ajax.quantity.abort()
+        request.get({
+          url: `${process.env.DEFAULT_URL}${this.props.routeToGetQuantity}`
+        },
+        (e, r, body) => {
+          const parsedBody = JSON.parse(body)
+          this.setState({ count: parsedBody.count, loading: false, })
+        });
       }
     },
 
