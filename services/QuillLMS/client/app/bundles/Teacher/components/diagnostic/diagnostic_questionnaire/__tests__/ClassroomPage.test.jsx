@@ -1,10 +1,10 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-
 import ClassroomPage from '../ClassroomPage';
 import Classroom from '../../../lesson_planner/create_unit/stage2/classroom'
 
-import Modal from 'react-bootstrap/lib/Modal';
+import requestMock from '../../../../../../../__mocks__/request.js';
+jest.mock('request')
 
 const classroom = {checked: false,
                   code: 'royal-act',
