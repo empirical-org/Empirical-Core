@@ -62,33 +62,6 @@ export default class UnitTemplateAssigned extends React.Component {
       const parsedBody = JSON.parse(body)
       this.setState({ data: parsedBody })
     });
-
-      // $.ajax({
-      //   url: '/teachers/classrooms_i_teach_with_students',
-      //   dataType: 'json',
-      //   success(data) {
-      //     that.setState({loading: false, studentsPresent: that.anyClassroomsWithStudents(data.classrooms) });
-      //   }
-      // });
-      // $.ajax({
-      //   url: '/teachers/unit_templates/assigned_info',
-      //   data: {id: this.props.params.activityPackId},
-      //   dataType: 'json',
-      //   success(data) {
-      //     that.setState({data})
-      //   }
-      // })
-      // $.ajax({
-      //   url: '/teachers/last_assigned_unit_id',
-      //   dataType: 'json',
-      //   success(data) {
-      //     that.setState({
-      //       loading: false,
-      //       lastUnitId: data.id,
-      //       referralCode: data.referral_code
-      //     });
-      //   }
-      // });
   }
 
   activityName() {
