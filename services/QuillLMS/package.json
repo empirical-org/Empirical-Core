@@ -67,7 +67,6 @@
     "eslint-plugin-jsx-a11y": "^5.1.1",
     "eslint-plugin-react": "^7.3.0",
     "faye-websocket": "^0.11.1",
-    "gitbook-cli": "^2.3.2",
     "memory-fs": "^0.4.1",
     "mime": "^2.2.0",
     "qs": "^6.5.1",
