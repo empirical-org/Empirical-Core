@@ -277,7 +277,7 @@ function unmatchRematchedResponse(response) {
     count: response.count,
     question_uid: response.question_uid,
   };
-  return updateResponse(response.id, newVals);
+  return updateResponse(response, newVals);
 }
 
 function updateRematchedResponse(response, newResponse) {
@@ -289,18 +289,15 @@ function updateRematchedResponse(response, newResponse) {
     feedback: newResponse.response.feedback,
     concept_results: convertResponsesArrayToHash(conceptResults),
   };
-  return updateResponse(response.id, newVals);
+  return updateResponse(response, newVals);
 }
 
-function updateResponse(rid, content) {
-  // const beginning = Date.now()
+function updateResponse(response, content) {
   const rubyConvertedResponse = objectWithSnakeKeysFromCamel(content);
-  QuestionResponse.findByPk(rid).then(response => {
-    if (response) {
-      response.update(rubyConvertedResponse)
-      .catch(err => console.log(err))
-    }
-  })
+  if (response) {
+    response.update(rubyConvertedResponse)
+    .catch(err => console.log(err))
+  }
 }
 
 function determineDelta(response, newResponse) {
