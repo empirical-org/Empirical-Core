@@ -11,15 +11,51 @@ describe ProfilesController, type: :controller do
       )
     end
     let!(:other_student) {create(:student)}
-    let!(:activity) { create(:activity) }
-    let!(:unit) { create(:unit) }
-    let!(:unit_activity) { create(:unit_activity, unit: unit, activity: activity) }
-    let!(:classroom_unit) do
-      create(:classroom_unit,
-        unit: unit,
-        classroom: classroom,
-        assigned_student_ids: [student.id]
-      )
+    let!(:units) do [
+        create(:unit),
+        create(:unit)
+      ]
+    end
+    let!(:activities) do [
+        create(:activity),
+        create(:activity),
+        create(:activity),
+        create(:activity),
+        create(:activity)
+      ]
+    end
+    let!(:unit_activities) do [
+        create(:unit_activity, unit: units[0], activity: activities[0], order_number: 3),
+        create(:unit_activity, unit: units[0], activity: activities[1], order_number: 2),
+        create(:unit_activity, unit: units[0], activity: activities[2], order_number: 1),
+        create(:unit_activity, unit: units[1], activity: activities[3], order_number: 2),
+        create(:unit_activity, unit: units[1], activity: activities[4], order_number: 1),
+      ]
+    end
+    let!(:classroom_units) do [
+        create(:classroom_unit,
+          unit: units[0],
+          classroom: classroom,
+          assigned_student_ids: [student.id]
+        ),
+        create(:classroom_unit,
+          unit: units[1],
+          classroom: classroom,
+          assigned_student_ids: [student.id]
+        )
+      ]
+    end
+    let!(:classroom_unit_activity_states) do [
+        create(:classroom_unit_activity_state, unit_activity: unit_activities[0], classroom_unit: classroom_units[0], locked: true),
+        create(:classroom_unit_activity_state, unit_activity: unit_activities[1], classroom_unit: classroom_units[0]),
+        create(:classroom_unit_activity_state, unit_activity: unit_activities[2], classroom_unit: classroom_units[0], pinned: true),
+        create(:classroom_unit_activity_state, unit_activity: unit_activities[3], classroom_unit: classroom_units[1], locked: true),
+        create(:classroom_unit_activity_state, unit_activity: unit_activities[4], classroom_unit: classroom_units[1])
+      ]
+    end
+    let!(:activity_sessions) do [
+        create(:activity_session, classroom_unit: classroom_units[0], user: student, visible: true, activity: activities[1], percentage: 0.9)
+      ]
     end
 
     before do
@@ -93,10 +129,68 @@ describe ProfilesController, type: :controller do
           })
         end
 
-        it 'returns student scores in the correct order' do
+        it 'sorts pinned activities to the front' do
+          get :student_profile_data
+          scores = JSON.parse(response.body)['scores']
+          pinned_flags = scores.map { |score| score['pinned'] }
+          expect(pinned_flags).to eq(pinned_flags.sort.reverse)
+        end
 
-          # TODO test pinned and locked sort order (right now, these activities
-          # are neither pinned nor locked, so we're not testing that)
+        it 'sorts locked activities to the end when there are no pins' do
+          classroom_unit_activity_states.each do |activity_state|
+            activity_state.pinned = false
+            activity_state.save
+          end
+          get :student_profile_data
+          scores = JSON.parse(response.body)['scores']
+          locked_flags = scores.map { |score| score['locked'] }
+          expect(locked_flags).to eq(locked_flags.sort)
+        end
+
+        it 'sorts activities within blocks of those that share the same unit when there are no pins or locks' do
+          classroom_unit_activity_states.each do |activity_state|
+            activity_state.pinned = false
+            activity_state.locked = false
+            activity_state.save
+          end
+          get :student_profile_data
+          scores = JSON.parse(response.body)['scores']
+          unit_created_at_times = scores.map { |score| score['unit_created_at'] }
+          expect(unit_created_at_times).to eq(unit_created_at_times.sort)
+        end
+
+        it 'sorts activities that have not been started before those that have been completed when there are no pins or locks and the activities are part of the same unit' do
+          classroom_unit_activity_states.each do |activity_state|
+            activity_state.pinned = false
+            activity_state.locked = false
+            activity_state.save
+          end
+          # Note that our current sorting algorithm uses "max_percentage" as a weak proxy for this
+          # It may ultimately result in some unexpected behavior
+          get :student_profile_data
+          scores = JSON.parse(response.body)['scores']
+          single_unit_scores = scores.select { |item| item['unit_id'] == units[0].id }
+          max_percentages = single_unit_scores.map { |score| score['max_percentage'] }
+          expect(max_percentages).to eq(max_percentages.sort.reverse)
+        end
+
+        it 'respects assigned "order_number" when there are no pins or locks and all acticities belong to the same unit and have the same level of completion' do
+          classroom_unit_activity_states.each do |activity_state|
+            activity_state.pinned = false
+            activity_state.locked = false
+            activity_state.save
+          end
+          get :student_profile_data
+          scores = JSON.parse(response.body)['scores']
+          single_unit_scores = scores.select { |item| item['unit_id'] == units[0].id }
+          order_numbers = single_unit_scores.map { |score| score['order_number'] }
+          expect(order_numbers).to eq(order_numbers.sort)
+        end
+
+        it 'returns student scores in the correct order' do
+          # This test attempts to do a complex, total sorting algorithm comparison
+          # It's probably doing too much in one place, but the coverage is nice
+
           get :student_profile_data
           scores = JSON.parse(response.body)['scores']
           relevant_classroom = student.classrooms.last
@@ -119,6 +213,7 @@ describe ProfilesController, type: :controller do
                 'activity_classification_id' => activity.activity_classification_id,
                 'unit_id' => unit.id,
                 'ua_id' => unit_activity.id,
+                'order_number' => unit_activity.order_number,
                 'unit_created_at' => unit.created_at,
                 'unit_name' => unit.name,
                 'ca_id' => classroom_unit.id,
@@ -127,8 +222,8 @@ describe ProfilesController, type: :controller do
                 'act_sesh_updated_at' => activity_session&.updated_at,
                 'due_date' => unit_activity.due_date,
                 'unit_activity_created_at' => classroom_unit.created_at,
-                'locked' => 'f',
-                'pinned' => 'f',
+                'locked' => unit_activity.classroom_unit_activity_states[0].locked ? 't' : 'f',
+                'pinned' => unit_activity.classroom_unit_activity_states[0].pinned ? 't' : 'f',
                 'max_percentage' => activity_session&.percentage,
                 'resume_link' => activity_session&.state == 'started' ? 1 : 0
               }
@@ -138,9 +233,9 @@ describe ProfilesController, type: :controller do
           # This sort emulates the sort we are doing in the student_profile_data_sql method.
           sorted_scores = scores_array.sort { |a, b|
             [
-              b['pinned'], a['locked'], b['max_percentage'] == nil ? 1.01 : b['max_percentage'], a['unit_created_at'], a['unit_activity_created_at']
+              b['pinned'], a['locked'], a['unit_created_at'], b['max_percentage'] == nil ? 1.01 : b['max_percentage'], a['order_number'], a['unit_activity_created_at']
             ] <=> [
-              a['pinned'], b['locked'], a['max_percentage'] == nil ? 1.01 : a['max_percentage'], b['unit_created_at'], b['unit_activity_created_at']
+              a['pinned'], b['locked'], b['unit_created_at'], a['max_percentage'] == nil ? 1.01 : a['max_percentage'], b['order_number'], b['unit_activity_created_at']
             ]
           }
           expect(scores).to eq(sanitize_hash_array_for_comparison_with_sql(sorted_scores))

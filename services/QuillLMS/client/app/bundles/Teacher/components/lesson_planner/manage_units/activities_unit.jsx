@@ -3,10 +3,13 @@ import _ from 'underscore';
 import request from 'request'
 import moment from 'moment';
 import Pluralize from 'pluralize';
-
+import SortableList from '../../shared/sortableList'
 import ClassroomActivity from './classroom_activity';
 import AddClassroomActivityRow from './add_classroom_activity_row.jsx';
 import getAuthToken from '../../modules/get_auth_token'
+import moment from 'moment';
+import { Snackbar } from 'quill-component-library/dist/componentLibrary';
+import * as api from '../../modules/call_api';
 
 export default React.createClass({
   getInitialState() {
@@ -17,6 +20,9 @@ export default React.createClass({
       error: false,
       showTooltip: false,
       classroomActivities: (this.props.data.classroomActivities || this.props.data.classroom_activities),
+      activityOrder: Array.from(this.props.data.classroomActivities.keys()),
+      snackbarVisible: false,
+      snackbarFadeTimer: null,
     };
   },
 
@@ -102,10 +108,6 @@ export default React.createClass({
     return <span className="edit-unit" onClick={this.handleSubmit}>Submit</span>;
   },
 
-  onSubmit() {
-    request.put('/teachers/units', { name: this.state.unitName, });
-  },
-
   toggleTooltip() {
     this.setState({ showTooltip: !this.state.showTooltip ,});
   },
@@ -137,28 +139,14 @@ export default React.createClass({
   },
 
   handleSubmit() {
-    request.put({
-      url: `${process.env.DEFAULT_URL}/teachers/units/${this.props.data.unitId}`,
-      json: {
-        unit: { name: this.state.unitName, },
-        authenticity_token: getAuthToken()
-      }
-    },
-    (e, r, body) => {
-      if (r.statusCode === 200) {
-        this.setState({
-          edit: false,
-          errors: undefined,
-          savedUnitName: this.state.unitName,
-        });
-      } else {
-        this.setState({
-          errors: body.errors,
-          edit: false,
-          unitName: this.state.savedUnitName,
-        });
-      }
-    });
+    const that = this;
+    api.changeActivityPackName(that.props.data.unitId, that.state.unitName,
+                               () => that.setState({edit: false,
+                                                    errors: undefined,
+                                                    savedUnitName: that.state.unitName}),
+                               (response) => that.setState({errors: response.responseJSON.errors,
+                                                            edit: false,
+                                                            unitName: that.state.savedUnitName}));
   },
 
   showUnitName() {
@@ -190,6 +178,23 @@ export default React.createClass({
     }
   },
 
+  saveSortOrder() {
+    this.updateActivitiesApi(this.props.data.unitId, this.state.activityOrder, this.displaySaveSnackbar);
+  },
+
+  displaySaveSnackbar() {
+    if (this.state.snackbarFadeTimer) {
+      clearTimeout(this.state.snackbarFadeTimer);
+    }
+    this.setState({snackbarVisible: true, snackbarFadeTimer: setTimeout(() => {
+      this.setState({snackbarVisible: false});
+    }, 7000)});
+  },
+
+  updateActivitiesApi(unitId, activityIds, successHandler, errorHandler) {
+    api.changeActivityPackOrder(unitId, activityIds, successHandler, errorHandler);
+  },
+
   updateAllDueDates(date) {
     const newClassroomActivities = new Map(this.state.classroomActivities);
     const uaIds = [];
@@ -214,29 +219,46 @@ export default React.createClass({
     return numberOfStudentsAssignedToUnit;
   },
 
+  updateSortOrder(sortableListState) {
+    // There are data states in which this update call is triggered with no items in the
+    // sortableListState.  If there are no items, there's nothing to do, so we bail
+    if (!sortableListState.items) return;
+
+    const startingSortOrder = this.state.activityOrder;
+    const newSortOrder = sortableListState.items.map( (i) => i.props.data.activityId );
+    // Check to see if the drag/drop action is completed
+    // (draggingIndex === null on drag initiation and termination, and a change in order
+    // guarantees that it isn't an initiation)
+    if (!startingSortOrder.every((e, i) => e == newSortOrder[i]) &&
+        sortableListState.draggingIndex === null) {
+      this.setState({activityOrder: newSortOrder}, this.saveSortOrder);
+    }
+  },
+
   renderClassroomActivities() {
     const classroomActivitiesArr = [];
     let i = 0;
-    for (const [key, ca] of this.state.classroomActivities) {
-        classroomActivitiesArr.push(
-          <ClassroomActivity
-            key={`${this.props.data.unitId}-${key}`}
-            report={this.props.report}
-            activityReport={this.props.activityReport}
-            lesson={this.props.lesson}
-            updateDueDate={this.props.updateDueDate}
-            hideUnitActivity={this.props.hideUnitActivity}
-            unitId={this.props.data.unitId}
-            data={ca}
-            updateAllDueDates={this.updateAllDueDates}
-            isFirst={i === 0}
-            numberOfStudentsAssignedToUnit={this.numberOfStudentsAssignedToUnit()}
-            activityWithRecommendationsIds={this.props.activityWithRecommendationsIds}
-          />
-        );
-        i += 1;
-      }
-    return classroomActivitiesArr;
+    for (let key of this.state.activityOrder) {
+      let ca = this.state.classroomActivities.get(key);
+      classroomActivitiesArr.push(
+        <ClassroomActivity
+          key={`${this.props.data.unitId}-${key}`}
+          report={this.props.report}
+          activityReport={this.props.activityReport}
+          lesson={this.props.lesson}
+          updateDueDate={this.props.updateDueDate}
+          hideUnitActivity={this.props.hideUnitActivity}
+          unitId={this.props.data.unitId}
+          data={ca}
+          updateAllDueDates={this.updateAllDueDates}
+          isFirst={i === 0}
+          numberOfStudentsAssignedToUnit={this.numberOfStudentsAssignedToUnit()}
+          activityWithRecommendationsIds={this.props.activityWithRecommendationsIds}
+        />
+      );
+      i++;
+    }
+    return <SortableList data={classroomActivitiesArr} sortCallback={this.updateSortOrder} />
   },
 
   render() {
@@ -245,6 +267,7 @@ export default React.createClass({
     }
 
     return (
+      <div>
       <section className="activities-unit">
         <div className="row unit-header-row" id={this.getUnitId()}>
           <div className="left">
@@ -264,8 +287,11 @@ export default React.createClass({
         <div className="table assigned-activities">
           {this.renderClassroomActivities()}
           {this.addClassroomActivityRow()}
+
         </div>
       </section>
+      <Snackbar text="Activity order saved" visible={this.state.snackbarVisible} />
+      </div>
     );
   },
 });
