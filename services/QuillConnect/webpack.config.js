@@ -9,7 +9,8 @@ const CompressionPlugin = require('compression-webpack-plugin');
 console.log('in prod: ', live);
 const webpack = require('webpack');
 const path = require('path');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+// const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 
@@ -37,6 +38,29 @@ module.exports = {
     chunkFilename: '[name].[chunkhash].js',
     path: `${__dirname}/dist`,
   },
+  optimization: {
+    splitChunks: {
+      chunks: 'async',
+      minSize: 30000,
+      maxSize: 0,
+      minChunks: 1,
+      maxAsyncRequests: 5,
+      maxInitialRequests: 3,
+      automaticNameDelimiter: '~',
+      name: true,
+      cacheGroups: {
+        vendors: {
+          test: /[\\/]node_modules[\\/]/,
+          priority: -10
+        },
+        default: {
+          minChunks: 2,
+          priority: -20,
+          reuseExistingChunk: true
+        }
+      }
+    }
+  },
 
   // resolve: {
   // // changed from extensions: [".js", ".jsx"]
@@ -45,7 +69,12 @@ module.exports = {
   plugins: [
     // new HardSourceWebpackPlugin(),
     assetsPluginInstance,
-    new ExtractTextPlugin('style.css'),
+    new MiniCssExtractPlugin({
+      // Options similar to the same options in webpackOptions.output
+      // both options are optional
+      filename: '[name].css',
+      chunkFilename: '[id].css',
+    }),
     new webpack.EnvironmentPlugin({
       NODE_ENV: 'development',
       EMPIRICAL_BASE_URL: 'http://localhost:3000',
@@ -54,7 +83,7 @@ module.exports = {
       FIREBASE_APP_NAME: 'quillconnectstaging',
     }),
     // new BundleAnalyzerPlugin(), // For visualizing package size
-    new webpack.optimize.CommonsChunkPlugin({ name: 'vendor', }),
+    // new webpack.optimize.CommonsChunkPlugin({ name: 'vendor', }),
     // new CompressionPlugin({
     //   asset: '[path].gz[query]',
     //   algorithm: 'gzip',
@@ -109,11 +138,11 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        use: live ? ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          // resolve-url-loader may be chained before sass-loader if necessary
-          use: ['css-loader', 'sass-loader'],
-        }) : ['style-loader', 'css-loader?sourceMap', 'sass-loader?sourceMap'],
+        use: [
+          !live ? 'style-loader' : MiniCssExtractPlugin.loader,
+          'css-loader',
+          'sass-loader'
+        ],
       },
       {
         test: /\.svg$/,
