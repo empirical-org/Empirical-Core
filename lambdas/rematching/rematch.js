@@ -228,8 +228,9 @@ function incrementQuestionCountAndReindexResponses(qid, finishRematching) {
       })
       .then(() => {
         console.log('update document')
-        sequelize.close();
-        finishRematching()
+        sequelize.close().then(() => {
+          finishRematching();
+        });
       })
       .catch(err => console.log(err))
     })
