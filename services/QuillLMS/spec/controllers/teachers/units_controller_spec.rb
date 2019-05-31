@@ -215,7 +215,7 @@ describe Teachers::UnitsController, type: :controller do
           data: {
             unit_id: unit.id,
             activities_data: [{id: activity.id, due_date: nil}]
-          }.to_json
+          }
       expect(response.status).to eq(200)
     end
 
