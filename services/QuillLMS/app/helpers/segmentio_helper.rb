@@ -1,4 +1,6 @@
 module SegmentioHelper
+  DEFAULT_DESTINATION_SETTINGS = {all: true}
+
   def generate_segment_identify_arguments(current_user, should_load_intercom)
     "#{current_user.id}, #{serialize_user(current_user).to_json}, #{destination_properties(current_user, should_load_intercom).to_json}"
   end
@@ -8,13 +10,7 @@ module SegmentioHelper
   end
 
   def destination_properties(current_user, should_load_intercom)
-    properties = {
-      all: true,
-    }
-    if should_load_intercom
-      properties[:Intercom] = intercom_properties(current_user)
-    end
-    properties
+    DEFAULT_DESTINATION_SETTINGS.merge(should_load_intercom ? {Intercom: intercom_properties(current_user)} : {})
   end
 
   def intercom_properties(current_user)
