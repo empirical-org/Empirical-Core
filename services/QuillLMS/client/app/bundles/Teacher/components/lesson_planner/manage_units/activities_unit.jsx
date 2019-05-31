@@ -1,13 +1,10 @@
 import React from 'react';
 import _ from 'underscore';
-import request from 'request'
 import moment from 'moment';
 import Pluralize from 'pluralize';
 import SortableList from '../../shared/sortableList'
 import ClassroomActivity from './classroom_activity';
 import AddClassroomActivityRow from './add_classroom_activity_row.jsx';
-import getAuthToken from '../../modules/get_auth_token'
-import moment from 'moment';
 import { Snackbar } from 'quill-component-library/dist/componentLibrary';
 import * as api from '../../modules/call_api';
 
