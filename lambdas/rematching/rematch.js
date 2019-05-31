@@ -180,8 +180,7 @@ function paginatedNonHumanResponsesHelper(numberOfResponses, matcher, matcherFie
       order: [
         ['count', 'DESC']
       ],
-    },
-  )
+    })
     .then((data) => {
       const parsedResponses = u.indexBy(data, 'id');
       const responseData = {
@@ -196,8 +195,6 @@ function paginatedNonHumanResponsesHelper(numberOfResponses, matcher, matcherFie
       } else {
         incrementQuestionCountAndReindexResponses(qid, finishRematching)
       }
-    }).catch((err) => {
-      console.log(err);
     }).catch((err) => {
       console.log(err)
       console.log('moving to next question')
@@ -231,6 +228,7 @@ function incrementQuestionCountAndReindexResponses(qid, finishRematching) {
       })
       .then(() => {
         console.log('update document')
+        sequelize.close();
         finishRematching()
       })
       .catch(err => console.log(err))
@@ -300,7 +298,6 @@ function updateResponse(rid, content) {
   QuestionResponse.findByPk(rid).then(response => {
     if (response) {
       response.update(rubyConvertedResponse)
-      // .then(() => console.log('elapsed', Date.now() - beginning))
       .catch(err => console.log(err))
     }
   })
