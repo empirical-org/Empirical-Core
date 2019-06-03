@@ -4,15 +4,11 @@ const AssetsPlugin = require('assets-webpack-plugin');
 
 const assetsPluginInstance = new AssetsPlugin();
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CompressionPlugin = require('compression-webpack-plugin');
 
 console.log('in prod: ', live);
 const webpack = require('webpack');
 const path = require('path');
-// const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 
 module.exports = {
   resolve: {
@@ -61,13 +57,7 @@ module.exports = {
       }
     }
   },
-
-  // resolve: {
-  // // changed from extensions: [".js", ".jsx"]
-  //   extensions: ['.ts', '.tsx', '.js', '.jsx', '.ejs'],
-  // },
   plugins: [
-    // new HardSourceWebpackPlugin(),
     assetsPluginInstance,
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
@@ -82,15 +72,6 @@ module.exports = {
       PUSHER_KEY: 'a253169073ce7474f0ce',
       FIREBASE_APP_NAME: 'quillconnectstaging',
     }),
-    // new BundleAnalyzerPlugin(), // For visualizing package size
-    // new webpack.optimize.CommonsChunkPlugin({ name: 'vendor', }),
-    // new CompressionPlugin({
-    //   asset: '[path].gz[query]',
-    //   algorithm: 'gzip',
-    //   test: /\.js$/,
-    //   threshold: 10240,
-    //   minRatio: 0.8,
-    // }),
     new HtmlWebpackPlugin({
       template: './index.html.ejs',
       inject: 'body',
@@ -109,12 +90,6 @@ module.exports = {
     })
   ],
   module: {
-    // rules: [
-    //   // changed from { test: /\.jsx?$/, use: { loader: 'babel-loader' } },
-    //   { test: /\.(t|j)sx?$/, use: { loader: 'awesome-typescript-loader', }, },
-    //   // addition - add source-map support
-    //   { enforce: 'pre', test: /\.js$/, loader: 'source-map-loader', }
-    // ],
     noParse: /node_modules\/json-schema\/lib\/validate\.js/,
     rules: [
       {
@@ -167,6 +142,5 @@ module.exports = {
     net: 'empty',
     tls: 'empty',
   },
-  // addition - add source-map support
   devtool: 'eval',
 };
