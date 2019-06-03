@@ -121,7 +121,7 @@ module.exports = {
         test: /\.(t|j)sx?$/,
         exclude: /node_modules/,
         use: [
-          'react-hot-loader',
+          'react-hot-loader/webpack',
           'babel-loader',
           'awesome-typescript-loader'
         ],
