@@ -11,6 +11,7 @@ const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
+  mode: live ? 'production' : 'development',
   resolve: {
     modules: [
       path.resolve(__dirname, 'app'),
@@ -98,14 +99,12 @@ module.exports = {
         use: [
           'react-hot-loader/webpack',
           'babel-loader',
-          'awesome-typescript-loader'
+          'awesome-typescript-loader?errorsAsWarnings=true'
         ],
       },
       {
         test: /\.d.ts$/,
-        use: [
-          'awesome-typescript-loader'
-        ],
+        loader: 'awesome-typescript-loader?errorsAsWarnings=true',
       },
       {
         test: /\.html$/,
