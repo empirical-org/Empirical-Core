@@ -15,14 +15,6 @@ const conceptsIndexQuery:string = `
       createdAt
       visible
       uid
-      changeLogs {
-        id
-        action
-        explanation
-        user {
-          name
-        }
-      }
       parent {
         id
         name

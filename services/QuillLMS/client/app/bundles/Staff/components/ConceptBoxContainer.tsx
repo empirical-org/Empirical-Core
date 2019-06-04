@@ -20,6 +20,14 @@ function conceptQuery(id){
       replacement {
         name
       }
+      changeLogs {
+        id
+        action
+        explanation
+        user {
+          name
+        }
+      }
       parent {
         id
         name
@@ -43,6 +51,7 @@ interface QueryResult {
   parent?:Concept;
   children: Array<Concept>;
   siblings: Array<Concept>;
+  changeLogs?: Array<any>;
 }
 
 interface ConceptBoxContainerProps {

@@ -6,6 +6,8 @@ import { Input, DropdownInput } from 'quill-component-library/dist/componentLibr
 
 import { Concept } from '../interfaces/interfaces'
 import RuleDescriptionField from './RuleDescriptionField'
+import ConceptChangeLogs from './ConceptChangeLogs'
+import ChangeLogModal from './ChangeLogModal'
 
 function levelTwoConceptsQuery(){
   return `
@@ -37,8 +39,8 @@ function levelOneConceptsQuery(){
 }
 
 const EDIT_CONCEPT = gql`
-mutation editConcept($id: ID! $name: String, $parentId: ID, $visible: Boolean, $description: String){
-    editConcept(input: {id: $id, name: $name, parentId: $parentId, visible: $visible, description: $description}){
+mutation editConcept($id: ID! $name: String, $parentId: ID, $visible: Boolean, $description: String, $changeLogs: [ChangeLog]){
+    editConcept(input: {id: $id, name: $name, parentId: $parentId, visible: $visible, description: $description, changeLogs: $changeLogs}){
       concept {
         id
         uid
@@ -53,7 +55,8 @@ mutation editConcept($id: ID! $name: String, $parentId: ID, $visible: Boolean, $
 
 interface ConceptBoxState {
   concept: Concept,
-  originalConcept: Concept
+  originalConcept: Concept,
+  showChangeLogModal: boolean
 }
 
 interface ConceptBoxProps {
@@ -69,7 +72,8 @@ class ConceptBox extends React.Component<ConceptBoxProps, ConceptBoxState> {
 
     this.state = {
       concept: props.concept,
-      originalConcept: props.concept
+      originalConcept: props.concept,
+      showChangeLogModal: false
     }
 
     this.changeLevel1 = this.changeLevel1.bind(this)
@@ -87,15 +91,37 @@ class ConceptBox extends React.Component<ConceptBoxProps, ConceptBoxState> {
     }
   }
 
-  handleSubmit(e, editConcept) {
+  handleSubmit(e) {
     e.preventDefault()
+    this.setState({ showChangeLogModal: true })
+  }
+
+  renderChangeLogModal(editConcept) {
+    if (this.state.showChangeLogModal) {
+      const { concept, originalConcept } = this.state
+      const changedFields = []
+      Object.keys(concept).forEach(key => {
+        if (concept[key] !== originalConcept[key]) {
+          changedFields.push(key)
+        }
+      })
+      return <ChangeLogModal
+        conceptID={concept.id}
+        changedFields={changedFields}
+        save={(changeLogs) => { this.save(editConcept, changeLogs)}}
+      />
+    }
+  }
+
+  save(editConcept, changeLogs) {
     const { concept } = this.state
     editConcept({ variables: {
       id: concept.id,
       name: concept.name,
       parentId: concept.parent.id,
       visible: concept.visible,
-      description: concept.description && concept.description.length && concept.description !== '<br/>' ? concept.description : null
+      description: concept.description && concept.description.length && concept.description !== '<br/>' ? concept.description : null,
+      changeLogs
     }})
   }
 
@@ -257,6 +283,7 @@ class ConceptBox extends React.Component<ConceptBoxProps, ConceptBoxState> {
           {this.renderRenameAndArchiveSection()}
         </div>
         <RuleDescriptionField ruleDescription={concept.description} handleChange={this.changeDescription}/>
+        <ConceptChangeLogs changeLogs={concept.changeLogs} />
       </div>
     }
   }
@@ -273,14 +300,15 @@ class ConceptBox extends React.Component<ConceptBoxProps, ConceptBoxState> {
   }
 
   render() {
-    const { finishEditingConcept, levelNumber, closeConceptBox } = this.props
+    const { levelNumber, closeConceptBox, finishEditingConcept } = this.props
     const { concept } = this.state
     return  (
       <Mutation mutation={EDIT_CONCEPT} onCompleted={finishEditingConcept}>
         {(editConcept, {}) => (
           <div className="concept-box">
+            {this.renderChangeLogModal(editConcept)}
             <span className="close-concept-box" onClick={closeConceptBox}><i className="fas fa-times"/></span>
-            <form onSubmit={(e) => this.handleSubmit(e, editConcept)} acceptCharset="UTF-8" >
+            <form onSubmit={this.handleSubmit} acceptCharset="UTF-8" >
               <div className="static">
                 <p>Level {levelNumber}</p>
                 <h1>{concept.name}</h1>
