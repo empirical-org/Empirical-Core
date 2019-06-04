@@ -4,6 +4,7 @@ class Concept < ActiveRecord::Base
   belongs_to :replacement, class_name: 'Concept', foreign_key: :replacement_id
   validates :name, presence: true
   has_many :concept_results
+  has_many :change_logs, as: :changed
 
   def lineage
     family_tree = self.name
