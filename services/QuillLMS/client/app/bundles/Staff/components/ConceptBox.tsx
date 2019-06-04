@@ -106,8 +106,9 @@ class ConceptBox extends React.Component<ConceptBoxProps, ConceptBoxState> {
         }
       })
       return <ChangeLogModal
-        conceptID={concept.id}
+        concept={concept}
         changedFields={changedFields}
+        levelNumber={this.props.levelNumber}
         save={(changeLogs) => { this.save(editConcept, changeLogs)}}
       />
     }
