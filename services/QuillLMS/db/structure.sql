@@ -919,10 +919,11 @@ ALTER SEQUENCE categories_id_seq OWNED BY categories.id;
 
 CREATE TABLE change_logs (
     id integer NOT NULL,
-    explanation text,
-    changed_id integer,
-    changed_type character varying,
-    user_id integer,
+    explanation text NOT NULL,
+    action character varying NOT NULL,
+    changed_record_id integer NOT NULL,
+    changed_record_type character varying NOT NULL,
+    user_id integer NOT NULL,
     created_at timestamp without time zone,
     updated_at timestamp without time zone
 );
@@ -4113,10 +4114,10 @@ CREATE INDEX index_blog_posts_on_topic ON public.blog_posts USING btree (topic);
 
 
 --
--- Name: index_change_logs_on_changed_type_and_changed_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_change_logs_on_changed_record_type_and_changed_record_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_change_logs_on_changed_type_and_changed_id ON public.change_logs USING btree (changed_type, changed_id);
+CREATE INDEX index_change_logs_on_changed_record_type_and_changed_record_id ON public.change_logs USING btree (changed_record_type, changed_record_id);
 
 
 --

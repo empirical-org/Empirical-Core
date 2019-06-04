@@ -15,6 +15,14 @@ const conceptsIndexQuery:string = `
       createdAt
       visible
       uid
+      changeLogs {
+        id
+        action
+        explanation
+        user {
+          name
+        }
+      }
       parent {
         id
         name
@@ -190,6 +198,7 @@ class ConceptsIndex extends React.Component<any, ConceptsIndexState> {
           notifyOnNetworkStatusChange
         >
           {({ loading, error, data, refetch, networkStatus }) => {
+            console.log('error', error)
             if (networkStatus === 4) return <p>Refetching!</p>;
             if (loading) return <p>Loading...</p>;
             if (error) return <p>Error :(</p>;
