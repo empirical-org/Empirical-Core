@@ -1,7 +1,8 @@
 import React from 'react'
 import { Query, Mutation } from "react-apollo";
 import gql from "graphql-tag";
-import { Input, DropdownInput } from 'quill-component-library/dist/componentLibrary'
+import { TextField } from './textField'
+// import { Input, DropdownInput } from 'quill-component-library/dist/componentLibrary'
 
 import { Concept } from '../interfaces/interfaces'
 
@@ -10,6 +11,7 @@ interface ChangeLogModalProps {
   cancel: Function;
   save: Function;
   concept: Concept;
+  levelNumber: number;
 }
 
 interface ChangeLogModalState {
@@ -37,10 +39,12 @@ export default class ChangeLogModal extends React.Component<ChangeLogModalProps,
   fieldToActionNameMap() {
     const { levelNumber, concept, } = this.props
     return {
-      name: `Renaming Level ${levelNumber}`,
-      parent: `Changing Level ${levelNumber + 1}`,
-      description: 'Changing Rule Description',
-      visible: concept.visible ? 'Unarchiving' : 'Archiving'
+      name: 'Renamed',
+      parent: `Level ${levelNumber + 1} updated`,
+      visible: concept.visible ? 'Archived' : 'Unarchived',
+      description: 'Rule description updated',
+      new: 'Created',
+      replaced: 'Replaced'
     }
   }
 
@@ -52,13 +56,13 @@ export default class ChangeLogModal extends React.Component<ChangeLogModalProps,
 
   renderChangeLogFields() {
     return Object.keys(this.state).map(key => {
-      return <Input
+      return <TextField
         label={`Action Explanation: ${this.state[key].action}`}
         value={this.state[key].explanation}
-        type='text'
         id={key}
-        className="multi-line"
         handleChange={(e) => {this.updateExplanation(key, e)}}
+        timesSubmitted={0}
+        characterLimit={800}
       />
     })
   }
@@ -83,8 +87,10 @@ export default class ChangeLogModal extends React.Component<ChangeLogModalProps,
       <div className="change-log-modal">
         <h1>Describe what action you took and why.</h1>
         <p>Be as specific as possible. For example, if you rename a concept, include the concept's original name in the description. If you archive a concept because it was a duplicate, include the UID of the concept being retained.</p>
-        {this.renderChangeLogFields()}
-        {this.renderButtons()}
+        <form acceptCharset="UTF-8" >
+          {this.renderChangeLogFields()}
+          {this.renderButtons()}
+        </form>
       </div>
     </div>
   }

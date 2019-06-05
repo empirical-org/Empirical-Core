@@ -34,7 +34,7 @@ class Types::ConceptType < Types::BaseObject
   end
 
   def change_logs
-    ChangeLog.where(changed_record_id: object['id'], changed_record_type: 'concept')
+    ChangeLog.where(changed_record_id: object['id'], changed_record_type: 'Concept')
   end
 
 end
