@@ -24,6 +24,7 @@ function conceptQuery(id){
         id
         action
         explanation
+        createdAt
         user {
           name
         }

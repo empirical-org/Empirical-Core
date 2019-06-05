@@ -10,3 +10,12 @@ export interface Concept {
   replacement?: Concept;
   description?: string;
 }
+
+export interface ChangeLog {
+  action: string;
+  description: string;
+  conceptID?: string;
+  id: string;
+  user: { name: string };
+  createdAt: number;
+}

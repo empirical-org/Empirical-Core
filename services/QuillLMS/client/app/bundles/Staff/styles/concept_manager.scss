@@ -398,7 +398,45 @@
     display: flex;
     justify-content: space-between;
     color: #000;
+    cursor: pointer;
+    margin-top: 35px;
   }
+  .change-log-item {
+    border-left: 1px solid #ebebeb;
+    padding-left: 30px;
+    position: relative;
+    p {
+      line-height: 1;
+    }
+    .action {
+      color: #000;
+      font-weight: 600;
+    }
+    .explanation {
+      color: #000;
+    }
+    .user {
+      i {
+        margin-right: 10px;
+      }
+      span {
+        color: #000;
+      }
+    }
+  }
+  .change-log-item::before {
+    content: '';
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    left: -8px;
+    top: 0px;
+    background-color: white;
+    border: 1px solid #ebebeb;
+    border-radius: 50%;
+    z-index: 1;
+  }
+
 }
 
 .rule-description {
