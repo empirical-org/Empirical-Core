@@ -78,7 +78,9 @@ describe TeachersController, type: :controller do
 
     it 'returns the classrooms with students of the current user' do
       get :classrooms_i_teach_with_students
-      expect(response.body).to eq({classrooms: teacher.classrooms_i_teach_with_students}.to_json)
+      teacher.classrooms_i_teach_with_students.each do |classroom|
+        expect(response.body).to include(classroom.to_json)
+      end
     end
 
     it 'returns the classrooms the current user owns' do
