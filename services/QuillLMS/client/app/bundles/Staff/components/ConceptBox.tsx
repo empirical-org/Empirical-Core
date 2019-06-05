@@ -61,7 +61,7 @@ interface ConceptBoxState {
 
 interface ConceptBoxProps {
   concept: Concept;
-  levelNumber: Number;
+  levelNumber: number;
   finishEditingConcept(data: any): void;
   closeConceptBox(event): void;
 }

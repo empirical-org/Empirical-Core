@@ -158,8 +158,10 @@
     .concept-input-container {
       align-items: center !important;
     }
-    .input-container {
-      width: 220px;
+    .fields {
+      .input-container {
+        width: 220px;
+      }
     }
   }
   .close-concept-box {
@@ -408,12 +410,14 @@
   .change-log-item {
     padding-left: 30px;
     position: relative;
+    margin-bottom: 25px;
     p {
       line-height: 1;
     }
     .action {
       color: #000;
       font-weight: 600;
+      margin-bottom: 11px;
     }
     .explanation {
       line-height: 1.5;

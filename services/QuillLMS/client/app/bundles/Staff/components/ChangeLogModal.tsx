@@ -41,7 +41,7 @@ export default class ChangeLogModal extends React.Component<ChangeLogModalProps,
     return {
       name: 'Renamed',
       parent: `Level ${levelNumber + 1} updated`,
-      visible: concept.visible ? 'Archived' : 'Unarchived',
+      visible: concept.visible ? 'Unarchived' : 'Archived',
       description: 'Rule description updated',
       new: 'Created',
       replaced: 'Replaced'
