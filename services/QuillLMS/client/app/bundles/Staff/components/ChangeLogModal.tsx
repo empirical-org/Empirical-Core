@@ -3,11 +3,20 @@ import { Query, Mutation } from "react-apollo";
 import gql from "graphql-tag";
 import { Input, DropdownInput } from 'quill-component-library/dist/componentLibrary'
 
-const fieldToActionNameMap = {
-  'name': 'Renamed'
+import { Concept } from '../interfaces/interfaces'
+
+interface ChangeLogModalProps {
+  changedFields: Array<string>;
+  cancel: Function;
+  save: Function;
+  concept: Concept;
 }
 
-export default class ChangeLogModal extends React.Component {
+interface ChangeLogModalState {
+  [key:string]: { action: string, explanation: string, conceptID: string|number }
+}
+
+export default class ChangeLogModal extends React.Component<ChangeLogModalProps, ChangeLogModalState> {
   constructor(props) {
     super(props)
 
@@ -16,7 +25,7 @@ export default class ChangeLogModal extends React.Component {
       stateObj[`changeLog${i}`] = {
         action: this.fieldToActionNameMap()[field],
         explanation: '',
-        conceptID: props.conceptID
+        conceptID: props.concept.id
       }
     })
 
@@ -36,7 +45,9 @@ export default class ChangeLogModal extends React.Component {
   }
 
   updateExplanation(key, e) {
-    this.setState({[key]: e.target.value})
+    const changeLog = this.state[key]
+    changeLog.explanation = e.target.value
+    this.setState({ [key]: changeLog })
   }
 
   renderChangeLogFields() {
@@ -52,13 +63,28 @@ export default class ChangeLogModal extends React.Component {
     })
   }
 
+  renderButtons() {
+    const { save, cancel, } = this.props
+    let saveButtonClass = 'quill-button contained primary medium';
+    const allChangesEntered = Object.keys(this.state).every(key => this.state[key].explanation.length)
+    const changeLogs = Object.keys(this.state).map(key => this.state[key])
+    if (!allChangesEntered) {
+      saveButtonClass += ' disabled';
+    }
+    return (<div className="buttons">
+      <button className="quill-button medium secondary outlined" onClick={cancel}>Cancel</button>
+      <button className={saveButtonClass} onClick={() => save(changeLogs)}>Save</button>
+    </div>)
+  }
+
   render() {
     return <div className="change-log-modal-container">
       <div className="modal-background" />
-      <div className={`modal change-log-modal`}>
+      <div className="change-log-modal">
         <h1>Describe what action you took and why.</h1>
         <p>Be as specific as possible. For example, if you rename a concept, include the concept's original name in the description. If you archive a concept because it was a duplicate, include the UID of the concept being retained.</p>
         {this.renderChangeLogFields()}
+        {this.renderButtons()}
       </div>
     </div>
   }

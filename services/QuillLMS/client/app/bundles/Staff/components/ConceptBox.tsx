@@ -39,7 +39,7 @@ function levelOneConceptsQuery(){
 }
 
 const EDIT_CONCEPT = gql`
-mutation editConcept($id: ID! $name: String, $parentId: ID, $visible: Boolean, $description: String, $changeLogs: [ChangeLog]){
+mutation editConcept($id: ID! $name: String, $parentId: ID, $visible: Boolean, $description: String, $changeLogs: [ChangeLogInput!]!){
     editConcept(input: {id: $id, name: $name, parentId: $parentId, visible: $visible, description: $description, changeLogs: $changeLogs}){
       concept {
         id
@@ -83,6 +83,7 @@ class ConceptBox extends React.Component<ConceptBoxProps, ConceptBoxState> {
     this.cancelRename = this.cancelRename.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.changeDescription = this.changeDescription.bind(this)
+    this.closeChangeLogModal = this.closeChangeLogModal.bind(this)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -94,6 +95,10 @@ class ConceptBox extends React.Component<ConceptBoxProps, ConceptBoxState> {
   handleSubmit(e) {
     e.preventDefault()
     this.setState({ showChangeLogModal: true })
+  }
+
+  closeChangeLogModal() {
+    this.setState({ showChangeLogModal: false })
   }
 
   renderChangeLogModal(editConcept) {
@@ -109,6 +114,7 @@ class ConceptBox extends React.Component<ConceptBoxProps, ConceptBoxState> {
         concept={concept}
         changedFields={changedFields}
         levelNumber={this.props.levelNumber}
+        cancel={this.closeChangeLogModal}
         save={(changeLogs) => { this.save(editConcept, changeLogs)}}
       />
     }
@@ -247,6 +253,7 @@ class ConceptBox extends React.Component<ConceptBoxProps, ConceptBoxState> {
           />
           {this.renderRenameAndArchiveSection()}
         </div>
+        <ConceptChangeLogs changeLogs={concept.changeLogs} />
       </div>
     } else if (levelNumber === 1) {
       return <div>
@@ -262,6 +269,7 @@ class ConceptBox extends React.Component<ConceptBoxProps, ConceptBoxState> {
           />
           {this.renderRenameAndArchiveSection()}
         </div>
+        <ConceptChangeLogs changeLogs={concept.changeLogs} />
       </div>
     } else if (levelNumber === 0) {
       return <div>

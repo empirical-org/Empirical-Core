@@ -206,9 +206,9 @@
         }
       }
     }
-  }
-  .quill-button {
-    width: 100% !important;
+    .quill-button {
+      width: 100% !important;
+    }
   }
   &.create-concept-box {
     .input-container {
@@ -476,6 +476,13 @@
   transform: translate(-50%, -50%);
   padding: 32px;
   display: block;
+  .buttons {
+    display: flex;
+    justify-content: flex-end;
+  }
+  .quill-button {
+    margin-left: 20px;
+  }
   h1 {
     margin-bottom: 24px;
     font-size: 16px;

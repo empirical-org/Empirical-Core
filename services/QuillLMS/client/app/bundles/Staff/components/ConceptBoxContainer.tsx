@@ -80,21 +80,25 @@ class ConceptBoxContainer extends React.Component<any, ConceptBoxContainerProps>
           const concept:QueryResult = data.concept;
           if (visible) {
             return (
-              <ConceptBox
-                concept={concept}
-                levelNumber={levelNumber}
-                finishEditingConcept={finishEditingConcept}
-                closeConceptBox={closeConceptBox}
-              />
+              <div className="concept-box-container">
+                <ConceptBox
+                  concept={concept}
+                  levelNumber={levelNumber}
+                  finishEditingConcept={finishEditingConcept}
+                  closeConceptBox={closeConceptBox}
+                />
+              </div>
             )
           } else {
             return (
-              <ArchivedConceptBox
-                concept={concept}
-                levelNumber={levelNumber}
-                finishEditingConcept={finishEditingConcept}
-                closeConceptBox={closeConceptBox}
-              />
+              <div className="concept-box-container">
+                <ArchivedConceptBox
+                  concept={concept}
+                  levelNumber={levelNumber}
+                  finishEditingConcept={finishEditingConcept}
+                  closeConceptBox={closeConceptBox}
+                />
+              </div>
             )
           }
         }}
