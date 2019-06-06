@@ -1,7 +1,7 @@
-var C = require("../constants").default
-import rootRef from "../libs/firebase"
-var	pathwaysRef = rootRef.child("pathways")
-import { push } from 'react-router-redux'
+import C from '../constants'
+import rootRef from '../libs/firebase'
+
+const	pathwaysRef = rootRef.child('pathways')
 
 export default {
   startListeningToPathways: function(){

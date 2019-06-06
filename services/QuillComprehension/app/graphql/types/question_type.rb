@@ -3,7 +3,7 @@ class Types::QuestionType < Types::BaseObject
 
   field :id, ID, null: false
   field :activity_id, Integer, null: false
-  field :order, Integer, null: false
+  field :order, Integer, null: true
   field :prompt, String, null: false
   field :instructions, String, null: true
 

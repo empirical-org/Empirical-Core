@@ -1,6 +1,7 @@
 'use strict'
 
 import React from 'react'
+import request from 'request'
 import $ from 'jquery'
 import UnitTemplateProfileShareButtons from './unit_templates_manager/unit_template_profile/unit_template_profile_share_buttons'
 import LoadingIndicator from '../shared/loading_indicator'
@@ -44,25 +45,22 @@ export default class DiagnosticAssigned extends React.Component {
 
   componentWillMount() {
     const activityId = this.props.data.id;
-    const that = this;
-      $.ajax({
-        url: '/teachers/classrooms_i_teach_with_students',
-        dataType: 'json',
-        success(data) {
-          that.setState({loading: false, studentsPresent: that.anyClassroomsWithStudents(data.classrooms) });
-        }
-      });
-      $.ajax({
-        url: '/teachers/last_assigned_unit_id',
-        dataType: 'json',
-        success(data) {
-          that.setState({
-            loading: false,
-            diagnosticId: data.id,
-            referralCode: data.referral_code
-          });
-        }
-      });
+    request.get({
+      url: `${process.env.DEFAULT_URL}/teachers/classrooms_i_teach_with_students`
+    },
+    (e, r, body) => {
+      const parsedBody = JSON.parse(body)
+      const studentsPresent = this.anyClassroomsWithStudents(parsedBody.classrooms)
+      this.setState({ studentsPresent, loading: false, })
+    });
+
+    request.get({
+      url: `${process.env.DEFAULT_URL}/teachers/last_assigned_unit_id`
+    },
+    (e, r, body) => {
+      const parsedBody = JSON.parse(body)
+      this.setState({ diagnosticId: parsedBody.id, referralCode: parsedBody.referral_code, loading: false, })
+    });
   }
 
   activityName() {
