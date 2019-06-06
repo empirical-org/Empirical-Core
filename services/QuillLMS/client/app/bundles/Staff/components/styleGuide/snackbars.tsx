@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Snackbar } from 'quill-component-library/dist/componentLibrary'
+import { Snackbar, defaultSnackbarTimeout } from 'quill-component-library/dist/componentLibrary'
 
 class Snackbars extends React.Component {
   constructor(props) {
@@ -14,7 +14,7 @@ class Snackbars extends React.Component {
 
   triggerSnackbar() {
     this.setState({visible: true}, () => {
-      setTimeout(() => this.setState({ visible: false, }), 7000)
+      setTimeout(() => this.setState({ visible: false, }), defaultSnackbarTimeout)
     })
   }
 
@@ -34,8 +34,9 @@ class Snackbars extends React.Component {
 }
 
 triggerSnackbar() {
+  # Note that defaultSnackbarTimeout here is imported from the Snackbar module
   this.setState({visible: true}, () => {
-    setTimeout(() => this.setState({ visible: false, }), 7000)
+    setTimeout(() => this.setState({ visible: false, }), defaultSnackbarTimeout)
   })
 }
 
