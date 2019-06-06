@@ -22,8 +22,17 @@ const icon = 'https://assets.quill.org/images/icons/question_icon.svg'
 
 const PlaySentenceFragment = React.createClass<any, any>({
   getInitialState() {
+    const { question } = this.props
+    let response = ''
+    if (question && question.attempts.length) {
+      const attemptLength = question.attempts.length
+      const lastSubmission = question.attempts[attemptLength - 1]
+      response = lastSubmission.response.text
+    } else if (question) {
+      response = question.prompt
+    }
     return {
-      response: this.props.question ? this.props.question.prompt : '',
+      response,
       checkAnswerEnabled: true,
       editing: false,
     };
@@ -40,16 +49,19 @@ const PlaySentenceFragment = React.createClass<any, any>({
     return false;
   },
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.question && !this.state.responses) {
+  componentDidMount() {
+    const question = this.props.question
+    if (question && !this.state.responses) {
       getGradedResponsesWithCallback(
-        this.props.question.key,
+        question.key,
         (data) => {
           this.setState({ responses: data, });
         }
       )
     }
+  },
 
+  componentWillReceiveProps(nextProps) {
     if (nextProps.question.attempts.length !== this.props.question.attempts.length) {
       this.setState({editing: false})
     }
@@ -288,10 +300,4 @@ function getLatestAttempt(attempts:Array<{response: Response}> = []):{response: 
   return attempts[lastIndex];
 };
 
-function select(state) {
-  return {
-    conceptsFeedback: state.conceptsFeedback,
-  };
-}
-
-export default connect(select)(PlaySentenceFragment);
+export default PlaySentenceFragment
