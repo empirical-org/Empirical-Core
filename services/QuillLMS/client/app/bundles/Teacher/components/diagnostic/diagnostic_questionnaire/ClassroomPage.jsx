@@ -1,13 +1,15 @@
 import React from 'react';
-import $ from 'jquery';
-import DropdownButton from 'react-bootstrap/lib/DropdownButton';
+import request from 'request';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
-import { Router, Route, Link, hashHistory } from 'react-router';
+import { Link } from 'react-router';
 import NumberSuffix from '../../modules/numberSuffixBuilder.js';
 import Modal from 'react-bootstrap/lib/Modal';
 import CreateClass from '../../../containers/CreateClass.jsx';
 import Classroom from '../../lesson_planner/create_unit/stage2/classroom';
 import LoadingSpinner from '../../shared/loading_indicator.jsx';
+
+import getAuthToken from '../../modules/get_auth_token'
+
 
 export default React.createClass({
 
@@ -27,21 +29,23 @@ export default React.createClass({
   },
 
   getClassrooms() {
-    const that = this;
-    $.ajax('/teachers/classrooms_i_teach_with_students').done((data) => {
-      const classrooms = that.addClassroomProps(data.classrooms);
-      that.setState({ classrooms, });
-    }).fail(() => {
-      alert('error');
-    }).always(() => {
-      that.setState({ loading: false, });
+    request.get({
+      url: `${process.env.DEFAULT_URL}/teachers/classrooms_i_teach_with_students`
+    },
+    (e, r, body) => {
+      const parsedBody = JSON.parse(body)
+      const classrooms = this.addClassroomProps(parsedBody.classrooms)
+      this.setState({ classrooms, loading: false, })
     });
   },
 
   getTeacher() {
-    const that = this;
-    $.get('/current_user_json').done((data) => {
-      that.setState({ user: data, }, that.getClassrooms());
+    request.get({
+      url: `${process.env.DEFAULT_URL}/current_user_json`
+    },
+    (e, r, body) => {
+      const parsedBody = JSON.parse(body)
+      this.setState({ user: parsedBody, }, this.getClassrooms)
     });
   },
 
@@ -131,14 +135,20 @@ export default React.createClass({
   submitClasses() {
     this.setState({ hiddenButton: true, });
     const data = this.assignedClassData();
-    const that = this;
+    data.authenticity_token = getAuthToken()
     if (data.unit.classrooms.length < 1) {
       alert('You must select a classroom before assigning the diagnostic.');
     } else {
-      $.ajax({ type: 'POST', url: '/teachers/units', data: JSON.stringify(data), dataType: 'json', contentType: 'application/json', }).done(() => {
-        window.location = `/diagnostic/${that.props.diagnosticActivityId}/success`;
-      }).fail(() => {
-        alert('There has been an error assigning the lesson. Please make sure you have selected a classroom');
+      request.post({
+        url: `${process.env.DEFAULT_URL}/teachers/units`,
+        json: data
+      },
+      (e, r) => {
+        if (r.statusCode === 200) {
+          window.location = `/diagnostic/${this.props.diagnosticActivityId}/success`
+        } else {
+          window.alert('There has been an error assigning the lesson. Please make sure you have selected a classroom')
+        }
       });
     }
   },

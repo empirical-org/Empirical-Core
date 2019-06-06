@@ -24,7 +24,7 @@ const NotificationFeed = ({ notifications, }) => {
 
 const styles = {
   list: {
-    'list-style': 'none', 
+    'listStyle': 'none',
     'padding': '5px 10px',
   },
   listItem: {
