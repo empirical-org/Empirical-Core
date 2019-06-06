@@ -1,7 +1,9 @@
 import React from 'react'
 import DropdownButton from 'react-bootstrap/lib/DropdownButton';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
-import $ from 'jquery';
+import request from 'request'
+
+import getAuthToken from '../../../components/modules/get_auth_token'
 
 export default class StudentAccountForm extends React.Component {
   constructor(props) {
@@ -12,33 +14,39 @@ export default class StudentAccountForm extends React.Component {
       notGoogleUser: (!props.googleId && !props.signedUpWithGoogle),
       errors: []
     }
+
+    this.handleClick = this.handleClick.bind(this)
+    this.updateEmail = this.updateEmail.bind(this)
+    this.showErrors = this.showErrors.bind(this)
   }
 
-  updateEmail(e){
-    this.setState({email: e.target.value})
+  updateEmail(e) {
+    this.setState({ email: e.target.value, })
   }
 
-  handleClick(){
-    let that = this
-    $.ajax({
-      url: '/update_email',
-      method: 'PUT',
-      data: { email: this.state.email, role: this.state.role },
-      statusCode: {
-        200() {
-          window.location = '/profile'        },
-        400(response) {
-          that.setState({errors: response.responseJSON.errors})
-        }
+  handleClick() {
+    request.put({
+      url: `${process.env.DEFAULT_URL}/update_email`,
+      json: {
+        email: this.state.email,
+        role: this.state.role,
+        authenticity_token: getAuthToken(),
       }
-    })
+    },
+    (e, r, body) => {
+      if (r.statusCode === 200) {
+        window.location = '/profile'
+      } else {
+        this.setState({ errors: body.errors, })
+      }
+    });
   }
 
   showErrors(){
     return this.state.errors ? <span>{this.state.errors}</span> : null
   }
 
-  render () {
+  render() {
     let submitButton, email
     // email and submitButton should only show for the student page
     if (window.location.pathname === '/account_settings' && this.state.notGoogleUser) {

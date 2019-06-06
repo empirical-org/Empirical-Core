@@ -52,13 +52,13 @@ describe('Scorebook component', () => {
 
       it('receives students as the missing prop value when appropriate', () => {
         const wrapper = shallow(<Scorebook />);
-        wrapper.setState({ unitFilters: [''], classroomFilters: [''] });
+        wrapper.setState({ unitFilters: [''], classroomFilters: [''], anyScoresHaveLoadedPreviously: 'false' });
         expect(wrapper.instance().checkMissing(new Map())).toBe('students');
       });
 
       it('receives activitiesWithinDateRange as the missing prop value when appropriate', () => {
         const wrapper = shallow(<Scorebook />);
-        wrapper.setState({ classroomFilters: [''] });
+        wrapper.setState({ classroomFilters: [''], anyScoresHaveLoadedPreviously: 'false' });
         expect(wrapper.instance().checkMissing(new Map())).toBe('activities');
       });
     });
@@ -180,12 +180,14 @@ describe('Scorebook component', () => {
 
     it('should set scorebookBeginDate as a stringified Moment object', () => {
       wrapper.instance().selectDates(beginDate, null, null);
-      expect(window.localStorage.getItem('scorebookBeginDate')).toBe(beginDate);
+      const localStorageBeginDate = moment(window.localStorage.getItem('scorebookBeginDate')).seconds(0).milliseconds(0).toISOString()
+      const savedBeginDate = moment(beginDate).seconds(0).milliseconds(0).toISOString()
+      expect(localStorageBeginDate).toBe(savedBeginDate);
     });
 
     it('should set scoreBookDateFilterName as a string', () => {
       wrapper.instance().selectDates(null, null, dateFilterName);
-      expect(window.localStorage.getItem('scorebookBeginDate')).toBe(null);
+      expect(window.localStorage.getItem('scorebookBeginDate')).toBe('null');
       expect(window.localStorage.getItem('scorebookDateFilterName')).toBe(dateFilterName);
     });
 
