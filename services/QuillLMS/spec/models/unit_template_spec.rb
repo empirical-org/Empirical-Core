@@ -56,10 +56,26 @@ describe UnitTemplate, redis: :true, type: :model do
   describe '#get_cached_serialized_unit_template' do
     let(:category) { create(:unit_template_category) }
     let(:author) { create(:author) }
-    let(:unit_template1) { create(:unit_template, author: author, unit_template_category: category, activities: []) }
+    let(:activity) { create(:activity) }
+    let(:unit_template1) { create(:unit_template, author: author, unit_template_category: category, activities: [activity]) }
     let(:json) {
       {
-        activites: [],
+        activities: [{
+          id: activity.id,
+          name: activity.name,
+          flags: activity.flags,
+          description: activity.description,
+          section_name: activity.section.name,
+          topic: {
+            id: activity.topic.id,
+            name: activity.topic.name,
+            topic_category: {
+              id: activity.topic.topic_category.id,
+              name: activity.topic.topic_category.name
+            }
+          },
+          classification: {key: activity.classification.key, id: activity.classification.id, name: activity.classification.name }
+        }],
         activity_info: nil,
         author: {
           name: author.name,

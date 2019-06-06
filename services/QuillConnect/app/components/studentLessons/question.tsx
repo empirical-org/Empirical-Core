@@ -1,6 +1,5 @@
 declare function require(name:string);
 import * as React from 'react';
-const Markdown = require('react-remarkable');
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import Question from '../../libs/question';
@@ -41,23 +40,31 @@ const feedbackStrings = C.FEEDBACK_STRINGS;
 
 const playLessonQuestion = React.createClass<any, any>({
   getInitialState() {
+    const { question, } = this.props
+    let response = ''
+    const numberOfAttempts = question.attempts.length
+    if (numberOfAttempts) {
+      const lastSubmitted = question.attempts[numberOfAttempts - 1]
+      response =  lastSubmitted.response.text
+    }
     return {
       editing: false,
-      response: '',
+      response,
       finished: false,
       multipleChoice: false,
     };
   },
 
   componentDidMount() {
+    const { question, } = this.props
     getGradedResponsesWithCallback(
-      this.props.question.key,
+      question.key,
       (data) => {
         this.setState({ responses: data, });
       }
     );
     getMultipleChoiceResponseOptionsWithCallback(
-      this.props.question.key,
+      question.key,
       (data) => {
         this.setState({ multipleChoiceResponseOptions: _.shuffle(data), });
       }
@@ -399,9 +406,4 @@ function getLatestAttempt(attempts:Array<{response: Response}> = []):{response: 
   return attempts[lastIndex];
 };
 
-function select(state) {
-  return {
-    conceptsFeedback: state.conceptsFeedback,
-  };
-}
-export default connect(select)(playLessonQuestion);
+export default playLessonQuestion

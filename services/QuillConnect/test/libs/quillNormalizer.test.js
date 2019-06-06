@@ -1,5 +1,7 @@
 import expect from 'expect';
-import quillNormalize from '../../app/libs/quillNormalizer'
+import quillNormalize from '../../app/libs/quillNormalizer.js'
+
+String.prototype.quillNormalize = quillNormalize
 
 describe('Replacing double quotation marks', () => {
 

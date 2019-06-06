@@ -1,4 +1,4 @@
-import actions, {nextQuestion} from '../../app/actions';
+import { nextQuestion } from '../../app/actions';
 import expect from 'expect';
 
 describe("submit actions", () => {
