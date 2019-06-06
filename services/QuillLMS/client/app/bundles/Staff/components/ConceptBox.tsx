@@ -78,7 +78,7 @@ class ConceptBox extends React.Component<ConceptBoxProps, ConceptBoxState> {
 
     this.changeLevel1 = this.changeLevel1.bind(this)
     this.changeLevel2 = this.changeLevel2.bind(this)
-    this.archiveConcept = this.archiveConcept.bind(this)
+    this.toggleVisiblity = this.toggleVisiblity.bind(this)
     this.renameConcept = this.renameConcept.bind(this)
     this.cancelRename = this.cancelRename.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -154,8 +154,9 @@ class ConceptBox extends React.Component<ConceptBoxProps, ConceptBoxState> {
     this.setState({ concept: newConcept })
   }
 
-  archiveConcept() {
-    const newConcept = Object.assign({}, this.state.concept, { visible: false })
+  toggleVisiblity() {
+    const { concept, } = this.state
+    const newConcept = Object.assign({}, this.state.concept, { visible: !concept.visible })
     this.setState({ concept: newConcept })
   }
 
@@ -225,14 +226,15 @@ class ConceptBox extends React.Component<ConceptBoxProps, ConceptBoxState> {
   }
 
   renderRenameAndArchiveSection() {
+    const { concept, } = this.state
     return <div className="rename-and-archive">
       <span className="rename" onClick={this.activateConceptInput}>
         <i className="fas fa-edit"></i>
         <span>Rename</span>
       </span>
-      <span className="archive" onClick={this.archiveConcept}>
+      <span className="archive" onClick={this.toggleVisiblity}>
         <i className="fas fa-archive"></i>
-        <span>Archive</span>
+        <span>{ concept.visible ? 'Archive' : 'Unarchive' }</span>
       </span>
   </div>
   }

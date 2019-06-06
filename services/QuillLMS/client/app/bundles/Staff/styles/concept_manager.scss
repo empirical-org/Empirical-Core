@@ -191,7 +191,7 @@
       align-items: flex-end;
     }
     #concept-name {
-      width: 280px;
+      width: 260px;
       padding-right: 20px;
     }
     .rename-and-archive {
@@ -405,7 +405,7 @@
     margin-bottom: 20px;
   }
   .change-log-items {
-    border-left: 1px solid #ebebeb;
+    border-left: 1px solid #CFCFCF;
   }
   .change-log-item {
     padding-left: 30px;
@@ -413,6 +413,9 @@
     margin-bottom: 25px;
     p {
       line-height: 1;
+    }
+    .date {
+      color: #a7a7a7;
     }
     .action {
       color: #000;
@@ -429,6 +432,7 @@
       i {
         font-size: 16px;
         margin-right: 5px;
+        color: #b8b8b8;
       }
       span {
         color: #000;
@@ -443,7 +447,7 @@
     left: -8px;
     top: 0px;
     background-color: white;
-    border: 1px solid #ebebeb;
+    border: 1px solid #CFCFCF;
     border-radius: 50%;
     z-index: 1;
   }
@@ -615,6 +619,7 @@
       border-bottom: none !important;
     }
     .dropdown__menu {
+      z-index: 100;
       border-radius: 0px 0px 4px 4px;
       margin-top: -4px;
       box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0 1px 18px 0 rgba(0, 0, 0, 0.12), 0 6px 10px 0 rgba(0, 0, 0, 0.14);

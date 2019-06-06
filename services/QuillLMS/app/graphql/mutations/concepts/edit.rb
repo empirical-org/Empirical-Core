@@ -21,19 +21,20 @@ class Mutations::Concepts::Edit < Mutations::BaseMutation
 
   def resolve(inputs)
     concept = Concept.find(inputs[:id])
-    change_logs = inputs[:change_logs].map do |cl|
-      {
-        explanation: cl[:explanation],
-        action: cl[:action],
-        changed_record_id: cl[:conceptID],
-        changed_record_type: 'Concept',
-        user_id: context[:current_user].id
-      }
-    end
     values = inputs.reject{|k,v| k == :id || k === :change_logs}
-    ChangeLog.create(change_logs)
     if concept.update(values)
       # Successful update, return the updated object with no errors
+      change_logs = inputs[:change_logs].map do |cl|
+        {
+          explanation: cl[:explanation],
+          action: cl[:action],
+          changed_record_id: cl[:conceptID],
+          changed_record_type: 'Concept',
+          user_id: context[:current_user].id
+        }
+      end
+      ChangeLog.create(change_logs)
+
       {
         concept: concept,
         errors: [],
