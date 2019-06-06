@@ -59,7 +59,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     this.state = {}
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.setQuestionValues(this.props.question)
   }
 
@@ -110,9 +110,14 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
   }
 
   generateInputs(promptArray) {
-    const inputs:Array<string> = [];
-    for (let i = 0; i < promptArray.length - 2; i++) {
-      inputs.push('');
+    let inputs:Array<string> = [];
+    const latestAttempt = this.getLatestAttempt();
+    if (latestAttempt) {
+      const text = latestAttempt.response.text
+      const promptRegex = new RegExp(promptArray.join('|'), 'i')
+      inputs = text.split(promptRegex).filter(input => input.length)
+    } else {
+      inputs = Array.from({length: promptArray.length - 2}, () => '')
     }
     return inputs;
   }
@@ -434,10 +439,4 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
 
 }
 
-function select(state) {
-  return {
-    conceptsFeedback: state.conceptsFeedback,
-  };
-}
-
-export default connect(select)(PlayFillInTheBlankQuestion);
+export default PlayFillInTheBlankQuestion

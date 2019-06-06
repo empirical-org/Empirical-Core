@@ -4,7 +4,7 @@ const webpack = require('webpack');
 const path = require('path');
 const { resolve, } = require('path');
 
-const devBuild = process.env.RAILS_ENV !== 'production';
+const devBuild = process.env.RAILS_ENV === 'development';
 const nodeEnv = devBuild ? 'development' : 'production';
 const webpackConfigLoader = require('react-on-rails/webpackConfigLoader');
 

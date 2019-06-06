@@ -108,7 +108,7 @@
   function sendReferralEmail() {
     $.post('<%= invite_referrals_path %>', {
       email: document.getElementById('referral-email').value
-    }).success(function(data) {
+    }).done(function(data) {
       displaySuccessMessage();
     }).fail(function() {
       alert('Whoops, looks like something went wrong. Please try again, or contact support.');
