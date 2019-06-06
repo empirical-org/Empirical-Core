@@ -322,7 +322,7 @@ function incrementRequestCount() {
   return { type: C.INCREMENT_REQUEST_COUNT }
 }
 
-module.exports = {
+export default {
   startListeningToQuestions,
   loadQuestions,
   startQuestionEdit,
