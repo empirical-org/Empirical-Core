@@ -1,7 +1,7 @@
 import React from 'react';
 import _ from 'underscore';
 import _l from 'lodash';
-import $ from 'jquery';
+import request from 'request';
 
 import ActivitySearchAndFilters from './activity_search_filters/activity_search_filters';
 import ActivitySearchFilterConfig from './activity_search_filters/activity_search_filter_config';
@@ -45,11 +45,16 @@ export default React.createClass({
 
   searchRequest() {
     this.setState({ loading: true, });
-    $.ajax({
-      url: '/activities/search',
-      context: this,
-      success: this.searchRequestSuccess,
-      error: this.errorState,
+    request.get({
+      url: `${process.env.DEFAULT_URL}/activities/search`
+    },
+    (e, r, body) => {
+      const parsedBody = JSON.parse(body)
+      if (r.statusCode === 200) {
+        this.searchRequestSuccess(parsedBody)
+      } else {
+        this.errorState('This search could not be completed')
+      }
     });
   },
 
@@ -62,8 +67,8 @@ export default React.createClass({
     }, []);
   },
 
-  errorState(data) {
-    this.setState({ error: data.errorText, });
+  errorState(error) {
+    this.setState({ error, });
   },
 
   clearFilters() {
