@@ -1,0 +1,117 @@
+import * as React from "react";
+import { Query } from "react-apollo";
+import gql from "graphql-tag";
+import Fuse from 'fuse.js'
+
+import { ChangeLog } from '../interfaces/interfaces'
+import ChangeLogTable from "../components/ChangeLogTable";
+import ChangeLogSearch from "../components/ChangeLogSearch";
+import ConceptManagerNav from "../components/ConceptManagerNav";
+
+const conceptsChangeLogIndexQuery:string = `
+{
+  changeLogs(conceptChangeLogs: true) {
+    id
+    action
+    explanation
+    createdAt
+    concept {
+      name
+      uid
+    }
+    user {
+      name
+    }
+  }
+}
+`
+
+interface ConceptsChangeLogState {
+  searchValue: string,
+  fuse?: any
+}
+
+class ConceptsChangeLog extends React.Component<any, ConceptsChangeLogState> {
+  constructor(props){
+    super(props)
+
+    this.state = {
+      searchValue: ''
+    }
+    this.updateSearchValue = this.updateSearchValue.bind(this)
+  }
+
+  filterChangeLog(changeLogs:Array<ChangeLog>, searchValue:string):Array<ChangeLog>{
+    if (searchValue == '') {return changeLogs};
+    if (this.state.fuse) {
+      return this.state.fuse.search(searchValue)
+    } else {
+      const options = {
+        shouldSort: true,
+        caseSensitive: false,
+        tokenize: true,
+        maxPatternLength: 32,
+        minMatchCharLength: 3,
+        threshold: 0.0,
+        keys: [
+          "concept.name",
+          "concept.uid"
+        ]
+      };
+      const fuse = new Fuse(changeLogs, options);
+      this.setState({fuse});
+      return changeLogs;
+    }
+  }
+
+  updateSearchValue(searchValue:string):void {
+    this.setState({searchValue})
+  }
+
+  renderConceptsChangeLog(data) {
+    return <ChangeLogTable
+      changeLogs={this.filterChangeLog(data.changeLogs, this.state.searchValue)}
+    />
+  }
+
+  render() {
+    return  (
+      <div>
+        <ConceptManagerNav />
+        <Query
+          query={gql(conceptsChangeLogIndexQuery)}
+          notifyOnNetworkStatusChange
+        >
+          {({ loading, error, data, refetch, networkStatus }) => {
+            console.log('error', error)
+            if (networkStatus === 4) return <p>Refetching!</p>;
+            if (loading) return <p>Loading...</p>;
+            if (error) return <p>Error :(</p>;
+
+            return (
+              <div className="concepts-change-log-index">
+                <div className="concepts-change-log-index-top">
+                  <ChangeLogSearch
+                    changeLogs={this.filterChangeLog(data.concepts, this.state.searchValue)}
+                    searchValue={this.state.searchValue}
+                    updateSearchValue={this.updateSearchValue}
+                  />
+                </div>
+                <div className="concepts-change-log-index-bottom">
+                  <div className="concepts-change-log-table-container">
+                    <div>
+                      {this.renderConceptsChangeLog(data)}
+                    </div>
+                </div>
+              </div>
+            </div>)
+          }}
+        </Query>
+      </div>
+
+    )
+  }
+
+};
+
+export default ConceptsChangeLog

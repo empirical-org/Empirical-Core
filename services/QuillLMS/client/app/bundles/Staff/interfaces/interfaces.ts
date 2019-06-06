@@ -14,9 +14,10 @@ export interface Concept {
 
 export interface ChangeLog {
   action: string;
-  description: string;
+  explanation: string;
+  id?: string;
   conceptID?: string;
-  id: string;
-  user: { name: string };
-  createdAt: number;
+  user?: { name?: string };
+  concept?: Concept
+  createdAt?: number;
 }

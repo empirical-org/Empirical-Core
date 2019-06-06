@@ -175,12 +175,6 @@ class ConceptsIndex extends React.Component<any, ConceptsIndexState> {
   }
 
   render() {
-    let activeLink = 'concepts'
-    if (window.location.href.includes('find_and_replace')) {
-      activeLink = 'find_and_replace'
-    } else if (window.location.href.includes('new')) {
-      activeLink = "new"
-    }
     return  (
       <div>
         <ConceptManagerNav />
