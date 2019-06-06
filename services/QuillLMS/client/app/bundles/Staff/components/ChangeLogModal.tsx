@@ -1,5 +1,5 @@
 import React from 'react'
-import { TextField } from './textField'
+import { TextField } from './TextField'
 // import { Input, DropdownInput } from 'quill-component-library/dist/componentLibrary'
 
 import { Concept } from '../interfaces/interfaces'
