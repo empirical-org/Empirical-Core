@@ -3,19 +3,7 @@
 exports[`DateRangeFilterOption should match snapshot 1`] = `
 <div
   className="calendar-prefill-option "
-  onClick={
-    [MockFunction] {
-      "calls": Array [
-        Array [],
-      ],
-      "results": Array [
-        Object {
-          "type": "return",
-          "value": undefined,
-        },
-      ],
-    }
-  }
+  onClick={[Function]}
 >
   Example Title
 </div>
