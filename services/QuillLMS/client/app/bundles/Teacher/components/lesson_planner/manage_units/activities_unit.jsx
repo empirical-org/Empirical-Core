@@ -141,7 +141,7 @@ export default React.createClass({
                                () => that.setState({edit: false,
                                                     errors: undefined,
                                                     savedUnitName: that.state.unitName}),
-                               (response) => that.setState({errors: response.responseJSON.errors,
+                               (response) => that.setState({errors: response.body.errors,
                                                             edit: false,
                                                             unitName: that.state.savedUnitName}));
   },
