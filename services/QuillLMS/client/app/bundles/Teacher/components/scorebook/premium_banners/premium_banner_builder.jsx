@@ -17,7 +17,7 @@ export default React.createClass({
   fetchData: function() {
     var that = this;
     $.get('/teachers/classrooms/premium')
-    .success(function(data) {
+    .done(function(data) {
       that.setState({
         has_premium: data['hasPremium'],
         trial_days_remaining: data['trial_days_remaining'],
