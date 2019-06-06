@@ -463,3 +463,15 @@ button:not(.select-mixin) {
     top: 2px;
   }
 }
+
+/* ==========================================================================
+   Sortable List Styles
+   ========================================================================== */
+
+.sortable-list .list-item {
+  cursor: grab;
+}
+
+.sortable-list .list-item:active {
+  cursor: grabbing;
+}
