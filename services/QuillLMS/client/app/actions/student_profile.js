@@ -1,33 +1,31 @@
-import $ from 'jquery';
+import request from 'request';
 
-export const receiveStudentProfile = (data) => {
-  return {
-    type: 'RECEIVE_STUDENT_PROFILE',
-    data: data
-  };
-};
+export const receiveStudentProfile = data => ({
+  type: 'RECEIVE_STUDENT_PROFILE',
+  data
+})
 
 export const fetchNotifications = () => {
   return (dispatch) => {
-    $.ajax({
-      url: '/notifications',
-      format: 'json',
-      success: (data) => {
-        dispatch(receiveNotifications(data));
-      }
+    request.get({
+      url: `${process.env.DEFAULT_URL}/notifications`
+    },
+    (e, r, body) => {
+      const parsedBody = JSON.parse(body)
+      dispatch(receiveNotifications(parsedBody))
     });
   }
 }
 
 export const fetchStudentProfile = (classroomId) => {
   return (dispatch) => {
-    $.ajax({
-      url: '/student_profile_data',
-      data: { current_classroom_id: classroomId },
-      format: 'json',
-      success: (data) => {
-        dispatch(receiveStudentProfile(data));
-      }
+    request.get({
+      url: `${process.env.DEFAULT_URL}/student_profile_data`,
+      qs: { current_classroom_id: classroomId, }
+    },
+    (e, r, body) => {
+      const parsedBody = JSON.parse(body)
+      dispatch(receiveStudentProfile(parsedBody))
     });
   };
 };
@@ -70,12 +68,12 @@ export const updateNumberOfClassroomTabs = (screenWidth) => {
 
 export const fetchStudentsClassrooms = () => {
   return (dispatch) => {
-    $.ajax({
-      url: '/students_classrooms_json',
-      format: 'json',
-      success: (data) => {
-        dispatch(receiveStudentsClassrooms(data.classrooms))
-      }
+    request.get({
+      url: `${process.env.DEFAULT_URL}/students_classrooms_json`
+    },
+    (e, r, body) => {
+      const parsedBody = JSON.parse(body)
+      dispatch(receiveStudentsClassrooms(parsedBody.classrooms))
     });
   };
 };
