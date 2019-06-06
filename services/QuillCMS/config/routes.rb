@@ -22,6 +22,13 @@ Rails.application.routes.draw do
   get 'stats/question_health_index' => 'stats#question_health_index'
   get 'stats/diagnostic_question_health_index' => 'stats#diagnostic_question_health_index'
 
+  # Uptime status
+  get 'status' => 'status#index'
+  get 'status/database' => 'status#database'
+  get 'status/redis_cache' => 'status#redis_cache'
+  get 'status/elasticsearch' => 'status#elasticsearch'
+  get 'status/memcached' => 'status#memcached'
+
   #fragments controller for passing events to nlp.quill.org
   post 'fragments/is_sentence' => 'fragments#is_sentence'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
