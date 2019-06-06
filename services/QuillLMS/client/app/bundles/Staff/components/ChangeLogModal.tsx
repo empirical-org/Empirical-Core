@@ -1,6 +1,4 @@
 import React from 'react'
-import { Query, Mutation } from "react-apollo";
-import gql from "graphql-tag";
 import { TextField } from './textField'
 // import { Input, DropdownInput } from 'quill-component-library/dist/componentLibrary'
 
@@ -8,14 +6,14 @@ import { Concept } from '../interfaces/interfaces'
 
 interface ChangeLogModalProps {
   changedFields: Array<string>;
-  cancel: Function;
-  save: Function;
+  cancel(event): void;
+  save(event): void;
   concept: Concept;
-  levelNumber: number;
+  levelNumber?: number;
 }
 
 interface ChangeLogModalState {
-  [key:string]: { action: string, explanation: string, conceptID: string|number }
+  [key:string]: { action: string, explanation: string, conceptID?: string }
 }
 
 export default class ChangeLogModal extends React.Component<ChangeLogModalProps, ChangeLogModalState> {
@@ -70,7 +68,7 @@ export default class ChangeLogModal extends React.Component<ChangeLogModalProps,
   renderButtons() {
     const { save, cancel, } = this.props
     let saveButtonClass = 'quill-button contained primary medium';
-    const allChangesEntered = Object.keys(this.state).every(key => this.state[key].explanation.length)
+    const allChangesEntered = Object.keys(this.state).every(key => !!this.state[key].explanation.length)
     const changeLogs = Object.keys(this.state).map(key => this.state[key])
     if (!allChangesEntered) {
       saveButtonClass += ' disabled';
