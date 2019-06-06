@@ -5,10 +5,12 @@ import ClassroomActivity from '../classroom_activity';
 
 describe('ClassroomActivity component', () => {
   it('should not render Recommendations div if data.activityId is not diagnostic id', () => {
-    Object.defineProperty(window.location, 'pathname', {
-        writable: true,
-        value: '/teachers/progress_reports/diagnostic_reports/',
-      });
+    delete window.location;
+    Object.defineProperty(window, 'location', {
+      value: {
+        pathname: '/teachers/progress_reports/diagnostic_reports/'
+      }
+    });
     const wrapper = shallow(
         <ClassroomActivity
           data={{ activity:
