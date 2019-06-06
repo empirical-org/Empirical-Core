@@ -40,7 +40,7 @@ export default class extends React.Component {
               <input className="name-input" placeholder='Last Name' type="text" value={this.props.lastName} onChange={(e)=> this.props.nameChange(e, 'lastName')}/>
               {this.addStudentButton()}
             </span>
-            <a className="white-bg" href={'/teachers/classrooms/' + this.props.classID + '/student_logins.pdf'}>Download Login Sheet</a>
+            <a className="white-bg" href={'/teachers/classrooms/' + this.props.classID + '/student_logins.pdf'}>Download Log In Sheet</a>
           </div>
           <div className="errors">{this.props.errors}</div>
         </div>
