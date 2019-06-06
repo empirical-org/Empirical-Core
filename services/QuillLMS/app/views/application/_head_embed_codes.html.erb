@@ -12,7 +12,7 @@
       #   3) this is an anonymous user, in which case we don't do anything special at all
     %>
     <% if current_user %>
-      analytics.identify(<%= raw(generate_segment_identify_arguments(current_user)) %>);
+      analytics.identify(<%= raw(generate_segment_identify_arguments(current_user, @should_load_intercom)) %>);
     <% elsif @logging_user_out %>
       analytics.reset()
     <% end %>

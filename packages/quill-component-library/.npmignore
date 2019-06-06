@@ -1,4 +1,3 @@
 node_modules/
-dist/
 !dist/package.json
 .rpt2_cache/

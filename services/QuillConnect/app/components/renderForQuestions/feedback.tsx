@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import ReactDOM from 'react-dom'
 import _ from 'underscore';
 const icon = 'https://assets.quill.org//images/icons/question_icon.svg';

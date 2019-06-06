@@ -26,7 +26,9 @@ describe User, type: :model do
         classroom1_hash = classroom1.attributes
         classroom1_hash[:students] = classroom1.students
         classrooms = teacher.classrooms_i_own_with_students
-        expect(classrooms).to eq([classroom_hash, classroom1_hash])
+        [classroom_hash, classroom1_hash].each do |classroom_h|
+          expect(classrooms).to include(classroom_h)
+        end
       end
 
       it "should return an empty array if the teacher does not own any classrooms" do
