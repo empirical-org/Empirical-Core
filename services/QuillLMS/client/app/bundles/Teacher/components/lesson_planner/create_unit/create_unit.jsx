@@ -3,8 +3,10 @@ import UnitStage1 from './stage1/unit_stage1';
 import Stage2 from './stage2/Stage2';
 import UnitTemplatesAssigned from '../unit_template_assigned';
 import _ from 'underscore';
-import $ from 'jquery';
+import request from 'request';
 import AnalyticsWrapper from '../../shared/analytics_wrapper';
+import getAuthToken from '../../modules/get_auth_token'
+
 
 export default React.createClass({
   getInitialState() {
@@ -122,13 +124,16 @@ export default React.createClass({
   },
 
   finish() {
-    $.ajax({
-      type: 'POST',
-      url: '/teachers/units',
-      data: JSON.stringify(this.formatCreateRequestData()),
-      dataType: 'json',
-      contentType: 'application/json',
-      success: response => this.onCreateSuccess(response),
+    const data = this.formatCreateRequestData()
+    data.authenticity_token = getAuthToken()
+    request.post({
+      url: `${process.env.DEFAULT_URL}/teachers/units`,
+      json: data
+    },
+    (e, r, body) => {
+      if (r.statusCode === 200) {
+        this.onCreateSuccess(body)
+      }
     });
   },
 
@@ -140,18 +145,16 @@ export default React.createClass({
   },
 
   fetchClassrooms() {
-		 const that = this;
-    $.ajax({
-      url: '/teachers/classrooms/retrieve_classrooms_i_teach_for_custom_assigning_activities',
-      context: this,
-      success(data) {
-        that.setState({
-          options: {
-            classrooms: data.classrooms_and_their_students,
-          },
-        });
-      },
-    });
+    request.get({
+      url: `${process.env.DEFAULT_URL}/teachers/classrooms/retrieve_classrooms_i_teach_for_custom_assigning_activities`,
+    }, (e, r, body) => {
+      const parsedBody = JSON.parse(body)
+      if (r.statusCode === 200) {
+        this.setState({
+          options: { classrooms: parsedBody.classrooms_and_their_students, }
+        })
+      }
+    })
   },
 
   resetWindowPosition() {

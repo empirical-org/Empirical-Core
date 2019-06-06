@@ -28,7 +28,6 @@ import ActivityCategoryApp from './ActivityCategoryAppClient';
 import ActivityClassificationsApp from './ActivityClassificationsAppClient';
 import EditCoteacherApp from './EditCoteacherAppClient';
 import EditStudentApp from './EditStudentAppClient';
-import SelectSchoolApp from './SelectSchoolAppClient';
 import SubscriptionApp from './SubscriptionAppClient';
 import BlogPostsApp from './BlogPostsAppClient'
 import PressApp from './PressAppClient'
@@ -71,7 +70,6 @@ ReactOnRails.register({ TeacherGuideApp,
   ActivityClassificationsApp,
   EditCoteacherApp,
   EditStudentApp,
-  SelectSchoolApp,
   SubscriptionApp,
   BlogPostsApp,
   PressApp,

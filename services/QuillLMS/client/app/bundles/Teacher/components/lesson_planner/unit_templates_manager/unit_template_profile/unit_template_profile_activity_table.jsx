@@ -2,6 +2,7 @@
 
  import React from 'react'
  import ReactTable from 'react-table'
+ import $ from 'jquery';
 
  export default React.createClass({
   propTypes: {
@@ -9,11 +10,21 @@
     actions: React.PropTypes.object
   },
 
-  redirectToActivity: function(activityId) {
+  redirectToActivity(activityId) {
     window.open(`/activity_sessions/anonymous?activity_id=${activityId}`, '_blank');
   },
 
-  columnDefinitions: function() {
+  tooltipTrigger(e, id) {
+    e.stopPropagation();
+    $(this[`activateTooltip${id}`]).tooltip('show');
+  },
+
+  tooltipTriggerStop(e, id) {
+    e.stopPropagation();
+    $(this[`activateTooltip${id}`]).tooltip('hide');
+  },
+
+  columnDefinitions() {
     // Student, Date, Activity, Score, Standard, Tool
     return [
       {
@@ -27,7 +38,24 @@
         Header: 'Activity',
         accessor: a => a,
         id: 'activityName',
-        Cell: props => <a onClick={() => this.redirectToActivity(props.value.id)} className='row-link-disguise highlight-on-hover'>{props.value.name}</a>,
+        Cell: props => <a
+          onClick={() => this.redirectToActivity(props.value.id)}
+          className='row-link-disguise highlight-on-hover'
+          target="_new"
+          title={
+            `<h1>${props.value.name}</h1>
+              <p>Tool: ${props.value.classification.name}</p>
+              <p>${props.value.section_name}</p>
+              <p>${props.value.topic.name}</p>
+              <p>${props.value.description}</p>`
+          }
+          ref={(node) => { this[`activateTooltip${props.value.id}`] = node } }
+          data-html="true"
+          data-toggle="tooltip"
+          data-placement="top"
+        >
+          {props.value.name}
+        </a>,
       },
       {
         Header: 'Concept',
@@ -46,8 +74,7 @@
     ];
   },
 
-
-  render: function () {
+  render() {
     return (
       <ReactTable
         data={this.props.data.activities}
@@ -57,7 +84,24 @@
         resizable={false}
         className='unit-template-profile-activities'
         sortable={false}
-        />
+        getTdProps={(state, rowInfo, column, instance) => {
+          return {
+            onMouseEnter: (e, handleOriginal) => {
+              if (handleOriginal) {
+                handleOriginal()
+              }
+              this.tooltipTrigger(e, rowInfo.original.id)
+            },
+            onMouseLeave: (e, handleOriginal) => {
+              if (handleOriginal) {
+                handleOriginal()
+              }
+              this.tooltipTriggerStop(e, rowInfo.original.id)
+            }
+          }
+        }
+      }
+      />
     )
   }
 });

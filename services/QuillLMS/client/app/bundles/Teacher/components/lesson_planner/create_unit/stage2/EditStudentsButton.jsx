@@ -1,6 +1,7 @@
 import React from 'react'
-import $ from 'jquery'
+import request from 'request'
 import ButtonLoadingIndicator from '../../../shared/button_loading_indicator'
+import getAuthToken from '../../../modules/get_auth_token'
 
 class UpdateUnitButton extends React.Component {
   constructor(props) {
@@ -16,25 +17,24 @@ class UpdateUnitButton extends React.Component {
 
   handleClick() {
     this.setState({errors: []})
-    const p = this.props;
-    const data = p.dataFunc()
+    const { requestType, url, dataFunc, successCallback, } = this.props;
+    const data = dataFunc()
     if (data.classrooms_data && data.classrooms_data.errors) {
       this.setState({errors: data.classrooms_data.errors})
     } else {
-      const that = this;
-      this.setState({loading: true})
-      $.ajax({
-        type: p.requestType,
-        url: p.url,
-        data: {unit: data},
-        statusCode: {
-          200: function() {
-            p.successCallback()
-          },
-          422: function(response) {
-            that.setState({errors: response.responseJSON.errors,
-            loading: false})
-          }
+      this.setState({ loading: true, })
+      request({
+        method: requestType,
+        url: `${process.env.DEFAULT_URL}${url}`,
+        json: {
+          unit: data,
+          authenticity_token: getAuthToken()
+        }
+      }, (e, r, body) => {
+        if (r.statusCode === 200) {
+          successCallback()
+        } else {
+          this.setState({ loading: false, errors: body.errors, })
         }
       })
     }
