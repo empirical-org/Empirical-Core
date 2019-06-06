@@ -180,8 +180,7 @@ function paginatedNonHumanResponsesHelper(numberOfResponses, matcher, matcherFie
       order: [
         ['count', 'DESC']
       ],
-    },
-  )
+    })
     .then((data) => {
       const parsedResponses = u.indexBy(data, 'id');
       const responseData = {
@@ -196,8 +195,6 @@ function paginatedNonHumanResponsesHelper(numberOfResponses, matcher, matcherFie
       } else {
         incrementQuestionCountAndReindexResponses(qid, finishRematching)
       }
-    }).catch((err) => {
-      console.log(err);
     }).catch((err) => {
       console.log(err)
       console.log('moving to next question')
@@ -231,7 +228,9 @@ function incrementQuestionCountAndReindexResponses(qid, finishRematching) {
       })
       .then(() => {
         console.log('update document')
-        finishRematching()
+        sequelize.close().then(() => {
+          finishRematching();
+        });
       })
       .catch(err => console.log(err))
     })
@@ -279,7 +278,7 @@ function unmatchRematchedResponse(response) {
     count: response.count,
     question_uid: response.question_uid,
   };
-  return updateResponse(response.id, newVals);
+  return updateResponse(response, newVals);
 }
 
 function updateRematchedResponse(response, newResponse) {
@@ -291,19 +290,15 @@ function updateRematchedResponse(response, newResponse) {
     feedback: newResponse.response.feedback,
     concept_results: convertResponsesArrayToHash(conceptResults),
   };
-  return updateResponse(response.id, newVals);
+  return updateResponse(response, newVals);
 }
 
-function updateResponse(rid, content) {
-  // const beginning = Date.now()
+function updateResponse(response, content) {
   const rubyConvertedResponse = objectWithSnakeKeysFromCamel(content);
-  QuestionResponse.findByPk(rid).then(response => {
-    if (response) {
-      response.update(rubyConvertedResponse)
-      // .then(() => console.log('elapsed', Date.now() - beginning))
-      .catch(err => console.log(err))
-    }
-  })
+  if (response) {
+    response.update(rubyConvertedResponse)
+    .catch(err => console.log(err))
+  }
 }
 
 function determineDelta(response, newResponse) {
