@@ -1,19 +1,24 @@
 module SegmentioHelper
-  def generate_segment_identify_arguments(current_user)
-    "#{current_user.id}, #{serialize_user(current_user).to_json}, #{destination_properties(current_user)}"
+  DEFAULT_DESTINATION_SETTINGS = {all: true}
+
+  def generate_segment_identify_arguments(user, should_load_intercom)
+    "#{user.id}, #{serialize_user(user).to_json}, #{destination_properties(user, should_load_intercom).to_json}"
   end
 
-  def serialize_user(current_user)
-    SegmentAnalyticsUserSerializer.new(current_user).render
+  def serialize_user(user)
+    SegmentAnalyticsUserSerializer.new(user).render
   end
 
-  def destination_properties(current_user)
+  def destination_properties(user, should_load_intercom)
+    DEFAULT_DESTINATION_SETTINGS.merge(should_load_intercom ? {Intercom: intercom_properties(user)} : {})
+  end
+
+  def intercom_properties(user)
     {
-      all: true,
-      Intercom: {
-        user_hash: OpenSSL::HMAC.hexdigest('sha256', ENV['INTERCOM_APP_SECRET'], current_user.id.to_s),
-      }
-    }.to_json
+      user_hash: OpenSSL::HMAC.hexdigest('sha256', ENV['INTERCOM_APP_SECRET'], user.id.to_s),
+      name: user.name,
+      email: user.email,
+    }
   end
 
   def format_analytics_properties(request, properties)
