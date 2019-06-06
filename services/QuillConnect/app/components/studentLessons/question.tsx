@@ -1,6 +1,5 @@
 declare function require(name:string);
 import * as React from 'react';
-const Markdown = require('react-remarkable');
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import Question from '../../libs/question';

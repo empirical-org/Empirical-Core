@@ -65,7 +65,7 @@ function question(state = initialState, action) {
       var changes = { name: action.data, };
       return Object.assign({}, state, changes);
     case SubmitActions.LOAD_TURK_LANGUAGE:
-      const changes = { language: action.data, };
+      var changes = { language: action.data, };
       return Object.assign({}, state, changes);
     case SubmitActions.UPDATE_TURK_CURRENT_QUESTION:
       var change = action.data;
