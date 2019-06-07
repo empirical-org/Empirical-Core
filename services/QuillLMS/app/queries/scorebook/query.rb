@@ -1,6 +1,6 @@
 # SUM(CASE WHEN acts.is_final_score = true THEN acts.id ELSE 0 END) AS act_id
 class Scorebook::Query
-  SCORES_PER_PAGE = 200
+  SCORES_PER_PAGE = 10000
 
   def self.run(classroom_id, current_page=1, unit_id=nil, begin_date=nil, end_date=nil, offset=0)
     first_unit = self.units(unit_id) ? self.units(unit_id).first : nil
