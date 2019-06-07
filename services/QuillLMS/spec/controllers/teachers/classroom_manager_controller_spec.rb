@@ -117,8 +117,6 @@ describe Teachers::ClassroomManagerController, type: :controller do
         end
       end
 
-
-
       context 'when user has classrooms i teach' do
         it 'should assign the tab, grade, students, last_classroom_name and last_classroom_id' do
           get :assign_activities, tab: "test tab", grade: "test grade"
