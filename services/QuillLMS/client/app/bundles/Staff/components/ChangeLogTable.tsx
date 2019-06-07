@@ -63,7 +63,7 @@ function columns() {
       key: 'createdAt',
       render: (timestamp) => moment.unix(timestamp).format('MMMM D, YYYY [at] LT'),
       sorter:  (a, b) => (a.createdAt - b.createdAt),
-      defaultSortOrder: 'ascend'
+      defaultSortOrder: 'descend'
     },
   ];
 }
