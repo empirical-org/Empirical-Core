@@ -155,16 +155,14 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: npm-cache-connect-v1-{{ checksum "services/QuillConnect/package-lock.json" }}
-          paths:
-            - services/QuillConnect/node_modules
+          key: npm-cache-connect-v2-{{ checksum "services/QuillConnect/package-lock.json" }}
       - run:
           name: Install NPM dependencies
           command: |
             cd services/QuillConnect
             npm install
       - save_cache:
-          key: npm-cache-connect-v1-{{ checksum "services/QuillConnect/package-lock.json" }}
+          key: npm-cache-connect-v2-{{ checksum "services/QuillConnect/package-lock.json" }}
           paths:
             - services/QuillConnect/node_modules
       - run:
