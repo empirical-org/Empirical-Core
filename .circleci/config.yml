@@ -169,7 +169,8 @@ jobs:
           name: Run QuillConnect Tests
           command: |
             cd services/QuillConnect
-            FORCE_COLOR=true npm run jest --colors --maxWorkers=1
+            FORCE_COLOR=true npm run jest --colors --maxWorkers=1 app/
+            FORCE_COLOR=true npm run jest --colors --maxWorkers=1 test/
   lessons_node_build:
     working_directory: ~/Empirical-Core
     docker:
