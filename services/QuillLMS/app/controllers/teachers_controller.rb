@@ -76,20 +76,16 @@ class TeachersController < ApplicationController
   end
 
   def classrooms_i_teach_with_lessons
-    classrooms =  ActiveRecord::Base.connection.execute(
-      "SELECT DISTINCT classrooms.* FROM classrooms
-       JOIN classrooms_teachers ON classrooms_teachers.classroom_id = classrooms.id
-       JOIN classroom_units ON classroom_units.classroom_id = classrooms.id
-       JOIN units ON classroom_units.unit_id = units.id
-       JOIN unit_activities ON unit_activities.unit_id = units.id
-       JOIN activities ON activities.id = unit_activities.activity_id
-       WHERE activities.activity_classification_id = 6
-            AND classrooms_teachers.user_id = #{current_user.id}
-            AND classrooms.visible = true
-            AND classroom_units.visible = true
-            AND units.visible = true
-            AND unit_activities.visible = true"
-    ).to_a
+    if current_user.nil?
+      render json: {classrooms: []} and return
+    end
+
+    classrooms = Classroom.joins(:activities, :classrooms_teachers)
+      .where(unit_activities: {visible: true}, classroom_units: {visible: true})
+      .where(classrooms_teachers: {user_id: current_user.id})
+      .where(activities: {activity_classification_id: 6})
+      .uniq
+
     render json: {classrooms: classrooms}
   end
 
