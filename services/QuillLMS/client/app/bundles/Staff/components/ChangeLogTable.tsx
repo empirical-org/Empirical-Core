@@ -26,28 +26,28 @@ function columns() {
       dataIndex: 'conceptName',
       key: 'conceptName',
       render: (text) => (<div>{text}</div>),
-      sorter: firstBy('conceptName'),
+      sorter: ((a, b) => a.conceptName.localeCompare(b.conceptName)),
     },
     {
       title: 'UID',
       dataIndex: 'conceptUID',
       key: 'conceptUID',
       render: (text) => (<div>{text}</div>),
-      sorter: firstBy('conceptUID'),
+      sorter: ((a, b) => a.conceptUID.localeCompare(b.conceptUID)),
     },
     {
       title: 'Action',
       dataIndex: 'action',
       key: 'action',
       render: (text) => (<div>{text}</div>),
-      sorter: firstBy('action'),
+      sorter: ((a, b) => a.action.localeCompare(b.action)),
     },
     {
       title: 'Explanation',
       dataIndex: 'explanation',
       key: 'explanation',
       render: (text) => (<div>{text}</div>),
-      sorter: firstBy('explanation'),
+      sorter: ((a, b) => a.explanation.localeCompare(b.explanation)),
       width: 300
     },
     {
@@ -55,7 +55,7 @@ function columns() {
       dataIndex: 'authorName',
       key: 'authorName',
       render: (text) => (<div>{text}</div>),
-      sorter: firstBy('authorName'),
+      sorter: ((a, b) => a.authorName.localeCompare(b.authorName)),
     },
     {
       title: 'Timestamp',
@@ -63,12 +63,13 @@ function columns() {
       key: 'createdAt',
       render: (timestamp) => moment.unix(timestamp).format('MMMM D, YYYY [at] LT'),
       sorter:  (a, b) => (a.createdAt - b.createdAt),
+      defaultSortOrder: 'ascend'
     },
   ];
 }
 
 function prepareData(data:Array<ChangeLog>):Array<ChangeLogRow> {
-  return data.map((changeLog:ChangeLog) => prepareRow(changeLog));
+  return data.map((changeLog:ChangeLog) => prepareRow(changeLog))
 }
 
 function prepareRow(changeLog:ChangeLog):ChangeLogRow {
