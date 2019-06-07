@@ -70,6 +70,18 @@ describe Teachers::ClassroomManagerController, type: :controller do
     end
   end
 
+  describe '#assign_activities as a staff w/o classrooms' do
+    let(:user) { create(:staff) }
+    before do
+      allow(controller).to receive(:current_user) { user }
+    end
+
+    it 'should assign the tab, grade, students, last_classroom_name and last_classroom_id' do
+      get :assign_activities, tab: "test tab", grade: "test grade"
+      expect(response.status).to eq(200)
+    end
+  end
+
   describe '#assign_activities' do
     let!(:teacher) { create(:classrooms_teacher, user: user, role: "owner") }
     let(:user) { create(:teacher, first_name: "test") }
@@ -104,6 +116,8 @@ describe Teachers::ClassroomManagerController, type: :controller do
           expect(assigns(:last_classroom_name)).to eq user.classrooms_i_teach.last.name
         end
       end
+
+
 
       context 'when user has classrooms i teach' do
         it 'should assign the tab, grade, students, last_classroom_name and last_classroom_id' do
