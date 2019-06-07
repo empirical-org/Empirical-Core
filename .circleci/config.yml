@@ -80,8 +80,8 @@ jobs:
       - restore_cache:
           key: npm-cache-lms-v1-{{ checksum "services/QuillLMS/package-lock.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
           paths:
-            - /services/QuillLMS/node_modules
-            - /services/QuillLMS/client/node_modules
+            - services/QuillLMS/node_modules
+            - services/QuillLMS/client/node_modules
       - run:
           name: Install NPM dependencies
           command: |
@@ -90,13 +90,13 @@ jobs:
       - save_cache:
           key: npm-cache-lms-v1-{{ checksum "services/QuillLMS/package-lock.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
           paths:
-            - /services/QuillLMS/node_modules
-            - /services/QuillLMS/client/node_modules
+            - services/QuillLMS/node_modules
+            - services/QuillLMS/client/node_modules
       - run:
           name: Run LMS Frontend Tests
           command: |
             cd services/QuillLMS/client
-            FORCE_COLOR=true npm run jest --colors
+            FORCE_COLOR=true npm run jest --colors app/
   cms_rails_build:
     working_directory: ~/Empirical-Core
     docker:
@@ -155,23 +155,22 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: npm-cache-connect-v1-{{ checksum "services/QuillConnect/package-lock.json" }}
-          paths:
-            - /services/QuillConnect/node_modules
+          key: npm-cache-connect-v2-{{ checksum "services/QuillConnect/package-lock.json" }}
       - run:
           name: Install NPM dependencies
           command: |
             cd services/QuillConnect
             npm install
       - save_cache:
-          key: npm-cache-connect-v1-{{ checksum "services/QuillConnect/package-lock.json" }}
+          key: npm-cache-connect-v2-{{ checksum "services/QuillConnect/package-lock.json" }}
           paths:
-            - /services/QuillConnect/node_modules
+            - services/QuillConnect/node_modules
       - run:
           name: Run QuillConnect Tests
           command: |
             cd services/QuillConnect
-            FORCE_COLOR=true npm run jest --colors
+            FORCE_COLOR=true npm run jest --colors --maxWorkers=1 app/
+            FORCE_COLOR=true npm run jest --colors --maxWorkers=1 test/
   lessons_node_build:
     working_directory: ~/Empirical-Core
     docker:
@@ -181,7 +180,7 @@ jobs:
       - restore_cache:
           key: npm-cache-lessons-v1-{{ checksum "services/QuillLessons/package-lock.json" }}
           paths:
-            - /services/QuillLessons/node_modules
+            - services/QuillLessons/node_modules
       - run:
           name: Install NPM dependencies
           command: |
@@ -190,7 +189,7 @@ jobs:
       - save_cache:
           key: npm-cache-lessons-v1-{{ checksum "services/QuillLessons/package-lock.json" }}
           paths:
-            - /services/QuillLessons/node_modules
+            - services/QuillLessons/node_modules
       - run:
           name: Run QuillLessons Tests
           command: |
@@ -205,7 +204,7 @@ jobs:
       - restore_cache:
           key: npm-cache-grammar-v1-{{ checksum "services/QuillGrammar/package-lock.json" }}
           paths:
-            - /services/QuillGrammar/node_modules
+            - services/QuillGrammar/node_modules
       - run:
           name: Install NPM dependencies
           command: |
@@ -214,7 +213,7 @@ jobs:
       - save_cache:
           key: npm-cache-grammar-v1-{{ checksum "services/QuillGrammar/package-lock.json" }}
           paths:
-            - /services/QuillGrammar/node_modules
+            - services/QuillGrammar/node_modules
       - run:
           name: Run QuillGrammar Tests
           command: |
@@ -229,7 +228,7 @@ jobs:
       - restore_cache:
           key: npm-cache-diagnostic-v1-{{ checksum "services/QuillDiagnostic/package-lock.json" }}
           paths:
-            - /services/QuillDiagnostic/node_modules
+            - services/QuillDiagnostic/node_modules
       - run:
           name: Install NPM dependencies
           command: |
@@ -238,7 +237,7 @@ jobs:
       - save_cache:
           key: npm-cache-diagnostic-v1-{{ checksum "services/QuillDiagnostic/package-lock.json" }}
           paths:
-            - /services/QuillDiagnostic/node_modules
+            - services/QuillDiagnostic/node_modules
       - run:
           name: Run QuillDiagnostic Tests
           command: |
@@ -253,7 +252,7 @@ jobs:
       - restore_cache:
           key: npm-cache-proofreader-v1-{{ checksum "services/QuillProofreader/package-lock.json" }}
           paths:
-            - /services/QuillProofreader/node_modules
+            - services/QuillProofreader/node_modules
       - run:
           name: Install NPM dependencies
           command: |
@@ -262,7 +261,7 @@ jobs:
       - save_cache:
           key: npm-cache-proofreader-v1-{{ checksum "services/QuillProofreader/package-lock.json" }}
           paths:
-            - /services/QuillProofreader/node_modules
+            - services/QuillProofreader/node_modules
       - run:
           name: Run QuillProofreader Tests
           command: |
@@ -277,7 +276,7 @@ jobs:
       - restore_cache:
           key: npm-cache-spellchecker-v1-{{ checksum "packages/quill-spellchecker/package-lock.json" }}
           paths:
-            - /packages/quill-spellchecker/node_modules
+            - packages/quill-spellchecker/node_modules
       - run:
           name: Install NPM dependencies
           command: |
@@ -286,7 +285,7 @@ jobs:
       - save_cache:
           key: npm-cache-spellchecker-v1-{{ checksum "packages/quill-spellchecker/package-lock.json" }}
           paths:
-            - /packages/quill-spellchecker/node_modules
+            - packages/quill-spellchecker/node_modules
       - run:
           name: Run Spellchecker Tests
           command: |
@@ -301,7 +300,7 @@ jobs:
       - restore_cache:
           key: npm-cache-marking-logic-v1-{{ checksum "packages/quill-marking-logic/package-lock.json" }}
           paths:
-            - /packages/quill-marking-logic/node_modules
+            - packages/quill-marking-logic/node_modules
       - run:
           name: Install NPM dependencies
           command: |
@@ -310,7 +309,7 @@ jobs:
       - save_cache:
           key: npm-cache-marking-logic-v1-{{ checksum "packages/quill-marking-logic/package-lock.json" }}
           paths:
-            - /packages/quill-marking-logic/node_modules
+            - packages/quill-marking-logic/node_modules
       - run:
           name: Run Marking Logic Tests
           command: |

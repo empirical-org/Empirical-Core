@@ -21,12 +21,12 @@ export default React.createClass({
 
   tooltipTrigger(e) {
     e.stopPropagation();
-    this.refs.activateTooltip.getDOMNode().tooltip('show');
+    $(this.refs.activateTooltip).tooltip('show');
   },
 
   tooltipTriggerStop(e) {
     e.stopPropagation();
-    this.refs.activateTooltip.getDOMNode().tooltip('hide');
+    $(this.refs.activateTooltip).tooltip('hide');
   },
 
   removeActivity() {

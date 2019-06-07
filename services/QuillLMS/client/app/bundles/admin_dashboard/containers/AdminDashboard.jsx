@@ -35,9 +35,12 @@ export default React.createClass({
   },
 
   getData() {
-    $.ajax({
-      url: `/admins/${this.props.route.adminId}`,
-      success: this.receiveData,
+    request.get({
+      url: `${process.env.DEFAULT_URL}/admins/${this.props.route.adminId}`,
+    },
+    (e, r, body) => {
+      const parsedBody = JSON.parse(body)
+      this.receiveData(parsedBody)
     });
   },
 

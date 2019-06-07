@@ -178,16 +178,6 @@ jQuery.extend(Quill.prototype, {
     this.target.postMessage(json, this.host);
   },
 
-  // TODO: this is a sketch, it's not used by anything.
-  // finishActivityWithResults: function (id, params) {
-  //   $.ajax('http://localhost:3001/', {
-  //     type: 'PUT',
-  //     success: function (data) {
-  //       this.finishActivity();
-  //     }
-  //   });
-  // },
-
   // this sends the activityFinished event with the id of the session.
   finishActivity: function (id) {
     this.sendMessage('activityFinished', {id: id});

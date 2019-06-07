@@ -1,10 +1,10 @@
 import React from 'react';
 import _ from 'underscore';
+import moment from 'moment';
+import Pluralize from 'pluralize';
 import SortableList from '../../shared/sortableList'
 import ClassroomActivity from './classroom_activity';
-import Pluralize from 'pluralize';
 import AddClassroomActivityRow from './add_classroom_activity_row.jsx';
-import moment from 'moment';
 import { Snackbar } from 'quill-component-library/dist/componentLibrary';
 import * as api from '../../modules/call_api';
 
@@ -57,9 +57,9 @@ export default React.createClass({
       const classroomsArray = classrooms.slice(0, 3).map((c, i) => <li key={i}>{c.name} <span>({c.assignedStudentCount}/{c.totalStudentCount} {Pluralize('student', c.totalStudentCount)})</span></li>)
       classroomsArray.push(<li className="see-all" onClick={() => this.setState({showAllClassrooms: true})}>Show all {classrooms.length} classes <i className="fa fa-icon fa-chevron-down"/></li>)
       return classroomsArray
-    } 
+    }
       return classrooms.map((c, i) => <li key={i}>{c.name} <span>({c.assignedStudentCount}/{c.totalStudentCount} {Pluralize('student', c.totalStudentCount)})</span></li>)
-    
+
   },
 
   editUnit() {
@@ -141,7 +141,7 @@ export default React.createClass({
                                () => that.setState({edit: false,
                                                     errors: undefined,
                                                     savedUnitName: that.state.unitName}),
-                               (response) => that.setState({errors: response.responseJSON.errors,
+                               (response) => that.setState({errors: response.body.errors,
                                                             edit: false,
                                                             unitName: that.state.savedUnitName}));
   },
