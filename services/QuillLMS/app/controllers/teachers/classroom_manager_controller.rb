@@ -18,7 +18,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def assign_activities
-    if current_user.role != 'staff' && current_user.classrooms_i_teach.empty?
+    if !current_user.staff? && current_user.classrooms_i_teach.empty?
       redirect_to new_teachers_classroom_path
     else
       set_classroom_variables
@@ -217,8 +217,13 @@ class Teachers::ClassroomManagerController < ApplicationController
     @tab = params[:tab]
     @grade = params[:grade]
     @students = current_user.students.any?
-    @last_classroom_name = current_user.classrooms_i_teach.last.name
-    @last_classroom_id = current_user.classrooms_i_teach.last.id
+
+    last_classroom = current_user.classrooms_i_teach.last
+
+    return unless last_classroom
+
+    @last_classroom_name = last_classroom.name
+    @last_classroom_id = last_classroom.id
   end
 
 

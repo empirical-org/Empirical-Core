@@ -234,6 +234,7 @@ export default React.createClass({
         data={this.state.units}
         updateMultipleDueDates={this.updateMultipleDueDates}
         activityWithRecommendationsIds={this.state.activityWithRecommendationsIds}
+        allowSorting="true"
       />);
     }
     const allClassroomsClassroom = { name: allClassroomKey, id: allClassroomKey, };

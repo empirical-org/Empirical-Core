@@ -52,6 +52,9 @@ class ActivitySessionsController < ApplicationController
 
   def activity_session_from_uid
     @activity_session ||= ActivitySession.unscoped.find_by(uid: params[:uid])
+    unless @activity_session
+      render_error(404)
+    end
   end
 
   def path_request_to_firebase
