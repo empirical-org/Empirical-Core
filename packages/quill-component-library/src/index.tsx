@@ -29,6 +29,7 @@ export {
   ResumeOrBeginButton,
   SmartSpinner,
   Snackbar,
+  defaultSnackbarTimeout,
   Spinner,
   TextEditor,
   UploadOptimalResponses

@@ -5,7 +5,7 @@ import Pluralize from 'pluralize';
 import SortableList from '../../shared/sortableList'
 import ClassroomActivity from './classroom_activity';
 import AddClassroomActivityRow from './add_classroom_activity_row.jsx';
-import { Snackbar } from 'quill-component-library/dist/componentLibrary';
+import { Snackbar, defaultSnackbarTimeout } from 'quill-component-library/dist/componentLibrary';
 import * as api from '../../modules/call_api';
 
 export default React.createClass({
@@ -186,7 +186,7 @@ export default React.createClass({
     }
     this.setState({snackbarVisible: true, snackbarFadeTimer: setTimeout(() => {
       this.setState({snackbarVisible: false});
-    }, 7000)});
+    }, defaultSnackbarTimeout)});
   },
 
   updateActivitiesApi(unitId, activityIds, successHandler, errorHandler) {
