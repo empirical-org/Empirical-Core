@@ -20,6 +20,7 @@ export default React.createClass({
       activityOrder: Array.from(this.props.data.classroomActivities.keys()),
       snackbarVisible: false,
       snackbarFadeTimer: null,
+      allowSorting: this.props.allowSorting || false,
     };
   },
 
@@ -255,7 +256,11 @@ export default React.createClass({
       );
       i++;
     }
-    return <SortableList data={classroomActivitiesArr} sortCallback={this.updateSortOrder} />
+    if (this.state.allowSorting) {
+      return <SortableList data={classroomActivitiesArr} sortCallback={this.updateSortOrder} />
+    } else {
+      return classroomActivitiesArr;
+    }
   },
 
   render() {
