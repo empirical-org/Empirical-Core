@@ -96,7 +96,7 @@ jobs:
           name: Run LMS Frontend Tests
           command: |
             cd services/QuillLMS/client
-            FORCE_COLOR=true npm run jest --colors app/
+            FORCE_COLOR=true npm run jest --colors --runInBand app/
   cms_rails_build:
     working_directory: ~/Empirical-Core
     docker:
@@ -169,8 +169,8 @@ jobs:
           name: Run QuillConnect Tests
           command: |
             cd services/QuillConnect
-            FORCE_COLOR=true npm run jest --colors --maxWorkers=1 app/
-            FORCE_COLOR=true npm run jest --colors --maxWorkers=1 test/
+            FORCE_COLOR=true npm run jest --colors --runInBand app/
+            FORCE_COLOR=true npm run jest --colors --runInBand test/
   lessons_node_build:
     working_directory: ~/Empirical-Core
     docker:
@@ -194,7 +194,8 @@ jobs:
           name: Run QuillLessons Tests
           command: |
             cd services/QuillLessons
-            FORCE_COLOR=true npm run jest --colors
+            FORCE_COLOR=true npm run jest --colors --runInBand app/
+            FORCE_COLOR=true npm run jest --colors --runInBand test/
   grammar_node_build:
     working_directory: ~/Empirical-Core
     docker:
