@@ -81,7 +81,8 @@ class TeachersController < ApplicationController
     end
 
     classrooms = Classroom.joins(:activities, :classrooms_teachers)
-      .where(unit_activities: {visible: true}, classroom_units: {visible: true})
+      .where(unit_activities: {visible: true}, classroom_units: {visible: true},
+        classrooms: {visible: true}, units: {visible: true})
       .where(classrooms_teachers: {user_id: current_user.id})
       .where(activities: {activity_classification_id: 6})
       .uniq
