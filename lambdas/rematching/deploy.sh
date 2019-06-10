@@ -16,5 +16,6 @@ zip -rq deploy_code.zip .
 aws lambda update-function-code --function-name ${TARGET_LAMBDA} \
                                 --zip-file fileb://deploy_code.zip \
                                 --publish \
-                                --profile peter-aws
+                                --profile peter-aws \
+                                --region us-east-1
 rm deploy_code.zip
