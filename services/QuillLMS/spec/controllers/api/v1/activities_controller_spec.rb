@@ -163,14 +163,14 @@ describe Api::V1::ActivitiesController, type: :controller do
 
     it 'should render the correct json' do
       get :uids_and_flags
-      expect(response.body).to eq({
+      expect(JSON.parse(response.body)).to eq({
         activity.uid => {
-          flag: activity.flag
+          "flag" => activity.flag.to_s
         },
         activity1.uid => {
-            flag: activity1.flag
+          "flag" => activity1.flag.to_s
         }
-      }.to_json)
+      })
     end
   end
 
