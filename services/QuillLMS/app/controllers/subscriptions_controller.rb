@@ -59,7 +59,7 @@ class SubscriptionsController < ApplicationController
     @school_subscription_types = Subscription::OFFICIAL_SCHOOL_TYPES
     @last_four = current_user&.last_four
     @trial_types = Subscription::TRIAL_TYPES
-    if @subscription_status
+    if @subscription_status&.has_key?('id')
       @user_authority_level = current_user.subscription_authority_level(@subscription_status['id'])
       # @coordinator_email = Subscription.find(@subscription_status['id'])&.coordinator&.email
     else
@@ -81,11 +81,12 @@ class SubscriptionsController < ApplicationController
       purchaser_name: @subscription_status_obj&.purchaser&.name,
       mail_to: @subscription_status_obj&.purchaser&.email || @subscription_status_obj&.purchaser_email
     }
-    @subscription_status = @subscription_status_obj.attributes.merge(attributes_for_front_end)
+    subscription_attributes = @subscription_status_obj&.attributes || {}
+    @subscription_status = subscription_attributes.merge(attributes_for_front_end)
   end
 
   def subscription_params
-    params.require(:subscription).permit( :id, :purchaser_id, :expiration, :account_type, :authenticity_token, :recurring)
+    params.require(:subscription).permit(:id, :purchaser_id, :expiration, :account_type, :authenticity_token, :recurring)
   end
 
 

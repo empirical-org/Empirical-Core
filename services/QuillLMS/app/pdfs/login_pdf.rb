@@ -33,11 +33,11 @@ class LoginPdf < Prawn::Document
     move_down 14
     render_text "1. Visit <b>quill.org</b>", 12
     move_down 7
-    render_text "2. Click <b>Login</b> (at the top of the page)", 12
+    render_text "2. Click <b>Log In</b> (at the top of the page)", 12
     move_down 7
     render_text "3. Enter <b>username</b> and <b>password</b>", 12
     move_down 7
-    render_text "4. Click the <b>Login</b> button", 12
+    render_text "4. Click the <b>Log In</b> button", 12
     move_down 40
     render_text "Student List:", 12
     move_down 12
