@@ -87,7 +87,7 @@ jobs:
           name: Run LMS Frontend Tests
           command: |
             cd services/QuillLMS/client
-            FORCE_COLOR=true npm run jest --colors --runInBand app/
+            FORCE_COLOR=true npm run jest --colors --maxWorkers=2 app/
   cms_rails_build:
     working_directory: ~/Empirical-Core
     docker:
@@ -342,14 +342,14 @@ workflows:
   version: 2
   build-test:
     jobs:
-      - lms_rails_build
+#      - lms_rails_build
       - lms_node_build
-      - cms_rails_build
-      - connect_node_build
-      - lessons_node_build
-      - grammar_node_build
-      - diagnostic_node_build
-      - proofreader_node_build
-      - spellchecker_node_build
-      - marking_logic_node_build
-      - comprehension_rails_build
+#      - cms_rails_build
+#      - connect_node_build
+#      - lessons_node_build
+#      - grammar_node_build
+#      - diagnostic_node_build
+#      - proofreader_node_build
+#      - spellchecker_node_build
+#      - marking_logic_node_build
+#      - comprehension_rails_build
