@@ -5,6 +5,7 @@ import _ from 'underscore';
 import C from '../../constants';
 import ConceptSelectorWithCheckbox from './conceptSelectorWithCheckbox.jsx';
 import { TextEditor } from 'quill-component-library/dist/componentLibrary';
+import { isValidRegex } from '../../libs/isValidRegex'
 import { EditorState, ContentState } from 'draft-js'
 
 export default React.createClass({
@@ -30,7 +31,7 @@ export default React.createClass({
   handleChange(stateKey, e) {
     const obj = {};
     let value = e.target.value;
-    if (stateKey == 'itemText') {
+    if (stateKey === 'itemText') {
       value = `${Array.from(document.getElementsByClassName('focus-point-text')).map(i => i.value).filter(val => val !== '').join('|||')}|||`;
     }
     obj[stateKey] = value;
@@ -53,12 +54,18 @@ export default React.createClass({
   },
 
   submit(focusPoint) {
-    const data = {
-      text: this.state.itemText.split(/\|{3}(?!\|)/).filter(val => val !== '').join('|||'),
-      feedback: this.state.itemFeedback,
-      conceptResults: this.state.itemConcepts,
-    };
-    this.props.onSubmit(data, focusPoint);
+    const focusPoints = this.state.itemText.split(/\|{3}(?!\|)/).filter(val => val !== '')
+    if (focusPoints.every(fp => isValidRegex(fp))) {
+      const focusPointString = focusPoints.join('|||')
+      const data = {
+        text: focusPointString,
+        feedback: this.state.itemFeedback,
+        conceptResults: this.state.itemConcepts,
+      };
+      this.props.onSubmit(data, focusPoint);
+    } else {
+      window.alert('Your regex syntax is invalid. Try again!')
+    }
   },
 
   renderTextInputFields() {

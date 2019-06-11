@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'underscore';
-import MultipleInputAndConceptSelectorForm from '../shared/multipleInputAndConceptSelectorForm.jsx';
+import FocusPointsInputAndConceptResultSelectorForm from '../shared/focusPointsInputAndConceptSelectorForm'
+// import MultipleInputAndConceptSelectorForm from '../shared/multipleInputAndConceptSelectorForm.jsx';
 import questionActions from '../../actions/questions.js';
 import sentenceFragmentActions from '../../actions/sentenceFragments.js';
 
@@ -19,7 +20,8 @@ class EditFocusPointsContainer extends Component {
   }
 
   getFocusPoint() {
-    return this.props[this.state.questionType].data[this.props.params.questionID].focusPoints[this.props.params.focusPointID];
+    const focusPoint = this.props[this.state.questionType].data[this.props.params.questionID].focusPoints[this.props.params.focusPointID]
+    return Object.assign(focusPoint, { id: this.props.params.focusPointID, });
   }
 
   submitForm(data, focusPointID) {
@@ -31,10 +33,15 @@ class EditFocusPointsContainer extends Component {
   render() {
     return (
       <div>
-        <MultipleInputAndConceptSelectorForm
-          itemLabel='Focus Point'
-          item={Object.assign(this.getFocusPoint(), { id: this.props.params.focusPointID, })}
+        <FocusPointsInputAndConceptResultSelectorForm
+          itemLabel="Focus Point"
           onSubmit={this.submitForm}
+          questionID={this.props.params.questionID}
+          questions={this.props.questions}
+          sentenceFragments={this.props.sentenceFragments}
+          fillInBlank={this.props.fillInBlank}
+          states={true}
+          item={this.getFocusPoint()}
         />
         {this.props.children}
       </div>
@@ -43,17 +50,11 @@ class EditFocusPointsContainer extends Component {
 }
 
 function select(props) {
-  let mapState
-  if (window.location.href.includes('sentence-fragments')) {
-    mapState = {
-      sentenceFragments: props.sentenceFragments
-    };
-  } else {
-    mapState = {
-      questions: props.questions
-    };
+  return {
+    sentenceFragments: props.sentenceFragments,
+    questions: props.questions,
+    fillInBlank: props.fillInBlank
   }
-  return mapState
 }
 
 export default connect(select)(EditFocusPointsContainer);
