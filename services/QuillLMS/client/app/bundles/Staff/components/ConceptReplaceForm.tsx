@@ -58,10 +58,11 @@ class ConceptReplaceForm extends React.Component<ConceptReplaceFormProps, Concep
 
   renderChangeLogModal(replaceConcept) {
     const { showChangeLogModal, replacedId, } = this.state
+    const replacedConcept = this.props.concepts.find(c => c.id === replacedId)
     if (showChangeLogModal) {
-      const changedFields = ['replaced']
+      const changedFields = [ { fieldName: 'replaced' } ]
       return <ChangeLogModal
-        concept={this.props.concepts.find(c => c.id === replacedId)}
+        concept={replacedConcept}
         levelNumber={0}
         changedFields={changedFields}
         cancel={this.closeChangeLogModal}

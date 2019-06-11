@@ -30,7 +30,10 @@ class Mutations::Concepts::Edit < Mutations::BaseMutation
           action: cl[:action],
           changed_record_id: cl[:conceptID],
           changed_record_type: 'Concept',
-          user_id: context[:current_user].id
+          user_id: context[:current_user].id,
+          previous_value: cl[:previousValue],
+          new_value: cl[:newValue],
+          changed_attribute: cl[:changedAttribute]
         }
       end
       ChangeLog.create(change_logs)

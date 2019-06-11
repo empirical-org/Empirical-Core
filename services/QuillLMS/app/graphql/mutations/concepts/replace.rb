@@ -18,6 +18,7 @@ class Mutations::Concepts::Replace < Mutations::BaseMutation
 
   def resolve(inputs)
     concept = Concept.find(inputs[:id])
+    previous_replacement_id = concept.replacement_id
     replacement = Concept.find(inputs[:replacement_id])
     if replacement && concept.update(replacement_id: inputs[:replacement_id], visible: false)
 
@@ -28,7 +29,10 @@ class Mutations::Concepts::Replace < Mutations::BaseMutation
           action: cl[:action],
           changed_record_id: cl[:conceptID],
           changed_record_type: 'Concept',
-          user_id: context[:current_user].id
+          user_id: context[:current_user].id,
+          changed_attribute: 'replacement_id',
+          new_value: replacement.id,
+          previous_value: previous_replacement_id
         }
       end
       ChangeLog.create(change_logs)

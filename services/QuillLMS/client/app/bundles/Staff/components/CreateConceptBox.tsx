@@ -100,15 +100,6 @@ class CreateConceptBox extends React.Component<CreateConceptBoxProps, CreateConc
     this.setState({ showChangeLogModal: false })
   }
 
-    // const { concept } = this.state
-    // createConcept({ variables: {
-    //   name: concept.name,
-    //   parentId: concept.parent.id,
-    //   description: concept.description.length && concept.description !== '<br/>' ? concept.description : null
-    // }})
-    // this.setState({ concept: { name: '', parent: {}, description: '' }})
-  // }
-
   changeLevel1(level1Concept) {
     const { concept, level1Concepts, } = this.state
     const savedLevel1Concept = level1Concepts.find(c => c.id === level1Concept.value)
@@ -246,7 +237,7 @@ class CreateConceptBox extends React.Component<CreateConceptBoxProps, CreateConc
       const { concept, } = this.state
       return <ChangeLogModal
         concept={concept}
-        changedFields={['new']}
+        changedFields={[{ fieldName: 'new' }]}
         levelNumber={this.props.levelNumber}
         cancel={this.closeChangeLogModal}
         save={(changeLogs) => { this.save(createConcept, changeLogs)}}

@@ -4,7 +4,7 @@ import { TextField } from 'quill-component-library/dist/componentLibrary'
 import { Concept } from '../interfaces/interfaces'
 
 interface ChangeLogModalProps {
-  changedFields: Array<string>;
+  changedFields: Array<{ fieldName: string; previousValue?: any, newValue?: any }>;
   cancel(event): void;
   save(event): void;
   concept: Concept;
@@ -22,9 +22,12 @@ export default class ChangeLogModal extends React.Component<ChangeLogModalProps,
     const stateObj = {}
     props.changedFields.forEach((field, i) => {
       stateObj[`changeLog${i}`] = {
-        action: this.fieldToActionNameMap()[field],
+        action: this.fieldToActionNameMap()[field.fieldName],
         explanation: '',
-        conceptID: props.concept.id
+        conceptID: props.concept.id,
+        previousValue: field.previousValue,
+        newValue: field.newValue,
+        changedAttribute: field.fieldName
       }
     })
 

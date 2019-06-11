@@ -185,7 +185,8 @@ class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, Archiv
       const changedFields = []
       Object.keys(concept).forEach(key => {
         if (concept[key] !== originalConcept[key]) {
-          changedFields.push(key)
+          const changedField = { fieldName: key, previousValue: originalConcept[key], newValue: concept[key]}
+          changedFields.push(changedField)
         }
       })
       return <ChangeLogModal

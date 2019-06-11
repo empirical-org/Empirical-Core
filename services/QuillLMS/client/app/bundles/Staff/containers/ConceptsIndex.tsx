@@ -106,15 +106,6 @@ class ConceptsIndex extends React.Component<any, ConceptsIndexState> {
       this.setState({fuse});
       return concepts;
     }
-
-
-    // const results:Array<any>|null = fs.get(searchValue);
-    // const resultsNames:Array<string> = results ? results.map(result => result[1]) : [];
-
-    // console.log("fuzzy = ", results, fs);
-    // return concepts.filter((concept) => {
-    //   return resultsNames.indexOf(getSearchableConceptName(concept)) != -1
-    // })
   }
 
   updateSearchValue(searchValue:string):void {
@@ -184,7 +175,6 @@ class ConceptsIndex extends React.Component<any, ConceptsIndexState> {
           notifyOnNetworkStatusChange
         >
           {({ loading, error, data, refetch, networkStatus }) => {
-            console.log('error', error)
             if (networkStatus === 4) return <p>Refetching!</p>;
             if (loading) return <p>Loading...</p>;
             if (error) return <p>Error :(</p>;

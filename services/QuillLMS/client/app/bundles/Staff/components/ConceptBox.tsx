@@ -107,7 +107,8 @@ class ConceptBox extends React.Component<ConceptBoxProps, ConceptBoxState> {
       const changedFields = []
       Object.keys(concept).forEach(key => {
         if (concept[key] !== originalConcept[key]) {
-          changedFields.push(key)
+          const changedField = { fieldName: key, previousValue: originalConcept[key], newValue: concept[key]}
+          changedFields.push(changedField)
         }
       })
       return <ChangeLogModal
