@@ -25,8 +25,8 @@ export default class ChangeLogModal extends React.Component<ChangeLogModalProps,
         action: this.fieldToActionNameMap()[field.fieldName],
         explanation: '',
         conceptID: props.concept.id,
-        previousValue: field.previousValue,
-        newValue: field.newValue,
+        previousValue: field.previousValue !== null ? String(field.previousValue) : null,
+        newValue: field.newValue !== null ? String(field.newValue) : null,
         changedAttribute: field.fieldName
       }
     })
@@ -34,13 +34,14 @@ export default class ChangeLogModal extends React.Component<ChangeLogModalProps,
     this.state = stateObj
 
     this.updateExplanation = this.updateExplanation.bind(this)
+    this.renderChangeLogFields = this.renderChangeLogFields.bind(this)
   }
 
   fieldToActionNameMap() {
     const { levelNumber, concept, } = this.props
     return {
       name: 'Renamed',
-      parent: `Level ${levelNumber + 1} updated`,
+      parent_id: `Level ${levelNumber + 1} updated`,
       visible: concept.visible ? 'Unarchived' : 'Archived',
       description: 'Rule description updated',
       new: 'Created',
@@ -70,7 +71,7 @@ export default class ChangeLogModal extends React.Component<ChangeLogModalProps,
   renderButtons() {
     const { save, cancel, } = this.props
     let saveButtonClass = 'quill-button contained primary medium';
-    const allChangesEntered = Object.keys(this.state).every(key => !!this.state[key].explanation.length)
+    const allChangesEntered = Object.keys(this.state).every(key => this.state[key].explanation.length > 9)
     const changeLogs = Object.keys(this.state).map(key => this.state[key])
     if (!allChangesEntered) {
       saveButtonClass += ' disabled';

@@ -95,8 +95,8 @@ class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, Archiv
   handleSubmit(e) {
     e.preventDefault()
     const { concept } = this.state
-    concept.visible = true
-    this.setState({ showChangeLogModal: true, concept })
+    const newConcept = Object.assign({}, concept, { visible: true })
+    this.setState({ showChangeLogModal: true, concept: newConcept })
   }
 
   closeChangeLogModal() {
@@ -185,7 +185,14 @@ class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, Archiv
       const changedFields = []
       Object.keys(concept).forEach(key => {
         if (concept[key] !== originalConcept[key]) {
-          const changedField = { fieldName: key, previousValue: originalConcept[key], newValue: concept[key]}
+          let changedField = { fieldName: key, previousValue: originalConcept[key], newValue: concept[key]}
+          if (key === 'parent') {
+            changedField = {
+              fieldName: 'parent_id',
+              previousValue: originalConcept[key].id,
+              newValue: originalConcept[key].id
+            }
+          }
           changedFields.push(changedField)
         }
       })

@@ -9,6 +9,9 @@ class Types::ChangeLogType < Types::BaseObject
   field :user_id, ID, null: false
   field :created_at, Int, null: false
   field :updated_at, Int, null: false
+  field :previous_value, String, null: true
+  field :new_value, String, null: true
+  field :changed_attribute, String, null: true
 
   field :concept, Types::ConceptType, null: false
   field :user, Types::UserType, null: false
