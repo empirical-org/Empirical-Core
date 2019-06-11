@@ -87,7 +87,7 @@ jobs:
           name: Run LMS Frontend Tests
           command: |
             cd services/QuillLMS/client
-            FORCE_COLOR=true npm run jest --colors --maxWorkers=2 app/
+            FORCE_COLOR=true npm run jest --colors --maxWorkers=2 --logHeapUsage
   cms_rails_build:
     working_directory: ~/Empirical-Core
     docker:
