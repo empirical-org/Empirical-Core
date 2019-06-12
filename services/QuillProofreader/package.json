@@ -22,6 +22,7 @@
   "author": "Quill.org",
   "license": "AGPL-3.0",
   "dependencies": {
+    "@types/enzyme-adapter-react-16": "^1.0.5",
     "@types/immutable": "^3.8.7",
     "@types/lodash": "^4.14.109",
     "@types/node": "^9.4.7",
