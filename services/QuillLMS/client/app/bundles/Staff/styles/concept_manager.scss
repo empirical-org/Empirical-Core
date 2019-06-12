@@ -202,7 +202,7 @@
       color: #7f7f7f;
       margin-bottom: 14px;
       margin-left: 10px;
-      width: 152px;
+      width: 166px;
       display: flex;
       justify-content: space-between;
       .rename, .archive {
@@ -524,6 +524,8 @@
 }
 
 .change-log-modal {
+  max-height: 90%;
+  overflow: scroll;
   width: 560px;
   border-radius: 6px;
   background-color: #ffffff;

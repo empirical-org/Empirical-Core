@@ -17,6 +17,7 @@ interface ChangeLogRow {
   explanation:string;
   authorName:string;
   createdAt:number;
+  changedAttribute:string;
   previousValue:string;
 }
 
@@ -49,7 +50,15 @@ function columns() {
       key: 'explanation',
       render: (text) => (<div>{text}</div>),
       sorter: ((a, b) => a.explanation.localeCompare(b.explanation)),
-      width: 300
+      width: 250
+    },
+    {
+      title: 'Changed Attribute',
+      dataIndex: 'changedAttribute',
+      key: 'changedAttribute',
+      render: (text) => (<div>{text}</div>),
+      sorter: ((a, b) => a.changedAttribute.localeCompare(b.changedAttribute)),
+      width: 130
     },
     {
       title: 'Previous Value',
@@ -86,6 +95,7 @@ function prepareRow(changeLog:ChangeLog):ChangeLogRow {
     conceptName: changeLog.concept.name,
     conceptUID: changeLog.concept.uid,
     action: changeLog.action,
+    changedAttribute: changeLog.changedAttribute,
     previousValue: changeLog.previousValue,
     explanation: changeLog.explanation,
     authorName: changeLog.user.name,

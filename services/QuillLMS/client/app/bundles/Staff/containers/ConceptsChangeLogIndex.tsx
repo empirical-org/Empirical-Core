@@ -16,6 +16,7 @@ const conceptsChangeLogIndexQuery:string = `
     explanation
     createdAt
     previousValue
+    changedAttribute
     concept {
       name
       uid
