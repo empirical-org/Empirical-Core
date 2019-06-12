@@ -73,7 +73,7 @@ export default React.createClass({
 
   submit(incorrectSequence) {
     const incorrectSequences = this.state.itemText.split(/\|{3}(?!\|)/).filter(val => val !== '')
-    if (incorrectSequences.every(fp => isValidRegex(fp))) {
+    if (incorrectSequences.every(is => isValidRegex(is))) {
       const incorrectSequenceString = incorrectSequences.join('|||')
       const data = {
         text: incorrectSequenceString,
@@ -120,7 +120,7 @@ export default React.createClass({
 
   returnAppropriateDataset() {
     const questionID = this.props.questionID
-    const datasets = ['fillInBlank', 'sentenceFragments', 'diagnosticQuestions'];
+    const datasets = ['sentenceFragments'];
     let theDatasetYouAreLookingFor = this.props.questions.data[questionID];
     let mode = 'questions';
     datasets.forEach((dataset) => {

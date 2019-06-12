@@ -4,7 +4,6 @@ import _ from 'underscore';
 import { TextEditor } from 'quill-component-library/dist/componentLibrary';
 import { EditorState, ContentState } from 'draft-js'
 
-import C from '../../constants';
 import ConceptSelectorWithCheckbox from './conceptSelectorWithCheckbox.jsx';
 import ResponseComponent from '../questions/responseComponent'
 import { isValidRegex } from '../../libs/isValidRegex'
