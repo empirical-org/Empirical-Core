@@ -132,7 +132,7 @@ export default class FocusPointsInputAndConceptResultSelectorForm extends React.
 
   returnAppropriateDataset() {
     const questionID = this.props.questionID
-    const datasets = ['fillInBlank', 'sentenceFragments'];
+    const datasets = ['sentenceFragments'];
     let theDatasetYouAreLookingFor = this.props.questions.data[questionID];
     let mode = 'questions';
     datasets.forEach((dataset) => {

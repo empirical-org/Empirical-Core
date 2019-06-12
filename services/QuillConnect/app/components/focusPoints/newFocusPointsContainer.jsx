@@ -38,7 +38,6 @@ class NewFocusPointsContainer extends Component {
           questionID={this.props.params.questionID}
           questions={this.props.questions}
           sentenceFragments={this.props.sentenceFragments}
-          fillInBlank={this.props.fillInBlank}
           states={states}
         />
         {this.props.children}
@@ -51,8 +50,6 @@ function select(props) {
   return {
     sentenceFragments: props.sentenceFragments,
     questions: props.questions,
-    diagnosticQuestions: props.diagnosticQuestions,
-    fillInBlank: props.fillInBlank
   }
 }
 
