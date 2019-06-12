@@ -28,7 +28,7 @@ function columns() {
       dataIndex: 'conceptName',
       key: 'conceptName',
       render: (text) => (<div>{text}</div>),
-      sorter: ((a, b) => a.conceptName.localeCompare(b.conceptName)),
+      sorter: ((a, b) => a.conceptName.localeCompare(b.conceptName))
     },
     {
       title: 'UID',
@@ -43,6 +43,7 @@ function columns() {
       key: 'action',
       render: (text) => (<div>{text}</div>),
       sorter: ((a, b) => a.action.localeCompare(b.action)),
+      width: 120
     },
     {
       title: 'Explanation',
