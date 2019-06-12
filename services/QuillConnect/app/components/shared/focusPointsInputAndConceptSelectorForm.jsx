@@ -1,8 +1,6 @@
 import React from 'react';
 import request from 'request'
 import _ from 'underscore';
-import { connect } from 'react-redux';
-import { Link } from 'react-router';
 import { TextEditor } from 'quill-component-library/dist/componentLibrary';
 import { EditorState, ContentState } from 'draft-js'
 
