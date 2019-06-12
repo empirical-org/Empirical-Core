@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'underscore';
 import FocusPointsInputAndConceptResultSelectorForm from '../shared/focusPointsInputAndConceptSelectorForm'
-// import MultipleInputAndConceptSelectorForm from '../shared/multipleInputAndConceptSelectorForm.jsx';
 import questionActions from '../../actions/questions.js';
 import sentenceFragmentActions from '../../actions/sentenceFragments.js';
 
@@ -39,7 +38,6 @@ class NewFocusPointsContainer extends Component {
           questionID={this.props.params.questionID}
           questions={this.props.questions}
           sentenceFragments={this.props.sentenceFragments}
-          diagnosticQuestions={this.props.diagnosticQuestions}
           fillInBlank={this.props.fillInBlank}
           states={states}
         />
