@@ -40,9 +40,10 @@ export default class FocusPointsInputAndConceptResultSelectorForm extends React.
         json: {data: {selected_sequences: newSeqs}},
       },
       (err, httpResponse, data) => {
-        this.setState({matchedCount: data.matchedCount})
+        if (data) {
+          this.setState({matchedCount: data.matchedCount})
         }
-      );
+      });
     }
 
   handleChange(stateKey, e) {

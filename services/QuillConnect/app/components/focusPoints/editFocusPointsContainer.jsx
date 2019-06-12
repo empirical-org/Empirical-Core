@@ -38,7 +38,6 @@ class EditFocusPointsContainer extends Component {
           questionID={this.props.params.questionID}
           questions={this.props.questions}
           sentenceFragments={this.props.sentenceFragments}
-          fillInBlank={this.props.fillInBlank}
           states={true}
           item={this.getFocusPoint()}
         />

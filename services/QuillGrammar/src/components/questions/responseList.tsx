@@ -1,11 +1,13 @@
 import * as React from 'react'
-import Response from './response'
+import _ from 'underscore'
 import { AffectedResponse } from 'quill-component-library/dist/componentLibrary'
+
+import Response from './response'
 import {
   addResponsesToMassEditArray,
   removeResponsesFromMassEditArray
 } from '../../actions/massEdit';
-import _ from 'underscore'
+import { isValidRegex } from '../../libs/isValidRegex'
 
 export default class ResponseList extends React.Component {
   constructor(props) {
@@ -29,25 +31,23 @@ export default class ResponseList extends React.Component {
   incorrectSequenceMatchHelper(responseString, sequenceParticle) {
     const matchList = sequenceParticle.split('&&');
     return _.every(matchList, m => {
-      try {
+      if (isValidRegex(m)) {
         return new RegExp(m).test(responseString)
-      } catch(e) {
-        console.log('e', e)
-        return false;
+      } else {
+        return false
       }
-    })
+    });
   }
 
   focusPointMatchHelper(responseString, sequenceParticle) {
     const matchList = sequenceParticle.split('&&');
     return _.every(matchList, m => {
-      try {
+      if (isValidRegex(m)) {
         return new RegExp(m).test(responseString)
-      } catch(e) {
-        console.log('e', e)
-        return false;
+      } else {
+        return false
       }
-    })
+    });
   }
 
   addAllResponsesToMassEdit() {

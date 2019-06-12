@@ -1,23 +1,23 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router';
 import _ from 'underscore';
-import C from '../../constants';
-import ConceptSelectorWithCheckbox from './conceptSelectorWithCheckbox.jsx';
+import request from 'request'
 import { TextEditor } from 'quill-component-library/dist/componentLibrary';
 import { EditorState, ContentState } from 'draft-js'
+
+import ConceptSelectorWithCheckbox from './conceptSelectorWithCheckbox.jsx';
 import ResponseComponent from '../questions/responseComponent'
-import request from 'request'
+import { isValidRegex } from '../../libs/isValidRegex.ts'
 
 export default class FocusPointsInputAndConceptResultSelectorForm extends React.Component {
   constructor(props) {
     super(props)
 
     const item = this.props.item;
+
     this.state = {
       itemText: item ? `${item.text}|||` : '',
       itemFeedback: item ? item.feedback : '',
-      itemConcepts: item ? item.conceptResults : {},
+      itemConcepts: item && item.conceptResults ? item.conceptResults : {},
       matchedCount: 0
     }
 
@@ -71,12 +71,18 @@ export default class FocusPointsInputAndConceptResultSelectorForm extends React.
   }
 
   submit(focusPoint) {
-    const data = {
-      text: this.state.itemText.split(/\|{3}(?!\|)/).filter(val => val !== '').join('|||'),
-      feedback: this.state.itemFeedback,
-      conceptResults: this.state.itemConcepts,
-    };
-    this.props.onSubmit(data, focusPoint);
+    const focusPoints = this.state.itemText.split(/\|{3}(?!\|)/).filter(val => val !== '')
+    if (focusPoints.every(fp => isValidRegex(fp))) {
+      const incorrectSequenceString = focusPoints.join('|||')
+      const data = {
+        text: incorrectSequenceString,
+        feedback: this.state.itemFeedback,
+        conceptResults: this.state.itemConcepts,
+      };
+      this.props.onSubmit(data, focusPoint);
+    } else {
+      window.alert('Your regex syntax is invalid. Try again!')
+    }
   }
 
   renderTextInputFields() {
@@ -126,7 +132,7 @@ export default class FocusPointsInputAndConceptResultSelectorForm extends React.
 
   returnAppropriateDataset() {
     const questionID = this.props.questionID
-    const datasets = ['fillInBlank', 'sentenceFragments'];
+    const datasets = ['sentenceFragments'];
     let theDatasetYouAreLookingFor = this.props.questions.data[questionID];
     let mode = 'questions';
     datasets.forEach((dataset) => {
