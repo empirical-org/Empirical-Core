@@ -1,7 +1,6 @@
 const { resolve } = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const OpenBrowserPlugin = require('open-browser-webpack-plugin');
 const tsImportPluginFactory = require('ts-import-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
@@ -104,7 +103,6 @@ module.exports = {
         // prints more readable module names in the browser console on HMR updates
         new HtmlWebpackPlugin({template: resolve(__dirname, 'src/index.html')}),
         // inject <script> in html file.
-        new OpenBrowserPlugin({url: 'http://localhost:8070'}),
         new webpack.DefinePlugin({
           "process.env.EMPIRICAL_BASE_URL": JSON.stringify('http://localhost:3000'),
           "process.env.QUILL_GRAMMAR_URL": JSON.stringify('http://localhost:7000/#'),
