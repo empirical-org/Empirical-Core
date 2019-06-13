@@ -61,6 +61,12 @@ describe ActivitySessionsController, type: :controller do
       expect(assigns(:results)).to eq activity_session.parse_for_results
       expect(assigns(:classroom_id)).to eq activity_session.classroom_unit.classroom_id
     end
+
+    it 'shouldnt error unfound sessions' do
+      get :result, uid: 923123213123123123
+
+      expect(response.code).to eq("404")
+    end
   end
 
   describe '#anonymous' do
