@@ -43,7 +43,8 @@ export {
 } from './smartSpinner'
 
 export {
-  Snackbar
+  Snackbar,
+  defaultSnackbarTimeout
 } from './snackbar'
 
 export {
