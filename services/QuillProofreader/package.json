@@ -101,10 +101,16 @@
   },
   "jest": {
     "transform": {
-      ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+      "^.+\\.(js|jsx)?$": "babel-jest",
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "globals": {
+      "ts-jest": {
+        "diagnostics": false
+      }
     },
     "testRegex": "\\.(test|spec)\\.(ts|tsx|js)$",
-    "setupTestFrameworkScriptFile": "<rootDir>/src/setupTests.ts",
+    "setupFiles": ["<rootDir>/src/setupTests.ts"],
     "moduleFileExtensions": [
       "ts",
       "tsx",
