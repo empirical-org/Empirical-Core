@@ -142,6 +142,9 @@
     "webpack-dev-server": "webpack-dev-server --config webpack.client.rails.hot.config.js"
   },
   "jest": {
+    "roots": [
+      "<rootDir>/app"
+    ],
     "snapshotSerializers": [
       "<rootDir>/node_modules/enzyme-to-json/serializer"
     ],
