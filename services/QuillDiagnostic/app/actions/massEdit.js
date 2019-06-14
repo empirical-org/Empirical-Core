@@ -1,6 +1,6 @@
 import C from '../constants';
 
-module.exports = {
+export default {
   addResponsesToMassEditArray(keys) {
     return { type: C.ADD_RESPONSES_TO_MASS_EDIT_ARRAY, keys, };
   },
