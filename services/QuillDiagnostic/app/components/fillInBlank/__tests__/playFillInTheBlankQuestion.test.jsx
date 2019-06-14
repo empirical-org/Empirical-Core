@@ -2,7 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { PlayFillInTheBlankQuestion } from '../playFillInTheBlankQuestion';
 import { fillInBlankQuestionBlankAllowed, fillInBlankQuestionBlankNotAllowed }
-       from '../../../../test/data/jest_data.js';
+       from '../../../../test/data/test_data.js';
 
 function setup() {
   const nextQuestion = jest.fn();

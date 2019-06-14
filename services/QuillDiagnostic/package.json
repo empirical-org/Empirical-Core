@@ -155,7 +155,8 @@
   },
   "jest": {
     "transform": {
-      "^.+\\.(js|jsx)?$": "babel-jest"
+      "^.+\\.(js|jsx)?$": "babel-jest",
+      "^.+\\.tsx?$": "ts-jest"
     },
     "moduleFileExtensions": [
       "js",
