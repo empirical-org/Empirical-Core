@@ -155,7 +155,6 @@
   },
   "jest": {
     "transform": {
-      ".*": "./test/jest.preprocessor.js",
       "^.+\\.(js|jsx)?$": "babel-jest"
     },
     "moduleFileExtensions": [
@@ -164,6 +163,15 @@
       "ts",
       "tsx"
     ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "data.ts$"
+    ],
+    "globals": {
+      "ts-jest": {
+        "diagnostics": false
+      }
+    },
     "snapshotSerializers": [
       "<rootDir>/node_modules/enzyme-to-json/serializer"
     ],
