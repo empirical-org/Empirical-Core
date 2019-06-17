@@ -1,7 +1,7 @@
 export function isValidRegex(str) {
   try {
-    new RegExp(str)
-    return true
+    const regex = new RegExp(str)
+    return !!regex
   } catch (err) {
     return false
   }
