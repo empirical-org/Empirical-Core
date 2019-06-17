@@ -26,6 +26,9 @@ class StatusesController < ApplicationController
     # doesn't work as written.
     #classroom_unit_id = ClassroomUnit.first.id
     #host = ENV['FIREBASE_DATABASE_URL']
+    # IMPORTANT: Even if we can get a good Firebase connection, don't test off of
+    # this endpoint, as we have deprecated it.  Probably want to establish something
+    # custom for this purpose.
     #path = "/v2/classroom_lesson_sessions/#{classroom_unit_id}/students.json"
     #res = Net::HTTP.get_response(host, path)
     #raise res.body unless res.code == 200
