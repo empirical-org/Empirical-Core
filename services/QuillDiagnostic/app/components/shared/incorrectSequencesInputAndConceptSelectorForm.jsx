@@ -1,13 +1,12 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router';
-import _ from 'underscore';
-import C from '../../constants';
-import ConceptSelectorWithCheckbox from './conceptSelectorWithCheckbox.jsx';
-import { TextEditor } from 'quill-component-library/dist/componentLibrary';
-import { EditorState, ContentState } from 'draft-js'
-import ResponseComponent from '../questions/responseComponent'
 import request from 'request'
+import _ from 'underscore';
+import { EditorState, ContentState } from 'draft-js'
+import { TextEditor } from 'quill-component-library/dist/componentLibrary';
+
+import ConceptSelectorWithCheckbox from './conceptSelectorWithCheckbox.jsx';
+import ResponseComponent from '../questions/responseComponent'
+import { isValidRegex } from '../../libs/isValidRegex.ts'
 
 export default React.createClass({
 
@@ -70,13 +69,19 @@ export default React.createClass({
     this.setState({itemFeedback: e})
   },
 
-  submit(focusPoint) {
-    const data = {
-      text: this.state.itemText.split(/\|{3}(?!\|)/).filter(val => val !== '').join('|||'),
-      feedback: this.state.itemFeedback,
-      conceptResults: this.state.itemConcepts,
-    };
-    this.props.onSubmit(data, focusPoint);
+  submit(incorrectSequence) {
+    const incorrectSequences = this.state.itemText.split(/\|{3}(?!\|)/).filter(val => val !== '')
+    if (incorrectSequences.every(is => isValidRegex(is))) {
+      const incorrectSequenceString = incorrectSequences.join('|||')
+      const data = {
+        text: incorrectSequenceString,
+        feedback: this.state.itemFeedback,
+        conceptResults: this.state.itemConcepts,
+      };
+      this.props.onSubmit(data, incorrectSequence);
+    } else {
+      window.alert('Your regex syntax is invalid. Try again!')
+    }
   },
 
   renderTextInputFields() {

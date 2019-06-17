@@ -4,6 +4,7 @@ import ConceptSelectorWithCheckbox from './conceptSelectorWithCheckbox';
 import TextEditor from './textEditor';
 import { EditorState, ContentState } from 'draft-js'
 import ResponseComponent from '../questions/responseComponent'
+import { isValidRegex } from '../../libs/isValidRegex'
 import * as request from 'request'
 
 export default class IncorrectSequencesInputAndConceptSelectorForm extends React.Component {
@@ -71,13 +72,19 @@ export default class IncorrectSequencesInputAndConceptSelectorForm extends React
     this.setState({itemFeedback: e})
   }
 
-  submit(focusPoint) {
-    const data = {
-      text: this.state.itemText.split(/\|{3}(?!\|)/).filter(val => val !== '').join('|||'),
-      feedback: this.state.itemFeedback,
-      conceptResults: this.state.itemConcepts,
-    };
-    this.props.onSubmit(data, focusPoint);
+  submit(incorrectSequence) {
+    const incorrectSequences = this.state.itemText.split(/\|{3}(?!\|)/).filter(val => val !== '')
+    if (incorrectSequences.every(is => isValidRegex(is))) {
+      const incorrectSequenceString = incorrectSequences.join('|||')
+      const data = {
+        text: incorrectSequenceString,
+        feedback: this.state.itemFeedback,
+        conceptResults: this.state.itemConcepts,
+      };
+      this.props.onSubmit(data, incorrectSequence);
+    } else {
+      window.alert('Your regex syntax is invalid. Try again!')
+    }
   }
 
   renderTextInputFields() {
@@ -121,7 +128,7 @@ export default class IncorrectSequencesInputAndConceptSelectorForm extends React
 
   renderExplanatoryNote() {
     return <div style={{ marginBottom: '10px' }}>
-      <p>Focus points can contain regular expressions. See <a href="https://www.regextester.com/">this page</a> to test regular expressions, and access the cheat sheet on the right. <b>Note:</b> any periods need to be prefaced with a backslash ("\") in order to be evaluated correctly. Example: "walked\."</p>
+      <p>Incorrect sequences can contain regular expressions. See <a href="https://www.regextester.com/">this page</a> to test regular expressions, and access the cheat sheet on the right. <b>Note:</b> any periods need to be prefaced with a backslash ("\") in order to be evaluated correctly. Example: "walked\."</p>
       <br />
       <p>In order to indicate that two or more words or phrases must appear in the response together, you can separate them using "&&". Example: "running&&dancing&&swimming", "run&&dance&&swim".</p>
     </div>

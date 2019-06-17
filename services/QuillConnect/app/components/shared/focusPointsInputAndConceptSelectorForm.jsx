@@ -1,12 +1,9 @@
 import React from 'react';
 import request from 'request'
 import _ from 'underscore';
-import { connect } from 'react-redux';
-import { Link } from 'react-router';
 import { TextEditor } from 'quill-component-library/dist/componentLibrary';
 import { EditorState, ContentState } from 'draft-js'
 
-import C from '../../constants';
 import ConceptSelectorWithCheckbox from './conceptSelectorWithCheckbox.jsx';
 import ResponseComponent from '../questions/responseComponent'
 import { isValidRegex } from '../../libs/isValidRegex'
@@ -43,9 +40,10 @@ export default class FocusPointsInputAndConceptResultSelectorForm extends React.
         json: {data: {selected_sequences: newSeqs}},
       },
       (err, httpResponse, data) => {
-        this.setState({matchedCount: data.matchedCount})
+        if (data) {
+          this.setState({matchedCount: data.matchedCount})
         }
-      );
+      });
     }
 
   handleChange(stateKey, e) {
@@ -134,7 +132,7 @@ export default class FocusPointsInputAndConceptResultSelectorForm extends React.
 
   returnAppropriateDataset() {
     const questionID = this.props.questionID
-    const datasets = ['fillInBlank', 'sentenceFragments'];
+    const datasets = ['sentenceFragments'];
     let theDatasetYouAreLookingFor = this.props.questions.data[questionID];
     let mode = 'questions';
     datasets.forEach((dataset) => {
