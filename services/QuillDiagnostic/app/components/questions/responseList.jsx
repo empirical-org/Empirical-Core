@@ -1,10 +1,9 @@
 import * as React from 'react'
 import _ from 'underscore'
-import { AffectedResponse } from 'quill-component-library/dist/componentLibrary'
+import { AffectedResponse, isValidRegex } from 'quill-component-library/dist/componentLibrary'
 
 import Response from './response'
 import massEdit from '../../actions/massEdit';
-import { isValidRegex } from '../../libs/isValidRegex.ts'
 
 export default class ResponseList extends React.Component {
   constructor(props) {

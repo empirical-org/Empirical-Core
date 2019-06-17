@@ -2,11 +2,10 @@ import React from 'react';
 import request from 'request'
 import _ from 'underscore';
 import { EditorState, ContentState } from 'draft-js'
-import { TextEditor } from 'quill-component-library/dist/componentLibrary';
+import { TextEditor, isValidRegex } from 'quill-component-library/dist/componentLibrary';
 
 import ConceptSelectorWithCheckbox from './conceptSelectorWithCheckbox.jsx';
 import ResponseComponent from '../questions/responseComponent'
-import { isValidRegex } from '../../libs/isValidRegex.ts'
 
 export default React.createClass({
 

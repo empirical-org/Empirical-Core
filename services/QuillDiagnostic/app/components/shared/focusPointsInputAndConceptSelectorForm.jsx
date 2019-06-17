@@ -1,12 +1,11 @@
 import React from 'react';
 import _ from 'underscore';
 import request from 'request'
-import { TextEditor } from 'quill-component-library/dist/componentLibrary';
+import { TextEditor, isValidRegex } from 'quill-component-library/dist/componentLibrary';
 import { EditorState, ContentState } from 'draft-js'
 
 import ConceptSelectorWithCheckbox from './conceptSelectorWithCheckbox.jsx';
 import ResponseComponent from '../questions/responseComponent'
-import { isValidRegex } from '../../libs/isValidRegex.ts'
 
 export default class FocusPointsInputAndConceptResultSelectorForm extends React.Component {
   constructor(props) {

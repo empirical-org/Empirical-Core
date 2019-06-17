@@ -1,11 +1,12 @@
 import * as React from 'react';
 import * as _ from 'underscore';
+import { isValidRegex } from 'quill-component-library/dist/componentLibrary'
+import * as request from 'request'
+import { EditorState, ContentState } from 'draft-js'
+
 import ConceptSelectorWithCheckbox from './conceptSelectorWithCheckbox';
 import TextEditor from './textEditor';
-import { EditorState, ContentState } from 'draft-js'
 import ResponseComponent from '../questions/responseComponent'
-import { isValidRegex } from '../../libs/isValidRegex'
-import * as request from 'request'
 
 export default class IncorrectSequencesInputAndConceptSelectorForm extends React.Component {
   constructor(props) {
