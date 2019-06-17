@@ -12,9 +12,9 @@ export default {
         const session = snapshot.val();
         if (session.currentQuestion) {
           if (session.currentQuestion.question) {
-            session.currentQuestion.question.attempts = [];
+            session.currentQuestion.question.attempts = session.currentQuestion.question.attempts || [];
           } else {
-            session.currentQuestion.data.attempts = [];
+            session.currentQuestion.data.attempts = session.currentQuestion.data.attempts || [];
           }
         }
         session.unansweredQuestions ? true : session.unansweredQuestions = [];

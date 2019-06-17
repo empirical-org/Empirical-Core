@@ -11,17 +11,18 @@ case $1 in
       exit 1
     fi
     S3_DEPLOY_BUCKET=s3://aws-website-quillconnect-6sy4b
+    # Execute a new build
+    npm run build:prod
     ;;
   staging)
     S3_DEPLOY_BUCKET=s3://aws-website-quill-connect-staging
+    # Execute a new build
+    npm run build:staging
     ;;
   *)
     echo "You must provide an environment argument of either 'staging' or 'prod'."
     exit 1
 esac
-
-# Execute a new build
-npm run build:prod
 
 # Upload build to S3 bucket
 aws s3 sync ./dist ${S3_DEPLOY_BUCKET} --profile peter-aws

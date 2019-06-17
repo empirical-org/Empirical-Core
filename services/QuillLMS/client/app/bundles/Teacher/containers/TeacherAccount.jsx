@@ -1,6 +1,6 @@
 import React from 'react';
 import request from 'request';
-import { Snackbar, } from 'quill-component-library/dist/componentLibrary'
+import { Snackbar, defaultSnackbarTimeout } from 'quill-component-library/dist/componentLibrary'
 
 import TeacherGeneralAccountInfo from '../components/accounts/edit/teacher_general'
 import TeacherPasswordAccountInfo from '../components/accounts/edit/teacher_password'
@@ -75,7 +75,7 @@ export default class TeacherAccount extends React.Component {
 
   showSnackbar() {
     this.setState({ showSnackbar: true, }, () => {
-      setTimeout(() => this.setState({ showSnackbar: false, }), 7000)
+      setTimeout(() => this.setState({ showSnackbar: false, }), defaultSnackbarTimeout)
     })
   }
 

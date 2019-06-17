@@ -17,6 +17,7 @@ export default React.createClass({
         data={data}
         updateMultipleDueDates={this.props.updateMultipleDueDates}
         activityWithRecommendationsIds={this.props.activityWithRecommendationsIds}
+        allowSorting={this.props.allowSorting}
       />);
     }, this);
     return (

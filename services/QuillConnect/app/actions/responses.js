@@ -1,13 +1,13 @@
 /* eslint-env browser*/
 import _ from 'underscore';
-import pathwaysActions from './pathways';
-import rootRef from '../libs/firebase';
+import moment from 'moment';
 import { hashToCollection } from 'quill-component-library/dist/componentLibrary';
 import request from 'request';
-import objectWithSnakeKeysFromCamel from '../libs/objectWithSnakeKeysFromCamel';
 
-const C = require('../constants').default;
-const moment = require('moment');
+import pathwaysActions from './pathways';
+import rootRef from '../libs/firebase';
+import C from '../constants'
+import objectWithSnakeKeysFromCamel from '../libs/objectWithSnakeKeysFromCamel';
 
 const responsesRef = rootRef.child('responses');
 

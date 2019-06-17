@@ -18,6 +18,18 @@ describe SubscriptionsController do
     end
   end
 
+  describe '#index w/o subscription' do
+    let!(:user_no_subscription) { create(:teacher) }
+    before do
+      allow(controller).to receive(:current_user) { user_no_subscription }
+    end
+
+    it 'return valid response' do
+      get :index
+      expect(response.status).to eq(200)
+    end
+  end
+
   describe "#purchaser_name" do
     context 'when subscription is not associated with current user' do
       let(:another_user) { create(:user) }
