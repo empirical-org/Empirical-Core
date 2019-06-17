@@ -43,7 +43,8 @@ export {
 } from './smartSpinner'
 
 export {
-  Snackbar
+  Snackbar,
+  defaultSnackbarTimeout
 } from './snackbar'
 
 export {
@@ -53,6 +54,10 @@ export {
 export {
   TextEditor
 } from './textEditor'
+
+export {
+  TextField
+} from './textField'
 
 export {
   UploadOptimalResponses

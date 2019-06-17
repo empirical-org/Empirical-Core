@@ -29,8 +29,10 @@ export {
   ResumeOrBeginButton,
   SmartSpinner,
   Snackbar,
+  defaultSnackbarTimeout,
   Spinner,
   TextEditor,
+  TextField,
   UploadOptimalResponses
 } from './components/shared/index'
 

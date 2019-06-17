@@ -116,4 +116,15 @@ describe UnitActivity, type: :model, redis: :true do
       end
   end
 
+  context 'self.get_classroom_user_profile' do
+    it 'get user profile data' do
+      units = UnitActivity.get_classroom_user_profile(classroom.id, student.id)
+      expect(units.count).to eq(2)
+    end
+
+    it 'gracefully account for nils' do
+      units = UnitActivity.get_classroom_user_profile(nil, nil)
+      expect(units.count).to eq(0)
+    end
+  end
 end
