@@ -21,14 +21,18 @@
     "dev": "yarn build; yarn watch",
     "dist": "yarn build; cd ./dist; yarn publish --access=public",
     "serve": "http-server ./dist",
+    "test": "mocha test/**/*.test.ts",
     "watch": "chokidar 'src/**/*.ts' 'src/**/*.tsx' -c \"yarn build\""
   },
   "devDependencies": {
+    "@types/expect": "^1.20.4",
     "@types/node": "^9.3.0",
     "autoprefixer": "^7.2.5",
     "chokidar": "^2.0.0",
     "chokidar-cli": "^1.2.0",
     "core-js": "^2.5.3",
+    "expect": "^24.8.0",
+    "mocha": "^6.1.4",
     "node-sass": "^4.7.2",
     "node-sass-chokidar": "^0.0.3",
     "rollup-plugin-commonjs": "^8.2.6",
@@ -62,6 +66,7 @@
     "react-addons-css-transition-group": "^15.6.2",
     "react-select": "^2.4.2",
     "react-simple-pie-chart": "^0.5.0",
+    "reify": "^0.19.1",
     "rollup": "^0.60.7",
     "xlsx": "^0.14.2"
   },

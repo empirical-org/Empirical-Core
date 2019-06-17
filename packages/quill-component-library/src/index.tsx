@@ -76,5 +76,6 @@ export {
 } from './components/titleCards/index'
 
 export {
-  hashToCollection
-} from './libs/hashToCollection'
+  hashToCollection,
+  isValidRegex
+} from './libs/index'
