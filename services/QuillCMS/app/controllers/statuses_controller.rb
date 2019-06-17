@@ -1,4 +1,4 @@
-class StatusController < ApplicationController
+class StatusesController < ApplicationController
 
   def index
     render plain: 'OK'

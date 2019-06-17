@@ -23,11 +23,11 @@ Rails.application.routes.draw do
   get 'stats/diagnostic_question_health_index' => 'stats#diagnostic_question_health_index'
 
   # Uptime status
-  get 'status' => 'status#index'
-  get 'status/database' => 'status#database'
-  get 'status/redis_cache' => 'status#redis_cache'
-  get 'status/elasticsearch' => 'status#elasticsearch'
-  get 'status/memcached' => 'status#memcached'
+  resource :status, only: [] do
+    collection do
+      get :index, :database, :redis_cache, :elasticsearch, :memcached
+    end
+  end
 
   #fragments controller for passing events to nlp.quill.org
   post 'fragments/is_sentence' => 'fragments#is_sentence'

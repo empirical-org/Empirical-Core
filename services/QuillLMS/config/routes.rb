@@ -588,11 +588,11 @@ EmpiricalGrammar::Application.routes.draw do
   get 'activities/:id/last_unit_template' => 'activities#last_unit_template'
 
   # Uptime status
-  get 'status' => 'status#index'
-  get 'status/database' => 'status#database'
-  get 'status/redis_cache' => 'status#redis_cache'
-  get 'status/redis_queue' => 'status#redis_queue'
-  get 'status/firebase' => 'status#firebase'
+  resource :status, only: [] do
+    collection do
+      get :index, :database, :redis_cache, :redis_queue, :firebase
+    end
+  end
 
   get 'demo' => 'teachers/progress_reports#demo'
   get 'student_demo' => 'students#student_demo'

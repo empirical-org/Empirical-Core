@@ -1,4 +1,4 @@
-class StatusController < ApplicationController
+class StatusesController < ApplicationController
 
   def index
     render plain: 'OK'
@@ -19,11 +19,11 @@ class StatusController < ApplicationController
     render plain: 'OK'
   end
 
+  # TODO: Get an actual condition that only raises when Firebase is inaccessible.
   def firebase
     # I'm not sure that this stub is even the right approach, but I do know
     # that my lack of knowledge about Firebase authentication means that it
     # doesn't work as written.
-    # TODO: Get an actual condition that only raises when Firebase is inaccessible.
     #classroom_unit_id = ClassroomUnit.first.id
     #host = ENV['FIREBASE_DATABASE_URL']
     #path = "/v2/classroom_lesson_sessions/#{classroom_unit_id}/students.json"
