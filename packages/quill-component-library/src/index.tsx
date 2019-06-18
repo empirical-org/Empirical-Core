@@ -32,6 +32,7 @@ export {
   defaultSnackbarTimeout,
   Spinner,
   TextEditor,
+  TextField,
   UploadOptimalResponses
 } from './components/shared/index'
 
@@ -75,5 +76,6 @@ export {
 } from './components/titleCards/index'
 
 export {
-  hashToCollection
-} from './libs/hashToCollection'
+  hashToCollection,
+  isValidRegex
+} from './libs/index'

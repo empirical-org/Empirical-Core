@@ -587,6 +587,13 @@ EmpiricalGrammar::Application.routes.draw do
   get 'activities/:id/name_and_id' => 'activities#name_and_id'
   get 'activities/:id/last_unit_template' => 'activities#last_unit_template'
 
+  # Uptime status
+  resource :status, only: [] do
+    collection do
+      get :index, :database, :redis_cache, :redis_queue, :firebase
+    end
+  end
+
   get 'demo' => 'teachers/progress_reports#demo'
   get 'student_demo' => 'students#student_demo'
   get 'admin_demo', to: 'teachers/progress_reports#admin_demo'

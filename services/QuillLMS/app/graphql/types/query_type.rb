@@ -29,10 +29,18 @@ class Types::QueryType < Types::BaseObject
     return Activity.all
   end
 
-
   field :activity_categories, [Types::ActivityCategoryType], null: false
 
   def activity_categories
     return ActivityCategory.all
+  end
+
+  field :change_logs, [Types::ChangeLogType], null: false do
+    argument :concept_change_logs, Boolean, "Select only change logs for concepts", required: false
+  end
+
+  def change_logs(concept_change_logs: false)
+    return ChangeLog.where(changed_record_type: 'Concept') if concept_change_logs
+    return ChangeLog.all
   end
 end

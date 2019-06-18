@@ -1,8 +1,7 @@
 import React from 'react'
 import UnitStage1 from '../components/lesson_planner/create_unit/stage1/unit_stage1.jsx'
-import $ from 'jquery'
-
-
+import request from 'request'
+import getAuthToken from '../components/modules/get_auth_token';
 
 export default React.createClass({
 
@@ -28,20 +27,17 @@ export default React.createClass({
 
   updateActivities() {
     const that = this;
-    $.ajax({
-      type: 'PUT',
-      url: `/teachers/units/${that.props.params.unitId}/update_activities`,
-      data: {
-        data: JSON.stringify({activities_data: that.getActivityIds()})
-            },
-      statusCode: {
-        200: function(data) {
-          window.location = '/teachers/classrooms/lesson_planner'
-        },
-        422: function(response) {
-          that.setState({errors: response.responseJSON.errors,
-          loading: false})
-        }
+    request.put({
+      url: `${process.env.DEFAULT_URL}/teachers/units/${that.props.params.unitId}/update_activities`,
+      json: {
+        authenticity_token: getAuthToken(),
+        data: { activities_data: that.getActivityIds(), }
+      }
+    }, (error, httpStatus, body) => {
+      if (body.errors) {
+        this.setState({ errors: body.errors, loading: false, })
+      } else {
+        window.location = '/teachers/classrooms/lesson_planner'
       }
     })
   },
