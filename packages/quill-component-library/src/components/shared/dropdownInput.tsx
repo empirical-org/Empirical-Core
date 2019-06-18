@@ -116,6 +116,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
   renderInput() {
     const { inactive, errorAcknowledged, menuIsOpen, } = this.state
     const { className, label, value, placeholder, error, type, id, options, isSearchable, } = this.props
+    const passedValue = value || ''
     const hasText = value ? 'has-text' : ''
     const inactiveOrActive = inactive ? 'inactive' : 'active'
     const notEditable = isSearchable ? '' : 'not-editable'
@@ -133,7 +134,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
               id={id}
               ref={(input) => { this.input = input; }}
               onChange={this.handleChange}
-              value={value}
+              value={passedValue}
               type={type}
               placeholder={placeholder || ''}
               onKeyDown={this.onKeyDown}
@@ -158,7 +159,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
               ref={(input) => { this.input = input; }}
               onFocus={this.activateInput}
               type={type}
-              value={value}
+              value={passedValue}
               menuIsOpen={false}
               isClearable={false}
               className="dropdown"
@@ -181,7 +182,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
             ref={(input) => { this.input = input; }}
             onFocus={this.activateInput}
             type={type}
-            value={value}
+            value={passedValue}
             menuIsOpen={false}
             isClearable={false}
             className="dropdown"
@@ -202,7 +203,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
             id={id}
             ref={(input) => { this.input = input; }}
             onChange={this.handleChange}
-            value={value}
+            value={passedValue}
             type={type}
             placeholder={placeholder || ''}
             onKeyDown={this.onKeyDown}

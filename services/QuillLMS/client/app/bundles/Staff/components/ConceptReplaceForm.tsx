@@ -4,10 +4,11 @@ import gql from "graphql-tag";
 import { DropdownInput } from 'quill-component-library/dist/componentLibrary'
 
 import { Concept } from '../interfaces/interfaces'
+import ChangeLogModal from './ChangeLogModal'
 
 const REPLACE_CONCEPT = gql`
-  mutation replaceConcept($id: ID! $replacementId: ID!){
-    replaceConcept(input: {id: $id, replacementId: $replacementId}){
+  mutation replaceConcept($id: ID! $replacementId: ID!, $changeLogs: [ChangeLogInput!]!){
+    replaceConcept(input: {id: $id, replacementId: $replacementId, changeLogs: $changeLogs}){
       concept {
         id
         uid
@@ -27,29 +28,57 @@ interface ConceptReplaceFormProps {
 
 interface ConceptReplaceFormState {
   replacedId: string|null,
-  replacementId: string|null
+  replacementId: string|null,
+  showChangeLogModal: boolean
 }
 
-class ConceptReplaceForm extends React.Component<ConceptReplaceFormProps, any> {
-  constructor(props){
+class ConceptReplaceForm extends React.Component<ConceptReplaceFormProps, ConceptReplaceFormState> {
+  constructor(props) {
     super(props)
     this.state = {
       replacedId: null,
-      replacementId: null
+      replacementId: null,
+      showChangeLogModal: false
     };
 
     this.changeReplacedId = this.changeReplacedId.bind(this)
     this.changeReplacementId = this.changeReplacementId.bind(this)
+    this.closeChangeLogModal = this.closeChangeLogModal.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  handleSubmit(e, replaceConcept) {
+  handleSubmit(e) {
     e.preventDefault()
+    this.setState({ showChangeLogModal: true })
+  }
+
+  closeChangeLogModal() {
+    this.setState({ showChangeLogModal: false })
+  }
+
+  renderChangeLogModal(replaceConcept) {
+    const { showChangeLogModal, replacedId, } = this.state
+    const replacedConcept = this.props.concepts.find(c => c.id === replacedId)
+    if (showChangeLogModal) {
+      const changedFields = [ { fieldName: 'replaced' } ]
+      return <ChangeLogModal
+        concept={replacedConcept}
+        levelNumber={0}
+        changedFields={changedFields}
+        cancel={this.closeChangeLogModal}
+        save={(changeLogs) => { this.save(replaceConcept, changeLogs)}}
+      />
+    }
+  }
+
+  save(replaceConcept, changeLogs) {
     const { replacedId, replacementId} = this.state
     replaceConcept({ variables: {
       id: replacedId,
-      replacementId
+      replacementId,
+      changeLogs
     }})
-    this.setState({ replacedId: null, replacementId: null })
+    this.setState({ replacedId: null, replacementId: null, showChangeLogModal: false, })
   }
 
   changeReplacedId(e) {
@@ -66,7 +95,7 @@ class ConceptReplaceForm extends React.Component<ConceptReplaceFormProps, any> {
       return <input
         type="submit"
         value="Replace"
-        className="button contained  primary medium"
+        className="quill-button contained primary medium"
       />
     }
   }
@@ -101,13 +130,14 @@ class ConceptReplaceForm extends React.Component<ConceptReplaceFormProps, any> {
       <Mutation mutation={REPLACE_CONCEPT}  onCompleted={this.props.showSuccessBanner}>
         {(replaceConcept, {}) => (
           <div className="find-and-replace">
+          {this.renderChangeLogModal(replaceConcept)}
             <div className="find-and-replace-section">
               <div className="find-and-replace-section-header">
                 <div className="section-number">1</div>
                 <a href="/cms/concepts/concepts_in_use.csv">View Concepts in use</a>
               </div>
             </div>
-            <form onSubmit={(e) => this.handleSubmit(e, replaceConcept)} acceptCharset="UTF-8" >
+            <form className="find-and-replace-form" onSubmit={this.handleSubmit} acceptCharset="UTF-8" >
               <div className="find-and-replace-section">
                 <div className="find-and-replace-section-header">
                   <div className="section-number">2</div>

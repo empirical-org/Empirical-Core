@@ -6,6 +6,9 @@ import _ from 'underscore';
 import { Input, DropdownInput } from 'quill-component-library/dist/componentLibrary'
 
 import { Concept } from '../interfaces/interfaces'
+import ConceptChangeLogs from './ConceptChangeLogs'
+import ChangeLogModal from './ChangeLogModal'
+
 
 function levelTwoConceptsQuery(){
   return `
@@ -40,8 +43,8 @@ function levelOneConceptsQuery(){
 }
 
 const EDIT_CONCEPT = gql`
-mutation editConcept($id: ID! $name: String, $parentId: ID, $visible: Boolean){
-    editConcept(input: {id: $id, name: $name, parentId: $parentId, visible: $visible}){
+mutation editConcept($id: ID! $name: String, $parentId: ID, $visible: Boolean, $description: String, $changeLogs: [ChangeLogInput!]!){
+    editConcept(input: {id: $id, name: $name, parentId: $parentId, visible: $visible, description: $description, changeLogs: $changeLogs}){
       concept {
         id
         uid
@@ -55,7 +58,7 @@ mutation editConcept($id: ID! $name: String, $parentId: ID, $visible: Boolean){
 `;
 
 interface ArchivedConceptBoxProps {
-  levelNumber: Number;
+  levelNumber: number;
   concept: Concept;
   finishEditingConcept(data:any): void;
   closeConceptBox(event:any): void;
@@ -63,7 +66,8 @@ interface ArchivedConceptBoxProps {
 
 interface ArchivedConceptBoxState {
   concept: Concept;
-  errors: { level1?: string; level2?: string;}
+  errors: { level1?: string; level2?: string;};
+  showChangeLogModal: boolean;
 }
 
 class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, ArchivedConceptBoxState> {
@@ -72,12 +76,14 @@ class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, Archiv
 
     this.state = {
       concept: props.concept,
-      errors: {}
+      errors: {},
+      showChangeLogModal: false
     }
 
     this.changeLevel1 = this.changeLevel1.bind(this)
     this.changeLevel2 = this.changeLevel2.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.closeChangeLogModal = this.closeChangeLogModal.bind(this)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -86,10 +92,20 @@ class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, Archiv
     }
   }
 
-  handleSubmit(e, editConcept) {
+  handleSubmit(e) {
     e.preventDefault()
-    const { levelNumber } = this.props
     const { concept } = this.state
+    const newConcept = Object.assign({}, concept, { visible: true })
+    this.setState({ showChangeLogModal: true, concept: newConcept })
+  }
+
+  closeChangeLogModal() {
+    this.setState({ showChangeLogModal: false })
+  }
+
+  save(editConcept, changeLogs) {
+    const { concept } = this.state
+    const { levelNumber } = this.props
     let errors
     if (levelNumber === 1 && !concept.parent.visible) {
       const errors = { level2: 'Add a live concept'}
@@ -105,7 +121,8 @@ class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, Archiv
         id: concept.id,
         name: concept.name,
         parentId: concept.parent.id,
-        visible: true
+        visible: concept.visible,
+        changeLogs
       }})
     }
   }
@@ -158,6 +175,34 @@ class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, Archiv
           </div>
           <div className="date">{moment(concept.updatedAt* 1000).format('M/D/YY')}</div>
         </div>)
+    }
+  }
+
+  renderChangeLogModal(editConcept) {
+    if (this.state.showChangeLogModal) {
+      const { concept } = this.state
+      const originalConcept = this.props.concept
+      const changedFields = []
+      Object.keys(concept).forEach(key => {
+        if (concept[key] !== originalConcept[key]) {
+          let changedField = { fieldName: key, previousValue: originalConcept[key], newValue: concept[key]}
+          if (key === 'parent') {
+            changedField = {
+              fieldName: 'parent_id',
+              previousValue: originalConcept[key].id,
+              newValue: originalConcept[key].id
+            }
+          }
+          changedFields.push(changedField)
+        }
+      })
+      return <ChangeLogModal
+        concept={concept}
+        changedFields={changedFields}
+        levelNumber={this.props.levelNumber}
+        cancel={this.closeChangeLogModal}
+        save={(changeLogs) => { this.save(editConcept, changeLogs)}}
+      />
     }
   }
 
@@ -227,6 +272,7 @@ class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, Archiv
           />
           {this.renderArchivedOrLive(concept)}
         </div>
+        <ConceptChangeLogs changeLogs={concept.changeLogs} />
       </div>
     } else if (this.props.levelNumber === 1) {
       return <div>
@@ -240,6 +286,7 @@ class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, Archiv
           />
           {this.renderArchivedOrLive(concept)}
         </div>
+        <ConceptChangeLogs changeLogs={concept.changeLogs} />
       </div>
     } else if (this.props.levelNumber === 0) {
       return <div>
@@ -262,6 +309,7 @@ class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, Archiv
           />
           {this.renderArchivedOrLive(concept)}
         </div>
+        <ConceptChangeLogs changeLogs={concept.changeLogs} />
       </div>
     }
   }
@@ -301,8 +349,9 @@ class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, Archiv
       <Mutation mutation={EDIT_CONCEPT} onCompleted={this.props.finishEditingConcept}>
         {(editConcept, {}) => (
           <div className="concept-box archived-concept-box">
+          {this.renderChangeLogModal(editConcept)}
           <span className="close-concept-box" onClick={this.props.closeConceptBox}><i className="fas fa-times"/></span>
-            <form onSubmit={(e) => this.handleSubmit(e, editConcept)} acceptCharset="UTF-8" >
+            <form onSubmit={this.handleSubmit} acceptCharset="UTF-8" >
               <div className="static">
                 <p>Level {this.props.levelNumber}</p>
                 <h1>{this.state.concept.name}</h1>

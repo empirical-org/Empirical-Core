@@ -54,7 +54,7 @@
     "postcss-loader": "^0.8.2",
     "pusher": "^2.2.0",
     "pusher-js": "^4.0.0",
-    "quill-component-library": "^0.1.57",
+    "quill-component-library": "0.2.2",
     "react": "^15.2.0",
     "react-addons-css-transition-group": "^15.2.0",
     "react-addons-shallow-compare": "^15.6.2",
@@ -142,6 +142,9 @@
     "webpack-dev-server": "webpack-dev-server --config webpack.client.rails.hot.config.js"
   },
   "jest": {
+    "roots": [
+      "<rootDir>/app"
+    ],
     "snapshotSerializers": [
       "<rootDir>/node_modules/enzyme-to-json/serializer"
     ],
