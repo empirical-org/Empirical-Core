@@ -10,8 +10,7 @@ export function wordsOutOfOrderMatch (response:string, responses: Array<Response
   return _.find(getOptimalResponses(responses), resp => {
     const normalizedSubmittedResponse = stringNormalize(response);
     const normalizedStoredResponse = stringNormalize(resp.text);
-    return identicalWordMaps(mapWordCounts(normalizedSubmittedResponse), mapWordCounts(normalizedStoredResponse)) &&
-           !identicalNormalizedResponses(normalizedSubmittedResponse, normalizedStoredResponse)
+    return identicalWordMaps(mapWordCounts(normalizedSubmittedResponse), mapWordCounts(normalizedStoredResponse))
   });
 }
 
@@ -30,10 +29,6 @@ function identicalWordMaps(wordMap1: object, wordMap2: object): boolean {
   const keys2 = Object.keys(wordMap2);
   if (keys1.length !== keys2.length) return false;
   return keys1.every((key) => wordMap1[key] === wordMap2[key]);
-}
-
-function identicalNormalizedResponses(response1: string, response2: string): boolean {
-  return removePunctuation(response1).toLowerCase() == removePunctuation(response2).toLowerCase();
 }
 
 export function wordsOutOfOrderChecker(responseString: string, responses:Array<Response>):PartialResponse|undefined {

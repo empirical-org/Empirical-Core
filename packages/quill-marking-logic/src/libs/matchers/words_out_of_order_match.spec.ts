@@ -49,18 +49,6 @@ describe('The wordsOutOfOrderMatch function', () => {
       assert.isUndefined(matchedResponse);
   });
 
-  it('should not match a response if the words are in order', () => {
-      const responseString:string = "My dog took a nap.";
-      const matchedResponse = wordsOutOfOrderMatch(responseString, savedResponses);
-      assert.isUndefined(matchedResponse);
-  });
-
-  it('should not match a response if the words are in order but have different capitalization', () => {
-      const responseString:string = "My Dog took a Nap.";
-      const matchedResponse = wordsOutOfOrderMatch(responseString, savedResponses);
-      assert.isUndefined(matchedResponse);
-  });
-
 });
 
 describe('The wordsOutOfOrderChecker', () => {

@@ -71,13 +71,13 @@ function* firstPassMatchers(data: GradingObject, spellCorrected=false) {
   yield exactMatch(submission, responses);
   yield focusPointChecker(submission, focusPoints, responses);
   yield incorrectSequenceChecker(submission, incorrectSequences, responses);
-  yield wordsOutOfOrderChecker(submission, responses);
   yield caseInsensitiveChecker(submission, responses);
   yield punctuationInsensitiveChecker(submission, responses);
   yield punctuationAndCaseInsensitiveChecker(submission, responses);
   yield spacingBeforePunctuationChecker(submission, responses);
   yield spacingAfterCommaChecker(submission, responses);
   yield whitespaceChecker(submission, responses);
+  yield wordsOutOfOrderChecker(submission, responses);
   yield rigidChangeObjectChecker(submission, responses);
 }
 
