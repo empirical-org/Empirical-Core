@@ -1,4 +1,3 @@
-import 'babel-polyfill';
 import Promise from 'promise-polyfill';
 
 // To add to window
