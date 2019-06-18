@@ -106,15 +106,6 @@ class ConceptsIndex extends React.Component<any, ConceptsIndexState> {
       this.setState({fuse});
       return concepts;
     }
-
-
-    // const results:Array<any>|null = fs.get(searchValue);
-    // const resultsNames:Array<string> = results ? results.map(result => result[1]) : [];
-
-    // console.log("fuzzy = ", results, fs);
-    // return concepts.filter((concept) => {
-    //   return resultsNames.indexOf(getSearchableConceptName(concept)) != -1
-    // })
   }
 
   updateSearchValue(searchValue:string):void {
@@ -175,12 +166,6 @@ class ConceptsIndex extends React.Component<any, ConceptsIndexState> {
   }
 
   render() {
-    let activeLink = 'concepts'
-    if (window.location.href.includes('find_and_replace')) {
-      activeLink = 'find_and_replace'
-    } else if (window.location.href.includes('new')) {
-      activeLink = "new"
-    }
     return  (
       <div>
         <ConceptManagerNav />

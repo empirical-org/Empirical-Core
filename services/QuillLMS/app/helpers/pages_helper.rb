@@ -69,18 +69,18 @@ module PagesHelper
             title: 'Chief Operating Officer',
             desc: "Sara provides day-to-day leadership and management for Quill. She has 9+ years of tech industry experience, most recently as the Chief Product Officer for Climb Credit. Sara spent 3 years at Facebook, managing an internal product and advising product teams about privacy. Prior to Facebook, Sara was a product director at Lex Machina, a leading machine learning startup that was acquired by LexisNexis. Sara is a graduate of Yale Law School and Cornell University."
           },
-					{
-			      img: 'thumb-hannah.png',
-			      name: "Hannah Monk",
-			      title: "Curriculum Director",
-			      desc: "Hannah designs the curriculum and works with educators to create new content. Before joining Quill, Hannah was a seventh grade English teacher at a low-income school in western Virginia. She has an undergraduate degree in English and a master’s degree in education."
-					},
           {
             img: 'thumb-dan.jpg',
             name: 'Daniel Drabik',
             title: 'Vice President of Engineering',
             desc: "Daniel is responsible for the oversight and development of Quill’s technology. Daniel has over a decade of experience writing software, leading tech teams, and managing engineers. He was the lead developer for Kickstarter's international expansion, building a system that has processed over a billion dollars in pledges, and he was an engineer on the Data Infrastructure team for the Hillary For America Presidential Campaign. Daniel has a Master in Public Administration from the Harvard Kennedy School and a Mathematics degree from Villanova University."
           },
+					{
+			      img: 'thumb-hannah.png',
+			      name: "Hannah Monk",
+			      title: "Curriculum Director",
+			      desc: "Hannah designs the curriculum and works with educators to create new content. Before joining Quill, Hannah was a seventh grade English teacher at a low-income school in western Virginia. She has an undergraduate degree in English and a master’s degree in education."
+					},
 					{
 			      img: 'thumb-emilia.png',
 			      name: "Emilia Friedberg",
@@ -129,6 +129,12 @@ module PagesHelper
 						title: 'Director of Strategic Initiatives',
 						desc: "Rhea supports Quill’s strategic partnerships, outreach and fundraising efforts. Rhea loves writing and wrote her first (self-published) book at the age of 8. She pursued her love of writing through college as the Editor in Chief of her campus paper. She was then called to mission-based work and has 15 years of experience in the nonprofit sector, 12 of them as Executive Director of Breakthrough New York. When she’s not at Quill, you can catch her on her podcast #{link_to 'Nonprofit Lowdown', 'https://podcasts.apple.com/us/podcast/nonprofit-lowdown/id1436858854?ign-mpt=uo%3D4&mt=2'}. Rhea is a graduate of McGill University and has certificates in nonprofit management and fundraising from Columbia Business School and Harvard Kennedy School."
 					},
+          {
+            img: 'thumb-yves.jpg',
+            name: 'Yves Peirsman',
+            title: 'AI Open Source Partner',
+            desc: "Yves Peirsman is the founder and Natural Language Processing expert at NLP Town. Yves holds a PhD in computational linguistics from the University of Leuven and was a postdoctoral researcher at Stanford University. Since he made the move from academia to industry, he has gained extensive experience in consultancy and software development for Natural Language Processing. As the co-founder of NLP Town, he leads several NLP projects, organizes NLP-focused events and contributes to open-source software."
+          }
 				]
 			},
 			{
