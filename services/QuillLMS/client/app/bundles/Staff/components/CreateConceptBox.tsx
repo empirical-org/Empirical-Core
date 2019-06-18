@@ -5,10 +5,11 @@ import { Input, DropdownInput } from 'quill-component-library/dist/componentLibr
 
 import { Concept } from '../interfaces/interfaces'
 import RuleDescriptionField from './RuleDescriptionField'
+import ChangeLogModal from './ChangeLogModal'
 
 const CREATE_CONCEPT = gql`
-  mutation createConcept($name: String!, $parentId: ID, $description: String){
-    createConcept(input: {name: $name, parentId: $parentId, description: $description}){
+  mutation createConcept($name: String!, $parentId: ID, $description: String, $changeLogs: [ChangeLogInput!]!){
+    createConcept(input: {name: $name, parentId: $parentId, description: $description, changeLogs: $changeLogs}){
       concept {
         id
         uid
@@ -21,7 +22,7 @@ const CREATE_CONCEPT = gql`
 
 
 interface CreateConceptBoxProps {
-  levelNumber: Number;
+  levelNumber: number;
   finishEditingOrCreatingConcept(data: any): void;
   concepts: Array<Concept>;
 }
@@ -29,7 +30,8 @@ interface CreateConceptBoxProps {
 interface CreateConceptBoxState {
   concept: { parent: Concept, name: string, description: string }
   level1Concepts: Array<Concept>,
-  level2Concepts: Array<Concept>
+  level2Concepts: Array<Concept>,
+  showChangeLogModal: boolean
 }
 
 class CreateConceptBox extends React.Component<CreateConceptBoxProps, CreateConceptBoxState> {
@@ -41,7 +43,8 @@ class CreateConceptBox extends React.Component<CreateConceptBoxProps, CreateConc
     this.state = {
       concept: { name: '', parent: {}, description: '' },
       level2Concepts,
-      level1Concepts
+      level1Concepts,
+      showChangeLogModal: false
     }
 
     this.changeLevel1 = this.changeLevel1.bind(this)
@@ -49,6 +52,7 @@ class CreateConceptBox extends React.Component<CreateConceptBoxProps, CreateConc
     this.renameConcept = this.renameConcept.bind(this)
     this.changeDescription = this.changeDescription.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.closeChangeLogModal = this.closeChangeLogModal.bind(this)
   }
 
   sortConcepts(props):{level2Concepts: Array<Concept>, level1Concepts: Array<Concept>} {
@@ -76,15 +80,24 @@ class CreateConceptBox extends React.Component<CreateConceptBoxProps, CreateConc
     }
   }
 
-  handleSubmit(e, createConcept) {
+  handleSubmit(e) {
     e.preventDefault()
+    this.setState({ showChangeLogModal: true })
+  }
+
+  save(createConcept, changeLogs) {
     const { concept } = this.state
     createConcept({ variables: {
       name: concept.name,
       parentId: concept.parent.id,
-      description: concept.description.length && concept.description !== '<br/>' ? concept.description : null
+      description: concept.description.length && concept.description !== '<br/>' ? concept.description : null,
+      changeLogs
     }})
     this.setState({ concept: { name: '', parent: {}, description: '' }})
+  }
+
+  closeChangeLogModal() {
+    this.setState({ showChangeLogModal: false })
   }
 
   changeLevel1(level1Concept) {
@@ -219,13 +232,27 @@ class CreateConceptBox extends React.Component<CreateConceptBoxProps, CreateConc
     }
   }
 
+  renderChangeLogModal(createConcept) {
+    if (this.state.showChangeLogModal) {
+      const { concept, } = this.state
+      return <ChangeLogModal
+        concept={concept}
+        changedFields={[{ fieldName: 'new' }]}
+        levelNumber={this.props.levelNumber}
+        cancel={this.closeChangeLogModal}
+        save={(changeLogs) => { this.save(createConcept, changeLogs)}}
+      />
+    }
+  }
+
   render() {
     const { levelNumber, } = this.props
     return  (
       <Mutation mutation={CREATE_CONCEPT} onCompleted={this.props.finishEditingOrCreatingConcept}>
         {(createConcept, {}) => (
           <div className={`concept-box create-concept-box create-concept-box-level-${levelNumber}`}>
-            <form onSubmit={(e) => this.handleSubmit(e, createConcept)} acceptCharset="UTF-8" >
+          {this.renderChangeLogModal(createConcept)}
+            <form onSubmit={this.handleSubmit} acceptCharset="UTF-8" >
               <div className="static">
                 <h1>Create a Level {levelNumber}</h1>
               </div>
