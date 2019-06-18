@@ -1,11 +1,12 @@
 import * as React from 'react';
-import { connect } from 'react-redux';
 import * as _ from 'underscore';
-import ConceptSelectorWithCheckbox from './conceptSelectorWithCheckbox';
-import TextEditor from './textEditor';
-import { EditorState, ContentState } from 'draft-js'
-import ResponseComponent from '../questions/responseComponent'
 import * as request from 'request'
+import { EditorState, ContentState } from 'draft-js'
+import { isValidRegex } from 'quill-component-library/dist/componentLibrary'
+
+import TextEditor from './textEditor';
+import ConceptSelectorWithCheckbox from './conceptSelectorWithCheckbox';
+import ResponseComponent from '../questions/responseComponent'
 
 export default class FocusPointsInputAndConceptResultSelectorForm extends React.Component {
   constructor(props) {
@@ -69,12 +70,18 @@ export default class FocusPointsInputAndConceptResultSelectorForm extends React.
   }
 
   submit(focusPoint) {
-    const data = {
-      text: this.state.itemText.split(/\|{3}(?!\|)/).filter(val => val !== '').join('|||'),
-      feedback: this.state.itemFeedback,
-      conceptResults: this.state.itemConcepts,
-    };
-    this.props.onSubmit(data, focusPoint);
+    const focusPoints = this.state.itemText.split(/\|{3}(?!\|)/).filter(val => val !== '')
+    if (focusPoints.every(fp => isValidRegex(fp))) {
+      const incorrectSequenceString = focusPoints.join('|||')
+      const data = {
+        text: incorrectSequenceString,
+        feedback: this.state.itemFeedback,
+        conceptResults: this.state.itemConcepts,
+      };
+      this.props.onSubmit(data, focusPoint);
+    } else {
+      window.alert('Your regex syntax is invalid. Try again!')
+    }
   }
 
   renderTextInputFields() {
