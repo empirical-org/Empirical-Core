@@ -20,6 +20,15 @@ function conceptQuery(id){
       replacement {
         name
       }
+      changeLogs {
+        id
+        action
+        explanation
+        createdAt
+        user {
+          name
+        }
+      }
       parent {
         id
         name
@@ -43,6 +52,7 @@ interface QueryResult {
   parent?:Concept;
   children: Array<Concept>;
   siblings: Array<Concept>;
+  changeLogs?: Array<any>;
 }
 
 interface ConceptBoxContainerProps {
@@ -71,21 +81,25 @@ class ConceptBoxContainer extends React.Component<any, ConceptBoxContainerProps>
           const concept:QueryResult = data.concept;
           if (visible) {
             return (
-              <ConceptBox
-                concept={concept}
-                levelNumber={levelNumber}
-                finishEditingConcept={finishEditingConcept}
-                closeConceptBox={closeConceptBox}
-              />
+              <div className="concept-box-container">
+                <ConceptBox
+                  concept={concept}
+                  levelNumber={levelNumber}
+                  finishEditingConcept={finishEditingConcept}
+                  closeConceptBox={closeConceptBox}
+                />
+              </div>
             )
           } else {
             return (
-              <ArchivedConceptBox
-                concept={concept}
-                levelNumber={levelNumber}
-                finishEditingConcept={finishEditingConcept}
-                closeConceptBox={closeConceptBox}
-              />
+              <div className="concept-box-container">
+                <ArchivedConceptBox
+                  concept={concept}
+                  levelNumber={levelNumber}
+                  finishEditingConcept={finishEditingConcept}
+                  closeConceptBox={closeConceptBox}
+                />
+              </div>
             )
           }
         }}

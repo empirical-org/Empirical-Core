@@ -1,5 +1,5 @@
 import * as React from "react";
-import {shallow} from "enzyme";
+import { shallow } from "enzyme";
 import { PlayProofreaderContainer } from "../../components/proofreaderActivities/container";
 import { ProofreaderActivityReducer } from './data'
 
