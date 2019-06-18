@@ -15,6 +15,7 @@ class Types::ConceptType < Types::BaseObject
   field :replacement, Types::ConceptType, null: true
   field :children, [Types::ConceptType, null: true], null: true
   field :siblings, [Types::ConceptType, null: true], null: true
+  field :change_logs, [Types::ChangeLogType, null: true], null: true
 
   def parent
     Concept.find(object['parent_id']) if object['parent_id']
@@ -30,6 +31,10 @@ class Types::ConceptType < Types::BaseObject
 
   def replacement
     Concept.find(object['replacement_id']) if object['replacement_id']
+  end
+
+  def change_logs
+    ChangeLog.where(changed_record_id: object['id'], changed_record_type: 'Concept')
   end
 
 end
