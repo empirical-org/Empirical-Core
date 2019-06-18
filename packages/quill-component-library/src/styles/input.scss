@@ -5,7 +5,14 @@
   flex-direction: column;
   position: relative;
 
-  input, input:focus {
+  &.textfield-container {
+    margin-bottom: 25px;
+    label {
+      margin-bottom: 4px;
+    }
+  }
+
+  input, input:focus, textarea, textarea:focus {
     outline: none;
     margin-bottom: 8px;
     border: 2px #009a80;
@@ -15,12 +22,27 @@
     font-size: 16px;
     padding: 0px 0px 3px;
     color: #000;
-    height: 25px;
     -webkit-transition: all 0.2s ease-in;
     -moz-transition: all 0.2s ease-in;
     -o-transition: all 0.2s ease-in;
     transition: all 0.2s ease-in;
   }
+
+  input, input:focus {
+    height: 25px;
+  }
+
+  textarea, textarea:focus {
+    resize: none;
+    height: 75px;
+  }
+
+  .character-limit {
+    display: flex;
+    justify-content: flex-end;
+    font-size: 12px;
+  }
+
   label {
     font-size: 12px;
     font-weight: 600;
@@ -46,6 +68,7 @@
       border-bottom: none !important;
     }
     .dropdown__menu {
+      z-index: 100;
       border-radius: 0px 0px 4px 4px;
       margin-top: -4px;
       box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0 1px 18px 0 rgba(0, 0, 0, 0.12), 0 6px 10px 0 rgba(0, 0, 0, 0.14);
@@ -110,7 +133,7 @@
     }
     .dropdown__input {
       padding: 0px;
-      input {
+      input, textarea {
         border: none;
         margin-bottom: 0px;
         box-sizing: border-box !important;
@@ -127,8 +150,13 @@
   }
 
   &.inactive {
+    &.textfield-container.has-text {
+      label {
+        margin-bottom: 4px;
+      }
+    }
     &.has-text {
-      input {
+      input, textarea {
         padding: 0px 0px 4px;
       }
       label {
@@ -160,7 +188,7 @@
     .dropdown__placeholder {
       display: none;
     }
-    input {
+    input, textarea {
       border: 1px #e0e0e0;
       padding: 0px;
       border-style: none none solid none;
@@ -216,7 +244,7 @@
     }
   }
   &.error {
-    input {
+    input, textarea {
       border: 2px #ff0000;
       border-style: none none solid none;
       padding: 0px 0px 3px !important;

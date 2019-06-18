@@ -41,6 +41,8 @@ class User < ActiveRecord::Base
 
   has_many :blog_post_user_ratings
 
+  has_many :change_logs
+
   accepts_nested_attributes_for :auth_credential
 
   delegate :name, :mail_city, :mail_state, to: :school, allow_nil: true, prefix: :school
