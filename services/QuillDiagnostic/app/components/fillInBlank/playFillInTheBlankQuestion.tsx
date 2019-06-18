@@ -1,9 +1,7 @@
-declare function require(name:string);
 import * as React from 'react';
 import { connect } from 'react-redux';
-import * as  _ from 'underscore';
-const qml = require('quill-marking-logic')
-const checkFillInTheBlankQuestion = qml.checkFillInTheBlankQuestion
+import * as _ from 'underscore';
+import { checkFillInTheBlankQuestion } from 'quill-marking-logic'
 import { getGradedResponsesWithCallback } from '../../actions/responses.js';
 import {
   hashToCollection,

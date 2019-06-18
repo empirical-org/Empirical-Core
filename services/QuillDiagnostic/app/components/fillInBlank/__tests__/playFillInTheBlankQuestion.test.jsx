@@ -2,7 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { PlayFillInTheBlankQuestion } from '../playFillInTheBlankQuestion';
 import { fillInBlankQuestionBlankAllowed, fillInBlankQuestionBlankNotAllowed }
-       from '../../../../test/data/jest_data.js';
+       from '../../../../test/data/test_data.js';
 
 function setup() {
   const nextQuestion = jest.fn();
@@ -38,6 +38,7 @@ describe('PlayFillInTheBlankQuestion component', () => {
       const nextQuestion = jest.fn();
       props.nextQuestion = nextQuestion;
       const wrapper = mount(<PlayFillInTheBlankQuestion {...props} />);
+      wrapper.setState({responses: []})
       wrapper.instance().checkAnswer();
       expect(nextQuestion.mock.calls.length).toBe(1);
     });
@@ -47,8 +48,7 @@ describe('PlayFillInTheBlankQuestion component', () => {
       props.nextQuestion = nextQuestion;
       const inputErrors = new Set();
       inputErrors.add(1);
-      const wrapper = mount(<PlayFillInTheBlankQuestion {...props} />);
-      wrapper.setState({ inputErrors, });
+      wrapper.setState({ inputErrors, responses: []});
       wrapper.instance().checkAnswer();
       expect(nextQuestion.mock.calls.length).toBe(0);
     });
@@ -57,6 +57,7 @@ describe('PlayFillInTheBlankQuestion component', () => {
       const nextQuestion = jest.fn();
       props.nextQuestion = nextQuestion;
       const wrapper = mount(<PlayFillInTheBlankQuestion {...props} />);
+      wrapper.setState({responses: []})
       wrapper.find('.button').simulate('click');
       expect(nextQuestion.mock.calls.length).toBe(1);
     });
