@@ -1,6 +1,6 @@
-import IncorrectSequenceContainer from 'components/incorrectSequence/sentenceFragments/incorrectSequenceContainer.jsx';
-import EditIncorrectSequenceContainer from 'components/incorrectSequence/sentenceFragments/editIncorrectSequenceContainer.jsx';
-import NewIncorrectSequenceContainer from 'components/incorrectSequence/sentenceFragments/newIncorrectSequenceContainer.jsx';
+import IncorrectSequenceContainer from 'components/incorrectSequence/incorrectSequenceContainer.jsx';
+import EditIncorrectSequenceContainer from 'components/incorrectSequence/editIncorrectSequenceContainer.jsx';
+import NewIncorrectSequenceContainer from 'components/incorrectSequence/newIncorrectSequenceContainer.jsx';
 
 const newIncorrectSequence = {
   path: 'new',
