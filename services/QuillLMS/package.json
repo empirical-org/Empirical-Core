@@ -17,6 +17,8 @@
     "postinstall": "cd ./client && npm install",
     "gulp": "cd ./client && npm run gulp",
     "test": "npm run jest && npm run build:test && npm run lint && bundle exec rake spec",
+    "test:rails": "bundle exec rake spec",
+    "test:rails:seed": "./bin/utils/spec_with_seed.sh",
     "lint": "cd client && npm run lint",
     "install-react-on-rails": "cd client && npm run install-react-on-rails",
     "build:clean": "./bin/dev/clean_build_artifacts.sh",

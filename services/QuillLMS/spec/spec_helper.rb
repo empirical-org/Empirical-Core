@@ -2,6 +2,7 @@ require 'simplecov'
 require 'simplecov-json'
 
 RSpec.configure do |config|
+  config.before(:all) { Faker::Config.random = Random.new(config.seed) }
   config.formatter = :progress
   config.expect_with :rspec do |expectations|
     expectations.include_chain_clauses_in_custom_matcher_descriptions = true
