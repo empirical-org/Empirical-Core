@@ -1,31 +1,27 @@
 import React from 'react';
-import Select from 'react-select';
 
-interface DropdownInputProps {
+interface InputProps {
   timesSubmitted: Number;
-  options: Array<any>;
   label: string;
-  id?: string;
   error?: string;
   disabled?: boolean;
   className?: string;
   value?: string;
   placeholder?: string;
-  type?: string;
-  isSearchable?: boolean;
+  id?: string;
+  characterLimit?: number;
   handleCancel?: (event: any) => void;
   helperText?: string;
   handleChange?: (event: any) => void;
   onClick?: (event: any) => void;
 }
 
-interface DropdownInputState {
+interface InputState {
   inactive: boolean;
   errorAcknowledged: boolean;
-  menuIsOpen: boolean;
 }
 
-export class DropdownInput extends React.Component<DropdownInputProps, DropdownInputState> {
+export class TextField extends React.Component<InputProps, InputState> {
   private input: any
   private node: any
 
@@ -34,16 +30,14 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
 
     this.state = {
       inactive: true,
-      errorAcknowledged: false,
-      menuIsOpen: false
+      errorAcknowledged: false
     }
 
     this.activateInput = this.activateInput.bind(this)
     this.acknowledgeError = this.acknowledgeError.bind(this)
     this.handleClick = this.handleClick.bind(this)
-    this.onKeyDown = this.onKeyDown.bind(this)
+    this.handleTab = this.handleTab.bind(this)
     this.deactivateInput = this.deactivateInput.bind(this)
-    this.handleChange = this.handleChange.bind(this)
   }
 
   componentWillMount() {
@@ -64,7 +58,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
 
   activateInput() {
     if (!this.props.disabled) {
-      this.setState({ inactive: false, menuIsOpen: true }, () => this.input.focus())
+      this.setState({ inactive: false, }, () => this.input.focus())
     }
   }
 
@@ -82,15 +76,13 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
     this.setState({ errorAcknowledged: true, inactive: false, }, () => this.input.focus())
   }
 
-  onKeyDown(event) {
+  handleTab(event) {
     if (event.key === 'Tab') {
       const form = event.target.form;
       const index = Array.prototype.indexOf.call(form, event.target);
       form.elements[index + 1].focus();
       event.preventDefault();
       this.deactivateInput()
-    } else {
-      this.setState({ menuIsOpen: true })
     }
   }
 
@@ -101,6 +93,13 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
     }
   }
 
+  renderCharacterLimit() {
+    const { characterLimit, value, } = this.props
+    if (characterLimit) {
+      return <div className="character-limit"><span>{value.length}/{characterLimit}</span></div>
+    }
+  }
+
   renderErrorText() {
     const { error } = this.props
     if (error) {
@@ -108,44 +107,40 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
     }
   }
 
-  handleChange(e) {
-    this.deactivateInput()
-    this.props.handleChange(e)
+  renderCancelSymbol() {
+    const { inactive } = this.state
+    const { handleCancel } = this.props
+    if (!inactive && handleCancel) {
+      return <div className="cancel" onClick={handleCancel}><i className="fas fa-times"></i></div>
+    }
   }
 
   renderInput() {
-    const { inactive, errorAcknowledged, menuIsOpen, } = this.state
-    const { className, label, value, placeholder, error, type, id, options, isSearchable, } = this.props
-    const passedValue = value || ''
+    const { inactive, errorAcknowledged} = this.state
+    const { className, label, handleChange, value, placeholder, error, id, disabled, characterLimit, } = this.props
     const hasText = value ? 'has-text' : ''
     const inactiveOrActive = inactive ? 'inactive' : 'active'
-    const notEditable = isSearchable ? '' : 'not-editable'
-    const sharedClasses = `dropdown-container input-container ${inactiveOrActive} ${hasText} ${notEditable} ${className}`
+    const sharedClasses = `input-container textfield-container ${hasText} ${inactiveOrActive} ${className}`
     if (error) {
       if (errorAcknowledged) {
-        return (
-          <div
+        return (<div
             className={`error ${sharedClasses}`}
             ref={node => this.node = node}
             onClick={this.activateInput}
           >
             <label>{label}</label>
-            <Select
+            <textarea
               id={id}
               ref={(input) => { this.input = input; }}
-              onChange={this.handleChange}
-              value={passedValue}
-              type={type}
-              placeholder={placeholder || ''}
-              onKeyDown={this.onKeyDown}
-              menuIsOpen={menuIsOpen}
-              options={options}
-              isClearable={false}
-              className="dropdown"
-              classNamePrefix="dropdown"
-              isSearchable={isSearchable}
+              onChange={handleChange}
+              value={value}
+              placeholder={placeholder}
+              disabled={disabled}
+              maxLength={characterLimit ? characterLimit : 10000}
             />
-          </div>)
+            {this.renderCancelSymbol()}
+            {this.renderCharacterLimit()}
+        </div>)
       } else {
         return (
           <div
@@ -154,66 +149,56 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
             ref={node => this.node = node}
           >
             <label>{label}</label>
-            <Select
+            <textarea
               id={id}
               ref={(input) => { this.input = input; }}
-              onFocus={this.activateInput}
-              type={type}
-              value={passedValue}
-              menuIsOpen={false}
-              isClearable={false}
-              className="dropdown"
-              classNamePrefix="dropdown"
-              isSearchable={isSearchable}
+              onChange={handleChange}
+              value={value}
+              placeholder={placeholder}
+              maxLength={characterLimit ? characterLimit : 10000}
             />
+            {this.renderCancelSymbol()}
             {this.renderErrorText()}
+            {this.renderCharacterLimit()}
         </div>)
       }
     } else if (inactive) {
       return (
         <div
-          className={`${sharedClasses}`}
+          className={sharedClasses}
           onClick={this.activateInput}
           ref={node => this.node = node}
         >
           <label>{label}</label>
-          <Select
+          <textarea
             id={id}
             ref={(input) => { this.input = input; }}
             onFocus={this.activateInput}
-            type={type}
-            value={passedValue}
-            menuIsOpen={false}
-            isClearable={false}
-            className="dropdown"
-            classNamePrefix="dropdown"
-            placeholder={placeholder || ''}
-            isSearchable={isSearchable}
+            value={value}
+            disabled={disabled}
+            maxLength={characterLimit ? characterLimit : 10000}
           />
           {this.renderHelperText()}
+          {this.renderCharacterLimit()}
       </div>)
     } else {
       return (
         <div
-          className={`dropdown ${sharedClasses}`}
+          className={sharedClasses}
           ref={node => this.node = node}
         >
           <label>{label}</label>
-          <Select
+          <textarea
             id={id}
             ref={(input) => { this.input = input; }}
-            onChange={this.handleChange}
-            value={passedValue}
-            type={type}
-            placeholder={placeholder || ''}
-            onKeyDown={this.onKeyDown}
-            menuIsOpen={menuIsOpen}
-            options={options}
-            isClearable={false}
-            className="dropdown"
-            classNamePrefix="dropdown"
-            isSearchable={isSearchable}
+            onChange={handleChange}
+            value={value}
+            placeholder={placeholder}
+            onKeyDown={this.handleTab}
+            maxLength={characterLimit ? characterLimit : 10000}
           />
+          {this.renderCancelSymbol()}
+          {this.renderCharacterLimit()}
       </div>)
     }
   }
@@ -221,4 +206,5 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
   render() {
     return <div onClick={this.props.onClick}>{this.renderInput()}</div>
   }
+
 }
