@@ -4,16 +4,14 @@ const AssetsPlugin = require('assets-webpack-plugin');
 
 const assetsPluginInstance = new AssetsPlugin();
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CompressionPlugin = require('compression-webpack-plugin');
 
 console.log('in prod: ', live);
 const webpack = require('webpack');
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-// const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 
 module.exports = {
-  mode: 'development',
+  mode: live ? 'production' : 'development',
   resolve: {
     modules: [
       path.resolve(__dirname, 'app'),
@@ -26,7 +24,7 @@ module.exports = {
       '.tsx'
     ],
   },
-  context: path.resolve(__dirname, 'app'),
+  context: `${__dirname}/app`,
   entry: {
     polyfills: ['babel-polyfill', 'whatwg-fetch'],
     vendor: ['pos', 'draft-js'],
@@ -35,20 +33,37 @@ module.exports = {
   output: {
     filename: '[name].[hash].js',
     chunkFilename: '[name].[chunkhash].js',
-    path: path.resolve(__dirname, 'dist'),
+    path: `${__dirname}/dist`,
   },
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
     compress: true,
-    port: 8090,
+    port: 8090
   },
-
-  // resolve: {
-  // // changed from extensions: [".js", ".jsx"]
-  //   extensions: ['.ts', '.tsx', '.js', '.jsx', '.ejs'],
-  // },
+  optimization: {
+    splitChunks: {
+      chunks: 'async',
+      minSize: 30000,
+      maxSize: 0,
+      minChunks: 1,
+      maxAsyncRequests: 5,
+      maxInitialRequests: 3,
+      automaticNameDelimiter: '~',
+      name: true,
+      cacheGroups: {
+        vendors: {
+          test: /[\\/]node_modules[\\/]/,
+          priority: -10
+        },
+        default: {
+          minChunks: 2,
+          priority: -20,
+          reuseExistingChunk: true
+        }
+      }
+    }
+  },
   plugins: [
-    // new HardSourceWebpackPlugin(),
     assetsPluginInstance,
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
@@ -58,27 +73,19 @@ module.exports = {
     }),
     new webpack.EnvironmentPlugin({
       NODE_ENV: 'development',
-      EMPIRICAL_BASE_URL: 'https://staging.quill.org',
+      EMPIRICAL_BASE_URL: 'http://localhost:3000',
       QUILL_CMS: 'http://localhost:3100',
       PUSHER_KEY: 'a253169073ce7474f0ce',
       FIREBASE_APP_NAME: 'quillconnectstaging',
     }),
-    // new CompressionPlugin({
-    //   asset: '[path].gz[query]',
-    //   algorithm: 'gzip',
-    //   test: /\.js$/,
-    //   threshold: 10240,
-    //   minRatio: 0.8,
-    // }),
     new HtmlWebpackPlugin({
       template: './index.html.ejs',
       inject: 'body',
       chunks: ['polyfills', 'vendor', 'javascript'],
       chunksSortMode: (chunk1, chunk2) => {
         const orders = ['vendor', 'polyfills', 'javascript'];
-        console.log(chunk1, chunk2);
-        const order1 = orders.indexOf(chunk1);
-        const order2 = orders.indexOf(chunk2);
+        const order1 = orders.indexOf(chunk1.names[0]);
+        const order2 = orders.indexOf(chunk2.names[0]);
         if (order1 > order2) {
           return 1;
         } else if (order1 < order2) {
@@ -89,28 +96,20 @@ module.exports = {
     })
   ],
   module: {
-    // rules: [
-    //   // changed from { test: /\.jsx?$/, use: { loader: 'babel-loader' } },
-    //   { test: /\.(t|j)sx?$/, use: { loader: 'awesome-typescript-loader', }, },
-    //   // addition - add source-map support
-    //   { enforce: 'pre', test: /\.js$/, loader: 'source-map-loader', }
-    // ],
     noParse: /node_modules\/json-schema\/lib\/validate\.js/,
     rules: [
       {
         test: /\.(t|j)sx?$/,
         exclude: /node_modules/,
         use: [
-          'react-hot-loader',
+          'react-hot-loader/webpack',
           'babel-loader',
-          'ts-loader'
+          'awesome-typescript-loader?errorsAsWarnings=true'
         ],
       },
       {
         test: /\.d.ts$/,
-        use: [
-          'awesome-typescript-loader'
-        ],
+        loader: 'awesome-typescript-loader?errorsAsWarnings=true',
       },
       {
         test: /\.html$/,
@@ -147,6 +146,5 @@ module.exports = {
     net: 'empty',
     tls: 'empty',
   },
-  // addition - add source-map support
-  devtool: 'cheap-module-eval-source-map',
+  devtool: 'eval',
 };

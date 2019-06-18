@@ -6,9 +6,9 @@ const initialState = {
 };
 
 function question(state = initialState, action) {
+  let changes = {}
   switch (action.type) {
     case SubmitActions.NEXT_DIAGNOSTIC_QUESTION:
-      var changes = {};
       if (state.currentQuestion) {
         changes.answeredQuestions = state.answeredQuestions.concat([state.currentQuestion]);
       }
@@ -21,7 +21,6 @@ function question(state = initialState, action) {
       }
       return Object.assign({}, state, changes);
     case SubmitActions.NEXT_DIAGNOSTIC_QUESTION_WITHOUT_SAVING:
-      var changes = {};
       changes.currentQuestion = state.unansweredQuestions[0];
       if (changes.currentQuestion) {
         changes.currentQuestion.data.attempts = [];
@@ -45,7 +44,7 @@ function question(state = initialState, action) {
       });
     case SubmitActions.SUBMIT_DIAGNOSTIC_RESPONSE:
       if (state.currentQuestion && state.currentQuestion.data) {
-        var changes = { currentQuestion: Object.assign({}, state.currentQuestion, {
+        changes = { currentQuestion: Object.assign({}, state.currentQuestion, {
           data: Object.assign({},
             state.currentQuestion.data,
             {
@@ -56,20 +55,20 @@ function question(state = initialState, action) {
         return Object.assign({}, state, changes);
       }
     case SubmitActions.START_DIAGNOSTIC_QUESTION:
-      var changes = { currentQuestion:
+      changes = { currentQuestion:
       Object.assign({}, state.currentQuestion, {
         started: true,
       }), };
       return Object.assign({}, state, changes);
     case SubmitActions.UPDATE_DIAGNOSTIC_NAME:
-      var changes = { name: action.data, };
+      changes = { name: action.data, };
       return Object.assign({}, state, changes);
     case SubmitActions.UPDATE_DIAGNOSTIC_LANGUAGE:
-      const changes = { language: action.data, };
+      changes = { language: action.data, };
       return Object.assign({}, state, changes);
     case SubmitActions.UPDATE_DIAGNOSTIC_CURRENT_QUESTION:
       var change = action.data;
-      var changes = { currentQuestion: Object.assign({}, state.currentQuestion, {
+      changes = { currentQuestion: Object.assign({}, state.currentQuestion, {
         data: Object.assign({},
             state.currentQuestion.data,
             change
