@@ -1,6 +1,6 @@
 module CleverIntegration::Importers::Library
 
-  def self.run(auth_hash, user_type)
+  def self.run(auth_hash)
     begin
       client = CleverLibrary::Api::Client.new(auth_hash.credentials.token)
       user = self.import_teacher(client)
