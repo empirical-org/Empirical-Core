@@ -10,6 +10,7 @@ const merge = require('webpack-merge');
 const config = require('./webpack.client.base.config');
 const { resolve } = require('path');
 const webpackConfigLoader = require('react-on-rails/webpackConfigLoader');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 const configPath = resolve('..', 'config');
 const { output } = webpackConfigLoader(configPath);
@@ -106,7 +107,9 @@ module.exports = merge(config, {
       }
     ],
   },
-
+  optimization: {
+    minimizer: [new UglifyJsPlugin()]
+  },
   plugins: [
     new ExtractTextPlugin({
       filename: '[name]-bundle-[hash].css',
