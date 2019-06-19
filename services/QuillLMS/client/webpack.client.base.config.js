@@ -48,7 +48,9 @@ const basePlugins = [new webpack.DefinePlugin({
   new ManifestPlugin({
     publicPath: output.publicPath,
     writeToFileEmit: true,
-  })];
+  }),
+  new webpack.optimize.UglifyJsPlugin()
+];
 
 module.exports = {
   context: __dirname,
@@ -101,9 +103,6 @@ module.exports = {
     },
   },
   plugins: basePlugins,
-  optimization: {
-    minimizer: [new UglifyJsPlugin()]
-  },
   module: {
     rules: [
       {
@@ -151,7 +150,7 @@ module.exports = {
           }
         ],
       }
-    ],
+    ]
   },
   node: {
     console: true,
