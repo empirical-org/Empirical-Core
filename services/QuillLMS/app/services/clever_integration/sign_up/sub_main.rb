@@ -8,6 +8,8 @@ module CleverIntegration::SignUp::SubMain
       result = self.district(auth_hash, requesters)
     when 'student'
       result = self.district(auth_hash, requesters)
+    when 'school_admin'
+      result = self.school_admin(auth_hash, requesters)
     else
       result = self.teacher(auth_hash, requesters)
     end
@@ -28,6 +30,11 @@ module CleverIntegration::SignUp::SubMain
 
   def self.student(auth_hash, requesters)
     result = CleverIntegration::SignUp::Student.run(auth_hash)
+    result
+  end
+
+  def self.school_admin(auth_hash, requesters)
+    result = CleverIntegration::SignUp::SchoolAdmin.run(auth_hash, requesters)
     result
   end
 

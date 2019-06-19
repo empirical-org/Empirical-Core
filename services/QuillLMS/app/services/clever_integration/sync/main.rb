@@ -10,6 +10,7 @@ module CleverIntegration::Sync::Main
     {
       teacher_requester: CleverIntegration::Requesters.teacher,
       section_requester: CleverIntegration::Requesters.section,
+      school_admin_requester: CleverIntegration::Requesters.school_admin,
       district_requester: CleverIntegration::Requesters.district
     }
   end

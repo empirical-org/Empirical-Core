@@ -12,6 +12,10 @@ module CleverIntegration::Requesters
     self.helper('district')
   end
 
+  def self.school_admin
+    self.helper('school_admin')
+  end
+
   private
 
   def self.helper(resource_kind)
