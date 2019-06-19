@@ -19,23 +19,19 @@ module CleverIntegration::SignUp::SubMain
   private
 
   def self.district(auth_hash, requesters)
-    result = CleverIntegration::SignUp::CleverDistrict.run(auth_hash)
-    result
+    CleverIntegration::SignUp::CleverDistrict.run(auth_hash)
   end
 
   def self.teacher(auth_hash, requesters)
-    result = CleverIntegration::SignUp::Teacher.run(auth_hash, requesters)
-    result
+    CleverIntegration::SignUp::Teacher.run(auth_hash, requesters)
   end
 
   def self.student(auth_hash, requesters)
-    result = CleverIntegration::SignUp::Student.run(auth_hash)
-    result
+    CleverIntegration::SignUp::Student.run(auth_hash)
   end
 
   def self.school_admin(auth_hash, requesters)
-    result = CleverIntegration::SignUp::SchoolAdmin.run(auth_hash, requesters)
-    result
+    CleverIntegration::SignUp::SchoolAdmin.run(auth_hash, requesters)
   end
 
 end

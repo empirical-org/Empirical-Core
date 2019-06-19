@@ -9,9 +9,9 @@ module CleverIntegration::Importers::Library
         CleverIntegration::Associators::ClassroomsToTeacher.run(classrooms, user)
         CleverLibraryStudentImporterWorker.perform_async(classrooms.map(&:id), auth_hash.credentials.token)
       elsif auth_hash[:info][:user_type] == 'school_admin'
-        schools = self.import_schools(client, user.clever_id)
+        self.import_schools(client, user.clever_id)
       end
-      return {type: 'user_success', data: teacher}
+      return {type: 'user_success', data: user}
     end
   rescue
     {type: 'user_failure', data: "Error: " + $!.message}
@@ -35,7 +35,7 @@ module CleverIntegration::Importers::Library
   def self.import_schools(client, user_id)
     schools_data = client.get_school_admin_schools(school_admin_id: user_id)
     schools = schools_data.map do |school|
-      CleverIntegration::Creators::Schools.run(school)
+      CleverIntegration::Creators::School.run(school)
     end
     schools.each { |school| SchoolsAdmins.create(school_id: school.id, user_id: user_id)}
   end

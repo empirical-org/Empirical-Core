@@ -39,7 +39,7 @@ class CleverLibrary::Api::Client
   def get_school_admin_schools(school_admin_id:)
     self.class.get('/school_admins/' + school_admin_id + '/schools', @options)
       .parsed_response["data"]
-      .map {|section| school["data"]}
+      .map {|school| school["data"]}
   end
 
   def get_section_students(section_id:)
