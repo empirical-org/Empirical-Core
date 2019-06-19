@@ -105,10 +105,7 @@ module.exports = merge(config, {
           }
         }
       }
-    ],
-  },
-  optimization: {
-    minimizer: [new UglifyJsPlugin()]
+    ]
   },
   plugins: [
     new ExtractTextPlugin({
@@ -121,5 +118,7 @@ module.exports = merge(config, {
       filename: 'vendor-bundle-[chunkhash].js',
       minChunks: Infinity,
     }),
+
+    new webpack.optimize.UglifyJsPlugin()
   ],
 });

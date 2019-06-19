@@ -42,11 +42,9 @@ module.exports = {
       options: {
         sassResources: ['./app/assets/styles/app-variables.scss'],
       },
-    })
+    }),
+    new webpack.optimize.UglifyJsPlugin()
   ],
-  optimization: {
-    minimizer: [new UglifyJsPlugin()]
-  },
   module: {
     loaders: [
       {
@@ -73,6 +71,6 @@ module.exports = {
           'sass-resources-loader'
         ],
       }
-    ],
+    ]
   },
 };
