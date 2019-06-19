@@ -53,8 +53,8 @@ describe 'SerializeSalesAccount' do
       account_type: 'SUPER SAVER PREMIUM',
     )
     create(:school_subscription,
-      subscription: school_subscription,
-      school: school,
+      subscription_id: school_subscription.id,
+      school_id: school.id,
     )
 
     school_data = SerializeSalesAccount.new(school.id).data
