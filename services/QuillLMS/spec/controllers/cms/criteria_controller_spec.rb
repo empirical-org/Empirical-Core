@@ -41,7 +41,7 @@ describe Cms::CriteriaController do
       post :create, criterion: {
         concept_id: concept.id, 
         count: 1, 
-        no_incorrect: 2 
+        no_incorrect: 0 
       },
       activity_classification_id: activity_classification.id,
       activity_id: activity.id, 
@@ -61,7 +61,7 @@ describe Cms::CriteriaController do
     let!(:activity) { create(:activity) }
     let!(:recommendation) { create(:recommendation) }
     let(:concept) { create(:concept) }
-    let(:criterion) { create(:criterion, concept: concept, count: 1, no_incorrect: 2) }
+    let(:criterion) { create(:criterion, concept: concept, count: 1, no_incorrect: 0) }
 
     it 'should update the given criterion' do
       post :update, 
@@ -85,7 +85,7 @@ describe Cms::CriteriaController do
     let!(:activity) { create(:activity) }
     let!(:recommendation) { create(:recommendation) }
     let(:concept) { create(:concept) }
-    let(:criterion) { create(:criterion, concept: concept, count: 1, no_incorrect: 2) }
+    let(:criterion) { create(:criterion, concept: concept, count: 1, no_incorrect: 0) }
 
 
     it 'should destroy the given criterion' do

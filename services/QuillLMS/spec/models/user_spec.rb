@@ -1147,7 +1147,7 @@ describe User, type: :model do
     let!(:invite_two) { create(:invitation, invitee_email: old_email) }
 
     it 'should update invitee email address in invitations table if email changed' do
-      new_email = Faker::Internet.safe_email
+      new_email = "new-email@fake-email.com"
       User.find_by_email(old_email).update(email: new_email)
       expect(Invitation.where(invitee_email: old_email).count).to be(0)
       expect(Invitation.where(invitee_email: new_email).count).to be(2)
