@@ -2,7 +2,6 @@ const webpack = require('webpack');
 const path = require('path');
 const autoprefixer = require('autoprefixer');
 const ManifestPlugin = require('webpack-manifest-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 const devBuild = process.env.RAILS_ENV === 'development';
 const firebaseApiKey = process.env.FIREBASE_API_KEY;
@@ -53,6 +52,7 @@ const basePlugins = [new webpack.DefinePlugin({
 ];
 
 module.exports = {
+  mode: nodeEnv,
   context: __dirname,
   entry: {
     vendor: [
