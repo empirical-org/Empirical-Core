@@ -6,11 +6,11 @@ FactoryBot.define do
   end
 
   factory :user do
-    name       { "#{Faker::Name.unique.first_name} #{Faker::Name.last_name}" }
+    sequence(:name) { |n| "FirstName LastName #{n}" }
     username   { name.gsub(' ', '-') }
-    password   { Faker::Internet.password }
-    email      { Faker::Internet.safe_email(name.gsub(' ', '.')) }
-    ip_address { Faker::Internet.public_ip_v4_address }
+    password   { "password" }
+    email      { "#{name.gsub(' ', '.').downcase}@fake-email.com" }
+    ip_address { "192.168.0.0" }
 
     factory :staff do
       role 'staff'
