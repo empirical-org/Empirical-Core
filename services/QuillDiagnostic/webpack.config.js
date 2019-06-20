@@ -73,7 +73,7 @@ module.exports = {
       filename: '[name].css',
       chunkFilename: '[id].css',
     }),
-    new webpack.DefinePlugin({
+    new webpack.EnvironmentPlugin({
       NODE_ENV: env,
       EMPIRICAL_BASE_URL: 'http://localhost:3000',
       QUILL_CMS: 'http://localhost:3100',
