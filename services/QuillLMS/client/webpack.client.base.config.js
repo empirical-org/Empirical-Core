@@ -59,6 +59,7 @@ const plugins = () => {
 };
 
 module.exports = {
+  mode: nodeEnv,
   context: __dirname,
   entry: {
     vendor: [
