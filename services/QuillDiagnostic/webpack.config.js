@@ -148,5 +148,5 @@ module.exports = {
     net: 'empty',
     tls: 'empty',
   },
-  devtool: 'eval',
+  devtool: live ? false : 'eval',
 };
