@@ -52,7 +52,6 @@ const basePlugins = [new webpack.DefinePlugin({
 ];
 
 module.exports = {
-  mode: nodeEnv,
   context: __dirname,
   entry: {
     vendor: [
