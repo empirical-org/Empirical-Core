@@ -10,7 +10,6 @@ const merge = require('webpack-merge');
 const config = require('./webpack.client.base.config');
 const { resolve } = require('path');
 const webpackConfigLoader = require('react-on-rails/webpackConfigLoader');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 const configPath = resolve('..', 'config');
 const { output } = webpackConfigLoader(configPath);
