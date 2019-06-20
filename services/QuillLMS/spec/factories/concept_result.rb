@@ -2,7 +2,7 @@
   factory :concept_result do
     concept
     activity_session
-    metadata {{"answer": "Arbitrary sample answer.", "correct": [0,1].sample}}
+    metadata {{"answer": "Arbitrary sample correct answer.", "correct": 1}}
 
     # TODO: generate metadata.
 
