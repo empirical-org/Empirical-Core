@@ -45,6 +45,8 @@ describe 'CleverIntegration::SignUp::Main' do
       title: 'title'
     })
 
+    allow_any_instance_of(Clever::SchoolAdmin).to receive(:schools).and_return([{ name: 'School', nces_id: 'fake_nces_id'}])
+
     allow(CleverIntegration::Importers::CleverDistrict).to receive(:run).and_return(district)
   end
 
