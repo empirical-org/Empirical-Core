@@ -7,6 +7,7 @@ const { resolve, } = require('path');
 const devBuild = process.env.RAILS_ENV === 'development';
 const nodeEnv = devBuild ? 'development' : 'production';
 const webpackConfigLoader = require('react-on-rails/webpackConfigLoader');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 const configPath = resolve('..', 'config');
 const { output, } = webpackConfigLoader(configPath);
@@ -41,7 +42,8 @@ module.exports = {
       options: {
         sassResources: ['./app/assets/styles/app-variables.scss'],
       },
-    })
+    }),
+    new webpack.optimize.UglifyJsPlugin()
   ],
   module: {
     loaders: [
@@ -69,6 +71,6 @@ module.exports = {
           'sass-resources-loader'
         ],
       }
-    ],
+    ]
   },
 };

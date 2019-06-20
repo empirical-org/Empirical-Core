@@ -1,9 +1,10 @@
 const env = process.env.NODE_ENV;
 const live = (env === 'production' || env === 'staging');
 const AssetsPlugin = require('assets-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const assetsPluginInstance = new AssetsPlugin();
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 console.log('in prod: ', live);
 const webpack = require('webpack');
@@ -56,7 +57,8 @@ module.exports = {
           reuseExistingChunk: true
         }
       }
-    }
+    },
+    minimizer: [new UglifyJsPlugin()]
   },
   plugins: [
     assetsPluginInstance,
@@ -66,7 +68,7 @@ module.exports = {
       filename: '[name].css',
       chunkFilename: '[id].css',
     }),
-    new webpack.EnvironmentPlugin({
+    new webpack.DefinePlugin({
       NODE_ENV: 'development',
       EMPIRICAL_BASE_URL: 'http://localhost:3000',
       QUILL_CMS: 'http://localhost:3100',

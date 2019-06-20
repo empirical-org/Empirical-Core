@@ -2,7 +2,7 @@ const webpack = require('webpack');
 const path = require('path');
 const autoprefixer = require('autoprefixer');
 const ManifestPlugin = require('webpack-manifest-plugin');
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 const devBuild = process.env.RAILS_ENV === 'development';
 const firebaseApiKey = process.env.FIREBASE_API_KEY;
@@ -48,15 +48,9 @@ const basePlugins = [new webpack.DefinePlugin({
   new ManifestPlugin({
     publicPath: output.publicPath,
     writeToFileEmit: true,
-  })];
-
-const plugins = () => {
-  if (nodeEnv === 'development') {
-    return basePlugins;
-  }
-  basePlugins.splice(1, 0, new UglifyJSPlugin());
-  return basePlugins;
-};
+  }),
+  new webpack.optimize.UglifyJsPlugin()
+];
 
 module.exports = {
   context: __dirname,
@@ -108,7 +102,7 @@ module.exports = {
       'react-dom': path.resolve('./node_modules/react-dom'),
     },
   },
-  plugins: plugins(),
+  plugins: basePlugins,
   module: {
     rules: [
       {
@@ -156,7 +150,7 @@ module.exports = {
           }
         ],
       }
-    ],
+    ]
   },
   node: {
     console: true,
