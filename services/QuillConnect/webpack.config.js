@@ -68,12 +68,12 @@ module.exports = {
       filename: '[name].css',
       chunkFilename: '[id].css',
     }),
-    new webpack.EnvironmentPlugin({
-      NODE_ENV: 'development',
-      EMPIRICAL_BASE_URL: 'http://localhost:3000',
-      QUILL_CMS: 'http://localhost:3100',
-      PUSHER_KEY: 'a253169073ce7474f0ce',
-      FIREBASE_APP_NAME: 'quillconnectstaging',
+    new webpack.DefinePlugin({
+      NODE_ENV: JSON.stringify(env),
+      EMPIRICAL_BASE_URL: JSON.stringify('http://localhost:3000'),
+      QUILL_CMS: JSON.stringify('http://localhost:3100'),
+      PUSHER_KEY: JSON.stringify('a253169073ce7474f0ce'),
+      FIREBASE_APP_NAME: JSON.stringify('quillconnectstaging'),
     }),
     new HtmlWebpackPlugin({
       template: './index.html.ejs',
