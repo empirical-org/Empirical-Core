@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :credit_transaction do
     user
-    amount { Faker::Number.digit }
+    amount { 1 }
   end
 end
