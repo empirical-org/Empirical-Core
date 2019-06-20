@@ -2,6 +2,7 @@ module CleverIntegration::Importers::School
 
   def self.run(teacher, district_token, requester)
     clever_teacher = requester.call(teacher.clever_id, district_token)
+    binding.pry
     parsed_response = CleverIntegration::Parsers::School.run(clever_teacher.school)
     school = CleverIntegration::Creators::School.run(parsed_response)
     if school
