@@ -104,8 +104,9 @@ module.exports = merge(config, {
           }
         }
       }
-    ]
+    ],
   },
+
   plugins: [
     new ExtractTextPlugin({
       filename: '[name]-bundle-[hash].css',
@@ -117,7 +118,5 @@ module.exports = merge(config, {
       filename: 'vendor-bundle-[chunkhash].js',
       minChunks: Infinity,
     }),
-
-    new webpack.optimize.UglifyJsPlugin()
   ],
 });
