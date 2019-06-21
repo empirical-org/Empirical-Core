@@ -8,7 +8,6 @@ class Auth::CleverController < ApplicationController
   # Note that we import everything not just on sign up, but on login as well
   # since a teacher may have created more clever classrooms /students betwixt logins
   def clever
-    binding.pry
     auth_hash = request.env['omniauth.auth']
     if route_redirects_to_my_account?(session[ApplicationController::CLEVER_REDIRECT])
       user = current_user.update(email: auth_hash['info']['email'])

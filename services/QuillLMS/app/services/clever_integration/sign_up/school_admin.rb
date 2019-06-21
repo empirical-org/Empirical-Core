@@ -45,7 +45,7 @@ module CleverIntegration::SignUp::SchoolAdmin
   end
 
   def self.import_schools(user, district_token, requesters)
-    CleverIntegration::Importers::SchoolAdminSchools.run(user, district_token, requesters[:school_admin_requester])
+    CleverIntegration::Importers::SchoolAdminSchools.run(user, district_token, requesters)
   end
 
 end

@@ -47,11 +47,11 @@ module CleverIntegration::SignUp::Teacher
   end
 
   def self.import_school(teacher, district_token, requesters)
-    CleverIntegration::Importers::School.run(teacher, district_token, requesters[:teacher_requester])
+    CleverIntegration::Importers::School.run(teacher, district_token, requesters)
   end
 
   def self.import_classrooms(teacher, district_token, requesters)
-    CleverIntegration::Importers::Classrooms.run(teacher, district_token, requesters[:teacher_requester])
+    CleverIntegration::Importers::Classrooms.run(teacher, district_token, requesters)
   end
 
   def self.import_students(classrooms, district_token)

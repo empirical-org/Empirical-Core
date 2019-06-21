@@ -35,18 +35,39 @@ describe 'CleverIntegration::SignUp::Main' do
   #   )
   # }
   before do
-    allow(Clever::SchoolAdmin).to receive(:retrieve).and_return({
+    clever_school = Clever::School.new({
+      id: "53ea7d6b2187a9bc1e188be0",
+      created: "2014-08-12T20:47:39.084Z",
+      school_number: "02M800",
+      low_grade: "9",
+      last_modified: "2014-08-12T20:47:39.086Z",
+      name: "City High School",
+      phone: "(212) 555-1212",
+      sis_id: "02M800",
+      location:
+        {
+          address: "350 5th Avenue",
+          city: "New York",
+          state: "NY",
+          zip: 10001
+        },
+      district: "53ea7c626e727c2e0d000018",
+      state_id: "712345",
+      nces_id: "fake_nces_id",
+      high_grade: "12"
+    })
+    allow(Clever::SchoolAdmin).to receive(:retrieve).and_return(Clever::SchoolAdmin.new({
       district: 'district_id_1',
       email: 'schooladmin@gmail.com',
       id: 'id',
       name: 'School Admin',
-      schools: [{ name: 'School', nces_id: 'fake_nces_id'}],
+      schools: ['53ea7d6b2187a9bc1e188be0'],
       staff_id: 'staff_id',
       title: 'title'
-    })
+    }))
 
-    allow_any_instance_of(Clever::SchoolAdmin).to receive(:schools).and_return([{ name: 'School', nces_id: 'fake_nces_id'}])
-
+    allow_any_instance_of(Clever::SchoolAdmin).to receive(:schools).and_return([clever_school])
+    #
     allow(CleverIntegration::Importers::CleverDistrict).to receive(:run).and_return(district)
   end
 
