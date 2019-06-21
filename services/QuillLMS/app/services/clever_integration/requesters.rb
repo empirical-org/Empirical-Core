@@ -24,6 +24,10 @@ module CleverIntegration::Requesters
     self.helper('sections_for_teacher')
   end
 
+  def self.schools_for_school_admin
+    self.helper('schools_for_school_admin')
+  end
+
   private
 
   def self.helper(resource_kind)
@@ -48,6 +52,8 @@ module CleverIntegration::Requesters
         api_instance.get_school(clever_id)
       when 'sections_for_teacher'
         api_instance.get_sections_for_teacher(clever_id)
+      when 'schools_for_school_admin'
+        api_instance.get_schools_for_school_admin(clever_id)
       end
     end
   end

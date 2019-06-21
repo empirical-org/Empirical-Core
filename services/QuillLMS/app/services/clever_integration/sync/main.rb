@@ -13,7 +13,8 @@ module CleverIntegration::Sync::Main
       school_admin_requester: CleverIntegration::Requesters.school_admin,
       district_requester: CleverIntegration::Requesters.district,
       sections_for_teacher_requester: CleverIntegration::Requesters.sections_for_teacher,
-      school_requester: CleverIntegration::Requesters.school
+      school_requester: CleverIntegration::Requesters.school,
+      schools_for_school_admin_requester: CleverIntegration::Requesters.schools_for_school_admin
     }
   end
 

@@ -15,7 +15,8 @@ module CleverIntegration::SignUp::Main
       section_requester: CleverIntegration::Requesters.section,
       school_admin_requester: CleverIntegration::Requesters.school_admin,
       school_requester: CleverIntegration::Requesters.school,
-      sections_for_teacher_requester: CleverIntegration::Requesters.sections_for_teacher
+      sections_for_teacher_requester: CleverIntegration::Requesters.sections_for_teacher,
+      schools_for_school_admin_requester: CleverIntegration::Requesters.schools_for_school_admin
     }
   end
 

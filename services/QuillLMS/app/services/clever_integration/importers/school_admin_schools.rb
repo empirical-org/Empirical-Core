@@ -1,12 +1,10 @@
 module CleverIntegration::Importers::SchoolAdminSchools
 
   def self.run(user, district_token, requesters)
-    clever_user = requester.call(user.clever_id, district_token)
-    parsed_response = clever_user.data.schools.map do |school|
-      clever_school = requesters[:school_requester].call(school, district_token)
-      CleverIntegration::Parsers::School.run(clever_school)
+    schools_for_admin_user = requesters[:schools_for_school_admin_requester].call(user.clever_id, district_token)
+    parsed_response = schools_for_admin_user.data.map do |school|
+      CleverIntegration::Parsers::School.run(school)
     end
-    binding.pry
     parsed_response.each do |s|
       school = CleverIntegration::Creators::School.run(s)
       if school
