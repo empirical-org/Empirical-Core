@@ -12,8 +12,8 @@ module CleverIntegration::Sync::SubMain
 
   def self.setup_district(district, requesters)
     teachers = self.import_teachers(district, requesters[:district_requester])
-    schools = self.import_schools(teachers, district.token, requesters)
-    classrooms = self.import_classrooms(teachers, district.token, requesters)
+    schools = self.import_schools(teachers, district.token, requesters[:teacher_requester])
+    classrooms = self.import_classrooms(teachers, district.token, requesters[:teacher_requester])
     students = self.import_students(classrooms, district.token, requesters[:section_requester])
   end
 
@@ -21,20 +21,20 @@ module CleverIntegration::Sync::SubMain
     CleverIntegration::Importers::Teachers.run(district, district_requester)
   end
 
-  def self.import_schools(teachers, district_token, requesters)
-    CleverIntegration::Importers::Schools.run(teachers, district_token, requesters)
+  def self.import_schools(teachers, district_token, teacher_requester)
+    CleverIntegration::Importers::Schools.run(teachers, district_token, teacher_requester)
   end
 
-  def self.import_classrooms(teachers, district_token, requesters)
+  def self.import_classrooms(teachers, district_token, teacher_requester)
     classrooms_arr_arr = teachers.map do |teacher|
-      classrooms = self.import_classrooms_for_teacher(teacher, district_token, requesters)
+      classrooms = self.import_classrooms_for_teacher(teacher, district_token, teacher_requester)
       classrooms
     end
     classrooms_arr_arr.flatten
   end
 
-  def self.import_classrooms_for_teacher(teacher, district_token, requesters)
-    CleverIntegration::Importers::Classrooms.run(teacher, district_token, requesters)
+  def self.import_classrooms_for_teacher(teacher, district_token, teacher_requester)
+    CleverIntegration::Importers::Classrooms.run(teacher, district_token, teacher_requester)
   end
 
   def self.import_students(classrooms, district_token, section_requester)

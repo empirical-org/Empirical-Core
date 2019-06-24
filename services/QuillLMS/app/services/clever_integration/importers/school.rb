@@ -1,9 +1,9 @@
 module CleverIntegration::Importers::School
 
-  def self.run(teacher, district_token, requesters)
-    clever_teacher = requesters[:teacher_requester].call(teacher.clever_id, district_token)
-    clever_school = requesters[:school_requester].call(clever_teacher.data.school, district_token)
-    parsed_response = CleverIntegration::Parsers::School.run(clever_school)
+  def self.run(teacher, district_token, requester)
+    clever_teacher = requester.call(teacher.clever_id, district_token)
+    parsed_response = CleverIntegration::Parsers::School.run(clever_teacher.school)
+    binding.pry
     school = CleverIntegration::Creators::School.run(parsed_response)
     if school
       su = SchoolsUsers.find_or_initialize_by(user_id: teacher.id)
