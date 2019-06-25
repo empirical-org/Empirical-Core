@@ -41,16 +41,17 @@ const basePlugins = [new webpack.DefinePlugin({
       ],
     },
   }),
-  new webpack.LoaderOptionsPlugin({
-    test: /\.s?css$/,
-    options: {
-      postcss: [autoprefixer],
-    },
-  }),
+  // new webpack.LoaderOptionsPlugin({
+  //   test: /\.s?css$/,
+  //   options: {
+  //     postcss: [autoprefixer],
+  //   },
+  // }),
   new ManifestPlugin({
     publicPath: output.publicPath,
     writeToFileEmit: true,
-  })];
+  })
+];
 
 const plugins = () => {
   if (nodeEnv === 'development') {

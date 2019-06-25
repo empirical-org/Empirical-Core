@@ -26,12 +26,12 @@ if (devBuild) {
 
 module.exports = merge(config, {
   // You can add entry points specific to rails here
-  entry: {
-    vendor: [
-      // Configures extractStyles to be true if NODE_ENV is production
-      'bootstrap-loader/extractStyles'
-    ],
-  },
+  // entry: {
+  //   vendor: [
+  //     // Configures extractStyles to be true if NODE_ENV is production
+  //     'bootstrap-loader/extractStyles'
+  //   ],
+  // },
 
   mode: devBuild ? 'development' : 'production',
 
@@ -74,7 +74,7 @@ module.exports = merge(config, {
         test: /\.css$/,
         use: [
           MiniCssExtractPlugin.loader,
-          'style-loader',
+          // 'style-loader',
           'css-loader',
           'sass-loader'
         ],
@@ -83,7 +83,7 @@ module.exports = merge(config, {
         test: /\.scss$/,
         use: [
           MiniCssExtractPlugin.loader,
-          'style-loader',
+          // 'style-loader',
           'css-loader',
           'sass-loader'
         ],
