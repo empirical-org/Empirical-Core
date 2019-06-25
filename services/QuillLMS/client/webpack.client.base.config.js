@@ -20,6 +20,8 @@ console.log('Directory: ', configPath);
 const { output, } = webpackConfigLoader(configPath);
 const nodeEnv = devBuild ? 'development' : 'production';
 
+console.log('nodeEnv', nodeEnv)
+
 const basePlugins = [new webpack.DefinePlugin({
   'process.env': {
     RAILS_ENV: JSON.stringify(nodeEnv),
@@ -146,14 +148,6 @@ module.exports = {
           {
             loader: 'expose-loader',
             query: '$',
-          }
-        ],
-      },
-      {
-        test: /\.json$/,
-        use: [
-          {
-            loader: 'json-loader',
           }
         ],
       }
