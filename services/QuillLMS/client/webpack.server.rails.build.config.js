@@ -14,6 +14,7 @@ const { output, } = webpackConfigLoader(configPath);
 module.exports = {
 
   // the project dir
+  mode: nodeEnv,
   context: __dirname,
   entry: [
     'babel-polyfill'
