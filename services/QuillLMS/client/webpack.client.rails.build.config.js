@@ -55,7 +55,19 @@ module.exports = merge(config, {
         }
       }
     },
-    minimizer: [new UglifyJsPlugin()]
+    minimizer: [
+      new UglifyJsPlugin({
+        chunkFilter: (chunk) => {
+          console.log('chunk', chunk.name)
+          // Exclude uglification for the `vendor` chunk
+          if (chunk.name === 'home') {
+            return false;
+          }
+
+          return true;
+        }
+      }),
+    ]
   },
 
   // See webpack.client.base.config for adding modules common to both webpack dev server and rails
