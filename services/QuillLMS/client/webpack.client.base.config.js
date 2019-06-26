@@ -1,6 +1,5 @@
 const webpack = require('webpack');
 const path = require('path');
-const autoprefixer = require('autoprefixer');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
@@ -10,7 +9,7 @@ const firebaseDatabaseUrl = process.env.FIREBASE_DATABASE_URL;
 const pusherKey = process.env.PUSHER_KEY;
 const defaultUrl = process.env.DEFAULT_URL;
 const cdnUrl = process.env.CDN_URL;
-const { resolve, join, } = require('path');
+const { join, } = require('path');
 const webpackConfigLoader = require('react-on-rails/webpackConfigLoader');
 
 console.log('Directory: ', __dirname);
@@ -41,12 +40,6 @@ const basePlugins = [new webpack.DefinePlugin({
       ],
     },
   }),
-  // new webpack.LoaderOptionsPlugin({
-  //   test: /\.s?css$/,
-  //   options: {
-  //     postcss: [autoprefixer],
-  //   },
-  // }),
   new ManifestPlugin({
     publicPath: output.publicPath,
     writeToFileEmit: true,

@@ -4,7 +4,6 @@
 // Run like this:
 // cd client && yarn run build:client
 // Note that Foreman (Procfile.dev) has also been configured to take care of this.
-const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const merge = require('webpack-merge');
 const config = require('./webpack.client.base.config');
@@ -25,13 +24,6 @@ if (devBuild) {
 }
 
 module.exports = merge(config, {
-  // You can add entry points specific to rails here
-  // entry: {
-  //   vendor: [
-  //     // Configures extractStyles to be true if NODE_ENV is production
-  //     'bootstrap-loader/extractStyles'
-  //   ],
-  // },
 
   mode: devBuild ? 'development' : 'production',
 
@@ -117,11 +109,5 @@ module.exports = merge(config, {
       filename: '[name]-bundle-[hash].css',
       chunkFilename: '[id].css',
     }),
-
-    // new webpack.optimize.CommonsChunkPlugin({
-    //   name: 'vendor',
-    //   filename: 'vendor-bundle-[chunkhash].js',
-    //   minChunks: Infinity,
-    // }),
   ],
 });
