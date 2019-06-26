@@ -46,14 +46,14 @@ const basePlugins = [new webpack.DefinePlugin({
   })
 ];
 
-const plugins = () => {
-  if (nodeEnv === 'development') {
-    return basePlugins;
-  }
-  basePlugins.splice(1, 0, new UglifyJSPlugin());
-  return basePlugins;
-};
-
+// const plugins = () => {
+//   if (nodeEnv === 'development') {
+//     return basePlugins;
+//   }
+//   basePlugins.splice(1, 0, new UglifyJSPlugin());
+//   return basePlugins;
+// };
+//
 module.exports = {
   mode: nodeEnv,
   context: __dirname,
@@ -105,7 +105,7 @@ module.exports = {
       'react-dom': path.resolve('./node_modules/react-dom'),
     },
   },
-  plugins: plugins(),
+  plugins: basePlugins,
   module: {
     rules: [
       {
