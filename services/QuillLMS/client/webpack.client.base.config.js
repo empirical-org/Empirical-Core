@@ -110,7 +110,7 @@ module.exports = {
     rules: [
       {
         test: /\.tsx?$/,
-        loader: 'awesome-typescript-loader',
+        loader: 'awesome-typescript-loader?errorsAsWarnings=true',
         exclude: /node_modules/,
       },
       {
