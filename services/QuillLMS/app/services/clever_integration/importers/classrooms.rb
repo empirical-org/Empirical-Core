@@ -1,7 +1,7 @@
 module CleverIntegration::Importers::Classrooms
 
-  def self.run(teacher, district_token, requesters)
-    sections = self.fetch_clever_teacher(teacher.clever_id, district_token, requesters[:sections_for_teacher_requester])
+  def self.run(teacher, district_token)
+    sections = self.fetch_clever_teacher(teacher.clever_id, district_token)
     sections_response = sections.data
     parsed_sections_response = self.parse_sections_response(sections_response)
     classrooms = self.create_classrooms(parsed_sections_response)
@@ -11,8 +11,8 @@ module CleverIntegration::Importers::Classrooms
 
   private
 
-  def self.fetch_clever_teacher(teacher_clever_id, district_token, sections_for_teacher_requester)
-    sections_for_teacher_requester(district_token, teacher_clever_id)
+  def self.fetch_clever_teacher(teacher_clever_id, district_token)
+    CleverIntegration::Requesters.sections_for_teacher(teacher_clever_id, district_token)
   end
 
   def self.parse_sections_response(sections_response)

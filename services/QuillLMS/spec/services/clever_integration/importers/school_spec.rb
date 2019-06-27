@@ -10,13 +10,6 @@ describe 'CleverIntegration::Importers::School' do
 
   let!(:district_token) { '1' }
 
-  let!(:requesters) {
-    {
-      teacher_requester: CleverIntegration::Requesters.teacher,
-      school_requester: CleverIntegration::Requesters.school
-    }
-  }
-
   let!(:district) {
     create(:district, clever_id: 'district_id_1', token: 'token1')
   }
@@ -56,7 +49,7 @@ describe 'CleverIntegration::Importers::School' do
   end
 
   def subject
-    CleverIntegration::Importers::School.run(teacher, district_token, requesters)
+    CleverIntegration::Importers::School.run(teacher, district_token)
   end
 
   it 'associates school to teacher if the school exists' do

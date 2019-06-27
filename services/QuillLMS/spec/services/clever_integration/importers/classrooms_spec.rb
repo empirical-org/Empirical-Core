@@ -20,18 +20,12 @@ describe 'CleverIntegration::Importers::Classrooms' do
      })
   }
 
-  let!(:requesters) {
-    {
-      sections_for_teacher_requester: CleverIntegration::Requesters.sections_for_teacher,
-    }
-  }
-
   before do
     allow_any_instance_of(Clever::DataApi).to receive(:get_sections_for_teacher).and_return(sections_response)
   end
 
   def subject
-    CleverIntegration::Importers::Classrooms.run(teacher, district_token, requesters)
+    CleverIntegration::Importers::Classrooms.run(teacher, district_token)
     Classroom.find_by(clever_id: teacher.clever_id, name: 'section1', grade: '2')
   end
 
