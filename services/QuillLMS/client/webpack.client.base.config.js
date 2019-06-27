@@ -1,6 +1,5 @@
 const webpack = require('webpack');
 const path = require('path');
-const autoprefixer = require('autoprefixer');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
@@ -10,7 +9,7 @@ const firebaseDatabaseUrl = process.env.FIREBASE_DATABASE_URL;
 const pusherKey = process.env.PUSHER_KEY;
 const defaultUrl = process.env.DEFAULT_URL;
 const cdnUrl = process.env.CDN_URL;
-const { resolve, join, } = require('path');
+const { join, } = require('path');
 const webpackConfigLoader = require('react-on-rails/webpackConfigLoader');
 
 console.log('Directory: ', __dirname);
@@ -19,6 +18,8 @@ const configPath = join(__dirname, '..', 'config');
 console.log('Directory: ', configPath);
 const { output, } = webpackConfigLoader(configPath);
 const nodeEnv = devBuild ? 'development' : 'production';
+
+console.log('nodeEnv', nodeEnv)
 
 const basePlugins = [new webpack.DefinePlugin({
   'process.env': {
@@ -39,26 +40,22 @@ const basePlugins = [new webpack.DefinePlugin({
       ],
     },
   }),
-  new webpack.LoaderOptionsPlugin({
-    test: /\.s?css$/,
-    options: {
-      postcss: [autoprefixer],
-    },
-  }),
   new ManifestPlugin({
     publicPath: output.publicPath,
     writeToFileEmit: true,
-  })];
+  })
+];
 
-const plugins = () => {
-  if (nodeEnv === 'development') {
-    return basePlugins;
-  }
-  basePlugins.splice(1, 0, new UglifyJSPlugin());
-  return basePlugins;
-};
-
+// const plugins = () => {
+//   if (nodeEnv === 'development') {
+//     return basePlugins;
+//   }
+//   basePlugins.splice(1, 0, new UglifyJSPlugin());
+//   return basePlugins;
+// };
+//
 module.exports = {
+  mode: nodeEnv,
   context: __dirname,
   entry: {
     vendor: [
@@ -108,12 +105,12 @@ module.exports = {
       'react-dom': path.resolve('./node_modules/react-dom'),
     },
   },
-  plugins: plugins(),
+  plugins: basePlugins,
   module: {
     rules: [
       {
         test: /\.tsx?$/,
-        loader: 'awesome-typescript-loader',
+        loader: 'awesome-typescript-loader?errorsAsWarnings=true',
         exclude: /node_modules/,
       },
       {
@@ -145,14 +142,6 @@ module.exports = {
           {
             loader: 'expose-loader',
             query: '$',
-          }
-        ],
-      },
-      {
-        test: /\.json$/,
-        use: [
-          {
-            loader: 'json-loader',
           }
         ],
       }

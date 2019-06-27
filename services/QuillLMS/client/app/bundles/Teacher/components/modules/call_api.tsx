@@ -25,13 +25,13 @@ function put(path: string, payload: object, onSuccess: Function, onError: Functi
   });
 }
 
-export function changeActivityPackName(activityPackId: int, name: string, onSuccess: Function, onError: Function): void {
+export function changeActivityPackName(activityPackId: Number, name: string, onSuccess: Function, onError: Function): void {
   let uri = `/teachers/units/${activityPackId}`;
   let payload = {unit: {name: name}};
   put(uri, payload, onSuccess, onError);
 }
 
-export function changeActivityPackOrder(activityPackId: int, activityIds: Array<int>, onSuccess: Function, onError: Function): void {
+export function changeActivityPackOrder(activityPackId: Number, activityIds: Array<Number>, onSuccess: Function, onError: Function): void {
   let uri = `/teachers/units/${activityPackId}/update_activities`;
   let payload = {data: {activities_data: activityIds.map((id) => { return {id: id} })}};
   put(uri, payload, onSuccess, onError);
