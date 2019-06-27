@@ -1,7 +1,7 @@
 module CleverIntegration::Importers::Teachers
 
   def self.run(district, district_requester)
-    clever_district = district_requester.call(district.clever_id, district.token)
+    clever_district = district_requester(district.token, district.clever_id)
     clever_teachers = clever_district.teachers
     teachers = self.parse_and_create_teachers(clever_teachers)
     teachers2 = self.associate_teachers_to_district(teachers, district)

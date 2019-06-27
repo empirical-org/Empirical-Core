@@ -21,7 +21,7 @@ module CleverIntegration::Importers::Students
   end
 
   def self.fetch_clever_section(classroom_clever_id, district_token, section_requester)
-    clever_section = section_requester.call(classroom_clever_id, district_token)
+    clever_section = section_requester(district_token, classroom_clever_id)
     clever_section
   end
 

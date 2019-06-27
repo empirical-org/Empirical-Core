@@ -1,61 +1,41 @@
 module CleverIntegration::Requesters
 
-  def self.teacher
-    self.helper('teacher')
+  def self.teacher(clever_id, district_token=nil)
+    api_instance(district_token).get_teacher(clever_id)
   end
 
-  def self.section
-    self.helper('section')
+  def self.section(clever_id, district_token=nil)
+    api_instance(district_token).get_section(clever_id)
   end
 
-  def self.district
-    self.helper('district')
+  def self.district(clever_id, district_token=nil)
+    api_instance(district_token).get_district(clever_id)
   end
 
-  def self.school_admin
-    self.helper('school_admin')
+  def self.school_admin(clever_id, district_token=nil)
+    api_instance(district_token).get_school_admin(clever_id)
   end
 
-  def self.school
-    self.helper('school')
+  def self.school(clever_id, district_token=nil)
+    api_instance(district_token).get_school(clever_id)
   end
 
-  def self.sections_for_teacher
-    self.helper('sections_for_teacher')
+  def self.sections_for_teacher(clever_id, district_token=nil)
+    api_instance(district_token).get_sections_for_teacher(clever_id)
   end
 
-  def self.schools_for_school_admin
-    self.helper('schools_for_school_admin')
+  def self.schools_for_school_admin(clever_id, district_token=nil)
+    api_instance(district_token).get_schools_for_school_admin(clever_id)
   end
 
   private
 
-  def self.helper(resource_kind)
-    lambda do |clever_id, district_token|
-
-      Clever.configure do |config|
-        # Configure OAuth2 access token for authorization: oauth
-        config.access_token = district_token
-      end
-
-      api_instance = Clever::DataApi.new
-      case resource_kind
-      when 'teacher'
-        api_instance.get_teacher(clever_id)
-      when 'section'
-        api_instance.get_section(clever_id)
-      when 'district'
-        api_instance.get_district(clever_id)
-      when 'school_admin'
-        api_instance.get_school_admin(clever_id)
-      when 'school'
-        api_instance.get_school(clever_id)
-      when 'sections_for_teacher'
-        api_instance.get_sections_for_teacher(clever_id)
-      when 'schools_for_school_admin'
-        api_instance.get_schools_for_school_admin(clever_id)
-      end
-    end
+  def self.api_instance(district_token=nil)
+    config = Clever::Configuration.new
+    config.access_token = district_token
+    api_instance = Clever::DataApi.new
+    api_instance.api_client.config = config
+    api_instance
   end
 
 end

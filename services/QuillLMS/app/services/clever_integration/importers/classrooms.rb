@@ -12,7 +12,7 @@ module CleverIntegration::Importers::Classrooms
   private
 
   def self.fetch_clever_teacher(teacher_clever_id, district_token, sections_for_teacher_requester)
-    sections_for_teacher_requester.call(teacher_clever_id, district_token)
+    sections_for_teacher_requester(district_token, teacher_clever_id)
   end
 
   def self.parse_sections_response(sections_response)
