@@ -3,22 +3,20 @@ import { shallow } from 'enzyme';
 
 import CreateClass from '../CreateClass.jsx';
 
-import $ from 'jquery'
+import request from 'request';
 import DropdownButton from 'react-bootstrap/lib/DropdownButton';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
 import ButtonLoadingIndicator from '../../components/shared/button_loading_indicator.jsx'
 import GoogleClassroomModal from '../../components/dashboard/google_classroom_modal'
 
-jest.mock('jquery', () => {
+
+jest.mock('request', () => {
   return {
-    ajax: jest.fn(),
-    post: jest.fn().mockReturnValue({
-      success: jest.fn().mockReturnValue({
-        error: jest.fn()
-      })
-    })
+    get: jest.fn(),
+    post: jest.fn(),
   }
 });
+
 
 describe('CreateClass container', () => {
 
@@ -96,9 +94,8 @@ describe('CreateClass container', () => {
 
     it('regeneration button onClick should retrieve new code and call setClassCode on success', () => {
       wrapper.find('#regenerate-class-code').simulate('click');
-      expect($.ajax).toHaveBeenCalled();
-      expect($.ajax.mock.calls[0][0].url).toBe('/teachers/classrooms/regenerate_code');
-      expect($.ajax.mock.calls[0][0].success).toBe(wrapper.instance().setClassCode);
+      expect(request.get).toHaveBeenCalled();
+      expect(request.get.mock.calls[0][0].url).toBe(`${process.env.DEFAULT_URL}/teachers/classrooms/regenerate_code`);
     });
 
     describe('create a class button onClick', () => {
@@ -215,11 +212,11 @@ describe('CreateClass container', () => {
           }
         });
         wrapper.instance().submitClassroom();
-        expect($.post).toHaveBeenCalled();
-        expect($.post.mock.calls[0][0]).toBe('/teachers/classrooms/');
-        expect($.post.mock.calls[0][1].classroom.name).toBe('English 202');
-        expect($.post.mock.calls[0][1].classroom.grade).toBe(9);
-        expect($.post.mock.calls[0][1].classroom.code).toBe('cute-puppy');
+        expect(request.post).toHaveBeenCalled();
+        expect(request.post.mock.calls[0][0].url).toBe(`${process.env.DEFAULT_URL}/teachers/classrooms`);
+        expect(request.post.mock.calls[0][0].json.classroom.name).toBe('English 202');
+        expect(request.post.mock.calls[0][0].json.classroom.grade).toBe(9);
+        expect(request.post.mock.calls[0][0].json.classroom.code).toBe('cute-puppy');
       });
     });
 
