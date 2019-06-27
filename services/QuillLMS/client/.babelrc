@@ -1,9 +1,10 @@
 {
-  "presets": ["react", "es2015", "stage-0"],
+  "presets": ["@babel/preset-react", "@babel/preset-env"],
   "plugins": [
     ["module-resolver", {
       "root": ["./app"],
-    }]
+    }],
+    "@babel/plugin-proposal-class-properties"
   ]
 
 }
