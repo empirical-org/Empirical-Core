@@ -7,7 +7,7 @@ module CleverIntegration::SignUp::SubMain
     when 'district'
       result = self.district(auth_hash)
     when 'student'
-      result = self.district(auth_hash)
+      result = self.student(auth_hash)
     when 'school_admin'
       result = self.school_admin(auth_hash)
     else
