@@ -14,10 +14,13 @@ if (prod) {
   };
 } else {
   config = {
-    apiKey: 'AIzaSyCb_V_wX_ftJNy6Q5x9NsuGrRvnC7_0zSU',
-    authDomain: 'quillgrammarstaging.firebaseapp.com',
-    databaseURL: 'https://quillgrammarstaging.firebaseio.com',
-    storageBucket: 'quillgrammarstaging.appspot.com',
+    apiKey: "AIzaSyCb_V_wX_ftJNy6Q5x9NsuGrRvnC7_0zSU",
+    authDomain: "quillgrammarstaging.firebaseapp.com",
+    databaseURL: "https://quillgrammarstaging.firebaseio.com",
+    projectId: "quillgrammarstaging",
+    storageBucket: "quillgrammarstaging.appspot.com",
+    messagingSenderId: "203764425036",
+    appId: "1:203764425036:web:911597a615756d0d"
   };
 }
 
