@@ -34,9 +34,6 @@ export default React.createClass({
       url: `${process.env.DEFAULT_URL}/teachers/classrooms/regenerate_code`,
       json: true,
     }, (error, httpStatus, body) => {
-      console.log(error);
-      console.log(httpStatus);
-      console.log(body);
       if (httpStatus && httpStatus.statusCode === 200) {
         this.setClassCode(body);
       } else if (body && body.errors) {
@@ -103,7 +100,6 @@ export default React.createClass({
         'accept': 'application/json',
       },
     }, (error, httpStatus, body) => {
-      console.log(body);
       if (httpStatus && httpStatus.statusCode === 200) {
         let nextPage;
         if (that.props.closeModal) {
