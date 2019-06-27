@@ -18,7 +18,7 @@ class Cms::ActivityClassificationsController < Cms::CmsController
   end
 
   def update
-    activity_classification = ActivityClassification.find(activity_classification_params['id'])
+    activity_classification = ActivityClassification.find(params[:id])
     if activity_classification.update_attributes(activity_classification_params)
       render json: activity_classification
     else
@@ -41,6 +41,15 @@ class Cms::ActivityClassificationsController < Cms::CmsController
   protected
 
   def activity_classification_params
-    params.require(:activity_classification).permit!
+    params.require(:activity_classification).permit(:name,
+                                                    :key,
+                                                    :form_url,
+                                                    :uid,
+                                                    :module_url,
+                                                    :app_name,
+                                                    :order_number,
+                                                    :instructor_mode,
+                                                    :locked_by_default,
+                                                    :scored)
   end
 end
