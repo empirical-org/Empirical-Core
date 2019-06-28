@@ -13,7 +13,7 @@ module CleverIntegration::Importers::Students
 
   def self.import_students_for_single_classroom(classroom, district_token)
     clever_section = self.fetch_clever_section(classroom.clever_id, district_token)
-    students_response = clever_section.students
+    students_response = clever_section.data
     parsed_students_response = self.parse_students_response(students_response)
     students = self.create_students(parsed_students_response)
     updated_students = self.associate_students_to_classroom(students, classroom)
@@ -21,7 +21,7 @@ module CleverIntegration::Importers::Students
   end
 
   def self.fetch_clever_section(classroom_clever_id, district_token)
-    clever_section = CleverIntegration::Requesters.section(classroom_clever_id, district_token)
+    clever_section = CleverIntegration::Requesters.students_for_section(classroom_clever_id, district_token)
     clever_section
   end
 
@@ -31,6 +31,7 @@ module CleverIntegration::Importers::Students
   end
 
   def self.create_students(parsed_students_response)
+    binding.pry
     students = CleverIntegration::Creators::Students.run(parsed_students_response)
     students
   end

@@ -28,6 +28,10 @@ module CleverIntegration::Requesters
     api_instance(district_token).get_schools_for_school_admin(clever_id)
   end
 
+  def self.students_for_section(clever_id, district_token=nil)
+    api_instance(district_token).get_students_for_section(clever_id)
+  end
+
   private
 
   def self.api_instance(district_token=nil)
