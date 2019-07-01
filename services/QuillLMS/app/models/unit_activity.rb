@@ -104,12 +104,12 @@ class UnitActivity < ActiveRecord::Base
       JOIN units AS unit ON unit.id = ua.unit_id
       JOIN classroom_units AS cu ON unit.id = cu.unit_id
       LEFT JOIN activity_sessions AS acts ON cu.id = acts.classroom_unit_id AND acts.activity_id = ua.activity_id AND acts.visible = true
-      AND acts.user_id = #{user_id}
+      AND acts.user_id = #{user_id.to_i}
       JOIN activities AS activity ON activity.id = ua.activity_id
       LEFT JOIN classroom_unit_activity_states AS cuas ON ua.id = cuas.unit_activity_id
       AND cu.id = cuas.classroom_unit_id
-      WHERE #{user_id} = ANY (cu.assigned_student_ids::int[])
-      AND cu.classroom_id = #{classroom_id}
+      WHERE #{user_id.to_i} = ANY (cu.assigned_student_ids::int[])
+      AND cu.classroom_id = #{classroom_id.to_i}
       AND cu.visible = true
       AND unit.visible = true
       AND ua.visible = true
