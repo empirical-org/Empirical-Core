@@ -31,7 +31,6 @@ module CleverIntegration::Importers::Students
   end
 
   def self.create_students(parsed_students_response)
-    binding.pry
     students = CleverIntegration::Creators::Students.run(parsed_students_response)
     students
   end
