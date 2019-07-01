@@ -3,6 +3,7 @@ const path = require('path');
 const ManifestPlugin = require('webpack-manifest-plugin');
 
 const devBuild = process.env.RAILS_ENV === 'development';
+const railsEnv = process.env.RAILS_ENV || process.env.NODE_ENV
 const firebaseApiKey = process.env.FIREBASE_API_KEY;
 const firebaseDatabaseUrl = process.env.FIREBASE_DATABASE_URL;
 const pusherKey = process.env.PUSHER_KEY;
@@ -15,12 +16,9 @@ const configPath = join(__dirname, '..', 'config');
 const { output, } = webpackConfigLoader(configPath);
 const mode = devBuild ? 'development' : 'production';
 
-console.log('process.env.RAILS_ENV', process.env.RAILS_ENV)
-console.log('process.env.NODE_ENV', process.env.NODE_ENV)
-
 const basePlugins = [new webpack.DefinePlugin({
   'process.env': {
-    RAILS_ENV: JSON.stringify(process.env.RAILS_ENV),
+    RAILS_ENV: JSON.stringify(railsEnv),
     FIREBASE_API_KEY: JSON.stringify(firebaseApiKey),
     FIREBASE_DATABASE_URL: JSON.stringify(firebaseDatabaseUrl),
     PUSHER_KEY: JSON.stringify(pusherKey),
