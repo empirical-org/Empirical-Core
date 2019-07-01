@@ -49,7 +49,7 @@
     "mockdate": "^2.0.1",
     "moment": "^2.14.1",
     "node-libs-browser": "^1.0.0",
-    "node-sass": "^3.4.2",
+    "node-sass": "^4.12.0",
     "pluralize": "^3.0.0",
     "postcss-loader": "^0.8.2",
     "pusher": "^2.2.0",
@@ -143,7 +143,7 @@
   },
   "jest": {
     "roots": [
-      "<rootDir>/app"
+      "app"
     ],
     "snapshotSerializers": [
       "<rootDir>/node_modules/enzyme-to-json/serializer"
@@ -180,9 +180,6 @@
     "coveragePathIgnorePatterns": [
       "/node_modules/",
       "/test_data/"
-    ],
-    "roots": [
-      "app"
     ]
   }
 }

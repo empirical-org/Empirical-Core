@@ -3,10 +3,10 @@ require 'rails_helper'
 describe 'CleverIntegration::Parsers::Student' do
 
   let!(:response) {
-      {id: '1',
+      Clever::Student.new({id: '1',
        email: 'student@gmail.com',
-       name: {first: 'john', last: 'smith'},
-       credentials: {district_username: 'username'}}
+       name: Clever::Name.new({first: 'john', last: 'smith'}),
+       credentials: Clever::Credentials.new({district_username: 'username'})})
   }
 
   let!(:expected) {
