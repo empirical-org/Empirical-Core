@@ -12,7 +12,8 @@ export interface FeedbackStrings {
   flexibleModifiedWordError: string;
   flexibleAdditionalWordError: string;
   flexibleMissingWordError: string;
-  spacingAfterCommaError: string
+  spacingAfterCommaError: string;
+  wordsOutOfOrderError: string;
 }
 
 export const feedbackStrings: FeedbackStrings = {
@@ -30,6 +31,7 @@ export const feedbackStrings: FeedbackStrings = {
   flexibleAdditionalWordError: 'Revise your work. You may have added an extra word.',
   flexibleMissingWordError: 'Revise your work. You may have left out an important word.',
   spacingAfterCommaError: '<p>Revise your work. Always put a space after a <em>comma</em>.</p>',
+  wordsOutOfOrderError: 'Proofread your sentence. You may have mixed up the order of some words.',
 };
 
 export const spellingFeedbackStrings: any  = {

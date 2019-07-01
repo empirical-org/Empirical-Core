@@ -4,7 +4,7 @@ FactoryBot.define do
   factory :activity do
     sequence(:name) do |n|
       loop do
-        possible_name = "#{Faker::Color.color_name} #{Faker::Book.genre} Activity #{n}"
+        possible_name = "Unique Activity #{n}"
         break possible_name unless Activity.exists?(name: possible_name)
       end
     end
@@ -35,7 +35,7 @@ FactoryBot.define do
     factory :lesson_activity do
       classification { ActivityClassification.find_by_key attributes_for(:lesson)[:key] || create(:lesson) }
       repeatable false
-      supporting_info { "#{Faker::Internet.url}.pdf" }
+      supporting_info { "https://www.example.com/example.pdf" }
 
       trait :with_follow_up do
         follow_up_activity { create(:lesson_activity) }

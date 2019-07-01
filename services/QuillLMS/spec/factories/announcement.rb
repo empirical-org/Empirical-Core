@@ -3,8 +3,8 @@ FactoryBot.define do
     announcement_type   Announcement::TYPES[:webinar]
     add_attribute(:start)            { Date.today - 1.days }
     add_attribute(:end)              { Date.today + 1.days }
-    link                { Faker::Internet.url }
-    text                { Faker::Lorem.sentence }
+    link                { "https://www.not-a-url.com/" }
+    text                { "Test text with no meaning." }
 
     trait :expired do
       add_attribute(:start) { Date.today - 2.days }

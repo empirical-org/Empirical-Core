@@ -9,9 +9,9 @@ FactoryBot.define do
     end
     app_name       { key }
     name           { "Quill #{key.titleize}" }
-    module_url     { Faker::Internet.url }
-    form_url       { Faker::Internet.url }
-    order_number   { Faker::Number.digit }
+    module_url     { "https://www.fake-url.com/" }
+    form_url       { "https://www.fake-url.com/" }
+    sequence(:order_number)
     uid            { SecureRandom.urlsafe_base64 } # mock a uid
 
     # Because some of our activity classification code is currently hardcoded,
