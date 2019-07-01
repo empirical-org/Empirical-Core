@@ -3,7 +3,8 @@ require 'rails_helper'
 describe 'CleverIntegration::Parsers::School' do
 
   let!(:response) {
-    {nces_id: 'school1'}
+    school = Clever::School.new({nces_id: 'school1'})
+    Clever::SchoolResponse.new({ data: school })
   }
 
   let!(:expected) {
