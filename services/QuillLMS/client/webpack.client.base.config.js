@@ -15,6 +15,9 @@ const configPath = join(__dirname, '..', 'config');
 const { output, } = webpackConfigLoader(configPath);
 const mode = devBuild ? 'development' : 'production';
 
+console.log('process.env.RAILS_ENV', process.env.RAILS_ENV)
+console.log('process.env.NODE_ENV', process.env.NODE_ENV)
+
 const basePlugins = [new webpack.DefinePlugin({
   'process.env': {
     RAILS_ENV: JSON.stringify(process.env.RAILS_ENV),
