@@ -114,10 +114,6 @@ module.exports = {
         loader: 'babel-loader',
         exclude: /node_modules/,
       },
-      // {
-      //   test: /\.(ttf|eot)$/,
-      //   use: 'file-loader',
-      // },
       {
         test: require.resolve('jquery'),
         use: [
