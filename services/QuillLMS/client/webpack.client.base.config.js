@@ -109,6 +109,16 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.(woff|woff2|jpe?g|png|gif|svg|ico|ttf|eot)$/,
+        use: {
+          loader: 'url-loader',
+          options: {
+            name: '[name]-[hash].[ext]',
+            limit: 10000,
+          },
+        },
+      },
+      {
         test: /\.tsx?$/,
         loader: 'awesome-typescript-loader?errorsAsWarnings=true',
         exclude: /node_modules/,
@@ -118,20 +128,10 @@ module.exports = {
         loader: 'babel-loader',
         exclude: /node_modules/,
       },
-      {
-        test: /\.(ttf|eot)$/,
-        use: 'file-loader',
-      },
-      {
-        test: /\.(woff2?|jpe?g|png|gif|svg|ico)$/,
-        use: {
-          loader: 'url-loader',
-          options: {
-            name: '[name]-[hash].[ext]',
-            limit: 10000,
-          },
-        },
-      },
+      // {
+      //   test: /\.(ttf|eot)$/,
+      //   use: 'file-loader',
+      // },
       {
         test: require.resolve('jquery'),
         use: [
