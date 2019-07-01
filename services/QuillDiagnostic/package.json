@@ -173,6 +173,9 @@
         "diagnostics": false
       }
     },
+    "setupFiles": [
+      "./jest.setup.js"
+    ],
     "snapshotSerializers": [
       "<rootDir>/node_modules/enzyme-to-json/serializer"
     ],
