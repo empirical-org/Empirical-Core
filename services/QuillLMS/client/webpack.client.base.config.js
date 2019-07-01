@@ -1,7 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
 const ManifestPlugin = require('webpack-manifest-plugin');
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 const devBuild = process.env.RAILS_ENV === 'development';
 const firebaseApiKey = process.env.FIREBASE_API_KEY;
@@ -12,18 +11,13 @@ const cdnUrl = process.env.CDN_URL;
 const { join, } = require('path');
 const webpackConfigLoader = require('react-on-rails/webpackConfigLoader');
 
-console.log('Directory: ', __dirname);
-
 const configPath = join(__dirname, '..', 'config');
-console.log('Directory: ', configPath);
 const { output, } = webpackConfigLoader(configPath);
-const nodeEnv = devBuild ? 'development' : 'production';
-
-console.log('nodeEnv', nodeEnv)
+const mode = devBuild ? 'development' : 'production';
 
 const basePlugins = [new webpack.DefinePlugin({
   'process.env': {
-    RAILS_ENV: JSON.stringify(nodeEnv),
+    RAILS_ENV: JSON.stringify(process.env.RAILS_ENV),
     FIREBASE_API_KEY: JSON.stringify(firebaseApiKey),
     FIREBASE_DATABASE_URL: JSON.stringify(firebaseDatabaseUrl),
     PUSHER_KEY: JSON.stringify(pusherKey),
@@ -46,16 +40,8 @@ const basePlugins = [new webpack.DefinePlugin({
   })
 ];
 
-// const plugins = () => {
-//   if (nodeEnv === 'development') {
-//     return basePlugins;
-//   }
-//   basePlugins.splice(1, 0, new UglifyJSPlugin());
-//   return basePlugins;
-// };
-//
 module.exports = {
-  mode: nodeEnv,
+  mode,
   context: __dirname,
   entry: {
     vendor: [
