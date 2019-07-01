@@ -14,10 +14,13 @@ if (prod) {
   };
 } else {
   config = {
-    apiKey: 'AIzaSyAJNeVssNkcjNonREdRZ7gTyEDqmAfz7Go',
-    authDomain: 'quillconnectstaging.firebaseapp.com',
-    databaseURL: 'https://quillconnectstaging.firebaseio.com',
-    storageBucket: 'quillconnectstaging.appspot.com',
+    apiKey: "AIzaSyAJNeVssNkcjNonREdRZ7gTyEDqmAfz7Go",
+    authDomain: "quillconnectstaging.firebaseapp.com",
+    databaseURL: "https://quillconnectstaging.firebaseio.com",
+    projectId: "quillconnectstaging",
+    storageBucket: "quillconnectstaging.appspot.com",
+    messagingSenderId: "364171361011",
+    appId: "1:364171361011:web:59fefe180b5831a7"
   };
 }
 
