@@ -1,8 +1,8 @@
 module CleverIntegration::Importers::Schools
 
-  def self.run(teachers, district_token, teacher_requester)
+  def self.run(teachers, district_token)
     schools = teachers.map do |teacher|
-      CleverIntegration::Importers::School.run(teacher, district_token, teacher_requester)
+      CleverIntegration::Importers::School.run(teacher, district_token)
     end
     schools.compact
   end
