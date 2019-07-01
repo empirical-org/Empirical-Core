@@ -4,16 +4,7 @@ module CleverIntegration::SignUp::Main
 
   def self.run(auth_hash)
     # dependency injection so we dont have to make api requests in tests
-    CleverIntegration::SignUp::SubMain.run(auth_hash, self.requesters)
-  end
-
-  private
-
-  def self.requesters
-    {
-      teacher_requester: CleverIntegration::Requesters.teacher,
-      section_requester: CleverIntegration::Requesters.section
-    }
+    CleverIntegration::SignUp::SubMain.run(auth_hash)
   end
 
 end

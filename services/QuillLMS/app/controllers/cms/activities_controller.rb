@@ -58,6 +58,15 @@ protected
   end
 
   def activity_params
-    params.require(:activity).permit!
+    params.require(:activity).permit(:name,
+                                     :description,
+                                     :uid,
+                                     :data,
+                                     :activity_classification_id,
+                                     :topic_id,
+                                     :flags,
+                                     :repeatable,
+                                     :follow_up_activity_id,
+                                     :suppirting_info)
   end
 end

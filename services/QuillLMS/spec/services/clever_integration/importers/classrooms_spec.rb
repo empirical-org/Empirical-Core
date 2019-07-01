@@ -9,25 +9,23 @@ describe 'CleverIntegration::Importers::Classrooms' do
   let!(:district_token) { '1' }
 
   let!(:sections_response) {
-    [
-      {id: teacher.clever_id,
-       name: 'section1',
-       grade: '2'}
-    ]
+    section = Clever::Section.new({
+      id: teacher.clever_id,
+      name: 'section1',
+      grade: '2'
+    })
+    section_response = Clever::SectionResponse.new({ data: section })
+    Clever::SectionsResponse.new({
+      data: [section_response]
+     })
   }
 
-  let!(:teacher_requester) {
-    response_stuct = Struct.new(:sections)
-    response = response_stuct.new(sections_response)
-
-    lambda do |clever_id, district_token|
-      response
-    end
-  }
-
+  before do
+    allow_any_instance_of(Clever::DataApi).to receive(:get_sections_for_teacher).and_return(sections_response)
+  end
 
   def subject
-    CleverIntegration::Importers::Classrooms.run(teacher, district_token, teacher_requester)
+    CleverIntegration::Importers::Classrooms.run(teacher, district_token)
     Classroom.find_by(clever_id: teacher.clever_id, name: 'section1', grade: '2')
   end
 
