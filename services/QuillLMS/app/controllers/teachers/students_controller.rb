@@ -60,7 +60,22 @@ protected
   end
 
   def user_params
-    params.require(:user).except!(:role).permit!
+    params.require(:user).permit(:name,
+                                 :first_name,
+                                 :last_name,
+                                 :password_digest,
+                                 :classcode,
+                                 :active,
+                                 :username,
+                                 :token,
+                                 :ip_address,
+                                 :clever_id,
+                                 :signed_up_with_google,
+                                 :google_id,
+                                 :flags,
+                                 :title,
+                                 :time_zone,
+                                 :account_type)
   end
 
   def edit_page_variables

@@ -1,5 +1,5 @@
 import React from 'react';
-import $ from 'jquery';
+import request from 'request';
 import DropdownButton from 'react-bootstrap/lib/DropdownButton';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
 import NumberSuffix from '../components/modules/numberSuffixBuilder.js';
@@ -30,7 +30,16 @@ export default React.createClass({
   },
 
   getClassCode() {
-    $.ajax({ url: '/teachers/classrooms/regenerate_code', success: this.setClassCode, });
+    request.get({
+      url: `${process.env.DEFAULT_URL}/teachers/classrooms/regenerate_code`,
+      json: true,
+    }, (error, httpStatus, body) => {
+      if (httpStatus && httpStatus.statusCode === 200) {
+        this.setClassCode(body);
+      } else if (body && body.errors) {
+        console.error(body);
+      }
+    });
   },
 
   setClassCode(data) {
@@ -80,26 +89,36 @@ export default React.createClass({
   submitClassroom() {
     this.setState({ loading: true, });
     const that = this;
-    $.post('/teachers/classrooms/', { classroom: this.state.classroom, })
-        .success((data) => {
-          let nextPage;
-          if (that.props.closeModal) {
-              // only used if it is rendered within a modal
-            that.props.closeModal('because class added');
-          } else if (that.props.hasActivities === false) {
-            window.location.assign('/teachers/classrooms/assign_activities');
-          } else if (data.toInviteStudents) {
-            window.location.assign('/teachers/classrooms/invite_students');
-          } else {
-            window.location.assign('/teachers/classrooms/scorebook');
-          }
-        })
-        .error((data) => {
-          that.setState({ loading: false, });
-          const errors = JSON.parse(data.responseText).errors;
-          const errorMessage = errors.join('\n');
-          that.setState({ errors: errorMessage, });
-        });
+    const csrfElement = document.querySelector("meta[name='csrf-token']");
+    const csrfToken = csrfElement ? csrfElement.getAttribute('content') : '';
+    request.post({
+      url: `${process.env.DEFAULT_URL}/teachers/classrooms`,
+      json: { classroom: this.state.classroom },
+      headers: {
+        'x-csrf-token': csrfToken,
+        'content-type': 'application/json',
+        'accept': 'application/json',
+      },
+    }, (error, httpStatus, body) => {
+      if (httpStatus && httpStatus.statusCode === 200) {
+        let nextPage;
+        if (that.props.closeModal) {
+            // only used if it is rendered within a modal
+          that.props.closeModal('because class added');
+        } else if (that.props.hasActivities === false) {
+          window.location.assign('/teachers/classrooms/assign_activities');
+        } else if (body.toInviteStudents) {
+          window.location.assign('/teachers/classrooms/invite_students');
+        } else {
+          window.location.assign('/teachers/classrooms/scorebook');
+        }
+      } else if (body && body.errors) {
+        that.setState({ loading: false, });
+        const errors = body.errors;
+        const errorMessage = errors.join('\n');
+        that.setState({ errors: errorMessage, });
+      }
+    });
   },
 
   syncOrModal() {
