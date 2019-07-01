@@ -74,7 +74,7 @@ module.exports = {
       chunkFilename: '[id].css',
     }),
     new webpack.DefinePlugin({
-      NODE_ENV: JSON.stringify(env),
+      NODE_ENV: JSON.stringify('development'),
       EMPIRICAL_BASE_URL: JSON.stringify('http://localhost:3000'),
       QUILL_CMS: JSON.stringify('http://localhost:3100'),
       PUSHER_KEY: JSON.stringify('a253169073ce7474f0ce'),

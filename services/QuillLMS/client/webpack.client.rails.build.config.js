@@ -65,7 +65,6 @@ module.exports = merge(config, {
     minimizer: [
       new UglifyJsPlugin({
         chunkFilter: (chunk) => {
-          console.log('chunk', chunk.name)
           // Exclude uglification for the `vendor` chunk
           if (chunk.name === 'home') {
             return false;
