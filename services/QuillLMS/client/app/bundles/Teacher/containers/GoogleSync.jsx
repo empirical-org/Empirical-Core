@@ -1,5 +1,5 @@
 import React from 'react'
-import $ from 'jquery'
+import { requestGet, requestPost } from '../../../modules/request';
 import LoadingIndicator from '../components/shared/loading_indicator.jsx'
 import GoogleClassroomList from '../components/google_classroom/google_classroom_sync/GoogleClassroomsList.jsx'
 import ArchiveClassesWarning from '../components/google_classroom/google_classroom_sync/ArchiveClassesWarning.jsx'
@@ -25,19 +25,14 @@ export default class extends React.Component{
 
   getGoogleClassrooms(){
     const that = this;
-    $.get('/teachers/classrooms/retrieve_google_classrooms', (data) => {
+    requestGet('/teachers/classrooms/retrieve_google_classrooms', (data) => {
       if (data.errors === 'UNAUTHENTICATED') {
         authForGoogleSyncPage();
       }
-      that.setState({classrooms: data.classrooms})
+      that.setState({loading: false, classrooms: data.classrooms})
+    }, (data)=>{
+      that.setState({loading: false, error: data.errors})
     })
-    .fail((data)=>{
-      that.setState({error: data.errors})
-    })
-    .always(()=>{
-      that.setState({loading: false})
-    })
-    ;
   }
 
   loadingIndicatorOrContent(){
@@ -53,16 +48,8 @@ export default class extends React.Component{
   syncClassroomsAjax() {
     const that = this
     const selectedClassrooms = JSON.stringify(this.state.classData.selectedClassrooms)
-    $.ajax({
-      type: 'post',
-      data: {selected_classrooms: selectedClassrooms},
-      url: '/teachers/classrooms/update_google_classrooms',
-      statusCode: {
-        200: function() {
-          that.syncClassroomSuccess()
-          }
-      }
-    })
+    requestPost('/teachers/classrooms/update_google_classrooms', {selected_classrooms: selectedClassrooms},
+                that.syncClassroomSuccess);
   }
 
   syncClassrooms = (classData) => {
@@ -90,20 +77,14 @@ export default class extends React.Component{
 
   syncClassroomSuccess = () => {
     const that = this;
-    $.ajax({
-      type: 'get',
-      url: '/teachers/classrooms/import_google_students',
-      statusCode: {
-        200: function() {
-          that.setState({showWarningModal: false})
-          if (that.state.classData.selectedClassrooms.length > 0) {
-            that.setState({showSuccessModal: true})
-          } else {
-            window.location = '/'
-          }
-        }
+    requestGet('/teachers/classrooms/import_google_students', () => {
+      that.setState({showWarningModal: false})
+      if (that.state.classData.selectedClassrooms.length > 0) {
+        that.setState({showSuccessModal: true})
+      } else {
+        window.location = '/'
       }
-    })
+    });
   }
 
   googleClassroomList(){
