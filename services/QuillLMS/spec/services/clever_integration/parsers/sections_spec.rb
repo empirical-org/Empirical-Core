@@ -3,9 +3,9 @@ require 'rails_helper'
 describe 'CleverIntegration::Parsers::Sections' do
 
   let!(:response) {
-    [
-      {id: '1', name: 'name1', grade: '2'}
-    ]
+    section = Clever::Section.new({id: '1', name: 'name1', grade: '2'})
+    section_response = Clever::SectionResponse.new({ data: section })
+    Clever::SectionsResponse.new({ data: [section_response] })
   }
 
   let!(:expected) {
@@ -15,7 +15,7 @@ describe 'CleverIntegration::Parsers::Sections' do
   }
 
   def subject
-    CleverIntegration::Parsers::Sections.run(response)
+    CleverIntegration::Parsers::Sections.run(response.data)
   end
 
   it 'works' do

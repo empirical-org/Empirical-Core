@@ -4,10 +4,10 @@ FactoryBot.define do
   factory :activity_session do
     activity            { create(:activity, :production) }
     uid                 { SecureRandom.urlsafe_base64 }
-    percentage          { Faker::Number.decimal(0, 2) }
+    percentage          { 0.50 }
     started_at          { created_at }
     state               'finished'
-    completed_at        { Faker::Time.backward(30) } # random time in past month
+    completed_at        { Time.now }
     is_final_score      true
     is_retry            false
     temporary           false
