@@ -1,6 +1,9 @@
 const prod = process.env.NODE_ENV === 'production';
 
-import firebase from 'firebase';
+import * as firebase from 'firebase/app';
+import 'firebase/database';
+import 'firebase/performance';
+
 let config = {};
 if (prod) {
   config = {
@@ -11,14 +14,18 @@ if (prod) {
   };
 } else {
   config = {
-    apiKey: 'AIzaSyAJNeVssNkcjNonREdRZ7gTyEDqmAfz7Go',
-    authDomain: 'quillconnectstaging.firebaseapp.com',
-    databaseURL: 'https://quillconnectstaging.firebaseio.com',
-    storageBucket: 'quillconnectstaging.appspot.com',
+    apiKey: "AIzaSyAJNeVssNkcjNonREdRZ7gTyEDqmAfz7Go",
+    authDomain: "quillconnectstaging.firebaseapp.com",
+    databaseURL: "https://quillconnectstaging.firebaseio.com",
+    projectId: "quillconnectstaging",
+    storageBucket: "quillconnectstaging.appspot.com",
+    messagingSenderId: "364171361011",
+    appId: "1:364171361011:web:59fefe180b5831a7"
   };
 }
 
 firebase.initializeApp(config);
+const perf = firebase.performance();
 
 const rootRef = firebase.database().ref().child('v2');
 
