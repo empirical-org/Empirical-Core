@@ -103,6 +103,8 @@ gem 'graphql'
 # UI HELPERS
 gem 'sass'
 gem 'sass-rails'
+gem 'bootstrap-sass', '~> 3.4.1'
+gem 'sassc-rails', '>= 2.1.0'
 
 gem 'coffee-rails'
 gem 'jquery-rails'
