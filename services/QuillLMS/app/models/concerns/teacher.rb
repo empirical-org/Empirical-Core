@@ -57,7 +57,7 @@ module Teacher
     if classrooms_ids_to_check && classrooms_ids_to_check.any?
       # if there are specific ids passed it will only return those that match
       coteacher_classroom_invitation_additional_join = "AND coteacher_classroom_invitations.classroom_id IN (#{classrooms_ids_to_check.map(&:to_i).join(', ')})"
-      classrooms_teacher_additional_join = "AND classrooms_teachers.classroom_id IN (#{classrooms_ids_to_check.join(', ')})"
+      classrooms_teacher_additional_join = "AND classrooms_teachers.classroom_id IN (#{classrooms_ids_to_check.map(&:to_i).join(', ')})"
     end
     classrooms_teachers_ids = Set.new
     coteacher_classroom_invitation_ids = Set.new
