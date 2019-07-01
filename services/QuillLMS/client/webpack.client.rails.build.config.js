@@ -84,7 +84,6 @@ module.exports = merge(config, {
         test: /\.css$/,
         use: [
           MiniCssExtractPlugin.loader,
-          // 'style-loader',
           'css-loader',
           'sass-loader'
         ],
@@ -93,7 +92,6 @@ module.exports = merge(config, {
         test: /\.scss$/,
         use: [
           MiniCssExtractPlugin.loader,
-          // 'style-loader',
           'css-loader',
           'sass-loader'
         ],
