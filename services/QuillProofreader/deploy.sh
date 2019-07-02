@@ -10,11 +10,12 @@ case $1 in
       echo "You can not make a production deploy from a branch other than 'master'.  Don't forget to make sure you have the latest code pulled."
       exit 1
     fi
-    S3_DEPLOY_BUCKET=s3://aws-website-quill-grammar
+    S3_DEPLOY_BUCKET=s3://aws-website-quill-proofreader
+    # Execute a new build
     npm run build:prod
     ;;
   staging)
-    S3_DEPLOY_BUCKET=s3://aws-website-quill-grammar-staging
+    S3_DEPLOY_BUCKET=s3://aws-website-quill-proofreader-staging
     npm run build:staging
     ;;
   *)
