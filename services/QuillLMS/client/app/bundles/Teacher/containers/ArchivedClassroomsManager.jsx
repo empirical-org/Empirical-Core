@@ -1,6 +1,6 @@
 import React from 'react';
 import request from 'request';
-import $ from 'jquery';
+import { requestGet, requestPost } from '../../../modules/request';
 import _ from 'underscore';
 import getAuthToken from '../components/modules/get_auth_token';
 import NotificationBox from '../components/shared/notification_box.jsx';
@@ -31,15 +31,11 @@ export default React.createClass({
   },
 
   getClassrooms() {
+    const that = this;
     this.setState({ loading: true, },
       () => {
-        $.ajax({
-          url: this.state.getClassroomsPath,
-          context: this,
-          cache: false,
-          success(data) {
-            this.formatData(data);
-          },
+        requestGet(this.state.getClassroomsPath, (data) => {
+            that.formatData(data);
         });
       }
     );
@@ -131,10 +127,7 @@ export default React.createClass({
     const that = this;
     this.setState({ loading: true, },
       () => {
-        $.post(path)
-        .done(
-          that.getClassrooms()
-        );
+        requestPost(path, () => that.getClassrooms());
       });
   },
 
