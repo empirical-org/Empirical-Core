@@ -2,7 +2,7 @@ const C = require('../constants').default;
 import rootRef from '../libs/firebase';
 const	lessonsRef = rootRef.child('diagnostics');
 import { push } from 'react-router-redux';
-import {updateFlag, updateModelConceptUID} from './questions'
+import questionActions from './questions';
 
 	// called when the app starts. this means we immediately download all quotes, and
 	// then receive all quotes again as soon as anyone changes anything.
@@ -65,12 +65,12 @@ function updateQuestions(content, qids) {
   return function (dispatch) {
     if (content.flag) {
       qids.forEach(qid => {
-        dispatch(updateFlag(qid, content.flag))
+        dispatch(questionActions.updateFlag(qid, content.flag))
       })
     }
     if (content.modelConceptUID) {
       qids.forEach(qid => {
-        dispatch(updateModelConceptUID(qid, content.modelConceptUID))
+        dispatch(questionActions.updateModelConceptUID(qid, content.modelConceptUID))
       })
     }
   };
