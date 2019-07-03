@@ -1,5 +1,6 @@
 import * as React from "react";
-import { Input } from 'quill-component-library/dist/componentLibrary'
+import { Input } from './input'
+// import { Input } from 'quill-component-library/dist/componentLibrary'
 
 class TextFields extends React.Component {
 
