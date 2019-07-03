@@ -68,6 +68,10 @@
     }
   }
 
+  .quill-tooltip-trigger {
+    margin-right: 10px;
+  }
+
   .extra-big-element:last-of-type {
     padding-bottom: 30px;
   }
@@ -114,7 +118,8 @@
 }
 
 .quill-tooltip:not(.visible) {
-  display: none;
+  opacity: 0;
+  transition: opacity 0s;
 }
 
 .quill-tooltip {
@@ -132,4 +137,6 @@
   padding: 0px 16px;
   left: 50%;
   transform: translateX(-50%);
+  opacity: 1;
+  transition: opacity .5s;
 }
