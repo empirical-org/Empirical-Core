@@ -4,7 +4,7 @@
 import request from 'request';
 
 
-function _fullyQualifiedUrl(url) {
+function fullyQualifiedUrl(url) {
   // Build a fully-qualified URL if we're only passed a path
   if (!url.includes(process.env.DEFAULT_URL)) {
     return `${process.env.DEFAULT_URL}${url}`;
@@ -12,7 +12,7 @@ function _fullyQualifiedUrl(url) {
   return url;
 }
 
-function _buildRequestCallback(success, error) {
+function buildRequestCallback(success, error) {
   return (_, httpStatus, body) => {
     if (httpStatus && httpStatus.statusCode === 200) {
       if (success) {
@@ -29,7 +29,7 @@ function _buildRequestCallback(success, error) {
   };
 }
 
-function _addCsrfHeaders(headers = {}) {
+function addCsrfHeaders(headers = {}) {
   const csrfElement = document.querySelector("meta[name='csrf-token']");
   const csrfToken = csrfElement ? csrfElement.getAttribute('content') : '';
   if (csrfToken) {
@@ -40,17 +40,17 @@ function _addCsrfHeaders(headers = {}) {
 
 function requestGet(url, success, error) {
   return request.get({
-    url: _fullyQualifiedUrl(url),
+    url: fullyQualifiedUrl(url),
     json: true,
-  }, _buildRequestCallback(success, error));
+  }, buildRequestCallback(success, error));
 }
 
 function requestPost(url, data, success, error) {
   return request.post({
-    url: _fullyQualifiedUrl(url),
+    url: fullyQualifiedUrl(url),
     json: data,
-    headers: _addCsrfHeaders(),
-  }, _buildRequestCallback(success, error));
+    headers: addCsrfHeaders(),
+  }, buildRequestCallback(success, error));
 }
 
 export {
