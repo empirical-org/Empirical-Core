@@ -1,5 +1,5 @@
 import React from 'react';
-import $ from 'jquery';
+import { requestGet } from '../../../modules/request';
 import ClassOverview from '../components/dashboard/class_overview';
 import MyClasses from '../components/dashboard/my_classes';
 import MyResources from '../components/dashboard/my_resources';
@@ -19,16 +19,16 @@ export default React.createClass({
 
   componentWillMount() {
     this.ajax = {};
-    this.ajax.classRoomRequest = $.get('classroom_mini', (result) => {
+    this.ajax.classRoomRequest = requestGet('/teachers/classrooms/classroom_mini', (result) => {
       this.setState({ classrooms: result.classes, });
     });
-    this.ajax.premiumRequest = $.get('premium', (result) => {
+    this.ajax.premiumRequest = requestGet('/teachers/classrooms/premium', (result) => {
       this.setState({ hasPremium: result.hasPremium, });
     });
-    this.ajax.performanceQuery = $.get('dashboard_query', (result) => {
+    this.ajax.performanceQuery = requestGet('/teachers/classrooms/dashboard_query', (result) => {
       this.setState({ performanceQuery: result.performanceQuery, });
     });
-    this.ajax.notificationsQuery = $.get('/notifications', (results) => {
+    this.ajax.notificationsQuery = requestGet('/teachers/classrooms/notifications', (results) => {
       this.setState({ notifications: results })
     })
   },
