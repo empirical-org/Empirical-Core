@@ -13,6 +13,29 @@ describe 'CleverIntegration::SignUp::Main' do
   }
 
   before do
+    school_admin = Clever::SchoolAdmin.new({
+      id: "53ea7d6b2187a9bc1e188be0",
+      created: "2014-08-12T20:47:39.084Z",
+      email: 'schooladmin@gmail.com',
+      credentials: Clever::Credentials.new({
+        district_username: 'username'
+      }),
+      name: Clever::Name.new({
+        first: 'School',
+        last: 'Admin'
+      }),
+      location:
+        {
+          address: "350 5th Avenue",
+          city: "New York",
+          state: "NY",
+          zip: 10001
+        }
+    })
+
+    school_admin_response = Clever::SchoolAdminResponse.new({ data: school_admin })
+    allow_any_instance_of(Clever::DataApi).to receive(:get_school_admin).and_return(school_admin_response)
+
     clever_school = Clever::School.new({
       id: "53ea7d6b2187a9bc1e188be0",
       created: "2014-08-12T20:47:39.084Z",
@@ -46,8 +69,6 @@ describe 'CleverIntegration::SignUp::Main' do
       info: {
         user_type: 'school_admin',
         id: 'id',
-        email: 'schooladmin@gmail.com',
-        name: { first: 'School', last: 'Admin' },
         district: 'district_id_1'
       }
     }
@@ -58,7 +79,7 @@ describe 'CleverIntegration::SignUp::Main' do
   end
 
   def user
-    User.find_by_email(auth_hash[:info][:email])
+    User.find_by_email('schooladmin@gmail.com')
   end
 
   describe 'when the user is a school admin' do
