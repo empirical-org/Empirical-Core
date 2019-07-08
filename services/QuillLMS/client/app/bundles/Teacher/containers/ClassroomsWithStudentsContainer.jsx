@@ -1,5 +1,5 @@
 import React from 'react';
-import $ from 'jquery';
+import { requestGet } from '../../../modules/request';
 import ClassroomsWithStudents from '../components/lesson_planner/create_unit/stage2/ClassroomsWithStudents.jsx';
 import LoadingIndicator from '../components/shared/loading_indicator.jsx';
 import _ from 'underscore';
@@ -189,21 +189,13 @@ export default class ClassroomsWithStudentsContainer extends React.Component {
       url = `/teachers/units/${that.props.params.unitId}/classrooms_with_students_and_classroom_units`;
       unitName = data => data.unit_name;
     }
-    $.ajax({
-      type: 'GET',
-      url,
-      dataType: 'json',
-      statusCode: {
-        200(data) {
-          that.setState({ loading: false, classrooms: data.classrooms, unitName: unitName(data), });
-          that.state.newUnit ? null : that.selectPreviouslyAssignedStudents();
-        },
-        422(response) {
-          that.setState({ errors: response.responseJSON.errors,
-            loading: false, });
-        },
-      },
-    });
+    requestGet(url, (body) => {
+        that.setState({ loading: false, classrooms: body.classrooms, unitName: unitName(body), });
+        that.state.newUnit ? null : that.selectPreviouslyAssignedStudents();
+      }, (body) => {
+        that.setState({ errors: body ? body.errors : undefined, loading: false, });
+      }
+    );
   }
 
   render() {
