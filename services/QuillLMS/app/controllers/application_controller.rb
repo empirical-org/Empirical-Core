@@ -12,6 +12,7 @@ class ApplicationController < ActionController::Base
   # FIXME: disabled till it's clear what this does
   # before_action :setup_visitor
   before_action :should_load_intercom
+  before_action :set_raven_context
 
   def admin!
     return if current_user.try(:admin?)
@@ -107,6 +108,11 @@ class ApplicationController < ActionController::Base
     response.headers["Cache-Control"] = "no-cache, no-store, max-age=0, must-revalidate"
     response.headers["Pragma"] = "no-cache"
     response.headers["Expires"] = "Fri, 01 Jan 1990 00:00:00 GMT"
+  end
+
+  def set_raven_context
+    Raven.user_context(id: session[:current_user_id])
+    Raven.extra_context(params: params.to_unsafe_h, url: request.url)
   end
 
 end
