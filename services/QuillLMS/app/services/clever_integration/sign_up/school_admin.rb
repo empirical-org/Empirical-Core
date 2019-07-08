@@ -29,7 +29,7 @@ module CleverIntegration::SignUp::SchoolAdmin
   end
 
   def self.parse_data(auth_hash)
-    CleverIntegration::Parsers::TeacherFromAuth.run(auth_hash)
+    CleverIntegration::Parsers::SchoolAdminFromAuth.run(auth_hash)
   end
 
   def self.create_user(parsed_data)
