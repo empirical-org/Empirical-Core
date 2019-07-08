@@ -437,6 +437,8 @@
   .data-table-headers, .data-table-row {
     padding: 18px 16px;
     border-bottom: 1px solid #e0e0e0;
+    display: flex;
+    align-items: center;
   }
 
   .data-table-header {
@@ -452,11 +454,19 @@
   }
 
   .data-table-header, .data-table-row-section {
-    display: inline-block;
+    &:not(.quill-checkbox) {
+      display: inline-block;
+    }
     margin-right: 24px;
   }
 
   .data-table-row {
-    display: flex;
+    &:hover {
+      background-color: #f2f2f2;
+    }
+    &.checked {
+      background-color: #e8f7f3;
+    }
   }
+
 }
