@@ -38,6 +38,20 @@ const headers2 = [
   }
 ]
 
+const headers3 = [
+  {
+    name: 'Name',
+    attribute: 'name',
+    width: '126px'
+  },
+  {
+    name: 'Activities',
+    attribute: 'activities',
+    width: '77px',
+    isSortable: true
+  }
+]
+
 const rows1 = [
   {
     name: 'Maya Angelou',
@@ -100,6 +114,34 @@ const rows2 = [
   {
     name: 'Anton Chekhov',
     username: 'anton.checkhov@local-writing',
+    id: 5
+  }
+]
+
+const rows3 = [
+  {
+    name: 'Maya Angelou',
+    activities: 15,
+    id: 1
+  },
+  {
+    name: 'Ambrose Bierce',
+    activities: 14,
+    id: 2
+  },
+  {
+    name: 'George Gordon Byron',
+    activities: 16,
+    id: 3
+  },
+  {
+    name: 'Elizabeth Carter',
+    activities: 8,
+    id: 4
+  },
+  {
+    name: 'Anton Chekhov',
+    activities: 7,
     id: 5
   }
 ]
@@ -238,6 +280,29 @@ export class DataTableWrapper {
               uncheckRow={this.uncheckRow}
               uncheckAllRows={this.uncheckAllRows}
               checkAllRows={this.checkAllRows}
+            />
+          </div>
+        </div>
+      </div>
+      <div className="element-container">
+        <div>
+          <h4 className="style-guide-h4">Data table with sorting</h4>
+          <pre>
+{`
+const rows3 = ${JSON.stringify(rows3)}
+const headers3 = ${JSON.stringify(headers3)}
+<DataTable
+  rows={rows3}
+  headers={headers3}
+  defaultSortAttribute='activities'
+/>
+`}
+          </pre>
+          <div className="data-tables-container">
+            <DataTable
+              rows={rows3}
+              headers={headers3}
+              defaultSortAttribute='activities'
             />
           </div>
         </div>

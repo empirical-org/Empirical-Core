@@ -445,6 +445,7 @@
     font-size: 12px;
     font-weight: 600;
     color: #5c5c5c;
+    display: flex;
   }
 
   .data-table-row-section {
@@ -454,9 +455,6 @@
   }
 
   .data-table-header, .data-table-row-section {
-    &:not(.quill-checkbox) {
-      display: inline-block;
-    }
     margin-right: 24px;
   }
 
@@ -466,6 +464,14 @@
     }
     &.checked {
       background-color: #e8f7f3;
+    }
+  }
+
+  .sort-arrow {
+    margin-right: 8px;
+    cursor: pointer;
+    &.desc {
+      transform: rotate(180deg);
     }
   }
 
