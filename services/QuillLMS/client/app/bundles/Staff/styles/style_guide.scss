@@ -1,4 +1,5 @@
 .style-guide-index {
+  font-family: AdelleSans;
   display: flex;
 }
 
@@ -428,5 +429,34 @@
     bottom: 16px;
     right: 0px;
     cursor: pointer;
+  }
+}
+
+.data-table {
+
+  .data-table-headers, .data-table-row {
+    padding: 18px 16px;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  .data-table-header {
+    font-size: 12px;
+    font-weight: 600;
+    color: #5c5c5c;
+  }
+
+  .data-table-row-section {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+  .data-table-header, .data-table-row-section {
+    display: inline-block;
+    margin-right: 24px;
+  }
+
+  .data-table-row {
+    display: flex;
   }
 }
