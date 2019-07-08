@@ -25,10 +25,10 @@ interface DataTableProps {
   headers: Array<DataTableHeader>;
   rows: Array<DataTableRow>;
   showCheckboxes?: boolean;
-  checkRow?: Function;
-  uncheckRow?: Function;
-  uncheckAllRows?: Function;
-  checkAllRows?: Function;
+  checkRow?: (event: any) => void;
+  uncheckRow?: (event: any) => void;
+  uncheckAllRows?: (event: any) => void;
+  checkAllRows?: (event: any) => void;
 }
 
 interface DataTableState {
