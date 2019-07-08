@@ -5,6 +5,7 @@ export const ascending = 'asc'
 
 const indeterminateSrc = `${process.env.CDN_URL}/images/icons/indeterminate.svg`
 const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
+const arrowSrc = `${process.env.CDN_URL}/images/shared/arrow.svg`
 
 interface DataTableRow {
   id: number|string;
@@ -15,6 +16,7 @@ interface DataTableHeader {
   width: string;
   name: string;
   attribute: string;
+  isSortable?: boolean;
 }
 
 interface DataTableProps {
@@ -34,7 +36,6 @@ interface DataTableState {
   sortDirection?: string;
 }
 
-
 export class DataTable extends React.Component<DataTableProps, DataTableState> {
   constructor(props) {
     super(props)
@@ -44,13 +45,31 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
       sortDirection: props.defaultSortDirection || descending
     }
 
-    this.renderHeaderCheckbox = this.renderHeaderCheckbox.bind(this)
-    this.renderRowCheckbox = this.renderRowCheckbox.bind(this)
+    this.changeSortDirection = this.changeSortDirection.bind(this)
   }
 
   attributeAlignment(attributeName) {
     const numbersRegex = new RegExp(/^[\d#%\.\$]+$/)
     return this.props.rows.every(row => numbersRegex.test(row[attributeName])) ? 'right' : 'left'
+  }
+
+  changeSortDirection() {
+    if (this.state.sortDirection === descending) {
+      this.setState({ sortDirection: ascending })
+    } else {
+      this.setState({ sortDirection: descending })
+    }
+  }
+
+  sortRows() {
+    const { sortAttribute, sortDirection, } = this.state
+    const { rows } = this.props
+    if (sortAttribute) {
+      const sortedRows = rows.sort((a, b) => a[sortAttribute] - b[sortAttribute])
+      return sortDirection === descending ? sortedRows : sortedRows.reverse()
+    } else {
+      return rows
+    }
   }
 
   renderHeaderCheckbox() {
@@ -79,10 +98,12 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
 
   renderHeaders() {
     const headers = this.props.headers.map(header => {
+      const sortArrow = header.isSortable ? <img className={`sort-arrow ${this.state.sortDirection}`} onClick={this.changeSortDirection} src={arrowSrc} /> : null
       return <span
         className="data-table-header"
         style={{ width: `${header.width}`, textAlign: `${this.attributeAlignment(header.attribute)}`}}
         >
+          {sortArrow}
           {header.name}
         </span>
     })
@@ -91,7 +112,7 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
 
   renderRows() {
     const headers = this.props.headers
-    const rows = this.props.rows.map(row => {
+    const rows = this.sortRows().map(row => {
       const rowClassName = `data-table-row ${row.checked ? 'checked' : ''}`
       const rowSections = headers.map(header => (
         <span
