@@ -3,7 +3,11 @@ import * as React from 'react'
 export const descending = 'desc'
 export const ascending = 'asc'
 
+const indeterminateSrc = `${process.env.CDN_URL}/images/icons/indeterminate.svg`
+const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
+
 interface DataTableRow {
+  id: number|string;
   [key:string]: any;
 }
 
@@ -18,6 +22,11 @@ interface DataTableProps {
   defaultSortDirection?: string;
   headers: Array<DataTableHeader>;
   rows: Array<DataTableRow>;
+  showCheckboxes?: boolean;
+  checkRow?: Function;
+  uncheckRow?: Function;
+  uncheckAllRows?: Function;
+  checkAllRows?: Function;
 }
 
 interface DataTableState {
@@ -34,11 +43,38 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
       sortAttribute: props.defaultSortAttribute || null,
       sortDirection: props.defaultSortDirection || descending
     }
+
+    this.renderHeaderCheckbox = this.renderHeaderCheckbox.bind(this)
+    this.renderRowCheckbox = this.renderRowCheckbox.bind(this)
   }
 
   attributeAlignment(attributeName) {
     const numbersRegex = new RegExp(/^[\d#%\.\$]+$/)
     return this.props.rows.every(row => numbersRegex.test(row[attributeName])) ? 'right' : 'left'
+  }
+
+  renderHeaderCheckbox() {
+    const { showCheckboxes, rows, uncheckAllRows, checkAllRows } = this.props
+    if (showCheckboxes) {
+      const anyChecked = rows.some(row => row.checked)
+      if (anyChecked) {
+        return <span className="quill-checkbox selected data-table-header">
+          <img src={indeterminateSrc} alt="check" onClick={uncheckAllRows}/>
+        </span>
+      } else {
+        return <span className="quill-checkbox unselected data-table-header" onClick={checkAllRows} />
+      }
+    }
+  }
+
+  renderRowCheckbox(row) {
+    if (this.props.showCheckboxes) {
+      if (row.checked) {
+        return <span className="quill-checkbox selected data-table-row-section" onClick={() => this.props.uncheckRow(row.id)}><img src={smallWhiteCheckSrc} alt="check" /></span>
+      } else {
+        return <span className="quill-checkbox unselected data-table-row-section" onClick={() => this.props.checkRow(row.id)} />
+      }
+    }
   }
 
   renderHeaders() {
@@ -50,12 +86,13 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
           {header.name}
         </span>
     })
-    return <div className="data-table-headers">{headers}</div>
+    return <div className="data-table-headers">{this.renderHeaderCheckbox()}{headers}</div>
   }
 
   renderRows() {
     const headers = this.props.headers
     const rows = this.props.rows.map(row => {
+      const rowClassName = `data-table-row ${row.checked ? 'checked' : ''}`
       const rowSections = headers.map(header => (
         <span
           className="data-table-row-section"
@@ -64,7 +101,7 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
           {row[header.attribute]}
         </span>
       ))
-      return <div className="data-table-row">{rowSections}</div>
+      return <div className={rowClassName}>{this.renderRowCheckbox(row)}{rowSections}</div>
     })
     return <div className="data-table-body">{rows}</div>
   }
