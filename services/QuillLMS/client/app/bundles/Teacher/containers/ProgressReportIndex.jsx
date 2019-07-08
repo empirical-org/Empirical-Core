@@ -11,7 +11,7 @@ import LandingPageContainer from './LandingPageContainer.jsx'
 import ActivitiesScoresByClassroomProgressReport from '../components/progress_reports/activities_scores_by_classroom_progress_report.jsx'
 import RealTimeProgressReport from '../components/progress_reports/real_time_progress_report.jsx'
 import StudentOverview from '../components/progress_reports/student_overview.jsx'
-import $ from 'jquery'
+import { requestGet } from '../../../modules/request';
 import _ from 'underscore'
 import React from 'react'
 import ReactDOM from 'react-dom'
@@ -45,7 +45,7 @@ var renderRightComponentHack = function(currentUser) {
   _.each(progressReportMapping, function(component, rootNodeSelector) {
     var $el = $(rootNodeSelector);
     if ($el.length) {
-      $.get('/teachers/classrooms/premium.json').done(function(data) {
+      requestGet('/teachers/classrooms/premium.json', (data) => {
         var props = {
           sourceUrl: $el.data('url'),
           premiumStatus: data.hasPremium,
