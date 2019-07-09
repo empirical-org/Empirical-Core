@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 
 import AddStudent from '../AddStudent.jsx';
 
-import $ from 'jquery'
+import request from 'request';
 import ItemDropdown from '../../components/general_components/dropdown_selectors/item_dropdown.jsx'
 import ClassroomsStudentsTable from '../../components/general_components/classrooms_students_table.jsx'
 import LoadingSpinner from '../../components/shared/loading_indicator.jsx'
@@ -11,13 +11,10 @@ import StudentCreatesAccountSection from '../../components/invite_users/add_stud
 import TeacherCreatesAccountSection from '../../components/invite_users/add_students/TeacherCreatesAccountSection.jsx'
 import GoogleClassroomCreatesAccountSection from '../../components/invite_users/add_students/GoogleClassroomCreatesAccountSection.jsx'
 
-jest.mock('jquery', () => {
+jest.mock('request', () => {
   return {
-    post: jest.fn().mockReturnValue({
-      success: jest.fn().mockReturnValue({
-        fail: jest.fn()
-      })
-    })
+    get: jest.fn(),
+    post: jest.fn(),
   };
 });
 
@@ -155,10 +152,10 @@ describe('AddStudent container', () => {
       it('should post the appropriate data', () => {
         wrapper.setState({ firstName: 'Cosmo', lastName: 'Kramer', selectedClassroom: { id: 7 }});
         wrapper.instance().submitStudent(null);
-        expect($.post.mock.calls).toHaveLength(1);
-        expect($.post.mock.calls[0][0]).toBe('/teachers/classrooms/7/students');
-        expect($.post.mock.calls[0][1].user.first_name).toBe('Cosmo');
-        expect($.post.mock.calls[0][1].user.last_name).toBe('Kramer');
+        expect(request.post.mock.calls).toHaveLength(1);
+        expect(request.post.mock.calls[0][0].url).toBe(`${process.env.DEFAULT_URL}/teachers/classrooms/7/students`);
+        expect(request.post.mock.calls[0][0].json.user.first_name).toBe('Cosmo');
+        expect(request.post.mock.calls[0][0].json.user.last_name).toBe('Kramer');
       });
     });
   });
