@@ -1,9 +1,9 @@
 const webpack = require('webpack');
 const path = require('path');
 const ManifestPlugin = require('webpack-manifest-plugin');
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 const devBuild = process.env.RAILS_ENV === 'development';
+const railsEnv = process.env.RAILS_ENV || process.env.NODE_ENV
 const firebaseApiKey = process.env.FIREBASE_API_KEY;
 const firebaseDatabaseUrl = process.env.FIREBASE_DATABASE_URL;
 const pusherKey = process.env.PUSHER_KEY;
@@ -12,18 +12,13 @@ const cdnUrl = process.env.CDN_URL;
 const { join, } = require('path');
 const webpackConfigLoader = require('react-on-rails/webpackConfigLoader');
 
-console.log('Directory: ', __dirname);
-
 const configPath = join(__dirname, '..', 'config');
-console.log('Directory: ', configPath);
 const { output, } = webpackConfigLoader(configPath);
-const nodeEnv = devBuild ? 'development' : 'production';
-
-console.log('nodeEnv', nodeEnv)
+const mode = devBuild ? 'development' : 'production';
 
 const basePlugins = [new webpack.DefinePlugin({
   'process.env': {
-    RAILS_ENV: JSON.stringify(nodeEnv),
+    RAILS_ENV: JSON.stringify(railsEnv),
     FIREBASE_API_KEY: JSON.stringify(firebaseApiKey),
     FIREBASE_DATABASE_URL: JSON.stringify(firebaseDatabaseUrl),
     PUSHER_KEY: JSON.stringify(pusherKey),
@@ -46,16 +41,8 @@ const basePlugins = [new webpack.DefinePlugin({
   })
 ];
 
-// const plugins = () => {
-//   if (nodeEnv === 'development') {
-//     return basePlugins;
-//   }
-//   basePlugins.splice(1, 0, new UglifyJSPlugin());
-//   return basePlugins;
-// };
-//
 module.exports = {
-  mode: nodeEnv,
+  mode,
   context: __dirname,
   entry: {
     vendor: [
@@ -109,6 +96,16 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.(woff|woff2|jpe?g|png|gif|svg|ico|ttf|eot)$/,
+        use: {
+          loader: 'url-loader',
+          options: {
+            name: '[name]-[hash].[ext]',
+            limit: 10000,
+          },
+        },
+      },
+      {
         test: /\.tsx?$/,
         loader: 'awesome-typescript-loader?errorsAsWarnings=true',
         exclude: /node_modules/,
@@ -117,20 +114,6 @@ module.exports = {
         test: /\.jsx?$/,
         loader: 'babel-loader',
         exclude: /node_modules/,
-      },
-      {
-        test: /\.(ttf|eot)$/,
-        use: 'file-loader',
-      },
-      {
-        test: /\.(woff2?|jpe?g|png|gif|svg|ico)$/,
-        use: {
-          loader: 'url-loader',
-          options: {
-            name: '[name]-[hash].[ext]',
-            limit: 10000,
-          },
-        },
       },
       {
         test: require.resolve('jquery'),
