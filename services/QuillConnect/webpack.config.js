@@ -6,7 +6,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const assetsPluginInstance = new AssetsPlugin();
 
-console.log('in prod: ', live);
 const webpack = require('webpack');
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -69,11 +68,12 @@ module.exports = {
       chunkFilename: '[id].css',
     }),
     new webpack.DefinePlugin({
-      NODE_ENV: JSON.stringify(env),
-      EMPIRICAL_BASE_URL: JSON.stringify('http://localhost:3000'),
-      QUILL_CMS: JSON.stringify('http://localhost:3100'),
-      PUSHER_KEY: JSON.stringify('a253169073ce7474f0ce'),
-      FIREBASE_APP_NAME: JSON.stringify('quillconnectstaging'),
+      'process.env': {
+        NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'development'),
+        EMPIRICAL_BASE_URL: JSON.stringify(process.env.EMPIRICAL_BASE_URL || 'http://localhost:3000'),
+        QUILL_CMS: JSON.stringify(process.env.QUILL_CMS || 'http://localhost:3100'),
+        PUSHER_KEY: JSON.stringify('a253169073ce7474f0ce')
+      }
     }),
     new HtmlWebpackPlugin({
       template: './index.html.ejs',
