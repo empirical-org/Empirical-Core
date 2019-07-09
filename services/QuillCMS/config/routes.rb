@@ -1,3 +1,5 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
   get '/' => 'stats#up'
 
@@ -25,9 +27,12 @@ Rails.application.routes.draw do
   # Uptime status
   resource :status, only: [] do
     collection do
-      get :index, :database, :redis_cache, :elasticsearch, :memcached
+      get :index, :database, :redis_cache, :redis_queue, :elasticsearch, :memcached
     end
   end
+
+  # Sidekiq web interface
+  mount Sidekiq::Web => '/sidekiq'
 
   #fragments controller for passing events to nlp.quill.org
   post 'fragments/is_sentence' => 'fragments#is_sentence'

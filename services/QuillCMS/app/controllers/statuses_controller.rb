@@ -14,6 +14,11 @@ class StatusesController < ApplicationController
     render plain: 'OK'
   end
 
+  def redis_queue
+    Sidekiq::Queue.all
+    render plain: 'OK'
+  end
+
   def elasticsearch
     Response.__elasticsearch__.client.cluster.health
     render plain: 'OK'
