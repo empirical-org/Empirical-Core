@@ -111,6 +111,10 @@
   }
 }
 
+.short {
+  height: 200px;
+}
+
 .quill-tooltip-trigger {
   position: relative;
   cursor: pointer;
@@ -432,7 +436,24 @@
   }
 }
 
+.data-table::-webkit-scrollbar {
+  background-color: white;
+  width: 7px;
+}
+
+.data-table::-webkit-scrollbar-thumb {
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  background: #7f7f7f;
+  -webkit-box-shadow: inset 0 0 6px #7f7f7f;
+}
+// .data-table::-webkit-thumb {
+//   display: inline-block;
+// }
+//
 .data-table {
+  overflow: scroll;
+  padding-right: 13px;
 
   .data-table-headers, .data-table-row {
     padding: 18px 16px;
@@ -456,6 +477,12 @@
 
   .data-table-header, .data-table-row-section {
     margin-right: 24px;
+  }
+
+  .data-table-headers {
+    position: sticky;
+    top: 0;
+    background-color: white;
   }
 
   .data-table-row {

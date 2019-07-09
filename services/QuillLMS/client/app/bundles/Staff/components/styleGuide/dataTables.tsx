@@ -286,12 +286,13 @@ export class DataTableWrapper {
       </div>
       <div className="element-container">
         <div>
-          <h4 className="style-guide-h4">Data table with sorting</h4>
+          <h4 className="style-guide-h4">Short data table with sorting</h4>
           <pre>
 {`
 const rows3 = ${JSON.stringify(rows3)}
 const headers3 = ${JSON.stringify(headers3)}
 <DataTable
+  className="short"
   rows={rows3}
   headers={headers3}
   defaultSortAttribute='activities'
@@ -300,6 +301,7 @@ const headers3 = ${JSON.stringify(headers3)}
           </pre>
           <div className="data-tables-container">
             <DataTable
+              className="short"
               rows={rows3}
               headers={headers3}
               defaultSortAttribute='activities'
