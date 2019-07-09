@@ -1,7 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 import ItemDropdown from '../components/general_components/dropdown_selectors/item_dropdown.jsx';
-import $ from 'jquery';
+import { requestGet, requestPost } from '../../../modules/request';
 import ClassroomsStudentsTable from '../components/general_components/classrooms_students_table.jsx';
 import LoadingSpinner from '../components/shared/loading_indicator.jsx';
 import StudentCreatesAccountSection from '../components/invite_users/add_students/StudentCreatesAccountSection.jsx';
@@ -41,7 +41,7 @@ export default React.createClass({
 
   retrieveStudents(classroomId) {
     const that = this;
-    $.ajax({ url: `/teachers/classrooms/${classroomId}/students_list`, }).done((data) => {
+    requestGet(`/teachers/classrooms/${classroomId}/students_list`, (data) => {
       that.setState({ students: data.students, loading: false, });
     });
   },
@@ -74,35 +74,27 @@ export default React.createClass({
     });
 
     const that = this;
-    $.post(`/teachers/classrooms/${this.state.selectedClassroom.id}/students`, {
-      user: {
-        first_name: firstName,
-        last_name: lastName,
-        account_type: 'Teacher Created Account'
-      },
-    })
-
-			.success((data) => {
-  const student = data.user;
-  const students = this.state.students.slice(0);
-  students.unshift(student);
-  that.setState({
-    firstName: '',
-    lastName: '',
-    disabled: false,
-    students,
-    loading: false,
-    errors: null,
-  });
-})
-
-			.fail((jqXHR) => {
-  that.setState({
-    disabled: false,
-    loading: false,
-    errors: jQuery.parseJSON(jqXHR.responseText).error,
-  });
-});
+    requestPost(`/teachers/classrooms/${this.state.selectedClassroom.id}/students`, {
+      user: { first_name: firstName, last_name: lastName, account_type: 'Teacher Created Account' }
+    }, (data) => {
+      const student = data.user;
+      const students = this.state.students.slice(0);
+      students.unshift(student);
+      that.setState({
+        firstName: '',
+        lastName: '',
+        disabled: false,
+        students,
+        loading: false,
+        errors: null,
+      });
+    }, (data) => {
+      that.setState({
+        disabled: false,
+        loading: false,
+        errors: data.error,
+      });
+    });
   },
 
   syncOrModal() {

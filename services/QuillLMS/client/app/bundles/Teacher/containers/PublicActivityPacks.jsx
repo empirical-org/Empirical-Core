@@ -1,5 +1,6 @@
 import React from 'react'
-import $ from 'jquery'
+import $ from 'jquery';
+import { requestGet } from '../../../modules/request';
 import _ from 'underscore'
 import _l from 'lodash'
 import ManageUnits from '../components/lesson_planner/manage_units/manage_units'
@@ -117,13 +118,11 @@ export default React.createClass({
 
   fetchClassrooms: function() {
     var that = this;
-    $.ajax({
-      url: '/teachers/classrooms/retrieve_classrooms_for_assigning_activities',
-      context: this,
-      success: function (data) {
-        that.updateCreateUnit({options: {classrooms: data.classrooms_and_their_students}})
-      }
-    });
+    requestGet('/teachers/classrooms/retrieve_classrooms_for_assigning_activities',
+               (data) => {
+                 that.updateCreateUnit({options: {classrooms: data.classrooms_and_their_students}})
+               }
+    );
   },
 
   getSelectedActivities: function () {

@@ -1,7 +1,7 @@
 'use strict'
 
 import React from 'react'
-import $ from 'jquery'
+import { requestGet, requestPost } from '../../../modules/request';
 import _ from 'underscore'
 import _l from 'lodash'
 import UnitTemplatesAssigned from '../components/lesson_planner/unit_template_assigned'
@@ -96,10 +96,7 @@ export default React.createClass({
 	},
 
 	editUnit: function(unitId) {
-		$.ajax({
-			url: ['/teachers/units/', unitId, '/edit'].join(''),
-			success: this.editUnitRequestSuccess
-		})
+                requestGet(`/teachers/units/${unitId}/edit`, this.editUnitRequestSuccess);
 	},
 
 	editUnitRequestSuccess: function(data) {
@@ -231,17 +228,15 @@ export default React.createClass({
 
 	fetchClassrooms: function() {
 		var that = this;
-		$.ajax({
-			url: '/teachers/classrooms/retrieve_classrooms_for_assigning_activities',
-			context: this,
-			success: function(data) {
+                requestGet('/teachers/classrooms/retrieve_classrooms_for_assigning_activities',
+                            (data) => {
 				that.updateCreateUnit({
 					options: {
 						classrooms: data.classrooms_and_their_students
 					}
 				})
-			}
-		});
+			    }
+		);
 	},
 
 	getInviteStudentsUrl: function() {
@@ -277,18 +272,13 @@ export default React.createClass({
 	},
 
 	fastAssign: function() {
-		$.ajax({
-			url: '/teachers/unit_templates/fast_assign',
-			data: {
-				id: this.state.unitTemplatesManager.model.id
-			},
-			type: 'POST',
-			success: this.onFastAssignSuccess,
-			error: (response) => {
-				const errorMessage = jQuery.parseJSON(response.responseText).error_message
-				window.alert(errorMessage)
-			}
-		})
+                requestPost('/teachers/unit_templates/fast_assign',
+                            {id: this.state.unitTemplatesManager.model.id},
+                            this.onFastAssignSuccess,
+                            (response) => {
+				window.alert(response.error_message);
+			    }
+                );
 	},
 
 
