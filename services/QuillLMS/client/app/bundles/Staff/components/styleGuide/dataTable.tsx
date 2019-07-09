@@ -20,10 +20,11 @@ interface DataTableHeader {
 }
 
 interface DataTableProps {
-  defaultSortAttribute?: string;
-  defaultSortDirection?: string;
   headers: Array<DataTableHeader>;
   rows: Array<DataTableRow>;
+  className?: string;
+  defaultSortAttribute?: string;
+  defaultSortDirection?: string;
   showCheckboxes?: boolean;
   checkRow?: (event: any) => void;
   uncheckRow?: (event: any) => void;
@@ -128,7 +129,7 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
   }
 
   render() {
-    return <div className="data-table">
+    return <div className={`data-table ${this.props.className}`}>
       {this.renderHeaders()}
       {this.renderRows()}
     </div>
