@@ -8,7 +8,7 @@ module CleverIntegration::Importers::SchoolAdminSchools
     parsed_response.each do |s|
       school = CleverIntegration::Creators::School.run(s)
       if school
-        SchoolsAdmins.create(user_id: user.id, school_id: school.id)
+        SchoolsAdmins.find_or_create_by(user_id: user.id, school_id: school.id)
         school
       end
     end
