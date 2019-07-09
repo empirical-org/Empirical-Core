@@ -25,6 +25,13 @@ if (devBuild) {
 
 module.exports = merge(config, {
 
+  entry: {
+    vendor: [
+      // Configures extractStyles to be true if NODE_ENV is production
+      'bootstrap-loader'
+    ],
+  },
+
   mode: devBuild ? 'development' : 'production',
 
   output: {
@@ -58,7 +65,6 @@ module.exports = merge(config, {
     minimizer: [
       new UglifyJsPlugin({
         chunkFilter: (chunk) => {
-          console.log('chunk', chunk.name)
           // Exclude uglification for the `vendor` chunk
           if (chunk.name === 'home') {
             return false;
@@ -78,7 +84,6 @@ module.exports = merge(config, {
         test: /\.css$/,
         use: [
           MiniCssExtractPlugin.loader,
-          // 'style-loader',
           'css-loader',
           'sass-loader'
         ],
@@ -87,7 +92,6 @@ module.exports = merge(config, {
         test: /\.scss$/,
         use: [
           MiniCssExtractPlugin.loader,
-          // 'style-loader',
           'css-loader',
           'sass-loader'
         ],
