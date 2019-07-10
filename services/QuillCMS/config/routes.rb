@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   put 'responses/replace_concept_uids' => 'responses#replace_concept_uids'
   put 'question/:question_uid/reindex_responses_updated_today_for_given_question' => 'responses#reindex_responses_updated_today_for_given_question'
   post 'responses/clone_responses' => 'responses#clone_responses'
+  post 'responses/rematch_all' => 'responses#rematch_all_responses_for_question'
   # Stats controller
   get 'stats/question_health_index' => 'stats#question_health_index'
   get 'stats/diagnostic_question_health_index' => 'stats#diagnostic_question_health_index'

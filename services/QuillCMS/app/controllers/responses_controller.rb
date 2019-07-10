@@ -74,6 +74,11 @@ class ResponsesController < ApplicationController
     render json: @responses
   end
 
+  # POST /questions/rematch_all
+  def rematch_all_responses_for_question
+    RematchResponsesForQuestionWorker.perform_async(params[:question_uid], params[:question_type])
+  end
+
   def multiple_choice_options
     multiple_choice_options = Rails.cache.fetch("questions/#{params[:question_uid]}/multiple_choice_options", :expires_in => 900) do
       optimal_responses = Response.where(question_uid: params[:question_uid], optimal: true).order('count DESC').limit(2).to_a
