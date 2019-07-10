@@ -2,30 +2,19 @@ module TeacherFixes
   extend ActiveSupport::Concern
   include AtomicArrays
 
-  def self.merge_activity_sessions(account1, account2)
-    a1_grouped_activity_sessions = account1.activity_sessions.group_by { |as| as.classroom_unit_id }
-    a2_grouped_activity_sessions = account2.activity_sessions.group_by { |as| as.classroom_unit_id }
+  def self.merge_activity_sessions(primary_account, secondary_account)
+    a1_grouped_activity_sessions = primary_account.activity_sessions.group_by { |as| as.classroom_unit_id }
+    a2_grouped_activity_sessions = secondary_account.activity_sessions.group_by { |as| as.classroom_unit_id }
     a2_grouped_activity_sessions.each do |cu_id, activity_sessions|
       if cu_id
-        activity_sessions.each {|as| as.update_columns(user_id: account1.id) }
+        activity_sessions.each {|as| as.update_columns(user_id: primary_account.id) }
         if a1_grouped_activity_sessions[cu_id]
-          hide_extra_activity_sessions(cu_id, account1.id)
+          primary_account.hide_extra_activity_sessions(cu_id)
         else
-          ClassroomUnit.find_by(id: cu_id).atomic_append(:assigned_student_ids, account1.id)
+          ClassroomUnit.find_by(id: cu_id).atomic_append(:assigned_student_ids, primary_account.id)
         end
       end
     end
-  end
-
-  def self.hide_extra_activity_sessions(ca_id, user_id)
-    ActivitySession.joins("JOIN users ON activity_sessions.user_id = users.id")
-    .joins("JOIN classroom_units ON activity_sessions.classroom_unit_id = classroom_units.id")
-    .where("users.id = ?", user_id)
-    .where("classroom_units.id = ?", ca_id)
-    .where("activity_sessions.visible = true")
-    .order("activity_sessions.is_final_score DESC, activity_sessions.percentage ASC, activity_sessions.started_at")
-    .offset(1)
-    .update_all(visible: false)
   end
 
   def self.same_classroom?(id1, id2)
@@ -97,7 +86,7 @@ module TeacherFixes
           sibling_ca.assigned_student_ids.push(user_id)
           sibling_ca.save
         end
-        hide_extra_activity_sessions(ca.id, user_id)
+        user.hide_extra_activity_sessions(ca.id)
       end
     else
       new_unit_name = "#{user.name}'s Activities from #{classroom_1.name}"
@@ -109,7 +98,7 @@ module TeacherFixes
           as.update(classroom_unit_id: new_cu.id)
           UnitActivity.find_or_create_by(unit_id: unit.id, activity_id: as.activity_id)
         end
-        hide_extra_activity_sessions(ca.id, user_id)
+        user.hide_extra_activity_sessions(ca.id)
       end
     end
   end
@@ -144,7 +133,8 @@ module TeacherFixes
         ca.activity_sessions.update_all(classroom_unit_id: extant_ca.id)
         extant_ca.update(assigned_student_ids: ca.assigned_student_ids.concat(extant_ca.assigned_student_ids).uniq)
         extant_ca.assigned_student_ids.each do |student_id|
-          hide_extra_activity_sessions(extant_ca.id, student_id)
+          student = User.find(student_id)
+          student.hide_extra_activity_sessions(extant_ca.id)
         end
         ca.update(visible: false)
       else

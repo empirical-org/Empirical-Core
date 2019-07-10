@@ -134,20 +134,18 @@ class TeacherFixController < ApplicationController
     user = User.find_by_username_or_email(account_identifier)
     if user
       if user.role == 'student'
-        classroom_1 = Classroom.find_by_code(params['class_code_1'])
-        classroom_2 = Classroom.find_by_code(params['class_code_2'])
-        if classroom_1 && classroom_2
-          classroom_1_students_classrooms = StudentsClassrooms.find_by(student_id: user.id, classroom_id: classroom_1.id)
-          if classroom_1_students_classrooms
-            StudentsClassrooms.unscoped.find_or_create_by(student_id: user.id, classroom_id: classroom_2.id).update(visible: true)
-            TeacherFixes::move_activity_sessions(user, classroom_1, classroom_2)
-            classroom_1_students_classrooms.destroy
+        old_classroom = Classroom.find_by_code(params['class_code_1'])
+        new_classroom = Classroom.find_by_code(params['class_code_2'])
+        if old_classroom && new_classroom
+          old_classroom_students_classrooms = StudentsClassrooms.find_by(student_id: user.id, classroom_id: old_classroom.id)
+          if old_classroom_students_classrooms
+            user.move_student_from_one_class_to_another(old_classroom, new_classroom)
             render json: {}, status: 200
           else
             render json: {error: "#{account_identifier} is not in a classroom with the code #{params['class_code_1']}."}
           end
         else
-          missing_class_code = classroom_1 ? params['class_code_2'] : params['class_code_1']
+          missing_class_code = old_classroom ? params['class_code_2'] : params['class_code_1']
           render json: {error: "We cannot find a class with class code #{missing_class_code}."}
         end
       else
