@@ -11,7 +11,6 @@ case $1 in
       exit 1
     fi
     S3_DEPLOY_BUCKET=s3://aws-website-quill-proofreader
-    # Execute a new build
     npm run build:prod
     ;;
   staging)
@@ -22,7 +21,6 @@ case $1 in
     echo "You must provide an environment argument of either 'staging' or 'prod'."
     exit 1
 esac
-
 
 # Upload build to S3 bucket
 aws s3 sync ./dist ${S3_DEPLOY_BUCKET} --profile peter-aws

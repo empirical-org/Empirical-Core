@@ -4,12 +4,12 @@
 // Run like this:
 // cd client && yarn run build:client
 // Note that Foreman (Procfile.dev) has also been configured to take care of this.
-const webpack = require('webpack');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const merge = require('webpack-merge');
 const config = require('./webpack.client.base.config');
 const { resolve } = require('path');
 const webpackConfigLoader = require('react-on-rails/webpackConfigLoader');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 const configPath = resolve('..', 'config');
 const { output } = webpackConfigLoader(configPath);
@@ -24,18 +24,56 @@ if (devBuild) {
 }
 
 module.exports = merge(config, {
-  // You can add entry points specific to rails here
+
   entry: {
     vendor: [
       // Configures extractStyles to be true if NODE_ENV is production
-      'bootstrap-loader/extractStyles'
+      'bootstrap-loader'
     ],
   },
+
+  mode: devBuild ? 'development' : 'production',
 
   output: {
     filename: '[name]-bundle-[chunkhash].js',
     publicPath: output.publicPath,
     path: output.path,
+  },
+
+  optimization: {
+    splitChunks: {
+      chunks: 'async',
+      minSize: 30000,
+      maxSize: 0,
+      minChunks: Infinity,
+      maxAsyncRequests: 5,
+      maxInitialRequests: 3,
+      automaticNameDelimiter: '~',
+      name: true,
+      cacheGroups: {
+        vendors: {
+          test: /[\\/]node_modules[\\/]/,
+          priority: -10
+        },
+        default: {
+          minChunks: Infinity,
+          priority: -20,
+          reuseExistingChunk: true
+        }
+      }
+    },
+    minimizer: [
+      new UglifyJsPlugin({
+        chunkFilter: (chunk) => {
+          // Exclude uglification for the `vendor` chunk
+          if (chunk.name === 'home') {
+            return false;
+          }
+
+          return true;
+        }
+      }),
+    ]
   },
 
   // See webpack.client.base.config for adding modules common to both webpack dev server and rails
@@ -44,46 +82,19 @@ module.exports = merge(config, {
     rules: [
       {
         test: /\.css$/,
-        loader: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: [
-            {
-              loader: 'css-loader',
-              options: {
-                minimize: true,
-                modules: true,
-                importLoaders: 1,
-                localIdentName: '[local]',
-              },
-            },
-            'postcss-loader',
-          ],
-        }),
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          'sass-loader'
+        ],
       },
       {
         test: /\.scss$/,
-        loader: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: [
-            {
-              loader: 'css-loader',
-              options: {
-                minimize: true,
-                modules: true,
-                importLoaders: 3,
-                localIdentName: '[local]',
-              },
-            },
-            'postcss-loader',
-            'sass-loader',
-            {
-              loader: 'sass-resources-loader',
-              options: {
-                resources: './app/assets/styles/app-variables.scss'
-              },
-            }
-          ],
-        }),
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          'sass-loader'
+        ],
       },
       {
         test: require.resolve('react'),
@@ -108,15 +119,11 @@ module.exports = merge(config, {
   },
 
   plugins: [
-    new ExtractTextPlugin({
+    new MiniCssExtractPlugin({
+      // Options similar to the same options in webpackOptions.output
+      // both options are optional
       filename: '[name]-bundle-[hash].css',
-      allChunks: true
-    }),
-
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
-      filename: 'vendor-bundle-[chunkhash].js',
-      minChunks: Infinity,
+      chunkFilename: '[id].css',
     }),
   ],
 });
