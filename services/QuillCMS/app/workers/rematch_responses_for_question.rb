@@ -1,7 +1,7 @@
 require 'json'
 require 'net/http'
 
-class RematchResponsesForQuestion
+class RematchResponsesForQuestionWorker
   include Sidekiq::Worker
 
   def perform(question_uid, question_type)
@@ -10,9 +10,9 @@ class RematchResponsesForQuestion
     # all of our current algorithms require human graded responses to
     # use as references.
     if count_optimal_human_graded_responses(question_uid)
+      question = retrieve_question_from_firebase(question_uid, question_type)
       responses_to_reprocess = get_ungraded_responses + get_machine_graded_responses
       responses_to_reprocess.each do |response|
-        question = retrieve_question_from_firebase(question_uid, question_type)
         RematchResponse.perform_async(response.id, question_type, question)
       end
     end
