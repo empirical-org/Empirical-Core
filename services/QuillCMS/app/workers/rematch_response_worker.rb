@@ -1,15 +1,23 @@
 require 'json'
 require 'net/http'
 
+MAX_RETRIES = 3
+
 class RematchResponseWorker
   include Sidekiq::Worker
 
-  def perform(response_id, question_type, question, reference_responses)
-    response = Response.find_by(id: response_id)
+  def perform(response, question_type, question, reference_responses, retry_count=0)
     lambda_payload = construct_lambda_payload(response, question_type, question, reference_responses)
     updated_response = call_lambda_http_endpoint(lambda_payload)
-    response.update_attributes(updated_response)
-    response.save
+    if updated_response["message"] == "Endpoint request timed out"
+      if retry_count < MAX_RETRIES
+        RematchResponseWorker.perform_async(response, question_type, question, reference_responses, retry_count+1)
+      else
+        raise "Retry limit exceeded for Response: #{response.id}"
+      end
+    else
+      #response.update_attributes(updated_response)
+    end
   end
 
   def construct_lambda_payload(response, question_type, question, reference_responses)
@@ -22,14 +30,10 @@ class RematchResponseWorker
   end
 
   def call_lambda_http_endpoint(lambda_payload)
-    # "https://p8147zy7qj.execute-api.us-east-1.amazonaws.com/prod"
-    url = URI.parse(ENV['REMATCH_LAMBDA_URL'])
-    req = Net::HTTP::Post.new(url.to_s, {'Content-Type' => 'application/json'}
-    req.body = lambda_payload.to_json
-    res = Net::HTTP.start(url.host, url, port) { |http|
-      http.request(req)
-    }
-    JSON.parse(res.body)
+    resp = Net::HTTP.post URI(ENV['REMATCH_LAMBDA_URL']),
+                          lambda_payload.to_json,
+                          "Content-Type" => "application/json"
+    JSON.parse(resp.body)
   end
 
 end

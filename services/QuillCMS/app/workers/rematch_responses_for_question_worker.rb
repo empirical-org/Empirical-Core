@@ -14,7 +14,7 @@ class RematchResponsesForQuestionWorker
       question = retrieve_question_from_firebase(question_uid, question_type)
       responses_to_reprocess = get_ungraded_responses(question_uid) + get_machine_graded_responses(question_uid)
       responses_to_reprocess.each do |response|
-        enqueue_individual_response(response.id, question_type, question, reference_responses)
+        enqueue_individual_response(response, question_type, question, reference_responses)
       end
       return responses_to_reprocess.length
     end
