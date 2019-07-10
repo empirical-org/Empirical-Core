@@ -34,7 +34,7 @@ const headers2 = [
   {
     name: 'Username',
     attribute: 'username',
-    width: '219px'
+    width: '230px'
   }
 ]
 

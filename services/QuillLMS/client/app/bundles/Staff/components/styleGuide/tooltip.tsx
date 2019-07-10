@@ -3,7 +3,9 @@ import React from 'react'
 interface TooltipProps {
   tooltipText: string,
   tooltipTriggerText: string,
-  tooltipTriggerClass?: string
+  tooltipTriggerTextClass?: string,
+  tooltipTriggerTextStyle?: { [key:string]: any }
+  tooltipTriggerStyle?: { [key:string]: any }
 }
 
 export class Tooltip extends React.Component<TooltipProps, {}> {
@@ -49,15 +51,21 @@ export class Tooltip extends React.Component<TooltipProps, {}> {
   }
 
   render() {
-    const { tooltipText, tooltipTriggerText, tooltipTriggerClass } = this.props
+    const { tooltipText, tooltipTriggerText, tooltipTriggerTextClass, tooltipTriggerStyle, tooltipTriggerTextStyle, } = this.props
     return (
       <span
-        className={`quill-tooltip-trigger ${tooltipTriggerClass}`}
+        className="quill-tooltip-trigger"
         onMouseEnter={this.showTooltip}
         onMouseLeave={this.startTimer}
         ref={node => this.tooltipTrigger = node}
+        style={tooltipTriggerStyle}
       >
-        {tooltipTriggerText}
+        <span
+          className={`${tooltipTriggerTextClass}`}
+          style={tooltipTriggerTextStyle}
+        >
+          {tooltipTriggerText}
+        </span>
         <span
           className="quill-tooltip"
           ref={node => this.tooltip = node}
