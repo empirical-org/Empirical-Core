@@ -7,5 +7,9 @@ exports.handler = (event, context, callback) => {
     callback(null, result)
   }
 
-  rematchIndividualQuestion(response, type, question, referenceResponses, finishRematching)
+  try {
+    rematchIndividualQuestion(response, type, question, referenceResponses, finishRematching)
+  } catch(err) {
+    callback(err);
+  }
 };
