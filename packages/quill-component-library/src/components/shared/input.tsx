@@ -1,8 +1,8 @@
 import React from 'react';
 
 interface InputProps {
-  timesSubmitted: Number;
-  label: string;
+  timesSubmitted?: Number;
+  label?: string;
   error?: string;
   disabled?: boolean;
   className?: string;
@@ -14,6 +14,7 @@ interface InputProps {
   helperText?: string;
   handleChange?: (event: any) => void;
   onClick?: (event: any) => void;
+  characterLimit?: number;
 }
 
 interface InputState {
@@ -108,85 +109,79 @@ export class Input extends React.Component<InputProps, InputState> {
     }
   }
 
+  renderCharacterLimit() {
+    const { characterLimit, value, } = this.props
+    if (characterLimit) {
+      return <div className="character-limit"><span>{value.length}/{characterLimit}</span></div>
+    }
+  }
+
   renderInput() {
     const { inactive, errorAcknowledged} = this.state
-    const { className, label, handleChange, value, placeholder, error, type, id, disabled } = this.props
+    const { className, label, handleChange, value, placeholder, error, type, id, disabled, characterLimit } = this.props
     const hasText = value ? 'has-text' : ''
     const inactiveOrActive = inactive ? 'inactive' : 'active'
+    const sharedClassNames = `input-container  ${inactiveOrActive} ${hasText} ${className}`
+    const commonProps = {
+      id,
+      ref: (input) => { this.input = input; },
+      onChange: handleChange,
+      value,
+      type,
+      placeholder,
+      disabled,
+      maxLength: characterLimit ? characterLimit : 10000
+    }
     if (error) {
       if (errorAcknowledged) {
         return (<div
-            className={`input-container error ${inactiveOrActive} ${hasText} ${className}`}
+            className={`${sharedClassNames} error`}
             ref={node => this.node = node}
             onClick={this.activateInput}
           >
             <label>{label}</label>
-            <input
-              id={id}
-              ref={(input) => { this.input = input; }}
-              onChange={handleChange}
-              value={value}
-              type={type}
-              placeholder={placeholder}
-              disabled={disabled}
-            />
+            <input {...commonProps} />
+            {this.renderHelperText()}
             {this.renderCancelSymbol()}
+            {this.renderCharacterLimit()}
         </div>)
       } else {
         return (
           <div
-            className={`input-container error unacknowledged ${inactiveOrActive} ${hasText} ${className}`}
+          className={`${sharedClassNames} error unacknowledged`}
             onClick={this.acknowledgeError}
             ref={node => this.node = node}
           >
             <label>{label}</label>
-            <input
-              id={id}
-              ref={(input) => { this.input = input; }}
-              onChange={handleChange}
-              value={value}
-              type={type}
-              placeholder={placeholder}
-            />
+            <input {...commonProps} />
             {this.renderCancelSymbol()}
             {this.renderErrorText()}
+            {this.renderCharacterLimit()}
         </div>)
       }
     } else if (inactive) {
       return (
         <div
-          className={`input-container ${inactiveOrActive} ${hasText} ${this.props.className}`}
+          className={sharedClassNames}
           onClick={this.activateInput}
           ref={node => this.node = node}
         >
           <label>{label}</label>
-          <input
-            id={id}
-            ref={(input) => { this.input = input; }}
-            onFocus={this.activateInput}
-            type={type}
-            value={value}
-            disabled={disabled}
-          />
+          <input {...commonProps} onFocus={this.activateInput} />
           {this.renderHelperText()}
+          {this.renderCharacterLimit()}
       </div>)
     } else {
       return (
         <div
-          className={`input-container ${inactiveOrActive} ${hasText} ${className}`}
+          className={sharedClassNames}
           ref={node => this.node = node}
         >
           <label>{label}</label>
-          <input
-            id={id}
-            ref={(input) => { this.input = input; }}
-            onChange={handleChange}
-            value={value}
-            type={type}
-            placeholder={placeholder}
-            onKeyDown={this.handleTab}
-          />
+          <input {...commonProps} onKeyDown={this.handleTab} />
+          {this.renderHelperText()}
           {this.renderCancelSymbol()}
+          {this.renderCharacterLimit()}
       </div>)
     }
   }

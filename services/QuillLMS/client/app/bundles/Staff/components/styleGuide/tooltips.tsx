@@ -1,6 +1,5 @@
 import * as React from 'react'
-import { Tooltip } from './tooltip'
-// import { Tooltip, defaultTooltipTimeout } from 'quill-component-library/dist/componentLibrary'
+import { Tooltip } from 'quill-component-library/dist/componentLibrary'
 
 class Tooltips extends React.Component<any, any> {
   constructor(props) {
