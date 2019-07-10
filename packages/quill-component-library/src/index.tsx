@@ -20,6 +20,7 @@ export {
   ArchivedButton,
   Card,
   CarouselAnimation,
+  DataTable,
   DiagnosticProgressBar,
   DropdownInput,
   Error,
@@ -33,6 +34,7 @@ export {
   Spinner,
   TextEditor,
   TextArea,
+  Tooltip,
   UploadOptimalResponses
 } from './components/shared/index'
 

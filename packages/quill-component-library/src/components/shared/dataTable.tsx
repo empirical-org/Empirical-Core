@@ -5,9 +5,9 @@ import { Tooltip } from './tooltip'
 export const descending = 'desc'
 export const ascending = 'asc'
 
-const indeterminateSrc = `${process.env.CDN_URL}/images/icons/indeterminate.svg`
-const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
-const arrowSrc = `${process.env.CDN_URL}/images/shared/arrow.svg`
+const indeterminateSrc = 'https://assets.quill.org/images/icons/indeterminate.svg'
+const smallWhiteCheckSrc = 'https://assets.quill.org/images/shared/check-small-white.svg'
+const arrowSrc = 'https://assets.quill.org/images/shared/arrow.svg'
 
 interface DataTableRow {
   id: number|string;
