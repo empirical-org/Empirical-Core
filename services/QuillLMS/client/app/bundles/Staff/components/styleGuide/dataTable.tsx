@@ -1,5 +1,7 @@
 import * as React from 'react'
 
+import { Tooltip } from './tooltip'
+
 export const descending = 'desc'
 export const ascending = 'asc'
 
@@ -99,10 +101,18 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
 
   renderHeaders() {
     const headers = this.props.headers.map(header => {
-      const sortArrow = header.isSortable ? <img className={`sort-arrow ${this.state.sortDirection}`} onClick={this.changeSortDirection} src={arrowSrc} /> : null
+      let sortArrow, onClick
+      let style: { width: string, textAlign: string, color?: string, cursor?: string } = { width: `${header.width}`, textAlign: `${this.attributeAlignment(header.attribute)}`}
+      if (header.isSortable) {
+        onClick = this.changeSortDirection
+        sortArrow = <img className={`sort-arrow ${this.state.sortDirection}`} onClick={this.changeSortDirection} src={arrowSrc} />
+        style.color = '#000'
+        style.cursor = 'pointer'
+      }
       return <span
+        onClick={onClick}
         className="data-table-header"
-        style={{ width: `${header.width}`, textAlign: `${this.attributeAlignment(header.attribute)}`}}
+        style={style}
         >
           {sortArrow}
           {header.name}
@@ -115,14 +125,29 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     const headers = this.props.headers
     const rows = this.sortRows().map(row => {
       const rowClassName = `data-table-row ${row.checked ? 'checked' : ''}`
-      const rowSections = headers.map(header => (
-        <span
-          className="data-table-row-section"
-          style={{ width: `${header.width}`, textAlign: `${this.attributeAlignment(header.attribute)}`}}
-        >
-          {row[header.attribute]}
-        </span>
-      ))
+      const rowSections = headers.map(header => {
+        const style: { width: string, textAlign: string, marginRight?: string } = { width: `${header.width}`, textAlign: `${this.attributeAlignment(header.attribute)}`}
+        const sectionText = row[header.attribute]
+        const headerWidthNumber = Number(header.width.slice(0, -2))
+        if ((String(sectionText).length * 7) >= headerWidthNumber) {
+          style.marginRight = '24px'
+          const tooltipTriggerTextStyle = { ...style, display: 'inline-block' }
+          return <Tooltip
+            tooltipTriggerTextClass="data-table-row-section"
+            tooltipTriggerText={sectionText}
+            tooltipText={sectionText}
+            tooltipTriggerStyle={style}
+            tooltipTriggerTextStyle={tooltipTriggerTextStyle}
+          />
+        } else {
+          return <span
+            className="data-table-row-section"
+            style={style}
+          >
+            {sectionText}
+          </span>
+        }
+      })
       return <div className={rowClassName}>{this.renderRowCheckbox(row)}{rowSections}</div>
     })
     return <div className="data-table-body">{rows}</div>
