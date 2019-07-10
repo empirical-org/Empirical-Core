@@ -9,20 +9,30 @@ class RematchResponsesForQuestionWorker
     # then there's no point in algorithmically processing them because
     # all of our current algorithms require human graded responses to
     # use as references.
-    if count_optimal_human_graded_responses(question_uid)
+    reference_responses = get_human_graded_responses(question_uid).to_a
+    if reference_responses.length
       question = retrieve_question_from_firebase(question_uid, question_type)
       responses_to_reprocess = get_ungraded_responses + get_machine_graded_responses
       responses_to_reprocess.each do |response|
-        RematchResponse.perform_async(response.id, question_type, question)
+        enqueue_individual_response(response.id, question_type, question, reference_responses)
       end
     end
   end
 
-  def count_optimal_human_graded_responses(question_uid)
+  def enqueue_individual_response(response_id, question_type, question, reference_responses)
+    return [
+      response_id,
+      question_type,
+      question,
+      reference_responses
+    ]
+    #RematchResponse.perform_async(response_id, question_type, question, reference_responses)
+  end
+
+  def get_human_graded_responses(question_uid)
     Response.where(question_uid: question_uid)
-            .where(optimal: true)
+            .where.not(optimal: nil)
             .where(parent_id: nil)
-            .count
   end
 
   def get_ungraded_responses(question_uid)
