@@ -2,7 +2,6 @@ require 'elasticsearch/model'
 
 class Response < ApplicationRecord
   include Elasticsearch::Model
-  include Elasticsearch::Model::Callbacks
   after_create_commit :create_index_in_elastic_search
   after_update_commit :update_index_in_elastic_search
   after_commit :clear_responses_route_cache
