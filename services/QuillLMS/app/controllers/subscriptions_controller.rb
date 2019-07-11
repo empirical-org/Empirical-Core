@@ -1,5 +1,6 @@
 class SubscriptionsController < ApplicationController
   before_action :set_subscription, except: [:index, :create]
+  before_action :require_user, only: [:index]
 
   def index
     set_index_variables
@@ -88,7 +89,6 @@ class SubscriptionsController < ApplicationController
   def subscription_params
     params.require(:subscription).permit(:id, :purchaser_id, :expiration, :account_type, :authenticity_token, :recurring)
   end
-
 
   def set_subscription
     @subscription = current_user.subscriptions.find(params[:id])

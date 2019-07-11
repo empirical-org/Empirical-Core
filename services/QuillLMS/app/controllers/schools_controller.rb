@@ -1,4 +1,6 @@
 class SchoolsController < ApplicationController
+  before_action :require_user, only: [:select_school]
+
   include CheckboxCallback
   MIN_PREFIX_LENGHT_WHEN_LAT_LON_NOT_PRESENT = 4
 
