@@ -112,8 +112,8 @@ class Teachers::ClassroomUnitsController < ApplicationController
   end
 
   def authorize!
-    @classroom_unit = ClassroomUnit.find params[:id]
-    if @classroom_unit.classroom.teacher_ids.exclude?(current_user.id) then auth_failed end
+    @classroom_unit = ClassroomUnit.find_by(id: params[:id]) 
+    if !current_user || @classroom_unit.classroom.teacher_ids.exclude?(current_user.id) then auth_failed end
   end
 
 
