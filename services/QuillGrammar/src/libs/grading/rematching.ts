@@ -48,7 +48,8 @@ interface ConceptResults {
 // }
 
 export function rematchAll(mode: string, questionID: string, callback:Function) {
-  fetch('https://p8147zy7qj.execute-api.us-east-1.amazonaws.com/prod', {
+  const rematchAllUrl = `${process.env.QUILL_CMS}/responses/rematch_all`;
+  fetch(rematchAllUrl, {
     method: 'POST',
     body: JSON.stringify({ type: 'grammar_questions', uid: questionID}),
     headers: {
