@@ -1,6 +1,7 @@
 const env = process.env.NODE_ENV;
 const live = (env === 'production' || env === 'staging');
 const AssetsPlugin = require('assets-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 const assetsPluginInstance = new AssetsPlugin();
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -61,7 +62,8 @@ module.exports = {
           reuseExistingChunk: true
         }
       }
-    }
+    },
+    minimizer: [new UglifyJsPlugin()]
   },
   plugins: [
     assetsPluginInstance,
@@ -71,12 +73,13 @@ module.exports = {
       filename: '[name].css',
       chunkFilename: '[id].css',
     }),
-    new webpack.EnvironmentPlugin({
-      NODE_ENV: 'development',
-      EMPIRICAL_BASE_URL: 'http://localhost:3000',
-      QUILL_CMS: 'http://localhost:3100',
-      PUSHER_KEY: 'a253169073ce7474f0ce',
-      FIREBASE_APP_NAME: 'quillconnectstaging',
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'development'),
+        EMPIRICAL_BASE_URL: JSON.stringify(process.env.EMPIRICAL_BASE_URL || 'http://localhost:3000'),
+        QUILL_CMS: JSON.stringify(process.env.QUILL_CMS || 'http://localhost:3100'),
+        PUSHER_KEY: JSON.stringify('a253169073ce7474f0ce')
+      }
     }),
     new HtmlWebpackPlugin({
       template: './index.html.ejs',
@@ -146,5 +149,5 @@ module.exports = {
     net: 'empty',
     tls: 'empty',
   },
-  devtool: 'eval',
+  devtool: live ? false : 'eval',
 };

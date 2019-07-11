@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`the GoogleClassroomsList component should render 1`] = `
-<_class
+<_default
   classrooms={
     Array [
       Object {
@@ -2100,5 +2100,5 @@ exports[`the GoogleClassroomsList component should render 1`] = `
       Sync Classrooms
     </button>
   </div>
-</_class>
+</_default>
 `;
