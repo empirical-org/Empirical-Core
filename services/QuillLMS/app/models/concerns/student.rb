@@ -34,6 +34,63 @@ module Student
       (avg_str.to_f * 100).to_i
     end
 
+    def move_student_from_one_class_to_another(old_classroom, new_classroom)
+      StudentsClassrooms.unscoped.find_or_create_by(student_id: self.id, classroom_id: new_classroom.id).update(visible: true)
+      self.move_activity_sessions(old_classroom, new_classroom)
+      old_classroom_students_classrooms = StudentsClassrooms.find_by(student_id: self.id, classroom_id: old_classroom.id)
+      # a callback on the students classroom model will remove the student from any associated classroom units
+      old_classroom_students_classrooms.update(visible: false)
+    end
+
+    def move_activity_sessions(old_classroom, new_classroom)
+      old_classroom_id = old_classroom.id
+      new_classroom_id = new_classroom.id
+      user_id = self.id
+
+      classroom_units = ClassroomUnit
+      .joins("JOIN activity_sessions ON classroom_units.id = activity_sessions.classroom_unit_id")
+      .joins("JOIN users ON activity_sessions.user_id = users.id")
+      .where("users.id = ?", user_id)
+      .where("classroom_units.classroom_id = ?", old_classroom_id)
+      .group("classroom_units.id")
+
+      if (old_classroom.owner.id == new_classroom.owner.id)
+        classroom_units.each do |cu|
+          sibling_cu = ClassroomUnit.find_or_create_by(unit_id: cu.unit_id, classroom_id: new_classroom_id)
+          ActivitySession.where(classroom_unit_id: ca.id, user_id: user_id).each do |as|
+            as.update(classroom_unit_id: sibling_cu.id)
+            sibling_cu.assigned_student_ids.push(user_id)
+            sibling_cu.save
+          end
+          hide_extra_activity_sessions(cu.id)
+        end
+      else
+        new_unit_name = "#{self.name}'s Activities from #{old_classroom.name}"
+        unit = Unit.create(user_id: new_classroom.owner.id, name: new_unit_name)
+        classroom_units.each do |cu|
+          new_cu = ClassroomUnit.find_or_create_by(unit_id: unit.id, classroom_id: new_classroom_id, assigned_student_ids: [user_id])
+
+          ActivitySession.where(classroom_unit_id: cu.id, user_id: user_id).each do |as|
+            as.update(classroom_unit_id: new_cu.id)
+            UnitActivity.find_or_create_by(unit_id: unit.id, activity_id: as.activity_id)
+          end
+
+          hide_extra_activity_sessions(cu.id)
+        end
+      end
+    end
 
   end
+
+  def hide_extra_activity_sessions(classroom_unit_id)
+    ActivitySession.joins("JOIN users ON activity_sessions.user_id = users.id")
+    .joins("JOIN classroom_units ON activity_sessions.classroom_unit_id = classroom_units.id")
+    .where("users.id = ?", self.id)
+    .where("classroom_units.id = ?", classroom_unit_id)
+    .where("activity_sessions.visible = true")
+    .order("activity_sessions.is_final_score DESC, activity_sessions.percentage ASC, activity_sessions.started_at")
+    .offset(1)
+    .update_all(visible: false)
+  end
+
 end
