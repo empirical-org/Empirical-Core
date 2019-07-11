@@ -79,26 +79,21 @@ class TeacherFixController < ApplicationController
   end
 
   def merge_student_accounts
-    account1 = User.find_by_username_or_email(params['account_1_identifier'])
-    account2 = User.find_by_username_or_email(params['account_2_identifier'])
-    if account1 && account2
-      if account1.role === 'student' && account2.role === 'student'
-        if TeacherFixes::same_classroom?(account1.id, account2.id)
-          if account2.classrooms.length == 1
-            TeacherFixes::merge_activity_sessions(account1, account2)
-            render json: {}, status: 200
-          else
-            render json: {error: "#{params['account_2_identifier']} is in more than one classroom."}
-          end
+    primary_account = User.find_by_username_or_email(params['account_1_identifier'])
+    secondary_account = User.find_by_username_or_email(params['account_2_identifier'])
+    if primary_account && secondary_account
+      if primary_account.role === 'student' && secondary_account.role === 'student'
+        if primary_account.merge_student_account(account2)
+          render json: {}, status: 200
         else
-          render json: {error: "These students are not in the same classroom."}
+          render json: {error: "These students are not in the same classrooms."}
         end
       else
-        nonstudent_account_identifier = account1.role === 'student' ? params['account_2_identifier'] : params['account_1_identifier']
+        nonstudent_account_identifier = primary_account.role === 'student' ? params['account_2_identifier'] : params['account_1_identifier']
         render json: {error: "#{nonstudent_account_identifier} is not a student."}
       end
     else
-      missing_account_identifier = account1 ? params['account_2_identifier'] : params['account_1_identifier']
+      missing_account_identifier = primary_account ? params['account_2_identifier'] : params['account_1_identifier']
       render json: {error: "We do not have an account for #{missing_account_identifier}"}
     end
   end

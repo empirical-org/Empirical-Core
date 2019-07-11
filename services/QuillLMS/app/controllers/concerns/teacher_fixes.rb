@@ -2,29 +2,6 @@ module TeacherFixes
   extend ActiveSupport::Concern
   include AtomicArrays
 
-  def self.merge_activity_sessions(primary_account, secondary_account)
-    a1_grouped_activity_sessions = primary_account.activity_sessions.group_by { |as| as.classroom_unit_id }
-    a2_grouped_activity_sessions = secondary_account.activity_sessions.group_by { |as| as.classroom_unit_id }
-    a2_grouped_activity_sessions.each do |cu_id, activity_sessions|
-      if cu_id
-        activity_sessions.each {|as| as.update_columns(user_id: primary_account.id) }
-        if a1_grouped_activity_sessions[cu_id]
-          primary_account.hide_extra_activity_sessions(cu_id)
-        else
-          ClassroomUnit.find_by(id: cu_id).atomic_append(:assigned_student_ids, primary_account.id)
-        end
-      end
-    end
-  end
-
-  def self.same_classroom?(id1, id2)
-    ActiveRecord::Base.connection.execute("SELECT A.student_id, B.student_id, A.classroom_id
-      FROM students_classrooms A, students_classrooms B
-      WHERE A.student_id = #{ActiveRecord::Base.sanitize(id1)}
-      AND B.student_id = #{ActiveRecord::Base.sanitize(id2)}
-      AND A.classroom_id = B.classroom_id").to_a.any?
-  end
-
   def self.merge_two_units(unit_1, unit_2)
     # move all additional information from unit_1 into unit_2
     # and then delete unit_1

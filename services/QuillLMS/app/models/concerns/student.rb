@@ -93,4 +93,74 @@ module Student
     .update_all(visible: false)
   end
 
+  def merge_student_account(secondary_account, teacher_id=nil)
+    if same_classrooms_as_other_student(secondary_account.id, teacher_id)
+      merge_activity_sessions(secondary_account, teacher_id)
+      secondary_account.remove_student_classrooms(teacher_id)
+    elsif teacher_id
+      teachers_classroom_ids = ClassroomsTeacher.where(user_id: teacher_id, role: 'owner').map(&:classroom_id)
+      StudentsClassrooms.where(student_id: secondary_account.id, classroom_id: teachers_classroom_ids).each do |sc|
+        StudentsClassrooms.find_or_create_by(student_id: self.id, classroom_id: sc.classroom_id)
+      end
+      merge_activity_sessions(secondary_account, teacher_id)
+      secondary_account.remove_student_classrooms(teacher_id)
+    else
+      false
+    end
+  end
+
+  def merge_activity_sessions(secondary_account, teacher_id=nil)
+    primary_account_activity_sessions = self.activity_sessions
+    secondary_account_activity_sessions = secondary_account.activity_sessions
+
+    if teacher_id
+      primary_account_activity_sessions = primary_account_activity_sessions.select { |as| as.classroom_unit.unit.user_id == teacher_id }
+      secondary_account_activity_sessions = secondary_account_activity_sessions.select { |as| as.classroom_unit.unit.user_id == teacher_id }
+    end
+
+    primary_account_grouped_activity_sessions = primary_account_activity_sessions.group_by { |as| as.classroom_unit_id }
+    secondary_account_grouped_activity_sessions = secondary_account_activity_sessions.group_by { |as| as.classroom_unit_id }
+
+    secondary_account_grouped_activity_sessions.each do |cu_id, activity_sessions|
+      if cu_id
+        activity_sessions.each {|as| as.update_columns(user_id: self.id) }
+        if primary_account_grouped_activity_sessions[cu_id]
+          self.hide_extra_activity_sessions(cu_id)
+        else
+          cu = ClassroomUnit.find_by(id: cu_id)
+          cu.update(assigned_student_ids: cu.assigned_student_ids.push(self.id))
+        end
+      end
+    end
+  end
+
+  def remove_student_classrooms(teacher_id=nil)
+    students_classrooms = StudentsClassrooms.where(student_id: self.id)
+    if teacher_id
+      students_classrooms = students_classrooms.select { |sc| sc.classroom.owner.id == teacher_id }
+    end
+    students_classrooms.each { |sc| sc.update(visible: false) }
+  end
+
+  def same_classrooms_as_other_student(other_student_id, teacher_id=nil)
+    shared_classroom_length = classrooms_shared_with_other_student(other_student_id, teacher_id).length
+    other_students_classrooms = StudentsClassrooms.where(student_id: other_student_id)
+    if teacher_id
+      other_students_classrooms = other_students_classrooms.select { |sc| sc.classroom.owner.id == teacher_id }
+    end
+    shared_classroom_length == other_students_classrooms.length
+  end
+
+  def classrooms_shared_with_other_student(other_student_id, teacher_id=nil)
+    classroom_ids = ActiveRecord::Base.connection.execute("SELECT A.classroom_id
+      FROM students_classrooms A, students_classrooms B
+      WHERE A.student_id = #{ActiveRecord::Base.sanitize(self.id)}
+      AND B.student_id = #{ActiveRecord::Base.sanitize(other_student_id)}
+      AND A.classroom_id = B.classroom_id").to_a
+    if teacher_id
+      classroom_ids = classroom_ids.select { |classroom_id_hash| Classroom.find(classroom_id_hash['classroom_id']).owner.id == teacher_id}
+    end
+    classroom_ids
+  end
+
 end
