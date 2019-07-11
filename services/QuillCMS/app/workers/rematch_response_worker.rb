@@ -23,6 +23,7 @@ class RematchResponseWorker
         raise "Retry limit exceeded for Response: #{response.id}"
       end
     else
+      updated_response.delete("created_at")
       response.update_attributes(updated_response)
     end
   end
