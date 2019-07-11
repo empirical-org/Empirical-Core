@@ -83,7 +83,7 @@ class TeacherFixController < ApplicationController
     secondary_account = User.find_by_username_or_email(params['account_2_identifier'])
     if primary_account && secondary_account
       if primary_account.role === 'student' && secondary_account.role === 'student'
-        if primary_account.merge_student_account(account2)
+        if primary_account.merge_student_account(secondary_account)
           render json: {}, status: 200
         else
           render json: {error: "These students are not in the same classrooms."}

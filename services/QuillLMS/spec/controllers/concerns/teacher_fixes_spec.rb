@@ -43,15 +43,6 @@ describe TeacherFixes do
         # end
       end
 
-      describe("#same_classroom?") do
-        it 'returns true if the students are in the same classroom' do
-          expect(TeacherFixes::same_classroom?(student1.id, student2.id)).to be true
-        end
-        it 'returns false if the students are not in the same classroom' do
-          expect(TeacherFixes::same_classroom?(student1.id, student3.id)).to be false
-        end
-      end
-
       describe '#merge_two_schools' do
         let!(:school) { create(:school) }
         let!(:other_school) { create(:school) }
