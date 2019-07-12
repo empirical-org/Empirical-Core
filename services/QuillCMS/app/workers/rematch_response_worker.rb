@@ -41,7 +41,7 @@ class RematchResponseWorker
     uri = URI(ENV['REMATCH_LAMBDA_URL'])
     http = Net::HTTP.new(uri.host)
     http.use_ssl = true
-    resp = http.post URI(ENV['REMATCH_LAMBDA_URL']),
+    resp = http.post uri,
                      lambda_payload.to_json,
                      "Content-Type" => "application/json"
     JSON.parse(resp.body)
