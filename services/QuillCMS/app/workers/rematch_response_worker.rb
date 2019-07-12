@@ -58,7 +58,11 @@ class RematchResponseWorker
     uri = URI(url)
     http = Net::HTTP.new(uri.host)
     http.use_ssl = true
-    resp = http.get uri
+    begin
+      resp = http.get uri
+    rescue
+      raise ArgumentError.new("URI: #{uri}")
+    end
     question = JSON.parse(resp.body)
     question[:key] = question_uid
     question.stringify_keys
