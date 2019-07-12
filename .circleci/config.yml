@@ -132,6 +132,7 @@ jobs:
           name: Copy Config files
           command: |
             cd services/QuillCMS
+            cp .env-sample .env
             cp config/database.yml.circle config/database.yml
       - run:
           name: Set up DB
