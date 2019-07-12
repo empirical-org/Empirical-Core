@@ -22,13 +22,17 @@
   },
 
   render: function () {
-    const label = <div className={this.generateClassName()}>{this.props.data.name.toUpperCase()}</div>
-    if (this.props.isLink) {
-      return (
-        <Link to={this.getLink()}>{label}</Link>
-      )
+    if (this.props.data.name) {
+      const label = <div className={this.generateClassName()}>{this.props.data.name.toUpperCase()}</div>
+      if (this.props.isLink) {
+        return (
+          <Link to={this.getLink()}>{label}</Link>
+        )
+      } else {
+        return label
+      }
     } else {
-      return label
+      return null
     }
   }
 });
