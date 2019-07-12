@@ -4,6 +4,7 @@ require 'webmock/rspec'
 
 describe RematchResponseWorker do
   ENV['REMATCH_LAMBDA_URL'] = 'https://fake.url'
+  ENV['FIREBASE_URL'] = 'https://fake.url'
   WebMock.disable_net_connect!(allow_localhost: true)
 
   sample_lambda_response = {
