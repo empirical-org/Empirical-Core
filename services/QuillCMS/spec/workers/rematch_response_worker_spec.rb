@@ -150,7 +150,7 @@ describe RematchResponseWorker do
 
   describe "#retrieve_question_from_firebase" do
     it 'should make an http request and return the question payload' do
-      stub_request(:get, /#{ENV['FIREBASE_URL']}.*json/).
+      stub_request(:get, /#{ENV['FIREBASE_URL']}/).
         to_return(status: 200, body: sample_payload["question"].to_json, headers: {})
 
       response = subject.retrieve_question_from_firebase(sample_payload["question"]["key"], sample_payload["question_type"])

@@ -38,9 +38,12 @@ class RematchResponseWorker
   end
 
   def call_lambda_http_endpoint(lambda_payload)
-    resp = Net::HTTP.post URI(ENV['REMATCH_LAMBDA_URL']),
-                          lambda_payload.to_json,
-                          "Content-Type" => "application/json"
+    uri = URI(ENV['REMATCH_LAMBDA_URL'])
+    http = Net::HTTP.new(uri.host)
+    http.use_ssl = true
+    resp = http.post URI(ENV['REMATCH_LAMBDA_URL']),
+                     lambda_payload.to_json,
+                     "Content-Type" => "application/json"
     JSON.parse(resp.body)
   end
 
@@ -52,8 +55,11 @@ class RematchResponseWorker
 
   def retrieve_question_from_firebase(question_uid, question_type)
     url = get_firebase_url(question_uid, question_type)
-    res = Net::HTTP.get URI(url)
-    question = JSON.parse(res)
+    uri = URI(url)
+    http = Net::HTTP.new(uri.host)
+    http.use_ssl = true
+    resp = http.get uri
+    question = JSON.parse(resp.body)
     question[:key] = question_uid
     question.stringify_keys
   end
