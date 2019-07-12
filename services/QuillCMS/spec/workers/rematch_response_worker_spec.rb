@@ -153,7 +153,7 @@ describe RematchResponseWorker do
       stub_request(:get, /#{ENV['FIREBASE_URL']}/).
         to_return(status: 200, body: sample_payload["question"].to_json, headers: {})
 
-      response = subject.retrieve_question_from_firebase(sample_payload["question"]["key"], sample_payload["question_type"])
+      response = subject.retrieve_question_from_firebase(sample_payload["question"]["key"], sample_payload["type"])
       expect(response).to eq(sample_payload["question"])
     end
 
