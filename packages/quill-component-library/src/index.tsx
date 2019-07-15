@@ -20,6 +20,7 @@ export {
   ArchivedButton,
   Card,
   CarouselAnimation,
+  DataTable,
   DiagnosticProgressBar,
   DropdownInput,
   Error,
@@ -32,7 +33,8 @@ export {
   defaultSnackbarTimeout,
   Spinner,
   TextEditor,
-  TextField,
+  TextArea,
+  Tooltip,
   UploadOptimalResponses
 } from './components/shared/index'
 
