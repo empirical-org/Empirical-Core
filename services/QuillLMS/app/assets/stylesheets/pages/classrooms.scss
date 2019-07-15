@@ -7,5 +7,31 @@
   .header {
     display: flex;
     justify-content: space-between;
+    margin-bottom: 56px;
+  }
+  .buttons {
+    display: flex;
+    .import-from-google-button {
+      width: 242px;
+      white-space: nowrap;
+    }
+    .create-a-class-button {
+      width: 129px;
+      white-space: nowrap;
+      margin-left: 24px;
+    }
+  }
+  .no-active-classes {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    p {
+      font-size: 14px;
+      line-height: 1.57;
+      text-align: center;
+      color: #646464;
+      margin-top: 24px;
+      width: 461px;
+    }
   }
 }
