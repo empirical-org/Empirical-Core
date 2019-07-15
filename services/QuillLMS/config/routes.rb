@@ -253,6 +253,8 @@ EmpiricalGrammar::Application.routes.draw do
       collection do
         get :classrooms_i_teach
         get :regenerate_code
+        get :new_index
+        get :archived, action: 'new_index'
         get :archived_classroom_manager_data, controller: "classroom_manager", action: 'archived_classroom_manager_data'
         get :manage_archived_classrooms, controller: "classroom_manager", action: 'manage_archived_classrooms'
         get :lesson_planner, controller: "classroom_manager", action: 'lesson_planner', path: 'activity_planner'

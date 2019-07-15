@@ -15,6 +15,11 @@ class Teachers::ClassroomsController < ApplicationController
     end
   end
 
+  def new_index
+    # @classrooms = current_user.classrooms_i_teach
+    @classrooms = []
+  end
+
   def new
     class_ids = current_user.classrooms_i_teach.map(&:id)
     @user = current_user

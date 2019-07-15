@@ -3,6 +3,10 @@ module NavigationHelper
     ['dashboard', 'my_account', 'teacher_guide', 'google_sync'].include?(action_name) || (controller_name == 'subscriptions' && action_name == 'index') || controller_name == 'referrals'
   end
 
+  def new_classes_page_should_be_active?
+    controller.class == Teachers::ClassroomsController && action_name == 'new_index'
+  end
+
   def classes_page_should_be_active?
     (controller.class == Teachers::ClassroomsController ||
     controller_name == 'students' ||

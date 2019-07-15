@@ -1,3 +1,5 @@
+<% current_path = request.env['PATH_INFO'] %>
+
 <div class="full-screen bg-quillgreen">
   <div class="q-nav-bar">
     <ul class="desktop-nav-list" role="tablist" id="teacher-nav-tabs">
@@ -52,7 +54,10 @@
           <li><%= active_link_to 'Teacher Guide', teachers_teacher_guide_path %></li>
         <% end %>
 
-        <% if classes_page_should_be_active? %>
+        <% if new_classes_page_should_be_active? %>
+          <li><%= link_to 'Active Classes', '/teachers/classrooms/new_index', class: !current_path.include?('archived') ? 'active' : '' %></li>
+          <li><%= link_to 'Archived Classes', '/teachers/classrooms/archived', class: current_path.include?('archived') ? 'active' : '' %></li>
+        <% elsif classes_page_should_be_active? %>
           <% if current_user.has_classrooms? || current_user.archived_classrooms.any? || current_user.coteacher_invitations.any? %>
             <li><%= link_to 'Manage Classes', teachers_classrooms_path, class: (%w(index edit google_sync).include?(action_name)) ? 'active' : '' %></li>
             <li><%= link_to 'Invite Students', (invite_students_teachers_classrooms_path), class: ((action_name == 'invite_students')) ? 'active' : '' %></li>
@@ -61,7 +66,7 @@
         <% end %>
 
         <% if student_reports_page_should_be_active? %>
-       
+
           <%# <li> %>
             <%# active_link_to 'Real-time', '/teachers/progress_reports/real_time', class: 'default' %>
           <%# </li>  %>
