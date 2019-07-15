@@ -41,6 +41,8 @@
     display: flex;
     justify-content: flex-end;
     font-size: 12px;
+    line-height: 1;
+    margin-top: -2px;
   }
 
   label {
@@ -53,6 +55,15 @@
     -o-transition: all 0.2s ease-in;
     transition: all 0.2s ease-in;
   }
+
+  .helper-text {
+    font-size: 12px;
+    font-weight: 600;
+    color: #7f7f7f;
+    margin-top: -2px;
+    line-height: 1;
+  }
+
   .dropdown {
     margin-bottom: 8px;
     &:focus {
@@ -198,11 +209,6 @@
       font-size: 16px;
       margin-bottom: 4px;
       font-weight: normal;
-    }
-    .helper-text {
-      font-size: 12px;
-      font-weight: 600;
-      color: #7f7f7f;
     }
     .dropdown {
       border-bottom: none;

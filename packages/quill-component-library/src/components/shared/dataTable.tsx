@@ -1,13 +1,17 @@
 import * as React from 'react'
+import * as CSS from 'csstype'
 
 import { Tooltip } from './tooltip'
 
 export const descending = 'desc'
 export const ascending = 'asc'
 
-const indeterminateSrc = `${process.env.CDN_URL}/images/icons/indeterminate.svg`
-const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
-const arrowSrc = `${process.env.CDN_URL}/images/shared/arrow.svg`
+const left: CSS.TextAlignProperty = "left"
+const right: CSS.TextAlignProperty = "right"
+
+const indeterminateSrc = 'https://assets.quill.org/images/icons/indeterminate.svg'
+const smallWhiteCheckSrc = 'https://assets.quill.org/images/shared/check-small-white.svg'
+const arrowSrc = 'https://assets.quill.org/images/shared/arrow.svg'
 
 interface DataTableRow {
   id: number|string;
@@ -51,9 +55,9 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     this.changeSortDirection = this.changeSortDirection.bind(this)
   }
 
-  attributeAlignment(attributeName) {
+  attributeAlignment(attributeName): CSS.TextAlignProperty {
     const numbersRegex = new RegExp(/^[\d#%\.\$]+$/)
-    return this.props.rows.every(row => numbersRegex.test(row[attributeName])) ? 'right' : 'left'
+    return this.props.rows.every(row => numbersRegex.test(row[attributeName])) ? right : left
   }
 
   changeSortDirection() {
@@ -102,7 +106,7 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
   renderHeaders() {
     const headers = this.props.headers.map(header => {
       let sortArrow, onClick
-      let style: { width: string, textAlign: string, color?: string, cursor?: string } = { width: `${header.width}`, textAlign: `${this.attributeAlignment(header.attribute)}`}
+      let style: React.CSSProperties = { width: `${header.width}`, textAlign: `${this.attributeAlignment(header.attribute)}` as CSS.TextAlignProperty }
       if (header.isSortable) {
         onClick = this.changeSortDirection
         sortArrow = <img className={`sort-arrow ${this.state.sortDirection}`} onClick={this.changeSortDirection} src={arrowSrc} />
@@ -112,7 +116,7 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
       return <span
         onClick={onClick}
         className="data-table-header"
-        style={style}
+        style={style as any}
         >
           {sortArrow}
           {header.name}
@@ -126,7 +130,7 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     const rows = this.sortRows().map(row => {
       const rowClassName = `data-table-row ${row.checked ? 'checked' : ''}`
       const rowSections = headers.map(header => {
-        const style: { width: string, textAlign: string, marginRight?: string } = { width: `${header.width}`, textAlign: `${this.attributeAlignment(header.attribute)}`}
+        const style: React.CSSProperties = { width: `${header.width}`, textAlign: `${this.attributeAlignment(header.attribute)}` as CSS.TextAlignProperty }
         const sectionText = row[header.attribute]
         const headerWidthNumber = Number(header.width.slice(0, -2))
         if ((String(sectionText).length * 7) >= headerWidthNumber) {
@@ -142,7 +146,7 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
         } else {
           return <span
             className="data-table-row-section"
-            style={style}
+            style={style as any}
           >
             {sectionText}
           </span>
