@@ -1,28 +1,24 @@
 const webpack = require('webpack');
 const path = require('path');
-const autoprefixer = require('autoprefixer');
 const ManifestPlugin = require('webpack-manifest-plugin');
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 const devBuild = process.env.RAILS_ENV === 'development';
+const railsEnv = process.env.RAILS_ENV || process.env.NODE_ENV
 const firebaseApiKey = process.env.FIREBASE_API_KEY;
 const firebaseDatabaseUrl = process.env.FIREBASE_DATABASE_URL;
 const pusherKey = process.env.PUSHER_KEY;
 const defaultUrl = process.env.DEFAULT_URL;
 const cdnUrl = process.env.CDN_URL;
-const { resolve, join, } = require('path');
+const { join, } = require('path');
 const webpackConfigLoader = require('react-on-rails/webpackConfigLoader');
 
-console.log('Directory: ', __dirname);
-
 const configPath = join(__dirname, '..', 'config');
-console.log('Directory: ', configPath);
 const { output, } = webpackConfigLoader(configPath);
-const nodeEnv = devBuild ? 'development' : 'production';
+const mode = devBuild ? 'development' : 'production';
 
 const basePlugins = [new webpack.DefinePlugin({
   'process.env': {
-    RAILS_ENV: JSON.stringify(nodeEnv),
+    RAILS_ENV: JSON.stringify(railsEnv),
     FIREBASE_API_KEY: JSON.stringify(firebaseApiKey),
     FIREBASE_DATABASE_URL: JSON.stringify(firebaseDatabaseUrl),
     PUSHER_KEY: JSON.stringify(pusherKey),
@@ -39,26 +35,14 @@ const basePlugins = [new webpack.DefinePlugin({
       ],
     },
   }),
-  new webpack.LoaderOptionsPlugin({
-    test: /\.s?css$/,
-    options: {
-      postcss: [autoprefixer],
-    },
-  }),
   new ManifestPlugin({
     publicPath: output.publicPath,
     writeToFileEmit: true,
-  })];
-
-const plugins = () => {
-  if (nodeEnv === 'development') {
-    return basePlugins;
-  }
-  basePlugins.splice(1, 0, new UglifyJSPlugin());
-  return basePlugins;
-};
+  })
+];
 
 module.exports = {
+  mode,
   context: __dirname,
   entry: {
     vendor: [
@@ -108,25 +92,11 @@ module.exports = {
       'react-dom': path.resolve('./node_modules/react-dom'),
     },
   },
-  plugins: plugins(),
+  plugins: basePlugins,
   module: {
     rules: [
       {
-        test: /\.tsx?$/,
-        loader: 'awesome-typescript-loader',
-        exclude: /node_modules/,
-      },
-      {
-        test: /\.jsx?$/,
-        loader: 'babel-loader',
-        exclude: /node_modules/,
-      },
-      {
-        test: /\.(ttf|eot)$/,
-        use: 'file-loader',
-      },
-      {
-        test: /\.(woff2?|jpe?g|png|gif|svg|ico)$/,
+        test: /\.(woff|woff2|jpe?g|png|gif|svg|ico|ttf|eot)$/,
         use: {
           loader: 'url-loader',
           options: {
@@ -134,6 +104,16 @@ module.exports = {
             limit: 10000,
           },
         },
+      },
+      {
+        test: /\.tsx?$/,
+        loader: 'awesome-typescript-loader?errorsAsWarnings=true',
+        exclude: /node_modules/,
+      },
+      {
+        test: /\.jsx?$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/,
       },
       {
         test: require.resolve('jquery'),
@@ -145,14 +125,6 @@ module.exports = {
           {
             loader: 'expose-loader',
             query: '$',
-          }
-        ],
-      },
-      {
-        test: /\.json$/,
-        use: [
-          {
-            loader: 'json-loader',
           }
         ],
       }

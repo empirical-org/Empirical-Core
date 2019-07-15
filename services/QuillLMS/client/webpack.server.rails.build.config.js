@@ -14,6 +14,7 @@ const { output, } = webpackConfigLoader(configPath);
 module.exports = {
 
   // the project dir
+  mode: nodeEnv,
   context: __dirname,
   entry: [
     'babel-polyfill'
@@ -44,7 +45,7 @@ module.exports = {
     })
   ],
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.tsx?$/,
         loader: 'awesome-typescript-loader',

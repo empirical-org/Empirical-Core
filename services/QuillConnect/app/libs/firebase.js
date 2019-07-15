@@ -35,5 +35,6 @@ const rootRef = firebase.database().ref().child('v2');
 export default rootRef;
 
 export {
-  firebase
+  firebase,
+  config
 };

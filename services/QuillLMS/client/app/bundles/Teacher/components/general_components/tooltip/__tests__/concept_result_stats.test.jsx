@@ -72,6 +72,7 @@ describe('ConceptResultStats component', () => {
         { name: 'B', metadata: { correct: 0, incorrect: 1 } },
         { name: 'A', metadata: { correct: 1, incorrect: 0 } },
         { name: 'A', metadata: { correct: 1, incorrect: 0 } },
+        { name: 'A', metadata: { correct: 1, incorrect: 0 } },
         { name: 'A', metadata: { correct: 0, incorrect: 1 } },
         { name: 'Y', metadata: { correct: 1, incorrect: 0 } },
         { name: 'Y', metadata: { correct: 1, incorrect: 0 } },

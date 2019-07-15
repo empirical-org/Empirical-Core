@@ -1,13 +1,13 @@
 declare function require(name:string);
 import  C from '../constants';
-import rootRef, { firebase } from '../libs/firebase';
+import rootRef, { firebase, config } from '../libs/firebase';
 const users = rootRef.child('users');
 import jwt_decode from 'jwt-decode'
 
 export function firebaseAuth() {
   return (dispatch) => {
       const data = new FormData();
-      data.append( "json", JSON.stringify( { app: process.env.FIREBASE_APP_NAME} ) );
+      data.append( "json", JSON.stringify( { app: config.projectId } ) );
       fetch(`${process.env.EMPIRICAL_BASE_URL}/api/v1/firebase_tokens/create_for_connect`, {
         method: "POST",
         mode: "cors",

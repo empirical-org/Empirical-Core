@@ -18,7 +18,7 @@ exports[`PremiumPricingGuide container should render 1`] = `
   <div
     className="premium-notification-box-container"
   >
-    <_class>
+    <_default>
       <span>
         <strong>
           Upgrade now and get the rest of the school year free.
@@ -28,11 +28,11 @@ exports[`PremiumPricingGuide container should render 1`] = `
         2019
         .
       </span>
-    </_class>
+    </_default>
   </div>
-  <_class />
-  <_class />
-  <_class />
+  <_default />
+  <_default />
+  <_default />
   <teacher_testimonial />
   <subscriber_logos
     subscribers={

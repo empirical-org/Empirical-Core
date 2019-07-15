@@ -46,7 +46,7 @@ exports[`the GoogleClassroomModal component should render 1`] = `
     <p>
       Your Quill email address must be the same as your Google Classroom email. If your email is the same click Next. If it is different, you can update your Quill email below.
     </p>
-    <_class
+    <_default
       email="hal@spaceodyssey.org"
     />
     <a
