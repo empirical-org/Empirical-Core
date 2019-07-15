@@ -16,8 +16,7 @@ class Teachers::ClassroomsController < ApplicationController
   end
 
   def new_index
-    # @classrooms = current_user.classrooms_i_teach
-    @classrooms = []
+    @classrooms = current_user.classrooms_i_teach
   end
 
   def new
