@@ -32,7 +32,7 @@ export {
   defaultSnackbarTimeout,
   Spinner,
   TextEditor,
-  TextArea,
+  TextField,
   UploadOptimalResponses
 } from './components/shared/index'
 
