@@ -1,5 +1,5 @@
 import React from 'react'
-import { TextField } from 'quill-component-library/dist/componentLibrary'
+import { TextArea } from 'quill-component-library/dist/componentLibrary'
 
 import { Concept } from '../interfaces/interfaces'
 
@@ -57,7 +57,7 @@ export default class ChangeLogModal extends React.Component<ChangeLogModalProps,
 
   renderChangeLogFields() {
     return Object.keys(this.state).map(key => {
-      return <TextField
+      return <TextArea
         label={`Action Explanation: ${this.state[key].action}`}
         value={this.state[key].explanation}
         id={key}

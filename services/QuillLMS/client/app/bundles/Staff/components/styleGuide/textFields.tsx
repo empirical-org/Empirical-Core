@@ -1,7 +1,8 @@
 import * as React from "react";
-import { Input } from 'quill-component-library/dist/componentLibrary'
+import { Input } from './input'
+// import { Input } from 'quill-component-library/dist/componentLibrary'
 
-class TextFields extends React.Component {
+class TextFields extends React.Component<any, any> {
 
   constructor(props) {
     super(props)
@@ -10,7 +11,9 @@ class TextFields extends React.Component {
       inputOne: null,
       inputTwo: null,
       inputThree: 'Bad input',
-      inputFour: 'Even worse input'
+      inputFour: 'Even worse input',
+      inputFive: "Can't change me",
+      inputSix: 'Not at character limit'
     }
 
     this.changeSavedValues = this.changeSavedValues.bind(this)
@@ -93,6 +96,38 @@ class TextFields extends React.Component {
               value={this.state.inputFour}
               handleChange={(e) => {this.changeSavedValues('inputFour', e)}}
               error="Error mesage duis mollis, est non commodo luctus, nisi erat porttitor"
+            />
+          </div>
+        </div>
+        <div className="element-row">
+          <div className="big-element">
+            <h4 className="style-guide-h4">Disabled with no label</h4>
+            <pre>
+{`<Input
+  disabled={true}
+  value={this.state.inputFive}
+/>`}
+            </pre>
+            <Input
+              disabled={true}
+              value={this.state.inputFive}
+            />
+          </div>
+          <div className="big-element">
+            <h4 className="style-guide-h4">With character limit</h4>
+            <pre>
+{`<Input
+  label='Label'
+  characterLimit={50}
+  value={this.state.inputSix}
+  handleChange={(e) => {this.changeSavedValues('inputFour', e)}}
+/>`}
+            </pre>
+            <Input
+              label='Label'
+              characterLimit={50}
+              value={this.state.inputSix}
+              handleChange={(e) => {this.changeSavedValues('inputSix', e)}}
             />
           </div>
         </div>
