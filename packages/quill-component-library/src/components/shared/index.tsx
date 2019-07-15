@@ -56,8 +56,8 @@ export {
 } from './textEditor'
 
 export {
-  TextArea
-} from './textArea'
+  TextField
+} from './textField'
 
 export {
   UploadOptimalResponses

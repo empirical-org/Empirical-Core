@@ -21,7 +21,7 @@ interface InputState {
   errorAcknowledged: boolean;
 }
 
-export class TextArea extends React.Component<InputProps, InputState> {
+export class TextField extends React.Component<InputProps, InputState> {
   private input: any
   private node: any
 
