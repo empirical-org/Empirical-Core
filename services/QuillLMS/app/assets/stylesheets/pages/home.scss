@@ -30,49 +30,49 @@
         background-position: center;
     }
     .gates {
-      background-image: image-url('home/partners/gates_grey.png');
+      background-image: url('https://assets.quill.org/images/home/partners/gates_grey.png');
     }
 
     .gates:hover {
-      background-image: image-url('home/partners/gates_color.png');
+      background-image: url('https://assets.quill.org/images/home/partners/gates_color.png');
     }
 
     .google {
-      background-image: image-url('home/partners/google_grey.png');
+      background-image: url('https://assets.quill.org/images/home/partners/google_grey.png');
     }
 
     .google:hover {
-      background-image: image-url('home/partners/google_color.png');
+      background-image: url('https://assets.quill.org/images/home/partners/google_color.png');
     }
 
     .aspire {
-      background-image: image-url('home/partners/aspire_grey.png');
+      background-image: url('https://assets.quill.org/images/home/partners/aspire_grey.png');
     }
 
     .aspire:hover {
-      background-image: image-url('home/partners/aspire_color.png');
+      background-image: url('https://assets.quill.org/images/home/partners/aspire_color.png');
     }
     .fastforward {
-      background-image: image-url('home/partners/fastforward_grey.png');
+      background-image: url('https://assets.quill.org/images/home/partners/fastforward_grey.png');
     }
 
     .fastforward:hover {
-      background-image: image-url('home/partners/fastforward_color.png');
+      background-image: url('https://assets.quill.org/images/home/partners/fastforward_color.png');
     }
     .gould {
-      background-image: image-url('home/partners/gould_grey.png');
+      background-image: url('https://assets.quill.org/images/home/partners/gould_grey.png');
     }
 
     .gould:hover {
-      background-image: image-url('home/partners/gould_color.png');
+      background-image: url('https://assets.quill.org/images/home/partners/gould_color.png');
     }
 
     .blackrock {
-      background-image: image-url('home/partners/blackrock_grey.png');
+      background-image: url('https://assets.quill.org/images/home/partners/blackrock_grey.png');
     }
 
     .blackrock:hover {
-      background-image: image-url('home/partners/blackrock_color.png');
+      background-image: url('https://assets.quill.org/images/home/partners/blackrock_color.png');
     }
 }
 
@@ -187,7 +187,7 @@
     }
   }
   .hero {
-    background-image: image-url('home-hero.png');
+    background-image: url('https://assets.quill.org/images/shared/home-hero.png');
     background-size: cover;
     background-repeat: no-repeat;
     color: $white;
@@ -270,16 +270,16 @@
         background-repeat: no-repeat;
         background-position: center;
         &.icon-big-grammar {
-          background-image: image-url('icons/grammar.png');
+          background-image: url('https://assets.quill.org/images/icons/grammar.png');
         }
         &.icon-big-writer {
-          background-image: image-url('icons/writer.png');
+          background-image: url('https://assets.quill.org/images/icons/writer.png');
         }
         &.icon-big-proofreader {
-          background-image: image-url('icons/proofreader.png');
+          background-image: url('https://assets.quill.org/images/icons/proofreader.png');
         }
         &.icon-big-shuffle {
-          background-image: image-url('icons/shuffle.png');
+          background-image: url('https://assets.quill.org/images/icons/shuffle.png');
         }
       }
       .app-inner {
@@ -365,7 +365,7 @@
   }
   .writer {
     .graphics {
-      background-image: image-url('writer-bg.png');
+      background-image: url('https://assets.quill.org/images/shared/dashboard-bg.png');
       background-repeat: no-repeat;
       height: 472px;
       img {
@@ -379,7 +379,7 @@
   }
   .dashboard {
     .graphics {
-      background-image: image-url('dashboard-bg.png');
+      background-image:  url('https://assets.quill.org/images/shared/dashboard-bg.png');
       background-repeat: no-repeat;
       height: 407px;
       img {
@@ -400,7 +400,7 @@
     padding-bottom: 0;
   }
   .proofreader .graphics {
-    background-image: image-url('proofreader-bg.png');
+    background-image: url('https://assets.quill.org/images/shared/dashboard-bg.png');
     height: 346px;
     background-repeat: no-repeat;
     img {
@@ -571,7 +571,7 @@
   }
   .get-started {
     padding: 0;
-    background-image: image-url('get-started.jpg');
+    background-image: url('https://assets.quill.org/images/homepage/get-started.jpg');
     background-size: cover;
     min-height: 488px;
     a {
