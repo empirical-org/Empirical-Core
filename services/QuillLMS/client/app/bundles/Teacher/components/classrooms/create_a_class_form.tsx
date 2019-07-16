@@ -21,8 +21,21 @@ const gradeOptions = [
   { value: 'Other', label: 'Other' }
 ]
 
+interface CreateAClassFormProps {
+  next: Function;
+  setClassroom: Function;
+}
 
-export default class CreateAClassForm extends React.Component<any, any> {
+interface CreateAClassFormState {
+  name: string;
+  code: string;
+  grade?: { label: string, value: string };
+  timesSubmitted: number;
+  errors: { [key:string]: string }
+}
+
+
+export default class CreateAClassForm extends React.Component<CreateAClassFormProps, CreateAClassFormState> {
   constructor(props) {
     super(props)
 
@@ -31,7 +44,7 @@ export default class CreateAClassForm extends React.Component<any, any> {
       code: ' ',
       grade: null,
       timesSubmitted: 0,
-      errors: []
+      errors: {}
     }
 
     this.getClassCode = this.getClassCode.bind(this)
@@ -72,6 +85,7 @@ export default class CreateAClassForm extends React.Component<any, any> {
       if (body && body.errors) {
         this.setState({ errors: body.errors, timesSubmitted: timesSubmitted + 1 });
       } else {
+        this.props.setClassroom(body.classroom)
         this.props.next()
       }
     })
@@ -80,7 +94,7 @@ export default class CreateAClassForm extends React.Component<any, any> {
   renderBody() {
     const { name, grade, code, timesSubmitted, errors } = this.state
     return <div className="create-a-class-modal-body modal-body">
-      <h3>Create a class</h3>
+      <h3 className="title">Create a class</h3>
       <form>
         <Input
           label="Class name"
