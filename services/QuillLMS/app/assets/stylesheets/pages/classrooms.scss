@@ -61,14 +61,13 @@
 
   .modal-body {
     padding: 32px;
-    h3 {
+    .title {
       font-size: 24px;
       font-weight: bold;
       line-height: 1.33;
       margin-bottom: 40px;
     }
   }
-
 
   .create-a-class-modal-body {
     form {
@@ -98,6 +97,23 @@
           cursor: pointer;
           font-weight: normal;
         }
+      }
+    }
+    .quill-cards {
+      width: 584px;
+      .quill-card:first-of-type {
+        margin-bottom: 24px;
+        p {
+          width: 400px;
+        }
+      }
+    }
+    .copy-class-code-container {
+      display: flex;
+      align-items: center;
+      .input-container {
+        width: 256px;
+        margin-right: 16px;
       }
     }
   }
