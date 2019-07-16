@@ -1,5 +1,7 @@
 import * as React from 'react'
 
+import CreateAClassForm from './create_a_class_form'
+
 const closeIconSrc = `${process.env.CDN_URL}/images/icons/close.svg`
 
 interface CreateAClassModalProps {
@@ -7,7 +9,7 @@ interface CreateAClassModalProps {
 }
 
 interface CreateAClassModalState {
-  step: 1|2|3
+  step: number;
 }
 
 export default class CreateAClassModal extends React.Component<CreateAClassModalProps, CreateAClassModalState> {
@@ -17,6 +19,12 @@ export default class CreateAClassModal extends React.Component<CreateAClassModal
     this.state = {
       step: 1
     }
+
+    this.next = this.next.bind(this)
+  }
+
+  next() {
+    this.setState({ step: this.state.step + 1 })
   }
 
   renderHeader() {
@@ -32,7 +40,12 @@ export default class CreateAClassModal extends React.Component<CreateAClassModal
   }
 
   renderModalContent() {
-
+    const { step, } = this.state
+    if (step === 1) {
+      return <CreateAClassForm next={this.next} />
+    } else if (step === 2) {
+      return <AddStudents next={this.next} />
+    }
   }
 
   render() {
@@ -40,7 +53,7 @@ export default class CreateAClassModal extends React.Component<CreateAClassModal
       <div className="modal-background" />
       <div className="create-a-class-modal modal">
         {this.renderHeader()}
-        {this.renderModalContent()}}
+        {this.renderModalContent()}
       </div>
     </div>
   }

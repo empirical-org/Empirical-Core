@@ -59,6 +59,64 @@
     display: block;
   }
 
+  .modal-body {
+    padding: 32px;
+    h3 {
+      font-size: 24px;
+      font-weight: bold;
+      line-height: 1.33;
+      margin-bottom: 40px;
+    }
+  }
+
+
+  .create-a-class-modal-body {
+    form {
+      width: 512px;
+      .input-container {
+        margin-bottom: 12px;
+        &.grade {
+          margin-bottom: 24px;
+        }
+      }
+      .name.inactive:not(.has-text) {
+        label {
+          margin-top: 20px;
+        }
+      }
+      .class-code-section {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        .input-container {
+          width: 300px;
+          margin-bottom: 0px;
+        }
+        .reset {
+          color: #027360;
+          font-size: 16px;
+          cursor: pointer;
+          font-weight: normal;
+        }
+      }
+    }
+  }
+
+  .create-a-class-modal-footer {
+    position: fixed;
+    bottom: 0;
+    height: 88px;
+    background-color: white;
+    opacity: 1;
+    z-index: 200;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    border-top: 1px solid #e0e0e0;
+    padding: 0px 32px;
+  }
+
   .create-a-class-modal-header {
     display: flex;
     justify-content: space-between;
