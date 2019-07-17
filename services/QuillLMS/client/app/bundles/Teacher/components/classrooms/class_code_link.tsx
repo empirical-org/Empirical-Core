@@ -1,9 +1,10 @@
 import * as React from 'react'
-import { Input, Snackbar, defaultSnackbarTimeout } from 'quill-component-library/dist/componentLibrary'
+import { Input } from 'quill-component-library/dist/componentLibrary'
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 
 interface ClassCodeLinkProps {
   next: (event) => void;
+  showSnackbar: (event) => void;
   classroom: any;
 }
 
@@ -15,10 +16,6 @@ export default class ClassCodeLink extends React.Component<ClassCodeLinkProps, C
   constructor(props) {
     super(props)
 
-    this.state = {
-      showSnackbar: false
-    }
-
     this.showSnackbar = this.showSnackbar.bind(this)
   }
 
@@ -27,9 +24,7 @@ export default class ClassCodeLink extends React.Component<ClassCodeLinkProps, C
   }
 
   showSnackbar() {
-    this.setState({ showSnackbar: true, }, () => {
-      setTimeout(() => this.setState({ showSnackbar: false, }), defaultSnackbarTimeout)
-    })
+    this.props.showSnackbar('Class code link copied')
   }
 
   renderBody() {
@@ -41,8 +36,8 @@ export default class ClassCodeLink extends React.Component<ClassCodeLinkProps, C
           disabled={true}
           value={this.classCodeLink()}
         />
-        <CopyToClipboard text={this.classCodeLink()}>
-          <button className="quill-button secondary outlined small" onClick={this.showSnackbar}>Copy</button>
+        <CopyToClipboard text={this.classCodeLink()} onCopy={this.showSnackbar}>
+          <button className="quill-button secondary outlined small">Copy</button>
         </CopyToClipboard>
       </div>
     </div>
@@ -57,7 +52,6 @@ export default class ClassCodeLink extends React.Component<ClassCodeLinkProps, C
   render() {
     return (
       <div className="create-a-class-modal-content">
-        <Snackbar text="Class code link copied" visible={this.state.showSnackbar} />
         {this.renderBody()}
         {this.renderFooter()}
       </div>
