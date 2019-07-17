@@ -45,6 +45,8 @@ export default class CreateStudentAccounts extends React.Component<CreateStudent
     this.handleFirstNameChange = this.handleFirstNameChange.bind(this)
     this.handleLastNameChange = this.handleLastNameChange.bind(this)
     this.removeStudent = this.removeStudent.bind(this)
+    this.addStudent = this.addStudent.bind(this)
+    this.createStudents = this.createStudents.bind(this)
   }
 
   handleFirstNameChange(e) {
@@ -60,10 +62,6 @@ export default class CreateStudentAccounts extends React.Component<CreateStudent
     const newStudents = students.filter(s => s.username !== username)
     this.setState({ students: newStudents })
   }
-
-  // getClassCode() {
-  //   requestGet('/teachers/classrooms/regenerate_code', (body) => this.setState({ code: body.code }));
-  // }
 
   footerButtonClass() {
     const { students } = this.state
@@ -82,20 +80,15 @@ export default class CreateStudentAccounts extends React.Component<CreateStudent
     return buttonClass;
   }
 
-  // createClass() {
-  //   const { name, grade, code, timesSubmitted } = this.state
-  //   const classroom = { name, code, grade: grade.value, }
-  //   requestPost('/teachers/classrooms', { classroom, }, (body) => {
-  //     if (body && body.errors) {
-  //       this.setState({ errors: body.errors, timesSubmitted: timesSubmitted + 1 });
-  //     } else {
-  //       this.props.setClassroom(body.classroom)
-  //       this.props.next()
-  //     }
-  //   })
-  // }
+  createStudents() {
+    const { classroom, next, } = this.props
+    requestPost(`/teachers/classrooms/${this.props.classroom.id}/create_students`, { students: this.state.students }, (body) => {
+      this.props.next()
+    })
+  }
 
-  addStudent() {
+  addStudent(e) {
+    e.preventDefault()
     const { firstName, lastName, students } = this.state
     const newStudent = {
       name: `${firstName} ${lastName}`,
@@ -106,23 +99,25 @@ export default class CreateStudentAccounts extends React.Component<CreateStudent
     this.setState({ firstName: '', lastName: '', students: newStudentsArray })
   }
 
-  generateUsername(number=null) {
+  generateUsername(number=0) {
     const { firstName, lastName, students } = this.state
     const { classroom } = this.props
-    let username = `${firstName}.${lastName}${number}@${classroom.code}`
+    let username = `${firstName}.${lastName}${number ? number : ''}@${classroom.code}`
     if (!students.find(student => student.username === username)) {
       return username
     } else {
-      return this.generateUsername(number ? number + 1 : 1)
+      return this.generateUsername(number + 1)
     }
   }
 
   renderTable() {
     const { students } = this.state
     if (students.length) {
-      const studentRows = students.map(s => {
-        s.id = s.username
-        return s
+      const studentRows = []
+      students.forEach(s => {
+        const newStudent = Object.assign({}, s)
+        newStudent.id = s.username
+        studentRows.push(newStudent)
       })
       return <DataTable
         headers={tableHeaders}
@@ -135,7 +130,7 @@ export default class CreateStudentAccounts extends React.Component<CreateStudent
 
   renderBody() {
     const { firstName, lastName, students } = this.state
-    return <div className="create-a-class-modal-body modal-body">
+    return <div className="create-a-class-modal-body modal-body create-students">
       <h3 className="title">Create accounts for your students</h3>
       <form onSubmit={this.addStudent}>
         <Input
@@ -162,7 +157,7 @@ export default class CreateStudentAccounts extends React.Component<CreateStudent
 
   renderFooter() {
     return <div className="create-a-class-modal-footer">
-      <button className={this.footerButtonClass()} onClick={this.createClass}>Next</button>
+      <button className={this.footerButtonClass()} onClick={this.createStudents}>Next</button>
     </div>
   }
 

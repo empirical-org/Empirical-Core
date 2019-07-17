@@ -12,7 +12,6 @@
 
 .data-table {
   overflow: scroll;
-  padding-right: 13px;
 
   .data-table-headers, .data-table-row {
     height: 48px;
@@ -33,6 +32,12 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
+    &.removable {
+      margin-right: 0px;
+      img {
+        cursor: pointer;
+      }
+    }
   }
 
   .data-table-header, .data-table-row-section {
