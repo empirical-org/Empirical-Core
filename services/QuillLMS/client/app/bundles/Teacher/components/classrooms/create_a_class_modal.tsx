@@ -2,11 +2,13 @@ import * as React from 'react'
 
 import CreateAClassForm from './create_a_class_form'
 import AddStudents from './add_students'
+import SetupInstructions from './setup_instructions'
 
 const closeIconSrc = `${process.env.CDN_URL}/images/icons/close.svg`
 
 interface CreateAClassModalProps {
   close: (event) => void;
+  showSnackbar: (event) => void;
 }
 
 interface CreateAClassModalState {
@@ -48,11 +50,14 @@ export default class CreateAClassModal extends React.Component<CreateAClassModal
   }
 
   renderModalContent() {
+    const { close, showSnackbar, } = this.props
     const { step, classroom, } = this.state
     if (step === 1) {
       return <CreateAClassForm next={this.next} setClassroom={this.setClassroom} />
     } else if (step === 2) {
-      return <AddStudents next={this.next} classroom={classroom} />
+      return <AddStudents next={this.next} classroom={classroom} showSnackbar={showSnackbar} />
+    } else {
+      return <SetupInstructions close={close} classroom={classroom} />
     }
   }
 

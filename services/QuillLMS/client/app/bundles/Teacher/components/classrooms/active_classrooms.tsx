@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { Snackbar, defaultSnackbarTimeout } from 'quill-component-library/dist/componentLibrary'
 
 import CreateAClassModal from './create_a_class_modal'
 
@@ -10,6 +11,8 @@ interface ActiveClassroomsProps {
 
 interface ActiveClassroomsState {
   showCreateAClassModal: boolean;
+  showSnackbar: boolean;
+  snackbarCopy?: string;
 }
 
 export default class ActiveClassrooms extends React.Component<ActiveClassroomsProps, ActiveClassroomsState> {
@@ -17,11 +20,14 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
     super(props)
 
     this.state = {
-      showCreateAClassModal: false
+      showCreateAClassModal: false,
+      showSnackbar: false
     }
 
     this.openCreateAClassModal = this.openCreateAClassModal.bind(this)
     this.closeCreateAClassModal = this.closeCreateAClassModal.bind(this)
+    this.showSnackbar = this.showSnackbar.bind(this)
+
   }
 
   openCreateAClassModal() {
@@ -30,6 +36,17 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
 
   closeCreateAClassModal() {
     this.setState({ showCreateAClassModal: false })
+  }
+
+  showSnackbar(snackbarCopy) {
+    this.setState({ showSnackbar: true, snackbarCopy }, () => {
+      setTimeout(() => this.setState({ showSnackbar: false, }), defaultSnackbarTimeout)
+    })
+  }
+
+  renderSnackbar() {
+    const { showSnackbar, snackbarCopy, } = this.state
+    return <Snackbar text={snackbarCopy} visible={showSnackbar} />
   }
 
   renderPageContent() {
@@ -45,6 +62,7 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
     if (this.state.showCreateAClassModal) {
       return <CreateAClassModal
         close={this.closeCreateAClassModal}
+        showSnackbar={this.showSnackbar}
       />
     }
   }
@@ -52,6 +70,7 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
   render() {
     return <div className="active-classrooms classrooms-page">
       {this.renderCreateAClassModal()}
+      {this.renderSnackbar()}
       <div className="header">
         <h1>Active Classes</h1>
         <div className="buttons">
