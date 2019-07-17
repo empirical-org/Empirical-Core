@@ -43,6 +43,7 @@
     font-size: 12px;
     line-height: 1;
     margin-top: -2px;
+    color: #7f7f7f;
   }
 
   label {
@@ -193,6 +194,11 @@
         }
         .dropdown__indicators {
           padding-top: 4px;
+        }
+      }
+      &.has-character-limit {
+        label {
+          margin-top: 20px;
         }
       }
     }

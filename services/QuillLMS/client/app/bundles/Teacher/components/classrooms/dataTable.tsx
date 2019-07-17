@@ -1,7 +1,8 @@
 import * as React from 'react'
 import * as CSS from 'csstype'
 
-import { Tooltip } from './tooltip'
+// import { Tooltip } from './tooltip'
+import { Tooltip } from 'quill-component-library/dist/componentLibrary'
 
 export const descending = 'desc'
 export const ascending = 'asc'
@@ -122,7 +123,7 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
   renderHeaders() {
     const headers = this.props.headers.map(header => {
       let sortArrow, onClick
-      let style: React.CSSProperties = { width: `${header.width}`, textAlign: `${this.attributeAlignment(header.attribute)}` as CSS.TextAlignProperty }
+      let style: React.CSSProperties = { width: `${header.width}`, minWidth: `${header.width}`, textAlign: `${this.attributeAlignment(header.attribute)}` as CSS.TextAlignProperty }
       if (header.isSortable) {
         onClick = this.changeSortDirection
         sortArrow = <img className={`sort-arrow ${this.state.sortDirection}`} onClick={this.changeSortDirection} src={arrowSrc} />
@@ -146,7 +147,7 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     const rows = this.sortRows().map(row => {
       const rowClassName = `data-table-row ${row.checked ? 'checked' : ''}`
       const rowSections = headers.map(header => {
-        const style: React.CSSProperties = { width: `${header.width}`, textAlign: `${this.attributeAlignment(header.attribute)}` as CSS.TextAlignProperty }
+        let style: React.CSSProperties = { width: `${header.width}`, minWidth: `${header.width}`, textAlign: `${this.attributeAlignment(header.attribute)}` as CSS.TextAlignProperty }
         const sectionText = row[header.attribute]
         const headerWidthNumber = Number(header.width.slice(0, -2))
         if ((String(sectionText).length * 7) >= headerWidthNumber) {

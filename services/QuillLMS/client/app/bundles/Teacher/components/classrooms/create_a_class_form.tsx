@@ -95,7 +95,7 @@ export default class CreateAClassForm extends React.Component<CreateAClassFormPr
     const { name, grade, code, timesSubmitted, errors } = this.state
     return <div className="create-a-class-modal-body modal-body">
       <h3 className="title">Create a class</h3>
-      <form>
+      <form className="create-a-class-form">
         <Input
           label="Class name"
           value={name}

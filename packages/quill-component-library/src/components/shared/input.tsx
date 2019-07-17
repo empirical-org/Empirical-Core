@@ -121,7 +121,8 @@ export class Input extends React.Component<InputProps, InputState> {
     const { className, label, handleChange, value, placeholder, error, type, id, disabled, characterLimit } = this.props
     const hasText = value ? 'has-text' : ''
     const inactiveOrActive = inactive ? 'inactive' : 'active'
-    const sharedClassNames = `input-container  ${inactiveOrActive} ${hasText} ${className}`
+    const hasCharacterLimit = characterLimit ? 'has-character-limit' : ''
+    const sharedClassNames = `input-container  ${inactiveOrActive} ${hasText} ${className} ${hasCharacterLimit}`
     const commonProps = {
       id,
       ref: (input) => { this.input = input; },

@@ -9,7 +9,8 @@
   width: min-content;
   padding: 0px 16px;
   white-space: nowrap;
-  &:focus {
+  &:focus, &:hover {
+    text-decoration: none;
     outline: none;
   }
   &.fun {
