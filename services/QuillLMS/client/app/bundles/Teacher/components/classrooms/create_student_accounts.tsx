@@ -1,8 +1,7 @@
 import * as React from 'react'
-import { Input } from 'quill-component-library/dist/componentLibrary'
-import { DataTable } from './dataTable'
+import { Input, DataTable } from 'quill-component-library/dist/componentLibrary'
 
-import { requestGet, requestPost } from '../../../../modules/request/index.js';
+import { requestPost } from '../../../../modules/request/index.js';
 
 interface CreateStudentAccountsProps {
   next: Function;
