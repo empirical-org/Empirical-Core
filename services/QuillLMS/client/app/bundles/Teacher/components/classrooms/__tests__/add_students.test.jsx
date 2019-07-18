@@ -1,13 +1,16 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import AddStudents from '../add_students'
+import AddStudents, { studentsCreate, teacherCreates} from '../add_students'
+import StudentOptions from '../student_options'
+import ClassCodeLink from '../class_code_link'
+import CreateStudentAccounts from '../create_student_accounts'
 
 const classroom = { id: 1, code: 'happy-day', name: 'Classroom'}
 
 describe('AddStudents component', () => {
 
-  describe('step 1', () => {
+  describe('with no studentOption selected', () => {
     const wrapper = shallow(
       <AddStudents showSnackbar={() => {}} close={() => {}} classroom={classroom} />
     );
@@ -15,44 +18,33 @@ describe('AddStudents component', () => {
     it('should render StudentOptions', () => {
       expect(wrapper.find(StudentOptions).exists()).toBe(true);
     })
+  })
 
-    it('should have step 1 active in the navigation', () => {
-      expect(wrapper.find('.active').text()).toMatch('1. Create a class')
+  describe('studentsCreate', () => {
+
+    const wrapper = shallow(
+      <AddStudents showSnackbar={() => {}} close={() => {}} classroom={classroom} />
+    );
+
+    wrapper.setState({ studentOption: studentsCreate, })
+
+    it('should render add students', () => {
+      expect(wrapper.find(ClassCodeLink).exists()).toBe(true);
     })
   })
 
-  describe('step 2', () => {
+  describe('teacherCreates ', () => {
 
     const wrapper = shallow(
-      <AddStudents showSnackbar={() => {}} close={() => {}} />
+      <AddStudents showSnackbar={() => {}} close={() => {}} classroom={classroom} />
     );
 
-    wrapper.setState({ step: 2})
+    wrapper.setState({ studentOption: teacherCreates })
 
     it('should render add students', () => {
-      expect(wrapper.find(AddStudents).exists()).toBe(true);
+      expect(wrapper.find(CreateStudentAccounts).exists()).toBe(true);
     })
 
-    it('should have step 2 active in the navigation', () => {
-      expect(wrapper.find('.active').text()).toMatch('2. Add students')
-    })
-  })
-
-  describe('step 3', () => {
-
-    const wrapper = shallow(
-      <AddStudents showSnackbar={() => {}} close={() => {}} />
-    );
-
-    wrapper.setState({ step: 3})
-
-    it('should render add students', () => {
-      expect(wrapper.find(SetupInstructions).exists()).toBe(true);
-    })
-
-    it('should have step 3 active in the navigation', () => {
-      expect(wrapper.find('.active').text()).toMatch('3. Setup instructions')
-    })
   })
 
 });
