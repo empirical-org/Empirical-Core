@@ -29,7 +29,7 @@ exports[`ActiveClassrooms component with no classrooms should render with no cla
     className="no-active-classes"
   >
     <img
-      src="undefined/images/Illustrations/empty-class.svg"
+      src="undefined/images/illustrations/empty-class.svg"
     />
     <p>
       Every teacher needs a class! Please select one of the buttons on the right to get started.

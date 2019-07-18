@@ -95,7 +95,7 @@ export default class CreateStudentAccounts extends React.Component<CreateStudent
     const { firstName, lastName, students } = this.state
     const newStudent = {
       name: `${firstName} ${lastName}`,
-      password: lastName,
+      password: this.correctedNameString(lastName),
       username: this.generateUsername()
     }
     const newStudentsArray = [newStudent].concat(students)
@@ -105,7 +105,9 @@ export default class CreateStudentAccounts extends React.Component<CreateStudent
   generateUsername(number=0) {
     const { firstName, lastName, students } = this.state
     const { classroom } = this.props
-    let username = `${firstName}.${lastName}${number ? number : ''}@${classroom.code}`
+    const correctedFirstName = this.correctedNameString(firstName).toLowerCase()
+    const correctedLastName = this.correctedNameString(lastName).toLowerCase()
+    let username = `${correctedFirstName}.${correctedLastName}${number ? number : ''}@${classroom.code}`
     if (!students.find(student => student.username === username)) {
       return username
     } else {
@@ -118,8 +120,7 @@ export default class CreateStudentAccounts extends React.Component<CreateStudent
     if (students.length) {
       const studentRows = []
       students.forEach(s => {
-        const newStudent = Object.assign({}, s)
-        newStudent.id = s.username
+        const newStudent = Object.assign({}, {...s}, { id: s.username })
         studentRows.push(newStudent)
       })
       return <DataTable
@@ -132,7 +133,7 @@ export default class CreateStudentAccounts extends React.Component<CreateStudent
   }
 
   renderBody() {
-    const { firstName, lastName, students } = this.state
+    const { firstName, lastName, } = this.state
     return <div className="create-a-class-modal-body modal-body create-students">
       <h3 className="title">Create accounts for your students</h3>
       <form onSubmit={this.addStudent}>
