@@ -1,10 +1,12 @@
 import * as React from 'react'
-import { Input, DataTable } from 'quill-component-library/dist/componentLibrary'
+import { DataTable } from 'quill-component-library/dist/componentLibrary'
+import { Input} from './dataTable'
 
 import { requestPost } from '../../../../modules/request/index.js';
 
 interface CreateStudentAccountsProps {
-  next: Function;
+  next: () => void;
+  back: (event) => void;
   classroom: any;
 }
 
@@ -32,6 +34,7 @@ const tableHeaders = [{
 ]
 
 export default class CreateStudentAccounts extends React.Component<CreateStudentAccountsProps, CreateStudentAccountsState> {
+
   constructor(props) {
     super(props)
 
@@ -76,7 +79,7 @@ export default class CreateStudentAccounts extends React.Component<CreateStudent
   }
 
   submitClass() {
-    let buttonClass = 'quill-button outlined secondary medium';
+    let buttonClass = 'quill-button outlined secondary medium submit-button';
     if (!this.state.firstName.length || !this.state.lastName.length) {
       buttonClass += ' disabled';
     }
@@ -160,7 +163,9 @@ export default class CreateStudentAccounts extends React.Component<CreateStudent
   }
 
   renderFooter() {
-    return <div className="create-a-class-modal-footer">
+    const { back } = this.props
+    return <div className="create-a-class-modal-footer with-back-button">
+      <button className="quill-button secondary outlined medium" onClick={back}>Back</button>
       <button className={this.footerButtonClass()} onClick={this.createStudents}>Next</button>
     </div>
   }

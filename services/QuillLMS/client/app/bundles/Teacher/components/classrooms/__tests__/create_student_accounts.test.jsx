@@ -20,7 +20,7 @@ describe('CreateStudentAccounts component', () => {
     })
 
     it('should have a disabled secondary (submit) button', () => {
-      expect(wrapper.find('.quill-button.secondary').hasClass('disabled')).toBe(true)
+      expect(wrapper.find('.quill-button.secondary.submit-button').hasClass('disabled')).toBe(true)
     })
 
     it('should have a disabled primary (footer) button', () => {
@@ -36,7 +36,7 @@ describe('CreateStudentAccounts component', () => {
     wrapper.setState({ firstName: 'Happy', lastName: "Kid" })
 
     it('should not have a disabled submit button', () => {
-      expect(wrapper.find('.quill-button.secondary').hasClass('disabled')).toBe(false)
+      expect(wrapper.find('.quill-button.secondary.submit-button').hasClass('disabled')).toBe(false)
     })
   })
 

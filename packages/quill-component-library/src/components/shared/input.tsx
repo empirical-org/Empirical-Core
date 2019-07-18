@@ -37,7 +37,7 @@ export class Input extends React.Component<InputProps, InputState> {
     this.activateInput = this.activateInput.bind(this)
     this.acknowledgeError = this.acknowledgeError.bind(this)
     this.handleClick = this.handleClick.bind(this)
-    this.handleTab = this.handleTab.bind(this)
+    this.handleTabOrEnter = this.handleTabOrEnter.bind(this)
     this.deactivateInput = this.deactivateInput.bind(this)
   }
 
@@ -77,12 +77,15 @@ export class Input extends React.Component<InputProps, InputState> {
     this.setState({ errorAcknowledged: true, inactive: false, }, () => this.input.focus())
   }
 
-  handleTab(event) {
+  handleTabOrEnter(event) {
     if (event.key === 'Tab') {
       const form = event.target.form;
       const index = Array.prototype.indexOf.call(form, event.target);
       form.elements[index + 1].focus();
       event.preventDefault();
+      this.deactivateInput()
+    }
+    if (event.key === 'Enter') {
       this.deactivateInput()
     }
   }
@@ -179,7 +182,7 @@ export class Input extends React.Component<InputProps, InputState> {
           ref={node => this.node = node}
         >
           <label>{label}</label>
-          <input {...commonProps} onKeyDown={this.handleTab} />
+          <input {...commonProps} onKeyDown={this.handleTabOrEnter} />
           {this.renderHelperText()}
           {this.renderCancelSymbol()}
           {this.renderCharacterLimit()}
