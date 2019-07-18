@@ -3,7 +3,7 @@ import { Snackbar, defaultSnackbarTimeout } from 'quill-component-library/dist/c
 
 import CreateAClassModal from './create_a_class_modal'
 
-const emptyClassSrc = `${process.env.CDN_URL}/images/Illustrations/empty-class.svg`
+const emptyClassSrc = `${process.env.CDN_URL}/images/illustrations/empty-class.svg`
 
 interface ActiveClassroomsProps {
   classrooms: Array<any>
