@@ -16,7 +16,18 @@ class Teachers::ClassroomsController < ApplicationController
   end
 
   def new_index
-    @classrooms = current_user.classrooms_i_teach
+    classrooms = ClassroomsTeacher.where(user_id: current_user.id).map { |ct| Classroom.unscoped.find_by(id: ct.classroom_id)}
+    @classrooms = classrooms.compact.map do |classroom|
+      classroom_obj = classroom.attributes
+      classroom_obj[:students] = classroom.students
+      classroom_teachers = classroom.classrooms_teachers.map do |ct|
+        teacher = ct.user.attributes
+        teacher[:classroom_relation] = ct.role
+        teacher
+      end
+      classroom_obj[:teachers] = classroom_teachers
+      classroom_obj
+    end.compact
   end
 
   def new
