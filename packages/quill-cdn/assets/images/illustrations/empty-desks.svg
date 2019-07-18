@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="288" height="129" viewBox="0 0 288 129">
+    <defs>
+        <path id="a" d="M57.366 77.219l4.014-.323 5.278 51.202-1.437.154-2.576.17z"/>
+        <mask id="j" width="9.292" height="51.525" x="0" y="0" fill="#fff">
+            <use xlink:href="#a"/>
+        </mask>
+        <path id="b" d="M16.06 77.219l4.013-.323 5.278 51.202-1.437.154-2.576.17z"/>
+        <mask id="k" width="9.292" height="51.525" x="0" y="0" fill="#fff">
+            <use xlink:href="#b"/>
+        </mask>
+        <path id="c" d="M19.65 4.694c.18-1.647 1.66-3.179 3.295-3.399 0 0 7.801-1.295 18.281-1.295C51.706 0 59.24 1.289 59.24 1.289c1.628.233 3.1 1.753 3.289 3.394l6.244 54.398c.188 1.64-.988 2.793-2.626 2.588 0 0-11.375-1.669-24.92-1.669-13.544 0-24.91 1.669-24.91 1.669-1.637.212-2.816-.962-2.636-2.599l5.97-54.376z"/>
+        <mask id="l" width="54.893" height="61.57" x="0" y="0" fill="#fff">
+            <use xlink:href="#c"/>
+        </mask>
+        <path id="d" d="M57.366 77.219l4.014-.323 5.278 51.202-1.437.154-2.576.17z"/>
+        <mask id="m" width="9.292" height="51.525" x="0" y="0" fill="#fff">
+            <use xlink:href="#d"/>
+        </mask>
+        <path id="e" d="M16.06 77.219l4.013-.323 5.278 51.202-1.437.154-2.576.17z"/>
+        <mask id="n" width="9.292" height="51.525" x="0" y="0" fill="#fff">
+            <use xlink:href="#e"/>
+        </mask>
+        <path id="f" d="M19.65 4.694c.18-1.647 1.66-3.179 3.295-3.399 0 0 7.801-1.295 18.281-1.295C51.706 0 59.24 1.289 59.24 1.289c1.628.233 3.1 1.753 3.289 3.394l6.244 54.398c.188 1.64-.988 2.793-2.626 2.588 0 0-11.375-1.669-24.92-1.669-13.544 0-24.91 1.669-24.91 1.669-1.637.212-2.816-.962-2.636-2.599l5.97-54.376z"/>
+        <mask id="o" width="54.893" height="61.57" x="0" y="0" fill="#fff">
+            <use xlink:href="#f"/>
+        </mask>
+        <path id="g" d="M57.366 77.219l4.014-.323 5.278 51.202-1.437.154-2.576.17z"/>
+        <mask id="p" width="9.292" height="51.525" x="0" y="0" fill="#fff">
+            <use xlink:href="#g"/>
+        </mask>
+        <path id="h" d="M16.06 77.219l4.013-.323 5.278 51.202-1.437.154-2.576.17z"/>
+        <mask id="q" width="9.292" height="51.525" x="0" y="0" fill="#fff">
+            <use xlink:href="#h"/>
+        </mask>
+        <path id="i" d="M19.65 4.694c.18-1.647 1.66-3.179 3.295-3.399 0 0 7.801-1.295 18.281-1.295C51.706 0 59.24 1.289 59.24 1.289c1.628.233 3.1 1.753 3.289 3.394l6.244 54.398c.188 1.64-.988 2.793-2.626 2.588 0 0-11.375-1.669-24.92-1.669-13.544 0-24.91 1.669-24.91 1.669-1.637.212-2.816-.962-2.636-2.599l5.97-54.376z"/>
+        <mask id="r" width="54.893" height="61.57" x="0" y="0" fill="#fff">
+            <use xlink:href="#i"/>
+        </mask>
+    </defs>
+    <g fill="none" fill-rule="evenodd">
+        <g transform="translate(213)">
+            <path stroke="#ACACAC" stroke-dasharray="2" stroke-linecap="square" d="M20.305 101.939h42.028"/>
+            <use fill="#FFF" stroke="#ACACAC" stroke-dasharray="2" stroke-width="2" mask="url(#j)" xlink:href="#a"/>
+            <use fill="#FFF" stroke="#ACACAC" stroke-dasharray="2" stroke-width="2" mask="url(#k)" transform="matrix(-1 0 0 1 41.41 0)" xlink:href="#b"/>
+            <use stroke="#ACACAC" stroke-dasharray="2" stroke-width="2" mask="url(#l)" xlink:href="#c"/>
+            <path stroke="#ACACAC" stroke-dasharray="2" stroke-linecap="square" d="M26.522 62.797V73.94M56.225 62.797V73.94"/>
+            <path fill="#00C2A2" d="M74.633 75.564v-2.432H1.185v2.432z"/>
+            <path fill="#027360" d="M74.633 76.109H1.228v2.215a2.21 2.21 0 0 0 2.217 2.216h68.971a2.21 2.21 0 0 0 2.217-2.216V76.11z"/>
+            <path fill="#00C2A2" d="M6.386 49.11h2.206v23.079H6.386z"/>
+            <path fill="#3ADFBB" d="M3.416 49.82V47.62h69.49v2.198z"/>
+            <path fill="#00C2A2" d="M9.343 21.342a.466.466 0 0 1 .462-.508h28.942c.273 0 .508.221.525.508l1.291 21.306a.467.467 0 0 1-.462.509H11.22a.537.537 0 0 1-.527-.509l-1.35-21.306z"/>
+            <circle cx="24" cy="31" r="2" fill="#FFF"/>
+            <path fill="#027360" d="M10.842 44.645h35.643v1.488H10.842z"/>
+        </g>
+        <g transform="translate(106)">
+            <path stroke="#ACACAC" stroke-dasharray="2" stroke-linecap="square" d="M20.305 101.939h42.028"/>
+            <use fill="#FFF" stroke="#ACACAC" stroke-dasharray="2" stroke-width="2" mask="url(#m)" xlink:href="#d"/>
+            <use fill="#FFF" stroke="#ACACAC" stroke-dasharray="2" stroke-width="2" mask="url(#n)" transform="matrix(-1 0 0 1 41.41 0)" xlink:href="#e"/>
+            <use stroke="#ACACAC" stroke-dasharray="2" stroke-width="2" mask="url(#o)" xlink:href="#f"/>
+            <path stroke="#ACACAC" stroke-dasharray="2" stroke-linecap="square" d="M26.522 62.797V73.94M56.225 62.797V73.94"/>
+            <path fill="#00C2A2" d="M74.633 75.564v-2.432H1.185v2.432z"/>
+            <path fill="#027360" d="M74.633 76.109H1.228v2.215a2.21 2.21 0 0 0 2.217 2.216h68.971a2.21 2.21 0 0 0 2.217-2.216V76.11z"/>
+            <path fill="#00C2A2" d="M6.386 49.11h2.206v23.079H6.386z"/>
+            <path fill="#3ADFBB" d="M3.416 49.82V47.62h69.49v2.198z"/>
+            <path fill="#00C2A2" d="M9.343 21.342a.466.466 0 0 1 .462-.508h28.942c.273 0 .508.221.525.508l1.291 21.306a.467.467 0 0 1-.462.509H11.22a.537.537 0 0 1-.527-.509l-1.35-21.306z"/>
+            <circle cx="24" cy="31" r="2" fill="#FFF"/>
+            <path fill="#027360" d="M10.842 44.645h35.643v1.488H10.842z"/>
+        </g>
+        <g transform="translate(-1)">
+            <path stroke="#ACACAC" stroke-dasharray="2" stroke-linecap="square" d="M20.305 101.939h42.028"/>
+            <use fill="#FFF" stroke="#ACACAC" stroke-dasharray="2" stroke-width="2" mask="url(#p)" xlink:href="#g"/>
+            <use fill="#FFF" stroke="#ACACAC" stroke-dasharray="2" stroke-width="2" mask="url(#q)" transform="matrix(-1 0 0 1 41.41 0)" xlink:href="#h"/>
+            <use stroke="#ACACAC" stroke-dasharray="2" stroke-width="2" mask="url(#r)" xlink:href="#i"/>
+            <path stroke="#ACACAC" stroke-dasharray="2" stroke-linecap="square" d="M26.522 62.797V73.94M56.225 62.797V73.94"/>
+            <path fill="#00C2A2" d="M74.633 75.564v-2.432H1.185v2.432z"/>
+            <path fill="#027360" d="M74.633 76.109H1.228v2.215a2.21 2.21 0 0 0 2.217 2.216h68.971a2.21 2.21 0 0 0 2.217-2.216V76.11z"/>
+            <path fill="#00C2A2" d="M6.386 49.11h2.206v23.079H6.386z"/>
+            <path fill="#3ADFBB" d="M3.416 49.82V47.62h69.49v2.198z"/>
+            <path fill="#00C2A2" d="M9.343 21.342a.466.466 0 0 1 .462-.508h28.942c.273 0 .508.221.525.508l1.291 21.306a.467.467 0 0 1-.462.509H11.22a.537.537 0 0 1-.527-.509l-1.35-21.306z"/>
+            <circle cx="24" cy="31" r="2" fill="#FFF"/>
+            <path fill="#027360" d="M10.842 44.645h35.643v1.488H10.842z"/>
+        </g>
+    </g>
+</svg>

@@ -2,6 +2,7 @@ import * as React from 'react'
 import { Snackbar, defaultSnackbarTimeout } from 'quill-component-library/dist/componentLibrary'
 
 import CreateAClassModal from './create_a_class_modal'
+import Classroom from './classroom'
 
 const emptyClassSrc = `${process.env.CDN_URL}/images/illustrations/empty-class.svg`
 
@@ -12,6 +13,7 @@ interface ActiveClassroomsProps {
 interface ActiveClassroomsState {
   showCreateAClassModal: boolean;
   showSnackbar: boolean;
+  selectedClassroomId?: number;
   snackbarCopy?: string;
 }
 
@@ -27,8 +29,18 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
     this.openCreateAClassModal = this.openCreateAClassModal.bind(this)
     this.closeCreateAClassModal = this.closeCreateAClassModal.bind(this)
     this.showSnackbar = this.showSnackbar.bind(this)
-
+    this.clickClassroomHeader = this.clickClassroomHeader.bind(this)
   }
+
+  clickClassroomHeader(classroomId) {
+    if (this.state.selectedClassroomId === classroomId) {
+      this.setState({ selectedClassroomId: null})
+    } else {
+      this.setState({ selectedClassroomId: classroomId })
+    }
+  }
+
+  activeClassrooms = () => this.props.classrooms.filter(classroom => classroom.visible)
 
   openCreateAClassModal() {
     this.setState({ showCreateAClassModal: true })
@@ -50,10 +62,22 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
   }
 
   renderPageContent() {
-    if (this.props.classrooms.length === 0) {
+    const activeClassrooms = this.activeClassrooms()
+    if (activeClassrooms.length === 0) {
       return <div className="no-active-classes">
         <img src={emptyClassSrc} />
         <p>Every teacher needs a class! Please select one of the buttons on the right to get started.</p>
+      </div>
+    } else {
+      const classrooms = activeClassrooms.map(classroom => {
+        return <Classroom
+          classroom={classroom}
+          selected={classroom.id === this.state.selectedClassroomId}
+          clickClassroomHeader={this.clickClassroomHeader}
+        />
+      })
+      return <div className="active-classes">
+        {classrooms}
       </div>
     }
   }

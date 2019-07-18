@@ -12,6 +12,7 @@
   h1, h2 {
     font-weight: bold;
     font-size: 24px;
+    line-height: 1.33;
   }
   .header {
     display: flex;
@@ -41,6 +42,35 @@
       color: #646464;
       margin-top: 24px;
       width: 461px;
+    }
+  }
+
+  .classroom {
+    border-radius: 6px;
+    border: solid 1px #e0e0e0;
+    background-color: #ffffff;
+    margin-bottom: 24px;
+    .classroom-card-header {
+      height: 122px;
+      justify-content: space-between;
+      align-items: center;
+      display: flex;
+      flex-direction: row;
+      padding: 32px;
+      cursor: pointer;
+    }
+    .classroom-data {
+      margin-top: 4px;
+      span {
+        line-height: 1.57;
+        color: #646464;
+        margin-right: 8px;
+      }
+    }
+    &.open {
+      .expand-arrow {
+        transform: rotate(180deg);
+      }
     }
   }
 
