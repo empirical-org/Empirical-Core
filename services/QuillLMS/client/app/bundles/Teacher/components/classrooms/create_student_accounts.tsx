@@ -1,6 +1,5 @@
 import * as React from 'react'
-import { DataTable } from 'quill-component-library/dist/componentLibrary'
-import { Input} from './dataTable'
+import { DataTable, Input } from 'quill-component-library/dist/componentLibrary'
 
 import { requestPost } from '../../../../modules/request/index.js';
 
