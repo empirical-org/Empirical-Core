@@ -52,7 +52,7 @@ describe('CreateStudentAccounts component', () => {
     })
 
     it('should render a datatable', () => {
-      expect(wrapper.find(DataTable)).toBe(true)
+      expect(wrapper.find(DataTable).exists()).toBe(true)
     })
   })
 
