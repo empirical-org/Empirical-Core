@@ -10,7 +10,7 @@ module QuillAuthentication
   end
 
   def require_user
-    if signed_in? then true else redirect_to(root_path) end
+    signed_in!
   end
 
   def current_user
