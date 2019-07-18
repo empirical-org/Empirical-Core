@@ -6,6 +6,7 @@ const setupInstructionsSrc = `${process.env.CDN_URL}/images/illustrations/setup-
 
 interface SetupInstructionsProps {
   close: (event) => void;
+  back: (event) => void;
   classroom: any;
 }
 
@@ -24,8 +25,10 @@ export default class SetupInstructions extends React.Component<SetupInstructions
   }
 
   renderFooter() {
-    return <div className="create-a-class-modal-footer">
-      <button className="quill-button primary contained medium" onClick={this.props.close}>Done</button>
+    const { back, close, } = this.props
+    return <div className="create-a-class-modal-footer with-back-button">
+      <button className="quill-button secondary outlined medium" onClick={back}>Back</button>
+      <button className="quill-button primary contained medium" onClick={close}>Done</button>
     </div>
   }
 

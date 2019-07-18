@@ -33,8 +33,13 @@ exports[`ClassCodeLink component should render ClassCodeLink 1`] = `
     </div>
   </div>
   <div
-    className="create-a-class-modal-footer"
+    className="create-a-class-modal-footer with-back-button"
   >
+    <button
+      className="quill-button secondary outlined medium"
+    >
+      Back
+    </button>
     <button
       className="quill-button primary contained medium"
       onClick={[Function]}
