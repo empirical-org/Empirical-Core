@@ -48,6 +48,10 @@ export default class CreateStudentAccounts extends React.Component<CreateStudent
     this.createStudents = this.createStudents.bind(this)
   }
 
+  correctedNameString(string) {
+    return string.replace(/\W|\s/g, '-')
+  }
+
   handleFirstNameChange(e) {
     this.setState({ firstName: e.target.value })
   }

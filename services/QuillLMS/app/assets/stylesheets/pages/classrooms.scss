@@ -192,4 +192,19 @@
       }
     }
   }
+
+  // this is stuff that should be coming from the component library but is not working right now
+  .character-limit {
+    color: #7f7f7f;
+  }
+
+  .data-table {
+    padding-right: 0px;
+    .removable {
+      margin-right: 0px;
+      img {
+        cursor: pointer;
+      }
+    }
+  }
 }
