@@ -32,18 +32,41 @@ describe SchoolsController, type: :controller do
     expect(json['data'].first['id']).to eq(@school2.id)
   end
 
-  describe '#select_school' do
-    let(:user) { create(:user) }
-    let(:school_user) { create(:school_user, user: user) }
+  context "there is a current user" do
 
-    before do
-      allow(controller).to receive(:current_user) { user }
+    describe '#select_school' do
+      let(:user) { create(:user) }
+      let(:school_user) { create(:school_user, user: user) }
+
+      before do
+        allow(controller).to receive(:current_user) { user }
+      end
+
+      it 'should fire up the sync sales contact worker' do
+        expect(SyncSalesContactWorker).to receive(:perform_async)
+        put :select_school, school_id_or_type: @school1.id, format: :json
+      end
     end
 
-    it 'should fire up the sync sales contact worker' do
-      expect(SyncSalesContactWorker).to receive(:perform_async)
-      put :select_school, school_id_or_type: @school1.id, format: :json
+  end
+
+  context "there is no current user" do
+
+    describe '#select_school' do
+      let(:user) { create(:user) }
+      let(:school_user) { create(:school_user, user: user) }
+
+      before do
+        allow(controller).to receive(:current_user) { nil }
+      end
+
+      it 'should redirect to login' do
+        put :select_school, school_id_or_type: @school1.id, format: :json
+
+        response.should redirect_to '/session/new'
+      end
     end
+
   end
 
 end
