@@ -1,6 +1,9 @@
 import * as React from 'react'
 import moment from 'moment'
 
+import { DropdownInput } from 'quill-component-library/dist/componentLibrary'
+import { DataTable } from './dataTable'
+
 const emptyDeskSrc = `${process.env.CDN_URL}/images/illustrations/empty-desks.svg`
 const expandSrc = `${process.env.CDN_URL}/images/icons/expand.svg`
 
@@ -98,24 +101,97 @@ export default class Classroom extends React.Component<ClassroomProps, any> {
     </div>
   }
 
-  renderStudentSection() {
-    return <div className="students-section">
-      <div className="students-section-header">
-        <h3>Students</h3>
-        <button className="quill-button primary outlined small">Invite students</button>
-      </div>
-      {this.renderStudents()}
-    </div>
+  renderStudentActionsAndDataTable() {
+    const { classroom, } = this.props
+    const headers = [
+      {
+        width: '190px',
+        name: 'Name',
+        attribute: 'name'
+      }, {
+        width: '362px',
+        name: 'Username',
+        attribute: 'username'
+      }, {
+        width: '124px',
+        name: 'Synced',
+        attribute: 'synced'
+      }
+    ]
+
+    const actions = [
+      {
+        name: 'Edit account',
+        action: (id) => console.log('Edit account', id)
+      },
+      {
+        name: 'Reset password',
+        action: (id) => console.log('Reset password', id)
+      },
+      {
+        name: 'Merge accounts',
+        action: (id) => console.log('Merge accounts', id)
+      },
+      {
+        name: 'Move class',
+        action: (id) => console.log('Move class', id)
+      },
+      {
+        name: 'Remove from class',
+        action: (id) => console.log('Remove from class', id)
+      }
+    ]
+
+    const rows = classroom.students.map(student => {
+      const { name, username, id } = student
+      let synced = ''
+      if (student.google_id) { synced = 'Google Classroom'}
+      if (student.clever_id) { synced = 'Clever' }
+      return {
+        synced,
+        name,
+        id,
+        username,
+        actions
+      }
+    })
+
+    return <DataTable
+      headers={headers}
+      rows={rows}
+      showCheckboxes={true}
+      showActions={true}
+      checkRow={()=>{}}
+      uncheckRow={()=>{}}
+      uncheckAllRows={()=>{}}
+      checkAllRows={()=>{}}
+    />
   }
 
-  renderStudents() {
+  renderStudentSection() {
     const { classroom, } = this.props
     if (classroom.students.length) {
-      <a href={`/teachers/classrooms/${this.props.classroom.id}/student_logins`} className="quill-button secondary outlined small">Download setup instructions</a>
-    } else {
-      return <div className="no-students">
-        <img src={emptyDeskSrc} />
-        <p>Click on the "Invite students" button to get started with your writing instruction!</p>
+      return <div className="students-section">
+        <div className="students-section-header with-students">
+          <h3>Students</h3>
+          <div className="students-section-header-buttons">
+            <a href={`/teachers/classrooms/${this.props.classroom.id}/student_logins`} className="quill-button secondary outlined small">Download setup instructions</a>
+            <button className="quill-button primary outlined small">Invite students</button>
+          </div>
+        </div>
+        {this.renderStudentActionsAndDataTable()}
+      </div>
+    }
+    else {
+      return <div className="students-section">
+        <div className="students-section-header">
+          <h3>Students</h3>
+          <button className="quill-button primary outlined small">Invite students</button>
+        </div>
+        <div className="no-students">
+          <img src={emptyDeskSrc} />
+          <p>Click on the "Invite students" button to get started with your writing instruction!</p>
+        </div>
       </div>
     }
   }
