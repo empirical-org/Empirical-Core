@@ -1,5 +1,5 @@
 <%= render partial: 'teachers/shared/scorebook_tabs' %>
 
 <div class="container">
-  <%= react_component('TeacherClassroomsApp', props: { role: current_user.role, classrooms: @classrooms })%>
+  <%= react_component('TeacherClassroomsApp', props: { user: current_user, classrooms: @classrooms })%>
 </div>
