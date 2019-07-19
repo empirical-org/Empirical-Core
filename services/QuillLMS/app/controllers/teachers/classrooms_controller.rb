@@ -28,6 +28,10 @@ class Teachers::ClassroomsController < ApplicationController
       classroom_obj[:teachers] = classroom_teachers
       classroom_obj
     end.compact
+    respond_to do |format|
+      format.html
+      format.json {render json: @classrooms}
+    end
   end
 
   def new
