@@ -4,6 +4,7 @@ import {CopyToClipboard} from 'react-copy-to-clipboard';
 
 interface ClassCodeLinkProps {
   next: (event) => void;
+  back: (event) => void;
   showSnackbar: (event) => void;
   classroom: any;
 }
@@ -44,8 +45,10 @@ export default class ClassCodeLink extends React.Component<ClassCodeLinkProps, C
   }
 
   renderFooter() {
-    return <div className="create-a-class-modal-footer">
-      <button className="quill-button primary contained medium" onClick={this.props.next}>Next</button>
+    const { back, next, } = this.props
+    return <div className="create-a-class-modal-footer with-back-button">
+      <button className="quill-button secondary outlined medium" onClick={back}>Back</button>
+      <button className="quill-button primary contained medium" onClick={next}>Next</button>
     </div>
   }
 
