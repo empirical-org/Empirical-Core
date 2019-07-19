@@ -8,7 +8,8 @@ import { requestGet } from '../../../../modules/request/index.js';
 const emptyClassSrc = `${process.env.CDN_URL}/images/illustrations/empty-class.svg`
 
 interface ActiveClassroomsProps {
-  classrooms: Array<any>
+  classrooms: Array<any>;
+  user: any;
 }
 
 interface ActiveClassroomsState {
@@ -69,6 +70,7 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
   }
 
   renderPageContent() {
+    const { user } = this.props
     const { classrooms } = this.state
     if (classrooms.length === 0) {
       return <div className="no-active-classes">
@@ -81,6 +83,7 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
           classroom={classroom}
           selected={classroom.id === this.state.selectedClassroomId}
           clickClassroomHeader={this.clickClassroomHeader}
+          user={user}
         />
       })
       return <div className="active-classes">

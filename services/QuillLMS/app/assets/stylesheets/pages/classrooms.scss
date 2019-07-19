@@ -50,13 +50,20 @@
     border: solid 1px #e0e0e0;
     background-color: #ffffff;
     margin-bottom: 24px;
+    h3 {
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 24px;
+    }
+    .classroom-card-header, .students-section, .teacher-section {
+      padding: 32px;
+    }
     .classroom-card-header {
       height: 122px;
       justify-content: space-between;
       align-items: center;
       display: flex;
       flex-direction: row;
-      padding: 32px;
       cursor: pointer;
     }
     .classroom-data {
@@ -66,6 +73,35 @@
         color: #646464;
         margin-right: 8px;
       }
+    }
+    .class-settings, .students-section {
+      border-bottom: 1px solid #e0e0e0;
+    }
+    .class-settings {
+      padding: 0px 32px 32px;
+    }
+    .class-settings-buttons {
+      display: flex;
+      .quill-button {
+        margin-right: 16px;
+      }
+    }
+    .no-students {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 58px;
+      p {
+        font-size: 14px;
+        line-height: 1.57;
+        margin-top: 24px;
+        color: #646464;
+      }
+    }
+    .students-section-header, .teacher-section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
     &.open {
       .expand-arrow {

@@ -1,6 +1,4 @@
 import * as React from 'react'
-import { Input, Snackbar, defaultSnackbarTimeout } from 'quill-component-library/dist/componentLibrary'
-import {CopyToClipboard} from 'react-copy-to-clipboard';
 
 const setupInstructionsSrc = `${process.env.CDN_URL}/images/illustrations/setup-instructions.svg`
 
