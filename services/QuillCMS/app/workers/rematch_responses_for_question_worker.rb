@@ -9,7 +9,6 @@ class RematchResponsesForQuestionWorker
     responses_to_reprocess.each do |response|
       enqueue_individual_response(response.id, question_type, question_uid)
     end
-    return responses_to_reprocess.length
   end
 
   def enqueue_individual_response(response_id, question_type, question_uid)

@@ -126,16 +126,28 @@ describe RematchResponseWorker do
       subject.rematch_response(response, sample_payload['type'], sample_payload['question'], sample_payload['reference_responses'])
       expect(response.feedback).to eq(sample_lambda_response[:feedback])
     end
+
+    it 'should raise an Net::HTTPRetriableError on Gateway Timeout' do
+      stub_request(:post, /#{ENV['REMATCH_LAMBDA_URL']}/).
+        to_return(status: [504, "Gateway timed out"])
+
+      expect{subject.rematch_response(response, sample_payload['type'], sample_payload['question'], sample_payload['reference_responses'])}.to raise_error(Net::HTTPRetriableError)
+    end
   end
 
   describe "#construct_lambda_payload" do
     it 'should take the params and return an appropriately-shaped hash' do
       result = subject.construct_lambda_payload(
-        sample_payload["response"],
-        sample_payload["type"],
-        sample_payload["question"],
-        sample_payload["referenceResponses"])
-      expect(result.stringify_keys).to eq(sample_payload)
+        "Response Object",
+        "Question Type String",
+        "Question Object",
+        "Array of Human-graded Response Objects")
+      expect(result.stringify_keys).to eq({
+        response: "Response Object",
+        type: "Question Type String",
+        question: "Question Object",
+        referenceResponses: "Array of Human-graded Response Objects"
+      }.stringify_keys)
     end
   end
 

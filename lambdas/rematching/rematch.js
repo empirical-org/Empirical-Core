@@ -91,7 +91,7 @@ function hashToCollection(hash) {
   return _.compact(array)
 }
 
-function rematchIndividualQuestionHelper(response, type, question, referenceResponses, finishRematching) {
+function rematchIndividualQuestion(response, type, question, referenceResponses, finishRematching) {
     const matcher = getMatcher(type);
     const data = referenceResponses;
     const formattedReferenceResponses = formatGradedResponses(data)
@@ -243,10 +243,6 @@ function convertResponsesArrayToHash(crArray) {
     }
   });
   return newHash;
-}
-
-function rematchIndividualQuestion(response, question, type, referenceResponses, finishRematching) {
-  rematchIndividualQuestionHelper(response, type, question, referenceResponses, finishRematching)
 }
 
 module.exports = {
