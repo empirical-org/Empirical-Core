@@ -3,6 +3,7 @@ import { Snackbar, defaultSnackbarTimeout } from 'quill-component-library/dist/c
 
 import CreateAClassModal from './create_a_class_modal'
 import Classroom from './classroom'
+import { requestGet } from '../../../../modules/request/index.js';
 
 const emptyClassSrc = `${process.env.CDN_URL}/images/illustrations/empty-class.svg`
 
@@ -15,6 +16,7 @@ interface ActiveClassroomsState {
   showSnackbar: boolean;
   selectedClassroomId?: number;
   snackbarCopy?: string;
+  classrooms?: Array<any>;
 }
 
 export default class ActiveClassrooms extends React.Component<ActiveClassroomsProps, ActiveClassroomsState> {
@@ -23,13 +25,19 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
 
     this.state = {
       showCreateAClassModal: false,
-      showSnackbar: false
+      showSnackbar: false,
+      classrooms: props.classrooms.filter(classroom => classroom.visible)
     }
 
     this.openCreateAClassModal = this.openCreateAClassModal.bind(this)
     this.closeCreateAClassModal = this.closeCreateAClassModal.bind(this)
     this.showSnackbar = this.showSnackbar.bind(this)
     this.clickClassroomHeader = this.clickClassroomHeader.bind(this)
+    this.getClassrooms = this.getClassrooms.bind(this)
+  }
+
+  getClassrooms() {
+    requestGet('/teachers/classrooms/new_index', (body) => this.setState({ classrooms: body.classrooms }));
   }
 
   clickClassroomHeader(classroomId) {
@@ -40,13 +48,12 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
     }
   }
 
-  activeClassrooms = () => this.props.classrooms.filter(classroom => classroom.visible)
-
   openCreateAClassModal() {
     this.setState({ showCreateAClassModal: true })
   }
 
   closeCreateAClassModal() {
+    this.getClassrooms()
     this.setState({ showCreateAClassModal: false })
   }
 
@@ -62,14 +69,14 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
   }
 
   renderPageContent() {
-    const activeClassrooms = this.activeClassrooms()
-    if (activeClassrooms.length === 0) {
+    const { classrooms } = this.state
+    if (classrooms.length === 0) {
       return <div className="no-active-classes">
         <img src={emptyClassSrc} />
         <p>Every teacher needs a class! Please select one of the buttons on the right to get started.</p>
       </div>
     } else {
-      const classrooms = activeClassrooms.map(classroom => {
+      const classroomCards = classrooms.map(classroom => {
         return <Classroom
           classroom={classroom}
           selected={classroom.id === this.state.selectedClassroomId}
@@ -77,7 +84,7 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
         />
       })
       return <div className="active-classes">
-        {classrooms}
+        {classroomCards}
       </div>
     }
   }
