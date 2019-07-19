@@ -60,7 +60,7 @@
         margin-left: 5%;
       }
     }
-    button:not(.select-mixin) {
+    button:not(.select-mixin):not(.quill-button) {
       padding: 13px 25px;}
     .circle {
         box-sizing: border-box;

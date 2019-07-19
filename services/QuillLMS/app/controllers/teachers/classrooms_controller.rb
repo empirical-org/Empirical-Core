@@ -15,10 +15,37 @@ class Teachers::ClassroomsController < ApplicationController
     end
   end
 
+  def new_index
+    classrooms = ClassroomsTeacher.where(user_id: current_user.id).map { |ct| Classroom.unscoped.find_by(id: ct.classroom_id)}
+    @classrooms = classrooms.compact.map do |classroom|
+      classroom_obj = classroom.attributes
+      classroom_obj[:students] = classroom.students
+      classroom_teachers = classroom.classrooms_teachers.map do |ct|
+        teacher = ct.user.attributes
+        teacher[:classroom_relation] = ct.role
+        teacher
+      end
+      classroom_obj[:teachers] = classroom_teachers
+      classroom_obj
+    end.compact
+  end
+
   def new
     class_ids = current_user.classrooms_i_teach.map(&:id)
     @user = current_user
     @has_activities = ClassroomUnit.where(classroom_id: class_ids).exists?
+  end
+
+  def create_students
+    classroom = Classroom.find(create_students_params[:classroom_id])
+    create_students_params[:students].each do |s|
+      s[:account_type] = 'Teacher Created Account'
+      student = Creators::StudentCreator.create_student(s, classroom.id)
+      classroom_units = ClassroomUnit.where(classroom_id: classroom.id)
+      classroom_units.each { |cu| cu.validate_assigned_student(student.id) }
+      Associators::StudentsToClassrooms.run(student, classroom)
+    end
+    render status: 200, json: {}
   end
 
   def classrooms_i_teach
@@ -115,6 +142,10 @@ class Teachers::ClassroomsController < ApplicationController
   end
 
 private
+
+  def create_students_params
+    params.permit(:classroom_id, :students => [:name, :username, :password, :account_type], :classroom => classroom_params)
+  end
 
   def classroom_params
     params[:classroom].permit(:name, :code, :grade)

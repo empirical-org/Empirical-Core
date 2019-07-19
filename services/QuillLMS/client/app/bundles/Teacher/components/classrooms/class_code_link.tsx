@@ -1,0 +1,60 @@
+import * as React from 'react'
+import { Input } from 'quill-component-library/dist/componentLibrary'
+import {CopyToClipboard} from 'react-copy-to-clipboard';
+
+interface ClassCodeLinkProps {
+  next: (event) => void;
+  showSnackbar: (event) => void;
+  classroom: any;
+}
+
+interface ClassCodeLinkState {
+  showSnackbar: boolean
+}
+
+export default class ClassCodeLink extends React.Component<ClassCodeLinkProps, ClassCodeLinkState> {
+  constructor(props) {
+    super(props)
+
+    this.showSnackbar = this.showSnackbar.bind(this)
+  }
+
+  classCodeLink() {
+    return `quill.org/join/${this.props.classroom.code}`
+  }
+
+  showSnackbar() {
+    this.props.showSnackbar('Class code link copied')
+  }
+
+  renderBody() {
+    return <div className="create-a-class-modal-body modal-body">
+      <h3 className="title">Share the class code link with your students</h3>
+      <div className="copy-class-code-container">
+        <Input
+          id="class-code"
+          disabled={true}
+          value={this.classCodeLink()}
+        />
+        <CopyToClipboard text={this.classCodeLink()} onCopy={this.showSnackbar}>
+          <button className="quill-button secondary outlined small">Copy</button>
+        </CopyToClipboard>
+      </div>
+    </div>
+  }
+
+  renderFooter() {
+    return <div className="create-a-class-modal-footer">
+      <button className="quill-button primary contained medium" onClick={this.props.next}>Next</button>
+    </div>
+  }
+
+  render() {
+    return (
+      <div className="create-a-class-modal-content">
+        {this.renderBody()}
+        {this.renderFooter()}
+      </div>
+    )
+  }
+}
