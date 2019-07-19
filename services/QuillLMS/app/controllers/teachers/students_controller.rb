@@ -63,6 +63,7 @@ protected
     params.require(:user).permit(:name,
                                  :first_name,
                                  :last_name,
+                                 :password,
                                  :password_digest,
                                  :classcode,
                                  :active,

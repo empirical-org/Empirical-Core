@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ActiveClassrooms component with no classrooms should render with no classrooms 1`] = `
+<div
+  className="active-classrooms classrooms-page"
+>
+  <Snackbar
+    visible={false}
+  />
+  <div
+    className="header"
+  >
+    <h1>
+      Active Classes
+    </h1>
+    <div
+      className="buttons"
+    >
+      <button
+        className="quill-button medium secondary outlined import-from-google-button"
+      >
+        Import from Google Classroom
+      </button>
+      <button
+        className="quill-button medium primary contained create-a-class-button"
+        onClick={[Function]}
+      >
+        Create a class
+      </button>
+    </div>
+  </div>
+  <div
+    className="no-active-classes"
+  >
+    <img
+      src="undefined/images/illustrations/empty-class.svg"
+    />
+    <p>
+      Every teacher needs a class! Please select one of the buttons on the right to get started.
+    </p>
+  </div>
+</div>
+`;

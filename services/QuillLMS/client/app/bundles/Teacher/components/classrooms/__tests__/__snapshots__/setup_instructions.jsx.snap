@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SetupInstructions component should render SetupInstructions 1`] = `
+<div
+  className="create-a-class-modal-content"
+>
+  <div
+    className="create-a-class-modal-body modal-body setup-instructions"
+  >
+    <h3
+      className="title"
+    >
+      Download student logins and setup instructions
+    </h3>
+    <p>
+      This PDF includes usernames and passwords for each student and instructions for accessing their Quill accounts.
+    </p>
+    <img
+      src="undefined/images/illustrations/setup-instructions.svg"
+    />
+    <a
+      className="quill-button secondary outlined medium"
+      href="/teachers/classrooms/1/student_logins"
+    >
+      Download PDF
+    </a>
+  </div>
+  <div
+    className="create-a-class-modal-footer"
+  >
+    <button
+      className="quill-button primary contained medium"
+      onClick={[Function]}
+    >
+      Done
+    </button>
+  </div>
+</div>
+`;
