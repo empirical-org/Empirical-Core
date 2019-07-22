@@ -187,6 +187,9 @@
     "coveragePathIgnorePatterns": [
       "/node_modules/",
       "/test_data/"
+    ],
+    "testPathIgnorePatterns": [
+      "test_data.js"
     ]
   }
 }

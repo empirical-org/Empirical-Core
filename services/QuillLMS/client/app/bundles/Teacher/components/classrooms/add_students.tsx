@@ -8,7 +8,7 @@ export const studentsCreate = 'students create accounts'
 export const teacherCreates = 'teacher creates accounts'
 
 interface AddStudentsProps {
-  next: (event) => void;
+  next: () => void;
   back: (event) => void;
   showSnackbar: (event) => void;
   classroom: any;
