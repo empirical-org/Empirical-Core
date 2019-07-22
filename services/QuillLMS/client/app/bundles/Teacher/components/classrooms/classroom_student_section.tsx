@@ -1,8 +1,7 @@
 import * as React from 'react'
 import moment from 'moment'
 
-import { DropdownInput } from 'quill-component-library/dist/componentLibrary'
-import { DataTable } from './dataTable'
+import { DropdownInput, DataTable } from 'quill-component-library/dist/componentLibrary'
 
 const emptyDeskSrc = `${process.env.CDN_URL}/images/illustrations/empty-desks.svg`
 
