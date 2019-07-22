@@ -11,11 +11,13 @@ const right: CSS.TextAlignProperty = "right"
 
 const indeterminateSrc = 'https://assets.quill.org/images/icons/indeterminate.svg'
 const removeSrc = 'https://assets.quill.org/images/icons/remove.svg'
+const moreHorizontalSrc = 'https://assets.quill.org/images/icons/more-horizontal.svg'
 const smallWhiteCheckSrc = 'https://assets.quill.org/images/shared/check-small-white.svg'
 const arrowSrc = 'https://assets.quill.org/images/shared/arrow.svg'
 
 interface DataTableRow {
   id: number|string;
+  actions?: Array<{name: string, action: Function}>
   [key:string]: any;
 }
 
@@ -34,6 +36,7 @@ interface DataTableProps {
   defaultSortDirection?: string;
   showCheckboxes?: boolean;
   showRemoveIcon?: boolean;
+  showActions?: boolean;
   removeRow?: (event: any) => void;
   checkRow?: (event: any) => void;
   uncheckRow?: (event: any) => void;
@@ -44,9 +47,12 @@ interface DataTableProps {
 interface DataTableState {
   sortAttribute?: string;
   sortDirection?: string;
+  rowWithActionsOpen?: number|string;
 }
 
 export class DataTable extends React.Component<DataTableProps, DataTableState> {
+  private selectedStudentActions: any
+
   constructor(props) {
     super(props)
 
@@ -56,6 +62,21 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     }
 
     this.changeSortDirection = this.changeSortDirection.bind(this)
+    this.handleClick = this.handleClick.bind(this)
+  }
+
+  componentWillMount() {
+    document.addEventListener('mousedown', this.handleClick, false)
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('mousedown', this.handleClick, false)
+  }
+
+  handleClick(e) {
+    if (this.selectedStudentActions && !this.selectedStudentActions.contains(e.target)) {
+      this.setState({ rowWithActionsOpen: null })
+    }
   }
 
   attributeAlignment(attributeName): CSS.TextAlignProperty {
@@ -103,6 +124,13 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     }
   }
 
+  renderActionsHeader() {
+    const { showActions } = this.props
+    if (showActions) {
+      return <span className="data-table-header actions-header">Actions</span>
+    }
+  }
+
   renderRowCheckbox(row) {
     if (this.props.showCheckboxes) {
       if (row.checked) {
@@ -116,6 +144,29 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
   renderRowRemoveIcon(row) {
     if (this.props.showRemoveIcon) {
       return <span className="removable data-table-row-section" onClick={() => this.props.removeRow(row.id)}><img src={removeSrc} alt="x" /></span>
+    }
+  }
+
+  renderActions(row) {
+    if (row.actions) {
+      const { rowWithActionsOpen } = this.state
+      let content
+      if (rowWithActionsOpen === row.id) {
+        const rowActions = row.actions.map(act => <span onClick={() => act.action(row.id)}>{act.name}</span>)
+        content = <div className="actions-menu-container" ref={node => this.selectedStudentActions = node}>
+          <div className="actions-menu">
+            {rowActions}
+          </div>
+        </div>
+      } else {
+        content = <button
+          className="quill-button actions-button"
+          onClick={() => this.setState({ rowWithActionsOpen: row.id })}
+        >
+          <img src={moreHorizontalSrc} alt="ellipses" />
+        </button>
+      }
+      return <span className="data-table-row-section actions-section">{content}</span>
     }
   }
 
@@ -138,7 +189,7 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
           {header.name}
         </span>
     })
-    return <div className="data-table-headers">{this.renderHeaderCheckbox()}{headers}{this.renderHeaderForRemoval()}</div>
+    return <div className="data-table-headers">{this.renderHeaderCheckbox()}{headers}{this.renderHeaderForRemoval()}{this.renderActionsHeader()}</div>
   }
 
   renderRows() {
@@ -168,7 +219,7 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
           </span>
         }
       })
-      return <div className={rowClassName}>{this.renderRowCheckbox(row)}{rowSections}{this.renderRowRemoveIcon(row)}</div>
+      return <div className={rowClassName} key={String(row.id)}>{this.renderRowCheckbox(row)}{rowSections}{this.renderRowRemoveIcon(row)}{this.renderActions(row)}</div>
     })
     return <div className="data-table-body">{rows}</div>
   }
