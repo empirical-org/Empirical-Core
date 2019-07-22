@@ -43,68 +43,6 @@ describe TeacherFixes do
         # end
       end
 
-      describe "#hide_extra_activity_sessions" do
-        context "there is an activity session with a final score" do
-          it "leaves the activity session with a final score" do
-            TeacherFixes::hide_extra_activity_sessions(classroom_unit1.id, student1.id)
-            expect(final_score.visible).to be true
-          end
-
-          it "hides all other activity sessions with that user id and classroom unit id" do
-            TeacherFixes::hide_extra_activity_sessions(classroom_unit1.id, student1.id)
-            expect(ActivitySession.where(classroom_unit_id: classroom_unit1.id, user_id: student1.id).length).to be 1
-          end
-
-        end
-
-        context "there are activities with percentages assigned" do
-          it "leaves the activity session with the highest percentage" do
-            TeacherFixes::hide_extra_activity_sessions(classroom_unit2.id, student1.id)
-            expect(higher_percentage.visible).to be true
-          end
-
-          it "hides all other activity sessions with that user id and classroom unit id" do
-            TeacherFixes::hide_extra_activity_sessions(classroom_unit2.id, student1.id)
-            expect(ActivitySession.where(classroom_unit_id: classroom_unit2.id, user_id: student1.id).length).to be 1
-          end
-
-        end
-
-        context "there are activities that have been started" do
-          it "leaves the activity session that was started most recently" do
-            TeacherFixes::hide_extra_activity_sessions(classroom_unit3.id, student1.id)
-            expect(started.visible).to be true
-          end
-
-          it "hides all other activity sessions with that user id and classroom unit id" do
-            TeacherFixes::hide_extra_activity_sessions(classroom_unit3.id, student1.id)
-            expect(ActivitySession.where(classroom_unit_id: classroom_unit3.id, user_id: student1.id).length).to be 1
-          end
-
-        end
-
-      end
-
-      describe("#same_classroom?") do
-        it 'returns true if the students are in the same classroom' do
-          expect(TeacherFixes::same_classroom?(student1.id, student2.id)).to be true
-        end
-        it 'returns false if the students are not in the same classroom' do
-          expect(TeacherFixes::same_classroom?(student1.id, student3.id)).to be false
-        end
-      end
-
-      describe("#move_activity_sessions") do
-        it 'finds or creates a classroom unit for the new classroom with that student assigned' do
-          TeacherFixes::move_activity_sessions(student1, classroom, classroom2)
-          started.reload
-          new_ca = started.classroom_unit
-          expect(new_ca.classroom).to eq(classroom2)
-          expect(new_ca.assigned_student_ids).to include(student1.id)
-          # expect(TeacherFixes::same_classroom?(student1.id, student2.id)).to be true
-        end
-      end
-
       describe '#merge_two_schools' do
         let!(:school) { create(:school) }
         let!(:other_school) { create(:school) }
