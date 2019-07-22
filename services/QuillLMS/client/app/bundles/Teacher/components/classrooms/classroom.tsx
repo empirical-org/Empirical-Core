@@ -9,6 +9,8 @@ const expandSrc = `${process.env.CDN_URL}/images/icons/expand.svg`
 
 import NumberSuffix from '../modules/numberSuffixBuilder.js';
 
+const titleCase = str => str.charAt(0).toUpperCase() + str.substr(1).toLowerCase()
+
 interface ClassroomProps {
   user: any;
   classroom: any;
@@ -16,9 +18,44 @@ interface ClassroomProps {
   clickClassroomHeader: (event) => void;
 }
 
-export default class Classroom extends React.Component<ClassroomProps, any> {
+interface ClassroomState {
+  selectedStudentIds: Array<string|number>
+}
+
+export default class Classroom extends React.Component<ClassroomProps, ClassroomState> {
   constructor(props) {
     super(props)
+
+    this.state = {
+      selectedStudentIds: []
+    }
+
+    this.checkRow = this.checkRow.bind(this)
+    this.uncheckRow = this.uncheckRow.bind(this)
+    this.checkAllRows = this.checkAllRows.bind(this)
+    this.uncheckAllRows = this.uncheckAllRows.bind(this)
+  }
+
+  checkRow(id) {
+    const { selectedStudentIds } = this.state
+    const newSelectedStudentIds = selectedStudentIds.concat(id)
+    this.setState({ selectedStudentIds: newSelectedStudentIds })
+  }
+
+  uncheckRow(id) {
+    const { selectedStudentIds } = this.state
+    const newSelectedStudentIds = selectedStudentIds.filter(selectedId => selectedId !== id)
+    this.setState({ selectedStudentIds: newSelectedStudentIds })
+  }
+
+  checkAllRows() {
+    const { classroom } = this.props
+    const newSelectedStudentIds = classroom.students.map(student => student.id)
+    this.setState({ selectedStudentIds: newSelectedStudentIds })
+  }
+
+  uncheckAllRows() {
+    this.setState({ selectedStudentIds: [] })
   }
 
   renderClassCodeOrType() {
@@ -83,8 +120,8 @@ export default class Classroom extends React.Component<ClassroomProps, any> {
       <button className="quill-button secondary outlined small">Archive</button>
     ]
     const teacher = classroom.teachers.find(t => t.id === user.id)
-    if (teacher.classroom_role === 'co-teacher') {
-      const owner = classroom.teachers.find(t => t.classroom_role === 'owner')
+    if (teacher.classroom_relation === 'co-teacher') {
+      const owner = classroom.teachers.find(t => t.classroom_relation === 'owner')
       coteacherNote = <span>Looking for more class settings? Ask {owner.name}, the class owner.</span>
       settings = [<button className="quill-button secondary outlined small">Leave class</button>]
     } else if (!classroom.visible) {
@@ -144,6 +181,7 @@ export default class Classroom extends React.Component<ClassroomProps, any> {
 
     const rows = classroom.students.map(student => {
       const { name, username, id } = student
+      const checked = !!this.state.selectedStudentIds.includes(id)
       let synced = ''
       if (student.google_id) { synced = 'Google Classroom'}
       if (student.clever_id) { synced = 'Clever' }
@@ -152,7 +190,8 @@ export default class Classroom extends React.Component<ClassroomProps, any> {
         name,
         id,
         username,
-        actions
+        actions,
+        checked
       }
     })
 
@@ -161,10 +200,10 @@ export default class Classroom extends React.Component<ClassroomProps, any> {
       rows={rows}
       showCheckboxes={true}
       showActions={true}
-      checkRow={()=>{}}
-      uncheckRow={()=>{}}
-      uncheckAllRows={()=>{}}
-      checkAllRows={()=>{}}
+      checkRow={this.checkRow}
+      uncheckRow={this.uncheckRow}
+      uncheckAllRows={this.uncheckAllRows}
+      checkAllRows={this.checkAllRows}
     />
   }
 
@@ -207,7 +246,73 @@ export default class Classroom extends React.Component<ClassroomProps, any> {
   }
 
   renderTeachers() {
+    const { user, classroom } = this.props
 
+    const headers = [
+      {
+        width: '200px',
+        name: 'Name',
+        attribute: 'name'
+      }, {
+        width: '72px',
+        name: 'Role',
+        attribute: 'role'
+      }, {
+        width: '375px',
+        name: 'Email',
+        attribute: 'email'
+      },
+      {
+        width: '52px',
+        name: 'Status',
+        attribute: 'status'
+      }
+    ]
+
+    const actions = [
+      {
+        name: 'Invite to another class',
+        action: (id) => console.log('Edit account', id)
+      },
+      {
+        name: 'Transfer class',
+        action: (id) => console.log('Reset password', id)
+      },
+      {
+        name: 'Remove from class',
+        action: (id) => console.log('Merge accounts', id)
+      }
+    ]
+
+    const owner = classroom.teachers.find(teacher => teacher.classroom_relation === 'owner')
+    const coteachers = classroom.teachers.filter(teacher => teacher.classroom_relation === 'co-teacher')
+    const alphabeticalCoteachers = coteachers.sort((a, b) => {
+      const aLastName = a.name.split(' ')[1] || ''
+      const bLastName = b.name.split(' ')[1] || ''
+      return aLastName.localeCompare(bLastName)
+    })
+
+    const teachers = [owner].concat(alphabeticalCoteachers)
+
+    const rows = teachers.map(teacher => {
+      const { name, classroom_relation, id, status, email } = teacher
+      const teacherRow: { name: string, id: number, email: string, role: string, status: string, actions?: Array<any> } = {
+        name,
+        id,
+        email,
+        role: titleCase(classroom_relation),
+        status: status
+      }
+      if (teacherRow.role === 'Co-teacher' && user.id === owner.id) {
+        teacherRow.actions = actions
+      }
+      return teacherRow
+    })
+    return <DataTable
+      headers={headers}
+      rows={rows}
+      showActions={true}
+    />
   }
 
   renderClassroomContent() {

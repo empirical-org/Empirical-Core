@@ -51,6 +51,8 @@ interface DataTableState {
 }
 
 export class DataTable extends React.Component<DataTableProps, DataTableState> {
+  private selectedStudentActions: any
+
   constructor(props) {
     super(props)
 
@@ -60,6 +62,21 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     }
 
     this.changeSortDirection = this.changeSortDirection.bind(this)
+    this.handleClick = this.handleClick.bind(this)
+  }
+
+  componentWillMount() {
+    document.addEventListener('mousedown', this.handleClick, false)
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('mousedown', this.handleClick, false)
+  }
+
+  handleClick(e) {
+    if (this.selectedStudentActions && !this.selectedStudentActions.contains(e.target)) {
+      this.setState({ rowWithActionsOpen: null })
+    }
   }
 
   attributeAlignment(attributeName): CSS.TextAlignProperty {
@@ -131,24 +148,26 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
   }
 
   renderActions(row) {
-    const { rowWithActionsOpen } = this.state
-    let content
-    if (rowWithActionsOpen === row.id) {
-      const rowActions = row.actions.map(act => <span onClick={() => act.action(row.id)}>{act.name}</span>)
-      content = <div className="actions-menu-container">
-        <div className="actions-menu">
-          {rowActions}
+    if (row.actions) {
+      const { rowWithActionsOpen } = this.state
+      let content
+      if (rowWithActionsOpen === row.id) {
+        const rowActions = row.actions.map(act => <span onClick={() => act.action(row.id)}>{act.name}</span>)
+        content = <div className="actions-menu-container" ref={node => this.selectedStudentActions = node}>
+          <div className="actions-menu">
+            {rowActions}
+          </div>
         </div>
-      </div>
-    } else {
-      content = <button
-        className="quill-button actions-button"
-        onClick={() => this.setState({ rowWithActionsOpen: row.id })}
-      >
-        <img src={moreHorizontalSrc} alt="ellipses" />
-      </button>
+      } else {
+        content = <button
+          className="quill-button actions-button"
+          onClick={() => this.setState({ rowWithActionsOpen: row.id })}
+        >
+          <img src={moreHorizontalSrc} alt="ellipses" />
+        </button>
+      }
+      return <span className="data-table-row-section actions-section">{content}</span>
     }
-    return <span className="data-table-row-section actions-section">{content}</span>
   }
 
   renderHeaders() {
@@ -200,7 +219,7 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
           </span>
         }
       })
-      return <div className={rowClassName}>{this.renderRowCheckbox(row)}{rowSections}{this.renderRowRemoveIcon(row)}{this.renderActions(row)}</div>
+      return <div className={rowClassName} key={String(row.id)}>{this.renderRowCheckbox(row)}{rowSections}{this.renderRowRemoveIcon(row)}{this.renderActions(row)}</div>
     })
     return <div className="data-table-body">{rows}</div>
   }
