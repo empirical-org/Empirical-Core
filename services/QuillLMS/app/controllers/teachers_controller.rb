@@ -1,4 +1,5 @@
 class TeachersController < ApplicationController
+  before_action :require_user, only: [:classrooms_i_teach_with_students, :classrooms_i_own_with_students]
 
   def create
     school = School.find_by(id: params[:id])

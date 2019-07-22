@@ -79,26 +79,21 @@ class TeacherFixController < ApplicationController
   end
 
   def merge_student_accounts
-    account1 = User.find_by_username_or_email(params['account_1_identifier'])
-    account2 = User.find_by_username_or_email(params['account_2_identifier'])
-    if account1 && account2
-      if account1.role === 'student' && account2.role === 'student'
-        if TeacherFixes::same_classroom?(account1.id, account2.id)
-          if account2.classrooms.length == 1
-            TeacherFixes::merge_activity_sessions(account1, account2)
-            render json: {}, status: 200
-          else
-            render json: {error: "#{params['account_2_identifier']} is in more than one classroom."}
-          end
+    primary_account = User.find_by_username_or_email(params['account_1_identifier'])
+    secondary_account = User.find_by_username_or_email(params['account_2_identifier'])
+    if primary_account && secondary_account
+      if primary_account.role == 'student' && secondary_account.role == 'student'
+        if primary_account.merge_student_account(secondary_account)
+          render json: {}, status: 200
         else
-          render json: {error: "These students are not in the same classroom."}
+          render json: {error: "These students are not in the same classrooms."}
         end
       else
-        nonstudent_account_identifier = account1.role === 'student' ? params['account_2_identifier'] : params['account_1_identifier']
+        nonstudent_account_identifier = primary_account.role == 'student' ? params['account_2_identifier'] : params['account_1_identifier']
         render json: {error: "#{nonstudent_account_identifier} is not a student."}
       end
     else
-      missing_account_identifier = account1 ? params['account_2_identifier'] : params['account_1_identifier']
+      missing_account_identifier = primary_account ? params['account_2_identifier'] : params['account_1_identifier']
       render json: {error: "We do not have an account for #{missing_account_identifier}"}
     end
   end
@@ -107,7 +102,7 @@ class TeacherFixController < ApplicationController
     account1 = User.find_by_username_or_email(params['account_1_identifier'])
     account2 = User.find_by_username_or_email(params['account_2_identifier'])
     if account1 && account2
-      if account1.role === 'teacher' && account2.role === 'teacher'
+      if account1.role == 'teacher' && account2.role == 'teacher'
         Unit.unscoped.where(user_id: account1.id).update_all(user_id: account2.id)
         ClassroomsTeacher.where(user_id: account1.id).each do |ct|
           if ClassroomsTeacher.find_by(user_id: account2.id, classroom_id: ct.classroom_id)
@@ -120,7 +115,7 @@ class TeacherFixController < ApplicationController
         account2.delete_dashboard_caches
         render json: {}, status: 200
       else
-        nonteacher_account_identifier = account1.role === 'teacher' ? params['account_2_identifier'] : params['account_1_identifier']
+        nonteacher_account_identifier = account1.role == 'teacher' ? params['account_2_identifier'] : params['account_1_identifier']
         render json: {error: "#{nonteacher_account_identifier} is not a teacher."}
       end
     else
@@ -134,20 +129,18 @@ class TeacherFixController < ApplicationController
     user = User.find_by_username_or_email(account_identifier)
     if user
       if user.role == 'student'
-        classroom_1 = Classroom.find_by_code(params['class_code_1'])
-        classroom_2 = Classroom.find_by_code(params['class_code_2'])
-        if classroom_1 && classroom_2
-          classroom_1_students_classrooms = StudentsClassrooms.find_by(student_id: user.id, classroom_id: classroom_1.id)
-          if classroom_1_students_classrooms
-            StudentsClassrooms.unscoped.find_or_create_by(student_id: user.id, classroom_id: classroom_2.id).update(visible: true)
-            TeacherFixes::move_activity_sessions(user, classroom_1, classroom_2)
-            classroom_1_students_classrooms.destroy
+        old_classroom = Classroom.find_by_code(params['class_code_1'])
+        new_classroom = Classroom.find_by_code(params['class_code_2'])
+        if old_classroom && new_classroom
+          old_classroom_students_classrooms = StudentsClassrooms.find_by(student_id: user.id, classroom_id: old_classroom.id)
+          if old_classroom_students_classrooms
+            user.move_student_from_one_class_to_another(old_classroom, new_classroom)
             render json: {}, status: 200
           else
             render json: {error: "#{account_identifier} is not in a classroom with the code #{params['class_code_1']}."}
           end
         else
-          missing_class_code = classroom_1 ? params['class_code_2'] : params['class_code_1']
+          missing_class_code = old_classroom ? params['class_code_2'] : params['class_code_1']
           render json: {error: "We cannot find a class with class code #{missing_class_code}."}
         end
       else
