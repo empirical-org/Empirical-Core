@@ -86,6 +86,37 @@
         margin-right: 16px;
       }
     }
+    .invite-google-classroom-students, .invite-clever-students {
+      display: flex;
+      flex-direction: column;
+      span {
+        font-weight: 600;
+        line-height: 1;
+        color: #7f7f7f;
+        font-size: 12px;
+      }
+    }
+    .invite-google-classroom-students {
+      align-items: flex-end;
+      margin-bottom: 20px;
+      span {
+        margin-top: 8px;
+      }
+    }
+    .invite-quill-classroom-students {
+      margin-bottom: 40px;
+    }
+    .invite-clever-students {
+      margin-bottom: 38px;
+      p {
+        font-size: 14px;
+        line-height: 1.57;
+        color: #000;
+      }
+      span {
+        margin-top: 4px;
+      }
+    }
     .no-students {
       display: flex;
       flex-direction: column;
@@ -118,7 +149,6 @@
     }
     .student-actions-dropdown {
       width: 200px;
-      margin-top: 40px;
       margin-bottom: 32px;
       &.active {
         margin-bottom: 82px;

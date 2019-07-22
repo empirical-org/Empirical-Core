@@ -90,7 +90,7 @@ export default class Classroom extends React.Component<ClassroomProps, Classroom
 
   renderClassCodeOrType() {
     const { classroom } = this.props
-    if (classroom.google_id) {
+    if (classroom.google_classroom_id) {
       return 'Google Classroom'
     } else if (classroom.clever_id) {
       return 'Clever Classroom'
@@ -299,6 +299,26 @@ export default class Classroom extends React.Component<ClassroomProps, Classroom
     />
   }
 
+  renderInviteStudents() {
+    const { classroom, } = this.props
+    if (classroom.google_classroom_id) {
+      const lastUpdatedDate = moment(classroom.updated_at).format('MMM D, YYYY')
+      return <div className="invite-google-classroom-students">
+        <button className="quill-button primary outlined small">Import Google Classroom students</button>
+        <span>Last imported {lastUpdatedDate}</span>
+      </div>
+    } else if (classroom.clever_id) {
+      return <div className="invite-clever-students">
+        <p>Auto-synced from Clever</p>
+        <span>You can modify your Quill class rosters from your Clever account.</span>
+      </div>
+    } else {
+      return <div className="invite-quill-classroom-students">
+        <button className="quill-button primary outlined small">Invite students</button>
+      </div>
+    }
+  }
+
   renderStudentSection() {
     const { classroom, } = this.props
     if (classroom.students.length) {
@@ -307,7 +327,7 @@ export default class Classroom extends React.Component<ClassroomProps, Classroom
           <h3>Students</h3>
           <div className="students-section-header-buttons">
             <a href={`/teachers/classrooms/${this.props.classroom.id}/student_logins`} className="quill-button secondary outlined small">Download setup instructions</a>
-            <button className="quill-button primary outlined small">Invite students</button>
+            {this.renderInviteStudents()}
           </div>
         </div>
         {this.renderStudentActions()}
