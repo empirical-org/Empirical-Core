@@ -104,15 +104,36 @@ describe TeachersController, type: :controller do
     end
   end
   context "without user" do
+
+    before(:each) do
+      allow(controller).to receive(:current_user) { nil }
+    end
+
     describe '#classrooms_i_teach_with_lessons' do
-      before do
-        allow(controller).to receive(:current_user) { nil }
-      end
 
       it 'should respond' do
+
         get :classrooms_i_teach_with_lessons
 
         expect(response.status).to eq(200)
+      end
+    end
+
+    describe '#classrooms_i_own_with_students' do
+
+      it 'should redirect to login' do
+        get :classrooms_i_own_with_students
+
+        response.should redirect_to '/session/new'
+      end
+    end
+
+    describe '#classrooms_i_teach_with_students' do
+
+      it 'should redirect to login' do
+        get :classrooms_i_teach_with_students
+
+        response.should redirect_to '/session/new'
       end
     end
   end

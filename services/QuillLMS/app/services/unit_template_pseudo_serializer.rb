@@ -33,10 +33,10 @@ class UnitTemplatePseudoSerializer
   def unit_template_category
     cat = @unit_template.unit_template_category
     {
-      primary_color: cat.primary_color,
-      secondary_color: cat.secondary_color,
-      name: cat.name,
-      id: cat.id
+      primary_color: cat&.primary_color,
+      secondary_color: cat&.secondary_color,
+      name: cat&.name,
+      id: cat&.id
     }
   end
 
