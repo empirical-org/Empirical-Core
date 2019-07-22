@@ -1,7 +1,7 @@
 import * as React from 'react'
 import moment from 'moment'
 
-import { DataTable } from './dataTable'
+import { DataTable } from 'quill-component-library/dist/componentLibrary'
 
 const expandSrc = `${process.env.CDN_URL}/images/icons/expand.svg`
 
