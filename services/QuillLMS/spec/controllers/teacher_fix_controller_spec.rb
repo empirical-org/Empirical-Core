@@ -166,42 +166,25 @@ describe TeacherFixController do
     context 'when both the accounts exist' do
       context 'when both the accounts are students' do
         context 'when both students are from the same classroom' do
-          let!(:student) { create(:student) }
+          let!(:classroom) { create(:classroom) }
+          let!(:student) { create(:student, classrooms: [classroom]) }
+          let!(:student1) { create(:student, classrooms: [classroom]) }
 
-          before do
-            allow(TeacherFixes).to receive(:same_classroom?) { true }
-          end
-
-          context 'when second account has only one classroom' do
-            let!(:student1) { create(:student, classrooms: [create(:classroom)]) }
-
-            it 'should merge activity sessions' do
-              expect(TeacherFixes).to receive(:merge_activity_sessions).with(student, student1)
-              post :merge_student_accounts, account_1_identifier: student.email, account_2_identifier: student1.email
-            end
-          end
-
-          context 'when second account does not have one classroom' do
-            let!(:student1) { create(:student, classrooms: [create(:classroom), create(:classroom)]) }
-
-            it 'should render that user is in more than 1 classroom' do
-              post :merge_student_accounts, account_1_identifier: student.email, account_2_identifier: student1.email
-              expect(response.body).to eq({error: "#{student1.email} is in more than one classroom."}.to_json)
-            end
+          it 'should return a 200' do
+            post :merge_student_accounts, account_1_identifier: student.email, account_2_identifier: student1.email
+            expect(response.status).to eq(200)
           end
         end
 
         context 'when both students are not from the same classroom' do
-          let!(:student) { create(:student) }
-          let!(:student1) { create(:student) }
-
-          before do
-            allow(TeacherFixes).to receive(:same_classroom?) { false }
-          end
+          let!(:classroom) { create(:classroom) }
+          let!(:classroom2) { create(:classroom) }
+          let!(:student) { create(:student, classrooms: [classroom] ) }
+          let!(:student1) { create(:student, classrooms: [classroom2] ) }
 
           it 'should return that students are not in the same classroom' do
             post :merge_student_accounts, account_1_identifier: student.email, account_2_identifier: student1.email
-            expect(response.body).to eq({error: "These students are not in the same classroom."}.to_json)
+            expect(response.body).to eq({error: "These students are not in the same classrooms."}.to_json)
           end
         end
       end
@@ -278,10 +261,10 @@ describe TeacherFixController do
             let!(:students_classroom1) { create(:students_classrooms, student_id: user.id, classroom_id: classroom1.id, visible: false) }
 
             it 'should update the students classrooms, move the activity session and destroy the students classrooms' do
-              expect(TeacherFixes).to receive(:move_activity_sessions).with(user, classroom, classroom1)
+              # expect(user).to receive(:move_activity_sessions).with(classroom, classroom1)
               post :move_student_from_one_class_to_another, class_code_1: classroom.code, class_code_2: classroom1.code, student_identifier: user.email
               expect(students_classroom1.reload.visible).to eq true
-              expect{ StudentsClassrooms.find(students_classroom.id) }.to raise_exception ActiveRecord::RecordNotFound
+              expect(StudentsClassrooms.unscoped.find(students_classroom.id).visible).not_to be
             end
           end
 
