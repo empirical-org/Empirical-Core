@@ -4,7 +4,8 @@ class Teachers::ClassroomUnitsController < ApplicationController
   respond_to :json
   before_action :authorize!, except: [
     :lessons_activities_cache,
-    :lessons_units_and_activities, :update_multiple_due_dates
+    :lessons_units_and_activities,
+    :update_multiple_due_dates
   ]
   before_action :teacher!
   before_action :lesson, only: :launch_lesson
@@ -112,8 +113,8 @@ class Teachers::ClassroomUnitsController < ApplicationController
   end
 
   def authorize!
-    @classroom_unit = ClassroomUnit.find params[:id]
-    if @classroom_unit.classroom.teacher_ids.exclude?(current_user.id) then auth_failed end
+    @classroom_unit = ClassroomUnit.find_by(id: params[:id])
+    if !current_user || @classroom_unit.classroom.teacher_ids.exclude?(current_user.id) then auth_failed end
   end
 
 
