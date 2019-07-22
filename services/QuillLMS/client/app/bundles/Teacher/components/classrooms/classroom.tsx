@@ -34,6 +34,12 @@ export default class Classroom extends React.Component<ClassroomProps, Classroom
     this.uncheckRow = this.uncheckRow.bind(this)
     this.checkAllRows = this.checkAllRows.bind(this)
     this.uncheckAllRows = this.uncheckAllRows.bind(this)
+    this.selectAction = this.selectAction.bind(this)
+    this.editStudentAccount = this.editStudentAccount.bind(this)
+    this.resetStudentPassword = this.resetStudentPassword.bind(this)
+    this.mergeStudentAccounts = this.mergeStudentAccounts.bind(this)
+    this.moveClass = this.moveClass.bind(this)
+    this.removeStudentFromClass = this.removeStudentFromClass.bind(this)
   }
 
   checkRow(id) {
@@ -56,6 +62,30 @@ export default class Classroom extends React.Component<ClassroomProps, Classroom
 
   uncheckAllRows() {
     this.setState({ selectedStudentIds: [] })
+  }
+
+  selectAction(action) {
+    action.value()
+  }
+
+  editStudentAccount(id=null) {
+    console.log('edit student account', id)
+  }
+
+  resetStudentPassword(id=null) {
+    console.log('reset student password', id)
+  }
+
+  mergeStudentAccounts(id=null) {
+    console.log('merge student acccounts', id)
+  }
+
+  moveClass(id=null) {
+    console.log('move class', id)
+  }
+
+  removeStudentFromClass(id=null) {
+    console.log('remove from class', id)
   }
 
   renderClassCodeOrType() {
@@ -138,7 +168,69 @@ export default class Classroom extends React.Component<ClassroomProps, Classroom
     </div>
   }
 
-  renderStudentActionsAndDataTable() {
+  renderStudentActions() {
+    const { selectedStudentIds } = this.state
+    let options = []
+    if (selectedStudentIds.length === 1) {
+      options = [
+        {
+          label: 'Edit account',
+          value: this.editStudentAccount
+        },
+        {
+          label: 'Reset password',
+          value: this.resetStudentPassword
+        },
+        {
+          label: 'Merge accounts',
+          value: this.mergeStudentAccounts
+        },
+        {
+          label: 'Move class',
+          value: this.moveClass
+        },
+        {
+          label: 'Remove from class',
+          value: this.removeStudentFromClass
+        }
+      ]
+    } else if (selectedStudentIds.length === 2) {
+      options = [
+        {
+          label: 'Merge accounts',
+          value: this.mergeStudentAccounts
+        },
+        {
+          label: 'Move class',
+          value: this.moveClass
+        },
+        {
+          label: 'Remove from class',
+          value: this.removeStudentFromClass
+        }
+      ]
+    } else if (selectedStudentIds.length === 3) {
+      options = [
+        {
+          label: 'Move class',
+          value: this.moveClass
+        },
+        {
+          label: 'Remove from class',
+          value: this.removeStudentFromClass
+        }
+      ]
+    }
+    return <DropdownInput
+      disabled={selectedStudentIds.length === 0}
+      label="Actions"
+      className="student-actions-dropdown"
+      options={options || []}
+      handleChange={this.selectAction}
+    />
+  }
+
+  renderStudentDataTable() {
     const { classroom, } = this.props
     const headers = [
       {
@@ -159,23 +251,23 @@ export default class Classroom extends React.Component<ClassroomProps, Classroom
     const actions = [
       {
         name: 'Edit account',
-        action: (id) => console.log('Edit account', id)
+        action: (id) => this.editStudentAccount(id)
       },
       {
         name: 'Reset password',
-        action: (id) => console.log('Reset password', id)
+        action: (id) => this.resetStudentPassword(id)
       },
       {
         name: 'Merge accounts',
-        action: (id) => console.log('Merge accounts', id)
+        action: (id) => this.mergeStudentAccounts(id)
       },
       {
         name: 'Move class',
-        action: (id) => console.log('Move class', id)
+        action: (id) => this.moveClass(id)
       },
       {
         name: 'Remove from class',
-        action: (id) => console.log('Remove from class', id)
+        action: (id) => this.removeStudentFromClass(id)
       }
     ]
 
@@ -218,7 +310,8 @@ export default class Classroom extends React.Component<ClassroomProps, Classroom
             <button className="quill-button primary outlined small">Invite students</button>
           </div>
         </div>
-        {this.renderStudentActionsAndDataTable()}
+        {this.renderStudentActions()}
+        {this.renderStudentDataTable()}
       </div>
     }
     else {

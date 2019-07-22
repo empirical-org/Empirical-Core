@@ -103,6 +103,9 @@
       justify-content: space-between;
       align-items: center;
     }
+    .teacher-section-header {
+      margin-bottom: 26px;
+    }
     .students-section-header.with-students {
       display: flex;
       flex-direction: column;
@@ -111,6 +114,14 @@
         display: flex;
         justify-content: space-between;
         width: 100%;
+      }
+    }
+    .student-actions-dropdown {
+      width: 200px;
+      margin-top: 40px;
+      margin-bottom: 32px;
+      &.active {
+        margin-bottom: 82px;
       }
     }
     &.open {
