@@ -1,5 +1,5 @@
 import * as React from 'react'
-import moment from 'moment'
+import * as moment from 'moment'
 
 import ClassroomStudentSection from './classroom_student_section'
 import ClassroomTeacherSection from './classroom_teacher_section'
