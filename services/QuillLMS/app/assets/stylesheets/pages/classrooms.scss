@@ -102,9 +102,15 @@
       span {
         margin-top: 8px;
       }
+      .quill-button {
+        width: 255px;
+      }
     }
     .invite-quill-classroom-students {
       margin-bottom: 40px;
+      .quill-button {
+        width: 128px;
+      }
     }
     .invite-clever-students {
       margin-bottom: 38px;
@@ -136,6 +142,9 @@
     }
     .teacher-section-header {
       margin-bottom: 26px;
+      .quill-button {
+        width: 148px;
+      }
     }
     .students-section-header.with-students {
       display: flex;
