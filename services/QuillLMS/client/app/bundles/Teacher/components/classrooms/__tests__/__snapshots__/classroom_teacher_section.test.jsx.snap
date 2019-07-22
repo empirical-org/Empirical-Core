@@ -1,0 +1,100 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ClassroomTeacherSection component should render 1`] = `
+<div
+  className="teacher-section"
+>
+  <div
+    className="teacher-section-header"
+  >
+    <h3>
+      Teachers
+    </h3>
+    <button
+      className="quill-button primary outlined small"
+    >
+      Invite co-teachers
+    </button>
+  </div>
+  <DataTable
+    headers={
+      Array [
+        Object {
+          "attribute": "name",
+          "name": "Name",
+          "width": "200px",
+        },
+        Object {
+          "attribute": "role",
+          "name": "Role",
+          "width": "72px",
+        },
+        Object {
+          "attribute": "email",
+          "name": "Email",
+          "width": "375px",
+        },
+        Object {
+          "attribute": "status",
+          "name": "Status",
+          "width": "52px",
+        },
+      ]
+    }
+    rows={
+      Array [
+        Object {
+          "email": "hello+demoteacher@quill.org",
+          "id": 2851865,
+          "name": "Demo Teacher",
+          "role": "Owner",
+          "status": "Joined",
+        },
+        Object {
+          "actions": Array [
+            Object {
+              "action": [Function],
+              "name": "Invite to another class",
+            },
+            Object {
+              "action": [Function],
+              "name": "Transfer class",
+            },
+            Object {
+              "action": [Function],
+              "name": "Remove from class",
+            },
+          ],
+          "email": "emiliafree1000@gmail.com",
+          "id": 73312,
+          "name": "—",
+          "role": "Co-teacher",
+          "status": "Pending",
+        },
+        Object {
+          "actions": Array [
+            Object {
+              "action": [Function],
+              "name": "Invite to another class",
+            },
+            Object {
+              "action": [Function],
+              "name": "Transfer class",
+            },
+            Object {
+              "action": [Function],
+              "name": "Remove from class",
+            },
+          ],
+          "email": "emiliafree@gmail.com",
+          "id": 73309,
+          "name": "—",
+          "role": "Co-teacher",
+          "status": "Pending",
+        },
+      ]
+    }
+    showActions={true}
+  />
+</div>
+`;
