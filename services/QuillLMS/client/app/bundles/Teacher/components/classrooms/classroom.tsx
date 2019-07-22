@@ -1,15 +1,12 @@
 import * as React from 'react'
 import moment from 'moment'
 
-import { DropdownInput } from 'quill-component-library/dist/componentLibrary'
-import { DataTable } from './dataTable'
+import ClassroomStudentSection from './classroom_student_section'
+import ClassroomTeacherSection from './classroom_teacher_section'
 
-const emptyDeskSrc = `${process.env.CDN_URL}/images/illustrations/empty-desks.svg`
 const expandSrc = `${process.env.CDN_URL}/images/icons/expand.svg`
 
 import NumberSuffix from '../modules/numberSuffixBuilder.js';
-
-const titleCase = str => str.charAt(0).toUpperCase() + str.substr(1).toLowerCase()
 
 interface ClassroomProps {
   user: any;
@@ -19,73 +16,11 @@ interface ClassroomProps {
 }
 
 interface ClassroomState {
-  selectedStudentIds: Array<string|number>
 }
 
 export default class Classroom extends React.Component<ClassroomProps, ClassroomState> {
   constructor(props) {
     super(props)
-
-    this.state = {
-      selectedStudentIds: []
-    }
-
-    this.checkRow = this.checkRow.bind(this)
-    this.uncheckRow = this.uncheckRow.bind(this)
-    this.checkAllRows = this.checkAllRows.bind(this)
-    this.uncheckAllRows = this.uncheckAllRows.bind(this)
-    this.selectAction = this.selectAction.bind(this)
-    this.editStudentAccount = this.editStudentAccount.bind(this)
-    this.resetStudentPassword = this.resetStudentPassword.bind(this)
-    this.mergeStudentAccounts = this.mergeStudentAccounts.bind(this)
-    this.moveClass = this.moveClass.bind(this)
-    this.removeStudentFromClass = this.removeStudentFromClass.bind(this)
-  }
-
-  checkRow(id) {
-    const { selectedStudentIds } = this.state
-    const newSelectedStudentIds = selectedStudentIds.concat(id)
-    this.setState({ selectedStudentIds: newSelectedStudentIds })
-  }
-
-  uncheckRow(id) {
-    const { selectedStudentIds } = this.state
-    const newSelectedStudentIds = selectedStudentIds.filter(selectedId => selectedId !== id)
-    this.setState({ selectedStudentIds: newSelectedStudentIds })
-  }
-
-  checkAllRows() {
-    const { classroom } = this.props
-    const newSelectedStudentIds = classroom.students.map(student => student.id)
-    this.setState({ selectedStudentIds: newSelectedStudentIds })
-  }
-
-  uncheckAllRows() {
-    this.setState({ selectedStudentIds: [] })
-  }
-
-  selectAction(action) {
-    action.value()
-  }
-
-  editStudentAccount(id=null) {
-    console.log('edit student account', id)
-  }
-
-  resetStudentPassword(id=null) {
-    console.log('reset student password', id)
-  }
-
-  mergeStudentAccounts(id=null) {
-    console.log('merge student acccounts', id)
-  }
-
-  moveClass(id=null) {
-    console.log('move class', id)
-  }
-
-  removeStudentFromClass(id=null) {
-    console.log('remove from class', id)
   }
 
   renderClassCodeOrType() {
@@ -168,271 +103,12 @@ export default class Classroom extends React.Component<ClassroomProps, Classroom
     </div>
   }
 
-  renderStudentActions() {
-    const { selectedStudentIds } = this.state
-    let options = []
-    if (selectedStudentIds.length === 1) {
-      options = [
-        {
-          label: 'Edit account',
-          value: this.editStudentAccount
-        },
-        {
-          label: 'Reset password',
-          value: this.resetStudentPassword
-        },
-        {
-          label: 'Merge accounts',
-          value: this.mergeStudentAccounts
-        },
-        {
-          label: 'Move class',
-          value: this.moveClass
-        },
-        {
-          label: 'Remove from class',
-          value: this.removeStudentFromClass
-        }
-      ]
-    } else if (selectedStudentIds.length === 2) {
-      options = [
-        {
-          label: 'Merge accounts',
-          value: this.mergeStudentAccounts
-        },
-        {
-          label: 'Move class',
-          value: this.moveClass
-        },
-        {
-          label: 'Remove from class',
-          value: this.removeStudentFromClass
-        }
-      ]
-    } else if (selectedStudentIds.length === 3) {
-      options = [
-        {
-          label: 'Move class',
-          value: this.moveClass
-        },
-        {
-          label: 'Remove from class',
-          value: this.removeStudentFromClass
-        }
-      ]
-    }
-    return <DropdownInput
-      disabled={selectedStudentIds.length === 0}
-      label="Actions"
-      className="student-actions-dropdown"
-      options={options || []}
-      handleChange={this.selectAction}
-    />
-  }
-
-  renderStudentDataTable() {
-    const { classroom, } = this.props
-    const headers = [
-      {
-        width: '190px',
-        name: 'Name',
-        attribute: 'name'
-      }, {
-        width: '362px',
-        name: 'Username',
-        attribute: 'username'
-      }, {
-        width: '124px',
-        name: 'Synced',
-        attribute: 'synced'
-      }
-    ]
-
-    const actions = [
-      {
-        name: 'Edit account',
-        action: (id) => this.editStudentAccount(id)
-      },
-      {
-        name: 'Reset password',
-        action: (id) => this.resetStudentPassword(id)
-      },
-      {
-        name: 'Merge accounts',
-        action: (id) => this.mergeStudentAccounts(id)
-      },
-      {
-        name: 'Move class',
-        action: (id) => this.moveClass(id)
-      },
-      {
-        name: 'Remove from class',
-        action: (id) => this.removeStudentFromClass(id)
-      }
-    ]
-
-    const rows = classroom.students.map(student => {
-      const { name, username, id } = student
-      const checked = !!this.state.selectedStudentIds.includes(id)
-      let synced = ''
-      if (student.google_id) { synced = 'Google Classroom'}
-      if (student.clever_id) { synced = 'Clever' }
-      return {
-        synced,
-        name,
-        id,
-        username,
-        actions,
-        checked
-      }
-    })
-
-    return <DataTable
-      headers={headers}
-      rows={rows}
-      showCheckboxes={true}
-      showActions={true}
-      checkRow={this.checkRow}
-      uncheckRow={this.uncheckRow}
-      uncheckAllRows={this.uncheckAllRows}
-      checkAllRows={this.checkAllRows}
-    />
-  }
-
-  renderInviteStudents() {
-    const { classroom, } = this.props
-    if (classroom.google_classroom_id) {
-      const lastUpdatedDate = moment(classroom.updated_at).format('MMM D, YYYY')
-      return <div className="invite-google-classroom-students">
-        <button className="quill-button primary outlined small">Import Google Classroom students</button>
-        <span>Last imported {lastUpdatedDate}</span>
-      </div>
-    } else if (classroom.clever_id) {
-      return <div className="invite-clever-students">
-        <p>Auto-synced from Clever</p>
-        <span>You can modify your Quill class rosters from your Clever account.</span>
-      </div>
-    } else {
-      return <div className="invite-quill-classroom-students">
-        <button className="quill-button primary outlined small">Invite students</button>
-      </div>
-    }
-  }
-
-  renderStudentSection() {
-    const { classroom, } = this.props
-    if (classroom.students.length) {
-      return <div className="students-section">
-        <div className="students-section-header with-students">
-          <h3>Students</h3>
-          <div className="students-section-header-buttons">
-            <a href={`/teachers/classrooms/${this.props.classroom.id}/student_logins`} className="quill-button secondary outlined small">Download setup instructions</a>
-            {this.renderInviteStudents()}
-          </div>
-        </div>
-        {this.renderStudentActions()}
-        {this.renderStudentDataTable()}
-      </div>
-    }
-    else {
-      return <div className="students-section">
-        <div className="students-section-header">
-          <h3>Students</h3>
-          <button className="quill-button primary outlined small">Invite students</button>
-        </div>
-        <div className="no-students">
-          <img src={emptyDeskSrc} />
-          <p>Click on the "Invite students" button to get started with your writing instruction!</p>
-        </div>
-      </div>
-    }
-  }
-
-  renderTeacherSection() {
-    return <div className="teacher-section">
-      <div className="teacher-section-header">
-        <h3>Teachers</h3>
-        <button className="quill-button primary outlined small">Invite co-teachers</button>
-      </div>
-      {this.renderTeachers()}
-    </div>
-  }
-
-  renderTeachers() {
-    const { user, classroom } = this.props
-
-    const headers = [
-      {
-        width: '200px',
-        name: 'Name',
-        attribute: 'name'
-      }, {
-        width: '72px',
-        name: 'Role',
-        attribute: 'role'
-      }, {
-        width: '375px',
-        name: 'Email',
-        attribute: 'email'
-      },
-      {
-        width: '52px',
-        name: 'Status',
-        attribute: 'status'
-      }
-    ]
-
-    const actions = [
-      {
-        name: 'Invite to another class',
-        action: (id) => console.log('Edit account', id)
-      },
-      {
-        name: 'Transfer class',
-        action: (id) => console.log('Reset password', id)
-      },
-      {
-        name: 'Remove from class',
-        action: (id) => console.log('Merge accounts', id)
-      }
-    ]
-
-    const owner = classroom.teachers.find(teacher => teacher.classroom_relation === 'owner')
-    const coteachers = classroom.teachers.filter(teacher => teacher.classroom_relation === 'co-teacher')
-    const alphabeticalCoteachers = coteachers.sort((a, b) => {
-      const aLastName = a.name.split(' ')[1] || ''
-      const bLastName = b.name.split(' ')[1] || ''
-      return aLastName.localeCompare(bLastName)
-    })
-
-    const teachers = [owner].concat(alphabeticalCoteachers)
-
-    const rows = teachers.map(teacher => {
-      const { name, classroom_relation, id, status, email } = teacher
-      const teacherRow: { name: string, id: number, email: string, role: string, status: string, actions?: Array<any> } = {
-        name,
-        id,
-        email,
-        role: titleCase(classroom_relation),
-        status: status
-      }
-      if (teacherRow.role === 'Co-teacher' && user.id === owner.id) {
-        teacherRow.actions = actions
-      }
-      return teacherRow
-    })
-    return <DataTable
-      headers={headers}
-      rows={rows}
-      showActions={true}
-    />
-  }
-
   renderClassroomContent() {
+    const { user, classroom } = this.props
     return <div>
       {this.renderClassSettings()}
-      {this.renderStudentSection()}
-      {this.renderTeacherSection()}
+      <ClassroomStudentSection user={user} classroom={classroom} />
+      <ClassroomTeacherSection user={user} classroom={classroom} />
     </div>
   }
 
