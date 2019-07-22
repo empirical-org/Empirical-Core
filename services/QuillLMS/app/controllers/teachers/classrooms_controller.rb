@@ -23,9 +23,20 @@ class Teachers::ClassroomsController < ApplicationController
       classroom_teachers = classroom.classrooms_teachers.map do |ct|
         teacher = ct.user.attributes
         teacher[:classroom_relation] = ct.role
+        teacher[:status] = 'Joined'
         teacher
       end
-      classroom_obj[:teachers] = classroom_teachers
+      coteacher_invitations = CoteacherClassroomInvitation.where(classroom_id: classroom.id)
+      pending_coteachers = coteacher_invitations.map do |cci|
+        {
+          email: cci.invitation.invitee_email,
+          classroom_relation: 'co-teacher',
+          status: 'Pending',
+          id: cci.id,
+          name: '—'
+        }
+      end
+      classroom_obj[:teachers] = classroom_teachers.concat(pending_coteachers)
       classroom_obj
     end.compact
     respond_to do |format|
