@@ -168,6 +168,15 @@
       .dropdown {
         font-size: 16px;
       }
+      .dropdown__menu-list {
+        padding: 8px 0px;
+        .dropdown__option {
+          height: 48px;
+          padding: 0px 12px;
+          display: flex;
+          align-items: center;
+        }
+      }
     }
     &.open {
       .expand-arrow {
@@ -420,5 +429,13 @@
     &:hover, &:focus {
       font-weight: 600;
     }
+  }
+
+  .data-table::-webkit-scrollbar {
+    height: 7px;
+  }
+
+  .data-table-headers, .data-table-row {
+    min-width: min-content;
   }
 }
