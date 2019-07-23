@@ -72,6 +72,9 @@
         line-height: 1.57;
         color: #646464;
         margin-right: 8px;
+        &.bullet {
+          color: #bdbdbd;
+        }
       }
     }
     .class-settings, .students-section {
@@ -161,6 +164,9 @@
       margin-bottom: 32px;
       &.active {
         margin-bottom: 82px;
+      }
+      .dropdown {
+        font-size: 16px;
       }
     }
     &.open {
@@ -356,6 +362,9 @@
         cursor: pointer;
       }
     }
+    .data-table-row:last-of-type {
+      border-bottom: none;
+    }
   }
 
   .quill-button:focus, .quill-button:hover {
@@ -381,6 +390,7 @@
   }
 
   .actions-menu {
+    padding: 8px 0px;
     position: absolute;
     border-radius: 4px;
     box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0 1px 18px 0 rgba(0, 0, 0, 0.12), 0 6px 10px 0 rgba(0, 0, 0, 0.14);
@@ -403,6 +413,12 @@
       &:hover {
         background-color: #f2f2f2;
       }
+    }
+  }
+
+  .quill-button.primary.outlined {
+    &:hover, &:focus {
+      font-weight: 600;
     }
   }
 }

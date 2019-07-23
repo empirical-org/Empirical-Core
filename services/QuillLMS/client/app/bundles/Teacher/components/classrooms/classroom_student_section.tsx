@@ -121,7 +121,7 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
           value: this.removeStudentFromClass
         }
       ]
-    } else if (selectedStudentIds.length === 3) {
+    } else if (selectedStudentIds.length > 2) {
       options = [
         {
           label: 'Move class',

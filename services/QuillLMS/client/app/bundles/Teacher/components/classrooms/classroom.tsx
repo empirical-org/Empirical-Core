@@ -49,17 +49,17 @@ export default class Classroom extends React.Component<ClassroomProps, Classroom
     const numberOfTeachers = classroom.teachers.length
     const createdAt = moment(classroom.created_at).format('MMM D, YYYY')
     const updatedAt = moment(classroom.updated_at).format('MMM D, YYYY')
-    const archivedDate = classroom.visible ? null : [<span>•</span>, <span>Archived {updatedAt}</span>]
-    const coteachers = numberOfTeachers > 1 ? [<span>{numberOfTeachers - 1} {numberOfTeachers === 2 ? 'co-teacher' : 'co-teachers'}</span>, <span>•</span>] : null
+    const archivedDate = classroom.visible ? null : [<span className="bullet">•</span>, <span>Archived {updatedAt}</span>]
+    const coteachers = numberOfTeachers > 1 ? [<span>{numberOfTeachers - 1} {numberOfTeachers === 2 ? 'co-teacher' : 'co-teachers'}</span>, <span className="bullet">•</span>] : null
 
     return <div className="classroom-data">
       <span>{numberOfStudents} {numberOfStudents === 1 ? 'student' : 'students'}</span>
-      <span>•</span>
+      <span className="bullet">•</span>
       {coteachers}
       <span>{this.renderClassCodeOrType()}</span>
-      <span>•</span>
+      <span className="bullet">•</span>
       <span>{this.renderGrade()}</span>
-      <span>•</span>
+      <span className="bullet">•</span>
       <span>Created {createdAt}</span>
       {archivedDate}
     </div>
