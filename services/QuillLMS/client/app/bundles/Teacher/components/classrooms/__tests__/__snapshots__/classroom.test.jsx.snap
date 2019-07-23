@@ -24,7 +24,9 @@ exports[`Classroom component not selected should render as a closed card 1`] = `
            
           students
         </span>
-        <span>
+        <span
+          className="bullet"
+        >
           •
         </span>
         <span>
@@ -32,19 +34,25 @@ exports[`Classroom component not selected should render as a closed card 1`] = `
            
           co-teachers
         </span>
-        <span>
+        <span
+          className="bullet"
+        >
           •
         </span>
         <span>
           Class code: demo-2851865
         </span>
-        <span>
+        <span
+          className="bullet"
+        >
           •
         </span>
         <span>
           9th grade
         </span>
-        <span>
+        <span
+          className="bullet"
+        >
           •
         </span>
         <span>
@@ -85,7 +93,9 @@ exports[`Classroom component selected should render as an open card 1`] = `
            
           students
         </span>
-        <span>
+        <span
+          className="bullet"
+        >
           •
         </span>
         <span>
@@ -93,19 +103,25 @@ exports[`Classroom component selected should render as an open card 1`] = `
            
           co-teachers
         </span>
-        <span>
+        <span
+          className="bullet"
+        >
           •
         </span>
         <span>
           Class code: demo-2851865
         </span>
-        <span>
+        <span
+          className="bullet"
+        >
           •
         </span>
         <span>
           9th grade
         </span>
-        <span>
+        <span
+          className="bullet"
+        >
           •
         </span>
         <span>
