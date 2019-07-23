@@ -1,6 +1,7 @@
 .data-table::-webkit-scrollbar {
   background-color: white;
   width: 7px;
+  height: 7px;
 }
 
 .data-table::-webkit-scrollbar-thumb {
@@ -19,6 +20,7 @@
     border-bottom: 1px solid #e0e0e0;
     display: flex;
     align-items: center;
+    min-width: min-content;
   }
 
   .data-table-row:last-of-type {
@@ -46,6 +48,10 @@
 
   .data-table-header, .data-table-row-section {
     margin-right: 24px;
+    &.sortable {
+      color: #000;
+      cursor: pointer;
+    }
   }
 
   .data-table-headers {
@@ -56,6 +62,13 @@
   }
 
   .data-table-row {
+    .quill-tooltip-trigger {
+      margin-right: 24px;
+      display: inline-block;
+      .data-table-row-section {
+        display: inline-block;
+      }
+    }
     &:hover {
       background-color: #f2f2f2;
     }
