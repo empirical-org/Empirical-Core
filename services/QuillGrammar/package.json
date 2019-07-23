@@ -47,7 +47,7 @@
     "net": "^1.0.2",
     "node-sass": "^4.12.0",
     "pusher-js": "^4.3.0",
-    "quill-component-library": "0.3.6",
+    "quill-component-library": "0.3.7",
     "quill-marking-logic": "^0.9.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",

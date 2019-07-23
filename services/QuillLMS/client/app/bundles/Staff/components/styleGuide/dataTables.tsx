@@ -1,6 +1,5 @@
 import * as React from 'react'
-// import { DataTable } from 'quill-component-library/dist/componentLibrary'
-import { DataTable } from './dataTable/dataTable'
+import { DataTable } from 'quill-component-library/dist/componentLibrary'
 
 const headers1 = [
   {
