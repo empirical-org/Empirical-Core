@@ -201,7 +201,6 @@
   }
 
   .modal {
-    width: 760px;
     border-radius: 6px;
     background-color: #ffffff;
     z-index: 3;
@@ -220,11 +219,30 @@
       font-size: 24px;
       font-weight: bold;
       line-height: 1.33;
-      margin-bottom: 40px;
     }
     .dropdown-menu {
       z-index: 4;
     }
+    .form-buttons {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 48px;
+      .quill-button {
+        margin-left: 24px;
+      }
+    }
+  }
+
+  .rename-class-modal {
+    width: 560px;
+    height: 273px;
+    .title {
+      margin-bottom: 24px;
+    }
+  }
+
+  .create-a-class-modal {
+    width: 760px;
   }
 
   .create-a-class-modal-content {
@@ -234,6 +252,9 @@
   }
 
   .create-a-class-modal-body {
+    .title {
+      margin-bottom: 40px;
+    }
     &.setup-instructions {
       .title {
         margin-bottom: 8px;

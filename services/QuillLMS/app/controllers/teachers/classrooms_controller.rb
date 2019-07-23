@@ -86,7 +86,16 @@ class Teachers::ClassroomsController < ApplicationController
   def update
     @classroom.update_attributes(classroom_params)
     # this is updated from the students tab of the scorebook, so will make sure we keep user there
-    redirect_to teachers_classroom_students_path(@classroom.id)
+    respond_to do |format|
+      format.html { redirect_to teachers_classroom_students_path(@classroom.id) }
+      format.json {
+        if @classroom.errors.any?
+          render json: { errors: @classroom.errors }
+        else
+          render json: {}
+        end
+      }
+    end
   end
 
   def destroy

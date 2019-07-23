@@ -13,6 +13,7 @@ interface ClassroomProps {
   classroom: any;
   selected: boolean;
   clickClassroomHeader: (event) => void;
+  renameClass: (event) => void;
 }
 
 interface ClassroomState {
@@ -77,10 +78,10 @@ export default class Classroom extends React.Component<ClassroomProps, Classroom
   }
 
   renderClassSettings() {
-    const { user, classroom } = this.props
+    const { user, classroom, renameClass } = this.props
     let coteacherNote
     let settings = [
-      <button className="quill-button secondary outlined small">Rename class</button>,
+      <button className="quill-button secondary outlined small" onClick={renameClass}>Rename class</button>,
       <button className="quill-button secondary outlined small">Change grade</button>,
       <button className="quill-button secondary outlined small">Archive</button>
     ]
