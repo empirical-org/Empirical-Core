@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ClassroomStudentSection component classroom without students should render as a closed card 1`] = `
+exports[`ClassroomStudentSection component classroom without students should render 1`] = `
 <div
   className="students-section"
 >
@@ -29,7 +29,7 @@ exports[`ClassroomStudentSection component classroom without students should ren
 </div>
 `;
 
-exports[`ClassroomStudentSection component with students should render as an open card 1`] = `
+exports[`ClassroomStudentSection component with students should render 1`] = `
 <div
   className="students-section"
 >
