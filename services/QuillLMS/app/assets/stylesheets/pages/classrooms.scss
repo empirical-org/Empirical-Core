@@ -226,7 +226,6 @@
     .form-buttons {
       display: flex;
       justify-content: flex-end;
-      margin-top: 48px;
       .quill-button {
         margin-left: 24px;
       }
@@ -238,6 +237,12 @@
     height: 273px;
     .title {
       margin-bottom: 24px;
+    }
+    .input-container {
+      margin-bottom: 48px;
+      &.error.unacknowledged {
+        margin-bottom: 35px;
+      }
     }
   }
 
@@ -380,7 +385,7 @@
     color: #7f7f7f;
   }
 
-  .has-character-limit {
+  .has-character-limit:not(.error) {
     height: 65px;
   }
 

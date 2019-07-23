@@ -160,7 +160,6 @@ export class Input extends React.Component<InputProps, InputState> {
             <input {...commonProps} />
             {this.renderCancelSymbol()}
             {this.renderErrorText()}
-            {this.renderCharacterLimit()}
         </div>)
       }
     } else if (inactive) {
