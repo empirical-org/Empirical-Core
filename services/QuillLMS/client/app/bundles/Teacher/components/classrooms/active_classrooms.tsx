@@ -43,7 +43,7 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
   }
 
   getClassrooms() {
-    requestGet('/teachers/classrooms/new_index', (body) => this.setState({ classrooms: body.classrooms }));
+    requestGet('/teachers/classrooms/new_index', (body) => this.setState({ classrooms: body.classrooms.filter(classroom => classroom.visible) }));
   }
 
   clickClassroomHeader(classroomId) {
