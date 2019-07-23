@@ -132,7 +132,7 @@ const rows3 = [
     id: 2
   },
   {
-    name: 'George Gordon Byron',
+    name: 'George Gordon',
     activities: 16,
     id: 3
   },
@@ -147,6 +147,14 @@ const rows3 = [
     id: 5
   }
 ]
+
+const rows4 = rows3.map((row) => {
+  const newRow = { ...row }
+  newRow.actions = [
+    { name: 'Action', action: () => {} }
+  ]
+  return newRow
+})
 
 
 describe('DataTable component', () => {
@@ -172,7 +180,7 @@ describe('DataTable component', () => {
   describe('with checkboxes', () => {
     const wrapper = shallow(
       <DataTable
-        rows={row2}
+        rows={rows2}
         headers={headers2}
         showCheckboxes={true}
         checkRow={() => {}}
@@ -197,9 +205,64 @@ describe('DataTable component', () => {
     )
 
     it('should render the rows in ascending order of activities', () => {
-      const sortedRows = rows3.sort((a, b) => b['activities'] - a['activities'])
-      expect(wrapper.find('.data-table-row-section').first()).toBe(sortedRows[0].name)
+      const sortedRows = rows3.sort((a, b) => a.activities - b.activities)
+      expect(wrapper.find('.data-table-row-section').first().text()).toBe(sortedRows[0].name)
+    })
+
+    it('should render the row in descending order if the state gets changed', () => {
+      wrapper.instance().setState({ sortAscending: false, })
+      const sortedRows = rows3.sort((a, b) => b.activities - a.activities)
+      expect(wrapper.find('.data-table-row-section').first().text()).toBe(sortedRows[0].name)
     })
   })
+
+  describe('with remove icons', () => {
+    const wrapper = shallow(
+      <DataTable
+        rows={rows3}
+        headers={headers3}
+        showRemoveIcon={true}
+        removeRow={() => {}}
+      />
+    )
+
+    it('should render a header for each header in props, plus one for the remove icon', () => {
+      expect(wrapper.find('.data-table-header').length).toBe(headers3.length + 1)
+    })
+
+    it('should render a remove icon for each row', () => {
+      expect(wrapper.find('.removable').length).toBe(rows3.length)
+    })
+  })
+
+  describe('with actions', () => {
+    const wrapper = shallow(
+      <DataTable
+        rows={rows4}
+        headers={headers3}
+        showActions={true}
+      />
+    )
+
+    it('should render a header for each header in props, plus one for the actions', () => {
+      expect(wrapper.find('.data-table-header').length).toBe(headers3.length + 1)
+    })
+
+    it('should render a header with the text Actions', () => {
+      expect(wrapper.find('.data-table-header').last().text()).toBe('Actions')
+    })
+
+    it('should render an actions section for each row with actions', () => {
+      const rowsWithActions = rows4.filter(row => row.actions)
+      expect(wrapper.find('.actions-section').length).toBe(rowsWithActions.length)
+    })
+
+    it('should render an open actions menu for the selected row', () => {
+      wrapper.instance().setState({ rowWithActionsOpen: rows4[0].id, })
+      expect(wrapper.find('.actions-menu').exists()).toBe(true)
+      // expect(wrapper.find('.data-table-row').first().text()).toBe('b')
+    })
+  })
+
 
 });
