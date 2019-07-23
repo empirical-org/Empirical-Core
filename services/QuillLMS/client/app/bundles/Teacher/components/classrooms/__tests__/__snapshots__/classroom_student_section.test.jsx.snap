@@ -1,0 +1,159 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ClassroomStudentSection component classroom without students should render as a closed card 1`] = `
+<div
+  className="students-section"
+>
+  <div
+    className="students-section-header"
+  >
+    <h3>
+      Students
+    </h3>
+    <button
+      className="quill-button primary outlined small"
+    >
+      Invite students
+    </button>
+  </div>
+  <div
+    className="no-students"
+  >
+    <img
+      src="undefined/images/illustrations/empty-desks.svg"
+    />
+    <p>
+      Click on the "Invite students" button to get started with your writing instruction!
+    </p>
+  </div>
+</div>
+`;
+
+exports[`ClassroomStudentSection component with students should render as an open card 1`] = `
+<div
+  className="students-section"
+>
+  <div
+    className="students-section-header with-students"
+  >
+    <h3>
+      Students
+    </h3>
+    <div
+      className="students-section-header-buttons"
+    >
+      <a
+        className="quill-button secondary outlined small"
+        href="/teachers/classrooms/285383/student_logins"
+      >
+        Download setup instructions
+      </a>
+      <div
+        className="invite-quill-classroom-students"
+      >
+        <button
+          className="quill-button primary outlined small"
+        >
+          Invite students
+        </button>
+      </div>
+    </div>
+  </div>
+  <DropdownInput
+    className="student-actions-dropdown"
+    disabled={true}
+    handleChange={[Function]}
+    label="Actions"
+    options={Array []}
+  />
+  <DataTable
+    checkAllRows={[Function]}
+    checkRow={[Function]}
+    headers={
+      Array [
+        Object {
+          "attribute": "name",
+          "name": "Name",
+          "width": "190px",
+        },
+        Object {
+          "attribute": "username",
+          "name": "Username",
+          "width": "362px",
+        },
+        Object {
+          "attribute": "synced",
+          "name": "Synced",
+          "width": "124px",
+        },
+      ]
+    }
+    rows={
+      Array [
+        Object {
+          "actions": Array [
+            Object {
+              "action": [Function],
+              "name": "Edit account",
+            },
+            Object {
+              "action": [Function],
+              "name": "Reset password",
+            },
+            Object {
+              "action": [Function],
+              "name": "Merge accounts",
+            },
+            Object {
+              "action": [Function],
+              "name": "Move class",
+            },
+            Object {
+              "action": [Function],
+              "name": "Remove from class",
+            },
+          ],
+          "checked": false,
+          "id": 2851870,
+          "name": "Maya Angelou",
+          "synced": "",
+          "username": "maya.angelou.285383@demo-teacher",
+        },
+        Object {
+          "actions": Array [
+            Object {
+              "action": [Function],
+              "name": "Edit account",
+            },
+            Object {
+              "action": [Function],
+              "name": "Reset password",
+            },
+            Object {
+              "action": [Function],
+              "name": "Merge accounts",
+            },
+            Object {
+              "action": [Function],
+              "name": "Move class",
+            },
+            Object {
+              "action": [Function],
+              "name": "Remove from class",
+            },
+          ],
+          "checked": false,
+          "id": 2851866,
+          "name": "William Shakespeare",
+          "synced": "",
+          "username": "william.shakespeare.285383@demo-teacher",
+        },
+      ]
+    }
+    showActions={true}
+    showCheckboxes={true}
+    uncheckAllRows={[Function]}
+    uncheckRow={[Function]}
+  />
+</div>
+`;

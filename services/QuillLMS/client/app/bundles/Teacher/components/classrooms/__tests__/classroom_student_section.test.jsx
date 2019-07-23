@@ -17,9 +17,6 @@ describe('ClassroomStudentSection component', () => {
       expect(wrapper).toMatchSnapshot();
     });
 
-    it('should render a classroom card header', () => {
-      expect(wrapper.find('.classroom-card-header').exists()).toBe(true);
-    })
 
   })
 
@@ -33,17 +30,6 @@ describe('ClassroomStudentSection component', () => {
       expect(wrapper).toMatchSnapshot();
     });
 
-    it('should render a classroom card header', () => {
-      expect(wrapper.find('.classroom-card-header').exists()).toBe(true);
-    })
-
-    it('should render a students section', () => {
-      expect(wrapper.find(ClassroomStudentSectionStudentSection).exists()).toBe(true);
-    })
-
-    it('should render a teacher section', () => {
-      expect(wrapper.find(ClassroomStudentSectionTeacherSection).exists()).toBe(true);
-    })
   })
 
 });

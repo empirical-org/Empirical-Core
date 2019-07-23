@@ -65,6 +65,7 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
 
     this.changeSortDirection = this.changeSortDirection.bind(this)
     this.handleClick = this.handleClick.bind(this)
+    this.attributeAlignment = this.attributeAlignment.bind(this)
   }
 
   componentWillMount() {
