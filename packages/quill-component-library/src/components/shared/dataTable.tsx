@@ -105,9 +105,9 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     if (showCheckboxes) {
       const anyChecked = rows.some(row => row.checked)
       if (anyChecked) {
-        return <span className={`quill-checkbox selected ${dataTableHeaderClassName}`}>
+        return (<span className={`quill-checkbox selected ${dataTableHeaderClassName}`}>
           <img src={indeterminateSrc} alt="check" onClick={uncheckAllRows}/>
-        </span>
+        </span>)
       } else {
         return <span className={`quill-checkbox unselected ${dataTableHeaderClassName}`} onClick={checkAllRows} />
       }
@@ -150,18 +150,18 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
       let content
       if (rowWithActionsOpen === row.id) {
         const rowActions = row.actions.map(act => <span onClick={() => act.action(row.id)}>{act.name}</span>)
-        content = <div className="actions-menu-container" ref={node => this.selectedStudentActions = node}>
+        content = (<div className="actions-menu-container" ref={node => this.selectedStudentActions = node}>
           <div className="actions-menu">
             {rowActions}
           </div>
-        </div>
+        </div>)
       } else {
-        content = <button
+        content = (<button
           className="quill-button actions-button"
           onClick={() => this.setState({ rowWithActionsOpen: row.id })}
         >
           <img src={moreHorizontalSrc} alt="ellipses" />
-        </button>
+        </button>)
       }
       return <span className="data-table-row-section actions-section">{content}</span>
     }
@@ -178,14 +178,14 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
         sortArrow = <img className={`sort-arrow ${sortDirection}`} src={arrowSrc} />
         dataTableHeaderClasses+= ' sortable'
       }
-      return <span
+      return (<span
         onClick={onClick}
         className={dataTableHeaderClasses}
         style={style as any}
-        >
-          {sortArrow}
-          {header.name}
-        </span>
+      >
+        {sortArrow}
+        {header.name}
+      </span>)
     })
     return <div className="data-table-headers">{this.renderHeaderCheckbox()}{headers}{this.renderHeaderForRemoval()}{this.renderActionsHeader()}</div>
   }
@@ -199,20 +199,20 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
         const sectionText = row[header.attribute]
         const headerWidthNumber = Number(header.width.slice(0, -2))
         if ((String(sectionText).length * 7) >= headerWidthNumber) {
-          return <Tooltip
+          return (<Tooltip
             tooltipTriggerTextClass="data-table-row-section"
             tooltipTriggerText={sectionText}
             tooltipText={sectionText}
             tooltipTriggerStyle={style}
             tooltipTriggerTextStyle={style}
-          />
+          />)
         } else {
-          return <span
+          return (<span
             className="data-table-row-section"
             style={style as any}
           >
             {sectionText}
-          </span>
+          </span>)
         }
       })
       return <div className={rowClassName} key={String(row.id)}>{this.renderRowCheckbox(row)}{rowSections}{this.renderRowRemoveIcon(row)}{this.renderActions(row)}</div>
@@ -221,10 +221,10 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
   }
 
   render() {
-    return <div className={`data-table ${this.props.className}`}>
+    return (<div className={`data-table ${this.props.className}`}>
       {this.renderHeaders()}
       {this.renderRows()}
-    </div>
+    </div>)
   }
 
 }
