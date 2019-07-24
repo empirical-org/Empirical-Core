@@ -3,6 +3,7 @@ import { Snackbar, defaultSnackbarTimeout } from 'quill-component-library/dist/c
 
 import CreateAClassModal from './create_a_class_modal'
 import RenameClassModal from './rename_classroom_modal'
+import ChangeGradeModal from './change_grade_modal'
 import Classroom from './classroom'
 import { requestGet } from '../../../../modules/request/index.js';
 
@@ -16,6 +17,7 @@ interface ActiveClassroomsProps {
 interface ActiveClassroomsState {
   showCreateAClassModal: boolean;
   showRenameClassModal: boolean;
+  showChangeGradeModal: boolean;
   showSnackbar: boolean;
   selectedClassroomId?: number;
   snackbarCopy?: string;
@@ -29,6 +31,7 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
     this.state = {
       showCreateAClassModal: false,
       showRenameClassModal: false,
+      showChangeGradeModal: false,
       showSnackbar: false,
       classrooms: props.classrooms.filter(classroom => classroom.visible)
     }
@@ -37,6 +40,8 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
     this.closeCreateAClassModal = this.closeCreateAClassModal.bind(this)
     this.openRenameClassModal = this.openRenameClassModal.bind(this)
     this.closeRenameClassModal = this.closeRenameClassModal.bind(this)
+    this.openChangeGradeModal = this.openChangeGradeModal.bind(this)
+    this.closeChangeGradeModal = this.closeChangeGradeModal.bind(this)
     this.showSnackbar = this.showSnackbar.bind(this)
     this.clickClassroomHeader = this.clickClassroomHeader.bind(this)
     this.getClassrooms = this.getClassrooms.bind(this)
@@ -72,6 +77,15 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
     this.setState({ showRenameClassModal: false })
   }
 
+  openChangeGradeModal() {
+    this.setState({ showChangeGradeModal: true })
+  }
+
+  closeChangeGradeModal() {
+    this.getClassrooms()
+    this.setState({ showChangeGradeModal: false })
+  }
+
   showSnackbar(snackbarCopy) {
     this.setState({ showSnackbar: true, snackbarCopy }, () => {
       setTimeout(() => this.setState({ showSnackbar: false, }), defaultSnackbarTimeout)
@@ -95,6 +109,7 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
       const classroomCards = classrooms.map(classroom => {
         return <Classroom
           renameClass={this.openRenameClassModal}
+          changeGrade={this.openChangeGradeModal}
           classroom={classroom}
           selected={classroom.id === this.state.selectedClassroomId}
           clickClassroomHeader={this.clickClassroomHeader}
@@ -128,10 +143,23 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
     }
   }
 
+  renderChangeGradeModal() {
+    const { showChangeGradeModal, classrooms, selectedClassroomId } = this.state
+    if (showChangeGradeModal) {
+      const selectedClassroom = classrooms.find(c => c.id === selectedClassroomId)
+      return <ChangeGradeModal
+        close={this.closeRenameClassModal}
+        showSnackbar={this.showSnackbar}
+        classroom={selectedClassroom}
+      />
+    }
+  }
+
   render() {
     return <div className="active-classrooms classrooms-page">
       {this.renderCreateAClassModal()}
       {this.renderRenameClassModal()}
+      {this.renderChangeGradeModal()}
       {this.renderSnackbar()}
       <div className="header">
         <h1>Active Classes</h1>

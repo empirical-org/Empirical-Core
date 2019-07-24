@@ -14,6 +14,7 @@ interface ClassroomProps {
   selected: boolean;
   clickClassroomHeader: (event) => void;
   renameClass: (event) => void;
+  changeGrade: (event) => void;
 }
 
 interface ClassroomState {
@@ -78,11 +79,11 @@ export default class Classroom extends React.Component<ClassroomProps, Classroom
   }
 
   renderClassSettings() {
-    const { user, classroom, renameClass } = this.props
+    const { user, classroom, renameClass, changeGrade } = this.props
     let coteacherNote
     let settings = [
       <button className="quill-button secondary outlined small" onClick={renameClass}>Rename class</button>,
-      <button className="quill-button secondary outlined small">Change grade</button>,
+      <button className="quill-button secondary outlined small" onClick={changeGrade}>Change grade</button>,
       <button className="quill-button secondary outlined small">Archive</button>
     ]
     const teacher = classroom.teachers.find(t => t.id === user.id)
