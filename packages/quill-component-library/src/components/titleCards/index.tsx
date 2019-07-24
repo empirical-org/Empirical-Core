@@ -1,3 +1,0 @@
-export {
-  TitleCard
-} from './titleCard'

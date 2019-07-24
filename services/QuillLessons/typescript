@@ -1,17 +1,0 @@
-Script started on Fri Apr  7 14:03:12 2017
-[?1034hbash-3.2$ npm q[Knpm run jest:u
-[?25l⸨[90m░░░░░░░░░░░░░░░░░░[0m⸩ ⠼ : [32minfo[0m [35musing[0m node@v6.7.0[K[K[?25h
-> Quill-Connect@0.0.1 jest:u /Users/ryannovas/Desktop/Quill/Quill-Connect
-> jest -- -u
-
-[1m[2mDetermining test suites to run...[1m[22m[999D[K[1mNo tests found[22m
-  246 files checked.
-  roots: [33m/Users/ryannovas/Desktop/Quill/Quill-Connect[39m - 246 matches
-  testMatch: [33m**/__tests__/**/*.js?(x)[39m - 3 matches
-  testPathIgnorePatterns: [33m/node_modules/[39m - 246 matches
-  testPathPattern: [33m"-u"[39m - 0 matches
-[999D[K
-[K[1A[999D[Kbash-3.2$ 
-bash-3.2$ exit
-
-Script done on Fri Apr  7 14:04:20 2017

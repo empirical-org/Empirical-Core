@@ -8,22 +8,20 @@
 
 # ruby configs
 .bundle
-lambdas/*.zip
 
 # database
 config/database.yml
 latest.dump
-rethinkdb_data
 
 # compilation
 public/assets
 
 # misc
 log/*.log
+/*.log
 tmp
 coverage
 snapshot.dump
-*.crt
 
 # vagrant folder
 .vagrant/
@@ -46,7 +44,8 @@ activity-sessions*.json
 # React on Rails
 npm-debug.log*
 node_modules
-/public/webpack/*
+/public/webpack
+/public/webpack-test
 
 # Generated js bundles
 /app/assets/webpack/*
@@ -72,13 +71,7 @@ _book/
 /public/packs-test
 /node_modules
 
-nohup\.out
+nohup.out
 
-/services/QuillGrammar/built
-
-# Ignore generated python files
-*.pyc
-services/QuillLessonsServer/dev.sh
-
-# Ignore Python virtual environments
-**/venv
+/cypress/screenshots
+/cypress/videos
