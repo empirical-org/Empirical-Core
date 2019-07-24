@@ -10,6 +10,7 @@ const left: CSS.TextAlignProperty = "left"
 const right: CSS.TextAlignProperty = "right"
 
 const indeterminateSrc = 'https://assets.quill.org/images/icons/indeterminate.svg'
+const removeSrc = 'https://assets.quill.org/images/icons/remove.svg'
 const smallWhiteCheckSrc = 'https://assets.quill.org/images/shared/check-small-white.svg'
 const arrowSrc = 'https://assets.quill.org/images/shared/arrow.svg'
 
@@ -32,6 +33,8 @@ interface DataTableProps {
   defaultSortAttribute?: string;
   defaultSortDirection?: string;
   showCheckboxes?: boolean;
+  showRemoveIcon?: boolean;
+  removeRow?: (event: any) => void;
   checkRow?: (event: any) => void;
   uncheckRow?: (event: any) => void;
   uncheckAllRows?: (event: any) => void;
@@ -93,6 +96,13 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     }
   }
 
+  renderHeaderForRemoval() {
+    const { showRemoveIcon } = this.props
+    if (showRemoveIcon) {
+      return <span className="data-table-header" />
+    }
+  }
+
   renderRowCheckbox(row) {
     if (this.props.showCheckboxes) {
       if (row.checked) {
@@ -103,10 +113,16 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     }
   }
 
+  renderRowRemoveIcon(row) {
+    if (this.props.showRemoveIcon) {
+      return <span className="removable data-table-row-section" onClick={() => this.props.removeRow(row.id)}><img src={removeSrc} alt="x" /></span>
+    }
+  }
+
   renderHeaders() {
     const headers = this.props.headers.map(header => {
       let sortArrow, onClick
-      let style: React.CSSProperties = { width: `${header.width}`, textAlign: `${this.attributeAlignment(header.attribute)}` as CSS.TextAlignProperty }
+      let style: React.CSSProperties = { width: `${header.width}`, minWidth: `${header.width}`, textAlign: `${this.attributeAlignment(header.attribute)}` as CSS.TextAlignProperty }
       if (header.isSortable) {
         onClick = this.changeSortDirection
         sortArrow = <img className={`sort-arrow ${this.state.sortDirection}`} onClick={this.changeSortDirection} src={arrowSrc} />
@@ -122,7 +138,7 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
           {header.name}
         </span>
     })
-    return <div className="data-table-headers">{this.renderHeaderCheckbox()}{headers}</div>
+    return <div className="data-table-headers">{this.renderHeaderCheckbox()}{headers}{this.renderHeaderForRemoval()}</div>
   }
 
   renderRows() {
@@ -130,7 +146,7 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     const rows = this.sortRows().map(row => {
       const rowClassName = `data-table-row ${row.checked ? 'checked' : ''}`
       const rowSections = headers.map(header => {
-        const style: React.CSSProperties = { width: `${header.width}`, textAlign: `${this.attributeAlignment(header.attribute)}` as CSS.TextAlignProperty }
+        let style: React.CSSProperties = { width: `${header.width}`, minWidth: `${header.width}`, textAlign: `${this.attributeAlignment(header.attribute)}` as CSS.TextAlignProperty }
         const sectionText = row[header.attribute]
         const headerWidthNumber = Number(header.width.slice(0, -2))
         if ((String(sectionText).length * 7) >= headerWidthNumber) {
@@ -152,7 +168,7 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
           </span>
         }
       })
-      return <div className={rowClassName}>{this.renderRowCheckbox(row)}{rowSections}</div>
+      return <div className={rowClassName}>{this.renderRowCheckbox(row)}{rowSections}{this.renderRowRemoveIcon(row)}</div>
     })
     return <div className="data-table-body">{rows}</div>
   }

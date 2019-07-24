@@ -1,8 +1,18 @@
 .classrooms-page {
   padding-top: 40px;
+
+  .name, .last-name, .first-name {
+    &.inactive:not(.has-text) {
+      label {
+        margin-top: 20px;
+      }
+    }
+  }
+
   h1, h2 {
     font-weight: bold;
     font-size: 24px;
+    line-height: 1.33;
   }
   .header {
     display: flex;
@@ -32,6 +42,223 @@
       color: #646464;
       margin-top: 24px;
       width: 461px;
+    }
+  }
+
+  .classroom {
+    border-radius: 6px;
+    border: solid 1px #e0e0e0;
+    background-color: #ffffff;
+    margin-bottom: 24px;
+    .classroom-card-header {
+      height: 122px;
+      justify-content: space-between;
+      align-items: center;
+      display: flex;
+      flex-direction: row;
+      padding: 32px;
+      cursor: pointer;
+    }
+    .classroom-data {
+      margin-top: 4px;
+      span {
+        line-height: 1.57;
+        color: #646464;
+        margin-right: 8px;
+      }
+    }
+    &.open {
+      .expand-arrow {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+  .quill-snackbar {
+    z-index: 5;
+  }
+
+  .modal-background {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    opacity: 0.5;
+    background-color: #000;
+  }
+
+  .modal {
+    width: 760px;
+    border-radius: 6px;
+    background-color: #ffffff;
+    z-index: 3;
+    position: fixed;
+    top: 72px;
+    left: 50%;
+    bottom: 72px;
+    transform: translate(-50%, 0);
+    display: block;
+  }
+
+  .modal-body {
+    padding: 32px 24px 32px 32px;
+    margin-bottom: 32px;
+    .title {
+      font-size: 24px;
+      font-weight: bold;
+      line-height: 1.33;
+      margin-bottom: 40px;
+    }
+    .dropdown-menu {
+      z-index: 4;
+    }
+  }
+
+  .create-a-class-modal-content {
+    height: 100%;
+    overflow-y: scroll;
+    padding-bottom: 120px;
+  }
+
+  .create-a-class-modal-body {
+    &.setup-instructions {
+      .title {
+        margin-bottom: 8px;
+      }
+      p {
+        width: 416px;
+        font-size: 14px;
+        line-height: 1.57;
+        color: #646464;
+        margin-bottom: 32px;
+      }
+      img {
+        margin-bottom: 32px;
+      }
+    }
+
+    &.create-students {
+      height: 100%;
+      form {
+        display: flex;
+        justify-content: space-between;
+        .input-container {
+          width: 302px;
+        }
+      }
+      .data-table {
+        height: 100%;
+        padding-bottom: 105px;
+      }
+    }
+
+    .create-a-class-form {
+      width: 512px;
+      .input-container {
+        margin-bottom: 12px;
+        &.grade {
+          margin-bottom: 24px;
+        }
+      }
+      .class-code-section {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        .input-container {
+          width: 300px;
+          margin-bottom: 0px;
+          &.code {
+            input {
+              border-bottom: none;
+            }
+          }
+        }
+        .reset {
+          color: #027360;
+          font-size: 16px;
+          cursor: pointer;
+          font-weight: normal;
+        }
+      }
+    }
+
+    .quill-cards {
+      width: 584px;
+      .quill-card:first-of-type {
+        margin-bottom: 24px;
+        p {
+          width: 400px;
+        }
+      }
+    }
+    .copy-class-code-container {
+      display: flex;
+      align-items: center;
+      .input-container {
+        width: 256px;
+        margin-right: 16px;
+      }
+    }
+  }
+
+  .create-a-class-modal-footer {
+    position: fixed;
+    bottom: 0;
+    height: 88px;
+    background-color: white;
+    opacity: 1;
+    z-index: 4;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    border-top: 1px solid #e0e0e0;
+    padding: 0px 32px;
+    &.with-back-button {
+      justify-content: space-between;
+    }
+  }
+
+  .create-a-class-modal-header {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 0px 32px;
+    height: 70px;
+    align-items: center;
+    img {
+      cursor: pointer;
+    }
+    .navigation {
+      display: flex;
+      color: #646464;
+      p {
+        margin-right: 24px;
+      }
+      .active {
+        color: #000;
+      }
+    }
+  }
+
+  // this is stuff that should be coming from the component library but is not working right now
+  .character-limit {
+    color: #7f7f7f;
+  }
+
+  .has-character-limit {
+    height: 65px;
+  }
+
+  .data-table {
+    padding-right: 0px;
+    .removable {
+      margin-right: 0px;
+      img {
+        cursor: pointer;
+      }
     }
   }
 }

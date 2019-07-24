@@ -128,6 +128,7 @@ EmpiricalGrammar::Application.routes.draw do
 
   get 'account_settings' => 'students#account_settings'
   put 'update_email' => 'students#update_email'
+  get 'join/:classcode' => 'students#join_classroom'
   get 'teachers/admin_dashboard' => 'teachers#admin_dashboard'
   get 'teachers/admin_dashboard/district_activity_scores' => 'teachers#admin_dashboard'
   get 'teachers/admin_dashboard/district_activity_scores/student_overview' => 'teachers#admin_dashboard'
@@ -250,6 +251,7 @@ EmpiricalGrammar::Application.routes.draw do
     end
 
     resources :classrooms, only: [:index, :new, :create, :update, :destroy] do
+      post :create_students
       collection do
         get :classrooms_i_teach
         get :regenerate_code

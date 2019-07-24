@@ -4,6 +4,9 @@ exports[`ActiveClassrooms component with no classrooms should render with no cla
 <div
   className="active-classrooms classrooms-page"
 >
+  <Snackbar
+    visible={false}
+  />
   <div
     className="header"
   >
@@ -20,6 +23,7 @@ exports[`ActiveClassrooms component with no classrooms should render with no cla
       </button>
       <button
         className="quill-button medium primary contained create-a-class-button"
+        onClick={[Function]}
       >
         Create a class
       </button>
@@ -29,7 +33,7 @@ exports[`ActiveClassrooms component with no classrooms should render with no cla
     className="no-active-classes"
   >
     <img
-      src="undefined/images/Illustrations/empty-class.svg"
+      src="undefined/images/illustrations/empty-class.svg"
     />
     <p>
       Every teacher needs a class! Please select one of the buttons on the right to get started.
