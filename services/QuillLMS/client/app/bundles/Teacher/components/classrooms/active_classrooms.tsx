@@ -148,7 +148,7 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
     if (showChangeGradeModal) {
       const selectedClassroom = classrooms.find(c => c.id === selectedClassroomId)
       return <ChangeGradeModal
-        close={this.closeRenameClassModal}
+        close={this.closeChangeGradeModal}
         showSnackbar={this.showSnackbar}
         classroom={selectedClassroom}
       />
