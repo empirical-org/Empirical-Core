@@ -10,8 +10,8 @@
   padding: 0px 16px;
   white-space: nowrap;
   &:focus, &:hover {
-    text-decoration: none;
     outline: none;
+    text-decoration: none;
   }
   &.fun {
     height: 32px;
