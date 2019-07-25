@@ -76,7 +76,7 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
   }
 
   handleClick(e) {
-    if (this.selectedStudentActions && !this.selectedStudentActions.contains(e.target)) {
+    if (this.selectedStudentActions) {
       this.setState({ rowWithActionsOpen: null })
     }
   }

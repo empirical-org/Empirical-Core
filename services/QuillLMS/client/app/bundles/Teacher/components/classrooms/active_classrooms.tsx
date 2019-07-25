@@ -48,12 +48,18 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
     this.openArchiveClassModal = this.openArchiveClassModal.bind(this)
     this.closeArchiveClassModal = this.closeArchiveClassModal.bind(this)
     this.showSnackbar = this.showSnackbar.bind(this)
+    this.onSuccess = this.onSuccess.bind(this)
     this.clickClassroomHeader = this.clickClassroomHeader.bind(this)
     this.getClassrooms = this.getClassrooms.bind(this)
   }
 
   getClassrooms() {
     requestGet('/teachers/classrooms/new_index', (body) => this.setState({ classrooms: body.classrooms.filter(classroom => classroom.visible) }));
+  }
+
+  onSuccess(snackbarCopy) {
+    this.getClassrooms()
+    this.showSnackbar(snackbarCopy)
   }
 
   clickClassroomHeader(classroomId) {
@@ -69,7 +75,6 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
   }
 
   closeCreateAClassModal() {
-    this.getClassrooms()
     this.setState({ showCreateAClassModal: false })
   }
 
@@ -78,7 +83,6 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
   }
 
   closeRenameClassModal() {
-    this.getClassrooms()
     this.setState({ showRenameClassModal: false })
   }
 
@@ -87,7 +91,6 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
   }
 
   closeChangeGradeModal() {
-    this.getClassrooms()
     this.setState({ showChangeGradeModal: false })
   }
 
@@ -96,7 +99,6 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
   }
 
   closeArchiveClassModal() {
-    this.getClassrooms()
     this.setState({ showArchiveClassModal: false })
   }
 
@@ -129,6 +131,7 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
           selected={classroom.id === this.state.selectedClassroomId}
           clickClassroomHeader={this.clickClassroomHeader}
           user={user}
+          onSuccess={this.onSuccess}
         />
       })
       return <div className="active-classes">
@@ -152,7 +155,7 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
       const selectedClassroom = classrooms.find(c => c.id === selectedClassroomId)
       return <RenameClassModal
         close={this.closeRenameClassModal}
-        showSnackbar={this.showSnackbar}
+        onSuccess={this.onSuccess}
         classroom={selectedClassroom}
       />
     }
@@ -164,7 +167,7 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
       const selectedClassroom = classrooms.find(c => c.id === selectedClassroomId)
       return <ChangeGradeModal
         close={this.closeChangeGradeModal}
-        showSnackbar={this.showSnackbar}
+        onSuccess={this.onSuccess}
         classroom={selectedClassroom}
       />
     }
@@ -176,7 +179,7 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
       const selectedClassroom = classrooms.find(c => c.id === selectedClassroomId)
       return <ArchiveClassModal
         close={this.closeArchiveClassModal}
-        showSnackbar={this.showSnackbar}
+        onSuccess={this.onSuccess}
         classroom={selectedClassroom}
       />
     }

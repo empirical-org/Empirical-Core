@@ -25,20 +25,34 @@ class Teachers::StudentsController < ApplicationController
   end
 
   def update
-    if user_params[:username] == @student.username
-      validate_username = false
-    else
-      validate_username = true
+    respond_to do |format|
+      format.html {
+        if user_params[:username] == @student.username
+          validate_username = false
+        else
+          validate_username = true
+        end
+        user_params.merge!(validate_username: validate_username)
+        if @student.update_attributes(user_params)
+          #head :ok
+          redirect_to teachers_classroom_students_path(@classroom)
+        else
+          flash.now[:error] = @student.errors.full_messages.join('. ')
+          edit_page_variables
+          render :edit
+        end
+      }
+      format.json {
+        @student.validate_username = true
+        @student.update(user_params)
+        if @student.errors.any?
+          render json: { errors: @student.errors }
+        else
+          render json: {}
+        end
+      }
     end
-    user_params.merge!(validate_username: validate_username)
-    if @student.update_attributes(user_params)
-      #head :ok
-      redirect_to teachers_classroom_students_path(@classroom)
-    else
-      flash.now[:error] = @student.errors.full_messages.join('. ')
-      edit_page_variables
-      render :edit
-    end
+
   end
 
   def destroy
