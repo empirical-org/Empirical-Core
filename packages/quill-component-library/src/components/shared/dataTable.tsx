@@ -76,7 +76,7 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
   }
 
   handleClick(e) {
-    if (this.selectedStudentActions) {
+    if (this.selectedStudentActions && !this.selectedStudentActions.contains(e.target)) {
       this.setState({ rowWithActionsOpen: null })
     }
   }
@@ -98,6 +98,11 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     } else {
       return rows
     }
+  }
+
+  clickAction(action, id) {
+    action(id)
+    this.setState({ rowWithActionsOpen: null })
   }
 
   renderHeaderCheckbox() {
@@ -149,7 +154,7 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
       const { rowWithActionsOpen } = this.state
       let content
       if (rowWithActionsOpen === row.id) {
-        const rowActions = row.actions.map(act => <span onClick={() => act.action(row.id)}>{act.name}</span>)
+        const rowActions = row.actions.map(act => <span onClick={() => this.clickAction(act.action, row.id)}>{act.name}</span>)
         content = <div className="actions-menu-container" ref={node => this.selectedStudentActions = node}>
           <div className="actions-menu">
             {rowActions}
