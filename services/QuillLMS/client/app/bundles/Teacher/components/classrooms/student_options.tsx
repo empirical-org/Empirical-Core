@@ -5,13 +5,13 @@ import { studentsCreate, teacherCreates } from './add_students'
 const studentAccountsSrc = `${process.env.CDN_URL}/images/illustrations/student-accounts.svg`
 const joinLinkSrc = `${process.env.CDN_URL}/images/illustrations/join-link.svg`
 
-interface AddStudentsProps {
-  back: (event) => void;
+interface StudentOptionsProps {
+  back?: (event) => void;
   next: (event) => void;
   setStudentOption: Function;
 }
 
-export default class AddStudents extends React.Component<AddStudentsProps> {
+export default class StudentOptions extends React.Component<StudentOptionsProps> {
 
   renderBody() {
     return <div className="create-a-class-modal-body modal-body">
@@ -35,10 +35,16 @@ export default class AddStudents extends React.Component<AddStudentsProps> {
 
   renderFooter() {
     const { back, next, } = this.props
-    return <div className="create-a-class-modal-footer with-back-button">
-      <button className="quill-button secondary outlined medium" onClick={back}>Back</button>
-      <button className="quill-button secondary outlined medium" onClick={next}>Skip</button>
-    </div>
+    if (back) {
+      return <div className="create-a-class-modal-footer with-back-button">
+        <button className="quill-button secondary outlined medium" onClick={back}>Back</button>
+        <button className="quill-button secondary outlined medium" onClick={next}>Skip</button>
+      </div>
+    } else {
+      return <div className="create-a-class-modal-footer">
+        <button className="quill-button secondary outlined medium" onClick={next}>Skip</button>
+      </div>
+    }
   }
 
   render() {
