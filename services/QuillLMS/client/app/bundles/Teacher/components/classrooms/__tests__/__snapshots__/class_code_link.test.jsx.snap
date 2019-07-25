@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ClassCodeLink component should render ClassCodeLink 1`] = `
+<div
+  className="create-a-class-modal-content"
+>
+  <div
+    className="create-a-class-modal-body modal-body"
+  >
+    <h3
+      className="title"
+    >
+      Share the class code link with your students
+    </h3>
+    <div
+      className="copy-class-code-container"
+    >
+      <Input
+        disabled={true}
+        id="class-code"
+        value="quill.org/join/happy-day"
+      />
+      <CopyToClipboard
+        onCopy={[Function]}
+        text="quill.org/join/happy-day"
+      >
+        <button
+          className="quill-button secondary outlined small"
+        >
+          Copy
+        </button>
+      </CopyToClipboard>
+    </div>
+  </div>
+  <div
+    className="create-a-class-modal-footer with-back-button"
+  >
+    <button
+      className="quill-button secondary outlined medium"
+    >
+      Back
+    </button>
+    <button
+      className="quill-button primary contained medium"
+      onClick={[Function]}
+    >
+      Next
+    </button>
+  </div>
+</div>
+`;

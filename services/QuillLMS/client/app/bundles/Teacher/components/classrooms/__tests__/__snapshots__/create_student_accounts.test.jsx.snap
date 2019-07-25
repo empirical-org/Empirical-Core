@@ -1,0 +1,58 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CreateStudentAccounts component on initial load should render 1`] = `
+<div
+  className="create-a-class-modal-content"
+>
+  <div
+    className="create-a-class-modal-body modal-body create-students"
+  >
+    <h3
+      className="title"
+    >
+      Create accounts for your students
+    </h3>
+    <form
+      onSubmit={[Function]}
+    >
+      <Input
+        characterLimit={50}
+        className="first-name"
+        handleChange={[Function]}
+        label="First name"
+        type="text"
+        value=""
+      />
+      <Input
+        characterLimit={50}
+        className="last-name"
+        handleChange={[Function]}
+        label="Last name"
+        type="text"
+        value=""
+      />
+      <input
+        className="quill-button outlined secondary medium disabled"
+        name="commit"
+        type="submit"
+        value="Add"
+      />
+    </form>
+  </div>
+  <div
+    className="create-a-class-modal-footer with-back-button"
+  >
+    <button
+      className="quill-button secondary outlined medium"
+    >
+      Back
+    </button>
+    <button
+      className="quill-button contained primary medium disabled"
+      onClick={[Function]}
+    >
+      Next
+    </button>
+  </div>
+</div>
+`;

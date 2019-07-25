@@ -1,0 +1,81 @@
+.quill-button {
+  line-height: 1;
+  letter-spacing: normal;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  width: min-content;
+  padding: 0px 16px;
+  white-space: nowrap;
+  &:focus, &:hover {
+    text-decoration: none;
+    outline: none;
+  }
+  &.fun {
+    height: 32px;
+    font-size: 13px;
+  }
+  &.small {
+    height: 36px;
+    font-size: 14px;
+  }
+  &.medium {
+    height: 40px;
+    font-size: 15px;
+    &.icon {
+      width: 112px;
+    }
+  }
+  &.large {
+    height: 48px;
+    font-size: 18px;
+    &.icon {
+      width: 121px;
+    }
+  }
+  &.outlined {
+    border: solid 1px #bdbdbd;
+    background-color: white;
+    font-weight: 600;
+  }
+  &.contained {
+    font-weight: bold;
+    border: none;
+  }
+  &.primary {
+    &.contained {
+      color: #ffffff;
+      background-color: #01c2a2;
+      &:not(.disabled) {
+        &:hover, &:focus {
+          background-color: #00a47c;
+        }
+      }
+    }
+    &.outlined {
+      background-color: #ffffff;
+      color: #009a80;
+      &:hover, &:focus {
+        background-color: #f6fcfa;
+        font-weight: bold;
+      }
+    }
+  }
+  &.secondary {
+    &.outlined {
+      color: #000;
+      &:hover, &:focus {
+        background-color: #f5f5f5;
+      }
+    }
+  }
+  &.disabled {
+    color: #878787 !important;
+    &.contained {
+      background-color: #cccccc;
+    }
+  }
+
+}
