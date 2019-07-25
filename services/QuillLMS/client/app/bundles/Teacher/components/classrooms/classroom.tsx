@@ -15,6 +15,7 @@ interface ClassroomProps {
   clickClassroomHeader: (event) => void;
   renameClass: (event) => void;
   changeGrade: (event) => void;
+  archiveClass: (event) => void;
 }
 
 interface ClassroomState {
@@ -79,24 +80,26 @@ export default class Classroom extends React.Component<ClassroomProps, Classroom
   }
 
   renderClassSettings() {
-    const { user, classroom, renameClass, changeGrade } = this.props
+    const { user, classroom, renameClass, changeGrade, archiveClass, } = this.props
     let coteacherNote
+    let classSettingsClassName = "class-settings"
     let settings = [
       <button className="quill-button secondary outlined small" onClick={renameClass}>Rename class</button>,
       <button className="quill-button secondary outlined small" onClick={changeGrade}>Change grade</button>,
-      <button className="quill-button secondary outlined small">Archive</button>
+      <button className="quill-button secondary outlined small" onClick={archiveClass}>Archive</button>
     ]
     const teacher = classroom.teachers.find(t => t.id === user.id)
-    if (teacher.classroom_relation === 'co-teacher') {
+    if (teacher.classroom_relation === 'coteacher') {
       const owner = classroom.teachers.find(t => t.classroom_relation === 'owner')
-      coteacherNote = <span>Looking for more class settings? Ask {owner.name}, the class owner.</span>
+      coteacherNote = <p className="coteacher-note">Looking for more class settings? Ask {owner.name}, the class owner.</p>
       settings = [<button className="quill-button secondary outlined small">Leave class</button>]
+      classSettingsClassName+= ' coteacher-class-settings'
     } else if (!classroom.visible) {
       settings = [
         <button className="quill-button secondary outlined small">Un-archive</button>
       ]
     }
-    return <div className="class-settings">
+    return <div className={classSettingsClassName}>
       <h3>Class settings</h3>
       {coteacherNote}
       <div className="class-settings-buttons">
