@@ -31,7 +31,7 @@ export class Tooltip extends React.Component<TooltipProps, {}> {
 
   hideTooltipOnClick(e) {
     if (this.tooltip && e.target !== this.tooltip && e.target !== this.tooltipTrigger) {
-      this.tooltip.classList.remove('visible')
+      this.hideTooltip()
     }
   }
 

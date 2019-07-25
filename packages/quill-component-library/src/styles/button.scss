@@ -9,8 +9,9 @@
   width: min-content;
   padding: 0px 16px;
   white-space: nowrap;
-  &:focus {
+  &:focus, &:hover {
     outline: none;
+    text-decoration: none;
   }
   &.fun {
     height: 32px;
@@ -58,7 +59,6 @@
       color: #009a80;
       &:hover, &:focus {
         background-color: #f6fcfa;
-        font-weight: bold;
       }
     }
   }
