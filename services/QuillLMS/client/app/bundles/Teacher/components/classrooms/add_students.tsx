@@ -9,7 +9,7 @@ export const teacherCreates = 'teacher creates accounts'
 
 interface AddStudentsProps {
   next: () => void;
-  back: (event) => void;
+  back?: (event) => void;
   showSnackbar: (event) => void;
   classroom: any;
 }
