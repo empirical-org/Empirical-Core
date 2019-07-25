@@ -30,7 +30,7 @@ class Teachers::ClassroomsController < ApplicationController
       pending_coteachers = coteacher_invitations.map do |cci|
         {
           email: cci.invitation.invitee_email,
-          classroom_relation: 'co-teacher',
+          classroom_relation: 'coteacher',
           status: 'Pending',
           id: cci.id,
           name: '—'
