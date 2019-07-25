@@ -52,6 +52,28 @@ describe Teachers::ClassroomsController, type: :controller do
     end
   end
 
+  describe 'create students' do
+    let(:teacher) { create(:teacher) }
+    let(:classroom) { create(:classroom) }
+
+    before do
+      session[:user_id] = teacher.id
+    end
+
+    it 'calls the student creator' do
+      student1 = { name: 'Happy Kid', password: 'Kid', username: "happy.kid@#{classroom.code}"}
+      student2 = { name: 'Sad Kid', password: 'Kid', username: "sad.kid@#{classroom.code}"}
+      student1_with_account_type = student1.dup
+      student1_with_account_type[:account_type] = 'Teacher Created Account'
+      student2_with_account_type = student2.dup
+      student2_with_account_type[:account_type] = 'Teacher Created Account'
+      expect(Creators::StudentCreator).to receive(:create_student).with(student1_with_account_type, classroom.id)
+      expect(Creators::StudentCreator).to receive(:create_student).with(student2_with_account_type, classroom.id)
+      post :create_students, classroom_id: classroom.id, students: [student1, student2], classroom: {}
+    end
+
+  end
+
   describe 'creating a login pdf' do
 
     let(:teacher) { create(:teacher) }
