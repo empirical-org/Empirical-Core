@@ -50,10 +50,7 @@ export default {
             include: 'node_modules/**',
             namedExports: {
               'node_modules/prop-types/index.js': ['bool', 'object', 'string', 'func', 'oneOfType', 'array', 'shape', 'element', 'arrayOf'],
-              'node_modules/react/react.js': ['Component', 'createElement', 'PureComponent'],
-              'react-dom': ['createPortal', 'findDOMNode'],
-              'node_modules/react-router/node_modules/prop-types/index.js': ['array', 'arrayOf', 'bool', 'element', 'elementType', 'func', 'object', 'oneOfType', 'shape', 'string'],
-              'react-is': ['isValidElementType']
+              'node_modules/react/react.js': ['createElement']
             }
         }),
         resolve({
