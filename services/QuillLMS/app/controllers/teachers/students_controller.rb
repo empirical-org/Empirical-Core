@@ -64,6 +64,7 @@ protected
                                  :first_name,
                                  :last_name,
                                  :password_digest,
+                                 :password,
                                  :classcode,
                                  :active,
                                  :username,
