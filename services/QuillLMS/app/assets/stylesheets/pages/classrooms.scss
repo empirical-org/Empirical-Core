@@ -290,6 +290,16 @@
     }
   }
 
+  .edit-student-account-modal {
+    width: 560px;
+    height: 445px;
+    .input-container {
+      height: 96px !important;
+      display: flex;
+      justify-content: flex-start;
+    }
+  }
+
   .create-a-class-modal {
     width: 760px;
   }

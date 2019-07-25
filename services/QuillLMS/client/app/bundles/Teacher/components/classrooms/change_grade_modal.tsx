@@ -7,7 +7,7 @@ import { requestPut } from '../../../../modules/request/index.js';
 
 interface ChangeGradeModalProps {
   close: () => void;
-  showSnackbar: (string) => void;
+  onSuccess: (string) => void;
   classroom: any;
 }
 
@@ -37,14 +37,14 @@ export default class ChangeGradeModal extends React.Component<ChangeGradeModalPr
 
   changeGrade() {
     const existingClassroom = this.props.classroom
-    const { showSnackbar, close, } = this.props
+    const { onSuccess, close, } = this.props
     const { grade, timesSubmitted, } = this.state
     const classroom = { grade: grade.value }
     requestPut(`/teachers/classrooms/${existingClassroom.id}`, { classroom, }, (body) => {
       if (body && body.errors) {
         this.setState({ errors: body.errors, timesSubmitted: timesSubmitted + 1 });
       } else {
-        showSnackbar('Grade changed')
+        onSuccess('Grade changed')
         close()
       }
     })

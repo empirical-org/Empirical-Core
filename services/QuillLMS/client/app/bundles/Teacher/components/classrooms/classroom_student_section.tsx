@@ -3,15 +3,20 @@ import moment from 'moment'
 
 import { DropdownInput, DataTable } from 'quill-component-library/dist/componentLibrary'
 
+import EditStudentAccountModal from './edit_student_account_modal'
+
 const emptyDeskSrc = `${process.env.CDN_URL}/images/illustrations/empty-desks.svg`
 
 interface ClassroomStudentSectionProps {
   user: any;
   classroom: any;
+  onSuccess: (event) => void;
 }
 
 interface ClassroomStudentSectionState {
-  selectedStudentIds: Array<string|number>
+  selectedStudentIds: Array<string|number>;
+  studentIdsForModal: Array<string|number>;
+  showEditStudentAccountModal: boolean;
 }
 
 export default class ClassroomStudentSection extends React.Component<ClassroomStudentSectionProps, ClassroomStudentSectionState> {
@@ -19,7 +24,9 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
     super(props)
 
     this.state = {
-      selectedStudentIds: []
+      selectedStudentIds: [],
+      studentIdsForModal: [],
+      showEditStudentAccountModal: false
     }
 
     this.checkRow = this.checkRow.bind(this)
@@ -32,6 +39,7 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
     this.mergeStudentAccounts = this.mergeStudentAccounts.bind(this)
     this.moveClass = this.moveClass.bind(this)
     this.removeStudentFromClass = this.removeStudentFromClass.bind(this)
+    this.closeEditStudentAccountModal = this.closeEditStudentAccountModal.bind(this)
   }
 
   checkRow(id) {
@@ -61,6 +69,10 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
   }
 
   editStudentAccount(id=null) {
+    const { selectedStudentIds } = this.state
+    // we will only show the edit student account dropdown option when only one student is selected
+    const studentId = id || selectedStudentIds[0]
+    this.setState( { showEditStudentAccountModal: true, studentIdsForModal: [studentId] })
     console.log('edit student account', id)
   }
 
@@ -78,6 +90,24 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
 
   removeStudentFromClass(id=null) {
     console.log('remove from class', id)
+  }
+
+  closeEditStudentAccountModal() {
+    this.setState({ showEditStudentAccountModal: false, studentIdsForModal: [] })
+  }
+
+  renderEditStudentAccountModal() {
+    const { classroom, onSuccess } = this.props
+    const { showEditStudentAccountModal, studentIdsForModal } = this.state
+    if (showEditStudentAccountModal && studentIdsForModal.length === 1) {
+      const student = classroom.students.find(s => s.id === studentIdsForModal[0])
+      return <EditStudentAccountModal
+        close={this.closeEditStudentAccountModal}
+        onSuccess={onSuccess}
+        student={student}
+        classroom={classroom}
+      />
+    }
   }
 
   renderStudentActions() {
@@ -235,6 +265,7 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
     const { classroom, } = this.props
     if (classroom.students.length) {
       return <div className="students-section">
+        {this.renderEditStudentAccountModal()}
         <div className="students-section-header with-students">
           <h3>Students</h3>
           <div className="students-section-header-buttons">

@@ -16,6 +16,7 @@ interface ClassroomProps {
   renameClass: (event) => void;
   changeGrade: (event) => void;
   archiveClass: (event) => void;
+  onSuccess: (event) => void;
 }
 
 interface ClassroomState {
@@ -109,10 +110,10 @@ export default class Classroom extends React.Component<ClassroomProps, Classroom
   }
 
   renderClassroomContent() {
-    const { user, classroom } = this.props
+    const { user, classroom, onSuccess } = this.props
     return <div>
       {this.renderClassSettings()}
-      <ClassroomStudentSection user={user} classroom={classroom} />
+      <ClassroomStudentSection user={user} classroom={classroom} onSuccess={onSuccess}/>
       <ClassroomTeacherSection user={user} classroom={classroom} />
     </div>
   }

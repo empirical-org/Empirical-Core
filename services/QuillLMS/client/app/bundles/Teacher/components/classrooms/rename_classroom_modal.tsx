@@ -6,7 +6,7 @@ import { requestPut } from '../../../../modules/request/index.js';
 
 interface RenameClassModalProps {
   close: () => void;
-  showSnackbar: (string) => void;
+  onSuccess: (string) => void;
   classroom: any;
 }
 
@@ -36,14 +36,14 @@ export default class RenameClassModal extends React.Component<RenameClassModalPr
 
   renameClass() {
     const existingClassroom = this.props.classroom
-    const { showSnackbar, close, } = this.props
+    const { onSuccess, close, } = this.props
     const { name, timesSubmitted, } = this.state
     const classroom = { name }
     requestPut(`/teachers/classrooms/${existingClassroom.id}`, { classroom, }, (body) => {
       if (body && body.errors) {
         this.setState({ errors: body.errors, timesSubmitted: timesSubmitted + 1 });
       } else {
-        showSnackbar('Class renamed')
+        onSuccess('Class renamed')
         close()
       }
     })

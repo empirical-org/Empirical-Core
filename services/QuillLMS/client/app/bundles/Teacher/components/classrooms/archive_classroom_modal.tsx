@@ -4,7 +4,7 @@ import { requestPost } from '../../../../modules/request/index.js';
 
 interface ArchiveClassModalProps {
   close: () => void;
-  showSnackbar: (string) => void;
+  onSuccess: (string) => void;
   classroom: any;
 }
 
@@ -19,10 +19,10 @@ export default class ArchiveClassModal extends React.Component<ArchiveClassModal
   }
 
   archiveClass() {
-    const { showSnackbar, close, classroom } = this.props
+    const { onSuccess, close, classroom } = this.props
     requestPost(`/teachers/classrooms/${classroom.id}/hide`, null, () => {
-      showSnackbar('Class archived')
       close()
+      onSuccess('Class archived')
     })
   }
 
