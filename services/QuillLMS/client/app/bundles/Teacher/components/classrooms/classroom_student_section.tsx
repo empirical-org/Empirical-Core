@@ -11,6 +11,7 @@ interface ClassroomStudentSectionProps {
   user: any;
   classroom: any;
   onSuccess: (event) => void;
+  inviteStudents: (event) => void;
 }
 
 interface ClassroomStudentSectionState {
@@ -73,7 +74,6 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
     // we will only show the edit student account dropdown option when only one student is selected
     const studentId = id || selectedStudentIds[0]
     this.setState( { showEditStudentAccountModal: true, studentIdsForModal: [studentId] })
-    console.log('edit student account', id)
   }
 
   resetStudentPassword(id=null) {
@@ -242,7 +242,7 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
   }
 
   renderInviteStudents() {
-    const { classroom, } = this.props
+    const { classroom, inviteStudents, } = this.props
     if (classroom.google_classroom_id) {
       const lastUpdatedDate = moment(classroom.updated_at).format('MMM D, YYYY')
       return <div className="invite-google-classroom-students">
@@ -256,7 +256,7 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
       </div>
     } else {
       return <div className="invite-quill-classroom-students">
-        <button className="quill-button primary outlined small">Invite students</button>
+        <button className="quill-button primary outlined small" onClick={inviteStudents}>Invite students</button>
       </div>
     }
   }

@@ -5,6 +5,7 @@ import CreateAClassModal from './create_a_class_modal'
 import RenameClassModal from './rename_classroom_modal'
 import ChangeGradeModal from './change_grade_modal'
 import ArchiveClassModal from './archive_classroom_modal'
+import InviteStudentsModal from './invite_students_modal'
 import Classroom from './classroom'
 import { requestGet } from '../../../../modules/request/index.js';
 
@@ -20,6 +21,7 @@ interface ActiveClassroomsState {
   showRenameClassModal: boolean;
   showChangeGradeModal: boolean;
   showArchiveClassModal: boolean;
+  showInviteStudentsModal: boolean;
   showSnackbar: boolean;
   selectedClassroomId?: number;
   snackbarCopy?: string;
@@ -35,6 +37,7 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
       showRenameClassModal: false,
       showChangeGradeModal: false,
       showArchiveClassModal: false,
+      showInviteStudentsModal: false,
       showSnackbar: false,
       classrooms: props.classrooms.filter(classroom => classroom.visible)
     }
@@ -47,6 +50,8 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
     this.closeChangeGradeModal = this.closeChangeGradeModal.bind(this)
     this.openArchiveClassModal = this.openArchiveClassModal.bind(this)
     this.closeArchiveClassModal = this.closeArchiveClassModal.bind(this)
+    this.openInviteStudentsModal = this.openInviteStudentsModal.bind(this)
+    this.closeInviteStudentsModal = this.closeInviteStudentsModal.bind(this)
     this.showSnackbar = this.showSnackbar.bind(this)
     this.onSuccess = this.onSuccess.bind(this)
     this.clickClassroomHeader = this.clickClassroomHeader.bind(this)
@@ -75,7 +80,15 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
   }
 
   closeCreateAClassModal() {
-    this.setState({ showCreateAClassModal: false })
+    this.setState({ showCreateAClassModal: false }, this.getClassrooms)
+  }
+
+  openInviteStudentsModal() {
+    this.setState({ showInviteStudentsModal: true })
+  }
+
+  closeInviteStudentsModal() {
+    this.setState({ showInviteStudentsModal: false }, this.getClassrooms)
   }
 
   openRenameClassModal() {
@@ -127,6 +140,7 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
           renameClass={this.openRenameClassModal}
           changeGrade={this.openChangeGradeModal}
           archiveClass={this.openArchiveClassModal}
+          inviteStudents={this.openInviteStudentsModal}
           classroom={classroom}
           selected={classroom.id === this.state.selectedClassroomId}
           clickClassroomHeader={this.clickClassroomHeader}
@@ -145,6 +159,18 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
       return <CreateAClassModal
         close={this.closeCreateAClassModal}
         showSnackbar={this.showSnackbar}
+      />
+    }
+  }
+
+  renderInviteStudentsModal() {
+    const { showInviteStudentsModal, classrooms, selectedClassroomId } = this.state
+    const selectedClassroom = classrooms.find(c => c.id === selectedClassroomId)
+    if (showInviteStudentsModal) {
+      return <InviteStudentsModal
+        close={this.closeInviteStudentsModal}
+        showSnackbar={this.showSnackbar}
+        classroom={selectedClassroom}
       />
     }
   }
@@ -191,6 +217,7 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
       {this.renderRenameClassModal()}
       {this.renderChangeGradeModal()}
       {this.renderArchiveClassModal()}
+      {this.renderInviteStudentsModal()}
       {this.renderSnackbar()}
       <div className="header">
         <h1>Active Classes</h1>
