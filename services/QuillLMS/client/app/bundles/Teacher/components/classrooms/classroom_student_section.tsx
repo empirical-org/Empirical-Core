@@ -4,6 +4,7 @@ import moment from 'moment'
 import { DropdownInput, DataTable } from 'quill-component-library/dist/componentLibrary'
 
 import EditStudentAccountModal from './edit_student_account_modal'
+import ResetStudentPasswordModal from './reset_student_password_modal'
 
 const emptyDeskSrc = `${process.env.CDN_URL}/images/illustrations/empty-desks.svg`
 
@@ -18,6 +19,7 @@ interface ClassroomStudentSectionState {
   selectedStudentIds: Array<string|number>;
   studentIdsForModal: Array<string|number>;
   showEditStudentAccountModal: boolean;
+  showResetStudentPasswordModal: boolean;
 }
 
 export default class ClassroomStudentSection extends React.Component<ClassroomStudentSectionProps, ClassroomStudentSectionState> {
@@ -27,7 +29,8 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
     this.state = {
       selectedStudentIds: [],
       studentIdsForModal: [],
-      showEditStudentAccountModal: false
+      showEditStudentAccountModal: false,
+      showResetStudentPasswordModal: false
     }
 
     this.checkRow = this.checkRow.bind(this)
@@ -41,6 +44,7 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
     this.moveClass = this.moveClass.bind(this)
     this.removeStudentFromClass = this.removeStudentFromClass.bind(this)
     this.closeEditStudentAccountModal = this.closeEditStudentAccountModal.bind(this)
+    this.closeResetStudentPasswordModal = this.closeResetStudentPasswordModal.bind(this)
   }
 
   checkRow(id) {
@@ -77,7 +81,10 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
   }
 
   resetStudentPassword(id=null) {
-    console.log('reset student password', id)
+    const { selectedStudentIds } = this.state
+    // we will only show the reset password account dropdown option when only one student is selected
+    const studentId = id || selectedStudentIds[0]
+    this.setState( { showResetStudentPasswordModal: true, studentIdsForModal: [studentId] })
   }
 
   mergeStudentAccounts(id=null) {
@@ -96,6 +103,10 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
     this.setState({ showEditStudentAccountModal: false, studentIdsForModal: [] })
   }
 
+  closeResetStudentPasswordModal() {
+    this.setState({ showResetStudentPasswordModal: false, studentIdsForModal: [] })
+  }
+
   renderEditStudentAccountModal() {
     const { classroom, onSuccess } = this.props
     const { showEditStudentAccountModal, studentIdsForModal } = this.state
@@ -103,6 +114,20 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
       const student = classroom.students.find(s => s.id === studentIdsForModal[0])
       return <EditStudentAccountModal
         close={this.closeEditStudentAccountModal}
+        onSuccess={onSuccess}
+        student={student}
+        classroom={classroom}
+      />
+    }
+  }
+
+  renderResetStudentPasswordModal() {
+    const { classroom, onSuccess } = this.props
+    const { showResetStudentPasswordModal, studentIdsForModal } = this.state
+    if (showResetStudentPasswordModal && studentIdsForModal.length === 1) {
+      const student = classroom.students.find(s => s.id === studentIdsForModal[0])
+      return <ResetStudentPasswordModal
+        close={this.closeResetStudentPasswordModal}
         onSuccess={onSuccess}
         student={student}
         classroom={classroom}
@@ -266,6 +291,7 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
     if (classroom.students.length) {
       return <div className="students-section">
         {this.renderEditStudentAccountModal()}
+        {this.renderResetStudentPasswordModal()}
         <div className="students-section-header with-students">
           <h3>Students</h3>
           <div className="students-section-header-buttons">

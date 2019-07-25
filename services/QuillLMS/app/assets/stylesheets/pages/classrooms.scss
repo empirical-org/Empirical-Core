@@ -300,6 +300,20 @@
     }
   }
 
+  .reset-student-password-modal {
+    width: 560px;
+    height: 327px;
+    p {
+      line-height: 1.57;
+      color: #646464;
+      margin-bottom: 32px;
+    }
+    .input-container {
+      border-bottom: none;
+      margin-bottom: 36px;
+    }
+  }
+
   .create-a-class-modal {
     width: 760px;
   }

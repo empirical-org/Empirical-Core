@@ -72,7 +72,7 @@ export default class ClassroomTeacherSection extends React.Component<ClassroomTe
     ]
 
     const owner = classroom.teachers.find(teacher => teacher.classroom_relation === 'owner')
-    const coteachers = classroom.teachers.filter(teacher => teacher.classroom_relation === 'co-teacher')
+    const coteachers = classroom.teachers.filter(teacher => teacher.classroom_relation === 'coteacher')
     const alphabeticalCoteachers = coteachers.sort((a, b) => {
       const aLastName = a.name.split(' ')[1] || ''
       const bLastName = b.name.split(' ')[1] || ''
