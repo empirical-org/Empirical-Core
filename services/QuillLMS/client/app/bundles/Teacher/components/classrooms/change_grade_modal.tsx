@@ -22,7 +22,7 @@ export default class ChangeGradeModal extends React.Component<ChangeGradeModalPr
     super(props)
 
     this.state = {
-      grade: GradeOptions.find(grade => grade.value === props.classroom.grade),
+      grade: GradeOptions.find(grade => grade.value === Number(props.classroom.grade)),
       errors: {},
       timesSubmitted: 0
     }
@@ -44,7 +44,7 @@ export default class ChangeGradeModal extends React.Component<ChangeGradeModalPr
       if (body && body.errors) {
         this.setState({ errors: body.errors, timesSubmitted: timesSubmitted + 1 });
       } else {
-        showSnackbar('Class regraded')
+        showSnackbar('Grade changed')
         close()
       }
     })
@@ -54,7 +54,7 @@ export default class ChangeGradeModal extends React.Component<ChangeGradeModalPr
     const { classroom } = this.props
     const { grade } = this.state
     let buttonClass = 'quill-button contained primary medium';
-    if (classroom.grade === grade.value) {
+    if (grade && classroom.grade === grade.value) {
       buttonClass += ' disabled';
     }
     return buttonClass;
