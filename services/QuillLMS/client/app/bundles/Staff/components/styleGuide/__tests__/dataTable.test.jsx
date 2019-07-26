@@ -260,7 +260,6 @@ describe('DataTable component', () => {
     it('should render an open actions menu for the selected row', () => {
       wrapper.instance().setState({ rowWithActionsOpen: rows4[0].id, })
       expect(wrapper.find('.actions-menu').exists()).toBe(true)
-      // expect(wrapper.find('.data-table-row').first().text()).toBe('b')
     })
   })
 
