@@ -144,8 +144,10 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
   }
 
   renderRowRemoveIcon(row) {
-    if (this.props.showRemoveIcon) {
+    if (this.props.showRemoveIcon && row.removable) {
       return <span className="removable data-table-row-section" onClick={() => this.props.removeRow(row.id)}><img src={removeSrc} alt="x" /></span>
+    } else {
+      return <span className='removable data-table-row-section' />
     }
   }
 
