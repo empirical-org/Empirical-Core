@@ -19,7 +19,10 @@ class Teachers::ClassroomsController < ApplicationController
     classrooms = ClassroomsTeacher.where(user_id: current_user.id).map { |ct| Classroom.unscoped.find_by(id: ct.classroom_id)}
     @classrooms = classrooms.compact.map do |classroom|
       classroom_obj = classroom.attributes
-      classroom_obj[:students] = classroom.students
+      classroom_obj[:students] = classroom.students.map do |s|
+        s = s.attributes
+        s[:number_of_completed_activities] = ActivitySession.where(user_id: s.id, )
+      end
       classroom_teachers = classroom.classrooms_teachers.map do |ct|
         teacher = ct.user.attributes
         teacher[:classroom_relation] = ct.role
