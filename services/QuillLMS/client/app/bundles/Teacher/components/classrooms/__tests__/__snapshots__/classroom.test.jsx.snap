@@ -147,16 +147,19 @@ exports[`Classroom component selected should render as an open card 1`] = `
       >
         <button
           className="quill-button secondary outlined small"
+          onClick={[Function]}
         >
           Rename class
         </button>
         <button
           className="quill-button secondary outlined small"
+          onClick={[Function]}
         >
           Change grade
         </button>
         <button
           className="quill-button secondary outlined small"
+          onClick={[Function]}
         >
           Archive
         </button>
@@ -284,6 +287,8 @@ exports[`Classroom component selected should render as an open card 1`] = `
           "visible": true,
         }
       }
+      inviteStudents={[Function]}
+      onSuccess={[Function]}
       user={
         Object {
           "account_type": "unknown",

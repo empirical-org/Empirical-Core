@@ -50,48 +50,6 @@ exports[`ClassroomTeacherSection component should render 1`] = `
           "role": "Owner",
           "status": "Joined",
         },
-        Object {
-          "actions": Array [
-            Object {
-              "action": [Function],
-              "name": "Invite to another class",
-            },
-            Object {
-              "action": [Function],
-              "name": "Transfer class",
-            },
-            Object {
-              "action": [Function],
-              "name": "Remove from class",
-            },
-          ],
-          "email": "emiliafree1000@gmail.com",
-          "id": 73311,
-          "name": "—",
-          "role": "Co-teacher",
-          "status": "Pending",
-        },
-        Object {
-          "actions": Array [
-            Object {
-              "action": [Function],
-              "name": "Invite to another class",
-            },
-            Object {
-              "action": [Function],
-              "name": "Transfer class",
-            },
-            Object {
-              "action": [Function],
-              "name": "Remove from class",
-            },
-          ],
-          "email": "emiliafree@gmail.com",
-          "id": 73307,
-          "name": "—",
-          "role": "Co-teacher",
-          "status": "Pending",
-        },
       ]
     }
     showActions={true}
