@@ -13,6 +13,7 @@ interface CreateAClassModalProps {
 
 interface CreateAClassModalState {
   step: number;
+  classroom: any;
 }
 
 export default class CreateAClassModal extends React.Component<CreateAClassModalProps, CreateAClassModalState> {
@@ -20,11 +21,19 @@ export default class CreateAClassModal extends React.Component<CreateAClassModal
     super(props)
 
     this.state = {
-      step: 1
+      step: 1,
+      classroom: props.classroom
     }
 
     this.next = this.next.bind(this)
     this.back = this.back.bind(this)
+    this.setStudents = this.setStudents.bind(this)
+  }
+
+  setStudents(students) {
+    const classroom = Object.assign({}, this.state.classroom)
+    classroom.students = students
+    this.setState({ classroom })
   }
 
   next() {
@@ -47,10 +56,10 @@ export default class CreateAClassModal extends React.Component<CreateAClassModal
   }
 
   renderModalContent() {
-    const { close, showSnackbar, classroom, } = this.props
-    const { step, } = this.state
+    const { close, showSnackbar, } = this.props
+    const { step, classroom, } = this.state
     if (step === 1) {
-      return <AddStudents next={this.next} classroom={classroom} showSnackbar={showSnackbar} />
+      return <AddStudents next={this.next} classroom={classroom} showSnackbar={showSnackbar} setStudents={this.setStudents} />
     } else {
       return <SetupInstructions back={this.back} close={close} classroom={classroom} />
     }
