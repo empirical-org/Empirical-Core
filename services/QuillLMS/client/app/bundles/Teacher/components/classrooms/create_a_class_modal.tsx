@@ -28,6 +28,7 @@ export default class CreateAClassModal extends React.Component<CreateAClassModal
     this.next = this.next.bind(this)
     this.back = this.back.bind(this)
     this.setClassroom = this.setClassroom.bind(this)
+    this.setStudents = this.setStudents.bind(this)
   }
 
   next() {
@@ -39,6 +40,12 @@ export default class CreateAClassModal extends React.Component<CreateAClassModal
   }
 
   setClassroom(classroom) {
+    this.setState({ classroom })
+  }
+
+  setStudents(students) {
+    const classroom = Object.assign({}, this.state.classroom)
+    classroom.students = students
     this.setState({ classroom })
   }
 
@@ -60,7 +67,7 @@ export default class CreateAClassModal extends React.Component<CreateAClassModal
     if (step === 1) {
       return <CreateAClassForm next={this.next} setClassroom={this.setClassroom} />
     } else if (step === 2) {
-      return <AddStudents back={this.back} next={this.next} classroom={classroom} showSnackbar={showSnackbar} />
+      return <AddStudents next={this.next} classroom={classroom} showSnackbar={showSnackbar} setStudents={this.setStudents} />
     } else {
       return <SetupInstructions back={this.back} close={close} classroom={classroom} />
     }

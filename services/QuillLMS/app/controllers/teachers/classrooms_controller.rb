@@ -51,18 +51,6 @@ class Teachers::ClassroomsController < ApplicationController
     @has_activities = ClassroomUnit.where(classroom_id: class_ids).exists?
   end
 
-  def create_students
-    classroom = Classroom.find(create_students_params[:classroom_id])
-    create_students_params[:students].each do |s|
-      s[:account_type] = 'Teacher Created Account'
-      student = Creators::StudentCreator.create_student(s, classroom.id)
-      classroom_units = ClassroomUnit.where(classroom_id: classroom.id)
-      classroom_units.each { |cu| cu.validate_assigned_student(student.id) }
-      Associators::StudentsToClassrooms.run(student, classroom)
-    end
-    render status: 200, json: {}
-  end
-
   def classrooms_i_teach
     @classrooms = current_user.classrooms_i_teach
     render json: @classrooms.sort_by { |c| c[:update_at] }
@@ -92,7 +80,7 @@ class Teachers::ClassroomsController < ApplicationController
       classroom_units.each { |cu| cu.validate_assigned_student(student.id) }
       Associators::StudentsToClassrooms.run(student, classroom)
     end
-    render status: 200, json: {}
+    render json: { students: classroom.students }
   end
 
   def update

@@ -7,12 +7,13 @@ interface CreateStudentAccountsProps {
   next: () => void;
   back: (event) => void;
   classroom: any;
+  setStudents: (event) => void;
 }
 
 interface CreateStudentAccountsState {
   firstName: string,
   lastName: string,
-  students: Array<{ name: string, username: string, password: string }>
+  students: Array<{ name: string, username: string, password: string, id?: string|number }>
 }
 
 const tableHeaders = [{
@@ -43,11 +44,18 @@ export default class CreateStudentAccounts extends React.Component<CreateStudent
       students: []
     }
 
+    this.allStudents = this.allStudents.bind(this)
     this.handleFirstNameChange = this.handleFirstNameChange.bind(this)
     this.handleLastNameChange = this.handleLastNameChange.bind(this)
     this.removeStudent = this.removeStudent.bind(this)
     this.addStudent = this.addStudent.bind(this)
     this.createStudents = this.createStudents.bind(this)
+  }
+
+  allStudents() {
+    const { students } = this.state
+    const { classroom } = this.props
+    return students.concat(classroom.students ? classroom.students : [])
   }
 
   correctedNameString(string) {
@@ -86,9 +94,10 @@ export default class CreateStudentAccounts extends React.Component<CreateStudent
   }
 
   createStudents() {
-    const { classroom, next, } = this.props
-    requestPost(`/teachers/classrooms/${this.props.classroom.id}/create_students`, { students: this.state.students }, (body) => {
-      this.props.next()
+    const { classroom, next, setStudents, } = this.props
+    requestPost(`/teachers/classrooms/${classroom.id}/create_students`, { students: this.state.students }, (body) => {
+      setStudents(body.students)
+      next()
     })
   }
 
@@ -107,12 +116,12 @@ export default class CreateStudentAccounts extends React.Component<CreateStudent
   }
 
   generateUsername(number=0) {
-    const { firstName, lastName, students } = this.state
+    const { firstName, lastName, } = this.state
     const { classroom } = this.props
     const correctedFirstName = this.correctedNameString(firstName).toLowerCase()
     const correctedLastName = this.correctedNameString(lastName).toLowerCase()
     let username = `${correctedFirstName}.${correctedLastName}${number ? number : ''}@${classroom.code}`
-    if (!students.find(student => student.username === username)) {
+    if (!this.allStudents().find(student => student.username === username)) {
       return username
     } else {
       return this.generateUsername(number + 1)
@@ -120,12 +129,16 @@ export default class CreateStudentAccounts extends React.Component<CreateStudent
   }
 
   renderTable() {
-    const { students } = this.state
-    if (students.length) {
+    const allStudents = this.allStudents()
+    if (allStudents.length) {
       const studentRows = []
-      students.forEach(s => {
-        const newStudent = Object.assign({}, {...s}, { id: s.username })
-        studentRows.push(newStudent)
+      allStudents.forEach(s => {
+        if (s.id) {
+          studentRows.push(s)
+        } else {
+          const newStudent = Object.assign({}, {...s}, { id: s.username, removable: true })
+          studentRows.push(newStudent)
+        }
       })
       return <DataTable
         headers={tableHeaders}

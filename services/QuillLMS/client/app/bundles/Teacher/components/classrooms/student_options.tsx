@@ -6,7 +6,6 @@ const studentAccountsSrc = `${process.env.CDN_URL}/images/illustrations/student-
 const joinLinkSrc = `${process.env.CDN_URL}/images/illustrations/join-link.svg`
 
 interface StudentOptionsProps {
-  back?: (event) => void;
   next: (event) => void;
   setStudentOption: Function;
 }
@@ -34,17 +33,10 @@ export default class StudentOptions extends React.Component<StudentOptionsProps>
   }
 
   renderFooter() {
-    const { back, next, } = this.props
-    if (back) {
-      return <div className="create-a-class-modal-footer with-back-button">
-        <button className="quill-button secondary outlined medium" onClick={back}>Back</button>
-        <button className="quill-button secondary outlined medium" onClick={next}>Skip</button>
-      </div>
-    } else {
-      return <div className="create-a-class-modal-footer">
-        <button className="quill-button secondary outlined medium" onClick={next}>Skip</button>
-      </div>
-    }
+    const { next, } = this.props
+    return <div className="create-a-class-modal-footer">
+      <button className="quill-button secondary outlined medium" onClick={next}>Skip</button>
+    </div>
   }
 
   render() {
