@@ -63,8 +63,8 @@ class Teachers::StudentsController < ApplicationController
   end
 
   def merge_student_accounts
-    primary_account = User.find_by(params[:primary_account_id])
-    secondary_account = User.find_by(params[:secondary_account_id])
+    primary_account = User.find(params[:primary_account_id])
+    secondary_account = User.find(params[:secondary_account_id])
     primary_account.merge_student_account(secondary_account, current_user.id)
     render json: {}
   end
