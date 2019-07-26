@@ -20,6 +20,7 @@ exports[`ChangeGradeModal component should render ChangeGradeModal 1`] = `
     <p>
       Update the grade level for 
       Quill Classroom
+      .
     </p>
     <DropdownInput
       className="grade"
