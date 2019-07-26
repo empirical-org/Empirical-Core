@@ -242,6 +242,11 @@
     }
   }
 
+  .rename-class-modal, .change-grade-modal, .archive-class-modal, .edit-student-account-modal, .reset-student-password-modal {
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+
   .rename-class-modal {
     width: 560px;
     height: 273px;
@@ -309,8 +314,10 @@
       margin-bottom: 32px;
     }
     .input-container {
-      border-bottom: none;
       margin-bottom: 36px;
+      input {
+        border-bottom: none;
+      }
     }
   }
 
