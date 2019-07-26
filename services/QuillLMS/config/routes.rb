@@ -296,7 +296,9 @@ EmpiricalGrammar::Application.routes.draw do
       resources :activities, controller: 'classroom_activities'
 
       resources :students do
-        put :reset_password
+        collection do
+          post :merge_student_accounts
+        end
       end
 
       # TODO: abstract this list as well. Duplicated in nav in layout.
