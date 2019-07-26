@@ -37,6 +37,7 @@ export default class MergeStudentAccountsModal extends React.Component<MergeStud
     this.handlePrimaryAccountIdChange = this.handlePrimaryAccountIdChange.bind(this)
     this.handleSecondaryAccountIdChange = this.handleSecondaryAccountIdChange.bind(this)
     this.toggleCheckbox = this.toggleCheckbox.bind(this)
+    this.swapAccounts = this.swapAccounts.bind(this)
     this.mergeStudentAccounts = this.mergeStudentAccounts.bind(this)
   }
 
@@ -52,25 +53,25 @@ export default class MergeStudentAccountsModal extends React.Component<MergeStud
     })
   }
 
-  handlePrimaryAccountIdChange(id) {
-    this.setState({ primaryAccountId: id })
+  handlePrimaryAccountIdChange(option) {
+    this.setState({ primaryAccountId: option.value })
   }
 
-  handleSecondaryAccountIdChange(id) {
-    this.setState({ secondaryAccountId: id })
+  handleSecondaryAccountIdChange(option) {
+    this.setState({ secondaryAccountId: option.value })
+  }
+
+  swapAccounts() {
+    const { primaryAccountId, secondaryAccountId } = this.state
+    this.setState({ primaryAccountId: secondaryAccountId, secondaryAccountId: primaryAccountId })
   }
 
   mergeStudentAccounts() {
-    const { onSuccess, close, student, classroom, } = this.props
-    const { firstName, lastName, username, timesSubmitted, } = this.state
-    const user = { name: `${firstName} ${lastName}`, username }
-    requestPost(`/teachers/classrooms/${classroom.id}/students/${student.id}`, { user, }, (body) => {
-      if (body && body.errors) {
-        this.setState({ errors: body.errors, timesSubmitted: timesSubmitted + 1 });
-      } else {
-        onSuccess('Student account saved')
-        close()
-      }
+    const { onSuccess, close, classroom, } = this.props
+    const { primaryAccountId, secondaryAccountId, } = this.state
+    requestPost(`/teachers/classrooms/${classroom.id}/students/merge_student_accounts`, { primary_account_id: primaryAccountId, secondary_account_id: secondaryAccountId, }, (body) => {
+      onSuccess('Students merged')
+      close()
     })
   }
 
@@ -116,6 +117,8 @@ export default class MergeStudentAccountsModal extends React.Component<MergeStud
   render() {
     const { primaryAccountId, secondaryAccountId } = this.state
     const studentOptions = this.studentOptions()
+    const studentOptionsForPrimary = studentOptions.filter(opt => opt.value !== secondaryAccountId)
+    const studentOptionsForSecondary = studentOptions.filter(opt => opt.value !== primaryAccountId)
     return <div className="modal-container merge-student-accounts-modal-container">
       <div className="modal-background" />
       <div className="merge-student-accounts-modal modal modal-body">
@@ -130,12 +133,14 @@ export default class MergeStudentAccountsModal extends React.Component<MergeStud
         <DropdownInput
           label="Select primary account"
           value={studentOptions.find(so => so.value === primaryAccountId)}
+          options={studentOptionsForPrimary}
           handleChange={this.handlePrimaryAccountIdChange}
           className="primary-account"
         />
         <DropdownInput
-        label="Select secondary account"
+          label="Select secondary account"
           value={studentOptions.find(so => so.value === secondaryAccountId)}
+          options={studentOptionsForSecondary}
           handleChange={this.handleSecondaryAccountIdChange}
           className="secondary-account"
         />
