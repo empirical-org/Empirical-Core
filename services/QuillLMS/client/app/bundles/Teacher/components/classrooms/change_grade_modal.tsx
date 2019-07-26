@@ -69,7 +69,7 @@ export default class ChangeGradeModal extends React.Component<ChangeGradeModalPr
         <div>
           <h3 className="title">Change your grade level</h3>
         </div>
-        <p>Update the grade level for {classroom.name}</p>
+        <p>Update the grade level for {classroom.name}.</p>
         <DropdownInput
           label="Grade"
           className="grade"
