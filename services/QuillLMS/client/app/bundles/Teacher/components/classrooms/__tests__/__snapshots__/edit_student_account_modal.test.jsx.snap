@@ -1,0 +1,64 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EditStudentAccountModal component should render EditStudentAccountModal 1`] = `
+<div
+  className="modal-container edit-student-account-modal-container"
+>
+  <div
+    className="modal-background"
+  />
+  <div
+    className="edit-student-account-modal modal modal-body"
+  >
+    <div>
+      <h3
+        className="title"
+      >
+        Edit your student account
+      </h3>
+    </div>
+    <Input
+      characterLimit={50}
+      className="firstName"
+      handleChange={[Function]}
+      label="First name"
+      timesSubmitted={0}
+      type="text"
+      value="Maya"
+    />
+    <Input
+      characterLimit={50}
+      className="lastName"
+      handleChange={[Function]}
+      label="Last name"
+      timesSubmitted={0}
+      type="text"
+      value="Angelou"
+    />
+    <Input
+      className="username"
+      handleChange={[Function]}
+      label="Username"
+      timesSubmitted={0}
+      type="text"
+      value="maya.angelou.285383@demo-teacher"
+    />
+    <div
+      className="form-buttons"
+    >
+      <button
+        className="quill-button outlined secondary medium"
+        onClick={[Function]}
+      >
+        Cancel
+      </button>
+      <button
+        className="quill-button contained primary medium disabled"
+        onClick={[Function]}
+      >
+        Save
+      </button>
+    </div>
+  </div>
+</div>
+`;

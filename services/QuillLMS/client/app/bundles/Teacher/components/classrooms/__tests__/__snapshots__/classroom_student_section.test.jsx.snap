@@ -53,6 +53,7 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
       >
         <button
           className="quill-button primary outlined small"
+          onClick={[Function]}
         >
           Invite students
         </button>
