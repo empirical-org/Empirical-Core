@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RemoveCoteacherModal component should render RemoveCoteacherModal 1`] = `
+<div
+  className="modal-container remove-coteacher-modal-container"
+>
+  <div
+    className="modal-background"
+  />
+  <div
+    className="remove-coteacher-modal modal modal-body"
+  >
+    <div>
+      <h3
+        className="title"
+      >
+        Remove co-teacher from your class?
+      </h3>
+    </div>
+    <p>
+      —
+      's (
+      emiliafree1000@gmail.com
+      ) Quill account will remain active. You can re-invite the co-teacher later.
+    </p>
+    <div
+      className="checkboxes"
+    >
+      <div
+        className="checkbox-row"
+      >
+        <div
+          className="quill-checkbox unselected"
+          onClick={[Function]}
+        />
+        <span>
+          I understand that the co-teacher will no longer have access to the students’ work or data.
+        </span>
+      </div>
+    </div>
+    <div
+      className="form-buttons"
+    >
+      <button
+        className="quill-button outlined secondary medium"
+        onClick={[Function]}
+      >
+        Cancel
+      </button>
+      <button
+        className="quill-button contained primary medium disabled"
+        onClick={[Function]}
+      >
+        Remove from class
+      </button>
+    </div>
+  </div>
+</div>
+`;
