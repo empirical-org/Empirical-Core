@@ -7,7 +7,7 @@ import ResetStudentPasswordModal from '../reset_student_password_modal'
 
 import { DropdownInput, DataTable } from 'quill-component-library/dist/componentLibrary'
 
-import { classroomWithStudents, classroomWithoutStudents, userProps } from './test_data/test_data'
+import { classroomWithStudents, classroomWithoutStudents, userProps, classroomProps } from './test_data/test_data'
 
 describe('ClassroomStudentSection component', () => {
 
@@ -15,6 +15,7 @@ describe('ClassroomStudentSection component', () => {
 
     const wrapper = shallow(
       <ClassroomStudentSection
+        classrooms={classroomProps}
         classroom={classroomWithoutStudents}
         user={userProps}
         onSuccess={() => {}}
@@ -36,6 +37,7 @@ describe('ClassroomStudentSection component', () => {
 
     const wrapper = shallow(
       <ClassroomStudentSection
+        classrooms={classroomProps}
         classroom={classroomWithStudents}
         user={userProps}
         onSuccess={() => {}}

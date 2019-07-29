@@ -1,0 +1,80 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MoveStudentsModal component should render MoveStudentsModal 1`] = `
+<div
+  className="modal-container move-students-modal-container"
+>
+  <div
+    className="modal-background"
+  />
+  <div
+    className="move-students-modal modal modal-body"
+  >
+    <div>
+      <h3
+        className="title"
+      >
+        Move 
+        2
+         
+        students
+         to a new class
+      </h3>
+    </div>
+    <p>
+      All of the data from the activities that your 
+      students have
+       started or completed will be moved.
+    </p>
+    <DropdownInput
+      className="class"
+      handleChange={[Function]}
+      label="Class"
+      options={
+        Array [
+          Object {
+            "label": "Testing",
+            "value": 285401,
+          },
+          Object {
+            "label": "Empty Class",
+            "value": 285400,
+          },
+        ]
+      }
+    />
+    <div
+      className="checkboxes"
+    >
+      <div
+        className="checkbox-row"
+      >
+        <div
+          className="quill-checkbox unselected"
+          onClick={[Function]}
+        />
+        <span>
+          I understand that any activities that have not been started will not be transferred.
+        </span>
+      </div>
+    </div>
+    <div
+      className="form-buttons"
+    >
+      <button
+        className="quill-button outlined secondary medium"
+        onClick={[Function]}
+      >
+        Cancel
+      </button>
+      <button
+        className="quill-button contained primary medium disabled"
+        onClick={[Function]}
+      >
+        Move 
+        students
+      </button>
+    </div>
+  </div>
+</div>
+`;
