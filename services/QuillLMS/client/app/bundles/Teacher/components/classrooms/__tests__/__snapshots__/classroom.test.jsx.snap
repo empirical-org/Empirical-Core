@@ -137,31 +137,25 @@ exports[`Classroom component selected should render as an open card 1`] = `
   </div>
   <div>
     <div
-      className="class-settings"
+      className="class-settings coteacher-class-settings"
     >
       <h3>
         Class settings
       </h3>
+      <p
+        className="coteacher-note"
+      >
+        Looking for more class settings? Ask 
+        Demo Teacher
+        , the class owner.
+      </p>
       <div
         className="class-settings-buttons"
       >
         <button
           className="quill-button secondary outlined small"
-          onClick={[Function]}
         >
-          Rename class
-        </button>
-        <button
-          className="quill-button secondary outlined small"
-          onClick={[Function]}
-        >
-          Change grade
-        </button>
-        <button
-          className="quill-button secondary outlined small"
-          onClick={[Function]}
-        >
-          Archive
+          Leave class
         </button>
       </div>
     </div>

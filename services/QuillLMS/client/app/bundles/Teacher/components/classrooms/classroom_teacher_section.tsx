@@ -29,6 +29,7 @@ const headers = [
 interface ClassroomTeacherSectionProps {
   user: any;
   classroom: any;
+  isOwnedByCurrentUser: boolean;
 }
 
 interface ClassroomTeacherSectionState {
@@ -83,9 +84,8 @@ export default class ClassroomTeacherSection extends React.Component<ClassroomTe
   }
 
   renderTeacherRow(teacher) {
-    const { user, } = this.props
+    const { isOwnedByCurrentUser, } = this.props
     const { name, classroom_relation, id, status, email } = teacher
-    const owner = this.classroomOwner()
     const teacherRow: { name: string, id: number, email: string, role: string, status: string, actions?: Array<any> } = {
       name,
       id,
@@ -93,7 +93,7 @@ export default class ClassroomTeacherSection extends React.Component<ClassroomTe
       role: this.formatRole(classroom_relation),
       status: status
     }
-    if (teacherRow.role === CoteacherDisplayName && user.id === owner.id) {
+    if (teacherRow.role === CoteacherDisplayName && isOwnedByCurrentUser) {
       teacherRow.actions = this.actions()
     }
     return teacherRow
