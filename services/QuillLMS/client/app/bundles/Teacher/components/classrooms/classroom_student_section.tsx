@@ -219,11 +219,11 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
     ].concat(twoStudentOptions)
 
     if (selectedStudentIds.length === 1) {
-      options = moreThanTwoStudentOptions
+      options = oneStudentOptions
     } else if (selectedStudentIds.length === 2) {
       options = twoStudentOptions
     } else if (selectedStudentIds.length > 2) {
-      options = oneStudentOptions
+      options = moreThanTwoStudentOptions
     }
     return <DropdownInput
       disabled={selectedStudentIds.length === 0}
