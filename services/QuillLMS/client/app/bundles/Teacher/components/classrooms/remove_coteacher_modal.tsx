@@ -76,13 +76,17 @@ export default class RemoveCoteacherModal extends React.Component<RemoveCoteache
 
   render() {
     const { coteacher, close } = this.props
+    let coteacherName = `${coteacher.name}'s`
+    if (coteacher.invitation_id) {
+      coteacherName = "This co-teacher's"
+    }
     return <div className="modal-container remove-coteacher-modal-container">
       <div className="modal-background" />
       <div className="remove-coteacher-modal modal modal-body">
         <div>
           <h3 className="title">Remove co-teacher from your class?</h3>
         </div>
-        <p>{coteacher.name}'s ({coteacher.email}) Quill account will remain active. You can re-invite the co-teacher later.</p>
+        <p>{coteacherName} ({coteacher.email}) Quill account will remain active. You can re-invite the co-teacher later.</p>
         {this.renderCheckboxes()}
         <div className="form-buttons">
           <button className="quill-button outlined secondary medium" onClick={close}>Cancel</button>
