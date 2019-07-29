@@ -26,9 +26,9 @@ export default React.createClass({
     } else {
       $.post('/subscriptions', {
         subscription: {
-          account_type: 'Teacher Trial',
-          authenticity_token: $('meta[name=csrf-token]').attr('content'),
+          account_type: 'Teacher Trial'
         },
+        authenticity_token: $('meta[name=csrf-token]').attr('content')
       }).done(() => {
         window.location.assign('/teachers/progress_reports/activities_scores_by_classroom');
       });
