@@ -322,6 +322,7 @@ EmpiricalGrammar::Application.routes.draw do
   resources :classrooms_teachers, only: [] do
     get 'edit_coteacher_form', to: 'classrooms_teachers#edit_coteacher_form'
     post 'edit_coteacher_form', to: 'classrooms_teachers#update_coteachers'
+    post :remove_coteacher_from_class
   end
   get '/classrooms_teachers/specific_coteacher_info/:coteacher_id', to: 'classrooms_teachers#specific_coteacher_info'
   delete '/classrooms_teachers/destroy/:classroom_id', to: 'classrooms_teachers#destroy'
