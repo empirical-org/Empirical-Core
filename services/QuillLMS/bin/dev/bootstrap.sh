@@ -50,6 +50,9 @@ echo 'Install Bundler'
 gem install bundler -v 1.17.3
 
 echo 'Bundle install'
+echo 'If youre on Mac Mojave and hit an error with nokogiri, run:'
+echo 'cd  /Library/Developer/CommandLineTools/Packages/;'
+echo 'open macOS_SDK_headers_for_macOS_10.14.pkg'
 bundle install
 
 echo "Install Node"
@@ -90,6 +93,10 @@ bundle exec rake db:migrate
 
 bundle exec rake db:setup RAILS_ENV=test
 bundle exec rake db:migrate RAILS_ENV=test
+
+echo 'install redis'
+brew install redis
+brew services restart redis
 
 echo 'start server'
 foreman start -f Procfile.dev
