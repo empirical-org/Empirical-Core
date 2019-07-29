@@ -26,7 +26,7 @@ export default class RemoveStudentsModal extends React.Component<RemoveStudentsM
     }
 
     this.toggleCheckbox = this.toggleCheckbox.bind(this)
-    this.moveStudents = this.moveStudents.bind(this)
+    this.removeStudents = this.removeStudents.bind(this)
   }
 
   studentOrStudents() {
@@ -34,7 +34,7 @@ export default class RemoveStudentsModal extends React.Component<RemoveStudentsM
     return selectedStudentIds.length === 1 ? 'student' : 'students'
   }
 
-  moveStudents() {
+  removeStudents() {
     const { onSuccess, close, classroom, selectedStudentIds, } = this.props
     requestPost(`/teachers/classrooms/${classroom.id}/remove_students`, { student_ids: selectedStudentIds }, (body) => {
       const studentOrStudents = selectedStudentIds.length === 1 ? 'Student' : 'Students'
@@ -89,7 +89,7 @@ export default class RemoveStudentsModal extends React.Component<RemoveStudentsM
         {this.renderCheckboxes()}
         <div className="form-buttons">
           <button className="quill-button outlined secondary medium" onClick={close}>Cancel</button>
-          <button className={this.submitButtonClass()} onClick={this.moveStudents}>Remove from class</button>
+          <button className={this.submitButtonClass()} onClick={this.removeStudents}>Remove from class</button>
         </div>
       </div>
     </div>
