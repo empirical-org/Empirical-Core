@@ -329,7 +329,7 @@ EmpiricalGrammar::Application.routes.draw do
 
 
 
-  resources :coteacher_classroom_invitations, only: [] do
+  resources :coteacher_classroom_invitations, only: [:destroy] do
     collection do
       post :accept_pending_coteacher_invitations, format: 'json'
       get :accept_pending_coteacher_invitations

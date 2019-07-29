@@ -37,6 +37,7 @@ class Teachers::ClassroomsController < ApplicationController
           classroom_relation: 'coteacher',
           status: 'Pending',
           id: cci.id,
+          invitation_id: cci.id,
           name: '—'
         }
       end
