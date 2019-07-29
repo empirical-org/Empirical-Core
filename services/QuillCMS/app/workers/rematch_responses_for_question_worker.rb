@@ -7,12 +7,8 @@ class RematchResponsesForQuestionWorker
   def perform(question_uid, question_type)
     responses_to_reprocess = get_ungraded_responses(question_uid) + get_machine_graded_responses(question_uid)
     responses_to_reprocess.each do |response|
-      enqueue_individual_response(response.id, question_type, question_uid)
+      RematchResponseWorker.perform_async(response.id, question_type, question_uid)
     end
-  end
-
-  def enqueue_individual_response(response_id, question_type, question_uid)
-    RematchResponseWorker.perform_async(response_id, question_type, question_uid)
   end
 
   def get_ungraded_responses(question_uid)
