@@ -11,6 +11,7 @@ import NumberSuffix from '../modules/numberSuffixBuilder.js';
 interface ClassroomProps {
   user: any;
   classroom: any;
+  classrooms: Array<any>;
   selected: boolean;
   clickClassroomHeader: (event) => void;
   renameClass: (event) => void;
@@ -111,11 +112,20 @@ export default class Classroom extends React.Component<ClassroomProps, Classroom
   }
 
   renderClassroomContent() {
-    const { user, classroom, onSuccess, inviteStudents, } = this.props
+    const { user, classroom, onSuccess, inviteStudents, classrooms, } = this.props
     return <div>
       {this.renderClassSettings()}
-      <ClassroomStudentSection user={user} classroom={classroom} onSuccess={onSuccess} inviteStudents={inviteStudents} />
-      <ClassroomTeacherSection user={user} classroom={classroom} />
+      <ClassroomStudentSection
+        user={user}
+        classroom={classroom}
+        classrooms={classrooms}
+        onSuccess={onSuccess}
+        inviteStudents={inviteStudents}
+      />
+      <ClassroomTeacherSection
+        user={user}
+        classroom={classroom}
+      />
     </div>
   }
 

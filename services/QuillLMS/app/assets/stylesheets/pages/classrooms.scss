@@ -247,13 +247,29 @@
   .archive-class-modal,
   .edit-student-account-modal,
   .reset-student-password-modal,
-  .merge-student-accounts-modal {
+  .merge-student-accounts-modal,
+  .move-students-modal {
+    width: 560px;
+    overflow: visible;
     top: 50%;
     transform: translate(-50%, -50%);
+    .checkboxes {
+      margin-bottom: 32px;
+      .checkbox-row {
+        display: flex;
+        margin-bottom: 16px;
+        .quill-checkbox {
+          margin-right: 24px;
+          margin-top: 5px;
+        }
+        span {
+          line-height: 1.57;
+        }
+      }
+    }
   }
 
   .rename-class-modal {
-    width: 560px;
     height: 273px;
     .title {
       margin-bottom: 24px;
@@ -268,8 +284,6 @@
 
   .change-grade-modal {
     height: 327px;
-    width: 560px;
-    overflow: visible;
     p {
       line-height: 1.57;
       margin-top: 24px;
@@ -282,7 +296,6 @@
   }
 
   .archive-class-modal {
-    width: 560px;
     height: 376px;
     .archive-class-modal-text {
       margin-top: 24px;
@@ -301,7 +314,6 @@
   }
 
   .edit-student-account-modal {
-    width: 560px;
     height: 445px;
     .input-container {
       height: 96px !important;
@@ -311,7 +323,6 @@
   }
 
   .reset-student-password-modal {
-    width: 560px;
     height: 327px;
     p {
       line-height: 1.57;
@@ -326,23 +337,11 @@
     }
   }
 
-  .merge-student-accounts-modal {
-    width: 560px;
-    height: 608px;
+  .merge-student-accounts-modal, .move-students-modal {
     p {
       line-height: 1.57;
       color: #646464;
       margin-bottom: 32px;
-    }
-    .swap {
-      cursor: pointer;
-      display: flex;
-      justify-content: flex-end;
-      font-weight: 600;
-      margin-bottom: 16px;
-      img {
-        margin-right: 4px;
-      }
     }
     .input-container {
       margin-bottom: 32px;
@@ -353,20 +352,24 @@
         margin-bottom: 83px;
       }
     }
-    .checkboxes {
-      margin-bottom: 32px;
-      .checkbox-row {
-        display: flex;
-        margin-bottom: 16px;
-        .quill-checkbox {
-          margin-right: 24px;
-          margin-top: 5px;
-        }
-        span {
-          line-height: 1.57;
-        }
+  }
+
+  .merge-student-accounts-modal {
+    height: 608px;
+    .swap {
+      cursor: pointer;
+      display: flex;
+      justify-content: flex-end;
+      font-weight: 600;
+      margin-bottom: 16px;
+      img {
+        margin-right: 4px;
       }
     }
+  }
+
+  .move-students-modal {
+    height: 403px;
   }
 
   .create-a-class-modal {

@@ -298,6 +298,7 @@ EmpiricalGrammar::Application.routes.draw do
       resources :students do
         collection do
           post :merge_student_accounts
+          post :move_students
         end
       end
 
