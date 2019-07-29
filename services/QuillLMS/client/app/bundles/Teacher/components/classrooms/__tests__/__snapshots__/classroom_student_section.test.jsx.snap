@@ -65,7 +65,6 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
     disabled={true}
     handleChange={[Function]}
     label="Actions"
-    options={Array []}
   />
   <DataTable
     checkAllRows={[Function]}
