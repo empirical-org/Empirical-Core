@@ -17,6 +17,7 @@ describe('Classroom component', () => {
         classroom={classroomWithStudents}
         selected={false}
         user={userProps}
+        isOwnedByCurrentUser
         clickClassroomHeader={() => {}}
         renameClass={() => {}}
         changeGrade={() => {}}
