@@ -31,6 +31,7 @@ interface ClassroomStudentSectionProps {
   user: any;
   classroom: any;
   classrooms: Array<any>;
+  isOwnedByCurrentUser: boolean;
   onSuccess: (event) => void;
   inviteStudents: (event) => void;
 }
@@ -78,6 +79,14 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
   }
 
   actions() {
+    let moveClassAction
+    const { classrooms } = this.props
+    if (classrooms.length > 1) {
+      moveClassAction = {
+        name: 'Move class',
+        action: (id) => this.moveClass(id)
+      }
+    }
     return [
       {
         name: 'Edit account',
@@ -91,15 +100,12 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
         name: 'Merge accounts',
         action: (id) => this.mergeStudentAccounts(id)
       },
-      {
-        name: 'Move class',
-        action: (id) => this.moveClass(id)
-      },
+      moveClassAction,
       {
         name: 'Remove from class',
         action: (id) => this.removeStudentFromClass(id)
       }
-    ]
+    ].filter(Boolean)
   }
 
   checkRow(id) {
@@ -251,20 +257,25 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
     }
   }
 
-  renderStudentActions() {
+  optionsForStudentActions() {
+    const { isOwnedByCurrentUser, classrooms, } = this.props
     const { selectedStudentIds } = this.state
-    let options = []
 
-    const moreThanTwoStudentOptions = [
-      {
+    let moveClassOption
+    if (classrooms.length > 1) {
+      moveClassOption = {
         label: 'Move class',
         value: this.moveClass
-      },
+      }
+    }
+
+    const moreThanTwoStudentOptions = [
+      moveClassOption,
       {
         label: 'Remove from class',
         value: this.removeStudentFromClass
       }
-    ]
+    ].filter(Boolean)
 
     const twoStudentOptions = [
       {
@@ -285,17 +296,21 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
     ].concat(twoStudentOptions)
 
     if (selectedStudentIds.length === 1) {
-      options = oneStudentOptions
+      return oneStudentOptions
     } else if (selectedStudentIds.length === 2) {
-      options = twoStudentOptions
+      return twoStudentOptions
     } else if (selectedStudentIds.length > 2) {
-      options = moreThanTwoStudentOptions
+      return moreThanTwoStudentOptions
     }
+  }
+
+  renderStudentActions() {
+    const { selectedStudentIds } = this.state
     return <DropdownInput
       disabled={selectedStudentIds.length === 0}
       label="Actions"
       className="student-actions-dropdown"
-      options={options || []}
+      options={this.optionsForStudentActions()}
       handleChange={this.selectAction}
     />
   }
