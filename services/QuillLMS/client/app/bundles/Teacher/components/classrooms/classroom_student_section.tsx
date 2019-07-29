@@ -36,6 +36,7 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
       showMergeStudentAccountsModal: false
     }
 
+    this.actions = this.actions.bind(this)
     this.checkRow = this.checkRow.bind(this)
     this.uncheckRow = this.uncheckRow.bind(this)
     this.checkAllRows = this.checkAllRows.bind(this)
@@ -49,6 +50,31 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
     this.closeEditStudentAccountModal = this.closeEditStudentAccountModal.bind(this)
     this.closeResetStudentPasswordModal = this.closeResetStudentPasswordModal.bind(this)
     this.closeMergeStudentAccountsModal = this.closeMergeStudentAccountsModal.bind(this)
+  }
+
+  actions() {
+    return [
+      {
+        name: 'Edit account',
+        action: (id) => this.editStudentAccount(id)
+      },
+      {
+        name: 'Reset password',
+        action: (id) => this.resetStudentPassword(id)
+      },
+      {
+        name: 'Merge accounts',
+        action: (id) => this.mergeStudentAccounts(id)
+      },
+      {
+        name: 'Move class',
+        action: (id) => this.moveClass(id)
+      },
+      {
+        name: 'Remove from class',
+        action: (id) => this.removeStudentFromClass(id)
+      }
+    ]
   }
 
   checkRow(id) {
@@ -162,55 +188,42 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
   renderStudentActions() {
     const { selectedStudentIds } = this.state
     let options = []
+
+    const moreThanTwoStudentOptions = [
+      {
+        label: 'Move class',
+        value: this.moveClass
+      },
+      {
+        label: 'Remove from class',
+        value: this.removeStudentFromClass
+      }
+    ]
+
+    const twoStudentOptions = [
+      {
+        label: 'Merge accounts',
+        value: this.mergeStudentAccounts
+      }
+    ].concat(moreThanTwoStudentOptions)
+
+    const oneStudentOptions = [
+      {
+        label: 'Edit account',
+        value: this.editStudentAccount
+      },
+      {
+        label: 'Reset password',
+        value: this.resetStudentPassword
+      }
+    ].concat(twoStudentOptions)
+
     if (selectedStudentIds.length === 1) {
-      options = [
-        {
-          label: 'Edit account',
-          value: this.editStudentAccount
-        },
-        {
-          label: 'Reset password',
-          value: this.resetStudentPassword
-        },
-        {
-          label: 'Merge accounts',
-          value: this.mergeStudentAccounts
-        },
-        {
-          label: 'Move class',
-          value: this.moveClass
-        },
-        {
-          label: 'Remove from class',
-          value: this.removeStudentFromClass
-        }
-      ]
+      options = moreThanTwoStudentOptions
     } else if (selectedStudentIds.length === 2) {
-      options = [
-        {
-          label: 'Merge accounts',
-          value: this.mergeStudentAccounts
-        },
-        {
-          label: 'Move class',
-          value: this.moveClass
-        },
-        {
-          label: 'Remove from class',
-          value: this.removeStudentFromClass
-        }
-      ]
+      options = twoStudentOptions
     } else if (selectedStudentIds.length > 2) {
-      options = [
-        {
-          label: 'Move class',
-          value: this.moveClass
-        },
-        {
-          label: 'Remove from class',
-          value: this.removeStudentFromClass
-        }
-      ]
+      options = oneStudentOptions
     }
     return <DropdownInput
       disabled={selectedStudentIds.length === 0}
@@ -223,44 +236,6 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
 
   renderStudentDataTable() {
     const { classroom, } = this.props
-    const headers = [
-      {
-        width: '190px',
-        name: 'Name',
-        attribute: 'name'
-      }, {
-        width: '362px',
-        name: 'Username',
-        attribute: 'username'
-      }, {
-        width: '124px',
-        name: 'Synced',
-        attribute: 'synced'
-      }
-    ]
-
-    const actions = [
-      {
-        name: 'Edit account',
-        action: (id) => this.editStudentAccount(id)
-      },
-      {
-        name: 'Reset password',
-        action: (id) => this.resetStudentPassword(id)
-      },
-      {
-        name: 'Merge accounts',
-        action: (id) => this.mergeStudentAccounts(id)
-      },
-      {
-        name: 'Move class',
-        action: (id) => this.moveClass(id)
-      },
-      {
-        name: 'Remove from class',
-        action: (id) => this.removeStudentFromClass(id)
-      }
-    ]
 
     const rows = classroom.students.map(student => {
       const { name, username, id } = student
@@ -273,8 +248,8 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
         name,
         id,
         username,
-        actions,
-        checked
+        checked,
+        actions: this.actions()
       }
     })
 
