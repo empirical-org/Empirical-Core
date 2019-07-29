@@ -7,6 +7,8 @@ import { requestPost } from '../../../../modules/request/index.js';
 const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
 const swapVerticalSrc = `${process.env.CDN_URL}/images/icons/swap-vertical.svg`
 
+type CheckboxNames = 'checkboxOne'|'checkboxTwo'|'checkboxThree'
+
 interface MergeStudentAccountsModalProps {
   close: () => void;
   onSuccess: (string) => void;
@@ -17,9 +19,9 @@ interface MergeStudentAccountsModalProps {
 interface MergeStudentAccountsModalState {
   primaryAccountId: string;
   secondaryAccountId: string;
-  checkboxOne: boolean;
-  checkboxTwo: boolean;
-  checkboxThree: boolean;
+  checkboxOne?: boolean;
+  checkboxTwo?: boolean;
+  checkboxThree?: boolean;
 }
 
 export default class MergeStudentAccountsModal extends React.Component<MergeStudentAccountsModalProps, MergeStudentAccountsModalState> {
@@ -85,7 +87,8 @@ export default class MergeStudentAccountsModal extends React.Component<MergeStud
   }
 
   toggleCheckbox(checkboxNumber: 'checkboxOne'|'checkboxTwo'|'checkboxThree') {
-    this.setState({ [checkboxNumber]: !this.state[checkboxNumber], })
+    const newStateObj:{[K in CheckboxNames]?: boolean} = { [checkboxNumber]: !this.state[checkboxNumber], }
+    this.setState(newStateObj)
   }
 
   renderCheckbox(checkboxNumber: 'checkboxOne'|'checkboxTwo'|'checkboxThree') {
