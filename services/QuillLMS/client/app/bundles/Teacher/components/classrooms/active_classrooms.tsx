@@ -129,6 +129,10 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
   renderPageContent() {
     const { user } = this.props
     const { classrooms } = this.state
+    const ownActiveClassrooms = classrooms.filter(c => {
+      const classroomOwner = c.teachers.find(teacher => teacher.classroom_relation === 'owner')
+      return c.visible && classroomOwner.id === user.id
+    })
     if (classrooms.length === 0) {
       return <div className="no-active-classes">
         <img src={emptyClassSrc} />
@@ -136,16 +140,18 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
       </div>
     } else {
       const classroomCards = classrooms.map(classroom => {
+        const isOwnedByCurrentUser = !!ownActiveClassrooms.find(c => c.id === classroom.id)
         return <Classroom
           renameClass={this.openRenameClassModal}
           changeGrade={this.openChangeGradeModal}
           archiveClass={this.openArchiveClassModal}
           inviteStudents={this.openInviteStudentsModal}
           classroom={classroom}
-          classrooms={classrooms}
+          classrooms={ownActiveClassrooms}
           selected={classroom.id === this.state.selectedClassroomId}
           clickClassroomHeader={this.clickClassroomHeader}
           user={user}
+          isOwnedByCurrentUser={isOwnedByCurrentUser}
           onSuccess={this.onSuccess}
         />
       })

@@ -13,6 +13,7 @@ interface ClassroomProps {
   classroom: any;
   classrooms: Array<any>;
   selected: boolean;
+  isOwnedByCurrentUser: boolean;
   clickClassroomHeader: (event) => void;
   renameClass: (event) => void;
   changeGrade: (event) => void;
@@ -83,7 +84,7 @@ export default class Classroom extends React.Component<ClassroomProps, Classroom
   }
 
   renderClassSettings() {
-    const { user, classroom, renameClass, changeGrade, archiveClass, } = this.props
+    const { isOwnedByCurrentUser, classroom, renameClass, changeGrade, archiveClass, } = this.props
     let coteacherNote
     let classSettingsClassName = "class-settings"
     let settings = [
@@ -91,8 +92,8 @@ export default class Classroom extends React.Component<ClassroomProps, Classroom
       <button className="quill-button secondary outlined small" onClick={changeGrade}>Change grade</button>,
       <button className="quill-button secondary outlined small" onClick={archiveClass}>Archive</button>
     ]
-    const teacher = classroom.teachers.find(t => t.id === user.id)
-    if (teacher.classroom_relation === 'coteacher') {
+
+    if (!isOwnedByCurrentUser) {
       const owner = classroom.teachers.find(t => t.classroom_relation === 'owner')
       coteacherNote = <p className="coteacher-note">Looking for more class settings? Ask {owner.name}, the class owner.</p>
       settings = [<button className="quill-button secondary outlined small">Leave class</button>]
@@ -112,7 +113,7 @@ export default class Classroom extends React.Component<ClassroomProps, Classroom
   }
 
   renderClassroomContent() {
-    const { user, classroom, onSuccess, inviteStudents, classrooms, } = this.props
+    const { user, classroom, onSuccess, inviteStudents, classrooms, isOwnedByCurrentUser, } = this.props
     return <div>
       {this.renderClassSettings()}
       <ClassroomStudentSection
@@ -121,10 +122,12 @@ export default class Classroom extends React.Component<ClassroomProps, Classroom
         classrooms={classrooms}
         onSuccess={onSuccess}
         inviteStudents={inviteStudents}
+        isOwnedByCurrentUser={isOwnedByCurrentUser}
       />
       <ClassroomTeacherSection
         user={user}
         classroom={classroom}
+        isOwnedByCurrentUser={isOwnedByCurrentUser}
       />
     </div>
   }
