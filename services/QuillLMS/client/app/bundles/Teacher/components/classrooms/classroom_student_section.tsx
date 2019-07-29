@@ -7,6 +7,7 @@ import EditStudentAccountModal from './edit_student_account_modal'
 import ResetStudentPasswordModal from './reset_student_password_modal'
 import MergeStudentAccountsModal from './merge_student_accounts_modal'
 import MoveStudentsModal from './move_students_modal'
+import RemoveStudentsModal from './remove_students_modal'
 
 const emptyDeskSrc = `${process.env.CDN_URL}/images/illustrations/empty-desks.svg`
 
@@ -41,6 +42,7 @@ interface ClassroomStudentSectionState {
   showResetStudentPasswordModal: boolean;
   showMergeStudentAccountsModal: boolean;
   showMoveStudentsModal: boolean;
+  showRemoveStudentsModal: boolean;
 }
 
 export default class ClassroomStudentSection extends React.Component<ClassroomStudentSectionProps, ClassroomStudentSectionState> {
@@ -53,7 +55,8 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
       showEditStudentAccountModal: false,
       showResetStudentPasswordModal: false,
       showMergeStudentAccountsModal: false,
-      showMoveStudentsModal: false
+      showMoveStudentsModal: false,
+      showRemoveStudentsModal: false
     }
 
     this.actions = this.actions.bind(this)
@@ -71,6 +74,7 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
     this.closeResetStudentPasswordModal = this.closeResetStudentPasswordModal.bind(this)
     this.closeMergeStudentAccountsModal = this.closeMergeStudentAccountsModal.bind(this)
     this.closeMoveStudentsModal = this.closeMoveStudentsModal.bind(this)
+    this.closeRemoveStudentsModal = this.closeRemoveStudentsModal.bind(this)
   }
 
   actions() {
@@ -147,13 +151,16 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
 
   moveClass(id=null) {
     const { selectedStudentIds } = this.state
-    // we will only show the merge student accounts account dropdown option when any number of students are selected
+    // we will show the move class dropdown option when any number of students are selected
     const studentIds = id ? [id] : selectedStudentIds
     this.setState( { showMoveStudentsModal: true, studentIdsForModal: studentIds })
   }
 
   removeStudentFromClass(id=null) {
-    console.log('remove from class', id)
+    const { selectedStudentIds } = this.state
+    // we will show the remove student from class dropdown option when any number of students are selected
+    const studentIds = id ? [id] : selectedStudentIds
+    this.setState( { showRemoveStudentsModal: true, studentIdsForModal: studentIds })
   }
 
   closeEditStudentAccountModal() {
@@ -170,6 +177,10 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
 
   closeMoveStudentsModal() {
     this.setState({ showMoveStudentsModal: false, studentIdsForModal: [] })
+  }
+
+  closeRemoveStudentsModal() {
+    this.setState({ showRemoveStudentsModal: false, studentIdsForModal: [] })
   }
 
   renderEditStudentAccountModal() {
@@ -223,6 +234,19 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
         selectedStudentIds={studentIdsForModal}
         classroom={classroom}
         classrooms={classrooms}
+      />
+    }
+  }
+
+  renderRemoveStudentsModal() {
+    const { classroom, onSuccess, } = this.props
+    const { showRemoveStudentsModal, studentIdsForModal } = this.state
+    if (showRemoveStudentsModal) {
+      return <RemoveStudentsModal
+        close={this.closeRemoveStudentsModal}
+        onSuccess={onSuccess}
+        selectedStudentIds={studentIdsForModal}
+        classroom={classroom}
       />
     }
   }
@@ -335,6 +359,7 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
         {this.renderResetStudentPasswordModal()}
         {this.renderMergeStudentAccountsModal()}
         {this.renderMoveStudentsModal()}
+        {this.renderRemoveStudentsModal()}
         <div className="students-section-header with-students">
           <h3>Students</h3>
           <div className="students-section-header-buttons">
