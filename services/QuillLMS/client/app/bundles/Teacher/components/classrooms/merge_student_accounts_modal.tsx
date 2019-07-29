@@ -141,7 +141,7 @@ export default class MergeStudentAccountsModal extends React.Component<MergeStud
           className="primary-account"
         />
         <DropdownInput
-          label="Select secondary account"
+          label="Select account to merge"
           value={studentOptions.find(so => so.value === secondaryAccountId)}
           options={studentOptionsForSecondary}
           handleChange={this.handleSecondaryAccountIdChange}
