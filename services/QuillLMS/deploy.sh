@@ -15,4 +15,12 @@ case $1 in
     exit 1
 esac
 
-(cd ../.. && git push -f ${DEPLOY_GIT_REMOTE} `git subtree split --prefix services/QuillLMS`:refs/heads/master)
+STARTING_BRANCH=`git rev-parse --abbrev-ref HEAD`
+TEMP_DEPLOY_BRANCH=temp-for-deploy
+
+(git checkout -b ${TEMP_DEPLOY_BRANCH} &&
+ cd ../.. &&
+ git filter-branch --subdirectory-filter services/QuillLMS --force HEAD^..HEAD &&
+ git push -f ${DEPLOY_GIT_REMOTE} ${TEMP_DEPLOY_BRANCH}:master)
+git checkout ${STARTING_BRANCH}
+git branch -D ${TEMP_DEPLOY_BRANCH}
