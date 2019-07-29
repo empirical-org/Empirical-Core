@@ -1,25 +1,8 @@
 import * as React from 'react'
 import { Input, DropdownInput } from 'quill-component-library/dist/componentLibrary'
 
+import GradeOptions from './grade_options'
 import { requestGet, requestPost } from '../../../../modules/request/index.js';
-import NumberSuffix from '../modules/numberSuffixBuilder.js';
-
-const gradeOptions = [
-  { value: 1, label: NumberSuffix(1) },
-  { value: 2, label: NumberSuffix(2) },
-  { value: 3, label: NumberSuffix(3) },
-  { value: 4, label: NumberSuffix(4) },
-  { value: 5, label: NumberSuffix(5) },
-  { value: 6, label: NumberSuffix(6) },
-  { value: 7, label: NumberSuffix(7) },
-  { value: 8, label: NumberSuffix(8) },
-  { value: 9, label: NumberSuffix(9) },
-  { value: 10, label: NumberSuffix(10) },
-  { value: 11, label: NumberSuffix(11) },
-  { value: 12, label: NumberSuffix(12) },
-  { value: 'University', label: 'University' },
-  { value: 'Other', label: 'Other' }
-]
 
 interface CreateAClassFormProps {
   next: Function;
@@ -111,7 +94,7 @@ export default class CreateAClassForm extends React.Component<CreateAClassFormPr
           label="Grade"
           className="grade"
           value={grade}
-          options={gradeOptions}
+          options={GradeOptions}
           handleChange={this.handleGradeChange}
           error={errors.grade}
           helperText="This will not limit the activities you can access."

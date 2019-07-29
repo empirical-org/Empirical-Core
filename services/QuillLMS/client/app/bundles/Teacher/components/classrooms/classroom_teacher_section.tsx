@@ -1,13 +1,9 @@
 import * as React from 'react'
-import moment from 'moment'
 
 import { DataTable } from 'quill-component-library/dist/componentLibrary'
 
-const expandSrc = `${process.env.CDN_URL}/images/icons/expand.svg`
-
-import NumberSuffix from '../modules/numberSuffixBuilder.js';
-
-const titleCase = str => str.charAt(0).toUpperCase() + str.substr(1).toLowerCase()
+const CoteacherDisplayName = 'Coteacher'
+const OwnerDisplayName = 'Owner'
 
 interface ClassroomTeacherSectionProps {
   user: any;
@@ -20,6 +16,14 @@ interface ClassroomTeacherSectionState {
 export default class ClassroomTeacherSection extends React.Component<ClassroomTeacherSectionProps, ClassroomTeacherSectionState> {
   constructor(props) {
     super(props)
+  }
+
+  formatRole(role) {
+    if (role === 'coteacher') {
+      return CoteacherDisplayName
+    } else {
+      return OwnerDisplayName
+    }
   }
 
   renderTeacherSection() {
@@ -72,7 +76,7 @@ export default class ClassroomTeacherSection extends React.Component<ClassroomTe
     ]
 
     const owner = classroom.teachers.find(teacher => teacher.classroom_relation === 'owner')
-    const coteachers = classroom.teachers.filter(teacher => teacher.classroom_relation === 'co-teacher')
+    const coteachers = classroom.teachers.filter(teacher => teacher.classroom_relation === 'coteacher')
     const alphabeticalCoteachers = coteachers.sort((a, b) => {
       const aLastName = a.name.split(' ')[1] || ''
       const bLastName = b.name.split(' ')[1] || ''
@@ -87,10 +91,10 @@ export default class ClassroomTeacherSection extends React.Component<ClassroomTe
         name,
         id,
         email,
-        role: titleCase(classroom_relation),
+        role: this.formatRole(classroom_relation),
         status: status
       }
-      if (teacherRow.role === 'Co-teacher' && user.id === owner.id) {
+      if (teacherRow.role === CoteacherDisplayName && user.id === owner.id) {
         teacherRow.actions = actions
       }
       return teacherRow

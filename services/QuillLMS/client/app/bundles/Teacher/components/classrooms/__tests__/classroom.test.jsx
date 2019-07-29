@@ -12,7 +12,17 @@ describe('Classroom component', () => {
   describe('not selected', () => {
 
     const wrapper = shallow(
-      <Classroom classroom={classroomWithStudents} selected={false} user={userProps} clickClassroomHeader={() => {}} />
+      <Classroom
+        classroom={classroomWithStudents}
+        selected={false}
+        user={userProps}
+        clickClassroomHeader={() => {}}
+        renameClass={() => {}}
+        changeGrade={() => {}}
+        archiveClass={() => {}}
+        inviteStudents={() => {}}
+        onSuccess={() => {}}
+      />
     );
 
     it('should render as a closed card', () => {
@@ -35,7 +45,17 @@ describe('Classroom component', () => {
   describe('selected', () => {
 
     const wrapper = shallow(
-      <Classroom classroom={classroomWithStudents} selected={true} user={userProps} clickClassroomHeader={() => {}} />
+      <Classroom
+        classroom={classroomWithStudents}
+        selected
+        user={userProps}
+        clickClassroomHeader={() => {}}
+        renameClass={() => {}}
+        changeGrade={() => {}}
+        archiveClass={() => {}}
+        inviteStudents={() => {}}
+        onSuccess={() => {}}
+      />
     );
 
     it('should render as an open card', () => {

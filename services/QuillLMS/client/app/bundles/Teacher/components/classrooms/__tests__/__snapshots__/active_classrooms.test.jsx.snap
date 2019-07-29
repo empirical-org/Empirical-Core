@@ -33,6 +33,8 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
     className="active-classes"
   >
     <Classroom
+      archiveClass={[Function]}
+      changeGrade={[Function]}
       classroom={
         Object {
           "clever_id": null,
@@ -98,6 +100,9 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
         }
       }
       clickClassroomHeader={[Function]}
+      inviteStudents={[Function]}
+      onSuccess={[Function]}
+      renameClass={[Function]}
       selected={false}
       user={
         Object {
@@ -133,6 +138,8 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
       }
     />
     <Classroom
+      archiveClass={[Function]}
+      changeGrade={[Function]}
       classroom={
         Object {
           "clever_id": null,
@@ -198,6 +205,9 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
         }
       }
       clickClassroomHeader={[Function]}
+      inviteStudents={[Function]}
+      onSuccess={[Function]}
+      renameClass={[Function]}
       selected={false}
       user={
         Object {
@@ -233,6 +243,8 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
       }
     />
     <Classroom
+      archiveClass={[Function]}
+      changeGrade={[Function]}
       classroom={
         Object {
           "clever_id": null,
@@ -355,6 +367,9 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
         }
       }
       clickClassroomHeader={[Function]}
+      inviteStudents={[Function]}
+      onSuccess={[Function]}
+      renameClass={[Function]}
       selected={false}
       user={
         Object {

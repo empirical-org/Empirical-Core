@@ -25,20 +25,34 @@ class Teachers::StudentsController < ApplicationController
   end
 
   def update
-    if user_params[:username] == @student.username
-      validate_username = false
-    else
-      validate_username = true
+    respond_to do |format|
+      format.html {
+        if user_params[:username] == @student.username
+          validate_username = false
+        else
+          validate_username = true
+        end
+        user_params.merge!(validate_username: validate_username)
+        if @student.update_attributes(user_params)
+          #head :ok
+          redirect_to teachers_classroom_students_path(@classroom)
+        else
+          flash.now[:error] = @student.errors.full_messages.join('. ')
+          edit_page_variables
+          render :edit
+        end
+      }
+      format.json {
+        @student.validate_username = true
+        @student.update(user_params)
+        if @student.errors.any?
+          render json: { errors: @student.errors }
+        else
+          render json: {}
+        end
+      }
     end
-    user_params.merge!(validate_username: validate_username)
-    if @student.update_attributes(user_params)
-      #head :ok
-      redirect_to teachers_classroom_students_path(@classroom)
-    else
-      flash.now[:error] = @student.errors.full_messages.join('. ')
-      edit_page_variables
-      render :edit
-    end
+
   end
 
   def destroy
@@ -46,6 +60,13 @@ class Teachers::StudentsController < ApplicationController
     DeleteStudentWorker.perform_async(current_user.id, referred_from_class_path)
     @student.destroy
     redirect_to teachers_classroom_students_path(@classroom)
+  end
+
+  def merge_student_accounts
+    primary_account = User.find(params[:primary_account_id])
+    secondary_account = User.find(params[:secondary_account_id])
+    primary_account.merge_student_account(secondary_account, current_user.id)
+    render json: {}
   end
 
 protected
@@ -65,6 +86,7 @@ protected
                                  :last_name,
                                  :password,
                                  :password_digest,
+                                 :password,
                                  :classcode,
                                  :active,
                                  :username,

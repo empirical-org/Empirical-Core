@@ -19,7 +19,11 @@ class Teachers::ClassroomsController < ApplicationController
     classrooms = ClassroomsTeacher.where(user_id: current_user.id).map { |ct| Classroom.unscoped.find_by(id: ct.classroom_id)}
     @classrooms = classrooms.compact.map do |classroom|
       classroom_obj = classroom.attributes
-      classroom_obj[:students] = classroom.students
+      classroom_obj[:students] = classroom.students.map do |s|
+        student = s.attributes
+        student[:number_of_completed_activities] = ActivitySession.where(user_id: s.id, state: 'finished').count
+        student
+      end
       classroom_teachers = classroom.classrooms_teachers.map do |ct|
         teacher = ct.user.attributes
         teacher[:classroom_relation] = ct.role
@@ -30,7 +34,7 @@ class Teachers::ClassroomsController < ApplicationController
       pending_coteachers = coteacher_invitations.map do |cci|
         {
           email: cci.invitation.invitee_email,
-          classroom_relation: 'co-teacher',
+          classroom_relation: 'coteacher',
           status: 'Pending',
           id: cci.id,
           name: '—'
@@ -49,18 +53,6 @@ class Teachers::ClassroomsController < ApplicationController
     class_ids = current_user.classrooms_i_teach.map(&:id)
     @user = current_user
     @has_activities = ClassroomUnit.where(classroom_id: class_ids).exists?
-  end
-
-  def create_students
-    classroom = Classroom.find(create_students_params[:classroom_id])
-    create_students_params[:students].each do |s|
-      s[:account_type] = 'Teacher Created Account'
-      student = Creators::StudentCreator.create_student(s, classroom.id)
-      classroom_units = ClassroomUnit.where(classroom_id: classroom.id)
-      classroom_units.each { |cu| cu.validate_assigned_student(student.id) }
-      Associators::StudentsToClassrooms.run(student, classroom)
-    end
-    render status: 200, json: {}
   end
 
   def classrooms_i_teach
@@ -83,10 +75,31 @@ class Teachers::ClassroomsController < ApplicationController
     end
   end
 
+  def create_students
+    classroom = Classroom.find(create_students_params[:classroom_id])
+    create_students_params[:students].each do |s|
+      s[:account_type] = 'Teacher Created Account'
+      student = Creators::StudentCreator.create_student(s, classroom.id)
+      classroom_units = ClassroomUnit.where(classroom_id: classroom.id)
+      classroom_units.each { |cu| cu.validate_assigned_student(student.id) }
+      Associators::StudentsToClassrooms.run(student, classroom)
+    end
+    render json: { students: classroom.students }
+  end
+
   def update
     @classroom.update_attributes(classroom_params)
     # this is updated from the students tab of the scorebook, so will make sure we keep user there
-    redirect_to teachers_classroom_students_path(@classroom.id)
+    respond_to do |format|
+      format.html { redirect_to teachers_classroom_students_path(@classroom.id) }
+      format.json {
+        if @classroom.errors.any?
+          render json: { errors: @classroom.errors }
+        else
+          render json: {}
+        end
+      }
+    end
   end
 
   def destroy

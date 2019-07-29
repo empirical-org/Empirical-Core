@@ -24,7 +24,9 @@ exports[`Classroom component not selected should render as a closed card 1`] = `
            
           students
         </span>
-        <span>
+        <span
+          className="bullet"
+        >
           •
         </span>
         <span>
@@ -32,19 +34,25 @@ exports[`Classroom component not selected should render as a closed card 1`] = `
            
           co-teachers
         </span>
-        <span>
+        <span
+          className="bullet"
+        >
           •
         </span>
         <span>
           Class code: demo-2851865
         </span>
-        <span>
+        <span
+          className="bullet"
+        >
           •
         </span>
         <span>
           9th grade
         </span>
-        <span>
+        <span
+          className="bullet"
+        >
           •
         </span>
         <span>
@@ -85,7 +93,9 @@ exports[`Classroom component selected should render as an open card 1`] = `
            
           students
         </span>
-        <span>
+        <span
+          className="bullet"
+        >
           •
         </span>
         <span>
@@ -93,19 +103,25 @@ exports[`Classroom component selected should render as an open card 1`] = `
            
           co-teachers
         </span>
-        <span>
+        <span
+          className="bullet"
+        >
           •
         </span>
         <span>
           Class code: demo-2851865
         </span>
-        <span>
+        <span
+          className="bullet"
+        >
           •
         </span>
         <span>
           9th grade
         </span>
-        <span>
+        <span
+          className="bullet"
+        >
           •
         </span>
         <span>
@@ -131,16 +147,19 @@ exports[`Classroom component selected should render as an open card 1`] = `
       >
         <button
           className="quill-button secondary outlined small"
+          onClick={[Function]}
         >
           Rename class
         </button>
         <button
           className="quill-button secondary outlined small"
+          onClick={[Function]}
         >
           Change grade
         </button>
         <button
           className="quill-button secondary outlined small"
+          onClick={[Function]}
         >
           Archive
         </button>
@@ -268,6 +287,8 @@ exports[`Classroom component selected should render as an open card 1`] = `
           "visible": true,
         }
       }
+      inviteStudents={[Function]}
+      onSuccess={[Function]}
       user={
         Object {
           "account_type": "unknown",
