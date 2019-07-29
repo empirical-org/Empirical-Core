@@ -34,6 +34,11 @@ export default class MoveStudentsModal extends React.Component<MoveStudentsModal
     this.moveStudents = this.moveStudents.bind(this)
   }
 
+  studentOrStudents() {
+    const { selectedStudentIds, } = this.props
+    return selectedStudentIds.length === 1 ? 'student' : 'students'
+  }
+
   classroomOptions() {
     const { classrooms } = this.props
     return classrooms.map(classroom => {
@@ -53,7 +58,7 @@ export default class MoveStudentsModal extends React.Component<MoveStudentsModal
     const { newClassroomId, } = this.state
     requestPost(`/teachers/classrooms/${classroom.id}/students/move_students`, { new_classroom_id: newClassroomId, student_ids: selectedStudentIds }, (body) => {
       const newClassroom = classrooms.find(classroom => classroom.id === newClassroomId)
-      const successMessage = `${selectedStudentIds.length === 1 ? 'Student' : 'Students'} moved to ${newClassroom.name}`
+      const successMessage = `${this.studentOrStudents()} moved to ${newClassroom.name}`
       onSuccess(successMessage)
       close()
     })
@@ -101,7 +106,7 @@ export default class MoveStudentsModal extends React.Component<MoveStudentsModal
       <div className="modal-background" />
       <div className="move-students-modal modal modal-body">
         <div>
-          <h3 className="title">Move {numberOfSelectedStudents} {numberOfSelectedStudents === 1 ? 'student' : 'students'} to a new class</h3>
+          <h3 className="title">Move {numberOfSelectedStudents} {this.studentOrStudents()} to a new class</h3>
         </div>
         <p>All of the data from the activities that your {numberOfSelectedStudents === 1 ? 'student has' :'students have'} started or completed will be moved.</p>
         <DropdownInput
@@ -114,7 +119,7 @@ export default class MoveStudentsModal extends React.Component<MoveStudentsModal
         {this.renderCheckboxes()}
         <div className="form-buttons">
           <button className="quill-button outlined secondary medium" onClick={close}>Cancel</button>
-          <button className={this.submitButtonClass()} onClick={this.moveStudents}>Move students</button>
+          <button className={this.submitButtonClass()} onClick={this.moveStudents}>Move {this.studentOrStudents()}</button>
         </div>
       </div>
     </div>
