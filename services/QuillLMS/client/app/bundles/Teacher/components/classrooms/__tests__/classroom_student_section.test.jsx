@@ -15,6 +15,7 @@ describe('ClassroomStudentSection component', () => {
 
     const wrapper = shallow(
       <ClassroomStudentSection
+        isOwnedByCurrentUser
         classrooms={classroomProps}
         classroom={classroomWithoutStudents}
         user={userProps}

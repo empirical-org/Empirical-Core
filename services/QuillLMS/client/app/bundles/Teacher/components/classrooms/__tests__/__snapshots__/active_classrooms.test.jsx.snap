@@ -348,6 +348,7 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
       }
       clickClassroomHeader={[Function]}
       inviteStudents={[Function]}
+      isOwnedByCurrentUser={true}
       onSuccess={[Function]}
       renameClass={[Function]}
       selected={false}
@@ -700,6 +701,7 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
       }
       clickClassroomHeader={[Function]}
       inviteStudents={[Function]}
+      isOwnedByCurrentUser={true}
       onSuccess={[Function]}
       renameClass={[Function]}
       selected={false}
@@ -1109,6 +1111,7 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
       }
       clickClassroomHeader={[Function]}
       inviteStudents={[Function]}
+      isOwnedByCurrentUser={true}
       onSuccess={[Function]}
       renameClass={[Function]}
       selected={false}

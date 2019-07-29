@@ -9,7 +9,11 @@ import { classroomWithoutStudents, userProps } from './test_data/test_data'
 describe('ClassroomTeacherSection component', () => {
 
   const wrapper = shallow(
-    <ClassroomTeacherSection classroom={classroomWithoutStudents} user={userProps} />
+    <ClassroomTeacherSection
+      isOwnedByCurrentUser
+      classroom={classroomWithoutStudents}
+      user={userProps}
+    />
   );
 
   it('should render', () => {
