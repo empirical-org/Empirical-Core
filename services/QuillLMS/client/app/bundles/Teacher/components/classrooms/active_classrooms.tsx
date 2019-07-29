@@ -142,6 +142,7 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
           archiveClass={this.openArchiveClassModal}
           inviteStudents={this.openInviteStudentsModal}
           classroom={classroom}
+          classrooms={classrooms}
           selected={classroom.id === this.state.selectedClassroomId}
           clickClassroomHeader={this.clickClassroomHeader}
           user={user}

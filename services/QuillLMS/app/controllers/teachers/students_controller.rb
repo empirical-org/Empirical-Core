@@ -69,6 +69,16 @@ class Teachers::StudentsController < ApplicationController
     render json: {}
   end
 
+  def move_students
+    old_classroom = @classroom
+    new_classroom = Classroom.find(params[:new_classroom_id])
+    students = User.where(id: params[:student_ids])
+    students.each do |student|
+      student.move_student_from_one_class_to_another(old_classroom, new_classroom)
+    end
+    render json: {}
+  end
+
 protected
 
   # TODO: this is copied from Teachers::ClassroomsController#authorize!
