@@ -2,6 +2,8 @@ import * as React from 'react'
 
 import { DataTable } from 'quill-component-library/dist/componentLibrary'
 
+import RemoveCoteacherModal from './remove_coteacher_modal'
+
 const CoteacherDisplayName = 'Coteacher'
 const OwnerDisplayName = 'Owner'
 
@@ -29,17 +31,26 @@ const headers = [
 interface ClassroomTeacherSectionProps {
   user: any;
   classroom: any;
+  onSuccess: (event) => void;
 }
 
 interface ClassroomTeacherSectionState {
+  showRemoveCoteacherModal: boolean;
+  selectedCoteacherId?: string|number;
 }
 
 export default class ClassroomTeacherSection extends React.Component<ClassroomTeacherSectionProps, ClassroomTeacherSectionState> {
   constructor(props) {
     super(props)
 
+    this.state = {
+      showRemoveCoteacherModal: false
+    }
+
     this.actions = this.actions.bind(this)
     this.classroomOwner = this.classroomOwner.bind(this)
+    this.removeCoteacher = this.removeCoteacher.bind(this)
+    this.closeRemoveCoteacherModal = this.closeRemoveCoteacherModal.bind(this)
   }
 
   actions() {
@@ -54,7 +65,7 @@ export default class ClassroomTeacherSection extends React.Component<ClassroomTe
       },
       {
         name: 'Remove from class',
-        action: (id) => console.log('Remove from class', id)
+        action: (id) => this.removeCoteacher(id)
       }
     ]
   }
@@ -70,6 +81,14 @@ export default class ClassroomTeacherSection extends React.Component<ClassroomTe
     } else {
       return OwnerDisplayName
     }
+  }
+
+  removeCoteacher(id) {
+    this.setState({ showRemoveCoteacherModal: true, selectedCoteacherId: id })
+  }
+
+  closeRemoveCoteacherModal() {
+    this.setState({ showRemoveCoteacherModal: false, selectedCoteacherId: null })
   }
 
   renderTeacherSection() {
@@ -118,6 +137,20 @@ export default class ClassroomTeacherSection extends React.Component<ClassroomTe
       rows={rows}
       showActions={true}
     />
+  }
+
+  renderRemoveCoteacherModal() {
+    const { classroom, onSuccess } = this.props
+    const { showRemoveCoteacherModal, selectedCoteacherId } = this.state
+    if (showRemoveCoteacherModal && selectedCoteacherId) {
+      const coteacher = classroom.teachers.find(t => t.id === selectedCoteacherId)
+      return <RemoveCoteacherModal
+        close={this.closeRemoveCoteacherModal}
+        onSuccess={onSuccess}
+        coteacher={coteacher}
+        classroom={classroom}
+      />
+    }
   }
 
   render() {
