@@ -9,6 +9,22 @@ import MergeStudentAccountsModal from './merge_student_accounts_modal'
 
 const emptyDeskSrc = `${process.env.CDN_URL}/images/illustrations/empty-desks.svg`
 
+const headers = [
+  {
+    width: '190px',
+    name: 'Name',
+    attribute: 'name'
+  }, {
+    width: '362px',
+    name: 'Username',
+    attribute: 'username'
+  }, {
+    width: '124px',
+    name: 'Synced',
+    attribute: 'synced'
+  }
+]
+
 interface ClassroomStudentSectionProps {
   user: any;
   classroom: any;
