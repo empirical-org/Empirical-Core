@@ -92,16 +92,6 @@ export default class ClassroomTeacherSection extends React.Component<ClassroomTe
     this.setState({ showRemoveCoteacherModal: false, selectedCoteacherId: null })
   }
 
-  renderTeacherSection() {
-    return <div className="teacher-section">
-      <div className="teacher-section-header">
-        <h3>Teachers</h3>
-        <button className="quill-button primary outlined small">Invite co-teachers</button>
-      </div>
-      {this.renderTeachers()}
-    </div>
-  }
-
   renderTeacherRow(teacher) {
     const { isOwnedByCurrentUser, } = this.props
     const { name, classroom_relation, id, status, email } = teacher
@@ -154,6 +144,13 @@ export default class ClassroomTeacherSection extends React.Component<ClassroomTe
   }
 
   render() {
-    return this.renderTeacherSection()
+    return <div className="teacher-section">
+      {this.renderRemoveCoteacherModal()}
+      <div className="teacher-section-header">
+        <h3>Teachers</h3>
+        <button className="quill-button primary outlined small">Invite co-teachers</button>
+      </div>
+      {this.renderTeachers()}
+    </div>
   }
 }

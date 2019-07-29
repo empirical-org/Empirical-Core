@@ -114,20 +114,21 @@ export default class Classroom extends React.Component<ClassroomProps, Classroom
 
   renderClassroomContent() {
     const { user, classroom, onSuccess, inviteStudents, classrooms, isOwnedByCurrentUser, } = this.props
+    const sharedProps = {
+      user,
+      classroom,
+      onSuccess,
+      isOwnedByCurrentUser
+    }
     return <div>
       {this.renderClassSettings()}
       <ClassroomStudentSection
-        user={user}
-        classroom={classroom}
+        {...sharedProps}
         classrooms={classrooms}
-        onSuccess={onSuccess}
         inviteStudents={inviteStudents}
-        isOwnedByCurrentUser={isOwnedByCurrentUser}
       />
       <ClassroomTeacherSection
-        user={user}
-        classroom={classroom}
-        isOwnedByCurrentUser={isOwnedByCurrentUser}
+        {...sharedProps}
       />
     </div>
   }

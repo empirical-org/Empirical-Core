@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { requestPost } from '../../../../modules/request/index.js';
+import { requestPost, requestDelete } from '../../../../modules/request/index.js';
 
 const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
 
@@ -31,10 +31,15 @@ export default class RemoveCoteacherModal extends React.Component<RemoveCoteache
 
   removeCoteacher() {
     const { onSuccess, close, classroom, coteacher, } = this.props
-    requestPost(`/classrooms_teachers/${coteacher.id}/remove_coteacher_from_class`, { classroom_id: classroom.id }, (body) => {
+    const callback = (body) => {
       onSuccess('Co-teacher removed')
       close()
-    })
+    }
+    if (coteacher.invitation_id) {
+      requestDelete(`/coteacher_classroom_invitations/${coteacher.id}`, {}, callback)
+    } else {
+      requestPost(`/classrooms_teachers/${coteacher.id}/remove_coteacher_from_class`, { classroom_id: classroom.id }, callback)
+    }
   }
 
   submitButtonClass() {
@@ -70,15 +75,14 @@ export default class RemoveCoteacherModal extends React.Component<RemoveCoteache
   }
 
   render() {
-    const { selectedStudentIds, close } = this.props
-    const numberOfSelectedStudents = selectedStudentIds.length
+    const { coteacher, close } = this.props
     return <div className="modal-container remove-coteacher-modal-container">
       <div className="modal-background" />
       <div className="remove-coteacher-modal modal modal-body">
         <div>
           <h3 className="title">Remove co-teacher from your class?</h3>
         </div>
-        <p>Students' Quill accounts will remain active. If you bring students back into the class, the data from their completed activities will be restored.</p>
+        <p>{coteacher.name}'s ({coteacher.email}) Quill account will remain active. You can re-invite the co-teacher later.</p>
         {this.renderCheckboxes()}
         <div className="form-buttons">
           <button className="quill-button outlined secondary medium" onClick={close}>Cancel</button>
