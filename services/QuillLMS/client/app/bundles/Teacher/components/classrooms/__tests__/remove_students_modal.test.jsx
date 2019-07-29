@@ -1,24 +1,23 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import MoveStudentsModal from '../move_students_modal'
+import RemoveStudentsModal from '../remove_students_modal'
 
-import { classroomWithStudents, classroomProps } from './test_data/test_data'
+import { classroomWithStudents } from './test_data/test_data'
 
-describe('MoveStudentsModal component', () => {
+describe('RemoveStudentsModal component', () => {
   const studentIds = [classroomWithStudents.students[0].id, classroomWithStudents.students[1].id]
 
   const wrapper = shallow(
-    <MoveStudentsModal
+    <RemoveStudentsModal
       close={() => {}}
       onSuccess={() => {}}
       classroom={classroomWithStudents}
-      classrooms={classroomProps}
       selectedStudentIds={studentIds}
     />
   );
 
-  it('should render MoveStudentsModal', () => {
+  it('should render RemoveStudentsModal', () => {
     expect(wrapper).toMatchSnapshot()
   })
 
