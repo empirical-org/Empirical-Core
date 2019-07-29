@@ -16,7 +16,7 @@ class Teachers::ClassroomsController < ApplicationController
   end
 
   def new_index
-    classrooms = ClassroomsTeacher.where(user_id: current_user.id).map { |ct| Classroom.unscoped.find_by(id: ct.classroom_id)}
+    classrooms = Classroom.joins('JOIN classrooms_teachers ON classrooms_teachers.classroom_id = classrooms.id').where("classrooms_teachers.user_id = #{current_user.id}")
     @classrooms = classrooms.compact.map do |classroom|
       classroom_obj = classroom.attributes
       classroom_obj[:students] = classroom.students.map do |s|
@@ -80,8 +80,6 @@ class Teachers::ClassroomsController < ApplicationController
     create_students_params[:students].each do |s|
       s[:account_type] = 'Teacher Created Account'
       student = Creators::StudentCreator.create_student(s, classroom.id)
-      classroom_units = ClassroomUnit.where(classroom_id: classroom.id)
-      classroom_units.each { |cu| cu.validate_assigned_student(student.id) }
       Associators::StudentsToClassrooms.run(student, classroom)
     end
     render json: { students: classroom.students }
