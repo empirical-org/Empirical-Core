@@ -50,7 +50,7 @@
     "gitbook-plugin-rss": "git+https://git@github.com/ddmck/gitbook-plugin-rss.git",
     "isomorphic-fetch": "^2.2.1",
     "istanbul-lib-instrument": "^1.9.1",
-    "quill-component-library": "0.3.3",
+    "quill-component-library": "0.3.23",
     "react-csv": "^1.0.8",
     "react-dropdown": "^1.3.2",
     "react-radio-buttons": "^1.2.1",

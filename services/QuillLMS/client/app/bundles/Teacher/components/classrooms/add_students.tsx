@@ -9,8 +9,8 @@ export const teacherCreates = 'teacher creates accounts'
 
 interface AddStudentsProps {
   next: () => void;
-  back: (event) => void;
   showSnackbar: (event) => void;
+  setStudents: (event) => void;
   classroom: any;
 }
 
@@ -39,14 +39,14 @@ export default class AddStudents extends React.Component<AddStudentsProps, AddSt
   }
 
   render() {
-    const { next, classroom, showSnackbar, back } = this.props
+    const { next, classroom, showSnackbar, setStudents, } = this.props
     const { studentOption } = this.state
     if (studentOption === studentsCreate) {
       return <ClassCodeLink back={this.unsetStudentOption} next={next} classroom={classroom} showSnackbar={showSnackbar} />
     } else if (studentOption === teacherCreates) {
-      return <CreateStudentAccounts back={this.unsetStudentOption} next={next} classroom={classroom} />
+      return <CreateStudentAccounts back={this.unsetStudentOption} next={next} classroom={classroom} setStudents={setStudents} />
     } else {
-      return <StudentOptions back={back} next={next} setStudentOption={this.setStudentOption}/>
+      return <StudentOptions next={next} setStudentOption={this.setStudentOption}/>
     }
   }
 }

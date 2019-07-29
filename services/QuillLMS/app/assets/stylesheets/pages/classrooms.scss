@@ -72,6 +72,9 @@
         line-height: 1.57;
         color: #646464;
         margin-right: 8px;
+        &.bullet {
+          color: #bdbdbd;
+        }
       }
     }
     .class-settings, .students-section {
@@ -79,6 +82,16 @@
     }
     .class-settings {
       padding: 0px 32px 32px;
+      &.coteacher-class-settings {
+        h3 {
+          margin-bottom: 8px;
+        }
+        .coteacher-note {
+          line-height: 1.57;
+          color: #646464;
+          margin-bottom: 24px;
+        }
+      }
     }
     .class-settings-buttons {
       display: flex;
@@ -162,6 +175,18 @@
       &.active {
         margin-bottom: 82px;
       }
+      .dropdown {
+        font-size: 16px;
+      }
+      .dropdown__menu-list {
+        padding: 8px 0px;
+        .dropdown__option {
+          height: 48px;
+          padding: 0px 12px;
+          display: flex;
+          align-items: center;
+        }
+      }
     }
     &.open {
       .expand-arrow {
@@ -186,7 +211,6 @@
   }
 
   .modal {
-    width: 760px;
     border-radius: 6px;
     background-color: #ffffff;
     z-index: 3;
@@ -205,11 +229,145 @@
       font-size: 24px;
       font-weight: bold;
       line-height: 1.33;
-      margin-bottom: 40px;
     }
     .dropdown-menu {
       z-index: 4;
     }
+    .form-buttons {
+      display: flex;
+      justify-content: flex-end;
+      .quill-button {
+        margin-left: 24px;
+      }
+    }
+  }
+
+  .rename-class-modal,
+  .change-grade-modal,
+  .archive-class-modal,
+  .edit-student-account-modal,
+  .reset-student-password-modal,
+  .merge-student-accounts-modal {
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .rename-class-modal {
+    width: 560px;
+    height: 273px;
+    .title {
+      margin-bottom: 24px;
+    }
+    .input-container {
+      margin-bottom: 48px;
+      &.error.unacknowledged {
+        margin-bottom: 33px;
+      }
+    }
+  }
+
+  .change-grade-modal {
+    height: 327px;
+    width: 560px;
+    overflow: visible;
+    p {
+      line-height: 1.57;
+      margin-top: 24px;
+      color: #646464;
+      margin-bottom: 32px;
+    }
+    .input-container {
+      margin-bottom: 48px;
+    }
+  }
+
+  .archive-class-modal {
+    width: 560px;
+    height: 376px;
+    .archive-class-modal-text {
+      margin-top: 24px;
+      margin-bottom: 48px;
+      line-height: 1.57;
+      letter-spacing: normal;
+      color: #646464;
+      p {
+        margin-bottom: 24px;
+      }
+      a {
+        color: #027360;
+        font-weight: 600;
+      }
+    }
+  }
+
+  .edit-student-account-modal {
+    width: 560px;
+    height: 445px;
+    .input-container {
+      height: 96px !important;
+      display: flex;
+      justify-content: flex-start;
+    }
+  }
+
+  .reset-student-password-modal {
+    width: 560px;
+    height: 327px;
+    p {
+      line-height: 1.57;
+      color: #646464;
+      margin-bottom: 32px;
+    }
+    .input-container {
+      margin-bottom: 36px;
+      input {
+        border-bottom: none;
+      }
+    }
+  }
+
+  .merge-student-accounts-modal {
+    width: 560px;
+    height: 608px;
+    p {
+      line-height: 1.57;
+      color: #646464;
+      margin-bottom: 32px;
+    }
+    .swap {
+      cursor: pointer;
+      display: flex;
+      justify-content: flex-end;
+      font-weight: 600;
+      margin-bottom: 16px;
+      img {
+        margin-right: 4px;
+      }
+    }
+    .input-container {
+      margin-bottom: 32px;
+      &.active {
+        margin-bottom: 83px;
+      }
+    }
+    .checkboxes {
+      margin-bottom: 32px;
+      .checkbox-row {
+        display: flex;
+        margin-bottom: 16px;
+        .quill-checkbox {
+          margin-right: 24px;
+          margin-top: 5px;
+        }
+        span {
+          line-height: 1.57;
+        }
+      }
+    }
+  }
+
+  .create-a-class-modal {
+    width: 760px;
   }
 
   .create-a-class-modal-content {
@@ -219,6 +377,9 @@
   }
 
   .create-a-class-modal-body {
+    .title {
+      margin-bottom: 40px;
+    }
     &.setup-instructions {
       .title {
         margin-bottom: 8px;
@@ -344,7 +505,7 @@
     color: #7f7f7f;
   }
 
-  .has-character-limit {
+  .has-character-limit:not(.error) {
     height: 65px;
   }
 
@@ -355,6 +516,9 @@
       img {
         cursor: pointer;
       }
+    }
+    .data-table-row:last-of-type {
+      border-bottom: none;
     }
   }
 
@@ -381,6 +545,7 @@
   }
 
   .actions-menu {
+    padding: 8px 0px;
     position: absolute;
     border-radius: 4px;
     box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0 1px 18px 0 rgba(0, 0, 0, 0.12), 0 6px 10px 0 rgba(0, 0, 0, 0.14);
@@ -404,5 +569,19 @@
         background-color: #f2f2f2;
       }
     }
+  }
+
+  .quill-button.primary.outlined {
+    &:hover, &:focus {
+      font-weight: 600;
+    }
+  }
+
+  .data-table::-webkit-scrollbar {
+    height: 7px;
+  }
+
+  .data-table-headers, .data-table-row {
+    min-width: min-content;
   }
 }
