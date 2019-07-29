@@ -1,9 +1,7 @@
 import React from 'react';
-import $ from 'jquery';
-import request from 'request';
 import LoadingSpinner from '../../shared/loading_indicator.jsx';
 import _ from 'underscore';
-import authToken from '../../modules/get_auth_token.js';
+import { requestGet, requestPost } from '../../../../../modules/request';
 import Pusher from 'pusher-js';
 import RecommendationsTableCell from './recommendations_table_cell';
 import LessonsRecommendations from './lessons_recommendations';
@@ -46,21 +44,21 @@ export default React.createClass({
 
   getRecommendationData(classroomId, activityId) {
     const that = this;
-    $.get(`/teachers/progress_reports/recommendations_for_classroom/${that.props.params.unitId}/${classroomId}/activity/${activityId}`, (data) => {
+    requestGet(`/teachers/progress_reports/recommendations_for_classroom/${that.props.params.unitId}/${classroomId}/activity/${activityId}`, (data) => {
       that.setState({
         recommendations: JSON.parse(JSON.stringify(data.recommendations)),
         students: data.students,
         loading: false,
       }, that.getPreviouslyAssignedRecommendationData(classroomId, activityId, false));
     });
-    $.get(`/teachers/progress_reports/lesson_recommendations_for_classroom/u/${that.props.params.unitId}/c/${classroomId}/a/${activityId}`, (data) => {
+    requestGet(`/teachers/progress_reports/lesson_recommendations_for_classroom/u/${that.props.params.unitId}/c/${classroomId}/a/${activityId}`, (data) => {
       that.setState({ lessonsRecommendations: data.lessonsRecommendations, });
     });
   },
 
   getPreviouslyAssignedRecommendationData(classroomId, activityId, assigned) {
     const that = this;
-    $.get(`/teachers/progress_reports/previously_assigned_recommendations/${classroomId}/activity/${activityId}`, ((data) => {
+    requestGet(`/teachers/progress_reports/previously_assigned_recommendations/${classroomId}/activity/${activityId}`, ((data) => {
       that.setState({
         previouslyAssignedRecommendations: data.previouslyAssignedRecommendations,
         previouslyAssignedLessonsRecommendations: data.previouslyAssignedLessonsRecommendations,
@@ -139,18 +137,12 @@ export default React.createClass({
 
   assignSelectedPacks() {
     this.setState({ assigning: true, }, () => {
-      $.ajax({
-		  	type: 'POST',
-		  	url: '/teachers/progress_reports/assign_selected_packs/',
-		  	dataType: 'json',
-		  	contentType: 'application/json',
-		  	data: JSON.stringify(this.formatSelectionsForAssignment()),
+      requestPost('/teachers/progress_reports/assign_selected_packs/', this.formatSelectionsForAssignment(), (data) => {
+        this.initializePusher()
+      }, (data) => {
+        alert('We had trouble processing your request. Please check your network connection and try again.');
+        this.setState({ assigning: false, });
       })
-			.done(() => { this.initializePusher(); })
-			.fail(() => {
-  alert('We had trouble processing your request. Please check your network connection and try again.');
-  this.setState({ assigning: false, });
-});
     });
   },
 
@@ -173,20 +165,11 @@ export default React.createClass({
 
   assignToWholeClass(unitTemplateId) {
     const that = this;
-    $.ajax({
-      type: 'POST',
-      url: '/teachers/progress_reports/assign_selected_packs/',
-      dataType: 'json',
-      contentType: 'application/json',
-      data: JSON.stringify({ authenticity_token: authToken(), whole_class: true, unit_template_id: unitTemplateId, classroom_id: this.props.params.classroomId, }),
-    })
-    .done(() => {
-      this.initializePusher(unitTemplateId);
-    })
-    .fail(() => {
+    requestPost('/teachers/progress_reports/assign_selected_packs/', { whole_class: true, unit_template_id: unitTemplateId, classroom_id: this.props.params.classroomId }, (data) => {
+      this.initializePusher(unitTemplateId)
+    }, (data) => {
       alert('We had trouble processing your request. Please check your network connection and try again.');
-      // this.setState({ assigning: false, });
-    });
+    })
   },
 
   initializePusher(unitTemplateId) {
