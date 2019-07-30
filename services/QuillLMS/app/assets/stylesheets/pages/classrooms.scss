@@ -434,6 +434,30 @@
       .show-overflow {
         overflow: visible;
       }
+      .dropdown-container {
+        width: 110px;
+        .dropdown__menu-list {
+          max-height: 95px;
+        }
+        label {
+          color: #000;
+          font-size: 14px;
+          margin-top: 0px;
+        }
+        .dropdown__control {
+          border: none;
+          background-color: inherit;
+          margin-bottom: 0px;
+        }
+        &.inactive {
+          min-height: 100%;
+          &.has-text {
+            label {
+              display: none;
+            }
+          }
+        }
+      }
     }
   }
 
