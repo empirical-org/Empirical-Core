@@ -21,7 +21,8 @@ module GoogleIntegration::Classroom::Main
     # elsif course_response(:error)
     #   return error
     else
-      GoogleIntegration::Classroom::Parsers::Courses.run(user, course_response)
+      students = GoogleIntegration::Classroom::Requesters::Students.generate(client)
+      GoogleIntegration::Classroom::Parsers::Courses.run(user, course_response, students)
     end
   end
 end
