@@ -8,9 +8,9 @@ example JSON.parse(response.body) :
 
 =end
 
-  def self.run(user, course_response)
+  def self.run(user, course_response, student_requester)
     if user.role == 'teacher'
-      self.parse_courses_for_teacher(course_response, user)
+      self.parse_courses_for_teacher(course_response, user, student_requester)
     else
       self.parse_courses_for_student(course_response, user)
     end
@@ -18,7 +18,7 @@ example JSON.parse(response.body) :
 
   private
 
-  def self.parse_courses_for_teacher(course_response, user)
+  def self.parse_courses_for_teacher(course_response, user, student_requester)
     courses = []
     if course_response[:courses] && course_response[:courses].any?
       existing_google_classroom_ids = self.existing_google_classroom_ids(user)
@@ -28,13 +28,17 @@ example JSON.parse(response.body) :
           grade = Classroom.find_by(google_classroom_id: course[:id]).grade
         end
         if self.valid?(course, user, existing_google_classroom_ids)
+          students = student_requester.call(course[:id])
           name = course[:section] ? "#{course[:name]} #{course[:section]}" : course[:name]
-          courses << {id: course[:id].to_i, name: name,
+          courses << {
+            id: course[:id].to_i, name: name,
             ownerId: course[:ownerId],
             section: course[:section],
             alreadyImported: alreadyImported,
             grade: grade,
-            creationTime: course[:creationTime],}
+            creationTime: course[:creationTime],
+            studentCount: students.count
+          }
         end
       end
     end
@@ -75,6 +79,5 @@ example JSON.parse(response.body) :
   def self.already_imported?(course, existing_google_classroom_ids)
     existing_google_classroom_ids.include?(course[:id].to_i)
   end
-
 
 end

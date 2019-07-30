@@ -398,140 +398,179 @@
     }
   }
 
+  .import-google-classrooms-modal {
+    width: 950px;
+    .import-google-classrooms-modal-header {
+      padding: 32px;
+      .title {
+        font-size: 24px;
+        font-weight: bold;
+        line-height: 1.33;
+      }
+    }
+    .import-google-classrooms-modal-content {
+      height: 100%;
+      overflow-y: scroll;
+      padding-bottom: 120px;
+    }
+    .import-google-classrooms-modal-footer {
+      position: fixed;
+      bottom: 0;
+      height: 96;
+      background-color: white;
+      opacity: 1;
+      z-index: 4;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid #e0e0e0;
+      padding: 0px 32px;
+    }
+    .data-table {
+      height: 100%;
+      overflow: scroll;
+      padding-bottom: 220px;
+      .show-overflow {
+        overflow: visible;
+      }
+    }
+  }
+
   .create-a-class-modal {
     width: 760px;
-  }
-
-  .create-a-class-modal-content {
-    height: 100%;
-    overflow-y: scroll;
-    padding-bottom: 120px;
-  }
-
-  .create-a-class-modal-body {
-    padding-right: 24px;
-    .title {
-      margin-bottom: 40px;
-    }
-    &.setup-instructions {
-      .title {
-        margin-bottom: 8px;
-      }
-      p {
-        width: 416px;
-        font-size: 14px;
-        line-height: 1.57;
-        color: #646464;
-        margin-bottom: 32px;
-      }
-      img {
-        margin-bottom: 32px;
-      }
-    }
-
-    &.create-students {
+    .create-a-class-modal-content {
       height: 100%;
-      form {
-        display: flex;
-        justify-content: space-between;
-        .input-container {
-          width: 302px;
-        }
-      }
-      .data-table {
-        height: 100%;
-        padding-bottom: 105px;
-      }
+      overflow-y: scroll;
+      padding-bottom: 120px;
     }
 
-    .create-a-class-form {
-      width: 512px;
-      .input-container {
-        margin-bottom: 12px;
-        &.grade {
-          margin-bottom: 24px;
+    .create-a-class-modal-body {
+      padding-right: 24px;
+      .title {
+        margin-bottom: 40px;
+      }
+      &.setup-instructions {
+        .title {
+          margin-bottom: 8px;
+        }
+        p {
+          width: 416px;
+          font-size: 14px;
+          line-height: 1.57;
+          color: #646464;
+          margin-bottom: 32px;
+        }
+        img {
+          margin-bottom: 32px;
         }
       }
-      .class-code-section {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        .input-container {
-          width: 300px;
-          margin-bottom: 0px;
-          &.code {
-            input {
-              border-bottom: none;
-            }
+
+      &.create-students {
+        height: 100%;
+        form {
+          display: flex;
+          justify-content: space-between;
+          .input-container {
+            width: 302px;
           }
         }
-        .reset {
-          color: #027360;
-          font-size: 16px;
-          cursor: pointer;
-          font-weight: normal;
+        .data-table {
+          height: 100%;
+          padding-bottom: 105px;
+        }
+      }
+
+      .create-a-class-form {
+        width: 512px;
+        .input-container {
+          margin-bottom: 12px;
+          &.grade {
+            margin-bottom: 24px;
+          }
+        }
+        .class-code-section {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          .input-container {
+            width: 300px;
+            margin-bottom: 0px;
+            &.code {
+              input {
+                border-bottom: none;
+              }
+            }
+          }
+          .reset {
+            color: #027360;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: normal;
+          }
+        }
+      }
+
+      .quill-cards {
+        width: 584px;
+        .quill-card:first-of-type {
+          margin-bottom: 24px;
+          p {
+            width: 400px;
+          }
+        }
+      }
+      .copy-class-code-container {
+        display: flex;
+        align-items: center;
+        .input-container {
+          width: 256px;
+          margin-right: 16px;
         }
       }
     }
 
-    .quill-cards {
-      width: 584px;
-      .quill-card:first-of-type {
-        margin-bottom: 24px;
-        p {
-          width: 400px;
-        }
-      }
-    }
-    .copy-class-code-container {
+    .create-a-class-modal-footer {
+      position: fixed;
+      bottom: 0;
+      height: 88px;
+      background-color: white;
+      opacity: 1;
+      z-index: 4;
+      width: 100%;
       display: flex;
+      justify-content: flex-end;
       align-items: center;
-      .input-container {
-        width: 256px;
-        margin-right: 16px;
+      border-top: 1px solid #e0e0e0;
+      padding: 0px 32px;
+      &.with-back-button {
+        justify-content: space-between;
       }
     }
-  }
 
-  .create-a-class-modal-footer {
-    position: fixed;
-    bottom: 0;
-    height: 88px;
-    background-color: white;
-    opacity: 1;
-    z-index: 4;
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    border-top: 1px solid #e0e0e0;
-    padding: 0px 32px;
-    &.with-back-button {
-      justify-content: space-between;
-    }
-  }
-
-  .create-a-class-modal-header {
-    display: flex;
-    justify-content: space-between;
-    border-bottom: 1px solid #e0e0e0;
-    padding: 0px 32px;
-    height: 70px;
-    align-items: center;
-    img {
-      cursor: pointer;
-    }
-    .navigation {
+    .create-a-class-modal-header {
       display: flex;
-      color: #646464;
-      p {
-        margin-right: 24px;
+      justify-content: space-between;
+      border-bottom: 1px solid #e0e0e0;
+      padding: 0px 32px;
+      height: 70px;
+      align-items: center;
+      img {
+        cursor: pointer;
       }
-      .active {
-        color: #000;
+      .navigation {
+        display: flex;
+        color: #646464;
+        p {
+          margin-right: 24px;
+        }
+        .active {
+          color: #000;
+        }
       }
     }
   }
+
 
   // this is stuff that should be coming from the component library but is not working right now
   .character-limit {
