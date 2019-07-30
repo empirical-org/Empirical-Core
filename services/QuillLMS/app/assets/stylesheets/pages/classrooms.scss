@@ -9,6 +9,21 @@
     }
   }
 
+  .checkboxes {
+    margin-bottom: 32px;
+  }
+
+  .checkbox-row {
+    display: flex;
+    align-items: center;
+    .quill-checkbox {
+      margin-right: 24px;
+    }
+    span {
+      line-height: 1.57;
+    }
+  }
+
   h1, h2 {
     font-weight: bold;
     font-size: 24px;
@@ -21,13 +36,7 @@
   }
   .buttons {
     display: flex;
-    .import-from-google-button {
-      width: 242px;
-      white-space: nowrap;
-    }
     .create-a-class-button {
-      width: 129px;
-      white-space: nowrap;
       margin-left: 24px;
     }
   }
@@ -256,18 +265,11 @@
     overflow: visible;
     top: 50%;
     transform: translate(-50%, -50%);
+
     .checkboxes {
       margin-bottom: 32px;
       .checkbox-row {
-        display: flex;
         margin-bottom: 16px;
-        .quill-checkbox {
-          margin-right: 24px;
-          margin-top: 5px;
-        }
-        span {
-          line-height: 1.57;
-        }
       }
     }
   }
@@ -426,11 +428,17 @@
       align-items: center;
       border-top: 1px solid #e0e0e0;
       padding: 0px 32px;
+      .quill-button {
+        margin-left: 24px;
+      }
     }
     .data-table {
       height: 100%;
       overflow: scroll;
       padding-bottom: 220px;
+      .data-table-headers {
+        z-index: 7;
+      }
       .show-overflow {
         overflow: visible;
       }

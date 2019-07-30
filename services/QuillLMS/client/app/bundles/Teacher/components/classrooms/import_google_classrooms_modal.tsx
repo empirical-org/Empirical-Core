@@ -5,8 +5,11 @@ import * as moment from 'moment'
 import { DropdownInput } from 'quill-component-library/dist/componentLibrary'
 import { DataTable } from './dataTable'
 
-
 import GradeOptions from './grade_options'
+
+import { requestPost, requestPut, requestGet } from '../../../../modules/request/index.js';
+
+const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
 
 interface ImportGoogleClassroomsModalProps {
   close: (event) => void;
@@ -20,24 +23,22 @@ interface ImportGoogleClassroomsModalState {
   postAssignments: boolean;
 }
 
-const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
-
 const headers = [
   {
-    width: '376px',
+    width: '510px',
     name: 'Class',
     attribute: 'name'
   }, {
-    width: '134px',
+    width: '110px',
     name: 'Grade',
     attribute: 'grade',
     rowSectionClassName: 'show-overflow'
   }, {
-    width: '56px',
+    width: '32px',
     name: 'Year',
     attribute: 'year'
   }, {
-    width: '48px',
+    width: '51px',
     name: 'Students',
     attribute: 'students'
   }
@@ -52,6 +53,7 @@ export default class ImportGoogleClassroomsModal extends React.Component<ImportG
       postAssignments: !!props.user.post_google_classroom_assignments
     }
 
+    this.importClasses = this.importClasses.bind(this)
     this.togglePostAssignments = this.togglePostAssignments.bind(this)
     this.handleGradeChange = this.handleGradeChange.bind(this)
     this.toggleRowCheck = this.toggleRowCheck.bind(this)
@@ -113,6 +115,24 @@ export default class ImportGoogleClassroomsModal extends React.Component<ImportG
     } else {
       return <div className="quill-checkbox unselected" onClick={this.togglePostAssignments} />
     }
+  }
+
+  importClasses() {
+    const { onSuccess, close, } = this.props
+    const { classrooms, postAssignments, } = this.state
+    const selectedClassrooms = classrooms.filter(classroom => classroom.checked)
+    const dataForUserUpdate = {
+      post_google_classroom_assignments: postAssignments,
+      school_options_do_not_apply: true
+    };
+
+    requestPut('/teachers/update_my_account', dataForUserUpdate)
+
+    requestPost('/teachers/classrooms/update_google_classrooms', { selected_classrooms: selectedClassrooms, }, (body) => {
+      requestGet('/teachers/classrooms/import_google_students', () => {
+        onSuccess('Classes imported')
+      })
+    })
   }
 
   renderModalContent() {
