@@ -62,7 +62,7 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
     this.openInviteStudentsModal = this.openInviteStudentsModal.bind(this)
     this.closeInviteStudentsModal = this.closeInviteStudentsModal.bind(this)
     this.clickImportGoogleClassrooms = this.clickImportGoogleClassrooms.bind(this)
-    this.closeImportGoogleClassroomsModal = this.closeInviteStudentsModal.bind(this)
+    this.closeImportGoogleClassroomsModal = this.closeImportGoogleClassroomsModal.bind(this)
     this.showSnackbar = this.showSnackbar.bind(this)
     this.onSuccess = this.onSuccess.bind(this)
     this.clickClassroomHeader = this.clickClassroomHeader.bind(this)

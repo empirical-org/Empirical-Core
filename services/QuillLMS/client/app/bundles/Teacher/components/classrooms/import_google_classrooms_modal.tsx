@@ -73,9 +73,10 @@ export default class ImportGoogleClassroomsModal extends React.Component<ImportG
   }
 
   toggleRowCheck(id) {
-    debugger;
+    console.log('id', id)
     const { classrooms } = this.state
-    const classroom = classrooms.find(classroom => classroom.id = id)
+    const classroom = classrooms.find(classroom => classroom.id === id)
+    console.log('classroom', classroom)
     classroom.checked = !classroom.checked
     this.setState({ classrooms })
   }
@@ -100,7 +101,7 @@ export default class ImportGoogleClassroomsModal extends React.Component<ImportG
 
   handleGradeChange(classroomId, grade) {
     const { classrooms } = this.state
-    const classroom = classrooms.find(classroom => classroom.id = classroomId)
+    const classroom = classrooms.find(classroom => classroom.id === classroomId)
     classroom.grade = grade.value
     this.setState({ classrooms })
   }
@@ -121,12 +122,13 @@ export default class ImportGoogleClassroomsModal extends React.Component<ImportG
       const rows = classrooms.map(classroom => {
         const { name, username, id, creationTime, studentCount, checked, grade } = classroom
         const year = moment(creationTime).format('YYYY')
+        const gradeOption = GradeOptions.find(go => go.value === grade)
         const gradeSelector = <DropdownInput
           label="Select a grade"
           className="grade"
-          value={grade}
+          value={gradeOption}
           options={GradeOptions}
-          handleChange={(grade) => this.handleGradeChange(id, grade)}
+          handleChange={(g) => this.handleGradeChange(id, g)}
         />
         return {
           name,
