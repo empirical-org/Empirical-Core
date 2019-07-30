@@ -2,12 +2,12 @@ class GoogleStudentImporterWorker
   include Sidekiq::Worker
   sidekiq_options queue: 'critical'
 
-  def perform(teacher_id, context = "none")
+  def perform(teacher_id, context = "none", selected_classrooms=nil)
     begin
       teacher = User.find(teacher_id)
       client = google_client(teacher)
       students_requester = google_students_requester.generate(client)
-      classrooms = teacher.google_classrooms.to_a
+      classrooms = selected_classrooms ? selected_classrooms : teacher.google_classrooms.to_a
       google_students_creator.run(classrooms, students_requester)
     rescue StandardError => e
       NewRelic::Agent.notice_error(e, custom_params: { context: context })

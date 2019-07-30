@@ -9,10 +9,6 @@
     }
   }
 
-  .checkboxes {
-    margin-bottom: 32px;
-  }
-
   .checkbox-row {
     display: flex;
     align-items: center;
@@ -260,16 +256,20 @@
   .move-students-modal,
   .remove-students-modal,
   .remove-coteacher-modal,
-  .transfer-ownership-modal {
+  .transfer-ownership-modal,
+  .import-google-classroom-students-modal {
     width: 560px;
     overflow: visible;
     top: 50%;
     transform: translate(-50%, -50%);
-
     .checkboxes {
       margin-bottom: 32px;
       .checkbox-row {
         margin-bottom: 16px;
+        align-items: flex-start;
+        .quill-checkbox {
+          margin-top: 5px;
+        }
       }
     }
   }
@@ -346,7 +346,8 @@
   .move-students-modal,
   .remove-students-modal,
   .remove-coteacher-modal,
-  .transfer-ownership-modal {
+  .transfer-ownership-modal,
+  .import-google-classroom-students-modal {
     p {
       line-height: 1.57;
       color: #646464;
@@ -383,7 +384,8 @@
 
   .remove-students-modal,
   .remove-coteacher-modal,
-  .transfer-ownership-modal {
+  .transfer-ownership-modal,
+  .import-google-classroom-students-modal {
     .checkboxes {
       margin-bottom: 48px;
     }
@@ -397,6 +399,13 @@
     height: 350px;
     p {
       max-width: 490px;
+    }
+  }
+
+  .import-google-classroom-students-modal {
+    height: 306px;
+    .title {
+      margin-bottom: 24px;
     }
   }
 
