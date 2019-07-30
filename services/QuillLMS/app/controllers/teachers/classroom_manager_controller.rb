@@ -205,9 +205,13 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def import_google_students
+    if params[:classroom_id]
+      selected_classrooms = Classroom.where(id: params[:classroom_id])
+    end
     GoogleStudentImporterWorker.perform_async(
       current_user.id,
-      'Teachers::ClassroomManagerController'
+      'Teachers::ClassroomManagerController',
+      selected_classrooms
     )
     render json: {}
   end

@@ -7,6 +7,7 @@ import ChangeGradeModal from './change_grade_modal'
 import ArchiveClassModal from './archive_classroom_modal'
 import InviteStudentsModal from './invite_students_modal'
 import ImportGoogleClassroomsModal from './import_google_classrooms_modal'
+import ImportGoogleClassroomStudentsModal from './import_google_classroom_students_modal'
 import Classroom from './classroom'
 import ButtonLoadingIndicator from '../shared/button_loading_indicator'
 
@@ -36,6 +37,7 @@ const changeGradeModal = 'showChangeGradeModal'
 const archiveClassModal = 'showArchiveClassModal'
 const inviteStudentsModal = 'showInviteStudentsModal'
 const importGoogleClassroomsModal = 'showImportGoogleClassroomsModal'
+const importGoogleClassroomStudentsModal = 'showImportGoogleClassroomStudentsModal'
 
 export default class ActiveClassrooms extends React.Component<ActiveClassroomsProps, ActiveClassroomsState> {
   constructor(props) {
@@ -140,6 +142,7 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
           changeGrade={() => this.openModal(changeGradeModal)}
           archiveClass={() => this.openModal(archiveClassModal)}
           inviteStudents={() => this.openModal(inviteStudentsModal)}
+          importGoogleClassroomStudents={() => this.openModal(importGoogleClassroomStudentsModal)}
           classroom={classroom}
           classrooms={ownActiveClassrooms}
           selected={classroom.id === this.state.selectedClassroomId}
@@ -212,6 +215,18 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
     }
   }
 
+  renderImportGoogleClassroomStudentsModal() {
+    const { showModal, classrooms, selectedClassroomId } = this.state
+    if (showModal === importGoogleClassroomStudentsModal) {
+      const selectedClassroom = classrooms.find(c => c.id === selectedClassroomId)
+      return <ImportGoogleClassroomStudentsModal
+        close={this.closeModal}
+        onSuccess={this.onSuccess}
+        classroom={selectedClassroom}
+      />
+    }
+  }
+
   renderImportGoogleClassroomsModal() {
     const { googleClassrooms, showModal } = this.state
     if (showModal === importGoogleClassroomsModal) {
@@ -246,6 +261,7 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
       {this.renderArchiveClassModal()}
       {this.renderInviteStudentsModal()}
       {this.renderImportGoogleClassroomsModal()}
+      {this.renderImportGoogleClassroomStudentsModal()}
       {this.renderSnackbar()}
       <div className="header">
         <h1>Active Classes</h1>
