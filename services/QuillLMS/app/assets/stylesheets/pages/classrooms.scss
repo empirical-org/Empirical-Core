@@ -156,7 +156,7 @@
     .students-section-header, .teacher-section-header {
       display: flex;
       justify-content: space-between;
-      align-items: center;
+      align-items: flex-start;
     }
     .teacher-section-header {
       margin-bottom: 26px;

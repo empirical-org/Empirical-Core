@@ -369,7 +369,7 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
       return <div className="students-section">
         <div className="students-section-header">
           <h3>Students</h3>
-          <button className="quill-button primary outlined small">Invite students</button>
+          {this.renderInviteStudents()}
         </div>
         <div className="no-students">
           <img src={emptyDeskSrc} />
