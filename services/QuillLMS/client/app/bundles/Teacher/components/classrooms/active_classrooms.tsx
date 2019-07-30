@@ -8,6 +8,8 @@ import ArchiveClassModal from './archive_classroom_modal'
 import InviteStudentsModal from './invite_students_modal'
 import ImportGoogleClassroomsModal from './import_google_classrooms_modal'
 import ImportGoogleClassroomStudentsModal from './import_google_classroom_students_modal'
+import GoogleClassroomEmailModal from './google_classroom_email_modal'
+import GoogleClassroomsEmptyModal from './google_classrooms_empty_modal'
 import Classroom from './classroom'
 import ButtonLoadingIndicator from '../shared/button_loading_indicator'
 
@@ -38,6 +40,8 @@ const archiveClassModal = 'showArchiveClassModal'
 const inviteStudentsModal = 'showInviteStudentsModal'
 const importGoogleClassroomsModal = 'showImportGoogleClassroomsModal'
 const importGoogleClassroomStudentsModal = 'showImportGoogleClassroomStudentsModal'
+const googleClassroomEmailModal = 'showGoogleClassroomEmailModal'
+const googleClassroomsEmptyModal = 'showGoogleClassroomsEmptyModal'
 
 export default class ActiveClassrooms extends React.Component<ActiveClassroomsProps, ActiveClassroomsState> {
   constructor(props) {
@@ -103,11 +107,16 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
   }
 
   clickImportGoogleClassrooms() {
+    const { user } = this.props
     const { googleClassrooms, googleClassroomsLoading, } = this.state
-    if (googleClassroomsLoading) {
+    if (!user.google_id) {
+      this.openModal(googleClassroomEmailModal)
+    } else if (googleClassroomsLoading) {
       this.setState({ attemptedImportGoogleClassrooms: true })
     } else if (googleClassrooms.length) {
       this.openModal(importGoogleClassroomsModal)
+    } else {
+      this.openModal(googleClassroomsEmptyModal)
     }
   }
 
@@ -239,6 +248,17 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
     }
   }
 
+  renderGoogleClassroomEmailModal() {
+    const { showModal } = this.state
+    if (showModal === googleClassroomEmailModal) {
+      return <GoogleClassroomEmailModal
+        close={this.closeModal}
+        onSuccess={this.onSuccess}
+        user={this.props.user}
+      />
+    }
+  }
+
   renderImportGoogleClassroomsButton() {
     const { googleClassroomsLoading, attemptedImportGoogleClassrooms } = this.state
     let buttonContent = 'Import from Google Classroom'
@@ -262,6 +282,7 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
       {this.renderInviteStudentsModal()}
       {this.renderImportGoogleClassroomsModal()}
       {this.renderImportGoogleClassroomStudentsModal()}
+      {this.renderGoogleClassroomEmailModal()}
       {this.renderSnackbar()}
       <div className="header">
         <h1>Active Classes</h1>
