@@ -34,14 +34,14 @@ interface ActiveClassroomsState {
 }
 
 export const createAClassModal = 'createAClassModal'
-export const renameClassModal = 'showRenameClassModal'
-export const changeGradeModal = 'showChangeGradeModal'
-export const archiveClassModal = 'showArchiveClassModal'
-export const inviteStudentsModal = 'showInviteStudentsModal'
-export const importGoogleClassroomsModal = 'showImportGoogleClassroomsModal'
-export const importGoogleClassroomStudentsModal = 'showImportGoogleClassroomStudentsModal'
-export const googleClassroomEmailModal = 'showGoogleClassroomEmailModal'
-export const googleClassroomsEmptyModal = 'showGoogleClassroomsEmptyModal'
+export const renameClassModal = 'renameClassModal'
+export const changeGradeModal = 'changeGradeModal'
+export const archiveClassModal = 'archiveClassModal'
+export const inviteStudentsModal = 'inviteStudentsModal'
+export const importGoogleClassroomsModal = 'importGoogleClassroomsModal'
+export const importGoogleClassroomStudentsModal = 'importGoogleClassroomStudentsModal'
+export const googleClassroomEmailModal = 'googleClassroomEmailModal'
+export const googleClassroomsEmptyModal = 'googleClassroomsEmptyModal'
 
 export default class ActiveClassrooms extends React.Component<ActiveClassroomsProps, ActiveClassroomsState> {
   constructor(props) {
@@ -164,6 +164,7 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
           archiveClass={() => this.openModal(archiveClassModal)}
           inviteStudents={() => this.openModal(inviteStudentsModal)}
           importGoogleClassroomStudents={() => this.openModal(importGoogleClassroomStudentsModal)}
+          inviteCoteachers={() => this.openModal(inviteCoteachersModal)}
           classroom={classroom}
           classrooms={ownActiveClassrooms}
           selected={classroom.id === this.state.selectedClassroomId}
