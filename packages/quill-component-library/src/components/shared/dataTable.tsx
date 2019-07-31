@@ -33,6 +33,7 @@ interface DataTableHeader {
 interface DataTableProps {
   headers: Array<DataTableHeader>;
   rows: Array<DataTableRow>;
+  averageFontWidth: number;
   className?: string;
   defaultSortAttribute?: string;
   defaultSortDirection?: string;
@@ -54,6 +55,7 @@ interface DataTableState {
 
 export class DataTable extends React.Component<DataTableProps, DataTableState> {
   private selectedStudentActions: any
+  static defaultProps: { averageFontWidth: number }
 
   constructor(props) {
     super(props)
@@ -207,10 +209,11 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
   }
 
   renderRowSection(row, header) {
+    const { averageFontWidth, } = this.props
     let style: React.CSSProperties = { width: `${header.width}`, minWidth: `${header.width}`, textAlign: `${this.attributeAlignment(header.attribute)}` as CSS.TextAlignProperty }
     const sectionText = row[header.attribute]
     const headerWidthNumber = Number(header.width.slice(0, -2))
-    if ((String(sectionText).length * 7) >= headerWidthNumber) {
+    if ((String(sectionText).length * averageFontWidth) >= headerWidthNumber) {
       return <Tooltip
         tooltipTriggerTextClass="data-table-row-section"
         tooltipTriggerText={sectionText}
@@ -247,4 +250,8 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     </div>
   }
 
+}
+
+DataTable.defaultProps = {
+  averageFontWidth: 7
 }
