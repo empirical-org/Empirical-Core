@@ -9,6 +9,10 @@
     }
   }
 
+  .import-from-google-button.loading {
+    background-color: #f5f5f5;
+  }
+
   .checkbox-row {
     display: flex;
     align-items: center;
@@ -258,7 +262,8 @@
   .remove-coteacher-modal,
   .transfer-ownership-modal,
   .import-google-classroom-students-modal,
-  .google-classroom-email-modal {
+  .google-classroom-email-modal,
+  .google-classrooms-empty-modal {
     width: 560px;
     overflow: visible;
     top: 50%;
@@ -412,6 +417,13 @@
       &.error.unacknowledged {
         margin-bottom: 14px;
       }
+    }
+  }
+
+  .google-classrooms-empty-modal {
+    height: 449px;
+    .title, p {
+      margin-bottom: 48px;
     }
   }
 
