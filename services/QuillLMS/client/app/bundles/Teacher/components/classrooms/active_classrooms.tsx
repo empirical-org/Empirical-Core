@@ -33,15 +33,15 @@ interface ActiveClassroomsState {
   snackbarCopy?: string;
 }
 
-const createAClassModal = 'createAClassModal'
-const renameClassModal = 'showRenameClassModal'
-const changeGradeModal = 'showChangeGradeModal'
-const archiveClassModal = 'showArchiveClassModal'
-const inviteStudentsModal = 'showInviteStudentsModal'
-const importGoogleClassroomsModal = 'showImportGoogleClassroomsModal'
-const importGoogleClassroomStudentsModal = 'showImportGoogleClassroomStudentsModal'
-const googleClassroomEmailModal = 'showGoogleClassroomEmailModal'
-const googleClassroomsEmptyModal = 'showGoogleClassroomsEmptyModal'
+export const createAClassModal = 'createAClassModal'
+export const renameClassModal = 'showRenameClassModal'
+export const changeGradeModal = 'showChangeGradeModal'
+export const archiveClassModal = 'showArchiveClassModal'
+export const inviteStudentsModal = 'showInviteStudentsModal'
+export const importGoogleClassroomsModal = 'showImportGoogleClassroomsModal'
+export const importGoogleClassroomStudentsModal = 'showImportGoogleClassroomStudentsModal'
+export const googleClassroomEmailModal = 'showGoogleClassroomEmailModal'
+export const googleClassroomsEmptyModal = 'showGoogleClassroomsEmptyModal'
 
 export default class ActiveClassrooms extends React.Component<ActiveClassroomsProps, ActiveClassroomsState> {
   constructor(props) {

@@ -18,6 +18,7 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
     >
       <button
         className="quill-button medium secondary outlined import-from-google-button"
+        onClick={[Function]}
       >
         Import from Google Classroom
       </button>
@@ -347,6 +348,7 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
         ]
       }
       clickClassroomHeader={[Function]}
+      importGoogleClassroomStudents={[Function]}
       inviteStudents={[Function]}
       isOwnedByCurrentUser={true}
       onSuccess={[Function]}
@@ -700,6 +702,7 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
         ]
       }
       clickClassroomHeader={[Function]}
+      importGoogleClassroomStudents={[Function]}
       inviteStudents={[Function]}
       isOwnedByCurrentUser={true}
       onSuccess={[Function]}
@@ -1110,6 +1113,7 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
         ]
       }
       clickClassroomHeader={[Function]}
+      importGoogleClassroomStudents={[Function]}
       inviteStudents={[Function]}
       isOwnedByCurrentUser={true}
       onSuccess={[Function]}
@@ -1170,6 +1174,7 @@ exports[`ActiveClassrooms component with no classrooms should render with no cla
     >
       <button
         className="quill-button medium secondary outlined import-from-google-button"
+        onClick={[Function]}
       >
         Import from Google Classroom
       </button>
