@@ -62,7 +62,9 @@ export default class ImportGoogleClassroomsModal extends React.Component<ImportG
   footerButtonClass() {
     const { classrooms } = this.state
     let buttonClass = 'quill-button contained primary medium';
-    if (classrooms.every(classroom => !classroom.checked)) {
+    const noClassroomsChecked = classrooms.every(classroom => !classroom.checked)
+    const anyClassroomsCheckedWithNoGrade = classrooms.find(classroom => classroom.checked && !classroom.grade)
+    if (noClassroomsChecked || anyClassroomsCheckedWithNoGrade) {
       buttonClass += ' disabled';
     }
     return buttonClass;
@@ -73,10 +75,8 @@ export default class ImportGoogleClassroomsModal extends React.Component<ImportG
   }
 
   toggleRowCheck(id) {
-    console.log('id', id)
     const { classrooms } = this.state
     const classroom = classrooms.find(classroom => classroom.id === id)
-    console.log('classroom', classroom)
     classroom.checked = !classroom.checked
     this.setState({ classrooms })
   }
