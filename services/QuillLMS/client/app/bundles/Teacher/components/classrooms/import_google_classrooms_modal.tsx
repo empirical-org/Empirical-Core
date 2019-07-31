@@ -62,7 +62,9 @@ export default class ImportGoogleClassroomsModal extends React.Component<ImportG
   footerButtonClass() {
     const { classrooms } = this.state
     let buttonClass = 'quill-button contained primary medium';
-    if (classrooms.every(classroom => !classroom.checked)) {
+    const noClassroomsAreChecked = classrooms.every(classroom => !classroom.checked)
+    const anyCheckedClassroomsWithNoGrade = classrooms.any(classroom => classroom.checked && !classroom.grade)
+    if (noClassroomsAreChecked || anyCheckedClassroomsWithNoGrade) {
       buttonClass += ' disabled';
     }
     return buttonClass;

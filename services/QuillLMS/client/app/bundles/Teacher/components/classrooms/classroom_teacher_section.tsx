@@ -32,46 +32,53 @@ const headers = [
 interface ClassroomTeacherSectionProps {
   user: any;
   classroom: any;
+  classrooms: Array<any>;
   onSuccess: (event) => void;
   isOwnedByCurrentUser: boolean;
 }
 
 interface ClassroomTeacherSectionState {
-  showRemoveCoteacherModal: boolean;
-  showTransferOwnershipModal: boolean;
+  showModal?: string;
   selectedCoteacherId?: string|number;
 }
+
+export const inviteCoteachersModal = 'inviteCoteachersModal'
+export const removeCoteacherModal = 'removeCoteacherModal'
+export const transferOwnershipModal = 'transferOwnershipModal'
 
 export default class ClassroomTeacherSection extends React.Component<ClassroomTeacherSectionProps, ClassroomTeacherSectionState> {
   constructor(props) {
     super(props)
 
     this.state = {
-      showRemoveCoteacherModal: false,
-      showTransferOwnershipModal: false
+      showModal: null
     }
 
     this.actions = this.actions.bind(this)
     this.classroomOwner = this.classroomOwner.bind(this)
     this.removeCoteacher = this.removeCoteacher.bind(this)
     this.transferOwnership = this.transferOwnership.bind(this)
-    this.closeRemoveCoteacherModal = this.closeRemoveCoteacherModal.bind(this)
-    this.closeTransferOwnershipModal = this.closeTransferOwnershipModal.bind(this)
+    this.closeModal = this.closeModal.bind(this)
   }
 
   actions(status) {
+    const { classrooms } = this.props
     let transferClassAction
+    let inviteCoteachersAction
     if (status === 'Joined') {
       transferClassAction = {
         name: 'Transfer class',
         action: (id) => this.transferOwnership(id)
       }
     }
-    return [
-      {
+    if (classrooms.length > 1) {
+      inviteCoteachersAction = {
         name: 'Invite to another class',
-        action: (id) => console.log('Invite to another class', id)
-      },
+        action: (id) => this.inviteCoteachers(id)
+      }
+    }
+    return [
+      inviteCoteachersAction,
       transferClassAction,
       {
         name: 'Remove from class',
@@ -94,19 +101,19 @@ export default class ClassroomTeacherSection extends React.Component<ClassroomTe
   }
 
   removeCoteacher(id) {
-    this.setState({ showRemoveCoteacherModal: true, selectedCoteacherId: id })
+    this.setState({ showModal: removeCoteacherModal, selectedCoteacherId: id })
   }
 
-  closeRemoveCoteacherModal() {
-    this.setState({ showRemoveCoteacherModal: false, selectedCoteacherId: null })
+  closeModal() {
+    this.setState({ showModal: null, selectedCoteacherId: null })
   }
 
   transferOwnership(id) {
-    this.setState({ showTransferOwnershipModal: true, selectedCoteacherId: id })
+    this.setState({ showModal: transferOwnershipModal, selectedCoteacherId: id })
   }
 
-  closeTransferOwnershipModal() {
-    this.setState({ showTransferOwnershipModal: false, selectedCoteacherId: null })
+  inviteCoteachers(id=null) {
+    this.setState({ showModal: inviteCoteachersModal, selectedCoteacherId: id })
   }
 
   renderTeacherRow(teacher) {
@@ -148,11 +155,11 @@ export default class ClassroomTeacherSection extends React.Component<ClassroomTe
 
   renderRemoveCoteacherModal() {
     const { classroom, onSuccess } = this.props
-    const { showRemoveCoteacherModal, selectedCoteacherId } = this.state
-    if (showRemoveCoteacherModal && selectedCoteacherId) {
+    const { showModal, selectedCoteacherId } = this.state
+    if (showModal && selectedCoteacherId) {
       const coteacher = classroom.teachers.find(t => t.id === selectedCoteacherId)
       return <RemoveCoteacherModal
-        close={this.closeRemoveCoteacherModal}
+        close={this.closeModal}
         onSuccess={onSuccess}
         coteacher={coteacher}
         classroom={classroom}
@@ -162,14 +169,29 @@ export default class ClassroomTeacherSection extends React.Component<ClassroomTe
 
   renderTransferOwnershipModal() {
     const { classroom, onSuccess } = this.props
-    const { showTransferOwnershipModal, selectedCoteacherId } = this.state
-    if (showTransferOwnershipModal && selectedCoteacherId) {
+    const { showModal, selectedCoteacherId } = this.state
+    if (showModal && selectedCoteacherId) {
       const coteacher = classroom.teachers.find(t => t.id === selectedCoteacherId)
       return <TransferOwnershipModal
-        close={this.closeTransferOwnershipModal}
+        close={this.closeModal}
         onSuccess={onSuccess}
         coteacher={coteacher}
         classroom={classroom}
+      />
+    }
+  }
+
+  renderInviteCoteachersModal() {
+    const { classroom, classrooms, onSuccess } = this.props
+    const { showModal, selectedCoteacherId } = this.state
+    if (showModal === inviteCoteachersModal) {
+      const coteacher = classroom.teachers.find(t => t.id === selectedCoteacherId)
+      return <InviteCoteachersModal
+        close={this.closeModal}
+        classrooms={classrooms}
+        classroom={selectedClassroom}
+        onSuccess={this.onSuccess}
+        coteacher={coteacher}
       />
     }
   }
@@ -178,9 +200,10 @@ export default class ClassroomTeacherSection extends React.Component<ClassroomTe
     return <div className="teacher-section">
       {this.renderRemoveCoteacherModal()}
       {this.renderTransferOwnershipModal()}
+      {this.renderInviteCoteachersModal()}
       <div className="teacher-section-header">
         <h3>Teachers</h3>
-        <button className="quill-button primary outlined small">Invite co-teachers</button>
+        <button className="quill-button primary outlined small" onClick={() => this.inviteCoteachers()}>Invite co-teachers</button>
       </div>
       {this.renderTeachers()}
     </div>

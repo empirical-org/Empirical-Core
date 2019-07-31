@@ -21,6 +21,7 @@ interface ClassroomProps {
   inviteStudents: (event) => void;
   importGoogleClassroomStudents: (event) => void;
   onSuccess: (event) => void;
+  inviteCoteachers: (event) => void;
 }
 
 interface ClassroomState {
@@ -122,23 +123,25 @@ export default class Classroom extends React.Component<ClassroomProps, Classroom
       classrooms,
       isOwnedByCurrentUser,
       importGoogleClassroomStudents,
+      inviteCoteachers
     } = this.props
     const sharedProps = {
       user,
       classroom,
       onSuccess,
-      isOwnedByCurrentUser
+      isOwnedByCurrentUser,
+      classrooms
     }
     return <div>
       {this.renderClassSettings()}
       <ClassroomStudentSection
         {...sharedProps}
-        classrooms={classrooms}
         inviteStudents={inviteStudents}
         importGoogleClassroomStudents={importGoogleClassroomStudents}
       />
       <ClassroomTeacherSection
         {...sharedProps}
+        inviteCoteachers={inviteCoteachers}
       />
     </div>
   }
