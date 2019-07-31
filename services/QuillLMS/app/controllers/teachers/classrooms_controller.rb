@@ -16,7 +16,7 @@ class Teachers::ClassroomsController < ApplicationController
   end
 
   def new_index
-    classrooms = Classroom.joins('JOIN classrooms_teachers ON classrooms_teachers.classroom_id = classrooms.id').where("classrooms_teachers.user_id = #{current_user.id}")
+    clasrooms = Classroom.unscoped.joins(:classrooms_teachers).where(classrooms_teachers: {user_id: current_user.id})
     @classrooms = classrooms.compact.map do |classroom|
       classroom_obj = classroom.attributes
       classroom_obj[:students] = classroom.students.map do |s|
