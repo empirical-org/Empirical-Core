@@ -1,33 +1,30 @@
 import * as React from 'react'
 import * as moment from 'moment'
 
-import { DropdownInput, DataTable } from 'quill-component-library/dist/componentLibrary'
-
-import GradeOptions from './grade_options'
+import { Input, DataTable } from 'quill-component-library/dist/componentLibrary'
 
 import { requestPost, requestPut, requestGet } from '../../../../modules/request/index.js';
-
-const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
 
 interface InviteCoteachersModalProps {
   close: (event) => void;
   onSuccess: (event) => void;
   classrooms: Array<any>;
-  user: any;
+  classroom: any;
+  coteacher: any;
 }
 
 interface InviteCoteachersModalState {
-  classrooms: Array<any>;
-  postAssignments: boolean;
+  selectedClassroomIds: Array<string|number>;
+  email: string;
 }
 
 const headers = [
   {
-    width: '316px',
+    width: '280px',
     name: 'Class',
     attribute: 'name'
   }, {
-    width: '84px',
+    width: '100px',
     name: 'Created',
     attribute: 'created'
   }
@@ -38,12 +35,14 @@ export default class InviteCoteachersModal extends React.Component<InviteCoteach
     super(props)
 
     this.state = {
-      email: props.coteacher ? props.coteacher.email : ''
+      email: props.coteacher ? props.coteacher.email : '',
+      selectedClassroomIds: [props.classroom.id]
     }
 
     this.inviteCoteachers = this.inviteCoteachers.bind(this)
-    this.handleGradeChange = this.handleGradeChange.bind(this)
+    this.handleEmailChange = this.handleEmailChange.bind(this)
     this.checkRow = this.checkRow.bind(this)
+    this.uncheckRow = this.uncheckRow.bind(this)
     this.checkAllRows = this.checkAllRows.bind(this)
     this.uncheckAllRows = this.uncheckAllRows.bind(this)
   }
@@ -57,9 +56,13 @@ export default class InviteCoteachersModal extends React.Component<InviteCoteach
     return buttonClass;
   }
 
+  handleEmailChange(event) {
+    this.setState({ email: event.target.value })
+  }
+
   checkRow(id) {
     const { selectedClassroomIds } = this.state
-    const newSelectedClassroomIds = selectedClassroomIds.push(id)
+    const newSelectedClassroomIds = selectedClassroomIds.concat(id)
     this.setState({ selectedClassroomIds: newSelectedClassroomIds })
   }
 
@@ -70,30 +73,25 @@ export default class InviteCoteachersModal extends React.Component<InviteCoteach
   }
 
   checkAllRows() {
-    const { classrooms } = this.state
-    const newClassrooms = classrooms.map(classroom => {
-      classroom.checked = true
-      return classroom
-    })
-    this.setState({ classrooms: newClassrooms })
+    const { classrooms } = this.props
+    const newSelectedClassroomIds = classrooms.map(classroom => classroom.id)
+    this.setState({ selectedClassroomIds: newSelectedClassroomIds })
   }
 
   uncheckAllRows() {
-    const { classrooms } = this.state
-    const newClassrooms = classrooms.map(classroom => {
-      classroom.checked = false
-      return classroom
-    })
-    this.setState({ classrooms: newClassrooms })
+    this.setState({ selectedClassroomIds: [] })
   }
+
   inviteCoteachers() {
-    const { onSuccess, } = this.props
+    const { onSuccess, close, } = this.props
     const { email, selectedClassroomIds } = this.state
     const dataForInvite = { classroom_ids: selectedClassroomIds, invitee_email: email }
     requestPost('/invitations/create_coteacher_invitation', dataForInvite, (body) => {
       onSuccess('Co-teacher invited')
+      close()
     })
   }
+
   renderEmailInput() {
     const { coteacher } = this.props
     const { email } = this.state
@@ -103,21 +101,21 @@ export default class InviteCoteachersModal extends React.Component<InviteCoteach
         value={email}
         type="text"
         disabled={true}
-        className="email"
+        className="email disabled"
       />
     } else {
       return <Input
         label="Co-teacher email"
         value={email}
         type="text"
-        onChange={this.handleEmailChange}
+        handleChange={this.handleEmailChange}
         className="email"
+        placeholder="teacher@example.edu"
       />
     }
   }
 
-
-  returnModalContent() {
+  renderModalContent() {
     return <div className="invite-coteachers-modal-content">
       <p>Co-teachers can do everything you can except move or merge students, archive classes, edit activity packs, and access your Premium features.</p>
       {this.renderEmailInput()}
@@ -126,31 +124,38 @@ export default class InviteCoteachersModal extends React.Component<InviteCoteach
   }
 
   renderDataTable() {
-    if (this.state.classrooms.length) {
-      const { classrooms, } = this.state
+    const { classrooms, coteacher, } = this.props
+    const { selectedClassroomIds, } = this.state
 
-      const rows = classrooms.map(classroom => {
-        const { name, createdAt, id } = classroom
-        const created = moment(created_at).format('MMM DD, YYYY')
-        const checked = !!selectedClassroomIds.find(selectedId => selectedId === id)
-        return {
-          name,
-          id,
-          created,
-          checked
-        }
+    let possibleClassrooms = classrooms
+
+    if (coteacher) {
+      possibleClassrooms = classrooms.filter(classroom => {
+        return !classroom.teachers.find(teacher => teacher.id === coteacher.id)
       })
-
-      return <DataTable
-        headers={headers}
-        rows={rows}
-        showCheckboxes={true}
-        checkRow={this.checkRow}
-        uncheckRow={this.uncheckRow}
-        uncheckAllRows={this.uncheckAllRows}
-        checkAllRows={this.checkAllRows}
-      />
     }
+
+    const rows = possibleClassrooms.map(classroom => {
+      const { name, created_at, id } = classroom
+      const created = moment(created_at).format('MMM DD, YYYY')
+      const checked = !!selectedClassroomIds.find(selectedId => selectedId === id)
+      return {
+        name,
+        id,
+        created,
+        checked
+      }
+    })
+
+    return <DataTable
+      headers={headers}
+      rows={rows}
+      showCheckboxes={true}
+      checkRow={this.checkRow}
+      uncheckRow={this.uncheckRow}
+      uncheckAllRows={this.uncheckAllRows}
+      checkAllRows={this.checkAllRows}
+    />
   }
 
   render() {

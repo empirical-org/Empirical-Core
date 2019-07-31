@@ -64,27 +64,25 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
   }
 
   componentDidMount() {
-    if (this.props.user.google_id) {
-      this.getGoogleClassrooms()
-    } else {
-      this.setState({ googleClassroomsLoading: false })
-    }
+    this.getGoogleClassrooms()
   }
 
   getGoogleClassrooms() {
-    this.setState({ googleClassroomsLoading: true}, () => {
-      requestGet('/teachers/classrooms/retrieve_google_classrooms', (body) => {
-        const googleClassrooms = body.classrooms
-        // const googleClassrooms = body.classrooms.filter(classroom => !classroom.alreadyImported)
-        const newStateObj = { googleClassrooms, googleClassroomsLoading: false }
-        if (this.state.attemptedImportGoogleClassrooms) {
-          newStateObj.attemptedImportGoogleClassrooms = false
-          this.setState(newStateObj, this.clickImportGoogleClassrooms)
-        } else {
-          this.setState(newStateObj)
-        }
-      });
-    })
+    if (this.props.user.google_id) {
+      this.setState({ googleClassroomsLoading: true}, () => {
+        requestGet('/teachers/classrooms/retrieve_google_classrooms', (body) => {
+          const googleClassrooms = body.classrooms
+          // const googleClassrooms = body.classrooms.filter(classroom => !classroom.alreadyImported)
+          const newStateObj = { googleClassrooms, googleClassroomsLoading: false }
+          if (this.state.attemptedImportGoogleClassrooms) {
+            newStateObj.attemptedImportGoogleClassrooms = false
+            this.setState(newStateObj, this.clickImportGoogleClassrooms)
+          } else {
+            this.setState(newStateObj)
+          }
+        });
+      })
+    }
   }
 
   getClassrooms() {
