@@ -54,14 +54,24 @@ export default class EditStudentAccountModal extends React.Component<EditStudent
     const { onSuccess, close, student, classroom, } = this.props
     const { firstName, lastName, username, timesSubmitted, } = this.state
     const user = { name: `${firstName} ${lastName}`, username }
-    requestPut(`/teachers/classrooms/${classroom.id}/students/${student.id}`, { user, }, (body) => {
-      if (body && body.errors) {
-        this.setState({ errors: body.errors, timesSubmitted: timesSubmitted + 1 });
-      } else {
-        onSuccess('Student account saved')
-        close()
+    requestPut(`/teachers/classrooms/${classroom.id}/students/${student.id}`, { user, },
+      (body) => {
+        debugger;
+        if (body && body.errors) {
+          this.setState({ errors: body.errors, timesSubmitted: timesSubmitted + 1 });
+        } else {
+          onSuccess('Student account saved')
+        }
+      },
+      (body) => {
+        debugger;
+        if (body && body.errors) {
+          this.setState({ errors: body.errors, timesSubmitted: timesSubmitted + 1 });
+        } else {
+          onSuccess('Student account saved')
+        }
       }
-    })
+    )
   }
 
   submitButtonClass() {

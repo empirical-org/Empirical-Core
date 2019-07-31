@@ -103,7 +103,11 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
   }
 
   closeModal(callback=null) {
-    this.setState({ showModal: null}, callback)
+    this.setState({ showModal: null}, () => {
+      if (callback && typeof(callback) === 'function') {
+        callback()
+      }
+    })
   }
 
   clickImportGoogleClassrooms() {
