@@ -21,7 +21,7 @@ export default class GoogleClassroomEmailModal extends React.Component<GoogleCla
     super(props)
 
     this.state = {
-      username: props.user.email,
+      email: props.user.email,
       errors: {},
       timesSubmitted: 0
     }
@@ -36,15 +36,20 @@ export default class GoogleClassroomEmailModal extends React.Component<GoogleCla
 
   updateEmail() {
     const { onSuccess, close, } = this.props
-    const { email, } = this.state
+    const { email, timesSubmitted, } = this.state
     const dataForUserUpdate = {
       email,
       school_options_do_not_apply: true
     };
 
-    requestPut('/teachers/update_my_account', dataForUserUpdate, (body) => {
-      onSuccess('Email updated')
-    })
+    requestPut('/teachers/update_my_account', dataForUserUpdate,
+      () => window.location.href = `${process.env.DEFAULT_URL}/auth/google_oauth2?prompt=consent`,
+      (body) => {
+        if (body && body.errors) {
+          this.setState({ errors: body.errors, timesSubmitted: timesSubmitted + 1 });
+        }
+      }
+    )
   }
 
   submitButtonClass() {
@@ -63,8 +68,9 @@ export default class GoogleClassroomEmailModal extends React.Component<GoogleCla
       <div className="modal-background" />
       <div className="google-classroom-email-modal modal modal-body">
         <div>
-          <h3 className="title">Edit your student account</h3>
+          <h3 className="title">Add a Google Classroom email</h3>
         </div>
+        <p>This email is not associated with a Google Classroom account. Please update your Quill email to match your Google Classroom email.</p>
         <Input
           label="New Quill email"
           value={email}
@@ -73,7 +79,6 @@ export default class GoogleClassroomEmailModal extends React.Component<GoogleCla
           className="email"
           error={errors.email}
           timesSubmitted={timesSubmitted}
-          characterLimit={50}
         />
         <div className="form-buttons">
           <button className="quill-button outlined secondary medium" onClick={this.props.close}>Cancel</button>

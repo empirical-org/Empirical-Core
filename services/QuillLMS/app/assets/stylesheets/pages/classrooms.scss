@@ -257,11 +257,17 @@
   .remove-students-modal,
   .remove-coteacher-modal,
   .transfer-ownership-modal,
-  .import-google-classroom-students-modal {
+  .import-google-classroom-students-modal,
+  .google-classroom-email-modal {
     width: 560px;
     overflow: visible;
     top: 50%;
     transform: translate(-50%, -50%);
+    p {
+      line-height: 1.57;
+      color: #646464;
+      margin-bottom: 32px;
+    }
     .checkboxes {
       margin-bottom: 32px;
       .checkbox-row {
@@ -290,10 +296,7 @@
   .change-grade-modal {
     height: 327px;
     p {
-      line-height: 1.57;
       margin-top: 24px;
-      color: #646464;
-      margin-bottom: 32px;
     }
     .input-container {
       margin-bottom: 48px;
@@ -329,11 +332,6 @@
 
   .reset-student-password-modal {
     height: 327px;
-    p {
-      line-height: 1.57;
-      color: #646464;
-      margin-bottom: 32px;
-    }
     .input-container {
       margin-bottom: 36px;
       input {
@@ -348,11 +346,6 @@
   .remove-coteacher-modal,
   .transfer-ownership-modal,
   .import-google-classroom-students-modal {
-    p {
-      line-height: 1.57;
-      color: #646464;
-      margin-bottom: 32px;
-    }
     .input-container {
       margin-bottom: 32px;
       &.inactive {
@@ -406,6 +399,19 @@
     height: 306px;
     .title {
       margin-bottom: 24px;
+    }
+  }
+
+  .google-classroom-email-modal {
+    height: 327px;
+    .title {
+      margin-bottom: 24px;
+    }
+    .input-container {
+      margin-bottom: 36px;
+      &.error.unacknowledged {
+        margin-bottom: 14px;
+      }
     }
   }
 
