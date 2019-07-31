@@ -85,6 +85,14 @@ class Teachers::ClassroomsController < ApplicationController
     render json: { students: classroom.students }
   end
 
+  def remove_students
+    students_classrooms = StudentsClassrooms.where(student_id: params[:student_ids], classroom_id: params[:classroom_id])
+    students_classrooms.each do |sc|
+      sc.update(visible: false)
+    end
+    render json: {}
+  end
+
   def update
     @classroom.update_attributes(classroom_params)
     # this is updated from the students tab of the scorebook, so will make sure we keep user there
