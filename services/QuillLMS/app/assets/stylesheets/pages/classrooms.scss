@@ -242,7 +242,12 @@
     }
   }
 
-  .rename-class-modal, .change-grade-modal, .archive-class-modal, .edit-student-account-modal, .reset-student-password-modal {
+  .rename-class-modal,
+  .change-grade-modal,
+  .archive-class-modal,
+  .edit-student-account-modal,
+  .reset-student-password-modal,
+  .merge-student-accounts-modal {
     top: 50%;
     transform: translate(-50%, -50%);
   }
@@ -317,6 +322,49 @@
       margin-bottom: 36px;
       input {
         border-bottom: none;
+      }
+    }
+  }
+
+  .merge-student-accounts-modal {
+    width: 560px;
+    height: 608px;
+    p {
+      line-height: 1.57;
+      color: #646464;
+      margin-bottom: 32px;
+    }
+    .swap {
+      cursor: pointer;
+      display: flex;
+      justify-content: flex-end;
+      font-weight: 600;
+      margin-bottom: 16px;
+      img {
+        margin-right: 4px;
+      }
+    }
+    .input-container {
+      margin-bottom: 32px;
+      &.inactive {
+        height: 59px;
+      }
+      &.active {
+        margin-bottom: 83px;
+      }
+    }
+    .checkboxes {
+      margin-bottom: 32px;
+      .checkbox-row {
+        display: flex;
+        margin-bottom: 16px;
+        .quill-checkbox {
+          margin-right: 24px;
+          margin-top: 5px;
+        }
+        span {
+          line-height: 1.57;
+        }
       }
     }
   }

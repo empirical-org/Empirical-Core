@@ -33,6 +33,7 @@ interface DataTableHeader {
 interface DataTableProps {
   headers: Array<DataTableHeader>;
   rows: Array<DataTableRow>;
+  averageFontWidth: number;
   className?: string;
   defaultSortAttribute?: string;
   defaultSortDirection?: string;
@@ -54,6 +55,7 @@ interface DataTableState {
 
 export class DataTable extends React.Component<DataTableProps, DataTableState> {
   private selectedStudentActions: any
+  static defaultProps: { averageFontWidth: number }
 
   constructor(props) {
     super(props)
@@ -152,78 +154,92 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
   }
 
   renderActions(row) {
-    if (row.actions) {
-      const { rowWithActionsOpen } = this.state
-      let content
-      if (rowWithActionsOpen === row.id) {
-        const rowActions = row.actions.map(act => <span onClick={() => this.clickAction(act.action, row.id)}>{act.name}</span>)
-        content = <div className="actions-menu-container" ref={node => this.selectedStudentActions = node}>
-          <div className="actions-menu">
-            {rowActions}
-          </div>
-        </div>
-      } else {
-        content = <button
-          className="quill-button actions-button"
-          onClick={() => this.setState({ rowWithActionsOpen: row.id })}
-        >
-          <img src={moreHorizontalSrc} alt="ellipses" />
-        </button>
-      }
-      return <span className="data-table-row-section actions-section">{content}</span>
+    if (!row.actions) { return }
+
+    const { rowWithActionsOpen } = this.state
+    const actionsIsOpen = rowWithActionsOpen === row.id;
+
+    return <span className="data-table-row-section actions-section">
+      {actionsIsOpen ? this.renderOpenActions(row) : this.renderClosedActions(row)}
+    </span>
+  }
+
+  renderOpenActions(row) {
+    const rowActions = row.actions.map(act => <span onClick={() => this.clickAction(act.action, row.id)}>{act.name}</span>)
+
+    return <div className="actions-menu-container" ref={node => this.selectedStudentActions = node}>
+      <div className="actions-menu">
+         {rowActions}
+      </div>
+    </div>
+  }
+
+  renderClosedActions(row) {
+    return <button
+      className="quill-button actions-button"
+      onClick={() => this.setState({ rowWithActionsOpen: row.id })}
+    >
+      <img src={moreHorizontalSrc} alt="ellipses" />
+    </button>
+  }
+
+  renderHeader(header) {
+    let sortArrow, onClick
+    let className = dataTableHeaderClassName
+    let style: React.CSSProperties = { width: `${header.width}`, minWidth: `${header.width}`, textAlign: `${this.attributeAlignment(header.attribute)}` as CSS.TextAlignProperty }
+    if (header.isSortable) {
+      const sortDirection = this.state.sortAscending ? ascending : descending
+      onClick = this.changeSortDirection
+      sortArrow = <img className={`sort-arrow ${sortDirection}`} src={arrowSrc} />
+      className+= ' sortable'
     }
+    return <span
+      onClick={onClick}
+      className={className}
+      style={style as any}
+    >
+      {sortArrow}
+      {header.name}
+    </span>
   }
 
   renderHeaders() {
-    const headers = this.props.headers.map(header => {
-      let sortArrow, onClick
-      let className = dataTableHeaderClassName
-      let style: React.CSSProperties = { width: `${header.width}`, minWidth: `${header.width}`, textAlign: `${this.attributeAlignment(header.attribute)}` as CSS.TextAlignProperty }
-      if (header.isSortable) {
-        const sortDirection = this.state.sortAscending ? ascending : descending
-        onClick = this.changeSortDirection
-        sortArrow = <img className={`sort-arrow ${sortDirection}`} src={arrowSrc} />
-        className+= ' sortable'
-      }
-      return <span
-        onClick={onClick}
-        className={className}
-        style={style as any}
-        >
-          {sortArrow}
-          {header.name}
-        </span>
-    })
+    const headers = this.props.headers.map(header => this.renderHeader(header))
     return <div className="data-table-headers">{this.renderHeaderCheckbox()}{headers}{this.renderHeaderForRemoval()}{this.renderActionsHeader()}</div>
   }
 
-  renderRows() {
+  renderRowSection(row, header) {
+    const { averageFontWidth, } = this.props
+    let style: React.CSSProperties = { width: `${header.width}`, minWidth: `${header.width}`, textAlign: `${this.attributeAlignment(header.attribute)}` as CSS.TextAlignProperty }
+    const sectionText = row[header.attribute]
+    const headerWidthNumber = Number(header.width.slice(0, -2))
+    if ((String(sectionText).length * averageFontWidth) >= headerWidthNumber) {
+      return <Tooltip
+        tooltipTriggerTextClass="data-table-row-section"
+        tooltipTriggerText={sectionText}
+        tooltipText={sectionText}
+        tooltipTriggerStyle={style}
+        tooltipTriggerTextStyle={style}
+      />
+    } else {
+      return <span
+        className="data-table-row-section"
+        style={style as any}
+      >
+        {sectionText}
+      </span>
+    }
+  }
+
+  renderRow(row) {
     const headers = this.props.headers
-    const rows = this.sortRows().map(row => {
-      const rowClassName = `data-table-row ${row.checked ? 'checked' : ''}`
-      const rowSections = headers.map(header => {
-        let style: React.CSSProperties = { width: `${header.width}`, minWidth: `${header.width}`, textAlign: `${this.attributeAlignment(header.attribute)}` as CSS.TextAlignProperty }
-        const sectionText = row[header.attribute]
-        const headerWidthNumber = Number(header.width.slice(0, -2))
-        if ((String(sectionText).length * 7) >= headerWidthNumber) {
-          return <Tooltip
-            tooltipTriggerTextClass="data-table-row-section"
-            tooltipTriggerText={sectionText}
-            tooltipText={sectionText}
-            tooltipTriggerStyle={style}
-            tooltipTriggerTextStyle={style}
-          />
-        } else {
-          return <span
-            className="data-table-row-section"
-            style={style as any}
-          >
-            {sectionText}
-          </span>
-        }
-      })
-      return <div className={rowClassName} key={String(row.id)}>{this.renderRowCheckbox(row)}{rowSections}{this.renderRowRemoveIcon(row)}{this.renderActions(row)}</div>
-    })
+    const rowClassName = `data-table-row ${row.checked ? 'checked' : ''}`
+    const rowSections = headers.map(header => this.renderRowSection(row, header))
+    return <div className={rowClassName} key={String(row.id)}>{this.renderRowCheckbox(row)}{rowSections}{this.renderRowRemoveIcon(row)}{this.renderActions(row)}</div>
+  }
+
+  renderRows() {
+    const rows = this.sortRows().map(row => this.renderRow(row))
     return <div className="data-table-body">{rows}</div>
   }
 
@@ -234,4 +250,8 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     </div>
   }
 
+}
+
+DataTable.defaultProps = {
+  averageFontWidth: 7
 }
