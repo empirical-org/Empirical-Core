@@ -6,6 +6,8 @@ class Teachers::ClassroomsController < ApplicationController
   before_filter :authorize_owner!, except: [:scores, :units, :scorebook, :generate_login_pdf]
   before_filter :authorize_teacher!, only: [:scores, :units, :scorebook, :generate_login_pdf]
 
+  INDEX = 'new_index'
+
   def index
     if current_user.classrooms_i_teach.empty? && current_user.archived_classrooms.empty? && !current_user.has_outstanding_coteacher_invitation?
       redirect_to new_teachers_classroom_path
@@ -16,6 +18,7 @@ class Teachers::ClassroomsController < ApplicationController
   end
 
   def new_index
+    session[GOOGLE_REDIRECT] = request.env['PATH_INFO']
     classrooms = Classroom.unscoped.joins(:classrooms_teachers).where(classrooms_teachers: {user_id: current_user.id})
     @classrooms = classrooms.compact.map do |classroom|
       classroom_obj = classroom.attributes

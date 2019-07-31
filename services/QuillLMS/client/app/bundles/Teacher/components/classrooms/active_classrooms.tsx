@@ -263,7 +263,6 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
     if (showModal === googleClassroomEmailModal) {
       return <GoogleClassroomEmailModal
         close={this.closeModal}
-        onSuccess={this.onSuccess}
         user={this.props.user}
       />
     }

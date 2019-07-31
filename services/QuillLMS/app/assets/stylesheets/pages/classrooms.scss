@@ -383,7 +383,8 @@
   .remove-students-modal,
   .remove-coteacher-modal,
   .transfer-ownership-modal,
-  .import-google-classroom-students-modal {
+  .import-google-classroom-students-modal,
+  .google-classroom-email-modal {
     .checkboxes {
       margin-bottom: 48px;
     }
@@ -408,15 +409,9 @@
   }
 
   .google-classroom-email-modal {
-    height: 327px;
+    height: 328px;
     .title {
       margin-bottom: 24px;
-    }
-    .input-container {
-      margin-bottom: 36px;
-      &.error.unacknowledged {
-        margin-bottom: 14px;
-      }
     }
   }
 
