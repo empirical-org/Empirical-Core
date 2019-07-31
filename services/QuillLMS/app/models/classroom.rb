@@ -25,7 +25,7 @@ class Classroom < ActiveRecord::Base
 
 
   def validate_name
-    name_has_changed = !id || (name != Classroom.find_by(id: id).name)
+    name_has_changed = !id || (name != Classroom.unscoped.find_by(id: id).name)
     owner = self.owner || @classroom_owner
     owner_has_other_classrooms_with_same_name = owner && owner.classrooms_i_own.any? { |classroom| classroom.name == name && classroom.id != id }
     if name_has_changed && owner_has_other_classrooms_with_same_name
