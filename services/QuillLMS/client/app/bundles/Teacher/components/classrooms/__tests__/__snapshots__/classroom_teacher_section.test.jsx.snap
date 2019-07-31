@@ -17,6 +17,7 @@ exports[`ClassroomTeacherSection component should render 1`] = `
     </button>
   </div>
   <DataTable
+    averageFontWidth={7}
     headers={
       Array [
         Object {
