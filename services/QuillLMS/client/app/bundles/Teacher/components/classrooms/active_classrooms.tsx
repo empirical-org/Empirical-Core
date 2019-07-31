@@ -60,24 +60,29 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
     this.clickClassroomHeader = this.clickClassroomHeader.bind(this)
     this.clickImportGoogleClassrooms = this.clickImportGoogleClassrooms.bind(this)
     this.getClassrooms = this.getClassrooms.bind(this)
+    this.getGoogleClassrooms = this.getGoogleClassrooms.bind(this)
   }
 
   componentDidMount() {
     if (this.props.user.google_id) {
-      this.setState({ googleClassroomsLoading: true}, () => {
-        requestGet('/teachers/classrooms/retrieve_google_classrooms', (body) => {
-          const googleClassrooms = body.classrooms.filter(classroom => !classroom.alreadyImported)
-          const newStateObj = { googleClassrooms, googleClassroomsLoading: false }
-          if (this.state.attemptedImportGoogleClassrooms) {
-            this.setState(newStateObj, this.clickImportGoogleClassrooms)
-          } else {
-            this.setState(newStateObj)
-          }
-        });
-      })
+      this.getGoogleClassrooms()
     } else {
       this.setState({ googleClassroomsLoading: false })
     }
+  }
+
+  getGoogleClassrooms() {
+    this.setState({ googleClassroomsLoading: true}, () => {
+      requestGet('/teachers/classrooms/retrieve_google_classrooms', (body) => {
+        const googleClassrooms = body.classrooms.filter(classroom => !classroom.alreadyImported)
+        const newStateObj = { googleClassrooms, googleClassroomsLoading: false }
+        if (this.state.attemptedImportGoogleClassrooms) {
+          this.setState(newStateObj, this.clickImportGoogleClassrooms)
+        } else {
+          this.setState(newStateObj)
+        }
+      });
+    })
   }
 
   getClassrooms() {
@@ -86,6 +91,7 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
 
   onSuccess(snackbarCopy) {
     this.getClassrooms()
+    this.getGoogleClassrooms()
     this.showSnackbar(snackbarCopy)
     this.closeModal()
   }
@@ -263,15 +269,26 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
     }
   }
 
+  renderGoogleClassroomsEmptyModal() {
+    const { showModal } = this.state
+    if (showModal === googleClassroomsEmptyModal) {
+      return <GoogleClassroomsEmptyModal
+        close={this.closeModal}
+      />
+    }
+  }
+
   renderImportGoogleClassroomsButton() {
     const { googleClassroomsLoading, attemptedImportGoogleClassrooms } = this.state
     let buttonContent = 'Import from Google Classroom'
+    let buttonClassName = "quill-button medium secondary outlined import-from-google-button"
     if (googleClassroomsLoading && attemptedImportGoogleClassrooms) {
       buttonContent = <ButtonLoadingIndicator />
+      buttonClassName += ' loading'
     }
     return (<button
       onClick={this.clickImportGoogleClassrooms}
-      className="quill-button medium secondary outlined import-from-google-button"
+      className={buttonClassName}
     >
       {buttonContent}
     </button>)
@@ -287,6 +304,7 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
       {this.renderImportGoogleClassroomsModal()}
       {this.renderImportGoogleClassroomStudentsModal()}
       {this.renderGoogleClassroomEmailModal()}
+      {this.renderGoogleClassroomsEmptyModal()}
       {this.renderSnackbar()}
       <div className="header">
         <h1>Active Classes</h1>
