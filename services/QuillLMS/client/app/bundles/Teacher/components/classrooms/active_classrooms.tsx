@@ -74,8 +74,7 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
   getGoogleClassrooms() {
     this.setState({ googleClassroomsLoading: true}, () => {
       requestGet('/teachers/classrooms/retrieve_google_classrooms', (body) => {
-        const googleClassrooms = body.classrooms
-        // const googleClassrooms = body.classrooms.filter(classroom => !classroom.alreadyImported)
+        const googleClassrooms = body.classrooms.filter(classroom => !classroom.alreadyImported)
         const newStateObj = { googleClassrooms, googleClassroomsLoading: false }
         if (this.state.attemptedImportGoogleClassrooms) {
           this.setState(newStateObj, this.clickImportGoogleClassrooms)
@@ -280,7 +279,7 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
 
   renderImportGoogleClassroomsButton() {
     const { googleClassroomsLoading, attemptedImportGoogleClassrooms } = this.state
-    let buttonContent = 'Import from Google Classroom'
+    let buttonContent: string|JSX.Element = 'Import from Google Classroom'
     let buttonClassName = "quill-button medium secondary outlined import-from-google-button"
     if (googleClassroomsLoading && attemptedImportGoogleClassrooms) {
       buttonContent = <ButtonLoadingIndicator />

@@ -165,7 +165,7 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
   }
 
   closeModal() {
-    this.setState({ showModal: false, studentIdsForModal: []})
+    this.setState({ showModal: null, studentIdsForModal: []})
   }
 
   renderEditStudentAccountModal() {

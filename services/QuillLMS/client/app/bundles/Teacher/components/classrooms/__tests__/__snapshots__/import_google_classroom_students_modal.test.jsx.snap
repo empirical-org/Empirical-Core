@@ -1,27 +1,26 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`RemoveCoteacherModal component should render RemoveCoteacherModal 1`] = `
+exports[`ImportGoogleClassroomStudentsModal component should render ImportGoogleClassroomStudentsModal 1`] = `
 <div
-  className="modal-container remove-coteacher-modal-container"
+  className="modal-container import-google-classroom-students-modal-container"
 >
   <div
     className="modal-background"
   />
   <div
-    className="remove-coteacher-modal modal modal-body"
+    className="import-google-classroom-students-modal modal modal-body"
   >
     <div>
       <h3
         className="title"
       >
-        Remove co-teacher from your class?
+        Import students from Google Classroom
       </h3>
     </div>
     <p>
-      —'s
-       (
-      emiliafree1000@gmail.com
-      ) Quill account will remain active. You can re-invite the co-teacher later.
+      You're about to import students from the class 
+      Quill Classroom
+      .
     </p>
     <div
       className="checkboxes"
@@ -34,7 +33,7 @@ exports[`RemoveCoteacherModal component should render RemoveCoteacherModal 1`] =
           onClick={[Function]}
         />
         <span>
-          I understand that the co-teacher will no longer have access to the students’ work or data.
+          I understand that newly imported students have access to the activities that have already been assigned to the entire class.
         </span>
       </div>
     </div>
@@ -51,7 +50,7 @@ exports[`RemoveCoteacherModal component should render RemoveCoteacherModal 1`] =
         className="quill-button contained primary medium disabled"
         onClick={[Function]}
       >
-        Remove from class
+        Import students
       </button>
     </div>
   </div>
