@@ -16,10 +16,14 @@ class Teachers::ClassroomsController < ApplicationController
   end
 
   def new_index
-    classrooms = ClassroomsTeacher.where(user_id: current_user.id).map { |ct| Classroom.unscoped.find_by(id: ct.classroom_id)}
+    classrooms = Classroom.unscoped.joins(:classrooms_teachers).where(classrooms_teachers: {user_id: current_user.id})
     @classrooms = classrooms.compact.map do |classroom|
       classroom_obj = classroom.attributes
-      classroom_obj[:students] = classroom.students
+      classroom_obj[:students] = classroom.students.map do |s|
+        student = s.attributes
+        student[:number_of_completed_activities] = ActivitySession.where(user_id: s.id, state: 'finished').count
+        student
+      end
       classroom_teachers = classroom.classrooms_teachers.map do |ct|
         teacher = ct.user.attributes
         teacher[:classroom_relation] = ct.role
@@ -76,8 +80,6 @@ class Teachers::ClassroomsController < ApplicationController
     create_students_params[:students].each do |s|
       s[:account_type] = 'Teacher Created Account'
       student = Creators::StudentCreator.create_student(s, classroom.id)
-      classroom_units = ClassroomUnit.where(classroom_id: classroom.id)
-      classroom_units.each { |cu| cu.validate_assigned_student(student.id) }
       Associators::StudentsToClassrooms.run(student, classroom)
     end
     render json: { students: classroom.students }
