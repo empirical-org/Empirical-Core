@@ -279,3 +279,66 @@ export const userProps = {
   account_type: 'unknown',
   post_google_classroom_assignments: null
 }
+
+export const googleClassrooms = [
+  {
+    id: 5038757116,
+    name: "Big Class 1",
+    ownerId: "102184716939792017986",
+    section: "1",
+    alreadyImported: true,
+    grade: null,
+    creationTime: "2017-08-17T21:19:02.818Z",
+    studentCount: 0
+  },
+  {
+    id: 1986991936,
+    name: "shared class",
+    ownerId: "112188393285935083024",
+    section: null,
+    alreadyImported: true,
+    grade: null,
+    creationTime: "2017-04-24T18:36:15.711Z",
+    studentCount: 0
+  },
+  {
+    id: 5145051365,
+    name: "test teacher is not a student",
+    ownerId: "102184716939792017986",
+    section: null,
+    alreadyImported: true,
+    grade: null,
+    creationTime: "2017-03-13T16:31:05.568Z",
+    studentCount: 9
+  },
+  {
+    id: 5144891078,
+    name: "this won't work either",
+    ownerId: "102184716939792017986",
+    section: null,
+    alreadyImported: true,
+    grade: null,
+    creationTime: "2017-03-13T16:14:31.136Z",
+    studentCount: 0
+  },
+  {
+    id: 5144690989,
+    name: "this will not work",
+    ownerId: "102184716939792017986",
+    section: null,
+    alreadyImported: true,
+    grade: null,
+    creationTime: "2017-03-13T16:07:49.735Z",
+    studentCount: 2
+  },
+  {
+    id: 5145161709,
+    name: "test teacher is a student",
+    ownerId: "102184716939792017986",
+    section: null,
+    alreadyImported: true,
+    grade: null,
+    creationTime: "2017-03-13T16:05:33.074Z",
+    studentCount: 1
+  }
+]

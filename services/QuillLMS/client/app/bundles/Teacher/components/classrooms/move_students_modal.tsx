@@ -8,8 +8,6 @@ import { requestPost } from '../../../../modules/request/index.js';
 
 const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
 
-type CheckboxNames = 'checkboxOne'|'checkboxTwo'|'checkboxThree'
-
 interface MoveStudentsModalProps {
   close: () => void;
   onSuccess: (string) => void;
@@ -79,24 +77,23 @@ export default class MoveStudentsModal extends React.Component<MoveStudentsModal
     return buttonClass;
   }
 
-  toggleCheckbox(checkboxNumber: 'checkboxOne'|'checkboxTwo'|'checkboxThree') {
-    const newStateObj:{[K in CheckboxNames]?: boolean} = { [checkboxNumber]: !this.state[checkboxNumber], }
-    this.setState(newStateObj)
+  toggleCheckbox() {
+    this.setState({ checkboxOne: !this.state.checkboxOne})
   }
 
-  renderCheckbox(checkboxNumber) {
-    const checkbox = this.state[checkboxNumber]
+  renderCheckbox() {
+    const checkbox = this.state.checkboxOne
     if (checkbox) {
-      return <div className="quill-checkbox selected" onClick={() => this.toggleCheckbox(checkboxNumber)}><img src={smallWhiteCheckSrc} alt="check" /></div>
+      return <div className="quill-checkbox selected" onClick={this.toggleCheckbox}><img src={smallWhiteCheckSrc} alt="check" /></div>
     } else {
-      return <div className="quill-checkbox unselected" onClick={() => this.toggleCheckbox(checkboxNumber)} />
+      return <div className="quill-checkbox unselected" onClick={this.toggleCheckbox} />
     }
   }
 
   renderCheckboxes() {
     return (<div className="checkboxes">
       <div className="checkbox-row">
-        {this.renderCheckbox('checkboxOne')}
+        {this.renderCheckbox()}
         <span>I understand that any activities that have not been started will not be transferred.</span>
       </div>
     </div>)

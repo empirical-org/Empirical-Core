@@ -33,24 +33,23 @@ export default class GoogleClassroomEmailModal extends React.Component<GoogleCla
     }
   }
 
-  toggleCheckbox(checkboxNumber: 'checkboxOne'|'checkboxTwo'|'checkboxThree') {
-    const newStateObj:{[K in CheckboxNames]?: boolean} = { [checkboxNumber]: !this.state[checkboxNumber], }
-    this.setState(newStateObj)
+  toggleCheckbox() {
+    this.setState({ checkboxOne: !this.state.checkboxOne })
   }
 
-  renderCheckbox(checkboxNumber) {
-    const checkbox = this.state[checkboxNumber]
+  renderCheckbox() {
+    const checkbox = this.state.checkboxOne
     if (checkbox) {
-      return <div className="quill-checkbox selected" onClick={() => this.toggleCheckbox(checkboxNumber)}><img src={smallWhiteCheckSrc} alt="check" /></div>
+      return <div className="quill-checkbox selected" onClick={this.toggleCheckbox}><img src={smallWhiteCheckSrc} alt="check" /></div>
     } else {
-      return <div className="quill-checkbox unselected" onClick={() => this.toggleCheckbox(checkboxNumber)} />
+      return <div className="quill-checkbox unselected" onClick={this.toggleCheckbox} />
     }
   }
 
   renderCheckboxes() {
     return (<div className="checkboxes">
       <div className="checkbox-row">
-        {this.renderCheckbox('checkboxOne')}
+        {this.renderCheckbox()}
         <span>I understand that I will now log in to Quill via the "Log in with Google" button.</span>
       </div>
     </div>)
