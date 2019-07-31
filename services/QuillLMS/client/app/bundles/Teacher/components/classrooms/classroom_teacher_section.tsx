@@ -86,15 +86,15 @@ export default class ClassroomTeacherSection extends React.Component<ClassroomTe
   renderTeacherRow(teacher) {
     const { isOwnedByCurrentUser, } = this.props
     const { name, classroom_relation, id, status, email } = teacher
+    const role = this.formatRole(classroom_relation)
+    const currentUserIsOwnerAndRowIsCoteacher = role === CoteacherDisplayName && isOwnedByCurrentUser
     const teacherRow: { name: string, id: number, email: string, role: string, status: string, actions?: Array<any> } = {
       name,
       id,
       email,
-      role: this.formatRole(classroom_relation),
-      status: status
-    }
-    if (teacherRow.role === CoteacherDisplayName && isOwnedByCurrentUser) {
-      teacherRow.actions = this.actions()
+      role,
+      status,
+      actions: currentUserIsOwnerAndRowIsCoteacher ? this.actions() : null
     }
     return teacherRow
   }
