@@ -1,9 +1,7 @@
 import * as React from 'react'
 import * as moment from 'moment'
 
-// import { DropdownInput, DataTable } from 'quill-component-library/dist/componentLibrary'
-import { DropdownInput } from 'quill-component-library/dist/componentLibrary'
-import { DataTable } from './dataTable'
+import { DropdownInput, DataTable } from 'quill-component-library/dist/componentLibrary'
 
 import GradeOptions from './grade_options'
 
