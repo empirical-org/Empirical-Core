@@ -3,7 +3,7 @@ import * as moment from 'moment'
 
 import { Input, DataTable } from 'quill-component-library/dist/componentLibrary'
 
-import { requestPost, requestPut, requestGet } from '../../../../modules/request/index.js';
+import { requestPost, } from '../../../../modules/request/index.js';
 
 interface InviteCoteachersModalProps {
   close: () => void;

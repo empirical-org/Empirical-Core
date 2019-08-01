@@ -71,6 +71,35 @@
     }
   }
 
+  .coteacher-invitation {
+    height: 122px;
+    border-radius: 6px;
+    border: solid 1px #e0e0e0;
+    padding: 32px;
+    background-color: #fffffff;
+    margin-bottom: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #ffffff;
+    .coteacher-invitation-content {
+      display: flex;
+      justify-content: space-between;
+      p {
+        font-size: 14px;
+        line-height: 1.57;
+        color: #646464;
+      }
+      span {
+        font-size: 14px;
+        font-weight: 600;
+        color: #009a80;
+        cursor: pointer;
+        margin-left: 40px;
+      }
+    }
+  }
+
   .classroom {
     border-radius: 6px;
     border: solid 1px #e0e0e0;
