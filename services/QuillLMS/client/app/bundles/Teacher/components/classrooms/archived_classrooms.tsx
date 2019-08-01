@@ -2,16 +2,16 @@ import * as React from 'react'
 import { Snackbar, defaultSnackbarTimeout } from 'quill-component-library/dist/componentLibrary'
 
 import Classroom from './classroom'
-import UnarchiveClassModal from './unarchive_classroom_modal'
+import UnarchiveClassroomModal from './unarchive_classroom_modal'
 
 import { requestGet } from '../../../../modules/request/index.js';
 
-interface ArchivedCLassroomsProps {
+interface ArchivedClassroomsProps {
   classrooms: Array<any>;
   user: any;
 }
 
-interface ArchivedCLassroomsState {
+interface ArchivedClassroomsState {
   showSnackbar: boolean;
   classrooms: Array<any>;
   showModal?: string;
@@ -19,9 +19,9 @@ interface ArchivedCLassroomsState {
   snackbarCopy?: string;
 }
 
-const unarchiveClassModal = 'unarchiveClassModal'
+export const unarchiveClassroomModal = 'unarchiveClassroomModal'
 
-export default class ArchivedCLassrooms extends React.Component<ArchivedCLassroomsProps, ArchivedCLassroomsState> {
+export default class ArchivedClassrooms extends React.Component<ArchivedClassroomsProps, ArchivedClassroomsState> {
   constructor(props) {
     super(props)
 
@@ -79,11 +79,11 @@ export default class ArchivedCLassrooms extends React.Component<ArchivedCLassroo
     return <Snackbar text={snackbarCopy} visible={showSnackbar} />
   }
 
-  renderUnarchiveClassModal() {
+  renderUnarchiveClassroomModal() {
     const { showModal, classrooms, selectedClassroomId } = this.state
-    if (showModal === unarchiveClassModal) {
+    if (showModal === unarchiveClassroomModal) {
       const selectedClassroom = classrooms.find(c => c.id === selectedClassroomId)
-      return <UnarchiveClassModal
+      return <UnarchiveClassroomModal
         close={this.closeModal}
         onSuccess={this.onSuccess}
         classroom={selectedClassroom}
@@ -106,7 +106,7 @@ export default class ArchivedCLassrooms extends React.Component<ArchivedCLassroo
         return <Classroom
           classroom={classroom}
           classrooms={ownArchivedClassrooms}
-          unarchiveClass={() => this.openModal(unarchiveClassModal)}
+          unarchiveClass={() => this.openModal(unarchiveClassroomModal)}
           selected={classroom.id === this.state.selectedClassroomId}
           clickClassroomHeader={this.clickClassroomHeader}
           user={user}
@@ -136,7 +136,7 @@ export default class ArchivedCLassrooms extends React.Component<ArchivedCLassroo
 
   render() {
     return <div className="archived-classrooms classrooms-page">
-      {this.renderUnarchiveClassModal()}
+      {this.renderUnarchiveClassroomModal()}
       {this.renderSnackbar()}
       {this.renderHeader()}
       {this.renderPageContent()}
