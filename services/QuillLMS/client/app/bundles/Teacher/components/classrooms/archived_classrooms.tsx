@@ -2,6 +2,7 @@ import * as React from 'react'
 import { Snackbar, defaultSnackbarTimeout } from 'quill-component-library/dist/componentLibrary'
 
 import Classroom from './classroom'
+import UnarchiveClassModal from './unarchive_classroom_modal'
 
 import { requestGet } from '../../../../modules/request/index.js';
 
@@ -17,6 +18,8 @@ interface ArchivedCLassroomsState {
   selectedClassroomId?: number;
   snackbarCopy?: string;
 }
+
+const unarchiveClassModal = 'unarchiveClassModal'
 
 export default class ArchivedCLassrooms extends React.Component<ArchivedCLassroomsProps, ArchivedCLassroomsState> {
   constructor(props) {
@@ -76,6 +79,18 @@ export default class ArchivedCLassrooms extends React.Component<ArchivedCLassroo
     return <Snackbar text={snackbarCopy} visible={showSnackbar} />
   }
 
+  renderUnarchiveClassModal() {
+    const { showModal, classrooms, selectedClassroomId } = this.state
+    if (showModal === unarchiveClassModal) {
+      const selectedClassroom = classrooms.find(c => c.id === selectedClassroomId)
+      return <UnarchiveClassModal
+        close={this.closeModal}
+        onSuccess={this.onSuccess}
+        classroom={selectedClassroom}
+      />
+    }
+  }
+
   renderPageContent() {
     const { user } = this.props
     const { classrooms } = this.state
@@ -91,6 +106,7 @@ export default class ArchivedCLassrooms extends React.Component<ArchivedCLassroo
         return <Classroom
           classroom={classroom}
           classrooms={ownArchivedClassrooms}
+          unarchiveClass={() => this.openModal(unarchiveClassModal)}
           selected={classroom.id === this.state.selectedClassroomId}
           clickClassroomHeader={this.clickClassroomHeader}
           user={user}
@@ -120,6 +136,7 @@ export default class ArchivedCLassrooms extends React.Component<ArchivedCLassroo
 
   render() {
     return <div className="archived-classrooms classrooms-page">
+      {this.renderUnarchiveClassModal()}
       {this.renderSnackbar()}
       {this.renderHeader()}
       {this.renderPageContent()}
