@@ -136,7 +136,8 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
 
   checkAllRows() {
     const { classroom } = this.props
-    const newSelectedStudentIds = classroom.students.map(student => student.id)
+    const studentsWithoutCleverOrGoogleIds = classroom.students.filter(student => !student.google_id && !student.clever_id)
+    const newSelectedStudentIds = studentsWithoutCleverOrGoogleIds.map(student => student.id)
     this.setState({ selectedStudentIds: newSelectedStudentIds })
   }
 
@@ -325,18 +326,20 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
     const { classroom, } = this.props
 
     const rows = classroom.students.map(student => {
-      const { name, username, id } = student
+      const { name, username, id, google_id, clever_id, } = student
       const checked = !!this.state.selectedStudentIds.includes(id)
       let synced = ''
-      if (student.google_id) { synced = 'Google Classroom'}
-      if (student.clever_id) { synced = 'Clever' }
+      if (google_id) { synced = 'Google Classroom'}
+      if (clever_id) { synced = 'Clever' }
+      const independent = !google_id && !clever_id
       return {
         synced,
         name,
         id,
         username,
         checked,
-        actions: classroom.visible ? this.actions() : null
+        checkDisabled: !independent,
+        actions: classroom.visible && independent ? this.actions() : null
       }
     })
 
@@ -401,8 +404,13 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
         {this.renderStudentActions()}
         {this.renderStudentDataTable()}
       </div>
-    }
-    else {
+    } else if (classroom.visible) {
+      let copy = 'Click on the "Invite students" button to get started with your writing instruction!'
+      if (classroom.google_classroom_id) {
+        copy = 'Click on the "Import Google Classroom students" button to get started with your writing instruction!'
+      } else if (classroom.clever_id) {
+        copy = 'Add students to your class in Clever and they will automatically appear here.'
+      }
       return <div className="students-section">
         <div className="students-section-header">
           <h3>Students</h3>
@@ -410,7 +418,13 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
         </div>
         <div className="no-students">
           <img src={emptyDeskSrc} />
-          <p>Click on the "Invite students" button to get started with your writing instruction!</p>
+          <p>{copy}</p>
+        </div>
+      </div>
+    } else {
+      return <div className="students-section empty">
+        <div className="students-section-header">
+          <h3>Students</h3>
         </div>
       </div>
     }
