@@ -90,12 +90,18 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
   }
 
   actions() {
-    let moveClassAction
-    const { classrooms } = this.props
-    if (classrooms.length > 1) {
+    let moveClassAction, mergeAccountsAction
+    const { classrooms, isOwnedByCurrentUser } = this.props
+    if (classrooms.length > 1 && isOwnedByCurrentUser) {
       moveClassAction = {
         name: 'Move class',
         action: (id) => this.moveClass(id)
+      }
+    }
+    if (isOwnedByCurrentUser) {
+      mergeAccountsAction = {
+        name: 'Merge accounts',
+        action: (id) => this.mergeStudentAccounts(id)
       }
     }
     return [
@@ -107,10 +113,7 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
         name: 'Reset password',
         action: (id) => this.resetStudentPassword(id)
       },
-      {
-        name: 'Merge accounts',
-        action: (id) => this.mergeStudentAccounts(id)
-      },
+      mergeAccountsAction,
       moveClassAction,
       {
         name: 'Remove from class',
@@ -256,14 +259,20 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
     const { isOwnedByCurrentUser, classrooms, } = this.props
     const { selectedStudentIds } = this.state
 
-    let moveClassOption
-    if (classrooms.length > 1) {
+    let moveClassOption, mergeAccountsOption
+
+    if (classrooms.length > 1 && isOwnedByCurrentUser) {
       moveClassOption = {
-        label: 'Move class',
-        value: this.moveClass
+        name: 'Move class',
+        action: this.moveClass
       }
     }
-
+    if (isOwnedByCurrentUser) {
+      mergeAccountsOption = {
+        name: 'Merge accounts',
+        action: this.mergeStudentAccounts
+      }
+    }
     const moreThanTwoStudentOptions = [
       moveClassOption,
       {
@@ -273,11 +282,8 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
     ].filter(Boolean)
 
     const twoStudentOptions = [
-      {
-        label: 'Merge accounts',
-        value: this.mergeStudentAccounts
-      }
-    ].concat(moreThanTwoStudentOptions)
+      mergeAccountsOption
+    ].concat(moreThanTwoStudentOptions).filter(Boolean)
 
     const oneStudentOptions = [
       {
@@ -288,7 +294,7 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
         label: 'Reset password',
         value: this.resetStudentPassword
       }
-    ].concat(twoStudentOptions)
+    ].concat(twoStudentOptions).filter(Boolean)
 
     if (selectedStudentIds.length === 1) {
       return oneStudentOptions
