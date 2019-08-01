@@ -15,11 +15,11 @@ interface ClassroomProps {
   selected: boolean;
   isOwnedByCurrentUser: boolean;
   clickClassroomHeader: (event) => void;
-  renameClass: (event) => void;
-  changeGrade: (event) => void;
-  archiveClass: (event) => void;
-  inviteStudents: (event) => void;
-  importGoogleClassroomStudents: (event) => void;
+  renameClass?: (event) => void;
+  changeGrade?: (event) => void;
+  archiveClass?: (event) => void;
+  inviteStudents?: (event) => void;
+  importGoogleClassroomStudents?: (event) => void;
   onSuccess: (event) => void;
 }
 

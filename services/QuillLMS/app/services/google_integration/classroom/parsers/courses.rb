@@ -25,7 +25,7 @@ example JSON.parse(response.body) :
       course_response[:courses].each do |course|
         alreadyImported = self.already_imported?(course, existing_google_classroom_ids)
         if alreadyImported
-          grade = Classroom.find_by(google_classroom_id: course[:id]).grade
+          grade = Classroom.unscoped.find_by(google_classroom_id: course[:id]).grade
         end
         if self.valid?(course, user, existing_google_classroom_ids)
           students = student_requester.call(course[:id])

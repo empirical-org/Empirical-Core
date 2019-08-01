@@ -60,6 +60,17 @@
     }
   }
 
+  .archived-classes {
+    .classroom {
+      h3 {
+        margin-bottom: 32px;
+      }
+      .teacher-section-header {
+        margin-bottom: 0px;
+      }
+    }
+  }
+
   .classroom {
     border-radius: 6px;
     border: solid 1px #e0e0e0;

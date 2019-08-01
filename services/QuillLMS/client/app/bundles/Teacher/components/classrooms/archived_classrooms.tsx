@@ -1,0 +1,128 @@
+import * as React from 'react'
+import { Snackbar, defaultSnackbarTimeout } from 'quill-component-library/dist/componentLibrary'
+
+import Classroom from './classroom'
+
+import { requestGet } from '../../../../modules/request/index.js';
+
+interface ArchivedCLassroomsProps {
+  classrooms: Array<any>;
+  user: any;
+}
+
+interface ArchivedCLassroomsState {
+  showSnackbar: boolean;
+  classrooms: Array<any>;
+  showModal?: string;
+  selectedClassroomId?: number;
+  snackbarCopy?: string;
+}
+
+export default class ArchivedCLassrooms extends React.Component<ArchivedCLassroomsProps, ArchivedCLassroomsState> {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      showSnackbar: false,
+      classrooms: props.classrooms.filter(classroom => !classroom.visible)
+    }
+
+    this.openModal = this.openModal.bind(this)
+    this.closeModal = this.closeModal.bind(this)
+    this.showSnackbar = this.showSnackbar.bind(this)
+    this.onSuccess = this.onSuccess.bind(this)
+    this.clickClassroomHeader = this.clickClassroomHeader.bind(this)
+    this.getClassrooms = this.getClassrooms.bind(this)
+  }
+
+  getClassrooms() {
+    requestGet('/teachers/classrooms/new_index', (body) => this.setState({ classrooms: body.classrooms.filter(classroom => !classroom.visible) }));
+  }
+
+  onSuccess(snackbarCopy) {
+    this.getClassrooms()
+    this.showSnackbar(snackbarCopy)
+    this.closeModal()
+  }
+
+  clickClassroomHeader(classroomId) {
+    if (this.state.selectedClassroomId === classroomId) {
+      this.setState({ selectedClassroomId: null})
+    } else {
+      this.setState({ selectedClassroomId: classroomId })
+    }
+  }
+
+  openModal(modalName) {
+    this.setState({ showModal: modalName })
+  }
+
+  closeModal(callback=null) {
+    this.setState({ showModal: null}, () => {
+      if (callback && typeof(callback) === 'function') {
+        callback()
+      }
+    })
+  }
+
+  showSnackbar(snackbarCopy) {
+    this.setState({ showSnackbar: true, snackbarCopy }, () => {
+      setTimeout(() => this.setState({ showSnackbar: false, }), defaultSnackbarTimeout)
+    })
+  }
+
+  renderSnackbar() {
+    const { showSnackbar, snackbarCopy, } = this.state
+    return <Snackbar text={snackbarCopy} visible={showSnackbar} />
+  }
+
+  renderPageContent() {
+    const { user } = this.props
+    const { classrooms } = this.state
+    const ownArchivedClassrooms = classrooms.filter(c => {
+      const classroomOwner = c.teachers.find(teacher => teacher.classroom_relation === 'owner')
+      return !c.visible && classroomOwner.id === user.id
+    })
+    if (classrooms.length === 0) {
+      return null
+    } else {
+      const classroomCards = classrooms.map(classroom => {
+        const isOwnedByCurrentUser = !!ownArchivedClassrooms.find(c => c.id === classroom.id)
+        return <Classroom
+          classroom={classroom}
+          classrooms={ownArchivedClassrooms}
+          selected={classroom.id === this.state.selectedClassroomId}
+          clickClassroomHeader={this.clickClassroomHeader}
+          user={user}
+          isOwnedByCurrentUser={isOwnedByCurrentUser}
+          onSuccess={this.onSuccess}
+        />
+      })
+      return <div className="archived-classes">
+        {classroomCards}
+      </div>
+    }
+  }
+
+  renderHeader() {
+    const { classrooms } = this.state
+    if (classrooms.length) {
+      return <div className="header">
+        <h1>Archived Classes</h1>
+      </div>
+    } else {
+      return <div className="header">
+        <h1>No archived classes</h1>
+        <p>When you archive a class, you'll see it listed here.</p>
+      </div>
+    }
+  }
+
+  render() {
+    return <div className="archived-classrooms classrooms-page">
+      {this.renderSnackbar()}
+      {this.renderHeader()}
+      {this.renderPageContent()}
+    </div>
+  }
+}

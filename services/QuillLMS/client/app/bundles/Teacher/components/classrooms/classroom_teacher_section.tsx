@@ -9,7 +9,7 @@ import InviteCoteachersModal from './invite_coteachers_modal'
 const CoteacherDisplayName = 'Coteacher'
 const OwnerDisplayName = 'Owner'
 
-const headers = [
+const activeHeaders = [
   {
     width: '200px',
     name: 'Name',
@@ -29,6 +29,28 @@ const headers = [
     attribute: 'status'
   }
 ]
+
+const archivedHeaders = [
+  {
+    width: '220px',
+    name: 'Name',
+    attribute: 'name'
+  }, {
+    width: '72px',
+    name: 'Role',
+    attribute: 'role'
+  }, {
+    width: '395px',
+    name: 'Email',
+    attribute: 'email'
+  },
+  {
+    width: '52px',
+    name: 'Status',
+    attribute: 'status'
+  }
+]
+
 
 interface ClassroomTeacherSectionProps {
   user: any;
@@ -125,7 +147,7 @@ export default class ClassroomTeacherSection extends React.Component<ClassroomTe
   }
 
   renderTeacherRow(teacher) {
-    const { isOwnedByCurrentUser, } = this.props
+    const { isOwnedByCurrentUser, classroom, } = this.props
     const { name, classroom_relation, id, status, email } = teacher
     const role = this.formatRole(classroom_relation)
     const currentUserIsOwnerAndRowIsCoteacher = role === CoteacherDisplayName && isOwnedByCurrentUser
@@ -135,7 +157,7 @@ export default class ClassroomTeacherSection extends React.Component<ClassroomTe
       email,
       role,
       status,
-      actions: currentUserIsOwnerAndRowIsCoteacher ? this.actions(status) : null
+      actions: currentUserIsOwnerAndRowIsCoteacher && classroom.visible ? this.actions(status) : null
     }
     return teacherRow
   }
@@ -155,9 +177,9 @@ export default class ClassroomTeacherSection extends React.Component<ClassroomTe
 
     const rows = teachers.map(teacher => this.renderTeacherRow(teacher))
     return <DataTable
-      headers={headers}
+      headers={classroom.visible ? activeHeaders : archivedHeaders}
       rows={rows}
-      showActions={true}
+      showActions={classroom.visible}
     />
   }
 
@@ -204,6 +226,15 @@ export default class ClassroomTeacherSection extends React.Component<ClassroomTe
     }
   }
 
+  renderInviteCoteachersButton() {
+    const { classroom } = this.props
+    if (!classroom.visible) {
+      return null
+    } else {
+      return <button className="quill-button primary outlined small" onClick={() => this.inviteCoteachers()}>Invite co-teachers</button>
+    }
+  }
+
   render() {
     return <div className="teacher-section">
       {this.renderRemoveCoteacherModal()}
@@ -211,7 +242,7 @@ export default class ClassroomTeacherSection extends React.Component<ClassroomTe
       {this.renderInviteCoteachersModal()}
       <div className="teacher-section-header">
         <h3>Teachers</h3>
-        <button className="quill-button primary outlined small" onClick={() => this.inviteCoteachers()}>Invite co-teachers</button>
+        {this.renderInviteCoteachersButton()}
       </div>
       {this.renderTeachers()}
     </div>
