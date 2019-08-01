@@ -10,6 +10,7 @@ import MoveStudentsModal from './move_students_modal'
 import RemoveStudentsModal from './remove_students_modal'
 
 const emptyDeskSrc = `${process.env.CDN_URL}/images/illustrations/empty-desks.svg`
+const bulbSrc = `${process.env.CDN_URL}/images/illustrations/bulb.svg`
 
 const activeHeaders = [
   {
@@ -322,6 +323,28 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
     }
   }
 
+  renderGoogleOrCleverNoteOfExplanation() {
+    const { classroom } = this.props
+    if (!classroom.visible) { return null }
+    const allGoogleStudents = classroom.students.every(student => student.google_id)
+    const allCleverStudents = classroom.students.every(student => student.clever_id)
+    if (allGoogleStudents || allCleverStudents) {
+      let copy
+      if (allGoogleStudents) {
+        copy = "Your students’ account information is linked to your Google Classroom account. Go to your Google Classroom account to edit your students."
+      } else if (allCleverStudents) {
+        copy = "Your students’ account information is auto-synced from your Clever account. You can modify your Quill class rosters from your Clever account."
+      }
+      return <div className="google-or-clever-note-of-explanation">
+        <div className="google-or-clever-note-of-explanation-text">
+          <h4>Why can't I edit my students’ account information?</h4>
+          <p>{copy}</p>
+        </div>
+        <img src={bulbSrc} alt="lightbulb" />
+      </div>
+    }
+  }
+
   renderStudentDataTable() {
     const { classroom, } = this.props
 
@@ -369,17 +392,12 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
 
   renderInviteStudents() {
     const { classroom, inviteStudents, importGoogleClassroomStudents, } = this.props
-    if (!classroom.visible) { return null }
+    if (!classroom.visible || classroom.clever_id) { return null }
     if (classroom.google_classroom_id) {
       const lastUpdatedDate = moment(classroom.updated_at).format('MMM D, YYYY')
       return <div className="invite-google-classroom-students">
         <button className="quill-button primary outlined small" onClick={importGoogleClassroomStudents}>Import Google Classroom students</button>
         <span>Last imported {lastUpdatedDate}</span>
-      </div>
-    } else if (classroom.clever_id) {
-      return <div className="invite-clever-students">
-        <p>Auto-synced from Clever</p>
-        <span>You can modify your Quill class rosters from your Clever account.</span>
       </div>
     } else {
       return <div className="invite-quill-classroom-students">
@@ -401,6 +419,7 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
           <h3>Students</h3>
           {this.renderStudentHeaderButtons()}
         </div>
+        {this.renderGoogleOrCleverNoteOfExplanation()}
         {this.renderStudentActions()}
         {this.renderStudentDataTable()}
       </div>
