@@ -71,8 +71,7 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
     if (this.props.user.google_id) {
       this.setState({ googleClassroomsLoading: true}, () => {
         requestGet('/teachers/classrooms/retrieve_google_classrooms', (body) => {
-          const googleClassrooms = body.classrooms
-          // const googleClassrooms = body.classrooms.filter(classroom => !classroom.alreadyImported)
+          const googleClassrooms = body.classrooms.filter(classroom => !classroom.alreadyImported)
           const newStateObj: any = { googleClassrooms, googleClassroomsLoading: false }
           if (this.state.attemptedImportGoogleClassrooms) {
             newStateObj.attemptedImportGoogleClassrooms = false
