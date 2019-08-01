@@ -12,6 +12,7 @@ exports[`ClassroomTeacherSection component should render 1`] = `
     </h3>
     <button
       className="quill-button primary outlined small"
+      onClick={[Function]}
     >
       Invite co-teachers
     </button>

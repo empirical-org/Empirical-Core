@@ -6,7 +6,7 @@ import { Input, DataTable } from 'quill-component-library/dist/componentLibrary'
 import { requestPost, requestPut, requestGet } from '../../../../modules/request/index.js';
 
 interface InviteCoteachersModalProps {
-  close: (event) => void;
+  close: () => void;
   onSuccess: (event) => void;
   classrooms: Array<any>;
   classroom: any;
