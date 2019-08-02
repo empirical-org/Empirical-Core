@@ -685,6 +685,7 @@ exports[`Classroom component selected should render as an open card 1`] = `
           "visible": true,
         }
       }
+      onSuccess={[Function]}
       user={
         Object {
           "account_type": "unknown",

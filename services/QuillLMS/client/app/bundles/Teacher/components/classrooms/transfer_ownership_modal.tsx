@@ -1,23 +1,23 @@
 import * as React from 'react'
 
-import { requestPost } from '../../../../modules/request/index.js';
+import { requestPost, requestDelete } from '../../../../modules/request/index.js';
 
 const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
 
 type CheckboxNames = 'checkboxOne'|'checkboxTwo'|'checkboxThree'
 
-interface RemoveStudentsModalProps {
+interface TransferOwnershipModalProps {
   close: () => void;
   onSuccess: (string) => void;
-  selectedStudentIds: any;
+  coteacher: any;
   classroom: any;
 }
 
-interface RemoveStudentsModalState {
+interface TransferOwnershipModalState {
   checkboxOne?: boolean;
 }
 
-export default class RemoveStudentsModal extends React.Component<RemoveStudentsModalProps, RemoveStudentsModalState> {
+export default class TransferOwnershipModal extends React.Component<TransferOwnershipModalProps, TransferOwnershipModalState> {
   constructor(props) {
     super(props)
 
@@ -26,20 +26,13 @@ export default class RemoveStudentsModal extends React.Component<RemoveStudentsM
     }
 
     this.toggleCheckbox = this.toggleCheckbox.bind(this)
-    this.removeStudents = this.removeStudents.bind(this)
+    this.transferOwnership = this.transferOwnership.bind(this)
   }
 
-  studentOrStudents() {
-    const { selectedStudentIds, } = this.props
-    return selectedStudentIds.length === 1 ? 'student' : 'students'
-  }
-
-  removeStudents() {
-    const { onSuccess, close, classroom, selectedStudentIds, } = this.props
-    requestPost(`/teachers/classrooms/${classroom.id}/remove_students`, { student_ids: selectedStudentIds }, (body) => {
-      const studentOrStudents = selectedStudentIds.length === 1 ? 'Student' : 'Students'
-      const successMessage = `${studentOrStudents} removed`
-      onSuccess(successMessage)
+  transferOwnership() {
+    const { onSuccess, close, classroom, coteacher, } = this.props
+    requestPost(`/teachers/classrooms/${classroom.id}/transfer_ownership`, { requested_new_owner_id: coteacher.id }, (body) => {
+      onSuccess('Class transferred')
       close()
     })
   }
@@ -71,25 +64,24 @@ export default class RemoveStudentsModal extends React.Component<RemoveStudentsM
     return (<div className="checkboxes">
       <div className="checkbox-row">
         {this.renderCheckbox('checkboxOne')}
-        <span>I understand that I will no longer have access to the students’ work  or data.</span>
+        <span>I understand that I will no longer have the ability to archive classes or edit activity packs.</span>
       </div>
     </div>)
   }
 
   render() {
-    const { selectedStudentIds, close } = this.props
-    const numberOfSelectedStudents = selectedStudentIds.length
-    return <div className="modal-container remove-students-modal-container">
+    const { coteacher, close, classroom } = this.props
+    return <div className="modal-container transfer-ownership-modal-container">
       <div className="modal-background" />
-      <div className="remove-students-modal modal modal-body">
+      <div className="transfer-ownership-modal modal modal-body">
         <div>
-          <h3 className="title">Remove {numberOfSelectedStudents} {this.studentOrStudents()} from your class?</h3>
+          <h3 className="title">Transfer ownership of this class?</h3>
         </div>
-        <p>Students' Quill accounts will remain active. If you bring students back into the class, the data from their completed activities will be restored.</p>
+        <p>You are transferring the class {classroom.name} to {coteacher.name} ({coteacher.email}). You will still have access to the class as a co-teacher.</p>
         {this.renderCheckboxes()}
         <div className="form-buttons">
           <button className="quill-button outlined secondary medium" onClick={close}>Cancel</button>
-          <button className={this.submitButtonClass()} onClick={this.removeStudents}>Remove from class</button>
+          <button className={this.submitButtonClass()} onClick={this.transferOwnership}>Transfer class</button>
         </div>
       </div>
     </div>
