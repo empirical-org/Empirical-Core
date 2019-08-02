@@ -1,6 +1,8 @@
 import * as React from 'react'
 import { DataTable, Input } from 'quill-component-library/dist/componentLibrary'
 
+import ButtonLoadingIndicator from '../shared/button_loading_indicator'
+
 import { requestPost } from '../../../../modules/request/index.js';
 
 interface CreateStudentAccountsProps {
@@ -13,7 +15,8 @@ interface CreateStudentAccountsProps {
 interface CreateStudentAccountsState {
   firstName: string,
   lastName: string,
-  students: Array<{ name: string, username: string, password: string, id?: string|number }>
+  students: Array<{ name: string, username: string, password: string, id?: string|number }>,
+  waiting: boolean
 }
 
 const tableHeaders = [{
@@ -41,7 +44,8 @@ export default class CreateStudentAccounts extends React.Component<CreateStudent
     this.state = {
       firstName: '',
       lastName: '',
-      students: []
+      students: [],
+      waiting: false
     }
 
     this.allStudents = this.allStudents.bind(this)
@@ -95,6 +99,7 @@ export default class CreateStudentAccounts extends React.Component<CreateStudent
 
   createStudents() {
     const { classroom, next, setStudents, } = this.props
+    this.setState({ waiting: true })
     requestPost(`/teachers/classrooms/${classroom.id}/create_students`, { students: this.state.students }, (body) => {
       setStudents(body.students)
       next()
@@ -178,9 +183,14 @@ export default class CreateStudentAccounts extends React.Component<CreateStudent
 
   renderFooter() {
     const { back } = this.props
+    const { waiting } = this.state
+    let nextButton = <button className={this.footerButtonClass()} onClick={this.createStudents}>Next</button>
+    if (waiting) {
+      nextButton = <button className={this.footerButtonClass()}><ButtonLoadingIndicator /></button>
+    }
     return <div className="create-a-class-modal-footer with-back-button">
       <button className="quill-button secondary outlined medium" onClick={back}>Back</button>
-      <button className={this.footerButtonClass()} onClick={this.createStudents}>Next</button>
+      {nextButton}
     </div>
   }
 

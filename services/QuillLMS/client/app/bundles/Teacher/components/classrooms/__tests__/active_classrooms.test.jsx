@@ -22,15 +22,16 @@ import ImportGoogleClassroomsModal from '../import_google_classrooms_modal'
 import ImportGoogleClassroomStudentsModal from '../import_google_classroom_students_modal'
 import GoogleClassroomEmailModal from '../google_classroom_email_modal'
 import GoogleClassroomsEmptyModal from '../google_classrooms_empty_modal'
+import CoteacherInvitation from '../coteacher_invitation'
 
-import { classroomProps, userProps } from './test_data/test_data'
+import { classroomProps, userProps, coteacherInvitations } from './test_data/test_data'
 
 describe('ActiveClassrooms component', () => {
 
-  describe('with no classrooms', () => {
+  describe('with no classrooms or coteacher invitations ', () => {
 
     const wrapper = shallow(
-      <ActiveClassrooms classrooms={[]} user={userProps}/>
+      <ActiveClassrooms classrooms={[]} user={userProps} coteacherInvitations={[]}/>
     );
 
     it('should render with no classrooms', () => {
@@ -44,12 +45,16 @@ describe('ActiveClassrooms component', () => {
 
   describe('with classrooms', () => {
     const wrapper = shallow(
-      <ActiveClassrooms classrooms={classroomProps} user={userProps}/>
+      <ActiveClassrooms classrooms={classroomProps} user={userProps} coteacherInvitations={coteacherInvitations}/>
     );
 
     it('should render with classrooms', () => {
       expect(wrapper).toMatchSnapshot();
     });
+
+    it('should have a CoteacherInvitation component for each coteacher invitation', () => {
+      expect(wrapper.find(CoteacherInvitation).length).toBe(coteacherInvitations.length)
+    })
 
     it('should have a classroom component for each classroom', () => {
       expect(wrapper.find(Classroom).length).toBe(classroomProps.length);
