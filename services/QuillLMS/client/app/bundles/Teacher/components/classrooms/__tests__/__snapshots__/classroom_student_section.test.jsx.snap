@@ -108,6 +108,14 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
             },
             Object {
               "action": [Function],
+              "name": "Merge accounts",
+            },
+            Object {
+              "action": [Function],
+              "name": "Move class",
+            },
+            Object {
+              "action": [Function],
               "name": "Remove from class",
             },
           ],
@@ -126,6 +134,14 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
             Object {
               "action": [Function],
               "name": "Reset password",
+            },
+            Object {
+              "action": [Function],
+              "name": "Merge accounts",
+            },
+            Object {
+              "action": [Function],
+              "name": "Move class",
             },
             Object {
               "action": [Function],

@@ -1,6 +1,18 @@
 .classrooms-page {
   padding-top: 40px;
 
+  &.archived-classrooms {
+    .header {
+      display: flex;
+      flex-direction: column;
+      p {
+        font-size: 14px;
+        line-height: 1.57;
+        color: #646464;
+      }
+    }
+  }
+
   .name, .last-name, .first-name {
     &.inactive:not(.has-text) {
       label {
@@ -62,45 +74,11 @@
 
   .archived-classes {
     .classroom {
-      .students-section.empty {
-        h3 {
-          margin-bottom: 0px;
-        }
-      }
       h3 {
         margin-bottom: 32px;
       }
       .teacher-section-header {
         margin-bottom: 0px;
-      }
-    }
-  }
-
-  .coteacher-invitation {
-    height: 122px;
-    border-radius: 6px;
-    border: solid 1px #e0e0e0;
-    padding: 32px;
-    background-color: #fffffff;
-    margin-bottom: 24px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    background-color: #ffffff;
-    .coteacher-invitation-content {
-      display: flex;
-      justify-content: space-between;
-      p {
-        font-size: 14px;
-        line-height: 1.57;
-        color: #646464;
-      }
-      span {
-        font-size: 14px;
-        font-weight: 600;
-        color: #009a80;
-        cursor: pointer;
-        margin-left: 40px;
       }
     }
   }
@@ -206,8 +184,6 @@
         line-height: 1.57;
         margin-top: 24px;
         color: #646464;
-        max-width: 528px;
-        text-align: center;
       }
     }
     .students-section-header, .teacher-section-header {
@@ -229,7 +205,6 @@
         display: flex;
         justify-content: space-between;
         width: 100%;
-        min-height: 76px;
       }
     }
     .student-actions-dropdown {
@@ -318,7 +293,6 @@
   .transfer-ownership-modal,
   .import-google-classroom-students-modal,
   .google-classroom-email-modal,
-  .leave-class-modal,
   .google-classrooms-empty-modal {
     width: 560px;
     overflow: visible;
@@ -368,11 +342,11 @@
     height: 316px;
   }
 
-  .unarchive-class-modal, .leave-class-modal {
+  .unarchive-class-modal {
     height: 250px;
   }
 
-  .archive-class-modal-text, .unarchive-class-modal-text, .leave-class-modal-text {
+  .archive-class-modal-text, .unarchive-class-modal-text {
     margin-top: 24px;
     margin-bottom: 48px;
     line-height: 1.57;
@@ -704,31 +678,6 @@
         .active {
           color: #000;
         }
-      }
-    }
-  }
-
-  .google-or-clever-note-of-explanation {
-    height: 174px;
-    border-radius: 6px;
-    background-color: #eeeeee;
-    padding: 40px 32px;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 40px;
-    .google-or-clever-note-of-explanation-text {
-      max-width: 600px;
-      h4 {
-        font-size: 16px;
-        font-weight: bold;
-        margin-bottom: 24px;
-        line-height: 1.63;
-      }
-      p {
-        font-size: 14px;
-        line-height: 1.57;
-        color: #646464;
       }
     }
   }

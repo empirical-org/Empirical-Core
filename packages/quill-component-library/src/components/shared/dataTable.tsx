@@ -35,7 +35,7 @@ interface DataTableHeader {
 interface DataTableProps {
   headers: Array<DataTableHeader>;
   rows: Array<DataTableRow>;
-  averageFontWidth?: number;
+  averageFontWidth: number;
   className?: string;
   defaultSortAttribute?: string;
   defaultSortDirection?: string;
@@ -113,10 +113,7 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     const { showCheckboxes, rows, uncheckAllRows, checkAllRows } = this.props
     if (showCheckboxes) {
       const anyChecked = rows.some(row => row.checked)
-      const allDisabled = rows.every(row => row.checkDisabled)
-      if (allDisabled) {
-        return <span className={`quill-checkbox disabled ${dataTableHeaderClassName}`} />
-      } else if (anyChecked) {
+      if (anyChecked) {
         return <span className={`quill-checkbox selected ${dataTableHeaderClassName}`}>
           <img src={indeterminateSrc} alt="check" onClick={uncheckAllRows}/>
         </span>
@@ -144,8 +141,6 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     if (this.props.showCheckboxes) {
       if (row.checked) {
         return <span className="quill-checkbox selected data-table-row-section" onClick={() => this.props.uncheckRow(row.id)}><img src={smallWhiteCheckSrc} alt="check" /></span>
-      } else if (row.checkDisabled) {
-        return <span className="quill-checkbox disabled data-table-row-section" />
       } else {
         return <span className="quill-checkbox unselected data-table-row-section" onClick={() => this.props.checkRow(row.id)} />
       }

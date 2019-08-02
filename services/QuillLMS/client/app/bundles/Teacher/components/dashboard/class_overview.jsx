@@ -6,6 +6,7 @@ import PremiumMini from './premium_mini';
 import TeacherGuide from '../teacher_guide/teacher_guide';
 import BetaMini from './beta_mini.jsx';
 import NewTools from './new_tools_mini.jsx';
+import CoteachingAnnouncement from './coteaching_announcement_mini.jsx';
 import PremiumPromo from './premium_promo.jsx';
 import LessonsList from './lessons_list.jsx';
 import DiagnosticMini from './diagnostic_mini.jsx';
@@ -56,6 +57,12 @@ export default React.createClass({
     }
   },
 
+  announcementMini() {
+    const announcements = [];
+    announcements.push(<CoteachingAnnouncement key="coteaching-announcement" />);
+    return announcements;
+  },
+
   lessonsList() {
     return <LessonsList />;
   },
@@ -71,6 +78,7 @@ export default React.createClass({
         {this.diagnosticMini()}
         {this.lessonsList()}
         {this.hasPremium()}
+        {this.announcementMini()}
         {this.overviewMinis()}
         {this.betaMini()}
         <NotificationFeed notifications={this.props.notifications} />

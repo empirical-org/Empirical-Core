@@ -154,7 +154,6 @@ exports[`Classroom component selected should render as an open card 1`] = `
       >
         <button
           className="quill-button secondary outlined small"
-          onClick={[Function]}
         >
           Leave class
         </button>
@@ -933,7 +932,6 @@ exports[`Classroom component selected should render as an open card 1`] = `
           },
         ]
       }
-      leaveClass={[Function]}
       onSuccess={[Function]}
       user={
         Object {

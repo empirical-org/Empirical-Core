@@ -11,7 +11,6 @@ import ImportGoogleClassroomStudentsModal from './import_google_classroom_studen
 import GoogleClassroomEmailModal from './google_classroom_email_modal'
 import GoogleClassroomsEmptyModal from './google_classrooms_empty_modal'
 import Classroom from './classroom'
-import CoteacherInvitation from './coteacher_invitation'
 import ButtonLoadingIndicator from '../shared/button_loading_indicator'
 
 import { requestGet } from '../../../../modules/request/index.js';
@@ -20,14 +19,12 @@ const emptyClassSrc = `${process.env.CDN_URL}/images/illustrations/empty-class.s
 
 interface ActiveClassroomsProps {
   classrooms: Array<any>;
-  coteacherInvitations: Array<any>
   user: any;
 }
 
 interface ActiveClassroomsState {
   showSnackbar: boolean;
   classrooms: Array<any>;
-  coteacherInvitations: Array<any>;
   googleClassrooms: Array<any>;
   showModal?: string;
   googleClassroomsLoading?: boolean;
@@ -53,7 +50,6 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
     this.state = {
       showSnackbar: false,
       classrooms: props.classrooms.filter(classroom => classroom.visible),
-      coteacherInvitations: props.coteacherInvitations,
       googleClassrooms: []
     }
 
@@ -63,7 +59,7 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
     this.onSuccess = this.onSuccess.bind(this)
     this.clickClassroomHeader = this.clickClassroomHeader.bind(this)
     this.clickImportGoogleClassrooms = this.clickImportGoogleClassrooms.bind(this)
-    this.getClassroomsAndCoteacherInvitations = this.getClassroomsAndCoteacherInvitations.bind(this)
+    this.getClassrooms = this.getClassrooms.bind(this)
     this.getGoogleClassrooms = this.getGoogleClassrooms.bind(this)
   }
 
@@ -88,12 +84,12 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
     }
   }
 
-  getClassroomsAndCoteacherInvitations() {
-    requestGet('/teachers/classrooms/new_index', (body) => this.setState({ classrooms: body.classrooms.filter(classroom => classroom.visible), coteacherInvitations: body.coteacher_invitations }));
+  getClassrooms() {
+    requestGet('/teachers/classrooms/new_index', (body) => this.setState({ classrooms: body.classrooms.filter(classroom => classroom.visible) }));
   }
 
   onSuccess(snackbarCopy) {
-    this.getClassroomsAndCoteacherInvitations()
+    this.getClassrooms()
     this.getGoogleClassrooms()
     this.showSnackbar(snackbarCopy)
     this.closeModal()
@@ -146,29 +142,20 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
 
   renderPageContent() {
     const { user } = this.props
-    const { classrooms, coteacherInvitations } = this.state
+    const { classrooms } = this.state
     const ownActiveClassrooms = classrooms.filter(c => {
       const classroomOwner = c.teachers.find(teacher => teacher.classroom_relation === 'owner')
       return c.visible && classroomOwner.id === user.id
     })
-    if (classrooms.length === 0 && coteacherInvitations.length === 0) {
+    if (classrooms.length === 0) {
       return <div className="no-active-classes">
         <img src={emptyClassSrc} />
         <p>Every teacher needs a class! Please select one of the buttons on the right to get started.</p>
       </div>
     } else {
-      const coteacherInvitationCards = coteacherInvitations.map(coteacherInvitation => {
-        return <CoteacherInvitation
-          key={coteacherInvitation.id}
-          showSnackbar={this.showSnackbar}
-          getClassroomsAndCoteacherInvitations={this.getClassroomsAndCoteacherInvitations}
-          coteacherInvitation={coteacherInvitation}
-        />
-      })
       const classroomCards = classrooms.map(classroom => {
         const isOwnedByCurrentUser = !!ownActiveClassrooms.find(c => c.id === classroom.id)
         return <Classroom
-          key={classroom.id}
           renameClass={() => this.openModal(renameClassModal)}
           changeGrade={() => this.openModal(changeGradeModal)}
           archiveClass={() => this.openModal(archiveClassModal)}
@@ -184,7 +171,6 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
         />
       })
       return <div className="active-classes">
-        {coteacherInvitationCards}
         {classroomCards}
       </div>
     }
@@ -193,7 +179,7 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
   renderCreateAClassModal() {
     if (this.state.showModal === createAClassModal) {
       return <CreateAClassModal
-        close={() => this.closeModal(this.getClassroomsAndCoteacherInvitations)}
+        close={() => this.closeModal(this.getClassrooms)}
         showSnackbar={this.showSnackbar}
       />
     }
@@ -204,7 +190,7 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
     const selectedClassroom = classrooms.find(c => c.id === selectedClassroomId)
     if (showModal === inviteStudentsModal) {
       return <InviteStudentsModal
-        close={() => this.closeModal(this.getClassroomsAndCoteacherInvitations)}
+        close={() => this.closeModal(this.getClassrooms)}
         showSnackbar={this.showSnackbar}
         classroom={selectedClassroom}
       />
