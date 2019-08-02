@@ -49,7 +49,9 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
     >
       <a
         className="quill-button secondary outlined small"
+        download="quill_login"
         href="/teachers/classrooms/285383/student_logins"
+        target="_blank"
       >
         Download setup instructions
       </a>
@@ -111,6 +113,7 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
               "name": "Remove from class",
             },
           ],
+          "checkDisabled": false,
           "checked": false,
           "id": 2851870,
           "name": "Maya Angelou",
@@ -132,6 +135,7 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
               "name": "Remove from class",
             },
           ],
+          "checkDisabled": false,
           "checked": false,
           "id": 2851866,
           "name": "William Shakespeare",

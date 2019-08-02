@@ -16,11 +16,13 @@ exports[`SetupInstructions component should render SetupInstructions 1`] = `
       This PDF includes usernames and passwords for each student and instructions for accessing their Quill accounts.
     </p>
     <img
-      src="undefined/images/illustrations/setup-instructions.svg"
+      src="undefined/images/illustrations/setup-instructions-generic.svg"
     />
     <a
       className="quill-button secondary outlined medium"
-      href="/teachers/classrooms/1/student_logins"
+      download={true}
+      href="undefined/documents/setup_instructions_pdfs/class_code_links.pdf"
+      target="_blank"
     >
       Download PDF
     </a>

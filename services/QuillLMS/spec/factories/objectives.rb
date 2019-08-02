@@ -14,7 +14,7 @@ FactoryBot.define do
       name              { 'Create a Classroom' }
       help_info         { 'http://support.quill.org/knowledgebase/articles/369605' }
       section           'Getting Started'
-      action_url        { '/teachers/classrooms&modal=create-a-class' }
+      action_url        { '/teachers/classrooms?modal=create-a-class' }
       section_placement { 1 }
     end
 

@@ -29,7 +29,7 @@ export default React.createClass({
       content = 'Please select a class that has activities, or assign new activities from the \'Assign Activities\' page.';
     } else {
       title = 'You have no reports yet!';
-      onButtonClick = () => { window.location.assign('/teachers/classrooms&modal=create-a-class'); }
+      onButtonClick = () => { window.location.assign('/teachers/classrooms?modal=create-a-class'); }
       buttonText = 'Create a Class';
       content = 'In order to access our different reports, you need to create a class and assign activities to your students.'
     }
