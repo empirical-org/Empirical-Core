@@ -5,7 +5,7 @@ describe Teachers::ClassroomsController, type: :controller do
   it { should use_before_filter :authorize_owner! }
   it { should use_before_filter :authorize_teacher! }
 
-  describe 'creating a classroom' do
+  describe 'new' do
     let(:teacher) { create(:teacher) }
     let(:classroom_attributes) {attributes_for(:classroom)}
 
@@ -13,42 +13,9 @@ describe Teachers::ClassroomsController, type: :controller do
       session[:user_id] = teacher.id # sign in, is there a better way to do this in test?
     end
 
-    it 'kicks off a background job' do
-      pending 'figure out if this is the way to do test a background job'
-      expect {
-        post :create, classroom: {name: 'My Class', grade: '8', code: 'whatever-whatever'}
-        expect(response.status).to eq(302) # Redirects after success
-      }.to change(ClassroomCreationWorker.jobs, :size).by(1)
-    end
-
-    it 'responds with a json object representing the classroom' do
-        post :create, classroom: classroom_attributes
-        returned_class = JSON.parse(response.body)['classroom']
-        returned_name_and_grade = [returned_class['name'], returned_class['grade']]
-        passed_name_and_grade = [classroom_attributes[:name], classroom_attributes[:grade]]
-        expect(returned_name_and_grade).to eq(passed_name_and_grade)
-    end
-
-    it 'should render toInviteStudents true when there are no students but the teacher has units' do
-      create(:unit, user_id: teacher.id)
-      post :create, classroom: classroom_attributes
-      expect(JSON.parse(response.body)['toInviteStudents']).to be
-    end
-
-    it 'should render toInviteStudents false when there are students in the classroom' do
-      classroom = create(:classroom_with_a_couple_students)
-      post :create, classroom: classroom.attributes
-      expect(JSON.parse(response.body)['toInviteStudents']).not_to be
-    end
-
-    it 'should render toInviteStudents false when the teacher has no units' do
-      post :create, classroom: classroom_attributes
-      expect(JSON.parse(response.body)['toInviteStudents']).not_to be
-    end
-
-    it 'displays the form' do
+    it 'redirects to the teachers_classrooms_path' do
       get :new
-      expect(response.status).to eq(200)
+      expect(response.redirect).to eq(teachers_classrooms_path)
     end
   end
 
@@ -142,35 +109,18 @@ describe Teachers::ClassroomsController, type: :controller do
 
   describe '#index' do
     let(:teacher) { create(:teacher) }
+    let(:classroom) { create(:classroom)}
+    let(:classrooms_teacher) { create(:classrooms_teacher, classroom: classroom, user: teacher )}
 
     before do
       allow(controller).to receive(:current_user) { teacher }
     end
 
-    context 'when current user has no classrooms i teach, archived classrooms and outstanding teacher invitation' do
-      before do
-        allow(teacher).to receive(:classrooms_i_teach) { [] }
-        allow(teacher).to receive(:has_outstanding_coteacher_invitation?) { false }
-        allow(teacher).to receive(:archived_classrooms) { [] }
-      end
-
-      it 'should redirect to new classroom path' do
-        get :index
-        expect(response).to redirect_to new_teachers_classroom_path
-      end
-    end
-
     context 'when current user has classrooms i teach' do
-      let(:classroom) { create(:classroom) }
-
-      before do
-        allow(teacher).to receive(:classrooms_i_teach) { [classroom] }
-      end
 
       it 'should assign the classrooms and classroom' do
         get :index
         expect(assigns(:classrooms)).to eq [classroom]
-        expect(assigns(:classroom)).to eq classroom
       end
     end
   end

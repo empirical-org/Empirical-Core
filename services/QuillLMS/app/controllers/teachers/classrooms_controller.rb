@@ -9,15 +9,6 @@ class Teachers::ClassroomsController < ApplicationController
   INDEX = 'index'
 
   def index
-  #   if current_user.classrooms_i_teach.empty? && current_user.archived_classrooms.empty? && !current_user.has_outstanding_coteacher_invitation?
-  #     redirect_to new_teachers_classroom_path
-  #   else
-  #     @classrooms = current_user.classrooms_i_teach
-  #     @classroom = @classrooms.first
-  #   end
-  # end
-  #
-  # def new_index
     session[GOOGLE_REDIRECT] = request.env['PATH_INFO']
 
     coteacher_invitations = CoteacherClassroomInvitation.joins(:invitation, :classroom).where(invitations: {invitee_email: current_user.email}, classrooms: { visible: true})
@@ -80,9 +71,7 @@ class Teachers::ClassroomsController < ApplicationController
   def create
     @classroom = Classroom.create_with_join(classroom_params, current_user.id)
     if @classroom.valid?
-      # For onboarding purposes, we don't want to prompt a teacher to invite students before they've assigned any units.
-      should_redirect_to_invite_students = @classroom.students.empty? && current_user.units.any?
-      render json: {classroom: @classroom, toInviteStudents: should_redirect_to_invite_students}
+      render json: {classroom: @classroom}
     else
        render json: {errors: @classroom.errors.full_messages }, status: 422
     end

@@ -15,16 +15,12 @@ import DiagnosticReportsApp from './DiagnosticReportsAppClient.jsx';
 import DiagnosticPlannerApp from './DiagnosticPlannerAppClient.jsx';
 import UnitTemplatesApp from './UnitTemplatesClient.jsx';
 import PublicUnitTemplatesApp from './PublicUnitTemplatesAppClient.jsx';
-import GoogleSyncApp from './GoogleSyncAppClient.jsx';
-import GoogleMismatchApp from './GoogleMismatchAppClient.jsx';
 import AssignActivitiesApp from './AssignActivitiesAppClient';
 import TutorialsApp from './TutorialsAppClient';
 import TeacherFixApp from './TeacherFixAppClient';
 import ActivityCategoriesApp from './ActivityCategoriesAppClient';
 import ActivityCategoryApp from './ActivityCategoryAppClient';
 import ActivityClassificationsApp from './ActivityClassificationsAppClient';
-import EditCoteacherApp from './EditCoteacherAppClient';
-import EditStudentApp from './EditStudentAppClient';
 import SubscriptionApp from './SubscriptionAppClient';
 import BlogPostsApp from './BlogPostsAppClient'
 import PressApp from './PressAppClient'
@@ -55,16 +51,12 @@ ReactOnRails.register({ TeacherGuideApp,
   DiagnosticReportsApp,
   UnitTemplatesApp,
   PublicUnitTemplatesApp,
-  GoogleSyncApp,
-  GoogleMismatchApp,
   AssignActivitiesApp,
   TutorialsApp,
   TeacherFixApp,
   ActivityCategoriesApp,
   ActivityCategoryApp,
   ActivityClassificationsApp,
-  EditCoteacherApp,
-  EditStudentApp,
   SubscriptionApp,
   BlogPostsApp,
   PressApp,
