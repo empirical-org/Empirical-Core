@@ -65,10 +65,24 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
     this.clickImportGoogleClassrooms = this.clickImportGoogleClassrooms.bind(this)
     this.getClassroomsAndCoteacherInvitations = this.getClassroomsAndCoteacherInvitations.bind(this)
     this.getGoogleClassrooms = this.getGoogleClassrooms.bind(this)
+    this.openModalBasedOnParams = this.openModalBasedOnParams.bind(this)
   }
 
   componentDidMount() {
     this.getGoogleClassrooms()
+    this.openModalBasedOnParams()
+  }
+
+  openModalBasedOnParams() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const modal = urlParams.get('modal')
+
+    if (modal === 'create-a-class') {
+      this.setState({ showModal: createAClassModal })
+    } else if (modal === 'google-classroom') {
+      this.clickImportGoogleClassrooms()
+    }
+
   }
 
   getGoogleClassrooms() {
@@ -89,7 +103,7 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
   }
 
   getClassroomsAndCoteacherInvitations() {
-    requestGet('/teachers/classrooms/new_index', (body) => this.setState({ classrooms: body.classrooms.filter(classroom => classroom.visible), coteacherInvitations: body.coteacher_invitations }));
+    requestGet('/teachers/classrooms', (body) => this.setState({ classrooms: body.classrooms.filter(classroom => classroom.visible), coteacherInvitations: body.coteacher_invitations }));
   }
 
   onSuccess(snackbarCopy) {

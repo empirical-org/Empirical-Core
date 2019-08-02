@@ -26,11 +26,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def generic_add_students
-    if current_user && current_user.role == 'teacher'
-      @classroom = current_user.classrooms_i_teach.first
-      redirect_to invite_students_teachers_classrooms_path
-    else redirect_to profile_path
-    end
+    redirect_to teachers_classrooms_path
   end
 
   def retrieve_classrooms_for_assigning_activities # in response to ajax request
