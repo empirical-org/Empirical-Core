@@ -33,6 +33,150 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
   <div
     className="active-classes"
   >
+    <CoteacherInvitation
+      coteacherInvitation={
+        Object {
+          "classroom_id": 188628,
+          "classroom_name": "2020",
+          "created_at": "2019-08-01T16:05:31.309Z",
+          "id": 73330,
+          "invitation_id": 72173,
+          "inviter_email": "amitchell@ecslions.org",
+          "inviter_name": "Amber Mitchell",
+          "updated_at": "2019-08-01T16:05:31.309Z",
+        }
+      }
+      getClassroomsAndCoteacherInvitations={[Function]}
+      showSnackbar={[Function]}
+    />
+    <CoteacherInvitation
+      coteacherInvitation={
+        Object {
+          "classroom_id": 43699,
+          "classroom_name": "2019",
+          "created_at": "2019-08-01T16:05:31.207Z",
+          "id": 73329,
+          "invitation_id": 72173,
+          "inviter_email": "amitchell@ecslions.org",
+          "inviter_name": "Amber Mitchell",
+          "updated_at": "2019-08-01T16:05:31.207Z",
+        }
+      }
+      getClassroomsAndCoteacherInvitations={[Function]}
+      showSnackbar={[Function]}
+    />
+    <CoteacherInvitation
+      coteacherInvitation={
+        Object {
+          "classroom_id": 220524,
+          "classroom_name": "PLP Students",
+          "created_at": "2019-08-01T16:05:31.099Z",
+          "id": 73328,
+          "invitation_id": 72173,
+          "inviter_email": "amitchell@ecslions.org",
+          "inviter_name": "Amber Mitchell",
+          "updated_at": "2019-08-01T16:05:31.099Z",
+        }
+      }
+      getClassroomsAndCoteacherInvitations={[Function]}
+      showSnackbar={[Function]}
+    />
+    <CoteacherInvitation
+      coteacherInvitation={
+        Object {
+          "classroom_id": 285377,
+          "classroom_name": "Newspaper Publishing 11 - 001 - B. Glover",
+          "created_at": "2019-08-01T16:05:30.985Z",
+          "id": 73327,
+          "invitation_id": 72173,
+          "inviter_email": "amitchell@ecslions.org",
+          "inviter_name": "Amber Mitchell",
+          "updated_at": "2019-08-01T16:05:30.985Z",
+        }
+      }
+      getClassroomsAndCoteacherInvitations={[Function]}
+      showSnackbar={[Function]}
+    />
+    <CoteacherInvitation
+      coteacherInvitation={
+        Object {
+          "classroom_id": 285378,
+          "classroom_name": "Ninth Grade English - 101 - B. Glover (Section 1)",
+          "created_at": "2019-08-01T16:05:30.876Z",
+          "id": 73326,
+          "invitation_id": 72173,
+          "inviter_email": "amitchell@ecslions.org",
+          "inviter_name": "Amber Mitchell",
+          "updated_at": "2019-08-01T16:05:30.876Z",
+        }
+      }
+      getClassroomsAndCoteacherInvitations={[Function]}
+      showSnackbar={[Function]}
+    />
+    <CoteacherInvitation
+      coteacherInvitation={
+        Object {
+          "classroom_id": 285379,
+          "classroom_name": "Ninth Grade English - 101 - B. Glover (Section 2)",
+          "created_at": "2019-08-01T16:05:30.765Z",
+          "id": 73325,
+          "invitation_id": 72173,
+          "inviter_email": "amitchell@ecslions.org",
+          "inviter_name": "Amber Mitchell",
+          "updated_at": "2019-08-01T16:05:30.765Z",
+        }
+      }
+      getClassroomsAndCoteacherInvitations={[Function]}
+      showSnackbar={[Function]}
+    />
+    <CoteacherInvitation
+      coteacherInvitation={
+        Object {
+          "classroom_id": 285380,
+          "classroom_name": "Ninth Grade English - 101 - B. Glover (Section 3)",
+          "created_at": "2019-08-01T16:05:30.642Z",
+          "id": 73324,
+          "invitation_id": 72173,
+          "inviter_email": "amitchell@ecslions.org",
+          "inviter_name": "Amber Mitchell",
+          "updated_at": "2019-08-01T16:05:30.642Z",
+        }
+      }
+      getClassroomsAndCoteacherInvitations={[Function]}
+      showSnackbar={[Function]}
+    />
+    <CoteacherInvitation
+      coteacherInvitation={
+        Object {
+          "classroom_id": 285381,
+          "classroom_name": "Class 901, Homeroom - 901 - B. Glover (Section 1)",
+          "created_at": "2019-08-01T16:05:30.525Z",
+          "id": 73323,
+          "invitation_id": 72173,
+          "inviter_email": "amitchell@ecslions.org",
+          "inviter_name": "Amber Mitchell",
+          "updated_at": "2019-08-01T16:05:30.525Z",
+        }
+      }
+      getClassroomsAndCoteacherInvitations={[Function]}
+      showSnackbar={[Function]}
+    />
+    <CoteacherInvitation
+      coteacherInvitation={
+        Object {
+          "classroom_id": 285383,
+          "classroom_name": "Quill Classroom",
+          "created_at": "2019-08-01T16:05:30.313Z",
+          "id": 73322,
+          "invitation_id": 72173,
+          "inviter_email": "amitchell@ecslions.org",
+          "inviter_name": "Amber Mitchell",
+          "updated_at": "2019-08-01T16:05:30.313Z",
+        }
+      }
+      getClassroomsAndCoteacherInvitations={[Function]}
+      showSnackbar={[Function]}
+    />
     <Classroom
       archiveClass={[Function]}
       changeGrade={[Function]}
@@ -1156,7 +1300,7 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
 </div>
 `;
 
-exports[`ActiveClassrooms component with no classrooms should render with no classrooms 1`] = `
+exports[`ActiveClassrooms component with no classrooms or coteacher invitations  should render with no classrooms 1`] = `
 <div
   className="active-classrooms classrooms-page"
 >
