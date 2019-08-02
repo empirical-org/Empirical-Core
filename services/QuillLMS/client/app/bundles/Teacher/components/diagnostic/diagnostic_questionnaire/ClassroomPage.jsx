@@ -4,7 +4,6 @@ import MenuItem from 'react-bootstrap/lib/MenuItem';
 import { Link } from 'react-router';
 import NumberSuffix from '../../modules/numberSuffixBuilder.js';
 import Modal from 'react-bootstrap/lib/Modal';
-import CreateClass from '../../../containers/CreateClass.jsx';
 import Classroom from '../../lesson_planner/create_unit/stage2/classroom';
 import LoadingSpinner from '../../shared/loading_indicator.jsx';
 

@@ -6,18 +6,18 @@ class Teachers::ClassroomsController < ApplicationController
   before_filter :authorize_owner!, except: [:scores, :units, :scorebook, :generate_login_pdf]
   before_filter :authorize_teacher!, only: [:scores, :units, :scorebook, :generate_login_pdf]
 
-  INDEX = 'new_index'
+  INDEX = 'index'
 
   def index
-    if current_user.classrooms_i_teach.empty? && current_user.archived_classrooms.empty? && !current_user.has_outstanding_coteacher_invitation?
-      redirect_to new_teachers_classroom_path
-    else
-      @classrooms = current_user.classrooms_i_teach
-      @classroom = @classrooms.first
-    end
-  end
-
-  def new_index
+  #   if current_user.classrooms_i_teach.empty? && current_user.archived_classrooms.empty? && !current_user.has_outstanding_coteacher_invitation?
+  #     redirect_to new_teachers_classroom_path
+  #   else
+  #     @classrooms = current_user.classrooms_i_teach
+  #     @classroom = @classrooms.first
+  #   end
+  # end
+  #
+  # def new_index
     session[GOOGLE_REDIRECT] = request.env['PATH_INFO']
 
     coteacher_invitations = CoteacherClassroomInvitation.joins(:invitation, :classroom).where(invitations: {invitee_email: current_user.email}, classrooms: { visible: true})
@@ -65,9 +65,7 @@ class Teachers::ClassroomsController < ApplicationController
   end
 
   def new
-    class_ids = current_user.classrooms_i_teach.map(&:id)
-    @user = current_user
-    @has_activities = ClassroomUnit.where(classroom_id: class_ids).exists?
+    redirect_to '/teachers/classrooms?modal=create-a-class'
   end
 
   def classrooms_i_teach
