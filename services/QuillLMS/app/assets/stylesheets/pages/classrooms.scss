@@ -1,6 +1,18 @@
 .classrooms-page {
   padding-top: 40px;
 
+  &.archived-classrooms {
+    .header {
+      display: flex;
+      flex-direction: column;
+      p {
+        font-size: 14px;
+        line-height: 1.57;
+        color: #646464;
+      }
+    }
+  }
+
   .name, .last-name, .first-name {
     &.inactive:not(.has-text) {
       label {
@@ -61,15 +73,6 @@
   }
 
   .archived-classes {
-    .header {
-      display: flex;
-      flex-direction: column;
-      p {
-        font-size: 14px;
-        line-height: 1.57;
-        color: #646464;
-      }
-    }
     .classroom {
       h3 {
         margin-bottom: 32px;
