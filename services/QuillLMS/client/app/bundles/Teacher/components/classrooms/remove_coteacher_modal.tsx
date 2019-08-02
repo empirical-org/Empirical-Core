@@ -1,23 +1,23 @@
 import * as React from 'react'
 
-import { requestPost } from '../../../../modules/request/index.js';
+import { requestPost, requestDelete } from '../../../../modules/request/index.js';
 
 const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
 
 type CheckboxNames = 'checkboxOne'|'checkboxTwo'|'checkboxThree'
 
-interface RemoveStudentsModalProps {
+interface RemoveCoteacherModalProps {
   close: () => void;
   onSuccess: (string) => void;
-  selectedStudentIds: any;
+  coteacher: any;
   classroom: any;
 }
 
-interface RemoveStudentsModalState {
+interface RemoveCoteacherModalState {
   checkboxOne?: boolean;
 }
 
-export default class RemoveStudentsModal extends React.Component<RemoveStudentsModalProps, RemoveStudentsModalState> {
+export default class RemoveCoteacherModal extends React.Component<RemoveCoteacherModalProps, RemoveCoteacherModalState> {
   constructor(props) {
     super(props)
 
@@ -26,22 +26,20 @@ export default class RemoveStudentsModal extends React.Component<RemoveStudentsM
     }
 
     this.toggleCheckbox = this.toggleCheckbox.bind(this)
-    this.removeStudents = this.removeStudents.bind(this)
+    this.removeCoteacher = this.removeCoteacher.bind(this)
   }
 
-  studentOrStudents() {
-    const { selectedStudentIds, } = this.props
-    return selectedStudentIds.length === 1 ? 'student' : 'students'
-  }
-
-  removeStudents() {
-    const { onSuccess, close, classroom, selectedStudentIds, } = this.props
-    requestPost(`/teachers/classrooms/${classroom.id}/remove_students`, { student_ids: selectedStudentIds }, (body) => {
-      const studentOrStudents = selectedStudentIds.length === 1 ? 'Student' : 'Students'
-      const successMessage = `${studentOrStudents} removed`
-      onSuccess(successMessage)
+  removeCoteacher() {
+    const { onSuccess, close, classroom, coteacher, } = this.props
+    const callback = (body) => {
+      onSuccess('Co-teacher removed')
       close()
-    })
+    }
+    if (coteacher.invitation_id) {
+      requestDelete(`/coteacher_classroom_invitations/${coteacher.id}`, {}, callback)
+    } else {
+      requestPost(`/classrooms_teachers/${coteacher.id}/remove_coteacher_from_class`, { classroom_id: classroom.id }, callback)
+    }
   }
 
   submitButtonClass() {
@@ -71,25 +69,28 @@ export default class RemoveStudentsModal extends React.Component<RemoveStudentsM
     return (<div className="checkboxes">
       <div className="checkbox-row">
         {this.renderCheckbox('checkboxOne')}
-        <span>I understand that I will no longer have access to the students’ work  or data.</span>
+        <span>I understand that the co-teacher will no longer have access to the students’ work or data.</span>
       </div>
     </div>)
   }
 
   render() {
-    const { selectedStudentIds, close } = this.props
-    const numberOfSelectedStudents = selectedStudentIds.length
-    return <div className="modal-container remove-students-modal-container">
+    const { coteacher, close } = this.props
+    let coteacherName = `${coteacher.name}'s`
+    if (coteacher.invitation_id) {
+      coteacherName = "This co-teacher's"
+    }
+    return <div className="modal-container remove-coteacher-modal-container">
       <div className="modal-background" />
-      <div className="remove-students-modal modal modal-body">
+      <div className="remove-coteacher-modal modal modal-body">
         <div>
-          <h3 className="title">Remove {numberOfSelectedStudents} {this.studentOrStudents()} from your class?</h3>
+          <h3 className="title">Remove co-teacher from your class?</h3>
         </div>
-        <p>Students' Quill accounts will remain active. If you bring students back into the class, the data from their completed activities will be restored.</p>
+        <p>{coteacherName} ({coteacher.email}) Quill account will remain active. You can re-invite the co-teacher later.</p>
         {this.renderCheckboxes()}
         <div className="form-buttons">
           <button className="quill-button outlined secondary medium" onClick={close}>Cancel</button>
-          <button className={this.submitButtonClass()} onClick={this.removeStudents}>Remove from class</button>
+          <button className={this.submitButtonClass()} onClick={this.removeCoteacher}>Remove from class</button>
         </div>
       </div>
     </div>

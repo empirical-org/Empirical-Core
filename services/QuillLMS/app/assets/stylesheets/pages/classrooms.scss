@@ -249,7 +249,9 @@
   .reset-student-password-modal,
   .merge-student-accounts-modal,
   .move-students-modal,
-  .remove-students-modal {
+  .remove-students-modal,
+  .remove-coteacher-modal,
+  .transfer-ownership-modal {
     width: 560px;
     overflow: visible;
     top: 50%;
@@ -338,7 +340,11 @@
     }
   }
 
-  .merge-student-accounts-modal, .move-students-modal, .remove-students-modal {
+  .merge-student-accounts-modal,
+  .move-students-modal,
+  .remove-students-modal,
+  .remove-coteacher-modal,
+  .transfer-ownership-modal {
     p {
       line-height: 1.57;
       color: #646464;
@@ -373,10 +379,22 @@
     height: 403px;
   }
 
-  .remove-students-modal {
-    height: 328px;
+  .remove-students-modal,
+  .remove-coteacher-modal,
+  .transfer-ownership-modal {
     .checkboxes {
       margin-bottom: 48px;
+    }
+  }
+
+  .remove-students-modal, .remove-coteacher-modal {
+    height: 328px;
+  }
+
+  .transfer-ownership-modal {
+    height: 350px;
+    p {
+      max-width: 490px;
     }
   }
 
@@ -545,7 +563,6 @@
     border-radius: 4px;
     display: flex;
     justify-content: center;
-    padding-top: 3px;
     width: 48px;
     height: 24px;
     border: solid 1px #bdbdbd;

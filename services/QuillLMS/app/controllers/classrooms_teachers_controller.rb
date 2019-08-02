@@ -20,6 +20,12 @@ class ClassroomsTeachersController < ApplicationController
     return render json: {message: 'Update Succeeded!'}
   end
 
+  def remove_coteacher_from_class
+    coteacher = User.find(params[:classrooms_teacher_id])
+    coteacher.handle_negative_classrooms_from_update_coteachers([params[:classroom_id]])
+    render json: {}
+  end
+
   def specific_coteacher_info
     render json: { selectedTeachersClassroomIds: edit_info_for_specific_teacher(params[:coteacher_id])}
   end

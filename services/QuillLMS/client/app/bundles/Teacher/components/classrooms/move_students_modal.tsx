@@ -2,6 +2,8 @@ import * as React from 'react'
 
 import { DropdownInput } from 'quill-component-library/dist/componentLibrary'
 
+import ButtonLoadingIndicator from '../shared/button_loading_indicator'
+
 import { requestPost } from '../../../../modules/request/index.js';
 
 const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
@@ -19,6 +21,7 @@ interface MoveStudentsModalProps {
 interface MoveStudentsModalState {
   newClassroomId?: string|number;
   checkboxOne?: boolean;
+  waiting: boolean;
 }
 
 export default class MoveStudentsModal extends React.Component<MoveStudentsModalProps, MoveStudentsModalState> {
@@ -26,7 +29,8 @@ export default class MoveStudentsModal extends React.Component<MoveStudentsModal
     super(props)
 
     this.state = {
-      checkboxOne: false
+      checkboxOne: false,
+      waiting: false
     }
 
     this.handleClassroomChange = this.handleClassroomChange.bind(this)
@@ -56,9 +60,11 @@ export default class MoveStudentsModal extends React.Component<MoveStudentsModal
   moveStudents() {
     const { onSuccess, close, classroom, selectedStudentIds, classrooms, } = this.props
     const { newClassroomId, } = this.state
+    this.setState({ waiting: true, })
     requestPost(`/teachers/classrooms/${classroom.id}/students/move_students`, { new_classroom_id: newClassroomId, student_ids: selectedStudentIds }, (body) => {
       const newClassroom = classrooms.find(classroom => classroom.id === newClassroomId)
       const successMessage = `${this.studentOrStudents()} moved to ${newClassroom.name}`
+      this.setState({ waiting: false })
       onSuccess(successMessage)
       close()
     })
@@ -96,6 +102,15 @@ export default class MoveStudentsModal extends React.Component<MoveStudentsModal
     </div>)
   }
 
+  renderSubmitButton() {
+    const { waiting, } = this.state
+    if (waiting) {
+      return <button className={this.submitButtonClass()}><ButtonLoadingIndicator /></button>
+    } else {
+      return <button className={this.submitButtonClass()} onClick={this.moveStudents}>Move {this.studentOrStudents().toLowerCase()}</button>
+    }
+  }
+
   render() {
     const { classroom, selectedStudentIds, close } = this.props
     const { newClassroomId } = this.state
@@ -119,7 +134,7 @@ export default class MoveStudentsModal extends React.Component<MoveStudentsModal
         {this.renderCheckboxes()}
         <div className="form-buttons">
           <button className="quill-button outlined secondary medium" onClick={close}>Cancel</button>
-          <button className={this.submitButtonClass()} onClick={this.moveStudents}>Move {this.studentOrStudents().toLowerCase()}</button>
+          {this.renderSubmitButton()}
         </div>
       </div>
     </div>
