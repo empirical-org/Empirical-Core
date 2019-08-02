@@ -6,16 +6,13 @@ import TeacherAccountApp from './TeacherAccountAppClient';
 import ScorebookApp from './ScorebookAppClient';
 import PremiumPricingGuideApp from './PremiumPricingGuideAppClient';
 import ProgressReportApp from './ProgressReportAppClient';
-import ArchivedClassroomsManagerApp from './ArchivedClassroomsManagerAppClient';
 import ResultsPageApp from './ResultsPageAppClient';
 import AdminDashboardApp from './AdminDashboardAppClient';
 import AdminAccountsApp from './AdminAccountsAppClient';
 import AdminsEditorApp from './AdminsEditorAppClient';
 import PublicActivityPacksApp from './PublicActivityPacksAppClient.jsx';
-import AddStudentApp from './AddStudentAppClient.jsx';
 import DiagnosticReportsApp from './DiagnosticReportsAppClient.jsx';
 import DiagnosticPlannerApp from './DiagnosticPlannerAppClient.jsx';
-import CreateClassApp from './CreateClassAppClient.jsx';
 import UnitTemplatesApp from './UnitTemplatesClient.jsx';
 import PublicUnitTemplatesApp from './PublicUnitTemplatesAppClient.jsx';
 import GoogleSyncApp from './GoogleSyncAppClient.jsx';
@@ -49,16 +46,13 @@ ReactOnRails.register({ TeacherGuideApp,
   ScorebookApp,
   PremiumPricingGuideApp,
   ProgressReportApp,
-  ArchivedClassroomsManagerApp,
   ResultsPageApp,
   AdminDashboardApp,
   AdminAccountsApp,
   AdminsEditorApp,
   PublicActivityPacksApp,
-  AddStudentApp,
   DiagnosticPlannerApp,
   DiagnosticReportsApp,
-  CreateClassApp,
   UnitTemplatesApp,
   PublicUnitTemplatesApp,
   GoogleSyncApp,
