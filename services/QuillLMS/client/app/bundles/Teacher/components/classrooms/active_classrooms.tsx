@@ -81,7 +81,7 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
     let showModal
     let selectedClassroomId = Number(classroom)
     if (modal === 'create-a-class') {
-      showModal === createAClassModal
+      showModal = createAClassModal
     } else if (modal === 'google-classroom') {
       this.clickImportGoogleClassrooms()
     } else if (modal === 'invite-students') {
