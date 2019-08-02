@@ -6,7 +6,7 @@ import RemoveCoteacherModal from './remove_coteacher_modal'
 import TransferOwnershipModal from './transfer_ownership_modal'
 import InviteCoteachersModal from './invite_coteachers_modal'
 
-const CoteacherDisplayName = 'Co-teacher'
+const CoteacherDisplayName = 'Coteacher'
 const OwnerDisplayName = 'Owner'
 
 const activeHeaders = [
@@ -57,7 +57,6 @@ interface ClassroomTeacherSectionProps {
   classroom: any;
   classrooms: Array<any>;
   onSuccess: (event) => void;
-  leaveClass: (event) => void;
   isOwnedByCurrentUser: boolean;
 }
 
@@ -78,15 +77,14 @@ export default class ClassroomTeacherSection extends React.Component<ClassroomTe
       showModal: null
     }
 
-    this.ownerActions = this.ownerActions.bind(this)
-    this.coteacherActions = this.coteacherActions.bind(this)
+    this.actions = this.actions.bind(this)
     this.classroomOwner = this.classroomOwner.bind(this)
     this.removeCoteacher = this.removeCoteacher.bind(this)
     this.transferOwnership = this.transferOwnership.bind(this)
     this.closeModal = this.closeModal.bind(this)
   }
 
-  ownerActions(status) {
+  actions(status) {
     let transferClassAction
     let inviteCoteachersAction
     if (status === 'Joined') {
@@ -109,15 +107,6 @@ export default class ClassroomTeacherSection extends React.Component<ClassroomTe
         action: (id) => this.removeCoteacher(id)
       }
     ].filter(Boolean)
-  }
-
-  coteacherActions() {
-    return [
-      {
-        name: 'Leave class',
-        action: this.props.leaveClass
-      }
-    ]
   }
 
   classroomsOwnedByCurrentUser() {
@@ -145,6 +134,10 @@ export default class ClassroomTeacherSection extends React.Component<ClassroomTe
     this.setState({ showModal: removeCoteacherModal, selectedCoteacherId: id })
   }
 
+  closeModal() {
+    this.setState({ showModal: null, selectedCoteacherId: null })
+  }
+
   transferOwnership(id) {
     this.setState({ showModal: transferOwnershipModal, selectedCoteacherId: id })
   }
@@ -153,29 +146,18 @@ export default class ClassroomTeacherSection extends React.Component<ClassroomTe
     this.setState({ showModal: inviteCoteachersModal, selectedCoteacherId: id })
   }
 
-  closeModal() {
-    this.setState({ showModal: null })
-  }
-
   renderTeacherRow(teacher) {
-    const { isOwnedByCurrentUser, classroom, user, } = this.props
+    const { isOwnedByCurrentUser, classroom, } = this.props
     const { name, classroom_relation, id, status, email } = teacher
     const role = this.formatRole(classroom_relation)
-    let actions
-    if (!(classroom.visible && role === CoteacherDisplayName)) {
-      actions = null
-    } else if (isOwnedByCurrentUser) {
-      actions = this.ownerActions(status)
-    } else if (id === user.id) {
-      actions = this.coteacherActions()
-    }
+    const currentUserIsOwnerAndRowIsCoteacher = role === CoteacherDisplayName && isOwnedByCurrentUser
     const teacherRow: { name: string, id: number, email: string, role: string, status: string, actions?: Array<any> } = {
       name,
       id,
       email,
       role,
       status,
-      actions
+      actions: currentUserIsOwnerAndRowIsCoteacher && classroom.visible ? this.actions(status) : null
     }
     return teacherRow
   }

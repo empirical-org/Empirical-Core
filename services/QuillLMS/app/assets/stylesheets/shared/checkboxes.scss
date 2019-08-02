@@ -42,15 +42,11 @@
   }
 }
 
-.quill-checkbox {
+.quill-checkbox.selected {
   min-width: 16px;
   width: 16px;
   height: 16px;
   border-radius: 1px;
-  cursor: pointer;
-}
-
-.quill-checkbox.selected {
   background-color: #01c2a2;
   color: white;
   display: flex;
@@ -60,11 +56,10 @@
 }
 
 .quill-checkbox.unselected {
+  min-width: 16px;
+  width: 16px;
+  height: 16px;
+  border-radius: 1px;
   border: solid 2px #646464;
   cursor: pointer;
-}
-
-.quill-checkbox.disabled {
-  cursor: not-allowed;
-  border: solid 2px #9E9E9E;
 }

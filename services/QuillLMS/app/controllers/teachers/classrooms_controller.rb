@@ -19,16 +19,6 @@ class Teachers::ClassroomsController < ApplicationController
 
   def new_index
     session[GOOGLE_REDIRECT] = request.env['PATH_INFO']
-
-    coteacher_invitations = CoteacherClassroomInvitation.joins(:invitation, :classroom).where(invitations: {invitee_email: current_user.email}, classrooms: { visible: true})
-    @coteacher_invitations = coteacher_invitations.map do |coteacher_invitation|
-      coteacher_invitation_obj = coteacher_invitation.attributes
-      coteacher_invitation_obj[:classroom_name] = Classroom.find(coteacher_invitation.classroom_id).name
-      coteacher_invitation_obj[:inviter_name] = coteacher_invitation.invitation.inviter.name
-      coteacher_invitation_obj[:inviter_email] = coteacher_invitation.invitation.inviter.email
-      coteacher_invitation_obj
-    end
-
     classrooms = Classroom.unscoped.joins(:classrooms_teachers).where(classrooms_teachers: {user_id: current_user.id})
     @classrooms = classrooms.compact.map do |classroom|
       classroom_obj = classroom.attributes
@@ -57,10 +47,9 @@ class Teachers::ClassroomsController < ApplicationController
       classroom_obj[:teachers] = classroom_teachers.concat(pending_coteachers)
       classroom_obj
     end.compact
-
     respond_to do |format|
       format.html
-      format.json {render json: {classrooms: @classrooms, coteacher_invitations: @coteacher_invitations }}
+      format.json {render json: @classrooms}
     end
   end
 
