@@ -248,7 +248,8 @@
   .edit-student-account-modal,
   .reset-student-password-modal,
   .merge-student-accounts-modal,
-  .move-students-modal {
+  .move-students-modal,
+  .remove-students-modal {
     width: 560px;
     overflow: visible;
     top: 50%;
@@ -337,7 +338,7 @@
     }
   }
 
-  .merge-student-accounts-modal, .move-students-modal {
+  .merge-student-accounts-modal, .move-students-modal, .remove-students-modal {
     p {
       line-height: 1.57;
       color: #646464;
@@ -370,6 +371,13 @@
 
   .move-students-modal {
     height: 403px;
+  }
+
+  .remove-students-modal {
+    height: 328px;
+    .checkboxes {
+      margin-bottom: 48px;
+    }
   }
 
   .create-a-class-modal {
