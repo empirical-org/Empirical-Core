@@ -14,7 +14,7 @@ export default React.createClass({
       content = 'In order to access our different reports, you need to assign activities to your students.';
     } else if (this.props.missing === 'students') {
       title = 'You have no reports yet!';
-      onButtonClick = () => { window.location.assign('/teachers/classrooms/invite_students'); }
+      onButtonClick = () => { window.location.assign('/teachers/classrooms'); }
       buttonText = 'Invite Students';
       content = 'In order to access our different reports, you need to invite your students and assign activities.'
     } else if(this.props.missing === 'activitiesWithinDateRange') {

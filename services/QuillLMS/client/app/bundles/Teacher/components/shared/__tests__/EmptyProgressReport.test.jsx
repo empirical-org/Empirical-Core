@@ -42,7 +42,7 @@ describe('EmptyProgressReport component', () => {
 
     it('should redirect appropriately on button click', () => {
       wrapper.find('button').simulate('click');
-      expect(window.location.assign).toBeCalledWith('/teachers/classrooms/invite_students');
+      expect(window.location.assign).toBeCalledWith('/teachers/classrooms');
     });
   });
 

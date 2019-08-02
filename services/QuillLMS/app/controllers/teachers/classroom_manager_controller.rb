@@ -38,30 +38,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def invite_students
-    @classrooms = current_user.classrooms_i_teach
-    @user = current_user
-  end
-
-  def manage_archived_classrooms
-    render "student_teacher_shared/archived_classroom_manager"
-  end
-
-  def archived_classroom_manager_data
-    begin
-      classrooms = active_and_inactive_classrooms_hash
-    rescue NoMethodError => exception
-      render json: {error: "No classrooms yet!"}, status: 400
-    else
-      classrooms_i_own_that_have_coteachers = current_user.classrooms_i_own_that_have_coteachers
-      render json: {
-        active: classrooms[:active],
-        active_classrooms_i_own: current_user.classrooms_i_own.map{|c| {label: c[:name], value: c[:id]}},
-        inactive: classrooms[:inactive],
-        coteachers: current_user.classrooms_i_own_that_have_coteachers,
-        pending_coteachers: current_user.classrooms_i_own_that_have_pending_coteacher_invitations,
-        my_name: current_user.name
-      }
-    end
+    redirect_to teachers_classrooms_path
   end
 
   def scorebook
@@ -177,9 +154,6 @@ class Teachers::ClassroomManagerController < ApplicationController
     end
   end
 
-  def google_sync
-  end
-
   def retrieve_google_classrooms
     google_response = GoogleIntegration::Classroom::Main.pull_data(current_user)
     data = google_response === 'UNAUTHENTICATED' ? {errors: google_response} : {classrooms: google_response}
@@ -187,16 +161,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def update_google_classrooms
-    # if current_user.google_classrooms.any?
-    #   google_classroom_ids = JSON.parse(params[:selected_classrooms]).map{ |sc| sc["id"] }
-    #   current_user.google_classrooms.each do |classy|
-    #     if google_classroom_ids.exclude?(classy.google_classroom_id)
-    #       classy.update(visible: false)
-    #     end
-    #   end
-    # end
     GoogleIntegration::Classroom::Creators::Classrooms.run(current_user, params[:selected_classrooms])
-    # GoogleIntegration::Classroom::Creators::Classrooms.run(current_user, JSON.parse(params[:selected_classrooms], {:symbolize_names => true}))
     render json: { classrooms: current_user.google_classrooms }.to_json
   end
 

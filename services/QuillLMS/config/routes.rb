@@ -322,7 +322,7 @@ EmpiricalGrammar::Application.routes.draw do
   resources :classrooms_teachers, only: [] do
     get 'edit_coteacher_form', to: 'classrooms_teachers#edit_coteacher_form'
     post 'edit_coteacher_form', to: 'classrooms_teachers#update_coteachers'
-    post :remove_coteacher_from_class
+    post :remove_coteacher
   end
   get '/classrooms_teachers/specific_coteacher_info/:coteacher_id', to: 'classrooms_teachers#specific_coteacher_info'
   delete '/classrooms_teachers/destroy/:classroom_id', to: 'classrooms_teachers#destroy'
@@ -413,7 +413,6 @@ EmpiricalGrammar::Application.routes.draw do
   get '/sign-up/add-non-k12', to: 'accounts#new'
 
   namespace :auth do
-    get "/google_email_mismatch" => 'google#google_email_mismatch'
     get "/google_oauth2/callback" => 'google#google'
     get '/clever/callback', to: 'clever#clever'
   end
