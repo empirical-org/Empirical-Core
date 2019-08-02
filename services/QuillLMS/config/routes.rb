@@ -252,6 +252,7 @@ EmpiricalGrammar::Application.routes.draw do
 
     resources :classrooms, only: [:index, :new, :create, :update, :destroy] do
       post :create_students
+      post :remove_students
       collection do
         get :classrooms_i_teach
         get :regenerate_code
