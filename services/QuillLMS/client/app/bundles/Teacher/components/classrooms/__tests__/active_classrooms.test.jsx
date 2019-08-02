@@ -41,13 +41,6 @@ describe('ActiveClassrooms component', () => {
       expect(wrapper.find(Classroom).length).toBe(classroomProps.length);
     })
 
-    // showCreateAClassModal: boolean;
-    // showRenameClassModal: boolean;
-    // showChangeGradeModal: boolean;
-    // showArchiveClassModal: boolean;
-    // showInviteStudentsModal: boolean;
-
-
     it('should render the create a class modal if showCreateAClassModal is true', () => {
       wrapper.instance().setState({ showCreateAClassModal: true, })
       expect(wrapper.find(CreateAClassModal).exists()).toBe(true)
