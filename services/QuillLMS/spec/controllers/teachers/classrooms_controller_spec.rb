@@ -15,7 +15,7 @@ describe Teachers::ClassroomsController, type: :controller do
 
     it 'redirects to the teachers_classrooms_path' do
       get :new
-      expect(response.redirect).to eq(teachers_classrooms_path)
+      expect(response).to redirect_to(teachers_classrooms_path(modal: 'create-a-class'))
     end
   end
 
@@ -108,9 +108,9 @@ describe Teachers::ClassroomsController, type: :controller do
   end
 
   describe '#index' do
-    let(:teacher) { create(:teacher) }
-    let(:classroom) { create(:classroom)}
-    let(:classrooms_teacher) { create(:classrooms_teacher, classroom: classroom, user: teacher )}
+    let!(:teacher) { create(:teacher) }
+    let!(:classroom) { create(:classroom)}
+    let!(:classrooms_teacher) { create(:classrooms_teacher, classroom: classroom, user: teacher )}
 
     before do
       allow(controller).to receive(:current_user) { teacher }
@@ -120,7 +120,7 @@ describe Teachers::ClassroomsController, type: :controller do
 
       it 'should assign the classrooms and classroom' do
         get :index
-        expect(assigns(:classrooms)).to eq [classroom]
+        expect(assigns(:classrooms)[0]['id']).to eq classroom.id
       end
     end
   end
