@@ -106,7 +106,6 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
     return classroom.students.every(student => student.clever_id)
   }
 
-=======
   individualStudentActions() {
     return {
       editAccount: {
@@ -118,7 +117,6 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
         action: (id) => this.resetStudentPassword(id)
       },
       mergeAccounts: {
->>>>>>> feat/final-coteacher-views
         name: 'Merge accounts',
         action: (id) => this.mergeStudentAccounts(id)
       },
