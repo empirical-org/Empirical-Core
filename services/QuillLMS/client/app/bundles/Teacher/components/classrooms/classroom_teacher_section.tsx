@@ -145,6 +145,10 @@ export default class ClassroomTeacherSection extends React.Component<ClassroomTe
     this.setState({ showModal: removeCoteacherModal, selectedCoteacherId: id })
   }
 
+  closeModal() {
+    this.setState({ showModal: null, selectedCoteacherId: null })
+  }
+
   transferOwnership(id) {
     this.setState({ showModal: transferOwnershipModal, selectedCoteacherId: id })
   }
@@ -153,22 +157,22 @@ export default class ClassroomTeacherSection extends React.Component<ClassroomTe
     this.setState({ showModal: inviteCoteachersModal, selectedCoteacherId: id })
   }
 
-  closeModal() {
-    this.setState({ showModal: null })
+  actionsForTeacherRow(teacher) {
+    const { isOwnedByCurrentUser, classroom, user, } = this.props
+    const { role, id } = teacher
+    if (!classroom.visible || role !== CoteacherDisplayName) {
+      return null
+    } else if (isOwnedByCurrentUser) {
+      return this.ownerActions(status)
+    } else if (id === user.id) {
+      return this.coteacherActions()
+    }
   }
 
   renderTeacherRow(teacher) {
-    const { isOwnedByCurrentUser, classroom, user, } = this.props
     const { name, classroom_relation, id, status, email } = teacher
     const role = this.formatRole(classroom_relation)
-    let actions
-    if (!(classroom.visible && role === CoteacherDisplayName)) {
-      actions = null
-    } else if (isOwnedByCurrentUser) {
-      actions = this.ownerActions(status)
-    } else if (id === user.id) {
-      actions = this.coteacherActions()
-    }
+    const actions = this.actionsForTeacherRow(teacher)
     const teacherRow: { name: string, id: number, email: string, role: string, status: string, actions?: Array<any> } = {
       name,
       id,
