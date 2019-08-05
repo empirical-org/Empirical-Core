@@ -127,13 +127,13 @@ export default class Classroom extends React.Component<ClassroomProps, Classroom
       user,
       classroom,
       onSuccess,
-      isOwnedByCurrentUser
+      isOwnedByCurrentUser,
+      classrooms
     }
     return <div>
       {this.renderClassSettings()}
       <ClassroomStudentSection
         {...sharedProps}
-        classrooms={classrooms}
         inviteStudents={inviteStudents}
         importGoogleClassroomStudents={importGoogleClassroomStudents}
       />

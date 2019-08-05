@@ -1,17 +1,27 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import ClassroomTeacherSection from '../classroom_teacher_section'
+import ClassroomTeacherSection, {
+  inviteCoteachersModal,
+  removeCoteacherModal,
+  transferOwnershipModal
+} from '../classroom_teacher_section'
+
+import RemoveCoteacherModal from '../remove_coteacher_modal'
+import TransferOwnershipModal from '../transfer_ownership_modal'
+import InviteCoteachersModal from '../invite_coteachers_modal'
+
 import { DataTable } from 'quill-component-library/dist/componentLibrary'
 
-import { classroomWithoutStudents, userProps } from './test_data/test_data'
+import { classroomWithStudents, userProps, classroomProps } from './test_data/test_data'
 
 describe('ClassroomTeacherSection component', () => {
 
   const wrapper = shallow(
     <ClassroomTeacherSection
       isOwnedByCurrentUser
-      classroom={classroomWithoutStudents}
+      classroom={classroomWithStudents}
+      classrooms={classroomProps}
       user={userProps}
     />
   );
@@ -22,6 +32,21 @@ describe('ClassroomTeacherSection component', () => {
 
   it('should render a data table', () => {
     expect(wrapper.find(DataTable).exists()).toBe(true)
+  })
+
+  it('should render the RemoveCoteacherModal if showModal === removeCoteacherModal', () => {
+    wrapper.instance().removeCoteacher(classroomWithStudents.teachers[1].id)
+    expect(wrapper.find(RemoveCoteacherModal).exists()).toBe(true)
+  })
+
+  it('should render the InviteCoteachersModal if showModal === inviteCoteachersModal', () => {
+    wrapper.instance().inviteCoteachers(classroomWithStudents.teachers[1].id)
+    expect(wrapper.find(InviteCoteachersModal).exists()).toBe(true)
+  })
+
+  it('should render the TransferOwnershipModal if showModal === transferOwnershipModal', () => {
+    wrapper.instance().transferOwnership(classroomWithStudents.teachers[1].id)
+    expect(wrapper.find(TransferOwnershipModal).exists()).toBe(true)
   })
 
 });
