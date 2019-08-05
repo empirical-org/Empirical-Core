@@ -20,43 +20,8 @@ class Teachers::ClassroomsController < ApplicationController
   def new_index
     session[GOOGLE_REDIRECT] = request.env['PATH_INFO']
 
-    coteacher_invitations = CoteacherClassroomInvitation.joins(:invitation, :classroom).where(invitations: {invitee_email: current_user.email}, classrooms: { visible: true})
-    @coteacher_invitations = coteacher_invitations.map do |coteacher_invitation|
-      coteacher_invitation_obj = coteacher_invitation.attributes
-      coteacher_invitation_obj[:classroom_name] = Classroom.find(coteacher_invitation.classroom_id).name
-      coteacher_invitation_obj[:inviter_name] = coteacher_invitation.invitation.inviter.name
-      coteacher_invitation_obj[:inviter_email] = coteacher_invitation.invitation.inviter.email
-      coteacher_invitation_obj
-    end
-
-    classrooms = Classroom.unscoped.joins(:classrooms_teachers).where(classrooms_teachers: {user_id: current_user.id})
-    @classrooms = classrooms.compact.map do |classroom|
-      classroom_obj = classroom.attributes
-      classroom_obj[:students] = classroom.students.map do |s|
-        student = s.attributes
-        student[:number_of_completed_activities] = ActivitySession.where(user_id: s.id, state: 'finished').count
-        student
-      end
-      classroom_teachers = classroom.classrooms_teachers.map do |ct|
-        teacher = ct.user.attributes
-        teacher[:classroom_relation] = ct.role
-        teacher[:status] = 'Joined'
-        teacher
-      end
-      coteacher_invitations = CoteacherClassroomInvitation.where(classroom_id: classroom.id)
-      pending_coteachers = coteacher_invitations.map do |cci|
-        {
-          email: cci.invitation.invitee_email,
-          classroom_relation: 'coteacher',
-          status: 'Pending',
-          id: cci.id,
-          invitation_id: cci.id,
-          name: '—'
-        }
-      end
-      classroom_obj[:teachers] = classroom_teachers.concat(pending_coteachers)
-      classroom_obj
-    end.compact
+    @coteacher_invitations = format_coteacher_invitations_for_index
+    @classrooms = format_classrooms_for_index
 
     respond_to do |format|
       format.html
@@ -191,6 +156,60 @@ class Teachers::ClassroomsController < ApplicationController
   end
 
 private
+
+  def format_coteacher_invitations_for_index
+    coteacher_invitations = CoteacherClassroomInvitation.includes(invitation: :inviter).joins(:invitation, :classroom).where(invitations: {invitee_email: current_user.email}, classrooms: { visible: true})
+    coteacher_invitations.map do |coteacher_invitation|
+      coteacher_invitation_obj = coteacher_invitation.attributes
+      coteacher_invitation_obj[:classroom_name] = Classroom.find(coteacher_invitation.classroom_id).name
+      coteacher_invitation_obj[:inviter_name] = coteacher_invitation.invitation.inviter.name
+      coteacher_invitation_obj[:inviter_email] = coteacher_invitation.invitation.inviter.email
+      coteacher_invitation_obj
+    end
+  end
+
+  def format_classrooms_for_index
+    classrooms = Classroom.unscoped.joins(:classrooms_teachers).where(classrooms_teachers: {user_id: current_user.id})
+    classrooms.compact.map do |classroom|
+      classroom_obj = classroom.attributes
+      classroom_obj[:students] = format_students_for_classroom(classroom)
+      classroom_teachers = format_teachers_for_classroom(classroom)
+      pending_coteachers = format_pending_coteachers_for_classroom(classroom)
+      classroom_obj[:teachers] = classroom_teachers.concat(pending_coteachers)
+      classroom_obj
+    end.compact
+  end
+
+  def format_students_for_classroom(classroom)
+    classroom.students.map do |s|
+      student = s.attributes
+      student[:number_of_completed_activities] = ActivitySession.where(user_id: s.id, state: 'finished').count
+      student
+    end
+  end
+
+  def format_pending_coteachers_for_classroom(classroom)
+    coteacher_invitations = CoteacherClassroomInvitation.where(classroom_id: classroom.id)
+    coteacher_invitations.map do |cci|
+      {
+        email: cci.invitation.invitee_email,
+        classroom_relation: 'coteacher',
+        status: 'Pending',
+        id: cci.id,
+        invitation_id: cci.id,
+        name: '—'
+      }
+    end
+  end
+
+  def format_teachers_for_classroom(classroom)
+    classroom.classrooms_teachers.map do |ct|
+      teacher = ct.user.attributes
+      teacher[:classroom_relation] = ct.role
+      teacher[:status] = 'Joined'
+      teacher
+    end
+  end
 
   def create_students_params
     params.permit(:classroom_id, :students => [:name, :username, :password, :account_type], :classroom => classroom_params)
