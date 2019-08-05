@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { requestGet } from '../../../../modules/request/index.js';
+import { requestPut } from '../../../../modules/request/index.js';
 
 const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
 
@@ -29,9 +29,9 @@ export default class ImportGoogleClassroomStudentsModal extends React.Component<
   }
 
   importStudents() {
-    const { onSuccess, close, classroom, } = this.props
-    requestGet(`/teachers/classrooms/${classroom.id}/import_google_students`, (body) => {
-      onSuccess('Class re-synced')
+    const { onSuccess, classroom, } = this.props
+    requestPut(`/teachers/classrooms/${classroom.id}/import_google_students`, {}, (body) => {
+      onSuccess('Re-syncing class')
     })
   }
 
