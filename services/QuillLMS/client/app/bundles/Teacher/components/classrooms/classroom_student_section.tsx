@@ -60,7 +60,9 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
       showRemoveStudentsModal: false
     }
 
-    this.actions = this.actions.bind(this)
+    this.individualStudentActions = this.individualStudentActions.bind(this)
+    this.dropdownActions = this.dropdownActions.bind(this)
+    this.actionsForIndividualStudent = this.actionsForIndividualStudent.bind(this)
     this.checkRow = this.checkRow.bind(this)
     this.uncheckRow = this.uncheckRow.bind(this)
     this.checkAllRows = this.checkAllRows.bind(this)
@@ -78,34 +80,70 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
     this.closeRemoveStudentsModal = this.closeRemoveStudentsModal.bind(this)
   }
 
-  actions() {
-    let moveClassAction
-    const { classrooms } = this.props
-    if (classrooms.length > 1) {
-      moveClassAction = {
-        name: 'Move class',
-        action: (id) => this.moveClass(id)
-      }
-    }
-    return [
-      {
+  individualStudentActions() {
+    return {
+      editAccount: {
         name: 'Edit account',
         action: (id) => this.editStudentAccount(id)
       },
-      {
+      resetPassword: {
         name: 'Reset password',
         action: (id) => this.resetStudentPassword(id)
       },
-      {
+      mergeAccounts: {
         name: 'Merge accounts',
         action: (id) => this.mergeStudentAccounts(id)
       },
-      moveClassAction,
-      {
+      moveClass: {
+        name: 'Move class',
+        action: (id) => this.moveClass(id)
+      },
+      removeFromClass: {
         name: 'Remove from class',
         action: (id) => this.removeStudentFromClass(id)
       }
-    ].filter(Boolean)
+    }
+  }
+
+  dropdownActions() {
+    return {
+      editAccount: {
+        name: 'Edit account',
+        action: this.editStudentAccount
+      },
+      resetPassword: {
+        name: 'Reset password',
+        action: this.resetStudentPassword
+      },
+      mergeAccounts: {
+        name: 'Merge accounts',
+        action: this.mergeStudentAccounts
+      },
+      moveClass: {
+        name: 'Move class',
+        action: this.moveClass
+      },
+      removeFromClass: {
+        name: 'Remove from class',
+        action: this.removeStudentFromClass
+      }
+    }
+  }
+
+  actionsForIndividualStudent() {
+    const { classrooms } = this.props
+    const {
+      editAccount,
+      resetPassword,
+      mergeAccounts,
+      moveClass,
+      removeFromClass
+    } = this.individualStudentActions()
+    if (classrooms.length > 1) {
+      return [ editAccount, resetPassword, mergeAccounts, moveClass, removeFromClass ]
+    } else {
+      return [ editAccount, resetPassword, mergeAccounts, removeFromClass ]
+    }
   }
 
   checkRow(id) {
@@ -258,49 +296,33 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
   }
 
   optionsForStudentActions() {
-    const { isOwnedByCurrentUser, classrooms, } = this.props
+    const { classrooms, } = this.props
     const { selectedStudentIds } = this.state
 
-    let moveClassOption
+    const {
+      editAccount,
+      resetPassword,
+      mergeAccounts,
+      moveClass,
+      removeFromClass
+    } = this.dropdownActions()
+
     if (classrooms.length > 1) {
-      moveClassOption = {
-        label: 'Move class',
-        value: this.moveClass
+      if (selectedStudentIds.length === 1) {
+        return [ editAccount, resetPassword, mergeAccounts, moveClass, removeFromClass ]
+      } else if (selectedStudentIds.length === 2) {
+        return [ mergeAccounts, moveClass, removeFromClass ]
+      } else {
+        return [ moveClass, removeFromClass ]
       }
-    }
-
-    const moreThanTwoStudentOptions = [
-      moveClassOption,
-      {
-        label: 'Remove from class',
-        value: this.removeStudentFromClass
+    } else {
+      if (selectedStudentIds.length === 1) {
+        return [ editAccount, resetPassword, mergeAccounts, removeFromClass ]
+      } else if (selectedStudentIds.length === 2) {
+        return [ mergeAccounts, removeFromClass ]
+      } else {
+        return [ removeFromClass ]
       }
-    ].filter(Boolean)
-
-    const twoStudentOptions = [
-      {
-        label: 'Merge accounts',
-        value: this.mergeStudentAccounts
-      }
-    ].concat(moreThanTwoStudentOptions)
-
-    const oneStudentOptions = [
-      {
-        label: 'Edit account',
-        value: this.editStudentAccount
-      },
-      {
-        label: 'Reset password',
-        value: this.resetStudentPassword
-      }
-    ].concat(twoStudentOptions)
-
-    if (selectedStudentIds.length === 1) {
-      return oneStudentOptions
-    } else if (selectedStudentIds.length === 2) {
-      return twoStudentOptions
-    } else if (selectedStudentIds.length > 2) {
-      return moreThanTwoStudentOptions
     }
   }
 
@@ -330,7 +352,7 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
         id,
         username,
         checked,
-        actions: this.actions()
+        actions: this.actionsForIndividualStudent()
       }
     })
 
