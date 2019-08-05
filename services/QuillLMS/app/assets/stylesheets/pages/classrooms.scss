@@ -1,6 +1,18 @@
 .classrooms-page {
   padding-top: 40px;
 
+  &.archived-classrooms {
+    .header {
+      display: flex;
+      flex-direction: column;
+      p {
+        font-size: 14px;
+        line-height: 1.57;
+        color: #646464;
+      }
+    }
+  }
+
   .name, .last-name, .first-name {
     &.inactive:not(.has-text) {
       label {
@@ -57,6 +69,17 @@
       color: #646464;
       margin-top: 24px;
       width: 461px;
+    }
+  }
+
+  .archived-classes {
+    .classroom {
+      h3 {
+        margin-bottom: 32px;
+      }
+      .teacher-section-header {
+        margin-bottom: 0px;
+      }
     }
   }
 
@@ -260,6 +283,7 @@
   .rename-class-modal,
   .change-grade-modal,
   .archive-class-modal,
+  .unarchive-class-modal,
   .edit-student-account-modal,
   .reset-student-password-modal,
   .merge-student-accounts-modal,
@@ -315,20 +339,25 @@
   }
 
   .archive-class-modal {
-    height: 376px;
-    .archive-class-modal-text {
-      margin-top: 24px;
-      margin-bottom: 48px;
-      line-height: 1.57;
-      letter-spacing: normal;
-      color: #646464;
-      p {
-        margin-bottom: 24px;
-      }
-      a {
-        color: #027360;
-        font-weight: 600;
-      }
+    height: 316px;
+  }
+
+  .unarchive-class-modal {
+    height: 250px;
+  }
+
+  .archive-class-modal-text, .unarchive-class-modal-text {
+    margin-top: 24px;
+    margin-bottom: 48px;
+    line-height: 1.57;
+    letter-spacing: normal;
+    color: #646464;
+    p {
+      margin-bottom: 24px;
+    }
+    a {
+      color: #027360;
+      font-weight: 600;
     }
   }
 
@@ -449,7 +478,6 @@
     .invite-coteachers-modal-footer {
       justify-content: flex-end;
     }
-
   }
 
   .import-google-classrooms-modal-header,

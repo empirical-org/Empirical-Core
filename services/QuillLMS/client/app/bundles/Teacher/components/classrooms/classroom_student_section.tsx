@@ -11,7 +11,7 @@ import RemoveStudentsModal from './remove_students_modal'
 
 const emptyDeskSrc = `${process.env.CDN_URL}/images/illustrations/empty-desks.svg`
 
-const headers = [
+const activeHeaders = [
   {
     width: '190px',
     name: 'Name',
@@ -27,14 +27,30 @@ const headers = [
   }
 ]
 
+const archivedHeaders = [
+  {
+    width: '235px',
+    name: 'Name',
+    attribute: 'name'
+  }, {
+    width: '407px',
+    name: 'Username',
+    attribute: 'username'
+  }, {
+    width: '124px',
+    name: 'Synced',
+    attribute: 'synced'
+  }
+]
+
 interface ClassroomStudentSectionProps {
   user: any;
   classroom: any;
   classrooms: Array<any>;
   isOwnedByCurrentUser: boolean;
   onSuccess: (event) => void;
-  inviteStudents: (event) => void;
-  importGoogleClassroomStudents: (event) => void;
+  inviteStudents?: (event) => void;
+  importGoogleClassroomStudents?: (event) => void;
 }
 
 interface ClassroomStudentSectionState {
@@ -284,14 +300,19 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
   }
 
   renderStudentActions() {
+    const { classroom } = this.props
     const { selectedStudentIds } = this.state
-    return <DropdownInput
-      disabled={selectedStudentIds.length === 0}
-      label="Actions"
-      className="student-actions-dropdown"
-      options={this.optionsForStudentActions()}
-      handleChange={this.selectAction}
-    />
+    if (!classroom.visible) {
+      return null
+    } else {
+      return <DropdownInput
+        disabled={selectedStudentIds.length === 0}
+        label="Actions"
+        className="student-actions-dropdown"
+        options={this.optionsForStudentActions()}
+        handleChange={this.selectAction}
+      />
+    }
   }
 
   renderStudentDataTable() {
@@ -309,15 +330,15 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
         id,
         username,
         checked,
-        actions: this.actions()
+        actions: classroom.visible ? this.actions() : null
       }
     })
 
     return <DataTable
-      headers={headers}
+      headers={classroom.visible ? activeHeaders : archivedHeaders}
       rows={rows}
-      showCheckboxes={true}
-      showActions={true}
+      showCheckboxes={classroom.visible}
+      showActions={classroom.visible}
       checkRow={this.checkRow}
       uncheckRow={this.uncheckRow}
       uncheckAllRows={this.uncheckAllRows}
@@ -325,8 +346,21 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
     />
   }
 
+  renderStudentHeaderButtons() {
+    const { classroom } = this.props
+    if (!classroom.visible) {
+      return null
+    } else {
+      return <div className="students-section-header-buttons">
+        <a href={`/teachers/classrooms/${this.props.classroom.id}/student_logins`} className="quill-button secondary outlined small">Download setup instructions</a>
+        {this.renderInviteStudents()}
+      </div>
+    }
+  }
+
   renderInviteStudents() {
     const { classroom, inviteStudents, importGoogleClassroomStudents, } = this.props
+    if (!classroom.visible) { return null }
     if (classroom.google_classroom_id) {
       const lastUpdatedDate = moment(classroom.updated_at).format('MMM D, YYYY')
       return <div className="invite-google-classroom-students">
@@ -356,10 +390,7 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
         {this.renderRemoveStudentsModal()}
         <div className="students-section-header with-students">
           <h3>Students</h3>
-          <div className="students-section-header-buttons">
-            <a href={`/teachers/classrooms/${this.props.classroom.id}/student_logins`} className="quill-button secondary outlined small">Download setup instructions</a>
-            {this.renderInviteStudents()}
-          </div>
+          {this.renderStudentHeaderButtons()}
         </div>
         {this.renderStudentActions()}
         {this.renderStudentDataTable()}
