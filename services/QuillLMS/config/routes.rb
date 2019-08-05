@@ -253,7 +253,7 @@ EmpiricalGrammar::Application.routes.draw do
     resources :classrooms, only: [:index, :new, :create, :update, :destroy] do
       post :create_students
       post :remove_students
-      get :import_google_students, controller: 'classroom_manager', action: 'import_google_students'
+      put :import_google_students, controller: 'classroom_manager', action: 'import_google_students'
       collection do
         get :classrooms_i_teach
         get :regenerate_code
@@ -277,7 +277,7 @@ EmpiricalGrammar::Application.routes.draw do
         get :google_sync, controller: 'classroom_manager', action: 'google_sync'
         get :retrieve_google_classrooms, controller: 'classroom_manager', action: 'retrieve_google_classrooms'
         post :update_google_classrooms, controller: 'classroom_manager', action: 'update_google_classrooms'
-        get :import_google_students, controller: 'classroom_manager', action: 'import_google_students'
+        put :import_google_students, controller: 'classroom_manager', action: 'import_google_students'
 
         ##DASHBOARD ROUTES
         get :classroom_mini, controller: 'classroom_manager', action: 'classroom_mini'
