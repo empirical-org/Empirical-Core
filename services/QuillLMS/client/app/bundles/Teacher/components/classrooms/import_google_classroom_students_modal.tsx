@@ -31,7 +31,7 @@ export default class ImportGoogleClassroomStudentsModal extends React.Component<
   importStudents() {
     const { onSuccess, classroom, } = this.props
     requestPut(`/teachers/classrooms/${classroom.id}/import_google_students`, {}, (body) => {
-      onSuccess('Class re-syncing')
+      onSuccess('Re-syncing class')
     })
   }
 
