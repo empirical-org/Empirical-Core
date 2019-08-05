@@ -168,6 +168,8 @@ class Teachers::ClassroomManagerController < ApplicationController
   def import_google_students
     if params[:classroom_id]
       selected_classrooms = Classroom.where(id: params[:classroom_id])
+    elsif params[:selected_classroom_ids]
+      selected_classrooms = Classroom.where(id: params[:selected_classroom_ids])
     end
     GoogleStudentImporterWorker.perform_async(
       current_user.id,
