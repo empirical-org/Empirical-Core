@@ -134,23 +134,23 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
   dropdownActions() {
     return {
       editAccount: {
-        name: 'Edit account',
+        label: 'Edit account',
         action: this.editStudentAccount
       },
       resetPassword: {
-        name: 'Reset password',
+        label: 'Reset password',
         action: this.resetStudentPassword
       },
       mergeAccounts: {
-        name: 'Merge accounts',
+        label: 'Merge accounts',
         action: this.mergeStudentAccounts
       },
       moveClass: {
-        name: 'Move class',
+        label: 'Move class',
         action: this.moveClass
       },
       removeFromClass: {
-        name: 'Remove from class',
+        label: 'Remove from class',
         action: this.removeStudentFromClass
       }
     }
