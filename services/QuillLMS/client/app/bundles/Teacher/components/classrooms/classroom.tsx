@@ -15,11 +15,12 @@ interface ClassroomProps {
   selected: boolean;
   isOwnedByCurrentUser: boolean;
   clickClassroomHeader: (event) => void;
-  renameClass: (event) => void;
-  changeGrade: (event) => void;
-  archiveClass: (event) => void;
-  inviteStudents: (event) => void;
-  importGoogleClassroomStudents: (event) => void;
+  renameClass?: (event) => void;
+  changeGrade?: (event) => void;
+  archiveClass?: (event) => void;
+  unarchiveClass?: (event) => void;
+  inviteStudents?: (event) => void;
+  importGoogleClassroomStudents?: (event) => void;
   onSuccess: (event) => void;
 }
 
@@ -85,7 +86,14 @@ export default class Classroom extends React.Component<ClassroomProps, Classroom
   }
 
   renderClassSettings() {
-    const { isOwnedByCurrentUser, classroom, renameClass, changeGrade, archiveClass, } = this.props
+    const {
+      isOwnedByCurrentUser,
+      classroom,
+      renameClass,
+      changeGrade,
+      archiveClass,
+      unarchiveClass
+    } = this.props
     let coteacherNote
     let classSettingsClassName = "class-settings"
     let settings = [
@@ -101,7 +109,7 @@ export default class Classroom extends React.Component<ClassroomProps, Classroom
       classSettingsClassName+= ' coteacher-class-settings'
     } else if (!classroom.visible) {
       settings = [
-        <button className="quill-button secondary outlined small">Un-archive</button>
+        <button className="quill-button secondary outlined small" onClick={unarchiveClass}>Un-archive</button>
       ]
     }
     return <div className={classSettingsClassName}>
