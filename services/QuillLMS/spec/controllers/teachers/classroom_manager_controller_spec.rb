@@ -182,8 +182,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
 
     it 'should assign the classrooms and user' do
       get :invite_students
-      expect(assigns(:user)).to eq teacher
-      expect(assigns(:classrooms)).to eq [classroom]
+      expect(response).to redirect_to(teachers_classrooms_path)
     end
   end
 
