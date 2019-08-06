@@ -1,7 +1,7 @@
 import React from 'react';
-import $ from 'jquery';
 import AnalyticsWrapper from '../../../shared/analytics_wrapper';
 import ButtonLoadingIndicator from '../../../shared/button_loading_indicator';
+import { requestPost } from '../../../../../../modules/request'
 
 export default React.createClass({
   propTypes: {
@@ -27,18 +27,13 @@ export default React.createClass({
 
   fastAssign() {
     this.setState({ fastAssignDisabled: true, });
-    $.ajax({
-      url: '/teachers/unit_templates/fast_assign',
-      data: {
-        id: this.props.data.id,
-      },
-      type: 'POST',
-      success: this.onFastAssignSuccess,
-      error: (response) => {
-        const errorMessage = jQuery.parseJSON(response.responseText).error_message;
-        window.alert(errorMessage);
-      },
-    });
+    requestPost('/teachers/unit_templates/fast_assign', { id: this.props.data.id }, (body) => {
+      if (body.error_message) {
+        window.alert(body.error_message)
+      } else {
+        this.onFastAssignSuccess()
+      }
+    })
   },
 
   onFastAssignSuccess() {
