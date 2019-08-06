@@ -51,7 +51,7 @@ class Teachers::ClassroomsController < ApplicationController
       should_redirect_to_invite_students = @classroom.students.empty? && current_user.units.any?
       render json: {classroom: @classroom, toInviteStudents: should_redirect_to_invite_students}
     else
-       render json: {errors: @classroom.errors.full_messages }, status: 422
+       render json: {errors: @classroom.errors }
     end
   end
 
