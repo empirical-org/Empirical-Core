@@ -10,11 +10,16 @@ exports[`ClassroomStudentSection component classroom without students should ren
     <h3>
       Students
     </h3>
-    <button
-      className="quill-button primary outlined small"
+    <div
+      className="invite-quill-classroom-students"
     >
-      Invite students
-    </button>
+      <button
+        className="quill-button primary outlined small"
+        onClick={[Function]}
+      >
+        Invite students
+      </button>
+    </div>
   </div>
   <div
     className="no-students"
@@ -67,6 +72,7 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
     label="Actions"
   />
   <DataTable
+    averageFontWidth={7}
     checkAllRows={[Function]}
     checkRow={[Function]}
     headers={
@@ -102,14 +108,6 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
             },
             Object {
               "action": [Function],
-              "name": "Merge accounts",
-            },
-            Object {
-              "action": [Function],
-              "name": "Move class",
-            },
-            Object {
-              "action": [Function],
               "name": "Remove from class",
             },
           ],
@@ -128,14 +126,6 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
             Object {
               "action": [Function],
               "name": "Reset password",
-            },
-            Object {
-              "action": [Function],
-              "name": "Merge accounts",
-            },
-            Object {
-              "action": [Function],
-              "name": "Move class",
             },
             Object {
               "action": [Function],

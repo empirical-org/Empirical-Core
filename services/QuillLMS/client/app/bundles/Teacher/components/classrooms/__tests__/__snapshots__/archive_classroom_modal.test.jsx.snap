@@ -25,9 +25,6 @@ exports[`ArchiveClassroomModal component should render ArchiveClassroomModal 1`]
         Quill Classroom
         , students in this class will no longer be able to access activities. You can view this class in "Archived Classes" under the "Classes" tab.
       </p>
-      <p>
-        All completed activities will remain on Quill in case you need to unarchive at a later date.
-      </p>
       <a
         href="https://support.quill.org/getting-started-for-teachers/manage-classes/how-can-i-manage-my-classes-and-student-profiles"
         target="_blank"

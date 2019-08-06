@@ -27,6 +27,8 @@ interface DataTableHeader {
   width: string;
   name: string;
   attribute: string;
+  rowSectionClassName?: string;
+  headerClassName?: string;
   isSortable?: boolean;
 }
 
@@ -185,7 +187,7 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
 
   renderHeader(header) {
     let sortArrow, onClick
-    let className = dataTableHeaderClassName
+    let className = `${dataTableHeaderClassName} ${header.headerClassName}`
     let style: React.CSSProperties = { width: `${header.width}`, minWidth: `${header.width}`, textAlign: `${this.attributeAlignment(header.attribute)}` as CSS.TextAlignProperty }
     if (header.isSortable) {
       const sortDirection = this.state.sortAscending ? ascending : descending
@@ -213,9 +215,10 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     let style: React.CSSProperties = { width: `${header.width}`, minWidth: `${header.width}`, textAlign: `${this.attributeAlignment(header.attribute)}` as CSS.TextAlignProperty }
     const sectionText = row[header.attribute]
     const headerWidthNumber = Number(header.width.slice(0, -2))
+    const dataTableRowSectionClassName = `data-table-row-section ${header.rowSectionClassName}`
     if ((String(sectionText).length * averageFontWidth) >= headerWidthNumber) {
       return <Tooltip
-        tooltipTriggerTextClass="data-table-row-section"
+        tooltipTriggerTextClass={dataTableRowSectionClassName}
         tooltipTriggerText={sectionText}
         tooltipText={sectionText}
         tooltipTriggerStyle={style}
@@ -223,7 +226,7 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
       />
     } else {
       return <span
-        className="data-table-row-section"
+        className={dataTableRowSectionClassName}
         style={style as any}
       >
         {sectionText}

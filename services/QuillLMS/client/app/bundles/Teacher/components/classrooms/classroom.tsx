@@ -3,10 +3,13 @@ import * as moment from 'moment'
 
 import ClassroomStudentSection from './classroom_student_section'
 import ClassroomTeacherSection from './classroom_teacher_section'
+import LeaveClassModal from './leave_class_modal'
 
 const expandSrc = `${process.env.CDN_URL}/images/icons/expand.svg`
 
 import NumberSuffix from '../modules/numberSuffixBuilder.js';
+
+export const leaveClassModal = 'leaveClassModal'
 
 interface ClassroomProps {
   user: any;
@@ -15,19 +18,38 @@ interface ClassroomProps {
   selected: boolean;
   isOwnedByCurrentUser: boolean;
   clickClassroomHeader: (event) => void;
-  renameClass: (event) => void;
-  changeGrade: (event) => void;
-  archiveClass: (event) => void;
-  inviteStudents: (event) => void;
+  renameClass?: (event) => void;
+  changeGrade?: (event) => void;
+  archiveClass?: (event) => void;
+  unarchiveClass?: (event) => void;
+  inviteStudents?: (event) => void;
+  importGoogleClassroomStudents?: (event) => void;
   onSuccess: (event) => void;
 }
 
 interface ClassroomState {
+  showModal?: string;
 }
 
 export default class Classroom extends React.Component<ClassroomProps, ClassroomState> {
   constructor(props) {
     super(props)
+
+    this.state = {
+      showModal: null
+    }
+
+    this.leaveClass = this.leaveClass.bind(this)
+    this.closeModal = this.closeModal.bind(this)
+    this.renderLeaveClassModal = this.renderLeaveClassModal.bind(this)
+  }
+
+  leaveClass() {
+    this.setState({ showModal: leaveClassModal })
+  }
+
+  closeModal() {
+    this.setState({ showModal: null })
   }
 
   renderClassCodeOrType() {
@@ -84,7 +106,14 @@ export default class Classroom extends React.Component<ClassroomProps, Classroom
   }
 
   renderClassSettings() {
-    const { isOwnedByCurrentUser, classroom, renameClass, changeGrade, archiveClass, } = this.props
+    const {
+      isOwnedByCurrentUser,
+      classroom,
+      renameClass,
+      changeGrade,
+      archiveClass,
+      unarchiveClass,
+    } = this.props
     let coteacherNote
     let classSettingsClassName = "class-settings"
     let settings = [
@@ -96,11 +125,11 @@ export default class Classroom extends React.Component<ClassroomProps, Classroom
     if (!isOwnedByCurrentUser) {
       const owner = classroom.teachers.find(t => t.classroom_relation === 'owner')
       coteacherNote = <p className="coteacher-note">Looking for more class settings? Ask {owner.name}, the class owner.</p>
-      settings = [<button className="quill-button secondary outlined small">Leave class</button>]
+      settings = [<button className="quill-button secondary outlined small" onClick={this.leaveClass}>Leave class</button>]
       classSettingsClassName+= ' coteacher-class-settings'
     } else if (!classroom.visible) {
       settings = [
-        <button className="quill-button secondary outlined small">Un-archive</button>
+        <button className="quill-button secondary outlined small" onClick={unarchiveClass}>Un-archive</button>
       ]
     }
     return <div className={classSettingsClassName}>
@@ -113,29 +142,52 @@ export default class Classroom extends React.Component<ClassroomProps, Classroom
   }
 
   renderClassroomContent() {
-    const { user, classroom, onSuccess, inviteStudents, classrooms, isOwnedByCurrentUser, } = this.props
+    const {
+      user,
+      classroom,
+      onSuccess,
+      inviteStudents,
+      classrooms,
+      isOwnedByCurrentUser,
+      importGoogleClassroomStudents,
+    } = this.props
     const sharedProps = {
       user,
       classroom,
       onSuccess,
-      isOwnedByCurrentUser
+      isOwnedByCurrentUser,
+      classrooms
     }
     return <div>
       {this.renderClassSettings()}
       <ClassroomStudentSection
         {...sharedProps}
-        classrooms={classrooms}
         inviteStudents={inviteStudents}
+        importGoogleClassroomStudents={importGoogleClassroomStudents}
       />
       <ClassroomTeacherSection
         {...sharedProps}
+        leaveClass={this.leaveClass}
       />
     </div>
+  }
+
+  renderLeaveClassModal() {
+    const { classroom, onSuccess, } = this.props
+    const { showModal } = this.state
+    if (showModal === leaveClassModal) {
+      return <LeaveClassModal
+        close={this.closeModal}
+        classroom={classroom}
+        onSuccess={onSuccess}
+      />
+    }
   }
 
   renderClassroom() {
     const { selected  } = this.props
     return <div className={`classroom ${selected ? 'open' : 'closed'}`}>
+      {this.renderLeaveClassModal()}
       {this.renderClassroomHeader()}
       {selected ? this.renderClassroomContent() : null}
     </div>

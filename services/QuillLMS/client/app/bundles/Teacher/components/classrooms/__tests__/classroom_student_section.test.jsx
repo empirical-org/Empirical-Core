@@ -59,12 +59,12 @@ describe('ClassroomStudentSection component', () => {
     })
 
     it('should render the EditStudentAccountModal if showEditStudentAccountModal is true', () => {
-      wrapper.instance().setState({ showEditStudentAccountModal: true, studentIdsForModal: [classroomWithStudents.students[0].id] })
+      wrapper.instance().editStudentAccount(classroomWithStudents.students[0].id)
       expect(wrapper.find(EditStudentAccountModal).exists()).toBe(true)
     })
 
     it('should render the ResetStudentPasswordModal if showResetStudentPasswordModal is true', () => {
-      wrapper.instance().setState({ showResetStudentPasswordModal: true, studentIdsForModal: [classroomWithStudents.students[0].id] })
+      wrapper.instance().resetStudentPassword(classroomWithStudents.students[0].id)
       expect(wrapper.find(ResetStudentPasswordModal).exists()).toBe(true)
     })
 
