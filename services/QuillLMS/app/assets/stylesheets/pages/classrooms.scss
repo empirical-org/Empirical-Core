@@ -637,6 +637,10 @@
           &.grade {
             margin-bottom: 24px;
           }
+          &.name {
+            min-height: 80px;
+            justify-content: flex-start;
+          }
         }
         .class-code-section {
           display: flex;
