@@ -64,9 +64,10 @@ protected
                                      :data,
                                      :activity_classification_id,
                                      :topic_id,
+                                     :flag,
                                      :flags,
                                      :repeatable,
                                      :follow_up_activity_id,
-                                     :suppirting_info)
+                                     :supporting_info)
   end
 end
