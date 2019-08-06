@@ -5,7 +5,7 @@ import ArchivedClassrooms from '../components/classrooms/archived_classrooms.tsx
 
 const TeacherClassroomsRouter = props => (
   <Router Router history={browserHistory}>
-    <Route path="/teachers/classrooms/new_index" component={() => <ActiveClassrooms {...props} />}>
+    <Route path="/teachers/classrooms/new_index">
       <IndexRoute component={() => <ActiveClassrooms {...props} />} />
       <Route path="archived" component={() => <ArchivedClassrooms {...props} />} />
     </Route>

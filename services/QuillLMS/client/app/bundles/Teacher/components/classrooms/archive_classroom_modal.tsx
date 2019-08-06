@@ -19,9 +19,8 @@ export default class ArchiveClassModal extends React.Component<ArchiveClassModal
   }
 
   archiveClass() {
-    const { onSuccess, close, classroom } = this.props
+    const { onSuccess, classroom } = this.props
     requestPost(`/teachers/classrooms/${classroom.id}/hide`, null, () => {
-      close()
       onSuccess('Class archived')
     })
   }
@@ -36,7 +35,6 @@ export default class ArchiveClassModal extends React.Component<ArchiveClassModal
         </div>
         <div className="archive-class-modal-text">
           <p>If you archive the class {classroom.name}, students in this class will no longer be able to access activities. You can view this class in "Archived Classes" under the "Classes" tab.</p>
-          <p>All completed activities will remain on Quill in case you need to unarchive at a later date.</p>
           <a href="https://support.quill.org/getting-started-for-teachers/manage-classes/how-can-i-manage-my-classes-and-student-profiles" target="_blank">Learn more</a>
         </div>
         <div className="form-buttons">
