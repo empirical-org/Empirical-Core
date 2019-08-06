@@ -1,0 +1,594 @@
+.classrooms-page {
+  padding-top: 40px;
+
+  .name, .last-name, .first-name {
+    &.inactive:not(.has-text) {
+      label {
+        margin-top: 20px;
+      }
+    }
+  }
+
+  h1, h2 {
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 1.33;
+  }
+  .header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 56px;
+  }
+  .buttons {
+    display: flex;
+    .import-from-google-button {
+      width: 242px;
+      white-space: nowrap;
+    }
+    .create-a-class-button {
+      width: 129px;
+      white-space: nowrap;
+      margin-left: 24px;
+    }
+  }
+  .no-active-classes {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    p {
+      font-size: 14px;
+      line-height: 1.57;
+      text-align: center;
+      color: #646464;
+      margin-top: 24px;
+      width: 461px;
+    }
+  }
+
+  .classroom {
+    border-radius: 6px;
+    border: solid 1px #e0e0e0;
+    background-color: #ffffff;
+    margin-bottom: 24px;
+    h3 {
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 24px;
+    }
+    .classroom-card-header, .students-section, .teacher-section {
+      padding: 32px;
+    }
+    .classroom-card-header {
+      height: 122px;
+      justify-content: space-between;
+      align-items: center;
+      display: flex;
+      flex-direction: row;
+      cursor: pointer;
+    }
+    .classroom-data {
+      margin-top: 4px;
+      span {
+        line-height: 1.57;
+        color: #646464;
+        margin-right: 8px;
+        &.bullet {
+          color: #bdbdbd;
+        }
+      }
+    }
+    .class-settings, .students-section {
+      border-bottom: 1px solid #e0e0e0;
+    }
+    .class-settings {
+      padding: 0px 32px 32px;
+      &.coteacher-class-settings {
+        h3 {
+          margin-bottom: 8px;
+        }
+        .coteacher-note {
+          line-height: 1.57;
+          color: #646464;
+          margin-bottom: 24px;
+        }
+      }
+    }
+    .class-settings-buttons {
+      display: flex;
+      .quill-button {
+        margin-right: 16px;
+      }
+    }
+    .invite-google-classroom-students, .invite-clever-students {
+      display: flex;
+      flex-direction: column;
+      span {
+        font-weight: 600;
+        line-height: 1;
+        color: #7f7f7f;
+        font-size: 12px;
+      }
+    }
+    .invite-google-classroom-students {
+      align-items: flex-end;
+      margin-bottom: 20px;
+      span {
+        margin-top: 8px;
+      }
+      .quill-button {
+        width: 255px;
+      }
+    }
+    .invite-quill-classroom-students {
+      margin-bottom: 40px;
+      .quill-button {
+        width: 128px;
+      }
+    }
+    .invite-clever-students {
+      margin-bottom: 38px;
+      p {
+        font-size: 14px;
+        line-height: 1.57;
+        color: #000;
+      }
+      span {
+        margin-top: 4px;
+      }
+    }
+    .no-students {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 58px;
+      p {
+        font-size: 14px;
+        line-height: 1.57;
+        margin-top: 24px;
+        color: #646464;
+      }
+    }
+    .students-section-header, .teacher-section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .teacher-section-header {
+      margin-bottom: 26px;
+      .quill-button {
+        width: 148px;
+      }
+    }
+    .students-section-header.with-students {
+      display: flex;
+      flex-direction: column;
+      align-items:flex-start;
+      .students-section-header-buttons {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+      }
+    }
+    .student-actions-dropdown {
+      width: 200px;
+      margin-bottom: 32px;
+      &.active {
+        margin-bottom: 82px;
+      }
+      .dropdown {
+        font-size: 16px;
+      }
+      .dropdown__menu-list {
+        padding: 8px 0px;
+        .dropdown__option {
+          height: 48px;
+          padding: 0px 12px;
+          display: flex;
+          align-items: center;
+        }
+      }
+    }
+    &.open {
+      .expand-arrow {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+  .quill-snackbar {
+    z-index: 5;
+  }
+
+  .modal-background {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    opacity: 0.5;
+    background-color: #000;
+  }
+
+  .modal {
+    border-radius: 6px;
+    background-color: #ffffff;
+    z-index: 3;
+    position: fixed;
+    top: 72px;
+    left: 50%;
+    bottom: 72px;
+    transform: translate(-50%, 0);
+    display: block;
+  }
+
+  .modal-body {
+    padding: 32px 24px 32px 32px;
+    margin-bottom: 32px;
+    .title {
+      font-size: 24px;
+      font-weight: bold;
+      line-height: 1.33;
+    }
+    .dropdown-menu {
+      z-index: 4;
+    }
+    .form-buttons {
+      display: flex;
+      justify-content: flex-end;
+      .quill-button {
+        margin-left: 24px;
+      }
+    }
+  }
+
+  .rename-class-modal,
+  .change-grade-modal,
+  .archive-class-modal,
+  .edit-student-account-modal,
+  .reset-student-password-modal,
+  .merge-student-accounts-modal {
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .rename-class-modal {
+    width: 560px;
+    height: 273px;
+    .title {
+      margin-bottom: 24px;
+    }
+    .input-container {
+      margin-bottom: 48px;
+      &.error.unacknowledged {
+        margin-bottom: 33px;
+      }
+    }
+  }
+
+  .change-grade-modal {
+    height: 327px;
+    width: 560px;
+    overflow: visible;
+    p {
+      line-height: 1.57;
+      margin-top: 24px;
+      color: #646464;
+      margin-bottom: 32px;
+    }
+    .input-container {
+      margin-bottom: 48px;
+    }
+  }
+
+  .archive-class-modal {
+    width: 560px;
+    height: 376px;
+    .archive-class-modal-text {
+      margin-top: 24px;
+      margin-bottom: 48px;
+      line-height: 1.57;
+      letter-spacing: normal;
+      color: #646464;
+      p {
+        margin-bottom: 24px;
+      }
+      a {
+        color: #027360;
+        font-weight: 600;
+      }
+    }
+  }
+
+  .edit-student-account-modal {
+    width: 560px;
+    height: 445px;
+    .input-container {
+      height: 96px !important;
+      display: flex;
+      justify-content: flex-start;
+    }
+  }
+
+  .reset-student-password-modal {
+    width: 560px;
+    height: 327px;
+    p {
+      line-height: 1.57;
+      color: #646464;
+      margin-bottom: 32px;
+    }
+    .input-container {
+      margin-bottom: 36px;
+      input {
+        border-bottom: none;
+      }
+    }
+  }
+
+  .merge-student-accounts-modal {
+    width: 560px;
+    height: 608px;
+    p {
+      line-height: 1.57;
+      color: #646464;
+      margin-bottom: 32px;
+    }
+    .swap {
+      cursor: pointer;
+      display: flex;
+      justify-content: flex-end;
+      font-weight: 600;
+      margin-bottom: 16px;
+      img {
+        margin-right: 4px;
+      }
+    }
+    .input-container {
+      margin-bottom: 32px;
+      &.inactive {
+        height: 59px;
+      }
+      &.active {
+        margin-bottom: 83px;
+      }
+    }
+    .checkboxes {
+      margin-bottom: 32px;
+      .checkbox-row {
+        display: flex;
+        margin-bottom: 16px;
+        .quill-checkbox {
+          margin-right: 24px;
+          margin-top: 5px;
+        }
+        span {
+          line-height: 1.57;
+        }
+      }
+    }
+  }
+
+  .create-a-class-modal {
+    width: 760px;
+  }
+
+  .create-a-class-modal-content {
+    height: 100%;
+    overflow-y: scroll;
+    padding-bottom: 120px;
+  }
+
+  .create-a-class-modal-body {
+    .title {
+      margin-bottom: 40px;
+    }
+    &.setup-instructions {
+      .title {
+        margin-bottom: 8px;
+      }
+      p {
+        width: 416px;
+        font-size: 14px;
+        line-height: 1.57;
+        color: #646464;
+        margin-bottom: 32px;
+      }
+      img {
+        margin-bottom: 32px;
+      }
+    }
+
+    &.create-students {
+      height: 100%;
+      form {
+        display: flex;
+        justify-content: space-between;
+        .input-container {
+          width: 302px;
+        }
+      }
+      .data-table {
+        height: 100%;
+        padding-bottom: 105px;
+      }
+    }
+
+    .create-a-class-form {
+      width: 512px;
+      .input-container {
+        margin-bottom: 12px;
+        &.grade {
+          margin-bottom: 24px;
+        }
+        &.name {
+          min-height: 80px;
+          justify-content: flex-start;
+        }
+      }
+      .class-code-section {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        .input-container {
+          width: 300px;
+          margin-bottom: 0px;
+          &.code {
+            input {
+              border-bottom: none;
+            }
+          }
+        }
+        .reset {
+          color: #027360;
+          font-size: 16px;
+          cursor: pointer;
+          font-weight: normal;
+        }
+      }
+    }
+
+    .quill-cards {
+      width: 584px;
+      .quill-card:first-of-type {
+        margin-bottom: 24px;
+        p {
+          width: 400px;
+        }
+      }
+    }
+    .copy-class-code-container {
+      display: flex;
+      align-items: center;
+      .input-container {
+        width: 256px;
+        margin-right: 16px;
+      }
+    }
+  }
+
+  .create-a-class-modal-footer {
+    position: fixed;
+    bottom: 0;
+    height: 88px;
+    background-color: white;
+    opacity: 1;
+    z-index: 4;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    border-top: 1px solid #e0e0e0;
+    padding: 0px 32px;
+    &.with-back-button {
+      justify-content: space-between;
+    }
+  }
+
+  .create-a-class-modal-header {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 0px 32px;
+    height: 70px;
+    align-items: center;
+    img {
+      cursor: pointer;
+    }
+    .navigation {
+      display: flex;
+      color: #646464;
+      p {
+        margin-right: 24px;
+      }
+      .active {
+        color: #000;
+      }
+    }
+  }
+
+  // this is stuff that should be coming from the component library but is not working right now
+  .character-limit {
+    color: #7f7f7f;
+  }
+
+  .has-character-limit:not(.error) {
+    height: 65px;
+  }
+
+  .data-table {
+    padding-right: 0px;
+    .removable {
+      margin-right: 0px;
+      img {
+        cursor: pointer;
+      }
+    }
+    .data-table-row:last-of-type {
+      border-bottom: none;
+    }
+  }
+
+  .quill-button:focus, .quill-button:hover {
+    text-decoration: none;
+  }
+
+  .actions-button {
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    padding-top: 3px;
+    width: 48px;
+    height: 24px;
+    border: solid 1px #bdbdbd;
+  }
+
+  .actions-header, .actions-section {
+    margin-right: 0px !important;
+  }
+
+  .actions-menu-container {
+    position: absolute;
+  }
+
+  .actions-menu {
+    padding: 8px 0px;
+    position: absolute;
+    border-radius: 4px;
+    box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0 1px 18px 0 rgba(0, 0, 0, 0.12), 0 6px 10px 0 rgba(0, 0, 0, 0.14);
+    background-color: white;
+    width: 207px;
+    z-index: 40;
+    display: flex;
+    flex-direction: column;
+    right: -73px;
+    span {
+      width: 207px;
+      height: 48px;
+      display: flex;
+      color: #000;
+      font-size: 16px;
+      align-items: center;
+      padding: 0px 16px;
+      font-weight: normal;
+      cursor: pointer;
+      &:hover {
+        background-color: #f2f2f2;
+      }
+    }
+  }
+
+  .quill-button.primary.outlined {
+    &:hover, &:focus {
+      font-weight: 600;
+    }
+  }
+
+  .data-table::-webkit-scrollbar {
+    height: 7px;
+  }
+
+  .data-table-headers, .data-table-row {
+    min-width: min-content;
+  }
+}
