@@ -128,6 +128,7 @@ EmpiricalGrammar::Application.routes.draw do
 
   get 'account_settings' => 'students#account_settings'
   put 'update_email' => 'students#update_email'
+  get 'join/:classcode' => 'students#join_classroom'
   get 'teachers/admin_dashboard' => 'teachers#admin_dashboard'
   get 'teachers/admin_dashboard/district_activity_scores' => 'teachers#admin_dashboard'
   get 'teachers/admin_dashboard/district_activity_scores/student_overview' => 'teachers#admin_dashboard'
@@ -250,9 +251,12 @@ EmpiricalGrammar::Application.routes.draw do
     end
 
     resources :classrooms, only: [:index, :new, :create, :update, :destroy] do
+      post :create_students
       collection do
         get :classrooms_i_teach
         get :regenerate_code
+        get :new_index
+        get :archived, action: 'new_index'
         get :archived_classroom_manager_data, controller: "classroom_manager", action: 'archived_classroom_manager_data'
         get :manage_archived_classrooms, controller: "classroom_manager", action: 'manage_archived_classrooms'
         get :lesson_planner, controller: "classroom_manager", action: 'lesson_planner', path: 'activity_planner'
@@ -292,7 +296,9 @@ EmpiricalGrammar::Application.routes.draw do
       resources :activities, controller: 'classroom_activities'
 
       resources :students do
-        put :reset_password
+        collection do
+          post :merge_student_accounts
+        end
       end
 
       # TODO: abstract this list as well. Duplicated in nav in layout.

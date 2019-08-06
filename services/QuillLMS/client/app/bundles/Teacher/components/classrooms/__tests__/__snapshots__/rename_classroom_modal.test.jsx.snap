@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RenameClassroomModal component should render RenameClassroomModal 1`] = `
+<div
+  className="modal-container rename-class-modal-container"
+>
+  <div
+    className="modal-background"
+  />
+  <div
+    className="rename-class-modal modal modal-body"
+  >
+    <div>
+      <h3
+        className="title"
+      >
+        Rename your class
+      </h3>
+    </div>
+    <Input
+      characterLimit={50}
+      className="name"
+      handleChange={[Function]}
+      label="Class name"
+      timesSubmitted={0}
+      type="text"
+      value="Quill Classroom"
+    />
+    <div
+      className="form-buttons"
+    >
+      <button
+        className="quill-button outlined secondary medium"
+        onClick={[Function]}
+      >
+        Cancel
+      </button>
+      <button
+        className="quill-button contained primary medium disabled"
+        onClick={[Function]}
+      >
+        Save
+      </button>
+    </div>
+  </div>
+</div>
+`;
