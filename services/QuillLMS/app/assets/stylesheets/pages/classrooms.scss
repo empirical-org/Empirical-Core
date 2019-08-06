@@ -83,6 +83,35 @@
     }
   }
 
+  .coteacher-invitation {
+    height: 122px;
+    border-radius: 6px;
+    border: solid 1px #e0e0e0;
+    padding: 32px;
+    background-color: #fffffff;
+    margin-bottom: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #ffffff;
+    .coteacher-invitation-content {
+      display: flex;
+      justify-content: space-between;
+      p {
+        font-size: 14px;
+        line-height: 1.57;
+        color: #646464;
+      }
+      span {
+        font-size: 14px;
+        font-weight: 600;
+        color: #009a80;
+        cursor: pointer;
+        margin-left: 40px;
+      }
+    }
+  }
+
   .classroom {
     border-radius: 6px;
     border: solid 1px #e0e0e0;
@@ -293,6 +322,7 @@
   .transfer-ownership-modal,
   .import-google-classroom-students-modal,
   .google-classroom-email-modal,
+  .leave-class-modal,
   .google-classrooms-empty-modal {
     width: 560px;
     overflow: visible;
@@ -342,11 +372,11 @@
     height: 316px;
   }
 
-  .unarchive-class-modal {
+  .unarchive-class-modal, .leave-class-modal {
     height: 250px;
   }
 
-  .archive-class-modal-text, .unarchive-class-modal-text {
+  .archive-class-modal-text, .unarchive-class-modal-text, .leave-class-modal-text {
     margin-top: 24px;
     margin-bottom: 48px;
     line-height: 1.57;
@@ -478,6 +508,7 @@
     .invite-coteachers-modal-footer {
       justify-content: flex-end;
     }
+
   }
 
   .import-google-classrooms-modal-header,

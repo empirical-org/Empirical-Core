@@ -143,7 +143,7 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
   }
 
   actionsForIndividualStudent() {
-    const { classrooms } = this.props
+    const { classrooms, isOwnedByCurrentUser, } = this.props
     const {
       editAccount,
       resetPassword,
@@ -151,10 +151,12 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
       moveClass,
       removeFromClass
     } = this.individualStudentActions()
-    if (classrooms.length > 1) {
+    if (classrooms.length > 1 && isOwnedByCurrentUser) {
       return [ editAccount, resetPassword, mergeAccounts, moveClass, removeFromClass ]
-    } else {
+    } else if (isOwnedByCurrentUser) {
       return [ editAccount, resetPassword, mergeAccounts, removeFromClass ]
+    } else {
+      return [ editAccount, resetPassword, removeFromClass ]
     }
   }
 
@@ -292,7 +294,7 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
   }
 
   optionsForStudentActions() {
-    const { classrooms, } = this.props
+    const { classrooms, isOwnedByCurrentUser, } = this.props
     const { selectedStudentIds } = this.state
 
     const {
@@ -303,7 +305,7 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
       removeFromClass
     } = this.dropdownActions()
 
-    if (classrooms.length > 1) {
+    if (classrooms.length > 1 && isOwnedByCurrentUser) {
       if (selectedStudentIds.length === 1) {
         return [ editAccount, resetPassword, mergeAccounts, moveClass, removeFromClass ]
       } else if (selectedStudentIds.length === 2) {
@@ -311,11 +313,17 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
       } else {
         return [ moveClass, removeFromClass ]
       }
-    } else {
+    } else if (isOwnedByCurrentUser) {
       if (selectedStudentIds.length === 1) {
         return [ editAccount, resetPassword, mergeAccounts, removeFromClass ]
       } else if (selectedStudentIds.length === 2) {
         return [ mergeAccounts, removeFromClass ]
+      } else {
+        return [ removeFromClass ]
+      }
+    } else {
+      if (selectedStudentIds.length === 1) {
+        return [ editAccount, resetPassword, removeFromClass ]
       } else {
         return [ removeFromClass ]
       }
