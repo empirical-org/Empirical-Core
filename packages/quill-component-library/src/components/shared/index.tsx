@@ -11,6 +11,10 @@ export {
 } from './carouselAnimation'
 
 export {
+  DataTable
+} from './dataTable'
+
+export {
   DiagnosticProgressBar
 } from './diagnosticProgressBar'
 
@@ -56,8 +60,12 @@ export {
 } from './textEditor'
 
 export {
-  TextField
-} from './textField'
+  TextArea
+} from './textArea'
+
+export {
+  Tooltip
+} from './tooltip'
 
 export {
   UploadOptimalResponses

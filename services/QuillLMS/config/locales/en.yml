@@ -40,3 +40,7 @@ en:
               invalid: "Enter a valid username"
               taken: "That username is taken. Try another."
               no_spaces_allowed: "That username is not valid because it has a space. Try another."
+        classroom:
+          attributes:
+            name:
+              taken: "That class name already exists. Try another."
