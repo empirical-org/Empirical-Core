@@ -38,7 +38,7 @@ class Teachers::ClassroomsController < ApplicationController
     if @classroom.valid?
       render json: {classroom: @classroom}
     else
-       render json: {errors: @classroom.errors }
+      render json: {errors: @classroom.errors}
     end
   end
 
