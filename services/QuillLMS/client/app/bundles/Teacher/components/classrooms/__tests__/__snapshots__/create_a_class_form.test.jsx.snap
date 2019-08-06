@@ -1,0 +1,126 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CreateAClassForm component on initial load should render 1`] = `
+<div
+  className="create-a-class-modal-content"
+>
+  <div
+    className="create-a-class-modal-body modal-body"
+  >
+    <h3
+      className="title"
+    >
+      Create a class
+    </h3>
+    <form
+      className="create-a-class-form"
+    >
+      <Input
+        characterLimit={50}
+        className="name"
+        handleChange={[Function]}
+        label="Class name"
+        placeholder="e.g., Ms. Hall's 6th Period"
+        timesSubmitted={0}
+        type="text"
+        value=""
+      />
+      <DropdownInput
+        className="grade"
+        handleChange={[Function]}
+        helperText="This will not limit the activities you can access."
+        label="Grade"
+        options={
+          Array [
+            Object {
+              "label": "1st",
+              "value": 1,
+            },
+            Object {
+              "label": "2nd",
+              "value": 2,
+            },
+            Object {
+              "label": "3rd",
+              "value": 3,
+            },
+            Object {
+              "label": "4th",
+              "value": 4,
+            },
+            Object {
+              "label": "5th",
+              "value": 5,
+            },
+            Object {
+              "label": "6th",
+              "value": 6,
+            },
+            Object {
+              "label": "7th",
+              "value": 7,
+            },
+            Object {
+              "label": "8th",
+              "value": 8,
+            },
+            Object {
+              "label": "9th",
+              "value": 9,
+            },
+            Object {
+              "label": "10th",
+              "value": 10,
+            },
+            Object {
+              "label": "11th",
+              "value": 11,
+            },
+            Object {
+              "label": "12th",
+              "value": 12,
+            },
+            Object {
+              "label": "University",
+              "value": "University",
+            },
+            Object {
+              "label": "Other",
+              "value": "Other",
+            },
+          ]
+        }
+        value={null}
+      />
+      <div
+        className="class-code-section"
+      >
+        <Input
+          className="code"
+          disabled={true}
+          helperText="Students use this to join your class."
+          label="Class code"
+          type="text"
+          value=" "
+        />
+        <span
+          className="reset"
+          onClick={[Function]}
+        >
+          Reset
+        </span>
+      </div>
+    </form>
+  </div>
+  <div
+    className="create-a-class-modal-footer"
+  >
+    <button
+      className="quill-button contained primary medium disabled"
+      onClick={[Function]}
+    >
+      Create class, next
+    </button>
+  </div>
+</div>
+`;

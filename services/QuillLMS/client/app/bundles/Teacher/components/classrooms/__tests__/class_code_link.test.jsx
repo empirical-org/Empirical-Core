@@ -1,0 +1,21 @@
+import React from 'react';
+import { shallow } from 'enzyme';
+
+import ClassCodeLink from '../class_code_link'
+
+const classroom = { id: 1, code: 'happy-day', name: 'Classroom'}
+
+describe('ClassCodeLink component', () => {
+
+  const wrapper = shallow(
+    <ClassCodeLink next={() => {}} showSnackbar={() => {}} classroom={classroom} />
+  );
+
+  it('should render ClassCodeLink', () => {
+    expect(wrapper).toMatchSnapshot()
+  })
+
+  it('#classCodeLink should return a url', () => {
+    expect(wrapper.instance().classCodeLink()).toMatch(`quill.org/join/${classroom.code}`)
+  })
+})

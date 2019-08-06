@@ -114,8 +114,8 @@ module Student
     secondary_account_activity_sessions = secondary_account.activity_sessions
 
     if teacher_id
-      primary_account_activity_sessions = primary_account_activity_sessions.select { |as| as.classroom_unit.unit.user_id == teacher_id }
-      secondary_account_activity_sessions = secondary_account_activity_sessions.select { |as| as.classroom_unit.unit.user_id == teacher_id }
+      primary_account_activity_sessions = primary_account_activity_sessions.select { |as| as&.classroom_unit&.unit&.user_id == teacher_id }
+      secondary_account_activity_sessions = secondary_account_activity_sessions.select { |as| as&.classroom_unit&.unit&.user_id == teacher_id }
     end
 
     primary_account_grouped_activity_sessions = primary_account_activity_sessions.group_by { |as| as.classroom_unit_id }

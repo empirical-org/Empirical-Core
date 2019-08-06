@@ -69,8 +69,7 @@ class User < ActiveRecord::Base
 
   validates :username,              presence:     { if: ->(m) { m.email.blank? && m.permanent? } },
                                     uniqueness:   { allow_blank: true },
-                                    format:       {without: /\s/, message: :no_spaces_allowed, if: :validate_username?},
-                                    on: :create
+                                    format:       { without: /\s/, message: :no_spaces_allowed, if: :validate_username?}
 
   validate :validate_flags
 

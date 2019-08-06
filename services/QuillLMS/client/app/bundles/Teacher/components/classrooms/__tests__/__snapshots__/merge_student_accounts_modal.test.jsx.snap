@@ -1,0 +1,127 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MergeStudentAccountsModal component should render MergeStudentAccountsModal 1`] = `
+<div
+  className="modal-container merge-student-accounts-modal-container"
+>
+  <div
+    className="modal-background"
+  />
+  <div
+    className="merge-student-accounts-modal modal modal-body"
+  >
+    <div>
+      <h3
+        className="title"
+      >
+        Merge student accounts
+      </h3>
+    </div>
+    <p>
+      Please select the account that you'd like the student to use going forward as the primary account.
+    </p>
+    <div
+      className="swap"
+      onClick={[Function]}
+    >
+      <img
+        src="undefined/images/icons/swap-vertical.svg"
+      />
+      <span>
+        Swap accounts
+      </span>
+    </div>
+    <DropdownInput
+      className="primary-account"
+      handleChange={[Function]}
+      label="Select primary account"
+      options={
+        Array [
+          Object {
+            "label": "Maya Angelou (undefined activities)",
+            "value": 2851870,
+          },
+        ]
+      }
+      value={
+        Object {
+          "label": "Maya Angelou (undefined activities)",
+          "value": 2851870,
+        }
+      }
+    />
+    <DropdownInput
+      className="secondary-account"
+      handleChange={[Function]}
+      label="Select secondary account"
+      options={
+        Array [
+          Object {
+            "label": "William Shakespeare (undefined activities)",
+            "value": 2851866,
+          },
+        ]
+      }
+      value={
+        Object {
+          "label": "William Shakespeare (undefined activities)",
+          "value": 2851866,
+        }
+      }
+    />
+    <div
+      className="checkboxes"
+    >
+      <div
+        className="checkbox-row"
+      >
+        <div
+          className="quill-checkbox unselected"
+          onClick={[Function]}
+        />
+        <span>
+          I understand that all data from the account to merge will be transferred to the primary account.
+        </span>
+      </div>
+      <div
+        className="checkbox-row"
+      >
+        <div
+          className="quill-checkbox unselected"
+          onClick={[Function]}
+        />
+        <span>
+          I understand that the account to merge will be removed from the class roster.
+        </span>
+      </div>
+      <div
+        className="checkbox-row"
+      >
+        <div
+          className="quill-checkbox unselected"
+          onClick={[Function]}
+        />
+        <span>
+          I understand that this action cannot be undone.
+        </span>
+      </div>
+    </div>
+    <div
+      className="form-buttons"
+    >
+      <button
+        className="quill-button outlined secondary medium"
+        onClick={[Function]}
+      >
+        Cancel
+      </button>
+      <button
+        className="quill-button contained primary medium disabled"
+        onClick={[Function]}
+      >
+        Merge accounts
+      </button>
+    </div>
+  </div>
+</div>
+`;
