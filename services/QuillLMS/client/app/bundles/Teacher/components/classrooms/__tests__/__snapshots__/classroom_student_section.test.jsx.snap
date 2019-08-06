@@ -76,7 +76,7 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
       Array [
         Object {
           "action": [Function],
-          "name": "Remove from class",
+          "label": "Remove from class",
         },
       ]
     }
