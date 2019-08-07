@@ -47,7 +47,7 @@
     "jquery": "^3.4.1",
     "jquery-ujs": "^1.2.1",
     "loader-utils": "^0.2.13",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.15",
     "mini-css-extract-plugin": "^0.7.0",
     "mockdate": "^2.0.1",
     "moment": "^2.14.1",
@@ -57,13 +57,14 @@
     "postcss-loader": "^0.8.2",
     "pusher": "^2.2.0",
     "pusher-js": "^4.0.0",
-    "quill-component-library": "0.2.2",
+    "quill-component-library": "0.3.25",
     "react": "^15.2.0",
     "react-addons-css-transition-group": "^15.2.0",
     "react-addons-shallow-compare": "^15.6.2",
     "react-addons-update": "^15.2.1",
     "react-apollo": "^2.1.9",
     "react-bootstrap": "^0.30.0",
+    "react-copy-to-clipboard": "^5.0.1",
     "react-csv": "^1.0.8",
     "react-datepicker": "^0.40.0",
     "react-dates": "=12.7.0",
@@ -79,6 +80,7 @@
     "react-sortable": "^1.2.0",
     "react-table": "^6.7.5",
     "react-timezone": "^2.3.0",
+    "react-tooltip": "^3.10.0",
     "redux": "^3.3.1",
     "redux-thunk": "^2.0.1",
     "request": "^2.81.0",
@@ -136,7 +138,7 @@
     "build:production:client": "NODE_ENV=production webpack --config webpack.client.rails.build.config.js  --optimize-minimize",
     "build:production:server": "NODE_ENV=production webpack --config webpack.server.rails.build.config.js",
     "build:client": "webpack --config webpack.client.rails.build.config.js",
-    "build:dev:client": "webpack -w --config webpack.client.rails.build.config.js",
+    "build:dev:client": "RAILS_ENV=development webpack -w --config webpack.client.rails.build.config.js",
     "build:dev:server": "webpack -w --config webpack.server.rails.build.config.js",
     "build:server": "webpack --config webpack.server.rails.build.config.js",
     "hot-assets": "NODE_ENV=development babel-node server-rails-hot.js",
@@ -186,6 +188,9 @@
     "coveragePathIgnorePatterns": [
       "/node_modules/",
       "/test_data/"
+    ],
+    "testPathIgnorePatterns": [
+      "test_data.js"
     ]
   }
 }

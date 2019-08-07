@@ -39,7 +39,7 @@ class Auth::GoogleController < ApplicationController
   end
 
   def set_user
-    if route_redirects_to_my_account?(session[GOOGLE_REDIRECT])
+    if route_redirects_to_my_account?(session[GOOGLE_REDIRECT]) || route_redirects_to_classrooms_index?(session[GOOGLE_REDIRECT])
       user = current_user.update(email: @profile.email)
       if user
         session[ApplicationController::GOOGLE_OR_CLEVER_JUST_SET] = true
