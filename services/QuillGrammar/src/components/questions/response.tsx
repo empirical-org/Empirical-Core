@@ -512,7 +512,7 @@ export default class Response extends React.Component<any, any> {
               </div>
               <div className="media-right" style={{ textAlign: 'right', }}>
                 <figure className="image is-32x32">
-                  <span>{ icon } { response.firstAttemptCount ? response.firstAttemptCount : 0 }</span>
+                  <span>{ icon } { response.first_attempt_count ? response.first_attempt_count : 0 }</span>
                 </figure>
               </div>
               <div className="media-right" style={{ textAlign: 'right', }}>
