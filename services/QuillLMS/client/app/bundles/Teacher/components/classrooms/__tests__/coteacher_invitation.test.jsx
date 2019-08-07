@@ -1,0 +1,22 @@
+import React from 'react';
+import { shallow } from 'enzyme';
+
+import CoteacherInvitation from '../coteacher_invitation'
+
+import { coteacherInvitations } from './test_data/test_data'
+
+describe('CoteacherInvitation component', () => {
+
+  const wrapper = shallow(
+    <CoteacherInvitation
+      showSnackbar={() => {}}
+      coteacherInvitation={coteacherInvitations[0]}
+      getClassroomsAndCoteacherInvitations={() => {}}
+    />
+  );
+
+  it('should render CoteacherInvitation', () => {
+    expect(wrapper).toMatchSnapshot()
+  })
+
+})

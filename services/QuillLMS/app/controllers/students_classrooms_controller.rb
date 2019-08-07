@@ -1,5 +1,6 @@
 class StudentsClassroomsController < ApplicationController
   skip_before_action :verify_authenticity_token
+  before_filter :classroom_teacher!, only: [:teacher_hide]
 
   def create
     if current_user
@@ -37,7 +38,6 @@ class StudentsClassroomsController < ApplicationController
   end
 
   def teacher_hide
-    classroom_teacher!(params[:classroom_id])
     row = StudentsClassrooms.find_by(student_id: params[:student_id], classroom_id: params[:classroom_id])
     row.update(visible: false)
     redirect_to teachers_classrooms_path

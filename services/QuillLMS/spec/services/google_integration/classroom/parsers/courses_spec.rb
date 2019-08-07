@@ -20,16 +20,56 @@ describe 'GoogleIntegration::Classroom::Parsers::Courses' do
     response
   }
 
+  let(:student_requester) {
+    GoogleIntegration::Classroom::Requesters::Students
+  }
+
   let!(:expected_result) {
     course = response[:courses][0]
     [
-      {id: course[:id].to_i, name: course[:name], ownerId: course[:ownerId], alreadyImported: true, creationTime: course[:creationTime], section: course[:section], grade: imported_classroom.grade}
+      {
+        id: course[:id].to_i,
+        name: course[:name],
+        ownerId: course[:ownerId],
+        alreadyImported: true,
+        creationTime: course[:creationTime],
+        section: course[:section],
+        grade: imported_classroom.grade,
+        studentCount: students_requester.call(course[:id]).length
+      }
     ]
+  }
+
+  let!(:students_requester) {
+    lambda do |course_id|
+      students = [{
+          "profile": {
+              "id": "107708392406225674265",
+              "name": {
+                  "givenName": "test1_s1",
+                  "familyName": "s1",
+                  "fullName": "test1_s1 s1"
+              },
+              "emailAddress": "test1_s1@gedu.demo.rockerz.xyz"
+          }
+      }, {
+          "profile": {
+              "id": "2",
+              "name": {
+                  "givenName": "test1_s2",
+                  "familyName": "s2",
+                  "fullName": "test1_s2 s2"
+              },
+              "emailAddress": "test1_s2@gedu.demo.rockerz.xyz"
+          }
+      }]
+      JSON.parse(students.to_json)
+    end
   }
 
   describe 'when the user is a teacher' do
     it 'works' do
-      expect(GoogleIntegration::Classroom::Parsers::Courses.run(user, response)).to eq(expected_result)
+      expect(GoogleIntegration::Classroom::Parsers::Courses.run(user, response, students_requester)).to eq(expected_result)
     end
 
     # it 'only returns classes where the passed user is also the class owner' do
@@ -46,7 +86,7 @@ describe 'GoogleIntegration::Classroom::Parsers::Courses' do
       it "don't show up if they have not been imported" do
         imported_classroom.update(google_classroom_id: '2')
         imported_classroom.reload
-        expect(GoogleIntegration::Classroom::Parsers::Courses.run(user, archived_response)).to eq([])
+        expect(GoogleIntegration::Classroom::Parsers::Courses.run(user, archived_response, students_requester)).to eq([])
       end
 
     end
@@ -56,16 +96,13 @@ describe 'GoogleIntegration::Classroom::Parsers::Courses' do
     let!(:student) { create(:user, role: 'student') }
 
     it 'only returns google classroom ids where the student is not the class owner' do
-      expect(GoogleIntegration::Classroom::Parsers::Courses.run(student, response)).to eq([response[:courses][0][:id]])
+      expect(GoogleIntegration::Classroom::Parsers::Courses.run(student, response, students_requester)).to eq([response[:courses][0][:id]])
     end
 
     it 'will not return google classroom ids where the student is the class owner' do
       student.update(google_id: response[:courses][0][:ownerId])
-      expect(GoogleIntegration::Classroom::Parsers::Courses.run(student, response)).to eq([])
+      expect(GoogleIntegration::Classroom::Parsers::Courses.run(student, response, students_requester)).to eq([])
     end
   end
-
-
-
 
 end
