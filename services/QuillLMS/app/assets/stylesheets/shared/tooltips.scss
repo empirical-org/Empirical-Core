@@ -50,7 +50,10 @@
   h1, p {
     margin-bottom: 5px;
   }
-  &:before {
+  &.place-top:before {
     border-top: 8px solid #cecece;
+  }
+  &.place-bottom:before {
+    border-bottom: 8px solid #cecece;
   }
 }
