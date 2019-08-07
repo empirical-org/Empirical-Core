@@ -15,9 +15,6 @@ export default React.createClass({
           className="activity_link"
           href={this.props.data.anonymous_path}
           target="_new"
-          data-html="true"
-          data-toggle="tooltip"
-          data-placement="top"
           data-tip={`<h1>${this.props.data.name}</h1><p>Tool: ${this.props.data.activity_classification.alias}</p><p>${this.props.data.section.name}</p><p>${this.props.data.topic_name}</p><p>${this.props.data.description}</p>`}
         >
           {this.props.data.name}
