@@ -1,11 +1,44 @@
 .classrooms-page {
   padding-top: 40px;
 
+  &.archived-classrooms {
+    .header {
+      display: flex;
+      flex-direction: column;
+      p {
+        font-size: 14px;
+        line-height: 1.57;
+        color: #646464;
+      }
+    }
+  }
+
   .name, .last-name, .first-name {
     &.inactive:not(.has-text) {
       label {
         margin-top: 20px;
       }
+    }
+  }
+
+  .input-container.disabled {
+    input {
+      border-bottom: none;
+    }
+  }
+
+  .import-from-google-button.loading {
+    background-color: #f5f5f5;
+  }
+
+  .checkbox-row {
+    display: flex;
+    align-items: center;
+    .quill-checkbox {
+      margin-right: 24px;
+    }
+    span {
+      line-height: 1.57;
     }
   }
 
@@ -21,13 +54,7 @@
   }
   .buttons {
     display: flex;
-    .import-from-google-button {
-      width: 242px;
-      white-space: nowrap;
-    }
     .create-a-class-button {
-      width: 129px;
-      white-space: nowrap;
       margin-left: 24px;
     }
   }
@@ -42,6 +69,46 @@
       color: #646464;
       margin-top: 24px;
       width: 461px;
+    }
+  }
+
+  .archived-classes {
+    .classroom {
+      h3 {
+        margin-bottom: 32px;
+      }
+      .teacher-section-header {
+        margin-bottom: 0px;
+      }
+    }
+  }
+
+  .coteacher-invitation {
+    height: 122px;
+    border-radius: 6px;
+    border: solid 1px #e0e0e0;
+    padding: 32px;
+    background-color: #fffffff;
+    margin-bottom: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #ffffff;
+    .coteacher-invitation-content {
+      display: flex;
+      justify-content: space-between;
+      p {
+        font-size: 14px;
+        line-height: 1.57;
+        color: #646464;
+      }
+      span {
+        font-size: 14px;
+        font-weight: 600;
+        color: #009a80;
+        cursor: pointer;
+        margin-left: 40px;
+      }
     }
   }
 
@@ -151,7 +218,7 @@
     .students-section-header, .teacher-section-header {
       display: flex;
       justify-content: space-between;
-      align-items: center;
+      align-items: flex-start;
     }
     .teacher-section-header {
       margin-bottom: 26px;
@@ -223,7 +290,7 @@
   }
 
   .modal-body {
-    padding: 32px 24px 32px 32px;
+    padding: 32px;
     margin-bottom: 32px;
     .title {
       font-size: 24px;
@@ -245,15 +312,40 @@
   .rename-class-modal,
   .change-grade-modal,
   .archive-class-modal,
+  .unarchive-class-modal,
   .edit-student-account-modal,
   .reset-student-password-modal,
-  .merge-student-accounts-modal {
+  .merge-student-accounts-modal,
+  .move-students-modal,
+  .remove-students-modal,
+  .remove-coteacher-modal,
+  .transfer-ownership-modal,
+  .import-google-classroom-students-modal,
+  .google-classroom-email-modal,
+  .leave-class-modal,
+  .google-classrooms-empty-modal {
+    width: 560px;
+    overflow: visible;
     top: 50%;
     transform: translate(-50%, -50%);
+    p {
+      line-height: 1.57;
+      color: #646464;
+      margin-bottom: 32px;
+    }
+    .checkboxes {
+      margin-bottom: 32px;
+      .checkbox-row {
+        margin-bottom: 16px;
+        align-items: flex-start;
+        .quill-checkbox {
+          margin-top: 5px;
+        }
+      }
+    }
   }
 
   .rename-class-modal {
-    width: 560px;
     height: 273px;
     .title {
       margin-bottom: 24px;
@@ -268,13 +360,8 @@
 
   .change-grade-modal {
     height: 327px;
-    width: 560px;
-    overflow: visible;
     p {
-      line-height: 1.57;
       margin-top: 24px;
-      color: #646464;
-      margin-bottom: 32px;
     }
     .input-container {
       margin-bottom: 48px;
@@ -282,26 +369,29 @@
   }
 
   .archive-class-modal {
-    width: 560px;
-    height: 376px;
-    .archive-class-modal-text {
-      margin-top: 24px;
-      margin-bottom: 48px;
-      line-height: 1.57;
-      letter-spacing: normal;
-      color: #646464;
-      p {
-        margin-bottom: 24px;
-      }
-      a {
-        color: #027360;
-        font-weight: 600;
-      }
+    height: 316px;
+  }
+
+  .unarchive-class-modal, .leave-class-modal {
+    height: 250px;
+  }
+
+  .archive-class-modal-text, .unarchive-class-modal-text, .leave-class-modal-text {
+    margin-top: 24px;
+    margin-bottom: 48px;
+    line-height: 1.57;
+    letter-spacing: normal;
+    color: #646464;
+    p {
+      margin-bottom: 24px;
+    }
+    a {
+      color: #027360;
+      font-weight: 600;
     }
   }
 
   .edit-student-account-modal {
-    width: 560px;
     height: 445px;
     .input-container {
       height: 96px !important;
@@ -311,13 +401,7 @@
   }
 
   .reset-student-password-modal {
-    width: 560px;
     height: 327px;
-    p {
-      line-height: 1.57;
-      color: #646464;
-      margin-bottom: 32px;
-    }
     .input-container {
       margin-bottom: 36px;
       input {
@@ -326,14 +410,25 @@
     }
   }
 
-  .merge-student-accounts-modal {
-    width: 560px;
-    height: 608px;
-    p {
-      line-height: 1.57;
-      color: #646464;
+  .merge-student-accounts-modal,
+  .move-students-modal,
+  .remove-students-modal,
+  .remove-coteacher-modal,
+  .transfer-ownership-modal,
+  .import-google-classroom-students-modal {
+    .input-container {
       margin-bottom: 32px;
+      &.inactive {
+        height: 59px;
+      }
+      &.active {
+        margin-bottom: 83px;
+      }
     }
+  }
+
+  .merge-student-accounts-modal {
+    height: 608px;
     .swap {
       cursor: pointer;
       display: flex;
@@ -344,26 +439,140 @@
         margin-right: 4px;
       }
     }
-    .input-container {
-      margin-bottom: 32px;
-      &.inactive {
-        height: 59px;
+  }
+
+  .move-students-modal {
+    height: 403px;
+  }
+
+  .remove-students-modal,
+  .remove-coteacher-modal,
+  .transfer-ownership-modal,
+  .import-google-classroom-students-modal,
+  .google-classroom-email-modal {
+    .checkboxes {
+      margin-bottom: 48px;
+    }
+  }
+
+  .remove-students-modal, .remove-coteacher-modal {
+    height: 328px;
+  }
+
+  .transfer-ownership-modal {
+    height: 350px;
+    p {
+      max-width: 490px;
+    }
+  }
+
+  .import-google-classroom-students-modal {
+    height: 306px;
+    .title {
+      margin-bottom: 24px;
+    }
+  }
+
+  .google-classroom-email-modal {
+    height: 328px;
+    .title {
+      margin-bottom: 24px;
+    }
+  }
+
+  .google-classrooms-empty-modal {
+    height: 449px;
+    .title, p {
+      margin-bottom: 48px;
+    }
+  }
+
+  .invite-coteachers-modal {
+    width: 560px;
+    .invite-coteachers-modal-body {
+      padding-top: 0px;
+      p {
+        font-size: 14px;
+        line-height: 1.57;
+        color: #646464;
       }
-      &.active {
-        margin-bottom: 83px;
+      .input-container {
+        margin: 32px 0px;
+      }
+      .data-table {
+        height: 100%;
+        overflow: scroll;
+        padding-bottom: 400px;
       }
     }
-    .checkboxes {
-      margin-bottom: 32px;
-      .checkbox-row {
-        display: flex;
-        margin-bottom: 16px;
-        .quill-checkbox {
-          margin-right: 24px;
-          margin-top: 5px;
+    .invite-coteachers-modal-footer {
+      justify-content: flex-end;
+    }
+
+  }
+
+  .import-google-classrooms-modal-header,
+  .invite-coteachers-modal-header {
+    padding: 32px 32px 0px;
+    .title {
+      font-size: 24px;
+      font-weight: bold;
+      line-height: 1.33;
+    }
+  }
+
+  .import-google-classrooms-modal-footer,
+  .invite-coteachers-modal-footer {
+    position: fixed;
+    bottom: 0;
+    height: 96;
+    background-color: white;
+    opacity: 1;
+    z-index: 4;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    border-top: 1px solid #e0e0e0;
+    padding: 0px 32px;
+    .quill-button {
+      margin-left: 24px;
+    }
+  }
+
+  .import-google-classrooms-modal {
+    width: 950px;
+    .import-google-classrooms-modal-footer {
+      justify-content: space-between;
+    }
+    .data-table {
+      height: 100%;
+      overflow: scroll;
+      padding-bottom: 400px;
+      .data-table-headers {
+        z-index: 7;
+      }
+      .show-overflow {
+        overflow: visible;
+      }
+      .dropdown-container {
+        width: 110px;
+        label {
+          color: #000;
+          font-size: 14px;
+          margin-top: 0px;
         }
-        span {
-          line-height: 1.57;
+        .dropdown__control {
+          border: none;
+          background-color: inherit;
+          margin-bottom: 0px;
+        }
+        &.inactive {
+          min-height: 100%;
+          &.has-text {
+            label {
+              display: none;
+            }
+          }
         }
       }
     }
@@ -371,141 +580,142 @@
 
   .create-a-class-modal {
     width: 760px;
-  }
-
-  .create-a-class-modal-content {
-    height: 100%;
-    overflow-y: scroll;
-    padding-bottom: 120px;
-  }
-
-  .create-a-class-modal-body {
-    .title {
-      margin-bottom: 40px;
-    }
-    &.setup-instructions {
-      .title {
-        margin-bottom: 8px;
-      }
-      p {
-        width: 416px;
-        font-size: 14px;
-        line-height: 1.57;
-        color: #646464;
-        margin-bottom: 32px;
-      }
-      img {
-        margin-bottom: 32px;
-      }
-    }
-
-    &.create-students {
+    .create-a-class-modal-content {
       height: 100%;
-      form {
-        display: flex;
-        justify-content: space-between;
-        .input-container {
-          width: 302px;
-        }
-      }
-      .data-table {
-        height: 100%;
-        padding-bottom: 105px;
-      }
+      overflow-y: scroll;
+      padding-bottom: 120px;
     }
 
-    .create-a-class-form {
-      width: 512px;
-      .input-container {
-        margin-bottom: 12px;
-        &.grade {
-          margin-bottom: 24px;
+    .create-a-class-modal-body {
+      padding-right: 24px;
+      .title {
+        margin-bottom: 40px;
+      }
+      &.setup-instructions {
+        .title {
+          margin-bottom: 8px;
         }
-        &.name {
-          min-height: 80px;
-          justify-content: flex-start;
+        p {
+          width: 416px;
+          font-size: 14px;
+          line-height: 1.57;
+          color: #646464;
+          margin-bottom: 32px;
+        }
+        img {
+          margin-bottom: 32px;
         }
       }
-      .class-code-section {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        .input-container {
-          width: 300px;
-          margin-bottom: 0px;
-          &.code {
-            input {
-              border-bottom: none;
-            }
+
+      &.create-students {
+        height: 100%;
+        form {
+          display: flex;
+          justify-content: space-between;
+          .input-container {
+            width: 302px;
           }
         }
-        .reset {
-          color: #027360;
-          font-size: 16px;
-          cursor: pointer;
-          font-weight: normal;
+        .data-table {
+          height: 100%;
+          padding-bottom: 105px;
+        }
+      }
+
+      .create-a-class-form {
+        width: 512px;
+        .input-container {
+          margin-bottom: 12px;
+          &.grade {
+            margin-bottom: 24px;
+          }
+          &.name {
+            min-height: 80px;
+            justify-content: flex-start;
+          }
+        }
+        .class-code-section {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          .input-container {
+            width: 300px;
+            margin-bottom: 0px;
+            &.code {
+              input {
+                border-bottom: none;
+              }
+            }
+          }
+          .reset {
+            color: #027360;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: normal;
+          }
+        }
+      }
+
+      .quill-cards {
+        width: 584px;
+        .quill-card:first-of-type {
+          margin-bottom: 24px;
+          p {
+            width: 400px;
+          }
+        }
+      }
+      .copy-class-code-container {
+        display: flex;
+        align-items: center;
+        .input-container {
+          width: 256px;
+          margin-right: 16px;
         }
       }
     }
 
-    .quill-cards {
-      width: 584px;
-      .quill-card:first-of-type {
-        margin-bottom: 24px;
-        p {
-          width: 400px;
-        }
-      }
-    }
-    .copy-class-code-container {
+    .create-a-class-modal-footer {
+      position: fixed;
+      bottom: 0;
+      height: 88px;
+      background-color: white;
+      opacity: 1;
+      z-index: 4;
+      width: 100%;
       display: flex;
+      justify-content: flex-end;
       align-items: center;
-      .input-container {
-        width: 256px;
-        margin-right: 16px;
+      border-top: 1px solid #e0e0e0;
+      padding: 0px 32px;
+      &.with-back-button {
+        justify-content: space-between;
       }
     }
-  }
 
-  .create-a-class-modal-footer {
-    position: fixed;
-    bottom: 0;
-    height: 88px;
-    background-color: white;
-    opacity: 1;
-    z-index: 4;
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    border-top: 1px solid #e0e0e0;
-    padding: 0px 32px;
-    &.with-back-button {
-      justify-content: space-between;
-    }
-  }
-
-  .create-a-class-modal-header {
-    display: flex;
-    justify-content: space-between;
-    border-bottom: 1px solid #e0e0e0;
-    padding: 0px 32px;
-    height: 70px;
-    align-items: center;
-    img {
-      cursor: pointer;
-    }
-    .navigation {
+    .create-a-class-modal-header {
       display: flex;
-      color: #646464;
-      p {
-        margin-right: 24px;
+      justify-content: space-between;
+      border-bottom: 1px solid #e0e0e0;
+      padding: 0px 32px;
+      height: 70px;
+      align-items: center;
+      img {
+        cursor: pointer;
       }
-      .active {
-        color: #000;
+      .navigation {
+        display: flex;
+        color: #646464;
+        p {
+          margin-right: 24px;
+        }
+        .active {
+          color: #000;
+        }
       }
     }
   }
+
 
   // this is stuff that should be coming from the component library but is not working right now
   .character-limit {
@@ -537,7 +747,6 @@
     border-radius: 4px;
     display: flex;
     justify-content: center;
-    padding-top: 3px;
     width: 48px;
     height: 24px;
     border: solid 1px #bdbdbd;
