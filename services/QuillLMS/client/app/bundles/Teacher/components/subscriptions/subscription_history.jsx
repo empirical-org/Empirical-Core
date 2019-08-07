@@ -9,7 +9,9 @@ export default class extends React.Component {
     this.props.subscriptions.forEach((sub) => {
       const startD = moment(sub.start_date);
       const endD = moment(sub.expiration);
-      const duration = endD.diff(startD, 'months');
+      const calculatedDuration = endD.diff(startD, 'months');
+      // if duration is calculated as 0, make it 1
+      const duration = Math.max(calculatedDuration, 1);
       const matchingTransaction = this.props.premiumCredits.find(transaction => (transaction.source_id === sub.id && transaction.source_type === 'Subscription' && transaction.amount > 0));
       if (matchingTransaction) {
         const amountCredited = matchingTransaction.amount > 6
