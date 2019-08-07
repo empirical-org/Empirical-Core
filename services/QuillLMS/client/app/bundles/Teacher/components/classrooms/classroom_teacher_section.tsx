@@ -169,6 +169,31 @@ export default class ClassroomTeacherSection extends React.Component<ClassroomTe
     }
   }
 
+  closeModal() {
+    this.setState({ showModal: null, selectedCoteacherId: null })
+  }
+
+  transferOwnership(id) {
+    this.setState({ showModal: transferOwnershipModal, selectedCoteacherId: id })
+  }
+
+  inviteCoteachers(id=null) {
+    this.setState({ showModal: inviteCoteachersModal, selectedCoteacherId: id })
+  }
+
+  actionsForTeacherRow(teacher) {
+    const { isOwnedByCurrentUser, classroom, user, } = this.props
+    const { classroom_relation, id } = teacher
+    const role = this.formatRole(classroom_relation)
+    if (!classroom.visible || role !== CoteacherDisplayName) {
+      return null
+    } else if (isOwnedByCurrentUser) {
+      return this.ownerActions(status)
+    } else if (id === user.id) {
+      return this.coteacherActions()
+    }
+  }
+
   renderTeacherRow(teacher) {
     const { name, classroom_relation, id, status, email } = teacher
     const role = this.formatRole(classroom_relation)
