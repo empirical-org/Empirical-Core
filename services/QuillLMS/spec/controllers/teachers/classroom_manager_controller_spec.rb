@@ -495,7 +495,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
       classroom_json = [{id: 1}, {id: 2}].to_json
       post :update_google_classrooms, selected_classrooms: classroom_json, format: :json
 
-      expect(response.body).to eq({classrooms: [1,2]}.to_json)
+      expect(response.body).to eq({classrooms: []}.to_json)
    end
   end
 end
