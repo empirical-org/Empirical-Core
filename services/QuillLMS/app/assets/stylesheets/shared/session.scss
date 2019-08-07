@@ -5,6 +5,9 @@
   color: #646464;
   max-width: 432px;
   margin: auto;
+  a {
+    margin-left: 4px;
+  }
 }
 
 .account-form {
@@ -105,6 +108,7 @@
     a {
       color: #009a80;
       font-weight: 600;
+      margin-left: 4px;
     }
   }
   .agreements {
