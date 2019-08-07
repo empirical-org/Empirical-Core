@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GoogleClassroomsEmptyModal component should render GoogleClassroomsEmptyModal 1`] = `
+<div
+  className="modal-container google-classrooms-empty-modal-container"
+>
+  <div
+    className="modal-background"
+  />
+  <div
+    className="google-classrooms-empty-modal modal modal-body"
+  >
+    <div>
+      <h3
+        className="title"
+      >
+        Create classes in Google Classroom
+      </h3>
+    </div>
+    <div
+      className="no-active-classes"
+    >
+      <img
+        src="undefined/images/illustrations/empty-class.svg"
+      />
+      <p>
+        No classes are available to import yet. Go to Google Classroom and create classes to import them into Quill.
+      </p>
+    </div>
+    <div
+      className="form-buttons"
+    >
+      <button
+        className="quill-button contained primary medium"
+        onClick={[Function]}
+      >
+        Close
+      </button>
+    </div>
+  </div>
+</div>
+`;
