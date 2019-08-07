@@ -34,4 +34,14 @@ class CoteacherClassroomInvitationsController < ApplicationController
       format.json { render json: {}, status: 200 }
     end
   end
+
+  def destroy
+    coteacher_invitation = CoteacherClassroomInvitation.find(params[:id])
+    if coteacher_invitation.classroom.owner == current_user
+      coteacher_invitation.destroy
+      render json: {}
+    else
+      render json: {}, status: 403
+    end
+  end
 end
