@@ -482,4 +482,20 @@ describe Teachers::ClassroomManagerController, type: :controller do
       put :update_my_account
     end
   end
+
+  describe '#update_google_classrooms' do
+    let(:teacher) { create(:teacher) }
+
+    before do
+      allow(controller).to receive(:current_user) { teacher }
+    end
+
+    it 'should return empty array with no classrooms' do
+      expect(GoogleIntegration::Classroom::Creators::Classrooms).to receive(:run)
+      classroom_json = [{id: 1}, {id: 2}].to_json
+      post :update_google_classrooms, selected_classrooms: classroom_json, format: :json
+
+      expect(response.body).to eq({classrooms: [1,2]}.to_json)
+   end
+  end
 end
