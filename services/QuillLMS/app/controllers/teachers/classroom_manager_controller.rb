@@ -192,7 +192,7 @@ class Teachers::ClassroomManagerController < ApplicationController
 
   def update_google_classrooms
     selected_classrooms = params[:selected_classrooms]
-    if selected_classrooms.is_a(String)
+    if selected_classrooms.is_a?(String)
       selected_classrooms = JSON.parse(params[:selected_classrooms], {:symbolize_names => true})
       if current_user.google_classrooms.any?
         google_classroom_ids = JSON.parse(params[:selected_classrooms]).map{ |sc| sc["id"] }
