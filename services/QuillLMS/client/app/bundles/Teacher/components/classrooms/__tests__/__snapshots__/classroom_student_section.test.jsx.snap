@@ -10,11 +10,16 @@ exports[`ClassroomStudentSection component classroom without students should ren
     <h3>
       Students
     </h3>
-    <button
-      className="quill-button primary outlined small"
+    <div
+      className="invite-quill-classroom-students"
     >
-      Invite students
-    </button>
+      <button
+        className="quill-button primary outlined small"
+        onClick={[Function]}
+      >
+        Invite students
+      </button>
+    </div>
   </div>
   <div
     className="no-students"
@@ -65,7 +70,14 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
     disabled={true}
     handleChange={[Function]}
     label="Actions"
-    options={Array []}
+    options={
+      Array [
+        Object {
+          "action": [Function],
+          "label": "Remove from class",
+        },
+      ]
+    }
   />
   <DataTable
     checkAllRows={[Function]}
@@ -103,14 +115,6 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
             },
             Object {
               "action": [Function],
-              "name": "Merge accounts",
-            },
-            Object {
-              "action": [Function],
-              "name": "Move class",
-            },
-            Object {
-              "action": [Function],
               "name": "Remove from class",
             },
           ],
@@ -129,14 +133,6 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
             Object {
               "action": [Function],
               "name": "Reset password",
-            },
-            Object {
-              "action": [Function],
-              "name": "Merge accounts",
-            },
-            Object {
-              "action": [Function],
-              "name": "Move class",
             },
             Object {
               "action": [Function],

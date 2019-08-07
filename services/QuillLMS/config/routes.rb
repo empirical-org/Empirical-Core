@@ -252,11 +252,13 @@ EmpiricalGrammar::Application.routes.draw do
 
     resources :classrooms, only: [:index, :new, :create, :update, :destroy] do
       post :create_students
+      post :remove_students
+      put :import_google_students, controller: 'classroom_manager', action: 'import_google_students'
       collection do
         get :classrooms_i_teach
         get :regenerate_code
         get :new_index
-        get :archived, action: 'new_index'
+        get 'new_index/archived', action: 'new_index'
         get :archived_classroom_manager_data, controller: "classroom_manager", action: 'archived_classroom_manager_data'
         get :manage_archived_classrooms, controller: "classroom_manager", action: 'manage_archived_classrooms'
         get :lesson_planner, controller: "classroom_manager", action: 'lesson_planner', path: 'activity_planner'
@@ -275,7 +277,7 @@ EmpiricalGrammar::Application.routes.draw do
         get :google_sync, controller: 'classroom_manager', action: 'google_sync'
         get :retrieve_google_classrooms, controller: 'classroom_manager', action: 'retrieve_google_classrooms'
         post :update_google_classrooms, controller: 'classroom_manager', action: 'update_google_classrooms'
-        get :import_google_students, controller: 'classroom_manager', action: 'import_google_students'
+        put :import_google_students, controller: 'classroom_manager', action: 'import_google_students'
 
         ##DASHBOARD ROUTES
         get :classroom_mini, controller: 'classroom_manager', action: 'classroom_mini'
@@ -298,6 +300,7 @@ EmpiricalGrammar::Application.routes.draw do
       resources :students do
         collection do
           post :merge_student_accounts
+          post :move_students
         end
       end
 
@@ -320,13 +323,14 @@ EmpiricalGrammar::Application.routes.draw do
   resources :classrooms_teachers, only: [] do
     get 'edit_coteacher_form', to: 'classrooms_teachers#edit_coteacher_form'
     post 'edit_coteacher_form', to: 'classrooms_teachers#update_coteachers'
+    post :remove_coteacher_from_class
   end
   get '/classrooms_teachers/specific_coteacher_info/:coteacher_id', to: 'classrooms_teachers#specific_coteacher_info'
   delete '/classrooms_teachers/destroy/:classroom_id', to: 'classrooms_teachers#destroy'
 
 
 
-  resources :coteacher_classroom_invitations, only: [] do
+  resources :coteacher_classroom_invitations, only: [:destroy] do
     collection do
       post :accept_pending_coteacher_invitations, format: 'json'
       get :accept_pending_coteacher_invitations

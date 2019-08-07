@@ -53,7 +53,7 @@ exports[`MergeStudentAccountsModal component should render MergeStudentAccountsM
     <DropdownInput
       className="secondary-account"
       handleChange={[Function]}
-      label="Select secondary account"
+      label="Select account to merge"
       options={
         Array [
           Object {
