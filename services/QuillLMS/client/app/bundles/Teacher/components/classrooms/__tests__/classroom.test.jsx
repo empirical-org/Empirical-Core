@@ -5,7 +5,7 @@ import Classroom from '../classroom.tsx';
 import ClassroomStudentSection from '../classroom_student_section'
 import ClassroomTeacherSection from '../classroom_teacher_section'
 
-import { classroomWithStudents, userProps } from './test_data/test_data'
+import { classroomWithStudents, userProps, classroomProps, } from './test_data/test_data'
 
 describe('Classroom component', () => {
 
@@ -13,9 +13,11 @@ describe('Classroom component', () => {
 
     const wrapper = shallow(
       <Classroom
+        classrooms={classroomProps}
         classroom={classroomWithStudents}
         selected={false}
         user={userProps}
+        isOwnedByCurrentUser
         clickClassroomHeader={() => {}}
         renameClass={() => {}}
         changeGrade={() => {}}
@@ -46,6 +48,7 @@ describe('Classroom component', () => {
 
     const wrapper = shallow(
       <Classroom
+        classrooms={classroomProps}
         classroom={classroomWithStudents}
         selected
         user={userProps}

@@ -2,6 +2,7 @@ module Associators::StudentsToClassrooms
 
   def self.run(student, classroom)
     @@classroom = classroom
+    @@classroom.update(updated_at: Time.now)
     if self.legit_classroom && self.legit_teacher && (student&.role == 'student')
       sc = StudentsClassrooms.unscoped.find_or_initialize_by(student_id: student.id, classroom_id: classroom[:id])
       if sc.new_record?
