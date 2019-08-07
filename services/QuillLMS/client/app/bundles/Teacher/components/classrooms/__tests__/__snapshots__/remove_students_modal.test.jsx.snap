@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RemoveStudentsModal component should render RemoveStudentsModal 1`] = `
+<div
+  className="modal-container remove-students-modal-container"
+>
+  <div
+    className="modal-background"
+  />
+  <div
+    className="remove-students-modal modal modal-body"
+  >
+    <div>
+      <h3
+        className="title"
+      >
+        Remove 
+        2
+         
+        students
+         from your class?
+      </h3>
+    </div>
+    <p>
+      Students' Quill accounts will remain active. If you bring students back into the class, the data from their completed activities will be restored.
+    </p>
+    <div
+      className="checkboxes"
+    >
+      <div
+        className="checkbox-row"
+      >
+        <div
+          className="quill-checkbox unselected"
+          onClick={[Function]}
+        />
+        <span>
+          I understand that I will no longer have access to the students’ work or data.
+        </span>
+      </div>
+    </div>
+    <div
+      className="form-buttons"
+    >
+      <button
+        className="quill-button outlined secondary medium"
+        onClick={[Function]}
+      >
+        Cancel
+      </button>
+      <button
+        className="quill-button contained primary medium disabled"
+        onClick={[Function]}
+      >
+        Remove from class
+      </button>
+    </div>
+  </div>
+</div>
+`;

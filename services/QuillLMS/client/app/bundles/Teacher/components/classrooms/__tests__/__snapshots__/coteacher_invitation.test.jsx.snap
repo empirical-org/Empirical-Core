@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CoteacherInvitation component should render CoteacherInvitation 1`] = `
+<div
+  className="coteacher-invitation"
+>
+  <h2>
+    Invitation to co-teach "
+    2020
+    "
+  </h2>
+  <div
+    className="coteacher-invitation-content"
+  >
+    <p>
+      Amber Mitchell
+       (
+      amitchell@ecslions.org
+      ) invited you to co-teach.
+    </p>
+    <div
+      className="accept-or-decline"
+    >
+      <span
+        onClick={[Function]}
+      >
+        Decline
+      </span>
+      <span
+        onClick={[Function]}
+      >
+        Accept
+      </span>
+    </div>
+  </div>
+</div>
+`;
