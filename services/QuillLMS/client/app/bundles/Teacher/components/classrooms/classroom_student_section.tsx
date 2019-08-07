@@ -135,23 +135,23 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
     return {
       editAccount: {
         label: 'Edit account',
-        action: this.editStudentAccount
+        value: this.editStudentAccount
       },
       resetPassword: {
         label: 'Reset password',
-        action: this.resetStudentPassword
+        value: this.resetStudentPassword
       },
       mergeAccounts: {
         label: 'Merge accounts',
-        action: this.mergeStudentAccounts
+        value: this.mergeStudentAccounts
       },
       moveClass: {
         label: 'Move class',
-        action: this.moveClass
+        value: this.moveClass
       },
       removeFromClass: {
         label: 'Remove from class',
-        action: this.removeStudentFromClass
+        value: this.removeStudentFromClass
       }
     }
   }
