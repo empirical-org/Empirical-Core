@@ -70,9 +70,16 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
     disabled={true}
     handleChange={[Function]}
     label="Actions"
+    options={
+      Array [
+        Object {
+          "action": [Function],
+          "label": "Remove from class",
+        },
+      ]
+    }
   />
   <DataTable
-    averageFontWidth={7}
     checkAllRows={[Function]}
     checkRow={[Function]}
     headers={
