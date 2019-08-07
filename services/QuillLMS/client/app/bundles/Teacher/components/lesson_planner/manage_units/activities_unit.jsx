@@ -32,6 +32,12 @@ export default React.createClass({
     }
   },
 
+  ownedByCurrentUser() {
+    const firstCa = this.state.classroomActivities.values().next().value;
+    return firstCa.ownedByCurrentUser;
+  },
+
+
   hideUnit() {
     const x = confirm('Are you sure you want to delete this Activity Pack? \n \nIt will delete all assignments given to students associated with this pack, even if those assignments have already been completed.');
     if (x) {
@@ -69,7 +75,7 @@ export default React.createClass({
 
   deleteOrLockedInfo() {
     const firstCa = this.state.classroomActivities.values().next().value;
-    const ownedByCurrentUser = firstCa.ownedByCurrentUser;
+    const ownedByCurrentUser = this.ownedByCurrentUser();
     if (!this.props.report && !this.props.lesson && ownedByCurrentUser) {
       return <span className="delete-unit" onClick={this.hideUnit}>Delete Activity Pack</span>;
     } else if (!ownedByCurrentUser) {
@@ -86,7 +92,7 @@ export default React.createClass({
   },
 
   editName() {
-    if (this.state.classroomActivities.values().next().value.ownedByCurrentUser) {
+    if (this.ownedByCurrentUser()) {
       let text,
         classy,
         inlineStyle;
@@ -133,7 +139,13 @@ export default React.createClass({
   },
 
   editStudentsLink() {
-    return this.props.report || this.props.lesson ? null : <a className="edit-unit edit-students" href={`/teachers/classrooms/activity_planner/units/${this.getUnitId()}/students/edit`}>Edit Classes & Students</a>;
+    const ownedByCurrentUser = this.ownedByCurrentUser()
+    const { report, lesson, } = this.props
+    if (!ownedByCurrentUser || report || lesson) {
+      return null
+    } else {
+      return <a className="edit-unit edit-students" href={`/teachers/classrooms/activity_planner/units/${this.getUnitId()}/students/edit`}>Edit Classes & Students</a>
+    }
   },
 
   handleSubmit() {
