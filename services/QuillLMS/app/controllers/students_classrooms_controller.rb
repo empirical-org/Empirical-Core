@@ -1,6 +1,5 @@
 class StudentsClassroomsController < ApplicationController
   skip_before_action :verify_authenticity_token
-  before_filter :classroom_teacher!, only: [:teacher_hide]
 
   def create
     if current_user
