@@ -7,7 +7,7 @@ import ResetStudentPasswordModal from '../reset_student_password_modal'
 
 import { DropdownInput, DataTable } from 'quill-component-library/dist/componentLibrary'
 
-import { classroomWithStudents, classroomWithoutStudents, userProps } from './test_data/test_data'
+import { classroomWithStudents, classroomWithoutStudents, userProps, classroomProps } from './test_data/test_data'
 
 describe('ClassroomStudentSection component', () => {
 
@@ -15,6 +15,8 @@ describe('ClassroomStudentSection component', () => {
 
     const wrapper = shallow(
       <ClassroomStudentSection
+        isOwnedByCurrentUser
+        classrooms={classroomProps}
         classroom={classroomWithoutStudents}
         user={userProps}
         onSuccess={() => {}}
@@ -36,6 +38,7 @@ describe('ClassroomStudentSection component', () => {
 
     const wrapper = shallow(
       <ClassroomStudentSection
+        classrooms={classroomProps}
         classroom={classroomWithStudents}
         user={userProps}
         onSuccess={() => {}}
@@ -56,12 +59,12 @@ describe('ClassroomStudentSection component', () => {
     })
 
     it('should render the EditStudentAccountModal if showEditStudentAccountModal is true', () => {
-      wrapper.instance().setState({ showEditStudentAccountModal: true, studentIdsForModal: [classroomWithStudents.students[0].id] })
+      wrapper.instance().editStudentAccount(classroomWithStudents.students[0].id)
       expect(wrapper.find(EditStudentAccountModal).exists()).toBe(true)
     })
 
     it('should render the ResetStudentPasswordModal if showResetStudentPasswordModal is true', () => {
-      wrapper.instance().setState({ showResetStudentPasswordModal: true, studentIdsForModal: [classroomWithStudents.students[0].id] })
+      wrapper.instance().resetStudentPassword(classroomWithStudents.students[0].id)
       expect(wrapper.find(ResetStudentPasswordModal).exists()).toBe(true)
     })
 

@@ -98,6 +98,10 @@ class ApplicationController < ActionController::Base
     route&.include?(Teachers::ClassroomManagerController::MY_ACCOUNT)
   end
 
+  def route_redirects_to_classrooms_index?(route)
+    route&.include?(Teachers::ClassroomsController::INDEX)
+  end
+
   protected
 
   def set_vary_header
