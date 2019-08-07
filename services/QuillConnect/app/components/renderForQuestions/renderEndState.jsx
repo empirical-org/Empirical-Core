@@ -75,7 +75,7 @@ const EndState = React.createClass({
           <div className="top-answer-list-item-index">
             {`${index + 1}. `}
           </div>
-          <div className="top-answer-list-item-text" dangerouslySetInnerHTML={{ __html: this.findDiffs(response.text), }} />
+          <div className="top-answer-list-item-text prevent-selection" dangerouslySetInnerHTML={{ __html: this.findDiffs(response.text), }} />
         </li>
       );
     });
