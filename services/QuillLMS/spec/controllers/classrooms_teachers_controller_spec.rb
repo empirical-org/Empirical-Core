@@ -26,10 +26,7 @@ describe ClassroomsTeachersController, type: :controller do
 
     it 'should set the classroom, coteachers, and selected teacher and classroom' do
       get :edit_coteacher_form, classrooms_teacher_id: 45
-      expect(assigns(:classrooms)).to eq(user.classrooms_i_own)
-      expect(assigns(:coteachers)).to eq(user.classrooms_i_own.map(&:coteachers).flatten.uniq)
-      expect(assigns(:selected_teacher_id)).to eq 45
-      expect(assigns(:selected_teachers_classrooms)).to eq edit_info_for_teacher
+      expect(response).to redirect_to(teachers_classrooms_path)
     end
   end
 

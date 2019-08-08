@@ -48,6 +48,9 @@ module.exports = function (config) {
                     { test: /\.ts$/, exclude: [/node_modules/], use: ['ts-loader'] }
                 ]
             },
+            node: {
+                fs: 'empty'
+            }
         },
 
         webpackMiddleware: {

@@ -185,8 +185,8 @@ export default class Classroom extends React.Component<ClassroomProps, Classroom
   }
 
   renderClassroom() {
-    const { selected  } = this.props
-    return <div className={`classroom ${selected ? 'open' : 'closed'}`}>
+    const { selected, classroom, } = this.props
+    return <div id={classroom.id} className={`classroom ${selected ? 'open' : 'closed'}`}>
       {this.renderLeaveClassModal()}
       {this.renderClassroomHeader()}
       {selected ? this.renderClassroomContent() : null}

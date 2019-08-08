@@ -2,7 +2,7 @@
 
 exports[`AddClassSection component should render 1`] = `
 <a
-  href="/teachers/classrooms/new"
+  href="/teachers/classrooms?modal=create-a-class"
 >
   <div
     className="dashed"

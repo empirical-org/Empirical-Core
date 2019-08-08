@@ -74,6 +74,11 @@
 
   .archived-classes {
     .classroom {
+      .students-section.empty {
+        h3 {
+          margin-bottom: 0px;
+        }
+      }
       h3 {
         margin-bottom: 32px;
       }
@@ -213,6 +218,8 @@
         line-height: 1.57;
         margin-top: 24px;
         color: #646464;
+        max-width: 528px;
+        text-align: center;
       }
     }
     .students-section-header, .teacher-section-header {
@@ -234,6 +241,7 @@
         display: flex;
         justify-content: space-between;
         width: 100%;
+        min-height: 76px;
       }
     }
     .student-actions-dropdown {
@@ -712,6 +720,63 @@
         .active {
           color: #000;
         }
+      }
+    }
+    .data-table {
+      height: 100%;
+      overflow: scroll;
+      padding-bottom: 400px;
+      .data-table-headers {
+        z-index: 7;
+      }
+      .show-overflow {
+        overflow: visible;
+      }
+      .dropdown-container {
+        width: 110px;
+        label {
+          color: #000;
+          font-size: 14px;
+          margin-top: 0px;
+        }
+        .dropdown__control {
+          border: none;
+          background-color: inherit;
+          margin-bottom: 0px;
+        }
+        &.inactive {
+          min-height: 100%;
+          &.has-text {
+            label {
+              display: none;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .google-or-clever-note-of-explanation {
+    height: 174px;
+    border-radius: 6px;
+    background-color: #eeeeee;
+    padding: 40px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 40px;
+    .google-or-clever-note-of-explanation-text {
+      max-width: 600px;
+      h4 {
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 24px;
+        line-height: 1.63;
+      }
+      p {
+        font-size: 14px;
+        line-height: 1.57;
+        color: #646464;
       }
     }
   }
