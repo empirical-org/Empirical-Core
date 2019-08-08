@@ -423,15 +423,19 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
     const allCleverStudents = this.allCleverStudents()
     if (!classroom.visible) { return null }
     let loginPdfLink = `/teachers/classrooms/${this.props.classroom.id}/student_logins`
+    let download
     if (allGoogleStudents) {
       loginPdfLink = googleSetupInstructionsPdf
+      download = true
     } else if (allCleverStudents) {
       loginPdfLink = cleverSetupInstructionsPdf
+      download = true
     } else if (classroom.students.length === 0) {
       loginPdfLink = classCodeLinksPdf
+      download = true
     }
     return <div className="students-section-header-buttons">
-      <a href={loginPdfLink} target="_blank" className="quill-button secondary outlined small" download='quill_login'>Download setup instructions</a>
+      <a href={loginPdfLink} target="_blank" className="quill-button secondary outlined small" download={download}>Download setup instructions</a>
       {this.renderInviteStudents()}
     </div>
   }

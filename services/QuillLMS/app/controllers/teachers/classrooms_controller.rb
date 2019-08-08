@@ -156,7 +156,7 @@ private
   end
 
   def format_classrooms_for_index
-    classrooms = Classroom.unscoped.joins(:classrooms_teachers).where(classrooms_teachers: {user_id: current_user.id})
+    classrooms = Classroom.unscoped.order(created_at: :desc).joins(:classrooms_teachers).where(classrooms_teachers: {user_id: current_user.id})
     classrooms.compact.map do |classroom|
       classroom_obj = classroom.attributes
       classroom_obj[:students] = format_students_for_classroom(classroom)
