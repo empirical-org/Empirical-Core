@@ -1,3 +1,5 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
   get '/' => 'stats#up'
 
@@ -18,6 +20,7 @@ Rails.application.routes.draw do
   put 'responses/replace_concept_uids' => 'responses#replace_concept_uids'
   put 'question/:question_uid/reindex_responses_updated_today_for_given_question' => 'responses#reindex_responses_updated_today_for_given_question'
   post 'responses/clone_responses' => 'responses#clone_responses'
+  post 'responses/rematch_all' => 'responses#rematch_all_responses_for_question'
   # Stats controller
   get 'stats/question_health_index' => 'stats#question_health_index'
   get 'stats/diagnostic_question_health_index' => 'stats#diagnostic_question_health_index'
@@ -25,9 +28,12 @@ Rails.application.routes.draw do
   # Uptime status
   resource :status, only: [] do
     collection do
-      get :index, :database, :redis_cache, :elasticsearch, :memcached
+      get :index, :database, :redis_cache, :redis_queue, :elasticsearch, :memcached
     end
   end
+
+  # Sidekiq web interface
+  mount Sidekiq::Web => '/sidekiq'
 
   #fragments controller for passing events to nlp.quill.org
   post 'fragments/is_sentence' => 'fragments#is_sentence'
