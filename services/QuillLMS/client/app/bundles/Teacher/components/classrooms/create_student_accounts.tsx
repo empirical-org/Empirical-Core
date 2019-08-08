@@ -81,9 +81,8 @@ export default class CreateStudentAccounts extends React.Component<CreateStudent
   }
 
   footerButtonClass() {
-    const { students } = this.state
     let buttonClass = 'quill-button contained primary medium';
-    if (!students.length) {
+    if (!this.allStudents().length) {
       buttonClass += ' disabled';
     }
     return buttonClass;

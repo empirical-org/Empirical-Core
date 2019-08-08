@@ -20,15 +20,17 @@ export default class SetupInstructions extends React.Component<SetupInstructions
     const { classroom } = this.props
     let downloadLink = classCodeLinksPdf
     let imageSrc = setupInstructionsGenericSrc
+    let download = true
     if (classroom.students && classroom.students.length) {
       downloadLink = `/teachers/classrooms/${classroom.id}/student_logins`
       imageSrc = setupInstructionsSrc
+      download = false
     }
     return <div className="create-a-class-modal-body modal-body setup-instructions">
       <h3 className="title">Download student logins and setup instructions</h3>
       <p>This PDF includes usernames and passwords for each student and instructions for accessing their Quill accounts.</p>
-      <img src={imageSrc} />
-      <a href={downloadLink} className="quill-button secondary outlined medium" download target="_blank">Download PDF</a>
+      <a href={downloadLink} download={download} target="_blank"><img src={imageSrc} /></a>
+      <a href={downloadLink} className="quill-button secondary outlined medium" download={download} target="_blank">Download PDF</a>
     </div>
   }
 
