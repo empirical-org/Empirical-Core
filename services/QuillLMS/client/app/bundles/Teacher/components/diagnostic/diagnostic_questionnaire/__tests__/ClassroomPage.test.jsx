@@ -119,11 +119,6 @@ describe('ClassroomPage component', () => {
       expect(wrapper.state('showModal')).toBe(false)
     })
 
-    it('does show when the add a class button is clicked', () => {
-      wrapper.find('#add-a-class-button').simulate('click')
-      expect(wrapper.state('showModal')).toBe(true)
-    })
-
   })
 
 })

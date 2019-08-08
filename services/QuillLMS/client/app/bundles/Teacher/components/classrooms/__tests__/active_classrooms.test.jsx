@@ -66,17 +66,17 @@ describe('ActiveClassrooms component', () => {
     })
 
     it('should render the rename class modal if showModal equals renameClassModal', () => {
-      wrapper.instance().setState({ showModal: renameClassModal, })
+      wrapper.instance().setState({ showModal: renameClassModal, selectedClassroomId: classroomProps[0].id})
       expect(wrapper.find(RenameClassModal).exists()).toBe(true)
     })
 
     it('should render the change grade modal if showModal equals changeGradeModal', () => {
-      wrapper.instance().setState({ showModal: changeGradeModal, })
+      wrapper.instance().setState({ showModal: changeGradeModal, selectedClassroomId: classroomProps[0].id})
       expect(wrapper.find(ChangeGradeModal).exists()).toBe(true)
     })
 
     it('should render the archive class modal if showModal equals archiveClassModal', () => {
-      wrapper.instance().setState({ showModal: archiveClassModal, })
+      wrapper.instance().setState({ showModal: archiveClassModal, selectedClassroomId: classroomProps[0].id})
       expect(wrapper.find(ArchiveClassModal).exists()).toBe(true)
     })
 
@@ -101,7 +101,7 @@ describe('ActiveClassrooms component', () => {
     })
 
     it('should render the invite students modal if showModal equals inviteStudentsModal', () => {
-      wrapper.instance().setState({ showModal: inviteStudentsModal, })
+      wrapper.instance().setState({ showModal: inviteStudentsModal, selectedClassroomId: classroomProps[0].id})
       expect(wrapper.find(InviteStudentsModal).exists()).toBe(true)
     })
 
