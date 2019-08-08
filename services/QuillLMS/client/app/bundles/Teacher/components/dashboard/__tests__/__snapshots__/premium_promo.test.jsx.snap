@@ -42,7 +42,7 @@ exports[`PremiumPromo component should render 1`] = `
         className="pricing"
       >
         <h2>
-          $900*
+          $1800
         </h2>
         <span>
           per school
@@ -51,7 +51,7 @@ exports[`PremiumPromo component should render 1`] = `
         <span
           className="special-price"
         >
-          *special price
+          50% off the first year
         </span>
       </div>
     </div>
