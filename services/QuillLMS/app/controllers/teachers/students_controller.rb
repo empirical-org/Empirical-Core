@@ -18,10 +18,11 @@ class Teachers::StudentsController < ApplicationController
   end
 
   def edit
-    edit_page_variables
+    redirect_to teachers_classrooms_path
   end
 
   def index
+    redirect_to teachers_classrooms_path
   end
 
   def update

@@ -39,7 +39,7 @@ export default class ArchivedClassrooms extends React.Component<ArchivedClassroo
   }
 
   getClassrooms() {
-    requestGet('/teachers/classrooms/new_index', (body) => this.setState({ classrooms: body.classrooms.filter(classroom => !classroom.visible) }));
+    requestGet('/teachers/classrooms', (body) => this.setState({ classrooms: body.classrooms.filter(classroom => !classroom.visible) }));
   }
 
   onSuccess(snackbarCopy) {
