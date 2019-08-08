@@ -56,7 +56,8 @@ module.exports = {
       './app/bundles/Teacher/startup/clientRegistration'
     ],
     home: [
-      './app/bundles/Home/home'
+      './app/bundles/Home/home',
+      './app/bundles/Home/bootstrap_carousel'
     ],
     student: [
       './app/bundles/Student/startup/clientRegistration'
