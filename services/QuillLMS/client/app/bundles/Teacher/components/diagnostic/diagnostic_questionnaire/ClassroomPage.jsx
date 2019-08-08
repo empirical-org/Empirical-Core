@@ -4,7 +4,6 @@ import MenuItem from 'react-bootstrap/lib/MenuItem';
 import { Link } from 'react-router';
 import NumberSuffix from '../../modules/numberSuffixBuilder.js';
 import Modal from 'react-bootstrap/lib/Modal';
-import CreateClass from '../../../containers/CreateClass.jsx';
 import Classroom from '../../lesson_planner/create_unit/stage2/classroom';
 import LoadingSpinner from '../../shared/loading_indicator.jsx';
 
@@ -232,28 +231,6 @@ export default React.createClass({
     }
   },
 
-  showModal() {
-    this.setState({ showModal: true, });
-  },
-
-  hideModal(becauseClassAdded) {
-    if (becauseClassAdded) {
-      this.getClassrooms();
-    }
-    this.setState({ showModal: false, });
-  },
-
-  modal() {
-    return (
-      <Modal {...this.props} show={this.state.showModal} onHide={this.hideModal} dialogClassName="add-class-modal">
-        <Modal.Body>
-          <img className="pull-right react-bootstrap-close" onClick={this.hideModal} src={`${process.env.CDN_URL}/images/shared/close_x.svg`} alt="close-modal" />
-          <CreateClass closeModal={this.hideModal} user={this.state.user} />
-        </Modal.Body>
-      </Modal>
-    );
-  },
-
   render() {
     const content = this.state.loading
 			? <LoadingSpinner />
@@ -272,10 +249,6 @@ export default React.createClass({
         </div>
         {content}
         <div id="footer-buttons">
-          <div className="pull-left text-center">
-            <button className="button button-transparent" id="add-a-class-button" onClick={this.showModal}>Add a Class</button>
-            {this.modal()}
-          </div>
           <div className="pull-right text-center">
             <button style={display} onClick={this.submitClasses} className="button-green" id="save-and-assign-button">Save & Assign</button>
             <br />

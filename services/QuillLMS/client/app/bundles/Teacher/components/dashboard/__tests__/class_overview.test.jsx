@@ -8,7 +8,6 @@ import ClassOverview from '../class_overview';
 import OverviewMini from '../overview_mini';
 import TeacherGuide from '../../teacher_guide/teacher_guide';
 import PremiumPromo from '../premium_promo';
-import CoteachingAnnouncement from '../coteaching_announcement_mini.jsx';
 import LessonsList from '../lessons_list.jsx';
 import DiagnosticMini from '../diagnostic_mini.jsx'
 
@@ -57,15 +56,6 @@ describe('ClassOverview component', () => {
     );
     expect(wrapper.find(PremiumPromo).exists()).toBe(true);
   });
-
-  describe('CoteachingAnnouncement', () => {
-    it('should render CoteachingAnnouncement', () => {
-      const wrapper = shallow(
-        <ClassOverview/>
-      );
-      expect(wrapper.find(CoteachingAnnouncement).exists()).toBe(true);
-    });
-  })
 
   describe('LessonsList', () => {
     it('should render LessonsList', () => {
