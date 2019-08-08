@@ -59,7 +59,8 @@ export function rematchAll(mode: string, question: Question, questionID: string,
     type = 'diagnostic_fillInBlankQuestions';
   }
 
-  fetch('https://p8147zy7qj.execute-api.us-east-1.amazonaws.com/prod', {
+  const rematchAllUrl = `${process.env.QUILL_CMS}/responses/rematch_all`;
+  fetch(rematchAllUrl, {
     method: 'POST',
     body: JSON.stringify({type, uid: questionID}),
     headers: {

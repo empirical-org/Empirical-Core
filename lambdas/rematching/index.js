@@ -1,17 +1,15 @@
 const { rematchAllQuestionsOfAType, rematchIndividualQuestion } =  require('./rematch')
 
 exports.handler = (event, context, callback) => {
-  const { uid, type } = event
+  const { response, type, question, referenceResponses } = event
 
-  function finishRematching() {
-    console.log('rematching succeeded')
-    const response = 'Rematching succeeded';
-    callback(null, JSON.stringify(response))
+  function finishRematching(result) {
+    callback(null, result)
   }
 
-  if (uid) {
-    rematchIndividualQuestion(uid, type, finishRematching)
-  } else {
-    rematchAllQuestionsOfAType(type, finishRematching)
+  try {
+    rematchIndividualQuestion(response, type, question, referenceResponses, finishRematching)
+  } catch(err) {
+    callback(err);
   }
 };
