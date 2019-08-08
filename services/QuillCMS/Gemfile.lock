@@ -45,6 +45,8 @@ GEM
       i18n (~> 0.7)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
+    addressable (2.6.0)
+      public_suffix (>= 2.0.2, < 4.0)
     arel (8.0.0)
     builder (3.2.3)
     bulk_insert (1.4.0)
@@ -55,6 +57,8 @@ GEM
     coderay (1.1.1)
     concurrent-ruby (1.0.5)
     connection_pool (2.2.2)
+    crack (0.4.3)
+      safe_yaml (~> 1.0.0)
     dalli (2.7.8)
     diff-lcs (1.3)
     elasticsearch (5.0.4)
@@ -71,11 +75,17 @@ GEM
       faraday
       multi_json
     erubi (1.6.0)
+    factory_bot (4.8.2)
+      activesupport (>= 3.0.0)
+    factory_bot_rails (4.8.2)
+      factory_bot (~> 4.8.2)
+      railties (>= 3.0.0)
     faraday (0.12.1)
       multipart-post (>= 1.2, < 3)
     ffi (1.9.18)
     globalid (0.4.0)
       activesupport (>= 4.2.0)
+    hashdiff (0.4.0)
     hashie (3.5.5)
     httparty (0.15.6)
       multi_xml (>= 0.5.2)
@@ -111,6 +121,7 @@ GEM
     multi_json (1.12.1)
     multi_xml (0.6.0)
     multipart-post (2.0.0)
+    mustermann (1.0.3)
     newrelic_rpm (4.2.0.334)
     nio4r (2.1.0)
     nokogiri (1.8.0)
@@ -120,6 +131,7 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
+    public_suffix (3.1.1)
     puma (3.9.1)
     pusher (1.3.1)
       httpclient (~> 2.7)
@@ -130,6 +142,8 @@ GEM
     rack-cache (1.6.1)
       rack (>= 0.4)
     rack-cors (0.4.1)
+    rack-protection (2.0.5)
+      rack
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (5.1.1)
@@ -200,6 +214,17 @@ GEM
     rspec-support (3.6.0)
     ruby_dep (1.5.0)
     rubyzip (1.2.1)
+    safe_yaml (1.0.5)
+    sidekiq (5.0.4)
+      concurrent-ruby (~> 1.0)
+      connection_pool (~> 2.2, >= 2.2.0)
+      rack-protection (>= 1.5.0)
+      redis (~> 3.3, >= 3.3.3)
+    sinatra (2.0.5)
+      mustermann (~> 1.0)
+      rack (~> 2.0)
+      rack-protection (= 2.0.5)
+      tilt (~> 2.0)
     slop (3.6.0)
     spring (2.0.2)
       activesupport (>= 4.2)
@@ -215,8 +240,13 @@ GEM
       sprockets (>= 3.0.0)
     thor (0.19.4)
     thread_safe (0.3.6)
+    tilt (2.0.9)
     tzinfo (1.2.3)
       thread_safe (~> 0.1)
+    webmock (2.3.2)
+      addressable (>= 2.3.6)
+      crack (>= 0.3.2)
+      hashdiff
     websocket-driver (0.6.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
@@ -233,6 +263,7 @@ DEPENDENCIES
   dalli
   elasticsearch-model
   elasticsearch-rails
+  factory_bot_rails (~> 4.8.2)
   httparty
   kaminari
   listen (>= 3.0.5, < 3.2)
@@ -249,9 +280,12 @@ DEPENDENCIES
   redis-rails
   rspec-rails (~> 3.5)
   rubyzip
+  sidekiq
+  sinatra
   spring
   spring-watcher-listen (~> 2.0.0)
   tzinfo-data
+  webmock (~> 2.1)
 
 BUNDLED WITH
-   1.16.3
+   1.17.3

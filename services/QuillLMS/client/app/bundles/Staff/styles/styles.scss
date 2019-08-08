@@ -1,4 +1,7 @@
 @import '../../../../../app/assets/stylesheets/variables.scss';
-@import "../../../../../node_modules/quill-component-library/src/styles/styles.scss";
+@import '../../../../../app/assets/stylesheets/shared/checkboxes.scss';
+@import "../../../../node_modules/quill-component-library/src/styles/styles.scss";
+@import '../../../../node_modules/antd/dist/antd.css';
+
 @import './concept_manager.scss';
 @import './style_guide.scss';

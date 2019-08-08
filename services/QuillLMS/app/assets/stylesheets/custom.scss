@@ -149,7 +149,7 @@ section {
   border-bottom: 1px solid #cecece;
 }
 
-button:not(.select-mixin) {
+button:not(.select-mixin):not(.quill-button) {
   padding: 10px 25px;
   font-size: 14px;
   border-radius: 5px;
@@ -329,7 +329,7 @@ label.css-label {
   }
 }
 
-button:not(.select-mixin) {
+button:not(.select-mixin):not(.quill-button) {
   padding: 10px 25px;
   font-size: 14px;
   &:active {

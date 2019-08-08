@@ -37,7 +37,6 @@ class StudentsClassroomsController < ApplicationController
   end
 
   def teacher_hide
-    classroom_teacher!(params[:classroom_id])
     row = StudentsClassrooms.find_by(student_id: params[:student_id], classroom_id: params[:classroom_id])
     row.update(visible: false)
     redirect_to teachers_classrooms_path

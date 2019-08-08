@@ -1,0 +1,204 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InviteCoteacherModal component if a coteacher does not get passed should render InviteCoteacherModal 1`] = `
+<div
+  className="modal-container invite-coteachers-modal-container"
+>
+  <div
+    className="modal-background"
+  />
+  <div
+    className="invite-coteachers-modal modal"
+  >
+    <div
+      className="invite-coteachers-modal-header"
+    >
+      <h3
+        className="title"
+      >
+        Invite co-teachers
+      </h3>
+    </div>
+    <div
+      className="invite-coteachers-modal-body modal-body"
+    >
+      <div
+        className="invite-coteachers-modal-content"
+      >
+        <p>
+          Co-teachers can do everything you can except move or merge students, archive classes, edit activity packs, and access your Premium features.
+        </p>
+        <Input
+          className="email"
+          handleChange={[Function]}
+          label="Co-teacher email"
+          placeholder="teacher@example.edu"
+          type="text"
+          value=""
+        />
+        <DataTable
+          checkAllRows={[Function]}
+          checkRow={[Function]}
+          headers={
+            Array [
+              Object {
+                "attribute": "name",
+                "name": "Class",
+                "width": "280px",
+              },
+              Object {
+                "attribute": "created",
+                "name": "Created",
+                "width": "100px",
+              },
+            ]
+          }
+          rows={
+            Array [
+              Object {
+                "checked": false,
+                "created": "Invalid date",
+                "id": 285401,
+                "name": "Testing",
+              },
+              Object {
+                "checked": false,
+                "created": "Invalid date",
+                "id": 285400,
+                "name": "Empty Class",
+              },
+              Object {
+                "checked": true,
+                "created": "Invalid date",
+                "id": 285383,
+                "name": "Quill Classroom",
+              },
+            ]
+          }
+          showCheckboxes={true}
+          uncheckAllRows={[Function]}
+          uncheckRow={[Function]}
+        />
+      </div>
+    </div>
+    <div
+      className="invite-coteachers-modal-footer"
+    >
+      <div
+        className="buttons"
+      >
+        <button
+          className="quill-button outlined secondary medium"
+          onClick={[Function]}
+        >
+          Cancel
+        </button>
+        <button
+          className="quill-button contained primary medium disabled"
+          onClick={[Function]}
+        >
+          Invite
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`InviteCoteacherModal component if a coteacher gets passed should render InviteCoteacherModal 1`] = `
+<div
+  className="modal-container invite-coteachers-modal-container"
+>
+  <div
+    className="modal-background"
+  />
+  <div
+    className="invite-coteachers-modal modal"
+  >
+    <div
+      className="invite-coteachers-modal-header"
+    >
+      <h3
+        className="title"
+      >
+        Invite co-teachers
+      </h3>
+    </div>
+    <div
+      className="invite-coteachers-modal-body modal-body"
+    >
+      <div
+        className="invite-coteachers-modal-content"
+      >
+        <p>
+          Co-teachers can do everything you can except move or merge students, archive classes, edit activity packs, and access your Premium features.
+        </p>
+        <Input
+          className="email disabled"
+          disabled={true}
+          label="Co-teacher email"
+          type="text"
+          value="emiliafree1000@gmail.com"
+        />
+        <DataTable
+          checkAllRows={[Function]}
+          checkRow={[Function]}
+          headers={
+            Array [
+              Object {
+                "attribute": "name",
+                "name": "Class",
+                "width": "280px",
+              },
+              Object {
+                "attribute": "created",
+                "name": "Created",
+                "width": "100px",
+              },
+            ]
+          }
+          rows={
+            Array [
+              Object {
+                "checked": false,
+                "created": "Invalid date",
+                "id": 285401,
+                "name": "Testing",
+              },
+              Object {
+                "checked": false,
+                "created": "Invalid date",
+                "id": 285400,
+                "name": "Empty Class",
+              },
+            ]
+          }
+          showCheckboxes={true}
+          uncheckAllRows={[Function]}
+          uncheckRow={[Function]}
+        />
+      </div>
+    </div>
+    <div
+      className="invite-coteachers-modal-footer"
+    >
+      <div
+        className="buttons"
+      >
+        <button
+          className="quill-button outlined secondary medium"
+          onClick={[Function]}
+        >
+          Cancel
+        </button>
+        <button
+          className="quill-button contained primary medium"
+          onClick={[Function]}
+        >
+          Invite
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;

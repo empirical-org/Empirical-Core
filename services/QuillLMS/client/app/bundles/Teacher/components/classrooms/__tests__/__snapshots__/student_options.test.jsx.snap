@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StudentOptions component should render StudentOptions 1`] = `
+<div
+  className="create-a-class-modal-content"
+>
+  <div
+    className="create-a-class-modal-body modal-body"
+  >
+    <h3
+      className="title"
+    >
+      How do you want to add your students?
+    </h3>
+    <div
+      className="quill-cards"
+    >
+      <Card
+        header="Students create their own accounts"
+        imgSrc="undefined/images/illustrations/join-link.svg"
+        onClick={[Function]}
+        text="Get a unique link that students can use to create accounts and join your class."
+      />
+      <Card
+        header="Create accounts for students"
+        imgSrc="undefined/images/illustrations/student-accounts.svg"
+        onClick={[Function]}
+        text="Create accounts by inputting each student name. You'll get downloadable login information to share with your students."
+      />
+    </div>
+  </div>
+  <div
+    className="create-a-class-modal-footer"
+  >
+    <button
+      className="quill-button secondary outlined medium"
+      onClick={[Function]}
+    >
+      Skip
+    </button>
+  </div>
+</div>
+`;

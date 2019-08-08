@@ -452,7 +452,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
       create(:auth_credential, user: teacher)
 
       expect(GoogleStudentImporterWorker).to receive(:perform_async)
-      get :import_google_students, selected_classrooms: [1,2], format: :json
+      put :import_google_students, selected_classroom_ids: [1,2], format: :json
     end
   end
 
@@ -481,5 +481,21 @@ describe Teachers::ClassroomManagerController, type: :controller do
       expect(teacher).to receive(:update_teacher)
       put :update_my_account
     end
+  end
+
+  describe '#update_google_classrooms' do
+    let(:teacher) { create(:teacher) }
+
+    before do
+      allow(controller).to receive(:current_user) { teacher }
+    end
+
+    it 'should return empty array with no classrooms' do
+      expect(GoogleIntegration::Classroom::Creators::Classrooms).to receive(:run)
+      classroom_json = [{id: 1}, {id: 2}].to_json
+      post :update_google_classrooms, selected_classrooms: classroom_json, format: :json
+
+      expect(response.body).to eq({classrooms: []}.to_json)
+   end
   end
 end

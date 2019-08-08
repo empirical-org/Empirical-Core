@@ -57,7 +57,7 @@ module Student
       if (old_classroom.owner.id == new_classroom.owner.id)
         classroom_units.each do |cu|
           sibling_cu = ClassroomUnit.find_or_create_by(unit_id: cu.unit_id, classroom_id: new_classroom_id)
-          ActivitySession.where(classroom_unit_id: ca.id, user_id: user_id).each do |as|
+          ActivitySession.where(classroom_unit_id: cu.id, user_id: user_id).each do |as|
             as.update(classroom_unit_id: sibling_cu.id)
             sibling_cu.assigned_student_ids.push(user_id)
             sibling_cu.save
@@ -114,8 +114,8 @@ module Student
     secondary_account_activity_sessions = secondary_account.activity_sessions
 
     if teacher_id
-      primary_account_activity_sessions = primary_account_activity_sessions.select { |as| as.classroom_unit.unit.user_id == teacher_id }
-      secondary_account_activity_sessions = secondary_account_activity_sessions.select { |as| as.classroom_unit.unit.user_id == teacher_id }
+      primary_account_activity_sessions = primary_account_activity_sessions.select { |as| as&.classroom_unit&.unit&.user_id == teacher_id }
+      secondary_account_activity_sessions = secondary_account_activity_sessions.select { |as| as&.classroom_unit&.unit&.user_id == teacher_id }
     end
 
     primary_account_grouped_activity_sessions = primary_account_activity_sessions.group_by { |as| as.classroom_unit_id }
