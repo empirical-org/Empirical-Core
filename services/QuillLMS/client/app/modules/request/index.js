@@ -53,7 +53,25 @@ function requestPost(url, data, success, error) {
   }, buildRequestCallback(success, error));
 }
 
+function requestPut(url, data, success, error) {
+  return request.put({
+    url: fullyQualifiedUrl(url),
+    json: data,
+    headers: addCsrfHeaders(),
+  }, buildRequestCallback(success, error));
+}
+
+function requestDelete(url, data, success, error) {
+  return request.delete({
+    url: fullyQualifiedUrl(url),
+    json: data,
+    headers: addCsrfHeaders(),
+  }, buildRequestCallback(success, error));
+}
+
 export {
   requestGet,
   requestPost,
+  requestPut,
+  requestDelete
 };

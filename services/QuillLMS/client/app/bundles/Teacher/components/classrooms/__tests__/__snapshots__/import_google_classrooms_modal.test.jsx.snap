@@ -1,0 +1,149 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ImportGoogleClassroomsModal component should render 1`] = `
+<div
+  className="modal-container import-google-classrooms-modal-container"
+>
+  <div
+    className="modal-background"
+  />
+  <div
+    className="import-google-classrooms-modal modal"
+  >
+    <div
+      className="import-google-classrooms-modal-header"
+    >
+      <h3
+        className="title"
+      >
+        Import classes from Google Classroom
+      </h3>
+    </div>
+    <div
+      className="import-google-classrooms-modal-body modal-body"
+    >
+      <DataTable
+        checkAllRows={[Function]}
+        checkRow={[Function]}
+        headers={
+          Array [
+            Object {
+              "attribute": "name",
+              "name": "Class",
+              "width": "510px",
+            },
+            Object {
+              "attribute": "grade",
+              "name": "Grade",
+              "rowSectionClassName": "show-overflow",
+              "width": "110px",
+            },
+            Object {
+              "attribute": "year",
+              "name": "Year",
+              "width": "32px",
+            },
+            Object {
+              "attribute": "students",
+              "name": "Students",
+              "width": "51px",
+            },
+          ]
+        }
+        rows={
+          Array [
+            Object {
+              "checked": undefined,
+              "grade": null,
+              "id": 5038757116,
+              "name": "Big Class 1",
+              "students": 0,
+              "username": undefined,
+              "year": "2017",
+            },
+            Object {
+              "checked": undefined,
+              "grade": null,
+              "id": 1986991936,
+              "name": "shared class",
+              "students": 0,
+              "username": undefined,
+              "year": "2017",
+            },
+            Object {
+              "checked": undefined,
+              "grade": null,
+              "id": 5145051365,
+              "name": "test teacher is not a student",
+              "students": 9,
+              "username": undefined,
+              "year": "2017",
+            },
+            Object {
+              "checked": undefined,
+              "grade": null,
+              "id": 5144891078,
+              "name": "this won't work either",
+              "students": 0,
+              "username": undefined,
+              "year": "2017",
+            },
+            Object {
+              "checked": undefined,
+              "grade": null,
+              "id": 5144690989,
+              "name": "this will not work",
+              "students": 2,
+              "username": undefined,
+              "year": "2017",
+            },
+            Object {
+              "checked": undefined,
+              "grade": null,
+              "id": 5145161709,
+              "name": "test teacher is a student",
+              "students": 1,
+              "username": undefined,
+              "year": "2017",
+            },
+          ]
+        }
+        showCheckboxes={true}
+        uncheckAllRows={[Function]}
+        uncheckRow={[Function]}
+      />
+    </div>
+    <div
+      className="import-google-classrooms-modal-footer"
+    >
+      <div
+        className="checkbox-row"
+      >
+        <div
+          className="quill-checkbox unselected"
+          onClick={[Function]}
+        />
+        <span>
+          Post assignments as announcements in Google Classroom
+        </span>
+      </div>
+      <div
+        className="buttons"
+      >
+        <button
+          className="quill-button outlined secondary medium"
+          onClick={[Function]}
+        >
+          Cancel
+        </button>
+        <button
+          className="quill-button contained primary medium disabled"
+          onClick={[Function]}
+        >
+          Import classes
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;

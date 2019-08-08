@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ArchiveClassroomModal component should render ArchiveClassroomModal 1`] = `
+<div
+  className="modal-container archive-class-modal-container"
+>
+  <div
+    className="modal-background"
+  />
+  <div
+    className="archive-class-modal modal modal-body"
+  >
+    <div>
+      <h3
+        className="title"
+      >
+        Archive this class?
+      </h3>
+    </div>
+    <div
+      className="archive-class-modal-text"
+    >
+      <p>
+        If you archive the class 
+        Quill Classroom
+        , students in this class will no longer be able to access activities. You can view this class in "Archived Classes" under the "Classes" tab.
+      </p>
+      <a
+        href="https://support.quill.org/getting-started-for-teachers/manage-classes/how-can-i-manage-my-classes-and-student-profiles"
+        target="_blank"
+      >
+        Learn more
+      </a>
+    </div>
+    <div
+      className="form-buttons"
+    >
+      <button
+        className="quill-button outlined secondary medium"
+        onClick={[Function]}
+      >
+        Cancel
+      </button>
+      <button
+        className="quill-button contained primary medium"
+        onClick={[Function]}
+      >
+        Archive
+      </button>
+    </div>
+  </div>
+</div>
+`;
