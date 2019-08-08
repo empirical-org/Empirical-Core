@@ -91,160 +91,17 @@ function hashToCollection(hash) {
   return _.compact(array)
 }
 
-function rematchIndividualQuestionHelper(questionID, type, question, index, finishRematching) {
-  if (index == questionCount) {
-    console.log('questionID', questionID)
+function rematchIndividualQuestion(response, type, question, referenceResponses, finishRematching) {
     const matcher = getMatcher(type);
-    console.log('matcher', matcher)
-    return getGradedResponses(questionID).then((data) => {
-      const formattedData = formatGradedResponses(data)
-      console.log('formattedData', formattedData)
-      if (_.values(formattedData).find(resp => resp.optimal)) {
-        question.key = questionID
-        const matcherFields = getMatcherFields(type, question, formattedData);
-        paginatedNonHumanResponses(matcher, matcherFields, questionID, 1, finishRematching);
-      } else {
-        questionCount ++
-        console.log('questionCount', questionCount)
-      }
-    });
-  } else {
-    const timeoutLength = (index - questionCount) * 10
-    setTimeout(rematchIndividualQuestionHelper, timeoutLength, questionID, type, question, index, finishRematching)
-  }
+    const data = referenceResponses;
+    const formattedReferenceResponses = formatGradedResponses(data)
+    if (_.values(formattedReferenceResponses).find(resp => resp.optimal)) {
+      const matcherFields = getMatcherFields(type, question, formattedReferenceResponses);
+      rematchResponse(matcher, matcherFields, response, finishRematching)
+    }
 }
 
-function rematchOne(response, type, question, questionID) {
-  const matcher = getMatcher(type);
-  getGradedResponses(questionID).then((data) => {
-    question.key = questionID
-    const matcherFields = getMatcherFields(type, question, formatGradedResponses(data));
-    const promise = rematchResponse(matcher, matcherFields, response);
-  });
-}
-
-function whereStatementForNonHumanGradedResponsesByQuestionId(qid) {
-  return {
-    question_uid: qid,
-    [Sequelize.Op.or]: [
-      {
-        // unmatched response
-        [Sequelize.Op.and]: [
-          {
-            parent_id: null,
-            optimal: null,
-            parent_uid: null
-          }
-        ]
-      },
-      {
-        // algorithmic optimal or suboptimal
-        [Sequelize.Op.or]: [
-          {
-            parent_id: {
-              [Sequelize.Op.not]: null
-            },
-          },
-          {
-            parent_uid: {
-              [Sequelize.Op.not]: null
-            },
-          }
-        ]
-      },
-    ]
-  }
-}
-
-function paginatedNonHumanResponses(matcher, matcherFields, qid, page, finishRematching) {
-  const numberOfResponsesForQuestion = numberOfResponses[qid]
-  if (!numberOfResponsesForQuestion) {
-    QuestionResponse.count(
-      { where: whereStatementForNonHumanGradedResponsesByQuestionId(qid)}
-    ).then(count => {
-      console.log('numberOfResponses', count)
-      numberOfResponses[qid] = count
-      paginatedNonHumanResponsesHelper(count, matcher, matcherFields, qid, page, finishRematching)
-    })
-  } else {
-    paginatedNonHumanResponsesHelper(numberOfResponsesForQuestion, matcher, matcherFields, qid, page, finishRematching)
-  }
-}
-
-function paginatedNonHumanResponsesHelper(numberOfResponses, matcher, matcherFields, qid, page, finishRematching) {
-  if (page < 51) {
-    QuestionResponse.findAll({
-      where: whereStatementForNonHumanGradedResponsesByQuestionId(qid),
-      offset: (page - 1) * 200,
-      limit: 200,
-      order: [
-        ['count', 'DESC']
-      ],
-    })
-    .then((data) => {
-      const parsedResponses = u.indexBy(data, 'id');
-      const responseData = {
-        responses: parsedResponses,
-        numberOfResponses: numberOfResponses,
-        numberOfPages: numberOfResponses / 200,
-      };
-      const rematchedResponses = rematchResponses(matcher, matcherFields, responseData.responses);
-      if (page < responseData.numberOfPages) {
-        console.log('page', page)
-        return paginatedNonHumanResponses(matcher, matcherFields, qid, page + 1, finishRematching);
-      } else {
-        incrementQuestionCountAndReindexResponses(qid, finishRematching)
-      }
-    }).catch((err) => {
-      console.log(err)
-      console.log('moving to next question')
-      incrementQuestionCountAndReindexResponses(qid, finishRematching)
-    });
-  } else {
-    console.log('too many responses, stopped on page 50')
-    incrementQuestionCountAndReindexResponses(qid, finishRematching)
-  }
-}
-
-function incrementQuestionCountAndReindexResponses(qid, finishRematching) {
-  questionCount++
-  console.log('completed questions: ', questionCount)
-  request({
-    uri: `${CMS_URL}/question/${qid}/reindex_responses_updated_today_for_given_question`,
-    method: 'PUT',
-    json: true,
-  })
-  .then(() => {
-    console.log('reindex responses')
-    QuestionResponse.findOne({
-      where: { question_uid: qid, optimal: true },
-    }).then(response => {
-      console.log('response.id', response.id)
-      request({
-        method: 'PUT',
-        uri: `${CMS_URL}/responses/${response.id}`,
-        body: { response },
-        json: true,
-      })
-      .then(() => {
-        console.log('update document')
-        sequelize.close().then(() => {
-          finishRematching();
-        });
-      })
-      .catch(err => console.log(err))
-    })
-  })
-  .catch(err => console.log(err))
-}
-
-function rematchResponses(matcher, matcherFields, responses) {
-  _.each(hashToCollection(responses), (response) => {
-    rematchResponse(matcher, matcherFields, response);
-  });
-}
-
-function rematchResponse(matcher, matcherFields, response) {
+function rematchResponse(matcher, matcherFields, response, finishRematching) {
   let newResponse, fieldsWithResponse;
   if (Array.isArray(matcherFields)) {
     fieldsWithResponse = [...matcherFields]
@@ -260,11 +117,11 @@ function rematchResponse(matcher, matcherFields, response) {
     const delta = determineDelta(response, newResponse);
     switch (delta) {
       case 'tobeunmatched':
-        return unmatchRematchedResponse(response);
+        return finishRematching(unmatchRematchedResponse(response));
       case 'tobeupdated':
-        return updateRematchedResponse(response, newResponse);
+        return finishRematching(updateRematchedResponse(response, newResponse));
       default:
-        return false;
+        return finishRematching({});
     }
   })
 }
@@ -295,10 +152,8 @@ function updateRematchedResponse(response, newResponse) {
 
 function updateResponse(response, content) {
   const rubyConvertedResponse = objectWithSnakeKeysFromCamel(content);
-  if (response) {
-    response.update(rubyConvertedResponse)
-    .catch(err => console.log(err))
-  }
+  Object.assign(response, rubyConvertedResponse)
+  return response
 }
 
 function determineDelta(response, newResponse) {
@@ -360,9 +215,9 @@ function getGradedResponses(questionID) {
   return request(`${CMS_URL}/questions/${questionID}/responses`);
 }
 
-function formatGradedResponses(jsonString) {
+function formatGradedResponses(referenceResponses) {
   const bodyToObj = {};
-  JSON.parse(jsonString).forEach((resp) => {
+  referenceResponses.forEach((resp) => {
     bodyToObj[resp.id] = resp;
     if (typeof resp.concept_results === 'string') {
       resp.concept_results = JSON.parse(resp.concept_results);
@@ -390,49 +245,6 @@ function convertResponsesArrayToHash(crArray) {
   return newHash;
 }
 
-function rematchAllQuestionsOfAType(type, finishRematching) {
-  let uri
-  if (type === 'grammar_questions') {
-    uri = `https://${FIREBASE_NAME}.firebaseio.com/v3/questions.json`
-  } else {
-    uri = `https://${FIREBASE_NAME}.firebaseio.com/v2/${type}.json`
-  }
-  return request(
-    {
-      uri,
-      method: 'GET'
-    },
-  ).then((data) => {
-    const questions = JSON.parse(data)
-    const filteredQuestions = _.pickBy(questions, (q) => q.flag !== 'archived' && q.prompt)
-    Object.keys(filteredQuestions).forEach((key, index) => {
-      setTimeout(rematchIndividualQuestionHelper, 1, key, type, filteredQuestions[key], index, finishRematching);
-    })
-  }).catch((err) => {
-    console.log(err);
-  });
-}
-
-function rematchIndividualQuestion(question_uid, type, finishRematching) {
-  let uri
-  if (type === 'grammar_questions') {
-    uri = `https://${FIREBASE_NAME}.firebaseio.com/v3/questions/${question_uid}.json`
-  } else {
-    uri = `https://${FIREBASE_NAME}.firebaseio.com/v2/${type}/${question_uid}.json`
-  }
-  return request(
-    {
-      uri,
-      method: 'GET'
-    },
-  ).then((data) => {
-    rematchIndividualQuestionHelper(question_uid, type, JSON.parse(data), 0, finishRematching)
-  }).catch((err) => {
-    console.log(err);
-  });
-}
-
 module.exports = {
-  rematchAllQuestionsOfAType,
   rematchIndividualQuestion
 }
