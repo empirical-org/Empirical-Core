@@ -63,11 +63,7 @@ module.exports = merge(config, {
       }
     },
     minimizer: [
-      new UglifyJsPlugin({
-        chunkFilter: (chunk) => {
-          return true;
-        }
-      }),
+      new UglifyJsPlugin(),
     ]
   },
 
