@@ -23,7 +23,7 @@ class SubscribeToNewsletterWorker
     request["content-type"] = 'application/json'
     request.body = "[{\"email\":\"#{@recipient.email}\",\"first_name\":\"#{@recipient.first_name}\",\"last_name\":\"User\"}]"
     response = http.request(request)
-    @recipient_id = JSON.parse(response.read_body)["persisted_recipients"].first
+    @recipient_id = JSON.parse(response.read_body)["persisted_recipients"]&.first
   end
 
   def add_recipient_to_list

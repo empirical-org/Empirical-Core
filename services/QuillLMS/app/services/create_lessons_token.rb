@@ -71,7 +71,7 @@ class CreateLessonsToken
   end
 
   def teachers_activity?
-    classroom_unit.classroom.teachers.pluck(:id).include? user_id
+    classroom_unit&.classroom&.teachers&.pluck(:id)&.include? user_id
   end
 
   def classroom_unit
