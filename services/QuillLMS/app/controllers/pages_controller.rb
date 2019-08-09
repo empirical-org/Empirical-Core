@@ -389,6 +389,8 @@ class PagesController < ApplicationController
     case action_name
     when 'partners', 'mission', 'faq', 'impact', 'team', 'tos', 'media_kit', 'media', 'faq', 'privacy', 'premium', 'map', 'teacher-center', 'news', 'stats', 'activities'
       @js_file = 'public'
+    when 'grammar_tool', 'connect_tool', 'diagnostic_tool', 'proofreader_tool', 'lessons_tool'
+      @js_file = 'tools'
     when 'style_guide'
       @js_file = 'staff'
     end
