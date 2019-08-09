@@ -15,9 +15,15 @@ exports[`SetupInstructions component if there are no students should render Setu
     <p>
       This PDF includes usernames and passwords for each student and instructions for accessing their Quill accounts.
     </p>
-    <img
-      src="undefined/images/illustrations/setup-instructions-generic.svg"
-    />
+    <a
+      download={true}
+      href="undefined/documents/setup_instructions_pdfs/class_code_links.pdf"
+      target="_blank"
+    >
+      <img
+        src="undefined/images/illustrations/setup-instructions-generic.svg"
+      />
+    </a>
     <a
       className="quill-button secondary outlined medium"
       download={true}
@@ -60,12 +66,18 @@ exports[`SetupInstructions component if there are students should render SetupIn
     <p>
       This PDF includes usernames and passwords for each student and instructions for accessing their Quill accounts.
     </p>
-    <img
-      src="undefined/images/illustrations/setup-instructions.svg"
-    />
+    <a
+      download={false}
+      href="/teachers/classrooms/285383/student_logins"
+      target="_blank"
+    >
+      <img
+        src="undefined/images/illustrations/setup-instructions.svg"
+      />
+    </a>
     <a
       className="quill-button secondary outlined medium"
-      download={true}
+      download={false}
       href="/teachers/classrooms/285383/student_logins"
       target="_blank"
     >
