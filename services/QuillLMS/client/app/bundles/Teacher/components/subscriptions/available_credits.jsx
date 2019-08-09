@@ -22,7 +22,7 @@ export default class extends React.Component {
     if (this.props.availableCredits > 0) {
       button = <button onClick={this.redeemIfNoCurrentSub} className="q-button cta-button bg-orange has-credit">Redeem Premium Credits</button>;
     } else {
-      button = <a href="/" className="q-button button cta-button bg-orange">Earn Premium Credits</a>;
+      button = <a href="/referrals" className="q-button button cta-button bg-orange">Earn Premium Credits</a>;
     }
     const monthsOfCredit = Math.round((this.props.availableCredits / 30.42) * 10) / 10;
     const whiteIfNoCredit = monthsOfCredit === 0 ? 'no-credits' : null;
