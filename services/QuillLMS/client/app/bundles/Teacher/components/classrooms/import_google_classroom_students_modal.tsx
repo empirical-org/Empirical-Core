@@ -1,5 +1,7 @@
 import * as React from 'react'
 
+import ButtonLoadingIndicator from '../shared/button_loading_indicator'
+
 import { requestPut } from '../../../../modules/request/index.js';
 
 const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
@@ -14,6 +16,7 @@ interface ImportGoogleClassroomStudentsModalProps {
 
 interface ImportGoogleClassroomStudentsModalState {
   checkboxOne?: boolean;
+  waiting: boolean;
 }
 
 export default class ImportGoogleClassroomStudentsModal extends React.Component<ImportGoogleClassroomStudentsModalProps, ImportGoogleClassroomStudentsModalState> {
@@ -21,7 +24,8 @@ export default class ImportGoogleClassroomStudentsModal extends React.Component<
     super(props)
 
     this.state = {
-      checkboxOne: false
+      checkboxOne: false,
+      waiting: false
     }
 
     this.toggleCheckbox = this.toggleCheckbox.bind(this)
@@ -30,8 +34,9 @@ export default class ImportGoogleClassroomStudentsModal extends React.Component<
 
   importStudents() {
     const { onSuccess, classroom, } = this.props
+    this.setState({ waiting: true })
     requestPut(`/teachers/classrooms/${classroom.id}/import_google_students`, {}, (body) => {
-      onSuccess('Re-syncing class')
+      onSuccess('Class re-synced')
     })
   }
 
@@ -44,27 +49,36 @@ export default class ImportGoogleClassroomStudentsModal extends React.Component<
     return buttonClass;
   }
 
-  toggleCheckbox(checkboxNumber: 'checkboxOne'|'checkboxTwo'|'checkboxThree') {
-    const newStateObj:{[K in CheckboxNames]?: boolean} = { [checkboxNumber]: !this.state[checkboxNumber], }
+  toggleCheckbox() {
+    const newStateObj = { checkboxOne: !this.state.checkboxOne, }
     this.setState(newStateObj)
   }
 
-  renderCheckbox(checkboxNumber) {
-    const checkbox = this.state[checkboxNumber]
+  renderCheckbox() {
+    const checkbox = this.state.checkboxOne
     if (checkbox) {
-      return <div className="quill-checkbox selected" onClick={() => this.toggleCheckbox(checkboxNumber)}><img src={smallWhiteCheckSrc} alt="check" /></div>
+      return <div className="quill-checkbox selected" onClick={this.toggleCheckbox}><img src={smallWhiteCheckSrc} alt="check" /></div>
     } else {
-      return <div className="quill-checkbox unselected" onClick={() => this.toggleCheckbox(checkboxNumber)} />
+      return <div className="quill-checkbox unselected" onClick={this.toggleCheckbox} />
     }
   }
 
   renderCheckboxes() {
     return (<div className="checkboxes">
       <div className="checkbox-row">
-        {this.renderCheckbox('checkboxOne')}
+        {this.renderCheckbox()}
         <span>I understand that newly imported students have access to the activities that have already been assigned to the entire class.</span>
       </div>
     </div>)
+  }
+
+  renderImportButton() {
+    const { waiting } = this.state
+    if (waiting) {
+      return <button className={this.submitButtonClass()}><ButtonLoadingIndicator/></button>
+    } else {
+      return <button className={this.submitButtonClass()} onClick={this.importStudents}>Import students</button>
+    }
   }
 
   render() {
@@ -79,7 +93,7 @@ export default class ImportGoogleClassroomStudentsModal extends React.Component<
         {this.renderCheckboxes()}
         <div className="form-buttons">
           <button className="quill-button outlined secondary medium" onClick={close}>Cancel</button>
-          <button className={this.submitButtonClass()} onClick={this.importStudents}>Import students</button>
+          {this.renderImportButton()}
         </div>
       </div>
     </div>
