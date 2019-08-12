@@ -18,11 +18,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def assign_activities
-    if !current_user.staff? && current_user.classrooms_i_teach.empty?
-      redirect_to new_teachers_classroom_path
-    else
-      set_classroom_variables
-    end
+    set_classroom_variables
   end
 
   def generic_add_students
