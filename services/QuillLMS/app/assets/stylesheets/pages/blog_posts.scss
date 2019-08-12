@@ -208,6 +208,8 @@ body {
       display: flex;
       align-items: center;
       justify-content: center;
+      height: min-content !important;
+      overflow: visible !important;
     }
 
     p {
@@ -227,7 +229,6 @@ body {
       font-size: 16px;
       font-weight: 600;
       line-height: 1.38;
-      margin-bottom: 14px;
       margin-top: 0px;
       transition: all 0.3s ease-out;
       letter-spacing: 0.2px;

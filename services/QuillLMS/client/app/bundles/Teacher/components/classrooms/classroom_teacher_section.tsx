@@ -157,18 +157,6 @@ export default class ClassroomTeacherSection extends React.Component<ClassroomTe
     this.setState({ showModal: inviteCoteachersModal, selectedCoteacherId: id })
   }
 
-  closeModal() {
-    this.setState({ showModal: null, selectedCoteacherId: null })
-  }
-
-  transferOwnership(id) {
-    this.setState({ showModal: transferOwnershipModal, selectedCoteacherId: id })
-  }
-
-  inviteCoteachers(id=null) {
-    this.setState({ showModal: inviteCoteachersModal, selectedCoteacherId: id })
-  }
-
   actionsForTeacherRow(teacher) {
     const { isOwnedByCurrentUser, classroom, user, } = this.props
     const { classroom_relation, id, status, } = teacher
