@@ -1,8 +1,20 @@
 import React from 'react';
+import { Snackbar, defaultSnackbarTimeout } from 'quill-component-library/dist/componentLibrary'
+
 import { requestGet } from '../../../modules/request';
+import CreateAClassModal from '../components/classrooms/create_a_class_modal.tsx'
+import ImportGoogleClassroomsModal from '../components/classrooms/import_google_classrooms_modal.tsx'
+import GoogleClassroomEmailModal from '../components/classrooms/google_classroom_email_modal.tsx'
+import GoogleClassroomsEmptyModal from '../components/classrooms/google_classrooms_empty_modal.tsx'
 import ClassroomsWithStudents from '../components/lesson_planner/create_unit/stage2/ClassroomsWithStudents.jsx';
 import LoadingIndicator from '../components/shared/loading_indicator.jsx';
+import ButtonLoadingIndicator from '../components/shared/button_loading_indicator'
 import _ from 'underscore';
+
+export const createAClassModal = 'createAClassModal'
+export const importGoogleClassroomsModal = 'importGoogleClassroomsModal'
+export const googleClassroomEmailModal = 'googleClassroomEmailModal'
+export const googleClassroomsEmptyModal = 'googleClassroomsEmptyModal'
 
 export default class ClassroomsWithStudentsContainer extends React.Component {
   constructor(props) {
@@ -14,8 +26,57 @@ export default class ClassroomsWithStudentsContainer extends React.Component {
       studentsChanged: false,
       classroomsChanged: false,
       newUnit: !!this.props.params.activityIdsArray,
+      showModal: false
     };
+
+    this.getGoogleClassrooms = this.getGoogleClassrooms.bind(this)
+    this.onSuccess = this.onSuccess.bind(this)
+    this.clickImportGoogleClassrooms = this.clickImportGoogleClassrooms.bind(this)
+    this.openModal = this.openModal.bind(this)
+    this.closeModal = this.closeModal.bind(this)
+    this.showSnackbar = this.showSnackbar.bind(this)
+    this.getClassroomsAndStudentsData = this.getClassroomsAndStudentsData.bind(this)
+  }
+
+  componentDidMount() {
     this.getClassroomsAndStudentsData();
+    this.getGoogleClassrooms()
+  }
+
+  openModal(modalName) {
+    this.setState({ showModal: modalName })
+  }
+
+  closeModal(callback=null) {
+    this.setState({ showModal: null}, () => {
+      if (callback && typeof(callback) === 'function') {
+        callback()
+      }
+    })
+  }
+
+  getGoogleClassrooms() {
+    if (this.props.user.google_id) {
+      this.setState({ googleClassroomsLoading: true}, () => {
+        requestGet('/teachers/classrooms/retrieve_google_classrooms', (body) => {
+          const googleClassrooms = body.classrooms.filter(classroom => !classroom.alreadyImported)
+          const newStateObj = { googleClassrooms, googleClassroomsLoading: false, }
+          if (this.state.attemptedImportGoogleClassrooms) {
+            newStateObj.attemptedImportGoogleClassrooms = false
+            this.setState(newStateObj, this.clickImportGoogleClassrooms)
+          } else {
+            this.setState(newStateObj)
+          }
+        });
+      })
+    }
+  }
+
+  onSuccess(snackbarCopy) {
+    this.getClassroomsAndStudentsData()
+    this.getGoogleClassrooms()
+    this.showSnackbar(snackbarCopy)
+    this.closeModal()
   }
 
   findTargetClassIndex(classroomId) {
@@ -198,27 +259,121 @@ export default class ClassroomsWithStudentsContainer extends React.Component {
     );
   }
 
+  clickImportGoogleClassrooms() {
+    const { user, } = this.props
+    const { googleClassrooms, googleClassroomsLoading, } = this.state
+    if (!user.google_id) {
+      this.openModal(googleClassroomEmailModal)
+    } else if (googleClassroomsLoading) {
+      this.setState({ attemptedImportGoogleClassrooms: true })
+    } else if (googleClassrooms.length) {
+      this.openModal(importGoogleClassroomsModal)
+    } else {
+      this.openModal(googleClassroomsEmptyModal)
+    }
+  }
+
+  showSnackbar(snackbarCopy) {
+    this.setState({ showSnackbar: true, snackbarCopy }, () => {
+      setTimeout(() => this.setState({ showSnackbar: false, }), defaultSnackbarTimeout)
+    })
+  }
+
+  renderCreateAClassModal() {
+    if (this.state.showModal === createAClassModal) {
+      return (<CreateAClassModal
+        close={() => this.closeModal(this.getClassroomsAndStudentsData)}
+        showSnackbar={this.showSnackbar}
+      />)
+    }
+  }
+
+  renderImportGoogleClassroomsModal() {
+    const { googleClassrooms, showModal, } = this.state
+    if (showModal === importGoogleClassroomsModal) {
+      return (<ImportGoogleClassroomsModal
+        close={this.closeModal}
+        onSuccess={this.onSuccess}
+        classrooms={googleClassrooms}
+        user={this.props.user}
+      />)
+    }
+  }
+
+  renderGoogleClassroomEmailModal() {
+    const { showModal, } = this.state
+    if (showModal === googleClassroomEmailModal) {
+      return (<GoogleClassroomEmailModal
+        close={this.closeModal}
+        user={this.props.user}
+      />)
+    }
+  }
+
+  renderGoogleClassroomsEmptyModal() {
+    const { showModal, } = this.state
+    if (showModal === googleClassroomsEmptyModal) {
+      return (<GoogleClassroomsEmptyModal
+        close={this.closeModal}
+      />)
+    }
+  }
+
+  renderImportGoogleClassroomsButton() {
+    const { googleClassroomsLoading, attemptedImportGoogleClassrooms, } = this.state
+    let buttonContent = 'Import from Google Classroom'
+    let buttonClassName = 'quill-button medium secondary outlined import-from-google-button'
+    if (googleClassroomsLoading && attemptedImportGoogleClassrooms) {
+      buttonContent = <ButtonLoadingIndicator />
+      buttonClassName += ' loading'
+    }
+    return (<button
+      onClick={this.clickImportGoogleClassrooms}
+      className={buttonClassName}
+    >
+      {buttonContent}
+    </button>)
+  }
+
+  renderSnackbar() {
+    const { showSnackbar, snackbarCopy, } = this.state
+    return <Snackbar text={snackbarCopy} visible={showSnackbar} />
+  }
+
   render() {
+    let content
     if (this.state.loading) {
-      return <LoadingIndicator />;
+      content = <LoadingIndicator />;
     } else if (this.state.classrooms) {
-      return (
-        <div>
-          <div className="container edit-assigned-students-container">
-            <ClassroomsWithStudents
-              unitId={this.props.params.unitId}
-              unitName={this.state.unitName}
-              classrooms={this.state.classrooms}
-              activityIds={this.props.params.activityIdsArray}
-              createOrEdit={this.state.newUnit ? 'create' : 'edit'}
-              handleStudentCheckboxClick={this.handleStudentCheckboxClick.bind(this)}
-              toggleClassroomSelection={this.toggleClassroomSelection}
-              isSaveButtonEnabled={this.state.studentsChanged || this.state.classroomsChanged}
-            />
-          </div>
+      content = (
+        <div className="edit-assigned-students-container">
+          <ClassroomsWithStudents
+            unitId={this.props.params.unitId}
+            unitName={this.state.unitName}
+            classrooms={this.state.classrooms}
+            activityIds={this.props.params.activityIdsArray}
+            createOrEdit={this.state.newUnit ? 'create' : 'edit'}
+            handleStudentCheckboxClick={this.handleStudentCheckboxClick.bind(this)}
+            toggleClassroomSelection={this.toggleClassroomSelection}
+            isSaveButtonEnabled={this.state.studentsChanged || this.state.classroomsChanged}
+          />
         </div>);
     }
-    return <div>You must first add a classroom.</div>;
+    return <div className="classroom-with-students-container container">
+      {this.renderCreateAClassModal()}
+      {this.renderImportGoogleClassroomsModal()}
+      {this.renderGoogleClassroomEmailModal()}
+      {this.renderGoogleClassroomsEmptyModal()}
+      {this.renderSnackbar()}
+      <div className="classroom-with-students-header">
+        <h2>Edit Students for {this.state.unitName}</h2>
+        <div className="buttons">
+          {this.renderImportGoogleClassroomsButton()}
+          <button onClick={() => this.openModal(createAClassModal)} className="quill-button medium primary contained create-a-class-button">Create a class</button>
+        </div>
+      </div>
+      {content}
+    </div>
   }
 
 }

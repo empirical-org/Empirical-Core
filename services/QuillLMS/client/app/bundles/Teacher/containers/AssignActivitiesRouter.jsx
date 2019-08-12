@@ -12,21 +12,19 @@ import AssignANewActivity from '../components/lesson_planner/create_unit/assign_
 import AssignADiagnostic from '../components/lesson_planner/create_unit/assign_a_diagnostic'
 import CreateUnit from '../components/lesson_planner/create_unit/create_unit'
 
-export default React.createClass({
-	render: function() {
-		return (
-			<Router Router history={browserHistory}>
-        <Route path="/teachers/classrooms/assign_activities" component={AssignActivitiesContainer}>
-					<IndexRoute component={AssignANewActivity}/>
-					<Route path="assign-a-diagnostic" component={AssignADiagnostic} />
-					<Route path="create-unit" component={CreateUnit} />
-					<Route path="featured-activity-packs(/category/:category)" component={UnitTemplatesManager}/>
-					<Route path="featured-activity-packs(/grade/:grade)" component={UnitTemplatesManager}/>
-					<Route path="featured-activity-packs/:activityPackId" component={UnitTemplateProfile}/>
-					<Route path="featured-activity-packs/:activityPackId/assigned" component={UnitTemplateAssigned}/>
-					<Route path="new_unit/students/edit/name/:unitName/activity_ids/:activityIdsArray" component={ClassroomsWithStudentsContainer}/>
-        </Route>
-			</Router>
-		);
-	}
-});
+const AssignActivitiesRouter = props => (
+	<Router Router history={browserHistory}>
+    <Route path="/teachers/classrooms/assign_activities" component={AssignActivitiesContainer}>
+			<IndexRoute component={AssignANewActivity}/>
+			<Route path="assign-a-diagnostic" component={AssignADiagnostic} />
+			<Route path="create-unit" component={CreateUnit} />
+			<Route path="featured-activity-packs(/category/:category)" component={UnitTemplatesManager}/>
+			<Route path="featured-activity-packs(/grade/:grade)" component={UnitTemplatesManager}/>
+			<Route path="featured-activity-packs/:activityPackId" component={UnitTemplateProfile}/>
+			<Route path="featured-activity-packs/:activityPackId/assigned" component={UnitTemplateAssigned}/>
+			<Route path="new_unit/students/edit/name/:unitName/activity_ids/:activityIdsArray" component={routerProps => <ClassroomsWithStudentsContainer {...props} {...routerProps} />} />
+    </Route>
+	</Router>
+);
+
+export default AssignActivitiesRouter
