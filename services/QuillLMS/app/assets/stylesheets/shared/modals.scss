@@ -436,6 +436,7 @@ color: #875a12;
   top: 50%;
   transform: translate(-50%, -50%);
   position: fixed !important;
+  text-align: left;
   p {
     line-height: 1.57;
     color: #646464;
@@ -690,6 +691,7 @@ color: #875a12;
 .create-a-class-modal {
   width: 760px;
   position: fixed !important;
+  text-align: left;
   .create-a-class-modal-content {
     height: 100%;
     overflow-y: scroll;
