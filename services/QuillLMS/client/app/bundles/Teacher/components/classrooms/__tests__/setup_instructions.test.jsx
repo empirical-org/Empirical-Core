@@ -17,7 +17,7 @@ describe('SetupInstructions component', () => {
     })
 
     it('should render a link to the student_logins', () => {
-      expect(wrapper.find('a').prop('href')).toMatch(`/teachers/classrooms/${classroomWithStudents.id}/student_logins`)
+      expect(wrapper.find('a').first().prop('href')).toMatch(`/teachers/classrooms/${classroomWithStudents.id}/student_logins`)
     })
   })
 
@@ -31,7 +31,7 @@ describe('SetupInstructions component', () => {
     })
 
     it('should render a link to the student_logins', () => {
-      expect(wrapper.find('a').prop('href')).toMatch(`${process.env.CDN_URL}/documents/setup_instructions_pdfs/class_code_links.pdf`)
+      expect(wrapper.find('a').first().prop('href')).toMatch(`${process.env.CDN_URL}/documents/setup_instructions_pdfs/class_code_links.pdf`)
     })
   })
 

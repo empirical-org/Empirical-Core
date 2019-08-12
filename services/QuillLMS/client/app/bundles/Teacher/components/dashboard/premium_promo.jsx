@@ -28,10 +28,10 @@ export default React.createClass({
           </div>
           <div className="fake-border" />
           <div className="pricing">
-            <h2>$900*</h2>
+            <h2>$1800</h2>
             <span>per school</span>
             <br />
-            <span className="special-price">*special price</span>
+            <span className="special-price">50% off the first year</span>
           </div>
         </div>
         <a href="https://support.quill.org/quill-premium" target="_blank" className="q-button text-white">Learn More About Premium</a>

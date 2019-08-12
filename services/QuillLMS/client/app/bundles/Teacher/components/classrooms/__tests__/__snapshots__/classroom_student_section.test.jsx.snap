@@ -49,7 +49,6 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
     >
       <a
         className="quill-button secondary outlined small"
-        download="quill_login"
         href="/teachers/classrooms/285383/student_logins"
         target="_blank"
       >
@@ -75,8 +74,8 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
     options={
       Array [
         Object {
-          "action": [Function],
           "label": "Remove from class",
+          "value": [Function],
         },
       ]
     }
