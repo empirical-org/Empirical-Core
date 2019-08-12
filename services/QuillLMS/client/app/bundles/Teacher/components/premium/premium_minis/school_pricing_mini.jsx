@@ -30,14 +30,10 @@ export default React.createClass({
         </header>
         <section className="pricing-info">
           <div className="premium-rates">
-            <img className="red-line" src="/images/red-line-premium.svg" alt="red-line" />
             <h3>
-              <span className="four-fifty">
-            $900
-          </span>
               <span>
-            $1800
-          </span>
+                $1800
+              </span>
             </h3>
             <h4>per year</h4>
           </div>
