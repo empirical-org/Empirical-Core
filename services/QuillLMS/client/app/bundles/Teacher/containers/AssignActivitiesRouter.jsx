@@ -17,7 +17,7 @@ const AssignActivitiesRouter = props => (
     <Route path="/teachers/classrooms/assign_activities" component={AssignActivitiesContainer}>
 			<IndexRoute component={AssignANewActivity}/>
 			<Route path="assign-a-diagnostic" component={AssignADiagnostic} />
-			<Route path="create-unit" component={CreateUnit} />
+			<Route path="create-unit" component={routerProps => <CreateUnit {...props} {...routerProps} />} />
 			<Route path="featured-activity-packs(/category/:category)" component={UnitTemplatesManager}/>
 			<Route path="featured-activity-packs(/grade/:grade)" component={UnitTemplatesManager}/>
 			<Route path="featured-activity-packs/:activityPackId" component={UnitTemplateProfile}/>
