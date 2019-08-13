@@ -23,25 +23,15 @@ describe('UnitTemplateProfileAssignButton component', () => {
       id={1}
     />)
 
-    it('renders two buttons', () => {
-      expect(wrapper.find('button')).toHaveLength(2)
+    it('renders one buttons', () => {
+      expect(wrapper.find('button')).toHaveLength(1)
     })
 
     describe('the first button', () => {
       const firstButton = wrapper.find('button').first()
 
-      it('has the text "Assign to this activity"', () => {
-        expect(firstButton.text()).toEqual("Assign to this activity")
-      })
-
-      it('does not render a ButtonLoadingIndicator if fastAssign is not disabled', () => {
-        wrapper.setState({fastAssignDisabled: false})
-        expect(wrapper.find(ButtonLoadingIndicator)).toHaveLength(0)
-      })
-
-      it('renders a ButtonLoadingIndicator if fastAssign is disabled', () => {
-        wrapper.setState({fastAssignDisabled: true})
-        expect(wrapper.find(ButtonLoadingIndicator)).toHaveLength(1)
+      it('has the text "Assign this activity"', () => {
+        expect(firstButton.text()).toEqual("Assign this activity")
       })
     })
   })
