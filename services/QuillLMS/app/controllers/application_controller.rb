@@ -106,6 +106,10 @@ class ApplicationController < ActionController::Base
     route&.include?(Teachers::ClassroomManagerController::ASSIGN_ACTIVITIES)
   end
 
+  def route_redirects_to_diagnostic?(route)
+    route&.include?(ActivitiesController::DIAGNOSTIC)
+  end
+
   protected
 
   def set_vary_header

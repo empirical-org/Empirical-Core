@@ -591,8 +591,12 @@ color: #875a12;
 
 .google-classrooms-empty-modal {
   height: 449px;
+  text-align: center;
   .title, p {
     margin-bottom: 48px;
+  }
+  p {
+    margin-top: 24px;
   }
 }
 

@@ -11,6 +11,7 @@ import GoogleClassroomEmailModal from '../../classrooms/google_classroom_email_m
 import GoogleClassroomsEmptyModal from '../../classrooms/google_classrooms_empty_modal.tsx'
 import Classroom from '../../lesson_planner/create_unit/stage2/classroom';
 import LoadingSpinner from '../../shared/loading_indicator.jsx';
+import ButtonLoadingIndicator from '../../shared/button_loading_indicator'
 import { requestGet } from '../../../../../modules/request';
 
 import getAuthToken from '../../modules/get_auth_token'
@@ -47,6 +48,7 @@ export default class ClassroomPage extends React.Component {
     this.toggleClassroomSelection = this.toggleClassroomSelection.bind(this)
     this.findTargetClassIndex = this.findTargetClassIndex.bind(this)
     this.findTargetStudentIndex = this.findTargetStudentIndex.bind(this)
+    this.submitClasses = this.submitClasses.bind(this)
   }
 
   componentDidMount() {

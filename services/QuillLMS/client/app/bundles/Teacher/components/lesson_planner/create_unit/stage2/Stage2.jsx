@@ -3,7 +3,7 @@ import request from 'request';
 
 import Classroom from './classroom';
 import ActivityDueDate from './activity_due_date';
-import AssigningIndicator from '../../../shared/button_loading_indicator';
+import ButtonLoadingIndicator from '../../../shared/button_loading_indicator';
 import NameTheUnit from './name_the_unit.jsx';
 import { Snackbar, defaultSnackbarTimeout } from 'quill-component-library/dist/componentLibrary'
 
@@ -56,7 +56,7 @@ export default class Stage2 extends React.Component {
   }
 
   getGoogleClassrooms() {
-    if (this.state.user && this.state.user.google_id) {
+    if (this.props.user && this.props.user.google_id) {
       this.setState({ googleClassroomsLoading: true}, () => {
         requestGet('/teachers/classrooms/retrieve_google_classrooms', (body) => {
           const googleClassrooms = body.classrooms.filter(classroom => !classroom.alreadyImported)
@@ -143,16 +143,16 @@ export default class Stage2 extends React.Component {
 
   assignButton() {
     return this.state.loading
-      ? <button ref="button" id="assign" className={`${this.determineAssignButtonClass()} pull-right`}>Assigning... <AssigningIndicator /></button>
+      ? <button ref="button" id="assign" className={`${this.determineAssignButtonClass()} pull-right`}>Assigning... <ButtonLoadingIndicator /></button>
       : <button ref="button" id="assign" className={`${this.determineAssignButtonClass()} pull-right`} onClick={this.finish}>Assign</button>;
   }
 
   clickImportGoogleClassrooms() {
-    const { user, googleClassrooms, googleClassroomsLoading, } = this.state
-    if (!user.google_id) {
+    const { googleClassrooms, googleClassroomsLoading, } = this.state
+    if (!this.props.user.google_id) {
       this.openModal(googleClassroomEmailModal)
     } else if (googleClassroomsLoading) {
-      this.setState({ attemptedImportGoogleClassrooms: true })
+      this.setState({ attemptedImportGoogleClassrooms: true, })
     } else if (googleClassrooms.length) {
       this.openModal(importGoogleClassroomsModal)
     } else {
@@ -176,23 +176,23 @@ export default class Stage2 extends React.Component {
   }
 
   renderImportGoogleClassroomsModal() {
-    const { googleClassrooms, showModal, user, } = this.state
+    const { googleClassrooms, showModal, } = this.state
     if (showModal === importGoogleClassroomsModal) {
       return (<ImportGoogleClassroomsModal
         close={this.closeModal}
         onSuccess={this.onSuccess}
         classrooms={googleClassrooms}
-        user={user}
+        user={this.props.user}
       />)
     }
   }
 
   renderGoogleClassroomEmailModal() {
-    const { showModal, user, } = this.state
+    const { showModal, } = this.state
     if (showModal === googleClassroomEmailModal) {
       return (<GoogleClassroomEmailModal
         close={this.closeModal}
-        user={user}
+        user={this.props.user}
       />)
     }
   }
