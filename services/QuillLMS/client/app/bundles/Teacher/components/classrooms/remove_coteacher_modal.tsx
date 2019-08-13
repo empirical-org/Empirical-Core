@@ -82,7 +82,7 @@ export default class RemoveCoteacherModal extends React.Component<RemoveCoteache
     }
     return <div className="modal-container remove-coteacher-modal-container">
       <div className="modal-background" />
-      <div className="remove-coteacher-modal modal modal-body">
+      <div className="remove-coteacher-modal quill-modal modal-body">
         <div>
           <h3 className="title">Remove co-teacher from your class?</h3>
         </div>

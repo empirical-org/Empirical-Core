@@ -124,7 +124,7 @@ export default class MergeStudentAccountsModal extends React.Component<MergeStud
     const studentOptionsForSecondary = studentOptions.filter(opt => opt.value !== primaryAccountId)
     return <div className="modal-container merge-student-accounts-modal-container">
       <div className="modal-background" />
-      <div className="merge-student-accounts-modal modal modal-body">
+      <div className="merge-student-accounts-modal quill-modal modal-body">
         <div>
           <h3 className="title">Merge student accounts</h3>
         </div>

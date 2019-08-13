@@ -29,7 +29,7 @@ export default class ArchiveClassModal extends React.Component<ArchiveClassModal
     const { classroom } = this.props
     return <div className="modal-container archive-class-modal-container">
       <div className="modal-background" />
-      <div className="archive-class-modal modal modal-body">
+      <div className="archive-class-modal quill-modal modal-body">
         <div>
           <h3 className="title">Archive this class?</h3>
         </div>
