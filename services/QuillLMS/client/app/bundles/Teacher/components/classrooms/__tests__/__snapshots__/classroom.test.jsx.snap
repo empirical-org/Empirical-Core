@@ -3,6 +3,7 @@
 exports[`Classroom component not selected should render as a closed card 1`] = `
 <div
   className="classroom closed"
+  id={285383}
 >
   <div
     className="classroom-card-header"
@@ -72,6 +73,7 @@ exports[`Classroom component not selected should render as a closed card 1`] = `
 exports[`Classroom component selected should render as an open card 1`] = `
 <div
   className="classroom open"
+  id={285383}
 >
   <div
     className="classroom-card-header"

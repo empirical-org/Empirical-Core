@@ -146,7 +146,7 @@ module Student
     shared_classroom_length = classrooms_shared_with_other_student(other_student_id, teacher_id).length
     other_students_classrooms = StudentsClassrooms.where(student_id: other_student_id)
     if teacher_id
-      other_students_classrooms = other_students_classrooms.select { |sc| sc.classroom.owner.id == teacher_id }
+      other_students_classrooms = other_students_classrooms.select { |sc| sc&.classroom&.owner&.id == teacher_id }
     end
     shared_classroom_length == other_students_classrooms.length
   end

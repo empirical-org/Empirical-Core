@@ -50,6 +50,7 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
       <a
         className="quill-button secondary outlined small"
         href="/teachers/classrooms/285383/student_logins"
+        target="_blank"
       >
         Download setup instructions
       </a>
@@ -73,13 +74,14 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
     options={
       Array [
         Object {
-          "action": [Function],
           "label": "Remove from class",
+          "value": [Function],
         },
       ]
     }
   />
   <DataTable
+    averageFontWidth={7}
     checkAllRows={[Function]}
     checkRow={[Function]}
     headers={
@@ -118,6 +120,7 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
               "name": "Remove from class",
             },
           ],
+          "checkDisabled": false,
           "checked": false,
           "id": 2851870,
           "name": "Maya Angelou",
@@ -139,6 +142,7 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
               "name": "Remove from class",
             },
           ],
+          "checkDisabled": false,
           "checked": false,
           "id": 2851866,
           "name": "William Shakespeare",

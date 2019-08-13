@@ -9,7 +9,7 @@ module CleverIntegration::Parsers::Teacher
         name: name,
         district_id: hash[:district]
       }
-    rescue NoMethodError
+    rescue NoMethodError => e
       NewRelic::Agent.add_custom_attributes({
         user_info: hash
       })

@@ -28,7 +28,7 @@ class GoogleIntegration::User
     @user_params ||= begin
       params = {
         signed_up_with_google:      true,
-        post_google_classroom_assignments: true,
+        post_google_classroom_assignments: false,
         auth_credential_attributes: auth_credential_attributes,
       }
       params[:name]      = data.name      if data.name.present?
