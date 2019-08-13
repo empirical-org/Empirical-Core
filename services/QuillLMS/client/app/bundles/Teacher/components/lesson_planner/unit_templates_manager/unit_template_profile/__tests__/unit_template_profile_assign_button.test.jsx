@@ -30,8 +30,8 @@ describe('UnitTemplateProfileAssignButton component', () => {
     describe('the first button', () => {
       const firstButton = wrapper.find('button').first()
 
-      it('has the text "Assign to All Students"', () => {
-        expect(firstButton.text()).toEqual("Assign to All Students")
+      it('has the text "Assign to this activity"', () => {
+        expect(firstButton.text()).toEqual("Assign to this activity")
       })
 
       it('does not render a ButtonLoadingIndicator if fastAssign is not disabled', () => {

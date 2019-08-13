@@ -29,8 +29,8 @@ describe('Assigning unit templates flow', () => {
   })
 
   describe('assigning the unit template to all students', function() {
-    it('clicking the assign to all students button will assign the pack to all my students', function() {
-      cy.contains('Assign to All Students').click()
+    it('clicking the Assign to this activity button will assign the pack to all my students', function() {
+      cy.contains('Assign to this activity').click()
       cy.url().should('include', '/assigned')
       cy.contains('View Assigned Activity Packs').click()
       cy.url().should('include', '/teachers/classrooms/activity_planner#')
