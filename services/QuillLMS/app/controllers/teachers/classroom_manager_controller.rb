@@ -165,7 +165,7 @@ class Teachers::ClassroomManagerController < ApplicationController
     elsif params[:selected_classroom_ids]
       selected_classrooms = Classroom.where(id: params[:selected_classroom_ids])
     end
-    GoogleStudentImporterWorker.perform_async(
+    GoogleStudentImporterWorker.new.perform(
       current_user.id,
       'Teachers::ClassroomManagerController',
       selected_classrooms
