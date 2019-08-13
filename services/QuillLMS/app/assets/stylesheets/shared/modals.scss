@@ -655,6 +655,7 @@ color: #875a12;
 .import-google-classrooms-modal {
   width: 950px;
   position: fixed !important;
+  overflow: hidden;
   .import-google-classrooms-modal-footer {
     justify-content: space-between;
     .buttons {
@@ -676,7 +677,7 @@ color: #875a12;
       label {
         color: #000;
         font-size: 14px;
-        margin-top: 0px;
+        margin-top: 0px !important;
       }
       .dropdown__control {
         border: none;
@@ -699,6 +700,7 @@ color: #875a12;
   width: 760px;
   position: fixed !important;
   text-align: left;
+  overflow: hidden;
   .create-a-class-modal-content {
     height: 100%;
     overflow-y: scroll;
