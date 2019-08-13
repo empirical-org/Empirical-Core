@@ -3,10 +3,7 @@ class ClassroomsTeachersController < ApplicationController
   before_action :multi_classroom_auth, only: :update_coteachers
 
   def edit_coteacher_form
-    @classrooms = current_user.classrooms_i_own
-    @coteachers = @classrooms.map(&:coteachers).flatten.uniq
-    @selected_teacher_id = params[:classrooms_teacher_id].to_i
-    @selected_teachers_classrooms = edit_info_for_specific_teacher(@selected_teacher_id)
+    redirect_to teachers_classrooms_path
   end
 
   def update_coteachers
@@ -20,7 +17,7 @@ class ClassroomsTeachersController < ApplicationController
     return render json: {message: 'Update Succeeded!'}
   end
 
-  def remove_coteacher_from_class
+  def remove_coteacher
     coteacher = User.find(params[:classrooms_teacher_id])
     coteacher.handle_negative_classrooms_from_update_coteachers([params[:classroom_id]])
     render json: {}

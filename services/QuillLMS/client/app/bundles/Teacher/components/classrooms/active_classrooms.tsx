@@ -32,7 +32,7 @@ interface ActiveClassroomsState {
   showModal?: string;
   googleClassroomsLoading?: boolean;
   attemptedImportGoogleClassrooms?: boolean;
-  selectedClassroomId?: number;
+  selectedClassroomId?: number|string;
   snackbarCopy?: string;
 }
 
@@ -65,10 +65,33 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
     this.clickImportGoogleClassrooms = this.clickImportGoogleClassrooms.bind(this)
     this.getClassroomsAndCoteacherInvitations = this.getClassroomsAndCoteacherInvitations.bind(this)
     this.getGoogleClassrooms = this.getGoogleClassrooms.bind(this)
+    this.setStateBasedOnParams = this.setStateBasedOnParams.bind(this)
   }
 
   componentDidMount() {
     this.getGoogleClassrooms()
+    this.setStateBasedOnParams()
+  }
+
+  setStateBasedOnParams() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const modal = urlParams.get('modal')
+    const classroom = urlParams.get('classroom')
+
+    let showModal
+    let selectedClassroomId = Number(classroom)
+    if (modal === 'create-a-class') {
+      showModal = createAClassModal
+    } else if (modal === 'google-classroom') {
+      this.clickImportGoogleClassrooms()
+    } else if (modal === 'invite-students') {
+      showModal = inviteStudentsModal
+    }
+
+    if (showModal || selectedClassroomId) {
+      this.setState({ showModal, selectedClassroomId })
+    }
+
   }
 
   getGoogleClassrooms() {
@@ -89,7 +112,7 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
   }
 
   getClassroomsAndCoteacherInvitations() {
-    requestGet('/teachers/classrooms/new_index', (body) => this.setState({ classrooms: body.classrooms.filter(classroom => classroom.visible), coteacherInvitations: body.coteacher_invitations }));
+    requestGet('/teachers/classrooms', (body) => this.setState({ classrooms: body.classrooms.filter(classroom => classroom.visible), coteacherInvitations: body.coteacher_invitations }));
   }
 
   onSuccess(snackbarCopy) {
@@ -202,7 +225,7 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
   renderInviteStudentsModal() {
     const { showModal, classrooms, selectedClassroomId } = this.state
     const selectedClassroom = classrooms.find(c => c.id === selectedClassroomId)
-    if (showModal === inviteStudentsModal) {
+    if (showModal === inviteStudentsModal && selectedClassroom) {
       return <InviteStudentsModal
         close={() => this.closeModal(this.getClassroomsAndCoteacherInvitations)}
         showSnackbar={this.showSnackbar}
@@ -213,8 +236,8 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
 
   renderRenameClassModal() {
     const { showModal, classrooms, selectedClassroomId } = this.state
-    if (showModal === renameClassModal) {
-      const selectedClassroom = classrooms.find(c => c.id === selectedClassroomId)
+    const selectedClassroom = classrooms.find(c => c.id === selectedClassroomId)
+    if (showModal === renameClassModal && selectedClassroom) {
       return <RenameClassModal
         close={this.closeModal}
         onSuccess={this.onSuccess}
@@ -225,8 +248,8 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
 
   renderChangeGradeModal() {
     const { showModal, classrooms, selectedClassroomId } = this.state
-    if (showModal === changeGradeModal) {
-      const selectedClassroom = classrooms.find(c => c.id === selectedClassroomId)
+    const selectedClassroom = classrooms.find(c => c.id === selectedClassroomId)
+    if (showModal === changeGradeModal && selectedClassroom) {
       return <ChangeGradeModal
         close={this.closeModal}
         onSuccess={this.onSuccess}
@@ -237,8 +260,8 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
 
   renderArchiveClassModal() {
     const { showModal, classrooms, selectedClassroomId } = this.state
-    if (showModal === archiveClassModal) {
-      const selectedClassroom = classrooms.find(c => c.id === selectedClassroomId)
+    const selectedClassroom = classrooms.find(c => c.id === selectedClassroomId)
+    if (showModal === archiveClassModal && selectedClassroom) {
       return <ArchiveClassModal
         close={this.closeModal}
         onSuccess={this.onSuccess}
@@ -249,8 +272,8 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
 
   renderImportGoogleClassroomStudentsModal() {
     const { showModal, classrooms, selectedClassroomId } = this.state
-    if (showModal === importGoogleClassroomStudentsModal) {
-      const selectedClassroom = classrooms.find(c => c.id === selectedClassroomId)
+    const selectedClassroom = classrooms.find(c => c.id === selectedClassroomId)
+    if (showModal === importGoogleClassroomStudentsModal && selectedClassroom) {
       return <ImportGoogleClassroomStudentsModal
         close={this.closeModal}
         onSuccess={this.onSuccess}

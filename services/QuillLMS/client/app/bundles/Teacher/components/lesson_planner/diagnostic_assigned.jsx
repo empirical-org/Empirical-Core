@@ -19,7 +19,7 @@ export default class DiagnosticAssigned extends React.Component {
   }
 
   getInviteStudentsUrl() {
-    return ('/teachers/classrooms/invite_students');
+    return ('/teachers/classrooms');
   }
 
   unitTemplatesAssignedActions() {

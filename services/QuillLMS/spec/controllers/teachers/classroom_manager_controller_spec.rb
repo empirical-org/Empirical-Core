@@ -6,39 +6,6 @@ describe Teachers::ClassroomManagerController, type: :controller do
   it { should use_before_filter :authorize_owner! }
   it { should use_before_filter :authorize_teacher! }
 
-  describe '#archived_classroom_manager_data' do
-    it 'returns all invited, archived, and nonarchived classrooms' do
-      teacher = create(:teacher_with_a_couple_active_and_archived_classrooms)
-      invitation = create(:pending_coteacher_invitation, invitee_email: teacher.email)
-      classroom_invitations = create_pair(:coteacher_classroom_invitation, invitation_id: invitation.id)
-      all_classrooms = ClassroomsTeacher.where(user_id: teacher.id).map { |ct| Classroom.unscoped.find ct.classroom_id }
-      visible_classrooms = all_classrooms.select(&:visible)
-      archived_classrooms = all_classrooms - visible_classrooms
-      active_classrooms = classroom_invitations.map { |classroom_invitation|
-        {
-          classroom_invitation_id: classroom_invitation.id,
-          inviter_name: classroom_invitation.invitation.inviter.name,
-          classroom_name: classroom_invitation.classroom.name,
-          invitation: true
-        }
-      }
-      active_classrooms = sanitize_hash_array_for_comparison_with_sql(active_classrooms) + visible_classrooms.map(&:archived_classrooms_manager)
-      session[:user_id] = teacher.id
-      get :archived_classroom_manager_data
-
-      save_mock_data(response)
-
-      expect(response.body).to eq({
-        active: active_classrooms,
-        active_classrooms_i_own: teacher.classrooms_i_own.map{|c| {label: c[:name], value: c[:id]}},
-        inactive: archived_classrooms.map(&:archived_classrooms_manager),
-        coteachers: teacher.classrooms_i_own_that_have_coteachers,
-        pending_coteachers: teacher.classrooms_i_own_that_have_pending_coteacher_invitations,
-        my_name: teacher.name
-      }.to_json)
-    end
-  end
-
   describe '#lesson_planner' do
     let!(:teacher) { create(:classrooms_teacher, user: user) }
     let(:user) { create(:teacher, first_name: "test") }
@@ -153,8 +120,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
 
       it 'should assign the classroom and redirect to profile path' do
         get :generic_add_students
-        expect(assigns(:classroom)).to eq teacher.classrooms_i_teach.first
-        expect(response).to redirect_to invite_students_teachers_classrooms_path
+        expect(response).to redirect_to teachers_classrooms_path
       end
     end
   end
@@ -216,51 +182,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
 
     it 'should assign the classrooms and user' do
       get :invite_students
-      expect(assigns(:user)).to eq teacher
-      expect(assigns(:classrooms)).to eq [classroom]
-    end
-  end
-
-  describe '#manage_archived_classrooms' do
-    let(:teacher) { create(:teacher) }
-    let(:classroom) { create(:classroom) }
-
-    before do
-      allow(teacher).to receive(:classrooms_i_teach) { [classroom] }
-      allow(controller).to receive(:current_user) { teacher }
-    end
-
-    it 'should render the archived classroom manager template' do
-      get :manage_archived_classrooms
-      expect(response).to render_template("student_teacher_shared/archived_classroom_manager")
-    end
-  end
-
-  describe '#archived_classroom_manager_data' do
-    let(:teacher) { create(:teacher) }
-    let(:classroom) { create(:classroom) }
-
-    before do
-      allow(teacher).to receive(:classrooms_i_teach) { [classroom] }
-      allow(controller).to receive(:current_user) { teacher }
-      allow(ActiveRecord::Base.connection).to receive(:execute).and_return([classroom])
-    end
-
-    it 'should render the correct json' do
-      get :archived_classroom_manager_data
-      expect(response.body).to eq({
-        active: [classroom],
-        active_classrooms_i_own: teacher.classrooms_i_own.map{ |c|
-          {
-              label: c[:name],
-              value: c[:id]
-          }
-        },
-        inactive: [],
-        coteachers: teacher.classrooms_i_own_that_have_coteachers,
-        pending_coteachers: teacher.classrooms_i_own_that_have_pending_coteacher_invitations,
-        my_name: teacher.name
-      }.to_json)
+      expect(response).to redirect_to(teachers_classrooms_path)
     end
   end
 
@@ -283,13 +205,6 @@ describe Teachers::ClassroomManagerController, type: :controller do
       end
     end
 
-    # context 'when classroom id is not passed' do
-    #   it 'should assign the classrooms and classroom' do
-    #     get :scorebook
-    #     expect(assigns(:classrooms)).to eq ([classroom, classroom1].as_json)
-    #     expect(assigns(:classroom)).to eq (classroom.as_json)
-    #   end
-    # end
   end
 
   describe '#dashboard' do
@@ -451,7 +366,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
     it 'should kick off the importer' do
       create(:auth_credential, user: teacher)
 
-      expect(GoogleStudentImporterWorker).to receive(:perform_async)
+      expect_any_instance_of(GoogleStudentImporterWorker).to receive(:perform)
       put :import_google_students, selected_classroom_ids: [1,2], format: :json
     end
   end
