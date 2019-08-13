@@ -81,7 +81,6 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
     }
   />
   <DataTable
-    averageFontWidth={7}
     checkAllRows={[Function]}
     checkRow={[Function]}
     headers={

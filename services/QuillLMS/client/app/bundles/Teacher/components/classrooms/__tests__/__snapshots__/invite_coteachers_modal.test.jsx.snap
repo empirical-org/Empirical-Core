@@ -37,7 +37,6 @@ exports[`InviteCoteacherModal component if a coteacher does not get passed shoul
           value=""
         />
         <DataTable
-          averageFontWidth={7}
           checkAllRows={[Function]}
           checkRow={[Function]}
           headers={
@@ -142,7 +141,6 @@ exports[`InviteCoteacherModal component if a coteacher gets passed should render
           value="emiliafree1000@gmail.com"
         />
         <DataTable
-          averageFontWidth={7}
           checkAllRows={[Function]}
           checkRow={[Function]}
           headers={
