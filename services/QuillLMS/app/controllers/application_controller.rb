@@ -110,6 +110,15 @@ class ApplicationController < ActionController::Base
     route&.include?(ActivitiesController::DIAGNOSTIC)
   end
 
+  def non_standard_route_redirect?(route)
+    (
+      route_redirects_to_my_account?(route) ||
+      route_redirects_to_assign_activities?(route) ||
+      route_redirects_to_classrooms_index?(route) ||
+      route_redirects_to_diagnostic?(route)
+    )
+  end
+
   protected
 
   def set_vary_header

@@ -340,12 +340,11 @@ export default class ClassroomsWithStudentsContainer extends React.Component {
     return <Snackbar text={snackbarCopy} visible={showSnackbar} />
   }
 
-  render() {
-    let content
+  renderContent() {
     if (this.state.loading) {
-      content = <LoadingIndicator />;
+      return <LoadingIndicator />;
     } else if (this.state.classrooms) {
-      content = (
+      return (
         <div className="edit-assigned-students-container">
           <ClassroomsWithStudents
             unitId={this.props.params.unitId}
@@ -359,7 +358,10 @@ export default class ClassroomsWithStudentsContainer extends React.Component {
           />
         </div>);
     }
-    return <div className="classroom-with-students-container container">
+  }
+
+  render() {
+    return (<div className="classroom-with-students-container container">
       {this.renderCreateAClassModal()}
       {this.renderImportGoogleClassroomsModal()}
       {this.renderGoogleClassroomEmailModal()}
@@ -372,8 +374,8 @@ export default class ClassroomsWithStudentsContainer extends React.Component {
           <button onClick={() => this.openModal(createAClassModal)} className="quill-button medium primary contained create-a-class-button">Create a class</button>
         </div>
       </div>
-      {content}
-    </div>
+      {this.renderContent()}
+    </div>)
   }
 
 }
