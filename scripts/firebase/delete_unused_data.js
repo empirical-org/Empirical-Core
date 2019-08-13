@@ -32,7 +32,14 @@ const productionKeysInUse = [
 ];
 
 
-async function fetchSubKeys(ref, excludeKeys) {
+async function asyncForEach(targetArray, callback) {
+  for (let index = 0; index < targetArray.length; index++) {
+    await callback(targetArray[index], index, targetArray);
+  }
+}
+
+function fetchSubKeys(ref, excludeKeys) {
+  excludeKeys = excludeKeys || [];
   const options = {
     method: 'GET',
     uri: `${baseUrl}/${ref || ''}.json`,
@@ -53,26 +60,44 @@ async function fetchSubKeys(ref, excludeKeys) {
 function deleteKey(key) {
   const options = {
     method: 'DELETE',
-    uri: `${baseUrl}/${key}.json`
+    uri: `${baseUrl}${key}.json`
   }
-  request(options).
-    then((resp) => process.stdout.write(`${resp}\n`));
+  process.stdout.write(`Deleting key ${key}... `);
+  return request(options).
+         then((resp) => process.stdout.write(`done\n`)).
+         catch((err) => {
+           const errObj = JSON.parse(err.error);
+           // Conditional checking on raw error message because the status code 400 can be used for multiple issues,
+           // but we only have error handling conditions for one of them.
+           if (errObj.error == "Data to write exceeds the maximum size that can be modified with a single request.") {
+             process.stdout.write(`Key holds too much data.  Recursively deleting sub-keys...\n`);
+             deleteKeys(key)
+           } else {
+             process.stdout.write(`${errObj.error}\n`);
+           }
+         });
 }
 
 
-function deleteRootLevelKeys(excludeKeys) {
-  fetchSubKeys('', excludeKeys).
+function deleteKeys(rootKey, excludeKeys) {
+  fetchSubKeys(rootKey, excludeKeys).
     then((keys) => {
-      keys.forEach((key) => {
+      asyncForEach(keys, async function(key) {
         if (dryRun) {
-          process.stdout.write(`${key}\n`);
+          process.stdout.write(`Will delete: ${key}\n`);
         } else {
-          deleteKey(key);
+          // We want to make deletions synchronous so that we don't get flagged as spamming Firebase
+          // Wait for each deletion to complete before triggering the next
+          await deleteKey(`${rootKey}/${key}`);
         }
       })
     }).
     catch((err) => process.stdout.write(`${err}\n`));
 }
 
+
+function deleteRootLevelKeys(excludeKeys) {
+  deleteKeys('', excludeKeys);
+}
 
 deleteRootLevelKeys(productionKeysInUse);
