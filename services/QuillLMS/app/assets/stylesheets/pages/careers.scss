@@ -1,0 +1,97 @@
+.container.pages-container.careers-page {
+  padding-right: 0px;
+}
+
+.careers-page {
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.5;
+  letter-spacing: normal;
+  color: #666666;
+
+  h3 {
+    font-size: 30px;
+  }
+
+  a:hover {
+    text-decoration: none;
+  }
+
+  .cta-banner {
+    background-color: #000000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 950px;
+    height: 350px;
+    object-fit: contain;
+    position: relative;
+
+    .cta-banner-contents {
+      text-align: center;
+      color: #ffffff;
+      position: absolute;
+      top: 50%;
+      -ms-transform: translateY(-50%);
+      transform: translateY(-50%);
+
+      button {
+        margin: 24 auto;
+        display: block;
+        width: 182px;
+      }
+    }
+  }
+
+  .clear {
+    clear: both;
+  }
+
+  .float-left {
+    float: left;
+  }
+
+  .float-right {
+    float: right;
+  }
+
+  .text-and-image {
+    margin-top: 120px;
+    .float-left {
+      margin-right: 150px;
+    }
+    .float-right {
+      margin-left: 150px;
+    }
+  }
+
+  .img-gallery {
+    img {
+      padding-top: 54px;
+    }
+  }
+
+  .job-listings {
+    margin-top: 120px;
+    margin-bottom: 80px;
+
+    .job-board {
+      margin: 8px;
+      padding: 32px;
+      border-radius: 6px;
+      border: solid 1px #e0e0e0;
+
+      h3 {
+        font-size: 16px;
+        font-weight: bold;
+      }
+
+      .position {
+        margin: 14px;
+      }
+    }
+  }
+}

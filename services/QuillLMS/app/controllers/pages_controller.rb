@@ -47,6 +47,9 @@ class PagesController < ApplicationController
   def mission
   end
 
+  def careers
+  end
+
   def beta
   end
 
