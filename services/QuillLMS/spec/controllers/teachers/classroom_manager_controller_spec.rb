@@ -44,17 +44,6 @@ describe Teachers::ClassroomManagerController, type: :controller do
       allow(controller).to receive(:current_user) { user }
     end
 
-    context 'when current user is not staff and has no classrooms i teach' do
-      before do
-        allow(user).to receive(:classrooms_i_teach) { [] }
-      end
-
-      it 'should redirect to new teachers classroom path' do
-        get :assign_activities
-        expect(response).to redirect_to new_teachers_classroom_path
-      end
-    end
-
     context 'when current user is staff or has classrooms i teach' do
       context 'when user is staff' do
         before do
