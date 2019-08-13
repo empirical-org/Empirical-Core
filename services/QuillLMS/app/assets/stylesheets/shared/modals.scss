@@ -653,6 +653,9 @@ color: #875a12;
   position: fixed !important;
   .import-google-classrooms-modal-footer {
     justify-content: space-between;
+    .buttons {
+      display: flex;
+    }
   }
   .data-table {
     height: 100%;

@@ -8,12 +8,14 @@ class Teachers::ClassroomManagerController < ApplicationController
   include ScorebookHelper
 
   MY_ACCOUNT = 'my_account'
+  ASSIGN_ACTIVITIES = 'assign_activities'
 
   def lesson_planner
     set_classroom_variables
   end
 
   def assign_activities
+    session[GOOGLE_REDIRECT] = request.env['PATH_INFO']
     set_classroom_variables
   end
 

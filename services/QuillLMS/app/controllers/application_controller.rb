@@ -102,6 +102,10 @@ class ApplicationController < ActionController::Base
     route&.include?(Teachers::ClassroomsController::INDEX)
   end
 
+  def route_redirects_to_assign_activities?(route)
+    route&.include?(Teachers::ClassroomManagerController::ASSIGN_ACTIVITIES)
+  end
+
   protected
 
   def set_vary_header
