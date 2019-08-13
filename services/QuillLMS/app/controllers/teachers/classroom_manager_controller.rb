@@ -8,6 +8,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   include ScorebookHelper
 
   MY_ACCOUNT = 'my_account'
+  ASSIGN_ACTIVITIES = 'assign_activities'
 
   def lesson_planner
     set_classroom_variables
