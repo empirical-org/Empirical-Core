@@ -28,7 +28,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   def generic_add_students
     if current_user && current_user.role == 'teacher'
       @classroom = current_user.classrooms_i_teach.first
-      redirect_to invite_students_teachers_classrooms_path
+      redirect_to teachers_classrooms_path
     else redirect_to profile_path
     end
   end
@@ -42,8 +42,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def invite_students
-    @classrooms = current_user.classrooms_i_teach
-    @user = current_user
+    redirect_to teachers_classrooms_path
   end
 
   def manage_archived_classrooms
@@ -211,7 +210,7 @@ class Teachers::ClassroomManagerController < ApplicationController
     elsif params[:selected_classroom_ids]
       selected_classrooms = Classroom.where(id: params[:selected_classroom_ids])
     end
-    GoogleStudentImporterWorker.perform_async(
+    GoogleStudentImporterWorker.new.perform(
       current_user.id,
       'Teachers::ClassroomManagerController',
       selected_classrooms
