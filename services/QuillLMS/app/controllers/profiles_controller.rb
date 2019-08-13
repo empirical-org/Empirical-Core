@@ -54,12 +54,10 @@ class ProfilesController < ApplicationController
   end
 
   def teacher
-    if @user.classrooms_i_teach.any? || @user.archived_classrooms.any?
-      redirect_to dashboard_teachers_classrooms_path
-    elsif @user.schools_admins.any?
+    if @user.schools_admins.any?
       redirect_to teachers_admin_dashboard_path
     else
-      redirect_to new_teachers_classroom_path
+      redirect_to dashboard_teachers_classrooms_path
     end
   end
 
