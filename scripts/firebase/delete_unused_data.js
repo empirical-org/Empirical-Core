@@ -1,36 +1,34 @@
+// Expected use:
+// node delete_unused_data.js <ENV> <COMMIT?>
+// Examples of valid calls:
+// `node delete_unused_data.js staging commit` will execute the script on the Staging environment and delete data
+// `node delete_unused_data.js prod` will execute the script on the Prod environment, but only print out which keys it intends to delete rather than actually deleting them
+
 const request = require('request-promise');
 
-
+const stagingString = 'staging';
+const prodString = 'prod';
+const validEnvs = [stagingString, prodString];
 const ENV = process.argv[2];
-let prod = false;
-let baseUrl = '';
-if (ENV == 'prod') {
-  prod = true;
-  baseUrl = 'https://quillconnect.firebaseio.com';
-} else if (ENV == 'staging') {
-  prod = false;
-  baseUrl = 'https://quillconnectstaging.firebaseio.com';
-} else {
+if (!validEnvs.includes(ENV)) {
   process.stdout.write(
-`This script must be run with a command line flag of either 'prod' or 'staging'.
+`This script must be run with a command line flag of either '${prodString}' or '${stagingString}'.
 In order to actually execute the script against the database include a command line arg of "commit".\n`);
   process.exit();
 }
+const prod = (ENV === prodString);
 
+const stagingUrl = 'https://quillconnectstaging.firebaseio.com';
+const prodUrl = 'https://quillconnect.firebaseio.com';
+const baseUrl = prod ? prodUrl : stagingUrl;
 
-let dryRun = true;
-if (process.argv.includes('commit')) {
-  dryRun = false;
-} else {
-  dryRun = true;
-}
-
+const commitArg = 'commit';
+const dryRun = (!process.argv.includes(commitArg))
 
 const productionKeysInUse = [
   'v2',
   'v3'
 ];
-
 
 async function asyncForEach(targetArray, callback) {
   for (let index = 0; index < targetArray.length; index++) {
@@ -56,7 +54,6 @@ function fetchSubKeys(ref, excludeKeys) {
   })
 }
 
-
 function deleteKey(key) {
   const options = {
     method: 'DELETE',
@@ -78,7 +75,6 @@ function deleteKey(key) {
          });
 }
 
-
 function deleteKeys(rootKey, excludeKeys) {
   fetchSubKeys(rootKey, excludeKeys).
     then((keys) => {
@@ -94,7 +90,6 @@ function deleteKeys(rootKey, excludeKeys) {
     }).
     catch((err) => process.stdout.write(`${err}\n`));
 }
-
 
 function deleteRootLevelKeys(excludeKeys) {
   deleteKeys('', excludeKeys);
