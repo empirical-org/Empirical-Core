@@ -26,11 +26,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def generic_add_students
-    if current_user && current_user.role == 'teacher'
-      @classroom = current_user.classrooms_i_teach.first
-      redirect_to teachers_classrooms_path
-    else redirect_to profile_path
-    end
+    redirect_to teachers_classrooms_path
   end
 
   def retrieve_classrooms_for_assigning_activities # in response to ajax request
@@ -43,28 +39,6 @@ class Teachers::ClassroomManagerController < ApplicationController
 
   def invite_students
     redirect_to teachers_classrooms_path
-  end
-
-  def manage_archived_classrooms
-    render "student_teacher_shared/archived_classroom_manager"
-  end
-
-  def archived_classroom_manager_data
-    begin
-      classrooms = active_and_inactive_classrooms_hash
-    rescue NoMethodError => exception
-      render json: {error: "No classrooms yet!"}, status: 400
-    else
-      classrooms_i_own_that_have_coteachers = current_user.classrooms_i_own_that_have_coteachers
-      render json: {
-        active: classrooms[:active],
-        active_classrooms_i_own: current_user.classrooms_i_own.map{|c| {label: c[:name], value: c[:id]}},
-        inactive: classrooms[:inactive],
-        coteachers: current_user.classrooms_i_own_that_have_coteachers,
-        pending_coteachers: current_user.classrooms_i_own_that_have_pending_coteacher_invitations,
-        my_name: current_user.name
-      }
-    end
   end
 
   def scorebook
@@ -88,7 +62,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   def students_list
     @classroom = current_user.classrooms_i_teach.find {|classroom| classroom.id == params[:id]&.to_i}
     last_name = "substring(users.name, '(?=\s).*')"
-    render json: {students: @classroom.students.order("#{last_name} asc, users.name asc")}
+    render json: {students: @classroom&.students&.order("#{last_name} asc, users.name asc")}
   end
 
   def premium
@@ -178,9 +152,6 @@ class Teachers::ClassroomManagerController < ApplicationController
     end
   end
 
-  def google_sync
-  end
-
   def retrieve_google_classrooms
     google_response = GoogleIntegration::Classroom::Main.pull_data(current_user)
     data = google_response === 'UNAUTHENTICATED' ? {errors: google_response} : {classrooms: google_response}
@@ -188,19 +159,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def update_google_classrooms
-    selected_classrooms = params[:selected_classrooms]
-    if selected_classrooms.is_a?(String)
-      selected_classrooms = JSON.parse(params[:selected_classrooms], {:symbolize_names => true})
-      if current_user.google_classrooms.any?
-        google_classroom_ids = JSON.parse(params[:selected_classrooms]).map{ |sc| sc["id"] }
-        current_user.google_classrooms.each do |classy|
-          if google_classroom_ids.exclude?(classy.google_classroom_id)
-            classy.update(visible: false)
-          end
-        end
-      end
-    end
-    GoogleIntegration::Classroom::Creators::Classrooms.run(current_user, selected_classrooms)
+    GoogleIntegration::Classroom::Creators::Classrooms.run(current_user, params[:selected_classrooms])
     render json: { classrooms: current_user.google_classrooms }.to_json
   end
 
