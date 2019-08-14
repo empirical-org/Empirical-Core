@@ -17,17 +17,15 @@
     </div>
 
     <div class="text-and-image">
-      <img class="float-right" src=<%= "#{ENV['CDN_URL']}/images/careers/student-typing@2x.jpg" %> width=300 height=300 />
       <div>
         <h3>Our Mission</h3>
         <p>Quill’s mission is to provide groundbreaking digital tools that help low-income students become strong writers. Our goal is to help the 30 million low-income K-12 students in the United States who struggle with writing.</p>
         <p>Our passion for supporting strong K-12 writing instruction informs what we do every day, whether that's building high-quality digital learning tools for the classroom, developing an innovative literacy curriculum, or connecting with school communities to learn how we can best meet their needs.</p>
       </div>
-      <div class="clear"></div>
+      <img src=<%= "#{ENV['CDN_URL']}/images/careers/student-typing@2x.jpg" %> width=300 height=300 />
     </div>
 
-    <div class="text-and-image">
-      <img class="float-left" src=<%= "#{ENV['CDN_URL']}/images/careers/growth-mindset@2x.jpg" %> width=300 height=300 />
+    <div class="text-and-image flex-reverse">
       <div>
         <h3>Our Values</h3>
         <ol>
@@ -41,42 +39,43 @@
 	  <li>Building with conviction</li>
         </ol>
       </div>
-      <div class="clear"></div>
+      <img src=<%= "#{ENV['CDN_URL']}/images/careers/growth-mindset@2x.jpg" %> width=300 height=300 />
     </div>
 
     <div class="text-and-image">
-      <div class="float-right">
-        <img src=<%= "#{ENV['CDN_URL']}/images/careers/values-workshop@2x.jpg" %> width=300 height=300 />
-        <p class="img-caption">Getting crafty with our values</p>
-      </div>
       <div>
         <h3>Life at Quill</h3>
           <p>It’s not only what we do that makes Quill an amazing place to work, it’s who we are and how we do it that makes our work environment so unique. As an employee, you will have the opportunity to work with an exceptionally talented team of dedicated individuals performing purpose-driven work.</p>
           <p>Quill intentionally fosters a supportive working environment, one where employees learn from each other and freely collaborate to reach their common goals. Our workplace has been compared to a classroom, wherein staff not only learn and grow together, but also have fun together—as exemplified by our occasional team craft activities and neighborhood outings.</p>
           <p>Are you energized by the idea of using technology to innovate literacy education and improve the lives of millions of students and teachers? If so, join us!</p>
       </div>
-      <div class="clear"></div>
+      <div>
+        <img src=<%= "#{ENV['CDN_URL']}/images/careers/values-workshop@2x.jpg" %> width=300 height=300 />
+        <p class="img-caption">Getting crafty with our values</p>
+      </div>
     </div>
 
     <div class="img-gallery">
-      <div class="float-left">
-        <img src=<%= "#{ENV['CDN_URL']}/images/careers/team-printables@2x.jpg" %> width=306 height=306 />
-        <p class="img-caption">Small team, big ambitions</p>
+      <div class="img-row">
+        <div>
+          <img src=<%= "#{ENV['CDN_URL']}/images/careers/team-printables@2x.jpg" %> width=306 height=306 />
+          <p class="img-caption">Small team, big ambitions</p>
+        </div>
+        <div>
+          <img src=<%= "#{ENV['CDN_URL']}/images/careers/team-botanic-gardens@2x.jpg" %> width=604 height=306 />
+          <p class="img-caption">Smiling faces during a team offsite at the Brooklyn Botanic Garden</p>
+        </div>
       </div>
-      <div class="float-right">
-        <img src=<%= "#{ENV['CDN_URL']}/images/careers/team-botanic-gardens@2x.jpg" %> width=604 height=306 />
-        <p class="img-caption">Smiling faces during a team offsite at the Brooklyn Botanic Garden</p>
+      <div class="img-row">
+        <div>
+          <img src=<%= "#{ENV['CDN_URL']}/images/careers/financial-district-walk@2x.jpg" %> width=604 height=306 />
+          <p class="img-caption">One of our favorite streets in the neighborhood to go for a stroll</p>
+        </div>
+        <div>
+          <img src=<%= "#{ENV['CDN_URL']}/images/careers/coffee-mug@2x.jpg" %> width=306 height=306 />
+          <p class="img-caption">Our feathered friend</p>
+        </div>
       </div>
-      <div class="clear"></div>
-      <div class="float-left">
-        <img src=<%= "#{ENV['CDN_URL']}/images/careers/financial-district-walk@2x.jpg" %> width=604 height=306 />
-        <p class="img-caption">One of our favorite streets in the neighborhood to go for a stroll</p>
-      </div>
-      <div class="float-right">
-        <img src=<%= "#{ENV['CDN_URL']}/images/careers/coffee-mug@2x.jpg" %> width=306 height=306 />
-        <p class="img-caption">Our feathered friend</p>
-      </div>
-      <div class="clear"></div>
     </div>
 
     <div class="job-listings">
@@ -90,25 +89,25 @@
             <a href="https://angel.co/company/quill-org/jobs/581567-junior-software-engineer-rails-react-python">
               <div class="position">
                 <div>Junior Software Engineer</div>
-                <img  src=<%= "#{ENV['CDN_URL']}/images/careers/expand.svg" %> width=24 height=24 />
+                <img class="icon-img" src=<%= "#{ENV['CDN_URL']}/images/careers/expand.svg" %> width=24 height=24 />
               </div>
             </a>
             <a href="https://angel.co/company/quill-org/jobs/581557-software-engineer-rails-react-python">
               <div class="position">
                 <div>Software Engineer</div>
-                <img  src=<%= "#{ENV['CDN_URL']}/images/careers/expand.svg" %> width=24 height=24 />
+                <img class="icon-img" src=<%= "#{ENV['CDN_URL']}/images/careers/expand.svg" %> width=24 height=24 />
               </div>
             </a>
             <a href="https://angel.co/company/quill-org/jobs/587292-senior-software-engineer-rails-react-python">
               <div class="position">
                 <div>Senior Software Engineer</div>
-                <img  src=<%= "#{ENV['CDN_URL']}/images/careers/expand.svg" %> width=24 height=24 />
+                <img class="icon-img" src=<%= "#{ENV['CDN_URL']}/images/careers/expand.svg" %> width=24 height=24 />
               </div>
             </a>
             <a href="https://angel.co/company/quill-org/jobs/583873-quill-org-technical-project-manager">
               <div class="position">
                 <div>Technical Project Manager</div>
-                <img  src=<%= "#{ENV['CDN_URL']}/images/careers/expand.svg" %> width=24 height=24 />
+                <img class="icon-img" src=<%= "#{ENV['CDN_URL']}/images/careers/expand.svg" %> width=24 height=24 />
               </div>
             </a>
           </div>
@@ -121,19 +120,19 @@
             <a href="https://angel.co/company/quill-org/jobs/583930-humanities-curriculum-developer">
               <div class="position">
                 <div>Humanities Curriculum Director</div>
-                <img  src=<%= "#{ENV['CDN_URL']}/images/careers/expand.svg" %> width=24 height=24 />
+                <img class="icon-img" src=<%= "#{ENV['CDN_URL']}/images/careers/expand.svg" %> width=24 height=24 />
               </div>
             </a>
             <a href="https://angel.co/company/quill-org/jobs/431239-quill-org-director-of-sales-k-12-edtech">
               <div class="position">
                 <div>Director of Sales</div>
-                <img  src=<%= "#{ENV['CDN_URL']}/images/careers/expand.svg" %> width=24 height=24 />
+                <img class="icon-img" src=<%= "#{ENV['CDN_URL']}/images/careers/expand.svg" %> width=24 height=24 />
               </div>
             </a>
             <a href="https://angel.co/company/quill-org/jobs/583919-quill-org-director-of-school-success">
               <div class="position">
                 <div>Director of School Success</div>
-                <img  src=<%= "#{ENV['CDN_URL']}/images/careers/expand.svg" %> width=24 height=24 />
+                <img class="icon-img" src=<%= "#{ENV['CDN_URL']}/images/careers/expand.svg" %> width=24 height=24 />
               </div>
             </a>
           </div>
