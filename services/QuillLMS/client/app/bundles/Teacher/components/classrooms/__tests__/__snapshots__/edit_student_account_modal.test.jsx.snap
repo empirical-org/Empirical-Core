@@ -8,7 +8,7 @@ exports[`EditStudentAccountModal component should render EditStudentAccountModal
     className="modal-background"
   />
   <div
-    className="edit-student-account-modal modal modal-body"
+    className="edit-student-account-modal quill-modal modal-body"
   >
     <div>
       <h3

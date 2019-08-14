@@ -60,6 +60,7 @@ export default class ClassroomsWithStudents extends React.Component {
   }
 
   createButton() {
+    if (!this.props.isSaveButtonEnabled) { return null }
     return (
       <EditStudentsButton
         enabled={this.props.isSaveButtonEnabled}
@@ -115,7 +116,6 @@ export default class ClassroomsWithStudents extends React.Component {
     }
     return (
       <div>
-        <h2 className="edit-students-h2">Edit Students for {this.props.unitName}</h2>
         {warningBlurb}
         {classroomList}
         {this.createOrUpdateButton()}
