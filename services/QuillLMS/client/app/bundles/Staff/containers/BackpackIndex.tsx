@@ -7,7 +7,7 @@ import Snackbars from '../components/styleGuide/snackbars'
 import Tooltips from '../components/styleGuide/tooltips'
 import DataTables from '../components/styleGuide/dataTables'
 
-export default class StyleGuideIndex extends React.Component {
+export default class BackpackIndex extends React.Component {
   renderLink(href, text) {
     return <li>
       <a href={href}>{text}</a>
@@ -36,8 +36,8 @@ export default class StyleGuideIndex extends React.Component {
         </ul>
       </aside>
       <div className="style-guide">
-        <h1>Quill Style Guide</h1>
-        <p>For CSS elements, the text above the element is a list of class names necessary to apply the styles. For React components, the text is the code for rendering the component. All React components in the style guide are exportable from the quill-component-library node module.</p>
+        <h1>Backpack</h1>
+        <p>For CSS elements, the text above the element is a list of class names necessary to apply the styles. For React components, the text is the code for rendering the component. All React components in Backpack are exportable from the quill-component-library node module.</p>
         <Buttons />
         <Cards />
         <Menus />
