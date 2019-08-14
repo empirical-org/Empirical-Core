@@ -81,7 +81,7 @@ export default class RemoveStudentsModal extends React.Component<RemoveStudentsM
     const numberOfSelectedStudents = selectedStudentIds.length
     return <div className="modal-container remove-students-modal-container">
       <div className="modal-background" />
-      <div className="remove-students-modal modal modal-body">
+      <div className="remove-students-modal quill-modal modal-body">
         <div>
           <h3 className="title">Remove {numberOfSelectedStudents} {this.studentOrStudents()} from your class?</h3>
         </div>

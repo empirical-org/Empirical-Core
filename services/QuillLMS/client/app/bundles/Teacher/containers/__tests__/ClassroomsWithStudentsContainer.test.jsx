@@ -56,7 +56,11 @@ const props = {
     }, {
         'path': 'units/:unitId/students/edit'
     }],
-    'children': null
+    'children': null,
+    'user': {
+      google_id: 'something',
+      id: 'something else'
+    }
 }
 
 const state = {

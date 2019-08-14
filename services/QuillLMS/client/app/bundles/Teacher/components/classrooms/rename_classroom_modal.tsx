@@ -63,7 +63,7 @@ export default class RenameClassModal extends React.Component<RenameClassModalPr
     const { name, errors, timesSubmitted } = this.state
     return <div className="modal-container rename-class-modal-container">
       <div className="modal-background" />
-      <div className="rename-class-modal modal modal-body">
+      <div className="rename-class-modal quill-modal modal-body">
         <div>
           <h3 className="title">Rename your class</h3>
         </div>
