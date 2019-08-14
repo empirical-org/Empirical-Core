@@ -8,7 +8,7 @@ exports[`ImportGoogleClassroomStudentsModal component should render ImportGoogle
     className="modal-background"
   />
   <div
-    className="import-google-classroom-students-modal modal modal-body"
+    className="import-google-classroom-students-modal quill-modal modal-body"
   >
     <div>
       <h3

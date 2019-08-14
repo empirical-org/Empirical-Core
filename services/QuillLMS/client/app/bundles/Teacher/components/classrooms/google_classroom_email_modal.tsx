@@ -59,7 +59,7 @@ export default class GoogleClassroomEmailModal extends React.Component<GoogleCla
     const { user, close } = this.props
     return <div className="modal-container google-classroom-email-modal-container">
       <div className="modal-background" />
-      <div className="google-classroom-email-modal modal modal-body">
+      <div className="google-classroom-email-modal quill-modal modal-body">
         <div>
           <h3 className="title">Link your account to Google Classroom</h3>
         </div>

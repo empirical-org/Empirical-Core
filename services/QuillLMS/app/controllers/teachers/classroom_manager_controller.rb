@@ -8,21 +8,15 @@ class Teachers::ClassroomManagerController < ApplicationController
   include ScorebookHelper
 
   MY_ACCOUNT = 'my_account'
+  ASSIGN_ACTIVITIES = 'assign_activities'
 
   def lesson_planner
-    if current_user.classrooms_i_teach.empty?
-      redirect_to new_teachers_classroom_path
-    else
-      set_classroom_variables
-    end
+    set_classroom_variables
   end
 
   def assign_activities
-    if !current_user.staff? && current_user.classrooms_i_teach.empty?
-      redirect_to new_teachers_classroom_path
-    else
-      set_classroom_variables
-    end
+    session[GOOGLE_REDIRECT] = request.env['PATH_INFO']
+    set_classroom_variables
   end
 
   def generic_add_students
@@ -54,8 +48,6 @@ class Teachers::ClassroomManagerController < ApplicationController
     if current_user.classrooms_i_teach.empty? && current_user.archived_classrooms.none? && !current_user.has_outstanding_coteacher_invitation?
       if current_user.schools_admins.any?
         redirect_to teachers_admin_dashboard_path
-      else
-        redirect_to new_teachers_classroom_path
       end
     end
     @firewall_test = true
