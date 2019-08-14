@@ -73,7 +73,7 @@ export default class TransferOwnershipModal extends React.Component<TransferOwne
     const { coteacher, close, classroom } = this.props
     return <div className="modal-container transfer-ownership-modal-container">
       <div className="modal-background" />
-      <div className="transfer-ownership-modal modal modal-body">
+      <div className="transfer-ownership-modal quill-modal modal-body">
         <div>
           <h3 className="title">Transfer ownership of this class?</h3>
         </div>

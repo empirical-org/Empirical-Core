@@ -8,7 +8,7 @@ exports[`MergeStudentAccountsModal component should render MergeStudentAccountsM
     className="modal-background"
   />
   <div
-    className="merge-student-accounts-modal modal modal-body"
+    className="merge-student-accounts-modal quill-modal modal-body"
   >
     <div>
       <h3

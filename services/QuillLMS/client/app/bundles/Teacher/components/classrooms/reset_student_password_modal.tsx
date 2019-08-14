@@ -31,7 +31,7 @@ export default class ResetStudentPasswordModal extends React.Component<ResetStud
     const { student } = this.props
     return <div className="modal-container reset-student-password-modal-container">
       <div className="modal-background" />
-      <div className="reset-student-password-modal modal modal-body">
+      <div className="reset-student-password-modal quill-modal modal-body">
         <div>
           <h3 className="title">Reset a student's password</h3>
         </div>

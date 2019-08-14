@@ -44,17 +44,9 @@ export default React.createClass({
   propsSpecificComponent() {
     if (this.props.data.non_authenticated) {
       return <a href="/account/new"><button className="button-green full-width">Sign Up to Assign This Activity Pack</button></a>;
-    } else if (this.state.fastAssignDisabled) {
-      return (
-        <span>
-          <button className="button-green full-width" disabled>Assign to All Students <ButtonLoadingIndicator /></button>
-          <button className="button-green full-width" disabled>Customize Students</button>
-        </span>
-      );
     }
     return (<span>
-      <button className="button-green full-width" onClick={this.fastAssign}>Assign to All Students</button>
-      <button className="button-green full-width" onClick={this.goToEditStudents}>Customize Students</button>
+      <button className="button-green full-width" onClick={this.goToEditStudents}>Assign this activity</button>
     </span>);
   },
 

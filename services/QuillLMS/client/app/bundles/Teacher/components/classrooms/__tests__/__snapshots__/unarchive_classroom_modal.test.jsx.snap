@@ -8,7 +8,7 @@ exports[`UnarchiveClassroomModal component should render UnarchiveClassroomModal
     className="modal-background"
   />
   <div
-    className="unarchive-class-modal modal modal-body"
+    className="unarchive-class-modal quill-modal modal-body"
   >
     <div>
       <h3
