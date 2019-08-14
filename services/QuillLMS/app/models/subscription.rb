@@ -232,7 +232,11 @@ class Subscription < ActiveRecord::Base
 
   def charge_user
     if purchaser && purchaser.stripe_customer_id
-      Stripe::Charge.create(amount: renewal_price, currency: 'usd', customer: purchaser.stripe_customer_id)
+      begin
+        Stripe::Charge.create(amount: renewal_price, currency: 'usd', customer: purchaser.stripe_customer_id)
+      rescue
+        UserMailer.declined_renewal_email(purchaser).deliver_now! if purchaser.email
+      end
     end
   end
 
