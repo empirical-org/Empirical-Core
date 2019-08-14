@@ -37,6 +37,7 @@ export default class BackpackIndex extends React.Component {
       </aside>
       <div className="style-guide">
         <h1>Backpack</h1>
+        <h2>Quill's Style Guide</h2>
         <p>For CSS elements, the text above the element is a list of class names necessary to apply the styles. For React components, the text is the code for rendering the component. All React components in Backpack are exportable from the quill-component-library node module.</p>
         <Buttons />
         <Cards />
