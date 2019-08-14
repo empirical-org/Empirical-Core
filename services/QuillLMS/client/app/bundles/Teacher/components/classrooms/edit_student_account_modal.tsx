@@ -80,7 +80,7 @@ export default class EditStudentAccountModal extends React.Component<EditStudent
     const { firstName, lastName, username, errors, timesSubmitted } = this.state
     return <div className="modal-container edit-student-account-modal-container">
       <div className="modal-background" />
-      <div className="edit-student-account-modal modal modal-body">
+      <div className="edit-student-account-modal quill-modal modal-body">
         <div>
           <h3 className="title">Edit your student account</h3>
         </div>

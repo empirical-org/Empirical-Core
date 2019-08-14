@@ -8,7 +8,7 @@ exports[`LeaveClassModal component should render LeaveClassModal 1`] = `
     className="modal-background"
   />
   <div
-    className="leave-class-modal modal modal-body"
+    className="leave-class-modal quill-modal modal-body"
   >
     <div>
       <h3

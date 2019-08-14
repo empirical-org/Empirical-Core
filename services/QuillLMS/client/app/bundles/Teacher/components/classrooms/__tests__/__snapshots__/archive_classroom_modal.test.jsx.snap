@@ -8,7 +8,7 @@ exports[`ArchiveClassroomModal component should render ArchiveClassroomModal 1`]
     className="modal-background"
   />
   <div
-    className="archive-class-modal modal modal-body"
+    className="archive-class-modal quill-modal modal-body"
   >
     <div>
       <h3
