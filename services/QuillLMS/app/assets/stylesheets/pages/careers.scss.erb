@@ -75,55 +75,45 @@
     }
   }
 
-  .job-board {
-    display: flex;
-    flex-direction: column;
-
-    .job-section {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-
-      h3 {
-        //flex: 1 1 25%;
-        width: 200px;
-      }
-
-      .positions {
-        flex: 1 1 auto;
-        display: flex;
-        flex-direction: column;
-
-        .position {
-          display: flex;
-          flex-direction: row;
-          justify-content: space-between;
-        }
-      }
-    }
-  }
-
   .job-listings {
     margin-top: 120px;
     margin-bottom: 80px;
 
     .job-board {
+      display: flex;
+      flex-direction: column;
       margin: 8px;
       padding: 32px;
       border-radius: 6px;
       border: solid 1px #e0e0e0;
 
-      h3 {
-        font-size: 16px;
-        font-weight: bold;
-        margin: 14px;
-      }
+      .job-section {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
 
-      .position {
-        margin: 14px;
 
-        img {
-          transform: rotate(270deg);
+        h3 {
+          font-size: 16px;
+          font-weight: bold;
+          margin: 14px;
+          width: 200px;
+        }
+        .positions {
+          flex: 1 1 auto;
+          display: flex;
+          flex-direction: column;
+
+          .position {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            margin: 14px;
+  
+            img {
+              transform: rotate(270deg);
+            }
+          }
         }
       }
     }
