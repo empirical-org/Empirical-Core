@@ -227,6 +227,23 @@ export default class Stage2 extends React.Component {
     return <Snackbar text={snackbarCopy} visible={showSnackbar} />
   }
 
+  renderAutomaticAssignNote() {
+    if (!this.props.classrooms.length) { return null }
+
+    return <div className="automatic-assign-note">
+      <i className="fa fa-icon fa-lightbulb-o"/>
+      <p><span className="bold">Note:</span> If you choose to assign the activity pack to the <span className="italic">entire class</span>, new students to the classroom will get assigned the activity pack automatically. But, if you only assign the activity pack to <span className="italic">certain students</span>, then the activity pack <span className="bold">will not be assigned</span> to the new students automatically.</p>
+    </div>
+  }
+
+  studentSectionHeaderCopy() {
+    if (this.props.classrooms.length) {
+      return 'Select Students To Assign Activity Pack To:'
+    } else {
+      return 'Create A Class To Assign Your Activity Pack'
+    }
+  }
+
   render() {
     return (
       <div className="name-and-assign-activity-pack">
@@ -239,16 +256,13 @@ export default class Stage2 extends React.Component {
         {this.nameComponent()}
         <section className="select-students">
           <div className="select-students-header">
-            <h2 className="section-header">Select Students To Assign Activity Pack To:</h2>
+            <h2 className="section-header">{this.studentSectionHeaderCopy()}</h2>
             <div className="import-or-create-classroom-buttons">
               {this.renderImportGoogleClassroomsButton()}
               <button onClick={() => this.openModal(createAClassModal)} className="quill-button medium primary contained create-a-class-button">Create a class</button>
             </div>
           </div>
-          <div className="automatic-assign-note">
-            <i className="fa fa-icon fa-lightbulb-o"/>
-            <p><span className="bold">Note:</span> If you choose to assign the activity pack to the <span className="italic">entire class</span>, new students to the classroom will get assigned the activity pack automatically. But, if you only assign the activity pack to <span className="italic">certain students</span>, then the activity pack <span className="bold">will not be assigned</span> to the new students automatically.</p>
-          </div>
+          {this.renderAutomaticAssignNote()}
           {this.classroomList()}
         </section>
         <section className="assign-dates">

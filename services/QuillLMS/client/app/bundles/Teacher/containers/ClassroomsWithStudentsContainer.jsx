@@ -360,6 +360,15 @@ export default class ClassroomsWithStudentsContainer extends React.Component {
     }
   }
 
+  headerCopy() {
+    const { classrooms, unitName } = this.state
+    if (classrooms && classrooms.length) {
+      return `Assign students for ${unitName}`
+    } else {
+      return `Create a class for ${unitName}`
+    }
+  }
+
   render() {
     return (<div className="classroom-with-students-container container">
       {this.renderCreateAClassModal()}
@@ -368,7 +377,7 @@ export default class ClassroomsWithStudentsContainer extends React.Component {
       {this.renderGoogleClassroomsEmptyModal()}
       {this.renderSnackbar()}
       <div className="classroom-with-students-header">
-        <h2>Edit Students for {this.state.unitName}</h2>
+        <h2>{this.headerCopy()}</h2>
         <div className="buttons">
           {this.renderImportGoogleClassroomsButton()}
           <button onClick={() => this.openModal(createAClassModal)} className="quill-button medium primary contained create-a-class-button">Create a class</button>

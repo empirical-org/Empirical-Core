@@ -290,8 +290,8 @@ export default class ClassroomPage extends React.Component {
   classroomTable() {
     if (this.state.loading) {
 			// return loading image
-    } else if (this.state.classrooms === [] || this.state.classrooms === null) {
-      return <span />;
+    } else if (!this.state.classrooms || !this.state.classrooms.length) {
+      return <div className="space-for-no-students" />;
     } else {
       const rows = this.state.classrooms.map((classy, index) => this.buildClassRow(classy, index));
       return <div className="edit-assigned-students-container">{rows}</div>;
@@ -378,6 +378,14 @@ export default class ClassroomPage extends React.Component {
     return <Snackbar text={snackbarCopy} visible={showSnackbar} />
   }
 
+  headerCopy() {
+    if (this.state.classrooms && this.state.classrooms.length) {
+      return 'Which classes would you like to assign the diagnostic to?'
+    } else {
+      return 'Create a class to assign the diagnostic'
+    }
+  }
+
   render() {
     const content = this.state.loading
 			? <LoadingSpinner />
@@ -395,7 +403,7 @@ export default class ClassroomPage extends React.Component {
         {this.renderGoogleClassroomsEmptyModal()}
         {this.renderSnackbar()}
         <div>
-          <h2>Which classes would you like to assign the diagnostic to?</h2>
+          <h2>{this.headerCopy()}</h2>
           <span id="subtext">Students will be able to complete the diagnostic once they join a class.</span>
           {/* <a href='/placeholder'>How should I determine the reading level of my classes?</a>*/}
         </div>
