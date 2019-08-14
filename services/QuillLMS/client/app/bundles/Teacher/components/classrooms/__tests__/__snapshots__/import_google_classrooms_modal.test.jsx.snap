@@ -23,6 +23,7 @@ exports[`ImportGoogleClassroomsModal component should render 1`] = `
       className="import-google-classrooms-modal-body modal-body"
     >
       <DataTable
+        averageFontWidth={7}
         checkAllRows={[Function]}
         checkRow={[Function]}
         headers={
