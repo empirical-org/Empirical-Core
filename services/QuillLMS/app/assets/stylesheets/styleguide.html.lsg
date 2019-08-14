@@ -2,7 +2,7 @@
 @scss ./variables.scss
 
 <!---  // Set the HTML title of the document: -->
-@title Quill Style Guide
+@title Backpack
 @head {
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 }
