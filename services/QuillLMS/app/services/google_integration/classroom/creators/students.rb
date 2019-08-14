@@ -60,10 +60,11 @@ module GoogleIntegration::Classroom::Creators::Students
                        password: data[:last_name],
                        username: username,
                        signed_up_with_google: true,
-                       account_type: 'Google Classroom'
+                       account_type: 'Google Classroom',
+                       google_id: data[:google_id]
                       )
       else
-        student.update(account_type: 'Google Classroom')
+        student.update(account_type: 'Google Classroom', google_id: data[:google_id])
       end
 
       if student.errors.any?
