@@ -35,7 +35,8 @@ example result of JSON.parse(response.body) :
       name: profile_data['name']['fullName'],
       first_name: profile_data['name']['givenName'],
       last_name: profile_data['name']['familyName'], # we will use for their initial password
-      email: profile_data['emailAddress']
+      email: profile_data['emailAddress'],
+      google_id: profile_data['id']
     }
   end
 end
