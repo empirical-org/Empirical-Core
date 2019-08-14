@@ -162,7 +162,7 @@ export default class InviteCoteachersModal extends React.Component<InviteCoteach
     const { close } = this.props
     return <div className="modal-container invite-coteachers-modal-container">
       <div className="modal-background" />
-      <div className="invite-coteachers-modal modal">
+      <div className="invite-coteachers-modal quill-modal">
 
         <div className="invite-coteachers-modal-header">
           <h3 className="title">Invite co-teachers</h3>

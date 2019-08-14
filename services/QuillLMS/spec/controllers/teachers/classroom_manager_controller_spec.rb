@@ -14,26 +14,13 @@ describe Teachers::ClassroomManagerController, type: :controller do
       allow(controller).to receive(:current_user) { user }
     end
 
-    context 'when classrooms i teach are empty' do
-      before do
-        allow(user).to receive(:classrooms_i_teach) { [] }
-      end
-
-      it 'should redirect to new teachers classroom path' do
-        get :lesson_planner, id: teacher.id
-        expect(response).to redirect_to new_teachers_classroom_path
-      end
-    end
-
-    context 'when classrooms i teach are not empty' do
-      it 'should assign the tab, grade, students, last_classroom_name and last_lassroom_id' do
-        get :lesson_planner, id: teacher.id, tab: "test tab", grade: "test grade"
-        expect(assigns(:tab)).to eq "test tab"
-        expect(assigns(:grade)).to eq "test grade"
-        expect(assigns(:students)).to eq user.students.any?
-        expect(assigns(:last_classroom_id)).to eq user.classrooms_i_teach.last.id
-        expect(assigns(:last_classroom_name)).to eq user.classrooms_i_teach.last.name
-      end
+    it 'should assign the tab, grade, students, last_classroom_name and last_lassroom_id' do
+      get :lesson_planner, id: teacher.id, tab: "test tab", grade: "test grade"
+      expect(assigns(:tab)).to eq "test tab"
+      expect(assigns(:grade)).to eq "test grade"
+      expect(assigns(:students)).to eq user.students.any?
+      expect(assigns(:last_classroom_id)).to eq user.classrooms_i_teach.last.id
+      expect(assigns(:last_classroom_name)).to eq user.classrooms_i_teach.last.name
     end
   end
 
@@ -55,17 +42,6 @@ describe Teachers::ClassroomManagerController, type: :controller do
 
     before do
       allow(controller).to receive(:current_user) { user }
-    end
-
-    context 'when current user is not staff and has no classrooms i teach' do
-      before do
-        allow(user).to receive(:classrooms_i_teach) { [] }
-      end
-
-      it 'should redirect to new teachers classroom path' do
-        get :assign_activities
-        expect(response).to redirect_to new_teachers_classroom_path
-      end
     end
 
     context 'when current user is staff or has classrooms i teach' do
@@ -212,32 +188,14 @@ describe Teachers::ClassroomManagerController, type: :controller do
 
     before do
       allow(controller).to receive(:current_user) { teacher }
+      allow(teacher).to receive(:classrooms_i_teach) { [] }
+      allow(teacher).to receive(:archived_classrooms) { [] }
+      allow(teacher).to receive(:has_outstanding_coteacher_invitation?) { true }
     end
 
-    context 'when current user has no classrooms i teach and no archived classrooms and no outstanding coteacher invitation' do
-      before do
-        allow(teacher).to receive(:classrooms_i_teach) { [] }
-        allow(teacher).to receive(:archived_classrooms) { [] }
-        allow(teacher).to receive(:has_outstanding_coteacher_invitation?) { false }
-      end
-
-      it 'should redirect to new teachers classroom path' do
-        get :dashboard
-        expect(response).to redirect_to new_teachers_classroom_path
-      end
-    end
-
-    context 'when current user has classrooms i teach/archived classrooms/has outstanding coteacher invitation' do
-      before do
-        allow(teacher).to receive(:classrooms_i_teach) { [] }
-        allow(teacher).to receive(:archived_classrooms) { [] }
-        allow(teacher).to receive(:has_outstanding_coteacher_invitation?) { true }
-      end
-
-      it 'should set the firewall test to true' do
-        get :dashboard
-        expect(assigns(:firewall_test)).to eq true
-      end
+    it 'should set the firewall test to true' do
+      get :dashboard
+      expect(assigns(:firewall_test)).to eq true
     end
   end
 

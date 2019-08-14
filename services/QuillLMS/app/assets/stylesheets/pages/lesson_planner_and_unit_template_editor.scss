@@ -36,6 +36,17 @@
       font-size: 18px;
     }
   }
+  .select-students-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .import-or-create-classroom-buttons {
+      display: flex;
+      .import-from-google-button {
+        margin-right: 24px;
+      }
+    }
+  }
   .automatic-assign-note, .unselecting-students-note {
     margin-top: 15px;
     padding: 15;

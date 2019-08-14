@@ -3,6 +3,8 @@ class ActivitiesController < ApplicationController
   before_filter :set_activity_by_lesson_id, only: [:preview_lesson]
   before_filter :set_activity, only: [:supporting_info, :customize_lesson, :name_and_id, :last_unit_template]
 
+  DIAGNOSTIC = 'diagnostic'
+
   def search
     search_result = $redis.get("default_#{flag ? flag + '_' : nil}activity_search") || custom_search
     render json: search_result
@@ -14,6 +16,7 @@ class ActivitiesController < ApplicationController
   end
 
   def diagnostic
+    session[GOOGLE_REDIRECT] = request.env['PATH_INFO']
     render 'pages/diagnostic'
   end
 

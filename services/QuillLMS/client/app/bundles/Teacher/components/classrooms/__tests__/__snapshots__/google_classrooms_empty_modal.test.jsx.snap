@@ -8,7 +8,7 @@ exports[`GoogleClassroomsEmptyModal component should render GoogleClassroomsEmpt
     className="modal-background"
   />
   <div
-    className="google-classrooms-empty-modal modal modal-body"
+    className="google-classrooms-empty-modal quill-modal modal-body"
   >
     <div>
       <h3

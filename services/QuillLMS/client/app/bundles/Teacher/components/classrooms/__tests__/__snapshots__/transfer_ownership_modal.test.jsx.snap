@@ -8,7 +8,7 @@ exports[`TransferOwnershipModal component should render TransferOwnershipModal 1
     className="modal-background"
   />
   <div
-    className="transfer-ownership-modal modal modal-body"
+    className="transfer-ownership-modal quill-modal modal-body"
   >
     <div>
       <h3

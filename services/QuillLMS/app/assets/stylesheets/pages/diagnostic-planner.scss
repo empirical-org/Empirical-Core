@@ -140,7 +140,7 @@ $green: #00c2a2;
             font-size: 24px;
             padding-bottom: 5px;
         }
-        span {
+        span:not(.helper-text) {
             font-size: 14px;
             color: #646464;
         }
@@ -172,7 +172,7 @@ $green: #00c2a2;
                 justify-content: space-between;
     }
     #assign-page {
-        a {
+        a:not(.quill-button) {
             color: #027360;
         }
         li a {
@@ -192,7 +192,6 @@ $green: #00c2a2;
             min-width: 204px;
         }
         .button-green {
-            margin-top: 27px;
             margin-bottom: 12px;
             width: 186px;
         }
@@ -200,6 +199,12 @@ $green: #00c2a2;
             height: 250px;
             div {
                 text-align: center;
+            }
+            .import-or-create-classroom-buttons {
+              display: flex;
+              .import-from-google-button {
+                margin-right: 24px;
+              }
             }
         }
         .panel-group {

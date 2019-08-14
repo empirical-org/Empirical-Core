@@ -8,7 +8,7 @@ exports[`ChangeGradeModal component should render ChangeGradeModal 1`] = `
     className="modal-background"
   />
   <div
-    className="change-grade-modal modal modal-body"
+    className="change-grade-modal quill-modal modal-body"
   >
     <div>
       <h3
