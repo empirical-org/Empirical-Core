@@ -66,7 +66,7 @@ function deleteKey(key) {
            const errObj = JSON.parse(err.error);
            // Conditional checking on raw error message because the status code 400 can be used for multiple issues,
            // but we only have error handling conditions for one of them.
-           if (errObj.error == "Data to write exceeds the maximum size that can be modified with a single request.") {
+           if (errObj.error === "Data to write exceeds the maximum size that can be modified with a single request.") {
              process.stdout.write(`Key holds too much data.  Recursively deleting sub-keys...\n`);
              deleteKeys(key)
            } else {
