@@ -92,4 +92,9 @@ class UserMailer < ActionMailer::Base
     mail to: ["Dev Tools <devtools@quill.org>", "Emilia Friedberg <emilia@quill.org>", "Thomas Robertson <thomasrobertson@quill.org>"], subject: "Recommendations Assignment Report"
   end
 
+  def declined_renewal_email(user)
+    @user = user
+    mail from: "Maddy Maher <maddy@quill.org>", to: user.email, subject: "Quill Premium Renewal"
+  end
+
 end
