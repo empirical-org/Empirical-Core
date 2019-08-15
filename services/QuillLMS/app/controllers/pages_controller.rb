@@ -373,7 +373,7 @@ class PagesController < ApplicationController
   def referrals_toc
   end
 
-  def style_guide
+  def backpack
     @style_file = 'staff'
   end
 
@@ -394,7 +394,7 @@ class PagesController < ApplicationController
       @js_file = 'public'
     when 'grammar_tool', 'connect_tool', 'diagnostic_tool', 'proofreader_tool', 'lessons_tool'
       @js_file = 'tools'
-    when 'style_guide'
+    when 'backpack'
       @js_file = 'staff'
     end
   end

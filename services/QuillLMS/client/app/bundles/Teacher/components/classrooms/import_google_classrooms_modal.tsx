@@ -191,7 +191,7 @@ export default class ImportGoogleClassroomsModal extends React.Component<ImportG
     const { close } = this.props
     return <div className="modal-container import-google-classrooms-modal-container">
       <div className="modal-background" />
-      <div className="import-google-classrooms-modal modal">
+      <div className="import-google-classrooms-modal quill-modal">
 
         <div className="import-google-classrooms-modal-header">
           <h3 className="title">Import classes from Google Classroom</h3>

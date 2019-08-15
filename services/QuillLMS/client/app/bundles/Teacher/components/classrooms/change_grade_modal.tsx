@@ -65,7 +65,7 @@ export default class ChangeGradeModal extends React.Component<ChangeGradeModalPr
     const { grade, errors, timesSubmitted } = this.state
     return <div className="modal-container change-grade-modal-container">
       <div className="modal-background" />
-      <div className="change-grade-modal modal modal-body">
+      <div className="change-grade-modal quill-modal modal-body">
         <div>
           <h3 className="title">Change your grade level</h3>
         </div>

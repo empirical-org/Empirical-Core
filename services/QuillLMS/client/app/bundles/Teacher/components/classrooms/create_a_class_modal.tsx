@@ -76,7 +76,7 @@ export default class CreateAClassModal extends React.Component<CreateAClassModal
   render() {
     return <div className="modal-container create-a-class-modal-container">
       <div className="modal-background" />
-      <div className="create-a-class-modal modal">
+      <div className="create-a-class-modal quill-modal">
         {this.renderHeader()}
         {this.renderModalContent()}
       </div>
