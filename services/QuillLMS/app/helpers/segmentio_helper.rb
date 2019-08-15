@@ -6,20 +6,20 @@ module SegmentioHelper
     if should_load_intercom
       user_attributes = user_attributes.merge(intercom_properties(user))
     end
-    "#{user.id}, #{user_attributes.to_json}, #{destination_properties(should_load_intercom).to_json}"
+    "#{user.id}, #{user_attributes.to_json}, #{destination_properties(user, should_load_intercom).to_json}"
   end
 
   def serialize_user(user)
     SegmentAnalyticsUserSerializer.new(user).render
   end
 
-  def destination_properties(should_load_intercom)
-    DEFAULT_DESTINATION_SETTINGS.merge(should_load_intercom ? {} : {Intercom: false})
+  def destination_properties(user, should_load_intercom)
+    user_hash = OpenSSL::HMAC.hexdigest('sha256', ENV['INTERCOM_APP_SECRET'], user.id.to_s)
+    DEFAULT_DESTINATION_SETTINGS.merge(should_load_intercom ? {Intercom: {user_hash: user_hash}} : {Intercom: false})
   end
 
   def intercom_properties(user)
     {
-      user_hash: OpenSSL::HMAC.hexdigest('sha256', ENV['INTERCOM_APP_SECRET'], user.id.to_s),
       name: user.name,
       email: user.email,
     }

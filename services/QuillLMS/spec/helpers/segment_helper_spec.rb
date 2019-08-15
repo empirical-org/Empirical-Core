@@ -7,7 +7,7 @@ describe SegmentioHelper do
     it 'should construct a series of three javascript-parsable "function arguments"' do
       argument_string = generate_segment_identify_arguments(user, false)
       universal_user_argument = serialize_user(user).to_json
-      destination_specific_argument = destination_properties(false).to_json
+      destination_specific_argument = destination_properties(user, false).to_json
       expected_argument_string = "#{user.id}, #{universal_user_argument}, #{destination_specific_argument}"
       expect(argument_string).to eq(expected_argument_string)
     end
@@ -27,28 +27,30 @@ describe SegmentioHelper do
 
   describe '#destination_properties' do
     it 'should flag data to go to all integrations' do
-      properties = destination_properties(true)
-      expected_properties = {all: true}
-      expect(properties).to eq(expected_properties)
-      expect(properties.keys).to eq([:all])
+      properties = destination_properties(user, true)
+      expect(properties[:all]).to eq(true)
+      properties.each_value do |value|
+        expect(value).not_to eq(false)
+      end
+      expect(properties.keys).to include(:all)
     end
 
     it 'should load intercom-specific property data when requested' do
-      properties = destination_properties(false)
+      properties = destination_properties(user, false)
       expect(properties.keys).to eq([:all, :Intercom])
+    end
+
+    it 'should provide a shared-secret signature for Intercom by hashing the user id' do
+      properties = destination_properties(user, true)
+      user_hash = OpenSSL::HMAC.hexdigest('sha256', ENV['INTERCOM_APP_SECRET'], user.id.to_s)
+      expect(properties[:Intercom][:user_hash]).to eq(user_hash)
     end
   end
 
   describe '#intercom_properties' do
-    it 'should include Intercom-specific PII, a hash, and nothing else' do
+    it 'should include Intercom-specific PII and nothing else' do
       properties = intercom_properties(user)
-      expect(properties.keys).to eq([:user_hash, :name, :email])
-    end
-
-    it 'should provide a shared-secret signature for Intercom by hashing the user id' do
-      properties = intercom_properties(user)
-      user_hash = OpenSSL::HMAC.hexdigest('sha256', ENV['INTERCOM_APP_SECRET'], user.id.to_s)
-      expect(properties[:user_hash]).to eq(user_hash)
+      expect(properties.keys).to eq([:name, :email])
     end
   end
 
