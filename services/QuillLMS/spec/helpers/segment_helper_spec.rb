@@ -7,7 +7,7 @@ describe SegmentioHelper do
     it 'should construct a series of three javascript-parsable "function arguments"' do
       argument_string = generate_segment_identify_arguments(user, false)
       universal_user_argument = serialize_user(user).to_json
-      destination_specific_argument = destination_properties(user, false).to_json
+      destination_specific_argument = destination_properties(false).to_json
       expected_argument_string = "#{user.id}, #{universal_user_argument}, #{destination_specific_argument}"
       expect(argument_string).to eq(expected_argument_string)
     end
@@ -27,14 +27,14 @@ describe SegmentioHelper do
 
   describe '#destination_properties' do
     it 'should flag data to go to all integrations' do
-      properties = destination_properties(user, false)
+      properties = destination_properties(true)
       expected_properties = {all: true}
       expect(properties).to eq(expected_properties)
       expect(properties.keys).to eq([:all])
     end
 
     it 'should load intercom-specific property data when requested' do
-      properties = destination_properties(user, true)
+      properties = destination_properties(false)
       expect(properties.keys).to eq([:all, :Intercom])
     end
   end
