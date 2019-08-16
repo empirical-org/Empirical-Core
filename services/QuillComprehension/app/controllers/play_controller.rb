@@ -2,7 +2,6 @@ class PlayController < ApplicationController
   before_action :set_question, only: [:new, :create]
   skip_before_action :verify_authenticity_token, only: [:create]
 
-
   def new
     @page_js_bundle = 'play_question'
     @activity = @question.activity
