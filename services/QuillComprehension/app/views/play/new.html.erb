@@ -1,0 +1,7 @@
+<% # variables: @activity, @question %>
+<div class='container play_new'>
+  <h1><%= @activity.title %></h1>
+  <div class="passage"><%=raw @activity.article %></div>
+  <h2 class="instructions"><%= @activity.title %></h2>
+  <div id="play-form" data-target="<%= question_play_index_url(@question) %>" data-prompt="<%= @question.prompt %>"></div>
+</div>
