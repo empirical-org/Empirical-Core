@@ -18,6 +18,12 @@ class PlayForm extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
 
+    // early exit for empty form
+    if (this.state.value === '') {
+      this.setState({feedback: "Please finish the thesis statement using evidence from the passage."})
+      return
+    }
+
     this.setState({feedback: null})
 
     request.post({
