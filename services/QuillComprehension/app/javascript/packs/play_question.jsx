@@ -38,10 +38,10 @@ class PlayForm extends React.Component {
     return (
       <form onSubmit={this.handleSubmit}>
         <label>
-          {this.props.prompt}
-          <input type="text" value={this.state.value} onChange={this.handleChange} />
+          <span className="prompt">{this.props.prompt}</span>
+          <input className="entry" type="text" value={this.state.value} onChange={this.handleChange} />
         </label>
-        <input type="submit" value="Submit" />
+        <input className="right btn" type="submit" value="Submit" />
         {this.state.feedback === null ? '' : (<div className="feedback">{this.state.feedback}</div>)}
       </form>
     );
