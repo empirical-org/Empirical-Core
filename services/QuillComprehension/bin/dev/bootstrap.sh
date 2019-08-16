@@ -65,3 +65,6 @@ createuser quill_test --superuser
 echo 'set up app DB, migrate database'
 bundle exec rake db:setup
 bundle exec rake db:migrate
+
+echo 'make sure we've configured the git remotes so that the deploy script works'
+git remote add quill-comprehension https://git.heroku.com/quill-comprehension.git
