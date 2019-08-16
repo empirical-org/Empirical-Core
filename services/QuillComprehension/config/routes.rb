@@ -12,8 +12,8 @@ Rails.application.routes.draw do
     resources :responses do
       post 'reset_tags', on: :member
     end
+    resources :play, only: [:new, :create]
   end
-
 
   if Rails.env.development?
     mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/graphql"
