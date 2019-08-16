@@ -16,8 +16,8 @@ class PlayForm extends React.Component {
   }
 
   handleSubmit(event) {
-    // alert('A name was submitted: ' + this.state.value);
     event.preventDefault();
+
     this.setState({feedback: null})
 
     request.post({
@@ -50,6 +50,7 @@ class PlayForm extends React.Component {
 
 document.addEventListener('DOMContentLoaded', () => {
   const targetID = document.getElementById('play-form')
+
   ReactDOM.render(
     <PlayForm
       endpoint={targetID.dataset.target}
