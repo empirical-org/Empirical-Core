@@ -17,7 +17,7 @@ export default class UnitTemplateAssigned extends React.Component {
   }
 
   getInviteStudentsUrl() {
-    return ('/teachers/classrooms/invite_students');
+    return ('/teachers/classrooms');
   }
 
   unitTemplatesAssignedActions() {

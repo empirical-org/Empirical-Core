@@ -16,7 +16,7 @@ export default React.createClass({
       stage: 1,
       selectedActivities: [],
       name: '',
-      options: { classrooms: [], },
+      classrooms: [],
       assignSuccess: false,
       model: { dueDates: {}, },
     };
@@ -24,6 +24,18 @@ export default React.createClass({
 
   componentDidMount() {
     this.getProhibitedUnitNames();
+    this.fetchClassrooms()
+  },
+
+  fetchClassrooms() {
+    request.get({
+      url: `${process.env.DEFAULT_URL}/teachers/classrooms/retrieve_classrooms_i_teach_for_custom_assigning_activities`,
+    }, (e, r, body) => {
+      const parsedBody = JSON.parse(body)
+      if (r.statusCode === 200) {
+        this.setState({ classrooms: parsedBody.classrooms_and_their_students })
+      }
+    })
   },
 
   analytics() {
@@ -51,10 +63,7 @@ export default React.createClass({
   },
 
   getClassrooms() {
-    if (this.state.options) {
-      return this.state.options.classrooms;
-    }
-    return undefined;
+    return this.state.classrooms
   },
 
   getUnitName() {
@@ -139,22 +148,6 @@ export default React.createClass({
 
   toggleStage(stage) {
     this.setState({ stage, });
-    if (!this.state.options.classrooms.length) {
-      this.fetchClassrooms();
-    }
-  },
-
-  fetchClassrooms() {
-    request.get({
-      url: `${process.env.DEFAULT_URL}/teachers/classrooms/retrieve_classrooms_i_teach_for_custom_assigning_activities`,
-    }, (e, r, body) => {
-      const parsedBody = JSON.parse(body)
-      if (r.statusCode === 200) {
-        this.setState({
-          options: { classrooms: parsedBody.classrooms_and_their_students, }
-        })
-      }
-    })
   },
 
   resetWindowPosition() {
@@ -306,6 +299,8 @@ export default React.createClass({
       assignActivityDueDate={this.assignActivityDueDate}
       areAnyStudentsSelected={this.areAnyStudentsSelected()}
       errorMessage={this.determineStage2ErrorMessage()}
+      user={this.props.user}
+      fetchClassrooms={this.fetchClassrooms}
     />);
   },
 

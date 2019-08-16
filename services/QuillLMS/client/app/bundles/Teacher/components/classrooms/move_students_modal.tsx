@@ -116,7 +116,7 @@ export default class MoveStudentsModal extends React.Component<MoveStudentsModal
     const classroomOptionsForDropdown = classroomOptions.filter(opt => opt.value !== classroom.id)
     return <div className="modal-container move-students-modal-container">
       <div className="modal-background" />
-      <div className="move-students-modal modal modal-body">
+      <div className="move-students-modal quill-modal modal-body">
         <div>
           <h3 className="title">Move {numberOfSelectedStudents} {this.studentOrStudents().toLowerCase()} to a new class</h3>
         </div>
