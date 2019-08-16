@@ -54,15 +54,9 @@
           <li><%= active_link_to 'Teacher Guide', teachers_teacher_guide_path %></li>
         <% end %>
 
-        <% if new_classes_page_should_be_active? %>
-          <li><%= link_to 'Active Classes', '/teachers/classrooms/new_index', class: !current_path.include?('archived') ? 'active' : '' %></li>
-          <li><%= link_to 'Archived Classes', '/teachers/classrooms/new_index/archived', class: current_path.include?('archived') ? 'active' : '' %></li>
-        <% elsif classes_page_should_be_active? %>
-          <% if current_user.has_classrooms? || current_user.archived_classrooms.any? || current_user.coteacher_invitations.any? %>
-            <li><%= link_to 'Manage Classes', teachers_classrooms_path, class: (%w(index edit google_sync).include?(action_name)) ? 'active' : '' %></li>
-            <li><%= link_to 'Invite Students', (invite_students_teachers_classrooms_path), class: ((action_name == 'invite_students')) ? 'active' : '' %></li>
-          <% end %>
-          <li><%= active_link_to 'Create a Class', new_teachers_classroom_path %></li>
+        <% if classes_page_should_be_active? %>
+          <li><%= link_to 'Active Classes', teachers_classrooms_path, class: !current_path.include?('archived') ? 'active' : '' %></li>
+          <li><%= link_to 'Archived Classes', archived_teachers_classrooms_path, class: current_path.include?('archived') ? 'active' : '' %></li>
         <% end %>
 
         <% if student_reports_page_should_be_active? %>

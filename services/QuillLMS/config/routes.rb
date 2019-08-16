@@ -255,10 +255,9 @@ EmpiricalGrammar::Application.routes.draw do
       post :remove_students
       put :import_google_students, controller: 'classroom_manager', action: 'import_google_students'
       collection do
+        get :archived, action: 'index', as: :archived
         get :classrooms_i_teach
         get :regenerate_code
-        get :new_index
-        get 'new_index/archived', action: 'new_index'
         get :archived_classroom_manager_data, controller: "classroom_manager", action: 'archived_classroom_manager_data'
         get :manage_archived_classrooms, controller: "classroom_manager", action: 'manage_archived_classrooms'
         get :lesson_planner, controller: "classroom_manager", action: 'lesson_planner', path: 'activity_planner'
@@ -323,7 +322,7 @@ EmpiricalGrammar::Application.routes.draw do
   resources :classrooms_teachers, only: [] do
     get 'edit_coteacher_form', to: 'classrooms_teachers#edit_coteacher_form'
     post 'edit_coteacher_form', to: 'classrooms_teachers#update_coteachers'
-    post :remove_coteacher_from_class
+    post :remove_coteacher
   end
   get '/classrooms_teachers/specific_coteacher_info/:coteacher_id', to: 'classrooms_teachers#specific_coteacher_info'
   delete '/classrooms_teachers/destroy/:classroom_id', to: 'classrooms_teachers#destroy'
@@ -414,7 +413,6 @@ EmpiricalGrammar::Application.routes.draw do
   get '/sign-up/add-non-k12', to: 'accounts#new'
 
   namespace :auth do
-    get "/google_email_mismatch" => 'google#google_email_mismatch'
     get "/google_oauth2/callback" => 'google#google'
     get '/clever/callback', to: 'clever#clever'
   end
@@ -502,7 +500,7 @@ EmpiricalGrammar::Application.routes.draw do
     end
   end
 
-  other_pages = %w(beta ideas board press partners develop mission faq tos privacy activities impact stats team premium teacher_resources media_kit play news home_new map firewall_info referrals_toc announcements style_guide)
+  other_pages = %w(beta ideas board press partners develop mission faq tos privacy activities impact stats team premium teacher_resources media_kit play news home_new map firewall_info referrals_toc announcements backpack)
 
   all_pages = other_pages
   all_pages.each do |page|

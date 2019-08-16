@@ -124,6 +124,17 @@
       margin-top: 37px;
     }
   }
+
+  .class-mini-edit-link {
+    position: absolute;
+    right: 50px;
+    top: 16px;
+  }
+
+  .class-mini {
+    padding-top: 19px;
+  }
+
   .mini_content {
     margin: auto;
     width: 300px;
@@ -235,24 +246,7 @@
       height: 66px;
       margin-bottom: 15px;
     }
-    .class-mini-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px;
-      padding-top: 10px;
-      font-size: 12px;
-      line-height: 0.92;
-      color: $quillforestgreen;
-      a {
-        color: $quillforestgreen;
-        font-weight: 600;
-      }
-      img {
-        margin-right: 4px;
-      }
-    } // .class-mini-edit-students {
-    // }
+
     .class_icon {
       width: 35px;
       height: 30px;

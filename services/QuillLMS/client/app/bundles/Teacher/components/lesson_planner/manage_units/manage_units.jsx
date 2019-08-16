@@ -18,13 +18,14 @@ export default React.createClass({
       allUnits: [],
       units: [],
       loaded: false,
-      classrooms: this.getClassrooms(),
+      classrooms: [],
       selectedClassroomId: getParameterByName('classroom_id'),
       activityWithRecommendationsIds: [],
     };
   },
 
   componentDidMount() {
+    this.getClassrooms()
     this.getRecommendationIds();
     window.onpopstate = () => {
       this.setState({ loaded: false, selectedClassroomId: getParameterByName('classroom_id'), });
@@ -239,7 +240,7 @@ export default React.createClass({
     }
     const allClassroomsClassroom = { name: allClassroomKey, id: allClassroomKey, };
     const classrooms = [allClassroomsClassroom].concat(this.state.classrooms);
-    const classroomWithSelectedId = classrooms.find(classy => classy.id === Number(this.state.selectedClassroomId));
+    const classroomWithSelectedId = classrooms.length ? classrooms.find(classy => classy.id === Number(this.state.selectedClassroomId)) : null
     const selectedClassroom = classroomWithSelectedId || allClassroomsClassroom;
     return (
       <span>

@@ -8,7 +8,7 @@ exports[`MoveStudentsModal component should render MoveStudentsModal 1`] = `
     className="modal-background"
   />
   <div
-    className="move-students-modal modal modal-body"
+    className="move-students-modal quill-modal modal-body"
   >
     <div>
       <h3

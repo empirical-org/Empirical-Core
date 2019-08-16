@@ -5,6 +5,7 @@ import { DropdownInput, DataTable } from 'quill-component-library/dist/component
 
 import GradeOptions from './grade_options'
 
+import ButtonLoadingIndicator from '../shared/button_loading_indicator'
 import { requestPost, requestPut, requestGet } from '../../../../modules/request/index.js';
 
 const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
@@ -19,6 +20,7 @@ interface ImportGoogleClassroomsModalProps {
 interface ImportGoogleClassroomsModalState {
   classrooms: Array<any>;
   postAssignments: boolean;
+  waiting: boolean;
 }
 
 const headers = [
@@ -48,7 +50,8 @@ export default class ImportGoogleClassroomsModal extends React.Component<ImportG
 
     this.state = {
       classrooms: props.classrooms,
-      postAssignments: !!props.user.post_google_classroom_assignments
+      postAssignments: !!props.user.post_google_classroom_assignments,
+      waiting: false
     }
 
     this.importClasses = this.importClasses.bind(this)
@@ -116,8 +119,10 @@ export default class ImportGoogleClassroomsModal extends React.Component<ImportG
   }
 
   importClasses() {
-    const { onSuccess, close, } = this.props
+    const { onSuccess, } = this.props
     const { classrooms, postAssignments, } = this.state
+
+    this.setState({ waiting: true })
     const selectedClassrooms = classrooms.filter(classroom => classroom.checked)
     const dataForUserUpdate = {
       post_google_classroom_assignments: postAssignments,
@@ -130,7 +135,7 @@ export default class ImportGoogleClassroomsModal extends React.Component<ImportG
       const newClassrooms = body.classrooms.filter(classroom => selectedClassrooms.find(sc => sc.id === classroom.google_classroom_id))
       const selectedClassroomIds = newClassrooms.map(classroom => classroom.id)
       requestPut('/teachers/classrooms/import_google_students', { selected_classroom_ids: selectedClassroomIds }, () => {
-        onSuccess('Importing classes')
+        onSuccess('Classes imported')
       })
     })
   }
@@ -173,11 +178,20 @@ export default class ImportGoogleClassroomsModal extends React.Component<ImportG
     }
   }
 
+  renderImportButton() {
+    const { waiting } = this.state
+    if (waiting) {
+      return <button className={this.footerButtonClass()}><ButtonLoadingIndicator /></button>
+    } else {
+      return <button className={this.footerButtonClass()} onClick={this.importClasses}>Import classes</button>
+    }
+  }
+
   render() {
     const { close } = this.props
     return <div className="modal-container import-google-classrooms-modal-container">
       <div className="modal-background" />
-      <div className="import-google-classrooms-modal modal">
+      <div className="import-google-classrooms-modal quill-modal">
 
         <div className="import-google-classrooms-modal-header">
           <h3 className="title">Import classes from Google Classroom</h3>
@@ -194,7 +208,7 @@ export default class ImportGoogleClassroomsModal extends React.Component<ImportG
           </div>
           <div className="buttons">
             <button className="quill-button outlined secondary medium" onClick={close}>Cancel</button>
-            <button className={this.footerButtonClass()} onClick={this.importClasses}>Import classes</button>
+            {this.renderImportButton()}
           </div>
         </div>
 
