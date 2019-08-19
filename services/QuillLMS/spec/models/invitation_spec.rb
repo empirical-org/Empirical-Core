@@ -11,5 +11,12 @@ RSpec.describe Invitation, type: :model do
       expect(invite.invitee_email).to eq(invitee_email.downcase) 
     end
 
+    it 'should error if the user has reached their daily limit of invitations' do
+      Invitation::MAX_COTEACHER_INVITATIONS_PER_TIME.times { |i|
+        Invitation.create(invitee_email: 'test#{i}@example.com', inviter: teacher, invitation_type: Invitation::TYPES[:coteacher])
+      }
+      expect{Invitation.create(invitee_email: 'error@example.com', inviter: teacher, invitation_type: Invitation::TYPES[:coteacher])}.to raise_error(StandardError)
+    end
+
   end
 end
