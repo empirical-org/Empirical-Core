@@ -134,6 +134,10 @@
       border-radius: 6px;
       border: solid 1px #e0e0e0;
 
+      .job-section:nth-child(n+2) {
+        margin-top: 48px;
+      }
+
       .job-section {
         display: flex;
         flex-direction: row;
@@ -150,6 +154,10 @@
           flex: 1 1 auto;
           display: flex;
           flex-direction: column;
+
+          a:hover {
+            background-color: #f2f2f2;
+          }
 
           .position {
             display: flex;
@@ -209,6 +217,10 @@
       margin-top: 48px;
 
       .job-board {
+        .job-section:nth-child(n+2) {
+          margin-top: 0px;
+        }
+
         img.icon-img {
           width: 24px;
         }
