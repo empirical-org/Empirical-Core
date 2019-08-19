@@ -19,6 +19,7 @@
 @import 'tables';
 @import 'tags';
 @import 'modals';
+@import 'play_new';
 
 html {
   line-height: 1.15;
@@ -33,7 +34,7 @@ body {
   -webkit-font-smoothing: antialiased;
   position: relative;
   z-index: 1;
-  min-height: 100vh; 
+  min-height: 100vh;
 }
 
 a {
@@ -41,7 +42,7 @@ a {
   text-decoration: none;
   background-color: transparent;
   text-decoration-skip: ink;
-  
+
   &:hover {
     color: #295a9f;
     text-decoration: underline;
