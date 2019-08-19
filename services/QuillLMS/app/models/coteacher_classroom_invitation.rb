@@ -2,9 +2,11 @@ class CoteacherClassroomInvitation < ActiveRecord::Base
   belongs_to :invitation
   belongs_to :classroom
 
-  before_save   :prevent_saving_if_classrooms_teacher_association_exists
+  before_save   :prevent_saving_if_classrooms_teacher_association_exists, :validate_invitation_limit
   after_save    :trigger_analytics
   after_destroy :update_parent_invitation
+
+  MAX_COTEACHER_INVITATIONS_PER_CLASS = 50
 
   private
 
@@ -37,4 +39,16 @@ class CoteacherClassroomInvitation < ActiveRecord::Base
         { properties: { invitee_email: invitation.invitee_email } }
     )
   end
+
+  def validate_invitation_limit
+    # In order to avoid letting people use our platform to spam folks,
+    # we want to put some limits on the number of invitations a user can issue.
+    # One of those limits is a cap on invitations per classroom
+    CoteacherClassroomInvitation.select(:classroom_id).where(classroom_id: self.classroom_id).group(:classroom_id).count(:classroom_id) do |key, value|
+      if value <= MAX_COTEACHER_INVITATIONS_PER_CLASS
+        raise StandardError.new("The maximum limit of #{MAX_COTEACHER_INVITATIONS_PER_CLASS} coteacher invitations have already been issued for class #{key}")
+      end
+    end
+  end
+
 end
