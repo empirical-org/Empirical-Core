@@ -1,0 +1,171 @@
+.container.pages-container.careers-page {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.careers-page {
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.5;
+  letter-spacing: normal;
+  color: #666666;
+
+  h3 {
+    font-size: 30px;
+  }
+
+  a:hover {
+    text-decoration: none;
+  }
+
+  p.img-caption {
+    margin-top: 4px !important;
+  }
+
+  .cta-banner {
+    background-image: url(<%= "#{ENV['CDN_URL']}/images/careers/classroom-raising-hands@2x.jpg" %>);
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    height: 350px;
+    object-fit: contain;
+    position: relative;
+
+    .cta-banner-contents {
+      text-align: center;
+      color: #ffffff;
+      position: absolute;
+      top: 50%;
+      -ms-transform: translateY(-50%);
+      transform: translateY(-50%);
+
+      button {
+        margin: 24 auto;
+        display: block;
+        width: 182px;
+      }
+    }
+  }
+
+  .text-and-image {
+    display: flex;
+    margin-top: 120px;
+
+    div, img {
+      padding: 5px;
+
+      h3 {
+        margin-top: 0px;
+      }
+    }
+
+    img {
+      width: auto;
+    }
+  }
+
+  .flex-reverse {
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+  }
+
+  .img-gallery {
+    .img-row {
+      display: flex;
+      padding-top: 54px;
+
+      div:nth-child(1n+2) {
+        padding-left: 40px;
+      }
+
+      img {
+        height: auto;
+        width: auto;
+        max-width: 100%;
+      }
+    }
+
+  }
+
+  .job-listings {
+    margin-top: 120px;
+    margin-bottom: 80px;
+
+    .job-board {
+      display: flex;
+      flex-direction: column;
+      margin: 8px;
+      padding: 32px;
+      border-radius: 6px;
+      border: solid 1px #e0e0e0;
+
+      .job-section {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+
+        h3 {
+          font-size: 16px;
+          font-weight: bold;
+          margin: 14px;
+          width: 200px;
+        }
+        .positions {
+          flex: 1 1 auto;
+          display: flex;
+          flex-direction: column;
+
+          .position {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            margin: 14px;
+  
+            img.icon-img {
+              transform: rotate(270deg);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  @media only screen and (max-width: 900px) {
+    .hide-mobile {
+      display: none;
+    }
+
+    .cta-banner {
+      width: 100%;
+    }
+
+    .text-and-image {
+      flex-direction: column;
+    }
+
+    .flex-reverse {
+      flex-direction: column;
+    }
+
+    img {
+      width: 100%;
+      height: auto;
+    }
+
+    .img-gallery .img-row {
+      flex-direction: column;
+      padding-top: 54px;
+
+      div:nth-child(1n+2) {
+        padding-left: 0px;
+        padding-top: 54px;
+      }
+    }
+  }
+}
