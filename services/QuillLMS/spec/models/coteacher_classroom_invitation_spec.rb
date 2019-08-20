@@ -51,6 +51,8 @@ RSpec.describe CoteacherClassroomInvitation, type: :model do
   end
 
   describe '#validate_invitation_limit' do
+    let!(:invitation) { create(:invitation) }
+
     it 'should not save if a classroom has too many existing coteacher invitations already' do
       # Stub the limit to 1 so that we don't have to create 50 test records just to test this
       stub_const("CoteacherClassroomInvitations::MAX_COTEACHER_INVITATIONS_PER_CLASS", 1)
@@ -58,13 +60,13 @@ RSpec.describe CoteacherClassroomInvitation, type: :model do
       max_invites.times {
         create(:coteacher_classroom_invitation, classroom_id: classroom_one.id)
       }
-      over_limit = create(:coteacher_classroom_invitation, classroom_id: classroom_one.id)
+      over_limit = CoteacherClassroomInvitation.create(classroom_id: classroom_one.id, invitation: invitation)
       expect(over_limit.valid?).to eq(false)
     end
 
     it 'should save if the invite limit hasn not been reached' do
       stub_const("CoteacherClassroomInvitations::MAX_COTEACHER_INVITATIONS_PER_CLASS", 1)
-      under_limit = create(:coteacher_classroom_invitation, classroom_id: classroom_one.id)
+      under_limit = CoteacherClassroomInvitation.create(classroom_id: classroom_one.id, invitation: invitation)
       expect(under_limit.valid?).to eq(true)
     end
   end
