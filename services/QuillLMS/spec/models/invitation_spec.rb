@@ -12,6 +12,7 @@ RSpec.describe Invitation, type: :model do
     end
 
     it 'should error if the user has reached their daily limit of invitations' do
+      stub_const("Invitation::MAX_COTEACHER_INVITATIONS_PER_TIME", 1)
       Invitation::MAX_COTEACHER_INVITATIONS_PER_TIME.times { |i|
         Invitation.create(invitee_email: 'test#{i}@example.com', inviter: teacher, invitation_type: Invitation::TYPES[:coteacher])
       }
