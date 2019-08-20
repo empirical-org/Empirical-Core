@@ -32,6 +32,18 @@ describe InvitationsController, type: :controller do
       expect(response.body).to eq({error: "Please make sure you've entered a valid email and selected at least one classroom."}.to_json)
     end
 
+    it 'should give error when single class coteacher limit is exceeded' do
+      stub_const("CoteacherClassroomInvitation::MAX_COTEACHER_INVITATIONS_PER_CLASS", 0)
+      post :create_coteacher_invitation, classroom_ids: [classroom.id], invitee_email: "test@test.com"
+      expect(response.body).to eq({error: "The maximum limit of #{CoteacherClassroomInvitation::MAX_COTEACHER_INVITATIONS_PER_CLASS} coteacher invitations have already been issued for class #{classroom.id}"}.to_json)
+    end
+
+    it 'should give error when user issues too many invites in a time period' do
+      stub_const("Invitation::MAX_COTEACHER_INVITATIONS_PER_TIME", 0)
+      post :create_coteacher_invitation, classroom_ids: [classroom.id], invitee_email: "test@test.com"
+      expect(response.body).to eq({error: "User #{subject.current_user.id} has reached the maximum of #{Invitation::MAX_COTEACHER_INVITATIONS_PER_TIME} coteacher invitations that they can issue in a #{Invitation::MAX_COTEACHER_INVITATIONS_PER_TIME_LIMIT_RESET_HOURS} hour period"}.to_json)
+    end
+
     it 'should kick off the invitation email worker' do
       # only when environment is production or invite contains quill
       expect(InvitationEmailWorker).to receive(:perform_async)

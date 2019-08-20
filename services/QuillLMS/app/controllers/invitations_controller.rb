@@ -7,6 +7,7 @@ class InvitationsController < ApplicationController
     begin
       validate_email_and_classroom_ids
       @pending_invite = find_or_create_coteacher_invite_from_current_user
+      raise StandardError.new(@pending_invite.errors[:base].join(" ")) unless @pending_invite.valid?
       assign_classrooms_to_invitee
       invoke_email_worker
       return render json: { invite_id: @pending_invite.id }
@@ -76,7 +77,8 @@ class InvitationsController < ApplicationController
     extant_invitations_for_classrooms = @pending_invite.coteacher_classroom_invitations.pluck(:classroom_id)
     @classroom_ids.each do |id|
       if extant_invitations_for_classrooms.exclude?(id)
-        CoteacherClassroomInvitation.create(invitation_id: @pending_invite.id, classroom_id: id)
+        invite = CoteacherClassroomInvitation.create(invitation_id: @pending_invite.id, classroom_id: id)
+        raise StandardError.new(invite.errors[:base].join(" ")) unless invite.valid?
       end
     end
   end
