@@ -58,7 +58,14 @@ RSpec.describe CoteacherClassroomInvitation, type: :model do
       max_invites.times {
         create(:coteacher_classroom_invitation, classroom_id: classroom_one.id)
       }
-      expect{build(:coteacher_classroom_invitation, classroom_id: classroom_one.id)}.to raise_error(StandardError)
+      over_limit = create(:coteacher_classroom_invitation, classroom_id: classroom_one.id)
+      expect(over_limit.valid?).to eq(false)
+    end
+
+    it 'should save if the invite limit hasn not been reached' do
+      stub_const("CoteacherClassroomInvitations::MAX_COTEACHER_INVITATIONS_PER_CLASS", 1)
+      under_limit = create(:coteacher_classroom_invitation, classroom_id: classroom_one.id)
+      expect(under_limit.valid?).to eq(true)
     end
   end
 end
