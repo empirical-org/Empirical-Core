@@ -52,6 +52,7 @@ RSpec.describe CoteacherClassroomInvitation, type: :model do
 
   describe '#validate_invitation_limit' do
     it 'should not save if a classroom has too many existing coteacher invitations already' do
+      # Stub the limit to 1 so that we don't have to create 50 test records just to test this
       stub_const("CoteacherClassroomInvitations::MAX_COTEACHER_INVITATIONS_PER_CLASS", 1)
       max_invites = CoteacherClassroomInvitation::MAX_COTEACHER_INVITATIONS_PER_CLASS
       max_invites.times {
