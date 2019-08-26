@@ -14,7 +14,6 @@ jobs:
           POSTGRES_USER: ubuntu
           POSTGRES_DB: quill_test_db
           POSTGRES_PASSWORD: ""
-    parallelism: 2
     steps:
       - checkout
       - restore_cache:
@@ -65,8 +64,7 @@ jobs:
           name: Run tests
           command: |
             cd services/QuillLMS
-            TESTFILES=$(circleci tests glob "spec/**/*_spec.rb")
-            bundle exec rspec $TESTFILES
+            bundle exec rspec
   lms_node_build:
     working_directory: ~/Empirical-Core
     docker:
