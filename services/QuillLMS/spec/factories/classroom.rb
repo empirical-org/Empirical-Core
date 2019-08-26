@@ -33,9 +33,9 @@ FactoryBot.define do
       end
     end
 
-    factory :classroom_with_35_classroom_units do
+    factory :classroom_with_3_classroom_units do
       after(:create) do |classroom|
-        create_list(:classroom_unit_with_activity_sessions, 35, classroom: classroom)
+        create_list(:classroom_unit_with_activity_sessions, 3, classroom: classroom)
       end
     end
 

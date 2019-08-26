@@ -1,4 +1,6 @@
 class Dashboard
+  SUFFICIENT_DATA_AMOUNT = 30
+  RESULT_LIMITS = 5
 
   def self.queries(user)
     get_redis_values(user)
@@ -10,7 +12,7 @@ class Dashboard
         strug_stud = 'insufficient data'
         diff_con = 'insufficient data'
       end
-      if completed_count >= 30
+      if completed_count >= SUFFICIENT_DATA_AMOUNT
         user_id = user.id
         diff_con ||= self.difficult_concepts(user_id)
         strug_stud ||= self.lowest_performing_students(user_id)
@@ -41,7 +43,7 @@ class Dashboard
         #{self.body_of_sql_search(user_id)}
         GROUP BY students.id
         ORDER BY score
-        LIMIT 5").to_a
+        LIMIT #{RESULT_LIMITS}").to_a
   end
 
   def self.body_of_sql_search(user_id)
@@ -72,7 +74,7 @@ class Dashboard
     WHERE classrooms_teachers.user_id = #{user_id} AND acts.percentage IS NOT null AND acts.visible IS true AND #{self.completed_since_sql}
     GROUP BY concepts.id
     ORDER BY non_zero DESC, score
-    LIMIT 5").to_a
+    LIMIT #{RESULT_LIMITS}").to_a
   end
 
 
