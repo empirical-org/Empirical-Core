@@ -15,14 +15,14 @@ shared_examples "a simple api request" do
   let(:lwc_model_name) {controller.controller_name.classify.underscore}
 
   before do
-    create_list(lwc_model_name.to_sym, 10)
+    create_list(lwc_model_name.to_sym, 3)
     get :index
   end
 
   it 'sends a list' do
     expect(response).to be_success
     json = JSON.parse(response.body)
-    expect(json[lwc_model_name.pluralize].length).to eq(10)
+    expect(json[lwc_model_name.pluralize].length).to eq(3)
   end
 
   it 'includes only uid and name' do
