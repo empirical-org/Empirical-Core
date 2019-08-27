@@ -156,7 +156,8 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
     }
   }
 
-  actionsForIndividualStudent() {
+  actionsForIndividualStudent(student) {
+    const { google_id, clever_id, } = student
     const { classrooms, isOwnedByCurrentUser, } = this.props
     const {
       editAccount,
@@ -165,7 +166,9 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
       moveClass,
       removeFromClass
     } = this.individualStudentActions()
-    if (classrooms.length > 1 && isOwnedByCurrentUser) {
+    if (google_id || clever_id) {
+      return [ removeFromClass ]
+    } else if (classrooms.length > 1 && isOwnedByCurrentUser) {
       return [ editAccount, resetPassword, mergeAccounts, moveClass, removeFromClass ]
     } else if (isOwnedByCurrentUser) {
       return [ editAccount, resetPassword, mergeAccounts, removeFromClass ]
@@ -188,9 +191,8 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
 
   checkAllRows() {
     const { classroom } = this.props
-    const studentsWithoutCleverOrGoogleIds = classroom.students.filter(student => !student.google_id && !student.clever_id)
-    const newSelectedStudentIds = studentsWithoutCleverOrGoogleIds.map(student => student.id)
-    this.setState({ selectedStudentIds: newSelectedStudentIds })
+    const selectedStudentIds = classroom.students.map(student => student.id)
+    this.setState({ selectedStudentIds })
   }
 
   uncheckAllRows() {
@@ -309,8 +311,13 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
   }
 
   optionsForStudentActions() {
-    const { classrooms, isOwnedByCurrentUser, } = this.props
+    const { classrooms, isOwnedByCurrentUser, classroom, } = this.props
     const { selectedStudentIds } = this.state
+
+    const anySelectedStudentsAreGoogleOrClever = selectedStudentIds.some(id => {
+      const student = classroom.students.find(s => s.id === id)
+      return student.google_id || student.clever_id
+    })
 
     const {
       editAccount,
@@ -320,7 +327,9 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
       removeFromClass
     } = this.dropdownActions()
 
-    if (classrooms.length > 1 && isOwnedByCurrentUser) {
+    if (anySelectedStudentsAreGoogleOrClever) {
+      return [ removeFromClass ]
+    } else if (classrooms.length > 1 && isOwnedByCurrentUser) {
       if (selectedStudentIds.length === 1) {
         return [ editAccount, resetPassword, mergeAccounts, moveClass, removeFromClass ]
       } else if (selectedStudentIds.length === 2) {
@@ -393,15 +402,13 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
       let synced = ''
       if (google_id) { synced = 'Google Classroom'}
       if (clever_id) { synced = 'Clever' }
-      const independent = !google_id && !clever_id
       return {
         synced,
         name,
         id,
         username,
         checked,
-        checkDisabled: !independent,
-        actions: classroom.visible && independent ? this.actionsForIndividualStudent() : null
+        actions: classroom.visible ? this.actionsForIndividualStudent(student) : null
       }
     })
 
