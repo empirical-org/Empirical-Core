@@ -355,13 +355,13 @@ workflows:
     # This makes sure the longest 2 tests run parallel to start and the other long ones follow after
     jobs:
       - lms_rails_build
-      - lms_node_build
-      - connect_node_build:
+      - connect_node_build
+      - lms_node_build:
           requires:
-            - lms_node_build
+            - connect_node_build
       - marking_logic_node_build:
           requires:
-            - lms_node_build
+            - connect_node_build
       - diagnostic_node_build:
           requires:
             - lms_rails_build
