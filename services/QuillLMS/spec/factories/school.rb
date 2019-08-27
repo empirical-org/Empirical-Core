@@ -35,7 +35,7 @@ FactoryBot.define do
 
     factory :school_with_three_teachers do
       after(:create) do |school|
-        activities = create_list(:schools_users, 3, school: school)
+        activities = create_list(:schools_users, 2, school: school)
       end
     end
   end
