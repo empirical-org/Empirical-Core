@@ -219,7 +219,7 @@ class User < ActiveRecord::Base
   # gets last four digits of Stripe card
   def last_four
     if self.stripe_customer_id
-      Stripe::Customer.retrieve(self.stripe_customer_id).sources.data.first.last4
+      Stripe::Customer.retrieve(self.stripe_customer_id).sources.data.first&.last4
     end
   end
 

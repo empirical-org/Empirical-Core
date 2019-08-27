@@ -27,7 +27,7 @@ class GoogleIntegration::RefreshAccessToken
     if response.code == 200
       store_credentials(response)
     else
-      false
+      nil
     end
   end
 
@@ -38,7 +38,7 @@ class GoogleIntegration::RefreshAccessToken
     if current_credentials.update(attributes)
       current_credentials.reload
     else
-      false
+      nil
     end
   end
 

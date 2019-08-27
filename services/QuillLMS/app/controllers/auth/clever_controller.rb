@@ -19,7 +19,7 @@ class Auth::CleverController < ApplicationController
       end
     end
     result = CleverIntegration::SignUp::Main.run(auth_hash)
-    send(result[:type], result[:data])
+    send(result[:type], result[:data], result[:redirect])
   end
 
   private
@@ -44,8 +44,8 @@ class Auth::CleverController < ApplicationController
     end
   end
 
-  def user_failure(data)
+  def user_failure(data, redirect='/clever/no_classroom')
     flash[:notice] = data || "error"
-    redirect_to '/clever/no_classroom'
+    redirect_to redirect
   end
 end

@@ -27,7 +27,7 @@ class Teachers::UnitsController < ApplicationController
   end
 
   def last_assigned_unit_id
-    response = {id: Unit.where(user: current_user).last.id}
+    response = { id: Unit.where(user: current_user).last&.id }
     response = response.merge({ referral_code: current_user.referral_code }) if current_user && current_user.teacher?
     render json: response.to_json
   end
