@@ -559,10 +559,10 @@ end
 
   context "when completed scope" do
   	describe ".completed" do
-  		before { create_list(:activity_session, 5) }
+  		before { create_list(:activity_session, 3) }
 
   		it "must locate all the completed items" do
-  			expect(ActivitySession.completed.count).to eq 5
+  			expect(ActivitySession.completed.count).to eq 3
   		end
 
   		it "completed_at must be present" do
@@ -585,10 +585,10 @@ end
 
   context "when incompleted scope" do
   	describe ".incomplete" do
-  		before { create_list(:activity_session, 3, :unstarted) }
+  		before { create_list(:activity_session, 2, :unstarted) }
 
   		it "must locate all the incompleted items" do
-  			expect(ActivitySession.incomplete.count).to eq 3
+  			expect(ActivitySession.incomplete.count).to eq 2
   		end
 
   		it "completed_at must be nil" do
