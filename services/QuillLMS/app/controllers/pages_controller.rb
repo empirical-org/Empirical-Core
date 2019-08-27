@@ -29,6 +29,7 @@ class PagesController < ApplicationController
     if check_should_clear_segment_identity
       set_just_logged_out_flag
     end
+    self.formats = ['html']
   end
 
   def develop
