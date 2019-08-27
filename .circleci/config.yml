@@ -350,6 +350,9 @@ jobs:
 workflows:
   version: 2
   build-test:
+    # Note that ordering in these tests is optimized to 2 workers in CircleCI.
+    # If we add more workers, we'd need to adjust this order/logic.
+    # This makes sure the longest 2 tests run parallel to start and the other long ones follow after
     jobs:
       - lms_rails_build
       - lms_node_build
