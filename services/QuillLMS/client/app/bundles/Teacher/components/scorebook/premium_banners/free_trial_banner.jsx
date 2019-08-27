@@ -10,7 +10,7 @@ export default React.createClass({
   },
 
   beginTrial() {
-    requestPost('/subscriptions', { subscription: { account_type: 'trial', }, }, () => {
+    requestPost('/subscriptions', { subscription: { account_type: 'Teacher Trial', }, }, () => {
       this.setState({ trialStarted: true, })
     })
   },
