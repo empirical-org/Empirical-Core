@@ -386,8 +386,8 @@ describe User, type: :model do
         second_classroom = teacher.classrooms_i_teach.second
 
         # Make some classroom_units for these classrooms
-        first_classroom_cas = create_list(:classroom_unit_with_activity_sessions, 5, classroom: first_classroom)
-        second_classroom_cas = create_list(:classroom_unit_with_activity_sessions, 3, classroom: second_classroom)
+        first_classroom_cas = create_list(:classroom_unit_with_activity_sessions, 3, classroom: first_classroom)
+        second_classroom_cas = create_list(:classroom_unit_with_activity_sessions, 2, classroom: second_classroom)
 
         # Make some stuff not visible to ensure we're not returning it in the query.
         first_classroom.activity_sessions.sample.update(visible: false)

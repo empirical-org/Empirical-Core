@@ -24,24 +24,24 @@ FactoryBot.define do
     end
 
     factory :classroom_with_students_and_activities do
-      students { create_list(:student_with_many_activities, 5) }
+      students { create_list(:student_with_many_activities, 2) }
     end
 
     factory :classroom_with_classroom_units do
       after(:create) do |classroom|
-        create_list(:classroom_unit_with_activity_sessions, 5, classroom: classroom)
+        create_list(:classroom_unit_with_activity_sessions, 2, classroom: classroom)
       end
     end
 
-    factory :classroom_with_35_classroom_units do
+    factory :classroom_with_3_classroom_units do
       after(:create) do |classroom|
-        create_list(:classroom_unit_with_activity_sessions, 35, classroom: classroom)
+        create_list(:classroom_unit_with_activity_sessions, 3, classroom: classroom)
       end
     end
 
     factory :classroom_with_lesson_classroom_units do
        after(:create) do |classroom|
-         create_list(:lesson_classroom_unit_with_activity_sessions, 5, classroom: classroom)
+         create_list(:lesson_classroom_unit_with_activity_sessions, 2, classroom: classroom)
        end
      end
 
