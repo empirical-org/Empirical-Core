@@ -1,7 +1,7 @@
 require_relative '../teachers'
 
 module Teachers
-  class ClassManagerPage < Page
+  class ClassManagerPage < ::Page
     def self.path
       Teachers.classrooms_path
     end
