@@ -1,4 +1,5 @@
 require_relative '../teachers'
+require_relative '../../page'
 
 module Teachers
   class ClassManagerPage < ::Page
