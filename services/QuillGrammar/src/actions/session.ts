@@ -159,6 +159,14 @@ export const checkAnswer = (response: string, question: Question, responses: Res
   }
 }
 
+export const removeGrammarSession = (sessionId: string) => {
+  sessionsRef.child(sessionId).remove()
+}
+
+export const removeProofreaderSession = (sessionId: string) => {
+  proofreaderSessionsRef.child(sessionId).remove()
+}
+
 export const goToNextQuestion = () => {
   return dispatch => {
     dispatch({ type: ActionTypes.GO_T0_NEXT_QUESTION })

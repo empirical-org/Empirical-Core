@@ -14,7 +14,9 @@ import {
   checkAnswer,
   setSessionReducerToSavedSession,
   startListeningToFollowUpQuestionsForProofreaderSession,
-  setSessionPending
+  setSessionPending,
+  removeGrammarSession,
+  removeProofreaderSession
 } from "../../actions/session";
 import { startListeningToConceptsFeedback } from '../../actions/conceptsFeedback'
 import { startListeningToConcepts } from '../../actions/concepts'
@@ -160,6 +162,13 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
         },
         (err, httpResponse, body) => {
           if (httpResponse && httpResponse.statusCode === 200) {
+            const sessionID = getParameterByName('student', window.location.href)
+            const proofreaderSessionId = getParameterByName('proofreaderSessionId', window.location.href)
+            if (proofreaderSessionId) {
+              removeProofreaderSession(proofreaderSessionId)
+            } else if (sessionID) {
+              removeGrammarSession(sessionID)
+            }
             document.location.href = `${process.env.EMPIRICAL_BASE_URL}/activity_sessions/${body.activity_session.uid}`;
             this.setState({ saved: true, });
           } else {
@@ -186,6 +195,13 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
         },
         (err, httpResponse, body) => {
           if (httpResponse.statusCode === 200) {
+            const sessionID = getParameterByName('student', window.location.href)
+            const proofreaderSessionId = getParameterByName('proofreaderSessionId', window.location.href)
+            if (proofreaderSessionId) {
+              removeProofreaderSession(proofreaderSessionId)
+            } else if (sessionID) {
+              removeGrammarSession(sessionID)
+            }
             if (!this.state.showTurkCode) {
               document.location.href = `${process.env.EMPIRICAL_BASE_URL}/activity_sessions/${body.activity_session.uid}`;
             }
