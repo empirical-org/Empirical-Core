@@ -1,12 +1,14 @@
 require 'rails_helper'
 
-describe 'Dashboard', redis: :true do
-  let(:classroom_with_sufficient_data) {create(:classroom_with_35_classroom_units)}
+describe Dashboard, redis: :true do
+  let(:classroom_with_sufficient_data) {create(:classroom_with_3_classroom_units)}
   let(:teacher_with_sufficient_data) {classroom_with_sufficient_data.owner}
   let(:classroom_with_no_activities) {create(:classroom)}
   let(:teacher_with_no_activities) {classroom_with_no_activities.owner}
 
   before(:each) do
+    stub_const("Dashboard::SUFFICIENT_DATA_AMOUNT", 3)
+    stub_const("Dashboard::RESULT_LIMITS", 2)
     $redis.redis.flushdb
   end
 
@@ -20,7 +22,7 @@ describe 'Dashboard', redis: :true do
   context 'when there are more than 30 completed activities' do
     it "returns the 5 students" do
       results = Dashboard.queries(teacher_with_sufficient_data)
-      expect(results.map{|x| x[:results].length}.uniq).to eq( [5])
+      expect(results.map{|x| x[:results].length}.uniq).to eq( [Dashboard::RESULT_LIMITS])
     end
 
     it "returns the lowest scoring student" do

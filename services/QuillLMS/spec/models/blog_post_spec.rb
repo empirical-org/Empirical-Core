@@ -81,7 +81,7 @@ describe BlogPost, type: :model do
 
   describe '#average_rating' do
     let(:blog_post) { create(:blog_post) }
-    let(:blog_post_ratings) { create_list(:blog_post_user_rating, 5, blog_post: blog_post) }
+    let(:blog_post_ratings) { create_list(:blog_post_user_rating, 3, blog_post: blog_post) }
 
     it 'should calculate the average' do
       expected_average = (blog_post_ratings.map(&:rating).sum / blog_post_ratings.size).round(2)

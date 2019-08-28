@@ -1,20 +1,22 @@
 import React from 'react';
-import $ from 'jquery';
 import NewSignUpBanner from './new_signup_banner.jsx';
+import { requestPost } from '../../../../../modules/request/index.js';
+
 
 export default React.createClass({
 
   getInitialState() {
-    return { trial_started: false, };
+    return { trialStarted: false, };
   },
 
   beginTrial() {
-    $.post('/subscriptions', { subscription: { account_type: 'trial', }, })
-    .success(this.setState({ trial_started: true, }));
+    requestPost('/subscriptions', { subscription: { account_type: 'Teacher Trial', }, }, () => {
+      this.setState({ trialStarted: true, })
+    })
   },
 
   render() {
-    if (this.state.trial_started) {
+    if (this.state.trialStarted) {
       return (<NewSignUpBanner status={'trial'} />);
     }
     return (
