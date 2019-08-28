@@ -1,11 +1,12 @@
 import React from 'react';
-import $ from 'jquery';
+import { requestPost } from '../../../../modules/request/index.js';
 
 export default React.createClass({
 
   beginTrial() {
-    $.post('/subscriptions', { subscription: { account_type: 'Teacher Trial', }, })
-      .success(() => { window.location.assign('/teachers/progress_reports/activities_scores_by_classroom'); });
+    requestPost('/subscriptions', { subscription: { account_type: 'Teacher Trial', }, }, () => {
+      window.location.assign('/teachers/progress_reports/activities_scores_by_classroom')
+    })
   },
 
   miniBuilder() {
