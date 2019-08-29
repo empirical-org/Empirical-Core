@@ -56,10 +56,12 @@ export const setSessionReducerToSavedSession = (sessionID: string) => {
 }
 
 export const startListeningToFollowUpQuestionsForProofreaderSession = (proofreaderSessionID: string) => {
-  return dispatch => {
-    proofreaderSessionsRef.child(proofreaderSessionID).once('value', (snapshot) => {
+  return (dispatch, getState) => {
+    // we're turning this into a listener rather than a .once call in case the write action from proofreader is slower than the time it takes to get here
+    proofreaderSessionsRef.child(proofreaderSessionID).on('value', (snapshot) => {
       const proofreaderSession = snapshot.val()
-      if (proofreaderSession) {
+      // but we don't want to overwrite anything if there's already a proofreader session saved to the state here
+      if (proofreaderSession && proofreaderSession.conceptResults && !getState().session.proofreaderSession) {
         const concepts: { [key: string]: { quantity: 1|2|3 } } = {}
         const incorrectConcepts = proofreaderSession.conceptResults.filter(cr => cr.metadata.correct === 0)
         let quantity = 3
@@ -75,6 +77,7 @@ export const startListeningToFollowUpQuestionsForProofreaderSession = (proofread
         })
         dispatch(saveProofreaderSessionToReducer(proofreaderSession))
         dispatch(getQuestionsForConcepts(concepts, 'production'))
+        proofreaderSessionsRef.child(proofreaderSessionID).off()
       }
     })
   }
