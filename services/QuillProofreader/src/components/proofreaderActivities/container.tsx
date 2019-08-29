@@ -51,7 +51,11 @@ interface PlayProofreaderContainerState {
   conceptResultsObjects?: ConceptResultObject[];
 }
 
+const FIREBASE_SAVE_INTERVAL = 5000 // 5 seconds
+
 export class PlayProofreaderContainer extends React.Component<PlayProofreaderContainerProps, PlayProofreaderContainerState> {
+    private interval: any
+
     constructor(props: any) {
       super(props);
 
@@ -80,6 +84,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       this.closeResetModal = this.closeResetModal.bind(this)
       this.reset = this.reset.bind(this)
       this.finishReset = this.finishReset.bind(this)
+      this.saveSessionToFirebase = this.saveSessionToFirebase.bind(this)
     }
 
     componentWillMount() {
@@ -90,12 +95,20 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
 
       if (sessionID) {
         this.props.dispatch(setSessionReducerToSavedSession(sessionID))
+        this.interval = setInterval(() => {
+          this.saveSessionToFirebase(sessionID)
+        }, FIREBASE_SAVE_INTERVAL)
       }
 
       if (activityUID) {
         this.props.dispatch(getActivity(activityUID))
       }
+    }
 
+    componentWillUnmount() {
+      if (this.interval) {
+        clearInterval(this.interval)
+      }
     }
 
     componentWillReceiveProps(nextProps: PlayProofreaderContainerProps) {
@@ -114,6 +127,14 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
           currentPassage = nextProps.session.passageFromFirebase
         }
         this.setState({ passage: currentPassage, originalPassage: _.cloneDeep(formattedPassage), necessaryEdits: initialPassageData.necessaryEdits, edits: this.editCount(currentPassage) })
+      }
+    }
+
+    saveSessionToFirebase(sessionID: string) {
+      const { passage } = this.state
+      const { passageFromFirebase } = this.props.session
+      if (!_.isEqual(passage, passageFromFirebase)) {
+        this.props.dispatch(updateSessionOnFirebase(sessionID, passage))
       }
     }
 
@@ -339,11 +360,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       let newParagraphs = this.state.passage
       if (newParagraphs) {
         newParagraphs[i] = value
-        const sessionID = getParameterByName('student', window.location.href)
-        this.setState(
-          { passage: newParagraphs, edits: this.editCount(newParagraphs), },
-          () => sessionID ? updateSessionOnFirebase(sessionID, this.state.passage) : null
-        )
+        this.setState({ passage: newParagraphs, edits: this.editCount(newParagraphs), })
       }
     }
 
@@ -373,13 +390,12 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
     }
 
     reset() {
-      const sessionID = getParameterByName('student', window.location.href)
       this.setState({
         passage: _.cloneDeep(this.state.originalPassage),
         edits: 0,
         resetting: true,
         showResetModal: false
-      }, () => sessionID ? updateSessionOnFirebase(sessionID, this.state.passage) : null)
+      })
     }
 
     finishReset() {
