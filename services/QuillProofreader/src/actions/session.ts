@@ -5,8 +5,8 @@ import { ConceptResultObject, WordObject } from '../interfaces/proofreaderActivi
 
 export const updateSessionOnFirebase = (sessionID: string, passage: Array<Array<WordObject>>|undefined) => {
   return (dispatch: Function) => {
-    sessionsRef.child(sessionID).set(
-      { passage },
+    sessionsRef.child(`${sessionID}/passage`).set(
+      passage,
       () => dispatch(setSessionReducerToSavedSession(sessionID))
     )
   }
