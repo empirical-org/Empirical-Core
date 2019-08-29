@@ -46,7 +46,7 @@
     "fs": "0.0.1-security",
     "immutable": "^3.8.2",
     "jsdiff": "^1.1.1",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.15",
     "net": "^1.0.2",
     "node-sass": "^4.12.0",
     "quill-component-library": "^0.1.22",
