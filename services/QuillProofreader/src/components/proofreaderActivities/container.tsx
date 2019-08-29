@@ -14,7 +14,8 @@ import { startListeningToConcepts } from "../../actions/concepts";
 import {
   updateConceptResultsOnFirebase,
   updateSessionOnFirebase,
-  setSessionReducerToSavedSession
+  setSessionReducerToSavedSession,
+  removeSession
 } from "../../actions/session";
 // import { getConceptResultsForAllQuestions, calculateScoreForLesson } from '../../helpers/conceptResultsGenerator'
 import { SessionState } from '../../reducers/sessionReducer'
@@ -179,14 +180,14 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
     saveToLMS() {
       const results: ConceptResultObject[]|undefined = this.state.conceptResultsObjects;
       if (results) {
-      const score = this.calculateScoreForLesson();
-      const activityUID = getParameterByName('uid', window.location.href)
-      const sessionID = getParameterByName('student', window.location.href)
-      if (sessionID) {
-        this.finishActivitySession(sessionID, results, score);
-      } else if (activityUID) {
-        this.createAnonActivitySession(activityUID, results, score);
-      }
+        const score = this.calculateScoreForLesson();
+        const activityUID = getParameterByName('uid', window.location.href)
+        const sessionID = getParameterByName('student', window.location.href)
+        if (sessionID) {
+          this.finishActivitySession(sessionID, results, score);
+        } else if (activityUID) {
+          this.createAnonActivitySession(activityUID, results, score);
+        }
       }
     }
 
@@ -212,6 +213,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
         },
         (err, httpResponse, body) => {
           if (httpResponse && httpResponse.statusCode === 200) {
+            removeSession(sessionID)
             document.location.href = `${process.env.EMPIRICAL_BASE_URL}/activity_sessions/${sessionID}`;
           }
         }
