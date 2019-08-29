@@ -34,3 +34,7 @@ export const setSessionReducer = (passage: string) => {
     dispatch({ type: ActionTypes.SET_FIREBASE_PASSAGE, passage})
   }
 }
+
+export const removeSession = (sessionId: string) => {
+  sessionsRef.child(sessionId).remove()
+}
