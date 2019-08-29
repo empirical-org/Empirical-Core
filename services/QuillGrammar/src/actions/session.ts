@@ -77,6 +77,7 @@ export const startListeningToFollowUpQuestionsForProofreaderSession = (proofread
         })
         dispatch(saveProofreaderSessionToReducer(proofreaderSession))
         dispatch(getQuestionsForConcepts(concepts, 'production'))
+        proofreaderSessionsRef.child(proofreaderSessionID).off()
       }
     })
   }
