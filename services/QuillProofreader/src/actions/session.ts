@@ -4,7 +4,12 @@ const sessionsRef = rootRef.child('proofreaderSessions')
 import { ConceptResultObject, WordObject } from '../interfaces/proofreaderActivities'
 
 export const updateSessionOnFirebase = (sessionID: string, passage: Array<Array<WordObject>>|undefined) => {
-  sessionsRef.child(sessionID).set({ passage })
+  return (dispatch: Function) => {
+    sessionsRef.child(`${sessionID}/passage`).set(
+      passage,
+      () => dispatch(setSessionReducerToSavedSession(sessionID))
+    )
+  }
 }
 
 export const updateConceptResultsOnFirebase = (sessionID: string|null, activityUID: string, conceptResults: ConceptResultObject[]) => {
