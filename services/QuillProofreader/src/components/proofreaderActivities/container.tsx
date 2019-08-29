@@ -54,6 +54,8 @@ interface PlayProofreaderContainerState {
 const FIREBASE_SAVE_INTERVAL = 5000 // 5 seconds
 
 export class PlayProofreaderContainer extends React.Component<PlayProofreaderContainerProps, PlayProofreaderContainerState> {
+    private interval: any
+
     constructor(props: any) {
       super(props);
 
@@ -93,13 +95,19 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
 
       if (sessionID) {
         this.props.dispatch(setSessionReducerToSavedSession(sessionID))
-        setInterval(() => {
+        this.interval = setInterval(() => {
           this.saveSessionToFirebase(sessionID)
         }, FIREBASE_SAVE_INTERVAL)
       }
 
       if (activityUID) {
         this.props.dispatch(getActivity(activityUID))
+      }
+    }
+
+    componentWillUnmount() {
+      if (this.interval) {
+        clearInterval(this.interval)
       }
     }
 
