@@ -14,7 +14,9 @@ import {
   checkAnswer,
   setSessionReducerToSavedSession,
   startListeningToFollowUpQuestionsForProofreaderSession,
-  setSessionPending
+  setSessionPending,
+  removeGrammarSession,
+  removeProofreaderSession
 } from "../../actions/session";
 import { startListeningToConceptsFeedback } from '../../actions/conceptsFeedback'
 import { startListeningToConcepts } from '../../actions/concepts'
@@ -53,6 +55,7 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
       this.saveToLMS = this.saveToLMS.bind(this)
       this.finishActivitySession = this.finishActivitySession.bind(this)
       this.createAnonActivitySession = this.createAnonActivitySession.bind(this)
+      this.removeSession = this.removeSession.bind(this)
       this.checkAnswer = this.checkAnswer.bind(this)
     }
 
@@ -147,6 +150,16 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
       }
     }
 
+    removeSession() {
+      const sessionID = getParameterByName('student', window.location.href)
+      const proofreaderSessionId = getParameterByName('proofreaderSessionId', window.location.href)
+      if (proofreaderSessionId) {
+        removeProofreaderSession(proofreaderSessionId)
+      } else if (sessionID) {
+        removeGrammarSession(sessionID)
+      }
+    }
+
     finishActivitySession(sessionID: string, results: FormattedConceptResult[], score: number) {
       request(
         { url: `${process.env.EMPIRICAL_BASE_URL}/api/v1/activity_sessions/${sessionID}`,
@@ -160,6 +173,7 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
         },
         (err, httpResponse, body) => {
           if (httpResponse && httpResponse.statusCode === 200) {
+            this.removeSession()
             document.location.href = `${process.env.EMPIRICAL_BASE_URL}/activity_sessions/${body.activity_session.uid}`;
             this.setState({ saved: true, });
           } else {
@@ -186,6 +200,7 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
         },
         (err, httpResponse, body) => {
           if (httpResponse.statusCode === 200) {
+            this.removeSession()
             if (!this.state.showTurkCode) {
               document.location.href = `${process.env.EMPIRICAL_BASE_URL}/activity_sessions/${body.activity_session.uid}`;
             }
