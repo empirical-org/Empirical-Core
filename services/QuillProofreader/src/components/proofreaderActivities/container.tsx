@@ -142,9 +142,8 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
     }
 
     saveCompletedSessionToFirebase() {
-      const { firebaseSessionID } = this.state
+      const { firebaseSessionID, conceptResultsObjects, } = this.state
       const activityUID = getParameterByName('uid', window.location.href)
-      const { conceptResultsObjects } = this.state
       const newOrSetFirebaseSessionID = updateConceptResultsOnFirebase(firebaseSessionID, activityUID, conceptResultsObjects)
       this.setState({ firebaseSessionID: newOrSetFirebaseSessionID })
     }
@@ -211,12 +210,13 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
 
     saveToLMS() {
       const { firebaseSessionID } = this.state
+      const sessionID = getParameterByName('student', window.location.href)
       const results: ConceptResultObject[]|undefined = this.state.conceptResultsObjects;
       if (results) {
         const score = this.calculateScoreForLesson();
         const activityUID = getParameterByName('uid', window.location.href)
-        if (firebaseSessionID) {
-          this.finishActivitySession(firebaseSessionID, results, score);
+        if (sessionID) {
+          this.finishActivitySession(sessionID, results, score);
         } else if (activityUID) {
           this.createAnonActivitySession(activityUID, results, score, firebaseSessionID);
         }
@@ -252,7 +252,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       );
     }
 
-    createAnonActivitySession(lessonID: string, results: ConceptResultObject[], score: number, sessionID: string) {
+    createAnonActivitySession(lessonID: string, results: ConceptResultObject[], score: number, sessionID: string|null) {
       request(
         { url: `${process.env.EMPIRICAL_BASE_URL}/api/v1/activity_sessions/`,
           method: 'POST',
@@ -266,7 +266,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
         },
         (err, httpResponse, body) => {
           if (httpResponse.statusCode === 200) {
-            removeSession(sessionID)
+            if (sessionID) { removeSession(sessionID) }
             document.location.href = `${process.env.EMPIRICAL_BASE_URL}/activity_sessions/${body.activity_session.uid}`;
           }
         }
