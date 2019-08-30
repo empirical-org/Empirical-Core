@@ -52,7 +52,7 @@ interface PlayProofreaderContainerState {
   conceptResultsObjects?: ConceptResultObject[];
 }
 
-const FIREBASE_SAVE_INTERVAL = 15000 // 15 seconds
+const FIREBASE_SAVE_INTERVAL = 30000 // 30 seconds
 
 export class PlayProofreaderContainer extends React.Component<PlayProofreaderContainerProps, PlayProofreaderContainerState> {
     private interval: any
