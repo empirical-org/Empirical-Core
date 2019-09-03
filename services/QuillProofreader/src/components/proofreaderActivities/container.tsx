@@ -44,6 +44,7 @@ interface PlayProofreaderContainerState {
   showEarlySubmitModal: boolean;
   showReviewModal: boolean;
   showResetModal: boolean;
+  firebaseSessionID: string|null;
   necessaryEdits?: RegExpMatchArray|null;
   numberOfCorrectChanges?: number;
   originalPassage?: Array<Array<WordObject>>;
@@ -51,7 +52,7 @@ interface PlayProofreaderContainerState {
   conceptResultsObjects?: ConceptResultObject[];
 }
 
-const FIREBASE_SAVE_INTERVAL = 5000 // 5 seconds
+const FIREBASE_SAVE_INTERVAL = 30000 // 30 seconds
 
 export class PlayProofreaderContainer extends React.Component<PlayProofreaderContainerProps, PlayProofreaderContainerState> {
     private interval: any
@@ -65,7 +66,8 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
         showEarlySubmitModal: false,
         showReviewModal: false,
         showResetModal: false,
-        resetting: false
+        resetting: false,
+        firebaseSessionID: getParameterByName('student', window.location.href)
       }
 
       this.saveToLMS = this.saveToLMS.bind(this)
@@ -84,19 +86,20 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       this.closeResetModal = this.closeResetModal.bind(this)
       this.reset = this.reset.bind(this)
       this.finishReset = this.finishReset.bind(this)
-      this.saveSessionToFirebase = this.saveSessionToFirebase.bind(this)
+      this.saveEditedSessionToFirebase = this.saveEditedSessionToFirebase.bind(this)
+      this.saveCompletedSessionToFirebase = this.saveCompletedSessionToFirebase.bind(this)
     }
 
     componentWillMount() {
+      const { firebaseSessionID, } = this.state
       const activityUID = getParameterByName('uid', window.location.href) || this.props.activityUID
-      const sessionID = getParameterByName('student', window.location.href)
 
       this.props.dispatch(startListeningToConcepts())
 
-      if (sessionID) {
-        this.props.dispatch(setSessionReducerToSavedSession(sessionID))
+      if (firebaseSessionID) {
+        this.props.dispatch(setSessionReducerToSavedSession(firebaseSessionID))
         this.interval = setInterval(() => {
-          this.saveSessionToFirebase(sessionID)
+          this.saveEditedSessionToFirebase(firebaseSessionID)
         }, FIREBASE_SAVE_INTERVAL)
       }
 
@@ -130,12 +133,19 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       }
     }
 
-    saveSessionToFirebase(sessionID: string) {
+    saveEditedSessionToFirebase(sessionID: string) {
       const { passage } = this.state
       const { passageFromFirebase } = this.props.session
       if (!_.isEqual(passage, passageFromFirebase)) {
         this.props.dispatch(updateSessionOnFirebase(sessionID, passage))
       }
+    }
+
+    saveCompletedSessionToFirebase() {
+      const { firebaseSessionID, conceptResultsObjects, } = this.state
+      const activityUID = getParameterByName('uid', window.location.href)
+      const newOrSetFirebaseSessionID = updateConceptResultsOnFirebase(firebaseSessionID, activityUID, conceptResultsObjects)
+      this.setState({ firebaseSessionID: newOrSetFirebaseSessionID })
     }
 
     defaultInstructions() {
@@ -199,15 +209,16 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
     }
 
     saveToLMS() {
+      const { firebaseSessionID } = this.state
+      const sessionID = getParameterByName('student', window.location.href)
       const results: ConceptResultObject[]|undefined = this.state.conceptResultsObjects;
       if (results) {
         const score = this.calculateScoreForLesson();
         const activityUID = getParameterByName('uid', window.location.href)
-        const sessionID = getParameterByName('student', window.location.href)
         if (sessionID) {
           this.finishActivitySession(sessionID, results, score);
         } else if (activityUID) {
-          this.createAnonActivitySession(activityUID, results, score);
+          this.createAnonActivitySession(activityUID, results, score, firebaseSessionID);
         }
       }
     }
@@ -241,7 +252,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       );
     }
 
-    createAnonActivitySession(lessonID: string, results: ConceptResultObject[], score: number) {
+    createAnonActivitySession(lessonID: string, results: ConceptResultObject[], score: number, sessionID: string|null) {
       request(
         { url: `${process.env.EMPIRICAL_BASE_URL}/api/v1/activity_sessions/`,
           method: 'POST',
@@ -255,6 +266,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
         },
         (err, httpResponse, body) => {
           if (httpResponse.statusCode === 200) {
+            if (sessionID) { removeSession(sessionID) }
             document.location.href = `${process.env.EMPIRICAL_BASE_URL}/activity_sessions/${body.activity_session.uid}`;
           }
         }
@@ -327,13 +339,13 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
         this.setState({showEarlySubmitModal: true})
       } else {
         const { reviewablePassage, numberOfCorrectChanges, conceptResultsObjects } = this.checkWork()
-        this.setState( { reviewablePassage, showReviewModal: true, numberOfCorrectChanges, conceptResultsObjects } )
+        this.setState( { reviewablePassage, showReviewModal: true, numberOfCorrectChanges, conceptResultsObjects }, this.saveCompletedSessionToFirebase)
       }
     }
 
     finishReview() {
+      const { firebaseSessionID, } = this.state
       const activityUID = getParameterByName('uid', window.location.href)
-      const sessionID = getParameterByName('student', window.location.href)
       const { conceptResultsObjects, necessaryEdits, numberOfCorrectChanges } = this.state
       if (this.props.admin) {
         this.setState({
@@ -347,7 +359,6 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
           conceptResultsObjects: undefined
         })
       } else if (conceptResultsObjects && activityUID) {
-        const firebaseSessionID = updateConceptResultsOnFirebase(sessionID, activityUID, conceptResultsObjects)
         if (necessaryEdits && (necessaryEdits.length === numberOfCorrectChanges)) {
           this.saveToLMS()
         } else if (firebaseSessionID) {
