@@ -29,11 +29,7 @@ end
 def slice_session_keys(session_keys, slice_count)
   puts "Slicing #{session_keys.length} keys into #{slice_count} chunks..."
   chunk_size = session_keys.length / slice_count
-  session_key_slices = []
-  slice_count.times { |i|
-    session_key_slices << session_keys[(i * chunk_size), chunk_size]
-  }
-  session_key_slices
+  session_keys.each_slice(chunk_size).to_a
 end
 
 def get_deletion_url(session_key)
