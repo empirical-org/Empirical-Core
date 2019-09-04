@@ -15,6 +15,7 @@ export const updateSessionOnFirebase = (sessionID: string, passage: Array<Array<
 export const updateConceptResultsOnFirebase = (sessionID: string|null, activityUID: string, conceptResults: ConceptResultObject[]) => {
   const sessionObj = { conceptResults, activityUID, anonymous: !sessionID }
   if (sessionID) {
+    sessionObj.sessionID = sessionID;
     sessionsRef.child(sessionID).set(sessionObj)
     return sessionID
   } else {
