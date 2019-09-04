@@ -1,9 +1,11 @@
 require 'csv'
 require 'httparty'
+require 'json'
 
 THREAD_COUNT = 10
 
-GRAMMAR_SESSION_CSV_PATH = "grammar_sessions_to_delete.csv" 
+GRAMMAR_LMS_COMPLETED_SESSIONS_CSV_PATH = "grammar_LMS_finished_sessions.csv"
+
 BASE_URL = "https://quillconnect.firebaseio.com"
 GRAMMAR_SESSION_PATH = "/v3/sessions"
 
@@ -36,9 +38,26 @@ def get_deletion_url(session_key)
   "#{BASE_URL}#{GRAMMAR_SESSION_PATH}/#{session_key}.json?timeout=10s"
 end
 
+def get_grammar_session_keys
+  url = "#{BASE_URL}#{GRAMMAR_SESSION_PATH}.json?shallow=true&timeout=30"
+  puts "Retrieving undeleted Grammar session keys..."
+  response = HTTParty.get(url)
+  grammar_session_keys_object = JSON.parse(response.body)
+  grammar_session_keys_object.keys
+end
+
+def discover_grammar_sessions_left_to_delete
+  puts "Loading CSV of session keys marked for deletion from the LMS..."
+  session_ids_to_delete = CSV.read(GRAMMAR_LMS_COMPLETED_SESSIONS_CSV_PATH).flatten
+  session_ids_still_live = get_grammar_session_keys
+  puts "Finding the intersection of undeleted keys and keys marked for deletion..."
+  session_ids_to_delete & session_ids_still_live
+end
+
 def delete_sessions_from_csv()
-  puts "Reading session keys in from CSV file..."
-  all_session_keys = CSV.read(GRAMMAR_SESSION_CSV_PATH).flatten
+  puts "Figuring out which keys to delete..."
+  all_session_keys = discover_grammar_sessions_left_to_delete
+  puts "Discovered #{all_session_keys.length} keys to delete"
   multi_thread_deletions(all_session_keys, THREAD_COUNT)
 end
 
