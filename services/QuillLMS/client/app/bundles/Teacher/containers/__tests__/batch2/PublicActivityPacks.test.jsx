@@ -1,9 +1,9 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import PublicActivityPacks from '../PublicActivityPacks.jsx';
+import PublicActivityPacks from '../../PublicActivityPacks.jsx';
 
-import UnitTemplatesManager from '../../components/lesson_planner/unit_templates_manager/unit_templates_manager'
+import UnitTemplatesManager from '../../../components/lesson_planner/unit_templates_manager/unit_templates_manager'
 
 describe('PublicActivityPacks container', () => {
   //TODO: test the funkiness in getInitialState

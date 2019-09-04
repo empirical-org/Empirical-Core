@@ -1,10 +1,10 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import ResultsPage from '../ResultsPage.jsx';
+import ResultsPage from '../../ResultsPage.jsx';
 
-import ResultsIcon from '../../components/activities/results_page/results_icon.jsx'
-import StudentResultsTables from '../../components/activities/results_page/student_results_tables.jsx'
+import ResultsIcon from '../../../components/activities/results_page/results_icon.jsx'
+import StudentResultsTables from '../../../components/activities/results_page/student_results_tables.jsx'
 
 describe('ResultsPage container', () => {
 

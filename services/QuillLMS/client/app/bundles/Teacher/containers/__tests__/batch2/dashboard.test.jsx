@@ -2,12 +2,12 @@ import 'isomorphic-fetch'
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import Dashboard from '../dashboard.jsx';
+import Dashboard from '../../dashboard.jsx';
 
-import ClassOverview from '../../components/dashboard/class_overview'
-import MyClasses from '../../components/dashboard/my_classes'
-import MyResources from '../../components/dashboard/my_resources'
-import DashboardFooter from '../../components/dashboard/dashboard_footer'
+import ClassOverview from '../../../components/dashboard/class_overview'
+import MyClasses from '../../../components/dashboard/my_classes'
+import MyResources from '../../../components/dashboard/my_resources'
+import DashboardFooter from '../../../components/dashboard/dashboard_footer'
 
 describe('dashboard container', () => {
   const wrapper = shallow(

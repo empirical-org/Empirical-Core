@@ -1,9 +1,9 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import AdminsEditor from '../AdminsEditor.jsx';
+import AdminsEditor from '../../AdminsEditor.jsx';
 
-import Cms from '../Cms.jsx'
+import Cms from '../../Cms.jsx'
 
 describe('AdminsEditor container', () => {
   const wrapper = shallow(<AdminsEditor />);

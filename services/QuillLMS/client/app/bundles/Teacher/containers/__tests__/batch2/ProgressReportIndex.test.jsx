@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import ProgressReportIndex from '../ProgressReportIndex.jsx';
+import ProgressReportIndex from '../../ProgressReportIndex.jsx';
 
 it.skip('ProgressReportIndex container', () => {
 

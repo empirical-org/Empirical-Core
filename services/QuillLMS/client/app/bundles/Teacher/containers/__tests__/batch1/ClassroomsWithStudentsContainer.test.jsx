@@ -5,7 +5,7 @@ import {
 } from 'enzyme';
 import _ from 'lodash'
 
-import ClassroomsWithStudentsContainer from '../ClassroomsWithStudentsContainer';
+import ClassroomsWithStudentsContainer from '../../ClassroomsWithStudentsContainer';
 
 const props = {
     'history': {},
