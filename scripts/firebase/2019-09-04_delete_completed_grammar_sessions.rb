@@ -39,7 +39,7 @@ def get_deletion_url(session_key)
 end
 
 def get_grammar_session_keys
-  url = "#{BASE_URL}#{GRAMMAR_SESSION_PATH}.json?shallow=true&timeout=30"
+  url = "#{BASE_URL}#{GRAMMAR_SESSION_PATH}.json?shallow=true&timeout=30s"
   puts "Retrieving undeleted Grammar session keys..."
   response = HTTParty.get(url)
   grammar_session_keys_object = JSON.parse(response.body)
