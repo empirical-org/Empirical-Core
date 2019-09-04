@@ -89,7 +89,9 @@ jobs:
             cd services/QuillLMS/client
             FORCE_COLOR=true npm run jest --colors --maxWorkers=2 --logHeapUsage --detectLeaks app/reducers
             FORCE_COLOR=true npm run jest --colors --maxWorkers=2 --logHeapUsage --detectLeaks app/bundles/admin_dashboard
-            FORCE_COLOR=true npm run jest --colors --maxWorkers=2 --logHeapUsage --detectLeaks app/bundles/Teacher/containers
+            FORCE_COLOR=true npm run jest --colors --maxWorkers=2 --logHeapUsage --detectLeaks app/bundles/Teacher/containers/batch1
+            FORCE_COLOR=true npm run jest --colors --maxWorkers=2 --logHeapUsage --detectLeaks app/bundles/Teacher/containers/batch2
+            FORCE_COLOR=true npm run jest --colors --maxWorkers=2 --logHeapUsage --detectLeaks app/bundles/Teacher/containers/__snapshots__
             FORCE_COLOR=true npm run jest --colors --maxWorkers=2 --logHeapUsage --detectLeaks app/bundles/Teacher/components/accounts
             FORCE_COLOR=true npm run jest --colors --maxWorkers=2 --logHeapUsage --detectLeaks app/bundles/Teacher/components/d*
             FORCE_COLOR=true npm run jest --colors --maxWorkers=2 --logHeapUsage --detectLeaks app/bundles/Teacher/components/g*
