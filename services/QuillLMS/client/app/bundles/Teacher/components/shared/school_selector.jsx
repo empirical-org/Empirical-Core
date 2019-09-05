@@ -54,6 +54,14 @@ class SchoolSelector extends React.Component {
 
   search() {
     const { search, latitude, longitude } = this.state
+
+    const wholeSearchIsNumbersRegex = /^\d+$/
+
+    // if they're typing a zip code, don't search until the full zip code is entered
+    if (search.match(wholeSearchIsNumbersRegex) && search.length < 5) {
+      return null
+    }
+
     request({
       url: `${process.env.DEFAULT_URL}/schools`,
       qs: { search, lat: latitude, lng: longitude, },
