@@ -31,10 +31,12 @@ firebase.initializeApp(config);
 const perf = firebase.performance();
 
 const rootRef = firebase.database().ref().child('v2');
+const v4rootRef = firebase.database().ref().child('v4');
 
 export default rootRef;
 
 export {
   firebase,
-  config
+  config,
+  v4rootRef,
 };
