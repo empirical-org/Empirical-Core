@@ -1,58 +1,50 @@
-'use strict'
+import React from 'react'
+import _ from 'underscore'
+import ListFilterOption from './list_filter_option'
 
- import React from 'react'
- import _ from 'underscore'
- import ListFilterOption from './list_filter_option'
-
-
- export default  React.createClass({
-  propTypes: {
-    options: React.PropTypes.array.isRequired,
-    userLoggedIn: React.PropTypes.bool
-  },
-
-  sortViews: function (views) {
-    var order = ['All', 'Elementary', 'Middle', 'High', 'University', 'ELL', 'Themed'];
-    return _.compact(_.map(order, function(option) {
-      return _.findWhere(views, {name: option});
+export default class ListFilterOptions extends React.Component {
+  sortViews(views) {
+    const order = ['All', 'Elementary', 'Middle', 'High', 'University', 'ELL', 'Themed'];
+    return _.compact(_.map(order, (option) => {
+      return _.findWhere(views, { name: option });
     }));
-  },
+  }
 
-  generateViews: function () {
-    var allOption = {
+  generateViews() {
+    const allOption = {
       id: null,
       name: 'All'
     };
-    var options = this.props.options ? [allOption].concat(this.props.options) : [allOption];
-    var sortedOptions = this.sortViews(options);
-    var arr =_.map(sortedOptions, this.generateView, this);
+    const options = this.props.options ? [allOption].concat(this.props.options) : [allOption];
+    const sortedOptions = this.sortViews(options);
+    const arr = _.map(sortedOptions, this.generateView, this);
     return arr;
-  },
+  }
 
-  getKey: function (option) {
+  getKey(option) {
     return option.id;
-  },
+  }
 
-  isSelected: function (option) {
+  isSelected(option) {
     return (this.props.selectedId === option.id);
-  },
+  }
 
-  generateView: function (option) {
-    return <ListFilterOption
-                    userLoggedIn={this.props.userLoggedIn}
-                    key={this.getKey(option)}
-                    data={option}
-                    isSelected={this.isSelected(option)}
-                  />
-  },
+  generateView(option) {
+    return (<ListFilterOption
+      userLoggedIn={this.props.userLoggedIn}
+      key={this.getKey(option)}
+      data={option}
+      isSelected={this.isSelected(option)}
+    />)
+  }
 
-  render: function () {
+  render() {
     return (
       <div className='list-filter-options-container'>
         <div className='list-filter-options'>
            {this.generateViews()}
         </div>
-    </div>
+      </div>
     );
   }
-})
+}

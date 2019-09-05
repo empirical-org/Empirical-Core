@@ -1,6 +1,6 @@
 import React from 'react'
 import { render } from 'react-dom'
-import { Router, Route, IndexRoute, browserHistory } from 'react-router'
+import { Router, Route, Redirect, IndexRoute, browserHistory } from 'react-router'
 import AssignActivitiesContainer from './AssignActivitiesContainer.jsx'
 import ClassroomsWithStudentsContainer from './ClassroomsWithStudentsContainer.jsx'
 import EditUnitActivitiesContainer from './EditUnitActivitiesContainer.jsx'
@@ -18,8 +18,9 @@ const AssignActivitiesRouter = props => (
 			<IndexRoute component={AssignANewActivity}/>
 			<Route path="assign-a-diagnostic" component={AssignADiagnostic} />
 			<Route path="create-unit" component={routerProps => <CreateUnit {...props} {...routerProps} />} />
-			<Route path="featured-activity-packs(/category/:category)" component={UnitTemplatesManager}/>
-			<Route path="featured-activity-packs(/grade/:grade)" component={UnitTemplatesManager}/>
+			<Route path="featured-activity-packs" component={UnitTemplatesManager}/>
+			<Redirect from="featured-activity-packs/category/:category" to="featured-activity-packs" />
+			<Redirect from="featured-activity-packs/grade/:grade" to="featured-activity-packs" />
 			<Route path="featured-activity-packs/:activityPackId" component={UnitTemplateProfile}/>
 			<Route path="featured-activity-packs/:activityPackId/assigned" component={UnitTemplateAssigned}/>
 			<Route path="new_unit/students/edit/name/:unitName/activity_ids/:activityIdsArray" component={routerProps => <ClassroomsWithStudentsContainer {...props} {...routerProps} />} />

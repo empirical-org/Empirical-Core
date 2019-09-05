@@ -18,7 +18,8 @@ class UnitTemplatePseudoSerializer
       activity_info: ut.activity_info,
       author: author,
       unit_template_category: unit_template_category,
-      activities: activities
+      activities: activities,
+      type: type
     }
   end
 
@@ -89,6 +90,10 @@ class UnitTemplatePseudoSerializer
         classification: {key: act['key'], id: act['activity_classification_id'], name: act['activity_classification_name']}
       }
     end
+  end
+
+  def type
+    activities = @unit_template.activities
   end
 
   # def topic(act)

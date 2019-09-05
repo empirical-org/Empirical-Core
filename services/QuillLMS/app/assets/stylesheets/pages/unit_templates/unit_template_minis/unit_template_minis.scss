@@ -1,4 +1,4 @@
-.unit-template-minis {
+.unit-template-minis-container {
   margin-bottom: 100px;
   .list-filter-options-container {
     // needed to get the centering to work
@@ -29,6 +29,12 @@
         border-bottom: 2px solid black;
       }
     }
+  }
+
+  .unit-template-minis {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
   }
 
 }
