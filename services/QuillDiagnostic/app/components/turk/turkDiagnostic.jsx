@@ -133,7 +133,6 @@ const TurkDiagnostic = React.createClass({
         if (httpResponse.statusCode === 200) {
           console.log('Finished Saving');
           console.log(err, httpResponse, body);
-          document.location.href = `${process.env.EMPIRICAL_BASE_URL}/activity_sessions/${body.activity_session.uid}`;
           this.setState({ saved: true, });
         }
       }
