@@ -9,7 +9,7 @@ class GoogleStudentImporterWorker
       students_requester = google_students_requester.generate(client)
       classrooms = selected_classroom_ids ? Classroom.where(id: selected_classroom_ids) : teacher.google_classrooms.to_a
       google_students_creator.run(classrooms, students_requester)
-      PusherGoogleClassroomStudentsImported.run(teacher_id)
+      PusherTrigger.run(teacher_id, 'google-classroom-students-imported', "Google classroom students imported for #{teacher_id}.")
     rescue StandardError => e
       if Rails.env.development?
         puts 'ERROR', e

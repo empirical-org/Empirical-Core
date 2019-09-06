@@ -99,7 +99,7 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
     if (this.props.user.google_id) {
       this.setState({ googleClassroomsLoading: true}, () => {
         requestGet('/teachers/classrooms/retrieve_google_classrooms', (body) => {
-          if (body.id) {
+          if (body.quill_retrieval_processing) {
             this.initializePusherForGoogleClassrooms(body.id)
           } else {
             const googleClassrooms = body.classrooms.filter(classroom => !classroom.alreadyImported)
@@ -126,7 +126,7 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
     const that = this;
     channel.bind('google-classrooms-retrieved', () => {
       that.getGoogleClassrooms()
-      pusher.unsubscribe(channelName)
+      // pusher.unsubscribe(channelName)
     });
   }
 
@@ -290,6 +290,7 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
   }
 
   renderImportGoogleClassroomStudentsModal() {
+    const { user, } = this.props
     const { showModal, classrooms, selectedClassroomId } = this.state
     const selectedClassroom = classrooms.find(c => c.id === selectedClassroomId)
     if (showModal === importGoogleClassroomStudentsModal && selectedClassroom) {
@@ -297,6 +298,7 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
         close={this.closeModal}
         onSuccess={this.onSuccess}
         classroom={selectedClassroom}
+        user={user}
       />
     }
   }

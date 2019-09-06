@@ -1,5 +1,4 @@
 class Teachers::ClassroomManagerController < ApplicationController
-  require 'pusher'
 
   respond_to :json, :html
   before_filter :teacher_or_public_activity_packs
@@ -11,6 +10,7 @@ class Teachers::ClassroomManagerController < ApplicationController
 
   MY_ACCOUNT = 'my_account'
   ASSIGN_ACTIVITIES = 'assign_activities'
+  SERIALIZED_GOOGLE_CLASSROOMS_FOR_ = 'SERIALIZED_GOOGLE_CLASSROOMS_FOR_'
 
   def lesson_planner
     set_classroom_variables
@@ -149,34 +149,30 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def retrieve_google_classrooms
-    serialized_google_classrooms = $redis.get("SERIALIZED_GOOGLE_CLASSROOMS_FOR_#{current_user.id}")
+    serialized_google_classrooms = $redis.get("#{SERIALIZED_GOOGLE_CLASSROOMS_FOR_}#{current_user.id}")
     if serialized_google_classrooms
       render json: JSON.parse(serialized_google_classrooms)
     else
       RetrieveGoogleClassroomsWorker.perform_async(current_user.id)
-      render json: { id: current_user.id }
+      render json: { id: current_user.id, quill_retrieval_processing: true }
     end
   end
 
   def update_google_classrooms
     GoogleIntegration::Classroom::Creators::Classrooms.run(current_user, params[:selected_classrooms])
-    $redis.del("SERIALIZED_GOOGLE_CLASSROOMS_FOR_#{current_user.id}")
+    $redis.del("#{SERIALIZED_GOOGLE_CLASSROOMS_FOR_}#{current_user.id}")
     render json: { classrooms: current_user.google_classrooms }.to_json
   end
 
   def import_google_students
-    if params[:classroom_id]
-      selected_classroom_ids = Classroom.where(id: params[:classroom_id]).ids
-    elsif params[:selected_classroom_ids]
-      selected_classroom_ids = Classroom.where(id: params[:selected_classroom_ids]).ids
-    end
-    $redis.del("SERIALIZED_GOOGLE_CLASSROOMS_FOR_#{current_user.id}")
+    selected_classroom_ids = Classroom.where(id: params[:classroom_id] || params[:selected_classroom_ids]).ids
+    $redis.del("#{SERIALIZED_GOOGLE_CLASSROOMS_FOR_}#{current_user.id}")
     GoogleStudentImporterWorker.perform_async(
       current_user.id,
       'Teachers::ClassroomManagerController',
       selected_classroom_ids
     )
-    render json: { id: current_user.id }
+    render json: { id: current_user.id, quill_import_processing: true }
   end
 
   private

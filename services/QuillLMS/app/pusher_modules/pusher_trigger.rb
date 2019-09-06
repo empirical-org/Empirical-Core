@@ -1,6 +1,6 @@
-module PusherGoogleClassroomsRetrieved
+module PusherTrigger
 
-  def self.run(user_id)
+  def self.run(id, channel, message)
     pusher_client = Pusher::Client.new(
         app_id: ENV["PUSHER_APP_ID"],
         key: ENV["PUSHER_KEY"],
@@ -8,10 +8,10 @@ module PusherGoogleClassroomsRetrieved
         encrypted: true
     )
     pusher_client.trigger(
-      user_id.to_s,
-     'google-classrooms-retrieved',
-     message: "Google classrooms found for #{user_id}."
-   )
+      id.to_s,
+      channel,
+      message: message
+     )
   end
 
 end
