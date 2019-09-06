@@ -166,15 +166,15 @@ class Teachers::ClassroomManagerController < ApplicationController
 
   def import_google_students
     if params[:classroom_id]
-      selected_classrooms = Classroom.where(id: params[:classroom_id])
+      selected_classroom_ids = Classroom.where(id: params[:classroom_id]).ids
     elsif params[:selected_classroom_ids]
-      selected_classrooms = Classroom.where(id: params[:selected_classroom_ids])
+      selected_classroom_ids = Classroom.where(id: params[:selected_classroom_ids]).ids
     end
     $redis.del("SERIALIZED_GOOGLE_CLASSROOMS_FOR_#{current_user.id}")
     GoogleStudentImporterWorker.perform_async(
       current_user.id,
       'Teachers::ClassroomManagerController',
-      selected_classrooms
+      selected_classroom_ids
     )
     render json: { id: current_user.id }
   end
