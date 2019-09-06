@@ -1,4 +1,5 @@
 class Teachers::ClassroomManagerController < ApplicationController
+
   respond_to :json, :html
   before_filter :teacher_or_public_activity_packs
   # WARNING: these filter methods check against classroom_id, not id.
@@ -9,6 +10,7 @@ class Teachers::ClassroomManagerController < ApplicationController
 
   MY_ACCOUNT = 'my_account'
   ASSIGN_ACTIVITIES = 'assign_activities'
+  SERIALIZED_GOOGLE_CLASSROOMS_FOR_ = 'SERIALIZED_GOOGLE_CLASSROOMS_FOR_'
 
   def lesson_planner
     set_classroom_variables
@@ -147,28 +149,30 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def retrieve_google_classrooms
-    google_response = GoogleIntegration::Classroom::Main.pull_data(current_user)
-    data = google_response === 'UNAUTHENTICATED' ? {errors: google_response} : {classrooms: google_response}
-    render json: data
+    serialized_google_classrooms = $redis.get("#{SERIALIZED_GOOGLE_CLASSROOMS_FOR_}#{current_user.id}")
+    if serialized_google_classrooms
+      render json: JSON.parse(serialized_google_classrooms)
+    else
+      RetrieveGoogleClassroomsWorker.perform_async(current_user.id)
+      render json: { id: current_user.id, quill_retrieval_processing: true }
+    end
   end
 
   def update_google_classrooms
     GoogleIntegration::Classroom::Creators::Classrooms.run(current_user, params[:selected_classrooms])
+    $redis.del("#{SERIALIZED_GOOGLE_CLASSROOMS_FOR_}#{current_user.id}")
     render json: { classrooms: current_user.google_classrooms }.to_json
   end
 
   def import_google_students
-    if params[:classroom_id]
-      selected_classrooms = Classroom.where(id: params[:classroom_id])
-    elsif params[:selected_classroom_ids]
-      selected_classrooms = Classroom.where(id: params[:selected_classroom_ids])
-    end
-    GoogleStudentImporterWorker.new.perform(
+    selected_classroom_ids = Classroom.where(id: params[:classroom_id] || params[:selected_classroom_ids]).ids
+    $redis.del("#{SERIALIZED_GOOGLE_CLASSROOMS_FOR_}#{current_user.id}")
+    GoogleStudentImporterWorker.perform_async(
       current_user.id,
       'Teachers::ClassroomManagerController',
-      selected_classrooms
+      selected_classroom_ids
     )
-    render json: {}
+    render json: { id: current_user.id }
   end
 
   private
