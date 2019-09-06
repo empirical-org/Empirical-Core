@@ -38,6 +38,7 @@ export default {
 
   delete(sessionID) {
     sessionsRef.child(sessionID).remove();
+    v4sessionsRef.child(sessionID).remove();
   },
 
   populateQuestions(questions) {
