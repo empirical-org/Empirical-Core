@@ -7,9 +7,11 @@ class ActivityClassification < ActiveRecord::Base
 
   validates :key, presence: true
 
+  DIAGNOSTIC_KEY = 'diagnostic'
+  LESSONS_KEY = 'lessons'
 
   def self.diagnostic
-    ActivityClassification.find_by_key "diagnostic"
+    ActivityClassification.find_by_key DIAGNOSTIC_KEY
   end
 
 end
