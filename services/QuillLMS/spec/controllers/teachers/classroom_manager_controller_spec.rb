@@ -307,9 +307,9 @@ describe Teachers::ClassroomManagerController, type: :controller do
       allow(GoogleIntegration::Classroom::Main).to receive(:pull_data) { "google response" }
     end
 
-    it 'should render the correct json' do
+    it 'should render the id of the teacher if there is nothing else in the store' do
       get :retrieve_google_classrooms
-      expect(response.body).to eq({classrooms: "google response"}.to_json)
+      expect(response.body).to eq({id: teacher.id}.to_json)
     end
   end
 
@@ -324,7 +324,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
     it 'should kick off the importer' do
       create(:auth_credential, user: teacher)
 
-      expect_any_instance_of(GoogleStudentImporterWorker).to receive(:perform)
+      expect(GoogleStudentImporterWorker).to receive(:perform_async)
       put :import_google_students, selected_classroom_ids: [1,2], format: :json
     end
   end
