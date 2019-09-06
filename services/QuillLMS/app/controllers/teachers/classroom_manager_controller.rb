@@ -172,7 +172,7 @@ class Teachers::ClassroomManagerController < ApplicationController
       'Teachers::ClassroomManagerController',
       selected_classroom_ids
     )
-    render json: { id: current_user.id, quill_import_processing: true }
+    render json: { id: current_user.id }
   end
 
   private

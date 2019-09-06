@@ -126,7 +126,7 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
     const that = this;
     channel.bind('google-classrooms-retrieved', () => {
       that.getGoogleClassrooms()
-      // pusher.unsubscribe(channelName)
+      pusher.unsubscribe(channelName)
     });
   }
 
