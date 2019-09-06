@@ -309,7 +309,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
 
     it 'should render the id of the teacher if there is nothing else in the store' do
       get :retrieve_google_classrooms
-      expect(response.body).to eq({id: teacher.id}.to_json)
+      expect(response.body).to eq({id: teacher.id, quill_retrieval_processing: true}.to_json)
     end
   end
 
