@@ -25,7 +25,7 @@ const Lesson = React.createClass({
   },
 
   getInitialState() {
-    return { hasOrIsGettingResponses: false, };
+    return { hasOrIsGettingResponses: false, sessionInitalized: false };
   },
 
   componentWillReceiveProps(nextProps) {
@@ -38,12 +38,24 @@ const Lesson = React.createClass({
     }
   },
 
-  doesNotHaveAndIsNotGettingResponses() {
-    return (!this.state.hasOrIsGettingResponses);
+  componentDidUpdate() {
+    // At mount time the component may still be waiting on questions
+    // to be retrieved, so we need to do checks on component update
+    if (this.props.questions.hasreceiveddata) {
+      // This function will bail early if it has already set question data
+      // so it is safe to call repeatedly
+      SessionActions.populateQuestions(this.props.questions.data);
+      // This used to be an DidMount call, but we can't safely call it
+      // until the Session module has received Question data, so now
+      // we check if the value has been initalized, and if not we do so now
+      if (!this.state.sessionInitialized) {
+        this.saveSessionIdToState();
+      }
+    }
   },
 
-  componentDidMount() {
-    this.saveSessionIdToState();
+  doesNotHaveAndIsNotGettingResponses() {
+    return (!this.state.hasOrIsGettingResponses);
   },
 
   getPreviousSessionData() {
@@ -66,7 +78,7 @@ const Lesson = React.createClass({
     if (sessionID === 'null') {
       sessionID = undefined;
     }
-    this.setState({ sessionID, }, () => {
+    this.setState({ sessionID, sessionInitialized: true}, () => {
       if (sessionID) {
         SessionActions.get(this.state.sessionID, (data) => {
           this.setState({ session: data, });

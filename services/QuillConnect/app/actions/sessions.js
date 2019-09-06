@@ -1,23 +1,13 @@
 import rootRef from '../libs/firebase';
 import { v4rootRef } from '../libs/firebase';
-import questionActions from './questions';
 import _ from 'lodash';
 
 const C = require('../constants').default;
 
 const sessionsRef = rootRef.child('savedSessions');
 const v4sessionsRef = v4rootRef.child('connectSessions');
-// There's probably a way to pull this from the Redux store since
-// questions already get pulled into that at some point, but I don't
-// know that untangling that particular flow is worth the time at
-// this particular moment.  2019-09-05
 let allQuestions = {};
-questionActions.loadQuestions()((result) => {
-  allQuestions = result.data;
-  Object.keys(allQuestions).forEach((key) => {
-    allQuestions[key]["key"] = key;
-  });
-});
+let questionsInitialized = false;
 
 export default {
   get(sessionID, cb) {
@@ -49,6 +39,15 @@ export default {
   delete(sessionID) {
     sessionsRef.child(sessionID).remove();
   },
+
+  populateQuestions(questions) {
+    if (questionsInitialized) return;
+    allQuestions = questions;
+    Object.keys(allQuestions).forEach((key) => {
+      allQuestions[key]["key"] = key;
+    });
+    questionsInitialized = true;
+  }
 
 };
 
