@@ -9,6 +9,8 @@ class GoogleStudentImporterWorker
       students_requester = google_students_requester.generate(client)
       classrooms = selected_classrooms ? selected_classrooms : teacher.google_classrooms.to_a
       google_students_creator.run(classrooms, students_requester)
+      puts 'WHAT THE HELL'
+      PusherGoogleClassroomStudentsImported.run(teacher_id)
     rescue StandardError => e
       NewRelic::Agent.notice_error(e, custom_params: { context: context })
     end
