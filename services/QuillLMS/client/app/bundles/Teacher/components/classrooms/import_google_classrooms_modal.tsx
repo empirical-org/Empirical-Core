@@ -1,5 +1,6 @@
 import * as React from 'react'
 import * as moment from 'moment'
+import Pusher from 'pusher-js';
 
 import { DropdownInput, DataTable } from 'quill-component-library/dist/componentLibrary'
 
@@ -118,8 +119,21 @@ export default class ImportGoogleClassroomsModal extends React.Component<ImportG
     }
   }
 
+  initializePusherForGoogleStudentImport(id) {
+    if (process.env.RAILS_ENV === 'development') {
+      Pusher.logToConsole = true;
+    }
+    const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
+    const channelName = String(id)
+    const channel = pusher.subscribe(channelName);
+    const that = this;
+    channel.bind('google-classroom-students-imported', () => {
+      that.props.onSuccess('Classes imported')
+      pusher.unsubscribe(channelName)
+    });
+  }
+
   importClasses() {
-    const { onSuccess, } = this.props
     const { classrooms, postAssignments, } = this.state
 
     this.setState({ waiting: true })
@@ -134,8 +148,8 @@ export default class ImportGoogleClassroomsModal extends React.Component<ImportG
     requestPost('/teachers/classrooms/update_google_classrooms', { selected_classrooms: selectedClassrooms, }, (body) => {
       const newClassrooms = body.classrooms.filter(classroom => selectedClassrooms.find(sc => sc.id === classroom.google_classroom_id))
       const selectedClassroomIds = newClassrooms.map(classroom => classroom.id)
-      requestPut('/teachers/classrooms/import_google_students', { selected_classroom_ids: selectedClassroomIds }, () => {
-        onSuccess('Classes imported')
+      requestPut('/teachers/classrooms/import_google_students', { selected_classroom_ids: selectedClassroomIds }, (body) => {
+        this.initializePusherForGoogleStudentImport(body.id)
       })
     })
   }
