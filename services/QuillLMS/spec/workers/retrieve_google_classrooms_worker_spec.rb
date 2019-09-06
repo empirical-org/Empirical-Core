@@ -2,7 +2,6 @@ require 'rails_helper'
 
 describe RetrieveGoogleClassroomsWorker, type: :worker do
   let(:subject) { described_class.new }
-  let(:analyzer) { double(:analyzer, track_with_attributes: true, track: true) }
 
   describe '#perform' do
     let(:user) { create(:user) }
