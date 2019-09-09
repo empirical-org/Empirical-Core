@@ -36,9 +36,6 @@ export default class UnitTemplatesManager extends React.Component {
       windowPosition: new WindowPosition()
     }
 
-    this.updateCreateUnit = this.modules.updaterGenerator.updater('createUnit');
-    this.updateUnitTemplatesManager = this.modules.updaterGenerator.updater('unitTemplatesManager');
-
     this.state = {
       signedInTeacher: false,
       unitTemplatesManager: {
@@ -57,7 +54,11 @@ export default class UnitTemplatesManager extends React.Component {
       }
     }
 
+    this.updateCreateUnit = this.modules.updaterGenerator.updater('createUnit');
+    this.updateUnitTemplatesManager = this.modules.updaterGenerator.updater('unitTemplatesManager');
     this.updateUnitTemplateModels = this.updateUnitTemplateModels.bind(this)
+    this.selectCategory = this.selectCategory.bind(this)
+    this.filterModels = this.filterModels.bind(this)
   }
 
   componentDidMount() {
@@ -66,12 +67,12 @@ export default class UnitTemplatesManager extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.location.query.category !== nextProps.location.query.category) {
-      this.filterByCategory(nextProps.location.query.category)
-    } else if (this.props.location.query.grade && !nextProps.location.query.grade) {
-      this.showAllGrades()
-    } else if (this.props.location.query.type !== nextProps.location.query.type) {
-      this.filterByType(nextProps.location.query.type)
+    const { category, grade, type, } = nextProps.location.query
+    const categoryChanged = category !== this.props.location.query.category
+    const gradeChanged = grade !== this.props.location.query.grade
+    const typeChanged = type !== this.props.location.query.type
+    if (categoryChanged || gradeChanged || typeChanged) {
+      this.filterModels(category, grade, type)
     }
   }
 
@@ -84,8 +85,6 @@ export default class UnitTemplatesManager extends React.Component {
       toggleTab: this.toggleTab,
       clickAssignButton: this.clickAssignButton,
       returnToIndex: this.returnToIndex,
-      filterByCategory: this.filterByCategory,
-      filterByGrade: this.filterByGrade,
       selectModel: this.selectModel,
       showAllGrades: this.showAllGrades
     };
@@ -111,12 +110,9 @@ export default class UnitTemplatesManager extends React.Component {
     }
     this.updateUnitTemplatesManager(newHash)
 
-    const category = getParameterByName('category')
-    const type = getParameterByName('type')
-    if (category) {
-      this.filterByCategory(category)
-    } else if (type) {
-      this.filterByType(type)
+    const { category, grade, type, } = this.props.location.query
+    if (category || grade || type) {
+      this.filterModels(category, grade, type)
     }
   }
 
@@ -130,41 +126,25 @@ export default class UnitTemplatesManager extends React.Component {
     window.scrollTo(0, 0);
   }
 
-  filterByGrade() {
-    const grade = this.state.unitTemplatesManager.grade
-    let uts
+  filterModels(category, grade, typeId) {
+    const { unitTemplatesManager, } = this.state
+    let displayedModels = unitTemplatesManager.models
+    let selectedCategoryId
     if (grade) {
-      uts = this.modelsInGrade(grade)
-    } else {
-      uts = this.state.unitTemplatesManager.models;
+      displayedModels = this.modelsInGrade(grade)
     }
-    this.updateUnitTemplatesManager({stage: 'index', displayedModels: uts});
-  }
-
-  filterByCategory(categoryName) {
-    let selectedCategoryId, unitTemplates
-    if (categoryName) {
-      categoryName = categoryName.toUpperCase() === 'ELL' ? categoryName.toUpperCase() : _l.capitalize(categoryName)
-      selectedCategoryId = this.state.unitTemplatesManager.categories.find((cat) => cat.name === categoryName).id
-      unitTemplates = _l.filter(this.state.unitTemplatesManager.models, {
-        unit_template_category: {
-          name: categoryName
-        }
-      })
-    } else {
-      unitTemplates = this.state.unitTemplatesManager.models;
+    if (category) {
+      const categoryName = category.toUpperCase() === 'ELL' ? category.toUpperCase() : _l.capitalize(category)
+      selectedCategoryId = unitTemplatesManager.categories.find(cat => cat.name === categoryName).id
+      displayedModels = displayedModels.filter(ut =>
+        ut.unit_template_category.name === categoryName
+      )
     }
-    this.updateUnitTemplatesManager({stage: 'index', displayedModels: unitTemplates, selectedCategoryId: selectedCategoryId});
-  }
-
-  filterByType(typeId) {
-    const { models, } = this.state.unitTemplatesManager
-    let unitTemplates = models
     if (typeId) {
-      const selectedTypeName = types.find((type) => type.id === typeId).name
-      unitTemplates = models.filter(ut => ut.type.name === selectedTypeName)
+      const selectedTypeName = types.find(t => t.id === typeId).name
+      displayedModels = displayedModels.filter(ut => ut.type.name === selectedTypeName)
     }
-    this.updateUnitTemplatesManager({ stage: 'index', displayedModels: unitTemplates, });
+    this.updateUnitTemplatesManager({ stage: 'index', displayedModels, selectedCategoryId, })
   }
 
   fetchClassrooms() {
@@ -212,6 +192,10 @@ export default class UnitTemplatesManager extends React.Component {
     }
   }
 
+  selectCategory(category) {
+    this.props.router.push(category.link)
+  }
+
   showUnitTemplates() {
     if (this.state.unitTemplatesManager.models.length < 1) {
       return <LoadingIndicator />
@@ -222,6 +206,7 @@ export default class UnitTemplatesManager extends React.Component {
       actions={this.unitTemplatesManagerActions()}
       types={types}
       selectedTypeId={this.props.location.query.type}
+      selectCategory={this.selectCategory}
     />)
   }
 

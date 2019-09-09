@@ -1,6 +1,7 @@
 import React from 'react'
-import CategoryLabel from '../../../category_labels/category_label'
 import moment from 'moment'
+
+import CategoryLabel from '../../../category_labels/category_label'
 
 const cutOffTimeForNew = moment().subtract('months', 1).unix()
 

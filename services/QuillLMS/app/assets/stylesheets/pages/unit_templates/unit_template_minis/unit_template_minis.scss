@@ -12,6 +12,22 @@
 
   .filter-options {
     margin-bottom: 18px;
+    display: flex;
+    justify-content: space-between;
+    .dropdown-container {
+      width: 126px;
+      justify-content: flex-start;
+      min-height: min-content;
+      label {
+        display: none !important;
+      }
+      .dropdown__control {
+        background-color: #f7f5f5;
+      }
+      &.active {
+        margin-bottom: 29px;
+      }
+    }
   }
 
   .type-options {
