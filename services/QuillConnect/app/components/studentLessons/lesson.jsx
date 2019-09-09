@@ -41,10 +41,16 @@ const Lesson = React.createClass({
   componentDidUpdate() {
     // At mount time the component may still be waiting on questions
     // to be retrieved, so we need to do checks on component update
-    if (this.props.questions.hasreceiveddata) {
+    if (this.props.questions.hasreceiveddata &&
+        this.props.fillInBlank.hasreceiveddata &&
+        this.props.sentenceFragments.hasreceiveddata &&
+        this.props.titleCards.hasreceiveddata) {
       // This function will bail early if it has already set question data
       // so it is safe to call repeatedly
-      SessionActions.populateQuestions(this.props.questions.data);
+      SessionActions.populateQuestions("SC", this.props.questions.data);
+      SessionActions.populateQuestions("FB", this.props.fillInBlank.data);
+      SessionActions.populateQuestions("SF", this.props.sentenceFragments.data);
+      SessionActions.populateQuestions("TL", this.props.titleCards.data);
       // This used to be an DidMount call, but we can't safely call it
       // until the Session module has received Question data, so now
       // we check if the value has been initalized, and if not we do so now

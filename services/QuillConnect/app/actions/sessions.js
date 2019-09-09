@@ -7,7 +7,7 @@ const C = require('../constants').default;
 const sessionsRef = rootRef.child('savedSessions');
 const v4sessionsRef = v4rootRef.child('connectSessions');
 let allQuestions = {};
-let questionsInitialized = false;
+let questionsInitialized = {};
 
 export default {
   get(sessionID, cb) {
@@ -41,13 +41,16 @@ export default {
     v4sessionsRef.child(sessionID).remove();
   },
 
-  populateQuestions(questions) {
-    if (questionsInitialized) return;
-    allQuestions = questions;
-    Object.keys(allQuestions).forEach((key) => {
-      allQuestions[key]["key"] = key;
-    });
-    questionsInitialized = true;
+  populateQuestions(questionType, questions) {
+    if (questionsInitialized[questionType]) return;
+
+    Object.keys(questions).forEach((uid) => {
+      allQuestions[uid] = {
+        question: Object.assign(questions[uid], {key: uid}),
+        type: questionType,
+      }
+    })
+    questionsInitialized[questionType] = true;
   }
 
 };
@@ -71,9 +74,12 @@ function denormalizeSession(session) {
 }
 
 function denormalizeQuestion(question) {
+  // This is a little awkward, but we need to make sure that the
+  // 'question' part of the question object is a clean copy so that
+  // we can modify it without changing the original copy
   return {
-    question: Object.assign({}, allQuestions[question]),
-    type: "SC",
+    question: Object.assign({}, allQuestions[question].question),
+    type: allQuestions[question].type,
   }
 }
 
