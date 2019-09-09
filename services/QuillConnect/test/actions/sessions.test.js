@@ -3,7 +3,7 @@ import { v2mockSession, v4mockSession, mockQuestions } from './sessions.data';
 import expect from 'expect';
 
 // Populate our question cache to use in denormalization
-SessionActions.populateQuestions(mockQuestions);
+SessionActions.populateQuestions("SC", mockQuestions);
 
 // Normalization and denormalization modify data in place,
 // so we need to make copies of our target references before
