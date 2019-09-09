@@ -1,4 +1,5 @@
 import * as React from 'react'
+import Pusher from 'pusher-js';
 
 import ButtonLoadingIndicator from '../shared/button_loading_indicator'
 
@@ -32,11 +33,25 @@ export default class ImportGoogleClassroomStudentsModal extends React.Component<
     this.importStudents = this.importStudents.bind(this)
   }
 
+  initializePusherForGoogleStudentImport(id) {
+    if (process.env.RAILS_ENV === 'development') {
+      Pusher.logToConsole = true;
+    }
+    const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
+    const channelName = String(id)
+    const channel = pusher.subscribe(channelName);
+    const that = this;
+    channel.bind('google-classroom-students-imported', () => {
+      that.props.onSuccess('Class re-synced')
+      pusher.unsubscribe(channelName)
+    });
+  }
+
   importStudents() {
-    const { onSuccess, classroom, } = this.props
+    const { classroom, } = this.props
     this.setState({ waiting: true })
     requestPut(`/teachers/classrooms/${classroom.id}/import_google_students`, {}, (body) => {
-      onSuccess('Class re-synced')
+      this.initializePusherForGoogleStudentImport(body.id)
     })
   }
 
