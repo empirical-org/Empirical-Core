@@ -1,64 +1,33 @@
-'use strict'
+import React from 'react'
+import { Link } from 'react-router'
+import UnitTemplateFirstRow from './unit_template_first_row'
+import UnitTemplateSecondRow from './unit_template_second_row'
+import String from '../../../../modules/string.jsx'
 
- import React from 'react'
- import { Link } from 'react-router'
- import UnitTemplateFirstRow from './unit_template_first_row'
- import UnitTemplateSecondRow from './unit_template_second_row'
- import String from '../../../../modules/string.jsx'
+export default class UnitTemplateMini extends React.Component {
+  constructor(props) {
+    super(props)
 
- export default  React.createClass({
-  propTypes: {
-    data: React.PropTypes.object.isRequired
-  },
+    this.modules = { string: new String() }
+  }
 
-  getInitialState: function () {
-    this.modules = {
-      string: new String()
-    }
-    return {};
-  },
-
-  number_of_activities: function () {
-    return this.props.data.activities.length;
-  },
-
-  say_time: function () {
-    return [this.props.data.time, 'mins'].join(' ');
-  },
-
-  say_number_of_activities: function () {
-    return this.modules.string.sayNumberOfThings(this.number_of_activities(), 'Activity', 'Activities')
-  },
-
-  avatarUrl: function () {
-    var url;
+  avatarUrl() {
+    let url = null;
     if (this.props.data.author) {
       url = this.props.data.author.avatar_url
-    } else {
-      url = null;
     }
     return url;
-  },
+  }
 
-  displayPicture: function () {
+  displayPicture() {
     return (
       <div className='author-picture'>
         <img src={this.avatarUrl()}/>
       </div>
     );
-  },
+  }
 
-  // getClassName: function () {
-  //   var val;
-  //   if (this.props.index === 1) {
-  //     val = 'row unit-template-mini pull-right'
-  //   } else {
-  //     val = 'row unit-template-mini'
-  //   }
-  //   return val;
-  // },
-
-  getLink: function () {
+  getLink() {
     let link
     if (this.props.data.id == 'createYourOwn') {
       if (this.props.signedInTeacher || (this.props.non_authenticated === false)) {
@@ -74,9 +43,9 @@
       }
     }
     return link
-  },
+  }
 
-  miniSpecificComponents: function() {
+  miniSpecificComponents() {
     if (this.props.data.id == 'createYourOwn') {
       return (
         <Link to={this.getLink()}>
@@ -104,13 +73,13 @@
           </Link>
         );
       }
-  },
+  }
 
-  render: function () {
+  render() {
     return (
       <div className='unit-template-mini' onClick={this.onClickAction}>
         {this.miniSpecificComponents()}
       </div>
     );
   }
-});
+}

@@ -94,23 +94,20 @@ class UnitTemplatePseudoSerializer
 
   def type
     activities = @unit_template.activities
-    if activities.any? { |act| act&.activity_classification&.key == ActivityClassification::LESSONS_KEY }
+    if activities.any? { |act| act&.classification&.key == ActivityClassification::LESSONS_KEY }
       {
         name: UnitTemplate::WHOLE_CLASS_AND_INDEPENDENT_PRACTICE,
-        primary_color: '#9c2bde',
-        secondary_color: ''
+        primary_color: '#9c2bde'
       }
-    elsif activities.any? { |act| act&.activity_classification&.key == ActivityClassification::DIAGNOSTIC_KEY }
+    elsif activities.any? { |act| act&.classification&.key == ActivityClassification::DIAGNOSTIC_KEY }
       {
         name: UnitTemplate::DIAGNOSTIC,
-        primary_color: '#ea9a1a',
-        secondary_color: ''
+        primary_color: '#ea9a1a'
       }
     else
       {
         name: UnitTemplate::INDEPENDENT_PRACTICE,
-        primary_color: '#348fdf',
-        secondary_color: ''
+        primary_color: '#348fdf'
       }
     end
   end

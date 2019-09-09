@@ -59,24 +59,20 @@ export default class UnitTemplateMinis extends React.Component {
     }
   }
 
-  renderListFilterOptions(){
+  renderFilterOptions() {
+    const { types, selectedTypeId, } = this.props
+    const typeOptions = types.map(type => <Link
+      to={`${this.getIndexLink()}?type=${type.id}`}
+      className={selectedTypeId === type.id ? 'active' : null}
+      >{type.name}</Link>)
     return (
-      <div className='row'>
-        {this.listFilterOptions()}
+      <div className="filter-options">
+        <div className='type-options'>
+          <Link to={this.getIndexLink()} className={!selectedTypeId ? 'active' : null}>All packs</Link>
+          {typeOptions}
+        </div>
       </div>
     )
-  }
-
-  listFilterOptions() {
-    if (this.props.data.grade) {
-      return null
-    }
-    return (<ListFilterOptions
-      key='listFilterOptions'
-      userLoggedIn={this.userLoggedIn()}
-      options={this.props.data.categories || []}
-      selectedId={this.props.data.selectedCategoryId}
-    />);
   }
 
   userLoggedIn() {
@@ -91,8 +87,9 @@ export default class UnitTemplateMinis extends React.Component {
     return (<div key='always-display' className='unit-template-minis-container'>
       <div className="container">
         <div>
+          <h1>Select an activity pack for your students</h1>
           <div>
-            {this.renderListFilterOptions()}
+            {this.renderFilterOptions()}
             {this.generateShowAllGradesView()}
             <div className="unit-template-minis">
               {this.generateUnitTemplateViews()}

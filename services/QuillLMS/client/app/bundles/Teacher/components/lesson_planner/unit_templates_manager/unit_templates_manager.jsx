@@ -11,6 +11,21 @@ import AnalyticsWrapper from '../../shared/analytics_wrapper'
 import LoadingIndicator from '../../shared/loading_indicator'
 import { requestGet } from '../../../../../modules/request';
 
+const types = [
+  {
+    name: 'Diagnostic',
+    id: 'diagnostic'
+  },
+  {
+    name: 'Whole class + Independent practice',
+    id: 'whole-class'
+  },
+  {
+    name: 'Independent practice',
+    id: 'independent-practice'
+  }
+]
+
 export default class UnitTemplatesManager extends React.Component {
   constructor(props) {
     super(props)
@@ -55,6 +70,8 @@ export default class UnitTemplatesManager extends React.Component {
       this.filterByCategory(nextProps.location.query.category)
     } else if (this.props.location.query.grade && !nextProps.location.query.grade) {
       this.showAllGrades()
+    } else if (this.props.location.query.type !== nextProps.location.query.type) {
+      this.filterByType(nextProps.location.query.type)
     }
   }
 
@@ -95,8 +112,11 @@ export default class UnitTemplatesManager extends React.Component {
     this.updateUnitTemplatesManager(newHash)
 
     const category = getParameterByName('category')
+    const type = getParameterByName('type')
     if (category) {
       this.filterByCategory(category)
+    } else if (type) {
+      this.filterByType(type)
     }
   }
 
@@ -135,6 +155,16 @@ export default class UnitTemplatesManager extends React.Component {
       unitTemplates = this.state.unitTemplatesManager.models;
     }
     this.updateUnitTemplatesManager({stage: 'index', displayedModels: unitTemplates, selectedCategoryId: selectedCategoryId});
+  }
+
+  filterByType(typeId) {
+    const { models, } = this.state.unitTemplatesManager
+    let unitTemplates = models
+    if (typeId) {
+      const selectedTypeName = types.find((type) => type.id === typeId).name
+      unitTemplates = models.filter(ut => ut.type.name === selectedTypeName)
+    }
+    this.updateUnitTemplatesManager({ stage: 'index', displayedModels: unitTemplates, });
   }
 
   fetchClassrooms() {
@@ -190,6 +220,8 @@ export default class UnitTemplatesManager extends React.Component {
       signedInTeacher={this.state.signedInTeacher}
       data={this.state.unitTemplatesManager}
       actions={this.unitTemplatesManagerActions()}
+      types={types}
+      selectedTypeId={this.props.location.query.type}
     />)
   }
 
