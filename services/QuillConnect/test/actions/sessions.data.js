@@ -37,7 +37,6 @@ const v2mockSession = {
             }
           },
           "feedback" : "<p>Revise your work. Use <em>and</em> to combine the two ideas.</p>\n<p><br></p>",
-//          "key" : "-LAOW7akBGAjOBgvv2bG",
           "order" : 1,
           "text" : "and"
         }
@@ -51,7 +50,6 @@ const v2mockSession = {
           }
         },
         "feedback" : "<p>Try using a joining word to join the two things superheroes protect. Use the hint as an example.</p>",
-//        "key" : "0",
         "text" : "ple super|||ple Super|||ple super|||ple Super|||ple, super|||ple, Super|||ple. super|||ple. Super"
       }, {
         "conceptResults" : {
@@ -62,7 +60,6 @@ const v2mockSession = {
           }
         },
         "feedback" : "<p>Revise your work. Use the hint as an example of how to make your sentence shorter and more concise.</p>",
-//        "key" : "1",
         "text" : "and they|||and, they|||and super|||and, super|||and Super|||and, Super"
       }, {
         "conceptResults" : {
@@ -73,7 +70,6 @@ const v2mockSession = {
           }
         },
         "feedback" : "<p>Revise your work. When the action is the same in both sentences, only put it in your sentence once.</p>",
-//        "key" : "2",
         "text" : "and prot|||and, pro"
       }, {
         "conceptResults" : {
@@ -85,7 +81,6 @@ const v2mockSession = {
         },
         "feedback" : "<p>Good work! Now correct your punctuation.</p>",
         "id" : "0",
-//        "key" : "3",
         "text" : ", and cit|||, and peo|||and, cit|||and, peo"
       } ],
       "instructions" : "",
@@ -171,7 +166,6 @@ const v2mockSession = {
             }
           },
           "feedback" : "<p>Revise your work. Use <em>and</em> to combine the two ideas.</p>\n<p><br></p>",
-//          "key" : "-LAOW7akBGAjOBgvv2bG",
           "order" : 1,
           "text" : "and"
         }
@@ -185,7 +179,6 @@ const v2mockSession = {
           }
         },
         "feedback" : "<p>Try using a joining word to join the two things superheroes protect. Use the hint as an example.</p>",
-//        "key" : "0",
         "text" : "ple super|||ple Super|||ple super|||ple Super|||ple, super|||ple, Super|||ple. super|||ple. Super"
       }, {
         "conceptResults" : {
@@ -196,7 +189,6 @@ const v2mockSession = {
           }
         },
         "feedback" : "<p>Revise your work. Use the hint as an example of how to make your sentence shorter and more concise.</p>",
-//        "key" : "1",
         "text" : "and they|||and, they|||and super|||and, super|||and Super|||and, Super"
       }, {
         "conceptResults" : {
@@ -207,7 +199,6 @@ const v2mockSession = {
           }
         },
         "feedback" : "<p>Revise your work. When the action is the same in both sentences, only put it in your sentence once.</p>",
-//        "key" : "2",
         "text" : "and prot|||and, pro"
       }, {
         "conceptResults" : {
@@ -219,7 +210,6 @@ const v2mockSession = {
         },
         "feedback" : "<p>Good work! Now correct your punctuation.</p>",
         "id" : "0",
-//        "key" : "3",
         "text" : ", and cit|||, and peo|||and, cit|||and, peo"
       } ],
       "instructions" : "",
