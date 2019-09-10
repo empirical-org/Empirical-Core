@@ -24,11 +24,13 @@ class Auth::CleverController < ApplicationController
 
   private
 
-  def district_success(data)
+  def district_success(data, redirect=nil)
     render status: 200, nothing: true # Don't bother rendering anything.
   end
 
-  def user_success(data) # data is a User record
+  # data is a user record
+  # have to put a second argument in there due to the send method
+  def user_success(data, redirect=nil)
     data.update_attributes(ip_address: request.remote_ip)
     if session[ApplicationController::CLEVER_REDIRECT]
       redirect_route = session[ApplicationController::CLEVER_REDIRECT]
