@@ -12,7 +12,6 @@ class ActivitySessionsController < ApplicationController
 
   def play
     @module_url = @activity.module_url(@activity_session)
-    path_request_to_firebase if @activity.activity_classification_id == 6
     redirect_to(@module_url.to_s)
   end
 
@@ -55,24 +54,6 @@ class ActivitySessionsController < ApplicationController
     unless @activity_session
       render_error(404)
     end
-  end
-
-  def path_request_to_firebase
-    classroom_unit_id = @activity_session.classroom_unit_id
-    HTTParty.patch(
-        firebase_url_for(
-            classroom_unit_id
-        ),
-        body: firebase_json_request_body.to_json
-    )
-  end
-
-  def firebase_json_request_body
-    @options ||= {"#{@activity_session.uid}": current_user.name}
-  end
-
-  def firebase_url_for(classroom_unit_id)
-    @url ||= "#{ENV['FIREBASE_DATABASE_URL']}/v2/classroom_lesson_sessions/#{classroom_unit_id}/students.json"
   end
 
   def anonymous_return_url
