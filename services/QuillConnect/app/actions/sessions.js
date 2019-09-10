@@ -45,6 +45,8 @@ export default {
     const percentAssigned = 1;
     if (sessionID && simpleHash(sessionID) % 100 < percentAssigned) {
       const normalizedSession = normalizeSession(cleanedSession)
+      // Let's start including an updated time on our sessions
+      normalizedSession.updatedAt = new Date().getTime();
       v4sessionsRef.child(sessionID).set(normalizedSession);
     } else {
       sessionsRef.child(sessionID).set(cleanedSession);
