@@ -39,7 +39,7 @@ module Student
       self.move_activity_sessions(old_classroom, new_classroom)
       old_classroom_students_classrooms = StudentsClassrooms.find_by(student_id: self.id, classroom_id: old_classroom.id)
       # a callback on the students classroom model will remove the student from any associated classroom units
-      old_classroom_students_classrooms.update(visible: false)
+      old_classroom_students_classrooms&.update(visible: false)
     end
 
     def move_activity_sessions(old_classroom, new_classroom)
@@ -137,7 +137,7 @@ module Student
   def remove_student_classrooms(teacher_id=nil)
     students_classrooms = StudentsClassrooms.where(student_id: self.id)
     if teacher_id
-      students_classrooms = students_classrooms.select { |sc| sc.classroom.owner.id == teacher_id }
+      students_classrooms = students_classrooms.select { |sc| sc&.classroom&.owner&.id == teacher_id }
     end
     students_classrooms.each { |sc| sc.update(visible: false) }
   end
