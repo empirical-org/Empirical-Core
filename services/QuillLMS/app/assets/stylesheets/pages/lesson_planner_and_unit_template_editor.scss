@@ -12,6 +12,29 @@
 #continue.hidden {
   display: none;
 }
+
+#activity-planner {
+  h1 {
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 1.33;
+    margin-bottom: 40px;
+    text-align: center;
+  }
+  .activity_category {
+    width: 236px;
+  }
+  .section {
+    width: 183px;
+  }
+  .activity-page-dropdown-wrapper {
+    padding: 16px 32px;
+    border-radius: 6px;
+    border: solid 1px #e0e0e0;
+    background-color: #fff;
+  }
+}
+
 #activity-planner,
 #unit-template-editor {
   .header-and-link {

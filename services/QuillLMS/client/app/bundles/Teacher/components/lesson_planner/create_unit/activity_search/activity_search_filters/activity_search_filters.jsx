@@ -3,31 +3,49 @@ import ActivitySearchFilter from './activity_search_filter';
 import _ from 'underscore';
 import SearchActivitiesInput from '../search_activities_input';
 
-export default React.createClass({
+const ActivitySearchFilters = (props) => {
+  const {
+    data,
+    showAllId,
+    selectFilterOption,
+    activeFilterOn,
+    clearFilters,
+    updateSearchQuery,
+  } = props
+  const dropDowns = [];
+  let appFilter;
+  data.forEach((filter, index) => {
+    if (index < 2) {
+      dropDowns.push(<ActivitySearchFilter
+        showAllId={showAllId}
+        key={filter.alias}
+        selectFilterOption={selectFilterOption}
+        data={filter}
+        activeFilterOn={activeFilterOn}
+      />)
+    } else {
+      appFilter = (<ActivitySearchFilter
+        showAllId={showAllId}
+        key={filter.alias}
+        selectFilterOption={selectFilterOption}
+        data={filter}
+        activeFilterOn={activeFilterOn}
+      />)
+    }
+  });
+  const dropDownFilters = (<span className="activity-filter-drop-downs" key="activity-filter-drop-downs">
+    {[dropDowns]}
+  </span>);
 
-  render() {
-    const dropDowns = [];
-    let appFilter;
-    this.props.data.forEach((filter, index) => {
-      if (index < 2) {
-        dropDowns.push(<ActivitySearchFilter showAllId={this.props.showAllId} key={filter.alias} selectFilterOption={this.props.selectFilterOption} data={filter} activeFilterOn={this.props.activeFilterOn} />);
-      } else {
-        appFilter = <ActivitySearchFilter showAllId={this.props.showAllId} key={filter.alias} selectFilterOption={this.props.selectFilterOption} data={filter} activeFilterOn={this.props.activeFilterOn} />;
-      }
-    });
-    const clearAll = <button key="clear-all" type="button" className="clear-button select-mixin button-select button-select-wrapper" onClick={this.props.clearFilters}>Clear<img src="/images/x.svg" /></button>;
-    const dropDownFilters = (<span className="activity-filter-drop-downs" key="activity-filter-drop-downs">
-      {[dropDowns, clearAll]}
-    </span>);
-
-    const dropDownFiltersAndSearch = [<SearchActivitiesInput key="activity-search" searchQuery={this.props.searchQuery} updateSearchQuery={this.props.updateSearchQuery} />].concat(dropDownFilters);
-    return (
-      <div className="row activity-page-dropdown-wrapper">
-        <div className="drop-down-filters-and-search ">
-          {dropDownFiltersAndSearch}
-        </div>
-        {appFilter}
+  const dropDownFiltersAndSearch = [<SearchActivitiesInput key="activity-search" searchQuery={props.searchQuery} updateSearchQuery={updateSearchQuery} />].concat(dropDownFilters);
+  return (
+    <div className="activity-page-dropdown-wrapper">
+      <div className="drop-down-filters-and-search ">
+        {dropDownFiltersAndSearch}
       </div>
-    );
-  },
-});
+      {appFilter}
+    </div>
+  );
+}
+
+export default ActivitySearchFilters

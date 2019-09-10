@@ -1,12 +1,23 @@
 import React from 'react';
-import FilterOption from './filter_option';
 import _ from 'lodash';
-import $ from 'jquery';
-import naturalCmp from 'underscore.string/naturalCmp';
+import { DropdownInput } from 'quill-component-library/dist/componentLibrary'
+
+import FilterOption from './filter_option';
 import FilterButton from './filter_button.jsx';
 import getParameterByName from '../../../../modules/get_parameter_by_name';
 
-export default React.createClass({
+export default class ActivitySearchFilter extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      activeFilterId: null
+    }
+
+    this.handleFilterButtonClick = this.handleFilterButtonClick.bind(this)
+    this.selectFilterOption = this.selectFilterOption.bind(this)
+    this.renderButton = this.renderButton.bind(this)
+  }
 
   componentWillReceiveProps(nextProps) {
     if (!nextProps.activeFilterOn) {
@@ -21,37 +32,60 @@ export default React.createClass({
         }
       }
     }
-  },
-
-  getInitialState() {
-    return { activeFilterId: null, };
-  },
+  }
 
   handleFilterButtonClick(optionId) {
     this.selectFilterOption(optionId);
     this.setState({ activeFilterId: optionId, });
-  },
+  }
 
   selectFilterOption(optionId) {
     this.props.selectFilterOption(this.props.data.field, optionId);
-  },
+  }
 
   clearFilterOptionSelection() {
     this.props.selectFilterOption(this.props.data.field, null);
     this.setState({ activeFilterId: null, });
-  },
+  }
+
+  renderButton(opt) {
+    return (<FilterButton
+      key={`${opt.id}-activity`}
+      handleFilterButtonClick={this.handleFilterButtonClick}
+      data={opt}
+      active={this.state.activeFilterId === opt.id}
+    />);
+  }
+
+  renderAppOptions() {
+    const options = _.uniqWith(this.props.data.options, _.isEqual);
+    const diagnosticButtons = options.filter(opt => opt.key === 'diagnostic').map(this.renderButton)
+    const wholeClassButtons = options.filter(opt => opt.key === 'lessons').map(this.renderButton)
+    const independentPracticeButtons = options.filter(opt => ['connect', 'sentence', 'passage'].includes(opt.key)).map(this.renderButton)
+    return (<div>
+      <div className="diagnostic-section">
+        <h3>Diagnostic</h3>
+        <div>{diagnosticButtons}</div>
+      </div>
+      <div className="whole-class-section">
+        <h3>Whole class instruction</h3>
+        <div>{wholeClassButtons}</div>
+      </div>
+      <div className="independent-practice-section">
+        <h3>Independent practice</h3>
+        <div>{independentPracticeButtons}</div>
+      </div>
+    </div>)
+  }
 
   getDisplayedFilterOptions() {
-    const field = this.props.data.field;
     // unique options
     const options = _.uniqWith(this.props.data.options, _.isEqual);
-    if (field !== 'activity_classification') {
-      options.sort(function(a, b) {
-        let textA = a.name.toUpperCase();
-        let textB = b.name.toUpperCase();
-        return textA.localeCompare(textB, 'en', { numeric: true, })
-      });
-    }
+    options.sort((a, b) => {
+      const textA = a.name.toUpperCase();
+      const textB = b.name.toUpperCase();
+      return textA.localeCompare(textB, 'en', { numeric: true, })
+    });
     // ensure that the show all option is always on the top
     for (let i = 0; i < options.length; i++) {
       const option = options[i];
@@ -60,26 +94,22 @@ export default React.createClass({
         options.unshift(option);
       }
     }
-    return options.map((option) => {
-      if (field === 'activity_classification') {
-        return (<FilterButton className='hey' key={`${option.id}-activity`} handleFilterButtonClick={this.handleFilterButtonClick} data={option} active={this.state.activeFilterId === option.id} />);
-      }
-      return (
-        <FilterOption key={`${option.id}-${option.name}`} selectFilterOption={this.selectFilterOption} data={option} />
-      );
-    });
-  },
+
+    return options.map((opt) => {
+      return { value: opt.id, label: opt.name, }
+    })
+  }
 
   getFilterHeader() {
     if (this.props.data.selected) {
       return this.getSelectedOption().name;
     }
     return this.props.data.alias;
-  },
+  }
 
   getSelectedOption() {
     return _.find(this.props.data.options, { id: this.props.data.selected, }, this);
-  },
+  }
 
   render() {
 		// Nothing is selected. 'Filter by X' displays. All other options can be selected.
@@ -88,25 +118,32 @@ export default React.createClass({
     if (filterIsButtons) {
       return (
         <div className="activity-filter button-row">
-          {this.getDisplayedFilterOptions()}
-          {this.props.children}
+          {this.renderAppOptions()}
         </div>
       );
     }
 
-    return (
-      <div className="no-pl">
-        <div className="button-select activity-filter-button-wrapper">
-          <button type="button" className="select-mixin select-gray button-select button-select-wrapper" data-toggle="dropdown">
-            {this.getFilterHeader()}
-            <i className="fa fa-caret-down act-search-filter-fav" />
-          </button>
-          <ul className="dropdown-menu" role="menu">
-            {this.getDisplayedFilterOptions()}
-          </ul>
+    const options = this.getDisplayedFilterOptions()
+    return (<DropdownInput
+      label={this.props.data.alias}
+      className={this.props.data.field}
+      options={options}
+      value={options.find(opt => opt.value === this.state.activeFilterId)}
+    />)
 
-        </div>
-      </div>
-    );
-  },
-});
+    // return (
+    //   <div className="no-pl">
+    //     <div className="button-select activity-filter-button-wrapper">
+    //       <button type="button" className="select-mixin select-gray button-select button-select-wrapper" data-toggle="dropdown">
+    //         {this.getFilterHeader()}
+    //         <i className="fa fa-caret-down act-search-filter-fav" />
+    //       </button>
+    //       <ul className="dropdown-menu" role="menu">
+    //         {this.getDisplayedFilterOptions()}
+    //       </ul>
+    //
+    //     </div>
+    //   </div>
+    // );
+  }
+}

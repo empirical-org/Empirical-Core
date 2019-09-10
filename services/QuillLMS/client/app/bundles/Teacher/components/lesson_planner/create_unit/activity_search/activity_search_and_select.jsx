@@ -16,32 +16,25 @@ import getParameterByName from '../../../modules/get_parameter_by_name';
 const resultsPerPage = 25;
 const showAllId = 'showAllId';
 
-export default React.createClass({
-  propTypes: {
-    selectedActivities: React.PropTypes.array.isRequired,
-    toggleActivitySelection: React.PropTypes.func.isRequired,
-    clickContinue: React.PropTypes.func,
-    errorMessage: React.PropTypes.string,
-  },
+export default class ActivitySearchAndSelect extends React.Component {
+  constructor(props) {
+    super(props)
 
-  defaultState() {
-    return {
+    this.state = {
       loading: true,
       filters: ActivitySearchFilterConfig(),
       sorts: ActivitySearchSortConfig,
       maxPageNumber: 1,
       activeFilterOn: !!getParameterByName('tool'),
       error: null,
-    };
-  },
+    }
 
-  getInitialState() {
-    return this.defaultState();
-  },
+    this.selectFilterOption = this.selectFilterOption.bind(this)
+  }
 
   componentDidMount() {
     this.searchRequest();
-  },
+  }
 
   searchRequest() {
     this.setState({ loading: true, });
@@ -56,7 +49,7 @@ export default React.createClass({
         this.errorState('This search could not be completed')
       }
     });
-  },
+  }
 
   selectedFiltersAndFields() {
     return this.state.filters.reduce((selected, filter) => {
@@ -65,11 +58,11 @@ export default React.createClass({
       }
       return selected;
     }, []);
-  },
+  }
 
   errorState(error) {
     this.setState({ error, });
-  },
+  }
 
   clearFilters() {
     this.setState({
@@ -77,7 +70,7 @@ export default React.createClass({
       activeFilterOn: false,
       searchQuery: '',
     }, this.changeViewableActivities);
-  },
+  }
 
   searchRequestSuccess(data) {
     const hash = {
@@ -89,26 +82,32 @@ export default React.createClass({
       loading: false,
     };
     this.setState(hash, this.updateFilterOptionsAfterChange);
-  },
+  }
 
   updateFilterOptionsAfterChange() {
     // Go through all the filters, and only display the options that are available based on the viewableActivity array
-    const availableOptions = this._findFilterOptionsBasedOnActivities();
+    const availableOptions = this.findFilterOptionsBasedOnActivities();
+    const activityClassificationOptions = this.findFilterOptionsBasedOnActivities(this.state.activitySearchResults)
     const newFilters = [...this.state.filters];
     newFilters.forEach((filter) => {
-      filter.options = availableOptions[filter.field];
+      if (filter.field === 'activity_classification') {
+        filter.options = activityClassificationOptions[filter.field]
+      } else {
+        filter.options = availableOptions[filter.field];
+      }
     });
     this.setState({ filters: newFilters, });
-  },
+  }
 
-  _findFilterOptionsBasedOnActivities() {
+  findFilterOptionsBasedOnActivities(activities = null) {
+    const viewableActivities = activities ? activities : this.state.viewableActivities
     const filterFields = this.state.filters.map(filter => filter.field);
     const availableOptions = {};
     // get all filter keys and then map them onto availableOptions as empty arrs
     filterFields.forEach((field) => {
       availableOptions[field] = [];
     });
-    this.state.viewableActivities.forEach((activity) => {
+    viewableActivities.forEach((activity) => {
       filterFields.forEach((field) => {
         if (activity[field].name || activity[field].alias) {
           availableOptions[field].push(activity[field]);
@@ -123,11 +122,11 @@ export default React.createClass({
       }
     });
     return availableOptions;
-  },
+  }
 
   updateSearchQuery(newQuery) {
     this.setState({ searchQuery: newQuery, }, this.changeViewableActivities);
-  },
+  }
 
   selectFilterOption(field, optionId) {
     let activeFilterOn = true;
@@ -144,12 +143,12 @@ export default React.createClass({
       return filter;
     }, this);
     this.setState({ filters, activeFilterOn, }, this.changeViewableActivities);
-  },
+  }
 
   activityContainsSearchTerm(activity) {
     const stringActivity = Object.values(activity).join(' ').toLowerCase();
     return stringActivity.includes(this.state.searchQuery.toLowerCase());
-  },
+  }
 
   changeViewableActivities() {
     const selectedFiltersAndFields = this.selectedFiltersAndFields();
@@ -172,7 +171,7 @@ export default React.createClass({
       maxPageNumber: Math.ceil(viewableActivities.length / resultsPerPage),
       numberOfPages: Math.ceil(viewableActivities.length / resultsPerPage),
     }, this.updateFilterOptionsAfterChange);
-  },
+  }
 
   updateSort(field, asc_or_desc) {
     const sorts = _.map(this.state.sorts, (sort) => {
@@ -186,7 +185,7 @@ export default React.createClass({
       return sort;
     }, this);
     this.setState({ sorts, }, this.sort);
-  },
+  }
 
   sort() {
     let visActs = [...this.state.viewableActivities];
@@ -201,17 +200,17 @@ export default React.createClass({
       }
     });
     this.setState({ viewableActivities: visActs, });
-  },
+  }
 
   selectPageNumber(number) {
     this.setState({ currentPage: number, });
-  },
+  }
 
   currentPageResults() {
     const lowerBound = (this.state.currentPage - 1) * resultsPerPage;
     const upperBound = (this.state.currentPage) * resultsPerPage;
     return this.state.viewableActivities.slice(lowerBound, upperBound);
-  },
+  }
 
   render() {
     let table,
@@ -227,10 +226,7 @@ export default React.createClass({
     }
     return (
       <section>
-        <div className="flex-row space-between vertically-centered header-and-link">
-          <h1 className="explore-activities-header">Explore Activities & Create Activity Pack</h1>
-          <a className="how-we-grade" href="https://support.quill.org/activities-implementation/how-does-grading-work">Common Core Standards vs. Students’ Levels<i className="fa fa-long-arrow-right" /></a>
-        </div>
+        <h1>Create your own activity pack.</h1>
         <ActivitySearchAndFilters
           showAllId={showAllId}
           updateSearchQuery={this.updateSearchQuery}
@@ -259,5 +255,5 @@ export default React.createClass({
         />
       </section>
     );
-  },
-});
+  }
+}
