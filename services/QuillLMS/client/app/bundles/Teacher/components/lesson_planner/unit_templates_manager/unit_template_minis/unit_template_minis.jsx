@@ -25,7 +25,7 @@ export default class UnitTemplateMinis extends React.Component {
     }
     models = _.sortBy(models, 'order_number');
     models = this.addCreateYourOwnModel(models);
-    const modelCards = models.map((model, i) => this.generateUnitTemplateView(model, i));
+    const modelCards = models.map(this.generateUnitTemplateView);
     return modelCards;
   }
 
