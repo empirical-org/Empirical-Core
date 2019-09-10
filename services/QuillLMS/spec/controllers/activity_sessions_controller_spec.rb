@@ -23,27 +23,6 @@ describe ActivitySessionsController, type: :controller do
 
 
   describe '#play' do
-    context 'when the activity classification id is 6' do
-      let(:url) { "#{ENV['FIREBASE_DATABASE_URL']}/v2/classroom_lesson_sessions/#{cu.id}/students.json" }
-      let(:body) { {"#{activity_session.uid}": user.name}.to_json }
-
-      before do
-        allow(HTTParty).to receive(:patch) { true }
-        allow_any_instance_of(Activity).to receive(:activity_classification_id) { 6 }
-      end
-
-      it 'should set the module url' do
-        get :play, id: activity_session.id
-        expect(assigns(:module_url)).to eq activity.module_url(activity_session)
-      end
-
-      it 'should call the http patch method' do
-        expect(HTTParty).to receive(:patch).with(url, body: body)
-        get :play, id: activity_session.id
-      end
-    end
-
-    context 'when the activity classification id is not 6' do
       before do
         allow_any_instance_of(Activity).to receive(:activity_classification_id) { 3 }
       end
@@ -51,7 +30,6 @@ describe ActivitySessionsController, type: :controller do
         get :play, id: activity_session.id
         expect(response).to redirect_to activity.module_url(activity_session)
       end
-    end
   end
 
   describe '#result' do
