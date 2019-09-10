@@ -47,7 +47,6 @@ export default class UnitTemplatesManager extends React.Component {
         model: null,
         model_id: null,
         relatedModels: [],
-        displayedModels: [],
         selectedCategoryId: null,
         lastActivityAssigned: null,
         grade: getParameterByName('grade'),
@@ -62,18 +61,8 @@ export default class UnitTemplatesManager extends React.Component {
   }
 
   componentDidMount() {
-  	this.fetchUnitTemplateModels();
+    this.fetchUnitTemplateModels();
     this.fetchTeacher();
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const { category, grade, type, } = nextProps.location.query
-    const categoryChanged = category !== this.props.location.query.category
-    const gradeChanged = grade !== this.props.location.query.grade
-    const typeChanged = type !== this.props.location.query.type
-    if (categoryChanged || gradeChanged || typeChanged) {
-      this.filterModels(category, grade, type)
-    }
   }
 
   analytics() {
@@ -144,7 +133,7 @@ export default class UnitTemplatesManager extends React.Component {
       const selectedTypeName = types.find(t => t.id === typeId).name
       displayedModels = displayedModels.filter(ut => ut.type.name === selectedTypeName)
     }
-    this.updateUnitTemplatesManager({ stage: 'index', displayedModels, selectedCategoryId, })
+    return displayedModels
   }
 
   fetchClassrooms() {
@@ -200,13 +189,17 @@ export default class UnitTemplatesManager extends React.Component {
     if (this.state.unitTemplatesManager.models.length < 1) {
       return <LoadingIndicator />
     }
+
+    const { category, grade, type, } = this.props.location.query
+    const displayedModels = this.filterModels(category, grade, type)
     return (<UnitTemplateMinis
       signedInTeacher={this.state.signedInTeacher}
       data={this.state.unitTemplatesManager}
       actions={this.unitTemplatesManagerActions()}
       types={types}
-      selectedTypeId={this.props.location.query.type}
+      selectedTypeId={type}
       selectCategory={this.selectCategory}
+      displayedModels={displayedModels}
     />)
   }
 

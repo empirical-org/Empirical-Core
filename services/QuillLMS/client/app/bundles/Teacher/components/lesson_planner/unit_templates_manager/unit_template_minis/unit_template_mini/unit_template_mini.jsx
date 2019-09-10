@@ -12,11 +12,7 @@ export default class UnitTemplateMini extends React.Component {
   }
 
   avatarUrl() {
-    let url = null;
-    if (this.props.data.author) {
-      url = this.props.data.author.avatar_url
-    }
-    return url;
+    return this.props.data.author ? this.props.data.author.avatar_url : null
   }
 
   displayPicture() {

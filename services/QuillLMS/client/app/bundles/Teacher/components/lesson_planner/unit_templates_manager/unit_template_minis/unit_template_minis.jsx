@@ -17,11 +17,11 @@ export default class UnitTemplateMinis extends React.Component {
     const { grade, } = this.props.data;
     let models;
     if (grade) {
-      models = _.filter(this.props.data.displayedModels, (m) => {
+      models = _.filter(this.props.displayedModels, (m) => {
         return _.contains(m.grades, grade.toString());
       });
     } else {
-      models = this.props.data.displayedModels;
+      models = this.props.displayedModels;
     }
     models = _.sortBy(models, 'order_number');
     models = this.addCreateYourOwnModel(models);
@@ -59,14 +59,10 @@ export default class UnitTemplateMinis extends React.Component {
     }
   }
 
-  renderFilterOptions() {
-    const { types, selectedTypeId, data, selectCategory, } = this.props
-    const typeOptions = types.map(type => <Link
-      to={`${this.getIndexLink()}?type=${type.id}`}
-      className={selectedTypeId === type.id ? 'active' : null}
-      >{type.name}</Link>)
+  generateCategoryOptions() {
+    const { data, } = this.props
     const categoryOrder = ['All levels', 'Starter', 'Intermediate', 'Advanced', 'ELL']
-    const categoryOptions = categoryOrder.map((name) => {
+    return categoryOrder.map((name) => {
       const category = data.categories.find(cat => cat.name === name)
       if (category) {
         return {
@@ -82,6 +78,15 @@ export default class UnitTemplateMinis extends React.Component {
         }
       }
     })
+  }
+
+  renderFilterOptions() {
+    const { types, selectedTypeId, data, selectCategory, } = this.props
+    const typeOptions = types.map(type => <Link
+      to={`${this.getIndexLink()}?type=${type.id}`}
+      className={selectedTypeId === type.id ? 'active' : null}
+      >{type.name}</Link>)
+    const categoryOptions = this.generateCategoryOptions()
     return (
       <div className="filter-options">
         <div className='type-options'>

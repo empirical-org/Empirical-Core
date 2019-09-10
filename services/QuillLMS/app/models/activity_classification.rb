@@ -11,7 +11,7 @@ class ActivityClassification < ActiveRecord::Base
   LESSONS_KEY = 'lessons'
 
   def self.diagnostic
-    ActivityClassification.find_by_key DIAGNOSTIC_KEY
+    find_by_key DIAGNOSTIC_KEY
   end
 
 end
