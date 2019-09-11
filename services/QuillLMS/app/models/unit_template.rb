@@ -16,6 +16,9 @@ class UnitTemplate < ActiveRecord::Base
   scope :private_user, -> { where("unit_templates.flag IN('private', 'production','beta','alpha') OR unit_templates.flag IS null")}
   around_save :delete_relevant_caches
 
+  WHOLE_CLASS_AND_INDEPENDENT_PRACTICE = 'Whole class + Independent practice'
+  INDEPENDENT_PRACTICE = 'Independent practice'
+  DIAGNOSTIC = 'Diagnostic'
 
   def activity_ids= activity_ids
     # getting around rails defaulting to activities being set in order of the activity id rather than the selected order

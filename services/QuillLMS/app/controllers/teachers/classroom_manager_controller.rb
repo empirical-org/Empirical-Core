@@ -253,11 +253,11 @@ class Teachers::ClassroomManagerController < ApplicationController
   def teacher_or_public_activity_packs
     if !current_user && request.path.include?('featured-activity-packs')
       if params[:category]
-        redirect_to "/activities/packs/category/#{params[:category]}"
+        redirect_to "/activities/packs?category=#{params[:category]}"
       elsif params[:activityPackId]
         redirect_to "/activities/packs/#{params[:activityPackId]}"
       elsif params[:grade]
-        redirect_to "/activities/packs/grade/#{params[:grade]}"
+        redirect_to "/activities/packs?grade=#{params[:grade]}"
       else
         redirect_to "/activities/packs"
       end
