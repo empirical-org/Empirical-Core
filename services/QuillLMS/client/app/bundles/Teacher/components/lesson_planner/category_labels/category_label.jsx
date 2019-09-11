@@ -17,8 +17,8 @@
 
   getLink: function () {
     return this.props.nonAuthenticated
-    ? `/activities/packs/category/${this.props.data.name.toLowerCase()}`
-    : `/teachers/classrooms/assign_activities/featured-activity-packs/category/${this.props.data.name.toLowerCase()}`
+    ? `/activities/packs?category=${this.props.data.name.toLowerCase()}`
+    : `/teachers/classrooms/assign_activities/featured-activity-packs?category=${this.props.data.name.toLowerCase()}`
   },
 
   render: function () {

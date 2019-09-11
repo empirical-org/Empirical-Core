@@ -35,10 +35,6 @@ const props = {
         'path': '/teachers/classrooms/activity_planner',
         'indexRoute': {},
         'childRoutes': [{
-            'path': 'featured-activity-packs(/category/:category)'
-        }, {
-            'path': 'featured-activity-packs(/grade/:grade)'
-        }, {
             'path': 'featured-activity-packs/:activityPackId'
         }, {
             'path': 'featured-activity-packs/:activityPackId/assigned'

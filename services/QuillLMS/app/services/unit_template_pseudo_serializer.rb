@@ -18,7 +18,8 @@ class UnitTemplatePseudoSerializer
       activity_info: ut.activity_info,
       author: author,
       unit_template_category: unit_template_category,
-      activities: activities
+      activities: activities,
+      type: type
     }
   end
 
@@ -91,22 +92,24 @@ class UnitTemplatePseudoSerializer
     end
   end
 
-  # def topic(act)
-  #     topic = act.topic
-  #     {
-  #       id: topic.id,
-  #       name: topic.name,
-  #       topic_category: topic_category(topic)
-  #     }
-  # end
-  #
-  # def topic_category(topic)
-  #   tc = topic.topic_category
-  #   {
-  #     id: tc.id,
-  #     name: tc.name
-  #   }
-  # end
-
+  def type
+    activities = @unit_template.activities
+    if activities.any? { |act| act&.classification&.key == ActivityClassification::LESSONS_KEY }
+      {
+        name: UnitTemplate::WHOLE_CLASS_AND_INDEPENDENT_PRACTICE,
+        primary_color: '#9c2bde'
+      }
+    elsif activities.any? { |act| act&.classification&.key == ActivityClassification::DIAGNOSTIC_KEY }
+      {
+        name: UnitTemplate::DIAGNOSTIC,
+        primary_color: '#ea9a1a'
+      }
+    else
+      {
+        name: UnitTemplate::INDEPENDENT_PRACTICE,
+        primary_color: '#348fdf'
+      }
+    end
+  end
 
 end

@@ -1,130 +1,132 @@
-'use strict'
+import React from 'react'
+import _ from 'underscore'
+import _l from 'lodash'
+import { Link } from 'react-router'
+import { DropdownInput } from 'quill-component-library/dist/componentLibrary'
 
- import React from 'react'
- import { Link } from 'react-router'
- import UnitTemplateMini from './unit_template_mini/unit_template_mini'
- import ListFilterOptions from '../../../shared/list_filter_options/list_filter_options'
- import RowsCreator from '../../../modules/rows_creator'
- import _ from 'underscore'
- import _l from 'lodash'
+import UnitTemplateMini from './unit_template_mini/unit_template_mini'
 
+export default class UnitTemplateMinis extends React.Component {
+  constructor(props) {
+    super(props)
 
- export default  React.createClass({
-  propTypes: {
-    data: React.PropTypes.object,
-    actions: React.PropTypes.object
-  },
+    this.generateUnitTemplateView = this.generateUnitTemplateView.bind(this)
+  }
 
-  getInitialState: function () {
-    this.modules = {
-      rowsCreator: new RowsCreator(this.colView, this.rowView, 2)
-    }
-    return {};
-  },
-
-  generateUnitTemplateViews: function () {
-    var grade = this.props.data.grade;
-    var models;
+  generateUnitTemplateViews() {
+    const { grade, } = this.props.data;
+    let models;
     if (grade) {
-      models = _.filter(this.props.data.displayedModels, function (m){
+      models = _.filter(this.props.displayedModels, (m) => {
         return _.contains(m.grades, grade.toString());
       });
     } else {
-      models = this.props.data.displayedModels;
+      models = this.props.displayedModels;
     }
     models = _.sortBy(models, 'order_number');
     models = this.addCreateYourOwnModel(models);
-    var rows = this.modules.rowsCreator.create(models);
-    return <span>{rows}</span>;
-  },
+    const modelCards = models.map(this.generateUnitTemplateView);
+    return modelCards;
+  }
 
   //adds a final model, which is simply flagged as a createYourOwn one via the key
-  addCreateYourOwnModel: function(models) {
+  addCreateYourOwnModel(models) {
     if (models && models.length) {
       models.push({id: 'createYourOwn', non_authenticated: this.props.data.non_authenticated});
-      }
+    }
     return _l.uniqBy(models, 'id');
-  },
+  }
 
-  generateUnitTemplateView: function (model, index) {
-    return <UnitTemplateMini key={model.id}
-                                data={model}
-                                index={index}
-                                actions={this.props.actions}
-                                signedInTeacher={this.props.signedInTeacher}/>
-  },
+  generateUnitTemplateView(model, index) {
+    return (<UnitTemplateMini
+      key={model.id}
+      data={model}
+      index={index}
+      actions={this.props.actions}
+      signedInTeacher={this.props.signedInTeacher}
+    />)
+  }
 
-  getIndexLink: function () {
+  getIndexLink() {
     return this.props.signedInTeacher ? '/teachers/classrooms/assign_activities/featured-activity-packs' : '/activities/packs'
-  },
+  }
 
-  generateShowAllGradesView: function () {
+  generateShowAllGradesView() {
     if (this.props.data.grade) {
       return (
         <Link to={this.getIndexLink()} className="see-all-activity-packs button-grey button-dark-grey text-center center-block show-all">Show All Activity Packs</Link>
       )
     }
-  },
+  }
 
-  renderListFilterOptions: function(){
+  generateCategoryOptions() {
+    const { data, } = this.props
+    const categoryOrder = ['All levels', 'Starter', 'Intermediate', 'Advanced', 'ELL']
+    return categoryOrder.map((name) => {
+      const category = data.categories.find(cat => cat.name === name)
+      if (category) {
+        return {
+          label: category.name,
+          value: category.id,
+          link: `${this.getIndexLink()}?category=${category.name}`
+        }
+      } else {
+        return {
+          label: name,
+          value: null,
+          link: this.getIndexLink()
+        }
+      }
+    })
+  }
+
+  renderFilterOptions() {
+    const { types, selectedTypeId, data, selectCategory, } = this.props
+    const typeOptions = types.map(type => <Link
+      to={`${this.getIndexLink()}?type=${type.id}`}
+      className={selectedTypeId === type.id ? 'active' : null}
+      >{type.name}</Link>)
+    const categoryOptions = this.generateCategoryOptions()
     return (
-      <div className='row'>
-        {this.listFilterOptions()}
+      <div className="filter-options">
+        <div className='type-options'>
+          <Link to={this.getIndexLink()} className={!selectedTypeId ? 'active' : null}>All packs</Link>
+          {typeOptions}
+        </div>
+        <DropdownInput
+          value={categoryOptions.find(cat => cat.value === data.selectedCategoryId) || categoryOptions[0]}
+          options={categoryOptions}
+          handleChange={selectCategory}
+        />
       </div>
     )
-},
+  }
 
-  colView: function (data, index) {
-    return (
-      <div className={`small-screen-unit-template-container`} key={index}>
-        {this.generateUnitTemplateView(data, index)}
-      </div>
-    );
-  },
-
-  rowView: function (cols, index) {
-    return <div className="flex-row space-between small-screen-unit-templates-container" key={index}>{cols}</div>;
-  },
-
-  listFilterOptions: function () {
-    if (this.props.data.grade) {
-      return
-    }
-    else {
-      return (
-            <ListFilterOptions
-                    key='listFilterOptions'
-                    userLoggedIn={this.userLoggedIn()}
-                    options={this.props.data.categories || []}
-                    selectedId={this.props.data.selectedCategoryId}
-                    />
-      );
-    }
-  },
-
-  userLoggedIn: function () {
+  userLoggedIn() {
     return this.props.signedInTeacher
-  },
+  }
 
-  userNotLoggedIn: function () {
+  userNotLoggedIn() {
     return !this.userLoggedIn();
-  },
+  }
 
-  render: function () {
-    return (<div key='always-display' className='unit-template-minis'>
+  render() {
+    return (<div key='always-display' className='unit-template-minis-container'>
       <div className="container">
-        <div className='row'>
-          <div className='col-xs-12'>
-              {this.renderListFilterOptions()}
-              {this.generateShowAllGradesView()}
-            <div className='row'>
-            {this.generateUnitTemplateViews()}
+        <div>
+          <h1>Select an activity pack for your students</h1>
+          <div>
+            {this.renderFilterOptions()}
+            {this.generateShowAllGradesView()}
+            <div className="unit-template-minis">
+              {this.generateUnitTemplateViews()}
             </div>
-            <div className='row'>
+            <div>
               {this.generateShowAllGradesView()}
             </div>
           </div>
         </div>
       </div>
-    </div>)  }
-});
+    </div>)
+  }
+}
