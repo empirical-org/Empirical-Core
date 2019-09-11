@@ -2,7 +2,6 @@ import React from 'react';
 import _ from 'lodash';
 import { DropdownInput } from 'quill-component-library/dist/componentLibrary'
 
-import FilterOption from './filter_option';
 import FilterButton from './filter_button.jsx';
 import getParameterByName from '../../../../modules/get_parameter_by_name';
 
@@ -15,7 +14,6 @@ export default class ActivitySearchFilter extends React.Component {
     }
 
     this.handleFilterButtonClick = this.handleFilterButtonClick.bind(this)
-    this.selectFilterOption = this.selectFilterOption.bind(this)
     this.renderButton = this.renderButton.bind(this)
   }
 
@@ -35,12 +33,8 @@ export default class ActivitySearchFilter extends React.Component {
   }
 
   handleFilterButtonClick(optionId) {
-    this.selectFilterOption(optionId);
-    this.setState({ activeFilterId: optionId, });
-  }
-
-  selectFilterOption(optionId) {
     this.props.selectFilterOption(this.props.data.field, optionId);
+    this.setState({ activeFilterId: optionId, });
   }
 
   clearFilterOptionSelection() {
@@ -129,21 +123,7 @@ export default class ActivitySearchFilter extends React.Component {
       className={this.props.data.field}
       options={options}
       value={options.find(opt => opt.value === this.state.activeFilterId)}
+      handleChange={(opt) => this.handleFilterButtonClick(opt.value)}
     />)
-
-    // return (
-    //   <div className="no-pl">
-    //     <div className="button-select activity-filter-button-wrapper">
-    //       <button type="button" className="select-mixin select-gray button-select button-select-wrapper" data-toggle="dropdown">
-    //         {this.getFilterHeader()}
-    //         <i className="fa fa-caret-down act-search-filter-fav" />
-    //       </button>
-    //       <ul className="dropdown-menu" role="menu">
-    //         {this.getDisplayedFilterOptions()}
-    //       </ul>
-    //
-    //     </div>
-    //   </div>
-    // );
   }
 }

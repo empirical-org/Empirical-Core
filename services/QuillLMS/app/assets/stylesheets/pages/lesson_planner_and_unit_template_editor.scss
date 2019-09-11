@@ -71,6 +71,20 @@
         }
       }
     }
+    .activity-filter-drop-downs {
+      align-items: flex-end;
+      .dropdown {
+        margin-bottom: 4px;
+      }
+      .activity_category {
+        margin-right: 32px;
+      }
+      .dropdown-container.active {
+        .dropdown {
+          margin-bottom: 40px;
+        }
+      }
+    }
   }
 }
 
