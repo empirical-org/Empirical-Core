@@ -62,18 +62,18 @@ export default class ActivitySearchFilter extends React.Component {
     const diagnosticButtons = options.filter(opt => opt.key === 'diagnostic').map(this.renderButton)
     const wholeClassButtons = options.filter(opt => opt.key === 'lessons').map(this.renderButton)
     const independentPracticeButtons = options.filter(opt => ['connect', 'sentence', 'passage'].includes(opt.key)).map(this.renderButton)
-    return (<div>
-      <div className="diagnostic-section">
+    return (<div className="app-button-container">
+      <div className="diagnostic-section activity-type-section">
         <h3>Diagnostic</h3>
-        <div>{diagnosticButtons}</div>
+        <div className="app-buttons">{diagnosticButtons}</div>
       </div>
-      <div className="whole-class-section">
+      <div className="whole-class-section activity-type-section">
         <h3>Whole class instruction</h3>
-        <div>{wholeClassButtons}</div>
+        <div className="app-buttons">{wholeClassButtons}</div>
       </div>
-      <div className="independent-practice-section">
+      <div className="independent-practice-section activity-type-section">
         <h3>Independent practice</h3>
-        <div>{independentPracticeButtons}</div>
+        <div className="app-buttons">{independentPracticeButtons}</div>
       </div>
     </div>)
   }

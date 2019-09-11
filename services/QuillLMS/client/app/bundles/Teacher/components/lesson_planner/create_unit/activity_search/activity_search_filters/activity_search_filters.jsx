@@ -33,9 +33,12 @@ const ActivitySearchFilters = (props) => {
       />)
     }
   });
+
   const dropDownFilters = (<span className="activity-filter-drop-downs" key="activity-filter-drop-downs">
     {[dropDowns]}
   </span>);
+
+  const clearAllFilters = activeFilterOn? <p className="clear-all-filters" onClick={clearFilters}>Clear all filters</p> : null
 
   const dropDownFiltersAndSearch = [<SearchActivitiesInput key="activity-search" searchQuery={props.searchQuery} updateSearchQuery={updateSearchQuery} />].concat(dropDownFilters);
   return (
@@ -44,6 +47,7 @@ const ActivitySearchFilters = (props) => {
         {dropDownFiltersAndSearch}
       </div>
       {appFilter}
+      {clearAllFilters}
     </div>
   );
 }

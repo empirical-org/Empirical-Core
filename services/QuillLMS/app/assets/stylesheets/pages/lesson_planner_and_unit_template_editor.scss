@@ -27,11 +27,35 @@
   .section {
     width: 183px;
   }
+  .clear-all-filters {
+    color: #027630;
+    font-size: 16px;
+    margin-top: 16px;
+    cursor: pointer;
+    line-height: 1;
+  }
   .activity-page-dropdown-wrapper {
     padding: 16px 32px;
     border-radius: 6px;
     border: solid 1px #e0e0e0;
     background-color: #fff;
+    .app-button-container {
+      display: flex;
+      .activity-type-section {
+        h3 {
+          font-size: 14px;
+          line-height: 1;
+          color: #7f7f7f;
+          margin-bottom: 8px;
+        }
+        .app-buttons {
+          display: flex;
+        }
+        &.diagnostic-section, &.whole-class-section {
+          margin-right: 16px;
+        }
+      }
+    }
   }
 }
 

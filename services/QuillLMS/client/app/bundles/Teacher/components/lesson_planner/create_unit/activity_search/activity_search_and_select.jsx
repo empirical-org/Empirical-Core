@@ -30,6 +30,7 @@ export default class ActivitySearchAndSelect extends React.Component {
     }
 
     this.selectFilterOption = this.selectFilterOption.bind(this)
+    this.clearFilters = this.clearFilters.bind(this)
   }
 
   componentDidMount() {
