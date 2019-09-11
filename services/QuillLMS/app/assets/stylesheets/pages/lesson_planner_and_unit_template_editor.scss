@@ -27,12 +27,27 @@
   .section {
     width: 183px;
   }
+  .drop-down-filters-and-search {
+    margin-bottom: 32px;
+  }
   .clear-all-filters {
     color: #027630;
     font-size: 16px;
     margin-top: 16px;
     cursor: pointer;
     line-height: 1;
+  }
+  .search-activities {
+    display: flex;
+    align-items: flex-end;
+    img {
+      margin-right: 8px;
+      margin-bottom: 6px;
+    }
+    .input-container {
+      width: 371px;
+      min-height: min-content;
+    }
   }
   .activity-page-dropdown-wrapper {
     padding: 16px 32px;

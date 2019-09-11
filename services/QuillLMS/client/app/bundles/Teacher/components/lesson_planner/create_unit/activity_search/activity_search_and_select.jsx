@@ -31,6 +31,7 @@ export default class ActivitySearchAndSelect extends React.Component {
 
     this.selectFilterOption = this.selectFilterOption.bind(this)
     this.clearFilters = this.clearFilters.bind(this)
+    this.updateSearchQuery = this.updateSearchQuery.bind(this)
   }
 
   componentDidMount() {
@@ -125,8 +126,8 @@ export default class ActivitySearchAndSelect extends React.Component {
     return availableOptions;
   }
 
-  updateSearchQuery(newQuery) {
-    this.setState({ searchQuery: newQuery, }, this.changeViewableActivities);
+  updateSearchQuery(e) {
+    this.setState({ searchQuery: e.target.value, }, this.changeViewableActivities);
   }
 
   selectFilterOption(field, optionId) {
@@ -239,7 +240,10 @@ export default class ActivitySearchAndSelect extends React.Component {
         />
         <table className="table activity-table search-and-select green-rows-on-hover">
           <thead>
-            <ActivitySearchSorts updateSort={this.updateSort} sorts={this.state.sorts} />
+            <ActivitySearchSorts
+              updateSort={this.updateSort}
+              sorts={this.state.sorts}
+            />
           </thead>
           {table}
         </table>
