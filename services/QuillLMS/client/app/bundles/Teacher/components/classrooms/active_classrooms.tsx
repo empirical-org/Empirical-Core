@@ -298,7 +298,6 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
         close={this.closeModal}
         onSuccess={this.onSuccess}
         classroom={selectedClassroom}
-        user={user}
       />
     }
   }
