@@ -19,16 +19,18 @@ class Auth::CleverController < ApplicationController
       end
     end
     result = CleverIntegration::SignUp::Main.run(auth_hash)
-    send(result[:type], result[:data])
+    send(result[:type], result[:data], result[:redirect])
   end
 
   private
 
-  def district_success(data)
+  def district_success(data, redirect=nil)
     render status: 200, nothing: true # Don't bother rendering anything.
   end
 
-  def user_success(data) # data is a User record
+  # data is a user record
+  # have to put a second argument in there due to the send method
+  def user_success(data, redirect=nil)
     data.update_attributes(ip_address: request.remote_ip)
     if session[ApplicationController::CLEVER_REDIRECT]
       redirect_route = session[ApplicationController::CLEVER_REDIRECT]
@@ -44,8 +46,8 @@ class Auth::CleverController < ApplicationController
     end
   end
 
-  def user_failure(data)
+  def user_failure(data, redirect='/clever/no_classroom')
     flash[:notice] = data || "error"
-    redirect_to '/clever/no_classroom'
+    redirect_to redirect
   end
 end

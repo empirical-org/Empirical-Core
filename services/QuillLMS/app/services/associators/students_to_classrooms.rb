@@ -29,11 +29,11 @@ module Associators::StudentsToClassrooms
   end
 
   def self.legit_classroom
-    Classroom.find_by(id: @@classroom.id, visible: true)
+    Classroom.find_by(id: @@classroom&.id, visible: true)
   end
 
   def self.legit_teacher
-    @@classroom.owner
+    @@classroom&.owner
   end
 
 end

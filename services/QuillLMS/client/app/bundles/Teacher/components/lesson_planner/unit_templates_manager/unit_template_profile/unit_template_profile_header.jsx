@@ -7,7 +7,7 @@
 
   divStyle: function () {
     return {
-      backgroundColor: this.props.data.unit_template_category.primary_color
+      backgroundColor: this.props.data.type.primary_color
     };
   },
 
