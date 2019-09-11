@@ -416,7 +416,7 @@ const v4mockSession = {
   "unansweredQuestions" : [ "-KS7ffAazLxJPFxKrvxU" ]
 }
 
-const mockQuestions = {
+const mockSentenceCompletionQuestions = {
   "-KS7ffAazLxJPFxKrvxU" : {
     "conceptID" : "asfdGCdbTy6l8xTe-_p6Qg",
     "cues" : [ "" ],
@@ -592,5 +592,5 @@ const mockQuestions = {
 export {
   v2mockSession,
   v4mockSession,
-  mockQuestions,
+  mockSentenceCompletionQuestions,
 }

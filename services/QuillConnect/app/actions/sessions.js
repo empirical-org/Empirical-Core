@@ -59,8 +59,8 @@ export default {
     v4sessionsRef.child(sessionID).remove();
   },
 
-  populateQuestions(questionType, questions) {
-    if (questionsInitialized[questionType]) return;
+  populateQuestions(questionType, questions, forceRefresh) {
+    if (questionsInitialized[questionType] && !forceRefresh) return;
 
     Object.keys(questions).forEach((uid) => {
       allQuestions[uid] = {
@@ -182,4 +182,5 @@ function delete_null_properties(test, recurse) {
 export {
   denormalizeSession,
   normalizeSession,
+  allQuestions,
 }
