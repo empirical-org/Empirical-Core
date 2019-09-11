@@ -2,37 +2,22 @@
 
 exports[`ActivitySearchAndSelect component should render 1`] = `
 <section>
-  <div
-    className="flex-row space-between vertically-centered header-and-link"
-  >
-    <h1
-      className="explore-activities-header"
-    >
-      Explore Activities & Create Activity Pack
-    </h1>
-    <a
-      className="how-we-grade"
-      href="https://support.quill.org/activities-implementation/how-does-grading-work"
-    >
-      Common Core Standards vs. Students’ Levels
-      <i
-        className="fa fa-long-arrow-right"
-      />
-    </a>
-  </div>
-  <activity_search_filters
+  <h1>
+    Create your own activity pack.
+  </h1>
+  <ActivitySearchFilters
     activeFilterOn={false}
     clearFilters={[Function]}
     data={
       Array [
         Object {
-          "alias": "Filter By Concept",
+          "alias": "Filter by concept",
           "field": "activity_category",
           "options": Array [],
           "selected": null,
         },
         Object {
-          "alias": "Filter By Level",
+          "alias": "Filter by level",
           "field": "section",
           "options": Array [],
           "selected": null,
