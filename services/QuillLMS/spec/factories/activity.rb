@@ -17,23 +17,28 @@ FactoryBot.define do
 
     factory :diagnostic_activity do
       classification { ActivityClassification.find_by_key attributes_for(:diagnostic)[:key] || create(:diagnostic) }
+      activity_classification_id { ActivityClassification.find_by_key(attributes_for(:diagnostic)[:key])&.id || create(:diagnostic).id }
       repeatable false
     end
 
     factory :proofreader_activity do
       classification { ActivityClassification.find_by_key attributes_for(:proofreader)[:key] || create(:proofreader) }
+      activity_classification_id { ActivityClassification.find_by_key(attributes_for(:proofreader)[:key])&.id || create(:proofreader).id }
     end
 
     factory :grammar_activity do
       classification { ActivityClassification.find_by_key attributes_for(:grammar)[:key] || create(:grammar) }
+      activity_classification_id { ActivityClassification.find_by_key(attributes_for(:grammar)[:key])&.id || create(:grammar).id }
     end
 
     factory :connect_activity do
-      classification { ActivityClassification.find_by_key attributes_for(:connect)[:key] || create(:connect) }
+      classification { ActivityClassification.find_by_key(attributes_for(:connect)[:key]) || create(:connect) }
+      activity_classification_id { ActivityClassification.find_by_key(attributes_for(:connect)[:key])&.id || create(:connect).id }
     end
 
     factory :lesson_activity do
       classification { ActivityClassification.find_by_key attributes_for(:lesson)[:key] || create(:lesson) }
+      activity_classification_id { ActivityClassification.find_by_key(attributes_for(:lesson)[:key])&.id || create(:lesson).id }
       repeatable false
       supporting_info { "https://www.example.com/example.pdf" }
 
