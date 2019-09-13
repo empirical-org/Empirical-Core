@@ -13,13 +13,14 @@ export default React.createClass({
   },
 
   render() {
-    const active = this.props.active ? 'active' : null;
+    const { data, active, } = this.props
+    const activeClassName = active ? 'active' : null;
     return (
-      <button className={active} onClick={() => this.handleClick()}>
-        <div className={`icon-${this.props.data.id}-gray`} />
+      <button className={`${activeClassName} ${data.key}`} onClick={() => this.handleClick()}>
+        <div className={`tool-${data.key}-gray`} />
         <div>
-          <h4>{this.props.data.alias}</h4>
-          <p>{this.props.data.description}</p>
+          <h4>{data.alias}</h4>
+          <p>{data.description}</p>
         </div>
       </button>
     );
