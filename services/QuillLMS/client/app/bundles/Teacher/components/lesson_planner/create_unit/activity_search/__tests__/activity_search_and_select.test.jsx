@@ -244,11 +244,11 @@ describe('ActivitySearchAndSelect component', () => {
     })
   })
 
-  describe('_findFilterOptionsBasedOnActivities', () => {
+  describe('findFilterOptionsBasedOnActivities', () => {
     it('returns an array of availableOptions', () => {
       const wrapper = shallow(<ActivitySearchAndSelect selectedActivities={() => []}/>);
       wrapper.setState({viewableActivities: diagnosticActivity()})
-      expect(wrapper.instance()._findFilterOptionsBasedOnActivities()).toEqual({
+      expect(wrapper.instance().findFilterOptionsBasedOnActivities()).toEqual({
         "activity_category": [
           {
             "id": "showAllId",

@@ -12,6 +12,82 @@
 #continue.hidden {
   display: none;
 }
+
+#activity-planner {
+  h1 {
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 1.33;
+    margin-bottom: 40px;
+    text-align: center;
+  }
+  .activity_category {
+    width: 236px;
+  }
+  .section {
+    width: 183px;
+  }
+  .drop-down-filters-and-search {
+    margin-bottom: 32px;
+  }
+  .clear-all-filters {
+    color: #027630;
+    font-size: 16px;
+    margin-top: 16px;
+    cursor: pointer;
+    line-height: 1;
+  }
+  .search-activities {
+    display: flex;
+    align-items: flex-end;
+    img {
+      margin-right: 8px;
+      margin-bottom: 6px;
+    }
+    .input-container {
+      width: 371px;
+      min-height: min-content;
+    }
+  }
+  .activity-page-dropdown-wrapper {
+    padding: 16px 32px;
+    border-radius: 6px;
+    border: solid 1px #e0e0e0;
+    background-color: #fff;
+    .app-button-container {
+      display: flex;
+      .activity-type-section {
+        h3 {
+          font-size: 14px;
+          line-height: 1;
+          color: #7f7f7f;
+          margin-bottom: 8px;
+        }
+        .app-buttons {
+          display: flex;
+        }
+        &.diagnostic-section, &.whole-class-section {
+          margin-right: 16px;
+        }
+      }
+    }
+    .activity-filter-drop-downs {
+      align-items: flex-end;
+      .dropdown {
+        margin-bottom: 4px;
+      }
+      .activity_category {
+        margin-right: 32px;
+      }
+      .dropdown-container.active {
+        .dropdown {
+          margin-bottom: 40px;
+        }
+      }
+    }
+  }
+}
+
 #activity-planner,
 #unit-template-editor {
   .header-and-link {

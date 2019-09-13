@@ -2,13 +2,13 @@ export default function () {
   return ([
     {
       field: 'activity_category',
-      alias: 'Filter By Concept',
+      alias: 'Filter by concept',
       options: [],
       selected: null,
     },
     {
       field: 'section',
-      alias: 'Filter By Level',
+      alias: 'Filter by level',
       options: [],
       selected: null,
 
