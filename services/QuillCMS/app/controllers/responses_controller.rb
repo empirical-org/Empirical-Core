@@ -32,19 +32,9 @@ class ResponsesController < ApplicationController
 
   # POST /responses/create_or_increment
   def create_or_increment
-    response = Response.where(text: response_params[:text], question_uid: response_params[:question_uid])[0]
-    if !response
-      new_vals = transformed_new_vals(params_for_create)
-      response = Response.new(new_vals)
-      if !response.text.blank? && response.save
-        AdminUpdates.run(response.question_uid)
-        render json: response, status: :created, location: response
-      else
-        render json: response.errors, status: :unprocessable_entity
-      end
-    else
-      increment_counts(response)
-    end
+    transformed_response = transformed_new_vals(params_for_create).to_h
+    CreateOrIncrementResponseWorker.perform_async(transformed_response)
+    render json: {}
   end
 
   # PATCH/PUT /responses/1

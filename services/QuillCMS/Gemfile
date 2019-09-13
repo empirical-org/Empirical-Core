@@ -41,7 +41,7 @@ gem 'active_model_serializers', '~> 0.10.0'
 
 # Memcached Support
 gem 'dalli'
-gem 'connection_pool' 
+gem 'connection_pool'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.5'
@@ -84,3 +84,5 @@ gem 'pusher'
 
 # HTTP
 gem 'httparty'
+
+gem 'rb-readline'
