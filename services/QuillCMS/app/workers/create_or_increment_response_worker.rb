@@ -9,19 +9,19 @@ class CreateOrIncrementResponseWorker
         AdminUpdates.run(response.question_uid)
       end
     else
-      increment_counts(response)
+      increment_counts(response, new_vals)
     end
   end
 
-  def increment_counts(response)
+  def increment_counts(response, new_vals)
     response.increment!(:count)
-    increment_first_attempt_count(response)
+    increment_first_attempt_count(response, new_vals)
     increment_child_count_of_parent(response)
     response.update_index_in_elastic_search
   end
 
-  def increment_first_attempt_count(response)
-    response[:is_first_attempt] == "true" ? response.increment!(:first_attempt_count) : nil
+  def increment_first_attempt_count(response, new_vals)
+    new_vals[:is_first_attempt] == "true" ? response.increment!(:first_attempt_count) : nil
   end
 
   def increment_child_count_of_parent(response)
