@@ -42,7 +42,7 @@ export default {
 
     // This is the whole number percentage of users who will be assigned
     // to the new session type.
-    const percentAssigned = 1;
+    const percentAssigned = 10;
     if (sessionID && simpleHash(sessionID) % 100 < percentAssigned) {
       const normalizedSession = normalizeSession(cleanedSession)
       // Let's start including an updated time on our sessions
