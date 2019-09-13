@@ -81,9 +81,9 @@ class Response < ApplicationRecord
 
   def self.find_by_id_or_uid(string)
     Integer(string || '')
-    Response.find(string)
+    self.find(string)
   rescue ArgumentError
-    Response.find_by_uid(string)
+    self.find_by_uid(string)
   end
 
 end
