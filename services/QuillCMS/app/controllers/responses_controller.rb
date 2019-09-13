@@ -126,13 +126,6 @@ class ResponsesController < ApplicationController
     render json: {matchedCount: matched_responses_count}
   end
 
-  def increment_counts(response)
-    response.increment!(:count)
-    increment_first_attempt_count(response)
-    increment_child_count_of_parent(response)
-    response.update_index_in_elastic_search
-  end
-
   def search
     render json: search_responses(params[:question_uid], search_params)
   end
@@ -186,7 +179,7 @@ class ResponsesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_response
-      @response = find_by_id_or_uid(params[:id])
+      @response = Response.find_by_id_or_uid(params[:id])
     end
 
     def search_params
@@ -253,17 +246,6 @@ class ResponsesController < ApplicationController
       params.require(:data).permit!
     end
 
-    def find_by_id_or_uid(string)
-      Integer(string || '')
-      Response.find(string)
-    rescue ArgumentError
-      Response.find_by_uid(string)
-    end
-
-    def increment_first_attempt_count(response)
-      params[:response][:is_first_attempt] == "true" ? response.increment!(:first_attempt_count) : nil
-    end
-
     def concept_results_to_boolean(concept_results)
       new_concept_results = {}
       concept_results.each do |key, val|
@@ -274,19 +256,6 @@ class ResponsesController < ApplicationController
         end
       end
       new_concept_results
-    end
-
-    def increment_child_count_of_parent(response)
-      parent_id = response.parent_id
-      parent_uid = response.parent_uid
-      id = parent_id || parent_uid
-      # id will be the first extant value or false. somehow 0 is being
-      # used as when it shouldn't (possible JS remnant) so we verify that
-      # id is truthy and not 0
-      if id && id != 0
-        parent = find_by_id_or_uid(id)
-        parent.increment!(:child_count) unless parent.nil?
-      end
     end
 
     def transformed_new_vals(response_params)

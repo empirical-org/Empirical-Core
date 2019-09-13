@@ -79,4 +79,11 @@ class Response < ApplicationRecord
     Rails.cache.delete("questions/#{self.question_uid}/responses")
   end
 
+  def self.find_by_id_or_uid(string)
+    Integer(string || '')
+    Response.find(string)
+  rescue ArgumentError
+    Response.find_by_uid(string)
+  end
+
 end
