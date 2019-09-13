@@ -21,6 +21,11 @@ table.activity-table.search-and-select {
     font-size: 14px;
     font-weight: 600;
     color: #3b3b3b;
+    .sorter-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
   }
   tbody tr {
     background-color: white;

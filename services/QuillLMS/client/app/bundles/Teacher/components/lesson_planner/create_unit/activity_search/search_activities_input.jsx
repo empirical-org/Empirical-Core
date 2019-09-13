@@ -1,30 +1,18 @@
 import React from 'react';
+import { Input } from 'quill-component-library/dist/componentLibrary'
 
-export default React.createClass({
+const searchIconSrc = `${process.env.CDN_URL}/images/icons/search.svg`
 
-  getInitialState() {
-    return { value: this.props.searchQuery, };
-  },
+const SearchActivitiesInput = ({ searchQuery, updateSearchQuery, }) => (
+  <div className="search-activities">
+    <img src={searchIconSrc} alt="Magnifying glass" />
+    <Input
+      value={searchQuery}
+      handleChange={updateSearchQuery}
+      label="Search concepts and activities"
+      placeholder="e.g., Adjectives"
+    />
+  </div>
+)
 
-  handleChange(e) {
-    this.setState({ value: e.target.value, }, this.props.updateSearchQuery(e.target.value));
-  },
-
-  componentWillReceiveProps(nextProps) {
-    this.setState({ value: nextProps.searchQuery, });
- 	},
-
-  newSearchQuery() {
-    this.props.updateSearchQuery(this.state.value);
-  },
-
-  render() {
-    return (
-      <span>
-        <input id="search_activities_input" value={this.state.value} onChange={this.handleChange} type="text" placeholder="Search Concepts and Activities" />
-        <button onClick={this.newSearchQuery} id="search_activities_button" className="button-gray">Search</button>
-      </span>
-    );
-  },
-
-});
+export default SearchActivitiesInput

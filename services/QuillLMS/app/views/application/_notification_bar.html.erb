@@ -1,6 +1,8 @@
 <% current_path = request.env['PATH_INFO'] %>
-<div class="notification-bar google-issue">
-  <p>
-    We are currently experiencing technical difficulties with our tools. We apologize for the inconvenience and we are working to fix the problem as soon as possible. If you are having any other problems, please contact us at our temporary phone number: 510-671-0222
-  </p>
-</div>
+<% if ENV['SHOW_NOTIFICATION_BAR'] %>
+  <div class="notification-bar google-issue">
+    <p>
+      <%= ENV['NOTIFICATION_BAR_TEXT'] %>
+    </p>
+  </div>
+<% end %>
