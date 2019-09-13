@@ -269,3 +269,34 @@
   background-repeat: no-repeat;
   background-position: center;
 }
+
+.tool-diagnostic-gray,
+.tool-lessons-gray,
+.tool-connect-gray,
+.tool-sentence-gray,
+.tool-passage-gray {
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 20px;
+  width: 20px;
+}
+
+.tool-diagnostic-gray {
+  background-image: url("https://assets.quill.org/images/icons/tool-diagnostic-gray.svg");
+}
+
+.tool-connect-gray {
+  background-image: url("https://assets.quill.org/images/icons/tool-connect-gray.svg");
+}
+
+.tool-sentence-gray {
+  background-image: url("https://assets.quill.org/images/icons/tool-grammar-gray.svg");
+}
+
+.tool-passage-gray {
+  background-image: url("https://assets.quill.org/images/icons/tool-proofreader-gray.svg");
+}
+
+.tool-lessons-gray {
+  background-image: url("https://assets.quill.org/images/icons/tool-lessons-gray.svg");
+}

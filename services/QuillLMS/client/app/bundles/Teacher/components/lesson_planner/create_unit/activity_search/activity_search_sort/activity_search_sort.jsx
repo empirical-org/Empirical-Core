@@ -24,8 +24,10 @@ export default React.createClass({
     }
     return (
       <th className={`sorter ${this.props.data.className}`} onClick={this.clickSort}>
-        {this.props.data.alias}
-        {arrowIfSortable}
+        <div className="sorter-content">
+          <span>{this.props.data.alias}</span>
+          {arrowIfSortable}
+        </div>
       </th>
     );
   },
