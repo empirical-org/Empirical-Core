@@ -1,10 +1,12 @@
 import React from 'react';
-import Select, { components } from 'react-select';
+import Select from 'react-select';
+import { CheckableDropdownOption } from './checkableDropdownOption'
+import { CheckableDropdownValueContainer } from './checkableDropdownValueContainer'
 
 interface DropdownInputProps {
-  timesSubmitted: Number;
   options: Array<any>;
   label: string;
+  timesSubmitted?: Number;
   id?: string;
   error?: string;
   disabled?: boolean;
@@ -18,6 +20,7 @@ interface DropdownInputProps {
   handleChange?: (event: any) => void;
   onClick?: (event: any) => void;
   isMulti?: boolean;
+  optionType?: string;
 }
 
 interface DropdownInputState {
@@ -110,58 +113,46 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
   }
 
   handleChange(e) {
+    const { handleChange, value, options, } = this.props
     this.deactivateInput()
-    this.props.handleChange(e)
+    const allWasClicked = Array.isArray(e) && e.find(opt => opt.value === 'All')
+    if (allWasClicked) {
+      if (value && value.length) {
+        // if there are any selected, they should all get unselected
+        handleChange([])
+      } else {
+        // if there are none selected, they should all get selected
+        handleChange(options)
+      }
+    } else {
+      handleChange(e)
+    }
   }
 
   renderInput() {
     const { inactive, errorAcknowledged, menuIsOpen, } = this.state
-    const { className, label, value, placeholder, error, type, id, options, isSearchable, isMulti, } = this.props
+    const { className, label, value, placeholder, error, type, id, options, isSearchable, isMulti, optionType, } = this.props
     const passedValue = value || ''
-    const hasText = value ? 'has-text' : ''
+    const hasText = value || isMulti ? 'has-text' : ''
     const inactiveOrActive = inactive ? 'inactive' : 'active'
-    const notEditable = isSearchable ? '' : 'not-editable'
+    const notEditable = isSearchable || isMulti ? '' : 'not-editable'
     const sharedClasses = `dropdown-container input-container ${inactiveOrActive} ${hasText} ${notEditable} ${className}`
-    if (isMulti) {
-      const Option = props => {
-        return (
-          <div>
-            <components.Option {...props}>
-              <input
-                type="checkbox"
-                checked={props.isSelected}
-                onChange={() => null}
-              />{" "}
-              <label>{props.label}</label>
-            </components.Option>
-          </div>
-        );
-      };
-
-      return (<div
-        className={`error ${sharedClasses}`}
-        ref={node => this.node = node}
-        onClick={this.activateInput}
-      >
-        <label>{label}</label>
-        <Select
-          id={id}
-          ref={(input) => { this.input = input; }}
-          onChange={this.handleChange}
-          value={passedValue}
-          type={type}
-          placeholder={placeholder || ''}
-          onKeyDown={this.onKeyDown}
-          menuIsOpen={menuIsOpen}
-          options={options}
-          isClearable={false}
-          className="dropdown"
-          classNamePrefix="dropdown"
-          isSearchable={isSearchable}
-          isMulti
-        />
-      </div>)
-    } else if (error) {
+    const showAllOption = isMulti && optionType ? { label: `All ${optionType}s`, value: 'All' } : null
+    const passedOptions = showAllOption ? [showAllOption].concat(options) : options
+    const sharedProps = {
+      id,
+      ref: (input) => { this.input = input; },
+      value: passedValue,
+      type,
+      placeholder: placeholder || '',
+      onKeyDown: this.onKeyDown,
+      options: passedOptions,
+      isClearable: false,
+      className: "dropdown",
+      classNamePrefix: "dropdown",
+      isSearchable
+    }
+    if (error) {
       if (errorAcknowledged) {
         return (
           <div
@@ -171,19 +162,9 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
           >
             <label>{label}</label>
             <Select
-              id={id}
-              ref={(input) => { this.input = input; }}
-              onChange={this.handleChange}
-              value={passedValue}
-              type={type}
-              placeholder={placeholder || ''}
-              onKeyDown={this.onKeyDown}
+              {...sharedProps}
               menuIsOpen={menuIsOpen}
-              options={options}
-              isClearable={false}
-              className="dropdown"
-              classNamePrefix="dropdown"
-              isSearchable={isSearchable}
+              onChange={this.handleChange}
             />
           </div>)
       } else {
@@ -195,20 +176,32 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
           >
             <label>{label}</label>
             <Select
-              id={id}
-              ref={(input) => { this.input = input; }}
+              {...sharedProps}
               onFocus={this.activateInput}
-              type={type}
-              value={passedValue}
               menuIsOpen={false}
-              isClearable={false}
-              className="dropdown"
-              classNamePrefix="dropdown"
-              isSearchable={isSearchable}
             />
             {this.renderErrorText()}
         </div>)
       }
+    } else if (isMulti) {
+      return (<div
+        className={sharedClasses}
+        ref={node => this.node = node}
+        onClick={this.activateInput}
+      >
+        <label>{label}</label>
+        <Select
+          {...sharedProps}
+          onChange={this.handleChange}
+          menuIsOpen={inactive ? false : menuIsOpen}
+          isSearchable={false}
+          closeMenuOnSelect={false}
+          hideSelectedOptions={false}
+          components={{ Option: CheckableDropdownOption, ValueContainer: CheckableDropdownValueContainer }}
+          optionType={optionType}
+          isMulti
+        />
+      </div>)
     } else if (inactive) {
       return (
         <div
@@ -218,17 +211,9 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
         >
           <label>{label}</label>
           <Select
-            id={id}
-            ref={(input) => { this.input = input; }}
+            {...sharedProps}
             onFocus={this.activateInput}
-            type={type}
-            value={passedValue}
             menuIsOpen={false}
-            isClearable={false}
-            className="dropdown"
-            classNamePrefix="dropdown"
-            placeholder={placeholder || ''}
-            isSearchable={isSearchable}
           />
           {this.renderHelperText()}
       </div>)
@@ -240,19 +225,9 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
         >
           <label>{label}</label>
           <Select
-            id={id}
-            ref={(input) => { this.input = input; }}
+            {...sharedProps}
             onChange={this.handleChange}
-            value={passedValue}
-            type={type}
-            placeholder={placeholder || ''}
-            onKeyDown={this.onKeyDown}
             menuIsOpen={menuIsOpen}
-            options={options}
-            isClearable={false}
-            className="dropdown"
-            classNamePrefix="dropdown"
-            isSearchable={isSearchable}
           />
       </div>)
     }

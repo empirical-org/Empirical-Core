@@ -18,7 +18,8 @@ class Menus extends React.Component {
       dropdownOne: null,
       dropdownTwo: options[0],
       dropdownThree: null,
-      dropdownFour: options[1]
+      dropdownFour: options[1],
+      dropdownFive: null
     }
 
     this.changeSavedValues = this.changeSavedValues.bind(this)
@@ -119,6 +120,31 @@ class Menus extends React.Component {
               handleChange={(e) => {this.changeSavedValues('dropdownFour', e)}}
             />
           </div>
+        </div>
+        <h3 className="style-guide-h3">Uneditable Checkbox Dropdown Menu</h3>
+        <div className="element-row">
+        <div className="big-element">
+          <pre>
+{`const options = ${JSON.stringify(options)}
+
+<DropdownInput
+label="Label"
+value={this.state.dropdownFive}
+isSearchable={true}
+options={options}
+optionType='Option'
+handleChange={(e) => {this.changeSavedValues('dropdownFive', e)}}
+/>`}
+          </pre>
+          <DropdownInput
+            label="Label"
+            value={this.state.dropdownFive}
+            isMulti={true}
+            options={options}
+            optionType='Option'
+            handleChange={(e) => {this.changeSavedValues('dropdownFive', e)}}
+          />
+        </div>
         </div>
       </div>
     </div>)
