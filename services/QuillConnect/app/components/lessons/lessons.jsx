@@ -45,12 +45,18 @@ class Lessons extends React.Component {
 
   renderLessons() {
     const { data, } = this.props.lessons;
+    const questionsData = this.props.questions.data
     let keys = _.keys(data);
     if (this.state.lessonFlags !== 'All Flags') {
       keys = _.filter(keys, key => data[key].flag === this.state.lessonFlags);
     }
     if (this.state.showOnlyArchived) {
-      keys = keys.filter(key => data[key].questions && data[key].questions.some(q => q.flag === 'archived'))
+      keys = keys.filter((key) => {
+        return data[key].questions && data[key].questions.some((q) => {
+          const question = questionsData[q.key]
+          return question && question.flag === 'archived'
+        })
+      })
     }
     return keys.map(key => (
       <LinkListItem

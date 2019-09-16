@@ -1,6 +1,8 @@
 <% current_path = request.env['PATH_INFO'] %>
-<div class="notification-bar google-issue">
-  <p>
-    Our temporary phone number is: ‪510-671-0222
-  </p>
-</div>
+<% if ENV['NOTIFICATION_BAR_SHOWING'] %>
+  <div class="notification-bar google-issue">
+    <p>
+      <%= ENV['NOTIFICATION_BAR_TEXT'] %>
+    </p>
+  </div>
+<% end %>
