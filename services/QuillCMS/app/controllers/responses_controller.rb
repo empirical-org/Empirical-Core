@@ -4,6 +4,11 @@ require 'modules/incorrect_sequence_calculator'
 class ResponsesController < ApplicationController
   include ResponseSearch
   include ResponseAggregator
+
+  RESPONSE_LIMIT = 100
+  MULTIPLE_CHOICE_LIMIT = 2
+  CACHE_EXPIRY = 15.minutes.to_i
+
   before_action :set_response, only: [:show, :update, :destroy]
 
   # GET /responses
@@ -32,7 +37,7 @@ class ResponsesController < ApplicationController
 
   # POST /responses/create_or_increment
   def create_or_increment
-    response = Response.where(text: response_params[:text], question_uid: response_params[:question_uid])[0]
+    response = Response.where(text: response_params[:text], question_uid: response_params[:question_uid]).first
     if !response
       new_vals = transformed_new_vals(params_for_create)
       response = Response.new(new_vals)
@@ -44,6 +49,8 @@ class ResponsesController < ApplicationController
       end
     else
       increment_counts(response)
+
+      render json: response, status: :created
     end
   end
 
@@ -68,7 +75,7 @@ class ResponsesController < ApplicationController
 
   # GET /questions/:question_uid/responses
   def responses_for_question
-    @responses = Rails.cache.fetch("questions/#{params[:question_uid]}/responses", :expires_in => 900) do
+    @responses = Rails.cache.fetch("questions/#{params[:question_uid]}/responses", :expires_in => CACHE_EXPIRY) do
       Response.where(question_uid: params[:question_uid]).where.not(optimal: nil).where(parent_id: nil).to_a
     end
     render json: @responses
@@ -80,9 +87,9 @@ class ResponsesController < ApplicationController
   end
 
   def multiple_choice_options
-    multiple_choice_options = Rails.cache.fetch("questions/#{params[:question_uid]}/multiple_choice_options", :expires_in => 900) do
-      optimal_responses = Response.where(question_uid: params[:question_uid], optimal: true).order('count DESC').limit(2).to_a
-      sub_optimal_responses = Response.where(question_uid: params[:question_uid], optimal: [false, nil]).order('count DESC').limit(2).to_a
+    multiple_choice_options = Rails.cache.fetch("questions/#{params[:question_uid]}/multiple_choice_options", :expires_in => CACHE_EXPIRY) do
+      optimal_responses = Response.where(question_uid: params[:question_uid], optimal: true).order('count DESC').limit(MULTIPLE_CHOICE_LIMIT).to_a
+      sub_optimal_responses = Response.where(question_uid: params[:question_uid], optimal: [false, nil]).order('count DESC').limit(MULTIPLE_CHOICE_LIMIT).to_a
       optimal_responses.concat(sub_optimal_responses)
     end
     render json: multiple_choice_options
