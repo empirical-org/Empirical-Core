@@ -128,11 +128,10 @@ class Menus extends React.Component {
 {`const options = ${JSON.stringify(options)}
 
 <DropdownInput
-label="Label"
 value={this.state.dropdownFive}
 isSearchable={true}
 options={options}
-optionType='Option'
+optionType='option'
 handleChange={(e) => {this.changeSavedValues('dropdownFive', e)}}
 />`}
           </pre>
