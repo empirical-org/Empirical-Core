@@ -5,7 +5,7 @@ import { CheckableDropdownValueContainer } from './checkableDropdownValueContain
 
 interface DropdownInputProps {
   options: Array<any>;
-  label: string;
+  label?: string;
   timesSubmitted?: Number;
   id?: string;
   error?: string;
@@ -136,7 +136,8 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
     const hasText = value || isMulti ? 'has-text' : ''
     const inactiveOrActive = inactive ? 'inactive' : 'active'
     const notEditable = isSearchable || isMulti ? '' : 'not-editable'
-    const sharedClasses = `dropdown-container input-container ${inactiveOrActive} ${hasText} ${notEditable} ${className}`
+    const checkboxDropdown = isMulti ? 'checkbox-dropdown' : ''
+    const sharedClasses = `dropdown-container input-container ${inactiveOrActive} ${hasText} ${notEditable} ${className} ${checkboxDropdown}`
     const showAllOption = isMulti && optionType ? { label: `All ${optionType}s`, value: 'All' } : null
     const passedOptions = showAllOption ? [showAllOption].concat(options) : options
     const sharedProps = {

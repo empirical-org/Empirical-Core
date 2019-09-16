@@ -19,7 +19,7 @@ class Menus extends React.Component {
       dropdownTwo: options[0],
       dropdownThree: null,
       dropdownFour: options[1],
-      dropdownFive: null
+      dropdownFive: []
     }
 
     this.changeSavedValues = this.changeSavedValues.bind(this)
@@ -137,11 +137,10 @@ handleChange={(e) => {this.changeSavedValues('dropdownFive', e)}}
 />`}
           </pre>
           <DropdownInput
-            label="Label"
             value={this.state.dropdownFive}
             isMulti={true}
             options={options}
-            optionType='Option'
+            optionType='option'
             handleChange={(e) => {this.changeSavedValues('dropdownFive', e)}}
           />
         </div>

@@ -198,6 +198,9 @@
       margin-top: -4px;
       box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0 1px 18px 0 rgba(0, 0, 0, 0.12), 0 6px 10px 0 rgba(0, 0, 0, 0.14);
     }
+    .checkable-dropdown-value-container {
+      height: 25px;
+    }
     .dropdown__control {
       min-height: 0px;
       padding: 0px 0px 4px;
@@ -209,7 +212,7 @@
       border-radius: 0px !important;
     }
     .dropdown__control--menu-is-open {
-      height: 24px;
+      height: 25px;
     }
     .dropdown__placeholder {
       top: 27%;
@@ -283,6 +286,12 @@
           margin-right: 16px;
         }
       }
+    }
+  }
+
+  &.checkbox-dropdown {
+    .dropdown__control {
+      width: 120px;
     }
   }
 
