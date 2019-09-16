@@ -76,7 +76,7 @@ class ResponsesController < ApplicationController
   # GET /questions/:question_uid/responses
   def responses_for_question
     @responses = Rails.cache.fetch("questions/#{params[:question_uid]}/responses", :expires_in => CACHE_EXPIRY) do
-      Response.where(question_uid: params[:question_uid]).where.not(optimal: nil).where(parent_id: nil).order('count DESC').limit(RESPONSE_LIMIT).to_a
+      Response.where(question_uid: params[:question_uid]).where.not(optimal: nil).where(parent_id: nil).to_a
     end
     render json: @responses
   end
