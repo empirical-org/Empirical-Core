@@ -269,6 +269,7 @@
         margin-bottom: 0px;
         box-sizing: border-box !important;
         padding: 0px 0px 15px !important;
+        width: 100% !important;
       }
     }
     .dropdown__option {
@@ -296,6 +297,9 @@
     }
     .dropdown__dropdown-indicator {
       margin-bottom: 7px;
+    }
+    .dropdown__menu {
+      border-radius: 0px 4px 4px 4px;
     }
   }
 
