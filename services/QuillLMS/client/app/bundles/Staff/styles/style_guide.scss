@@ -275,6 +275,8 @@
     .dropdown__option {
       background-color: white;
       color: black;
+      padding: 12px;
+      font-size: 16px;
       &:active, &:hover {
         background-color: #f2f2f2;
       }
