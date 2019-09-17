@@ -128,7 +128,7 @@ class Menus extends React.Component {
 
 <DropdownInput
 value={this.state.dropdownFive}
-isSearchable={true}
+isMulti={true}
 options={options}
 optionType='option'
 handleChange={(e) => {this.changeSavedValues('dropdownFive', e)}}
