@@ -1,26 +1,24 @@
-
-
 import React from 'react';
-import { Link } from 'react-router';
-import $ from 'jquery';
 import _ from 'underscore';
 
 import LoadingIndicator from '../../../shared/loading_indicator';
 import ScrollToTop from '../../../shared/scroll_to_top';
-import UnitTemplateProfileHeader from './unit_template_profile_header';
 import UnitTemplateProfileDescription from './unit_template_profile_description';
 import UnitTemplateProfileAssignButton from './unit_template_profile_assign_button';
 import UnitTemplateProfileShareButtons from './unit_template_profile_share_buttons';
 import UnitTemplateProfileStandards from './unit_template_profile_standards';
 import UnitTemplateProfileActivityTable from './unit_template_profile_activity_table';
-import RelatedUnitTemplates from './related_unit_templates';
+
+import { requestGet } from '../../../../../../modules/request/index.js';
 
 export default class UnitTemplateProfile extends React.Component {
+  constructor(props) {
+    super(props)
 
-  state = {
-    data: null,
-    loading: true,
-    relatedModels: [],
+    this.state = {
+      data: null,
+      loading: true
+    }
   }
 
   componentDidMount() {
@@ -28,20 +26,9 @@ export default class UnitTemplateProfile extends React.Component {
   }
 
   getProfileInfo(id) {
-    const that = this;
-    $.ajax({
-      type: 'get',
-      datatype: 'json',
-      data: {
-        id,
-      },
-      url: '/teachers/unit_templates/profile_info',
-      statusCode: {
-        200(response) {
-          that.displayUnit(response);
-        },
-      },
-    });
+    requestGet(`/teachers/unit_templates/profile_info?id=${id}`, (response) => {
+      this.displayUnit(response)
+    })
   }
 
   componentWillReceiveProps(nextProps) {
@@ -54,7 +41,6 @@ export default class UnitTemplateProfile extends React.Component {
   displayUnit(response) {
     this.setState({
       data: response.data,
-      relatedModels: response.related_models,
       referralCode: response.referral_code,
       loading: false
     })
@@ -79,39 +65,31 @@ export default class UnitTemplateProfile extends React.Component {
   }
 
   render() {
-    if (this.state.loading) {
-      return <LoadingIndicator  />;
+    const { data, loading, } = this.state
+    if (loading) {
+      return <LoadingIndicator />
     }
     if (document.querySelector("meta[name='og:description']")) {
-        document.querySelector("meta[name='og:description']").content = this.getMetaText(this.state.data);
-      }
+      document.querySelector("meta[name='og:description']").content = this.getMetaText(data);
+    }
     return (
-        <div className="unit-template-profile">
-          <ScrollToTop  />
-          <UnitTemplateProfileHeader data={this.state.data}  />
-          <div className="unit-template-profile-container">
-            <div className=" no-pl">
-              <h2>{"What's Inside The Pack"}</h2>
+      <div className="unit-template-profile">
+        <ScrollToTop  />
+        <div className="unit-template-profile-container">
+          <h1>Activity Pack: {data.name}</h1>
+          <UnitTemplateProfileActivityTable data={data}  />
+          <div className="first-content-section flex-row space-between first-content-section">
+            <div className="description">
+              <UnitTemplateProfileDescription data={data}  />
             </div>
-            <UnitTemplateProfileActivityTable data={this.state.data}  />
-            <div className="first-content-section flex-row space-between first-content-section">
-              <div className="description">
-                <UnitTemplateProfileDescription data={this.state.data}  />
-              </div>
-              <div className="assign-buttons-and-standards">
-                <UnitTemplateProfileAssignButton data={this.state.data}  />
-                <UnitTemplateProfileStandards data={this.state.data}  />
-                <UnitTemplateProfileShareButtons data={this.state.data} url={this.socialShareUrl()} text={this.socialText()}/>
-              </div>
-            </div>
-            <div className="related-activity-packs">
-              <RelatedUnitTemplates models={this.state.relatedModels} data={this.props.params.activityPackId} authenticated={!this.state.data.non_authenticated}  />
-              <Link to={this.indexLink()}>
-                <button className="see-all-activity-packs button-grey button-dark-grey text-center center-block">See All Activity Packs</button>
-              </Link>
+            <div className="assign-buttons-and-standards">
+              <UnitTemplateProfileAssignButton data={data}  />
+              <UnitTemplateProfileStandards data={data}  />
+              <UnitTemplateProfileShareButtons data={data} url={this.socialShareUrl()} text={this.socialText()}/>
             </div>
           </div>
         </div>
-      );
+      </div>
+    )
   }
 }
