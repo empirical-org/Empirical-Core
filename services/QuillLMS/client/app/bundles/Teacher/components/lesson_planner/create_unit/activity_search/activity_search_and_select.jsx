@@ -229,7 +229,7 @@ export default class ActivitySearchAndSelect extends React.Component {
     }
     return (
       <section>
-        <h1>Create your own activity pack.</h1>
+        <h1 className="create-your-own-activity-pack-header">Create your own activity pack.</h1>
         <ActivitySearchAndFilters
           showAllId={showAllId}
           updateSearchQuery={this.updateSearchQuery}
