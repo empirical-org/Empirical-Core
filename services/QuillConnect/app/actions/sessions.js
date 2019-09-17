@@ -33,29 +33,14 @@ export default {
     const cleanedSession = JSON.parse(JSON.stringify(cleanSession));
     delete_null_properties(cleanedSession, true);
 
-    // During our rollout, we want to limit the number of people this
-    // could impact if things go wrong.  So we're only going to apply
-    // this new process to a small percentage of sessions.  This does
-    // mean that a single user could get a mix of session types in the
-    // same day, but since sessions will be invisible if they work,
-    // that shouldn't matter.
-
-    // This is the whole number percentage of users who will be assigned
-    // to the new session type.
-    const percentAssigned = 50;
-    if (sessionID && simpleHash(sessionID) % 100 < percentAssigned) {
-      const normalizedSession = normalizeSession(cleanedSession)
-      // Let's start including an updated time on our sessions
-      normalizedSession.updatedAt = new Date().getTime();
-      v4sessionsRef.child(sessionID).set(normalizedSession);
-    } else {
-      sessionsRef.child(sessionID).set(cleanedSession);
-    }
+    const normalizedSession = normalizeSession(cleanedSession)
+    // Let's start including an updated time on our sessions
+    normalizedSession.updatedAt = new Date().getTime();
+    v4sessionsRef.child(sessionID).set(normalizedSession);
   },
 
   delete(sessionID) {
-    // During rollout, let's not delete old sessions so that we can roll back
-    //sessionsRef.child(sessionID).remove();
+    sessionsRef.child(sessionID).remove();
     v4sessionsRef.child(sessionID).remove();
   },
 
@@ -72,24 +57,6 @@ export default {
   }
 
 };
-
-function simpleHash(str) {
-  // NOTE: This entire function is lifted from the "string-hash" module
-  // on NPM, but I didn't want to add a new dependency for temporary code
-  // so I simply re-implemented it here.
-  // Source: https://github.com/darkskyapp/string-hash/blob/master/index.js
-  var hash = 5381,
-      i    = str.length;
-
-  while(i) {
-    hash = (hash * 33) ^ str.charCodeAt(--i);
-  }
-
-  /* JavaScript does bitwise operations (like XOR, above) on 32-bit signed
-   * integers. Since we want the results to be always positive, convert the
-   * signed int to an unsigned by doing an unsigned bitshift. */
-  return hash >>> 0;
-}
 
 function denormalizeSession(session) {
   // If someone has answered no questions, this key will be missing
