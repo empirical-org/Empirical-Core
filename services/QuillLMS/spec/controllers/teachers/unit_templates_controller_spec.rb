@@ -79,7 +79,6 @@ describe  Teachers::UnitTemplatesController, type: :controller do
         data: {
           non_authenticated: false
         },
-        related_models: [],
         referral_code: teacher.referral_code
       }.to_json)
     end

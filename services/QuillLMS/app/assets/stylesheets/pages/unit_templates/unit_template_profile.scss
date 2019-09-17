@@ -1,15 +1,18 @@
 .unit-template-profile {
   width: 100%;
   margin: auto;
-  background-color: white;
+  background-color: #f8f6f6;
   padding-bottom: 8em;
   .unit-template-profile-container {
-    background-color: white;
     margin: auto;
     width: 950px;
 
-    h2 {
+    h1 {
       font-size: 24px;
+      font-weight: bold;
+      line-height: 1.33;
+      text-align: center;
+      margin: 48px 0px 20px;
     }
 
     .ReactTable.unit-template-profile-activities .rt-table a img {
@@ -45,7 +48,7 @@
     margin-bottom: 4em;
     margin-top: 75px;
     .description {
-      max-width: 500px;;
+      max-width: 500px;
       dl {
         dt {
           margin-bottom: 0.5em;
@@ -70,14 +73,14 @@
 
     .time {
       text-align: center;
-      .fa.fa-clock-o {
-        font-size: 24px;
-        color: $mediumdarkgray;
+      svg {
+        margin-right: 5px;
       }
     }
 
     .standards-and-concepts {
       margin: 1.9em 0em;
+      background-color: white;
 
       dl {
         margin-bottom: 0em;
@@ -107,7 +110,7 @@
     }
 
     .share {
-
+      background-color: white;
     }
   }
 
