@@ -4,7 +4,7 @@ import { components } from 'react-select';
 const indeterminateSrc = 'https://assets.quill.org/images/icons/indeterminate.svg'
 const smallWhiteCheckSrc = 'https://assets.quill.org/images/shared/check-small-white.svg'
 
-export const CheckableDropdownOption = props => {
+const renderCheckbox = (props) => {
   const { value, options } = props.selectProps
   const anyOptionsAreSelected = !!value.length
   const allOptionsAreSelected = value.length === (options.length - 1)
@@ -18,11 +18,14 @@ export const CheckableDropdownOption = props => {
       <img src={indeterminateSrc} alt="check"/>
     </span>)
   }
+  return checkbox
+}
 
+export const CheckableDropdownOption = props => {
   return (
     <div className="checkable-dropdown-option">
       <components.Option {...props}>
-        {checkbox}
+        {renderCheckbox(props)}
         <span>{props.label}</span>
       </components.Option>
     </div>

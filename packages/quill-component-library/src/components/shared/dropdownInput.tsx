@@ -47,7 +47,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
     this.handleClick = this.handleClick.bind(this)
     this.onKeyDown = this.onKeyDown.bind(this)
     this.deactivateInput = this.deactivateInput.bind(this)
-    this.handleChange = this.handleChange.bind(this)
+    this.handleOptionSelection = this.handleOptionSelection.bind(this)
   }
 
   componentWillMount() {
@@ -112,7 +112,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
     }
   }
 
-  handleChange(e) {
+  handleOptionSelection(e) {
     const { handleChange, value, options, } = this.props
     this.deactivateInput()
     const allWasClicked = Array.isArray(e) && e.find(opt => opt.value === 'All')
@@ -165,7 +165,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
             <Select
               {...sharedProps}
               menuIsOpen={menuIsOpen}
-              onChange={this.handleChange}
+              onChange={this.handleOptionSelection}
             />
           </div>)
       } else {
@@ -193,7 +193,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
         <label>{label}</label>
         <Select
           {...sharedProps}
-          onChange={this.handleChange}
+          onChange={this.handleOptionSelection}
           menuIsOpen={inactive ? false : menuIsOpen}
           isSearchable={false}
           closeMenuOnSelect={false}
@@ -227,7 +227,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
           <label>{label}</label>
           <Select
             {...sharedProps}
-            onChange={this.handleChange}
+            onChange={this.handleOptionSelection}
             menuIsOpen={menuIsOpen}
           />
       </div>)
