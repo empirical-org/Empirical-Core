@@ -119,9 +119,9 @@ export default class ActivitySearchAndSelect extends React.Component {
     });
     filterFields.forEach((field) => {
       if (field === 'activity_category') {
-        availableOptions[field].unshift({ name: 'All Categories', id: showAllId, });
+        availableOptions[field].unshift({ name: 'All concepts', id: showAllId, });
       } else if (field === 'section') {
-        availableOptions[field].unshift({ name: 'All Sections', id: showAllId, });
+        availableOptions[field].unshift({ name: 'All levels', id: showAllId, });
       }
     });
     return availableOptions;
