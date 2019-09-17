@@ -1,5 +1,4 @@
 import React from 'react';
-import request from 'request';
 
 import Classroom from './classroom';
 import ActivityDueDate from './activity_due_date';
@@ -252,7 +251,7 @@ export default class Stage2 extends React.Component {
         {this.renderGoogleClassroomEmailModal()}
         {this.renderGoogleClassroomsEmptyModal()}
         {this.renderSnackbar()}
-        <h1>Name & Assign Activity Pack</h1>
+        <h1>Assign</h1>
         {this.nameComponent()}
         <section className="select-students">
           <div className="select-students-header">
