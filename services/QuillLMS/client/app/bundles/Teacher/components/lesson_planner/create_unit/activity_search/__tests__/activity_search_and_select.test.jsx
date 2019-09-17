@@ -14,7 +14,7 @@ const commaUsageThirdGradeFilters = [
     "alias": "Filter By Category",
     "options": [
       {
-        "name": "All Categories",
+        "name": "All concepts",
         "id": "showAllId"
       }, {
         "id": 7,
@@ -36,7 +36,7 @@ const commaUsageThirdGradeFilters = [
     "alias": "Filter by Standard",
     "options": [
       {
-        "name": "All Sections",
+        "name": "All levels",
         "id": "showAllId"
       }, {
         "id": 9,
@@ -217,7 +217,7 @@ describe('ActivitySearchAndSelect component', () => {
         [
           {
             "id": "showAllId",
-            "name": "All Categories"
+            "name": "All concepts"
           }, {
             "id": 30,
             "name": "Diagnostics"
@@ -226,7 +226,7 @@ describe('ActivitySearchAndSelect component', () => {
         [
           {
             "id": "showAllId",
-            "name": "All Sections"
+            "name": "All levels"
           }, {
             "id": 35,
             "name": "Diagnostic"
@@ -252,7 +252,7 @@ describe('ActivitySearchAndSelect component', () => {
         "activity_category": [
           {
             "id": "showAllId",
-            "name": "All Categories"
+            "name": "All concepts"
           }, {
             "id": 30,
             "name": "Diagnostics"
@@ -269,7 +269,7 @@ describe('ActivitySearchAndSelect component', () => {
         "section": [
           {
             "id": "showAllId",
-            "name": "All Sections"
+            "name": "All levels"
           }, {
             "id": 35,
             "name": "Diagnostic"
