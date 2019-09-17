@@ -1,6 +1,5 @@
 import * as React from "react";
-import { DropdownInput} from './dropdownInput'
-// import { DropdownInput } from 'quill-component-library/dist/componentLibrary'
+import { DropdownInput } from 'quill-component-library/dist/componentLibrary'
 
 const options = [
   {value: 1, label: 'One'},
