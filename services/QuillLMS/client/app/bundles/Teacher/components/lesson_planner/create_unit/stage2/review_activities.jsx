@@ -1,5 +1,7 @@
 import React from 'react';
-import DatePicker from 'react-datepicker';
+import 'react-dates/initialize';
+import { SingleDatePicker, ICON_AFTER_POSITION } from 'react-dates'
+// import DatePicker from 'react-datepicker';
 import ReactTooltip from 'react-tooltip';
 import moment from 'moment';
 import { DataTable } from 'quill-component-library/dist/componentLibrary'
@@ -24,13 +26,23 @@ const tableHeaders = [
   {
     name: 'Due date (optional)',
     attribute: 'dueDate',
-    width: '175px'
+    width: '175px',
+    rowSectionClassName: 'due-date-picker'
   }
 ]
 
 export default class ReviewActivities extends React.Component {
   constructor(props) {
     super(props)
+
+    const state = {}
+    props.activities.forEach(act => {
+      state[`focused-${act.id}`] = false
+    })
+
+    this.state = state
+
+    this.removeRow = this.removeRow.bind(this)
   }
 
   removeRow(id) {
@@ -41,9 +53,8 @@ export default class ReviewActivities extends React.Component {
 
   handleDueDateChange(id, date) {
     const { activities, assignActivityDueDate, } = this.props
-    debugger;
     const activity = activities.find(act => act.id === id)
-    const formattedDate = `${date.year()}-${date.month() + 1}-${date.date() + 1}`;
+    const formattedDate = date ? `${date.year()}-${date.month() + 1}-${date.date()}` : null
     assignActivityDueDate(activity, formattedDate);
   }
 
@@ -60,10 +71,18 @@ export default class ReviewActivities extends React.Component {
         id,
       } = activity
       const selectedDate = dueDates[id] ? moment(dueDates[id]) : null
-      const dueDate = (<DatePicker
-        selected={selectedDate}
-        minDate={moment()}
-        onChange={date => this.handleDueDateChange(id, date)}
+      const dueDate = (<SingleDatePicker
+        date={selectedDate} // momentPropTypes.momentObj or null
+        onDateChange={date => this.handleDueDateChange(id, date)}
+        focused={this.state[`focused-${id}`]} // PropTypes.bool
+        onFocusChange={({ focused, }) => this.setState({ [`focused-${id}`]: focused })} // PropTypes.func.isRequired
+        id={`${id}-date-picker`} // PropTypes.string.isRequired,
+        placeholder="No due date"
+        numberOfMonths={1}
+        navPrev={'‹'}
+        navNext={'›'}
+        customInputIcon={<img src="https://assets.quill.org/images/icons/dropdown.svg" alt="dropdown indicator" />}
+        inputIconPosition={ICON_AFTER_POSITION}
       />)
       const toolIcon = <span className={activity_classification ? `icon-${activity_classification.id}-green-no-border` : ''} />
       const activityName = (<div>

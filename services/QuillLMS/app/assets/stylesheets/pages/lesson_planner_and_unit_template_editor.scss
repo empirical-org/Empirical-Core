@@ -149,6 +149,42 @@
           font-weight: bold;
         }
       }
+      .assignment-section-body {
+        .data-table {
+          overflow: visible;
+          .due-date-picker {
+            overflow: visible !important;
+            .SingleDatePickerInput {
+              background-color: inherit;
+              border: none;
+            }
+            .DateInput__display-text--focused {
+              background: inherit;
+              border-color: inherit;
+              border-radius: inherit;
+              color: inherit;
+            }
+            .SingleDatePicker__picker--open-down {
+              top: 38px;
+            }
+            .transition-container--horizontal {
+              margin-top: 0px;
+              padding-top: 5px;
+            }
+            .DayPickerNavigation--horizontal .DayPickerNavigation__prev, .DayPickerNavigation--horizontal .DayPickerNavigation__next {
+              padding: 2px 20px !important;
+            }
+            .DateInput--open-down.DateInput--with-caret::after {
+              top: 29px;
+              border-bottom-color: #fafafa;
+            }
+            .DateInput--open-down.DateInput--with-caret::before {
+              top: 28px;
+              border-bottom-color: rgba(0, 0, 0, 0.1);
+            }
+          }
+        }
+      }
     }
   }
   .select-students-header {
