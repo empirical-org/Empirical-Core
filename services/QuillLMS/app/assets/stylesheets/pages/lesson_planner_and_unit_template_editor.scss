@@ -24,6 +24,18 @@
   .activity_category {
     width: 236px;
   }
+  .data-table {
+    .tool-icon span {
+       align-items: center;
+       height: 26px;
+       width: 26px;
+       justify-content: flex-start;
+       display: flex;
+    }
+    .activity-name {
+      color: #027360;
+    }
+  }
   .section {
     width: 183px;
   }

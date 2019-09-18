@@ -3,7 +3,8 @@ import React from 'react';
 import Classroom from './classroom';
 import ActivityDueDate from './activity_due_date';
 import ButtonLoadingIndicator from '../../../shared/button_loading_indicator';
-import NameTheUnit from './name_the_unit.jsx';
+import NameTheUnit from './name_the_unit';
+import ReviewActivities from './review_activities'
 import { Snackbar, defaultSnackbarTimeout } from 'quill-component-library/dist/componentLibrary'
 
 import CreateAClassModal from '../../../classrooms/create_a_class_modal.tsx'
@@ -124,20 +125,29 @@ export default class Stage2 extends React.Component {
     return [];
   }
 
-  dueDateList() {
-    const that = this;
-    return this.props.selectedActivities.map(activity => (<ActivityDueDate
-      activity={activity}
-      key={activity.id}
-      dueDate={that.dueDate()}
-      toggleActivitySelection={that.props.toggleActivitySelection}
-      assignActivityDueDate={that.props.assignActivityDueDate}
-    />));
+  renderReviewActivities() {
+    const {
+      selectedActivities,
+      toggleActivitySelection,
+      assignActivityDueDate,
+      dueDates,
+    } = this.props
+    return (<ReviewActivities
+      activities={selectedActivities}
+      toggleActivitySelection={toggleActivitySelection}
+      assignActivityDueDate={assignActivityDueDate}
+      dueDates={dueDates}
+    />)
   }
 
-  nameComponent() {
-    const nameError = this.state.prematureContinueAttempted && this.props.errorMessage && this.props.errorMessage.includes('name') ? 'name-error' : '';
-    return <NameTheUnit unitName={this.props.unitName} updateUnitName={this.props.updateUnitName} nameError={nameError} />;
+  renderNameComponent() {
+    const { errorMessage, unitName, updateUnitName, } = this.props
+    const nameError = this.state.prematureContinueAttempted && errorMessage && errorMessage.includes('name') ? 'name-error' : '';
+    return (<NameTheUnit
+      unitName={unitName}
+      updateUnitName={updateUnitName}
+      nameError={nameError}
+    />)
   }
 
   assignButton() {
@@ -252,7 +262,8 @@ export default class Stage2 extends React.Component {
         {this.renderGoogleClassroomsEmptyModal()}
         {this.renderSnackbar()}
         <h1>Assign</h1>
-        {this.nameComponent()}
+        {this.renderNameComponent()}
+        {this.renderReviewActivities()}
         <section className="select-students">
           <div className="select-students-header">
             <h2 className="section-header">{this.studentSectionHeaderCopy()}</h2>
@@ -264,20 +275,10 @@ export default class Stage2 extends React.Component {
           {this.renderAutomaticAssignNote()}
           {this.classroomList()}
         </section>
-        <section className="assign-dates">
-          <h2 className="section-header">
-            Optional - <span>Assign Due Dates To Your Activities:</span>
-          </h2>
-          <table className="table activity-table">
-            <tbody>
-              {this.dueDateList()}
-            </tbody>
-          </table>
-          <div className="error-message-and-button">
-            <div className={this.determineErrorMessageClass()}>{this.props.errorMessage}</div>
-            {this.assignButton()}
-          </div>
-        </section>
+        <div className="error-message-and-button">
+          <div className={this.determineErrorMessageClass()}>{this.props.errorMessage}</div>
+          {this.assignButton()}
+        </div>
       </div>
     );
   }

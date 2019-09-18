@@ -4,25 +4,27 @@ import ReactTooltip from 'react-tooltip';
 import moment from 'moment';
 import { DataTable } from 'quill-component-library/dist/componentLibrary'
 
-const tableHeaders = [{
+const tableHeaders = [
+  {
     name: 'Tool',
     attribute: 'tool',
-    width: '24px'
+    width: '30px',
+    rowSectionClassName: 'tool-icon'
   },
   {
     name: 'Activity',
     attribute: 'activity',
-    width: '375px'
+    width: '300px'
   },
   {
     name: 'Concept',
     attribute: 'concept',
-    width: '238px'
+    width: '200px'
   },
   {
     name: 'Due date (optional)',
     attribute: 'dueDate',
-    width: '105px'
+    width: '175px'
   }
 ]
 
@@ -39,31 +41,45 @@ export default class ReviewActivities extends React.Component {
 
   handleDueDateChange(id, date) {
     const { activities, assignActivityDueDate, } = this.props
+    debugger;
     const activity = activities.find(act => act.id === id)
     const formattedDate = `${date.year()}-${date.month() + 1}-${date.date() + 1}`;
     assignActivityDueDate(activity, formattedDate);
   }
 
   rows() {
-    const { activities, dueDates, handleDueDateChange, } = this.props
+    const { activities, dueDates, } = this.props
 
     return activities.map((activity) => {
-      const { name, activity_classification, section, description, id, } = activity
-      const dueDate = <DatePicker selected={dueDates[id]} minDate={moment()} onChange={date => handleDueDateChange(id, date)} />
+      const {
+        name,
+        activity_classification,
+        section,
+        activity_category,
+        description,
+        id,
+      } = activity
+      const selectedDate = dueDates[id] ? moment(dueDates[id]) : null
+      const dueDate = (<DatePicker
+        selected={selectedDate}
+        minDate={moment()}
+        onChange={date => this.handleDueDateChange(id, date)}
+      />)
+      const toolIcon = <span className={activity_classification ? `icon-${activity_classification.id}-green-no-border` : ''} />
       const activityName = (<div>
-        <span style={{ paddingLeft: '45px', }} className={activity_classification ? `icon-${activity_classification.id}-green-no-border` : ''}>
-          <div className='activate-tooltip' data-tip={`<h1>${name}</h1><p>Tool: ${activity_classification.alias}</p><p>${section.name}</p><p>${description}</p>`}>
-            <ReactTooltip html multiline className="react-tooltip-custom" type="light" effect="solid" />
-          </div>
-        </span>
-        <span className="tooltip-trigger activity_name">{name}</span>
+        <div className="activate-tooltip" data-tip={`<h1>${name}</h1><p>Tool: ${activity_classification.alias}</p><p>${section.name}</p><p>${description}</p>`}>
+          <ReactTooltip html multiline className="react-tooltip-custom" type="light" effect="solid" />
+          <span className="tooltip-trigger activity-name">{name}</span>
+        </div>
       </div>)
 
       return {
-        tool: activity_classification.name,
+        id,
+        tool: toolIcon,
         activity: activityName,
-        concept: section.name,
-        dueDate
+        concept: activity_category.name,
+        dueDate,
+        removable: true
       }
     })
   }
