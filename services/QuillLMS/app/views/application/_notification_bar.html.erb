@@ -1,5 +1,5 @@
 <% current_path = request.env['PATH_INFO'] %>
-<% if ENV['NOTIFICATION_BAR_SHOWING'] %>
+<% if ENV['NOTIFICATION_BAR_SHOWING'].to_s.downcase == "true" %>
   <div class="notification-bar google-issue">
     <p>
       <%= ENV['NOTIFICATION_BAR_TEXT'] %>
