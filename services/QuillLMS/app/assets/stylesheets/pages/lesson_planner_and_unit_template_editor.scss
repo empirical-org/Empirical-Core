@@ -182,6 +182,17 @@
               top: 28px;
               border-bottom-color: rgba(0, 0, 0, 0.1);
             }
+            .SingleDatePickerInput__calendar-icon {
+              box-shadow: none !important;
+              width: min-content;
+              padding: 0px;
+            }
+            .DateInput--open-down {
+              .SingleDatePickerInput__calendar-icon {
+                transform: rotate(180deg);
+                -webkit-transform: rotate(180deg);
+              }
+            }
           }
         }
       }

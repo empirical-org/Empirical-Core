@@ -1,7 +1,6 @@
 'use strict';
 import React from 'react';
 import moment from 'moment';
-import 'react-dates/initialize';
 import { DateRangePicker } from 'react-dates';
 import DateRangeFilterOption from './date_range_filter_option.jsx'
 

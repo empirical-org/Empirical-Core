@@ -1,5 +1,4 @@
 import React from 'react';
-import 'react-dates/initialize';
 import { SingleDatePicker, ICON_AFTER_POSITION } from 'react-dates'
 // import DatePicker from 'react-datepicker';
 import ReactTooltip from 'react-tooltip';
@@ -82,7 +81,7 @@ export default class ReviewActivities extends React.Component {
         navPrev={'‹'}
         navNext={'›'}
         customInputIcon={<img src="https://assets.quill.org/images/icons/dropdown.svg" alt="dropdown indicator" />}
-        inputIconPosition={ICON_AFTER_POSITION}
+        inputIconPosition="after"
       />)
       const toolIcon = <span className={activity_classification ? `icon-${activity_classification.id}-green-no-border` : ''} />
       const activityName = (<div>
