@@ -752,6 +752,7 @@ ShallowWrapper {
             "getUsedSequences": [Function],
             "incrementRequestCount": [Function],
             "initializeSubscription": [Function],
+            "loadQuestion": [Function],
             "loadQuestions": [Function],
             "removeSubscription": [Function],
             "searchResponses": [Function],
