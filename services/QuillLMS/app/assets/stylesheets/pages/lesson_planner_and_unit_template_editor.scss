@@ -172,6 +172,66 @@
             margin-top: 16px;
           }
         }
+        .create-a-class-inline-content {
+          border-top: 1px solid #e0e0e0;
+          border-bottom: 1px solid #e0e0e0;
+          padding: 32px;
+          margin-left: -32px;
+          margin-right: -32px;
+          .create-a-class-form {
+            display: flex;
+            justify-content: space-between;
+            .name {
+              width: 398px;
+            }
+            .grade {
+              width: 254px;
+              &.active {
+                .dropdown {
+                  margin-bottom: 69px;
+                }
+              }
+            }
+            .code {
+              width: 124px;
+              input {
+                border-bottom: none;
+              }
+            }
+            .class-code-section {
+              display: flex;
+              align-items: center;
+              .reset {
+                margin-top: 13px;
+                color: #027360;
+                font-size: 16px;
+                cursor: pointer;
+              }
+            }
+          }
+        }
+        .create-a-class-inline-footer {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-top: 40px;
+          .info {
+            img {
+              margin-right: 8px;
+            }
+            span {
+              font-size: 14px;
+              line-height: 1.57;
+              color: #646464;
+            }
+          }
+          .buttons {
+            display: flex;
+            .quill-button {
+              margin-left: 24px;
+            }
+          }
+        }
         .data-table {
           overflow: visible;
           .due-date-picker {

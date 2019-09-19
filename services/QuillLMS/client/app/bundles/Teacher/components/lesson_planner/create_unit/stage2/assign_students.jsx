@@ -1,7 +1,8 @@
 import React from 'react'
 import { Snackbar, defaultSnackbarTimeout } from 'quill-component-library/dist/componentLibrary'
 
-import CreateAClassModal from '../../../classrooms/create_a_class_modal.tsx'
+import CreateAClassInlineForm from './create_a_class_inline_form.tsx'
+import ButtonLoadingIndicator from '../../../shared/button_loading_indicator';
 import ImportGoogleClassroomsModal from '../../../classrooms/import_google_classrooms_modal.tsx'
 import GoogleClassroomEmailModal from '../../../classrooms/google_classroom_email_modal.tsx'
 import GoogleClassroomsEmptyModal from '../../../classrooms/google_classrooms_empty_modal.tsx'
@@ -10,7 +11,7 @@ import { requestGet } from '../../../../../../modules/request';
 
 const emptyClassSrc = `${process.env.CDN_URL}/images/illustrations/empty-class.svg`
 
-export const createAClassModal = 'createAClassModal'
+export const createAClassForm = 'createAClassForm'
 export const importGoogleClassroomsModal = 'importGoogleClassroomsModal'
 export const googleClassroomEmailModal = 'googleClassroomEmailModal'
 export const googleClassroomsEmptyModal = 'googleClassroomsEmptyModal'
@@ -20,14 +21,14 @@ export default class AssignStudents extends React.Component {
     super(props)
 
     this.state = {
-      showModal: false
+      showFormOrModal: false
     }
 
     this.getGoogleClassrooms = this.getGoogleClassrooms.bind(this)
     this.onSuccess = this.onSuccess.bind(this)
     this.clickImportGoogleClassrooms = this.clickImportGoogleClassrooms.bind(this)
-    this.openModal = this.openModal.bind(this)
-    this.closeModal = this.closeModal.bind(this)
+    this.openFormOrModal = this.openFormOrModal.bind(this)
+    this.closeFormOrModal = this.closeFormOrModal.bind(this)
     this.showSnackbar = this.showSnackbar.bind(this)
   }
 
@@ -35,12 +36,12 @@ export default class AssignStudents extends React.Component {
     this.getGoogleClassrooms()
   }
 
-  openModal(modalName) {
-    this.setState({ showModal: modalName })
+  openFormOrModal(modalName) {
+    this.setState({ showFormOrModal: modalName })
   }
 
-  closeModal(callback=null) {
-    this.setState({ showModal: null}, () => {
+  closeFormOrModal(callback=null) {
+    this.setState({ showFormOrModal: null}, () => {
       if (callback && typeof(callback) === 'function') {
         callback()
       }
@@ -68,7 +69,7 @@ export default class AssignStudents extends React.Component {
     this.props.fetchClassrooms()
     this.getGoogleClassrooms()
     this.showSnackbar(snackbarCopy)
-    this.closeModal()
+    this.closeFormOrModal()
   }
 
   classroomList() {
@@ -82,9 +83,9 @@ export default class AssignStudents extends React.Component {
         toggleClassroomSelection={that.props.toggleClassroomSelection}
         toggleStudentSelection={that.props.toggleStudentSelection}
       />);
-    } else {
+    } else if (this.state.showFormOrModal !== createAClassForm) {
       return <div className="no-active-classes">
-        <img src={emptyClassSrc} />
+        <img src={emptyClassSrc} alt="empty class" />
         <p>Your classrooms will appear here. Add a class to get started.</p>
       </div>
     }
@@ -93,13 +94,13 @@ export default class AssignStudents extends React.Component {
   clickImportGoogleClassrooms() {
     const { googleClassrooms, googleClassroomsLoading, } = this.state
     if (!this.props.user.google_id) {
-      this.openModal(googleClassroomEmailModal)
+      this.openFormOrModal(googleClassroomEmailModal)
     } else if (googleClassroomsLoading) {
       this.setState({ attemptedImportGoogleClassrooms: true, })
     } else if (googleClassrooms.length) {
-      this.openModal(importGoogleClassroomsModal)
+      this.openFormOrModal(importGoogleClassroomsModal)
     } else {
-      this.openModal(googleClassroomsEmptyModal)
+      this.openFormOrModal(googleClassroomsEmptyModal)
     }
   }
 
@@ -109,20 +110,20 @@ export default class AssignStudents extends React.Component {
     })
   }
 
-  renderCreateAClassModal() {
-    if (this.state.showModal === createAClassModal) {
-      return (<CreateAClassModal
-        close={() => this.closeModal(this.props.fetchClassrooms)}
-        showSnackbar={this.showSnackbar}
+  renderCreateAClassInlineForm() {
+    if (this.state.showFormOrModal === createAClassForm) {
+      return (<CreateAClassInlineForm
+        cancel={this.closeFormOrModal}
+        onSuccess={this.onSuccess}
       />)
     }
   }
 
   renderImportGoogleClassroomsModal() {
-    const { googleClassrooms, showModal, } = this.state
-    if (showModal === importGoogleClassroomsModal) {
+    const { googleClassrooms, showFormOrModal, } = this.state
+    if (showFormOrModal === importGoogleClassroomsModal) {
       return (<ImportGoogleClassroomsModal
-        close={this.closeModal}
+        close={this.closeFormOrModal}
         onSuccess={this.onSuccess}
         classrooms={googleClassrooms}
         user={this.props.user}
@@ -131,20 +132,20 @@ export default class AssignStudents extends React.Component {
   }
 
   renderGoogleClassroomEmailModal() {
-    const { showModal, } = this.state
-    if (showModal === googleClassroomEmailModal) {
+    const { showFormOrModal, } = this.state
+    if (showFormOrModal === googleClassroomEmailModal) {
       return (<GoogleClassroomEmailModal
-        close={this.closeModal}
+        close={this.closeFormOrModal}
         user={this.props.user}
       />)
     }
   }
 
   renderGoogleClassroomsEmptyModal() {
-    const { showModal, } = this.state
-    if (showModal === googleClassroomsEmptyModal) {
+    const { showFormOrModal, } = this.state
+    if (showFormOrModal === googleClassroomsEmptyModal) {
       return (<GoogleClassroomsEmptyModal
-        close={this.closeModal}
+        close={this.closeFormOrModal}
       />)
     }
   }
@@ -188,10 +189,11 @@ export default class AssignStudents extends React.Component {
         </div>
         <div className="import-or-create-classroom-buttons">
           {this.renderImportGoogleClassroomsButton()}
-          <button onClick={() => this.openModal(createAClassModal)} className="quill-button medium secondary outlined create-a-class-button">Create a class</button>
+          <button onClick={() => this.openFormOrModal(createAClassForm)} className="quill-button medium secondary outlined create-a-class-button">Create a class</button>
         </div>
       </div>
       <div className="assignment-section-body">
+        {this.renderCreateAClassInlineForm()}
         {this.renderAutomaticAssignNote()}
         {this.classroomList()}
       </div>
@@ -199,14 +201,13 @@ export default class AssignStudents extends React.Component {
   }
 
   render() {
-    return <div>
-      {this.renderCreateAClassModal()}
+    return (<div>
       {this.renderImportGoogleClassroomsModal()}
       {this.renderGoogleClassroomEmailModal()}
       {this.renderGoogleClassroomsEmptyModal()}
       {this.renderSnackbar()}
       {this.renderClassroomsSection()}
-    </div>
+    </div>)
   }
 
 }
