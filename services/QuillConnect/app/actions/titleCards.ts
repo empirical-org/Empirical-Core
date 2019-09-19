@@ -23,6 +23,14 @@ function loadTitleCards() {
   };
 }
 
+function loadTitleCard(uid) {
+  return (dispatch, getState) => {
+    titleCardsRef.child(uid).once('value', (snapshot) => {
+      dispatch({ type: C.RECEIVE_TITLE_CARDS_DATA, data: { [uid]: snapshot.val(), } });
+    });
+  }
+}
+
 function submitNewTitleCard(content) {
   return (dispatch) => {
     const newRef = titleCardsRef.push(content, (error) => {
@@ -50,4 +58,10 @@ function submitTitleCardEdit(qid, content) {
   };
 }
 
-export { submitNewTitleCard, loadTitleCards, startListeningToTitleCards, submitTitleCardEdit }
+export {
+  submitNewTitleCard,
+  loadTitleCards,
+  loadTitleCard,
+  startListeningToTitleCards,
+  submitTitleCardEdit,
+}

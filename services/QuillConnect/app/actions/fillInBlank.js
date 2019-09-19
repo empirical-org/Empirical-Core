@@ -25,6 +25,13 @@ const actions = {
       });
     };
   },
+  loadQuestion(uid) {
+    return (dispatch, getState) => {
+      fillInBlankQuestionsRef.child(uid).once('value', (snapshot) => {
+        dispatch({ type: C.RECEIVE_FILL_IN_BLANK_QUESTIONS_DATA, data: { [uid]: snapshot.val(), } });
+      });
+    }
+  },
   startQuestionEdit(qid) {
     return { type: C.START_FILL_IN_BLANK_QUESTION_EDIT, qid, };
   },

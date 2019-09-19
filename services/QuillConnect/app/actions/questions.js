@@ -31,6 +31,14 @@ function loadQuestions() {
   };
 }
 
+function loadQuestion(uid) {
+  return (dispatch, getState) => {
+    questionsRef.child(uid).once('value', (snapshot) => {
+      dispatch({ type: C.RECEIVE_QUESTIONS_DATA, data: { [uid]: snapshot.val(), } });
+    });
+  }
+}
+
 function startQuestionEdit(qid) {
   return { type: C.START_QUESTION_EDIT, qid, };
 }
@@ -324,6 +332,7 @@ function incrementRequestCount() {
 
 export default {
   startListeningToQuestions,
+  loadQuestion,
   loadQuestions,
   startQuestionEdit,
   cancelQuestionEdit,

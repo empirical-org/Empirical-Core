@@ -24,6 +24,13 @@ function loadSentenceFragments() {
     });
   };
 }
+function loadSentenceFragment(uid) {
+  return function (dispatch, getState) {
+    sentenceFragmentsRef.child(uid).once('value', (snapshot) => {
+      dispatch({ type: C.RECEIVE_SENTENCE_FRAGMENTS_DATA, data: snapshot.val(), });
+    });
+  };
+}
 function startSentenceFragmentEdit(sfid) {
   return { type: C.START_SENTENCE_FRAGMENT_EDIT, sfid, };
 }
@@ -179,6 +186,7 @@ function cancelToResponseView(sfid, rid) {
 export default {
   startListeningToSentenceFragments,
   loadSentenceFragments,
+  loadSentenceFragment,
   startSentenceFragmentEdit,
   cancelSentenceFragmentEdit,
   submitSentenceFragmentEdit,
