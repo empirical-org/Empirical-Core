@@ -15,7 +15,7 @@ const tableHeaders = [
   {
     name: 'Activity',
     attribute: 'activity',
-    width: '300px'
+    width: '350px'
   },
   {
     name: 'Concept',
@@ -70,17 +70,20 @@ export default class ReviewActivities extends React.Component {
         id,
       } = activity
       const selectedDate = dueDates[id] ? moment(dueDates[id]) : null
+      const focusedKey = `focused-${id}`
+      const dropdownIconStyle = this.state[focusedKey] ? { transform: 'rotate(180deg)', } : null;
+
       const dueDate = (<SingleDatePicker
         date={selectedDate} // momentPropTypes.momentObj or null
         onDateChange={date => this.handleDueDateChange(id, date)}
-        focused={this.state[`focused-${id}`]} // PropTypes.bool
-        onFocusChange={({ focused, }) => this.setState({ [`focused-${id}`]: focused })} // PropTypes.func.isRequired
+        focused={this.state[focusedKey]} // PropTypes.bool
+        onFocusChange={({ focused, }) => this.setState({ [focusedKey]: focused })} // PropTypes.func.isRequired
         id={`${id}-date-picker`} // PropTypes.string.isRequired,
         placeholder="No due date"
         numberOfMonths={1}
         navPrev={'‹'}
         navNext={'›'}
-        customInputIcon={<img src="https://assets.quill.org/images/icons/dropdown.svg" alt="dropdown indicator" />}
+        customInputIcon={<img src="https://assets.quill.org/images/icons/dropdown.svg" alt="dropdown indicator" style={dropdownIconStyle} />}
         inputIconPosition="after"
       />)
       const toolIcon = <span className={activity_classification ? `icon-${activity_classification.id}-green-no-border` : ''} />
