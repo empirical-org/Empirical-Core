@@ -30,4 +30,10 @@ describe UnitTemplatePseudoSerializer do
     serialized_ut = UnitTemplatePseudoSerializer.new(unit_template)
     expect(serialized_ut.type[:name]).to eq 'Independent practice'
   end
+
+  it('will only have a single instance of an activity even if it is in multiple categories') do
+    # Note that the "activity" factory puts new activities in two categories by default
+    serialized_ut = UnitTemplatePseudoSerializer.new(unit_template)
+    expect(serialized_ut.activities.length).to eq 1
+  end
 end
