@@ -72,7 +72,7 @@ class UnitTemplatePseudoSerializer
       INNER JOIN activity_categories ON activity_categories.id = activity_category_activities.activity_category_id
       WHERE activities_unit_templates.unit_template_id = #{@unit_template.id}
       ORDER BY activity_categories.order_number, activity_category_activities.order_number").to_a
-    activities.map do |act|
+    activities.map { |act|
       {
         id: act['id'],
         name: act['name'],
@@ -89,7 +89,7 @@ class UnitTemplatePseudoSerializer
         },
         classification: {key: act['key'], id: act['activity_classification_id'], name: act['activity_classification_name']}
       }
-    end
+    }.uniq { |a| a[:id] }
   end
 
   def type
