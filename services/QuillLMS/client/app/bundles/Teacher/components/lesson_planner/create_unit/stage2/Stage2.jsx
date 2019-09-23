@@ -94,7 +94,7 @@ export default class Stage2 extends React.Component {
   render() {
     return (
       <div className="name-and-assign-activity-pack">
-        <h1>Assign</h1>
+        <h1 className="assign-header">Assign</h1>
         {this.renderNameSection()}
         {this.renderReviewActivitiesSection()}
         {this.renderAssignStudentsSection()}

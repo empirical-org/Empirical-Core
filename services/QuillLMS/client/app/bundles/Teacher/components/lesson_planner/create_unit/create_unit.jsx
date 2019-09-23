@@ -137,19 +137,20 @@ export default class CreateUnit extends React.Component {
     return this.state.model.id;
   }
 
-  toggleStudentSelection(student, classroom, flag) {
-    const updated = _.map(this.getClassrooms(), (c) => {
-      if (c.classroom.id == classroom.id) {
-        const updated_students = _.map(c.students, (s) => {
-          if (s.id == student.id) {
-            s.isSelected = flag;
-          }
-          return s;
+  toggleStudentSelection(studentIds, classroomId) {
+    const allClassrooms = this.getClassrooms()
+    const updated = allClassrooms.map((c) => {
+      const changedClassroom = c
+      if (changedClassroom.classroom.id === classroomId) {
+        const updateStudents = changedClassroom.students.map((s) => {
+          const student = s
+          student.isSelected = studentIds.includes(student.id)
+          return student;
         });
-        c.students = updated_students;
+        changedClassroom.students = updateStudents;
       }
-      return c;
-    }, this);
+      return changedClassroom;
+    })
     this.setState({ classrooms: updated, });
   }
 

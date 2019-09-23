@@ -116,9 +116,11 @@
   }
   .name-and-assign-activity-pack {
     margin-top: 35px;
-    h1 {
+    .assign-header {
       font-size: 24px;
       font-weight: bold;
+      text-align: center;
+      margin-bottom: 40px;
     }
     .section-header {
       font-size: 18px;
@@ -170,6 +172,47 @@
             text-align: center;
             color: #646464;
             margin-top: 16px;
+          }
+        }
+        .classroom {
+          display: flex;
+          padding: 24px 32px;
+          border-radius: 6px;
+          border: solid 1px #e0e0e0;
+          align-items: flex-end;
+          .checkbox-and-name-container {
+            display: flex;
+            flex: 1.5;
+            align-items: flex-end;
+            padding-bottom: 6px;
+            .name-container {
+              display: flex;
+              flex-direction: column;
+              margin-left: 16px;
+            }
+            .name-label {
+              font-size: 12px;
+              font-weight: 600;
+              line-height: 1;
+              color: #7f7f7f;
+            }
+            .name {
+              line-height: 1;
+              font-size: 16px;
+              margin-top: 10px;
+            }
+          }
+          .students-container {
+            flex: 1;
+            .input-container {
+              min-height: inherit;
+              .dropdown {
+                margin-bottom: 0px;
+                .dropdown__menu {
+                  width: 300px;
+                }
+              }
+            }
           }
         }
         .create-a-class-inline-content {

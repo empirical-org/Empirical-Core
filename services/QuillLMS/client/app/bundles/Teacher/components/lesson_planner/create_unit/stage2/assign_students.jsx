@@ -1,15 +1,15 @@
 import React from 'react'
-import { Snackbar, defaultSnackbarTimeout } from 'quill-component-library/dist/componentLibrary'
+import { Snackbar, defaultSnackbarTimeout, DropdownInput } from 'quill-component-library/dist/componentLibrary'
 
 import CreateAClassInlineForm from './create_a_class_inline_form.tsx'
 import ButtonLoadingIndicator from '../../../shared/button_loading_indicator';
 import ImportGoogleClassroomsModal from '../../../classrooms/import_google_classrooms_modal.tsx'
 import GoogleClassroomEmailModal from '../../../classrooms/google_classroom_email_modal.tsx'
 import GoogleClassroomsEmptyModal from '../../../classrooms/google_classrooms_empty_modal.tsx'
-import Classroom from './classroom'
 import { requestGet } from '../../../../../../modules/request';
 
 const emptyClassSrc = `${process.env.CDN_URL}/images/illustrations/empty-class.svg`
+const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
 
 export const createAClassForm = 'createAClassForm'
 export const importGoogleClassroomsModal = 'importGoogleClassroomsModal'
@@ -72,12 +72,68 @@ export default class AssignStudents extends React.Component {
     this.closeFormOrModal()
   }
 
+  selectStudents(studentOptions, classroomId) {
+    const studentIds = studentOptions.map(s => s.value)
+    this.props.toggleStudentSelection(studentIds, classroomId)
+  }
+
   renderClassroom(c) {
-    const {
-      toggleClassroomSelection,
-      toggleStudentSelection
-    } = this.props
-    return <div className="classroom"></div>
+    const { classroom, students, } = c
+    const { name, } = classroom
+    return (<div className="classroom">
+      <div className="checkbox-and-name-container">
+        {this.renderCheckbox(classroom, students)}
+        <div className="name-container">
+          <span className="name-label">Class</span>
+          <span className="name">{name}</span>
+        </div>
+      </div>
+      <div className="students-container">
+        {this.renderStudentSection(classroom, students)}
+      </div>
+    </div>)
+  }
+
+  renderCheckbox(classroom, students) {
+    const { toggleClassroomSelection, } = this.props
+    const { emptyClassroomsSelected, } = classroom
+
+    let checkbox = <span className="quill-checkbox unselected" onClick={() => toggleClassroomSelection(classroom)} />
+    const selectedStudents = students && students.length ? students.filter(s => s.isSelected) : []
+
+    if (emptyClassroomsSelected || selectedStudents.length) {
+      checkbox = (<span className="quill-checkbox selected" onClick={() => toggleClassroomSelection(classroom)} >
+        <img src={smallWhiteCheckSrc} alt="check" />
+      </span>)
+    }
+
+    return checkbox
+  }
+
+  renderStudentSection(classroom, students) {
+    const { id, emptyClassroomSelected, } = classroom
+    let selectedStudents
+    let options
+    if (students && students.length) {
+      options = students.map((s) => {
+        return { value: s.id, label: s.name, isSelected: s.isSelected, }
+      })
+      selectedStudents = options.filter(s => s.isSelected)
+    }
+    const thereAreSelectedStudents = selectedStudents && selectedStudents.length
+
+    if (!thereAreSelectedStudents && !emptyClassroomSelected) { return null }
+
+    if (thereAreSelectedStudents) {
+      return (<DropdownInput
+        value={selectedStudents}
+        isMulti
+        options={options}
+        optionType="student"
+        handleChange={(e) => { this.selectStudents(e, id) }}
+      />)
+    }
+    return <span className="empty-class-students">And all students who join in the future</span>
   }
 
   classroomList() {
