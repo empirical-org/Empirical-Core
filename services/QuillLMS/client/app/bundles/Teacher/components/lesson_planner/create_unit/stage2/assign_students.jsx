@@ -10,6 +10,7 @@ import { requestGet } from '../../../../../../modules/request';
 
 const emptyClassSrc = `${process.env.CDN_URL}/images/illustrations/empty-class.svg`
 const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
+const indeterminateSrc = `${process.env.CDN_URL}/images/icons/indeterminate.svg`
 
 export const createAClassForm = 'createAClassForm'
 export const importGoogleClassroomsModal = 'importGoogleClassroomsModal'
@@ -75,92 +76,6 @@ export default class AssignStudents extends React.Component {
   selectStudents(studentOptions, classroomId) {
     const studentIds = studentOptions.map(s => s.value)
     this.props.toggleStudentSelection(studentIds, classroomId)
-  }
-
-  renderClassroom(c) {
-    const { classroom, students, } = c
-    const { name, } = classroom
-    return (<div className="classroom">
-      <div className="checkbox-and-name-container">
-        {this.renderCheckbox(classroom, students)}
-        <div className="name-container">
-          <span className="name-label">Class</span>
-          <span className="name">{name}</span>
-        </div>
-      </div>
-      <div className="students-container">
-        {this.renderStudentSection(classroom, students)}
-      </div>
-    </div>)
-  }
-
-  renderCheckbox(classroom, students) {
-    const { toggleClassroomSelection, } = this.props
-    const { emptyClassroomsSelected, } = classroom
-
-    let checkbox = <span className="quill-checkbox unselected" onClick={() => toggleClassroomSelection(classroom)} />
-    const selectedStudents = students && students.length ? students.filter(s => s.isSelected) : []
-
-    if (emptyClassroomsSelected || selectedStudents.length) {
-      checkbox = (<span className="quill-checkbox selected" onClick={() => toggleClassroomSelection(classroom)} >
-        <img src={smallWhiteCheckSrc} alt="check" />
-      </span>)
-    }
-
-    return checkbox
-  }
-
-  renderStudentSection(classroom, students) {
-    const { id, emptyClassroomSelected, } = classroom
-    let selectedStudents
-    let options
-    if (students && students.length) {
-      options = students.map((s) => {
-        return { value: s.id, label: s.name, isSelected: s.isSelected, }
-      })
-      selectedStudents = options.filter(s => s.isSelected)
-    }
-    const thereAreSelectedStudents = selectedStudents && selectedStudents.length
-
-    if (!thereAreSelectedStudents && !emptyClassroomSelected) { return null }
-
-    if (thereAreSelectedStudents) {
-      return (<DropdownInput
-        value={selectedStudents}
-        isMulti
-        options={options}
-        optionType="student"
-        handleChange={(e) => { this.selectStudents(e, id) }}
-      />)
-    }
-    return <span className="empty-class-students">And all students who join in the future</span>
-  }
-
-  classroomList() {
-    const {
-      classrooms,
-      toggleClassroomSelection,
-      toggleStudentSelection
-    } = this.props
-    if (classrooms && classrooms.length) {
-      const classroomElements = classrooms.map(c => this.renderClassroom(c))
-      return <div className="classrooms">
-        {classroomElements}
-      </div>
-      // return this.props.classrooms.map(el => <Classroom
-      //   key={el.classroom.id}
-      //   classroom={el.classroom}
-      //   students={el.students}
-      //   allSelected={el.allSelected || el.emptyClassroomSelected}
-      //   toggleClassroomSelection={this.props.toggleClassroomSelection}
-      //   toggleStudentSelection={this.props.toggleStudentSelection}
-      // />);
-    } else if (this.state.showFormOrModal !== createAClassForm) {
-      return <div className="no-active-classes">
-        <img src={emptyClassSrc} alt="empty class" />
-        <p>Your classrooms will appear here. Add a class to get started.</p>
-      </div>
-    }
   }
 
   clickImportGoogleClassrooms() {
@@ -257,9 +172,107 @@ export default class AssignStudents extends React.Component {
       </div>
       <div className="assignment-section-body">
         {this.renderCreateAClassInlineForm()}
-        {this.classroomList()}
+        {this.renderAllClassroomsCheckbox()}
+        {this.renderClassroomList()}
       </div>
     </div>)
+  }
+
+  renderAllClassroomsCheckbox() {
+    const { classrooms, toggleClassroomSelection} = this.props
+    if (classrooms.length <= 1) { return null }
+
+    const selectedClassrooms = classrooms.filter((c) => {
+      const { students, classroom, } = c
+      const selectedStudents = students && students.length ? students.filter(s => s.isSelected) : []
+      return !!(classroom.emptyClassroomSelected || selectedStudents.length)
+    })
+
+    let checkbox = <span className="quill-checkbox unselected" onClick={() => toggleClassroomSelection(null, true)}/>
+    if (selectedClassrooms.length === classrooms.length) {
+      checkbox = (<span className="quill-checkbox selected" onClick={() => toggleClassroomSelection(null, false)}>
+        <img src={smallWhiteCheckSrc} alt="check" />
+      </span>)
+    } else if (selectedClassrooms.length) {
+      checkbox = (<span className="quill-checkbox selected" onClick={() => toggleClassroomSelection(null, false)}>
+        <img src={indeterminateSrc} alt="check"/>
+      </span>)
+    }
+    return <div className="all-classes-checkbox">
+      {checkbox}
+      <span className="all-classes-text">All classes and students</span>
+    </div>
+  }
+
+  renderClassroom(c) {
+    const { classroom, students, } = c
+    const { name, } = classroom
+    return (<div className="classroom">
+      <div className="checkbox-and-name-container">
+        {this.renderClassroomCheckbox(classroom, students)}
+        <div className="name-container">
+          <span className="name-label">Class</span>
+          <span className="name">{name}</span>
+        </div>
+      </div>
+      <div className="students-container">
+        {this.renderStudentSection(classroom, students)}
+      </div>
+    </div>)
+  }
+
+  renderClassroomCheckbox(classroom, students) {
+    const { toggleClassroomSelection, } = this.props
+    const { emptyClassroomsSelected, } = classroom
+
+    let checkbox = <span className="quill-checkbox unselected" onClick={() => toggleClassroomSelection(classroom)} />
+    const selectedStudents = students && students.length ? students.filter(s => s.isSelected) : []
+
+    if (emptyClassroomsSelected || selectedStudents.length) {
+      checkbox = (<span className="quill-checkbox selected" onClick={() => toggleClassroomSelection(classroom)} >
+        <img src={smallWhiteCheckSrc} alt="check" />
+      </span>)
+    }
+
+    return checkbox
+  }
+
+  renderStudentSection(classroom, students) {
+    const { id, emptyClassroomSelected, } = classroom
+
+    const options = students ? students.map((s) => {
+      return { value: s.id, label: s.name, isSelected: s.isSelected, }
+    }) : []
+
+    const selectedStudents = options.filter(s => s.isSelected)
+
+    if (!selectedStudents.length && !emptyClassroomSelected) { return null }
+
+    if (selectedStudents.length) {
+      return (<DropdownInput
+        value={selectedStudents}
+        isMulti
+        options={options}
+        optionType="student"
+        handleChange={(e) => { this.selectStudents(e, id) }}
+      />)
+    }
+    return <span className="empty-class-students">And all students who join in the future</span>
+  }
+
+  renderClassroomList() {
+    const { classrooms, } = this.props
+    if (classrooms && classrooms.length) {
+      const classroomElements = classrooms.map(c => this.renderClassroom(c))
+      return (<div className="classrooms">
+        {classroomElements}
+      </div>)
+    } else if (this.state.showFormOrModal !== createAClassForm) {
+      return (<div className="no-active-classes">
+        <img src={emptyClassSrc} alt="empty class" />
+        <p>Your classrooms will appear here. Add a class to get started.</p>
+      </div>)
+    }
   }
 
   render() {

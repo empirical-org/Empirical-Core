@@ -102,34 +102,30 @@ export default class CreateUnit extends React.Component {
     return this.state.name;
   }
 
-  toggleClassroomSelection(classroom) {
+  toggleClassroomSelection(classroom = null, select = null) {
     const classrooms = this.getClassrooms();
+    const selectHasValue = select === true || select === false
     if (!classrooms) {
       return;
     }
-    const updated = _.map(classrooms, function (c) {
-      if (c.classroom.id == classroom.id) {
-        if (c.students.length == 0) {
-          c.emptyClassroomSelected = (this.toggleEmptyClassroomSelected(c));
+    const updated = classrooms.map((c) => {
+      const classroomGettingUpdated = c
+      if (!classroom || classroomGettingUpdated.classroom.id === classroom.id) {
+        const { students, } = classroomGettingUpdated
+        if (!students.length) {
+          classroomGettingUpdated.emptyClassroomSelected = selectHasValue ? select : this.toggleEmptyClassroomSelected(c);
         } else {
-          const selected = _.where(c.students, { isSelected: true, });
-          let updatedStudents;
-          if (selected.length == c.students.length) {
-            updatedStudents = _.map(c.students, (s) => {
-              s.isSelected = false;
-              return s;
-            });
-          } else {
-            updatedStudents = _.map(c.students, (s) => {
-              s.isSelected = true;
-              return s;
-            });
-          }
-          c.students = updatedStudents;
+          const selected = students.filter(s => s.isSelected)
+          const updatedStudents = students.map((s) => {
+            const student = s
+            student.isSelected = selectHasValue ? select : !selected.length
+            return student;
+          })
+          classroomGettingUpdated.students = updatedStudents;
         }
       }
       return c;
-    }, this);
+    })
     this.setState({ classrooms: updated, });
   }
 
