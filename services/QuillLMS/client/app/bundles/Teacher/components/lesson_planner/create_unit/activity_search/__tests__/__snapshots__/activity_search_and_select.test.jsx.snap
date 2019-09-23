@@ -2,7 +2,9 @@
 
 exports[`ActivitySearchAndSelect component should render 1`] = `
 <section>
-  <h1>
+  <h1
+    className="create-your-own-activity-pack-header"
+  >
     Create your own activity pack.
   </h1>
   <ActivitySearchFilters
