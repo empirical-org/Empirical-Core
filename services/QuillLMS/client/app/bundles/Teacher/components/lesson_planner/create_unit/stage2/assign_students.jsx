@@ -223,12 +223,12 @@ export default class AssignStudents extends React.Component {
 
   renderClassroomCheckbox(classroom, students) {
     const { toggleClassroomSelection, } = this.props
-    const { emptyClassroomsSelected, } = classroom
+    const { emptyClassroomSelected, } = classroom
 
     let checkbox = <span className="quill-checkbox unselected" onClick={() => toggleClassroomSelection(classroom)} />
     const selectedStudents = students && students.length ? students.filter(s => s.isSelected) : []
 
-    if (emptyClassroomsSelected || selectedStudents.length) {
+    if (emptyClassroomSelected || selectedStudents.length) {
       checkbox = (<span className="quill-checkbox selected" onClick={() => toggleClassroomSelection(classroom)} >
         <img src={smallWhiteCheckSrc} alt="check" />
       </span>)

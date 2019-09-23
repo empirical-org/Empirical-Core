@@ -193,6 +193,11 @@
           border: solid 1px #e0e0e0;
           align-items: flex-end;
           margin-top: 24px;
+          .empty-class-students {
+            font-size: 14px;
+            line-height: 1;
+            color: #7f7f7f;
+          }
           .checkbox-and-name-container {
             display: flex;
             flex: 1.5;

@@ -126,7 +126,7 @@ export default class CreateUnit extends React.Component {
       if (!classroom || classroomGettingUpdated.classroom.id === classroom.id) {
         const { students, } = classroomGettingUpdated
         if (!students.length) {
-          classroomGettingUpdated.emptyClassroomSelected = selectHasValue ? select : this.toggleEmptyClassroomSelected(c);
+          classroomGettingUpdated.classroom.emptyClassroomSelected = selectHasValue ? select : this.toggleEmptyClassroomSelected(c);
         } else {
           const selected = students.filter(s => s.isSelected)
           const updatedStudents = students.map((s) => {
@@ -230,6 +230,7 @@ export default class CreateUnit extends React.Component {
         name: this.getUnitName(),
         classrooms: classroomPostData,
         activities: activityPostData,
+        unit_template_id: this.props.location.query.unit_template_id
       }
     };
     return unitObject;
@@ -245,7 +246,7 @@ export default class CreateUnit extends React.Component {
   }
 
   emptyClassroomSelected(c) {
-    return c.emptyClassroomSelected === true
+    return c.classroom.emptyClassroomSelected === true
   }
 
   toggleEmptyClassroomSelected(c) {
