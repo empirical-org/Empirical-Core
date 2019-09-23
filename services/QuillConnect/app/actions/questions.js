@@ -31,10 +31,20 @@ function loadQuestions() {
   };
 }
 
-function loadQuestion(uid) {
+function loadSpecifiedQuestions(uids) {
   return (dispatch, getState) => {
-    questionsRef.child(uid).once('value', (snapshot) => {
-      dispatch({ type: C.RECEIVE_QUESTIONS_DATA, data: { [uid]: snapshot.val(), } });
+    const firebasePromises = [];
+    uids.forEach((uid) => {
+      firebasePromises.push(questionsRef.child(uid).once('value'));
+    });
+    const allPromises = Promise.all(firebasePromises);
+    const questionData = {};
+    allPromises.then((results) => {
+      results.forEach((result) => {
+        const value = result.val();
+        questionData[result.key] = value;
+      });
+      dispatch({ type: C.RECEIVE_QUESTIONS_DATA, data: questionData, });
     });
   }
 }
@@ -332,8 +342,8 @@ function incrementRequestCount() {
 
 export default {
   startListeningToQuestions,
-  loadQuestion,
   loadQuestions,
+  loadSpecifiedQuestions,
   startQuestionEdit,
   cancelQuestionEdit,
   submitQuestionEdit,

@@ -23,10 +23,20 @@ function loadTitleCards() {
   };
 }
 
-function loadTitleCard(uid) {
+function loadSpecifiedTitleCards(uids) {
   return (dispatch, getState) => {
-    titleCardsRef.child(uid).once('value', (snapshot) => {
-      dispatch({ type: C.RECEIVE_TITLE_CARDS_DATA, data: { [uid]: snapshot.val(), } });
+    const firebasePromises = [];
+    uids.forEach((uid) => {
+      firebasePromises.push(titleCardsRef.child(uid).once('value'));
+    });
+    const allPromises = Promise.all(firebasePromises);
+    const questionData = {};
+    allPromises.then((results) => {
+      results.forEach((result) => {
+        const value = result.val();
+        questionData[result.key] = value;
+      });
+      dispatch({ type: C.RECEIVE_TITLE_CARDS_DATA, data: questionData, });
     });
   }
 }
@@ -61,7 +71,7 @@ function submitTitleCardEdit(qid, content) {
 export {
   submitNewTitleCard,
   loadTitleCards,
-  loadTitleCard,
+  loadSpecifiedTitleCards,
   startListeningToTitleCards,
   submitTitleCardEdit,
 }

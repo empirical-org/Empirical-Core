@@ -25,10 +25,20 @@ const actions = {
       });
     };
   },
-  loadQuestion(uid) {
+  loadSpecifiedQuestions(uids) {
     return (dispatch, getState) => {
-      fillInBlankQuestionsRef.child(uid).once('value', (snapshot) => {
-        dispatch({ type: C.RECEIVE_FILL_IN_BLANK_QUESTIONS_DATA, data: { [uid]: snapshot.val(), } });
+      const firebasePromises = [];
+      uids.forEach((uid) => {
+        firebasePromises.push(fillInBlankQuestionsRef.child(uid).once('value'));
+      });
+      const allPromises = Promise.all(firebasePromises);
+      const questionData = {};
+      allPromises.then((results) => {
+        results.forEach((result) => {
+          const value = result.val();
+          questionData[result.key] = value;
+        });
+        dispatch({ type: C.RECEIVE_FILL_IN_BLANK_QUESTIONS_DATA, data: questionData, });
       });
     }
   },

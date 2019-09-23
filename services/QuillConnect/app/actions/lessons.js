@@ -41,20 +41,21 @@ import * as titleCardActions from './titleCards.ts';
     return (dispatch, getState) => {
       dispatch(loadLesson(uid)).then(() => {
         const fetchedLesson = getState().lessons.data[uid];
-        fetchedLesson.questions.forEach((question) => {
-          let type = '';
-          switch (question.questionType) {
+        const questionTypes = ['questions', 'fillInBlank', 'titleCards', 'sentenceFragments'];
+        questionTypes.forEach((questionType) => {
+          const questionUids = fetchedLesson.questions.filter((q) => q.questionType == questionType).map((q) => q.key);
+          switch (questionType) {
             case 'questions':
-              dispatch(questionActions.loadQuestion(question.key));
+              dispatch(questionActions.loadSpecifiedQuestions(questionUids));
               break
             case 'fillInBlank':
-              dispatch(fillInBlankActions.loadQuestion(question.key));
+              dispatch(fillInBlankActions.loadSpecifiedQuestions(questionUids));
               break
             case 'titleCards':
-              dispatch(titleCardActions.loadTitleCard(question.key));
+              dispatch(titleCardActions.loadSpecifiedTitleCards(questionUids));
               break
             case 'sentenceFragments':
-              dispatch(sentenceFragmentActions.loadSentenceFragment(question.key));
+              dispatch(sentenceFragmentActions.loadSpecifiedSentenceFragments(questionUids));
           }
         });
       });
