@@ -72,17 +72,33 @@ export default class AssignStudents extends React.Component {
     this.closeFormOrModal()
   }
 
+  renderClassroom(c) {
+    const {
+      toggleClassroomSelection,
+      toggleStudentSelection
+    } = this.props
+    return <div className="classroom"></div>
+  }
+
   classroomList() {
-    if (this.props.classrooms && this.props.classrooms.length) {
-      const that = this;
-      return this.props.classrooms.map(el => <Classroom
-        key={el.classroom.id}
-        classroom={el.classroom}
-        students={el.students}
-        allSelected={el.allSelected || el.emptyClassroomSelected}
-        toggleClassroomSelection={that.props.toggleClassroomSelection}
-        toggleStudentSelection={that.props.toggleStudentSelection}
-      />);
+    const {
+      classrooms,
+      toggleClassroomSelection,
+      toggleStudentSelection
+    } = this.props
+    if (classrooms && classrooms.length) {
+      const classroomElements = classrooms.map(c => this.renderClassroom(c))
+      return <div className="classrooms">
+        {classroomElements}
+      </div>
+      // return this.props.classrooms.map(el => <Classroom
+      //   key={el.classroom.id}
+      //   classroom={el.classroom}
+      //   students={el.students}
+      //   allSelected={el.allSelected || el.emptyClassroomSelected}
+      //   toggleClassroomSelection={this.props.toggleClassroomSelection}
+      //   toggleStudentSelection={this.props.toggleStudentSelection}
+      // />);
     } else if (this.state.showFormOrModal !== createAClassForm) {
       return <div className="no-active-classes">
         <img src={emptyClassSrc} alt="empty class" />
@@ -171,15 +187,6 @@ export default class AssignStudents extends React.Component {
     return <Snackbar text={snackbarCopy} visible={showSnackbar} />
   }
 
-  renderAutomaticAssignNote() {
-    if (!this.props.classrooms.length) { return null }
-
-    return <div className="automatic-assign-note">
-      <i className="fa fa-icon fa-lightbulb-o"/>
-      <p><span className="bold">Note:</span> If you choose to assign the activity pack to the <span className="italic">entire class</span>, new students to the classroom will get assigned the activity pack automatically. But, if you only assign the activity pack to <span className="italic">certain students</span>, then the activity pack <span className="bold">will not be assigned</span> to the new students automatically.</p>
-    </div>
-  }
-
   renderClassroomsSection() {
     return (<div className="assignment-section">
       <div className="assignment-section-header assign-students">
@@ -194,7 +201,6 @@ export default class AssignStudents extends React.Component {
       </div>
       <div className="assignment-section-body">
         {this.renderCreateAClassInlineForm()}
-        {this.renderAutomaticAssignNote()}
         {this.classroomList()}
       </div>
     </div>)
