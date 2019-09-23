@@ -134,7 +134,13 @@ module PagesHelper
             name: 'Yves Peirsman',
             title: 'AI Open Source Partner',
             desc: "Yves Peirsman is the founder and Natural Language Processing expert at NLP Town. Yves holds a PhD in computational linguistics from the University of Leuven and was a postdoctoral researcher at Stanford University. Since he made the move from academia to industry, he has gained extensive experience in consultancy and software development for Natural Language Processing. As the co-founder of NLP Town, he leads several NLP projects, organizes NLP-focused events and contributes to open-source software."
-          }
+          },
+          {
+            img: 'thumb-haronil.jpg',
+            name: 'Haronil Estevez',
+            title: 'Senior Software Developer',
+            desc: "Haronil is a senior sofware developer with experience in media, government, and education. He holds a degree in Computer Science from Columbia University."
+          },
 				]
 			},
 			{
