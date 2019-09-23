@@ -60,11 +60,10 @@ export default class Stage2 extends React.Component {
 
   renderNameSection() {
     const { errorMessage, unitName, updateUnitName, } = this.props
-    const nameError = this.state.prematureContinueAttempted && errorMessage && errorMessage.includes('name') ? 'name-error' : '';
     return (<NameTheUnit
       unitName={unitName}
       updateUnitName={updateUnitName}
-      nameError={nameError}
+      nameError={errorMessage ? errorMessage.name : null}
     />)
   }
 
@@ -92,14 +91,16 @@ export default class Stage2 extends React.Component {
   }
 
   render() {
+    const { errorMessage, unitTemplateName, } = this.props
+    const buttonError = errorMessage ? errorMessage.students : null
     return (
       <div className="name-and-assign-activity-pack">
-        <h1 className="assign-header">Assign</h1>
+        <h1 className="assign-header">Assign {unitTemplateName}</h1>
         {this.renderNameSection()}
         {this.renderReviewActivitiesSection()}
         {this.renderAssignStudentsSection()}
         <div className="error-message-and-button">
-          <div className={this.determineErrorMessageClass()}>{this.props.errorMessage}</div>
+          <div className={this.determineErrorMessageClass()}>{buttonError}</div>
           {this.assignButton()}
         </div>
       </div>

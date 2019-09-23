@@ -1,22 +1,28 @@
 import React from 'react';
-import UnitStage1 from './stage1/unit_stage1';
+
+import Stage1 from './stage1/unit_stage1';
 import Stage2 from './stage2/Stage2';
+import { requestGet, requestPost, } from '../../../../../modules/request';
 import UnitTemplatesAssigned from '../unit_template_assigned';
-import _ from 'underscore';
-import request from 'request';
 import AnalyticsWrapper from '../../shared/analytics_wrapper';
-import getAuthToken from '../../modules/get_auth_token'
 
 export default class CreateUnit extends React.Component {
   constructor(props) {
     super(props)
 
+    let stage = 1
+    let name = ''
+    if (props.location.query.unit_template_id) {
+      stage = 2
+      name = props.params.unitName
+    }
+
     this.state = {
       prohibitedUnitNames: [],
       newUnitId: null,
-      stage: 1,
+      stage,
       selectedActivities: [],
-      name: '',
+      name,
       classrooms: [],
       assignSuccess: false,
       model: { dueDates: {}, },
@@ -57,16 +63,24 @@ export default class CreateUnit extends React.Component {
   componentDidMount() {
     this.getProhibitedUnitNames();
     this.fetchClassrooms()
+
+    if (this.state.stage === 2) {
+      this.getActivities()
+    }
   }
 
   fetchClassrooms() {
-    request.get({
-      url: `${process.env.DEFAULT_URL}/teachers/classrooms/retrieve_classrooms_i_teach_for_custom_assigning_activities`,
-    }, (e, r, body) => {
-      const parsedBody = JSON.parse(body)
-      if (r.statusCode === 200) {
-        this.setState({ classrooms: parsedBody.classrooms_and_their_students })
-      }
+    requestGet('/teachers/classrooms/retrieve_classrooms_i_teach_for_custom_assigning_activities', (body) => {
+      this.setState({ classrooms: body.classrooms_and_their_students })
+    })
+  }
+
+  getActivities() {
+    requestGet('/activities/search', (body) => {
+      const { activities, } = body
+      const { activityIdsArray, } = this.props.params
+      const selectedActivities = activities.filter(act => activityIdsArray.includes(act.id))
+      this.setState({ activities: activities, selectedActivities: selectedActivities, })
     })
   }
 
@@ -75,9 +89,8 @@ export default class CreateUnit extends React.Component {
   }
 
   getProhibitedUnitNames() {
-	  const that = this;
-    $.get('/teachers/prohibited_unit_names').done((data) => {
-      that.setState({ prohibitedUnitNames: data.prohibitedUnitNames, });
+    requestGet('/teachers/prohibited_unit_names', (data) => {
+      this.setState({ prohibitedUnitNames: data.prohibitedUnitNames, });
     });
   }
 
@@ -163,16 +176,9 @@ export default class CreateUnit extends React.Component {
 
   finish() {
     const data = this.formatCreateRequestData()
-    data.authenticity_token = getAuthToken()
-    request.post({
-      url: `${process.env.DEFAULT_URL}/teachers/units`,
-      json: data
-    },
-    (e, r, body) => {
-      if (r.statusCode === 200) {
-        this.onCreateSuccess(body)
-      }
-    });
+    requestPost('/teachers/units', data, (body) => {
+      this.onCreateSuccess(body)
+    })
   }
 
   toggleStage(stage) {
@@ -184,41 +190,41 @@ export default class CreateUnit extends React.Component {
   }
 
   formatCreateRequestData() {
-    let classroomPostData = _.select(this.getClassrooms(), function (c) {
-      let includeClassroom,
-        selectedStudents;
+    let classroomPostData = this.getClassrooms().filter((c) => {
+      let includeClassroom
+      let selectedStudents;
       if (this.emptyClassroomSelected(c)) {
         includeClassroom = true;
       } else {
-        selectedStudents = _.where(c.students, { isSelected: true, });
+        selectedStudents = c.students.filter(s => s.isSelected)
         includeClassroom = selectedStudents.length > 0;
       }
       return includeClassroom;
-    }, this);
-
-    classroomPostData = _.map(classroomPostData, (c) => {
-      let selectedStudentIds,
-        assign_on_join;
-      const selectedStudents = _.where(c.students, { isSelected: true, });
-      if (selectedStudents.length == c.students.length) {
-        selectedStudentIds = [];
-        assign_on_join = true;
-      } else {
-        selectedStudentIds = _.map(selectedStudents, s => s.id);
-      }
-      return { id: c.classroom.id, student_ids: selectedStudentIds, assign_on_join, };
     });
 
-    const sas = this.getSelectedActivities();
+    classroomPostData = classroomPostData.map((c) => {
+      let selectedStudentIds
+      let assignOnJoin
+      const selectedStudents = c.students.filter(s => s.isSelected)
+      if (selectedStudents.length === c.students.length) {
+        selectedStudentIds = [];
+        assignOnJoin = true;
+      } else {
+        selectedStudentIds = selectedStudents.map(s => s.id)
+      }
+      return { id: c.classroom.id, student_ids: selectedStudentIds, assign_on_join: assignOnJoin, };
+    })
 
-    const activityPostData = _.map(sas, function (sa) {
+    const selectedActivities = this.getSelectedActivities();
+
+    const activityPostData = selectedActivities.map((sa) => {
       return {
         id: sa.id,
         due_date: this.dueDate(sa.id),
-      };
-    }, this);
+      }
+    })
 
-    const x = {
+    const unitObject = {
       unit: {
         id: this.getId(),
         name: this.getUnitName(),
@@ -226,7 +232,7 @@ export default class CreateUnit extends React.Component {
         activities: activityPostData,
       }
     };
-    return x;
+    return unitObject;
   }
 
   onCreateSuccess(response) {
@@ -239,8 +245,7 @@ export default class CreateUnit extends React.Component {
   }
 
   emptyClassroomSelected(c) {
-    const val = (c.emptyClassroomSelected === true);
-    return val;
+    return c.emptyClassroomSelected === true
   }
 
   toggleEmptyClassroomSelected(c) {
@@ -248,18 +253,18 @@ export default class CreateUnit extends React.Component {
   }
 
   areAnyStudentsSelected() {
-    const x = _.select(this.getClassrooms(), function (c) {
+    const classroomsWithSelectedStudents = this.getClassrooms().filter(c => {
       let includeClassroom;
       if (this.emptyClassroomSelected(c)) {
         includeClassroom = true;
       } else {
-        const y = _.where(c.students, { isSelected: true, });
-        includeClassroom = y.length > 0;
+        const selectedStudents = c.students.filter(s => s.isSelected)
+        includeClassroom = selectedStudents.length > 0;
       }
       return includeClassroom;
-    }, this);
+    })
 
-    return (x.length > 0);
+    return (classroomsWithSelectedStudents.length > 0);
   }
 
   determineStage1ErrorMessage() {
@@ -270,11 +275,11 @@ export default class CreateUnit extends React.Component {
 
   determineStage2ErrorMessage() {
     if (!this.areAnyStudentsSelected()) {
-      return 'Please select students';
+      return { students: 'Please select students', }
     } else if (!this.isUnitNameValid()) {
-      return 'Please provide a name for your activity pack.';
+      return { name: 'Please provide a name for your activity pack.', }
     } else if (!this.isUnitNameUnique()) {
-      return 'Please select a unique name for your activity pack.';
+      return { name: "You're using that name for a different pack. Please try again.", }
     }
   }
 
@@ -285,7 +290,8 @@ export default class CreateUnit extends React.Component {
   }
 
   stage1SpecificComponents() {
-    return (<UnitStage1
+    return (<Stage1
+      activities={this.state.activities}
       selectedActivities={this.getSelectedActivities()}
       determineIfInputProvidedAndValid={this.determineIfInputProvidedAndValid}
       errorMessage={this.determineStage1ErrorMessage()}
@@ -325,6 +331,7 @@ export default class CreateUnit extends React.Component {
       toggleStudentSelection={this.toggleStudentSelection}
       finish={this.finish}
       unitName={this.getUnitName()}
+      unitTemplateName={this.props.params.unitName}
       assignActivityDueDate={this.assignActivityDueDate}
       areAnyStudentsSelected={this.areAnyStudentsSelected()}
       errorMessage={this.determineStage2ErrorMessage()}
