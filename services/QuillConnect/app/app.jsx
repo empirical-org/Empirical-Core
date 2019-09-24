@@ -82,7 +82,6 @@ if (lessonUid) {
   setTimeout(() => {
     store.dispatch(conceptActions.startListeningToConcepts());
     store.dispatch(conceptsFeedbackActions.loadConceptsFeedback());
-    store.dispatch(levelActions.loadItemLevels());
     store.dispatch(lessonActions.loadLessonWithQuestions(lessonUid));
   });
 } else {
