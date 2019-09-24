@@ -73,7 +73,7 @@ render((
 function extractLessonUIDFromLocation() {
   const playRegex = /^#\/play\/(lesson|turk)\/([^\?]+)/;
   const matches = window.location.hash.match(playRegex);
-  return matches[2];
+  return (matches) ? matches[2] : null;
 }
 
 const lessonUid = extractLessonUIDFromLocation()
