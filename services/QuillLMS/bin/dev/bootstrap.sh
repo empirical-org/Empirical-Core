@@ -1,3 +1,10 @@
+current_directory=`echo ${PWD##/} | awk -F"/" '{print $(NF-1)"/"$(NF);}'`
+if [ "$current_directory" != "services/QuillLMS" ]
+then
+  echo "You must run the bootstrap script from the QuillLMS root directory."
+  exit 1
+fi
+
 echo 'Install Homebrew'
 if which brew > /dev/null; then
   echo 'Already installed'
@@ -39,11 +46,26 @@ fi
 curl -fsSL https://github.com/rbenv/rbenv-installer/raw/master/bin/rbenv-doctor | bash
 
 eval "$(rbenv init -)"
+echo 'eval "$(rbenv init -)"' >> ~/.bash_profile
+source ~/.bash_profile
+cd .
 rbenv rehash
 
 # reset terminal
 touch ~/.bashrc
 source ~/.bashrc
+
+# install heroku cli
+echo "Install and configure heroku cli"
+brew tap heroku/brew && brew install heroku
+
+# heroku login
+heroku login
+
+# add heroku remotes
+git remote add quill-lms-staging https://git.heroku.com/empirical-grammar-staging.git
+git remote add quill-lms-sprint  https://git.heroku.com/quill-lms-sprint.git
+git remote add quill-lms-prod  https://git.heroku.com/empirical-grammar.git
 
 echo 'Install Bundler'
 # there are breaking changes in bundler 2.0, so pin to this version for now.
@@ -63,7 +85,7 @@ else
 fi
 
 source ~/.bashrc
-
+cd .
 nvm install
 
 brew install npm
