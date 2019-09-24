@@ -71,9 +71,9 @@ render((
 // separate the admin and lesson side of the apps so that we
 // don't have this unified store definition.
 function extractLessonUIDFromLocation() {
-  const playRegex = /^#\/play\/lesson\/([^\?]+)/;
+  const playRegex = /^#\/play\/(lesson|turk)\/([^\?]+)/;
   const matches = window.location.hash.match(playRegex);
-  return matches[1];
+  return matches[2];
 }
 
 const lessonUid = extractLessonUIDFromLocation()
