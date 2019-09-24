@@ -1,94 +1,135 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 
-import AssignStudents from '../assign_students'
+import AssignStudents, {
+  createAClassForm,
+  importGoogleClassroomsModal,
+  googleClassroomEmailModal,
+  googleClassroomsEmptyModal
+} from '../assign_students'
 import ClassroomCard from '../classroom_card.jsx'
+import CreateAClassInlineForm from '../create_a_class_inline_form.tsx'
+import ImportGoogleClassroomsModal from '../../../../classrooms/import_google_classrooms_modal.tsx'
+import GoogleClassroomEmailModal from '../../../../classrooms/google_classroom_email_modal.tsx'
+import GoogleClassroomsEmptyModal from '../../../../classrooms/google_classrooms_empty_modal.tsx'
 
-import { classroomProps } from './test_data/test_data'
+
+import { classroomProps, user } from './test_data/test_data'
 
 describe('Assign students component', () => {
 
   it('should render', () => {
     const wrapper = shallow(
-      <ClassroomCard
-        classroom={classroom}
-        students={students}
+      <AssignStudents
+        user={user}
+        classrooms={classroomProps}
         toggleStudentSelection={() => {}}
         toggleClassroomSelection={() => {}}
+        fetchClassrooms={() => {}}
       />
     )
     expect(wrapper).toMatchSnapshot()
   })
 
-  describe('if any students are selected', () => {
-    const selectedStudents = students.map(s => {
-      const student = s
-      student.isSelected = true
-      return student
-    })
+  describe('if this.state.showFormOrModal = createAClassForm', () => {
     const wrapper = shallow(
-      <ClassroomCard
-        classroom={classroom}
-        students={selectedStudents}
+      <AssignStudents
+        user={user}
+        classrooms={classroomProps}
         toggleStudentSelection={() => {}}
         toggleClassroomSelection={() => {}}
+        fetchClassrooms={() => {}}
+      />
+    )
+    wrapper.setState({ showFormOrModal: createAClassForm })
+
+    it('should render a createAClassInlineForm component', () => {
+      expect(wrapper.find(CreateAClassInlineForm).exists()).toBe(true)
+    })
+  })
+
+  describe('if this.state.showFormOrModal = importGoogleClassroomsModal', () => {
+    const wrapper = shallow(
+      <AssignStudents
+        user={user}
+        classrooms={classroomProps}
+        toggleStudentSelection={() => {}}
+        toggleClassroomSelection={() => {}}
+        fetchClassrooms={() => {}}
+      />
+    )
+    wrapper.setState({ showFormOrModal: importGoogleClassroomsModal })
+
+    it('should render a importGoogleClassroomsModal component', () => {
+      expect(wrapper.find(ImportGoogleClassroomsModal).exists()).toBe(true)
+    })
+  })
+
+  describe('if this.state.showFormOrModal = googleClassroomEmailModal', () => {
+    const wrapper = shallow(
+      <AssignStudents
+        user={user}
+        classrooms={classroomProps}
+        toggleStudentSelection={() => {}}
+        toggleClassroomSelection={() => {}}
+        fetchClassrooms={() => {}}
+      />
+    )
+    wrapper.setState({ showFormOrModal: googleClassroomEmailModal })
+
+    it('should render a googleClassroomEmailModal component', () => {
+      expect(wrapper.find(GoogleClassroomEmailModal).exists()).toBe(true)
+    })
+  })
+
+  describe('if this.state.showFormOrModal = googleClassroomsEmptyModal', () => {
+    const wrapper = shallow(
+      <AssignStudents
+        user={user}
+        classrooms={classroomProps}
+        toggleStudentSelection={() => {}}
+        toggleClassroomSelection={() => {}}
+        fetchClassrooms={() => {}}
+      />
+    )
+    wrapper.setState({ showFormOrModal: googleClassroomsEmptyModal })
+
+    it('should render a googleClassroomsEmptyModal component', () => {
+      expect(wrapper.find(GoogleClassroomsEmptyModal).exists()).toBe(true)
+    })
+  })
+
+  describe('if there are classrooms', () => {
+    const wrapper = shallow(
+      <AssignStudents
+        user={user}
+        classrooms={classroomProps}
+        toggleStudentSelection={() => {}}
+        toggleClassroomSelection={() => {}}
+        fetchClassrooms={() => {}}
       />
     )
 
-    it('should render a dropdown', () => {
-      expect(wrapper.find(DropdownInput).exists()).toBe(true)
-    })
-
-    it('should render a checked checkbox', () => {
-      expect(wrapper.find('.quill-checkbox.selected').exists()).toBe(true)
+    it('should render a classroom card for each classroom', () => {
+      expect(wrapper.find(ClassroomCard).length).toBe(classroomProps.length)
     })
 
   })
 
-  describe('if there are no students but emptyClassroomSelected is true', () => {
-    classroom.emptyClassroomSelected = true
+  describe('if there are no classrooms', () => {
     const wrapper = shallow(
-      <ClassroomCard
-        classroom={classroom}
-        students={[]}
+      <AssignStudents
+        user={user}
+        classrooms={[]}
         toggleStudentSelection={() => {}}
         toggleClassroomSelection={() => {}}
+        fetchClassrooms={() => {}}
       />
     )
 
-    it('should render a checked checkbox', () => {
-      expect(wrapper.find('.quill-checkbox.selected').exists()).toBe(true)
+    it('should render an empty state', () => {
+      expect(wrapper.find('.no-active-classes').exists()).toBe(true)
     })
-
-    it('should render a placeholder', () => {
-      expect(wrapper.find('.empty-class-students').exists()).toBe(true)
-    })
-  })
-
-  describe('if there are no selected students', () => {
-    const selectedStudents = students.map(s => {
-      const student = s
-      delete student.isSelected
-      return student
-    })
-    classroom.emptyClassroomSelected = false
-    const wrapper = shallow(
-      <ClassroomCard
-        classroom={classroom}
-        students={selectedStudents}
-        toggleStudentSelection={() => {}}
-        toggleClassroomSelection={() => {}}
-      />
-    )
-
-    it('should not render a dropdown', () => {
-      expect(wrapper.find(DropdownInput).exists()).toBe(false)
-    })
-
-    it('should not render a checked checkbox', () => {
-      expect(wrapper.find('.quill-checkbox.unselected').exists()).toBe(true)
-    })
-
   })
 
 })

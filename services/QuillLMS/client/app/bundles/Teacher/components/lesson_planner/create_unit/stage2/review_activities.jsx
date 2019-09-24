@@ -1,8 +1,8 @@
 import React from 'react';
-import { SingleDatePicker, ICON_AFTER_POSITION } from 'react-dates'
-// import DatePicker from 'react-datepicker';
 import ReactTooltip from 'react-tooltip';
 import moment from 'moment';
+
+import { SingleDatePicker } from 'react-dates'
 import { DataTable } from 'quill-component-library/dist/componentLibrary'
 
 const tableHeaders = [

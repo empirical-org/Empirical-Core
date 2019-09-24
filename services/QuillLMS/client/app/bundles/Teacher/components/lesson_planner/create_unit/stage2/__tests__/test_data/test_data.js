@@ -673,3 +673,94 @@ export const classroomProps = [
     students: []
   }
 ]
+
+export const user = {
+  id: 46978,
+  name: "Amber Mitchell",
+  email: "amitchell@ecslions.org",
+  password_digest: null,
+  role: "teacher",
+  created_at: "2014-05-17T16:12:50.915Z",
+  updated_at: "2019-07-08T17:14:33.432Z",
+  classcode: "",
+  active: false,
+  username: "amitchell",
+  token: "",
+  ip_address: {
+    family: 2,
+    addr: 2130706433,
+    mask_addr: 4294967295
+  },
+  clever_id: null,
+  signed_up_with_google: false,
+  send_newsletter: true,
+  google_id: null,
+  last_sign_in: "2018-03-16T16:23:56.364Z",
+  last_active: null,
+  stripe_customer_id: "cus_BRmZ7lzuL5wDpC",
+  flags: [],
+  title: null,
+  time_zone: "Pacific/Tahiti",
+  account_type: "unknown",
+  post_google_classroom_assignments: false
+}
+
+const activities = [
+  {
+    name: "Sentence Structure Diagnostic",
+    description: "Assess students on eight areas of sentence structure. Quill then recommends up to eight weeks of instruction based on the results.",
+    flags: "{production}",
+    id: 413,
+    uid: "fNAwNLJDkc2T8O5lBeJQwg",
+    anonymous_path: "/activity_sessions/anonymous?activity_id=413",
+    activity_classification: {
+      alias: "Quill Diagnostic",
+      description: "Identify Learning Gaps",
+      key: "diagnostic",
+      id: 4
+    },
+    activity_category: {
+      id: 30,
+      name: "Diagnostics"
+    },
+    activity_category_name: "Diagnostics",
+    activity_category_id: 30,
+    section: {
+      id: 35,
+      name: "Diagnostic"
+    },
+    section_name: "Diagnostic",
+    topic_name: "Diagnostic",
+    selected: true
+  }, {
+    name: "Lesson 1: Using In, At, and On to Show Time",
+    description: "",
+    flags: "{production}",
+    id: 654,
+    uid: "-L4aNTH96hQrrTgVla7L",
+    anonymous_path: "/activity_sessions/anonymous?activity_id=654",
+    activity_classification: {
+      alias: "Quill Lessons",
+      description: "Lead Group Lessons",
+      key: "lessons",
+      id: 6
+    },
+    activity_category: {
+      id: 9,
+      name: "Prepositions"
+    },
+    activity_category_name: "Prepositions",
+    activity_category_id: 9,
+    section: {
+      id: 7,
+      name: "1st Grade CCSS"
+    },
+    section_name: "1st Grade CCSS",
+    topic_name: "1.1i. Frequently Occurring Prepositions",
+    selected: true
+  }
+]
+
+export const dueDates = {
+  413: "2019-9-25"
+}
