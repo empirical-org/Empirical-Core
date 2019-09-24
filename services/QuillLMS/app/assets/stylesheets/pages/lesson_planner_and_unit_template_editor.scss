@@ -296,6 +296,9 @@
         }
         .data-table {
           overflow: visible;
+          .quill-tooltip {
+            display: none !important;
+          }
           .due-date-picker {
             overflow: visible !important;
             .SingleDatePickerInput {

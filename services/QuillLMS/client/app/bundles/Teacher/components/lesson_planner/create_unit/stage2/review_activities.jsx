@@ -9,7 +9,7 @@ const tableHeaders = [
   {
     name: 'Tool',
     attribute: 'tool',
-    width: '30px',
+    width: '40px',
     rowSectionClassName: 'tool-icon'
   },
   {
@@ -86,10 +86,16 @@ export default class ReviewActivities extends React.Component {
         customInputIcon={<img src="https://assets.quill.org/images/icons/dropdown.svg" alt="dropdown indicator" style={dropdownIconStyle} />}
         inputIconPosition="after"
       />)
-      const toolIcon = <span className={activity_classification ? `icon-${activity_classification.id}-green-no-border` : ''} />
+      const toolTooltipId = `${id}-tool`
+      const nameTooltipId = `${id}-name`
+      const iconClassName = 'tooltip-trigger ' + activity_classification ? `icon-${activity_classification.id}-green-no-border` : ''
+      const toolIcon = (<div className="activate-tooltip" data-for={toolTooltipId} data-tip={`<h1>${name}</h1><p>Tool: ${activity_classification.alias}</p><p>${section.name}</p><p>${description}</p>`}>
+        <ReactTooltip id={toolTooltipId} html multiline className="react-tooltip-custom" type="light" effect="solid" />
+        <span className={iconClassName} />
+      </div>)
       const activityName = (<div>
-        <div className="activate-tooltip" data-tip={`<h1>${name}</h1><p>Tool: ${activity_classification.alias}</p><p>${section.name}</p><p>${description}</p>`}>
-          <ReactTooltip html multiline className="react-tooltip-custom" type="light" effect="solid" />
+        <div className="activate-tooltip" data-for={nameTooltipId} data-tip={`<h1>${name}</h1><p>Tool: ${activity_classification.alias}</p><p>${section.name}</p><p>${description}</p>`}>
+          <ReactTooltip id={nameTooltipId} html multiline className="react-tooltip-custom" type="light" effect="solid" />
           <span className="tooltip-trigger activity-name">{name}</span>
         </div>
       </div>)

@@ -91,11 +91,17 @@ export default class Stage2 extends React.Component {
   }
 
   render() {
-    const { errorMessage, unitTemplateName, } = this.props
+    const { errorMessage, unitTemplateName, selectedActivities, } = this.props
     const buttonError = errorMessage ? errorMessage.students : null
+    let assignName = 'Activity Pack'
+    if (unitTemplateName) {
+      assignName = unitTemplateName
+    } else if (selectedActivities.every(act => act.activity_classification.key === 'diagnostic')) {
+      assignName = 'Diagnostic'
+    }
     return (
       <div className="name-and-assign-activity-pack">
-        <h1 className="assign-header">Assign {unitTemplateName}</h1>
+        <h1 className="assign-header">Assign {assignName}</h1>
         {this.renderNameSection()}
         {this.renderReviewActivitiesSection()}
         {this.renderAssignStudentsSection()}
