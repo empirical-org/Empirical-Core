@@ -705,7 +705,7 @@ export const user = {
   post_google_classroom_assignments: false
 }
 
-const activities = [
+export const activities = [
   {
     name: "Sentence Structure Diagnostic",
     description: "Assess students on eight areas of sentence structure. Quill then recommends up to eight weeks of instruction based on the results.",
