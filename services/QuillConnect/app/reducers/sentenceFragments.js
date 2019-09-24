@@ -16,7 +16,7 @@ export default function(currentstate,action){
         case C.RECEIVE_SENTENCE_FRAGMENTS_DATA:
             return Object.assign({},currentstate,{
                 hasreceiveddata: true,
-                data: Object.assign({}, currentstate.data, action.data),
+                data: action.data,
             });
         case C.AWAIT_NEW_SENTENCE_FRAGMENT_RESPONSE:
             return Object.assign({},currentstate,{
