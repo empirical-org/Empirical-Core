@@ -78,7 +78,42 @@ function extractLessonUIDFromLocation() {
 
 const lessonUid = extractLessonUIDFromLocation()
 
-if (lessonUid) {
+
+
+// During our rollout, we want to limit the number of people this
+// could impact if things go wrong.  So we're only going to apply
+// this new process to a small percentage of sessions.  This does
+// mean that a single user could get a mix of session types in the
+// same day, but since sessions will be invisible if they work,
+// that shouldn't matter.
+
+function simpleHash(str) {
+  // NOTE: This entire function is lifted from the "string-hash" module
+  // on NPM, but I didn't want to add a new dependency for temporary code
+  // so I simply re-implemented it here.
+  // Source: https://github.com/darkskyapp/string-hash/blob/master/index.js
+  var hash = 5381,
+      i    = str.length;
+
+  while(i) {
+    hash = (hash * 33) ^ str.charCodeAt(--i);
+  }
+
+  /* JavaScript does bitwise operations (like XOR, above) on 32-bit signed
+   * integers. Since we want the results to be always positive, convert the
+   * signed int to an unsigned by doing an unsigned bitshift. */
+  return hash >>> 0;
+}
+
+// This is the whole number percentage of users who will be assigned
+// to the new session type.
+const percentAssigned = 10;
+const sessionIDmatch = window.location.hash.match(/\?student=(.*)$/)
+const sessionID = (sessionIDmatch === null || sessionIDmatch[1] === 'null') ? null : sessionIDmatch[1];
+
+
+
+if (lessonUid && sessionID && simpleHash(sessionID) % 100 < percentAssigned) {
   setTimeout(() => {
     store.dispatch(conceptActions.startListeningToConcepts());
     store.dispatch(conceptsFeedbackActions.loadConceptsFeedback());
