@@ -1,6 +1,6 @@
 {
   "name": "apply-feature",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A utility to help progressively roll out new features by helping apply features to only a specific percentage of users.",
   "main": "index.js",
   "scripts": {
