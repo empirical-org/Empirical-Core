@@ -9,7 +9,7 @@ import UnitTemplateAssigned from '../components/lesson_planner/unit_template_ass
 import UnitTemplatesManager from '../components/lesson_planner/unit_templates_manager/unit_templates_manager'
 import UnitTemplateProfile from '../components/lesson_planner/unit_templates_manager/unit_template_profile/unit_template_profile'
 import AssignANewActivity from '../components/lesson_planner/create_unit/assign_a_new_activity'
-import AssignADiagnostic from '../components/lesson_planner/create_unit/assign_a_diagnostic'
+import AssignADiagnostic from '../components/lesson_planner/create_unit/assign_a_diagnostic.tsx'
 import CreateUnit from '../components/lesson_planner/create_unit/create_unit'
 
 const AssignActivitiesRouter = props => (

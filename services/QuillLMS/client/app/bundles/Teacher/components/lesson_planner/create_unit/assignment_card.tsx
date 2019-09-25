@@ -5,7 +5,7 @@ interface AssignmentCardProps {
   imgSrc: string;
   imgAlt: string;
   header: string;
-  bodyArray: [ { key: string, text: string } ];
+  bodyArray: Array<{ key: string, text: string }>;
   buttonText?: string;
   buttonLink?: string;
 }
