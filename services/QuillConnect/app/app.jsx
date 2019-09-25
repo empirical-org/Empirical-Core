@@ -7,6 +7,7 @@ if (!window.Promise) {
 import BackOff from './utils/backOff';
 import React from 'react';
 import { render } from 'react-dom';
+import { applyFeatureToPercentage } from 'apply-feature';
 import createStore from './utils/configureStore';
 import { Provider } from 'react-redux';
 import { Router, Route, IndexRoute, } from 'react-router';
@@ -62,9 +63,9 @@ render((
 );
 
 // This is pretty hacky.
-// Ideally we should really be extracting the lesson UID from
+// Ideally we should really be extracting the both UIDs from
 // the Router, but because we populate redux so early in the
-// code stack (i.e. right below) we need access to the UID
+// code stack (i.e. right below) we need access to the UIDs
 // outside of the Router's scope, so we have this work-around
 // rather than shuffling the redux initialization around.
 // TODO: At some point we should figure out how to more strictly
@@ -75,45 +76,22 @@ function extractLessonUIDFromLocation() {
   const matches = window.location.hash.match(playRegex);
   return (matches) ? matches[2] : null;
 }
-
-const lessonUid = extractLessonUIDFromLocation()
-
-
-
-// During our rollout, we want to limit the number of people this
-// could impact if things go wrong.  So we're only going to apply
-// this new process to a small percentage of sessions.  This does
-// mean that a single user could get a mix of session types in the
-// same day, but since sessions will be invisible if they work,
-// that shouldn't matter.
-
-function simpleHash(str) {
-  // NOTE: This entire function is lifted from the "string-hash" module
-  // on NPM, but I didn't want to add a new dependency for temporary code
-  // so I simply re-implemented it here.
-  // Source: https://github.com/darkskyapp/string-hash/blob/master/index.js
-  var hash = 5381,
-      i    = str.length;
-
-  while(i) {
-    hash = (hash * 33) ^ str.charCodeAt(--i);
-  }
-
-  /* JavaScript does bitwise operations (like XOR, above) on 32-bit signed
-   * integers. Since we want the results to be always positive, convert the
-   * signed int to an unsigned by doing an unsigned bitshift. */
-  return hash >>> 0;
+function extractSessionUIDFromLocation() {
+  const playRegex = /^#\/play\/(lesson|turk)\/.+\?.*student=(.+)(&|$)/;
+  const matches = window.location.hash.match(playRegex);
+  const sessionUid = (matches) ? matches[2] : null;
+  if (!sessionUid || sessionUid === 'null') return null;
+  return sessionUid;
 }
+
+const lessonUid = extractLessonUIDFromLocation();
+const sessionUid = extractSessionUIDFromLocation();
 
 // This is the whole number percentage of users who will be assigned
 // to the new session type.
 const percentAssigned = 10;
-const sessionIDmatch = window.location.hash.match(/\?student=(.*)$/)
-const sessionID = (sessionIDmatch === null || sessionIDmatch[1] === 'null') ? null : sessionIDmatch[1];
 
-
-
-if (lessonUid && sessionID && simpleHash(sessionID) % 100 < percentAssigned) {
+if (lessonUid && applyFeatureToPercentage(sessionUid, percentAssigned)) {
   setTimeout(() => {
     store.dispatch(conceptActions.startListeningToConcepts());
     store.dispatch(conceptsFeedbackActions.loadConceptsFeedback());
