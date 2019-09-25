@@ -1,79 +1,75 @@
 import React from 'react';
-import AssignmentTypeMini from './assignment_type_mini';
-import LaunchingSoonMini from './launching_soon_mini';
+import AssignmentCard from './assignment_card.tsx';
 
-export default React.createClass({
+const starterDiagnosticSrc = `${process.env.CDN_URL}/images/illustrations/diagnostics-starter.svg`
+const intermediateDiagnosticSrc = `${process.env.CDN_URL}/images/illustrations/diagnostics-intermediate.svg`
+const advancedDiagnosticSrc = `${process.env.CDN_URL}/images/illustrations/diagnostics-advanced.svg`
+const ellDiagnosticSrc = `${process.env.CDN_URL}/images/illustrations/diagnostics-ell.svg`
 
-  minis() {
-    const minis =
-      [
-        (<a
-          href={`${process.env.DEFAULT_URL}/diagnostic/-LKX2sTTnPVhTOrWyUx9/stage/2`}
-          key={1}
-        >
-          <AssignmentTypeMini
-            title={'Starter Diagnostic'}
-            img={`${process.env.CDN_URL}/images/shared/new_diagnostic.svg`}
-            link="/diagnostic/-LKX2sTTnPVhTOrWyUx9/stage/2"
-            bodyText={'Covers foundational writing skills like using proper capitalization and adverbs.'}
-            directions={'use intermittently'}
-            quantity={1}
-            unit={'Diagnostic'}
-            timeDuration={'~20 Min.'}
-          />
-        </a>),
-        (<a
-          href={`${process.env.DEFAULT_URL}/diagnostic/-LKbzH_Er916zGjgHk5U/stage/2`}
-          key={2}
-        >
-          <AssignmentTypeMini
-            title={'Intermediate Diagnostic'}
-            img={`${process.env.CDN_URL}/images/shared/new_diagnostic.svg`}
-            link="/diagnostic/-LKbzH_Er916zGjgHk5U/stage/2"
-            bodyText={'Covers sentence construction skills like forming compound sentences.'}
-            directions={'use intermittently'}
-            quantity={1}
-            unit={'Diagnostic'}
-            timeDuration={'~20 Min.'}
-          />
-        </a>),
-        (<a
-          href={`${process.env.DEFAULT_URL}/diagnostic/-LVxlcVPdW5DvAh_xgnj/stage/2`}
-          key={3}
-        >
-          <AssignmentTypeMini
-            title={'Advanced Diagnostic'}
-            img={`${process.env.CDN_URL}/images/shared/new_diagnostic.svg`}
-            link="/diagnostic/-LVxlcVPdW5DvAh_xgnj/stage/1"
-            bodyText={'Covers advanced sentence skills like using appositive and participial phrases.'}
-            directions={'use intermittently'}
-            quantity={1}
-            unit={'Diagnostic'}
-            timeDuration={'~30 Min.'}
-          />
-        </a>),
-        (<a key={4} href={`${process.env.DEFAULT_URL}/diagnostic/ell/stage/2`}>
-          <AssignmentTypeMini
-            title={'ELL Diagnostic'}
-            img={`${process.env.CDN_URL}/images/shared/diagnostic_ell.svg`}
-            link="/diagnostic/ell/stage/2"
-            bodyText={'Covers areas specific to language learners like articles and subject-verb agreement.'}
-            directions={'use intermittently'}
-            quantity={1}
-            unit={'Diagnostic'}
-            timeDuration={'~25 Min.'}
-          />
-        </a>)
-      ];
-    return minis;
-  },
+const minis = [
+  (
+    <AssignmentCard
+      link={`${process.env.DEFAULT_URL}/diagnostic/-LKX2sTTnPVhTOrWyUx9/stage/3`}
+      buttonText="Preview"
+      buttonLink="https://diagnostic.quill.org/#/play/diagnostic/-LKX2sTTnPVhTOrWyUx9"
+      header="Starter Diagnostic"
+      imgSrc={starterDiagnosticSrc}
+      imgAlt="page with a little writing"
+      bodyArray={[
+        { key: 'What', text: 'Plural and possessive nouns, pronouns, verbs, adjectives, adverbs of manners, commas, prepositions, and capitalization', },
+        { key: 'When', text: 'Your students are working on basic grammar concepts.', }
+      ]}
+    />
+  ),
+  (
+    <AssignmentCard
+      link={`${process.env.DEFAULT_URL}/diagnostic/-LKbzH_Er916zGjgHk5U/stage/3`}
+      buttonLink="https://diagnostic.quill.org/#/play/diagnostic/-LKbzH_Er916zGjgHk5U"
+      buttonText="Preview"
+      header="Intermediate Diagnostic"
+      imgSrc={intermediateDiagnosticSrc}
+      imgAlt="page with a medium amount of writing"
+      bodyArray={[
+        { key: 'What', text: 'Compound sentences, complex sentences, conjunctive adverbs, pronouns, and commonly confused words', },
+        { key: 'When', text: 'Your students have practiced the basics of grammar and are ready to develop their sentence construction skills.', }
+      ]}
+    />
+  ),
+  (
+    <AssignmentCard
+      link={`${process.env.DEFAULT_URL}/diagnostic/-LVxlcVPdW5DvAh_xgnj/stage/3`}
+      buttonLink="https://diagnostic.quill.org/#/play/diagnostic/-LVxlcVPdW5DvAh_xgnj"
+      buttonText="Preview"
+      header="Advanced Diagnostic"
+      imgSrc={advancedDiagnosticSrc}
+      imgAlt="page with a large amount of writing"
+      bodyArray={[
+        { key: 'What', text: 'Compound-complex sentences, appositive phrases, relative clauses, participial phrases, and parallel structure', },
+        { key: 'When', text: 'Your students are experienced with Quill, understand sentence combining, and are ready to develop multi-clause sentences.', }
+      ]}
+    />
+  ),
+  (
+    <AssignmentCard
+      link={`${process.env.DEFAULT_URL}/diagnostic/ell/stage/3`}
+      buttonLink="https://diagnostic.quill.org/#/play/diagnostic/ell"
+      buttonText="Preview"
+      header="ELL Diagnostic"
+      imgSrc={ellDiagnosticSrc}
+      imgAlt="page with writing that says ELL in the corner"
+      bodyArray={[
+        { key: 'What', text: 'Subject-verb agreement, verb tense, adjectives, adverbs, articles, and prepositions', },
+        { key: 'When', text: 'Built for English Language Learners at the developing, expanding or bridging stages of language proficiency (WIDA Levels 3-5).', }
+      ]}
+    />
+  )
+]
 
-  render() {
-    return (
-      <div id="assign-a-diagnostic-page" className="text-center">
-        <h1>Choose which type of diagnostic you'd like to use:</h1>
-        <div className="minis">{this.minis()}</div>
-      </div>
-    );
-  },
-});
+const AssignADiagnostic = () => (
+  <div id="assign-a-diagnostic-page" className="text-center">
+    <h1>Which diagnostic covers the skills you want to assess?</h1>
+    <div className="minis">{minis}</div>
+  </div>
+);
+
+export default AssignADiagnostic
