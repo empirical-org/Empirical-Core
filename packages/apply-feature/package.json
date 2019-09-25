@@ -1,0 +1,19 @@
+{
+  "name": "apply-feature",
+  "version": "1.0.0",
+  "description": "A utility to help progressively roll out new features by helping apply features to only a specific percentage of users.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "Quill.org",
+  "license": "ISC",
+  "dependencies": {
+    "string-hash": "^1.1.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.6.2",
+    "@babel/plugin-transform-modules-commonjs": "^7.6.0",
+    "jest": "^24.9.0"
+  }
+}
