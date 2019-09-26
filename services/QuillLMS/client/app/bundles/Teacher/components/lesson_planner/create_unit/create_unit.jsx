@@ -1,7 +1,7 @@
 import React from 'react';
 import UnitStage1 from './stage1/unit_stage1';
 import Stage2 from './stage2/Stage2';
-import UnitTemplatesAssigned from '../unit_template_assigned';
+import UnitAssignmentFollowup from './unit_assignment_followup.tsx';
 import _ from 'underscore';
 import request from 'request';
 import AnalyticsWrapper from '../../shared/analytics_wrapper';
@@ -201,7 +201,7 @@ export default React.createClass({
   },
 
   onCreateSuccess(response) {
-    this.setState({ newUnitId: response.id, });
+    this.setState({ newUnitId: response.id, assignSuccess: true, });
     this.toggleStage(3);
   },
 
@@ -305,8 +305,9 @@ export default React.createClass({
   },
 
   stage3specificComponents() {
+    const { classrooms, selectedActivities, unitName, } = this.state
     if ((this.state.assignSuccess)) {
-      return (<UnitTemplatesAssigned data={this.state.assignSuccess} />);
+      return (<UnitAssignmentFollowup classrooms={classrooms} selectedActivities={selectedActivities} unitName={unitName} />);
     }
 
     if(_.map(this.state.selectedActivities, activity => { return activity.activity_classification.id }).includes(6)) {
