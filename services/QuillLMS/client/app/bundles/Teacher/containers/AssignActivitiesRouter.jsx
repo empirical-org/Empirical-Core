@@ -21,9 +21,9 @@ const AssignActivitiesRouter = props => (
 			<Route path="featured-activity-packs" component={UnitTemplatesManager}/>
 			<Redirect from="featured-activity-packs/category/:category" to="featured-activity-packs" />
 			<Redirect from="featured-activity-packs/grade/:grade" to="featured-activity-packs" />
-			<Route path="featured-activity-packs/:activityPackId" component={UnitTemplateProfile}/>
+			<Route path="featured-activity-packs/:activityPackId" component={UnitTemplateProfile} />
 			<Route path="featured-activity-packs/:activityPackId/assigned" component={UnitTemplateAssigned}/>
-			<Route path="new_unit/students/edit/name/:unitName/activity_ids/:activityIdsArray" component={routerProps => <ClassroomsWithStudentsContainer {...props} {...routerProps} />} />
+			<Route path="new_unit/students/edit/name/:unitName/activity_ids/:activityIdsArray" component={routerProps => <CreateUnit {...props} {...routerProps} />} />
     </Route>
 	</Router>
 );
