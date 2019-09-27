@@ -753,6 +753,7 @@ ShallowWrapper {
             "incrementRequestCount": [Function],
             "initializeSubscription": [Function],
             "loadQuestions": [Function],
+            "loadSpecifiedQuestions": [Function],
             "removeSubscription": [Function],
             "searchResponses": [Function],
             "setPageNumber": [Function],
