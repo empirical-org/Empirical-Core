@@ -132,6 +132,15 @@ class Activity < ActiveRecord::Base
     self.activity_classification_id == 6
   end
 
+  def self.search_results(flag)
+    substring = flag ? flag + "_" : ""
+    activity_search_results = $redis.get("default_#{substring}activity_search")
+    unless activity_search_results
+      activity_search_results = ActivitySearchWrapper.set_and_return_search_cache_data(flag)
+    end
+    JSON.parse(activity_search_results)
+  end
+
   private
 
   def flag_as_beta
