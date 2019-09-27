@@ -762,5 +762,5 @@ export const activities = [
 ]
 
 export const dueDates = {
-  413: "2019-9-25"
+  413: "2019-09-25T04:00:00.000Z"
 }
