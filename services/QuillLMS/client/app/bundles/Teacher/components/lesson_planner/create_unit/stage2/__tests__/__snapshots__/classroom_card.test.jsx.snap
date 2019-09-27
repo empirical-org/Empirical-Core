@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Classroom card component should render 1`] = `
+<div
+  className="classroom"
+>
+  <div
+    className="checkbox-and-name-container"
+  >
+    <span
+      className="quill-checkbox unselected"
+      onClick={[Function]}
+    />
+    <div
+      className="name-container"
+    >
+      <span
+        className="name-label"
+      >
+        Class
+      </span>
+      <span
+        className="name"
+      >
+        Ninth Grade English - 101 - B. Glover (Section 3)
+      </span>
+    </div>
+  </div>
+  <div
+    className="students-container"
+  />
+</div>
+`;
