@@ -89,7 +89,7 @@ exports[`ReviewActivities component should render 1`] = `
                   style={null}
                 />
               }
-              date={"2019-09-25T04:00:00.000Z"}
+              date={null}
               daySize={39}
               disabled={false}
               displayFormat={[Function]}
