@@ -1,0 +1,96 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AssignADiagnostic component should render 1`] = `
+<div
+  className="text-center"
+  id="assign-a-diagnostic-page"
+>
+  <h1>
+    Which diagnostic covers the skills you want to assess?
+  </h1>
+  <div
+    className="minis"
+  >
+    <AssignmentCard
+      bodyArray={
+        Array [
+          Object {
+            "key": "What",
+            "text": "Plural and possessive nouns, pronouns, verbs, adjectives, adverbs of manners, commas, prepositions, and capitalization",
+          },
+          Object {
+            "key": "When",
+            "text": "Your students are working on basic grammar concepts.",
+          },
+        ]
+      }
+      buttonLink="https://diagnostic.quill.org/#/play/diagnostic/-LKX2sTTnPVhTOrWyUx9"
+      buttonText="Preview"
+      header="Starter Diagnostic"
+      imgAlt="page with a little writing"
+      imgSrc="undefined/images/illustrations/diagnostics-starter.svg"
+      link="undefined/teachers/classrooms/assign_activities/new_unit/students/edit/name/Starter%20Diagnostic/activity_ids/849?unit_template_id=99"
+    />
+    <AssignmentCard
+      bodyArray={
+        Array [
+          Object {
+            "key": "What",
+            "text": "Compound sentences, complex sentences, conjunctive adverbs, pronouns, and commonly confused words",
+          },
+          Object {
+            "key": "When",
+            "text": "Your students have practiced the basics of grammar and are ready to develop their sentence construction skills.",
+          },
+        ]
+      }
+      buttonLink="https://diagnostic.quill.org/#/play/diagnostic/-LKbzH_Er916zGjgHk5U"
+      buttonText="Preview"
+      header="Intermediate Diagnostic"
+      imgAlt="page with a medium amount of writing"
+      imgSrc="undefined/images/illustrations/diagnostics-intermediate.svg"
+      link="undefined/teachers/classrooms/assign_activities/new_unit/students/edit/name/Intermediate%20Diagnostic/activity_ids/850?unit_template_id=100"
+    />
+    <AssignmentCard
+      bodyArray={
+        Array [
+          Object {
+            "key": "What",
+            "text": "Compound-complex sentences, appositive phrases, relative clauses, participial phrases, and parallel structure",
+          },
+          Object {
+            "key": "When",
+            "text": "Your students are experienced with Quill, understand sentence combining, and are ready to develop multi-clause sentences.",
+          },
+        ]
+      }
+      buttonLink="https://diagnostic.quill.org/#/play/diagnostic/-LVxlcVPdW5DvAh_xgnj"
+      buttonText="Preview"
+      header="Advanced Diagnostic"
+      imgAlt="page with a large amount of writing"
+      imgSrc="undefined/images/illustrations/diagnostics-advanced.svg"
+      link="undefined/teachers/classrooms/assign_activities/new_unit/students/edit/name/Advanced%20Diagnostic/activity_ids/888?unit_template_id=126"
+    />
+    <AssignmentCard
+      bodyArray={
+        Array [
+          Object {
+            "key": "What",
+            "text": "Subject-verb agreement, verb tense, adjectives, adverbs, articles, and prepositions",
+          },
+          Object {
+            "key": "When",
+            "text": "Built for English Language Learners at the developing, expanding or bridging stages of language proficiency (WIDA Levels 3-5).",
+          },
+        ]
+      }
+      buttonLink="https://diagnostic.quill.org/#/play/diagnostic/ell"
+      buttonText="Preview"
+      header="ELL Diagnostic"
+      imgAlt="page with writing that says ELL in the corner"
+      imgSrc="undefined/images/illustrations/diagnostics-ell.svg"
+      link="undefined/teachers/classrooms/assign_activities/new_unit/students/edit/name/ELL%20Diagnostic/activity_ids/447?unit_template_id=34"
+    />
+  </div>
+</div>
+`;

@@ -14,7 +14,7 @@ import Server from '../components/modules/server/server'
 import WindowPosition from '../components/modules/windowPosition'
 import AnalyticsWrapper from '../components/shared/analytics_wrapper'
 import AssignANewActivity from '../components/lesson_planner/create_unit/assign_a_new_activity.jsx'
-import AssignADiagnostic from '../components/lesson_planner/create_unit/assign_a_diagnostic.jsx'
+import AssignADiagnostic from '../components/lesson_planner/create_unit/assign_a_diagnostic.tsx'
 
 export default React.createClass({
 	propTypes: {

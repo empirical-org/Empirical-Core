@@ -79,7 +79,8 @@ export default class CreateUnit extends React.Component {
     requestGet('/activities/search', (body) => {
       const { activities, } = body
       const { activityIdsArray, } = this.props.params
-      const selectedActivities = activities.filter(act => activityIdsArray.includes(act.id))
+      const activityIdsArrayAsArray = activityIdsArray.split(',')
+      const selectedActivities = activities.filter(act => activityIdsArrayAsArray.includes(String(act.id)))
       this.setState({ activities: activities, selectedActivities: selectedActivities, })
     })
   }

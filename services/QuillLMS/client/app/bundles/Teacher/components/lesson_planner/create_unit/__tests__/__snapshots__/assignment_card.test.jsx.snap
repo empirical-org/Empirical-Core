@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AssignmentCard component should render 1`] = `
+<a
+  className="assignment-card quill-card"
+  href="http://localhost:3000/diagnostic/-LKX2sTTnPVhTOrWyUx9/stage/3"
+>
+  <div
+    className="top-row"
+  >
+    <div
+      className="left"
+    >
+      <img
+        alt="page with a little writing"
+        src="http://localhost:45537/images/illustrations/diagnostics-starter.svg"
+      />
+      <h2>
+        Starter Diagnostic
+      </h2>
+    </div>
+    <a
+      className="quill-button medium outlined secondary"
+      href="https://diagnostic.quill.org/#/play/diagnostic/-LKX2sTTnPVhTOrWyUx9"
+      target="_blank"
+    >
+      Preview
+    </a>
+  </div>
+  <div
+    className="body"
+  >
+    <div
+      className="body-element"
+    >
+      <p
+        className="key"
+      >
+        What
+      </p>
+      <p
+        className="text"
+      >
+        Plural and possessive nouns, pronouns, verbs, adjectives, adverbs of manners, commas, prepositions, and capitalization
+      </p>
+    </div>
+    <div
+      className="body-element"
+    >
+      <p
+        className="key"
+      >
+        When
+      </p>
+      <p
+        className="text"
+      >
+        Your students are working on basic grammar concepts.
+      </p>
+    </div>
+  </div>
+</a>
+`;
