@@ -58,7 +58,7 @@ export default class UnitAssignmentFollowup extends React.Component<UnitAssignme
     const { unitName, classrooms, } = this.props
     const emptyClassrooms = classrooms.filter(c => !c.students.length)
     return (<div className="unit-assignment-followup invite-students">
-      <h1>Success! You assigned {unitName} to {this.numberOfClassroomsText(assignedClassrooms}</h1>
+      <h1>Success! You assigned {unitName} to {this.numberOfClassroomsText(assignedClassrooms}.</h1>
       <Card
         onClick={() => { window.location.href = `${process.env.DEFAULT_URL}/teachers/classrooms`}}
         imgSrc={addStudentsSrc}
@@ -102,7 +102,7 @@ export default class UnitAssignmentFollowup extends React.Component<UnitAssignme
     const referralLink = `${process.env.DEFAULT_URL}/?referral_code=${referralCode}`
     return <div className="unit-assignment-followup referral">
       {this.renderSnackbar()}
-      <h1>Success! You assigned {unitName} to {this.numberOfClassroomsText(assignedClassrooms}</h1>
+      <h1>Success! You assigned {unitName} to {this.numberOfClassroomsText(assignedClassrooms}.</h1>
       <div className="referral-card">
         <img src={giftSrc} alt="gift" />
         <h1>Share Quill and earn a month of free Quill Premium for Teachers.</h1>
