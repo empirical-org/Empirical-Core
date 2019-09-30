@@ -3,55 +3,19 @@
 exports[`Dropdown input component should render when it is multi-option 1`] = `
 <div>
   <div
-    className="dropdown-container input-container inactive has-text  undefined checkbox-dropdown"
+    className="dropdown-container input-container inactive has-text not-editable undefined"
     onClick={[Function]}
   >
     <label />
     <StateManager
       className="dropdown"
       classNamePrefix="dropdown"
-      closeMenuOnSelect={false}
-      components={
-        Object {
-          "Option": [Function],
-          "ValueContainer": [Function],
-        }
-      }
       defaultInputValue=""
       defaultMenuIsOpen={false}
       defaultValue={null}
-      hideSelectedOptions={false}
       isClearable={false}
-      isMulti={true}
-      isSearchable={false}
       menuIsOpen={false}
-      onChange={[Function]}
-      onKeyDown={[Function]}
-      optionType="option"
-      options={
-        Array [
-          Object {
-            "label": "All options",
-            "value": "All",
-          },
-          Object {
-            "label": "One",
-            "value": 1,
-          },
-          Object {
-            "label": "Two",
-            "value": 2,
-          },
-          Object {
-            "label": "Three",
-            "value": 3,
-          },
-          Object {
-            "label": "Four",
-            "value": 4,
-          },
-        ]
-      }
+      onFocus={[Function]}
       placeholder=""
       value={Array []}
     />
@@ -62,7 +26,7 @@ exports[`Dropdown input component should render when it is multi-option 1`] = `
 exports[`Dropdown input component should render when it is not searchable 1`] = `
 <div>
   <div
-    className="dropdown-container input-container inactive has-text not-editable undefined "
+    className="dropdown-container input-container inactive has-text not-editable undefined"
     onClick={[Function]}
   >
     <label>
@@ -78,27 +42,6 @@ exports[`Dropdown input component should render when it is not searchable 1`] = 
       isSearchable={false}
       menuIsOpen={false}
       onFocus={[Function]}
-      onKeyDown={[Function]}
-      options={
-        Array [
-          Object {
-            "label": "One",
-            "value": 1,
-          },
-          Object {
-            "label": "Two",
-            "value": 2,
-          },
-          Object {
-            "label": "Three",
-            "value": 3,
-          },
-          Object {
-            "label": "Four",
-            "value": 4,
-          },
-        ]
-      }
       placeholder=""
       value={
         Object {
@@ -114,7 +57,7 @@ exports[`Dropdown input component should render when it is not searchable 1`] = 
 exports[`Dropdown input component should render when it is searchable 1`] = `
 <div>
   <div
-    className="dropdown-container input-container inactive has-text  undefined "
+    className="dropdown-container input-container inactive has-text  undefined"
     onClick={[Function]}
   >
     <label>
@@ -130,27 +73,6 @@ exports[`Dropdown input component should render when it is searchable 1`] = `
       isSearchable={true}
       menuIsOpen={false}
       onFocus={[Function]}
-      onKeyDown={[Function]}
-      options={
-        Array [
-          Object {
-            "label": "One",
-            "value": 1,
-          },
-          Object {
-            "label": "Two",
-            "value": 2,
-          },
-          Object {
-            "label": "Three",
-            "value": 3,
-          },
-          Object {
-            "label": "Four",
-            "value": 4,
-          },
-        ]
-      }
       placeholder="Value goes here"
       value={
         Object {
