@@ -4,15 +4,63 @@
   }
 }
 
+.assignment-card {
+  border-radius: 6px;
+  background-color: white;
+  padding: 32px;
+  text-align: left;
+  max-width: 582px;
+  width: 100%;
+  flex-direction: column;
+  align-items: inherit;
+  .top-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .left {
+      display: flex;
+      align-items: center;
+      img {
+        margin-right: 24px;
+      }
+    }
+    h2 {
+      font-size: 16px;
+      font-weight: bold;
+      line-height: 1.5;
+    }
+  }
+  .body {
+    margin-top: 24px;
+    .body-element {
+      display: flex;
+      font-size: 14px;
+      line-height: 1.5;
+      color: #646464;
+      margin-bottom: 16px;
+      .key {
+        max-width: 88px;
+        width: 100%;
+      }
+    }
+  }
+}
+
+#assign-a-diagnostic-page {
+  .assignment-card {
+    margin-bottom: 24px;
+  }
+}
+
 #assign-new-activity-page, #assign-a-diagnostic-page {
   a {
     text-decoration: none;
   }
   h1 {
     font-size: 24px;
-    font-weight: 600;
-    margin-top: 30px;
-    }
+    font-weight: bold;
+    margin-top: 48px;
+  }
     .minis {
       max-width: 1020px;
       display: -webkit-box;

@@ -73,17 +73,22 @@ class User < ActiveRecord::Base
 
   validate :validate_flags
 
-
-  ROLES      = %w(student teacher staff)
-  SAFE_ROLES = %w(student teacher)
+  TEACHER = 'teacher'
+  STUDENT = 'student'
+  STAFF = 'staff'
+  ROLES      = [TEACHER, STUDENT, STAFF]
+  SAFE_ROLES = [STUDENT, TEACHER]
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
 
-  TESTING_FLAGS = %w(alpha beta private)
+  ALPHA = 'alpha'
+  BETA = 'beta'
+  PRIVATE = 'private'
+  TESTING_FLAGS = [ALPHA, BETA, PRIVATE]
   PERMISSIONS_FLAGS = %w(auditor purchaser school_point_of_contact)
   VALID_FLAGS = TESTING_FLAGS.dup.concat(PERMISSIONS_FLAGS)
 
-  scope :teacher, lambda { where(role: 'teacher') }
-  scope :student, lambda { where(role: 'student') }
+  scope :teacher, lambda { where(role: TEACHER) }
+  scope :student, lambda { where(role: STUDENT) }
 
   attr_accessor :newsletter
 
@@ -92,7 +97,7 @@ class User < ActiveRecord::Base
   after_save :check_for_school
 
   def testing_flag
-    self.flags.detect{|f| TESTING_FLAGS.include?(f)}
+    self.role == STAFF ? PRIVATE : self.flags.detect{|f| TESTING_FLAGS.include?(f)}
   end
 
   def auditor?
