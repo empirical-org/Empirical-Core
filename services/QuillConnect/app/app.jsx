@@ -7,6 +7,7 @@ if (!window.Promise) {
 import BackOff from './utils/backOff';
 import React from 'react';
 import { render } from 'react-dom';
+import { applyFeatureToPercentage } from 'apply-feature';
 import createStore from './utils/configureStore';
 import { Provider } from 'react-redux';
 import { Router, Route, IndexRoute, } from 'react-router';
@@ -61,15 +62,52 @@ render((
   root
 );
 
-setTimeout(() => {
-  store.dispatch(conceptActions.startListeningToConcepts());
-  store.dispatch(conceptsFeedbackActions.loadConceptsFeedback());
-  store.dispatch(questionActions.loadQuestions());
-  store.dispatch(fillInBlankActions.loadQuestions());
-  store.dispatch(sentenceFragmentActions.loadSentenceFragments());
-  store.dispatch(levelActions.loadItemLevels());
-  store.dispatch(lessonActions.startListeningToLessons());
-  store.dispatch(titleCardActions.loadTitleCards());
-});
+// This is pretty hacky.
+// Ideally we should really be extracting the both UIDs from
+// the Router, but because we populate redux so early in the
+// code stack (i.e. right below) we need access to the UIDs
+// outside of the Router's scope, so we have this work-around
+// rather than shuffling the redux initialization around.
+// TODO: At some point we should figure out how to more strictly
+// separate the admin and lesson side of the apps so that we
+// don't have this unified store definition.
+function extractLessonUIDFromLocation() {
+  const playRegex = /^#\/play\/(lesson|turk)\/([^\?]+)/;
+  const matches = window.location.hash.match(playRegex);
+  return (matches) ? matches[2] : null;
+}
+function extractSessionUIDFromLocation() {
+  const playRegex = /^#\/play\/(lesson|turk)\/.+\?.*student=(.+)(&|$)/;
+  const matches = window.location.hash.match(playRegex);
+  const sessionUid = (matches) ? matches[2] : null;
+  if (!sessionUid || sessionUid === 'null') return null;
+  return sessionUid;
+}
+
+const lessonUid = extractLessonUIDFromLocation();
+const sessionUid = extractSessionUIDFromLocation();
+
+// This is the whole number percentage of users who will be assigned
+// to the new session type.
+const percentAssigned = 10;
+
+if (lessonUid && applyFeatureToPercentage(sessionUid, percentAssigned)) {
+  setTimeout(() => {
+    store.dispatch(conceptActions.startListeningToConcepts());
+    store.dispatch(conceptsFeedbackActions.loadConceptsFeedback());
+    store.dispatch(lessonActions.loadLessonWithQuestions(lessonUid));
+  });
+} else {
+  setTimeout(() => {
+    store.dispatch(conceptActions.startListeningToConcepts());
+    store.dispatch(conceptsFeedbackActions.loadConceptsFeedback());
+    store.dispatch(questionActions.loadQuestions());
+    store.dispatch(fillInBlankActions.loadQuestions());
+    store.dispatch(sentenceFragmentActions.loadSentenceFragments());
+    store.dispatch(levelActions.loadItemLevels());
+    store.dispatch(lessonActions.startListeningToLessons());
+    store.dispatch(titleCardActions.loadTitleCards());
+  });
+}
 
 String.prototype.quillNormalize = quillNormalizer;
