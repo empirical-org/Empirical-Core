@@ -343,9 +343,15 @@ export default class CreateUnit extends React.Component {
   }
 
   stage3specificComponents() {
-    const { classrooms, selectedActivities, unitName, } = this.state
+    const { referralCode, } = this.props
+    const { classrooms, selectedActivities, name, } = this.state
     if ((this.state.assignSuccess)) {
-      return (<UnitAssignmentFollowup classrooms={classrooms} selectedActivities={selectedActivities} unitName={unitName} />);
+      return (<UnitAssignmentFollowup
+        classrooms={classrooms}
+        selectedActivities={selectedActivities}
+        unitName={name}
+        referralCode={referralCode}
+      />);
     }
 
     if(_.map(this.state.selectedActivities, activity => { return activity.activity_classification.id }).includes(6)) {
