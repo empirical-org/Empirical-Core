@@ -40,7 +40,7 @@ export default React.createClass({
         </Modal.Body>
         <Modal.Footer>
           {this.creditCardNotice()}
-          <p>You can also call us at <a href="tel:510-671-0222">510-671-0222</a></p>
+          <p>You can also call us at 646-442-1095 </p>
         </Modal.Footer>
       </Modal>
     );
