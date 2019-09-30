@@ -3,6 +3,9 @@ import rootRef from '../libs/firebase';
 const	lessonsRef = rootRef.child('lessons');
 import { push } from 'react-router-redux';
 import questionActions from './questions'
+import fillInBlankActions from './fillInBlank';
+import sentenceFragmentActions from './sentenceFragments';
+import * as titleCardActions from './titleCards.ts';
 
 	// called when the app starts. this means we immediately download all quotes, and
 	// then receive all quotes again as soon as anyone changes anything.
@@ -21,6 +24,42 @@ import questionActions from './questions'
         dispatch({ type: C.RECEIVE_LESSONS_DATA, data: snapshot.val(), });
       });
     };
+  }
+
+  function loadLesson(uid) {
+    return (dispatch, getState) => {
+      return new Promise((resolve, reject) => {
+        lessonsRef.child(uid).once('value', (snapshot) => {
+          dispatch({ type: C.RECEIVE_LESSONS_DATA, data: { [uid]: snapshot.val(), } });
+          resolve();
+        });
+      })
+    }
+  }
+
+  function loadLessonWithQuestions(uid) {
+    return (dispatch, getState) => {
+      dispatch(loadLesson(uid)).then(() => {
+        const fetchedLesson = getState().lessons.data[uid];
+        const questionTypes = ['questions', 'fillInBlank', 'titleCards', 'sentenceFragments'];
+        questionTypes.forEach((questionType) => {
+          const questionUids = fetchedLesson.questions.filter((q) => q.questionType == questionType).map((q) => q.key);
+          switch (questionType) {
+            case 'questions':
+              dispatch(questionActions.loadSpecifiedQuestions(questionUids));
+              break
+            case 'fillInBlank':
+              dispatch(fillInBlankActions.loadSpecifiedQuestions(questionUids));
+              break
+            case 'titleCards':
+              dispatch(titleCardActions.loadSpecifiedTitleCards(questionUids));
+              break
+            case 'sentenceFragments':
+              dispatch(sentenceFragmentActions.loadSpecifiedSentenceFragments(questionUids));
+          }
+        });
+      });
+    }
   }
 
   function startLessonEdit(cid) {
@@ -101,6 +140,8 @@ import questionActions from './questions'
 
 export default {
   startListeningToLessons,
+  loadLesson,
+  loadLessonWithQuestions,
   loadLessons,
   startLessonEdit,
   cancelLessonEdit,

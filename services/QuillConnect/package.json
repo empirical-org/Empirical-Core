@@ -96,6 +96,7 @@
   "dependencies": {
     "actioncable": "^5.1.1",
     "animejs": "^2.2.0",
+    "apply-feature": "^1.0.1",
     "babel-loader": "^8.0.6",
     "babel-polyfill": "^6.23.0",
     "babel-runtime": "^6.26.0",
