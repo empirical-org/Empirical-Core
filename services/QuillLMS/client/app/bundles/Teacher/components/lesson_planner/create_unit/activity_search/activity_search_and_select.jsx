@@ -36,11 +36,7 @@ export default class ActivitySearchAndSelect extends React.Component {
   }
 
   componentDidMount() {
-    if (this.props.activities) {
-      this.searchRequestSuccess({ data: this.props.activities })
-    } else {
-      this.searchRequest();
-    }
+    this.searchRequest();
   }
 
   searchRequest() {

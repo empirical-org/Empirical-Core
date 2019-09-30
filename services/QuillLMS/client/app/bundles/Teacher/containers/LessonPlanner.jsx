@@ -16,6 +16,7 @@ import AnalyticsWrapper from '../components/shared/analytics_wrapper'
 import AssignANewActivity from '../components/lesson_planner/create_unit/assign_a_new_activity.jsx'
 import AssignADiagnostic from '../components/lesson_planner/create_unit/assign_a_diagnostic.tsx'
 
+
 export default React.createClass({
 	propTypes: {
 		grade: React.PropTypes.string,

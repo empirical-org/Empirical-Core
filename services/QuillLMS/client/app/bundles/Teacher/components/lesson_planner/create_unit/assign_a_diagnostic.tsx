@@ -6,17 +6,12 @@ const intermediateDiagnosticSrc = `${process.env.CDN_URL}/images/illustrations/d
 const advancedDiagnosticSrc = `${process.env.CDN_URL}/images/illustrations/diagnostics-advanced.svg`
 const ellDiagnosticSrc = `${process.env.CDN_URL}/images/illustrations/diagnostics-ell.svg`
 
-const STARTER_DIAGNOSTIC = 'Starter Diagnostic'
-const INTERMEDIATE_DIAGNOSTIC = 'Intermediate Diagnostic'
-const ADVANCED_DIAGNOSTIC = 'Advanced Diagnostic'
-const ELL_DIAGNOSTIC = 'ELL Diagnostic'
-
 const minis = [
   (<AssignmentCard
-    link={`${process.env.DEFAULT_URL}/teachers/classrooms/assign_activities/new_unit/students/edit/name/${encodeURIComponent(STARTER_DIAGNOSTIC)}/activity_ids/${encodeURIComponent([849].toString())}?unit_template_id=${99}`}
+    link={`${process.env.DEFAULT_URL}/diagnostic/-LKX2sTTnPVhTOrWyUx9/stage/3`}
     buttonText="Preview"
     buttonLink="https://diagnostic.quill.org/#/play/diagnostic/-LKX2sTTnPVhTOrWyUx9"
-    header={STARTER_DIAGNOSTIC}
+    header="Starter Diagnostic"
     imgSrc={starterDiagnosticSrc}
     imgAlt="page with a little writing"
     bodyArray={[
@@ -25,10 +20,10 @@ const minis = [
     ]}
   />),
   (<AssignmentCard
-    link={`${process.env.DEFAULT_URL}/teachers/classrooms/assign_activities/new_unit/students/edit/name/${encodeURIComponent(INTERMEDIATE_DIAGNOSTIC)}/activity_ids/${encodeURIComponent([850].toString())}?unit_template_id=${100}`}
+    link={`${process.env.DEFAULT_URL}/diagnostic/-LKbzH_Er916zGjgHk5U/stage/3`}
     buttonLink="https://diagnostic.quill.org/#/play/diagnostic/-LKbzH_Er916zGjgHk5U"
     buttonText="Preview"
-    header={INTERMEDIATE_DIAGNOSTIC}
+    header="Intermediate Diagnostic"
     imgSrc={intermediateDiagnosticSrc}
     imgAlt="page with a medium amount of writing"
     bodyArray={[
@@ -37,10 +32,10 @@ const minis = [
     ]}
   />),
   (<AssignmentCard
-    link={`${process.env.DEFAULT_URL}/teachers/classrooms/assign_activities/new_unit/students/edit/name/${encodeURIComponent(ADVANCED_DIAGNOSTIC)}/activity_ids/${encodeURIComponent([888].toString())}?unit_template_id=${126}`}
+    link={`${process.env.DEFAULT_URL}/diagnostic/-LVxlcVPdW5DvAh_xgnj/stage/3`}
     buttonLink="https://diagnostic.quill.org/#/play/diagnostic/-LVxlcVPdW5DvAh_xgnj"
     buttonText="Preview"
-    header={ADVANCED_DIAGNOSTIC}
+    header="Advanced Diagnostic"
     imgSrc={advancedDiagnosticSrc}
     imgAlt="page with a large amount of writing"
     bodyArray={[
@@ -49,10 +44,10 @@ const minis = [
     ]}
   />),
   (<AssignmentCard
-    link={`${process.env.DEFAULT_URL}/teachers/classrooms/assign_activities/new_unit/students/edit/name/${encodeURIComponent(ELL_DIAGNOSTIC)}/activity_ids/${encodeURIComponent([447].toString())}?unit_template_id=${34}`}
+    link={`${process.env.DEFAULT_URL}/diagnostic/ell/stage/3`}
     buttonLink="https://diagnostic.quill.org/#/play/diagnostic/ell"
     buttonText="Preview"
-    header={ELL_DIAGNOSTIC}
+    header="ELL Diagnostic"
     imgSrc={ellDiagnosticSrc}
     imgAlt="page with writing that says ELL in the corner"
     bodyArray={[
