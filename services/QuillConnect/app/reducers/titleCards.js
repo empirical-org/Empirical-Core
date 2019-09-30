@@ -13,7 +13,7 @@ export default function (currentstate, action) {
     case C.RECEIVE_TITLE_CARDS_DATA:
       return Object.assign({}, currentstate, {
         hasreceiveddata: true,
-        data: action.data
+        data: action.data,
       });
     default: return currentstate || initialState.titleCards;
   }

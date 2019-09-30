@@ -83,7 +83,10 @@ function denormalizeSession(session) {
 function denormalizeQuestion(question) {
   // Questions stored on the session object have a different shape
   // if they have any attempt data attached to them
-  const questionUid = question.attempts ? question.question : question;
+  // It appears that they also have this shape if the object has ever
+  // had attempt data on it.  This is only happens with currentQuestion,
+  // but we should account for it
+  const questionUid = (question.attempts || question.question) ? question.question : question;
   // We need to make sure that the 'question' part of the
   // question object is a clean copy so that we can modify
   // it without changing the cached question object

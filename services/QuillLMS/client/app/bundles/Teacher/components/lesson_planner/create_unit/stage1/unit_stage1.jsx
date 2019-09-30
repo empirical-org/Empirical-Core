@@ -57,6 +57,7 @@ export default React.createClass({
     return (
       <div>
         <ActivitySearchAndSelect
+          activities={this.props.activities}
           selectedActivities={this.props.selectedActivities}
           toggleActivitySelection={this.props.toggleActivitySelection}
           clickContinue={this.props.clickContinue}

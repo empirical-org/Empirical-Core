@@ -25,6 +25,23 @@ const actions = {
       });
     };
   },
+  loadSpecifiedQuestions(uids) {
+    return (dispatch, getState) => {
+      const firebasePromises = [];
+      uids.forEach((uid) => {
+        firebasePromises.push(fillInBlankQuestionsRef.child(uid).once('value'));
+      });
+      const allPromises = Promise.all(firebasePromises);
+      const questionData = {};
+      allPromises.then((results) => {
+        results.forEach((result) => {
+          const value = result.val();
+          questionData[result.key] = value;
+        });
+        dispatch({ type: C.RECEIVE_FILL_IN_BLANK_QUESTIONS_DATA, data: questionData, });
+      });
+    }
+  },
   startQuestionEdit(qid) {
     return { type: C.START_FILL_IN_BLANK_QUESTION_EDIT, qid, };
   },
