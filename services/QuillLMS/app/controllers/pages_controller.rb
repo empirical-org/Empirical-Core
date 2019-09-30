@@ -89,7 +89,7 @@ class PagesController < ApplicationController
           },
           {
             question: "Who is using Quill?",
-            answer: "<p>As of January 2018, over 20,000 teachers and 750,000 students have used Quill. These students complete approximately 30,000 activities each day. From Rhode Island to Russia, and the Bay Area to Great Britain, these students live all over the world.</p>"
+            answer: "<p>As of June 2019, over 36,000 teachers and 1,710,000 students have used Quill. These students complete approximately 30,000 activities each day. From Rhode Island to Russia, and the Bay Area to Great Britain, these students live all over the world.</p>"
           },
           {
             question: "How can I integrate Quill into my classroom?",
@@ -112,7 +112,7 @@ class PagesController < ApplicationController
           },
           {
             question: "How many activities are on Quill?",
-            answer: "<p>As of September 2017, we have created over 300 activities with 1,309 practice questions, covering Common Core topics for grades 1-8. Each activity is approximately 10-15 minutes in length.</p>"
+            answer: "<p>As of June 2019, we have created over 500 activities with 5,000 practice questions, covering Common Core topics for grades K-12. Each activity is approximately 10-15 minutes in length.</p>"
           },
           {
             question: "I am a parent. Can I use Quill for my child?",
@@ -270,7 +270,7 @@ class PagesController < ApplicationController
             answer: "<p>All of our instructional materials are made available under a Creative Commons BY-SA-NC license. This means that you may reuse our materials for any non-commercial purpose.</p>"
           },
           {
-            question: "I have an idea or a suggestion for Quill. How an I share it?",
+            question: "I have an idea or a suggestion for Quill. How can I share it?",
             answer: "
               <p>We are always looking for suggestions and ideas from our teachers to improve and grow Quill so if you have an idea that you would like to see on Quill, please fill out <a href='https://docs.google.com/forms/d/e/1FAIpQLScwoB67VKZicMzukzpiK5ufDFSEjLXbUBjEGOl_UMsRl02aiw/viewform?usp=send_form'>this short form</a> and share it with us. We have so far turned many of our teachers' ideas to products such as Quill Diagnostic and Quill Lessons, so don't hesitate to reach out to us.</p>
             "
