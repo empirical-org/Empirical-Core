@@ -36,7 +36,7 @@ export default class Navbar extends React.Component {
         $('.activity-analysis-tab').addClass('active');
       }
     }).catch((error) => {
-      console.log('error', error)
+      // to do, use Sentry to capture error
     })
   }
 

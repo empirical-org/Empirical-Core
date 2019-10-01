@@ -48,14 +48,13 @@ export default React.createClass({
     }).then((response) => {
       this.setState({ activityWithRecommendationsIds: response.activityWithRecommendationsIds, });
     }).catch((error) => {
-      console.log('error', error);
+      // to do, use Sentry to capture error
     });
   },
 
   getClassrooms() {
     request.get(`${process.env.DEFAULT_URL}/teachers/classrooms/classrooms_i_teach`, (error, httpStatus, body) => {
       const classrooms = JSON.parse(body).classrooms;
-      console.log('classrooms', classrooms.length);
       if (classrooms.length > 0) {
         this.setState({ classrooms, }, () => this.getUnits());
       } else {

@@ -12,25 +12,25 @@ function updateObject(oldObject, newObject) {
 }
 
 export default (state, action) => {
-  const localState = state || initialState;
+  state = state || initialState;
 
-  switch (action.type) {
+  switch(action.type) {
     case 'SWITCH_SCHOOL':
-      return updateObject(localState, {
+      return updateObject(state, {
         selectedSchool: action.school,
         selectedTeacher: 'All Teachers',
         selectedClassroom: 'All Classrooms',
       });
     case 'SWITCH_TEACHER':
-      return updateObject(localState, {
+      return updateObject(state, {
         selectedTeacher: action.teacher,
         selectedClassroom: 'All Classrooms',
       });
     case 'SWITCH_CLASSROOM':
-      return updateObject(localState, {
+      return updateObject(state, {
         selectedClassroom: action.classroom,
       });
     default:
-      return localState;
+      return state;
   }
 };
