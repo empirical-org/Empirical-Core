@@ -23,7 +23,7 @@ const PremiumFeatures = () =>
       <div className="contact">
         <img src="https://assets.quill.org/images/headshots/thumb-becca.jpg" alt="becca thumb" />
         <div className="info">
-          <p><a className="green-link" href="mailto:becca@quill.org">becca@quill.org</a></p>
+          <p><a className="green-link" href="mailto:maddy@quill.org">maddy@quill.org</a></p>
           <p>646-442-1095</p>
         </div>
       </div>
