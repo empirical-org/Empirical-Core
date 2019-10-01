@@ -110,6 +110,7 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^3.0.1",
     "eslint-plugin-react": "^6.9.0",
+    "eslint-nibble": "^5.1.0",
     "estraverse-fb": "^1.3.1",
     "faye-websocket": "^0.11.1",
     "jest": "^24.8.0",
@@ -131,6 +132,7 @@
   "scripts": {
     "lint": "npm run eslint --silent",
     "eslint": "eslint --ext .js,.jsx .",
+    "eslint-circle-ci": "npx eslint-nibble --rule no:console --ext .js,.jsx .",
     "jscs": "jscs --verbose .",
     "jscs:fix": "jscs --verbose -x . --silent",
     "test": "npm run build:test && rspec",
