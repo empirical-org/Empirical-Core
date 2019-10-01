@@ -2,7 +2,7 @@ import React from 'react'
 
 import TableFilterMixin from '../general_components/table/sortable_table/table_filter_mixin'
 import TableSortingMixin from '../general_components/table/sortable_table/table_sorting_mixin'
-import Pagination from '../lesson_planner/create_unit/activity_search/pagination/pagination'
+import Pagination from '../assignment_flow/create_unit/activity_search/pagination/pagination'
 import ExportCsv from './export_csv'
 import LoadingIndicator from '../shared/loading_indicator'
 import SortableTable from '../general_components/table/sortable_table/sortable_table.jsx'

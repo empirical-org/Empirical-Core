@@ -9,7 +9,7 @@ import CreateAClassModal from '../../classrooms/create_a_class_modal.tsx'
 import ImportGoogleClassroomsModal from '../../classrooms/import_google_classrooms_modal.tsx'
 import GoogleClassroomEmailModal from '../../classrooms/google_classroom_email_modal.tsx'
 import GoogleClassroomsEmptyModal from '../../classrooms/google_classrooms_empty_modal.tsx'
-import Classroom from '../../lesson_planner/create_unit/stage2/classroom';
+import Classroom from '../../assignment_flow/create_unit/stage2/classroom';
 import LoadingSpinner from '../../shared/loading_indicator.jsx';
 import ButtonLoadingIndicator from '../../shared/button_loading_indicator'
 import { requestGet } from '../../../../../modules/request';

@@ -1,6 +1,6 @@
 import React from 'react';
 import request from 'request';
-import Units from '../../lesson_planner/manage_units/activities_units.jsx';
+import Units from '../../assignment_flow/manage_units/activities_units.jsx';
 import LoadingSpinner from '../../shared/loading_indicator.jsx';
 import EmptyProgressReport from '../../shared/EmptyProgressReport.jsx';
 import ItemDropdown from '../../general_components/dropdown_selectors/item_dropdown';
