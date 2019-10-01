@@ -7,39 +7,39 @@ const initialState = {
   loading: true,
   scores: null,
   student: null,
-  nextActivitySession: null,
+  nextActivitySession: null
 };
 
 export default (state, action) => {
-  const localState = state || initialState;
-  const numberOfClassroomTabs = action.screenWidth > 1000 ? 5 : 1;
+  state = state || initialState;
 
-  switch (action.type) {
+  switch(action.type) {
     case 'HANDLE_CLASSROOM_CLICK':
-      return Object.assign({}, localState, {
-        selectedClassroomId: action.selectedClassroomId,
+      return Object.assign({}, state, {
+        selectedClassroomId: action.selectedClassroomId
       });
     case 'TOGGLE_DROPDOWN':
-      return Object.assign({}, localState, {
-        showDropdown: !localState.showDropdown,
+      return Object.assign({}, state, {
+        showDropdown: !state.showDropdown
       });
     case 'HIDE_DROPDOWN':
-      return Object.assign({}, localState, { showDropdown: false, });
+      return Object.assign({}, state, { showDropdown: false });
     case 'RECEIVE_NOTIFICATIONS':
-      return Object.assign({}, localState, { notifications: action.notifications, });
+      return Object.assign({}, state, { notifications: action.notifications });
     case 'RECEIVE_STUDENTS_CLASSROOMS':
-      return Object.assign({}, localState, { classrooms: action.classrooms, });
+      return Object.assign({}, state, { classrooms: action.classrooms });
     case 'RECEIVE_STUDENT_PROFILE':
-      return Object.assign({}, localState, {
+      return Object.assign({}, state, {
         loading: false,
         scores: action.data.scores,
         student: action.data.student,
         nextActivitySession: action.data.next_activity_session,
-        selectedClassroomId: action.data.classroom_id,
+        selectedClassroomId: action.data.classroom_id
       });
     case 'UPDATE_NUMBER_OF_CLASSROOM_TABS':
-      return Object.assign({}, localState, { numberOfClassroomTabs, });
+      const numberOfClassroomTabs = action.screenWidth > 1000 ? 5 : 1;
+      return Object.assign({}, state, { numberOfClassroomTabs });
     default:
-      return localState;
+      return state;
   }
 };

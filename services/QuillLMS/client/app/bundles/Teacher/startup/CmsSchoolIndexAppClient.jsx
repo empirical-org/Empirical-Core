@@ -179,7 +179,7 @@ export default class CmsSchoolIndex extends React.Component {
     }).then((response) => {
       this.setState({ data: response.schoolSearchQueryResults, numberOfPages: response.numberOfPages, loading: false })
     }).catch((error) => {
-      console.log('error', error)
+      // to do, use Sentry to capture error
     })
   }
 
