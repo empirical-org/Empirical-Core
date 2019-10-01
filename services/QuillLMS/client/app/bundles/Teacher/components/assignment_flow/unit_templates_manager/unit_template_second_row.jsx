@@ -5,9 +5,6 @@
  export default  React.createClass({
   propTypes: {
     data: React.PropTypes.object.isRequired,
-    modules: React.PropTypes.shape({
-      string: React.PropTypes.object.isRequired
-    })
   },
 
   authorName: function () {
