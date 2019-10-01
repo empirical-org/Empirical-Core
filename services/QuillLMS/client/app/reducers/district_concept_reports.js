@@ -13,7 +13,7 @@ function updateObject(oldObject, newObject) {
 }
 
 export default function districtConceptReports(state = initialState, action) {
-  switch(action && action.type) {
+  switch (action && action.type) {
     case 'SWITCH_SCHOOL':
       return updateObject(state, {
         selectedSchool: action.school,
@@ -38,4 +38,4 @@ export default function districtConceptReports(state = initialState, action) {
     default:
       return state;
   }
-};
+}

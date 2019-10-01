@@ -84,6 +84,20 @@ jobs:
             - services/QuillLMS/node_modules
             - services/QuillLMS/client/node_modules
       - run:
+          name: Run ESlint on LMS Frontend
+          command: |
+            cd services/QuillLMS/client
+            npm run eslint --silent app/reducers
+            npm run eslint --silent app/bundles/admin_dashboard
+            npm run eslint --silent app/bundles/Teacher/containers
+            npm run eslint --silent app/bundles/Teacher/components/accounts
+            npm run eslint --silent app/bundles/Teacher/components/d*
+            npm run eslint --silent app/bundles/Teacher/components/g*
+            npm run eslint --silent app/bundles/Teacher/components/lesson_planner
+            npm run eslint --silent app/bundles/Teacher/components/progress_reports
+            npm run eslint --silent app/bundles/Teacher/components/s*
+            npm run eslint --silent app/bundles/Teacher/components/unit_templates            
+      - run:
           name: Run LMS Frontend Tests
           command: |
             cd services/QuillLMS/client
