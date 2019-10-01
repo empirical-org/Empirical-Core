@@ -1,6 +1,6 @@
 import React from 'react'
 import request from 'request'
-import UnitTemplateAssigned from '../../lesson_planner/diagnostic_assigned.jsx'
+import UnitTemplateAssigned from '../../assignment_flow/diagnostic_assigned.jsx'
 
 
 export default class SuccessView extends React.Component {

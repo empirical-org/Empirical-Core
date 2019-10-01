@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import ClassroomPage from '../ClassroomPage';
-import Classroom from '../../../lesson_planner/create_unit/stage2/classroom'
+import Classroom from '../../../assignment_flow/create_unit/stage2/classroom'
 
 import requestMock from '../../../../../../../__mocks__/request.js';
 jest.mock('request')
