@@ -23,6 +23,24 @@ function loadTitleCards() {
   };
 }
 
+function loadSpecifiedTitleCards(uids) {
+  return (dispatch, getState) => {
+    const firebasePromises = [];
+    uids.forEach((uid) => {
+      firebasePromises.push(titleCardsRef.child(uid).once('value'));
+    });
+    const allPromises = Promise.all(firebasePromises);
+    const questionData = {};
+    allPromises.then((results) => {
+      results.forEach((result) => {
+        const value = result.val();
+        questionData[result.key] = value;
+      });
+      dispatch({ type: C.RECEIVE_TITLE_CARDS_DATA, data: questionData, });
+    });
+  }
+}
+
 function submitNewTitleCard(content) {
   return (dispatch) => {
     const newRef = titleCardsRef.push(content, (error) => {
@@ -50,4 +68,10 @@ function submitTitleCardEdit(qid, content) {
   };
 }
 
-export { submitNewTitleCard, loadTitleCards, startListeningToTitleCards, submitTitleCardEdit }
+export {
+  submitNewTitleCard,
+  loadTitleCards,
+  loadSpecifiedTitleCards,
+  startListeningToTitleCards,
+  submitTitleCardEdit,
+}
