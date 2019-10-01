@@ -385,6 +385,12 @@ EmpiricalGrammar::Application.routes.draw do
       get 'progress_reports/student_overview_data/:student_id/:classroom_id' => 'progress_reports#student_overview_data'
     end
 
+    namespace "v2" do
+      # Override the default UPDATE resources path because we don't use url-based params
+      put "title_cards" => "title_cards#update"
+      resources :title_cards, except: [:show, :update]
+    end
+
     # Try to route any GET, DELETE, POST, PUT or PATCH to the proper controller.
     # This converts requests like GET /v1/ping to /api/v1/ping, and also
     # /ping to /api/v1/ping.
