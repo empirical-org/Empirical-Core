@@ -46,8 +46,8 @@ class Auth::CleverController < ApplicationController
     end
   end
 
-  def user_failure(data, redirect='/clever/no_classroom')
+  def user_failure(data, redirect)
     flash[:notice] = data || "error"
-    redirect_to redirect
+    redirect_to redirect || '/clever/no_classroom'
   end
 end
