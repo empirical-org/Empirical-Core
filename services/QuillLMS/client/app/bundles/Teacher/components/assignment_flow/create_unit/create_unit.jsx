@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Stage1 from './stage1/unit_stage1';
+import Stage1 from './select_activities_container';
 import Stage2 from './stage2/Stage2';
 import { requestGet, requestPost, } from '../../../../../modules/request';
 import UnitTemplatesAssigned from '../unit_template_assigned';

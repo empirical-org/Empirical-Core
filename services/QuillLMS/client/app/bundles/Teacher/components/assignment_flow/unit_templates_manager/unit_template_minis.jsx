@@ -4,7 +4,7 @@ import _l from 'lodash'
 import { Link } from 'react-router'
 import { DropdownInput } from 'quill-component-library/dist/componentLibrary'
 
-import UnitTemplateMini from './unit_template_mini/unit_template_mini'
+import UnitTemplateMini from './unit_template_mini'
 
 export default class UnitTemplateMinis extends React.Component {
   constructor(props) {
