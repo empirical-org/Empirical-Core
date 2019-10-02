@@ -1,7 +1,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import EditStudentsButton from '../EditStudentsButton.jsx'
-import ButtonLoadingIndicator from '../../../../shared/button_loading_indicator'
+import ButtonLoadingIndicator from '../../shared/button_loading_indicator'
 
 describe('EditStudentsButton component', () => {
   const dataFuncMock = jest.fn()
@@ -32,7 +32,7 @@ describe('EditStudentsButton component', () => {
       expect(wrapper.text()).toEqual(buttonText)
     })
   })
-  
+
   describe('if it is not enabled and not loading', () => {
     const disabledText = "Edit Students Before Assigning"
     const wrapper = shallow(
