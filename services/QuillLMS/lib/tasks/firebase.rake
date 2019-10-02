@@ -9,7 +9,12 @@ namespace :firebase do
       puts '  rake firebase:import_data FIREBASE_ROOT_URL=https://quillconnect.firebaseio.com/v2/titleCards RAILS_MODEL=TitleCard'
       exit
     end
-    klass = RAILS_MODEL.constantize
+    begin
+      klass = RAILS_MODEL.constantize
+    rescue NameError
+      puts "'#{RAILS_MODEL}' does not seem to be a defined model."
+      exit
+    end
     uri = URI("#{FIREBASE_URL}.json?shallow=true")
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = true
@@ -25,13 +30,13 @@ namespace :firebase do
       resp = http.get uri
       data = JSON.parse(resp.body)
       data.update({uid: key})
-      begin
+      obj = klass.find_by(uid: key)
+      if obj
+        obj.update(data)
+        puts "...updated #{RAILS_MODEL} with uid #{key}"
+      else
         klass.create(data)
         puts "...created #{RAILS_MODEL} with uid #{key}"
-      rescue ActiveRecord::RecordNotUnique
-        item = klass.find_by(uid: key)
-        item.update(data)
-        puts "...updated #{RAILS_MODEL} with uid #{key}"
       end
     end
   end
