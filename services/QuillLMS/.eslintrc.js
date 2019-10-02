@@ -3,7 +3,6 @@ module.exports = {
         'browser': true,
         'es6': true
     },
-    'extends': 'eslint:recommended',
     'parserOptions': {
         'ecmaFeatures': {
             'experimentalObjectRestSpread': true,
@@ -11,19 +10,7 @@ module.exports = {
         },
         'sourceType': 'module'
     },
-    'plugins': [
-        'react'
-    ],
     'rules': {
-        'indent': [0],
-        'linebreak-style': [
-            'error',
-            'unix'
-        ],
-        'quotes': [
-            'warn',
-            'single'
-        ],
-        'semi': [0]
+        'no-console': [2]
     }
 };

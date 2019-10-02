@@ -354,15 +354,14 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install eslint and eslint-nibble
+          name: Install eslint and babel-eslint globally
           command: |
-            npm install eslint
-            npm install eslint-nibble
+            npm install -g eslint babel-eslint
       - run:
           name: Run ESlint
           command: |
             cd services/QuillLMS/client
-            npx eslint-nibble --rule no:console --ext .js,.jsx .
+            npm run lint
 workflows:
   version: 2
   build-test:

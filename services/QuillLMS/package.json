@@ -45,7 +45,6 @@
     "rendering"
   ],
   "dependencies": {
-    "eslint-nibble": "^5.1.0",
     "faker": "^4.1.0",
     "foreman": "^3.0.1",
     "gitbook-plugin-rss": "git+https://git@github.com/ddmck/gitbook-plugin-rss.git",
