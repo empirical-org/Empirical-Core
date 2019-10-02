@@ -42,7 +42,7 @@ class Api::V2::TitleCardsController < ApplicationController
   private
 
     def get_title_card_by_uid
-      @title_card = TitleCard.find_by(uid: params[:uid])
+      @title_card = TitleCard.find_by(uid: params[:id])
     end
 
     def validate_params

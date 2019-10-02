@@ -386,7 +386,7 @@ EmpiricalGrammar::Application.routes.draw do
     end
 
     namespace "v2" do
-      resources :title_cards, param: :uid
+      resources :title_cards
     end
 
     # Try to route any GET, DELETE, POST, PUT or PATCH to the proper controller.
