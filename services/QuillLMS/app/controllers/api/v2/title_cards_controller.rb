@@ -1,14 +1,11 @@
 class Api::V2::TitleCardsController < ApplicationController
-#  before_filter :staff!, except: [:index, :show]
+  wrap_parameters format: [:json]
+  before_filter :auth_staff, except: [:index, :show]
   before_filter :get_title_card_by_uid, only: [:show, :update, :destroy]
   skip_before_action :verify_authenticity_token
 
   def index
-    if params[:uid]
-      get_title_card_by_uid
-      return show
-    end
-    render json: TitleCard.all.as_json
+    render json: TitleCard.all.as_json or {title_cards:[]}
   end
 
   def show
@@ -21,20 +18,25 @@ class Api::V2::TitleCardsController < ApplicationController
     begin
       return invalid_params unless @title_card.save
       render json: @title_card.as_json
-    rescue ActiveRecord::RecordNotUnique => e
-      render json: {error: "Title card with UID '#{params[:uid]}' already exists."},
-             status: :conflict
+    rescue ActiveRecord::RecordNotUnique
+      return duplicate_uid
     end
   end
 
   def update
-    return not_found unless @title_card
-    return invalid_params unless @title_card.update(validate_params)
-    render json: @title_card.as_json
+    begin
+      return not_found unless @title_card
+      return invalid_params unless @title_card.update(validate_params)
+      render json: @title_card.as_json
+    rescue ActiveRecord::RecordNotUnique
+      duplicate_uid
+    end
   end
 
   def destroy
+    return not_found unless @title_card
     @title_card.destroy
+    render plain: 'OK'
   end
 
   private
@@ -49,10 +51,19 @@ class Api::V2::TitleCardsController < ApplicationController
     end
 
     def not_found
-      render json: {}, status: :not_found
+      render plain: '', status: :not_found
     end
 
     def invalid_params
       render json: @title_card.errors, status: :unprocessable_entity
+    end
+
+    def duplicate_uid
+      render json: {error: "Title card with UID '#{params[:title_card][:uid]}' already exists."},
+             status: :conflict
+    end
+
+    def auth_staff
+      return render plain: 'Only available to authorized "staff" users', status: :forbidden unless current_user.try(:staff?)
     end
 end
