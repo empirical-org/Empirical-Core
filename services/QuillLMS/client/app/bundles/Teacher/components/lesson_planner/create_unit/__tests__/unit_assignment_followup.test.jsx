@@ -29,7 +29,7 @@ describe('Unit assignment followup component', () => {
 
     })
 
-    describe('on stage 2', () => {
+    describe('on showNextOptions', () => {
       const wrapper = shallow(
         <UnitAssignmentFollowup
           selectedActivities={activities}
@@ -38,14 +38,14 @@ describe('Unit assignment followup component', () => {
           referralCode="code"
         />
       )
-      
-      wrapper.setState({ stage: 2, })
+
+      wrapper.setState({ showNextOptions: true, })
 
       it('should render', () => {
         expect(wrapper).toMatchSnapshot()
       })
 
-      it('should render the next options when it is on stage 2', () => {
+      it('should render the next options when showNextOptions is true', () => {
         expect(wrapper.find('.next-options').exists()).toBe(true)
       })
 
