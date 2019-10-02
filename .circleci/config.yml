@@ -354,9 +354,10 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install eslint-nibble
+          name: Install eslint and eslint-nibble
           command: |
-            npm install --no-save eslint-nibble
+            npm install eslint
+            npm install eslint-nibble
       - run:
           name: Run ESlint
           command: |
