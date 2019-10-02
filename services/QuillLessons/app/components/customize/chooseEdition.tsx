@@ -157,15 +157,10 @@ class ChooseEdition extends React.Component<any, any> {
   }
 
   renderExplanation() {
-    const selectState = this.props.classroomSessions.data.preview ||
-      getParameterByName('classroom_unit_id');
-
-
-    if (selectState) {
-      return <p className="explanation">By clicking <span>“Customize”</span> and then selecting <span>“Make Copy,”</span> you will be able to customize the lesson with your own content. You can update your own editions at any time by clicking on <span>“Customize”</span> and then selecting <span>“Edit Edition”</span>. If you decide to customize a lesson now, your launched lesson will be paused until you publish your new edition.</p>
-    } else {
-      return <p className="explanation">By clicking <span>“Customize”</span> and then selecting <span>“Make Copy,”</span> you will be able to customize the lesson with your own content. You can update your own editions at any time by clicking on <span>“Customize”</span> and then selecting <span>“Edit Edition”</span>.</p>
-    }
+    return (<div className="explanation">
+      <p>You can change the prompts in this lesson by clicking <span>"Customize"</span> and selecting <span>"Make Copy."</span> This will create your own edition of the lesson, which you can customize.</p>
+      <p>Once you publish your customized edition of the lesson, it will be listed as an option any time you click on the lesson's name.</p>
+    </div>)
   }
 
   renderNamingModal() {

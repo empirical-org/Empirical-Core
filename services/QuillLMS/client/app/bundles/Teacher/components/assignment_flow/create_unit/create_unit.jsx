@@ -3,7 +3,7 @@ import React from 'react';
 import Stage1 from './select_activities_container';
 import Stage2 from './stage2/Stage2';
 import { requestGet, requestPost, } from '../../../../../modules/request';
-import UnitTemplatesAssigned from '../unit_template_assigned';
+import UnitAssignmentFollowup from './unit_assignment_followup.tsx';
 import AnalyticsWrapper from '../../shared/analytics_wrapper';
 
 export default class CreateUnit extends React.Component {
@@ -238,7 +238,7 @@ export default class CreateUnit extends React.Component {
   }
 
   onCreateSuccess(response) {
-    this.setState({ newUnitId: response.id, });
+    this.setState({ newUnitId: response.id, assignSuccess: true, });
     this.toggleStage(3);
   }
 
@@ -343,8 +343,15 @@ export default class CreateUnit extends React.Component {
   }
 
   stage3specificComponents() {
+    const { referralCode, } = this.props
+    const { classrooms, selectedActivities, name, } = this.state
     if ((this.state.assignSuccess)) {
-      return (<UnitTemplatesAssigned data={this.state.assignSuccess} />);
+      return (<UnitAssignmentFollowup
+        classrooms={classrooms}
+        selectedActivities={selectedActivities}
+        unitName={name}
+        referralCode={referralCode}
+      />);
     }
 
     if(_.map(this.state.selectedActivities, activity => { return activity.activity_classification.id }).includes(6)) {
