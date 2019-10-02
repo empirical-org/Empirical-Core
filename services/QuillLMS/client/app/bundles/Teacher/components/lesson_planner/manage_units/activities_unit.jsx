@@ -8,9 +8,11 @@ import AddClassroomActivityRow from './add_classroom_activity_row.jsx';
 import { Snackbar, defaultSnackbarTimeout } from 'quill-component-library/dist/componentLibrary';
 import * as api from '../../modules/call_api';
 
-export default React.createClass({
-  getInitialState() {
-    return {
+export default class ActivitiesUnit extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
       edit: false,
       unitName: (this.props.data.unitName || this.props.data.unit.name),
       savedUnitName: (this.props.data.unitName || this.props.data.unit.name),
@@ -21,31 +23,31 @@ export default React.createClass({
       snackbarVisible: false,
       snackbarFadeTimer: null,
       allowSorting: this.props.allowSorting || false,
-    };
-  },
+    }
+  }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps = (nextProps) => {
     if (nextProps.data.classroomActivities && (nextProps.data.classroomActivities.length === this.state.classroomActivities.length)) {
       this.setState({ classroomActivities: nextProps.data.classroomActivities, });
     } else if (nextProps.data.classroom_activities && (nextProps.data.classroom_activities.length === this.state.classroomActivities.length)) {
       this.setState({ classroomActivities: nextProps.data.classroom_activities, });
     }
-  },
+  }
 
-  ownedByCurrentUser() {
+  ownedByCurrentUser = () => {
     const firstCa = this.state.classroomActivities.values().next().value;
     return firstCa.ownedByCurrentUser;
-  },
+  }
 
 
-  hideUnit() {
+  hideUnit = () => {
     const x = confirm('Are you sure you want to delete this Activity Pack? \n \nIt will delete all assignments given to students associated with this pack, even if those assignments have already been completed.');
     if (x) {
       this.props.hideUnit(this.getUnitId());
     }
-  },
+  }
 
-  assignedToSection() {
+  assignedToSection = () => {
     const dclassy = this.props.data.classrooms;
     // ensure classrooms is always an array as sometimes it is passed a set
     // and we need to do a number of things with it that are better with an array
@@ -57,9 +59,9 @@ export default React.createClass({
         {classroomList}
       </ul>
     </div>);
-  },
+  }
 
-  classroomList(classrooms) {
+  classroomList = (classrooms) => {
     if (classrooms.length >= 4 && !this.state.showAllClassrooms) {
       const classroomsArray = classrooms.slice(0, 3).map((c, i) => <li key={i}>{c.name} <span>({c.assignedStudentCount}/{c.totalStudentCount} {Pluralize('student', c.totalStudentCount)})</span></li>)
       classroomsArray.push(<li className="see-all" onClick={() => this.setState({showAllClassrooms: true})}>Show all {classrooms.length} classes <i className="fa fa-icon fa-chevron-down"/></li>)
@@ -67,13 +69,13 @@ export default React.createClass({
     }
       return classrooms.map((c, i) => <li key={i}>{c.name} <span>({c.assignedStudentCount}/{c.totalStudentCount} {Pluralize('student', c.totalStudentCount)})</span></li>)
 
-  },
+  }
 
-  editUnit() {
+  editUnit = () => {
     this.props.editUnit(this.getUnitId());
-  },
+  }
 
-  deleteOrLockedInfo() {
+  deleteOrLockedInfo = () => {
     const firstCa = this.state.classroomActivities.values().next().value;
     const ownedByCurrentUser = this.ownedByCurrentUser();
     if (!this.props.report && !this.props.lesson && ownedByCurrentUser) {
@@ -89,9 +91,9 @@ export default React.createClass({
           {this.renderTooltip()}
         </span>);
     }
-  },
+  }
 
-  editName() {
+  editName = () => {
     if (this.ownedByCurrentUser()) {
       let text,
         classy,
@@ -106,17 +108,17 @@ export default React.createClass({
       }
       return <span style={inlineStyle} className={classy} onClick={this.changeToEdit}>{text}</span>;
     }
-  },
+  }
 
-  submitName() {
+  submitName = () => {
     return <span className="edit-unit" onClick={this.handleSubmit}>Submit</span>;
-  },
+  }
 
-  toggleTooltip() {
+  toggleTooltip = () => {
     this.setState({ showTooltip: !this.state.showTooltip ,});
-  },
+  }
 
-  renderTooltip() {
+  renderTooltip = () => {
     const visible = this.state.showTooltip ? 'visible' : 'invisible';
     const ownerName = this.state.classroomActivities.values().next().value.ownerName;
     return (<div className={`tooltip ${visible}`}>
@@ -124,21 +126,21 @@ export default React.createClass({
       <p>Since {ownerName} created this activity pack, you are unable to edit this activity pack. You can ask the creator to edit it.</p>
       <p>If you would like to assign additional practice activities, you can create a new pack for your students.</p>
     </div>);
-  },
+  }
 
-  changeToEdit() {
+  changeToEdit = () => {
     this.setState({ edit: true, });
-  },
+  }
 
-  handleNameChange(e) {
+  handleNameChange = (e) => {
     this.setState({ unitName: e.target.value, });
-  },
+  }
 
-  editUnitName() {
+  editUnitName = () => {
     return <input type="text" onChange={this.handleNameChange} value={this.state.unitName} />;
-  },
+  }
 
-  editStudentsLink() {
+  editStudentsLink = () => {
     const ownedByCurrentUser = this.ownedByCurrentUser()
     const { report, lesson, } = this.props
     if (!ownedByCurrentUser || report || lesson) {
@@ -146,9 +148,9 @@ export default React.createClass({
     } else {
       return <a className="edit-unit edit-students" href={`/teachers/classrooms/activity_planner/units/${this.getUnitId()}/students/edit`}>Edit Classes & Students</a>
     }
-  },
+  }
 
-  handleSubmit() {
+  handleSubmit = () => {
     const that = this;
     api.changeActivityPackName(that.props.data.unitId, that.state.unitName,
                                () => that.setState({edit: false,
@@ -157,17 +159,17 @@ export default React.createClass({
                                (response) => that.setState({errors: response.body.errors,
                                                             edit: false,
                                                             unitName: that.state.savedUnitName}));
-  },
+  }
 
-  showUnitName() {
+  showUnitName = () => {
     return <span className="h-pointer">{this.state.unitName}</span>;
-  },
+  }
 
-  showOrEditName() {
+  showOrEditName = () => {
     return this.state.edit ? this.editUnitName() : this.showUnitName();
-  },
+  }
 
-  nameActionLink() {
+  nameActionLink = () => {
     if (this.state.edit) {
       return this.submitName();
     } else if (this.props.report || this.props.lesson) {
@@ -176,36 +178,36 @@ export default React.createClass({
     return this.editName();
 
     // return this.state.edit ? this.submitName() : this.editName()
-  },
+  }
 
-  getUnitId() {
+  getUnitId = () => {
     return this.props.data.unitId || this.props.data.unit.id;
-  },
+  }
 
-  addClassroomActivityRow() {
+  addClassroomActivityRow = () => {
     if (this.state.classroomActivities.values().next().value.ownedByCurrentUser) {
       return this.props.report || this.props.lesson ? null : <AddClassroomActivityRow unitId={this.getUnitId()} unitName={this.props.data.unitName || this.props.data.unit.name} />;
     }
-  },
+  }
 
-  saveSortOrder() {
+  saveSortOrder = () => {
     this.updateActivitiesApi(this.props.data.unitId, this.state.activityOrder, this.displaySaveSnackbar);
-  },
+  }
 
-  displaySaveSnackbar() {
+  displaySaveSnackbar = () => {
     if (this.state.snackbarFadeTimer) {
       clearTimeout(this.state.snackbarFadeTimer);
     }
     this.setState({snackbarVisible: true, snackbarFadeTimer: setTimeout(() => {
       this.setState({snackbarVisible: false});
     }, defaultSnackbarTimeout)});
-  },
+  }
 
-  updateActivitiesApi(unitId, activityIds, successHandler, errorHandler) {
+  updateActivitiesApi = (unitId, activityIds, successHandler, errorHandler) => {
     api.changeActivityPackOrder(unitId, activityIds, successHandler, errorHandler);
-  },
+  }
 
-  updateAllDueDates(date) {
+  updateAllDueDates = (date) => {
     const newClassroomActivities = new Map(this.state.classroomActivities);
     const uaIds = [];
     this.state.classroomActivities.forEach((v, k) => {
@@ -216,9 +218,9 @@ export default React.createClass({
     });
     this.setState({ classroomActivities: newClassroomActivities, });
     this.props.updateMultipleDueDates(uaIds, date);
-  },
+  }
 
-  numberOfStudentsAssignedToUnit() {
+  numberOfStudentsAssignedToUnit = () => {
     const dclassy = this.props.data.classrooms;
     // ensure classrooms is always an array as sometimes it is passed as a set
     const classrooms = Array.isArray(dclassy) ? dclassy : [...dclassy];
@@ -227,7 +229,7 @@ export default React.createClass({
       numberOfStudentsAssignedToUnit += Number(c.assignedStudentCount);
     });
     return numberOfStudentsAssignedToUnit;
-  },
+  }
 
   updateSortOrder(sortableListState) {
     // There are data states in which this update call is triggered with no items in the
@@ -243,39 +245,41 @@ export default React.createClass({
         sortableListState.draggingIndex === null) {
       this.setState({activityOrder: newSortOrder}, this.saveSortOrder);
     }
-  },
+  }
 
-  renderClassroomActivities() {
+  renderClassroomActivities = () => {
     const classroomActivitiesArr = [];
     let i = 0;
     for (let key of this.state.activityOrder) {
-      let ca = this.state.classroomActivities.get(key);
-      classroomActivitiesArr.push(
-        <ClassroomActivity
-          key={`${this.props.data.unitId}-${key}`}
-          report={this.props.report}
-          activityReport={this.props.activityReport}
-          lesson={this.props.lesson}
-          updateDueDate={this.props.updateDueDate}
-          hideUnitActivity={this.props.hideUnitActivity}
-          unitId={this.props.data.unitId}
-          data={ca}
-          updateAllDueDates={this.updateAllDueDates}
-          isFirst={i === 0}
-          numberOfStudentsAssignedToUnit={this.numberOfStudentsAssignedToUnit()}
-          activityWithRecommendationsIds={this.props.activityWithRecommendationsIds}
-        />
-      );
-      i++;
+      const ca = this.state.classroomActivities.get(key);
+      if (ca) {
+        classroomActivitiesArr.push(
+          <ClassroomActivity
+            key={`${this.props.data.unitId}-${key}`}
+            report={this.props.report}
+            activityReport={this.props.activityReport}
+            lesson={this.props.lesson}
+            updateDueDate={this.props.updateDueDate}
+            hideUnitActivity={this.props.hideUnitActivity}
+            unitId={this.props.data.unitId}
+            data={ca}
+            updateAllDueDates={this.updateAllDueDates}
+            isFirst={i === 0}
+            numberOfStudentsAssignedToUnit={this.numberOfStudentsAssignedToUnit()}
+            activityWithRecommendationsIds={this.props.activityWithRecommendationsIds}
+          />
+        );
+        i++;
+      }
     }
     if (this.state.allowSorting) {
       return <SortableList data={classroomActivitiesArr} sortCallback={this.updateSortOrder} />
     } else {
       return classroomActivitiesArr;
     }
-  },
+  }
 
-  render() {
+  render = () => {
     if (this.state.classroomActivities.size === 0) {
       return null;
     }
@@ -307,5 +311,5 @@ export default React.createClass({
       <Snackbar text="Activity order saved" visible={this.state.snackbarVisible} />
       </div>
     );
-  },
-});
+  }
+}
