@@ -64,12 +64,12 @@ describe Api::V2::TitleCardsController, type: :controller do
       expect(response.body).to match(/content.*can't be blank/)
     end
 
-    it 'should 409 CONFLICT if the provided UID already belongs to an existing TitleCard' do
+    it 'should 422 UNPROCESSABLE ENTITY if the provided UID already belongs to an existing TitleCard' do
       used_uid = SecureRandom.uuid
       create(:title_card, uid: used_uid)
       put :update, id: title_card.uid, title_card: {uid: used_uid}
-      expect(response.status).to eq(409)
-      expect(response.body).to match(/error.*Title card with UID '#{used_uid}' already exists./)
+      expect(response.status).to eq(422)
+      expect(response.body).to match(/uid.*has already been taken/)
     end
 
     it 'should 403 FORBIDDEN if a non-staff user calls it' do
@@ -105,10 +105,10 @@ describe Api::V2::TitleCardsController, type: :controller do
       expect(response.body).to match(/content.*can't be blank/)
     end
 
-    it 'should 409 CONFLICT if the provided UID already belongs to an existing TitleCard' do
+    it 'should 422 UNPROCESSABLE ENTITY if the provided UID already belongs to an existing TitleCard' do
       post :create, title_card: create_params.update({uid: title_card.uid})
-      expect(response.status).to eq(409)
-      expect(response.body).to match(/error.*Title card with UID '#{title_card.uid}' already exists./)
+      expect(response.status).to eq(422)
+      expect(response.body).to match(/uid.*has already been taken/)
     end
 
     it 'should 403 FORBIDDEN if a non-staff user calls it' do
