@@ -28,7 +28,6 @@ namespace :firebase do
       http.use_ssl = true
       resp = http.get(uri)
       data = JSON.parse(resp.body)
-      data.update({uid: key})
       obj = klass.find_or_create_by(uid: key)
       if obj.valid?
         puts("updating #{RAILS_MODEL} with uid '#{key}'")
