@@ -3,8 +3,8 @@ import $ from 'jquery';
 import { requestGet } from '../../../modules/request';
 import _ from 'underscore'
 import _l from 'lodash'
-import ManageUnits from '../components/lesson_planner/manage_units/manage_units'
-import UnitTemplatesManager from '../components/lesson_planner/unit_templates_manager/unit_templates_manager'
+import ManageUnits from '../components/assignment_flow/manage_units/manage_units'
+import UnitTemplatesManager from '../components/assignment_flow/unit_templates_manager/unit_templates_manager'
 import fnl from '../components/modules/fnl'
 import updaterGenerator from '../components/modules/updater'
 import Server from '../components/modules/server/server'
