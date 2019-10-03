@@ -9,7 +9,7 @@ const tableHeaders = [
   {
     name: 'Tool',
     attribute: 'tool',
-    width: '40px',
+    width: '20px',
     rowSectionClassName: 'tool-icon'
   },
   {
