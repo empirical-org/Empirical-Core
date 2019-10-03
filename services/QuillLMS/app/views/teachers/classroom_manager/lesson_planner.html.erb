@@ -14,6 +14,7 @@
       classroomId: @last_classroom_id.to_s,
       students: @students.to_s,
       flag: current_user&.testing_flag,
+			referralCode: current_user&.referral_code,
       user: current_user
     })%>
 	<!-- ==========================================================================
