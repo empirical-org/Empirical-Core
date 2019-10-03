@@ -23,7 +23,6 @@ namespace :firebase do
     results = JSON.parse(resp.body)
     puts("All keys loaded")
     results.keys.each do |key|
-      puts("Retrieving uid #{key}")
       uri = URI("#{FIREBASE_URL}/#{key}.json")
       http = Net::HTTP.new(uri.host, uri.port)
       http.use_ssl = true
@@ -32,9 +31,9 @@ namespace :firebase do
       data.update({uid: key})
       obj = klass.find_or_create_by(uid: key)
       if obj.valid?
-        puts("...updating #{RAILS_MODEL} with uid #{key}")
+        puts("updating #{RAILS_MODEL} with uid '#{key}'")
       else
-        puts("...creating #{RAILS_MODEL} with uid #{key}")
+        puts("creating #{RAILS_MODEL} with uid '#{key}'")
       end
       obj.assign_attributes(data)
       obj.save!
