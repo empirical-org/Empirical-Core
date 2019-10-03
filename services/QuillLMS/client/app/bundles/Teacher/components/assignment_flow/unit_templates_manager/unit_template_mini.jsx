@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router'
 import UnitTemplateFirstRow from './unit_template_first_row'
 import UnitTemplateSecondRow from './unit_template_second_row'
-import String from '../../../../modules/string.jsx'
+import String from '../../modules/string.jsx'
 
 export default class UnitTemplateMini extends React.Component {
   constructor(props) {

@@ -6,7 +6,7 @@ import CreateAClassModal from '../components/classrooms/create_a_class_modal.tsx
 import ImportGoogleClassroomsModal from '../components/classrooms/import_google_classrooms_modal.tsx'
 import GoogleClassroomEmailModal from '../components/classrooms/google_classroom_email_modal.tsx'
 import GoogleClassroomsEmptyModal from '../components/classrooms/google_classrooms_empty_modal.tsx'
-import ClassroomsWithStudents from '../components/lesson_planner/create_unit/stage2/ClassroomsWithStudents.jsx';
+import ClassroomsWithStudents from '../components/classrooms_with_students/ClassroomsWithStudents.jsx';
 import LoadingIndicator from '../components/shared/loading_indicator.jsx';
 import ButtonLoadingIndicator from '../components/shared/button_loading_indicator'
 import _ from 'underscore';

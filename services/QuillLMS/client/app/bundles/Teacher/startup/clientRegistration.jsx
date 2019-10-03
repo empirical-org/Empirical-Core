@@ -12,7 +12,6 @@ import AdminAccountsApp from './AdminAccountsAppClient';
 import AdminsEditorApp from './AdminsEditorAppClient';
 import PublicActivityPacksApp from './PublicActivityPacksAppClient.jsx';
 import DiagnosticReportsApp from './DiagnosticReportsAppClient.jsx';
-import DiagnosticPlannerApp from './DiagnosticPlannerAppClient.jsx';
 import UnitTemplatesApp from './UnitTemplatesClient.jsx';
 import PublicUnitTemplatesApp from './PublicUnitTemplatesAppClient.jsx';
 import AssignActivitiesApp from './AssignActivitiesAppClient';
@@ -47,7 +46,6 @@ ReactOnRails.register({ TeacherGuideApp,
   AdminAccountsApp,
   AdminsEditorApp,
   PublicActivityPacksApp,
-  DiagnosticPlannerApp,
   DiagnosticReportsApp,
   UnitTemplatesApp,
   PublicUnitTemplatesApp,

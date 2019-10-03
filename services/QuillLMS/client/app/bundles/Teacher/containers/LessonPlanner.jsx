@@ -4,17 +4,17 @@ import React from 'react'
 import { requestGet, requestPost } from '../../../modules/request';
 import _ from 'underscore'
 import _l from 'lodash'
-import UnitTemplatesAssigned from '../components/lesson_planner/unit_template_assigned'
-import CreateUnit from '../components/lesson_planner/create_unit/create_unit'
-import ManageUnits from '../components/lesson_planner/manage_units/manage_units'
-import UnitTemplatesManager from '../components/lesson_planner/unit_templates_manager/unit_templates_manager'
+import UnitTemplatesAssigned from '../components/assignment_flow/unit_template_assigned'
+import CreateUnit from '../components/assignment_flow/create_unit/create_unit'
+import ManageUnits from '../components/assignment_flow/manage_units/manage_units'
+import UnitTemplatesManager from '../components/assignment_flow/unit_templates_manager/unit_templates_manager'
 import fnl from '../components/modules/fnl'
 import updaterGenerator from '../components/modules/updater'
 import Server from '../components/modules/server/server'
 import WindowPosition from '../components/modules/windowPosition'
 import AnalyticsWrapper from '../components/shared/analytics_wrapper'
-import AssignANewActivity from '../components/lesson_planner/create_unit/assign_a_new_activity.jsx'
-import AssignADiagnostic from '../components/lesson_planner/create_unit/assign_a_diagnostic.tsx'
+import AssignANewActivity from '../components/assignment_flow/create_unit/assign_a_new_activity.jsx'
+import AssignADiagnostic from '../components/assignment_flow/create_unit/assign_a_diagnostic.tsx'
 
 export default React.createClass({
 	propTypes: {
