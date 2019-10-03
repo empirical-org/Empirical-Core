@@ -12,98 +12,99 @@ const styles = {
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  endRow: {
+  endRow:{
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
     maxWidth: '240px',
   },
-  lessonEndRow: {
+  lessonEndRow:{
     display: 'flex',
     width: '100%',
     maxWidth: '390px',
     justifyContent: 'flex-end',
     alignItems: 'center',
   },
-  reportEndRow: {
+  reportEndRow:{
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
     marginRight: '15px',
-  },
-};
+  }
+}
 
-export default React.createClass({
+export default class ClassroomActivity extends React.Component {
+  constructor(props) {
+    super(props)
 
-  getInitialState() {
-    return {
+    this.state = {
       startDate: this.dueDate() ? moment(this.dueDate()) : undefined,
       showModal: false,
       showCustomizeTooltip: false,
       showLessonPlanTooltip: false,
-    };
-  },
+    }
+  }
 
-  componentWillReceiveProps(nextProps) {
-    const newDueDate = nextProps.data.dueDate;
+  componentWillReceiveProps = (nextProps) => {
+    const newDueDate = nextProps.data ? nextProps.data.dueDate : null
     const formattedNewDueDate = newDueDate ? moment(newDueDate) : undefined;
     if (formattedNewDueDate !== this.state.startDate) {
       this.setState({ startDate: formattedNewDueDate, });
     }
-  },
+  }
 
-  hideUnitActivity() {
+  hideUnitActivity = () => {
     const x = confirm('Are you sure you want to delete this assignment?');
     if (x) {
       this.props.hideUnitActivity(this.uaId(), this.unitId());
     }
-  },
+  }
 
-  handleChange(date) {
+  handleChange = (date) => {
     this.setState({ startDate: date, });
     this.props.updateDueDate(this.uaId(), date.format());
-  },
+  }
 
-  toggleCustomizeTooltip() {
+  toggleCustomizeTooltip = () => {
     this.setState({ showCustomizeTooltip: !this.state.showCustomizeTooltip, });
-  },
+  }
 
-  toggleLessonPlanTooltip() {
+  toggleLessonPlanTooltip = () => {
     this.setState({ showLessonPlanTooltip: !this.state.showLessonPlanTooltip, });
-  },
+  }
 
-  renderCustomizedEditionsTag() {
+  renderCustomizedEditionsTag = () => {
     if (window.location.pathname.includes('lessons')) {
       if (this.props.data.hasEditions) {
         return <div className="customized-editions-tag">Customized</div>;
       }
     }
-  },
+  }
 
-  renderCustomizeTooltip() {
+  renderCustomizeTooltip = () => {
     if (this.state.showCustomizeTooltip) {
       return (<div className="customize-tooltip">
         <i className="fa fa-caret-up" />
         Customize
       </div>);
     }
-  },
+  }
 
-  renderLessonPlanTooltip() {
+  renderLessonPlanTooltip = () => {
     if (this.state.showLessonPlanTooltip) {
       return (<div className="lesson-plan-tooltip">
         <i className="fa fa-caret-up" />
         Download Lesson Plan
       </div>);
     }
-  },
+  }
 
-  goToRecommendations() {
+  goToRecommendations = () => {
     const link = `/teachers/progress_reports/diagnostic_reports#/u/${this.unitId()}/a/${this.activityId()}/c/${this.classroomId()}/recommendations`;
     window.location = link;
-  },
+  }
 
-  buttonForRecommendations() {
+  buttonForRecommendations = () => {
     const activityWithRecommendationIds = this.props.activityWithRecommendationsIds;
     if (activityWithRecommendationIds && activityWithRecommendationIds.includes(this.activityId()) && window.location.pathname.includes('diagnostic_reports')) {
       return (
@@ -112,9 +113,9 @@ export default React.createClass({
         </div>
       );
     }
-  },
+  }
 
-  renderLessonsAction() {
+  renderLessonsAction = () => {
     if (window.location.pathname.includes('lessons')) {
       if (this.props.data.completed === 't') {
         return <p className="lesson-completed"><i className="fa fa-icon fa-check-circle" />Lesson Complete</p>;
@@ -124,9 +125,9 @@ export default React.createClass({
         return <a className="mark-completed" target="_blank" href={href}>Mark As Complete</a>;
       }
     }
-  },
+  }
 
-  lessonFinalCell() {
+  lessonFinalCell = () => {
     return (<div className="lessons-end-row">
       {this.lessonCompletedOrLaunch()}
       <a
@@ -149,19 +150,19 @@ export default React.createClass({
         {this.renderLessonPlanTooltip()}
       </a>
     </div>);
-  },
+  }
 
-  urlForReport() {
+  urlForReport = () => {
     $.get(`/teachers/progress_reports/report_from_unit_and_activity/u/${this.unitId()}/a/${this.activityId()}`)
       .success(data => window.location = data.url)
       .fail(() => alert('This report is not yet available. Please check back when at least one of your students has completed this activity.'));
-  },
+  }
 
-  anonymousPath() {
+  anonymousPath = () => {
     return `${process.env.DEFAULT_URL}/activity_sessions/anonymous?activity_id=${this.activityId()}`;
-  },
+  }
 
-  calculateAverageScore() {
+  calculateAverageScore = () => {
     const averageScore = this.props.data.cumulativeScore / this.props.data.completedCount;
     if (isNaN(averageScore)) {
       return '—';
@@ -169,9 +170,9 @@ export default React.createClass({
       return `${averageScore.toPrecision(2)}%`;
     }
     return `${averageScore}%`;
-  },
+  }
 
-  finalCell() {
+  finalCell = () => {
     if (this.props.activityReport) {
       return [
         <span key="number-of-students" className="number-of-students">{this.renderPieChart()} {this.props.data.completedCount} of {this.props.numberOfStudentsAssignedToUnit} {Pluralize('student', this.props.numberOfStudentsAssignedToUnit)}</span>,
@@ -191,9 +192,9 @@ export default React.createClass({
       </span>);
     }
     return this.state.startDate ? <div className="due-date-input">{this.state.startDate.format('l')}</div> : null;
-  },
+  }
 
-  renderPieChart() {
+  renderPieChart = () => {
     const rawPercent = this.props.data.completedCount / this.props.numberOfStudentsAssignedToUnit;
     const percent = rawPercent > 100 ? 100 : Math.round(rawPercent * 100) / 100;
     const largeArcFlag = percent > 0.5 ? 1 : 0;
@@ -203,41 +204,41 @@ export default React.createClass({
         <path d={pathData} fill="#348fdf" />
       </svg>
     );
-  },
+  }
 
-  classroomUnitId() {
+  classroomUnitId = () => {
     return this.props.data.cuId || this.props.data.classroom_unit_id;
-  },
+  }
 
-  uaId() {
+  uaId = () => {
     return this.props.data.uaId || this.props.data.ua_id;
-  },
+  }
 
-  unitId() {
+  unitId = () => {
     return this.props.unitId || this.props.data.unit_id;
-  },
+  }
 
-  dueDate() {
+  dueDate = () => {
     return this.props.data.due_date || this.props.data.dueDate;
-  },
+  }
 
-  activityId() {
+  activityId = () => {
     return this.props.data.activityId || this.props.data.activityUid || this.props.data.activity.uid;
-  },
+  }
 
-  activityName() {
+  activityName = () => {
     return this.props.data.name || this.props.data.activity.name;
-  },
+  }
 
-  classification() {
+  classification = () => {
     return this.props.data.activityClassificationId;
-  },
+  }
 
-  classroomId() {
+  classroomId = () => {
     return this.props.data.classroomId || this.props.data.classroom_id;
-  },
+  }
 
-  icon() {
+  icon = () => {
     const classification = this.classification();
     if (classification) {
       // then we're coming from the index and have an id
@@ -246,9 +247,9 @@ export default React.createClass({
     // it is stupid that we are passing this in some of this components use create_activity_sessions
     //  but don't have time to deprecate it right now
     return this.props.data.activity && this.props.data.activity.classification ? this.props.data.activity.classification.green_image_class : '';
-  },
+  }
 
-  lessonCompletedOrLaunch() {
+  lessonCompletedOrLaunch = () => {
     if (this.props.data.completed === 't') {
       return <a className="report-link" target="_blank" href={`/teachers/progress_reports/report_from_classroom_unit_and_activity/${this.classroomUnitId()}/a/${this.activityId()}`}>View Report</a>;
     }
@@ -259,34 +260,34 @@ export default React.createClass({
       return <a href={`${process.env.DEFAULT_URL}/teachers/classroom_units/${this.classroomUnitId()}/launch_lesson/${this.activityId()}`} className="resume-lesson">Resume Lesson</a>;
     }
     return <a href={`${process.env.DEFAULT_URL}/teachers/classroom_units/${this.classroomUnitId()}/launch_lesson/${this.activityId()}`} id="launch-lesson">Launch Lesson</a>;
-  },
+  }
 
-  noStudentsWarning() {
+  noStudentsWarning = () => {
     if (window.confirm("You have no students in this class. Quill Lessons is a collaborative tool for teachers and students to work together. If you'd like to launch this lesson anyway, click OK below. Otherwise, click Cancel.")) {
       window.location.href = `${process.env.DEFAULT_URL}/teachers/classroom_units/${this.classroomUnitId()}/launch_lesson/${this.activityId()}`;
     }
-  },
+  }
 
-  isLesson() {
+  isLesson = () => {
     return this.props.lesson || this.classification() === 6;
-  },
+  }
 
-  deleteRow() {
+  deleteRow = () => {
     if (!this.props.report && !(this.isLesson())) {
       const style = !this.props.data.ownedByCurrentUser ? { visibility: 'hidden', } : null;
       return <div className="pull-right" style={style}><img className="delete-classroom-activity h-pointer" onClick={this.hideUnitActivity} src="/images/x.svg" /></div>;
     }
-  },
+  }
 
-  openModal() {
+  openModal = () => {
     this.setState({ showModal: true, });
-  },
+  }
 
-  closeModal() {
+  closeModal = () => {
     this.setState({ showModal: false, });
-  },
+  }
 
-  renderModal() {
+  renderModal = () => {
     if (this.state.showModal) {
       return (<PreviewOrLaunchModal
         lessonID={this.activityId()}
@@ -295,9 +296,9 @@ export default React.createClass({
         completed={this.props.data.completed}
       />);
     }
-  },
+  }
 
-  render() {
+  render = () => {
     let link,
       endRow;
     if (this.props.report) {
@@ -330,5 +331,5 @@ export default React.createClass({
         </div>
       </div>
     );
-  },
-});
+  }
+};
