@@ -47,6 +47,10 @@ module NavigationHelper
     end
   end
 
+  def in_assignment_flow
+    current_uri = request.env['PATH_INFO']
+    current_uri.match(/assign\/.*/)
+  end
 
   # NOTE: subnavs for other pages are handled on the front end with React.
   def should_render_subnav?
