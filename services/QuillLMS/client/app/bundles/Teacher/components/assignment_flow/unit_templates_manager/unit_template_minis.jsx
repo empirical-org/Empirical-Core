@@ -48,7 +48,7 @@ export default class UnitTemplateMinis extends React.Component {
   }
 
   getIndexLink() {
-    return this.props.signedInTeacher ? '/teachers/classrooms/assign_activities/featured-activity-packs' : '/activities/packs'
+    return this.props.signedInTeacher ? '/assign/featured-activity-packs' : '/activities/packs'
   }
 
   generateShowAllGradesView() {

@@ -29,7 +29,7 @@ exports[`AssignADiagnostic component should render 1`] = `
       header="Starter Diagnostic"
       imgAlt="page with a little writing"
       imgSrc="undefined/images/illustrations/diagnostics-starter.svg"
-      link="undefined/teachers/classrooms/assign_activities/new_unit/students/edit/name/Starter%20Diagnostic/activity_ids/849?unit_template_id=99"
+      link="undefined/assign/new_unit/students/edit/name/Starter%20Diagnostic/activity_ids/849?unit_template_id=99"
     />
     <AssignmentCard
       bodyArray={
@@ -49,7 +49,7 @@ exports[`AssignADiagnostic component should render 1`] = `
       header="Intermediate Diagnostic"
       imgAlt="page with a medium amount of writing"
       imgSrc="undefined/images/illustrations/diagnostics-intermediate.svg"
-      link="undefined/teachers/classrooms/assign_activities/new_unit/students/edit/name/Intermediate%20Diagnostic/activity_ids/850?unit_template_id=100"
+      link="undefined/assign/new_unit/students/edit/name/Intermediate%20Diagnostic/activity_ids/850?unit_template_id=100"
     />
     <AssignmentCard
       bodyArray={
@@ -69,7 +69,7 @@ exports[`AssignADiagnostic component should render 1`] = `
       header="Advanced Diagnostic"
       imgAlt="page with a large amount of writing"
       imgSrc="undefined/images/illustrations/diagnostics-advanced.svg"
-      link="undefined/teachers/classrooms/assign_activities/new_unit/students/edit/name/Advanced%20Diagnostic/activity_ids/888?unit_template_id=126"
+      link="undefined/assign/new_unit/students/edit/name/Advanced%20Diagnostic/activity_ids/888?unit_template_id=126"
     />
     <AssignmentCard
       bodyArray={
@@ -89,7 +89,7 @@ exports[`AssignADiagnostic component should render 1`] = `
       header="ELL Diagnostic"
       imgAlt="page with writing that says ELL in the corner"
       imgSrc="undefined/images/illustrations/diagnostics-ell.svg"
-      link="undefined/teachers/classrooms/assign_activities/new_unit/students/edit/name/ELL%20Diagnostic/activity_ids/447?unit_template_id=34"
+      link="undefined/assign/new_unit/students/edit/name/ELL%20Diagnostic/activity_ids/447?unit_template_id=34"
     />
   </div>
 </div>

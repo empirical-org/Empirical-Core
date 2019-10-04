@@ -96,7 +96,7 @@ export default class UnitAssignmentFollowup extends React.Component<UnitAssignme
         text="Add students to your classes."
       />
       <Card
-        onClick={() => { window.location.href = `${process.env.DEFAULT_URL}/teachers/classrooms/assign_activities`}}
+        onClick={() => { window.location.href = `${process.env.DEFAULT_URL}/assign`}}
         imgSrc={assignActivitiesSrc}
         imgAlt="squares with plus sign"
         header="Assign more activities"

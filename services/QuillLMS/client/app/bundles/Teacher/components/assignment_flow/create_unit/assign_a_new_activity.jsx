@@ -8,7 +8,7 @@ export default React.createClass({
     let minis =
       [
           <AssignmentTypeMini
-            link='/teachers/classrooms/assign_activities/assign-a-diagnostic'
+            link='/assign/assign-a-diagnostic'
             key={'diagnostics'}
             title={'Entry Diagnostics'}
             img={`${process.env.CDN_URL}/images/shared/diagnostic_icon.svg`}
@@ -19,7 +19,7 @@ export default React.createClass({
             timeDuration={'~30 Min.'}
           />,
             <AssignmentTypeMini
-              link='/teachers/classrooms/assign_activities/featured-activity-packs'
+              link='/assign/featured-activity-packs'
               key={'featured'}
               toggleTarget={'exploreActivityPacks'}
               title={'Featured Activity Packs'}
@@ -31,7 +31,7 @@ export default React.createClass({
               timeDuration={'~1 Hour'}
             />,
             <AssignmentTypeMini
-              link='/teachers/classrooms/assign_activities/create-unit'
+              link='/assign/create-unit'
               key={'custom'}
               toggleTarget={'createUnit'}
               title={'Explore All Activities'}
@@ -51,35 +51,35 @@ tools: function() {
   return [
   <LessonTypeMini
     key={'diagnostic'}
-    link='/teachers/classrooms/assign_activities/create-unit?tool=diagnostic'
+    link='/assign/create-unit?tool=diagnostic'
     name='Quill Diagnostic'
     description='Identify Learning Gaps'
     imgSrc={`${process.env.CDN_URL}/images/icons/diagnostic-light-gray.svg`}
   />,
   <LessonTypeMini
     key={'lessons'}
-    link='/teachers/classrooms/assign_activities/create-unit?tool=lessons'
+    link='/assign/create-unit?tool=lessons'
     name='Quill Lessons'
     description='Lead Group Lessons'
     imgSrc={`${process.env.CDN_URL}/images/icons/lessons-light-gray.svg`}
   />,
   <LessonTypeMini
     key={'connect'}
-    link='/teachers/classrooms/assign_activities/create-unit?tool=connect'
+    link='/assign/create-unit?tool=connect'
     name='Quill Connect'
     description='Combine Sentences'
     imgSrc={`${process.env.CDN_URL}/images/icons/connect-light-gray.svg`}
   />,
   <LessonTypeMini
     key={'grammmar'}
-    link='/teachers/classrooms/assign_activities/create-unit?tool=sentence'
+    link='/assign/create-unit?tool=sentence'
     name='Quill Grammar'
     description='Practice Basic Grammar'
     imgSrc={`${process.env.CDN_URL}/images/icons/grammar-light-gray.svg`}
   />,
   <LessonTypeMini
     key={'proofreader'}
-    link='/teachers/classrooms/assign_activities/create-unit?tool=passage'
+    link='/assign/create-unit?tool=passage'
     name='Quill Proofreader'
     description='Find and Fix Errors in Passages'
     imgSrc={`${process.env.CDN_URL}/images/icons/proofreader-light-gray.svg`}

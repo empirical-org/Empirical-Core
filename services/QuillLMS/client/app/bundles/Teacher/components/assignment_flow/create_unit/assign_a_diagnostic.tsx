@@ -13,7 +13,7 @@ const ELL_DIAGNOSTIC = 'ELL Diagnostic'
 
 const minis = [
   (<AssignmentCard
-    link={`${process.env.DEFAULT_URL}/teachers/classrooms/assign_activities/new_unit/students/edit/name/${encodeURIComponent(STARTER_DIAGNOSTIC)}/activity_ids/${encodeURIComponent([849].toString())}?unit_template_id=${99}`}
+    link={`${process.env.DEFAULT_URL}/assign/new_unit/students/edit/name/${encodeURIComponent(STARTER_DIAGNOSTIC)}/activity_ids/${encodeURIComponent([849].toString())}?unit_template_id=${99}`}
     buttonText="Preview"
     buttonLink="https://diagnostic.quill.org/#/play/diagnostic/-LKX2sTTnPVhTOrWyUx9"
     header={STARTER_DIAGNOSTIC}
@@ -25,7 +25,7 @@ const minis = [
     ]}
   />),
   (<AssignmentCard
-    link={`${process.env.DEFAULT_URL}/teachers/classrooms/assign_activities/new_unit/students/edit/name/${encodeURIComponent(INTERMEDIATE_DIAGNOSTIC)}/activity_ids/${encodeURIComponent([850].toString())}?unit_template_id=${100}`}
+    link={`${process.env.DEFAULT_URL}/assign/new_unit/students/edit/name/${encodeURIComponent(INTERMEDIATE_DIAGNOSTIC)}/activity_ids/${encodeURIComponent([850].toString())}?unit_template_id=${100}`}
     buttonLink="https://diagnostic.quill.org/#/play/diagnostic/-LKbzH_Er916zGjgHk5U"
     buttonText="Preview"
     header={INTERMEDIATE_DIAGNOSTIC}
@@ -37,7 +37,7 @@ const minis = [
     ]}
   />),
   (<AssignmentCard
-    link={`${process.env.DEFAULT_URL}/teachers/classrooms/assign_activities/new_unit/students/edit/name/${encodeURIComponent(ADVANCED_DIAGNOSTIC)}/activity_ids/${encodeURIComponent([888].toString())}?unit_template_id=${126}`}
+    link={`${process.env.DEFAULT_URL}/assign/new_unit/students/edit/name/${encodeURIComponent(ADVANCED_DIAGNOSTIC)}/activity_ids/${encodeURIComponent([888].toString())}?unit_template_id=${126}`}
     buttonLink="https://diagnostic.quill.org/#/play/diagnostic/-LVxlcVPdW5DvAh_xgnj"
     buttonText="Preview"
     header={ADVANCED_DIAGNOSTIC}
@@ -49,7 +49,7 @@ const minis = [
     ]}
   />),
   (<AssignmentCard
-    link={`${process.env.DEFAULT_URL}/teachers/classrooms/assign_activities/new_unit/students/edit/name/${encodeURIComponent(ELL_DIAGNOSTIC)}/activity_ids/${encodeURIComponent([447].toString())}?unit_template_id=${34}`}
+    link={`${process.env.DEFAULT_URL}/assign/new_unit/students/edit/name/${encodeURIComponent(ELL_DIAGNOSTIC)}/activity_ids/${encodeURIComponent([447].toString())}?unit_template_id=${34}`}
     buttonLink="https://diagnostic.quill.org/#/play/diagnostic/ell"
     buttonText="Preview"
     header={ELL_DIAGNOSTIC}

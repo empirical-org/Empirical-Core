@@ -12,7 +12,7 @@ class Classroom < ActiveRecord::Base
   has_many :unit_activities, through: :units
   has_many :activities, through: :unit_activities
   has_many :activity_sessions, through: :classroom_units
-  has_many :sections, through: :assign_activities
+  has_many :sections, through: :activities
   has_many :coteacher_classroom_invitations
 
   has_many :students_classrooms, foreign_key: 'classroom_id', dependent: :destroy, class_name: "StudentsClassrooms"

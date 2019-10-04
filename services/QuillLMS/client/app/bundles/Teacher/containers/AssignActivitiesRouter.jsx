@@ -14,7 +14,7 @@ import CreateUnit from '../components/assignment_flow/create_unit/create_unit'
 
 const AssignActivitiesRouter = props => (
 	<Router Router history={browserHistory}>
-    <Route path="/teachers/classrooms/assign_activities" component={AssignActivitiesContainer}>
+    <Route path="/assign" component={AssignActivitiesContainer}>
 			<IndexRoute component={AssignANewActivity}/>
 			<Route path="assign-a-diagnostic" component={AssignADiagnostic} />
 			<Route path="create-unit" component={routerProps => <CreateUnit {...props} {...routerProps} />} />

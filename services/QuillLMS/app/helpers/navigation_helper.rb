@@ -11,7 +11,7 @@ module NavigationHelper
   end
 
   def assign_activity_page_should_be_active?
-    controller.class == Teachers::ClassroomManagerController && action_name == 'assign_activities'
+    controller.class == Teachers::ClassroomManagerController && action_name == 'assign'
   end
 
   def my_activities_page_should_be_active?

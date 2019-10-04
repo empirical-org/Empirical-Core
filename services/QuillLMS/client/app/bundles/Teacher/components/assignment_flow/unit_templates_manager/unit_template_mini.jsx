@@ -27,13 +27,13 @@ export default class UnitTemplateMini extends React.Component {
     let link
     if (this.props.data.id == 'createYourOwn') {
       if (this.props.signedInTeacher || (this.props.non_authenticated === false)) {
-        link = '/teachers/classrooms/assign_activities/create-unit'
+        link = '/assign/create-unit'
       } else {
         link = '/account/new'
       }
     } else {
       if (this.props.signedInTeacher || (this.props.non_authenticated === false)) {
-        link = `/teachers/classrooms/assign_activities/featured-activity-packs/${this.props.data.id}`;
+        link = `/assign/featured-activity-packs/${this.props.data.id}`;
       } else {
         link = `/activities/packs/${this.props.data.id}`
       }

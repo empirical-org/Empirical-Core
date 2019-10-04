@@ -14,7 +14,7 @@ exports[`ManageUnitsHeader component renders 1`] = `
       Below you can see all of the activities that you have assigned to your students. To assign more activities, click on the button to the right.
     </p>
     <a
-      href="/teachers/classrooms/assign_activities"
+      href="/assign"
     >
       <button
         className="button-green create-unit featured-button"

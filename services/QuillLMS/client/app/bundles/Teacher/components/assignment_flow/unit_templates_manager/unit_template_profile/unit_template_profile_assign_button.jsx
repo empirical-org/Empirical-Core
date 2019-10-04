@@ -22,7 +22,7 @@ export default React.createClass({
     const ut = this.props.data;
     const name = encodeURIComponent(ut.name);
     const activityIds = encodeURIComponent(ut.activities.map(act => act.id).toString());
-    window.location = `/teachers/classrooms/assign_activities/new_unit/students/edit/name/${name}/activity_ids/${activityIds}?unit_template_id=${ut.id}`;
+    window.location = `/assign/new_unit/students/edit/name/${name}/activity_ids/${activityIds}?unit_template_id=${ut.id}`;
   },
 
   fastAssign() {
@@ -38,7 +38,7 @@ export default React.createClass({
 
   onFastAssignSuccess() {
     this.analytics().track('click Create Unit', {});
-    window.location = `/teachers/classrooms/assign_activities/featured-activity-packs/${this.props.data.id}/assigned`;
+    window.location = `/assign/featured-activity-packs/${this.props.data.id}/assigned`;
   },
 
   propsSpecificComponent() {

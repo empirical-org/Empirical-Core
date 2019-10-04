@@ -9,14 +9,14 @@ class Teachers::ClassroomManagerController < ApplicationController
   include ScorebookHelper
 
   MY_ACCOUNT = 'my_account'
-  ASSIGN_ACTIVITIES = 'assign_activities'
+  ASSIGN = 'assign'
   SERIALIZED_GOOGLE_CLASSROOMS_FOR_ = 'SERIALIZED_GOOGLE_CLASSROOMS_FOR_'
 
   def lesson_planner
     set_classroom_variables
   end
 
-  def assign_activities
+  def assign
     session[GOOGLE_REDIRECT] = request.env['PATH_INFO']
     set_classroom_variables
   end

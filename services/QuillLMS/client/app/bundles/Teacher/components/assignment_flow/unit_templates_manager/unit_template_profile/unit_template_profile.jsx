@@ -49,7 +49,7 @@ export default class UnitTemplateProfile extends React.Component {
   indexLink() {
     return this.state.data.non_authenticated
       ? '/activities/packs'
-      : '/teachers/classrooms/assign_activities/featured-activity-packs';
+      : '/assign/featured-activity-packs';
   }
 
   socialShareUrl() {
