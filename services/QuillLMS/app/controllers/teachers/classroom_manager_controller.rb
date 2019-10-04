@@ -19,6 +19,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   def assign
     session[GOOGLE_REDIRECT] = request.env['PATH_INFO']
     set_classroom_variables
+    @number_of_activities_assigned = current_user.units.map(&:unit_activities).flatten.map(&:activity_id).uniq.size
   end
 
   def generic_add_students
