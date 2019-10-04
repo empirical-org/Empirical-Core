@@ -354,14 +354,13 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install eslint and babel-eslint globally
+          name: Install NPM Dependencies
           command: |
-            npm install -g eslint babel-eslint
+            npm install
       - run:
           name: Run ESlint
           command: |
-            cd services/QuillLMS/client
-            npm run lint
+            npm run eslint
 workflows:
   version: 2
   build-test:

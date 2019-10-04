@@ -45,7 +45,6 @@ describe('immutable', () => {
         dad: "Don"
       }})
       const test = Immutable.fromJS(state)
-      console.log("Should be undefined: ", Immutable.fromJS(undefined) === undefined)
       // const nextState = addSession(state, {ryan: {mom: "Catherine"}})
       const nextState = state.setIn(["ryan", "mom"], "Catherine")
       expect(nextState).toEqual(Immutable.fromJS({ryan: {

@@ -14,7 +14,6 @@ const {
 
 export default React.createClass({
   getInitialState: function () {
-    console.log(this.props.text)
     return {
       text: EditorState.createWithContent(convertFromHTML(this.props.text || ''))
     }
