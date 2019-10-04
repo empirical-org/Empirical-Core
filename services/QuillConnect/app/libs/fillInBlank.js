@@ -39,7 +39,6 @@ export default class Question {
     const exactMatch = this.checkExactMatch(response);
     if (exactMatch !== undefined) {
       returnValue.response = exactMatch;
-      console.log('Response: ', returnValue);
       return returnValue;
     }
     const lowerCaseMatch = this.checkCaseInsensitiveMatch(response);
@@ -48,7 +47,6 @@ export default class Question {
       res.author = 'Capitalization Hint';
       res.parentID = lowerCaseMatch.key;
       this.copyParentResponses(res, lowerCaseMatch);
-      console.log('Response: ', returnValue);
       return returnValue;
     }
     returnValue.found = false;

@@ -229,7 +229,6 @@ class ResponseComponent extends React.Component {
   }
 
   rematchAllResponses() {
-    console.log('Rematching All Responses');
     const pageNumber = 1;
     const callback = (done) => {
       if (done) {

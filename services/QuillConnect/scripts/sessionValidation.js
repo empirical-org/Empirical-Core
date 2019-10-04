@@ -74,17 +74,10 @@ async function processSessions(sessionIds) {
       nullUids.push(uid);
     }
   }
-
-  console.log(`Exact matches: ${matchUids.length}`);
-  console.log(`Mismatches: ${mismatchUids.length}`);
-  console.log(`Missing sessions: ${nullUids.length}`);
-  Object.keys(questionMatches).forEach((key) => {
-    console.log(`${questionMatches[key]} out of ${questionTotal[key]} ${key} questions matched (${questionMatches[key]/questionTotal[key] * 100}%)`);
-  });
 }
 
 function compareDataKey(key, oldSess, newSess) {
-  console.log(`${key} matches: ${_.isEqual(oldSess[key], newSess[key])}`);
+  // to do, use Sentry to capture error
 }
 
 function stripExtraKeys(session) {

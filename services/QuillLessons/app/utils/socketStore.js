@@ -29,7 +29,7 @@ class SocketStore {
         this._handleConnection(callback);
       }
     }).catch((error) => {
-      console.log(error);
+      // to do, use Sentry to capture error
     });
   }
 
@@ -54,11 +54,9 @@ class SocketStore {
 
     this.instance.on('connect', () => {
       this._addAuthtokenToConnection();
-      console.log('connected to server');
     });
 
     this.instance.on('disconnect', () => {
-      console.log('disconnected to server');
     });
   }
 

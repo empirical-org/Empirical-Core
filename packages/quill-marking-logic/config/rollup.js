@@ -81,7 +81,6 @@ function write(dest, code) {
     return new Promise(function (resolve, reject) {
         fs.writeFile(dest, code, function (err) {
             if (err) return reject(err)
-            console.log(blue(dest) + ' ' + getSize(code))
             resolve()
         })
     })
@@ -92,7 +91,7 @@ function getSize(code) {
 };
 
 function logError(e) {
-    console.log(e)
+    // to do, use Sentry to capture error
 };
 
 function blue(str) {
