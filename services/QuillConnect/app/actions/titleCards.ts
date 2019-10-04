@@ -41,7 +41,7 @@ function loadSpecifiedTitleCards(uids) {
 function submitNewTitleCard(content) {
   return (dispatch) => {
     requestPost(`${titleCardApiBaseUrl}.json`, content).then((body) => {
-      dispatch(loadTitleCards());
+      dispatch({ type: C.RECEIVE_TITLE_CARDS_DATA_UPDATE, data: body });
       const action = push(`/admin/title-cards/${newRef.key}`);
       dispatch(action);
     })
@@ -54,7 +54,7 @@ function submitNewTitleCard(content) {
 function submitTitleCardEdit(qid, content) {
   return (dispatch, getState) => {
     requestPut(`${titleCardApiBaseUrl}/${qid}.json`, content).then((body) => {
-      dispatch(loadTitleCards());
+      dispatch({ type: C.RECEIVE_TITLE_CARDS_DATA_UPDATE, data: body });
       dispatch({ type: C.DISPLAY_MESSAGE, message: 'Update successfully saved!', });
       const action = push(`/admin/title-cards/${qid}`);
       dispatch(action);
