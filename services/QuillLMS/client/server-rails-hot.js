@@ -40,7 +40,9 @@ const devServer = new WebpackDevServer(compiler, {
 
 devServer.listen(hotReloadingPort, hotReloadingHostname, err => {
   if (err) {
-    // to do, use Sentry to capture error
+    console.log(
+      `=> 🔥  Webpack development server is running on port ${hotReloadingUrl}`,
+    );
   }
   // to do, log message: Webpack development server is running on port ${hotReloadingUrl}
 });
