@@ -13,7 +13,7 @@ function startListeningToTitleCards() {
 function loadTitleCards() {
   return (dispatch) => {
     requestGet(`${titleCardApiBaseUrl}.json`).then((body) => {
-      let titleCards = body.title_cards.reduce((obj, item) => {
+      const titleCards = body.title_cards.reduce((obj, item) => {
         return Object.assign(obj, {[item.uid]: item});
       }, {});
       dispatch({ type: C.RECEIVE_TITLE_CARDS_DATA, data: titleCards, });
