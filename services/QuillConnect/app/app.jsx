@@ -7,7 +7,6 @@ if (!window.Promise) {
 import BackOff from './utils/backOff';
 import React from 'react';
 import { render } from 'react-dom';
-import { applyFeatureToPercentage } from 'apply-feature';
 import createStore from './utils/configureStore';
 import { Provider } from 'react-redux';
 import { Router, Route, IndexRoute, } from 'react-router';
@@ -76,22 +75,10 @@ function extractLessonUIDFromLocation() {
   const matches = window.location.hash.match(playRegex);
   return (matches) ? matches[2] : null;
 }
-function extractSessionUIDFromLocation() {
-  const playRegex = /^#\/play\/(lesson|turk)\/.+\?.*student=(.+)(&|$)/;
-  const matches = window.location.hash.match(playRegex);
-  const sessionUid = (matches) ? matches[2] : null;
-  if (!sessionUid || sessionUid === 'null') return null;
-  return sessionUid;
-}
 
 const lessonUid = extractLessonUIDFromLocation();
-const sessionUid = extractSessionUIDFromLocation();
 
-// This is the whole number percentage of users who will be assigned
-// to the new session type.
-const percentAssigned = 10;
-
-if (lessonUid && applyFeatureToPercentage(sessionUid, percentAssigned)) {
+if (lessonUid) {
   setTimeout(() => {
     store.dispatch(conceptActions.startListeningToConcepts());
     store.dispatch(conceptsFeedbackActions.loadConceptsFeedback());
