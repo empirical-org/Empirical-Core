@@ -265,13 +265,11 @@ EmpiricalGrammar::Application.routes.draw do
           "#{Rails.application.routes.url_helpers.lesson_planner_teachers_classrooms_path}?#{request.params.to_query}"
         }
         post :lesson_planner, controller: "classroom_manager", action: 'lesson_planner'
-        get :assign, controller: "classroom_manager", action: 'assign', path: 'assign'
         get :scorebook, controller: 'classroom_manager', action: 'scorebook'
         get :scores, controller: 'classroom_manager', action: 'scores'
         get :dashboard, controller: 'classroom_manager', action: 'dashboard'
         get :retrieve_classrooms_for_assigning_activities, controller: 'classroom_manager', action: 'retrieve_classrooms_for_assigning_activities'
         get :retrieve_classrooms_i_teach_for_custom_assigning_activities, controller: 'classroom_manager', action: 'retrieve_classrooms_i_teach_for_custom_assigning_activities'
-        post :assign, controller: 'classroom_manager', action: 'assign'
         get :invite_students, controller: 'classroom_manager', action: 'invite_students'
         get :google_sync, controller: 'classroom_manager', action: 'google_sync'
         get :retrieve_google_classrooms, controller: 'classroom_manager', action: 'retrieve_google_classrooms'
@@ -566,6 +564,7 @@ EmpiricalGrammar::Application.routes.draw do
   get 'teachers/classrooms/activity_planner/units/:unitId/activities/edit' => 'teachers/classroom_manager#lesson_planner'
   get 'teachers/classrooms/activity_planner/units/:unitId/activities/edit/:unitName' => 'teachers/classroom_manager#lesson_planner', :constraints => { :unitName => /[^\/]+/ }
 
+  get 'assign' => 'teachers/classroom_manager#assign', as: 'assign_path'
   get 'assign/:tab' => 'teachers/classroom_manager#assign'
   get 'assign/featured-activity-packs/category/:category' => 'teachers/classroom_manager#assign'
   get 'assign/featured-activity-packs/grade/:grade' => 'teachers/classroom_manager#assign'
