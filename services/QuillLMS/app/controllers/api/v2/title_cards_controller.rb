@@ -1,7 +1,9 @@
 class Api::V2::TitleCardsController < Api::V2::ApiV2Controller
   wrap_parameters format: [:json]
-  before_filter :auth_staff, except: [:index, :show]
   before_filter :get_title_card_by_uid, only: [:show, :update, :destroy]
+  # We're turning this off for now because we don't have a clean way to
+  # secure this endpoint
+  #before_filter :auth_staff, except: [:index, :show]
 
   def index
     render(json: TitleCard.all.as_json || {title_cards:[]})
@@ -12,7 +14,9 @@ class Api::V2::TitleCardsController < Api::V2::ApiV2Controller
   end
 
   def create
-    @title_card = TitleCard.new(validate_params)
+    valid_params = validate_params
+    valid_params[:uid] ||= SecureRandom.uuid
+    @title_card = TitleCard.new(valid_params)
     return invalid_params(@title_card) unless @title_card.save
     render(json: @title_card.as_json)
   end
