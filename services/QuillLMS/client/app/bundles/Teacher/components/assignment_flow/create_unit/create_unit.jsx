@@ -12,9 +12,9 @@ export default class CreateUnit extends React.Component {
 
     let stage = 1
     let name = ''
-    if (props.location.query.unit_template_id) {
+    if (props.location.query.unit_template_id || props.route.path === 'select-classes') {
       stage = 2
-      name = props.params.unitName
+      name = props.params.unitName || window.localStorage.getItem('unitName') || window.localStorage.getItem('unitTemplateName')
     }
 
     this.state = {
@@ -78,7 +78,7 @@ export default class CreateUnit extends React.Component {
   getActivities() {
     requestGet('/activities/search', (body) => {
       const { activities, } = body
-      const { activityIdsArray, } = this.props.params
+      const activityIdsArray = this.props.params.activityIdsArray || window.localStorage.getItem('activityIdsArray')
       const activityIdsArrayAsArray = activityIdsArray.split(',')
       const selectedActivities = activities.filter(act => activityIdsArrayAsArray.includes(String(act.id)))
       this.setState({ activities: activities, selectedActivities: selectedActivities, })
@@ -171,6 +171,7 @@ export default class CreateUnit extends React.Component {
 
   clickContinue() {
     this.analytics().track('click Continue in lesson planner');
+    this.props.router.push('/assign/select-classes')
     this.toggleStage(2);
     this.resetWindowPosition();
   }
@@ -231,7 +232,7 @@ export default class CreateUnit extends React.Component {
         name: this.getUnitName(),
         classrooms: classroomPostData,
         activities: activityPostData,
-        unit_template_id: this.props.location.query.unit_template_id
+        unit_template_id: this.props.location.query.unit_template_id || window.localStorage.getItem('unitTemplateId')
       }
     };
     return unitObject;
@@ -318,10 +319,14 @@ export default class CreateUnit extends React.Component {
     } else {
       newActivityArray.splice(indexOfActivity, 1);
     }
-    this.setState({ selectedActivities: newActivityArray, });
+    const newActivityArrayIds = newActivityArray.map(a => a.id).join(',')
+    this.setState({ selectedActivities: newActivityArray, }, () => {
+      window.localStorage.setItem('activityIdsArray',  newActivityArrayIds)
+    })
   }
 
   stage2SpecificComponents() {
+    const unitTemplateName = this.props.params.unitName || window.localStorage.getItem('unitTemplateName')
     return (<Stage2
       selectedActivities={this.getSelectedActivities()}
       data={this.assignSuccess}
@@ -333,7 +338,7 @@ export default class CreateUnit extends React.Component {
       toggleStudentSelection={this.toggleStudentSelection}
       finish={this.finish}
       unitName={this.getUnitName()}
-      unitTemplateName={this.props.params.unitName}
+      unitTemplateName={unitTemplateName}
       assignActivityDueDate={this.assignActivityDueDate}
       areAnyStudentsSelected={this.areAnyStudentsSelected()}
       errorMessage={this.determineStage2ErrorMessage()}
