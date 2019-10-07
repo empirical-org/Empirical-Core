@@ -18,10 +18,10 @@ export default class CreateUnit extends React.Component {
       stage = 2
       name = previouslyStoredName
     } else if (['next', 'referral', 'add-students'].includes(props.route.path)) {
+      stage = 3
       name = previouslyStoredName
       assignSuccess = true
     }
-    debugger;
 
     this.state = {
       prohibitedUnitNames: [],
