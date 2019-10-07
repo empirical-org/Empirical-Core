@@ -1,8 +1,7 @@
 import * as React from 'react'
-import { Link } from 'react-router'
 
 interface AssignmentCardProps {
-  link?: string;
+  selectCard?: () => void;
   imgSrc: string;
   imgAlt: string;
   header: string;
@@ -11,7 +10,7 @@ interface AssignmentCardProps {
   buttonLink?: string;
 }
 
-const AssignmentCard = ({ link, imgSrc, imgAlt, header, bodyArray, buttonText, buttonLink}: AssignmentCardProps) => {
+const AssignmentCard = ({ selectCard, imgSrc, imgAlt, header, bodyArray, buttonText, buttonLink}: AssignmentCardProps) => {
   const button = buttonText && buttonLink ? <a className="quill-button medium outlined secondary" target="_blank" href={buttonLink}>{buttonText}</a> : null
   const bodyElements = bodyArray.map(obj => (
     <div className="body-element">
@@ -19,7 +18,7 @@ const AssignmentCard = ({ link, imgSrc, imgAlt, header, bodyArray, buttonText, b
       <p className="text">{obj.text}</p>
     </div>)
   )
-  return (<Link to={link} className="assignment-card quill-card">
+  return (<div onClick={selectCard} className="assignment-card quill-card">
     <div className="top-row">
       <div className="left">
         <img src={imgSrc} alt={imgAlt} />
@@ -30,7 +29,7 @@ const AssignmentCard = ({ link, imgSrc, imgAlt, header, bodyArray, buttonText, b
     <div className="body">
       {bodyElements}
     </div>
-  </Link>)
+  </div>)
 }
 
 export default AssignmentCard

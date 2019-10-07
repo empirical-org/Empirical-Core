@@ -7,9 +7,13 @@ const packsWholeSrc = `${process.env.CDN_URL}/images/illustrations/packs-whole.s
 const packsIndependentSrc = `${process.env.CDN_URL}/images/illustrations/packs-independent.svg`
 const packsCustomSrc = `${process.env.CDN_URL}/images/illustrations/packs-custom.svg`
 
-const minis = [
+const selectCard = (router, link) => {
+  router.push(link)
+}
+
+const minis = (props) => [
   (<AssignmentCard
-    link={`${process.env.DEFAULT_URL}/assign/featured-activity-packs?type=whole-class`}
+    selectCard={() => selectCard(props.router, `${process.env.DEFAULT_URL}/assign/featured-activity-packs?type=whole-class`)}
     header="Browse packs with whole class and independent practice"
     imgSrc={packsWholeSrc}
     imgAlt="teacher pointing at board"
@@ -20,7 +24,7 @@ const minis = [
     ]}
   />),
   (<AssignmentCard
-    link={`${process.env.DEFAULT_URL}/assign/featured-activity-packs?type=independent-practice`}
+    selectCard={() => selectCard(props.router, `${process.env.DEFAULT_URL}/assign/featured-activity-packs?type=independent-practice`)}
     header="Browse packs with just independent practice"
     imgSrc={packsIndependentSrc}
     imgAlt="student with open laptop"
@@ -31,7 +35,7 @@ const minis = [
     ]}
   />),
   (<AssignmentCard
-    link={`${process.env.DEFAULT_URL}/assign/create-activity-pack`}
+    selectCard={() => selectCard(props.router, `${process.env.DEFAULT_URL}/assign/create-activity-pack`)}
     header="Create your own activity pack"
     imgSrc={packsCustomSrc}
     imgAlt="sheets of paper overlaid"
@@ -40,14 +44,14 @@ const minis = [
       { key: 'When', text: 'You want to assemble a specific sequence of independent practice and whole class activities rather than using a preassembled pack.', },
     ]}
   />)
-];
+]
 
-const ActivityType = () => (
+const ActivityType = (props) => (
   <div className="assignment-flow-container">
     <AssignmentFlowNavigation url={window.location.href} />
     <div className="activity-type container">
       <h1>Do you want to lead whole-class lessons or assign only independent practice?</h1>
-      <div className="minis">{minis}</div>
+      <div className="minis">{minis(props)}</div>
     </div>
   </div>
 );
