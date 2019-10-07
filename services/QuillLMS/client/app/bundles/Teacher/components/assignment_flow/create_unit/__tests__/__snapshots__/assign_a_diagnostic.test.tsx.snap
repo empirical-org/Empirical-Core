@@ -3,7 +3,7 @@
 exports[`AssignADiagnostic component should render 1`] = `
 <div
   className="text-center"
-  id="assign-a-diagnostic-page"
+  id="diagnostic-page"
 >
   <h1>
     Which diagnostic covers the skills you want to assess?

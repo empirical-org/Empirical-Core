@@ -335,7 +335,7 @@ export default React.createClass({
 		// if (this.state.unitTemplatesManager.assignSuccess === true && (!tabParam || tabParam == ('featured-activity-packs' || 'explore-activity-packs'))) {
 		// 	tabSpecificComponents = <UnitTemplatesAssigned data={this.state.unitTemplatesManager.lastActivityAssigned} actions={this.unitTemplatesAssignedActions()}/>;
 		// } else
-		if ((tabParam === 'create-unit' || (this.state.tab == 'createUnit' && !tabParam))) {
+		if ((tabParam === 'create-activity-pack' || (this.state.tab == 'createUnit' && !tabParam))) {
 			tabSpecificComponents = <CreateUnit data={{
 				createUnitData: this.state.createUnit,
 				assignSuccessData: this.state.unitTemplatesManager.model
@@ -349,7 +349,7 @@ export default React.createClass({
 				}} analytics={this.analytics()}/>;
 		} else if ((tabParam === 'assign-new-activity') || (this.state.tab === 'assignANewActivity' && !tabParam)) {
 			tabSpecificComponents = <AssignANewActivity toggleTab={this.toggleTab} flag={this.props.flag}/>;
-		} else if ((tabParam === 'assign-a-diagnostic') || (this.state.tab === 'assignADiagnostic' && !tabParam)) {
+		} else if ((tabParam === 'diagnostic') || (this.state.tab === 'assignADiagnostic' && !tabParam)) {
 			tabSpecificComponents = <AssignADiagnostic/>;
 		} else if ((tabParam === 'manage-units') || (this.state.tab == 'manageUnits' && !tabParam)) {
 			tabSpecificComponents = <ManageUnits actions={{

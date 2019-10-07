@@ -27,7 +27,7 @@ export default class UnitTemplateMini extends React.Component {
     let link
     if (this.props.data.id == 'createYourOwn') {
       if (this.props.signedInTeacher || (this.props.non_authenticated === false)) {
-        link = '/assign/create-unit'
+        link = '/assign/create-activity-pack'
       } else {
         link = '/account/new'
       }

@@ -1,0 +1,55 @@
+.assignment-flow-navigation {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  .container {
+    height: 64px;
+    display: flex;
+    align-items: center;
+  }
+  .left {
+    display: flex;
+    align-items: center;
+    .links {
+      margin-left: 16px;
+      .slash {
+        color: #cfcfcd;
+        margin-right: 5px;
+      }
+    }
+  }
+  .progress-bar {
+    width: 100%;
+    height: 6px;
+    background-color: #e2e2e2;
+    div {
+      height: 100%;
+      background-color: #01c2a2;
+      &.step-one {
+        width: 10%;
+      }
+      &.step-two {
+        width: 20%;
+      }
+
+    }
+  }
+}
+
+.assignment-flow-container {
+  .learning-process, .diagnostic-page, .activity-type {
+    display: flex;
+    padding: 54px;
+    flex-direction: column;
+    align-items: center;
+    h1 {
+      font-size: 24px;
+      font-weight: bold;
+      line-height: 1.33;
+      margin-bottom: 40px;
+    }
+    .assignment-card {
+      margin-bottom: 24px;
+    }
+  }
+}

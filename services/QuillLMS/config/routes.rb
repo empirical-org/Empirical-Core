@@ -566,6 +566,7 @@ EmpiricalGrammar::Application.routes.draw do
 
   get 'assign' => 'teachers/classroom_manager#assign', as: 'assign_path'
   get 'assign/:tab' => 'teachers/classroom_manager#assign'
+  get 'assign/learning-process' => 'teachers/classroom_manager#assign'
   get 'assign/featured-activity-packs/category/:category' => 'teachers/classroom_manager#assign'
   get 'assign/featured-activity-packs/grade/:grade' => 'teachers/classroom_manager#assign'
   get 'assign/featured-activity-packs/:activityPackId' => 'teachers/classroom_manager#assign'

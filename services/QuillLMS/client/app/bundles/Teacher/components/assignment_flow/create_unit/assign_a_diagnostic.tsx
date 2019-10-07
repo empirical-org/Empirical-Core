@@ -1,5 +1,6 @@
 import * as React from 'react';
 import AssignmentCard from './assignment_card';
+import AssignmentFlowNavigation from '../assignment_flow_navigation'
 
 const starterDiagnosticSrc = `${process.env.CDN_URL}/images/illustrations/diagnostics-starter.svg`
 const intermediateDiagnosticSrc = `${process.env.CDN_URL}/images/illustrations/diagnostics-intermediate.svg`
@@ -63,9 +64,12 @@ const minis = [
 ];
 
 const AssignADiagnostic = () => (
-  <div id="assign-a-diagnostic-page" className="text-center">
-    <h1>Which diagnostic covers the skills you want to assess?</h1>
-    <div className="minis">{minis}</div>
+  <div className="assignment-flow-container">
+    <AssignmentFlowNavigation url={window.location.href} />
+    <div className="diagnostic-page container">
+      <h1>Which diagnostic covers the skills you want to assess?</h1>
+      <div className="minis">{minis}</div>
+    </div>
   </div>
 );
 

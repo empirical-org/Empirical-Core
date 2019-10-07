@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { Link } from 'react-router'
 
 interface AssignmentCardProps {
   link?: string;
@@ -18,7 +19,7 @@ const AssignmentCard = ({ link, imgSrc, imgAlt, header, bodyArray, buttonText, b
       <p className="text">{obj.text}</p>
     </div>)
   )
-  return (<a href={link} className="assignment-card quill-card">
+  return (<Link to={link} className="assignment-card quill-card">
     <div className="top-row">
       <div className="left">
         <img src={imgSrc} alt={imgAlt} />
@@ -29,7 +30,7 @@ const AssignmentCard = ({ link, imgSrc, imgAlt, header, bodyArray, buttonText, b
     <div className="body">
       {bodyElements}
     </div>
-  </a>)
+  </Link>)
 }
 
 export default AssignmentCard

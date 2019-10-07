@@ -7,6 +7,9 @@
   width: 100%;
   flex-direction: column;
   align-items: inherit;
+  &:hover {
+    text-decoration: none;
+  }
   .top-row {
     display: flex;
     justify-content: space-between;
@@ -37,12 +40,6 @@
         width: 100%;
       }
     }
-  }
-}
-
-#assign-a-diagnostic-page {
-  .assignment-card {
-    margin-bottom: 24px;
   }
 }
 
