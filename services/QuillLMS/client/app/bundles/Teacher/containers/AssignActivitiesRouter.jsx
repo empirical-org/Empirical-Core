@@ -19,6 +19,9 @@ const AssignActivitiesRouter = props => (
 			<Route path="diagnostic" component={AssignADiagnostic} />
 			<Route path="create-activity-pack" component={routerProps => <CreateUnit {...props} {...routerProps} />} />
       <Route path="select-classes" component={routerProps => <CreateUnit {...props} {...routerProps} />} />
+      <Route path="referral" component={routerProps => <CreateUnit {...props} {...routerProps} />} />
+      <Route path="add-students" component={routerProps => <CreateUnit {...props} {...routerProps} />} />
+      <Route path="next" component={routerProps => <CreateUnit {...props} {...routerProps} />} />
 			<Route path="featured-activity-packs" component={UnitTemplatesManager}/>
 			<Redirect from="featured-activity-packs/category/:category" to="featured-activity-packs" />
 			<Redirect from="featured-activity-packs/grade/:grade" to="featured-activity-packs" />

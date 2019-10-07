@@ -3,6 +3,7 @@ import * as React from 'react'
 import { Card, Input, Snackbar, defaultSnackbarTimeout } from 'quill-component-library/dist/componentLibrary'
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
+import AssignmentFlowNavigation from '../assignment_flow_navigation'
 import ScrollToTop from '../../shared/scroll_to_top'
 
 const assignedActivitiesSrc = `${process.env.CDN_URL}/images/illustrations/assigned-activities.svg`
@@ -19,6 +20,7 @@ interface UnitAssignmentFollowupProps {
   selectedActivities: Array<any>;
   unitName: string;
   referralCode: string;
+  router: any;
 }
 
 interface UnitAssignmentFollowupState {
@@ -42,6 +44,10 @@ export default class UnitAssignmentFollowup extends React.Component<UnitAssignme
     }
   }
 
+  allAssignedClassroomsAreEmpty = () => {
+    return this.state.assignedClassrooms.every(c => c.classroom.emptyClassroomSelected)
+  }
+
   showSnackbar = (snackbarCopy) => {
     this.setState({ showSnackbar: true, snackbarCopy }, () => {
       setTimeout(() => this.setState({ showSnackbar: false, }), defaultSnackbarTimeout)
@@ -49,6 +55,7 @@ export default class UnitAssignmentFollowup extends React.Component<UnitAssignme
   }
 
   setNextOptions = () => {
+    this.props.router.push('/assign/next')
     this.setState({ showNextOptions: true })
   }
 
@@ -137,17 +144,13 @@ export default class UnitAssignmentFollowup extends React.Component<UnitAssignme
           </div>
         </div>
       </div>
-      <div className="button-container">
-        <button onClick={this.setNextOptions} className="quill-button primary contained medium">Next</button>
-      </div>
     </div>
   }
 
   renderFollowUp = () => {
-    const { showNextOptions, assignedClassrooms } = this.state
+    const { showNextOptions } = this.state
     if (!showNextOptions) {
-      const allAssignedClassroomsAreEmpty = assignedClassrooms.every(c => c.classroom.emptyClassroomSelected)
-      if (allAssignedClassroomsAreEmpty) {
+      if (this.allAssignedClassroomsAreEmpty()) {
         return this.renderInviteStudents()
       } else {
         return this.renderReferral()
@@ -157,9 +160,16 @@ export default class UnitAssignmentFollowup extends React.Component<UnitAssignme
   }
 
   render() {
+    let button
+    if (!(this.state.showNextOptions || this.allAssignedClassroomsAreEmpty())) {
+      button = !(this.state.showNextOptions || this.allAssignedClassroomsAreEmpty())
+    }
     return (<div>
+      <AssignmentFlowNavigation url={window.location.href} button={button} />
       <ScrollToTop />
-      {this.renderFollowUp()}
+      <div className="container">
+        {this.renderFollowUp()}
+      </div>
     </div>)
   }
 }

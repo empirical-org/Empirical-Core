@@ -6,9 +6,11 @@ import AssignmentCard from './assignment_card'
 const allDiagnosticsSrc = `${process.env.CDN_URL}/images/illustrations/diagnostics-all.svg`
 const librarySrc = `${process.env.CDN_URL}/images/illustrations/library.svg`
 
-const minis = [
+const selectCard = (router, link) => router.push(link)
+
+const minis = (props) => [
   (<AssignmentCard
-    link={`${process.env.DEFAULT_URL}/assign/diagnostic`}
+    selectCard={() => selectCard(props.router, `${process.env.DEFAULT_URL}/assign/diagnostic`)}
     header="Assess student writing with a diagnostic"
     imgSrc={allDiagnosticsSrc}
     imgAlt="page with writing and a magnifying glass over it"
@@ -18,7 +20,7 @@ const minis = [
     ]}
   />),
   (<AssignmentCard
-    link={`${process.env.DEFAULT_URL}/assign/activity-type`}
+    selectCard={() => selectCard(props.router, `${process.env.DEFAULT_URL}/assign/activity-type`)}
     header="Choose activities now from our library"
     imgSrc={librarySrc}
     imgAlt="open book"
@@ -29,12 +31,12 @@ const minis = [
   />)
 ];
 
-const LearningProcess = () => (
+const LearningProcess = (props) => (
   <div className="assignment-flow-container">
     <AssignmentFlowNavigation url={window.location.href} />
     <div className="learning-process container">
       <h1>Do you want to choose activities now or assess your students’ writing first?</h1>
-      <div className="minis">{minis}</div>
+      <div className="minis">{minis(props)}</div>
     </div>
   </div>
 );

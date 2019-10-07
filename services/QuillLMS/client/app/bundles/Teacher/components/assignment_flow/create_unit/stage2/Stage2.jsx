@@ -5,6 +5,7 @@ import NameTheUnit from './name_the_unit';
 import ReviewActivities from './review_activities'
 import AssignStudents from './assign_students'
 import AssignmentFlowNavigation from '../../assignment_flow_navigation.tsx'
+import ScrollToTop from '../../../shared/scroll_to_top'
 
 export default class Stage2 extends React.Component {
   constructor(props) {
@@ -30,10 +31,11 @@ export default class Stage2 extends React.Component {
   }
 
   determineAssignButtonClass() {
-    if ((!this.state.buttonDisabled) && this.props.areAnyStudentsSelected) {
-      return 'button-green';
+    let buttonClass = 'quill-button contained primary medium';
+    if (this.state.buttonDisabled || !this.props.areAnyStudentsSelected) {
+      buttonClass += ' disabled';
     }
-    return 'button-gray';
+    return buttonClass;
   }
 
   determineErrorMessageClass() {
@@ -87,8 +89,8 @@ export default class Stage2 extends React.Component {
 
   assignButton() {
     return this.state.loading
-      ? <button ref="button" id="assign" className={`${this.determineAssignButtonClass()} pull-right`}>Assigning... <ButtonLoadingIndicator /></button>
-      : <button ref="button" id="assign" className={`${this.determineAssignButtonClass()} pull-right`} onClick={this.finish}>Assign</button>;
+      ? <button id="assign" className={`${this.determineAssignButtonClass()} pull-right`}>Assigning... <ButtonLoadingIndicator /></button>
+      : <button id="assign" className={`${this.determineAssignButtonClass()} pull-right`} onClick={this.finish}>Assign pack to classes</button>;
   }
 
   render() {
@@ -102,16 +104,13 @@ export default class Stage2 extends React.Component {
     }
     return (
       <div>
-        <AssignmentFlowNavigation url={window.location.href} />
+        <ScrollToTop />
+        <AssignmentFlowNavigation url={window.location.href} button={this.assignButton()} />
         <div className="name-and-assign-activity-pack container">
           <h1 className="assign-header">Assign {assignName}</h1>
           {this.renderNameSection()}
           {this.renderReviewActivitiesSection()}
           {this.renderAssignStudentsSection()}
-          <div className="error-message-and-button">
-            <div className={this.determineErrorMessageClass()}>{buttonError}</div>
-            {this.assignButton()}
-          </div>
         </div>
       </div>
     );
