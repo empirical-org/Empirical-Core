@@ -105,7 +105,7 @@ export default class Stage2 extends React.Component {
     return (
       <div>
         <ScrollToTop />
-        <AssignmentFlowNavigation url={window.location.href} button={this.assignButton()} />
+        <AssignmentFlowNavigation button={this.assignButton()} />
         <div className="name-and-assign-activity-pack container">
           <h1 className="assign-header">Assign {assignName}</h1>
           {this.renderNameSection()}

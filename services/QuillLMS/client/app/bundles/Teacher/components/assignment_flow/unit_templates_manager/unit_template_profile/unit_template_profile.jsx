@@ -8,6 +8,7 @@ import UnitTemplateProfileAssignButton from './unit_template_profile_assign_butt
 import UnitTemplateProfileShareButtons from './unit_template_profile_share_buttons';
 import UnitTemplateProfileStandards from './unit_template_profile_standards';
 import UnitTemplateProfileActivityTable from './unit_template_profile_activity_table';
+import AssignmentFlowNavigation from '../../assignment_flow_navigation.tsx'
 
 import { requestGet } from '../../../../../../modules/request/index.js';
 
@@ -64,17 +65,36 @@ export default class UnitTemplateProfile extends React.Component {
     return `Check out the '${data.name}' activity pack I just assigned on Quill.org!`;
   }
 
+  goToEditStudents = () => {
+    const { name, id, activities, } = this.state.data
+    const activityIdsArray = encodeURIComponent(activities.map(act => act.id).toString());
+    window.localStorage.setItem('unitTemplateName', name)
+    window.localStorage.setItem('activityIdsArray', activityIdsArray)
+    window.localStorage.setItem('unitTemplateId', id)
+    this.props.router.push(`/assign/select-classes?unit_template_id=${id}`)
+  }
+
+  renderAssignButton() {
+    return <button className="quill-button contained primary medium" onClick={this.goToEditStudents}>Select pack</button>
+  }
+
   render() {
     const { data, loading, } = this.state
     if (loading) {
       return <LoadingIndicator />
     }
+    const { name, id, } = data
     if (document.querySelector("meta[name='og:description']")) {
       document.querySelector("meta[name='og:description']").content = this.getMetaText(data);
     }
     return (
       <div className="unit-template-profile">
         <ScrollToTop  />
+        <AssignmentFlowNavigation
+          button={this.renderAssignButton()}
+          unitTemplateId={id}
+          unitTemplateName={name}
+        />
         <div className="unit-template-profile-container">
           <h1>Activity Pack: {data.name}</h1>
           <UnitTemplateProfileActivityTable data={data}  />

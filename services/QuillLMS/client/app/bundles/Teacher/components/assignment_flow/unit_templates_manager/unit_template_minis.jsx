@@ -5,6 +5,7 @@ import { Link } from 'react-router'
 import { DropdownInput } from 'quill-component-library/dist/componentLibrary'
 
 import UnitTemplateMini from './unit_template_mini'
+import AssignmentFlowNavigation from '../assignment_flow_navigation.tsx'
 
 export default class UnitTemplateMinis extends React.Component {
   constructor(props) {
@@ -112,6 +113,7 @@ export default class UnitTemplateMinis extends React.Component {
 
   render() {
     return (<div key='always-display' className='unit-template-minis-container'>
+      <AssignmentFlowNavigation />
       <div className="container">
         <div>
           <h1>Select an activity pack for your students</h1>

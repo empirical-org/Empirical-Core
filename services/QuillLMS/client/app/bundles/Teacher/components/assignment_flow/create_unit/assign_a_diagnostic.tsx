@@ -73,7 +73,7 @@ const minis = (props) => [
 
 const AssignADiagnostic = (props) => (
   <div className="assignment-flow-container">
-    <AssignmentFlowNavigation url={window.location.href} />
+    <AssignmentFlowNavigation />
     <ScrollToTop />
     <div className="diagnostic-page container">
       <h1>Which diagnostic covers the skills you want to assess?</h1>

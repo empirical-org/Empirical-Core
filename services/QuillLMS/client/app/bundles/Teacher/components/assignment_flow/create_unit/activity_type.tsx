@@ -2,6 +2,7 @@ import * as React from 'react'
 
 import AssignmentFlowNavigation from '../assignment_flow_navigation'
 import AssignmentCard from './assignment_card'
+import ScrollToTop from '../../shared/scroll_to_top'
 
 const packsWholeSrc = `${process.env.CDN_URL}/images/illustrations/packs-whole.svg`
 const packsIndependentSrc = `${process.env.CDN_URL}/images/illustrations/packs-independent.svg`
@@ -48,7 +49,8 @@ const minis = (props) => [
 
 const ActivityType = (props) => (
   <div className="assignment-flow-container">
-    <AssignmentFlowNavigation url={window.location.href} />
+    <ScrollToTop />
+    <AssignmentFlowNavigation />
     <div className="activity-type container">
       <h1>Do you want to lead whole-class lessons or assign only independent practice?</h1>
       <div className="minis">{minis(props)}</div>

@@ -165,7 +165,7 @@ export default class UnitAssignmentFollowup extends React.Component<UnitAssignme
       button = !(this.state.showNextOptions || this.allAssignedClassroomsAreEmpty())
     }
     return (<div>
-      <AssignmentFlowNavigation url={window.location.href} button={button} />
+      <AssignmentFlowNavigation button={button} />
       <ScrollToTop />
       <div className="container">
         {this.renderFollowUp()}

@@ -33,7 +33,7 @@ const minis = (props) => [
 
 const LearningProcess = (props) => (
   <div className="assignment-flow-container">
-    <AssignmentFlowNavigation url={window.location.href} />
+    <AssignmentFlowNavigation />
     <div className="learning-process container">
       <h1>Do you want to choose activities now or assess your students’ writing first?</h1>
       <div className="minis">{minis(props)}</div>
