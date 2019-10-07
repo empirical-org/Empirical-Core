@@ -58,14 +58,14 @@ async function processSessions(sessionIds) {
         if (!questionTotal[key]) questionTotal[key] = 0;
         if (!questionMatches[key]) questionMatches[key] = 0;
         if (key === 'currentQuestion') {
-          questionTotal[key]++;
+          questionTotal[key] += 1;
           //if (_.isEqual(originalResponse[key], processedResponse[key])) {
           if (_.isEqual(originalResponse[key], processedResponse[key])) {
-            questionMatches[key]++;
+            questionMatches[key] += 1;
           }
         } else {
           for (let i = 0; i < processedResponse[key].length; i++) {
-            questionTotal[key]++;
+            questionTotal[key] += 1;
             questionMatches[key] += _.isEqual(originalResponse[key][i], processedResponse[key][i]) ? 1 : 0;
           }
         }

@@ -266,7 +266,7 @@ export default React.createClass({
           activityWithRecommendationsIds={this.props.activityWithRecommendationsIds}
         />
       );
-      i++;
+      i += 1;
     }
     if (this.state.allowSorting) {
       return <SortableList data={classroomActivitiesArr} sortCallback={this.updateSortOrder} />

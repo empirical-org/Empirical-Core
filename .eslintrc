@@ -12,6 +12,9 @@
     }
   },
   "rules": {
-    "no-console": 2,
+    "no-console": "error",
+    "for-direction": "error",
+    "no-cond-assign": "error",
+    "no-plusplus": ["error", {"allowForLoopAfterthoughts": true}]
   },
 }
