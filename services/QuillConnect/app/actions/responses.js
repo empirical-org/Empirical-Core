@@ -272,15 +272,21 @@ export function removeLinkToParentID(rid) {
 }
 
 function makeIterator(array) {
-  let nextIndex = 0;
+    let nextIndex = 0;
 
-  return {
-    next() {
-      return nextIndex < array.length ?
-               { value: array[nextIndex++], done: false, } :
-               { done: true, };
-    },
-  };
+    return {
+       next: function() {
+           let nextVal = null;
+           if (nextIndex < array.length) {
+               nextVal = {value: array[nextIndex], done: false};
+               nextIndex += 1;
+           }
+           else {
+               nextVal = {done: true};
+           }
+           return nextVal;
+       }
+    };
 }
 
 export function getResponsesWithCallback(questionID, callback) {

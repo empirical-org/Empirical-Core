@@ -12,7 +12,8 @@ exports.chat = functions.database.ref('/v3/chat/{phoneNumber}').onWrite((event) 
       let childCount = 0;
       const updates = {};
       snapshot.forEach((child) => {
-        if (++childCount <= snapshot.numChildren() - MAX_LOG_COUNT) {
+        childCount += 1;
+        if (childCount <= snapshot.numChildren() - MAX_LOG_COUNT) {
           updates[child.key] = null;
         }
       });
