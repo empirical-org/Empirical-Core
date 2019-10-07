@@ -57,7 +57,7 @@ export default class AssignmentFlowNavigation extends React.Component<Assignment
     } else if (url.match(selectClassesForCustomPackRegex)) {
       elements = [slash, learningProcess, slash, activityType, slash, createActivityPack, slash, selectClasses]
     } else if (url.match(selectClassesForUnitTemplateRegex)) {
-      elements = [slash, learningProcess, slash, activityType, slash, createActivityPack, slash, selectClasses]
+      elements = [slash, learningProcess, slash, activityType, slash, activityPack, slash, individualFeaturedActivityPack, slash, selectClasses]
     } else if (url.match(individualFeaturedActivityPackRegex)) {
       elements = [slash, learningProcess, slash, activityType, slash, activityPack, slash, individualFeaturedActivityPack]
     } else if (url.match(featuredActivityPacksRegex)) {

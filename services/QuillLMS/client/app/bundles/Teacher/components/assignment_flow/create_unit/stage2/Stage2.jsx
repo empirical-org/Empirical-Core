@@ -94,7 +94,7 @@ export default class Stage2 extends React.Component {
   }
 
   render() {
-    const { errorMessage, unitTemplateName, selectedActivities, } = this.props
+    const { errorMessage, unitTemplateName, unitTemplateId, selectedActivities, } = this.props
     const buttonError = errorMessage ? errorMessage.students : null
     let assignName = 'Activity Pack'
     if (unitTemplateName) {
@@ -105,7 +105,11 @@ export default class Stage2 extends React.Component {
     return (
       <div>
         <ScrollToTop />
-        <AssignmentFlowNavigation button={this.assignButton()} />
+        <AssignmentFlowNavigation
+          button={this.assignButton()}
+          unitTemplateName={unitTemplateName}
+          unitTemplateId={unitTemplateId}
+        />
         <div className="name-and-assign-activity-pack container">
           <h1 className="assign-header">Assign {assignName}</h1>
           {this.renderNameSection()}

@@ -67,7 +67,7 @@ export default class UnitTemplateProfile extends React.Component {
 
   goToEditStudents = () => {
     const { name, id, activities, } = this.state.data
-    const activityIdsArray = encodeURIComponent(activities.map(act => act.id).toString());
+    const activityIdsArray = activities.map(act => act.id).toString()
     window.localStorage.setItem('unitTemplateName', name)
     window.localStorage.setItem('activityIdsArray', activityIdsArray)
     window.localStorage.setItem('unitTemplateId', id)

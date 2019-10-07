@@ -44,6 +44,13 @@ export default class UnitAssignmentFollowup extends React.Component<UnitAssignme
     }
   }
 
+  componentDidMount() {
+    window.localStorage.removeItem('unitTemplateId')
+    window.localStorage.removeItem('unitTemplateName')
+    window.localStorage.removeItem('unitName')
+    window.localStorage.removeItem('activityIdsArray')
+  }
+
   allAssignedClassroomsAreEmpty = () => {
     return this.state.assignedClassrooms.every(c => c.classroom.emptyClassroomSelected)
   }
@@ -162,7 +169,7 @@ export default class UnitAssignmentFollowup extends React.Component<UnitAssignme
   render() {
     let button
     if (!(this.state.showNextOptions || this.allAssignedClassroomsAreEmpty())) {
-      button = !(this.state.showNextOptions || this.allAssignedClassroomsAreEmpty())
+      button = <button className="quill-button medium contained primary" onClick={this.setNextOptions}>Next</button>
     }
     return (<div>
       <AssignmentFlowNavigation button={button} />

@@ -12,10 +12,16 @@ export default class CreateUnit extends React.Component {
 
     let stage = 1
     let name = ''
+    let assignSuccess = false
+    let previouslyStoredName = props.params.unitName || window.localStorage.getItem('unitName') || window.localStorage.getItem('unitTemplateName')
     if (props.location.query.unit_template_id || props.route.path === 'select-classes') {
       stage = 2
-      name = props.params.unitName || window.localStorage.getItem('unitName') || window.localStorage.getItem('unitTemplateName')
+      name = previouslyStoredName
+    } else if (['next', 'referral', 'add-students'].includes(props.route.path)) {
+      name = previouslyStoredName
+      assignSuccess = true
     }
+    debugger;
 
     this.state = {
       prohibitedUnitNames: [],
@@ -24,7 +30,7 @@ export default class CreateUnit extends React.Component {
       selectedActivities: [],
       name,
       classrooms: [],
-      assignSuccess: false,
+      assignSuccess,
       model: { dueDates: {}, },
     }
   }
@@ -37,6 +43,10 @@ export default class CreateUnit extends React.Component {
       this.getActivities()
     }
   }
+
+  unitTemplateName = () => this.props.params.unitName || window.localStorage.getItem('unitTemplateName')
+
+  unitTemplateId = () => this.props.location.query.unit_template_id || window.localStorage.getItem('unitTemplateId')
 
   fetchClassrooms = () => {
     requestGet('/teachers/classrooms/retrieve_classrooms_i_teach_for_custom_assigning_activities', (body) => {
@@ -191,7 +201,7 @@ export default class CreateUnit extends React.Component {
         name: this.getUnitName(),
         classrooms: classroomPostData,
         activities: activityPostData,
-        unit_template_id: this.props.location.query.unit_template_id || window.localStorage.getItem('unitTemplateId')
+        unit_template_id: this.unitTemplateId()
       }
     };
     return unitObject;
@@ -200,10 +210,6 @@ export default class CreateUnit extends React.Component {
   onCreateSuccess = (response) => {
     this.setState({ newUnitId: response.id, assignSuccess: true, }, () => {
       this.toggleStage(3);
-      window.localStorage.removeItem('unitTemplateId')
-      window.localStorage.removeItem('unitTemplateName')
-      window.localStorage.removeItem('unitName')
-      window.localStorage.removeItem('activityIdsArray')
     });
   }
 
@@ -290,7 +296,6 @@ export default class CreateUnit extends React.Component {
   }
 
   stage2SpecificComponents = () => {
-    const unitTemplateName = this.props.params.unitName || window.localStorage.getItem('unitTemplateName')
     return (<Stage2
       selectedActivities={this.getSelectedActivities()}
       data={this.assignSuccess}
@@ -302,7 +307,8 @@ export default class CreateUnit extends React.Component {
       toggleStudentSelection={this.toggleStudentSelection}
       finish={this.finish}
       unitName={this.getUnitName()}
-      unitTemplateName={unitTemplateName}
+      unitTemplateName={this.unitTemplateName()}
+      unitTemplateId={this.unitTemplateId()}
       assignActivityDueDate={this.assignActivityDueDate}
       areAnyStudentsSelected={this.areAnyStudentsSelected()}
       errorMessage={this.determineStage2ErrorMessage()}
