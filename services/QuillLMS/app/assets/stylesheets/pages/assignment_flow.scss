@@ -6,15 +6,22 @@
     height: 64px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    &::before, &::after {
+      content: none;
+    }
   }
   .left {
     display: flex;
     align-items: center;
     .links {
-      margin-left: 16px;
+      margin-left: 10px;
       .slash {
         color: #cfcfcd;
-        margin-right: 5px;
+        margin: 0px 5px;
+      }
+      a:hover {
+        text-decoration: none;
       }
     }
   }
@@ -31,7 +38,9 @@
       &.step-two {
         width: 20%;
       }
-
+      &.step-three {
+        width: 50%;
+      }
     }
   }
 }

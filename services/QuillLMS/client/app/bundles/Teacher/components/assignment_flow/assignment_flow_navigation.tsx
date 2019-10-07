@@ -14,6 +14,8 @@ const diagnosticUrl = '/assign/diagnostic'
 const diagnosticRegex = /\/assign\/diagnostic$/
 const activityTypeUrl = '/assign/activity-type'
 const activityTypeRegex = /\/assign\/activity-type$/
+const createActivityPackUrl = '/assign/create-activity-pack'
+const createActivityPackRegex = /\/assign\/create-activity-pack$/
 
 export default class AssignmentFlowNavigation extends React.Component<AssignmentFlowNavigationProps, any> {
   constructor(props) {
@@ -32,12 +34,15 @@ export default class AssignmentFlowNavigation extends React.Component<Assignment
     const learningProcess = <Link to={learningProcessUrl}>Learning process</Link>
     const diagnostic = <Link to={diagnosticUrl}>Diagnostic</Link>
     const activityType = <Link to={activityTypeUrl}>Activity type</Link>
+    const createActivityPack = <Link to={createActivityPackUrl}>Custom activity pack</Link>
     if (url.match(learningProcessRegex)) {
       elements = [slash, learningProcess]
     } else if (url.match(diagnosticRegex)) {
       elements = [slash, learningProcess, slash, diagnostic]
     } else if (url.match(activityTypeRegex)) {
       elements = [slash, learningProcess, slash, activityType]
+    } else if (url.match(createActivityPackRegex)) {
+      elements = [slash, learningProcess, slash, activityType, slash, createActivityPack]
     }
     return <div className="links">{elements}</div>
   }
@@ -49,6 +54,8 @@ export default class AssignmentFlowNavigation extends React.Component<Assignment
       className = 'step-one'
     } else if (url.match(diagnosticRegex) || url.match(activityTypeRegex)) {
       className = 'step-two'
+    } else if (url.match(createActivityPackRegex)) {
+      className = 'step-three'
     }
     return <div className='progress-bar'><div className={className} /></div>
   }

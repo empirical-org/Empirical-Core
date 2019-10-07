@@ -4,6 +4,7 @@ import ButtonLoadingIndicator from '../../../shared/button_loading_indicator';
 import NameTheUnit from './name_the_unit';
 import ReviewActivities from './review_activities'
 import AssignStudents from './assign_students'
+import AssignmentFlowNavigation from '../../assignment_flow_navigation.tsx'
 
 export default class Stage2 extends React.Component {
   constructor(props) {
@@ -100,14 +101,17 @@ export default class Stage2 extends React.Component {
       assignName = 'Diagnostic'
     }
     return (
-      <div className="name-and-assign-activity-pack">
-        <h1 className="assign-header">Assign {assignName}</h1>
-        {this.renderNameSection()}
-        {this.renderReviewActivitiesSection()}
-        {this.renderAssignStudentsSection()}
-        <div className="error-message-and-button">
-          <div className={this.determineErrorMessageClass()}>{buttonError}</div>
-          {this.assignButton()}
+      <div>
+        <AssignmentFlowNavigation url={window.location.href} />
+        <div className="name-and-assign-activity-pack container">
+          <h1 className="assign-header">Assign {assignName}</h1>
+          {this.renderNameSection()}
+          {this.renderReviewActivitiesSection()}
+          {this.renderAssignStudentsSection()}
+          <div className="error-message-and-button">
+            <div className={this.determineErrorMessageClass()}>{buttonError}</div>
+            {this.assignButton()}
+          </div>
         </div>
       </div>
     );

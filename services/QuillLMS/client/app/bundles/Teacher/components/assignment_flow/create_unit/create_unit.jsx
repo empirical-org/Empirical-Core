@@ -378,7 +378,7 @@ export default class CreateUnit extends React.Component {
     }
     return (
       <span>
-        <div className="container" id="activity-planner">
+        <div id="activity-planner">
           {stageSpecificComponents}
         </div>
       </span>
