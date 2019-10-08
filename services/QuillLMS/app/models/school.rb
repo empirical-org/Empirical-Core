@@ -55,17 +55,45 @@ class School < ActiveRecord::Base
     data[ulocal.to_s.to_sym]
   end
 
-  private
+  def generate_leap_csv(options = {})
+    CSV.generate(options) do |csv_file|
+      csv_file << %w(QuillID DistrictID StudentName StudentEmail TeacherName ClassroomName SchoolName Percentage Date ActivityName StandardName MinutesSpent)
 
-  def lower_grade_within_bounds
+      self.users.where(role: "teacher").each do |teacher|
+        teacher.classrooms_teachers.where(role: "owner").each do |classrooms_teacher|
+          classroom = classrooms_teacher.classroom
+          classroom.students.each do |student|
+            student.activity_sessions.each do |activity_session|
+              csv_file << [
+                student.id,
+                # DISTRICT ID,
+                student.name,
+                student.email,
+                teacher.name,
+                classroom.name,
+                self.name,
+                activity_session.percentage,
+                activity_session.completed_at,
+                activity_session.activity.name,
+                activity_session.activity.topic.topic_category.name,
+                activity_session.timespent
+              ]
+            end
+          end
+        end
+      end
+    end
+  end
+
+  private def lower_grade_within_bounds
     errors.add(:lower_grade, 'must be between 0 and 12') unless (0..12).include?(self.lower_grade.to_i)
   end
 
-  def upper_grade_within_bounds
+  private def upper_grade_within_bounds
     errors.add(:upper_grade, 'must be between 0 and 12') unless (0..12).include?(self.upper_grade.to_i)
   end
 
-  def lower_grade_greater_than_upper_grade
+  private def lower_grade_greater_than_upper_grade
     return true unless self.lower_grade && self.upper_grade
     errors.add(:lower_grade, 'must be less than or equal to upper grade') if self.lower_grade.to_i > self.upper_grade.to_i
   end
