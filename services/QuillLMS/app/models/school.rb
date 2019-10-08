@@ -55,7 +55,7 @@ class School < ActiveRecord::Base
     data[ulocal.to_s.to_sym]
   end
 
-  def generate_leap_csv(options = {})
+  def generate_leap_csv(activities_since = Time.parse("2010-01-01"), options = {})
     CSV.generate(options) do |csv_file|
       csv_file << %w(QuillID DistrictID StudentName StudentEmail TeacherName ClassroomName SchoolName Percentage Date ActivityName StandardName MinutesSpent)
 
@@ -63,7 +63,7 @@ class School < ActiveRecord::Base
         teacher.classrooms_teachers.where(role: "owner").each do |classrooms_teacher|
           classroom = classrooms_teacher.classroom
           classroom.students.each do |student|
-            student.activity_sessions.each do |activity_session|
+            student.activity_sessions.where("completed_at >= ?", activities_since).each do |activity_session|
               csv_file << [
                 student.id,
                 # DISTRICT ID,
@@ -76,7 +76,7 @@ class School < ActiveRecord::Base
                 activity_session.completed_at,
                 activity_session.activity.name,
                 activity_session.activity.topic.topic_category.name,
-                activity_session.timespent
+                ((activity_session.completed_at - activity_session.started_at)/60).round
               ]
             end
           end
