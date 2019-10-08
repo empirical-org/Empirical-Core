@@ -9,7 +9,7 @@ const tableHeaders = [
   {
     name: 'Tool',
     attribute: 'tool',
-    width: '20px',
+    width: '30px',
     rowSectionClassName: 'tool-icon'
   },
   {
@@ -25,7 +25,7 @@ const tableHeaders = [
   {
     name: 'Due date (optional)',
     attribute: 'dueDate',
-    width: '175px',
+    width: '150px',
     rowSectionClassName: 'due-date-picker'
   }
 ]

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import AssignmentCard from './assignment_card';
 import AssignmentFlowNavigation from '../assignment_flow_navigation'
+import { UNIT_TEMPLATE_NAME, UNIT_TEMPLATE_ID, ACTIVITY_IDS_ARRAY, } from '../localStorageKeyConstants'
 import ScrollToTop from '../../shared/scroll_to_top'
 
 const starterDiagnosticSrc = `${process.env.CDN_URL}/images/illustrations/diagnostics-starter.svg`
@@ -14,9 +15,9 @@ const ADVANCED_DIAGNOSTIC = 'Advanced Diagnostic'
 const ELL_DIAGNOSTIC = 'ELL Diagnostic'
 
 const selectCard = (router, unitTemplateName, activityIdsArray, unitTemplateId) => {
-  window.localStorage.setItem('unitTemplateName', unitTemplateName)
-  window.localStorage.setItem('activityIdsArray', activityIdsArray)
-  window.localStorage.setItem('unitTemplateId', unitTemplateId)
+  window.localStorage.setItem(UNIT_TEMPLATE_NAME, unitTemplateName)
+  window.localStorage.setItem(ACTIVITY_IDS_ARRAY, activityIdsArray)
+  window.localStorage.setItem(UNIT_TEMPLATE_ID, unitTemplateId)
   router.push(`/assign/select-classes?unit_template_id=${unitTemplateId}`)
 }
 

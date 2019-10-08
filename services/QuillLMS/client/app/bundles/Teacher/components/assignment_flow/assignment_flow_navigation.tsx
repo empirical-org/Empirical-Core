@@ -73,10 +73,10 @@ export default class AssignmentFlowNavigation extends React.Component<Assignment
       className = 'step-one'
     } else if (url.match(diagnosticRegex) || url.match(activityTypeRegex)) {
       className = 'step-two'
-    } else if (url.match(createActivityPackRegex) || url.match(featuredActivityPacksUrl)) {
-      className = 'step-three'
     } else if (url.match(individualFeaturedActivityPackRegex)) {
       className = 'step-four'
+    } else if (url.match(createActivityPackRegex) || url.match(featuredActivityPacksUrl)) {
+      className = 'step-three'
     } else if (url.match(selectClassesForCustomPackRegex) || url.match(selectClassesForUnitTemplateRegex)) {
       className = 'step-five'
     }

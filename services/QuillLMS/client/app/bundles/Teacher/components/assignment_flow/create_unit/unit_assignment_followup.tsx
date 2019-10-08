@@ -4,6 +4,13 @@ import { Card, Input, Snackbar, defaultSnackbarTimeout } from 'quill-component-l
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import AssignmentFlowNavigation from '../assignment_flow_navigation'
+import {
+  UNIT_TEMPLATE_NAME,
+  UNIT_TEMPLATE_ID,
+  UNIT_NAME,
+  ACTIVITY_IDS_ARRAY,
+  CLASSROOMS,
+} from '../localStorageKeyConstants'
 import ScrollToTop from '../../shared/scroll_to_top'
 
 const assignedActivitiesSrc = `${process.env.CDN_URL}/images/illustrations/assigned-activities.svg`
@@ -37,18 +44,19 @@ export default class UnitAssignmentFollowup extends React.Component<UnitAssignme
     const assignedClassrooms = props.classrooms.filter(c => c.classroom.emptyClassroomSelected || c.students.find(s => s.isSelected))
 
     this.state = {
-      showNextOptions: false,
+      showNextOptions: props.router.location.pathname === '/assign/next',
       assignedClassrooms,
       showSnackbar: false,
       snackbarCopy: ''
     }
   }
 
-  componentDidMount() {
-    window.localStorage.removeItem('unitTemplateId')
-    window.localStorage.removeItem('unitTemplateName')
-    window.localStorage.removeItem('unitName')
-    window.localStorage.removeItem('activityIdsArray')
+  componentWillUnmount() {
+    window.localStorage.removeItem(UNIT_TEMPLATE_ID)
+    window.localStorage.removeItem(UNIT_TEMPLATE_NAME)
+    window.localStorage.removeItem(UNIT_NAME)
+    window.localStorage.removeItem(ACTIVITY_IDS_ARRAY)
+    window.localStorage.removeItem(CLASSROOMS)
   }
 
   allAssignedClassroomsAreEmpty = () => {

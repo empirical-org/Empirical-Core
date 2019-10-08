@@ -2,9 +2,16 @@ import React from 'react';
 
 import Stage1 from './select_activities_container';
 import Stage2 from './stage2/Stage2';
-import { requestGet, requestPost, } from '../../../../../modules/request';
 import UnitAssignmentFollowup from './unit_assignment_followup.tsx';
 import AnalyticsWrapper from '../../shared/analytics_wrapper';
+import {
+  CLASSROOMS,
+  UNIT_NAME,
+  UNIT_TEMPLATE_NAME,
+  UNIT_TEMPLATE_ID,
+  ACTIVITY_IDS_ARRAY,
+} from '../localStorageKeyConstants.ts'
+import { requestGet, requestPost, } from '../../../../../modules/request';
 
 export default class CreateUnit extends React.Component {
   constructor(props) {
@@ -13,14 +20,18 @@ export default class CreateUnit extends React.Component {
     let stage = 1
     let name = ''
     let assignSuccess = false
-    let previouslyStoredName = props.params.unitName || window.localStorage.getItem('unitName') || window.localStorage.getItem('unitTemplateName')
+    let classrooms = []
+    const previouslyStoredName = props.params.unitName || window.localStorage.getItem(UNIT_NAME) || window.localStorage.getItem(UNIT_TEMPLATE_NAME)
+    const previouslyStoredClassrooms = window.localStorage.getItem(CLASSROOMS) ? JSON.parse(window.localStorage.getItem(CLASSROOMS)) : []
     if (props.location.query.unit_template_id || props.route.path === 'select-classes') {
       stage = 2
       name = previouslyStoredName
+      classrooms = previouslyStoredClassrooms
     } else if (['next', 'referral', 'add-students'].includes(props.route.path)) {
-      stage = 3
+      stage = 3;
       name = previouslyStoredName
       assignSuccess = true
+      classrooms = previouslyStoredClassrooms
     }
 
     this.state = {
@@ -29,27 +40,32 @@ export default class CreateUnit extends React.Component {
       stage,
       selectedActivities: [],
       name,
-      classrooms: [],
+      classrooms,
       assignSuccess,
       model: { dueDates: {}, },
     }
   }
 
   componentDidMount = () => {
+    const { classrooms, stage, } = this.state
     this.getProhibitedUnitNames();
-    this.fetchClassrooms()
 
-    if (this.state.stage === 2) {
+    if (!classrooms || !classrooms.length) {
+      this.fetchClassrooms()
+    }
+
+    if (stage === 2) {
       this.getActivities()
     }
   }
 
-  unitTemplateName = () => this.props.params.unitName || window.localStorage.getItem('unitTemplateName')
+  unitTemplateName = () => this.props.params.unitName || window.localStorage.getItem(UNIT_TEMPLATE_NAME)
 
-  unitTemplateId = () => this.props.location.query.unit_template_id || window.localStorage.getItem('unitTemplateId')
+  unitTemplateId = () => this.props.location.query.unit_template_id || window.localStorage.getItem(UNIT_TEMPLATE_ID)
 
   fetchClassrooms = () => {
     requestGet('/teachers/classrooms/retrieve_classrooms_i_teach_for_custom_assigning_activities', (body) => {
+      window.localStorage.setItem(CLASSROOMS, JSON.stringify(body.classrooms_and_their_students))
       this.setState({ classrooms: body.classrooms_and_their_students })
     })
   }
@@ -109,7 +125,7 @@ export default class CreateUnit extends React.Component {
       }
       return c;
     })
-    this.setState({ classrooms: updated, });
+    this.setState({ classrooms: updated, }, () => window.localStorage.setItem(CLASSROOMS, JSON.stringify(updated)));
   }
 
   getId = () => {
@@ -130,7 +146,7 @@ export default class CreateUnit extends React.Component {
       }
       return changedClassroom;
     })
-    this.setState({ classrooms: updated, });
+    this.setState({ classrooms: updated, }, () => window.localStorage.setItem(CLASSROOMS, JSON.stringify(updated)));
   }
 
   updateUnitName = (e) => {
@@ -208,7 +224,15 @@ export default class CreateUnit extends React.Component {
   }
 
   onCreateSuccess = (response) => {
+    const { classrooms, name, } = this.state
     this.setState({ newUnitId: response.id, assignSuccess: true, }, () => {
+      window.localStorage.setItem(UNIT_NAME, name)
+      const assignedClassrooms = classrooms.filter(c => c.classroom.emptyClassroomSelected || c.students.find(s => s.isSelected))
+      if (assignedClassrooms.every(c => c.classroom.emptyClassroomSelected)) {
+        this.props.router.push('/assign/add-students')
+      } else {
+        this.props.router.push('/assign/referral')
+      }
       this.toggleStage(3);
     });
   }
@@ -291,7 +315,7 @@ export default class CreateUnit extends React.Component {
     }
     const newActivityArrayIds = newActivityArray.map(a => a.id).join(',')
     this.setState({ selectedActivities: newActivityArray, }, () => {
-      window.localStorage.setItem('activityIdsArray',  newActivityArrayIds)
+      window.localStorage.setItem(ACTIVITY_IDS_ARRAY,  newActivityArrayIds)
     })
   }
 

@@ -9,7 +9,11 @@ import UnitTemplateProfileShareButtons from './unit_template_profile_share_butto
 import UnitTemplateProfileStandards from './unit_template_profile_standards';
 import UnitTemplateProfileActivityTable from './unit_template_profile_activity_table';
 import AssignmentFlowNavigation from '../../assignment_flow_navigation.tsx'
-
+import {
+  UNIT_TEMPLATE_NAME,
+  ACTIVITY_IDS_ARRAY,
+  UNIT_TEMPLATE_ID,
+} from '../../localStorageKeyConstants.ts'
 import { requestGet } from '../../../../../../modules/request/index.js';
 
 export default class UnitTemplateProfile extends React.Component {
@@ -68,9 +72,9 @@ export default class UnitTemplateProfile extends React.Component {
   goToEditStudents = () => {
     const { name, id, activities, } = this.state.data
     const activityIdsArray = activities.map(act => act.id).toString()
-    window.localStorage.setItem('unitTemplateName', name)
-    window.localStorage.setItem('activityIdsArray', activityIdsArray)
-    window.localStorage.setItem('unitTemplateId', id)
+    window.localStorage.setItem(UNIT_TEMPLATE_NAME, name)
+    window.localStorage.setItem(ACTIVITY_IDS_ARRAY, activityIdsArray)
+    window.localStorage.setItem(UNIT_TEMPLATE_ID, id)
     this.props.router.push(`/assign/select-classes?unit_template_id=${id}`)
   }
 
