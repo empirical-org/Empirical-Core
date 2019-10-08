@@ -1,9 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`AssignmentCard component should render 1`] = `
-<a
+<div
   className="assignment-card quill-card"
-  href="http://localhost:3000/diagnostic/-LKX2sTTnPVhTOrWyUx9/stage/3"
 >
   <div
     className="top-row"
@@ -59,5 +58,5 @@ exports[`AssignmentCard component should render 1`] = `
       </p>
     </div>
   </div>
-</a>
+</div>
 `;
