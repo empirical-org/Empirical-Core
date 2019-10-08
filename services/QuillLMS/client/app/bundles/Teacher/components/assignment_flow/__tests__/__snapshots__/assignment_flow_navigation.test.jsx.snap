@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AssignmentFlowNavigation component should render AssignmentFlowNavigation 1`] = `
+<div
+  className="assignment-flow-navigation"
+>
+  <div
+    className="assignment-flow-navigation-container"
+  >
+    <div
+      className="left"
+    >
+      <img
+        alt="green Quill logo"
+        onClick={[Function]}
+        src="undefined/images/logos/quill-logo-green.svg"
+      />
+      <div
+        className="links"
+      />
+    </div>
+    <div
+      className="right"
+    />
+  </div>
+  <div
+    className="progress-bar"
+  >
+    <div />
+  </div>
+</div>
+`;
