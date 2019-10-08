@@ -54,7 +54,7 @@ export default class CreateUnit extends React.Component {
       this.fetchClassrooms()
     }
 
-    if (stage === 2) {
+    if (stage === 2 || window.localStorage.getItem(ACTIVITY_IDS_ARRAY)) {
       this.getActivities()
     }
   }
@@ -73,7 +73,7 @@ export default class CreateUnit extends React.Component {
   getActivities = () => {
     requestGet('/activities/search', (body) => {
       const { activities, } = body
-      const activityIdsArray = this.props.params.activityIdsArray || window.localStorage.getItem('activityIdsArray')
+      const activityIdsArray = this.props.params.activityIdsArray || window.localStorage.getItem(ACTIVITY_IDS_ARRAY)
       const activityIdsArrayAsArray = activityIdsArray.split(',')
       const selectedActivities = activities.filter(act => activityIdsArrayAsArray.includes(String(act.id)))
       this.setState({ activities: activities, selectedActivities: selectedActivities, })
