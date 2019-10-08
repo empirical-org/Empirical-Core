@@ -1,7 +1,5 @@
 import React from 'react';
 import AnalyticsWrapper from '../../../shared/analytics_wrapper';
-import ButtonLoadingIndicator from '../../../shared/button_loading_indicator';
-import { requestPost } from '../../../../../../modules/request'
 
 export default React.createClass({
   propTypes: {

@@ -4,6 +4,7 @@ import { Card, Input, Snackbar, defaultSnackbarTimeout } from 'quill-component-l
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import AssignmentFlowNavigation from '../assignment_flow_navigation'
+
 import {
   UNIT_TEMPLATE_NAME,
   UNIT_TEMPLATE_ID,
@@ -11,6 +12,7 @@ import {
   ACTIVITY_IDS_ARRAY,
   CLASSROOMS,
 } from '../localStorageKeyConstants'
+
 import ScrollToTop from '../../shared/scroll_to_top'
 
 const assignedActivitiesSrc = `${process.env.CDN_URL}/images/illustrations/assigned-activities.svg`
