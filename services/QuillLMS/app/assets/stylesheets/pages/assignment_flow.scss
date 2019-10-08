@@ -17,6 +17,9 @@
   .left {
     display: flex;
     align-items: center;
+    img {
+      cursor: pointer;
+    }
     .links {
       margin-left: 10px;
       .slash {
