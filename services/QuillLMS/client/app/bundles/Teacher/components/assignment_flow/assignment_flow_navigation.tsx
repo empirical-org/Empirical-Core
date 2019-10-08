@@ -1,6 +1,8 @@
 import * as React from 'react'
 import { Link } from 'react-router'
 
+import LeavingModal from './leaving_modal'
+
 const quillLogoGreenSrc =  `${process.env.CDN_URL}/images/logos/quill-logo-green.svg`
 
 interface AssignmentFlowNavigationProps {
@@ -27,6 +29,14 @@ const featuredActivityPacksRegex = /\/assign\/featured-activity-packs/
 export default class AssignmentFlowNavigation extends React.Component<AssignmentFlowNavigationProps, any> {
   constructor(props) {
     super(props)
+
+    this.state = {
+      showLeavingModal: false
+    }
+  }
+
+  toggleLeavingModal = () => {
+    this.setState({ showLeavingModal: !this.state.showLeavingModal })
   }
 
   renderButton() {
@@ -83,11 +93,18 @@ export default class AssignmentFlowNavigation extends React.Component<Assignment
     return <div className='progress-bar'><div className={className} /></div>
   }
 
+  renderLeavingModal() {
+    if (this.state.showLeavingModal) {
+      return <LeavingModal cancel={this.toggleLeavingModal} />
+    }
+  }
+
   render() {
     return (<div className="assignment-flow-navigation">
+      {this.renderLeavingModal()}
       <div className="assignment-flow-navigation-container">
         <div className="left">
-          <a href="/"><img src={quillLogoGreenSrc} alt="green Quill logo"/></a>
+          <img onClick={this.toggleLeavingModal} src={quillLogoGreenSrc} alt="green Quill logo"/>
           {this.renderLinks()}
         </div>
         <div className="right">
