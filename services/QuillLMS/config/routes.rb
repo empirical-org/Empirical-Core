@@ -566,13 +566,19 @@ EmpiricalGrammar::Application.routes.draw do
 
   get 'assign' => 'teachers/classroom_manager#assign', as: 'assign_path'
   get 'assign/:tab' => 'teachers/classroom_manager#assign'
-  get 'assign/learning-process' => 'teachers/classroom_manager#assign'
   get 'assign/featured-activity-packs/category/:category' => 'teachers/classroom_manager#assign'
   get 'assign/featured-activity-packs/grade/:grade' => 'teachers/classroom_manager#assign'
   get 'assign/featured-activity-packs/:activityPackId' => 'teachers/classroom_manager#assign'
   get 'assign/featured-activity-packs/:activityPackId/assigned' => 'teachers/classroom_manager#assign'
   get 'assign/new_unit/students/edit/name/:unitName/activity_ids/:activityIdsArray' => 'teachers/classroom_manager#assign'
 
+  get 'teachers/classrooms/assign_activities' => redirect('assign')
+  get 'teachers/classrooms/assign_activities/:tab' => redirect('assign/%{tab}')
+  get 'teachers/classrooms/assign_activities/featured-activity-packs/category/:category' => redirect('assign/featured-activity-packs/category/%{category}')
+  get 'teachers/classrooms/assign_activities/featured-activity-packs/grade/:grade' => redirect('assign/featured-activity-packs/grade/%{grade}')
+  get 'teachers/classrooms/assign_activities/featured-activity-packs/:activityPackId' => redirect('assign/featured-activity-packs/%{activityPackId}')
+  get 'teachers/classrooms/assign_activities/featured-activity-packs/:activityPackId/assigned' => redirect('assign/featured-activity-packs/%{activityPackId}/assigned')
+  get 'teachers/classrooms/assign_activities/new_unit/students/edit/name/:unitName/activity_ids/:activityIdsArray' => redirect('assign/new_unit/students/edit/name/%{unitName}/activity_ids/%{activityIdsArray}')
 
   # Integration routes (which should look pretty, and thus need some specifying)
   get 'amplify' => 'integrations#amplify'

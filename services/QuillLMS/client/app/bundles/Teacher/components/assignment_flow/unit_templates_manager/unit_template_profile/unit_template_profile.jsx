@@ -87,18 +87,22 @@ export default class UnitTemplateProfile extends React.Component {
     if (loading) {
       return <LoadingIndicator />
     }
-    const { name, id, } = data
+    let navigation
+    const { name, id, non_authenticated, } = data
+    if (!non_authenticated) {
+      navigation = (<AssignmentFlowNavigation
+        button={this.renderAssignButton()}
+        unitTemplateId={id}
+        unitTemplateName={name}
+      />)
+    }
     if (document.querySelector("meta[name='og:description']")) {
       document.querySelector("meta[name='og:description']").content = this.getMetaText(data);
     }
     return (
       <div className="unit-template-profile">
         <ScrollToTop  />
-        <AssignmentFlowNavigation
-          button={this.renderAssignButton()}
-          unitTemplateId={id}
-          unitTemplateName={name}
-        />
+        {navigation}
         <div className="unit-template-profile-container">
           <h1>Activity Pack: {data.name}</h1>
           <UnitTemplateProfileActivityTable data={data}  />
