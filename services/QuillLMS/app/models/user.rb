@@ -38,6 +38,7 @@ class User < ActiveRecord::Base
   has_one :ip_location
   has_many :user_milestones
   has_many :milestones, through: :user_milestones
+  has_many :third_party_user_ids
 
   has_many :blog_post_user_ratings
 

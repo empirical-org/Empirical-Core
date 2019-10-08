@@ -66,7 +66,7 @@ class School < ActiveRecord::Base
             student.activity_sessions.where("completed_at >= ?", activities_since).each do |activity_session|
               csv_file << [
                 student.id,
-                # DISTRICT ID,
+                student.third_party_user_ids.where(source: "LEAP").first,
                 student.name,
                 student.email,
                 teacher.name,
