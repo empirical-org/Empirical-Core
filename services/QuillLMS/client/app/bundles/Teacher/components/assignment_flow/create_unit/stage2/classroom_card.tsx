@@ -5,6 +5,32 @@ import { DropdownInput } from 'quill-component-library/dist/componentLibrary'
 const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
 
 export default class ClassroomCard extends React.Component {
+  private classroomCard: any
+
+  constructor(props) {
+
+    super(props)
+
+    this.state = {
+      isActive: false
+    }
+  }
+
+  componentWillMount() {
+    document.addEventListener('mousedown', this.handleClick, false)
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('mousedown', this.handleClick, false)
+  }
+
+  handleClick = (e) => {
+    if (this.classroomCard && this.classroomCard.contains(e.target)) {
+      this.setState({ isActive: true})
+    } else {
+      this.setState({ isActive: false})
+    }
+  }
 
   selectStudents(studentOptions, classroomId) {
     const studentIds = studentOptions.map(s => s.value)
@@ -28,6 +54,7 @@ export default class ClassroomCard extends React.Component {
   }
 
   renderStudentSection() {
+    const { isActive, } = this.state
     const { classroom, students, } = this.props
     const { id, emptyClassroomSelected, } = classroom
 
@@ -37,9 +64,9 @@ export default class ClassroomCard extends React.Component {
 
     const selectedStudents = options.filter(s => s.isSelected)
 
-    if (!selectedStudents.length && !emptyClassroomSelected) { return null }
+    if (!selectedStudents.length && !emptyClassroomSelected && !isActive) { return null }
 
-    if (selectedStudents.length) {
+    if (options.length) {
       return (<DropdownInput
         value={selectedStudents}
         isMulti
@@ -52,13 +79,14 @@ export default class ClassroomCard extends React.Component {
   }
 
   render() {
-    const { name, } = this.props.classroom
-    return (<div className="classroom">
+    const { classroom, toggleClassroomSelection, } = this.props
+    const { name, } = classroom
+    return (<div className="classroom" ref={node => this.classroomCard = node}>
       <div className="checkbox-and-name-container">
         {this.renderClassroomCheckbox()}
         <div className="name-container">
           <span className="name-label">Class</span>
-          <span className="name">{name}</span>
+          <span className="name" onClick={() => toggleClassroomSelection(classroom)}>{name}</span>
         </div>
       </div>
       <div className="students-container">

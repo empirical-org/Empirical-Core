@@ -2,7 +2,7 @@ import React from 'react'
 import { Snackbar, defaultSnackbarTimeout, DropdownInput } from 'quill-component-library/dist/componentLibrary'
 
 import CreateAClassInlineForm from './create_a_class_inline_form.tsx'
-import ClassroomCard from './classroom_card'
+import ClassroomCard from './classroom_card.tsx'
 import ButtonLoadingIndicator from '../../../shared/button_loading_indicator';
 import ImportGoogleClassroomsModal from '../../../classrooms/import_google_classrooms_modal.tsx'
 import GoogleClassroomEmailModal from '../../../classrooms/google_classroom_email_modal.tsx'
