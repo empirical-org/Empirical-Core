@@ -35,7 +35,7 @@ describe Api::V2::TitleCardsController, type: :controller do
     it 'should return a 404 if the requested TitleCard is not found' do
       get :show, id: 'doesnotexist'
       expect(response.status).to eq(404)
-      expect(response.body).to eq('')
+      expect(response.body).to include("The resource you were looking for does not exist")
     end
   end
 
@@ -54,7 +54,7 @@ describe Api::V2::TitleCardsController, type: :controller do
     it 'should 404 NOT FOUND if the provided UID does not match a known TitleCard' do
       put :update, id: 'doesnotexist'
       expect(response.status).to eq(404)
-      expect(response.body).to eq('')
+      expect(response.body).to include("The resource you were looking for does not exist")
     end
 
     it 'should 422 UNPROCESSABLE ENTITY if the posted data is invalid' do
@@ -144,7 +144,7 @@ describe Api::V2::TitleCardsController, type: :controller do
     it 'should 404 NOT FOUND if no TitleCard with the provided UID is found' do
       delete :destroy, id: 'doesnotexist'
       expect(response.status).to eq(404)
-      expect(response.body).to eq('')
+      expect(response.body).to include("The resource you were looking for does not exist")
     end
 
     # Disabling these security tests until we figure out a way to secure the
