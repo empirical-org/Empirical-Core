@@ -4,7 +4,7 @@
 import request from 'request';
 
 
-function buildRequestCallback(success: () => void, error: () => void): () => void {
+function buildRequestCallback(success: (string) => void, error: (string) => void): (any, object, string) => void {
   return (_, httpStatus, body) => {
     if (httpStatus && httpStatus.statusCode === 200) {
       if (success) {
