@@ -4,6 +4,7 @@ import ClassOverview from '../components/dashboard/class_overview';
 import MyClasses from '../components/dashboard/my_classes';
 import MyResources from '../components/dashboard/my_resources';
 import DashboardFooter from '../components/dashboard/dashboard_footer';
+import ExploreActivitiesModal from '../components/dashboard/explore_activities_modal'
 
 export default class Dashboard extends React.Component {
   constructor(props) {
@@ -46,15 +47,28 @@ export default class Dashboard extends React.Component {
     }
   }
 
+  closeExploreActivitiesModal = () => {
+    this.setState({ showExploreActivitiesModal: false, })
+  }
+
   hasClasses() {
     if (this.state.classrooms) {
       return (<MyClasses classList={this.state.classrooms} user={JSON.parse(this.props.user)} />);
     }
   }
 
+  renderExploreActivitiesModal() {
+    if (this.state.showExploreActivitiesModal) {
+      return <ExploreActivitiesModal
+        cancel={this.closeExploreActivitiesModal}
+      />
+    }
+  }
+
   render() {
     return (
       <div id="dashboard">
+        {this.renderExploreActivitiesModal()}
         <ClassOverview
           data={this.state.performanceQuery}
           premium={this.state.hasPremium}
