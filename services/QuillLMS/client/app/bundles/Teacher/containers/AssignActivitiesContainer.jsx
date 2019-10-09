@@ -1,5 +1,5 @@
 import React from 'react'
-import AssignActivitiesTabs from '../components/lesson_planner/assign_activities_tabs'
+import AssignActivitiesTabs from '../components/assignment_flow/assign_activities_tabs'
 
 export default React.createClass({
 

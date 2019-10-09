@@ -1,46 +1,39 @@
 import React from 'react';
-import ActivitySearchAndSelect from '../activity_search/activity_search_and_select';
-import LoadingIndicator from '../../../shared/loading_indicator.jsx';
-import AssigningIndicator from '../../../shared/button_loading_indicator';
+import ActivitySearchAndSelect from './activity_search/activity_search_and_select';
+import LoadingIndicator from '../../shared/loading_indicator.jsx';
+import AssigningIndicator from '../../shared/button_loading_indicator';
 
-export default React.createClass({
-  propTypes: {
-    selectedActivities: React.PropTypes.array.isRequired,
-    toggleActivitySelection: React.PropTypes.func.isRequired,
-    errorMessage: React.PropTypes.string,
-    clickContinue: React.PropTypes.func,
-    editing: React.PropTypes.bool,
-    updateActivities: React.PropTypes.func,
-  },
+export default class SelectActivitiesContainer extends React.Component {
+  constructor(props) {
+    super(props)
 
-  getInitialState() {
-    return {
+    this.state = {
       prematureContinueAttempted: false,
       loading: false,
-    };
-  },
+    }
+  }
 
-  clickContinue() {
+  clickContinue = () => {
     if (this.props.determineIfInputProvidedAndValid()) {
       this.props.clickContinue();
     } else {
       this.setState({ prematureContinueAttempted: true, });
     }
-  },
+  }
 
-  determineErrorMessageClass() {
+  determineErrorMessageClass = () => {
     if (this.state.prematureContinueAttempted) {
       return 'error-message visible-error-message';
     }
     return 'error-message hidden-error-message';
-  },
+  }
 
-  handleClick() {
+  handleClick = () => {
     this.props.updateActivities();
     this.setState({ loading: true, });
-  },
+  }
 
-  ctaButton() {
+  ctaButton = () => {
     if (this.props.editing) {
       const clickHandler = this.state.loading ? null : this.handleClick;
       const color = this.state.loading ? 'lightgray' : 'quillgreen';
@@ -50,9 +43,9 @@ export default React.createClass({
       return <button onClick={this.clickContinue} className="button-green pull-right" id="continue">Continue</button>;
     }
     return <button onClick={this.clickContinue} className="button-grey pull-right" id="continue">Continue</button>;
-  },
+  }
 
-  render() {
+  render = () => {
     const error = this.props.errorMessage ? <span><i className="fa fa-exclamation-triangle" />{this.props.errorMessage}</span> : '';
     return (
       <div>
@@ -70,5 +63,5 @@ export default React.createClass({
         </div>
       </div>
     );
-  },
-});
+  }
+}
