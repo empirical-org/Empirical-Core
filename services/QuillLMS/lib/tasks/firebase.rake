@@ -13,9 +13,10 @@ namespace :firebase do
     end
 
     klass = get_klass(RAILS_MODEL)
-    firebase_keys = fetch_firebase_data("#{FIREBASE_URL}.json?shallow=true")
+    firebase_shallow = fetch_firebase_data("#{FIREBASE_URL}.json?shallow=true")
+    firebase_keys = firebase_shallow.keys
     firebase_keys.each do |key|
-      copy_firebase_key(FIREBASE_URL, key)
+      copy_firebase_key(FIREBASE_URL, key, klass)
     end
   end
 
@@ -35,7 +36,7 @@ namespace :firebase do
       JSON.parse(resp.body)
     end
 
-    def copy_firebase_key(base_url, key)
+    def copy_firebase_key(base_url, key, klass)
       data = fetch_firebase_data("#{base_url}/#{key}.json")
       obj = klass.find_or_create_by(uid: key)
       if obj.valid?
