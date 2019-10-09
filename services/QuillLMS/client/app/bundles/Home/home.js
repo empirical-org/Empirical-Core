@@ -6,7 +6,7 @@ require('./bootstrap_carousel.js');
 
 document.onreadystatechange = function () {
   const state = document.readyState;
-  if (state == 'complete') {
+  if (state === 'complete') {
     $('tabs-teacher-stories').tabslet({
       autorotate: true,
       delay: 10000,
