@@ -6,28 +6,56 @@ const C = require('../constants').default;
 
 const titleCardApiBaseUrl = `${process.env.EMPIRICAL_BASE_URL}/api/v2/title_cards`;
 
+interface TitleCardProps {
+  uid: string;
+  content: string;
+  title: string;
+}
+
+interface TitleCardBatchProps {
+  title_cards: TitleCardProps[];
+}
+
+class TitleCardApi {
+  static getAll(): Promise<TitleCardBatchProps> {
+    return requestGet(`${titleCardApiBaseUrl}.json`);
+  }
+
+  static get(uid: string): Promise<TitleCardProps> {
+    return requestGet(`${titleCardApiBaseUrl}/${uid}.json`);
+  }
+
+  static create(data: TitleCardProps): Promise<TitleCardProps> {
+    return requestPost(`${titleCardApiBaseUrl}.json`, data);
+  }
+
+  static update(uid: string, data: TitleCardProps): Promise<TitleCardProps> {
+    return requestPut(`${titleCardApiBaseUrl}/${uid}.json`, data);
+  }
+}
+
 function startListeningToTitleCards() {
   return loadTitleCards();
 }
 
-function loadTitleCards() {
+function loadTitleCards(): (any) => void {
   return (dispatch) => {
-    requestGet(`${titleCardApiBaseUrl}.json`).then((body) => {
+    TitleCardApi.getAll().then((body) => {
       const titleCards = body.title_cards.reduce((obj, item) => {
         return Object.assign(obj, {[item.uid]: item});
       }, {});
       dispatch({ type: C.RECEIVE_TITLE_CARDS_DATA, data: titleCards, });
-    );
+    });
   };
 }
 
 function loadSpecifiedTitleCards(uids) {
   return (dispatch, getState) => {
-    const requestPromises = [];
+    const requestPromises: Promise<TitleCardProps>[] = [];
     uids.forEach((uid) => {
-      requestPromises.push(requestGet(`${titleCardApiBaseUrl}/${uid}.json`));
+      requestPromises.push(TitleCardApi.get(uid));
     });
-    const allPromises = Promise.all(requestPromises);
+    const allPromises: Promise<TitleCardProps[]> = Promise.all(requestPromises);
     const questionData = {};
     allPromises.then((results) => {
       results.forEach((result) => {
@@ -40,9 +68,9 @@ function loadSpecifiedTitleCards(uids) {
 
 function submitNewTitleCard(content) {
   return (dispatch) => {
-    requestPost(`${titleCardApiBaseUrl}.json`, content).then((body) => {
+    TitleCardApi.create(content).then((body) => {
       dispatch({ type: C.RECEIVE_TITLE_CARDS_DATA_UPDATE, data: {[body.uid]: body} });
-      const action = push(`/admin/title-cards/${newRef.key}`);
+      const action = push(`/admin/title-cards/${body.uid}`);
       dispatch(action);
     })
     .catch((body) => {
@@ -51,12 +79,12 @@ function submitNewTitleCard(content) {
   };
 }
 
-function submitTitleCardEdit(qid, content) {
+function submitTitleCardEdit(uid, content) {
   return (dispatch, getState) => {
-    requestPut(`${titleCardApiBaseUrl}/${qid}.json`, content).then((body) => {
+    TitleCardApi.update(uid, content).then((body) => {
       dispatch({ type: C.RECEIVE_TITLE_CARDS_DATA_UPDATE, data: {[body.uid]: body} });
       dispatch({ type: C.DISPLAY_MESSAGE, message: 'Update successfully saved!', });
-      const action = push(`/admin/title-cards/${qid}`);
+      const action = push(`/admin/title-cards/${uid}`);
       dispatch(action);
     }).catch((body) => {
       dispatch({ type: C.DISPLAY_ERROR, error: `Update failed! ${body}`, });

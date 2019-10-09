@@ -3,8 +3,12 @@
 
 import request from 'request';
 
+interface HttpStatusProps {
+  statusCode: number;
+}
 
-function buildRequestCallback(success: (string) => void, error: (string) => void): (any, object, string) => void {
+function buildRequestCallback(success: (string) => void, error: (string) => void):
+    (any, httpStatus: HttpStatusProps, body: object) => void {
   return (_, httpStatus, body) => {
     if (httpStatus && httpStatus.statusCode === 200) {
       if (success) {
@@ -21,7 +25,7 @@ function buildRequestCallback(success: (string) => void, error: (string) => void
   };
 }
 
-function requestGet(url: string): Promise<string> {
+function requestGet(url: string): Promise<any> {
   return new Promise((resolve, reject) => {
     request.get({
       url: url,
@@ -30,7 +34,7 @@ function requestGet(url: string): Promise<string> {
   });
 }
 
-function requestPost(url: string, data: Object): Promise<string> {
+function requestPost(url: string, data: Object): Promise<any> {
   return new Promise((resolve, reject) => {
     return request.post({
       url: url,
@@ -39,7 +43,7 @@ function requestPost(url: string, data: Object): Promise<string> {
   });
 }
 
-function requestPut(url: string, data: Object): Promise<string> {
+function requestPut(url: string, data: Object): Promise<any> {
   return new Promise((resolve, reject) => {
     return request.put({
       url: url,
@@ -48,7 +52,7 @@ function requestPut(url: string, data: Object): Promise<string> {
   });
 }
 
-function requestDelete(url: string): Promise<string> {
+function requestDelete(url: string): Promise<any> {
   return new Promise((resolve, reject) => {
     return request.delete({
       url: url,
