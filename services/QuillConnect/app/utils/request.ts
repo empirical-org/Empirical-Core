@@ -4,7 +4,7 @@
 import request from 'request';
 
 
-function buildRequestCallback(success, error) {
+function buildRequestCallback(success: () => void, error: () => void): () => void {
   return (_, httpStatus, body) => {
     if (httpStatus && httpStatus.statusCode === 200) {
       if (success) {
@@ -21,7 +21,7 @@ function buildRequestCallback(success, error) {
   };
 }
 
-function requestGet(url) {
+function requestGet(url: string): Promise<string> {
   return new Promise((resolve, reject) => {
     request.get({
       url: url,
@@ -30,7 +30,7 @@ function requestGet(url) {
   });
 }
 
-function requestPost(url, data) {
+function requestPost(url: string, data: Object): Promise<string> {
   return new Promise((resolve, reject) => {
     return request.post({
       url: url,
@@ -39,7 +39,7 @@ function requestPost(url, data) {
   });
 }
 
-function requestPut(url, data) {
+function requestPut(url: string, data: Object): Promise<string> {
   return new Promise((resolve, reject) => {
     return request.put({
       url: url,
@@ -48,7 +48,7 @@ function requestPut(url, data) {
   });
 }
 
-function requestDelete(url) {
+function requestDelete(url: string): Promise<string> {
   return new Promise((resolve, reject) => {
     return request.delete({
       url: url,
