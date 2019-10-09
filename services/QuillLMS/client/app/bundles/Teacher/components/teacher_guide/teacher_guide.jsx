@@ -25,74 +25,73 @@ export default class TeacherGuide extends React.Component {
   }
 
   componentDidMount() {
-    this.getInitialState();
     if (!this.state.checkboxData) {
-      $.get('/teachers/getting_started', function(data) {
+      $.get('/teachers/getting_started', (data) => {
         if (data) {
-          this.setState({display: true, checkboxData: data, loading: false}, () => this.props.showTeacherGuide);
+          this.setState({
+            display: true, checkboxData: data, loading: false
+          }, () => this.props.showTeacherGuide);
         }
       });
     }
   }
 
   groupBySectionAndCompleted() {
-    var grouping = {};
-    var data = this.state.checkboxData;
-    data.potential.forEach(function(objective) {
+    const grouping = {};
+    const data = this.state.checkboxData;
+    data.potential.forEach((obj) => {
+      const objective = obj
         // shows whether the objective has a corresponding completed checkbox
-        objective.completed = _.contains(data.completed, objective.id);
-        if (!grouping[objective.section]) {
-            grouping[objective.section] = [objective];
-        } else {
-            grouping[objective.section].push(objective);
-        }
+      objective.completed = _.contains(data.completed, objective.id);
+      if (!grouping[objective.section]) {
+        grouping[objective.section] = [objective];
+      } else {
+        grouping[objective.section].push(objective);
+      }
     });
     return grouping;
   }
 
   sectionPart() {
-      var display = [];
-      var sections = this.groupBySectionAndCompleted();
-      for (var sect in sections) {
-          display.push(<CheckboxSection checkboxes={sections[sect]} key={sect} dashboard={false}/>);
-      }
-      return display;
+    const display = [];
+    const sections = this.groupBySectionAndCompleted();
+    for (const sect in sections) {
+      display.push(<CheckboxSection checkboxes={sections[sect]} key={sect} dashboard={false}/>);
+    }
+    return display;
   }
 
   introCopy() {
-      return (
-          <div className='summary intro-copy'>
-              <h2>Complete these quests and become a Quill guru!</h2>
-              <p>Quill is very simple on the surface. Find activities and assign them to your students. But underneath, there are all kinds of power features that help you create custom activity packs, view in-depth reports, and assign activities faster. Let’s take a look!</p>
-          </div>
-      )
+    return (
+      <div className='summary intro-copy'>
+          <h2>Complete these quests and become a Quill guru!</h2>
+          <p>Quill is very simple on the surface. Find activities and assign them to your students. But underneath, there are all kinds of power features that help you create custom activity packs, view in-depth reports, and assign activities faster. Let’s take a look!</p>
+      </div>
+    )
   }
 
   stateSpecificComponents() {
-      if (this.state.loading && this.state.dashboardMini) {
-          return <GettingStartedMini checkboxData={{
-              loading: true
-          }}/>
-      } else if (this.state.dashboardMini) {
-          return <GettingStartedMini checkboxData={this.groupBySectionAndCompleted()['Getting Started']}/>;
-      } else {
-          return (
-              <div id='teacher-guide'>
-                  {this.introCopy()}
-                  {this.sectionPart()}
-              </div>
-          );
-      }
+    if (this.state.loading && this.state.dashboardMini) {
+      return (<GettingStartedMini checkboxData={{ loading: true, }} />)
+    } else if (this.state.dashboardMini) {
+      return <GettingStartedMini checkboxData={this.groupBySectionAndCompleted()['Getting Started']}/>;
+    }
+    return (
+      <div id='teacher-guide'>
+        {this.introCopy()}
+        {this.sectionPart()}
+      </div>
+    );
   }
 
   render() {
     if (this.state.display === false) {
-      return <span/>
+      return <span />
     }
     return (
-        <div className={this.state.className} id={this.state.id}>
-            {this.stateSpecificComponents()}
-        </div>
+      <div className={this.state.className} id={this.state.id}>
+        {this.stateSpecificComponents()}
+      </div>
     );
   }
 }

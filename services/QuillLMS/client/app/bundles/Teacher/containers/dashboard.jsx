@@ -5,17 +5,21 @@ import MyClasses from '../components/dashboard/my_classes';
 import MyResources from '../components/dashboard/my_resources';
 import DashboardFooter from '../components/dashboard/dashboard_footer';
 
-export default React.createClass({
-  getInitialState() {
-    return ({
+export default class Dashboard extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      showExploreActivitiesModal: props.mustSeeModal,
       classrooms: null,
       hasPremium: null,
       notifications: [],
       performanceQuery: [
-        {header: 'Lowest Performing Students', results: null},
-        { header: 'Difficult Concepts', results: null, }],
-    });
-  },
+        { header: 'Lowest Performing Students', results: null, },
+        { header: 'Difficult Concepts', results: null, }
+      ],
+    }
+  }
 
   componentWillMount() {
     this.ajax = {};
@@ -31,7 +35,7 @@ export default React.createClass({
     this.ajax.notificationsQuery = requestGet('/teachers/classrooms/notifications', (results) => {
       this.setState({ notifications: results })
     })
-  },
+  }
 
   componentWillUnmount() {
     const ajaxCalls = this.ajax;
@@ -40,13 +44,13 @@ export default React.createClass({
         ajaxCalls[key].abort();
       }
     }
-  },
+  }
 
   hasClasses() {
     if (this.state.classrooms) {
       return (<MyClasses classList={this.state.classrooms} user={JSON.parse(this.props.user)} />);
     }
-  },
+  }
 
   render() {
     return (
@@ -62,5 +66,5 @@ export default React.createClass({
         <DashboardFooter />
       </div>
     );
-  },
-});
+  }
+}
