@@ -1,4 +1,4 @@
-class Api::V2::TitleCardsController < Api::ApiController
+class Api::V1::TitleCardsController < Api::ApiController
   wrap_parameters format: [:json]
   before_filter :get_title_card_by_uid, only: [:show, :update, :destroy]
 

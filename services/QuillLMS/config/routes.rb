@@ -367,6 +367,7 @@ EmpiricalGrammar::Application.routes.draw do
       resource :ping, controller: 'ping', except: [:index, :new, :edit, :destroy]
       post 'firebase_tokens/create_for_connect' => 'firebase_tokens#create_for_connect'
       resource :firebase_tokens,          only: [:create]
+      resources :title_cards
       get 'activities/:id/follow_up_activity_name_and_supporting_info' => 'activities#follow_up_activity_name_and_supporting_info'
       get 'activities/:id/supporting_info' => 'activities#supporting_info'
       get 'classroom_activities/student_names' => 'classroom_units#student_names'
@@ -383,10 +384,6 @@ EmpiricalGrammar::Application.routes.draw do
       get 'progress_reports/district_concept_reports' => 'progress_reports#district_concept_reports'
       get 'progress_reports/district_standards_reports' => 'progress_reports#district_standards_reports'
       get 'progress_reports/student_overview_data/:student_id/:classroom_id' => 'progress_reports#student_overview_data'
-    end
-
-    namespace "v2" do
-      resources :title_cards
     end
 
     # Try to route any GET, DELETE, POST, PUT or PATCH to the proper controller.

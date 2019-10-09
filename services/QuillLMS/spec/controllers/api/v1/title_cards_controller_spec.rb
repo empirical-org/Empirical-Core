@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Api::V2::TitleCardsController, type: :controller do
+describe Api::V1::TitleCardsController, type: :controller do
   let(:staff) { create(:staff) }
   let(:title_card) { create(:title_card) }
 
