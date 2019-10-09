@@ -74,8 +74,9 @@ export default class ClassroomCard extends React.Component {
         optionType="student"
         handleChange={(e) => { this.selectStudents(e, id) }}
       />)
+    } else if (emptyClassroomSelected) {
+      return <span className="empty-class-students">And all students who join in the future</span>
     }
-    return <span className="empty-class-students">And all students who join in the future</span>
   }
 
   render() {
