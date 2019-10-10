@@ -61,8 +61,9 @@ export default class ClassroomActivity extends React.Component {
   }
 
   handleChange = (date) => {
+    const formattedDate = date ? date.format() : null
     this.setState({ startDate: date, });
-    this.props.updateDueDate(this.uaId(), date.format());
+    this.props.updateDueDate(this.uaId(), formattedDate);
   }
 
   toggleCustomizeTooltip = () => {
