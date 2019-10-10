@@ -32,7 +32,7 @@ export function getAllClassroomLessons({
         cursor.each((err, document) => {
           if (err) throw err
           classroomLessons[document.id] = document
-          lessonCount++
+          lessonCount += 1;
           if (lessonCount === numberOfLessons) {
             client.emit('classroomLessons', classroomLessons)
           }

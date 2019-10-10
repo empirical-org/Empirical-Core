@@ -19,5 +19,3 @@ var output = _.map(data, function(obj) {
   obj.pos = getPartsOfSpeechTags(obj.text)
   return obj
 });
-
-console.log(output)

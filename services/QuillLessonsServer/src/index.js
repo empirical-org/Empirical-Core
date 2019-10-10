@@ -200,7 +200,7 @@ function verifyToken(token) {
 r.connect(rethinkdbConfig, (err, connection) => {
   if (err) {
     newrelic.noticeError(err)
-    console.error(err)
+    // to do, use Sentry to capture error
   } else {
     io.on('connection', (client) => {
       client.on('authentication', (data) => {
@@ -213,7 +213,8 @@ r.connect(rethinkdbConfig, (err, connection) => {
           if (process.env.NODE_ENV === 'test') {
             cleanDatabase({ ...adaptors, ...data });
           } else {
-            console.error(`Cannot clean database in ${process.env.NODE_ENV}`);
+            // to do, use Sentry to capture error
+            // console.error(`Cannot clean database in ${process.env.NODE_ENV}`);
           }
         });
 
@@ -526,5 +527,6 @@ r.connect(rethinkdbConfig, (err, connection) => {
 });
 
 app.listen(port, () => {
-  console.log(`Node server started and listening at ${port}`)
+  // to do, use Sentry to capture error
+  // console.log(`Node server started and listening at ${port}`)
 });
