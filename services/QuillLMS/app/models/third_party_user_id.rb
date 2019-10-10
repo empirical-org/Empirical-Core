@@ -1,5 +1,10 @@
 class ThirdPartyUserId < ActiveRecord::Base
-  VALID_SOURCES = ["LEAP"].freeze
+
+  module SOURCES
+    LEAP ||= "LEAP"
+  end
+
+  VALID_SOURCES = [SOURCES::LEAP].freeze
 
   belongs_to :user
 
