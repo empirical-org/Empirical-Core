@@ -81,13 +81,12 @@ export default class ClassroomCard extends React.Component {
 
   render() {
     const { classroom, toggleClassroomSelection, } = this.props
-    const { name, } = classroom
     return (<div className="classroom" ref={node => this.classroomCard = node}>
       <div className="checkbox-and-name-container">
         {this.renderClassroomCheckbox()}
         <div className="name-container">
           <span className="name-label">Class</span>
-          <span className="name" onClick={() => toggleClassroomSelection(classroom)}>{name}</span>
+          <span className="name" onClick={() => toggleClassroomSelection(classroom)}>{classroom.name}</span>
         </div>
       </div>
       <div className="students-container">

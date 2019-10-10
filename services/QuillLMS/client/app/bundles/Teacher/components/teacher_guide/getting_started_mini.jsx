@@ -6,7 +6,7 @@ import LoadingIndicator from '../shared/loading_indicator'
 export default class GettingStartedMini extends React.Component {
   percentageCompleted = () => {
     const boxes = this.props.checkboxData
-    const ratio = boxes.filter(obj => obj.completed === true).length / boxes.length
+    const ratio = boxes.filter(obj => obj.completed).length / boxes.length
     return Math.floor(ratio * 100)
   }
 

@@ -54,7 +54,7 @@ class Teachers::ClassroomManagerController < ApplicationController
       end
     end
     explore_activities_milestone = Milestone.find_by_name(Milestone::TYPES[:see_explore_activities_modal])
-    @must_see_modal = !explore_activities_milestone.users.include?(current_user) && Unit.unscoped.find_by_user_id(current_user.id).nil?
+    @must_see_modal = !UserMilestone.find_by(milestone_id: explore_activities_milestone.id, user_id: current_user.id) && Unit.unscoped.find_by_user_id(current_user.id).nil?
     @firewall_test = true
     if @must_see_modal
       UserMilestone.find_or_create_by(user_id: current_user.id, milestone_id: explore_activities_milestone.id)

@@ -14,8 +14,6 @@ export default class TeacherGuide extends React.Component {
     if (props.dashboardMini) {
       state.loading = true;
       state.dashboard = true;
-      state.className = 'mini_container results-overview-mini-container col-md-8 col-sm-10 text-center';
-      state.id = 'getting-started-mini';
       state.display = false;
     } else {
       state.checkboxData = this.props.checkboxData;
@@ -89,7 +87,7 @@ export default class TeacherGuide extends React.Component {
       return <span />
     }
     return (
-      <div className={this.state.className} id={this.state.id}>
+      <div className="mini_container results-overview-mini-container col-md-8 col-sm-10 text-center" id="getting-started-mini">
         {this.stateSpecificComponents()}
       </div>
     );
