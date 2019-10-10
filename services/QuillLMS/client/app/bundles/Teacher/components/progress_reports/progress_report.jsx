@@ -180,7 +180,7 @@ export default  React.createClass({
         this.props.onFetchSuccess(data);
       }
     }.bind(this)).fail((e) => {
-      console.log('An error occurred while fetching data', e);
+      // to do, use Sentry to capture error
     });
   },
 

@@ -7,14 +7,19 @@
     "doc": "docs"
   },
   "dependencies": {
-    "lodash": "^4.17.11",
-    "request": "^2.88.0"
+    "lodash": "^4.17.15",
+    "request": "^2.81.0",
+    "babel-eslint": "^10.0.3"
   },
   "devDependencies": {
+    "eslint": "^6.5.1",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.15.1",
     "gitbook-cli": "^2.3.2"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "eslint": "eslint --ext .js,.jsx ."
   },
   "repository": {
     "type": "git",

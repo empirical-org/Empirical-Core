@@ -24,7 +24,6 @@ const TabLink = props => (
 
 const adminContainer = React.createClass({
   componentWillMount() {
-    console.log('diagnosticLessonActions', diagnosticLessonActions)
     this.props.dispatch(userActions.firebaseAuth());
     this.props.dispatch(conceptActions.startListeningToConcepts());
     this.props.dispatch(conceptsFeedbackActions.startListeningToConceptsFeedback());

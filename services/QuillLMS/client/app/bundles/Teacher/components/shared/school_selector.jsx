@@ -72,7 +72,7 @@ class SchoolSelector extends React.Component {
         const schools = JSON.parse(body).data
         this.setState({ schools, loading: false})
       } else {
-        console.log('err', err)
+        // to do, use Sentry to capture error
       }
     });
   }

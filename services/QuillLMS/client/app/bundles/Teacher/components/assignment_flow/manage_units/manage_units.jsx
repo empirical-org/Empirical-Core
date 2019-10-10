@@ -53,7 +53,7 @@ export default React.createClass({
     }).then((response) => {
       this.setState({ activityWithRecommendationsIds: response.activityWithRecommendationsIds, });
     }).catch((error) => {
-      console.log('error', error);
+      // to do, use Sentry to capture error
     });
   },
 

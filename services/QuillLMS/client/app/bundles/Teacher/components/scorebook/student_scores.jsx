@@ -17,7 +17,7 @@ export default React.createClass({
     let relevantScores = 0;
     this.props.data.scores.forEach(score => {
       if(shouldCountForScoring(score.activity_classification_id) && score.percentage) {
-        relevantScores++;
+        relevantScores += 1;
         totalScore += parseFloat(score.percentage);
       }
     });

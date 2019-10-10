@@ -14,7 +14,7 @@
     saver: new Saver()
   }
 
-  var _saveCallback = function () {console.log('save success')}
+  var _saveCallback = function () {}
 
   var _destroyHelper = function (url, callback) {
     var callback = (callback ? callback : _saveCallback);

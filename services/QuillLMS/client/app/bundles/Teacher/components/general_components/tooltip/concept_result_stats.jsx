@@ -77,9 +77,9 @@ export default React.createClass({
         memo[conceptResult.name] = statsRow;
         const correct = parseInt(conceptResult.metadata.correct);
         if (correct) {
-          statsRow.correct++;
+          statsRow.correct += 1;
         } else {
-          statsRow.incorrect++;
+          statsRow.incorrect += 1;
         }
         return memo;
       }

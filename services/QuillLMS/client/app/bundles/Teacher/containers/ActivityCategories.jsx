@@ -27,7 +27,6 @@ export default class ActivityCategories extends React.Component {
   }
 
   saveActivityCategories() {
-    console.log(getAuthToken())
     const that = this
     request.put(`${process.env.DEFAULT_URL}/cms/activity_categories/update_order_numbers`, {
       json: {
@@ -35,7 +34,7 @@ export default class ActivityCategories extends React.Component {
         authenticity_token: getAuthToken()
       }}, (e, r, response) => {
         if (e) {
-          console.log(e)
+          // to do, use Sentry to capture error
           alert(`We could not save the updated activity category order. Here is the error: ${e}`)
         } else {
           this.setState({activity_categories: response.activity_categories})
@@ -52,7 +51,7 @@ export default class ActivityCategories extends React.Component {
         authenticity_token: getAuthToken()
       }}, (e, r, response) => {
       if (r.statusCode === 400) {
-        console.log(e)
+        // to do, use Sentry to capture error
         alert(`We could not delete this activity category. Here is the response: ${response}`)
       } else {
         const newActivityCategories = this.state.activity_categories
