@@ -28,7 +28,7 @@ export default class DeleteLastActivitySession extends React.Component {
       } else if (r.statusCode === 200){
         window.alert('Activity session has been deleted!')
       } else {
-        console.log(response)
+        // to do, use Sentry to capture error
       }
     })
   }

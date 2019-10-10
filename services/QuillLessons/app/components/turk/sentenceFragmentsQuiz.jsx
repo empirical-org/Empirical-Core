@@ -130,7 +130,6 @@ var StudentDiagnostic = React.createClass({
 
   getFetchedData: function() {
     var returnValue = this.getData().map((obj)=>{
-      console.log(obj)
       var data = (obj.questionType === "questions") ? this.props.questions.data[obj.key] : this.props.sentenceFragments.data[obj.key]
       data.key = obj.key;
       // if(obj.type==="SF") {

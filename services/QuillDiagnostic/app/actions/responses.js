@@ -33,7 +33,6 @@ function getQuestionLoadedStatusForGroupedResponses(groupedResponses) {
   questionsKeys.forEach((key) => {
     statuses[key] = 'LOADED';
   });
-  console.log(statuses);
   return statuses;
 }
 
@@ -70,8 +69,6 @@ export function submitResponse(content, prid, isFirstAttempt) {
           dispatch({ type: C.DISPLAY_ERROR, error: `Submission failed! ${error}`, });
         } else if (httpStatus.statusCode === 204 || httpStatus.statusCode === 200) {
           dispatch({ type: C.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
-        } else {
-          console.log(body);
         }
       },
     );
@@ -81,7 +78,6 @@ export function submitResponse(content, prid, isFirstAttempt) {
 export function submitMassEditFeedback(ids, properties, qid) {
   return (dispatch) => {
     const updated_attribute = properties;
-    console.log(updated_attribute);
     request.put({
       url: `${process.env.QUILL_CMS}/responses/mass_edit/edit_many`,
       json: { ids, updated_attribute, }, },
@@ -91,8 +87,6 @@ export function submitMassEditFeedback(ids, properties, qid) {
         } else if (httpStatus.statusCode === 204 || httpStatus.statusCode === 200) {
           dispatch({ type: C.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
           dispatch({ type: C.SHOULD_RELOAD_RESPONSES, qid, });
-        } else {
-          console.log(body);
         }
       });
   };
@@ -112,8 +106,6 @@ export function submitMassEditConceptResults(ids, conceptResults, qid) {
         } else if (httpStatus.statusCode === 204 || httpStatus.statusCode === 200) {
           dispatch({ type: C.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
           dispatch({ type: C.SHOULD_RELOAD_RESPONSES, qid, });
-        } else {
-          console.log(body);
         }
       });
   };
@@ -130,8 +122,6 @@ export function massEditDeleteResponses(ids, qid) {
         } else if (httpStatus.statusCode === 204 || httpStatus.statusCode === 200) {
           dispatch({ type: C.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
           dispatch({ type: C.SHOULD_RELOAD_RESPONSES, qid, });
-        } else {
-          console.log(body);
         }
       });
   };
@@ -149,8 +139,6 @@ export function submitResponseEdit(rid, content, qid) {
         } else if (httpStatus.statusCode === 204 || httpStatus.statusCode === 200) {
           dispatch({ type: C.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
           dispatch({ type: C.SHOULD_RELOAD_RESPONSES, qid, });
-        } else {
-          console.log(body);
         }
       });
   };
@@ -169,8 +157,6 @@ export function updateConceptResults(rid, content, qid) {
           dispatch({ type: C.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
           dispatch({ type: C.SHOULD_RELOAD_RESPONSES, qid, });
           dispatch({ type: C.START_RESPONSE_EDIT, qid, rid, });
-        } else {
-          console.log(body);
         }
       });
   };
@@ -189,8 +175,6 @@ export function deleteConceptResult(rid, content, qid) {
           dispatch({ type: C.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
           dispatch({ type: C.SHOULD_RELOAD_RESPONSES, qid, });
           dispatch({ type: C.START_RESPONSE_EDIT, qid, rid, });
-        } else {
-          console.log(body);
         }
       });
   };
@@ -206,8 +190,6 @@ export function deleteResponse(qid, rid) {
         } else if (httpStatus.statusCode === 204 || httpStatus.statusCode === 200) {
           dispatch({ type: C.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
           dispatch({ type: C.SHOULD_RELOAD_RESPONSES, qid, });
-        } else {
-          console.log(body);
         }
       },
     );
@@ -290,28 +272,32 @@ export function removeLinkToParentID(rid) {
 }
 
 function makeIterator(array) {
-  let nextIndex = 0;
+    let nextIndex = 0;
 
-  return {
-    next() {
-      return nextIndex < array.length ?
-               { value: array[nextIndex++], done: false, } :
-               { done: true, };
-    },
-  };
+    return {
+       next: function() {
+           let nextVal = null;
+           if (nextIndex < array.length) {
+               nextVal = {value: array[nextIndex], done: false};
+               nextIndex += 1;
+           }
+           else {
+               nextVal = {done: true};
+           }
+           return nextVal;
+       }
+    };
 }
 
 export function getResponsesWithCallback(questionID, callback) {
   responsesForQuestionRef(questionID).once('value', (snapshot) => {
     callback(snapshot.val());
-    console.log('Loaded responses for ', questionID);
   });
 }
 
 export function listenToResponsesWithCallback(questionID, callback) {
   responsesForQuestionRef(questionID).on('value', (snapshot) => {
     callback(snapshot.val());
-    console.log('Listened to responses for ', questionID);
   });
 }
 
@@ -322,7 +308,7 @@ function gradedResponsesForQuestionRef(questionId) {
 export function getGradedResponsesWithCallback(questionID, callback) {
   request(`${process.env.QUILL_CMS}/questions/${questionID}/responses`, (error, response, body) => {
     if (error) {
-      console.log('error:', error); // Print the error if one occurred
+      // to do, use Sentry to capture error
     }
     const bodyToObj = {};
     JSON.parse(body).forEach((resp) => {
@@ -346,7 +332,7 @@ export function getGradedResponsesWithCallback(questionID, callback) {
 export function getGradedResponsesWithoutCallback(questionID) {
   request(`${process.env.QUILL_CMS}/questions/${questionID}/responses`, (error, response, body) => {
     if (error) {
-      console.log('error:', error); // Print the error if one occurred
+      // to do, use Sentry to capture error
     }
     const bodyToObj = {};
     JSON.parse(body).forEach((resp) => {

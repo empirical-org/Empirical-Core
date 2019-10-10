@@ -31,7 +31,7 @@ export default class GoogleUnsync extends React.Component {
       } else if (r.statusCode === 200){
         window.alert('User has been unsynced!')
       } else {
-        console.log(response)
+        // to do, use Sentry to capture error
       }
     })
   }

@@ -52,9 +52,7 @@ describe("matching responses by levDist and grade", () => {
     const userString = "Hannah nevr went home";
     const fn = string => string.normalize();
     const sortedResponses = sortByLevenshteinAndOptimal(userString, responses)
-    console.log(sortedResponses)
     const response = checkChangeObjectMatch(userString, sortedResponses, fn, true)
-    console.log(response);
     expect(response.response.key).toEqual(4)
   })
 })

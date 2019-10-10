@@ -35,7 +35,7 @@ export default React.createClass({
 				// iterate until we find a next attempt with directions
 				while (!feedback && nextAttempt[index]) {
 					feedback = nextAttempt[index].directions
-					index++
+					index += 1;
 				}
 				// sometimes feedback is coming through as a react variable, I've been unable to find the source of it
 				if (typeof feedback === 'string') {
@@ -44,7 +44,7 @@ export default React.createClass({
 			}
 			let score = 0;
 			let concepts = currAttempt.map((concept)=>{
-				concept.correct ? score++ : null;
+				concept.correct ? score += 1 : null;
 				return [<ConceptResultTableRow key={concept.id + attemptNum} concept={concept}/>]
 			});
 			let averageScore = (score/currAttempt.length * 100) || 0;
@@ -53,7 +53,7 @@ export default React.createClass({
 			if (conceptsByAttempt[attemptNum + 1]) {
 				results.push(this.emptyRow(attemptNum + averageScore))
 			}
-			attemptNum ++;
+			attemptNum += 1;
 		}
 		return results;
 	},
