@@ -157,7 +157,7 @@ export default class CreateUnit extends React.Component {
   clickContinue = () => {
     this.analytics().track('click Continue in lesson planner');
     this.props.router.push('/assign/select-classes')
-    this.toggleStage(2);
+    this.setStage(2);
     this.resetWindowPosition();
   }
 
@@ -168,7 +168,7 @@ export default class CreateUnit extends React.Component {
     })
   }
 
-  toggleStage = (stage) => {
+  setStage = (stage) => {
     this.setState({ stage, });
   }
 
@@ -233,7 +233,7 @@ export default class CreateUnit extends React.Component {
       } else {
         this.props.router.push('/assign/referral')
       }
-      this.toggleStage(3);
+      this.setStage(3);
     });
   }
 
@@ -362,9 +362,7 @@ export default class CreateUnit extends React.Component {
     }
   }
 
-  isUnitNameValid = () => {
-    return ((this.getUnitName() != null) && (this.getUnitName() !== ''));
-  }
+  isUnitNameValid = () => this.getUnitName() && this.getUnitName().length
 
   render = () => {
     let stageSpecificComponents;

@@ -1,6 +1,6 @@
 <% current_path = request.env['PATH_INFO'] %>
 
-<% if !in_assignment_flow %>
+<% if !in_assignment_flow? %>
   <div class="full-screen bg-quillgreen">
     <div class="q-nav-bar">
       <ul class="desktop-nav-list" role="tablist" id="teacher-nav-tabs">
@@ -31,7 +31,7 @@
           <%= link_to raw("<span class='hide-on-mobile'>Student </span>Reports"), teachers_progress_reports_landing_page_path %>
         </li>
 
-        <% unless current_user.premium_state === 'paid' %>
+        <% unless current_user.premium_state == 'paid' %>
           <li class="premium-tab <%= 'active' if premium_page_should_be_active? %>">
             <%= link_to raw("<span class='hide-on-mobile'>#{premium_tab_copy}</span><span class='hide-on-desktop'>Premium</span>"), premium_path %>
           </li>

@@ -185,13 +185,13 @@ export default React.createClass({
 	},
 
 	componentDidMount: function() {
-		if (this.state.tab == 'exploreActivityPacks') {
+		if (this.state.tab === 'exploreActivityPacks') {
 			this.fetchUnitTemplateModels();
 		}
 	},
 
 	toggleTab: function(tab) {
-		if (tab == 'createUnit') {
+		if (tab === 'createUnit') {
 			this.analytics().track('click Create Unit', {});
 			this.updateCreateUnit({
 				stage: 1,
@@ -202,7 +202,7 @@ export default React.createClass({
 			});
 
 			this.setState({tab: tab});
-		} else if (tab == 'exploreActivityPacks') {
+		} else if (tab === 'exploreActivityPacks') {
 			this.deepExtendState({
 				tab: tab,
 				unitTemplatesManager: {
@@ -332,10 +332,10 @@ export default React.createClass({
 		// entirely to react-router for managing that, along with redux for
 		// the general state in this section
 		const tabParam = this.props.params.tab
-		// if (this.state.unitTemplatesManager.assignSuccess === true && (!tabParam || tabParam == ('featured-activity-packs' || 'explore-activity-packs'))) {
+		// if (this.state.unitTemplatesManager.assignSuccess === true && (!tabParam || tabParam === ('featured-activity-packs' || 'explore-activity-packs'))) {
 		// 	tabSpecificComponents = <UnitTemplatesAssigned data={this.state.unitTemplatesManager.lastActivityAssigned} actions={this.unitTemplatesAssignedActions()}/>;
 		// } else
-		if ((tabParam === 'create-activity-pack' || (this.state.tab == 'createUnit' && !tabParam))) {
+		if ((tabParam === 'create-activity-pack' || (this.state.tab === 'createUnit' && !tabParam))) {
 			tabSpecificComponents = <CreateUnit data={{
 				createUnitData: this.state.createUnit,
 				assignSuccessData: this.state.unitTemplatesManager.model
@@ -351,12 +351,12 @@ export default React.createClass({
 			tabSpecificComponents = <AssignANewActivity toggleTab={this.toggleTab} flag={this.props.flag}/>;
 		} else if ((tabParam === 'diagnostic') || (this.state.tab === 'assignADiagnostic' && !tabParam)) {
 			tabSpecificComponents = <AssignADiagnostic/>;
-		} else if ((tabParam === 'manage-units') || (this.state.tab == 'manageUnits' && !tabParam)) {
+		} else if ((tabParam === 'manage-units') || (this.state.tab === 'manageUnits' && !tabParam)) {
 			tabSpecificComponents = <ManageUnits actions={{
 			 toggleTab: this.toggleTab,
 			 editUnit: this.editUnit
 		 }}/>;
- // 	} else if (tabParam === 'explore-activity-packs' || this.state.tab == 'exploreActivityPacks') {
+ // 	} else if (tabParam === 'explore-activity-packs' || this.state.tab === 'exploreActivityPacks') {
 	// 		tabSpecificComponents = <UnitTemplatesManager data={this.state.unitTemplatesManager} actions={this.unitTemplatesManagerActions()}/>;
 		}
 
