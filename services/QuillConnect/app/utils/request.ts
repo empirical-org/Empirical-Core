@@ -12,20 +12,9 @@ function buildRequestCallback(success: (any) => void, error: (any) => void):
     (any, httpStatus: HttpStatusProps, body: object) => void {
   return (_, httpStatus, body) => {
     if (httpStatus && httpStatus.statusCode === 200) {
-      if (success) {
-        success(body);
-      }
+      success(body);
     } else {
-      if (error) {
-        error(body);
-      } else {
-        // Default error handling if nothing is provided
-        const errPayload = {
-          status: httpStatus,
-          body: body,
-        }
-        Raven.captureException(new Error(`Received a non-200 response to an HTTP request: ${errPayload}`));
-      }
+      error(body);
     }
   };
 }
