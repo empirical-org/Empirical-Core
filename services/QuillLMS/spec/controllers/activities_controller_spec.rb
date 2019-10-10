@@ -44,15 +44,6 @@ describe ActivitiesController, type: :controller, redis: true do
     end
   end
 
-  describe '#diagnostic' do
-    let!(:activity) { create(:activity) }
-
-    it 'should render the diagnostic template' do
-      get :diagnostic, activityId: activity.id
-      expect(response).to render_template 'pages/diagnostic'
-    end
-  end
-
   describe '#preview_lesson' do
     let!(:activity) { create(:activity) }
     let(:preview_url) { "#{activity.classification_form_url}teach/class-lessons/#{activity.uid}/preview" }

@@ -1,5 +1,5 @@
 import React from 'react'
-import UnitStage1 from '../components/lesson_planner/create_unit/stage1/unit_stage1.jsx'
+import UnitStage1 from '../components/assignment_flow/create_unit/select_activities_container.jsx'
 import request from 'request'
 import getAuthToken from '../components/modules/get_auth_token';
 

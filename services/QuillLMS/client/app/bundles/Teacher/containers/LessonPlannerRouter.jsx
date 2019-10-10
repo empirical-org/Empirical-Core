@@ -5,9 +5,9 @@ import LessonPlanner from './LessonPlanner.jsx'
 import LessonPlannerContainer from './LessonPlannerContainer.jsx'
 import ClassroomsWithStudentsContainer from './ClassroomsWithStudentsContainer.jsx'
 import EditUnitActivitiesContainer from './EditUnitActivitiesContainer.jsx'
-import EmptyAssignedUnits from '../components/lesson_planner/manage_units/EmptyAssignedUnits.jsx'
-import ClassroomLessonsPlanner from '../components/lesson_planner/classroom_lessons'
-import ChooseClassroomLesson from '../components/lesson_planner/choose_classroom_lesson'
+import EmptyAssignedUnits from '../components/assignment_flow/manage_units/EmptyAssignedUnits.jsx'
+import ClassroomLessonsPlanner from '../components/assignment_flow/classroom_lessons'
+import ChooseClassroomLesson from '../components/assignment_flow/choose_classroom_lesson'
 
 export default class LessonPlannerRouter extends React.Component{
 	constructor(props) {
