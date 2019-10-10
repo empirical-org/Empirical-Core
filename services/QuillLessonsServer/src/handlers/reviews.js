@@ -14,7 +14,7 @@ export function getAllClassroomLessonReviews({
         cursor.each((err, document) => {
           if (err) throw err
           reviews[document.id] = document
-          reviewCount++
+          reviewCount += 1;
           if (reviewCount === numberOfReviews) {
             client.emit('classroomLessonReviews', reviews)
           }

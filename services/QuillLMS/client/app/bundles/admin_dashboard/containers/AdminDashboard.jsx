@@ -78,7 +78,7 @@ export default React.createClass({
       } else if (r.statusCode === 200) {
         that.setState({ message: response.message, }, () => that.getData());
       } else {
-        console.log(response);
+        // to do, use Sentry to capture error
       }
     });
   },

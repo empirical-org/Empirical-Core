@@ -67,7 +67,7 @@ export function getAllEditionMetadata({
         cursor.each((err, document) => {
           if (err) throw err
           editions[document.id] = document
-          editionCount++
+          editionCount += 1;
           if (editionCount === numberOfEditions) {
             client.emit('editionMetadata', editions)
           }

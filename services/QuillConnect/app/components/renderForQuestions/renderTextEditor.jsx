@@ -119,8 +119,6 @@ export default React.createClass({
   handleTextChange(e) {
     if (!this.props.disabled) {
       this.props.handleChange(e.target.value, this.props.editorIndex);
-    } else {
-      console.log("I'm disable RN");
     }
   },
 

@@ -28,7 +28,7 @@ export default class RecoverClassroomActivities extends React.Component {
       } else if (r.statusCode === 200){
         window.alert('Data has been restored!')
       } else {
-        console.log(response)
+        // to do, use Sentry to capture error
       }
     })
 

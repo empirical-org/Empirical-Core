@@ -25,7 +25,6 @@ import Raven from 'raven-js';
 import quillNormalizer from './libs/quillNormalizer';
 
 if (process.env.NODE_ENV === 'production') {
-  console.log('App is running in production');
   Raven
   .config(
     'https://528794315c61463db7d5181ebc1d51b9@sentry.io/210579',

@@ -402,14 +402,11 @@ export default class POSMatcher {
         text: userSubmission
       },
     };
-    console.log("Hi")
     request(options)
       .then((parsedBody) => {
           // POST succeeded...
-        console.log("Hi", parsedBody["text"], typeof(parsedBody));
         // what is this doing???
         if (JSON.parse(parsedBody).text > 0.5) {
-          console.log("In here!")
           returnValue.response = Object.assign({}, returnValue.response, {
             optimal: true,
             parentID: this.getTopOptimalResponse().key,
@@ -425,7 +422,6 @@ export default class POSMatcher {
             author: 'Parts of Speech',
           });
         }
-        console.log("OI", returnValue)
         utl.updateResRes(returnValue, utl.key, utl.attempts, utl.dispatch, );
         utl.updateAttempts(returnValue);
         utl.setState({ checkAnswerEnabled: true, });
@@ -433,7 +429,7 @@ export default class POSMatcher {
       })
       .catch((err) => {
           // POST failed...
-          console.log("Error!")
+          // to do, use Sentry to capture error
           returnValue.found = false;
           utl.updateResRes(returnValue, utl.key, utl.attempts, utl.dispatch, );
           utl.updateAttempts(returnValue);

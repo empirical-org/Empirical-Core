@@ -38,7 +38,7 @@
     }
   }
 
-  var _defaultCallback = function (data) {console.log('ajax success');}
+  var _defaultCallback = function (data) {}
   var _callbackParam = function (callback) {
     var callback = (callback? callback : _defaultCallback)
     return {success: callback}

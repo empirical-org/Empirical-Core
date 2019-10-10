@@ -105,12 +105,11 @@ const TurkDiagnostic = React.createClass({
       },
       (err, httpResponse, body) => {
         if (httpResponse.statusCode === 200) {
-          console.log('Finished Saving');
-          console.log(err, httpResponse, body);
+          // to do, use Sentry to capture error
           SessionActions.delete(this.state.sessionID);
           this.setState({ saved: true, });
         } else {
-          console.log('Save not successful');
+          // to do, use Sentry to capture error
           this.setState({ saved: false, error: true, });
         }
       }
@@ -131,8 +130,7 @@ const TurkDiagnostic = React.createClass({
       },
       (err, httpResponse, body) => {
         if (httpResponse.statusCode === 200) {
-          console.log('Finished Saving');
-          console.log(err, httpResponse, body);
+          // to do, use Sentry to capture error
           this.setState({ saved: true, });
         }
       }
@@ -316,7 +314,7 @@ const TurkDiagnostic = React.createClass({
             key={this.props.playDiagnostic.currentQuestion.data.key}
             dispatch={this.props.dispatch}
             nextQuestion={this.nextQuestion}
-          )
+          />);
         } else if (questionType === 'TL') {
           component = (
             <PlayTitleCard

@@ -133,31 +133,22 @@ class Questions extends React.Component {
       '-KPt3uD8hulWiYGp3Rm7-esp'
     ];
 
-    console.log('Rematching All Questions');
     const questLength = _.keys(this.props.questions.data).length;
     _.each(hashToCollection(this.props.questions.data), (question, index) => {
       const percentage = index / questLength * 100;
-      console.log(`Rematching: ${percentage}% complete`);
       if (ignoreList.indexOf(question.key) === -1 && question.conceptID) {
-        console.log('Rematching Question: ', question.key);
         this.rematchAllResponses(question);
-      } else {
-        console.log('Ignoring');
       }
     });
-    console.log('Finished Rematching All Questions');
   }
 
   rematchAllResponses(question) {
-    // console.log('Rematching All Responses', question);
     const responsesWithStat = this.responsesWithStatusForQuestion(question.key);
     const weak = _.filter(responsesWithStat, resp => resp.statusCode > 1);
     weak.forEach((resp, index) => {
       const percentage = index / weak.length * 100;
-      // console.log(`Rematching ${resp.key} | ${percentage}% complete`);
       this.rematchResponse(question, resp, responsesWithStat);
     });
-    // console.log('Finished Rematching All Responses');
   }
 
   rematchResponse(question, response, responses) {
@@ -171,9 +162,6 @@ class Questions extends React.Component {
     (newMatchedResponse.response.feedback !== response.feedback) ||
     (newMatchedResponse.response.conceptResults !== response.conceptResults);
     const unmatched = (newMatchedResponse.found === false);
-    // console.log('Rematched: t, u, o, n: ', changed, unmatched);
-    // console.log(response);
-    // console.log(newMatchedResponse.response);
     if (changed) {
       if (unmatched) {
         const newValues = {
@@ -183,7 +171,6 @@ class Questions extends React.Component {
           questionUID: response.questionUID,
           gradeIndex: `unmatched${response.questionUID}`,
         };
-        // console.log("Unmatched: ", response.key)
         sleep(150);
         this.props.dispatch(
           setUpdatedResponse(response.key, newValues)
@@ -203,7 +190,6 @@ class Questions extends React.Component {
         if (newMatchedResponse.response.conceptResults) {
           newValues.conceptResults = newMatchedResponse.response.conceptResults;
         }
-        // console.log("Rematched: ", response.key)
         sleep(150);
         this.updateRematchedResponse(response.key, newValues);
       }
