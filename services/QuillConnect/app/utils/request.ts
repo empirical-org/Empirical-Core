@@ -7,7 +7,7 @@ interface HttpStatusProps {
   statusCode: number;
 }
 
-function buildRequestCallback(success: (string) => void, error: (string) => void):
+function buildRequestCallback(success: (any) => void, error: (any) => void):
     (any, httpStatus: HttpStatusProps, body: object) => void {
   return (_, httpStatus, body) => {
     if (httpStatus && httpStatus.statusCode === 200) {
