@@ -9,7 +9,7 @@ export default function () {
   }
 
   const whenAnalyticsNotDefined = function () {
-    console.log('not tracking segment analytics because its not defined');
+    // to do, use Sentry to capture error
   };
 
   this.track = function (event, data) {

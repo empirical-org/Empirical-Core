@@ -29,7 +29,7 @@ export default class NavButtonGroup extends React.Component {
     }).then((response) => {
       this.setState({ activityWithRecommendationsIds: response.activityWithRecommendationsIds })
     }).catch((error) => {
-      console.log('error', error)
+      // to do, use Sentry to capture error
     })
   }
 

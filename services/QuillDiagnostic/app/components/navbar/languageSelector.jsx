@@ -57,7 +57,7 @@ class LanguageSelector extends Component {
   }
 
   toggleDropdown() {
-    this.setState({ dropdownOpen: !this.state.dropdownOpen, }, console.log(this.state.dropdownOpen));
+    this.setState({ dropdownOpen: !this.state.dropdownOpen, });
   }
 
   hideDropdown() {

@@ -1,0 +1,20 @@
+{
+  "parser": "babel-eslint",
+  "env": {
+    "browser": true,
+  },
+  "plugins": [
+    "react"
+  ],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "rules": {
+    "no-console": "error",
+    "for-direction": "error",
+    "no-cond-assign": "error",
+    "no-plusplus": ["error", {"allowForLoopAfterthoughts": true}]
+  },
+}

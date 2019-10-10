@@ -39,10 +39,12 @@ const devServer = new WebpackDevServer(compiler, {
 });
 
 devServer.listen(hotReloadingPort, hotReloadingHostname, err => {
-  if (err) console.error(err);
-  console.log(
-    `=> 🔥  Webpack development server is running on port ${hotReloadingUrl}`,
-  );
+  if (err) {
+    console.log(
+      `=> 🔥  Webpack development server is running on port ${hotReloadingUrl}`,
+    );
+  }
+  // to do, log message: Webpack development server is running on port ${hotReloadingUrl}
 });
 
 compiler.plugin('done', () => {

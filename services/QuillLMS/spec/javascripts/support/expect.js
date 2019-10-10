@@ -744,8 +744,8 @@
 
       var numLinesEst = 0;
       var length = reduce(output, function (prev, cur) {
-        numLinesEst++;
-        if (indexOf(cur, '\n') >= 0) numLinesEst++;
+        numLinesEst += 1;
+        if (indexOf(cur, '\n') >= 0) numLinesEst += 1;
         return prev + cur.length + 1;
       }, 0);
 
@@ -847,12 +847,14 @@
     } else {
       do {
         if (i in this) {
-          rv = this[i++];
+          rv = this[i];
+          i += 1;
           break;
         }
 
         // if array contains no values, no initial value to return
-        if (++i >= len)
+        i += 1;
+        if (i >= len)
           throw new TypeError();
       } while (true);
     }

@@ -91,8 +91,6 @@ function submitNewFocusPoint(sfid, data) {
   sentenceFragmentsRef.child(`${sfid}/focusPoints`).push(data, (error) => {
     if (error) {
       alert(`Submission failed! ${error}`);
-    } else {
-      console.log('data', data)
     }
   });
 }

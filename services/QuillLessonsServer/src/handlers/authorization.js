@@ -13,7 +13,7 @@ function _belongsToSession(data, token) {
 }
 
 function _reportError(errorText, data, token, client) {
-  console.error({ error: errorText, data, token });
+  // to do, use Sentry to capture error
   client.emit(errorText, { data, token });
 }
 
