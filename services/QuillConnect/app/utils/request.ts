@@ -1,6 +1,7 @@
 // A lightweight convenience wrapper for the `request` module.
 // This is just to centralize some of the common boilerplate for reuse.
 
+import Raven from 'raven-js';
 import request from 'request';
 
 interface HttpStatusProps {
@@ -19,7 +20,11 @@ function buildRequestCallback(success: (any) => void, error: (any) => void):
         error(body);
       } else {
         // Default error handling if nothing is provided
-        console.error(body);
+        const errPayload = {
+          status: httpStatus,
+          body: body,
+        }
+        Raven.captureException(new Error(`Received a non-200 response to an HTTP request: ${errPayload}`));
       }
     }
   };
