@@ -1,10 +1,21 @@
-import React from 'react'
+import * as React from 'react'
 
 import { DropdownInput } from 'quill-component-library/dist/componentLibrary'
 
 const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
 
-export default class ClassroomCard extends React.Component {
+interface ClassroomCardProps {
+  classroom: any;
+  students: Array<any>;
+  toggleClassroomSelection: (any) => void;
+  toggleStudentSelection: (studentIds, classroomId) => void;
+}
+
+interface ClassroomCardState {
+  isActive: boolean;
+}
+
+export default class ClassroomCard extends React.Component<ClassroomCardProps, ClassroomCardState> {
   private classroomCard: any
 
   constructor(props) {

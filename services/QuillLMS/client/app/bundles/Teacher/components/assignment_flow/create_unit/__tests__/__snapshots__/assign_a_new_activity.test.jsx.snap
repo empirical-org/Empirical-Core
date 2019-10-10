@@ -37,63 +37,21 @@ exports[`AssignANewActivity component should render 1`] = `
   <div
     className="assignment-steps"
   >
-    <div
-      className="assignment-step"
-    >
-      <div
-        className="assignment-step-number"
-      >
-        1
-      </div>
-      <p
-        className="assignment-step-header"
-      >
-        Choose Assignment Type
-      </p>
-      <p
-        className="assignment-step-text"
-      >
-        Choose which type of assignment you want to use: diagnostics, whole class activities, or independent practice.
-      </p>
-    </div>
-    <div
-      className="assignment-step"
-    >
-      <div
-        className="assignment-step-number"
-      >
-        2
-      </div>
-      <p
-        className="assignment-step-header"
-      >
-        Browse Activities
-      </p>
-      <p
-        className="assignment-step-text"
-      >
-        Explore our library of diagnostic assessments and learning activities to find the best materials for your students.
-      </p>
-    </div>
-    <div
-      className="assignment-step"
-    >
-      <div
-        className="assignment-step-number"
-      >
-        3
-      </div>
-      <p
-        className="assignment-step-header"
-      >
-        Choose Assignment Type
-      </p>
-      <p
-        className="assignment-step-text"
-      >
-        Assign these activities to either the entire class or individual students.
-      </p>
-    </div>
+    <AssignmentStep
+      header="Choose Assignment Type"
+      number="1"
+      text="Choose which type of assignment you want to use: diagnostics, whole class activities, or independent practice."
+    />
+    <AssignmentStep
+      header="Browse Activities"
+      number="2"
+      text="Explore our library of diagnostic assessments and learning activities to find the best materials for your students."
+    />
+    <AssignmentStep
+      header="Choose Assignment Type"
+      number="3"
+      text="Assign these activities to either the entire class or individual students."
+    />
   </div>
 </div>
 `;
