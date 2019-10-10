@@ -59,7 +59,7 @@ export default React.createClass({
     };
   },
 
-  componentWillReceiveProps(nextProps: any) {
+  componentWillReceiveProps(nextProps) {
     if (!_.isEqual(nextProps.response, this.props.response)) {
       let conceptResults = {}
       let feedback = nextProps.response.feedback
