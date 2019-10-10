@@ -2365,6 +2365,40 @@ ALTER SEQUENCE subscriptions_id_seq OWNED BY subscriptions.id;
 
 
 --
+-- Name: title_cards; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE title_cards (
+    id integer NOT NULL,
+    uid character varying NOT NULL,
+    content character varying,
+    title character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: title_cards_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE title_cards_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: title_cards_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE title_cards_id_seq OWNED BY title_cards.id;
+
+
+--
 -- Name: topic_categories; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -3133,6 +3167,13 @@ ALTER TABLE ONLY subscriptions ALTER COLUMN id SET DEFAULT nextval('subscription
 
 
 --
+-- Name: title_cards id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY title_cards ALTER COLUMN id SET DEFAULT nextval('title_cards_id_seq'::regclass);
+
+
+--
 -- Name: topic_categories id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -3664,6 +3705,14 @@ ALTER TABLE ONLY subscription_types
 
 ALTER TABLE ONLY subscriptions
     ADD CONSTRAINT subscriptions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: title_cards title_cards_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY title_cards
+    ADD CONSTRAINT title_cards_pkey PRIMARY KEY (id);
 
 
 --
@@ -4521,6 +4570,13 @@ CREATE INDEX index_subscriptions_on_recurring ON subscriptions USING btree (recu
 --
 
 CREATE INDEX index_subscriptions_on_start_date ON subscriptions USING btree (start_date);
+
+
+--
+-- Name: index_title_cards_on_uid; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_title_cards_on_uid ON title_cards USING btree (uid);
 
 
 --
@@ -5706,4 +5762,10 @@ INSERT INTO schema_migrations (version) VALUES ('20190412152236');
 INSERT INTO schema_migrations (version) VALUES ('20190604133438');
 
 INSERT INTO schema_migrations (version) VALUES ('20190611155916');
+
+INSERT INTO schema_migrations (version) VALUES ('20191001184042');
+
+INSERT INTO schema_migrations (version) VALUES ('20191001190234');
+
+INSERT INTO schema_migrations (version) VALUES ('20191003192319');
 
