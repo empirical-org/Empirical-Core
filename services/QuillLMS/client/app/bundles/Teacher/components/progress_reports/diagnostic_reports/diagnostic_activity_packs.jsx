@@ -1,5 +1,5 @@
 import React from 'react'
-import Units from '../../lesson_planner/manage_units/units.jsx'
+import Units from '../../assignment_flow/manage_units/units.jsx'
 import LoadingSpinner from '../../shared/loading_indicator.jsx'
 import EmptyDiagnosticProgressReport from './empty_diagnostic_progress_report.jsx'
 import $ from 'jquery'
