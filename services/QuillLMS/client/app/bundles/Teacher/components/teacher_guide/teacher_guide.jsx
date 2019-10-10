@@ -83,11 +83,17 @@ export default class TeacherGuide extends React.Component {
   }
 
   render() {
+    let className
+    let id
+    if (this.props.dashboardMini) {
+      className = 'mini_container results-overview-mini-container col-md-8 col-sm-10 text-center'
+      id = 'getting-started-mini'
+    }
     if (this.state.display === false) {
       return <span />
     }
     return (
-      <div className="mini_container results-overview-mini-container col-md-8 col-sm-10 text-center" id="getting-started-mini">
+      <div className={className} id={id}>
         {this.stateSpecificComponents()}
       </div>
     );
