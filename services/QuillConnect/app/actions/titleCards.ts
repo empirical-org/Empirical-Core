@@ -4,7 +4,7 @@ import { requestGet, requestPost, requestPut } from '../utils/request';
 
 const C = require('../constants').default;
 
-const titleCardApiBaseUrl = `${process.env.EMPIRICAL_BASE_URL}/api/v2/title_cards`;
+const titleCardApiBaseUrl = `${process.env.EMPIRICAL_BASE_URL}/api/v1/title_cards`;
 
 interface TitleCardProps {
   uid: string;
