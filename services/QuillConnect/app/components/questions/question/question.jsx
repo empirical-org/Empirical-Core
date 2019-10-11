@@ -85,7 +85,7 @@ export default React.createClass({
 
   renderNextQuestionButton:  function () {
     if (this.readyForNext()) {
-      return (<button className="button is-outlined is-success" onClick={console.log("next")}>Next</button>)
+      return (<button className="button is-outlined is-success">Next</button>)
     }
   },
 

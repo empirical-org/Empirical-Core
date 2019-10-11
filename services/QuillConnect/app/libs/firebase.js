@@ -1,6 +1,7 @@
 const prod = process.env.NODE_ENV === 'production';
 
 import * as firebase from 'firebase/app';
+import 'firebase/auth';
 import 'firebase/database';
 import 'firebase/performance';
 

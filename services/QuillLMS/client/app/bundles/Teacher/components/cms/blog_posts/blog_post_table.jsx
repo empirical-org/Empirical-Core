@@ -44,7 +44,7 @@ export default class BlogPostTable extends React.Component {
     }).then((response) => {
       alert(`Order for ${this.props.topic} blog posts has been saved.`)
     }).catch((error) => {
-      console.log('error', error)
+      // to do, use Sentry to capture error
     })
   }
 

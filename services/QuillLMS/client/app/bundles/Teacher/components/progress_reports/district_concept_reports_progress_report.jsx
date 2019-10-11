@@ -139,7 +139,7 @@ export default class extends React.Component {
           <div className='header-and-info'>
             <h1>District Concept Reports</h1>
             <p>View concept reports</p>
-            <!-- TODO: what should the above text really be? -->
+            { /* TODO: what should the above text really be? */}
           </div>
           <div className='csv-and-how-we-grade'>
             <CSVDownloadForProgressReport data={this.state.csvData}/>

@@ -9,7 +9,6 @@
     var newObject = {}
     newObject[newField] = newValue;
     var newObject = _.chain(newObject).merge(obj).omit(oldField).value();
-    console.log(newObject)
     return newObject
   }
 

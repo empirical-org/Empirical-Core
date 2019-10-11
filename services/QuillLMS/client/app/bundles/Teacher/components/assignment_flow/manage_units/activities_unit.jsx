@@ -269,7 +269,7 @@ export default class ActivitiesUnit extends React.Component {
             activityWithRecommendationsIds={this.props.activityWithRecommendationsIds}
           />
         );
-        i++;
+        i += 1;
       }
     }
     if (this.state.allowSorting) {

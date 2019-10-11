@@ -102,7 +102,6 @@ const Lesson = React.createClass({
     this.setState({ error: false, });
     const relevantAnsweredQuestions = this.props.playLesson.answeredQuestions.filter(q => q.questionType !== 'TL')
     const results = getConceptResultsForAllQuestions(relevantAnsweredQuestions);
-    console.log(results);
     const score = calculateScoreForLesson(relevantAnsweredQuestions);
     const { lessonID, } = this.props.params;
     const sessionID = this.state.sessionID;
@@ -126,8 +125,7 @@ const Lesson = React.createClass({
       },
       (err, httpResponse, body) => {
         if (httpResponse.statusCode === 200) {
-          console.log('Finished Saving');
-          console.log(err, httpResponse, body);
+          // to do, use Sentry to capture error
           SessionActions.delete(this.state.sessionID);
           document.location.href = `${process.env.EMPIRICAL_BASE_URL}/activity_sessions/${this.state.sessionID}`;
           this.setState({ saved: true, });
@@ -160,8 +158,7 @@ const Lesson = React.createClass({
       },
       (err, httpResponse, body) => {
         if (httpResponse.statusCode === 200) {
-          console.log('Finished Saving');
-          console.log(err, httpResponse, body);
+          // to do, use Sentry to capture error
           document.location.href = `${process.env.EMPIRICAL_BASE_URL}/activity_sessions/${body.activity_session.uid}`;
           this.setState({ saved: true, });
         }
