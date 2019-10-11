@@ -365,7 +365,7 @@ EmpiricalGrammar::Application.routes.draw do
       resource :ping, controller: 'ping', except: [:index, :new, :edit, :destroy]
       post 'firebase_tokens/create_for_connect' => 'firebase_tokens#create_for_connect'
       resource :firebase_tokens,          only: [:create]
-      resources :title_cards
+      resources :title_cards,             except: [:destroy]
       get 'activities/:id/follow_up_activity_name_and_supporting_info' => 'activities#follow_up_activity_name_and_supporting_info'
       get 'activities/:id/supporting_info' => 'activities#supporting_info'
       get 'classroom_activities/student_names' => 'classroom_units#student_names'

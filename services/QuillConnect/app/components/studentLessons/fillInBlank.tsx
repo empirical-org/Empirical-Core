@@ -136,13 +136,13 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     };
   }
 
-  renderText(text, i) {
+  renderText(text, i): JSX.Element[] {
     let style = {};
     if (text.length > 0) {
       style = styles.text;
     }
     const textArray = text.split(' ')
-    const spanArray = []
+    const spanArray: JSX.Element[] = []
     textArray.forEach((word, index) => {
       spanArray.push(<span key={`${i}-${index}`} style={style}>{word}</span>)
     })
@@ -267,7 +267,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
   }
 
   renderConceptExplanation() {
-    const latestAttempt:{response: Response}|undefined = this.getLatestAttempt(this.props.question.attempts);
+    const latestAttempt:Attempt|undefined = this.getLatestAttempt();
     if (latestAttempt && latestAttempt.response && !latestAttempt.response.optimal ) {
       if (latestAttempt.response.conceptResults) {
           const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.response.conceptResults);
@@ -303,13 +303,13 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     if (this.state.splitPrompt) {
       const { splitPrompt, } = this.state;
       const l = splitPrompt.length;
-      const splitPromptWithInput:Array<JSX.Element> = [];
+      const splitPromptWithInput:JSX.Element[] = [];
       splitPrompt.forEach((section, i) => {
         if (i !== l - 1) {
-          splitPromptWithInput.push(this.renderText(section, i));
+          splitPromptWithInput.push(...this.renderText(section, i));
           splitPromptWithInput.push(this.renderInput(i));
         } else {
-          splitPromptWithInput.push(this.renderText(section, i));
+          splitPromptWithInput.push(...this.renderText(section, i));
         }
       });
       return _.flatten(splitPromptWithInput);
