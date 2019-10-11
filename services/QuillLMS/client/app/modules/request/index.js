@@ -23,7 +23,7 @@ function buildRequestCallback(success, error) {
         error(body);
       } else {
         // Default error handling if nothing is provided
-        console.error(body);
+        // to do, use Sentry to capture error
       }
     }
   };

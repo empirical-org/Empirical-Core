@@ -59,7 +59,7 @@ export default React.createClass({
     };
   },
 
-  componentWillReceiveProps(nextProps: any) {
+  componentWillReceiveProps(nextProps) {
     if (!_.isEqual(nextProps.response, this.props.response)) {
       let conceptResults = {}
       let feedback = nextProps.response.feedback
@@ -201,7 +201,7 @@ export default React.createClass({
     if (confirm('Are you sure?')) {
       const conceptResults = Object.assign({}, this.state.conceptResults || {});
       delete conceptResults[crid];
-      this.setState({ conceptResults }, (() => { console.log('this.state.conceptResults', this.state.conceptResults) }))
+      this.setState({ conceptResults }, (() => {}))
     }
   },
 
@@ -315,7 +315,6 @@ export default React.createClass({
       });
     } else {
       components = Object.keys(conceptResults).map(uid => {
-        console.log(this.props.concepts.data['0'])
         const concept = _.find(this.props.concepts.data['0'], { uid, });
         if (concept) {
           // hacky fix for the problem where concept result uids are being returned with string value 'false' rather than false

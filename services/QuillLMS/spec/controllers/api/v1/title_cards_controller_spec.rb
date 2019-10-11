@@ -130,30 +130,32 @@ describe Api::V1::TitleCardsController, type: :controller do
     #end
   end
 
-  describe "#destroy" do
-    before do
-      @request.session['user_id'] = staff.id
-    end
+  # Disabling destroy endpoints since we've turned them off while we don't have
+  # any auth in place
+  #describe "#destroy" do
+  #  before do
+  #    @request.session['user_id'] = staff.id
+  #  end
 
-    it 'should delete TitleCards if found' do
-      delete :destroy, id: title_card.uid
-      expect(response.status).to eq(200)
-      expect(TitleCard.find_by(uid: title_card.uid)).to eq(nil)
-    end
+  #  it 'should delete TitleCards if found' do
+  #    delete :destroy, id: title_card.uid
+  #    expect(response.status).to eq(200)
+  #    expect(TitleCard.find_by(uid: title_card.uid)).to eq(nil)
+  #  end
 
-    it 'should 404 NOT FOUND if no TitleCard with the provided UID is found' do
-      delete :destroy, id: 'doesnotexist'
-      expect(response.status).to eq(404)
-      expect(response.body).to include("The resource you were looking for does not exist")
-    end
+  #  it 'should 404 NOT FOUND if no TitleCard with the provided UID is found' do
+  #    delete :destroy, id: 'doesnotexist'
+  #    expect(response.status).to eq(404)
+  #    expect(response.body).to include("The resource you were looking for does not exist")
+  #  end
 
-    # Disabling these security tests until we figure out a way to secure the
-    # endpoints
-    #it 'should 403 FORBIDDEN if a non-staff user calls it' do
-    #  @request.session['user_id'] = nil
-    #  delete :destroy, id: title_card.uid
-    #  expect(response.status).to eq(403)
-    #  expect(response.body).to eq('Only available to authorized "staff" users')
-    #end
-  end
+  #  # Disabling these security tests until we figure out a way to secure the
+  #  # endpoints
+  #  #it 'should 403 FORBIDDEN if a non-staff user calls it' do
+  #  #  @request.session['user_id'] = nil
+  #  #  delete :destroy, id: title_card.uid
+  #  #  expect(response.status).to eq(403)
+  #  #  expect(response.body).to eq('Only available to authorized "staff" users')
+  #  #end
+  #end
 end

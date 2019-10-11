@@ -29,7 +29,7 @@ export default class MoveStudent extends React.Component {
       } else if (r.statusCode === 200){
         window.alert('Student has been moved!')
       } else {
-        console.log(response)
+        // to do, use Sentry to capture error
       }
     })
   }

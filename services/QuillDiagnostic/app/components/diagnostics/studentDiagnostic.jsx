@@ -105,8 +105,7 @@ const StudentDiagnostic = React.createClass({
       },
       (err, httpResponse, body) => {
         if (httpResponse.statusCode === 200) {
-          console.log('Finished Saving');
-          console.log(err, httpResponse, body);
+          // to do, use Sentry to capture error
           SessionActions.delete(this.state.sessionID);
           document.location.href = process.env.EMPIRICAL_BASE_URL
           this.setState({ saved: true, });
@@ -134,8 +133,7 @@ const StudentDiagnostic = React.createClass({
       },
       (err, httpResponse, body) => {
         if (httpResponse.statusCode === 200) {
-          console.log('Finished Saving');
-          console.log(err, httpResponse, body);
+          // to do, use Sentry to capture error
           document.location.href = `${process.env.EMPIRICAL_BASE_URL}/activity_sessions/${body.activity_session.uid}`;
           this.setState({ saved: true, });
         }

@@ -51,7 +51,7 @@
     let selectedStudentCount = 0
     this.props.students.forEach((s) => {
       if (s.isSelected) {
-        selectedStudentCount++
+        selectedStudentCount += 1;
       }
     })
     return selectedStudentCount

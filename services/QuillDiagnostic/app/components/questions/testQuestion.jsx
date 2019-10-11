@@ -49,7 +49,6 @@ class TestQuestion extends Component {
   render() {
     if (this.props.playLesson.currentQuestion) {
       const { question, } = this.props.playLesson.currentQuestion;
-      console.log(question);
       return (
         <div className="test-question-container">
           <PlayLessonQuestion key={this.state.key} question={question} prefill={false} nextQuestion={this.reset} dispatch={this.props.dispatch} />

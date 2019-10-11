@@ -27,7 +27,7 @@ export default class MergeTeacherAccounts extends React.Component {
       } else if (r.statusCode === 200){
         window.alert('Accounts have been merged!')
       } else {
-        console.log(response)
+        // to do, use Sentry to capture error
       }
     })
   }
