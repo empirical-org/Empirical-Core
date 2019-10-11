@@ -35,7 +35,14 @@ const routeLinks = {
   [selectClassesSlug]: (unitTemplateId, unitTemplateName) => {
     const base = [slash(), learningProcess(), slash(), activityType(), slash()]
     if (unitTemplateId && unitTemplateName) {
-      return base.concat([activityPack(), slash(), individualFeaturedActivityPack(unitTemplateId, unitTemplateName), slash(), selectClasses()])
+      return base.concat(
+        [activityPack(),
+          slash(),
+          individualFeaturedActivityPack(unitTemplateId, unitTemplateName),
+          slash(),
+          selectClasses()
+        ]
+      )
     }
     return base.concat([createActivityPack(), slash(), selectClasses()])
   },
