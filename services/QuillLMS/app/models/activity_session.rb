@@ -386,6 +386,10 @@ class ActivitySession < ActiveRecord::Base
     # Dually, please do not add reload here, the db cost is not worth it
   end
 
+  def minutes_to_complete
+    ((self.completed_at - self.started_at)/60).round
+  end
+
   private
 
   def correctly_assigned

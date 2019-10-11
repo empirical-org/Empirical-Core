@@ -59,30 +59,35 @@ class School < ActiveRecord::Base
     CSV.generate(options) do |csv_file|
       csv_file << %w(QuillID DistrictID StudentName StudentEmail TeacherName ClassroomName SchoolName Percentage Date ActivityName StandardName MinutesSpent)
 
-      self.users.where(role: "teacher").each do |teacher|
-        teacher.classrooms_teachers.where(role: "owner").each do |classrooms_teacher|
-          classroom = classrooms_teacher.classroom
-          classroom.students.each do |student|
-            student.activity_sessions.where("completed_at >= ?", activities_since).each do |activity_session|
-              csv_file << [
-                student.id,
-                student.third_party_user_ids.where(source: ThirdPartyUserId::SOURCES::LEAP).first.id,
-                student.name,
-                student.email,
-                teacher.name,
-                classroom.name,
-                self.name,
-                activity_session.percentage,
-                activity_session.completed_at,
-                activity_session.activity.name,
-                activity_session.activity.topic.topic_category.name,
-                ((activity_session.completed_at - activity_session.started_at)/60).round
-              ]
-            end
-          end
+      self.students.each do |student|
+        student.activity_sessions.where("completed_at >= ?", activities_since).each do |activity_session|
+          classroom = activity_session.classroom
+          teacher = User.joins(:classrooms_teachers).where(classrooms_teachers: {role: "owner", classroom_id: classroom.id}).first
+          csv_file << generate_leap_csv_row(student, teacher, classroom, activity_session)
         end
       end
     end
+  end
+
+  def students
+    User.joins(student_in_classroom: {teachers: :school}).where(schools: {id: self.id}).uniq
+  end
+
+  private def generate_leap_csv_row(student, teacher, classroom, activity_session)
+    [
+      student.id,
+      student.third_party_user_ids.where(source: ThirdPartyUserId::SOURCES::LEAP).first&.id,
+      student.name,
+      student.email,
+      teacher.name,
+      classroom.name,
+      self.name,
+      activity_session.percentage,
+      activity_session.completed_at,
+      activity_session.activity.name,
+      activity_session.activity.topic.topic_category.name,
+      activity_session.minutes_to_complete
+    ]
   end
 
   private def lower_grade_within_bounds
