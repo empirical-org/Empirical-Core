@@ -11,20 +11,56 @@ interface AssignmentFlowNavigationProps {
   unitTemplateName?: string;
 }
 
-const learningProcessUrl = '/assign/learning-process'
-const learningProcessRegex = /\/assign\/learning-process$/
-const diagnosticUrl = '/assign/diagnostic'
-const diagnosticRegex = /\/assign\/diagnostic$/
-const activityTypeUrl = '/assign/activity-type'
-const activityTypeRegex = /\/assign\/activity-type$/
-const createActivityPackUrl = '/assign/create-activity-pack'
-const createActivityPackRegex = /\/assign\/create-activity-pack$/
-const selectClassesUrl = '/assign/select-classes'
-const selectClassesForCustomPackRegex = /\/assign\/select-classes$/
-const selectClassesForUnitTemplateRegex = /\/assign\/select-classes\?unit_template_id=\d+$/
-const individualFeaturedActivityPackRegex = /\/assign\/featured-activity-packs\/\d+$/
-const featuredActivityPacksUrl = '/assign/featured-activity-packs'
-const featuredActivityPacksRegex = /\/assign\/featured-activity-packs/
+const learningProcessSlug = 'learning-process'
+const diagnosticSlug = 'diagnostic'
+const activityTypeSlug = 'activity-type'
+const createActivityPackSlug = 'create-activity-pack'
+const selectClassesSlug = 'select-classes'
+const featuredActivityPacksSlug = 'featured-activity-packs'
+
+const slash = () => <span className="slash">/</span>
+const learningProcess = () => <Link to={`/assign/${learningProcessSlug}`}>Learning process</Link>
+const diagnostic = () => <Link to={`/assign/${diagnosticSlug}`}>Diagnostic</Link>
+const activityType = () => <Link to={`/assign/${activityTypeSlug}`}>Activity type</Link>
+const createActivityPack = () => <Link to={`/assign/${createActivityPackSlug}`}>Custom activity pack</Link>
+const selectClasses = () => <Link to={`/assign/${selectClassesSlug}`}>Assign</Link>
+const activityPack = () => <Link to={`/assign/${featuredActivityPacksSlug}`}>Activity pack</Link>
+const individualFeaturedActivityPack = (unitTemplateId, unitTemplateName) => <Link to={`/assign/${featuredActivityPacksSlug}/${unitTemplateId}`}>{unitTemplateName}</Link>
+
+const routeLinks = {
+  [learningProcessSlug]: () => [slash(), learningProcess()],
+  [diagnosticSlug]: () => [slash(), learningProcess(), slash(), diagnostic()],
+  [activityTypeSlug]: () => [slash(), learningProcess(), slash(), activityType()],
+  [createActivityPackSlug]: () => [slash(), learningProcess(), slash(), activityType(), slash(), createActivityPack()],
+  [selectClassesSlug]: (unitTemplateId, unitTemplateName) => {
+    const base = [slash(), learningProcess(), slash(), activityType(), slash()]
+    if (unitTemplateId && unitTemplateName) {
+      return base.concat([activityPack(), slash(), individualFeaturedActivityPack(unitTemplateId, unitTemplateName), slash(), selectClasses()])
+    }
+    return base.concat([createActivityPack(), slash(), selectClasses()])
+  },
+  [featuredActivityPacksSlug]: (unitTemplateId, unitTemplateName) => {
+    const base = [slash(), learningProcess(), slash(), activityType(), slash(), activityPack()]
+    if (unitTemplateId && unitTemplateName) {
+      return base.concat([slash(), individualFeaturedActivityPack(unitTemplateId, unitTemplateName)])
+    }
+    return base
+  }
+}
+
+const routeProgress = {
+  [learningProcessSlug]: () => 'step-one',
+  [diagnosticSlug]: () => 'step-two',
+  [activityTypeSlug]: () => 'step-two',
+  [createActivityPackSlug]: () => 'step-three',
+  [selectClassesSlug]: () => 'step-five',
+  [featuredActivityPacksSlug]: (unitTemplateId, unitTemplateName) => {
+    if (unitTemplateId && unitTemplateName) {
+      return 'step-four'
+    }
+    return 'step-three'
+  }
+}
 
 export default class AssignmentFlowNavigation extends React.Component<AssignmentFlowNavigationProps, any> {
   constructor(props) {
@@ -39,6 +75,12 @@ export default class AssignmentFlowNavigation extends React.Component<Assignment
     this.setState({ showLeavingModal: !this.state.showLeavingModal })
   }
 
+  getSlug() {
+    const path = location.pathname
+    // will grab whatever comes after '/assign/' and before another slash
+    return path.split('/')[2]
+  }
+
   renderButton() {
     const { button, } = this.props
     return button ? button : null
@@ -46,49 +88,22 @@ export default class AssignmentFlowNavigation extends React.Component<Assignment
 
   renderLinks() {
     const { unitTemplateId, unitTemplateName, } = this.props
-    const url = window.location.href
-    const slash = <span className="slash">/</span>
-    let elements = []
-    const learningProcess = <Link to={learningProcessUrl}>Learning process</Link>
-    const diagnostic = <Link to={diagnosticUrl}>Diagnostic</Link>
-    const activityType = <Link to={activityTypeUrl}>Activity type</Link>
-    const createActivityPack = <Link to={createActivityPackUrl}>Custom activity pack</Link>
-    const selectClasses = <Link to={selectClassesUrl}>Assign</Link>
-    const activityPack = <Link to={featuredActivityPacksUrl}>Activity pack</Link>
-    const individualFeaturedActivityPack = <Link to={`${featuredActivityPacksUrl}/${unitTemplateId}`}>{unitTemplateName}</Link>
-    if (url.match(learningProcessRegex)) {
-      elements = [slash, learningProcess]
-    } else if (url.match(diagnosticRegex)) {
-      elements = [slash, learningProcess, slash, diagnostic]
-    } else if (url.match(activityTypeRegex)) {
-      elements = [slash, learningProcess, slash, activityType]
-    } else if (url.match(createActivityPackRegex)) {
-      elements = [slash, learningProcess, slash, activityType, slash, createActivityPack]
-    } else if (url.match(selectClassesForCustomPackRegex)) {
-      elements = [slash, learningProcess, slash, activityType, slash, createActivityPack, slash, selectClasses]
-    } else if (url.match(selectClassesForUnitTemplateRegex)) {
-      elements = [slash, learningProcess, slash, activityType, slash, activityPack, slash, individualFeaturedActivityPack, slash, selectClasses]
-    } else if (url.match(individualFeaturedActivityPackRegex)) {
-      elements = [slash, learningProcess, slash, activityType, slash, activityPack, slash, individualFeaturedActivityPack]
-    } else if (url.match(featuredActivityPacksRegex)) {
-      elements = [slash, learningProcess, slash, activityType, slash, activityPack]
+    let elements
+    try {
+      elements = routeLinks[this.getSlug()](unitTemplateId, unitTemplateName)
+    } catch {
+      elements = null
     }
     return <div className="links">{elements}</div>
   }
 
   renderProgressBar() {
-    const url = window.location.href
+    const { unitTemplateId, unitTemplateName, } = this.props
     let className
-    if (url.match(learningProcessRegex)) {
-      className = 'step-one'
-    } else if (url.match(diagnosticRegex) || url.match(activityTypeRegex)) {
-      className = 'step-two'
-    } else if (url.match(individualFeaturedActivityPackRegex)) {
-      className = 'step-four'
-    } else if (url.match(createActivityPackRegex) || url.match(featuredActivityPacksUrl)) {
-      className = 'step-three'
-    } else if (url.match(selectClassesForCustomPackRegex) || url.match(selectClassesForUnitTemplateRegex)) {
-      className = 'step-five'
+    try {
+      className = routeProgress[this.getSlug()](unitTemplateId, unitTemplateName)
+    } catch {
+      className = null
     }
     return <div className='progress-bar'><div className={className} /></div>
   }

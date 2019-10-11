@@ -13,6 +13,7 @@ import {
   UNIT_TEMPLATE_NAME,
   ACTIVITY_IDS_ARRAY,
   UNIT_TEMPLATE_ID,
+  UNIT_NAME,
 } from '../../localStorageKeyConstants.ts'
 import { requestGet } from '../../../../../../modules/request/index.js';
 
@@ -73,6 +74,7 @@ export default class UnitTemplateProfile extends React.Component {
     const { name, id, activities, } = this.state.data
     const activityIdsArray = activities.map(act => act.id).toString()
     window.localStorage.setItem(UNIT_TEMPLATE_NAME, name)
+    window.localStorage.setItem(UNIT_NAME, name)
     window.localStorage.setItem(ACTIVITY_IDS_ARRAY, activityIdsArray)
     window.localStorage.setItem(UNIT_TEMPLATE_ID, id)
     this.props.router.push(`/assign/select-classes?unit_template_id=${id}`)

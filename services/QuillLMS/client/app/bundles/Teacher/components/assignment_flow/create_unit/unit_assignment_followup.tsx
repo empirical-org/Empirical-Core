@@ -37,6 +37,7 @@ interface UnitAssignmentFollowupState {
   assignedClassrooms: Array<any>;
   showSnackbar: boolean;
   snackbarCopy: string;
+  leaving: boolean;
 }
 
 export default class UnitAssignmentFollowup extends React.Component<UnitAssignmentFollowupProps, UnitAssignmentFollowupState> {
@@ -49,16 +50,19 @@ export default class UnitAssignmentFollowup extends React.Component<UnitAssignme
       showNextOptions: props.router.location.pathname === '/assign/next',
       assignedClassrooms,
       showSnackbar: false,
-      snackbarCopy: ''
+      snackbarCopy: '',
+      leaving: false
     }
   }
 
   componentWillUnmount() {
-    window.localStorage.removeItem(UNIT_TEMPLATE_ID)
-    window.localStorage.removeItem(UNIT_TEMPLATE_NAME)
-    window.localStorage.removeItem(UNIT_NAME)
-    window.localStorage.removeItem(ACTIVITY_IDS_ARRAY)
-    window.localStorage.removeItem(CLASSROOMS)
+    this.setState({ leaving: true, }, () => {
+      window.localStorage.removeItem(UNIT_TEMPLATE_ID)
+      window.localStorage.removeItem(UNIT_TEMPLATE_NAME)
+      window.localStorage.removeItem(UNIT_NAME)
+      window.localStorage.removeItem(ACTIVITY_IDS_ARRAY)
+      window.localStorage.removeItem(CLASSROOMS)
+    })
   }
 
   allAssignedClassroomsAreEmpty = () => {
@@ -165,7 +169,8 @@ export default class UnitAssignmentFollowup extends React.Component<UnitAssignme
   }
 
   renderFollowUp = () => {
-    const { showNextOptions } = this.state
+    const { showNextOptions, leaving, } = this.state
+    if (leaving) return
     if (!showNextOptions) {
       if (this.allAssignedClassroomsAreEmpty()) {
         return this.renderInviteStudents()
@@ -177,7 +182,7 @@ export default class UnitAssignmentFollowup extends React.Component<UnitAssignme
   }
 
   render() {
-    let button
+    let button = <a href="/" className="quill-button medium contained primary" onClick={this.setNextOptions}>Take me to my dashboard</a>
     if (!(this.state.showNextOptions || this.allAssignedClassroomsAreEmpty())) {
       button = <button className="quill-button medium contained primary" onClick={this.setNextOptions}>Next</button>
     }
