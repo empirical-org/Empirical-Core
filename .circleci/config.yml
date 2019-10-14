@@ -397,3 +397,6 @@ workflows:
       - comprehension_rails_build:
           requires:
             - lms_rails_build
+  run-eslint:
+    jobs:
+      - node_lint
