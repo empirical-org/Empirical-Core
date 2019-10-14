@@ -21,65 +21,66 @@ import { getParameterByName } from '../../libs/getParameterByName';
 
 const request = require('request');
 
-const StudentDiagnostic = React.createClass({
+class StudentDiagnostic extends React.Component {
+  constructor(props) {
+    super(props)
 
-  getInitialState() {
-    return {
+    this.state = {
       saved: false,
       sessionID: this.getSessionId(),
       hasOrIsGettingResponses: false,
-    };
-  },
+    }
+  }
 
-  componentWillMount() {
+  componentWillMount = () => {
     this.props.dispatch(clearData());
     if (this.state.sessionID) {
       SessionActions.get(this.state.sessionID, (data) => {
         this.setState({ session: data, });
       });
     }
-  },
+  }
 
-  getPreviousSessionData() {
+  getPreviousSessionData = () => {
     return this.state.session;
-  },
+  }
 
-  resumeSession(data) {
+  resumeSession = (data) => {
     if (data) {
       this.props.dispatch(resumePreviousDiagnosticSession(data));
     }
-  },
+  }
 
-  getSessionId() {
+  getSessionId = () => {
     let sessionID = getParameterByName('student');
     if (sessionID === 'null') {
       sessionID = undefined;
     }
     return sessionID;
-  },
+  }
 
-  saveSessionData(lessonData) {
+  saveSessionData = (lessonData) => {
     if (this.state.sessionID) {
       SessionActions.update(this.state.sessionID, lessonData);
     }
-  },
+  }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.playDiagnostic.answeredQuestions.length !== this.props.playDiagnostic.answeredQuestions.length) {
       this.saveSessionData(nextProps.playDiagnostic);
     }
-  },
+  }
 
-  doesNotHaveAndIsNotGettingResponses() {
+  doesNotHaveAndIsNotGettingResponses = () => {
     return (!this.state.hasOrIsGettingResponses);
-  },
+  }
 
-  hasQuestionsInQuestionSet(props) {
+  hasQuestionsInQuestionSet = (props) => {
     const pL = props.playDiagnostic;
     return (pL && pL.questionSet && pL.questionSet.length);
-  },
+  }
 
-  saveToLMS() {
+  saveToLMS = () => {
     this.setState({ error: false, });
     const results = getConceptResultsForAllQuestions(this.props.playDiagnostic.answeredQuestions);
 
@@ -90,9 +91,9 @@ const StudentDiagnostic = React.createClass({
     } else {
       this.createAnonActivitySession(diagnosticID, results, 1);
     }
-  },
+  }
 
-  finishActivitySession(sessionID, results, score) {
+  finishActivitySession = (sessionID, results, score) => {
     request(
       { url: `${process.env.EMPIRICAL_BASE_URL}/api/v1/activity_sessions/${sessionID}`,
         method: 'PUT',
@@ -101,7 +102,7 @@ const StudentDiagnostic = React.createClass({
           state: 'finished',
           concept_results: results,
           percentage: score,
-        },
+        }
       },
       (err, httpResponse, body) => {
         if (httpResponse.statusCode === 200) {
@@ -117,9 +118,9 @@ const StudentDiagnostic = React.createClass({
         }
       }
     );
-  },
+  }
 
-  createAnonActivitySession(lessonID, results, score) {
+  createAnonActivitySession = (lessonID, results, score) => {
     request(
       { url: `${process.env.EMPIRICAL_BASE_URL}/api/v1/activity_sessions/`,
         method: 'POST',
@@ -129,7 +130,7 @@ const StudentDiagnostic = React.createClass({
           activity_uid: lessonID,
           concept_results: results,
           percentage: score,
-        },
+        }
       },
       (err, httpResponse, body) => {
         if (httpResponse.statusCode === 200) {
@@ -139,14 +140,14 @@ const StudentDiagnostic = React.createClass({
         }
       }
     );
-  },
+  }
 
-  submitResponse(response) {
+  submitResponse = (response) => {
     const action = submitResponse(response);
     this.props.dispatch(action);
-  },
+  }
 
-  renderQuestionComponent() {
+  renderQuestionComponent = () => {
     if (this.props.question.currentQuestion) {
       return (<Question
         question={this.props.question.currentQuestion}
@@ -154,50 +155,45 @@ const StudentDiagnostic = React.createClass({
         prefill={this.getLesson().prefill}
       />);
     }
-  },
+  }
 
-  questionsForDiagnostic() {
+  questionsForDiagnostic = () => {
     const questionsCollection = hashToCollection(this.props.questions.data);
     const { data, } = this.props.lessons,
       { lessonID, } = this.props.params;
     return data[lessonID].questions.map(id => _.find(questionsCollection, { key: id, }));
-  },
+  }
 
-  startActivity(name) {
-    // this.saveStudentName(name);
+  startActivity = () => {
     const next = nextQuestion();
     this.props.dispatch(next);
-  },
+  }
 
-  loadQuestionSet() {
+  loadQuestionSet = () => {
     const data = this.questionsForLesson();
     const action = loadData(data);
     this.props.dispatch(action);
-  },
+  }
 
-  nextQuestion() {
+  nextQuestion = () => {
     const next = nextQuestion();
     this.props.dispatch(next);
-  },
+  }
 
-  nextQuestionWithoutSaving() {
+  nextQuestionWithoutSaving = () => {
     const next = nextQuestionWithoutSaving();
     this.props.dispatch(next);
-  },
+  }
 
-  getLesson() {
+  getLesson = () => {
     return this.props.lessons.data[this.props.params.diagnosticID];
-  },
+  }
 
-  getLessonName() {
+  getLessonName = () => {
     return this.props.lessons.data[this.props.params.diagnosticID].name;
-  },
+  }
 
-  saveStudentName(name) {
-    this.props.dispatch(updateName(name));
-  },
-
-  questionsForLesson() {
+  questionsForLesson = () => {
     const { data, } = this.props.lessons,
       { diagnosticID, } = this.props.params;
     const filteredQuestions = data[diagnosticID].questions.filter(ques => {
@@ -230,22 +226,22 @@ const StudentDiagnostic = React.createClass({
       }
       return { type, data: question, };
     });
-  },
+  }
 
-  getQuestionCount() {
+  getQuestionCount = () => {
     const { diagnosticID, } = this.props.params;
     if (diagnosticID == 'researchDiagnostic') {
       return '15';
     }
     return '22';
-  },
+  }
 
-  markIdentify(bool) {
+  markIdentify = (bool) => {
     const action = updateCurrentQuestion({ identified: bool, });
     this.props.dispatch(action);
-  },
+  }
 
-  getProgressPercent() {
+  getProgressPercent = () => {
     let percent;
     const playDiagnostic = this.props.playDiagnostic;
     if (playDiagnostic && playDiagnostic.unansweredQuestions && playDiagnostic.questionSet) {
@@ -260,9 +256,9 @@ const StudentDiagnostic = React.createClass({
       percent = 0;
     }
     return percent;
-  },
+  }
 
-  getQuestionType(type) {
+  getQuestionType = (type) => {
     let questionType
     switch (type) {
       case 'questions':
@@ -279,18 +275,18 @@ const StudentDiagnostic = React.createClass({
         break
     }
     return questionType
-  },
+  }
 
-  landingPageHtml() {
+  landingPageHtml = () => {
     const { data, } = this.props.lessons,
       { diagnosticID, } = this.props.params;
     return data[diagnosticID].landingPageHtml
-  },
+  }
 
   render() {
     const questionType = this.props.playDiagnostic.currentQuestion ? this.props.playDiagnostic.currentQuestion.type : ''
     let component;
-    if (this.props.questions.hasreceiveddata && this.props.sentenceFragments.hasreceiveddata) {
+    if (this.props.lessons.hasreceiveddata && this.props.questions.hasreceiveddata && this.props.sentenceFragments.hasreceiveddata) {
       if (!this.props.playDiagnostic.questionSet) {
         return (
           <div>
@@ -379,8 +375,8 @@ const StudentDiagnostic = React.createClass({
         </section>
       </div>
     );
-  },
-});
+  }
+}
 
 function select(state) {
   return {

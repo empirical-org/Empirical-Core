@@ -19,14 +19,19 @@ import { permittedFlag } from '../../libs/flagArray'
 
 const request = require('request');
 
-const Lesson = React.createClass({
+class Lesson extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      hasOrIsGettingResponses: false,
+      sessionInitialized: false
+    }
+  }
+
   componentWillMount() {
     this.props.dispatch(clearData());
-  },
-
-  getInitialState() {
-    return { hasOrIsGettingResponses: false, sessionInitalized: false };
-  },
+  }
 
   componentWillReceiveProps(nextProps) {
     const answeredQuestionsHasChanged = nextProps.playLesson.answeredQuestions.length !== this.props.playLesson.answeredQuestions.length
@@ -36,7 +41,7 @@ const Lesson = React.createClass({
     if (answeredQuestionsHasChanged || attemptsHasChanged) {
       this.saveSessionData(nextProps.playLesson);
     }
-  },
+  }
 
   componentDidUpdate() {
     // At mount time the component may still be waiting on questions
@@ -58,28 +63,28 @@ const Lesson = React.createClass({
         this.saveSessionIdToState();
       }
     }
-  },
+  }
 
-  doesNotHaveAndIsNotGettingResponses() {
+  doesNotHaveAndIsNotGettingResponses = () => {
     return (!this.state.hasOrIsGettingResponses);
-  },
+  }
 
-  getPreviousSessionData() {
+  getPreviousSessionData = () => {
     return this.state.session;
-  },
+  }
 
-  resumeSession(data) {
+  resumeSession = (data) => {
     if (data) {
       this.props.dispatch(resumePreviousSession(data));
     }
-  },
+  }
 
-  hasQuestionsInQuestionSet(props) {
+  hasQuestionsInQuestionSet = (props) => {
     const pL = props.playLesson;
     return (pL && pL.questionSet && pL.questionSet.length);
-  },
+  }
 
-  saveSessionIdToState() {
+  saveSessionIdToState = () => {
     let sessionID = getParameterByName('student');
     if (sessionID === 'null') {
       sessionID = undefined;
@@ -91,14 +96,14 @@ const Lesson = React.createClass({
         });
       }
     });
-  },
+  }
 
-  submitResponse(response) {
+  submitResponse = (response) => {
     const action = submitResponse(response);
     this.props.dispatch(action);
-  },
+  }
 
-  saveToLMS() {
+  saveToLMS = () => {
     this.setState({ error: false, });
     const relevantAnsweredQuestions = this.props.playLesson.answeredQuestions.filter(q => q.questionType !== 'TL')
     const results = getConceptResultsForAllQuestions(relevantAnsweredQuestions);
@@ -110,9 +115,9 @@ const Lesson = React.createClass({
     } else {
       this.createAnonActivitySession(lessonID, results, score);
     }
-  },
+  }
 
-  finishActivitySession(sessionID, results, score) {
+  finishActivitySession = (sessionID, results, score) => {
     request(
       { url: `${process.env.EMPIRICAL_BASE_URL}/api/v1/activity_sessions/${sessionID}`,
         method: 'PUT',
@@ -121,7 +126,7 @@ const Lesson = React.createClass({
           state: 'finished',
           concept_results: results,
           percentage: score,
-        },
+        }
       },
       (err, httpResponse, body) => {
         if (httpResponse.statusCode === 200) {
@@ -137,14 +142,14 @@ const Lesson = React.createClass({
         }
       }
     );
-  },
+  }
 
-  markIdentify(bool) {
+  markIdentify = (bool) => {
     const action = updateCurrentQuestion({ identified: bool, });
     this.props.dispatch(action);
-  },
+  }
 
-  createAnonActivitySession(lessonID, results, score) {
+  createAnonActivitySession = (lessonID, results, score) => {
     request(
       { url: `${process.env.EMPIRICAL_BASE_URL}/api/v1/activity_sessions/`,
         method: 'POST',
@@ -154,7 +159,7 @@ const Lesson = React.createClass({
           activity_uid: lessonID,
           concept_results: results,
           percentage: score,
-        },
+        }
       },
       (err, httpResponse, body) => {
         if (httpResponse.statusCode === 200) {
@@ -164,9 +169,9 @@ const Lesson = React.createClass({
         }
       }
     );
-  },
+  }
 
-  questionsForLesson() {
+  questionsForLesson = () => {
     const { data, } = this.props.lessons
     const { lessonID, } = this.props.params;
     const filteredQuestions = data[lessonID].questions.filter((ques) => {
@@ -199,53 +204,53 @@ const Lesson = React.createClass({
       }
       return { type, question, };
     });
-  },
+  }
 
-  startActivity(name) {
+  startActivity = (name) => {
     this.saveStudentName(name);
     const action = loadData(this.questionsForLesson());
     this.props.dispatch(action);
     const next = nextQuestion();
     this.props.dispatch(next);
-  },
+  }
 
-  nextQuestion() {
+  nextQuestion = () => {
     const next = nextQuestion();
     return this.props.dispatch(next);
-  },
+  }
 
-  getLesson() {
+  getLesson = () => {
     return this.props.lessons.data[this.props.params.lessonID];
-  },
+  }
 
-  getLessonName() {
+  getLessonName = () => {
     return this.props.lessons.data[this.props.params.lessonID].name;
-  },
+  }
 
   saveStudentName(name) {
     this.props.dispatch(updateName(name));
-  },
+  }
 
-  getProgressPercent() {
+  getProgressPercent = () => {
     if (this.props.playLesson && this.props.playLesson.answeredQuestions && this.props.playLesson.questionSet) {
       return this.props.playLesson.answeredQuestions.length / this.props.playLesson.questionSet.length * 100;
     } else {
       return 0;
     }
-  },
+  }
 
-  saveSessionData(lessonData) {
+  saveSessionData = (lessonData) => {
     if (this.state.sessionID) {
       SessionActions.update(this.state.sessionID, lessonData);
     }
-  },
+  }
 
   render() {
-    const { data, } = this.props.lessons,
-      { lessonID, } = this.props.params;
-    const { conceptsFeedback, playLesson, dispatch, } = this.props
+    const { conceptsFeedback, playLesson, dispatch, lessons, params, } = this.props
+    const { data, hasreceiveddata, } = lessons
+    const { lessonID, } = params;
     let component;
-    if (data[lessonID]) {
+    if (this.state.sessionInitialized && hasreceiveddata && data && data[lessonID]) {
       if (playLesson.currentQuestion) {
         const { type, question, } = playLesson.currentQuestion;
 
@@ -324,8 +329,8 @@ const Lesson = React.createClass({
     } else {
       return (<div className="student-container student-container-diagnostic"><Spinner /></div>);
     }
-  },
-});
+  }
+}
 
 function select(state) {
   return {
@@ -337,8 +342,6 @@ function select(state) {
     fillInBlank: state.fillInBlank,
     titleCards: state.titleCards,
     conceptsFeedback: state.conceptsFeedback
-    // sessions: state.sessions,
-    // responses: state.responses,
   };
 }
 
