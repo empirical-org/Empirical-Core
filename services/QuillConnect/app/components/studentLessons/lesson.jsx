@@ -250,85 +250,82 @@ class Lesson extends React.Component {
     const { data, hasreceiveddata, } = lessons
     const { lessonID, } = params;
     let component;
-    if (this.state.sessionInitialized && hasreceiveddata && data && data[lessonID]) {
-      if (playLesson.currentQuestion) {
-        const { type, question, } = playLesson.currentQuestion;
-
-        if (type === 'SF') {
-          component = (
-            <PlaySentenceFragment
-              currentKey={question.key}
-              question={question}
-              nextQuestion={this.nextQuestion}
-              key={question.key}
-              marking="diagnostic"
-              updateAttempts={this.submitResponse}
-              markIdentify={this.markIdentify}
-              dispatch={dispatch}
-              conceptsFeedback={conceptsFeedback}
-            />
-          );
-        } else if (type === 'FB') {
-          component = (
-            <PlayFillInTheBlankQuestion
-              key={question.key}
-              question={question}
-              nextQuestion={this.nextQuestion}
-              prefill={this.getLesson().prefill}
-              dispatch={dispatch}
-              submitResponse={this.submitResponse}
-              conceptsFeedback={conceptsFeedback}
-            />
-          );
-        } else if (type === 'TL'){
-          component = (
-            <PlayTitleCard
-              nextQuestion={this.nextQuestion}
-              data={question}
-            />
-          )
-        } else {
-          component = (
-            <PlayLessonQuestion
-              key={question.key}
-              question={question}
-              nextQuestion={this.nextQuestion}
-              prefill={this.getLesson().prefill}
-              dispatch={dispatch}
-              conceptsFeedback={conceptsFeedback}
-            />
-          );
-        }
-      } else if (this.props.playLesson.answeredQuestions.length > 0 && (this.props.playLesson.unansweredQuestions.length === 0 && this.props.playLesson.currentQuestion === undefined)) {
+    if (!(this.state.sessionInitialized && hasreceiveddata && data && data[lessonID])) {
+      return (<div className="student-container student-container-diagnostic"><Spinner /></div>);
+    } else if (playLesson.currentQuestion) {
+      const { type, question, } = playLesson.currentQuestion;
+      if (type === 'SF') {
         component = (
-          <Finished
-            data={this.props.playLesson}
-            name={this.state.sessionID}
-            lessonID={this.props.params.lessonID}
-            saveToLMS={this.saveToLMS}
-            saved={this.state.saved}
-            error={this.state.error}
+          <PlaySentenceFragment
+            currentKey={question.key}
+            question={question}
+            nextQuestion={this.nextQuestion}
+            key={question.key}
+            marking="diagnostic"
+            updateAttempts={this.submitResponse}
+            markIdentify={this.markIdentify}
+            dispatch={dispatch}
+            conceptsFeedback={conceptsFeedback}
           />
         );
+      } else if (type === 'FB') {
+        component = (
+          <PlayFillInTheBlankQuestion
+            key={question.key}
+            question={question}
+            nextQuestion={this.nextQuestion}
+            prefill={this.getLesson().prefill}
+            dispatch={dispatch}
+            submitResponse={this.submitResponse}
+            conceptsFeedback={conceptsFeedback}
+          />
+        );
+      } else if (type === 'TL'){
+        component = (
+          <PlayTitleCard
+            nextQuestion={this.nextQuestion}
+            data={question}
+          />
+        )
       } else {
         component = (
-          <Register lesson={this.getLesson()} startActivity={this.startActivity} session={this.state.session} resumeActivity={this.resumeSession} />
+          <PlayLessonQuestion
+            key={question.key}
+            question={question}
+            nextQuestion={this.nextQuestion}
+            prefill={this.getLesson().prefill}
+            dispatch={dispatch}
+            conceptsFeedback={conceptsFeedback}
+          />
         );
       }
-
-      return (
-        <div>
-          <progress className="progress diagnostic-progress" value={this.getProgressPercent()} max="100">15%</progress>
-          <section className="section is-fullheight minus-nav student">
-            <div className="student-container student-container-diagnostic">
-              {component}
-            </div>
-          </section>
-        </div>
+    } else if (this.props.playLesson.answeredQuestions.length > 0 && (this.props.playLesson.unansweredQuestions.length === 0 && this.props.playLesson.currentQuestion === undefined)) {
+      component = (
+        <Finished
+          data={this.props.playLesson}
+          name={this.state.sessionID}
+          lessonID={this.props.params.lessonID}
+          saveToLMS={this.saveToLMS}
+          saved={this.state.saved}
+          error={this.state.error}
+        />
       );
     } else {
-      return (<div className="student-container student-container-diagnostic"><Spinner /></div>);
+      component = (
+        <Register lesson={this.getLesson()} startActivity={this.startActivity} session={this.state.session} resumeActivity={this.resumeSession} />
+      );
     }
+
+    return (
+      <div>
+        <progress className="progress diagnostic-progress" value={this.getProgressPercent()} max="100">15%</progress>
+        <section className="section is-fullheight minus-nav student">
+          <div className="student-container student-container-diagnostic">
+            {component}
+          </div>
+        </section>
+      </div>
+    );
   }
 }
 
