@@ -124,7 +124,7 @@ class TeachersController < ApplicationController
                  WHERE units.user_id = #{current_user.id}
                  AND acts.activity_classification_id = 4
                  ORDER BY actsesh.completed_at DESC").to_a
-      if records.length > 0
+      if !records.empty?
         most_recently_completed = records.find { |r| r['completed_at'] != nil }
         # checks to see if the diagnostic was completed within a week
         if most_recently_completed && 1.week.ago < most_recently_completed['completed_at']
