@@ -1,7 +1,7 @@
 namespace :cron do
   desc "Process Cron's 10 minute interval logic"
   task interval_10_minutes: :environment do
-    Cron.interval_10_minutes
+    Cron.interval_10_min
   end
 
   desc "Process Cron's 1 hour interval logic"
