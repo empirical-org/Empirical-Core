@@ -112,10 +112,15 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
   renderHeaderCheckbox() {
     const { showCheckboxes, rows, uncheckAllRows, checkAllRows } = this.props
     if (showCheckboxes) {
+      const allChecked = rows.every(row => row.checked)
       const anyChecked = rows.some(row => row.checked)
       const allDisabled = rows.every(row => row.checkDisabled)
       if (allDisabled) {
         return <span className={`quill-checkbox disabled ${dataTableHeaderClassName}`} />
+      } else if (allChecked) {
+        return <span className={`quill-checkbox selected ${dataTableHeaderClassName}`}>
+          <img src={smallWhiteCheckSrc} alt="check" onClick={uncheckAllRows}/>
+        </span>
       } else if (anyChecked) {
         return <span className={`quill-checkbox selected ${dataTableHeaderClassName}`}>
           <img src={indeterminateSrc} alt="check" onClick={uncheckAllRows}/>
