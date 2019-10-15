@@ -1731,11 +1731,6 @@ Style/WhileUntilDo:
 Style/WordArray:
   Enabled: false
 
-# Offense count: 20
-# Cop supports --auto-correct.
-Style/ZeroLengthPredicate:
-  Enabled: true
-
 # Offense count: 4203
 # Cop supports --auto-correct.
 # Configuration parameters: AutoCorrect, AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.
