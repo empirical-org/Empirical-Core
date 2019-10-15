@@ -52,7 +52,6 @@ interface PlayProofreaderContainerState {
   conceptResultsObjects?: ConceptResultObject[];
 }
 
-const FIREBASE_SAVE_INTERVAL = 30000 // 30 seconds
 
 export class PlayProofreaderContainer extends React.Component<PlayProofreaderContainerProps, PlayProofreaderContainerState> {
     private interval: any
@@ -95,13 +94,6 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       const activityUID = getParameterByName('uid', window.location.href) || this.props.activityUID
 
       this.props.dispatch(startListeningToConcepts())
-
-      if (firebaseSessionID) {
-        this.props.dispatch(setSessionReducerToSavedSession(firebaseSessionID))
-        this.interval = setInterval(() => {
-          this.saveEditedSessionToFirebase(firebaseSessionID)
-        }, FIREBASE_SAVE_INTERVAL)
-      }
 
       if (activityUID) {
         this.props.dispatch(getActivity(activityUID))
@@ -413,6 +405,11 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       this.setState({ resetting: false} )
     }
 
+    bindSaveAndExitButton() {
+      const saveAndExitButton = document.getElementById('save_and_exit');
+      saveAndExitButton.onclick = function() { this.saveEditedSessionToFirebase; window.location.replace(process.env.EMPIRICAL_BASE_URL);};
+    }   
+
     renderShowEarlySubmitModal(): JSX.Element|void {
       const { showEarlySubmitModal, necessaryEdits } = this.state
       const requiredEditCount = necessaryEdits && necessaryEdits.length ? Math.floor(necessaryEdits.length / 2) : 5
@@ -479,7 +476,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
     }
 
     renderResetButton(): JSX.Element|void {
-      const { reviewing, edits, } = this.state
+      const { reviewing, edits, } = this.state;
       if (!reviewing) {
         if (edits) {
           return <button className="reset-button" onClick={this.openResetModal}><img src={refreshIconSrc} /> Reset</button>
@@ -526,6 +523,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
           <div className="bottom-section">
             {this.renderResetButton()}
             {this.renderCheckWorkButton()}
+            {this.bindSaveAndExitButton()}
           </div>
         </div>
       } else if (this.props.session.error) {
