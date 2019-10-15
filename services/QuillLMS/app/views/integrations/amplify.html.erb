@@ -46,16 +46,16 @@
   </div>
 <% end %>
 
-  <% @topics.each do |topic, activities| %>
+  <% @unit_templates.each_with_index do |unit_template, index| %>
     <div class="topic">
       <div>
-        <h4><%=topic.name%></h4>
+        <h4>Pack <%=index + 1%>. <%=unit_template.name%></h4>
       </div>
 
-        <% activities.each do |activity| %>
+        <% unit_template.activities.each_with_index do |activity, act_index| %>
           <div class="activity">
             <div class="name-and-description">
-              <div class="name"><%= activity.name %></div>
+              <div class="name"><%= act_index + 1 %>. <%= activity.name %></div>
               <div class="activity-description"><%= activity.description&.html_safe %></div>
             </div>
             <div class="activity-link"><%= link_to "View Activity", anonymous_activity_sessions_path(activity_id: activity.id), class: 'green-link', target: '_blank' %></div>
