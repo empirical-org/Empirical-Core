@@ -286,6 +286,7 @@ class StudentDiagnostic extends React.Component {
   render() {
     const questionType = this.props.playDiagnostic.currentQuestion ? this.props.playDiagnostic.currentQuestion.type : ''
     let component;
+
     if (!(this.props.lessons.hasreceiveddata && this.props.questions.hasreceiveddata && this.props.sentenceFragments.hasreceiveddata)) {
       return (
         <div>
@@ -297,7 +298,9 @@ class StudentDiagnostic extends React.Component {
           </section>
         </div>
       );
-    } else if (!this.props.playDiagnostic.questionSet) {
+    }
+
+    if (!this.props.playDiagnostic.questionSet) {
       return (
         <div>
           <DiagnosticProgressBar percent={this.getProgressPercent()} />
@@ -308,7 +311,9 @@ class StudentDiagnostic extends React.Component {
           </section>
         </div>
       );
-    } else if (this.props.playDiagnostic.currentQuestion) {
+    }
+
+    if (this.props.playDiagnostic.currentQuestion) {
       if (questionType === 'SC') {
         component = (<PlayDiagnosticQuestion
           question={this.props.playDiagnostic.currentQuestion.data}

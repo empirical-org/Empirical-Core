@@ -250,9 +250,12 @@ class Lesson extends React.Component {
     const { data, hasreceiveddata, } = lessons
     const { lessonID, } = params;
     let component;
+    
     if (!(this.state.sessionInitialized && hasreceiveddata && data && data[lessonID])) {
       return (<div className="student-container student-container-diagnostic"><Spinner /></div>);
-    } else if (playLesson.currentQuestion) {
+    }
+
+    if (playLesson.currentQuestion) {
       const { type, question, } = playLesson.currentQuestion;
       if (type === 'SF') {
         component = (
