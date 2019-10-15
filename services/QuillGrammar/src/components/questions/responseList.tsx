@@ -68,31 +68,31 @@ export default class ResponseList extends React.Component {
   }
 
   renderResponse(resp) {
-    return <Response
+    return (<Response
+      allExpanded={this.props.expanded}
+      conceptID={this.props.conceptID}
+      concepts={this.props.concepts}
+      conceptsFeedback={this.props.conceptsFeedback}
+      dispatch={this.props.dispatch}
+      expand={this.props.expand}
+      expanded={this.props.expanded[resp.key]}
+      getChildResponses={this.props.getChildResponses}
+      getMatchingResponse={this.props.getMatchingResponse}
+      getResponse={this.props.getResponse}
       key={resp.key}
+      massEdit={this.props.massEdit}
+      mode={this.props.mode}
+      printPathways={this.props.printPathways}
+      question={this.props.question}
+      questionID={this.props.questionID}
+      readOnly={this.props.admin}
       response={resp}
       responses={this.props.responses}
-      getResponse={this.props.getResponse}
-      getChildResponses={this.props.getChildResponses}
-      questionID={this.props.questionID}
-      dispatch={this.props.dispatch}
-      readOnly={this.props.admin}
-      allExpanded={this.props.expanded}
-      expanded={this.props.expanded[resp.key]}
-      expand={this.props.expand}
-      getMatchingResponse={this.props.getMatchingResponse}
       showPathways={this.props.showPathways}
-      printPathways={this.props.printPathways}
-      toPathways={this.props.toPathways}
-      conceptsFeedback={this.props.conceptsFeedback}
-      mode={this.props.mode}
-      concepts={this.props.concepts}
-      conceptID={this.props.conceptID}
-      massEdit={this.props.massEdit}
-      states={this.props.states}
       state={this.props.states[this.props.questionID]}
-      question={this.props.question}
-    />
+      states={this.props.states}
+      toPathways={this.props.toPathways}
+            />)
   }
 
   render() {
@@ -119,10 +119,10 @@ export default class ResponseList extends React.Component {
       <div style={{ marginTop: '20px', }}>
         <span style={{ paddingLeft: '15px', }}>
           <input
-            style={{ marginRight: '14px', }}
-            type="checkbox"
             checked={this.allResponsesChecked()}
             onChange={this.addOrRemoveAllResponsesFromMassEdit}
+            style={{ marginRight: '14px', }}
+            type="checkbox"
           />
           Check All Responses On Page
         </span>

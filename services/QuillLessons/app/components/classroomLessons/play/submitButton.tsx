@@ -10,9 +10,10 @@ class SubmitButton extends React.Component<{disabled: Boolean; onClick: Function
       <div className="question-button-group">
         <button
           className={`button student-submit ${this.props.disabled ? 'disabled' : null}`}
-          onClick={()=>this.props.onClick()}>
+          onClick={()=>this.props.onClick()}
+        >
             Submit
-          </button>
+        </button>
       </div>);
     }
 

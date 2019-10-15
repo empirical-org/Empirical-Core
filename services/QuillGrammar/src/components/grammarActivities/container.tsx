@@ -217,20 +217,20 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
       const proofreaderSessionId = getParameterByName('proofreaderSessionId', window.location.href)
 
       if (this.state.showTurkCode) {
-        return <TurkCodePage/>
+        return <TurkCodePage />
       }
       if ((this.props.grammarActivities.hasreceiveddata || proofreaderSessionId) && this.props.session.hasreceiveddata && this.props.session.currentQuestion) {
-        return <QuestionComponent
+        return (<QuestionComponent
           activity={this.props.grammarActivities ? this.props.grammarActivities.currentActivity : null}
           answeredQuestions={this.props.session.answeredQuestions}
-          unansweredQuestions={this.props.session.unansweredQuestions}
+          checkAnswer={this.checkAnswer}
+          concepts={this.props.concepts}
+          conceptsFeedback={this.props.conceptsFeedback}
           currentQuestion={this.props.session.currentQuestion}
           goToNextQuestion={() => this.props.dispatch(goToNextQuestion())}
-          checkAnswer={this.checkAnswer}
-          conceptsFeedback={this.props.conceptsFeedback}
           key={this.props.session.currentQuestion.key}
-          concepts={this.props.concepts}
-        />
+          unansweredQuestions={this.props.session.unansweredQuestions}
+                />)
       } else if (this.props.session.error) {
         return (
           <div>{this.props.session.error}</div>

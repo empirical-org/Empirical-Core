@@ -332,16 +332,16 @@ export default class Response extends React.Component<any, any> {
   }
 
   renderConceptResults(mode) {
-    return <ConceptResults
-      key={Object.keys(this.state.conceptResults).length}
+    return (<ConceptResults
       conceptResults={this.state.conceptResults}
       concepts={this.props.concepts}
-      mode={mode}
-      handleConceptChange={this.handleConceptChange}
-      toggleCheckboxCorrect={this.toggleCheckboxCorrect}
       deleteConceptResult={this.deleteConceptResult}
+      handleConceptChange={this.handleConceptChange}
+      key={Object.keys(this.state.conceptResults).length}
+      mode={mode}
       response={this.props.response}
-    />
+      toggleCheckboxCorrect={this.toggleCheckboxCorrect}
+            />)
   }
 
   renderResponseContent(isEditing, response) {
@@ -354,7 +354,7 @@ export default class Response extends React.Component<any, any> {
     }
     if (!response.parentID && !response.parent_id) {
       childDetails = (
-        <a className="button is-outlined has-top-margin" onClick={this.viewChildResponses.bind(null, response.key)} key="view" >View Children</a>
+        <a className="button is-outlined has-top-margin" key="view" onClick={this.viewChildResponses.bind(null, response.key)} >View Children</a>
       );
     }
     if (response.parentID || response.parent_id) {
@@ -384,17 +384,18 @@ export default class Response extends React.Component<any, any> {
     if (this.props.showPathways) {
       pathwayDetails = (<span> <a
         className="button is-outlined has-top-margin"
-        onClick={this.printResponsePathways.bind(null, this.props.key)}
         key="from"
-      >
+        onClick={this.printResponsePathways.bind(null, this.props.key)}
+                               >
                          From Pathways
-                       </a> <a
-                         className="button is-outlined has-top-margin"
-                         onClick={this.toResponsePathways}
-                         key="to"
-                       >
+      </a> <a
+        className="button is-outlined has-top-margin"
+        key="to"
+        onClick={this.toResponsePathways}
+           >
                             To Pathways
-                          </a></span>);
+      </a>
+      </span>);
     }
 
     if (isEditing) {
@@ -403,11 +404,11 @@ export default class Response extends React.Component<any, any> {
           {parentDetails}
           <label className="label">Feedback</label>
           <TextEditor
-            text={this.state.feedback || ''}
-            handleTextChange={this.handleFeedbackChange}
             boilerplate={this.state.selectedBoilerplate}
-            EditorState={EditorState}
             ContentState={ContentState}
+            EditorState={EditorState}
+            handleTextChange={this.handleFeedbackChange}
+            text={this.state.feedback || ''}
           />
 
           <br />
@@ -424,7 +425,7 @@ export default class Response extends React.Component<any, any> {
 
           <p className="control">
             <label className="checkbox">
-              <input ref="newResponseOptimal" defaultChecked={response.optimal} type="checkbox" />
+              <input defaultChecked={response.optimal} ref="newResponseOptimal" type="checkbox" />
               Optimal?
             </label>
           </p>
@@ -460,26 +461,26 @@ export default class Response extends React.Component<any, any> {
 
     if (isEditing) {
       buttons = [
-        (<a className="card-footer-item" onClick={this.cancelResponseEdit.bind(null, response.key)} key="cancel" >Cancel</a>),
-        (<a className="card-footer-item" onClick={this.unmatchResponse.bind(null, response.key)} key="unmatch" >Unmatch</a>),
-        (<a className="card-footer-item" onClick={this.incrementResponse.bind(null, response.key)} key="increment" >Increment</a>),
-        (<a className="card-footer-item" onClick={this.updateResponse.bind(null, response.key)} key="update" >Update</a>)
+        (<a className="card-footer-item" key="cancel" onClick={this.cancelResponseEdit.bind(null, response.key)} >Cancel</a>),
+        (<a className="card-footer-item" key="unmatch" onClick={this.unmatchResponse.bind(null, response.key)} >Unmatch</a>),
+        (<a className="card-footer-item" key="increment" onClick={this.incrementResponse.bind(null, response.key)} >Increment</a>),
+        (<a className="card-footer-item" key="update" onClick={this.updateResponse.bind(null, response.key)} >Update</a>)
       ];
     } else {
       buttons = [
-        (<a className="card-footer-item" onClick={this.editResponse.bind(null, response.key)} key="edit" >Edit</a>),
-        (<a className="card-footer-item" onClick={this.deleteResponse.bind(null, response.key)} key="delete" >Delete</a>)
+        (<a className="card-footer-item" key="edit" onClick={this.editResponse.bind(null, response.key)} >Edit</a>),
+        (<a className="card-footer-item" key="delete" onClick={this.deleteResponse.bind(null, response.key)} >Delete</a>)
       ];
     }
     if (this.props.response.statusCode === 3) {
       if (this.props.response.weak) {
-        buttons = buttons.concat([(<a className="card-footer-item" onClick={this.unmarkAsWeak.bind(null, response.key)} key="weak" >Unmark as weak</a>)]);
+        buttons = buttons.concat([(<a className="card-footer-item" key="weak" onClick={this.unmarkAsWeak.bind(null, response.key)} >Unmark as weak</a>)]);
       } else {
-        buttons = buttons.concat([(<a className="card-footer-item" onClick={this.markAsWeak.bind(null, response.key)} key="weak" >Mark as weak</a>)]);
+        buttons = buttons.concat([(<a className="card-footer-item" key="weak" onClick={this.markAsWeak.bind(null, response.key)} >Mark as weak</a>)]);
       }
     }
     if (this.props.response.statusCode > 1) {
-      buttons = buttons.concat([(<a className="card-footer-item" onClick={this.rematchResponse.bind(null, response.key)} key="rematch" >Rematch</a>)]);
+      buttons = buttons.concat([(<a className="card-footer-item" key="rematch" onClick={this.rematchResponse.bind(null, response.key)} >Rematch</a>)]);
     }
     return (
       <footer className="card-footer">
@@ -499,12 +500,12 @@ export default class Response extends React.Component<any, any> {
     }
     const authorStyle = { marginLeft: '10px', };
     const showTag = response.author && (response.statusCode === 2 || response.statusCode === 3)
-    const author = showTag ? <span style={authorStyle} className="tag is-dark">{response.author}</span> : undefined;
+    const author = showTag ? <span className="tag is-dark" style={authorStyle}>{response.author}</span> : undefined;
     const checked = this.props.massEdit.selectedResponses.includes(response.id) ? 'checked' : '';
     return (
-      <div style={{ display: 'flex', alignItems: 'center', }} className={bgColor}>
-        <input type="checkbox" checked={checked} onChange={() => this.onMassSelectCheckboxToggle(response.id)} style={{ marginLeft: '15px', }} />
-        <header onClick={() => this.props.expand(response.key)} className={`card-content ${this.headerClasses()}`} style={{ flexGrow: '1', }}>
+      <div className={bgColor} style={{ display: 'flex', alignItems: 'center', }}>
+        <input checked={checked} onChange={() => this.onMassSelectCheckboxToggle(response.id)} style={{ marginLeft: '15px', }} type="checkbox" />
+        <header className={`card-content ${this.headerClasses()}`} onClick={() => this.props.expand(response.key)} style={{ flexGrow: '1', }}>
           <div className="content">
             <div className="media">
               <div className="media-content">
@@ -545,17 +546,17 @@ export default class Response extends React.Component<any, any> {
       return (
         <Modal close={this.cancelChildResponseView.bind(null, key)}>
           <ResponseList
-            responses={this.props.getChildResponses(key)}
-            getResponse={this.props.getResponse}
-            getChildResponses={this.props.getChildResponses}
-            states={this.props.states}
-            questionID={this.props.questionID}
-            dispatch={this.props.dispatch}
             admin={false}
-            expanded={this.props.allExpanded}
-            expand={this.props.expand}
             ascending={this.props.ascending}
+            dispatch={this.props.dispatch}
+            expand={this.props.expand}
+            expanded={this.props.allExpanded}
+            getChildResponses={this.props.getChildResponses}
+            getResponse={this.props.getResponse}
+            questionID={this.props.questionID}
+            responses={this.props.getChildResponses(key)}
             showPathways={false}
+            states={this.props.states}
           />
         </Modal>
       );
@@ -577,17 +578,17 @@ export default class Response extends React.Component<any, any> {
       return (
         <Modal close={this.cancelToResponseView.bind(null, key)}>
           <ResponseList
-            responses={this.props.toPathways(this.props.response.key)}
-            getResponse={this.props.getResponse}
-            getChildResponses={this.props.getChildResponses}
-            states={this.props.states}
-            questionID={this.props.questionID}
-            dispatch={this.props.dispatch}
             admin={false}
-            expanded={this.props.allExpanded}
-            expand={this.props.expand}
             ascending={this.props.ascending}
+            dispatch={this.props.dispatch}
+            expand={this.props.expand}
+            expanded={this.props.allExpanded}
+            getChildResponses={this.props.getChildResponses}
+            getResponse={this.props.getResponse}
+            questionID={this.props.questionID}
+            responses={this.props.toPathways(this.props.response.key)}
             showPathways={false}
+            states={this.props.states}
           />
         </Modal>
       );
@@ -609,17 +610,17 @@ export default class Response extends React.Component<any, any> {
           {initialCount}
           <br />
           <ResponseList
-            responses={resps}
-            getResponse={this.props.getResponse}
-            getChildResponses={this.props.getChildResponses}
-            states={this.props.states}
-            questionID={this.props.questionID}
-            dispatch={this.props.dispatch}
             admin={false}
-            expanded={this.props.allExpanded}
-            expand={this.props.expand}
             ascending={this.props.ascending}
+            dispatch={this.props.dispatch}
+            expand={this.props.expand}
+            expanded={this.props.allExpanded}
+            getChildResponses={this.props.getChildResponses}
+            getResponse={this.props.getResponse}
+            questionID={this.props.questionID}
+            responses={resps}
             showPathways={false}
+            states={this.props.states}
           />
         </Modal>
       );

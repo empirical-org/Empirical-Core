@@ -71,9 +71,9 @@ class ConceptsChangeLog extends React.Component<any, ConceptsChangeLogState> {
   }
 
   renderConceptsChangeLog(data) {
-    return <ChangeLogTable
+    return (<ChangeLogTable
       changeLogs={this.filterChangeLog(data.changeLogs, this.state.searchValue)}
-    />
+            />)
   }
 
   render() {
@@ -81,8 +81,8 @@ class ConceptsChangeLog extends React.Component<any, ConceptsChangeLogState> {
       <div>
         <ConceptManagerNav />
         <Query
-          query={gql(conceptsChangeLogIndexQuery)}
           notifyOnNetworkStatusChange
+          query={gql(conceptsChangeLogIndexQuery)}
         >
           {({ loading, error, data, refetch, networkStatus }) => {
             console.log('error', error)
@@ -104,9 +104,9 @@ class ConceptsChangeLog extends React.Component<any, ConceptsChangeLogState> {
                     <div>
                       {this.renderConceptsChangeLog(data)}
                     </div>
+                  </div>
                 </div>
-              </div>
-            </div>)
+              </div>)
           }}
         </Query>
       </div>

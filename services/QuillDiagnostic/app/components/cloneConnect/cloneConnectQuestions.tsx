@@ -34,10 +34,10 @@ class CloneConnectQuestions extends React.Component<any, any> {
   }
 
   renderQuestionSection(title: string, questions) {
-    return <div>
+    return (<div>
       <h3 style={{ fontWeight: 600, fontSize: '24px', }}>{title}</h3>
       {questions}
-    </div>
+    </div>)
   }
 
   renderFillInBlankQuestions() {
@@ -48,7 +48,7 @@ class CloneConnectQuestions extends React.Component<any, any> {
         return (<Question
           cloneFunction={() => this.props.dispatch(cloneConnectFillInBlankQuestion(k))}
           prompt={question.prompt}
-        />)
+                />)
       })
       return this.renderQuestionSection('Fill in the Blank Questions', questions)
     }
@@ -62,7 +62,7 @@ class CloneConnectQuestions extends React.Component<any, any> {
         return (<Question
           cloneFunction={() => this.props.dispatch(cloneConnectSentenceFragment(k))}
           prompt={question.prompt}
-        />)
+                />)
       })
       return this.renderQuestionSection('Sentence Fragments', questions)
     }
@@ -77,7 +77,7 @@ class CloneConnectQuestions extends React.Component<any, any> {
         return (<Question
           cloneFunction={() => this.props.dispatch(cloneConnectSentenceCombiningQuestion(k))}
           prompt={question.prompt}
-        />)
+                />)
       })
       return this.renderQuestionSection('Sentence Combining Questions', questions)
     }

@@ -24,7 +24,7 @@ export const startListeningToQuestions = () => {
 export const getGradedResponsesWithCallback = (questionID: string, callback: Function) => {
   request(`${process.env.QUILL_CMS}/questions/${questionID}/responses`, (error, response, body) => {
     if (error) {
-      console.log('error:', error); // Print the error if one occurred
+      // to do - something here
     }
     const bodyToObj: {[key: string]: Response} = {};
     JSON.parse(body).forEach((resp: Response) => {

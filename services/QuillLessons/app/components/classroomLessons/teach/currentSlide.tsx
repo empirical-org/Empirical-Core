@@ -250,32 +250,32 @@ class CurrentSlide extends React.Component<CurrentSlideProps & StateFromProps, a
 
   renderPreviewModal() {
     if (this.state.showPreviewModal) {
-      return <PreviewModal closeModal={this.closePreviewModal} openStudentView={this.openStudentView}/>
+      return <PreviewModal closeModal={this.closePreviewModal} openStudentView={this.openStudentView} />
     }
   }
 
   renderTimeoutModal() {
     if (this.state.showTimeoutModal) {
-      return <TimeoutModal
-        finishLesson={this.finishLesson}
+      return (<TimeoutModal
         closeModal={this.closeTimeoutModal}
-      />
+        finishLesson={this.finishLesson}
+              />)
     }
   }
 
   renderCongratulationsModal() {
     if (this.state.showCongratulationsModal) {
-      return <CongratulationsModal closeModal={this.closeCongratulationsModal} lessonId={this.props.lessonId} classroomSessionId={this.state.classroomSessionId}/>
+      return <CongratulationsModal classroomSessionId={this.state.classroomSessionId} closeModal={this.closeCongratulationsModal} lessonId={this.props.lessonId} />
     }
   }
 
   renderSignupModal() {
     if (this.props.classroomSessions.showSignupModal) {
-      return <SignupModal
+      return (<SignupModal
         closeModal={this.closeSignupModal}
-        lessonId={this.props.lessonId}
         goToSignup={() => window.location.href = `${process.env.EMPIRICAL_BASE_URL}/account/new`}
-      />
+        lessonId={this.props.lessonId}
+              />)
     }
   }
 
@@ -294,67 +294,67 @@ class CurrentSlide extends React.Component<CurrentSlideProps & StateFromProps, a
           slide = <CLLobby data={data} lessonData={lessonData} slideData={current} />
           break
         case 'CL-ST':
-          slide = <CLStatic
-              data={data}
-              editionData={editionData}
-              toggleOnlyShowHeaders={this.toggleOnlyShowHeaders}
-              onlyShowHeaders={this.props.classroomSessions.onlyShowHeaders}
-              updateToggledHeaderCount={this.updateToggledHeaderCount}
-            />
+          slide = (<CLStatic
+            data={data}
+            editionData={editionData}
+            onlyShowHeaders={this.props.classroomSessions.onlyShowHeaders}
+            toggleOnlyShowHeaders={this.toggleOnlyShowHeaders}
+            updateToggledHeaderCount={this.updateToggledHeaderCount}
+                   />)
           break
         case 'CL-MD':
         case 'CL-SA':
         case 'CL-FB':
         case 'CL-FL':
         case 'CL-MS':
-          slide = <CLSingleAnswer
-              data={data}
-              editionData={editionData}
-              toggleStudentFlag={this.toggleStudentFlag}
-              toggleSelected={this.toggleSelected}
-              startDisplayingAnswers={this.startDisplayingAnswers}
-              stopDisplayingAnswers={this.stopDisplayingAnswers}
-              toggleOnlyShowHeaders={this.toggleOnlyShowHeaders}
-              clearAllSelectedSubmissions={this.clearAllSelectedSubmissions}
-              clearAllSubmissions={this.clearAllSubmissions}
-              onlyShowHeaders={this.props.classroomSessions.onlyShowHeaders}
-              updateToggledHeaderCount={this.updateToggledHeaderCount}
-              saveModel={this.saveModel}
-              clearStudentSubmission={this.clearStudentSubmission}
-              savePrompt={this.savePrompt}
-            />
+          slide = (<CLSingleAnswer
+            clearAllSelectedSubmissions={this.clearAllSelectedSubmissions}
+            clearAllSubmissions={this.clearAllSubmissions}
+            clearStudentSubmission={this.clearStudentSubmission}
+            data={data}
+            editionData={editionData}
+            onlyShowHeaders={this.props.classroomSessions.onlyShowHeaders}
+            saveModel={this.saveModel}
+            savePrompt={this.savePrompt}
+            startDisplayingAnswers={this.startDisplayingAnswers}
+            stopDisplayingAnswers={this.stopDisplayingAnswers}
+            toggleOnlyShowHeaders={this.toggleOnlyShowHeaders}
+            toggleSelected={this.toggleSelected}
+            toggleStudentFlag={this.toggleStudentFlag}
+            updateToggledHeaderCount={this.updateToggledHeaderCount}
+                   />)
           break
         case 'CL-EX':
-          slide = <CLExit
-              data={data}
-              editionData={editionData}
-              selectedOptionKey={this.state.selectedOptionKey}
-              updateSelectedOptionKey={this.updateSelectedOptionKey}
-              script={current.data.teach.script}
-              flaggedStudents={data.flaggedStudents}
-              students={data.students}
-              toggleStudentFlag={this.toggleStudentFlag}
-              lessonId={lessonId}
-              finishLesson={this.finishLesson}
-              completed={this.state.completed}
-              followUpActivityName={data.followUpActivityName}
-            />
+          slide = (<CLExit
+            completed={this.state.completed}
+            data={data}
+            editionData={editionData}
+            finishLesson={this.finishLesson}
+            flaggedStudents={data.flaggedStudents}
+            followUpActivityName={data.followUpActivityName}
+            lessonId={lessonId}
+            script={current.data.teach.script}
+            selectedOptionKey={this.state.selectedOptionKey}
+            students={data.students}
+            toggleStudentFlag={this.toggleStudentFlag}
+            updateSelectedOptionKey={this.updateSelectedOptionKey}
+                   />)
             break
         default:
           slide = <p>UNSUPPORTED QUESTION TYPE</p>
           break
       }
-      return <div>
+      return (<div>
         {this.renderPreviewModal()}
         {this.renderTimeoutModal()}
         {this.renderCongratulationsModal()}
         {this.renderSignupModal()}
         {slide}
-      </div>
+      </div>)
     } else {
       return (
         <div>
-          <Spinner/>
+          <Spinner />
         </div>
       );
     }
@@ -379,8 +379,8 @@ export interface DispatchFromProps {
 }
 
 export interface StateFromProps {
-  customize: any
-  classroomLesson: any
+  customize: any,
+  classroomLesson: any,
   classroomSessions: any
 }
 

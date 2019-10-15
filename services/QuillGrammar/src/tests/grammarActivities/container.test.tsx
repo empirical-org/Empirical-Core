@@ -8,11 +8,11 @@ process.env.QUILL_CMS = 'https://cms.quill.org'
 
 describe("<PlayGrammarContainer />", () => {
   const wrapper = shallow(<PlayGrammarContainer
+    conceptsFeedback={conceptsFeedback}
     dispatch={() => {}}
     grammarActivities={grammarActivities}
     session={session}
-    conceptsFeedback={conceptsFeedback}
-   />)
+                          />)
 
     it("should render", () => {
       expect(wrapper).toMatchSnapshot();

@@ -1,4 +1,4 @@
-declare function require(name:string);
+declare function require(name:string): any
 import  C from '../constants';
 import _ from 'lodash'
 import * as IntF from '../components/classroomLessons/interfaces';

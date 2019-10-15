@@ -19,6 +19,6 @@ export interface ChangeLog {
   conceptID?: string;
   user?: { name?: string };
   previousValue?: string;
-  concept?: Concept
+  concept?: Concept;
   createdAt?: number;
 }

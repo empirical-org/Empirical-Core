@@ -1,4 +1,4 @@
-declare function require(name:string);
+declare function require(name:string): any
 import React, { Component } from 'react';
 import Cues from '../../../components/renderForQuestions/cues';
 import {
@@ -28,9 +28,9 @@ class ModelQuestion extends Component<ModelQuestionProps, ModelQuestionState> {
   renderInstructions() {
     if (this.props.data.play.instructions) {
       return (<Feedback
+        feedback={(<p dangerouslySetInnerHTML={{__html: this.props.data.play.instructions}} />)}
         feedbackType="default"
-        feedback={(<p dangerouslySetInnerHTML={{__html: this.props.data.play.instructions}}></p>)}
-      />);
+              />);
     }
   }
 
@@ -38,11 +38,10 @@ class ModelQuestion extends Component<ModelQuestionProps, ModelQuestionState> {
     if (this.props.data.play.cues) {
       return (
         <Cues
+          displayArrowAndText={false}
           getQuestion={() => ({
             cues: this.props.data.play.cues,
-          })
-        }
-          displayArrowAndText={false}
+          })}
         />
       );
     }
@@ -60,7 +59,7 @@ class ModelQuestion extends Component<ModelQuestionProps, ModelQuestionState> {
           <p className="answer-header">
             Teacher Answer:
           </p>
-          <p className="teacher-model" dangerouslySetInnerHTML={{__html: this.props.model}}></p>
+          <p className="teacher-model" dangerouslySetInnerHTML={{__html: this.props.model}} />
         </div>
       )
     } else {
@@ -86,7 +85,7 @@ class ModelQuestion extends Component<ModelQuestionProps, ModelQuestionState> {
     } else {
       return (
         <div className="student-model-question">
-          <p dangerouslySetInnerHTML={{__html: this.props.data.play.html}}></p>
+          <p dangerouslySetInnerHTML={{__html: this.props.data.play.html}} />
         </div>
       )
     }
@@ -94,9 +93,9 @@ class ModelQuestion extends Component<ModelQuestionProps, ModelQuestionState> {
 
   renderProjectorHeader() {
     if (this.props.projector) {
-      return <div className="projector-header-section">
+      return (<div className="projector-header-section">
         <div className="students-watch-teacher tag">Students Watch Teacher</div>
-      </div>
+      </div>)
     }
   }
 

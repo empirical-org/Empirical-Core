@@ -1,4 +1,4 @@
-declare function require(name:string);
+declare function require(name:string): any
 import  C from '../constants';
 import rootRef, { firebase } from '../libs/firebase';
 const users = rootRef.child('users');
@@ -23,11 +23,11 @@ export function firebaseAuth() {
             const currentUser = firebase.auth().currentUser
             if (currentUser) {
               currentUser.getToken().then((token) => {
-                console.log(jwt_decode(token));
+                // to do - something here
               });
             }
           }).catch((error) => {
-            console.log("Failed to create token", error.message)
+            // to do - something here
           })
         })
     }

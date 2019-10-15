@@ -1,4 +1,4 @@
-declare function require(name:string);
+declare function require(name:string): any
 import rootRef, { firebase } from '../libs/firebase';
 import C from '../constants';
 import * as CustomizeIntf from '../interfaces/customize'
@@ -15,7 +15,7 @@ export function getCurrentUserAndCoteachersFromLMS() {
       credentials: 'include',
     }).then(response => {
       if (!response.ok) {
-        console.log(response.statusText)
+        // to do - something here
       } else {
         return response.json()
       }
@@ -94,7 +94,7 @@ export function createNewEdition(
   }
   socket.instance.emit('createNewEdition', { editionData: newEditionData });
   socket.instance.on(`editionCreated:${newEditionKey}`, () => {
-    console.log('newEditionKey: ', newEditionKey)
+    // to do - something here
 
     socket.instance.removeAllListeners(`editionCreated:${newEditionKey}`)
     if (callback) {

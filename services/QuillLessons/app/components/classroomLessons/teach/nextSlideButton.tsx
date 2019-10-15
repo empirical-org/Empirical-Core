@@ -71,7 +71,7 @@ export interface DispatchFromProps {
 }
 
 export interface StateFromProps {
-  customize: any
+  customize: any,
   classroomSessions: any
 }
 

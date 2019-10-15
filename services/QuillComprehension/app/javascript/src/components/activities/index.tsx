@@ -64,7 +64,6 @@ class ActivityContainer extends React.Component<AppProps, any> {
     voiceSynth.cancel();
     const script = window.getSelection().toString();
     const utterance = new SpeechSynthesisUtterance(script);
-    console.log(voices)
     utterance.voice = voices[49] ? voices[49] : voices[0];
     voiceSynth.speak(utterance)
   }

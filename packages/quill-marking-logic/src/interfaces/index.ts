@@ -15,7 +15,7 @@ export interface Response {
   parentId?: number|string|null,
   question_uid: string,
   sortOrder?: number,
-  statusCode?: number
+  statusCode?: number,
   uid?: string|null,
   updated_at?: string,
   text: string,

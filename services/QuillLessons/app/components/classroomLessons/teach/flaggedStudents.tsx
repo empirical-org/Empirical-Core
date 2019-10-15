@@ -1,4 +1,4 @@
-declare function require(name:string);
+declare function require(name:string): any
 
 import * as React from 'react';
 const grayFlag = 'https://assets.quill.org/images/icons/flag_gray.svg'
@@ -65,7 +65,7 @@ class FlaggedStudents extends React.Component<flaggedStudentsProps, flaggedStude
     const flaggedStudents = this.props.flaggedStudents
     const studLength = flaggedStudents ? Object.keys(flaggedStudents).length : 0;
     const studSuffix = studLength === 1 ? '' : 's'
-    const unflaggedStudentList = this.state.showUnflaggedStudents ? this.unflaggedStudentsList() : <span/>
+    const unflaggedStudentList = this.state.showUnflaggedStudents ? this.unflaggedStudentsList() : <span />
     const unflaggedStudentText = this.state.showUnflaggedStudents ? 'Hide Unflagged Students' : 'Show Unflagged Students'
     return (
       <div className='flagged-student-list-container'>

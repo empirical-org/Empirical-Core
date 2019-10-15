@@ -3,9 +3,6 @@ import * as React from 'react';
 import { Concept } from '../../interfaces/concepts'
 import Edit from './edit'
 
-// import * as jsdiff from 'diff'
-// import * as _ from 'underscore'
-
 interface PassageReviewerProps {
   text: string;
   concepts: Concept[];
@@ -60,7 +57,7 @@ export default class PassageReviewer extends React.Component<PassageReviewerProp
     let index = 0
     return paragraphs.map((paragraph: string) => {
       const parts: Array<string|JSX.Element> = paragraph.replace(/<p>|<\/p>/g, '').split(/{|}/g)
-      for (let i = 0; i < parts.length; i ++) {
+      for (let i = 0; i < parts.length; i+=1) {
         if (typeof parts[i] === "string" && parts[i][0] === '+') {
           const plusMatch = parts[i].match(/\+([^-]+)-/m)
           const plus = plusMatch ? plusMatch[1] : ''
@@ -76,18 +73,18 @@ export default class PassageReviewer extends React.Component<PassageReviewerProp
           } else if (negative) {
             state = 'incorrect'
           }
-          index++
-          parts[i] = <Edit
-            state={state}
+          index+=1
+          parts[i] = (<Edit
+            activeIndex={activeIndex}
             concept={concept}
             displayText={plus}
+            id={`${index}`}
             incorrectText={negative}
             index={indexToPass}
-            activeIndex={activeIndex}
             next={this.next}
             numberOfEdits={numberOfEdits}
-            id={`${index}`}
-          />
+            state={state}
+                      />)
           if (punctuationRegex.test(parts[i + 1])) {
             parts[i + 1] = `${parts[i + 1]}`
           } else {
@@ -101,9 +98,9 @@ export default class PassageReviewer extends React.Component<PassageReviewerProp
 
   render() {
     if (this.props.text) {
-      return <div className="reviewer" >
+      return (<div className="reviewer" >
         {this.renderFormattedText()}
-      </div>
+      </div>)
     } else {
       return <p>No passage</p>
     }

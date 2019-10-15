@@ -26,3 +26,4 @@ packages/quill-cdn/node_modules/**
 packages/quill-component-library/node_modules/**
 packages/quill-marking-logic/node_modules/**
 packages/quill-spellchecker/node_modules/**
+*.d.ts

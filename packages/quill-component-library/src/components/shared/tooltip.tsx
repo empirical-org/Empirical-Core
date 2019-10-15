@@ -4,7 +4,7 @@ interface TooltipProps {
   tooltipText: string,
   tooltipTriggerText: string,
   tooltipTriggerTextClass?: string,
-  tooltipTriggerTextStyle?: { [key:string]: any }
+  tooltipTriggerTextStyle?: { [key:string]: any },
   tooltipTriggerStyle?: { [key:string]: any }
 }
 

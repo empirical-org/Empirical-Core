@@ -45,7 +45,7 @@ export function submitResponse(content: Response, prid: string, isFirstAttempt: 
         } else if (httpStatus.statusCode === 204 || httpStatus.statusCode === 200) {
           dispatch({ type: ActionTypes.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
         } else {
-          console.log(body);
+          // to do - something here
         }
       },
     );
@@ -65,7 +65,7 @@ export function submitMassEditFeedback(ids: string[], properties, qid: string) {
           dispatch({ type: ActionTypes.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
           dispatch({ type: ActionTypes.SHOULD_RELOAD_RESPONSES, qid, });
         } else {
-          console.log(body);
+          // to do - something here
         }
       });
   };
@@ -86,7 +86,7 @@ export function submitMassEditConceptResults(ids: string[], conceptResults: Conc
           dispatch({ type: ActionTypes.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
           dispatch({ type: ActionTypes.SHOULD_RELOAD_RESPONSES, qid, });
         } else {
-          console.log(body);
+          // to do - something here
         }
       });
   };
@@ -104,7 +104,7 @@ export function massEditDeleteResponses(ids: string[], qid: string) {
           dispatch({ type: ActionTypes.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
           dispatch({ type: ActionTypes.SHOULD_RELOAD_RESPONSES, qid, });
         } else {
-          console.log(body);
+          // to do - something here
         }
       });
   };
@@ -123,7 +123,7 @@ export function submitResponseEdit(rid: string, content: Response & { concept_re
           dispatch({ type: ActionTypes.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
           dispatch({ type: ActionTypes.SHOULD_RELOAD_RESPONSES, qid, });
         } else {
-          console.log(body);
+          // to do - something here
         }
       });
   };
@@ -143,7 +143,7 @@ export function updateConceptResults(rid, content, qid) {
           dispatch({ type: ActionTypes.SHOULD_RELOAD_RESPONSES, qid, });
           dispatch({ type: ActionTypes.START_RESPONSE_EDIT, qid, rid, });
         } else {
-          console.log(body);
+          // to do - something here
         }
       });
   };
@@ -163,7 +163,7 @@ export function deleteConceptResult(rid, content, qid) {
           dispatch({ type: ActionTypes.SHOULD_RELOAD_RESPONSES, qid, });
           dispatch({ type: ActionTypes.START_RESPONSE_EDIT, qid, rid, });
         } else {
-          console.log(body);
+          // to do - something here
         }
       });
   };
@@ -180,7 +180,7 @@ export function deleteResponse(qid, rid) {
           dispatch({ type: ActionTypes.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
           dispatch({ type: ActionTypes.SHOULD_RELOAD_RESPONSES, qid, });
         } else {
-          console.log(body);
+          // to do - something here
         }
       },
     );
@@ -202,7 +202,7 @@ function makeIterator(array) {
 export function getGradedResponsesWithCallback(questionID, callback) {
   request(`${process.env.QUILL_CMS}/questions/${questionID}/responses`, (error, response, body) => {
     if (error) {
-      console.log('error:', error); // Print the error if one occurred
+      // to do - something here
     }
     const bodyToObj = {};
     JSON.parse(body).forEach((resp) => {
@@ -228,7 +228,7 @@ export function getGradedResponsesWithCallback(questionID, callback) {
 export function getGradedResponsesWithoutCallback(questionID) {
   request(`${process.env.QUILL_CMS}/questions/${questionID}/responses`, (error, response, body) => {
     if (error) {
-      console.log('error:', error); // Print the error if one occurred
+      // to do - something here
     }
     const bodyToObj = {};
     JSON.parse(body).forEach((resp) => {

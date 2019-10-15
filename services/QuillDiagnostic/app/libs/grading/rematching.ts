@@ -1,4 +1,4 @@
-declare function require(name:string);
+declare function require(name:string): any
 const request = require('request-promise');
 import * as _ from 'underscore';
 import { hashToCollection } from 'quill-component-library/dist/componentLibrary';
@@ -73,10 +73,10 @@ export function rematchAll(mode: string, question: Question, questionID: string,
     }
     return response.json();
   }).then((response) => {
-    console.log('success');
+    // to do - something here
     callback('done')
   }).catch((error) => {
-    console.log('error', error);
+    // to do - something here
   });
 }
 
@@ -115,7 +115,7 @@ export function paginatedNonHumanResponses(matcher, matcherFields, qid, page, ca
     }
     callback({ progress: undefined, }, true);
   }).catch((err) => {
-    console.log(err);
+    // to do - something here
   });
 }
 
@@ -137,7 +137,6 @@ function rematchResponse(matcher, matcherFields, response) {
   }
 
   const delta = determineDelta(response, newResponse);
-  // console.log(response.id, response.text, delta);
   switch (delta) {
     case 'tobeunmatched':
       return unmatchRematchedResponse(response);
@@ -174,7 +173,7 @@ function updateRematchedResponse(response, newResponse) {
 
 function deleteRematchedResponse(response) {
   // deleteResponse(rid);
-  console.log('Should be deleted');
+  // to do - something here
 }
 
 function updateResponse(rid, content) {

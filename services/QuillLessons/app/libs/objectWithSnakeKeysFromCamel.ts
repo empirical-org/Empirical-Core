@@ -1,5 +1,4 @@
 function sample(arg1: string): string {
-  console.log(arg1);
   return arg1
 }
 

@@ -60,10 +60,10 @@ class Lessons extends React.Component<LessonsProps, LessonsState> {
       }
     }).map((key: string) => (
       <LinkListItem
-        key={key}
-        itemKey={key}
-        basePath='lessons'
         activeClassName='is-active'
+        basePath='lessons'
+        itemKey={key}
+        key={key}
         text={data[key].title || 'No name'}
       />
     ));
@@ -74,7 +74,7 @@ class Lessons extends React.Component<LessonsProps, LessonsState> {
     if (this.props.lessons.newLessonModalOpen) {
       return (
         <Modal close={this.createNew}>
-          <EditLessonForm submit={this.submitNewLesson} stateSpecificClass={stateSpecificClass} />
+          <EditLessonForm stateSpecificClass={stateSpecificClass} submit={this.submitNewLesson} />
         </Modal>
       );
     }
@@ -91,7 +91,7 @@ class Lessons extends React.Component<LessonsProps, LessonsState> {
           <h1 className="title"><button className="button is-primary" onClick={this.createNew}>Create New Activity</button></h1>
           { this.renderModal() }
           <div style={{display: 'inline-block'}}>
-            <FlagDropdown flag={this.state.lessonFlags} handleFlagChange={this.handleSelect} isLessons={true}/>
+            <FlagDropdown flag={this.state.lessonFlags} handleFlagChange={this.handleSelect} isLessons={true} />
           </div>
           <div className="columns">
             <div className="column">

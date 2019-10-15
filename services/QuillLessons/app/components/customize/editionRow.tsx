@@ -10,13 +10,13 @@ interface EditionRowState {
 }
 
 interface EditionRowProps {
-  edition: CustomizeIntf.EditionMetadata
-  archiveEdition?: Function
-  creator: string
-  editEdition?: Function
-  makeNewEdition: Function
-  selectAction: Function
-  selectState: string|boolean|null
+  edition: CustomizeIntf.EditionMetadata,
+  archiveEdition?: Function,
+  creator: string,
+  editEdition?: Function,
+  makeNewEdition: Function,
+  selectAction: Function,
+  selectState: string|boolean|null,
   selectedEdition: boolean
 }
 

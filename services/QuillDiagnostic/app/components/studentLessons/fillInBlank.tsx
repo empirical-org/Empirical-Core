@@ -1,4 +1,4 @@
-declare function require(name:string);
+declare function require(name:string): any
 import * as React from 'react';
 import { connect } from 'react-redux';
 import * as  _ from 'underscore';
@@ -89,7 +89,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
 
   generateInputs(promptArray) {
     const inputs:Array<string> = [];
-    for (let i = 0; i < promptArray.length - 2; i++) {
+    for (let i = 0; i < promptArray.length - 2; i+=1) {
       inputs.push('');
     }
     return inputs;
@@ -162,9 +162,9 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     }
     return (
       <WarningDialogue
+        chevyStyle={chevyStyle}
         key={`warning${i}`}
         style={warningStyle}
-        chevyStyle={chevyStyle}
         text={this.warningText()}
       />
     );
@@ -211,11 +211,11 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
         <input
           id={`input${i}`}
           key={i + 100}
+          onBlur={() => this.validateInput(i)}
+          onChange={this.getChangeHandler(i)}
           style={styling}
           type="text"
-          onChange={this.getChangeHandler(i)}
           value={this.state.inputVals[i]}
-          onBlur={() => this.validateInput(i)}
         />
       </span>
     );
@@ -343,24 +343,24 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <div style={fullPageInstructions}>
             <div>
-              <Prompt style={styles.container} elements={this.getPromptElements()} />
+              <Prompt elements={this.getPromptElements()} style={styles.container} />
               <Cues
-                getQuestion={this.getQuestion}
                 customText={this.customText()}
                 displayArrowAndText={true}
+                getQuestion={this.getQuestion}
               />
               <Feedback
-                question={this.props.question}
-                sentence={this.getInstructionText()}
-                responses={this.state.responses}
                 getQuestion={this.getQuestion}
+                question={this.props.question}
                 renderFeedbackStatements={this.renderFeedbackStatements}
+                responses={this.state.responses}
+                sentence={this.getInstructionText()}
               />
             </div>
           </div>
           {this.renderMedia()}
         </div>
-        <div style={{marginTop: 20}} className="question-button-group button-group">
+        <div className="question-button-group button-group" style={{marginTop: 20}}>
           {this.renderButton()}
         </div>
       </div>

@@ -1,4 +1,4 @@
-declare function require(name:string);
+declare function require(name:string): any
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
@@ -143,12 +143,14 @@ const playLessonQuestion = React.createClass<any, any>({
       sentence = 'Keep writing! Revise your sentence by changing the order of the ideas.';
     }
     return (<RenderFeedback
-      question={this.props.question} renderFeedbackStatements={this.renderFeedbackStatements}
-      sentence={sentence}
-      responses={this.getResponses()}
+      getQuestion={this.getQuestion}
+      listCuesAsString={this.listCuesAsString}
       override={!!override}
-      getQuestion={this.getQuestion} listCuesAsString={this.listCuesAsString}
-    />);
+      question={this.props.question}
+      renderFeedbackStatements={this.renderFeedbackStatements}
+      responses={this.getResponses()}
+      sentence={sentence}
+            />);
   },
 
   getErrorsForAttempt(attempt) {
@@ -160,10 +162,10 @@ const playLessonQuestion = React.createClass<any, any>({
   },
 
   renderCues() {
-    return <RenderQuestionCues
-      getQuestion={this.getQuestion}
+    return (<RenderQuestionCues
       displayArrowAndText={true}
-    />;
+      getQuestion={this.getQuestion}
+            />);
   },
 
   updateResponseResource(response) {
@@ -324,19 +326,19 @@ const playLessonQuestion = React.createClass<any, any>({
         component = (
           <AnswerForm
             {...sharedProps}
-            handleChange={() => {}}
-            nextQuestionButton={this.renderNextQuestionButton()}
-            multipleChoiceCorrect={this.state.multipleChoiceCorrect}
             disabled
             finished
+            handleChange={() => {}}
+            multipleChoiceCorrect={this.state.multipleChoiceCorrect}
+            nextQuestionButton={this.renderNextQuestionButton()}
           />
         );
       } else if (this.state.multipleChoice) {
         component = (
           <MultipleChoice
-            prompt={this.renderSentenceFragments()}
             answers={this.state.multipleChoiceResponseOptions}
             next={this.multipleChoiceFinishQuestion}
+            prompt={this.renderSentenceFragments()}
           />
         );
       } else if (this.props.question.attempts.length > 4) {
@@ -344,9 +346,9 @@ const playLessonQuestion = React.createClass<any, any>({
           component = (
             <AnswerForm
               {...sharedProps}
+              disabled
               handleChange={() => {}}
               nextQuestionButton={this.renderFinishedQuestionButton()}
-              disabled
             />
             );
         } else {
@@ -354,9 +356,9 @@ const playLessonQuestion = React.createClass<any, any>({
           component = (
             <AnswerForm
               {...sharedProps}
+              disabled
               handleChange={() => {}}
               nextQuestionButton={this.renderMultipleChoiceButton()}
-              disabled
             />
             );
         }
@@ -366,19 +368,20 @@ const playLessonQuestion = React.createClass<any, any>({
           component = (
             <AnswerForm
               {...sharedProps}
+              disabled
               handleChange={() => {}}
               nextQuestionButton={this.renderFinishedQuestionButton()}
-              disabled
             />
           );
         } else {
           component = (
             <AnswerForm
               {...sharedProps}
+              checkAnswer={this.checkAnswer}
+              conceptExplanation={this.renderConceptExplanation}
               handleChange={this.handleChange}
-              toggleDisabled={this.toggleDisabled()}
-              conceptExplanation={this.renderConceptExplanation} checkAnswer={this.checkAnswer}
               spellCheck={(this.props.question.attempts.length > 3)}
+              toggleDisabled={this.toggleDisabled()}
             />
           );
         }
@@ -386,8 +389,9 @@ const playLessonQuestion = React.createClass<any, any>({
         component = (
           <AnswerForm
             {...sharedProps}
+            checkAnswer={this.checkAnswer}
             handleChange={this.handleChange}
-            toggleDisabled={this.toggleDisabled()} checkAnswer={this.checkAnswer}
+            toggleDisabled={this.toggleDisabled()}
           />
         );
       }

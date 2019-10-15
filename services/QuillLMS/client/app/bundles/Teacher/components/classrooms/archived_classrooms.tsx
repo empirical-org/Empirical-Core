@@ -83,11 +83,11 @@ export default class ArchivedClassrooms extends React.Component<ArchivedClassroo
     const { showModal, classrooms, selectedClassroomId } = this.state
     if (showModal === unarchiveClassroomModal) {
       const selectedClassroom = classrooms.find(c => c.id === selectedClassroomId)
-      return <UnarchiveClassroomModal
+      return (<UnarchiveClassroomModal
+        classroom={selectedClassroom}
         close={this.closeModal}
         onSuccess={this.onSuccess}
-        classroom={selectedClassroom}
-      />
+              />)
     }
   }
 
@@ -103,43 +103,43 @@ export default class ArchivedClassrooms extends React.Component<ArchivedClassroo
     } else {
       const classroomCards = classrooms.map(classroom => {
         const isOwnedByCurrentUser = !!ownArchivedClassrooms.find(c => c.id === classroom.id)
-        return <Classroom
+        return (<Classroom
           classroom={classroom}
           classrooms={ownArchivedClassrooms}
-          unarchiveClass={() => this.openModal(unarchiveClassroomModal)}
-          selected={classroom.id === this.state.selectedClassroomId}
           clickClassroomHeader={this.clickClassroomHeader}
-          user={user}
           isOwnedByCurrentUser={isOwnedByCurrentUser}
           onSuccess={this.onSuccess}
-        />
+          selected={classroom.id === this.state.selectedClassroomId}
+          unarchiveClass={() => this.openModal(unarchiveClassroomModal)}
+          user={user}
+                />)
       })
-      return <div className="archived-classes">
+      return (<div className="archived-classes">
         {classroomCards}
-      </div>
+      </div>)
     }
   }
 
   renderHeader() {
     const { classrooms } = this.state
     if (classrooms.length) {
-      return <div className="header">
+      return (<div className="header">
         <h1>Archived Classes</h1>
-      </div>
+      </div>)
     } else {
-      return <div className="header">
+      return (<div className="header">
         <h1>No archived classes</h1>
         <p>When you archive a class, you'll see it listed here.</p>
-      </div>
+      </div>)
     }
   }
 
   render() {
-    return <div className="archived-classrooms classrooms-page">
+    return (<div className="archived-classrooms classrooms-page">
       {this.renderUnarchiveClassroomModal()}
       {this.renderSnackbar()}
       {this.renderHeader()}
       {this.renderPageContent()}
-    </div>
+    </div>)
   }
 }

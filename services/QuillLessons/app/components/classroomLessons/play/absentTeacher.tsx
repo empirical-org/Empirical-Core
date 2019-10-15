@@ -1,4 +1,4 @@
-declare function require(name:string);
+declare function require(name:string): any
 import * as React from 'react';
 const AbsentTeacherIllustration = 'https://assets.quill.org/images/icons/absent_teacher_illustration.svg'
 
@@ -6,7 +6,7 @@ const AbsentTeacher = props => (
   <div>
     <div className="absent-teacher-container">
       <div className="absent-teacher">
-        <img src={AbsentTeacherIllustration}/>
+        <img src={AbsentTeacherIllustration} />
         <h1>Your teacher is not in this lesson!</h1>
       </div>
     </div>

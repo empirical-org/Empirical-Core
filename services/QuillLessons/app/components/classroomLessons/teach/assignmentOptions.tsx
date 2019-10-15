@@ -1,4 +1,4 @@
-declare function require(name:string);
+declare function require(name:string): any
 import * as React from 'react'
 const RadioButtonHover = 'https://assets.quill.org/images/icons/radioButtonHover.svg'
 const RadioButtonIcon = 'https://assets.quill.org/images/icons/radioButtonIcon.svg'
@@ -29,25 +29,25 @@ class AssignmentOptions extends React.Component<{numberOfStudents: number, updat
       const imgSrc = isSelected ? RadioButtonSelected : RadioButtonIcon;
       const row = (
         <div className='assign-option-row' key={option} onClick={() => this.props.updateSelectedOptionKey(option)}>
-        <div className='flex-container'>
-          <h3>{option}</h3>
-          <p>
-            {optionObject[option]}
-            <span>
-              <input
-                style={{display: 'none'}}
-                id={option}
-                value={option}
-                name='rad-button'
-                type="radio"
-                checked={isSelected}
-              />
-            </span>
-          </p>
+          <div className='flex-container'>
+            <h3>{option}</h3>
+            <p>
+              {optionObject[option]}
+              <span>
+                <input
+                  checked={isSelected}
+                  id={option}
+                  name='rad-button'
+                  style={{display: 'none'}}
+                  type="radio"
+                  value={option}
+                />
+              </span>
+            </p>
           </div>
           <label htmlFor={option}>
             <div className='img-container'>
-              <img src={imgSrc} alt="checkbox"/>
+              <img alt="checkbox" src={imgSrc} />
             </div>
           </label>
         </div>

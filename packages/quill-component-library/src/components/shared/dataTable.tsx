@@ -19,7 +19,7 @@ const arrowSrc = 'https://assets.quill.org/images/shared/arrow.svg'
 
 interface DataTableRow {
   id: number|string;
-  actions?: Array<{name: string, action: Function}>
+  actions?: Array<{name: string, action: Function}>;
   [key:string]: any;
 }
 

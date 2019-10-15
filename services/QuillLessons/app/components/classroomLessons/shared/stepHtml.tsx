@@ -8,7 +8,7 @@ import {
 interface StepHtmlProps {
   onlyShowHeaders?: boolean,
   item: ScriptItem,
-  updateToggledHeaderCount?: Function
+  updateToggledHeaderCount?: Function,
   isTip: boolean,
 }
 
@@ -61,7 +61,7 @@ export default class StepHtml extends React.Component<StepHtmlProps, StepHtmlSta
         </li>)
       return html
   } else {
-    return <span/>
+    return <span />
   }
   // return  renderStepHTML(item: ScriptItem, onlyShowHeaders: boolean | null, index: number) {
   //     if (item.data) {

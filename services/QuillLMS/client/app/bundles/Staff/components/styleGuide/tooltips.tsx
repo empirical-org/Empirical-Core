@@ -7,11 +7,11 @@ class Tooltips extends React.Component<any, any> {
   }
 
   render() {
-    return <div id="tooltips">
+    return (<div id="tooltips">
       <h2 className="style-guide-h2">Tooltips</h2>
       <div className="element-container">
         <pre>
-{`        <div className="tooltips-container">
+          {`        <div className="tooltips-container">
           <Tooltip
             tooltipText="I am a tooltip!"
             tooltipTriggerText="Hover here"
@@ -34,7 +34,7 @@ class Tooltips extends React.Component<any, any> {
           />
         </div>
       </div>
-    </div>
+    </div>)
   }
 
 }
