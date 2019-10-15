@@ -4775,6 +4775,13 @@ CREATE INDEX index_third_party_user_ids_on_user_id ON public.third_party_user_id
 
 
 --
+-- Name: index_third_party_user_ids_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_third_party_user_ids_on_user_id ON third_party_user_ids USING btree (user_id);
+
+
+--
 -- Name: index_title_cards_on_uid; Type: INDEX; Schema: public; Owner: -
 --
 
