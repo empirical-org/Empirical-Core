@@ -24,7 +24,7 @@ class Unit < ActiveRecord::Base
   after_touch :save
 
   def hide_if_no_visible_unit_activities
-    if self.unit_activities.where(visible: true).empty?
+    if self.unit_activities.where(visible: true).exists?
       self.update(visible: false)
     end
   end

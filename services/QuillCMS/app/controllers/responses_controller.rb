@@ -111,7 +111,7 @@ class ResponsesController < ApplicationController
     used_sequences = params_for_get_count_affected_by_incorrect_sequences[:used_sequences] || []
     selected_sequences = params_for_get_count_affected_by_incorrect_sequences[:selected_sequences]
     responses = Response.where(question_uid: params[:question_uid], optimal: nil)
-    non_blank_selected_sequences = selected_sequences.reject { |ss| ss.empty}
+    non_blank_selected_sequences = selected_sequences.reject { |ss| ss.empty?}
     matched_responses_count = 0
     responses.each do |response|
       no_matching_used_sequences = used_sequences.none? { |us| !us.empty? && Regexp.new(us).match(response.text) }
@@ -129,7 +129,7 @@ class ResponsesController < ApplicationController
   def get_count_affected_by_focus_points
     selected_sequences = params_for_get_count_affected_by_focus_points[:selected_sequences]
     responses = Response.where(question_uid: params[:question_uid])
-    non_blank_selected_sequences = selected_sequences.reject { |ss| ss.empty}
+    non_blank_selected_sequences = selected_sequences.reject { |ss| ss.empty?}
     matched_responses_count = 0
     responses.each do |response|
       match = non_blank_selected_sequences.any? do |ss|
