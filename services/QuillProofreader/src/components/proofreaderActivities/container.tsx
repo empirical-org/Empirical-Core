@@ -407,7 +407,9 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
 
     bindSaveAndExitButton() {
       const saveAndExitButton = document.getElementById('save_and_exit');
-      saveAndExitButton.onclick = function() { this.saveEditedSessionToFirebase; window.location.replace(process.env.EMPIRICAL_BASE_URL);};
+      if (saveAndExitButton) {
+        saveAndExitButton.onclick = function() { this.saveEditedSessionToFirebase; window.location.replace(process.env.EMPIRICAL_BASE_URL);};
+      }
     }   
 
     renderShowEarlySubmitModal(): JSX.Element|void {
