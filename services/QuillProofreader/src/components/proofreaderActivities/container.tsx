@@ -412,13 +412,6 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       this.setState({ resetting: false} )
     }
 
-    bindSaveAndExitButton() {
-      const saveAndExitButton = document.getElementById('save_and_exit');
-      if (saveAndExitButton) {
-        saveAndExitButton.onclick = function() { this.saveEditedSessionToFirebase; window.location.replace(process.env.EMPIRICAL_BASE_URL);};
-      }
-    }   
-
     renderShowEarlySubmitModal(): JSX.Element|void {
       const { showEarlySubmitModal, necessaryEdits } = this.state
       const requiredEditCount = necessaryEdits && necessaryEdits.length ? Math.floor(necessaryEdits.length / 2) : 5
@@ -532,7 +525,6 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
           <div className="bottom-section">
             {this.renderResetButton()}
             {this.renderCheckWorkButton()}
-            {this.bindSaveAndExitButton()}
           </div>
         </div>
       } else if (this.props.session.error) {
