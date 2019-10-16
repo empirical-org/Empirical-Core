@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import * as _ from 'lodash';
+import { Spinner } from 'quill-component-library/dist/componentLibrary'
+
 import {
   createNewEdition,
   saveEditionName,
@@ -172,80 +174,83 @@ class ChooseEdition extends React.Component<any, any> {
       getParameterByName('classroom_unit_id');
     const { editions, user_id } = this.props.customize
     const sessionEditionId:string|undefined = this.props.classroomSessions.data ? this.props.classroomSessions.data.edition_id : undefined
-    if (Object.keys(editions).length > 0) {
-      const quillEditions:Array<JSX.Element>  = []
-      const myEditions:Array<JSX.Element> = []
-      const coteacherEditions:Array<JSX.Element>  = []
-      Object.keys(editions).forEach((e) => {
-        const edition:CustomizeIntF.EditionMetadata = editions[e]
-        edition.key = e
-        if (edition.lesson_id === this.props.params.lessonID) {
-          if (edition.user_id === user_id) {
-            const editionRow = (<EditionRow
-              archiveEdition={this.archiveEdition}
-              creator='user'
-              editEdition={this.editEdition}
-              edition={edition}
-              key={e}
-              makeNewEdition={this.makeNewEdition}
-              selectAction={this.selectAction}
-              selectedEdition={sessionEditionId === e}
-              selectState={selectState}
-            />)
-            myEditions.push(editionRow)
-          } else if (String(edition.user_id) === 'quill-staff') {
-            const editionRow = (<EditionRow
-              creator='quill'
-              edition={edition}
-              key={e}
-              makeNewEdition={this.makeNewEdition}
-              selectAction={this.selectAction}
-              selectedEdition={sessionEditionId === e}
-              selectState={selectState}
-            />)
-            quillEditions.push(editionRow)
-          } else {
-            const editionRow = (<EditionRow
-              creator='coteacher'
-              edition={edition}
-              key={e}
-              makeNewEdition={this.makeNewEdition}
-              selectAction={this.selectAction}
-              selectedEdition={sessionEditionId === e}
-              selectState={selectState}
-            />)
-            coteacherEditions.push(editionRow)
-          }
+
+    if (!Object.keys(editions).length) {
+      return <Spinner />
+    }
+
+    const quillEditions:Array<JSX.Element>  = []
+    const myEditions:Array<JSX.Element> = []
+    const coteacherEditions:Array<JSX.Element>  = []
+    Object.keys(editions).forEach((e) => {
+      const edition:CustomizeIntF.EditionMetadata = editions[e]
+      edition.key = e
+      if (edition.lesson_id === this.props.params.lessonID) {
+        if (edition.user_id === user_id) {
+          const editionRow = (<EditionRow
+            archiveEdition={this.archiveEdition}
+            creator='user'
+            editEdition={this.editEdition}
+            edition={edition}
+            key={e}
+            makeNewEdition={this.makeNewEdition}
+            selectAction={this.selectAction}
+            selectedEdition={sessionEditionId === e}
+            selectState={selectState}
+          />)
+          myEditions.push(editionRow)
+        } else if (String(edition.user_id) === 'quill-staff') {
+          const editionRow = (<EditionRow
+            creator='quill'
+            edition={edition}
+            key={e}
+            makeNewEdition={this.makeNewEdition}
+            selectAction={this.selectAction}
+            selectedEdition={sessionEditionId === e}
+            selectState={selectState}
+          />)
+          quillEditions.push(editionRow)
+        } else {
+          const editionRow = (<EditionRow
+            creator='coteacher'
+            edition={edition}
+            key={e}
+            makeNewEdition={this.makeNewEdition}
+            selectAction={this.selectAction}
+            selectedEdition={sessionEditionId === e}
+            selectState={selectState}
+          />)
+          coteacherEditions.push(editionRow)
         }
-      })
-      const compactedQuillEditions = _.compact(quillEditions)
-      const compactedMyEditions = _.compact(myEditions)
-      const compactedCoteacherEditions = _.compact(coteacherEditions)
-      let quillEditionSection, myEditionSection, coteacherEditionSection
-      if (compactedQuillEditions.length > 0) {
-        quillEditionSection = (<div className="quill-editions">
-          <p className="header">Quill Created Editions</p>
-          {compactedQuillEditions}
-        </div>)
       }
-      if (compactedCoteacherEditions.length > 0) {
-        coteacherEditionSection = (<div className="coteacher-editions">
-          <p className="header">Co-Teacher Customized Editions</p>
-          {compactedCoteacherEditions}
-        </div>)
-      }
-      if (compactedMyEditions.length > 0) {
-        myEditionSection = (<div className="my-editions">
-          <p className="header">My Customized Editions</p>
-          {compactedMyEditions}
-        </div>)
-      }
-      return (<div>
-        {quillEditionSection}
-        {myEditionSection}
-        {coteacherEditionSection}
+    })
+    const compactedQuillEditions = _.compact(quillEditions)
+    const compactedMyEditions = _.compact(myEditions)
+    const compactedCoteacherEditions = _.compact(coteacherEditions)
+    let quillEditionSection, myEditionSection, coteacherEditionSection
+    if (compactedQuillEditions.length > 0) {
+      quillEditionSection = (<div className="quill-editions">
+        <p className="header">Quill Created Editions</p>
+        {compactedQuillEditions}
       </div>)
     }
+    if (compactedCoteacherEditions.length > 0) {
+      coteacherEditionSection = (<div className="coteacher-editions">
+        <p className="header">Co-Teacher Customized Editions</p>
+        {compactedCoteacherEditions}
+      </div>)
+    }
+    if (compactedMyEditions.length > 0) {
+      myEditionSection = (<div className="my-editions">
+        <p className="header">My Customized Editions</p>
+        {compactedMyEditions}
+      </div>)
+    }
+    return (<div>
+      {quillEditionSection}
+      {myEditionSection}
+      {coteacherEditionSection}
+    </div>)
   }
 
   renderSignupModal() {
