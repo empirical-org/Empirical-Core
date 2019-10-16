@@ -56,7 +56,7 @@ interface DataTableState {
 }
 
 export class DataTable extends React.Component<DataTableProps, DataTableState> {
-  static selectedStudentActions: any // eslint-disable-line react/sort-comp
+  private selectedStudentActions: any // eslint-disable-line react/sort-comp
   static defaultProps: { averageFontWidth: number } // eslint-disable-line react/sort-comp
 
   constructor(props) {

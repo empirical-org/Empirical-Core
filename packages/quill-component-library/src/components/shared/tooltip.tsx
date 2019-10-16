@@ -9,9 +9,9 @@ interface TooltipProps {
 }
 
 export class Tooltip extends React.Component<TooltipProps, {}> {
-  static timer: any // eslint-disable-line react/sort-comp
-  static tooltip: any // eslint-disable-line react/sort-comp
-  static tooltipTrigger: any // eslint-disable-line react/sort-comp
+  private timer: any // eslint-disable-line react/sort-comp
+  private tooltip: any // eslint-disable-line react/sort-comp
+  private tooltipTrigger: any // eslint-disable-line react/sort-comp
 
   constructor(props) {
     super(props)

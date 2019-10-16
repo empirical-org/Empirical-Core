@@ -22,8 +22,8 @@ interface InputState {
 }
 
 export class TextArea extends React.Component<InputProps, InputState> {
-  static input: any // eslint-disable-line react/sort-comp
-  static node: any // eslint-disable-line react/sort-comp
+  private input: any // eslint-disable-line react/sort-comp
+  private node: any // eslint-disable-line react/sort-comp
 
   constructor(props) {
     super(props)
