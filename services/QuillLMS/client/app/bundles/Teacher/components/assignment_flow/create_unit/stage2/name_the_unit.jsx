@@ -11,11 +11,11 @@ const NameTheUnit = (props) => {
       </div>
       <div className="assignment-section-body">
         <Input
-          label="Activity pack name"
-          value={unitName}
-          handleChange={updateUnitName}
-          type="text"
           error={nameError}
+          handleChange={updateUnitName}
+          label="Activity pack name"
+          type="text"
+          value={unitName}
         />
       </div>
     </div>

@@ -18,7 +18,7 @@ export default class UnitTemplateMini extends React.Component {
   displayPicture() {
     return (
       <div className='author-picture'>
-        <img src={this.avatarUrl()}/>
+        <img src={this.avatarUrl()} />
       </div>
     );
   }
@@ -47,7 +47,7 @@ export default class UnitTemplateMini extends React.Component {
         <Link to={this.getLink()}>
           <div className='text-center create-your-own'>
             <div className='content-wrapper'>
-              <img className='plus_icon' src='/add_class.png'/>
+              <img className='plus_icon' src='/add_class.png' />
               <h3>Create Your Own Activity Pack</h3>
               <h5 style={{paddingTop: '5px'}}>Select from over 150 grammar exercises.</h5>
             </div>
@@ -58,15 +58,16 @@ export default class UnitTemplateMini extends React.Component {
     // else it is a normal mini
     else {
       return(
-          <Link to={this.getLink()}>
-            <div>
-              <UnitTemplateFirstRow
-                  data={this.props.data}
-                  modules={{string: this.modules.string}} />
-              <UnitTemplateSecondRow data={this.props.data} modules={{string: this.modules.string}} />
-              {this.displayPicture()}
-            </div>
-          </Link>
+        <Link to={this.getLink()}>
+          <div>
+            <UnitTemplateFirstRow
+              data={this.props.data}
+              modules={{string: this.modules.string}}
+            />
+            <UnitTemplateSecondRow data={this.props.data} modules={{string: this.modules.string}} />
+            {this.displayPicture()}
+          </div>
+        </Link>
         );
       }
   }

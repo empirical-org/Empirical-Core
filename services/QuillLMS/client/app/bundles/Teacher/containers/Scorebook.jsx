@@ -265,7 +265,7 @@ export default React.createClass({
     this.state.scores.forEach((s) => {
       index += 0;
       const sData = s.scores[0];
-      scores.push(<StudentScores key={`${sData.userId}`} data={{ scores: s.scores, name: s.name, activity_name: sData.activity_name, userId: sData.userId, classroomId: this.state.selectedClassroom.id, }} premium_state={this.props.premium_state} />);
+      scores.push(<StudentScores data={{ scores: s.scores, name: s.name, activity_name: sData.activity_name, userId: sData.userId, classroomId: this.state.selectedClassroom.id, }} key={`${sData.userId}`} premium_state={this.props.premium_state} />);
     });
 
     if (this.state.loading) {
@@ -283,17 +283,17 @@ export default React.createClass({
           <div className="container">
             <section className="section-content-wrapper">
               <ScorebookFilters
-                selectedClassroom={this.state.selectedClassroom}
-                classroomFilters={this.state.classroomFilters}
-                selectClassroom={this.selectClassroom}
-                selectedUnit={this.state.selectedUnit}
-                unitFilters={this.state.unitFilters}
-                selectUnit={this.selectUnit}
-                selectDates={this.selectDates}
                 beginDate={this.state.beginDate}
-                endDate={this.state.endDate}
-                dateRangeFilterOptions={this.DATE_RANGE_FILTER_OPTIONS}
+                classroomFilters={this.state.classroomFilters}
                 dateFilterName={this.state.dateFilterName}
+                dateRangeFilterOptions={this.DATE_RANGE_FILTER_OPTIONS}
+                endDate={this.state.endDate}
+                selectClassroom={this.selectClassroom}
+                selectDates={this.selectDates}
+                selectedClassroom={this.state.selectedClassroom}
+                selectedUnit={this.state.selectedUnit}
+                selectUnit={this.selectUnit}
+                unitFilters={this.state.unitFilters}
               />
               <ScoreLegend />
               <AppLegend />

@@ -13,9 +13,9 @@ describe('InviteStudentsModal component', () => {
 
     const wrapper = shallow(
       <InviteStudentsModal
-        showSnackbar={() => {}}
-        close={() => {}}
         classroom={classroomWithStudents}
+        close={() => {}}
+        showSnackbar={() => {}}
       />
     );
 
@@ -34,9 +34,9 @@ describe('InviteStudentsModal component', () => {
 
     const wrapper = shallow(
       <InviteStudentsModal
-        showSnackbar={() => {}}
-        close={() => {}}
         classroom={classroomWithStudents}
+        close={() => {}}
+        showSnackbar={() => {}}
       />
     );
 

@@ -35,7 +35,7 @@ export default React.createClass({
     var arrow,
         className = 'sorter';
     if (this.props.isCurrentSort && !_.isEmpty(this.props.displayName)) {
-      arrow = <i className={this.arrowClass()}></i>;
+      arrow = <i className={this.arrowClass()} />;
     }
     if (this.props.displayClass) {
       className += ' ' + this.props.displayClass;

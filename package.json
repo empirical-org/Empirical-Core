@@ -19,8 +19,8 @@
     "gitbook-cli": "^2.3.2"
   },
   "scripts": {
-    "eslint": "eslint --ext .ts,.tsx .",
-    "eslint:fix": "eslint --fix --ext .ts,.tsx ."
+    "eslint": "eslint --ext .ts,.tsx,.jsx .",
+    "eslint:fix": "eslint --fix --ext .ts,.tsx,.jsx ."
   },
   "repository": {
     "type": "git",

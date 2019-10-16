@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import { connect } from 'react-redux';
 import {
   loadScoreData,
@@ -8,7 +8,7 @@ import { Spinner } from 'quill-component-library/dist/componentLibrary'
 import { oldFlagToNew } from '../../libs/flagMap'
 import _ from 'lodash';
 
-class questionHealth extends Component {
+class QuestionHealth extends React.Component {
   constructor(props) {
     super();
 
@@ -30,17 +30,6 @@ class questionHealth extends Component {
     this.props.dispatch(loadScoreData());
   }
 
-  componentWillUpdate(nextProps, nextState) {
-    if (nextState.loading) {
-      const sc = Object.keys(nextState.sc)
-      const sf = Object.keys(nextState.sf)
-      const fib = Object.keys(nextState.fib)
-      if (sc && sc.length && sf && sf.length && fib && fib.length) {
-        this.setState({loading: false})
-      }
-    }
-  }
-
   componentWillReceiveProps(nextProps) {
     const { scoreAnalysis, questions, sentenceFragments, fillInBlank } = nextProps
     if (scoreAnalysis.hasreceiveddata && questions.hasreceiveddata && sentenceFragments.hasreceiveddata && fillInBlank.hasreceiveddata) {
@@ -57,6 +46,17 @@ class questionHealth extends Component {
       // if (nextProps.fillInBlank.hasreceiveddata) {
       //   this.setFillInBlankQuestions(nextProps.scoreAnalysis.data, nextProps.fillInBlank.data)
       // }
+    }
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    if (nextState.loading) {
+      const sc = Object.keys(nextState.sc)
+      const sf = Object.keys(nextState.sf)
+      const fib = Object.keys(nextState.fib)
+      if (sc && sc.length && sf && sf.length && fib && fib.length) {
+        this.setState({loading: false})
+      }
     }
   }
 
@@ -191,103 +191,103 @@ class questionHealth extends Component {
   }
 
   renderQuestionTypeStatusTable() {
-    return <div className="status-table">
+    return (<div className="status-table">
       <h2>Question Type Status</h2>
       {this.renderQuestionTypeRow('sc')}
       {this.renderQuestionTypeRow('sf')}
       {this.renderQuestionTypeRow('fib')}
-    </div>
+    </div>)
   }
 
   renderQuestionTypeRow(questionType) {
     const data = this.state[questionType]
-    return <div className="row">
+    return (<div className="row">
       <span>{data.name}</span>
       <span className="bold">{data.status}</span>
       <span>{data.percentageWeak}% of questions are weak</span>
-    </div>
+    </div>)
   }
 
   renderFlagDropdown() {
     const selectedValue = this.state.flag ? this.state.flag : 'all'
     const labelStyle = {marginRight: '10px'}
-    return <div style={{marginTop: '5px', }}>
+    return (<div style={{marginTop: '5px', }}>
       <label style={labelStyle}>Question Flag:</label>
-      <select value={selectedValue} onChange={this.updateFlag}>
-      <option value="all">All</option>
-      <option value="archived">Archived</option>
-      <option value="alpha">Alpha</option>
-      <option value="beta">Beta</option>
-      <option value="production">Production</option>
-    </select>
-  </div>
+      <select onChange={this.updateFlag} value={selectedValue}>
+        <option value="all">All</option>
+        <option value="archived">Archived</option>
+        <option value="alpha">Alpha</option>
+        <option value="beta">Beta</option>
+        <option value="production">Production</option>
+      </select>
+    </div>)
   }
 
   renderQuestionTypeTable(questionType) {
     const data = this.state[questionType]
-    return <div className="question-type-table">
+    return (<div className="question-type-table">
       <h2>{data.name}: {data.totalNumber} Active Questions</h2>
       <div className="row"><span className="bold">Status</span><span className="bold">{data.status}</span><span>{data.percentageWeak}% of questions are weak</span></div>
       {this.renderVeryWeakRow(data, questionType)}
       {this.renderWeakRow(data, questionType)}
       {this.renderOkayRow(data, questionType)}
       {this.renderStrongRow(data, questionType)}
-    </div>
+    </div>)
   }
 
   renderVeryWeakRow(data, questionType) {
     const numberOfRelevantAnswers = data.veryWeak.length
     const percentageOfTotalAnswers = Math.round(numberOfRelevantAnswers/data.totalNumber * 100)
-    return <div className="row">
+    return (<div className="row">
       <span>Very Weak (>5% Unmatched):</span>
       <span>{percentageOfTotalAnswers}% of Questions ({numberOfRelevantAnswers})</span>
       <a href={`/#/admin/datadash?questionType=${questionType}&status=vw`}>See Very Weak</a>
-    </div>
+    </div>)
   }
 
   renderWeakRow(data, questionType) {
     const numberOfRelevantAnswers = data.weak.length
     const percentageOfTotalAnswers = Math.round(numberOfRelevantAnswers/data.totalNumber * 100)
-    return <div className="row">
+    return (<div className="row">
       <span>Weak (5%-2% Unmatched):</span>
       <span>{percentageOfTotalAnswers}% of Questions ({numberOfRelevantAnswers})</span>
       <a href={`/#/admin/datadash?questionType=${questionType}&status=w`}>See Weak</a>
-    </div>
+    </div>)
   }
 
 
   renderOkayRow(data, questionType) {
     const numberOfRelevantAnswers = data.okay.length
     const percentageOfTotalAnswers = Math.round(numberOfRelevantAnswers/data.totalNumber * 100)
-    return <div className="row">
+    return (<div className="row">
       <span>Okay (2%-0.5% Unmatched):</span>
       <span>{percentageOfTotalAnswers}% of Questions ({numberOfRelevantAnswers})</span>
       <a href={`/#/admin/datadash?questionType=${questionType}&status=o`}>See Okay</a>
-    </div>
+    </div>)
   }
 
   renderStrongRow(data, questionType) {
     const numberOfRelevantAnswers = data.strong.length
     const percentageOfTotalAnswers = Math.round(numberOfRelevantAnswers/data.totalNumber * 100)
-    return <div className="row">
+    return (<div className="row">
       <span>Strong (0.5%-0% Unmatched):</span>
       <span>{percentageOfTotalAnswers}% of Questions ({numberOfRelevantAnswers})</span>
       <a href={`/#/admin/datadash?questionType=${questionType}&status=s`}>See Strong</a>
-    </div>
+    </div>)
   }
 
   render() {
     if (this.state.loading) {
       return <Spinner />
     } else {
-      return <div className="question-health">
+      return (<div className="question-health">
         <h1>Data Dashboard - Health of Questions</h1>
         {this.renderFlagDropdown()}
         {this.renderQuestionTypeStatusTable()}
         {this.renderQuestionTypeTable('sc')}
         {this.renderQuestionTypeTable('sf')}
         {this.renderQuestionTypeTable('fib')}
-      </div>
+      </div>)
     }
   }
 }
@@ -302,4 +302,4 @@ function select(state) {
   };
 }
 
-export default connect(select)(questionHealth);
+export default connect(select)(QuestionHealth);

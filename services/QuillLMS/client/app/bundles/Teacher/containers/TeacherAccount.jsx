@@ -152,45 +152,45 @@ export default class TeacherAccount extends React.Component {
     const { alternativeSchools, alternativeSchoolsNameMap, cleverLink, } = this.props
     return (<div className="teacher-account">
       <TeacherGeneralAccountInfo
-        name={name}
-        email={email}
-        school={school}
-        timeZone={timeZone}
-        schoolType={schoolType}
-        cleverId={cleverId}
-        googleId={googleId}
+        activateSection={() => this.activateSection('general')}
+        active={activeSection === 'general'}
         alternativeSchools={alternativeSchools}
         alternativeSchoolsNameMap={alternativeSchoolsNameMap}
-        activateSection={() => this.activateSection('general')}
+        cleverId={cleverId}
         deactivateSection={() => this.deactivateSection('general')}
-        active={activeSection === 'general'}
-        updateUser={this.updateUser}
+        email={email}
         errors={errors}
+        googleId={googleId}
+        name={name}
+        school={school}
+        schoolType={schoolType}
         timesSubmitted={timesSubmitted}
+        timeZone={timeZone}
+        updateUser={this.updateUser}
       />
       <TeacherPasswordAccountInfo
-        cleverId={cleverId}
-        googleId={googleId}
-        errors={errors}
-        timesSubmitted={timesSubmitted}
         activateSection={() => this.activateSection('password')}
-        deactivateSection={() => this.deactivateSection('password')}
         active={activeSection === 'password'}
+        cleverId={cleverId}
+        deactivateSection={() => this.deactivateSection('password')}
+        errors={errors}
+        googleId={googleId}
+        timesSubmitted={timesSubmitted}
         updateUser={this.updateUser}
       />
       <TeacherLinkedAccounts
         cleverId={cleverId}
-        googleId={googleId}
         cleverLink={cleverLink}
-        updateUser={this.updateUser}
-        postGoogleClassroomAssignments={postGoogleClassroomAssignments}
         email={email}
         errors={errors}
+        googleId={googleId}
+        postGoogleClassroomAssignments={postGoogleClassroomAssignments}
         timesSubmitted={timesSubmitted}
+        updateUser={this.updateUser}
       />
       <TeacherEmailNotifications
-        updateUser={this.updateUser}
         sendNewsletter={sendNewsletter}
+        updateUser={this.updateUser}
       />
       <TeacherDangerZone
         deleteAccount={this.deleteAccount}

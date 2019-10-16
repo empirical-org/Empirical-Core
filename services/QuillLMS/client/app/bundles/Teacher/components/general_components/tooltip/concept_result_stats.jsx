@@ -37,10 +37,10 @@ export default React.createClass({
     for (let i = 0; i < maxNumOfResults; i++) {
       const statsRow = stats[i];
       statsRows.push(<ConceptResultStat
-        key={statsRow.name}
-        name={statsRow.name}
         correct={statsRow.correct}
         incorrect={statsRow.incorrect}
+        key={statsRow.name}
+        name={statsRow.name}
       />);
     }
     const additionalInfoRow = this.additionalInfoRow(statsRows.length, stats.length);

@@ -32,7 +32,7 @@ export default class extends React.Component {
           <strong>Your {this.props.subscriptionType} Premium subscription has expired and you are back to Quill Basic.</strong>
           {quillBasicCopy}
         </span>);
-      content.buttonOrDate = <button onClick={this.props.showPurchaseModal} className="renew-subscription q-button bg-orange text-white cta-button">Renew Subscription</button>;
+      content.buttonOrDate = <button className="renew-subscription q-button bg-orange text-white cta-button" onClick={this.props.showPurchaseModal}>Renew Subscription</button>;
     }
   }
 
@@ -51,9 +51,9 @@ export default class extends React.Component {
         image = 'basic_icon.png';
         content.pCopy = quillBasicCopy;
         content.boxColor = '#00c2a2';
-        content.buttonOrDate = <a href="/premium" className="q-button cta-button bg-orange text-white">Learn More About Quill Premium</a>;
+        content.buttonOrDate = <a className="q-button cta-button bg-orange text-white" href="/premium">Learn More About Quill Premium</a>;
         subscriptionType = 'Quill Basic';
-        content.status = <h2>{`You have a ${subscriptionType} subscription`}<img src={`https://assets.quill.org/images/shared/${image}`} alt={`${subscriptionType}`} /></h2>;
+        content.status = <h2>{`You have a ${subscriptionType} subscription`}<img alt={`${subscriptionType}`} src={`https://assets.quill.org/images/shared/${image}`} /></h2>;
         break;
       case 'Teacher':
         image = 'teacher_premium_icon.png';
@@ -67,7 +67,7 @@ export default class extends React.Component {
       case 'Trial':
         content.pCopy = teacherPremiumCopy;
         image = 'teacher_premium_icon.png';
-        content.status = <h2>{'You have a Teacher Premium subscription'}<img src={`https://assets.quill.org/images/shared/${image}`} alt={`${subscriptionType}`} /></h2>;
+        content.status = <h2>{'You have a Teacher Premium subscription'}<img alt={`${subscriptionType}`} src={`https://assets.quill.org/images/shared/${image}`} /></h2>;
         content.boxColor = '#348fdf';
         break;
       case 'School':
@@ -76,7 +76,7 @@ export default class extends React.Component {
         image = 'school_premium_icon.png';
         if (remainingDays < 90 && !this.props.subscriptionStatus.recurring) {
           if (this.props.userIsContact) {
-            content.buttonOrDate = <button onClick={this.props.showPurchaseModal} className="q-button bg-orange text-white cta-button">Renew School Premium</button>;
+            content.buttonOrDate = <button className="q-button bg-orange text-white cta-button" onClick={this.props.showPurchaseModal}>Renew School Premium</button>;
           } else {
             content.buttonOrDate = <button>Contact {this.props.subscriptionStatus.contact_name} to Renew</button>;
           }
@@ -86,8 +86,8 @@ export default class extends React.Component {
     this.handleExpired(content, remainingDays);
     content.buttonOrDate = content.buttonOrDate || (<span className="expiration-date">
       <span>Valid Until:</span> <span>{`${expiration.format('MMMM Do, YYYY')}`}</span><span className="time-left-in-days"> | {`${remainingDays} ${pluralize('days', remainingDays)}`}</span>
-      </span>);
-    content.status = content.status || <h2>{`You have a ${subscriptionType} Premium subscription`}<img src={`https://assets.quill.org/images/shared/${image}`} alt={`${subscriptionType}`} /></h2>;
+    </span>);
+    content.status = content.status || <h2>{`You have a ${subscriptionType} Premium subscription`}<img alt={`${subscriptionType}`} src={`https://assets.quill.org/images/shared/${image}`} /></h2>;
     return content;
   }
 

@@ -53,23 +53,24 @@ class SelectUserType extends React.Component {
         <h1>Welcome! Let's create your account. Are you a student or a teacher?</h1>
         <div className="quill-cards">
           <Card
-            onClick={this.setStudentRoleOnSession}
-            imgSrc={studentPencilImg}
-            imgAlt="pencil"
             header="Student"
+            imgAlt="pencil"
+            imgSrc={studentPencilImg}
+            onClick={this.setStudentRoleOnSession}
             text="Select this option to join your teacher’s class and complete assigned activities."
           />
           <Card
-            onClick={this.setTeacherRoleOnSession}
-            imgSrc={teacherChalkboardImg}
-            imgAlt="chalkboard"
             header="Teacher"
+            imgAlt="chalkboard"
+            imgSrc={teacherChalkboardImg}
+            onClick={this.setTeacherRoleOnSession}
             text="Select this option to create classes, assign activities, and view reports."
           />
         </div>
         <div className="agreements-and-link-to-login">
           <p className="return-to-login">Already have an account?
-            <a href="/session/new" onClick={(e) => SegmentAnalytics.track(Events.CLICK_LOG_IN, {location: 'alreadyHaveAccount'})}>Log in</a></p>
+            <a href="/session/new" onClick={(e) => SegmentAnalytics.track(Events.CLICK_LOG_IN, {location: 'alreadyHaveAccount'})}>Log in</a>
+          </p>
         </div>
       </div>
     )

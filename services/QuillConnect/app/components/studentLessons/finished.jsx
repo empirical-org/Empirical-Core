@@ -42,7 +42,7 @@ export default React.createClass({
         In order to redo this activity, you must return to your dashboard and click "Replay Activity".<br />
         If you believe that you have received this message in error, ask your teacher to contact Quill.<br />
         Please provide the following URL to help us solve the problem.
-        </p>)
+      </p>)
     } else {
       header = "We Couldn't Save Your Activity Session."
       message = (<p>Your results could not be saved. <br />
@@ -58,7 +58,8 @@ export default React.createClass({
         {message}
         <p><code style={{ fontSize: 14, }}>
           {window.location.href}
-        </code></p>
+        </code>
+        </p>
         <button className="button is-info is-large" onClick={this.props.saveToLMS}>Retry</button>
       </div>
     );

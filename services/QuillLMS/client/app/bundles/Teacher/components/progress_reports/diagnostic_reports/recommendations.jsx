@@ -198,8 +198,8 @@ export default React.createClass({
       <div className="recommendations-explanation-container">
         <p className="recommendations-explanation">
 					Based on the results of the diagnostic, we created a personalized learning plan for each student.
-					<br />Customize your learning plan by selecting the activity packs you would like to assign.
-				</p>
+          <br />Customize your learning plan by selecting the activity packs you would like to assign.
+        </p>
       </div>
     );
   },
@@ -207,9 +207,9 @@ export default React.createClass({
   renderCheckOrUncheckAllRecommendedActivityPacks() {
     const hasSelectedActivities = this.state.selections.find(sel => _.compact(sel.students).length > 0)
     if (hasSelectedActivities) {
-      return <p className="uncheck-recommendations" onClick={this.unselectAllRecommendations}><img src="https://assets.quill.org/images/icons/uncheckall-diagnostic.svg"/><span>Uncheck All</span></p>
+      return <p className="uncheck-recommendations" onClick={this.unselectAllRecommendations}><img src="https://assets.quill.org/images/icons/uncheckall-diagnostic.svg" /><span>Uncheck All</span></p>
     } else {
-      return <p className="check-recommendations" onClick={this.selectAllRecommendations}><img src="https://assets.quill.org/images/icons/checkall-diagnostic.svg"/><span>Check All</span></p>
+      return <p className="check-recommendations" onClick={this.selectAllRecommendations}><img src="https://assets.quill.org/images/icons/checkall-diagnostic.svg" /><span>Check All</span></p>
     }
   },
 
@@ -281,7 +281,7 @@ export default React.createClass({
     const studentReportLink = `/teachers/progress_reports/diagnostic_reports#/u/${unitId}/a/${activityId}/c/${classroomId}/student_report/${student.id}`
     return (
       <div className="recommendations-table-row" key={student.id}>
-        <div className="recommendations-table-row-name"><a href={studentReportLink} target="_blank"><span>{student.name}</span> <i className="fa fa-icon fa-external-link"></i></a></div>
+        <div className="recommendations-table-row-name"><a href={studentReportLink} target="_blank"><span>{student.name}</span> <i className="fa fa-icon fa-external-link" /></a></div>
         {this.renderActivityPackRowItems(student)}
       </div>
     );
@@ -304,12 +304,12 @@ export default React.createClass({
 
       return (
         <RecommendationsTableCell
+          checkboxOnClick={this.toggleSelected.bind(null, student, i)}
           key={recommendation.activity_pack_id}
           previouslyAssigned={previouslyAssigned}
+          recommendation={recommendation}
           recommended={recommended}
           selected={selected}
-          recommendation={recommendation}
-          checkboxOnClick={this.toggleSelected.bind(null, student, i)}
         />
       );
     });
@@ -324,15 +324,16 @@ export default React.createClass({
             style={{ width: '950px', margin: 'auto', textAlign: 'left', fontSize: '24px', fontWeight: 'bold', color: '#3b3b3b', }}
           >
             <img
+              alt="independent practice logo"
+              src="https://assets.quill.org/images/icons/independent-lesson-blue.svg"
               style={{
                 position: 'relative',
                 top: '-3px',
                 marginRight: '15px',
               }}
-              src="https://assets.quill.org/images/icons/independent-lesson-blue.svg" alt="independent practice logo"
             />
             Independent Activity Recommendations
-            </h3>
+          </h3>
           {this.renderExplanation()}
           <div>
             {this.renderTopBar()}
@@ -366,9 +367,9 @@ export default React.createClass({
         </div>
       );
     } else {
-      return <div className="recommendations-container">
+      return (<div className="recommendations-container">
         <p style={{ fontSize: '24px', }}>We do not yet have recommendations for this diagnostic. Please check back soon.</p>
-      </div>
+      </div>)
     }
   },
 

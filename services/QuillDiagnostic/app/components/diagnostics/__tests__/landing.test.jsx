@@ -35,8 +35,8 @@ describe('Landing component', () => {
       const wrapper = mount(
         <Landing
           begin={() => null}
-          session={'anything'}
           resumeActivity={() => null}
+          session={'anything'}
         />
       );
       expect(wrapper.find(ResumeOrBeginButton).text()).toBe('Resume');
@@ -47,8 +47,8 @@ describe('Landing component', () => {
       const wrapper = mount(
         <Landing
           begin={() => null}
-          session={'anything'}
           resumeActivity={mockResumeActivity}
+          session={'anything'}
         />
       );
       wrapper.find(ResumeOrBeginButton).simulate('click');

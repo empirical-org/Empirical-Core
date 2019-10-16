@@ -68,7 +68,7 @@ export default class ActivityClassification extends React.Component {
       <div className='edit_activity_classification cms-form'>
         <span onClick={this.props.returnToIndex}>Back to Activity Classifications</span>
         {inputs}
-        <button onClick={this.save} className='button-green pull-right' id='continue'>Continue</button>
+        <button className='button-green pull-right' id='continue' onClick={this.save}>Continue</button>
       </div>
     )
   }

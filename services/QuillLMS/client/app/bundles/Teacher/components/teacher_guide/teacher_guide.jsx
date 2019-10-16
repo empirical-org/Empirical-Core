@@ -57,33 +57,34 @@ export default React.createClass({
         var display = [];
         var sections = this.groupBySectionAndCompleted();
         for (var sect in sections) {
-            display.push(<CheckboxSection checkboxes={sections[sect]} key={sect} dashboard={false}/>);
+            display.push(<CheckboxSection checkboxes={sections[sect]} dashboard={false} key={sect} />);
         }
         return display;
     },
 
     introCopy: function() {
         return (
-            <div className='summary intro-copy'>
-                <h2>Complete these quests and become a Quill guru!</h2>
-                <p>Quill is very simple on the surface. Find activities and assign them to your students. But underneath, there are all kinds of power features that help you create custom activity packs, view in-depth reports, and assign activities faster. Let’s take a look!</p>
-            </div>
+          <div className='summary intro-copy'>
+            <h2>Complete these quests and become a Quill guru!</h2>
+            <p>Quill is very simple on the surface. Find activities and assign them to your students. But underneath, there are all kinds of power features that help you create custom activity packs, view in-depth reports, and assign activities faster. Let’s take a look!</p>
+          </div>
         )
     },
 
     stateSpecificComponents: function() {
         if (this.state.loading && this.state.dashboardMini) {
-            return <GettingStartedMini checkboxData={{
+            return (<GettingStartedMini checkboxData={{
                 loading: true
-            }}/>
+            }}
+            />)
         } else if (this.state.dashboardMini) {
-            return <GettingStartedMini checkboxData={this.groupBySectionAndCompleted()['Getting Started']}/>;
+            return <GettingStartedMini checkboxData={this.groupBySectionAndCompleted()['Getting Started']} />;
         } else {
             return (
-                <div id='teacher-guide'>
-                    {this.introCopy()}
-                    {this.sectionPart()}
-                </div>
+              <div id='teacher-guide'>
+                {this.introCopy()}
+                {this.sectionPart()}
+              </div>
             );
         }
     },
@@ -91,12 +92,12 @@ export default React.createClass({
     render: function() {
 
       if (this.state.display === false) {
-        return <span/>
+        return <span />
       }
       return (
-          <div className={this.state.className} id={this.state.id}>
-              {this.stateSpecificComponents()}
-          </div>
+        <div className={this.state.className} id={this.state.id}>
+          {this.stateSpecificComponents()}
+        </div>
       );
     }
 

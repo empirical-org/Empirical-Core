@@ -25,17 +25,17 @@ export default class UnitTemplateProfile extends React.Component {
     this.getProfileInfo(this.props.params.activityPackId);
   }
 
-  getProfileInfo(id) {
-    requestGet(`/teachers/unit_templates/profile_info?id=${id}`, (response) => {
-      this.displayUnit(response)
-    })
-  }
-
   componentWillReceiveProps(nextProps) {
     if (!_.isEqual(this.props.location, nextProps.location)) {
       this.setState({ loading: true, });
       this.getProfileInfo(nextProps.params.activityPackId);
     }
+  }
+
+  getProfileInfo(id) {
+    requestGet(`/teachers/unit_templates/profile_info?id=${id}`, (response) => {
+      this.displayUnit(response)
+    })
   }
 
   displayUnit(response) {
@@ -85,7 +85,7 @@ export default class UnitTemplateProfile extends React.Component {
             <div className="assign-buttons-and-standards">
               <UnitTemplateProfileAssignButton data={data}  />
               <UnitTemplateProfileStandards data={data}  />
-              <UnitTemplateProfileShareButtons data={data} url={this.socialShareUrl()} text={this.socialText()}/>
+              <UnitTemplateProfileShareButtons data={data} text={this.socialText()} url={this.socialShareUrl()} />
             </div>
           </div>
         </div>

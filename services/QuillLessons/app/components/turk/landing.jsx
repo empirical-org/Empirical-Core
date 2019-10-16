@@ -33,7 +33,7 @@ export default React.createClass({
     if (this.state.showIntro) {
       return (
         <div className="container">
-          <div className="landing-page-html" dangerouslySetInnerHTML={{__html: this.props.lesson.landingPageHtml}}></div>
+          <div className="landing-page-html" dangerouslySetInnerHTML={{__html: this.props.lesson.landingPageHtml}} />
           <button className="button student-begin is-fullwidth" onClick={this.leaveIntro}>Start Lesson</button>
         </div>
       )
@@ -46,7 +46,7 @@ export default React.createClass({
             Please answer to the best of your ability.
           </p>
           <button className="button student-begin" onClick={this.startActivity}>
-            Begin <img className="begin-arrow" src={beginArrow}/>
+            Begin <img className="begin-arrow" src={beginArrow} />
           </button>
         </div>
       )

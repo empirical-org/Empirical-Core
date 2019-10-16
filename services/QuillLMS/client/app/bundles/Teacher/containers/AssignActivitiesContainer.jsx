@@ -6,7 +6,7 @@ export default React.createClass({
   render: function() {
     return (
       <div>
-        <AssignActivitiesTabs/>
+        <AssignActivitiesTabs />
         {this.props.children}
       </div>)
    }

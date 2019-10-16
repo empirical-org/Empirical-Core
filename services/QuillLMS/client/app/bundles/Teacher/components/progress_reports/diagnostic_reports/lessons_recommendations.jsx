@@ -12,7 +12,7 @@ export default class LessonsRecommendations extends React.Component {
   }
 
   recommendationRows() {
-    return this.sortByPercentage().map(r => <LessonRecommendationRow key={r.activity_pack_id} status={r.status} activityPackId={r.activity_pack_id} assignToWholeClass={this.props.assignToWholeClass} recommendation={r} />);
+    return this.sortByPercentage().map(r => <LessonRecommendationRow activityPackId={r.activity_pack_id} assignToWholeClass={this.props.assignToWholeClass} key={r.activity_pack_id} recommendation={r} status={r.status} />);
   }
 
   render() {
@@ -20,7 +20,7 @@ export default class LessonsRecommendations extends React.Component {
       return (
         <div className="lesson-recommendations-wrapper" id="lessons-recommendations-wrapper">
           <h2>
-            <img src="https://assets.quill.org/images/icons/group-lesson-icon-black.svg" alt="class practice logo" />
+            <img alt="class practice logo" src="https://assets.quill.org/images/icons/group-lesson-icon-black.svg" />
             Teacher-Led Activity Recommendations
           </h2>
           <p>

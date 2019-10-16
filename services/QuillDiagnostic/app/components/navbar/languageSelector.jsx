@@ -69,8 +69,8 @@ class LanguageSelector extends Component {
       return (
         <div className="nav-language-selector-container">
           <div className="nav-language-selector-directions">Directions in:</div>
-          <div className="nav-language-selector" tabIndex="0" onBlur={this.hideDropdown}>
-            <div className="nav-language-selector-trigger" name="language" value={this.props.playDiagnostic.language} onClick={this.toggleDropdown}>
+          <div className="nav-language-selector" onBlur={this.hideDropdown} tabIndex="0">
+            <div className="nav-language-selector-trigger" name="language" onClick={this.toggleDropdown} value={this.props.playDiagnostic.language}>
               <img className="language-button-img" src={languageFlagMap[this.props.playDiagnostic.language]} />
               <div className="language-button-text">{languageDisplayNameMap[this.props.playDiagnostic.language] || 'Languages'} </div>
               <div className={this.arrowClass()} />

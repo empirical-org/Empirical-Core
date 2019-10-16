@@ -8,15 +8,15 @@ export default React.createClass({
         var section = results.map(function(result) {
             if (result.correctCount + result.incorrectCount !== 0) {
                 return (
-                    <tr key={result.conceptId}>
-                        <td className='left-column'>
-                            {result.conceptName}
-                        </td>
-                        <td>
-                            {that.displayImages(result.correctCount, 'correct')}
-                            {that.displayImages(result.incorrectCount, 'incorrect')}
-                        </td>
-                    </tr>
+                  <tr key={result.conceptId}>
+                    <td className='left-column'>
+                      {result.conceptName}
+                    </td>
+                    <td>
+                      {that.displayImages(result.correctCount, 'correct')}
+                      {that.displayImages(result.incorrectCount, 'incorrect')}
+                    </td>
+                  </tr>
                 );
             }
         });
@@ -25,15 +25,15 @@ export default React.createClass({
 
     correct: function() {
         return (
-            <div className="circle">
-                <div className="inner-circle"></div>
-            </div>
+          <div className="circle">
+            <div className="inner-circle" />
+          </div>
         );
     },
 
     incorrect: function() {
         return (
-            <div className="circle circle-red"></div>
+          <div className="circle circle-red" />
         );
     },
 
@@ -46,7 +46,7 @@ export default React.createClass({
             shapes.push(feedback);
         }
         return (
-            <span>{shapes}</span>
+          <span>{shapes}</span>
         );
     },
 
@@ -57,30 +57,31 @@ export default React.createClass({
         var incorrect = result.reduce(function(prev, curr) {
             return prev + curr.incorrectCount;
         }, 0);
-        return <span className='pull-right'>{correct + ' '}
+        return (<span className='pull-right'>{correct + ' '}
             of {correct + incorrect + ' '}
-            Errors Found</span>
+            Errors Found
+        </span>)
     },
 
     tableBuilder: function(data, questionType) {
         return (
-            <div key={questionType}>
-                <div className='container table-meta-data'>
-                    <span className='pull-left'>{questionType}</span>
-                    <span className='pull-right'>{this.score(data)}</span>
-                </div>
-                <table className='table quill-table'>
-                    <thead>
-                        <tr>
-                            <th className='left-column'>Question</th>
-                            <th>Result</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {this.mapResults(data)}
-                    </tbody>
-                </table>
+          <div key={questionType}>
+            <div className='container table-meta-data'>
+              <span className='pull-left'>{questionType}</span>
+              <span className='pull-right'>{this.score(data)}</span>
             </div>
+            <table className='table quill-table'>
+              <thead>
+                <tr>
+                  <th className='left-column'>Question</th>
+                  <th>Result</th>
+                </tr>
+              </thead>
+              <tbody>
+                {this.mapResults(data)}
+              </tbody>
+            </table>
+          </div>
         );
     },
 
@@ -94,28 +95,28 @@ export default React.createClass({
             }
         }
         return (
-            <div>
-                {questionTables}
-            </div>
+          <div>
+            {questionTables}
+          </div>
         )
     },
 
     render: function() {
         return (
-            <div id='results-table-section'>
-                <div className='container key'>
-                    <div className='pull-left'>Results</div>
-                    <div className='pull-right'>
-                        <div className='correct'>{this.correct()}
-                            <span className='key-div'>Correct</span>
-                        </div>
-                        <div>{this.incorrect()}
-                            <span className='key-div'>Incorrect</span>
-                        </div>
-                    </div>
+          <div id='results-table-section'>
+            <div className='container key'>
+              <div className='pull-left'>Results</div>
+              <div className='pull-right'>
+                <div className='correct'>{this.correct()}
+                  <span className='key-div'>Correct</span>
                 </div>
-                {this.resultTypes()}
+                <div>{this.incorrect()}
+                  <span className='key-div'>Incorrect</span>
+                </div>
+              </div>
             </div>
+            {this.resultTypes()}
+          </div>
         );
     }
 

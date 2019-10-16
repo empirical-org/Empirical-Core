@@ -32,9 +32,9 @@
 
 	render: function () {
 		return (
-			<li onClick={this.clickNumber} className={this.state.classy}>
-				<span>{this.props.number}</span>
-			</li>
+  <li className={this.state.classy} onClick={this.clickNumber}>
+    <span>{this.props.number}</span>
+  </li>
 		);
 	}
 });

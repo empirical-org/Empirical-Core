@@ -7,13 +7,13 @@ export default React.createClass({
   render() {
     const units = _.map(this.props.data, function (data) {
 			return (<Unit
-        key={data.unitId}
-        hideClassroomActivity={this.props.hideClassroomActivity}
-        hideUnit={this.props.hideUnit}
-        report={this.props.report}
-        lesson={this.props.lesson}
-        updateDueDate={this.props.updateDueDate}
-        data={data}
+  data={data}
+  hideClassroomActivity={this.props.hideClassroomActivity}
+  hideUnit={this.props.hideUnit}
+  key={data.unitId}
+  lesson={this.props.lesson}
+  report={this.props.report}
+  updateDueDate={this.props.updateDueDate}
 			/>);
     }, this);
     return (

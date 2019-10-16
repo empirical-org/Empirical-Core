@@ -35,9 +35,13 @@ class SelectUSK12 extends React.Component {
     return (
       <div className="container account-form select-k12">
         <h1>Let's find your school</h1>
-        <SchoolSelector selectSchool={this.selectSchool}/>
-        <a className="non-k12-link" href="/sign-up/add-non-k12"
-           onClick={(e) => SegmentAnalytics.track(Events.CLICK_NON_K12_SCHOOL)}>I don't teach at a U.S. K-12 school</a>
+        <SchoolSelector selectSchool={this.selectSchool} />
+        <a
+          className="non-k12-link"
+          href="/sign-up/add-non-k12"
+          onClick={(e) => SegmentAnalytics.track(Events.CLICK_NON_K12_SCHOOL)}
+        >I don't teach at a U.S. K-12 school
+        </a>
       </div>
     )
   }
