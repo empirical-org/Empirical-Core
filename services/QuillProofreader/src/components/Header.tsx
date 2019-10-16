@@ -56,6 +56,7 @@ export class Header extends React.Component<PlayProofreaderContainerProps, PlayP
       const { firebaseSessionID, } = this.state
       const { passage } = this.state
       updateSessionOnFirebase(firebaseSessionID, passage)
+      window.location.href = `${process.env.EMPIRICAL_BASE_URL}`
     }
 
     public render(): JSX.Element {
@@ -67,7 +68,7 @@ export class Header extends React.Component<PlayProofreaderContainerProps, PlayP
             padding: "0 30px"}}>
             <Row type="flex" align="middle" justify="space-between" style={{height: '100%', maxWidth: '896px', margin: 'auto'}}>
               <img style={{ height: '25px' }} src="https://d2t498vi8pate3.cloudfront.net/assets/home-header-logo-8d37f4195730352f0055d39f7e88df602e2d67bdab1000ac5886c5a492400c9d.png" />
-              <a style={{ color: 'white' }} onClick={this.saveEditedSessionToFirebase()}>Save & Exit</a>
+              <a style={{ color: 'white' }} onClick={() => this.saveEditedSessionToFirebase()}>Save & Exit</a>
             </Row>
           </Layout.Header>
       );
