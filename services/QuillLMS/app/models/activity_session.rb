@@ -387,7 +387,8 @@ class ActivitySession < ActiveRecord::Base
   end
 
   def minutes_to_complete
-    ((self.completed_at - self.started_at)/60).round if self.completed_at && self.started_at
+    return nil unless completed_at && started_at
+    ((completed_at - started_at)/60).round
   end
 
   private
