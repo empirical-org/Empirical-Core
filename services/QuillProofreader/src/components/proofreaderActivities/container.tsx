@@ -52,7 +52,7 @@ interface PlayProofreaderContainerState {
   conceptResultsObjects?: ConceptResultObject[];
 }
 
-
+const FIREBASE_SAVE_INTERVAL = 30000 // 30 seconds
 export class PlayProofreaderContainer extends React.Component<PlayProofreaderContainerProps, PlayProofreaderContainerState> {
     private interval: any
 
@@ -94,6 +94,13 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       const activityUID = getParameterByName('uid', window.location.href) || this.props.activityUID
 
       this.props.dispatch(startListeningToConcepts())
+
+      if (firebaseSessionID) {
+        this.props.dispatch(setSessionReducerToSavedSession(firebaseSessionID))
+        this.interval = setInterval(() => {
+          this.saveEditedSessionToFirebase(firebaseSessionID)
+        }, FIREBASE_SAVE_INTERVAL)
+      }
 
       if (activityUID) {
         this.props.dispatch(getActivity(activityUID))
