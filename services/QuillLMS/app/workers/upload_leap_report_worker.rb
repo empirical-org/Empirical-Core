@@ -8,7 +8,10 @@ class UploadLeapReportWorker
   def perform(school_id)
     school = School.find(school_id)
     csv_data = school.generate_leap_csv
+    upload_data_to_s3(csv_data)
+  end
 
+  def upload_data_to_s3(csv_data)
     s3 = Aws::S3::Resource.new(
       credentials: Aws::Credentials.new(AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY),
       region: 'us-east-1'
