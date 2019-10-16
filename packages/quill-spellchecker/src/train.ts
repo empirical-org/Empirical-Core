@@ -1,3 +1,4 @@
+/* eslint-disable */
 import {Dictionary} from './dictionary';
 
 // declare function train(text: string): Dictionary;

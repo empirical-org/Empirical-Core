@@ -1,5 +1,3 @@
-'use strict'
-
 import React from 'react'
 import request from 'request'
 import UnitTemplateProfileShareButtons from './unit_templates_manager/unit_template_profile/unit_template_profile_share_buttons'
@@ -16,22 +14,10 @@ export default class UnitTemplateAssigned extends React.Component {
     }
   }
 
-  getInviteStudentsUrl() {
-    return ('/teachers/classrooms');
-  }
-
-  unitTemplatesAssignedActions() {
-    return {studentsPresent: this.props.students, getInviteStudentsUrl: this.getInviteStudentsUrl};
-  }
-
   getDefaultProps() {
     // the only time we won't pass this is if they are assigning the diagnostic,
     // but actions shouldn't be undefined
     return {actions: {getInviteStudentsUrl(){'placeholder function'}}}
-  }
-
-  anyClassroomsWithStudents(classrooms) {
-    return !!classrooms.find((e) => e.students.length > 0)
   }
 
   componentWillMount() {
@@ -62,6 +48,18 @@ export default class UnitTemplateAssigned extends React.Component {
       const parsedBody = JSON.parse(body)
       this.setState({ data: parsedBody })
     });
+  }
+
+  getInviteStudentsUrl() {
+    return ('/teachers/classrooms');
+  }
+
+  unitTemplatesAssignedActions() {
+    return {studentsPresent: this.props.students, getInviteStudentsUrl: this.getInviteStudentsUrl};
+  }
+
+  anyClassroomsWithStudents(classrooms) {
+    return !!classrooms.find((e) => e.students.length > 0)
   }
 
   activityName() {
