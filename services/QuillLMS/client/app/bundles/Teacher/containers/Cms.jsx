@@ -143,7 +143,7 @@ export default React.createClass({
           authenticity_token: getAuthToken()
         }}, (e, r, response) => {
           if (e) {
-            console.log(e);
+            // to do, use Sentry to capture error
             alert(`We could not save the updated order. Here is the error: ${e}`);
           } else {
             that.setState({[resourceName]: response[resourceName]});

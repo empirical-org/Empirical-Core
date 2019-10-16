@@ -83,7 +83,7 @@ class ResponsesController < ApplicationController
 
   # POST /questions/rematch_all
   def rematch_all_responses_for_question
-    RematchResponsesForQuestionWorker.perform_async(params[:question_uid], params[:question_type])
+    RematchResponsesForQuestionWorker.perform_async(params[:uid], params[:type])
   end
 
   def multiple_choice_options

@@ -4,7 +4,6 @@ import pathwayActions from '../../actions/pathways';
 
 function getQuestion(props, playQuestion) {
   if (playQuestion === 'play') {
-    console.log('In here');
     const { data, } = props.questions,
       { questionID, } = props.params;
     return (data[questionID]);
@@ -19,8 +18,6 @@ const getLatestAttempt = function (attempts = []) {
 };
 
 export default function submitPathway(response, props, playQuestion) {
-  // console.log("pathways")
-
   const data = {};
   let previousAttempt;
   const responses = hashToCollection(getQuestion(props, quesType).responses);

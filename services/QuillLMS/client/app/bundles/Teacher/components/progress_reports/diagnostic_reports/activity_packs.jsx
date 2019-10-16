@@ -1,41 +1,40 @@
 import React from 'react';
 import request from 'request';
-import Units from '../../lesson_planner/manage_units/activities_units.jsx';
-import LoadingSpinner from '../../shared/loading_indicator.jsx';
+import { Spinner } from 'quill-component-library/dist/componentLibrary';
+
+import Units from '../../assignment_flow/manage_units/activities_units.jsx';
 import EmptyProgressReport from '../../shared/EmptyProgressReport.jsx';
 import ItemDropdown from '../../general_components/dropdown_selectors/item_dropdown';
 import getParameterByName from '../../modules/get_parameter_by_name';
 
-'use strict';
+export default class ActivityPacks extends React.Component {
+  constructor(props) {
+    super(props)
 
-export default React.createClass({
-
-  getInitialState() {
-    return {
+    this.state = {
       allUnits: [],
       units: [],
       loaded: false,
       selectedClassroomId: getParameterByName('classroom_id'),
       activityWithRecommendationsIds: [],
-    };
-  },
+    }
+  }
 
   componentWillMount() {
     document.getElementsByClassName('diagnostic-tab')[0].classList.remove('active');
     document.getElementsByClassName('activity-analysis-tab')[0].classList.add('active');
-  },
+  }
 
   componentDidMount() {
     this.getClassrooms();
-    this.getUnits();
     this.getRecommendationIds();
     window.onpopstate = () => {
       this.setState({ loaded: false, selectedClassroomId: getParameterByName('classroom_id'), });
       this.getUnitsForCurrentClass();
     };
-  },
+  }
 
-  getRecommendationIds() {
+  getRecommendationIds = () => {
     fetch(`${process.env.DEFAULT_URL}/teachers/progress_reports/activity_with_recommendations_ids`, {
     method: 'GET',
     mode: 'cors',
@@ -48,61 +47,64 @@ export default React.createClass({
     }).then((response) => {
       this.setState({ activityWithRecommendationsIds: response.activityWithRecommendationsIds, });
     }).catch((error) => {
-      console.log('error', error);
+      // to do, use Sentry to capture error
     });
-  },
+  }
 
-  getClassrooms() {
+  getClassrooms = () => {
     request.get(`${process.env.DEFAULT_URL}/teachers/classrooms/classrooms_i_teach`, (error, httpStatus, body) => {
       const classrooms = JSON.parse(body).classrooms;
-      console.log('classrooms', classrooms.length);
       if (classrooms.length > 0) {
         this.setState({ classrooms, }, () => this.getUnits());
       } else {
         this.setState({ empty: true, loaded: true, });
       }
   	});
-  },
+  }
 
-  populateCompletionAndAverageScore(data) {
-    data.forEach((u) => {
-      request.get(`${process.env.DEFAULT_URL}/teachers/units/score_info_for_activity/${u.activity_id}?classroom_unit_id=${u.classroom_unit_id}`, (error, httpStatus, body) => {
-        this.state.allUnits.forEach((stateUnit) => {
-          if (typeof stateUnit.classroomActivities.get(u.activity_id) != 'undefined' ) {
-            stateUnit.classroomActivities.get(u.activity_id).cumulativeScore = JSON.parse(body).cumulative_score;
-            stateUnit.classroomActivities.get(u.activity_id).completedCount = JSON.parse(body).completed_count;
-          }
+  populateCompletionAndAverageScore = (data) => {
+    const requests = data.map((u) => {
+      return new Promise(resolve => {
+        request.get(`${process.env.DEFAULT_URL}/teachers/units/score_info_for_activity/${u.activity_id}?classroom_unit_id=${u.classroom_unit_id}`, (error, httpStatus, body) => {
+          this.state.allUnits.forEach((stateUnit) => {
+            if (typeof stateUnit.classroomActivities.get(u.activity_id) != 'undefined' ) {
+              stateUnit.classroomActivities.get(u.activity_id).cumulativeScore = JSON.parse(body).cumulative_score;
+              stateUnit.classroomActivities.get(u.activity_id).completedCount = JSON.parse(body).completed_count;
+            }
+          })
+          resolve()
         })
-        this.forceUpdate();
       })
     });
-  },
+    Promise.all(requests).then(() => this.setState({ loaded: true }));
+  }
 
-  getUnits() {
+  getUnits = () => {
     request.get(`${process.env.DEFAULT_URL}/teachers/units?report=true`, (error, httpStatus, body) => {
       this.setAllUnits(JSON.parse(body));
       this.populateCompletionAndAverageScore(JSON.parse(body));
     })
-  },
+  }
 
-  getUnitsForCurrentClass() {
+  getUnitsForCurrentClass = () => {
     if (this.state.selectedClassroomId) {
       const selectedClassroom = this.state.classrooms.find(c => c.id === Number(this.state.selectedClassroomId));
       const unitsInCurrentClassroom = this.state.allUnits.filter(unit => unit.classrooms.find(classroom => selectedClassroom.name === classroom.name));
-      this.setState({ units: unitsInCurrentClassroom, loaded: true, });
+      this.setState({ units: unitsInCurrentClassroom, });
     } else {
-      this.setState({ units: this.state.allUnits, loaded: true, });
+      this.setState({ units: this.state.allUnits, });
     }
-  },
+  }
 
-  setAllUnits(data) {
+  setAllUnits = (data) => {
     this.setState({ allUnits: this.parseUnits(data), }, this.getUnitsForCurrentClass);
-  },
-  addMissingInfo(data) {
-    alert('adding missing information');
-  },
+  }
 
-  generateNewCaUnit(u) {
+  addMissingInfo = (data) => {
+    alert('adding missing information');
+  }
+
+  generateNewCaUnit = (u) => {
     const assignedStudentCount = this.assignedStudentCount(u);
     const classroom = { name: u.class_name, totalStudentCount: u.class_size, assignedStudentCount, };
     const caObj = {
@@ -128,9 +130,9 @@ export default React.createClass({
       cumulativeScore: u.classroom_cumulative_score,
     });
     return caObj;
-  },
+  }
 
-  parseUnits(data) {
+  parseUnits = (data) => {
     const parsedUnits = {};
     data.forEach((u) => {
       const assignedStudentCount = this.assignedStudentCount(u);
@@ -161,9 +163,9 @@ export default React.createClass({
       }
     });
     return this.orderUnits(parsedUnits);
-  },
+  }
 
-  classroomActivityData(u, assignedStudentCount, completedCount, cumulativeScore) {
+  classroomActivityData = (u, assignedStudentCount, completedCount, cumulativeScore) => {
     return {
       name: u.activity_name,
       uaId: u.unit_activity_id,
@@ -180,27 +182,27 @@ export default React.createClass({
       cumulativeScore,
       completedCount,
     };
-  },
+  }
 
   assignedStudentCount(u) {
     return u.number_of_assigned_students ? u.number_of_assigned_students : u.class_size;
-  },
+  }
 
   orderUnits(units) {
     const unitsArr = [];
     Object.keys(units).forEach(unitId => unitsArr.push(units[unitId]));
     return unitsArr;
-  },
+  }
 
-  switchClassrooms(classroom) {
+  switchClassrooms = (classroom) => {
     const path = '/teachers/progress_reports/diagnostic_reports/#/activity_packs';
    	window.history.pushState({}, '', classroom.id ? `${path}?classroom_id=${classroom.id}` : path);
  		this.setState({ selectedClassroomId: classroom.id, }, () => this.getUnitsForCurrentClass());
-  },
+  }
 
-  stateBasedComponent() {
+  stateBasedComponent = () => {
     if (!this.state.loaded) {
-      return <LoadingSpinner />;
+      return <Spinner />;
     }
     let content;
 
@@ -248,7 +250,7 @@ export default React.createClass({
         {content}
       </div>
     );
-  },
+  }
 
   render() {
     return (
@@ -256,6 +258,6 @@ export default React.createClass({
         {this.stateBasedComponent()}
       </div>
     );
-  },
+  }
 
-});
+}

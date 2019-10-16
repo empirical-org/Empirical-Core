@@ -12,7 +12,8 @@ export default {
       import('./editTitleCard.js')
     ])
     .then(modules => cb(null, modules.map(module => module.default)))
-    .catch(err => console.error('Dynamic page loading failed', err));
+    // to do, use Sentry to capture error
+    // .catch(err => console.error('Dynamic page loading failed', err));
   },
 
 };

@@ -14,7 +14,8 @@ describe('UnitTemplates', function () {
       eventHandlers: {
         selectModel: function () {},
         filterByCategory: function () {}
-    }
+      }
+    };
 
     this.component = TestUtils.renderIntoDocument(
       <EC.UnitTemplates data={props.data}

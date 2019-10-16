@@ -27,7 +27,7 @@ export default class MergeTwoClassrooms extends React.Component {
       } else if (r.statusCode === 200){
         window.alert('Classes have been merged!')
       } else {
-        console.log(response)
+        // to do, use Sentry to capture error
       }
     })
   }

@@ -24,7 +24,7 @@ class SelectUSNonK12 extends React.Component {
       if (httpResponse.statusCode === 200) {
         window.location = '/profile'
       } else {
-        console.log('error', err)
+        // to do, use Sentry to capture error
       }
     });
   }

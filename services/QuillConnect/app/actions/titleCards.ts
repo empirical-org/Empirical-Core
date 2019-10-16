@@ -1,53 +1,101 @@
 import _ from 'lodash';
 import { push } from 'react-router-redux';
-import rootRef from '../libs/firebase';
+import { requestGet, requestPost, requestPut } from '../utils/request';
 
-const	titleCardsRef = rootRef.child('titleCards')
 const C = require('../constants').default;
 
+const titleCardApiBaseUrl = `${process.env.EMPIRICAL_BASE_URL}/api/v1/title_cards`;
+
+interface TitleCardProps {
+  uid: string;
+  content: string;
+  title: string;
+}
+
+interface TitleCardBatchProps {
+  title_cards: TitleCardProps[];
+}
+
+class TitleCardApi {
+  static getAll(): Promise<TitleCardBatchProps> {
+    return requestGet(`${titleCardApiBaseUrl}.json`);
+  }
+
+  static get(uid: string): Promise<TitleCardProps> {
+    return requestGet(`${titleCardApiBaseUrl}/${uid}.json`);
+  }
+
+  static create(data: TitleCardProps): Promise<TitleCardProps> {
+    return requestPost(`${titleCardApiBaseUrl}.json`, data);
+  }
+
+  static update(uid: string, data: TitleCardProps): Promise<TitleCardProps> {
+    return requestPut(`${titleCardApiBaseUrl}/${uid}.json`, data);
+  }
+}
+
 function startListeningToTitleCards() {
+  return loadTitleCards();
+}
+
+function loadTitleCards(): (any) => void {
   return (dispatch) => {
-    titleCardsRef.on('value', (snapshot) => {
-      if (snapshot) {
-        dispatch({ type: C.RECEIVE_TITLE_CARDS_DATA, data: snapshot.val(), });
-      }
+    TitleCardApi.getAll().then((body) => {
+      const titleCards = body.title_cards.reduce((obj, item) => {
+        return Object.assign(obj, {[item.uid]: item});
+      }, {});
+      dispatch({ type: C.RECEIVE_TITLE_CARDS_DATA, data: titleCards, });
     });
   };
 }
 
-function loadTitleCards() {
-  return (dispatch) => {
-    titleCardsRef.once('value', (snapshot) => {
-      dispatch({ type: C.RECEIVE_TITLE_CARDS_DATA, data: snapshot.val(), });
+function loadSpecifiedTitleCards(uids) {
+  return (dispatch, getState) => {
+    const requestPromises: Promise<TitleCardProps>[] = [];
+    uids.forEach((uid) => {
+      requestPromises.push(TitleCardApi.get(uid));
     });
-  };
+    const allPromises: Promise<TitleCardProps[]> = Promise.all(requestPromises);
+    const questionData = {};
+    allPromises.then((results) => {
+      results.forEach((result) => {
+        questionData[result.uid] = result;
+      });
+      dispatch({ type: C.RECEIVE_TITLE_CARDS_DATA, data: questionData, });
+    });
+  }
 }
 
 function submitNewTitleCard(content) {
   return (dispatch) => {
-    const newRef = titleCardsRef.push(content, (error) => {
-      if (error) {
-        dispatch({ type: C.DISPLAY_ERROR, error: `Submission failed! ${error}`, });
-      } else {
-        const action = push(`/admin/title-cards/${newRef.key}`);
-        dispatch(action);
-      }
+    TitleCardApi.create(content).then((body) => {
+      dispatch({ type: C.RECEIVE_TITLE_CARDS_DATA_UPDATE, data: {[body.uid]: body} });
+      const action = push(`/admin/title-cards/${body.uid}`);
+      dispatch(action);
+    })
+    .catch((body) => {
+      dispatch({ type: C.DISPLAY_ERROR, error: `Submission failed! ${body}`, });
     });
   };
 }
 
-function submitTitleCardEdit(qid, content) {
+function submitTitleCardEdit(uid, content) {
   return (dispatch, getState) => {
-    titleCardsRef.child(qid).update(content, (error) => {
-      if (error) {
-        dispatch({ type: C.DISPLAY_ERROR, error: `Update failed! ${error}`, });
-      } else {
-        dispatch({ type: C.DISPLAY_MESSAGE, message: 'Update successfully saved!', });
-        const action = push(`/admin/title-cards/${qid}`);
-        dispatch(action);
-      }
+    TitleCardApi.update(uid, content).then((body) => {
+      dispatch({ type: C.RECEIVE_TITLE_CARDS_DATA_UPDATE, data: {[body.uid]: body} });
+      dispatch({ type: C.DISPLAY_MESSAGE, message: 'Update successfully saved!', });
+      const action = push(`/admin/title-cards/${uid}`);
+      dispatch(action);
+    }).catch((body) => {
+      dispatch({ type: C.DISPLAY_ERROR, error: `Update failed! ${body}`, });
     });
   };
 }
 
-export { submitNewTitleCard, loadTitleCards, startListeningToTitleCards, submitTitleCardEdit }
+export {
+  submitNewTitleCard,
+  loadTitleCards,
+  loadSpecifiedTitleCards,
+  startListeningToTitleCards,
+  submitTitleCardEdit,
+}

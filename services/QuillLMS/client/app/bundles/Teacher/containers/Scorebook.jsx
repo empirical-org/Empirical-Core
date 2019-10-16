@@ -215,7 +215,6 @@ export default React.createClass({
         activity_classification_id: s.activity_classification_id,
       });
     });
-    console.log(data.is_last_page);
     this.setState({ loading: false, scores: newScores, missing: this.checkMissing(newScores), });
   },
 
