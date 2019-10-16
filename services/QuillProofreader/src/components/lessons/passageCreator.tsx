@@ -65,10 +65,10 @@ class PassageCreator extends React.Component {
     return (
       <div>
         <Editor
-          value={this.state.value}
           onChange={this.onChange}
-          style={{minHeight: '100px', border: '1px solid black', padding: '10px'}}
           renderNode={this.renderNode}
+          style={{minHeight: '100px', border: '1px solid black', padding: '10px'}}
+          value={this.state.value}
         />
       </div>
     )
