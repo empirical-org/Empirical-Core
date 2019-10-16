@@ -54,6 +54,14 @@ export default class CreateUnit extends React.Component {
       this.fetchClassrooms()
     }
 
+    if (stage === 1 && this.unitTemplateId()) {
+      window.localStorage.removeItem(UNIT_TEMPLATE_ID)
+      window.localStorage.removeItem(UNIT_TEMPLATE_NAME)
+      window.localStorage.removeItem(UNIT_NAME)
+      window.localStorage.removeItem(ACTIVITY_IDS_ARRAY)
+      window.localStorage.removeItem(CLASSROOMS)
+    }
+
     if (stage === 2 || window.localStorage.getItem(ACTIVITY_IDS_ARRAY)) {
       this.getActivities()
     }
