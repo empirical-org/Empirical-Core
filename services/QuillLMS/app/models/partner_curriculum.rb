@@ -2,7 +2,9 @@ class PartnerCurriculum < ActiveRecord::Base
   PARTNERS = [
     AMPLIFY = 'amplify'
   ]
-  CURRICULUM_TYPES = ['UnitTemplate']
+  CURRICULUM_TYPES = [
+    UNIT_TEMPLATE_TYPE = 'UnitTemplate'
+  ]
   MAX_PARTNER_LENGTH = 50
   MAX_TYPE_LENGTH = 50
 
@@ -13,4 +15,5 @@ class PartnerCurriculum < ActiveRecord::Base
   validates :curriculum_id, presence: true, uniqueness: {scope: [:curriculum_type, :partner]}
 
   scope :amplify, -> {where(partner: AMPLIFY)}
+  scope :only_unit_templates, -> {where(curriculum_type: UNIT_TEMPLATE_TYPE)}
 end
