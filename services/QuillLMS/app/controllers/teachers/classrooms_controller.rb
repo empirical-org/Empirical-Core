@@ -168,7 +168,8 @@ private
   end
 
   def format_students_for_classroom(classroom)
-    classroom.students.map do |s|
+    sorted_students = classroom.students.sort_by { |s| s.last_name }
+    sorted_students.map do |s|
       student = s.attributes
       student[:number_of_completed_activities] = ActivitySession.where(user_id: s.id, state: 'finished').count
       student
